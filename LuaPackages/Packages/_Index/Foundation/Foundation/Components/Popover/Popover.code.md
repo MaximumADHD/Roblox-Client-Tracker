@@ -50,6 +50,22 @@ end
 
 See storybook for more examples.
 
+### Anchoring to a Studio widget (plugin only)
+
+In a Studio plugin context, a popover can be anchored directly to an existing Studio widget by passing its URI to `Popover.Anchor` via `anchorRef` (which accepts either a ref or a Studio widget URI). The popover panel is attached to that widget by the Studio framework, so no anchor element is rendered. This is useful for attaching popovers to widgets owned by other plugins (for example a Ribbon button). A URI only takes effect when the popover renders through the Studio plugin path; in non-plugin contexts it is ignored.
+
+```luau
+Anchor = React.createElement(Popover.Anchor, {
+	anchorRef = {
+		DataModel = "Standalone",
+		PluginType = "Standalone",
+		PluginId = "Ribbon",
+		Category = "Widgets",
+		ItemId = "Tabs/BuiltIn_HomeTab/Part",
+	},
+}),
+```
+
 ## Positioning implementation
 
 ### Required Events and Refs

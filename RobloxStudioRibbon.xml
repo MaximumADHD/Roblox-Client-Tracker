@@ -423,8 +423,6 @@
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance"/>
         <addaction name="toggleFindReplaceAllWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
         <addaction name="avatarSettingsAction" modernIcon="AvatarSettings" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
-        <!-- Remove with FFlagCOLLAB5668HideTCWidget -->
-        <addaction fflag="!COLLAB5668HideTCWidget2" name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" modernIcon="TeamCreate" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow"/>
         <addaction name="toggleTerrainToolsDockAliasAction"
             style="textbesideicon"
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png" modernIcon="TerrainEditor"/>

@@ -4901,7 +4901,6 @@
         <string name="Name">TextChannelWindow</string>
         <string name="ClassCategory">Text Chat</string>
         <string name="ExplorerOrder">16</string>
-        <string name="ExplorerImageIndex">147</string>
         <string name="PreferredParent">ScreenGui</string>
         <string name="FFlag">TextChatServiceProtectedChatEnabled</string>
       </Properties>

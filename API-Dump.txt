@@ -373,6 +373,7 @@ Class AnimationTrack : Instance [NotCreatable]
 	Function AnimationTrack:SetTargetInstance(name: string, target: Instance) -> () {🚧Animation}
 	Function AnimationTrack:Stop(fadeTime: number? = 0.100000001) -> () {🚧Animation} [CustomLuaState]
 	Function AnimationTrack:GetDebugData() -> { [string]: any } {🚧Animation} {🔒RobloxScript}
+	Function AnimationTrack:ResetGraph() -> () {🚧Animation} {🔒RobloxScript}
 	Function AnimationTrack:UpdateGraphNodeProperty(nodeId: string, propertyName: string, value: any, inputPinName: string? = "") -> boolean {🚧Animation} {🔒RobloxScript}
 	Event AnimationTrack.DidLoop() {🚧Animation}
 	Event AnimationTrack.Ended() {🚧Animation}
@@ -951,6 +952,7 @@ Class AvatarAccessoryRules : Instance {🔒RobloxScript}
 	Property AvatarAccessoryRules.CustomShoulderAccessoryId: number {🔒RobloxScript}
 	Property AvatarAccessoryRules.CustomWaistAccessoryEnabled: boolean {🔒RobloxScript}
 	Property AvatarAccessoryRules.CustomWaistAccessoryId: number {🔒RobloxScript}
+	Property AvatarAccessoryRules.EnableEmissives: boolean {🔒RobloxScript}
 	Property AvatarAccessoryRules.EnableSound: boolean {🔒RobloxScript}
 	Property AvatarAccessoryRules.EnableVFX: boolean {🔒RobloxScript}
 	Property AvatarAccessoryRules.LimitBounds: Vector3 {🔒RobloxScript}
@@ -1061,8 +1063,8 @@ Class AvatarCollisionRules : Instance {🔒RobloxScript}
 	Property AvatarCollisionRules.SingleColliderSize: Vector3 {🔒RobloxScript}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, autoSetupParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string {🚧DynamicGeneration} [Yields]
-	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string {🚧DynamicGeneration} [Yields]
-	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string {🚧DynamicGeneration} [Yields]
+	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string {🚧DynamicGeneration} [Yields]
+	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string {🚧DynamicGeneration} [Yields]
 	Function AvatarCreationService:GetBatchTokenDetailsAsync(tokenIds: { any }) -> { any } {🚧Monetization} [Yields]
 	Function AvatarCreationService:GetValidationRules() -> { [string]: any } [CustomLuaState]
 	Function AvatarCreationService:LoadAvatar2DPreviewAsync(previewId: string) -> EditableImage {🚧DynamicGeneration} [Yields]
@@ -1120,19 +1122,20 @@ Class AvatarEditorService : Instance [NotCreatable] [Service]
 	Function AvatarEditorService:GetOutfits(outfitSource: Enum.OutfitSource? = "All", outfitType: Enum.OutfitType? = "All") -> OutfitPages {🚧AssetRead + Players} [Yields] [Deprecated]
 	Function AvatarEditorService:GetRecommendedAssets(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } {🚧AssetRead} [Yields] [Deprecated]
 	Function AvatarEditorService:GetRecommendedBundles(bundleId: number) -> { any } {🚧AssetRead} [Yields] [Deprecated]
+	Function AvatarEditorService:NoPromptApplyProfileConfiguration(profileConfiguration: { [string]: any }) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptCreateOutfit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, name: string, gearAssetId: number? = 0, outfitOptions: { [string]: any }? = nil, outfitType: any) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptDeleteOutfit(outfitId: number) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptRenameOutfit(outfitId: number, name: string) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptSaveAvatar(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, saveDict: { [string]: any }, gearAssetId: number? = 0, profileConfiguration: { [string]: any }? = nil) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptSaveAvatarThumbnailCustomization(thumbnailType: Enum.AvatarThumbnailCustomizationType, emoteAssetId: number, cameraDistanceScale: number, yRotDeg: number, fieldOfViewDeg: number? = 0) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptSetFavorite(itemId: number, itemType: Enum.AvatarItemType, shouldFavorite: boolean) -> boolean {🔒RobloxScript}
-	Function AvatarEditorService:NoPromptUpdateOutfit(outfitId: number, humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, gearAssetId: number? = 0) -> boolean {🔒RobloxScript}
-	Function AvatarEditorService:PerformCreateOutfitWithDescription(humanoidDescription: HumanoidDescription, name: string) -> () {🔒RobloxScript}
+	Function AvatarEditorService:NoPromptUpdateOutfit(outfitId: number, humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, gearAssetId: number? = 0, outfitOptions: { [string]: any }? = nil) -> boolean {🔒RobloxScript}
+	Function AvatarEditorService:PerformCreateOutfitWithDescription(humanoidDescription: HumanoidDescription, name: string, profileConfiguration: { [string]: any }? = nil) -> () {🔒RobloxScript}
 	Function AvatarEditorService:PerformDeleteOutfit() -> () {🔒RobloxScript}
 	Function AvatarEditorService:PerformRenameOutfit(name: string) -> () {🔒RobloxScript}
 	Function AvatarEditorService:PerformSaveAvatarWithDescription(humanoidDescription: HumanoidDescription, addedAssets: { any }, removedAssets: { any }) -> () {🔒RobloxScript}
 	Function AvatarEditorService:PerformSetFavorite() -> () {🔒RobloxScript}
-	Function AvatarEditorService:PerformUpdateOutfit(humanoidDescription: HumanoidDescription) -> () {🔒RobloxScript}
+	Function AvatarEditorService:PerformUpdateOutfit(humanoidDescription: HumanoidDescription, profileConfiguration: { [string]: any }? = nil) -> () {🔒RobloxScript}
 	Function AvatarEditorService:SearchCatalog(searchParameters: CatalogSearchParams) -> CatalogPages {🚧AssetRead} [Yields] [Deprecated]
 	Function AvatarEditorService:SetAllowInventoryReadAccess(inventoryReadAccessGranted: boolean) -> () {🔒RobloxScript}
 	Function AvatarEditorService:SignalCreateOutfitFailed() -> () {🔒RobloxScript}
@@ -1162,6 +1165,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service]
 	Event AvatarEditorService.OpenPromptSaveAvatar(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType) {🔒RobloxScript}
 	Event AvatarEditorService.OpenPromptSetFavorite(itemId: number, itemType: Enum.AvatarItemType, shouldFavorite: boolean) {🔒RobloxScript}
 	Event AvatarEditorService.OpenPromptUpdateOutfit(outfitId: number, humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType) {🔒RobloxScript}
+	Event AvatarEditorService.PromptApplyProfileConfigurationCompleted(result: Enum.AvatarPromptResult) {🔒RobloxScript}
 	Event AvatarEditorService.PromptSaveAvatarThumbnailCustomizationCompleted(result: Enum.AvatarPromptResult, failureType: any) {🔒RobloxScript}
 Class AvatarImportService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function AvatarImportService:ImportFBXAnimationFromFilePathUserMayChooseModel(fbxFilePath: string, selectedRig: Instance, userChooseModelThenImportCB: (...any) -> ...any) -> Instance? {🔒RobloxScript} [Yields]
@@ -1798,6 +1802,7 @@ Class AnimationConstraint : Constraint
 	Property AnimationConstraint.MaxTorque: number {🚧Animation + Physics}
 	Property AnimationConstraint.IsKinematic: boolean {🚧Animation + Physics}
 	Property AnimationConstraint.Transform: CFrame {🚧Animation + Physics}
+	Property AnimationConstraint.EnableSkinning: boolean {🚧Animation + Physics} {🔒RobloxScript}
 	Property AnimationConstraint.C0: CFrame {🚧Animation + Physics} [Hidden] [ReadOnly] [Deprecated]
 	Property AnimationConstraint.C1: CFrame {🚧Animation + Physics} [Hidden] [ReadOnly] [Deprecated]
 	Property AnimationConstraint.Part0: BasePart? {🚧Animation + Physics} [Hidden] [ReadOnly] [Deprecated]
@@ -1811,6 +1816,7 @@ Class BallSocketConstraint : Constraint
 	Property BallSocketConstraint.UpperAngle: number {🚧Physics}
 	Property BallSocketConstraint.TwistLowerAngle: number {🚧Physics}
 	Property BallSocketConstraint.TwistUpperAngle: number {🚧Physics}
+	Property BallSocketConstraint.EnableSkinning: boolean {🚧Physics} {🔒RobloxScript}
 Class HingeConstraint : Constraint
 	Property HingeConstraint.Radius: number {🚧Physics}
 	Property HingeConstraint.CurrentAngle: number {🚧Physics} [ReadOnly]
@@ -2552,6 +2558,7 @@ Class Decal : FaceInstance
 	Property Decal.UVOffset: Vector2 {🚧Basic}
 	Property Decal.UVScale: Vector2 {🚧Basic}
 	Property Decal.ZIndex: number {🚧Basic}
+	Property Decal.AutoLocalize: boolean {🚧Basic}
 	Property Decal.LocalTransparencyModifier: number {🚧Basic} [Hidden] [NotReplicated]
 	Property Decal.MetalnessMap: string {🚧Basic} {🔒Plugin} [Hidden]
 	Property Decal.NormalMap: string {🚧Basic} {🔒Plugin} [Hidden]
@@ -3002,6 +3009,7 @@ Class TextBox : GuiObject
 	Event TextBox.ReturnPressedFromOnScreenKeyboard() {🚧UI}
 Class TextChannelWindow : GuiObject [NotBrowsable]
 	Property TextChannelWindow.Target: TextChannel? {🚧UI}
+	Property TextChannelWindow.IsRendering: boolean {🚧Chat + UI} {🔒RobloxScript} [Hidden] [ReadOnly] {🧬Unsafe}
 Class VideoDisplay : GuiObject
 	Property VideoDisplay.ResampleMode: Enum.ResamplerMode {🚧UI}
 	Property VideoDisplay.ScaleType: Enum.ScaleType {🚧UI}
@@ -3015,10 +3023,8 @@ Class VideoDisplay : GuiObject
 	Function VideoDisplay:GetOutputPins() -> { any } {🚧UI}
 	Event VideoDisplay.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧UI}
 Class VideoFrame : GuiObject
-	Property VideoFrame.InternalVideoUsage: Enum.InternalVideoUsage {🚧Audio + UI}
 	Property VideoFrame.IsLoaded: boolean {🚧Audio + UI} [ReadOnly]
 	Property VideoFrame.Looped: boolean {🚧Audio + UI}
-	Property VideoFrame.MaximumResolution: Enum.VideoSampleSize {🚧Audio + UI}
 	Property VideoFrame.Playing: boolean {🚧Audio + UI} [NotReplicated]
 	Property VideoFrame.Resolution: Vector2 {🚧Audio + UI} [ReadOnly]
 	Property VideoFrame.RollOffMaxDistance: number {🚧Audio + UI}
@@ -3029,6 +3035,8 @@ Class VideoFrame : GuiObject
 	Property VideoFrame.Video: string {🚧Audio + UI}
 	Property VideoFrame.VideoContent: Content {🚧Audio + UI}
 	Property VideoFrame.Volume: number {🚧Audio + UI}
+	Property VideoFrame.InternalVideoUsage: Enum.InternalVideoUsage {🚧Audio + UI} [Hidden]
+	Property VideoFrame.MaximumResolution: Enum.VideoSampleSize {🚧Audio + UI} [Hidden]
 	Function VideoFrame:Pause() -> () {🚧Audio + UI}
 	Function VideoFrame:Play() -> () {🚧Audio + UI}
 	Function VideoFrame:SetStudioPreview(isPreview: boolean) -> () {🚧Audio + UI} {🔒RobloxScript}
@@ -3922,6 +3930,7 @@ Class Motor : JointInstance
 Class Motor6D : Motor
 	Property Motor6D.ChildName: string {🚧Physics} [ReadOnly] [NotScriptable]
 	Property Motor6D.ParentName: string {🚧Physics} [ReadOnly] [NotScriptable]
+	Property Motor6D.EnableSkinning: boolean {🚧Physics} {🔒RobloxScript}
 	Property Motor6D.Transform: CFrame {🚧Physics} [Hidden] [NotReplicated]
 Class Rotate : JointInstance [Deprecated]
 Class Snap : JointInstance [Deprecated]
@@ -4749,7 +4758,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.UnscaledVolInertiaOffDiags: Vector3 {🚧Basic} {🔒RobloxEngine} [Hidden]
 	Property TriangleMeshPart.UnscaledVolume: number {🚧Basic} {🔒RobloxEngine} [Hidden]
 Class MeshPart : TriangleMeshPart
-	Property MeshPart.DoubleSided: boolean {🚧Basic} {✏️Plugin}
+	Property MeshPart.DoubleSided: boolean {🚧Basic}
 	Property MeshPart.MeshContent: Content {🚧Basic} {✏️NotAccessible}
 	Property MeshPart.MeshId: string {🚧Basic} {✏️NotAccessible}
 	Property MeshPart.RenderFidelity: Enum.RenderFidelity {🚧Basic} {✏️Plugin} [NotReplicated]
@@ -4936,7 +4945,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.MeshStreamingAndImprovedLods: Enum.RolloutState [NotScriptable]
 	Property Workspace.NextGenerationReplication: Enum.RolloutState [NotScriptable]
 	Property Workspace.PathfindingUseImprovedSearch: Enum.PathfindingUseImprovedSearch [NotScriptable]
-	Property Workspace.PhysicsImprovedSleep: Enum.RolloutState [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PlayerScriptsUseInputActionSystem: Enum.RolloutState [NotScriptable]
@@ -5329,6 +5337,7 @@ Class Player : Instance
 	Function Player:LoadInstance(key: string) -> Instance? {🚧Players} [Deprecated]
 	Function Player:LoadNumber(key: string) -> number {🚧Players} [Deprecated]
 	Function Player:LoadString(key: string) -> string {🚧Players} [Deprecated]
+	Function Player:NotifyAgeCheckPassed() -> () {🚧Players} {🔒RobloxScript}
 	Function Player:OverrideStreamingRadii(minRadius: number, targetRadius: number) -> () {🚧Players} {🔒RobloxEngine}
 	Function Player:PinStreamingForInstance(instance: Instance, depth: number) -> () {🚧Players} {🔒RobloxScript}
 	Function Player:PinStreamingForInstanceByUniqueId(uniqueIdString: string, depth: number) -> () {🚧Players} {🔒RobloxScript}
@@ -5472,6 +5481,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:GetPlayerByUserId(userId: User) -> Player {🚧Players} {🧬Safe}
 	Function Players:GetPlayerFromCharacter(character: Model) -> Player {🚧Players}
 	Function Players:GetPlayers() -> { Instance } {🚧Players} {🧬Safe}
+	Function Players:GetProfileConfigurationFromUserIdAsync(userId: User) -> { [string]: any } {🚧AvatarAppearance + Players} [Yields]
 	Function Players:GetUserIdFromNameAsync(userName: string) -> number {🚧Players} [Yields]
 	Function Players:GetUserThumbnailAsync(userId: User, thumbnailType: Enum.ThumbnailType, thumbnailSize: Enum.ThumbnailSize) -> ...any {🚧Players} [Yields]
 	Function Players:ReportAbuse(player: Player, reason: string, optionalMessage: string) -> () {🚧Players} {🔒LocalUser}
@@ -6751,6 +6761,7 @@ Class Studio : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated]
 	Property Studio.CameraShiftFactor: number {🔒RobloxScript}
 	Property Studio.CameraTweenFocus: boolean {🔒RobloxScript}
 	Property Studio.CameraZoomSpeed: number {🔒RobloxScript}
+	Property Studio.CameraZoomToMousePosition: boolean {🔒RobloxScript}
 	Property Studio.DraggerActiveColor: Color3 {🔒RobloxScript}
 	Property Studio.DraggerLengthFactor: number {🔒RobloxScript}
 	Property Studio.DraggerMajorGridIncrement: number {🔒RobloxScript}
@@ -7209,14 +7220,20 @@ Class TestService : Instance [Service]
 	Function TestService:Done() -> ()
 	Function TestService:Error(description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:Fail(description: string, source: Instance? = nil, line: number? = 0) -> ()
+	Function TestService:GetTestControlSchema(providerName: string) -> { [string]: any } {🚧InternalTest}
+	Function TestService:GetTestControls(providerName: string) -> { [string]: any } {🚧InternalTest}
 	Function TestService:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:RegisterTest(testOptions: { [string]: any }) -> TestCase
 	Function TestService:RequestValidationAsync(artifactType: string, artifactName: string) -> ...any {🚧InternalTest} [Yields]
 	Function TestService:Require(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
+	Function TestService:ResetTestControl(providerName: string, controlName: string) -> () {🚧InternalTest}
 	Function TestService:RunAsync() -> () {🔒Plugin} [Yields]
 	Function TestService:ScopeTime() -> { [string]: any }
+	Function TestService:SetTestControl(providerName: string, controlName: string, value: any) -> () {🚧InternalTest}
 	Function TestService:StartTestSession() -> () {🚧InternalTest}
+	Function TestService:StartVideoCaptureAsync(artifactName: string? = "", options: { [string]: any }? = nil) -> ...any {🚧InternalTest} [Yields]
 	Function TestService:StopTestSession() -> () {🚧InternalTest}
+	Function TestService:StopVideoCaptureAsync() -> ...any {🚧InternalTest} [Yields]
 	Function TestService:TakeSnapshot(snapshotname: string, source: Instance? = nil) -> ()
 	Function TestService:Warn(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:getTestSessionProviderStats(providerName: string) -> { [string]: any } {🚧InternalTest}
@@ -7816,6 +7833,7 @@ Class UserGameSettings : Instance [NotCreatable] [Service] [NotReplicated]
 	Property UserGameSettings.VRThirdPersonFollowCamEnabled: boolean {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property UserGameSettings.VRThirdPersonFollowCamEnabledCustomOption: boolean {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property UserGameSettings.VignetteEnabledCustomOption: boolean {🔒RobloxScript} [Hidden] [NotReplicated]
+	Property UserGameSettings.VoiceChatVolume: number {🔒RobloxScript}
 	Function UserGameSettings:GetCameraYInvertValue() -> number {🚧Input}
 	Function UserGameSettings:GetOnboardingCompleted(onboardingId: string) -> boolean {🚧Players}
 	Function UserGameSettings:InFullScreen() -> boolean {🚧Players}
@@ -8044,13 +8062,13 @@ Class VideoPlayer : Instance
 	Property VideoPlayer.VideoContent: Content {🚧Audio + UI}
 	Property VideoPlayer.AutoLoadInStudio: boolean {🚧Audio + UI} {✏️RobloxScript} [NotReplicated] [NotScriptable]
 	Property VideoPlayer.AutoPlayInStudio: boolean {🚧Audio + UI} {✏️RobloxScript} [NotReplicated] [NotScriptable]
-	Property VideoPlayer.InternalVideoUsage: Enum.InternalVideoUsage {🚧Audio + UI}
 	Property VideoPlayer.IsPlaying: boolean {🚧Audio + UI} [ReadOnly]
 	Property VideoPlayer.Looping: boolean {🚧Audio + UI}
-	Property VideoPlayer.MaximumResolution: Enum.VideoSampleSize {🚧Audio + UI}
 	Property VideoPlayer.PlaybackSpeed: number {🚧Audio + UI}
 	Property VideoPlayer.TimePosition: number {🚧Audio + UI}
 	Property VideoPlayer.Volume: number {🚧Audio + UI}
+	Property VideoPlayer.InternalVideoUsage: Enum.InternalVideoUsage {🚧Audio + UI} [Hidden]
+	Property VideoPlayer.MaximumResolution: Enum.VideoSampleSize {🚧Audio + UI} [Hidden]
 	Function VideoPlayer:GetConnectedWires(pin: string) -> { Instance } {🚧Audio + UI}
 	Function VideoPlayer:GetInputPins() -> { any } {🚧Audio + UI}
 	Function VideoPlayer:GetOutputPins() -> { any } {🚧Audio + UI}

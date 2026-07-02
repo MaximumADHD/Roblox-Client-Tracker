@@ -336,6 +336,11 @@ Esc: Exit &amp; Clear filter
         <li><a href="javascript:void(0)" onclick="SwitchHighlight('Script');">Script</a></li>
     </ul>
 </li>
+<li id="ilDataModel" style="display: none;"><a class="highlighted-background">DataModel</a>
+    <ul id="DataModelSubMenu">
+        <li><a id="dmfilter_all" href="javascript:void(0)" onclick="SetDmFilterAll();">All</a></li>
+    </ul>
+</li>
 <li id="ilPlugins" style="display: none;"><a class="highlighted-background">X-Ray</a>
     <ul id='PluginMenu'>
     </ul>
@@ -508,6 +513,14 @@ function InitDataVars() {
     window.CounterInfo = undefined;
     window.Frames = undefined;
     window.gCpuCoreFreqData = undefined;
+    window.gDmContextData = undefined; // multi-DM RCC: per-thread active DataModel id over time (MpEvent_DmContext)
+    window.gDmFilter = {               // multi-DM RCC DataModel filter state (single struct)
+        set: {},                       // selected dmIds (empty = All)
+        active: false,                 // cached: set non-empty
+        cache: {},                     // per-thread sorted dmId-transition keys
+        ids: [],                       // dmIds present (incl 0 = shared)
+        hasData: false,                // capture has 2+ DataModels (gates menu + tooltip)
+    };
 
     window.ExtensionList = undefined;
     window.EnabledFastFlags = undefined;
@@ -1219,6 +1232,117 @@ function SwitchHighlight(GroupName) {
     RequestRedraw();
 }
 
+// Multi-DM RCC DataModel filter for the detailed view; dmId 0 = shared (infra/non-DM work).
+function dmFilterLabel(dmId) {
+    return dmId == 0 ? '(shared)' : ('DM ' + dmId);
+}
+
+function UpdateDmFilterMenuSelection() {
+    if (globalThis.g_cliMode) { return; }
+    var all = document.getElementById('dmfilter_all');
+    if (all) { all.style['text-decoration'] = gDmFilter.active ? 'none' : 'underline'; }
+    gDmFilter.ids.forEach(function (dm) {
+        var el = document.getElementById('dmfilter_' + dm);
+        if (el) { el.style['text-decoration'] = gDmFilter.set[dm] ? 'underline' : 'none'; }
+    });
+}
+
+function SetDmFilterAll() {
+    gDmFilter.set = {};
+    gDmFilter.active = false;
+    UpdateDmFilterMenuSelection();
+    RequestRedraw();
+}
+
+function ToggleDmFilter(dmId) {
+    if (gDmFilter.set[dmId]) {
+        delete gDmFilter.set[dmId];
+        gDmFilter.active = Object.keys(gDmFilter.set).length > 0; // a delete may have emptied the set
+    } else {
+        gDmFilter.set[dmId] = true;
+        gDmFilter.active = true; // adding a selection always makes the set non-empty
+    }
+    UpdateDmFilterMenuSelection();
+    RequestRedraw();
+}
+
+// gDmFilter.hasData also gates the hover tooltip, so it is computed before the DOM/CLI guards —
+// it must be set even when headless or the menu element is absent.
+function PopulateDmFilterMenu() {
+    gDmFilter.cache = {}; // gDmContextData was just (re)built; drop stale caches
+    var ids = {};
+    var realDmCount = 0; // distinct dmIds > 0 (actual DataModels, excluding shared)
+    if (gDmContextData && gDmContextData.threadToDmId) {
+        for (var nLog in gDmContextData.threadToDmId) {
+            var timeline = gDmContextData.threadToDmId[nLog];
+            for (var ts in timeline) {
+                var dm = timeline[ts];
+                if (!ids[dm]) {
+                    ids[dm] = true;
+                    if (dm > 0) { realDmCount++; }
+                }
+            }
+        }
+    }
+    window.gDmFilter.hasData = realDmCount >= 2; // filter only meaningful for 2+ DataModels
+
+    if (globalThis.g_cliMode) { return; }
+    var il = document.getElementById('ilDataModel');
+    var menu = document.getElementById('DataModelSubMenu');
+    if (!il || !menu) {
+        return;
+    }
+    if (!window.gDmFilter.hasData) {
+        il.style['display'] = 'none';
+        gDmFilter.ids = [];
+        gDmFilter.set = {};
+        gDmFilter.active = false;
+        return;
+    }
+    gDmFilter.ids = Object.keys(ids).map(Number).sort(function (a, b) { return a - b; });
+    for (var sel in gDmFilter.set) { if (!ids[sel]) { delete gDmFilter.set[sel]; } } // drop gone selections
+    gDmFilter.active = Object.keys(gDmFilter.set).length > 0;
+
+    menu.innerHTML = '<li><a id="dmfilter_all" href="javascript:void(0)" onclick="SetDmFilterAll();">All</a></li>';
+    gDmFilter.ids.forEach(function (dm) {
+        var li = document.createElement('li');
+        li.innerHTML = '<a id="dmfilter_' + dm + '" href="javascript:void(0)" onclick="ToggleDmFilter(' + dm + ');">' + dmFilterLabel(dm) + '</a>';
+        menu.appendChild(li);
+    });
+    // mirror Highlight/X-Ray so the menu shows only in the detailed view
+    var ilHighlight = document.getElementById('ilHighlight');
+    il.style['display'] = (ilHighlight && ilHighlight.style['display']) ? ilHighlight.style['display'] : 'block';
+    UpdateDmFilterMenuSelection();
+}
+
+// dmId owning thread nLog at time t; 0 = unknown/shared. Per-thread sorted-key cache
+// keeps the per-scope DrawDetailedView lookup cheap.
+function getScopeDmId(nLog, t) {
+    if (!gDmContextData || !gDmContextData.threadToDmId || !gDmContextData.threadToDmId[nLog]) {
+        return 0;
+    }
+    var cache = gDmFilter.cache[nLog];
+    if (!cache) {
+        var dict = gDmContextData.threadToDmId[nLog];
+        var keys = Object.keys(dict).map(Number).sort(function (a, b) { return a - b; });
+        cache = gDmFilter.cache[nLog] = { keys: keys, dict: dict };
+    }
+    var keys = cache.keys;
+    if (keys.length == 0) {
+        return 0;
+    }
+    if (keys[0] > t) {
+        return cache.dict[keys[0]]; // before first transition: match tooltip's carry-forward
+    }
+    var lo = 0, hi = keys.length - 1, res = keys[0];
+    while (lo <= hi) {
+        var mid = (lo + hi) >> 1;
+        if (keys[mid] <= t) { res = keys[mid]; lo = mid + 1; }
+        else { hi = mid - 1; }
+    }
+    return cache.dict[res];
+}
+
 function ToggleThread(ThreadName) {
     if (ThreadName) {
         if (ThreadsActive[ThreadName]) {
@@ -1858,6 +1982,12 @@ function SetMode(NewMode, Groups) {
     let isDetailed = (NewMode == 'detailed' || NewMode == ModeDetailed);
     let extraEntriesStyle = isDetailed ? 'block' : 'none';
     ilPlugins.style['display'] = ilHighlight.style['display'] = ilExport.style['display'] = extraEntriesStyle;
+    if (window.gDmFilter.hasData) {
+        var ilDataModel = document.getElementById('ilDataModel');
+        if (ilDataModel) {
+            ilDataModel.style['display'] = extraEntriesStyle;
+        }
+    }
 
     if (g_Ext && g_Ext.currentPlugin) {
         if (isDetailed && g_Ext.currentPlugin.ShowCanvas) {
@@ -3253,6 +3383,15 @@ function DrawHoverToolTip() {
                 }
             }
 
+            // Owning DataModel of the hovered scope; shown only for multiplexed captures.
+            if (window.gDmFilter.hasData && gDmContextData && gDmContextData.threadToDmId[nHoverTokenLogIndex]) {
+                var HoverDmId = getScopeDmId(nHoverTokenLogIndex, RangeCpu.Begin); // same resolution as the filter
+                StringArray.push("");
+                StringArray.push("");
+                StringArray.push("DataModel:");
+                StringArray.push(HoverDmId == 0 ? "(none / shared)" : ("DM " + HoverDmId));
+            }
+
             const HoverLabel = GatherHoverLabels(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
             if (HoverLabel != null && HoverLabel.length > 0) {
                 StringArray.push("");
@@ -4406,6 +4545,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
         var Batches = new Array(maxBatches);
         var BatchesXtra = new Array(maxBatches); // Color intensities for Events
         var BatchesOrder = new Array(maxBatches); // Fiber enter ids
+        var BatchesDmDimmed = new Array(maxBatches); // DataModel filter: per-scope "grey out" flag
         var selectedScopeInstanceCount = 0;
         
         var BatchesTxt = Array();
@@ -4424,6 +4564,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
             BatchesXtra[i] = Array();
             BatchesOrder[i] = Array();
             BatchesHighlighted[i] = Array();
+            BatchesDmDimmed[i] = Array();
         }
 
         if (FFlagMicroprofilerPerFrameCpuSpeed)
@@ -4577,6 +4718,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
 
                                 if ((bDrawEnabled || index == nHoverToken) && addToBatch) {
                                     BatchesHighlighted[batchIndex].push(highlightedAttr);
+                                    // DataModel filter: grey out (rather than hide) scopes from non-selected DMs,
+                                    // so child scopes don't float and the timeline keeps no empty holes.
+                                    BatchesDmDimmed[batchIndex].push(gDmFilter.active && gDmFilter.set[getScopeDmId(nLog, timestart)] !== true);
 
                                     Batches[batchIndex].push(X);
                                     Batches[batchIndex].push(Y);
@@ -4853,6 +4997,10 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             }
                             colorChanged = true;
                         }
+                        if (gDmFilter.active && BatchesDmDimmed[i][j / 3]) {
+                            context.fillStyle = rgbToDesaturated(outlineColor, 1.0);
+                            colorChanged = true;
+                        }
                         var X = a[j];
                         var Y = a[j + 1];
                         var W = a[j + 2];
@@ -4887,6 +5035,11 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
 
                         if (hasSeveralSelectedScopeInstances && !isSelectedScope) {
                             context.fillStyle = rgbToDesaturated(origColor, 1);
+                            colorChanged = true;
+                        }
+
+                        if (gDmFilter.active && BatchesDmDimmed[i][j / 3]) {
+                            context.fillStyle = rgbToDesaturated(origColor, 1.0);
                             colorChanged = true;
                         }
 
@@ -8489,6 +8642,8 @@ function PrepareEvents() {
     scopeVariants.sum = CalcPercentiles(scopeEntries, XRayModes.Sum);
 
     g_Ext.prepareEventsAfter();
+
+    PopulateDmFilterMenu();
 }
 
 function NotifyPluginsOnFrameStart(fr) {
@@ -10082,6 +10237,58 @@ DefinePlugin(function() {
             txInfo.evtFrame.cpuCoreFreqData.threadNumberToCpuIdMapping[txInfo.nLog][timeStamp] = ctx.coreId;
             gCpuCoreFreqData.coreFreqs[ctx.coreId][timeStamp] = ctx.frequency;
             gCpuCoreFreqData.threadNumberToCpuIdMapping[txInfo.nLog][timeStamp] = ctx.coreId;
+        },
+    }
+});
+
+// Multi-DM RCC marker attribution. MpEvent_DmContext (baseId 41) is a sparse event
+// emitted on a thread whenever its active DataModel changes (dmId in evt.data; 0 = no DM).
+// Like "Core Assignment", this is a background plugin that just records a per-thread
+// timeline of dmId; the detailed-view scope tooltip then carry-forwards the most recent
+// dmId at the scope's start to show which DataModel produced that marker.
+var eventsDataModel = ["DmContext"];
+DefinePlugin(function () {
+    return {
+        category: "DataModel",
+        events: eventsDataModel,
+        baseId: 41,
+        isBackground: true,
+        isAlwaysActive: true,
+        isVisualizationActive: false,
+        preset: {
+            mode: XRayModes.Count,
+            events: eventsDataModel,
+            hideAlways: false,
+        },
+        decorate: function (v) { return "DM " + v; },
+        decode: function (evt, full) {
+            var ctx = {
+                value : evt.data,
+                count : 1,
+                evt : evt,
+            };
+            ctx.dmId = Number(evt.data);
+            if (full) {
+                ctx.eventName = this.events[evt.type - this.baseId];
+            }
+            return ctx;
+        },
+        prepare: function (ctx, extraInfo) {
+            function initializeDmContextData() {
+                return { threadToDmId: {} };
+            }
+
+            let txInfo = extraInfo;
+            let timeStamp = txInfo.lastTimeStamp;
+
+            txInfo.evtFrame.dmContextData = txInfo.evtFrame.dmContextData || initializeDmContextData();
+            gDmContextData = gDmContextData || initializeDmContextData();
+
+            txInfo.evtFrame.dmContextData.threadToDmId[txInfo.nLog] = txInfo.evtFrame.dmContextData.threadToDmId[txInfo.nLog] || {};
+            gDmContextData.threadToDmId[txInfo.nLog] = gDmContextData.threadToDmId[txInfo.nLog] || {};
+
+            txInfo.evtFrame.dmContextData.threadToDmId[txInfo.nLog][timeStamp] = ctx.dmId;
+            gDmContextData.threadToDmId[txInfo.nLog][timeStamp] = ctx.dmId;
         },
     }
 });

@@ -36,7 +36,7 @@ Uses `conditionalData = { curveAnimBoneData }`. The `curveAnimBoneData` shared d
 - `CurveAnimBonesRotationOnly` — enforces rotation-only on bone folders.
 - `CurveAnimBonesHaveValidNames` — validates bone folder names against schema.
 - `CurveAnimBonesHaveValidParents` — validates bone parent chains are complete.
-- `CurveAnimBodyPartsWithBonesRotationOnly` — forbids body part translation when bones are present.
+- `CurveAnimPartsRotateOnlyIfBones` — forbids body part translation when bones are present.
 
 ## Feature flags
 
