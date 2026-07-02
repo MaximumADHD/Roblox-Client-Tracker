@@ -205,15 +205,6 @@ jest.mock(Chrome.Integrations.InExperienceShop.ShopChromeWrapper, function()
 	return shopChromeWrapperComponent
 end)
 
-local shopIconSpy = jest.fn()
-local shopIconComponent = function(props)
-	shopIconSpy(props)
-	return nil
-end
-jest.mock(Chrome.Integrations.InExperienceShop.ShopIcon, function()
-	return shopIconComponent
-end)
-
 -- Prefetch helper is captured here so tests can inspect what was passed
 -- and synchronously fire `onResult` to simulate fetch outcomes.
 -- `jest.fn` returns a callable table, not a plain Lua function, so
@@ -231,7 +222,6 @@ jest.mock(InExperienceShopPackage.prefetchShopDataOnGameJoin, function()
 end)
 
 local mockSharedFlags = {
-	FFlagAddIGMToSideSheet = false,
 	FFlagChromeActivatedMappedSignal = false,
 	FFlagEnableMenuTrailingBadge = false,
 }
@@ -261,6 +251,7 @@ type LoadOpts = {
 	addIGMToSideSheet: boolean?,
 	chromeActivatedMappedSignal: boolean?,
 	menuTrailingBadgeFlag: boolean?,
+	newIconographyEnabled: boolean?,
 }
 
 -- Re-requires `ShopEntrypoint` under the scenario flags. Returns the
@@ -279,10 +270,8 @@ local function loadShopEntrypoint(opts: LoadOpts): any
 	fakeChromeService.toggleWindow:mockClear()
 	toggleInExperienceShopWindowSpy:mockClear()
 	commonIconSpy:mockClear()
-	shopIconSpy:mockClear()
 	shopChromeWrapperSpy:mockClear()
 
-	mockSharedFlags.FFlagAddIGMToSideSheet = opts.addIGMToSideSheet == true
 	mockSharedFlags.FFlagChromeActivatedMappedSignal = opts.chromeActivatedMappedSignal == true
 	mockSharedFlags.FFlagEnableMenuTrailingBadge = opts.menuTrailingBadgeFlag == true
 
@@ -300,6 +289,7 @@ local function loadShopEntrypoint(opts: LoadOpts): any
 				FFlagEnableShopPrefetch = opts.prefetchEnabled,
 				FFlagHideShopMenuOnFailure = opts.hideEnabled,
 				FFlagCenterInExperienceShopWindow = opts.centerEnabled == true,
+				FFlagExperienceShopNewIconography = opts.newIconographyEnabled == true,
 			}
 		end)
 		-- Re-pin the prefetch helper inside isolation so the freshly
@@ -325,7 +315,6 @@ describe("ShopEntrypoint", function()
 	end)
 
 	afterEach(function()
-		mockSharedFlags.FFlagAddIGMToSideSheet = false
 		mockSharedFlags.FFlagChromeActivatedMappedSignal = false
 		mockSharedFlags.FFlagEnableMenuTrailingBadge = false
 	end)
@@ -756,34 +745,32 @@ describe("ShopEntrypoint", function()
 	end)
 
 	describe("components", function()
-		it("SHOULD use CommonIcon for the Icon component when AddIGMToSideSheet is on", function()
+		it("SHOULD use BuildingStore icon when FFlagExperienceShopNewIconography is OFF", function()
 			local integration = loadShopEntrypoint({
 				prefetchEnabled = false,
 				hideEnabled = false,
 				coreGuiShopEnabled = true,
-				addIGMToSideSheet = true,
+				newIconographyEnabled = false,
 			})
 
 			integration.components.Icon()
 
 			expect(commonIconSpy).toHaveBeenCalledTimes(1)
 			expect(commonIconSpy).toHaveBeenCalledWith("BuildingStore", nil, mockedIsActiveSignal)
-			expect(shopIconSpy).never.toHaveBeenCalled()
 		end)
 
-		it("SHOULD use ShopIcon for the Icon component when AddIGMToSideSheet is off", function()
+		it("SHOULD use ShoppingBasket icon when FFlagExperienceShopNewIconography is ON", function()
 			local integration = loadShopEntrypoint({
 				prefetchEnabled = false,
 				hideEnabled = false,
 				coreGuiShopEnabled = true,
-				addIGMToSideSheet = false,
+				newIconographyEnabled = true,
 			})
 
-			local iconElement = integration.components.Icon()
+			integration.components.Icon()
 
-			expect(iconElement.type).toBe(shopIconComponent)
-			expect(iconElement.props.isActive).toBe(mockedIsActiveSignal)
-			expect(commonIconSpy).never.toHaveBeenCalled()
+			expect(commonIconSpy).toHaveBeenCalledTimes(1)
+			expect(commonIconSpy).toHaveBeenCalledWith("ShoppingBasket", nil, mockedIsActiveSignal)
 		end)
 
 		it("SHOULD render ShopChromeWrapper from the Window component", function()

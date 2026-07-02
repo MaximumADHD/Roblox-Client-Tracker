@@ -49,8 +49,6 @@ local useNotificationCount = require(Root.Hooks.useNotificationCount)
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 local useMappedObservableValueBinding = require(Root.Hooks.useMappedObservableValueBinding)
 local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
-local useTokens = Foundation.Hooks.useTokens
-
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
 local ChatNotificationBadge = require(script.Parent.ChatNotificationBadge)
@@ -87,7 +85,6 @@ end
 local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
-local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagUseBindingForUnreadChat = game:DefineFastFlag("UseBindingForUnreadChat", false)
 
 type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
@@ -129,7 +126,6 @@ export type IconHostProps = {
 	position: React.Binding<UDim2> | UDim2 | nil,
 	visible: React.Binding<boolean> | boolean | nil,
 	disableButtonBehaviors: boolean?,
-	disableBadgeNumber: boolean?,
 	minBadgeCount: number?,
 }
 
@@ -178,21 +174,14 @@ function NotificationBadge(props: IconHostProps): any?
 		end
 	end
 
-	local tokens
-	if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber then
-		tokens = useTokens()
-	end
 	local unibarStyle
-	local iconSize
 	local iconBadgeOffsetX
 	local iconBadgeOffsetY
 	if FFlagTokenizeUnibarConstantsWithStyleProvider then
 		unibarStyle = UnibarStyle.use()
-		iconSize = unibarStyle.ICON_SIZE
 		iconBadgeOffsetX = unibarStyle.ICON_BADGE_OFFSET_X
 		iconBadgeOffsetY = unibarStyle.ICON_BADGE_OFFSET_Y
 	else
-		iconSize = Constants.ICON_SIZE
 		iconBadgeOffsetX = Constants.ICON_BADGE_OFFSET_X
 		iconBadgeOffsetY = Constants.ICON_BADGE_OFFSET_Y
 	end
@@ -227,9 +216,7 @@ function NotificationBadge(props: IconHostProps): any?
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Size = if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
-			then UDim2.new(0, iconSize, 0, iconSize)
-			else UDim2.fromScale(1, 1),
+		Size = UDim2.fromScale(1, 1),
 		Visible = props.toggleTransition and props.toggleTransition:map(function(value)
 			if hideNotificationCountWhileOpen then
 				return value < 0.5
@@ -240,32 +227,17 @@ function NotificationBadge(props: IconHostProps): any?
 		ZIndex = 2,
 	}, {
 		Badge = if displayBadge
-			then if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber
-				then React.createElement(Foundation.View, {
-					Position = UDim2.new(1, 0, 0.2, 0),
-					backgroundStyle = {
-						Color3 = tokens.Color.System.Contrast.Color3,
-						Transparency = 0,
-					},
-					stroke = {
-						Color = tokens.Color.Surface.Surface_0.Color3,
-						Transparency = 0,
-						Thickness = tokens.Stroke.Thicker,
-					},
-					tag = "anchor-top-right radius-circle size-200 stroke-thicker",
-					ZIndex = 2,
-				})
-				else React.createElement(
-					StatusIndicator,
-					{
-						value = badgeValue,
-						variant = if FoundationFlags.FoundationStatusIndicatorVariantExperiment
-							then StatusIndicatorVariant.Contrast_Experiment
-							else StatusIndicatorVariant.Emphasis,
-						AnchorPoint = Vector2.new(0, 0),
-						Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
-					} :: any
-				)
+			then React.createElement(
+				StatusIndicator,
+				{
+					value = badgeValue,
+					variant = if FoundationFlags.FoundationStatusIndicatorVariantExperiment
+						then StatusIndicatorVariant.Contrast_Experiment
+						else StatusIndicatorVariant.Emphasis,
+					AnchorPoint = Vector2.new(0, 0),
+					Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
+				} :: any
+			)
 			else nil,
 	})
 end

@@ -103,6 +103,7 @@ local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePa
 local Flags = {
 	EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId"),
 	EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons"),
+	EngineFeaturePlayerScriptStatusProperty = game:GetEngineFeature("PlayerScriptStatusProperty"),
 
 	FFlagRemoveRecordPage = game:DefineFastFlag("RemoveRecordPage", false),
 	FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false),
@@ -167,14 +168,11 @@ local Flags = {
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
 	FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer,
 
-	FFlagMenuButtonsCheckVisibilityBeforeMount = true ,
-
-	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
 	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
 	FFlagFixDisabledScrollOnIos = game:DefineFastFlag("FixDisabledScrollOnIos", false),
 
 	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
-	FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet,
+	FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration,
 	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
 	FFlagImprovePageTitleCloseButton = game:DefineFastFlag("ImprovePageTitleCloseButton", false),
 	FFlagIGMSelectionGroup = game:DefineFastFlag("IGMSelectionGroup", false),
@@ -963,7 +961,7 @@ local function CreateSettingsHub()
 				if Flags.GetFFlagEnableLeaveGameUpsellEntrypoint() and this.leaveGameUpsellProp ~= VoiceConstants.PHONE_UPSELL_VALUE_PROP.None then
 					this:SwitchToPage(this.LeaveGameUpsellPage, false)
 				else
-					this:SwitchToPage(this.LeaveGamePage, false, nil, if Flags.FFlagMenuButtonsSkipAnimation then true else nil)
+					this:SwitchToPage(this.LeaveGamePage, false, nil, true)
 				end
 
 				TelemetryService:LogCounter(MenuLeaveGameTelemetryConfig, {
@@ -979,7 +977,7 @@ local function CreateSettingsHub()
 
 				this:AddToMenuStack(this.Pages.CurrentPage)
 				this.HubBar.Visible = false
-				this:SwitchToPage(this.ResetCharacterPage, false, nil, if Flags.FFlagMenuButtonsSkipAnimation then true else nil)
+				this:SwitchToPage(this.ResetCharacterPage, false, nil, true)
 
 				TelemetryService:LogCounter(MenuResetCharacterTelemetryConfig, {
 					customFields = {
@@ -1332,39 +1330,53 @@ local function CreateSettingsHub()
 		-- insert but if a developer has overriden them Archivable will be true. This might be incorrect
 		-- if a developer has code in their game to make things UnArchivable though.
 		local function getOverridesPlayerScripts()
-			local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts", if Flags.FFlagRemoveLoadingTimeout then math.huge else nil)
-			local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
-			local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
-			if playerModule and playerScriptLoader then
-				if not playerModule.Archivable then
-					if playerScriptLoader.Archivable then
-						if shouldTryLocalizeVersionLabels then
-							return tryTranslate("InGame.CommonUI.Label.PossiblyCustom", "Possibly Custom")
+			if Flags.EngineFeaturePlayerScriptStatusProperty then
+				local PlayerScriptStatusStrings = {
+					[0] = "Unknown",
+					[1] = "v3 Custom",
+					[2] = "v3 Default",
+					[3] = "v1 Custom",
+					[4] = "v2 Default",
+					[5] = "v2 Custom",
+				}
+
+				return PlayerScriptStatusStrings[StarterPlayer.PlayerModuleStatus]
+			else
+
+				local starterPlayerScripts = StarterPlayer:WaitForChild("StarterPlayerScripts", if Flags.FFlagRemoveLoadingTimeout then math.huge else nil)
+				local playerScriptLoader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
+				local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
+				if playerModule and playerScriptLoader then
+					if not playerModule.Archivable then
+						if playerScriptLoader.Archivable then
+							if shouldTryLocalizeVersionLabels then
+								return tryTranslate("InGame.CommonUI.Label.PossiblyCustom", "Possibly Custom")
+							else
+								return "Possibly Custom"
+							end
 						else
-							return "Possibly Custom"
-						end
-					else
-						if shouldTryLocalizeVersionLabels then
-							return tryTranslate("InGame.CommonUI.Label.Default", "Default")
-						else
-							return "Default"
+							if shouldTryLocalizeVersionLabels then
+								return tryTranslate("InGame.CommonUI.Label.Default", "Default")
+							else
+								return "Default"
+							end
 						end
 					end
 				end
-			end
-			local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
-			local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
-			if cameraScript or controlScript then
-				if shouldTryLocalizeVersionLabels then
-					return tryTranslate("InGame.CommonUI.Label.CustomOld", "Custom Old")
-				else
-					return "Custom Old"
+				local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
+				local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
+				if cameraScript or controlScript then
+					if shouldTryLocalizeVersionLabels then
+						return tryTranslate("InGame.CommonUI.Label.CustomOld", "Custom Old")
+					else
+						return "Custom Old"
+					end
 				end
-			end
-			if shouldTryLocalizeVersionLabels then
-				return tryTranslate("InGame.CommonUI.Label.Custom", "Custom")
-			else
-				return "Custom"
+				if shouldTryLocalizeVersionLabels then
+					return tryTranslate("InGame.CommonUI.Label.Custom", "Custom")
+				else
+					return "Custom"
+				end
 			end
 		end
 
@@ -1396,8 +1408,11 @@ local function CreateSettingsHub()
 
 			local playerScriptStatus = getOverridesPlayerScripts()
 
+			local isDefault = if Flags.EngineFeaturePlayerScriptStatusProperty
+				then playerScriptStatus == "v3 Default"
+				else playerScriptStatus == "Default"
 			AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
-				defaultPlayerScripts = playerScriptStatus == "Default",
+				defaultPlayerScripts = isDefault,
 				placeID = tostring(game.PlaceId),
 				rawValue = if Flags.GetFFlagNewEventIngestPlayerScriptsDimensions() then playerScriptStatus else nil,
 				context = if Flags.GetFFlagNewEventIngestPlayerScriptsDimensions() then "IGMv1"else nil,
@@ -3046,7 +3061,7 @@ local function CreateSettingsHub()
 			ExperienceMenuSessionManagerInstance:CloseOpenedMenuTab()
 		end
 
-		if Flags.FFlagAddIGMToSideSheet and Flags.FFlagAddTraversalHistory and Flags.FFlagIntegrateTraversalHistoryInSideSheet then
+		if Flags.FFlagAddTraversalHistory and Flags.FFlagIntegrateTraversalHistoryInSideSheet then
 			local reactPageSignal = ReactPageSignal(false)
 			reactPageSignal.setCurrentReactPage(nil)
 		end
@@ -3709,7 +3724,9 @@ local function CreateSettingsHub()
 				PlatformService:PopupGameInviteUI()
 			end
 		elseif newGameInviteModalEnabled then
-			this:ToggleVisibility()
+			if not Flags.FFlagAddInviteFriendsIntegration or this.Visible then
+				this:ToggleVisibility()
+			end
 			GameInviteModalManager:openModal({
 				trigger = GameInviteConstants.Triggers.GameMenu
 			})
@@ -4087,7 +4104,7 @@ local function CreateSettingsHub()
 			if not Flags.FFlagAddUILessMode or Flags.FIntAddUILessModeVariant == 0 then
 				local closeMenuFunc = function(name, inputState, input)
 					if inputState ~= Enum.UserInputState.Begin then return end
-					if Flags.FFlagEnableSideSheet and Flags.FFlagAddIGMToSideSheet then
+					if Flags.FFlagEnableSideSheet then
 						if getSideSheetVisibility() then
 							toggleSideSheet(false)
 						else
@@ -4354,6 +4371,12 @@ end
 
 function moduleApiTable:SwitchToReactPage(page, props, willPortal)
 	SettingsHubInstance:SwitchToReactPage(page, props, willPortal)
+end
+
+if Flags.FFlagAddInviteFriendsIntegration then
+	function moduleApiTable:InviteToGame()
+		SettingsHubInstance:InviteToGame()
+	end
 end
 
 moduleApiTable.RespawnBehaviourChangedEvent = SettingsHubInstance.RespawnBehaviourChangedEvent

@@ -16,8 +16,6 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
-
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
@@ -63,7 +61,7 @@ return ChromeService:register({
 		end,
 	components = {
 		Icon = function(props)
-			if FFlagStandardizeSafetyIcon and FFlagAddIGMToSideSheet then
+			if FFlagStandardizeSafetyIcon then
 				return CommonIcon("Flag", nil, mappedReportPageOpenSignal)
 			else
 				return CommonIcon("icons/menu/safety_off", "icons/menu/safety_on", mappedReportPageOpenSignal)

@@ -113,8 +113,7 @@ local function Initialize()
 	this.Page.Name = "ReportAbuseMenuNewContainerPage"
 	this.ShouldShowBottomBar = not FFlagEnableSideSheet
 	this.ShouldShowHubBar = true
-	-- TODO: Need to flip FFlagAddAbilityToDisableIGMScroll before turning on FFlagAbuseReportMenuV2
-	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2
+	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2 and FFlagSwitchOverToAbuseReportMenuV2
 
 	local abuseReportMenu = Roact.createElement(if FFlagSwitchOverToAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
 		hideReportTab = function()

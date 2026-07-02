@@ -7,6 +7,9 @@ local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
 type _Messages = {
+	HomePageRequest: _HomePageRequestMessage,
+	HomePageRequest_ContextualFeaturesEntry: _HomePageRequest_ContextualFeaturesEntryMessage,
+	HomePageRequest_CachedRobloxComponentToTemplateIdEntry: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryMessage,
 	HomePageResponse: _HomePageResponseMessage,
 	HomePageResponse_TemplatesEntry: _HomePageResponse_TemplatesEntryMessage,
 	HomePageResponse_LocalizedLiteralsEntry: _HomePageResponse_LocalizedLiteralsEntryMessage,
@@ -19,6 +22,97 @@ local _roblox_apppageplatform_shared_v1beta1_template_entry =
 	require(script.Parent.Parent.Parent.shared.v1beta1.template_entry)
 local _roblox_apppageplatform_shared_v1beta1_page_entry_content =
 	require(script.Parent.Parent.Parent.shared.v1beta1.page_entry_content)
+local _roblox_apppageplatform_shared_v1beta1_client_capabilities =
+	require(script.Parent.Parent.Parent.shared.v1beta1.client_capabilities)
+
+type _HomePageRequestImpl = {
+	__index: _HomePageRequestImpl,
+	new: (fields: _HomePageRequestPartialFields?) -> HomePageRequest,
+	encode: (self: HomePageRequest) -> buffer,
+	decode: (input: buffer) -> HomePageRequest,
+	jsonEncode: (self: HomePageRequest) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HomePageRequest,
+	descriptor: proto.Descriptor,
+}
+
+type _HomePageRequestFields = {
+	session_id: string,
+	topic_ids: { string },
+	contextual_features: { [string]: string },
+	cached_roblox_component_to_template_id: { [string]: string },
+	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+}
+
+type _HomePageRequestPartialFields = {
+	session_id: string?,
+	topic_ids: { string }?,
+	contextual_features: { [string]: string }?,
+	cached_roblox_component_to_template_id: { [string]: string }?,
+	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+}
+
+export type HomePageRequest = typeof(setmetatable({} :: _HomePageRequestFields, {} :: _HomePageRequestImpl))
+type _HomePageRequestMessage = proto.Message<HomePageRequest, _HomePageRequestPartialFields>
+
+type _HomePageRequest_ContextualFeaturesEntryImpl = {
+	__index: _HomePageRequest_ContextualFeaturesEntryImpl,
+	new: (fields: _HomePageRequest_ContextualFeaturesEntryPartialFields?) -> HomePageRequest_ContextualFeaturesEntry,
+	encode: (self: HomePageRequest_ContextualFeaturesEntry) -> buffer,
+	decode: (input: buffer) -> HomePageRequest_ContextualFeaturesEntry,
+	jsonEncode: (self: HomePageRequest_ContextualFeaturesEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HomePageRequest_ContextualFeaturesEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HomePageRequest_ContextualFeaturesEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _HomePageRequest_ContextualFeaturesEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type HomePageRequest_ContextualFeaturesEntry = typeof(setmetatable(
+	{} :: _HomePageRequest_ContextualFeaturesEntryFields,
+	{} :: _HomePageRequest_ContextualFeaturesEntryImpl
+))
+type _HomePageRequest_ContextualFeaturesEntryMessage = proto.Message<
+	HomePageRequest_ContextualFeaturesEntry,
+	_HomePageRequest_ContextualFeaturesEntryPartialFields
+>
+
+type _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl = {
+	__index: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl,
+	new: (
+		fields: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryPartialFields?
+	) -> HomePageRequest_CachedRobloxComponentToTemplateIdEntry,
+	encode: (self: HomePageRequest_CachedRobloxComponentToTemplateIdEntry) -> buffer,
+	decode: (input: buffer) -> HomePageRequest_CachedRobloxComponentToTemplateIdEntry,
+	jsonEncode: (self: HomePageRequest_CachedRobloxComponentToTemplateIdEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HomePageRequest_CachedRobloxComponentToTemplateIdEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HomePageRequest_CachedRobloxComponentToTemplateIdEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _HomePageRequest_CachedRobloxComponentToTemplateIdEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type HomePageRequest_CachedRobloxComponentToTemplateIdEntry = typeof(setmetatable(
+	{} :: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryFields,
+	{} :: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl
+))
+type _HomePageRequest_CachedRobloxComponentToTemplateIdEntryMessage = proto.Message<
+	HomePageRequest_CachedRobloxComponentToTemplateIdEntry,
+	_HomePageRequest_CachedRobloxComponentToTemplateIdEntryPartialFields
+>
 
 type _HomePageResponseImpl = {
 	__index: _HomePageResponseImpl,
@@ -104,6 +198,546 @@ type _HomePageResponse_LocalizedLiteralsEntryMessage = proto.Message<
 	HomePageResponse_LocalizedLiteralsEntry,
 	_HomePageResponse_LocalizedLiteralsEntryPartialFields
 >
+
+do
+	local _HomePageRequestImpl = {}
+	_HomePageRequestImpl.__index = _HomePageRequestImpl
+
+	function _HomePageRequestImpl.new(data: _HomePageRequestPartialFields?): HomePageRequest
+		return setmetatable({
+			session_id = if data == nil or data.session_id == nil then "" else data.session_id,
+			topic_ids = if data == nil or data.topic_ids == nil then {} else data.topic_ids,
+			contextual_features = if data == nil or data.contextual_features == nil
+				then {}
+				else data.contextual_features,
+			cached_roblox_component_to_template_id = if data == nil
+					or data.cached_roblox_component_to_template_id == nil
+				then {}
+				else data.cached_roblox_component_to_template_id,
+			client_capabilities = if data == nil or data.client_capabilities == nil
+				then nil
+				else data.client_capabilities,
+		}, _HomePageRequestImpl :: _HomePageRequestImpl)
+	end
+
+	function _HomePageRequestImpl.encode(self: HomePageRequest): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.session_id ~= nil and self.session_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.session_id)
+		end
+
+		if self.topic_ids ~= nil and #self.topic_ids > 0 then
+			for _, value in self.topic_ids do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.contextual_features ~= nil and next(self.contextual_features) ~= nil then
+			for key, value in self.contextual_features do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if
+			self.cached_roblox_component_to_template_id ~= nil
+			and next(self.cached_roblox_component_to_template_id) ~= nil
+		then
+			for key, value in self.cached_roblox_component_to_template_id do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.client_capabilities ~= nil then
+			local encoded = self.client_capabilities:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HomePageRequestImpl.decode(input: buffer): HomePageRequest
+		local self = _HomePageRequestImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.session_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.topic_ids, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HomePageRequest_ContextualFeaturesEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.contextual_features[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HomePageRequest_CachedRobloxComponentToTemplateIdEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.cached_roblox_component_to_template_id[mapEntry.key or keyDefault] = mapEntry.value
+						or valueDefault
+
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.client_capabilities =
+						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HomePageRequestImpl.jsonEncode(self: HomePageRequest): any
+		local output = {}
+
+		if self.session_id ~= nil and self.session_id ~= "" then
+			output.sessionId = self.session_id
+		end
+
+		if self.topic_ids ~= nil and #self.topic_ids > 0 then
+			local newOutput = {}
+			for _, value in self.topic_ids do
+				table.insert(newOutput, value)
+			end
+			output.topicIds = newOutput
+		end
+
+		if self.contextual_features ~= nil and next(self.contextual_features) ~= nil then
+			local newOutput = {}
+			for key, value in self.contextual_features do
+				newOutput[key] = value
+			end
+			output.contextualFeatures = newOutput
+		end
+
+		if
+			self.cached_roblox_component_to_template_id ~= nil
+			and next(self.cached_roblox_component_to_template_id) ~= nil
+		then
+			local newOutput = {}
+			for key, value in self.cached_roblox_component_to_template_id do
+				newOutput[key] = value
+			end
+			output.cachedRobloxComponentToTemplateId = newOutput
+		end
+
+		if self.client_capabilities ~= nil then
+			output.clientCapabilities = self.client_capabilities:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HomePageRequestImpl.jsonDecode(input: { [string]: any }): HomePageRequest
+		local self = _HomePageRequestImpl.new()
+
+		if input.session_id ~= nil then
+			self.session_id = input.session_id
+		end
+
+		if input.sessionId ~= nil then
+			self.session_id = input.sessionId
+		end
+
+		if input.topic_ids ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.topic_ids do
+				table.insert(newOutput, value)
+			end
+
+			self.topic_ids = newOutput
+		end
+
+		if input.topicIds ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.topicIds do
+				table.insert(newOutput, value)
+			end
+
+			self.topic_ids = newOutput
+		end
+
+		if input.contextual_features ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.contextual_features do
+				newOutput[key] = value
+			end
+
+			self.contextual_features = newOutput
+		end
+
+		if input.contextualFeatures ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.contextualFeatures do
+				newOutput[key] = value
+			end
+
+			self.contextual_features = newOutput
+		end
+
+		if input.cached_roblox_component_to_template_id ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.cached_roblox_component_to_template_id do
+				newOutput[key] = value
+			end
+
+			self.cached_roblox_component_to_template_id = newOutput
+		end
+
+		if input.cachedRobloxComponentToTemplateId ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.cachedRobloxComponentToTemplateId do
+				newOutput[key] = value
+			end
+
+			self.cached_roblox_component_to_template_id = newOutput
+		end
+
+		if input.client_capabilities ~= nil then
+			self.client_capabilities =
+				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
+					input.client_capabilities
+				)
+		end
+
+		if input.clientCapabilities ~= nil then
+			self.client_capabilities =
+				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
+					input.clientCapabilities
+				)
+		end
+
+		return self
+	end
+
+	_HomePageRequestImpl.descriptor = {
+		name = "HomePageRequest",
+		fullName = "roblox.apppageplatform.home.v1beta1.HomePageRequest",
+	}
+
+	messages.HomePageRequest = _HomePageRequestImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HomePageRequest)
+end
+
+do
+	local _HomePageRequest_ContextualFeaturesEntryImpl = {}
+	_HomePageRequest_ContextualFeaturesEntryImpl.__index = _HomePageRequest_ContextualFeaturesEntryImpl
+
+	function _HomePageRequest_ContextualFeaturesEntryImpl.new(
+		data: _HomePageRequest_ContextualFeaturesEntryPartialFields?
+	): HomePageRequest_ContextualFeaturesEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then "" else data.value,
+		}, _HomePageRequest_ContextualFeaturesEntryImpl :: _HomePageRequest_ContextualFeaturesEntryImpl)
+	end
+
+	function _HomePageRequest_ContextualFeaturesEntryImpl.encode(self: HomePageRequest_ContextualFeaturesEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HomePageRequest_ContextualFeaturesEntryImpl.decode(input: buffer): HomePageRequest_ContextualFeaturesEntry
+		local self = _HomePageRequest_ContextualFeaturesEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HomePageRequest_ContextualFeaturesEntryImpl.jsonEncode(self: HomePageRequest_ContextualFeaturesEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _HomePageRequest_ContextualFeaturesEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HomePageRequest_ContextualFeaturesEntry
+		local self = _HomePageRequest_ContextualFeaturesEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_HomePageRequest_ContextualFeaturesEntryImpl.descriptor = {
+		name = "HomePageRequest_ContextualFeaturesEntry",
+		fullName = "roblox.apppageplatform.home.v1beta1.ContextualFeaturesEntry",
+	}
+
+	messages.HomePageRequest_ContextualFeaturesEntry = _HomePageRequest_ContextualFeaturesEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HomePageRequest_ContextualFeaturesEntry)
+end
+
+do
+	local _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl = {}
+	_HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.__index =
+		_HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl
+
+	function _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.new(
+		data: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryPartialFields?
+	): HomePageRequest_CachedRobloxComponentToTemplateIdEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl :: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl
+		)
+	end
+
+	function _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.encode(
+		self: HomePageRequest_CachedRobloxComponentToTemplateIdEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.decode(
+		input: buffer
+	): HomePageRequest_CachedRobloxComponentToTemplateIdEntry
+		local self = _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.jsonEncode(
+		self: HomePageRequest_CachedRobloxComponentToTemplateIdEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HomePageRequest_CachedRobloxComponentToTemplateIdEntry
+		local self = _HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl.descriptor = {
+		name = "HomePageRequest_CachedRobloxComponentToTemplateIdEntry",
+		fullName = "roblox.apppageplatform.home.v1beta1.CachedRobloxComponentToTemplateIdEntry",
+	}
+
+	messages.HomePageRequest_CachedRobloxComponentToTemplateIdEntry =
+		_HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HomePageRequest_CachedRobloxComponentToTemplateIdEntry)
+end
 
 do
 	local _HomePageResponseImpl = {}
@@ -597,5 +1231,6 @@ do
 end
 
 return {
+	HomePageRequest = messages.HomePageRequest,
 	HomePageResponse = messages.HomePageResponse,
 }

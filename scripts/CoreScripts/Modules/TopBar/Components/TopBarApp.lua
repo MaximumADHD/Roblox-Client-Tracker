@@ -83,10 +83,10 @@ local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceSho
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
 local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
+local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNewIconography
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -111,7 +111,7 @@ local CommonIcon
 if ChromeEnabled() then
 	LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 	ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
-	if FFlagEnableExperienceShopGlobalIcon and FFlagAddIGMToSideSheet then
+	if FFlagEnableExperienceShopGlobalIcon then
 		CommonIcon = require(Chrome.Integrations.CommonIcon)
 	end
 end
@@ -348,15 +348,13 @@ function TopBarApp:init()
 				end
 			end
 			self.shopGlobalIconCleanup = InExperienceShop.initShopGlobalIcon and InExperienceShop.initShopGlobalIcon()
-				if FFlagAddIGMToSideSheet then
-					local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
-					self.shopIsActiveMappedSignal = ChromeUtils.MappedSignal.new(
-						ChromeService:onIntegrationStatusChanged(),
-						function()
-							return ChromeService:isWindowOpen(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
-						end
-					)
-				end
+				local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
+				self.shopIsActiveMappedSignal = ChromeUtils.MappedSignal.new(
+					ChromeService:onIntegrationStatusChanged(),
+					function()
+						return ChromeService:isWindowOpen(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+					end
+				)
 		end
 	end
 
@@ -879,9 +877,11 @@ function TopBarApp:renderWithStyle(style)
 									then self.keepOutAreasStore.setKeepOutArea
 									else self.props.setKeepOutArea,
 								isActive = self.state.shopGlobalIconIsActive,
-								icon = if CommonIcon and self.shopIsActiveMappedSignal
-									then CommonIcon("BuildingStore", nil, self.shopIsActiveMappedSignal)
-									else nil,
+								icon = if not FFlagExperienceShopNewIconography
+									and CommonIcon
+									and self.shopIsActiveMappedSignal
+								then CommonIcon("BuildingStore", nil, self.shopIsActiveMappedSignal)
+								else nil,
 							})
 							else nil,
 

@@ -10,13 +10,20 @@ local APIUtil = require(root.util.APIUtil)
 
 local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 local getFFlagUGCValidateEmotesBoneUserVerification = require(root.flags.getFFlagUGCValidateEmotesBoneUserVerification)
+local getFFlagUGCValidateAnimBonesSupport = require(root.flags.getFFlagUGCValidateAnimBonesSupport)
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 
 local CurveAnimBonesAllowed = {}
 
 CurveAnimBonesAllowed.categories = { ValidationEnums.UploadCategory.EMOTE_ANIMATION }
+if getFFlagUGCValidateAnimBonesSupport() and getFFlagUGCValidationAnimationPackSupport() then
+	table.insert(CurveAnimBonesAllowed.categories, ValidationEnums.UploadCategory.ANIMATION)
+end
 CurveAnimBonesAllowed.requiredData = { ValidationEnums.SharedDataMember.consumerConfig }
 CurveAnimBonesAllowed.conditionalData = { ValidationEnums.SharedDataMember.curveAnimBoneData }
-CurveAnimBonesAllowed.fflag = getFFlagUGCValidateEmotesBonesAllowed
+CurveAnimBonesAllowed.fflag = function()
+	return getFFlagUGCValidateEmotesBonesAllowed() or getFFlagUGCValidateAnimBonesSupport()
+end
 CurveAnimBonesAllowed.expectedFailures = {}
 CurveAnimBonesAllowed.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 

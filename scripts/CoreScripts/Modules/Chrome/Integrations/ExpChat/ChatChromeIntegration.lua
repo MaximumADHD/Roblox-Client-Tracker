@@ -30,19 +30,22 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
+local shouldSuppressUnreadForTabMetadata = ExpChat.shouldSuppressUnreadForTabMetadata
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
+local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
+local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
-local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
-local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDisableLegacyChatSimpleUnreadMessageCount
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
 local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextChatEnableUniverseChatTabs
+local FFlagExpChatSuppressWelcomeMessageUnibarUnread =
+	game:DefineFastFlag("ExpChatSuppressWelcomeMessageUnibarUnread", false)
 local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
 local isInExperienceUIVREnabled =
@@ -120,15 +123,9 @@ end, function()
 	end
 
 	chatVisibility = isVisible :: boolean
-	if GetFFlagSimpleChatUnreadMessageCount() then
-		if isVisible and chatChromeIntegration.notification then
-			chatChromeIntegration.notification:clear()
-		end
-	else
-		if isVisible and unreadMessages and chatChromeIntegration.notification then
-			unreadMessages = 0
-			chatChromeIntegration.notification:clear()
-		end
+	if isVisible and unreadMessages and chatChromeIntegration.notification then
+		unreadMessages = 0
+		chatChromeIntegration.notification:clear()
 	end
 end)
 
@@ -149,6 +146,7 @@ chatChromeIntegration = ChromeService:register({
 	label = "CoreScripts.TopBar.Chat",
 	-- Hide ExpChat "Chat" button until Friends chat in experience is launched: https://roblox.atlassian.net/browse/EXPR-3846
 	sideSheetPlacement = if ArgoPartyExperimentation.getIsRenameEnabled()
+			and not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatEnableFriendsTab)
 		then SideSheetPlacement.None
 		else SideSheetPlacement.Unibar,
 	activated = function(self)
@@ -263,58 +261,44 @@ if FFlagChatIntegrationFixShortcut and FFlagEnableConsoleExpControls then
 	end)
 end
 
-if GetFFlagSimpleChatUnreadMessageCount() then
-	-- TextChatService
-	TextChatService.MessageReceived:Connect(function()
-		if not chatVisibility and chatChromeIntegration.notification:isEmpty() then
-			chatChromeIntegration.notification:fireCount(1)
+-- Purely informational system messages (chat-enabled, welcome, and summary lines)
+-- should not bump the unibar unread badge, mirroring the channel-tab unread
+local function shouldIgnoreUnreadForMessage(textChatMessage: TextChatMessage?): boolean
+	return FFlagExpChatSuppressWelcomeMessageUnibarUnread
+		and shouldSuppressUnreadForTabMetadata(textChatMessage and textChatMessage.Metadata)
+end
+
+TextChatService.MessageReceived:Connect(function(textChatMessage: TextChatMessage)
+	if shouldIgnoreUnreadForMessage(textChatMessage) then
+		return
+	end
+	if not chatVisibility then
+		unreadMessages += 1
+		chatChromeIntegration.notification:fireCount(unreadMessages)
+	end
+end)
+
+-- Universe Chat
+if GetFFlagTextChatEnableUniverseChatTabs() then
+	TextChatService.UniverseChatMessageReceived:Connect(function(textChatMessage: TextChatMessage)
+		if shouldIgnoreUnreadForMessage(textChatMessage) then
+			return
 		end
-	end)
-
-	-- Universe Chat
-	if GetFFlagTextChatEnableUniverseChatTabs() then
-		TextChatService.UniverseChatMessageReceived:Connect(function()
-			if not chatVisibility and chatChromeIntegration.notification:isEmpty() then
-				chatChromeIntegration.notification:fireCount(1)
-			end
-		end)
-	end
-
-	-- Legacy Chat
-	if not GetFFlagDisableLegacyChatSimpleUnreadMessageCount() then
-		ChatSelector.MessagesChanged:connect(function(messages: number)
-			if not chatVisibility and chatChromeIntegration.notification:isEmpty() then
-				chatChromeIntegration.notification:fireCount(1)
-			end
-		end)
-	end
-else
-	TextChatService.MessageReceived:Connect(function()
 		if not chatVisibility then
 			unreadMessages += 1
 			chatChromeIntegration.notification:fireCount(unreadMessages)
 		end
 	end)
-
-	-- Universe Chat
-	if GetFFlagTextChatEnableUniverseChatTabs() then
-		TextChatService.UniverseChatMessageReceived:Connect(function()
-			if not chatVisibility then
-				unreadMessages += 1
-				chatChromeIntegration.notification:fireCount(unreadMessages)
-			end
-		end)
-	end
-
-	local lastMessagesChangedValue = 0
-	ChatSelector.MessagesChanged:connect(function(messages: number)
-		if not chatVisibility then
-			unreadMessages += messages - lastMessagesChangedValue
-			chatChromeIntegration.notification:fireCount(unreadMessages)
-		end
-		lastMessagesChangedValue = messages
-	end)
 end
+
+local lastMessagesChangedValue = 0
+ChatSelector.MessagesChanged:connect(function(messages: number)
+	if not chatVisibility then
+		unreadMessages += messages - lastMessagesChangedValue
+		chatChromeIntegration.notification:fireCount(unreadMessages)
+	end
+	lastMessagesChangedValue = messages
+end)
 
 if not FFlagExpChatWindowSyncUnibar then
 	ChatSelector.ChatActiveChanged:connect(function(visible: boolean)

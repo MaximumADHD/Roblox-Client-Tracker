@@ -4,6 +4,8 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local GameInviteAnalyticsManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalyticsManager
+local GameInviteModalManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteModalManager
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
@@ -65,6 +67,18 @@ function InGameMenuIntegrationUtils.toggleReactPage(pageKey: string, isPageOpen:
 		SettingsHub:SetVisibility(true, false, page)
 		reactPageSignal.setCurrentReactPage(reactPage)
 	end
+end
+
+-- TODO APPEXP-4782: when supporting console, update if statement to close console modal if sidesheet can be open when modal is open
+function InGameMenuIntegrationUtils.toggleInviteFriendsPage()
+	if GameInviteModalManager:isGameModalOpen() then
+		GameInviteModalManager:closeModal()
+		return
+	end
+
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	GameInviteAnalyticsManager:withButtonName(GameInviteAnalyticsManager.ButtonName.SettingsHub)
+	SettingsHub:InviteToGame()
 end
 
 return InGameMenuIntegrationUtils

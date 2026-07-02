@@ -27,8 +27,6 @@ local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 -- Flags
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
 
 
@@ -49,9 +47,7 @@ local function createHelpPage()
 
     ------ TAB CUSTOMIZATION -------
     HelpPage.TabHeader.Name = Constants.HELP_PAGE.TAB_HEADER.NAME
-    if FFlagAddIGMToSideSheet then
-        HelpPage.Page.Name = "Help"
-    end
+    HelpPage.Page.Name = "Help"
     local icon = migrationLookup[Constants.HELP_PAGE.TAB_HEADER.ICON]
     HelpPage.TabHeader.TabLabel.Icon.Text = icon.name
     HelpPage.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]

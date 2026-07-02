@@ -7,6 +7,8 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local Foundation = require(Packages.Foundation)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local StateLayer = require(UIBlox.Core.Control.StateLayer)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
@@ -167,7 +169,9 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				FillDirection = Enum.FillDirection.Vertical,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, tokens.Global.Space_50),
+				Padding = if UIBloxConfig.removeStackedNavigationTabIconLabelSpacing
+					then nil
+					else UDim.new(0, tokens.Global.Space_50),
 			}),
 			Icon = iconComponent,
 			Label = labelComponent,

@@ -9,6 +9,7 @@ export type TypeRegistry = proto.TypeRegistry
 local home_page = require(script.home_page)
 
 -- Exported types
+export type HomePageRequest = home_page.HomePageRequest
 export type HomePageResponse = home_page.HomePageResponse
 
 return {

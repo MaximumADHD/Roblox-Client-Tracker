@@ -55,7 +55,6 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagConfirmationButtonsUseGreyButtons = require(RobloxGui.Modules.Settings.Flags.FFlagConfirmationButtonsUseGreyButtons)
-local FFlagMenuButtonsFixConfirmationScrolling = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsFixConfirmationScrolling)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -224,9 +223,7 @@ local function Initialize()
 			end
 		end
 
-		if FFlagMenuButtonsFixConfirmationScrolling then
-			this.Page.Size = UDim2.new(1,0,0,0)
-		end
+		this.Page.Size = UDim2.new(1,0,0,0)
 	else
 		local leaveGameConfirmationText = RobloxTranslator:FormatByKey(Constants.ConfirmLeaveGameLocalizedKey)
 

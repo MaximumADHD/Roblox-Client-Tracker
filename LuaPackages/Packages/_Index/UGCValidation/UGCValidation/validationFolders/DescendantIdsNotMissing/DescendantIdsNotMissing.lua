@@ -9,6 +9,7 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidateCheckDescendantIdsLoadable = require(root.flags.getFFlagUGCValidateCheckDescendantIdsLoadable)
+local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local function hasEditableBacking(instance: Instance, fieldName: string): boolean
 	local classMap = Constants.CONTENT_ID_EDITABLE_PROPERTY[instance.ClassName]
@@ -78,6 +79,25 @@ DescendantIdsNotMissing.run = function(reporter: Types.ValidationReporter, data:
 					InstanceFullName = instance:GetFullName(),
 					FieldName = fieldName,
 				})
+			end
+		end
+		if getFFlagUGCValidateAllowEmissives() then
+			local contentFieldsForClass = Constants.CONTENT_FIELDS_WITHOUT_CONTENTID[instance.ClassName]
+			if not contentFieldsForClass then
+				continue
+			end
+
+			for _, contentFieldName in contentFieldsForClass do
+				local content = (instance :: any)[contentFieldName] :: Content
+				if content.SourceType == Enum.ContentSourceType.Uri and content.Uri ~= "" then
+					-- A non-empty content ID must have parsed into the data layer, required or optional.
+					if not (loadedForInstance and loadedForInstance[contentFieldName]) then
+						reporter:fail(ErrorSourceStrings.Keys.DescendantIdMalformed, {
+							InstanceFullName = instance:GetFullName(),
+							FieldName = contentFieldName,
+						})
+					end
+				end
 			end
 		end
 	end

@@ -13,6 +13,7 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local DataEnums = ValidationEnums.SharedDataMember
 local Types = require(root.util.Types)
 local getFFlagUGCValidationAddPBRToSharedData = require(root.flags.getFFlagUGCValidationAddPBRToSharedData)
+local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local FetchEditables = {}
 
@@ -124,6 +125,9 @@ local function getTextureData(
 			NormalMap = surfaceAppearance.NormalMapContent,
 			RoughnessMap = surfaceAppearance.RoughnessMapContent,
 		}
+		if getFFlagUGCValidateAllowEmissives() then
+			contentMapping.EmissiveMask = surfaceAppearance.EmissiveMaskContent :: Content?
+		end
 	else
 		local content
 		if meshInstance:IsA("MeshPart") then

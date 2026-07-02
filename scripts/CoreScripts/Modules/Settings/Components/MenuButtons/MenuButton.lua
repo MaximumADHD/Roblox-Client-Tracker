@@ -23,7 +23,6 @@ local TraversalHistoryMenu = require(RobloxGui.Modules.Settings.Components.Trave
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
-local FFlagMenuButtonsUseKeyImages = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsUseKeyImages)
 local FFlagMenuButtonsIncreaseIconSize = game:DefineFastFlag("MenuButtonsIncreaseIconSize", false)
 local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 local FFlagIEMFocusNavSupportNewButtons = require(RobloxGui.Modules.Settings.Flags.FFlagIEMFocusNavSupportNewButtons)
@@ -78,7 +77,7 @@ end
 local function Hint(props) : React.React_Node
 	if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then 
 		return nil
-	elseif FFlagMenuButtonsUseKeyImages and (props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional) then
+	elseif props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional then
 		local shouldIncreaseIconSize = FFlagMenuButtonsIncreaseIconSize and props.lastInput ~= Responsive.Input.Directional
 
 		return React.createElement(Image, {
@@ -205,9 +204,8 @@ local function MenuButton(props: Props)
 		}, {
 			Hint = if (not FFlagGamepadIconSupportCheck or showHint) then React.createElement(Hint, {
 				lastInput = props.lastInput,
-				keyboardHint = if FFlagMenuButtonsUseKeyImages then nil else props.keyboardHint,
 				gamepadButtonImageHint = props.gamepadButtonImageHint,
-				keyboardButtonImageHint = if FFlagMenuButtonsUseKeyImages then props.keyboardButtonImageHint else nil,
+				keyboardButtonImageHint = props.keyboardButtonImageHint,
 				isDisabled = props.isDisabled,
 				foregroundStyle = foregroundStyle,
 				isSmall = props.isSmall,
@@ -222,7 +220,7 @@ local function MenuButton(props: Props)
 		}) else nil,
 		Hint = if (not FFlagGamepadIconSupportCheck or showHint) and not FFlagAddTraversalHistoryReactMenuButtons then 
 			(if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then nil
-			elseif FFlagMenuButtonsUseKeyImages and (props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional) then React.createElement(Image, {
+			elseif props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional then React.createElement(Image, {
 				Image = if props.lastInput == Responsive.Input.Directional then props.gamepadButtonImageHint else props.keyboardButtonImageHint,
 				imageStyle = {
 					Color3 = foregroundStyle.Color3,

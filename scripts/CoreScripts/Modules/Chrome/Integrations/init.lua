@@ -4,11 +4,13 @@ local isInExperienceUIVREnabled =
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
+local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
+local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
@@ -22,7 +24,11 @@ return {
 	ConnectUnibar = if ArgoPartyExperimentation.getIsRenameEnabled()
 		then nil
 		else require(script.Connect.ConnectIconUnibar),
-	ConnectDropdown = require(script.Connect.ConnectIconDropdown),
+	ConnectDropdown = if FFlagRemoveFriendsChatUnibarEntrypoints
+			and FFlagExpChatEnableFriendsTab
+			and ArgoPartyExperimentation.getIsRenameEnabled()
+		then nil
+		else require(script.Connect.ConnectIconDropdown),
 	TrustAndSafety = require(script.TrustAndSafety),
 	DummyWindow = require(script.DummyWindow),
 	DummyWindow2 = require(script.DummyWindow2),
@@ -40,10 +46,11 @@ return {
 	PartyMic = require(script.Party.PartyMic),
 	VRToggleButton = if isInExperienceUIVREnabled and isSpatial() then require(script.VRToggleButton) else nil :: never,
 	VRSafeBubble = if isInExperienceUIVREnabled and isSpatial() then require(script.VRSafeBubble) else nil :: never,
-	People = if FFlagAddIGMToSideSheet then require(script.Pages.People) else nil,
-	Settings = if FFlagAddIGMToSideSheet then require(script.Pages.Settings) else nil,
-	Gallery = if FFlagAddIGMToSideSheet then require(script.Pages.Gallery) else nil,
-	Help = if FFlagAddIGMToSideSheet then require(script.Pages.Help) else nil,
+	People = require(script.Pages.People),
+	InviteFriends = if FFlagAddInviteFriendsIntegration then require(script.Pages.InviteFriends) else nil,
+	Settings = require(script.Pages.Settings),
+	Gallery = require(script.Pages.Gallery),
+	Help = require(script.Pages.Help),
 	TraversalHistory = if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet
 		then require(script.Pages.TraversalHistory)
 		else nil,

@@ -19,6 +19,7 @@ local mockCurrentPageSignalListeners: { (string) -> () } = {}
 local mockIsVisible = false
 local mockSetVisibility = jest.fn()
 local mockSwitchToPage = jest.fn()
+local mockInviteToGame = jest.fn()
 
 jest.mock(Chrome.Parent.Settings.SettingsHub, function()
 	return {
@@ -38,6 +39,7 @@ jest.mock(Chrome.Parent.Settings.SettingsHub, function()
 		SwitchToPage = function(_self, ...)
 			mockSwitchToPage(...)
 		end,
+		InviteToGame = mockInviteToGame,
 	}
 end)
 
@@ -55,6 +57,25 @@ jest.mock(Settings.ReactPageSignal, function()
 	end
 end)
 
+local mockCloseModal = jest.fn()
+local mockIsGameModalOpen = jest.fn()
+local mockWithButtonName = jest.fn()
+
+jest.mock(CorePackages.Workspace.Packages.GameInvite, function()
+	return {
+		GameInviteModalManager = {
+			isGameModalOpen = mockIsGameModalOpen,
+			closeModal = mockCloseModal,
+		},
+		GameInviteAnalyticsManager = {
+			withButtonName = mockWithButtonName,
+			ButtonName = {
+				SettingsHub = "settingsHub",
+			},
+		},
+	}
+end)
+
 local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
 
 local function fireCurrentPageSignal(pageName: string)
@@ -70,6 +91,11 @@ describe("InGameMenuIntegrationUtils", function()
 		mockSetVisibility:mockReset()
 		mockSwitchToPage:mockReset()
 		mockSetCurrentReactPage:mockReset()
+		mockInviteToGame:mockReset()
+		mockCloseModal:mockReset()
+		mockIsGameModalOpen:mockReset()
+		mockWithButtonName:mockReset()
+		mockIsGameModalOpen.mockReturnValue(false)
 	end)
 
 	describe("createPageOpenSignal", function()
@@ -159,6 +185,25 @@ describe("InGameMenuIntegrationUtils", function()
 			expect(mockSetVisibility).toHaveBeenCalledWith(true, false, MOCK_PAGES.TraversalHistoryPage)
 			expect(mockSetCurrentReactPage).toHaveBeenCalledWith(EnumReactPage.TraversalHistory)
 			expect(mockSwitchToPage).never.toHaveBeenCalled()
+		end)
+	end)
+
+	describe("toggleInviteFriendsPage", function()
+		it("SHOULD close the invite modal when it is already open", function()
+			mockIsGameModalOpen.mockReturnValue(true)
+
+			InGameMenuIntegrationUtils.toggleInviteFriendsPage()
+
+			expect(mockCloseModal).toHaveBeenCalledTimes(1)
+			expect(mockInviteToGame).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD open invite when the modal is closed", function()
+			InGameMenuIntegrationUtils.toggleInviteFriendsPage()
+
+			expect(mockCloseModal).never.toHaveBeenCalled()
+			expect(mockWithButtonName).toHaveBeenCalledWith(expect.any("table"), "settingsHub")
+			expect(mockInviteToGame).toHaveBeenCalledTimes(1)
 		end)
 	end)
 end)

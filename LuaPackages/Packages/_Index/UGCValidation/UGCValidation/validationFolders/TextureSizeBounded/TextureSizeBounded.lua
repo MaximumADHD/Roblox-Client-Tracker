@@ -9,6 +9,7 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 
 local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
+local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local TextureSizeBounded = {}
 
@@ -118,6 +119,9 @@ TextureSizeBounded.run = function(reporter: Types.ValidationReporter, data: Type
 			end
 
 			local mapNames = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
+			if getFFlagUGCValidateAllowEmissives() then
+				table.insert(mapNames, "EmissiveMask")
+			end
 			for _, mapName in mapNames do
 				local mapData = (textureData :: any)[mapName]
 				if mapData and mapData.editable then

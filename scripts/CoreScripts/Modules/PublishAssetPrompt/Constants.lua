@@ -23,6 +23,11 @@ Constants.AvatarAssetTypeDefaultName = {
 	[Enum.AvatarAssetType.ShortsAccessory] = "Shorts",
 	[Enum.AvatarAssetType.DressSkirtAccessory] = "Dress/Skirt",
 	[Enum.AvatarAssetType.HairAccessory] = "Hair",
+	[Enum.AvatarAssetType.EyeMakeup] = "Eye Makeup",
+	[Enum.AvatarAssetType.FaceMakeup] = "Face Makeup",
+	[Enum.AvatarAssetType.LipMakeup] = "Lip Makeup",
+	[Enum.AvatarAssetType.EyebrowAccessory] = "Eyebrow",
+	[Enum.AvatarAssetType.EyelashAccessory] = "Eyelash",
 }
 
 Constants.AvatarAssetTypeLocalized = {
@@ -41,6 +46,19 @@ Constants.AvatarAssetTypeLocalized = {
 	[Enum.AvatarAssetType.ShortsAccessory] = "Feature.Avatar.Label.Shorts",
 	[Enum.AvatarAssetType.DressSkirtAccessory] = "Feature.Avatar.Label.DressesAndSkirts",
 	[Enum.AvatarAssetType.HairAccessory] = "Feature.Avatar.Label.Hair",
+	[Enum.AvatarAssetType.EyeMakeup] = "Feature.Avatar.Label.EyeMakeup",
+	[Enum.AvatarAssetType.FaceMakeup] = "Feature.Avatar.Label.FaceMakeup",
+	[Enum.AvatarAssetType.LipMakeup] = "Feature.Avatar.Label.LipMakeup",
+	[Enum.AvatarAssetType.EyebrowAccessory] = "Feature.Avatar.Label.Eyebrow",
+	[Enum.AvatarAssetType.EyelashAccessory] = "Feature.Avatar.Label.Eyelash",
+}
+
+Constants.MakeupAssetTypes = {
+	[Enum.AvatarAssetType.FaceMakeup] = true,
+	[Enum.AvatarAssetType.LipMakeup] = true,
+	[Enum.AvatarAssetType.EyeMakeup] = true,
+	[Enum.AvatarAssetType.EyebrowAccessory] = true,
+	[Enum.AvatarAssetType.EyelashAccessory] = true,
 }
 
 return Constants

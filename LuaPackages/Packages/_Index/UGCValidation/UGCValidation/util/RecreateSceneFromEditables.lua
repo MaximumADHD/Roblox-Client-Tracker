@@ -11,6 +11,7 @@ local getFFlagUGCValidationAddPBRToSharedData = require(root.flags.getFFlagUGCVa
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local R15plusUtils = require(root.util.R15plusUtils)
 local getFFlagUGCValidationAddGeometryToExports = require(root.flags.getFFlagUGCValidationAddGeometryToExports)
+local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local RecreateSceneFromEditables = {}
 
@@ -52,6 +53,11 @@ local function copyMeshPart(
 			end
 			if editablePBRData.RoughnessMap then
 				surfaceAppearance.RoughnessMapContent = Content.fromObject(editablePBRData.RoughnessMap.editable)
+			end
+			if getFFlagUGCValidateAllowEmissives() then
+				if editablePBRData.EmissiveMask then
+					surfaceAppearance.EmissiveMaskContent = Content.fromObject(editablePBRData.EmissiveMask.editable)
+				end
 			end
 
 			surfaceAppearance.Parent = newMeshPart

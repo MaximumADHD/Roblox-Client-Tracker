@@ -8,6 +8,8 @@ local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtil
 local getFFlagUGCValidateMigrateCurveAnim = require(root.flags.getFFlagUGCValidateMigrateCurveAnim)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
+local getFFlagUGCValidateCurveAnimRigDataR15Plus = require(root.flags.getFFlagUGCValidateCurveAnimRigDataR15Plus)
+local getEngineFeatureIsValidR15Plus = require(root.flags.getEngineFeatureIsValidR15Plus)
 
 local CurveAnimRigDataPresent = {}
 
@@ -41,10 +43,23 @@ CurveAnimRigDataPresent.run = function(reporter: Types.ValidationReporter, data:
 			return
 		end
 
-		local skipRigDataCheck = getFFlagUGCValidateEmotesBonesAllowed()
+		local hasBones = getFFlagUGCValidateEmotesBonesAllowed()
 			and CurveAnimBoneHierarchyUtils.hasBoneFolders(curveAnim)
 
-		if not skipRigDataCheck then
+		if hasBones then
+			if getFFlagUGCValidateCurveAnimRigDataR15Plus() and getEngineFeatureIsValidR15Plus() then
+				for _, child in curveAnim:GetChildren() do
+					if not child:IsA("AnimationRigData") then
+						continue
+					end
+
+					if not (child :: any):IsValidR15Plus() then
+						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidRigDataR15Plus)
+						return
+					end
+				end
+			end
+		else
 			for _, child in curveAnim:GetChildren() do
 				if not child:IsA("AnimationRigData") then
 					continue

@@ -49,7 +49,13 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
 
     function AvatarAbilitiesInterface._avatarAbilities()
         if not AvatarAbilitiesModule then
-            AvatarAbilitiesModule = require("@rbx/AvatarAbilities")
+            local packages = game:GetService("ReplicatedStorage"):FindFirstChild("Packages")
+            local avatarAbilitiesScriptModule = if packages then packages:FindFirstChild("AvatarAbilities") else nil
+            AvatarAbilitiesModule = if avatarAbilitiesScriptModule then require(avatarAbilitiesScriptModule) else nil
+
+            if not AvatarAbilitiesModule then
+                AvatarAbilitiesModule = require("@rbx/AvatarAbilities")
+            end
         end
         return AvatarAbilitiesModule
     end
@@ -95,47 +101,49 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
         end
 
         if self._character then
-            self._abilityManagerActor = self._character:FindFirstChild("AbilityManagerActor")
-            if self._abilityManagerActor then
-                self._data = {}
-                self._humanoid = self._character:FindFirstChildOfClass("Humanoid")
-                while not self._humanoid do
-                    self._character.ChildAdded:Wait()
+        	task.spawn(function()
+                self._abilityManagerActor = self._character:WaitForChild("AbilityManagerActor", 5)
+                if self._abilityManagerActor then
+                    self._data = {}
                     self._humanoid = self._character:FindFirstChildOfClass("Humanoid")
-                end
+                    while not self._humanoid do
+                        self._character.ChildAdded:Wait()
+                        self._humanoid = self._character:FindFirstChildOfClass("Humanoid")
+                    end
 
-                if self._evaluateStateMachineChangedConnection then
-                    self._evaluateStateMachineChangedConnection:Disconnect()
-                    self._evaluateStateMachineChangedConnection = nil
-                end
-                local function enabledChanged()
-                    if self:isEnabled() then
-                        local inputMapChanged
-                        self._inputMap, self._inputMapCleanup, inputMapChanged = self._avatarAbilities().createMaintainedInputMap(self._character)
+                    if self._evaluateStateMachineChangedConnection then
+                        self._evaluateStateMachineChangedConnection:Disconnect()
+                        self._evaluateStateMachineChangedConnection = nil
+                    end
+                    local function enabledChanged()
+                        if self:isEnabled() then
+                            local inputMapChanged
+                            self._inputMap, self._inputMapCleanup, inputMapChanged = self._avatarAbilities().createMaintainedInputMap(self._character)
 
-                        if self._inputMapChangedConnection then
-                            self._inputMapChangedConnection:Disconnect()
-                            self._inputMapChangedConnection = nil
-                        end
-                        self._inputMapChangedConnection = inputMapChanged:Connect(function(inputName)
+                            if self._inputMapChangedConnection then
+                                self._inputMapChangedConnection:Disconnect()
+                                self._inputMapChangedConnection = nil
+                            end
+                            self._inputMapChangedConnection = inputMapChanged:Connect(function(inputName)
+                                self._abilitiesChangedEvent:Fire()
+                            end)
                             self._abilitiesChangedEvent:Fire()
-                        end)
-                        self._abilitiesChangedEvent:Fire()
 
-                        for attributeName, events in self._abilityChangedEvents do
-                            for abilityName, event in events do
-                                event:Fire()
-                                self:_hookUpAbilityChangedEvent(abilityName, attributeName)
+                            for attributeName, events in self._abilityChangedEvents do
+                                for abilityName, event in events do
+                                    event:Fire()
+                                    self:_hookUpAbilityChangedEvent(abilityName, attributeName)
+                                end
                             end
                         end
+                        self._enabledChangedEvent:Fire()
                     end
-                    self._enabledChangedEvent:Fire()
-                end
-                self._evaluateStateMachineChangedConnection = self._humanoid:GetPropertyChangedSignal("EvaluateStateMachine"):Connect(function()
+                    self._evaluateStateMachineChangedConnection = self._humanoid:GetPropertyChangedSignal("EvaluateStateMachine"):Connect(function()
+                        enabledChanged()
+                    end)
                     enabledChanged()
-                end)
-                enabledChanged()
-            end
+                end
+            end)
         end
     end
 

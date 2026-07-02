@@ -27,7 +27,6 @@ local View = Foundation.View
 
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
-local FFlagMenuButtonsUseKeyImages = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsUseKeyImages)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
 local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
@@ -49,8 +48,7 @@ local function createMenuButtons(buttonsData: ButtonsData, lastInput: string, is
 			MenuButton = React.createElement(MenuButton, {
 				text = buttonsData[i].text,
 				lastInput = lastInput,
-				keyboardHint = if FFlagMenuButtonsUseKeyImages then nil else buttonsData[i].hint.keyboard,
-				keyboardButtonImageHint = if FFlagMenuButtonsUseKeyImages then buttonsData[i].hint.keyboardButtonImage else nil,
+				keyboardButtonImageHint = buttonsData[i].hint.keyboardButtonImage,
 				gamepadButton = if FFlagGamepadIconSupportCheck then buttonsData[i].hint.gamepadButton else nil,
 				gamepadButtonImageHint = buttonsData[i].hint.gamepadButtonImage,
 				onActivated = buttonsData[i].onActivated,
@@ -113,7 +111,7 @@ local function MenuButtons(props: MenuButtonsProps)
 				text = localizedText.LeaveGame,
 				hint = {
 					keyboard = "L",
-					keyboardButtonImage = if FFlagMenuButtonsUseKeyImages then "icons/controls/keys/key_l" else nil,
+					keyboardButtonImage = "icons/controls/keys/key_l",
 					gamepadButton = Enum.KeyCode.ButtonX,
 					gamepadButtonImage = leaveHintImage,
 					setGamepadButtonImage = setLeaveHintImage,
@@ -138,7 +136,7 @@ local function MenuButtons(props: MenuButtonsProps)
 				text = localizedText.Respawn,
 				hint = {
 					keyboard = "R",
-					keyboardButtonImage = if FFlagMenuButtonsUseKeyImages then "icons/controls/keys/key_r" else nil,
+					keyboardButtonImage = "icons/controls/keys/key_r",
 					gamepadButton = Enum.KeyCode.ButtonY,
 					gamepadButtonImage = resetHintImage,
 					setGamepadButtonImage = setResetHintImage,
@@ -160,7 +158,7 @@ local function MenuButtons(props: MenuButtonsProps)
 				text = localizedText.Resume,
 				hint = {
 					keyboard = "ESC",
-					keyboardButtonImage = if FFlagMenuButtonsUseKeyImages then "icons/controls/keys/key_esc" else nil,
+					keyboardButtonImage = "icons/controls/keys/key_esc",
 					gamepadButton = Enum.KeyCode.ButtonStart,
 					gamepadButtonImage = resumeHintImage,
 					setGamepadButtonImage = setResumeHintImage,

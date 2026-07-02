@@ -103,6 +103,7 @@ export type EditableImageWithPBRData = {
 	MetalnessMap: EditableImageData?,
 	NormalMap: EditableImageData?,
 	RoughnessMap: EditableImageData?,
+	EmissiveMask: EditableImageData?,
 }
 
 export type CurveAnimationsData = { CurveAnimation }
@@ -235,6 +236,7 @@ export type BackendConfigs = {
 export type IECConfigs = {
 	token: string?,
 	universeId: number?,
+	restrictedUserIds: RestrictedUserIds?,
 }
 
 -- Consumers identify themselves via `source`; validation resolves env and policy.

@@ -9,6 +9,7 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 
 local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
+local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local FIntAccessoryColorMapMaxSize = game:DefineFastInt("AccessoryColorMapMaxSize", 1024)
 local FIntAccessoryMetalnessMapMaxSize = game:DefineFastInt("AccessoryMetalnessMapMaxSize", 256)
@@ -75,6 +76,9 @@ SurfaceAppearanceTexturesBounded.run = function(reporter: Types.ValidationReport
 		end
 
 		local mapNames = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
+		if getFFlagUGCValidateAllowEmissives() then
+			table.insert(mapNames, "EmissiveMask")
+		end
 		for _, mapName in mapNames do
 			local mapData = (textureData :: any)[mapName]
 			if not mapData or not mapData.editable then

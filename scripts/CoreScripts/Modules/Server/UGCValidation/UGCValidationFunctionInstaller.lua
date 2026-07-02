@@ -5,6 +5,7 @@ local UGCValidation = require(CorePackages.Packages.UGCValidation)
 local EngineFeatureUGCValidationWithContextEntrypoint =
 	game:GetEngineFeature("UGCValidationWithContextEntrypointFeature")
 local FFlagUGCValidateMigrateSchemaProperties = game:DefineFastFlag("UGCValidateMigrateSchemaProperties2", false)
+local FFlagUGCValidateForwardIECRestrictedUserIds = game:DefineFastFlag("UGCValidateForwardIECRestrictedUserIds", false)
 
 local function UGCValidationFunction(args)
 	local objectInstances = args["instances"]
@@ -92,7 +93,10 @@ local function UGCValidationFunction(args)
 				then {
 					token = token,
 					universeId = universeId,
-				}
+					restrictedUserIds = if FFlagUGCValidateForwardIECRestrictedUserIds
+						then restrictedUserIds
+						else nil,
+				} :: any
 				else nil,
 		}
 

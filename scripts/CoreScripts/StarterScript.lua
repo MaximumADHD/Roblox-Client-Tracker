@@ -219,7 +219,11 @@ end
 local FFlagAppNavMyStatsTab = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAppNavMyStatsTab
 if FFlagAppNavMyStatsTab then
 	local BuildExperience = coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.BuildExperience)
-	if BuildExperience and BuildExperience.BuildModeLaunch:hasBuildMode() then
+	local isBuildModeActive = BuildExperience and BuildExperience.BuildModeLaunch:hasBuildMode()
+	if BuildExperience then
+		BuildExperience.mountCreatorAgentResumeToastReceiver(isBuildModeActive == true)
+	end
+	if BuildExperience and isBuildModeActive then
 		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
 		BuildExperience.mountBuildControls()
 		BuildExperience.mountChatSheet()

@@ -3,17 +3,28 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local Foundation = require(CorePackages.Packages.Foundation)
+
+local useStyleSheet = Foundation.Hooks.useStyleSheet
 
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGameComponents = script.Parent
 
 local GetFFlagExtraInviteModalStringValidation = require(Modules.Flags.GetFFlagExtraInviteModalStringValidation)
+local FFlagFixPromptGameInviteUIButtonScaling = require(Modules.Flags.FFlagFixPromptGameInviteUIButtonScaling)
 
 local ShareGameContainer = require(ShareGameComponents.ShareGameContainer)
 local ModalShareGamePageFrame = require(ShareGameComponents.ModalShareGamePageFrame)
 local LayoutProvider = require(ShareGameComponents.LayoutProvider)
 local InviteSingleUserContainer = require(ShareGameComponents.InviteSingleUserContainer)
 local LoadingModal = require(ShareGameComponents.LoadingModal)
+
+local function FoundationStyleLink()
+	local styleSheet = useStyleSheet()
+	return Roact.createElement("StyleLink", {
+		StyleSheet = styleSheet,
+	})
+end
 
 local FullModalShareGameComponent = Roact.PureComponent:extend("FullModalShareGameComponent")
 
@@ -47,6 +58,9 @@ function FullModalShareGameComponent:render()
 			DisplayOrder = -1,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {
+			foundationStyleLink = if FFlagFixPromptGameInviteUIButtonScaling
+				then Roact.createElement(FoundationStyleLink)
+				else nil,
 			loadingIndicator = isLoading and Roact.createElement(LoadingModal),
 			layoutProvider = not isLoading and Roact.createElement(LayoutProvider, nil, {
 				ShareGameContainer = Roact.createElement(ShareGameContainer, {

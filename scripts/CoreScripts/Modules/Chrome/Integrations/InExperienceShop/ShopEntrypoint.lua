@@ -11,7 +11,6 @@ local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local ShopChromeWrapper = require(Chrome.Integrations.InExperienceShop.ShopChromeWrapper)
-local ShopIcon = require(Chrome.Integrations.InExperienceShop.ShopIcon)
 local ShopWindowLayout = require(Chrome.Integrations.InExperienceShop.ShopWindowLayout)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
@@ -21,9 +20,9 @@ local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
 local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
 local FFlagCenterInExperienceShopWindow = Shop.FFlagCenterInExperienceShopWindow
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local FFlagEnableMenuTrailingBadge = SharedFlags.FFlagEnableMenuTrailingBadge
+local FFlagExperienceShopNewIconography = Shop.FFlagExperienceShopNewIconography
 
 local ShopCoreGuiToggleSupported = game:GetEngineFeature("ShopCoreGuiToggleSupported")
 local EnableOpenShopSignal = game:GetEngineFeature("EnableOpenShopSignal")
@@ -104,15 +103,12 @@ local integration = ChromeService:register({
 			return isActive:get()
 		end,
 	components = {
-		-- TODO(DMP-2519): Drop the bespoke ShopIcon fallback once FFlagAddIGMToSideSheet is
-		-- fully rolled out and only the CommonIcon Foundation path is needed.
 		Icon = function()
-			if FFlagAddIGMToSideSheet then
-				return CommonIcon("BuildingStore", nil, isActive)
-			end
-			return React.createElement(ShopIcon, {
-				isActive = isActive,
-			})
+			return CommonIcon(
+				if FFlagExperienceShopNewIconography then "ShoppingBasket" else "BuildingStore",
+				nil,
+				isActive
+			)
 		end,
 		Window = function()
 			return React.createElement(ShopChromeWrapper, {

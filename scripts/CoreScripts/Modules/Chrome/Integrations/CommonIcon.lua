@@ -22,9 +22,6 @@ local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local useMappedSignal = ChromePackage.Hooks.useMappedSignal
 local UnibarStyle = ChromePackage.UnibarStyle
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
-
 local RBXAssetProto = "rbxasset://"
 
 local function isFoundationIconName(icon: any): boolean
@@ -54,7 +51,7 @@ function CommonIconComponent(props)
 	local color = style.Theme.IconEmphasis.Color
 	local transparency = style.Theme.IconEmphasis.Transparency
 
-	if FFlagAddIGMToSideSheet and isFoundationIconName(props.icon) then
+	if isFoundationIconName(props.icon) then
 		local iconStyle = if submenuTransition
 			then submenuTransition:map(function(v)
 				return {

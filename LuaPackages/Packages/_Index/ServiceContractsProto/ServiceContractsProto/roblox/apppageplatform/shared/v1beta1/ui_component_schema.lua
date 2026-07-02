@@ -37,6 +37,9 @@ type _Messages =
 		LazyNestedComponentListProp_Item: _LazyNestedComponentListProp_ItemMessage,
 		LazyNestedComponentListProp_Item_InputsEntry: _LazyNestedComponentListProp_Item_InputsEntryMessage,
 		LazyNestedComponentListProp_ItemList: _LazyNestedComponentListProp_ItemListMessage,
+		LazyNestedComponentListProp_PoolConfig: _LazyNestedComponentListProp_PoolConfigMessage,
+		LazyNestedComponentListProp_PoolConfig_EntriesEntry: _LazyNestedComponentListProp_PoolConfig_EntriesEntryMessage,
+		LazyNestedComponentListProp_PoolEntryConfig: _LazyNestedComponentListProp_PoolEntryConfigMessage,
 		LazyNestedComponentListProp_ComponentList: _LazyNestedComponentListProp_ComponentListMessage,
 		LazyNestedComponentListProp_ComponentList_ItemOverridesEntry: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryMessage,
 		NestedComponentListProp: _NestedComponentListPropMessage,
@@ -1196,6 +1199,95 @@ type _LazyNestedComponentListProp_ItemListMessage = proto.Message<
 	_LazyNestedComponentListProp_ItemListPartialFields
 >
 
+type _LazyNestedComponentListProp_PoolConfigImpl = {
+	__index: _LazyNestedComponentListProp_PoolConfigImpl,
+	new: (fields: _LazyNestedComponentListProp_PoolConfigPartialFields?) -> LazyNestedComponentListProp_PoolConfig,
+	encode: (self: LazyNestedComponentListProp_PoolConfig) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_PoolConfig,
+	jsonEncode: (self: LazyNestedComponentListProp_PoolConfig) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_PoolConfig,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_PoolConfigFields = {
+	pool_path: string,
+	entries: { [string]: LazyNestedComponentListProp_PoolEntryConfig },
+}
+
+type _LazyNestedComponentListProp_PoolConfigPartialFields = {
+	pool_path: string?,
+	entries: { [string]: LazyNestedComponentListProp_PoolEntryConfig }?,
+}
+
+export type LazyNestedComponentListProp_PoolConfig = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_PoolConfigFields,
+	{} :: _LazyNestedComponentListProp_PoolConfigImpl
+))
+type _LazyNestedComponentListProp_PoolConfigMessage = proto.Message<
+	LazyNestedComponentListProp_PoolConfig,
+	_LazyNestedComponentListProp_PoolConfigPartialFields
+>
+
+type _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl = {
+	__index: _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_PoolConfig_EntriesEntryPartialFields?
+	) -> LazyNestedComponentListProp_PoolConfig_EntriesEntry,
+	encode: (self: LazyNestedComponentListProp_PoolConfig_EntriesEntry) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_PoolConfig_EntriesEntry,
+	jsonEncode: (self: LazyNestedComponentListProp_PoolConfig_EntriesEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_PoolConfig_EntriesEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_PoolConfig_EntriesEntryFields = {
+	key: string,
+	value: LazyNestedComponentListProp_PoolEntryConfig?,
+}
+
+type _LazyNestedComponentListProp_PoolConfig_EntriesEntryPartialFields = {
+	key: string?,
+	value: LazyNestedComponentListProp_PoolEntryConfig?,
+}
+
+export type LazyNestedComponentListProp_PoolConfig_EntriesEntry = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_PoolConfig_EntriesEntryFields,
+	{} :: _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl
+))
+type _LazyNestedComponentListProp_PoolConfig_EntriesEntryMessage = proto.Message<
+	LazyNestedComponentListProp_PoolConfig_EntriesEntry,
+	_LazyNestedComponentListProp_PoolConfig_EntriesEntryPartialFields
+>
+
+type _LazyNestedComponentListProp_PoolEntryConfigImpl = {
+	__index: _LazyNestedComponentListProp_PoolEntryConfigImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_PoolEntryConfigPartialFields?
+	) -> LazyNestedComponentListProp_PoolEntryConfig,
+	encode: (self: LazyNestedComponentListProp_PoolEntryConfig) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_PoolEntryConfig,
+	jsonEncode: (self: LazyNestedComponentListProp_PoolEntryConfig) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_PoolEntryConfig,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_PoolEntryConfigFields = {
+	collection_item_size: string,
+}
+
+type _LazyNestedComponentListProp_PoolEntryConfigPartialFields = {
+	collection_item_size: string?,
+}
+
+export type LazyNestedComponentListProp_PoolEntryConfig = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_PoolEntryConfigFields,
+	{} :: _LazyNestedComponentListProp_PoolEntryConfigImpl
+))
+type _LazyNestedComponentListProp_PoolEntryConfigMessage = proto.Message<
+	LazyNestedComponentListProp_PoolEntryConfig,
+	_LazyNestedComponentListProp_PoolEntryConfigPartialFields
+>
+
 type _LazyNestedComponentListProp_ComponentListImpl = {
 	__index: _LazyNestedComponentListProp_ComponentListImpl,
 	new: (
@@ -1217,7 +1309,8 @@ type _LazyNestedComponentListProp_ComponentListFields = {
 	default_item: LazyNestedComponentListProp_Item?,
 	ordered_identifiers: StringArrayProp?,
 	item_overrides: { [string]: LazyNestedComponentListProp_Item },
-	pool_path: string,
+	defer_item_build: boolean,
+	pool_config: LazyNestedComponentListProp_PoolConfig?,
 }
 
 type _LazyNestedComponentListProp_ComponentListPartialFields = {
@@ -1229,7 +1322,8 @@ type _LazyNestedComponentListProp_ComponentListPartialFields = {
 	default_item: LazyNestedComponentListProp_Item?,
 	ordered_identifiers: StringArrayProp?,
 	item_overrides: { [string]: LazyNestedComponentListProp_Item }?,
-	pool_path: string?,
+	defer_item_build: boolean?,
+	pool_config: LazyNestedComponentListProp_PoolConfig?,
 }
 
 export type LazyNestedComponentListProp_ComponentList = typeof(setmetatable(
@@ -1365,6 +1459,9 @@ type _TileSchema_PropsFields = {
 	bottom_button_component: NestedComponentProp?,
 	bottom_button_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _TileSchema_PropsPartialFields = {
@@ -1391,6 +1488,9 @@ type _TileSchema_PropsPartialFields = {
 	bottom_button_component: NestedComponentProp?,
 	bottom_button_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type TileSchema_Props = typeof(setmetatable({} :: _TileSchema_PropsFields, {} :: _TileSchema_PropsImpl))
@@ -1574,6 +1674,7 @@ type _BadgeTileSchema_PropsFields = {
 	bottom_button_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	hold_action_config: HoldActionConfigProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
 }
 
 type _BadgeTileSchema_PropsPartialFields = {
@@ -1602,6 +1703,7 @@ type _BadgeTileSchema_PropsPartialFields = {
 	bottom_button_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	hold_action_config: HoldActionConfigProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
 }
 
 export type BadgeTileSchema_Props = typeof(setmetatable(
@@ -1669,6 +1771,9 @@ type _GameTileSchema_PropsFields = {
 	bottom_button_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	hold_action_config: HoldActionConfigProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	disable_hold_to_play: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
@@ -1677,6 +1782,7 @@ type _GameTileSchema_PropsFields = {
 	enable_ui_blox_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	open_game_details_on_purchase_required: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _GameTileSchema_PropsPartialFields = {
@@ -1703,6 +1809,9 @@ type _GameTileSchema_PropsPartialFields = {
 	bottom_button_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	hold_action_config: HoldActionConfigProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	disable_hold_to_play: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
@@ -1711,6 +1820,7 @@ type _GameTileSchema_PropsPartialFields = {
 	enable_ui_blox_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	open_game_details_on_purchase_required: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type GameTileSchema_Props = typeof(setmetatable(
@@ -3338,6 +3448,8 @@ type _PlayButtonSchema_PropsFields = {
 	applied_filters: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	enable_ui_blox_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	launch_when_loading: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	launch_on_release_after_unmount: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _PlayButtonSchema_PropsPartialFields = {
@@ -3360,6 +3472,8 @@ type _PlayButtonSchema_PropsPartialFields = {
 	applied_filters: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	enable_ui_blox_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	launch_when_loading: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	launch_on_release_after_unmount: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type PlayButtonSchema_Props = typeof(setmetatable(
@@ -3767,6 +3881,8 @@ type _OptionSelectorCollectionSchema_PropsFields = {
 	item_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	scroll_buttons_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	padding_between_option_selector_and_collection: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	option_impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_option_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _OptionSelectorCollectionSchema_PropsPartialFields = {
@@ -3782,6 +3898,8 @@ type _OptionSelectorCollectionSchema_PropsPartialFields = {
 	item_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	scroll_buttons_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	padding_between_option_selector_and_collection: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	option_impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_option_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type OptionSelectorCollectionSchema_Props = typeof(setmetatable(
@@ -9156,7 +9274,7 @@ type _AiOverviewSchema_PropsFields = {
 	compact_height: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	content: NestedComponentListProp?,
 	footer: NestedComponentListProp?,
-	side_content: NestedComponentProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
@@ -9167,7 +9285,7 @@ type _AiOverviewSchema_PropsPartialFields = {
 	compact_height: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	content: NestedComponentListProp?,
 	footer: NestedComponentListProp?,
-	side_content: NestedComponentProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
@@ -13809,6 +13927,400 @@ do
 end
 
 do
+	local _LazyNestedComponentListProp_PoolConfigImpl = {}
+	_LazyNestedComponentListProp_PoolConfigImpl.__index = _LazyNestedComponentListProp_PoolConfigImpl
+
+	function _LazyNestedComponentListProp_PoolConfigImpl.new(
+		data: _LazyNestedComponentListProp_PoolConfigPartialFields?
+	): LazyNestedComponentListProp_PoolConfig
+		return setmetatable({
+			pool_path = if data == nil or data.pool_path == nil then "" else data.pool_path,
+			entries = if data == nil or data.entries == nil then {} else data.entries,
+		}, _LazyNestedComponentListProp_PoolConfigImpl :: _LazyNestedComponentListProp_PoolConfigImpl)
+	end
+
+	function _LazyNestedComponentListProp_PoolConfigImpl.encode(self: LazyNestedComponentListProp_PoolConfig): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.pool_path ~= nil and self.pool_path ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.pool_path)
+		end
+
+		if self.entries ~= nil and next(self.entries) ~= nil then
+			for key, value in self.entries do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = (value :: any):encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_PoolConfigImpl.decode(input: buffer): LazyNestedComponentListProp_PoolConfig
+		local self = _LazyNestedComponentListProp_PoolConfigImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pool_path = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.LazyNestedComponentListProp_PoolConfig_EntriesEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.LazyNestedComponentListProp_PoolEntryConfig.new()
+
+					self.entries[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_PoolConfigImpl.jsonEncode(self: LazyNestedComponentListProp_PoolConfig): any
+		local output = {}
+
+		if self.pool_path ~= nil and self.pool_path ~= "" then
+			output.poolPath = self.pool_path
+		end
+
+		if self.entries ~= nil and next(self.entries) ~= nil then
+			local newOutput = {}
+			for key, value in self.entries do
+				newOutput[key] = (value :: any):jsonEncode()
+			end
+			output.entries = newOutput
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_PoolConfigImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_PoolConfig
+		local self = _LazyNestedComponentListProp_PoolConfigImpl.new()
+
+		if input.pool_path ~= nil then
+			self.pool_path = input.pool_path
+		end
+
+		if input.poolPath ~= nil then
+			self.pool_path = input.poolPath
+		end
+
+		if input.entries ~= nil then
+			local newOutput: { [string]: LazyNestedComponentListProp_PoolEntryConfig } = {}
+			for key, value in input.entries do
+				newOutput[key] = messages.LazyNestedComponentListProp_PoolEntryConfig.jsonDecode(value)
+			end
+
+			self.entries = newOutput
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_PoolConfigImpl.descriptor = {
+		name = "LazyNestedComponentListProp_PoolConfig",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PoolConfig",
+	}
+
+	messages.LazyNestedComponentListProp_PoolConfig = _LazyNestedComponentListProp_PoolConfigImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_PoolConfig)
+end
+
+do
+	local _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl = {}
+	_LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.__index =
+		_LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl
+
+	function _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.new(
+		data: _LazyNestedComponentListProp_PoolConfig_EntriesEntryPartialFields?
+	): LazyNestedComponentListProp_PoolConfig_EntriesEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl :: _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl
+		)
+	end
+
+	function _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.encode(
+		self: LazyNestedComponentListProp_PoolConfig_EntriesEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_PoolConfig_EntriesEntry
+		local self = _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.LazyNestedComponentListProp_PoolEntryConfig.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.jsonEncode(
+		self: LazyNestedComponentListProp_PoolConfig_EntriesEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_PoolConfig_EntriesEntry
+		local self = _LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.LazyNestedComponentListProp_PoolEntryConfig.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl.descriptor = {
+		name = "LazyNestedComponentListProp_PoolConfig_EntriesEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntriesEntry",
+	}
+
+	messages.LazyNestedComponentListProp_PoolConfig_EntriesEntry =
+		_LazyNestedComponentListProp_PoolConfig_EntriesEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_PoolConfig_EntriesEntry)
+end
+
+do
+	local _LazyNestedComponentListProp_PoolEntryConfigImpl = {}
+	_LazyNestedComponentListProp_PoolEntryConfigImpl.__index = _LazyNestedComponentListProp_PoolEntryConfigImpl
+
+	function _LazyNestedComponentListProp_PoolEntryConfigImpl.new(
+		data: _LazyNestedComponentListProp_PoolEntryConfigPartialFields?
+	): LazyNestedComponentListProp_PoolEntryConfig
+		return setmetatable({
+			collection_item_size = if data == nil or data.collection_item_size == nil
+				then ""
+				else data.collection_item_size,
+		}, _LazyNestedComponentListProp_PoolEntryConfigImpl :: _LazyNestedComponentListProp_PoolEntryConfigImpl)
+	end
+
+	function _LazyNestedComponentListProp_PoolEntryConfigImpl.encode(
+		self: LazyNestedComponentListProp_PoolEntryConfig
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_item_size ~= nil and self.collection_item_size ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_item_size)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_PoolEntryConfigImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_PoolEntryConfig
+		local self = _LazyNestedComponentListProp_PoolEntryConfigImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_item_size = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_PoolEntryConfigImpl.jsonEncode(
+		self: LazyNestedComponentListProp_PoolEntryConfig
+	): any
+		local output = {}
+
+		if self.collection_item_size ~= nil and self.collection_item_size ~= "" then
+			output.collectionItemSize = self.collection_item_size
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_PoolEntryConfigImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_PoolEntryConfig
+		local self = _LazyNestedComponentListProp_PoolEntryConfigImpl.new()
+
+		if input.collection_item_size ~= nil then
+			self.collection_item_size = input.collection_item_size
+		end
+
+		if input.collectionItemSize ~= nil then
+			self.collection_item_size = input.collectionItemSize
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_PoolEntryConfigImpl.descriptor = {
+		name = "LazyNestedComponentListProp_PoolEntryConfig",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PoolEntryConfig",
+	}
+
+	messages.LazyNestedComponentListProp_PoolEntryConfig = _LazyNestedComponentListProp_PoolEntryConfigImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_PoolEntryConfig)
+end
+
+do
 	local _LazyNestedComponentListProp_ComponentListImpl = {}
 	_LazyNestedComponentListProp_ComponentListImpl.__index = _LazyNestedComponentListProp_ComponentListImpl
 
@@ -13822,7 +14334,8 @@ do
 				then nil
 				else data.ordered_identifiers,
 			item_overrides = if data == nil or data.item_overrides == nil then {} else data.item_overrides,
-			pool_path = if data == nil or data.pool_path == nil then "" else data.pool_path,
+			defer_item_build = if data == nil or data.defer_item_build == nil then false else data.defer_item_build,
+			pool_config = if data == nil or data.pool_config == nil then nil else data.pool_config,
 		}, _LazyNestedComponentListProp_ComponentListImpl :: _LazyNestedComponentListProp_ComponentListImpl)
 	end
 
@@ -13872,9 +14385,15 @@ do
 			end
 		end
 
-		if self.pool_path ~= nil and self.pool_path ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.pool_path)
+		if self.defer_item_build then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.defer_item_build then 1 else 0)
+		end
+
+		if self.pool_config ~= nil then
+			local encoded = self.pool_config:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -13897,6 +14416,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.source = { type = "pool", value = value ~= 0 }
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.defer_item_build = value ~= 0
 					continue
 				end
 
@@ -13936,10 +14460,10 @@ do
 					self.item_overrides[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
-				elseif field == 7 then
+				elseif field == 9 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.pool_path = buffer.tostring(value)
+					self.pool_config = messages.LazyNestedComponentListProp_PoolConfig.decode(value)
 					continue
 				end
 
@@ -13996,8 +14520,12 @@ do
 			output.itemOverrides = newOutput
 		end
 
-		if self.pool_path ~= nil and self.pool_path ~= "" then
-			output.poolPath = self.pool_path
+		if self.defer_item_build then
+			output.deferItemBuild = self.defer_item_build
+		end
+
+		if self.pool_config ~= nil then
+			output.poolConfig = self.pool_config:jsonEncode()
 		end
 
 		return output
@@ -14059,12 +14587,20 @@ do
 			self.item_overrides = newOutput
 		end
 
-		if input.pool_path ~= nil then
-			self.pool_path = input.pool_path
+		if input.defer_item_build ~= nil then
+			self.defer_item_build = input.defer_item_build
 		end
 
-		if input.poolPath ~= nil then
-			self.pool_path = input.poolPath
+		if input.deferItemBuild ~= nil then
+			self.defer_item_build = input.deferItemBuild
+		end
+
+		if input.pool_config ~= nil then
+			self.pool_config = messages.LazyNestedComponentListProp_PoolConfig.jsonDecode(input.pool_config)
+		end
+
+		if input.poolConfig ~= nil then
+			self.pool_config = messages.LazyNestedComponentListProp_PoolConfig.jsonDecode(input.poolConfig)
 		end
 
 		return self
@@ -14597,6 +15133,13 @@ do
 				else data.bottom_button_component,
 			bottom_button_gap = if data == nil or data.bottom_button_gap == nil then nil else data.bottom_button_gap,
 			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
+			title_text_x_alignment = if data == nil or data.title_text_x_alignment == nil
+				then nil
+				else data.title_text_x_alignment,
+			image_padding = if data == nil or data.image_padding == nil then nil else data.image_padding,
+			image_corner_radius = if data == nil or data.image_corner_radius == nil
+				then nil
+				else data.image_corner_radius,
 		}, _TileSchema_PropsImpl :: _TileSchema_PropsImpl)
 	end
 
@@ -14742,6 +15285,24 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.title_text_x_alignment ~= nil then
+			local encoded = self.title_text_x_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_padding ~= nil then
+			local encoded = self.image_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_corner_radius ~= nil then
+			local encoded = self.image_corner_radius:encode()
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -14879,6 +15440,22 @@ do
 					self.background_style =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_text_x_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.decode(value)
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_corner_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -14996,6 +15573,18 @@ do
 
 		if self.background_style ~= nil then
 			output.backgroundStyle = self.background_style:jsonEncode()
+		end
+
+		if self.title_text_x_alignment ~= nil then
+			output.titleTextXAlignment = self.title_text_x_alignment:jsonEncode()
+		end
+
+		if self.image_padding ~= nil then
+			output.imagePadding = self.image_padding:jsonEncode()
+		end
+
+		if self.image_corner_radius ~= nil then
+			output.imageCornerRadius = self.image_corner_radius:jsonEncode()
 		end
 
 		return output
@@ -15204,6 +15793,40 @@ do
 		if input.backgroundStyle ~= nil then
 			self.background_style =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.backgroundStyle)
+		end
+
+		if input.title_text_x_alignment ~= nil then
+			self.title_text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.title_text_x_alignment
+				)
+		end
+
+		if input.titleTextXAlignment ~= nil then
+			self.title_text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.titleTextXAlignment
+				)
+		end
+
+		if input.image_padding ~= nil then
+			self.image_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.image_padding)
+		end
+
+		if input.imagePadding ~= nil then
+			self.image_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.imagePadding)
+		end
+
+		if input.image_corner_radius ~= nil then
+			self.image_corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.image_corner_radius)
+		end
+
+		if input.imageCornerRadius ~= nil then
+			self.image_corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.imageCornerRadius)
 		end
 
 		return self
@@ -15953,6 +16576,9 @@ do
 			bottom_button_gap = if data == nil or data.bottom_button_gap == nil then nil else data.bottom_button_gap,
 			hold_action_config = if data == nil or data.hold_action_config == nil then nil else data.hold_action_config,
 			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
+			title_text_x_alignment = if data == nil or data.title_text_x_alignment == nil
+				then nil
+				else data.title_text_x_alignment,
 		}, _BadgeTileSchema_PropsImpl :: _BadgeTileSchema_PropsImpl)
 	end
 
@@ -16110,6 +16736,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.title_text_x_alignment ~= nil then
+			local encoded = self.title_text_x_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -16257,6 +16889,12 @@ do
 					self.background_style =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_text_x_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -16382,6 +17020,10 @@ do
 
 		if self.background_style ~= nil then
 			output.backgroundStyle = self.background_style:jsonEncode()
+		end
+
+		if self.title_text_x_alignment ~= nil then
+			output.titleTextXAlignment = self.title_text_x_alignment:jsonEncode()
 		end
 
 		return output
@@ -16612,6 +17254,20 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.backgroundStyle)
 		end
 
+		if input.title_text_x_alignment ~= nil then
+			self.title_text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.title_text_x_alignment
+				)
+		end
+
+		if input.titleTextXAlignment ~= nil then
+			self.title_text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.titleTextXAlignment
+				)
+		end
+
 		return self
 	end
 
@@ -16814,6 +17470,13 @@ do
 			bottom_button_gap = if data == nil or data.bottom_button_gap == nil then nil else data.bottom_button_gap,
 			hold_action_config = if data == nil or data.hold_action_config == nil then nil else data.hold_action_config,
 			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
+			title_text_x_alignment = if data == nil or data.title_text_x_alignment == nil
+				then nil
+				else data.title_text_x_alignment,
+			image_padding = if data == nil or data.image_padding == nil then nil else data.image_padding,
+			image_corner_radius = if data == nil or data.image_corner_radius == nil
+				then nil
+				else data.image_corner_radius,
 			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
 			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
 			disable_hold_to_play = if data == nil or data.disable_hold_to_play == nil
@@ -16829,6 +17492,9 @@ do
 				then nil
 				else data.open_game_details_on_purchase_required,
 			age_rating_text = if data == nil or data.age_rating_text == nil then nil else data.age_rating_text,
+			disable_default_footer_logic = if data == nil or data.disable_default_footer_logic == nil
+				then nil
+				else data.disable_default_footer_logic,
 		}, _GameTileSchema_PropsImpl :: _GameTileSchema_PropsImpl)
 	end
 
@@ -16974,6 +17640,24 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.title_text_x_alignment ~= nil then
+			local encoded = self.title_text_x_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_padding ~= nil then
+			local encoded = self.image_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_corner_radius ~= nil then
+			local encoded = self.image_corner_radius:encode()
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		if self.universe_id ~= nil then
 			local encoded = self.universe_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 100, proto.wireTypes.lengthDelimited)
@@ -17019,6 +17703,12 @@ do
 		if self.age_rating_text ~= nil then
 			local encoded = self.age_rating_text:encode()
 			output, cursor = proto.writeTag(output, cursor, 107, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.disable_default_footer_logic ~= nil then
+			local encoded = self.disable_default_footer_logic:encode()
+			output, cursor = proto.writeTag(output, cursor, 108, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -17159,6 +17849,22 @@ do
 					self.background_style =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_text_x_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.decode(value)
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_corner_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				elseif field == 100 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -17200,6 +17906,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.age_rating_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 108 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.disable_default_footer_logic =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -17320,6 +18032,18 @@ do
 			output.backgroundStyle = self.background_style:jsonEncode()
 		end
 
+		if self.title_text_x_alignment ~= nil then
+			output.titleTextXAlignment = self.title_text_x_alignment:jsonEncode()
+		end
+
+		if self.image_padding ~= nil then
+			output.imagePadding = self.image_padding:jsonEncode()
+		end
+
+		if self.image_corner_radius ~= nil then
+			output.imageCornerRadius = self.image_corner_radius:jsonEncode()
+		end
+
 		if self.universe_id ~= nil then
 			output.universeId = self.universe_id:jsonEncode()
 		end
@@ -17350,6 +18074,10 @@ do
 
 		if self.age_rating_text ~= nil then
 			output.ageRatingText = self.age_rating_text:jsonEncode()
+		end
+
+		if self.disable_default_footer_logic ~= nil then
+			output.disableDefaultFooterLogic = self.disable_default_footer_logic:jsonEncode()
 		end
 
 		return output
@@ -17560,6 +18288,40 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.backgroundStyle)
 		end
 
+		if input.title_text_x_alignment ~= nil then
+			self.title_text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.title_text_x_alignment
+				)
+		end
+
+		if input.titleTextXAlignment ~= nil then
+			self.title_text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.titleTextXAlignment
+				)
+		end
+
+		if input.image_padding ~= nil then
+			self.image_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.image_padding)
+		end
+
+		if input.imagePadding ~= nil then
+			self.image_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.imagePadding)
+		end
+
+		if input.image_corner_radius ~= nil then
+			self.image_corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.image_corner_radius)
+		end
+
+		if input.imageCornerRadius ~= nil then
+			self.image_corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.imageCornerRadius)
+		end
+
 		if input.universe_id ~= nil then
 			self.universe_id =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
@@ -17638,6 +18400,17 @@ do
 		if input.ageRatingText ~= nil then
 			self.age_rating_text =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ageRatingText)
+		end
+
+		if input.disable_default_footer_logic ~= nil then
+			self.disable_default_footer_logic = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+				input.disable_default_footer_logic
+			)
+		end
+
+		if input.disableDefaultFooterLogic ~= nil then
+			self.disable_default_footer_logic =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.disableDefaultFooterLogic)
 		end
 
 		return self
@@ -29670,6 +30443,12 @@ do
 			enable_ui_blox_button = if data == nil or data.enable_ui_blox_button == nil
 				then nil
 				else data.enable_ui_blox_button,
+			launch_when_loading = if data == nil or data.launch_when_loading == nil
+				then nil
+				else data.launch_when_loading,
+			launch_on_release_after_unmount = if data == nil or data.launch_on_release_after_unmount == nil
+				then nil
+				else data.launch_on_release_after_unmount,
 		}, _PlayButtonSchema_PropsImpl :: _PlayButtonSchema_PropsImpl)
 	end
 
@@ -29788,6 +30567,18 @@ do
 		if self.enable_ui_blox_button ~= nil then
 			local encoded = self.enable_ui_blox_button:encode()
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.launch_when_loading ~= nil then
+			local encoded = self.launch_when_loading:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.launch_on_release_after_unmount ~= nil then
+			local encoded = self.launch_on_release_after_unmount:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -29910,6 +30701,17 @@ do
 					self.enable_ui_blox_button =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_when_loading = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_on_release_after_unmount =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -30011,6 +30813,14 @@ do
 
 		if self.enable_ui_blox_button ~= nil then
 			output.enableUiBloxButton = self.enable_ui_blox_button:jsonEncode()
+		end
+
+		if self.launch_when_loading ~= nil then
+			output.launchWhenLoading = self.launch_when_loading:jsonEncode()
+		end
+
+		if self.launch_on_release_after_unmount ~= nil then
+			output.launchOnReleaseAfterUnmount = self.launch_on_release_after_unmount:jsonEncode()
 		end
 
 		return output
@@ -30190,6 +31000,28 @@ do
 		if input.enableUiBloxButton ~= nil then
 			self.enable_ui_blox_button =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableUiBloxButton)
+		end
+
+		if input.launch_when_loading ~= nil then
+			self.launch_when_loading =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.launch_when_loading)
+		end
+
+		if input.launchWhenLoading ~= nil then
+			self.launch_when_loading =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.launchWhenLoading)
+		end
+
+		if input.launch_on_release_after_unmount ~= nil then
+			self.launch_on_release_after_unmount =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.launch_on_release_after_unmount
+				)
+		end
+
+		if input.launchOnReleaseAfterUnmount ~= nil then
+			self.launch_on_release_after_unmount =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.launchOnReleaseAfterUnmount)
 		end
 
 		return self
@@ -32859,6 +33691,12 @@ do
 					or data.padding_between_option_selector_and_collection == nil
 				then nil
 				else data.padding_between_option_selector_and_collection,
+			option_impression_event_name = if data == nil or data.option_impression_event_name == nil
+				then nil
+				else data.option_impression_event_name,
+			skip_option_item_impressions_log = if data == nil or data.skip_option_item_impressions_log == nil
+				then nil
+				else data.skip_option_item_impressions_log,
 		}, _OptionSelectorCollectionSchema_PropsImpl :: _OptionSelectorCollectionSchema_PropsImpl)
 	end
 
@@ -32935,6 +33773,18 @@ do
 		if self.padding_between_option_selector_and_collection ~= nil then
 			local encoded = self.padding_between_option_selector_and_collection:encode()
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.option_impression_event_name ~= nil then
+			local encoded = self.option_impression_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_option_item_impressions_log ~= nil then
+			local encoded = self.skip_option_item_impressions_log:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -33021,6 +33871,18 @@ do
 					self.padding_between_option_selector_and_collection =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.option_impression_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_option_item_impressions_log =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -33095,6 +33957,14 @@ do
 		if self.padding_between_option_selector_and_collection ~= nil then
 			output.paddingBetweenOptionSelectorAndCollection =
 				self.padding_between_option_selector_and_collection:jsonEncode()
+		end
+
+		if self.option_impression_event_name ~= nil then
+			output.optionImpressionEventName = self.option_impression_event_name:jsonEncode()
+		end
+
+		if self.skip_option_item_impressions_log ~= nil then
+			output.skipOptionItemImpressionsLog = self.skip_option_item_impressions_log:jsonEncode()
 		end
 
 		return output
@@ -33218,6 +34088,31 @@ do
 			self.padding_between_option_selector_and_collection =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
 					input.paddingBetweenOptionSelectorAndCollection
+				)
+		end
+
+		if input.option_impression_event_name ~= nil then
+			self.option_impression_event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+				input.option_impression_event_name
+			)
+		end
+
+		if input.optionImpressionEventName ~= nil then
+			self.option_impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.optionImpressionEventName)
+		end
+
+		if input.skip_option_item_impressions_log ~= nil then
+			self.skip_option_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.skip_option_item_impressions_log
+				)
+		end
+
+		if input.skipOptionItemImpressionsLog ~= nil then
+			self.skip_option_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.skipOptionItemImpressionsLog
 				)
 		end
 
@@ -64240,7 +65135,7 @@ do
 			compact_height = if data == nil or data.compact_height == nil then nil else data.compact_height,
 			content = if data == nil or data.content == nil then nil else data.content,
 			footer = if data == nil or data.footer == nil then nil else data.footer,
-			side_content = if data == nil or data.side_content == nil then nil else data.side_content,
+			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
 			test_id = if data == nil or data.test_id == nil then nil else data.test_id,
 		}, _AiOverviewSchema_PropsImpl :: _AiOverviewSchema_PropsImpl)
@@ -64280,8 +65175,8 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.side_content ~= nil then
-			local encoded = self.side_content:encode()
+		if self.background_style ~= nil then
+			local encoded = self.background_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -64345,7 +65240,8 @@ do
 				elseif field == 6 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.side_content = messages.NestedComponentProp.decode(value)
+					self.background_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
 				elseif field == 7 then
 					local value
@@ -64404,8 +65300,8 @@ do
 			output.footer = self.footer:jsonEncode()
 		end
 
-		if self.side_content ~= nil then
-			output.sideContent = self.side_content:jsonEncode()
+		if self.background_style ~= nil then
+			output.backgroundStyle = self.background_style:jsonEncode()
 		end
 
 		if self.layout_order ~= nil then
@@ -64456,12 +65352,14 @@ do
 			self.footer = messages.NestedComponentListProp.jsonDecode(input.footer)
 		end
 
-		if input.side_content ~= nil then
-			self.side_content = messages.NestedComponentProp.jsonDecode(input.side_content)
+		if input.background_style ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.background_style)
 		end
 
-		if input.sideContent ~= nil then
-			self.side_content = messages.NestedComponentProp.jsonDecode(input.sideContent)
+		if input.backgroundStyle ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.backgroundStyle)
 		end
 
 		if input.layout_order ~= nil then
@@ -67311,6 +68209,8 @@ return {
 	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
 	LazyNestedComponentListProp_Item = messages.LazyNestedComponentListProp_Item,
 	LazyNestedComponentListProp_ItemList = messages.LazyNestedComponentListProp_ItemList,
+	LazyNestedComponentListProp_PoolConfig = messages.LazyNestedComponentListProp_PoolConfig,
+	LazyNestedComponentListProp_PoolEntryConfig = messages.LazyNestedComponentListProp_PoolEntryConfig,
 	LazyNestedComponentListProp_ComponentList = messages.LazyNestedComponentListProp_ComponentList,
 	NestedComponentListProp = messages.NestedComponentListProp,
 	TileSchema = messages.TileSchema,

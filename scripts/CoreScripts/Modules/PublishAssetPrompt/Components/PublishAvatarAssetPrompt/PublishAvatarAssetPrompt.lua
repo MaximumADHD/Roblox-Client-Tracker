@@ -26,6 +26,9 @@ local useDispatch = RoactUtils.Hooks.RoactRodux.useDispatch
 local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 
 local Constants = require(PublishAssetPrompt.Constants)
+local MakeupPreviewUtils = require(PublishAssetPrompt.MakeupPreviewUtils)
+
+local GetFFlagSingleUploadMakeupSupport = require(PublishAssetPrompt.Flags.GetFFlagSingleUploadMakeupSupport)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
@@ -64,6 +67,30 @@ local function PublishAvatarAssetPrompt(props: Props)
 	local showTopScrim, setShowTopScrim = React.useState(false)
 	local purchasePromptReady, setPurchasePromptReady = React.useState(true)
 
+	-- For makeup assets, create a head Model with the makeup applied for preview.
+	local isMakeup = if GetFFlagSingleUploadMakeupSupport()
+		then MakeupPreviewUtils.isMakeupAssetType(promptInfo.accessoryType)
+		else false
+	local makeupHeadModel, setMakeupHeadModel = React.useState(nil :: Model?)
+
+	React.useEffect(function()
+		if not (isMakeup and promptInfo.accessoryInstance) then
+			return function() end
+		end
+
+		local headModel =
+			MakeupPreviewUtils.createMakeupHeadPreview(promptInfo.accessoryInstance, promptInfo.accessoryType)
+		setMakeupHeadModel(headModel)
+
+		return function()
+			if headModel then
+				headModel:Destroy()
+			end
+		end
+	end, { promptInfo.accessoryInstance, isMakeup, promptInfo.accessoryType } :: { any })
+
+	local previewModel = if isMakeup then makeupHeadModel else promptInfo.accessoryInstance
+
 	-- refs
 	local sentNameFieldTouchedRef = React.useRef(false)
 	local sentDescriptionFieldTouchedRef = React.useRef(false)
@@ -81,28 +108,31 @@ local function PublishAvatarAssetPrompt(props: Props)
 	end, {})
 
 	local canSubmit = React.useCallback(function()
-		return isNameValid and isDescValid and promptInfo.accessoryInstance ~= nil and purchasePromptReady
-	end, { isNameValid, isDescValid, promptInfo.accessoryInstance, purchasePromptReady })
+		return isNameValid and isDescValid and (promptInfo.accessoryInstance ~= nil) and purchasePromptReady
+	end, { isNameValid, isDescValid, promptInfo.accessoryInstance, purchasePromptReady } :: { any })
 
-	local onSubmit = React.useCallback(function()
-		Analytics.sendButtonClicked(Analytics.Section.BuyCreationPage, Analytics.Element.Buy)
+	local onSubmit = React.useCallback(
+		function()
+			Analytics.sendButtonClicked(Analytics.Section.BuyCreationPage, Analytics.Element.Buy)
 
-		local accessoryPublishMetadata = {
-			name = name,
-			description = description,
-		}
+			local accessoryPublishMetadata = {
+				name = name,
+				description = description,
+			}
 
-		if PurchasePrompt.initiateAvatarCreationFeePurchase then
-			PurchasePrompt.initiateAvatarCreationFeePurchase(
-				accessoryPublishMetadata,
-				promptInfo.guid,
-				promptInfo.accessoryInstance,
-				promptInfo.priceInRobux
-			)
-		else
-			mutedError("PurchasePrompt.initiateAvatarCreationFeePurchase is not available")
-		end
-	end, { name, description, promptInfo.guid, promptInfo.accessoryInstance, promptInfo.priceInRobux } :: { any })
+			if PurchasePrompt.initiateAvatarCreationFeePurchase then
+				PurchasePrompt.initiateAvatarCreationFeePurchase(
+					accessoryPublishMetadata,
+					promptInfo.guid,
+					previewModel,
+					promptInfo.priceInRobux
+				)
+			else
+				mutedError("PurchasePrompt.initiateAvatarCreationFeePurchase is not available")
+			end
+		end,
+		{ name, description, promptInfo.guid, promptInfo.accessoryInstance, promptInfo.priceInRobux, previewModel } :: { any }
+	)
 
 	local onNameUpdated = React.useCallback(function(newName, newIsValid)
 		setName(newName)
@@ -173,13 +203,15 @@ local function PublishAvatarAssetPrompt(props: Props)
 		end
 	end, {})
 
-	local categoryLocalized = RobloxTranslator:FormatByKey("Feature.Avatar.Label.Accessory")
+	local categoryLocalized = if isMakeup
+		then RobloxTranslator:FormatByKey("Feature.Catalog.Label.Makeup")
+		else RobloxTranslator:FormatByKey("Feature.Avatar.Label.Accessory")
 	local avatarAssetTypeLocalized =
 		RobloxTranslator:FormatByKey(Constants.AvatarAssetTypeLocalized[promptInfo.accessoryType])
 	local typeName = categoryLocalized .. " | " .. avatarAssetTypeLocalized
 
 	local renderPromptBody = React.useCallback(function()
-		local isLoading = promptInfo.accessoryInstance == nil
+		local isLoading = previewModel == nil
 		return React.createElement(React.Fragment, nil, {
 			UIListLayout = React.createElement("UIListLayout", {
 				Padding = PADDING,
@@ -193,9 +225,9 @@ local function PublishAvatarAssetPrompt(props: Props)
 			}),
 			EmbeddedPreview = React.createElement(ObjectViewport, {
 				openPreviewView = openPreviewView,
-				model = promptInfo.accessoryInstance,
+				model = previewModel,
 				isLoading = isLoading,
-				useFullBodyCameraSettings = true,
+				useFullBodyCameraSettings = if GetFFlagSingleUploadMakeupSupport() then not isMakeup else true,
 				fieldOfView = CAMERA_FOV,
 				LayoutOrder = 1,
 			}),
@@ -214,14 +246,14 @@ local function PublishAvatarAssetPrompt(props: Props)
 				LayoutOrder = 3,
 			}),
 		})
-	end, { promptInfo.accessoryInstance, promptInfo.accessoryType, description } :: { any })
+	end, { previewModel, promptInfo.accessoryType, description, isMakeup, typeName } :: { any })
 
 	return React.createElement(BasePublishPrompt, {
 		promptBody = renderPromptBody(),
 		screenSize = props.screenSize,
 		showingPreviewView = showingPreviewView,
 		closePreviewView = closePreviewView,
-		asset = promptInfo.accessoryInstance,
+		asset = previewModel,
 		nameLabel = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Name"),
 		defaultName = name,
 		titleText = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.BuyCreation"),

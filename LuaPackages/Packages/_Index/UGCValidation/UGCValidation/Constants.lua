@@ -13,6 +13,7 @@ local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGC
 local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
 local getFFlagUGCValidationAllowEngineDefaultPartSurfaces =
 	require(root.flags.getFFlagUGCValidationAllowEngineDefaultPartSurfaces)
+local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -428,9 +429,14 @@ Constants.PROPERTIES = {
 				},
 			}
 			else Enum.AlphaMode.Overlay,
-		EmissiveMaskContent = Content.none,
-		EmissiveStrength = 1,
-		EmissiveTint = Color3.new(1, 1, 1),
+		EmissiveMaskContent = if getFFlagUGCValidateAllowEmissives() then nil else Content.none,
+		EmissiveStrength = if getFFlagUGCValidateAllowEmissives()
+			then {
+				[Constants.COMPARISON_METHODS.GREATER_EQ] = 0,
+				[Constants.COMPARISON_METHODS.SMALLER_EQ] = 40,
+			}
+			else 1,
+		EmissiveTint = if getFFlagUGCValidateAllowEmissives() then nil else Color3.new(1, 1, 1),
 	},
 	WrapLayer = {
 		-- ====== Simple checks ======
@@ -498,6 +504,10 @@ Constants.CONTENT_ID_FIELDS = {
 	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 	WrapTarget = { "CageMeshId" },
 	Animation = { "AnimationId" },
+}
+
+Constants.CONTENT_FIELDS_WITHOUT_CONTENTID = {
+	SurfaceAppearance = { "EmissiveMaskContent" },
 }
 
 if getFFlagUGCValidateCheckTexturePackOwner() then

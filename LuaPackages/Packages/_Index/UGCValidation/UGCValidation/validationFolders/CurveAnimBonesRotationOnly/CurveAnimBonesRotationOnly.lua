@@ -6,15 +6,22 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 
 local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
+local getFFlagUGCValidateAnimBonesSupport = require(root.flags.getFFlagUGCValidateAnimBonesSupport)
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 
 local CurveAnimBonesRotationOnly = {}
 
 CurveAnimBonesRotationOnly.categories = { ValidationEnums.UploadCategory.EMOTE_ANIMATION }
+if getFFlagUGCValidateAnimBonesSupport() and getFFlagUGCValidationAnimationPackSupport() then
+	table.insert(CurveAnimBonesRotationOnly.categories, ValidationEnums.UploadCategory.ANIMATION)
+end
 CurveAnimBonesRotationOnly.requiredData = {
 	ValidationEnums.SharedDataMember.curveAnimations,
 }
 CurveAnimBonesRotationOnly.conditionalData = { ValidationEnums.SharedDataMember.curveAnimBoneData }
-CurveAnimBonesRotationOnly.fflag = getFFlagUGCValidateEmotesBonesAllowed
+CurveAnimBonesRotationOnly.fflag = function()
+	return getFFlagUGCValidateEmotesBonesAllowed() or getFFlagUGCValidateAnimBonesSupport()
+end
 CurveAnimBonesRotationOnly.expectedFailures = {}
 CurveAnimBonesRotationOnly.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 

@@ -26,6 +26,8 @@ local GetFFlagEnableReferredPlayerJoinRemoteEvent =
 local FFlagDebugLogExpchatMigration = game:DefineFastFlag("DebugLogExpchatMigration", false)
 local FFlagAXEnableInspectAndBuyBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
+local FFlagPlatformLeaderboardRccEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardRccEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -52,6 +54,9 @@ end
 
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
+if FFlagPlatformLeaderboardRccEnabled then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerPlatformLeaderboard", script.Parent)
+end
 
 -- Leaderstat server child-order tracker
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerLeaderstats", script.Parent)

@@ -35,7 +35,6 @@ local isInExperienceUIVREnabled =
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 
@@ -801,7 +800,7 @@ if FFlagEnableSideSheet then
 
 			if integration.sideSheetPlacement == SideSheetPlacement.Unibar then
 				table.insert(unibar, self:createIconProps(id, order))
-			elseif FFlagAddIGMToSideSheet and integration.sideSheetPlacement == SideSheetPlacement.Page then
+			elseif integration.sideSheetPlacement == SideSheetPlacement.Page then
 				table.insert(page, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.SessionAction then
 				table.insert(sessionAction, self:createIconProps(id, order))
@@ -841,7 +840,7 @@ if FFlagEnableSideSheet then
 		registerSideSheetIntegrations({
 			unibarIntegrations = unibar,
 			toggleIntegrations = toggle,
-			pageIntegrations = if FFlagAddIGMToSideSheet then page else {},
+			pageIntegrations = page,
 			sessionActionIntegrations = sessionAction,
 		})
 	end

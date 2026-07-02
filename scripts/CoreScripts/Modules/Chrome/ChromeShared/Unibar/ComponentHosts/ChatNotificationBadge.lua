@@ -24,7 +24,6 @@ type IconHostProps = {
 	position: React.Binding<UDim2> | UDim2 | nil,
 	visible: React.Binding<boolean> | boolean | nil,
 	disableButtonBehaviors: boolean?,
-	disableBadgeNumber: boolean?,
 	minBadgeCount: number?,
 }
 

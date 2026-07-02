@@ -129,6 +129,8 @@ type _Messages =
 		DismissGameFeedbackAction_Params: _DismissGameFeedbackAction_ParamsMessage,
 		OpenGameFeedbackFormAction: _OpenGameFeedbackFormActionMessage,
 		OpenGameFeedbackFormAction_Params: _OpenGameFeedbackFormAction_ParamsMessage,
+		AiOverviewFeedbackAction: _AiOverviewFeedbackActionMessage,
+		AiOverviewFeedbackAction_Params: _AiOverviewFeedbackAction_ParamsMessage,
 		EnableEventNotificationsAction: _EnableEventNotificationsActionMessage,
 		EnableEventNotificationsAction_Params: _EnableEventNotificationsAction_ParamsMessage,
 		DismissEventNotificationsModalAction: _DismissEventNotificationsModalActionMessage,
@@ -141,8 +143,14 @@ type _Messages =
 		OpenSearchResultsTabAction_Params: _OpenSearchResultsTabAction_ParamsMessage,
 		DismissPromptAction: _DismissPromptActionMessage,
 		DismissPromptAction_Params: _DismissPromptAction_ParamsMessage,
+		RecordPartyChatConversationUpsellAcknowledgementAction: _RecordPartyChatConversationUpsellAcknowledgementActionMessage,
+		RecordPartyChatConversationUpsellAcknowledgementAction_Params: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsMessage,
 		RequestFriendshipAction: _RequestFriendshipActionMessage,
 		RequestFriendshipAction_Params: _RequestFriendshipAction_ParamsMessage,
+		OpenTrustedFriendsUpsellModalAction: _OpenTrustedFriendsUpsellModalActionMessage,
+		OpenTrustedFriendsUpsellModalAction_Params: _OpenTrustedFriendsUpsellModalAction_ParamsMessage,
+		OpenSearchResultsWithQueryAction: _OpenSearchResultsWithQueryActionMessage,
+		OpenSearchResultsWithQueryAction_Params: _OpenSearchResultsWithQueryAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -360,11 +368,13 @@ type _OpenGameDetailsAction_ParamsImpl = {
 type _OpenGameDetailsAction_ParamsFields = {
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	inherit_referral_session: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _OpenGameDetailsAction_ParamsPartialFields = {
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	inherit_referral_session: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type OpenGameDetailsAction_Params = typeof(setmetatable(
@@ -3700,6 +3710,65 @@ type _OpenGameFeedbackFormAction_ParamsMessage = proto.Message<
 	_OpenGameFeedbackFormAction_ParamsPartialFields
 >
 
+type _AiOverviewFeedbackActionImpl = {
+	__index: _AiOverviewFeedbackActionImpl,
+	new: (fields: _AiOverviewFeedbackActionPartialFields?) -> AiOverviewFeedbackAction,
+	encode: (self: AiOverviewFeedbackAction) -> buffer,
+	decode: (input: buffer) -> AiOverviewFeedbackAction,
+	jsonEncode: (self: AiOverviewFeedbackAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AiOverviewFeedbackAction,
+	descriptor: proto.Descriptor,
+}
+
+type _AiOverviewFeedbackActionFields = {
+	action_type: ActionType,
+	action_params: AiOverviewFeedbackAction_Params?,
+}
+
+type _AiOverviewFeedbackActionPartialFields = {
+	action_type: ActionType?,
+	action_params: AiOverviewFeedbackAction_Params?,
+}
+
+export type AiOverviewFeedbackAction = typeof(setmetatable(
+	{} :: _AiOverviewFeedbackActionFields,
+	{} :: _AiOverviewFeedbackActionImpl
+))
+type _AiOverviewFeedbackActionMessage = proto.Message<AiOverviewFeedbackAction, _AiOverviewFeedbackActionPartialFields>
+
+type _AiOverviewFeedbackAction_ParamsImpl = {
+	__index: _AiOverviewFeedbackAction_ParamsImpl,
+	new: (fields: _AiOverviewFeedbackAction_ParamsPartialFields?) -> AiOverviewFeedbackAction_Params,
+	encode: (self: AiOverviewFeedbackAction_Params) -> buffer,
+	decode: (input: buffer) -> AiOverviewFeedbackAction_Params,
+	jsonEncode: (self: AiOverviewFeedbackAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AiOverviewFeedbackAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _AiOverviewFeedbackAction_ParamsFields = {
+	sentiment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	dialog_title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	dialog_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	placeholder_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _AiOverviewFeedbackAction_ParamsPartialFields = {
+	sentiment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	dialog_title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	dialog_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	placeholder_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type AiOverviewFeedbackAction_Params = typeof(setmetatable(
+	{} :: _AiOverviewFeedbackAction_ParamsFields,
+	{} :: _AiOverviewFeedbackAction_ParamsImpl
+))
+type _AiOverviewFeedbackAction_ParamsMessage = proto.Message<
+	AiOverviewFeedbackAction_Params,
+	_AiOverviewFeedbackAction_ParamsPartialFields
+>
+
 type _EnableEventNotificationsActionImpl = {
 	__index: _EnableEventNotificationsActionImpl,
 	new: (fields: _EnableEventNotificationsActionPartialFields?) -> EnableEventNotificationsAction,
@@ -4048,6 +4117,74 @@ type _DismissPromptAction_ParamsMessage = proto.Message<
 	_DismissPromptAction_ParamsPartialFields
 >
 
+type _RecordPartyChatConversationUpsellAcknowledgementActionImpl = {
+	__index: _RecordPartyChatConversationUpsellAcknowledgementActionImpl,
+	new: (
+		fields: _RecordPartyChatConversationUpsellAcknowledgementActionPartialFields?
+	) -> RecordPartyChatConversationUpsellAcknowledgementAction,
+	encode: (self: RecordPartyChatConversationUpsellAcknowledgementAction) -> buffer,
+	decode: (input: buffer) -> RecordPartyChatConversationUpsellAcknowledgementAction,
+	jsonEncode: (self: RecordPartyChatConversationUpsellAcknowledgementAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RecordPartyChatConversationUpsellAcknowledgementAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RecordPartyChatConversationUpsellAcknowledgementActionFields = {
+	action_type: ActionType,
+	action_params: RecordPartyChatConversationUpsellAcknowledgementAction_Params?,
+}
+
+type _RecordPartyChatConversationUpsellAcknowledgementActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RecordPartyChatConversationUpsellAcknowledgementAction_Params?,
+}
+
+export type RecordPartyChatConversationUpsellAcknowledgementAction = typeof(setmetatable(
+	{} :: _RecordPartyChatConversationUpsellAcknowledgementActionFields,
+	{} :: _RecordPartyChatConversationUpsellAcknowledgementActionImpl
+))
+type _RecordPartyChatConversationUpsellAcknowledgementActionMessage = proto.Message<
+	RecordPartyChatConversationUpsellAcknowledgementAction,
+	_RecordPartyChatConversationUpsellAcknowledgementActionPartialFields
+>
+
+type _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl = {
+	__index: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl,
+	new: (
+		fields: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsPartialFields?
+	) -> RecordPartyChatConversationUpsellAcknowledgementAction_Params,
+	encode: (self: RecordPartyChatConversationUpsellAcknowledgementAction_Params) -> buffer,
+	decode: (input: buffer) -> RecordPartyChatConversationUpsellAcknowledgementAction_Params,
+	jsonEncode: (self: RecordPartyChatConversationUpsellAcknowledgementAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RecordPartyChatConversationUpsellAcknowledgementAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsFields = {
+	modal_action: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	modal_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	modal_sequence: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	conversation_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	friend_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsPartialFields = {
+	modal_action: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	modal_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	modal_sequence: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	conversation_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	friend_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RecordPartyChatConversationUpsellAcknowledgementAction_Params = typeof(setmetatable(
+	{} :: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsFields,
+	{} :: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl
+))
+type _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsMessage = proto.Message<
+	RecordPartyChatConversationUpsellAcknowledgementAction_Params,
+	_RecordPartyChatConversationUpsellAcknowledgementAction_ParamsPartialFields
+>
+
 type _RequestFriendshipActionImpl = {
 	__index: _RequestFriendshipActionImpl,
 	new: (fields: _RequestFriendshipActionPartialFields?) -> RequestFriendshipAction,
@@ -4101,6 +4238,122 @@ export type RequestFriendshipAction_Params = typeof(setmetatable(
 type _RequestFriendshipAction_ParamsMessage = proto.Message<
 	RequestFriendshipAction_Params,
 	_RequestFriendshipAction_ParamsPartialFields
+>
+
+type _OpenTrustedFriendsUpsellModalActionImpl = {
+	__index: _OpenTrustedFriendsUpsellModalActionImpl,
+	new: (fields: _OpenTrustedFriendsUpsellModalActionPartialFields?) -> OpenTrustedFriendsUpsellModalAction,
+	encode: (self: OpenTrustedFriendsUpsellModalAction) -> buffer,
+	decode: (input: buffer) -> OpenTrustedFriendsUpsellModalAction,
+	jsonEncode: (self: OpenTrustedFriendsUpsellModalAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenTrustedFriendsUpsellModalAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenTrustedFriendsUpsellModalActionFields = {
+	action_type: ActionType,
+	action_params: OpenTrustedFriendsUpsellModalAction_Params?,
+}
+
+type _OpenTrustedFriendsUpsellModalActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenTrustedFriendsUpsellModalAction_Params?,
+}
+
+export type OpenTrustedFriendsUpsellModalAction = typeof(setmetatable(
+	{} :: _OpenTrustedFriendsUpsellModalActionFields,
+	{} :: _OpenTrustedFriendsUpsellModalActionImpl
+))
+type _OpenTrustedFriendsUpsellModalActionMessage = proto.Message<
+	OpenTrustedFriendsUpsellModalAction,
+	_OpenTrustedFriendsUpsellModalActionPartialFields
+>
+
+type _OpenTrustedFriendsUpsellModalAction_ParamsImpl = {
+	__index: _OpenTrustedFriendsUpsellModalAction_ParamsImpl,
+	new: (
+		fields: _OpenTrustedFriendsUpsellModalAction_ParamsPartialFields?
+	) -> OpenTrustedFriendsUpsellModalAction_Params,
+	encode: (self: OpenTrustedFriendsUpsellModalAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenTrustedFriendsUpsellModalAction_Params,
+	jsonEncode: (self: OpenTrustedFriendsUpsellModalAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenTrustedFriendsUpsellModalAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenTrustedFriendsUpsellModalAction_ParamsFields = {
+	target_user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenTrustedFriendsUpsellModalAction_ParamsPartialFields = {
+	target_user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenTrustedFriendsUpsellModalAction_Params = typeof(setmetatable(
+	{} :: _OpenTrustedFriendsUpsellModalAction_ParamsFields,
+	{} :: _OpenTrustedFriendsUpsellModalAction_ParamsImpl
+))
+type _OpenTrustedFriendsUpsellModalAction_ParamsMessage = proto.Message<
+	OpenTrustedFriendsUpsellModalAction_Params,
+	_OpenTrustedFriendsUpsellModalAction_ParamsPartialFields
+>
+
+type _OpenSearchResultsWithQueryActionImpl = {
+	__index: _OpenSearchResultsWithQueryActionImpl,
+	new: (fields: _OpenSearchResultsWithQueryActionPartialFields?) -> OpenSearchResultsWithQueryAction,
+	encode: (self: OpenSearchResultsWithQueryAction) -> buffer,
+	decode: (input: buffer) -> OpenSearchResultsWithQueryAction,
+	jsonEncode: (self: OpenSearchResultsWithQueryAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSearchResultsWithQueryAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSearchResultsWithQueryActionFields = {
+	action_type: ActionType,
+	action_params: OpenSearchResultsWithQueryAction_Params?,
+}
+
+type _OpenSearchResultsWithQueryActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSearchResultsWithQueryAction_Params?,
+}
+
+export type OpenSearchResultsWithQueryAction = typeof(setmetatable(
+	{} :: _OpenSearchResultsWithQueryActionFields,
+	{} :: _OpenSearchResultsWithQueryActionImpl
+))
+type _OpenSearchResultsWithQueryActionMessage = proto.Message<
+	OpenSearchResultsWithQueryAction,
+	_OpenSearchResultsWithQueryActionPartialFields
+>
+
+type _OpenSearchResultsWithQueryAction_ParamsImpl = {
+	__index: _OpenSearchResultsWithQueryAction_ParamsImpl,
+	new: (fields: _OpenSearchResultsWithQueryAction_ParamsPartialFields?) -> OpenSearchResultsWithQueryAction_Params,
+	encode: (self: OpenSearchResultsWithQueryAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSearchResultsWithQueryAction_Params,
+	jsonEncode: (self: OpenSearchResultsWithQueryAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSearchResultsWithQueryAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSearchResultsWithQueryAction_ParamsFields = {
+	search_query: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	search_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenSearchResultsWithQueryAction_ParamsPartialFields = {
+	search_query: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	search_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenSearchResultsWithQueryAction_Params = typeof(setmetatable(
+	{} :: _OpenSearchResultsWithQueryAction_ParamsFields,
+	{} :: _OpenSearchResultsWithQueryAction_ParamsImpl
+))
+type _OpenSearchResultsWithQueryAction_ParamsMessage = proto.Message<
+	OpenSearchResultsWithQueryAction_Params,
+	_OpenSearchResultsWithQueryAction_ParamsPartialFields
 >
 
 type _ActionImpl = {
@@ -4177,6 +4430,13 @@ type _ActionFields = {
 		| { type: "refresh_developer_products_action", value: RefreshDeveloperProductsAction }
 		| { type: "open_fae_trial_upsell_action", value: OpenFaeTrialUpsellAction }
 		| { type: "refresh_omni_recommendation_feed_item_action", value: RefreshOmniRecommendationFeedItemAction }
+		| { type: "ai_overview_feedback_action", value: AiOverviewFeedbackAction }
+		| { type: "open_trusted_friends_upsell_modal_action", value: OpenTrustedFriendsUpsellModalAction }
+		| {
+			type: "record_party_chat_conversation_upsell_acknowledgement_action",
+			value: RecordPartyChatConversationUpsellAcknowledgementAction,
+		}
+		| { type: "open_search_results_with_query_action", value: OpenSearchResultsWithQueryAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4246,6 +4506,13 @@ type _ActionPartialFields = {
 		| { type: "refresh_developer_products_action", value: RefreshDeveloperProductsAction }
 		| { type: "open_fae_trial_upsell_action", value: OpenFaeTrialUpsellAction }
 		| { type: "refresh_omni_recommendation_feed_item_action", value: RefreshOmniRecommendationFeedItemAction }
+		| { type: "ai_overview_feedback_action", value: AiOverviewFeedbackAction }
+		| { type: "open_trusted_friends_upsell_modal_action", value: OpenTrustedFriendsUpsellModalAction }
+		| {
+			type: "record_party_chat_conversation_upsell_acknowledgement_action",
+			value: RecordPartyChatConversationUpsellAcknowledgementAction,
+		}
+		| { type: "open_search_results_with_query_action", value: OpenSearchResultsWithQueryAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4572,6 +4839,10 @@ export type ActionType =
 	| "ACTION_TYPE_REFRESH_DEVELOPER_PRODUCTS"
 	| "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL"
 	| "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM"
+	| "ACTION_TYPE_AI_OVERVIEW_FEEDBACK"
+	| "ACTION_TYPE_OPEN_TRUSTED_FRIENDS_UPSELL_MODAL"
+	| "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT"
+	| "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
 	| number -- Unknown
 
 do
@@ -5628,6 +5899,9 @@ do
 		return setmetatable({
 			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
 			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			inherit_referral_session = if data == nil or data.inherit_referral_session == nil
+				then nil
+				else data.inherit_referral_session,
 		}, _OpenGameDetailsAction_ParamsImpl :: _OpenGameDetailsAction_ParamsImpl)
 	end
 
@@ -5644,6 +5918,12 @@ do
 		if self.universe_id ~= nil then
 			local encoded = self.universe_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.inherit_referral_session ~= nil then
+			local encoded = self.inherit_referral_session:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -5675,6 +5955,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.inherit_referral_session =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -5711,6 +5997,10 @@ do
 			output.universeId = self.universe_id:jsonEncode()
 		end
 
+		if self.inherit_referral_session ~= nil then
+			output.inheritReferralSession = self.inherit_referral_session:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -5732,6 +6022,16 @@ do
 
 		if input.universeId ~= nil then
 			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.inherit_referral_session ~= nil then
+			self.inherit_referral_session =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.inherit_referral_session)
+		end
+
+		if input.inheritReferralSession ~= nil then
+			self.inherit_referral_session =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.inheritReferralSession)
 		end
 
 		return self
@@ -22767,6 +23067,328 @@ do
 end
 
 do
+	local _AiOverviewFeedbackActionImpl = {}
+	_AiOverviewFeedbackActionImpl.__index = _AiOverviewFeedbackActionImpl
+
+	function _AiOverviewFeedbackActionImpl.new(data: _AiOverviewFeedbackActionPartialFields?): AiOverviewFeedbackAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _AiOverviewFeedbackActionImpl :: _AiOverviewFeedbackActionImpl)
+	end
+
+	function _AiOverviewFeedbackActionImpl.encode(self: AiOverviewFeedbackAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AiOverviewFeedbackActionImpl.decode(input: buffer): AiOverviewFeedbackAction
+		local self = _AiOverviewFeedbackActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.AiOverviewFeedbackAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AiOverviewFeedbackActionImpl.jsonEncode(self: AiOverviewFeedbackAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AiOverviewFeedbackActionImpl.jsonDecode(input: { [string]: any }): AiOverviewFeedbackAction
+		local self = _AiOverviewFeedbackActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.AiOverviewFeedbackAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.AiOverviewFeedbackAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_AiOverviewFeedbackActionImpl.descriptor = {
+		name = "AiOverviewFeedbackAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AiOverviewFeedbackAction",
+	}
+
+	messages.AiOverviewFeedbackAction = _AiOverviewFeedbackActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AiOverviewFeedbackAction)
+end
+
+do
+	local _AiOverviewFeedbackAction_ParamsImpl = {}
+	_AiOverviewFeedbackAction_ParamsImpl.__index = _AiOverviewFeedbackAction_ParamsImpl
+
+	function _AiOverviewFeedbackAction_ParamsImpl.new(
+		data: _AiOverviewFeedbackAction_ParamsPartialFields?
+	): AiOverviewFeedbackAction_Params
+		return setmetatable({
+			sentiment = if data == nil or data.sentiment == nil then nil else data.sentiment,
+			dialog_title = if data == nil or data.dialog_title == nil then nil else data.dialog_title,
+			dialog_text = if data == nil or data.dialog_text == nil then nil else data.dialog_text,
+			placeholder_text = if data == nil or data.placeholder_text == nil then nil else data.placeholder_text,
+		}, _AiOverviewFeedbackAction_ParamsImpl :: _AiOverviewFeedbackAction_ParamsImpl)
+	end
+
+	function _AiOverviewFeedbackAction_ParamsImpl.encode(self: AiOverviewFeedbackAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.sentiment ~= nil then
+			local encoded = self.sentiment:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.dialog_title ~= nil then
+			local encoded = self.dialog_title:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.dialog_text ~= nil then
+			local encoded = self.dialog_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.placeholder_text ~= nil then
+			local encoded = self.placeholder_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AiOverviewFeedbackAction_ParamsImpl.decode(input: buffer): AiOverviewFeedbackAction_Params
+		local self = _AiOverviewFeedbackAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sentiment = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.dialog_title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.dialog_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.placeholder_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AiOverviewFeedbackAction_ParamsImpl.jsonEncode(self: AiOverviewFeedbackAction_Params): any
+		local output = {}
+
+		if self.sentiment ~= nil then
+			output.sentiment = self.sentiment:jsonEncode()
+		end
+
+		if self.dialog_title ~= nil then
+			output.dialogTitle = self.dialog_title:jsonEncode()
+		end
+
+		if self.dialog_text ~= nil then
+			output.dialogText = self.dialog_text:jsonEncode()
+		end
+
+		if self.placeholder_text ~= nil then
+			output.placeholderText = self.placeholder_text:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AiOverviewFeedbackAction_ParamsImpl.jsonDecode(input: { [string]: any }): AiOverviewFeedbackAction_Params
+		local self = _AiOverviewFeedbackAction_ParamsImpl.new()
+
+		if input.sentiment ~= nil then
+			self.sentiment = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sentiment)
+		end
+
+		if input.dialog_title ~= nil then
+			self.dialog_title =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.dialog_title)
+		end
+
+		if input.dialogTitle ~= nil then
+			self.dialog_title =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.dialogTitle)
+		end
+
+		if input.dialog_text ~= nil then
+			self.dialog_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.dialog_text)
+		end
+
+		if input.dialogText ~= nil then
+			self.dialog_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.dialogText)
+		end
+
+		if input.placeholder_text ~= nil then
+			self.placeholder_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeholder_text)
+		end
+
+		if input.placeholderText ~= nil then
+			self.placeholder_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeholderText)
+		end
+
+		return self
+	end
+
+	_AiOverviewFeedbackAction_ParamsImpl.descriptor = {
+		name = "AiOverviewFeedbackAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.AiOverviewFeedbackAction_Params = _AiOverviewFeedbackAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AiOverviewFeedbackAction_Params)
+end
+
+do
 	local _EnableEventNotificationsActionImpl = {}
 	_EnableEventNotificationsActionImpl.__index = _EnableEventNotificationsActionImpl
 
@@ -24555,6 +25177,390 @@ do
 end
 
 do
+	local _RecordPartyChatConversationUpsellAcknowledgementActionImpl = {}
+	_RecordPartyChatConversationUpsellAcknowledgementActionImpl.__index =
+		_RecordPartyChatConversationUpsellAcknowledgementActionImpl
+
+	function _RecordPartyChatConversationUpsellAcknowledgementActionImpl.new(
+		data: _RecordPartyChatConversationUpsellAcknowledgementActionPartialFields?
+	): RecordPartyChatConversationUpsellAcknowledgementAction
+		return setmetatable(
+			{
+				action_type = if data == nil or data.action_type == nil
+					then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+					else data.action_type,
+				action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+			},
+			_RecordPartyChatConversationUpsellAcknowledgementActionImpl :: _RecordPartyChatConversationUpsellAcknowledgementActionImpl
+		)
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementActionImpl.encode(
+		self: RecordPartyChatConversationUpsellAcknowledgementAction
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementActionImpl.decode(
+		input: buffer
+	): RecordPartyChatConversationUpsellAcknowledgementAction
+		local self = _RecordPartyChatConversationUpsellAcknowledgementActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params =
+						messages.RecordPartyChatConversationUpsellAcknowledgementAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementActionImpl.jsonEncode(
+		self: RecordPartyChatConversationUpsellAcknowledgementAction
+	): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementActionImpl.jsonDecode(
+		input: { [string]: any }
+	): RecordPartyChatConversationUpsellAcknowledgementAction
+		local self = _RecordPartyChatConversationUpsellAcknowledgementActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params =
+				messages.RecordPartyChatConversationUpsellAcknowledgementAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params =
+				messages.RecordPartyChatConversationUpsellAcknowledgementAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RecordPartyChatConversationUpsellAcknowledgementActionImpl.descriptor = {
+		name = "RecordPartyChatConversationUpsellAcknowledgementAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RecordPartyChatConversationUpsellAcknowledgementAction",
+	}
+
+	messages.RecordPartyChatConversationUpsellAcknowledgementAction =
+		_RecordPartyChatConversationUpsellAcknowledgementActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RecordPartyChatConversationUpsellAcknowledgementAction)
+end
+
+do
+	local _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl = {}
+	_RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.__index =
+		_RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl
+
+	function _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.new(
+		data: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsPartialFields?
+	): RecordPartyChatConversationUpsellAcknowledgementAction_Params
+		return setmetatable(
+			{
+				modal_action = if data == nil or data.modal_action == nil then nil else data.modal_action,
+				modal_variant = if data == nil or data.modal_variant == nil then nil else data.modal_variant,
+				modal_sequence = if data == nil or data.modal_sequence == nil then nil else data.modal_sequence,
+				conversation_id = if data == nil or data.conversation_id == nil then nil else data.conversation_id,
+				friend_id = if data == nil or data.friend_id == nil then nil else data.friend_id,
+			},
+			_RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl :: _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl
+		)
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.encode(
+		self: RecordPartyChatConversationUpsellAcknowledgementAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.modal_action ~= nil then
+			local encoded = self.modal_action:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.modal_variant ~= nil then
+			local encoded = self.modal_variant:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.modal_sequence ~= nil then
+			local encoded = self.modal_sequence:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.conversation_id ~= nil then
+			local encoded = self.conversation_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.friend_id ~= nil then
+			local encoded = self.friend_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.decode(
+		input: buffer
+	): RecordPartyChatConversationUpsellAcknowledgementAction_Params
+		local self = _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.modal_action = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.modal_variant = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.modal_sequence = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.conversation_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.friend_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.jsonEncode(
+		self: RecordPartyChatConversationUpsellAcknowledgementAction_Params
+	): any
+		local output = {}
+
+		if self.modal_action ~= nil then
+			output.modalAction = self.modal_action:jsonEncode()
+		end
+
+		if self.modal_variant ~= nil then
+			output.modalVariant = self.modal_variant:jsonEncode()
+		end
+
+		if self.modal_sequence ~= nil then
+			output.modalSequence = self.modal_sequence:jsonEncode()
+		end
+
+		if self.conversation_id ~= nil then
+			output.conversationId = self.conversation_id:jsonEncode()
+		end
+
+		if self.friend_id ~= nil then
+			output.friendId = self.friend_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RecordPartyChatConversationUpsellAcknowledgementAction_Params
+		local self = _RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.new()
+
+		if input.modal_action ~= nil then
+			self.modal_action =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modal_action)
+		end
+
+		if input.modalAction ~= nil then
+			self.modal_action =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modalAction)
+		end
+
+		if input.modal_variant ~= nil then
+			self.modal_variant =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modal_variant)
+		end
+
+		if input.modalVariant ~= nil then
+			self.modal_variant =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modalVariant)
+		end
+
+		if input.modal_sequence ~= nil then
+			self.modal_sequence =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modal_sequence)
+		end
+
+		if input.modalSequence ~= nil then
+			self.modal_sequence =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.modalSequence)
+		end
+
+		if input.conversation_id ~= nil then
+			self.conversation_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.conversation_id)
+		end
+
+		if input.conversationId ~= nil then
+			self.conversation_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.conversationId)
+		end
+
+		if input.friend_id ~= nil then
+			self.friend_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.friend_id)
+		end
+
+		if input.friendId ~= nil then
+			self.friend_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.friendId)
+		end
+
+		return self
+	end
+
+	_RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl.descriptor = {
+		name = "RecordPartyChatConversationUpsellAcknowledgementAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RecordPartyChatConversationUpsellAcknowledgementAction_Params =
+		_RecordPartyChatConversationUpsellAcknowledgementAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RecordPartyChatConversationUpsellAcknowledgementAction_Params)
+end
+
+do
 	local _RequestFriendshipActionImpl = {}
 	_RequestFriendshipActionImpl.__index = _RequestFriendshipActionImpl
 
@@ -24826,6 +25832,551 @@ do
 end
 
 do
+	local _OpenTrustedFriendsUpsellModalActionImpl = {}
+	_OpenTrustedFriendsUpsellModalActionImpl.__index = _OpenTrustedFriendsUpsellModalActionImpl
+
+	function _OpenTrustedFriendsUpsellModalActionImpl.new(
+		data: _OpenTrustedFriendsUpsellModalActionPartialFields?
+	): OpenTrustedFriendsUpsellModalAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenTrustedFriendsUpsellModalActionImpl :: _OpenTrustedFriendsUpsellModalActionImpl)
+	end
+
+	function _OpenTrustedFriendsUpsellModalActionImpl.encode(self: OpenTrustedFriendsUpsellModalAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenTrustedFriendsUpsellModalActionImpl.decode(input: buffer): OpenTrustedFriendsUpsellModalAction
+		local self = _OpenTrustedFriendsUpsellModalActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenTrustedFriendsUpsellModalAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenTrustedFriendsUpsellModalActionImpl.jsonEncode(self: OpenTrustedFriendsUpsellModalAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenTrustedFriendsUpsellModalActionImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenTrustedFriendsUpsellModalAction
+		local self = _OpenTrustedFriendsUpsellModalActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenTrustedFriendsUpsellModalAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenTrustedFriendsUpsellModalAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenTrustedFriendsUpsellModalActionImpl.descriptor = {
+		name = "OpenTrustedFriendsUpsellModalAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenTrustedFriendsUpsellModalAction",
+	}
+
+	messages.OpenTrustedFriendsUpsellModalAction = _OpenTrustedFriendsUpsellModalActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenTrustedFriendsUpsellModalAction)
+end
+
+do
+	local _OpenTrustedFriendsUpsellModalAction_ParamsImpl = {}
+	_OpenTrustedFriendsUpsellModalAction_ParamsImpl.__index = _OpenTrustedFriendsUpsellModalAction_ParamsImpl
+
+	function _OpenTrustedFriendsUpsellModalAction_ParamsImpl.new(
+		data: _OpenTrustedFriendsUpsellModalAction_ParamsPartialFields?
+	): OpenTrustedFriendsUpsellModalAction_Params
+		return setmetatable({
+			target_user_id = if data == nil or data.target_user_id == nil then nil else data.target_user_id,
+		}, _OpenTrustedFriendsUpsellModalAction_ParamsImpl :: _OpenTrustedFriendsUpsellModalAction_ParamsImpl)
+	end
+
+	function _OpenTrustedFriendsUpsellModalAction_ParamsImpl.encode(
+		self: OpenTrustedFriendsUpsellModalAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.target_user_id ~= nil then
+			local encoded = self.target_user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenTrustedFriendsUpsellModalAction_ParamsImpl.decode(
+		input: buffer
+	): OpenTrustedFriendsUpsellModalAction_Params
+		local self = _OpenTrustedFriendsUpsellModalAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenTrustedFriendsUpsellModalAction_ParamsImpl.jsonEncode(
+		self: OpenTrustedFriendsUpsellModalAction_Params
+	): any
+		local output = {}
+
+		if self.target_user_id ~= nil then
+			output.targetUserId = self.target_user_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenTrustedFriendsUpsellModalAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenTrustedFriendsUpsellModalAction_Params
+		local self = _OpenTrustedFriendsUpsellModalAction_ParamsImpl.new()
+
+		if input.target_user_id ~= nil then
+			self.target_user_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.target_user_id)
+		end
+
+		if input.targetUserId ~= nil then
+			self.target_user_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.targetUserId)
+		end
+
+		return self
+	end
+
+	_OpenTrustedFriendsUpsellModalAction_ParamsImpl.descriptor = {
+		name = "OpenTrustedFriendsUpsellModalAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenTrustedFriendsUpsellModalAction_Params = _OpenTrustedFriendsUpsellModalAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenTrustedFriendsUpsellModalAction_Params)
+end
+
+do
+	local _OpenSearchResultsWithQueryActionImpl = {}
+	_OpenSearchResultsWithQueryActionImpl.__index = _OpenSearchResultsWithQueryActionImpl
+
+	function _OpenSearchResultsWithQueryActionImpl.new(
+		data: _OpenSearchResultsWithQueryActionPartialFields?
+	): OpenSearchResultsWithQueryAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSearchResultsWithQueryActionImpl :: _OpenSearchResultsWithQueryActionImpl)
+	end
+
+	function _OpenSearchResultsWithQueryActionImpl.encode(self: OpenSearchResultsWithQueryAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSearchResultsWithQueryActionImpl.decode(input: buffer): OpenSearchResultsWithQueryAction
+		local self = _OpenSearchResultsWithQueryActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSearchResultsWithQueryAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSearchResultsWithQueryActionImpl.jsonEncode(self: OpenSearchResultsWithQueryAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSearchResultsWithQueryActionImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenSearchResultsWithQueryAction
+		local self = _OpenSearchResultsWithQueryActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSearchResultsWithQueryAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSearchResultsWithQueryAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSearchResultsWithQueryActionImpl.descriptor = {
+		name = "OpenSearchResultsWithQueryAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSearchResultsWithQueryAction",
+	}
+
+	messages.OpenSearchResultsWithQueryAction = _OpenSearchResultsWithQueryActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSearchResultsWithQueryAction)
+end
+
+do
+	local _OpenSearchResultsWithQueryAction_ParamsImpl = {}
+	_OpenSearchResultsWithQueryAction_ParamsImpl.__index = _OpenSearchResultsWithQueryAction_ParamsImpl
+
+	function _OpenSearchResultsWithQueryAction_ParamsImpl.new(
+		data: _OpenSearchResultsWithQueryAction_ParamsPartialFields?
+	): OpenSearchResultsWithQueryAction_Params
+		return setmetatable({
+			search_query = if data == nil or data.search_query == nil then nil else data.search_query,
+			search_type = if data == nil or data.search_type == nil then nil else data.search_type,
+		}, _OpenSearchResultsWithQueryAction_ParamsImpl :: _OpenSearchResultsWithQueryAction_ParamsImpl)
+	end
+
+	function _OpenSearchResultsWithQueryAction_ParamsImpl.encode(self: OpenSearchResultsWithQueryAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.search_query ~= nil then
+			local encoded = self.search_query:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.search_type ~= nil then
+			local encoded = self.search_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSearchResultsWithQueryAction_ParamsImpl.decode(input: buffer): OpenSearchResultsWithQueryAction_Params
+		local self = _OpenSearchResultsWithQueryAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.search_query = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.search_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSearchResultsWithQueryAction_ParamsImpl.jsonEncode(self: OpenSearchResultsWithQueryAction_Params): any
+		local output = {}
+
+		if self.search_query ~= nil then
+			output.searchQuery = self.search_query:jsonEncode()
+		end
+
+		if self.search_type ~= nil then
+			output.searchType = self.search_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSearchResultsWithQueryAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenSearchResultsWithQueryAction_Params
+		local self = _OpenSearchResultsWithQueryAction_ParamsImpl.new()
+
+		if input.search_query ~= nil then
+			self.search_query =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.search_query)
+		end
+
+		if input.searchQuery ~= nil then
+			self.search_query =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.searchQuery)
+		end
+
+		if input.search_type ~= nil then
+			self.search_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.search_type)
+		end
+
+		if input.searchType ~= nil then
+			self.search_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.searchType)
+		end
+
+		return self
+	end
+
+	_OpenSearchResultsWithQueryAction_ParamsImpl.descriptor = {
+		name = "OpenSearchResultsWithQueryAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSearchResultsWithQueryAction_Params = _OpenSearchResultsWithQueryAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSearchResultsWithQueryAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -25091,6 +26642,22 @@ do
 			elseif self.kind.type == "refresh_omni_recommendation_feed_item_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 62, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "ai_overview_feedback_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 63, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_trusted_friends_upsell_modal_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 64, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "record_party_chat_conversation_upsell_acknowledgement_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 65, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_search_results_with_query_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 66, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -25552,6 +27119,38 @@ do
 						value = messages.RefreshOmniRecommendationFeedItemAction.decode(value),
 					}
 					continue
+				elseif field == 63 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "ai_overview_feedback_action",
+						value = messages.AiOverviewFeedbackAction.decode(value),
+					}
+					continue
+				elseif field == 64 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_trusted_friends_upsell_modal_action",
+						value = messages.OpenTrustedFriendsUpsellModalAction.decode(value),
+					}
+					continue
+				elseif field == 65 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "record_party_chat_conversation_upsell_acknowledgement_action",
+						value = messages.RecordPartyChatConversationUpsellAcknowledgementAction.decode(value),
+					}
+					continue
+				elseif field == 66 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_search_results_with_query_action",
+						value = messages.OpenSearchResultsWithQueryAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -25715,6 +27314,14 @@ do
 				output.openFaeTrialUpsellAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "refresh_omni_recommendation_feed_item_action" then
 				output.refreshOmniRecommendationFeedItemAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "ai_overview_feedback_action" then
+				output.aiOverviewFeedbackAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_trusted_friends_upsell_modal_action" then
+				output.openTrustedFriendsUpsellModalAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "record_party_chat_conversation_upsell_acknowledgement_action" then
+				output.recordPartyChatConversationUpsellAcknowledgementAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_search_results_with_query_action" then
+				output.openSearchResultsWithQueryAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -26603,6 +28210,72 @@ do
 				value = messages.RefreshOmniRecommendationFeedItemAction.jsonDecode(
 					input.refreshOmniRecommendationFeedItemAction
 				),
+			}
+		end
+
+		if input.ai_overview_feedback_action ~= nil then
+			self.kind = {
+				type = "ai_overview_feedback_action",
+				value = messages.AiOverviewFeedbackAction.jsonDecode(input.ai_overview_feedback_action),
+			}
+		end
+
+		if input.aiOverviewFeedbackAction ~= nil then
+			self.kind = {
+				type = "ai_overview_feedback_action",
+				value = messages.AiOverviewFeedbackAction.jsonDecode(input.aiOverviewFeedbackAction),
+			}
+		end
+
+		if input.open_trusted_friends_upsell_modal_action ~= nil then
+			self.kind = {
+				type = "open_trusted_friends_upsell_modal_action",
+				value = messages.OpenTrustedFriendsUpsellModalAction.jsonDecode(
+					input.open_trusted_friends_upsell_modal_action
+				),
+			}
+		end
+
+		if input.openTrustedFriendsUpsellModalAction ~= nil then
+			self.kind = {
+				type = "open_trusted_friends_upsell_modal_action",
+				value = messages.OpenTrustedFriendsUpsellModalAction.jsonDecode(
+					input.openTrustedFriendsUpsellModalAction
+				),
+			}
+		end
+
+		if input.record_party_chat_conversation_upsell_acknowledgement_action ~= nil then
+			self.kind = {
+				type = "record_party_chat_conversation_upsell_acknowledgement_action",
+				value = messages.RecordPartyChatConversationUpsellAcknowledgementAction.jsonDecode(
+					input.record_party_chat_conversation_upsell_acknowledgement_action
+				),
+			}
+		end
+
+		if input.recordPartyChatConversationUpsellAcknowledgementAction ~= nil then
+			self.kind = {
+				type = "record_party_chat_conversation_upsell_acknowledgement_action",
+				value = messages.RecordPartyChatConversationUpsellAcknowledgementAction.jsonDecode(
+					input.recordPartyChatConversationUpsellAcknowledgementAction
+				),
+			}
+		end
+
+		if input.open_search_results_with_query_action ~= nil then
+			self.kind = {
+				type = "open_search_results_with_query_action",
+				value = messages.OpenSearchResultsWithQueryAction.jsonDecode(
+					input.open_search_results_with_query_action
+				),
+			}
+		end
+
+		if input.openSearchResultsWithQueryAction ~= nil then
+			self.kind = {
+				type = "open_search_results_with_query_action",
+				value = messages.OpenSearchResultsWithQueryAction.jsonDecode(input.openSearchResultsWithQueryAction),
 			}
 		end
 
@@ -27944,6 +29617,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL"
 		elseif value == 62 then
 			return "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM"
+		elseif value == 63 then
+			return "ACTION_TYPE_AI_OVERVIEW_FEEDBACK"
+		elseif value == 64 then
+			return "ACTION_TYPE_OPEN_TRUSTED_FRIENDS_UPSELL_MODAL"
+		elseif value == 65 then
+			return "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT"
+		elseif value == 66 then
+			return "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
 		else
 			return nil
 		end
@@ -28076,6 +29757,14 @@ messages.ActionType = {
 			return 61
 		elseif self == "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM" then
 			return 62
+		elseif self == "ACTION_TYPE_AI_OVERVIEW_FEEDBACK" then
+			return 63
+		elseif self == "ACTION_TYPE_OPEN_TRUSTED_FRIENDS_UPSELL_MODAL" then
+			return 64
+		elseif self == "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT" then
+			return 65
+		elseif self == "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY" then
+			return 66
 		else
 			return self
 		end
@@ -28208,6 +29897,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL"
 		elseif name == "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM" then
 			return "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM"
+		elseif name == "ACTION_TYPE_AI_OVERVIEW_FEEDBACK" then
+			return "ACTION_TYPE_AI_OVERVIEW_FEEDBACK"
+		elseif name == "ACTION_TYPE_OPEN_TRUSTED_FRIENDS_UPSELL_MODAL" then
+			return "ACTION_TYPE_OPEN_TRUSTED_FRIENDS_UPSELL_MODAL"
+		elseif name == "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT" then
+			return "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT"
+		elseif name == "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY" then
+			return "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
 		else
 			return nil
 		end
@@ -28336,6 +30033,8 @@ return {
 	DismissGameFeedbackAction_Params = messages.DismissGameFeedbackAction_Params,
 	OpenGameFeedbackFormAction = messages.OpenGameFeedbackFormAction,
 	OpenGameFeedbackFormAction_Params = messages.OpenGameFeedbackFormAction_Params,
+	AiOverviewFeedbackAction = messages.AiOverviewFeedbackAction,
+	AiOverviewFeedbackAction_Params = messages.AiOverviewFeedbackAction_Params,
 	EnableEventNotificationsAction = messages.EnableEventNotificationsAction,
 	EnableEventNotificationsAction_Params = messages.EnableEventNotificationsAction_Params,
 	DismissEventNotificationsModalAction = messages.DismissEventNotificationsModalAction,
@@ -28348,8 +30047,14 @@ return {
 	OpenSearchResultsTabAction_Params = messages.OpenSearchResultsTabAction_Params,
 	DismissPromptAction = messages.DismissPromptAction,
 	DismissPromptAction_Params = messages.DismissPromptAction_Params,
+	RecordPartyChatConversationUpsellAcknowledgementAction = messages.RecordPartyChatConversationUpsellAcknowledgementAction,
+	RecordPartyChatConversationUpsellAcknowledgementAction_Params = messages.RecordPartyChatConversationUpsellAcknowledgementAction_Params,
 	RequestFriendshipAction = messages.RequestFriendshipAction,
 	RequestFriendshipAction_Params = messages.RequestFriendshipAction_Params,
+	OpenTrustedFriendsUpsellModalAction = messages.OpenTrustedFriendsUpsellModalAction,
+	OpenTrustedFriendsUpsellModalAction_Params = messages.OpenTrustedFriendsUpsellModalAction_Params,
+	OpenSearchResultsWithQueryAction = messages.OpenSearchResultsWithQueryAction,
+	OpenSearchResultsWithQueryAction_Params = messages.OpenSearchResultsWithQueryAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

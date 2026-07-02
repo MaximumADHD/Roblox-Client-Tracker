@@ -46,8 +46,6 @@ end
 local Constants = require(script.Constants)
 local MenuNavigationPromptTokenMapper = require(script.TokenMappers.MenuNavigationPromptTokenMapper)
 
-local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
-
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
@@ -259,7 +257,7 @@ function TopBar.new()
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
 
 	-- add binding
-	if not GetFFlagSimpleChatUnreadMessageCount() and not FFlagTopBarDeprecateChatRodux then
+	if not FFlagTopBarDeprecateChatRodux then
 		local TextChatService = game:GetService("TextChatService")
 		TextChatService.MessageReceived:Connect(function()
 			self.store:dispatch(UpdateUnreadMessagesBadge(1))

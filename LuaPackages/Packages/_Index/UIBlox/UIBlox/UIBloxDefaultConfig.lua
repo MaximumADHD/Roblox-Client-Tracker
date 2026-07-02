@@ -43,4 +43,7 @@ return {
 
 	-- Disable token scaling so scale is always 1
 	disableTokenScaling = false,
+
+	-- Remove the spacing between the icon and label in a Stacked NavigationTab
+	removeStackedNavigationTabIconLabelSpacing = false,
 }

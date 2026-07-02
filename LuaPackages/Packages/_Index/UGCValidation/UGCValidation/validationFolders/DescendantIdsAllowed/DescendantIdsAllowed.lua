@@ -4,11 +4,14 @@ local Constants = require(root.Constants)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
+local RunService = game:GetService("RunService")
 
 local canPublishAssets = require(root.util.canPublishAssets)
 local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 local getAssetCreationDetailsRCC = require(root.util.getAssetCreationDetailsRCC)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidateForwardIECRestrictedUserIds =
+	require(root.flags.getFFlagUGCValidateForwardIECRestrictedUserIds)
 
 -- Accept both proto-enum and legacy camel-case labels.
 local RCC_MODERATION_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true }
@@ -132,13 +135,19 @@ local function runIEC(
 	contentIdMap: Types.ContentIdEntriesMap,
 	iecConfigs: Types.IECConfigs
 )
-	if not iecConfigs.token then
+	if not iecConfigs.token or (getFFlagUGCValidateForwardIECRestrictedUserIds() and RunService:IsStudio()) then
+		-- If the game doesn't have a token yet, or if the developer is testing this in studio, we can't run the ownership check (backend 4xx)
 		return
 	end
 
-	-- IEC never has restrictedUserIds; canPublishAssets is token-scoped.
-	local outcome =
-		canPublishAssets(contentIdMap, {} :: Types.RestrictedUserIds, iecConfigs.token, iecConfigs.universeId, true)
+	-- Forward the owner/creator entities as restrictedEntities so canPublish scopes ownership the
+	-- same way the legacy engine-populated path did. Sending an empty list yields a non-200, which
+	-- surfaces to the creator as DescendantIdFetchFailed. Gated so the old empty-list behavior stays
+	-- the default until the flag is flipped; the consumer only supplies the field under the same flag.
+	local restrictedUserIds: Types.RestrictedUserIds = if getFFlagUGCValidateForwardIECRestrictedUserIds()
+		then iecConfigs.restrictedUserIds or {}
+		else {}
+	local outcome = canPublishAssets(contentIdMap, restrictedUserIds, iecConfigs.token, iecConfigs.universeId, true)
 
 	if outcome.status == "tooManyAssets" then
 		reporter:fail(ErrorSourceStrings.Keys.DescendantIdsTooMany, { InstanceFullName = rootInstance:GetFullName() })

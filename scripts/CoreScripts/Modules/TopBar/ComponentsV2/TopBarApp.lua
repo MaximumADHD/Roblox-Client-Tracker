@@ -38,12 +38,12 @@ local isInExperienceUIVREnabled =
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
 local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
+local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNewIconography
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 -- Components 
@@ -76,8 +76,7 @@ local ChromeService = if FFlagEnableExperienceShopGlobalIcon then require(Chrome
 local ChromeConstants = if FFlagEnableExperienceShopGlobalIcon
 	then require(Chrome.ChromeShared.Unibar.Constants)
 	else nil
-local CommonIcon = if FFlagEnableExperienceShopGlobalIcon and FFlagAddIGMToSideSheet
-	then require(Chrome.Integrations.CommonIcon)
+local CommonIcon = if FFlagEnableExperienceShopGlobalIcon then require(Chrome.Integrations.CommonIcon)
 	else nil
 local useMappedSignal = if FFlagEnableExperienceShopGlobalIcon
 	then require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
@@ -279,7 +278,9 @@ local function TopBarApp(props: TopBarProps)
 						showStatusIndicator = shopGlobalStatusIndicatorEnabled,
 						onActivated = onShopGlobalIconActivated,
 						isActive = shopGlobalIconIsActive,
-						icon = (if CommonIcon and shopIsActiveMappedSignal
+						icon = (if not FFlagExperienceShopNewIconography
+								and CommonIcon
+								and shopIsActiveMappedSignal
 							then CommonIcon("BuildingStore", nil, shopIsActiveMappedSignal)
 							else nil) :: React.Node?,
 					})

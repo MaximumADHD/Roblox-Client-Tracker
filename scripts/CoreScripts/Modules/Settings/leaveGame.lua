@@ -80,8 +80,7 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
 
     if publishSurveyMessage then
         if FFlagSurvBloxEventTypeEnabled then
-            local localUserId = tostring(Players.LocalPlayer.UserId)
-			SurveyEventPublisher.publishSurveyEvent(WebViewEventType.LeaveButtonClick, localUserId)
+            SurveyEventPublisher.publishSurveyEvent(WebViewEventType.LeaveButtonClick)
         else
             -- TODO APPEXP-1879: Remove legacy customProps publish path after migration.
             local chromeSeenCount = tostring(0)

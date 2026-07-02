@@ -7,15 +7,22 @@ local CurveAnimationHierarchyUtils = require(root.util.CurveAnimationHierarchyUt
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 
 local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
+local getFFlagUGCValidateAnimBonesSupport = require(root.flags.getFFlagUGCValidateAnimBonesSupport)
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 
 local CurveAnimBonesHaveValidNames = {}
 
 CurveAnimBonesHaveValidNames.categories = { ValidationEnums.UploadCategory.EMOTE_ANIMATION }
+if getFFlagUGCValidateAnimBonesSupport() and getFFlagUGCValidationAnimationPackSupport() then
+	table.insert(CurveAnimBonesHaveValidNames.categories, ValidationEnums.UploadCategory.ANIMATION)
+end
 CurveAnimBonesHaveValidNames.requiredData = {
 	ValidationEnums.SharedDataMember.curveAnimations,
 }
 CurveAnimBonesHaveValidNames.conditionalData = { ValidationEnums.SharedDataMember.curveAnimBoneData }
-CurveAnimBonesHaveValidNames.fflag = getFFlagUGCValidateEmotesBonesAllowed
+CurveAnimBonesHaveValidNames.fflag = function()
+	return getFFlagUGCValidateEmotesBonesAllowed() or getFFlagUGCValidateAnimBonesSupport()
+end
 CurveAnimBonesHaveValidNames.expectedFailures = {}
 CurveAnimBonesHaveValidNames.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 

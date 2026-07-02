@@ -28,6 +28,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_SPOTLIGHT"
 	| "DISPLAY_LOCATION_HOME"
 	| "DISPLAY_LOCATION_SPOTLIGHT_COLLECTION"
+	| "DISPLAY_LOCATION_PARTY_CHAT"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -62,6 +63,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_HOME"
 		elseif value == 14 then
 			return "DISPLAY_LOCATION_SPOTLIGHT_COLLECTION"
+		elseif value == 15 then
+			return "DISPLAY_LOCATION_PARTY_CHAT"
 		else
 			return nil
 		end
@@ -98,6 +101,8 @@ messages.DisplayLocation = {
 			return 13
 		elseif self == "DISPLAY_LOCATION_SPOTLIGHT_COLLECTION" then
 			return 14
+		elseif self == "DISPLAY_LOCATION_PARTY_CHAT" then
+			return 15
 		else
 			return self
 		end
@@ -134,6 +139,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_HOME"
 		elseif name == "DISPLAY_LOCATION_SPOTLIGHT_COLLECTION" then
 			return "DISPLAY_LOCATION_SPOTLIGHT_COLLECTION"
+		elseif name == "DISPLAY_LOCATION_PARTY_CHAT" then
+			return "DISPLAY_LOCATION_PARTY_CHAT"
 		else
 			return nil
 		end

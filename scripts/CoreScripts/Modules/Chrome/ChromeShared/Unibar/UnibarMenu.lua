@@ -10,12 +10,11 @@ local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnab
 local GetFIntIconSelectionTimeout = SharedFlags.GetFIntIconSelectionTimeout
 local GetFFlagChromeCentralizedConfiguration = SharedFlags.GetFFlagChromeCentralizedConfiguration
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
 local FFlagSideSheetSwapGalleryOrder = SharedFlags.FFlagSideSheetSwapGalleryOrder
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
@@ -82,6 +81,8 @@ local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagAddTraversalHistory = if Traversal then Traversal.Flags.FFlagAddTraversalHistory else false
 
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
+local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
+local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -101,7 +102,14 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		-- prepend trust_and_safety to nine-dot menu
 		table.insert(nineDot, 1, "trust_and_safety")
 
-		if isConnectDropdownEnabled() then
+		if
+			isConnectDropdownEnabled()
+			and not (
+				FFlagRemoveFriendsChatUnibarEntrypoints
+				and ArgoPartyExperimentation.getIsRenameEnabled()
+				and FFlagExpChatEnableFriendsTab
+			)
+		then
 			table.insert(nineDot, 1, "connect_dropdown")
 		end
 
@@ -149,7 +157,7 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		end
 
 		if FFlagAppNavMyStatsTab then
-			table.insert(v4Ordering, 1, "assistant_build")
+			table.insert(v4Ordering, "assistant_build")
 		end
 
 		if isInExperienceUIVREnabled and isSpatial() then
@@ -181,28 +189,31 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		end
 
 		if FFlagEnableSideSheet then
-			if FFlagAddIGMToSideSheet then
-				table.insert(nineDot, "people")
-				table.insert(nineDot, "settings")
+			table.insert(nineDot, "people")
+			table.insert(nineDot, "settings")
 
-				if FFlagSideSheetSwapGalleryOrder then
-					table.insert(nineDot, "gallery")
+			if FFlagSideSheetSwapGalleryOrder then
+				table.insert(nineDot, "gallery")
 
-					table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-					table.insert(nineDot, "trust_and_safety")
-				else
-					table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-					table.insert(nineDot, "trust_and_safety")
+				table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
+				table.insert(nineDot, "trust_and_safety")
+			else
+				table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
+				table.insert(nineDot, "trust_and_safety")
 
-					table.insert(nineDot, "gallery")
-				end
-
-				table.insert(nineDot, "help")
-
-				if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet then
-					table.insert(nineDot, "traversal_history")
-				end
+				table.insert(nineDot, "gallery")
 			end
+
+			table.insert(nineDot, "help")
+
+			if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet then
+				table.insert(nineDot, "traversal_history")
+			end
+
+			if FFlagAddInviteFriendsIntegration then
+				table.insert(nineDot, 2, "invite_friends")
+			end
+
 			table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)
 			table.insert(nineDot, SideSheet.Enums.ActionBinding.Respawn)
 		end
@@ -631,9 +642,6 @@ function Unibar(props: UnibarProp)
 				visible = pinned or visibleBinding :: any,
 				toggleTransition = toggleSubmenuTransition,
 				integration = item,
-				disableBadgeNumber = if GetFFlagSimpleChatUnreadMessageCount() and item.id == "chat"
-					then true
-					else false,
 			}) :: any
 			xOffset += iconCellWidth
 			if pinned then
