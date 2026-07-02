@@ -7449,10 +7449,23 @@ Studio.Reimport.Actions.ClearReimportConfig,"in the explorer context menu, remov
 Studio.Reimport.Actions.Configure,open configure dialog for reimport,Configure...,Configure...
 Studio.Reimport.Actions.Reimport,reimport action,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,reimport relative option for mesh parts,Reimport relative to this,Reimport relative to this
-Studio.Reimport.Actions.WatchInstanceFile,watch for changes to the file in the instance reimport configuration,Watch File,Watch File
+Studio.Reimport.Actions.WatchInstanceFile,watch for changes to the file in the instance reimport configuration,Auto-Reimport,Auto-Reimport
+Studio.Reimport.ConfigDialog.Cancel,the button that closes the reimport configure dialog,Cancel,Cancel
+Studio.Reimport.ConfigDialog.Creator,the label on the group selector for a reimport config to determine upload inventory,Creator,Creator
+Studio.Reimport.ConfigDialog.FilePath,the label on the file selector in the reimport config dialog,File Path,File Path
+Studio.Reimport.ConfigDialog.Me,the displayed value in the reimport config dialog's group picker to signify uploading to a personal roblox account inventory,Me,Me
+Studio.Reimport.ConfigDialog.Placeholder,the hint/placeholder text in the filepath picker of the reimport config dialog,Click to select file,Click to select file
+Studio.Reimport.ConfigDialog.Preset,the label on the import preset picker in the reimport config dialog,Import Preset,Import Preset
+Studio.Reimport.ConfigDialog.Save,the button that saves a reimport config in the configure dialog and clsoes it without actually reimporting,Save,Save
+Studio.Reimport.ConfigDialog.SaveAndReimport,"the button in the reimport configure dialog that writes the config to disk and executes a reimport, closing the dialog",Save and Reimport,Save and Reimport
+Studio.Reimport.ConfigDialog.SelectFile,hint text on the config dialog button that opens an OS file picker,Click to select file,Click to select file
+Studio.Reimport.ErrorDialog.Body,the body of the reimport error dialog that appears alongside whatever error occurred,Errors occurred during reimport,Errors occurred during reimport
+Studio.Reimport.ErrorDialog.Close,the button used to close out of the reimport error dialog,Close,Close
+Studio.Reimport.ErrorDialog.Configure,the button in the reimport error dialog that redirects to the configure dialog,Configure Reimport Settings,Configure Reimport Settings
+Studio.Reimport.Plugin.Name,the name that appears at the top of reimport dialgos,Reimport,Reimport
 Studio.Reimport.Tooltips.ClearReimportConfig,shows when hovering over the clear config action,Clears the association between an instance and a reimport config. Will not affect duplicates.,Clears the association between an instance and a reimport config. Will not affect duplicates.
 Studio.Reimport.Tooltips.Configure,"This tooltip is used as the description for the Reimport > Configure tool in searches, and shows up when hovering over the tool.",Configure reimport settings,Configure reimport settings
-Studio.Reimport.Tooltips.WatchInstanceFile,"This tooltip is used as the description for the Reimport > Watch File tool in searches, and shows up when hovering over the tool.",Reimport this instance when the local file changes,Reimport this instance when the local file changes
+Studio.Reimport.Tooltips.WatchInstanceFile,"This tooltip is used as the description for the Reimport > Watch File tool in searches, and shows up when hovering over the tool.",Toggle whether this instance should be automatically reimported when the local file changes,Toggle whether this instance should be automatically reimported when the local file changes
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
 Studio.Ribbon.Action.CancelUpdate,Button text to cancel a pending update.,Cancel update,Cancel update
 Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar

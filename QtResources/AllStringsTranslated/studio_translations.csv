@@ -5740,6 +5740,7 @@ Studio.App.RBXMainWindow.MDIPropertiesClient,,,Properties / Client,Properties / 
 Studio.App.RBXMainWindow.MDIPropertiesServer,,,Properties / Server,Properties / Server
 Studio.App.Properties.MDITitleFmt1Client,,,Properties / Client - %1,Properties / Client - %1
 Studio.App.Properties.MDITitleFmt1Server,,,Properties / Server - %1,Properties / Server - %1
+Studio.App.RBXMainWindow.RevertOverrides,,,Revert Overrides,Revert Overrides
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -9593,6 +9594,7 @@ Studio.AssetManager.Dialogs.ConfirmBulkOpenBrowserHeading,,,You are about to ope
 Studio.AssetManager.Toast.AddToExperienceSuccess,,,Added assets to game,Added assets to game
 Studio.AssetManager.Toast.AddToExperienceFailed,,,Failed to add some assets to game,Failed to add some assets to game
 Studio.AssetManager.ContextMenu.AddToExperience,,,Add to {gameName},Add to {gameName}
+Studio.AssetManager.Tooltip.ToggleSidebar,,,Toggle Sidebar,Toggle Sidebar
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11031,12 +11033,19 @@ Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating wit
 Studio.ManageCollaborators.UpsellDialog.title,,,One more step to collaborate with others who aren't in similar age groups,One more step to collaborate with others who aren't in similar age groups
 Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaboration with others who aren't in similar age groups, establish Trusted Connections or get parental consent.","To use Studio collaboration with others who aren't in similar age groups, establish Trusted Connections or get parental consent."
 Studio.ManageCollaborators.UpsellBanner.nextStepDescription,,,There's one more step to work with people who aren't in similar age groups,There's one more step to work with people who aren't in similar age groups
+Studio.ManageCollaborators.DialogSafety.VerifyYourAge,,,Verify your age,Verify your age
+Studio.ManageCollaborators.DialogSafety.VerifyYourAgeDescription,,,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
+Studio.ManageCollaborators.Buttons.Verify,,,Verify,Verify
 Studio.ManageCollaborators.UpsellDialog.ParentalConsentButton,,,Get consent,Get consent
 Studio.ManageCollaborators.UpsellDialog.TrustedConnectionsButton,,,Establish Trusted Connections,Establish Trusted Connections
+Studio.ManageCollaborators.CollaboratorTypes.ActionNeeded,,,Action needed by user,Action needed by user
 Studio.ManageCollaborators.UpsellBanner.RecheckAge,,,Let's recheck your age.,Let's recheck your age.
 Studio.ManageCollaborators.UpsellBanner.AgeCheckNotValid,,,Your age check is no longer valid.,Your age check is no longer valid.
 Studio.ManageCollaborators.UpsellDialog.TrustedFriendsButton,,,Establish trusted friends,Establish trusted friends
 Studio.ManageCollaborators.UpsellDialog.description.TFRename,,,"To use Studio collaboration with others who aren't in similar age groups, establish trusted friends or get parental consent.","To use Studio collaboration with others who aren't in similar age groups, establish trusted friends or get parental consent."
+Studio.ManageCollaborators.FeedbackAlert.OutsideAgeGroupWarning,,,Some collaborators are outside similar age groups,Some collaborators are outside similar age groups
+Studio.ManageCollaborators.FeedbackAlert.ViewDetails,,,View details,View details
+Studio.ManageCollaborators.FeedbackAlert.EditorBlockingWarning,,,Collaborators require a relationship of trust,Collaborators require a relationship of trust
 Studio.ManageCollaborators.FeedbackAlert.OwnerNotAgeVerifiedTitle,,,Verify your age to collaborate with others,Verify your age to collaborate with others
 Studio.ManageCollaborators.FeedbackAlert.OwnerNotAgeVerifiedSubtitle,,,"To collaborate with others, verify your age","To collaborate with others, verify your age"
 Studio.ManageCollaborators.FeedbackAlert.VerifyYourAge,,,Verify your age,Verify your age
@@ -11048,6 +11057,11 @@ Studio.ManageCollaborators.Permissions.Universe.Player.Label,,,Playtest,Playtest
 Studio.ManageCollaborators.Permissions.Universe.Player.Subtext,,,Playtest this experience,Playtest this experience
 Studio.ManageCollaborators.Permissions.Universe.Publisher.Label,,,Publish,Publish
 Studio.ManageCollaborators.Permissions.Universe.Publisher.Subtext,,,Publish this experience,Publish this experience
+Studio.ManageCollaborators.CollaboratorTypes.RegionNotSupported,,,Region not supported,Region not supported
+Studio.ManageCollaborators.FeedbackAlert.OwnerCountryBlockedTitle,,,Live collaboration in Studio is temporarily suspended in your country.,Live collaboration in Studio is temporarily suspended in your country.
+Studio.ManageCollaborators.SearchBar.CountryBlockedError,,,Unable to add user because they are in an unsupported location.,Unable to add user because they are in an unsupported location.
+Studio.ManageCollaborators.SearchBar.LengthExceeded,,,Search input is too long. Shorten to under {maxLength} characters.,Search input is too long. Shorten to under {maxLength} characters.
+Studio.ManageCollaborators.PermissionDescriptions.InheritedPermission,,,This permission has been granted at a higher level.,This permission has been granted at a higher level.
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -14057,6 +14071,12 @@ Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndFriends,,,Experience availa
 Studio.StartPage.TrustedConnectionRequestSnackbar.Message,,,Your request has been sent.,Your request has been sent.
 Studio.StartPage.TrustedConnectionLinkCopiedSnackbar.Message,,,Link copied. Share it with others to make a trusted friend request.,Link copied. Share it with others to make a trusted friend request.
 Studio.StartPage.Plugin.OpenACopy,,,Open a Copy,Open a Copy
+Studio.StartPage.PrivacyBadge.Tooltip.Body,,,Complete the content maturity rating on Creator Hub for your game and have it playable by others.,Complete the content maturity rating on Creator Hub for your game and have it playable by others.
+Studio.StartPage.Plugin.PrivacyType.PubliclyUnavailable,,,Publicly unavailable,Publicly unavailable
+Studio.StartPage.Plugin.Tooltip.PubliclyUnavailable,,,Complete the content maturity rating on Creator Hub for your game to be playable by others.,Complete the content maturity rating on Creator Hub for your game to be playable by others.
+Studio.StartPage.Plugin.SaveAs,,,Save As…,Save As…
+Studio.StartPage.SaveAsCopySuccessSnackbar.Message,,,Copy created,Copy created
+Studio.StartPage.SaveAsCopyFailureSnackbar.Message,,,Couldn't create a copy,Couldn't create a copy
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14331,7 +14351,7 @@ Studio.Assistant.ScopePermissions.PresetMediumDescription,,,"Creates, updates, o
 Studio.Assistant.ScopePermissions.Title,,,Open Cloud Scope Permissions,Open Cloud Scope Permissions
 Studio.Assistant.SettingsDialog.PermissionsTab,,,Permissions,Permissions
 Studio.Assistant.SettingsDialog.SkillsTab,,,Skills,Skills
-Studio.Assistant.Skills.Description,,,Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.,Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.
+Studio.Assistant.Skills.Description,,,"Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant. /create-skill or clicking Create New will allow Assistant to help you create skills, or upload your own skills manually with Create from Text.","Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant. /create-skill or clicking Create New will allow Assistant to help you create skills, or upload your own skills manually with Create from Text."
 Studio.Assistant.Skills.ManageSkills,,,Manage Skills,Manage Skills
 Studio.Assistant.Skills.PersonalGroup,,,Personal,Personal
 Studio.Assistant.Skills.RobloxGroup,,,Roblox,Roblox
@@ -14374,6 +14394,11 @@ Studio.Assistant.FileSearch.Failed,,,Failed to search for '{keywords}',Failed to
 Studio.Assistant.GameTree.Failed,,,Failed when exploring game tree,Failed when exploring game tree
 Studio.Assistant.GrepSearch.Failed,,,Search failed,Search failed
 Studio.Assistant.InspectInstance.Failed,,,Failed to inspect {path},Failed to inspect {path}
+Studio.Assistant.ErrorMessage.InputTokenLimit,,,This conversation is too long to continue. Start a new chat.,This conversation is too long to continue. Start a new chat.
+Studio.Assistant.Skills.Delete,,,Delete,Delete
+Studio.Assistant.Skills.AlreadyDuplicated,,,Already Duplicated,Already Duplicated
+Studio.Assistant.Skills.CreateFromText,,,Create from Text,Create from Text
+Studio.Assistant.SlashCommandDescriptions.CreateSkill,,,Create a new custom skill with guided assistance,Create a new custom skill with guided assistance
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15733,6 +15758,8 @@ Studio.TeamCreate.SafetyEvictDialog.TermsOfUseButton,,,View Terms of Use,View Te
 Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedFriends,,,Add trusted friends,Add trusted friends
 Studio.TeamCreate.SafetyEvictDialog.ExperienceLocked,,,This Experience is locked,This Experience is locked
 Studio.TeamCreate.EvictDialog.CollaboratorRequestedEvictionDescription,,,You have been disconnected from Team Create due to a request from a collaborator.,You have been disconnected from Team Create due to a request from a collaborator.
+Studio.TeamCreate.SafetyEvictDialog.GenericTitleCollabRestrictions,,,You were removed from this experience due to collaboration restrictions,You were removed from this experience due to collaboration restrictions
+Studio.TeamCreate.SafetyEvictDialog.DescriptionPleaseTryAgainLater,,,Please try again later.,Please try again later.
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
 Studio.NetworkSettings.Property.InboundNetworkMinDelay,,,Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)
@@ -15858,7 +15885,7 @@ Studio.LoginPage.Button.Privacy,,,Privacy,Privacy
 Studio.InputActionManager.Binding.Backward,,,Backward,Backward
 Studio.InputActionManager.Header.Search,,,Search,Search
 Studio.InputActionManager.Plugin.Name,,,Input Action Manager,Input Action Manager
-Studio.InputActionManager.Plugin.Button,,,Actions,Actions
+Studio.InputActionManager.Plugin.Button,,,Input Action Manager,Input Action Manager
 Studio.InputActionManager.Plugin.Description,,,"Set up contexts, actions, and bindings","Set up contexts, actions, and bindings"
 Studio.InputActionManager.Binding.Composite,,,Composite,Composite
 Studio.InputActionManager.Binding.Keycode,,,Keycode,Keycode
@@ -15890,3 +15917,7 @@ Studio.InputActionManager.Status.MissingKeycodeDescription,,,This action is miss
 Studio.InputActionManager.Status.MissingCompositeKeycodeTitle,,,Missing Keycode,Missing Keycode
 Studio.InputActionManager.Status.MissingCompositeKeycodeDescription,,,This composite binding is missing a directional keycode.,This composite binding is missing a directional keycode.
 Studio.InputActionManager.Menu.Cancel,,,Cancel,Cancel
+Studio.InputActionManager.Status.DuplicateUIButtonTitle,,,Duplicate UI Button,Duplicate UI Button
+Studio.InputActionManager.Status.DuplicateUIButtonDescription,,,{uibutton} is used elsewhere: {actions},{uibutton} is used elsewhere: {actions}
+Studio.InputActionManager.Status.CompositeKeycodeTitle,,,Duplicate Composite Keycode,Duplicate Composite Keycode
+Studio.InputActionManager.Status.CompositeKeycodeDescription,,,Keycode already in use for another direction.,Keycode already in use for another direction.
