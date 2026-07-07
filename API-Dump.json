@@ -8683,6 +8683,31 @@
                         "Animation"
                     ],
                     "MemberType": "Event",
+                    "Name": "ParameterChanged",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Event",
                     "Name": "Stopped",
                     "Parameters": [
                     ],
@@ -10895,7 +10920,8 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
-                        "Yields"
+                        "Yields",
+                        "Deprecated"
                     ],
                     "ThreadSafety": "Unsafe"
                 },
@@ -10915,6 +10941,81 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UploadVersionedAssetFromContentAsync",
+                    "Parameters": [
+                        {
+                            "Name": "content",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "createAssetRequest",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UploadVersionedAssetFromPathAsync",
+                    "Parameters": [
+                        {
+                            "Name": "filepath",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "createAssetRequest",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -39859,6 +39960,29 @@
         },
         {
             "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EnableSkinning",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
             ],
             "MemoryCategory": "BaseParts",
             "Name": "RigidConstraint",
@@ -48335,6 +48459,37 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "AcquireWakeLock",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "DisplayWakeLock"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DeviceDisplayService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
                     "Name": "GetDeviceId",
                     "Parameters": [
                     ],
@@ -49979,6 +50134,17 @@
             "MemoryCategory": "Animation",
             "Name": "DigitsRigDescription",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DisplayWakeLock",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -85269,6 +85435,29 @@
         },
         {
             "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Physics"
+                        ]
+                    },
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EnableSkinning",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
             ],
             "MemoryCategory": "BaseParts",
             "Name": "Weld",
@@ -123533,6 +123722,42 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "GetSnapshot",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PopLatencyService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Capabilities": {
                         "Read": [
                             "Animation"
@@ -126109,6 +126334,36 @@
         },
         {
             "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AudioInputActive",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
                 {
                     "Capabilities": {
                         "Read": [
@@ -129632,28 +129887,6 @@
                     "Parameters": [
                         {
                             "Name": "id",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "RuntimeContentLRCleanup",
-                    "Parameters": [
-                        {
-                            "Name": "id",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "priorityList",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -144933,6 +145166,24 @@
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Enable Autocomplete Doc View",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "Enable Client/Server MDI",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -175878,6 +176129,33 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "EnableVoiceVolumeControls",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RolloutState"
                     }
                 },
                 {

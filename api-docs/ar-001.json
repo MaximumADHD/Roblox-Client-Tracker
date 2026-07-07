@@ -9290,7 +9290,7 @@
     "documentation": "The <code>Vector3</code> world position."
   },
   "@roblox/globaltype/Camera.WorldToViewportPoint/return/0": {
-    "documentation": "A tuple containing, in order: <ul> <li> A <code>Vector3</code> whose <strong>X</strong> and <strong>Y</strong> components represent the   offset of the <code>worldPoint</code> from the top left corner of the viewport,   in pixels. The <code>Vector3</code> <strong>Z</strong> component represents the   depth of the <code>worldPoint</code> from the screen (in studs). </li> <li> A boolean indicating if the <code>worldPoint</code> is within the bounds of the   screen. </li> </ul>"
+    "documentation": "A tuple containing, in order: <ul> <li> A <code>Vector3</code> whose <strong>X</strong> and <strong>Y</strong> components represent the   offset of the <code>worldPoint</code> from the top left corner of the viewport,   in pixels for <code>Workspace.CurrentCamera</code>. For cameras inside a   <code>ViewportFrame</code>, the values are normalized to [0, 1]. The   <code>Vector3</code> <strong>Z</strong> component represents the depth of the   <code>worldPoint</code> from the screen (in studs). </li> <li> A boolean indicating if the <code>worldPoint</code> is within the bounds of the   screen. </li> </ul>"
   },
   "@roblox/globaltype/Camera.WorldToViewportPoint": {
     "documentation": "Returns the screen location and depth of a <code>Vector3</code> <code>worldPoint</code> and whether this point is within the bounds of the screen. Does not account for the GUI inset.",
@@ -17802,7 +17802,7 @@
     "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal part = Instance.new(\"Part\")\npart.Name = \"RotatingPart\"\npart.Position = Vector3.new(0, 1, 0)\npart.Parent = workspace\n\nlocal function renderStepped()\n\tpart.RotVelocity = Vector3.new(0, 10, 0)\nend\n\nRunService.RenderStepped:Connect(renderStepped)"
   },
   "@roblox/globaltype/BasePart.Size": {
-    "documentation": "Determines the dimensions of a part (length, width, height).",
+    "documentation": "Determines the dimensions of a part (length, height, width).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BasePart#Size",
     "code_sample": "local TOWER_BASE_SIZE = 30\n\nlocal position = Vector3.new(50, 50, 50)\n\nlocal hue = math.random()\nlocal color0 = Color3.fromHSV(hue, 1, 1)\nlocal color1 = Color3.fromHSV((hue + 0.35) % 1, 1, 1)\n\nlocal model = Instance.new(\"Model\")\nmodel.Name = \"Tower\"\n\nfor i = TOWER_BASE_SIZE, 1, -2 do\n\tlocal part = Instance.new(\"Part\")\n\tpart.Size = Vector3.new(i, 2, i)\n\tpart.Position = position\n\tpart.Anchored = true\n\tpart.Parent = model\n\t-- Tween from color0 and color1\n\tlocal perc = i / TOWER_BASE_SIZE\n\tpart.Color = Color3.new(\n\t\tcolor0.R * perc + color1.R * (1 - perc),\n\t\tcolor0.G * perc + color1.G * (1 - perc),\n\t\tcolor0.B * perc + color1.B * (1 - perc)\n\t)\n\n\tposition = position + Vector3.new(0, part.Size.Y, 0)\nend\nmodel.Parent = workspace"
   },
@@ -82814,7 +82814,7 @@
     "documentation": "The user to prompt to purchase items."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "An array of avatar items to be included in the bulk purchase. Each line item contains the following structure: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Each line item contains the following pairs: <ul> <li><code>Type</code>: The corresponding <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: The ID of the asset or bundle.</li> </ul>"
+    "documentation": "An array of avatar items to be included in the bulk purchase. Each line item contains the following structure: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string,   PurchaseOptions: { {Type: PurchaseOption, Value: number?} }? } </code></pre> Each line item contains the following pairs: <ul> <li><code>Type</code>: The corresponding <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: The ID of the asset or bundle.</li> <li><code>PurchaseOptions</code>: Optional. An array containing a single purchase   option to display in the prompt. If omitted, the permanent purchase   is prompted. See the PurchaseOptions section below for details.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "Not available at this time."
@@ -88061,6 +88061,7 @@
       "GetAvatarRulesAsync": "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync",
       "GetBatchItemDetails": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails",
       "GetBatchItemDetailsAsync": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync",
+      "GetBundlesByAssetIdAsync": "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync",
       "GetFavorite": "@roblox/globaltype/AvatarEditorService.GetFavorite",
       "GetFavoriteAsync": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync",
       "GetHeadShapesAsync": "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync",
@@ -88330,6 +88331,40 @@
       "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetBatchItemDetailsAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/param/1": {
+    "documentation": "The ID of the asset to find bundles for."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/param/2": {
+    "documentation": "The number of results per page. Accepts <code>10</code>, <code>25</code>, <code>50</code>, and <code>100</code>."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/return/0": {
+    "documentation": "A <code>CatalogPages</code> object containing bundles that include the given asset."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync": {
+    "documentation": "Returns a <code>CatalogPages</code> object containing bundles that include the given asset.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/param/1"
+      },
+      {
+        "name": "limit",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetBundlesByAssetIdAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetBundlesByAssetIdAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/0": {
@@ -89041,7 +89076,7 @@
       "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#SearchCatalogAsync",
-    "code_sample": ""
+    "code_sample": "local AvatarEditorService = game:GetService(\"AvatarEditorService\")\n\nlocal params = CatalogSearchParams.new()\nparams.SalesTypeFilter = Enum.SalesTypeFilter.TimedOptions\nparams.Limit = 10\n\nlocal pages = AvatarEditorService:SearchCatalogAsync(params)\nlocal results = pages:GetCurrentPage()\n\nfor _, item in results do\n\tif item.TimedOptions then\n\t\tfor _, option in item.TimedOptions do\n\t\t\tlocal days = option.Duration / 86400\n\t\t\tprint(string.format(\"%s: %d days for %d R$\", item.Name, days, option.Price))\n\t\tend\n\tend\nend"
   },
   "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccessCompleted.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -99047,7 +99082,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService": {
-    "documentation": "A class that allows the display of mobile video ads.",
+    "documentation": "The service responsible for in-experience advertising.",
     "keys": {
       "CreateAdRewardFromDevProductId": "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId",
       "GetAdAvailabilityNowAsync": "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync",
@@ -99062,7 +99097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/1": {
     "documentation": "The ID of the developer product you want to grant as a reward."
@@ -99071,7 +99106,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
-    "documentation": "Creates a reward to give users who watch an entire video ad.",
+    "documentation": "Creates an <code>AdReward</code> to give users who watch a video ad.",
     "params": [
       {
         "name": "self",
@@ -99089,16 +99124,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "The format of the requested ad. For example, <code>RewardedVideo</code>."
+    "documentation": "The format of the requested ad. For example, <code>AdFormat.RewardedVideo</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
-    "documentation": "A dictionary with the <code>AdAvailabilityResult</code> for the requested ad format."
+    "documentation": "A dictionary that looks like <code>{ AdAvailabilityResult: Enum.AdAvailabilityResult }</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync": {
-    "documentation": "Checks if a video ad is available to be played to the current user inside the experience.",
+    "documentation": "Checks if an ad with the specified format is available to be shown to the <code>LocalPlayer</code>.",
     "params": [
       {
         "name": "self",
@@ -99116,19 +99151,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/1": {
-    "documentation": "The id of the campaign that you want to check a <code>Player</code>'s eligibility for."
+    "documentation": "The ID of the campaign that you want to check a <code>Player</code>'s eligibility for."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/2": {
-    "documentation": "The <code>Player</code> you want to check eligibility for. If omitted, it will default to <code>LocalPlayer</code>."
+    "documentation": "The <code>Player</code> you want to check eligibility for. If omitted, it will default to the <code>LocalPlayer</code>. On the server, <code>player</code> argument is required."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/return/0": {
     "documentation": "A dictionary that looks like <code>{ IsEligible: boolean }</code>."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync": {
-    "documentation": "",
+    "documentation": "Checks a <code>Player</code>'s eligibility to be shown an <a href=\"../../../production/promotion/ad-integrations.md\">ad integration</a> campaign.",
     "params": [
       {
         "name": "self",
@@ -99150,7 +99185,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
     "documentation": ""
@@ -99179,16 +99214,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/1": {
-    "documentation": "The <code>GuiButton</code> you want to mark as an ad disclosure."
+    "documentation": "The <code>GuiButton</code> you want to mark as an ad integration disclosure. The <code>GuiButton</code> must follow labeling guidelines outlined <a href=\"../../../production/promotion/ad-integrations.md#labeling-and-disclosure\">here</a>."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/2": {
-    "documentation": "The id of the placement that this disclosure is attached to."
+    "documentation": "The ID of the placement that this disclosure is attached to."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton": {
-    "documentation": "",
+    "documentation": "Registers an ad disclosure button for an <a href=\"../../../production/promotion/ad-integrations.md\">ad integration</a>.",
     "params": [
       {
         "name": "self",
@@ -99208,19 +99243,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/1": {
-    "documentation": "The <code>Player</code> object for whom you are fetching the ad for."
+    "documentation": "The <code>Player</code> to trigger a rewarded video ad play for."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/2": {
-    "documentation": "The reward object for the reward you want to grant the user who watches an ad to completion."
+    "documentation": "The <code>AdReward</code> to grant the user after they view the ad."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/3": {
     "documentation": "The ID of the placement of the rewarded video ad inside the experience. Allows for reporting on the performance of individual ad placements."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0": {
-    "documentation": ""
+    "documentation": "The <code>ShowAdResult</code> of the client's ad presentation. You should not use this result to grant the reward. Instead, you should grant the reward from your <code>ProcessReceipt</code> implementation. For <a href=\"../../../production/monetization/developer-products.md\">developer products</a> earned through rewarded video ads, the <code>ProductPurchaseChannel</code> will be <code>ProductPurchaseChannel.AdReward</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
     "documentation": "Plays the video ad to the current user inside the experience.",
@@ -99246,10 +99281,10 @@
       "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#ShowRewardedVideoAdAsync",
-    "code_sample": "local reward = AdService:CreateAdRewardFromDevProductId(100)\nlocal result = AdService:ShowRewardedVideoAdAsync(player, reward)"
+    "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowVideoAd/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.ShowVideoAd": {
     "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> has been decommissioned and is no longer operational.<br>Show mobile video advertisements.",
@@ -99264,7 +99299,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/0": {
-    "documentation": "A class that allows the display of mobile video ads."
+    "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
     "documentation": ""
@@ -104412,7 +104447,7 @@
     "documentation": "Optional <code>Dictionary</code> configuring the prompt. Supported keys: - <code>FeedbackType</code> (<code>FeedbackType</code>). Selects which feedback flow to display. Defaults to <code>FeedbackType.Feedback</code>."
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "Prompts the player to submit feedback about the current experience.",
+    "documentation": "Prompts the player to submit feedback or a player support ticket about the current experience.",
     "params": [
       {
         "name": "self",
@@ -107528,7 +107563,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SalesTypeFilter.All": {
-    "documentation": "",
+    "documentation": "Returns all items regardless of sales type.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107538,7 +107573,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SalesTypeFilter.Collectibles": {
-    "documentation": "",
+    "documentation": "Returns only collectible items (Limited and Limited Unique).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107548,7 +107583,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SalesTypeFilter.Premium": {
-    "documentation": "",
+    "documentation": "Returns only items with Premium pricing.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107558,7 +107593,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SalesTypeFilter.TimedOptions": {
-    "documentation": "",
+    "documentation": "Returns only items that have timed options available.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107568,7 +107603,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.SalesTypeFilter": {
-    "documentation": "",
+    "documentation": "Filters catalog search results by sales type.",
     "keys": {
       "All": "@roblox/enum/SalesTypeFilter.All",
       "Collectibles": "@roblox/enum/SalesTypeFilter.Collectibles",
@@ -141325,6 +141360,35 @@
       "EnabledOverride": "@roblox/enum/WrapLayerAutoSkin.EnabledOverride"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/WrapLayerAutoSkin",
+    "code_sample": ""
+  },
+  "@roblox/enum/PurchaseOption.TimedOption": {
+    "documentation": "A timed ownership option. The <code>Value</code> field specifies the duration in seconds.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PurchaseOption#TimedOption",
+    "code_sample": ""
+  },
+  "@roblox/enum/PurchaseOption.Permanent": {
+    "documentation": "A permanent ownership purchase option.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PurchaseOption#Permanent",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PurchaseOption": {
+    "documentation": "Specifies the type of purchase option in a bulk purchase prompt.",
+    "keys": {
+      "TimedOption": "@roblox/enum/PurchaseOption.TimedOption",
+      "Permanent": "@roblox/enum/PurchaseOption.Permanent"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PurchaseOption",
     "code_sample": ""
   },
   "@roblox/enum/AdEventType.VideoLoaded": {
