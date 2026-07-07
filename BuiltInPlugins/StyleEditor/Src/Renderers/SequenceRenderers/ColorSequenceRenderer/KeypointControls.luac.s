@@ -98,70 +98,77 @@ PROTO_2:
       100 NAMECALL                         R16 R2 K29 ["getText"]
       102 CALL                             R16 3 1
       103 SETTABLEKS                       R16 R15 K22 ["Text"]
-      105 GETUPVAL                         R16 8
-      106 SETTABLEKS                       R16 R15 K23 ["Schema"]
-      108 GETTABLEKS                       R16 R0 K31 ["Keypoint"]
-      110 GETTABLEKS                       R16 R16 K25 ["Value"]
-      112 SETTABLEKS                       R16 R15 K25 ["Value"]
-      114 SETTABLEKS                       R4 R15 K26 ["OnChanged"]
-      116 GETUPVAL                         R16 9
-      117 SETTABLEKS                       R16 R15 K33 ["Renderer"]
-      119 CALL                             R13 2 1
-      120 SETTABLEKS                       R13 R12 K18 ["Color"]
-      122 GETUPVAL                         R13 4
-      123 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      125 GETUPVAL                         R14 10
-      126 DUPTABLE                         R15 K39 [{["LayoutOrder"] = 3, ["TooltipText"], ["LeftIcon"], ["Disabled"], ["OnClick"]}]
-      127 LOADK                            R18 K40 ["Control"]
-      128 LOADK                            R19 K41 ["DeleteTooltip"]
-      129 NAMECALL                         R16 R2 K29 ["getText"]
-      131 CALL                             R16 3 1
-      132 SETTABLEKS                       R16 R15 K36 ["TooltipText"]
-      134 GETUPVAL                         R16 11
-      135 GETTABLEKS                       R16 R16 K42 ["delete"]
-      137 CALL                             R16 0 1
-      138 SETTABLEKS                       R16 R15 K37 ["LeftIcon"]
-      140 GETTABLEKS                       R16 R0 K30 ["IsKeypointFixed"]
-      142 SETTABLEKS                       R16 R15 K24 ["Disabled"]
-      144 GETTABLEKS                       R16 R0 K43 ["OnDelete"]
-      146 SETTABLEKS                       R16 R15 K38 ["OnClick"]
-      148 CALL                             R13 2 1
-      149 SETTABLEKS                       R13 R12 K19 ["Delete"]
-      151 CALL                             R9 3 1
-      152 SETTABLEKS                       R9 R8 K8 ["SequenceButtonsContainer"]
-      154 GETUPVAL                         R9 4
-      155 GETTABLEKS                       R9 R9 K4 ["createElement"]
-      157 GETUPVAL                         R10 5
-      158 NEWTABLE                         R11 4 0
-      160 LOADN                            R12 2
-      161 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
-      163 GETUPVAL                         R12 4
-      164 GETTABLEKS                       R12 R12 K6 ["Tag"]
-      166 LOADK                            R13 K44 ["X-Right X-Pad X-RowM X-FitY"]
-      167 SETTABLE                         R13 R11 R12
-      168 GETIMPORT                        R12 K14 [UDim2.fromScale]
-      170 LOADK                            R13 K15 [0.5]
-      171 LOADN                            R14 1
-      172 CALL                             R12 2 1
-      173 SETTABLEKS                       R12 R11 K16 ["Size"]
-      175 DUPTABLE                         R12 K46 [{"Save"}]
-      176 GETUPVAL                         R13 4
-      177 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      179 GETUPVAL                         R14 10
-      180 DUPTABLE                         R15 K47 [{["LayoutOrder"] = 1, ["Text"], ["OnClick"]}]
-      181 LOADK                            R18 K48 ["Modal"]
-      182 LOADK                            R19 K45 ["Save"]
-      183 NAMECALL                         R16 R2 K29 ["getText"]
-      185 CALL                             R16 3 1
-      186 SETTABLEKS                       R16 R15 K22 ["Text"]
-      188 GETTABLEKS                       R16 R0 K49 ["OnSave"]
-      190 SETTABLEKS                       R16 R15 K38 ["OnClick"]
-      192 CALL                             R13 2 1
-      193 SETTABLEKS                       R13 R12 K45 ["Save"]
-      195 CALL                             R9 3 1
-      196 SETTABLEKS                       R9 R8 K9 ["CommitButtonsContainer"]
-      198 CALL                             R5 3 -1
-      199 RETURN                           R5 -1
+      105 GETUPVAL                         R16 3
+      106 GETUPVAL                         R17 8
+      107 DUPTABLE                         R18 K37 [{"OnOpen", "OnClose"}]
+      108 GETTABLEKS                       R19 R0 K35 ["OnOpen"]
+      110 SETTABLEKS                       R19 R18 K35 ["OnOpen"]
+      112 GETTABLEKS                       R19 R0 K36 ["OnClose"]
+      114 SETTABLEKS                       R19 R18 K36 ["OnClose"]
+      116 CALL                             R16 2 1
+      117 SETTABLEKS                       R16 R15 K23 ["Schema"]
+      119 GETTABLEKS                       R16 R0 K31 ["Keypoint"]
+      121 GETTABLEKS                       R16 R16 K25 ["Value"]
+      123 SETTABLEKS                       R16 R15 K25 ["Value"]
+      125 SETTABLEKS                       R4 R15 K26 ["OnChanged"]
+      127 GETUPVAL                         R16 9
+      128 SETTABLEKS                       R16 R15 K33 ["Renderer"]
+      130 CALL                             R13 2 1
+      131 SETTABLEKS                       R13 R12 K18 ["Color"]
+      133 GETUPVAL                         R13 4
+      134 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      136 GETUPVAL                         R14 10
+      137 DUPTABLE                         R15 K42 [{["LayoutOrder"] = 3, ["TooltipText"], ["LeftIcon"], ["Disabled"], ["OnClick"]}]
+      138 LOADK                            R18 K43 ["Control"]
+      139 LOADK                            R19 K44 ["DeleteTooltip"]
+      140 NAMECALL                         R16 R2 K29 ["getText"]
+      142 CALL                             R16 3 1
+      143 SETTABLEKS                       R16 R15 K39 ["TooltipText"]
+      145 GETUPVAL                         R16 11
+      146 GETTABLEKS                       R16 R16 K45 ["delete"]
+      148 CALL                             R16 0 1
+      149 SETTABLEKS                       R16 R15 K40 ["LeftIcon"]
+      151 GETTABLEKS                       R16 R0 K30 ["IsKeypointFixed"]
+      153 SETTABLEKS                       R16 R15 K24 ["Disabled"]
+      155 GETTABLEKS                       R16 R0 K46 ["OnDelete"]
+      157 SETTABLEKS                       R16 R15 K41 ["OnClick"]
+      159 CALL                             R13 2 1
+      160 SETTABLEKS                       R13 R12 K19 ["Delete"]
+      162 CALL                             R9 3 1
+      163 SETTABLEKS                       R9 R8 K8 ["SequenceButtonsContainer"]
+      165 GETUPVAL                         R9 4
+      166 GETTABLEKS                       R9 R9 K4 ["createElement"]
+      168 GETUPVAL                         R10 5
+      169 NEWTABLE                         R11 4 0
+      171 LOADN                            R12 2
+      172 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
+      174 GETUPVAL                         R12 4
+      175 GETTABLEKS                       R12 R12 K6 ["Tag"]
+      177 LOADK                            R13 K47 ["X-Right X-Pad X-RowM X-FitY"]
+      178 SETTABLE                         R13 R11 R12
+      179 GETIMPORT                        R12 K14 [UDim2.fromScale]
+      181 LOADK                            R13 K15 [0.5]
+      182 LOADN                            R14 1
+      183 CALL                             R12 2 1
+      184 SETTABLEKS                       R12 R11 K16 ["Size"]
+      186 DUPTABLE                         R12 K49 [{"Save"}]
+      187 GETUPVAL                         R13 4
+      188 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      190 GETUPVAL                         R14 10
+      191 DUPTABLE                         R15 K50 [{["LayoutOrder"] = 1, ["Text"], ["OnClick"]}]
+      192 LOADK                            R18 K51 ["Modal"]
+      193 LOADK                            R19 K48 ["Save"]
+      194 NAMECALL                         R16 R2 K29 ["getText"]
+      196 CALL                             R16 3 1
+      197 SETTABLEKS                       R16 R15 K22 ["Text"]
+      199 GETTABLEKS                       R16 R0 K52 ["OnSave"]
+      201 SETTABLEKS                       R16 R15 K41 ["OnClick"]
+      203 CALL                             R13 2 1
+      204 SETTABLEKS                       R13 R12 K48 ["Save"]
+      206 CALL                             R9 3 1
+      207 SETTABLEKS                       R9 R8 K9 ["CommitButtonsContainer"]
+      209 CALL                             R5 3 -1
+      210 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

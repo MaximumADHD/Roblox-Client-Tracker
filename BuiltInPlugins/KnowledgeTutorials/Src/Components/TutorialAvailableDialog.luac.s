@@ -57,7 +57,7 @@ PROTO_1:
        27 GETUPVAL                         R7 1
        28 GETTABLEKS                       R7 R7 K2 ["createElement"]
        30 GETUPVAL                         R8 3
-       31 DUPTABLE                         R9 K20 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "text-default size-full-500 auto-y text-wrap text-align-x-left"}]
+       31 DUPTABLE                         R9 K20 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "size-full-500 auto-y text-wrap text-align-x-left"}]
        32 GETTABLEKS                       R10 R1 K21 ["summary"]
        34 SETTABLEKS                       R10 R9 K14 ["Text"]
        36 CALL                             R7 2 1

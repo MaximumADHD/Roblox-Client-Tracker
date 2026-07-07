@@ -108,45 +108,45 @@ PROTO_10:
        10 LOADNIL                          R2
        11 CALL                             R1 1 2
        12 GETUPVAL                         R3 2
-       13 CALL                             R3 0 1
-       14 JUMPIFNOT                        R3 ; [+35]
-       15 GETUPVAL                         R3 1
-       16 GETTABLEKS                       R3 R3 K3 ["useContext"]
-       18 GETUPVAL                         R4 3
-       19 GETTABLEKS                       R4 R4 K4 ["Context"]
-       21 CALL                             R3 1 1
-       22 GETTABLEKS                       R4 R3 K5 ["persistedIntegrations"]
-       24 GETTABLEKS                       R5 R4 K6 ["initialReadTask"]
-       26 GETUPVAL                         R6 1
-       27 GETTABLEKS                       R6 R6 K3 ["useContext"]
-       29 GETUPVAL                         R7 4
-       30 GETTABLEKS                       R7 R7 K4 ["Context"]
-       32 CALL                             R6 1 1
-       33 GETUPVAL                         R7 1
-       34 GETTABLEKS                       R7 R7 K7 ["useEffect"]
-       36 NEWCLOSURE                       R8 P0
-       37 CAPTURE                          VAL R5
-       38 CAPTURE                          UPVAL U5
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          VAL R6
-       41 CAPTURE                          VAL R2
-       42 NEWTABLE                         R9 0 2
-       44 MOVE                             R10 R0
-       45 MOVE                             R11 R5
-       46 SETLIST                          R9 R10 2 [1]
-       48 CALL                             R7 2 0
-       49 RETURN                           R1 1
-       50 GETUPVAL                         R3 1
-       51 GETTABLEKS                       R3 R3 K7 ["useEffect"]
-       53 NEWCLOSURE                       R4 P1
-       54 CAPTURE                          UPVAL U5
-       55 CAPTURE                          VAL R0
-       56 CAPTURE                          VAL R2
-       57 NEWTABLE                         R5 0 1
-       59 MOVE                             R6 R0
-       60 SETLIST                          R5 R6 1 [1]
-       62 CALL                             R3 2 0
-       63 RETURN                           R1 1
+       13 GETTABLEKS                       R3 R3 K3 ["FFlagMCPAssistantManagementMenu"]
+       15 JUMPIFNOT                        R3 ; [+35]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K4 ["useContext"]
+       19 GETUPVAL                         R4 3
+       20 GETTABLEKS                       R4 R4 K5 ["Context"]
+       22 CALL                             R3 1 1
+       23 GETTABLEKS                       R4 R3 K6 ["persistedIntegrations"]
+       25 GETTABLEKS                       R5 R4 K7 ["initialReadTask"]
+       27 GETUPVAL                         R6 1
+       28 GETTABLEKS                       R6 R6 K4 ["useContext"]
+       30 GETUPVAL                         R7 4
+       31 GETTABLEKS                       R7 R7 K5 ["Context"]
+       33 CALL                             R6 1 1
+       34 GETUPVAL                         R7 1
+       35 GETTABLEKS                       R7 R7 K8 ["useEffect"]
+       37 NEWCLOSURE                       R8 P0
+       38 CAPTURE                          VAL R5
+       39 CAPTURE                          UPVAL U5
+       40 CAPTURE                          VAL R0
+       41 CAPTURE                          VAL R6
+       42 CAPTURE                          VAL R2
+       43 NEWTABLE                         R9 0 2
+       45 MOVE                             R10 R0
+       46 MOVE                             R11 R5
+       47 SETLIST                          R9 R10 2 [1]
+       49 CALL                             R7 2 0
+       50 RETURN                           R1 1
+       51 GETUPVAL                         R3 1
+       52 GETTABLEKS                       R3 R3 K8 ["useEffect"]
+       54 NEWCLOSURE                       R4 P1
+       55 CAPTURE                          UPVAL U5
+       56 CAPTURE                          VAL R0
+       57 CAPTURE                          VAL R2
+       58 NEWTABLE                         R5 0 1
+       60 MOVE                             R6 R0
+       61 SETLIST                          R5 R6 1 [1]
+       63 CALL                             R3 2 0
+       64 RETURN                           R1 1
 
 PROTO_11:
         0 GETUPVAL                         R1 0
@@ -193,28 +193,29 @@ MAIN:
        46 GETTABLEKS                       R7 R7 K13 ["Host"]
        48 GETTABLEKS                       R7 R7 K14 ["startMcpHost"]
        50 CALL                             R6 1 1
-       51 GETTABLEKS                       R7 R1 K15 ["Flags"]
-       53 GETTABLEKS                       R7 R7 K16 ["Shared"]
-       55 GETTABLEKS                       R7 R7 K17 ["FFlagMCPAssistantManagementMenu"]
-       57 GETTABLEKS                       R8 R1 K18 ["Components"]
-       59 GETTABLEKS                       R8 R8 K19 ["Contexts"]
-       61 GETTABLEKS                       R8 R8 K20 ["McpAuthorizerManagerContext"]
-       63 GETTABLEKS                       R9 R1 K18 ["Components"]
-       65 GETTABLEKS                       R9 R9 K19 ["Contexts"]
-       67 GETTABLEKS                       R9 R9 K21 ["PersistedIntegrationContext"]
-       69 GETTABLEKS                       R10 R6 K22 ["promiseMcpHost"]
-       71 GETTABLEKS                       R11 R2 K23 ["ContextServices"]
-       73 GETTABLEKS                       R12 R11 K24 ["Plugin"]
-       75 GETTABLEKS                       R13 R4 K25 ["createElement"]
-       77 DUPCLOSURE                       R14 K26 [PROTO_10]
-       78 CAPTURE                          VAL R12
-       79 CAPTURE                          VAL R4
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R9
-       82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R10
-       84 DUPCLOSURE                       R15 K27 [PROTO_11]
-       85 CAPTURE                          VAL R14
-       86 CAPTURE                          VAL R13
-       87 CAPTURE                          VAL R1
-       88 RETURN                           R15 1
+       51 GETIMPORT                        R7 K5 [require]
+       53 GETTABLEKS                       R8 R0 K11 ["Src"]
+       55 GETTABLEKS                       R8 R8 K15 ["Flags"]
+       57 CALL                             R7 1 1
+       58 GETTABLEKS                       R8 R1 K16 ["Components"]
+       60 GETTABLEKS                       R8 R8 K17 ["Contexts"]
+       62 GETTABLEKS                       R8 R8 K18 ["McpAuthorizerManagerContext"]
+       64 GETTABLEKS                       R9 R1 K16 ["Components"]
+       66 GETTABLEKS                       R9 R9 K17 ["Contexts"]
+       68 GETTABLEKS                       R9 R9 K19 ["PersistedIntegrationContext"]
+       70 GETTABLEKS                       R10 R6 K20 ["promiseMcpHost"]
+       72 GETTABLEKS                       R11 R2 K21 ["ContextServices"]
+       74 GETTABLEKS                       R12 R11 K22 ["Plugin"]
+       76 GETTABLEKS                       R13 R4 K23 ["createElement"]
+       78 DUPCLOSURE                       R14 K24 [PROTO_10]
+       79 CAPTURE                          VAL R12
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R10
+       85 DUPCLOSURE                       R15 K25 [PROTO_11]
+       86 CAPTURE                          VAL R14
+       87 CAPTURE                          VAL R13
+       88 CAPTURE                          VAL R1
+       89 RETURN                           R15 1

@@ -70,8 +70,9 @@ PROTO_4:
        14 GETTABLEKS                       R7 R1 K4 ["Networking"]
        16 GETTABLEKS                       R8 R1 K5 ["Localization"]
        18 MOVE                             R9 R3
-       19 CALL                             R4 5 0
-       20 RETURN                           R0 0
+       19 GETTABLEKS                       R10 R1 K6 ["LayoutController"]
+       21 CALL                             R4 6 0
+       22 RETURN                           R0 0
 
 PROTO_5:
         0 LOADB                            R3 1

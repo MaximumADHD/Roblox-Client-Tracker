@@ -14,7 +14,7 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["CreatorConfigStudioPublishWorkflow"]
+        2 LOADK                            R2 K2 ["CreatorConfigStudioPublishWorkflow2"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
@@ -32,7 +32,7 @@ MAIN:
        12 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        14 CALL                             R0 3 0
        15 GETIMPORT                        R0 K1 [game]
-       17 LOADK                            R2 K5 ["CreatorConfigStudioPublishWorkflow"]
+       17 LOADK                            R2 K5 ["CreatorConfigStudioPublishWorkflow2"]
        18 LOADB                            R3 0
        19 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        21 CALL                             R0 3 0

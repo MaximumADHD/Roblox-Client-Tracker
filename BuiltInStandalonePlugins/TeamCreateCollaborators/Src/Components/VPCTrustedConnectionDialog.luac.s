@@ -358,7 +358,7 @@ PROTO_9:
       189 GETTABLEKS                       R20 R20 K10 ["createElement"]
       191 GETUPVAL                         R21 6
       192 GETTABLEKS                       R21 R21 K11 ["View"]
-      194 DUPTABLE                         R22 K54 [{["tag"] = "align-y-end row gap-small size-full-0 auto-y", ["LayoutOrder"]}]
+      194 DUPTABLE                         R22 K54 [{["tag"] = "row gap-small size-full-0 auto-y", ["LayoutOrder"]}]
       195 MOVE                             R23 R1
       196 CALL                             R23 0 1
       197 SETTABLEKS                       R23 R22 K23 ["LayoutOrder"]

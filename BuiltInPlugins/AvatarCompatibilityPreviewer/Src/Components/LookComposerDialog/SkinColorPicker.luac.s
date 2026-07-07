@@ -382,7 +382,7 @@ PROTO_9:
       270 DUPTABLE                         R41 K52 [{"tag", "Size", "onActivated"}]
       271 NEWTABLE                         R42 4 0
       273 LOADB                            R43 1
-      274 SETTABLEKS                       R43 R42 K53 ["cursor-pointer row align-y-center gap-small padding-small radius-small bg-surface-100"]
+      274 SETTABLEKS                       R43 R42 K53 ["row align-y-center gap-small padding-small radius-small bg-surface-100"]
       276 JUMPIFNOTEQKNIL                  R6 ; [+2]
       278 LOADB                            R43 0 +1
       279 LOADB                            R43 1

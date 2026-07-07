@@ -1,5 +1,5 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K8 [{[1], ["_settingsComponent"], ["_useWarn"], ["_signals"], ["_connections"], ["_threads"], ["_destroyed"] = False}]
+        0 DUPTABLE                         R3 K9 [{[1], ["_settingsComponent"], ["_useWarn"], ["_signals"], ["_connections"], ["_threads"], ["_visitorRetainer"], ["_destroyed"] = False}]
         1 SETTABLEKS                       R0 R3 K0 ["_actionsComponent"]
         3 SETTABLEKS                       R1 R3 K1 ["_settingsComponent"]
         5 SETTABLEKS                       R2 R3 K2 ["_useWarn"]
@@ -9,12 +9,18 @@ PROTO_0:
        13 SETTABLEKS                       R4 R3 K4 ["_connections"]
        15 NEWTABLE                         R4 0 0
        17 SETTABLEKS                       R4 R3 K5 ["_threads"]
-       19 GETUPVAL                         R6 0
-       20 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       22 MOVE                             R5 R3
-       23 GETIMPORT                        R4 K10 [setmetatable]
-       25 CALL                             R4 2 0
-       26 RETURN                           R3 1
+       19 NEWTABLE                         R5 0 0
+       21 DUPTABLE                         R6 K12 [{["__mode"] = "k"}]
+       22 FASTCALL2                        SETMETATABLE R5 R6 ; [+3]
+       24 GETIMPORT                        R4 K14 [setmetatable]
+       26 CALL                             R4 2 1
+       27 SETTABLEKS                       R4 R3 K6 ["_visitorRetainer"]
+       29 GETUPVAL                         R6 0
+       30 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       32 MOVE                             R5 R3
+       33 GETIMPORT                        R4 K14 [setmetatable]
+       35 CALL                             R4 2 0
+       36 RETURN                           R3 1
 
 PROTO_1:
         0 LOADB                            R1 1
@@ -417,7 +423,9 @@ PROTO_17:
        36 MOVE                             R10 R6
        37 NAMECALL                         R7 R0 K5 ["_watchUris"]
        39 CALL                             R7 3 0
-       40 RETURN                           R4 1
+       40 GETTABLEKS                       R7 R0 K6 ["_visitorRetainer"]
+       42 SETTABLE                         R6 R7 R4
+       43 RETURN                           R4 1
 
 PROTO_18:
         0 GETUPVAL                         R1 0

@@ -14,7 +14,7 @@ PROTO_0:
        17 GETTABLEKS                       R6 R6 K1 ["createElement"]
        19 GETUPVAL                         R7 2
        20 GETTABLEKS                       R7 R7 K2 ["View"]
-       22 DUPTABLE                         R8 K14 [{["tag"] = "shrink-0 radius-small", ["backgroundStyle"], ["LayoutOrder"], ["Size"]}]
+       22 DUPTABLE                         R8 K14 [{["tag"] = "radius-small", ["backgroundStyle"], ["LayoutOrder"], ["Size"]}]
        23 DUPTABLE                         R9 K18 [{["Color3"], ["Transparency"] = 0}]
        24 GETTABLEKS                       R10 R0 K19 ["previewBackgroundColor"]
        26 SETTABLEKS                       R10 R9 K15 ["Color3"]
@@ -82,7 +82,7 @@ PROTO_0:
       125 GETTABLEKS                       R6 R6 K1 ["createElement"]
       127 GETUPVAL                         R7 2
       128 GETTABLEKS                       R7 R7 K49 ["Text"]
-      130 DUPTABLE                         R8 K52 [{["tag"] = "shrink-0 auto-xy text-body-medium text-align-x-left content-default", ["LayoutOrder"], ["Text"], ["sizeConstraint"]}]
+      130 DUPTABLE                         R8 K52 [{["tag"] = "auto-xy text-body-medium text-align-x-left content-default", ["LayoutOrder"], ["Text"], ["sizeConstraint"]}]
       131 NAMECALL                         R9 R1 K20 ["getNextOrder"]
       133 CALL                             R9 1 1
       134 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]
@@ -101,7 +101,7 @@ PROTO_0:
       155 GETTABLEKS                       R6 R6 K1 ["createElement"]
       157 GETUPVAL                         R7 2
       158 GETTABLEKS                       R7 R7 K2 ["View"]
-      160 DUPTABLE                         R8 K60 [{["tag"] = "shrink-0 row align-x-left align-y-center gap-small auto-xy", ["LayoutOrder"]}]
+      160 DUPTABLE                         R8 K60 [{["tag"] = "row align-x-left align-y-center gap-small auto-xy", ["LayoutOrder"]}]
       161 NAMECALL                         R9 R1 K20 ["getNextOrder"]
       163 CALL                             R9 1 1
       164 SETTABLEKS                       R9 R8 K5 ["LayoutOrder"]

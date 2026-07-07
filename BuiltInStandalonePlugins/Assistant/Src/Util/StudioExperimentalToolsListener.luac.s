@@ -79,30 +79,34 @@ PROTO_2:
        44 GETUPVAL                         R2 5
        45 GETTABLEKS                       R2 R2 K1 ["Tools"]
        47 GETTABLEKS                       R2 R2 K2 ["createTools"]
-       49 GETUPVAL                         R3 6
-       50 MOVE                             R4 R1
-       51 CALL                             R2 2 1
-       52 GETUPVAL                         R3 6
-       53 NAMECALL                         R3 R3 K3 ["IsGuest"]
-       55 CALL                             R3 1 1
-       56 JUMPIFNOT                        R3 ; [+7]
-       57 GETUPVAL                         R3 5
-       58 GETTABLEKS                       R3 R3 K1 ["Tools"]
-       60 GETTABLEKS                       R3 R3 K4 ["registerTools"]
-       62 MOVE                             R4 R2
-       63 CALL                             R3 1 0
-       64 MOVE                             R3 R2
-       65 LOADNIL                          R4
-       66 LOADNIL                          R5
-       67 FORGPREP                         R3
-       68 GETUPVAL                         R8 7
-       69 GETTABLEKS                       R9 R7 K5 ["definition"]
-       71 GETTABLEKS                       R9 R9 K5 ["definition"]
-       73 GETTABLEKS                       R9 R9 K6 ["name"]
-       75 LOADB                            R10 1
-       76 SETTABLE                         R10 R8 R9
-       77 FORGLOOP                         R3 2 ; [-10]
-       79 RETURN                           R0 0
+       49 DUPTABLE                         R3 K6 [{"tools", "networking", "bridges"}]
+       50 SETTABLEKS                       R1 R3 K3 ["tools"]
+       52 GETUPVAL                         R4 6
+       53 SETTABLEKS                       R4 R3 K4 ["networking"]
+       55 GETUPVAL                         R4 7
+       56 SETTABLEKS                       R4 R3 K5 ["bridges"]
+       58 CALL                             R2 1 1
+       59 GETUPVAL                         R3 6
+       60 NAMECALL                         R3 R3 K7 ["IsGuest"]
+       62 CALL                             R3 1 1
+       63 JUMPIFNOT                        R3 ; [+7]
+       64 GETUPVAL                         R3 5
+       65 GETTABLEKS                       R3 R3 K1 ["Tools"]
+       67 GETTABLEKS                       R3 R3 K8 ["registerTools"]
+       69 MOVE                             R4 R2
+       70 CALL                             R3 1 0
+       71 MOVE                             R3 R2
+       72 LOADNIL                          R4
+       73 LOADNIL                          R5
+       74 FORGPREP                         R3
+       75 GETUPVAL                         R8 8
+       76 GETTABLEKS                       R9 R7 K9 ["definition"]
+       78 GETTABLEKS                       R9 R9 K9 ["definition"]
+       80 GETTABLEKS                       R9 R9 K10 ["name"]
+       82 LOADB                            R10 1
+       83 SETTABLE                         R10 R8 R9
+       84 FORGLOOP                         R3 2 ; [-10]
+       86 RETURN                           R0 0
 
 PROTO_3:
         0 GETIMPORT                        R1 K2 [task.spawn]
@@ -115,8 +119,9 @@ PROTO_3:
         8 CAPTURE                          UPVAL U5
         9 CAPTURE                          UPVAL U6
        10 CAPTURE                          UPVAL U7
-       11 CALL                             R1 1 0
-       12 RETURN                           R0 0
+       11 CAPTURE                          UPVAL U8
+       12 CALL                             R1 1 0
+       13 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R1 K3 [Enum.IXPLoadingStatus.None]
@@ -135,7 +140,7 @@ PROTO_4:
        18 CALL                             R1 1 0
        19 RETURN                           R0 0
        20 GETIMPORT                        R1 K9 [Enum.IXPLoadingStatus.Initialized]
-       22 JUMPIFNOTEQ                      R0 R1 ; [+15]
+       22 JUMPIFNOTEQ                      R0 R1 ; [+16]
        24 GETIMPORT                        R1 K11 [plugin]
        26 GETIMPORT                        R2 K14 [task.spawn]
        28 NEWCLOSURE                       R3 P0
@@ -146,13 +151,14 @@ PROTO_4:
        33 CAPTURE                          UPVAL U6
        34 CAPTURE                          UPVAL U7
        35 CAPTURE                          UPVAL U8
-       36 CAPTURE                          UPVAL U0
-       37 CALL                             R2 1 0
-       38 RETURN                           R0 0
+       36 CAPTURE                          UPVAL U9
+       37 CAPTURE                          UPVAL U0
+       38 CALL                             R2 1 0
+       39 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+17]
+        1 JUMPIF                           R0 ; [+18]
         2 GETUPVAL                         R0 1
         3 GETTABLEKS                       R0 R0 K0 ["OnCreatorLayerLoadingStatusChanged"]
         5 NEWCLOSURE                       R2 P0
@@ -165,68 +171,72 @@ PROTO_5:
        12 CAPTURE                          UPVAL U8
        13 CAPTURE                          UPVAL U9
        14 CAPTURE                          UPVAL U10
-       15 NAMECALL                         R0 R0 K1 ["Connect"]
-       17 CALL                             R0 2 1
-       18 SETUPVAL                         R0 0
-       19 GETIMPORT                        R0 K3 [plugin]
-       21 GETIMPORT                        R1 K6 [task.spawn]
-       23 NEWCLOSURE                       R2 P1
-       24 CAPTURE                          UPVAL U5
-       25 CAPTURE                          UPVAL U6
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          UPVAL U7
-       28 CAPTURE                          UPVAL U8
-       29 CAPTURE                          UPVAL U9
-       30 CAPTURE                          UPVAL U10
-       31 CAPTURE                          UPVAL U2
-       32 CALL                             R1 1 0
-       33 RETURN                           R0 0
+       15 CAPTURE                          UPVAL U11
+       16 NAMECALL                         R0 R0 K1 ["Connect"]
+       18 CALL                             R0 2 1
+       19 SETUPVAL                         R0 0
+       20 GETIMPORT                        R0 K3 [plugin]
+       22 GETIMPORT                        R1 K6 [task.spawn]
+       24 NEWCLOSURE                       R2 P1
+       25 CAPTURE                          UPVAL U5
+       26 CAPTURE                          UPVAL U6
+       27 CAPTURE                          UPVAL U4
+       28 CAPTURE                          UPVAL U7
+       29 CAPTURE                          UPVAL U8
+       30 CAPTURE                          UPVAL U9
+       31 CAPTURE                          UPVAL U10
+       32 CAPTURE                          UPVAL U11
+       33 CAPTURE                          UPVAL U2
+       34 CALL                             R1 1 0
+       35 RETURN                           R0 0
 
 PROTO_6:
-        0 LOADNIL                          R4
-        1 NEWTABLE                         R5 0 0
-        3 NEWTABLE                         R6 0 0
-        5 GETUPVAL                         R7 0
-        6 CALL                             R7 0 1
-        7 GETUPVAL                         R8 1
-        8 GETTABLEKS                       R8 R8 K0 ["new"]
-       10 MOVE                             R9 R0
-       11 GETUPVAL                         R10 2
-       12 CALL                             R10 0 -1
-       13 CALL                             R8 -1 1
-       14 NEWCLOSURE                       R9 P0
-       15 CAPTURE                          VAL R8
-       16 CAPTURE                          VAL R7
-       17 CAPTURE                          UPVAL U1
-       18 NEWCLOSURE                       R10 P1
-       19 CAPTURE                          VAL R6
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          VAL R5
-       22 NEWCLOSURE                       R11 P2
-       23 CAPTURE                          VAL R9
-       24 CAPTURE                          VAL R2
-       25 CAPTURE                          VAL R5
-       26 CAPTURE                          VAL R3
-       27 CAPTURE                          UPVAL U4
-       28 CAPTURE                          UPVAL U5
-       29 CAPTURE                          VAL R1
-       30 CAPTURE                          VAL R6
-       31 NEWCLOSURE                       R12 P3
-       32 CAPTURE                          REF R4
-       33 CAPTURE                          VAL R0
-       34 CAPTURE                          VAL R6
-       35 CAPTURE                          UPVAL U3
-       36 CAPTURE                          VAL R5
-       37 CAPTURE                          VAL R9
-       38 CAPTURE                          VAL R2
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          UPVAL U4
-       41 CAPTURE                          UPVAL U5
-       42 CAPTURE                          VAL R1
-       43 DUPTABLE                         R13 K2 [{"trackUserLoggedIn"}]
-       44 SETTABLEKS                       R12 R13 K1 ["trackUserLoggedIn"]
-       46 CLOSEUPVALS                      R4
-       47 RETURN                           R13 1
+        0 LOADNIL                          R5
+        1 NEWTABLE                         R6 0 0
+        3 NEWTABLE                         R7 0 0
+        5 GETUPVAL                         R8 0
+        6 GETTABLEKS                       R8 R8 K0 ["FStringAssistantDisabledToolsKey"]
+        8 GETUPVAL                         R9 1
+        9 GETTABLEKS                       R9 R9 K1 ["new"]
+       11 MOVE                             R10 R0
+       12 GETUPVAL                         R11 0
+       13 GETTABLEKS                       R11 R11 K2 ["FStringNewAssistantExperimentLayer"]
+       15 CALL                             R9 2 1
+       16 NEWCLOSURE                       R10 P0
+       17 CAPTURE                          VAL R9
+       18 CAPTURE                          VAL R8
+       19 CAPTURE                          UPVAL U1
+       20 NEWCLOSURE                       R11 P1
+       21 CAPTURE                          VAL R7
+       22 CAPTURE                          UPVAL U2
+       23 CAPTURE                          VAL R6
+       24 NEWCLOSURE                       R12 P2
+       25 CAPTURE                          VAL R10
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          VAL R6
+       28 CAPTURE                          VAL R3
+       29 CAPTURE                          UPVAL U3
+       30 CAPTURE                          UPVAL U4
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          VAL R4
+       33 CAPTURE                          VAL R7
+       34 NEWCLOSURE                       R13 P3
+       35 CAPTURE                          REF R5
+       36 CAPTURE                          VAL R0
+       37 CAPTURE                          VAL R7
+       38 CAPTURE                          UPVAL U2
+       39 CAPTURE                          VAL R6
+       40 CAPTURE                          VAL R10
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          UPVAL U3
+       44 CAPTURE                          UPVAL U4
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R4
+       47 DUPTABLE                         R14 K4 [{"trackUserLoggedIn"}]
+       48 SETTABLEKS                       R13 R14 K3 ["trackUserLoggedIn"]
+       50 CLOSEUPVALS                      R5
+       51 RETURN                           R14 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -256,20 +266,13 @@ MAIN:
        41 GETIMPORT                        R6 K5 [require]
        43 GETTABLEKS                       R7 R1 K9 ["Src"]
        45 GETTABLEKS                       R7 R7 K13 ["Flags"]
-       47 GETTABLEKS                       R7 R7 K14 ["FStringAssistantDisabledToolsKey"]
-       49 CALL                             R6 1 1
-       50 GETIMPORT                        R7 K5 [require]
-       52 GETTABLEKS                       R8 R1 K9 ["Src"]
-       54 GETTABLEKS                       R8 R8 K13 ["Flags"]
-       56 GETTABLEKS                       R8 R8 K15 ["FStringNewAssistantExperimentLayer"]
-       58 CALL                             R7 1 1
-       59 GETTABLEKS                       R8 R2 K16 ["UIToolRegistry"]
-       61 DUPCLOSURE                       R9 K17 [PROTO_6]
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R4
-       64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R8
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R2
-       68 SETTABLEKS                       R9 R0 K18 ["new"]
-       70 RETURN                           R0 1
+       47 CALL                             R6 1 1
+       48 GETTABLEKS                       R7 R2 K14 ["UIToolRegistry"]
+       50 DUPCLOSURE                       R8 K15 [PROTO_6]
+       51 CAPTURE                          VAL R6
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          VAL R7
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R2
+       56 SETTABLEKS                       R8 R0 K16 ["new"]
+       58 RETURN                           R0 1

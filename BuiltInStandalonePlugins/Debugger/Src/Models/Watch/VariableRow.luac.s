@@ -40,26 +40,34 @@ PROTO_1:
        27 JUMPIF                           R7 ; [+1]
        28 MOVE                             R7 R2
        29 SETTABLEKS                       R7 R6 K5 ["scopeColumn"]
-       31 GETTABLEKS                       R7 R0 K16 ["Value"]
-       33 SETTABLEKS                       R7 R6 K6 ["valueColumn"]
-       35 GETTABLEKS                       R7 R0 K17 ["Type"]
-       37 SETTABLEKS                       R7 R6 K7 ["dataTypeColumn"]
-       39 NEWTABLE                         R7 0 0
-       41 SETTABLEKS                       R7 R6 K8 ["childPaths"]
-       43 GETUPVAL                         R8 1
-       44 GETTABLEKS                       R8 R8 K18 ["textMatchRow"]
-       46 MOVE                             R9 R3
-       47 MOVE                             R10 R6
-       48 CALL                             R8 2 1
-       49 NOT                              R7 R8
-       50 SETTABLEKS                       R7 R6 K11 ["textFilteredOut"]
-       52 GETUPVAL                         R7 1
-       53 GETTABLEKS                       R7 R7 K19 ["isScopeFiltered"]
-       55 MOVE                             R8 R4
-       56 MOVE                             R9 R6
-       57 CALL                             R7 2 1
-       58 SETTABLEKS                       R7 R6 K12 ["scopeFilteredOut"]
-       60 RETURN                           R6 1
+       31 GETUPVAL                         R8 1
+       32 CALL                             R8 0 1
+       33 JUMPIFNOT                        R8 ; [+7]
+       34 GETUPVAL                         R7 2
+       35 GETTABLEKS                       R7 R7 K16 ["truncateValue"]
+       37 GETTABLEKS                       R8 R0 K17 ["Value"]
+       39 CALL                             R7 1 1
+       40 JUMP                             ; [+2]
+       41 GETTABLEKS                       R7 R0 K17 ["Value"]
+       43 SETTABLEKS                       R7 R6 K6 ["valueColumn"]
+       45 GETTABLEKS                       R7 R0 K18 ["Type"]
+       47 SETTABLEKS                       R7 R6 K7 ["dataTypeColumn"]
+       49 NEWTABLE                         R7 0 0
+       51 SETTABLEKS                       R7 R6 K8 ["childPaths"]
+       53 GETUPVAL                         R8 2
+       54 GETTABLEKS                       R8 R8 K19 ["textMatchRow"]
+       56 MOVE                             R9 R3
+       57 MOVE                             R10 R6
+       58 CALL                             R8 2 1
+       59 NOT                              R7 R8
+       60 SETTABLEKS                       R7 R6 K11 ["textFilteredOut"]
+       62 GETUPVAL                         R7 2
+       63 GETTABLEKS                       R7 R7 K20 ["isScopeFiltered"]
+       65 MOVE                             R8 R4
+       66 MOVE                             R9 R6
+       67 CALL                             R7 2 1
+       68 SETTABLEKS                       R7 R6 K12 ["scopeFilteredOut"]
+       70 RETURN                           R6 1
 
 PROTO_2:
         0 GETUPVAL                         R3 0
@@ -96,15 +104,20 @@ MAIN:
        34 GETTABLEKS                       R5 R1 K8 ["Util"]
        36 GETTABLEKS                       R5 R5 K10 ["WatchHelperFunctions"]
        38 CALL                             R4 1 1
-       39 DUPCLOSURE                       R5 K11 [PROTO_0]
-       40 DUPCLOSURE                       R6 K12 [PROTO_1]
-       41 CAPTURE                          VAL R3
-       42 CAPTURE                          VAL R4
-       43 DUPCLOSURE                       R7 K13 [PROTO_2]
-       44 CAPTURE                          VAL R6
-       45 CAPTURE                          VAL R2
-       46 DUPTABLE                         R8 K17 [{"fromData", "fromInstance", "dummyRow"}]
-       47 SETTABLEKS                       R5 R8 K14 ["fromData"]
-       49 SETTABLEKS                       R6 R8 K15 ["fromInstance"]
-       51 SETTABLEKS                       R7 R8 K16 ["dummyRow"]
-       53 RETURN                           R8 1
+       39 GETIMPORT                        R5 K1 [require]
+       41 GETTABLEKS                       R6 R1 K11 ["Flags"]
+       43 GETTABLEKS                       R6 R6 K12 ["getFFlagDebuggerWatchValueTruncation"]
+       45 CALL                             R5 1 1
+       46 DUPCLOSURE                       R6 K13 [PROTO_0]
+       47 DUPCLOSURE                       R7 K14 [PROTO_1]
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R5
+       50 CAPTURE                          VAL R4
+       51 DUPCLOSURE                       R8 K15 [PROTO_2]
+       52 CAPTURE                          VAL R7
+       53 CAPTURE                          VAL R2
+       54 DUPTABLE                         R9 K19 [{"fromData", "fromInstance", "dummyRow"}]
+       55 SETTABLEKS                       R6 R9 K16 ["fromData"]
+       57 SETTABLEKS                       R7 R9 K17 ["fromInstance"]
+       59 SETTABLEKS                       R8 R9 K18 ["dummyRow"]
+       61 RETURN                           R9 1

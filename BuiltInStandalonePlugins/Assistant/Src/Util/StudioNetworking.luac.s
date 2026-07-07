@@ -8,18 +8,18 @@ PROTO_0:
         9 CALL                             R1 1 1
        10 GETTABLEKS                       R2 R1 K2 ["_logger"]
        12 GETUPVAL                         R4 2
-       13 CALL                             R4 0 -1
-       14 NAMECALL                         R2 R2 K3 ["setEnabled"]
-       16 CALL                             R2 -1 0
-       17 GETUPVAL                         R2 4
-       18 GETTABLEKS                       R2 R2 K1 ["new"]
-       20 MOVE                             R3 R1
-       21 CALL                             R2 1 1
-       22 SETUPVAL                         R2 3
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K4 ["get"]
-       26 CALL                             R2 0 -1
-       27 RETURN                           R2 -1
+       13 GETTABLEKS                       R4 R4 K3 ["FFlagDebugLogAssistantUI"]
+       15 NAMECALL                         R2 R2 K4 ["setEnabled"]
+       17 CALL                             R2 2 0
+       18 GETUPVAL                         R2 4
+       19 GETTABLEKS                       R2 R2 K1 ["new"]
+       21 MOVE                             R3 R1
+       22 CALL                             R2 1 1
+       23 SETUPVAL                         R2 3
+       24 GETUPVAL                         R2 0
+       25 GETTABLEKS                       R2 R2 K5 ["get"]
+       27 CALL                             R2 0 -1
+       28 RETURN                           R2 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -48,31 +48,28 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
+       11 GETTABLEKS                       R2 R2 K7 ["DMNetworking"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["DMNetworking"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R1 K9 ["Flags"]
-       23 GETTABLEKS                       R3 R3 K10 ["Shared"]
-       25 GETTABLEKS                       R3 R3 K11 ["FFlagDebugLogAssistantUI"]
-       27 GETTABLEKS                       R4 R2 K12 ["Implementations"]
-       29 GETTABLEKS                       R4 R4 K13 ["StudioNetworking"]
-       31 DUPTABLE                         R5 K16 [{["plugin"] = }]
-       32 LOADNIL                          R6
-       33 NEWCLOSURE                       R7 P0
-       34 CAPTURE                          VAL R5
-       35 CAPTURE                          VAL R4
-       36 CAPTURE                          VAL R3
-       37 CAPTURE                          REF R6
-       38 CAPTURE                          VAL R2
-       39 SETTABLEKS                       R7 R5 K17 ["create"]
-       41 NEWCLOSURE                       R7 P1
-       42 CAPTURE                          REF R6
-       43 SETTABLEKS                       R7 R5 K18 ["get"]
-       45 NEWCLOSURE                       R7 P2
-       46 CAPTURE                          REF R6
-       47 SETTABLEKS                       R7 R5 K19 ["Destroy"]
-       49 CLOSEUPVALS                      R6
-       50 RETURN                           R5 1
+       21 GETTABLEKS                       R3 R1 K10 ["Implementations"]
+       23 GETTABLEKS                       R3 R3 K11 ["StudioNetworking"]
+       25 DUPTABLE                         R4 K14 [{["plugin"] = }]
+       26 LOADNIL                          R5
+       27 NEWCLOSURE                       R6 P0
+       28 CAPTURE                          VAL R4
+       29 CAPTURE                          VAL R3
+       30 CAPTURE                          VAL R2
+       31 CAPTURE                          REF R5
+       32 CAPTURE                          VAL R1
+       33 SETTABLEKS                       R6 R4 K15 ["create"]
+       35 NEWCLOSURE                       R6 P1
+       36 CAPTURE                          REF R5
+       37 SETTABLEKS                       R6 R4 K16 ["get"]
+       39 NEWCLOSURE                       R6 P2
+       40 CAPTURE                          REF R5
+       41 SETTABLEKS                       R6 R4 K17 ["Destroy"]
+       43 CLOSEUPVALS                      R5
+       44 RETURN                           R4 1

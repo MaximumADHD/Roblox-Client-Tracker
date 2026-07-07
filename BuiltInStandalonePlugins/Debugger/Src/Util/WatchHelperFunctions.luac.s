@@ -1,4 +1,29 @@
 PROTO_0:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        4 LOADK                            R3 K0 ["FFlagDebuggerWatchValueTruncation is not enabled"]
+        5 GETIMPORT                        R1 K2 [assert]
+        7 CALL                             R1 2 0
+        8 LENGTH                           R1 R0
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K3 ["MAX_DISPLAY_VALUE_LENGTH"]
+       12 JUMPIFNOTLT                      R2 R1 ; [+17]
+       14 LOADN                            R6 1
+       15 GETUPVAL                         R7 1
+       16 GETTABLEKS                       R7 R7 K3 ["MAX_DISPLAY_VALUE_LENGTH"]
+       18 FASTCALL3                        STRING_SUB R0 R6 R7
+       20 MOVE                             R5 R0
+       21 GETIMPORT                        R4 K6 [string.sub]
+       23 CALL                             R4 3 1
+       24 MOVE                             R2 R4
+       25 GETUPVAL                         R3 1
+       26 GETTABLEKS                       R3 R3 K7 ["TRUNCATION_SUFFIX"]
+       28 CONCAT                           R1 R2 R3
+       29 RETURN                           R1 1
+       30 RETURN                           R0 1
+
+PROTO_1:
         0 NAMECALL                         R2 R0 K0 ["lower"]
         2 CALL                             R2 1 1
         3 GETTABLEKS                       R3 R1 K1 ["nameColumn"]
@@ -53,7 +78,7 @@ PROTO_0:
        76 LOADB                            R3 0
        77 RETURN                           R3 1
 
-PROTO_1:
+PROTO_2:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 LOADB                            R3 0 +1
         3 LOADB                            R3 1
@@ -82,7 +107,7 @@ PROTO_1:
        33 LOADB                            R2 1
        34 RETURN                           R2 1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["debuggerStateToken"]
         3 GETUPVAL                         R3 1
@@ -113,7 +138,7 @@ PROTO_2:
        39 CALL                             R2 -1 0
        40 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETTABLEKS                       R5 R1 K0 ["debuggerStateToken"]
         2 NAMECALL                         R7 R3 K1 ["getState"]
         4 CALL                             R7 1 1
@@ -159,7 +184,7 @@ PROTO_3:
        59 CALL                             R9 4 0
        60 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 MOVE                             R3 R0
         1 MOVE                             R4 R1
         2 FASTCALL1                        TYPE R3 ; [+3]
@@ -203,7 +228,7 @@ PROTO_4:
        51 LOADB                            R5 1
        52 RETURN                           R5 1
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R0 R3
         2 GETUPVAL                         R4 0
@@ -239,7 +264,7 @@ PROTO_5:
        37 CALL                             R2 3 1
        38 RETURN                           R2 1
 
-PROTO_6:
+PROTO_7:
         0 MOVE                             R6 R2
         1 JUMPIF                           R6 ; [+2]
         2 GETIMPORT                        R6 K3 [Enum.SortDirection.Descending]
@@ -267,7 +292,7 @@ PROTO_6:
        28 JUMPIF                           R10 ; [+1]
        29 GETTABLE                         R10 R3 R9
        30 MOVE                             R7 R10
-       31 DUPCLOSURE                       R9 K4 [PROTO_4]
+       31 DUPCLOSURE                       R9 K4 [PROTO_5]
        32 NEWCLOSURE                       R10 P1
        33 CAPTURE                          REF R7
        34 CAPTURE                          VAL R5
@@ -313,14 +338,23 @@ MAIN:
        22 GETTABLEKS                       R3 R3 K8 ["Models"]
        24 GETTABLEKS                       R3 R3 K9 ["StepStateBundle"]
        26 CALL                             R2 1 1
-       27 NEWTABLE                         R3 4 0
-       29 DUPCLOSURE                       R4 K10 [PROTO_0]
-       30 SETTABLEKS                       R4 R3 K11 ["textMatchRow"]
-       32 DUPCLOSURE                       R4 K12 [PROTO_1]
-       33 SETTABLEKS                       R4 R3 K13 ["isScopeFiltered"]
-       35 DUPCLOSURE                       R4 K14 [PROTO_3]
-       36 CAPTURE                          VAL R1
-       37 SETTABLEKS                       R4 R3 K15 ["evaluateWatchWithCallback"]
-       39 DUPCLOSURE                       R4 K16 [PROTO_6]
-       40 SETTABLEKS                       R4 R3 K17 ["sortTableByColumnAndOrder"]
-       42 RETURN                           R3 1
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       33 GETTABLEKS                       R4 R4 K11 ["getFFlagDebuggerWatchValueTruncation"]
+       35 CALL                             R3 1 1
+       36 NEWTABLE                         R4 8 0
+       38 DUPCLOSURE                       R5 K12 [PROTO_0]
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R1
+       41 SETTABLEKS                       R5 R4 K13 ["truncateValue"]
+       43 DUPCLOSURE                       R5 K14 [PROTO_1]
+       44 SETTABLEKS                       R5 R4 K15 ["textMatchRow"]
+       46 DUPCLOSURE                       R5 K16 [PROTO_2]
+       47 SETTABLEKS                       R5 R4 K17 ["isScopeFiltered"]
+       49 DUPCLOSURE                       R5 K18 [PROTO_4]
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R5 R4 K19 ["evaluateWatchWithCallback"]
+       53 DUPCLOSURE                       R5 K20 [PROTO_7]
+       54 SETTABLEKS                       R5 R4 K21 ["sortTableByColumnAndOrder"]
+       56 RETURN                           R4 1

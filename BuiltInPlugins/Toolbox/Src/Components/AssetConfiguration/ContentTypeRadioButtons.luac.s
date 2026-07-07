@@ -57,7 +57,7 @@ PROTO_0:
        84 GETTABLEKS                       R29 R29 K15 ["createElement"]
        86 GETUPVAL                         R30 4
        87 GETTABLEKS                       R30 R30 K21 ["View"]
-       89 DUPTABLE                         R31 K38 [{["tag"] = "shrink-0 row gap-small", ["Size"]}]
+       89 DUPTABLE                         R31 K38 [{["tag"] = "row gap-small", ["Size"]}]
        90 GETIMPORT                        R32 K41 [UDim2.fromOffset]
        92 LOADN                            R33 420
        93 LOADN                            R34 0
@@ -115,7 +115,7 @@ PROTO_0:
       172 GETTABLEKS                       R25 R25 K15 ["createElement"]
       174 GETUPVAL                         R26 4
       175 GETTABLEKS                       R26 R26 K21 ["View"]
-      177 DUPTABLE                         R27 K56 [{["tag"] = "size-full-x row align-x-left align-y-center gap-small auto-y padding-top-large", ["LayoutOrder"]}]
+      177 DUPTABLE                         R27 K56 [{["tag"] = "row align-x-left align-y-center gap-small auto-y padding-top-large", ["LayoutOrder"]}]
       178 NAMECALL                         R28 R16 K33 ["getNextOrder"]
       180 CALL                             R28 1 1
       181 SETTABLEKS                       R28 R27 K16 ["LayoutOrder"]
@@ -124,7 +124,7 @@ PROTO_0:
       185 GETTABLEKS                       R29 R29 K15 ["createElement"]
       187 GETUPVAL                         R30 4
       188 GETTABLEKS                       R30 R30 K60 ["Image"]
-      190 DUPTABLE                         R31 K63 [{["tag"] = "shrink-0 content-system-warning", ["Image"], ["LayoutOrder"] = 1, ["Size"]}]
+      190 DUPTABLE                         R31 K63 [{["tag"] = "content-system-warning", ["Image"], ["LayoutOrder"] = 1, ["Size"]}]
       191 GETUPVAL                         R32 5
       192 GETTABLEKS                       R32 R32 K64 ["WARNING_ICON"]
       194 SETTABLEKS                       R32 R31 K60 ["Image"]

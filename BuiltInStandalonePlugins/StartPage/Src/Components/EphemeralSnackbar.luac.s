@@ -72,74 +72,77 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 -1
-        2 FASTCALL                         ASSERT ; [+2]
-        3 GETIMPORT                        R1 K1 [assert]
-        5 CALL                             R1 -1 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R1 R1 K2 ["useState"]
-        9 LOADB                            R2 0
-       10 CALL                             R1 1 2
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R3 R3 K3 ["useRef"]
-       14 LOADNIL                          R4
-       15 CALL                             R3 1 1
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R4 R4 K4 ["useCallback"]
-       19 NEWCLOSURE                       R5 P0
-       20 CAPTURE                          VAL R3
-       21 NEWTABLE                         R6 0 0
-       23 CALL                             R4 2 1
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R5 R5 K4 ["useCallback"]
-       27 NEWCLOSURE                       R6 P1
-       28 CAPTURE                          VAL R4
-       29 CAPTURE                          VAL R3
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          VAL R2
-       32 NEWTABLE                         R7 0 2
-       34 MOVE                             R8 R4
-       35 GETTABLEKS                       R9 R0 K5 ["dismissAfterSeconds"]
-       37 SETLIST                          R7 R8 2 [1]
-       39 CALL                             R5 2 1
-       40 GETUPVAL                         R6 1
-       41 GETTABLEKS                       R6 R6 K6 ["useEffect"]
-       43 NEWCLOSURE                       R7 P2
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          VAL R0
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          VAL R5
-       48 CAPTURE                          VAL R4
-       49 NEWTABLE                         R8 0 4
-       51 MOVE                             R9 R5
-       52 MOVE                             R10 R4
-       53 GETTABLEKS                       R11 R0 K7 ["cpcChannel"]
-       55 GETTABLEKS                       R12 R0 K8 ["cpcEvent"]
-       57 SETLIST                          R8 R9 4 [1]
-       59 CALL                             R6 2 0
-       60 JUMPIF                           R1 ; [+2]
-       61 LOADNIL                          R6
-       62 RETURN                           R6 1
-       63 GETUPVAL                         R6 1
-       64 GETTABLEKS                       R6 R6 K9 ["createElement"]
-       66 GETUPVAL                         R7 3
-       67 DUPTABLE                         R8 K15 [{["title"], ["Position"], ["AnchorPoint"], ["ZIndex"] = 100}]
-       68 GETTABLEKS                       R9 R0 K16 ["message"]
-       70 SETTABLEKS                       R9 R8 K10 ["title"]
-       72 GETIMPORT                        R9 K19 [UDim2.new]
-       74 LOADK                            R10 K20 [0.5]
-       75 LOADN                            R11 0
-       76 LOADN                            R12 1
-       77 LOADN                            R13 -32
-       78 CALL                             R9 4 1
-       79 SETTABLEKS                       R9 R8 K11 ["Position"]
-       81 GETIMPORT                        R9 K22 [Vector2.new]
-       83 LOADK                            R10 K20 [0.5]
-       84 LOADN                            R11 1
-       85 CALL                             R9 2 1
-       86 SETTABLEKS                       R9 R8 K12 ["AnchorPoint"]
-       88 CALL                             R6 2 -1
-       89 RETURN                           R6 -1
+        1 CALL                             R2 0 1
+        2 JUMPIF                           R2 ; [+2]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R2 0 1
+        5 FASTCALL1                        ASSERT R2 ; [+2]
+        6 GETIMPORT                        R1 K1 [assert]
+        8 CALL                             R1 1 0
+        9 GETUPVAL                         R1 2
+       10 GETTABLEKS                       R1 R1 K2 ["useState"]
+       12 LOADB                            R2 0
+       13 CALL                             R1 1 2
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K3 ["useRef"]
+       17 LOADNIL                          R4
+       18 CALL                             R3 1 1
+       19 GETUPVAL                         R4 2
+       20 GETTABLEKS                       R4 R4 K4 ["useCallback"]
+       22 NEWCLOSURE                       R5 P0
+       23 CAPTURE                          VAL R3
+       24 NEWTABLE                         R6 0 0
+       26 CALL                             R4 2 1
+       27 GETUPVAL                         R5 2
+       28 GETTABLEKS                       R5 R5 K4 ["useCallback"]
+       30 NEWCLOSURE                       R6 P1
+       31 CAPTURE                          VAL R4
+       32 CAPTURE                          VAL R3
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          VAL R2
+       35 NEWTABLE                         R7 0 2
+       37 MOVE                             R8 R4
+       38 GETTABLEKS                       R9 R0 K5 ["dismissAfterSeconds"]
+       40 SETLIST                          R7 R8 2 [1]
+       42 CALL                             R5 2 1
+       43 GETUPVAL                         R6 2
+       44 GETTABLEKS                       R6 R6 K6 ["useEffect"]
+       46 NEWCLOSURE                       R7 P2
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          VAL R0
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R4
+       52 NEWTABLE                         R8 0 4
+       54 MOVE                             R9 R5
+       55 MOVE                             R10 R4
+       56 GETTABLEKS                       R11 R0 K7 ["cpcChannel"]
+       58 GETTABLEKS                       R12 R0 K8 ["cpcEvent"]
+       60 SETLIST                          R8 R9 4 [1]
+       62 CALL                             R6 2 0
+       63 JUMPIF                           R1 ; [+2]
+       64 LOADNIL                          R6
+       65 RETURN                           R6 1
+       66 GETUPVAL                         R6 2
+       67 GETTABLEKS                       R6 R6 K9 ["createElement"]
+       69 GETUPVAL                         R7 4
+       70 DUPTABLE                         R8 K15 [{["title"], ["Position"], ["AnchorPoint"], ["ZIndex"] = 100}]
+       71 GETTABLEKS                       R9 R0 K16 ["message"]
+       73 SETTABLEKS                       R9 R8 K10 ["title"]
+       75 GETIMPORT                        R9 K19 [UDim2.new]
+       77 LOADK                            R10 K20 [0.5]
+       78 LOADN                            R11 0
+       79 LOADN                            R12 1
+       80 LOADN                            R13 -32
+       81 CALL                             R9 4 1
+       82 SETTABLEKS                       R9 R8 K11 ["Position"]
+       84 GETIMPORT                        R9 K22 [Vector2.new]
+       86 LOADK                            R10 K20 [0.5]
+       87 LOADN                            R11 1
+       88 CALL                             R9 2 1
+       89 SETTABLEKS                       R9 R8 K12 ["AnchorPoint"]
+       91 CALL                             R6 2 -1
+       92 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -168,9 +171,15 @@ MAIN:
        40 GETTABLEKS                       R7 R7 K14 ["SharedFlags"]
        42 GETTABLEKS                       R7 R7 K15 ["getFFlagStartPageTrustedConnectionSnackbar"]
        44 CALL                             R6 1 1
-       45 DUPCLOSURE                       R7 K16 [PROTO_6]
-       46 CAPTURE                          VAL R6
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R5
-       50 RETURN                           R7 1
+       45 GETIMPORT                        R7 K5 [require]
+       47 GETTABLEKS                       R8 R0 K11 ["Src"]
+       49 GETTABLEKS                       R8 R8 K14 ["SharedFlags"]
+       51 GETTABLEKS                       R8 R8 K16 ["getFFlagStartPageSaveAsCopy"]
+       53 CALL                             R7 1 1
+       54 DUPCLOSURE                       R8 K17 [PROTO_6]
+       55 CAPTURE                          VAL R6
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R5
+       60 RETURN                           R8 1

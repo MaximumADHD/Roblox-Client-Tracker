@@ -35,10 +35,22 @@ PROTO_1:
        39 RETURN                           R0 0
 
 PROTO_2:
-        0 GETIMPORT                        R0 K2 [task.spawn]
-        2 GETUPVAL                         R1 0
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 GETUPVAL                         R3 3
+        4 CALL                             R0 3 0
+        5 RETURN                           R0 0
+
+PROTO_3:
+        0 GETIMPORT                        R3 K2 [task.spawn]
+        2 NEWCLOSURE                       R4 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          VAL R1
+        6 CAPTURE                          VAL R2
+        7 CALL                             R3 1 0
+        8 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -55,7 +67,7 @@ MAIN:
        17 MOVE                             R3 R1
        18 CALL                             R3 0 1
        19 JUMPIFNOT                        R3 ; [+3]
-       20 DUPCLOSURE                       R3 K10 [PROTO_2]
+       20 DUPCLOSURE                       R3 K10 [PROTO_3]
        21 CAPTURE                          VAL R2
        22 RETURN                           R3 1
        23 RETURN                           R2 1

@@ -400,7 +400,7 @@ PROTO_11:
       280 GETUPVAL                         R34 1
       281 GETTABLEKS                       R34 R34 K21 ["createElement"]
       283 GETUPVAL                         R35 8
-      284 DUPTABLE                         R36 K71 [{["tag"] = "content-secondary auto-xy text-body-small", ["Text"], ["LayoutOrder"] = 1}]
+      284 DUPTABLE                         R36 K71 [{["tag"] = "auto-xy text-body-small", ["Text"], ["LayoutOrder"] = 1}]
       285 SETTABLEKS                       R2 R36 K70 ["Text"]
       287 CALL                             R34 2 1
       288 SETTABLEKS                       R34 R33 K56 ["ColorLabel"]

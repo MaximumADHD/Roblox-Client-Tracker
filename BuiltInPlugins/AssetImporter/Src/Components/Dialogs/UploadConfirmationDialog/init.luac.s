@@ -305,9 +305,9 @@ PROTO_7:
       205 GETUPVAL                         R29 9
       206 GETUPVAL                         R30 15
       207 GETTABLEKS                       R30 R30 K40 ["Text"]
-      209 DUPTABLE                         R31 K77 [{["tag"] = "data-testid=AssetQuota size-full-0 auto-y text-body-medium text-wrap text-align-x-left text-align-y-top", ["Text"], ["LayoutOrder"]}]
+      209 DUPTABLE                         R31 K78 [{["tag"] = "size-full-0 auto-y text-body-medium text-wrap text-align-x-left text-align-y-top", ["testId"] = "AssetQuota", ["Text"], ["LayoutOrder"]}]
       210 MOVE                             R33 R9
-      211 LOADK                            R34 K78 ["\n"]
+      211 LOADK                            R34 K79 ["\n"]
       212 MOVE                             R35 R10
       213 CONCAT                           R32 R33 R35
       214 SETTABLEKS                       R32 R31 K40 ["Text"]
@@ -318,7 +318,7 @@ PROTO_7:
       222 JUMPIF                           R29 ; [+5]
       223 GETUPVAL                         R29 9
       224 GETUPVAL                         R30 17
-      225 GETTABLEKS                       R30 R30 K79 ["Fragment"]
+      225 GETTABLEKS                       R30 R30 K80 ["Fragment"]
       227 CALL                             R29 1 1
       228 SETTABLEKS                       R29 R28 K69 ["Quotas"]
       230 CALL                             R25 3 1
@@ -328,45 +328,45 @@ PROTO_7:
       236 GETUPVAL                         R21 9
       237 GETUPVAL                         R22 15
       238 GETTABLEKS                       R22 R22 K11 ["Dialog"]
-      240 GETTABLEKS                       R22 R22 K80 ["Actions"]
-      242 DUPTABLE                         R23 K83 [{"LayoutOrder", "actions", "orientation"}]
+      240 GETTABLEKS                       R22 R22 K81 ["Actions"]
+      242 DUPTABLE                         R23 K84 [{"LayoutOrder", "actions", "orientation"}]
       243 NAMECALL                         R24 R11 K44 ["getNextOrder"]
       245 CALL                             R24 1 1
       246 SETTABLEKS                       R24 R23 K42 ["LayoutOrder"]
       248 NEWTABLE                         R24 0 2
-      250 DUPTABLE                         R25 K87 [{"text", "variant", "onActivated"}]
+      250 DUPTABLE                         R25 K88 [{"text", "variant", "onActivated"}]
       251 LOADK                            R28 K22 ["UploadConfirmation"]
-      252 LOADK                            R29 K88 ["CancelButton"]
+      252 LOADK                            R29 K89 ["CancelButton"]
       253 NAMECALL                         R26 R4 K24 ["getText"]
       255 CALL                             R26 3 1
-      256 SETTABLEKS                       R26 R25 K84 ["text"]
+      256 SETTABLEKS                       R26 R25 K85 ["text"]
       258 GETUPVAL                         R26 18
-      259 GETTABLEKS                       R26 R26 K89 ["Standard"]
-      261 SETTABLEKS                       R26 R25 K85 ["variant"]
+      259 GETTABLEKS                       R26 R26 K90 ["Standard"]
+      261 SETTABLEKS                       R26 R25 K86 ["variant"]
       263 NEWCLOSURE                       R26 P3
       264 CAPTURE                          VAL R1
       265 CAPTURE                          UPVAL U14
       266 CAPTURE                          VAL R3
-      267 SETTABLEKS                       R26 R25 K86 ["onActivated"]
-      269 DUPTABLE                         R26 K87 [{"text", "variant", "onActivated"}]
+      267 SETTABLEKS                       R26 R25 K87 ["onActivated"]
+      269 DUPTABLE                         R26 K88 [{"text", "variant", "onActivated"}]
       270 LOADK                            R29 K22 ["UploadConfirmation"]
-      271 LOADK                            R30 K90 ["ContinueButton"]
+      271 LOADK                            R30 K91 ["ContinueButton"]
       272 NAMECALL                         R27 R4 K24 ["getText"]
       274 CALL                             R27 3 1
-      275 SETTABLEKS                       R27 R26 K84 ["text"]
+      275 SETTABLEKS                       R27 R26 K85 ["text"]
       277 GETUPVAL                         R27 18
-      278 GETTABLEKS                       R27 R27 K91 ["Emphasis"]
-      280 SETTABLEKS                       R27 R26 K85 ["variant"]
+      278 GETTABLEKS                       R27 R27 K92 ["Emphasis"]
+      280 SETTABLEKS                       R27 R26 K86 ["variant"]
       282 NEWCLOSURE                       R27 P4
       283 CAPTURE                          VAL R1
       284 CAPTURE                          UPVAL U14
       285 CAPTURE                          VAL R3
-      286 SETTABLEKS                       R27 R26 K86 ["onActivated"]
+      286 SETTABLEKS                       R27 R26 K87 ["onActivated"]
       288 SETLIST                          R24 R25 2 [1]
-      290 SETTABLEKS                       R24 R23 K81 ["actions"]
+      290 SETTABLEKS                       R24 R23 K82 ["actions"]
       292 GETUPVAL                         R24 19
-      293 GETTABLEKS                       R24 R24 K92 ["Horizontal"]
-      295 SETTABLEKS                       R24 R23 K82 ["orientation"]
+      293 GETTABLEKS                       R24 R24 K93 ["Horizontal"]
+      295 SETTABLEKS                       R24 R23 K83 ["orientation"]
       297 CALL                             R21 2 1
       298 SETTABLEKS                       R21 R20 K38 ["Buttons"]
       300 CALL                             R17 3 1

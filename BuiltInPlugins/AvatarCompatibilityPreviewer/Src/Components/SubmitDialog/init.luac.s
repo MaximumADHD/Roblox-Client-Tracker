@@ -212,7 +212,7 @@ PROTO_10:
        79 GETTABLEKS                       R9 R9 K6 ["createElement"]
        81 GETUPVAL                         R10 3
        82 GETTABLEKS                       R10 R10 K34 ["Text"]
-       84 DUPTABLE                         R11 K36 [{["Text"], ["tag"] = "bold auto-y padding-x-medium text-title-small text-align-x-left text-truncate-end content-default", ["Size"], ["LayoutOrder"]}]
+       84 DUPTABLE                         R11 K36 [{["Text"], ["tag"] = "auto-y padding-x-medium text-title-small text-align-x-left text-truncate-end content-default", ["Size"], ["LayoutOrder"]}]
        85 SETTABLEKS                       R2 R11 K34 ["Text"]
        87 GETIMPORT                        R12 K30 [UDim2.fromOffset]
        89 LOADN                            R13 304

@@ -37,17 +37,27 @@ PROTO_3:
         4 RETURN                           R0 0
 
 PROTO_4:
+        0 GETIMPORT                        R0 K2 [table.clear]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["current"]
+        5 CALL                             R0 1 0
+        6 GETUPVAL                         R0 1
+        7 LOADNIL                          R1
+        8 CALL                             R0 1 0
+        9 RETURN                           R0 0
+
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 SETTABLEKS                       R0 R1 K0 ["current"]
         3 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 NEWCLOSURE                       R2 P0
@@ -58,7 +68,7 @@ PROTO_6:
         9 CAPTURE                          VAL R0
        10 RETURN                           R1 1
 
-PROTO_7:
+PROTO_8:
         0 LOADK                            R6 K0 ["%*|%*|%*|%*|%*"]
         1 MOVE                             R8 R0
         2 ORK                              R9 R1 K1 [""]
@@ -70,7 +80,7 @@ PROTO_7:
         9 MOVE                             R5 R6
        10 RETURN                           R5 1
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useRef"]
         3 LOADNIL                          R2
@@ -134,44 +144,66 @@ PROTO_8:
        80 MOVE                             R13 R9
        81 SETLIST                          R12 R13 1 [1]
        83 CALL                             R10 2 1
-       84 GETUPVAL                         R11 0
-       85 GETTABLEKS                       R11 R11 K5 ["useEffect"]
-       87 NEWCLOSURE                       R12 P4
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R5
-       90 NEWTABLE                         R13 0 0
-       92 CALL                             R11 2 0
-       93 GETUPVAL                         R11 0
-       94 GETTABLEKS                       R11 R11 K4 ["useCallback"]
-       96 DUPCLOSURE                       R12 K6 [PROTO_7]
-       97 NEWTABLE                         R13 0 0
-       99 CALL                             R11 2 1
-      100 DUPTABLE                         R12 K18 [{"activeCellId", "activeCellIdChangedSignal", "formatCellId", "expansionsRef", "inputKeycodeSignal", "onExpansionsChanged", "onInputKeycode", "setActiveCellId", "size", "sizeChangedSignal", "onSizeChanged"}]
-      101 GETTABLEKS                       R13 R1 K19 ["current"]
-      103 SETTABLEKS                       R13 R12 K7 ["activeCellId"]
-      105 GETTABLEKS                       R13 R2 K19 ["current"]
-      107 SETTABLEKS                       R13 R12 K8 ["activeCellIdChangedSignal"]
-      109 SETTABLEKS                       R11 R12 K9 ["formatCellId"]
-      111 SETTABLEKS                       R9 R12 K10 ["expansionsRef"]
-      113 GETTABLEKS                       R13 R3 K19 ["current"]
-      115 SETTABLEKS                       R13 R12 K11 ["inputKeycodeSignal"]
-      117 SETTABLEKS                       R10 R12 K12 ["onExpansionsChanged"]
-      119 SETTABLEKS                       R7 R12 K13 ["onInputKeycode"]
-      121 SETTABLEKS                       R6 R12 K14 ["setActiveCellId"]
-      123 GETTABLEKS                       R13 R5 K19 ["current"]
-      125 SETTABLEKS                       R13 R12 K15 ["size"]
-      127 GETTABLEKS                       R13 R4 K19 ["current"]
-      129 SETTABLEKS                       R13 R12 K16 ["sizeChangedSignal"]
-      131 SETTABLEKS                       R8 R12 K17 ["onSizeChanged"]
-      133 GETUPVAL                         R13 0
-      134 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      136 GETUPVAL                         R14 2
-      137 GETTABLEKS                       R14 R14 K21 ["Provider"]
-      139 DUPTABLE                         R15 K23 [{"value"}]
-      140 SETTABLEKS                       R12 R15 K22 ["value"]
-      142 GETTABLEKS                       R16 R0 K24 ["children"]
-      144 CALL                             R13 3 -1
-      145 RETURN                           R13 -1
+       84 GETUPVAL                         R12 2
+       85 CALL                             R12 0 1
+       86 JUMPIFNOT                        R12 ; [+8]
+       87 GETUPVAL                         R11 0
+       88 GETTABLEKS                       R11 R11 K5 ["useContext"]
+       90 GETUPVAL                         R12 3
+       91 GETTABLEKS                       R12 R12 K6 ["Context"]
+       93 CALL                             R11 1 1
+       94 JUMP                             ; [+1]
+       95 LOADNIL                          R11
+       96 GETUPVAL                         R12 2
+       97 CALL                             R12 0 1
+       98 JUMPIFNOT                        R12 ; [+12]
+       99 GETUPVAL                         R12 0
+      100 GETTABLEKS                       R12 R12 K7 ["useEffect"]
+      102 NEWCLOSURE                       R13 P4
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R6
+      105 NEWTABLE                         R14 0 1
+      107 MOVE                             R15 R11
+      108 SETLIST                          R14 R15 1 [1]
+      110 CALL                             R12 2 0
+      111 GETUPVAL                         R12 0
+      112 GETTABLEKS                       R12 R12 K7 ["useEffect"]
+      114 NEWCLOSURE                       R13 P5
+      115 CAPTURE                          VAL R4
+      116 CAPTURE                          VAL R5
+      117 NEWTABLE                         R14 0 0
+      119 CALL                             R12 2 0
+      120 GETUPVAL                         R12 0
+      121 GETTABLEKS                       R12 R12 K4 ["useCallback"]
+      123 DUPCLOSURE                       R13 K8 [PROTO_8]
+      124 NEWTABLE                         R14 0 0
+      126 CALL                             R12 2 1
+      127 DUPTABLE                         R13 K20 [{"activeCellId", "activeCellIdChangedSignal", "formatCellId", "expansionsRef", "inputKeycodeSignal", "onExpansionsChanged", "onInputKeycode", "setActiveCellId", "size", "sizeChangedSignal", "onSizeChanged"}]
+      128 GETTABLEKS                       R14 R1 K21 ["current"]
+      130 SETTABLEKS                       R14 R13 K9 ["activeCellId"]
+      132 GETTABLEKS                       R14 R2 K21 ["current"]
+      134 SETTABLEKS                       R14 R13 K10 ["activeCellIdChangedSignal"]
+      136 SETTABLEKS                       R12 R13 K11 ["formatCellId"]
+      138 SETTABLEKS                       R9 R13 K12 ["expansionsRef"]
+      140 GETTABLEKS                       R14 R3 K21 ["current"]
+      142 SETTABLEKS                       R14 R13 K13 ["inputKeycodeSignal"]
+      144 SETTABLEKS                       R10 R13 K14 ["onExpansionsChanged"]
+      146 SETTABLEKS                       R7 R13 K15 ["onInputKeycode"]
+      148 SETTABLEKS                       R6 R13 K16 ["setActiveCellId"]
+      150 GETTABLEKS                       R14 R5 K21 ["current"]
+      152 SETTABLEKS                       R14 R13 K17 ["size"]
+      154 GETTABLEKS                       R14 R4 K21 ["current"]
+      156 SETTABLEKS                       R14 R13 K18 ["sizeChangedSignal"]
+      158 SETTABLEKS                       R8 R13 K19 ["onSizeChanged"]
+      160 GETUPVAL                         R14 0
+      161 GETTABLEKS                       R14 R14 K22 ["createElement"]
+      163 GETUPVAL                         R15 4
+      164 GETTABLEKS                       R15 R15 K23 ["Provider"]
+      166 DUPTABLE                         R16 K25 [{"value"}]
+      167 SETTABLEKS                       R13 R16 K24 ["value"]
+      169 GETTABLEKS                       R17 R0 K26 ["children"]
+      171 CALL                             R14 3 -1
+      172 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -193,55 +225,67 @@ MAIN:
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R5 R0 K10 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Types"]
-       34 CALL                             R4 1 1
-       35 DUPTABLE                         R5 K24 [{["activeCellId"] = , ["activeCellIdChangedSignal"], ["formatCellId"], ["expansionsRef"], ["inputKeycodeSignal"], ["onExpansionsChanged"], ["onInputKeycode"], ["onSizeChanged"], ["setActiveCellId"], ["size"], ["sizeChangedSignal"]}]
-       36 GETTABLEKS                       R6 R3 K25 ["new"]
-       38 CALL                             R6 0 1
-       39 SETTABLEKS                       R6 R5 K14 ["activeCellIdChangedSignal"]
-       41 GETTABLEKS                       R6 R2 K26 ["createUnimplemented"]
-       43 LOADK                            R7 K15 ["formatCellId"]
-       44 CALL                             R6 1 1
-       45 SETTABLEKS                       R6 R5 K15 ["formatCellId"]
-       47 DUPTABLE                         R6 K28 [{"current"}]
-       48 NEWTABLE                         R7 0 0
-       50 SETTABLEKS                       R7 R6 K27 ["current"]
-       52 SETTABLEKS                       R6 R5 K16 ["expansionsRef"]
-       54 GETTABLEKS                       R6 R3 K25 ["new"]
-       56 CALL                             R6 0 1
-       57 SETTABLEKS                       R6 R5 K17 ["inputKeycodeSignal"]
-       59 GETTABLEKS                       R6 R2 K26 ["createUnimplemented"]
-       61 LOADK                            R7 K29 ["onExpansionChanged"]
-       62 CALL                             R6 1 1
-       63 SETTABLEKS                       R6 R5 K18 ["onExpansionsChanged"]
-       65 GETTABLEKS                       R6 R2 K26 ["createUnimplemented"]
-       67 LOADK                            R7 K19 ["onInputKeycode"]
-       68 CALL                             R6 1 1
-       69 SETTABLEKS                       R6 R5 K19 ["onInputKeycode"]
-       71 GETTABLEKS                       R6 R2 K26 ["createUnimplemented"]
-       73 LOADK                            R7 K20 ["onSizeChanged"]
-       74 CALL                             R6 1 1
-       75 SETTABLEKS                       R6 R5 K20 ["onSizeChanged"]
-       77 GETTABLEKS                       R6 R2 K26 ["createUnimplemented"]
-       79 LOADK                            R7 K21 ["setActiveCellId"]
-       80 CALL                             R6 1 1
-       81 SETTABLEKS                       R6 R5 K21 ["setActiveCellId"]
-       83 GETIMPORT                        R6 K31 [Vector2.new]
-       85 LOADN                            R7 640
-       86 LOADN                            R8 480
-       87 CALL                             R6 2 1
-       88 SETTABLEKS                       R6 R5 K22 ["size"]
-       90 GETTABLEKS                       R6 R3 K25 ["new"]
-       92 CALL                             R6 0 1
-       93 SETTABLEKS                       R6 R5 K23 ["sizeChangedSignal"]
-       95 GETTABLEKS                       R6 R1 K32 ["createContext"]
-       97 MOVE                             R7 R5
-       98 CALL                             R6 1 1
-       99 DUPCLOSURE                       R7 K33 [PROTO_8]
-      100 CAPTURE                          VAL R1
-      101 CAPTURE                          VAL R3
-      102 CAPTURE                          VAL R6
-      103 DUPTABLE                         R8 K36 [{"Context", "Provider"}]
-      104 SETTABLEKS                       R6 R8 K34 ["Context"]
-      106 SETTABLEKS                       R7 R8 K35 ["Provider"]
-      108 RETURN                           R8 1
+       32 GETTABLEKS                       R5 R5 K11 ["Contexts"]
+       34 GETTABLEKS                       R5 R5 K12 ["DatamodelConfiguration"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K10 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Types"]
+       43 CALL                             R5 1 1
+       44 GETTABLEKS                       R6 R0 K10 ["Src"]
+       46 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       48 GETIMPORT                        R7 K5 [require]
+       50 GETTABLEKS                       R8 R6 K15 ["getFFlagIAMFocusedDatamodelChanged"]
+       52 CALL                             R7 1 1
+       53 DUPTABLE                         R8 K28 [{["activeCellId"] = , ["activeCellIdChangedSignal"], ["formatCellId"], ["expansionsRef"], ["inputKeycodeSignal"], ["onExpansionsChanged"], ["onInputKeycode"], ["onSizeChanged"], ["setActiveCellId"], ["size"], ["sizeChangedSignal"]}]
+       54 GETTABLEKS                       R9 R3 K29 ["new"]
+       56 CALL                             R9 0 1
+       57 SETTABLEKS                       R9 R8 K18 ["activeCellIdChangedSignal"]
+       59 GETTABLEKS                       R9 R2 K30 ["createUnimplemented"]
+       61 LOADK                            R10 K19 ["formatCellId"]
+       62 CALL                             R9 1 1
+       63 SETTABLEKS                       R9 R8 K19 ["formatCellId"]
+       65 DUPTABLE                         R9 K32 [{"current"}]
+       66 NEWTABLE                         R10 0 0
+       68 SETTABLEKS                       R10 R9 K31 ["current"]
+       70 SETTABLEKS                       R9 R8 K20 ["expansionsRef"]
+       72 GETTABLEKS                       R9 R3 K29 ["new"]
+       74 CALL                             R9 0 1
+       75 SETTABLEKS                       R9 R8 K21 ["inputKeycodeSignal"]
+       77 GETTABLEKS                       R9 R2 K30 ["createUnimplemented"]
+       79 LOADK                            R10 K33 ["onExpansionChanged"]
+       80 CALL                             R9 1 1
+       81 SETTABLEKS                       R9 R8 K22 ["onExpansionsChanged"]
+       83 GETTABLEKS                       R9 R2 K30 ["createUnimplemented"]
+       85 LOADK                            R10 K23 ["onInputKeycode"]
+       86 CALL                             R9 1 1
+       87 SETTABLEKS                       R9 R8 K23 ["onInputKeycode"]
+       89 GETTABLEKS                       R9 R2 K30 ["createUnimplemented"]
+       91 LOADK                            R10 K24 ["onSizeChanged"]
+       92 CALL                             R9 1 1
+       93 SETTABLEKS                       R9 R8 K24 ["onSizeChanged"]
+       95 GETTABLEKS                       R9 R2 K30 ["createUnimplemented"]
+       97 LOADK                            R10 K25 ["setActiveCellId"]
+       98 CALL                             R9 1 1
+       99 SETTABLEKS                       R9 R8 K25 ["setActiveCellId"]
+      101 GETIMPORT                        R9 K35 [Vector2.new]
+      103 LOADN                            R10 640
+      104 LOADN                            R11 480
+      105 CALL                             R9 2 1
+      106 SETTABLEKS                       R9 R8 K26 ["size"]
+      108 GETTABLEKS                       R9 R3 K29 ["new"]
+      110 CALL                             R9 0 1
+      111 SETTABLEKS                       R9 R8 K27 ["sizeChangedSignal"]
+      113 GETTABLEKS                       R9 R1 K36 ["createContext"]
+      115 MOVE                             R10 R8
+      116 CALL                             R9 1 1
+      117 DUPCLOSURE                       R10 K37 [PROTO_9]
+      118 CAPTURE                          VAL R1
+      119 CAPTURE                          VAL R3
+      120 CAPTURE                          VAL R7
+      121 CAPTURE                          VAL R4
+      122 CAPTURE                          VAL R9
+      123 DUPTABLE                         R11 K40 [{"Context", "Provider"}]
+      124 SETTABLEKS                       R9 R11 K38 ["Context"]
+      126 SETTABLEKS                       R10 R11 K39 ["Provider"]
+      128 RETURN                           R11 1

@@ -1697,7 +1697,7 @@ PROTO_12:
       317 GETTABLEKS                       R19 R19 K20 ["createElement"]
       319 GETUPVAL                         R20 11
       320 GETTABLEKS                       R20 R20 K94 ["Text"]
-      322 DUPTABLE                         R21 K99 [{["LayoutOrder"] = 1, ["tag"] = "text-center text-heading-small", ["Size"], ["AutomaticSize"], ["Text"]}]
+      322 DUPTABLE                         R21 K99 [{["LayoutOrder"] = 1, ["tag"] = "text-heading-small", ["Size"], ["AutomaticSize"], ["Text"]}]
       323 GETIMPORT                        R22 K50 [UDim2.new]
       325 LOADN                            R23 1
       326 LOADN                            R24 0
@@ -1725,9 +1725,9 @@ PROTO_12:
       357 GETUPVAL                         R23 13
       358 CALL                             R23 0 1
       359 JUMPIFNOT                        R23 ; [+2]
-      360 LOADK                            R22 K104 ["text-center text-body-small"]
+      360 LOADK                            R22 K104 ["text-body-small"]
       361 JUMP                             ; [+1]
-      362 LOADK                            R22 K105 ["text-center text-caption-small"]
+      362 LOADK                            R22 K105 ["text-caption-small"]
       363 SETTABLEKS                       R22 R21 K40 ["tag"]
       365 GETIMPORT                        R22 K50 [UDim2.new]
       367 LOADN                            R23 1

@@ -1,34 +1,34 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+22]
-        3 GETUPVAL                         R0 1
-        4 GETTABLEKS                       R0 R0 K0 ["PlaceId"]
-        6 GETUPVAL                         R1 1
-        7 LOADK                            R3 K1 ["MarketplaceService"]
-        8 NAMECALL                         R1 R1 K2 ["GetService"]
-       10 CALL                             R1 2 1
-       11 MOVE                             R3 R0
-       12 NAMECALL                         R1 R1 K3 ["GetProductInfoAsync"]
-       14 CALL                             R1 2 1
-       15 GETTABLEKS                       R1 R1 K4 ["Name"]
-       17 LOADK                            R2 K5 ["%* (placeId: %*)"]
-       18 MOVE                             R4 R1
-       19 MOVE                             R5 R0
-       20 NAMECALL                         R2 R2 K6 ["format"]
-       22 CALL                             R2 3 1
-       23 MOVE                             R1 R2
-       24 RETURN                           R1 1
-       25 GETUPVAL                         R0 1
-       26 LOADK                            R2 K1 ["MarketplaceService"]
-       27 NAMECALL                         R0 R0 K2 ["GetService"]
-       29 CALL                             R0 2 1
-       30 GETUPVAL                         R2 1
-       31 GETTABLEKS                       R2 R2 K0 ["PlaceId"]
-       33 NAMECALL                         R0 R0 K3 ["GetProductInfoAsync"]
-       35 CALL                             R0 2 1
-       36 GETTABLEKS                       R0 R0 K4 ["Name"]
-       38 RETURN                           R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["FFlagMCPAssistantPlaceID"]
+        3 JUMPIFNOT                        R0 ; [+22]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["PlaceId"]
+        7 GETUPVAL                         R1 1
+        8 LOADK                            R3 K2 ["MarketplaceService"]
+        9 NAMECALL                         R1 R1 K3 ["GetService"]
+       11 CALL                             R1 2 1
+       12 MOVE                             R3 R0
+       13 NAMECALL                         R1 R1 K4 ["GetProductInfoAsync"]
+       15 CALL                             R1 2 1
+       16 GETTABLEKS                       R1 R1 K5 ["Name"]
+       18 LOADK                            R2 K6 ["%* (placeId: %*)"]
+       19 MOVE                             R4 R1
+       20 MOVE                             R5 R0
+       21 NAMECALL                         R2 R2 K7 ["format"]
+       23 CALL                             R2 3 1
+       24 MOVE                             R1 R2
+       25 RETURN                           R1 1
+       26 GETUPVAL                         R0 1
+       27 LOADK                            R2 K2 ["MarketplaceService"]
+       28 NAMECALL                         R0 R0 K3 ["GetService"]
+       30 CALL                             R0 2 1
+       31 GETUPVAL                         R2 1
+       32 GETTABLEKS                       R2 R2 K1 ["PlaceId"]
+       34 NAMECALL                         R0 R0 K4 ["GetProductInfoAsync"]
+       36 CALL                             R0 2 1
+       37 GETTABLEKS                       R0 R0 K5 ["Name"]
+       39 RETURN                           R0 1
 
 PROTO_1:
         0 GETIMPORT                        R2 K1 [pcall]
@@ -176,35 +176,34 @@ MAIN:
        23 GETIMPORT                        R3 K5 [require]
        25 GETTABLEKS                       R4 R0 K8 ["Src"]
        27 GETTABLEKS                       R4 R4 K11 ["Flags"]
-       29 GETTABLEKS                       R4 R4 K12 ["FFlagMCPAssistantPlaceID"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R1 K13 ["Utils"]
-       34 GETTABLEKS                       R4 R4 K14 ["DataModelType"]
-       36 NEWTABLE                         R5 4 0
-       38 LOADB                            R6 0
-       39 LOADNIL                          R7
-       40 LOADNIL                          R8
-       41 LOADNIL                          R9
-       42 LOADNIL                          R10
-       43 DUPCLOSURE                       R11 K15 [PROTO_1]
-       44 CAPTURE                          VAL R3
-       45 NEWCLOSURE                       R12 P1
-       46 CAPTURE                          REF R10
-       47 CAPTURE                          REF R6
-       48 CAPTURE                          REF R7
-       49 CAPTURE                          REF R9
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          REF R8
-       53 SETTABLEKS                       R12 R5 K16 ["initialize"]
-       55 NEWCLOSURE                       R12 P2
-       56 CAPTURE                          REF R7
-       57 CAPTURE                          REF R9
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          REF R8
-       60 SETTABLEKS                       R12 R5 K17 ["getNameAsync"]
-       62 NEWCLOSURE                       R12 P3
-       63 CAPTURE                          REF R7
-       64 SETTABLEKS                       R12 R5 K18 ["clearCache"]
-       66 CLOSEUPVALS                      R6
-       67 RETURN                           R5 1
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R1 K12 ["Utils"]
+       32 GETTABLEKS                       R4 R4 K13 ["DataModelType"]
+       34 NEWTABLE                         R5 4 0
+       36 LOADB                            R6 0
+       37 LOADNIL                          R7
+       38 LOADNIL                          R8
+       39 LOADNIL                          R9
+       40 LOADNIL                          R10
+       41 DUPCLOSURE                       R11 K14 [PROTO_1]
+       42 CAPTURE                          VAL R3
+       43 NEWCLOSURE                       R12 P1
+       44 CAPTURE                          REF R10
+       45 CAPTURE                          REF R6
+       46 CAPTURE                          REF R7
+       47 CAPTURE                          REF R9
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          REF R8
+       51 SETTABLEKS                       R12 R5 K15 ["initialize"]
+       53 NEWCLOSURE                       R12 P2
+       54 CAPTURE                          REF R7
+       55 CAPTURE                          REF R9
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          REF R8
+       58 SETTABLEKS                       R12 R5 K16 ["getNameAsync"]
+       60 NEWCLOSURE                       R12 P3
+       61 CAPTURE                          REF R7
+       62 SETTABLEKS                       R12 R5 K17 ["clearCache"]
+       64 CLOSEUPVALS                      R6
+       65 RETURN                           R5 1

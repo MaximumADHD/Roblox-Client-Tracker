@@ -27,6 +27,13 @@ PROTO_0:
        34 RETURN                           R1 1
 
 PROTO_1:
+        0 GETUPVAL                         R1 1
+        1 GETUPVAL                         R2 2
+        2 GETTABLE                         R0 R1 R2
+        3 SETUPVAL                         R0 0
+        4 RETURN                           R0 0
+
+PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["SourceAssetId"]
         2 JUMPIFNOTEQ                      R2 R1 ; [+3]
         4 LOADB                            R2 1
@@ -38,25 +45,35 @@ PROTO_1:
        11 LOADNIL                          R4
        12 LOADNIL                          R5
        13 FORGPREP                         R3
-       14 GETTABLE                         R8 R0 R7
-       15 JUMPIFNOT                        R8 ; [+17]
-       16 GETTABLEKS                       R9 R8 K2 ["Uri"]
-       18 JUMPIFNOT                        R9 ; [+14]
-       19 GETIMPORT                        R10 K5 [string.match]
-       21 GETTABLEKS                       R11 R8 K2 ["Uri"]
-       23 LOADK                            R12 K6 ["%d+"]
-       24 CALL                             R10 2 -1
-       25 FASTCALL                         TONUMBER ; [+2]
-       26 GETIMPORT                        R9 K8 [tonumber]
-       28 CALL                             R9 -1 1
-       29 JUMPIFNOTEQ                      R9 R1 ; [+3]
-       31 LOADB                            R10 1
-       32 RETURN                           R10 1
-       33 FORGLOOP                         R3 2 ; [-20]
-       35 LOADB                            R3 0
-       36 RETURN                           R3 1
+       14 LOADNIL                          R8
+       15 GETIMPORT                        R9 K3 [pcall]
+       17 NEWCLOSURE                       R10 P0
+       18 CAPTURE                          REF R8
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          VAL R7
+       21 CALL                             R9 1 0
+       22 JUMPIFNOT                        R8 ; [+3]
+       23 GETTABLEKS                       R9 R8 K4 ["Uri"]
+       25 JUMPIF                           R9 ; [+2]
+       26 CLOSEUPVALS                      R8
+       27 JUMP                             ; [+16]
+       28 GETIMPORT                        R10 K7 [string.match]
+       30 GETTABLEKS                       R11 R8 K4 ["Uri"]
+       32 LOADK                            R12 K8 ["%d+"]
+       33 CALL                             R10 2 -1
+       34 FASTCALL                         TONUMBER ; [+2]
+       35 GETIMPORT                        R9 K10 [tonumber]
+       37 CALL                             R9 -1 1
+       38 JUMPIFNOTEQ                      R9 R1 ; [+4]
+       40 LOADB                            R10 1
+       41 CLOSEUPVALS                      R8
+       42 RETURN                           R10 1
+       43 CLOSEUPVALS                      R8
+       44 FORGLOOP                         R3 2 ; [-31]
+       46 LOADB                            R3 0
+       47 RETURN                           R3 1
 
-PROTO_2:
+PROTO_3:
         0 NEWTABLE                         R1 0 0
         2 GETUPVAL                         R2 0
         3 LOADNIL                          R3
@@ -106,9 +123,9 @@ MAIN:
        23 DUPCLOSURE                       R3 K14 [PROTO_0]
        24 CAPTURE                          VAL R2
        25 CAPTURE                          VAL R0
-       26 DUPCLOSURE                       R4 K15 [PROTO_1]
+       26 DUPCLOSURE                       R4 K15 [PROTO_2]
        27 CAPTURE                          VAL R3
-       28 DUPCLOSURE                       R5 K16 [PROTO_2]
+       28 DUPCLOSURE                       R5 K16 [PROTO_3]
        29 CAPTURE                          VAL R1
        30 CAPTURE                          VAL R4
        31 RETURN                           R5 1

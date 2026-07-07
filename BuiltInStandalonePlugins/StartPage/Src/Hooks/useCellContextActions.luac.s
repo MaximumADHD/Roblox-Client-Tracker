@@ -49,13 +49,19 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["Id"]
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["PrivacyType"]
         7 CALL                             R0 2 0
         8 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["Id"]
@@ -68,14 +74,6 @@ PROTO_5:
        12 CALL                             R0 2 0
        13 RETURN                           R0 0
 
-PROTO_6:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETTABLEKS                       R1 R1 K0 ["Id"]
-        4 LOADB                            R2 0
-        5 CALL                             R0 2 0
-        6 RETURN                           R0 0
-
 PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
@@ -85,6 +83,14 @@ PROTO_7:
         6 RETURN                           R0 0
 
 PROTO_8:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["Id"]
+        4 LOADB                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
+
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["Id"]
@@ -99,7 +105,7 @@ PROTO_8:
        15 CALL                             R0 2 0
        16 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["FilePath"]
         3 JUMPIFNOT                        R0 ; [+15]
@@ -132,7 +138,7 @@ PROTO_9:
        40 CALL                             R0 2 0
        41 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["use"]
         3 CALL                             R2 1 1
@@ -140,209 +146,228 @@ PROTO_10:
         6 JUMPIFNOT                        R3 ; [+3]
         7 NEWTABLE                         R3 0 0
         9 RETURN                           R3 1
-       10 DUPTABLE                         R3 K12 [{"ConfigureExperience", "ConfigurePlace", "OpenPlace", "OpenACopy", "PublicPrivateToggle", "Archive", "DisableTeamCreate", "RestoreArchive", "RemoveShared", "RemoveRecent"}]
-       11 GETTABLEKS                       R5 R0 K13 ["Id"]
+       10 DUPTABLE                         R3 K13 [{"ConfigureExperience", "ConfigurePlace", "OpenPlace", "OpenACopy", "SaveAs", "PublicPrivateToggle", "Archive", "DisableTeamCreate", "RestoreArchive", "RemoveShared", "RemoveRecent"}]
+       11 GETTABLEKS                       R5 R0 K14 ["Id"]
        13 JUMPIFNOT                        R5 ; [+14]
-       14 DUPTABLE                         R4 K18 [{["id"] = "configure-experience", ["text"], ["onActivated"]}]
-       15 LOADK                            R7 K19 ["Plugin"]
+       14 DUPTABLE                         R4 K19 [{["id"] = "configure-experience", ["text"], ["onActivated"]}]
+       15 LOADK                            R7 K20 ["Plugin"]
        16 LOADK                            R8 K2 ["ConfigureExperience"]
-       17 NAMECALL                         R5 R2 K20 ["getText"]
+       17 NAMECALL                         R5 R2 K21 ["getText"]
        19 CALL                             R5 3 1
-       20 SETTABLEKS                       R5 R4 K16 ["text"]
+       20 SETTABLEKS                       R5 R4 K17 ["text"]
        22 NEWCLOSURE                       R5 P0
        23 CAPTURE                          UPVAL U1
        24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R5 R4 K17 ["onActivated"]
+       25 SETTABLEKS                       R5 R4 K18 ["onActivated"]
        27 JUMP                             ; [+1]
        28 LOADNIL                          R4
        29 SETTABLEKS                       R4 R3 K2 ["ConfigureExperience"]
-       31 GETTABLEKS                       R5 R0 K13 ["Id"]
+       31 GETTABLEKS                       R5 R0 K14 ["Id"]
        33 JUMPIFNOT                        R5 ; [+17]
-       34 GETTABLEKS                       R5 R0 K21 ["RootPlaceId"]
+       34 GETTABLEKS                       R5 R0 K22 ["RootPlaceId"]
        36 JUMPIFNOT                        R5 ; [+14]
-       37 DUPTABLE                         R4 K23 [{["id"] = "configure-place", ["text"], ["onActivated"]}]
-       38 LOADK                            R7 K19 ["Plugin"]
+       37 DUPTABLE                         R4 K24 [{["id"] = "configure-place", ["text"], ["onActivated"]}]
+       38 LOADK                            R7 K20 ["Plugin"]
        39 LOADK                            R8 K3 ["ConfigurePlace"]
-       40 NAMECALL                         R5 R2 K20 ["getText"]
+       40 NAMECALL                         R5 R2 K21 ["getText"]
        42 CALL                             R5 3 1
-       43 SETTABLEKS                       R5 R4 K16 ["text"]
+       43 SETTABLEKS                       R5 R4 K17 ["text"]
        45 NEWCLOSURE                       R5 P1
        46 CAPTURE                          UPVAL U1
        47 CAPTURE                          VAL R0
-       48 SETTABLEKS                       R5 R4 K17 ["onActivated"]
+       48 SETTABLEKS                       R5 R4 K18 ["onActivated"]
        50 JUMP                             ; [+1]
        51 LOADNIL                          R4
        52 SETTABLEKS                       R4 R3 K3 ["ConfigurePlace"]
-       54 GETTABLEKS                       R5 R0 K21 ["RootPlaceId"]
+       54 GETTABLEKS                       R5 R0 K22 ["RootPlaceId"]
        56 JUMPIFNOT                        R5 ; [+14]
-       57 DUPTABLE                         R4 K25 [{["id"] = "open-place", ["text"], ["onActivated"]}]
-       58 LOADK                            R7 K19 ["Plugin"]
-       59 LOADK                            R8 K26 ["OpenPlacePage"]
-       60 NAMECALL                         R5 R2 K20 ["getText"]
+       57 DUPTABLE                         R4 K26 [{["id"] = "open-place", ["text"], ["onActivated"]}]
+       58 LOADK                            R7 K20 ["Plugin"]
+       59 LOADK                            R8 K27 ["OpenPlacePage"]
+       60 NAMECALL                         R5 R2 K21 ["getText"]
        62 CALL                             R5 3 1
-       63 SETTABLEKS                       R5 R4 K16 ["text"]
+       63 SETTABLEKS                       R5 R4 K17 ["text"]
        65 NEWCLOSURE                       R5 P2
        66 CAPTURE                          UPVAL U1
        67 CAPTURE                          VAL R0
-       68 SETTABLEKS                       R5 R4 K17 ["onActivated"]
+       68 SETTABLEKS                       R5 R4 K18 ["onActivated"]
        70 JUMP                             ; [+1]
        71 LOADNIL                          R4
        72 SETTABLEKS                       R4 R3 K4 ["OpenPlace"]
        74 GETUPVAL                         R5 2
        75 JUMPIFNOT                        R5 ; [+20]
-       76 GETTABLEKS                       R5 R0 K27 ["IsTeamCreateEnabled"]
+       76 GETTABLEKS                       R5 R0 K28 ["IsTeamCreateEnabled"]
        78 JUMPIFNOT                        R5 ; [+17]
-       79 GETTABLEKS                       R5 R0 K21 ["RootPlaceId"]
+       79 GETTABLEKS                       R5 R0 K22 ["RootPlaceId"]
        81 JUMPIFNOT                        R5 ; [+14]
-       82 DUPTABLE                         R4 K29 [{["id"] = "open-a-copy", ["text"], ["onActivated"]}]
-       83 LOADK                            R7 K19 ["Plugin"]
+       82 DUPTABLE                         R4 K30 [{["id"] = "open-a-copy", ["text"], ["onActivated"]}]
+       83 LOADK                            R7 K20 ["Plugin"]
        84 LOADK                            R8 K5 ["OpenACopy"]
-       85 NAMECALL                         R5 R2 K20 ["getText"]
+       85 NAMECALL                         R5 R2 K21 ["getText"]
        87 CALL                             R5 3 1
-       88 SETTABLEKS                       R5 R4 K16 ["text"]
+       88 SETTABLEKS                       R5 R4 K17 ["text"]
        90 NEWCLOSURE                       R5 P3
        91 CAPTURE                          UPVAL U1
        92 CAPTURE                          VAL R0
-       93 SETTABLEKS                       R5 R4 K17 ["onActivated"]
+       93 SETTABLEKS                       R5 R4 K18 ["onActivated"]
        95 JUMP                             ; [+1]
        96 LOADNIL                          R4
        97 SETTABLEKS                       R4 R3 K5 ["OpenACopy"]
        99 GETUPVAL                         R5 3
-      100 JUMPIF                           R5 ; [+44]
-      101 GETUPVAL                         R5 4
-      102 JUMPIF                           R5 ; [+42]
-      103 GETTABLEKS                       R5 R0 K13 ["Id"]
-      105 JUMPIFNOT                        R5 ; [+39]
-      106 GETTABLEKS                       R5 R0 K30 ["PrivacyType"]
-      108 JUMPIFNOT                        R5 ; [+36]
-      109 GETTABLEKS                       R5 R0 K30 ["PrivacyType"]
-      111 JUMPIFEQKS                       R5 K31 ["Draft"] ; [+33]
-      113 DUPTABLE                         R4 K33 [{["id"] = "public-private-toggle", ["text"], ["onActivated"]}]
-      114 LOADK                            R7 K19 ["Plugin"]
-      115 LOADK                            R8 K34 ["SetPrivacy"]
-      116 DUPTABLE                         R9 K36 [{"privacy"}]
-      117 GETTABLEKS                       R11 R0 K30 ["PrivacyType"]
-      119 JUMPIFNOTEQKS                    R11 K37 ["Public"] ; [+7]
-      121 LOADK                            R12 K19 ["Plugin"]
-      122 LOADK                            R13 K38 ["PrivacyType.Private"]
-      123 NAMECALL                         R10 R2 K20 ["getText"]
-      125 CALL                             R10 3 1
-      126 JUMP                             ; [+5]
-      127 LOADK                            R12 K19 ["Plugin"]
-      128 LOADK                            R13 K39 ["PrivacyType.Public"]
-      129 NAMECALL                         R10 R2 K20 ["getText"]
-      131 CALL                             R10 3 1
-      132 SETTABLEKS                       R10 R9 K35 ["privacy"]
-      134 NAMECALL                         R5 R2 K20 ["getText"]
-      136 CALL                             R5 4 1
-      137 SETTABLEKS                       R5 R4 K16 ["text"]
-      139 NEWCLOSURE                       R5 P4
-      140 CAPTURE                          UPVAL U5
-      141 CAPTURE                          VAL R0
-      142 SETTABLEKS                       R5 R4 K17 ["onActivated"]
-      144 JUMP                             ; [+1]
-      145 LOADNIL                          R4
-      146 SETTABLEKS                       R4 R3 K6 ["PublicPrivateToggle"]
-      148 GETTABLEKS                       R5 R0 K13 ["Id"]
-      150 JUMPIFNOT                        R5 ; [+15]
-      151 DUPTABLE                         R4 K41 [{["id"] = "archive", ["text"], ["onActivated"]}]
-      152 LOADK                            R7 K19 ["Plugin"]
-      153 LOADK                            R8 K7 ["Archive"]
-      154 NAMECALL                         R5 R2 K20 ["getText"]
-      156 CALL                             R5 3 1
-      157 SETTABLEKS                       R5 R4 K16 ["text"]
-      159 NEWCLOSURE                       R5 P5
-      160 CAPTURE                          UPVAL U6
-      161 CAPTURE                          VAL R0
-      162 CAPTURE                          UPVAL U1
-      163 SETTABLEKS                       R5 R4 K17 ["onActivated"]
-      165 JUMP                             ; [+1]
-      166 LOADNIL                          R4
-      167 SETTABLEKS                       R4 R3 K7 ["Archive"]
-      169 GETUPVAL                         R5 7
-      170 JUMPIFNOT                        R5 ; [+20]
-      171 GETTABLEKS                       R5 R0 K13 ["Id"]
-      173 JUMPIFNOT                        R5 ; [+17]
-      174 GETTABLEKS                       R5 R0 K27 ["IsTeamCreateEnabled"]
-      176 JUMPIFNOT                        R5 ; [+14]
-      177 DUPTABLE                         R4 K43 [{["id"] = "disable-team-create", ["text"], ["onActivated"]}]
-      178 LOADK                            R7 K19 ["Plugin"]
-      179 LOADK                            R8 K8 ["DisableTeamCreate"]
-      180 NAMECALL                         R5 R2 K20 ["getText"]
-      182 CALL                             R5 3 1
-      183 SETTABLEKS                       R5 R4 K16 ["text"]
-      185 NEWCLOSURE                       R5 P6
-      186 CAPTURE                          UPVAL U8
-      187 CAPTURE                          VAL R0
-      188 SETTABLEKS                       R5 R4 K17 ["onActivated"]
+      100 JUMPIFNOT                        R5 ; [+20]
+      101 GETTABLEKS                       R5 R0 K14 ["Id"]
+      103 JUMPIFNOT                        R5 ; [+17]
+      104 GETTABLEKS                       R5 R0 K28 ["IsTeamCreateEnabled"]
+      106 JUMPIFNOT                        R5 ; [+14]
+      107 DUPTABLE                         R4 K32 [{["id"] = "save-as", ["text"], ["onActivated"]}]
+      108 LOADK                            R7 K20 ["Plugin"]
+      109 LOADK                            R8 K6 ["SaveAs"]
+      110 NAMECALL                         R5 R2 K21 ["getText"]
+      112 CALL                             R5 3 1
+      113 SETTABLEKS                       R5 R4 K17 ["text"]
+      115 NEWCLOSURE                       R5 P4
+      116 CAPTURE                          UPVAL U4
+      117 CAPTURE                          VAL R0
+      118 SETTABLEKS                       R5 R4 K18 ["onActivated"]
+      120 JUMP                             ; [+1]
+      121 LOADNIL                          R4
+      122 SETTABLEKS                       R4 R3 K6 ["SaveAs"]
+      124 GETUPVAL                         R5 5
+      125 JUMPIF                           R5 ; [+44]
+      126 GETUPVAL                         R5 6
+      127 JUMPIF                           R5 ; [+42]
+      128 GETTABLEKS                       R5 R0 K14 ["Id"]
+      130 JUMPIFNOT                        R5 ; [+39]
+      131 GETTABLEKS                       R5 R0 K33 ["PrivacyType"]
+      133 JUMPIFNOT                        R5 ; [+36]
+      134 GETTABLEKS                       R5 R0 K33 ["PrivacyType"]
+      136 JUMPIFEQKS                       R5 K34 ["Draft"] ; [+33]
+      138 DUPTABLE                         R4 K36 [{["id"] = "public-private-toggle", ["text"], ["onActivated"]}]
+      139 LOADK                            R7 K20 ["Plugin"]
+      140 LOADK                            R8 K37 ["SetPrivacy"]
+      141 DUPTABLE                         R9 K39 [{"privacy"}]
+      142 GETTABLEKS                       R11 R0 K33 ["PrivacyType"]
+      144 JUMPIFNOTEQKS                    R11 K40 ["Public"] ; [+7]
+      146 LOADK                            R12 K20 ["Plugin"]
+      147 LOADK                            R13 K41 ["PrivacyType.Private"]
+      148 NAMECALL                         R10 R2 K21 ["getText"]
+      150 CALL                             R10 3 1
+      151 JUMP                             ; [+5]
+      152 LOADK                            R12 K20 ["Plugin"]
+      153 LOADK                            R13 K42 ["PrivacyType.Public"]
+      154 NAMECALL                         R10 R2 K21 ["getText"]
+      156 CALL                             R10 3 1
+      157 SETTABLEKS                       R10 R9 K38 ["privacy"]
+      159 NAMECALL                         R5 R2 K21 ["getText"]
+      161 CALL                             R5 4 1
+      162 SETTABLEKS                       R5 R4 K17 ["text"]
+      164 NEWCLOSURE                       R5 P5
+      165 CAPTURE                          UPVAL U7
+      166 CAPTURE                          VAL R0
+      167 SETTABLEKS                       R5 R4 K18 ["onActivated"]
+      169 JUMP                             ; [+1]
+      170 LOADNIL                          R4
+      171 SETTABLEKS                       R4 R3 K7 ["PublicPrivateToggle"]
+      173 GETTABLEKS                       R5 R0 K14 ["Id"]
+      175 JUMPIFNOT                        R5 ; [+15]
+      176 DUPTABLE                         R4 K44 [{["id"] = "archive", ["text"], ["onActivated"]}]
+      177 LOADK                            R7 K20 ["Plugin"]
+      178 LOADK                            R8 K8 ["Archive"]
+      179 NAMECALL                         R5 R2 K21 ["getText"]
+      181 CALL                             R5 3 1
+      182 SETTABLEKS                       R5 R4 K17 ["text"]
+      184 NEWCLOSURE                       R5 P6
+      185 CAPTURE                          UPVAL U8
+      186 CAPTURE                          VAL R0
+      187 CAPTURE                          UPVAL U1
+      188 SETTABLEKS                       R5 R4 K18 ["onActivated"]
       190 JUMP                             ; [+1]
       191 LOADNIL                          R4
-      192 SETTABLEKS                       R4 R3 K8 ["DisableTeamCreate"]
-      194 GETTABLEKS                       R5 R0 K13 ["Id"]
-      196 JUMPIFNOT                        R5 ; [+14]
-      197 DUPTABLE                         R4 K45 [{["id"] = "restore-archive", ["text"], ["onActivated"]}]
-      198 LOADK                            R7 K19 ["Plugin"]
-      199 LOADK                            R8 K46 ["Restore"]
-      200 NAMECALL                         R5 R2 K20 ["getText"]
-      202 CALL                             R5 3 1
-      203 SETTABLEKS                       R5 R4 K16 ["text"]
-      205 NEWCLOSURE                       R5 P7
-      206 CAPTURE                          UPVAL U6
-      207 CAPTURE                          VAL R0
-      208 SETTABLEKS                       R5 R4 K17 ["onActivated"]
-      210 JUMP                             ; [+1]
-      211 LOADNIL                          R4
-      212 SETTABLEKS                       R4 R3 K9 ["RestoreArchive"]
-      214 GETTABLEKS                       R5 R0 K13 ["Id"]
-      216 JUMPIFNOT                        R5 ; [+16]
-      217 DUPTABLE                         R4 K48 [{["id"] = "remove-shared", ["text"], ["onActivated"]}]
-      218 LOADK                            R7 K19 ["Plugin"]
-      219 LOADK                            R8 K49 ["Remove"]
-      220 NAMECALL                         R5 R2 K20 ["getText"]
-      222 CALL                             R5 3 1
-      223 SETTABLEKS                       R5 R4 K16 ["text"]
-      225 NEWCLOSURE                       R5 P8
-      226 CAPTURE                          UPVAL U9
-      227 CAPTURE                          VAL R0
-      228 CAPTURE                          UPVAL U10
-      229 CAPTURE                          UPVAL U1
-      230 SETTABLEKS                       R5 R4 K17 ["onActivated"]
-      232 JUMP                             ; [+1]
-      233 LOADNIL                          R4
-      234 SETTABLEKS                       R4 R3 K10 ["RemoveShared"]
-      236 GETTABLEKS                       R5 R0 K13 ["Id"]
-      238 JUMPIF                           R5 ; [+3]
-      239 GETTABLEKS                       R5 R0 K50 ["FilePath"]
-      241 JUMPIFNOT                        R5 ; [+15]
-      242 DUPTABLE                         R4 K52 [{["id"] = "remove-recent", ["text"], ["onActivated"]}]
-      243 LOADK                            R7 K19 ["Plugin"]
-      244 LOADK                            R8 K53 ["RemoveFromList"]
-      245 NAMECALL                         R5 R2 K20 ["getText"]
+      192 SETTABLEKS                       R4 R3 K8 ["Archive"]
+      194 GETUPVAL                         R5 9
+      195 JUMPIFNOT                        R5 ; [+20]
+      196 GETTABLEKS                       R5 R0 K14 ["Id"]
+      198 JUMPIFNOT                        R5 ; [+17]
+      199 GETTABLEKS                       R5 R0 K28 ["IsTeamCreateEnabled"]
+      201 JUMPIFNOT                        R5 ; [+14]
+      202 DUPTABLE                         R4 K46 [{["id"] = "disable-team-create", ["text"], ["onActivated"]}]
+      203 LOADK                            R7 K20 ["Plugin"]
+      204 LOADK                            R8 K9 ["DisableTeamCreate"]
+      205 NAMECALL                         R5 R2 K21 ["getText"]
+      207 CALL                             R5 3 1
+      208 SETTABLEKS                       R5 R4 K17 ["text"]
+      210 NEWCLOSURE                       R5 P7
+      211 CAPTURE                          UPVAL U10
+      212 CAPTURE                          VAL R0
+      213 SETTABLEKS                       R5 R4 K18 ["onActivated"]
+      215 JUMP                             ; [+1]
+      216 LOADNIL                          R4
+      217 SETTABLEKS                       R4 R3 K9 ["DisableTeamCreate"]
+      219 GETTABLEKS                       R5 R0 K14 ["Id"]
+      221 JUMPIFNOT                        R5 ; [+14]
+      222 DUPTABLE                         R4 K48 [{["id"] = "restore-archive", ["text"], ["onActivated"]}]
+      223 LOADK                            R7 K20 ["Plugin"]
+      224 LOADK                            R8 K49 ["Restore"]
+      225 NAMECALL                         R5 R2 K21 ["getText"]
+      227 CALL                             R5 3 1
+      228 SETTABLEKS                       R5 R4 K17 ["text"]
+      230 NEWCLOSURE                       R5 P8
+      231 CAPTURE                          UPVAL U8
+      232 CAPTURE                          VAL R0
+      233 SETTABLEKS                       R5 R4 K18 ["onActivated"]
+      235 JUMP                             ; [+1]
+      236 LOADNIL                          R4
+      237 SETTABLEKS                       R4 R3 K10 ["RestoreArchive"]
+      239 GETTABLEKS                       R5 R0 K14 ["Id"]
+      241 JUMPIFNOT                        R5 ; [+16]
+      242 DUPTABLE                         R4 K51 [{["id"] = "remove-shared", ["text"], ["onActivated"]}]
+      243 LOADK                            R7 K20 ["Plugin"]
+      244 LOADK                            R8 K52 ["Remove"]
+      245 NAMECALL                         R5 R2 K21 ["getText"]
       247 CALL                             R5 3 1
-      248 SETTABLEKS                       R5 R4 K16 ["text"]
+      248 SETTABLEKS                       R5 R4 K17 ["text"]
       250 NEWCLOSURE                       R5 P9
-      251 CAPTURE                          VAL R0
-      252 CAPTURE                          UPVAL U11
-      253 CAPTURE                          UPVAL U1
-      254 SETTABLEKS                       R5 R4 K17 ["onActivated"]
-      256 JUMP                             ; [+1]
-      257 LOADNIL                          R4
-      258 SETTABLEKS                       R4 R3 K11 ["RemoveRecent"]
-      260 NEWTABLE                         R4 0 0
-      262 MOVE                             R5 R1
-      263 LOADNIL                          R6
-      264 LOADNIL                          R7
-      265 FORGPREP                         R5
-      266 JUMPIFEQKS                       R9 K54 [""] ; [+11]
-      268 GETTABLE                         R10 R3 R9
-      269 JUMPIFEQKNIL                     R10 ; [+8]
-      271 GETTABLE                         R12 R3 R9
-      272 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
-      274 MOVE                             R11 R4
-      275 GETIMPORT                        R10 K57 [table.insert]
-      277 CALL                             R10 2 0
-      278 FORGLOOP                         R5 2 ; [-13]
-      280 RETURN                           R4 1
+      251 CAPTURE                          UPVAL U11
+      252 CAPTURE                          VAL R0
+      253 CAPTURE                          UPVAL U12
+      254 CAPTURE                          UPVAL U1
+      255 SETTABLEKS                       R5 R4 K18 ["onActivated"]
+      257 JUMP                             ; [+1]
+      258 LOADNIL                          R4
+      259 SETTABLEKS                       R4 R3 K11 ["RemoveShared"]
+      261 GETTABLEKS                       R5 R0 K14 ["Id"]
+      263 JUMPIF                           R5 ; [+3]
+      264 GETTABLEKS                       R5 R0 K53 ["FilePath"]
+      266 JUMPIFNOT                        R5 ; [+15]
+      267 DUPTABLE                         R4 K55 [{["id"] = "remove-recent", ["text"], ["onActivated"]}]
+      268 LOADK                            R7 K20 ["Plugin"]
+      269 LOADK                            R8 K56 ["RemoveFromList"]
+      270 NAMECALL                         R5 R2 K21 ["getText"]
+      272 CALL                             R5 3 1
+      273 SETTABLEKS                       R5 R4 K17 ["text"]
+      275 NEWCLOSURE                       R5 P10
+      276 CAPTURE                          VAL R0
+      277 CAPTURE                          UPVAL U13
+      278 CAPTURE                          UPVAL U1
+      279 SETTABLEKS                       R5 R4 K18 ["onActivated"]
+      281 JUMP                             ; [+1]
+      282 LOADNIL                          R4
+      283 SETTABLEKS                       R4 R3 K12 ["RemoveRecent"]
+      285 NEWTABLE                         R4 0 0
+      287 MOVE                             R5 R1
+      288 LOADNIL                          R6
+      289 LOADNIL                          R7
+      290 FORGPREP                         R5
+      291 JUMPIFEQKS                       R9 K57 [""] ; [+11]
+      293 GETTABLE                         R10 R3 R9
+      294 JUMPIFEQKNIL                     R10 ; [+8]
+      296 GETTABLE                         R12 R3 R9
+      297 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
+      299 MOVE                             R11 R4
+      300 GETIMPORT                        R10 K60 [table.insert]
+      302 CALL                             R10 2 0
+      303 FORGLOOP                         R5 2 ; [-13]
+      305 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -390,43 +415,56 @@ MAIN:
        74 GETIMPORT                        R11 K5 [require]
        76 GETTABLEKS                       R12 R0 K10 ["Src"]
        78 GETTABLEKS                       R12 R12 K16 ["Network"]
-       80 GETTABLEKS                       R12 R12 K21 ["GameCache"]
+       80 GETTABLEKS                       R12 R12 K21 ["SaveExperienceAsCopy"]
        82 CALL                             R11 1 1
        83 GETIMPORT                        R12 K5 [require]
        85 GETTABLEKS                       R13 R0 K10 ["Src"]
-       87 GETTABLEKS                       R13 R13 K22 ["SharedFlags"]
-       89 GETTABLEKS                       R13 R13 K23 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+       87 GETTABLEKS                       R13 R13 K16 ["Network"]
+       89 GETTABLEKS                       R13 R13 K22 ["GameCache"]
        91 CALL                             R12 1 1
-       92 CALL                             R12 0 1
-       93 GETIMPORT                        R13 K5 [require]
-       95 GETTABLEKS                       R14 R0 K10 ["Src"]
-       97 GETTABLEKS                       R14 R14 K22 ["SharedFlags"]
-       99 GETTABLEKS                       R14 R14 K24 ["getFFlagLuaStartPageAudiencesReplacement"]
-      101 CALL                             R13 1 1
-      102 CALL                             R13 0 1
-      103 GETIMPORT                        R14 K5 [require]
-      105 GETTABLEKS                       R15 R0 K10 ["Src"]
-      107 GETTABLEKS                       R15 R15 K22 ["SharedFlags"]
-      109 GETTABLEKS                       R15 R15 K25 ["getFFlagStartPageAllowDisableTeamCreate"]
-      111 CALL                             R14 1 1
-      112 CALL                             R14 0 1
-      113 GETIMPORT                        R15 K5 [require]
-      115 GETTABLEKS                       R16 R0 K10 ["Src"]
-      117 GETTABLEKS                       R16 R16 K22 ["SharedFlags"]
-      119 GETTABLEKS                       R16 R16 K26 ["getFFlagLuaStartPageOpenACopy"]
-      121 CALL                             R15 1 1
-      122 CALL                             R15 0 1
-      123 DUPCLOSURE                       R16 K27 [PROTO_10]
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R5
-      126 CAPTURE                          VAL R15
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R12
-      129 CAPTURE                          VAL R7
-      130 CAPTURE                          VAL R8
-      131 CAPTURE                          VAL R14
-      132 CAPTURE                          VAL R9
-      133 CAPTURE                          VAL R10
-      134 CAPTURE                          VAL R6
-      135 CAPTURE                          VAL R11
-      136 RETURN                           R16 1
+       92 GETIMPORT                        R13 K5 [require]
+       94 GETTABLEKS                       R14 R0 K10 ["Src"]
+       96 GETTABLEKS                       R14 R14 K23 ["SharedFlags"]
+       98 GETTABLEKS                       R14 R14 K24 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+      100 CALL                             R13 1 1
+      101 CALL                             R13 0 1
+      102 GETIMPORT                        R14 K5 [require]
+      104 GETTABLEKS                       R15 R0 K10 ["Src"]
+      106 GETTABLEKS                       R15 R15 K23 ["SharedFlags"]
+      108 GETTABLEKS                       R15 R15 K25 ["getFFlagLuaStartPageAudiencesReplacement"]
+      110 CALL                             R14 1 1
+      111 CALL                             R14 0 1
+      112 GETIMPORT                        R15 K5 [require]
+      114 GETTABLEKS                       R16 R0 K10 ["Src"]
+      116 GETTABLEKS                       R16 R16 K23 ["SharedFlags"]
+      118 GETTABLEKS                       R16 R16 K26 ["getFFlagStartPageAllowDisableTeamCreate"]
+      120 CALL                             R15 1 1
+      121 CALL                             R15 0 1
+      122 GETIMPORT                        R16 K5 [require]
+      124 GETTABLEKS                       R17 R0 K10 ["Src"]
+      126 GETTABLEKS                       R17 R17 K23 ["SharedFlags"]
+      128 GETTABLEKS                       R17 R17 K27 ["getFFlagLuaStartPageOpenACopy"]
+      130 CALL                             R16 1 1
+      131 CALL                             R16 0 1
+      132 GETIMPORT                        R17 K5 [require]
+      134 GETTABLEKS                       R18 R0 K10 ["Src"]
+      136 GETTABLEKS                       R18 R18 K23 ["SharedFlags"]
+      138 GETTABLEKS                       R18 R18 K28 ["getFFlagStartPageSaveAsCopy"]
+      140 CALL                             R17 1 1
+      141 CALL                             R17 0 1
+      142 DUPCLOSURE                       R18 K29 [PROTO_11]
+      143 CAPTURE                          VAL R2
+      144 CAPTURE                          VAL R5
+      145 CAPTURE                          VAL R16
+      146 CAPTURE                          VAL R17
+      147 CAPTURE                          VAL R11
+      148 CAPTURE                          VAL R14
+      149 CAPTURE                          VAL R13
+      150 CAPTURE                          VAL R7
+      151 CAPTURE                          VAL R8
+      152 CAPTURE                          VAL R15
+      153 CAPTURE                          VAL R9
+      154 CAPTURE                          VAL R10
+      155 CAPTURE                          VAL R6
+      156 CAPTURE                          VAL R12
+      157 RETURN                           R18 1

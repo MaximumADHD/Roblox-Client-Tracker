@@ -379,8 +379,8 @@ PROTO_5:
       408 NAMECALL                         R17 R2 K3 ["getText"]
       410 CALL                             R17 3 1
       411 MOVE                             R7 R17
-      412 LOADK                            R19 K51 ["SafetyCountryAgeCheckBlocked"]
-      413 LOADK                            R20 K4 ["Body"]
+      412 LOADK                            R19 K52 ["SafetyDialog"]
+      413 LOADK                            R20 K53 ["PleaseTryAgainLater"]
       414 NAMECALL                         R17 R2 K3 ["getText"]
       416 CALL                             R17 3 1
       417 MOVE                             R8 R17
@@ -400,24 +400,78 @@ PROTO_5:
       435 SETTABLEKS                       R16 R17 K6 ["onActivated"]
       437 MOVE                             R10 R17
       438 RETURN                           R7 6
-      439 LOADK                            R19 K52 ["SafetyDefaultBlockedDialog"]
-      440 LOADK                            R20 K2 ["Title"]
-      441 NAMECALL                         R17 R2 K3 ["getText"]
-      443 CALL                             R17 3 1
-      444 MOVE                             R7 R17
-      445 LOADK                            R19 K52 ["SafetyDefaultBlockedDialog"]
-      446 LOADK                            R20 K4 ["Body"]
-      447 NAMECALL                         R17 R2 K3 ["getText"]
-      449 CALL                             R17 3 1
-      450 MOVE                             R8 R17
-      451 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
-      452 LOADK                            R20 K8 ["DialogButton"]
-      453 LOADK                            R21 K30 ["OK"]
-      454 NAMECALL                         R18 R2 K3 ["getText"]
-      456 CALL                             R18 3 1
-      457 SETTABLEKS                       R18 R17 K5 ["label"]
-      459 MOVE                             R9 R17
-      460 RETURN                           R7 6
+      439 JUMPIFNOTEQKS                    R0 K54 ["OtherUserCannotCollaborate"] ; [+34]
+      441 LOADK                            R19 K55 ["SafetySomeUserCountryBlocked"]
+      442 LOADK                            R20 K2 ["Title"]
+      443 NAMECALL                         R17 R2 K3 ["getText"]
+      445 CALL                             R17 3 1
+      446 MOVE                             R7 R17
+      447 LOADK                            R19 K52 ["SafetyDialog"]
+      448 LOADK                            R20 K53 ["PleaseTryAgainLater"]
+      449 NAMECALL                         R17 R2 K3 ["getText"]
+      451 CALL                             R17 3 1
+      452 MOVE                             R8 R17
+      453 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      454 LOADK                            R20 K8 ["DialogButton"]
+      455 LOADK                            R21 K30 ["OK"]
+      456 NAMECALL                         R18 R2 K3 ["getText"]
+      458 CALL                             R18 3 1
+      459 SETTABLEKS                       R18 R17 K5 ["label"]
+      461 MOVE                             R9 R17
+      462 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      463 LOADK                            R20 K8 ["DialogButton"]
+      464 LOADK                            R21 K31 ["ViewDetails"]
+      465 NAMECALL                         R18 R2 K3 ["getText"]
+      467 CALL                             R18 3 1
+      468 SETTABLEKS                       R18 R17 K5 ["label"]
+      470 SETTABLEKS                       R16 R17 K6 ["onActivated"]
+      472 MOVE                             R10 R17
+      473 RETURN                           R7 6
+      474 JUMPIFNOTEQKS                    R0 K56 ["OwnerCountryBlocked"] ; [+34]
+      476 LOADK                            R19 K55 ["SafetySomeUserCountryBlocked"]
+      477 LOADK                            R20 K2 ["Title"]
+      478 NAMECALL                         R17 R2 K3 ["getText"]
+      480 CALL                             R17 3 1
+      481 MOVE                             R7 R17
+      482 LOADK                            R19 K57 ["SafetyOwnerCountryBlocked"]
+      483 LOADK                            R20 K4 ["Body"]
+      484 NAMECALL                         R17 R2 K3 ["getText"]
+      486 CALL                             R17 3 1
+      487 MOVE                             R8 R17
+      488 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      489 LOADK                            R20 K8 ["DialogButton"]
+      490 LOADK                            R21 K30 ["OK"]
+      491 NAMECALL                         R18 R2 K3 ["getText"]
+      493 CALL                             R18 3 1
+      494 SETTABLEKS                       R18 R17 K5 ["label"]
+      496 MOVE                             R9 R17
+      497 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      498 LOADK                            R20 K8 ["DialogButton"]
+      499 LOADK                            R21 K31 ["ViewDetails"]
+      500 NAMECALL                         R18 R2 K3 ["getText"]
+      502 CALL                             R18 3 1
+      503 SETTABLEKS                       R18 R17 K5 ["label"]
+      505 SETTABLEKS                       R16 R17 K6 ["onActivated"]
+      507 MOVE                             R10 R17
+      508 RETURN                           R7 6
+      509 LOADK                            R19 K58 ["SafetyDefaultBlockedDialog"]
+      510 LOADK                            R20 K2 ["Title"]
+      511 NAMECALL                         R17 R2 K3 ["getText"]
+      513 CALL                             R17 3 1
+      514 MOVE                             R7 R17
+      515 LOADK                            R19 K58 ["SafetyDefaultBlockedDialog"]
+      516 LOADK                            R20 K4 ["Body"]
+      517 NAMECALL                         R17 R2 K3 ["getText"]
+      519 CALL                             R17 3 1
+      520 MOVE                             R8 R17
+      521 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      522 LOADK                            R20 K8 ["DialogButton"]
+      523 LOADK                            R21 K30 ["OK"]
+      524 NAMECALL                         R18 R2 K3 ["getText"]
+      526 CALL                             R18 3 1
+      527 SETTABLEKS                       R18 R17 K5 ["label"]
+      529 MOVE                             R9 R17
+      530 RETURN                           R7 6
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -698,107 +752,114 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Components"]
-       13 GETTABLEKS                       R2 R2 K2 ["Dialog"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K9 ["Foundation"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K10 ["Framework"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       34 GETTABLEKS                       R5 R5 K11 ["React"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K8 ["Packages"]
-       41 GETTABLEKS                       R6 R6 K12 ["StudioFoundation"]
-       43 CALL                             R5 1 1
-       44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R7 R0 K6 ["Src"]
-       48 GETTABLEKS                       R7 R7 K13 ["Types"]
-       50 CALL                             R6 1 1
-       51 GETTABLEKS                       R7 R3 K14 ["ContextServices"]
-       53 GETTABLEKS                       R7 R7 K15 ["Plugin"]
-       55 GETTABLEKS                       R8 R3 K14 ["ContextServices"]
-       57 GETTABLEKS                       R8 R8 K16 ["Localization"]
-       59 GETTABLEKS                       R9 R5 K17 ["Util"]
-       61 GETTABLEKS                       R9 R9 K18 ["StudioUri"]
-       63 GETTABLEKS                       R10 R3 K17 ["Util"]
-       65 GETTABLEKS                       R10 R10 K19 ["counter"]
-       67 GETTABLEKS                       R11 R4 K20 ["createElement"]
-       69 GETTABLEKS                       R12 R2 K21 ["Checkbox"]
-       71 GETTABLEKS                       R13 R2 K22 ["Enums"]
-       73 GETTABLEKS                       R13 R13 K23 ["InputSize"]
-       75 GETIMPORT                        R14 K5 [require]
-       77 GETTABLEKS                       R15 R0 K6 ["Src"]
-       79 GETTABLEKS                       R15 R15 K24 ["Flags"]
-       81 GETTABLEKS                       R15 R15 K25 ["getFFlagDialogManagerAddEscapeTitleButton"]
-       83 CALL                             R14 1 1
-       84 GETIMPORT                        R15 K5 [require]
-       86 GETTABLEKS                       R16 R0 K6 ["Src"]
-       88 GETTABLEKS                       R16 R16 K24 ["Flags"]
-       90 GETTABLEKS                       R16 R16 K26 ["getFFlagStudioSafetyCustomDialog"]
-       92 CALL                             R15 1 1
-       93 GETIMPORT                        R16 K5 [require]
-       95 GETTABLEKS                       R17 R0 K6 ["Src"]
-       97 GETTABLEKS                       R17 R17 K24 ["Flags"]
-       99 GETTABLEKS                       R17 R17 K27 ["getFFlagStudioSafetyNonBlockingDialogs"]
-      101 CALL                             R16 1 1
-      102 GETIMPORT                        R17 K5 [require]
-      104 GETTABLEKS                       R18 R0 K6 ["Src"]
-      106 GETTABLEKS                       R18 R18 K24 ["Flags"]
-      108 GETTABLEKS                       R18 R18 K28 ["getFStringParentalControlsStudioCollabSettingUrlPath"]
-      110 CALL                             R17 1 1
-      111 GETIMPORT                        R18 K5 [require]
-      113 GETTABLEKS                       R19 R0 K6 ["Src"]
-      115 GETTABLEKS                       R19 R19 K24 ["Flags"]
-      117 GETTABLEKS                       R19 R19 K29 ["getFStringStudioRestrictedCountryDetailsLink"]
-      119 CALL                             R18 1 1
-      120 GETIMPORT                        R19 K5 [require]
-      122 GETTABLEKS                       R20 R0 K6 ["Src"]
-      124 GETTABLEKS                       R20 R20 K24 ["Flags"]
-      126 GETTABLEKS                       R20 R20 K30 ["getFStringStudioSafetyVerifyAgeUrlPath"]
-      128 CALL                             R19 1 1
-      129 DUPTABLE                         R20 K57 [{["INVALID"] = "Invalid", ["NOTAGEVERIFIED"] = "NotAgeVerified", ["OUTSIDEAGEBUCKET"] = "OutsideAgeBucket", ["PCBLOCK"] = "PcBlock", ["OUTSIDEOWNERAGEBUCKET"] = "OutsideOwnerAgeBucket", ["TOOMANYCOLLABORATORS"] = "TooManyCollaborators", ["OCCRETRIESEXHAUSTED"] = "OccRetriesExhausted", ["PARENTALCONSENTBLOCK"] = "ParentalConsentBlock", ["ERROR"] = "Error", ["OWNERNOTAGEVERIFIED"] = "OwnerNotAgeVerified", ["OUTSIDEAGEBUCKETTCPC"] = "OutsideAgeBucketTcPc", ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"] = "OtherCollaboratorSettingsPreventTrust", ["AGEVERIFICATIONCOUNTRYBLOCKED"] = "AgeVerificationCountryBlocked"}]
-      130 DUPCLOSURE                       R21 K58 [PROTO_5]
-      131 CAPTURE                          VAL R9
-      132 CAPTURE                          VAL R19
-      133 CAPTURE                          VAL R17
-      134 CAPTURE                          VAL R18
-      135 CAPTURE                          VAL R16
-      136 DUPCLOSURE                       R22 K59 [PROTO_13]
-      137 CAPTURE                          VAL R7
-      138 CAPTURE                          VAL R8
-      139 CAPTURE                          VAL R10
-      140 CAPTURE                          VAL R4
-      141 CAPTURE                          VAL R21
-      142 CAPTURE                          VAL R11
-      143 CAPTURE                          VAL R1
-      144 CAPTURE                          VAL R9
-      145 CAPTURE                          VAL R16
-      146 CAPTURE                          VAL R14
-      147 CAPTURE                          VAL R12
-      148 CAPTURE                          VAL R13
-      149 MOVE                             R24 R15
-      150 CALL                             R24 0 1
-      151 JUMPIFNOT                        R24 ; [+18]
-      152 GETIMPORT                        R23 K62 [table.freeze]
-      154 DUPTABLE                         R24 K65 [{"uri", "component"}]
-      155 GETTABLEKS                       R25 R9 K66 ["fromWidget"]
-      157 LOADK                            R26 K67 ["Safety"]
-      158 LOADK                            R27 K68 ["AgeGatingDialog"]
-      159 CALL                             R25 2 1
-      160 SETTABLEKS                       R25 R24 K63 ["uri"]
-      162 GETTABLEKS                       R25 R4 K69 ["memo"]
-      164 MOVE                             R26 R22
-      165 CALL                             R25 1 1
-      166 SETTABLEKS                       R25 R24 K64 ["component"]
-      168 CALL                             R23 1 1
-      169 RETURN                           R23 1
-      170 LOADNIL                          R23
-      171 RETURN                           R23 1
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["StudioFoundation"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Types"]
+       41 CALL                             R5 1 1
+       42 GETTABLEKS                       R7 R4 K13 ["SharedFlags"]
+       44 GETTABLEKS                       R7 R7 K14 ["getFFlagStudioFoundationDialogComponent"]
+       46 CALL                             R7 0 1
+       47 JUMPIFNOT                        R7 ; [+5]
+       48 GETTABLEKS                       R6 R4 K15 ["Components"]
+       50 GETTABLEKS                       R6 R6 K2 ["Dialog"]
+       52 JUMP                             ; [+9]
+       53 GETIMPORT                        R6 K5 [require]
+       55 GETTABLEKS                       R7 R0 K11 ["Src"]
+       57 GETTABLEKS                       R7 R7 K15 ["Components"]
+       59 GETTABLEKS                       R7 R7 K16 ["DEPRECATED_Dialog"]
+       61 CALL                             R6 1 1
+       62 GETTABLEKS                       R7 R2 K17 ["ContextServices"]
+       64 GETTABLEKS                       R7 R7 K18 ["Plugin"]
+       66 GETTABLEKS                       R8 R2 K17 ["ContextServices"]
+       68 GETTABLEKS                       R8 R8 K19 ["Localization"]
+       70 GETTABLEKS                       R9 R4 K20 ["Util"]
+       72 GETTABLEKS                       R9 R9 K21 ["StudioUri"]
+       74 GETTABLEKS                       R10 R2 K20 ["Util"]
+       76 GETTABLEKS                       R10 R10 K22 ["counter"]
+       78 GETTABLEKS                       R11 R3 K23 ["createElement"]
+       80 GETTABLEKS                       R12 R1 K24 ["Checkbox"]
+       82 GETTABLEKS                       R13 R1 K25 ["Enums"]
+       84 GETTABLEKS                       R13 R13 K26 ["InputSize"]
+       86 GETIMPORT                        R14 K5 [require]
+       88 GETTABLEKS                       R15 R0 K11 ["Src"]
+       90 GETTABLEKS                       R15 R15 K27 ["Flags"]
+       92 GETTABLEKS                       R15 R15 K28 ["getFFlagDialogManagerAddEscapeTitleButton"]
+       94 CALL                             R14 1 1
+       95 GETIMPORT                        R15 K5 [require]
+       97 GETTABLEKS                       R16 R0 K11 ["Src"]
+       99 GETTABLEKS                       R16 R16 K27 ["Flags"]
+      101 GETTABLEKS                       R16 R16 K29 ["getFFlagStudioSafetyCustomDialog"]
+      103 CALL                             R15 1 1
+      104 GETIMPORT                        R16 K5 [require]
+      106 GETTABLEKS                       R17 R0 K11 ["Src"]
+      108 GETTABLEKS                       R17 R17 K27 ["Flags"]
+      110 GETTABLEKS                       R17 R17 K30 ["getFFlagStudioSafetyNonBlockingDialogs"]
+      112 CALL                             R16 1 1
+      113 GETIMPORT                        R17 K5 [require]
+      115 GETTABLEKS                       R18 R0 K11 ["Src"]
+      117 GETTABLEKS                       R18 R18 K27 ["Flags"]
+      119 GETTABLEKS                       R18 R18 K31 ["getFStringParentalControlsStudioCollabSettingUrlPath"]
+      121 CALL                             R17 1 1
+      122 GETIMPORT                        R18 K5 [require]
+      124 GETTABLEKS                       R19 R0 K11 ["Src"]
+      126 GETTABLEKS                       R19 R19 K27 ["Flags"]
+      128 GETTABLEKS                       R19 R19 K32 ["getFStringStudioRestrictedCountryDetailsLink"]
+      130 CALL                             R18 1 1
+      131 GETIMPORT                        R19 K5 [require]
+      133 GETTABLEKS                       R20 R0 K11 ["Src"]
+      135 GETTABLEKS                       R20 R20 K27 ["Flags"]
+      137 GETTABLEKS                       R20 R20 K33 ["getFStringStudioSafetyVerifyAgeUrlPath"]
+      139 CALL                             R19 1 1
+      140 DUPTABLE                         R20 K64 [{["INVALID"] = "Invalid", ["NOTAGEVERIFIED"] = "NotAgeVerified", ["OUTSIDEAGEBUCKET"] = "OutsideAgeBucket", ["PCBLOCK"] = "PcBlock", ["OUTSIDEOWNERAGEBUCKET"] = "OutsideOwnerAgeBucket", ["TOOMANYCOLLABORATORS"] = "TooManyCollaborators", ["OCCRETRIESEXHAUSTED"] = "OccRetriesExhausted", ["PARENTALCONSENTBLOCK"] = "ParentalConsentBlock", ["ERROR"] = "Error", ["OWNERNOTAGEVERIFIED"] = "OwnerNotAgeVerified", ["OUTSIDEAGEBUCKETTCPC"] = "OutsideAgeBucketTcPc", ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"] = "OtherCollaboratorSettingsPreventTrust", ["AGEVERIFICATIONCOUNTRYBLOCKED"] = "AgeVerificationCountryBlocked", ["OTHERUSERCANNOTCOLLABORATE"] = "OtherUserCannotCollaborate", ["OWNERCOUNTRYBLOCKED"] = "OwnerCountryBlocked"}]
+      141 DUPCLOSURE                       R21 K65 [PROTO_5]
+      142 CAPTURE                          VAL R9
+      143 CAPTURE                          VAL R19
+      144 CAPTURE                          VAL R17
+      145 CAPTURE                          VAL R18
+      146 CAPTURE                          VAL R16
+      147 DUPCLOSURE                       R22 K66 [PROTO_13]
+      148 CAPTURE                          VAL R7
+      149 CAPTURE                          VAL R8
+      150 CAPTURE                          VAL R10
+      151 CAPTURE                          VAL R3
+      152 CAPTURE                          VAL R21
+      153 CAPTURE                          VAL R11
+      154 CAPTURE                          VAL R6
+      155 CAPTURE                          VAL R9
+      156 CAPTURE                          VAL R16
+      157 CAPTURE                          VAL R14
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R13
+      160 MOVE                             R24 R15
+      161 CALL                             R24 0 1
+      162 JUMPIFNOT                        R24 ; [+18]
+      163 GETIMPORT                        R23 K69 [table.freeze]
+      165 DUPTABLE                         R24 K72 [{"uri", "component"}]
+      166 GETTABLEKS                       R25 R9 K73 ["fromWidget"]
+      168 LOADK                            R26 K74 ["Safety"]
+      169 LOADK                            R27 K75 ["AgeGatingDialog"]
+      170 CALL                             R25 2 1
+      171 SETTABLEKS                       R25 R24 K70 ["uri"]
+      173 GETTABLEKS                       R25 R3 K76 ["memo"]
+      175 MOVE                             R26 R22
+      176 CALL                             R25 1 1
+      177 SETTABLEKS                       R25 R24 K71 ["component"]
+      179 CALL                             R23 1 1
+      180 RETURN                           R23 1
+      181 LOADNIL                          R23
+      182 RETURN                           R23 1

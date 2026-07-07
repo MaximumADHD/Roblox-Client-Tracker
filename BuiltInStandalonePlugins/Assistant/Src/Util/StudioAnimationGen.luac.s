@@ -105,22 +105,22 @@ PROTO_1:
       127 GETTABLEN                        R10 R8 1
       128 SETTABLEKS                       R9 R10 K41 ["Name"]
       130 GETUPVAL                         R10 2
-      131 CALL                             R10 0 1
-      132 JUMPIFNOT                        R10 ; [+10]
-      133 GETIMPORT                        R10 K43 [print]
-      135 LOADK                            R12 K44 ["[AnimationGen] FBX saved: "]
-      136 FASTCALL1                        TOSTRING R5 ; [+3]
-      137 MOVE                             R14 R5
-      138 GETIMPORT                        R13 K29 [tostring]
-      140 CALL                             R13 1 1
-      141 CONCAT                           R11 R12 R13
-      142 CALL                             R10 1 0
-      143 DUPTABLE                         R10 K48 [{"animationClip", "contextId", "fbxFilePath"}]
-      144 GETTABLEN                        R11 R8 1
-      145 SETTABLEKS                       R11 R10 K45 ["animationClip"]
-      147 SETTABLEKS                       R6 R10 K46 ["contextId"]
-      149 SETTABLEKS                       R5 R10 K47 ["fbxFilePath"]
-      151 RETURN                           R10 1
+      131 GETTABLEKS                       R10 R10 K42 ["FFlagDebugLogAssistantUI"]
+      133 JUMPIFNOT                        R10 ; [+10]
+      134 GETIMPORT                        R10 K44 [print]
+      136 LOADK                            R12 K45 ["[AnimationGen] FBX saved: "]
+      137 FASTCALL1                        TOSTRING R5 ; [+3]
+      138 MOVE                             R14 R5
+      139 GETIMPORT                        R13 K29 [tostring]
+      141 CALL                             R13 1 1
+      142 CONCAT                           R11 R12 R13
+      143 CALL                             R10 1 0
+      144 DUPTABLE                         R10 K49 [{"animationClip", "contextId", "fbxFilePath"}]
+      145 GETTABLEN                        R11 R8 1
+      146 SETTABLEKS                       R11 R10 K46 ["animationClip"]
+      148 SETTABLEKS                       R6 R10 K47 ["contextId"]
+      150 SETTABLEKS                       R5 R10 K48 ["fbxFilePath"]
+      152 RETURN                           R10 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -182,21 +182,18 @@ MAIN:
        34 NAMECALL                         R6 R6 K11 ["FindFirstAncestor"]
        36 CALL                             R6 2 1
        37 GETIMPORT                        R7 K13 [require]
-       39 GETTABLEKS                       R8 R6 K14 ["Packages"]
-       41 GETTABLEKS                       R8 R8 K15 ["AssistantUI"]
+       39 GETTABLEKS                       R8 R6 K14 ["Src"]
+       41 GETTABLEKS                       R8 R8 K15 ["Flags"]
        43 CALL                             R7 1 1
-       44 GETTABLEKS                       R8 R7 K16 ["Flags"]
-       46 GETTABLEKS                       R8 R8 K17 ["Shared"]
-       48 GETTABLEKS                       R8 R8 K18 ["FFlagDebugLogAssistantUI"]
-       50 DUPCLOSURE                       R9 K19 [PROTO_1]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R8
-       54 DUPCLOSURE                       R10 K20 [PROTO_3]
-       55 CAPTURE                          VAL R5
-       56 DUPCLOSURE                       R11 K21 [PROTO_4]
-       57 CAPTURE                          VAL R9
-       58 CAPTURE                          VAL R10
-       59 DUPTABLE                         R12 K23 [{"create"}]
-       60 SETTABLEKS                       R11 R12 K22 ["create"]
-       62 RETURN                           R12 1
+       44 DUPCLOSURE                       R8 K16 [PROTO_1]
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R7
+       48 DUPCLOSURE                       R9 K17 [PROTO_3]
+       49 CAPTURE                          VAL R5
+       50 DUPCLOSURE                       R10 K18 [PROTO_4]
+       51 CAPTURE                          VAL R8
+       52 CAPTURE                          VAL R9
+       53 DUPTABLE                         R11 K20 [{"create"}]
+       54 SETTABLEKS                       R10 R11 K19 ["create"]
+       56 RETURN                           R11 1

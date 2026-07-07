@@ -26,34 +26,34 @@ PROTO_1:
        11 GETUPVAL                         R4 2
        12 GETUPVAL                         R5 3
        13 GETTABLEKS                       R5 R5 K4 ["View"]
-       15 DUPTABLE                         R6 K8 [{["tag"] = "data-testid=pickable-filepath-click-target align-y-center size-full-800 padding-small stroke-default radius-small bg-shift-100", ["onActivated"]}]
+       15 DUPTABLE                         R6 K10 [{["tag"] = "align-y-center size-full-800 padding-small stroke-default radius-small bg-shift-100", ["testId"] = "pickable-filepath-click-target", ["onActivated"]}]
        16 NEWCLOSURE                       R7 P0
        17 CAPTURE                          VAL R0
        18 CAPTURE                          VAL R3
-       19 SETTABLEKS                       R7 R6 K7 ["onActivated"]
-       21 DUPTABLE                         R7 K10 [{"filepathText"}]
+       19 SETTABLEKS                       R7 R6 K9 ["onActivated"]
+       21 DUPTABLE                         R7 K12 [{"filepathText"}]
        22 GETUPVAL                         R8 2
        23 GETUPVAL                         R9 3
-       24 GETTABLEKS                       R9 R9 K11 ["Text"]
-       26 DUPTABLE                         R10 K14 [{["Text"], ["TextTruncate"], ["tag"] = "auto-xy text-body-medium text-align-x-left text-align-y-center content-link"}]
+       24 GETTABLEKS                       R9 R9 K13 ["Text"]
+       26 DUPTABLE                         R10 K16 [{["Text"], ["TextTruncate"], ["tag"] = "auto-xy text-body-medium text-align-x-left text-align-y-center content-link"}]
        27 JUMPIFNOT                        R2 ; [+2]
        28 JUMPIFNOTEQKS                    R2 K2 [""] ; [+12]
        30 GETUPVAL                         R12 4
        31 CALL                             R12 0 1
        32 JUMPIFNOT                        R12 ; [+6]
-       33 LOADK                            R13 K15 ["ConfigDialog"]
-       34 LOADK                            R14 K16 ["SelectFile"]
-       35 NAMECALL                         R11 R1 K17 ["getText"]
+       33 LOADK                            R13 K17 ["ConfigDialog"]
+       34 LOADK                            R14 K18 ["SelectFile"]
+       35 NAMECALL                         R11 R1 K19 ["getText"]
        37 CALL                             R11 3 1
        38 JUMP                             ; [+3]
-       39 LOADK                            R11 K18 ["Click to select file"]
+       39 LOADK                            R11 K20 ["Click to select file"]
        40 JUMP                             ; [+1]
        41 MOVE                             R11 R2
-       42 SETTABLEKS                       R11 R10 K11 ["Text"]
-       44 GETIMPORT                        R11 K21 [Enum.TextTruncate.SplitWord]
-       46 SETTABLEKS                       R11 R10 K12 ["TextTruncate"]
+       42 SETTABLEKS                       R11 R10 K13 ["Text"]
+       44 GETIMPORT                        R11 K23 [Enum.TextTruncate.SplitWord]
+       46 SETTABLEKS                       R11 R10 K14 ["TextTruncate"]
        48 CALL                             R8 2 1
-       49 SETTABLEKS                       R8 R7 K9 ["filepathText"]
+       49 SETTABLEKS                       R8 R7 K11 ["filepathText"]
        51 CALL                             R4 3 -1
        52 RETURN                           R4 -1
 

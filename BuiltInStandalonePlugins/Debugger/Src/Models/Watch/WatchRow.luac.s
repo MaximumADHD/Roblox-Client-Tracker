@@ -30,13 +30,21 @@ PROTO_2:
         3 SETTABLEKS                       R1 R2 K1 ["pathColumn"]
         5 GETTABLEKS                       R3 R0 K13 ["VariableId"]
         7 SETTABLEKS                       R3 R2 K2 ["idColumn"]
-        9 GETTABLEKS                       R3 R0 K14 ["Value"]
-       11 SETTABLEKS                       R3 R2 K5 ["valueColumn"]
-       13 GETTABLEKS                       R3 R0 K15 ["Type"]
-       15 SETTABLEKS                       R3 R2 K6 ["dataTypeColumn"]
-       17 NEWTABLE                         R3 0 0
-       19 SETTABLEKS                       R3 R2 K7 ["childPaths"]
-       21 RETURN                           R2 1
+        9 GETUPVAL                         R4 0
+       10 CALL                             R4 0 1
+       11 JUMPIFNOT                        R4 ; [+7]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K14 ["truncateValue"]
+       15 GETTABLEKS                       R4 R0 K15 ["Value"]
+       17 CALL                             R3 1 1
+       18 JUMP                             ; [+2]
+       19 GETTABLEKS                       R3 R0 K15 ["Value"]
+       21 SETTABLEKS                       R3 R2 K5 ["valueColumn"]
+       23 GETTABLEKS                       R3 R0 K16 ["Type"]
+       25 SETTABLEKS                       R3 R2 K6 ["dataTypeColumn"]
+       27 NEWTABLE                         R3 0 0
+       29 SETTABLEKS                       R3 R2 K7 ["childPaths"]
+       31 RETURN                           R2 1
 
 PROTO_3:
         0 MOVE                             R3 R1
@@ -52,13 +60,21 @@ PROTO_3:
        14 SETTABLEKS                       R4 R3 K2 ["pathColumn"]
        16 GETTABLEKS                       R4 R0 K15 ["VariableId"]
        18 SETTABLEKS                       R4 R3 K3 ["idColumn"]
-       20 GETTABLEKS                       R4 R0 K16 ["Value"]
-       22 SETTABLEKS                       R4 R3 K6 ["valueColumn"]
-       24 GETTABLEKS                       R4 R0 K17 ["Type"]
-       26 SETTABLEKS                       R4 R3 K7 ["dataTypeColumn"]
-       28 NEWTABLE                         R4 0 0
-       30 SETTABLEKS                       R4 R3 K8 ["childPaths"]
-       32 RETURN                           R3 1
+       20 GETUPVAL                         R5 1
+       21 CALL                             R5 0 1
+       22 JUMPIFNOT                        R5 ; [+7]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R4 R4 K16 ["truncateValue"]
+       26 GETTABLEKS                       R5 R0 K17 ["Value"]
+       28 CALL                             R4 1 1
+       29 JUMP                             ; [+2]
+       30 GETTABLEKS                       R4 R0 K17 ["Value"]
+       32 SETTABLEKS                       R4 R3 K6 ["valueColumn"]
+       34 GETTABLEKS                       R4 R0 K18 ["Type"]
+       36 SETTABLEKS                       R4 R3 K7 ["dataTypeColumn"]
+       38 NEWTABLE                         R4 0 0
+       40 SETTABLEKS                       R4 R3 K8 ["childPaths"]
+       42 RETURN                           R3 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -84,22 +100,34 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K8 ["Constants"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETIMPORT                        R4 K1 [script]
-       27 GETTABLEKS                       R4 R4 K2 ["Parent"]
-       29 GETTABLEKS                       R4 R4 K9 ["WatchWindowTableRow"]
-       31 CALL                             R3 1 1
-       32 DUPCLOSURE                       R4 K10 [PROTO_0]
-       33 DUPCLOSURE                       R5 K11 [PROTO_1]
-       34 DUPCLOSURE                       R6 K12 [PROTO_2]
-       35 DUPCLOSURE                       R7 K13 [PROTO_3]
-       36 CAPTURE                          VAL R2
-       37 DUPCLOSURE                       R8 K14 [PROTO_4]
-       38 CAPTURE                          VAL R7
-       39 CAPTURE                          VAL R1
-       40 DUPTABLE                         R9 K20 [{"fromData", "fromExpression", "fromInstance", "fromChildInstance", "dummyRow"}]
-       41 SETTABLEKS                       R5 R9 K15 ["fromData"]
-       43 SETTABLEKS                       R4 R9 K16 ["fromExpression"]
-       45 SETTABLEKS                       R6 R9 K17 ["fromInstance"]
-       47 SETTABLEKS                       R7 R9 K18 ["fromChildInstance"]
-       49 SETTABLEKS                       R8 R9 K19 ["dummyRow"]
-       51 RETURN                           R9 1
+       25 GETTABLEKS                       R4 R0 K7 ["Util"]
+       27 GETTABLEKS                       R4 R4 K9 ["WatchHelperFunctions"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K4 [require]
+       32 GETTABLEKS                       R5 R0 K10 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K11 ["getFFlagDebuggerWatchValueTruncation"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K4 [require]
+       39 GETIMPORT                        R6 K1 [script]
+       41 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       43 GETTABLEKS                       R6 R6 K12 ["WatchWindowTableRow"]
+       45 CALL                             R5 1 1
+       46 DUPCLOSURE                       R6 K13 [PROTO_0]
+       47 DUPCLOSURE                       R7 K14 [PROTO_1]
+       48 DUPCLOSURE                       R8 K15 [PROTO_2]
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R3
+       51 DUPCLOSURE                       R9 K16 [PROTO_3]
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R3
+       55 DUPCLOSURE                       R10 K17 [PROTO_4]
+       56 CAPTURE                          VAL R9
+       57 CAPTURE                          VAL R1
+       58 DUPTABLE                         R11 K23 [{"fromData", "fromExpression", "fromInstance", "fromChildInstance", "dummyRow"}]
+       59 SETTABLEKS                       R7 R11 K18 ["fromData"]
+       61 SETTABLEKS                       R6 R11 K19 ["fromExpression"]
+       63 SETTABLEKS                       R8 R11 K20 ["fromInstance"]
+       65 SETTABLEKS                       R9 R11 K21 ["fromChildInstance"]
+       67 SETTABLEKS                       R10 R11 K22 ["dummyRow"]
+       69 RETURN                           R11 1

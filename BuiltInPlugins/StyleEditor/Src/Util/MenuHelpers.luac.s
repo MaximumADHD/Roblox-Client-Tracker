@@ -841,246 +841,258 @@ MAIN:
       180 CALL                             R22 0 1
       181 GETIMPORT                        R23 K8 [require]
       183 GETTABLEKS                       R24 R1 K19 ["Src"]
-      185 GETTABLEKS                       R24 R24 K39 ["Util"]
-      187 GETTABLEKS                       R24 R24 K40 ["BuiltinStyleQueryCategories"]
+      185 GETTABLEKS                       R24 R24 K29 ["Flags"]
+      187 GETTABLEKS                       R24 R24 K39 ["getEngineFeatureSelectedGuiState"]
       189 CALL                             R23 1 1
-      190 GETIMPORT                        R24 K8 [require]
-      192 GETTABLEKS                       R25 R1 K19 ["Src"]
-      194 GETTABLEKS                       R25 R25 K26 ["Types"]
-      196 CALL                             R24 1 1
-      197 GETIMPORT                        R25 K8 [require]
-      199 GETTABLEKS                       R26 R1 K19 ["Src"]
-      201 GETTABLEKS                       R26 R26 K20 ["Resources"]
-      203 GETTABLEKS                       R26 R26 K41 ["ModernIcons"]
-      205 CALL                             R25 1 1
-      206 NEWTABLE                         R26 32 0
-      208 NEWTABLE                         R27 0 8
-      210 LOADK                            R28 K42 ["CanvasGroup"]
-      211 LOADK                            R29 K43 ["ImageButton"]
-      212 LOADK                            R30 K44 ["ImageLabel"]
-      213 LOADK                            R31 K45 ["ScrollingFrame"]
-      214 LOADK                            R32 K46 ["Frame"]
-      215 LOADK                            R33 K47 ["TextBox"]
-      216 LOADK                            R34 K48 ["TextButton"]
-      217 LOADK                            R35 K49 ["TextLabel"]
-      218 SETLIST                          R27 R28 8 [1]
-      220 SETTABLEKS                       R27 R26 K50 ["Classes"]
-      222 JUMPIFNOT                        R13 ; [+16]
-      223 NEWTABLE                         R27 0 11
-      225 LOADK                            R28 K51 ["UIAspectRatioConstraint"]
-      226 LOADK                            R29 K52 ["UICorner"]
-      227 LOADK                            R30 K53 ["UIGradient"]
-      228 LOADK                            R31 K54 ["UIGridLayout"]
-      229 LOADK                            R32 K55 ["UIListLayout"]
-      230 LOADK                            R33 K56 ["UIPadding"]
-      231 LOADK                            R34 K57 ["UIPageLayout"]
-      232 LOADK                            R35 K58 ["UIScale"]
-      233 LOADK                            R36 K59 ["UISizeConstraint"]
-      234 LOADK                            R37 K60 ["UIStroke"]
-      235 LOADK                            R38 K61 ["UITextSizeConstraint"]
-      236 SETLIST                          R27 R28 11 [1]
-      238 JUMP                             ; [+14]
-      239 NEWTABLE                         R27 0 10
-      241 LOADK                            R28 K51 ["UIAspectRatioConstraint"]
-      242 LOADK                            R29 K52 ["UICorner"]
-      243 LOADK                            R30 K53 ["UIGradient"]
-      244 LOADK                            R31 K54 ["UIGridLayout"]
-      245 LOADK                            R32 K55 ["UIListLayout"]
-      246 LOADK                            R33 K56 ["UIPadding"]
-      247 LOADK                            R34 K58 ["UIScale"]
-      248 LOADK                            R35 K59 ["UISizeConstraint"]
-      249 LOADK                            R36 K60 ["UIStroke"]
-      250 LOADK                            R37 K61 ["UITextSizeConstraint"]
-      251 SETLIST                          R27 R28 10 [1]
-      253 SETTABLEKS                       R27 R26 K62 ["PseudoInstances"]
-      255 NEWTABLE                         R27 0 1
-      257 LOADK                            R28 K60 ["UIStroke"]
-      258 SETLIST                          R27 R28 1 [1]
-      260 SETTABLEKS                       R27 R26 K63 ["MultiPseudoInstanceTypes"]
-      262 JUMPIFNOT                        R14 ; [+8]
-      263 GETTABLEKS                       R28 R26 K63 ["MultiPseudoInstanceTypes"]
-      265 FASTCALL2K                       TABLE_INSERT R28 K64 ; [+4]
-      267 LOADK                            R29 K64 ["StyleQuery"]
-      268 GETIMPORT                        R27 K67 [table.insert]
-      270 CALL                             R27 2 0
-      271 JUMPIFNOT                        R18 ; [+16]
-      272 GETTABLEKS                       R28 R26 K62 ["PseudoInstances"]
-      274 FASTCALL2K                       TABLE_INSERT R28 K68 ; [+4]
-      276 LOADK                            R29 K68 ["UIShadow"]
-      277 GETIMPORT                        R27 K67 [table.insert]
-      279 CALL                             R27 2 0
-      280 GETTABLEKS                       R28 R26 K63 ["MultiPseudoInstanceTypes"]
-      282 FASTCALL2K                       TABLE_INSERT R28 K68 ; [+4]
-      284 LOADK                            R29 K68 ["UIShadow"]
-      285 GETIMPORT                        R27 K67 [table.insert]
-      287 CALL                             R27 2 0
-      288 GETTABLEKS                       R28 R26 K62 ["PseudoInstances"]
-      290 LOADN                            R29 3
-      291 LOADK                            R30 K69 ["UIFlexItem"]
-      292 FASTCALL                         TABLE_INSERT ; [+2]
-      293 GETIMPORT                        R27 K67 [table.insert]
-      295 CALL                             R27 3 0
-      296 GETIMPORT                        R27 K71 [table.sort]
-      298 GETTABLEKS                       R28 R26 K62 ["PseudoInstances"]
-      300 CALL                             R27 1 0
-      301 NEWTABLE                         R27 0 4
-      303 LOADK                            R28 K72 ["Hover"]
-      304 LOADK                            R29 K73 ["Idle"]
-      305 LOADK                            R30 K74 ["Press"]
-      306 LOADK                            R31 K75 ["NonInteractable"]
-      307 SETLIST                          R27 R28 4 [1]
-      309 SETTABLEKS                       R27 R26 K76 ["GuiStates"]
-      311 JUMPIFNOT                        R22 ; [+8]
-      312 GETTABLEKS                       R28 R26 K76 ["GuiStates"]
-      314 FASTCALL2K                       TABLE_INSERT R28 K77 ; [+4]
-      316 LOADK                            R29 K77 ["Focused"]
-      317 GETIMPORT                        R27 K67 [table.insert]
-      319 CALL                             R27 2 0
-      320 JUMPIFNOT                        R19 ; [+21]
-      321 NEWTABLE                         R27 0 16
-      323 LOADK                            R28 K78 ["string"]
-      324 LOADK                            R29 K79 ["boolean"]
-      325 LOADK                            R30 K80 ["number"]
-      326 LOADK                            R31 K81 ["UDim"]
-      327 LOADK                            R32 K82 ["UDim2"]
-      328 LOADK                            R33 K83 ["BrickColor"]
-      329 LOADK                            R34 K84 ["Color3"]
-      330 LOADK                            R35 K85 ["Vector2"]
-      331 LOADK                            R36 K86 ["Vector3"]
-      332 LOADK                            R37 K87 ["CFrame"]
-      333 LOADK                            R38 K88 ["ColorSequence"]
-      334 LOADK                            R39 K89 ["NumberSequence"]
-      335 LOADK                            R40 K90 ["NumberRange"]
-      336 LOADK                            R41 K91 ["Rect"]
-      337 LOADK                            R42 K92 ["Font"]
-      338 LOADK                            R43 K93 ["TweenInfo"]
-      339 SETLIST                          R27 R28 16 [1]
-      341 JUMP                             ; [+19]
-      342 NEWTABLE                         R27 0 15
-      344 LOADK                            R28 K78 ["string"]
-      345 LOADK                            R29 K79 ["boolean"]
-      346 LOADK                            R30 K80 ["number"]
-      347 LOADK                            R31 K81 ["UDim"]
-      348 LOADK                            R32 K82 ["UDim2"]
-      349 LOADK                            R33 K83 ["BrickColor"]
-      350 LOADK                            R34 K84 ["Color3"]
-      351 LOADK                            R35 K85 ["Vector2"]
-      352 LOADK                            R36 K86 ["Vector3"]
-      353 LOADK                            R37 K87 ["CFrame"]
-      354 LOADK                            R38 K88 ["ColorSequence"]
-      355 LOADK                            R39 K89 ["NumberSequence"]
-      356 LOADK                            R40 K90 ["NumberRange"]
-      357 LOADK                            R41 K91 ["Rect"]
-      358 LOADK                            R42 K92 ["Font"]
-      359 SETLIST                          R27 R28 15 [1]
-      361 SETTABLEKS                       R27 R26 K94 ["AttributeTypes"]
-      363 DUPCLOSURE                       R27 K95 [PROTO_1]
-      364 CAPTURE                          VAL R0
-      365 SETTABLEKS                       R27 R26 K96 ["getClassIcon"]
-      367 NEWTABLE                         R27 0 2
-      369 DUPTABLE                         R28 K100 [{["Name"] = "Tokens", ["Icon"]}]
-      370 GETTABLEKS                       R29 R25 K101 ["Standard"]
-      372 GETTABLEKS                       R29 R29 K102 ["TokenSheet"]
-      374 CALL                             R29 0 1
-      375 SETTABLEKS                       R29 R28 K99 ["Icon"]
-      377 DUPTABLE                         R29 K104 [{["Name"] = "Themes", ["Icon"]}]
-      378 GETTABLEKS                       R30 R25 K101 ["Standard"]
-      380 GETTABLEKS                       R30 R30 K105 ["ThemeSheet"]
-      382 CALL                             R30 0 1
-      383 SETTABLEKS                       R30 R29 K99 ["Icon"]
-      385 SETLIST                          R27 R28 2 [1]
-      387 SETTABLEKS                       R27 R26 K106 ["StyleSheetCategories"]
-      389 NEWTABLE                         R27 0 1
-      391 NEWTABLE                         R28 4 0
-      393 LOADK                            R29 K107 ["Menu"]
-      394 SETTABLEKS                       R29 R28 K108 ["Id"]
-      396 DUPTABLE                         R29 K110 [{"Image"}]
-      397 GETTABLEKS                       R30 R25 K111 ["more"]
-      399 CALL                             R30 0 1
-      400 SETTABLEKS                       R30 R29 K109 ["Image"]
-      402 SETTABLEKS                       R29 R28 K99 ["Icon"]
-      404 GETTABLEKS                       R29 R2 K112 ["Tag"]
-      406 LOADK                            R30 K113 ["Contrast IconOnly"]
-      407 SETTABLE                         R30 R28 R29
-      408 SETLIST                          R27 R28 1 [1]
-      410 SETTABLEKS                       R27 R26 K114 ["MoreAction"]
-      412 NEWTABLE                         R27 0 1
-      414 NEWTABLE                         R28 4 0
-      416 LOADK                            R29 K107 ["Menu"]
-      417 SETTABLEKS                       R29 R28 K108 ["Id"]
-      419 DUPTABLE                         R29 K110 [{"Image"}]
-      420 GETTABLEKS                       R30 R25 K111 ["more"]
-      422 CALL                             R30 0 1
-      423 SETTABLEKS                       R30 R29 K109 ["Image"]
-      425 SETTABLEKS                       R29 R28 K99 ["Icon"]
-      427 GETTABLEKS                       R29 R2 K112 ["Tag"]
-      429 LOADK                            R30 K115 ["IconOnly SecondaryHoverBackground"]
-      430 SETTABLE                         R30 R28 R29
-      431 SETLIST                          R27 R28 1 [1]
-      433 SETTABLEKS                       R27 R26 K116 ["FullSpanMoreAction"]
-      435 NEWTABLE                         R27 0 1
-      437 NEWTABLE                         R28 4 0
-      439 LOADK                            R29 K107 ["Menu"]
-      440 SETTABLEKS                       R29 R28 K108 ["Id"]
-      442 DUPTABLE                         R29 K110 [{"Image"}]
-      443 GETTABLEKS                       R30 R25 K117 ["new"]
-      445 CALL                             R30 0 1
-      446 SETTABLEKS                       R30 R29 K109 ["Image"]
-      448 SETTABLEKS                       R29 R28 K99 ["Icon"]
-      450 GETTABLEKS                       R29 R2 K112 ["Tag"]
-      452 LOADK                            R30 K115 ["IconOnly SecondaryHoverBackground"]
-      453 SETTABLE                         R30 R28 R29
-      454 SETLIST                          R27 R28 1 [1]
-      456 SETTABLEKS                       R27 R26 K118 ["CategoryPlusButtonAction"]
-      458 DUPCLOSURE                       R27 K119 [PROTO_3]
-      459 CAPTURE                          VAL R17
-      460 CAPTURE                          VAL R26
-      461 SETTABLEKS                       R27 R26 K120 ["getAvailablePseudoSelector"]
-      463 DUPCLOSURE                       R27 K121 [PROTO_5]
-      464 CAPTURE                          VAL R7
-      465 CAPTURE                          VAL R26
-      466 SETTABLEKS                       R27 R26 K122 ["getStyleSheetCategoryActions"]
-      468 DUPCLOSURE                       R27 K123 [PROTO_7]
-      469 CAPTURE                          VAL R7
-      470 SETTABLEKS                       R27 R26 K124 ["getAttributeTypeActions"]
-      472 DUPCLOSURE                       R27 K125 [PROTO_9]
-      473 CAPTURE                          VAL R7
-      474 CAPTURE                          VAL R26
-      475 SETTABLEKS                       R27 R26 K126 ["getClassTypeActions"]
-      477 DUPCLOSURE                       R27 K127 [PROTO_15]
-      478 CAPTURE                          VAL R7
-      479 CAPTURE                          VAL R9
-      480 CAPTURE                          VAL R16
-      481 CAPTURE                          VAL R26
-      482 CAPTURE                          VAL R25
-      483 CAPTURE                          VAL R6
-      484 CAPTURE                          VAL R15
-      485 CAPTURE                          VAL R14
-      486 CAPTURE                          VAL R21
-      487 CAPTURE                          VAL R23
-      488 CAPTURE                          VAL R20
-      489 SETTABLEKS                       R27 R26 K128 ["getNewSelectorAction"]
-      491 DUPCLOSURE                       R27 K129 [PROTO_16]
-      492 CAPTURE                          VAL R25
-      493 SETTABLEKS                       R27 R26 K130 ["getRenameAction"]
-      495 DUPCLOSURE                       R27 K131 [PROTO_18]
-      496 CAPTURE                          VAL R26
+      190 CALL                             R23 0 1
+      191 GETIMPORT                        R24 K8 [require]
+      193 GETTABLEKS                       R25 R1 K19 ["Src"]
+      195 GETTABLEKS                       R25 R25 K40 ["Util"]
+      197 GETTABLEKS                       R25 R25 K41 ["BuiltinStyleQueryCategories"]
+      199 CALL                             R24 1 1
+      200 GETIMPORT                        R25 K8 [require]
+      202 GETTABLEKS                       R26 R1 K19 ["Src"]
+      204 GETTABLEKS                       R26 R26 K26 ["Types"]
+      206 CALL                             R25 1 1
+      207 GETIMPORT                        R26 K8 [require]
+      209 GETTABLEKS                       R27 R1 K19 ["Src"]
+      211 GETTABLEKS                       R27 R27 K20 ["Resources"]
+      213 GETTABLEKS                       R27 R27 K42 ["ModernIcons"]
+      215 CALL                             R26 1 1
+      216 NEWTABLE                         R27 32 0
+      218 NEWTABLE                         R28 0 8
+      220 LOADK                            R29 K43 ["CanvasGroup"]
+      221 LOADK                            R30 K44 ["ImageButton"]
+      222 LOADK                            R31 K45 ["ImageLabel"]
+      223 LOADK                            R32 K46 ["ScrollingFrame"]
+      224 LOADK                            R33 K47 ["Frame"]
+      225 LOADK                            R34 K48 ["TextBox"]
+      226 LOADK                            R35 K49 ["TextButton"]
+      227 LOADK                            R36 K50 ["TextLabel"]
+      228 SETLIST                          R28 R29 8 [1]
+      230 SETTABLEKS                       R28 R27 K51 ["Classes"]
+      232 JUMPIFNOT                        R13 ; [+16]
+      233 NEWTABLE                         R28 0 11
+      235 LOADK                            R29 K52 ["UIAspectRatioConstraint"]
+      236 LOADK                            R30 K53 ["UICorner"]
+      237 LOADK                            R31 K54 ["UIGradient"]
+      238 LOADK                            R32 K55 ["UIGridLayout"]
+      239 LOADK                            R33 K56 ["UIListLayout"]
+      240 LOADK                            R34 K57 ["UIPadding"]
+      241 LOADK                            R35 K58 ["UIPageLayout"]
+      242 LOADK                            R36 K59 ["UIScale"]
+      243 LOADK                            R37 K60 ["UISizeConstraint"]
+      244 LOADK                            R38 K61 ["UIStroke"]
+      245 LOADK                            R39 K62 ["UITextSizeConstraint"]
+      246 SETLIST                          R28 R29 11 [1]
+      248 JUMP                             ; [+14]
+      249 NEWTABLE                         R28 0 10
+      251 LOADK                            R29 K52 ["UIAspectRatioConstraint"]
+      252 LOADK                            R30 K53 ["UICorner"]
+      253 LOADK                            R31 K54 ["UIGradient"]
+      254 LOADK                            R32 K55 ["UIGridLayout"]
+      255 LOADK                            R33 K56 ["UIListLayout"]
+      256 LOADK                            R34 K57 ["UIPadding"]
+      257 LOADK                            R35 K59 ["UIScale"]
+      258 LOADK                            R36 K60 ["UISizeConstraint"]
+      259 LOADK                            R37 K61 ["UIStroke"]
+      260 LOADK                            R38 K62 ["UITextSizeConstraint"]
+      261 SETLIST                          R28 R29 10 [1]
+      263 SETTABLEKS                       R28 R27 K63 ["PseudoInstances"]
+      265 NEWTABLE                         R28 0 1
+      267 LOADK                            R29 K61 ["UIStroke"]
+      268 SETLIST                          R28 R29 1 [1]
+      270 SETTABLEKS                       R28 R27 K64 ["MultiPseudoInstanceTypes"]
+      272 JUMPIFNOT                        R14 ; [+8]
+      273 GETTABLEKS                       R29 R27 K64 ["MultiPseudoInstanceTypes"]
+      275 FASTCALL2K                       TABLE_INSERT R29 K65 ; [+4]
+      277 LOADK                            R30 K65 ["StyleQuery"]
+      278 GETIMPORT                        R28 K68 [table.insert]
+      280 CALL                             R28 2 0
+      281 JUMPIFNOT                        R18 ; [+16]
+      282 GETTABLEKS                       R29 R27 K63 ["PseudoInstances"]
+      284 FASTCALL2K                       TABLE_INSERT R29 K69 ; [+4]
+      286 LOADK                            R30 K69 ["UIShadow"]
+      287 GETIMPORT                        R28 K68 [table.insert]
+      289 CALL                             R28 2 0
+      290 GETTABLEKS                       R29 R27 K64 ["MultiPseudoInstanceTypes"]
+      292 FASTCALL2K                       TABLE_INSERT R29 K69 ; [+4]
+      294 LOADK                            R30 K69 ["UIShadow"]
+      295 GETIMPORT                        R28 K68 [table.insert]
+      297 CALL                             R28 2 0
+      298 GETTABLEKS                       R29 R27 K63 ["PseudoInstances"]
+      300 LOADN                            R30 3
+      301 LOADK                            R31 K70 ["UIFlexItem"]
+      302 FASTCALL                         TABLE_INSERT ; [+2]
+      303 GETIMPORT                        R28 K68 [table.insert]
+      305 CALL                             R28 3 0
+      306 GETIMPORT                        R28 K72 [table.sort]
+      308 GETTABLEKS                       R29 R27 K63 ["PseudoInstances"]
+      310 CALL                             R28 1 0
+      311 NEWTABLE                         R28 0 4
+      313 LOADK                            R29 K73 ["Hover"]
+      314 LOADK                            R30 K74 ["Idle"]
+      315 LOADK                            R31 K75 ["Press"]
+      316 LOADK                            R32 K76 ["NonInteractable"]
+      317 SETLIST                          R28 R29 4 [1]
+      319 SETTABLEKS                       R28 R27 K77 ["GuiStates"]
+      321 JUMPIFNOT                        R22 ; [+8]
+      322 GETTABLEKS                       R29 R27 K77 ["GuiStates"]
+      324 FASTCALL2K                       TABLE_INSERT R29 K78 ; [+4]
+      326 LOADK                            R30 K78 ["Focused"]
+      327 GETIMPORT                        R28 K68 [table.insert]
+      329 CALL                             R28 2 0
+      330 JUMPIFNOT                        R23 ; [+8]
+      331 GETTABLEKS                       R29 R27 K77 ["GuiStates"]
+      333 FASTCALL2K                       TABLE_INSERT R29 K79 ; [+4]
+      335 LOADK                            R30 K79 ["Selected"]
+      336 GETIMPORT                        R28 K68 [table.insert]
+      338 CALL                             R28 2 0
+      339 JUMPIFNOT                        R19 ; [+21]
+      340 NEWTABLE                         R28 0 16
+      342 LOADK                            R29 K80 ["string"]
+      343 LOADK                            R30 K81 ["boolean"]
+      344 LOADK                            R31 K82 ["number"]
+      345 LOADK                            R32 K83 ["UDim"]
+      346 LOADK                            R33 K84 ["UDim2"]
+      347 LOADK                            R34 K85 ["BrickColor"]
+      348 LOADK                            R35 K86 ["Color3"]
+      349 LOADK                            R36 K87 ["Vector2"]
+      350 LOADK                            R37 K88 ["Vector3"]
+      351 LOADK                            R38 K89 ["CFrame"]
+      352 LOADK                            R39 K90 ["ColorSequence"]
+      353 LOADK                            R40 K91 ["NumberSequence"]
+      354 LOADK                            R41 K92 ["NumberRange"]
+      355 LOADK                            R42 K93 ["Rect"]
+      356 LOADK                            R43 K94 ["Font"]
+      357 LOADK                            R44 K95 ["TweenInfo"]
+      358 SETLIST                          R28 R29 16 [1]
+      360 JUMP                             ; [+19]
+      361 NEWTABLE                         R28 0 15
+      363 LOADK                            R29 K80 ["string"]
+      364 LOADK                            R30 K81 ["boolean"]
+      365 LOADK                            R31 K82 ["number"]
+      366 LOADK                            R32 K83 ["UDim"]
+      367 LOADK                            R33 K84 ["UDim2"]
+      368 LOADK                            R34 K85 ["BrickColor"]
+      369 LOADK                            R35 K86 ["Color3"]
+      370 LOADK                            R36 K87 ["Vector2"]
+      371 LOADK                            R37 K88 ["Vector3"]
+      372 LOADK                            R38 K89 ["CFrame"]
+      373 LOADK                            R39 K90 ["ColorSequence"]
+      374 LOADK                            R40 K91 ["NumberSequence"]
+      375 LOADK                            R41 K92 ["NumberRange"]
+      376 LOADK                            R42 K93 ["Rect"]
+      377 LOADK                            R43 K94 ["Font"]
+      378 SETLIST                          R28 R29 15 [1]
+      380 SETTABLEKS                       R28 R27 K96 ["AttributeTypes"]
+      382 DUPCLOSURE                       R28 K97 [PROTO_1]
+      383 CAPTURE                          VAL R0
+      384 SETTABLEKS                       R28 R27 K98 ["getClassIcon"]
+      386 NEWTABLE                         R28 0 2
+      388 DUPTABLE                         R29 K102 [{["Name"] = "Tokens", ["Icon"]}]
+      389 GETTABLEKS                       R30 R26 K103 ["Standard"]
+      391 GETTABLEKS                       R30 R30 K104 ["TokenSheet"]
+      393 CALL                             R30 0 1
+      394 SETTABLEKS                       R30 R29 K101 ["Icon"]
+      396 DUPTABLE                         R30 K106 [{["Name"] = "Themes", ["Icon"]}]
+      397 GETTABLEKS                       R31 R26 K103 ["Standard"]
+      399 GETTABLEKS                       R31 R31 K107 ["ThemeSheet"]
+      401 CALL                             R31 0 1
+      402 SETTABLEKS                       R31 R30 K101 ["Icon"]
+      404 SETLIST                          R28 R29 2 [1]
+      406 SETTABLEKS                       R28 R27 K108 ["StyleSheetCategories"]
+      408 NEWTABLE                         R28 0 1
+      410 NEWTABLE                         R29 4 0
+      412 LOADK                            R30 K109 ["Menu"]
+      413 SETTABLEKS                       R30 R29 K110 ["Id"]
+      415 DUPTABLE                         R30 K112 [{"Image"}]
+      416 GETTABLEKS                       R31 R26 K113 ["more"]
+      418 CALL                             R31 0 1
+      419 SETTABLEKS                       R31 R30 K111 ["Image"]
+      421 SETTABLEKS                       R30 R29 K101 ["Icon"]
+      423 GETTABLEKS                       R30 R2 K114 ["Tag"]
+      425 LOADK                            R31 K115 ["Contrast IconOnly"]
+      426 SETTABLE                         R31 R29 R30
+      427 SETLIST                          R28 R29 1 [1]
+      429 SETTABLEKS                       R28 R27 K116 ["MoreAction"]
+      431 NEWTABLE                         R28 0 1
+      433 NEWTABLE                         R29 4 0
+      435 LOADK                            R30 K109 ["Menu"]
+      436 SETTABLEKS                       R30 R29 K110 ["Id"]
+      438 DUPTABLE                         R30 K112 [{"Image"}]
+      439 GETTABLEKS                       R31 R26 K113 ["more"]
+      441 CALL                             R31 0 1
+      442 SETTABLEKS                       R31 R30 K111 ["Image"]
+      444 SETTABLEKS                       R30 R29 K101 ["Icon"]
+      446 GETTABLEKS                       R30 R2 K114 ["Tag"]
+      448 LOADK                            R31 K117 ["IconOnly SecondaryHoverBackground"]
+      449 SETTABLE                         R31 R29 R30
+      450 SETLIST                          R28 R29 1 [1]
+      452 SETTABLEKS                       R28 R27 K118 ["FullSpanMoreAction"]
+      454 NEWTABLE                         R28 0 1
+      456 NEWTABLE                         R29 4 0
+      458 LOADK                            R30 K109 ["Menu"]
+      459 SETTABLEKS                       R30 R29 K110 ["Id"]
+      461 DUPTABLE                         R30 K112 [{"Image"}]
+      462 GETTABLEKS                       R31 R26 K119 ["new"]
+      464 CALL                             R31 0 1
+      465 SETTABLEKS                       R31 R30 K111 ["Image"]
+      467 SETTABLEKS                       R30 R29 K101 ["Icon"]
+      469 GETTABLEKS                       R30 R2 K114 ["Tag"]
+      471 LOADK                            R31 K117 ["IconOnly SecondaryHoverBackground"]
+      472 SETTABLE                         R31 R29 R30
+      473 SETLIST                          R28 R29 1 [1]
+      475 SETTABLEKS                       R28 R27 K120 ["CategoryPlusButtonAction"]
+      477 DUPCLOSURE                       R28 K121 [PROTO_3]
+      478 CAPTURE                          VAL R17
+      479 CAPTURE                          VAL R27
+      480 SETTABLEKS                       R28 R27 K122 ["getAvailablePseudoSelector"]
+      482 DUPCLOSURE                       R28 K123 [PROTO_5]
+      483 CAPTURE                          VAL R7
+      484 CAPTURE                          VAL R27
+      485 SETTABLEKS                       R28 R27 K124 ["getStyleSheetCategoryActions"]
+      487 DUPCLOSURE                       R28 K125 [PROTO_7]
+      488 CAPTURE                          VAL R7
+      489 SETTABLEKS                       R28 R27 K126 ["getAttributeTypeActions"]
+      491 DUPCLOSURE                       R28 K127 [PROTO_9]
+      492 CAPTURE                          VAL R7
+      493 CAPTURE                          VAL R27
+      494 SETTABLEKS                       R28 R27 K128 ["getClassTypeActions"]
+      496 DUPCLOSURE                       R28 K129 [PROTO_15]
       497 CAPTURE                          VAL R7
       498 CAPTURE                          VAL R9
-      499 SETTABLEKS                       R27 R26 K132 ["buildMenu"]
-      501 DUPCLOSURE                       R27 K133 [PROTO_20]
-      502 CAPTURE                          VAL R26
-      503 SETTABLEKS                       R27 R26 K134 ["decorateClickHandlers"]
-      505 DUPCLOSURE                       R27 K135 [PROTO_22]
-      506 CAPTURE                          VAL R26
-      507 CAPTURE                          VAL R10
-      508 CAPTURE                          VAL R11
-      509 SETTABLEKS                       R27 R26 K136 ["trackClicks"]
-      511 DUPCLOSURE                       R27 K137 [PROTO_23]
-      512 CAPTURE                          VAL R26
-      513 CAPTURE                          VAL R5
-      514 SETTABLEKS                       R27 R26 K14 ["showContextMenu"]
-      516 DUPCLOSURE                       R27 K138 [PROTO_25]
-      517 CAPTURE                          VAL R8
-      518 SETTABLEKS                       R27 R26 K139 ["filterHiddenActions"]
-      520 RETURN                           R26 1
+      499 CAPTURE                          VAL R16
+      500 CAPTURE                          VAL R27
+      501 CAPTURE                          VAL R26
+      502 CAPTURE                          VAL R6
+      503 CAPTURE                          VAL R15
+      504 CAPTURE                          VAL R14
+      505 CAPTURE                          VAL R21
+      506 CAPTURE                          VAL R24
+      507 CAPTURE                          VAL R20
+      508 SETTABLEKS                       R28 R27 K130 ["getNewSelectorAction"]
+      510 DUPCLOSURE                       R28 K131 [PROTO_16]
+      511 CAPTURE                          VAL R26
+      512 SETTABLEKS                       R28 R27 K132 ["getRenameAction"]
+      514 DUPCLOSURE                       R28 K133 [PROTO_18]
+      515 CAPTURE                          VAL R27
+      516 CAPTURE                          VAL R7
+      517 CAPTURE                          VAL R9
+      518 SETTABLEKS                       R28 R27 K134 ["buildMenu"]
+      520 DUPCLOSURE                       R28 K135 [PROTO_20]
+      521 CAPTURE                          VAL R27
+      522 SETTABLEKS                       R28 R27 K136 ["decorateClickHandlers"]
+      524 DUPCLOSURE                       R28 K137 [PROTO_22]
+      525 CAPTURE                          VAL R27
+      526 CAPTURE                          VAL R10
+      527 CAPTURE                          VAL R11
+      528 SETTABLEKS                       R28 R27 K138 ["trackClicks"]
+      530 DUPCLOSURE                       R28 K139 [PROTO_23]
+      531 CAPTURE                          VAL R27
+      532 CAPTURE                          VAL R5
+      533 SETTABLEKS                       R28 R27 K14 ["showContextMenu"]
+      535 DUPCLOSURE                       R28 K140 [PROTO_25]
+      536 CAPTURE                          VAL R8
+      537 SETTABLEKS                       R28 R27 K141 ["filterHiddenActions"]
+      539 RETURN                           R27 1

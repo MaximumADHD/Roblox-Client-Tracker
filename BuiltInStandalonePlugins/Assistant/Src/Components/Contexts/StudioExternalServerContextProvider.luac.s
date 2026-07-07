@@ -143,10 +143,10 @@ PROTO_7:
        25 MOVE                             R0 R1
        26 GETIMPORT                        R2 K13 [task.wait]
        28 GETUPVAL                         R3 2
-       29 CALL                             R3 0 -1
-       30 CALL                             R2 -1 0
-       31 JUMPBACK                         ; [-31]
-       32 RETURN                           R0 0
+       29 GETTABLEKS                       R3 R3 K14 ["FIntAssistantStudioNameCheckInterval"]
+       31 CALL                             R2 1 0
+       32 JUMPBACK                         ; [-32]
+       33 RETURN                           R0 0
 
 PROTO_8:
         0 GETIMPORT                        R1 K2 [task.spawn]
@@ -390,53 +390,52 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["ModelContextProtocol"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K9 ["React"]
+       25 GETTABLEKS                       R4 R4 K10 ["ModelContextProtocol"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R5 K10 ["Signal"]
+       32 GETTABLEKS                       R5 R5 K11 ["React"]
        34 CALL                             R4 1 1
        35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R6 R0 K11 ["Src"]
-       39 GETTABLEKS                       R6 R6 K12 ["Util"]
-       41 GETTABLEKS                       R6 R6 K13 ["StudioIdentification"]
-       43 CALL                             R5 1 1
-       44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R7 R0 K11 ["Src"]
-       48 GETTABLEKS                       R7 R7 K14 ["Flags"]
-       50 GETTABLEKS                       R7 R7 K15 ["FIntAssistantStudioNameCheckInterval"]
-       52 CALL                             R6 1 1
-       53 GETIMPORT                        R7 K5 [require]
-       55 GETTABLEKS                       R8 R0 K11 ["Src"]
-       57 GETTABLEKS                       R8 R8 K16 ["Host"]
-       59 GETTABLEKS                       R8 R8 K17 ["startMcpHost"]
-       61 CALL                             R7 1 1
-       62 GETIMPORT                        R8 K5 [require]
-       64 GETTABLEKS                       R9 R0 K11 ["Src"]
-       66 GETTABLEKS                       R9 R9 K18 ["Hooks"]
-       68 GETTABLEKS                       R9 R9 K19 ["useFocusedDataModelType"]
-       70 CALL                             R8 1 1
-       71 GETTABLEKS                       R9 R2 K12 ["Util"]
-       73 GETTABLEKS                       R9 R9 K20 ["Observable"]
-       75 GETTABLEKS                       R10 R1 K21 ["Components"]
-       77 GETTABLEKS                       R10 R10 K22 ["Contexts"]
-       79 GETTABLEKS                       R10 R10 K23 ["ExternalServerContext"]
-       81 GETTABLEKS                       R11 R2 K24 ["WebSocketTransport"]
-       83 GETTABLEKS                       R11 R11 K24 ["WebSocketTransport"]
-       85 GETTABLEKS                       R12 R3 K25 ["createElement"]
-       87 DUPCLOSURE                       R13 K26 [PROTO_14]
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R3
-       90 CAPTURE                          VAL R9
-       91 CAPTURE                          VAL R5
-       92 CAPTURE                          VAL R11
-       93 CAPTURE                          VAL R7
-       94 CAPTURE                          VAL R6
-       95 CAPTURE                          VAL R12
-       96 CAPTURE                          VAL R10
-       97 RETURN                           R13 1
+       37 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K12 ["Signal"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K5 [require]
+       44 GETTABLEKS                       R7 R0 K8 ["Src"]
+       46 GETTABLEKS                       R7 R7 K13 ["Util"]
+       48 GETTABLEKS                       R7 R7 K14 ["StudioIdentification"]
+       50 CALL                             R6 1 1
+       51 GETIMPORT                        R7 K5 [require]
+       53 GETTABLEKS                       R8 R0 K8 ["Src"]
+       55 GETTABLEKS                       R8 R8 K15 ["Host"]
+       57 GETTABLEKS                       R8 R8 K16 ["startMcpHost"]
+       59 CALL                             R7 1 1
+       60 GETIMPORT                        R8 K5 [require]
+       62 GETTABLEKS                       R9 R0 K8 ["Src"]
+       64 GETTABLEKS                       R9 R9 K17 ["Hooks"]
+       66 GETTABLEKS                       R9 R9 K18 ["useFocusedDataModelType"]
+       68 CALL                             R8 1 1
+       69 GETTABLEKS                       R9 R3 K13 ["Util"]
+       71 GETTABLEKS                       R9 R9 K19 ["Observable"]
+       73 GETTABLEKS                       R10 R1 K20 ["Components"]
+       75 GETTABLEKS                       R10 R10 K21 ["Contexts"]
+       77 GETTABLEKS                       R10 R10 K22 ["ExternalServerContext"]
+       79 GETTABLEKS                       R11 R3 K23 ["WebSocketTransport"]
+       81 GETTABLEKS                       R11 R11 K23 ["WebSocketTransport"]
+       83 GETTABLEKS                       R12 R4 K24 ["createElement"]
+       85 DUPCLOSURE                       R13 K25 [PROTO_14]
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R4
+       88 CAPTURE                          VAL R9
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R7
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R12
+       94 CAPTURE                          VAL R10
+       95 RETURN                           R13 1

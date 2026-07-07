@@ -407,7 +407,7 @@ PROTO_13:
       316 GETTABLEKS                       R35 R35 K64 ["createElement"]
       318 GETUPVAL                         R36 9
       319 GETTABLEKS                       R36 R36 K65 ["View"]
-      321 DUPTABLE                         R37 K75 [{["tag"] = "min-width-0 row align-y-center fill gap-small", ["LayoutOrder"], ["Size"], ["AutomaticSize"]}]
+      321 DUPTABLE                         R37 K75 [{["tag"] = "row align-y-center fill gap-small", ["LayoutOrder"], ["Size"], ["AutomaticSize"]}]
       322 NAMECALL                         R38 R29 K76 ["getNextOrder"]
       324 CALL                             R38 1 1
       325 SETTABLEKS                       R38 R37 K4 ["LayoutOrder"]
@@ -426,7 +426,7 @@ PROTO_13:
       343 GETTABLEKS                       R39 R39 K64 ["createElement"]
       345 GETUPVAL                         R40 9
       346 GETTABLEKS                       R40 R40 K65 ["View"]
-      348 DUPTABLE                         R41 K85 [{["tag"] = "min-width-0 align-y-center fill auto-y"}]
+      348 DUPTABLE                         R41 K85 [{["tag"] = "align-y-center fill auto-y"}]
       349 DUPTABLE                         R42 K87 [{"OverrideLink"}]
       350 GETUPVAL                         R43 8
       351 GETTABLEKS                       R43 R43 K64 ["createElement"]
@@ -447,13 +447,13 @@ PROTO_13:
       373 GETTABLEKS                       R39 R39 K64 ["createElement"]
       375 GETUPVAL                         R40 9
       376 GETTABLEKS                       R40 R40 K65 ["View"]
-      378 DUPTABLE                         R41 K94 [{["tag"] = "shrink-0 row align-y-center"}]
+      378 DUPTABLE                         R41 K94 [{["tag"] = "row align-y-center"}]
       379 DUPTABLE                         R42 K97 [{"AssetProgressLabel", "AssetProgressBar"}]
       380 GETUPVAL                         R43 8
       381 GETTABLEKS                       R43 R43 K64 ["createElement"]
       383 GETUPVAL                         R44 9
       384 GETTABLEKS                       R44 R44 K88 ["Text"]
-      386 DUPTABLE                         R45 K100 [{["tag"] = "bold auto-y text-title-small content-emphasis", ["Text"], ["Size"], ["LayoutOrder"] = 1}]
+      386 DUPTABLE                         R45 K100 [{["tag"] = "auto-y text-title-small content-emphasis", ["Text"], ["Size"], ["LayoutOrder"] = 1}]
       387 SETTABLEKS                       R28 R45 K88 ["Text"]
       389 GETIMPORT                        R46 K78 [UDim2.new]
       391 LOADN                            R47 0
@@ -507,7 +507,7 @@ PROTO_13:
       459 GETTABLEKS                       R35 R35 K64 ["createElement"]
       461 GETUPVAL                         R36 9
       462 GETTABLEKS                       R36 R36 K65 ["View"]
-      464 DUPTABLE                         R37 K118 [{["tag"] = "shrink-0 row align-y-center gap-small auto-x", ["LayoutOrder"], ["Size"]}]
+      464 DUPTABLE                         R37 K118 [{["tag"] = "row align-y-center gap-small auto-x", ["LayoutOrder"], ["Size"]}]
       465 NAMECALL                         R38 R29 K76 ["getNextOrder"]
       467 CALL                             R38 1 1
       468 SETTABLEKS                       R38 R37 K4 ["LayoutOrder"]
@@ -524,7 +524,7 @@ PROTO_13:
       482 GETTABLEKS                       R39 R39 K64 ["createElement"]
       484 GETUPVAL                         R40 9
       485 GETTABLEKS                       R40 R40 K88 ["Text"]
-      487 DUPTABLE                         R41 K123 [{["tag"] = "shrink-0 text-caption-small text-align-y-center content-alert", ["Text"], ["Size"], ["LayoutOrder"] = 1}]
+      487 DUPTABLE                         R41 K123 [{["tag"] = "text-caption-small text-align-y-center content-alert", ["Text"], ["Size"], ["LayoutOrder"] = 1}]
       488 GETTABLEKS                       R42 R1 K20 ["Localization"]
       490 LOADK                            R44 K124 ["AssetConfigAnimation"]
       491 LOADK                            R45 K125 ["InvalidAnimationID"]

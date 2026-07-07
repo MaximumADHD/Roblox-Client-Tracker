@@ -862,14 +862,29 @@ PROTO_23:
        20 LOADB                            R1 0 +1
        21 LOADB                            R1 1
        22 RETURN                           R1 1
-       23 GETUPVAL                         R1 2
-       24 JUMPIF                           R1 ; [+6]
-       25 GETUPVAL                         R3 3
-       26 GETTABLE                         R2 R3 R0
-       27 JUMPIFNOTEQKB                    R2 TRUE ; [+2]
-       29 LOADB                            R1 0 +1
-       30 LOADB                            R1 1
-       31 RETURN                           R1 1
+       23 GETUPVAL                         R1 0
+       24 GETTABLEKS                       R1 R1 K0 ["GAMEPAD_TYPE_TO_ID"]
+       26 GETTABLEKS                       R1 R1 K4 ["TVRemote"]
+       28 JUMPIFNOTEQ                      R0 R1 ; [+15]
+       30 GETUPVAL                         R1 2
+       31 GETTABLEKS                       R1 R1 K5 ["getFFlagStudioDeviceSimulatorAndroidTV"]
+       33 CALL                             R1 0 1
+       34 JUMPIFNOT                        R1 ; [+8]
+       35 GETUPVAL                         R2 1
+       36 GETUPVAL                         R3 0
+       37 GETTABLEKS                       R3 R3 K6 ["ANDROID_TV_1080_EMULATED_DEVICE_ID"]
+       39 JUMPIFEQ                         R2 R3 ; [+2]
+       41 LOADB                            R1 0 +1
+       42 LOADB                            R1 1
+       43 RETURN                           R1 1
+       44 GETUPVAL                         R1 3
+       45 JUMPIF                           R1 ; [+6]
+       46 GETUPVAL                         R3 4
+       47 GETTABLE                         R2 R3 R0
+       48 JUMPIFNOTEQKB                    R2 TRUE ; [+2]
+       50 LOADB                            R1 0 +1
+       51 LOADB                            R1 1
+       52 RETURN                           R1 1
 
 PROTO_24:
         0 GETUPVAL                         R1 0
@@ -907,21 +922,22 @@ PROTO_24:
        43 NEWCLOSURE                       R8 P0
        44 CAPTURE                          UPVAL U3
        45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R5
-       47 CAPTURE                          UPVAL U5
-       48 CALL                             R6 2 1
-       49 MOVE                             R4 R6
-       50 GETUPVAL                         R6 8
-       51 DUPTABLE                         R7 K9 [{["type"] = "ChangeEmulatedDevice", ["payload"]}]
-       52 DUPTABLE                         R8 K11 [{"emulatedDeviceId", "availableDeviceIds"}]
-       53 SETTABLEKS                       R1 R8 K0 ["emulatedDeviceId"]
-       55 SETTABLEKS                       R4 R8 K10 ["availableDeviceIds"]
-       57 SETTABLEKS                       R8 R7 K8 ["payload"]
-       59 CALL                             R6 1 0
-       60 GETUPVAL                         R6 9
-       61 MOVE                             R7 R2
-       62 CALL                             R6 1 0
-       63 RETURN                           R0 0
+       46 CAPTURE                          UPVAL U8
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          UPVAL U5
+       49 CALL                             R6 2 1
+       50 MOVE                             R4 R6
+       51 GETUPVAL                         R6 9
+       52 DUPTABLE                         R7 K9 [{["type"] = "ChangeEmulatedDevice", ["payload"]}]
+       53 DUPTABLE                         R8 K11 [{"emulatedDeviceId", "availableDeviceIds"}]
+       54 SETTABLEKS                       R1 R8 K0 ["emulatedDeviceId"]
+       56 SETTABLEKS                       R4 R8 K10 ["availableDeviceIds"]
+       58 SETTABLEKS                       R8 R7 K8 ["payload"]
+       60 CALL                             R6 1 0
+       61 GETUPVAL                         R6 10
+       62 MOVE                             R7 R2
+       63 CALL                             R6 1 0
+       64 RETURN                           R0 0
 
 PROTO_25:
         0 GETUPVAL                         R0 0
@@ -1011,24 +1027,25 @@ PROTO_27:
        63 CAPTURE                          UPVAL U13
        64 CAPTURE                          VAL R12
        65 CAPTURE                          UPVAL U8
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          VAL R6
-       68 NEWCLOSURE                       R15 P12
-       69 CAPTURE                          UPVAL U5
-       70 CAPTURE                          VAL R0
-       71 DUPTABLE                         R16 K11 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice", "setVRUserCFrameActive", "setVRCFrameTranslationSensitivity"}]
-       72 SETTABLEKS                       R6 R16 K0 ["connectGamepadId"]
-       74 SETTABLEKS                       R8 R16 K1 ["setMapping"]
-       76 SETTABLEKS                       R4 R16 K2 ["loadMappingsForGamepad"]
-       78 SETTABLEKS                       R7 R16 K3 ["setIsUpdatingMappingFor"]
-       80 SETTABLEKS                       R9 R16 K4 ["restoreDefaults"]
-       82 SETTABLEKS                       R11 R16 K5 ["saveMappings"]
-       84 SETTABLEKS                       R10 R16 K6 ["setIsMappingsDialogOpen"]
-       86 SETTABLEKS                       R12 R16 K7 ["setVRConnected"]
-       88 SETTABLEKS                       R14 R16 K8 ["changeEmulatedDevice"]
-       90 SETTABLEKS                       R13 R16 K9 ["setVRUserCFrameActive"]
-       92 SETTABLEKS                       R15 R16 K10 ["setVRCFrameTranslationSensitivity"]
-       94 RETURN                           R16 1
+       66 CAPTURE                          UPVAL U14
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R6
+       69 NEWCLOSURE                       R15 P12
+       70 CAPTURE                          UPVAL U5
+       71 CAPTURE                          VAL R0
+       72 DUPTABLE                         R16 K11 [{"connectGamepadId", "setMapping", "loadMappingsForGamepad", "setIsUpdatingMappingFor", "restoreDefaults", "saveMappings", "setIsMappingsDialogOpen", "setVRConnected", "changeEmulatedDevice", "setVRUserCFrameActive", "setVRCFrameTranslationSensitivity"}]
+       73 SETTABLEKS                       R6 R16 K0 ["connectGamepadId"]
+       75 SETTABLEKS                       R8 R16 K1 ["setMapping"]
+       77 SETTABLEKS                       R4 R16 K2 ["loadMappingsForGamepad"]
+       79 SETTABLEKS                       R7 R16 K3 ["setIsUpdatingMappingFor"]
+       81 SETTABLEKS                       R9 R16 K4 ["restoreDefaults"]
+       83 SETTABLEKS                       R11 R16 K5 ["saveMappings"]
+       85 SETTABLEKS                       R10 R16 K6 ["setIsMappingsDialogOpen"]
+       87 SETTABLEKS                       R12 R16 K7 ["setVRConnected"]
+       89 SETTABLEKS                       R14 R16 K8 ["changeEmulatedDevice"]
+       91 SETTABLEKS                       R13 R16 K9 ["setVRUserCFrameActive"]
+       93 SETTABLEKS                       R15 R16 K10 ["setVRCFrameTranslationSensitivity"]
+       95 RETURN                           R16 1
 
 PROTO_28:
         0 GETUPVAL                         R0 0
@@ -1189,54 +1206,60 @@ MAIN:
        88 GETTABLEKS                       R11 R11 K11 ["Util"]
        90 GETTABLEKS                       R11 R11 K19 ["KeyNamesConstants"]
        92 CALL                             R10 1 1
-       93 GETTABLEKS                       R12 R5 K21 ["GAMEPAD_TYPE_TO_ID"]
-       95 GETTABLEKS                       R11 R12 K20 ["Generic"]
-       97 GETTABLEKS                       R12 R5 K22 ["MAPPINGS_KEYS_BLACKLIST"]
-       99 GETTABLEKS                       R13 R5 K23 ["NO_CONNECTED_GAMEPAD_ID"]
-      101 GETTABLEKS                       R14 R10 K24 ["KEY_NAMES_DEFINITIONS"]
-      103 GETTABLEKS                       R15 R5 K25 ["GAMEPAD_ID_TO_ENUM"]
-      105 GETTABLEKS                       R16 R5 K26 ["LISTED_DEVICE_IDS"]
-      107 GETTABLEKS                       R17 R5 K27 ["HAND_TRACKED_DEVICES"]
-      109 DUPCLOSURE                       R18 K28 [PROTO_0]
-      110 CAPTURE                          VAL R2
-      111 DUPCLOSURE                       R19 K29 [PROTO_1]
-      112 CAPTURE                          VAL R2
-      113 DUPCLOSURE                       R20 K30 [PROTO_2]
-      114 CAPTURE                          VAL R2
-      115 DUPCLOSURE                       R21 K31 [PROTO_4]
-      116 CAPTURE                          VAL R2
-      117 CAPTURE                          VAL R19
-      118 CAPTURE                          VAL R3
-      119 LOADNIL                          R22
-      120 NEWCLOSURE                       R23 P4
+       93 GETIMPORT                        R11 K5 [require]
+       95 GETTABLEKS                       R12 R0 K20 ["Bin"]
+       97 GETTABLEKS                       R12 R12 K21 ["Common"]
+       99 GETTABLEKS                       R12 R12 K22 ["defineLuaFlags"]
+      101 CALL                             R11 1 1
+      102 GETTABLEKS                       R13 R5 K24 ["GAMEPAD_TYPE_TO_ID"]
+      104 GETTABLEKS                       R12 R13 K23 ["Generic"]
+      106 GETTABLEKS                       R13 R5 K25 ["MAPPINGS_KEYS_BLACKLIST"]
+      108 GETTABLEKS                       R14 R5 K26 ["NO_CONNECTED_GAMEPAD_ID"]
+      110 GETTABLEKS                       R15 R10 K27 ["KEY_NAMES_DEFINITIONS"]
+      112 GETTABLEKS                       R16 R5 K28 ["GAMEPAD_ID_TO_ENUM"]
+      114 GETTABLEKS                       R17 R5 K29 ["LISTED_DEVICE_IDS"]
+      116 GETTABLEKS                       R18 R5 K30 ["HAND_TRACKED_DEVICES"]
+      118 DUPCLOSURE                       R19 K31 [PROTO_0]
+      119 CAPTURE                          VAL R2
+      120 DUPCLOSURE                       R20 K32 [PROTO_1]
       121 CAPTURE                          VAL R2
-      122 CAPTURE                          VAL R14
-      123 CAPTURE                          VAL R8
-      124 CAPTURE                          VAL R11
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R15
-      128 CAPTURE                          REF R22
-      129 CAPTURE                          VAL R3
-      130 CAPTURE                          VAL R12
-      131 CAPTURE                          VAL R9
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          VAL R16
-      134 CAPTURE                          VAL R17
-      135 DUPCLOSURE                       R24 K32 [PROTO_31]
-      136 CAPTURE                          VAL R1
-      137 CAPTURE                          VAL R21
-      138 CAPTURE                          VAL R5
-      139 CAPTURE                          VAL R23
-      140 CAPTURE                          VAL R13
-      141 CAPTURE                          VAL R4
-      142 CAPTURE                          VAL R11
-      143 CAPTURE                          VAL R9
-      144 CAPTURE                          VAL R6
-      145 CAPTURE                          VAL R7
-      146 SETGLOBAL                        R24 K33 ["MappingsContextProvider"]
-      148 GETTABLEKS                       R24 R1 K34 ["memo"]
-      150 GETGLOBAL                        R25 K33 ["MappingsContextProvider"]
-      152 CALL                             R24 1 -1
-      153 CLOSEUPVALS                      R22
-      154 RETURN                           R24 -1
+      122 DUPCLOSURE                       R21 K33 [PROTO_2]
+      123 CAPTURE                          VAL R2
+      124 DUPCLOSURE                       R22 K34 [PROTO_4]
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R20
+      127 CAPTURE                          VAL R3
+      128 LOADNIL                          R23
+      129 NEWCLOSURE                       R24 P4
+      130 CAPTURE                          VAL R2
+      131 CAPTURE                          VAL R15
+      132 CAPTURE                          VAL R8
+      133 CAPTURE                          VAL R12
+      134 CAPTURE                          VAL R14
+      135 CAPTURE                          VAL R4
+      136 CAPTURE                          VAL R16
+      137 CAPTURE                          REF R23
+      138 CAPTURE                          VAL R3
+      139 CAPTURE                          VAL R13
+      140 CAPTURE                          VAL R9
+      141 CAPTURE                          VAL R5
+      142 CAPTURE                          VAL R17
+      143 CAPTURE                          VAL R18
+      144 CAPTURE                          VAL R11
+      145 DUPCLOSURE                       R25 K35 [PROTO_31]
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R22
+      148 CAPTURE                          VAL R5
+      149 CAPTURE                          VAL R24
+      150 CAPTURE                          VAL R14
+      151 CAPTURE                          VAL R4
+      152 CAPTURE                          VAL R12
+      153 CAPTURE                          VAL R9
+      154 CAPTURE                          VAL R6
+      155 CAPTURE                          VAL R7
+      156 SETGLOBAL                        R25 K36 ["MappingsContextProvider"]
+      158 GETTABLEKS                       R25 R1 K37 ["memo"]
+      160 GETGLOBAL                        R26 K36 ["MappingsContextProvider"]
+      162 CALL                             R25 1 -1
+      163 CLOSEUPVALS                      R23
+      164 RETURN                           R25 -1

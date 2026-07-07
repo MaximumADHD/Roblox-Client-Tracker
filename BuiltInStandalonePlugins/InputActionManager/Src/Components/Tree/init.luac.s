@@ -15,37 +15,37 @@ PROTO_0:
 PROTO_1:
         0 NEWTABLE                         R0 1 0
         2 GETUPVAL                         R1 0
-        3 LOADNIL                          R2
-        4 LOADNIL                          R3
-        5 FORGPREP                         R1
-        6 GETUPVAL                         R6 1
-        7 GETTABLEKS                       R6 R6 K0 ["createElement"]
-        9 GETUPVAL                         R7 2
-       10 DUPTABLE                         R8 K3 [{"LayoutOrder", "uuid"}]
-       11 GETUPVAL                         R9 3
-       12 CALL                             R9 0 1
-       13 SETTABLEKS                       R9 R8 K1 ["LayoutOrder"]
-       15 SETTABLEKS                       R5 R8 K2 ["uuid"]
-       17 CALL                             R6 2 1
-       18 SETTABLE                         R6 R0 R5
-       19 FORGLOOP                         R1 2 ; [-14]
-       21 GETUPVAL                         R1 4
-       22 JUMPIFNOT                        R1 ; [+19]
-       23 GETUPVAL                         R1 1
-       24 GETTABLEKS                       R1 R1 K0 ["createElement"]
-       26 GETUPVAL                         R2 5
-       27 DUPTABLE                         R3 K6 [{"LayoutOrder", "nodeProps", "onChildAdded"}]
-       28 GETUPVAL                         R4 3
-       29 CALL                             R4 0 1
-       30 SETTABLEKS                       R4 R3 K1 ["LayoutOrder"]
-       32 DUPTABLE                         R4 K13 [{["depth"] = 0, ["icon"] = "InputContext", ["name"] = "InputContext", ["onCreated"]}]
-       33 GETUPVAL                         R5 6
-       34 SETTABLEKS                       R5 R4 K12 ["onCreated"]
-       36 SETTABLEKS                       R4 R3 K4 ["nodeProps"]
-       38 GETUPVAL                         R4 7
-       39 SETTABLEKS                       R4 R3 K5 ["onChildAdded"]
-       41 CALL                             R1 2 1
-       42 SETTABLEKS                       R1 R0 K14 ["Creating"]
+        3 JUMPIFNOT                        R1 ; [+19]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K0 ["createElement"]
+        7 GETUPVAL                         R2 2
+        8 DUPTABLE                         R3 K4 [{"LayoutOrder", "nodeProps", "onChildAdded"}]
+        9 GETUPVAL                         R4 3
+       10 CALL                             R4 0 1
+       11 SETTABLEKS                       R4 R3 K1 ["LayoutOrder"]
+       13 DUPTABLE                         R4 K11 [{["depth"] = 0, ["icon"] = "InputContext", ["name"] = "InputContext", ["onCreated"]}]
+       14 GETUPVAL                         R5 4
+       15 SETTABLEKS                       R5 R4 K10 ["onCreated"]
+       17 SETTABLEKS                       R4 R3 K2 ["nodeProps"]
+       19 GETUPVAL                         R4 5
+       20 SETTABLEKS                       R4 R3 K3 ["onChildAdded"]
+       22 CALL                             R1 2 1
+       23 SETTABLEKS                       R1 R0 K12 ["Creating"]
+       25 GETUPVAL                         R1 6
+       26 LOADNIL                          R2
+       27 LOADNIL                          R3
+       28 FORGPREP                         R1
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       32 GETUPVAL                         R7 7
+       33 DUPTABLE                         R8 K14 [{"LayoutOrder", "uuid"}]
+       34 GETUPVAL                         R9 3
+       35 CALL                             R9 0 1
+       36 SETTABLEKS                       R9 R8 K1 ["LayoutOrder"]
+       38 SETTABLEKS                       R5 R8 K13 ["uuid"]
+       40 CALL                             R6 2 1
+       41 SETTABLE                         R6 R0 R5
+       42 FORGLOOP                         R1 2 ; [-14]
        44 RETURN                           R0 1
 
 PROTO_2:
@@ -68,14 +68,14 @@ PROTO_2:
        19 GETUPVAL                         R8 3
        20 GETTABLEKS                       R8 R8 K3 ["useMemo"]
        22 NEWCLOSURE                       R9 P1
-       23 CAPTURE                          VAL R2
+       23 CAPTURE                          VAL R3
        24 CAPTURE                          UPVAL U3
        25 CAPTURE                          UPVAL U4
        26 CAPTURE                          VAL R1
-       27 CAPTURE                          VAL R3
-       28 CAPTURE                          UPVAL U5
-       29 CAPTURE                          VAL R5
-       30 CAPTURE                          VAL R4
+       27 CAPTURE                          VAL R5
+       28 CAPTURE                          VAL R4
+       29 CAPTURE                          VAL R2
+       30 CAPTURE                          UPVAL U5
        31 NEWTABLE                         R10 0 2
        33 MOVE                             R11 R2
        34 MOVE                             R12 R3
@@ -199,8 +199,8 @@ MAIN:
        94 CAPTURE                          VAL R12
        95 CAPTURE                          VAL R13
        96 CAPTURE                          VAL R1
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R8
+       97 CAPTURE                          VAL R8
+       98 CAPTURE                          VAL R7
        99 CAPTURE                          VAL R4
       100 CAPTURE                          VAL R9
       101 CAPTURE                          VAL R10

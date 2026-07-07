@@ -53,7 +53,7 @@ PROTO_0:
        80 GETTABLEKS                       R7 R7 K3 ["createElement"]
        82 GETUPVAL                         R8 1
        83 GETTABLEKS                       R8 R8 K33 ["Image"]
-       85 DUPTABLE                         R9 K38 [{["tag"] = "shrink-0 content-alert", ["Image"] = "rbxasset://textures/ui/ErrorIcon.png", ["Size"], ["onActivated"], ["LayoutOrder"] = 2}]
+       85 DUPTABLE                         R9 K38 [{["tag"] = "content-alert", ["Image"] = "rbxasset://textures/ui/ErrorIcon.png", ["Size"], ["onActivated"], ["LayoutOrder"] = 2}]
        86 GETIMPORT                        R10 K41 [UDim2.fromOffset]
        88 LOADN                            R11 24
        89 LOADN                            R12 24

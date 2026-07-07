@@ -73,48 +73,55 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Components"]
-       13 GETTABLEKS                       R2 R2 K2 ["Dialog"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K9 ["React"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K10 ["StudioFoundation"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K6 ["Src"]
-       34 GETTABLEKS                       R5 R5 K11 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["StudioFoundation"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagCreatorConfigStudioPublishWorkflow"]
        36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K6 ["Src"]
-       41 GETTABLEKS                       R6 R6 K12 ["Flags"]
-       43 GETTABLEKS                       R6 R6 K13 ["getFFlagCreatorConfigStudioPublishWorkflow"]
-       45 CALL                             R5 1 1
-       46 GETTABLEKS                       R6 R3 K14 ["Util"]
-       48 GETTABLEKS                       R6 R6 K15 ["StudioUri"]
-       50 DUPCLOSURE                       R7 K16 [PROTO_2]
-       51 CAPTURE                          VAL R2
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R6
-       54 MOVE                             R9 R5
-       55 CALL                             R9 0 1
-       56 JUMPIFNOT                        R9 ; [+18]
-       57 GETIMPORT                        R8 K19 [table.freeze]
-       59 DUPTABLE                         R9 K22 [{"uri", "component"}]
-       60 GETTABLEKS                       R10 R6 K23 ["fromWidget"]
-       62 LOADK                            R11 K24 ["CreatorConfig"]
-       63 LOADK                            R12 K25 ["CancelPublishDialog"]
-       64 CALL                             R10 2 1
-       65 SETTABLEKS                       R10 R9 K20 ["uri"]
-       67 GETTABLEKS                       R10 R2 K26 ["memo"]
-       69 MOVE                             R11 R7
-       70 CALL                             R10 1 1
-       71 SETTABLEKS                       R10 R9 K21 ["component"]
-       73 CALL                             R8 1 1
-       74 RETURN                           R8 1
-       75 LOADNIL                          R8
-       76 RETURN                           R8 1
+       37 GETTABLEKS                       R6 R2 K13 ["SharedFlags"]
+       39 GETTABLEKS                       R6 R6 K14 ["getFFlagStudioFoundationDialogComponent"]
+       41 CALL                             R6 0 1
+       42 JUMPIFNOT                        R6 ; [+5]
+       43 GETTABLEKS                       R5 R2 K15 ["Components"]
+       45 GETTABLEKS                       R5 R5 K2 ["Dialog"]
+       47 JUMP                             ; [+9]
+       48 GETIMPORT                        R5 K5 [require]
+       50 GETTABLEKS                       R6 R0 K9 ["Src"]
+       52 GETTABLEKS                       R6 R6 K15 ["Components"]
+       54 GETTABLEKS                       R6 R6 K16 ["DEPRECATED_Dialog"]
+       56 CALL                             R5 1 1
+       57 GETTABLEKS                       R6 R2 K17 ["Util"]
+       59 GETTABLEKS                       R6 R6 K18 ["StudioUri"]
+       61 DUPCLOSURE                       R7 K19 [PROTO_2]
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R6
+       65 MOVE                             R9 R4
+       66 CALL                             R9 0 1
+       67 JUMPIFNOT                        R9 ; [+18]
+       68 GETIMPORT                        R8 K22 [table.freeze]
+       70 DUPTABLE                         R9 K25 [{"uri", "component"}]
+       71 GETTABLEKS                       R10 R6 K26 ["fromWidget"]
+       73 LOADK                            R11 K27 ["CreatorConfig"]
+       74 LOADK                            R12 K28 ["CancelPublishDialog"]
+       75 CALL                             R10 2 1
+       76 SETTABLEKS                       R10 R9 K23 ["uri"]
+       78 GETTABLEKS                       R10 R1 K29 ["memo"]
+       80 MOVE                             R11 R7
+       81 CALL                             R10 1 1
+       82 SETTABLEKS                       R10 R9 K24 ["component"]
+       84 CALL                             R8 1 1
+       85 RETURN                           R8 1
+       86 LOADNIL                          R8
+       87 RETURN                           R8 1

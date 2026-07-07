@@ -46,10 +46,14 @@ PROTO_2:
        18 NEWTABLE                         R4 0 0
        20 SETTABLEKS                       R4 R3 K11 ["Children"]
        22 RETURN                           R3 1
-       23 GETUPVAL                         R3 1
-       24 MOVE                             R4 R2
-       25 CALL                             R3 1 0
-       26 RETURN                           R2 1
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K13 ["getFFlagRIDE12959"]
+       26 CALL                             R3 0 1
+       27 JUMPIF                           R3 ; [+3]
+       28 GETUPVAL                         R3 1
+       29 MOVE                             R4 R2
+       30 CALL                             R3 1 0
+       31 RETURN                           R2 1
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [game]

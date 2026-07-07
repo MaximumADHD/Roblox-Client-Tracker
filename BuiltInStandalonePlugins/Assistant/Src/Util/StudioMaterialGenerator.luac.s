@@ -110,85 +110,85 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 GETUPVAL                         R4 1
-        3 CALL                             R4 0 1
-        4 LOADN                            R7 1
-        5 MOVE                             R5 R4
-        6 LOADN                            R6 1
-        7 FORNPREP                         R5
-        8 GETTABLE                         R8 R2 R1
-        9 JUMPIF                           R8 ; [+1]
-       10 RETURN                           R0 0
-       11 GETUPVAL                         R8 2
-       12 GETTABLEKS                       R8 R8 K0 ["callWithOptions"]
-       14 NEWCLOSURE                       R9 P0
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          VAL R1
-       17 DUPTABLE                         R10 K2 [{"timeoutMs"}]
-       18 GETUPVAL                         R11 3
-       19 CALL                             R11 0 1
-       20 SETTABLEKS                       R11 R10 K1 ["timeoutMs"]
-       22 CALL                             R8 2 1
-       23 GETTABLE                         R9 R2 R1
-       24 JUMPIF                           R9 ; [+1]
-       25 RETURN                           R0 0
-       26 GETTABLEKS                       R10 R8 K3 ["success"]
-       28 JUMPIF                           R10 ; [+20]
-       29 GETTABLE                         R10 R2 R1
-       30 JUMPIF                           R10 ; [+1]
-       31 RETURN                           R0 0
-       32 LOADNIL                          R11
-       33 SETTABLE                         R11 R2 R1
-       34 GETTABLEKS                       R11 R10 K4 ["hasCompleted"]
-       36 JUMPIFNOT                        R11 ; [+1]
-       37 RETURN                           R0 0
-       38 LOADB                            R11 1
-       39 SETTABLEKS                       R11 R10 K4 ["hasCompleted"]
-       41 SETTABLEKS                       R8 R10 K5 ["result"]
-       43 GETTABLEKS                       R11 R10 K6 ["completed"]
-       45 NAMECALL                         R11 R11 K7 ["Fire"]
-       47 CALL                             R11 1 0
-       48 RETURN                           R0 0
-       49 GETTABLEKS                       R11 R8 K9 ["data"]
-       51 GETTABLEKS                       R11 R11 K10 ["status"]
-       53 ORK                              R10 R11 K8 ["Pending"]
-       54 JUMPIFEQKS                       R10 K8 ["Pending"] ; [+21]
-       56 GETTABLE                         R11 R2 R1
-       57 JUMPIF                           R11 ; [+1]
-       58 RETURN                           R0 0
-       59 LOADNIL                          R12
-       60 SETTABLE                         R12 R2 R1
-       61 GETTABLEKS                       R12 R11 K4 ["hasCompleted"]
-       63 JUMPIFNOT                        R12 ; [+1]
-       64 RETURN                           R0 0
-       65 LOADB                            R12 1
-       66 SETTABLEKS                       R12 R11 K4 ["hasCompleted"]
-       68 SETTABLEKS                       R8 R11 K5 ["result"]
-       70 GETTABLEKS                       R12 R11 K6 ["completed"]
-       72 NAMECALL                         R12 R12 K7 ["Fire"]
-       74 CALL                             R12 1 0
-       75 RETURN                           R0 0
-       76 GETIMPORT                        R11 K13 [task.wait]
-       78 MOVE                             R12 R3
-       79 CALL                             R11 1 0
-       80 FORNLOOP                         R5
-       81 GETTABLE                         R5 R2 R1
-       82 JUMPIF                           R5 ; [+1]
-       83 RETURN                           R0 0
-       84 LOADNIL                          R6
-       85 SETTABLE                         R6 R2 R1
-       86 GETTABLEKS                       R6 R5 K4 ["hasCompleted"]
-       88 JUMPIFNOT                        R6 ; [+1]
-       89 RETURN                           R0 0
-       90 LOADB                            R6 1
-       91 SETTABLEKS                       R6 R5 K4 ["hasCompleted"]
-       93 LOADNIL                          R6
-       94 SETTABLEKS                       R6 R5 K5 ["result"]
-       96 GETTABLEKS                       R6 R5 K6 ["completed"]
-       98 NAMECALL                         R6 R6 K7 ["Fire"]
-      100 CALL                             R6 1 0
-      101 RETURN                           R0 0
+        1 GETTABLEKS                       R3 R3 K0 ["FIntMaterialGenerationServiceRePollDelaySeconds"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R4 R4 K1 ["FIntMaterialGenerationServicePollLimit"]
+        6 LOADN                            R7 1
+        7 MOVE                             R5 R4
+        8 LOADN                            R6 1
+        9 FORNPREP                         R5
+       10 GETTABLE                         R8 R2 R1
+       11 JUMPIF                           R8 ; [+1]
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R8 1
+       14 GETTABLEKS                       R8 R8 K2 ["callWithOptions"]
+       16 NEWCLOSURE                       R9 P0
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          VAL R1
+       19 DUPTABLE                         R10 K4 [{"timeoutMs"}]
+       20 GETUPVAL                         R11 0
+       21 GETTABLEKS                       R11 R11 K5 ["FIntMaterialGenerationServiceUploadHttpTimeoutMs"]
+       23 SETTABLEKS                       R11 R10 K3 ["timeoutMs"]
+       25 CALL                             R8 2 1
+       26 GETTABLE                         R9 R2 R1
+       27 JUMPIF                           R9 ; [+1]
+       28 RETURN                           R0 0
+       29 GETTABLEKS                       R10 R8 K6 ["success"]
+       31 JUMPIF                           R10 ; [+20]
+       32 GETTABLE                         R10 R2 R1
+       33 JUMPIF                           R10 ; [+1]
+       34 RETURN                           R0 0
+       35 LOADNIL                          R11
+       36 SETTABLE                         R11 R2 R1
+       37 GETTABLEKS                       R11 R10 K7 ["hasCompleted"]
+       39 JUMPIFNOT                        R11 ; [+1]
+       40 RETURN                           R0 0
+       41 LOADB                            R11 1
+       42 SETTABLEKS                       R11 R10 K7 ["hasCompleted"]
+       44 SETTABLEKS                       R8 R10 K8 ["result"]
+       46 GETTABLEKS                       R11 R10 K9 ["completed"]
+       48 NAMECALL                         R11 R11 K10 ["Fire"]
+       50 CALL                             R11 1 0
+       51 RETURN                           R0 0
+       52 GETTABLEKS                       R11 R8 K12 ["data"]
+       54 GETTABLEKS                       R11 R11 K13 ["status"]
+       56 ORK                              R10 R11 K11 ["Pending"]
+       57 JUMPIFEQKS                       R10 K11 ["Pending"] ; [+21]
+       59 GETTABLE                         R11 R2 R1
+       60 JUMPIF                           R11 ; [+1]
+       61 RETURN                           R0 0
+       62 LOADNIL                          R12
+       63 SETTABLE                         R12 R2 R1
+       64 GETTABLEKS                       R12 R11 K7 ["hasCompleted"]
+       66 JUMPIFNOT                        R12 ; [+1]
+       67 RETURN                           R0 0
+       68 LOADB                            R12 1
+       69 SETTABLEKS                       R12 R11 K7 ["hasCompleted"]
+       71 SETTABLEKS                       R8 R11 K8 ["result"]
+       73 GETTABLEKS                       R12 R11 K9 ["completed"]
+       75 NAMECALL                         R12 R12 K10 ["Fire"]
+       77 CALL                             R12 1 0
+       78 RETURN                           R0 0
+       79 GETIMPORT                        R11 K16 [task.wait]
+       81 MOVE                             R12 R3
+       82 CALL                             R11 1 0
+       83 FORNLOOP                         R5
+       84 GETTABLE                         R5 R2 R1
+       85 JUMPIF                           R5 ; [+1]
+       86 RETURN                           R0 0
+       87 LOADNIL                          R6
+       88 SETTABLE                         R6 R2 R1
+       89 GETTABLEKS                       R6 R5 K7 ["hasCompleted"]
+       91 JUMPIFNOT                        R6 ; [+1]
+       92 RETURN                           R0 0
+       93 LOADB                            R6 1
+       94 SETTABLEKS                       R6 R5 K7 ["hasCompleted"]
+       96 LOADNIL                          R6
+       97 SETTABLEKS                       R6 R5 K8 ["result"]
+       99 GETTABLEKS                       R6 R5 K9 ["completed"]
+      101 NAMECALL                         R6 R6 K10 ["Fire"]
+      103 CALL                             R6 1 0
+      104 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -233,150 +233,150 @@ PROTO_7:
        35 CAPTURE                          VAL R2
        36 DUPTABLE                         R6 K12 [{"timeoutMs"}]
        37 GETUPVAL                         R7 1
-       38 CALL                             R7 0 1
-       39 SETTABLEKS                       R7 R6 K11 ["timeoutMs"]
-       41 CALL                             R4 2 1
-       42 GETTABLEKS                       R5 R4 K13 ["success"]
-       44 JUMPIF                           R5 ; [+6]
-       45 GETUPVAL                         R5 0
-       46 GETTABLEKS                       R5 R5 K14 ["throwError"]
-       48 MOVE                             R6 R4
-       49 CALL                             R5 1 -1
-       50 RETURN                           R5 -1
-       51 GETTABLEKS                       R5 R4 K15 ["data"]
-       53 GETTABLEKS                       R5 R5 K4 ["error"]
-       55 JUMPIFNOT                        R5 ; [+53]
-       56 GETIMPORT                        R5 K5 [error]
-       58 GETTABLEKS                       R7 R4 K15 ["data"]
-       60 GETTABLEKS                       R7 R7 K4 ["error"]
-       62 FASTCALL1                        TYPEOF R7 ; [+3]
-       63 MOVE                             R10 R7
-       64 GETIMPORT                        R9 K1 [typeof]
-       66 CALL                             R9 1 1
-       67 JUMPIFNOTEQKS                    R9 K7 ["table"] ; [+12]
-       69 GETTABLEKS                       R10 R7 K16 ["errorCode"]
-       71 FASTCALL1                        TYPEOF R10 ; [+2]
-       72 GETIMPORT                        R9 K1 [typeof]
-       74 CALL                             R9 1 1
-       75 JUMPIFNOTEQKS                    R9 K2 ["string"] ; [+4]
-       77 GETTABLEKS                       R8 R7 K16 ["errorCode"]
-       79 JUMP                             ; [+1]
-       80 LOADK                            R8 K17 ["UnknownErrorCode"]
-       81 FASTCALL1                        TYPEOF R7 ; [+3]
-       82 MOVE                             R11 R7
-       83 GETIMPORT                        R10 K1 [typeof]
-       85 CALL                             R10 1 1
-       86 JUMPIFNOTEQKS                    R10 K7 ["table"] ; [+12]
-       88 GETTABLEKS                       R11 R7 K18 ["message"]
-       90 FASTCALL1                        TYPEOF R11 ; [+2]
-       91 GETIMPORT                        R10 K1 [typeof]
-       93 CALL                             R10 1 1
-       94 JUMPIFNOTEQKS                    R10 K2 ["string"] ; [+4]
-       96 GETTABLEKS                       R9 R7 K18 ["message"]
-       98 JUMP                             ; [+1]
-       99 LOADK                            R9 K19 ["Unknown error"]
-      100 LOADK                            R10 K20 ["%*: %*"]
-      101 MOVE                             R12 R8
-      102 MOVE                             R13 R9
-      103 NAMECALL                         R10 R10 K21 ["format"]
-      105 CALL                             R10 3 1
-      106 MOVE                             R6 R10
-      107 LOADN                            R7 0
-      108 CALL                             R5 2 0
-      109 GETTABLEKS                       R5 R4 K15 ["data"]
-      111 GETTABLEKS                       R5 R5 K22 ["operationId"]
-      113 JUMPIF                           R5 ; [+5]
-      114 GETIMPORT                        R6 K5 [error]
-      116 LOADK                            R7 K6 ["operationId is empty"]
-      117 LOADN                            R8 0
-      118 CALL                             R6 2 0
-      119 DUPTABLE                         R6 K28 [{["completed"], ["hasCompleted"] = False, ["result"] = }]
-      120 GETUPVAL                         R7 2
-      121 GETTABLEKS                       R7 R7 K29 ["new"]
-      123 CALL                             R7 0 1
-      124 SETTABLEKS                       R7 R6 K23 ["completed"]
-      126 SETTABLE                         R6 R3 R5
-      127 GETIMPORT                        R7 K32 [task.spawn]
-      129 GETUPVAL                         R8 3
-      130 MOVE                             R9 R0
-      131 MOVE                             R10 R5
-      132 MOVE                             R11 R3
-      133 CALL                             R7 4 0
-      134 GETTABLEKS                       R7 R6 K24 ["hasCompleted"]
-      136 JUMPIF                           R7 ; [+5]
-      137 GETTABLEKS                       R7 R6 K23 ["completed"]
-      139 NAMECALL                         R7 R7 K33 ["Wait"]
-      141 CALL                             R7 1 0
-      142 GETTABLEKS                       R7 R6 K26 ["result"]
-      144 JUMPIF                           R7 ; [+5]
-      145 GETIMPORT                        R8 K5 [error]
-      147 LOADK                            R9 K34 ["Poll uploaded materials failed"]
-      148 LOADN                            R10 0
-      149 CALL                             R8 2 0
-      150 GETTABLEKS                       R8 R7 K13 ["success"]
-      152 JUMPIF                           R8 ; [+6]
-      153 GETUPVAL                         R8 0
-      154 GETTABLEKS                       R8 R8 K14 ["throwError"]
-      156 MOVE                             R9 R7
-      157 CALL                             R8 1 -1
-      158 RETURN                           R8 -1
-      159 GETTABLEKS                       R8 R7 K15 ["data"]
-      161 GETTABLEKS                       R8 R8 K4 ["error"]
-      163 JUMPIFNOT                        R8 ; [+53]
-      164 GETIMPORT                        R8 K5 [error]
-      166 GETTABLEKS                       R10 R7 K15 ["data"]
-      168 GETTABLEKS                       R10 R10 K4 ["error"]
-      170 FASTCALL1                        TYPEOF R10 ; [+3]
-      171 MOVE                             R13 R10
-      172 GETIMPORT                        R12 K1 [typeof]
-      174 CALL                             R12 1 1
-      175 JUMPIFNOTEQKS                    R12 K7 ["table"] ; [+12]
-      177 GETTABLEKS                       R13 R10 K16 ["errorCode"]
-      179 FASTCALL1                        TYPEOF R13 ; [+2]
-      180 GETIMPORT                        R12 K1 [typeof]
-      182 CALL                             R12 1 1
-      183 JUMPIFNOTEQKS                    R12 K2 ["string"] ; [+4]
-      185 GETTABLEKS                       R11 R10 K16 ["errorCode"]
-      187 JUMP                             ; [+1]
-      188 LOADK                            R11 K17 ["UnknownErrorCode"]
-      189 FASTCALL1                        TYPEOF R10 ; [+3]
-      190 MOVE                             R14 R10
-      191 GETIMPORT                        R13 K1 [typeof]
-      193 CALL                             R13 1 1
-      194 JUMPIFNOTEQKS                    R13 K7 ["table"] ; [+12]
-      196 GETTABLEKS                       R14 R10 K18 ["message"]
-      198 FASTCALL1                        TYPEOF R14 ; [+2]
-      199 GETIMPORT                        R13 K1 [typeof]
-      201 CALL                             R13 1 1
-      202 JUMPIFNOTEQKS                    R13 K2 ["string"] ; [+4]
-      204 GETTABLEKS                       R12 R10 K18 ["message"]
-      206 JUMP                             ; [+1]
-      207 LOADK                            R12 K19 ["Unknown error"]
-      208 LOADK                            R13 K20 ["%*: %*"]
-      209 MOVE                             R15 R11
-      210 MOVE                             R16 R12
-      211 NAMECALL                         R13 R13 K21 ["format"]
-      213 CALL                             R13 3 1
-      214 MOVE                             R9 R13
-      215 LOADN                            R10 0
-      216 CALL                             R8 2 0
-      217 GETTABLEKS                       R8 R7 K15 ["data"]
-      219 GETTABLEKS                       R8 R8 K35 ["status"]
-      221 JUMPIFNOTEQKS                    R8 K36 ["Failed"] ; [+6]
-      223 GETIMPORT                        R8 K5 [error]
-      225 LOADK                            R9 K34 ["Poll uploaded materials failed"]
-      226 LOADN                            R10 0
-      227 CALL                             R8 2 0
-      228 GETUPVAL                         R8 4
-      229 CALL                             R8 0 1
-      230 JUMPIFNOT                        R8 ; [+5]
-      231 GETTABLEKS                       R8 R0 K37 ["Telemetry"]
-      233 GETTABLEKS                       R8 R8 K38 ["logMaterialGeneratorSavedMaterial"]
-      235 CALL                             R8 0 0
-      236 GETUPVAL                         R8 5
-      237 GETTABLEKS                       R9 R7 K15 ["data"]
-      239 CALL                             R8 1 1
-      240 RETURN                           R8 1
+       38 GETTABLEKS                       R7 R7 K13 ["FIntMaterialGenerationServiceUploadHttpTimeoutMs"]
+       40 SETTABLEKS                       R7 R6 K11 ["timeoutMs"]
+       42 CALL                             R4 2 1
+       43 GETTABLEKS                       R5 R4 K14 ["success"]
+       45 JUMPIF                           R5 ; [+6]
+       46 GETUPVAL                         R5 0
+       47 GETTABLEKS                       R5 R5 K15 ["throwError"]
+       49 MOVE                             R6 R4
+       50 CALL                             R5 1 -1
+       51 RETURN                           R5 -1
+       52 GETTABLEKS                       R5 R4 K16 ["data"]
+       54 GETTABLEKS                       R5 R5 K4 ["error"]
+       56 JUMPIFNOT                        R5 ; [+53]
+       57 GETIMPORT                        R5 K5 [error]
+       59 GETTABLEKS                       R7 R4 K16 ["data"]
+       61 GETTABLEKS                       R7 R7 K4 ["error"]
+       63 FASTCALL1                        TYPEOF R7 ; [+3]
+       64 MOVE                             R10 R7
+       65 GETIMPORT                        R9 K1 [typeof]
+       67 CALL                             R9 1 1
+       68 JUMPIFNOTEQKS                    R9 K7 ["table"] ; [+12]
+       70 GETTABLEKS                       R10 R7 K17 ["errorCode"]
+       72 FASTCALL1                        TYPEOF R10 ; [+2]
+       73 GETIMPORT                        R9 K1 [typeof]
+       75 CALL                             R9 1 1
+       76 JUMPIFNOTEQKS                    R9 K2 ["string"] ; [+4]
+       78 GETTABLEKS                       R8 R7 K17 ["errorCode"]
+       80 JUMP                             ; [+1]
+       81 LOADK                            R8 K18 ["UnknownErrorCode"]
+       82 FASTCALL1                        TYPEOF R7 ; [+3]
+       83 MOVE                             R11 R7
+       84 GETIMPORT                        R10 K1 [typeof]
+       86 CALL                             R10 1 1
+       87 JUMPIFNOTEQKS                    R10 K7 ["table"] ; [+12]
+       89 GETTABLEKS                       R11 R7 K19 ["message"]
+       91 FASTCALL1                        TYPEOF R11 ; [+2]
+       92 GETIMPORT                        R10 K1 [typeof]
+       94 CALL                             R10 1 1
+       95 JUMPIFNOTEQKS                    R10 K2 ["string"] ; [+4]
+       97 GETTABLEKS                       R9 R7 K19 ["message"]
+       99 JUMP                             ; [+1]
+      100 LOADK                            R9 K20 ["Unknown error"]
+      101 LOADK                            R10 K21 ["%*: %*"]
+      102 MOVE                             R12 R8
+      103 MOVE                             R13 R9
+      104 NAMECALL                         R10 R10 K22 ["format"]
+      106 CALL                             R10 3 1
+      107 MOVE                             R6 R10
+      108 LOADN                            R7 0
+      109 CALL                             R5 2 0
+      110 GETTABLEKS                       R5 R4 K16 ["data"]
+      112 GETTABLEKS                       R5 R5 K23 ["operationId"]
+      114 JUMPIF                           R5 ; [+5]
+      115 GETIMPORT                        R6 K5 [error]
+      117 LOADK                            R7 K6 ["operationId is empty"]
+      118 LOADN                            R8 0
+      119 CALL                             R6 2 0
+      120 DUPTABLE                         R6 K29 [{["completed"], ["hasCompleted"] = False, ["result"] = }]
+      121 GETUPVAL                         R7 2
+      122 GETTABLEKS                       R7 R7 K30 ["new"]
+      124 CALL                             R7 0 1
+      125 SETTABLEKS                       R7 R6 K24 ["completed"]
+      127 SETTABLE                         R6 R3 R5
+      128 GETIMPORT                        R7 K33 [task.spawn]
+      130 GETUPVAL                         R8 3
+      131 MOVE                             R9 R0
+      132 MOVE                             R10 R5
+      133 MOVE                             R11 R3
+      134 CALL                             R7 4 0
+      135 GETTABLEKS                       R7 R6 K25 ["hasCompleted"]
+      137 JUMPIF                           R7 ; [+5]
+      138 GETTABLEKS                       R7 R6 K24 ["completed"]
+      140 NAMECALL                         R7 R7 K34 ["Wait"]
+      142 CALL                             R7 1 0
+      143 GETTABLEKS                       R7 R6 K27 ["result"]
+      145 JUMPIF                           R7 ; [+5]
+      146 GETIMPORT                        R8 K5 [error]
+      148 LOADK                            R9 K35 ["Poll uploaded materials failed"]
+      149 LOADN                            R10 0
+      150 CALL                             R8 2 0
+      151 GETTABLEKS                       R8 R7 K14 ["success"]
+      153 JUMPIF                           R8 ; [+6]
+      154 GETUPVAL                         R8 0
+      155 GETTABLEKS                       R8 R8 K15 ["throwError"]
+      157 MOVE                             R9 R7
+      158 CALL                             R8 1 -1
+      159 RETURN                           R8 -1
+      160 GETTABLEKS                       R8 R7 K16 ["data"]
+      162 GETTABLEKS                       R8 R8 K4 ["error"]
+      164 JUMPIFNOT                        R8 ; [+53]
+      165 GETIMPORT                        R8 K5 [error]
+      167 GETTABLEKS                       R10 R7 K16 ["data"]
+      169 GETTABLEKS                       R10 R10 K4 ["error"]
+      171 FASTCALL1                        TYPEOF R10 ; [+3]
+      172 MOVE                             R13 R10
+      173 GETIMPORT                        R12 K1 [typeof]
+      175 CALL                             R12 1 1
+      176 JUMPIFNOTEQKS                    R12 K7 ["table"] ; [+12]
+      178 GETTABLEKS                       R13 R10 K17 ["errorCode"]
+      180 FASTCALL1                        TYPEOF R13 ; [+2]
+      181 GETIMPORT                        R12 K1 [typeof]
+      183 CALL                             R12 1 1
+      184 JUMPIFNOTEQKS                    R12 K2 ["string"] ; [+4]
+      186 GETTABLEKS                       R11 R10 K17 ["errorCode"]
+      188 JUMP                             ; [+1]
+      189 LOADK                            R11 K18 ["UnknownErrorCode"]
+      190 FASTCALL1                        TYPEOF R10 ; [+3]
+      191 MOVE                             R14 R10
+      192 GETIMPORT                        R13 K1 [typeof]
+      194 CALL                             R13 1 1
+      195 JUMPIFNOTEQKS                    R13 K7 ["table"] ; [+12]
+      197 GETTABLEKS                       R14 R10 K19 ["message"]
+      199 FASTCALL1                        TYPEOF R14 ; [+2]
+      200 GETIMPORT                        R13 K1 [typeof]
+      202 CALL                             R13 1 1
+      203 JUMPIFNOTEQKS                    R13 K2 ["string"] ; [+4]
+      205 GETTABLEKS                       R12 R10 K19 ["message"]
+      207 JUMP                             ; [+1]
+      208 LOADK                            R12 K20 ["Unknown error"]
+      209 LOADK                            R13 K21 ["%*: %*"]
+      210 MOVE                             R15 R11
+      211 MOVE                             R16 R12
+      212 NAMECALL                         R13 R13 K22 ["format"]
+      214 CALL                             R13 3 1
+      215 MOVE                             R9 R13
+      216 LOADN                            R10 0
+      217 CALL                             R8 2 0
+      218 GETTABLEKS                       R8 R7 K16 ["data"]
+      220 GETTABLEKS                       R8 R8 K36 ["status"]
+      222 JUMPIFNOTEQKS                    R8 K37 ["Failed"] ; [+6]
+      224 GETIMPORT                        R8 K5 [error]
+      226 LOADK                            R9 K35 ["Poll uploaded materials failed"]
+      227 LOADN                            R10 0
+      228 CALL                             R8 2 0
+      229 GETUPVAL                         R8 1
+      230 GETTABLEKS                       R8 R8 K38 ["FFlagMaterialGeneratorCounterEnabled"]
+      232 JUMPIFNOT                        R8 ; [+5]
+      233 GETTABLEKS                       R8 R0 K39 ["Telemetry"]
+      235 GETTABLEKS                       R8 R8 K40 ["logMaterialGeneratorSavedMaterial"]
+      237 CALL                             R8 0 0
+      238 GETUPVAL                         R8 4
+      239 GETTABLEKS                       R9 R7 K16 ["data"]
+      241 CALL                             R8 1 1
+      242 RETURN                           R8 1
 
 PROTO_8:
         0 GETUPVAL                         R2 0
@@ -468,40 +468,40 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+9]
-        3 GETUPVAL                         R0 1
-        4 LOADNIL                          R1
-        5 LOADNIL                          R2
-        6 FORGPREP                         R0
-        7 NAMECALL                         R5 R4 K0 ["Disconnect"]
-        9 CALL                             R5 1 0
-       10 FORGLOOP                         R0 2 ; [-4]
-       12 GETUPVAL                         R0 2
-       13 LOADNIL                          R1
-       14 LOADNIL                          R2
-       15 FORGPREP                         R0
-       16 GETUPVAL                         R5 2
-       17 GETTABLE                         R6 R5 R3
-       18 JUMPIF                           R6 ; [+1]
-       19 JUMP                             ; [+17]
-       20 LOADNIL                          R7
-       21 SETTABLE                         R7 R5 R3
-       22 GETTABLEKS                       R7 R6 K1 ["hasCompleted"]
-       24 JUMPIFNOT                        R7 ; [+1]
-       25 JUMP                             ; [+11]
-       26 LOADB                            R7 1
-       27 SETTABLEKS                       R7 R6 K1 ["hasCompleted"]
-       29 LOADNIL                          R7
-       30 SETTABLEKS                       R7 R6 K2 ["result"]
-       32 GETTABLEKS                       R7 R6 K3 ["completed"]
-       34 NAMECALL                         R7 R7 K4 ["Fire"]
-       36 CALL                             R7 1 0
-       37 FORGLOOP                         R0 2 ; [-22]
-       39 GETIMPORT                        R0 K7 [table.clear]
-       41 GETUPVAL                         R1 2
-       42 CALL                             R0 1 0
-       43 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantNotificationManager"]
+        3 JUMPIFNOT                        R0 ; [+9]
+        4 GETUPVAL                         R0 1
+        5 LOADNIL                          R1
+        6 LOADNIL                          R2
+        7 FORGPREP                         R0
+        8 NAMECALL                         R5 R4 K1 ["Disconnect"]
+       10 CALL                             R5 1 0
+       11 FORGLOOP                         R0 2 ; [-4]
+       13 GETUPVAL                         R0 2
+       14 LOADNIL                          R1
+       15 LOADNIL                          R2
+       16 FORGPREP                         R0
+       17 GETUPVAL                         R5 2
+       18 GETTABLE                         R6 R5 R3
+       19 JUMPIF                           R6 ; [+1]
+       20 JUMP                             ; [+17]
+       21 LOADNIL                          R7
+       22 SETTABLE                         R7 R5 R3
+       23 GETTABLEKS                       R7 R6 K2 ["hasCompleted"]
+       25 JUMPIFNOT                        R7 ; [+1]
+       26 JUMP                             ; [+11]
+       27 LOADB                            R7 1
+       28 SETTABLEKS                       R7 R6 K2 ["hasCompleted"]
+       30 LOADNIL                          R7
+       31 SETTABLEKS                       R7 R6 K3 ["result"]
+       33 GETTABLEKS                       R7 R6 K4 ["completed"]
+       35 NAMECALL                         R7 R7 K5 ["Fire"]
+       37 CALL                             R7 1 0
+       38 FORGLOOP                         R0 2 ; [-22]
+       40 GETIMPORT                        R0 K8 [table.clear]
+       42 GETUPVAL                         R1 2
+       43 CALL                             R0 1 0
+       44 RETURN                           R0 0
 
 PROTO_14:
         0 MOVE                             R1 R0
@@ -534,29 +534,29 @@ PROTO_14:
        40 NEWTABLE                         R3 0 0
        42 NEWTABLE                         R4 0 0
        44 GETUPVAL                         R5 4
-       45 CALL                             R5 0 1
-       46 JUMPIFNOT                        R5 ; [+5]
-       47 GETUPVAL                         R5 5
-       48 MOVE                             R6 R2
-       49 MOVE                             R7 R3
-       50 MOVE                             R8 R4
-       51 CALL                             R5 3 0
-       52 DUPTABLE                         R5 K12 [{"generateMaterialVariantsAsync", "uploadMaterialsAsync", "destroy"}]
-       53 NEWCLOSURE                       R6 P0
-       54 CAPTURE                          UPVAL U6
-       55 CAPTURE                          VAL R2
-       56 SETTABLEKS                       R6 R5 K9 ["generateMaterialVariantsAsync"]
-       58 NEWCLOSURE                       R6 P1
-       59 CAPTURE                          UPVAL U7
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          VAL R4
-       62 SETTABLEKS                       R6 R5 K10 ["uploadMaterialsAsync"]
-       64 NEWCLOSURE                       R6 P2
-       65 CAPTURE                          UPVAL U4
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R4
-       68 SETTABLEKS                       R6 R5 K11 ["destroy"]
-       70 RETURN                           R5 1
+       45 GETTABLEKS                       R5 R5 K9 ["FFlagAssistantNotificationManager"]
+       47 JUMPIFNOT                        R5 ; [+5]
+       48 GETUPVAL                         R5 5
+       49 MOVE                             R6 R2
+       50 MOVE                             R7 R3
+       51 MOVE                             R8 R4
+       52 CALL                             R5 3 0
+       53 DUPTABLE                         R5 K13 [{"generateMaterialVariantsAsync", "uploadMaterialsAsync", "destroy"}]
+       54 NEWCLOSURE                       R6 P0
+       55 CAPTURE                          UPVAL U6
+       56 CAPTURE                          VAL R2
+       57 SETTABLEKS                       R6 R5 K10 ["generateMaterialVariantsAsync"]
+       59 NEWCLOSURE                       R6 P1
+       60 CAPTURE                          UPVAL U7
+       61 CAPTURE                          VAL R2
+       62 CAPTURE                          VAL R4
+       63 SETTABLEKS                       R6 R5 K11 ["uploadMaterialsAsync"]
+       65 NEWCLOSURE                       R6 P2
+       66 CAPTURE                          UPVAL U4
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R4
+       69 SETTABLEKS                       R6 R5 K12 ["destroy"]
+       71 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -579,95 +579,73 @@ MAIN:
        28 GETTABLEKS                       R5 R5 K14 ["DMNetworking"]
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K11 [require]
-       33 GETTABLEKS                       R6 R0 K15 ["Generated"]
-       35 GETTABLEKS                       R6 R6 K16 ["OpenAPI"]
-       37 GETTABLEKS                       R6 R6 K9 ["MaterialGenerationService"]
-       39 CALL                             R5 1 1
-       40 GETIMPORT                        R6 K11 [require]
-       42 GETTABLEKS                       R7 R0 K17 ["Src"]
-       44 GETTABLEKS                       R7 R7 K18 ["Util"]
-       46 GETTABLEKS                       R7 R7 K19 ["NotificationManagerStore"]
-       48 CALL                             R6 1 1
-       49 GETIMPORT                        R7 K11 [require]
-       51 GETTABLEKS                       R8 R0 K12 ["Packages"]
-       53 GETTABLEKS                       R8 R8 K20 ["Signal"]
-       55 CALL                             R7 1 1
-       56 GETIMPORT                        R8 K11 [require]
-       58 GETTABLEKS                       R9 R0 K17 ["Src"]
-       60 GETTABLEKS                       R9 R9 K18 ["Util"]
-       62 GETTABLEKS                       R9 R9 K21 ["StudioEndpointUtil"]
-       64 CALL                             R8 1 1
-       65 GETIMPORT                        R9 K11 [require]
-       67 GETTABLEKS                       R10 R0 K17 ["Src"]
-       69 GETTABLEKS                       R10 R10 K22 ["Host"]
-       71 GETTABLEKS                       R10 R10 K23 ["Resources"]
-       73 GETTABLEKS                       R10 R10 K24 ["StudioEventLogger"]
-       75 CALL                             R9 1 1
-       76 GETIMPORT                        R10 K11 [require]
-       78 GETTABLEKS                       R11 R0 K17 ["Src"]
-       80 GETTABLEKS                       R11 R11 K18 ["Util"]
-       82 GETTABLEKS                       R11 R11 K25 ["StudioNetworking"]
-       84 CALL                             R10 1 1
-       85 GETIMPORT                        R11 K11 [require]
-       87 GETTABLEKS                       R12 R0 K15 ["Generated"]
-       89 GETTABLEKS                       R12 R12 K16 ["OpenAPI"]
-       91 GETTABLEKS                       R12 R12 K9 ["MaterialGenerationService"]
-       93 GETTABLEKS                       R12 R12 K26 ["Models"]
-       95 GETTABLEKS                       R12 R12 K27 ["GetUploadMaterialAsyncResponse"]
-       97 CALL                             R11 1 1
-       98 GETIMPORT                        R12 K11 [require]
-      100 GETTABLEKS                       R13 R0 K17 ["Src"]
-      102 GETTABLEKS                       R13 R13 K28 ["Flags"]
-      104 GETTABLEKS                       R13 R13 K29 ["FFlagAssistantNotificationManager"]
-      106 CALL                             R12 1 1
-      107 GETIMPORT                        R13 K11 [require]
-      109 GETTABLEKS                       R14 R0 K17 ["Src"]
-      111 GETTABLEKS                       R14 R14 K28 ["Flags"]
-      113 GETTABLEKS                       R14 R14 K30 ["FFlagMaterialGeneratorCounterEnabled"]
-      115 CALL                             R13 1 1
-      116 GETIMPORT                        R14 K11 [require]
-      118 GETTABLEKS                       R15 R0 K17 ["Src"]
-      120 GETTABLEKS                       R15 R15 K28 ["Flags"]
-      122 GETTABLEKS                       R15 R15 K31 ["FIntMaterialGenerationServicePollLimit"]
-      124 CALL                             R14 1 1
-      125 GETIMPORT                        R15 K11 [require]
-      127 GETTABLEKS                       R16 R0 K17 ["Src"]
-      129 GETTABLEKS                       R16 R16 K28 ["Flags"]
-      131 GETTABLEKS                       R16 R16 K32 ["FIntMaterialGenerationServiceRePollDelaySeconds"]
-      133 CALL                             R15 1 1
-      134 GETIMPORT                        R16 K11 [require]
-      136 GETTABLEKS                       R17 R0 K17 ["Src"]
-      138 GETTABLEKS                       R17 R17 K28 ["Flags"]
-      140 GETTABLEKS                       R17 R17 K33 ["FIntMaterialGenerationServiceUploadHttpTimeoutMs"]
-      142 CALL                             R16 1 1
-      143 DUPCLOSURE                       R17 K34 [PROTO_0]
-      144 DUPCLOSURE                       R18 K35 [PROTO_1]
-      145 DUPCLOSURE                       R19 K36 [PROTO_2]
-      146 DUPCLOSURE                       R20 K37 [PROTO_3]
-      147 DUPCLOSURE                       R21 K38 [PROTO_5]
-      148 CAPTURE                          VAL R15
-      149 CAPTURE                          VAL R14
-      150 CAPTURE                          VAL R8
-      151 CAPTURE                          VAL R16
-      152 DUPCLOSURE                       R22 K39 [PROTO_7]
-      153 CAPTURE                          VAL R8
-      154 CAPTURE                          VAL R16
-      155 CAPTURE                          VAL R7
-      156 CAPTURE                          VAL R21
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R19
-      159 DUPCLOSURE                       R23 K40 [PROTO_10]
-      160 CAPTURE                          VAL R8
-      161 CAPTURE                          VAL R11
-      162 DUPCLOSURE                       R24 K41 [PROTO_14]
-      163 CAPTURE                          VAL R2
-      164 CAPTURE                          VAL R5
-      165 CAPTURE                          VAL R10
-      166 CAPTURE                          VAL R9
-      167 CAPTURE                          VAL R12
-      168 CAPTURE                          VAL R23
-      169 CAPTURE                          VAL R17
-      170 CAPTURE                          VAL R22
-      171 DUPTABLE                         R25 K43 [{"create"}]
-      172 SETTABLEKS                       R24 R25 K42 ["create"]
-      174 RETURN                           R25 1
+       33 GETTABLEKS                       R6 R0 K15 ["Src"]
+       35 GETTABLEKS                       R6 R6 K16 ["Generated"]
+       37 GETTABLEKS                       R6 R6 K17 ["OpenAPI"]
+       39 GETTABLEKS                       R6 R6 K9 ["MaterialGenerationService"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K11 [require]
+       44 GETTABLEKS                       R7 R0 K15 ["Src"]
+       46 GETTABLEKS                       R7 R7 K18 ["Util"]
+       48 GETTABLEKS                       R7 R7 K19 ["NotificationManagerStore"]
+       50 CALL                             R6 1 1
+       51 GETIMPORT                        R7 K11 [require]
+       53 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       55 GETTABLEKS                       R8 R8 K20 ["Signal"]
+       57 CALL                             R7 1 1
+       58 GETIMPORT                        R8 K11 [require]
+       60 GETTABLEKS                       R9 R0 K15 ["Src"]
+       62 GETTABLEKS                       R9 R9 K18 ["Util"]
+       64 GETTABLEKS                       R9 R9 K21 ["StudioEndpointUtil"]
+       66 CALL                             R8 1 1
+       67 GETIMPORT                        R9 K11 [require]
+       69 GETTABLEKS                       R10 R0 K15 ["Src"]
+       71 GETTABLEKS                       R10 R10 K22 ["Host"]
+       73 GETTABLEKS                       R10 R10 K23 ["Resources"]
+       75 GETTABLEKS                       R10 R10 K24 ["StudioEventLogger"]
+       77 CALL                             R9 1 1
+       78 GETIMPORT                        R10 K11 [require]
+       80 GETTABLEKS                       R11 R0 K15 ["Src"]
+       82 GETTABLEKS                       R11 R11 K18 ["Util"]
+       84 GETTABLEKS                       R11 R11 K25 ["StudioNetworking"]
+       86 CALL                             R10 1 1
+       87 GETIMPORT                        R11 K11 [require]
+       89 GETTABLEKS                       R12 R0 K15 ["Src"]
+       91 GETTABLEKS                       R12 R12 K16 ["Generated"]
+       93 GETTABLEKS                       R12 R12 K17 ["OpenAPI"]
+       95 GETTABLEKS                       R12 R12 K9 ["MaterialGenerationService"]
+       97 GETTABLEKS                       R12 R12 K26 ["Models"]
+       99 GETTABLEKS                       R12 R12 K27 ["GetUploadMaterialAsyncResponse"]
+      101 CALL                             R11 1 1
+      102 GETIMPORT                        R12 K11 [require]
+      104 GETTABLEKS                       R13 R0 K15 ["Src"]
+      106 GETTABLEKS                       R13 R13 K28 ["Flags"]
+      108 CALL                             R12 1 1
+      109 DUPCLOSURE                       R13 K29 [PROTO_0]
+      110 DUPCLOSURE                       R14 K30 [PROTO_1]
+      111 DUPCLOSURE                       R15 K31 [PROTO_2]
+      112 DUPCLOSURE                       R16 K32 [PROTO_3]
+      113 DUPCLOSURE                       R17 K33 [PROTO_5]
+      114 CAPTURE                          VAL R12
+      115 CAPTURE                          VAL R8
+      116 DUPCLOSURE                       R18 K34 [PROTO_7]
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R12
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R17
+      121 CAPTURE                          VAL R15
+      122 DUPCLOSURE                       R19 K35 [PROTO_10]
+      123 CAPTURE                          VAL R8
+      124 CAPTURE                          VAL R11
+      125 DUPCLOSURE                       R20 K36 [PROTO_14]
+      126 CAPTURE                          VAL R2
+      127 CAPTURE                          VAL R5
+      128 CAPTURE                          VAL R10
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R12
+      131 CAPTURE                          VAL R19
+      132 CAPTURE                          VAL R13
+      133 CAPTURE                          VAL R18
+      134 DUPTABLE                         R21 K38 [{"create"}]
+      135 SETTABLEKS                       R20 R21 K37 ["create"]
+      137 RETURN                           R21 1

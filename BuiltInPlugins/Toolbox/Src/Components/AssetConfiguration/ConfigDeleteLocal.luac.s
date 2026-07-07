@@ -48,14 +48,14 @@ PROTO_3:
        35 GETTABLEKS                       R12 R12 K12 ["createElement"]
        37 GETUPVAL                         R13 3
        38 GETTABLEKS                       R13 R13 K13 ["View"]
-       40 DUPTABLE                         R14 K16 [{["tag"] = "size-full-x row align-x-left align-y-top auto-xy", ["LayoutOrder"]}]
+       40 DUPTABLE                         R14 K16 [{["tag"] = "row align-x-left align-y-top auto-xy", ["LayoutOrder"]}]
        41 SETTABLEKS                       R3 R14 K2 ["LayoutOrder"]
        43 DUPTABLE                         R15 K19 [{"TitleLabel", "RightColumn"}]
        44 GETUPVAL                         R16 2
        45 GETTABLEKS                       R16 R16 K12 ["createElement"]
        47 GETUPVAL                         R17 3
        48 GETTABLEKS                       R17 R17 K20 ["Text"]
-       50 DUPTABLE                         R18 K23 [{["tag"] = "bold text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["Size"], ["LayoutOrder"]}]
+       50 DUPTABLE                         R18 K23 [{["tag"] = "text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["Size"], ["LayoutOrder"]}]
        51 SETTABLEKS                       R2 R18 K20 ["Text"]
        53 GETIMPORT                        R19 K25 [UDim2.new]
        55 LOADN                            R20 0

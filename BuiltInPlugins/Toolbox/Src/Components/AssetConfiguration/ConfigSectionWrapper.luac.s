@@ -24,7 +24,7 @@ PROTO_0:
        34 GETTABLEKS                       R9 R9 K4 ["createElement"]
        36 GETUPVAL                         R10 3
        37 GETTABLEKS                       R10 R10 K16 ["Text"]
-       39 DUPTABLE                         R11 K19 [{["tag"] = "bold auto-y text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["TextWrapped"], ["LayoutOrder"], ["Size"]}]
+       39 DUPTABLE                         R11 K19 [{["tag"] = "auto-y text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["TextWrapped"], ["LayoutOrder"], ["Size"]}]
        40 GETTABLEKS                       R12 R1 K13 ["Title"]
        42 SETTABLEKS                       R12 R11 K16 ["Text"]
        44 GETUPVAL                         R12 4

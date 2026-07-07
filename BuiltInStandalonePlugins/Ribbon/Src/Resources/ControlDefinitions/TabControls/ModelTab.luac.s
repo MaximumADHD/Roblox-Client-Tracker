@@ -14,7 +14,7 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 DUPTABLE                         R3 K13 [{["Name"] = "Model", ["Controls"]}]
-       24 NEWTABLE                         R4 0 33
+       24 NEWTABLE                         R4 0 34
        26 DUPTABLE                         R5 K19 [{["Id"] = "Select", ["Type"] = "IconButton", ["Action"]}]
        27 DUPTABLE                         R6 K27 [{["PluginId"] = "BuilderTools", ["DataModel"] = "Standalone", ["ItemId"] = "Select", ["Category"] = "Actions"}]
        28 SETTABLEKS                       R6 R5 K18 ["Action"]
@@ -176,11 +176,14 @@ MAIN:
       253 SETTABLEKS                       R21 R20 K18 ["Action"]
       255 SETLIST                          R4 R5 16 [17]
       257 DUPTABLE                         R5 K191 [{["Id"] = "Negate", ["Type"] = "IconButton", ["Action"]}]
-      258 DUPTABLE                         R21 K193 [{["PluginId"] = "BuilderTools", ["DataModel"] = "Standalone", ["ItemId"] = "NegateSelection", ["Category"] = "Actions"}]
-      259 SETTABLEKS                       R21 R5 K18 ["Action"]
-      261 SETLIST                          R4 R5 1 [33]
-      263 SETTABLEKS                       R4 R3 K12 ["Controls"]
-      265 MOVE                             R4 R1
-      266 MOVE                             R5 R3
-      267 CALL                             R4 1 -1
-      268 RETURN                           R4 -1
+      258 DUPTABLE                         R6 K193 [{["PluginId"] = "BuilderTools", ["DataModel"] = "Standalone", ["ItemId"] = "NegateSelection", ["Category"] = "Actions"}]
+      259 SETTABLEKS                       R6 R5 K18 ["Action"]
+      261 DUPTABLE                         R6 K196 [{["FastFlag"] = "SimCsgSplitApart", ["Id"] = "SplitApart", ["Type"] = "IconButton", ["Action"]}]
+      262 DUPTABLE                         R21 K198 [{["PluginId"] = "BuilderTools", ["DataModel"] = "Standalone", ["ItemId"] = "SplitApartSelection", ["Category"] = "Actions"}]
+      263 SETTABLEKS                       R21 R6 K18 ["Action"]
+      265 SETLIST                          R4 R5 2 [33]
+      267 SETTABLEKS                       R4 R3 K12 ["Controls"]
+      269 MOVE                             R4 R1
+      270 MOVE                             R5 R3
+      271 CALL                             R4 1 -1
+      272 RETURN                           R4 -1

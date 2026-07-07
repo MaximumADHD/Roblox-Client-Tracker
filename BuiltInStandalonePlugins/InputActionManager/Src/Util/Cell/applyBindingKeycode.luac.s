@@ -9,36 +9,38 @@ PROTO_0:
        11 GETTABLEKS                       R5 R5 K2 ["uuid"]
        13 MOVE                             R6 R3
        14 CALL                             R4 2 0
-       15 RETURN                           R0 0
+       15 JUMP                             ; [+42]
        16 GETUPVAL                         R3 0
        17 CALL                             R3 0 1
-       18 JUMPIFNOT                        R3 ; [+5]
+       18 JUMPIFNOT                        R3 ; [+6]
        19 GETIMPORT                        R3 K6 [Enum.KeyCode.Unknown]
-       21 JUMPIFNOTEQ                      R2 R3 ; [+2]
-       23 RETURN                           R0 0
-       24 DUPTABLE                         R3 K9 [{"name", "parentUuid"}]
-       25 LOADK                            R5 K10 ["%*%*"]
-       26 GETTABLEKS                       R7 R1 K11 ["action"]
-       28 GETTABLEKS                       R7 R7 K7 ["name"]
-       30 GETTABLEKS                       R8 R1 K12 ["schema"]
-       32 NAMECALL                         R5 R5 K13 ["format"]
-       34 CALL                             R5 3 1
-       35 MOVE                             R4 R5
-       36 SETTABLEKS                       R4 R3 K7 ["name"]
-       38 GETTABLEKS                       R4 R1 K11 ["action"]
-       40 GETTABLEKS                       R4 R4 K2 ["uuid"]
-       42 SETTABLEKS                       R4 R3 K8 ["parentUuid"]
-       44 GETTABLEKS                       R4 R1 K1 ["property"]
-       46 SETTABLE                         R2 R3 R4
-       47 MOVE                             R4 R0
-       48 LOADNIL                          R5
-       49 MOVE                             R6 R3
-       50 CALL                             R4 2 0
-       51 GETTABLEKS                       R4 R1 K14 ["onCreated"]
-       53 JUMPIFNOT                        R4 ; [+3]
-       54 GETTABLEKS                       R4 R1 K14 ["onCreated"]
-       56 CALL                             R4 0 0
-       57 RETURN                           R0 0
+       21 JUMPIFNOTEQ                      R2 R3 ; [+3]
+       23 LOADB                            R3 0
+       24 RETURN                           R3 1
+       25 DUPTABLE                         R3 K9 [{"name", "parentUuid"}]
+       26 LOADK                            R5 K10 ["%*%*"]
+       27 GETTABLEKS                       R7 R1 K11 ["action"]
+       29 GETTABLEKS                       R7 R7 K7 ["name"]
+       31 GETTABLEKS                       R8 R1 K12 ["schema"]
+       33 NAMECALL                         R5 R5 K13 ["format"]
+       35 CALL                             R5 3 1
+       36 MOVE                             R4 R5
+       37 SETTABLEKS                       R4 R3 K7 ["name"]
+       39 GETTABLEKS                       R4 R1 K11 ["action"]
+       41 GETTABLEKS                       R4 R4 K2 ["uuid"]
+       43 SETTABLEKS                       R4 R3 K8 ["parentUuid"]
+       45 GETTABLEKS                       R4 R1 K1 ["property"]
+       47 SETTABLE                         R2 R3 R4
+       48 MOVE                             R4 R0
+       49 LOADNIL                          R5
+       50 MOVE                             R6 R3
+       51 CALL                             R4 2 0
+       52 GETTABLEKS                       R4 R1 K14 ["onCreated"]
+       54 JUMPIFNOT                        R4 ; [+3]
+       55 GETTABLEKS                       R4 R1 K14 ["onCreated"]
+       57 CALL                             R4 0 0
+       58 LOADB                            R3 1
+       59 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

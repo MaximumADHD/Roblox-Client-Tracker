@@ -344,7 +344,7 @@ PROTO_8:
       181 GETUPVAL                         R27 4
       182 GETTABLEKS                       R27 R27 K10 ["createElement"]
       184 GETUPVAL                         R28 10
-      185 DUPTABLE                         R29 K66 [{["Text"], ["tag"] = "font-weight-semibold auto-xy padding-top-xsmall text-caption-small content-default", ["LayoutOrder"] = 2}]
+      185 DUPTABLE                         R29 K66 [{["Text"], ["tag"] = "auto-xy padding-top-xsmall text-caption-small content-default", ["LayoutOrder"] = 2}]
       186 LOADK                            R32 K42 ["MarketplaceImport"]
       187 LOADK                            R33 K67 ["PressEnterToLoadAssetIDs"]
       188 NAMECALL                         R30 R2 K44 ["getText"]

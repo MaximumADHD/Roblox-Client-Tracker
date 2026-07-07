@@ -326,7 +326,7 @@ PROTO_13:
       185 GETUPVAL                         R32 5
       186 GETTABLEKS                       R32 R32 K14 ["createElement"]
       188 GETUPVAL                         R33 14
-      189 DUPTABLE                         R34 K49 [{["Text"], ["tag"] = "font-weight-bold auto-xy padding-top-medium text-title-medium content-emphasis", ["LayoutOrder"]}]
+      189 DUPTABLE                         R34 K49 [{["Text"], ["tag"] = "auto-xy padding-top-medium text-title-medium content-emphasis", ["LayoutOrder"]}]
       190 LOADK                            R37 K1 ["DisambiguationMenu"]
       191 LOADK                            R38 K50 ["ConfigureAssetCategory"]
       192 NAMECALL                         R35 R1 K51 ["getText"]

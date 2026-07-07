@@ -1,54 +1,35 @@
 PROTO_0:
         0 LOADNIL                          R1
-        1 GETUPVAL                         R2 0
-        2 CALL                             R2 0 1
-        3 JUMPIFNOT                        R2 ; [+26]
-        4 NEWTABLE                         R2 0 4
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R3 R3 K0 ["createElement"]
-        9 GETUPVAL                         R4 2
-       10 CALL                             R3 1 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       14 GETUPVAL                         R5 3
-       15 CALL                             R4 1 1
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       19 GETUPVAL                         R6 4
-       20 CALL                             R5 1 1
-       21 GETUPVAL                         R6 1
-       22 GETTABLEKS                       R6 R6 K0 ["createElement"]
-       24 GETUPVAL                         R7 5
-       25 CALL                             R6 1 -1
-       26 SETLIST                          R2 R3 -1 [1]
-       28 MOVE                             R1 R2
-       29 JUMP                             ; [+20]
-       30 NEWTABLE                         R2 0 3
-       32 GETUPVAL                         R3 1
-       33 GETTABLEKS                       R3 R3 K0 ["createElement"]
-       35 GETUPVAL                         R4 2
-       36 CALL                             R3 1 1
-       37 GETUPVAL                         R4 1
-       38 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       40 GETUPVAL                         R5 4
-       41 CALL                             R4 1 1
-       42 GETUPVAL                         R5 1
-       43 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       45 GETUPVAL                         R6 5
-       46 CALL                             R5 1 -1
-       47 SETLIST                          R2 R3 -1 [1]
-       49 MOVE                             R1 R2
-       50 GETUPVAL                         R2 1
-       51 GETTABLEKS                       R2 R2 K0 ["createElement"]
-       53 GETUPVAL                         R3 6
-       54 DUPTABLE                         R4 K2 [{"providers"}]
-       55 SETTABLEKS                       R1 R4 K1 ["providers"]
-       57 GETUPVAL                         R5 1
-       58 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       60 GETUPVAL                         R6 7
-       61 CALL                             R5 1 -1
-       62 CALL                             R2 -1 -1
-       63 RETURN                           R2 -1
+        1 NEWTABLE                         R2 0 4
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K0 ["createElement"]
+        6 GETUPVAL                         R4 1
+        7 CALL                             R3 1 1
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       11 GETUPVAL                         R5 2
+       12 CALL                             R4 1 1
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       16 GETUPVAL                         R6 3
+       17 CALL                             R5 1 1
+       18 GETUPVAL                         R6 0
+       19 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       21 GETUPVAL                         R7 4
+       22 CALL                             R6 1 -1
+       23 SETLIST                          R2 R3 -1 [1]
+       25 MOVE                             R1 R2
+       26 GETUPVAL                         R2 0
+       27 GETTABLEKS                       R2 R2 K0 ["createElement"]
+       29 GETUPVAL                         R3 5
+       30 DUPTABLE                         R4 K2 [{"providers"}]
+       31 SETTABLEKS                       R1 R4 K1 ["providers"]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       36 GETUPVAL                         R6 6
+       37 CALL                             R5 1 -1
+       38 CALL                             R2 -1 -1
+       39 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -92,18 +73,12 @@ MAIN:
        67 GETTABLEKS                       R10 R10 K17 ["Screens"]
        69 GETTABLEKS                       R10 R10 K18 ["GenerationScreen"]
        71 CALL                             R9 1 1
-       72 GETIMPORT                        R10 K5 [require]
-       74 GETTABLEKS                       R11 R0 K11 ["Src"]
-       76 GETTABLEKS                       R11 R11 K19 ["Flags"]
-       78 GETTABLEKS                       R11 R11 K20 ["getFFlagTextureGeneratorMultiStagePreview"]
-       80 CALL                             R10 1 1
-       81 DUPCLOSURE                       R11 K21 [PROTO_0]
-       82 CAPTURE                          VAL R10
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R9
-       90 RETURN                           R11 1
+       72 DUPCLOSURE                       R10 K19 [PROTO_0]
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R5
+       75 CAPTURE                          VAL R6
+       76 CAPTURE                          VAL R7
+       77 CAPTURE                          VAL R8
+       78 CAPTURE                          VAL R3
+       79 CAPTURE                          VAL R9
+       80 RETURN                           R10 1

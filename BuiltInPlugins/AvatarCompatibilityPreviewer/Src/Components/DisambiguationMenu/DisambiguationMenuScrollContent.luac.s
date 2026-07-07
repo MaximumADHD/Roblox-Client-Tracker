@@ -135,7 +135,7 @@ PROTO_3:
        37 GETUPVAL                         R2 1
        38 GETTABLEKS                       R2 R2 K11 ["createElement"]
        40 GETUPVAL                         R3 6
-       41 DUPTABLE                         R4 K18 [{["tag"] = "min-h-0 size-full", ["Size"], ["scroll"], ["sizeConstraint"], ["LayoutOrder"]}]
+       41 DUPTABLE                         R4 K18 [{["tag"] = "size-full", ["Size"], ["scroll"], ["sizeConstraint"], ["LayoutOrder"]}]
        42 GETIMPORT                        R5 K21 [UDim2.new]
        44 LOADN                            R6 1
        45 LOADN                            R7 0

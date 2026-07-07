@@ -362,26 +362,27 @@ PROTO_12:
         5 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["Util"]
-        3 GETTABLEKS                       R1 R1 K1 ["StudioUri"]
-        5 GETTABLEKS                       R1 R1 K2 ["fromAction"]
-        7 LOADK                            R2 K3 ["MeshImporter"]
-        8 LOADK                            R3 K4 ["Toggle"]
-        9 CALL                             R1 2 1
-       10 GETTABLEKS                       R2 R0 K5 ["_plugin"]
-       12 LOADK                            R4 K6 ["Actions"]
-       13 NAMECALL                         R2 R2 K7 ["GetPluginComponent"]
-       15 CALL                             R2 2 1
-       16 GETIMPORT                        R3 K10 [task.spawn]
-       18 NEWCLOSURE                       R4 P0
-       19 CAPTURE                          VAL R2
-       20 CAPTURE                          VAL R1
-       21 CALL                             R3 1 0
-       22 GETUPVAL                         R3 1
-       23 GETTABLEKS                       R3 R3 K11 ["sendUploadEvent"]
-       25 CALL                             R3 0 0
-       26 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Util"]
+        3 GETTABLEKS                       R2 R2 K1 ["StudioUri"]
+        5 GETTABLEKS                       R2 R2 K2 ["fromAction"]
+        7 LOADK                            R3 K3 ["MeshImporter"]
+        8 LOADK                            R4 K4 ["Toggle"]
+        9 CALL                             R2 2 1
+       10 GETTABLEKS                       R3 R0 K5 ["_plugin"]
+       12 LOADK                            R5 K6 ["Actions"]
+       13 NAMECALL                         R3 R3 K7 ["GetPluginComponent"]
+       15 CALL                             R3 2 1
+       16 GETIMPORT                        R4 K10 [task.spawn]
+       18 NEWCLOSURE                       R5 P0
+       19 CAPTURE                          VAL R3
+       20 CAPTURE                          VAL R2
+       21 CALL                             R4 1 0
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R4 R4 K11 ["sendUploadEvent"]
+       25 MOVE                             R5 R1
+       26 CALL                             R4 1 0
+       27 RETURN                           R0 0
 
 PROTO_14:
         0 MOVE                             R3 R1

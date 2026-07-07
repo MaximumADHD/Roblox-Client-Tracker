@@ -103,8 +103,8 @@ PROTO_2:
       125 GETUPVAL                         R7 5
       126 GETUPVAL                         R8 6
       127 GETTABLEKS                       R8 R8 K38 ["View"]
-      129 DUPTABLE                         R9 K41 [{["tag"] = "data-testid=asset-row-status col align-x-center align-y-center size-full", ["onActivated"]}]
-      130 SETTABLEKS                       R6 R9 K40 ["onActivated"]
+      129 DUPTABLE                         R9 K42 [{["tag"] = "col align-x-center align-y-center size-full", ["testId"] = "asset-row-status", ["onActivated"]}]
+      130 SETTABLEKS                       R6 R9 K41 ["onActivated"]
       132 MOVE                             R10 R5
       133 CALL                             R7 3 -1
       134 RETURN                           R7 -1

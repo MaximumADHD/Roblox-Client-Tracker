@@ -1,18 +1,18 @@
 PROTO_0:
         0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["FFlagAssistantGetPlayStateFromMDI is not enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 LOADB                            R1 1
-        9 GETIMPORT                        R2 K6 [Enum.StudioDataModelType.PlayClient]
-       11 JUMPIFEQ                         R0 R2 ; [+7]
-       13 GETIMPORT                        R2 K8 [Enum.StudioDataModelType.PlayServer]
-       15 JUMPIFEQ                         R0 R2 ; [+2]
-       17 LOADB                            R1 0 +1
-       18 LOADB                            R1 1
-       19 RETURN                           R1 1
+        1 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantGetPlayStateFromMDI"]
+        3 FASTCALL2K                       ASSERT R2 K1 ; [+4]
+        5 LOADK                            R3 K1 ["FFlagAssistantGetPlayStateFromMDI is not enabled"]
+        6 GETIMPORT                        R1 K3 [assert]
+        8 CALL                             R1 2 0
+        9 LOADB                            R1 1
+       10 GETIMPORT                        R2 K7 [Enum.StudioDataModelType.PlayClient]
+       12 JUMPIFEQ                         R0 R2 ; [+7]
+       14 GETIMPORT                        R2 K9 [Enum.StudioDataModelType.PlayServer]
+       16 JUMPIFEQ                         R0 R2 ; [+2]
+       18 LOADB                            R1 0 +1
+       19 LOADB                            R1 1
+       20 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -68,32 +68,32 @@ PROTO_4:
         6 LOADK                            R9 K1 ["DataModelSession"]
         7 NAMECALL                         R7 R6 K2 ["IsA"]
         9 CALL                             R7 2 1
-       10 JUMPIFNOT                        R7 ; [+26]
+       10 JUMPIFNOT                        R7 ; [+27]
        11 GETTABLEKS                       R8 R6 K3 ["CurrentDataModelType"]
        13 GETUPVAL                         R10 1
-       14 CALL                             R10 0 1
-       15 FASTCALL2K                       ASSERT R10 K4 ; [+4]
-       17 LOADK                            R11 K4 ["FFlagAssistantGetPlayStateFromMDI is not enabled"]
-       18 GETIMPORT                        R9 K6 [assert]
-       20 CALL                             R9 2 0
-       21 LOADB                            R7 1
-       22 GETIMPORT                        R9 K10 [Enum.StudioDataModelType.PlayClient]
-       24 JUMPIFEQ                         R8 R9 ; [+7]
-       26 GETIMPORT                        R9 K12 [Enum.StudioDataModelType.PlayServer]
-       28 JUMPIFEQ                         R8 R9 ; [+2]
-       30 LOADB                            R7 0 +1
-       31 LOADB                            R7 1
-       32 JUMPIFNOT                        R7 ; [+4]
-       33 JUMPIFNOT                        R0 ; [+2]
-       34 JUMPIFEQ                         R6 R0 ; [+2]
-       36 ADDK                             R1 R1 K13 [1]
-       37 FORGLOOP                         R2 2 ; [-32]
-       39 LOADN                            R3 0
-       40 JUMPIFLT                         R3 R1 ; [+2]
-       42 LOADB                            R2 0 +1
-       43 LOADB                            R2 1
-       44 SETUPVAL                         R2 2
-       45 RETURN                           R0 0
+       14 GETTABLEKS                       R10 R10 K4 ["FFlagAssistantGetPlayStateFromMDI"]
+       16 FASTCALL2K                       ASSERT R10 K5 ; [+4]
+       18 LOADK                            R11 K5 ["FFlagAssistantGetPlayStateFromMDI is not enabled"]
+       19 GETIMPORT                        R9 K7 [assert]
+       21 CALL                             R9 2 0
+       22 LOADB                            R7 1
+       23 GETIMPORT                        R9 K11 [Enum.StudioDataModelType.PlayClient]
+       25 JUMPIFEQ                         R8 R9 ; [+7]
+       27 GETIMPORT                        R9 K13 [Enum.StudioDataModelType.PlayServer]
+       29 JUMPIFEQ                         R8 R9 ; [+2]
+       31 LOADB                            R7 0 +1
+       32 LOADB                            R7 1
+       33 JUMPIFNOT                        R7 ; [+4]
+       34 JUMPIFNOT                        R0 ; [+2]
+       35 JUMPIFEQ                         R6 R0 ; [+2]
+       37 ADDK                             R1 R1 K14 [1]
+       38 FORGLOOP                         R2 2 ; [-33]
+       40 LOADN                            R3 0
+       41 JUMPIFLT                         R3 R1 ; [+2]
+       43 LOADB                            R2 0 +1
+       44 LOADB                            R2 1
+       45 SETUPVAL                         R2 2
+       46 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -233,56 +233,56 @@ PROTO_13:
         6 NAMECALL                         R2 R2 K2 ["Connect"]
         8 CALL                             R2 2 0
         9 GETUPVAL                         R2 2
-       10 CALL                             R2 0 1
-       11 JUMPIFNOT                        R2 ; [+37]
-       12 NEWTABLE                         R2 2 0
-       14 NEWTABLE                         R3 0 0
-       16 NEWCLOSURE                       R4 P1
-       17 CAPTURE                          VAL R2
-       18 CAPTURE                          VAL R3
-       19 CAPTURE                          UPVAL U3
-       20 NEWCLOSURE                       R5 P2
-       21 CAPTURE                          VAL R4
-       22 CAPTURE                          UPVAL U2
-       23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          VAL R3
-       25 CAPTURE                          VAL R2
-       26 MOVE                             R6 R5
-       27 GETUPVAL                         R7 0
-       28 GETTABLEKS                       R7 R7 K3 ["MultipleDocumentInterfaceInstance"]
-       30 CALL                             R6 1 0
-       31 GETUPVAL                         R6 0
-       32 LOADK                            R8 K3 ["MultipleDocumentInterfaceInstance"]
-       33 NAMECALL                         R6 R6 K4 ["GetPropertyChangedSignal"]
-       35 CALL                             R6 2 1
-       36 NEWCLOSURE                       R8 P3
-       37 CAPTURE                          VAL R5
-       38 CAPTURE                          UPVAL U0
-       39 NAMECALL                         R6 R6 K2 ["Connect"]
-       41 CALL                             R6 2 1
-       42 GETUPVAL                         R7 1
-       43 NEWCLOSURE                       R8 P4
-       44 CAPTURE                          VAL R6
-       45 CAPTURE                          VAL R4
-       46 SETTABLEKS                       R8 R7 K5 ["mdiBinding"]
-       48 RETURN                           R0 0
-       49 GETUPVAL                         R2 1
-       50 GETUPVAL                         R3 4
-       51 GETTABLEKS                       R3 R3 K6 ["subscribeGameLoaded"]
-       53 MOVE                             R4 R1
-       54 NEWCLOSURE                       R5 P5
-       55 CAPTURE                          UPVAL U3
-       56 CALL                             R3 2 1
-       57 SETTABLEKS                       R3 R2 K7 ["gameLoaded"]
-       59 GETUPVAL                         R2 1
-       60 GETUPVAL                         R3 5
-       61 GETTABLEKS                       R3 R3 K8 ["subscribeGameStopped"]
-       63 MOVE                             R4 R1
-       64 NEWCLOSURE                       R5 P6
-       65 CAPTURE                          UPVAL U3
-       66 CALL                             R3 2 1
-       67 SETTABLEKS                       R3 R2 K9 ["gameStopped"]
-       69 RETURN                           R0 0
+       10 GETTABLEKS                       R2 R2 K3 ["FFlagAssistantGetPlayStateFromMDI"]
+       12 JUMPIFNOT                        R2 ; [+37]
+       13 NEWTABLE                         R2 2 0
+       15 NEWTABLE                         R3 0 0
+       17 NEWCLOSURE                       R4 P1
+       18 CAPTURE                          VAL R2
+       19 CAPTURE                          VAL R3
+       20 CAPTURE                          UPVAL U3
+       21 NEWCLOSURE                       R5 P2
+       22 CAPTURE                          VAL R4
+       23 CAPTURE                          UPVAL U2
+       24 CAPTURE                          UPVAL U3
+       25 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R2
+       27 MOVE                             R6 R5
+       28 GETUPVAL                         R7 0
+       29 GETTABLEKS                       R7 R7 K4 ["MultipleDocumentInterfaceInstance"]
+       31 CALL                             R6 1 0
+       32 GETUPVAL                         R6 0
+       33 LOADK                            R8 K4 ["MultipleDocumentInterfaceInstance"]
+       34 NAMECALL                         R6 R6 K5 ["GetPropertyChangedSignal"]
+       36 CALL                             R6 2 1
+       37 NEWCLOSURE                       R8 P3
+       38 CAPTURE                          VAL R5
+       39 CAPTURE                          UPVAL U0
+       40 NAMECALL                         R6 R6 K2 ["Connect"]
+       42 CALL                             R6 2 1
+       43 GETUPVAL                         R7 1
+       44 NEWCLOSURE                       R8 P4
+       45 CAPTURE                          VAL R6
+       46 CAPTURE                          VAL R4
+       47 SETTABLEKS                       R8 R7 K6 ["mdiBinding"]
+       49 RETURN                           R0 0
+       50 GETUPVAL                         R2 1
+       51 GETUPVAL                         R3 4
+       52 GETTABLEKS                       R3 R3 K7 ["subscribeGameLoaded"]
+       54 MOVE                             R4 R1
+       55 NEWCLOSURE                       R5 P5
+       56 CAPTURE                          UPVAL U3
+       57 CALL                             R3 2 1
+       58 SETTABLEKS                       R3 R2 K8 ["gameLoaded"]
+       60 GETUPVAL                         R2 1
+       61 GETUPVAL                         R3 5
+       62 GETTABLEKS                       R3 R3 K9 ["subscribeGameStopped"]
+       64 MOVE                             R4 R1
+       65 NEWCLOSURE                       R5 P6
+       66 CAPTURE                          UPVAL U3
+       67 CALL                             R3 2 1
+       68 SETTABLEKS                       R3 R2 K10 ["gameStopped"]
+       70 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
@@ -383,33 +383,32 @@ MAIN:
        55 GETIMPORT                        R5 K5 [require]
        57 GETTABLEKS                       R6 R0 K13 ["Src"]
        59 GETTABLEKS                       R6 R6 K16 ["Flags"]
-       61 GETTABLEKS                       R6 R6 K17 ["FFlagAssistantGetPlayStateFromMDI"]
-       63 CALL                             R5 1 1
-       64 NEWTABLE                         R6 4 0
-       66 LOADB                            R7 0
-       67 LOADNIL                          R8
-       68 DUPCLOSURE                       R9 K18 [PROTO_0]
-       69 CAPTURE                          VAL R5
-       70 DUPCLOSURE                       R10 K19 [PROTO_1]
-       71 CAPTURE                          VAL R6
-       72 NEWCLOSURE                       R11 P2
-       73 CAPTURE                          REF R8
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          REF R7
-       77 CAPTURE                          VAL R3
-       78 CAPTURE                          VAL R4
-       79 NEWCLOSURE                       R12 P3
-       80 CAPTURE                          REF R7
-       81 NEWCLOSURE                       R13 P4
+       61 CALL                             R5 1 1
+       62 NEWTABLE                         R6 4 0
+       64 LOADB                            R7 0
+       65 LOADNIL                          R8
+       66 DUPCLOSURE                       R9 K17 [PROTO_0]
+       67 CAPTURE                          VAL R5
+       68 DUPCLOSURE                       R10 K18 [PROTO_1]
+       69 CAPTURE                          VAL R6
+       70 NEWCLOSURE                       R11 P2
+       71 CAPTURE                          REF R8
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          REF R7
+       75 CAPTURE                          VAL R3
+       76 CAPTURE                          VAL R4
+       77 NEWCLOSURE                       R12 P3
+       78 CAPTURE                          REF R7
+       79 NEWCLOSURE                       R13 P4
+       80 CAPTURE                          REF R8
+       81 NEWCLOSURE                       R14 P5
        82 CAPTURE                          REF R8
-       83 NEWCLOSURE                       R14 P5
-       84 CAPTURE                          REF R8
-       85 CAPTURE                          VAL R2
-       86 DUPTABLE                         R15 K24 [{"init", "getStudioPlayState", "getFocusedDataModelEnum", "getFocusedDataModelType"}]
-       87 SETTABLEKS                       R11 R15 K20 ["init"]
-       89 SETTABLEKS                       R12 R15 K21 ["getStudioPlayState"]
-       91 SETTABLEKS                       R13 R15 K22 ["getFocusedDataModelEnum"]
-       93 SETTABLEKS                       R14 R15 K23 ["getFocusedDataModelType"]
-       95 CLOSEUPVALS                      R7
-       96 RETURN                           R15 1
+       83 CAPTURE                          VAL R2
+       84 DUPTABLE                         R15 K23 [{"init", "getStudioPlayState", "getFocusedDataModelEnum", "getFocusedDataModelType"}]
+       85 SETTABLEKS                       R11 R15 K19 ["init"]
+       87 SETTABLEKS                       R12 R15 K20 ["getStudioPlayState"]
+       89 SETTABLEKS                       R13 R15 K21 ["getFocusedDataModelEnum"]
+       91 SETTABLEKS                       R14 R15 K22 ["getFocusedDataModelType"]
+       93 CLOSEUPVALS                      R7
+       94 RETURN                           R15 1

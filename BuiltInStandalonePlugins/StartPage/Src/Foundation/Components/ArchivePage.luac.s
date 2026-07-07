@@ -373,180 +373,190 @@ MAIN:
        38 CALL                             R6 1 1
        39 CALL                             R6 0 1
        40 GETIMPORT                        R7 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Packages"]
-       44 GETTABLEKS                       R8 R8 K15 ["Framework"]
-       46 CALL                             R7 1 1
-       47 GETTABLEKS                       R8 R7 K16 ["ContextServices"]
-       49 GETTABLEKS                       R8 R8 K17 ["Localization"]
-       51 GETIMPORT                        R9 K5 [require]
-       53 GETTABLEKS                       R10 R0 K6 ["Packages"]
-       55 GETTABLEKS                       R10 R10 K18 ["Dash"]
-       57 CALL                             R9 1 1
-       58 GETTABLEKS                       R10 R9 K19 ["join"]
-       60 GETIMPORT                        R11 K5 [require]
-       62 GETTABLEKS                       R12 R0 K11 ["Src"]
-       64 GETTABLEKS                       R12 R12 K20 ["Util"]
-       66 GETTABLEKS                       R12 R12 K21 ["Services"]
-       68 CALL                             R11 1 1
-       69 GETIMPORT                        R12 K5 [require]
-       71 GETTABLEKS                       R13 R0 K11 ["Src"]
-       73 GETTABLEKS                       R13 R13 K22 ["Types"]
-       75 CALL                             R12 1 1
-       76 GETIMPORT                        R13 K5 [require]
-       78 GETTABLEKS                       R14 R0 K11 ["Src"]
-       80 GETTABLEKS                       R14 R14 K23 ["Components"]
-       82 GETTABLEKS                       R14 R14 K24 ["InfoTile"]
-       84 CALL                             R13 1 1
-       85 GETIMPORT                        R14 K5 [require]
-       87 GETTABLEKS                       R15 R0 K11 ["Src"]
-       89 GETTABLEKS                       R15 R15 K23 ["Components"]
-       91 GETTABLEKS                       R15 R15 K25 ["NetworkView"]
-       93 CALL                             R14 1 1
-       94 GETIMPORT                        R15 K5 [require]
-       96 GETTABLEKS                       R16 R0 K11 ["Src"]
-       98 GETTABLEKS                       R16 R16 K26 ["Foundation"]
-      100 GETTABLEKS                       R16 R16 K23 ["Components"]
-      102 GETTABLEKS                       R16 R16 K27 ["GamePage"]
-      104 CALL                             R15 1 1
-      105 GETIMPORT                        R16 K5 [require]
-      107 GETTABLEKS                       R17 R0 K11 ["Src"]
-      109 GETTABLEKS                       R17 R17 K28 ["Contexts"]
-      111 GETTABLEKS                       R17 R17 K29 ["ContextMenuActions"]
-      113 CALL                             R16 1 1
-      114 GETIMPORT                        R17 K5 [require]
-      116 GETTABLEKS                       R18 R0 K11 ["Src"]
-      118 GETTABLEKS                       R18 R18 K30 ["Network"]
-      120 GETTABLEKS                       R18 R18 K31 ["DiscoverGroups"]
-      122 CALL                             R17 1 1
-      123 GETIMPORT                        R18 K5 [require]
-      125 GETTABLEKS                       R19 R0 K11 ["Src"]
-      127 GETTABLEKS                       R19 R19 K30 ["Network"]
-      129 GETTABLEKS                       R19 R19 K32 ["DiscoverExperiences"]
-      131 CALL                             R18 1 1
-      132 GETIMPORT                        R19 K5 [require]
-      134 GETTABLEKS                       R20 R0 K11 ["Src"]
-      136 GETTABLEKS                       R20 R20 K26 ["Foundation"]
-      138 GETTABLEKS                       R20 R20 K23 ["Components"]
-      140 GETTABLEKS                       R20 R20 K33 ["NoResultsFound"]
-      142 CALL                             R19 1 1
-      143 GETIMPORT                        R20 K5 [require]
-      145 GETTABLEKS                       R21 R0 K11 ["Src"]
-      147 GETTABLEKS                       R21 R21 K30 ["Network"]
-      149 GETTABLEKS                       R21 R21 K34 ["DiscoverCreatorEligibilityAndOpenPlace"]
-      151 CALL                             R20 1 1
-      152 GETIMPORT                        R21 K5 [require]
-      154 GETTABLEKS                       R22 R0 K11 ["Src"]
-      156 GETTABLEKS                       R22 R22 K30 ["Network"]
-      158 GETTABLEKS                       R22 R22 K35 ["DiscoverCreatorEligibilityAndCheckTCAndOpenPlace"]
-      160 CALL                             R21 1 1
-      161 GETIMPORT                        R22 K5 [require]
-      163 GETTABLEKS                       R23 R0 K11 ["Src"]
-      165 GETTABLEKS                       R23 R23 K20 ["Util"]
-      167 GETTABLEKS                       R23 R23 K36 ["SortingOptions"]
-      169 CALL                             R22 1 1
-      170 GETIMPORT                        R23 K5 [require]
-      172 GETTABLEKS                       R24 R0 K11 ["Src"]
-      174 GETTABLEKS                       R24 R24 K20 ["Util"]
-      176 GETTABLEKS                       R24 R24 K37 ["Dialogs"]
-      178 CALL                             R23 1 1
-      179 GETIMPORT                        R24 K5 [require]
-      181 GETTABLEKS                       R25 R0 K11 ["Src"]
-      183 GETTABLEKS                       R25 R25 K12 ["SharedFlags"]
-      185 GETTABLEKS                       R25 R25 K38 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
-      187 CALL                             R24 1 1
-      188 CALL                             R24 0 1
-      189 GETTABLEKS                       R25 R11 K39 ["StudioService"]
-      191 GETIMPORT                        R26 K5 [require]
-      193 GETTABLEKS                       R27 R0 K11 ["Src"]
-      195 GETTABLEKS                       R27 R27 K20 ["Util"]
-      197 GETTABLEKS                       R27 R27 K40 ["Telemetry"]
-      199 GETTABLEKS                       R27 R27 K41 ["TelemetryContext"]
-      201 CALL                             R26 1 1
-      202 GETIMPORT                        R27 K5 [require]
-      204 GETTABLEKS                       R28 R0 K11 ["Src"]
-      206 GETTABLEKS                       R28 R28 K20 ["Util"]
-      208 GETTABLEKS                       R28 R28 K40 ["Telemetry"]
-      210 GETTABLEKS                       R28 R28 K42 ["StartPageTelemetryEvent"]
-      212 CALL                             R27 1 1
-      213 GETIMPORT                        R28 K5 [require]
-      215 GETTABLEKS                       R29 R0 K11 ["Src"]
-      217 GETTABLEKS                       R29 R29 K12 ["SharedFlags"]
-      219 GETTABLEKS                       R29 R29 K43 ["getFFlagLuaStartPageTCAgeGatingCheck"]
-      221 CALL                             R28 1 1
-      222 CALL                             R28 0 1
+       42 GETTABLEKS                       R8 R0 K11 ["Src"]
+       44 GETTABLEKS                       R8 R8 K12 ["SharedFlags"]
+       46 GETTABLEKS                       R8 R8 K15 ["getFFlagStartPageSaveAsCopy"]
+       48 CALL                             R7 1 1
+       49 CALL                             R7 0 1
+       50 GETIMPORT                        R8 K5 [require]
+       52 GETTABLEKS                       R9 R0 K6 ["Packages"]
+       54 GETTABLEKS                       R9 R9 K16 ["Framework"]
+       56 CALL                             R8 1 1
+       57 GETTABLEKS                       R9 R8 K17 ["ContextServices"]
+       59 GETTABLEKS                       R9 R9 K18 ["Localization"]
+       61 GETIMPORT                        R10 K5 [require]
+       63 GETTABLEKS                       R11 R0 K6 ["Packages"]
+       65 GETTABLEKS                       R11 R11 K19 ["Dash"]
+       67 CALL                             R10 1 1
+       68 GETTABLEKS                       R11 R10 K20 ["join"]
+       70 GETIMPORT                        R12 K5 [require]
+       72 GETTABLEKS                       R13 R0 K11 ["Src"]
+       74 GETTABLEKS                       R13 R13 K21 ["Util"]
+       76 GETTABLEKS                       R13 R13 K22 ["Services"]
+       78 CALL                             R12 1 1
+       79 GETIMPORT                        R13 K5 [require]
+       81 GETTABLEKS                       R14 R0 K11 ["Src"]
+       83 GETTABLEKS                       R14 R14 K23 ["Types"]
+       85 CALL                             R13 1 1
+       86 GETIMPORT                        R14 K5 [require]
+       88 GETTABLEKS                       R15 R0 K11 ["Src"]
+       90 GETTABLEKS                       R15 R15 K24 ["Components"]
+       92 GETTABLEKS                       R15 R15 K25 ["InfoTile"]
+       94 CALL                             R14 1 1
+       95 GETIMPORT                        R15 K5 [require]
+       97 GETTABLEKS                       R16 R0 K11 ["Src"]
+       99 GETTABLEKS                       R16 R16 K24 ["Components"]
+      101 GETTABLEKS                       R16 R16 K26 ["NetworkView"]
+      103 CALL                             R15 1 1
+      104 GETIMPORT                        R16 K5 [require]
+      106 GETTABLEKS                       R17 R0 K11 ["Src"]
+      108 GETTABLEKS                       R17 R17 K27 ["Foundation"]
+      110 GETTABLEKS                       R17 R17 K24 ["Components"]
+      112 GETTABLEKS                       R17 R17 K28 ["GamePage"]
+      114 CALL                             R16 1 1
+      115 GETIMPORT                        R17 K5 [require]
+      117 GETTABLEKS                       R18 R0 K11 ["Src"]
+      119 GETTABLEKS                       R18 R18 K29 ["Contexts"]
+      121 GETTABLEKS                       R18 R18 K30 ["ContextMenuActions"]
+      123 CALL                             R17 1 1
+      124 GETIMPORT                        R18 K5 [require]
+      126 GETTABLEKS                       R19 R0 K11 ["Src"]
+      128 GETTABLEKS                       R19 R19 K31 ["Network"]
+      130 GETTABLEKS                       R19 R19 K32 ["DiscoverGroups"]
+      132 CALL                             R18 1 1
+      133 GETIMPORT                        R19 K5 [require]
+      135 GETTABLEKS                       R20 R0 K11 ["Src"]
+      137 GETTABLEKS                       R20 R20 K31 ["Network"]
+      139 GETTABLEKS                       R20 R20 K33 ["DiscoverExperiences"]
+      141 CALL                             R19 1 1
+      142 GETIMPORT                        R20 K5 [require]
+      144 GETTABLEKS                       R21 R0 K11 ["Src"]
+      146 GETTABLEKS                       R21 R21 K27 ["Foundation"]
+      148 GETTABLEKS                       R21 R21 K24 ["Components"]
+      150 GETTABLEKS                       R21 R21 K34 ["NoResultsFound"]
+      152 CALL                             R20 1 1
+      153 GETIMPORT                        R21 K5 [require]
+      155 GETTABLEKS                       R22 R0 K11 ["Src"]
+      157 GETTABLEKS                       R22 R22 K31 ["Network"]
+      159 GETTABLEKS                       R22 R22 K35 ["DiscoverCreatorEligibilityAndOpenPlace"]
+      161 CALL                             R21 1 1
+      162 GETIMPORT                        R22 K5 [require]
+      164 GETTABLEKS                       R23 R0 K11 ["Src"]
+      166 GETTABLEKS                       R23 R23 K31 ["Network"]
+      168 GETTABLEKS                       R23 R23 K36 ["DiscoverCreatorEligibilityAndCheckTCAndOpenPlace"]
+      170 CALL                             R22 1 1
+      171 GETIMPORT                        R23 K5 [require]
+      173 GETTABLEKS                       R24 R0 K11 ["Src"]
+      175 GETTABLEKS                       R24 R24 K21 ["Util"]
+      177 GETTABLEKS                       R24 R24 K37 ["SortingOptions"]
+      179 CALL                             R23 1 1
+      180 GETIMPORT                        R24 K5 [require]
+      182 GETTABLEKS                       R25 R0 K11 ["Src"]
+      184 GETTABLEKS                       R25 R25 K21 ["Util"]
+      186 GETTABLEKS                       R25 R25 K38 ["Dialogs"]
+      188 CALL                             R24 1 1
+      189 GETIMPORT                        R25 K5 [require]
+      191 GETTABLEKS                       R26 R0 K11 ["Src"]
+      193 GETTABLEKS                       R26 R26 K12 ["SharedFlags"]
+      195 GETTABLEKS                       R26 R26 K39 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
+      197 CALL                             R25 1 1
+      198 CALL                             R25 0 1
+      199 GETTABLEKS                       R26 R12 K40 ["StudioService"]
+      201 GETIMPORT                        R27 K5 [require]
+      203 GETTABLEKS                       R28 R0 K11 ["Src"]
+      205 GETTABLEKS                       R28 R28 K21 ["Util"]
+      207 GETTABLEKS                       R28 R28 K41 ["Telemetry"]
+      209 GETTABLEKS                       R28 R28 K42 ["TelemetryContext"]
+      211 CALL                             R27 1 1
+      212 GETIMPORT                        R28 K5 [require]
+      214 GETTABLEKS                       R29 R0 K11 ["Src"]
+      216 GETTABLEKS                       R29 R29 K21 ["Util"]
+      218 GETTABLEKS                       R29 R29 K41 ["Telemetry"]
+      220 GETTABLEKS                       R29 R29 K43 ["StartPageTelemetryEvent"]
+      222 CALL                             R28 1 1
       223 GETIMPORT                        R29 K5 [require]
       225 GETTABLEKS                       R30 R0 K11 ["Src"]
       227 GETTABLEKS                       R30 R30 K12 ["SharedFlags"]
-      229 GETTABLEKS                       R30 R30 K44 ["getFFlagLuaStartPagePlaceSequestrationCheck"]
+      229 GETTABLEKS                       R30 R30 K44 ["getFFlagLuaStartPageTCAgeGatingCheck"]
       231 CALL                             R29 1 1
       232 CALL                             R29 0 1
-      233 GETIMPORT                        R30 K47 [UDim2.new]
-      235 LOADN                            R31 0
-      236 LOADN                            R32 200
-      237 LOADN                            R33 0
-      238 LOADN                            R34 200
-      239 CALL                             R30 4 1
-      240 GETIMPORT                        R31 K47 [UDim2.new]
-      242 LOADN                            R32 0
-      243 LOADN                            R33 225
-      244 LOADN                            R34 0
-      245 LOADN                            R35 325
-      246 CALL                             R31 4 1
-      247 DUPCLOSURE                       R32 K48 [PROTO_0]
-      248 CAPTURE                          VAL R8
-      249 CAPTURE                          VAL R22
-      250 DUPTABLE                         R33 K57 [{["searchKey"] = "Archive", ["isArchived"] = True, ["isTemplates"] = False, ["pageSize"] = 30}]
-      251 NEWTABLE                         R34 0 1
-      253 LOADK                            R35 K58 ["RestoreArchive"]
-      254 SETLIST                          R34 R35 1 [1]
-      256 DUPCLOSURE                       R35 K59 [PROTO_2]
-      257 CAPTURE                          VAL R26
-      258 CAPTURE                          VAL R4
+      233 GETIMPORT                        R30 K5 [require]
+      235 GETTABLEKS                       R31 R0 K11 ["Src"]
+      237 GETTABLEKS                       R31 R31 K12 ["SharedFlags"]
+      239 GETTABLEKS                       R31 R31 K45 ["getFFlagLuaStartPagePlaceSequestrationCheck"]
+      241 CALL                             R30 1 1
+      242 CALL                             R30 0 1
+      243 GETIMPORT                        R31 K48 [UDim2.new]
+      245 LOADN                            R32 0
+      246 LOADN                            R33 200
+      247 LOADN                            R34 0
+      248 LOADN                            R35 200
+      249 CALL                             R31 4 1
+      250 GETIMPORT                        R32 K48 [UDim2.new]
+      252 LOADN                            R33 0
+      253 LOADN                            R34 225
+      254 LOADN                            R35 0
+      255 LOADN                            R36 325
+      256 CALL                             R32 4 1
+      257 DUPCLOSURE                       R33 K49 [PROTO_0]
+      258 CAPTURE                          VAL R9
       259 CAPTURE                          VAL R23
-      260 CAPTURE                          VAL R29
-      261 CAPTURE                          VAL R28
-      262 CAPTURE                          VAL R11
-      263 CAPTURE                          VAL R8
-      264 CAPTURE                          VAL R1
-      265 CAPTURE                          VAL R13
-      266 CAPTURE                          VAL R10
-      267 CAPTURE                          VAL R30
-      268 CAPTURE                          VAL R21
-      269 CAPTURE                          VAL R25
-      270 CAPTURE                          VAL R20
-      271 CAPTURE                          VAL R24
-      272 CAPTURE                          VAL R27
-      273 CAPTURE                          VAL R34
-      274 DUPCLOSURE                       R36 K60 [PROTO_4]
-      275 CAPTURE                          VAL R10
-      276 CAPTURE                          VAL R33
-      277 CAPTURE                          VAL R1
-      278 CAPTURE                          VAL R14
-      279 CAPTURE                          VAL R31
-      280 CAPTURE                          VAL R35
-      281 CAPTURE                          VAL R18
-      282 CAPTURE                          VAL R5
-      283 CAPTURE                          VAL R6
-      284 CAPTURE                          VAL R16
-      285 CAPTURE                          VAL R34
-      286 DUPCLOSURE                       R37 K61 [PROTO_5]
-      287 CAPTURE                          VAL R1
-      288 CAPTURE                          VAL R36
-      289 CAPTURE                          VAL R25
-      290 DUPCLOSURE                       R38 K62 [PROTO_6]
-      291 CAPTURE                          VAL R8
-      292 CAPTURE                          VAL R1
-      293 CAPTURE                          VAL R36
-      294 CAPTURE                          VAL R19
-      295 CAPTURE                          VAL R10
-      296 DUPCLOSURE                       R39 K63 [PROTO_8]
-      297 CAPTURE                          VAL R8
-      298 CAPTURE                          VAL R2
-      299 CAPTURE                          VAL R32
-      300 CAPTURE                          VAL R3
-      301 CAPTURE                          VAL R17
-      302 CAPTURE                          VAL R1
-      303 CAPTURE                          VAL R15
-      304 CAPTURE                          VAL R37
-      305 CAPTURE                          VAL R38
-      306 RETURN                           R39 1
+      260 DUPTABLE                         R34 K58 [{["searchKey"] = "Archive", ["isArchived"] = True, ["isTemplates"] = False, ["pageSize"] = 30}]
+      261 NEWTABLE                         R35 0 2
+      263 LOADK                            R36 K59 ["RestoreArchive"]
+      264 JUMPIFNOT                        R7 ; [+2]
+      265 LOADK                            R37 K60 ["SaveAs"]
+      266 JUMP                             ; [+1]
+      267 LOADK                            R37 K61 [""]
+      268 SETLIST                          R35 R36 2 [1]
+      270 DUPCLOSURE                       R36 K62 [PROTO_2]
+      271 CAPTURE                          VAL R27
+      272 CAPTURE                          VAL R4
+      273 CAPTURE                          VAL R24
+      274 CAPTURE                          VAL R30
+      275 CAPTURE                          VAL R29
+      276 CAPTURE                          VAL R12
+      277 CAPTURE                          VAL R9
+      278 CAPTURE                          VAL R1
+      279 CAPTURE                          VAL R14
+      280 CAPTURE                          VAL R11
+      281 CAPTURE                          VAL R31
+      282 CAPTURE                          VAL R22
+      283 CAPTURE                          VAL R26
+      284 CAPTURE                          VAL R21
+      285 CAPTURE                          VAL R25
+      286 CAPTURE                          VAL R28
+      287 CAPTURE                          VAL R35
+      288 DUPCLOSURE                       R37 K63 [PROTO_4]
+      289 CAPTURE                          VAL R11
+      290 CAPTURE                          VAL R34
+      291 CAPTURE                          VAL R1
+      292 CAPTURE                          VAL R15
+      293 CAPTURE                          VAL R32
+      294 CAPTURE                          VAL R36
+      295 CAPTURE                          VAL R19
+      296 CAPTURE                          VAL R5
+      297 CAPTURE                          VAL R6
+      298 CAPTURE                          VAL R17
+      299 CAPTURE                          VAL R35
+      300 DUPCLOSURE                       R38 K64 [PROTO_5]
+      301 CAPTURE                          VAL R1
+      302 CAPTURE                          VAL R37
+      303 CAPTURE                          VAL R26
+      304 DUPCLOSURE                       R39 K65 [PROTO_6]
+      305 CAPTURE                          VAL R9
+      306 CAPTURE                          VAL R1
+      307 CAPTURE                          VAL R37
+      308 CAPTURE                          VAL R20
+      309 CAPTURE                          VAL R11
+      310 DUPCLOSURE                       R40 K66 [PROTO_8]
+      311 CAPTURE                          VAL R9
+      312 CAPTURE                          VAL R2
+      313 CAPTURE                          VAL R33
+      314 CAPTURE                          VAL R3
+      315 CAPTURE                          VAL R18
+      316 CAPTURE                          VAL R1
+      317 CAPTURE                          VAL R16
+      318 CAPTURE                          VAL R38
+      319 CAPTURE                          VAL R39
+      320 RETURN                           R40 1

@@ -32,7 +32,7 @@ PROTO_0:
        41 GETUPVAL                         R7 3
        42 GETTABLEKS                       R7 R7 K2 ["createElement"]
        44 GETUPVAL                         R8 5
-       45 DUPTABLE                         R9 K22 [{["Text"], ["tag"] = "text-center auto-xy text-heading-small content-default", ["LayoutOrder"]}]
+       45 DUPTABLE                         R9 K22 [{["Text"], ["tag"] = "auto-xy text-heading-small content-default", ["LayoutOrder"]}]
        46 LOADK                            R12 K23 ["LookComposerDialog"]
        47 LOADK                            R13 K24 ["CreateLookSuccessTitle"]
        48 NAMECALL                         R10 R1 K25 ["getText"]
@@ -46,7 +46,7 @@ PROTO_0:
        61 GETUPVAL                         R7 3
        62 GETTABLEKS                       R7 R7 K2 ["createElement"]
        64 GETUPVAL                         R8 5
-       65 DUPTABLE                         R9 K27 [{["Text"], ["tag"] = "text-center auto-xy text-body-medium content-muted", ["LayoutOrder"]}]
+       65 DUPTABLE                         R9 K27 [{["Text"], ["tag"] = "auto-xy text-body-medium content-muted", ["LayoutOrder"]}]
        66 LOADK                            R12 K23 ["LookComposerDialog"]
        67 LOADK                            R13 K28 ["CreateLookSuccessSubtitle"]
        68 NAMECALL                         R10 R1 K25 ["getText"]

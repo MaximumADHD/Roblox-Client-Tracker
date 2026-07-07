@@ -93,7 +93,7 @@ PROTO_5:
        50 GETUPVAL                         R7 0
        51 GETTABLEKS                       R7 R7 K7 ["createElement"]
        53 GETUPVAL                         R8 5
-       54 DUPTABLE                         R9 K14 [{["ref"], ["tag"] = "search-root col align-y-top size-full-full bg-surface-200", ["testId"] = "root", ["onAbsoluteSizeChanged"]}]
+       54 DUPTABLE                         R9 K14 [{["ref"], ["tag"] = "col align-y-top size-full-full bg-surface-200", ["testId"] = "root", ["onAbsoluteSizeChanged"]}]
        55 SETTABLEKS                       R6 R9 K8 ["ref"]
        57 SETTABLEKS                       R3 R9 K13 ["onAbsoluteSizeChanged"]
        59 DUPTABLE                         R10 K17 [{"SearchContainer", "InputTree"}]

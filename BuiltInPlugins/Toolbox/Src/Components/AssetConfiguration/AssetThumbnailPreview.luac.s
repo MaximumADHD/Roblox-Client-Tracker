@@ -847,7 +847,7 @@ PROTO_21:
       155 GETTABLEKS                       R18 R18 K29 ["createElement"]
       157 GETUPVAL                         R19 8
       158 GETTABLEKS                       R19 R19 K38 ["View"]
-      160 DUPTABLE                         R20 K47 [{["tag"] = "shrink-0 stroke-default radius-medium", ["LayoutOrder"], ["Size"], ["BackgroundColor3"]}]
+      160 DUPTABLE                         R20 K47 [{["tag"] = "stroke-default radius-medium", ["LayoutOrder"], ["Size"], ["BackgroundColor3"]}]
       161 NAMECALL                         R21 R12 K48 ["getNextOrder"]
       163 CALL                             R21 1 1
       164 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
@@ -929,7 +929,7 @@ PROTO_21:
       278 GETTABLEKS                       R18 R18 K29 ["createElement"]
       280 GETUPVAL                         R19 8
       281 GETTABLEKS                       R19 R19 K75 ["Text"]
-      283 DUPTABLE                         R20 K77 [{["tag"] = "shrink-0 padding-top-medium text-body-medium text-align-x-center text-align-y-top content-default", ["Text"], ["LayoutOrder"], ["Size"]}]
+      283 DUPTABLE                         R20 K77 [{["tag"] = "padding-top-medium text-body-medium text-align-x-center text-align-y-top content-default", ["Text"], ["LayoutOrder"], ["Size"]}]
       284 SETTABLEKS                       R4 R20 K75 ["Text"]
       286 NAMECALL                         R21 R12 K48 ["getNextOrder"]
       288 CALL                             R21 1 1

@@ -1,62 +1,77 @@
 PROTO_0:
-        0 GETIMPORT                        R2 K3 [Enum.Platform.XBoxOne]
-        2 JUMPIFNOTEQ                      R0 R2 ; [+3]
-        4 LOADK                            R2 K4 ["XboxOne"]
-        5 RETURN                           R2 1
-        6 GETIMPORT                        R2 K6 [Enum.Platform.XBox360]
-        8 JUMPIFNOTEQ                      R0 R2 ; [+3]
-       10 LOADK                            R2 K4 ["XboxOne"]
-       11 RETURN                           R2 1
-       12 GETIMPORT                        R2 K8 [Enum.Platform.PS3]
-       14 JUMPIFNOTEQ                      R0 R2 ; [+3]
-       16 LOADK                            R2 K9 ["PS4"]
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getFFlagStudioDeviceSimulatorAndroidTV"]
+        3 CALL                             R2 0 1
+        4 JUMPIFNOT                        R2 ; [+13]
+        5 JUMPIFNOT                        R1 ; [+12]
+        6 GETIMPORT                        R2 K3 [string.find]
+        8 MOVE                             R3 R1
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K4 ["ANDROID_TV_1080_EMULATED_DEVICE_ID"]
+       12 LOADN                            R5 1
+       13 LOADB                            R6 1
+       14 CALL                             R2 4 1
+       15 JUMPIFNOT                        R2 ; [+2]
+       16 LOADK                            R2 K5 ["TVRemote"]
        17 RETURN                           R2 1
-       18 GETIMPORT                        R2 K10 [Enum.Platform.PS4]
+       18 GETIMPORT                        R2 K9 [Enum.Platform.XBoxOne]
        20 JUMPIFNOTEQ                      R0 R2 ; [+3]
-       22 LOADK                            R2 K9 ["PS4"]
+       22 LOADK                            R2 K10 ["XboxOne"]
        23 RETURN                           R2 1
-       24 GETIMPORT                        R2 K12 [Enum.Platform.PS5]
+       24 GETIMPORT                        R2 K12 [Enum.Platform.XBox360]
        26 JUMPIFNOTEQ                      R0 R2 ; [+3]
-       28 LOADK                            R2 K11 ["PS5"]
+       28 LOADK                            R2 K10 ["XboxOne"]
        29 RETURN                           R2 1
-       30 GETIMPORT                        R2 K14 [Enum.Platform.MetaOS]
-       32 JUMPIFNOTEQ                      R0 R2 ; [+22]
-       34 JUMPIFNOT                        R1 ; [+18]
-       35 GETIMPORT                        R2 K17 [string.find]
-       37 MOVE                             R3 R1
-       38 GETUPVAL                         R4 0
-       39 GETTABLEKS                       R4 R4 K18 ["QUEST3_EMULATED_DEVICE_ID"]
-       41 CALL                             R2 2 1
-       42 JUMPIF                           R2 ; [+8]
-       43 GETIMPORT                        R2 K17 [string.find]
-       45 MOVE                             R3 R1
-       46 GETUPVAL                         R4 0
-       47 GETTABLEKS                       R4 R4 K19 ["META_QUEST_3_NAME"]
-       49 CALL                             R2 2 1
-       50 JUMPIFNOT                        R2 ; [+2]
-       51 LOADK                            R2 K20 ["Quest3"]
-       52 RETURN                           R2 1
-       53 LOADK                            R2 K21 ["Quest2"]
-       54 RETURN                           R2 1
-       55 GETIMPORT                        R2 K23 [Enum.Platform.Windows]
-       57 JUMPIFNOTEQ                      R0 R2 ; [+20]
-       59 JUMPIFNOT                        R1 ; [+18]
-       60 GETIMPORT                        R2 K17 [string.find]
-       62 MOVE                             R3 R1
-       63 GETUPVAL                         R4 0
-       64 GETTABLEKS                       R4 R4 K24 ["GENERIC_HANDHELD_720_EMULATED_DEVICE_ID"]
-       66 CALL                             R2 2 1
-       67 JUMPIF                           R2 ; [+8]
-       68 GETIMPORT                        R2 K17 [string.find]
-       70 MOVE                             R3 R1
-       71 GETUPVAL                         R4 0
-       72 GETTABLEKS                       R4 R4 K25 ["GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID"]
-       74 CALL                             R2 2 1
-       75 JUMPIFNOT                        R2 ; [+2]
-       76 LOADK                            R2 K26 ["GenericHandheld"]
-       77 RETURN                           R2 1
-       78 LOADNIL                          R2
-       79 RETURN                           R2 1
+       30 GETIMPORT                        R2 K14 [Enum.Platform.PS3]
+       32 JUMPIFNOTEQ                      R0 R2 ; [+3]
+       34 LOADK                            R2 K15 ["PS4"]
+       35 RETURN                           R2 1
+       36 GETIMPORT                        R2 K16 [Enum.Platform.PS4]
+       38 JUMPIFNOTEQ                      R0 R2 ; [+3]
+       40 LOADK                            R2 K15 ["PS4"]
+       41 RETURN                           R2 1
+       42 GETIMPORT                        R2 K18 [Enum.Platform.PS5]
+       44 JUMPIFNOTEQ                      R0 R2 ; [+3]
+       46 LOADK                            R2 K17 ["PS5"]
+       47 RETURN                           R2 1
+       48 GETIMPORT                        R2 K20 [Enum.Platform.MetaOS]
+       50 JUMPIFNOTEQ                      R0 R2 ; [+22]
+       52 JUMPIFNOT                        R1 ; [+18]
+       53 GETIMPORT                        R2 K3 [string.find]
+       55 MOVE                             R3 R1
+       56 GETUPVAL                         R4 1
+       57 GETTABLEKS                       R4 R4 K21 ["QUEST3_EMULATED_DEVICE_ID"]
+       59 CALL                             R2 2 1
+       60 JUMPIF                           R2 ; [+8]
+       61 GETIMPORT                        R2 K3 [string.find]
+       63 MOVE                             R3 R1
+       64 GETUPVAL                         R4 1
+       65 GETTABLEKS                       R4 R4 K22 ["META_QUEST_3_NAME"]
+       67 CALL                             R2 2 1
+       68 JUMPIFNOT                        R2 ; [+2]
+       69 LOADK                            R2 K23 ["Quest3"]
+       70 RETURN                           R2 1
+       71 LOADK                            R2 K24 ["Quest2"]
+       72 RETURN                           R2 1
+       73 GETIMPORT                        R2 K26 [Enum.Platform.Windows]
+       75 JUMPIFNOTEQ                      R0 R2 ; [+20]
+       77 JUMPIFNOT                        R1 ; [+18]
+       78 GETIMPORT                        R2 K3 [string.find]
+       80 MOVE                             R3 R1
+       81 GETUPVAL                         R4 1
+       82 GETTABLEKS                       R4 R4 K27 ["GENERIC_HANDHELD_720_EMULATED_DEVICE_ID"]
+       84 CALL                             R2 2 1
+       85 JUMPIF                           R2 ; [+8]
+       86 GETIMPORT                        R2 K3 [string.find]
+       88 MOVE                             R3 R1
+       89 GETUPVAL                         R4 1
+       90 GETTABLEKS                       R4 R4 K28 ["GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID"]
+       92 CALL                             R2 2 1
+       93 JUMPIFNOT                        R2 ; [+2]
+       94 LOADK                            R2 K29 ["GenericHandheld"]
+       95 RETURN                           R2 1
+       96 LOADNIL                          R2
+       97 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -69,6 +84,12 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Util"]
        13 GETTABLEKS                       R2 R2 K8 ["Constants"]
        15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R2 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K9 ["Bin"]
+       20 GETTABLEKS                       R3 R3 K10 ["Common"]
+       22 GETTABLEKS                       R3 R3 K11 ["defineLuaFlags"]
+       24 CALL                             R2 1 1
+       25 DUPCLOSURE                       R3 K12 [PROTO_0]
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          VAL R1
+       28 RETURN                           R3 1

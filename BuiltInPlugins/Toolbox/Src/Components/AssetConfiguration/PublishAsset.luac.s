@@ -1146,7 +1146,7 @@ PROTO_18:
       827 GETTABLEKS                       R75 R75 K96 ["createElement"]
       829 GETUPVAL                         R76 24
       830 GETTABLEKS                       R76 R76 K222 ["View"]
-      832 DUPTABLE                         R77 K225 [{["tag"] = "size-full-x row align-x-left align-y-top", ["Size"], ["LayoutOrder"]}]
+      832 DUPTABLE                         R77 K225 [{["tag"] = "row align-x-left align-y-top", ["Size"], ["LayoutOrder"]}]
       833 GETIMPORT                        R78 K148 [UDim2.new]
       835 LOADN                            R79 1
       836 LOADN                            R80 0
@@ -1168,7 +1168,7 @@ PROTO_18:
       858 SETTABLEKS                       R83 R82 K229 ["text-align-x-left text-align-y-top"]
       860 GETUPVAL                         R83 26
       861 CALL                             R83 0 1
-      862 SETTABLEKS                       R83 R82 K230 ["bold text-title-small content-emphasis"]
+      862 SETTABLEKS                       R83 R82 K230 ["text-title-small content-emphasis"]
       864 GETUPVAL                         R84 26
       865 CALL                             R84 0 1
       866 NOT                              R83 R84

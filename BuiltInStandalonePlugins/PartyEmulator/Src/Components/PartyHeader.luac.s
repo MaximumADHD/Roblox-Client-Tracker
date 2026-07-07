@@ -78,7 +78,7 @@ PROTO_0:
       109 GETTABLEKS                       R8 R8 K16 ["createElement"]
       111 GETUPVAL                         R9 4
       112 GETTABLEKS                       R9 R9 K31 ["Text"]
-      114 DUPTABLE                         R10 K42 [{["Text"], ["tag"] = "text-color-secondary auto-x text-label-large text-align-x-right", ["LayoutOrder"]}]
+      114 DUPTABLE                         R10 K42 [{["Text"], ["tag"] = "auto-x text-label-large text-align-x-right", ["LayoutOrder"]}]
       115 SETTABLEKS                       R3 R10 K31 ["Text"]
       117 MOVE                             R11 R1
       118 CALL                             R11 0 1

@@ -38,19 +38,43 @@ PROTO_3:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 1
         2 CALL                             R0 1 0
-        3 RETURN                           R0 0
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["Schema"]
+        6 GETTABLEKS                       R0 R0 K1 ["OnOpen"]
+        8 JUMPIFNOT                        R0 ; [+6]
+        9 GETUPVAL                         R0 1
+       10 GETTABLEKS                       R0 R0 K0 ["Schema"]
+       12 GETTABLEKS                       R0 R0 K1 ["OnOpen"]
+       14 CALL                             R0 0 0
+       15 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 0
         2 CALL                             R0 1 0
-        3 RETURN                           R0 0
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["Schema"]
+        6 GETTABLEKS                       R0 R0 K1 ["OnClose"]
+        8 JUMPIFNOT                        R0 ; [+6]
+        9 GETUPVAL                         R0 1
+       10 GETTABLEKS                       R0 R0 K0 ["Schema"]
+       12 GETTABLEKS                       R0 R0 K1 ["OnClose"]
+       14 CALL                             R0 0 0
+       15 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 0
         2 CALL                             R0 1 0
-        3 RETURN                           R0 0
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["Schema"]
+        6 GETTABLEKS                       R0 R0 K1 ["OnClose"]
+        8 JUMPIFNOT                        R0 ; [+6]
+        9 GETUPVAL                         R0 1
+       10 GETTABLEKS                       R0 R0 K0 ["Schema"]
+       12 GETTABLEKS                       R0 R0 K1 ["OnClose"]
+       14 CALL                             R0 0 0
+       15 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -156,119 +180,122 @@ PROTO_9:
        39 CALL                             R9 2 0
        40 NEWCLOSURE                       R9 P2
        41 CAPTURE                          VAL R2
-       42 NEWCLOSURE                       R10 P3
-       43 CAPTURE                          VAL R2
-       44 NEWCLOSURE                       R11 P4
-       45 CAPTURE                          VAL R2
-       46 NEWCLOSURE                       R12 P5
-       47 CAPTURE                          UPVAL U3
+       42 CAPTURE                          VAL R0
+       43 NEWCLOSURE                       R10 P3
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R0
+       46 NEWCLOSURE                       R11 P4
+       47 CAPTURE                          VAL R2
        48 CAPTURE                          VAL R0
-       49 CAPTURE                          VAL R6
-       50 NEWCLOSURE                       R13 P6
-       51 CAPTURE                          UPVAL U3
+       49 NEWCLOSURE                       R12 P5
+       50 CAPTURE                          UPVAL U3
+       51 CAPTURE                          VAL R0
        52 CAPTURE                          VAL R6
-       53 CAPTURE                          VAL R4
-       54 NEWCLOSURE                       R14 P7
-       55 CAPTURE                          VAL R0
-       56 CAPTURE                          VAL R8
-       57 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       59 LOADB                            R15 0 +1
-       60 LOADB                            R15 1
-       61 GETUPVAL                         R16 4
-       62 GETTABLEKS                       R16 R16 K6 ["createElement"]
-       64 GETUPVAL                         R17 5
-       65 NEWTABLE                         R18 0 0
-       67 DUPTABLE                         R19 K9 [{"Input", "Modal"}]
-       68 GETUPVAL                         R20 4
-       69 GETTABLEKS                       R20 R20 K6 ["createElement"]
-       71 GETUPVAL                         R21 6
-       72 NEWTABLE                         R22 8 0
-       74 GETTABLEKS                       R23 R0 K10 ["Disabled"]
-       76 SETTABLEKS                       R23 R22 K10 ["Disabled"]
-       78 GETUPVAL                         R23 7
-       79 SETTABLEKS                       R23 R22 K11 ["LeadingComponent"]
-       81 DUPTABLE                         R23 K16 [{"BackgroundColor", "Size", "OnClick", "ForwardRef"}]
-       82 GETTABLEKS                       R24 R0 K0 ["Value"]
-       84 SETTABLEKS                       R24 R23 K12 ["BackgroundColor"]
-       86 GETUPVAL                         R24 8
-       87 SETTABLEKS                       R24 R23 K13 ["Size"]
-       89 SETTABLEKS                       R9 R23 K14 ["OnClick"]
-       91 SETTABLEKS                       R7 R23 K15 ["ForwardRef"]
-       93 SETTABLEKS                       R23 R22 K17 ["LeadingComponentProps"]
-       95 SETTABLEKS                       R12 R22 K18 ["OnFocusLost"]
-       97 SETTABLEKS                       R13 R22 K19 ["OnTextChanged"]
-       99 GETTABLEKS                       R24 R0 K20 ["AutomaticSize"]
-      101 JUMPIFNOT                        R24 ; [+10]
-      102 GETIMPORT                        R23 K23 [UDim2.new]
-      104 LOADN                            R24 1
-      105 LOADN                            R25 0
-      106 LOADN                            R26 0
-      107 GETTABLEKS                       R28 R0 K25 ["MinimumHeight"]
-      109 ORK                              R27 R28 K24 [24]
-      110 CALL                             R23 4 1
-      111 JUMP                             ; [+5]
-      112 GETIMPORT                        R23 K27 [UDim2.fromScale]
-      114 LOADN                            R24 1
-      115 LOADN                            R25 1
-      116 CALL                             R23 2 1
-      117 SETTABLEKS                       R23 R22 K13 ["Size"]
-      119 SETTABLEKS                       R5 R22 K28 ["Text"]
-      121 GETUPVAL                         R23 4
-      122 GETTABLEKS                       R23 R23 K29 ["Tag"]
-      124 JUMPIFNOT                        R15 ; [+2]
-      125 LOADK                            R24 K30 ["PropertyCellError"]
-      126 JUMP                             ; [+1]
-      127 LOADNIL                          R24
-      128 SETTABLE                         R24 R22 R23
-      129 CALL                             R20 2 1
-      130 SETTABLEKS                       R20 R19 K7 ["Input"]
-      132 GETUPVAL                         R20 4
-      133 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      135 GETUPVAL                         R21 9
-      136 DUPTABLE                         R22 K35 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
-      137 SETTABLEKS                       R1 R22 K31 ["Open"]
-      139 GETIMPORT                        R23 K37 [Vector2.new]
-      141 LOADN                            R24 325
-      142 LOADN                            R25 250
-      143 CALL                             R23 2 1
-      144 SETTABLEKS                       R23 R22 K32 ["MaxSize"]
-      146 GETIMPORT                        R23 K37 [Vector2.new]
-      148 LOADN                            R24 325
-      149 LOADN                            R25 250
-      150 CALL                             R23 2 1
-      151 SETTABLEKS                       R23 R22 K33 ["MinSize"]
-      153 SETTABLEKS                       R7 R22 K34 ["ObjectRef"]
-      155 SETTABLEKS                       R11 R22 K18 ["OnFocusLost"]
-      157 DUPTABLE                         R23 K39 [{"Container"}]
-      158 GETUPVAL                         R24 4
-      159 GETTABLEKS                       R24 R24 K6 ["createElement"]
-      161 GETUPVAL                         R25 5
-      162 NEWTABLE                         R26 1 0
-      164 GETUPVAL                         R27 4
-      165 GETTABLEKS                       R27 R27 K29 ["Tag"]
-      167 LOADK                            R28 K40 ["X-Fit"]
-      168 SETTABLE                         R28 R26 R27
-      169 DUPTABLE                         R27 K42 [{"ColorPicker"}]
-      170 GETUPVAL                         R28 4
-      171 GETTABLEKS                       R28 R28 K6 ["createElement"]
-      173 GETUPVAL                         R29 10
-      174 DUPTABLE                         R30 K45 [{"Size", "Color", "OnColorChanged"}]
-      175 GETIMPORT                        R31 K47 [UDim2.fromOffset]
-      177 LOADN                            R32 325
-      178 LOADN                            R33 225
-      179 CALL                             R31 2 1
-      180 SETTABLEKS                       R31 R30 K13 ["Size"]
-      182 GETTABLEKS                       R31 R0 K0 ["Value"]
-      184 SETTABLEKS                       R31 R30 K43 ["Color"]
-      186 SETTABLEKS                       R14 R30 K44 ["OnColorChanged"]
-      188 CALL                             R28 2 1
-      189 SETTABLEKS                       R28 R27 K41 ["ColorPicker"]
-      191 CALL                             R24 3 1
-      192 SETTABLEKS                       R24 R23 K38 ["Container"]
-      194 CALL                             R20 3 1
-      195 SETTABLEKS                       R20 R19 K8 ["Modal"]
-      197 CALL                             R16 3 -1
-      198 RETURN                           R16 -1
+       53 NEWCLOSURE                       R13 P6
+       54 CAPTURE                          UPVAL U3
+       55 CAPTURE                          VAL R6
+       56 CAPTURE                          VAL R4
+       57 NEWCLOSURE                       R14 P7
+       58 CAPTURE                          VAL R0
+       59 CAPTURE                          VAL R8
+       60 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       62 LOADB                            R15 0 +1
+       63 LOADB                            R15 1
+       64 GETUPVAL                         R16 4
+       65 GETTABLEKS                       R16 R16 K6 ["createElement"]
+       67 GETUPVAL                         R17 5
+       68 NEWTABLE                         R18 0 0
+       70 DUPTABLE                         R19 K9 [{"Input", "Modal"}]
+       71 GETUPVAL                         R20 4
+       72 GETTABLEKS                       R20 R20 K6 ["createElement"]
+       74 GETUPVAL                         R21 6
+       75 NEWTABLE                         R22 8 0
+       77 GETTABLEKS                       R23 R0 K10 ["Disabled"]
+       79 SETTABLEKS                       R23 R22 K10 ["Disabled"]
+       81 GETUPVAL                         R23 7
+       82 SETTABLEKS                       R23 R22 K11 ["LeadingComponent"]
+       84 DUPTABLE                         R23 K16 [{"BackgroundColor", "Size", "OnClick", "ForwardRef"}]
+       85 GETTABLEKS                       R24 R0 K0 ["Value"]
+       87 SETTABLEKS                       R24 R23 K12 ["BackgroundColor"]
+       89 GETUPVAL                         R24 8
+       90 SETTABLEKS                       R24 R23 K13 ["Size"]
+       92 SETTABLEKS                       R9 R23 K14 ["OnClick"]
+       94 SETTABLEKS                       R7 R23 K15 ["ForwardRef"]
+       96 SETTABLEKS                       R23 R22 K17 ["LeadingComponentProps"]
+       98 SETTABLEKS                       R12 R22 K18 ["OnFocusLost"]
+      100 SETTABLEKS                       R13 R22 K19 ["OnTextChanged"]
+      102 GETTABLEKS                       R24 R0 K20 ["AutomaticSize"]
+      104 JUMPIFNOT                        R24 ; [+10]
+      105 GETIMPORT                        R23 K23 [UDim2.new]
+      107 LOADN                            R24 1
+      108 LOADN                            R25 0
+      109 LOADN                            R26 0
+      110 GETTABLEKS                       R28 R0 K25 ["MinimumHeight"]
+      112 ORK                              R27 R28 K24 [24]
+      113 CALL                             R23 4 1
+      114 JUMP                             ; [+5]
+      115 GETIMPORT                        R23 K27 [UDim2.fromScale]
+      117 LOADN                            R24 1
+      118 LOADN                            R25 1
+      119 CALL                             R23 2 1
+      120 SETTABLEKS                       R23 R22 K13 ["Size"]
+      122 SETTABLEKS                       R5 R22 K28 ["Text"]
+      124 GETUPVAL                         R23 4
+      125 GETTABLEKS                       R23 R23 K29 ["Tag"]
+      127 JUMPIFNOT                        R15 ; [+2]
+      128 LOADK                            R24 K30 ["PropertyCellError"]
+      129 JUMP                             ; [+1]
+      130 LOADNIL                          R24
+      131 SETTABLE                         R24 R22 R23
+      132 CALL                             R20 2 1
+      133 SETTABLEKS                       R20 R19 K7 ["Input"]
+      135 GETUPVAL                         R20 4
+      136 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      138 GETUPVAL                         R21 9
+      139 DUPTABLE                         R22 K35 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
+      140 SETTABLEKS                       R1 R22 K31 ["Open"]
+      142 GETIMPORT                        R23 K37 [Vector2.new]
+      144 LOADN                            R24 325
+      145 LOADN                            R25 250
+      146 CALL                             R23 2 1
+      147 SETTABLEKS                       R23 R22 K32 ["MaxSize"]
+      149 GETIMPORT                        R23 K37 [Vector2.new]
+      151 LOADN                            R24 325
+      152 LOADN                            R25 250
+      153 CALL                             R23 2 1
+      154 SETTABLEKS                       R23 R22 K33 ["MinSize"]
+      156 SETTABLEKS                       R7 R22 K34 ["ObjectRef"]
+      158 SETTABLEKS                       R11 R22 K18 ["OnFocusLost"]
+      160 DUPTABLE                         R23 K39 [{"Container"}]
+      161 GETUPVAL                         R24 4
+      162 GETTABLEKS                       R24 R24 K6 ["createElement"]
+      164 GETUPVAL                         R25 5
+      165 NEWTABLE                         R26 1 0
+      167 GETUPVAL                         R27 4
+      168 GETTABLEKS                       R27 R27 K29 ["Tag"]
+      170 LOADK                            R28 K40 ["X-Fit"]
+      171 SETTABLE                         R28 R26 R27
+      172 DUPTABLE                         R27 K42 [{"ColorPicker"}]
+      173 GETUPVAL                         R28 4
+      174 GETTABLEKS                       R28 R28 K6 ["createElement"]
+      176 GETUPVAL                         R29 10
+      177 DUPTABLE                         R30 K45 [{"Size", "Color", "OnColorChanged"}]
+      178 GETIMPORT                        R31 K47 [UDim2.fromOffset]
+      180 LOADN                            R32 325
+      181 LOADN                            R33 225
+      182 CALL                             R31 2 1
+      183 SETTABLEKS                       R31 R30 K13 ["Size"]
+      185 GETTABLEKS                       R31 R0 K0 ["Value"]
+      187 SETTABLEKS                       R31 R30 K43 ["Color"]
+      189 SETTABLEKS                       R14 R30 K44 ["OnColorChanged"]
+      191 CALL                             R28 2 1
+      192 SETTABLEKS                       R28 R27 K41 ["ColorPicker"]
+      194 CALL                             R24 3 1
+      195 SETTABLEKS                       R24 R23 K38 ["Container"]
+      197 CALL                             R20 3 1
+      198 SETTABLEKS                       R20 R19 K8 ["Modal"]
+      200 CALL                             R16 3 -1
+      201 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

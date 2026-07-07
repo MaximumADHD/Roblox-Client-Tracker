@@ -46,7 +46,7 @@ PROTO_1:
        60 DUPTABLE                         R9 K18 [{["LayoutOrder"] = 1, ["tag"]}]
        61 NEWTABLE                         R10 4 0
        63 LOADB                            R11 1
-       64 SETTABLEKS                       R11 R10 K19 ["align-y-middle row align-x-left gap-small bg-action-subtle"]
+       64 SETTABLEKS                       R11 R10 K19 ["row align-x-left gap-small bg-action-subtle"]
        66 GETTABLEKS                       R12 R1 K11 ["IsPopup"]
        68 NOT                              R11 R12
        69 SETTABLEKS                       R11 R10 K20 ["grow auto-y"]
@@ -81,7 +81,7 @@ PROTO_1:
       113 GETUPVAL                         R11 2
       114 GETTABLEKS                       R11 R11 K4 ["createElement"]
       116 GETUPVAL                         R12 4
-      117 DUPTABLE                         R13 K35 [{["LayoutOrder"] = 3, ["tag"] = "align-x-middle align-y-middle row auto-xy bg-action-subtle"}]
+      117 DUPTABLE                         R13 K35 [{["LayoutOrder"] = 3, ["tag"] = "row auto-xy bg-action-subtle"}]
       118 DUPTABLE                         R14 K37 [{"CloseIcon"}]
       119 GETUPVAL                         R15 2
       120 GETTABLEKS                       R15 R15 K4 ["createElement"]

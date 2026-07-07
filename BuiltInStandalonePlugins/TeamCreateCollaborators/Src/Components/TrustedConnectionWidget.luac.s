@@ -355,7 +355,7 @@ PROTO_6:
        57 GETTABLEKS                       R6 R6 K0 ["createElement"]
        59 GETUPVAL                         R7 2
        60 GETTABLEKS                       R7 R7 K35 ["View"]
-       62 DUPTABLE                         R8 K38 [{["tag"] = "margin-top-xsmall col flex-x-fill align-x-left gap-xsmall size-0-0 auto-xy padding-top-xsmall"}]
+       62 DUPTABLE                         R8 K38 [{["tag"] = "col flex-x-fill align-x-left gap-xsmall size-0-0 auto-xy padding-top-xsmall"}]
        63 MOVE                             R9 R1
        64 CALL                             R6 3 1
        65 SETTABLEKS                       R6 R5 K35 ["View"]

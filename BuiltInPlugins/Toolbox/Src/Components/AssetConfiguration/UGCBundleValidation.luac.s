@@ -865,7 +865,7 @@ PROTO_16:
        53 GETTABLEKS                       R14 R14 K11 ["createElement"]
        55 GETUPVAL                         R15 4
        56 GETTABLEKS                       R15 R15 K21 ["Image"]
-       58 DUPTABLE                         R16 K25 [{["tag"] = "shrink-0 content-system-warning", ["Image"], ["LayoutOrder"] = 1, ["Size"]}]
+       58 DUPTABLE                         R16 K25 [{["tag"] = "content-system-warning", ["Image"], ["LayoutOrder"] = 1, ["Size"]}]
        59 GETUPVAL                         R17 5
        60 GETTABLEKS                       R17 R17 K26 ["WARNING_ICON"]
        62 SETTABLEKS                       R17 R16 K21 ["Image"]

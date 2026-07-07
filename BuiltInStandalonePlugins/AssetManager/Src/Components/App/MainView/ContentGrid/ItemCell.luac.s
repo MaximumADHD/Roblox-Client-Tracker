@@ -239,7 +239,7 @@ PROTO_3:
       281 GETTABLEKS                       R30 R30 K29 ["createElement"]
       283 GETUPVAL                         R31 13
       284 GETTABLEKS                       R31 R31 K30 ["View"]
-      286 DUPTABLE                         R32 K66 [{["LayoutOrder"], ["tag"] = "align-y-middle am-size-full-celldata col align-x-left"}]
+      286 DUPTABLE                         R32 K66 [{["LayoutOrder"], ["tag"] = "am-size-full-celldata col align-x-left"}]
       287 NAMECALL                         R33 R1 K52 ["getNextOrder"]
       289 CALL                             R33 1 1
       290 SETTABLEKS                       R33 R32 K31 ["LayoutOrder"]
@@ -280,7 +280,7 @@ PROTO_3:
       345 GETTABLEKS                       R38 R38 K29 ["createElement"]
       347 GETUPVAL                         R39 13
       348 GETTABLEKS                       R39 R39 K81 ["Text"]
-      350 DUPTABLE                         R40 K83 [{["LayoutOrder"], ["Text"], ["tag"] = "text-align-left size-0 auto-xy text-body-small text-truncate-end content-emphasis"}]
+      350 DUPTABLE                         R40 K83 [{["LayoutOrder"], ["Text"], ["tag"] = "size-0 auto-xy text-body-small text-truncate-end content-emphasis"}]
       351 NAMECALL                         R41 R1 K52 ["getNextOrder"]
       353 CALL                             R41 1 1
       354 SETTABLEKS                       R41 R40 K31 ["LayoutOrder"]
@@ -293,7 +293,7 @@ PROTO_3:
       364 GETTABLEKS                       R34 R34 K29 ["createElement"]
       366 GETUPVAL                         R35 13
       367 GETTABLEKS                       R35 R35 K81 ["Text"]
-      369 DUPTABLE                         R36 K83 [{["LayoutOrder"], ["Text"], ["tag"] = "text-align-left size-0 auto-xy text-body-small text-truncate-end content-emphasis"}]
+      369 DUPTABLE                         R36 K83 [{["LayoutOrder"], ["Text"], ["tag"] = "size-0 auto-xy text-body-small text-truncate-end content-emphasis"}]
       370 NAMECALL                         R37 R1 K52 ["getNextOrder"]
       372 CALL                             R37 1 1
       373 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
@@ -304,7 +304,7 @@ PROTO_3:
       381 GETTABLEKS                       R34 R34 K29 ["createElement"]
       383 GETUPVAL                         R35 13
       384 GETTABLEKS                       R35 R35 K81 ["Text"]
-      386 DUPTABLE                         R36 K85 [{["LayoutOrder"], ["Text"], ["tag"] = "padding size-0 auto-xy text-caption-small text-truncate-end content-default"}]
+      386 DUPTABLE                         R36 K85 [{["LayoutOrder"], ["Text"], ["tag"] = "size-0 auto-xy text-caption-small text-truncate-end content-default"}]
       387 NAMECALL                         R37 R1 K52 ["getNextOrder"]
       389 CALL                             R37 1 1
       390 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]

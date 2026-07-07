@@ -167,7 +167,7 @@ PROTO_4:
       158 DUPTABLE                         R13 K65 [{["tag"], ["LayoutOrder"], ["testId"] = "--dialog-button-group"}]
       159 NEWTABLE                         R14 1 0
       161 LOADB                            R15 1
-      162 SETTABLEKS                       R15 R14 K66 ["component-dialog-button-group row align-x-right items-stretch gap-small size-full-0 auto-y"]
+      162 SETTABLEKS                       R15 R14 K66 ["row align-x-right items-stretch gap-small size-full-0 auto-y"]
       164 SETTABLEKS                       R14 R13 K22 ["tag"]
       166 MOVE                             R14 R1
       167 CALL                             R14 0 1

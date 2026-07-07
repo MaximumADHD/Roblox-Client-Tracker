@@ -421,10 +421,10 @@ PROTO_13:
       317 GETUPVAL                         R33 0
       318 GETTABLEKS                       R33 R33 K17 ["createElement"]
       320 GETUPVAL                         R34 12
-      321 DUPTABLE                         R35 K72 [{["label"] = "", ["textBoxRef"], ["onChanged"], ["onReturnPressed"], ["size"], ["testId"], ["text"], ["textInputType"], ["width"]}]
+      321 DUPTABLE                         R35 K72 [{["label"] = "", ["textBoxRef"], ["onChanged"], ["onFocusLost"], ["size"], ["testId"], ["text"], ["textInputType"], ["width"]}]
       322 SETTABLEKS                       R5 R35 K66 ["textBoxRef"]
       324 SETTABLEKS                       R17 R35 K67 ["onChanged"]
-      326 SETTABLEKS                       R16 R35 K68 ["onReturnPressed"]
+      326 SETTABLEKS                       R16 R35 K68 ["onFocusLost"]
       328 GETUPVAL                         R36 13
       329 GETTABLEKS                       R36 R36 K73 ["Small"]
       331 SETTABLEKS                       R36 R35 K34 ["size"]

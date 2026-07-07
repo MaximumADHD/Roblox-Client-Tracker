@@ -470,23 +470,28 @@ MAIN:
       185 GETTABLEKS                       R20 R20 K48 ["GenericHandheld"]
       187 CALL                             R19 1 1
       188 SETTABLEKS                       R19 R18 K48 ["GenericHandheld"]
-      190 DUPCLOSURE                       R19 K49 [PROTO_9]
-      191 CAPTURE                          VAL R14
-      192 CAPTURE                          VAL R17
-      193 CAPTURE                          VAL R1
-      194 CAPTURE                          VAL R15
-      195 CAPTURE                          VAL R11
-      196 CAPTURE                          VAL R18
-      197 CAPTURE                          VAL R16
-      198 CAPTURE                          VAL R5
-      199 CAPTURE                          VAL R13
-      200 CAPTURE                          VAL R7
-      201 CAPTURE                          VAL R12
-      202 CAPTURE                          VAL R6
-      203 CAPTURE                          VAL R8
-      204 CAPTURE                          VAL R9
-      205 CAPTURE                          VAL R10
-      206 GETTABLEKS                       R20 R1 K50 ["memo"]
-      208 MOVE                             R21 R19
-      209 CALL                             R20 1 -1
-      210 RETURN                           R20 -1
+      190 GETIMPORT                        R19 K5 [require]
+      192 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      194 GETTABLEKS                       R20 R20 K49 ["TVRemote"]
+      196 CALL                             R19 1 1
+      197 SETTABLEKS                       R19 R18 K49 ["TVRemote"]
+      199 DUPCLOSURE                       R19 K50 [PROTO_9]
+      200 CAPTURE                          VAL R14
+      201 CAPTURE                          VAL R17
+      202 CAPTURE                          VAL R1
+      203 CAPTURE                          VAL R15
+      204 CAPTURE                          VAL R11
+      205 CAPTURE                          VAL R18
+      206 CAPTURE                          VAL R16
+      207 CAPTURE                          VAL R5
+      208 CAPTURE                          VAL R13
+      209 CAPTURE                          VAL R7
+      210 CAPTURE                          VAL R12
+      211 CAPTURE                          VAL R6
+      212 CAPTURE                          VAL R8
+      213 CAPTURE                          VAL R9
+      214 CAPTURE                          VAL R10
+      215 GETTABLEKS                       R20 R1 K51 ["memo"]
+      217 MOVE                             R21 R19
+      218 CALL                             R20 1 -1
+      219 RETURN                           R20 -1

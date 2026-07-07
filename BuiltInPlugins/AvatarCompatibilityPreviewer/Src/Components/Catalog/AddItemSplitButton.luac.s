@@ -449,7 +449,7 @@ PROTO_12:
       334 GETUPVAL                         R33 3
       335 GETTABLEKS                       R33 R33 K35 ["createElement"]
       337 GETUPVAL                         R34 15
-      338 DUPTABLE                         R35 K77 [{["tag"] = "cursor-pointer hover-bg-action-standard row align-x-center align-y-center size-full-1000 radius-small", ["Size"], ["LayoutOrder"] = 3, ["onActivated"], ["width"]}]
+      338 DUPTABLE                         R35 K77 [{["tag"] = "row align-x-center align-y-center size-full-1000 radius-small", ["Size"], ["LayoutOrder"] = 3, ["onActivated"], ["width"]}]
       339 GETIMPORT                        R36 K78 [UDim2.new]
       341 LOADN                            R37 1
       342 LOADN                            R38 0

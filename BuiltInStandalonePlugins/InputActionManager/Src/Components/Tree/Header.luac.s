@@ -299,7 +299,7 @@ PROTO_6:
       307 GETUPVAL                         R24 0
       308 GETTABLEKS                       R24 R24 K12 ["createElement"]
       310 GETUPVAL                         R25 9
-      311 DUPTABLE                         R26 K90 [{["tag"] = "table-header row align-y-center size-full-1000 auto-x"}]
+      311 DUPTABLE                         R26 K90 [{["tag"] = "row align-y-center size-full-1000 auto-x"}]
       312 MOVE                             R27 R15
       313 CALL                             R24 3 1
       314 SETTABLEKS                       R24 R23 K87 ["Children"]

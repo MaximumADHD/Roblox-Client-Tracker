@@ -42,7 +42,13 @@ PROTO_0:
        47 NAMECALL                         R1 R1 K2 ["getText"]
        49 CALL                             R1 3 1
        50 SETTABLEN                        R1 R0 107
-       51 RETURN                           R0 1
+       51 GETUPVAL                         R1 0
+       52 LOADK                            R3 K0 ["DeviceDropdown"]
+       53 LOADK                            R4 K9 ["TVRemote"]
+       54 NAMECALL                         R1 R1 K2 ["getText"]
+       56 CALL                             R1 3 1
+       57 SETTABLEN                        R1 R0 108
+       58 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0

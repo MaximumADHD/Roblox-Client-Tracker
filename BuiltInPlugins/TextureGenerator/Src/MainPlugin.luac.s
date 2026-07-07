@@ -119,96 +119,89 @@ PROTO_8:
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
         6 GETTABLEKS                       R4 R2 K3 ["enabled"]
-        8 LOADNIL                          R5
-        9 GETUPVAL                         R6 0
-       10 CALL                             R6 0 1
-       11 JUMPIFNOT                        R6 ; [+2]
-       12 MOVE                             R5 R4
-       13 JUMP                             ; [+1]
-       14 LOADB                            R5 1
-       15 GETUPVAL                         R6 1
-       16 GETTABLEKS                       R6 R6 K4 ["provide"]
-       18 NEWTABLE                         R7 0 6
-       20 GETUPVAL                         R8 2
-       21 GETTABLEKS                       R8 R8 K5 ["new"]
-       23 MOVE                             R9 R3
-       24 CALL                             R8 1 1
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["provide"]
+       11 NEWTABLE                         R6 0 6
+       13 GETUPVAL                         R7 1
+       14 GETTABLEKS                       R7 R7 K5 ["new"]
+       16 MOVE                             R8 R3
+       17 CALL                             R7 1 1
+       18 GETUPVAL                         R8 2
+       19 GETTABLEKS                       R8 R8 K5 ["new"]
+       21 NAMECALL                         R9 R3 K6 ["getMouse"]
+       23 CALL                             R9 1 -1
+       24 CALL                             R8 -1 1
        25 GETUPVAL                         R9 3
-       26 GETTABLEKS                       R9 R9 K5 ["new"]
-       28 NAMECALL                         R10 R3 K6 ["getMouse"]
-       30 CALL                             R10 1 -1
-       31 CALL                             R9 -1 1
-       32 GETUPVAL                         R10 4
-       33 CALL                             R10 0 1
-       34 GETTABLEKS                       R11 R0 K7 ["localization"]
-       36 GETTABLEKS                       R12 R0 K8 ["analytics"]
-       38 GETUPVAL                         R13 5
-       39 GETTABLEKS                       R13 R13 K5 ["new"]
-       41 GETUPVAL                         R14 6
-       42 CALL                             R13 1 -1
-       43 SETLIST                          R7 R8 -1 [1]
-       45 DUPTABLE                         R8 K11 [{"Toolbar", "MainWidget"}]
-       46 GETUPVAL                         R9 7
-       47 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       49 GETUPVAL                         R10 8
-       50 DUPTABLE                         R11 K16 [{["Title"] = "TextureGenerator", ["RenderButtons"]}]
-       51 NEWCLOSURE                       R12 P0
-       52 CAPTURE                          VAL R0
-       53 SETTABLEKS                       R12 R11 K15 ["RenderButtons"]
-       55 CALL                             R9 2 1
-       56 SETTABLEKS                       R9 R8 K9 ["Toolbar"]
-       58 GETUPVAL                         R9 7
-       59 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       61 GETUPVAL                         R10 9
-       62 NEWTABLE                         R11 16 0
-       64 LOADK                            R12 K17 ["BuiltInTextureGenerator"]
-       65 SETTABLEKS                       R12 R11 K18 ["Id"]
-       67 SETTABLEKS                       R4 R11 K19 ["Enabled"]
-       69 GETTABLEKS                       R12 R0 K7 ["localization"]
-       71 LOADK                            R14 K2 ["Plugin"]
-       72 LOADK                            R15 K20 ["Name"]
-       73 NAMECALL                         R12 R12 K21 ["getText"]
-       75 CALL                             R12 3 1
-       76 SETTABLEKS                       R12 R11 K13 ["Title"]
-       78 GETIMPORT                        R12 K25 [Enum.ZIndexBehavior.Sibling]
-       80 SETTABLEKS                       R12 R11 K23 ["ZIndexBehavior"]
-       82 GETIMPORT                        R12 K28 [Enum.InitialDockState.Left]
-       84 SETTABLEKS                       R12 R11 K26 ["InitialDockState"]
-       86 GETIMPORT                        R12 K30 [Vector2.new]
-       88 LOADN                            R13 350
-       89 LOADN                            R14 480
-       90 CALL                             R12 2 1
-       91 SETTABLEKS                       R12 R11 K31 ["Size"]
-       93 GETIMPORT                        R12 K30 [Vector2.new]
-       95 LOADN                            R13 350
-       96 LOADN                            R14 480
-       97 CALL                             R12 2 1
-       98 SETTABLEKS                       R12 R11 K32 ["MinSize"]
-      100 GETTABLEKS                       R12 R0 K33 ["onClose"]
-      102 SETTABLEKS                       R12 R11 K34 ["OnClose"]
-      104 LOADB                            R12 1
-      105 SETTABLEKS                       R12 R11 K35 ["ShouldRestore"]
-      107 GETTABLEKS                       R12 R0 K36 ["onRestore"]
-      109 SETTABLEKS                       R12 R11 K37 ["OnWidgetRestored"]
-      111 GETUPVAL                         R12 10
-      112 GETTABLEKS                       R12 R12 K38 ["Change"]
-      114 GETTABLEKS                       R12 R12 K19 ["Enabled"]
-      116 GETTABLEKS                       R13 R0 K39 ["onWidgetEnabledChanged"]
-      118 SETTABLE                         R13 R11 R12
-      119 DUPTABLE                         R12 K41 [{"App"}]
-      120 MOVE                             R13 R5
-      121 JUMPIFNOT                        R13 ; [+8]
-      122 GETUPVAL                         R13 7
-      123 GETTABLEKS                       R13 R13 K12 ["createElement"]
-      125 GETUPVAL                         R14 11
-      126 DUPTABLE                         R15 K42 [{"Plugin"}]
-      127 SETTABLEKS                       R3 R15 K2 ["Plugin"]
-      129 CALL                             R13 2 1
-      130 SETTABLEKS                       R13 R12 K40 ["App"]
-      132 CALL                             R9 3 1
-      133 SETTABLEKS                       R9 R8 K10 ["MainWidget"]
-      135 CALL                             R6 2 -1
-      136 RETURN                           R6 -1
+       26 CALL                             R9 0 1
+       27 GETTABLEKS                       R10 R0 K7 ["localization"]
+       29 GETTABLEKS                       R11 R0 K8 ["analytics"]
+       31 GETUPVAL                         R12 4
+       32 GETTABLEKS                       R12 R12 K5 ["new"]
+       34 GETUPVAL                         R13 5
+       35 CALL                             R12 1 -1
+       36 SETLIST                          R6 R7 -1 [1]
+       38 DUPTABLE                         R7 K11 [{"Toolbar", "MainWidget"}]
+       39 GETUPVAL                         R8 6
+       40 GETTABLEKS                       R8 R8 K12 ["createElement"]
+       42 GETUPVAL                         R9 7
+       43 DUPTABLE                         R10 K16 [{["Title"] = "TextureGenerator", ["RenderButtons"]}]
+       44 NEWCLOSURE                       R11 P0
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R11 R10 K15 ["RenderButtons"]
+       48 CALL                             R8 2 1
+       49 SETTABLEKS                       R8 R7 K9 ["Toolbar"]
+       51 GETUPVAL                         R8 6
+       52 GETTABLEKS                       R8 R8 K12 ["createElement"]
+       54 GETUPVAL                         R9 8
+       55 NEWTABLE                         R10 16 0
+       57 LOADK                            R11 K17 ["BuiltInTextureGenerator"]
+       58 SETTABLEKS                       R11 R10 K18 ["Id"]
+       60 SETTABLEKS                       R4 R10 K19 ["Enabled"]
+       62 GETTABLEKS                       R11 R0 K7 ["localization"]
+       64 LOADK                            R13 K2 ["Plugin"]
+       65 LOADK                            R14 K20 ["Name"]
+       66 NAMECALL                         R11 R11 K21 ["getText"]
+       68 CALL                             R11 3 1
+       69 SETTABLEKS                       R11 R10 K13 ["Title"]
+       71 GETIMPORT                        R11 K25 [Enum.ZIndexBehavior.Sibling]
+       73 SETTABLEKS                       R11 R10 K23 ["ZIndexBehavior"]
+       75 GETIMPORT                        R11 K28 [Enum.InitialDockState.Left]
+       77 SETTABLEKS                       R11 R10 K26 ["InitialDockState"]
+       79 GETIMPORT                        R11 K30 [Vector2.new]
+       81 LOADN                            R12 350
+       82 LOADN                            R13 480
+       83 CALL                             R11 2 1
+       84 SETTABLEKS                       R11 R10 K31 ["Size"]
+       86 GETIMPORT                        R11 K30 [Vector2.new]
+       88 LOADN                            R12 350
+       89 LOADN                            R13 480
+       90 CALL                             R11 2 1
+       91 SETTABLEKS                       R11 R10 K32 ["MinSize"]
+       93 GETTABLEKS                       R11 R0 K33 ["onClose"]
+       95 SETTABLEKS                       R11 R10 K34 ["OnClose"]
+       97 LOADB                            R11 1
+       98 SETTABLEKS                       R11 R10 K35 ["ShouldRestore"]
+      100 GETTABLEKS                       R11 R0 K36 ["onRestore"]
+      102 SETTABLEKS                       R11 R10 K37 ["OnWidgetRestored"]
+      104 GETUPVAL                         R11 9
+      105 GETTABLEKS                       R11 R11 K38 ["Change"]
+      107 GETTABLEKS                       R11 R11 K19 ["Enabled"]
+      109 GETTABLEKS                       R12 R0 K39 ["onWidgetEnabledChanged"]
+      111 SETTABLE                         R12 R10 R11
+      112 DUPTABLE                         R11 K41 [{"App"}]
+      113 MOVE                             R12 R4
+      114 JUMPIFNOT                        R12 ; [+8]
+      115 GETUPVAL                         R12 6
+      116 GETTABLEKS                       R12 R12 K12 ["createElement"]
+      118 GETUPVAL                         R13 10
+      119 DUPTABLE                         R14 K42 [{"Plugin"}]
+      120 SETTABLEKS                       R3 R14 K2 ["Plugin"]
+      122 CALL                             R12 2 1
+      123 SETTABLEKS                       R12 R11 K40 ["App"]
+      125 CALL                             R8 3 1
+      126 SETTABLEKS                       R8 R7 K10 ["MainWidget"]
+      128 CALL                             R5 2 -1
+      129 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -270,38 +263,32 @@ MAIN:
       102 GETIMPORT                        R19 K8 [require]
       104 GETTABLEKS                       R20 R18 K31 ["App"]
       106 CALL                             R19 1 1
-      107 GETIMPORT                        R20 K8 [require]
-      109 GETTABLEKS                       R21 R1 K9 ["Src"]
-      111 GETTABLEKS                       R21 R21 K32 ["Flags"]
-      113 GETTABLEKS                       R21 R21 K33 ["getFFlagTextureGeneratorOptimizeSelection"]
-      115 CALL                             R20 1 1
-      116 GETTABLEKS                       R21 R3 K34 ["PureComponent"]
-      118 LOADK                            R23 K35 ["MainPlugin"]
-      119 NAMECALL                         R21 R21 K36 ["extend"]
-      121 CALL                             R21 2 1
-      122 DUPCLOSURE                       R22 K37 [PROTO_5]
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R15
-      125 CAPTURE                          VAL R16
-      126 CAPTURE                          VAL R5
-      127 CAPTURE                          VAL R14
-      128 SETTABLEKS                       R22 R21 K38 ["init"]
-      130 DUPCLOSURE                       R22 K39 [PROTO_6]
-      131 CAPTURE                          VAL R3
-      132 CAPTURE                          VAL R8
-      133 SETTABLEKS                       R22 R21 K40 ["renderButtons"]
-      135 DUPCLOSURE                       R22 K41 [PROTO_8]
-      136 CAPTURE                          VAL R20
-      137 CAPTURE                          VAL R10
-      138 CAPTURE                          VAL R11
-      139 CAPTURE                          VAL R12
-      140 CAPTURE                          VAL R13
-      141 CAPTURE                          VAL R17
-      142 CAPTURE                          VAL R0
-      143 CAPTURE                          VAL R3
-      144 CAPTURE                          VAL R9
-      145 CAPTURE                          VAL R7
-      146 CAPTURE                          VAL R4
-      147 CAPTURE                          VAL R19
-      148 SETTABLEKS                       R22 R21 K42 ["render"]
-      150 RETURN                           R21 1
+      107 GETTABLEKS                       R20 R3 K32 ["PureComponent"]
+      109 LOADK                            R22 K33 ["MainPlugin"]
+      110 NAMECALL                         R20 R20 K34 ["extend"]
+      112 CALL                             R20 2 1
+      113 DUPCLOSURE                       R21 K35 [PROTO_5]
+      114 CAPTURE                          VAL R10
+      115 CAPTURE                          VAL R15
+      116 CAPTURE                          VAL R16
+      117 CAPTURE                          VAL R5
+      118 CAPTURE                          VAL R14
+      119 SETTABLEKS                       R21 R20 K36 ["init"]
+      121 DUPCLOSURE                       R21 K37 [PROTO_6]
+      122 CAPTURE                          VAL R3
+      123 CAPTURE                          VAL R8
+      124 SETTABLEKS                       R21 R20 K38 ["renderButtons"]
+      126 DUPCLOSURE                       R21 K39 [PROTO_8]
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R11
+      129 CAPTURE                          VAL R12
+      130 CAPTURE                          VAL R13
+      131 CAPTURE                          VAL R17
+      132 CAPTURE                          VAL R0
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R9
+      135 CAPTURE                          VAL R7
+      136 CAPTURE                          VAL R4
+      137 CAPTURE                          VAL R19
+      138 SETTABLEKS                       R21 R20 K40 ["render"]
+      140 RETURN                           R20 1

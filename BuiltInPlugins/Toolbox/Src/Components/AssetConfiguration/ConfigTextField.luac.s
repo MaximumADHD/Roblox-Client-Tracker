@@ -197,7 +197,7 @@ PROTO_5:
       123 GETTABLEKS                       R23 R23 K21 ["createElement"]
       125 GETUPVAL                         R24 5
       126 GETTABLEKS                       R24 R24 K25 ["View"]
-      128 DUPTABLE                         R25 K29 [{["tag"] = "size-full-x col align-x-left gap-small auto-y", ["LayoutOrder"], ["Size"]}]
+      128 DUPTABLE                         R25 K29 [{["tag"] = "col align-x-left gap-small auto-y", ["LayoutOrder"], ["Size"]}]
       129 NAMECALL                         R26 R17 K30 ["getNextOrder"]
       131 CALL                             R26 1 1
       132 SETTABLEKS                       R26 R25 K5 ["LayoutOrder"]

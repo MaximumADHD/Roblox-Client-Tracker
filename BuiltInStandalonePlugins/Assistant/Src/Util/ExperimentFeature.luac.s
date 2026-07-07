@@ -23,32 +23,32 @@ PROTO_1:
        19 GETIMPORT                        R1 K6 [assert]
        21 CALL                             R1 2 0
        22 GETUPVAL                         R1 2
-       23 JUMPIFNOTEQKNIL                  R1 ; [+9]
+       23 JUMPIFNOTEQKNIL                  R1 ; [+10]
        25 GETUPVAL                         R1 3
        26 GETTABLEKS                       R1 R1 K7 ["new"]
        28 GETUPVAL                         R2 1
        29 GETUPVAL                         R3 4
-       30 CALL                             R3 0 -1
-       31 CALL                             R1 -1 1
-       32 SETUPVAL                         R1 2
-       33 GETUPVAL                         R2 2
-       34 FASTCALL2K                       ASSERT R2 K8 ; [+4]
-       36 LOADK                            R3 K8 ["ExperimentCache should be not nil"]
-       37 GETIMPORT                        R1 K6 [assert]
-       39 CALL                             R1 2 0
-       40 GETUPVAL                         R1 2
-       41 NAMECALL                         R1 R1 K9 ["getWhenReady"]
-       43 CALL                             R1 1 1
-       44 JUMPIFNOTEQKNIL                  R1 ; [+3]
-       46 LOADB                            R2 0
-       47 RETURN                           R2 1
-       48 GETTABLE                         R2 R1 R0
-       49 LOADB                            R3 1
-       50 JUMPIFEQKB                       R2 TRUE ; [+5]
-       52 JUMPIFEQKS                       R2 K10 ["true"] ; [+2]
-       54 LOADB                            R3 0 +1
-       55 LOADB                            R3 1
-       56 RETURN                           R3 1
+       30 GETTABLEKS                       R3 R3 K8 ["FStringNewAssistantExperimentLayer"]
+       32 CALL                             R1 2 1
+       33 SETUPVAL                         R1 2
+       34 GETUPVAL                         R2 2
+       35 FASTCALL2K                       ASSERT R2 K9 ; [+4]
+       37 LOADK                            R3 K9 ["ExperimentCache should be not nil"]
+       38 GETIMPORT                        R1 K6 [assert]
+       40 CALL                             R1 2 0
+       41 GETUPVAL                         R1 2
+       42 NAMECALL                         R1 R1 K10 ["getWhenReady"]
+       44 CALL                             R1 1 1
+       45 JUMPIFNOTEQKNIL                  R1 ; [+3]
+       47 LOADB                            R2 0
+       48 RETURN                           R2 1
+       49 GETTABLE                         R2 R1 R0
+       50 LOADB                            R3 1
+       51 JUMPIFEQKB                       R2 TRUE ; [+5]
+       53 JUMPIFEQKS                       R2 K11 ["true"] ; [+2]
+       55 LOADB                            R3 0 +1
+       56 LOADB                            R3 1
+       57 RETURN                           R3 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -122,64 +122,47 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Util"]
-       20 GETTABLEKS                       R3 R3 K10 ["ExperimentCache"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Util"]
+       13 GETTABLEKS                       R2 R2 K8 ["ExperimentCache"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K9 ["Flags"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R3 R1 K11 ["Flags"]
-       25 GETTABLEKS                       R3 R3 K12 ["Shared"]
-       27 GETTABLEKS                       R3 R3 K13 ["FFlagForceAssistantBackgroundDataModelToolCall"]
-       29 GETTABLEKS                       R4 R1 K11 ["Flags"]
-       31 GETTABLEKS                       R4 R4 K12 ["Shared"]
-       33 GETTABLEKS                       R4 R4 K14 ["FFlagForceAssistantStudioStateSystemReminder"]
-       35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R6 R0 K8 ["Src"]
-       39 GETTABLEKS                       R6 R6 K11 ["Flags"]
-       41 GETTABLEKS                       R6 R6 K15 ["FStringNewAssistantExperimentLayer"]
-       43 CALL                             R5 1 1
-       44 GETTABLEKS                       R6 R1 K11 ["Flags"]
-       46 GETTABLEKS                       R6 R6 K12 ["Shared"]
-       48 GETTABLEKS                       R6 R6 K16 ["FFlagAssistantAssetSearchInsertTool"]
-       50 DUPTABLE                         R7 K23 [{["TestAutomation"] = "TestAutomation", ["NewAssetToolSet"] = "NewAssetToolSet", ["UnitTestSubagent"] = "UnitTestSubagent", ["ScreenCaptureSubagent"] = "ScreenCaptureSubagent", ["BackgroundDataModelToolCall"] = "BackgroundDataModelToolCall", ["StudioStateSystemReminder"] = "StudioStateSystemReminder"}]
-       51 NEWTABLE                         R8 4 0
-       53 GETTABLEKS                       R9 R7 K18 ["NewAssetToolSet"]
-       55 MOVE                             R10 R6
-       56 CALL                             R10 0 1
-       57 SETTABLE                         R10 R8 R9
-       58 GETTABLEKS                       R9 R7 K21 ["BackgroundDataModelToolCall"]
-       60 MOVE                             R10 R3
-       61 CALL                             R10 0 1
-       62 SETTABLE                         R10 R8 R9
-       63 GETTABLEKS                       R9 R7 K22 ["StudioStateSystemReminder"]
-       65 MOVE                             R10 R4
-       66 CALL                             R10 0 1
-       67 SETTABLE                         R10 R8 R9
-       68 LOADNIL                          R9
-       69 LOADNIL                          R10
-       70 NEWCLOSURE                       R11 P0
-       71 CAPTURE                          REF R10
-       72 CAPTURE                          REF R9
-       73 NEWCLOSURE                       R12 P1
-       74 CAPTURE                          VAL R8
-       75 CAPTURE                          REF R10
-       76 CAPTURE                          REF R9
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R5
-       79 NEWCLOSURE                       R13 P2
-       80 CAPTURE                          REF R10
-       81 NEWCLOSURE                       R14 P3
-       82 CAPTURE                          VAL R12
-       83 CAPTURE                          REF R10
-       84 DUPTABLE                         R15 K30 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
-       85 SETTABLEKS                       R7 R15 K24 ["FeatureNames"]
-       87 SETTABLEKS                       R8 R15 K25 ["ForceEnabledFeatureNames"]
-       89 SETTABLEKS                       R11 R15 K26 ["setIxpService"]
-       91 SETTABLEKS                       R12 R15 K27 ["getExperimentFeatureEnabled"]
-       93 SETTABLEKS                       R13 R15 K28 ["getOnExperimentChanged"]
-       95 SETTABLEKS                       R14 R15 K29 ["onceExperimentFeatureEnabled"]
-       97 CLOSEUPVALS                      R9
-       98 RETURN                           R15 1
+       23 DUPTABLE                         R3 K16 [{["TestAutomation"] = "TestAutomation", ["NewAssetToolSet"] = "NewAssetToolSet", ["UnitTestSubagent"] = "UnitTestSubagent", ["ScreenCaptureSubagent"] = "ScreenCaptureSubagent", ["BackgroundDataModelToolCall"] = "BackgroundDataModelToolCall", ["StudioStateSystemReminder"] = "StudioStateSystemReminder"}]
+       24 NEWTABLE                         R4 4 0
+       26 GETTABLEKS                       R5 R3 K11 ["NewAssetToolSet"]
+       28 GETTABLEKS                       R6 R2 K17 ["FFlagAssistantAssetSearchInsertTool"]
+       30 SETTABLE                         R6 R4 R5
+       31 GETTABLEKS                       R5 R3 K14 ["BackgroundDataModelToolCall"]
+       33 GETTABLEKS                       R6 R2 K18 ["FFlagForceAssistantBackgroundDataModelToolCall"]
+       35 SETTABLE                         R6 R4 R5
+       36 GETTABLEKS                       R5 R3 K15 ["StudioStateSystemReminder"]
+       38 GETTABLEKS                       R6 R2 K19 ["FFlagForceAssistantStudioStateSystemReminder"]
+       40 SETTABLE                         R6 R4 R5
+       41 LOADNIL                          R5
+       42 LOADNIL                          R6
+       43 NEWCLOSURE                       R7 P0
+       44 CAPTURE                          REF R6
+       45 CAPTURE                          REF R5
+       46 NEWCLOSURE                       R8 P1
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          REF R6
+       49 CAPTURE                          REF R5
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R2
+       52 NEWCLOSURE                       R9 P2
+       53 CAPTURE                          REF R6
+       54 NEWCLOSURE                       R10 P3
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          REF R6
+       57 DUPTABLE                         R11 K26 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
+       58 SETTABLEKS                       R3 R11 K20 ["FeatureNames"]
+       60 SETTABLEKS                       R4 R11 K21 ["ForceEnabledFeatureNames"]
+       62 SETTABLEKS                       R7 R11 K22 ["setIxpService"]
+       64 SETTABLEKS                       R8 R11 K23 ["getExperimentFeatureEnabled"]
+       66 SETTABLEKS                       R9 R11 K24 ["getOnExperimentChanged"]
+       68 SETTABLEKS                       R10 R11 K25 ["onceExperimentFeatureEnabled"]
+       70 CLOSEUPVALS                      R5
+       71 RETURN                           R11 1

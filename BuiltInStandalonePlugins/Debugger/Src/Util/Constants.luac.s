@@ -114,4 +114,8 @@ MAIN:
       138 SETTABLEKS                       R17 R16 K123 ["VariablesColumnFilter"]
       140 LOADK                            R17 K124 ["MyWatchesColumnFilter"]
       141 SETTABLEKS                       R17 R16 K124 ["MyWatchesColumnFilter"]
-      143 RETURN                           R16 1
+      143 LOADK                            R17 K125 [199996]
+      144 SETTABLEKS                       R17 R16 K126 ["MAX_DISPLAY_VALUE_LENGTH"]
+      146 LOADK                            R17 K127 ["..."]
+      147 SETTABLEKS                       R17 R16 K128 ["TRUNCATION_SUFFIX"]
+      149 RETURN                           R16 1

@@ -1,20 +1,20 @@
 PROTO_0:
         0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+8]
-        3 GETIMPORT                        R3 K1 [print]
-        5 LOADK                            R4 K2 ["Logging stat"]
-        6 GETTABLEKS                       R5 R0 K3 ["eventName"]
-        8 MOVE                             R6 R1
-        9 MOVE                             R7 R2
-       10 CALL                             R3 4 0
-       11 GETUPVAL                         R3 1
-       12 MOVE                             R5 R0
-       13 MOVE                             R6 R2
-       14 MOVE                             R7 R1
-       15 NAMECALL                         R3 R3 K4 ["LogStat"]
-       17 CALL                             R3 4 0
-       18 RETURN                           R0 0
+        1 GETTABLEKS                       R3 R3 K0 ["FFlagDebugLogAssistantUI"]
+        3 JUMPIFNOT                        R3 ; [+8]
+        4 GETIMPORT                        R3 K2 [print]
+        6 LOADK                            R4 K3 ["Logging stat"]
+        7 GETTABLEKS                       R5 R0 K4 ["eventName"]
+        9 MOVE                             R6 R1
+       10 MOVE                             R7 R2
+       11 CALL                             R3 4 0
+       12 GETUPVAL                         R3 1
+       13 MOVE                             R5 R0
+       14 MOVE                             R6 R2
+       15 MOVE                             R7 R1
+       16 NAMECALL                         R3 R3 K5 ["LogStat"]
+       18 CALL                             R3 4 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 MOVE                             R2 R0
@@ -27,37 +27,37 @@ PROTO_1:
         9 LOADN                            R3 10000
        10 SETTABLEKS                       R3 R2 K0 ["throttlingPercentage"]
        12 GETUPVAL                         R3 0
-       13 CALL                             R3 0 1
-       14 JUMPIFNOT                        R3 ; [+7]
-       15 GETIMPORT                        R3 K5 [print]
-       17 LOADK                            R4 K6 ["Logging event"]
-       18 GETTABLEKS                       R5 R2 K7 ["eventName"]
-       20 MOVE                             R6 R1
-       21 CALL                             R3 3 0
-       22 GETUPVAL                         R3 1
-       23 MOVE                             R5 R2
-       24 MOVE                             R6 R1
-       25 NAMECALL                         R3 R3 K8 ["LogEvent"]
-       27 CALL                             R3 3 0
-       28 RETURN                           R0 0
+       13 GETTABLEKS                       R3 R3 K4 ["FFlagDebugLogAssistantUI"]
+       15 JUMPIFNOT                        R3 ; [+7]
+       16 GETIMPORT                        R3 K6 [print]
+       18 LOADK                            R4 K7 ["Logging event"]
+       19 GETTABLEKS                       R5 R2 K8 ["eventName"]
+       21 MOVE                             R6 R1
+       22 CALL                             R3 3 0
+       23 GETUPVAL                         R3 1
+       24 MOVE                             R5 R2
+       25 MOVE                             R6 R1
+       26 NAMECALL                         R3 R3 K9 ["LogEvent"]
+       28 CALL                             R3 3 0
+       29 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+8]
-        3 GETIMPORT                        R3 K1 [print]
-        5 LOADK                            R4 K2 ["Logging counter"]
-        6 GETTABLEKS                       R5 R0 K3 ["eventName"]
-        8 MOVE                             R6 R1
-        9 MOVE                             R7 R2
-       10 CALL                             R3 4 0
-       11 GETUPVAL                         R3 1
-       12 MOVE                             R5 R0
-       13 MOVE                             R6 R2
-       14 MOVE                             R7 R1
-       15 NAMECALL                         R3 R3 K4 ["LogCounter"]
-       17 CALL                             R3 4 0
-       18 RETURN                           R0 0
+        1 GETTABLEKS                       R3 R3 K0 ["FFlagDebugLogAssistantUI"]
+        3 JUMPIFNOT                        R3 ; [+8]
+        4 GETIMPORT                        R3 K2 [print]
+        6 LOADK                            R4 K3 ["Logging counter"]
+        7 GETTABLEKS                       R5 R0 K4 ["eventName"]
+        9 MOVE                             R6 R1
+       10 MOVE                             R7 R2
+       11 CALL                             R3 4 0
+       12 GETUPVAL                         R3 1
+       13 MOVE                             R5 R0
+       14 MOVE                             R6 R2
+       15 MOVE                             R7 R1
+       16 NAMECALL                         R3 R3 K5 ["LogCounter"]
+       18 CALL                             R3 4 0
+       19 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -70,25 +70,22 @@ MAIN:
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K11 ["AssistantUI"]
+       15 GETTABLEKS                       R3 R0 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Flags"]
        19 CALL                             R2 1 1
-       20 GETTABLEKS                       R3 R2 K12 ["Flags"]
-       22 GETTABLEKS                       R3 R3 K13 ["Shared"]
-       24 GETTABLEKS                       R3 R3 K14 ["FFlagDebugLogAssistantUI"]
-       26 DUPTABLE                         R4 K19 [{["EventIngest"] = "EventIngest", ["Points"] = "Points", ["RobloxTelemetryCounter"] = "RobloxTelemetryCounter", ["RobloxTelemetryStat"] = "RobloxTelemetryStat"}]
-       27 DUPTABLE                         R5 K21 [{"Backends"}]
-       28 SETTABLEKS                       R4 R5 K20 ["Backends"]
-       30 DUPCLOSURE                       R6 K22 [PROTO_0]
-       31 CAPTURE                          VAL R3
-       32 CAPTURE                          VAL R1
-       33 SETTABLEKS                       R6 R5 K23 ["logStat"]
-       35 DUPCLOSURE                       R6 K24 [PROTO_1]
-       36 CAPTURE                          VAL R3
-       37 CAPTURE                          VAL R1
-       38 SETTABLEKS                       R6 R5 K25 ["logEvent"]
-       40 DUPCLOSURE                       R6 K26 [PROTO_2]
-       41 CAPTURE                          VAL R3
-       42 CAPTURE                          VAL R1
-       43 SETTABLEKS                       R6 R5 K27 ["logCounter"]
-       45 RETURN                           R5 1
+       20 DUPTABLE                         R3 K16 [{["EventIngest"] = "EventIngest", ["Points"] = "Points", ["RobloxTelemetryCounter"] = "RobloxTelemetryCounter", ["RobloxTelemetryStat"] = "RobloxTelemetryStat"}]
+       21 DUPTABLE                         R4 K18 [{"Backends"}]
+       22 SETTABLEKS                       R3 R4 K17 ["Backends"]
+       24 DUPCLOSURE                       R5 K19 [PROTO_0]
+       25 CAPTURE                          VAL R2
+       26 CAPTURE                          VAL R1
+       27 SETTABLEKS                       R5 R4 K20 ["logStat"]
+       29 DUPCLOSURE                       R5 K21 [PROTO_1]
+       30 CAPTURE                          VAL R2
+       31 CAPTURE                          VAL R1
+       32 SETTABLEKS                       R5 R4 K22 ["logEvent"]
+       34 DUPCLOSURE                       R5 K23 [PROTO_2]
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R1
+       37 SETTABLEKS                       R5 R4 K24 ["logCounter"]
+       39 RETURN                           R4 1

@@ -1138,7 +1138,7 @@ PROTO_41:
       618 GETTABLEKS                       R59 R59 K14 ["createElement"]
       620 GETUPVAL                         R60 19
       621 GETTABLEKS                       R60 R60 K60 ["View"]
-      623 DUPTABLE                         R61 K108 [{["tag"] = "margin-bottom-xsmall margin-top-xsmall size-full-1100 padding-left-large padding-right-xxlarge padding-top-xsmall", ["onActivated"], ["LayoutOrder"] = 6}]
+      623 DUPTABLE                         R61 K108 [{["tag"] = "size-full-1100 padding-left-large padding-right-xxlarge padding-top-xsmall", ["onActivated"], ["LayoutOrder"] = 6}]
       624 NEWCLOSURE                       R62 P19
       625 CAPTURE                          UPVAL U6
       626 CAPTURE                          VAL R18
@@ -1185,7 +1185,7 @@ PROTO_41:
       682 GETTABLEKS                       R59 R59 K14 ["createElement"]
       684 GETUPVAL                         R60 19
       685 GETTABLEKS                       R60 R60 K60 ["View"]
-      687 DUPTABLE                         R61 K111 [{["tag"] = "margin-bottom-xsmall margin-top-xsmall size-full-1100 padding-left-large padding-right-xxlarge padding-top-xsmall", ["onActivated"], ["LayoutOrder"] = 7}]
+      687 DUPTABLE                         R61 K111 [{["tag"] = "size-full-1100 padding-left-large padding-right-xxlarge padding-top-xsmall", ["onActivated"], ["LayoutOrder"] = 7}]
       688 NEWCLOSURE                       R62 P21
       689 CAPTURE                          UPVAL U6
       690 CAPTURE                          VAL R18

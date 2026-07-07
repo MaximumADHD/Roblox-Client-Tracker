@@ -13,428 +13,388 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETTABLEKS                       R3 R3 K10 ["ExperimentFeature"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R3 R1 K11 ["Flags"]
-       25 GETTABLEKS                       R3 R3 K12 ["Shared"]
-       27 GETTABLEKS                       R3 R3 K13 ["FFlagEnableAssistantImageUpload"]
-       29 GETTABLEKS                       R4 R1 K11 ["Flags"]
-       31 GETTABLEKS                       R4 R4 K12 ["Shared"]
-       33 GETTABLEKS                       R4 R4 K14 ["FFlagProceduralModel"]
-       35 GETTABLEKS                       R5 R1 K11 ["Flags"]
-       37 GETTABLEKS                       R5 R5 K12 ["Shared"]
-       39 GETTABLEKS                       R5 R5 K15 ["FFlagAssistantAssetSearchInsertTool"]
-       41 GETTABLEKS                       R6 R1 K11 ["Flags"]
-       43 GETTABLEKS                       R6 R6 K12 ["Shared"]
-       45 GETTABLEKS                       R6 R6 K16 ["FFlagAssistantAssetSearchInsertToolABTest"]
-       47 GETTABLEKS                       R7 R1 K11 ["Flags"]
-       49 GETTABLEKS                       R7 R7 K12 ["Shared"]
-       51 GETTABLEKS                       R7 R7 K17 ["FFlagAssistantMarkdownPlanMode"]
-       53 GETTABLEKS                       R8 R1 K11 ["Flags"]
-       55 GETTABLEKS                       R8 R8 K12 ["Shared"]
-       57 GETTABLEKS                       R8 R8 K18 ["FFlagAssistantAnimationGenTool"]
-       59 GETTABLEKS                       R9 R1 K11 ["Flags"]
-       61 GETTABLEKS                       R9 R9 K12 ["Shared"]
-       63 GETTABLEKS                       R9 R9 K19 ["FFlagAssistantMultiPlayerAgents"]
-       65 GETTABLEKS                       R10 R1 K11 ["Flags"]
-       67 GETTABLEKS                       R10 R10 K12 ["Shared"]
-       69 GETTABLEKS                       R10 R10 K20 ["FFlagAssistantGetStudioState"]
-       71 GETTABLEKS                       R11 R1 K11 ["Flags"]
-       73 GETTABLEKS                       R11 R11 K12 ["Shared"]
-       75 GETTABLEKS                       R11 R11 K21 ["FFlagAssistantUserSkills"]
-       77 GETTABLEKS                       R12 R1 K11 ["Flags"]
-       79 GETTABLEKS                       R12 R12 K12 ["Shared"]
-       81 GETTABLEKS                       R12 R12 K22 ["FFlagAssistantVideoCaptureTool"]
-       83 GETTABLEKS                       R13 R1 K23 ["Types"]
-       85 GETTABLEKS                       R13 R13 K24 ["AssistantMode"]
-       87 GETTABLEKS                       R14 R1 K25 ["Tools"]
-       89 GETTABLEKS                       R14 R14 K26 ["ToolTypes"]
-       91 GETTABLEKS                       R14 R14 K27 ["ToolNames"]
-       93 GETTABLEKS                       R15 R1 K25 ["Tools"]
-       95 GETTABLEKS                       R15 R15 K28 ["BuiltinTools"]
-       97 NEWTABLE                         R16 32 0
-       99 GETTABLEKS                       R17 R14 K29 ["ExecuteLuau"]
-      101 GETTABLEKS                       R19 R14 K29 ["ExecuteLuau"]
-      103 GETTABLE                         R18 R15 R19
-      104 SETTABLE                         R18 R16 R17
-      105 GETTABLEKS                       R17 R14 K30 ["FileSearch"]
-      107 GETTABLEKS                       R19 R14 K30 ["FileSearch"]
-      109 GETTABLE                         R18 R15 R19
-      110 SETTABLE                         R18 R16 R17
-      111 GETTABLEKS                       R17 R14 K31 ["GameTree"]
-      113 GETTABLEKS                       R19 R14 K31 ["GameTree"]
-      115 GETTABLE                         R18 R15 R19
-      116 SETTABLE                         R18 R16 R17
-      117 GETTABLEKS                       R17 R14 K32 ["GrepSearch"]
-      119 GETTABLEKS                       R19 R14 K32 ["GrepSearch"]
-      121 GETTABLE                         R18 R15 R19
-      122 SETTABLE                         R18 R16 R17
-      123 GETTABLEKS                       R17 R14 K33 ["InspectInstance"]
-      125 GETTABLEKS                       R19 R14 K33 ["InspectInstance"]
-      127 GETTABLE                         R18 R15 R19
-      128 SETTABLE                         R18 R16 R17
-      129 GETTABLEKS                       R17 R14 K34 ["MaterialGen"]
-      131 GETTABLEKS                       R19 R14 K34 ["MaterialGen"]
-      133 GETTABLE                         R18 R15 R19
-      134 SETTABLE                         R18 R16 R17
-      135 GETTABLEKS                       R17 R14 K35 ["AnimationGen"]
-      137 MOVE                             R19 R8
-      138 CALL                             R19 0 1
-      139 JUMPIFNOT                        R19 ; [+4]
-      140 GETTABLEKS                       R19 R14 K35 ["AnimationGen"]
-      142 GETTABLE                         R18 R15 R19
-      143 JUMP                             ; [+1]
-      144 LOADNIL                          R18
-      145 SETTABLE                         R18 R16 R17
-      146 GETTABLEKS                       R17 R14 K36 ["MeshGen"]
-      148 GETTABLEKS                       R19 R14 K36 ["MeshGen"]
-      150 GETTABLE                         R18 R15 R19
-      151 SETTABLE                         R18 R16 R17
-      152 GETTABLEKS                       R17 R14 K37 ["MultiEdit"]
-      154 GETTABLEKS                       R19 R14 K37 ["MultiEdit"]
-      156 GETTABLE                         R18 R15 R19
-      157 SETTABLE                         R18 R16 R17
-      158 GETTABLEKS                       R17 R14 K38 ["ReadFile"]
-      160 GETTABLEKS                       R19 R14 K38 ["ReadFile"]
-      162 GETTABLE                         R18 R15 R19
-      163 SETTABLE                         R18 R16 R17
-      164 GETTABLEKS                       R17 R14 K39 ["PrimitiveGen"]
-      166 MOVE                             R19 R4
-      167 CALL                             R19 0 1
-      168 JUMPIFNOT                        R19 ; [+4]
-      169 GETTABLEKS                       R19 R14 K39 ["PrimitiveGen"]
-      171 GETTABLE                         R18 R15 R19
-      172 JUMP                             ; [+1]
-      173 LOADNIL                          R18
-      174 SETTABLE                         R18 R16 R17
-      175 GETTABLEKS                       R17 R14 K40 ["WaitJobFinished"]
-      177 MOVE                             R19 R4
-      178 CALL                             R19 0 1
-      179 JUMPIFNOT                        R19 ; [+4]
-      180 GETTABLEKS                       R19 R14 K40 ["WaitJobFinished"]
-      182 GETTABLE                         R18 R15 R19
-      183 JUMP                             ; [+1]
-      184 LOADNIL                          R18
-      185 SETTABLE                         R18 R16 R17
-      186 GETTABLEKS                       R17 R14 K41 ["QuestionAnswer"]
-      188 GETTABLEKS                       R19 R14 K41 ["QuestionAnswer"]
-      190 GETTABLE                         R18 R15 R19
-      191 SETTABLE                         R18 R16 R17
-      192 GETTABLEKS                       R17 R14 K42 ["StoreImage"]
-      194 GETTABLEKS                       R19 R14 K42 ["StoreImage"]
-      196 GETTABLE                         R18 R15 R19
-      197 SETTABLE                         R18 R16 R17
-      198 GETTABLEKS                       R17 R14 K43 ["Subagent"]
-      200 GETTABLEKS                       R19 R14 K43 ["Subagent"]
-      202 GETTABLE                         R18 R15 R19
-      203 SETTABLE                         R18 R16 R17
-      204 GETTABLEKS                       R17 R14 K44 ["FinalizePlan"]
-      206 GETTABLEKS                       R19 R14 K44 ["FinalizePlan"]
-      208 GETTABLE                         R18 R15 R19
-      209 SETTABLE                         R18 R16 R17
-      210 GETTABLEKS                       R17 R14 K45 ["CompleteTodoItems"]
-      212 GETTABLEKS                       R19 R14 K45 ["CompleteTodoItems"]
-      214 GETTABLE                         R18 R15 R19
-      215 SETTABLE                         R18 R16 R17
-      216 GETTABLEKS                       R17 R14 K46 ["UpdatePlan"]
-      218 MOVE                             R19 R7
-      219 CALL                             R19 0 1
-      220 JUMPIFNOT                        R19 ; [+4]
-      221 GETTABLEKS                       R19 R14 K46 ["UpdatePlan"]
-      223 GETTABLE                         R18 R15 R19
-      224 JUMP                             ; [+1]
-      225 LOADNIL                          R18
-      226 SETTABLE                         R18 R16 R17
-      227 GETTABLEKS                       R17 R14 K47 ["FromHistory"]
-      229 GETTABLEKS                       R19 R14 K47 ["FromHistory"]
-      231 GETTABLE                         R18 R15 R19
-      232 SETTABLE                         R18 R16 R17
-      233 GETTABLEKS                       R17 R14 K48 ["StartStopPlay"]
-      235 GETTABLEKS                       R19 R14 K48 ["StartStopPlay"]
-      237 GETTABLE                         R18 R15 R19
-      238 SETTABLE                         R18 R16 R17
-      239 GETTABLEKS                       R17 R14 K49 ["GetConsoleOutput"]
-      241 GETTABLEKS                       R19 R14 K49 ["GetConsoleOutput"]
-      243 GETTABLE                         R18 R15 R19
-      244 SETTABLE                         R18 R16 R17
-      245 GETTABLEKS                       R17 R14 K50 ["UserKeyboardInput"]
-      247 GETTABLEKS                       R19 R14 K50 ["UserKeyboardInput"]
-      249 GETTABLE                         R18 R15 R19
-      250 SETTABLE                         R18 R16 R17
-      251 GETTABLEKS                       R17 R14 K51 ["UserMouseInput"]
-      253 GETTABLEKS                       R19 R14 K51 ["UserMouseInput"]
-      255 GETTABLE                         R18 R15 R19
-      256 SETTABLE                         R18 R16 R17
-      257 GETTABLEKS                       R17 R14 K52 ["CharacterNavigation"]
-      259 GETTABLEKS                       R19 R14 K52 ["CharacterNavigation"]
-      261 GETTABLE                         R18 R15 R19
-      262 SETTABLE                         R18 R16 R17
-      263 GETTABLEKS                       R17 R14 K53 ["Skill"]
-      265 GETTABLEKS                       R19 R14 K53 ["Skill"]
-      267 GETTABLE                         R18 R15 R19
-      268 SETTABLE                         R18 R16 R17
-      269 GETTABLEKS                       R17 R14 K54 ["HttpGet"]
-      271 GETTABLEKS                       R19 R14 K54 ["HttpGet"]
-      273 GETTABLE                         R18 R15 R19
-      274 SETTABLE                         R18 R16 R17
-      275 MOVE                             R17 R9
-      276 CALL                             R17 0 1
-      277 JUMPIFNOT                        R17 ; [+24]
-      278 GETTABLEKS                       R17 R14 K55 ["StartMultiPlayerAgents"]
-      280 GETTABLEKS                       R19 R14 K55 ["StartMultiPlayerAgents"]
-      282 GETTABLE                         R18 R15 R19
-      283 SETTABLE                         R18 R16 R17
-      284 GETTABLEKS                       R17 R14 K56 ["StopMultiPlayerAgents"]
-      286 GETTABLEKS                       R19 R14 K56 ["StopMultiPlayerAgents"]
-      288 GETTABLE                         R18 R15 R19
-      289 SETTABLE                         R18 R16 R17
-      290 GETTABLEKS                       R17 R14 K57 ["MultiPlayerAgentsCommunication"]
-      292 GETTABLEKS                       R19 R14 K57 ["MultiPlayerAgentsCommunication"]
-      294 GETTABLE                         R18 R15 R19
-      295 SETTABLE                         R18 R16 R17
-      296 GETTABLEKS                       R17 R14 K58 ["WaitForMultiPlayerAgentsCommunication"]
-      298 GETTABLEKS                       R19 R14 K58 ["WaitForMultiPlayerAgentsCommunication"]
-      300 GETTABLE                         R18 R15 R19
-      301 SETTABLE                         R18 R16 R17
-      302 MOVE                             R17 R5
-      303 CALL                             R17 0 1
-      304 JUMPIFNOT                        R17 ; [+13]
-      305 GETTABLEKS                       R17 R14 K59 ["AssetInsert"]
-      307 GETTABLEKS                       R19 R14 K59 ["AssetInsert"]
-      309 GETTABLE                         R18 R15 R19
-      310 SETTABLE                         R18 R16 R17
-      311 GETTABLEKS                       R17 R14 K60 ["AssetSearch"]
-      313 GETTABLEKS                       R19 R14 K60 ["AssetSearch"]
-      315 GETTABLE                         R18 R15 R19
-      316 SETTABLE                         R18 R16 R17
-      317 JUMP                             ; [+15]
-      318 MOVE                             R17 R6
-      319 CALL                             R17 0 1
-      320 JUMPIF                           R17 ; [+12]
-      321 GETTABLEKS                       R17 R14 K61 ["CreatorStoreSearch"]
-      323 GETTABLEKS                       R19 R14 K61 ["CreatorStoreSearch"]
-      325 GETTABLE                         R18 R15 R19
-      326 SETTABLE                         R18 R16 R17
-      327 GETTABLEKS                       R17 R14 K62 ["CreatorStoreInsert"]
-      329 GETTABLEKS                       R19 R14 K62 ["CreatorStoreInsert"]
-      331 GETTABLE                         R18 R15 R19
-      332 SETTABLE                         R18 R16 R17
-      333 MOVE                             R17 R10
-      334 CALL                             R17 0 1
-      335 JUMPIFNOT                        R17 ; [+6]
-      336 GETTABLEKS                       R17 R14 K63 ["GetStudioState"]
-      338 GETTABLEKS                       R19 R14 K63 ["GetStudioState"]
-      340 GETTABLE                         R18 R15 R19
-      341 SETTABLE                         R18 R16 R17
-      342 MOVE                             R17 R12
-      343 CALL                             R17 0 1
-      344 JUMPIFNOT                        R17 ; [+6]
-      345 GETTABLEKS                       R17 R14 K64 ["VideoCapture"]
-      347 GETTABLEKS                       R19 R14 K64 ["VideoCapture"]
-      349 GETTABLE                         R18 R15 R19
-      350 SETTABLE                         R18 R16 R17
-      351 MOVE                             R17 R11
-      352 CALL                             R17 0 1
-      353 JUMPIFNOT                        R17 ; [+6]
-      354 GETTABLEKS                       R17 R14 K65 ["CreateSkill"]
-      356 GETTABLEKS                       R19 R14 K65 ["CreateSkill"]
-      358 GETTABLE                         R18 R15 R19
-      359 SETTABLE                         R18 R16 R17
-      360 NEWTABLE                         R17 4 0
-      362 GETTABLEKS                       R18 R14 K66 ["ScreenCapture"]
-      364 GETTABLEKS                       R20 R14 K66 ["ScreenCapture"]
-      366 GETTABLE                         R19 R15 R20
-      367 SETTABLE                         R19 R17 R18
-      368 GETTABLEKS                       R18 R14 K67 ["UploadImage"]
-      370 MOVE                             R20 R3
-      371 CALL                             R20 0 1
-      372 JUMPIFNOT                        R20 ; [+4]
-      373 GETTABLEKS                       R20 R14 K67 ["UploadImage"]
-      375 GETTABLE                         R19 R15 R20
-      376 JUMP                             ; [+1]
-      377 LOADNIL                          R19
-      378 SETTABLE                         R19 R17 R18
-      379 GETTABLEKS                       R18 R14 K61 ["CreatorStoreSearch"]
-      381 MOVE                             R20 R6
-      382 CALL                             R20 0 1
-      383 JUMPIFNOT                        R20 ; [+4]
-      384 GETTABLEKS                       R20 R14 K61 ["CreatorStoreSearch"]
-      386 GETTABLE                         R19 R15 R20
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R1 K12 ["Types"]
+       32 GETTABLEKS                       R4 R4 K13 ["AssistantMode"]
+       34 GETTABLEKS                       R5 R1 K14 ["Tools"]
+       36 GETTABLEKS                       R5 R5 K15 ["ToolTypes"]
+       38 GETTABLEKS                       R5 R5 K16 ["ToolNames"]
+       40 GETTABLEKS                       R6 R1 K14 ["Tools"]
+       42 GETTABLEKS                       R6 R6 K17 ["BuiltinTools"]
+       44 NEWTABLE                         R7 32 0
+       46 GETTABLEKS                       R8 R5 K18 ["ExecuteLuau"]
+       48 GETTABLEKS                       R10 R5 K18 ["ExecuteLuau"]
+       50 GETTABLE                         R9 R6 R10
+       51 SETTABLE                         R9 R7 R8
+       52 GETTABLEKS                       R8 R5 K19 ["FileSearch"]
+       54 GETTABLEKS                       R10 R5 K19 ["FileSearch"]
+       56 GETTABLE                         R9 R6 R10
+       57 SETTABLE                         R9 R7 R8
+       58 GETTABLEKS                       R8 R5 K20 ["GameTree"]
+       60 GETTABLEKS                       R10 R5 K20 ["GameTree"]
+       62 GETTABLE                         R9 R6 R10
+       63 SETTABLE                         R9 R7 R8
+       64 GETTABLEKS                       R8 R5 K21 ["GrepSearch"]
+       66 GETTABLEKS                       R10 R5 K21 ["GrepSearch"]
+       68 GETTABLE                         R9 R6 R10
+       69 SETTABLE                         R9 R7 R8
+       70 GETTABLEKS                       R8 R5 K22 ["InspectInstance"]
+       72 GETTABLEKS                       R10 R5 K22 ["InspectInstance"]
+       74 GETTABLE                         R9 R6 R10
+       75 SETTABLE                         R9 R7 R8
+       76 GETTABLEKS                       R8 R5 K23 ["MaterialGen"]
+       78 GETTABLEKS                       R10 R5 K23 ["MaterialGen"]
+       80 GETTABLE                         R9 R6 R10
+       81 SETTABLE                         R9 R7 R8
+       82 GETTABLEKS                       R8 R5 K24 ["AnimationGen"]
+       84 GETTABLEKS                       R10 R3 K25 ["FFlagAssistantAnimationGenTool"]
+       86 JUMPIFNOT                        R10 ; [+4]
+       87 GETTABLEKS                       R10 R5 K24 ["AnimationGen"]
+       89 GETTABLE                         R9 R6 R10
+       90 JUMP                             ; [+1]
+       91 LOADNIL                          R9
+       92 SETTABLE                         R9 R7 R8
+       93 GETTABLEKS                       R8 R5 K26 ["MeshGen"]
+       95 GETTABLEKS                       R10 R5 K26 ["MeshGen"]
+       97 GETTABLE                         R9 R6 R10
+       98 SETTABLE                         R9 R7 R8
+       99 GETTABLEKS                       R8 R5 K27 ["MultiEdit"]
+      101 GETTABLEKS                       R10 R5 K27 ["MultiEdit"]
+      103 GETTABLE                         R9 R6 R10
+      104 SETTABLE                         R9 R7 R8
+      105 GETTABLEKS                       R8 R5 K28 ["ReadFile"]
+      107 GETTABLEKS                       R10 R5 K28 ["ReadFile"]
+      109 GETTABLE                         R9 R6 R10
+      110 SETTABLE                         R9 R7 R8
+      111 GETTABLEKS                       R8 R5 K29 ["PrimitiveGen"]
+      113 GETTABLEKS                       R10 R3 K30 ["EngineFeatureProceduralModel"]
+      115 JUMPIFNOT                        R10 ; [+4]
+      116 GETTABLEKS                       R10 R5 K29 ["PrimitiveGen"]
+      118 GETTABLE                         R9 R6 R10
+      119 JUMP                             ; [+1]
+      120 LOADNIL                          R9
+      121 SETTABLE                         R9 R7 R8
+      122 GETTABLEKS                       R8 R5 K31 ["WaitJobFinished"]
+      124 GETTABLEKS                       R10 R3 K30 ["EngineFeatureProceduralModel"]
+      126 JUMPIFNOT                        R10 ; [+4]
+      127 GETTABLEKS                       R10 R5 K31 ["WaitJobFinished"]
+      129 GETTABLE                         R9 R6 R10
+      130 JUMP                             ; [+1]
+      131 LOADNIL                          R9
+      132 SETTABLE                         R9 R7 R8
+      133 GETTABLEKS                       R8 R5 K32 ["QuestionAnswer"]
+      135 GETTABLEKS                       R10 R5 K32 ["QuestionAnswer"]
+      137 GETTABLE                         R9 R6 R10
+      138 SETTABLE                         R9 R7 R8
+      139 GETTABLEKS                       R8 R5 K33 ["StoreImage"]
+      141 GETTABLEKS                       R10 R5 K33 ["StoreImage"]
+      143 GETTABLE                         R9 R6 R10
+      144 SETTABLE                         R9 R7 R8
+      145 GETTABLEKS                       R8 R5 K34 ["Subagent"]
+      147 GETTABLEKS                       R10 R5 K34 ["Subagent"]
+      149 GETTABLE                         R9 R6 R10
+      150 SETTABLE                         R9 R7 R8
+      151 GETTABLEKS                       R8 R5 K35 ["FinalizePlan"]
+      153 GETTABLEKS                       R10 R5 K35 ["FinalizePlan"]
+      155 GETTABLE                         R9 R6 R10
+      156 SETTABLE                         R9 R7 R8
+      157 GETTABLEKS                       R8 R5 K36 ["CompleteTodoItems"]
+      159 GETTABLEKS                       R10 R5 K36 ["CompleteTodoItems"]
+      161 GETTABLE                         R9 R6 R10
+      162 SETTABLE                         R9 R7 R8
+      163 GETTABLEKS                       R8 R5 K37 ["UpdatePlan"]
+      165 GETTABLEKS                       R10 R3 K38 ["FFlagAssistantMarkdownPlanMode"]
+      167 JUMPIFNOT                        R10 ; [+4]
+      168 GETTABLEKS                       R10 R5 K37 ["UpdatePlan"]
+      170 GETTABLE                         R9 R6 R10
+      171 JUMP                             ; [+1]
+      172 LOADNIL                          R9
+      173 SETTABLE                         R9 R7 R8
+      174 GETTABLEKS                       R8 R5 K39 ["FromHistory"]
+      176 GETTABLEKS                       R10 R5 K39 ["FromHistory"]
+      178 GETTABLE                         R9 R6 R10
+      179 SETTABLE                         R9 R7 R8
+      180 GETTABLEKS                       R8 R5 K40 ["StartStopPlay"]
+      182 GETTABLEKS                       R10 R5 K40 ["StartStopPlay"]
+      184 GETTABLE                         R9 R6 R10
+      185 SETTABLE                         R9 R7 R8
+      186 GETTABLEKS                       R8 R5 K41 ["GetConsoleOutput"]
+      188 GETTABLEKS                       R10 R5 K41 ["GetConsoleOutput"]
+      190 GETTABLE                         R9 R6 R10
+      191 SETTABLE                         R9 R7 R8
+      192 GETTABLEKS                       R8 R5 K42 ["UserKeyboardInput"]
+      194 GETTABLEKS                       R10 R5 K42 ["UserKeyboardInput"]
+      196 GETTABLE                         R9 R6 R10
+      197 SETTABLE                         R9 R7 R8
+      198 GETTABLEKS                       R8 R5 K43 ["UserMouseInput"]
+      200 GETTABLEKS                       R10 R5 K43 ["UserMouseInput"]
+      202 GETTABLE                         R9 R6 R10
+      203 SETTABLE                         R9 R7 R8
+      204 GETTABLEKS                       R8 R5 K44 ["CharacterNavigation"]
+      206 GETTABLEKS                       R10 R5 K44 ["CharacterNavigation"]
+      208 GETTABLE                         R9 R6 R10
+      209 SETTABLE                         R9 R7 R8
+      210 GETTABLEKS                       R8 R5 K45 ["Skill"]
+      212 GETTABLEKS                       R10 R5 K45 ["Skill"]
+      214 GETTABLE                         R9 R6 R10
+      215 SETTABLE                         R9 R7 R8
+      216 GETTABLEKS                       R8 R5 K46 ["HttpGet"]
+      218 GETTABLEKS                       R10 R5 K46 ["HttpGet"]
+      220 GETTABLE                         R9 R6 R10
+      221 SETTABLE                         R9 R7 R8
+      222 GETTABLEKS                       R8 R3 K47 ["FFlagAssistantMultiPlayerAgents"]
+      224 JUMPIFNOT                        R8 ; [+24]
+      225 GETTABLEKS                       R8 R5 K48 ["StartMultiPlayerAgents"]
+      227 GETTABLEKS                       R10 R5 K48 ["StartMultiPlayerAgents"]
+      229 GETTABLE                         R9 R6 R10
+      230 SETTABLE                         R9 R7 R8
+      231 GETTABLEKS                       R8 R5 K49 ["StopMultiPlayerAgents"]
+      233 GETTABLEKS                       R10 R5 K49 ["StopMultiPlayerAgents"]
+      235 GETTABLE                         R9 R6 R10
+      236 SETTABLE                         R9 R7 R8
+      237 GETTABLEKS                       R8 R5 K50 ["MultiPlayerAgentsCommunication"]
+      239 GETTABLEKS                       R10 R5 K50 ["MultiPlayerAgentsCommunication"]
+      241 GETTABLE                         R9 R6 R10
+      242 SETTABLE                         R9 R7 R8
+      243 GETTABLEKS                       R8 R5 K51 ["WaitForMultiPlayerAgentsCommunication"]
+      245 GETTABLEKS                       R10 R5 K51 ["WaitForMultiPlayerAgentsCommunication"]
+      247 GETTABLE                         R9 R6 R10
+      248 SETTABLE                         R9 R7 R8
+      249 GETTABLEKS                       R8 R3 K52 ["FFlagAssistantAssetSearchInsertTool"]
+      251 JUMPIFNOT                        R8 ; [+13]
+      252 GETTABLEKS                       R8 R5 K53 ["AssetInsert"]
+      254 GETTABLEKS                       R10 R5 K53 ["AssetInsert"]
+      256 GETTABLE                         R9 R6 R10
+      257 SETTABLE                         R9 R7 R8
+      258 GETTABLEKS                       R8 R5 K54 ["AssetSearch"]
+      260 GETTABLEKS                       R10 R5 K54 ["AssetSearch"]
+      262 GETTABLE                         R9 R6 R10
+      263 SETTABLE                         R9 R7 R8
+      264 JUMP                             ; [+15]
+      265 GETTABLEKS                       R8 R3 K55 ["FFlagAssistantAssetSearchInsertToolABTest"]
+      267 JUMPIF                           R8 ; [+12]
+      268 GETTABLEKS                       R8 R5 K56 ["CreatorStoreSearch"]
+      270 GETTABLEKS                       R10 R5 K56 ["CreatorStoreSearch"]
+      272 GETTABLE                         R9 R6 R10
+      273 SETTABLE                         R9 R7 R8
+      274 GETTABLEKS                       R8 R5 K57 ["CreatorStoreInsert"]
+      276 GETTABLEKS                       R10 R5 K57 ["CreatorStoreInsert"]
+      278 GETTABLE                         R9 R6 R10
+      279 SETTABLE                         R9 R7 R8
+      280 GETTABLEKS                       R8 R3 K58 ["FFlagAssistantGetStudioState"]
+      282 JUMPIFNOT                        R8 ; [+6]
+      283 GETTABLEKS                       R8 R5 K59 ["GetStudioState"]
+      285 GETTABLEKS                       R10 R5 K59 ["GetStudioState"]
+      287 GETTABLE                         R9 R6 R10
+      288 SETTABLE                         R9 R7 R8
+      289 GETTABLEKS                       R8 R3 K60 ["FFlagAssistantVideoCaptureTool"]
+      291 JUMPIFNOT                        R8 ; [+6]
+      292 GETTABLEKS                       R8 R5 K61 ["VideoCapture"]
+      294 GETTABLEKS                       R10 R5 K61 ["VideoCapture"]
+      296 GETTABLE                         R9 R6 R10
+      297 SETTABLE                         R9 R7 R8
+      298 GETTABLEKS                       R8 R3 K62 ["FFlagAssistantUserSkills"]
+      300 JUMPIFNOT                        R8 ; [+12]
+      301 GETTABLEKS                       R8 R5 K63 ["CreateSkill"]
+      303 GETTABLEKS                       R10 R5 K63 ["CreateSkill"]
+      305 GETTABLE                         R9 R6 R10
+      306 SETTABLE                         R9 R7 R8
+      307 GETTABLEKS                       R8 R5 K64 ["EditSkill"]
+      309 GETTABLEKS                       R10 R5 K64 ["EditSkill"]
+      311 GETTABLE                         R9 R6 R10
+      312 SETTABLE                         R9 R7 R8
+      313 NEWTABLE                         R8 4 0
+      315 GETTABLEKS                       R9 R5 K65 ["ScreenCapture"]
+      317 GETTABLEKS                       R11 R5 K65 ["ScreenCapture"]
+      319 GETTABLE                         R10 R6 R11
+      320 SETTABLE                         R10 R8 R9
+      321 GETTABLEKS                       R9 R5 K66 ["UploadImage"]
+      323 GETTABLEKS                       R11 R3 K67 ["FFlagEnableAssistantImageUpload"]
+      325 JUMPIFNOT                        R11 ; [+4]
+      326 GETTABLEKS                       R11 R5 K66 ["UploadImage"]
+      328 GETTABLE                         R10 R6 R11
+      329 JUMP                             ; [+1]
+      330 LOADNIL                          R10
+      331 SETTABLE                         R10 R8 R9
+      332 GETTABLEKS                       R9 R5 K56 ["CreatorStoreSearch"]
+      334 GETTABLEKS                       R11 R3 K55 ["FFlagAssistantAssetSearchInsertToolABTest"]
+      336 JUMPIFNOT                        R11 ; [+4]
+      337 GETTABLEKS                       R11 R5 K56 ["CreatorStoreSearch"]
+      339 GETTABLE                         R10 R6 R11
+      340 JUMP                             ; [+1]
+      341 LOADNIL                          R10
+      342 SETTABLE                         R10 R8 R9
+      343 GETTABLEKS                       R9 R5 K57 ["CreatorStoreInsert"]
+      345 GETTABLEKS                       R11 R3 K55 ["FFlagAssistantAssetSearchInsertToolABTest"]
+      347 JUMPIFNOT                        R11 ; [+4]
+      348 GETTABLEKS                       R11 R5 K57 ["CreatorStoreInsert"]
+      350 GETTABLE                         R10 R6 R11
+      351 JUMP                             ; [+1]
+      352 LOADNIL                          R10
+      353 SETTABLE                         R10 R8 R9
+      354 NEWTABLE                         R9 1 0
+      356 GETTABLEKS                       R10 R2 K68 ["FeatureNames"]
+      358 GETTABLEKS                       R10 R10 K69 ["NewAssetToolSet"]
+      360 NEWTABLE                         R11 2 0
+      362 GETTABLEKS                       R12 R5 K53 ["AssetInsert"]
+      364 GETTABLEKS                       R14 R3 K55 ["FFlagAssistantAssetSearchInsertToolABTest"]
+      366 JUMPIFNOT                        R14 ; [+7]
+      367 GETTABLEKS                       R14 R3 K52 ["FFlagAssistantAssetSearchInsertTool"]
+      369 JUMPIF                           R14 ; [+4]
+      370 GETTABLEKS                       R14 R5 K53 ["AssetInsert"]
+      372 GETTABLE                         R13 R6 R14
+      373 JUMP                             ; [+1]
+      374 LOADNIL                          R13
+      375 SETTABLE                         R13 R11 R12
+      376 GETTABLEKS                       R12 R5 K54 ["AssetSearch"]
+      378 GETTABLEKS                       R14 R3 K55 ["FFlagAssistantAssetSearchInsertToolABTest"]
+      380 JUMPIFNOT                        R14 ; [+7]
+      381 GETTABLEKS                       R14 R3 K52 ["FFlagAssistantAssetSearchInsertTool"]
+      383 JUMPIF                           R14 ; [+4]
+      384 GETTABLEKS                       R14 R5 K54 ["AssetSearch"]
+      386 GETTABLE                         R13 R6 R14
       387 JUMP                             ; [+1]
-      388 LOADNIL                          R19
-      389 SETTABLE                         R19 R17 R18
-      390 GETTABLEKS                       R18 R14 K62 ["CreatorStoreInsert"]
-      392 MOVE                             R20 R6
-      393 CALL                             R20 0 1
-      394 JUMPIFNOT                        R20 ; [+4]
-      395 GETTABLEKS                       R20 R14 K62 ["CreatorStoreInsert"]
-      397 GETTABLE                         R19 R15 R20
-      398 JUMP                             ; [+1]
-      399 LOADNIL                          R19
-      400 SETTABLE                         R19 R17 R18
-      401 NEWTABLE                         R18 1 0
-      403 GETTABLEKS                       R19 R2 K68 ["FeatureNames"]
-      405 GETTABLEKS                       R19 R19 K69 ["NewAssetToolSet"]
-      407 NEWTABLE                         R20 2 0
-      409 GETTABLEKS                       R21 R14 K59 ["AssetInsert"]
-      411 MOVE                             R23 R6
-      412 CALL                             R23 0 1
-      413 JUMPIFNOT                        R23 ; [+7]
-      414 MOVE                             R23 R5
-      415 CALL                             R23 0 1
-      416 JUMPIF                           R23 ; [+4]
-      417 GETTABLEKS                       R23 R14 K59 ["AssetInsert"]
-      419 GETTABLE                         R22 R15 R23
-      420 JUMP                             ; [+1]
-      421 LOADNIL                          R22
-      422 SETTABLE                         R22 R20 R21
-      423 GETTABLEKS                       R21 R14 K60 ["AssetSearch"]
-      425 MOVE                             R23 R6
-      426 CALL                             R23 0 1
-      427 JUMPIFNOT                        R23 ; [+7]
-      428 MOVE                             R23 R5
-      429 CALL                             R23 0 1
-      430 JUMPIF                           R23 ; [+4]
-      431 GETTABLEKS                       R23 R14 K60 ["AssetSearch"]
-      433 GETTABLE                         R22 R15 R23
-      434 JUMP                             ; [+1]
-      435 LOADNIL                          R22
-      436 SETTABLE                         R22 R20 R21
-      437 SETTABLE                         R20 R18 R19
-      438 NEWTABLE                         R19 1 0
-      440 GETTABLEKS                       R20 R13 K70 ["Agent"]
-      442 NEWTABLE                         R21 0 32
-      444 GETTABLEKS                       R22 R14 K29 ["ExecuteLuau"]
-      446 GETTABLEKS                       R23 R14 K30 ["FileSearch"]
-      448 GETTABLEKS                       R24 R14 K31 ["GameTree"]
-      450 GETTABLEKS                       R25 R14 K32 ["GrepSearch"]
-      452 GETTABLEKS                       R26 R14 K62 ["CreatorStoreInsert"]
-      454 GETTABLEKS                       R27 R14 K61 ["CreatorStoreSearch"]
-      456 GETTABLEKS                       R28 R14 K59 ["AssetInsert"]
-      458 GETTABLEKS                       R29 R14 K60 ["AssetSearch"]
-      460 GETTABLEKS                       R30 R14 K33 ["InspectInstance"]
-      462 GETTABLEKS                       R31 R14 K34 ["MaterialGen"]
-      464 GETTABLEKS                       R32 R14 K36 ["MeshGen"]
-      466 GETTABLEKS                       R33 R14 K37 ["MultiEdit"]
-      468 GETTABLEKS                       R34 R14 K38 ["ReadFile"]
-      470 GETTABLEKS                       R35 R14 K39 ["PrimitiveGen"]
-      472 GETTABLEKS                       R36 R14 K53 ["Skill"]
-      474 GETTABLEKS                       R37 R14 K43 ["Subagent"]
-      476 SETLIST                          R21 R22 16 [1]
-      478 GETTABLEKS                       R22 R14 K66 ["ScreenCapture"]
-      480 GETTABLEKS                       R23 R14 K67 ["UploadImage"]
-      482 GETTABLEKS                       R24 R14 K55 ["StartMultiPlayerAgents"]
-      484 GETTABLEKS                       R25 R14 K56 ["StopMultiPlayerAgents"]
-      486 GETTABLEKS                       R26 R14 K57 ["MultiPlayerAgentsCommunication"]
-      488 GETTABLEKS                       R27 R14 K58 ["WaitForMultiPlayerAgentsCommunication"]
-      490 GETTABLEKS                       R28 R14 K54 ["HttpGet"]
-      492 GETTABLEKS                       R29 R14 K47 ["FromHistory"]
-      494 GETTABLEKS                       R30 R14 K48 ["StartStopPlay"]
-      496 GETTABLEKS                       R31 R14 K49 ["GetConsoleOutput"]
-      498 GETTABLEKS                       R32 R14 K50 ["UserKeyboardInput"]
-      500 GETTABLEKS                       R33 R14 K51 ["UserMouseInput"]
-      502 GETTABLEKS                       R34 R14 K52 ["CharacterNavigation"]
-      504 GETTABLEKS                       R35 R14 K64 ["VideoCapture"]
-      506 GETTABLEKS                       R36 R14 K41 ["QuestionAnswer"]
-      508 GETTABLEKS                       R37 R14 K45 ["CompleteTodoItems"]
-      510 SETLIST                          R21 R22 16 [17]
-      512 SETTABLE                         R21 R19 R20
-      513 MOVE                             R20 R10
-      514 CALL                             R20 0 1
-      515 JUMPIFNOT                        R20 ; [+10]
-      516 GETTABLEKS                       R22 R13 K70 ["Agent"]
-      518 GETTABLE                         R21 R19 R22
-      519 GETTABLEKS                       R22 R14 K63 ["GetStudioState"]
-      521 FASTCALL2                        TABLE_INSERT R21 R22 ; [+3]
-      523 GETIMPORT                        R20 K73 [table.insert]
-      525 CALL                             R20 2 0
-      526 GETTABLEKS                       R22 R13 K70 ["Agent"]
-      528 GETTABLE                         R21 R19 R22
-      529 GETTABLEKS                       R22 R14 K42 ["StoreImage"]
-      531 FASTCALL2                        TABLE_INSERT R21 R22 ; [+3]
-      533 GETIMPORT                        R20 K73 [table.insert]
-      535 CALL                             R20 2 0
-      536 MOVE                             R20 R8
-      537 CALL                             R20 0 1
-      538 JUMPIFNOT                        R20 ; [+10]
-      539 GETTABLEKS                       R22 R13 K70 ["Agent"]
-      541 GETTABLE                         R21 R19 R22
-      542 GETTABLEKS                       R22 R14 K35 ["AnimationGen"]
-      544 FASTCALL2                        TABLE_INSERT R21 R22 ; [+3]
-      546 GETIMPORT                        R20 K73 [table.insert]
-      548 CALL                             R20 2 0
-      549 MOVE                             R20 R4
-      550 CALL                             R20 0 1
-      551 JUMPIFNOT                        R20 ; [+10]
-      552 GETTABLEKS                       R22 R13 K70 ["Agent"]
-      554 GETTABLE                         R21 R19 R22
-      555 GETTABLEKS                       R22 R14 K40 ["WaitJobFinished"]
-      557 FASTCALL2                        TABLE_INSERT R21 R22 ; [+3]
-      559 GETIMPORT                        R20 K73 [table.insert]
-      561 CALL                             R20 2 0
-      562 MOVE                             R20 R7
-      563 CALL                             R20 0 1
-      564 JUMPIFNOT                        R20 ; [+10]
-      565 GETTABLEKS                       R22 R13 K70 ["Agent"]
-      567 GETTABLE                         R21 R19 R22
-      568 GETTABLEKS                       R22 R14 K46 ["UpdatePlan"]
-      570 FASTCALL2                        TABLE_INSERT R21 R22 ; [+3]
-      572 GETIMPORT                        R20 K73 [table.insert]
-      574 CALL                             R20 2 0
-      575 MOVE                             R20 R11
-      576 CALL                             R20 0 1
-      577 JUMPIFNOT                        R20 ; [+10]
-      578 GETTABLEKS                       R22 R13 K70 ["Agent"]
-      580 GETTABLE                         R21 R19 R22
-      581 GETTABLEKS                       R22 R14 K65 ["CreateSkill"]
-      583 FASTCALL2                        TABLE_INSERT R21 R22 ; [+3]
-      585 GETIMPORT                        R20 K73 [table.insert]
-      587 CALL                             R20 2 0
-      588 GETTABLEKS                       R20 R13 K74 ["Plan"]
-      590 NEWTABLE                         R21 0 9
-      592 GETTABLEKS                       R22 R14 K38 ["ReadFile"]
-      594 GETTABLEKS                       R23 R14 K30 ["FileSearch"]
-      596 GETTABLEKS                       R24 R14 K32 ["GrepSearch"]
-      598 GETTABLEKS                       R25 R14 K31 ["GameTree"]
-      600 GETTABLEKS                       R26 R14 K33 ["InspectInstance"]
-      602 GETTABLEKS                       R27 R14 K66 ["ScreenCapture"]
-      604 GETTABLEKS                       R28 R14 K41 ["QuestionAnswer"]
-      606 GETTABLEKS                       R29 R14 K44 ["FinalizePlan"]
-      608 MOVE                             R31 R7
-      609 CALL                             R31 0 1
-      610 JUMPIFNOT                        R31 ; [+3]
-      611 GETTABLEKS                       R30 R14 K46 ["UpdatePlan"]
-      613 JUMP                             ; [+1]
-      614 LOADNIL                          R30
-      615 SETLIST                          R21 R22 9 [1]
-      617 SETTABLE                         R21 R19 R20
-      618 NEWTABLE                         R20 0 15
-      620 GETTABLEKS                       R21 R14 K29 ["ExecuteLuau"]
-      622 GETTABLEKS                       R22 R14 K30 ["FileSearch"]
-      624 GETTABLEKS                       R23 R14 K31 ["GameTree"]
-      626 GETTABLEKS                       R24 R14 K32 ["GrepSearch"]
-      628 GETTABLEKS                       R25 R14 K33 ["InspectInstance"]
-      630 GETTABLEKS                       R26 R14 K38 ["ReadFile"]
-      632 GETTABLEKS                       R27 R14 K53 ["Skill"]
-      634 GETTABLEKS                       R28 R14 K43 ["Subagent"]
-      636 GETTABLEKS                       R29 R14 K66 ["ScreenCapture"]
-      638 GETTABLEKS                       R30 R14 K49 ["GetConsoleOutput"]
-      640 GETTABLEKS                       R31 R14 K50 ["UserKeyboardInput"]
-      642 GETTABLEKS                       R32 R14 K51 ["UserMouseInput"]
-      644 GETTABLEKS                       R33 R14 K52 ["CharacterNavigation"]
-      646 GETTABLEKS                       R34 R14 K57 ["MultiPlayerAgentsCommunication"]
-      648 GETTABLEKS                       R35 R14 K58 ["WaitForMultiPlayerAgentsCommunication"]
-      650 SETLIST                          R20 R21 15 [1]
-      652 MOVE                             R21 R10
-      653 CALL                             R21 0 1
-      654 JUMPIFNOT                        R21 ; [+8]
-      655 GETTABLEKS                       R23 R14 K63 ["GetStudioState"]
-      657 FASTCALL2                        TABLE_INSERT R20 R23 ; [+4]
-      659 MOVE                             R22 R20
-      660 GETIMPORT                        R21 K73 [table.insert]
-      662 CALL                             R21 2 0
-      663 DUPTABLE                         R21 K80 [{"DefaultTools", "ExperimentalTools", "ExperimentFeatureTools", "AssistantModeToolsAllowlist", "MultiPlayerTestTools"}]
-      664 SETTABLEKS                       R16 R21 K75 ["DefaultTools"]
-      666 SETTABLEKS                       R17 R21 K76 ["ExperimentalTools"]
-      668 SETTABLEKS                       R18 R21 K77 ["ExperimentFeatureTools"]
-      670 SETTABLEKS                       R19 R21 K78 ["AssistantModeToolsAllowlist"]
-      672 SETTABLEKS                       R20 R21 K79 ["MultiPlayerTestTools"]
-      674 RETURN                           R21 1
+      388 LOADNIL                          R13
+      389 SETTABLE                         R13 R11 R12
+      390 SETTABLE                         R11 R9 R10
+      391 NEWTABLE                         R10 1 0
+      393 GETTABLEKS                       R11 R4 K70 ["Agent"]
+      395 NEWTABLE                         R12 0 32
+      397 GETTABLEKS                       R13 R5 K18 ["ExecuteLuau"]
+      399 GETTABLEKS                       R14 R5 K19 ["FileSearch"]
+      401 GETTABLEKS                       R15 R5 K20 ["GameTree"]
+      403 GETTABLEKS                       R16 R5 K21 ["GrepSearch"]
+      405 GETTABLEKS                       R17 R5 K57 ["CreatorStoreInsert"]
+      407 GETTABLEKS                       R18 R5 K56 ["CreatorStoreSearch"]
+      409 GETTABLEKS                       R19 R5 K53 ["AssetInsert"]
+      411 GETTABLEKS                       R20 R5 K54 ["AssetSearch"]
+      413 GETTABLEKS                       R21 R5 K22 ["InspectInstance"]
+      415 GETTABLEKS                       R22 R5 K23 ["MaterialGen"]
+      417 GETTABLEKS                       R23 R5 K26 ["MeshGen"]
+      419 GETTABLEKS                       R24 R5 K27 ["MultiEdit"]
+      421 GETTABLEKS                       R25 R5 K28 ["ReadFile"]
+      423 GETTABLEKS                       R26 R5 K29 ["PrimitiveGen"]
+      425 GETTABLEKS                       R27 R5 K45 ["Skill"]
+      427 GETTABLEKS                       R28 R5 K34 ["Subagent"]
+      429 SETLIST                          R12 R13 16 [1]
+      431 GETTABLEKS                       R13 R5 K65 ["ScreenCapture"]
+      433 GETTABLEKS                       R14 R5 K66 ["UploadImage"]
+      435 GETTABLEKS                       R15 R5 K48 ["StartMultiPlayerAgents"]
+      437 GETTABLEKS                       R16 R5 K49 ["StopMultiPlayerAgents"]
+      439 GETTABLEKS                       R17 R5 K50 ["MultiPlayerAgentsCommunication"]
+      441 GETTABLEKS                       R18 R5 K51 ["WaitForMultiPlayerAgentsCommunication"]
+      443 GETTABLEKS                       R19 R5 K46 ["HttpGet"]
+      445 GETTABLEKS                       R20 R5 K39 ["FromHistory"]
+      447 GETTABLEKS                       R21 R5 K40 ["StartStopPlay"]
+      449 GETTABLEKS                       R22 R5 K41 ["GetConsoleOutput"]
+      451 GETTABLEKS                       R23 R5 K42 ["UserKeyboardInput"]
+      453 GETTABLEKS                       R24 R5 K43 ["UserMouseInput"]
+      455 GETTABLEKS                       R25 R5 K44 ["CharacterNavigation"]
+      457 GETTABLEKS                       R26 R5 K61 ["VideoCapture"]
+      459 GETTABLEKS                       R27 R5 K32 ["QuestionAnswer"]
+      461 GETTABLEKS                       R28 R5 K36 ["CompleteTodoItems"]
+      463 SETLIST                          R12 R13 16 [17]
+      465 SETTABLE                         R12 R10 R11
+      466 GETTABLEKS                       R11 R3 K58 ["FFlagAssistantGetStudioState"]
+      468 JUMPIFNOT                        R11 ; [+10]
+      469 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      471 GETTABLE                         R12 R10 R13
+      472 GETTABLEKS                       R13 R5 K59 ["GetStudioState"]
+      474 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      476 GETIMPORT                        R11 K73 [table.insert]
+      478 CALL                             R11 2 0
+      479 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      481 GETTABLE                         R12 R10 R13
+      482 GETTABLEKS                       R13 R5 K33 ["StoreImage"]
+      484 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      486 GETIMPORT                        R11 K73 [table.insert]
+      488 CALL                             R11 2 0
+      489 GETTABLEKS                       R11 R3 K25 ["FFlagAssistantAnimationGenTool"]
+      491 JUMPIFNOT                        R11 ; [+10]
+      492 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      494 GETTABLE                         R12 R10 R13
+      495 GETTABLEKS                       R13 R5 K24 ["AnimationGen"]
+      497 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      499 GETIMPORT                        R11 K73 [table.insert]
+      501 CALL                             R11 2 0
+      502 GETTABLEKS                       R11 R3 K30 ["EngineFeatureProceduralModel"]
+      504 JUMPIFNOT                        R11 ; [+10]
+      505 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      507 GETTABLE                         R12 R10 R13
+      508 GETTABLEKS                       R13 R5 K31 ["WaitJobFinished"]
+      510 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      512 GETIMPORT                        R11 K73 [table.insert]
+      514 CALL                             R11 2 0
+      515 GETTABLEKS                       R11 R3 K38 ["FFlagAssistantMarkdownPlanMode"]
+      517 JUMPIFNOT                        R11 ; [+10]
+      518 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      520 GETTABLE                         R12 R10 R13
+      521 GETTABLEKS                       R13 R5 K37 ["UpdatePlan"]
+      523 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      525 GETIMPORT                        R11 K73 [table.insert]
+      527 CALL                             R11 2 0
+      528 GETTABLEKS                       R11 R3 K62 ["FFlagAssistantUserSkills"]
+      530 JUMPIFNOT                        R11 ; [+20]
+      531 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      533 GETTABLE                         R12 R10 R13
+      534 GETTABLEKS                       R13 R5 K63 ["CreateSkill"]
+      536 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      538 GETIMPORT                        R11 K73 [table.insert]
+      540 CALL                             R11 2 0
+      541 GETTABLEKS                       R13 R4 K70 ["Agent"]
+      543 GETTABLE                         R12 R10 R13
+      544 GETTABLEKS                       R13 R5 K64 ["EditSkill"]
+      546 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      548 GETIMPORT                        R11 K73 [table.insert]
+      550 CALL                             R11 2 0
+      551 GETTABLEKS                       R11 R4 K74 ["Plan"]
+      553 NEWTABLE                         R12 0 9
+      555 GETTABLEKS                       R13 R5 K28 ["ReadFile"]
+      557 GETTABLEKS                       R14 R5 K19 ["FileSearch"]
+      559 GETTABLEKS                       R15 R5 K21 ["GrepSearch"]
+      561 GETTABLEKS                       R16 R5 K20 ["GameTree"]
+      563 GETTABLEKS                       R17 R5 K22 ["InspectInstance"]
+      565 GETTABLEKS                       R18 R5 K65 ["ScreenCapture"]
+      567 GETTABLEKS                       R19 R5 K32 ["QuestionAnswer"]
+      569 GETTABLEKS                       R20 R5 K35 ["FinalizePlan"]
+      571 GETTABLEKS                       R22 R3 K38 ["FFlagAssistantMarkdownPlanMode"]
+      573 JUMPIFNOT                        R22 ; [+3]
+      574 GETTABLEKS                       R21 R5 K37 ["UpdatePlan"]
+      576 JUMP                             ; [+1]
+      577 LOADNIL                          R21
+      578 SETLIST                          R12 R13 9 [1]
+      580 SETTABLE                         R12 R10 R11
+      581 NEWTABLE                         R11 0 15
+      583 GETTABLEKS                       R12 R5 K18 ["ExecuteLuau"]
+      585 GETTABLEKS                       R13 R5 K19 ["FileSearch"]
+      587 GETTABLEKS                       R14 R5 K20 ["GameTree"]
+      589 GETTABLEKS                       R15 R5 K21 ["GrepSearch"]
+      591 GETTABLEKS                       R16 R5 K22 ["InspectInstance"]
+      593 GETTABLEKS                       R17 R5 K28 ["ReadFile"]
+      595 GETTABLEKS                       R18 R5 K45 ["Skill"]
+      597 GETTABLEKS                       R19 R5 K34 ["Subagent"]
+      599 GETTABLEKS                       R20 R5 K65 ["ScreenCapture"]
+      601 GETTABLEKS                       R21 R5 K41 ["GetConsoleOutput"]
+      603 GETTABLEKS                       R22 R5 K42 ["UserKeyboardInput"]
+      605 GETTABLEKS                       R23 R5 K43 ["UserMouseInput"]
+      607 GETTABLEKS                       R24 R5 K44 ["CharacterNavigation"]
+      609 GETTABLEKS                       R25 R5 K50 ["MultiPlayerAgentsCommunication"]
+      611 GETTABLEKS                       R26 R5 K51 ["WaitForMultiPlayerAgentsCommunication"]
+      613 SETLIST                          R11 R12 15 [1]
+      615 GETTABLEKS                       R12 R3 K58 ["FFlagAssistantGetStudioState"]
+      617 JUMPIFNOT                        R12 ; [+8]
+      618 GETTABLEKS                       R14 R5 K59 ["GetStudioState"]
+      620 FASTCALL2                        TABLE_INSERT R11 R14 ; [+4]
+      622 MOVE                             R13 R11
+      623 GETIMPORT                        R12 K73 [table.insert]
+      625 CALL                             R12 2 0
+      626 DUPTABLE                         R12 K80 [{"DefaultTools", "ExperimentalTools", "ExperimentFeatureTools", "AssistantModeToolsAllowlist", "MultiPlayerTestTools"}]
+      627 SETTABLEKS                       R7 R12 K75 ["DefaultTools"]
+      629 SETTABLEKS                       R8 R12 K76 ["ExperimentalTools"]
+      631 SETTABLEKS                       R9 R12 K77 ["ExperimentFeatureTools"]
+      633 SETTABLEKS                       R10 R12 K78 ["AssistantModeToolsAllowlist"]
+      635 SETTABLEKS                       R11 R12 K79 ["MultiPlayerTestTools"]
+      637 RETURN                           R12 1
