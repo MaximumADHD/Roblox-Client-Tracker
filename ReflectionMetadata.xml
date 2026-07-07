@@ -4933,6 +4933,12 @@
             <string name="Name">UseAudioApi</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">EnableVoiceVolumeControls</string>
+            <string name="FFlag">VoiceVolumeControlsEnableCreatorVoiceVolumeOptOut</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 

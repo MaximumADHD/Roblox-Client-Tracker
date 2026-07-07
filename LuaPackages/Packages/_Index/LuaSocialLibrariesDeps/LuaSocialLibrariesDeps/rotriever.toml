@@ -1,6 +1,6 @@
 [package]
 name = "LuaSocialLibrariesDeps"
-version = "1.10.0"
+version = "2.0.0"
 readme = "README.md"
 content_root = "src"
 files = ["*"]
@@ -95,10 +95,6 @@ version = "^2.2.0"
 [dependencies.RoduxCall]
 target = "https://github.com/roblox/rodux-call"
 version = "^1.18.0"
-
-[dependencies.RoduxContacts]
-target = "https://github.com/roblox/rodux-contacts"
-version = "^0.8.2"
 
 [dependencies.RoduxFriends]
 target = "https://github.com/roblox/rodux-friends"

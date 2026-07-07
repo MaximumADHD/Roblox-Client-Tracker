@@ -14,9 +14,16 @@ To start, lets create a fake validation that ensures all layered clothing Access
 
 1. Open `src/validationSystem/ValidationEnums.lua`, and find `ValidationEnums.ValidationModule`. The first step is to add a well named enum for our validation, something creative like `AccessoryIsNamedAccessory`. Add `AccessoryIsNamedAccessory = "AccessoryIsNamedAccessory"` to the bottom of the table. 
 2. Now that the enum exists, the module runner will expect to find a module with that name. Create `src/validationFolders/AccessoryIsNamedAccessory/AccessoryIsNamedAccessory.lua`. We create a folder instead of just the lua module so that we can group the validation, unit tests, and documentation all into the same folder.
-3. Before we can add the validation, lets create the error message and have it ready. Turn on the vpn and go to the translation hub, select namespace `Common.UGCValidation`, and add a new string. The key name should follow `ErrorLabel.YourCoolAnything`. Since this is a mock validation, do not mark it for translation. Otherwise, mark this string for `Studio` and `InGameContent`, and have it ready for translation. Make it public before we publish a new UGCValidation version.
-4. Once you decide on your error string, lets fetch it so we have a backup. While on VPN, run `python3 PythonHelpers/createBackupTranslations.py`.  
-3. Now lets write the test! Here is a basic template
+3. Before we can add the validation, lets create the error message. From a devspace (or on VPN), author it directly in the Translations Hub — and add the matching mirror entry — with one command:
+
+   ```bash
+   python3 PythonHelpers/syncTranslations.py --draft YourCoolAnything "Your asset is invalid because {Reason}." --description "Context for translators: shown when ..."
+   ```
+
+   This registers a **hidden draft** (`isLive=false`, `isReadyForTranslation=false`) in namespace `Common.UGCValidation` under key `ErrorLabel.YourCoolAnything`, associates it with the `Studio` and `RobloxInGameContent` consumers, and appends the key + English fallback to `src/validationSystem/ErrorSourceStrings.lua`. Commit that file change alongside your module.
+
+   The **Translations Hub is the source of truth**; `ErrorSourceStrings.lua` is a generated mirror + runtime fallback. `--draft` is the easy path, but authoring is open: you can instead create the draft in the Hub UI and hand-add the matching `Keys` + `Values` rows to the file — CI's `verify` only checks that each key the PR added is under `Common.UGCValidation` and **already exists** in the Hub (not the English text). That `verify` check blocks the merge until every added string has been pushed as a draft; **merging then flips those keys to live + ready for translation** (see `.github/workflows/sync-translations.yml`). For a mock/throwaway validation, just don't merge it — nothing reaches translators until merge.
+4. Now lets write the test! Here is a basic template
 
 ```lua
 local root = script.Parent.Parent.Parent

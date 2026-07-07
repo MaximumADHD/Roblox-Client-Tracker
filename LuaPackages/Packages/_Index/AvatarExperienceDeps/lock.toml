@@ -2,4 +2,4 @@
 name = "AvatarExperienceDeps"
 version = "0.0.1"
 source = "registry"
-dependencies = ["RoactFitComponents RoactFitComponents 2.0.0 registry"]
+dependencies = ["RoactFitComponents RoactFitComponents 2.0.1 registry"]

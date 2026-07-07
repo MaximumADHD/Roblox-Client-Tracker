@@ -6,6 +6,6 @@ dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Otter Otter 1.3.7 registry",
-    "Promise <patched> Promise 3.5.1 registry",
+    "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
 ]

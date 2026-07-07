@@ -1,0 +1,35 @@
+[package]
+name = "GenericPagination"
+version = "0.1.1"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+license = "MIT"
+[dependencies.Promise]
+target = "https://github.com/roblox/roblox-lua-promise"
+version = "^3.3.0"
+
+[dependencies.t]
+target = "https://github.com/roblox/t"
+version = "^1.2.5"
+[dev_dependencies.Cryo]
+target = "https://github.com/roblox/cryo"
+version = "^1.0"
+
+[dev_dependencies.InfiniteScroll]
+target = "https://github.com/roblox/infinite-scroller"
+package = "InfiniteScroller"
+version = "^0.8.0"
+
+[dev_dependencies.Roact]
+target = "https://github.com/roblox/roact"
+version = "^1.4"
+
+[dev_dependencies.RoactCompat]
+target = "https://github.com/roblox/roact-alignment"
+version = "^17.0.1-rc.2"
+
+[dev_dependencies.TestEZ]
+target = "https://github.com/roblox/testez"
+version = "^0.4.1"

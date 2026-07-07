@@ -1,0 +1,28 @@
+[package]
+name = "RoactFitComponents"
+version = "2.0.1"
+readme = "README.md"
+content_root = "src"
+files = ["*"]
+publish = true
+authors = ["Benj Brimeyer"]
+license = "MIT"
+[dependencies.Cryo]
+target = "https://github.com/roblox/cryo"
+version = "^1.1.0"
+
+[dependencies.Roact]
+target = "https://github.com/roblox/roact-alignment"
+package = "RoactCompat"
+version = "^17.0.1-rc.16"
+[dev_dependencies.Jest]
+target = "https://github.com/roblox/jest-roblox"
+version = "^3.0.0"
+
+[dev_dependencies.JestGlobals]
+target = "https://github.com/roblox/jest-roblox"
+version = "^3.0.0"
+
+[dev_dependencies.ReactRoblox]
+target = "https://github.com/roblox/roact-alignment"
+version = "^17.0.1-rc.16"
