@@ -285,7 +285,9 @@ InstancedCopy,Compute
 InstancedDebugGarbage,Compute
 InstancedUploadFull,Compute
 LanczosNonRingingFS,Fragment
+LanczosNonRingingWatermarkFS,Fragment
 LanczosSubpixelFS,Fragment
+LanczosSubpixelWatermarkFS,Fragment
 LightGridCullAccumAndCreateMaskCS,Compute
 LightGridCullClearCS,Compute
 LightGridCullCountOffsetCS,Compute
@@ -296,6 +298,7 @@ LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthBufferFS,Fragment
 LinearizeDepthFS,Fragment
+Memcpy48CS,Compute
 ModelLodDepthFS,Fragment
 ModelLodDepthVS,Vertex
 motionBufferDepthASWHack,Fragment
@@ -334,6 +337,7 @@ ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughClampedFS,Fragment
+PassThroughClampedWatermarkFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
@@ -345,6 +349,7 @@ PassThroughRotationVS,Vertex
 PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
+PassThroughWatermarkFS,Fragment
 PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
 PerformanceOverlayLightVS,Vertex
@@ -359,6 +364,7 @@ RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
 ReprojectFilterClippedFS,Fragment
 ReprojectFilterFS,Fragment
+ScatterMemcpy48CS,Compute
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHoverFS,Fragment
@@ -406,6 +412,7 @@ SmoothClusterVTDepthVS,Vertex
 SmoothClusterVTTranslationFS,Fragment
 SmoothClusterVTTranslationVS,Vertex
 SmootherStepFS,Fragment
+SmootherStepWatermarkFS,Fragment
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex
 SRGBToLinearFS,Fragment

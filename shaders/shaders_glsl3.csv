@@ -261,11 +261,14 @@ HighlightStudioSelectionFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment
 LanczosNonRingingFS,Fragment
+LanczosNonRingingWatermarkFS,Fragment
 LanczosSubpixelFS,Fragment
+LanczosSubpixelWatermarkFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
+Memcpy48CS,Compute
 ModelLodDepthFS,Fragment
 ModelLodDepthVS,Vertex
 OutputDepthFS,Fragment
@@ -282,6 +285,7 @@ ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
 PassThroughArrayFS,Fragment
 PassThroughClampedFS,Fragment
+PassThroughClampedWatermarkFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
@@ -293,6 +297,7 @@ PassThroughRotationVS,Vertex
 PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
+PassThroughWatermarkFS,Fragment
 PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
 PerformanceOverlayLightVS,Vertex
@@ -305,6 +310,7 @@ RadialBlur12FS,Fragment
 RadialBlur3FS,Fragment
 RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
+ScatterMemcpy48CS,Compute
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHoverFS,Fragment
@@ -342,6 +348,7 @@ SkyRGBELinearVColorFS,Fragment
 SkyVS,Vertex
 SmoothClusterDepthFS,Fragment
 SmootherStepFS,Fragment
+SmootherStepWatermarkFS,Fragment
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex
 SRGBToLinearFS,Fragment

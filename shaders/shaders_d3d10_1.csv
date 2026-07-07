@@ -264,7 +264,9 @@ InstancedCopy,Compute
 InstancedDebugGarbage,Compute
 InstancedUploadFull,Compute
 LanczosNonRingingFS,Fragment
+LanczosNonRingingWatermarkFS,Fragment
 LanczosSubpixelFS,Fragment
+LanczosSubpixelWatermarkFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
@@ -298,6 +300,7 @@ ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughClampedFS,Fragment
+PassThroughClampedWatermarkFS,Fragment
 PassThroughFS,Fragment
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
@@ -309,6 +312,7 @@ PassThroughRotationVS,Vertex
 PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
 PassThroughVS,Vertex
+PassThroughWatermarkFS,Fragment
 PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
 PerformanceOverlayLightVS,Vertex
@@ -365,6 +369,7 @@ SmoothClusterVTDepthVS,Vertex
 SmoothClusterVTTranslationFS,Fragment
 SmoothClusterVTTranslationVS,Vertex
 SmootherStepFS,Fragment
+SmootherStepWatermarkFS,Fragment
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex
 SRGBToLinearFS,Fragment

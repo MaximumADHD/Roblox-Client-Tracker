@@ -5741,6 +5741,11 @@ Studio.App.RBXMainWindow.MDIPropertiesServer,,,Properties / Server,Properties / 
 Studio.App.Properties.MDITitleFmt1Client,,,Properties / Client - %1,Properties / Client - %1
 Studio.App.Properties.MDITitleFmt1Server,,,Properties / Server - %1,Properties / Server - %1
 Studio.App.RBXMainWindow.RevertOverrides,,,Revert Overrides,Revert Overrides
+Studio.App.Properties.MDIClientTitleFmt1,,,Properties / Client - %1,Properties / Client - %1
+Studio.App.Properties.MDIServerTitleFmt1,,,Properties / Server - %1,Properties / Server - %1
+Studio.App.PropertyItems.RevertPropertyChanges,,,Revert override,Revert override
+Studio.App.RobloxExplorerWidget.OverrideAdded,,,Added by override,Added by override
+Studio.App.RobloxExplorerWidget.OverrideModified,,,Instance has overrides,Instance has overrides
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -14070,13 +14075,16 @@ Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndCommunity,,,Experience avai
 Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndFriends,,,Experience available to Playtesters and Friends,Experience available to Playtesters and Friends
 Studio.StartPage.TrustedConnectionRequestSnackbar.Message,,,Your request has been sent.,Your request has been sent.
 Studio.StartPage.TrustedConnectionLinkCopiedSnackbar.Message,,,Link copied. Share it with others to make a trusted friend request.,Link copied. Share it with others to make a trusted friend request.
+Studio.StartPage.Plugin.Yes,,,Yes,Yes
+Studio.StartPage.Plugin.No,,,No,No
 Studio.StartPage.Plugin.OpenACopy,,,Open a Copy,Open a Copy
 Studio.StartPage.PrivacyBadge.Tooltip.Body,,,Complete the content maturity rating on Creator Hub for your game and have it playable by others.,Complete the content maturity rating on Creator Hub for your game and have it playable by others.
 Studio.StartPage.Plugin.PrivacyType.PubliclyUnavailable,,,Publicly unavailable,Publicly unavailable
 Studio.StartPage.Plugin.Tooltip.PubliclyUnavailable,,,Complete the content maturity rating on Creator Hub for your game to be playable by others.,Complete the content maturity rating on Creator Hub for your game to be playable by others.
-Studio.StartPage.Plugin.SaveAs,,,Save As…,Save As…
+Studio.StartPage.Plugin.SaveAs,,,Save a copy,Save a copy
 Studio.StartPage.SaveAsCopySuccessSnackbar.Message,,,Copy created,Copy created
 Studio.StartPage.SaveAsCopyFailureSnackbar.Message,,,Couldn't create a copy,Couldn't create a copy
+Studio.StartPage.SaveAsCopyPartialFailureSnackbar.Message,,,Created universe but couldn't copy place,Created universe but couldn't copy place
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14351,9 +14359,9 @@ Studio.Assistant.ScopePermissions.PresetMediumDescription,,,"Creates, updates, o
 Studio.Assistant.ScopePermissions.Title,,,Open Cloud Scope Permissions,Open Cloud Scope Permissions
 Studio.Assistant.SettingsDialog.PermissionsTab,,,Permissions,Permissions
 Studio.Assistant.SettingsDialog.SkillsTab,,,Skills,Skills
-Studio.Assistant.Skills.Description,,,"Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant. /create-skill or clicking Create New will allow Assistant to help you create skills, or upload your own skills manually with Create from Text.","Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant. /create-skill or clicking Create New will allow Assistant to help you create skills, or upload your own skills manually with Create from Text."
+Studio.Assistant.Skills.Description,,,Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.,Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.
 Studio.Assistant.Skills.ManageSkills,,,Manage Skills,Manage Skills
-Studio.Assistant.Skills.PersonalGroup,,,Personal,Personal
+Studio.Assistant.Skills.PersonalGroup,,,Account,Account
 Studio.Assistant.Skills.RobloxGroup,,,Roblox,Roblox
 Studio.Assistant.Skills.Upload,,,Upload,Upload
 Studio.Assistant.Skills.DetailPaneEmpty,,,Select a skill to view details,Select a skill to view details
@@ -14397,8 +14405,16 @@ Studio.Assistant.InspectInstance.Failed,,,Failed to inspect {path},Failed to ins
 Studio.Assistant.ErrorMessage.InputTokenLimit,,,This conversation is too long to continue. Start a new chat.,This conversation is too long to continue. Start a new chat.
 Studio.Assistant.Skills.Delete,,,Delete,Delete
 Studio.Assistant.Skills.AlreadyDuplicated,,,Already Duplicated,Already Duplicated
-Studio.Assistant.Skills.CreateFromText,,,Create from Text,Create from Text
+Studio.Assistant.Skills.CreateFromText,,,Add,Add
 Studio.Assistant.SlashCommandDescriptions.CreateSkill,,,Create a new custom skill with guided assistance,Create a new custom skill with guided assistance
+Studio.Assistant.CreateSkill.Creating,,,Creating skill,Creating skill
+Studio.Assistant.CreateSkill.Created,,,Created skill: {name},Created skill: {name}
+Studio.Assistant.CloseTooltip.Title,,,AI Assistant,AI Assistant
+Studio.Assistant.CloseTooltip.BodyWithShortcut,,,Use this button or {shortcut} to open the Assistant panel again.,Use this button or {shortcut} to open the Assistant panel again.
+Studio.Assistant.CloseTooltip.Body,,,Use this button to open the Assistant panel again.,Use this button to open the Assistant panel again.
+Studio.Assistant.EditSkill.Edited,,,Modified skill: {name},Modified skill: {name}
+Studio.Assistant.Skills.ShadowedTooltip,,,Disabled because a personal skill with the same name is enabled.,Disabled because a personal skill with the same name is enabled.
+Studio.Assistant.EditSkill.Editing,,,Modifying skill,Modifying skill
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15546,6 +15562,7 @@ Studio.CommandBar.Label.PlaceholderText,,,Type a command or use %1+%2/%3 for his
 Studio.CommandBar.Label.RunWithShortcut,,,Run %1%2,Run %1%2
 Studio.CommandBar.Label.PlaceholderTextWithShortcut,,,Execute a command with %1%2 or use %3+%4/%5 for history,Execute a command with %1%2 or use %3+%4/%5 for history
 Studio.CommandBar.ExecuteWithEnterProperty,,,Execute Command with Return,Execute Command with Return
+Studio.AssetExport.SettingName.Format,,,Format,Format
 Studio.NativeDialog.Yes,,,Yes,Yes
 Studio.NativeDialog.No,,,No,No
 Studio.NativeDialog.NativeDialogTitle,,,%1 is not responding,%1 is not responding
@@ -15760,6 +15777,8 @@ Studio.TeamCreate.SafetyEvictDialog.ExperienceLocked,,,This Experience is locked
 Studio.TeamCreate.EvictDialog.CollaboratorRequestedEvictionDescription,,,You have been disconnected from Team Create due to a request from a collaborator.,You have been disconnected from Team Create due to a request from a collaborator.
 Studio.TeamCreate.SafetyEvictDialog.GenericTitleCollabRestrictions,,,You were removed from this experience due to collaboration restrictions,You were removed from this experience due to collaboration restrictions
 Studio.TeamCreate.SafetyEvictDialog.DescriptionPleaseTryAgainLater,,,Please try again later.,Please try again later.
+Studio.TeamCreate.TCJoinFailedToStartServer,,,We were unable to start up the Team Create server.,We were unable to start up the Team Create server.
+Studio.TeamCreate.TCJoinReceivedError,,,Failed to join Team Create place.,Failed to join Team Create place.
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
 Studio.NetworkSettings.Property.InboundNetworkMinDelay,,,Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)
@@ -15858,6 +15877,11 @@ Studio.DialogPlugin.DialogButton.RemindMeLater,,,Remind me later,Remind me later
 Studio.DialogPlugin.SafetyEstablishTrustDialog.Body,,,"Roblox requires you to either add your collaborators as trusted friends, or get permission in Parental Controls to collaborate with all age groups.","Roblox requires you to either add your collaborators as trusted friends, or get permission in Parental Controls to collaborate with all age groups."
 Studio.DialogPlugin.SafetyEstablishTrustDialog.Title,,,Your age settings are blocking collaboration,Your age settings are blocking collaboration
 Studio.DialogPlugin.SafetyGroupTooLargeDialog.Body,,,"Due to group size, you'll need to get permission from your parent to collaborate","Due to group size, you'll need to get permission from your parent to collaborate"
+Studio.DialogPlugin.SafetyGroupTooLargeDialog.Title,,,Ask your parent to continue,Ask your parent to continue
+Studio.DialogPlugin.SafetyParentalConsentBlockedDialog.Body,,,"If you'd like to ask your parent again, visit Account Settings to start this process","If you'd like to ask your parent again, visit Account Settings to start this process"
+Studio.DialogPlugin.SafetyParentalConsentBlockedDialog.Title,,,You cannot access this Experience due to collaboration restrictions set by your parent,You cannot access this Experience due to collaboration restrictions set by your parent
+Studio.DialogPlugin.SafetyOwnerAgeCheckDialog.Title,,,The owner needs to complete an age check before you can access this Experience.,The owner needs to complete an age check before you can access this Experience.
+Studio.DialogPlugin.SafetyOwnerAgeCheckDialog.Body,,,Ask them to complete this step to continue collaborating.,Ask them to complete this step to continue collaborating.
 Studio.DialogPlugin.DialogButton.OK,,,OK,OK
 Studio.DialogPlugin.DialogButton.Close,,,Close,Close
 Studio.DialogPlugin.DialogButton.ViewDetails,,,View details,View details
@@ -15865,6 +15889,10 @@ Studio.DialogPlugin.SafetyCountryAgeCheckBlocked.Title,,,Live collaboration in S
 Studio.DialogPlugin.SafetyCountryAgeCheckBlocked.Body,,,We'll notify you when collaboration becomes available.,We'll notify you when collaboration becomes available.
 Studio.DialogPlugin.SafetyDefaultBlockedDialog.Title,,,You've lost access to this Experience,You've lost access to this Experience
 Studio.DialogPlugin.SafetyDefaultBlockedDialog.Body,,,Contact the owner to restore your permissions.,Contact the owner to restore your permissions.
+Studio.DialogPlugin.SafetyServerErrorDialog.Title,,,System unavailable,System unavailable
+Studio.DialogPlugin.SafetyServerErrorDialog.Body,,,Please try again later.,Please try again later.
+Studio.DialogPlugin.SafetyOtherCollaboratorsPreventTrustDialog.Title,,,Some collaborators are pending permission to collaborate,Some collaborators are pending permission to collaborate
+Studio.DialogPlugin.SafetyOtherCollaboratorsPreventTrustDialog.Body,,,One of more collaborators in this session need a parent's approval before working with creators outside their age group. You'll get access once they've completed that step.,One of more collaborators in this session need a parent's approval before working with creators outside their age group. You'll get access once they've completed that step.
 Studio.DialogPlugin.Safety.NonBlockingAddendum,,,"After June 25th, you won't be able to access this Experience without permission.","After June 25th, you won't be able to access this Experience without permission."
 Studio.DialogPlugin.SafetyEstablishTrustDialog.Over16.Title,,,Add trusted friends to work across age groups.,Add trusted friends to work across age groups.
 Studio.DialogPlugin.SafetyEstablishTrustDialog.Over16.Body,,,"You can no longer access this Experience due to age restrictions. To collaborate with someone outside your age group, you'll first need to add them as trusted friends.","You can no longer access this Experience due to age restrictions. To collaborate with someone outside your age group, you'll first need to add them as trusted friends."
@@ -15872,6 +15900,9 @@ Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Under16.Title,,,Ask your parent 
 Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Under16.Body,,,Options for trusted relationships are limited in your country.,Options for trusted relationships are limited in your country.
 Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Over16.Title,,,Collaborators outside your similar age groups need parent permission to use live collaboration in Studio,Collaborators outside your similar age groups need parent permission to use live collaboration in Studio
 Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Over16.Body,,,Some collaborators of this experience still need to request permission in Parental Controls and get approval from their parent.,Some collaborators of this experience still need to request permission in Parental Controls and get approval from their parent.
+Studio.DialogPlugin.SafetySomeUserCountryBlocked.Title,,,You can't collaborate on this experience right now.,You can't collaborate on this experience right now.
+Studio.DialogPlugin.SafetyDialog.PleaseTryAgainLater,,,Please try again later.,Please try again later.
+Studio.DialogPlugin.SafetyOwnerCountryBlocked.Body,,,The owner is in a country where live collaboration is Studio is temporarily suspended. Please try again later.,The owner is in a country where live collaboration is Studio is temporarily suspended. Please try again later.
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
 Studio.LoginPage.Label.SignUp1,,,Don't have an account?,Don't have an account?
 Studio.LoginPage.Label.SignUp2,,,Create one,Create one
@@ -15882,6 +15913,26 @@ Studio.LoginPage.Heading.QuickSignIn,,,Use another device,Use another device
 Studio.LoginPage.Label.QuickSignInInstructions,,,"Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code.","Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code."
 Studio.LoginPage.Button.Terms,,,Terms,Terms
 Studio.LoginPage.Button.Privacy,,,Privacy,Privacy
+Studio.AssetQualityValidation.Plugin.Name,,,UGC Validation,UGC Validation
+Studio.AssetQualityValidation.Plugin.Description,,,Open UGC Validation,Open UGC Validation
+Studio.AssetQualityValidation.Plugin.Button,,,UGC Validation,UGC Validation
+Studio.AssetQualityValidation.Text.ZoomToSelection,,,Zoom to selection,Zoom to selection
+Studio.AssetQualityValidation.Text.NoSelection,,,No selection,No selection
+Studio.AssetQualityValidation.Text.Sort,,,Sort,Sort
+Studio.AssetQualityValidation.Text.SeverityAscending,,,Severity ascending,Severity ascending
+Studio.AssetQualityValidation.Text.SeverityDescending,,,Severity descending,Severity descending
+Studio.AssetQualityValidation.Text.Viewport,,,Viewport,Viewport
+Studio.AssetQualityValidation.Text.EnableVisualizations,,,Enable visualizations,Enable visualizations
+Studio.AssetQualityValidation.Text.AvatarSetup,,,Avatar Setup,Avatar Setup
+Studio.AssetQualityValidation.Text.AlwaysValidate,,,Always validate,Always validate
+Studio.AssetQualityValidation.Text.CopyText,,,Copy text,Copy text
+Studio.AssetQualityValidation.Text.OpenDocumentation,,,Open documentation,Open documentation
+Studio.AssetQualityValidation.Text.RunValidation,,,Run validation,Run validation
+Studio.AssetQualityValidation.Text.AssetType,,,Asset type,Asset type
+Studio.AssetQualityValidation.Text.Cancel,,,Cancel,Cancel
+Studio.AssetQualityValidation.Text.SelectAssetType,,,Select Asset Type,Select Asset Type
+Studio.AssetQualityValidation.Text.ValidationTimedOut,,,Validation timed out. Please try again.,Validation timed out. Please try again.
+Studio.AssetQualityValidation.Text.NoIssuesFound,,,No issues found.,No issues found.
 Studio.InputActionManager.Binding.Backward,,,Backward,Backward
 Studio.InputActionManager.Header.Search,,,Search,Search
 Studio.InputActionManager.Plugin.Name,,,Input Action Manager,Input Action Manager

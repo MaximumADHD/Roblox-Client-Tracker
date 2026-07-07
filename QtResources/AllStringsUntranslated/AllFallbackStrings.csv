@@ -882,6 +882,7 @@ Studio.App.EmulatorMainWidget.Ouya,,Ouya,Ouya
 Studio.App.EmulatorMainWidget.PS3,,PS3,PS3
 Studio.App.EmulatorMainWidget.PS4,,PS4,PS4
 Studio.App.EmulatorMainWidget.PS5,,PS5,PS5
+Studio.App.EmulatorMainWidget.AndroidTV1080p,,Android TV 1080p,Android TV 1080p
 Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
 Studio.App.EmulatorMainWidget.PhysicalSize,,Physical Size,Physical Size
 Studio.App.EmulatorMainWidget.Portrait,,Portrait,Portrait
@@ -2120,6 +2121,10 @@ Studio.App.Properties.Button.FontFamily.Bold.ToolTip,Tooltip for a button that t
 Studio.App.Properties.Button.FontFamily.Italic.Label,"Label for the button, not normally shown.",Italic,Italic
 Studio.App.Properties.Button.FontFamily.Italic.ToolTip,Tooltip for a button that toggles italic on/off in TextLabel/etc objects.,Whether the text should be displayed in an italicized font.,Whether the text should be displayed in an italicized font.
 Studio.App.Properties.CustomizedAttributeTooltip,Title/text for Add Attribute button/dialog,This attribute is customized. Its value will be retained when updating to a new version. Publishing the package makes the customization the new default.,This attribute is customized. Its value will be retained when updating to a new version. Publishing the package makes the customization the new default.
+Studio.App.Properties.MDIClientTitleFmt1,Title for the properties window with a selection showing that it currently reflects the client state,Properties / Client - %1,Properties / Client - %1
+Studio.App.Properties.MDIServerTitleFmt1,Title for the properties window with a selection showing that it currently reflects the server state,Properties / Server - %1,Properties / Server - %1
+Studio.App.Properties.MDITitleFmt1Client,Title for the properties window with a selection showing that it currently reflects the client state,Properties / Client - %1,Properties / Client - %1
+Studio.App.Properties.MDITitleFmt1Server,Title for the properties window with a selection showing that it currently reflects the server state,Properties / Server - %1,Properties / Server - %1
 Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
 Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.NoTagsAdded,Displayed in Tags Section when no tags have been added yet.,No Tags have been added yet,No Tags have been added yet
@@ -2974,11 +2979,13 @@ Studio.App.RBXMainWindow.LoadLocalizationTableFromCSV,,Load LocalizationTable fr
 Studio.App.RBXMainWindow.LockObjects,,Lock objects,Lock objects
 Studio.App.RBXMainWindow.LockPreventSelection,,Lock - prevent selection,Lock - prevent selection
 Studio.App.RBXMainWindow.MDIClient,Title bar that shows a client view in a test session,Client,Client
-Studio.App.RBXMainWindow.MDIClientActive,Title bar that shows a client view in a test session and that it is currently active,Client (Active),Client (Active)
-Studio.App.RBXMainWindow.MDIExplorerClient,"Title for the explorer window, showing that it currently reflects the client state",Explorer (Client),Explorer (Client)
-Studio.App.RBXMainWindow.MDIExplorerServer,"Title for the explorer window, indicating that it is currently reflecting the state of the server",Explorer (Server),Explorer (Server)
+Studio.App.RBXMainWindow.MDIClientActive,"Title bar that shows a client view in a test session and that it is currently active.  (note it is currently the same as the default string ""Client"")",Client,Client
+Studio.App.RBXMainWindow.MDIExplorerClient,"Title for the explorer window, showing that it currently reflects the client state",Explorer / Client,Explorer / Client
+Studio.App.RBXMainWindow.MDIExplorerServer,"Title for the explorer window, indicating that it is currently reflecting the state of the server",Explorer / Server,Explorer / Server
+Studio.App.RBXMainWindow.MDIPropertiesClient,"Title for the properties window, showing that it currently reflects the client state",Properties / Client,Properties / Client
+Studio.App.RBXMainWindow.MDIPropertiesServer,"Title for the properties window, showing that it currently reflects the server state",Properties / Server,Properties / Server
 Studio.App.RBXMainWindow.MDIServer,Title bar that shows a server view in a test session,Server,Server
-Studio.App.RBXMainWindow.MDIServerActive,Title bar that shows a server view in a test session and that it is currently active,Server (Active),Server (Active)
+Studio.App.RBXMainWindow.MDIServerActive,"Title bar that shows a server view in a test session and that it is currently active (note it is currently the same as the default string ""Server"")",Server,Server
 Studio.App.RBXMainWindow.MDIShowClientViewport,Menu action to switch focus to the client viewport during play solo testing,Show Client Viewport,Show Client Viewport
 Studio.App.RBXMainWindow.MDIShowHideServerViewport,Menu action to toggle the visibility of the server viewport in play solo mode,Show / Hide Server Viewport,Show / Hide Server Viewport
 Studio.App.RBXMainWindow.MDIShowServerViewport,Menu action to toggle visibility of the server viewport tab during play solo testing,Show Server Viewport,Show Server Viewport
@@ -3087,6 +3094,7 @@ Studio.App.RBXMainWindow.ResumeScriptSync,,Resume Sync,Resume Sync
 Studio.App.RBXMainWindow.ResumeScriptSyncTooltip,,"Resume syncing an errored Script, LocalScript or ModuleScript to disk","Resume syncing an errored Script, LocalScript or ModuleScript to disk"
 Studio.App.RBXMainWindow.ResumesExection,,Resumes execution after pausing,Resumes execution after pausing
 Studio.App.RBXMainWindow.ResumesExecution,,Resume execution after pausing,Resume execution after pausing
+Studio.App.RBXMainWindow.RevertOverrides,Package action to revert all overrides for this package,Revert Overrides,Revert Overrides
 Studio.App.RBXMainWindow.RightMotor,,Right Motor,Right Motor
 Studio.App.RBXMainWindow.RobloxStudio,,Roblox Studio,Roblox Studio
 Studio.App.RBXMainWindow.Rotate,,Rotate,Rotate
@@ -7053,6 +7061,8 @@ Studio.LiveSync.OpenInExternalEditorTooltip,tooltip that displays when hovering 
 Studio.LiveSync.PackageLinkAdded,Instance cannot be synced now because it is a package,Unable to sync '%1' because it is part of a package.,Unable to sync '%1' because it is part of a package.
 Studio.LiveSync.PathTranslationError,Header text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,<b>Path Translation Error</b>,<b>Path Translation Error</b>
 Studio.LiveSync.PathTranslationErrorContent,Content text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.
+Studio.LiveSync.PluginLoadingErrorInstanceNotFound,Cannot sync instance under plugin as it was not found,Can't sync %1 to disk: instance not found,Can't sync %1 to disk: instance not found
+Studio.LiveSync.PluginLoadingErrorPathNotUnique,Message printed when path is not unique under plugin,Can't sync %1 to disk: DataModel path is not unique,Can't sync %1 to disk: DataModel path is not unique
 Studio.LiveSync.Property.ExternalEditorMode,Dropdown property name for choosing between system default or custom external script editor,External script editor,External script editor
 Studio.LiveSync.Property.ExternalEditorSelection,"Property name for the application to be used with ""open in external editor""",Editor path,Editor path
 Studio.LiveSync.Property.UseDefaultExternalEditor,Property name for if a default application should be used or not,Use default as external script editor,Use default as external script editor
@@ -7965,6 +7975,14 @@ Studio.TeamCreateStatusIndicator.PlaceUploadFailingTitle,Urgent alert that shows
 Studio.TeamCreate.DisconnectReasonUnknown,This message is presented to the user when they lose their connection to a server using Team Create.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,Title for a dialog that indicates a user has been disconnected from their Team Create server.,Disconnected,Disconnected
 Studio.TeamCreate.EvictDialog.CollaboratorRequestedEvictionDescription,description for dialog shown when a collaborator was evicted because a collaborator sent a request to evict them,You have been disconnected from Team Create due to a request from a collaborator.,You have been disconnected from Team Create due to a request from a collaborator.
+Studio.TeamCreate.JoinErrorGamejoinGeneric,Message displayed to the user when they receive an error from Game Join service upon attempting to open a place.,Got error from Gamejoin,Got error from Gamejoin
+Studio.TeamCreate.JoinErrorGeneric,Message displayed when a user fails to join a team create place and we do not have a more specific message available.,Join failed,Join failed
+Studio.TeamCreate.JoinErrorInvalidRequest,Message displayed to the user when a back-end service rejects their HTTP request.,Invalid request,Invalid request
+Studio.TeamCreate.JoinErrorModerated,Message displayed to the user when they attempt to join a moderated Team Create place.,The place has been moderated,The place has been moderated
+Studio.TeamCreate.JoinErrorRccChannel,Message displayed when the user attempts to join a team create server with a mis-configured channel.,Invalid RCC channel,Invalid RCC channel
+Studio.TeamCreate.JoinErrorServerFull,Message displayed to the user when the Team Create server they are joining is full.,The server is full,The server is full
+Studio.TeamCreate.JoinErrorServerStartup,Message displayed to the user when the Team Create server they are joining fails to start up.,Server did not start,Server did not start
+Studio.TeamCreate.JoinErrorUnauthorized,Message displayed to the user when they attempt to open a Team Create place without proper permissions.,You do not have permission to join this place,You do not have permission to join this place
 Studio.TeamCreate.SafetyEvictDialog.AskForParentPermission,title for dialog when users are disconnected from a Team Create session because they need parent permission,You need parent permission to work with older collaborators,You need parent permission to work with older collaborators
 Studio.TeamCreate.SafetyEvictDialog.AskForParentPermissionDescription,description for dialog when users are disconnected from a Team Create session because they need parent permission,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.
 Studio.TeamCreate.SafetyEvictDialog.BecomeTCButton,button on dialog that links to start trusted connections process (dialog appears when users are disconnected from a Team Create session because they need to get trusted connections),Add,Add
@@ -7984,6 +8002,8 @@ Studio.TeamCreate.SafetyEvictDialog.TermsOfUseButton,click this to go to roblox 
 Studio.TeamCreate.SafetyEvictDialog.VerifyButton,button to start age verification process (for dialog that appears when disconnected from a Team Create session because user needs to verify age),Verify,Verify
 Studio.TeamCreate.SafetyEvictDialog.VerifyYourAge,title for dialog that appears when disconnected from a Team Create session because user needs to verify age,Verify your age,Verify your age
 Studio.TeamCreate.SafetyEvictDialog.VerifyYourAgeDescription,description for dialog that appears when user disconnects from Team Create session because they need to verify their age,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
+Studio.TeamCreate.TCJoinFailedToStartServer,This message is displayed when the user tries to open a Team Create place and the server does not start successfully.,We were unable to start up the Team Create server.,We were unable to start up the Team Create server.
+Studio.TeamCreate.TCJoinReceivedError,This message is displayed when the user attempts to open a Team Create place and the open fails for any reason.,Failed to join Team Create place.,Failed to join Team Create place.
 Studio.TerrainToolsV2.Action.Apply,,Apply,Apply
 Studio.TerrainToolsV2.Action.Back,,Back,Back
 Studio.TerrainToolsV2.Action.Cancel,,Cancel,Cancel
