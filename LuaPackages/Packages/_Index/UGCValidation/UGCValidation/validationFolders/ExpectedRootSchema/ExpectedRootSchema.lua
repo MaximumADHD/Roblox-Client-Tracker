@@ -10,6 +10,8 @@ local getFFlagUGCValidationExtendSchemaToIgnoreDescendants =
 local getEngineFeatureEngineUGCValidationExpandReturnSchema =
 	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getFFlagUGCValidationAnimationPackFolderStructure =
+	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
 local ExpectedRootSchema = {}
 
 ExpectedRootSchema.categories = Constants.AllUploadCategories
@@ -117,7 +119,11 @@ ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Type
 
 	if uploadEnum.bundleType then
 		if getFFlagUGCValidationAnimationPackSupport() and uploadEnum.bundleType == Enum.BundleType.Animations then
-			schema = CreateExpectedSchema.generateAnimationPackBundleSchema()
+			if getFFlagUGCValidationAnimationPackFolderStructure() then
+				schema = CreateExpectedSchema.generateAnimationPackBundleSchema(instance)
+			else
+				schema = CreateExpectedSchema.generateAnimationPackBundleSchema(nil)
+			end
 		else
 			-- For bundle uploads, we will recheck all the asset schemas and display an early abort message upon failure
 			local fullBodyData = data.entrypointInput :: Types.FullBodyData

@@ -1,10 +1,14 @@
 --[[
 	Utility functions for makeup asset previewing in the publish prompt.
+	Supports Decals (face/lip/eye makeup) and Accessories (eyebrow/eyelash).
 ]]
 local Players = game:GetService("Players")
 
 local root = script.Parent
 local Constants = require(root.Constants)
+
+local MAKEUP_THUMBNAIL_HEAD_ASSET_ID = 103273511207307
+local MAKEUP_THUMBNAIL_HEAD_BRICKCOLOR = BrickColor.new(194)
 
 local MakeupPreviewUtils = {}
 
@@ -48,31 +52,13 @@ local function addAssetToDescription(desc: HumanoidDescription, asset: Instance,
 	end
 end
 
---[[
-	Creates a head Model with the given makeup asset applied, ready for viewport display.
-	Supports both Decals (face/lip/eye makeup) and Accessories (eyebrow/eyelash).
-	Uses the LocalPlayer's appearance (fallback to empty description).
-	Returns a Model with non-head body parts removed.
-]]
-function MakeupPreviewUtils.createMakeupHeadPreview(asset: Instance, assetType: Enum.AvatarAssetType?): Model?
+-- Shared helper: creates a character from a description with an asset applied,
+-- removes non-head body parts, and returns the character Model.
+local function createHeadWithAsset(desc: HumanoidDescription, asset: Instance, assetType: Enum.AvatarAssetType?): Model?
+	addAssetToDescription(desc, asset, assetType)
+
 	local character
 	local ok = pcall(function()
-		local localPlayer = Players.LocalPlayer
-		local desc
-		if localPlayer then
-			local fetchOk, fetched = pcall(function()
-				return Players:GetHumanoidDescriptionFromUserIdAsync(localPlayer.UserId)
-			end)
-			if fetchOk and fetched then
-				desc = fetched
-			end
-		end
-		if not desc then
-			desc = Instance.new("HumanoidDescription")
-		end
-
-		addAssetToDescription(desc, asset, assetType)
-
 		character = Players:CreateHumanoidModelFromDescriptionAsync(desc, Enum.HumanoidRigType.R15)
 	end)
 
@@ -89,6 +75,54 @@ function MakeupPreviewUtils.createMakeupHeadPreview(asset: Instance, assetType: 
 				child:Destroy()
 			end
 		end
+	end
+
+	return character
+end
+
+--[[
+	Creates a head Model with the given asset applied using the LocalPlayer's appearance.
+	Used for the main preview viewport in the publish prompt.
+]]
+function MakeupPreviewUtils.createMakeupHeadPreview(asset: Instance, assetType: Enum.AvatarAssetType?): Model?
+	local desc
+	local localPlayer = Players.LocalPlayer
+	if localPlayer then
+		local fetchOk, fetched = pcall(function()
+			return Players:GetHumanoidDescriptionFromUserIdAsync(localPlayer.UserId)
+		end)
+		if fetchOk and fetched then
+			desc = fetched
+		end
+	end
+	if not desc then
+		desc = Instance.new("HumanoidDescription")
+	end
+
+	return createHeadWithAsset(desc, asset, assetType)
+end
+
+--[[
+	Creates a head Model with the given asset applied using the standard thumbnailing head.
+	Used for individual grid item previews (matches marketplace thumbnails).
+]]
+function MakeupPreviewUtils.createMakeupThumbnailPreview(asset: Instance, assetType: Enum.AvatarAssetType?): Model?
+	local desc = Instance.new("HumanoidDescription")
+	desc.Head = MAKEUP_THUMBNAIL_HEAD_ASSET_ID
+
+	local character = createHeadWithAsset(desc, asset, assetType)
+	if not character then
+		return nil
+	end
+
+	-- Set head color to match the thumbnail standard
+	local bodyColors = character:FindFirstChildOfClass("BodyColors")
+	if bodyColors then
+		bodyColors.HeadColor = MAKEUP_THUMBNAIL_HEAD_BRICKCOLOR
+	end
+	local head: BasePart? = character:FindFirstChild("Head") :: any
+	if head then
+		head.Color = MAKEUP_THUMBNAIL_HEAD_BRICKCOLOR.Color
 	end
 
 	return character

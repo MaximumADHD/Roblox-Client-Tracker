@@ -28,6 +28,7 @@ local FFlagAXEnableInspectAndBuyBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
 local FFlagPlatformLeaderboardRccEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardRccEnabled
+local FFlagEmoteSkinningDisableEnabled = game:DefineFastFlag("EmoteSkinningDisableEnabled", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -54,6 +55,9 @@ end
 
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
+if FFlagEmoteSkinningDisableEnabled then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/EmoteSkinningDisable", script.Parent)
+end
 if FFlagPlatformLeaderboardRccEnabled then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerPlatformLeaderboard", script.Parent)
 end

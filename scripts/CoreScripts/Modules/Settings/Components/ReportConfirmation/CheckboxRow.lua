@@ -1,17 +1,19 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
+
 local Checkbox = Foundation.Checkbox
 
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
-local withStyle = UIBlox.Style.withStyle
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
-
 
 local CheckboxRow = Roact.PureComponent:extend("CheckboxRow")
 
@@ -37,7 +39,35 @@ CheckboxRow.validateProps = t.interface({
 })
 
 function CheckboxRow:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				IconDefault = {
+					Color = tokens.Color.Content.Default.Color3,
+					Transparency = tokens.Color.Content.Default.Transparency,
+				},
+				IconEmphasis = {
+					Color = tokens.Color.Content.Emphasis.Color3,
+					Transparency = tokens.Color.Content.Emphasis.Transparency,
+				},
+				TextEmphasis = {
+					Color = tokens.Color.Content.Emphasis.Color3,
+					Transparency = tokens.Color.Content.Emphasis.Transparency,
+				},
+				TextMuted = {
+					Color = tokens.Color.Content.Muted.Color3,
+					Transparency = tokens.Color.Content.Muted.Transparency,
+				},
+			},
+			Font = {
+				BaseSize = 1,
+				Header2 = {
+					Font = tokens.Typography.TitleLarge.Font,
+					RelativeSize = tokens.Typography.TitleLarge.FontSize,
+				},
+			},
+		}
+	end, function(style)
 		local baseSize = style.Font.BaseSize
 
 		local textTheme
@@ -49,6 +79,28 @@ function CheckboxRow:render()
 		else
 			textTheme = style.Theme.TextEmphasis
 			imageTheme = style.Theme.IconEmphasis
+		end
+
+		local imageElement
+		if FFlagCoreUiMigrateUIBloxToFoundation then
+			imageElement = Roact.createElement(Foundation.Icon, {
+				name = self.props.image,
+				size = Foundation.Enums.IconSize.Medium,
+				style = {
+					Color3 = imageTheme.Color,
+					Transparency = imageTheme.Transparency,
+				},
+				LayoutOrder = 1,
+			})
+		else
+			imageElement = Roact.createElement(ImageSetLabel, {
+				Size = UDim2.fromOffset(self.props.height, self.props.height),
+				Image = Images[self.props.image],
+				ImageColor3 = imageTheme.Color,
+				ImageTransparency = imageTheme.Transparency,
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			})
 		end
 
 		return Roact.createElement("Frame", {
@@ -64,14 +116,7 @@ function CheckboxRow:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			image = Roact.createElement(ImageSetLabel, {
-				Size = UDim2.fromOffset(self.props.height, self.props.height),
-				Image = Images[self.props.image],
-				ImageColor3 = imageTheme.Color,
-				ImageTransparency = imageTheme.Transparency,
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-			}),
+			image = imageElement,
 
 			text = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,

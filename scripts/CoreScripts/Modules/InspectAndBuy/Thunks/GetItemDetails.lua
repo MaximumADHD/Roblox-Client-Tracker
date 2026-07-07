@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
@@ -13,8 +12,6 @@ local GetExperienceInfo = require(InspectAndBuyFolder.Thunks.GetExperienceInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
 local Constants = require(InspectAndBuyFolder.Constants)
-
-local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
 
 local requiredServices = {
 	Network,
@@ -43,7 +40,7 @@ local function GetItemDetails(itemId, itemType)
 					store:dispatch(SendCounter(Constants.Counters.GetItemDetailsRespondedWithUnknownItemType))
 				end
 
-				if FFlagIBV2Attribution and results.CreatingUniverseId then
+				if results.CreatingUniverseId then
 					store:dispatch(GetExperiencePlayability(results.CreatingUniverseId))
 					store:dispatch(GetExperienceInfo(results.CreatingUniverseId))
 				end

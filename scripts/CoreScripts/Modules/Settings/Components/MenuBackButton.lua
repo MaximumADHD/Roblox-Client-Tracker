@@ -8,6 +8,11 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local Foundation = require(CorePackages.Packages.Foundation)
+
+local FFlagCoreUiMigrateUIBloxToFoundation =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -103,8 +108,9 @@ function MenuBackButton:render()
 			local buttonHeight: number = value[2]
 			if size and buttonHeight then
 				return UDim2.new(
-				UDim.new(size.X.Scale * 0.5, size.X.Offset * 0.5),
-				UDim.new(0, (buttonHeight + yPadding)))
+					UDim.new(size.X.Scale * 0.5, size.X.Offset * 0.5),
+					UDim.new(0, (buttonHeight + yPadding))
+				)
 			else
 				return UDim2.new()
 			end
@@ -184,15 +190,21 @@ function MenuBackButton:render()
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
-				ImageLabel = Roact.createElement(ImageSetLabel, {
-					Image = Images["icons/actions/cycleLeft"],
-					Size = UDim2.new(1, 0, 0.75, 0),
-					BorderSizePixel = 0,
-					BackgroundTransparency = 1,
-					LayoutOrder = 1,
-				}, {
-					UIAspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {}),
-				}),
+				ImageLabel = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Foundation.Icon, {
+						name = "icons/actions/cycleLeft",
+						size = Foundation.Enums.IconSize.Large,
+						LayoutOrder = 1,
+					})
+					else Roact.createElement(ImageSetLabel, {
+						Image = Images["icons/actions/cycleLeft"],
+						Size = UDim2.new(1, 0, 0.75, 0),
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+						LayoutOrder = 1,
+					}, {
+						UIAspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {}),
+					}),
 				TextLabel = Roact.createElement("TextLabel", {
 					Text = self.state.text,
 					Size = UDim2.new(0, 0, 1, 0),

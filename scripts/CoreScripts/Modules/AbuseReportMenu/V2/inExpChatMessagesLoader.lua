@@ -10,11 +10,14 @@ local helpers = require(script.Parent.ExpChatMessageHelpers)
 local enrichMissingUsernames = require(script.Parent.inExpChatMessagesLoaderUsernameEnrichment).enrichMissingUsernames
 local getChannelTabsStore = ExpChat.Stores.GetChannelTabsStore
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagExpChatUseMessagesStore = SharedFlags.FFlagExpChatUseMessagesStore
+
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 -- Loader descriptor for the abuse-report chat-selection dialog. Reads live
--- message state from exp-chat's Redux store and groups messages by channel tab
--- (when enabled) so the reporter sees the same layout as the in-experience chat.
+-- message state from exp-chat and groups messages by channel tab (when enabled)
+-- so the reporter sees the same layout as the in-experience chat.
 return {
 	type = "groupedListItem",
 	fetch = function(_params)
@@ -25,17 +28,33 @@ return {
 		end
 
 		local state = store:getState()
-		local messagesState = state and state.Messages
-		if not messagesState then
-			return Promise.resolve({})
+		local byMessageId
+		local windowMessagesInOrder
+		local windowMessagesInOrderByTabId
+
+		if FFlagExpChatUseMessagesStore then
+			local messagesStore = ExpChatShared.context.messagesStore
+			if not messagesStore then
+				return Promise.resolve({})
+			end
+			byMessageId = messagesStore.getByMessageId(false) or {}
+			windowMessagesInOrder = messagesStore.getWindowMessagesInOrder(false) or {}
+			windowMessagesInOrderByTabId = messagesStore.getWindowMessagesInOrderByTabId(false) or {}
+		else
+			local messagesState = state and state.Messages
+			if not messagesState then
+				return Promise.resolve({})
+			end
+			byMessageId = messagesState.byMessageId or {}
+			windowMessagesInOrder = messagesState.windowMessagesInOrder or {}
+			windowMessagesInOrderByTabId = messagesState.windowMessagesInOrderByTabId or {}
 		end
 
-		local byMessageId = messagesState.byMessageId or {}
 		local translator = ExpChatShared.context.translator
 
 		-- Creator custom channel tabs are disabled, but we still need to handle global and general tabs
 		if not helpers.areChannelTabsEnabled() then
-			local allMessageIds = messagesState.windowMessagesInOrder or {}
+			local allMessageIds = windowMessagesInOrder
 			local generalMessageIds = {}
 			local globalMessageIds = {}
 
@@ -78,7 +97,7 @@ return {
 			return enrichMissingUsernames(result)
 		end
 
-		local tabIds = messagesState.windowMessagesInOrderByTabId or {}
+		local tabIds = windowMessagesInOrderByTabId
 		local allTextChannels = state.TextChannels and state.TextChannels.allTextChannels or {}
 
 		-- Tab ordering from the Signals-based ChannelTabsStore (populated when

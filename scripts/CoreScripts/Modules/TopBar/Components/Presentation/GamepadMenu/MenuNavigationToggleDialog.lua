@@ -9,7 +9,6 @@ local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
@@ -41,14 +40,14 @@ type Props = {
 
 local function MenuNavigationToggleDialog(props: Props)
 	local tokens = useDesignTokens()
-	local font = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Typography.CaptionMedium else tokens.Semantic.Typography.CaptionHeader)
-	local horizontalPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_400 else tokens.Global.Space_200)
-	local verticalPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_150 else tokens.Global.Space_75)
-	local cornerRadius = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Radius.Medium else tokens.Semantic.Radius.Medium)
-	local iconSize = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_600 else tokens.Global.Size_300)
-	local backgroundUiColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.OverMedia.OverMedia_0 else tokens.Semantic.Color.BackgroundUi.Contrast)
-	local textColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Content.Emphasis else tokens.Semantic.Color.Text.Emphasis).Color3
-	local iconPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_100 else tokens.Global.Space_50)
+	local font = tokens.Typography.CaptionMedium
+	local horizontalPadding = tokens.Size.Size_400
+	local verticalPadding = tokens.Size.Size_150
+	local cornerRadius = tokens.Radius.Medium
+	local iconSize = tokens.Size.Size_600
+	local backgroundUiColor = tokens.Color.OverMedia.OverMedia_0
+	local textColor = tokens.Color.Content.Emphasis.Color3
+	local iconPadding = tokens.Size.Size_100
 
 	local selectButtonImage = if FFlagLocalizeMenuNavigationToggleDialog
 			and game:GetEngineFeature("GetImageForKeyCode")

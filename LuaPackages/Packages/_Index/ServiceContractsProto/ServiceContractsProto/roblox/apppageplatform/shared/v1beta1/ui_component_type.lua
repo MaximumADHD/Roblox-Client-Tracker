@@ -27,6 +27,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_BADGE_TILE"
 	| "UI_COMPONENT_TYPE_SONG_TILE"
 	| "UI_COMPONENT_TYPE_EVENT_TILE"
+	| "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 	| "UI_COMPONENT_TYPE_BUTTON"
 	| "UI_COMPONENT_TYPE_IMAGE"
 	| "UI_COMPONENT_TYPE_TEXT"
@@ -79,6 +80,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
 	| "UI_COMPONENT_TYPE_REVEAL_TEXT"
 	| "UI_COMPONENT_TYPE_SHIMMER_TEXT"
+	| "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -87,6 +89,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
 	| "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 	| "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT"
+	| "UI_COMPONENT_TYPE_MARKETPLACE_FAVORITES_CATEGORY_MENU"
+	| "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID"
 	| "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 	| "UI_COMPONENT_TYPE_USER_LIST"
 	| "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
@@ -123,6 +127,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SONG_TILE"
 		elseif value == 105 then
 			return "UI_COMPONENT_TYPE_EVENT_TILE"
+		elseif value == 106 then
+			return "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 		elseif value == 200 then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif value == 201 then
@@ -227,6 +233,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_REVEAL_TEXT"
 		elseif value == 251 then
 			return "UI_COMPONENT_TYPE_SHIMMER_TEXT"
+		elseif value == 252 then
+			return "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -243,6 +251,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 		elseif value == 604 then
 			return "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT"
+		elseif value == 605 then
+			return "UI_COMPONENT_TYPE_MARKETPLACE_FAVORITES_CATEGORY_MENU"
+		elseif value == 606 then
+			return "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID"
 		elseif value == 700 then
 			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 		elseif value == 800 then
@@ -285,6 +297,8 @@ messages.UiComponentType = {
 			return 104
 		elseif self == "UI_COMPONENT_TYPE_EVENT_TILE" then
 			return 105
+		elseif self == "UI_COMPONENT_TYPE_PLACEHOLDER_TILE" then
+			return 106
 		elseif self == "UI_COMPONENT_TYPE_BUTTON" then
 			return 200
 		elseif self == "UI_COMPONENT_TYPE_IMAGE" then
@@ -389,6 +403,8 @@ messages.UiComponentType = {
 			return 250
 		elseif self == "UI_COMPONENT_TYPE_SHIMMER_TEXT" then
 			return 251
+		elseif self == "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON" then
+			return 252
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -405,6 +421,10 @@ messages.UiComponentType = {
 			return 603
 		elseif self == "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT" then
 			return 604
+		elseif self == "UI_COMPONENT_TYPE_MARKETPLACE_FAVORITES_CATEGORY_MENU" then
+			return 605
+		elseif self == "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID" then
+			return 606
 		elseif self == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return 700
 		elseif self == "UI_COMPONENT_TYPE_USER_LIST" then
@@ -447,6 +467,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SONG_TILE"
 		elseif name == "UI_COMPONENT_TYPE_EVENT_TILE" then
 			return "UI_COMPONENT_TYPE_EVENT_TILE"
+		elseif name == "UI_COMPONENT_TYPE_PLACEHOLDER_TILE" then
+			return "UI_COMPONENT_TYPE_PLACEHOLDER_TILE"
 		elseif name == "UI_COMPONENT_TYPE_BUTTON" then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_IMAGE" then
@@ -551,6 +573,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_REVEAL_TEXT"
 		elseif name == "UI_COMPONENT_TYPE_SHIMMER_TEXT" then
 			return "UI_COMPONENT_TYPE_SHIMMER_TEXT"
+		elseif name == "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON" then
+			return "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -567,6 +591,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
 		elseif name == "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT" then
 			return "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT"
+		elseif name == "UI_COMPONENT_TYPE_MARKETPLACE_FAVORITES_CATEGORY_MENU" then
+			return "UI_COMPONENT_TYPE_MARKETPLACE_FAVORITES_CATEGORY_MENU"
+		elseif name == "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID" then
+			return "UI_COMPONENT_TYPE_CATALOG_ITEM_GRID"
 		elseif name == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_USER_LIST" then

@@ -19,6 +19,7 @@ local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScr
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
@@ -46,9 +47,9 @@ return function(id: string, initialAvailability: number)
 		id = id,
 		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.Vertical,
 		label = if ArgoPartyExperimentation.getIsRenameEnabled()
-			then if SharedFlags.FFlagEnableSideSheet
+			then if UniversalAppPolicy.getAppFeaturePolicies().getCanSeeChatTerminology()
 				then "Feature.Chat.Title.FriendsChat"
-				else "CommonUI.Features.Label.Chat"
+				else "Feature.Squads.Label.Party"
 			else if GetFFlagIsSquadEnabled()
 				then "Feature.Squads.Label.Party" -- translated in some languages
 				else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch

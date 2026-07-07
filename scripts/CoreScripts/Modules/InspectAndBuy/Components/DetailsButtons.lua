@@ -18,7 +18,6 @@ local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
-local FFlagIBFixResaleAfterQuantityLimit = game:DefineFastFlag("IBFixResaleAfterQuantityLimit", false)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -142,17 +141,12 @@ function DetailsButtons:calculateBuyStatusForLimitedItem(itemInfo, locale, forSa
 			and itemInfo.collectibleLowestAvailableResaleProductId ~= ""
 
 		local resaleHasLowerPrice = false
-		if FFlagIBFixResaleAfterQuantityLimit then
-			-- Need to check whether we have remaining quantity for item
-			local hasRemainingOriginalStock = itemInfo.remaining > 0
-			if hasRemainingOriginalStock then
-				resaleHasLowerPrice = resaleAvailable and (itemInfo.price or 0) > itemInfo.collectibleLowestResalePrice
-			else
-				resaleHasLowerPrice = resaleAvailable and itemInfo.collectibleLowestResalePrice
-			end
-		else
-			-- Old behavior
+		-- Need to check whether we have remaining quantity for item
+		local hasRemainingOriginalStock = itemInfo.remaining > 0
+		if hasRemainingOriginalStock then
 			resaleHasLowerPrice = resaleAvailable and (itemInfo.price or 0) > itemInfo.collectibleLowestResalePrice
+		else
+			resaleHasLowerPrice = resaleAvailable and itemInfo.collectibleLowestResalePrice
 		end
 
 		if resaleAvailable then

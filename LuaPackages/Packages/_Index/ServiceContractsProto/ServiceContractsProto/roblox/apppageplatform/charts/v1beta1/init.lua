@@ -10,6 +10,7 @@ local charts_page = require(script.charts_page)
 
 -- Exported types
 export type GetChartsPageRequest = charts_page.GetChartsPageRequest
+export type CollectionLayoutInfo = charts_page.CollectionLayoutInfo
 export type GetChartsPageResponse = charts_page.GetChartsPageResponse
 export type GetChartsSortDetailRequest = charts_page.GetChartsSortDetailRequest
 export type GetChartsSortDetailResponse = charts_page.GetChartsSortDetailResponse

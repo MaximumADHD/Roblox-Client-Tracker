@@ -19,6 +19,8 @@ local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGr
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagUpdateRephraseSettingUI = game:DefineFastFlag("UpdateRephraseSettingUI", false)
 local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
+local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
+	require(Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 
 local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local ReactUtils = require(CorePackages.Packages.ReactUtils)
@@ -81,10 +83,18 @@ end
 SETTINGS_MENU_LAYOUT_ORDER.DeviceFrameInput = 60
 SETTINGS_MENU_LAYOUT_ORDER.DeviceFrameOutput = 61
 SETTINGS_MENU_LAYOUT_ORDER.VolumeFrame = 62
-if PartyVoiceVolumeFeatureAvailable then
-	SETTINGS_MENU_LAYOUT_ORDER.PartyVoiceVolumeFrame = 63
+if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then 
+	SETTINGS_MENU_LAYOUT_ORDER.VoiceChatVolumeFrame = 63
+	if PartyVoiceVolumeFeatureAvailable then
+		SETTINGS_MENU_LAYOUT_ORDER.PartyVoiceVolumeFrame = 64
+	end
+	SETTINGS_MENU_LAYOUT_ORDER.HapticsFrame = if PartyVoiceVolumeFeatureAvailable then 65 else 64
+else 
+	if PartyVoiceVolumeFeatureAvailable then
+		SETTINGS_MENU_LAYOUT_ORDER.PartyVoiceVolumeFrame = 63
+	end
+	SETTINGS_MENU_LAYOUT_ORDER.HapticsFrame = if PartyVoiceVolumeFeatureAvailable then 64 else 63
 end
-SETTINGS_MENU_LAYOUT_ORDER.HapticsFrame = if PartyVoiceVolumeFeatureAvailable then 64 else 63
 -- Graphics
 SETTINGS_MENU_LAYOUT_ORDER.FullScreenFrame = 70
 SETTINGS_MENU_LAYOUT_ORDER.GraphicsEnablerFrame = 71
@@ -128,6 +138,7 @@ if FFlagIEMSettingsGroups then
 	LAYOUT_ORDER_GROUPS = {
 		AudioHeader = nextOrder(),
 		VolumeFrame = nextOrder(),
+		VoiceChatVolumeFrame = if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then nextOrder() else nil,
 		PartyVoiceVolumeFrame = nextOrder(),
 		DeviceFrameInput = nextOrder(),
 		DeviceFrameOutput = nextOrder(),

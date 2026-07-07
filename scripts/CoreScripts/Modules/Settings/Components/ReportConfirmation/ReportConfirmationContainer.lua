@@ -10,6 +10,9 @@ local enumerate = require(CorePackages.Packages.enumerate)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
 
+local FFlagCoreUiMigrateUIBloxToFoundation =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
@@ -203,93 +206,100 @@ function ReportConfirmationContainer:init()
 	end)
 end
 
+function ReportConfirmationContainer:renderContent()
+	local currentPage = self.state.currentPage
+
+	local scale = 1.3
+
+	if self.props.onSizeChanged then
+		local absoluteWidth = self.state.absoluteWidth
+
+		if absoluteWidth >= TabletBreakpoint then
+			scale = 1.3
+		elseif absoluteWidth > MobileBreakpoint then
+			scale = 1
+		else
+			scale = absoluteWidth / MobileBreakpoint -- Scales to fit container
+		end
+	end
+
+	local savedMuteState = if self.state.muteFlipped ~= nil then self.state.muteFlipped else false
+	local savedBlockedState = if self.state.blockFlipped ~= nil then self.state.blockFlipped else false
+	local selectActionsPage = Roact.createElement(ReportActionSelection, {
+		titleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.Report.ThanksForReport"),
+		subtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.ThankYou"),
+		instructionText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Report.OtherActionsHeader"),
+		muteText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.MutePlayer",
+			{ Player = self.userFullName }
+		),
+		blockText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.BlockPlayer",
+			{ Player = self.userFullName }
+		),
+		doneText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Report.Done"),
+		showVoiceMuting = self.props.isVoiceReport,
+		isVoiceMuted = savedMuteState or self.state.targetInitiallyVoiceMuted,
+		isBlocked = savedBlockedState or self.state.targetInitiallyBlocked,
+		onMuteCheckboxActivated = self.onMuteCheckboxActivated,
+		onBlockCheckboxActivated = self.onBlockCheckboxActivated,
+		onDoneActivated = self.onActionSelectionDoneActivated,
+		uiScale = scale,
+		ZIndex = self.props.ZIndex,
+	})
+
+	local confirmActionsPage = Roact.createElement(ReportActionAreYouSure, {
+		mutedTitleText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.MutePlayer",
+			{ Player = self.userFullName }
+		),
+		blockedTitleText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.BlockPlayer",
+			{ Player = self.userFullName }
+		),
+		mutedAndBlockedTitleText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.Label.MuteAndBlockPlayer",
+			{ DisplayName = self.userFullName }
+		),
+		mutedSubtitleText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.MutedSubtitleText",
+			{ Player = self.userFullName }
+		),
+		blockedSubtitleText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.BlockedSubtitleText",
+			{ Player = self.userFullName }
+		),
+		mutedAndBlockedSubtitleText = RobloxTranslator:FormatByKey(
+			"Feature.SettingsHub.ReportSubmitted.Label.MuteAndBlockWarning",
+			{ Player = self.userFullName }
+		),
+		cancelText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel"),
+		confirmText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Confirm"),
+		isMuted = self.state.muteFlipped,
+		isBlocked = self.state.blockFlipped,
+		onCancelActivated = self.onYesOrNoCancel,
+		onConfirmActivated = self.onYesOrNoConfirmation,
+		uiScale = scale,
+		ZIndex = self.props.ZIndex,
+	})
+
+	local pageToDisplay
+
+	if currentPage == ReportPages.SelectActions then
+		pageToDisplay = selectActionsPage
+	elseif currentPage == ReportPages.ConfirmAction then
+		pageToDisplay = confirmActionsPage
+	end
+
+	return pageToDisplay
+end
+
 function ReportConfirmationContainer:render()
-	return withStyle(function(style)
-		local currentPage = self.state.currentPage
-
-		local scale = 1.3
-
-		if self.props.onSizeChanged then
-			local absoluteWidth = self.state.absoluteWidth
-
-			if absoluteWidth >= TabletBreakpoint then
-				scale = 1.3
-			elseif absoluteWidth > MobileBreakpoint then
-				scale = 1
-			else
-				scale = absoluteWidth / MobileBreakpoint -- Scales to fit container
-			end
-		end
-
-		local savedMuteState = if self.state.muteFlipped ~= nil then self.state.muteFlipped else false
-		local savedBlockedState = if self.state.blockFlipped ~= nil then self.state.blockFlipped else false
-		local selectActionsPage = Roact.createElement(ReportActionSelection, {
-			titleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.Report.ThanksForReport"),
-			subtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.ThankYou"),
-			instructionText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Report.OtherActionsHeader"),
-			muteText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.MutePlayer",
-				{ Player = self.userFullName }
-			),
-			blockText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.BlockPlayer",
-				{ Player = self.userFullName }
-			),
-			doneText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Report.Done"),
-			showVoiceMuting = self.props.isVoiceReport,
-			isVoiceMuted = savedMuteState or self.state.targetInitiallyVoiceMuted,
-			isBlocked = savedBlockedState or self.state.targetInitiallyBlocked,
-			onMuteCheckboxActivated = self.onMuteCheckboxActivated,
-			onBlockCheckboxActivated = self.onBlockCheckboxActivated,
-			onDoneActivated = self.onActionSelectionDoneActivated,
-			uiScale = scale,
-			ZIndex = self.props.ZIndex,
-		})
-
-		local confirmActionsPage = Roact.createElement(ReportActionAreYouSure, {
-			mutedTitleText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.MutePlayer",
-				{ Player = self.userFullName }
-			),
-			blockedTitleText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.BlockPlayer",
-				{ Player = self.userFullName }
-			),
-			mutedAndBlockedTitleText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.Label.MuteAndBlockPlayer",
-				{ DisplayName = self.userFullName }
-			),
-			mutedSubtitleText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.MutedSubtitleText",
-				{ Player = self.userFullName }
-			),
-			blockedSubtitleText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.BlockedSubtitleText",
-				{ Player = self.userFullName }
-			),
-			mutedAndBlockedSubtitleText = RobloxTranslator:FormatByKey(
-				"Feature.SettingsHub.ReportSubmitted.Label.MuteAndBlockWarning",
-				{ Player = self.userFullName }
-			),
-			cancelText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel"),
-			confirmText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Confirm"),
-			isMuted = self.state.muteFlipped,
-			isBlocked = self.state.blockFlipped,
-			onCancelActivated = self.onYesOrNoCancel,
-			onConfirmActivated = self.onYesOrNoConfirmation,
-			uiScale = scale,
-			ZIndex = self.props.ZIndex,
-		})
-
-		local pageToDisplay
-
-		if currentPage == ReportPages.SelectActions then
-			pageToDisplay = selectActionsPage
-		elseif currentPage == ReportPages.ConfirmAction then
-			pageToDisplay = confirmActionsPage
-		end
-
-		return pageToDisplay
+	if FFlagCoreUiMigrateUIBloxToFoundation then
+		return self:renderContent()
+	end
+	return withStyle(function(_style)
+		return self:renderContent()
 	end)
 end
 

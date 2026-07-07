@@ -240,7 +240,6 @@ Constants.ASSET_STATUS = {
 
 Constants.MAKEUP_INFO = ValidationRulesUtil:getMakeupRules()
 
--- https://confluence.rbx.com/display/AVATAR/UGC+Accessory+Max+Sizes
 -- Measurements are doubled to account full size
 -- boundsOffset is used when measurements are non-symmetrical
 -- i.e. WaistAccessory is 3 behind, 2.5 front

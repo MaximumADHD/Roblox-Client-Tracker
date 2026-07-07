@@ -61,7 +61,7 @@ local VRBottomBar = if isInExperienceUIVREnabled
 	then require(Components.VRBottomUnibar)
 	else require(Packages.VR.VRBottomBar.VRBottomBar)
 local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
-local BuildPillMenu = BuildExperience.BuildPillMenu
+local BuildPillMenuPortalHost = BuildExperience.BuildPillMenuPortalHost
 local ChromeAnalytics = if game:GetEngineFeature("InGameChromeSignalAPI") 
 	then require(Chrome.ChromeShared.Analytics) 
 	else nil
@@ -292,13 +292,7 @@ local function TopBarApp(props: TopBarProps)
 				Position = UDim2.new(1, -screenSideOffset, 0, topBarTopMargin),
 			}, {
 				BuildPillMenu = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
-					then React.createElement(BuildPillMenu, {
-						target = {
-							universeId = game.GameId,
-							placeId = game.PlaceId,
-							isNewGameTarget = false,
-						},
-					})
+					then React.createElement(BuildPillMenuPortalHost)
 					else nil,
 				HealthBar = React.createElement(HealthBar)
 			})

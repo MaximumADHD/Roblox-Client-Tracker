@@ -19,6 +19,8 @@ local GuiService = game:GetService("GuiService")
 
 local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
 
+local FFlagPromptCreatorTransientDialog = game:DefineFastFlag("PromptCreatorTransientDialog", false)
+
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local TenFootInterface = require(CoreGuiModules:WaitForChild("TenFootInterface"))
@@ -26,6 +28,8 @@ local VRModules = CoreGuiModules:WaitForChild("VR")
 local VRDialogModule = require(VRModules:WaitForChild("Dialog"))
 
 local PromptDialogVR = nil
+local PromptDialog = nil
+local ContainerFrame = nil
 
 function getViewportSize()
 	while not game.Workspace.CurrentCamera do
@@ -72,6 +76,9 @@ local DefaultPromptOptions = {
 local PromptCallback = nil
 local LastPromptOptions = nil
 
+-- Active event connections (used in transient mode)
+local activeConnections = {}
+
 --[[ Constants ]]--
 -- Images
 local BUTTON = 'rbxasset://textures/ui/VR/button.png'
@@ -90,6 +97,10 @@ local DIALOG_SIZE = UDim2.new(0, 438, 0, 300)
 local HIDE_POSITION = UDim2.new(0.5, -219, 0, -300)
 local SHOW_POSITION = UDim2.new(0.5, -219, 0.5, -150)
 
+local TITLE_HEIGHT = 52
+local TITLE_TEXTSIZE = 24
+local BUTTON_TEXTSIZE = 24
+
 if IsTenFootInterface or IsVRMode then
 	DIALOG_SIZE = UDim2.new(1, 0, 0, 690)
 	HIDE_POSITION = UDim2.new(0, 0, 0, -690)
@@ -104,14 +115,9 @@ elseif IsTablet then
 	SHOW_POSITION = UDim2.new(0.5, -200, 0.5, -152)
 end
 
-local TITLE_HEIGHT = 52
-local TITLE_TEXTSIZE = 24
-
 if IsPhone then
 	TITLE_HEIGHT = 44
 end
-
-local BUTTON_TEXTSIZE = 24
 
 if IsTenFootInterface or IsVRMode then
 	BUTTON_TEXTSIZE = 42
@@ -257,15 +263,25 @@ local function createImageButtonWithText(name, size, position, image, imageDown,
 	return imageButton
 end
 
---[[ Begin Gui Creation ]]--
-local PromptDialog = createFrame("PromptDialog", DIALOG_SIZE, HIDE_POSITION, 1, nil)
-PromptDialog.Visible = false
-PromptDialog.Parent = RobloxGui
-PromptDialog.Active = true
+--[[ Gui Creation ]]--
+local function createPromptDialog()
+	PromptDialog = createFrame("PromptDialog", DIALOG_SIZE, HIDE_POSITION, 1, nil)
+	PromptDialog.Visible = false
+	PromptDialog.Active = true
+	PromptDialog.Parent = RobloxGui
 
-local ContainerFrame = createFrame("ContainerFrame", UDim2.new(1, 0, 1, 0), nil, 0.36, Color3.new(0, 0, 0))
-ContainerFrame.ZIndex = 8
-ContainerFrame.Parent = PromptDialog
+	ContainerFrame = createFrame("ContainerFrame", UDim2.new(1, 0, 1, 0), nil, 0.36, Color3.new(0, 0, 0))
+	ContainerFrame.ZIndex = 8
+	ContainerFrame.Parent = PromptDialog
+end
+
+local function destroyPromptDialog()
+	if PromptDialog then
+		PromptDialog:Destroy()
+		PromptDialog = nil
+		ContainerFrame = nil
+	end
+end
 
 function AddDefaultsToPromptOptions(promptOptions, defaultPromptOptions)
 	for key, value in pairs(defaultPromptOptions) do
@@ -517,12 +533,64 @@ function OnTweenInFinished()
 	end
 end
 
+function ConnectActiveEvents()
+	local function OnInputChanged(inputObject)
+		local inputType = inputObject.UserInputType
+		local inputTypes = Enum.UserInputType
+		if not IsVRMode and valueInTable(inputType, {inputTypes.Gamepad1, inputTypes.Gamepad2, inputTypes.Gamepad3, inputTypes.Gamepad4}) then
+			if inputObject.KeyCode == Enum.KeyCode.Thumbstick1 or inputObject.KeyCode == Enum.KeyCode.Thumbstick2 then
+				if math.abs(inputObject.Position.X) > 0.1 or math.abs(inputObject.Position.Z) > 0.1 or math.abs(inputObject.Position.Y) > 0.1 then
+					LastInputWasGamepad = true
+				end
+			else
+				LastInputWasGamepad = true
+			end
+		else
+			LastInputWasGamepad = false
+		end
+	end
+
+	table.insert(activeConnections, UserInputService.InputChanged:connect(OnInputChanged))
+	table.insert(activeConnections, UserInputService.InputBegan:connect(OnInputChanged))
+
+	table.insert(activeConnections, GuiService.Changed:connect(function(prop)
+		if IsCurrentlyPrompting then
+			if prop == "CoreGuiNavigationEnabled" then
+				if GuiService.CoreGuiNavigationEnabled ~= true then
+					WasCoreGuiNavigationEnabled = GuiService.CoreGuiNavigationEnabled
+					GuiService.CoreGuiNavigationEnabled = true
+				end
+			elseif prop == "GuiNavigationEnabled" then
+				if GuiService.GuiNavigationEnabled ~= false then
+					WasGuiNavigationEnabled = GuiService.GuiNavigationEnabled
+					GuiService.GuiNavigationEnabled = false
+				end
+			elseif prop == "AutoSelectGuiEnabled" then
+				if GuiService.AutoSelectGuiEnabled ~= false then
+					WasAutoSelectGuiEnabled = GuiService.AutoSelectGuiEnabled
+					GuiService.AutoSelectGuiEnabled = false
+				end
+			end
+		end
+	end))
+end
+
+function DisconnectActiveEvents()
+	for _, conn in ipairs(activeConnections) do
+		conn:Disconnect()
+	end
+	activeConnections = {}
+end
+
 function ShowPrompt()
 	PromptDialog.Visible = true
 	if IsTenFootInterface then
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 	end
 	if IsVRMode then
+		if not PromptDialogVR then
+			PromptDialogVR = VRDialogModule.new()
+		end
 		PromptDialog.Position = SHOW_POSITION
 		PromptDialogVR:SetContent(PromptDialog)
 		PromptDialogVR:Show(true)
@@ -540,7 +608,6 @@ end
 
 function HidePrompt()
 	local function onClosed()
-		PromptDialog.Visible = false
 		IsCurrentlyPrompting = false
 		GuiService.CoreGuiNavigationEnabled = WasCoreGuiNavigationEnabled
 		GuiService.GuiNavigationEnabled = WasGuiNavigationEnabled
@@ -549,10 +616,18 @@ function HidePrompt()
 		if IsTenFootInterface then
 			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.None
 		end
+		if FFlagPromptCreatorTransientDialog then
+			DisconnectActiveEvents()
+			destroyPromptDialog()
+		else
+			PromptDialog.Visible = false
+		end
 	end
 	if IsVRMode then
 		PromptDialog.Position = HIDE_POSITION
-		PromptDialogVR:Close()
+		if PromptDialogVR then
+			PromptDialogVR:Close()
+		end
 		onClosed()
 	else
 		if featureDeprecateOldGuiObjectProperties then
@@ -599,7 +674,6 @@ function DisableControllerMovement()
 end
 
 function EnableControllerInput()
-	--cancel the prompt when the user pressed the b button.
 	ContextActionService:BindCoreAction(
 		CONTROLLER_CANCEL_ACTION_NAME,
 		function(actionName, inputState, inputObject)
@@ -641,72 +715,6 @@ function valueInTable(val, tab)
 	return false
 end
 
-function OnInputChanged(inputObject)
-	local inputType = inputObject.UserInputType
-	local inputTypes = Enum.UserInputType
-	if not IsVRMode and valueInTable(inputType, {inputTypes.Gamepad1, inputTypes.Gamepad2, inputTypes.Gamepad3, inputTypes.Gamepad4}) then
-		if inputObject.KeyCode == Enum.KeyCode.Thumbstick1 or inputObject.KeyCode == Enum.KeyCode.Thumbstick2 then
-			if math.abs(inputObject.Position.X) > 0.1 or math.abs(inputObject.Position.Z) > 0.1 or math.abs(inputObject.Position.Y) > 0.1 then
-				LastInputWasGamepad = true
-			end
-		else
-			LastInputWasGamepad = true
-		end
-	else
-		LastInputWasGamepad = false
-	end
-end
-UserInputService.InputChanged:connect(OnInputChanged)
-UserInputService.InputBegan:connect(OnInputChanged)
-
---[[ VR changed handling ]]
-function OnVREnabled(vrEnabled)
-	if vrEnabled then
-		if not PromptDialogVR then
-			PromptDialogVR = VRDialogModule.new()
-		end
-		PromptDialogVR:SetContent(PromptDialog)
-		IsVRMode = true
-	else
-		IsVRMode = false
-		if PromptDialogVR then
-			PromptDialogVR:SetContent(nil)
-		end
-		PromptDialog.Parent = RobloxGui
-	end
-end
-
-spawn(function()
-	OnVREnabled(UserInputService.VREnabled)
-end)
-
-UserInputService.Changed:connect(function(prop)
-	if prop == "VREnabled" then
-		OnVREnabled(UserInputService.VREnabled)
-	end
-end)
-
-GuiService.Changed:connect(function(prop)
-	if IsCurrentlyPrompting then
-		if prop == "CoreGuiNavigationEnabled" then
-			if GuiService.CoreGuiNavigationEnabled ~= true then
-				WasCoreGuiNavigationEnabled = GuiService.CoreGuiNavigationEnabled
-				GuiService.CoreGuiNavigationEnabled = true
-			end
-		elseif prop == "GuiNavigationEnabled" then
-			if GuiService.GuiNavigationEnabled ~= false then
-				WasGuiNavigationEnabled = GuiService.GuiNavigationEnabled
-				GuiService.GuiNavigationEnabled = false
-			end
-		elseif prop == "AutoSelectGuiEnabled" then
-			if GuiService.AutoSelectGuiEnabled ~= false then
-				WasAutoSelectGuiEnabled = GuiService.AutoSelectGuiEnabled
-				GuiService.AutoSelectGuiEnabled = false
-			end
-		end
-	end
-end)
-
 function SetupGamepadSelection()
 	WasCoreGuiNavigationEnabled = GuiService.CoreGuiNavigationEnabled
 	WasGuiNavigationEnabled = GuiService.GuiNavigationEnabled
@@ -718,12 +726,88 @@ function SetupGamepadSelection()
 	GuiService.AutoSelectGuiEnabled = false
 end
 
+--[[ Legacy eager initialization (flag off) ]]--
+if not FFlagPromptCreatorTransientDialog then
+	createPromptDialog()
+
+	local function OnInputChanged(inputObject)
+		local inputType = inputObject.UserInputType
+		local inputTypes = Enum.UserInputType
+		if not IsVRMode and valueInTable(inputType, {inputTypes.Gamepad1, inputTypes.Gamepad2, inputTypes.Gamepad3, inputTypes.Gamepad4}) then
+			if inputObject.KeyCode == Enum.KeyCode.Thumbstick1 or inputObject.KeyCode == Enum.KeyCode.Thumbstick2 then
+				if math.abs(inputObject.Position.X) > 0.1 or math.abs(inputObject.Position.Z) > 0.1 or math.abs(inputObject.Position.Y) > 0.1 then
+					LastInputWasGamepad = true
+				end
+			else
+				LastInputWasGamepad = true
+			end
+		else
+			LastInputWasGamepad = false
+		end
+	end
+	UserInputService.InputChanged:connect(OnInputChanged)
+	UserInputService.InputBegan:connect(OnInputChanged)
+
+	local function OnVREnabled(vrEnabled)
+		if vrEnabled then
+			if not PromptDialogVR then
+				PromptDialogVR = VRDialogModule.new()
+			end
+			PromptDialogVR:SetContent(PromptDialog)
+			IsVRMode = true
+		else
+			IsVRMode = false
+			if PromptDialogVR then
+				PromptDialogVR:SetContent(nil)
+			end
+			PromptDialog.Parent = RobloxGui
+		end
+	end
+
+	spawn(function()
+		OnVREnabled(UserInputService.VREnabled)
+	end)
+
+	UserInputService.Changed:connect(function(prop)
+		if prop == "VREnabled" then
+			OnVREnabled(UserInputService.VREnabled)
+		end
+	end)
+
+	GuiService.Changed:connect(function(prop)
+		if IsCurrentlyPrompting then
+			if prop == "CoreGuiNavigationEnabled" then
+				if GuiService.CoreGuiNavigationEnabled ~= true then
+					WasCoreGuiNavigationEnabled = GuiService.CoreGuiNavigationEnabled
+					GuiService.CoreGuiNavigationEnabled = true
+				end
+			elseif prop == "GuiNavigationEnabled" then
+				if GuiService.GuiNavigationEnabled ~= false then
+					WasGuiNavigationEnabled = GuiService.GuiNavigationEnabled
+					GuiService.GuiNavigationEnabled = false
+				end
+			elseif prop == "AutoSelectGuiEnabled" then
+				if GuiService.AutoSelectGuiEnabled ~= false then
+					WasAutoSelectGuiEnabled = GuiService.AutoSelectGuiEnabled
+					GuiService.AutoSelectGuiEnabled = false
+				end
+			end
+		end
+	end)
+end
+
 -- [[ Public Methods ]]
 function moduleApiTable:CreatePrompt(promptOptions)
 	if IsCurrentlyPrompting then
 		return false
 	end
 	IsCurrentlyPrompting = true
+
+	if FFlagPromptCreatorTransientDialog then
+		createPromptDialog()
+		ConnectActiveEvents()
+	end
+
 	SetupGamepadSelection()
 	DoCreatePrompt(promptOptions)
 	return true

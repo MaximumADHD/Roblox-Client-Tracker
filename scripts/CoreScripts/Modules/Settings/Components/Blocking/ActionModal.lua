@@ -4,10 +4,12 @@ local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local withStyle = UIBlox.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
+
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
-local FFlagAddNewPlayerListMobileFocusNav = require(CorePackages.Workspace.Packages.PlayerList).Flags.FFlagAddNewPlayerListMobileFocusNav
+local FFlagAddNewPlayerListMobileFocusNav =
+	require(CorePackages.Workspace.Packages.PlayerList).Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local ActionModal = Roact.PureComponent:extend("ActionModal")
 
@@ -16,11 +18,11 @@ ActionModal.defaultProps = {
 }
 
 ActionModal.validateProps = t.interface({
-	block = t.callback ,
-	blockText = t.string ,
+	block = t.callback,
+	blockText = t.string,
 
-	blockAndReport = t.callback ,
-	blockAndReportText = t.string ,
+	blockAndReport = t.callback,
+	blockAndReportText = t.string,
 
 	cancel = t.callback,
 	cancelText = t.string,
@@ -31,7 +33,16 @@ ActionModal.validateProps = t.interface({
 })
 
 function ActionModal:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				Overlay = {
+					Color = tokens.Color.Common.Scrim.Color3,
+					Transparency = tokens.Color.Common.Scrim.Transparency,
+				},
+			},
+		}
+	end, function(style)
 		return Roact.createElement("ImageButton", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = style.Theme.Overlay.Transparency,
@@ -46,7 +57,7 @@ function ActionModal:render()
 				screenSize = self.props.screenSize,
 				title = self.props.title,
 				bodyText = self.props.body,
-				richText = true ,
+				richText = true,
 				isRoactGamepadEnabled = if FFlagAddNewPlayerListMobileFocusNav then false else nil,
 				buttonStackInfo = {
 					buttons = {

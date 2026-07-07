@@ -9,8 +9,11 @@ export type TypeRegistry = proto.TypeRegistry
 local marketplace_catalog_page = require(script.marketplace_catalog_page)
 
 -- Exported types
+export type PaginationDirection = marketplace_catalog_page.PaginationDirection
 export type MarketplaceCatalogPageRequest = marketplace_catalog_page.MarketplaceCatalogPageRequest
+export type RequestPagination = marketplace_catalog_page.RequestPagination
 export type MarketplaceCatalogPageResponse = marketplace_catalog_page.MarketplaceCatalogPageResponse
+export type Pagination = marketplace_catalog_page.Pagination
 
 return {
 	marketplace_catalog_page = marketplace_catalog_page,

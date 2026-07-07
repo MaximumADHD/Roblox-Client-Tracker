@@ -47,8 +47,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableFeedbackReportDialogAdjustments =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableFeedbackReportDialogAdjustments)
 local FFlagEnableFeedbackSelectionUpdate = game:DefineFastFlag("EnableFeedbackSelectionUpdate", false)
-local EngineFeatureExperienceStateCaptureSelectionBugFix =
-	game:GetEngineFeature("ExperienceStateCaptureSelectionBugFix")
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
@@ -75,11 +73,9 @@ function FeedbackReportDialog:init()
 			additionalCommentsText = "",
 			numFeedbackSubmissionAttempts = 0, -- This state value is exempt from resets, as it is tracked as a whole and not per feedback item submission
 			isGenericSelection = false,
+			shouldDisplayFeedbackImage = false,
+			feedbackImageUri = "",
 		}
-		if EngineFeatureExperienceStateCaptureSelectionBugFix then
-			self.state.shouldDisplayFeedbackImage = false
-			self.state.feedbackImageUri = ""
-		end
 	else
 		self.state = {
 			feedbackText = "",
@@ -88,11 +84,9 @@ function FeedbackReportDialog:init()
 			correctTranslationText = "",
 			additionalCommentsText = "",
 			numFeedbackSubmissionAttempts = 0, -- This state value is exempt from resets, as it is tracked as a whole and not per feedback item submission
+			shouldDisplayFeedbackImage = false,
+			feedbackImageUri = "",
 		}
-		if EngineFeatureExperienceStateCaptureSelectionBugFix then
-			self.state.shouldDisplayFeedbackImage = false
-			self.state.feedbackImageUri = ""
-		end
 	end
 
 	-- Dynamically calculate height for entry fields like translation text box and selection field
@@ -112,14 +106,9 @@ function FeedbackReportDialog:init()
 			})
 		end
 
-		if EngineFeatureExperienceStateCaptureSelectionBugFix then
-			self:setState({
-				shouldDisplayFeedbackImage = false,
-				feedbackImageUri = "",
-			})
-		end
-
 		self:setState({
+			shouldDisplayFeedbackImage = false,
+			feedbackImageUri = "",
 			correctTranslationText = "",
 			additionalCommentsText = "",
 			feedbackText = "",
@@ -135,16 +124,10 @@ function FeedbackReportDialog:init()
 		-- When updated engine selection is finished, this will extend to other types of instances.
 		if instance:IsA("TextBox") then
 			self:setState({
-				feedbackText = instance.PlaceholderText, -- Textbox text will always be input by the user, so we only care about placeholder text
+				feedbackText = if instance.PlaceholderText == "" then instance.Text else instance.PlaceholderText,
 				feedbackOriginalText = instance.LocalizationMatchedSourceText,
 				feedbackIdentifier = instance.LocalizationMatchIdentifier,
 			})
-
-			if EngineFeatureExperienceStateCaptureSelectionBugFix then
-				self:setState({
-					feedbackText = if instance.PlaceholderText == "" then instance.Text else instance.PlaceholderText,
-				})
-			end
 
 			if FFlagEnableFeedbackSelectionUpdate then
 				self:setState({
@@ -163,36 +146,34 @@ function FeedbackReportDialog:init()
 					isGenericSelection = false,
 				})
 			end
-		elseif EngineFeatureExperienceStateCaptureSelectionBugFix then
-			if instance:IsA("ImageLabel") or instance:IsA("ImageButton") then
+		elseif instance:IsA("ImageLabel") or instance:IsA("ImageButton") then
+			self:setState({
+				shouldDisplayFeedbackImage = true,
+				feedbackImageUri = instance.Image,
+			})
+		elseif instance:IsA("Decal") then
+			self:setState({
+				shouldDisplayFeedbackImage = true,
+				feedbackImageUri = instance.Texture,
+			})
+		elseif instance:IsA("MeshPart") then
+			if instance.TextureContent.SourceType == Enum.ContentSourceType.Uri then
 				self:setState({
 					shouldDisplayFeedbackImage = true,
-					feedbackImageUri = instance.Image,
+					feedbackImageUri = instance.TextureID,
 				})
-			elseif instance:IsA("Decal") then
+			elseif instance.MeshContent.SourceType == Enum.ContentSourceType.Uri then
 				self:setState({
 					shouldDisplayFeedbackImage = true,
-					feedbackImageUri = instance.Texture,
+					feedbackImageUri = instance.MeshId,
 				})
-			elseif instance:IsA("MeshPart") then
-				if instance.TextureContent.SourceType == Enum.ContentSourceType.Uri then
+			else
+				local surfaceAppearance = instance:FindFirstChildOfClass("SurfaceAppearance")
+				if surfaceAppearance and surfaceAppearance.ColorMap then
 					self:setState({
 						shouldDisplayFeedbackImage = true,
-						feedbackImageUri = instance.TextureID,
+						feedbackImageUri = surfaceAppearance.ColorMap,
 					})
-				elseif instance.MeshContent.SourceType == Enum.ContentSourceType.Uri then
-					self:setState({
-						shouldDisplayFeedbackImage = true,
-						feedbackImageUri = instance.MeshId,
-					})
-				else
-					local surfaceAppearance = instance:FindFirstChildOfClass("SurfaceAppearance")
-					if surfaceAppearance and surfaceAppearance.ColorMap then
-						self:setState({
-							shouldDisplayFeedbackImage = true,
-							feedbackImageUri = surfaceAppearance.ColorMap,
-						})
-					end
 				end
 			end
 		elseif FFlagEnableFeedbackSelectionUpdate then
@@ -241,24 +222,14 @@ function FeedbackReportDialog:init()
 			self.state.numFeedbackSubmissionAttempts
 		)
 
-		if EngineFeatureExperienceStateCaptureSelectionBugFix then
-			self.props.setFeedbackFlowState(Constants.State.Default)
-			self.resetLocalState()
-		else
-			self.resetLocalState()
-			self.props.setFeedbackFlowState(Constants.State.Default)
-		end
+		self.props.setFeedbackFlowState(Constants.State.Default)
+		self.resetLocalState()
 	end
 
 	-- Press the "Cancel" button or transparent background.
 	self.onCancel = function()
-		if EngineFeatureExperienceStateCaptureSelectionBugFix then
-			self.props.setFeedbackFlowState(Constants.State.Default)
-			self.resetLocalState()
-		else
-			self.resetLocalState()
-			self.props.setFeedbackFlowState(Constants.State.Default)
-		end
+		self.props.setFeedbackFlowState(Constants.State.Default)
+		self.resetLocalState()
 	end
 
 	if FFlagTopBarSignalizeScreenSize then
@@ -292,8 +263,7 @@ function FeedbackReportDialog:renderContents(localized)
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				}),
 				SelectedTextHeader = Roact.createElement(StyledTextLabel, {
-					text = if EngineFeatureExperienceStateCaptureSelectionBugFix
-							and self.state.shouldDisplayFeedbackImage
+					text = if self.state.shouldDisplayFeedbackImage
 						then localized.imageSelectionHeader
 						else localized.textSelectionHeader,
 					size = UDim2.new(1, 0, 0, 72),
@@ -307,8 +277,7 @@ function FeedbackReportDialog:renderContents(localized)
 					fluidSizing = true,
 					automaticSize = Enum.AutomaticSize.X,
 				}),
-				SelectedTextLabel = if EngineFeatureExperienceStateCaptureSelectionBugFix
-						and self.state.shouldDisplayFeedbackImage
+				SelectedTextLabel = if self.state.shouldDisplayFeedbackImage
 					then Roact.createElement("ImageLabel", {
 						LayoutOrder = 2,
 						Size = UDim2.new(1, 0, 0, 72),
@@ -423,8 +392,7 @@ function FeedbackReportDialog:renderContents(localized)
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				}),
 				SelectedTextHeader = Roact.createElement(StyledTextLabel, {
-					text = if EngineFeatureExperienceStateCaptureSelectionBugFix
-							and self.state.shouldDisplayFeedbackImage
+					text = if self.state.shouldDisplayFeedbackImage
 						then localized.imageSelectionHeader
 						else localized.textSelectionHeader,
 					size = UDim2.new(1, 0, 0, 72),
@@ -438,8 +406,7 @@ function FeedbackReportDialog:renderContents(localized)
 					fluidSizing = true,
 					automaticSize = Enum.AutomaticSize.X,
 				}),
-				SelectedTextLabel = if EngineFeatureExperienceStateCaptureSelectionBugFix
-						and self.state.shouldDisplayFeedbackImage
+				SelectedTextLabel = if self.state.shouldDisplayFeedbackImage
 					then Roact.createElement("ImageLabel", {
 						LayoutOrder = 2,
 						Size = UDim2.new(1, 0, 0, 72),

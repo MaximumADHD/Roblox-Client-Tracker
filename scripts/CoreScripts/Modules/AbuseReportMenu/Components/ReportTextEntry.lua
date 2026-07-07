@@ -1,8 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
 
 local useStyle = UIBlox.Core.Style.useStyle
 
@@ -13,24 +11,11 @@ local TEXT_ENTRY_HEIGHT = 40
 local function ReportTextEntry(props: Props)
 	local style = useStyle()
 	local font = style.Font.Body.Font
-	local textSize = (
-		if FFlagRenameDeprecatedUIBloxTokens
-			then style.Tokens.FontSize.FontSize_400
-			else style.Tokens.Global.FontSize_100
-	)
+	local textSize = style.Tokens.FontSize.FontSize_400
 	local theme = style.Theme
 
 	return React.createElement("Frame", {
-		Size = UDim2.new(
-			1,
-			0,
-			0,
-			TEXT_ENTRY_HEIGHT
-				+ (if FFlagRenameDeprecatedUIBloxTokens
-					then style.Tokens.Size.Size_600
-					else style.Tokens.Global.Space_300)
-				+ 20
-		),
+		Size = UDim2.new(1, 0, 0, TEXT_ENTRY_HEIGHT + style.Tokens.Size.Size_600 + 20),
 		BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
 		BackgroundColor3 = style.Theme.BackgroundUIDefault.Color,
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -45,17 +30,7 @@ local function ReportTextEntry(props: Props)
 			CornerRadius = UDim.new(0, 8),
 		}),
 		AbuseReportsText = React.createElement("TextBox", {
-			Size = UDim2.new(
-				1,
-				0,
-				0,
-				TEXT_ENTRY_HEIGHT
-					+ (
-						if FFlagRenameDeprecatedUIBloxTokens
-							then style.Tokens.Size.Size_600
-							else style.Tokens.Global.Space_300
-					)
-			),
+			Size = UDim2.new(1, 0, 0, TEXT_ENTRY_HEIGHT + style.Tokens.Size.Size_600),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Position = UDim2.new(0, 0, 0, 0),
 			AnchorPoint = Vector2.new(0, 0),

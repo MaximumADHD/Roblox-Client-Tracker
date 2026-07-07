@@ -12,6 +12,7 @@ local isInlineElement = InlineLayoutPackage.Utils.isInlineElement
 
 local function renderInline(node: Types.Node, context: Types.Context): React.ReactElement
 	return React.createElement(InlineLayout, {
+		VerticalPadding = UDim.new(0, 0),
 		Elements = Dash.filter(
 			context.processChildren(node, mergeContexts(context, { isInline = true })),
 			isInlineElement

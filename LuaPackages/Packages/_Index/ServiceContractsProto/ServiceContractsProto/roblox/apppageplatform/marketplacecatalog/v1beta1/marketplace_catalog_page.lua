@@ -8,9 +8,12 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 
 type _Messages = {
 	MarketplaceCatalogPageRequest: _MarketplaceCatalogPageRequestMessage,
+	RequestPagination: _RequestPaginationMessage,
 	MarketplaceCatalogPageResponse: _MarketplaceCatalogPageResponseMessage,
 	MarketplaceCatalogPageResponse_TemplatesEntry: _MarketplaceCatalogPageResponse_TemplatesEntryMessage,
 	MarketplaceCatalogPageResponse_LocalizedLiteralsEntry: _MarketplaceCatalogPageResponse_LocalizedLiteralsEntryMessage,
+	Pagination: _PaginationMessage,
+	PaginationDirection: _PaginationDirectionMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -35,12 +38,14 @@ type _MarketplaceCatalogPageRequestFields = {
 	request_id: string,
 	context: string,
 	screen_size: string,
+	pagination: RequestPagination?,
 }
 
 type _MarketplaceCatalogPageRequestPartialFields = {
 	request_id: string?,
 	context: string?,
 	screen_size: string?,
+	pagination: RequestPagination?,
 }
 
 export type MarketplaceCatalogPageRequest = typeof(setmetatable(
@@ -51,6 +56,31 @@ type _MarketplaceCatalogPageRequestMessage = proto.Message<
 	MarketplaceCatalogPageRequest,
 	_MarketplaceCatalogPageRequestPartialFields
 >
+
+type _RequestPaginationImpl = {
+	__index: _RequestPaginationImpl,
+	new: (fields: _RequestPaginationPartialFields?) -> RequestPagination,
+	encode: (self: RequestPagination) -> buffer,
+	decode: (input: buffer) -> RequestPagination,
+	jsonEncode: (self: RequestPagination) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RequestPagination,
+	descriptor: proto.Descriptor,
+}
+
+type _RequestPaginationFields = {
+	cursor: string?,
+	page_size: number?,
+	direction: PaginationDirection?,
+}
+
+type _RequestPaginationPartialFields = {
+	cursor: string?,
+	page_size: number?,
+	direction: PaginationDirection?,
+}
+
+export type RequestPagination = typeof(setmetatable({} :: _RequestPaginationFields, {} :: _RequestPaginationImpl))
+type _RequestPaginationMessage = proto.Message<RequestPagination, _RequestPaginationPartialFields>
 
 type _MarketplaceCatalogPageResponseImpl = {
 	__index: _MarketplaceCatalogPageResponseImpl,
@@ -67,6 +97,7 @@ type _MarketplaceCatalogPageResponseFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
 	localized_literals: { [string]: string },
+	pagination: Pagination?,
 }
 
 type _MarketplaceCatalogPageResponsePartialFields = {
@@ -74,6 +105,7 @@ type _MarketplaceCatalogPageResponsePartialFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
 	localized_literals: { [string]: string }?,
+	pagination: Pagination?,
 }
 
 export type MarketplaceCatalogPageResponse = typeof(setmetatable(
@@ -147,6 +179,34 @@ type _MarketplaceCatalogPageResponse_LocalizedLiteralsEntryMessage = proto.Messa
 	_MarketplaceCatalogPageResponse_LocalizedLiteralsEntryPartialFields
 >
 
+type _PaginationImpl = {
+	__index: _PaginationImpl,
+	new: (fields: _PaginationPartialFields?) -> Pagination,
+	encode: (self: Pagination) -> buffer,
+	decode: (input: buffer) -> Pagination,
+	jsonEncode: (self: Pagination) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> Pagination,
+	descriptor: proto.Descriptor,
+}
+
+type _PaginationFields = {
+	next_cursor: string?,
+}
+
+type _PaginationPartialFields = {
+	next_cursor: string?,
+}
+
+export type Pagination = typeof(setmetatable({} :: _PaginationFields, {} :: _PaginationImpl))
+type _PaginationMessage = proto.Message<Pagination, _PaginationPartialFields>
+
+type _PaginationDirectionMessage = proto.Enum<PaginationDirection>
+export type PaginationDirection =
+	"PAGINATION_DIRECTION_INVALID"
+	| "PAGINATION_DIRECTION_FORWARD"
+	| "PAGINATION_DIRECTION_BACKWARD"
+	| number -- Unknown
+
 do
 	local _MarketplaceCatalogPageRequestImpl = {}
 	_MarketplaceCatalogPageRequestImpl.__index = _MarketplaceCatalogPageRequestImpl
@@ -158,6 +218,7 @@ do
 			request_id = if data == nil or data.request_id == nil then "" else data.request_id,
 			context = if data == nil or data.context == nil then "" else data.context,
 			screen_size = if data == nil or data.screen_size == nil then "" else data.screen_size,
+			pagination = if data == nil or data.pagination == nil then nil else data.pagination,
 		}, _MarketplaceCatalogPageRequestImpl :: _MarketplaceCatalogPageRequestImpl)
 	end
 
@@ -178,6 +239,12 @@ do
 		if self.screen_size ~= nil and self.screen_size ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.screen_size)
+		end
+
+		if self.pagination ~= nil then
+			local encoded = self.pagination:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -213,6 +280,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.screen_size = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pagination = messages.RequestPagination.decode(value)
 					continue
 				end
 
@@ -253,6 +325,10 @@ do
 			output.screenSize = self.screen_size
 		end
 
+		if self.pagination ~= nil then
+			output.pagination = self.pagination:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -279,6 +355,10 @@ do
 			self.screen_size = input.screenSize
 		end
 
+		if input.pagination ~= nil then
+			self.pagination = messages.RequestPagination.jsonDecode(input.pagination)
+		end
+
 		return self
 	end
 
@@ -293,6 +373,150 @@ do
 end
 
 do
+	local _RequestPaginationImpl = {}
+	_RequestPaginationImpl.__index = _RequestPaginationImpl
+
+	function _RequestPaginationImpl.new(data: _RequestPaginationPartialFields?): RequestPagination
+		return setmetatable({
+			cursor = if data == nil or data.cursor == nil then nil else data.cursor,
+			page_size = if data == nil or data.page_size == nil then nil else data.page_size,
+			direction = if data == nil or data.direction == nil then nil else data.direction,
+		}, _RequestPaginationImpl :: _RequestPaginationImpl)
+	end
+
+	function _RequestPaginationImpl.encode(self: RequestPagination): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.cursor ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cursor)
+		end
+
+		if self.page_size ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.page_size)
+		end
+
+		if self.direction ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor =
+				proto.writeVarInt(output, cursor, messages.PaginationDirection.toNumber(self.direction :: any))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RequestPaginationImpl.decode(input: buffer): RequestPagination
+		local self = _RequestPaginationImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.page_size = value
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.direction = (messages.PaginationDirection.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cursor = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RequestPaginationImpl.jsonEncode(self: RequestPagination): any
+		local output = {}
+
+		if self.cursor ~= nil then
+			output.cursor = self.cursor
+		end
+
+		if self.page_size ~= nil then
+			output.pageSize = self.page_size
+		end
+
+		if self.direction ~= nil then
+			output.direction = if typeof(self.direction) == "number"
+				then self.direction
+				else messages.PaginationDirection.toNumber(self.direction :: any)
+		end
+
+		return output
+	end
+
+	function _RequestPaginationImpl.jsonDecode(input: { [string]: any }): RequestPagination
+		local self = _RequestPaginationImpl.new()
+
+		if input.cursor ~= nil then
+			self.cursor = input.cursor
+		end
+
+		if input.page_size ~= nil then
+			self.page_size = input.page_size
+		end
+
+		if input.pageSize ~= nil then
+			self.page_size = input.pageSize
+		end
+
+		if input.direction ~= nil then
+			self.direction = if typeof(input.direction) == "number"
+				then (messages.PaginationDirection.fromNumber(input.direction) or input.direction)
+				else (messages.PaginationDirection.fromName(input.direction) or input.direction)
+		end
+
+		return self
+	end
+
+	_RequestPaginationImpl.descriptor = {
+		name = "RequestPagination",
+		fullName = "roblox.apppageplatform.marketplacecatalog.v1beta1.RequestPagination",
+	}
+
+	messages.RequestPagination = _RequestPaginationImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RequestPagination)
+end
+
+do
 	local _MarketplaceCatalogPageResponseImpl = {}
 	_MarketplaceCatalogPageResponseImpl.__index = _MarketplaceCatalogPageResponseImpl
 
@@ -304,6 +528,7 @@ do
 			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
 			templates = if data == nil or data.templates == nil then {} else data.templates,
 			localized_literals = if data == nil or data.localized_literals == nil then {} else data.localized_literals,
+			pagination = if data == nil or data.pagination == nil then nil else data.pagination,
 		}, _MarketplaceCatalogPageResponseImpl :: _MarketplaceCatalogPageResponseImpl)
 	end
 
@@ -350,6 +575,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
+		end
+
+		if self.pagination ~= nil then
+			local encoded = self.pagination:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -409,6 +640,11 @@ do
 					self.localized_literals[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pagination = messages.Pagination.decode(value)
+					continue
 				end
 
 				local length
@@ -462,6 +698,10 @@ do
 				newOutput[key] = value
 			end
 			output.localizedLiterals = newOutput
+		end
+
+		if self.pagination ~= nil then
+			output.pagination = self.pagination:jsonEncode()
 		end
 
 		return output
@@ -531,6 +771,10 @@ do
 			end
 
 			self.localized_literals = newOutput
+		end
+
+		if input.pagination ~= nil then
+			self.pagination = messages.Pagination.jsonDecode(input.pagination)
 		end
 
 		return self
@@ -804,7 +1048,149 @@ do
 	typeRegistry.default:register(messages.MarketplaceCatalogPageResponse_LocalizedLiteralsEntry)
 end
 
+do
+	local _PaginationImpl = {}
+	_PaginationImpl.__index = _PaginationImpl
+
+	function _PaginationImpl.new(data: _PaginationPartialFields?): Pagination
+		return setmetatable({
+			next_cursor = if data == nil or data.next_cursor == nil then nil else data.next_cursor,
+		}, _PaginationImpl :: _PaginationImpl)
+	end
+
+	function _PaginationImpl.encode(self: Pagination): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.next_cursor ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.next_cursor)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _PaginationImpl.decode(input: buffer): Pagination
+		local self = _PaginationImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.next_cursor = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _PaginationImpl.jsonEncode(self: Pagination): any
+		local output = {}
+
+		if self.next_cursor ~= nil then
+			output.nextCursor = self.next_cursor
+		end
+
+		return output
+	end
+
+	function _PaginationImpl.jsonDecode(input: { [string]: any }): Pagination
+		local self = _PaginationImpl.new()
+
+		if input.next_cursor ~= nil then
+			self.next_cursor = input.next_cursor
+		end
+
+		if input.nextCursor ~= nil then
+			self.next_cursor = input.nextCursor
+		end
+
+		return self
+	end
+
+	_PaginationImpl.descriptor = {
+		name = "Pagination",
+		fullName = "roblox.apppageplatform.marketplacecatalog.v1beta1.Pagination",
+	}
+
+	messages.Pagination = _PaginationImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.Pagination)
+end
+
+messages.PaginationDirection = {
+	fromNumber = function(value: number): PaginationDirection?
+		if value == 0 then
+			return "PAGINATION_DIRECTION_INVALID"
+		elseif value == 1 then
+			return "PAGINATION_DIRECTION_FORWARD"
+		elseif value == 2 then
+			return "PAGINATION_DIRECTION_BACKWARD"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: PaginationDirection): number
+		if self == "PAGINATION_DIRECTION_INVALID" then
+			return 0
+		elseif self == "PAGINATION_DIRECTION_FORWARD" then
+			return 1
+		elseif self == "PAGINATION_DIRECTION_BACKWARD" then
+			return 2
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): PaginationDirection?
+		if name == "PAGINATION_DIRECTION_INVALID" then
+			return "PAGINATION_DIRECTION_INVALID"
+		elseif name == "PAGINATION_DIRECTION_FORWARD" then
+			return "PAGINATION_DIRECTION_FORWARD"
+		elseif name == "PAGINATION_DIRECTION_BACKWARD" then
+			return "PAGINATION_DIRECTION_BACKWARD"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	MarketplaceCatalogPageRequest = messages.MarketplaceCatalogPageRequest,
+	RequestPagination = messages.RequestPagination,
 	MarketplaceCatalogPageResponse = messages.MarketplaceCatalogPageResponse,
+	Pagination = messages.Pagination,
+	PaginationDirection = messages.PaginationDirection,
 }

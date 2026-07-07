@@ -1,7 +1,17 @@
 local ErrorSourceStrings = {}
 --[[
-    This is an auto-generated file that contains the translation strings found in our namespace. 
-    DO NOT EDIT THIS DIRECTLY. Your changes will get overwritten when someone else runs the update script. 
+    Generated MIRROR of the Translations Hub (the source of truth) for the
+    Common.UGCValidation namespace, plus the runtime English fallback that
+    src/util/LegacyValidationAdapter.lua reads when a localization lookup misses.
+
+    Author a new error string from a devspace with:
+        python3 PythonHelpers/syncTranslations.py --draft <KeyEnum> "<English message>"
+    That registers a HIDDEN draft (isLive=false, isReadyForTranslation=false) in the Hub
+    and appends the matching Keys + Values entry below. (You may instead create the draft
+    in the Hub UI and add the rows here by hand — CI only checks that the key exists in the
+    Hub, not the English text.) On your PR, CI blocks the merge until every added key is a
+    draft in the Hub; merging then flips those keys to live + ready for translation
+    (.github/workflows/sync-translations.yml).
 ]]
 
 ErrorSourceStrings.Keys = {
@@ -284,6 +294,7 @@ ErrorSourceStrings.Keys = {
 	Extents_ParentBelowPart = "Common.UGCValidation.ErrorLabel.Extents_ParentBelowPart",
 	MeshSize_LoadFailed = "Common.UGCValidation.ErrorLabel.MeshSize_LoadFailed",
 	MeshSize_Mismatch = "Common.UGCValidation.ErrorLabel.MeshSize_Mismatch",
+	TestWorkflowMessageV2 = "Common.UGCValidation.ErrorLabel.TestWorkflowMessageV2",
 }
 
 ErrorSourceStrings.Values = {
@@ -566,6 +577,7 @@ ErrorSourceStrings.Values = {
 	Extents_ParentBelowPart = "{upperPart} cannot extend below {lowerPart}. You can adjust how the parts are put together by moving {attachmentName}",
 	MeshSize_LoadFailed = "Mesh for '{meshName}' failed to load. Make sure the mesh exists and try again.",
 	MeshSize_Mismatch = "Calculated mesh size for {meshName} does not match MeshSize property value",
+	TestWorkflowMessageV2 = "Second test error string used to verify the Hub-first translation sync workflow end-to-end.",
 }
 
 return ErrorSourceStrings

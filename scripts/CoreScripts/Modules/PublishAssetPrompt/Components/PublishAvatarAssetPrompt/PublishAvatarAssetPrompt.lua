@@ -27,6 +27,7 @@ local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 
 local Constants = require(PublishAssetPrompt.Constants)
 local MakeupPreviewUtils = require(PublishAssetPrompt.MakeupPreviewUtils)
+local MakeupPartGrid = require(Components.Common.MakeupPartGrid)
 
 local GetFFlagSingleUploadMakeupSupport = require(PublishAssetPrompt.Flags.GetFFlagSingleUploadMakeupSupport)
 
@@ -210,43 +211,55 @@ local function PublishAvatarAssetPrompt(props: Props)
 		RobloxTranslator:FormatByKey(Constants.AvatarAssetTypeLocalized[promptInfo.accessoryType])
 	local typeName = categoryLocalized .. " | " .. avatarAssetTypeLocalized
 
-	local renderPromptBody = React.useCallback(function()
-		local isLoading = previewModel == nil
-		return React.createElement(React.Fragment, nil, {
-			UIListLayout = React.createElement("UIListLayout", {
-				Padding = PADDING,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-			}),
-			UIPadding = React.createElement("UIPadding", {
-				PaddingBottom = PADDING,
-				PaddingTop = PADDING,
-			}),
-			EmbeddedPreview = React.createElement(ObjectViewport, {
-				openPreviewView = openPreviewView,
-				model = previewModel,
-				isLoading = isLoading,
-				useFullBodyCameraSettings = if GetFFlagSingleUploadMakeupSupport() then not isMakeup else true,
-				fieldOfView = CAMERA_FOV,
-				LayoutOrder = 1,
-			}),
-			DescriptionInput = React.createElement(LabeledTextBox, {
-				LayoutOrder = 2,
-				labelText = RobloxTranslator:FormatByKey(DESC_LABEL_KEY),
-				centerText = false,
-				defaultText = description,
-				maxLength = DESC_TEXTBOX_MAXLENGTH,
-				onTextUpdated = onDescriptionUpdated,
-				textBoxHeight = DESC_TEXTBOX_HEIGHT,
-				invalidInputText = RobloxTranslator:FormatByKey(DESC_INVALID_KEY),
-			}),
-			InfoList = React.createElement(PublishInfoList, {
-				typeName = typeName,
-				LayoutOrder = 3,
-			}),
-		})
-	end, { previewModel, promptInfo.accessoryType, description, isMakeup, typeName } :: { any })
+	local renderPromptBody = React.useCallback(
+		function()
+			local isLoading = previewModel == nil
+			return React.createElement(React.Fragment, nil, {
+				UIListLayout = React.createElement("UIListLayout", {
+					Padding = PADDING,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Vertical,
+				}),
+				UIPadding = React.createElement("UIPadding", {
+					PaddingBottom = PADDING,
+					PaddingTop = PADDING,
+				}),
+				EmbeddedPreview = React.createElement(ObjectViewport, {
+					openPreviewView = openPreviewView,
+					model = previewModel,
+					isLoading = isLoading,
+					useFullBodyCameraSettings = if GetFFlagSingleUploadMakeupSupport() then not isMakeup else true,
+					fieldOfView = CAMERA_FOV,
+					LayoutOrder = 1,
+				}),
+				DescriptionInput = React.createElement(LabeledTextBox, {
+					LayoutOrder = 2,
+					labelText = RobloxTranslator:FormatByKey(DESC_LABEL_KEY),
+					centerText = false,
+					defaultText = description,
+					maxLength = DESC_TEXTBOX_MAXLENGTH,
+					onTextUpdated = onDescriptionUpdated,
+					textBoxHeight = DESC_TEXTBOX_HEIGHT,
+					invalidInputText = RobloxTranslator:FormatByKey(DESC_INVALID_KEY),
+				}),
+				InfoList = React.createElement(PublishInfoList, {
+					typeName = typeName,
+					LayoutOrder = 3,
+				}),
+				MakeupGrid = isMakeup and React.createElement(MakeupPartGrid, {
+					singleDecal = promptInfo.accessoryInstance,
+					singleAssetType = promptInfo.accessoryType,
+					makeupEntries = { { assetType = promptInfo.accessoryType, sortOrder = 1 } },
+					showAssetTypeInLabel = false,
+					name = name,
+					LayoutOrder = 4,
+					screenSize = props.screenSize,
+				}) or nil,
+			})
+		end,
+		{ previewModel, promptInfo.accessoryType, description, if isMakeup then name else nil, isMakeup, typeName } :: { any }
+	)
 
 	return React.createElement(BasePublishPrompt, {
 		promptBody = renderPromptBody(),

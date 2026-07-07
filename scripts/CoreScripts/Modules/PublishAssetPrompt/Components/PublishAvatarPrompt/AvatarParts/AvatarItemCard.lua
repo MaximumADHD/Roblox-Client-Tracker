@@ -9,11 +9,14 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 
 local AvatarPartViewport = require(script.Parent.AvatarPartViewport)
+local GetFFlagSingleUploadMakeupSupport =
+	require(script.Parent.Parent.Parent.Parent.Flags.GetFFlagSingleUploadMakeupSupport)
 
 local PADDING = 5
 
 export type Props = {
-	asset: { [number]: Folder } | MeshPart | Accessory,
+	asset: { [number]: Folder } | MeshPart | Accessory | Decal,
+	assetType: Enum.AvatarAssetType?,
 	LayoutOrder: number?,
 	viewportSize: number?,
 	bodyName: string?,
@@ -27,18 +30,33 @@ local function AvatarItemCard(props: Props)
 
 	local titleStyle = font.CaptionHeader
 	local titleColor = theme.TextEmphasis.Color
-	assert(
-		typeof(asset) == "table" or asset:IsA("MeshPart") or asset:IsA("Accessory"),
-		"Assert that asset is a table, MeshPart, or Accessory"
-	)
+	if GetFFlagSingleUploadMakeupSupport() then
+		assert(
+			typeof(asset) == "table" or asset:IsA("MeshPart") or asset:IsA("Accessory") or asset:IsA("Decal"),
+			"Assert that asset is a table, MeshPart, Accessory, or Decal"
+		)
+	else
+		assert(
+			typeof(asset) == "table" or asset:IsA("MeshPart") or asset:IsA("Accessory"),
+			"Assert that asset is a table, MeshPart, or Accessory"
+		)
+	end
 	local bodyName = props.bodyName
 	local partName = props.partName
-	local showTitleText = bodyName and partName
+	local showTitleText
 	local title: string?
-	if bodyName and partName then
-		assert(bodyName, "bodyName is nil")
-		assert(partName, "partName is nil")
-		title = bodyName .. "'s " .. partName
+	if GetFFlagSingleUploadMakeupSupport() then
+		if bodyName and partName then
+			title = bodyName .. "'s " .. partName
+		elseif partName then
+			title = partName
+		end
+		showTitleText = title ~= nil
+	else
+		showTitleText = (bodyName ~= nil) and (partName ~= nil)
+		if bodyName and partName then
+			title = bodyName .. "'s " .. partName
+		end
 	end
 	return React.createElement("Frame", {
 		Size = UDim2.fromScale(1, 1),
@@ -52,6 +70,7 @@ local function AvatarItemCard(props: Props)
 		}),
 		AvatarPartViewport = React.createElement(AvatarPartViewport, {
 			asset = asset,
+			assetType = if GetFFlagSingleUploadMakeupSupport() then props.assetType else nil,
 			LayoutOrder = 1,
 			viewportSize = props.viewportSize,
 		}),

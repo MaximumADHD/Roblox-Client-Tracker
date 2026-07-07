@@ -88,6 +88,8 @@ type _Messages =
 		UAMarketplaceCatalogFeedInputData_EntryMapEntry: _UAMarketplaceCatalogFeedInputData_EntryMapEntryMessage,
 		UAMarketplaceCatalogCategoryMenuInputData: _UAMarketplaceCatalogCategoryMenuInputDataMessage,
 		UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage,
+		CatalogItemGridInputData: _CatalogItemGridInputDataMessage,
+		CatalogItemGridInputData_CatalogItem: _CatalogItemGridInputData_CatalogItemMessage,
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
 		SearchResultsFeedInputData_EntryMapEntry: _SearchResultsFeedInputData_EntryMapEntryMessage,
 		SearchResultsFeedInputData_ContentPoolsEntry: _SearchResultsFeedInputData_ContentPoolsEntryMessage,
@@ -284,6 +286,7 @@ type _PageEntryInputDataFields = {
 		| { type: "marketplace_catalog_item_group", value: UAMarketplaceCatalogItemGroupInputData }
 		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
+		| { type: "catalog_item_grid", value: CatalogItemGridInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
@@ -348,6 +351,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "marketplace_catalog_item_group", value: UAMarketplaceCatalogItemGroupInputData }
 		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
+		| { type: "catalog_item_grid", value: CatalogItemGridInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
@@ -2633,6 +2637,63 @@ type _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMe
 	_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemPartialFields
 >
 
+type _CatalogItemGridInputDataImpl = {
+	__index: _CatalogItemGridInputDataImpl,
+	new: (fields: _CatalogItemGridInputDataPartialFields?) -> CatalogItemGridInputData,
+	encode: (self: CatalogItemGridInputData) -> buffer,
+	decode: (input: buffer) -> CatalogItemGridInputData,
+	jsonEncode: (self: CatalogItemGridInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CatalogItemGridInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _CatalogItemGridInputDataFields = {
+	items: { CatalogItemGridInputData_CatalogItem },
+	preview_columns: number,
+	impression_id: string,
+}
+
+type _CatalogItemGridInputDataPartialFields = {
+	items: { CatalogItemGridInputData_CatalogItem }?,
+	preview_columns: number?,
+	impression_id: string?,
+}
+
+export type CatalogItemGridInputData = typeof(setmetatable(
+	{} :: _CatalogItemGridInputDataFields,
+	{} :: _CatalogItemGridInputDataImpl
+))
+type _CatalogItemGridInputDataMessage = proto.Message<CatalogItemGridInputData, _CatalogItemGridInputDataPartialFields>
+
+type _CatalogItemGridInputData_CatalogItemImpl = {
+	__index: _CatalogItemGridInputData_CatalogItemImpl,
+	new: (fields: _CatalogItemGridInputData_CatalogItemPartialFields?) -> CatalogItemGridInputData_CatalogItem,
+	encode: (self: CatalogItemGridInputData_CatalogItem) -> buffer,
+	decode: (input: buffer) -> CatalogItemGridInputData_CatalogItem,
+	jsonEncode: (self: CatalogItemGridInputData_CatalogItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CatalogItemGridInputData_CatalogItem,
+	descriptor: proto.Descriptor,
+}
+
+type _CatalogItemGridInputData_CatalogItemFields = {
+	id: string,
+	type: string,
+}
+
+type _CatalogItemGridInputData_CatalogItemPartialFields = {
+	id: string?,
+	type: string?,
+}
+
+export type CatalogItemGridInputData_CatalogItem = typeof(setmetatable(
+	{} :: _CatalogItemGridInputData_CatalogItemFields,
+	{} :: _CatalogItemGridInputData_CatalogItemImpl
+))
+type _CatalogItemGridInputData_CatalogItemMessage = proto.Message<
+	CatalogItemGridInputData_CatalogItem,
+	_CatalogItemGridInputData_CatalogItemPartialFields
+>
+
 type _SearchResultsFeedInputDataImpl = {
 	__index: _SearchResultsFeedInputDataImpl,
 	new: (fields: _SearchResultsFeedInputDataPartialFields?) -> SearchResultsFeedInputData,
@@ -4080,6 +4141,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 904, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "catalog_item_grid" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 905, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "search_results_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1000, proto.wireTypes.lengthDelimited)
@@ -4464,6 +4529,11 @@ do
 						value = messages.UAMarketplaceCatalogHeroUnitInputData.decode(value),
 					}
 					continue
+				elseif field == 905 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "catalog_item_grid", value = messages.CatalogItemGridInputData.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -4638,6 +4708,8 @@ do
 				output.marketplaceCatalogItemCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "marketplace_catalog_hero_unit" then
 				output.marketplaceCatalogHeroUnit = self.kind.value:jsonEncode()
+			elseif self.kind.type == "catalog_item_grid" then
+				output.catalogItemGrid = self.kind.value:jsonEncode()
 			elseif self.kind.type == "search_results_feed" then
 				output.searchResultsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "power_search_ai_overview" then
@@ -5294,6 +5366,20 @@ do
 			self.kind = {
 				type = "marketplace_catalog_hero_unit",
 				value = messages.UAMarketplaceCatalogHeroUnitInputData.jsonDecode(input.marketplaceCatalogHeroUnit),
+			}
+		end
+
+		if input.catalog_item_grid ~= nil then
+			self.kind = {
+				type = "catalog_item_grid",
+				value = messages.CatalogItemGridInputData.jsonDecode(input.catalog_item_grid),
+			}
+		end
+
+		if input.catalogItemGrid ~= nil then
+			self.kind = {
+				type = "catalog_item_grid",
+				value = messages.CatalogItemGridInputData.jsonDecode(input.catalogItemGrid),
 			}
 		end
 
@@ -17381,6 +17467,281 @@ do
 end
 
 do
+	local _CatalogItemGridInputDataImpl = {}
+	_CatalogItemGridInputDataImpl.__index = _CatalogItemGridInputDataImpl
+
+	function _CatalogItemGridInputDataImpl.new(data: _CatalogItemGridInputDataPartialFields?): CatalogItemGridInputData
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+			preview_columns = if data == nil or data.preview_columns == nil then 0 else data.preview_columns,
+			impression_id = if data == nil or data.impression_id == nil then "" else data.impression_id,
+		}, _CatalogItemGridInputDataImpl :: _CatalogItemGridInputDataImpl)
+	end
+
+	function _CatalogItemGridInputDataImpl.encode(self: CatalogItemGridInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.preview_columns ~= nil and self.preview_columns ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.preview_columns)
+		end
+
+		if self.impression_id ~= nil and self.impression_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.impression_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CatalogItemGridInputDataImpl.decode(input: buffer): CatalogItemGridInputData
+		local self = _CatalogItemGridInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.preview_columns = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, messages.CatalogItemGridInputData_CatalogItem.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impression_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CatalogItemGridInputDataImpl.jsonEncode(self: CatalogItemGridInputData): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		if self.preview_columns ~= nil and self.preview_columns ~= 0 then
+			output.previewColumns = self.preview_columns
+		end
+
+		if self.impression_id ~= nil and self.impression_id ~= "" then
+			output.impressionId = self.impression_id
+		end
+
+		return output
+	end
+
+	function _CatalogItemGridInputDataImpl.jsonDecode(input: { [string]: any }): CatalogItemGridInputData
+		local self = _CatalogItemGridInputDataImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { CatalogItemGridInputData_CatalogItem } = {}
+			for _, value in input.items do
+				table.insert(newOutput, messages.CatalogItemGridInputData_CatalogItem.jsonDecode(value))
+			end
+
+			self.items = newOutput
+		end
+
+		if input.preview_columns ~= nil then
+			self.preview_columns = input.preview_columns
+		end
+
+		if input.previewColumns ~= nil then
+			self.preview_columns = input.previewColumns
+		end
+
+		if input.impression_id ~= nil then
+			self.impression_id = input.impression_id
+		end
+
+		if input.impressionId ~= nil then
+			self.impression_id = input.impressionId
+		end
+
+		return self
+	end
+
+	_CatalogItemGridInputDataImpl.descriptor = {
+		name = "CatalogItemGridInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CatalogItemGridInputData",
+	}
+
+	messages.CatalogItemGridInputData = _CatalogItemGridInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CatalogItemGridInputData)
+end
+
+do
+	local _CatalogItemGridInputData_CatalogItemImpl = {}
+	_CatalogItemGridInputData_CatalogItemImpl.__index = _CatalogItemGridInputData_CatalogItemImpl
+
+	function _CatalogItemGridInputData_CatalogItemImpl.new(
+		data: _CatalogItemGridInputData_CatalogItemPartialFields?
+	): CatalogItemGridInputData_CatalogItem
+		return setmetatable({
+			id = if data == nil or data.id == nil then "" else data.id,
+			type = if data == nil or data.type == nil then "" else data.type,
+		}, _CatalogItemGridInputData_CatalogItemImpl :: _CatalogItemGridInputData_CatalogItemImpl)
+	end
+
+	function _CatalogItemGridInputData_CatalogItemImpl.encode(self: CatalogItemGridInputData_CatalogItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.type ~= nil and self.type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.type)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CatalogItemGridInputData_CatalogItemImpl.decode(input: buffer): CatalogItemGridInputData_CatalogItem
+		local self = _CatalogItemGridInputData_CatalogItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CatalogItemGridInputData_CatalogItemImpl.jsonEncode(self: CatalogItemGridInputData_CatalogItem): any
+		local output = {}
+
+		if self.id ~= nil and self.id ~= "" then
+			output.id = self.id
+		end
+
+		if self.type ~= nil and self.type ~= "" then
+			output.type = self.type
+		end
+
+		return output
+	end
+
+	function _CatalogItemGridInputData_CatalogItemImpl.jsonDecode(
+		input: { [string]: any }
+	): CatalogItemGridInputData_CatalogItem
+		local self = _CatalogItemGridInputData_CatalogItemImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.type ~= nil then
+			self.type = input.type
+		end
+
+		return self
+	end
+
+	_CatalogItemGridInputData_CatalogItemImpl.descriptor = {
+		name = "CatalogItemGridInputData_CatalogItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CatalogItem",
+	}
+
+	messages.CatalogItemGridInputData_CatalogItem = _CatalogItemGridInputData_CatalogItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CatalogItemGridInputData_CatalogItem)
+end
+
+do
 	local _SearchResultsFeedInputDataImpl = {}
 	_SearchResultsFeedInputDataImpl.__index = _SearchResultsFeedInputDataImpl
 
@@ -21285,6 +21646,8 @@ return {
 	UAMarketplaceCatalogFeedInputData = messages.UAMarketplaceCatalogFeedInputData,
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	CatalogItemGridInputData = messages.CatalogItemGridInputData,
+	CatalogItemGridInputData_CatalogItem = messages.CatalogItemGridInputData_CatalogItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
 	ExperienceEmphasisTileInputData = messages.ExperienceEmphasisTileInputData,
 	PowerSearchAIOverviewInputData = messages.PowerSearchAIOverviewInputData,

@@ -67,6 +67,8 @@ local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
+local FFlagHidePeoplePageInviteFriends = SharedFlags.FFlagHidePeoplePageInviteFriends
+local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
 
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 
@@ -1889,7 +1891,14 @@ local function Initialize()
 			and not muteAllButton
 			and VoiceChatServiceManager.voiceUIVisible
 
-		local showShareGameButton = canShareCurrentGame() and not shareGameButton and not RunService:IsStudio()
+		local hidePeoplePageInviteFriends = FFlagHidePeoplePageInviteFriends
+			and FFlagAddInviteFriendsIntegration
+			and FFlagEnableSideSheet
+
+		local showShareGameButton = canShareCurrentGame()
+			and not shareGameButton
+			and not RunService:IsStudio()
+			and not hidePeoplePageInviteFriends
 		if (showShareGameButton or showMuteAllButton) and not buttonFrame then
 			buttonFrame = Create("Frame")({
 				Name = "Holder",
@@ -1928,7 +1937,7 @@ local function Initialize()
 		-- We shouldn't create this button if we're not in a live game
 		-- If this condition is updated, showShareGameButton should be updated above
 		local isNotStudio = (not RunService:IsStudio())
-		if canShareCurrentGame() and not shareGameButton and isNotStudio then
+		if canShareCurrentGame() and not shareGameButton and isNotStudio and not hidePeoplePageInviteFriends then
 			local inviteToGameAnalytics
 			if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 				inviteToGameAnalytics =

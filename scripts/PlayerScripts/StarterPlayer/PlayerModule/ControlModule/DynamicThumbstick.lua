@@ -32,6 +32,7 @@ local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
@@ -43,8 +44,13 @@ local TweenService = game:GetService("TweenService")
 local thumbstickAction
 if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 	local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-	local characterContext = inputContexts:WaitForChild("CharacterContext")
-	thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
+	if FFlagUserPlayerScriptsThumbstickContext then
+		local transformerContext = inputContexts:WaitForChild("TransformerContext")
+		thumbstickAction = transformerContext:WaitForChild("ThumbstickAction") :: InputAction
+	else
+		local characterContext = inputContexts:WaitForChild("CharacterContext")
+		thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
+	end
 end
 
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
@@ -511,6 +517,9 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		self.thumbstickButton.Size = UDim2.new(1, 0, 1, 0)
 		self.thumbstickButton.ZIndex = self.thumbstickFrame.ZIndex
 		self.thumbstickButton.Visible = true
+		if FFlagUserPlayerScriptsThumbstickContext then
+			self.thumbstickButton.Active = false
+		end
 		self.thumbstickButton.Parent = self.thumbstickFrame
 
 		local touchBinding = Instance.new("InputBinding")

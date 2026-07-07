@@ -1,6 +1,5 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
@@ -11,7 +10,10 @@ local IconName = Foundation.Enums.IconName
 local IconVariant = Foundation.Enums.IconVariant
 local IconSize = Foundation.Enums.IconSize
 
-local withStyle = UIBlox.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -27,7 +29,8 @@ local Images = UIBlox.App.ImageSet.Images
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local PlayerList = Components.Parent
-local FFlagAllowDisplayingFoundationIconsForDropdown = require(PlayerList.Flags.FFlagAllowDisplayingFoundationIconsForDropdown)
+local FFlagAllowDisplayingFoundationIconsForDropdown =
+	require(PlayerList.Flags.FFlagAllowDisplayingFoundationIconsForDropdown)
 
 local function isFoundationIconName(icon: any): boolean
 	return IconName[icon] ~= nil
@@ -85,7 +88,50 @@ end
 
 function DropDownButton:render()
 	return WithLayoutValues(function(layoutValues)
-		return withStyle(function(style)
+		return withFoundationOrUIBloxStyle(function(tokens, preferences)
+			return {
+				Theme = {
+					BackgroundContrast = {
+						Color = tokens.Color.Surface.Surface_100.Color3,
+						Transparency = tokens.Color.Surface.Surface_100.Transparency,
+					},
+					BackgroundOnHover = {
+						Color = tokens.Color.State.Hover.Color3,
+						Transparency = tokens.Color.State.Hover.Transparency,
+					},
+					BackgroundOnPress = {
+						Color = tokens.Color.State.Press.Color3,
+						Transparency = tokens.Color.State.Press.Transparency,
+					},
+					BackgroundUIContrast = {
+						Color = tokens.Color.OverMedia.OverMedia_0.Color3,
+						Transparency = tokens.Color.OverMedia.OverMedia_0.Transparency,
+					},
+					Divider = {
+						Color = tokens.Color.Stroke.Emphasis.Color3,
+						Transparency = tokens.Color.Stroke.Emphasis.Transparency,
+					},
+					IconEmphasis = {
+						Color = tokens.Color.Content.Emphasis.Color3,
+						Transparency = tokens.Color.Content.Emphasis.Transparency,
+					},
+					TextEmphasis = {
+						Color = tokens.Color.Content.Emphasis.Color3,
+						Transparency = tokens.Color.Content.Emphasis.Transparency,
+					},
+				},
+				Font = {
+					BaseSize = 1,
+					Header2 = {
+						Font = tokens.Typography.TitleLarge.Font,
+						RelativeSize = tokens.Typography.TitleLarge.FontSize,
+					},
+				},
+				Settings = {
+					PreferredTransparency = preferences.preferredTransparency,
+				},
+			}
+		end, function(style)
 			local backgroundColor = if ChromeEnabled()
 				then style.Theme.BackgroundUIContrast.Color
 				else style.Theme.BackgroundContrast.Color
@@ -145,24 +191,51 @@ function DropDownButton:render()
 
 			local dropdownIcon
 			local iconProp = self.props.icon
-			if FFlagAllowDisplayingFoundationIconsForDropdown and isFoundationIconName(iconProp) then
-				dropdownIcon = Roact.createElement("Frame", {
-					LayoutOrder = 1,
-					Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
-					BackgroundTransparency = 1,
-				}, {
-					Icon = Roact.createElement(Foundation.Icon, {
-						name = IconName[iconProp],
-						variant = IconVariant.Regular,
-						size = IconSize.Large,
-						style = {
+			if
+				(FFlagAllowDisplayingFoundationIconsForDropdown and isFoundationIconName(iconProp))
+				or FFlagCoreUiMigrateUIBloxToFoundation
+			then
+				local iconName
+				local size
+				if isFoundationIconName(iconProp) then
+					iconName = IconName[iconProp]
+					size = IconSize.Large
+				elseif FFlagCoreUiMigrateUIBloxToFoundation then
+					iconName = if typeof(iconProp) == "string" then iconProp else nil
+					size = IconSize.Medium
+				end
+
+				if iconName then
+					dropdownIcon = Roact.createElement("Frame", {
+						LayoutOrder = 1,
+						Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
+						BackgroundTransparency = 1,
+					}, {
+						Icon = Roact.createElement(Foundation.Icon, {
+							name = iconName,
+							variant = IconVariant.Regular,
+							size = size,
+							style = {
+								Color3 = style.Theme.IconEmphasis.Color,
+								Transparency = style.Theme.IconEmphasis.Transparency,
+							},
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+						}),
+					})
+				else
+					dropdownIcon = Roact.createElement(Foundation.Image, {
+						Image = iconProp.Image,
+						imageRect = { offset = iconProp.ImageRectOffset, size = iconProp.ImageRectSize },
+						Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
+						imageStyle = {
 							Color3 = style.Theme.IconEmphasis.Color,
 							Transparency = style.Theme.IconEmphasis.Transparency,
 						},
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-					}),
-				})
+						BackgroundTransparency = 1,
+						LayoutOrder = 1,
+					})
+				end
 			else
 				dropdownIcon = Roact.createElement(ImageSetLabel, {
 					LayoutOrder = 1,
@@ -291,7 +364,9 @@ function DropDownButton:render()
 							size = UDim2.new(0.5, 0, 1, 0),
 							position = UDim2.new(0.5, 0, 0, 0),
 							backgroundColor = self.props.onDecline and Colors.Green or Colors.White,
-							icon = Images["icons/actions/accept"],
+							icon = if FFlagCoreUiMigrateUIBloxToFoundation
+								then "icons/actions/accept"
+								else Images["icons/actions/accept"],
 							showBackground = self.props.animatingPercentage == nil,
 							onActivated = self.props.onActivated,
 						}) or nil,
@@ -300,7 +375,9 @@ function DropDownButton:render()
 							size = UDim2.new(0.5, 0, 1, 0),
 							position = UDim2.new(0, 0, 0, 0),
 							backgroundColor = Colors.Red,
-							icon = Images["icons/actions/reject"],
+							icon = if FFlagCoreUiMigrateUIBloxToFoundation
+								then "icons/actions/reject"
+								else Images["icons/actions/reject"],
 							showBackground = self.props.animatingPercentage == nil,
 							onActivated = self.props.onDecline,
 						}) or nil,

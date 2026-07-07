@@ -90,6 +90,9 @@ local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.Sh
 local FFlagChatSummariesSettingEnabled = SharedFlags.FFlagChatSummariesSettingEnabled
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
+local FFlagVoiceSelectorIgnoreFailedStateDisconnect = game:DefineFastFlag("VoiceSelectorIgnoreFailedStateDisconnect", false)
+local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
+	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -121,6 +124,18 @@ local GRAPHICS_QUALITY_TO_INT = {
 	["Enum.SavedQualitySetting.QualityLevel9"] = 9,
 	["Enum.SavedQualitySetting.QualityLevel10"] = 10,
 }
+
+local VOICE_CHAT_VOLUME_MAX = 2
+local VOICE_CHAT_VOLUME_SLIDER_MAX = 10
+
+local function voiceChatVolumeToSlider(volume: number): number
+	return math.floor(volume * (VOICE_CHAT_VOLUME_SLIDER_MAX / VOICE_CHAT_VOLUME_MAX) + 0.5)
+end
+
+local function voiceChatVolumeFromSlider(sliderValue: number): number
+	return sliderValue / (VOICE_CHAT_VOLUME_SLIDER_MAX / VOICE_CHAT_VOLUME_MAX)
+end
+
 local PC_CHANGED_PROPS = {
 	DevComputerMovementMode = true,
 	DevComputerCameraMode = true,
@@ -367,6 +382,9 @@ local function reportSettingsForAnalytics()
 	stringTable["camera_y_inverted"] = tostring(GameSettings.CameraYInverted)
 	stringTable["show_performance_stats"] = tostring(GameSettings.PerformanceStatsVisible)
 	stringTable["volume"] = tostring(math.floor((GameSettings.MasterVolume * 10) + 0.5))
+	if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then
+		stringTable["voice_chat_volume"] = tostring(voiceChatVolumeToSlider(GameSettings.VoiceChatVolume))
+	end
 	stringTable["gfx_quality_level"] = tostring(settings().Rendering.QualityLevel)
 	if GameBasicSettingsFramerateCap then
 		stringTable["framerate_cap"] = tostring(GameSettings.FramerateCap)
@@ -2461,6 +2479,41 @@ local function Initialize()
 		end)
 	end
 
+	local function createVoiceChatVolumeOptions()
+		local startVolumeLevel = voiceChatVolumeToSlider(GameSettings.VoiceChatVolume)
+		local translationOk, voiceChatVolumeLabel = pcall(function()
+			return locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceChatVolume")
+		end)
+		if not translationOk then
+			voiceChatVolumeLabel = "Voice Chat Volume"
+			log:debug(
+				"[GameSettings] createVoiceChatVolumeOptions failed to get translation for Voice Chat Volume label, using placeholder text instead"
+			)
+		end
+		this.VoiceChatVolumeFrame, this.VoiceChatVolumeLabel, this.VoiceChatVolumeSlider =
+			utility:AddNewRow(this, voiceChatVolumeLabel, "Slider", VOICE_CHAT_VOLUME_SLIDER_MAX, startVolumeLevel)
+		this.VoiceChatVolumeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["VoiceChatVolumeFrame"]
+		this.VoiceChatVolumeFrame.Visible = false
+
+		this.VoiceChatVolumeSlider.ValueChanged:connect(function(newValue)
+			local oldValue
+			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+				oldValue = voiceChatVolumeToSlider(GameSettings.VoiceChatVolume)
+			end
+
+			GameSettings.VoiceChatVolume = voiceChatVolumeFromSlider(newValue)
+
+			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+				reportSettingsChangeForAnalytics(
+					"voice_chat_volume",
+					oldValue,
+					voiceChatVolumeToSlider(GameSettings.VoiceChatVolume)
+				)
+			end
+			reportSettingsForAnalytics()
+		end)
+	end
+
 	local function createHapticsToggle()
 		local initialIndex = GameSettings.HapticStrength == 0 and 1 or 2
 
@@ -3601,9 +3654,19 @@ local function Initialize()
 				VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
 				VoiceChatServiceManager:JoinVoice()
 			else
-				if not VoiceChatServiceManager:VoiceChatEnded() then
-					VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
-					VoiceChatServiceManager:Leave()
+				if FFlagVoiceSelectorIgnoreFailedStateDisconnect then
+					-- Make sure :Leave() is not called in a failed state
+					local service = VoiceChatServiceManager:getService()
+					local voiceDownFromFailedState = service ~= nil and service.VoiceChatState == (Enum :: any).VoiceChatState.Failed
+					if not VoiceChatServiceManager:VoiceChatEnded() and not voiceDownFromFailedState then
+						VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
+						VoiceChatServiceManager:Leave()
+					end
+				else
+					if not VoiceChatServiceManager:VoiceChatEnded() then
+						VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
+						VoiceChatServiceManager:Leave()
+					end
 				end
 			end
 
@@ -4019,6 +4082,28 @@ local function Initialize()
 				:andThen(function()
 					VoiceChatService = VoiceChatServiceManager:getService()
 					checkVoiceChatOptions()
+					if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider and this.VoiceChatVolumeFrame then
+						local function updateVoiceChatVolumeVisibility()
+							local ok, err = pcall(function()
+								local voiceChatService = game:GetService("VoiceChatService")
+								local voiceChatInternal = VoiceChatServiceManager:getService()
+								local isConnected = voiceChatInternal
+									and voiceChatInternal.VoiceChatState == (Enum :: any).VoiceChatState.Joined
+								local audioApiEnabled = voiceChatService and voiceChatService.UseNewAudioApi
+								this.VoiceChatVolumeFrame.Visible = isConnected and audioApiEnabled
+							end)
+							if not ok then
+								log:debug("[GameSettings] updateVoiceChatVolumeVisibility ERROR:", err)
+							end
+						end
+						updateVoiceChatVolumeVisibility()
+						local voiceInternal = VoiceChatServiceManager:getService()
+						if voiceInternal then
+							voiceInternal.StateChanged:Connect(function()
+								updateVoiceChatVolumeVisibility()
+							end)
+						end
+					end
 
 					if FFlagVoiceSelectorAvailableAfterFae then
 						if GetFFlagEnableVoiceUxUpdates()
@@ -4282,6 +4367,9 @@ local function Initialize()
 	end
 
 	createVolumeOptions()
+	if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then
+		createVoiceChatVolumeOptions()
+	end
 	if hasPartyVoiceVolume then
 		createPartyVoiceVolumeOptions()
 	end

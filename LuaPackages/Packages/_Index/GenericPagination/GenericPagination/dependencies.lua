@@ -1,5 +1,5 @@
 local ROOT = script.Parent
-local Packages = script:FindFirstAncestor("Packages")
+local Packages = ROOT.Parent
 
 return {
 	t = require(Packages.t),

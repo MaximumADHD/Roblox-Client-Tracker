@@ -8,6 +8,11 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local Foundation = require(CorePackages.Packages.Foundation)
+
+local FFlagCoreUiMigrateUIBloxToFoundation =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -58,7 +63,7 @@ function MenuFrontButton:updateViewport()
 	if utility:IsSmallTouchScreen() then
 		textSize = Theme.textSize(18)
 	elseif isTenFootInterface then
-		textSize =Theme.textSize(36)
+		textSize = Theme.textSize(36)
 	end
 	self.updateTextSizeConstraintBinding(textSize)
 	local isPortrait = utility:IsPortrait()
@@ -83,8 +88,8 @@ function MenuFrontButton:render()
 	return Roact.createElement("Frame", {
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
-        AnchorPoint = Vector2.new(1, 0),
-        Position = UDim2.new(1, 0, 0, 0),
+		AnchorPoint = Vector2.new(1, 0),
+		Position = UDim2.new(1, 0, 0, 0),
 		LayoutOrder = self.props.LayoutOrder,
 		Visible = Roact.joinBindings({ self.state.text, self.visibleBinding }):map(function(value)
 			return self.props.frontEnabled and value[1] ~= nil and value[2]
@@ -94,8 +99,8 @@ function MenuFrontButton:render()
 			local buttonHeight: number = value[2]
 			if size and buttonHeight then
 				return UDim2.new(
-					UDim.new(size.X.Scale * 0.5, size.X.Offset * 0.5),  -- Half of the original width
-					UDim.new(0, (buttonHeight + yPadding))        -- Half of the original height
+					UDim.new(size.X.Scale * 0.5, size.X.Offset * 0.5), -- Half of the original width
+					UDim.new(0, (buttonHeight + yPadding)) -- Half of the original height
 				)
 			else
 				return UDim2.new()
@@ -199,15 +204,21 @@ function MenuFrontButton:render()
 						MaxSize = self.sizeConstraintBinding,
 					}),
 				}),
-                ImageLabel = Roact.createElement(ImageSetLabel, {
-					Image = Images["icons/actions/cycleRight"],
-					Size = UDim2.new(1, 0, 0.75, 0),
-					BorderSizePixel = 0,
-					BackgroundTransparency = 1,
-					LayoutOrder = 2,
-				}, {
-					UIAspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {}),
-				}),
+				ImageLabel = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Foundation.Icon, {
+						name = "icons/actions/cycleRight",
+						size = Foundation.Enums.IconSize.Large,
+						LayoutOrder = 2,
+					})
+					else Roact.createElement(ImageSetLabel, {
+						Image = Images["icons/actions/cycleRight"],
+						Size = UDim2.new(1, 0, 0.75, 0),
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+					}, {
+						UIAspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {}),
+					}),
 			}),
 		}),
 	})

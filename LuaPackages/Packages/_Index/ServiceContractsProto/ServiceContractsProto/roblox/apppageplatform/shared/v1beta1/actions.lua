@@ -151,6 +151,10 @@ type _Messages =
 		OpenTrustedFriendsUpsellModalAction_Params: _OpenTrustedFriendsUpsellModalAction_ParamsMessage,
 		OpenSearchResultsWithQueryAction: _OpenSearchResultsWithQueryActionMessage,
 		OpenSearchResultsWithQueryAction_Params: _OpenSearchResultsWithQueryAction_ParamsMessage,
+		SelectMarketplaceFavoritesCategory: _SelectMarketplaceFavoritesCategoryMessage,
+		SelectMarketplaceFavoritesCategory_Params: _SelectMarketplaceFavoritesCategory_ParamsMessage,
+		DownloadAppAction: _DownloadAppActionMessage,
+		DownloadAppAction_Params: _DownloadAppAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -4356,6 +4360,113 @@ type _OpenSearchResultsWithQueryAction_ParamsMessage = proto.Message<
 	_OpenSearchResultsWithQueryAction_ParamsPartialFields
 >
 
+type _SelectMarketplaceFavoritesCategoryImpl = {
+	__index: _SelectMarketplaceFavoritesCategoryImpl,
+	new: (fields: _SelectMarketplaceFavoritesCategoryPartialFields?) -> SelectMarketplaceFavoritesCategory,
+	encode: (self: SelectMarketplaceFavoritesCategory) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceFavoritesCategory,
+	jsonEncode: (self: SelectMarketplaceFavoritesCategory) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceFavoritesCategory,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceFavoritesCategoryFields = {
+	action_type: ActionType,
+	action_params: SelectMarketplaceFavoritesCategory_Params?,
+}
+
+type _SelectMarketplaceFavoritesCategoryPartialFields = {
+	action_type: ActionType?,
+	action_params: SelectMarketplaceFavoritesCategory_Params?,
+}
+
+export type SelectMarketplaceFavoritesCategory = typeof(setmetatable(
+	{} :: _SelectMarketplaceFavoritesCategoryFields,
+	{} :: _SelectMarketplaceFavoritesCategoryImpl
+))
+type _SelectMarketplaceFavoritesCategoryMessage = proto.Message<
+	SelectMarketplaceFavoritesCategory,
+	_SelectMarketplaceFavoritesCategoryPartialFields
+>
+
+type _SelectMarketplaceFavoritesCategory_ParamsImpl = {
+	__index: _SelectMarketplaceFavoritesCategory_ParamsImpl,
+	new: (
+		fields: _SelectMarketplaceFavoritesCategory_ParamsPartialFields?
+	) -> SelectMarketplaceFavoritesCategory_Params,
+	encode: (self: SelectMarketplaceFavoritesCategory_Params) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceFavoritesCategory_Params,
+	jsonEncode: (self: SelectMarketplaceFavoritesCategory_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceFavoritesCategory_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceFavoritesCategory_ParamsFields = {
+	category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SelectMarketplaceFavoritesCategory_ParamsPartialFields = {
+	category_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SelectMarketplaceFavoritesCategory_Params = typeof(setmetatable(
+	{} :: _SelectMarketplaceFavoritesCategory_ParamsFields,
+	{} :: _SelectMarketplaceFavoritesCategory_ParamsImpl
+))
+type _SelectMarketplaceFavoritesCategory_ParamsMessage = proto.Message<
+	SelectMarketplaceFavoritesCategory_Params,
+	_SelectMarketplaceFavoritesCategory_ParamsPartialFields
+>
+
+type _DownloadAppActionImpl = {
+	__index: _DownloadAppActionImpl,
+	new: (fields: _DownloadAppActionPartialFields?) -> DownloadAppAction,
+	encode: (self: DownloadAppAction) -> buffer,
+	decode: (input: buffer) -> DownloadAppAction,
+	jsonEncode: (self: DownloadAppAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DownloadAppAction,
+	descriptor: proto.Descriptor,
+}
+
+type _DownloadAppActionFields = {
+	action_type: ActionType,
+	action_params: DownloadAppAction_Params?,
+}
+
+type _DownloadAppActionPartialFields = {
+	action_type: ActionType?,
+	action_params: DownloadAppAction_Params?,
+}
+
+export type DownloadAppAction = typeof(setmetatable({} :: _DownloadAppActionFields, {} :: _DownloadAppActionImpl))
+type _DownloadAppActionMessage = proto.Message<DownloadAppAction, _DownloadAppActionPartialFields>
+
+type _DownloadAppAction_ParamsImpl = {
+	__index: _DownloadAppAction_ParamsImpl,
+	new: (fields: _DownloadAppAction_ParamsPartialFields?) -> DownloadAppAction_Params,
+	encode: (self: DownloadAppAction_Params) -> buffer,
+	decode: (input: buffer) -> DownloadAppAction_Params,
+	jsonEncode: (self: DownloadAppAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DownloadAppAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _DownloadAppAction_ParamsFields = {
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	download_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _DownloadAppAction_ParamsPartialFields = {
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	download_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type DownloadAppAction_Params = typeof(setmetatable(
+	{} :: _DownloadAppAction_ParamsFields,
+	{} :: _DownloadAppAction_ParamsImpl
+))
+type _DownloadAppAction_ParamsMessage = proto.Message<DownloadAppAction_Params, _DownloadAppAction_ParamsPartialFields>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -4437,6 +4548,8 @@ type _ActionFields = {
 			value: RecordPartyChatConversationUpsellAcknowledgementAction,
 		}
 		| { type: "open_search_results_with_query_action", value: OpenSearchResultsWithQueryAction }
+		| { type: "select_marketplace_favorites_category", value: SelectMarketplaceFavoritesCategory }
+		| { type: "download_app_action", value: DownloadAppAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4513,6 +4626,8 @@ type _ActionPartialFields = {
 			value: RecordPartyChatConversationUpsellAcknowledgementAction,
 		}
 		| { type: "open_search_results_with_query_action", value: OpenSearchResultsWithQueryAction }
+		| { type: "select_marketplace_favorites_category", value: SelectMarketplaceFavoritesCategory }
+		| { type: "download_app_action", value: DownloadAppAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4843,6 +4958,8 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_TRUSTED_FRIENDS_UPSELL_MODAL"
 	| "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT"
 	| "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
+	| "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY"
+	| "ACTION_TYPE_DOWNLOAD_APP"
 	| number -- Unknown
 
 do
@@ -26377,6 +26494,537 @@ do
 end
 
 do
+	local _SelectMarketplaceFavoritesCategoryImpl = {}
+	_SelectMarketplaceFavoritesCategoryImpl.__index = _SelectMarketplaceFavoritesCategoryImpl
+
+	function _SelectMarketplaceFavoritesCategoryImpl.new(
+		data: _SelectMarketplaceFavoritesCategoryPartialFields?
+	): SelectMarketplaceFavoritesCategory
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SelectMarketplaceFavoritesCategoryImpl :: _SelectMarketplaceFavoritesCategoryImpl)
+	end
+
+	function _SelectMarketplaceFavoritesCategoryImpl.encode(self: SelectMarketplaceFavoritesCategory): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceFavoritesCategoryImpl.decode(input: buffer): SelectMarketplaceFavoritesCategory
+		local self = _SelectMarketplaceFavoritesCategoryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SelectMarketplaceFavoritesCategory_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceFavoritesCategoryImpl.jsonEncode(self: SelectMarketplaceFavoritesCategory): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceFavoritesCategoryImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceFavoritesCategory
+		local self = _SelectMarketplaceFavoritesCategoryImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SelectMarketplaceFavoritesCategory_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SelectMarketplaceFavoritesCategory_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceFavoritesCategoryImpl.descriptor = {
+		name = "SelectMarketplaceFavoritesCategory",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SelectMarketplaceFavoritesCategory",
+	}
+
+	messages.SelectMarketplaceFavoritesCategory = _SelectMarketplaceFavoritesCategoryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceFavoritesCategory)
+end
+
+do
+	local _SelectMarketplaceFavoritesCategory_ParamsImpl = {}
+	_SelectMarketplaceFavoritesCategory_ParamsImpl.__index = _SelectMarketplaceFavoritesCategory_ParamsImpl
+
+	function _SelectMarketplaceFavoritesCategory_ParamsImpl.new(
+		data: _SelectMarketplaceFavoritesCategory_ParamsPartialFields?
+	): SelectMarketplaceFavoritesCategory_Params
+		return setmetatable({
+			category_id = if data == nil or data.category_id == nil then nil else data.category_id,
+		}, _SelectMarketplaceFavoritesCategory_ParamsImpl :: _SelectMarketplaceFavoritesCategory_ParamsImpl)
+	end
+
+	function _SelectMarketplaceFavoritesCategory_ParamsImpl.encode(
+		self: SelectMarketplaceFavoritesCategory_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.category_id ~= nil then
+			local encoded = self.category_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceFavoritesCategory_ParamsImpl.decode(
+		input: buffer
+	): SelectMarketplaceFavoritesCategory_Params
+		local self = _SelectMarketplaceFavoritesCategory_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceFavoritesCategory_ParamsImpl.jsonEncode(
+		self: SelectMarketplaceFavoritesCategory_Params
+	): any
+		local output = {}
+
+		if self.category_id ~= nil then
+			output.categoryId = self.category_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceFavoritesCategory_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceFavoritesCategory_Params
+		local self = _SelectMarketplaceFavoritesCategory_ParamsImpl.new()
+
+		if input.category_id ~= nil then
+			self.category_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.category_id)
+		end
+
+		if input.categoryId ~= nil then
+			self.category_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.categoryId)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceFavoritesCategory_ParamsImpl.descriptor = {
+		name = "SelectMarketplaceFavoritesCategory_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SelectMarketplaceFavoritesCategory_Params = _SelectMarketplaceFavoritesCategory_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceFavoritesCategory_Params)
+end
+
+do
+	local _DownloadAppActionImpl = {}
+	_DownloadAppActionImpl.__index = _DownloadAppActionImpl
+
+	function _DownloadAppActionImpl.new(data: _DownloadAppActionPartialFields?): DownloadAppAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _DownloadAppActionImpl :: _DownloadAppActionImpl)
+	end
+
+	function _DownloadAppActionImpl.encode(self: DownloadAppAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _DownloadAppActionImpl.decode(input: buffer): DownloadAppAction
+		local self = _DownloadAppActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.DownloadAppAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DownloadAppActionImpl.jsonEncode(self: DownloadAppAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _DownloadAppActionImpl.jsonDecode(input: { [string]: any }): DownloadAppAction
+		local self = _DownloadAppActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.DownloadAppAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.DownloadAppAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_DownloadAppActionImpl.descriptor = {
+		name = "DownloadAppAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DownloadAppAction",
+	}
+
+	messages.DownloadAppAction = _DownloadAppActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DownloadAppAction)
+end
+
+do
+	local _DownloadAppAction_ParamsImpl = {}
+	_DownloadAppAction_ParamsImpl.__index = _DownloadAppAction_ParamsImpl
+
+	function _DownloadAppAction_ParamsImpl.new(data: _DownloadAppAction_ParamsPartialFields?): DownloadAppAction_Params
+		return setmetatable({
+			source = if data == nil or data.source == nil then nil else data.source,
+			download_type = if data == nil or data.download_type == nil then nil else data.download_type,
+		}, _DownloadAppAction_ParamsImpl :: _DownloadAppAction_ParamsImpl)
+	end
+
+	function _DownloadAppAction_ParamsImpl.encode(self: DownloadAppAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.download_type ~= nil then
+			local encoded = self.download_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _DownloadAppAction_ParamsImpl.decode(input: buffer): DownloadAppAction_Params
+		local self = _DownloadAppAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.download_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DownloadAppAction_ParamsImpl.jsonEncode(self: DownloadAppAction_Params): any
+		local output = {}
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		if self.download_type ~= nil then
+			output.downloadType = self.download_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _DownloadAppAction_ParamsImpl.jsonDecode(input: { [string]: any }): DownloadAppAction_Params
+		local self = _DownloadAppAction_ParamsImpl.new()
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		if input.download_type ~= nil then
+			self.download_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.download_type)
+		end
+
+		if input.downloadType ~= nil then
+			self.download_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.downloadType)
+		end
+
+		return self
+	end
+
+	_DownloadAppAction_ParamsImpl.descriptor = {
+		name = "DownloadAppAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.DownloadAppAction_Params = _DownloadAppAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DownloadAppAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -26658,6 +27306,14 @@ do
 			elseif self.kind.type == "open_search_results_with_query_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 66, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "select_marketplace_favorites_category" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 67, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "download_app_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 68, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -27151,6 +27807,19 @@ do
 						value = messages.OpenSearchResultsWithQueryAction.decode(value),
 					}
 					continue
+				elseif field == 67 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "select_marketplace_favorites_category",
+						value = messages.SelectMarketplaceFavoritesCategory.decode(value),
+					}
+					continue
+				elseif field == 68 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "download_app_action", value = messages.DownloadAppAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -27322,6 +27991,10 @@ do
 				output.recordPartyChatConversationUpsellAcknowledgementAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_search_results_with_query_action" then
 				output.openSearchResultsWithQueryAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "select_marketplace_favorites_category" then
+				output.selectMarketplaceFavoritesCategory = self.kind.value:jsonEncode()
+			elseif self.kind.type == "download_app_action" then
+				output.downloadAppAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -28277,6 +28950,36 @@ do
 				type = "open_search_results_with_query_action",
 				value = messages.OpenSearchResultsWithQueryAction.jsonDecode(input.openSearchResultsWithQueryAction),
 			}
+		end
+
+		if input.select_marketplace_favorites_category ~= nil then
+			self.kind = {
+				type = "select_marketplace_favorites_category",
+				value = messages.SelectMarketplaceFavoritesCategory.jsonDecode(
+					input.select_marketplace_favorites_category
+				),
+			}
+		end
+
+		if input.selectMarketplaceFavoritesCategory ~= nil then
+			self.kind = {
+				type = "select_marketplace_favorites_category",
+				value = messages.SelectMarketplaceFavoritesCategory.jsonDecode(
+					input.selectMarketplaceFavoritesCategory
+				),
+			}
+		end
+
+		if input.download_app_action ~= nil then
+			self.kind = {
+				type = "download_app_action",
+				value = messages.DownloadAppAction.jsonDecode(input.download_app_action),
+			}
+		end
+
+		if input.downloadAppAction ~= nil then
+			self.kind =
+				{ type = "download_app_action", value = messages.DownloadAppAction.jsonDecode(input.downloadAppAction) }
 		end
 
 		if input.telemetry_handler ~= nil then
@@ -29625,6 +30328,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT"
 		elseif value == 66 then
 			return "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
+		elseif value == 67 then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY"
+		elseif value == 68 then
+			return "ACTION_TYPE_DOWNLOAD_APP"
 		else
 			return nil
 		end
@@ -29765,6 +30472,10 @@ messages.ActionType = {
 			return 65
 		elseif self == "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY" then
 			return 66
+		elseif self == "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY" then
+			return 67
+		elseif self == "ACTION_TYPE_DOWNLOAD_APP" then
+			return 68
 		else
 			return self
 		end
@@ -29905,6 +30616,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_RECORD_PARTY_CHAT_CONVERSATION_UPSELL_ACKNOWLEDGEMENT"
 		elseif name == "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY" then
 			return "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
+		elseif name == "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY" then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY"
+		elseif name == "ACTION_TYPE_DOWNLOAD_APP" then
+			return "ACTION_TYPE_DOWNLOAD_APP"
 		else
 			return nil
 		end
@@ -30055,6 +30770,10 @@ return {
 	OpenTrustedFriendsUpsellModalAction_Params = messages.OpenTrustedFriendsUpsellModalAction_Params,
 	OpenSearchResultsWithQueryAction = messages.OpenSearchResultsWithQueryAction,
 	OpenSearchResultsWithQueryAction_Params = messages.OpenSearchResultsWithQueryAction_Params,
+	SelectMarketplaceFavoritesCategory = messages.SelectMarketplaceFavoritesCategory,
+	SelectMarketplaceFavoritesCategory_Params = messages.SelectMarketplaceFavoritesCategory_Params,
+	DownloadAppAction = messages.DownloadAppAction,
+	DownloadAppAction_Params = messages.DownloadAppAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

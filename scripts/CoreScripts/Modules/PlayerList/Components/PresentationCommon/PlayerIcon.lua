@@ -23,13 +23,17 @@ local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableBlackbirdCheck = SharedFlags.FFlagEnableBlackbirdCheck
 local FFlagHidePremiumIconography = SharedFlags.FFlagHidePremiumIconography
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
 local PlayerList = Components.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
-local FFlagPlayerListFoundationSubscriptionIcon =
-	PlayerListPackage.Flags.FFlagPlayerListFoundationSubscriptionIcon
+local FFlagPlayerListFoundationSubscriptionIcon = PlayerListPackage.Flags.FFlagPlayerListFoundationSubscriptionIcon
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local function isFoundationImage(image: string?): boolean
+	return image ~= nil and image ~= "" and image:match("^%w+://.*$") == nil
+end
 
 local PlayerIcon = Roact.PureComponent:extend("PlayerIcon")
 
@@ -109,7 +113,7 @@ local function getIconImage(layoutValues, player, iconInfo, relationship)
 end
 
 function PlayerIcon:render()
-	return WithLayoutValues(function(layoutValues)
+	return WithLayoutValues(function(layoutValues): React.Node
 		layoutValues = self.props.layoutValues
 
 		local avatarIcon = self.props.playerIconInfo and self.props.playerIconInfo.avatarIcon
@@ -134,20 +138,44 @@ function PlayerIcon:render()
 				}),
 			})
 		elseif self.props.isSmallTouchDevice then
-			local iconImage = getIconImage(
-				layoutValues,
-				self.props.player,
-				self.props.playerIconInfo,
-				self.props.playerRelationship
-			)
+			local iconImage =
+				getIconImage(layoutValues, self.props.player, self.props.playerIconInfo, self.props.playerRelationship)
 
-			if FFlagPlayerListFoundationSubscriptionIcon and typeof(iconImage) == "table" and iconImage.isFoundationIcon then
+			if
+				FFlagCoreUiMigrateUIBloxToFoundation
+				or (
+					FFlagPlayerListFoundationSubscriptionIcon
+					and typeof(iconImage) == "table"
+					and iconImage.isFoundationIcon
+				)
+			then
+				local iconName = if typeof(iconImage) == "table" then iconImage.name else iconImage
+
+				if FFlagCoreUiMigrateUIBloxToFoundation then
+					if typeof(iconImage) == "table" and iconImage.Image ~= nil then
+						iconName = iconImage.Image
+					end
+
+					if not isFoundationImage(iconName) then
+						local imageRect = if typeof(iconImage) == "table"
+							then { offset = iconImage.ImageRectOffset, size = iconImage.ImageRectSize }
+							else nil
+						return Roact.createElement(Foundation.Image, {
+							Image = iconName,
+							imageRect = imageRect,
+							Size = layoutValues.PlayerIconSizeMobile,
+							AnchorPoint = Vector2.new(0, 0.5),
+							Position = UDim2.new(0, layoutValues.PlayerNamePaddingXMobile, 0.5, 0),
+						})
+					end
+				end
+
 				return Roact.createElement(Foundation.Icon, {
-					name = iconImage.name,
+					name = iconName,
 					size = Foundation.Enums.IconSize.Medium,
 					AnchorPoint = Vector2.new(0, 0.5),
 					Position = UDim2.new(0, layoutValues.PlayerNamePaddingXMobile, 0.5, 0),
-				}) :: any
+				})
 			end
 
 			return Roact.createElement(ImageSetLabel, {
@@ -159,19 +187,42 @@ function PlayerIcon:render()
 				BorderSizePixel = 0,
 			})
 		else
-			local iconImage = getIconImage(
-				layoutValues,
-				self.props.player,
-				self.props.playerIconInfo,
-				self.props.playerRelationship
-			)
+			local iconImage =
+				getIconImage(layoutValues, self.props.player, self.props.playerIconInfo, self.props.playerRelationship)
 
-			if FFlagPlayerListFoundationSubscriptionIcon and typeof(iconImage) == "table" and iconImage.isFoundationIcon then
+			if
+				FFlagCoreUiMigrateUIBloxToFoundation
+				or (
+					FFlagPlayerListFoundationSubscriptionIcon
+					and typeof(iconImage) == "table"
+					and iconImage.isFoundationIcon
+				)
+			then
+				local iconName = if typeof(iconImage) == "table" then iconImage.name else iconImage
+
+				if FFlagCoreUiMigrateUIBloxToFoundation then
+					if typeof(iconImage) == "table" and iconImage.Image ~= nil then
+						iconName = iconImage.Image
+					end
+
+					if not isFoundationImage(iconName) then
+						local imageRect = if typeof(iconImage) == "table"
+							then { offset = iconImage.ImageRectOffset, size = iconImage.ImageRectSize }
+							else nil
+						return Roact.createElement(Foundation.Image, {
+							Image = iconName,
+							imageRect = imageRect,
+							Size = layoutValues.PlayerIconSize,
+							LayoutOrder = self.props.layoutOrder,
+						})
+					end
+				end
+
 				return Roact.createElement(Foundation.Icon, {
-					name = iconImage.name,
+					name = iconName,
 					size = Foundation.Enums.IconSize.Small,
 					LayoutOrder = self.props.layoutOrder,
-				}) :: any
+				})
 			end
 
 			return Roact.createElement(ImageSetLabel, {
@@ -194,9 +245,12 @@ end
 local PlayerIconWrapper = function(props)
 	local layoutValues = useLayoutValues()
 
-	return React.createElement(PlayerIcon, Cryo.Dictionary.join(props, {
-		layoutValues = layoutValues,
-	}))
+	return React.createElement(
+		PlayerIcon,
+		Cryo.Dictionary.join(props, {
+			layoutValues = layoutValues,
+		})
+	)
 end
 
 if FFlagPlayerListReduceRerenders then

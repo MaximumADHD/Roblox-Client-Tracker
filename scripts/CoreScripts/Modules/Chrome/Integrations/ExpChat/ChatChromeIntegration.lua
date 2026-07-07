@@ -57,11 +57,31 @@ local ExpChatPerfTracker = ExpChat.ExpChatPerfTracker
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 local unreadMessages = 0
+local friendsChatUnreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
 local chatVisibility: boolean = ChatSelector:GetVisibility()
 local chatChromeIntegration
 
 local chatSelectorVisibilitySignal = ChatSelector.VisibilityStateChanged
+
+local function updateUnreadNotification()
+	if not chatChromeIntegration.notification then
+		return
+	end
+
+	if not FFlagExpChatEnableFriendsTab then
+		chatChromeIntegration.notification:fireCount(unreadMessages)
+		return
+	end
+
+	local unreadCount = unreadMessages + friendsChatUnreadMessages
+	if chatVisibility or unreadCount == 0 then
+		chatChromeIntegration.notification:clear()
+	else
+		chatChromeIntegration.notification:fireCount(unreadCount)
+	end
+end
+
 local function localUserCanChat()
 	if not RunService:IsStudio() then
 		local success, localUserCanChat = pcall(function()
@@ -123,7 +143,12 @@ end, function()
 	end
 
 	chatVisibility = isVisible :: boolean
-	if isVisible and unreadMessages and chatChromeIntegration.notification then
+	if FFlagExpChatEnableFriendsTab then
+		if isVisible then
+			unreadMessages = 0
+		end
+		updateUnreadNotification()
+	elseif isVisible and unreadMessages and chatChromeIntegration.notification then
 		unreadMessages = 0
 		chatChromeIntegration.notification:clear()
 	end
@@ -261,6 +286,16 @@ if FFlagChatIntegrationFixShortcut and FFlagEnableConsoleExpControls then
 	end)
 end
 
+if FFlagExpChatEnableFriendsTab then
+	local function updateFriendsChatUnreadMessages(nextUnreadCount: number?)
+		friendsChatUnreadMessages = nextUnreadCount or 0
+		updateUnreadNotification()
+	end
+
+	updateFriendsChatUnreadMessages(InExperienceAppChatModal.default.unreadCount)
+	InExperienceAppChatModal.default.unreadCountSignal.Event:Connect(updateFriendsChatUnreadMessages)
+end
+
 -- Purely informational system messages (chat-enabled, welcome, and summary lines)
 -- should not bump the unibar unread badge, mirroring the channel-tab unread
 local function shouldIgnoreUnreadForMessage(textChatMessage: TextChatMessage?): boolean
@@ -274,7 +309,7 @@ TextChatService.MessageReceived:Connect(function(textChatMessage: TextChatMessag
 	end
 	if not chatVisibility then
 		unreadMessages += 1
-		chatChromeIntegration.notification:fireCount(unreadMessages)
+		updateUnreadNotification()
 	end
 end)
 
@@ -286,7 +321,7 @@ if GetFFlagTextChatEnableUniverseChatTabs() then
 		end
 		if not chatVisibility then
 			unreadMessages += 1
-			chatChromeIntegration.notification:fireCount(unreadMessages)
+			updateUnreadNotification()
 		end
 	end)
 end
@@ -295,7 +330,7 @@ local lastMessagesChangedValue = 0
 ChatSelector.MessagesChanged:connect(function(messages: number)
 	if not chatVisibility then
 		unreadMessages += messages - lastMessagesChangedValue
-		chatChromeIntegration.notification:fireCount(unreadMessages)
+		updateUnreadNotification()
 	end
 	lastMessagesChangedValue = messages
 end)
@@ -365,7 +400,7 @@ function _simulateChat()
 		task.wait(math.random(1, 15))
 		if not chatVisibility then
 			unreadMessages += 1
-			chatChromeIntegration.notification:fireCount(unreadMessages)
+			updateUnreadNotification()
 		end
 	end
 end

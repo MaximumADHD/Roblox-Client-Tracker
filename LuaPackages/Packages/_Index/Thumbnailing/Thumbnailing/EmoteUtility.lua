@@ -12,6 +12,7 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 local FFlagEmoteUtilityDefaultMoodFromCharacter = game:DefineFastFlag("EmoteUtilityDefaultMoodFromCharacter", false)
+local FFlagEmoteUtilityUseIdleAnimationFallback = game:DefineFastFlag("EmoteUtilityUseIdleAnimationFallback", false)
 
 local module = {}
 
@@ -109,15 +110,18 @@ local function isOnRCC(): boolean
 	return success and isRCC
 end
 
+local function getAnalyticsTarget(): string
+	if isOnRCC() then
+		return "RCC"
+	else
+		return "Client"
+	end
+end
+
 -- Helper for assembling & sending a report counter.
 local function reportCounter(actionName: string, success: boolean)
-	local prefix
+	local prefix = getAnalyticsTarget()
 	local suffix
-	if isOnRCC() then
-		prefix = "RCC"
-	else
-		prefix = "Client"
-	end
 	if success then
 		suffix = "Success"
 	else
@@ -167,16 +171,9 @@ local function getAnimationAndIsIdle(animationAssetIdOrUrl: AnimationAssetIdOrUr
 	-- If we didn't succeed, send more details of failure.
 	-- Also return nil.
 	if not success or not animation then
-		local target
-		if isOnRCC() then
-			target = "RCC"
-		else
-			target = "Client"
-		end
-
 		local eventCtx = "EmoteUtility_getPoseAsset"
 		local eventName = actionName .. "_Failed"
-		RbxAnalyticsService:SendEventDeferred(target, eventCtx, eventName, {
+		RbxAnalyticsService:SendEventDeferred(getAnalyticsTarget(), eventCtx, eventName, {
 			animationAssetIdOrUrl = animationAssetIdOrUrl,
 		})
 
@@ -230,21 +227,45 @@ local function getAnimationClipByAssetId(animationClipAssetId: string): Animatio
 	reportCounter("EmoteUtility_GetAnimationClipAsync", success)
 
 	if not success then
-		local targetName
-		if isOnRCC() then
-			targetName = "RCC"
-		else
-			targetName = "Client"
-		end
 		local eventCtx = "EmoteUtility_GetAnimationClip"
 		local eventName = "EmoteUtility_GetAnimationClip_GetAnimationClipAsyncFailed"
-		RbxAnalyticsService:SendEventDeferred(targetName, eventCtx, eventName, {
+		RbxAnalyticsService:SendEventDeferred(getAnalyticsTarget(), eventCtx, eventName, {
 			keyframeSequenceId = animationClipAssetId,
 		})
 		return nil
 	end
 
 	return animationClip
+end
+
+local function getThumbnailKeyframeFromAnimationOrUrl(
+	animationOrUrl: Animation | string,
+	rotationDegrees: number,
+	defaultThumbnailKeyframeNumber: number?
+): Keyframe?
+	local thumbnailKeyframeNumber = defaultThumbnailKeyframeNumber
+	local thumbnailTime = nil
+	local animationClip
+	if typeof(animationOrUrl) == "string" then
+		animationClip = getAnimationClipByAssetId(animationOrUrl)
+	else
+		thumbnailKeyframeNumber =
+			module.GetNumberValueWithDefault(animationOrUrl, "ThumbnailKeyframe", defaultThumbnailKeyframeNumber)
+		thumbnailTime = module.GetNumberValueWithDefault(animationOrUrl, "ThumbnailTime", nil)
+		animationClip = module.GetAnimationClip(animationOrUrl)
+	end
+	if not animationClip then
+		return nil
+	end
+
+	if animationClip:IsA("KeyframeSequence") then
+		return module.GetThumbnailKeyframe(thumbnailKeyframeNumber, animationClip :: KeyframeSequence, rotationDegrees)
+	elseif animationClip:IsA("CurveAnimation") then
+		return module.GetThumbnailKeyframeFromCurve(thumbnailTime, animationClip :: CurveAnimation, rotationDegrees)
+	else
+		error("Unsupported Animation type:" .. animationClip.ClassName)
+		return nil
+	end
 end
 
 -- It's possible that a Keyframe contains invalid NumberPoses (e.g APIs not yet enabled)
@@ -482,9 +503,9 @@ local function getMainThumbnailKeyframe(
 	useRotationInPoseAsset: boolean,
 	useFallbackAnimations: boolean?
 ): (Keyframe?, boolean, AnimationAssetIdOrUrl?)
-	local thumbnailKeyframe
-	local givenPoseTrumpsToolPose = false
-	local finalAnimationAssetIdOrUrl = nil
+	local thumbnailKeyframe: Keyframe?
+	local givenPoseTrumpsToolPose: boolean = false
+	local finalAnimationAssetIdOrUrl: AnimationAssetIdOrUrl? = nil
 
 	if animationAssetIdOrUrl then
 		finalAnimationAssetIdOrUrl = animationAssetIdOrUrl
@@ -505,51 +526,35 @@ local function getMainThumbnailKeyframe(
 			givenPoseTrumpsToolPose = true
 		end
 
-		local thumbnailKeyframeNumber = module.GetNumberValueWithDefault(animation, "ThumbnailKeyframe", nil)
-
-		local thumbnailTime = module.GetNumberValueWithDefault(animation, "ThumbnailTime", nil)
-
-		local rotationDegrees = 0
+		local rotationDegrees: number = 0
 		if useRotationInPoseAsset then
 			rotationDegrees = module.GetNumberValueWithDefault(animation, "ThumbnailCharacterRotation", 0) :: number
 		end
 
-		local emoteAnimationClip = module.GetAnimationClip(animation)
-		if emoteAnimationClip then
-			if emoteAnimationClip:IsA("KeyframeSequence") then
-				thumbnailKeyframe =
-					module.GetThumbnailKeyframe(thumbnailKeyframeNumber, emoteAnimationClip, rotationDegrees)
-			elseif emoteAnimationClip:IsA("CurveAnimation") then
-				thumbnailKeyframe =
-					module.GetThumbnailKeyframeFromCurve(thumbnailTime, emoteAnimationClip, rotationDegrees)
-			else
-				error("Unsupported Animation type:" .. emoteAnimationClip.ClassName)
-			end
-		end
+		thumbnailKeyframe = getThumbnailKeyframeFromAnimationOrUrl(animation, rotationDegrees)
 	else
 		if useFallbackAnimations then
-			local keyframeSequenceAssetUrl = module.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
+			local poseAnimationOrUrl: Animation | string = module.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
 			local animateScript = character:FindFirstChild("Animate")
 			if animateScript then
-				local equippedPoseValue = animateScript:FindFirstChild("Pose") or animateScript:FindFirstChild("pose")
-				if equippedPoseValue then
-					local poseAnim = equippedPoseValue:FindFirstChildOfClass("Animation")
-					if poseAnim then
-						keyframeSequenceAssetUrl = poseAnim.AnimationId
-					end
+				local equippedPoseValue: Instance? = animateScript:FindFirstChild("Pose")
+					or animateScript:FindFirstChild("pose")
+				if not equippedPoseValue and FFlagEmoteUtilityUseIdleAnimationFallback then
+					equippedPoseValue = animateScript:FindFirstChild("Idle") or animateScript:FindFirstChild("idle")
+				end
+				local equippedPoseAnimation: Animation? = if equippedPoseValue
+					then equippedPoseValue:FindFirstChildOfClass("Animation")
+					else nil
+				if equippedPoseAnimation then
+					poseAnimationOrUrl = equippedPoseAnimation
 				end
 			end
 
-			finalAnimationAssetIdOrUrl = keyframeSequenceAssetUrl
-
-			local poseAnimationClip = getAnimationClipByAssetId(keyframeSequenceAssetUrl)
-			if poseAnimationClip then
-				if not poseAnimationClip:IsA("KeyframeSequence") then
-					-- unexpected bad situation: we can't seem to find a keyframe.
-					return nil, false, finalAnimationAssetIdOrUrl
-				end
-				local poseKeyframeSequence = poseAnimationClip :: KeyframeSequence
-				thumbnailKeyframe = poseKeyframeSequence:GetKeyframes()[1] :: Keyframe
+			thumbnailKeyframe = getThumbnailKeyframeFromAnimationOrUrl(poseAnimationOrUrl, 0, 1)
+			if typeof(poseAnimationOrUrl) == "string" then
+				finalAnimationAssetIdOrUrl = poseAnimationOrUrl
+			else
+				finalAnimationAssetIdOrUrl = poseAnimationOrUrl.AnimationId
 			end
 		end
 	end
@@ -561,7 +566,6 @@ end
 	Get keyframe to pose face based on mood asset id.
 ]]
 local function getMoodThumbnailKeyframe(moodAssetIdOrUrl: AnimationAssetIdOrUrl?): Keyframe?
-	local thumbnailKeyframe
 	if not moodAssetIdOrUrl then
 		return nil
 	end
@@ -575,22 +579,7 @@ local function getMoodThumbnailKeyframe(moodAssetIdOrUrl: AnimationAssetIdOrUrl?
 	end
 	assert(animation, "animation is non-nil. Silence type checker.")
 
-	local thumbnailKeyframeNumber = module.GetNumberValueWithDefault(animation, "ThumbnailKeyframe", nil)
-
-	local thumbnailTime = module.GetNumberValueWithDefault(animation, "ThumbnailTime", nil)
-
-	local emoteAnimationClip = module.GetAnimationClip(animation)
-	if emoteAnimationClip then
-		if emoteAnimationClip:IsA("KeyframeSequence") then
-			thumbnailKeyframe = module.GetThumbnailKeyframe(thumbnailKeyframeNumber, emoteAnimationClip, 0)
-		elseif emoteAnimationClip:IsA("CurveAnimation") then
-			thumbnailKeyframe = module.GetThumbnailKeyframeFromCurve(thumbnailTime, emoteAnimationClip, 0)
-		else
-			error("Unsupported Animation type:" .. emoteAnimationClip.ClassName)
-		end
-	end
-
-	return thumbnailKeyframe
+	return getThumbnailKeyframeFromAnimationOrUrl(animation, 0)
 end
 
 --[[

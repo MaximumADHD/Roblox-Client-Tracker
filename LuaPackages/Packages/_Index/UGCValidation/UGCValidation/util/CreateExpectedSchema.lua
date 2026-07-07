@@ -15,6 +15,8 @@ local getUploadCategory = require(root.util.getUploadCategory)
 local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
 	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getFFlagUGCValidationAnimationPackFolderStructure =
+	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
 
 local CreateExpectedSchema = {}
 -- NOTE: We are not going to enforce the R15ArtistIntent name here. These schemas are for the root folder/instance, and not for the copy
@@ -107,8 +109,8 @@ local categoryToSchemaGenerator = {
 }
 
 if getFFlagUGCValidationAnimationPackSupport() then
-	categoryToSchemaGenerator.ANIMATION = function(assetEnum: Enum.AssetType, _rootInstance: Instance)
-		return createAnimationSchema(assetEnum)
+	categoryToSchemaGenerator.ANIMATION = function(assetEnum: Enum.AssetType, rootInstance: Instance)
+		return createAnimationSchema(assetEnum, rootInstance)
 	end
 end
 
@@ -120,12 +122,36 @@ function CreateExpectedSchema.generateAssetSchema(
 	return categoryToSchemaGenerator[uploadCategory](assetEnum, rootInstance)
 end
 
-function CreateExpectedSchema.generateAnimationPackBundleSchema(): { [string]: any }
+local function hasTopLevelR15Anim(rootInstance: Instance?): boolean
+	if not rootInstance then
+		return false
+	end
+
+	for _, child in rootInstance:GetChildren() do
+		if child.Name == "R15Anim" then
+			return true
+		end
+	end
+	return false
+end
+
+function CreateExpectedSchema.generateAnimationPackBundleSchema(rootInstance: Instance?): { [string]: any }
 	local rootModelSchema = {
 		ClassName = "Model",
 		_children = {},
 	}
+
+	local useFolderAnim = getFFlagUGCValidationAnimationPackFolderStructure() and hasTopLevelR15Anim(rootInstance)
 	for _, info in Constants.ANIMATION_ASSET_INFO do
+		if useFolderAnim then
+			table.insert(rootModelSchema._children, {
+				ClassName = "Folder",
+				Name = "R15Anim",
+				_ignoreDescendants = true,
+			})
+			continue
+		end
+
 		table.insert(rootModelSchema._children, {
 			ClassName = "Model",
 			Name = info.modelName,

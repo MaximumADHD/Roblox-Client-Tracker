@@ -5,6 +5,10 @@ local PackageIndex = script.Parent._Index
 
 local Package = require(PackageIndex["StudioFoundation"]["StudioFoundation"])
 
+export type DialogAction = Package.DialogAction
+export type DialogEscapeButtonAction = Package.DialogEscapeButtonAction
+export type DialogProps = Package.DialogProps
+export type DialogType = Package.DialogType
 export type FoundationProviderAdapterProps = Package.FoundationProviderAdapterProps
 
 

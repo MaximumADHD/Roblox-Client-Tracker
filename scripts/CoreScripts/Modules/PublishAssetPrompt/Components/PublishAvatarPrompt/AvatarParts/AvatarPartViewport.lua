@@ -11,6 +11,9 @@ local withStyle = UIBlox.Style.withStyle
 local CameraUtility = require(CorePackages.Packages.Thumbnailing).CameraUtility
 local MannequinUtility = require(CorePackages.Packages.Thumbnailing).MannequinUtility
 local Constants = require(script.Parent.Parent.Parent.Parent.Constants)
+local MakeupPreviewUtils = require(script.Parent.Parent.Parent.Parent.MakeupPreviewUtils)
+local GetFFlagSingleUploadMakeupSupport =
+	require(script.Parent.Parent.Parent.Parent.Flags.GetFFlagSingleUploadMakeupSupport)
 
 local AvatarPartViewport = Roact.PureComponent:extend("AvatarPartViewport")
 
@@ -27,7 +30,8 @@ AvatarPartViewport.validateProps = t.strictInterface({
 
 		Or a single MeshPart or Accessory
     ]]
-	asset = t.union(t.table, t.instanceOf("MeshPart"), t.instanceOf("Accessory")),
+	asset = t.union(t.table, t.instanceOf("MeshPart"), t.instanceOf("Accessory"), t.instanceIsA("Decal")),
+	assetType = t.optional(t.EnumItem),
 	viewportSize = t.optional(t.Vector2),
 })
 
@@ -79,11 +83,31 @@ function AvatarPartViewport:addAccessoryToViewport()
 	self.updateCamera(camera)
 end
 
+function AvatarPartViewport:addMakeupDecalToViewport()
+	local character = MakeupPreviewUtils.createMakeupThumbnailPreview(self.props.asset, self.props.assetType)
+	if not character then
+		return
+	end
+
+	character.Parent = self.modelRef:getValue()
+	local camera = self:createViewportCamera()
+	CameraUtility.SetupHeadCamera(character, camera)
+	self.updateCamera(camera)
+end
+
 function AvatarPartViewport:didMount()
 	local asset = self.props.asset
 	if typeof(asset) == "Instance" then
 		if asset:IsA("MeshPart") then
 			self:addHeadModelToViewport()
+		elseif
+			GetFFlagSingleUploadMakeupSupport()
+			and (
+				asset:IsA("Decal")
+				or (self.props.assetType and MakeupPreviewUtils.isMakeupAssetType(self.props.assetType))
+			)
+		then
+			self:addMakeupDecalToViewport()
 		else
 			self:addAccessoryToViewport()
 		end

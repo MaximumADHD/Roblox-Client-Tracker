@@ -2,9 +2,6 @@
 	validateAssetTransparency.lua: This file validates that a mesh part has transparency set to zero
 	and that the geometry of the mesh part is visible enough. Visibility is measured as rasterized
 	opacity from several rendered views; each view must meet an opacity threshold for that asset type.
-
-	Description of visibility algorithm:
-	https://docs.google.com/document/d/1iwqaLDV1rQL5IQxG7-jSAakV-NL5KrQLzaMs6bAeMyo/edit?usp=sharing
 ]]
 
 local root = script.Parent.Parent

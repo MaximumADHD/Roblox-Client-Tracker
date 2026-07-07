@@ -60,8 +60,6 @@ local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
-local FFlagEnablePremiumSponsoredExperienceReporting =
-	game:DefineFastFlag("EnablePremiumSponsoredExperienceReporting", false)
 local FFlagEnableCancelSubscriptionApp = game:GetEngineFeature("EnableCancelSubscriptionApp")
 local FFlagEnableCancelSubscriptionAppLua = game:DefineFastFlag("EnableCancelSubscriptionAppLua", false)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
@@ -440,17 +438,6 @@ coroutine.wrap(function()
 		AdsEudsaInit.starterScript()
 	end
 end)()
-
--- premium sponsored experience reporting
-if FFlagEnablePremiumSponsoredExperienceReporting then
-	coroutine.wrap(function()
-		local PremiumSponsoredExperienceReporting =
-			safeRequire(CorePackages.Workspace.Packages.PremiumSponsoredExperienceReporting)
-		if PremiumSponsoredExperienceReporting and PremiumSponsoredExperienceReporting.starterScript then
-			PremiumSponsoredExperienceReporting.starterScript()
-		end
-	end)()
-end
 
 if game:GetEngineFeature("EnableAdGuiInteractivityControlRefactor") then
 	coroutine.wrap(function()

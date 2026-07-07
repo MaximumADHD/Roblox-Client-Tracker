@@ -193,7 +193,7 @@ local function BulletList(props: Props)
 			key = tostring(i),
 			testId = "--markdown--bullet-list-item",
 			LayoutOrder = i,
-			tag = "gap-small auto-xy row align-x-left align-y-top",
+			tag = "gap-xsmall auto-xy row align-x-left align-y-top",
 		}, {
 			Marker = React.createElement(View, {
 				LayoutOrder = 1,
@@ -245,7 +245,7 @@ local function BulletList(props: Props)
 
 	return React.createElement(View, {
 		testId = "--markdown--bullet-list",
-		tag = "col align-x-left gap-small",
+		tag = "col align-x-left gap-xsmall",
 		AutomaticSize = automaticSize,
 		backgroundStyle = {
 			Transparency = 1,

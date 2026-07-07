@@ -1,11 +1,11 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
-local withStyle = UIBlox.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
+
 local TextButton = UIBlox.App.Button.TextButton
 
 local CheckboxRow = require(script.Parent.CheckboxRow)
@@ -85,7 +85,39 @@ function ReportActionSelection:init()
 end
 
 function ReportActionSelection:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				Divider = {
+					Color = tokens.Color.Stroke.Emphasis.Color3,
+					Transparency = tokens.Color.Stroke.Emphasis.Transparency,
+				},
+				SystemPrimaryContent = {
+					Color = tokens.Color.ActionSubEmphasis.Foreground.Color3,
+					Transparency = tokens.Color.ActionSubEmphasis.Foreground.Transparency,
+				},
+				TextDefault = {
+					Color = tokens.Color.Content.Default.Color3,
+					Transparency = tokens.Color.Content.Default.Transparency,
+				},
+				TextEmphasis = {
+					Color = tokens.Color.Content.Emphasis.Color3,
+					Transparency = tokens.Color.Content.Emphasis.Transparency,
+				},
+			},
+			Font = {
+				BaseSize = 1,
+				CaptionHeader = {
+					Font = tokens.Typography.CaptionLarge.Font,
+					RelativeSize = tokens.Typography.CaptionLarge.FontSize,
+				},
+				Header1 = {
+					Font = tokens.Typography.HeadingSmall.Font,
+					RelativeSize = tokens.Typography.HeadingSmall.FontSize,
+				},
+			},
+		}
+	end, function(style)
 		local baseSize = style.Font.BaseSize
 
 		return Roact.createElement("Frame", {

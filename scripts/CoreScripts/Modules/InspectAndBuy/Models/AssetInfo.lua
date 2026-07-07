@@ -26,7 +26,6 @@
 	}
 ]]
 local CorePackages = game:GetService("CorePackages")
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local Dash = require(CorePackages.Packages.Dash)
 local FFlagAXEnableIaBTimedOptionsBulkPurchase =
 	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXEnableIaBTimedOptionsBulkPurchase
@@ -50,8 +49,6 @@ local GetFFlagIBEnableCollectiblesSystemSupport =
 
 local FFlagAXParseAdditionalItemDetailsFromCatalog =
 	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
-
-local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
 
 local AssetInfo = {}
 
@@ -388,9 +385,7 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 		newAsset.catalogPriceStatus = itemDetails.PriceStatus
 	end
 
-	if FFlagIBV2Attribution then
-		newAsset.creatingUniverseId = itemDetails.CreatingUniverseId
-	end
+	newAsset.creatingUniverseId = itemDetails.CreatingUniverseId
 
 	return newAsset
 end

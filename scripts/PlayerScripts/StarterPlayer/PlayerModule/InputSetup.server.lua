@@ -16,6 +16,7 @@ local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlaye
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
+local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationB
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
@@ -80,7 +81,19 @@ if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS or FFlagUserPlayerScriptsClass
 	thumbstickAction.Name = "ThumbstickAction"
 	thumbstickAction.Type = Enum.InputActionType.ViewportPosition
 	thumbstickAction.Enabled = false
-	thumbstickAction.Parent = characterContext
+
+	if FFlagUserPlayerScriptsThumbstickContext then
+		characterContext.Priority = 150
+
+		local thumbstickContext = Instance.new("InputContext")
+		thumbstickContext.Name = "TransformerContext"
+		thumbstickContext.Priority = 300
+		thumbstickContext.Sink = true
+		thumbstickContext.Parent = StarterPlayer.PlayerModule.InputContexts
+		thumbstickAction.Parent = thumbstickContext
+	else
+		thumbstickAction.Parent = characterContext
+	end
 end
 
 if FFlagUserPlayerScriptsUseScriptableBindings then

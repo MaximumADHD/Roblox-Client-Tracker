@@ -9,12 +9,18 @@ local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickRenameUI = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 
 local thumbstickAction
 if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
 	local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-	local characterContext = inputContexts:WaitForChild("CharacterContext")
-	thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
+	if FFlagUserPlayerScriptsThumbstickContext then
+		local transformerContext = inputContexts:WaitForChild("TransformerContext")
+		thumbstickAction = transformerContext:WaitForChild("ThumbstickAction") :: InputAction
+	else
+		local characterContext = inputContexts:WaitForChild("CharacterContext")
+		thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
+	end
 end
 
 --[[ Constants ]]--
@@ -216,6 +222,9 @@ function ClassicThumbstick:Create(parentFrame)
 		self.thumbstickButton.Size = UDim2.new(1, 0, 1, 0)
 		self.thumbstickButton.ZIndex = self.thumbstickFrame.ZIndex
 		self.thumbstickButton.Visible = true
+		if FFlagUserPlayerScriptsThumbstickContext then
+			self.thumbstickButton.Active = false
+		end
 		self.thumbstickButton.Parent = self.thumbstickFrame
 
 		local touchBinding = Instance.new("InputBinding")

@@ -44,8 +44,6 @@ local Colors = UIBlox.App.Style.Colors
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
-local GetFFlagReportMenuCellToUseAutomaticSize =
-	require(RobloxGui.Modules.Flags.GetFFlagReportMenuCellToUseAutomaticSize)
 
 local CELL_THEME_OVERRIDES = {
 	-- transparent background for cell
@@ -89,7 +87,7 @@ local function CategoryCellContent(props)
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, CELL_HEIGHT),
-		AutomaticSize = if GetFFlagReportMenuCellToUseAutomaticSize() then Enum.AutomaticSize.XY else nil,
+		AutomaticSize = Enum.AutomaticSize.XY,
 	}, {
 		ListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,

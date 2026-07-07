@@ -30,6 +30,7 @@ game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAni
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
 game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix2", false)
 game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
+game:DefineFastFlag("FacialAnimationStreamingFixNilMutedCheck", false)
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -386,7 +387,10 @@ local function onFaceControlsAdded(player, faceControls)
 
 	if playerFaceControls[player.UserId] then
 		-- if FaceControls is found, enable A2C (only if mic is on)
-		if VoiceChatServiceManager and not VoiceChatServiceManager.localMuted then
+		local isMicOn = if game:GetFastFlag("FacialAnimationStreamingFixNilMutedCheck")
+			then VoiceChatServiceManager and VoiceChatServiceManager.localMuted == false
+			else VoiceChatServiceManager and not VoiceChatServiceManager.localMuted
+		if isMicOn then
 			playerTrace("FaceControls found -> enabling A2C (Mic is ON)...", player)
 			FaceAnimatorService.AudioAnimationEnabled = true
 		else

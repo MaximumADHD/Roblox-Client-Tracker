@@ -9,7 +9,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
-local FFlagTiltSelection = SharedFlags.FFlagTiltSelection
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -156,10 +155,7 @@ function IconButton:renderWithCursor(getCursor)
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			SelectionImageObject = if isNewTiltIconEnabled()
 				then 
-					if FFlagTiltSelection then
 						getCursor.getCursor(ICON_BUTTON_CURSOR)
-					else
-						getCursor.refCache[ICON_BUTTON_CURSOR]
 				else nil,
 			NextSelectionRight = if ChromeEnabled and FFlagEnableConsoleExpControls then self.props.nextSelectionRightRef else nil :: never,
 			[Roact.Event.Activated] = self.props.onActivated,
