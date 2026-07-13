@@ -7016,7 +7016,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Check(false, \"example\")"
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
@@ -7052,7 +7052,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Checkpoint(\"example\")"
   },
   "@roblox/globaltype/TestService.Done/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
@@ -7067,7 +7067,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Done()"
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
@@ -7103,7 +7103,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"this is an error\")"
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
@@ -7202,7 +7202,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Message(\"example\")"
   },
   "@roblox/globaltype/TestService.RegisterTest/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
@@ -7272,7 +7272,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"example\")"
   },
   "@roblox/globaltype/TestService.Run/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
@@ -7394,7 +7394,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"this action is invalid\")"
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -17292,7 +17292,7 @@
       "@roblox/globaltype/BadgeService.IsDisabled/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsDisabled",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\n\nprint(BadgeService:IsDisabled(17468517))"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.IsLegal/param/0": {
     "documentation": "Provides information on badges and awards them."
@@ -23146,7 +23146,7 @@
       "@roblox/globaltype/Path.GetWaypoints/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path#GetWaypoints",
-    "code_sample": ""
+    "code_sample": "local PathfindingService = game:GetService(\"PathfindingService\")\n\nlocal path = PathfindingService:CreatePath()\n\nlocal PATH_START = Vector3.new(0, 1, 0)\nlocal PATH_END = Vector3.new(100, 1, 25)\n\npath:ComputeAsync(PATH_START, PATH_END)\n\nif path.Status == Enum.PathStatus.Success then\n\tlocal waypoints = path:GetWaypoints()\n\tfor _, waypoint in pairs(waypoints) do\n\t\tprint(waypoint.Position)\n\tend\nend"
   },
   "@roblox/globaltype/Path.Blocked.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -27125,6 +27125,7 @@
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "ValidateEnabledProximityPrompt": "@roblox/globaltype/Workspace.ValidateEnabledProximityPrompt",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
+      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -27408,6 +27409,26 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
+    "documentation": "<code>Workspace</code> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
+    "documentation": "<code>true</code> if the experimental physics solver is enabled, <code>false</code> otherwise."
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
+    "documentation": "Returns <code>true</code> if the experimental physics solver is enabled.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
@@ -32450,7 +32471,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextBounds": {
-    "documentation": "Read-only property which reflects the absolute size of rendered text in offsets.",
+    "documentation": "Read-only property which reflects the absolute size of rendered text in",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextBounds",
     "code_sample": ""
   },
@@ -32482,7 +32503,7 @@
   "@roblox/globaltype/TextLabel.TextSize": {
     "documentation": "Determines the line height of text in offsets.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextSize",
-    "code_sample": ""
+    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"Kaboom!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
   },
   "@roblox/globaltype/TextLabel.TextStrokeColor3": {
     "documentation": "Determines the color of the text stroke (outline).",
@@ -32510,14 +32531,14 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextWrapped": {
-    "documentation": "Determines if text wraps to multiple lines within the <code>TextLabel</code> element's space, truncating excess text.",
+    "documentation": "Determines if text wraps to multiple lines within the <code>TextLabel</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextXAlignment": {
     "documentation": "Determines the horizontal alignment of rendered text.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextXAlignment",
-    "code_sample": ""
+    "code_sample": "-- Paste this in a LocalScript within a TextLabel/TextButton/TextBox\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Iterate over both TextXAlignment and TextYAlignment enum items\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
   },
   "@roblox/globaltype/TextLabel.TextYAlignment": {
     "documentation": "Determines the vertical alignment of rendered text.",
@@ -32720,7 +32741,7 @@
     "documentation": "A container whose contents are copied into each player's <code>Backpack</code> when their player character spawns. It is generally used to hold <code>Tools</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPack",
-    "code_sample": ""
+    "code_sample": "local StarterPack = game:GetService(\"StarterPack\")\n\nlocal function emptyStarterPack()\n\tfor _, child in pairs(StarterPack:GetChildren()) do\n\t\tif child:IsA(\"Tool\") then\n\t\t\tchild:Destroy()\n\t\tend\n\tend\nend\n\nemptyStarterPack()"
   },
   "@roblox/globaltype/CoreScriptDebuggingManagerHelper": {
     "documentation": "",
@@ -35933,13 +35954,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/param/1": {
-    "documentation": ""
+    "documentation": "The asset type to browse. Only <code>Animation</code> is supported."
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "Opens a window in Roblox Studio which prompts the user to select an asset based on the <code>assetType</code> specified.",
+    "documentation": "Opens a window in Roblox Studio that prompts the user to select an existing <code>AssetType.Animation</code> asset. The <code>assetType</code> parameter must be <code>Animation</code>; other values are not supported and cause an error.",
     "params": [
       {
         "name": "self",
@@ -35960,13 +35981,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/1": {
-    "documentation": ""
+    "documentation": "The asset type to browse. Only <code>Animation</code> is supported."
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "Opens a window in Roblox Studio which prompts the user to select an asset based on the <code>assetType</code> specified.",
+    "documentation": "Opens a window in Roblox Studio that prompts the user to select an existing <code>AssetType.Animation</code> asset. The <code>assetType</code> parameter must be <code>Animation</code>; other values are not supported and cause an error.",
     "params": [
       {
         "name": "self",
@@ -36939,7 +36960,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "Filters a string being received from a user and returns a <code>TextFilterResult</code> which can be used to distribute the correctly filtered text accordingly.",
+    "documentation": "Filters a string being received from a user and returns a",
     "params": [
       {
         "name": "self",
@@ -47104,12 +47125,14 @@
       "HealthDisplayDistance": "@roblox/globaltype/Player.HealthDisplayDistance",
       "InputLatency": "@roblox/globaltype/Player.InputLatency",
       "LocaleId": "@roblox/globaltype/Player.LocaleId",
+      "MaximumSimulationRadius": "@roblox/globaltype/Player.MaximumSimulationRadius",
       "MembershipType": "@roblox/globaltype/Player.MembershipType",
       "NameDisplayDistance": "@roblox/globaltype/Player.NameDisplayDistance",
       "Neutral": "@roblox/globaltype/Player.Neutral",
       "PartyId": "@roblox/globaltype/Player.PartyId",
       "ReplicationFocus": "@roblox/globaltype/Player.ReplicationFocus",
       "RespawnLocation": "@roblox/globaltype/Player.RespawnLocation",
+      "SimulationRadius": "@roblox/globaltype/Player.SimulationRadius",
       "StepIdOffset": "@roblox/globaltype/Player.StepIdOffset",
       "Team": "@roblox/globaltype/Player.Team",
       "TeamColor": "@roblox/globaltype/Player.TeamColor",
@@ -47121,6 +47144,7 @@
       "ClearCharacterAppearance": "@roblox/globaltype/Player.ClearCharacterAppearance",
       "ClearCachedAvatarAppearance": "@roblox/globaltype/Player.ClearCachedAvatarAppearance",
       "DistanceFromCharacter": "@roblox/globaltype/Player.DistanceFromCharacter",
+      "GetCameraState": "@roblox/globaltype/Player.GetCameraState",
       "GetFriendsOnline": "@roblox/globaltype/Player.GetFriendsOnline",
       "GetFriendsOnlineAsync": "@roblox/globaltype/Player.GetFriendsOnlineAsync",
       "GetFriendsWhoPlayedAsync": "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync",
@@ -47297,6 +47321,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
+  "@roblox/globaltype/Player.MaximumSimulationRadius": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MaximumSimulationRadius",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Player.MembershipType": {
     "documentation": "Describes the account's membership type.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MembershipType",
@@ -47325,6 +47354,11 @@
   "@roblox/globaltype/Player.RespawnLocation": {
     "documentation": "If set, the player will respawn at the given <code>SpawnLocation</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Player.SimulationRadius": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#SimulationRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.StepIdOffset": {
@@ -47440,6 +47474,26 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DistanceFromCharacter",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
+  },
+  "@roblox/globaltype/Player.GetCameraState/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.GetCameraState/return/0": {
+    "documentation": "A dictionary containing <code>CFrame</code>, <code>FieldOfView</code>, and <code>ViewportSize</code> values."
+  },
+  "@roblox/globaltype/Player.GetCameraState": {
+    "documentation": "Returns a dictionary containing the player's current camera state.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.GetCameraState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.GetCameraState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetCameraState",
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -47740,7 +47794,7 @@
     "documentation": "A boolean indicating whether a player is a friend of the specified user."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> This method has been superseded by the <code>Player:IsFriendsWithAsync()</code> method which should be used for new work.<br>Checks whether a player is a friend of the user with the given <code>Player.UserId</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by the <code>Player:IsFriendsWithAsync()</code> method which should be used for new work.<br>Checks whether a player is a friend of the user with the given",
     "params": [
       {
         "name": "self",
@@ -47755,7 +47809,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWithAsync(146569) then\n\t\tprint(player.Name .. \" is connections with gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -58019,7 +58073,7 @@
     "documentation": "A table of the <code>GuiObject</code> instances that occupy the given screen space."
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition": {
-    "documentation": "Returns a list of all <code>GuiObject</code> instances occupying the given point on the screen.",
+    "documentation": "Returns a list of all <code>GuiObject</code> instances occupying the given",
     "params": [
       {
         "name": "self",
@@ -59712,7 +59766,7 @@
   "@roblox/globaltype/GuiService.SelectedObject": {
     "documentation": "Sets the <code>GuiObject</code> currently being focused on by the GUI navigator.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#SelectedObject",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function printChanged(value)\n\tif value == \"SelectedObject\" then\n\t\tprint(\"The SelectedObject changed!\")\n\tend\nend\n\nGuiService.Changed:Connect(printChanged)"
   },
   "@roblox/globaltype/GuiService.TopbarInset": {
     "documentation": "Used to determine the absolute size and position of unobstructed area within top bar space.",
@@ -59963,7 +60017,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromHumanoidDescription",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\nhumanoidDescription.HatAccessory = \"3339374070\"\nhumanoidDescription.BackAccessory = \"3339363671\"\n\nGuiService:InspectPlayerFromHumanoidDescription(humanoidDescription, \"MyPlayer\")"
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/0": {
     "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
@@ -59985,7 +60039,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromUserId",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\nGuiService:InspectPlayerFromUserId(772462)"
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/param/0": {
     "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
@@ -62165,7 +62219,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Beam.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "Determines a multiplier for <code>Beam.Transparency</code> that is only visible to the local client.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Beam#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -78849,7 +78903,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireCustomEvent",
-    "code_sample": ""
+    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\nlocal Players = game:GetService(\"Players\")\n\n-- server event, report a new server started\nlocal serverInfo = {\n\tTime = os.time(),\n\tPlaceId = game.PlaceId,\n}\n\nAnalyticsService:FireCustomEvent(nil, \"ServerStart\", serverInfo)\n\nPlayers.PlayerAdded:Connect(function(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tlocal customData = {\n\t\t\tTime = os.time(),\n\t\t\tMessage = message,\n\t\t}\n\t\tAnalyticsService:FireCustomEvent(player, \"PlayerChatted\", customData)\n\tend)\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/0": {
     "documentation": "Collection of methods that allows you to track how users interact with your experiences."
@@ -78908,7 +78962,7 @@
     "documentation": "Optional. User defined data, could be a string, a number or a table."
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent": {
-    "documentation": "<strong>Deprecated:</strong> This deprecated function is a variant of <code>AnalyticsService:LogEconomyEvent()</code> which should be used instead.<br>Fire an event used to track player actions pertaining to the in-game economy.",
+    "documentation": "<strong>Deprecated:</strong> This deprecated function is a variant of <code>AnalyticsService:LogEconomyEvent()</code> which should be used instead.<br>Fire an event used to track player actions pertaining to the in-game",
     "params": [
       {
         "name": "self",
@@ -78949,7 +79003,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireInGameEconomyEvent",
-    "code_sample": ""
+    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal gold = script.Parent\n\ngold.Touched:Connect(function(otherPart)\n\tlocal player = game.Players:GetPlayerFromCharacter(otherPart.Parent)\n\tif player == nil then\n\t\treturn\n\tend\n\n\tlocal location = {\n\t\t[\"Map\"] = \"someMap\",\n\t\t[\"Position\"] = tostring(gold.Position),\n\t}\n\n\tAnalyticsService:FireInGameEconomyEvent(\n\t\tplayer,\n\t\t\"Sword\", -- item name\n\t\tEnum.AnalyticsEconomyAction.Spend,\n\t\t\"Weapon\", -- itemCategory\n\t\t2020, -- amount of Gold\n\t\t\"Gold\", -- currency\n\t\tlocation,\n\t\t{ SomeCustomKey = \"SomeCustomValue\" }\n\t) -- optional customData\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/0": {
     "documentation": "Collection of methods that allows you to track how users interact with your experiences."
@@ -78999,7 +79053,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireLogEvent",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal placeId = game.PlaceId\n\nlocal player = Players:GetPlayerByUserId(123)\n\nxpcall(function()\n\tTeleportService:Teleport(placeId, player)\nend, function(errorMessage)\n\tlocal debugInfo = {\n\t\terrorCode = \"TeleportFailed\",\n\t\tstackTrace = debug.traceback(), -- the function call stack\n\t}\n\tAnalyticsService:FireLogEvent(\n\t\tplayer,\n\t\tEnum.AnalyticsLogLevel.Error, -- log level\n\t\terrorMessage, -- message\n\t\tdebugInfo, -- optional\n\t\t{\n\t\t\tPlayerId = player.UserId,\n\t\t\tPlaceId = placeId,\n\t\t}\n\t) -- customData optional\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/0": {
     "documentation": "Collection of methods that allows you to track how users interact with your experiences."
@@ -117859,6 +117913,57 @@
       "Enabled": "@roblox/enum/IKControlConstraintSupport.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/IKControlConstraintSupport",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.Success": {
+    "documentation": "The screenshot capture completed successfully.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.OtherError": {
+    "documentation": "The screenshot capture failed due to an unspecified error.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#OtherError",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.NoDeviceSupport": {
+    "documentation": "The device does not support screenshot captures.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#NoDeviceSupport",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.NoSpaceOnDevice": {
+    "documentation": "The device does not have enough storage space to save the screenshot capture.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#NoSpaceOnDevice",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ScreenshotCaptureResult": {
+    "documentation": "Describes the result of a screenshot capture initiated by <code>CaptureService:TakeScreenshotCaptureAsync()</code>.",
+    "keys": {
+      "Success": "@roblox/enum/ScreenshotCaptureResult.Success",
+      "OtherError": "@roblox/enum/ScreenshotCaptureResult.OtherError",
+      "NoDeviceSupport": "@roblox/enum/ScreenshotCaptureResult.NoDeviceSupport",
+      "NoSpaceOnDevice": "@roblox/enum/ScreenshotCaptureResult.NoSpaceOnDevice"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/HttpContentType.ApplicationJson": {

@@ -6877,7 +6877,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado.",
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado.",
     "keys": {
       "AutoRuns": "@roblox/globaltype/TestService.AutoRuns",
       "Description": "@roblox/globaltype/TestService.Description",
@@ -6911,7 +6911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "Se definido como <code>true</code>, o jogo começará a ser executado quando o método <code>TestService:RunAsync()</code> do serviço for chamado.",
+    "documentation": "Se definido como <code>true</code>, o jogo começará a rodar quando o método <code>TestService:RunAsync()</code> do serviço for chamado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6926,32 +6926,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "Quando definido como <code>true</code>, <code>TestService</code> será executado ao usar a ação <strong>Executar</strong> no Roblox Studio.",
+    "documentation": "Quando definido como <code>true</code>, o <code>TestService</code> será executado ao usar a ação <strong>Run</strong> no Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Is30FpsThrottleEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Isso foi depreciado e renomeado diretamente para <code>ThrottlePhysicsToRealtime</code> para refletir melhor seu uso prático.<br>Define se o motor de física deve ser reduzido para 30 FPS enquanto o teste está sendo executado.",
+    "documentation": "<strong>Deprecated:</strong> Isso foi descontinuado e renomeado diretamente para <code>ThrottlePhysicsToRealtime</code> para refletir melhor seu uso prático.<br>Define se o motor de física deve ser limitado a 30 FPS enquanto o teste está sendo executado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Is30FpsThrottleEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsPhysicsEnvironmentalThrottled": {
-    "documentation": "Define se o ambiente de física deve ser reduzido enquanto este teste está sendo executado.",
+    "documentation": "Define se o ambiente de física deve ser limitado enquanto este teste está sendo executado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsPhysicsEnvironmentalThrottled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsSleepAllowed": {
-    "documentation": "Define se os objetos de física poderão entrar em modo de espera enquanto a simulação do teste está em execução.",
+    "documentation": "Define se os objetos de física poderão adormecer enquanto a simulação do teste está sendo executada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsSleepAllowed",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.NumberOfPlayers": {
-    "documentation": "O número de jogadores esperados neste teste, se houver algum.",
+    "documentation": "O número de jogadores esperados neste teste, se houver.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#NumberOfPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.SimulateSecondsLag": {
-    "documentation": "Define uma quantidade específica de latência adicional experienciada pelos jogadores durante a sessão de teste.",
+    "documentation": "Define uma quantidade específica de latência adicional experimentada pelos jogadores durante a sessão de teste.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#SimulateSecondsLag",
     "code_sample": ""
   },
@@ -6961,12 +6961,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ThrottlePhysicsToRealtime": {
-    "documentation": "Define se o teste deve ser reduzido para simular o tempo de acordo com o tempo do mundo real ou o mais rápido possível.",
+    "documentation": "Define se o teste deve ser limitado para simular o tempo de acordo com o tempo real ou o mais rápido possível.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ThrottlePhysicsToRealtime",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Timeout": {
-    "documentation": "O tempo máximo que os testes são permitidos para rodar.",
+    "documentation": "A quantidade máxima de tempo que os testes podem ser executados.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Timeout",
     "code_sample": ""
   },
@@ -6976,7 +6976,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Check/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Check/param/1": {
     "documentation": ""
@@ -6991,7 +6991,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "Imprime o resultado de uma condição na saída.",
+    "documentation": "Imprime o resultado de uma condição para a saída.",
     "params": [
       {
         "name": "self",
@@ -7019,7 +7019,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Checkpoint/param/1": {
     "documentation": ""
@@ -7031,7 +7031,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "Imprime <code>Ponto de Chegada do Teste:</code> seguido de uma string na saída em texto azul.",
+    "documentation": "Imprime <code>Test checkpoint:</code> seguido por uma string para a saída em texto azul.",
     "params": [
       {
         "name": "self",
@@ -7052,13 +7052,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Checkpoint(\"exemplo\")"
   },
   "@roblox/globaltype/TestService.Done/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "Imprime <code>Teste Concluído</code> na saída em texto azul.",
+    "documentation": "Imprime <code>Testing Done</code> para a saída em texto azul.",
     "params": [
       {
         "name": "self",
@@ -7067,10 +7067,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n-- Este método indica que o teste foi concluído TestService:Done()"
   },
   "@roblox/globaltype/TestService.Error/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Error/param/1": {
     "documentation": ""
@@ -7082,7 +7082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "Imprime uma mensagem de erro vermelha na saída, precedida por <code>TestService:</code>.",
+    "documentation": "Imprime uma mensagem de erro vermelha para a saída, prefixada por <code>TestService:</code>.",
     "params": [
       {
         "name": "self",
@@ -7103,10 +7103,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"isto é um erro\")"
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Fail/param/1": {
     "documentation": ""
@@ -7142,7 +7142,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/1": {
     "documentation": ""
@@ -7169,7 +7169,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Message/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Message/param/1": {
     "documentation": ""
@@ -7181,7 +7181,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "Imprime <code>TestService:</code> seguido de uma string na saída em texto azul.",
+    "documentation": "Imprime <code>TestService:</code> seguido por uma string para a saída em texto azul.",
     "params": [
       {
         "name": "self",
@@ -7202,10 +7202,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Mensagem(\"exemplo\")"
   },
   "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.RegisterTest/param/1": {
     "documentation": ""
@@ -7232,7 +7232,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
     "documentation": ""
@@ -7272,10 +7272,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"exemplo\")"
   },
   "@roblox/globaltype/TestService.Run/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Run": {
     "documentation": "<strong>Deprecated:</strong> <br>Executa scripts que estão parentados ao <code>TestService</code>.",
@@ -7290,10 +7290,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "Executa scripts que estão parentados a <code>TestService</code>.",
+    "documentation": "Executa scripts que estão parentados ao <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -7305,7 +7305,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ScopeTime/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
     "documentation": ""
@@ -7325,7 +7325,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
     "documentation": ""
@@ -7354,7 +7354,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
-    "documentation": "Um serviço usado pelo Roblox para executar testes controlados do motor. Está disponível para desenvolvedores usarem, em um grau limitado."
+    "documentation": "Um serviço usado pela Roblox para executar testes controlados do motor. Ele está disponível para os desenvolvedores usarem, em um grau limitado."
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
     "documentation": ""
@@ -7394,7 +7394,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"esta ação é inválida\")"
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "Um objeto que executa funções conectadas ao ocorrer um evento específico."
@@ -15371,7 +15371,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.SecondaryColor": {
-    "documentation": "Determina a cor das partículas de chama secundárias (internas).",
+    "documentation": "Determina a cor das partículas da chama secundária (interna).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#SecondaryColor",
     "code_sample": ""
   },
@@ -17124,7 +17124,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService": {
-    "documentation": "Fornece informações sobre emblemas e os concede.",
+    "documentation": "Fornece informações sobre distintivos e os premia.",
     "keys": {
       "AwardBadge": "@roblox/globaltype/BadgeService.AwardBadge",
       "AwardBadgeAsync": "@roblox/globaltype/BadgeService.AwardBadgeAsync",
@@ -17139,19 +17139,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.AwardBadge/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.AwardBadge/param/1": {
-    "documentation": "O <code>Player.UserId</code> do usuário a quem o emblema deve ser concedido."
+    "documentation": "O <code>Player.UserId</code> do usuário ao qual o distintivo deve ser premiado."
   },
   "@roblox/globaltype/BadgeService.AwardBadge/param/2": {
-    "documentation": "O ID do emblema a ser concedido."
+    "documentation": "O ID do distintivo a ser premiado."
   },
   "@roblox/globaltype/BadgeService.AwardBadge/return/0": {
-    "documentation": "Booleano de <code>true</code> se o emblema foi concedido com sucesso."
+    "documentation": "Booleano de <code>true</code> se o distintivo foi premiado com sucesso."
   },
   "@roblox/globaltype/BadgeService.AwardBadge": {
-    "documentation": "<strong>Deprecated:</strong> <br>Concede um emblema a um jogador dado o ID de cada um.",
+    "documentation": "<strong>Deprecated:</strong> <br>Premia um distintivo a um jogador dado o ID de cada um.",
     "params": [
       {
         "name": "self",
@@ -17173,19 +17173,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/1": {
-    "documentation": "O <code>Player.UserId</code> do usuário a quem o emblema deve ser concedido."
+    "documentation": "O <code>Player.UserId</code> do usuário ao qual o distintivo deve ser premiado."
   },
   "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/2": {
-    "documentation": "O ID do emblema a ser concedido."
+    "documentation": "O ID do distintivo a ser premiado."
   },
   "@roblox/globaltype/BadgeService.AwardBadgeAsync/return/0": {
-    "documentation": "Booleano de <code>true</code> se o emblema foi concedido com sucesso."
+    "documentation": "Booleano de <code>true</code> se o distintivo foi premiado com sucesso."
   },
   "@roblox/globaltype/BadgeService.AwardBadgeAsync": {
-    "documentation": "Concede um emblema a um jogador dado o ID de cada um.",
+    "documentation": "Premia um distintivo a um jogador dado o ID de cada um.",
     "params": [
       {
         "name": "self",
@@ -17207,19 +17207,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/param/1": {
-    "documentation": "O <code>UserId</code> do jogador para verificar a posse dos emblemas especificados."
+    "documentation": "O <code>UserId</code> do jogador para verificar a propriedade dos distintivos especificados."
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/param/2": {
-    "documentation": "A lista de IDs dos emblemas para verificar a posse. Comprimento máximo de 10."
+    "documentation": "A lista de IDs dos distintivos para verificar a propriedade. Comprimento máximo de 10."
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/return/0": {
-    "documentation": "A lista de IDs de emblemas que o usuário dado possui dos IDs de emblemas fornecidos. Vazia se nenhum dos emblemas fornecidos é possuído pelo usuário dado. Não é garantido que esteja na mesma ordem que a lista de entrada. Alguns IDs de emblemas podem ser omitidos se o usuário com o <code>userId</code> alvo não esteve recentemente no servidor e os IDs de emblemas não estão associados à experiência solicitante."
+    "documentation": "A lista de IDs de distintivos que o usuário dado possui dos IDs de distintivos fornecidos. Vazia se nenhum dos distintivos fornecidos for possuído pelo usuário dado. Não é garantido que esteja na mesma ordem que a lista de entrada. Alguns IDs de distintivos podem ser omitidos se o usuário com o <code>userId</code> alvo não esteve recentemente no servidor e os IDs de distintivos não estão associados à experiência solicitante."
   },
   "@roblox/globaltype/BadgeService.CheckUserBadgesAsync": {
-    "documentation": "Verifica uma lista de IDs de emblemas contra um <code>UserId</code> e retorna uma lista de IDs de emblemas que o jogador possui.",
+    "documentation": "Verifica uma lista de IDs de distintivos contra um <code>UserId</code> e retorna uma lista de IDs de distintivos que o jogador possui.",
     "params": [
       {
         "name": "self",
@@ -17241,16 +17241,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.GetBadgeInfoAsync/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.GetBadgeInfoAsync/param/1": {
-    "documentation": "O ID do emblema cujas informações devem ser buscadas."
+    "documentation": "O ID do distintivo cuja informação deve ser buscada."
   },
   "@roblox/globaltype/BadgeService.GetBadgeInfoAsync/return/0": {
-    "documentation": "Um dicionário de informações sobre o emblema especificado."
+    "documentation": "Um dicionário de informações sobre o distintivo especificado."
   },
   "@roblox/globaltype/BadgeService.GetBadgeInfoAsync": {
-    "documentation": "Busca informações sobre um emblema dado seu ID.",
+    "documentation": "Busca informações sobre um distintivo dado seu ID.",
     "params": [
       {
         "name": "self",
@@ -17268,16 +17268,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.IsDisabled/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.IsDisabled/param/1": {
-    "documentation": "O ID do emblema."
+    "documentation": "O ID do distintivo."
   },
   "@roblox/globaltype/BadgeService.IsDisabled/return/0": {
-    "documentation": "Verdadeiro se o emblema especificado não estiver disponível para ser concedido."
+    "documentation": "Verdadeiro se o distintivo especificado não está disponível para ser premiado."
   },
   "@roblox/globaltype/BadgeService.IsDisabled": {
-    "documentation": "<strong>Deprecated:</strong> Esta função está obsoleta. Não a use para novos trabalhos. Em vez disso, ela pode ser verificada chamando BadgeService:GetBadgeInfoAsync() e verificando o campo IsEnabled.<br>Retorna se um dado emblema está desativado.",
+    "documentation": "<strong>Deprecated:</strong> Esta função está obsoleta. Não a utilize para novos trabalhos. Em vez disso, pode ser verificada chamando BadgeService:GetBadgeInfoAsync() e verificando o campo IsEnabled.<br>Retorna se um determinado distintivo está desativado.",
     "params": [
       {
         "name": "self",
@@ -17292,19 +17292,19 @@
       "@roblox/globaltype/BadgeService.IsDisabled/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsDisabled",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\n\nprint(BadgeService:IsDisabled(17468517))"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.IsLegal/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.IsLegal/param/1": {
-    "documentation": "O ID do emblema."
+    "documentation": "O ID do distintivo."
   },
   "@roblox/globaltype/BadgeService.IsLegal/return/0": {
-    "documentation": "Verdadeiro se o emblema está associado ao jogo atual."
+    "documentation": "Verdadeiro se o distintivo estiver associado ao jogo atual."
   },
   "@roblox/globaltype/BadgeService.IsLegal": {
-    "documentation": "<strong>Deprecated:</strong> Esta função está obsoleta e sempre retornará verdadeiro. Não a use para novos trabalhos.<br>Determina se um dado emblema está associado ao jogo atual.",
+    "documentation": "<strong>Deprecated:</strong> Esta função está obsoleta e sempre retornará verdadeiro. Não a utilize para novos trabalhos.<br>Determina se um determinado distintivo está associado ao jogo atual.",
     "params": [
       {
         "name": "self",
@@ -17322,19 +17322,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/1": {
     "documentation": "O ID do usuário."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/2": {
-    "documentation": "O ID do emblema."
+    "documentation": "O ID do distintivo do distintivo."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/return/0": {
-    "documentation": "Verdadeiro se o usuário possui o emblema."
+    "documentation": "Verdadeiro se o usuário possui o distintivo."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi suplantado por <code>BadgeService:UserHasBadgeAsync()</code> que deve ser usado para novos trabalhos em vez disso.<br>Verifica se um usuário possui o emblema dado o <code>Player.UserId</code> e o ID do emblema.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>BadgeService:UserHasBadgeAsync()</code> que deve ser usado para novos trabalhos em vez disso.<br>Verifica se um usuário possui o distintivo dado o <code>Player.UserId</code> e o ID do distintivo.",
     "params": [
       {
         "name": "self",
@@ -17356,19 +17356,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/0": {
-    "documentation": "Fornece informações sobre emblemas e os concede."
+    "documentation": "Fornece informações sobre distintivos e os premia."
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/1": {
-    "documentation": "O <code>Player.UserId</code> do jogador para verificar a posse do emblema especificado."
+    "documentation": "O <code>Player.UserId</code> do jogador para verificar a propriedade do distintivo especificado."
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/2": {
-    "documentation": "O ID do emblema cujas posse será verificada."
+    "documentation": "O ID do distintivo do distintivo que terá a propriedade verificada."
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/return/0": {
-    "documentation": "Indica se o usuário especificado possui o emblema especificado."
+    "documentation": "Indica se o usuário especificado possui o distintivo especificado."
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync": {
-    "documentation": "Verifica se um jogador possui o emblema dado o <code>Player.UserId</code> e o ID do emblema.",
+    "documentation": "Verifica se um jogador possui o distintivo dado o <code>Player.UserId</code> e o ID do distintivo.",
     "params": [
       {
         "name": "self",
@@ -23083,13 +23083,13 @@
     "documentation": "Armazena o resultado de caminhos criados por <code>PathfindingService:CreatePath()</code>."
   },
   "@roblox/globaltype/Path.ComputeAsync/param/1": {
-    "documentation": "A posição no mundo onde o caminho calculado começa."
+    "documentation": "A posição no mundo onde o caminho computado começa."
   },
   "@roblox/globaltype/Path.ComputeAsync/param/2": {
-    "documentation": "A posição no mundo onde o caminho calculado termina."
+    "documentation": "A posição no mundo onde o caminho computado termina."
   },
   "@roblox/globaltype/Path.ComputeAsync": {
-    "documentation": "Calcula um <code>Path</code> de uma posição inicial para uma posição final.",
+    "documentation": "Computa um <code>Path</code> de uma posição inicial a uma posição final.",
     "params": [
       {
         "name": "self",
@@ -23132,10 +23132,10 @@
     "documentation": "Armazena o resultado de caminhos criados por <code>PathfindingService:CreatePath()</code>."
   },
   "@roblox/globaltype/Path.GetWaypoints/return/0": {
-    "documentation": "Uma matriz de <code>PathWaypoints</code> ordenados do início do caminho até o fim do caminho."
+    "documentation": "Um array de <code>PathWaypoints</code> ordenado do início do caminho até o fim do caminho."
   },
   "@roblox/globaltype/Path.GetWaypoints": {
-    "documentation": "Retorna uma matriz de pontos no caminho.",
+    "documentation": "Retorna um array de pontos no caminho.",
     "params": [
       {
         "name": "self",
@@ -23146,7 +23146,7 @@
       "@roblox/globaltype/Path.GetWaypoints/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path#GetWaypoints",
-    "code_sample": ""
+    "code_sample": "local PathfindingService = game:GetService(\"PathfindingService\")\n\nlocal path = PathfindingService:CreatePath()\n\nlocal PATH_START = Vector3.new(0, 1, 0)\nlocal PATH_END = Vector3.new(100, 1, 25)\n\npath:ComputeAsync(PATH_START, PATH_END)\n\nif path.Status == Enum.PathStatus.Success then\n\tlocal waypoints = path:GetWaypoints()\n\tfor _, waypoint in pairs(waypoints) do\n\t\tprint(waypoint.Position)\n\tend\nend"
   },
   "@roblox/globaltype/Path.Blocked.Connect/param/0": {
     "documentation": "Um objeto que executa funções conectadas ao ocorrer um evento específico."
@@ -23226,7 +23226,7 @@
     "returns": []
   },
   "@roblox/globaltype/Path.Blocked": {
-    "documentation": "Aciona quando o caminho calculado fica bloqueado.",
+    "documentation": "Aciona quando o caminho computado se torna bloqueado.",
     "keys": {
       "Connect": "@roblox/globaltype/Path.Blocked.Connect",
       "ConnectParallel": "@roblox/globaltype/Path.Blocked.ConnectParallel",
@@ -23314,7 +23314,7 @@
     "returns": []
   },
   "@roblox/globaltype/Path.Unblocked": {
-    "documentation": "Aciona quando um caminho calculado que estava bloqueado se torna desbloqueado.",
+    "documentation": "Aciona quando um caminho computado que estava bloqueado se torna desbloqueado.",
     "keys": {
       "Connect": "@roblox/globaltype/Path.Unblocked.Connect",
       "ConnectParallel": "@roblox/globaltype/Path.Unblocked.ConnectParallel",
@@ -24708,12 +24708,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoLoadInStudio": {
-    "documentation": "Carrega o <code>VideoContent</code> enquanto no modo Edição do Estúdio.",
+    "documentation": "Carrega o <code>VideoContent</code> enquanto está no modo Edição do Estúdio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#AutoLoadInStudio",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoPlayInStudio": {
-    "documentation": "Reproduz o <code>VideoContent</code> enquanto no modo Edição do Estúdio.",
+    "documentation": "Reproduz o <code>VideoContent</code> enquanto está no modo Edição do Estúdio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#AutoPlayInStudio",
     "code_sample": ""
   },
@@ -24723,12 +24723,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.IsPlaying": {
-    "documentation": "Denota se este <code>VideoPlayer</code> está atualmente reproduzindo.",
+    "documentation": "Indica se este <code>VideoPlayer</code> está atualmente reproduzindo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Looping": {
-    "documentation": "Controla se este <code>VideoPlayer</code> repete.",
+    "documentation": "Controla se este <code>VideoPlayer</code> repete a reprodução.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Looping",
     "code_sample": ""
   },
@@ -24743,7 +24743,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Resolution": {
-    "documentation": "Obtém a resolução original da fonte do <code>VideoContent</code> arquivo.",
+    "documentation": "Obtém a resolução original da fonte do <code>VideoContent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Resolution",
     "code_sample": ""
   },
@@ -24763,7 +24763,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Volume": {
-    "documentation": "Controla quão alto a faixa de áudio será reproduzida.",
+    "documentation": "Controla o volume em que a trilha sonora será reproduzida.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Volume",
     "code_sample": ""
   },
@@ -24858,7 +24858,7 @@
     "documentation": "Usado para reproduzir ativos de vídeo."
   },
   "@roblox/globaltype/VideoPlayer.Pause": {
-    "documentation": "Pausa o <code>VideoPlayer</code> onde quer que esteja seu <code>TimePosition</code>.",
+    "documentation": "Pausa o <code>VideoPlayer</code> onde quer que sua <code>TimePosition</code> esteja.",
     "params": [
       {
         "name": "self",
@@ -24873,7 +24873,7 @@
     "documentation": "Usado para reproduzir ativos de vídeo."
   },
   "@roblox/globaltype/VideoPlayer.Play": {
-    "documentation": "Reproduz o <code>VideoPlayer</code> de onde quer que esteja seu <code>TimePosition</code>.",
+    "documentation": "Reproduz o <code>VideoPlayer</code> de onde quer que sua <code>TimePosition</code> esteja.",
     "params": [
       {
         "name": "self",
@@ -24977,7 +24977,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.DidEnd": {
-    "documentation": "Dispara quando o <code>VideoContent</code> concluiu a reprodução e parou.",
+    "documentation": "Dispara quando o <code>VideoContent</code> completa a reprodução e para.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.DidEnd.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.DidEnd.ConnectParallel",
@@ -25241,7 +25241,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.WiringChanged": {
-    "documentation": "Dispara quando outra instância está conectada ou desconectada do <code>VideoPlayer</code> via um <code>Wire</code>.",
+    "documentation": "Dispara quando outra instância é conectada ou desconectada do <code>VideoPlayer</code> via um <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.WiringChanged.ConnectParallel",
@@ -29728,7 +29728,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal": {
-    "documentation": "Aplica uma textura de imagem em uma face de um <code>BasePart</code> pai.",
+    "documentation": "Aplica uma textura de imagem em uma face de um pai <code>BasePart</code>.",
     "keys": {
       "Color3": "@roblox/globaltype/Decal.Color3",
       "ColorMap": "@roblox/globaltype/Decal.ColorMap",
@@ -29760,17 +29760,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMap": {
-    "documentation": "ID de conteúdo que determina a cor e a opacidade da superfície.",
+    "documentation": "ID de conteúdo que determina a cor e opacidade da superfície.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMap",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.ColorMapContent": {
-    "documentation": "Objeto <code>Content</code> que determina a cor e a opacidade da superfície.",
+    "documentation": "<code>Content</code> objeto que determina a cor e opacidade da superfície.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#ColorMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.LocalTransparencyModifier": {
-    "documentation": "Funciona como um multiplicador para a propriedade <code>Transparency</code> do decal. Os efeitos são visíveis apenas para o jogador local.",
+    "documentation": "Ajusta como um multiplicador para a propriedade <code>Transparency</code> do decal. Os efeitos são visíveis apenas para o jogador local.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -29815,7 +29815,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Specular": {
-    "documentation": "<strong>Deprecated:</strong> Esta propriedade não está mais funcionando corretamente e está obsoleta. Não deve ser usada em novos trabalhos.",
+    "documentation": "<strong>Deprecated:</strong> Esta propriedade não funciona mais corretamente e está obsoleta. Não deve ser usada em novos trabalhos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#Specular",
     "code_sample": ""
   },
@@ -32450,7 +32450,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextBounds": {
-    "documentation": "Propriedade somente leitura que reflete o tamanho absoluto do texto renderizado em deslocamentos.",
+    "documentation": "Propriedade somente leitura que reflete o tamanho absoluto do texto renderizado em",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextBounds",
     "code_sample": ""
   },
@@ -32482,7 +32482,7 @@
   "@roblox/globaltype/TextLabel.TextSize": {
     "documentation": "Determina a altura da linha do texto em deslocamentos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextSize",
-    "code_sample": ""
+    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"Kaboom!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
   },
   "@roblox/globaltype/TextLabel.TextStrokeColor3": {
     "documentation": "Determina a cor do contorno do texto (sombra).",
@@ -32510,14 +32510,14 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextWrapped": {
-    "documentation": "Determina se o texto quebra em várias linhas dentro do espaço do elemento <code>TextLabel</code>, truncando o texto em excesso.",
+    "documentation": "Determina se o texto é quebrado em várias linhas dentro do <code>TextLabel</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextXAlignment": {
     "documentation": "Determina o alinhamento horizontal do texto renderizado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextXAlignment",
-    "code_sample": ""
+    "code_sample": "-- Cole isso em um LocalScript dentro de um TextLabel/TextButton/TextBox\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Iterar sobre os itens do enum TextXAlignment e TextYAlignment\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
   },
   "@roblox/globaltype/TextLabel.TextYAlignment": {
     "documentation": "Determina o alinhamento vertical do texto renderizado.",
@@ -32717,10 +32717,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPack": {
-    "documentation": "Um contêiner cujos conteúdos são copiados para o <code>Backpack</code> de cada jogador quando to personagem do jogador aparece. Geralmente é usado para armazenar <code>Tools</code>.",
+    "documentation": "Um contêiner cujos conteúdos são copiados para o <code>Backpack</code> de cada jogador quando to personagem do jogador aparece. Geralmente é utilizado para armazenar <code>Tools</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPack",
-    "code_sample": ""
+    "code_sample": "local StarterPack = game:GetService(\"StarterPack\")\n\nlocal function emptyStarterPack()\n\tfor _, child in pairs(StarterPack:GetChildren()) do\n\t\tif child:IsA(\"Tool\") then\n\t\t\tchild:Destroy()\n\t\tend\n\tend\nend\n\nemptyStarterPack()"
   },
   "@roblox/globaltype/CoreScriptDebuggingManagerHelper": {
     "documentation": "",
@@ -35933,13 +35933,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/param/1": {
-    "documentation": ""
+    "documentation": "O tipo de ativo a ser explorado. Apenas <code>Animation</code> é suportado."
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "Abre uma janela no Roblox Studio que solicita ao usuário selecionar um ativo com base no <code>assetType</code> especificado.",
+    "documentation": "Abre uma janela no Roblox Studio que solicita ao usuário selecionar um ativo <code>AssetType.Animation</code> existente. O parâmetro <code>assetType</code> deve ser <code>Animation</code>; outros valores não são suportados e causam um erro.",
     "params": [
       {
         "name": "self",
@@ -35960,13 +35960,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/1": {
-    "documentation": ""
+    "documentation": "O tipo de ativo a ser explorado. Apenas <code>Animation</code> é suportado."
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "Abre uma janela no Roblox Studio que solicita ao usuário selecionar um ativo com base no <code>assetType</code> especificado.",
+    "documentation": "Abre uma janela no Roblox Studio que solicita ao usuário selecionar um ativo <code>AssetType.Animation</code> existente. O parâmetro <code>assetType</code> deve ser <code>Animation</code>; outros valores não são suportados e causam um erro.",
     "params": [
       {
         "name": "self",
@@ -36939,7 +36939,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "Filtra uma string sendo recebida de um usuário e retorna um <code>TextFilterResult</code> que pode ser usado para distribuir o texto filtrado corretamente.",
+    "documentation": "Filtra uma string recebida de um usuário e retorna uma",
     "params": [
       {
         "name": "self",
@@ -47178,17 +47178,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "Determina se o personagem de um jogador utilizando um dispositivo móvel irá automaticamente pular ao colidir com um obstáculo.",
+    "documentation": "Determina se o personagem de um jogador utilizando um dispositivo móvel irá pular automaticamente ao atingir um obstáculo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Atualizar o texto do botão\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Salto está ATIVADO\"\n\telse\n\t\tbutton.Text = \"Auto-Salto está DESATIVADO\"\n\tend\n\t-- Refletir a propriedade no personagem do jogador, se ele tiver um\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Alternar auto-salto\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Atualizar todas as outras informações\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "A distância máxima que a câmera do jogador pode afastar.",
+    "documentation": "A distância máxima que a câmera do jogador pode se afastar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "A distância mínima que a câmera do jogador pode aproximar.",
+    "documentation": "A distância mínima que a câmera do jogador pode se aproximar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
@@ -47198,7 +47198,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "Determina se a aparência do personagem será carregada quando o jogador nascer. Se <code>false</code>, o jogador nascerá com uma aparência padrão.",
+    "documentation": "Determina se a aparência do personagem será carregada quando o jogador surgir. Se <code>false</code>, o jogador surgirá com uma aparência padrão.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
@@ -47208,22 +47208,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto. Não o use para novos trabalhos.<br>A URL do ativo que contém a aparência, roupas e equipamentos do personagem.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto. Não o use para novos trabalhos.<br>A URL do ativo contendo a aparência, roupas e equipamentos do personagem.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "Determina o ID do usuário da conta cuja aparência do personagem é usada para o <code>Character</code> do jogador.",
+    "documentation": "Determina o ID do usuário da conta cuja aparência de personagem é usada para o <code>Character</code> de um jogador.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue dados de jogadores usando <code>DataStoreService</code> para novos trabalhos.<br>A quantidade total de dados que estão sendo armazenados atualmente no cache do jogador no local atual.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>A quantidade total de dados atualmente armazenados no cache do jogador no lugar atual.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue dados de jogadores usando <code>DataStoreService</code> para novos trabalhos.<br>Indica quando os dados do jogador estão disponíveis para carregar.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Indica quando os dados do jogador estão disponíveis para serem carregados.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
@@ -47248,27 +47248,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "Determina o modo de movimento da câmera do jogador ao usar um dispositivo com tela de toque.",
+    "documentation": "Determina o modo de movimento da câmera do jogador ao usar um dispositivo com tela sensível ao toque.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "Determina o modo de movimento do personagem do jogador ao usar um dispositivo com tela de toque.",
+    "documentation": "Determina o modo de movimento do personagem do jogador ao usar um dispositivo com tela sensível ao toque.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "O nome exibido do usuário autenticado associado com o <code>Player</code>.",
+    "documentation": "O nome exibido do usuário autenticado associado ao <code>Player</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "Descreve o ID do usuário do jogador que foi seguido em uma experiência por um jogador.",
+    "documentation": "Descreve o ID do usuário do jogador que foi seguido para uma experiência por um jogador.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "Se a jogabilidade do jogador do lado do cliente está atualmente pausada.",
+    "documentation": "Se a jogabilidade do jogador no lado do cliente está atualmente pausada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
@@ -47278,12 +47278,12 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.HasRobloxSubscription then\n\t-- Conceder conteúdo ou benefícios exclusivos para assinantes\nend"
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "Indica se um jogador possui um distintivo <strong>Verificado</strong>.",
+    "documentation": "Indica se um jogador tem um <strong>selo</strong> verificado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HealthDisplayDistance": {
-    "documentation": "Define a distância à qual este jogador verá as barras de saúde de outros jogadores.",
+    "documentation": "Define a distância na qual este jogador verá as barras de vida de outros jogadores.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HealthDisplayDistance",
     "code_sample": ""
   },
@@ -47293,7 +47293,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "Esta propriedade mostra o ID do locale que o jogador local configurou para sua conta Roblox.",
+    "documentation": "Esta propriedade mostra o ID de localidade que o jogador local configurou para sua conta Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
@@ -47303,7 +47303,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- Tome alguma ação especificamente para membros Premium\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "Define a distância à qual este jogador verá os nomes de outros jogadores.",
+    "documentation": "Define a distância na qual este jogador verá os nomes de outros jogadores.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
@@ -47318,12 +47318,12 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"O jogador está em uma festa com ID: \" .. partyId)\n\telse\n\t\tprint(\"O jogador não está em uma festa\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"O jogador entrou na festa com ID: \" .. player.PartyId)\n\t\telse\n\t\t\tprint(\"O jogador saiu da festa\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "Define a parte para focar a replicação.",
+    "documentation": "Define a parte em torno da qual a replicação será focada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "Se definida, o jogador irá renascer na dada <code>SpawnLocation</code>.",
+    "documentation": "Se definido, o jogador irá renascer na <code>SpawnLocation</code> dada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -47338,7 +47338,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "Determina o <code>Team</code> com o qual o jogador está associado de acordo com o <code>Team.TeamColor</code> daquela equipe.",
+    "documentation": "Determina o <code>Team</code> com o qual o jogador está associado de acordo com a <code>Team.TeamColor</code> dessa equipe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -47348,7 +47348,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.User": {
-    "documentation": "O <code>User</code> representando a identidade escopo de domínio deste jogador na experiência atual.",
+    "documentation": "O <code>User</code> que representa a identidade deste jogador em alcance de domínio na experiência atual.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#User",
     "code_sample": ""
   },
@@ -47366,7 +47366,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "O <code>BasePart</code> a ser usado como um novo foco de replicação."
+    "documentation": "A <code>BasePart</code> a ser usada como um novo foco de replicação."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
     "documentation": "Adiciona um foco de replicação adicional para o jogador.",
@@ -47388,7 +47388,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "Remove todos os acessórios e outros objetos de aparência do personagem de um <code>Character</code>.",
+    "documentation": "Remove todos os acessórios e outros objetos de aparência do personagem de um jogador <code>Character</code>.",
     "params": [
       {
         "name": "self",
@@ -47403,7 +47403,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.ClearCachedAvatarAppearance": {
-    "documentation": "Limpa a aparência em cache do avatar para o jogador, forçando uma nova busca no backend no próximo renascimento.",
+    "documentation": "Limpa a aparência de avatar armazenada em cache para o jogador, forçando uma nova busca do backend no próximo renascimento.",
     "params": [
       {
         "name": "self",
@@ -47499,7 +47499,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/return/0": {
-    "documentation": "Um array de IDs de usuários."
+    "documentation": "Uma matriz de IDs de usuários."
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync": {
     "documentation": "",
@@ -47519,10 +47519,10 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "Um dicionário contendo valores PlaceId e UserId (veja a tabela na descrição)."
+    "documentation": "Um dicionário contendo os valores PlaceId e UserId (veja a tabela na  descrição)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "Retorna um dicionário contendo informações que descrevem como o jogador entra na experiência.",
+    "documentation": "Retorna um dicionário contendo informações descrevendo como o jogador entra na experiência.",
     "params": [
       {
         "name": "self",
@@ -47542,7 +47542,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetMouse": {
-    "documentation": "Retorna o mouse que está sendo usado pelo cliente.",
+    "documentation": "Retorna o mouse sendo usado pelo cliente.",
     "params": [
       {
         "name": "self",
@@ -47585,7 +47585,7 @@
     "documentation": "A classificação do jogador no grupo."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi superado por <code>GetRankInGroupAsync()</code>.<br>Retorna a classificação do jogador no grupo como um inteiro.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>GetRankInGroupAsync()</code>.<br>Retorna a classificação do jogador no grupo como um inteiro.",
     "params": [
       {
         "name": "self",
@@ -47612,7 +47612,7 @@
     "documentation": "A classificação do jogador no grupo."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync": {
-    "documentation": "<strong>Deprecated:</strong> Este método retorna apenas uma única classificação da função e pode produzir resultados arbitrários quando um usuário possui múltiplas funções. Use <code>GroupService:GetRolesInGroupAsync()</code> em vez disso, que retorna todas as funções.<br>Retorna a classificação do jogador no grupo como um inteiro.",
+    "documentation": "<strong>Deprecated:</strong> Este método retorna apenas uma classificação de função única e pode produzir resultados arbitrários quando um usuário possui várias funções. Use <code>GroupService:GetRolesInGroupAsync()</code> em vez disso, que retorna todas as funções.<br>Retorna a classificação do jogador no grupo como um inteiro.",
     "params": [
       {
         "name": "self",
@@ -47633,13 +47633,13 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
-    "documentation": "O ID do grupo especificado."
+    "documentation": "O ID do grupo do grupo especificado."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "O papel do jogador no grupo especificado, ou <code>Guest</code> se o jogador não for membro."
+    "documentation": "A função do jogador no grupo especificado, ou <code>Guest</code> se o jogador não for membro."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>GetRoleInGroup()</code>.<br>Retorna o papel do jogador no grupo como uma string, ou <code>Guest</code> se o jogador não faz parte do grupo.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>GetRoleInGroup()</code>.<br>Retorna a função do jogador no grupo como uma string, ou <code>Guest</code> se o jogador não fizer parte do grupo.",
     "params": [
       {
         "name": "self",
@@ -47660,13 +47660,13 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/1": {
-    "documentation": "O ID do grupo especificado."
+    "documentation": "O ID do grupo do grupo especificado."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0": {
-    "documentation": "O papel do jogador no grupo especificado, ou <code>Guest</code> se o jogador não for membro."
+    "documentation": "A função do jogador no grupo especificado, ou <code>Guest</code> se o jogador não for membro."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync": {
-    "documentation": "<strong>Deprecated:</strong> Este método retorna apenas um único nome de função e pode produzir resultados arbitrários quando um usuário possui múltiplas funções. Use <code>GroupService:GetRolesInGroupAsync()</code> em vez disso, que retorna todas as funções.<br>Retorna o papel do jogador no grupo como uma string, ou <code>Guest</code> se o jogador não faz parte do grupo.",
+    "documentation": "<strong>Deprecated:</strong> Este método retorna apenas um nome de função único e pode produzir resultados arbitrários quando um usuário possui várias funções. Use <code>GroupService:GetRolesInGroupAsync()</code> em vez disso, que retorna todas as funções.<br>Retorna a função do jogador no grupo como uma string, ou <code>Guest</code> se o jogador não fizer parte do grupo.",
     "params": [
       {
         "name": "self",
@@ -47687,10 +47687,10 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "Um booleano indicando se a aparência do personagem do jogador foi carregada ou não."
+    "documentation": "Um booleano indicando se a aparência do personagem do jogador foi carregada."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "Retorna se a aparência do personagem do jogador foi carregada ou não.",
+    "documentation": "Retorna se a aparência do personagem do jogador foi carregada.",
     "params": [
       {
         "name": "self",
@@ -47713,7 +47713,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Esta função está obsoleta porque o recurso \"melhores amigos\" foi removido. Use <code>Player:IsFriendsWithAsync()</code> em vez disso.<br>Retorna se um jogador é amigo do usuário especificado.",
+    "documentation": "<strong>Deprecated:</strong> Esta função está obsoleta porque o recurso de \"melhores amigos\" foi removido. Use <code>Player:IsFriendsWithAsync()</code> em vez disso.<br>Retorna se um jogador é amigo do usuário especificado.",
     "params": [
       {
         "name": "self",
@@ -47740,7 +47740,7 @@
     "documentation": "Um booleano indicando se um jogador é amigo do usuário especificado."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi substituído pelo método <code>Player:IsFriendsWithAsync()</code> que deve ser usado para novos trabalhos.<br>Verifica se um jogador é amigo do usuário com o dado <code>Player.UserId</code>.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído pelo método <code>Player:IsFriendsWithAsync()</code> que deve ser usado para novos trabalhos.<br>Verifica se um jogador é amigo do usuário com o dado",
     "params": [
       {
         "name": "self",
@@ -47755,7 +47755,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWithAsync(146569) then\n\t\tprint(player.Name .. \" está conectado com gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
@@ -47815,7 +47815,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
-    "documentation": "O ID do grupo especificado."
+    "documentation": "O ID do grupo do grupo especificado."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
     "documentation": "Um booleano indicando se o jogador está no grupo especificado."
@@ -47842,7 +47842,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/param/1": {
-    "documentation": "O ID do grupo especificado."
+    "documentation": "O ID do grupo do grupo especificado."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/return/0": {
     "documentation": "Um booleano indicando se o jogador está no grupo especificado."
@@ -47892,7 +47892,7 @@
     "documentation": "A mensagem a ser mostrada ao usuário ao ser expulso."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "Desconecta forçosamente um jogador da experiência, opcionalmente fornecendo uma mensagem.",
+    "documentation": "Desconecta um jogador da experiência forçosamente, opcionalmente fornecendo uma mensagem.",
     "params": [
       {
         "name": "self",
@@ -47917,7 +47917,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna um valor booleano que foi salvo anteriormente para o jogador com <code>Player:SaveBoolean()</code> com a mesma chave.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna um valor booleano que foi salvo anteriormente no jogador com <code>Player:SaveBoolean()</code> com a mesma chave.",
     "params": [
       {
         "name": "self",
@@ -47965,7 +47965,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>LoadCharacterAsync()</code>.<br>Cria um novo personagem para o jogador, removendo o antigo. Também limpa <code>Backpack</code> e <code>PlayerGui</code> do jogador.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>LoadCharacterAsync()</code>.<br>Cria um novo personagem para o jogador, removendo o antigo. Também limpa o <code>Backpack</code> e <code>PlayerGui</code> do jogador.",
     "params": [
       {
         "name": "self",
@@ -48002,7 +48002,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.LoadCharacterAsync": {
-    "documentation": "Cria um novo personagem para o jogador, removendo o antigo. Também limpa <code>Backpack</code> e <code>PlayerGui</code> do jogador.",
+    "documentation": "Cria um novo personagem para o jogador, removendo o antigo. Também limpa o <code>Backpack</code> e <code>PlayerGui</code> do jogador.",
     "params": [
       {
         "name": "self",
@@ -48017,13 +48017,13 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "Um <code>HumanoidDescription</code> contendo características como partes de corpo, cores, escalonamento do corpo, acessórios, roupas e animações que serão equipadas ao personagem carregado."
+    "documentation": "Uma <code>HumanoidDescription</code> contendo características como partes/ cores do corpo, escala do corpo, acessórios, roupas e animações que serão equipadas ao personagem carregado."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2": {
     "documentation": "O modo de verificação do tipo de ativo."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>LoadCharacterWithHumanoidDescriptionAsync()</code>.<br>Spawn um personagem de jogador com tudo equipado na <code>HumanoidDescription</code> passada.",
+    "documentation": "<strong>Deprecated:</strong> Este método foi substituído por <code>LoadCharacterWithHumanoidDescriptionAsync()</code>.<br>Transmite um personagem do jogador com tudo equipado na <code>HumanoidDescription</code> passada.",
     "params": [
       {
         "name": "self",
@@ -48046,13 +48046,13 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
-    "documentation": "Um <code>HumanoidDescription</code> que contém características como partes de corpo, cores, escalonamento do corpo, acessórios, roupas e animações que serão equipadas ao personagem carregado."
+    "documentation": "Uma <code>HumanoidDescription</code> contendo características como partes/ cores do corpo, escala do corpo, acessórios, roupas e animações que serão equipadas ao personagem carregado."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2": {
     "documentation": "O modo de verificação do tipo de ativo."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
-    "documentation": "Spawn um personagem de jogador com tudo equipado na <code>HumanoidDescription</code> passada.",
+    "documentation": "Transmite um personagem do jogador com tudo equipado na <code>HumanoidDescription</code> passada.",
     "params": [
       {
         "name": "self",
@@ -48081,7 +48081,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna uma instância que foi salva anteriormente para o jogador com <code>Player:SaveInstance()</code> com a mesma chave.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna uma instância que foi salva anteriormente no jogador com <code>Player:SaveInstance()</code> com a mesma chave.",
     "params": [
       {
         "name": "self",
@@ -48135,7 +48135,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna um valor numérico que foi salvo anteriormente para o jogador.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna um valor numérico que foi salvo anteriormente no jogador.",
     "params": [
       {
         "name": "self",
@@ -48189,7 +48189,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna um valor string que foi salvo anteriormente para o jogador.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Retorna um valor de string que foi salvo anteriormente no jogador.",
     "params": [
       {
         "name": "self",
@@ -48237,7 +48237,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.Move/param/1": {
-    "documentation": "A direção Vector3 que o jogador deve se mover."
+    "documentation": "A direção Vector3 que o jogador deve mover."
   },
   "@roblox/globaltype/Player.Move/param/2": {
     "documentation": "Um booleano indicando se o jogador deve se mover em relação à câmera do jogador."
@@ -48266,7 +48266,7 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": "O <code>BasePart</code> a ser removido como um foco de replicação."
+    "documentation": "O <code>BasePart</code> a ser removido como foco de replicação."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
     "documentation": "Remove um foco de replicação adicionado anteriormente.",
@@ -48291,10 +48291,10 @@
     "documentation": "Localização no mundo onde o streaming é solicitado."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "Timeout opcional para a solicitação, a duração máxima que o motor tenta fazer streaming de regiões ao redor do parâmetro <code>posição</code> antes de abandonar a solicitação. Se você não especificar um valor, o timeout é efetivamente infinito. No entanto, se o cliente estiver com pouca memória, o motor abandona todas as solicitações de streaming, mesmo aquelas que ainda estão dentro da duração do timeout."
+    "documentation": "Timeout opcional para a solicitação, a duração máxima que o motor tenta transmitir regiões em torno do parâmetro <code>position</code> antes de abandonar a solicitação. Se você não especificar um valor, o tempo limite é eficazmente infinito. No entanto, se o cliente estiver com pouca memória, o motor abandona todas as solicitações de streaming, mesmo aquelas que ainda estão dentro da duração do tempo limite."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "Solicita que o servidor faça streaming para o jogador em torno da localização especificada.",
+    "documentation": "Solicita que o servidor transmita para o jogador ao redor da localização especificada.",
     "params": [
       {
         "name": "self",
@@ -48323,7 +48323,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Usado para salvar um valor booleano que pode ser carregado novamente em um momento posterior usando <code>Player:LoadBoolean()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Usado para salvar um valor booleano que pode ser carregado novamente em um momento posterior usando <code>Player:LoadBoolean()</code>.",
     "params": [
       {
         "name": "self",
@@ -48381,7 +48381,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Salva uma instância que pode ser carregada novamente em um momento posterior.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Salva uma instância que pode ser carregada novamente em um momento posterior.",
     "params": [
       {
         "name": "self",
@@ -48439,7 +48439,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Salva um valor numérico que pode ser carregado novamente em um momento posterior.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Salva um valor numérico que pode ser carregado novamente em um momento posterior usando.",
     "params": [
       {
         "name": "self",
@@ -48497,7 +48497,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Salva um valor string que pode ser carregado novamente em um momento posterior.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Salva um valor de string que pode ser carregado novamente em um momento posterior.",
     "params": [
       {
         "name": "self",
@@ -48571,10 +48571,10 @@
     "documentation": "Um objeto que representa um cliente atualmente conectado à experiência."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "Um booleano indicando se o jogador vê ou não chat filtrado."
+    "documentation": "Um booleano indicando se o jogador vê chat filtrado ou não."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "Define se o jogador vê chats filtrados, em vez de chats normais.",
+    "documentation": "Define se o jogador vê chats filtrados ou não, em vez de chats normais.",
     "params": [
       {
         "name": "self",
@@ -48596,7 +48596,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados antiquado. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Usado para pausar o script até que os dados do jogador estejam disponíveis para manipulação, ou até que um determinado período de tempo tenha passado sem buscar dados do jogador.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto, pois pode ter sido usado para um método de persistência de dados agora obsoleto. Por favor, salve e carregue os dados do jogador usando <code>DataStoreService</code> para novos trabalhos.<br>Usado para pausar o script até que os dados do jogador estejam disponíveis para manipulação, ou até que uma certa quantidade de tempo tenha decorrido sem buscar os dados do jogador.",
     "params": [
       {
         "name": "self",
@@ -48707,7 +48707,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAdded": {
-    "documentation": "Dispara quando o personagem de um jogador spawn ou respawn.",
+    "documentation": "Dispara quando o personagem de um jogador aparece ou renasce.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAdded.ConnectParallel",
@@ -48883,7 +48883,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterRemoving": {
-    "documentation": "Dispara logo antes que o personagem de um jogador seja removido.",
+    "documentation": "Dispara logo antes do personagem de um jogador ser removido.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterRemoving.ConnectParallel",
@@ -49059,7 +49059,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "Este evento dispara aproximadamente dois minutos após o motor classificar o jogador como inativo. O tempo é o número de segundos que se passaram desde esse ponto.",
+    "documentation": "Este evento dispara aproximadamente dois minutos após o motor classificar o jogador como ocioso. O tempo é o número de segundos que se passaram desde esse ponto.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -49147,7 +49147,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.OnTeleport": {
-    "documentation": "Dispara quando o estado de teleportação de um jogador muda.",
+    "documentation": "Dispara quando o estado de teletransporte de um jogador muda.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.OnTeleport.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.OnTeleport.ConnectParallel",
@@ -56200,7 +56200,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService": {
-    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de comandos de texto.",
+    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de prompts de texto.",
     "keys": {
       "GenerateMeshAsync": "@roblox/globaltype/GenerationService.GenerateMeshAsync",
       "GenerateModelAsync": "@roblox/globaltype/GenerationService.GenerateModelAsync",
@@ -56210,25 +56210,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/0": {
-    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de comandos de texto."
+    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de prompts de texto."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Um dicionário contendo os comandos de geração de malha. No momento, a única chave suportada é <code>Prompt</code> (string) que descreve a malha a ser gerada."
+    "documentation": "Um dicionário contendo os prompts de geração de malha. Atualmente, a única chave suportada é o <code>Prompt</code> (string) que descreve a malha a ser gerada."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
-    "documentation": "O <code>Player</code> solicitando a geração."
+    "documentation": "O <code>Player</code> que solicita a geração."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Um dicionário para opções adicionais de geração para influenciar o resultado. A chave opcional <code>SuggestedSize</code> (<code>Vector3</code>) representa um guia de tamanho para o ativo gerado, o que significa que o <code>GenerationService</code> tentará criar um modelo com um tamanho e proporção semelhantes ao <code>Vector3</code> fornecido, embora não haja garantia sobre o tamanho final da saída."
+    "documentation": "Um dicionário para opções adicionais de geração para influenciar o resultado. A chave opcional <code>SuggestedSize</code> (<code>Vector3</code>) representa um guia de tamanho para o ativo gerado, significando que <code>GenerationService</code> tentará criar um modelo com um tamanho e proporção semelhantes ao <code>Vector3</code> fornecido, embora não haja garantia sobre o tamanho final da saída."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Uma função de callback acionada com resultados de geração intermediários. Útil para recuperar versões de malha precoces antes que texturas sejam aplicadas."
+    "documentation": "Uma função de callback acionada com resultados intermediários da geração. Útil para recuperar versões iniciais da malha antes que texturas sejam aplicadas."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "Uma tupla do ID de geração (um ID único retornado para cada invocação de <code>GenerateMeshAsync()</code>) e ID de contexto (atualmente não utilizado)."
+    "documentation": "Uma tupla do ID de geração (um ID único retornado para cada invocação do <code>GenerateMeshAsync()</code>) e ID de contexto (não utilizado atualmente)."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Inicia a geração de uma nova malha 3D a partir de um comando de texto e retorna IDs únicos usados para rastrear e recuperar o resultado.",
+    "documentation": "Inicia a geração de uma nova malha 3D a partir de um prompt de texto e retorna IDs únicos usados para rastrear e recuperar o resultado.",
     "params": [
       {
         "name": "self",
@@ -56258,22 +56258,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/0": {
-    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de comandos de texto."
+    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de prompts de texto."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "Uma tabela representando os inputs de condicionamento com as seguintes chaves: <ul> <li><code>TextPrompt</code> — Descrição em string do objeto a ser gerado.   Obrigatório, a menos que uma <code>Image</code> seja fornecida; você deve fornecer pelo menos um   de <code>TextPrompt</code> ou <code>Image</code>.</li> <li><code>Image</code> — <code>Content</code> opcional referenciando um ativo de imagem   (por exemplo, o resultado de <code>Content.fromAssetId()</code>) usado   para condicionar a geração visualmente. Forneça junto com ou   em vez de <code>TextPrompt</code>.</li> <li><code>Size</code> — <code>Vector3</code> opcional descrevendo o tamanho do objeto a   ser gerado. Isso é apenas aproximado; redimensione as extensões do modelo   após a geração se você precisar de um tamanho específico.</li> <li><code>MaxTriangles</code> — Inteiro opcional descrevendo o número máximo de   triângulos que o modelo retornado conterá. Valores mais baixos resultam   em gerações mais facetadas e low-poly.</li> <li><code>GenerateTextures</code> — <code>true</code> (padrão) textura a geração resultante,   enquanto <code>false</code> não gerará texturas.</li> </ul>"
+    "documentation": "Uma tabela representando os inputs de condicionamento com as seguintes chaves: <ul> <li><code>TextPrompt</code> — Descrição em string do objeto a ser gerado.   Necessário, a menos que uma <code>Image</code> seja fornecida; você deve fornecer pelo menos um   de <code>TextPrompt</code> ou <code>Image</code>.</li> <li><code>Image</code> — <code>Content</code> opcional que referencia um ativo de imagem   (por exemplo, o resultado de <code>Content.fromAssetId()</code>) usado   para condicionar visualmente a geração. Forneça-o juntamente com ou   em vez de <code>TextPrompt</code>.</li> <li><code>Size</code> — <code>Vector3</code> opcional descrevendo o tamanho do objeto a   ser gerado. Isso é apenas aproximado; escale as dimensões do modelo   após a geração se você precisar de um tamanho específico.</li> <li><code>MaxTriangles</code> — Inteiro opcional descrevendo o número máximo de   triângulos que o modelo retornado conterá. Valores mais baixos resultam   em gerações mais facetadas e de baixo polígono.</li> <li><code>GenerateTextures</code> — <code>true</code> (padrão) texturiza a geração resultante,   enquanto <code>false</code> não gerará texturas.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "Tabela representando o schema de geração. Forneça exatamente uma das seguintes chaves: <ul> <li><code>PredefinedSchema</code> — String selecionando um schema embutido. As opções válidas   atuais são <code>Car5</code> para um chassi de veículo básico composto por   cinco <code>Models</code>, ou <code>Body1</code>, que resulta em uma saída de malha única.</li> <li><code>SchemaDefinition</code> — Tabela descrevendo uma estrutura de múltiplas partes personalizada.   Contém um array <code>Groups</code> de strings de nomes de partes (uma entrada por   parte desejada); o <code>Model</code> retornado é organizado para corresponder aos   grupos nomeados. Use isso em vez de <code>PredefinedSchema</code> quando você precisar de uma   estrutura que os schemas pré-definidos não cobrem.</li> </ul>"
+    "documentation": "Tabela representando o schema de geração. Forneça exatamente uma das seguintes chaves: <ul> <li><code>PredefinedSchema</code> — String selecionando um schema embutido. As opções   válidas atuais são <code>Car5</code> para um chassi de veículo básico consistindo de   cinco <code>Models</code>, ou <code>Body1</code> que resulta em uma saída de malha única.</li> <li><code>SchemaDefinition</code> — Tabela descrevendo uma estrutura personalizada de múltiplas partes.   Contém um array <code>Groups</code> de strings de nomes de partes (uma entrada por   parte desejada); o <code>Model</code> retornado é organizado para corresponder aos   grupos nomeados. Use isso em vez de <code>PredefinedSchema</code> quando você precisar de uma   estrutura que os schemas pré-definidos não abrangem.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "Atualmente não utilizado; reservado para opções de personalização futuras."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "Tupla com os seguintes elementos: <ul> <li>Uma instância padrão de <code>Model</code> que está em conformidade com   o <code>schema</code> especificado.</li> <li>Uma tabela contendo um UUID e outros metadados sobre a geração.</li> </ul>"
+    "documentation": "Tupla com os seguintes elementos: <ul> <li>Uma instância padrão de contêiner <code>Model</code> que esteja em conformidade com   o <code>schema</code> especificado.</li> <li>Uma tabela contendo um UUID e outros metadados sobre a geração.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "Permite a geração de geometrias de multi-meshes de acordo com os <code>inputs</code> e um <code>schema</code> fornecido.",
+    "documentation": "Permite a geração de geometrias de múltiplas malhas de acordo com os <code>inputs</code> e um <code>schema</code> fornecidos.",
     "params": [
       {
         "name": "self",
@@ -56299,7 +56299,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/0": {
-    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de comandos de texto."
+    "documentation": "Serviço que permite aos desenvolvedores gerar objetos 3D a partir de prompts de texto."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
     "documentation": "O ID único retornado por <code>GenerateMeshAsync()</code>. Identifica a malha a ser carregada."
@@ -58019,7 +58019,7 @@
     "documentation": "Uma tabela das instâncias de <code>GuiObject</code> que ocupam o espaço na tela especificado."
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition": {
-    "documentation": "Retorna uma lista de todas as instâncias <code>GuiObject</code> ocupando o ponto dado na tela.",
+    "documentation": "Retorna uma lista de todas as instâncias de <code>GuiObject</code> ocupando o dado",
     "params": [
       {
         "name": "self",
@@ -59627,7 +59627,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU.",
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário.",
     "keys": {
       "AutoSelectGuiEnabled": "@roblox/globaltype/GuiService.AutoSelectGuiEnabled",
       "CoreGuiNavigationEnabled": "@roblox/globaltype/GuiService.CoreGuiNavigationEnabled",
@@ -59665,12 +59665,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AutoSelectGuiEnabled": {
-    "documentation": "Se ativado, o botão <kbd>Select</kbd> em um controle ou <kbd>Backslash</kbd> irá automaticamente definir uma GUI como o objeto selecionado.",
+    "documentation": "Se ativado, o botão <kbd>Select</kbd> em um gamepad ou <kbd>Backslash</kbd> definirá automaticamente uma GUI como o objeto selecionado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#AutoSelectGuiEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.CoreGuiNavigationEnabled": {
-    "documentation": "Alterna se objetos no <code>CoreGui</code> podem ser navegados usando um controle.",
+    "documentation": "Alterna se objetos no <code>CoreGui</code> podem ser navegados usando um gamepad.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#CoreGuiNavigationEnabled",
     "code_sample": ""
   },
@@ -59680,12 +59680,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.IsModalDialog": {
-    "documentation": "<strong>Deprecated:</strong> Este item foi descontinuado. Não o use para novos trabalhos.<br>Indica se um diálogo modal está visível.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto. Não o use para novos trabalhos.<br>Indica se um diálogo modal está visível.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#IsModalDialog",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.IsWindows": {
-    "documentation": "<strong>Deprecated:</strong> Este item foi descontinuado. Não o use para novos trabalhos.<br>Indica se o usuário está jogando em um computador com Windows.",
+    "documentation": "<strong>Deprecated:</strong> Este item está obsoleto. Não o use para novos trabalhos.<br>Indica se o usuário está jogando em um computador com Windows.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#IsWindows",
     "code_sample": ""
   },
@@ -59705,32 +59705,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.ReducedMotionEnabled": {
-    "documentation": "Retorna <code>true</code> se o jogador ativou movimento reduzido.",
+    "documentation": "Retorna <code>true</code> se o jogador habilitou a redução de movimento.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ReducedMotionEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SelectedObject": {
-    "documentation": "Define o <code>GuiObject</code> atualmente em foco pelo navegador da GUI.",
+    "documentation": "Define o <code>GuiObject</code> atualmente focado pelo navegador de GUI.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#SelectedObject",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function printChanged(value)\n\tif value == \"SelectedObject\" then\n\t\tprint(\"O SelectedObject mudou!\")\n\tend\nend\n\nGuiService.Changed:Connect(printChanged)"
   },
   "@roblox/globaltype/GuiService.TopbarInset": {
-    "documentation": "Usado para determinar o tamanho absoluto e a posição da área desobstruída no espaço da barra superior.",
+    "documentation": "Usado para determinar o tamanho absoluto e a posição da área desobstruída dentro do espaço da barra superior.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#TopbarInset",
     "code_sample": "local GuiService = game:GetService(\"GuiService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\nscreenGui.Parent = Players.LocalPlayer.PlayerGui\n\nlocal frame = Instance.new(\"Frame\")\nframe.BackgroundColor3 = Color3.fromRGB(0, 255, 0)\nframe.Parent = screenGui\n\nGuiService:GetPropertyChangedSignal(\"TopbarInset\"):Connect(function()\n\tlocal inset = GuiService.TopbarInset\n\tframe.Size = UDim2.new(0, inset.Width, 0, inset.Height)\n\tframe.Position = UDim2.new(0, inset.Min.X, 0, inset.Min.Y)\nend)"
   },
   "@roblox/globaltype/GuiService.TouchControlsEnabled": {
-    "documentation": "Usado para habilitar e desabilitar controles de toque e UI de exibição de controle de toque. O padrão é <code>true</code>.",
+    "documentation": "Usado para habilitar e desabilitar controles de toque e UI de exibição de controle de toque. Padrão é <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#TouchControlsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.ViewportDisplaySize": {
-    "documentation": "Propriedade apenas para leitura que representa o tamanho de renderização físico do viewport.",
+    "documentation": "Propriedade somente leitura que representa o tamanho físico de renderização do viewport.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ViewportDisplaySize",
     "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function updateUI()\n\tif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Small) then\n\t\t-- Atualizar UI para tela pequena\n\telseif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Large) then\n\t\t-- Atualizar UI para tela grande\n\telse\n\t\t-- Atualizar UI para tela média/padrão\n\tend\nend\n\nGuiService:GetPropertyChangedSignal(\"ViewportDisplaySize\"):Connect(updateUI)\nupdateUI()"
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/1": {
     "documentation": ""
@@ -59739,7 +59739,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionParent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Cria um grupo de seleção onde a navegação da GUI pelo controle levará em conta apenas os objetos selecionáveis que estão dentro do grupo.",
+    "documentation": "<strong>Deprecated:</strong> <br>Cria um grupo de seleção onde a navegação da GUI com gamepad só considerará objetos selecionáveis que estão dentro do grupo.",
     "params": [
       {
         "name": "self",
@@ -59759,16 +59759,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/1": {
     "documentation": "O nome da seleção adicionada."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/2": {
-    "documentation": "A seleção(ões) adicionada(s)."
+    "documentation": "A(s) seleção(ões) adicionada(s)."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple": {
-    "documentation": "<strong>Deprecated:</strong> <br><strong>AddSelectionTuple</strong> funciona de forma semelhante a <code>GuiService:AddSelectionParent()</code>, mas você pode fornecer uma tupla de <code>GuiObject</code> que deseja que esteja contida no grupo. Cuidado, o segundo argumento não é uma tabela, mas sim o primeiro de vários <code>GuiObject</code> na tupla. Para passar o conteúdo de uma tabela, use <code>unpack</code>/<code>unpack</code>: <pre><code class=\"language-lua\">local frame = script.Parent -- Passando vários GuiObject individualmente GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, frame.Sort, frame.Trash, frame.Drop) -- Desempacotando uma tabela de GuiObject (unpack/table.unpack são equivalentes) local inventoryButtons = { frame.Sort, frame.Trash, frame.Drop } GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, unpack(inventoryButtons)) </code></pre>",
+    "documentation": "<strong>Deprecated:</strong> <br><strong>AddSelectionTuple</strong> funciona de forma semelhante a <code>GuiService:AddSelectionParent()</code>, mas você pode passar uma tupla de <code>GuiObject</code> que você deseja que esteja contida no grupo. Cuidado que o segundo argumento <strong>não</strong> é uma tabela, mas sim o primeiro de vários <code>GuiObject</code> na tupla. Para passar o conteúdo de uma tabela, use <code>unpack</code>/<code>unpack</code>: <pre><code class=\"language-lua\">local frame = script.Parent -- Passando vários GuiObject individualmente GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, frame.Sort, frame.Trash, frame.Drop) -- Desempacotando uma tabela de GuiObject (unpack/table.unpack são equivalentes) local inventoryButtons = { frame.Sort, frame.Trash, frame.Drop } GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, unpack(inventoryButtons)) </code></pre>",
     "params": [
       {
         "name": "self",
@@ -59788,10 +59788,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.CloseInspectMenu/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.CloseInspectMenu": {
-    "documentation": "Fecha o menu de inspeção do avatar, se estiver aberto.",
+    "documentation": "Fecha o menu de inspeção de avatar, se estiver aberto.",
     "params": [
       {
         "name": "self",
@@ -59803,7 +59803,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.DismissNotification/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.DismissNotification/param/1": {
     "documentation": ""
@@ -59830,13 +59830,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/return/0": {
-    "documentation": "Se o menu de emoticons está aberto."
+    "documentation": "Se o menu de emotes está aberto."
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen": {
-    "documentation": "Verifica se o menu de emoticons do jogador está aberto.",
+    "documentation": "Verifica se o menu de emotes do jogador está aberto.",
     "params": [
       {
         "name": "self",
@@ -59850,7 +59850,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled/return/0": {
     "documentation": "Se a notificação <code>Player.GameplayPaused</code> foi desativada."
@@ -59870,13 +59870,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetGuiInset/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.GetGuiInset/return/0": {
-    "documentation": "Uma tupla de dois valores <code>Vector2</code> descrevendo a atual inserção de GUI especificada."
+    "documentation": "Uma tupla de dois valores <code>Vector2</code> descrevendo a GUI atualmente descrita com inclusão."
   },
   "@roblox/globaltype/GuiService.GetGuiInset": {
-    "documentation": "Retorna dois valores <code>Vector2</code> representando a inserção das GUIs do usuário em pixels, a partir do canto superior esquerdo da tela e do canto inferior direito da tela, respectivamente.",
+    "documentation": "Retorna dois valores <code>Vector2</code> representando a inclusão das GUIs do usuário em pixels, do canto superior esquerdo da tela e o canto inferior direito da tela, respectivamente.",
     "params": [
       {
         "name": "self",
@@ -59890,7 +59890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetInsetArea/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.GetInsetArea/param/1": {
     "documentation": ""
@@ -59899,7 +59899,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.GetInsetArea": {
-    "documentation": "Aceita um valor de <code>ScreenInsets</code> e retorna um <code>Rect</code> descrevendo a região de inserção, em relação à à área <code>CoreUISafeInsets</code>.",
+    "documentation": "Aceita um valor <code>ScreenInsets</code> e retorna um <code>Rect</code> descrevendo a região de inclusão, em relação à <code>CoreUISafeInsets</code> área.",
     "params": [
       {
         "name": "self",
@@ -59917,13 +59917,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled/return/0": {
-    "documentation": "Se o menu de inspeção do avatar está habilitado."
+    "documentation": "Se o menu de inspeção de avatar está habilitado."
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled": {
-    "documentation": "Retorna se o menu de inspeção do avatar está habilitado.",
+    "documentation": "Retorna se o menu de inspeção de avatar está habilitado.",
     "params": [
       {
         "name": "self",
@@ -59937,16 +59937,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/1": {
     "documentation": "Um objeto <code>HumanoidDescription</code> que contém os ativos a serem mostrados no menu de inspeção."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/2": {
-    "documentation": "O nome do jogador que está sendo inspecionado para mostrar no menu."
+    "documentation": "O nome do jogador sendo inspecionado para mostrar no menu."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription": {
-    "documentation": "Permite que o menu de inspeção do avatar apareça mostrando os ativos listados em um objeto <code>HumanoidDescription</code>.",
+    "documentation": "Permite que o menu de inspeção de avatar apareça mostrando os ativos listados em um objeto <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -59963,16 +59963,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromHumanoidDescription",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\nhumanoidDescription.HatAccessory = \"3339374070\"\nhumanoidDescription.BackAccessory = \"3339363671\"\n\nGuiService:InspectPlayerFromHumanoidDescription(humanoidDescription, \"MyPlayer\")"
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/1": {
     "documentation": "O <code>UserId</code> do jogador a ser inspecionado."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId": {
-    "documentation": "Permite que o menu de inspeção do avatar apareça mostrando o usuário que tem o <code>UserId</code> fornecido.",
+    "documentation": "Permite que o menu de inspeção de avatar apareça mostrando o usuário que possui o dado <code>UserId</code>.",
     "params": [
       {
         "name": "self",
@@ -59988,13 +59988,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface": {
-    "documentation": "Retorna <code>true</code> se o cliente está usando a interface de dez pés, uma versão especial do UI da Roblox exclusiva para consoles.",
+    "documentation": "Retorna <code>true</code> se o cliente estiver usando a interface de dez pés, uma versão especial exclusiva do UI do Roblox para consoles.",
     "params": [
       {
         "name": "self",
@@ -60008,7 +60008,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup/param/1": {
     "documentation": ""
@@ -60030,10 +60030,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.Select/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.Select/param/1": {
-    "documentation": "O pai da seleção cujos descendentes serão pesquisados."
+    "documentation": "O pai da seleção cujos descendentes são pesquisados."
   },
   "@roblox/globaltype/GuiService.Select": {
     "documentation": "Define <code>GuiService.SelectedObject</code> como um filho de uma instância fornecida que é o <code>PlayerGui</code> ou seus descendentes.",
@@ -60052,7 +60052,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SendNotification/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.SendNotification/param/1": {
     "documentation": ""
@@ -60079,13 +60079,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen": {
-    "documentation": "Abre ou fecha o menu de emoticons do jogador.",
+    "documentation": "Abre ou fecha o menu de emotes do jogador.",
     "params": [
       {
         "name": "self",
@@ -60101,13 +60101,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled/param/1": {
-    "documentation": "Se a notificação GUI embutida está desativada ou não."
+    "documentation": "Se a notificação GUI incorporada está desativada ou não."
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled": {
-    "documentation": "Permite que você desative a notificação embutida quando o gameplay de um jogador é pausado.",
+    "documentation": "Permite que você desative a notificação incorporada quando a jogabilidade de um jogador é pausada.",
     "params": [
       {
         "name": "self",
@@ -60123,13 +60123,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled/param/0": {
-    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à IU."
+    "documentation": "Oferece numerosas propriedades e métodos para trabalhar com <code>GuiObjects</code>, preferências do jogador e outras tarefas relacionadas à interface do usuário."
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled/param/1": {
-    "documentation": "Um booleano indicando se deve habilitar ou desabilitar o menu."
+    "documentation": "Um booleano indicando se o menu deve ser habilitado ou desabilitado."
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled": {
-    "documentation": "Permite que você habilite ou desabilite o menu de inspeção do avatar.",
+    "documentation": "Permite habilitar ou desabilitar o menu de inspeção de avatar.",
     "params": [
       {
         "name": "self",
@@ -60222,7 +60222,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiService.MenuClosed": {
-    "documentation": "Dispara quando o usuário <strong>fecha</strong> o menu de escape do <code>CoreGui</code> da Roblox.",
+    "documentation": "Dispara quando o usuário <strong>fecha</strong> o menu de escape do Roblox <code>CoreGui</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiService.MenuClosed.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiService.MenuClosed.ConnectParallel",
@@ -60310,7 +60310,7 @@
     "returns": []
   },
   "@roblox/globaltype/GuiService.MenuOpened": {
-    "documentation": "Dispara quando o usuário <strong>abre</strong> o menu de escape do <code>CoreGui</code> da Roblox.",
+    "documentation": "Dispara quando o usuário <strong>abre</strong> o menu de escape do Roblox <code>CoreGui</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/GuiService.MenuOpened.Connect",
       "ConnectParallel": "@roblox/globaltype/GuiService.MenuOpened.ConnectParallel",
@@ -62165,7 +62165,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Beam.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "Determina um multiplicador para <code>Beam.Transparency</code> que é visível apenas do cliente local.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Beam#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -78849,7 +78849,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireCustomEvent",
-    "code_sample": ""
+    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\nlocal Players = game:GetService(\"Players\")\n\n-- evento do servidor, relatar um novo servidor iniciado\nlocal serverInfo = {\n\tTime = os.time(),\n\tPlaceId = game.PlaceId,\n}\n\nAnalyticsService:FireCustomEvent(nil, \"ServerStart\", serverInfo)\n\nPlayers.PlayerAdded:Connect(function(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tlocal customData = {\n\t\t\tTime = os.time(),\n\t\t\tMessage = message,\n\t\t}\n\t\tAnalyticsService:FireCustomEvent(player, \"PlayerChatted\", customData)\n\tend)\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/0": {
     "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
@@ -78908,7 +78908,7 @@
     "documentation": "Opcional. Dados definidos pelo usuário, que pode ser uma string, um número ou uma tabela."
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent": {
-    "documentation": "<strong>Deprecated:</strong> Esta função obsoleta é uma variante de <code>AnalyticsService:LogEconomyEvent()</code>, que deve ser usada em vez disso.<br>Dispara um evento usado para rastrear ações dos jogadores relacionadas à economia do jogo.",
+    "documentation": "<strong>Deprecated:</strong> Esta função obsoleta é uma variante de <code>AnalyticsService:LogEconomyEvent()</code>, que deve ser usada em vez disso.<br>Dispare um evento usado para rastrear ações dos jogadores relacionadas ao jogo",
     "params": [
       {
         "name": "self",
@@ -78949,7 +78949,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireInGameEconomyEvent",
-    "code_sample": ""
+    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal gold = script.Parent\n\ngold.Touched:Connect(function(otherPart)\n\tlocal player = game.Players:GetPlayerFromCharacter(otherPart.Parent)\n\tif player == nil then\n\t\treturn\n\tend\n\n\tlocal location = {\n\t\t[\"Map\"] = \"someMap\",\n\t\t[\"Position\"] = tostring(gold.Position),\n\t}\n\n\tAnalyticsService:FireInGameEconomyEvent(\n\t\tplayer,\n\t\t\"Espada\", -- nome do item\n\t\tEnum.AnalyticsEconomyAction.Spend,\n\t\t\"Arma\", -- categoria do item\n\t\t2020, -- quantidade de Ouro\n\t\t\"Ouro\", -- moeda\n\t\tlocation,\n\t\t{ SomeCustomKey = \"SomeCustomValue\" }\n\t) -- customData opcional\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/0": {
     "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
@@ -78999,7 +78999,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireLogEvent",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal placeId = game.PlaceId\n\nlocal player = Players:GetPlayerByUserId(123)\n\nxpcall(function()\n\tTeleportService:Teleport(placeId, player)\nend, function(errorMessage)\n\tlocal debugInfo = {\n\t\terrorCode = \"TeleportFailed\",\n\t\tstackTrace = debug.traceback(), -- a pilha de chamadas da função\n\t}\n\tAnalyticsService:FireLogEvent(\n\t\tplayer,\n\t\tEnum.AnalyticsLogLevel.Error, -- nível de registro\n\t\terrorMessage, -- mensagem\n\t\tdebugInfo, -- opcional\n\t\t{\n\t\t\tPlayerId = player.UserId,\n\t\t\tPlaceId = placeId,\n\t\t}\n\t) -- customData opcional\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/0": {
     "documentation": "Coleção de métodos que permite rastrear como os usuários interagem com suas experiências."
@@ -81583,7 +81583,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox": {
-    "documentation": "Um elemento de interface de usuário 2D que exibe texto editável pelo jogador.",
+    "documentation": "Um elemento de interface do usuário 2D que exibe texto editável pelo jogador.",
     "keys": {
       "ClearTextOnFocus": "@roblox/globaltype/TextBox.ClearTextOnFocus",
       "ContentText": "@roblox/globaltype/TextBox.ContentText",
@@ -81626,7 +81626,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.ClearTextOnFocus": {
-    "documentation": "Determina se clicar no <code>TextBox</code> irá limpar sua <code>TextBox.Text</code> propriedade.",
+    "documentation": "Determina se clicar no <code>TextBox</code> limpará sua propriedade <code>TextBox.Text</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ClearTextOnFocus",
     "code_sample": ""
   },
@@ -81646,7 +81646,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "Determina a fonte usada para renderizar o texto.",
+    "documentation": "Determina a aparência da fonte usada para renderizar texto.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
@@ -81656,7 +81656,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.LineHeight": {
-    "documentation": "Escala o espaçamento entre linhas de texto no <code>TextBox</code>.",
+    "documentation": "Redimensiona o espaçamento entre linhas de texto no <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#LineHeight",
     "code_sample": ""
   },
@@ -81666,7 +81666,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "Quando definido como <code>true</code>, o texto dentro de um <code>TextBox</code> pode se mover para várias linhas.",
+    "documentation": "Quando definido como <code>true</code>, o texto dentro de um <code>TextBox</code> é capaz de se mover para várias linhas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -81681,7 +81681,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "Define a cor do texto que é usada quando nenhum texto foi inserido no <code>TextBox</code>.",
+    "documentation": "Define a cor do texto que é usado quando nenhum texto foi inserido no <code>TextBox</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
@@ -81691,7 +81691,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "Determina se o <code>TextBox</code> renderiza a string <code>Text</code> usando formatação de texto rico.",
+    "documentation": "Determina se o <code>TextBox</code> renderiza a string <code>Text</code>  usando formatação de texto rico.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
@@ -81701,7 +81701,7 @@
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"Sem seleção\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('A seleção é:\"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "Se definido como <code>true</code>, o input nativo da plataforma é usado em vez do teclado embutido do Roblox.",
+    "documentation": "Se definido como <code>true</code>, a entrada nativa da plataforma é usada em vez do teclado embutido do Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
@@ -81711,7 +81711,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "O tamanho do texto de um elemento <code>TextBox</code> em offsets.",
+    "documentation": "O tamanho do texto de um elemento <code>TextBox</code> em deslocamentos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -81721,7 +81721,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextColor3": {
-    "documentation": "Determina a cor do texto renderizado que não é placeholder.",
+    "documentation": "Determina a cor do texto renderizado que não é um espaço reservado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextColor3",
     "code_sample": "local textBox = script.Parent\n\nlocal function hasVowels(str)\n\treturn str:lower():find(\"[aeiou]\")\nend\n\nlocal function onTextChanged()\n\tlocal text = textBox.Text\n\t-- Verifique se há vogais\n\tif hasVowels(text) then\n\t\ttextBox.TextColor3 = Color3.new(0, 0, 0) -- Preto\n\telse\n\t\ttextBox.TextColor3 = Color3.new(1, 0, 0) -- Vermelho\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"Text\"):Connect(onTextChanged)"
   },
@@ -81746,17 +81746,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextSize": {
-    "documentation": "Determina a altura da linha do texto em deslocamentos.",
+    "documentation": "Determina a altura da linha de texto em deslocamentos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextSize",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
-    "documentation": "Determina a cor do traço do texto (contorno).",
+    "documentation": "Determina a cor do contorno do texto (sombra).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextStrokeColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeTransparency": {
-    "documentation": "Determina a transparência do traço do texto (contorno).",
+    "documentation": "Determina a transparência do contorno do texto (sombra).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextStrokeTransparency",
     "code_sample": ""
   },
@@ -81776,7 +81776,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "Determina se o texto se quebra em várias linhas dentro do espaço do elemento <code>TextBox</code>, truncando texto excessivo.",
+    "documentation": "Determina se o texto quebra para várias linhas dentro do espaço do elemento <code>TextBox</code>, truncando texto excessivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
@@ -81791,7 +81791,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CaptureFocus/param/0": {
-    "documentation": "Um elemento de interface de usuário 2D que exibe texto editável pelo jogador."
+    "documentation": "Um elemento de interface do usuário 2D que exibe texto editável pelo jogador."
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
     "documentation": "Força o cliente a focar no <code>TextBox</code>.",
@@ -81806,7 +81806,7 @@
     "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
-    "documentation": "Um elemento de interface de usuário 2D que exibe texto editável pelo jogador."
+    "documentation": "Um elemento de interface do usuário 2D que exibe texto editável pelo jogador."
   },
   "@roblox/globaltype/TextBox.IsFocused/return/0": {
     "documentation": ""
@@ -81826,7 +81826,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.ReleaseFocus/param/0": {
-    "documentation": "Um elemento de interface de usuário 2D que exibe texto editável pelo jogador."
+    "documentation": "Um elemento de interface do usuário 2D que exibe texto editável pelo jogador."
   },
   "@roblox/globaltype/TextBox.ReleaseFocus/param/1": {
     "documentation": ""
@@ -81925,7 +81925,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.Focused": {
-    "documentation": "Dispara quando o <code>TextBox</code> ganha foco.",
+    "documentation": "Aciona quando o <code>TextBox</code> ganha foco.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.Focused.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.Focused.ConnectParallel",
@@ -82013,7 +82013,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.FocusLost": {
-    "documentation": "Dispara quando o <code>TextBox</code> perde o foco.",
+    "documentation": "Aciona quando o <code>TextBox</code> perde seu foco.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.FocusLost.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.FocusLost.ConnectParallel",
@@ -82101,7 +82101,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard": {
-    "documentation": "Dispara quando o <code>TextBox</code> está em foco e o jogador pressiona o botão de retorno/enter do teclado na tela.",
+    "documentation": "Aciona quando o <code>TextBox</code> está em foco e o jogador pressiona o botão de retorno/enter do teclado na tela.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.ConnectParallel",
@@ -97910,7 +97910,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PathfindingService.EmptyCutoff": {
-    "documentation": "<strong>Deprecated:</strong> Esta propriedade está obsoleta, já que o sistema de pathfinding legado que a usava foi removido. Não a utilize em novos trabalhos.<br>Define a porcentagem de um voxel que precisa estar ocupado para ser considerado vazio. O padrão é 0.16.",
+    "documentation": "<strong>Deprecated:</strong> Esta propriedade está obsoleta, uma vez que o sistema de pathfinding legado que a utilizava foi removido. Não a utilize para novos trabalhos.<br>Define a porcentagem de um voxel que precisa estar ocupado para ser considerado vazio. O padrão é 0.16.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PathfindingService#EmptyCutoff",
     "code_sample": ""
   },
@@ -97930,7 +97930,7 @@
     "documentation": "Um objeto <code>Path</code>."
   },
   "@roblox/globaltype/PathfindingService.ComputeRawPathAsync": {
-    "documentation": "<strong>Deprecated:</strong> Este item foi substituído por <code>PathfindingService:FindPathAsync()</code> que deve ser usado em todo novo trabalho.<br>Calcula e retorna um <code>Path</code> entre dois <code>Vector3s</code>. Se a MaxDistance dada for maior que 512, um erro será gerado. (MaxDistance é muito grande).",
+    "documentation": "<strong>Deprecated:</strong> Este item foi substituído por <code>PathfindingService:FindPathAsync()</code>, que deve ser usado em todo novo trabalho.<br>Calcula e retorna um <code>Path</code> entre dois <code>Vector3s</code>. Se a MaxDistance dada for maior que 512, outrera um erro. (MaxDistance é muito grande).",
     "params": [
       {
         "name": "self",
@@ -97971,7 +97971,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PathfindingService.ComputeSmoothPathAsync": {
-    "documentation": "<strong>Deprecated:</strong> Este item foi substituído por <code>PathfindingService:FindPathAsync()</code> que deve ser usado em todo novo trabalho.<br>Calcula e retorna um <code>Path</code> suave entre dois <code>Vector3s</code>.",
+    "documentation": "<strong>Deprecated:</strong> Este item foi substituído por <code>PathfindingService:FindPathAsync()</code>, que deve ser usado em todo novo trabalho.<br>Calcula e retorna um <code>Path</code> suave entre dois <code>Vector3s</code>.",
     "params": [
       {
         "name": "self",
@@ -99082,7 +99082,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis.",
+    "documentation": "O serviço responsável pela publicidade dentro da experiência.",
     "keys": {
       "CreateAdRewardFromDevProductId": "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId",
       "GetAdAvailabilityNowAsync": "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync",
@@ -99097,7 +99097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/1": {
     "documentation": "O ID do produto do desenvolvedor que você deseja conceder como recompensa."
@@ -99106,7 +99106,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
-    "documentation": "Cria uma recompensa para dar aos usuários que assistem a um anúncio em vídeo inteiro.",
+    "documentation": "Cria um <code>AdReward</code> para dar aos usuários que assistem a um anúncio em vídeo.",
     "params": [
       {
         "name": "self",
@@ -99124,16 +99124,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "O formato do anúncio solicitado. Por exemplo, <code>RewardedVideo</code>."
+    "documentation": "O formato do anúncio solicitado. Por exemplo, <code>AdFormat.RewardedVideo</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
-    "documentation": "Um dicionário com o <code>AdAvailabilityResult</code> para o formato de anúncio solicitado."
+    "documentation": "Um dicionário que se parece com <code>{ AdAvailabilityResult: Enum.AdAvailabilityResult }</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync": {
-    "documentation": "Verifica se um anúncio em vídeo está disponível para ser reproduzido ao usuário atual dentro da experiência.",
+    "documentation": "Verifica se um anúncio com o formato especificado está disponível para ser exibido para o <code>LocalPlayer</code>.",
     "params": [
       {
         "name": "self",
@@ -99151,19 +99151,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/1": {
-    "documentation": "O id da campanha que você deseja verificar a elegibilidade de um <code>Player</code>."
+    "documentation": "O ID da campanha para a qual você deseja verificar a elegibilidade de um <code>Player</code>."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/2": {
-    "documentation": "O <code>Player</code> que você deseja verificar a elegibilidade. Se omitido, será configurado como <code>LocalPlayer</code>."
+    "documentation": "O <code>Player</code> para o qual você deseja verificar a elegibilidade. Se omitido, será padrão para o <code>LocalPlayer</code>. No servidor, o argumento <code>player</code> é obrigatório."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/return/0": {
     "documentation": "Um dicionário que se parece com <code>{ IsEligible: boolean }</code>."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync": {
-    "documentation": "",
+    "documentation": "Verifica a elegibilidade de um <code>Player</code> para ser exibido em uma <a href=\"../../../production/promotion/ad-integrations.md\">integração de anúncios</a> campanha.",
     "params": [
       {
         "name": "self",
@@ -99185,7 +99185,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
     "documentation": ""
@@ -99214,16 +99214,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/1": {
-    "documentation": "O <code>GuiButton</code> que você deseja marcar como uma divulgação de anúncio."
+    "documentation": "O <code>GuiButton</code> que você deseja marcar como uma divulgação de integração de anúncio. O <code>GuiButton</code> deve seguir as diretrizes de rotulagem especificadas <a href=\"../../../production/promotion/ad-integrations.md#labeling-and-disclosure\">aqui</a>."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/2": {
-    "documentation": "O id da colocação à qual esta divulgação está anexada."
+    "documentation": "O ID da colocação à qual esta divulgação está vinculada."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton": {
-    "documentation": "",
+    "documentation": "Registra um botão de divulgação de anúncio para uma <a href=\"../../../production/promotion/ad-integrations.md\">integração de anúncios</a>.",
     "params": [
       {
         "name": "self",
@@ -99243,19 +99243,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/1": {
-    "documentation": "O objeto <code>Player</code> para o qual você está buscando o anúncio."
+    "documentation": "O <code>Player</code> para acionar a reprodução de um anúncio em vídeo recompensado."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/2": {
-    "documentation": "O objeto de recompensa para a recompensa que você deseja conceder ao usuário que assiste a um anúncio até o final."
+    "documentation": "O <code>AdReward</code> a ser concedido ao usuário após assistir ao anúncio."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/3": {
     "documentation": "O ID da colocação do anúncio em vídeo com recompensa dentro da experiência. Permite relatórios sobre o desempenho de colocação de anúncios individuais."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0": {
-    "documentation": ""
+    "documentation": "O <code>ShowAdResult</code> da apresentação do anúncio do cliente. Você não deve usar esse resultado para conceder a recompensa. Em vez disso, você deve conceder a recompensa na sua <code>ProcessReceipt</code> implementação. Para <a href=\"../../../production/monetization/developer-products.md\">produtos do desenvolvedor</a> aquisitados através de anúncios em vídeo recompensados, o <code>ProductPurchaseChannel</code> será <code>ProductPurchaseChannel.AdReward</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
     "documentation": "Reproduz o anúncio em vídeo para o usuário atual dentro da experiência.",
@@ -99281,10 +99281,10 @@
       "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#ShowRewardedVideoAdAsync",
-    "code_sample": "local reward = AdService:CreateAdRewardFromDevProductId(100)\nlocal result = AdService:ShowRewardedVideoAdAsync(player, reward)"
+    "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowVideoAd/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.ShowVideoAd": {
     "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> foi descontinuado e não está mais operacional.<br>Mostra anúncios em vídeo para dispositivos móveis.",
@@ -99299,7 +99299,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/0": {
-    "documentation": "Uma classe que permite a exibição de anúncios em vídeo para dispositivos móveis."
+    "documentation": "O serviço responsável pela publicidade dentro da experiência."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
     "documentation": ""
@@ -102968,12 +102968,12 @@
     "code_sample": "local screenPart = Instance.new(\"Part\")\nscreenPart.Parent = workspace\n\nlocal surfaceGui = Instance.new(\"SurfaceGui\")\nsurfaceGui.Parent = screenPart\n\nlocal videoFrame = Instance.new(\"VideoFrame\")\nvideoFrame.Parent = surfaceGui\n\nvideoFrame.Looped = true\nvideoFrame.Video = \"rbxassetid://\" -- adicione um ID de ativo a isso\n\nwhile not videoFrame.IsLoaded do\n\ttask.wait()\nend\n\nvideoFrame:Play()"
   },
   "@roblox/globaltype/VideoFrame.IsLoaded": {
-    "documentation": "Indica quando o <code>VideoFrame.Video</code> foi carregado dos servidores da Roblox e está pronto para tocar.",
+    "documentation": "Indica quando o <code>VideoFrame.Video</code> foi carregado dos servidores da Roblox  e está pronto para ser reproduzido.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#IsLoaded",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Looped": {
-    "documentation": "Define se o <code>VideoFrame.Video</code> se repetirá uma vez que tenha terminado ao ser reproduzido.",
+    "documentation": "Define se o <code>VideoFrame.Video</code> é repetido uma vez que tenha  terminado ao ser reproduzido.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Looped",
     "code_sample": ""
   },
@@ -102983,12 +102983,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Playing": {
-    "documentation": "Indica se o <code>VideoFrame.Video</code> está atualmente sendo reproduzido. Pode ser definido para iniciar ou pausar a reprodução.",
+    "documentation": "Indica se o <code>VideoFrame.Video</code> está atualmente sendo reproduzido. Pode  ser configurado para iniciar ou pausar a reprodução.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Resolution": {
-    "documentation": "Obtém a resolução original da fonte do arquivo <code>VideoFrame.Video</code>.",
+    "documentation": "Obtém a resolução original de fonte do arquivo <code>VideoFrame.Video</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Resolution",
     "code_sample": ""
   },
@@ -103018,7 +103018,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Video": {
-    "documentation": "O ID de conteúdo do arquivo de vídeo com o qual um objeto <code>VideoFrame</code> está associado.",
+    "documentation": "O ID de conteúdo do arquivo de vídeo ao qual um objeto <code>VideoFrame</code> está  associado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Video",
     "code_sample": "local screenPart = Instance.new(\"Part\")\nscreenPart.Parent = workspace\n\nlocal surfaceGui = Instance.new(\"SurfaceGui\")\nsurfaceGui.Parent = screenPart\n\nlocal videoFrame = Instance.new(\"VideoFrame\")\nvideoFrame.Parent = surfaceGui\n\nvideoFrame.Looped = true\nvideoFrame.Video = \"rbxassetid://\" -- adicione um ID de ativo a isso\n\nwhile not videoFrame.IsLoaded do\n\ttask.wait()\nend\n\nvideoFrame:Play()"
   },
@@ -103028,7 +103028,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Volume": {
-    "documentation": "Indica quão alto o <code>VideoFrame.Video</code> está atualmente reproduzindo.",
+    "documentation": "Indica o volume atual do <code>VideoFrame.Video</code> durante a reprodução.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Volume",
     "code_sample": ""
   },
@@ -103036,7 +103036,7 @@
     "documentation": "Um objeto GUI que renderiza um retângulo, como um <code>Frame</code> faz, com uma imagem de vídeo em movimento."
   },
   "@roblox/globaltype/VideoFrame.Pause": {
-    "documentation": "Define <code>VideoFrame.Playing</code> como <code>false</code>, pausando a reprodução se o <code>VideoFrame.Video</code> estiver sendo reproduzido.",
+    "documentation": "Define <code>VideoFrame.Playing</code> como <code>false</code>, pausando a reprodução se o  <code>VideoFrame.Video</code> estiver sendo reproduzido.",
     "params": [
       {
         "name": "self",
@@ -103051,7 +103051,7 @@
     "documentation": "Um objeto GUI que renderiza um retângulo, como um <code>Frame</code> faz, com uma imagem de vídeo em movimento."
   },
   "@roblox/globaltype/VideoFrame.Play": {
-    "documentation": "Define <code>VideoFrame.Playing</code> como <code>true</code>, reproduzindo o <code>VideoFrame.Video</code> a partir da atual <code>VideoFrame.TimePosition</code>.",
+    "documentation": "Define <code>VideoFrame.Playing</code> como <code>true</code>, reproduzindo o  <code>VideoFrame.Video</code> a partir da <code>VideoFrame.TimePosition</code> atual.",
     "params": [
       {
         "name": "self",
@@ -103140,7 +103140,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.DidLoop": {
-    "documentation": "Dispara sempre que o <code>VideoFrame.Video</code> faz um loop.",
+    "documentation": "Dispara sempre que o <code>VideoFrame.Video</code> faz loop.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.DidLoop.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.DidLoop.ConnectParallel",
@@ -103228,7 +103228,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Ended": {
-    "documentation": "Dispara quando o <code>VideoFrame.Video</code> completa a reprodução e para.",
+    "documentation": "Dispara quando o <code>VideoFrame.Video</code> completou a reprodução e  parou.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Ended.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Ended.ConnectParallel",
@@ -103316,7 +103316,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Loaded": {
-    "documentation": "Dispara quando o <code>VideoFrame.Video</code> é carregado.",
+    "documentation": "Dispara quando o <code>VideoFrame.Video</code> está carregado.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Loaded.ConnectParallel",
@@ -103404,7 +103404,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Paused": {
-    "documentation": "Este evento dispara sempre que o <code>VideoFrame.Video</code> é pausado usando <code>VideoFrame:Pause()</code> ou configurando <code>VideoFrame.Playing</code> para falso.",
+    "documentation": "Esse evento dispara sempre que o <code>VideoFrame.Video</code> é pausado usando  <code>VideoFrame:Pause()</code> ou definindo <code>VideoFrame.Playing</code> como  false.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Paused.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Paused.ConnectParallel",
@@ -103492,7 +103492,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Played": {
-    "documentation": "Dispara sempre que o <code>VideoFrame.Video</code> é reproduzido usando a função <code>VideoFrame:Play()</code> ou configurando <code>VideoFrame.Playing</code> para verdadeiro.",
+    "documentation": "Dispara sempre que o <code>VideoFrame.Video</code> é reproduzido usando a  função <code>VideoFrame:Play()</code> ou definindo  <code>VideoFrame.Playing</code> como verdadeiro.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Played.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Played.ConnectParallel",
@@ -104447,7 +104447,7 @@
     "documentation": "Opcional <code>Dictionary</code> configurando o prompt. Chaves suportadas: - <code>FeedbackType</code> (<code>FeedbackType</code>). Seleciona qual fluxo de feedback exibir. Padrão para <code>FeedbackType.Feedback</code>."
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "Solicita ao jogador que envie feedback sobre a experiência atual.",
+    "documentation": "Solicita ao jogador que envie feedback ou um ticket de suporte sobre a experiência atual.",
     "params": [
       {
         "name": "self",
@@ -117859,6 +117859,57 @@
       "Enabled": "@roblox/enum/IKControlConstraintSupport.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/IKControlConstraintSupport",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.Success": {
+    "documentation": "A captura de tela foi concluída com sucesso.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.OtherError": {
+    "documentation": "A captura de tela falhou devido a um erro não especificado.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#OtherError",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.NoDeviceSupport": {
+    "documentation": "O dispositivo não suporta capturas de tela.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#NoDeviceSupport",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.NoSpaceOnDevice": {
+    "documentation": "O dispositivo não tem espaço de armazenamento suficiente para salvar a captura de tela.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#NoSpaceOnDevice",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ScreenshotCaptureResult": {
+    "documentation": "Descreve o resultado de uma captura de tela iniciada por <code>CaptureService:TakeScreenshotCaptureAsync()</code>.",
+    "keys": {
+      "Success": "@roblox/enum/ScreenshotCaptureResult.Success",
+      "OtherError": "@roblox/enum/ScreenshotCaptureResult.OtherError",
+      "NoDeviceSupport": "@roblox/enum/ScreenshotCaptureResult.NoDeviceSupport",
+      "NoSpaceOnDevice": "@roblox/enum/ScreenshotCaptureResult.NoSpaceOnDevice"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/HttpContentType.ApplicationJson": {

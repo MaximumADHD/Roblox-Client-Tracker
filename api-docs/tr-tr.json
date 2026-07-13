@@ -6877,7 +6877,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur.",
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur.",
     "keys": {
       "AutoRuns": "@roblox/globaltype/TestService.AutoRuns",
       "Description": "@roblox/globaltype/TestService.Description",
@@ -6911,7 +6911,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "<code>true</code> olarak ayarlandığında, oyun servisinin <code>TestService:RunAsync()</code> metodu çağrıldığında çalışmaya başlayacaktır.",
+    "documentation": "<code>true</code> olarak ayarlandığında, hizmetin <code>TestService:RunAsync()</code> yönteminin çağrılmasıyla oyun çalışmaya başlayacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6926,22 +6926,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "<code>true</code> olarak ayarlandığında, <code>TestService</code>, Roblox Studio'da <strong>Çalıştır</strong> action'ını kullanırken yürütülecektir.",
+    "documentation": "<code>true</code> olarak ayarlandığında, <strong>Çalıştır</strong> eylemi Roblox Studio'da kullanıldığında <code>TestService</code> yürütülecektir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Is30FpsThrottleEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Bu artık kullanılmıyor ve pratik kullanımı daha iyi yansıtmak için <code>ThrottlePhysicsToRealtime</code> olarak yeniden adlandırılmıştır.<br>Test yürütülürken fizik motorunun 30 FPS'ye kısıtlı olup olmamasını ayarlar.",
+    "documentation": "<strong>Deprecated:</strong> Bu, kullanımdan kaldırıldı ve doğrudan <code>ThrottlePhysicsToRealtime</code> olarak yeniden adlandırıldı pratik kullanımını daha iyi yansıtması için.<br>Test süresi boyunca fizik motorunun 30 FPS'ye kısıtlanıp kısıtlanmayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Is30FpsThrottleEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsPhysicsEnvironmentalThrottled": {
-    "documentation": "Bu testi çalıştırırken fizik ortamının kısıtlanıp kısıtlanmayacağını ayarlar.",
+    "documentation": "Bu test çalışırken fizik ortamının kısıtlanıp kısıtlanmayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsPhysicsEnvironmentalThrottled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsSleepAllowed": {
-    "documentation": "Test simülasyonu çalışırken fiziksel nesnelerin uyuya kalmasına izin verilip verilmeyeceğini ayarlar.",
+    "documentation": "Test simülasyonu çalışırken fizik nesnelerinin uykuya dalmasına izin verilip verilmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsSleepAllowed",
     "code_sample": ""
   },
@@ -6951,7 +6951,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.SimulateSecondsLag": {
-    "documentation": "Test oturumunda oyuncuların deneyimlediği ek gecikme miktarını ayarlar.",
+    "documentation": "Test oturumunda oyuncular tarafından deneyimlenen belirli bir ek gecikme miktarını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#SimulateSecondsLag",
     "code_sample": ""
   },
@@ -6961,12 +6961,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ThrottlePhysicsToRealtime": {
-    "documentation": "Testin, gerçek dünya zamanına göre zaman simülasyonu yapıp yapmaması veya mümkün olan en hızlı şekilde yapılması gerektiğini ayarlar.",
+    "documentation": "Testin gerçek dünya zamanına göre veya mümkün olan en hızlı şekilde simüle edilip edilmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ThrottlePhysicsToRealtime",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Timeout": {
-    "documentation": "Testlerin çalışmasına izin verilen maksimum süre.",
+    "documentation": "Testlerin çalışma süresinin maksimum miktarını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Timeout",
     "code_sample": ""
   },
@@ -6976,7 +6976,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Check/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Check/param/1": {
     "documentation": ""
@@ -6991,7 +6991,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "Bir koşulun sonucunu çıktı olarak yazdırır.",
+    "documentation": "Bir koşulun sonucunu çıktıya yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7016,10 +7016,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Check(false, \"örnek\")"
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Checkpoint/param/1": {
     "documentation": ""
@@ -7031,7 +7031,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "<code>Test checkpoint:</code> sonrası bir metni çıktı olarak mavi renkte yazdırır.",
+    "documentation": "<code>Test checkpoint:</code> ardından bir dizeyi çıktıya mavi metin olarak yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7052,13 +7052,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Checkpoint(\"örnek\")"
   },
   "@roblox/globaltype/TestService.Done/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "Çıktıya <code>Testing Done</code> yazar ve mavi renkte gösterir.",
+    "documentation": "<code>Testing Done</code> ifadesini çıktıya mavi metin olarak yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7067,10 +7067,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Done()"
   },
   "@roblox/globaltype/TestService.Error/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Error/param/1": {
     "documentation": ""
@@ -7082,7 +7082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "Çıktıya kırmızı hata mesajı yazar ve başında <code>TestService:</code> bulunur.",
+    "documentation": "Çıktıya <code>TestService:</code> ile önceden biçimlendirilmiş kırmızı bir hata mesajı yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7103,10 +7103,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"bu bir hata\")"
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Fail/param/1": {
     "documentation": ""
@@ -7118,7 +7118,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "<code>TestService</code> çalışması içinde bir fatal hatayı gösterir.",
+    "documentation": "<code>TestService</code> çalıştırmasında kritik bir hatayı belirtir.",
     "params": [
       {
         "name": "self",
@@ -7142,7 +7142,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/1": {
     "documentation": ""
@@ -7169,7 +7169,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Message/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Message/param/1": {
     "documentation": ""
@@ -7181,7 +7181,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "<code>TestService:</code> sonrası bir metni çıktı olarak mavi renkte yazdırır.",
+    "documentation": "<code>TestService:</code> ardından bir diziyi çıktıya mavi metin olarak yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7202,10 +7202,10 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Message(\"örnek\")"
   },
   "@roblox/globaltype/TestService.RegisterTest/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.RegisterTest/param/1": {
     "documentation": ""
@@ -7232,7 +7232,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
     "documentation": ""
@@ -7272,13 +7272,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"örnek\")"
   },
   "@roblox/globaltype/TestService.Run/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>TestService</code>'e bağlı betikleri çalıştırır.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>TestService</code>'e bağlı olan scriptleri çalıştırır.",
     "params": [
       {
         "name": "self",
@@ -7290,10 +7290,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "<code>TestService</code>'e bağlı olan skriptleri çalıştırır.",
+    "documentation": "<code>TestService</code>'e bağlı olan scriptleri çalıştırır.",
     "params": [
       {
         "name": "self",
@@ -7305,7 +7305,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ScopeTime/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
     "documentation": ""
@@ -7325,7 +7325,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
     "documentation": ""
@@ -7354,7 +7354,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
-    "documentation": "Roblox'un motorun kontrollü testlerini yürütmek için kullandığı bir hizmettir. Geliştiricilerin sınırlı ölçüde kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol altında test edilmesi için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
     "documentation": ""
@@ -7369,7 +7369,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "Bir koşulun <code>true</code> olup olmadığını yazdırır, aksi takdirde bir uyarı yazdırır.",
+    "documentation": "Bir koşulun <code>true</code> ise yazdırır, aksi takdirde bir uyarı yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7394,7 +7394,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": ""
+    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"bu işlem geçersizdir\")"
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -7474,7 +7474,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult": {
-    "documentation": "Sunucu, koşullu bir test sonucunu toplamak zorunda kaldığında tetiklenir.",
+    "documentation": "Sunucu bir koşullu test sonucunu toplamalıdır, tetikler.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectConditionalResult.ConnectParallel",
@@ -7562,7 +7562,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectResult": {
-    "documentation": "Sunucu, bir test sonucunu toplamak zorunda kaldığında tetiklenir.",
+    "documentation": "Sunucu bir test sonucunu toplamalıdır, tetikler.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectResult.ConnectParallel",
@@ -15336,7 +15336,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire": {
-    "documentation": "Ateşin görsel estetiğine sahip önceden yapılandırılmış bir parça yayıcı.",
+    "documentation": "Ateşin görsel estetiğine sahip önceden yapılandırılmış bir parçacık yayma aracı.",
     "keys": {
       "Color": "@roblox/globaltype/Fire.Color",
       "Enabled": "@roblox/globaltype/Fire.Enabled",
@@ -15356,17 +15356,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.Enabled": {
-    "documentation": "Alev parçacıklarının yayılıp yayılmayacağını belirler.",
+    "documentation": "Alev parçacıklarının yayılıp yayılmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.Heat": {
-    "documentation": "Parçacıkların yayıldığı hızı belirler.",
+    "documentation": "Parçacıkların yayılma hızını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#Heat",
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.LocalTransparencyModifier": {
-    "documentation": "Yalnızca yerel istemciye görünür <code>Fire</code> nesnesinin saydamlığı için bir katkı faktörü.",
+    "documentation": "Yerel istemciye yalnızca görünür <code>Fire</code> nesnesinin saydamlığı için bir çarpandır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -15381,12 +15381,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.size": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik, bunun yerine kullanılması gereken <code>Fire.Size</code>'ın eski bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, bunun yerine kullanılacak <code>Fire.Size</code>'ın eski bir varyantıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#size",
     "code_sample": ""
   },
   "@roblox/globaltype/Fire.TimeScale": {
-    "documentation": "Parçacık efektinin hızını kontrol eder.",
+    "documentation": "Parçacık etkisinin hızını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Fire#TimeScale",
     "code_sample": ""
   },
@@ -17292,7 +17292,7 @@
       "@roblox/globaltype/BadgeService.IsDisabled/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsDisabled",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\n\nprint(BadgeService:IsDisabled(17468517))"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.IsLegal/param/0": {
     "documentation": "Rozetler ve ödüller hakkında bilgi sağlar."
@@ -23036,7 +23036,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path": {
-    "documentation": "<code>PathfindingService:CreatePath()</code> tarafından oluşturulan yolların sonucunu saklar.",
+    "documentation": "<code>PathfindingService:CreatePath()</code> ile oluşturulan yolların sonucunu saklar.",
     "keys": {
       "Status": "@roblox/globaltype/Path.Status",
       "CheckOcclusionAsync": "@roblox/globaltype/Path.CheckOcclusionAsync",
@@ -23048,12 +23048,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path.Status": {
-    "documentation": "Oluşturulan <code>Path</code>'nin <code>PathStatus</code>'ı.",
+    "documentation": "Oluşturulan <code>Path</code>'in <code>PathStatus</code>'u.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path#Status",
     "code_sample": ""
   },
   "@roblox/globaltype/Path.CheckOcclusionAsync/param/0": {
-    "documentation": "<code>PathfindingService:CreatePath()</code> tarafından oluşturulan yolların sonucunu saklar."
+    "documentation": "<code>PathfindingService:CreatePath()</code> ile oluşturulan yolların sonucunu saklar."
   },
   "@roblox/globaltype/Path.CheckOcclusionAsync/param/1": {
     "documentation": ""
@@ -23062,7 +23062,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Path.CheckOcclusionAsync": {
-    "documentation": "Belirli bir waypoint'ten başlayarak bir yolun engellenip engellenmediğini kontrol eder.",
+    "documentation": "Belirli bir kontrol noktasından başlayarak bir yolun engelli olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -23080,16 +23080,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path.ComputeAsync/param/0": {
-    "documentation": "<code>PathfindingService:CreatePath()</code> tarafından oluşturulan yolların sonucunu saklar."
+    "documentation": "<code>PathfindingService:CreatePath()</code> ile oluşturulan yolların sonucunu saklar."
   },
   "@roblox/globaltype/Path.ComputeAsync/param/1": {
-    "documentation": "Hesaplanan yolun başladığı dünya pozisyonu."
+    "documentation": "Hesaplanan yolun başladığı dünya konumu."
   },
   "@roblox/globaltype/Path.ComputeAsync/param/2": {
-    "documentation": "Hesaplanan yolun bittiği dünya pozisyonu."
+    "documentation": "Hesaplanan yolun bittiği dünya konumu."
   },
   "@roblox/globaltype/Path.ComputeAsync": {
-    "documentation": "Başlangıç pozisyonundan bitiş pozisyonuna bir <code>Path</code> hesaplar.",
+    "documentation": "Bir başlangıç konumundan bir bitiş konumuna bir <code>Path</code> hesaplar.",
     "params": [
       {
         "name": "self",
@@ -23109,13 +23109,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path.GetPointCoordinates/param/0": {
-    "documentation": "<code>PathfindingService:CreatePath()</code> tarafından oluşturulan yolların sonucunu saklar."
+    "documentation": "<code>PathfindingService:CreatePath()</code> ile oluşturulan yolların sonucunu saklar."
   },
   "@roblox/globaltype/Path.GetPointCoordinates/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Path.GetPointCoordinates": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılmalıdır olan <code>GetWaypoints()</code> ile yerini almıştır.<br><code>Path</code> örneklerinin bir tablosunu döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılmalıdır <code>GetWaypoints()</code> ile geçersiz kılınmıştır.<br><code>Path</code> örneklerinin bir tablosunu döner.",
     "params": [
       {
         "name": "self",
@@ -23129,13 +23129,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path.GetWaypoints/param/0": {
-    "documentation": "<code>PathfindingService:CreatePath()</code> tarafından oluşturulan yolların sonucunu saklar."
+    "documentation": "<code>PathfindingService:CreatePath()</code> ile oluşturulan yolların sonucunu saklar."
   },
   "@roblox/globaltype/Path.GetWaypoints/return/0": {
-    "documentation": "Yol başlangıcından yol sonuna kadar sıralanmış <code>PathWaypoints</code> dizisi."
+    "documentation": "Yol başlangıcından yol sonuna kadar sıralanmış <code>PathWaypoints</code> üzerinde bir dizi."
   },
   "@roblox/globaltype/Path.GetWaypoints": {
-    "documentation": "Yoldaki noktaların bir dizisini döndürür.",
+    "documentation": "Yoldaki noktaların bir dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -23146,7 +23146,7 @@
       "@roblox/globaltype/Path.GetWaypoints/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path#GetWaypoints",
-    "code_sample": ""
+    "code_sample": "local PathfindingService = game:GetService(\"PathfindingService\")\n\nlocal path = PathfindingService:CreatePath()\n\nlocal PATH_START = Vector3.new(0, 1, 0)\nlocal PATH_END = Vector3.new(100, 1, 25)\n\npath:ComputeAsync(PATH_START, PATH_END)\n\nif path.Status == Enum.PathStatus.Success then\n\tlocal waypoints = path:GetWaypoints()\n\tfor _, waypoint in pairs(waypoints) do\n\t\tprint(waypoint.Position)\n\tend\nend"
   },
   "@roblox/globaltype/Path.Blocked.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -23314,7 +23314,7 @@
     "returns": []
   },
   "@roblox/globaltype/Path.Unblocked": {
-    "documentation": "Engellenmiş bir hesaplanan yolun engeli kaldırıldığında tetiklenir.",
+    "documentation": "Engellenmiş bir hesaplanan yol tekrar açıldığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Path.Unblocked.Connect",
       "ConnectParallel": "@roblox/globaltype/Path.Unblocked.ConnectParallel",
@@ -24682,7 +24682,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer": {
-    "documentation": "Video varlıklarını oynamak için kullanılır.",
+    "documentation": "Video varlıklarını oynatmak için kullanılır.",
     "keys": {
       "AutoLoadInStudio": "@roblox/globaltype/VideoPlayer.AutoLoadInStudio",
       "AutoPlayInStudio": "@roblox/globaltype/VideoPlayer.AutoPlayInStudio",
@@ -24708,27 +24708,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoLoadInStudio": {
-    "documentation": "<code>VideoContent</code>'i Studio Düzen modunda yükler.",
+    "documentation": "<code>VideoContent</code>'i Stüdyo Düzenleme modunda yükler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#AutoLoadInStudio",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.AutoPlayInStudio": {
-    "documentation": "<code>VideoContent</code>'i Studio Düzen modunda çalar.",
+    "documentation": "<code>VideoContent</code>'i Stüdyo Düzenleme modunda oynatır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#AutoPlayInStudio",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.IsLoaded": {
-    "documentation": "<code>VideoContent</code>'in yüklendiğini ve oynamaya hazır olduğunu belirtir.",
+    "documentation": "<code>VideoContent</code> yüklendiğinde ve oynamaya hazır olduğunda bunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#IsLoaded",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.IsPlaying": {
-    "documentation": "Bu <code>VideoPlayer</code>'ın şu anda oynayıp oynamadığını belirtir.",
+    "documentation": "Bu <code>VideoPlayer</code>'ın şu anda oynatılıp oynatılmadığını belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Looping": {
-    "documentation": "Bu <code>VideoPlayer</code>'ın döngüye girip girmeyeceğini kontrol eder.",
+    "documentation": "Bu <code>VideoPlayer</code>'ın döngüde olup olmadığını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Looping",
     "code_sample": ""
   },
@@ -24738,22 +24738,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.PlaybackSpeed": {
-    "documentation": "Videonun oynatma hızını kontrol eder.",
+    "documentation": "Videonun oynatıldığı hızı kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#PlaybackSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Resolution": {
-    "documentation": "Orijinal kaynak çözünürlüğünü alır <code>VideoContent</code> dosyasının.",
+    "documentation": "<code>VideoContent</code> dosyasının orijinal kaynak çözünürlüğünü alır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#Resolution",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.TimeLength": {
-    "documentation": "<code>VideoContent</code>'nin uzunluğunu saniye cinsinden belirtir.",
+    "documentation": "<code>VideoContent</code>'in uzunluğunu saniye cinsinden belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.TimePosition": {
-    "documentation": "<code>VideoContent</code>'nin ilerlemesini saniye cinsinden belirtir.",
+    "documentation": "<code>VideoContent</code>'in saniye cinsinden ilerlemesini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoPlayer#TimePosition",
     "code_sample": ""
   },
@@ -24768,16 +24768,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": "Bu örnekte bir giriş veya çıkış pini"
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": "<code>Wires</code>'ın bir dizisi"
+    "documentation": "Bir <code>Wires</code> dizisi."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
-    "documentation": "Belirtilen pine bağlı <code>Wires</code>'ların bir dizisini döndürür.",
+    "documentation": "Belirtilen pin'e bağlı olan <code>Wires</code> dizisini döndürür.",
     "params": [
       {
         "name": "self",
@@ -24795,13 +24795,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
+    "documentation": "Geçerli pin isimlerini temsil eden bir dize dizisi."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code>'inde bu örneğe bağlanmak  için kullanabileceği pinlerin listesini alır.",
+    "documentation": "<code>Wire</code>'ın, bu örneğe <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için kullanabileceği pinler listesini alır.",
     "params": [
       {
         "name": "self",
@@ -24815,13 +24815,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
+    "documentation": "Geçerli pin isimlerini temsil eden bir dize dizisi."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "<code>Wire</code>'ın <code>Wire.SourceName</code>'inde bu örneğe bağlanmak  için kullanabileceği pinlerin listesini alır.",
+    "documentation": "<code>Wire</code>'ın, bu örneğe <code>Wire.SourceInstance</code> özelliği aracılığıyla bağlanmak için kullanabileceği pinler listesini alır.",
     "params": [
       {
         "name": "self",
@@ -24835,13 +24835,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.LoadAsync/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.LoadAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/VideoPlayer.LoadAsync": {
-    "documentation": "<code>VideoContent</code>'i çalmadan önce yükler.",
+    "documentation": "<code>VideoContent</code>'i oynatılmadan önce yükler.",
     "params": [
       {
         "name": "self",
@@ -24855,10 +24855,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Pause/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.Pause": {
-    "documentation": "<code>VideoPlayer</code>'ı mevcut olduğu yerde duraklatır.",
+    "documentation": "<code>VideoPlayer</code>'ı, <code>TimePosition</code>'unun olduğu herhangi bir yerden duraklatır.",
     "params": [
       {
         "name": "self",
@@ -24870,10 +24870,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Play/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.Play": {
-    "documentation": "<code>VideoPlayer</code>'ı mevcut olduğu yerden oynatır.",
+    "documentation": "<code>VideoPlayer</code>'ı, <code>TimePosition</code>'unun olduğu herhangi bir yerden oynatır.",
     "params": [
       {
         "name": "self",
@@ -24885,10 +24885,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoPlayer.Unload/param/0": {
-    "documentation": "Video varlıklarını oynamak için kullanılır."
+    "documentation": "Video varlıklarını oynatmak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.Unload": {
-    "documentation": "Kaynakları tasarruf etmek için <code>VideoPlayer.VideoContent</code>'i boşaltır.",
+    "documentation": "<code>VideoPlayer.VideoContent</code>'i kaynakları tasarruf etmek için boşaltır.",
     "params": [
       {
         "name": "self",
@@ -24977,7 +24977,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.DidEnd": {
-    "documentation": "<code>VideoContent</code> oynatmayı bitirdiğinde ve durduğunda tetiklenir.",
+    "documentation": "<code>VideoContent</code> oynatmayı tamamladığı ve durduğu zaman ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.DidEnd.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.DidEnd.ConnectParallel",
@@ -25065,7 +25065,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.DidLoop": {
-    "documentation": "<code>VideoContent</code> döngüye girdiğinde tetiklenir.",
+    "documentation": "<code>VideoContent</code> döngüye girdiğinde ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.DidLoop.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.DidLoop.ConnectParallel",
@@ -25241,7 +25241,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoPlayer.WiringChanged": {
-    "documentation": "Bir başka örneğin <code>VideoPlayer</code>'a bir <code>Wire</code> aracılığıyla bağlandığında veya ayrıldığında tetiklenir.",
+    "documentation": "<code>VideoPlayer</code>'a bir <code>Wire</code> aracılığıyla başka bir örnek bağlandığında veya bağlantısı kesildiğinde ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoPlayer.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoPlayer.WiringChanged.ConnectParallel",
@@ -32450,7 +32450,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextBounds": {
-    "documentation": "Render edilen metnin ofsetler cinsinden mutlak boyutunu yansıtan yalnızca okunabilir bir özellik.",
+    "documentation": "Salt okunur özellik, işlenmiş metnin mutlak boyutunu yansıtır",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextBounds",
     "code_sample": ""
   },
@@ -32482,7 +32482,7 @@
   "@roblox/globaltype/TextLabel.TextSize": {
     "documentation": "Metnin ofsetler cinsinden satır yüksekliğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextSize",
-    "code_sample": ""
+    "code_sample": "local textLabel = script.Parent\n\ntextLabel.Text = \"Kaboom!\"\n\nwhile true do\n\tfor size = 5, 100, 5 do\n\t\ttextLabel.TextSize = size\n\t\ttextLabel.TextTransparency = size / 100\n\t\ttask.wait()\n\tend\n\ttask.wait(1)\nend"
   },
   "@roblox/globaltype/TextLabel.TextStrokeColor3": {
     "documentation": "Metin konturunun (çerçeve) rengini belirler.",
@@ -32510,14 +32510,14 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextWrapped": {
-    "documentation": "Metnin <code>TextLabel</code> elementinin alanında birden fazla satıra sarılıp sarılmayacağını ve fazladan metnin kesilip kesilmeyeceğini belirler.",
+    "documentation": "<code>TextLabel</code> içinde metnin birden fazla satıra sarılıp sarılmayacağını belirler",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextWrapped",
     "code_sample": ""
   },
   "@roblox/globaltype/TextLabel.TextXAlignment": {
     "documentation": "Render edilen metnin yatay hizalamasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextLabel#TextXAlignment",
-    "code_sample": ""
+    "code_sample": "-- Bunu bir TextLabel/TextButton/TextBox içinde bir LocalScript'e yapıştırın\nlocal textLabel = script.Parent\n\nlocal function setAlignment(xAlign, yAlign)\n\ttextLabel.TextXAlignment = xAlign\n\ttextLabel.TextYAlignment = yAlign\n\ttextLabel.Text = xAlign.Name .. \" + \" .. yAlign.Name\nend\n\nwhile true do\n\t-- Hem TextXAlignment hem de TextYAlignment enum öğeleri üzerinde döngü yapın\n\tfor _, yAlign in pairs(Enum.TextYAlignment:GetEnumItems()) do\n\t\tfor _, xAlign in pairs(Enum.TextXAlignment:GetEnumItems()) do\n\t\t\tsetAlignment(xAlign, yAlign)\n\t\t\ttask.wait(1)\n\t\tend\n\tend\nend"
   },
   "@roblox/globaltype/TextLabel.TextYAlignment": {
     "documentation": "Render edilen metnin dikey hizalamasını belirler.",
@@ -32717,10 +32717,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPack": {
-    "documentation": "Her oyuncunun <code>Backpack</code>'ine kopyalanan içeriklere sahip bir kapsayıcıdır, karakterleri doğarken. Genellikle <code>Tools</code> tutmak için kullanılır.",
+    "documentation": "Her oyuncunun <code>Backpack</code>'ine kopyalanan içeriklere sahip bir konteynerdir. Oyuncu karakteri doğduğunda kullanılır. Genellikle <code>Tools</code> tutmak için kullanılır.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPack",
-    "code_sample": ""
+    "code_sample": "local StarterPack = game:GetService(\"StarterPack\")\n\nlocal function emptyStarterPack()\n\tfor _, child in pairs(StarterPack:GetChildren()) do\n\t\tif child:IsA(\"Tool\") then\n\t\t\tchild:Destroy()\n\t\tend\n\tend\nend\n\nemptyStarterPack()"
   },
   "@roblox/globaltype/CoreScriptDebuggingManagerHelper": {
     "documentation": "",
@@ -35933,13 +35933,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/param/1": {
-    "documentation": ""
+    "documentation": "Gözatılacak varlık türü. Sadece <code>Animation</code> desteklenmektedir."
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a göre bir varlık seçmesi için bir pencere açar.",
+    "documentation": "Roblox Studio'da kullanıcıdan mevcut bir <code>AssetType.Animation</code> varlığını seçmesini isteyen bir pencere açar. <code>assetType</code> parametresi <code>Animation</code> olmalıdır; diğer değerler desteklenmez ve hata verir.",
     "params": [
       {
         "name": "self",
@@ -35960,13 +35960,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/1": {
-    "documentation": ""
+    "documentation": "Gözatılacak varlık türü. Sadece <code>Animation</code> desteklenmektedir."
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a göre bir varlık seçmesi için bir pencere açar.",
+    "documentation": "Roblox Studio'da kullanıcıdan mevcut bir <code>AssetType.Animation</code> varlığını seçmesini isteyen bir pencere açar. <code>assetType</code> parametresi <code>Animation</code> olmalıdır; diğer değerler desteklenmez ve hata verir.",
     "params": [
       {
         "name": "self",
@@ -36939,7 +36939,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "Bir kullanıcıdan alınan bir dizgeyi filtreler ve doğru bir şekilde filtrelenmiş metni dağıtmak için kullanılabilecek bir <code>TextFilterResult</code> döndürür.",
+    "documentation": "Bir kullanıcıdan alınan bir dizeyi filtreler ve döner bir",
     "params": [
       {
         "name": "self",
@@ -47077,7 +47077,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne.",
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne.",
     "keys": {
       "AccountAge": "@roblox/globaltype/Player.AccountAge",
       "AutoJumpEnabled": "@roblox/globaltype/Player.AutoJumpEnabled",
@@ -47173,22 +47173,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AccountAge": {
-    "documentation": "Oyuncunun hesap yaşını gün cinsinden açıklar.",
+    "documentation": "Oyuncunun hesap yaşını gün cinsinden tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AccountAge",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AutoJumpEnabled": {
-    "documentation": "Mobil cihaz kullanan bir oyuncunun karakterinin bir engelle çarpıp çarpmadığına göre otomatik olarak zıplayıp zıplamayacağını belirler.",
+    "documentation": "Bir mobil cihaz kullanan oyuncunun karakterinin engellere çarptığında otomatik olarak zıplayıp zıplamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Buton metnini güncelle\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Otomatik Zıplama AÇIK\"\n\telse\n\t\tbutton.Text = \"Otomatik Zıplama KAPALI\"\n\tend\n\t-- Özelliği oyuncunun karakterinde yansıt, eğer bir karakteri varsa\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- otomatik zıplamayı aç/kapa\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- her şeyi güncelle\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/Player.CameraMaxZoomDistance": {
-    "documentation": "Oyuncunun kamerasının ne kadar uzağa zoom yapmasına izin verildiğini belirler.",
+    "documentation": "Oyuncunun kamerasının geri çekilebileceği maksimum mesafe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMaxZoomDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CameraMinZoomDistance": {
-    "documentation": "Oyuncunun kamerasının ne kadar yakına zoom yapmasına izin verildiğini belirler.",
+    "documentation": "Oyuncunun kamerasının yakınlaşabileceği minimum mesafe.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CameraMinZoomDistance",
     "code_sample": ""
   },
@@ -47198,47 +47198,47 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/Player.CanLoadCharacterAppearance": {
-    "documentation": "Karakterin görünümünün oyuncu doğduğunda yükleneceğini belirler. <code>false</code> ise, oyuncu varsayılan bir görünümle doğar.",
+    "documentation": "Karakterin görünümünün oyuncu doğduğunda yüklenip yüklenmeyeceğini belirler. Eğer <code>false</code> ise, oyuncu varsayılan görünümle doğacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CanLoadCharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Character": {
-    "documentation": "Oyuncu tarafından kontrol edilen, bir <code>Humanoid</code>, vücut parçaları, betikler ve diğer nesneleri içeren bir <code>Model</code>.",
+    "documentation": "Oyuncu tarafından kontrol edilen bir <code>Model</code>, <code>Humanoid</code>, beden parçaları, scriptler ve diğer nesneleri içerir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Character",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe geçersiz kılındı. Yeni çalışmalar için bunu kullanmayın.<br>Karakterin görünümünü, kıyafetlerini ve ekipmanını içeren varlığın URL'si.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırıldı. Yeni çalışmalar için kullanmayın.<br>Karakterin görünümünün, giysilerinin ve ekipmanının bulunduğu varlığın URL'si.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearance",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.CharacterAppearanceId": {
-    "documentation": "Oyuncunun <code>Character</code>'ı için kullanılan karakter görünümünün kullanıcı kimliğini belirler.",
+    "documentation": "Bir oyuncunun <code>Character</code> görselinde kullanılan hesabın kullanıcı kimliğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#CharacterAppearanceId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataComplexity": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe geçersiz kılındı; çünkü muhtemelen artık geçersiz bir veri kalıcılık yöntemi için kullanılmıştır. Yeni çalışmalar için lütfen oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Şu anda oyuncunun geçerli yerdeki önbelleğinde saklanan toplam veri miktarını gösterir.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü artık geçersiz bir veri sürekliliği yöntemi için kullanılmış olabilir. Yeni çalışmalar için, oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Oyuncunun mevcut yerinde depolanan toplam veri miktarını gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataComplexity",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DataReady": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe geçersiz kılındı; çünkü muhtemelen artık geçersiz bir veri kalıcılık yöntemi için kullanılmıştır. Yeni çalışmalar için lütfen oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Oyuncunun verilerinin yüklenmeye hazır olduğunu gösterir.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırıldı, çünkü artık geçersiz bir veri sürekliliği yöntemi için kullanılmış olabilir. Yeni çalışmalar için, oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Oyuncunun verilerinin yüklenebilir olduğunu gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DataReady",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevCameraOcclusionMode": {
-    "documentation": "Varsayılan kameranın, kameranın ve oyuncunun arasındaki nesneleri nasıl yöneteceğini belirler.",
+    "documentation": "Varsayılan kameranın, kamera ile oyuncu arasındaki nesneleri nasıl yönetileceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerCameraMode": {
-    "documentation": "Fare ve klavye ile bir cihaz kullandığında oyuncunun kamera hareket modunu belirler.",
+    "documentation": "Fare ve klavye kullanan bir cihazda oyuncunun kamera hareket modunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevComputerMovementMode": {
-    "documentation": "Fare ve klavye ile bir cihaz kullandığında oyuncunun karakter hareket modunu belirler.",
+    "documentation": "Fare ve klavye kullanan bir cihazda oyuncunun karakter hareket modunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevComputerMovementMode",
     "code_sample": ""
   },
@@ -47248,37 +47248,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchCameraMode": {
-    "documentation": "Bir dokunmatik özellikli cihaz kullandığında oyuncunun kamera hareket modunu belirler.",
+    "documentation": "Dokunmatik destekli bir cihaz kullanırken oyuncunun kamera hareket modunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchCameraMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DevTouchMovementMode": {
-    "documentation": "Bir dokunmatik özellikli cihaz kullandığında oyuncunun karakter hareket modunu belirler.",
+    "documentation": "Dokunmatik destekli bir cihaz kullanırken oyuncunun karakter hareket modunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DisplayName": {
-    "documentation": "<code>Player</code> ile ilişkilendirilmiş kimlik doğrulamalı kullanıcının görüntü adını belirtir.",
+    "documentation": "Kullanıcının <code>Player</code> ile ilişkili olan görünüm adıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.FollowUserId": {
-    "documentation": "Bir oyuncunun bir deneyime başka bir oyuncu tarafından takip edildiğini açıklar.",
+    "documentation": "Oyuncunun bir deneyime takip ettiği kullanıcının kullanıcı kimliğini açıklar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#FollowUserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.Parent = player:WaitForChild(\"PlayerGui\")\n\nlocal function onPlayerAdded(newPlayer)\n\tif newPlayer.FollowUserId == player.UserId then\n\t\tlocal textLabel = Instance.new(\"TextLabel\")\n\t\ttextLabel.Parent = screenGui\n\t\ttextLabel.Text = \"Bu oyuna seni takip eden \" .. newPlayer.Name .. \"!\"\n\t\ttask.delay(3, function()\n\t\t\tif textLabel then\n\t\t\t\ttextLabel:Destroy()\n\t\t\tend\n\t\tend)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GameplayPaused": {
-    "documentation": "Oyuncu istemci tarafındaki oyun deneyimi şu an duraklatıldı mı.",
+    "documentation": "Oyuncunun istemci tarafındaki oyun deneyimi şu anda duraklatılmış mı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GameplayPaused",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasRobloxSubscription": {
-    "documentation": "Oyuncunun aktif bir Roblox aboneliğine sahip olup olmadığını gösterir.",
+    "documentation": "Oyuncunun aktif bir Roblox aboneliği olup olmadığını gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasRobloxSubscription",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.HasRobloxSubscription then\n\t-- Aboneye özel içerik veya avantajlar sağlayın\nend"
   },
   "@roblox/globaltype/Player.HasVerifiedBadge": {
-    "documentation": "Bir oyuncunun <strong>Doğrulanmış</strong> rozetinin olup olmadığını belirler.",
+    "documentation": "Bir oyuncunun <strong>Doğrulanmış</strong> rozetine sahip olup olmadığını gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#HasVerifiedBadge",
     "code_sample": ""
   },
@@ -47293,7 +47293,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LocaleId": {
-    "documentation": "Bu özellik, yerel oyuncunun Roblox hesabı için ayarladığı yerel kimlik numarasını gösterir.",
+    "documentation": "Bu özellik, yerel oyuncunun Roblox hesabı için ayarlamış olduğu yerel dil ID'sini gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
@@ -47303,7 +47303,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nif player.MembershipType == Enum.MembershipType.Premium then\n\t-- Premium üyesi olanlar için özel bir işlem yapın\nend"
   },
   "@roblox/globaltype/Player.NameDisplayDistance": {
-    "documentation": "Bu oyuncunun diğer oyuncuların isimlerini ne mesafede göreceğini ayarlar.",
+    "documentation": "Bu oyuncunun diğer oyuncuların isimlerini görebileceği mesafeyi ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#NameDisplayDistance",
     "code_sample": ""
   },
@@ -47313,17 +47313,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.PartyId": {
-    "documentation": "Bir <code>Player</code>ın ait olduğu partinin benzersiz tanımlayıcısı.",
+    "documentation": "Bir <code>Player</code>'in ait olduğu partinin benzersiz tanımlayıcısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#PartyId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal partyId = player.PartyId\n\n\tif partyId ~= \"\" then\n\t\tprint(\"Oyuncu ID'si: \" .. partyId .. \" olan bir partide bulunuyor\")\n\telse\n\t\tprint(\"Oyuncu bir partide değil\")\n\tend\n\n\tplayer:GetPropertyChangedSignal(\"PartyId\"):Connect(function()\n\t\tif player.PartyId ~= \"\" then\n\t\t\tprint(\"Oyuncu ID'si: \" .. player.PartyId .. \" olan bir partiye katıldı\")\n\t\telse\n\t\t\tprint(\"Oyuncu partiden ayrıldı\")\n\t\tend\n\tend)\nend)"
   },
   "@roblox/globaltype/Player.ReplicationFocus": {
-    "documentation": "Replike etme etrafında odaklanılacak parçayı ayarlar.",
+    "documentation": "Bu partiyi çoğaltma merkezine odaklanacak parçayı ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ReplicationFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RespawnLocation": {
-    "documentation": "Ayarlanırsa, oyuncu belirtilen <code>SpawnLocation</code>da yeniden doğacaktır.",
+    "documentation": "Ayarlanmışsa, oyuncu belirtilen <code>SpawnLocation</code>'da yeniden doğacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
     "code_sample": ""
   },
@@ -47333,12 +47333,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Team": {
-    "documentation": "Oyuncunun ilişkilendirildiği <code>Team</code>i belirler.",
+    "documentation": "Oyuncunun ilişkili olduğu <code>Team</code>'yi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Team",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.TeamColor": {
-    "documentation": "Oyuncunun o takımın <code>Team.TeamColor</code>'una göre ilişkilendirildiği <code>Team</code> belirler.",
+    "documentation": "Oyuncunun ilişkilendirildiği <code>Team</code>'yi belirler. Bu takımın <code>Team.TeamColor</code>'una göre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#TeamColor",
     "code_sample": ""
   },
@@ -47348,28 +47348,28 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.User": {
-    "documentation": "Bu oyuncunun mevcut deneyim içindeki alan kapsamındaki kimliğini temsil eden <code>User</code>.",
+    "documentation": "Bu oyuncunun deneyim içindeki alanına dayalı kimliğini temsil eden <code>User</code> nesnesidir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#User",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.UserId": {
-    "documentation": "Tüm kullanıcı hesaplarına atanmış benzersiz bir tanımlayıcı tam sayı.",
+    "documentation": "Tüm kullanıcı hesaplarına atanan benzersiz tanımlayıcı tamsayı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#UserId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player.UserId)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.userId": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik, yerine kullanılacak <code>Player.UserId</code>'nin eski bir versiyonudur.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, kullanımdan kaldırılmış <code>Player.UserId</code> varyantıdır, bu nedenle bunun kullanılmasını öneriyoruz.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#userId",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.AddReplicationFocus/param/1": {
-    "documentation": "Yeni replikasyon odağı olarak kullanılacak <code>BasePart</code>."
+    "documentation": "Yeni çoğaltma merkezi olarak kullanılacak <code>BasePart</code>."
   },
   "@roblox/globaltype/Player.AddReplicationFocus": {
-    "documentation": "Oyuncu için ek bir replikasyon odak noktası ekler.",
+    "documentation": "Oyuncu için ek bir çoğaltma merkezi ekler.",
     "params": [
       {
         "name": "self",
@@ -47385,10 +47385,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.ClearCharacterAppearance": {
-    "documentation": "Bir oyuncunun <code>Character</code>ından tüm aksesuarları ve diğer karakter görünüm nesnelerini kaldırır.",
+    "documentation": "Bir oyuncunun <code>Character</code>'inden tüm aksesuarları ve diğer karakter görünüm nesnelerini kaldırır.",
     "params": [
       {
         "name": "self",
@@ -47400,10 +47400,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"karakterden kaldırıldı\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors karakterden kaldırıldı\n--> ShirtGraphic karakterden kaldırıldı\n--> Shirt karakterden kaldırıldı\n--> Pants karakterden kaldırıldı\n--> CharacterMesh karakterden kaldırıldı\n--> Hat karakterden kaldırıldı\n--> Shirt karakterden kaldırıldı"
   },
   "@roblox/globaltype/Player.ClearCachedAvatarAppearance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.ClearCachedAvatarAppearance": {
-    "documentation": "Oyuncunun önbellek avatar görünümünü temizler, sonraki yeniden doğmada arka uçtan yeni bir fetch eder.",
+    "documentation": "Oyuncunun önbellekteki avatar görünümünü temizler ve sonraki yeniden doğumda arka plandan taze bir alım zorlar.",
     "params": [
       {
         "name": "self",
@@ -47415,16 +47415,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/1": {
-    "documentation": "Oyuncunun uzaklığını ölçmek için referans noktası."
+    "documentation": "Oyuncunun mesafesinin ölçüleceği konum."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
     "documentation": "Oyuncu ile konum arasındaki mesafe, stud cinsinden."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "Karakterin başı ile verilen <code>Vector3</code> arasındaki mesafeyi döndürür veya oyuncunun karakteri yoksa <code>0</code> döndürür.",
+    "documentation": "Karakterin başı ile verilen <code>Vector3</code> arasındaki mesafeyi döndürür, veya oyuncunun karakteri yoksa <code>0</code> döner.",
     "params": [
       {
         "name": "self",
@@ -47442,16 +47442,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/1": {
-    "documentation": "Dönmek için çevrimiçi arkadaşların maksimum sayısı."
+    "documentation": "Dönüş yapılacak online arkadaş sayısı."
   },
   "@roblox/globaltype/Player.GetFriendsOnline/return/0": {
-    "documentation": "Çevrimiçi arkadaşların bir sözlüğü (aşağıdaki tabloya bakın)."
+    "documentation": "Online arkadaşlarla ilgili bir sözlük (aşağıdaki tabloya bakın)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetFriendsOnlineAsync()</code> ile değiştirilmiştir.<br>Çevrimiçi arkadaşların bir sözlüğünü döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>GetFriendsOnlineAsync()</code> ile değiştirildi.<br>Online arkadaşların bir sözlüğünü döndürür.",
     "params": [
       {
         "name": "self",
@@ -47469,16 +47469,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Çevrimiçi oyuncuları almakta başarısız: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/1": {
-    "documentation": "Dönmek için çevrimiçi arkadaşların maksimum sayısı."
+    "documentation": "Dönüş yapılacak online arkadaş sayısı."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0": {
-    "documentation": "Çevrimiçi arkadaşların bir sözlüğü (aşağıdaki tabloya bakın)."
+    "documentation": "Online arkadaşlarla ilgili bir sözlük (aşağıdaki tabloya bakın)."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync": {
-    "documentation": "Çevrimiçi arkadaşların bir sözlüğünü döndürür.",
+    "documentation": "Online arkadaşların bir sözlüğünü döndürür.",
     "params": [
       {
         "name": "self",
@@ -47496,10 +47496,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Çevrimiçi oyuncuları almakta başarısız: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/return/0": {
-    "documentation": "Bir dizi kullanıcı kimliği."
+    "documentation": "Kullanıcı kimlikleri dizisi."
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync": {
     "documentation": "",
@@ -47516,13 +47516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "Yer ID'si ve Kullanıcı ID'si değerlerini içeren bir sözlük (aşağıdaki tabloda bakın)."
+    "documentation": "PlaceId ve UserId değerlerini içeren bir sözlük (açıklama tablosuna bakın)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "Oyuncunun deneyime nasıl katıldığını tanımlayan bilgi içeren bir sözlük döndürür.",
+    "documentation": "Oyuncunun deneyime katılma şekliyle ilgili bilgileri içeren bir sözlük döndürür.",
     "params": [
       {
         "name": "self",
@@ -47536,7 +47536,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetMouse/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetMouse/return/0": {
     "documentation": ""
@@ -47556,13 +47556,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "Yuvarlak yol, izole ağ gecikmesini saniye cinsinden döndürür.",
+    "documentation": "Yuvarlak gidiş-dönüş, izole ağ gecikmesini saniye cinsinden döndürür.",
     "params": [
       {
         "name": "self",
@@ -47576,16 +47576,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
-    "documentation": "Belirtilen grubun <code>groupId</code> değeri."
+    "documentation": "Belirtilen grubun <code>groupId</code>'dir."
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
-    "documentation": "Oyuncunun gruptaki sıralaması."
+    "documentation": "Oyuncunun gruptaki sırası."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetRankInGroupAsync()</code> ile geçersiz kılınmıştır.<br>Oyuncunun gruptaki sıralamasını tamsayı olarak döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>GetRankInGroupAsync()</code> ile değiştirildi.<br>Oyuncunun gruptaki sırasını tamsayı olarak döndürür.",
     "params": [
       {
         "name": "self",
@@ -47603,16 +47603,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"Oyuncu grubun sahibi, 'LOL'!\")\n\telse\n\t\tprint(\"Oyuncu grubun sahibi DEĞİL, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/param/1": {
-    "documentation": "Belirtilen grubun <code>groupId</code> değeri."
+    "documentation": "Belirtilen grubun <code>groupId</code>'dir."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/return/0": {
-    "documentation": "Oyuncunun gruptaki sıralaması."
+    "documentation": "Oyuncunun gruptaki sırası."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yalnızca bir rol sıralaması döndürür ve bir kullanıcı birden fazla rol tutuyorsa keyfi sonuçlar üretebilir. Bunun yerine, tüm rolleri döndüren <code>GroupService:GetRolesInGroupAsync()</code>'ı kullanın.<br>Oyuncunun gruptaki sıralamasını tamsayı olarak döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod yalnızca tek bir rol sırası döndürür ve bir kullanıcının birden fazla rolü olduğunda rastgele sonuçlar üretebilir. Bunun yerine <code>GroupService:GetRolesInGroupAsync()</code> kullanın, bu tüm rolleri döndürür.<br>Oyuncunun gruptaki sırasını tamsayı olarak döndürür.",
     "params": [
       {
         "name": "self",
@@ -47630,16 +47630,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"Oyuncu grubun sahibi, 'LOL'!\")\n\telse\n\t\tprint(\"Oyuncu grubun sahibi DEĞİL, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
-    "documentation": "Belirtilen grubun grup kimliği."
+    "documentation": "Belirtilen grubun ID'sidir."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "Belirtilen gruptaki oyuncunun rolü veya oyuncu üye değilse <code>Guest</code>."
+    "documentation": "Belirtilen gruptaki oyuncunun rolü veya oyuncu grup üyesi değilse <code>Misafir</code>."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetRoleInGroup()</code> ile değiştirilmiştir.<br>Oyuncunun gruptaki rolünü bir dize olarak döndürür veya oyuncu grubun parçası değilse <code>Guest</code> döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>GetRoleInGroup()</code> ile değiştirildi.<br>Oyuncunun gruptaki rolünü bir dize olarak döndürür veya oyuncu grup üyesi değilse <code>Misafir</code> olarak döner.",
     "params": [
       {
         "name": "self",
@@ -47657,16 +47657,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/1": {
-    "documentation": "Belirtilen grubun grup kimliği."
+    "documentation": "Belirtilen grubun ID'sidir."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0": {
-    "documentation": "Belirtilen gruptaki oyuncunun rolü veya oyuncu üye değilse <code>Guest</code>."
+    "documentation": "Belirtilen gruptaki oyuncunun rolü veya oyuncu grup üyesi değilse <code>Misafir</code>."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem yalnızca bir rol adı döndürür ve bir kullanıcı birden fazla rol tutuyorsa keyfi sonuçlar üretebilir. Bunun yerine, tüm rolleri döndüren <code>GroupService:GetRolesInGroupAsync()</code>'ı kullanın.<br>Oyuncunun gruptaki rolünü bir dize olarak döndürür veya oyuncu grubun parçası değilse <code>Guest</code> döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod yalnızca tek bir rol adını döndürür ve bir kullanıcının birden fazla rolü olduğunda rastgele sonuçlar üretebilir. Bunun yerine <code>GroupService:GetRolesInGroupAsync()</code> kullanın, bu tüm rolleri döndürür.<br>Oyuncunun gruptaki rolünü bir dize olarak döndürür veya oyuncu grup üyesi değilse <code>Misafir</code> olarak döner.",
     "params": [
       {
         "name": "self",
@@ -47684,13 +47684,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "Oyuncunun karakterinin görünümünün yüklendiğini gösteren bir boolean."
+    "documentation": "Oyuncunun karakterinin görünümünün yüklenip yüklenmediğini belirten bir boolean değer."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "Oyuncunun karakterinin görünümünün yüklendiğini gösterir.",
+    "documentation": "Oyuncunun karakterinin görünümünün yüklenip yüklenmediğini kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47704,7 +47704,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tlocal loaded = player:HasAppearanceLoaded()\n\tprint(loaded)\n\n\twhile not loaded do\n\t\tloaded = player:HasAppearanceLoaded()\n\t\tprint(loaded)\n\t\ttask.wait()\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsBestFriendsWith/param/1": {
     "documentation": ""
@@ -47713,7 +47713,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev, \"en iyi arkadaşlar\" özelliği kaldırıldığı için geçersizdir. Bunun yerine <code>Player:IsFriendsWithAsync()</code> kullanın.<br>Bir oyuncunun belirli bir kullanıcıyla arkadaş olup olmadığını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, \"en iyi arkadaşlar\" özelliği kaldırıldığından geçersizdir. Bunun yerine <code>Player:IsFriendsWithAsync()</code> kullanın.<br>Belirtilen kullanıcı ile oyuncunun arkadaş olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47731,16 +47731,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
-    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code> değeri."
+    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code>'dır."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "Belirtilen kullanıcının bir arkadaş olup olmadığını gösteren bir boolean."
+    "documentation": "Belirtilen kullanıcı ile oyuncunun arkadaş olup olmadığını belirten bir boolean değer."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yeni çalışmalar için kullanılacak <code>Player:IsFriendsWithAsync()</code> yöntemi ile değiştirilmiştir.<br>Verilen <code>Player.UserId</code> ile kullanıcının arkadaşı olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>Player:IsFriendsWithAsync()</code> ile değiştirildi.<br>Verilen kullanıcı ile oyuncunun arkadaş olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47755,10 +47755,10 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWithAsync(146569) then\n\t\tprint(player.Name .. \" gordonrox24 ile bağlantıları var!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.isFriendsWith/param/1": {
     "documentation": ""
@@ -47767,7 +47767,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yeni çalışmalar için kullanılacak <code>Player:IsFriendsWithAsync()</code> yöntemi ile değiştirilmiştir.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>Player:IsFriendsWithAsync()</code> ile değiştirildi.",
     "params": [
       {
         "name": "self",
@@ -47785,16 +47785,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/param/1": {
-    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code> değeri."
+    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code>'dır."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/return/0": {
-    "documentation": "Belirtilen kullanıcının bir arkadaş olup olmadığını gösteren bir boolean."
+    "documentation": "Belirtilen kullanıcı ile oyuncunun arkadaş olup olmadığını belirten bir boolean değer."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync": {
-    "documentation": "Verilen <code>Player.UserId</code> ile belirtilen kullanıcının bir arkadaş olup olmadığını kontrol eder.",
+    "documentation": "Verilen <code>Player.UserId</code>'li kullanıcı ile oyuncunun arkadaş olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47812,16 +47812,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
-    "documentation": "Belirtilen grubun grup kimliği."
+    "documentation": "Belirtilen grubun grup ID'si."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
-    "documentation": "Belirtilen grupta olup olmadığına dair bir boolean."
+    "documentation": "Oyuncunun belirtilen grupta olup olmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>IsInGroupAsync()</code> ile değiştirilmiştir.<br>Belirtilen kimliğe sahip bir gruba üye olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>IsInGroupAsync()</code> ile değiştirilmiştir.<br>Bir oyuncunun belirli bir ID'ye sahip gruba üye olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47839,16 +47839,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsInGroupAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/param/1": {
     "documentation": "Belirtilen grubun grup ID'si."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/return/0": {
-    "documentation": "Oyuncunun belirtilen grupta olup olmadığını belirten bir boolean değeri."
+    "documentation": "Oyuncunun belirtilen grupta olup olmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsInGroupAsync": {
-    "documentation": "Belirtilen kimliğe sahip bir gruba üye olup olmadığını kontrol eder.",
+    "documentation": "Bir oyuncunun belirli bir ID'ye sahip gruba üye olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47866,10 +47866,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.IsVerified/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "Oyuncunun doğrulanıp doğrulanmadığını belirten bir boolean değeri."
+    "documentation": "Oyuncunun doğrulanıp doğrulanmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsVerified": {
     "documentation": "Oyuncunun somut, gerçek dünya sinyalleri ile doğrulanıp doğrulanmadığını döndürür.",
@@ -47886,13 +47886,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(player:IsVerified())\nend\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tonPlayerAdded(player)\nend\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.Kick/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "Kicking sırasında kullanıcıya gösterilecek mesaj."
+    "documentation": "Çıkartma sırasında gösterilecek mesaj."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "Bir oyuncunun deneyimden zorla bağlantısını keser, isteğe bağlı olarak bir mesaj sağlar.",
+    "documentation": "Bir oyuncuyu deneyimden zorla çıkarır, isteğe bağlı olarak bir mesaj sağlar.",
     "params": [
       {
         "name": "self",
@@ -47908,7 +47908,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadBoolean/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadBoolean/param/1": {
     "documentation": ""
@@ -47917,7 +47917,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Oyuncuya <code>Player:SaveBoolean()</code> ile aynı anahtar kullanarak önceden kaydedilen bir boolean değerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce <code>Player:SaveBoolean()</code> ile aynı anahtara kaydedilmiş bir boolean değeri döndürür.",
     "params": [
       {
         "name": "self",
@@ -47935,7 +47935,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.loadBoolean/param/1": {
     "documentation": ""
@@ -47944,7 +47944,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski fonksiyon, <code>Player:LoadBoolean()</code>'in bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı yöntem, <code>Player:LoadBoolean()</code> yönteminin bir varyantıdır ve bu da kullanılmıyor. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -47962,10 +47962,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>LoadCharacterAsync()</code> ile değiştirilmiştir.<br>Oyuncu için yeni bir karakter oluşturur, eski karakteri kaldırır. Ayrıca oyuncunun <code>Backpack</code> ve <code>PlayerGui</code>'sini temizler.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>LoadCharacterAsync()</code> ile değiştirilmiştir.<br>Oyuncu için yeni bir karakter oluşturur, eski karakteri kaldırır. Ayrıca oyuncunun <code>Backpack</code> ve <code>PlayerGui</code>'sını temizler.",
     "params": [
       {
         "name": "self",
@@ -47977,13 +47977,13 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
-    "documentation": "Yüklenen örneğin bir örneği, <code>InsertService:LoadAsset()</code> fonksiyonu kullanılarak elde edilir."
+    "documentation": "Yüklenen varlığın bir örneği, <code>InsertService:LoadAsset()</code> fonksiyonu ile elde edilebilir."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen örneği, oyuncunun karakterine, kafasına veya <code>StarterGear</code>'a yerleştirir, örneğin sınıfına göre.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen nesneyi oyuncunun karakterinde, kafasında veya sınıfı temelinde <code>StarterGear</code>'de yerleştirir.",
     "params": [
       {
         "name": "self",
@@ -47999,10 +47999,10 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterAsync": {
-    "documentation": "Oyuncu için yeni bir karakter oluşturur, eski olanı kaldırır. Ayrıca oyuncunun <code>Backpack</code> ve <code>PlayerGui</code>'sini temizler.",
+    "documentation": "Oyuncu için yeni bir karakter oluşturur, eski karakteri kaldırır. Ayrıca oyuncunun <code>Backpack</code> ve <code>PlayerGui</code>'sını temizler.",
     "params": [
       {
         "name": "self",
@@ -48014,16 +48014,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "<code>HumanoidDescription</code>'da, yüklenecek karaktere donanımlı body parçaları/rengleri, beden ölçekleri, aksesuarlar, kıyafetler ve animasyonlar gibi özellikleri içeren bir nesnedir."
+    "documentation": "Yüklemede, vücut parçaları/rengleri, vücut ölçekleme, aksesuarlar, giysiler ve yüklenecek karaktere eklenilecek animasyonlar gibi nitelikleri içeren bir <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2": {
     "documentation": "Varlık türü doğrulama modu."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>LoadCharacterWithHumanoidDescriptionAsync()</code> ile değiştirilmiştir.<br>Geçerli <code>HumanoidDescription</code>'da olan her şeyi donanımlı bir oyuncu karakteri oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>LoadCharacterWithHumanoidDescriptionAsync()</code> ile değiştirilmiştir.<br>Oyuncu karakterini, geçilen <code>HumanoidDescription</code> içerisinde bulunan her şeyle birlikte spawn eder.",
     "params": [
       {
         "name": "self",
@@ -48043,16 +48043,16 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
-    "documentation": "<code>HumanoidDescription</code>'da, yüklenecek karaktere donanımlı body parçaları/rengleri, beden ölçekleri, aksesuarlar, kıyafetler ve animasyonlar gibi özellikleri içeren bir nesnedir."
+    "documentation": "Yüklemede, vücut parçaları/rengleri, vücut ölçekleme, aksesuarlar, giysiler ve yüklenecek karaktere eklenilecek animasyonlar gibi nitelikleri içeren bir <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2": {
     "documentation": "Varlık türü doğrulama modu."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
-    "documentation": "Geçerli <code>HumanoidDescription</code>'da olan her şeyi donanımlı bir oyuncu karakteri oluşturur.",
+    "documentation": "Oyuncu karakterini, geçilen <code>HumanoidDescription</code> içerisinde bulunan her şeyle birlikte spawn eder.",
     "params": [
       {
         "name": "self",
@@ -48072,7 +48072,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadInstance/param/1": {
     "documentation": ""
@@ -48081,7 +48081,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Daha önce <code>Player:SaveInstance()</code> ile aynı anahtarla kaydedilmiş bir örneği döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce <code>Player:SaveInstance()</code> ile aynı anahtara kaydedilmiş bir örneği döndürür.",
     "params": [
       {
         "name": "self",
@@ -48099,7 +48099,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tlocal model = player:LoadInstance(\"Model\")\n\t\tmodel.Parent = workspace\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.loadInstance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.loadInstance/param/1": {
     "documentation": ""
@@ -48108,7 +48108,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski fonksiyon, <code>Player:LoadInstance()</code>'in bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı yöntem, <code>Player:LoadInstance()</code> yönteminin bir varyantıdır ve bu da kullanılmıyor. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48126,7 +48126,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadNumber/param/1": {
     "documentation": ""
@@ -48135,7 +48135,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Oyuncuya daha önce kaydedilmiş bir sayı değerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Bir oyuncuya daha önce kaydedilmiş bir sayı değeri döndürür.",
     "params": [
       {
         "name": "self",
@@ -48153,7 +48153,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tprint(player:LoadNumber(\"TotalPlays\"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.loadNumber/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.loadNumber/param/1": {
     "documentation": ""
@@ -48162,7 +48162,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski fonksiyon, <code>Player:LoadNumber()</code>'in bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı yöntem, <code>Player:LoadNumber()</code> yönteminin bir varyantıdır ve bu da kullanılmıyor. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48180,7 +48180,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadString/param/1": {
     "documentation": ""
@@ -48189,7 +48189,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Oyuncuya daha önce kaydedilmiş bir dize değerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce bir oyuncuya kaydedilmiş bir dize (string) değeri döndürür.",
     "params": [
       {
         "name": "self",
@@ -48207,7 +48207,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tprint(Player:LoadString(\"TheirName\"))\n\tend\nend)"
   },
   "@roblox/globaltype/Player.loadString/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.loadString/param/1": {
     "documentation": ""
@@ -48216,7 +48216,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:LoadString()</code>'in eski bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:LoadString()</code> yönteminin bir varyantıdır ve bu da kullanım dışı. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48234,16 +48234,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.Move/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.Move/param/1": {
     "documentation": "Oyuncunun hareket etmesi gereken Vector3 yönü."
   },
   "@roblox/globaltype/Player.Move/param/2": {
-    "documentation": "Oyuncunun kameraya göre hareket etmesi gerektiğini belirten bir boolean değeri."
+    "documentation": "Oyuncunun kendi kamerasına göre hareket etmesi gerektiğini gösteren bir boolean."
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "Oyuncunun karakterini belirtilen yönde yürümeye zorlar, durana kadar, ya da oyuncunun (kontrolleri kullanarak) müdahale etmesine kadar.",
+    "documentation": "Oyuncunun karakterini verilen yönde yürümesine neden olur ya durduruluncaya kadar ya da oyuncu (kendi kontrollerini kullanarak) kesintiye uğratıncaya kadar.",
     "params": [
       {
         "name": "self",
@@ -48263,13 +48263,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": "Bir çoğaltma odak noktası olarak kaldırılacak <code>BasePart</code>."
+    "documentation": "Bir çoğaltma odaklaması olarak kaldırılacak <code>BasePart</code>."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
-    "documentation": "Önceden eklenmiş bir çoğaltma odak noktasını kaldırır.",
+    "documentation": "Daha önce eklenmiş bir çoğaltma odaklanmasını kaldırır.",
     "params": [
       {
         "name": "self",
@@ -48285,16 +48285,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
     "documentation": "Akışın talep edildiği dünya konumu."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "İsteğe bağlı zaman aşımı süresi, <code>position</code> parametresi etrafındaki bölgeleri akışa almak için motorun bulunduğu maksimum süre. Eğer bir değer belirtmezseniz, zaman aşımı süresi etkili olarak sonsuz olacaktır. Ancak, istemci düşük hafızaya sahip olduğunda, motor tüm akış taleplerini, zaman aşımında bile terk eder."
+    "documentation": "Talep için isteğe bağlı zaman aşımı, <code>position</code> parametresi etrafında bölgeleri akıtma girişiminde geçen maksimum süredir. Bir değer belirtmezseniz, zaman aşımı etkili olarak sonsuzdur. Ancak, eğer istemci belleği düşükse, motor tüm akış taleplerini, zaman aşımında bile olsa iptal eder."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "Sunucudan, belirtilen konum çevresinde akıştalık yapmak için istemciye talep eder.",
+    "documentation": "Sunucunun belirtlen konum etrafında oyuncuya akış yapmasını talep eder.",
     "params": [
       {
         "name": "self",
@@ -48314,7 +48314,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SaveBoolean/param/1": {
     "documentation": ""
@@ -48323,7 +48323,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Sonuç olarak, <code>Player:LoadBoolean()</code> ile daha sonra yeniden yüklenebilen bir boolean değerini kaydetmek için kullanılır.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Bir boolean değeri kaydetmek için kullanılır, sonradan <code>Player:LoadBoolean()</code> ile yüklenebilir.",
     "params": [
       {
         "name": "self",
@@ -48343,7 +48343,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tPlayer:SaveBoolean(\"HasPlayed\", true)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.saveBoolean/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.saveBoolean/param/1": {
     "documentation": ""
@@ -48352,7 +48352,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveBoolean()</code>'in eski bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveBoolean()</code> yönteminin bir varyantıdır ve bu da kullanım dışı. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48372,7 +48372,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveInstance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SaveInstance/param/1": {
     "documentation": ""
@@ -48381,7 +48381,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Sonuç olarak, daha sonra yeniden yüklenebilen bir örneği kaydeder.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yine kullanılabilir bir örneği kaydeder.",
     "params": [
       {
         "name": "self",
@@ -48401,7 +48401,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tPlayer:WaitForDataReady()\n\tPlayer:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.saveInstance/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.saveInstance/param/1": {
     "documentation": ""
@@ -48410,7 +48410,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveInstance()</code>'in eski bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveInstance()</code> yönteminin bir varyantıdır ve bu da kullanım dışı. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48430,7 +48430,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SaveNumber/param/1": {
     "documentation": ""
@@ -48439,7 +48439,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Daha sonra <code>Player:LoadNumber()</code> ile yeniden yüklenebilecek bir sayı değerini kaydeder.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yine kullanılabilir bir sayı değerini kaydeder.",
     "params": [
       {
         "name": "self",
@@ -48459,7 +48459,7 @@
     "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n\tif Player:WaitForDataReady() then\n\t\tlocal OldValue = Player:SaveNumber(\"TotalPlays\")\n\t\tPlayer:SaveNumber(\"TotalPlays\", OldValue + 1)\n\tend\nend)"
   },
   "@roblox/globaltype/Player.saveNumber/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.saveNumber/param/1": {
     "documentation": ""
@@ -48468,7 +48468,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveNumber()</code>'ın eski bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveNumber()</code> yönteminin bir varyantıdır ve bu da kullanım dışı. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48488,7 +48488,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SaveString/param/1": {
     "documentation": ""
@@ -48497,7 +48497,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Daha sonra yeniden yüklenebilecek bir dize değerini kaydeder.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yine kullanılabilir bir dize değerini kaydeder.",
     "params": [
       {
         "name": "self",
@@ -48517,7 +48517,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:WaitForDataReady() then\n\t\tplayer:SaveString(\"Onlarınİsmi\", player.Name)\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.saveString/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.saveString/param/1": {
     "documentation": ""
@@ -48526,7 +48526,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveString()</code>'ın eski bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:SaveString()</code> yönteminin bir varyantıdır ve bu da kullanım dışı. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48546,13 +48546,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetAccountAge/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "Hesabın gün cinsinden yaşıdır."
+    "documentation": "Hesabın gün cinsinden yaşı."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
-    "documentation": "Oyuncunun <code>AccountAge</code>'sini ayarlar.",
+    "documentation": "Oyuncunun <code>AccountAge</code> değerini ayarlayınız.",
     "params": [
       {
         "name": "self",
@@ -48568,13 +48568,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "Oyuncunun filtrelenmiş sohbet görüp görmediğini belirten bir boolean değeri."
+    "documentation": "Oyuncunun filtrelenmiş sohbeti görüp görmediğini belirten bir boolean."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "Oyuncunun normal sohbetler yerine filtrelenmiş sohbetler görüp görmemesini ayarlar.",
+    "documentation": "Oyuncunun normal sohbetler yerine filtrelenmiş sohbetleri görüp görmediğini ayarlar.",
     "params": [
       {
         "name": "self",
@@ -48590,13 +48590,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.WaitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık geçersiz olan bir veri kalıcılık yöntemi için kullanılmış olabileceğinden kullanım dışıdır. Lütfen yeni işler için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Oyuncunun verileri kullanılabilir hale gelene kadar ya da oyuncunun verilerini alırken belirli bir süre geçmeden scripti duraklatmak için kullanılır.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanım dışıdır, çünkü şimdi kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Oyuncunun verilerine erişileceği zamana kadar scripti duraklatmak için kullanılır veya belirli bir süre geçtikten sonra oyuncunun verilerine ulaşamıyorsa duraklatır.",
     "params": [
       {
         "name": "self",
@@ -48610,13 +48610,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.waitForDataReady/param/0": {
-    "documentation": "Şu anda deneyime bağlı bir istemciyi temsil eden bir nesne."
+    "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.waitForDataReady/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:WaitForDataReady()</code>'in eski bir varyantıdır ve bu da kullanım dışıdır. Yeni çalışmalarda bu işlevlerin hiçbiri kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:WaitForDataReady()</code> yönteminin bir varyantıdır ve bu da kullanım dışı. Hiçbir işlem yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48707,7 +48707,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAdded": {
-    "documentation": "Bir oyuncunun karakteri doğduğunda veya yeniden doğduğunda tetiklenir.",
+    "documentation": "Bir oyuncunun karakteri spawn olduğunda veya respawn olduğunda tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAdded.ConnectParallel",
@@ -48795,7 +48795,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.CharacterAppearanceLoaded": {
-    "documentation": "Tam görünümünün bir örneği <code>Character</code> eklenirken tetiklenir.",
+    "documentation": "Bir <code>Character</code>'in tam görünümünün eklendiği zaman tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.CharacterAppearanceLoaded.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.CharacterAppearanceLoaded.ConnectParallel",
@@ -48971,7 +48971,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Chatted": {
-    "documentation": "Bir oyuncu deneyimde Roblox'un sağladığı sohbet çubuğunu kullanarak mesaj yazdığında tetiklenir.",
+    "documentation": "Bir oyuncunun Roblox'un sağladığı sohbet çubuğu kapsamında deneyim içinde sohbet ettiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Chatted.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Chatted.ConnectParallel",
@@ -49059,7 +49059,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.Idled": {
-    "documentation": "Motorun oyuncuyu boşta olarak sınıflandırmasından yaklaşık iki dakika sonra tetiklenir. Zaman, o noktadan itibaren geçen saniye sayısını belirtir.",
+    "documentation": "Motorun oyuncuyu boşta olarak sınıflandırdığı andan itibaren yaklaşık iki dakika sonra tetiklenir. Zaman, o noktadan itibaren geçen saniye sayısını ifade eder.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.Idled.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.Idled.ConnectParallel",
@@ -49147,7 +49147,7 @@
     "returns": []
   },
   "@roblox/globaltype/Player.OnTeleport": {
-    "documentation": "Bir oyuncunun teleport durumunun değiştiğinde tetiklenir.",
+    "documentation": "Bir oyuncunun teleportasyon durumunun değiştiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Player.OnTeleport.Connect",
       "ConnectParallel": "@roblox/globaltype/Player.OnTeleport.ConnectParallel",
@@ -56200,7 +56200,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService": {
-    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasına olanak tanıyan hizmet.",
+    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet.",
     "keys": {
       "GenerateMeshAsync": "@roblox/globaltype/GenerationService.GenerateMeshAsync",
       "GenerateModelAsync": "@roblox/globaltype/GenerationService.GenerateModelAsync",
@@ -56210,25 +56210,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/0": {
-    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasına olanak tanıyan hizmet."
+    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Mesh oluşturma istemlerini içeren bir sözlük. Şu anda yalnızca desteklenen anahtar <code>Prompt</code> (dize) olup, oluşturulacak mesh'i tanımlar."
+    "documentation": "Ağ oluşturma istemlerini içeren bir sözlük. Şu anda tek desteklenen anahtar <code>Prompt</code> (dize) olup, oluşturulacak ağı tanımlar."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
-    "documentation": "Oluşturma talebinde bulunan <code>Player</code>."
+    "documentation": "Oluşumu talep eden <code>Player</code>."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Sonucu etkilemek için ek oluşturma seçenekleri için bir sözlük. İsteğe bağlı <code>SuggestedSize</code> anahtarı (<code>Vector3</code>), üretilen varlığın boyutuna dair bir kılavuz niteliğindedir; bu, <code>GenerationService</code>'in sağlanan <code>Vector3</code> ile benzer boyut ve orana sahip bir model oluşturmaya çalışacağı anlamına gelir, ancak nihai çıktının boyutu için bir garanti yoktur."
+    "documentation": "Sonucu etkilemek için ek oluşturma seçenekleri içeren bir sözlük. İsteğe bağlı <code>SuggestedSize</code> anahtarı (<code>Vector3</code>), oluşturulan varlık için bir boyut kılavuzu temsil eder; yani, <code>GenerationService</code>, sağlanan <code>Vector3</code> ile benzer boyut ve oranda bir model oluşturmayı deneyecektir; ancak son çıktı boyutunda garanti yoktur."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Ara oluşturma sonuçları ile tetiklenen bir geri bildirim işlevi. Doku uygulanmadan önce erken mesh versiyonlarını almak için yararlıdır."
+    "documentation": "Ara oluşturma sonuçları ile tetiklenen bir geri çağırma fonksiyonu. Dokular uygulanmadan önce erken ağ sürümlerini almak için kullanışlıdır."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "<code>GenerateMeshAsync()</code> çağrısında her biri için döndürülen benzersiz bir kimlik (üretim ID'si) ve bağlam kimliği (şu anda kullanılmıyor) içeren bir demet."
+    "documentation": "Her <code>GenerateMeshAsync()</code> çağrısı için döndürülen benzersiz bir kimlik (bir nesne) ve şu anda kullanılmayan bağlam kimliğinin bir demeti."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Bir metin isteminden yeni bir 3D mesh oluşturma işlemini başlatır ve sonucu izlemek ve almak için kullanılan benzersiz kimlikleri döndürür.",
+    "documentation": "Bir metin isteminden yeni bir 3D ağın oluşturulmasını başlatır ve sonucu izlemek ve geri almak için kullanılan benzersiz kimlikleri döndürür.",
     "params": [
       {
         "name": "self",
@@ -56258,22 +56258,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/0": {
-    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasına olanak tanıyan hizmet."
+    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "Aşağıdaki anahtarları içeren koşullandırma girişlerini temsil eden bir tablo: <ul> <li><code>TextPrompt</code> — Oluşturulacak nesnenin dize olarak tanımı. Eğer bir <code>Image</code> sağlanmamışsa zorunludur; <code>TextPrompt</code> veya <code>Image</code>'den en az birini sağlamalısınız.</li> <li><code>Image</code> — Görsel olarak oluşturmayı koşullandırmak için kullanılan isteğe bağlı <code>Content</code>, bir resim varlığına atıfta bulunur   (örneğin, <code>Content.fromAssetId()</code> sonucunun). Bunu, ya <code>TextPrompt</code>'la ya da yerine sağlayın.</li> <li><code>Size</code> — Oluşturulacak nesnenin boyutunu tanımlayan isteğe bağlı <code>Vector3</code>. Bu yalnızca yaklaşık bir değerdir; belirli bir boyut gerekiyorsa, oluşturma sonrası model boyutlarını ölçeklendirin.</li> <li><code>MaxTriangles</code> — Döndürülen modelin içereceği maksimum üçgen sayısını tanımlayan isteğe bağlı tamsayı. Daha düşük değerler daha fazla yüzeyli ve düşük poligonlu oluşturmalara neden olur.</li> <li><code>GenerateTextures</code> — <code>true</code> (varsayılan) sonuçta oluşturulan nesneye dokular eklerken, <code>false</code> dokuları oluşturmayacaktır.</li> </ul>"
+    "documentation": "Aşağıdaki anahtarları içeren koşullandırma girişlerini temsil eden bir tablo: <ul> <li><code>TextPrompt</code> — Oluşturulacak nesnenin dize tanımı. Bir <code>Image</code> sağlanmadıkça gereklidir; en az bir <code>TextPrompt</code> veya <code>Image</code> sağlamalısınız.</li> <li><code>Image</code> — Oluşturmayı görsel olarak şartlandırmak için kullanılan bir resim varlığına atıfta bulunan isteğe bağlı <code>Content</code>   (örneğin, <code>Content.fromAssetId()</code> sonucudur). Bunu <code>TextPrompt</code> ile birlikte veya yerine sağlayın.</li> <li><code>Size</code> — Oluşturulacak nesnenin boyutunu tanımlayan isteğe bağlı <code>Vector3</code>. Bu sadece yaklaşık olarak geçerlidir; belirli bir boyut istiyorsanız modeli oluşturduktan sonra ölçeklendirin.</li> <li><code>MaxTriangles</code> — Dönüş değerinin içereceği maksimum üçgen sayısını tanımlayan isteğe bağlı bir tam sayı. Daha düşük değerler daha çok kenarlı ve düşük poli oluşturmalara neden olur.</li> <li><code>GenerateTextures</code> — <code>true</code> (varsayılan) çeşnilerin sonucun oluşturulmasını sağlarken, <code>false</code> dokular oluşturmayacaktır.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "Üretim şemasını temsil eden tablo. Aşağıdaki anahtarlarından yalnızca birini sağlayın: <ul> <li><code>PredefinedSchema</code> — Yerleşik bir şemayı seçen dize. Geçerli seçenekler arasında, beş <code>Models</code>'den oluşan temel bir araç şasisi için <code>Car5</code> veya tek bir mesh çıktısı veren <code>Body1</code> bulunmaktadır.</li> <li><code>SchemaDefinition</code> — Özel çok parçalı bir yapıyı tanımlayan tablo. Gerekli parçaların isimlerinin yer aldığı bir <code>Groups</code> dizisine sahiptir; döndürülen <code>Model</code>, adlandırılan gruplara göre düzenlenmiştir. Belirlenmiş şemaların kapsamadığı bir yapı gerekiyorsa, bunu <code>PredefinedSchema</code> yerine kullanın.</li> </ul>"
+    "documentation": "Üretim şemasını temsil eden tablo. Aşağıdaki anahtarlardan tam olarak birini sağlayın: <ul> <li><code>PredefinedSchema</code> — Yerleşik bir şemayı seçen dize. Güncel geçerli seçenekler, beş <code>Models</code> içeren temel bir araç şasesi için <code>Car5</code>, veya tek bir ağ çıktısı üreten <code>Body1</code></li> <li><code>SchemaDefinition</code> — Özel çok parçalı bir yapıyı tanımlayan tablo. İstenilen parça sayısı için bir parça adı dizesi dizisi (her istenen parça için bir giriş) içerir; döndürülen <code>Model</code>, belirtilen gruplara göre düzenlenmiştir. Ön tanımlı şemaların kapsamadığı bir yapı gerektiğinde bunu <code>PredefinedSchema</code> yerine kullanın.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "Şu anda kullanılmıyor; gelecekte özelleştirme seçenekleri için ayrılmıştır."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "Aşağıdaki öğelere sahip bir demet: <ul> <li>Belirtilen <code>schema</code> ile uyumlu standart bir <code>Model</code> konteyner örneği.</li> <li>Üretim hakkında bir UUID ve diğer meta verileri içeren bir tablo.</li> </ul>"
+    "documentation": "Aşağıdaki unsurları içeren demet: <ul> <li>Belirtilen <code>schema</code> ile uyumlu bir <code>Model</code> konteyner örneği.</li> <li>Üretim hakkında bir UUID ve diğer meta verileri içeren bir tablo.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "Sağlanan <code>inputs</code> ve <code>schema</code>'ya göre çoklu mesh geometrileri oluşturulmasını sağlar.",
+    "documentation": "Verilen <code>inputs</code> ve bir <code>schema</code>'ya göre çoklu ağ geometrilerinin oluşturulmasını sağlar.",
     "params": [
       {
         "name": "self",
@@ -56299,16 +56299,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/0": {
-    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasına olanak tanıyan hizmet."
+    "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "<code>GenerateMeshAsync()</code> tarafından döndürülen benzersiz kimlik. Yüklenilecek mesh'i tanımlar."
+    "documentation": "<code>GenerateMeshAsync()</code> tarafından döndürülen benzersiz kimlik. Yüklemek için ağı tanımlar."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "Üretilen varlık, tek bir <code>MeshPart</code> içeren bir <code>Model</code> olarak döner."
+    "documentation": "Tek bir <code>MeshPart</code> içeren bir <code>Model</code> olarak dönen oluşturulan varlık."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "<code>GenerationService:GenerateMeshAsync()</code> tarafından oluşturulan bir mesh'i sağlar ve yükler sağlanan <code>generationId</code>'yi kullanarak.",
+    "documentation": "<code>GenerationService:GenerateMeshAsync()</code>'ten sağlanan <code>generationId</code> kullanılarak oluşturulan bir ağı geri alır ve yükler.",
     "params": [
       {
         "name": "self",
@@ -58019,7 +58019,7 @@
     "documentation": "Verilen ekran alanını işgal eden <code>GuiObject</code> örneklerinin tablosu."
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition": {
-    "documentation": "Verilen noktayı ekran üzerinde işgal eden tüm <code>GuiObject</code> örneklerinin bir listesini döndürür.",
+    "documentation": "Verilen alanı işgal eden tüm <code>GuiObject</code> örneklerinin bir listesini döner",
     "params": [
       {
         "name": "self",
@@ -59627,7 +59627,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar.",
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için.",
     "keys": {
       "AutoSelectGuiEnabled": "@roblox/globaltype/GuiService.AutoSelectGuiEnabled",
       "CoreGuiNavigationEnabled": "@roblox/globaltype/GuiService.CoreGuiNavigationEnabled",
@@ -59665,12 +59665,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AutoSelectGuiEnabled": {
-    "documentation": "Etkinleştirildiğinde, bir oyun kumandasında bulunan <kbd>Select</kbd> düğmesi veya <kbd>Backslash</kbd>, bir GUI'yi otomatik olarak seçilen nesne olarak ayarlayacaktır.",
+    "documentation": "Eğer etkinleştirilirse, bir oyun kumandasında <kbd>Select</kbd> düğmesi veya <kbd>Backslash</kbd>, otomatik olarak bir GUI'yi seçili nesne olarak ayarlayacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#AutoSelectGuiEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.CoreGuiNavigationEnabled": {
-    "documentation": "<code>CoreGui</code> içindeki nesnelerin bir oyun kumandası kullanılarak navigasyona açılıp açılmadığını değiştirir.",
+    "documentation": "<code>CoreGui</code> içindeki nesnelerin bir oyun kumandası ile navigasyona açılıp açılmayacağını geçiş yapar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#CoreGuiNavigationEnabled",
     "code_sample": ""
   },
@@ -59680,57 +59680,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.IsModalDialog": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırılmıştır. Yeni çalışma için kullanmayın.<br>Bir modal diyalogun görünüp görünmediğini belirtir.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır. Yeni işler için kullanmayın.<br>Bir modal diyalogun görünür olup olmadığını gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#IsModalDialog",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.IsWindows": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanımdan kaldırılmıştır. Yeni çalışma için kullanmayın.<br>Kullanıcının Windows işletim sistemi yüklü bir bilgisayarda oyun oynayıp oynamadığını belirtir.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır. Yeni işler için kullanmayın.<br>Kullanıcının Windows çalışan bir bilgisayarda oynayıp oynamadığını gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#IsWindows",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.MenuIsOpen": {
-    "documentation": "<code>CoreGui</code>'dan herhangi bir menü açık olduğunda <code>true</code> döner.",
+    "documentation": "<code>CoreGui</code>'nin herhangi bir menüsünün açık olup olmadığını <code>true</code> olarak döner.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#MenuIsOpen",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.PreferredTextSize": {
-    "documentation": "Oyuncunun tercih ettiği metin boyutunu <code>PreferredTextSize</code> değerinde alır.",
+    "documentation": "Oyuncunun tercih ettiği metin boyutunu <code>PreferredTextSize</code> değeri olarak alır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#PreferredTextSize",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.PreferredTransparency": {
-    "documentation": "Oyuncunun tercih ettiği şeffaflığı <code>0</code> ile <code>1</code> arasında bir sayı olarak alır.",
+    "documentation": "Oyuncunun tercih ettiği saydamlığı <code>0</code> ile <code>1</code> arasında bir sayı olarak alır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#PreferredTransparency",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.ReducedMotionEnabled": {
-    "documentation": "Oyuncunun azaltılmış hareketi etkinleştirip etkinleştirmediğini belirten <code>true</code> döner.",
+    "documentation": "Oyuncunun azalmış hareketi etkinleştirdiği takdirde <code>true</code> döner.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ReducedMotionEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SelectedObject": {
-    "documentation": "GUI gezgini tarafından şu anda odaklanan <code>GuiObject</code>'ı ayarlar.",
+    "documentation": "GUI gezgini tarafından şu anda odaklanılan <code>GuiObject</code>'ı ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#SelectedObject",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function printChanged(value)\n\tif value == \"SelectedObject\" then\n\t\tprint(\"SelectedObject değişti!\")\n\tend\nend\n\nGuiService.Changed:Connect(printChanged)"
   },
   "@roblox/globaltype/GuiService.TopbarInset": {
-    "documentation": "Üst çubuk alanında engellenmemiş alanın mutlak boyutunu ve konumunu belirlemek için kullanılır.",
+    "documentation": "Üst çubuk alanındaki engellenmemiş alanın kesin boyutunu ve konumunu belirlemek için kullanılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#TopbarInset",
     "code_sample": "local GuiService = game:GetService(\"GuiService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\nscreenGui.Parent = Players.LocalPlayer.PlayerGui\n\nlocal frame = Instance.new(\"Frame\")\nframe.BackgroundColor3 = Color3.fromRGB(0, 255, 0)\nframe.Parent = screenGui\n\nGuiService:GetPropertyChangedSignal(\"TopbarInset\"):Connect(function()\n\tlocal inset = GuiService.TopbarInset\n\tframe.Size = UDim2.new(0, inset.Width, 0, inset.Height)\n\tframe.Position = UDim2.new(0, inset.Min.X, 0, inset.Min.Y)\nend)"
   },
   "@roblox/globaltype/GuiService.TouchControlsEnabled": {
-    "documentation": "Dokunmatik kontrolleri ve dokunmatik kontrol görüntüleme UI'sını etkinleştirmek ve devre dışı bırakmak için kullanılır. Varsayılan olarak <code>true</code>.",
+    "documentation": "Dokunmatik kontrolleri ve dokunmatik kontrol görüntüleme UI'yi etkinleştirmek ve devre dışı bırakmak için kullanılır. Varsayılan olarak <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#TouchControlsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.ViewportDisplaySize": {
-    "documentation": "Görüntüleme alanının fiziksel boyutunu temsil eden salt okunur bir özelliktir.",
+    "documentation": "Görüntü alanının fiziksel render boyutunu temsil eden okunabilir bir özelliktir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#ViewportDisplaySize",
     "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal function updateUI()\n\tif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Small) then\n\t\t-- UI'yi küçük ekrana güncelle\n\telseif (GuiService.ViewportDisplaySize == Enum.DisplaySize.Large) then\n\t\t-- UI'yi büyük ekrana güncelle\n\telse\n\t\t-- UI'yi orta/default ekrana güncelle\n\tend\nend\n\nGuiService:GetPropertyChangedSignal(\"ViewportDisplaySize\"):Connect(updateUI)\nupdateUI()"
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.AddSelectionParent/param/1": {
     "documentation": ""
@@ -59739,7 +59739,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionParent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Oyun kumandası GUI navigasyonunun yalnızca gruptaki seçilebilir nesneleri dikkate alacağı bir seçim grubu oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> <br>Bir seçim grubu oluşturur, burada oyun kumandası GUI navigasyonu yalnızca grupta bulunan seçilebilir nesneleri dikkate alır.",
     "params": [
       {
         "name": "self",
@@ -59759,16 +59759,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/1": {
-    "documentation": "Eklenen seçimin adı."
+    "documentation": "Ekleme seçim adıdır."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple/param/2": {
-    "documentation": "Eklenen seçim(ler)."
+    "documentation": "Eklenen seçimlerdir."
   },
   "@roblox/globaltype/GuiService.AddSelectionTuple": {
-    "documentation": "<strong>Deprecated:</strong> <br><strong>AddSelectionTuple</strong>, <code>GuiService:AddSelectionParent()</code> ile benzer şekilde çalışır, ancak grupta yer almasını istediğiniz <code>GuiObject</code>'ın bir toplu halini verir. İkinci argümanın bir tablo olmadığını, ancak birkaç <code>GuiObject</code>'in ilk elemanı olduğunu unutmayın. Bir tablonun içeriğini geçirmek için <code>unpack</code>/<code>unpack</code> kullanın: <pre><code class=\"language-lua\">local frame = script.Parent -- Çeşitli GuiObject'ları ayrı ayrı geçirme GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, frame.Sort, frame.Trash, frame.Drop) -- Bir GuiObject tablosunu açma (unpack/table.unpack eşdeğer) local inventoryButtons = { frame.Sort, frame.Trash, frame.Drop } GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, unpack(inventoryButtons)) </code></pre>",
+    "documentation": "<strong>Deprecated:</strong> <br><strong>AddSelectionTuple</strong>, <code>GuiService:AddSelectionParent()</code> ile benzer çalışır, ancak grupta yer almasını istediğiniz <code>GuiObject</code>'ların bir demetini verebilirsiniz. İkinci argümanın <em>bir tablo</em> olmadığını, aksine demetteki birkaç <code>GuiObject</code>'dan ilki olduğunu unutmayın. Bir tablonun içeriğini iletmek için <code>unpack</code>/<code>unpack</code> kullanın: <pre><code class=\"language-lua\">local frame = script.Parent -- Çeşitli GuiObject'leri bireysel olarak geçirme GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, frame.Sort, frame.Trash, frame.Drop) -- Bir GuiObject tablosunu açma (unpack/table.unpack eşdeğerdir) local inventoryButtons = { frame.Sort, frame.Trash, frame.Drop } GuiService:AddSelectionTuple(&quot;InventoryButtons&quot;, unpack(inventoryButtons)) </code></pre>",
     "params": [
       {
         "name": "self",
@@ -59788,10 +59788,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.CloseInspectMenu/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.CloseInspectMenu": {
-    "documentation": "Açık olduğunda avatar inceleme menüsünü kapatır.",
+    "documentation": "Açık olduğu takdirde avatar inceleme menüsünü kapatır.",
     "params": [
       {
         "name": "self",
@@ -59803,7 +59803,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.DismissNotification/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.DismissNotification/param/1": {
     "documentation": ""
@@ -59830,13 +59830,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen/return/0": {
-    "documentation": "Duygu menüsünün açık olup olmadığını belirtir."
+    "documentation": "Emote menüsünün açık olup olmadığı."
   },
   "@roblox/globaltype/GuiService.GetEmotesMenuOpen": {
-    "documentation": "Oyuncu duygulandırma menüsünün açık olup olmadığını kontrol eder.",
+    "documentation": "Oyuncunun emote menüsünün açık olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -59850,13 +59850,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled/return/0": {
-    "documentation": "<code>Player.GameplayPaused</code> bildirim durumunun devre dışı bırakılıp bırakılmadığını belirtir."
+    "documentation": "<code>Player.GameplayPaused</code> bildirimisinin devre dışı bırakılıp bırakılmadığı."
   },
   "@roblox/globaltype/GuiService.GetGameplayPausedNotificationEnabled": {
-    "documentation": "<code>Player.GameplayPaused</code> bildirim durumunun devre dışı bırakılıp bırakılmadığını döner.",
+    "documentation": "<code>Player.GameplayPaused</code> bildiriminin devre dışı bırakılıp bırakılmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -59870,13 +59870,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetGuiInset/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.GetGuiInset/return/0": {
-    "documentation": "Mevcut belirtilen GUI yerleşimini tanımlayan iki <code>Vector2</code> değerinin bir topluluğudur."
+    "documentation": "Geçerli belirtilmiş GUI içe çekme bölgesi hakkında iki <code>Vector2</code> değerinden oluşan bir demet."
   },
   "@roblox/globaltype/GuiService.GetGuiInset": {
-    "documentation": "Ekranın sol üst köşesinden ve sağ alt köşesinden kullanıcı GUI'lerinin piksel cinsinden yerleşimini temsil eden iki <code>Vector2</code> değeri döner.",
+    "documentation": "Ekranın sol üst köşesinden ve ekranın sağ alt köşesinden kullanıcı GUIs'nin içe çekilmesi ile temsil eden iki <code>Vector2</code> değerini döner.",
     "params": [
       {
         "name": "self",
@@ -59890,7 +59890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetInsetArea/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.GetInsetArea/param/1": {
     "documentation": ""
@@ -59899,7 +59899,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.GetInsetArea": {
-    "documentation": "Bir <code>ScreenInsets</code> değerini alır ve <code>CoreUISafeInsets</code> alanına göre yerleşim alanını tanımlayan bir <code>Rect</code> döner.",
+    "documentation": "Bir <code>ScreenInsets</code> değerini alır ve <code>CoreUISafeInsets</code> alanına göre ilişkili içe çekme bölgesini tanımlayan bir <code>Rect</code> döner.",
     "params": [
       {
         "name": "self",
@@ -59917,10 +59917,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled/return/0": {
-    "documentation": "Avatar inceleme menüsünün etkin olup olmadığını belirtir."
+    "documentation": "Avatar inceleme menüsünün etkin olup olmadığı."
   },
   "@roblox/globaltype/GuiService.GetInspectMenuEnabled": {
     "documentation": "Avatar inceleme menüsünün etkin olup olmadığını döner.",
@@ -59937,16 +59937,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/1": {
-    "documentation": "İnceleme menüsünde gösterilecek varlıkları içeren bir <code>HumanoidDescription</code> nesnesidir."
+    "documentation": "İnceleme menüsünde gösterilecek varlıkları içeren bir <code>HumanoidDescription</code> nesnesi."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription/param/2": {
-    "documentation": "Menüde gösterilmek üzere incelenen oyuncunun adı."
+    "documentation": "Menüde gösterilecek inceleme yapılan oyuncunun adı."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromHumanoidDescription": {
-    "documentation": "Avatar inceleme menüsünün görünmesini sağlar ve bir <code>HumanoidDescription</code> nesnesinde belirtilen varlıkları gösterir.",
+    "documentation": "Avatar inceleme menüsünün, <code>HumanoidDescription</code> nesnesinde listelenen varlıkları göstererek görünmesine izin verir.",
     "params": [
       {
         "name": "self",
@@ -59963,16 +59963,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromHumanoidDescription",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\nhumanoidDescription.HatAccessory = \"3339374070\"\nhumanoidDescription.BackAccessory = \"3339363671\"\n\nGuiService:InspectPlayerFromHumanoidDescription(humanoidDescription, \"MyPlayer\")"
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId/param/1": {
-    "documentation": "İncelenecek oyuncunun <code>UserId</code>'si."
+    "documentation": "İncelenecek oyuncunun <code>UserId</code>."
   },
   "@roblox/globaltype/GuiService.InspectPlayerFromUserId": {
-    "documentation": "Belirtilen <code>UserId</code>'ye sahip olan kullanıcının görünmesini sağlar.",
+    "documentation": "Verilen <code>UserId</code>'ye sahip kullanıcıyı gösteren avatar inceleme menüsünün görünmesine izin verir.",
     "params": [
       {
         "name": "self",
@@ -59985,16 +59985,16 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#InspectPlayerFromUserId",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\nGuiService:InspectPlayerFromUserId(772462)"
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.IsTenFootInterface": {
-    "documentation": "İstemcinin on ayak arayüzünü kullandığını belirten <code>true</code> döner, bu, konsollara özel bir Roblox UI sürümüdür.",
+    "documentation": "Müşterinin, konsollara özel olan Roblox'un UI'sının on foot arayüzünü kullanıp kullanmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -60008,7 +60008,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.RemoveSelectionGroup/param/1": {
     "documentation": ""
@@ -60030,13 +60030,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.Select/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.Select/param/1": {
-    "documentation": "Alt nesneleri aranacak seçim ebeveynidir."
+    "documentation": "Aramanın yapıldığı seçim ebeveyninin altı."
   },
   "@roblox/globaltype/GuiService.Select": {
-    "documentation": "Sadece <code>PlayerGui</code> veya onun alt öğelerinden biri olan sağlanan nesnenin bir alt öğesine <code>GuiService.SelectedObject</code>'ı ayarlar.",
+    "documentation": "Verilen <code>PlayerGui</code> ya da onun alt nesnelerinin bir çocuğuna <code>GuiService.SelectedObject</code> değerini ayarlar.",
     "params": [
       {
         "name": "self",
@@ -60052,7 +60052,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SendNotification/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.SendNotification/param/1": {
     "documentation": ""
@@ -60079,13 +60079,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.SetEmotesMenuOpen": {
-    "documentation": "Oyuncu duygulandırma menüsünü açar veya kapatır.",
+    "documentation": "Oyuncu emote menüsünü açar veya kapatır.",
     "params": [
       {
         "name": "self",
@@ -60101,13 +60101,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled/param/1": {
-    "documentation": "Yerleşik bildirim GUI'sinin devre dışı bırakılıp bırakılmadığını belirtir."
+    "documentation": "Varsayılan bildirim GUI'sinin devre dışı bırakılıp bırakılmadığı."
   },
   "@roblox/globaltype/GuiService.SetGameplayPausedNotificationEnabled": {
-    "documentation": "Bir oyuncunun oyun süresinin duraklatılması durumunda yerleşik bildirimi devre dışı bırakmayı sağlar.",
+    "documentation": "Bir oyuncunun oyun süresinin duraklatıldığında, varsayılan bildirimi devre dışı bırakmanızı sağlar.",
     "params": [
       {
         "name": "self",
@@ -60123,10 +60123,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled/param/0": {
-    "documentation": "Oyunla ilgili UI görevleri, <code>GuiObjects</code> ve oyuncu tercihleriyle çalışmak için birçok özellik ve yöntem sunar."
+    "documentation": "Birçok özellik ve metot sunar, <code>GuiObjects</code>, oyuncu tercihleri ve diğer UI ile ilgili görevlerle çalışmak için."
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled/param/1": {
-    "documentation": "Menüyü etkinleştirmek veya devre dışı bırakmak için bir boolean değeri."
+    "documentation": "Menüyü etkinleştirip devre dışı bırakmak için bir boolean."
   },
   "@roblox/globaltype/GuiService.SetInspectMenuEnabled": {
     "documentation": "Avatar inceleme menüsünü etkinleştirme veya devre dışı bırakma olanağı sağlar.",
@@ -62165,7 +62165,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Beam.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "<code>Beam.Transparency</code> için yerel istemciye yalnızca görünür bir çarpan belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Beam#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -78849,7 +78849,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireCustomEvent",
-    "code_sample": ""
+    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\nlocal Players = game:GetService(\"Players\")\n\n-- sunucu olayı, yeni bir sunucunun başladığını bildir\nlocal serverInfo = {\n\tTime = os.time(),\n\tPlaceId = game.PlaceId,\n}\n\nAnalyticsService:FireCustomEvent(nil, \"ServerStart\", serverInfo)\n\nPlayers.PlayerAdded:Connect(function(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tlocal customData = {\n\t\t\tTime = os.time(),\n\t\t\tMessage = message,\n\t\t}\n\t\tAnalyticsService:FireCustomEvent(player, \"PlayerChatted\", customData)\n\tend)\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/0": {
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
@@ -78908,7 +78908,7 @@
     "documentation": "İsteğe bağlı. Kullanıcı tanımlı veri, bir dize, bir sayı veya bir tablo olabilir."
   },
   "@roblox/globaltype/AnalyticsService.FireInGameEconomyEvent": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski fonksiyon, yerine kullanılabilecek <code>AnalyticsService:LogEconomyEvent()</code>'in bir varyantıdır.<br>Oyun içi ekonomi ile ilgili oyuncu eylemlerini takip etmek için kullanılan bir olayı tetikler.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski fonksiyon, yerine kullanılabilecek <code>AnalyticsService:LogEconomyEvent()</code>'in bir varyantıdır.<br>Oyuncu eylemlerini oyundaki ile izlemek için kullanılan bir olayı tetikleyin",
     "params": [
       {
         "name": "self",
@@ -78949,7 +78949,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireInGameEconomyEvent",
-    "code_sample": ""
+    "code_sample": "local AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal gold = script.Parent\n\ngold.Touched:Connect(function(otherPart)\n\tlocal player = game.Players:GetPlayerFromCharacter(otherPart.Parent)\n\tif player == nil then\n\t\treturn\n\tend\n\n\tlocal location = {\n\t\t[\"Map\"] = \"someMap\",\n\t\t[\"Position\"] = tostring(gold.Position),\n\t}\n\n\tAnalyticsService:FireInGameEconomyEvent(\n\t\tplayer,\n\t\t\"Kılıç\", -- item name\n\t\tEnum.AnalyticsEconomyAction.Spend,\n\t\t\"Silah\", -- itemCategory\n\t\t2020, -- amount of Gold\n\t\t\"Altın\", -- currency\n\t\tlocation,\n\t\t{ SomeCustomKey = \"SomeCustomValue\" }\n\t) -- optional customData\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent/param/0": {
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
@@ -78999,7 +78999,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#FireLogEvent",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\nlocal AnalyticsService = game:GetService(\"AnalyticsService\")\n\nlocal placeId = game.PlaceId\n\nlocal player = Players:GetPlayerByUserId(123)\n\nxpcall(function()\n\tTeleportService:Teleport(placeId, player)\nend, function(errorMessage)\n\tlocal debugInfo = {\n\t\terrorCode = \"TeleportFailed\",\n\t\tstackTrace = debug.traceback(), -- fonksiyon çağrı yığını\n\t}\n\tAnalyticsService:FireLogEvent(\n\t\tplayer,\n\t\tEnum.AnalyticsLogLevel.Error, -- günlük seviyesi\n\t\terrorMessage, -- mesaj\n\t\tdebugInfo, -- isteğe bağlı\n\t\t{\n\t\t\tPlayerId = player.UserId,\n\t\t\tPlaceId = placeId,\n\t\t}\n\t) -- customData isteğe bağlı\nend)"
   },
   "@roblox/globaltype/AnalyticsService.FirePlayerProgressionEvent/param/0": {
     "documentation": "Kullanıcıların deneyimlerinizle nasıl etkileşimde bulunduğunu takip etmenizi sağlayan yöntemler topluluğu."
@@ -81583,7 +81583,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox": {
-    "documentation": "Oyuncunun düzenleyebileceği metni gösteren 2D bir kullanıcı arayüzü öğesi.",
+    "documentation": "Oyuncular tarafından düzenlenebilir metin gösteren 2D kullanıcı arayüzü öğesi.",
     "keys": {
       "ClearTextOnFocus": "@roblox/globaltype/TextBox.ClearTextOnFocus",
       "ContentText": "@roblox/globaltype/TextBox.ContentText",
@@ -81626,7 +81626,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.ClearTextOnFocus": {
-    "documentation": "<code>TextBox</code> üzerine tıklanıldığında <code>TextBox.Text</code> özelliğinin temizlenip temizlenmeyeceğini belirler.",
+    "documentation": "Tıklamanın <code>TextBox</code> içindeki <code>TextBox.Text</code> özelliğini temizleyip temizlemeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ClearTextOnFocus",
     "code_sample": ""
   },
@@ -81636,37 +81636,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CursorPosition": {
-    "documentation": "Metin imlecinin byte cinsinden ofsetini, veya imleç yoksa <code>-1</code> değerini belirler.",
+    "documentation": "Metin işaretleyicisinin bayt cinsinden kaymasını belirler; veya işaretleyici yoksa <code>-1</code> döner.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#CursorPosition",
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"Seçim yok\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('Seçim şudur:\"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.Font": {
-    "documentation": "Metni göstermek için kullanılan fontu belirler.",
+    "documentation": "Metnin render edilmesinde kullanılan fontu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Font",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontFace": {
-    "documentation": "Metni render etmek için kullanılan font yüzünü belirler.",
+    "documentation": "Metnin render edilmesinde kullanılan font yüzünü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontFace",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.FontSize": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, yeni çalışmalarda kullanılacak <code>TextBox.TextSize</code> ile değiştirilmiştir.<br><code>TextBox</code> nesnesinin font boyutunu belirler.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılacak <code>TextBox.TextSize</code> ile değiştirilmiştir.<br>Bir <code>TextBox</code> nesnesinin font boyutunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#FontSize",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.LineHeight": {
-    "documentation": "TextBox içindeki metin satırları arasındaki boşluğu ölçeklendirir.",
+    "documentation": "<code>TextBox</code> içindeki metinler arasındaki satır boşluğunu ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#LineHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MaxVisibleGraphemes": {
-    "documentation": "<code>TextBox</code>'un gösterebileceği maksimum graphem sayısını belirler.",
+    "documentation": "<code>TextBox</code>'ın gösterebileceği maksimum grubun sayısını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MaxVisibleGraphemes",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.MultiLine": {
-    "documentation": "<code>true</code> olarak ayarlandığında, bir <code>TextBox</code> içindeki metin birden fazla satıra geçebilir.",
+    "documentation": "<code>true</code> olarak ayarlandığında, bir <code>TextBox</code> içindeki metin birden fazla satıra taşınabilir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#MultiLine",
     "code_sample": ""
   },
@@ -81681,17 +81681,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderColor3": {
-    "documentation": "Metin girilmediğinde kullanılan metin rengi ayarlanır.",
+    "documentation": "Bir <code>TextBox</code>'a metin girilmediğinde kullanılan metin rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.PlaceholderText": {
-    "documentation": "Metin girilmediğinde gösterilen metni ayarlar.",
+    "documentation": "Bir <code>TextBox</code>'a metin girilmediğinde görüntülenen metni ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#PlaceholderText",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.RichText": {
-    "documentation": "<code>TextBox</code>'un <code>Text</code> dizesini zengin metin formatıyla render edip etmeyeceğini belirler.",
+    "documentation": "<code>TextBox</code>'ın <code>Text</code> dizisini zengin metin formatlama ile render edip etmeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#RichText",
     "code_sample": ""
   },
@@ -81701,17 +81701,17 @@
     "code_sample": "local textBox = script.Parent\n\nlocal function showSelection()\n\tif textBox.CursorPosition == -1 or textBox.SelectionStart == -1 then\n\t\tprint(\"Seçim yok\")\n\telse\n\t\tlocal selectedText = string.sub(\n\t\t\ttextBox.Text,\n\t\t\tmath.min(textBox.CursorPosition, textBox.SelectionStart),\n\t\t\tmath.max(textBox.CursorPosition, textBox.SelectionStart)\n\t\t)\n\t\tprint('Seçim şudur:\"', selectedText, '\"')\n\tend\nend\n\ntextBox:GetPropertyChangedSignal(\"CursorPosition\"):Connect(showSelection)\ntextBox:GetPropertyChangedSignal(\"SelectionStart\"):Connect(showSelection)"
   },
   "@roblox/globaltype/TextBox.ShowNativeInput": {
-    "documentation": "<code>true</code> olarak ayarlandığında, platforma özgü giriş kullanılır Roblox'ın yerleşik klavyesi yerine.",
+    "documentation": "<code>true</code> olarak ayarlandığında, platforma özgü giriş kullanılır; Roblox'un yerleşik klavyesi yerine.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#ShowNativeInput",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.Text": {
-    "documentation": "<code>TextBox</code> elemanının render ettiği dizeyi belirler.",
+    "documentation": "<code>TextBox</code> öğesi tarafından render edilen dizeyi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#Text",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextBounds": {
-    "documentation": "<code>TextBox</code> elemanının metninin ofset cinsinden boyutunu belirler.",
+    "documentation": "<code>TextBox</code> öğesinin metninin ofset cinsinden boyutunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextBounds",
     "code_sample": ""
   },
@@ -81731,17 +81731,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextEditable": {
-    "documentation": "Oyuncunun <code>Text</code>'i değiştirebilir olup olmadığını belirler.",
+    "documentation": "Oyuncunun <code>Text</code>'i değiştip değiştiremeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextEditable",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextFits": {
-    "documentation": "<code>TextBox</code> kısıtlamaları içinde metin uyum sağlıyor mu?",
+    "documentation": "<code>TextBox</code> kısıtlamaları içinde metnin sığma durumunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextFits",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextScaled": {
-    "documentation": "Metnin <code>TextBox</code> içinde sığması için yeniden boyutlandırılıp boyutlandırılamayacağını belirler.",
+    "documentation": "Metnin <code>TextBox</code> içinde sığacak şekilde boyutlandırılıp boyutlandırılmayacağını değiştirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextScaled",
     "code_sample": ""
   },
@@ -81751,12 +81751,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeColor3": {
-    "documentation": "Metin stroke (kontur) rengini belirler.",
+    "documentation": "Metin çerçevesinin (konturunun) rengini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextStrokeColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextStrokeTransparency": {
-    "documentation": "Render edilmiş metnin stroke (kontur) saydamlığını belirler.",
+    "documentation": "Metin çerçevesinin (konturunun) şeffaflığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextStrokeTransparency",
     "code_sample": ""
   },
@@ -81766,7 +81766,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextTruncate": {
-    "documentation": "Displayed metnin kesilmesini kontrol eder.",
+    "documentation": "<code>TextBox</code> içindeki metnin kesilmesini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextTruncate",
     "code_sample": ""
   },
@@ -81776,7 +81776,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextWrapped": {
-    "documentation": "<code>TextBox</code> elemanının alanı içinde metnin birden fazla satıra geçip geçmeyeceğini belirler, fazla metni keser.",
+    "documentation": "<code>TextBox</code> öğesi alanı içinde metnin birden fazla satıra geçip geçmeyeceğini, fazla metnin kesilmesini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextWrapped",
     "code_sample": ""
   },
@@ -81791,10 +81791,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.CaptureFocus/param/0": {
-    "documentation": "Oyuncunun düzenleyebileceği metni gösteren 2D bir kullanıcı arayüzü öğesi."
+    "documentation": "Oyuncular tarafından düzenlenebilir metin gösteren 2D kullanıcı arayüzü öğesi."
   },
   "@roblox/globaltype/TextBox.CaptureFocus": {
-    "documentation": "<code>TextBox</code>'a odaklanmasını zorlar.",
+    "documentation": "<code>TextBox</code>'a odaklanması için istemciyi zorlar.",
     "params": [
       {
         "name": "self",
@@ -81806,13 +81806,13 @@
     "code_sample": "local UserInputService = game:GetService(\"UserInputService\")\n\nlocal textBox = script.Parent\n\nlocal input = UserInputService.InputBegan:Connect(function(input, processed)\n\tif input.KeyCode == Enum.KeyCode.Q then\n\t\ttextBox:CaptureFocus()\n\tend\nend)"
   },
   "@roblox/globaltype/TextBox.IsFocused/param/0": {
-    "documentation": "Oyuncunun düzenleyebileceği metni gösteren 2D bir kullanıcı arayüzü öğesi."
+    "documentation": "Oyuncular tarafından düzenlenebilir metin gösteren 2D kullanıcı arayüzü öğesi."
   },
   "@roblox/globaltype/TextBox.IsFocused/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextBox.IsFocused": {
-    "documentation": "<code>TextBox</code>'ın odakta olup olmadığını belirten <code>true</code> döner veya değilse <code>false</code> döner.",
+    "documentation": "<code>TextBox</code> odaklandığında <code>true</code> döner; odaklı değilse <code>false</code> döner.",
     "params": [
       {
         "name": "self",
@@ -81826,13 +81826,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.ReleaseFocus/param/0": {
-    "documentation": "Oyuncunun düzenleyebileceği metni gösteren 2D bir kullanıcı arayüzü öğesi."
+    "documentation": "Oyuncular tarafından düzenlenebilir metin gösteren 2D kullanıcı arayüzü öğesi."
   },
   "@roblox/globaltype/TextBox.ReleaseFocus/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/TextBox.ReleaseFocus": {
-    "documentation": "İstemciyi TextBox'dan odaklanmamaya zorlar.",
+    "documentation": "<code>TextBox</code>'ın odaklanmasını kaldırması için istemciyi zorlar.",
     "params": [
       {
         "name": "self",
@@ -82101,7 +82101,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard": {
-    "documentation": "<code>TextBox</code> odaklandığında ve oyuncu ekran klavyesinin geri/enter tuşuna bastığında olay tetiklenir.",
+    "documentation": "<code>TextBox</code> odaklandığında ve oyuncu ekran klavyesinin geri/enter tuşuna bastığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.ConnectParallel",
@@ -97910,7 +97910,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PathfindingService.EmptyCutoff": {
-    "documentation": "<strong>Deprecated:</strong> Bu özellik eski yol bulma sisteminin kaldırılması nedeniyle artık kullanılmıyor. Yeni çalışmalar için kullanmayın.<br>Bir voxel'ın boş sayılabilmesi için örtülmesi gereken yüzdelik miktarı ayarlar. Varsayılan olarak 0.16'dır.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, eski yol bulma sisteminin kaldırılması nedeniyle kullanım dışıdır. Yeni çalışmalar için kullanmayın.<br>Bir voxel'in boş olarak kabul edilmesi için kaplanması gereken yüzdeyi ayarlar. Varsayılan olarak 0.16'dır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PathfindingService#EmptyCutoff",
     "code_sample": ""
   },
@@ -97930,7 +97930,7 @@
     "documentation": "Bir <code>Path</code> nesnesi."
   },
   "@roblox/globaltype/PathfindingService.ComputeRawPathAsync": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılacak <code>PathfindingService:FindPathAsync()</code> ile değiştirilmiştir.<br>İki <code>Vector3s</code> arasında bir <code>Path</code> hesaplar ve döner. Verilen MaxDistance 512'den büyükse, bir hata fırlatılacaktır. (MaxDistance çok büyük).",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, yeni çalışmalar için kullanılacak <code>PathfindingService:FindPathAsync()</code> ile değiştirilmiştir.<br>İki <code>Vector3s</code> arasında bir <code>Path</code> hesaplar ve döndürür. Eğer verilen MaxDistance 512'den büyükse, hata oluşturulacaktır. (MaxDistance çok büyük).",
     "params": [
       {
         "name": "self",
@@ -97971,7 +97971,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PathfindingService.ComputeSmoothPathAsync": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılacak <code>PathfindingService:FindPathAsync()</code> ile değiştirilmiştir.<br>İki <code>Vector3s</code> arasında düzgün bir <code>Path</code> hesaplar ve döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, yeni çalışmalar için kullanılacak <code>PathfindingService:FindPathAsync()</code> ile değiştirilmiştir.<br>İki <code>Vector3s</code> arasında düzgün bir <code>Path</code> hesaplar ve döndürür.",
     "params": [
       {
         "name": "self",
@@ -98000,7 +98000,7 @@
     "documentation": "İki nokta arasında mantıksal yollar bulmak için kullanılır."
   },
   "@roblox/globaltype/PathfindingService.CreatePath/param/1": {
-    "documentation": "Çeşitli ajan parametrelerine dayalı yolu ince ayarlamanızı sağlayan Lua tablosu."
+    "documentation": "Çeşitli ajan parametrelerine göre yolu ince ayar yapmanıza olanak tanıyan Lua tablosu."
   },
   "@roblox/globaltype/PathfindingService.CreatePath/return/0": {
     "documentation": "Bir <code>Path</code> nesnesi."
@@ -98036,7 +98036,7 @@
     "documentation": "Bir <code>Path</code> nesnesi."
   },
   "@roblox/globaltype/PathfindingService.FindPathAsync": {
-    "documentation": "Verilen iki nokta arasında bir <code>Path</code> bulur.",
+    "documentation": "Sağlanan iki nokta arasında bir <code>Path</code> bulur.",
     "params": [
       {
         "name": "self",
@@ -99082,7 +99082,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf.",
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet.",
     "keys": {
       "CreateAdRewardFromDevProductId": "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId",
       "GetAdAvailabilityNowAsync": "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync",
@@ -99097,7 +99097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/param/1": {
     "documentation": "Ödül olarak vermek istediğiniz geliştirici ürününün ID'si."
@@ -99106,7 +99106,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
-    "documentation": "Bir video reklamını tamamıyla izleyen kullanıcılara verilecek bir ödül oluşturur.",
+    "documentation": "Video reklam izleyen kullanıcılara vermek için bir <code>AdReward</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -99124,16 +99124,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/param/1": {
-    "documentation": "İstenilen reklamın formatı. Örneğin, <code>RewardedVideo</code>."
+    "documentation": "Talep edilen reklamın formatı. Örneğin,  <code>AdFormat.RewardedVideo</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync/return/0": {
-    "documentation": "İstenilen reklam formatı için <code>AdAvailabilityResult</code> içeren bir sözlük."
+    "documentation": "Aşağıdaki gibi bir sözlük: <code>{ AdAvailabilityResult: Enum.AdAvailabilityResult }</code>."
   },
   "@roblox/globaltype/AdService.GetAdAvailabilityNowAsync": {
-    "documentation": "Deneyim içerisinde mevcut kullanıcının oynatabileceği bir video reklamının olup olmadığını kontrol eder.",
+    "documentation": "Belirtilen formatta bir reklamın <code>LocalPlayer</code>'a gösterilmek üzere mevcut olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -99151,19 +99151,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/1": {
     "documentation": "Bir <code>Player</code>'ın uygunluğunu kontrol etmek istediğiniz kampanyanın ID'si."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/param/2": {
-    "documentation": "<code>Uygunluğunu</code> kontrol etmek istediğiniz <code>Player</code>. Atanmadığı takdirde <code>LocalPlayer</code> olarak varsayılan ayarı alacaktır."
+    "documentation": "Uygunluğunu kontrol etmek istediğiniz <code>Player</code>. Atlanırsa, <code>LocalPlayer</code> varsayılan olacak. Sunucuda, <code>player</code> argümanı zorunludur."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync/return/0": {
     "documentation": "<code>{ IsEligible: boolean }</code> gibi görünen bir sözlük."
   },
   "@roblox/globaltype/AdService.GetCampaignEligibilityAsync": {
-    "documentation": "",
+    "documentation": "Bir <code>Player</code>'ın gösterilmek üzere bir <a href=\"../../../production/promotion/ad-integrations.md\">reklam entegrasyonu</a> kampanyasına uygunluğunu kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -99185,7 +99185,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
     "documentation": ""
@@ -99214,16 +99214,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/1": {
-    "documentation": "Bir reklam açıklaması olarak işaretlemek istediğiniz <code>GuiButton</code>."
+    "documentation": "Bir reklam entegrasyonu ifşası olarak işaretlemek istediğiniz <code>GuiButton</code>. <code>GuiButton</code>, etiketleme kurallarına göre olmalıdır. Detaylar için <a href=\"../../../production/promotion/ad-integrations.md#labeling-and-disclosure\">buraya</a> bakın."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton/param/2": {
-    "documentation": "Bu açıklamanın bağlı olduğu konumun ID'si."
+    "documentation": "Bu ifşanın bağlı olduğu yerleştirmenin ID'si."
   },
   "@roblox/globaltype/AdService.RegisterDisclosureButton": {
-    "documentation": "",
+    "documentation": "Bir <a href=\"../../../production/promotion/ad-integrations.md\">reklam entegrasyonu</a> için bir reklam ifşa butonu kaydeder.",
     "params": [
       {
         "name": "self",
@@ -99243,19 +99243,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/1": {
-    "documentation": "Reklamı almakta olduğunuz <code>Player</code> nesnesi."
+    "documentation": "Ödüllü bir video reklamı izletmek için tetiklemek istediğiniz <code>Player</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/2": {
-    "documentation": "Reklamı tamamlayan kullanıcıya vermek istediğiniz ödül nesnesi."
+    "documentation": "Reklamı izledikten sonra kullanıcıya verilecek <code>AdReward</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/param/3": {
     "documentation": "Deneyim içerisindeki ödüllü video reklamının konumunun ID'si. Bireysel reklam konumlarının performansını raporlamaya olanak tanır."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0": {
-    "documentation": ""
+    "documentation": "İstemcinin reklam sunumunun <code>ShowAdResult</code>'u. Bu sonucu ödül vermek için kullanmamalısınız. Bunun yerine, yardımcı olduğunuzdan emin olmalısınız ki ödülü <code>ProcessReceipt</code> uygulamanızdan verin. Ödüllü video reklamlarıyla kazanılan <a href=\"../../../production/monetization/developer-products.md\">çatı ürünleri</a>,  <code>ProductPurchaseChannel</code>'ı <code>ProductPurchaseChannel.AdReward</code> olacaktır."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
     "documentation": "Deneyim içerisindeki mevcut kullanıcıya video reklamı oynatır.",
@@ -99281,10 +99281,10 @@
       "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdService#ShowRewardedVideoAdAsync",
-    "code_sample": "local reward = AdService:CreateAdRewardFromDevProductId(100)\nlocal result = AdService:ShowRewardedVideoAdAsync(player, reward)"
+    "code_sample": ""
   },
   "@roblox/globaltype/AdService.ShowVideoAd/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.ShowVideoAd": {
     "documentation": "<strong>Deprecated:</strong> <code>ShowVideoAd</code> kullanımdan kaldırılmıştır ve artık çalışmamaktadır.<br>Mobil video reklamlarını gösterir.",
@@ -99299,7 +99299,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/0": {
-    "documentation": "Mobil video reklamlarının görüntülenmesine olanak tanıyan bir sınıf."
+    "documentation": "Deneyim içi reklamdan sorumlu hizmet."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
     "documentation": ""
@@ -102946,7 +102946,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame": {
-    "documentation": "Bir <code>Frame</code> gibi, hareketli bir video görüntüsü ile bir dikdörtgen çizen bir GUI nesnesi.",
+    "documentation": "Hareketli bir video görüntüsü ile <code>Frame</code>'in yaptığı gibi bir dikdörtgeni render eden bir GUI nesnesi.",
     "keys": {
       "IsLoaded": "@roblox/globaltype/VideoFrame.IsLoaded",
       "Looped": "@roblox/globaltype/VideoFrame.Looped",
@@ -102968,12 +102968,12 @@
     "code_sample": "local screenPart = Instance.new(\"Part\")\nscreenPart.Parent = workspace\n\nlocal surfaceGui = Instance.new(\"SurfaceGui\")\nsurfaceGui.Parent = screenPart\n\nlocal videoFrame = Instance.new(\"VideoFrame\")\\videoFrame.Parent = surfaceGui\n\nvideoFrame.Looped = true\nvideoFrame.Video = \"rbxassetid://\" -- buraya bir varlık ID'si ekleyin\n\nwhile not videoFrame.IsLoaded do\n\ttask.wait()\nend\n\nvideoFrame:Play()"
   },
   "@roblox/globaltype/VideoFrame.IsLoaded": {
-    "documentation": "<code>VideoFrame.Video</code>'nun Roblox sunucularından yüklendiğini ve oynatmaya hazır olduğunu belirtir.",
+    "documentation": "<code>VideoFrame.Video</code>'nun Roblox sunucularından yüklendiğini ve oynatmaya hazır olduğunu gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#IsLoaded",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Looped": {
-    "documentation": "<code>VideoFrame.Video</code>'nun oynatıldıktan sonra tekrar edip etmeyeceğini ayarlar.",
+    "documentation": "<code>VideoFrame.Video</code> bitiminden sonra tekrar edip etmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Looped",
     "code_sample": ""
   },
@@ -102983,7 +102983,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Playing": {
-    "documentation": "<code>VideoFrame.Video</code>'nün şu anda çalıp çalmadığını belirtir. Oynatmayı başlatmak veya duraklatmak için ayarlanabilir.",
+    "documentation": "<code>VideoFrame.Video</code>'nun şu anda oynatılıp oynatılmadığını gösterir. Oynatmayı başlatmak veya duraklatmak için ayarlanabilir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Playing",
     "code_sample": ""
   },
@@ -103008,17 +103008,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.TimeLength": {
-    "documentation": "<code>VideoFrame.Video</code>'nün uzunluğunu saniye cinsinden belirtir.",
+    "documentation": "<code>VideoFrame.Video</code>'nun uzunluğunu saniye cinsinden gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.TimePosition": {
-    "documentation": "<code>VideoFrame.Video</code>'nun saniye cinsinden ilerlemesini belirtir.",
+    "documentation": "<code>VideoFrame.Video</code>'nun ilerlemesini saniye cinsinden gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#TimePosition",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Video": {
-    "documentation": "Bir <code>VideoFrame</code> nesnesinin ilişkili olduğu video dosyasının içerik kimliği.",
+    "documentation": "Bir <code>VideoFrame</code> nesnesinin ilişkili olduğu video dosyasının içerik ID'sidir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Video",
     "code_sample": "local screenPart = Instance.new(\"Part\")\nscreenPart.Parent = workspace\n\nlocal surfaceGui = Instance.new(\"SurfaceGui\")\nsurfaceGui.Parent = screenPart\n\nlocal videoFrame = Instance.new(\"VideoFrame\")\\videoFrame.Parent = surfaceGui\n\nvideoFrame.Looped = true\nvideoFrame.Video = \"rbxassetid://\" -- buraya bir varlık ID'si ekleyin\n\nwhile not videoFrame.IsLoaded do\n\ttask.wait()\nend\n\nvideoFrame:Play()"
   },
@@ -103028,15 +103028,15 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Volume": {
-    "documentation": "<code>VideoFrame.Video</code>'nun şu anda ne kadar yüksek sesle çaldığını belirtir.",
+    "documentation": "<code>VideoFrame.Video</code>'nun şu anda ne kadar yüksek sesle çaldığını gösterir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoFrame#Volume",
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Pause/param/0": {
-    "documentation": "Bir <code>Frame</code> gibi, hareketli bir video görüntüsü ile bir dikdörtgen çizen bir GUI nesnesi."
+    "documentation": "Hareketli bir video görüntüsü ile <code>Frame</code>'in yaptığı gibi bir dikdörtgeni render eden bir GUI nesnesi."
   },
   "@roblox/globaltype/VideoFrame.Pause": {
-    "documentation": "<code>VideoFrame.Playing</code>'i <code>false</code> olarak ayarlar, eğer <code>VideoFrame.Video</code> oynatılıyorsa duraklatır.",
+    "documentation": "<code>VideoFrame.Playing</code>'i <code>false</code> olarak ayarlar; bu, <code>VideoFrame.Video</code> çalıyorsa oynatmayı duraklatır.",
     "params": [
       {
         "name": "self",
@@ -103048,10 +103048,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VideoFrame.Play/param/0": {
-    "documentation": "Bir <code>Frame</code> gibi, hareketli bir video görüntüsü ile bir dikdörtgen çizen bir GUI nesnesi."
+    "documentation": "Hareketli bir video görüntüsü ile <code>Frame</code>'in yaptığı gibi bir dikdörtgeni render eden bir GUI nesnesi."
   },
   "@roblox/globaltype/VideoFrame.Play": {
-    "documentation": "<code>VideoFrame.Playing</code>'i <code>true</code> olarak ayarlar, <code>VideoFrame.TimePosition</code>'dan mevcut <code>VideoFrame.Video</code>'yu oynatır.",
+    "documentation": "<code>VideoFrame.Playing</code>'i <code>true</code> olarak ayarlar; <code>VideoFrame.TimePosition</code> den oynatır.",
     "params": [
       {
         "name": "self",
@@ -103140,7 +103140,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.DidLoop": {
-    "documentation": "<code>VideoFrame.Video</code> her döndüğünde ateş eder.",
+    "documentation": "<code>VideoFrame.Video</code> her döndüğünde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.DidLoop.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.DidLoop.ConnectParallel",
@@ -103228,7 +103228,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Ended": {
-    "documentation": "<code>VideoFrame.Video</code> oynatma süresini tamamladığında ve durduğunda ateş eder.",
+    "documentation": "<code>VideoFrame.Video</code> oynatma tamamlandığında ve durduğunda tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Ended.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Ended.ConnectParallel",
@@ -103316,7 +103316,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Loaded": {
-    "documentation": "<code>VideoFrame.Video</code> yüklendiğinde ateş eder.",
+    "documentation": "<code>VideoFrame.Video</code> yüklendiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Loaded.ConnectParallel",
@@ -103404,7 +103404,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Paused": {
-    "documentation": "<code>VideoFrame:Pause()</code> kullanılarak veya <code>VideoFrame.Playing</code>'i false olarak ayarlayarak her duraklatıldığında bu olay ateş eder.",
+    "documentation": "<code>VideoFrame:Pause()</code> kullanılarak veya <code>VideoFrame.Playing</code> false olarak ayarlandığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Paused.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Paused.ConnectParallel",
@@ -103492,7 +103492,7 @@
     "returns": []
   },
   "@roblox/globaltype/VideoFrame.Played": {
-    "documentation": "<code>VideoFrame:Play()</code> fonksiyonu kullanılarak veya <code>VideoFrame.Playing</code>'i true olarak ayarlayarak her oynatıldığında bu olay ateş eder.",
+    "documentation": "<code>VideoFrame:Play()</code> işlevi kullanılarak veya <code>VideoFrame.Playing</code> true olarak ayarlandığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/VideoFrame.Played.Connect",
       "ConnectParallel": "@roblox/globaltype/VideoFrame.Played.ConnectParallel",
@@ -104447,7 +104447,7 @@
     "documentation": "İstemi yapılandıran opsiyonel <code>Dictionary</code>. Desteklenen anahtarlar: - <code>FeedbackType</code> (<code>FeedbackType</code>). Hangi geri bildirim akışının görüntüleneceğini seçer. Varsayılan olarak <code>FeedbackType.Feedback</code>."
   },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
-    "documentation": "Oyuncudan mevcut deneyim hakkında geri bildirim göndermesini ister.",
+    "documentation": "Oyuncuyu mevcut deneyim hakkında geri bildirimde bulunmaya veya bir oyuncu destek talebi göndermeye davet eder.",
     "params": [
       {
         "name": "self",
@@ -117859,6 +117859,57 @@
       "Enabled": "@roblox/enum/IKControlConstraintSupport.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/IKControlConstraintSupport",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.Success": {
+    "documentation": "Ekran görüntüsü alma başarılı bir şekilde tamamlandı.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#Success",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.OtherError": {
+    "documentation": "Ekran görüntüsü alma, tanımlanmamış bir hata nedeniyle başarısız oldu.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#OtherError",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.NoDeviceSupport": {
+    "documentation": "Cihaz ekran görüntüsü alımını desteklemiyor.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#NoDeviceSupport",
+    "code_sample": ""
+  },
+  "@roblox/enum/ScreenshotCaptureResult.NoSpaceOnDevice": {
+    "documentation": "Cihazda ekran görüntüsü alımı için yeterli depolama alanı yok.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult#NoSpaceOnDevice",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.ScreenshotCaptureResult": {
+    "documentation": "Ekran görüntüsü alımının sonucunu tanımlar <code>CaptureService:TakeScreenshotCaptureAsync()</code>.",
+    "keys": {
+      "Success": "@roblox/enum/ScreenshotCaptureResult.Success",
+      "OtherError": "@roblox/enum/ScreenshotCaptureResult.OtherError",
+      "NoDeviceSupport": "@roblox/enum/ScreenshotCaptureResult.NoDeviceSupport",
+      "NoSpaceOnDevice": "@roblox/enum/ScreenshotCaptureResult.NoSpaceOnDevice"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ScreenshotCaptureResult",
     "code_sample": ""
   },
   "@roblox/enum/HttpContentType.ApplicationJson": {
