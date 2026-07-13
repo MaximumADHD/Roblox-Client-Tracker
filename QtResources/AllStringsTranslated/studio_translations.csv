@@ -12990,6 +12990,8 @@ Studio.ActivityFeed.Description.ExperiencePermissionsUpdated,,,Permissions were 
 Studio.ActivityFeed.Description.ExperiencePermissionsRevoked,,,All permissions were revoked for {roleName}.,All permissions were revoked for {roleName}.
 Studio.ActivityFeed.Description.DraftCommitOneMoreScript,,,1 more script,1 more script
 Studio.ActivityFeed.Description.RobloxModerationRejection,,,Ratings rejected,Ratings rejected
+Studio.ActivityFeed.Description.EscapeHatchSaveCopyToCloud,,,"Saved a copy of ""{oldName}"" as ""{newName}""","Saved a copy of ""{oldName}"" as ""{newName}"""
+Studio.ActivityFeed.Description.ActionFriendsTitle,,,Friends Only,Friends Only
 Studio.StreamingServiceDispatcherRegistry.CreateMaterial.FailedToCreateMaterialTextFilteredError,,,Your prompt is filtered and cannot be generated. Try a different prompt.,Your prompt is filtered and cannot be generated. Try a different prompt.
 Studio.StreamingServiceDispatcherRegistry.Plugin.Name,,,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
 Studio.StreamingServiceDispatcherRegistry.Plugin.Toolbar,,,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
@@ -14415,6 +14417,7 @@ Studio.Assistant.CloseTooltip.Body,,,Use this button to open the Assistant panel
 Studio.Assistant.EditSkill.Edited,,,Modified skill: {name},Modified skill: {name}
 Studio.Assistant.Skills.ShadowedTooltip,,,Disabled because a personal skill with the same name is enabled.,Disabled because a personal skill with the same name is enabled.
 Studio.Assistant.EditSkill.Editing,,,Modifying skill,Modifying skill
+Studio.Assistant.ToolConfirmation.ToolCallRejected,,,'{toolName}' tool call rejected by user,'{toolName}' tool call rejected by user
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15779,6 +15782,14 @@ Studio.TeamCreate.SafetyEvictDialog.GenericTitleCollabRestrictions,,,You were re
 Studio.TeamCreate.SafetyEvictDialog.DescriptionPleaseTryAgainLater,,,Please try again later.,Please try again later.
 Studio.TeamCreate.TCJoinFailedToStartServer,,,We were unable to start up the Team Create server.,We were unable to start up the Team Create server.
 Studio.TeamCreate.TCJoinReceivedError,,,Failed to join Team Create place.,Failed to join Team Create place.
+Studio.TeamCreate.JoinErrorServerStartup,,,Server did not start,Server did not start
+Studio.TeamCreate.JoinErrorGamejoinGeneric,,,Got error from Gamejoin,Got error from Gamejoin
+Studio.TeamCreate.JoinErrorServerFull,,,The server is full,The server is full
+Studio.TeamCreate.JoinErrorModerated,,,The place has been moderated,The place has been moderated
+Studio.TeamCreate.JoinErrorUnauthorized,,,You do not have permission to join this place,You do not have permission to join this place
+Studio.TeamCreate.JoinErrorInvalidRequest,,,Invalid request,Invalid request
+Studio.TeamCreate.JoinErrorRccChannel,,,Invalid RCC channel,Invalid RCC channel
+Studio.TeamCreate.JoinErrorGeneric,,,Join failed,Join failed
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
 Studio.NetworkSettings.Property.InboundNetworkMinDelay,,,Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)

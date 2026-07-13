@@ -925,6 +925,7 @@ Studio.App.ExplorerFiltering.BadName2,,"unexpected '%1'. if you are trying to se
 Studio.App.ExplorerFiltering.IncompleteOr1,User typed a search like 'Barrier or',expected something to '%1' with,expected something to '%1' with
 Studio.App.ExplorerFiltering.IncompleteParenthesis3,User typed a search like (Barrier,"expected '%1' to balance '%2', received '%3'","expected '%1' to balance '%2', received '%3'"
 Studio.App.ExplorerFiltering.InvalidDoubleStar2,,don't use %1 after %2,don't use %1 after %2
+Studio.App.ExplorerFiltering.InvalidQuery,User used a special query filter with an invalid value.,'%1' is an invalid query: %2,'%1' is an invalid query: %2
 Studio.App.ExplorerFiltering.InvalidTilde,,'%1' is invalid other than for '%2','%1' is invalid other than for '%2'
 Studio.App.ExplorerFiltering.PropertyAncestrySearchMix1,,"property indexing can only be done through something like '%1'. if you want to check children and match a property, use multiple searches.","property indexing can only be done through something like '%1'. if you want to check children and match a property, use multiple searches."
 Studio.App.ExplorerFiltering.PropertyBadOperator4,User typed a search like Locked>true -- the > should instead be an equals sign,"'%1' cannot be used to compare '%2', try '%3' or '%4'","'%1' cannot be used to compare '%2', try '%3' or '%4'"
@@ -2453,6 +2454,7 @@ Studio.App.Property.EnableCodeAssist,Enables code assist feature.,Enable Code-As
 Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable CoreScript Debugger
 Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
 Studio.App.Property.EnableIndentationRulers,Draw markers for indentation in Script Editor,Enable Indentation Rulers,Enable Indentation Rulers
+Studio.App.Property.EnableOvertypeMode,"When enabled, pressing Insert toggles overtype (replace) mode in the Script Editor",Enable Overtype Mode,Enable Overtype Mode
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.EnableInternalPlugins,This is a string for an internal-only setting to load a specific list of plugins in studio.,Enable Internal Plugins,Enable Internal Plugins
@@ -7397,6 +7399,7 @@ Studio.PluginManagement.Main.Title,,Plugins,Plugins
 Studio.PluginManagement.Main.UpdateAllButton,,Update all,Update all
 Studio.PluginManagement.Manage.WindowTitle,,Plugin Management,Plugin Management
 Studio.PluginManagement.Property.EnableInternalPlugins,The label for an internal-only setting in Studio to load certain internal plugins. Not visible to general users.,Load Internal Plugins,Load Internal Plugins
+Studio.PluginManagement.Save.Error,Used to show error when saving selection as plugin,Failed to save plugin to directory,Failed to save plugin to directory
 Studio.PluginManagement.Toolbar.ManageButtonDescription,,Manage plugins installed from roblox.com,Manage plugins installed from roblox.com
 Studio.PluginManagement.Toolbar.ManageButtonTitle,,Manage Plugins,Manage Plugins
 Studio.PluginManagement.Toolbar.ToolbarTitle,,Tools,Tools
