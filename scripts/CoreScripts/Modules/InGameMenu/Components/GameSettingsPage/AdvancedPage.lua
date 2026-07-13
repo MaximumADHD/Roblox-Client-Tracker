@@ -12,7 +12,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
@@ -69,7 +69,17 @@ if not GetFFlagIGMGamepadSelectionHistory() then
 end
 
 function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				TextEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+			},
+			Font = {
+				BaseSize = 1,
+				Header2 = { Font = tokens.Typography.TitleLarge.Font, RelativeSize = tokens.Typography.TitleLarge.FontSize },
+			},
+		}
+	end, function(style)
 		return Roact.createElement(Page, {
 			pageTitle = self.props.pageTitle,
 			zIndex = 2,

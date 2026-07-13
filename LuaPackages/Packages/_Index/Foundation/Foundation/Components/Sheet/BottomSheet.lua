@@ -39,6 +39,7 @@ local SPRING_OMEGA = 2 * math.pi * SPRING_FREQUENCY_HZ
 local SPRING_DAMPING = 0.9
 local VELOCITY_THRESHOLD = 1
 local POSITION_THRESHOLD = 0.5
+local SCROLL_AT_MAX_TOLERANCE = 1e-2
 local ENGINE_INERTIA_FRICTION = 2.35
 local BOTTOM_PADDING = 200
 
@@ -121,6 +122,17 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 	local currentSnapIndex = React.useRef(0)
 	local isClosing = React.useRef(false)
+
+	-- onSnapPointChanged is captured via a ref because including it in the
+	-- useCallback deps below cascades into the opening useEffect and
+	-- re-snaps the sheet to defaultSnapPointIndex on every parent render
+	-- when the consumer passes a non-memoized callback.
+	local onSnapPointChangedRef = if Flags.FoundationBottomSheetOnSnapPointChanged
+		then React.useRef(props.onSnapPointChanged)
+		else nil :: never
+	if Flags.FoundationBottomSheetOnSnapPointChanged then
+		onSnapPointChangedRef.current = props.onSnapPointChanged
+	end
 
 	local backdropTransparency, setBackdropTransparencyGoal = useAnimatedBinding(1, function()
 		if isClosing.current then
@@ -238,6 +250,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local springToSnapIndex = React.useCallback(function(index: number)
 		currentSnapIndex.current = index
 		startSpringSimulation(snapValueToPosition(snapPoints[index]))
+		if Flags.FoundationBottomSheetOnSnapPointChanged and onSnapPointChangedRef.current then
+			onSnapPointChangedRef.current(snapPoints[index], index)
+		end
 	end, { snapValueToPosition, snapPoints } :: { unknown })
 
 	local jumpToSnapIndex = React.useCallback(function(index: number)
@@ -245,6 +260,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		currentSnapIndex.current = index
 		if outerScrollingRef.current then
 			outerScrollingRef.current.CanvasPosition = Vector2.new(0, snapValueToPosition(snapPoints[index]))
+		end
+		if Flags.FoundationBottomSheetOnSnapPointChanged and onSnapPointChangedRef.current then
+			onSnapPointChangedRef.current(snapPoints[index], index)
 		end
 	end, { stopSpringSimulation, snapValueToPosition, snapPoints } :: { unknown })
 
@@ -269,26 +287,41 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end
 	end, { startSpringSimulation, stopSpringSimulation, reducedMotion } :: { unknown })
 
-	local updateInnerScrolling = React.useCallback(function()
-		local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
-		local isAtMaxOfOuterScroll = outerScrollY.current
-			>= if Flags.FoundationBottomSheetImproveSpring
-				then math.floor(maxSheetHeight + safeAreaPadding)
-				else math.round(maxSheetHeight + safeAreaPadding)
-		local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
+	local isOuterScrollAtMax = if Flags.FoundationBottomSheetScrollAtMaxTolerance
+		then React.useCallback(function()
+			local target = math.floor(maxSheetHeight + safeAreaPadding)
+			return outerScrollY.current >= target - SCROLL_AT_MAX_TOLERANCE
+		end, { maxSheetHeight, safeAreaPadding } :: { unknown })
+		else nil :: never
 
-		if
-			(Flags.FoundationBottomSheetInnerScrollingSync and isCollapsing)
-			or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current)
-		then
-			setInnerScrollingEnabled(false)
-		elseif
-			(scrollVelocity.current < 0 or (Flags.FoundationBottomSheetImproveSpring and scrollVelocity.current == 0))
-			and isAtMaxOfOuterScroll
-		then
-			setInnerScrollingEnabled(true)
-		end
-	end, { maxSheetHeight, safeAreaPadding } :: { unknown })
+	local updateInnerScrolling = React.useCallback(
+		function()
+			local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
+			local isAtMaxOfOuterScroll = if Flags.FoundationBottomSheetScrollAtMaxTolerance
+				then isOuterScrollAtMax()
+				else outerScrollY.current >= if Flags.FoundationBottomSheetImproveSpring
+					then math.floor(maxSheetHeight + safeAreaPadding)
+					else math.round(maxSheetHeight + safeAreaPadding)
+			local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
+
+			if
+				(Flags.FoundationBottomSheetInnerScrollingSync and isCollapsing)
+				or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current)
+			then
+				setInnerScrollingEnabled(false)
+			elseif
+				(
+					scrollVelocity.current < 0
+					or (Flags.FoundationBottomSheetImproveSpring and scrollVelocity.current == 0)
+				) and isAtMaxOfOuterScroll
+			then
+				setInnerScrollingEnabled(true)
+			end
+		end,
+		if Flags.FoundationBottomSheetScrollAtMaxTolerance
+			then { isOuterScrollAtMax } :: { unknown }
+			else { maxSheetHeight, safeAreaPadding } :: { unknown }
+	)
 
 	local snapToClosestSwipeSnapPoint = React.useCallback(function()
 		local vel = scrollVelocity.current
@@ -364,68 +397,87 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	-- TODO: maybe attach these to the outer scroll view instead of input service (does it make a difference?)
 	-- TODO: create a ScrollingInertia property that can be used instead of touchpan
 	-- TODO: support mouse wheel scrolling/trackpad scrolling
-	React.useEffect(function()
-		local touchPanConnection = game:GetService("UserInputService").TouchPan:Connect(function(_, _, velocity, _)
-			scrollVelocity.current = velocity.Y
-			updateInnerScrolling()
-		end)
-		local inputBeganConnection = game:GetService("UserInputService").InputBegan:Connect(function()
-			inputActive.current = true
-			scrollVelocity.current = 0
-			stopSpringSimulation()
-		end)
-		local inputEndedConnection = game:GetService("UserInputService").InputEnded:Connect(function()
-			if inputActive.current == false then
-				return
-			end
-
-			inputActive.current = false
-
-			if Flags.FoundationBottomSheetImproveSpring then
-				local outerScrollVelocityY = if outerScrollingRef.current
-					then outerScrollingRef.current:GetScrollVelocity().Y
-					else 0
-
-				scrollVelocity.current = outerScrollVelocityY
-
-				-- Don't handle snapping if outer scrolling is at maximum or sheet is closing
-				local shouldSkipSnapping = outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
-					or isClosing.current
-
-				if shouldSkipSnapping then
-					setInnerScrollingEnabled(true)
+	React.useEffect(
+		function()
+			local touchPanConnection = game:GetService("UserInputService").TouchPan:Connect(function(_, _, velocity, _)
+				scrollVelocity.current = velocity.Y
+				updateInnerScrolling()
+			end)
+			local inputBeganConnection = game:GetService("UserInputService").InputBegan:Connect(function()
+				inputActive.current = true
+				scrollVelocity.current = 0
+				stopSpringSimulation()
+			end)
+			local inputEndedConnection = game:GetService("UserInputService").InputEnded:Connect(function()
+				if inputActive.current == false then
 					return
 				end
-			else
-				local outerScrollingNotMoving
-				if outerScrollingRef.current then
-					local success, value = pcall(function()
-						return outerScrollingRef.current:GetScrollVelocity().Y == 0
-					end)
 
-					if success then
-						outerScrollingNotMoving = value
+				inputActive.current = false
+
+				if Flags.FoundationBottomSheetImproveSpring then
+					local outerScrollVelocityY = if outerScrollingRef.current
+						then outerScrollingRef.current:GetScrollVelocity().Y
+						else 0
+
+					scrollVelocity.current = outerScrollVelocityY
+
+					-- Don't handle snapping if outer scrolling is at maximum or sheet is closing
+					local shouldSkipSnapping = (
+						if Flags.FoundationBottomSheetScrollAtMaxTolerance
+							then isOuterScrollAtMax()
+							else outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
+					) or isClosing.current
+
+					if shouldSkipSnapping then
+						setInnerScrollingEnabled(true)
+						return
+					end
+				else
+					local outerScrollingNotMoving
+					if outerScrollingRef.current then
+						local success, value = pcall(function()
+							return outerScrollingRef.current:GetScrollVelocity().Y == 0
+						end)
+
+						if success then
+							outerScrollingNotMoving = value
+						end
+					end
+
+					-- Don't handle snapping if outer scrolling is not moving or sheet is closing
+					local shouldSkipSnapping = outerScrollingNotMoving or isClosing.current
+
+					if shouldSkipSnapping then
+						setInnerScrollingEnabled(true)
+						return
 					end
 				end
 
-				-- Don't handle snapping if outer scrolling is not moving or sheet is closing
-				local shouldSkipSnapping = outerScrollingNotMoving or isClosing.current
+				snapToClosestSwipeSnapPoint()
+			end)
 
-				if shouldSkipSnapping then
-					setInnerScrollingEnabled(true)
-					return
-				end
+			return function()
+				touchPanConnection:Disconnect()
+				inputBeganConnection:Disconnect()
+				inputEndedConnection:Disconnect()
 			end
-
-			snapToClosestSwipeSnapPoint()
-		end)
-
-		return function()
-			touchPanConnection:Disconnect()
-			inputBeganConnection:Disconnect()
-			inputEndedConnection:Disconnect()
-		end
-	end, { overlay, snapToClosestSwipeSnapPoint, updateInnerScrolling, stopSpringSimulation } :: { unknown })
+		end,
+		if Flags.FoundationBottomSheetScrollAtMaxTolerance
+			then {
+				overlay,
+				snapToClosestSwipeSnapPoint,
+				updateInnerScrolling,
+				stopSpringSimulation,
+				isOuterScrollAtMax,
+			} :: { unknown }
+			else {
+				overlay,
+				snapToClosestSwipeSnapPoint,
+				updateInnerScrolling,
+				stopSpringSimulation,
+			} :: { unknown }
+	)
 
 	local closeAffordanceRef = React.useRef(nil) :: React.Ref<GuiObject>
 	local contentStartRef, setContentStartRef = React.useState(nil :: React.Ref<GuiObject>?)

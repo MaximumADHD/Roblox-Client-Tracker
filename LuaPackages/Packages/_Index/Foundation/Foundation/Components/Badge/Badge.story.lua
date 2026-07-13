@@ -34,7 +34,7 @@ return {
 	summary = "Badge",
 	stories = {
 		{
-			name = "Base",
+			name = "Playground",
 			story = function(props): React.Node
 				local tokens = useTokens()
 
@@ -118,8 +118,8 @@ return {
 					variant = props.controls.variant,
 					shape = props.controls.shape,
 				})
-			end,
-		} :: unknown,
+			end :: unknown,
+		},
 		{
 			name = "All variants",
 			story = function(props)
@@ -232,6 +232,7 @@ return {
 		shape = Dash.values(BadgeShape),
 		iconPosition = Dash.values(IconPosition),
 		size = Dash.values(BadgeSize),
+		isDisabled = false,
 		onTile = false,
 	},
 }

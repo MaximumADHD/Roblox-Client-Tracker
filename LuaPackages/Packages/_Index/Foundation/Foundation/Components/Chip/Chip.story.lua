@@ -365,7 +365,7 @@ return {
 			"",
 		} :: { string | Accessory },
 		trailing = {
-			IconName.ChevronSmallDown,
+			IconName.ChevronLargeDown,
 			IconName.CircleX,
 			IconName.PlusSmall,
 			IconName.X,

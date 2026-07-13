@@ -3,6 +3,7 @@ return {
 	User = "User",
 	Place = "Place",
 	NotAudible = "NotAudible",
+	NotAudibleVoiceChatVolume = "NotAudibleVoiceChatVolume",
 	Permission = "Permission",
 	Retry = "Retry",
 	VoiceChatSuspendedTemporary = "VoiceChatSuspendedTemporary",

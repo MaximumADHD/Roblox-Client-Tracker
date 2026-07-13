@@ -7,6 +7,7 @@ local StarterGui = game:GetService("StarterGui")
 
 local React = require(CorePackages.Packages.React)
 local ChromeService = require(Chrome.Service)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
@@ -14,6 +15,7 @@ local ShopChromeWrapper = require(Chrome.Integrations.InExperienceShop.ShopChrom
 local ShopWindowLayout = require(Chrome.Integrations.InExperienceShop.ShopWindowLayout)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local Shop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
@@ -82,6 +84,7 @@ end
 local integration = ChromeService:register({
 	initialAvailability = getInitialAvailability(),
 	id = Constants.IN_EXPERIENCE_SHOP_ID,
+	sideSheetPlacement = SideSheetPlacement.Page,
 	-- TODO: Create a shop specific localization key (DMP-2402)
 	label = "Feature.Avatar.Action.Shop",
 	cachePosition = true,

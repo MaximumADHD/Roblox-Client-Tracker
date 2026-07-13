@@ -6,7 +6,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
@@ -98,7 +98,14 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 	local displayName = props.displayName ~= "" and props.displayName or props.username
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundContrast = { Color = tokens.Color.Surface.Surface_100.Color3, Transparency = tokens.Color.Surface.Surface_100.Transparency },
+				BackgroundOnHover = { Color = tokens.Color.State.Hover.Color3, Transparency = tokens.Color.State.Hover.Transparency },
+			},
+		}
+	end, function(style)
 		local backgroundStyle = style.Theme.BackgroundContrast
 		if self.props.isSelected then
 			backgroundStyle = style.Theme.BackgroundOnHover

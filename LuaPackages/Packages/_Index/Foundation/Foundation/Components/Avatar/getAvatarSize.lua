@@ -1,26 +1,31 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local InputSize = require(Foundation.Enums.InputSize)
-type InputSize = InputSize.InputSize
+local AvatarSize = require(Foundation.Enums.AvatarSize)
+type AvatarSize = AvatarSize.AvatarSize
 
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local function getAvatarSize(tokens: Tokens, size: InputSize, isIconSize: boolean): number
+local function getAvatarSize(tokens: Tokens, size: AvatarSize, isIconSize: boolean): number
 	if isIconSize then
-		return ({
-			[InputSize.XSmall :: InputSize] = tokens.Size.Size_300,
-			[InputSize.Small] = tokens.Size.Size_400,
-			[InputSize.Medium] = tokens.Size.Size_500,
-			[InputSize.Large] = tokens.Size.Size_600,
-		})[size]
+		local iconSizes: { [AvatarSize]: number } = {
+			[AvatarSize.XSmall] = tokens.Size.Size_300,
+			[AvatarSize.Small] = tokens.Size.Size_400,
+			[AvatarSize.Medium] = tokens.Size.Size_500,
+			[AvatarSize.Large] = tokens.Size.Size_600,
+			[AvatarSize.XLarge] = tokens.Size.Size_600,
+		}
+		return iconSizes[size]
 	else
-		return ({
-			[InputSize.XSmall :: InputSize] = tokens.Size.Size_600,
-			[InputSize.Small] = tokens.Size.Size_800,
-			[InputSize.Medium] = tokens.Size.Size_1000,
-			[InputSize.Large] = tokens.Size.Size_1200,
-		})[size]
+		local avatarSizes: { [AvatarSize]: number } = {
+			[AvatarSize.XSmall] = tokens.Size.Size_600, -- Deprecated
+			[AvatarSize.Small] = tokens.Size.Size_800,
+			[AvatarSize.Medium] = tokens.Size.Size_1000,
+			[AvatarSize.Large] = tokens.Size.Size_1200,
+			[AvatarSize.XLarge] = tokens.Size.Size_1400,
+			[AvatarSize.Pictogram] = tokens.Size.Size_2400,
+		}
+		return avatarSizes[size :: AvatarSize]
 	end
 end
 

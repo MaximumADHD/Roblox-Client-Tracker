@@ -131,9 +131,52 @@ local function ImageSliceWithChildren()
 	})
 end
 
+local function PlaygroundStory(props)
+	return React.createElement(View, {
+		tag = "row gap-xlarge auto-xy align-y-top",
+	}, {
+		ImageAsset = React.createElement(View, {
+			tag = "col gap-small auto-xy",
+			LayoutOrder = 1,
+		}, {
+			Label = React.createElement(Text, {
+				Text = "image",
+				tag = "text-body-small text-align-x-center content-emphasis self-center",
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 1,
+			}),
+			Image = React.createElement(Image, {
+				Image = props.controls.image,
+				tag = "size-2800 content-emphasis",
+				LayoutOrder = 2,
+			}),
+		}),
+		CloudAsset = React.createElement(View, {
+			tag = "col gap-small auto-xy",
+			LayoutOrder = 2,
+		}, {
+			Label = React.createElement(Text, {
+				Text = "cloudAsset",
+				tag = "text-body-small text-align-x-center content-emphasis self-center",
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 1,
+			}),
+			Image = React.createElement(Image, {
+				Image = props.controls.cloudAsset,
+				tag = "size-2800 content-emphasis",
+				LayoutOrder = 2,
+			}),
+		}),
+	})
+end
+
 return {
 	summary = "Image",
 	stories = {
+		{
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
+		},
 		{
 			name = "Basic Image",
 			story = function()
@@ -171,7 +214,7 @@ return {
 						}),
 					}),
 				})
-			end :: any,
+			end :: unknown,
 		},
 		{
 			name = "Basic Asset Use",
@@ -187,18 +230,13 @@ return {
 				return React.createElement(ImageSliceWithChildren, props)
 			end,
 		},
-		{
-			name = "Cloud Asset",
-			story = function(props)
-				return React.createElement(Image, {
-					Image = props.controls.cloudAsset,
-					Size = UDim2.fromOffset(300, 300),
-					tag = "content-emphasis",
-				})
-			end,
-		},
 	},
 	controls = {
+		image = {
+			"icons/graphic/success_xlarge",
+			"icons/status/oof_xlarge",
+			"component_assets/circle_22_stroke_3",
+		},
 		cloudAsset = Dash.keys(Assets),
 	},
 }

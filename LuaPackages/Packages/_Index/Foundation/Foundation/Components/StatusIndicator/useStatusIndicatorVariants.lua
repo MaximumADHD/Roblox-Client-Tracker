@@ -2,6 +2,8 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local Flags = require(Foundation.Utility.Flags)
 
+local StatusIndicatorSize = require(Foundation.Enums.StatusIndicatorSize)
+type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
@@ -22,9 +24,9 @@ local isDevMode = _G.__DEV__ == true
 local Constants = require(Foundation.Constants)
 
 type StatusIndicatorVariantProps = {
-	container: { tag: string, backgroundStyle: ColorStyleValue? }, -- only populated if bg tag is non-compliant },
+	container: { tag: string, backgroundStyle: ColorStyleValue?, size: UDim2? }, -- only populated if bg tag is non-compliant },
 	content: { tag: string, style: ColorStyleValue?, font: Font },
-	ring: { tag: string }?,
+	ring: { tag: string, size: UDim2? }?,
 }
 
 -- To-Do: Remove and use tag when BuilderSansSemiBold is supported as token / tag
@@ -115,12 +117,18 @@ function variantsFactory(tokens: Tokens)
 		},
 	}
 
-	local hasValue: { [boolean]: any } = {
-		[false] = { container = { tag = "size-200-200" } },
-		[true] = {
-			container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
-		},
-	}
+	local hasValue: { [boolean]: any } = if Flags.FoundationAvatarBeta
+		then {
+			[true] = {
+				container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
+			},
+		}
+		else {
+			[false] = { container = { tag = "size-200-200" } },
+			[true] = {
+				container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
+			},
+		}
 
 	local shape: { [StatusIndicatorShape]: any } = {
 		[StatusIndicatorShape.Circle] = {
@@ -128,21 +136,53 @@ function variantsFactory(tokens: Tokens)
 		},
 		[StatusIndicatorShape.Ring] = {
 			container = { tag = "align-x-center align-y-center radius-circle" },
-			ring = { tag = "size-100-100 radius-circle bg-surface-100" },
+			ring = {
+				tag = if Flags.FoundationAvatarBeta
+					then "radius-circle bg-surface-100"
+					else "size-100-100 radius-circle bg-surface-100",
+			},
 		},
 		[StatusIndicatorShape.Square] = {
 			container = { tag = "radius-none" },
 		},
 	}
 
-	return { common = common, variants = variants, hasValue = hasValue, shape = shape }
+	local sizes: { [StatusIndicatorSize]: VariantProps } = if Flags.FoundationAvatarBeta
+		then {
+			[StatusIndicatorSize.XSmall] = {
+				container = { size = UDim2.fromOffset(tokens.Size.Size_150, tokens.Size.Size_150) },
+				ring = { size = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2) },
+			},
+			[StatusIndicatorSize.Small] = {
+				container = { size = UDim2.fromOffset(tokens.Size.Size_200, tokens.Size.Size_200) },
+				ring = { size = UDim2.fromOffset(tokens.Size.Size_200 / 2, tokens.Size.Size_200 / 2) },
+			},
+			[StatusIndicatorSize.Medium] = {
+				container = { size = UDim2.fromOffset(tokens.Size.Size_250, tokens.Size.Size_250) },
+				ring = { size = UDim2.fromOffset(tokens.Size.Size_250 / 2, tokens.Size.Size_250 / 2) },
+			},
+			[StatusIndicatorSize.Pictogram] = {
+				container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
+				ring = { size = UDim2.fromOffset(tokens.Size.Size_500 / 2, tokens.Size.Size_500 / 2) },
+			},
+		}
+		else nil :: never
+
+	return {
+		common = common,
+		variants = variants,
+		hasValue = hasValue,
+		shape = shape,
+		sizes = sizes,
+	}
 end
 
 return function(
 	tokens: Tokens,
 	variant: StatusIndicatorVariant,
 	hasValue: boolean,
-	shape: StatusIndicatorShape
+	shape: StatusIndicatorShape,
+	size: StatusIndicatorSize
 ): StatusIndicatorVariantProps
 	if not Flags.FoundationStatusIndicatorVariantExperiment and isDevMode then
 		if variant == StatusIndicatorVariant.Contrast_Experiment then
@@ -154,5 +194,12 @@ return function(
 	end
 
 	local props = VariantsContext.useVariants("StatusIndicator", variantsFactory, tokens)
-	return composeStyleVariant(props.common, props.variants[variant], props.hasValue[hasValue], props.shape[shape])
+
+	return composeStyleVariant(
+		props.common,
+		props.variants[variant],
+		props.hasValue[hasValue],
+		props.shape[shape],
+		if Flags.FoundationAvatarBeta then if not hasValue then props.sizes[size] else {} else nil :: never
+	)
 end

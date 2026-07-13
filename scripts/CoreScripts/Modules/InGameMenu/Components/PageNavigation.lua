@@ -7,7 +7,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
@@ -75,7 +75,17 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 	return withLocalization({
 		text = props.text,
 	})(function(localized)
-		return withStyle(function(style)
+		return withFoundationOrUIBloxStyle(function(tokens)
+			return {
+				Theme = {
+					BackgroundOnPress = { Color = tokens.Color.State.Press.Color3, Transparency = tokens.Color.State.Press.Transparency },
+					BackgroundOnHover = { Color = tokens.Color.State.Hover.Color3, Transparency = tokens.Color.State.Hover.Transparency },
+					IconEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+					TextEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+					BackgroundMuted = { Color = tokens.Color.Surface.Surface_200.Color3, Transparency = tokens.Color.Surface.Surface_200.Transparency },
+				},
+			}
+		end, function(style)
 			local showPressEffect = self.state.pressing and not props.selected
 			local buttonFill = {
 				Transparency = 1,

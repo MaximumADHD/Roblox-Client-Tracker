@@ -34,7 +34,9 @@ local MakePlayerInfoRequests = require(PlayerList.Thunks.MakePlayerInfoRequests)
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
+local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local PlayerListConstants = PlayerListPackage.Common.Constants
+local PlayerRelationshipStore = PlayerListPackage.PlayerRelationshipStore
 
 -- Actions
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
@@ -358,6 +360,9 @@ function PlayerListController:_setupReskin()
 
 	if isSmallTouchDevice then
 		PlayerContextualMenuStore.setOnDismiss(function()
+			if PlayerContextualMenuStore.takeSuppressNextDismissRestore() then
+				return
+			end
 			PlayerListVisibilityStore.setVisible(true)
 		end)
 	end
@@ -481,16 +486,27 @@ function PlayerListController:_setupReskin()
 		}),
 	})
 
-	-- Legacy PlayerServiceConnector (Rodux-connected) isn't mounted on the reskin path, so
-	-- badge icons would never load. Drive MakePlayerInfoRequests via a store shim: the thunk
-	-- writes icons to the Signals PlayerIconInfoStore the reskin reads, and the shim no-ops
-	-- the legacy blocked/friend dispatches.
+	-- Legacy PlayerServiceConnector (Rodux) is not mounted on the reskin path.
+	-- Route MakePlayerInfoRequests through a shim into the Signals stores.
 	local function setupPlayerInfoRequests()
 		local shimStore = {
 			getState = function()
 				return { players = Players:GetPlayers() }
 			end,
-			dispatch = function() end,
+			dispatch = function(_, action)
+				if type(action) ~= "table" then
+					return
+				end
+				if action.type == "SetPlayerIsBlocked" and action.userId then
+					PlayerRelationshipStore.patchPlayerRelationship(action.userId, {
+						isBlocked = action.isBlocked,
+					})
+				elseif action.type == "SetPlayerFriendStatus" and action.userId then
+					PlayerRelationshipStore.patchPlayerRelationship(action.userId, {
+						friendStatus = action.friendStatus,
+					})
+				end
+			end,
 		}
 		local function request(player)
 			MakePlayerInfoRequests(player)(shimStore)
@@ -501,6 +517,19 @@ function PlayerListController:_setupReskin()
 		self._reskinPlayerAddedConn = Players.PlayerAdded:Connect(request)
 		self._reskinPlayerRemovingConn = Players.PlayerRemoving:Connect(function(player)
 			PlayerIconInfoStore.removePlayer(player.UserId)
+			PlayerRelationshipStore.removePlayer(player.UserId)
+		end)
+		self._reskinBlockedStatusConn = BlockingUtility:GetBlockedStatusChangedEvent()
+			:Connect(function(userId, isBlocked)
+				local id = tonumber(userId)
+				if id then
+					PlayerRelationshipStore.patchPlayerRelationship(id, { isBlocked = isBlocked })
+				end
+			end)
+		self._reskinFriendStatusConn = Players.LocalPlayer.FriendStatusChanged:Connect(function(player, friendStatus)
+			PlayerRelationshipStore.patchPlayerRelationship(player.UserId, {
+				friendStatus = friendStatus,
+			})
 		end)
 		if FFlagBadgeVisibilitySettingEnabled then
 			task.spawn(function()
@@ -525,10 +554,19 @@ function PlayerListController:_setupReskin()
 			self._reskinPlayerRemovingConn:Disconnect()
 			self._reskinPlayerRemovingConn = nil
 		end
+		if self._reskinBlockedStatusConn then
+			self._reskinBlockedStatusConn:Disconnect()
+			self._reskinBlockedStatusConn = nil
+		end
+		if self._reskinFriendStatusConn then
+			self._reskinFriendStatusConn:Disconnect()
+			self._reskinFriendStatusConn = nil
+		end
 		if self._reskinProfileSettingsConn then
 			self._reskinProfileSettingsConn:Disconnect()
 			self._reskinProfileSettingsConn = nil
 		end
+		PlayerRelationshipStore.cleanUp()
 	end
 
 	local function mountReskin()

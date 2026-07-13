@@ -19,7 +19,7 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 -- TODO need to be replaced by uiBlox
 -- https://jira.rbx.com/browse/UIBLOX-147
 local ThemedTextLabel = require(Components.ThemedTextLabel)
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local FocusHandler = require(Components.Connection.FocusHandler)
 local ZonePortal = require(Components.ZonePortal)
 
@@ -60,7 +60,18 @@ function LeavePrompt:init()
 end
 
 function LeavePrompt:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundDefault = { Color = tokens.Color.Surface.Surface_0.Color3, Transparency = tokens.Color.Surface.Surface_0.Transparency },
+			},
+			Font = {
+				BaseSize = 1,
+				Header1 = { Font = tokens.Typography.HeadingSmall.Font, RelativeSize = tokens.Typography.HeadingSmall.FontSize },
+				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+			},
+		}
+	end, function(style)
 		local font = style.Font
 
 		local oldContent = {

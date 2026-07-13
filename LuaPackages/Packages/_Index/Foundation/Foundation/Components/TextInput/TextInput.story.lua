@@ -115,7 +115,12 @@ end
 
 return {
 	summary = "Text field",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		hasError = false,
 		isDisabled = false,

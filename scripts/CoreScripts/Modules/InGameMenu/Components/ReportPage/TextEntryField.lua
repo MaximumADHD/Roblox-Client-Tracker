@@ -8,7 +8,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Images = UIBlox.App.ImageSet.Images
 
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -85,7 +85,18 @@ function TextEntryField:calculateNeedsRescroll(style, textFont)
 end
 
 function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				TextDefault = { Color = tokens.Color.Content.Default.Color3, Transparency = tokens.Color.Content.Default.Transparency },
+				BackgroundMuted = { Color = tokens.Color.Surface.Surface_200.Color3, Transparency = tokens.Color.Surface.Surface_200.Transparency },
+			},
+			Font = {
+				BaseSize = 1,
+				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+			},
+		}
+	end, function(style)
 		local textTheme = style.Theme.TextDefault
 		local textFont = style.Font.Body
 

@@ -545,7 +545,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		} :: { unknown }
 	)
 
-	local textBoxWrapperInsetPadding = if Flags.FoundationSupportPrefixSuffixNumberInput
+	local textBoxWrapperInsetPadding = if Flags.FoundationNumberInputBeta
 		then React.useMemo(function()
 			return {
 				left = if props.horizontalPadding then props.horizontalPadding.innerLeft else nil,
@@ -750,7 +750,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				layout = scrollViewLayout,
 				onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
 				scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
-				padding = if Flags.FoundationSupportPrefixSuffixNumberInput then textBoxWrapperInsetPadding else nil,
+				padding = if Flags.FoundationNumberInputBeta then textBoxWrapperInsetPadding else nil,
 				tag = "fill size-full clip",
 				testId = `{props.testId}--textbox-wrapper`,
 			}, {

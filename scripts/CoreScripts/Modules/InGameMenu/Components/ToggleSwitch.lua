@@ -7,9 +7,9 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Otter = InGameMenuDependencies.Otter
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -56,7 +56,14 @@ function ToggleSwitch:init()
 end
 
 function ToggleSwitch:renderWithSelectionCursor(getSelectionCursor)
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				SecondaryDefault = { Color = tokens.Color.Extended.White.White_70.Color3, Transparency = tokens.Color.Extended.White.White_70.Transparency },
+				Success = { Color = tokens.Color.System.Success.Color3, Transparency = tokens.Color.System.Success.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement(AssetImage.Button, {
 			Size = UDim2.new(0, 60, 0, 36),
 			BackgroundTransparency = 1,

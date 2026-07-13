@@ -6,7 +6,7 @@ local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
@@ -48,7 +48,20 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 	return withLocalization({
 		searchPlaceholder = "CoreScripts.InGameMenu.InviteFriends.Search",
 	})(function(localized)
-		return withStyle(function(style)
+		return withFoundationOrUIBloxStyle(function(tokens)
+			return {
+				Theme = {
+					TextEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+					IconEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+					BackgroundUIContrast = { Color = tokens.Color.OverMedia.OverMedia_0.Color3, Transparency = tokens.Color.OverMedia.OverMedia_0.Transparency },
+					Divider = { Color = tokens.Color.Stroke.Emphasis.Color3, Transparency = tokens.Color.Stroke.Emphasis.Transparency },
+				},
+				Font = {
+					BaseSize = 1,
+					Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+				},
+			}
+		end, function(style)
 			local textTheme = style.Theme.TextEmphasis
 			local textFont = style.Font.Body
 

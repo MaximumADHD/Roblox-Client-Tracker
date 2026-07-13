@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
@@ -26,21 +27,42 @@ local BUTTON_VARIANTS: { ButtonVariant } = {
 	ButtonVariant.Alert,
 }
 
+local function PlaygroundStory(props)
+	local controls = props.controls
+	local colorMode = controls.colorMode
+	local tokens = useTokens()
+	Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
+
+	local button = React.createElement(Button, {
+		icon = if controls.icon == "" then nil else controls.icon,
+		text = controls.text,
+		variant = controls.variant,
+		isLoading = controls.isLoading,
+		isDisabled = controls.isDisabled,
+		size = controls.size,
+		fillBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior,
+		inputDelay = controls.inputDelay,
+		onActivated = function()
+			print(`{colorMode} {controls.variant} Button activated`)
+		end,
+	})
+
+	return React.createElement(View, {
+		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
+		backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
+	}, React.createElement(PresentationContext.Provider, { value = { colorMode = colorMode } }, button))
+end
+
 local stories = Dash.map(BUTTON_VARIANTS, function(variant)
 	return {
 		name = variant,
-		story = function(props)
-			local controls = props.controls
-			local colorMode = controls.colorMode
-			local contextValue = { colorMode = colorMode }
+		story = function()
 			local tokens = useTokens()
-			Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
 
 			return React.createElement(View, {
 				tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
 				backgroundStyle = if variant == ButtonVariant.OverMedia
 					then tokens.Color.Extended.White.White_100
-					elseif colorMode then tokens[colorMode].Surface.Surface_100
 					else nil,
 			}, {
 				Gradient = if variant == ButtonVariant.OverMedia
@@ -53,24 +75,18 @@ local stories = Dash.map(BUTTON_VARIANTS, function(variant)
 					else nil,
 				Buttons = React.createElement(
 					PresentationContext.Provider,
-					{ value = contextValue },
+					{ value = { isIconSize = false, colorMode = ColorMode.Color } },
 					Dash.map(
 						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 						function(size)
 							return React.createElement(Button, {
-								icon = if controls.icon == "" then nil else props.controls.icon,
-								text = controls.text,
+								icon = BuilderIcons.Icon.PlaySmall,
+								text = "Lorem ipsum",
 								variant = variant,
-								isLoading = controls.isLoading,
 								onActivated = function()
-									print(`{colorMode} {variant} Button ({size}) activated`)
+									print(`{variant} Button ({size}) activated`)
 								end,
-								isDisabled = controls.isDisabled,
 								size = size,
-								fillBehavior = if controls.fillBehavior == React.None
-									then nil
-									else controls.fillBehavior,
-								inputDelay = controls.inputDelay,
 							})
 						end
 					)
@@ -80,17 +96,17 @@ local stories = Dash.map(BUTTON_VARIANTS, function(variant)
 	}
 end)
 
+table.insert(stories, 1, {
+	name = "Playground",
+	story = PlaygroundStory :: unknown,
+})
+
 table.insert(stories, {
 	name = "Width",
 	summary = "Width, fillBehavior, and precedence. Default uses AutomaticSize.X. Width (scale or offset) overrides. fillBehavior.Fill takes precedence over width.",
-	story = function(props)
-		local controls = props.controls
-		local colorMode = controls.colorMode
-		local tokens = useTokens()
-
+	story = function()
 		return React.createElement(View, {
 			tag = "col gap-large size-full-0 auto-xy padding-large radius-medium",
-			backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
 		}, {
 			Default = React.createElement(View, {
 				LayoutOrder = 1,
@@ -165,48 +181,33 @@ table.insert(stories, {
 
 table.insert(stories, {
 	name = "FillBehavior",
-	story = function(props)
-		local controls = props.controls
-		local colorMode = controls.colorMode
-		local tokens = useTokens()
-		local selectedBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior
-
+	summary = "The same button rendered with each fillBehavior",
+	story = function()
 		return React.createElement(View, {
 			tag = "row gap-medium size-full-0 auto-y padding-medium radius-medium",
-			backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
 		}, {
-			One = React.createElement(Button, {
-				text = controls.text,
+			None = React.createElement(Button, {
+				text = "Default",
 				variant = ButtonVariant.Emphasis,
-				onActivated = function()
-					print(`{colorMode} Button row {selectedBehavior} activated`)
-				end,
-				isDisabled = controls.isDisabled,
+				onActivated = function() end,
 				size = InputSize.Medium,
-				fillBehavior = selectedBehavior,
-				icon = if controls.icon == "" then nil else controls.icon,
+				LayoutOrder = 1,
 			}),
-			Two = React.createElement(Button, {
-				text = controls.text,
+			Fit = React.createElement(Button, {
+				text = "Fit",
 				variant = ButtonVariant.Emphasis,
-				onActivated = function()
-					print(`{colorMode} Button row {selectedBehavior} activated`)
-				end,
-				isDisabled = controls.isDisabled,
+				onActivated = function() end,
 				size = InputSize.Medium,
-				fillBehavior = selectedBehavior,
-				icon = if controls.icon == "" then nil else controls.icon,
+				fillBehavior = FillBehavior.Fit,
+				LayoutOrder = 2,
 			}),
-			Three = React.createElement(Button, {
-				text = controls.text,
+			Fill = React.createElement(Button, {
+				text = "Fill",
 				variant = ButtonVariant.Emphasis,
-				onActivated = function()
-					print(`{colorMode} Button row {selectedBehavior} activated`)
-				end,
-				isDisabled = controls.isDisabled,
+				onActivated = function() end,
 				size = InputSize.Medium,
-				fillBehavior = selectedBehavior,
-				icon = if controls.icon == "" then nil else controls.icon,
+				fillBehavior = FillBehavior.Fill,
+				LayoutOrder = 3,
 			}),
 		})
 	end,
@@ -226,6 +227,8 @@ return {
 			"",
 		},
 		text = "Lorem ipsum",
+		variant = BUTTON_VARIANTS,
+		size = { InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 		isDisabled = false,
 		isLoading = false,
 		colorMode = Dash.values(ColorMode),

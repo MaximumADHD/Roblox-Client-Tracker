@@ -17,6 +17,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -27,8 +28,9 @@ local PlayerList = script.Parent
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local PlayerListVisibilityStore = PlayerListPackage.PlayerListVisibilityStore
+local PlayerContextualMenuStore = PlayerListPackage.PlayerContextualMenuStore
 local builderIcon = PlayerListPackage.builderIcon
-local buildMenuHeader = PlayerListPackage.PlayerContextualMenuStore.buildMenuHeader
+local buildMenuHeader = PlayerContextualMenuStore.buildMenuHeader
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -48,7 +50,6 @@ local function translate(key: string, fallback: string): string
 	return fallback
 end
 
--- Mirrors legacy FriendDropDownButton.getFriendTextAndIcon (label + icon per status).
 local function getFriendLabelAndIcon(friendStatus: Enum.FriendStatus): (string, any)
 	if friendStatus == Enum.FriendStatus.Friend then
 		return translate("InGame.PlayerDropDown.UnFriend", "Unfriend"), ICON_FRIEND_REMOVE
@@ -73,16 +74,12 @@ end
 
 type MenuActions = {
 	onFriend: (() -> ())?,
+	onDecline: (() -> ())?,
 	onExamine: (() -> ())?,
 	onBlock: (() -> ())?,
 	onReport: (() -> ())?,
 }
 
--- Pure: assembles the menu items (key / label / icon / order) from already-resolved
--- relationship state. Engine resolution (the yielding friend/block lookups) lives in
--- buildMenuData; this is the deterministic decision logic, unit-tested in the spec.
--- Order matches legacy layoutOrder + Figma 577:157975: friend -> examine -> block -> report.
--- Examine is the only item for self; friend is hidden when blocked.
 local function assembleMenuItems(params: {
 	isSelf: boolean,
 	isBlocked: boolean,
@@ -94,12 +91,26 @@ local function assembleMenuItems(params: {
 
 	if not params.isSelf and not params.isBlocked then
 		local label, icon = getFriendLabelAndIcon(params.friendStatus)
+		local isUnfriend = params.friendStatus == Enum.FriendStatus.Friend
 		table.insert(items, {
 			key = "friend",
 			label = label,
 			icon = icon,
 			onActivated = params.actions.onFriend,
+			requiresConfirm = if isUnfriend then true else nil,
+			confirmLabel = if isUnfriend
+				then translate("InGame.PlayerDropDown.ConfirmUnFriend", "Tap to confirm unfriend")
+				else nil,
 		})
+
+		if params.friendStatus == Enum.FriendStatus.FriendRequestReceived then
+			table.insert(items, {
+				key = "decline",
+				label = translate("InGame.PlayerDropDown.Decline", "Decline"),
+				icon = ICON_FRIEND_REMOVE,
+				onActivated = params.actions.onDecline,
+			})
+		end
 	end
 
 	if params.inspectMenuEnabled then
@@ -132,15 +143,10 @@ local function assembleMenuItems(params: {
 	return items
 end
 
--- Builds the menu data (conforming to PlayerContextualMenuStore.MenuData) for the
--- presentational menu. May yield (GetFriendStatus / IsPlayerBlockedByUserId), so callers
--- run it in a coroutine/task.spawn. `onClose` is invoked by each action after it fires.
 local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevice: boolean?)
 	local userId = player.UserId
 	local isSelf = LocalPlayer ~= nil and player == LocalPlayer
 
-	-- Mirrors legacy: the friend button is hidden when blocked, so only resolve friend
-	-- status when not blocked.
 	local isBlocked = false
 	local friendStatus = Enum.FriendStatus.Unknown
 	if not isSelf then
@@ -162,6 +168,7 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 		actions = {
 			onFriend = function()
 				if friendStatus == Enum.FriendStatus.Friend or friendStatus == Enum.FriendStatus.FriendRequestSent then
+					RbxAnalyticsService:TrackEvent("Game", "RevokeFriendship", "PlayerDropDown")
 					LocalPlayer:RevokeFriendship(player)
 				elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
 					RequestFriendship(player, true)()
@@ -170,14 +177,24 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 				end
 				onClose()
 			end,
-			onExamine = function()
-				GuiService:InspectPlayerFromUserIdWithCtx(userId, "leaderBoard")
+			onDecline = function()
+				RbxAnalyticsService:TrackEvent("Game", "DeclineFriendship", "PlayerDropDown")
+				LocalPlayer:RevokeFriendship(player)
 				onClose()
+			end,
+			onExamine = function()
 				if isSmallTouchDevice then
+					PlayerContextualMenuStore.setSuppressNextDismissRestore(true)
 					PlayerListVisibilityStore.setVisible(false)
 				end
+				GuiService:InspectPlayerFromUserIdWithCtx(userId, "leaderBoard")
+				onClose()
 			end,
 			onBlock = function()
+				if isSmallTouchDevice and not isBlocked then
+					PlayerContextualMenuStore.setSuppressNextDismissRestore(true)
+					PlayerListVisibilityStore.setVisible(false)
+				end
 				if isBlocked then
 					coroutine.wrap(function()
 						BlockingUtility:UnblockPlayerAsync(player)
@@ -189,6 +206,10 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 				onClose()
 			end,
 			onReport = function()
+				if isSmallTouchDevice then
+					PlayerContextualMenuStore.setSuppressNextDismissRestore(true)
+					PlayerListVisibilityStore.setVisible(false)
+				end
 				openReportDialog(player)
 				onClose()
 			end,

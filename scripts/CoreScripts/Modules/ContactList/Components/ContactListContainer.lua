@@ -3,8 +3,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local SocialService = game:GetService("SocialService")
 
-local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
-
 local React = require(CorePackages.Packages.React)
 local PeekView = require(CorePackages.Workspace.Packages.PeekView).PeekView
 local PeekViewState = require(CorePackages.Workspace.Packages.PeekView).PeekViewState
@@ -143,29 +141,16 @@ local function ContactListContainer()
 		if not isSmallScreen and contactListContainerRef.current then
 			SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
 			pcall(function()
-				if featureDeprecateOldGuiObjectProperties then
-					contactListContainerRef.current:TweenPositionInternal(
-						UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-						Enum.EasingDirection.Out,
-						Enum.EasingStyle.Quad,
-						0.3,
-						true,
-						function()
-							SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-						end
-					)
-				else
-					contactListContainerRef.current:TweenPosition(
-						UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-						Enum.EasingDirection.Out,
-						Enum.EasingStyle.Quad,
-						0.3,
-						true,
-						function()
-							SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-						end
-					)
-				end
+				contactListContainerRef.current:TweenPositionInternal(
+					UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true,
+					function()
+						SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+					end
+				)
 			end)
 		else
 			if closePeekViewSignal and closePeekViewSignal.current then
@@ -198,23 +183,13 @@ local function ContactListContainer()
 	React.useEffect(function()
 		if currentPage and not isSmallScreen and contactListContainerRef.current then
 			pcall(function()
-				if featureDeprecateOldGuiObjectProperties then
-					contactListContainerRef.current:TweenPositionInternal(
-						UDim2.new(0, PHONEBOOK_CONTAINER_MARGIN, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-						Enum.EasingDirection.In,
-						Enum.EasingStyle.Quad,
-						0.3,
-						true
-					)
-				else
-					contactListContainerRef.current:TweenPosition(
-						UDim2.new(0, PHONEBOOK_CONTAINER_MARGIN, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-						Enum.EasingDirection.In,
-						Enum.EasingStyle.Quad,
-						0.3,
-						true
-					)
-				end
+				contactListContainerRef.current:TweenPositionInternal(
+					UDim2.new(0, PHONEBOOK_CONTAINER_MARGIN, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
+					Enum.EasingDirection.In,
+					Enum.EasingStyle.Quad,
+					0.3,
+					true
+				)
 			end)
 		end
 

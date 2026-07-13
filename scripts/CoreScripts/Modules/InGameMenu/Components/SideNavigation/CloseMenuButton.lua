@@ -15,6 +15,12 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local ControlState = Foundation.Enums.ControlState
+
 local validateProps = t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),
 	Position = t.optional(t.UDim2),
@@ -26,31 +32,74 @@ local validateProps = t.strictInterface({
 	forwardRef = t.optional(t.table),
 })
 
-local function renderWithSelectionCursor(props, getSelectionCursor)
-	if GlobalConfig.propValidation then
-		assert(validateProps(props))
-	end
-
-	return Roact.createElement(ImageSetButton, {
-		AnchorPoint = props.AnchorPoint,
-		BackgroundTransparency = 1,
-		Image = Assets.Images.CloseButton,
-		Position = props.Position,
-		Size = UDim2.new(0, 32, 0, 32),
-		LayoutOrder = props.layoutOrder,
-		SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
-
-		[Roact.Event.Activated] = props.onActivated,
-		[Roact.Event.SelectionGained] = props.onSelectionGained,
-		[Roact.Event.SelectionLost] = props.onSelectionLost,
-		[Roact.Ref] = props.forwardRef,
-	})
+local function isSelectedState(state)
+	return state == ControlState.Selected or state == ControlState.SelectedPressed
 end
 
-local function CloseMenuButton(props)
-	return withSelectionCursorProvider(function(getSelectionCursor)
-		return renderWithSelectionCursor(props, getSelectionCursor)
-	end)
+local CloseMenuButton
+
+if FFlagCoreUiMigrateUIBloxToFoundation then
+	CloseMenuButton = Roact.Component:extend("CloseMenuButton")
+
+	function CloseMenuButton:init()
+		self.wasSelected = false
+	end
+
+	function CloseMenuButton:render()
+		local props = self.props
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			if GlobalConfig.propValidation then
+				assert(validateProps(props))
+			end
+
+			return Roact.createElement(Image, {
+				AnchorPoint = props.AnchorPoint,
+				Position = props.Position,
+				Size = UDim2.new(0, 32, 0, 32),
+				LayoutOrder = props.layoutOrder,
+				Image = Assets.Images.CloseButton,
+				selection = { SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) },
+				onActivated = props.onActivated,
+				onStateChanged = function(newState)
+					local isNowSelected = isSelectedState(newState)
+					if isNowSelected and not self.wasSelected then
+						if props.onSelectionGained then
+							props.onSelectionGained()
+						end
+					elseif not isNowSelected and self.wasSelected then
+						if props.onSelectionLost then
+							props.onSelectionLost()
+						end
+					end
+					self.wasSelected = isNowSelected
+				end,
+				ref = props.forwardRef,
+			})
+		end)
+	end
+else
+	CloseMenuButton = function(props)
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			if GlobalConfig.propValidation then
+				assert(validateProps(props))
+			end
+
+			return Roact.createElement(ImageSetButton, {
+				AnchorPoint = props.AnchorPoint,
+				BackgroundTransparency = 1,
+				Image = Assets.Images.CloseButton,
+				Position = props.Position,
+				Size = UDim2.new(0, 32, 0, 32),
+				LayoutOrder = props.layoutOrder,
+				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+
+				[Roact.Event.Activated] = props.onActivated,
+				[Roact.Event.SelectionGained] = props.onSelectionGained,
+				[Roact.Event.SelectionLost] = props.onSelectionLost,
+				[Roact.Ref] = props.forwardRef,
+			})
+		end)
+	end
 end
 
 return Roact.forwardRef(function(props, ref)

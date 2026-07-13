@@ -71,7 +71,7 @@ return {
 	summary = "BaseMenu",
 	stories = {
 		{
-			name = "Base",
+			name = "Playground",
 			story = function(props)
 				local selectedItem, setSelectedItem = React.useState("1" :: ItemId)
 				local icon = if props.controls.hasIcon then props.controls.icon else nil
@@ -93,7 +93,7 @@ return {
 							icon = icon,
 							isChecked = selectedItem == "2",
 							isDisabled = false,
-							text = "Item 2,000,000,000,000,000,000,000,000",
+							text = "Item with a longer label",
 						},
 						{
 							id = "3",
@@ -104,8 +104,8 @@ return {
 						},
 					},
 				})
-			end,
-		} :: unknown,
+			end :: unknown,
+		},
 		{
 			name = "Multi select",
 			story = function(props)
@@ -283,7 +283,7 @@ return {
 			story = function(_props)
 				local searchContent, setSearchContent = React.useState("")
 
-				return React.createElement(View, { tag = "col gap-large" }, {
+				return React.createElement(View, { tag = "col gap-large auto-xy" }, {
 					Input = React.createElement(TextInput, {
 						onChanged = function(text: string)
 							setSearchContent(text)
@@ -293,7 +293,7 @@ return {
 						LayoutOrder = 1,
 					}),
 					Menu = React.createElement(BaseMenu.Root, {
-						label = "Icons",
+						width = UDim.new(0, 260),
 						items = Dash.map(
 							Dash.filter(BuilderIcons.Icon, function(icon)
 								return string.find(icon, searchContent, nil, true) ~= nil

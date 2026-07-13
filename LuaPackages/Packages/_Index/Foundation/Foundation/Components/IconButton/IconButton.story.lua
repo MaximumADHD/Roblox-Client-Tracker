@@ -28,20 +28,59 @@ local SUPPORTED_VARIANTS: { ButtonVariant } = {
 	ButtonVariant.Alert,
 }
 
+local function PlaygroundStory(props)
+	local controls = props.controls
+	local colorMode = controls.colorMode
+	local tokens = useTokens()
+
+	local iconButton = React.createElement(IconButton, {
+		icon = {
+			name = controls.name,
+			variant = controls.variant,
+		},
+		variant = controls.buttonVariant,
+		onActivated = function()
+			print(`{colorMode} {controls.buttonVariant} IconButton activated`)
+		end,
+		isDisabled = controls.isDisabled,
+		size = controls.size,
+		isCircular = controls.isCircular,
+		fillBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior,
+	})
+
+	return React.createElement(View, {
+		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
+		backgroundStyle = if controls.buttonVariant == ButtonVariant.OverMedia
+			then tokens.Color.Extended.White.White_100
+			elseif colorMode then tokens[colorMode].Surface.Surface_100
+			else nil,
+	}, {
+		Gradient = if controls.buttonVariant == ButtonVariant.OverMedia
+			then React.createElement("UIGradient", {
+				Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, tokens.Color.Extended.Green.Green_500.Color3),
+					ColorSequenceKeypoint.new(1, tokens.Color.Extended.Blue.Blue_500.Color3),
+				}),
+			})
+			else nil,
+		IconButton = React.createElement(
+			PresentationContext.Provider,
+			{ value = { colorMode = colorMode } },
+			iconButton
+		),
+	})
+end
+
 local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 	return {
 		name = variant,
-		story = function(props)
-			local controls = props.controls
-			local colorMode = controls.colorMode
-			local contextValue = { colorMode = colorMode }
+		story = function()
 			local tokens = useTokens()
 
 			return React.createElement(View, {
 				tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
 				backgroundStyle = if variant == ButtonVariant.OverMedia
 					then tokens.Color.Extended.White.White_100
-					elseif colorMode then tokens[colorMode].Surface.Surface_100
 					else nil,
 			}, {
 				Gradient = if variant == ButtonVariant.OverMedia
@@ -54,22 +93,17 @@ local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 					else nil,
 				IconButtons = React.createElement(
 					PresentationContext.Provider,
-					{ value = contextValue },
+					{ value = { isIconSize = false, colorMode = ColorMode.Color } },
 					Dash.map(
 						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 						function(size)
 							return React.createElement(IconButton, {
-								icon = {
-									name = props.controls.name,
-									variant = props.controls.variant,
-								},
+								icon = BuilderIcons.Icon.PlaySmall,
 								variant = variant,
 								onActivated = function()
-									print(`{colorMode} {variant} IconButton ({size}) activated`)
+									print(`{variant} IconButton ({size}) activated`)
 								end,
-								isDisabled = controls.isDisabled,
 								size = size,
-								isCircular = controls.isCircular,
 							})
 						end
 					)
@@ -79,14 +113,15 @@ local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 	}
 end)
 
+table.insert(stories, 1, {
+	name = "Playground",
+	story = PlaygroundStory :: unknown,
+})
+
 table.insert(stories, {
 	name = "Width",
 	summary = "Width, fillBehavior, and precedence. Default uses the fixed square size from the variant system. Width (scale or offset) overrides. fillBehavior.Fill takes precedence over width.",
-	story = function(props)
-		local controls = props.controls
-		local colorMode = controls.colorMode
-		local tokens = useTokens()
-
+	story = function()
 		local children = {
 			Default = React.createElement(View, {
 				LayoutOrder = 1,
@@ -102,7 +137,7 @@ table.insert(stories, {
 					LayoutOrder = 2,
 				}, {
 					React.createElement(IconButton, {
-						icon = { name = controls.name, variant = controls.variant },
+						icon = BuilderIcons.Icon.PlaySmall,
 						variant = ButtonVariant.Emphasis,
 						onActivated = function() end,
 						size = InputSize.Medium,
@@ -123,7 +158,7 @@ table.insert(stories, {
 					LayoutOrder = 2,
 				}, {
 					React.createElement(IconButton, {
-						icon = { name = controls.name, variant = controls.variant },
+						icon = BuilderIcons.Icon.PlaySmall,
 						variant = ButtonVariant.Emphasis,
 						onActivated = function() end,
 						size = InputSize.Medium,
@@ -147,7 +182,7 @@ table.insert(stories, {
 				Size = UDim2.new(1, 0, 0, 60),
 			}, {
 				React.createElement(IconButton, {
-					icon = { name = controls.name, variant = controls.variant },
+					icon = BuilderIcons.Icon.PlaySmall,
 					variant = ButtonVariant.Emphasis,
 					onActivated = function() end,
 					size = InputSize.Medium,
@@ -159,63 +194,38 @@ table.insert(stories, {
 
 		return React.createElement(View, {
 			tag = "col gap-large size-full-0 auto-xy padding-large radius-medium",
-			backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
 		}, children)
 	end,
 })
 table.insert(stories, {
 	name = "FillBehavior",
-	story = function(props)
-		local controls = props.controls
-		local colorMode = controls.colorMode
-		local tokens = useTokens()
-		local selectedBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior
-
+	summary = "The same icon button rendered with each fillBehavior",
+	story = function()
 		return React.createElement(View, {
 			tag = "row gap-medium size-full-0 auto-y padding-medium radius-medium",
-			backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
 		}, {
-			One = React.createElement(IconButton, {
-				icon = {
-					name = controls.name,
-					variant = controls.variant,
-				},
+			None = React.createElement(IconButton, {
+				icon = BuilderIcons.Icon.PlaySmall,
 				variant = ButtonVariant.Emphasis,
-				onActivated = function()
-					print(`{colorMode} IconButton row {selectedBehavior} activated`)
-				end,
-				isDisabled = controls.isDisabled,
+				onActivated = function() end,
 				size = InputSize.Medium,
-				isCircular = controls.isCircular,
-				fillBehavior = selectedBehavior,
+				LayoutOrder = 1,
 			}),
-			Two = React.createElement(IconButton, {
-				icon = {
-					name = controls.name,
-					variant = controls.variant,
-				},
-				variant = ButtonVariant.Utility,
-				onActivated = function()
-					print(`{colorMode} IconButton row {selectedBehavior} activated`)
-				end,
-				isDisabled = controls.isDisabled,
+			Fit = React.createElement(IconButton, {
+				icon = BuilderIcons.Icon.PlaySmall,
+				variant = ButtonVariant.Emphasis,
+				onActivated = function() end,
 				size = InputSize.Medium,
-				isCircular = controls.isCircular,
-				fillBehavior = selectedBehavior,
+				fillBehavior = FillBehavior.Fit,
+				LayoutOrder = 2,
 			}),
-			Three = React.createElement(IconButton, {
-				icon = {
-					name = controls.name,
-					variant = controls.variant,
-				},
-				variant = ButtonVariant.Utility,
-				onActivated = function()
-					print(`{colorMode} IconButton row {selectedBehavior} activated`)
-				end,
-				isDisabled = controls.isDisabled,
+			Fill = React.createElement(IconButton, {
+				icon = BuilderIcons.Icon.PlaySmall,
+				variant = ButtonVariant.Emphasis,
+				onActivated = function() end,
 				size = InputSize.Medium,
-				isCircular = controls.isCircular,
-				fillBehavior = selectedBehavior,
+				fillBehavior = FillBehavior.Fill,
+				LayoutOrder = 3,
 			}),
 		})
 	end,
@@ -234,6 +244,8 @@ return {
 			"glasses",
 		},
 		variant = Dash.values(BuilderIcons.IconVariant),
+		buttonVariant = SUPPORTED_VARIANTS,
+		size = { InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 		isDisabled = false,
 		isCircular = false,
 		colorMode = Dash.values(ColorMode),

@@ -16,7 +16,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local LoadableImage = UIBlox.App.Loading.LoadableImage
 local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 local Images = UIBlox.App.ImageSet.Images
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 
 local InGameMenu = script.Parent.Parent
@@ -93,7 +93,15 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 	local displayName = props.displayName ~= "" and props.displayName or props.username
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundContrast = { Color = tokens.Color.Surface.Surface_100.Color3, Transparency = tokens.Color.Surface.Surface_100.Transparency },
+				BackgroundOnHover = { Color = tokens.Color.State.Hover.Color3, Transparency = tokens.Color.State.Hover.Transparency },
+				OnlineStatus = { Color = tokens.Color.System.Success.Color3, Transparency = tokens.Color.System.Success.Transparency },
+			},
+		}
+	end, function(style)
 		local backgroundStyle = style.Theme.BackgroundContrast
 		local bgBrightness = 1.1
 		if self.props.isSelected then

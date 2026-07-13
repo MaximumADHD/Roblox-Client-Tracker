@@ -64,7 +64,7 @@ return {
 	summary = "Coachmark",
 	stories = {
 		{
-			name = "Default",
+			name = "Playground",
 			story = function(props: StoryProps)
 				return React.createElement(
 					View,
@@ -240,7 +240,7 @@ return {
 	},
 	controls = {
 		title = "Title",
-		text = "Generally we should avoid coachmarks with long titles and bodys. Consider using other affordances for sharing contextual information when content expands beyond a few lines.",
+		text = "Coachmark body text",
 		side = Dash.values(PopoverSide),
 		align = Dash.values(PopoverAlign),
 		hasSecondaryButton = false,

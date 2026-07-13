@@ -283,11 +283,7 @@ return {
 	summary = "List",
 	stories = {
 		{
-			name = "In Parent Container",
-			story = StoryInParentContainer,
-		} :: any,
-		{
-			name = "Base",
+			name = "Playground",
 			story = function(props)
 				return React.createElement(List.Root, {
 					hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
@@ -330,7 +326,11 @@ return {
 						LayoutOrder = 4,
 					}),
 				})
-			end,
+			end :: unknown,
+		},
+		{
+			name = "In Parent Container",
+			story = StoryInParentContainer,
 		},
 		{
 			name = "Settings",
@@ -339,7 +339,7 @@ return {
 		{
 			name = "Games List",
 			story = StoryGames,
-		} :: any,
+		},
 	},
 	controls = {
 		hasDivider = Dash.keys(DIVIDER_OPTIONS),

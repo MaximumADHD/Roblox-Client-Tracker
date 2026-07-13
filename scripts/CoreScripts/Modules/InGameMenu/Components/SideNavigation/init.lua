@@ -7,7 +7,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
@@ -74,7 +74,13 @@ function SideNavigation:oldRender()
 		shouldForgetPreviousSelection = self.props.currentZone ~= 0 or not self.props.open
 	end
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundUIContrast = { Color = tokens.Color.OverMedia.OverMedia_0.Color3, Transparency = tokens.Color.OverMedia.OverMedia_0.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
 			Text = "",
@@ -159,7 +165,13 @@ function SideNavigation:newRender()
 		}) or nil,
 	}
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundUIContrast = { Color = tokens.Color.OverMedia.OverMedia_0.Color3, Transparency = tokens.Color.OverMedia.OverMedia_0.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement(Interactable, {
 			onStateChanged = self.controlStateUpdated,
 

@@ -18,34 +18,37 @@ return {
 	summary = "Toast",
 	stories = {
 		{
-			name = "Toast",
+			name = "Playground",
 			story = function(props)
-				return Story({
-					title = props.controls.title,
-					text = props.controls.text,
-					icon = props.controls.icon,
-					actions = {
-						if props.controls.button1 ~= ""
-							then {
-								onActivated = function()
-									print(props.controls.button1)
-								end,
-								variant = ButtonVariant.Emphasis :: ButtonVariant,
-								text = props.controls.button1,
-							}
-							else nil,
-						if props.controls.button2 ~= ""
-							then {
-								onActivated = function()
-									print(props.controls.button2)
-								end,
-								variant = ButtonVariant.Subtle :: ButtonVariant,
-								text = props.controls.button2,
-							}
-							else nil,
-					},
-					width = UDim.new(0, props.controls.width),
-				} :: any)
+				return React.createElement(
+					Story,
+					{
+						title = props.controls.title,
+						text = props.controls.text,
+						icon = props.controls.icon,
+						actions = {
+							if props.controls.button1 ~= ""
+								then {
+									onActivated = function()
+										print(props.controls.button1)
+									end,
+									variant = ButtonVariant.Emphasis :: ButtonVariant,
+									text = props.controls.button1,
+								}
+								else nil,
+							if props.controls.button2 ~= ""
+								then {
+									onActivated = function()
+										print(props.controls.button2)
+									end,
+									variant = ButtonVariant.Subtle :: ButtonVariant,
+									text = props.controls.button2,
+								}
+								else nil,
+						},
+						width = UDim.new(0, props.controls.width),
+					} :: any
+				)
 			end,
 		},
 	},

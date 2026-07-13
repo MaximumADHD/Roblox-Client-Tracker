@@ -10,7 +10,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Images = UIBlox.App.ImageSet.Images
 local AssetImage = require(InGameMenu.Components.AssetImage)
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -46,7 +46,14 @@ function GameIcon:render()
 		if iconSize <= MAX_PLACEHOLDER_SIZE then
 			placeholderIconSize = iconSize
 		end
-		return withStyle(function(style)
+		return withFoundationOrUIBloxStyle(function(tokens)
+			return {
+				Theme = {
+					PlaceHolder = { Color = tokens.Color.Common.Shimmer.Color3, Transparency = tokens.Color.Common.Shimmer.Transparency },
+					UIDefault = { Color = tokens.Color.Shift.Shift_200.Color3, Transparency = tokens.Color.Shift.Shift_200.Transparency },
+				},
+			}
+		end, function(style)
 			return Roact.createElement(AssetImage.Label, {
 				imageKey = "RoundedRect",
 				Size = UDim2.fromOffset(iconSize, iconSize),

@@ -28,7 +28,12 @@ end
 
 return {
 	summary = "Checkbox component",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		isDisabled = false,
 		label = "Label",

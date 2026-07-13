@@ -47,9 +47,34 @@ end
 
 local stories = {
 	{
-		name = "Basic",
-		summary = "Default knob across sizes.",
+		name = "Playground",
 		story = (function(props)
+			local controls = props.controls
+			local isInverse = controls.isInverse or false
+			local tokens = useTokens()
+
+			local knob = React.createElement(Knob, {
+				size = controls.size,
+				hasShadow = controls.hasShadow,
+				isDisabled = controls.isDisabled,
+			})
+
+			if Flags.FoundationToggleVisualUpdate then
+				return React.createElement(View, {
+					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+					backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+				}, React.createElement(PresentationContext.Provider, { value = { isInverse = isInverse } }, knob))
+			else
+				return React.createElement(View, {
+					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+				}, knob)
+			end
+		end) :: unknown,
+	},
+	{
+		name = "Sizes",
+		summary = "Default knob across sizes.",
+		story = function(props)
 			local controls = props.controls
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
@@ -87,12 +112,12 @@ local stories = {
 					)
 				)
 			end
-		end) :: unknown,
+		end,
 	},
 	{
 		name = "With Stroke",
 		summary = "Knob with transparent fill and emphasis stroke across sizes.",
-		story = (function(props)
+		story = function(props)
 			local controls = props.controls
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
@@ -140,7 +165,7 @@ local stories = {
 					})
 				)
 			end
-		end) :: unknown,
+		end,
 	},
 }
 
@@ -148,7 +173,7 @@ if Flags.FoundationToggleVisualUpdate then
 	table.insert(stories, {
 		name = "With Icon",
 		summary = "Knob rendering a BuilderIcons check icon instead of the circle.",
-		story = (function(props)
+		story = function(props)
 			local controls = props.controls
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
@@ -172,7 +197,7 @@ if Flags.FoundationToggleVisualUpdate then
 					})
 				)
 			)
-		end) :: unknown,
+		end,
 	})
 end
 
@@ -182,9 +207,11 @@ return {
 			isInverse = false,
 			hasShadow = true,
 			isDisabled = false,
+			size = Dash.values(InputSize),
 		}
 		else {
 			hasShadow = true,
+			size = Dash.values(InputSize),
 		},
 	summary = if Flags.FoundationToggleVisualUpdate
 		then "Interactive circular handle used by higher-level inputs (e.g., Slider and Toggle). Typically composed by parent controls rather than used directly. Uses PresentationContext for inverse styling."

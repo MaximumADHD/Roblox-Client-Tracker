@@ -115,6 +115,16 @@ if ReactSchedulerConfig then
 	ReactScheduler.unstable_setSchedulerFlags(ReactSchedulerConfig)
 end
 
+local FFlagEnableSchedulerFlagOverrides =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSchedulerFlagOverrides
+if FFlagEnableSchedulerFlagOverrides then
+	local GetSchedulerFlagOverrides = require(CorePackages.Workspace.Packages.SharedFlags).GetSchedulerFlagOverrides
+	local inExpOverrides = GetSchedulerFlagOverrides.getInExp()
+	if inExpOverrides then
+		ReactScheduler.unstable_setSchedulerFlags(inExpOverrides)
+	end
+end
+
 local FFlagEnableAEGIS2CommsFAEUpsell =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell
 

@@ -27,7 +27,7 @@ end
 return {
 	summary = "Creates a binding used for various pulsating effects",
 	stories = {
-		{ name = "Example", story = DefaultStory :: any },
+		{ name = "Playground", story = DefaultStory :: unknown },
 	},
 	controls = {
 		cycleTime = 1,

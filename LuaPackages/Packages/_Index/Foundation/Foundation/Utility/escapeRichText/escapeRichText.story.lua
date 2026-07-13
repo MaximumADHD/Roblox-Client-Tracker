@@ -205,7 +205,7 @@ return {
 		{
 			name = "Extreme case",
 			story = function()
-				return SideBySideStory({
+				return React.createElement(SideBySideStory, {
 					controls = {
 						inputText = extremeRichText,
 					},
@@ -215,7 +215,7 @@ return {
 		{
 			name = "Completely invalid rich text that looks right",
 			story = function()
-				return SideBySideStory({
+				return React.createElement(SideBySideStory, {
 					controls = {
 						inputText = completelyInvalidRichText,
 					},

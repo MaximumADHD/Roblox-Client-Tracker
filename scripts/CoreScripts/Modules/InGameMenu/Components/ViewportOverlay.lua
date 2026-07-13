@@ -3,10 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
-local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
 local sideBarWidth = 64
@@ -36,7 +35,13 @@ local function ViewportOverlay(props)
 
 	local isInitalPage = props.currentPage == Constants.InitalPageKey
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement("Frame", {
 			BackgroundColor3 = style.Theme.Overlay.Color,
 			BackgroundTransparency = style.Theme.Overlay.Transparency,

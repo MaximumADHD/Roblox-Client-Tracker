@@ -5,8 +5,10 @@ local React = require(Packages.React)
 
 local Dash = require(Packages.Dash)
 
+local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local Indicator = require(script.Parent.Indicator)
+local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -20,8 +22,8 @@ local useAvatarVariants = require(script.Parent.useAvatarVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
 
-local InputSize = require(Foundation.Enums.InputSize)
-type InputSize = InputSize.InputSize
+local AvatarSize = require(Foundation.Enums.AvatarSize)
+type AvatarSize = AvatarSize.AvatarSize
 local UserPresence = require(Foundation.Enums.UserPresence)
 type UserPresence = UserPresence.UserPresence
 
@@ -32,12 +34,12 @@ export type AvatarProps = {
 	userId: number,
 	backgroundStyle: Types.ColorStyle?,
 	backplateStyle: Types.ColorStyle?,
-	size: InputSize?,
+	size: AvatarSize?,
 	userPresence: UserPresence?,
 } & Types.CommonProps
 
 local defaultProps = {
-	size = InputSize.Medium,
+	size = AvatarSize.Medium,
 	userPresence = UserPresence.None :: UserPresence,
 	testId = "--foundation-avatar",
 }
@@ -66,8 +68,22 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 				tag = variantProps.avatar.tag,
 				backgroundStyle = props.backgroundStyle,
 			}),
-			Indicator = if variantProps.indicator.isVisible
-				then React.createElement(
+			Indicator = if Flags.FoundationAvatarBeta
+				then if variantProps.statusIndicator.isVisible
+					then React.createElement(
+						View,
+						Dash.join(variantProps.statusIndicatorBackplate, {
+							testId = `{props.testId}--indicator-backplate`,
+						}),
+						React.createElement(StatusIndicator, {
+							testId = `{props.testId}--status-indicator`,
+							variant = variantProps.statusIndicator.variant,
+							shape = variantProps.statusIndicator.shape,
+							size = variantProps.statusIndicator.size,
+						})
+					)
+					else nil
+				elseif variantProps.indicator.isVisible then React.createElement(
 					View,
 					Dash.join(variantProps.indicatorBackplate, {
 						testId = `{props.testId}--indicator`,

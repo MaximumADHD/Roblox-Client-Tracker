@@ -35,8 +35,8 @@ local backgroundStyleOrderedKeys = { "Default", "Surface_0", "Surface_200", "Act
 return {
 	summary = "Popover",
 	stories = {
-		Basic = {
-			name = "Basic",
+		{
+			name = "Playground",
 			story = function(props)
 				local backgroundStyle = useBackgroundStyle(props.controls.backgroundStyle)
 				return React.createElement(View, {
@@ -88,9 +88,9 @@ return {
 						),
 					}),
 				})
-			end,
+			end :: unknown,
 		},
-		ClickOutside = {
+		{
 			name = "Click Outside",
 			story = function(props)
 				local open, setOpen = React.useState(false)
@@ -146,7 +146,7 @@ return {
 				})
 			end,
 		},
-		AnchorRef = {
+		{
 			name = "Anchor Reference",
 			story = function(props)
 				local buttonRef = React.useRef(nil)
@@ -196,7 +196,7 @@ return {
 				})
 			end,
 		},
-		KeyboardAware = {
+		{
 			name = "Keyboard Aware Input",
 			story = function()
 				local open, setOpen = React.useState(false)
@@ -280,7 +280,7 @@ return {
 				})
 			end,
 		},
-		MousePositionTooltip = {
+		{
 			name = "MousePositionTooltip",
 			story = function(props)
 				local open, setOpen = React.useState(false)
@@ -340,7 +340,7 @@ return {
 				})
 			end,
 		},
-		ContextMenu = {
+		{
 			name = "Context menu",
 			story = function(props)
 				local open, setOpen = React.useState(false)

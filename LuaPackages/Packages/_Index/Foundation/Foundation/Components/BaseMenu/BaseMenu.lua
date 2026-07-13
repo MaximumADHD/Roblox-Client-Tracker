@@ -106,27 +106,39 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 	-- If the width is provided use it as the minimal width, the user knows better.
 	local minWidth = React.useMemo(function()
 		return width:map(function(widthValue: UDim?)
-			-- When the width provided is UDim.new(1, 0) we have no min width, which is fine.
-			return if widthValue then widthValue.Offset else scaledMinWidth
+			return if widthValue
+				then widthValue.Offset
+				elseif Flags.FoundationBaseMenuContentSizing then 0
+				else scaledMinWidth
 		end)
 	end, { width, scaledMinWidth } :: { unknown })
 
 	local autoSize = React.useMemo(function()
-		return width:map(function(widthValue: UDim?)
-			return not widthValue or (props.couldGrow and widthValue.Offset < scaledMaxWidth)
+		return width:map(function(widthValue: UDim?): boolean
+			if Flags.FoundationBaseMenuContentSizing then
+				return not widthValue or props.couldGrow == true
+			end
+			return not widthValue or (props.couldGrow == true and widthValue.Offset < scaledMaxWidth)
 		end)
 	end, { width, scaledMaxWidth, props.couldGrow } :: { unknown })
 
 	local sizeConstraint = React.useMemo(function()
 		return {
-			MinSize = React.joinBindings({ autoSize, minWidth }):map(function(values)
+			MinSize = React.joinBindings({ autoSize, minWidth }):map(function(values): Vector2?
 				local autoSizeValue = values[1]
 				local minWidthValue = values[2]
-				return if autoSizeValue then Vector2.new(minWidthValue, 0) else nil
+				if not autoSizeValue then
+					return nil
+				end
+				return if Flags.FoundationBaseMenuContentSizing and minWidthValue == 0
+					then nil
+					else Vector2.new(minWidthValue, 0)
 			end),
-			MaxSize = autoSize:map(function(autoSizeValue)
-				return if autoSizeValue then Vector2.new(scaledMaxWidth, math.huge) else nil
-			end),
+			MaxSize = if Flags.FoundationBaseMenuContentSizing
+				then nil
+				else autoSize:map(function(autoSizeValue): Vector2?
+					return if autoSizeValue then Vector2.new(scaledMaxWidth, math.huge) else nil
+				end),
 		}
 	end, { autoSize, minWidth, scaledMaxWidth } :: { unknown })
 

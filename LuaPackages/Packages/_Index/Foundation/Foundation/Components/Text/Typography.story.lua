@@ -80,7 +80,7 @@ return {
 	summary = "Text",
 	stories = {
 		{
-			name = "Typography",
+			name = "Playground",
 			story = Story,
 		},
 	},

@@ -14,6 +14,7 @@ local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsV
 local OnChangeCallbackReason = require(Foundation.Enums.OnChangeCallbackReason)
 type OnChangeCallbackReason = OnChangeCallbackReason.OnChangeCallbackReason
 local Button = require(Foundation.Components.Button)
+local ScrubBehavior = require(Foundation.Enums.ScrubBehavior)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
@@ -39,10 +40,10 @@ local FORMAT_AS_STRING_CALLBACKS: { FormatAsStringEntry } = {
 		name = "punctuation",
 		callback = function(numValue)
 			local withPunctuation = ""
-			local numString = tostring(numValue)
-			local s, e = math.max(#numString - 2, 1), #numString
+			local roundedNumString = tostring(math.round(numValue))
+			local s, e = math.max(#roundedNumString - 2, 1), #roundedNumString
 			while e >= 1 do
-				local nextThreeChars = string.sub(numString, s, e)
+				local nextThreeChars = string.sub(roundedNumString, s, e)
 				e = s - 1
 				s = math.max(e - 2, 1)
 				if e >= 1 then
@@ -51,12 +52,53 @@ local FORMAT_AS_STRING_CALLBACKS: { FormatAsStringEntry } = {
 					withPunctuation = nextThreeChars .. withPunctuation
 				end
 			end
-			return withPunctuation
+			local numString = tostring(numValue)
+			local decimalsStart, _ = string.find(numString, ".", 1, true)
+			return withPunctuation .. string.sub(numString, decimalsStart or #numString + 1, #numString)
 		end,
 	},
 }
 
-local function DefaultStory(props)
+type GroupProps = {
+	caption: string,
+	contentTag: string,
+	LayoutOrder: number?,
+	children: React.ReactNode?,
+}
+
+local function Group(props: GroupProps)
+	return React.createElement(View, {
+		tag = "col gap-medium auto-xy",
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Caption = React.createElement(Text, {
+			Text = props.caption,
+			tag = "text-body-small content-default auto-xy",
+			LayoutOrder = 1,
+		}),
+		Content = React.createElement(View, {
+			tag = props.contentTag,
+			LayoutOrder = 2,
+		}, props.children),
+	})
+end
+
+local function StatefulNumberInput(props)
+	local value, setValue = React.useState(props.defaultValue or 0)
+
+	return React.createElement(
+		NumberInput,
+		Dash.join(props, {
+			defaultValue = React.None,
+			value = value,
+			onChanged = function(newValue: number)
+				setValue(newValue)
+			end,
+		})
+	)
+end
+
+local function PlaygroundStory(props)
 	local controls = props.controls
 	local formatAsString = (Dash.find(FORMAT_AS_STRING_CALLBACKS, function(entry)
 		return entry.name == controls.formatAsString
@@ -66,46 +108,257 @@ local function DefaultStory(props)
 	local valueBinding, setValueBinding = React.useBinding(0)
 
 	local function handleChange(newValue: number)
-		print("Value changed:", newValue)
 		if controls.useBindingValue then
 			setValueBinding(newValue)
 		else
 			setValue(newValue)
 		end
 	end
+
+	return React.createElement(NumberInput, {
+		value = if controls.useBindingValue then valueBinding else value,
+		variant = controls.variant,
+		controlsVariant = if Flags.FoundationNumberInputBeta then nil else controls.controlsVariant,
+		hasError = controls.hasError,
+		isDisabled = controls.isDisabled,
+		isRequired = controls.isRequired,
+		onChanged = handleChange,
+		formatAsString = formatAsString,
+		label = controls.label,
+		size = controls.size,
+		width = if controls.width == 0 then nil else UDim.new(0, controls.width),
+		maximum = controls.maximum,
+		minimum = controls.minimum,
+		step = controls.step,
+		hint = controls.hint,
+		precision = controls.precision,
+		leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
+		trailingIcon = if Flags.FoundationNumberInputBeta
+			then if controls.trailingIcon == React.None then nil else controls.trailingIcon
+			else nil,
+		scrubBehavior = controls.scrubBehavior,
+		prefix = if controls.prefix == "" then nil else controls.prefix,
+		suffix = if controls.suffix == "" then nil else controls.suffix,
+		hasControls = controls.hasControls,
+		focusBehavior = controls.focusBehavior,
+	})
+end
+
+local function SizesStory()
 	return React.createElement(
 		View,
-		{
-			tag = "row align-y-center gap-medium size-full-0 auto-y",
-		},
+		{ tag = "row gap-xxlarge auto-xy align-y-bottom" },
 		Dash.map(
-			{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
-			function(size: InputSize)
-				return React.createElement(NumberInput, {
-					value = if controls.useBindingValue then valueBinding else value,
-					variant = controls.variant,
-					controlsVariant = props.controlsVariant,
-					hasError = controls.hasError,
-					isDisabled = controls.isDisabled,
-					isRequired = controls.isRequired,
-					onChanged = handleChange,
-					formatAsString = formatAsString,
-					label = controls.label,
-					size = size,
-					width = if controls.width == 0 then nil else UDim.new(0, controls.width),
-					maximum = controls.maximum,
-					minimum = controls.minimum,
-					step = controls.step,
-					hint = controls.hint,
-					precision = controls.precision,
-					leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
-					isScrubbable = controls.isScrubbable,
-					prefix = if controls.prefix == "" then nil else controls.prefix,
-					suffix = if controls.suffix == "" then nil else controls.suffix,
-					focusBehavior = controls.focusBehavior,
+			{ Large = InputSize.Large, Medium = InputSize.Medium, Small = InputSize.Small, XSmall = InputSize.XSmall },
+			function(size, name)
+				return React.createElement(Group, {
+					caption = name,
+					contentTag = "auto-xy",
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 42,
+						size = size,
+						label = "Value",
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
 				})
 			end
 		)
+	)
+end
+
+local function VariantsStory()
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy" },
+		Dash.map(InputVariant, function(variant, name)
+			return React.createElement(Group, {
+				caption = name,
+				contentTag = "auto-xy",
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = 25,
+					variant = variant,
+					label = "Value",
+					minimum = 0,
+					maximum = 100,
+					step = 1,
+					width = UDim.new(0, 200),
+				}),
+			})
+		end)
+	)
+end
+
+local function StatesStory()
+	local states = {
+		{ caption = "Enabled", isDisabled = false, hasError = false },
+		{ caption = "Disabled", isDisabled = true, hasError = false },
+		{ caption = "Error", isDisabled = false, hasError = true },
+	}
+
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy" },
+		Dash.map(states, function(state, index)
+			return React.createElement(Group, {
+				caption = state.caption,
+				contentTag = "auto-xy",
+				LayoutOrder = index,
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = 50,
+					label = "Value",
+					hint = if state.hasError then "Value is invalid" else "Hint text",
+					isDisabled = state.isDisabled,
+					hasError = state.hasError,
+					minimum = 0,
+					maximum = 100,
+					step = 1,
+					width = UDim.new(0, 200),
+				}),
+			})
+		end)
+	)
+end
+
+local function ControlsVariantStory()
+	if Flags.FoundationNumberInputBeta then
+		return React.createElement(
+			View,
+			{ tag = "row gap-xxlarge auto-xy" },
+			Dash.map({
+				{ caption = "With Controls", hasControls = true },
+				{ caption = "Without Controls", hasControls = false },
+			}, function(option, index)
+				return React.createElement(Group, {
+					caption = option.caption,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 10,
+						label = "Value",
+						hasControls = option.hasControls,
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		)
+	else
+		return React.createElement(
+			View,
+			{ tag = "row gap-xxlarge auto-xy" },
+			Dash.map(NumberInputControlsVariant, function(variant, name)
+				return React.createElement(Group, {
+					caption = name,
+					contentTag = "auto-xy",
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 10,
+						controlsVariant = variant,
+						label = "Value",
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		)
+	end
+end
+
+local function PrefixSuffixStory()
+	local examples: { { caption: string, prefix: string?, suffix: string? } } = {
+		{ caption = "Prefix ($)", prefix = "$", suffix = nil },
+		{ caption = "Suffix (%)", prefix = nil, suffix = "%" },
+		{ caption = "Suffix (px) + Icon", prefix = nil, suffix = "px", leadingIcon = "icons/common/search_small" },
+	}
+
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy" },
+		Dash.map(examples, function(example, index)
+			return React.createElement(Group, {
+				caption = example.caption,
+				contentTag = "auto-xy",
+				LayoutOrder = index,
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = 100,
+					label = "Value",
+					prefix = example.prefix,
+					suffix = example.suffix,
+					leadingIcon = example.leadingIcon,
+					minimum = 0,
+					maximum = 9999,
+					step = 1,
+					width = UDim.new(0, 200),
+				}),
+			})
+		end)
+	)
+end
+
+local function IconsStory()
+	local examples: { { caption: string, leadingIcon: string?, trailingIcon: string? } } = {
+		{ caption = "Leading", leadingIcon = "icons/common/search_small", trailingIcon = nil },
+		{ caption = "Trailing", leadingIcon = nil, trailingIcon = "icons/status/private_small" },
+		{ caption = "Both", leadingIcon = "icons/common/search_small", trailingIcon = "icons/status/private_small" },
+	}
+
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy" },
+		Dash.map(examples, function(example, index)
+			return React.createElement(Group, {
+				caption = example.caption,
+				contentTag = "auto-xy",
+				LayoutOrder = index,
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = 42,
+					label = "Value",
+					leadingIcon = example.leadingIcon,
+					trailingIcon = if Flags.FoundationNumberInputBeta then example.trailingIcon else nil,
+					minimum = 0,
+					maximum = 100,
+					step = 1,
+					width = UDim.new(0, 200),
+				}),
+			})
+		end)
+	)
+end
+
+local function ScrubBehaviorStory()
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy" },
+		Dash.map(ScrubBehavior, function(behavior, name)
+			return React.createElement(Group, {
+				caption = name,
+				contentTag = "auto-xy",
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = 50,
+					label = "Drag to change",
+					hint = if behavior == ScrubBehavior.On then "Scrub enabled" else "Scrub disabled",
+					scrubBehavior = behavior,
+					minimum = 0,
+					maximum = 100,
+					step = 1,
+					width = UDim.new(0, 200),
+				}),
+			})
+		end)
 	)
 end
 
@@ -127,13 +380,10 @@ local function UndoRedoStackStory()
 	local function handleChange(newValue: number, reason: OnChangeCallbackReason)
 		setValue(newValue)
 
-		-- Keyboard: live typing updates - don't create history entries
-		-- The value will be committed on focus lost with Commit reason
 		if reason == OnChangeCallbackReason.Keyboard then
 			return
 		end
 
-		-- Drag: consolidate consecutive drag entries into one
 		if reason == OnChangeCallbackReason.Drag and lastReasonRef.current == OnChangeCallbackReason.Drag then
 			setHistory(function(prev)
 				local newHistory = table.clone(prev)
@@ -141,7 +391,6 @@ local function UndoRedoStackStory()
 				return newHistory
 			end)
 		else
-			-- Activate, Commit, or first Drag: create a new entry, truncating redo history
 			setHistory(function(prev)
 				local newHistory = {}
 				for i = 1, historyIndex do
@@ -236,28 +485,57 @@ local function UndoRedoStackStory()
 	})
 end
 
-local defaultStories = Dash.map(Dash.values(NumberInputControlsVariant), function(controlsVariant)
-	return {
-		name = controlsVariant,
+local stories: { { name: string, story: (props: any) -> React.Node } } = {
+	{
+		name = "Playground",
 		story = function(props)
-			return React.createElement(DefaultStory, Dash.join(props, { controlsVariant = controlsVariant }))
+			return React.createElement(PlaygroundStory, { controls = props.controls })
 		end,
-	}
-end)
-
-table.insert(defaultStories, {
-	name = "UndoRedoStack",
-	story = UndoRedoStackStory,
-})
+	},
+	{
+		name = "Sizes",
+		story = SizesStory,
+	},
+	{
+		name = "Variants",
+		story = VariantsStory,
+	},
+	{
+		name = "States",
+		story = StatesStory,
+	},
+	{
+		name = "ControlsVariant",
+		story = ControlsVariantStory,
+	},
+	{
+		name = "PrefixSuffix",
+		story = PrefixSuffixStory,
+	},
+	{
+		name = "Icons",
+		story = IconsStory,
+	},
+	{
+		name = "ScrubBehavior",
+		story = ScrubBehaviorStory,
+	},
+	{
+		name = "UndoRedoStack",
+		story = UndoRedoStackStory,
+	},
+}
 
 return {
 	summary = "NumberInput",
-	stories = defaultStories,
+	stories = stories,
 	controls = {
 		label = "Label",
 		hint = "Number from -5 to 100",
+		size = Dash.values(InputSize),
 		isRequired = { React.None, false, true },
 		variant = Dash.values(InputVariant),
+		controlsVariant = if Flags.FoundationNumberInputBeta then nil else Dash.values(NumberInputControlsVariant),
 		formatAsString = Dash.values(Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
 			return entry.name
 		end)),
@@ -271,13 +549,22 @@ return {
 		prefix = "",
 		suffix = "",
 		width = 0,
-		isScrubbable = false,
+		scrubBehavior = Dash.values(ScrubBehavior),
 		leadingIcon = {
 			"icons/placeholder/placeholderOn_small",
 			"icons/status/private_small",
 			"icons/common/search_small",
 			React.None,
 		},
+		trailingIcon = if Flags.FoundationNumberInputBeta
+			then {
+				"icons/placeholder/placeholderOn_small",
+				"icons/status/private_small",
+				"icons/common/search_small",
+				React.None,
+			}
+			else nil,
+		hasControls = if Flags.FoundationNumberInputBeta then true else nil,
 		focusBehavior = if Flags.FoundationTextInputHighlightFix
 			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
 			else nil,

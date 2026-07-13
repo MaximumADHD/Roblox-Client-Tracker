@@ -20,8 +20,6 @@ local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 local TelemetryService = game:GetService("TelemetryService")
 
-local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
@@ -72,6 +70,7 @@ local DarkTheme = require(CorePackages.Packages.UIBlox).App.Style.Constants.Them
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
+local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
 local Theme = require(script.Parent.Theme)
 
@@ -120,6 +119,7 @@ local Flags = {
 	GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics),
 	GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint),
 	GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer),
+	GetFStringExitModalIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringExitModalIXPLayer),
 	GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar),
 	FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons),
 	FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant),
@@ -176,6 +176,8 @@ local Flags = {
 	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
 	FFlagImprovePageTitleCloseButton = game:DefineFastFlag("ImprovePageTitleCloseButton", false),
 	FFlagIGMSelectionGroup = game:DefineFastFlag("IGMSelectionGroup", false),
+	FFlagRemoveExitModal = require(RobloxGui.Modules.Settings.Flags.FFlagRemoveExitModal),
+	FFlagEnableExitModalExposure = game:DefineFastFlag("EnableExitModalExposure", false),
 }
 
 --[[ SERVICES ]]
@@ -3320,33 +3322,18 @@ local function CreateSettingsHub()
 						PerfUtils.menuOpenComplete()
 					end
 				else
-					if featureDeprecateOldGuiObjectProperties then
-						this.Shield:TweenPositionInternal(
-							UDim2.new(0, 0, 0, 0),
-							Enum.EasingDirection.InOut,
-							Enum.EasingStyle.Quart,
-							movementTime,
-							true,
-							function ()
-								if Flags.FFlagEnableInGameMenuDurationLogger then
-									PerfUtils.menuOpenComplete()
-								end
+					this.Shield:TweenPositionInternal(
+						UDim2.new(0, 0, 0, 0),
+						Enum.EasingDirection.InOut,
+						Enum.EasingStyle.Quart,
+						movementTime,
+						true,
+						function ()
+							if Flags.FFlagEnableInGameMenuDurationLogger then
+								PerfUtils.menuOpenComplete()
 							end
-						)
-					else
-						this.Shield:TweenPosition(
-							UDim2.new(0, 0, 0, 0),
-							Enum.EasingDirection.InOut,
-							Enum.EasingStyle.Quart,
-							movementTime,
-							true,
-							function ()
-								if Flags.FFlagEnableInGameMenuDurationLogger then
-									PerfUtils.menuOpenComplete()
-								end
-							end
-						)
-					end
+						end
+					)
 				end
 
 				if not Flags.FFlagSettingsHubIndependentBackgroundVisibility then
@@ -3579,31 +3566,17 @@ local function CreateSettingsHub()
 						local ChromeService = require(RobloxGui.Modules.Chrome.Service)
 							ChromeService:setShortcutBar(nil)
 					end
-					if featureDeprecateOldGuiObjectProperties then
-						this.Shield:TweenPositionInternal(
-							SETTINGS_SHIELD_INACTIVE_POSITION,
-							Enum.EasingDirection.In,
-							Enum.EasingStyle.Quad,
-							movementTime,
-							true,
-							function()
-								this.Shield.Visible = this.Visible
-								handleShieldClose()
-							end
-						)
-					else
-						this.Shield:TweenPosition(
-							SETTINGS_SHIELD_INACTIVE_POSITION,
-							Enum.EasingDirection.In,
-							Enum.EasingStyle.Quad,
-							movementTime,
-							true,
-							function()
-								this.Shield.Visible = this.Visible
-								handleShieldClose()
-							end
-						)
-					end
+					this.Shield:TweenPositionInternal(
+						SETTINGS_SHIELD_INACTIVE_POSITION,
+						Enum.EasingDirection.In,
+						Enum.EasingStyle.Quad,
+						movementTime,
+						true,
+						function()
+							this.Shield.Visible = this.Visible
+							handleShieldClose()
+						end
+					)
 				end
 
 				if not Flags.FFlagSettingsHubIndependentBackgroundVisibility then
@@ -3984,7 +3957,8 @@ local function CreateSettingsHub()
 		this.PlayerProfilePage = require(RobloxGui.Modules.Settings.Pages.PlayerProfile)
 	end
 
-	if isSubjectToDesktopPolicies() then
+	if not Flags.FFlagRemoveExitModal and isSubjectToDesktopPolicies() then
+		-- TODO: cleanup ExitModal file when flag is removed as true
 		this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
 		this.ExitModalPage:SetHub(this)
 	end
@@ -4085,7 +4059,7 @@ local function CreateSettingsHub()
 			this:AddPage(this.RecordPage)
 		end
 	end
-	if this.ExitModalPage then
+	if not Flags.FFlagRemoveExitModal and this.ExitModalPage then
 		this:AddPage(this.ExitModalPage)
 	end
 
@@ -4172,8 +4146,38 @@ local function CreateSettingsHub()
 	end)
 
 	-- DUA: connect exit signal
-	if this.ExitModalPage then
+	local exitModalIXPExposureLogged = false
+	local function logExitModalIXPExposureOnce()
+		if exitModalIXPExposureLogged then
+			return
+		end
+		exitModalIXPExposureLogged = true
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(Flags.GetFStringExitModalIXPLayer())
+	end
+
+	if Flags.FFlagRemoveExitModal and isSubjectToDesktopPolicies() then
+		game:GetService("GuiService").NativeClose:Connect(function()
+			if Flags.FFlagEnableExitModalExposure then
+				logExitModalIXPExposureOnce()
+			end
+			leaveGame(false, { shouldNativeExit = true })
+		end)
+
+		if this.FullScreenTitleBar then
+			this.FullScreenTitleBar = SettingsFullScreenTitleBar.update(this.FullScreenTitleBar, {
+				onClose = function()
+					if Flags.FFlagEnableExitModalExposure then
+						logExitModalIXPExposureOnce()
+					end
+					leaveGame(false, { shouldNativeExit = true })
+				end,
+			})
+		end
+	elseif this.ExitModalPage then
 		local function showExitModal()
+			if Flags.FFlagEnableExitModalExposure then
+				logExitModalIXPExposureOnce()
+			end
 			this.HubBar.Visible = false
 			removeBottomBarBindings()
 			if this:GetVisibility() then

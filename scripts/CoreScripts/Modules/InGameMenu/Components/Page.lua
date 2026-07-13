@@ -5,7 +5,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local InGameMenu = script.Parent.Parent
@@ -18,6 +18,11 @@ local Direction = require(InGameMenu.Enums.Direction)
 
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local TITLE_HEIGHT = 28
 local TITLE_TOP_PADDING = 28
 local TITLE_BOTTOM_PADDING = 12
@@ -26,22 +31,41 @@ local TOTAL_TITLE_SPACE = TITLE_TOP_PADDING + TITLE_HEIGHT + TITLE_BOTTOM_PADDIN
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
 local function renderWithSelectionCursor(props, getSelectionCursor)
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				IconEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+				BackgroundContrast = { Color = tokens.Color.Surface.Surface_100.Color3, Transparency = tokens.Color.Surface.Surface_100.Transparency },
+			},
+		}
+	end, function(style)
 		local titleChildren = {
 			ExtraChildren = props.titleChildren,
-			BackButton = Roact.createElement(ImageSetButton, {
-				BackgroundTransparency = 1,
-				Image = Assets.Images.NavigateBack,
-				AnchorPoint = Vector2.new(0, 0.5),
-				ImageColor3 = style.Theme.IconEmphasis.Color,
-				ImageTransparency = style.Theme.IconEmphasis.Transparency,
-				Position = UDim2.new(0, 4, 0.5, 0),
-				Size = UDim2.new(0, 36, 0, 36),
-				NextSelectionDown = props.NextSelectionDown,
-				[Roact.Event.Activated] = props.navigateUp,
-				[Roact.Ref] = props.buttonRef,
-				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
-			}),
+			BackButton = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Image = Assets.Images.NavigateBack :: string,
+					tag = "content-emphasis anchor-center-left size-900",
+					Position = UDim2.new(0, 4, 0.5, 0),
+					selection = {
+						NextSelectionDown = props.NextSelectionDown,
+						SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+					},
+					onActivated = props.navigateUp,
+					ref = props.buttonRef,
+				})
+				else Roact.createElement(ImageSetButton, {
+					BackgroundTransparency = 1,
+					Image = Assets.Images.NavigateBack,
+					AnchorPoint = Vector2.new(0, 0.5),
+					ImageColor3 = style.Theme.IconEmphasis.Color,
+					ImageTransparency = style.Theme.IconEmphasis.Transparency,
+					Position = UDim2.new(0, 4, 0.5, 0),
+					Size = UDim2.new(0, 36, 0, 36),
+					NextSelectionDown = props.NextSelectionDown,
+					[Roact.Event.Activated] = props.navigateUp,
+					[Roact.Ref] = props.buttonRef,
+					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+				}),
 		}
 
 		return Roact.createElement("TextButton", {

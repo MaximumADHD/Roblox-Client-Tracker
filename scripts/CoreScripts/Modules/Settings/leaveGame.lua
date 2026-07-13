@@ -16,6 +16,9 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableGameLeftMessage = SharedFlags.FFlagEnableGameLeftMessage
 local FFlagSurvBloxEventTypeEnabled = SharedFlags.FFlagSurvBloxEventTypeEnabled
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
+local FFlagRemoveExitModal = require(RobloxGui.Modules.Settings.Flags.FFlagRemoveExitModal)
+local FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry =
+	require(CorePackages.Workspace.Packages.VoiceChatCore).Flags.GetFFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry()
 
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
@@ -35,9 +38,13 @@ local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommon
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 local ReactSchedulingTracker = require(RobloxGui.Modules.Common.ReactSchedulingTracker)
+local VoiceChatServiceManager = if FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry
+	then require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+	else nil
 
 export type LeaveGameProps = {
 	telemetryFields: { [string] : any},
+    shouldNativeExit: boolean?,
 }
 
 local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?)
@@ -95,6 +102,9 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     end
 	
 	coreGuiFinalStateAnalytics:sendCoreGuiFinalAnalytic()
+	if FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry then
+		VoiceChatServiceManager:ReportVoiceVolumeImpressionsIfNeeded()
+	end
 
     -- need to wait for render frames so on slower devices the leave button highlight will update
     -- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
@@ -102,9 +112,17 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
         RunService.RenderStepped:wait()
     end
 
-    game:Shutdown()
+    -- return to app by default, unless shouldNativeExit is true then native exit
+    if not FFlagRemoveExitModal or (not props or not props.shouldNativeExit) then
+        game:Shutdown()
+    end
 
     settings().Rendering.QualityLevel = GetDefaultQualityLevel()
+
+    if FFlagRemoveExitModal and props and props.shouldNativeExit then
+        local NotificationType = GuiService:GetNotificationTypeList()
+        GuiService:BroadcastNotification("", NotificationType.NATIVE_EXIT)
+    end
 end
 
 return leaveGame

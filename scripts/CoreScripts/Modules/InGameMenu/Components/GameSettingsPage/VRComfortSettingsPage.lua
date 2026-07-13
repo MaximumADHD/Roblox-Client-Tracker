@@ -4,8 +4,7 @@ local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependenc
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
-local UIBlox = InGameMenuDependencies.UIBlox
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local InGameMenu = script.Parent.Parent.Parent
 local Page = require(script.Parent.Parent.Page)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
@@ -32,7 +31,9 @@ local function createLayoutOrderGenerator()
 end
 
 function VRComfortSettingsPage:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(_tokens)
+		return {}
+	end, function(style)
 		local getNextLayoutOrder = createLayoutOrderGenerator()
 
 		return Roact.createElement(Page, {

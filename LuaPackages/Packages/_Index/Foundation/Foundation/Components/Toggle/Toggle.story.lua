@@ -116,8 +116,8 @@ return {
 	summary = "Toggle component",
 	stories = {
 		{
-			name = "Basic",
-			story = BasicStory :: any,
+			name = "Playground",
+			story = BasicStory :: unknown,
 		},
 		{
 			name = "Custom Selection",

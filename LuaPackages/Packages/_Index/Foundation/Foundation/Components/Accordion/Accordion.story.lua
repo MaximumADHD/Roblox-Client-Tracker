@@ -75,8 +75,8 @@ end
 return {
 	summary = "Accordion",
 	stories = {
-		ConfigurableDefault = {
-			name = "Default (configurable)",
+		{
+			name = "Playground",
 			story = function(props)
 				return React.createElement(Accordion, {
 					width = UDim.new(0, 400),
@@ -84,9 +84,9 @@ return {
 				}, {
 					getItems(props.controls, true),
 				})
-			end,
+			end :: unknown,
 		},
-		Controlled = {
+		{
 			name = "Controlled (one expanded item at a time)",
 			story = function()
 				local expandedItem, setExpandedItem = React.useState(1)
@@ -125,7 +125,7 @@ return {
 				})
 			end,
 		},
-		Controlled2 = {
+		{
 			name = "Complex Controlled with unique onActivated",
 			story = function()
 				local expandedItems, setExpandedItems = React.useState({ 1, 2, 3 } :: { Types.ItemId })
@@ -177,7 +177,7 @@ return {
 				})
 			end,
 		},
-		Mixed = {
+		{
 			name = "Partially Controlled",
 			story = function()
 				local expandedItem, setExpandedItem = React.useState(1)

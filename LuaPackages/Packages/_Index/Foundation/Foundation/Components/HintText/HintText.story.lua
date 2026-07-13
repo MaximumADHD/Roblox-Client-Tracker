@@ -16,7 +16,12 @@ end
 
 return {
 	summary = "Helper text put below inputs",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		text = "Helper text",
 		hasError = false,

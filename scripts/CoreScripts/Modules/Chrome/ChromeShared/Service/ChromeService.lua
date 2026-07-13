@@ -804,6 +804,8 @@ if FFlagEnableSideSheet then
 				table.insert(page, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.SessionAction then
 				table.insert(sessionAction, self:createIconProps(id, order))
+			elseif integration.sideSheetPlacement == SideSheetPlacement.Vertical and FIntSideSheetVariant ~= 0 then
+				table.insert(page, self:createIconProps(id, order))
 			else
 				table.insert(toggle, self:createIconProps(id, order))
 			end

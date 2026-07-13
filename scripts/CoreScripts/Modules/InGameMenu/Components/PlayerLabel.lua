@@ -6,7 +6,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -94,7 +94,15 @@ end
 function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundContrast = { Color = tokens.Color.Surface.Surface_100.Color3, Transparency = tokens.Color.Surface.Surface_100.Transparency },
+				UIDefault = { Color = tokens.Color.Shift.Shift_200.Color3, Transparency = tokens.Color.Shift.Shift_200.Transparency },
+				OnlineStatus = { Color = tokens.Color.System.Success.Color3, Transparency = tokens.Color.System.Success.Transparency },
+			},
+		}
+	end, function(style)
 		local backgroundStyle = style.Theme.BackgroundContrast
 		if self.props.isSelected then
 			backgroundStyle = {

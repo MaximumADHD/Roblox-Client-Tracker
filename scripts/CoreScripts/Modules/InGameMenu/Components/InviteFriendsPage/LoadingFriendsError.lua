@@ -10,7 +10,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -42,7 +42,14 @@ end
 function LoadingFriendsError:render()
 	local props = self.props
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Font = {
+				BaseSize = 1,
+				Body = { Font = tokens.Typography.BodyLarge.Font, RelativeSize = tokens.Typography.BodyLarge.FontSize },
+			},
+		}
+	end, function(style)
 		return withLocalization({
 			errorOccured = "CoreScripts.InGameMenu.InviteFriends.ErrorOccured",
 		})(function(localized)

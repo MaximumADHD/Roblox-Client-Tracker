@@ -22,8 +22,8 @@ local LEADING = {
 return {
 	summary = "ListItem",
 	stories = {
-		Default = {
-			name = "Default",
+		{
+			name = "Playground",
 			story = function(props)
 				local inputTypeSelected, setInputTypeSelected = React.useState(false)
 

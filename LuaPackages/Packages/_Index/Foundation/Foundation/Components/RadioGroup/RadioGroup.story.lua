@@ -135,13 +135,13 @@ return {
 	summary = "Radio Group component",
 	stories = {
 		{
-			name = "Basic",
-			story = BasicStory :: any,
+			name = "Playground",
+			story = BasicStory :: unknown,
 		},
 		{
 			name = "Different Label Lengths",
 			summary = "Items with labels of varying length",
-			story = DifferentLabelLengthsStory :: any,
+			story = DifferentLabelLengthsStory,
 		},
 		{
 			name = "Custom Selection",

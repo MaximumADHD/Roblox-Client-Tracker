@@ -15,6 +15,8 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local isDev = _G.__DEV__ == true
 
+local StatusIndicatorSize = require(Foundation.Enums.StatusIndicatorSize)
+type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 
@@ -28,7 +30,9 @@ type Bindable<T> = Types.Bindable<T>
 type StatusIndicatorEmpty = {
 	variant: StatusIndicatorVariant?,
 	shape: StatusIndicatorShape?,
-	[any]: nil,
+	size: StatusIndicatorSize?,
+	max: nil, -- discriminant union mechanism to avoid type errors
+	value: nil, -- discriminant union mechanism to avoid type errors
 } & Types.CommonProps
 
 type StatusIndicatorNumeric = {
@@ -40,7 +44,7 @@ type StatusIndicatorNumeric = {
 	)?,
 	value: Bindable<number>,
 	max: number?,
-	[any]: nil,
+	size: StatusIndicatorSize?,
 } & Types.CommonProps
 
 export type StatusIndicatorProps = StatusIndicatorEmpty | StatusIndicatorNumeric
@@ -48,6 +52,7 @@ export type StatusIndicatorProps = StatusIndicatorEmpty | StatusIndicatorNumeric
 local defaultProps = {
 	variant = StatusIndicatorVariant.Standard,
 	shape = StatusIndicatorShape.Circle,
+	size = if Flags.FoundationAvatarBeta then StatusIndicatorSize.Small else nil :: never,
 	max = math.huge,
 	testId = "--foundation-status-indicator",
 }
@@ -70,7 +75,13 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 
 	local tokens = useTokens()
 	local hasValue = props.value ~= nil
-	local variantProps = useStatusIndicatorVariants(tokens, props.variant, hasValue, refinedShape)
+	local variantProps = useStatusIndicatorVariants(
+		tokens,
+		props.variant,
+		hasValue,
+		refinedShape,
+		if Flags.FoundationAvatarBeta then props.size else nil :: never
+	)
 
 	local formatValue = React.useCallback(function(value: number)
 		if props.max and value > props.max then
@@ -88,6 +99,7 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 				then variantProps.container.backgroundStyle
 				else nil,
 			ref = ref,
+			Size = if Flags.FoundationAvatarBeta then variantProps.container.size else nil,
 		}),
 		{
 			Text = if hasValue and variantProps.content.style
@@ -107,9 +119,11 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 					testId = `{props.testId}--text`,
 				})
 				else nil,
-			InnerRing = if variantProps.ring
+			InnerRing = if (if Flags.FoundationAvatarBeta then refinedShape == StatusIndicatorShape.Ring else true)
+					and variantProps.ring
 				then React.createElement(View, {
 					tag = variantProps.ring.tag,
+					Size = if Flags.FoundationAvatarBeta then variantProps.ring.size else nil,
 					testId = `{props.testId}--ring`,
 				})
 				else nil,

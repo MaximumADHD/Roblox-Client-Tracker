@@ -2,10 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
-local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -25,7 +24,13 @@ local function PaddedScrollFrame(props)
 	if GlobalConfig.propValidation then
 		assert(validateProps(props))
 	end
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				UIEmphasis = { Color = tokens.Color.Shift.Shift_400.Color3, Transparency = tokens.Color.Shift.Shift_400.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement("ScrollingFrame", {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,

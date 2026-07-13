@@ -23,18 +23,9 @@ return {
 	summary = "Snackbar",
 	stories = {
 		{
-			name = "No Button Snackbar",
+			name = "Playground",
 			story = function(props: Props)
-				return Story({
-					icon = props.controls.icon,
-					title = props.controls.title,
-				})
-			end,
-		},
-		{
-			name = "Snackbar",
-			story = function(props: Props)
-				return Story({
+				return React.createElement(Story, {
 					action = if props.controls.actionText ~= ""
 						then {
 							text = props.controls.actionText,
@@ -49,6 +40,15 @@ return {
 							print("close clicked!")
 						end
 						else nil,
+					title = props.controls.title,
+				})
+			end,
+		},
+		{
+			name = "No Button Snackbar",
+			story = function(props: Props)
+				return React.createElement(Story, {
+					icon = props.controls.icon,
 					title = props.controls.title,
 				})
 			end,

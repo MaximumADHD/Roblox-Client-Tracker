@@ -26,6 +26,8 @@ export type SheetProps = {
 	snapPoints: { number }?,
 	-- The default snap point index to open the sheet to, defaults to the first snap point
 	defaultSnapPointIndex: number?,
+	-- Callback fired when the bottom sheet changes to a snap point
+	onSnapPointChanged: ((snapPoint: number, index: number) -> ())?,
 	testId: string?,
 	children: React.ReactNode,
 }

@@ -21,6 +21,9 @@ type InputVariant = InputVariant.InputVariant
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
 
+local ScrubBehavior = require(Foundation.Enums.ScrubBehavior)
+type ScrubBehavior = ScrubBehavior.ScrubBehavior
+
 local OnChangeCallbackReason = require(Foundation.Enums.OnChangeCallbackReason)
 type OnChangeCallbackReason = OnChangeCallbackReason.OnChangeCallbackReason
 
@@ -45,6 +48,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local NumberInputControls = require(script.Parent.NumberInputControls)
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 
+local Constants = require(Foundation.Constants)
 local calculateNumberInputValueFromPositions = require(script.Parent.calculateNumberInputValueFromPositions)
 
 type Bindable<T> = Types.Bindable<T>
@@ -59,10 +63,15 @@ local function round(num: number, numDecimalPlaces: number?)
 	return math.floor(num * mult + 0.5) / mult
 end
 
+local scrubBehaviorToSensitivity: { [ScrubBehavior]: number } = {
+	[ScrubBehavior.On] = 1,
+	[ScrubBehavior.Off] = 0,
+}
+
 export type NumberInputProps = {
 	-- Input number value
 	value: Bindable<number>?,
-	-- Variant of controls to use
+	-- **DEPRECATED** Variant of controls to use
 	controlsVariant: NumberInputControlsVariant?,
 	-- Whether the input shows an error state. Always shows while true, if false then invalid input will still render an error state.
 	hasError: boolean?,
@@ -84,6 +93,8 @@ export type NumberInputProps = {
 	width: UDim?,
 	-- Image before the input
 	leadingIcon: string?,
+	-- Icon after the input
+	trailingIcon: string?,
 	-- The prefix to display before the input (e.g. $ or €)
 	prefix: string?,
 	-- The suffix to display after the input (e.g. % or px)
@@ -98,12 +109,17 @@ export type NumberInputProps = {
 	precision: number?,
 	-- Callback to format the value when input is not focused
 	formatAsString: ((value: number) -> string)?,
-	-- Whether the input can be dragged to change the value
+	-- Whether the input can be dragged to change the value. A number sets the scrub sensitivity.
+	-- **DEPRECATED** Use scrubBehavior instead
 	isScrubbable: boolean?,
+	-- Controls scrub (drag-to-change) behavior
+	scrubBehavior: ScrubBehavior?,
 	-- Behavior of the text input when focused. Mobile does not yet support Highlight behavior.
 	focusBehavior: InputFocusBehavior?,
 	-- Ref to the outermost container element of the internal text input
 	inputRef: React.Ref<GuiObject>?,
+	-- Whether the input renders increment/decrement controls
+	hasControls: boolean?,
 } & Types.SelectionProps & Types.CommonProps
 
 local function defaultFormatAsString(value: number)
@@ -112,7 +128,7 @@ end
 
 local defaultProps = {
 	variant = InputVariant.Standard,
-	controlsVariant = NumberInputControlsVariant.Stacked,
+	controlsVariant = if Flags.FoundationNumberInputBeta then nil else NumberInputControlsVariant.Stacked,
 	size = InputSize.Large,
 	minimum = -math.huge,
 	maximum = math.huge,
@@ -121,13 +137,17 @@ local defaultProps = {
 	value = 0,
 	formatAsString = defaultFormatAsString,
 	isScrubbable = false,
+	scrubBehavior = ScrubBehavior.Off,
+	hasControls = false,
 	testId = "--foundation-number-input",
 }
 
+-- selene: allow(high_cyclomatic_complexity) remove with FoundationNumberInputBeta
 local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(numberInputProps, defaultProps) :: {
 		variant: InputVariant,
-		controlsVariant: NumberInputControlsVariant,
+		-- Deprecated
+		controlsVariant: NumberInputControlsVariant?,
 		hasError: boolean?,
 		isDisabled: boolean?,
 		size: InputSize,
@@ -143,9 +163,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		hint: string?,
 		width: UDim?,
 		leadingIcon: string?,
+		trailingIcon: string?,
 		prefix: string?,
 		suffix: string?,
-		isScrubbable: boolean?,
+		isScrubbable: boolean,
+		scrubBehavior: ScrubBehavior,
 		testId: string,
 		-- Partial TextBox ref exposed via imperative handle
 		textBoxRef: React.Ref<NumberInputRef>?,
@@ -155,11 +177,19 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		onReturnPressed: (() -> ())?,
 		-- Ref to the outermost container element of the internal text input
 		inputRef: React.Ref<GuiObject>?,
+		hasControls: boolean,
 	} & Types.SelectionProps & Types.CommonProps
 
 	local tokens = useTokens()
 	local variantProps = useTextInputVariants(tokens, props.size, props.variant)
-	local NumberInputControlsVariantProps = useNumberInputVariants(tokens, props.size, props.controlsVariant)
+	local NumberInputControlsVariantProps = useNumberInputVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationNumberInputBeta then nil else props.controlsVariant
+	)
+	local controlsProps = if Flags.FoundationNumberInputBeta
+		then NumberInputControlsVariantProps.controls
+		else nil :: never
 
 	local internalTextBoxRef = React.useRef(nil)
 	local numberInputRef = (
@@ -173,7 +203,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local hasInvalidInput, setHasInvalidInput = React.useState(false)
 	local hasError = props.hasError or hasInvalidInput
-	local controlsVariant = props.controlsVariant
+	local controlsVariant: NumberInputControlsVariant? = props.controlsVariant
+	local scrubBehavior: ScrubBehavior = if props.isScrubbable then ScrubBehavior.On else props.scrubBehavior
+	local isScrubbable = scrubBehavior and scrubBehavior ~= ScrubBehavior.Off
+
+	local scrubSensitivity = if Flags.FoundationNumberInputBeta then scrubBehaviorToSensitivity[scrubBehavior] else nil
 
 	local clampValueToRange = React.useCallback(function(value: number)
 		return math.clamp(value, props.minimum, props.maximum)
@@ -226,11 +260,16 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local textInput, setTextInput =
 		React.useBinding(props.formatAsString(constrainValue(getBindableValue(props.value))))
 
+	local incrementButtonsGap = if Flags.FoundationNumberInputBeta
+		then if props.size == InputSize.XSmall then tokens.Gap.Small - (tokens.Gap.XSmall / 2) else tokens.Gap.Small
+		else nil :: never
+
 	local hasUnits
 	local prefixText
 	local prefixTextSize
 	local unitsPadding
-	if Flags.FoundationSupportPrefixSuffixNumberInput then
+	local unitsXOffsets: { left: UDim, right: UDim }
+	if Flags.FoundationNumberInputBeta then
 		local textBoxFontStyle = variantProps.textBox.fontStyle
 		local textBoxFontSize = textBoxFontStyle.FontSize :: number
 
@@ -249,13 +288,40 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		end, { textBoxFontStyle, textBoxFontSize } :: { unknown })
 		prefixTextSize = useTextSize(prefixText, prefixFontStyle)
 
-		local leadingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.leadingIcon))
-		local leadingIconWidth = if props.leadingIcon then (leadingIconSize :: UDim2).X.Offset else 0
+		local leadingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.leadingIcon)) :: UDim2
+		local trailingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.trailingIcon)) :: UDim2
+		local leadingIconWidth = if props.leadingIcon then leadingIconSize.X.Offset else 0
+		local trailingIconWidth = if Flags.FoundationNumberInputBeta and props.trailingIcon
+			then trailingIconSize.X.Offset
+			else 0
 		local containerGap = if props.size == InputSize.XSmall
 			then tokens.Gap.Small
 			elseif props.size == InputSize.Small then tokens.Gap.Medium
 			else tokens.Gap.Large
 		local leadingIconGap = if props.leadingIcon then containerGap else 0
+		local trailingIconGap = if Flags.FoundationNumberInputBeta and props.trailingIcon then containerGap else 0
+
+		unitsXOffsets = React.useMemo(
+			function()
+				return {
+					left = UDim.new(
+						0,
+						variantProps.container.horizontalPadding.Offset + leadingIconWidth + leadingIconGap
+					),
+					right = UDim.new(
+						0,
+						variantProps.container.horizontalPadding.Offset + trailingIconWidth + trailingIconGap
+					),
+				}
+			end,
+			{
+				variantProps.container.horizontalPadding,
+				leadingIconGap,
+				trailingIconGap,
+				leadingIconWidth,
+				trailingIconWidth,
+			} :: { unknown }
+		)
 
 		-- Mirror InternalTextInput's textBoxWrapperPadding formula plus the 1px
 		-- stroke inset so the overlay's text baseline matches the textbox's.
@@ -268,21 +334,15 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 				) / 2
 				local strokeInset = 1
 				return {
-					left = UDim.new(
-						0,
-						variantProps.container.horizontalPadding.Offset + leadingIconWidth + leadingIconGap
-					),
-					right = variantProps.container.horizontalPadding,
 					top = UDim.new(0, math.floor(containerPaddingY / 2) + strokeInset),
 					bottom = UDim.new(0, math.ceil(containerPaddingY / 2) + strokeInset),
+					left = UDim.new(),
+					right = UDim.new(),
 				}
 			end,
 			{
 				variantProps.container.minHeight,
-				variantProps.container.horizontalPadding,
 				textBoxFontStyle,
-				leadingIconWidth,
-				leadingIconGap,
 				textBoxFontSize,
 			} :: { unknown }
 		)
@@ -290,6 +350,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local width = if props.width
 		then props.width :: UDim
+		elseif Flags.FoundationNumberInputBeta then UDim.new(0, Constants.DEFAULT_NUMBER_INPUT_WIDTH)
 		else UDim.new(0, NumberInputControlsVariantProps.container.width)
 
 	local onFocus = React.useCallback(function()
@@ -345,30 +406,52 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		valueChanged(getBindableValue(downValue), OnChangeCallbackReason.Activate)
 	end, { isDownDisabled, downValue, valueChanged } :: { unknown })
 
-	local controls = React.createElement(NumberInputControls, {
-		variant = props.variant,
-		controlsVariant = controlsVariant :: NumberInputControlsVariant,
-		size = props.size,
-		increment = {
-			isDisabled = isUpDisabled,
-			onClick = onIncrement,
-		},
-		decrement = {
-			isDisabled = isDownDisabled,
-			onClick = onDecrement,
-		},
-		testId = props.testId,
-	})
+	local hasControls = if Flags.FoundationNumberInputBeta
+		then props.hasControls
+			and controlsVariant ~= NumberInputControlsVariant.None
+			and controlsVariant ~= NumberInputControlsVariant.Stacked
+		else nil
+
+	local controls = if (Flags.FoundationNumberInputBeta and hasControls) or not Flags.FoundationNumberInputBeta
+		then React.createElement(NumberInputControls, {
+			variant = props.variant,
+			controlsVariant = if Flags.FoundationNumberInputBeta
+				then nil
+				else controlsVariant :: NumberInputControlsVariant?,
+			size = props.size,
+			increment = {
+				isDisabled = isUpDisabled,
+				onClick = onIncrement,
+			},
+			decrement = {
+				isDisabled = isDownDisabled,
+				onClick = onDecrement,
+			},
+			testId = props.testId,
+		})
+		else nil
 
 	local widthOffset = React.useMemo(
 		function()
-			if controlsVariant == NumberInputControlsVariant.Split then
+			if Flags.FoundationNumberInputBeta then
+				if hasControls then
+					return UDim.new(0, controlsProps.width + incrementButtonsGap)
+				end
+			elseif controlsVariant == NumberInputControlsVariant.Split then
 				return UDim.new(0, (2 * NumberInputControlsVariantProps.splitButton.size) + (2 * tokens.Gap.XSmall))
 			end
 
 			return UDim.new()
 		end,
-		{ tokens, controlsVariant, NumberInputControlsVariantProps.splitButton.size, tokens.Gap.XSmall } :: { unknown }
+		{
+			tokens,
+			controlsVariant,
+			if Flags.FoundationNumberInputBeta then nil else NumberInputControlsVariantProps.splitButton.size,
+			tokens.Gap.XSmall,
+			if Flags.FoundationNumberInputBeta then controlsProps else nil,
+			if Flags.FoundationNumberInputBeta then incrementButtonsGap else nil,
+			if Flags.FoundationNumberInputBeta then hasControls else nil,
+		} :: { unknown }
 	)
 
 	local onDragStarted = React.useCallback(function(_rbx, position: Vector2)
@@ -381,17 +464,26 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		end
 	end, { props.value } :: { unknown })
 
-	local onDrag = React.useCallback(function(_rbx, position: Vector2)
-		if dragStartTable.current then
-			local newValue = calculateNumberInputValueFromPositions(
-				dragStartTable.current.value,
-				dragStartTable.current.position,
-				position.X,
-				props.step
-			)
-			valueChanged(newValue, OnChangeCallbackReason.Drag)
-		end
-	end, { valueChanged, props.step, constrainValue } :: { unknown })
+	local onDrag = React.useCallback(
+		function(_rbx, position: Vector2)
+			if dragStartTable.current then
+				local newValue = calculateNumberInputValueFromPositions(
+					dragStartTable.current.value,
+					dragStartTable.current.position,
+					position.X,
+					props.step,
+					if Flags.FoundationNumberInputBeta then scrubSensitivity else nil :: never
+				)
+				valueChanged(newValue, OnChangeCallbackReason.Drag)
+			end
+		end,
+		{
+			valueChanged,
+			props.step,
+			constrainValue,
+			if Flags.FoundationNumberInputBeta then scrubSensitivity else nil,
+		} :: { unknown }
+	)
 
 	local onDragEnded = React.useCallback(function()
 		if dragStartTable.current then
@@ -464,8 +556,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			isDisabled = props.isDisabled,
 			hint = props.hint,
 			textBoxRef = numberInputRef,
+			-- selene: allow(high_cyclomatic_complexity) remove with FoundationNumberInputBeta
 			input = function(inputRef)
-				local isSplitVariant = controlsVariant == NumberInputControlsVariant.Split
+				local hasExternalControls = if Flags.FoundationNumberInputBeta
+					then hasControls and controls
+					else controlsVariant == NumberInputControlsVariant.Split
 
 				local input = React.createElement(InternalTextInput, {
 					inputRef = props.inputRef,
@@ -497,7 +592,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						) :: any,
 					horizontalPadding = {
 						left = variantProps.container.horizontalPadding,
-						innerLeft = if Flags.FoundationSupportPrefixSuffixNumberInput
+						right = if Flags.FoundationNumberInputBeta
+							then variantProps.container.horizontalPadding
+							else nil,
+						innerLeft = if Flags.FoundationNumberInputBeta
 							then if prefixTextSize and prefixTextSize.X > 0 then UDim.new(0, prefixTextSize.X) else nil
 							else nil,
 					},
@@ -505,19 +603,32 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					onChanged = onTextChanged,
 					onFocusLost = onFocusLost,
 					onFocus = onFocus,
-					onDragStarted = if props.isScrubbable then onDragStarted else nil,
-					onDrag = if props.isScrubbable then onDrag else nil,
-					onDragEnded = if props.isScrubbable then onDragEnded else nil,
+					onDragStarted = if isScrubbable then onDragStarted else nil,
+					onDrag = if isScrubbable then onDrag else nil,
+					onDragEnded = if isScrubbable then onDragEnded else nil,
 					onReturnPressed = props.onReturnPressed,
 					ref = inputRef,
-					backgroundGradient = if props.isScrubbable and scrubbableTransparencySequence
+					backgroundGradient = if isScrubbable and scrubbableTransparencySequence
 						then React.createElement("UIGradient", {
 							Color = ColorSequence.new(tokens.Color.Shift.Shift_300.Color3),
 							Transparency = scrubbableTransparencySequence,
 							Rotation = 0,
 						})
 						else nil,
-					trailingElement = if controlsVariant == NumberInputControlsVariant.Stacked then controls else nil,
+					trailingElement = if Flags.FoundationNumberInputBeta
+						then if props.trailingIcon
+							then React.createElement(
+								View,
+								{ tag = "row align-y-center size-0-full auto-x" },
+								React.createElement(Icon, {
+									name = props.trailingIcon,
+									style = variantProps.icon.style,
+									size = variantProps.icon.size,
+								})
+							)
+							else nil
+						elseif controlsVariant == NumberInputControlsVariant.Stacked then controls
+						else nil,
 					leadingElement = if props.leadingIcon
 						then React.createElement(
 							View,
@@ -530,13 +641,16 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						)
 						else nil,
 					isDisabled = props.isDisabled,
+					LayoutOrder = if hasExternalControls and Flags.FoundationNumberInputBeta then 0 else nil,
 					testId = `{props.testId}--field`,
 				})
 
-				local unitsOverlay = if Flags.FoundationSupportPrefixSuffixNumberInput and hasUnits
+				local unitsOverlay = if Flags.FoundationNumberInputBeta and hasUnits
 					then React.createElement(Text, {
-						tag = "size-full text-align-x-left text-align-y-center content-muted",
+						tag = "text-align-x-left text-align-y-center content-muted",
 						fontStyle = variantProps.textBox.fontStyle,
+						Size = UDim2.new(1, -(unitsXOffsets.left.Offset + unitsXOffsets.right.Offset), 1, 0),
+						Position = UDim2.fromOffset(unitsXOffsets.left.Offset, 0),
 						Text = textInput:map(function(value)
 							return `{if props.prefix then props.prefix .. " " else ""}<font transparency="1">{value}</font>{if props.suffix
 								then " " .. props.suffix
@@ -544,27 +658,36 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						end),
 						RichText = true,
 						ClipsDescendants = true,
-						-- Use `padding` prop, not a child UIPadding: Text emits its own
-						-- UIPadding for line-height which would conflict with a sibling.
 						padding = unitsPadding,
 						testId = `{props.testId}--units`,
 					})
 					else nil
 
-				if Flags.FoundationSupportPrefixSuffixNumberInput then
+				if Flags.FoundationNumberInputBeta then
 					input = React.createElement(View, { tag = "size-full-0 auto-y" }, {
 						Input = input,
 						Units = unitsOverlay,
 					}) :: any
 				end
 
-				return if isSplitVariant
+				return if hasExternalControls or Flags.FoundationNumberInputBeta
 					then React.createElement(View, {
-						Size = UDim2.fromOffset(width.Offset - widthOffset.Offset, 0),
-						tag = "row align-y-center gap-xsmall auto-y",
+						Size = if Flags.FoundationNumberInputBeta
+							then UDim2.new(width.Scale - widthOffset.Scale, width.Offset - widthOffset.Offset, 0, 0)
+							else UDim2.fromOffset(width.Offset - widthOffset.Offset, 0),
+						tag = if Flags.FoundationNumberInputBeta
+							then "row align-y-center auto-y"
+							else "row align-y-center gap-xsmall auto-y",
+						layout = if Flags.FoundationNumberInputBeta
+							then {
+								FillDirection = Enum.FillDirection.Horizontal,
+								Padding = UDim.new(0, incrementButtonsGap),
+								SortOrder = Enum.SortOrder.LayoutOrder,
+							}
+							else nil,
 					}, {
 						InputField = input,
-						Controls = if isSplitVariant then controls else nil,
+						Controls = if hasExternalControls then controls else nil,
 					})
 					else input
 			end,

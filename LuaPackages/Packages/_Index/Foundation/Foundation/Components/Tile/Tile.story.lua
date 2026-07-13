@@ -96,8 +96,8 @@ end
 return {
 	name = "Tile",
 	stories = {
-		Configurable = {
-			name = "Configurable Tile",
+		{
+			name = "Playground",
 			story = function(props)
 				local tokens = useTokens()
 				local textSizeOffset = useTextSizeOffset()
@@ -146,9 +146,9 @@ return {
 						}),
 					}),
 				})
-			end,
+			end :: unknown,
 		},
-		Fun = {
+		{
 			name = "Fun Tile",
 			story = function(props)
 				local tokens = useTokens()
@@ -227,7 +227,7 @@ return {
 				})
 			end,
 		},
-		Experience = {
+		{
 			name = "Experience Tile",
 			story = function(props)
 				local tokens = useTokens()
@@ -403,7 +403,7 @@ return {
 				})
 			end,
 		},
-		Item = {
+		{
 			name = "Item Tile",
 			story = function(props)
 				local tokens = useTokens()
@@ -467,7 +467,7 @@ return {
 				})
 			end,
 		},
-		Player = {
+		{
 			name = "Player Tile",
 			story = function()
 				local tokens = useTokens()
@@ -631,7 +631,7 @@ return {
 				})
 			end,
 		},
-		Marketplace = {
+		{
 			name = "Marketplace Tile (work in progress)",
 			story = function(props)
 				local tokens = useTokens()

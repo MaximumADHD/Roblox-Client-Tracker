@@ -149,10 +149,10 @@ end
 return {
 	summary = "Progress component with Circle and Bar shapes, supporting both determinate and indeterminate states",
 	stories = {
-		{ name = "Configurable", story = ConfigurableStory },
-		{ name = "Animated Demo", story = AnimatedProgressStory :: any },
-		{ name = "Sizes", story = SizeVariationsStory :: any },
-		{ name = "Indeterminate", story = IndeterminateStory :: any },
+		{ name = "Playground", story = ConfigurableStory :: unknown },
+		{ name = "Animated Demo", story = AnimatedProgressStory },
+		{ name = "Sizes", story = SizeVariationsStory },
+		{ name = "Indeterminate", story = IndeterminateStory },
 	},
 	controls = {
 		shape = Dash.values(ProgressShape),

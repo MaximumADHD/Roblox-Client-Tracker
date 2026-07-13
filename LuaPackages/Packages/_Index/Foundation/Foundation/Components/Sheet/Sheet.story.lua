@@ -818,7 +818,7 @@ return {
 	summary = "Sheet",
 	stories = {
 		{
-			name = "Sheet (auto)",
+			name = "Playground",
 			story = Story :: unknown,
 		},
 		{

@@ -12,8 +12,6 @@ local ItemType = AvatarExperienceCommon.Enums.ItemTypeEnum
 local FFlagAXEnableFetchAvatarPreview = require(InspectAndBuyFolder.Flags.FFlagAXEnableFetchAvatarPreview)
 local FFlagAXEnableInspectAndBuyBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
-local FFlagAXEnableFavoritesInfoForAssetsAndBundles =
-	require(InspectAndBuyFolder.Flags.FFlagAXEnableFavoritesInfoForAssetsAndBundles)
 
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 type SetAvatarPreviewDetails = SetAvatarPreviewDetails.SetAvatarPreviewDetails
@@ -31,15 +29,13 @@ return Rodux.createReducer(
 		--[[
 		Sets the favorite status of a bundle.
 	]]
-		[SetFavoriteBundle.name] = if FFlagAXEnableFavoritesInfoForAssetsAndBundles
-			then function(state, action)
-				local prevBundle = state[action.id] or {}
-				local nextBundle = Cryo.Dictionary.join({}, prevBundle)
-				state[action.id] =
-					Cryo.Dictionary.join(nextBundle, BundleInfo.fromGetFavoriteForAsset(action.id, action.isFavorite))
-				return state
-			end
-			else nil,
+		[SetFavoriteBundle.name] = function(state, action)
+			local prevBundle = state[action.id] or {}
+			local nextBundle = Cryo.Dictionary.join({}, prevBundle)
+			state[action.id] =
+				Cryo.Dictionary.join(nextBundle, BundleInfo.fromGetFavoriteForAsset(action.id, action.isFavorite))
+			return state
+		end,
 		--[[
 		Updates asset ownerships based on the bulk purchase results.
 	]]
@@ -85,25 +81,23 @@ return Rodux.createReducer(
 				local currentBundle = state[bundle.bundleId] or {} :: any
 
 				-- incoming bundle
-				if FFlagAXEnableFavoritesInfoForAssetsAndBundles then
-					if bundle.assetsInBundle then
-						local mergedAssetsInBundle = {}
+				if bundle.assetsInBundle then
+					local mergedAssetsInBundle = {}
 
-						-- iterate through the incoming bundle assets
-						for _, asset in bundle.assetsInBundle do
-							local oldAssetsInBundle = currentBundle.assetsInBundle or {}
-							-- find the old asset in the old assetsInBundle
-							for _, oldAsset in oldAssetsInBundle do
-								if oldAsset.id == asset.id then
-									-- merge the old asset with the new asset
-									local mergedAsset = Cryo.Dictionary.join(oldAsset, asset)
-									table.insert(mergedAssetsInBundle, mergedAsset)
-									break
-								end
+					-- iterate through the incoming bundle assets
+					for _, asset in bundle.assetsInBundle do
+						local oldAssetsInBundle = currentBundle.assetsInBundle or {}
+						-- find the old asset in the old assetsInBundle
+						for _, oldAsset in oldAssetsInBundle do
+							if oldAsset.id == asset.id then
+								-- merge the old asset with the new asset
+								local mergedAsset = Cryo.Dictionary.join(oldAsset, asset)
+								table.insert(mergedAssetsInBundle, mergedAsset)
+								break
 							end
 						end
-						bundle.assetsInBundle = mergedAssetsInBundle
 					end
+					bundle.assetsInBundle = mergedAssetsInBundle
 				end
 
 				bundles[bundle.bundleId] = Cryo.Dictionary.join(currentBundle, bundle)

@@ -12,8 +12,6 @@ type VariantProps = composeStyleVariant.VariantProps
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local Flags = require(Foundation.Utility.Flags)
-
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
@@ -68,9 +66,7 @@ local function variantsFactory(tokens: Tokens)
 			tag = "size-full-0 auto-y",
 		},
 		titleText = {
-			tag = `size-full-0 auto-y text-wrap text-align-x-left {if Flags.FoundationDialogTitleEmphasisFix
-				then "content-emphasis"
-				else "content-emphasized"}`,
+			tag = "size-full-0 auto-y text-wrap text-align-x-left content-emphasis",
 		},
 		content = {
 			tag = "fill size-full auto-y",

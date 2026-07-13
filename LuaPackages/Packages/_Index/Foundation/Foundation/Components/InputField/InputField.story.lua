@@ -53,7 +53,12 @@ end
 
 return {
 	summary = "Input field",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		label = "Field label",
 		hint = "Hint",

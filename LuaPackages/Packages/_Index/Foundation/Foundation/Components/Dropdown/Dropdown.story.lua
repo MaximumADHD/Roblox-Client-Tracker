@@ -574,7 +574,7 @@ end
 return {
 	summary = "Dropdown",
 	stories = {
-		{ name = "Playground", story = PlaygroundStory } :: any,
+		{ name = "Playground", story = PlaygroundStory :: unknown },
 		{ name = "Sizes", story = SizesStory },
 		{ name = "Variants", story = VariantsStory },
 		{ name = "States", story = StatesStory },

@@ -9,16 +9,19 @@ local Dash = require(Packages.Dash)
 
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
+local StatusIndicatorSize = require(Foundation.Enums.StatusIndicatorSize)
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 local Text = require(Foundation.Components.Text)
 local ValidNumericVariants = require(Foundation.Components.StatusIndicator.ValidNumericVariants)
 local View = require(Foundation.Components.View)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
+type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 
 type Controls = {
 	variant: StatusIndicatorVariant,
 	shape: StatusIndicatorShape,
+	size: StatusIndicatorSize,
 	value: number,
 	max: number,
 }
@@ -47,6 +50,7 @@ local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
 			{
 				variant = controls.variant,
 				shape = controls.shape,
+				size = if Flags.FoundationAvatarBeta then controls.size else nil,
 				value = if controls.value > 0 then controls.value else nil,
 				max = controls.max,
 			} :: any
@@ -123,6 +127,7 @@ return {
 			StatusIndicatorShape.Ring,
 			StatusIndicatorShape.Square,
 		} :: { StatusIndicatorShape },
+		size = if Flags.FoundationAvatarBeta then Dash.values(StatusIndicatorSize) else nil,
 		value = 0,
 		max = 99,
 	},

@@ -106,11 +106,11 @@ end
 return {
 	summary = "ScrollView",
 	stories = {
-		Scrolling = {
+		{
 			name = "Horizontal and Vertical scrolling",
-			story = StoryScrolling,
+			story = StoryScrolling :: unknown,
 		},
-		Tags = {
+		{
 			name = "ScrollView with tags",
 			story = StoryScrollViewWithTags,
 		},

@@ -12,7 +12,7 @@ local Cryo = InGameMenuDependencies.Cryo
 
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent.Parent
 local Flags = InGameMenu.Flags
@@ -293,7 +293,16 @@ function ReportDialog:renderReportGame(style, localized, reportChildren)
 end
 
 function ReportDialog:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
+				BackgroundUIDefault = { Color = tokens.Color.Surface.Surface_300.Color3, Transparency = tokens.Color.Surface.Surface_300.Transparency },
+				UIDefault = { Color = tokens.Color.Shift.Shift_200.Color3, Transparency = tokens.Color.Shift.Shift_200.Transparency },
+				Divider = { Color = tokens.Color.Stroke.Emphasis.Color3, Transparency = tokens.Color.Stroke.Emphasis.Transparency },
+			},
+		}
+	end, function(style)
 		return withLocalization({
 			flagingGame = { "CoreScripts.InGameMenu.Report.FlagingGame", RBX_NAME = self.props.placeName },
 			reportGameTitle = {

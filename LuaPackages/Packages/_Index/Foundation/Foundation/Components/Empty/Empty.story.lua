@@ -15,8 +15,10 @@ local function Story(props)
 			name = controls.iconName,
 			size = controls.iconSize,
 		},
+		text = if controls.text ~= "" then controls.text else nil,
 		button = if controls.showButton
 			then {
+				text = controls.buttonText,
 				onActivated = function()
 					return
 				end,
@@ -29,8 +31,8 @@ return {
 	summary = "Empty component for displaying emptys",
 	stories = {
 		{
-			name = "Default",
-			story = Story :: any,
+			name = "Playground",
+			story = Story :: unknown,
 		},
 		{
 			name = "With Button",
@@ -51,7 +53,9 @@ return {
 		},
 	},
 	controls = {
+		text = "To Party with friends, turn on Party in your privacy settings.",
 		showButton = false,
+		buttonText = "Privacy Settings",
 		iconName = {
 			"icons/status/oof_xlarge",
 			"icons/status/noconnection_large",

@@ -55,7 +55,6 @@ return {
 
 	-- Foundation@1.77.0
 	FoundationBottomSheetImproveSpring = SafeFlags.createGetFFlag("FoundationBottomSheetImproveSpring2")(),
-	FoundationDialogTitleEmphasisFix = SafeFlags.createGetFFlag("FoundationDialogTitleEmphasisFix")(),
 	FoundationGuiObjectInputSinkProperty = SafeFlags.createGetFFlag("FoundationGuiObjectInputSinkProperty")(),
 
 	-- Foundation@1.78.0
@@ -78,7 +77,6 @@ return {
 
 	-- Foundation@1.83.0
 	FoundationPopoverPluginSecurityGate = SafeFlags.createGetFFlag("FoundationPopoverPluginSecurityGate")(),
-	FoundationSegmentedControlIconSupport = SafeFlags.createGetFFlag("FoundationSegmentedControlIconSupport")(),
 
 	-- Foundation@1.84.0
 	FoundationActionEmphasisStatusIndicator = SafeFlags.createGetFFlag("FoundationActionEmphasisStatusIndicator")(),
@@ -133,11 +131,20 @@ return {
 
 	-- Foundation@1.91.0
 	FoundationCoachmarkInteractionFixes = SafeFlags.createGetFFlag("FoundationCoachmarkInteractionFixes")(),
-	FoundationSupportPrefixSuffixNumberInput = SafeFlags.createGetFFlag("FoundationSupportPrefixSuffixNumberInput")(),
 
 	-- Foundation@1.92.0
 	FoundationPopoverPluginUriAnchor = SafeFlags.createGetFFlag("FoundationPopoverPluginUriAnchor")(),
 	FoundationSystemBannerWrapActionsOnXSmall = SafeFlags.createGetFFlag("FoundationSystemBannerWrapActionsOnXSmall")(),
+
+	-- Foundation@1.93.0
+	FoundationAvatarBeta = SafeFlags.createGetFFlag("FoundationAvatarBeta2")(),
+	FoundationBaseMenuContentSizing = SafeFlags.createGetFFlag("FoundationBaseMenuContentSizing")(),
+	FoundationBottomSheetOnSnapPointChanged = SafeFlags.createGetFFlag("FoundationBottomSheetOnSnapPointChanged")(),
+	FoundationBottomSheetScrollAtMaxTolerance = SafeFlags.createGetFFlag("FoundationBottomSheetScrollAtMaxTolerance")(),
+	FoundationNumberInputBeta = SafeFlags.createGetFFlag("FoundationNumberInputBeta")(),
+
+	-- Foundation@1.94.0
+	FoundationSegmentedControlAutoXFix = SafeFlags.createGetFFlag("FoundationSegmentedControlAutoXFix")(),
 
 	-- Unreleased flags
 }

@@ -33,7 +33,12 @@ end
 
 return {
 	summary = "Label put above inputs",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		Text = "Input label",
 		isRequired = { React.None, false, true },

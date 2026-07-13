@@ -90,7 +90,7 @@ end
 return {
 	summary = "useOverlay",
 	stories = {
-		useOverlay = {
+		{
 			name = "useOverlay",
 			summary = "Provides access to the overlay",
 			story = function()
@@ -102,9 +102,9 @@ return {
 					tag = "align-x-center size-full-0 auto-y text-wrap",
 					Text = text,
 				})
-			end,
+			end :: unknown,
 		},
-		lazyOverlay = {
+		{
 			name = "Lazy Overlay Mounting",
 			summary = "Does not eagerly pollute workspace with FoundationOverlay instances (Flags.FoundationLazyOverlayLoading must be enabled)",
 			story = function()

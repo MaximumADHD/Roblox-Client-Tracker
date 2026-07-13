@@ -29,11 +29,11 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local FFlagBackpackResponsiveUnits = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBackpackResponsiveUnits
 local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
-local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
 
+local FFlagSAToolEquipLuauFlag = game:DefineFastFlag("SAToolEquipLuauFlag", false)
 -- Workspace.AuthorityMode may change at runtime, in which case we want this feature on
 local function featureSAToolEquipEnabled()
-    if game:DefineFastFlag("SAToolEquipLuauFlag", false) and game:GetEngineFeature("SAToolEquipEngineFeature") then 
+    if FFlagSAToolEquipLuauFlag and game:GetEngineFeature("SAToolEquipEngineFeature") then
 	    return workspace.AuthorityMode == Enum.AuthorityMode.Server
     else
         return false
@@ -1281,11 +1281,7 @@ function changeSlot(slot)
 		else
 			local startSize = slot.Frame.Size
 			local startPosition = slot.Frame.Position
-			if featureDeprecateOldGuiObjectProperties then
-				slot.Frame:TweenSizeAndPositionInternal(startSize + UDim2.new(0, 10, 0, 10), startPosition - UDim2.new(0, 5, 0, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .1, true, function() slot.Frame:TweenSizeAndPositionInternal(startSize, startPosition, Enum.EasingDirection.In, Enum.EasingStyle.Quad, .1, true) end)
-			else
-				slot.Frame:TweenSizeAndPosition(startSize + UDim2.new(0, 10, 0, 10), startPosition - UDim2.new(0, 5, 0, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .1, true, function() slot.Frame:TweenSizeAndPosition(startSize, startPosition, Enum.EasingDirection.In, Enum.EasingStyle.Quad, .1, true) end)
-			end
+			slot.Frame:TweenSizeAndPositionInternal(startSize + UDim2.new(0, 10, 0, 10), startPosition - UDim2.new(0, 5, 0, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .1, true, function() slot.Frame:TweenSizeAndPositionInternal(startSize, startPosition, Enum.EasingDirection.In, Enum.EasingStyle.Quad, .1, true) end)
 			slot.Frame.BorderSizePixel = 3
 			VRInventorySelector.SelectionImageObject.Visible = true
 		end

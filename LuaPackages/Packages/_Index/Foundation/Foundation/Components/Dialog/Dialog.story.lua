@@ -196,7 +196,7 @@ return {
 	summary = "Dialog",
 	stories = {
 		{
-			name = "Hero Image & Title & Content",
+			name = "Playground",
 			story = function(props: StoryProps)
 				local tokens = useTokens()
 				return React.createElement(Story, props, {

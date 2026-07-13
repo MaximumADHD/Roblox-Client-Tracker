@@ -61,7 +61,12 @@ end
 
 return {
 	summary = "Internal Input Component",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		isDisabled = false,
 		size = Dash.values(InputSize),

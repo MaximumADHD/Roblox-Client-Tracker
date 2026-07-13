@@ -21,8 +21,7 @@ return {
 	summary = `If dragging does not work make sure to deselect any tools in Studio! By default the "Select" tool is selected and will interfere with dragging behavior`,
 	stories = {
 		{
-			name = "Configurable",
-			summary = "Basic configurable slider",
+			name = "Playground",
 			story = function(props)
 				local value, setValue = React.useBinding(0.5)
 

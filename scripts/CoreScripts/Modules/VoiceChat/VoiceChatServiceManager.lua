@@ -80,6 +80,10 @@ local FStringVoiceUIImprovementsIXPLayerName =
 	game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
 local FStringThrottleParticipantsUpdateIXPLayerValue =
 	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
+local FFlagVoiceVolumeControlsGlobalVoiceVolumeSliderIxpExposure =
+	game:DefineFastFlag("VoiceVolumeControlsGlobalVoiceVolumeSliderIxpExposure", false)
+local FStringVoiceVolumeControlsIxpLayer =
+	game:DefineFastString("VoiceVolumeControlsGlobalVoiceVolumeSliderIxpLayer", "Voice.VolumeControls")
 local FIntSeamlessVoiceSTUXDisplayCount = game:DefineFastInt("SeamlessVoiceSTUXDisplayCount", 3)
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
@@ -88,6 +92,10 @@ local GetFFlagShowDevicePermissionsModal =
 local FFlagEnableRetryForLinkingProtocolFetch =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableRetryForLinkingProtocolFetch
 local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV3", false)
+local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
+	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
+local FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast = 
+	require(script.Parent.Flags.FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast)
 local FFlagVoiceRewarmTelemetry =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 local FFlagGuardVoiceInExpUpsellVariant = game:DefineFastFlag("GuardVoiceInExpUpsellVariant", false)
@@ -176,6 +184,8 @@ local deviceMeetsRequirementsForFAE = SocialExperiments.deviceMeetsRequirementsF
 local FFlagUseLocalMutePropertyForMutingOthers = game:GetEngineFeature("EnableMutedByLocalUser")
 local FFlagEnablePartyVoiceChangersInLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyVoiceChangersInLua
+
+local VoiceVolumeControlsEligibility = VoiceChatCore.VoiceVolumeControlsEligibility
 
 type VoiceMuteIndividualArgs = VoiceChatCore.VoiceMuteIndividualArgs
 type VoiceMuteGroupArgs = VoiceChatCore.VoiceMuteGroupArgs
@@ -484,7 +494,13 @@ function VoiceChatServiceManager.new(
 	end)
 	self.coreVoiceManager:subscribe("OnRequestMicPermissionResolved", function()
 		if GetFFlagEnableUniveralVoiceToasts() then
-			return self:CheckAndShowNotAudiblePrompt()
+			if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider
+			then return self:CheckAndShowNotAudiblePrompt():andThen(function()
+				return self:ShowNotAudiblePromptVoiceChatVolume()
+			end)
+			else 
+				return self:CheckAndShowNotAudiblePrompt()
+			end
 		end
 	end)
 	self.coreVoiceManager:subscribe("OnRequestMicPermissionRejected", function()
@@ -530,6 +546,18 @@ function VoiceChatServiceManager.new(
 
 		if newState == (Enum :: any).VoiceChatState.Ended or newState == (Enum :: any).VoiceChatState.Failed then
 			self.voiceConnectEventReportedForActiveSession = false
+		end
+
+		if newState == (Enum :: any).VoiceChatState.Joined then
+			if
+				FFlagVoiceVolumeControlsGlobalVoiceVolumeSliderIxpExposure
+				and VoiceVolumeControlsEligibility.isVoiceChatVolumeSliderVisible(
+					true,
+					game:GetService("VoiceChatService").UseNewAudioApi
+				)
+			then
+				IXPServiceWrapper:LogFlagLinkedUserLayerExposure(FStringVoiceVolumeControlsIxpLayer)
+			end
 		end
 
 		if
@@ -735,6 +763,14 @@ end
 
 function VoiceChatServiceManager:GetMutedAnyone()
 	return self.coreVoiceManager:GetMutedAnyone()
+end
+
+function VoiceChatServiceManager:RecordGameSettingsOpened()
+	self.coreVoiceManager:RecordGameSettingsOpened()
+end
+
+function VoiceChatServiceManager:ReportVoiceVolumeImpressionsIfNeeded()
+	self.coreVoiceManager:ReportVoiceVolumeImpressionsIfNeeded()
 end
 
 function VoiceChatServiceManager:GetRequest(url, method)
@@ -1516,6 +1552,30 @@ function VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 				-- Check volume settings. Show prompt if volume is 0
 				if UserSettings().GameSettings.MasterVolume == 0 then
 					self:showPrompt(VoiceChatPromptType.NotAudible)
+				end
+			end)
+			:catch(function() end)
+	end
+	return Promise.resolve()
+end
+
+
+function VoiceChatServiceManager:ShowNotAudiblePromptVoiceChatVolume()
+	if not (
+		FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast
+		and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider
+	) then
+		return Promise.resolve()
+	end
+
+	if game:GetEngineFeature("VoiceChatSupported") then
+		return self:asyncInit()
+			:andThen(function()
+				if UserSettings().GameSettings.MasterVolume > 0
+					and VoiceVolumeControlsEligibility.isVoiceChatVolumeSliderVisible(true, VoiceChatService.UseNewAudioApi)
+					and UserSettings().GameSettings.VoiceChatVolume == 0
+				then
+					self:showPrompt(VoiceChatPromptType.NotAudibleVoiceChatVolume)
 				end
 			end)
 			:catch(function() end)

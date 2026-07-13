@@ -76,8 +76,8 @@ end
 return {
 	summary = "Tabs",
 	stories = {
-		Basic = {
-			name = "Basic",
+		{
+			name = "Playground",
 			story = function(props)
 				return React.createElement(
 					View,
@@ -148,9 +148,9 @@ return {
 						fillBehavior = props.controls.fillBehavior,
 					})
 				)
-			end,
+			end :: unknown,
 		},
-		Uncontrolled = {
+		{
 			name = "Uncontrolled with nested controlled tabs",
 			story = function(props)
 				return React.createElement(
@@ -230,7 +230,7 @@ return {
 				)
 			end,
 		},
-		WithCoachmark = {
+		{
 			name = "With Coachmark",
 			story = function(props)
 				local bodyRef = React.useRef(nil :: GuiObject?)
@@ -311,7 +311,7 @@ return {
 				})
 			end,
 		},
-		AsChild = {
+		{
 			name = "As Child",
 			story = function(props)
 				return React.createElement(View, {

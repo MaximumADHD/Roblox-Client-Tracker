@@ -56,26 +56,23 @@ local function Segment(props: SegmentProps, ref: React.Ref<GuiObject>?)
 		)
 	end
 
-	local isIcon: boolean?
+	local isIcon = props.icon ~= nil
 	local iconName: string?
 	local iconVariant: BuilderIcons.IconVariant?
 	local iconVariants
-	if Flags.FoundationSegmentedControlIconSupport then
-		isIcon = props.icon ~= nil
 
-		if isIcon then
-			if typeof(props.icon) == "table" then
-				local iconConfig = props.icon :: {
-					name: BuilderIcons.Icon,
-					variant: BuilderIcons.IconVariant?,
-				}
-				iconName = iconConfig.name :: string
-				iconVariant = iconConfig.variant
-			else
-				iconName = props.icon :: string
-			end
-			iconVariants = variantProps.icon :: { size: IconSize, style: ColorStyleValue }
+	if isIcon then
+		if typeof(props.icon) == "table" then
+			local iconConfig = props.icon :: {
+				name: BuilderIcons.Icon,
+				variant: BuilderIcons.IconVariant?,
+			}
+			iconName = iconConfig.name :: string
+			iconVariant = iconConfig.variant
+		else
+			iconName = props.icon :: string
 		end
+		iconVariants = variantProps.icon :: { size: IconSize, style: ColorStyleValue }
 	end
 
 	return React.createElement(

@@ -16,7 +16,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local ContextualMenu = UIBlox.App.Menu.ContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
 local KeyLabel = UIBlox.App.Menu.KeyLabel
@@ -277,7 +277,13 @@ end
 function MainPage:render()
 	local canCaptureFocus = self.canGamepadCaptureFocus(self.props)
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundDefault = { Color = tokens.Color.Surface.Surface_0.Color3, Transparency = tokens.Color.Surface.Surface_0.Transparency },
+			},
+		}
+	end, function(style)
 		return withLocalization({
 			leaveGame = "CoreScripts.InGameMenu.LeaveGame",
 			respawnCharacter = "CoreScripts.InGameMenu.RespawnCharacter",

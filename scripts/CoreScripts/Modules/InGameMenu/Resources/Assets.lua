@@ -7,15 +7,24 @@ local Images = require(script.Parent.Images)
 
 local UIBloxImages = UIBlox.App.ImageSet.Images
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 return {
 	Images = {
 		RobloxLogo = Images["LuaApp/graphic/ic_logo"],
 		CloseButton = "rbxasset://textures/ui/TopBar/close.png",
 		RespawnIcon = Images["InGameMenu/Icons/RespawnIcon"],
-		ReportIcon = Images["LuaApp/icons/GameDetails/feedback"],
+		ReportIcon = if FFlagCoreUiMigrateUIBloxToFoundation
+			then "icons/actions/feedback"
+			else Images["LuaApp/icons/GameDetails/feedback"],
 
-		CloseModal = Images["LuaApp/icons/navigation/close"],
-		NavigateBack = Images["LuaApp/icons/navigation/pushBack"],
+		CloseModal = if FFlagCoreUiMigrateUIBloxToFoundation
+			then "icons/navigation/close"
+			else Images["LuaApp/icons/navigation/close"],
+		NavigateBack = if FFlagCoreUiMigrateUIBloxToFoundation
+			then "icons/navigation/pushBack"
+			else Images["LuaApp/icons/navigation/pushBack"],
 		NavigateForward = Images["LuaApp/icons/navigation/pushRight"],
 
 		SendInvite = Images["LuaApp/icons/GameDetails/invite"],

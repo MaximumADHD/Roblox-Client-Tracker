@@ -38,6 +38,7 @@ function FullModalShareGameComponent:render()
 	local inviteMessageId = self.props.inviteMessageId
 	local launchData = self.props.launchData
 	local isLoading = self.props.isLoading
+	local requestImpl = self.props.requestImpl
 
 	if GetFFlagExtraInviteModalStringValidation() and promptMessage then
 		if not inviteUserId then
@@ -71,6 +72,7 @@ function FullModalShareGameComponent:render()
 					inviteUserId = inviteUserId,
 					inviteMessageId = inviteMessageId,
 					launchData = launchData,
+					requestImpl = requestImpl,
 					onAfterClosePage = function()
 						local sentToUserIds = {}
 						for userId, _ in pairs(store:getState().Invites) do

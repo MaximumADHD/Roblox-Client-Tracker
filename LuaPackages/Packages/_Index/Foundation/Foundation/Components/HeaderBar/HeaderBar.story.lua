@@ -54,7 +54,7 @@ return {
 	},
 	stories = {
 		{
-			name = "Base",
+			name = "Playground",
 			story = function(props: StoryProps)
 				local isSearchOpen, setIsSearchOpen = React.useState(false)
 

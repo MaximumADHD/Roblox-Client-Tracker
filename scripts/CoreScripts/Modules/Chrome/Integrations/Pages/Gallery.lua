@@ -14,6 +14,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagFixSpatialUICaptures = SharedFlags.FFlagFixSpatialUICaptures
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
+local FFlagUpdateGalleryIcon = game:DefineFastFlag("UpdateGalleryIcon", false)
+
 local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
 
 local policy = CapturesPolicy.PolicyImplementation.read()
@@ -44,6 +46,9 @@ return ChromeService:register({
 		end,
 	components = {
 		Icon = function(props)
+			if FFlagUpdateGalleryIcon then
+				return CommonIcon("Image", nil, pageOpenSignal)
+			end
 			return CommonIcon("icons/controls/cameraOff", "icons/controls/cameraOn", pageOpenSignal)
 		end,
 	},

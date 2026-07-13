@@ -9,7 +9,7 @@ local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
 local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
 
@@ -45,7 +45,13 @@ EducationalPopupDialog.defaultProps = {
 }
 
 function EducationalPopupDialog:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement(Roact.Portal, {
 			-- LUAU FIXME: Need read-write syntax for props to obviate the need for this cast
 			target = CoreGui :: Instance,

@@ -9,6 +9,7 @@ type ControlState = ControlState.ControlState
 local function Story(props)
 	return React.createElement(Text, {
 		Text = props.controls.text,
+		RichText = props.controls.richText,
 		fontStyle = {
 			FontSize = props.controls.textSize,
 		},
@@ -41,8 +42,8 @@ return {
 	summary = "Text",
 	stories = {
 		{
-			name = "Basic Text",
-			story = Story :: any,
+			name = "Playground",
+			story = Story :: unknown,
 		},
 		{
 			name = "GUI State Use",
@@ -52,5 +53,6 @@ return {
 	controls = {
 		text = "Hello, world!",
 		textSize = 24,
+		richText = false,
 	},
 }

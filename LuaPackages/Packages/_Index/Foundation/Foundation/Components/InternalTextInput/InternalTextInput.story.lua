@@ -94,7 +94,7 @@ return {
 	summary = "Internal text input",
 	stories = {
 		{
-			name = "Single-line",
+			name = "Playground",
 			story = function(props: any)
 				return React.createElement(
 					Story,

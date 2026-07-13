@@ -82,26 +82,22 @@ local function Story(props)
 			onActivated = setValue,
 			LayoutOrder = 1,
 		}),
-		IconSegments = if Flags.FoundationSegmentedControlIconSupport
-			then React.createElement(SegmentedControl, {
-				size = props.controls.size,
-				isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
-				segments = iconSegments,
-				value = iconValue,
-				onActivated = setIconValue,
-				LayoutOrder = 2,
-			})
-			else nil,
-		MixedSegments = if Flags.FoundationSegmentedControlIconSupport
-			then React.createElement(SegmentedControl, {
-				size = props.controls.size,
-				isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
-				segments = mixedSegments,
-				value = mixedValue,
-				onActivated = setMixedValue,
-				LayoutOrder = 3,
-			})
-			else nil,
+		IconSegments = React.createElement(SegmentedControl, {
+			size = props.controls.size,
+			isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
+			segments = iconSegments,
+			value = iconValue,
+			onActivated = setIconValue,
+			LayoutOrder = 2,
+		}),
+		MixedSegments = React.createElement(SegmentedControl, {
+			size = props.controls.size,
+			isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
+			segments = mixedSegments,
+			value = mixedValue,
+			onActivated = setMixedValue,
+			LayoutOrder = 3,
+		}),
 		SegmentsAsChild = React.createElement(View, {
 			tag = "col auto-y size-full-0",
 		}, {
@@ -129,7 +125,12 @@ end
 
 return {
 	summary = "SegmentedControl",
-	story = Story,
+	stories = {
+		{
+			name = "Playground",
+			story = Story,
+		},
+	},
 	controls = {
 		size = Dash.values(InputSize),
 		isCircular = false,

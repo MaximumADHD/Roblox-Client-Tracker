@@ -15,7 +15,7 @@ local VR_SEAT_OFFSET = Vector3.new(0,4,0)
 local FFlagUserVRVehicleCamera
 do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCamera2")
+		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCameraOrbital")
 	end)
 	FFlagUserVRVehicleCamera = success and result
 end
@@ -231,8 +231,8 @@ function VRBaseCamera:UpdateFadeFromBlack(timeDelta: number)
 	end
 end
 
-function VRBaseCamera:StartVREdgeBlur(player)
-	if UserGameSettings.VignetteEnabled == false then
+function VRBaseCamera:StartVREdgeBlur(player, force)
+	if not force and UserGameSettings.VignetteEnabled == false then
 		return
 	end
 
@@ -421,5 +421,11 @@ function VRBaseCamera:getRotation(dt)
 end
 
 -----------------------------
+
+function VRBaseCamera:HandleSubjectDistance(prevController)
+	if FFlagUserVRVehicleCamera and prevController and prevController.IsInFirstPerson and prevController:IsInFirstPerson() then
+		self:SetCameraToSubjectDistance(0)
+	end
+end
 
 return VRBaseCamera

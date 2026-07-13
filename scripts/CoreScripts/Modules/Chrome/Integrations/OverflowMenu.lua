@@ -200,7 +200,7 @@ end
 local backpack = ChromeService:register({
 	id = "backpack",
 	label = "CoreScripts.TopBar.Inventory",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.Page,
 	activated = function(self)
 		if FFlagEnableNewBackpack then
 			if Features.getVisibility(Features.FeatureName.Backpack) then

@@ -13,9 +13,9 @@ local Otter = InGameMenuDependencies.Otter
 
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 
-local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
 
@@ -217,7 +217,14 @@ function Slider:renderWithSelectionCursor(getSelectionCursor)
 
 	local isFocused = self.state.entryMode and self.props.canCaptureFocus
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				UIMuted = { Color = tokens.Color.Shift.Shift_100.Color3, Transparency = tokens.Color.Shift.Shift_100.Transparency },
+				ContextualPrimaryDefault = { Color = tokens.Color.ActionEmphasis.Background.Color3, Transparency = tokens.Color.ActionEmphasis.Background.Transparency },
+			},
+		}
+	end, function(style)
 		return Roact.createElement(ImageSetButton, {
 			AnchorPoint = self.props.AnchorPoint,
 			BackgroundTransparency = 1,

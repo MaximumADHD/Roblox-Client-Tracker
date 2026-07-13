@@ -24,15 +24,15 @@ return {
 	summary = "CircularProgressBar",
 	stories = {
 		{
-			name = "CircularProgressBar",
+			name = "Playground",
 			story = function(props)
-				return Story({
+				return React.createElement(Story, {
 					progress = math.clamp((props.controls.progress :: number) / 100, 0, 1),
 				})
 			end,
 		},
 	},
 	controls = {
-		progress = 0,
+		progress = { 0, 25, 50, 75, 100 },
 	},
 }

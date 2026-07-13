@@ -28,7 +28,7 @@ ShareGameContainer.defaultProps = {
 }
 
 function ShareGameContainer:init()
-	self.props.reFetch()
+	self.props.reFetch(self.props.requestImpl)
 end
 
 function ShareGameContainer:render()
@@ -47,9 +47,9 @@ end, function(dispatch)
 			dispatch(ClosePage(Constants.PageRoute.SHARE_GAME))
 		end,
 
-		reFetch = function()
+		reFetch = function(requestImpl)
 			local userId = tostring(Players.LocalPlayer.UserId)
-			local requestImpl = httpRequest(HttpRbxApiService)
+			requestImpl = requestImpl or httpRequest(HttpRbxApiService)
 
 			dispatch(FetchUserFriends(requestImpl, userId))
 		end,

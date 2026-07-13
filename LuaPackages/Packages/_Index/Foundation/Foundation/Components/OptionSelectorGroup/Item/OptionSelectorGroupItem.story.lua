@@ -48,11 +48,11 @@ end
 return {
 	summary = "OptionSelectorGroupItem component",
 	stories = {
-		Default = {
-			name = "Default",
-			story = Story,
+		{
+			name = "Playground",
+			story = Story :: unknown,
 		},
-		LongText = {
+		{
 			name = "Long Text",
 			story = function(props)
 				return React.createElement(Story, Dash.join(props, { useLongText = true }))

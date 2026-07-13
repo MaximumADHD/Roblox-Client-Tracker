@@ -93,6 +93,14 @@ local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoice
 local FFlagVoiceSelectorIgnoreFailedStateDisconnect = game:DefineFastFlag("VoiceSelectorIgnoreFailedStateDisconnect", false)
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
+local FFlagVoiceVolumeControlsFixSliderVisibilityOnEligibleGames =
+	game:DefineFastFlag("VoiceVolumeControlsFixSliderVisibilityOnEligibleGames", false)
+local FFlagVoiceVolumeControlsDisableInteractionWhenNoMasterVolume =
+	game:DefineFastFlag("VoiceVolumeControlsDisableInteractionWhenNoMasterVolume", false)
+local FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry =
+	require(CorePackages.Workspace.Packages.VoiceChatCore).Flags.GetFFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry()
+local FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast =
+	require(RobloxGui.Modules.VoiceChat.Flags.FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -262,6 +270,8 @@ local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceVolumeControlsEligibility =
+	require(CorePackages.Workspace.Packages.VoiceChatCore).VoiceVolumeControlsEligibility
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local CrossExperienceVoiceManager = CrossExperienceVoice.CrossExperienceVoiceManager.default
 
@@ -2495,6 +2505,27 @@ local function Initialize()
 		this.VoiceChatVolumeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["VoiceChatVolumeFrame"]
 		this.VoiceChatVolumeFrame.Visible = false
 
+		if FFlagVoiceVolumeControlsDisableInteractionWhenNoMasterVolume then
+			local function updateVoiceChatVolumeSliderInteractable(masterVolumeSliderValue: number?)
+				local masterVolumeAtZero = if masterVolumeSliderValue ~= nil
+					then masterVolumeSliderValue == 0
+					else GameSettings.MasterVolume == 0
+
+				if masterVolumeAtZero then
+					this.VoiceChatVolumeSlider:SetZIndex(1)
+					this.VoiceChatVolumeLabel.ZIndex = 1
+					this.VoiceChatVolumeSlider:SetInteractable(false)
+				else
+					this.VoiceChatVolumeSlider:SetZIndex(2)
+					this.VoiceChatVolumeLabel.ZIndex = 2
+					this.VoiceChatVolumeSlider:SetInteractable(true)
+				end
+			end
+
+			updateVoiceChatVolumeSliderInteractable()
+			this.VolumeSlider.ValueChanged:connect(updateVoiceChatVolumeSliderInteractable)
+		end
+
 		this.VoiceChatVolumeSlider.ValueChanged:connect(function(newValue)
 			local oldValue
 			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
@@ -2502,6 +2533,12 @@ local function Initialize()
 			end
 
 			GameSettings.VoiceChatVolume = voiceChatVolumeFromSlider(newValue)
+			if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast then 
+				if this.maxVoiceChatVolumeDuringSession ~= nil then
+					this.maxVoiceChatVolumeDuringSession =
+						math.max(this.maxVoiceChatVolumeDuringSession, GameSettings.VoiceChatVolume)
+				end
+			end
 
 			if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 				reportSettingsChangeForAnalytics(
@@ -4083,25 +4120,37 @@ local function Initialize()
 					VoiceChatService = VoiceChatServiceManager:getService()
 					checkVoiceChatOptions()
 					if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider and this.VoiceChatVolumeFrame then
-						local function updateVoiceChatVolumeVisibility()
+						local function updateVoiceChatVolumeVisibility(stateOverride)
 							local ok, err = pcall(function()
 								local voiceChatService = game:GetService("VoiceChatService")
 								local voiceChatInternal = VoiceChatServiceManager:getService()
-								local isConnected = voiceChatInternal
-									and voiceChatInternal.VoiceChatState == (Enum :: any).VoiceChatState.Joined
+								local currentState = if FFlagVoiceVolumeControlsFixSliderVisibilityOnEligibleGames
+									then stateOverride or (voiceChatInternal and voiceChatInternal.VoiceChatState)
+									else (voiceChatInternal and voiceChatInternal.VoiceChatState)
+								local isConnected = currentState == (Enum :: any).VoiceChatState.Joined
 								local audioApiEnabled = voiceChatService and voiceChatService.UseNewAudioApi
-								this.VoiceChatVolumeFrame.Visible = isConnected and audioApiEnabled
+								this.VoiceChatVolumeFrame.Visible =
+									VoiceVolumeControlsEligibility.isVoiceChatVolumeSliderVisible(
+										isConnected,
+										audioApiEnabled
+									)
 							end)
 							if not ok then
 								log:debug("[GameSettings] updateVoiceChatVolumeVisibility ERROR:", err)
 							end
 						end
 						updateVoiceChatVolumeVisibility()
-						local voiceInternal = VoiceChatServiceManager:getService()
-						if voiceInternal then
-							voiceInternal.StateChanged:Connect(function()
-								updateVoiceChatVolumeVisibility()
+						if FFlagVoiceVolumeControlsFixSliderVisibilityOnEligibleGames then
+							VoiceChatServiceManager:subscribe("OnStateChanged", function(_, newState)
+								updateVoiceChatVolumeVisibility(newState)
 							end)
+						else
+							local voiceInternal = VoiceChatServiceManager:getService()
+							if voiceInternal then
+								voiceInternal.StateChanged:Connect(function()
+									updateVoiceChatVolumeVisibility()
+								end)
+							end
 						end
 					end
 
@@ -4117,6 +4166,9 @@ local function Initialize()
 					-- Check volume settings. Show prompt if volume is 0
 					if not GetFFlagEnableUniveralVoiceToasts() then
 						VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
+						if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast then 
+							VoiceChatServiceManager:ShowNotAudiblePromptVoiceChatVolume()
+						end
 					end
 
 					if GetFFlagEnableVoiceUxUpdates() then
@@ -4370,6 +4422,27 @@ local function Initialize()
 	if FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then
 		createVoiceChatVolumeOptions()
 	end
+
+	if FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then
+		local isSettingsTabVisible = false
+
+		this.Displayed.Event:Connect(function()
+			isSettingsTabVisible = true
+			if this.VoiceChatVolumeFrame and this.VoiceChatVolumeFrame.Visible then
+				VoiceChatServiceManager:RecordGameSettingsOpened()
+			end
+		end)
+
+		this.Hidden.Event:Connect(function()
+			isSettingsTabVisible = false
+		end)
+
+		this.VoiceChatVolumeFrame:GetPropertyChangedSignal("Visible"):Connect(function()
+			if this.VoiceChatVolumeFrame.Visible and isSettingsTabVisible then
+				VoiceChatServiceManager:RecordGameSettingsOpened()
+			end
+		end)
+	end
 	if hasPartyVoiceVolume then
 		createPartyVoiceVolumeOptions()
 	end
@@ -4539,6 +4612,10 @@ local function Initialize()
 		updateAudioOptions()
 		setupDeviceChangedListener()
 		this.startVolume = GameSettings.MasterVolume
+		if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast
+			and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then
+			this.maxVoiceChatVolumeDuringSession = GameSettings.VoiceChatVolume
+		end
 
 		if (GetFFlagSelfViewCameraSettings()) and this.VideoOptionsEnabled then
 			if game:GetEngineFeature("VideoCaptureService") then
@@ -4612,6 +4689,17 @@ local function Initialize()
 			and this.startVolume > 0
 		then
 			VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
+		end
+
+		if
+			game:GetEngineFeature("VoiceChatSupported")
+			and this.VoiceChatOptionsEnabled
+			and FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast
+			and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider
+			and this.maxVoiceChatVolumeDuringSession ~= nil
+			and this.maxVoiceChatVolumeDuringSession > 0
+		then
+			VoiceChatServiceManager:ShowNotAudiblePromptVoiceChatVolume()
 		end
 	end
 

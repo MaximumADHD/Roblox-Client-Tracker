@@ -33,7 +33,7 @@ local capturesEntrypointIntegration = ChromeService:register({
 	initialAvailability = initialAvailability,
 	id = "camera_entrypoint",
 	label = "Feature.SettingsHub.Label.Captures",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.Page,
 	activated = function(self)
 		CapturesApp.onToggleActivationFromChrome()
 	end,

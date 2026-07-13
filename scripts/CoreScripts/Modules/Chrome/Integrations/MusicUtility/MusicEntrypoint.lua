@@ -47,7 +47,7 @@ end
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "music_entrypoint",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.Page,
 	draggable = true,
 	cachePosition = true,
 	windowSize = windowSize,

@@ -6,7 +6,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local InGameMenu = script.Parent.Parent.Parent
@@ -61,7 +61,9 @@ function GameLabel:renderWithSelectionCursor(getSelectionCursor)
 		gameThumbnail = "rbxthumb://type=GameIcon&id=" .. gameId .. "&w=150&h=150"
 	end
 
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(_tokens)
+		return {}
+	end, function(style)
 		return Roact.createElement("TextButton", {
 			[React.Tag] = "data-testid=experienceLabel",
 			BackgroundTransparency = 1,

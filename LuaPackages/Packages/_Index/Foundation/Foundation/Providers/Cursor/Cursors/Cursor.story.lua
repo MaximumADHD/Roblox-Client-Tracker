@@ -7,11 +7,17 @@ local Cursor = require(script.Parent.Cursor)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 local ColorMode = require(Foundation.Enums.ColorMode)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
-local function getStory(cursorType, props)
+local cursorTypes: { CursorType } = Dash.values(CursorType)
+table.sort(cursorTypes)
+
+local function CursorPreview(cursorType, colorMode, layoutOrder: number?)
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromOffset(100, 50),
+		LayoutOrder = layoutOrder,
 	}, {
 		Frame = React.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -19,25 +25,53 @@ local function getStory(cursorType, props)
 			Position = UDim2.fromOffset(10, 10),
 		}, {
 			Cursor = React.createElement(Cursor, {
-				cursorType = cursorType,
+				cursorType = cursorType :: CursorType,
 				isVisible = true,
-				colorMode = props.controls.colorMode,
+				colorMode = colorMode,
 			}),
 		}),
 	})
 end
 
-local stories = {}
-for _, cursorType in CursorType do
-	stories[cursorType] = function(props)
-		return getStory(cursorType :: CursorType, props)
+local function PlaygroundStory(props)
+	return CursorPreview(props.controls.cursorType, props.controls.colorMode)
+end
+
+local function AllVariantsStory(props)
+	local children: { [string]: React.ReactNode } = {}
+	for index, cursorType in cursorTypes do
+		children[cursorType] = React.createElement(View, {
+			tag = "col align-x-center gap-xsmall auto-xy",
+			LayoutOrder = index,
+		}, {
+			Preview = CursorPreview(cursorType, props.controls.colorMode, 1),
+			Label = React.createElement(Text, {
+				Text = cursorType,
+				tag = "auto-xy text-body-small content-default",
+				LayoutOrder = 2,
+			}),
+		})
 	end
+
+	return React.createElement(View, {
+		tag = "row wrap gap-large auto-xy padding-large",
+	}, children)
 end
 
 return {
 	summary = "Selection cursors for different types of UI elements",
-	stories = stories,
+	stories = {
+		{
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
+		},
+		{
+			name = "All variants",
+			story = AllVariantsStory,
+		},
+	},
 	controls = {
+		cursorType = cursorTypes,
 		colorMode = Dash.values(ColorMode),
 	},
 }

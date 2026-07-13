@@ -19,7 +19,7 @@ return {
 	semi-transparent one has the same semi-transparent background, when you check the option the helper is used and the solid color is applied.",
 	stories = {
 		{
-			name = "Base",
+			name = "Playground",
 			story = function()
 				local transparency, setTransparency = React.useBinding(0.5)
 				local hue, setHue = React.useBinding(0)

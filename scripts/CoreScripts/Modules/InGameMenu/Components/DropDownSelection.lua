@@ -10,7 +10,7 @@ local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local Assets = require(InGameMenu.Resources.Assets)
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
@@ -201,7 +201,15 @@ function DropDownSelection:renderFocusHandler()
 end
 
 function DropDownSelection:render()
-	return withStyle(function(style)
+	return withFoundationOrUIBloxStyle(function(tokens)
+		return {
+			Theme = {
+				BackgroundUIDefault = { Color = tokens.Color.Surface.Surface_300.Color3, Transparency = tokens.Color.Surface.Surface_300.Transparency },
+				IconDefault = { Color = tokens.Color.Content.Default.Color3, Transparency = tokens.Color.Content.Default.Transparency },
+				IconOnHover = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
+			},
+		}
+	end, function(style)
 		return withLocalization(self.props.localize and self.props.selections or {})(function(localized)
 			local dropDownOpenText = self.props.placeHolderText
 			if self.props.selectedIndex > 0 then

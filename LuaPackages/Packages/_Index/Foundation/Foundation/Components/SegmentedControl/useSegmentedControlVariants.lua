@@ -28,12 +28,18 @@ type SegmentedControlVariantProps = {
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		container = { tag = "row align-y-center auto-xy bg-surface-300" },
-		segment = { tag = "row align-y-center size-0-full auto-xy" },
+		container = {
+			tag = if Flags.FoundationSegmentedControlAutoXFix
+				then "row align-y-center auto-x bg-surface-300"
+				else "row align-y-center auto-xy bg-surface-300",
+		},
+		segment = {
+			tag = if Flags.FoundationSegmentedControlAutoXFix
+				then "row align-y-center size-0-full auto-x"
+				else "row align-y-center size-0-full auto-xy",
+		},
 		text = { tag = "auto-x text-truncate-end content-emphasis" },
-		icon = if Flags.FoundationSegmentedControlIconSupport
-			then { style = tokens.Color.Content.Emphasis }
-			else nil :: never,
+		icon = { style = tokens.Color.Content.Emphasis },
 		divider = { tag = "row" },
 	}
 
@@ -51,7 +57,7 @@ local function variantsFactory(tokens: Tokens)
 				},
 				segment = { tag = "padding-small" },
 				text = { tag = "text-caption-small" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Small } else nil :: never,
+				icon = { size = IconSize.Small },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 			[InputSize.Small] = {
@@ -63,21 +69,21 @@ local function variantsFactory(tokens: Tokens)
 				},
 				segment = { tag = "padding-small" },
 				text = { tag = "text-caption-small" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Medium } else nil :: never,
+				icon = { size = IconSize.Medium },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 			[InputSize.Medium] = {
 				container = { tag = "size-1000 padding-xsmall" },
 				segment = { tag = "padding-small" },
 				text = { tag = "text-caption-medium" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Medium } else nil :: never,
+				icon = { size = IconSize.Medium },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 			[InputSize.Large] = {
 				container = { tag = "size-1200 padding-xsmall" },
 				segment = { tag = "padding-medium" },
 				text = { tag = "text-caption-medium" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Large } else nil :: never,
+				icon = { size = IconSize.Large },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 		}
@@ -141,7 +147,7 @@ local function variantsFactory(tokens: Tokens)
 						else "padding-small radius-small",
 				},
 				text = { tag = "text-caption-small" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Small } else nil :: never,
+				icon = { size = IconSize.Small },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 			[InputSize.Small] = {
@@ -156,21 +162,21 @@ local function variantsFactory(tokens: Tokens)
 						else "padding-small radius-small",
 				},
 				text = { tag = "text-caption-small" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Medium } else nil :: never,
+				icon = { size = IconSize.Medium },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 			[InputSize.Medium] = {
 				container = { tag = "size-1000 padding-xsmall radius-medium" },
 				segment = { tag = "padding-small radius-small" },
 				text = { tag = "text-caption-medium" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Medium } else nil :: never,
+				icon = { size = IconSize.Medium },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 			[InputSize.Large] = {
 				container = { tag = "size-1200 padding-xsmall radius-medium" },
 				segment = { tag = "padding-medium radius-small" },
 				text = { tag = "text-caption-medium" },
-				icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Large } else nil :: never,
+				icon = { size = IconSize.Large },
 				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
 		}

@@ -58,6 +58,11 @@ function InviteToGamePrompt:withAnalytics(analytics)
 	return self
 end
 
+function InviteToGamePrompt:withRequestImpl(requestImpl)
+	self.requestImpl = requestImpl
+	return self
+end
+
 function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomizationProps?)
 	local store = if GetFFlagEnableSharedInviteStore()
 		then InviteStore
@@ -72,6 +77,7 @@ function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomi
 			inviteMessageId = props and props.inviteMessageId,
 			launchData = props and props.launchData,
 			isLoading = props and props.isLoading,
+			requestImpl = self.requestImpl,
 			onAfterClosePage = function(_)
 				-- * "Why are we no-opting sentToUserIds?"
 				-- Originally our specs required us to pass the userIds of
@@ -82,7 +88,7 @@ function InviteToGamePrompt:_createTree(isVisible: boolean, props: InviteCustomi
 				local sentToUserIds = {}
 				self:hide(sentToUserIds)
 			end,
-		})
+		}),
 	})
 end
 

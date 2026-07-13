@@ -71,20 +71,20 @@ end
 return {
 	summary = "View",
 	stories = {
-		Basic = {
-			name = "Basic Use",
+		{
+			name = "Playground",
 			story = function(props)
-				local transparency = props.controls.transparency
-
-				return React.createElement(View, {
-					tag = "row gap-large auto-xy",
-				}, {
-					Basic = React.createElement(Story, {
-						GroupTransparency = transparency,
-					}),
-					GuiState = React.createElement(StoryGuiState, {
-						GroupTransparency = transparency,
-					}),
+				return React.createElement(Story, {
+					GroupTransparency = props.controls.transparency,
+				})
+			end :: unknown,
+		},
+		{
+			name = "GUI State",
+			summary = "View that reflects its control state via onStateChanged",
+			story = function(props)
+				return React.createElement(StoryGuiState, {
+					GroupTransparency = props.controls.transparency,
 				})
 			end,
 		},

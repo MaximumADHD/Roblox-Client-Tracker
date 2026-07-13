@@ -16,26 +16,19 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local ConfigureShortcuts = require(Chrome.ChromeShared.Shortcuts.ConfigureShortcuts)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
-
-local SideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+local buildMenuOrder = require(Chrome.ChromeShared.Unibar.buildMenuOrder)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
-local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
-local FFlagSideSheetSwapGalleryOrder = SharedFlags.FFlagSideSheetSwapGalleryOrder
+local FFlagAddMapToNineDot = SharedFlags.FFlagAddMapToNineDot
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagReverseUnibar = require(Chrome.Flags.FFlagReverseUnibar)
-local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
-
-local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
-local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -51,25 +44,28 @@ local function configureUnibar()
 	-- Configure the menu.  Top level ordering, integration availability.
 	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
 	-- ie. Voice Mute integration will only be shown is voice is enabled/active
-	local nineDot = { "leaderboard", "emotes", "backpack" }
+	local nineDot
+	if FFlagAddMapToNineDot then
+		nineDot = buildMenuOrder()
+	else
+		nineDot = { "leaderboard", "emotes", "backpack" }
 
-	if not FFlagEnableSideSheet then
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
-	end
 
-	-- prepend trust_and_safety to nine-dot menu
-	table.insert(nineDot, 1, "trust_and_safety")
+		-- prepend trust_and_safety to nine-dot menu
+		table.insert(nineDot, 1, "trust_and_safety")
 
-	if
-		isConnectDropdownEnabled()
-		and not (
-			FFlagRemoveFriendsChatUnibarEntrypoints
-			and FFlagExpChatEnableFriendsTab
-			and ArgoPartyExperimentation.getIsRenameEnabled()
-		)
-	then
-		table.insert(nineDot, 1, "connect_dropdown")
+		if
+			isConnectDropdownEnabled()
+			and not (
+				FFlagRemoveFriendsChatUnibarEntrypoints
+				and FFlagExpChatEnableFriendsTab
+				and ArgoPartyExperimentation.getIsRenameEnabled()
+			)
+		then
+			table.insert(nineDot, 1, "connect_dropdown")
+		end
 	end
 
 	local v4Ordering = { "nine_dot", "chat", "toggle_mic_mute" }
@@ -126,60 +122,32 @@ local function configureUnibar()
 		ChromeService:configureMenu({ v4Ordering })
 	end
 
-	if isInExperienceUIVREnabled then
-		if not isSpatial() then
+	if not FFlagAddMapToNineDot then
+		if isInExperienceUIVREnabled then
+			if not isSpatial() then
+				table.insert(nineDot, 2, "camera_entrypoint")
+				table.insert(nineDot, 2, "selfie_view")
+			end
+		else
 			table.insert(nineDot, 2, "camera_entrypoint")
 			table.insert(nineDot, 2, "selfie_view")
 		end
-	else
-		table.insert(nineDot, 2, "camera_entrypoint")
-		table.insert(nineDot, 2, "selfie_view")
-	end
 
-	if FFlagEnableInExperienceAvatarSwitcher then
-		table.insert(nineDot, 3, Constants.AVATAR_SWITCHER_ID)
-	end
-
-	-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
-	-- selene: allow(denylist_filter)
-	local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
-	if isNotVROrConsole then
-		table.insert(nineDot, 4, "music_entrypoint")
-	end
-
-	if FFlagEnableSideSheet then
-		table.insert(nineDot, "people")
-		table.insert(nineDot, "settings")
-
-		if FFlagSideSheetSwapGalleryOrder then
-			table.insert(nineDot, "gallery")
-
-			table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-			table.insert(nineDot, "trust_and_safety")
-		else
-			table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-			table.insert(nineDot, "trust_and_safety")
-
-			table.insert(nineDot, "gallery")
+		if FFlagEnableInExperienceAvatarSwitcher then
+			table.insert(nineDot, 3, Constants.AVATAR_SWITCHER_ID)
 		end
 
-		table.insert(nineDot, "help")
-
-		if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet then
-			table.insert(nineDot, "traversal_history")
+		-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
+		-- selene: allow(denylist_filter)
+		local isNotVROrConsole = not isSpatial() and not GuiService:IsTenFootInterface()
+		if isNotVROrConsole then
+			table.insert(nineDot, 4, "music_entrypoint")
 		end
 
-		if FFlagAddInviteFriendsIntegration then
-			table.insert(nineDot, 2, "invite_friends")
+		if FFlagEnableInExperienceShop then
+			-- Pin Shop to the 2nd position in the nine-dot menu.
+			table.insert(nineDot, 2, Constants.IN_EXPERIENCE_SHOP_ID)
 		end
-
-		table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)
-		table.insert(nineDot, SideSheet.Enums.ActionBinding.Respawn)
-	end
-
-	if FFlagEnableInExperienceShop then
-		-- Pin Shop to the 2nd position in the nine-dot menu.
-		table.insert(nineDot, 2, Constants.IN_EXPERIENCE_SHOP_ID)
 	end
 
 	ChromeService:configureSubMenu("nine_dot", nineDot)

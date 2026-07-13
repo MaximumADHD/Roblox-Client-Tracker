@@ -40,7 +40,7 @@ end
 return {
 	summary = "View",
 	stories = {
-		BasicStory = {
+		{
 			name = "GUI State Use",
 			story = Story,
 		},

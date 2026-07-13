@@ -6,7 +6,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
+local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
@@ -26,6 +26,11 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
 local HEADER_HEIGHT = 132
 
@@ -48,7 +53,13 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 	return withLocalization({
 		titleText = props.titleText,
 	})(function(localized)
-		return withStyle(function(style)
+		return withFoundationOrUIBloxStyle(function(tokens)
+			return {
+				Theme = {
+					Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
+				},
+			}
+		end, function(style)
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = style.Theme.Overlay.Color,
@@ -72,19 +83,26 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 						PaddingLeft = UDim.new(0, HEADER_SIDE_PADDING),
 						PaddingRight = UDim.new(0, HEADER_SIDE_PADDING),
 					}),
-					CloseButton = Roact.createElement(ImageSetButton, {
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0, 0, 0, HEADER_CONTENT_Y_CENTER),
-
-						Size = UDim2.new(0, 36, 0, 36),
-						Image = Assets.Images.CloseModal,
-						BackgroundTransparency = 1,
-
-						SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
-
-						[Roact.Event.Activated] = props.onClosed,
-						[Roact.Ref] = props.closeButtonRef,
-					}),
+					CloseButton = if FFlagCoreUiMigrateUIBloxToFoundation
+						then Roact.createElement(Image, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							Position = UDim2.new(0, 0, 0, HEADER_CONTENT_Y_CENTER),
+							Size = UDim2.new(0, 36, 0, 36),
+							Image = Assets.Images.CloseModal :: string,
+							selection = { SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) },
+							onActivated = props.onClosed,
+							ref = props.closeButtonRef,
+						})
+						else Roact.createElement(ImageSetButton, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							Position = UDim2.new(0, 0, 0, HEADER_CONTENT_Y_CENTER),
+							Size = UDim2.new(0, 36, 0, 36),
+							Image = Assets.Images.CloseModal,
+							BackgroundTransparency = 1,
+							SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+							[Roact.Event.Activated] = props.onClosed,
+							[Roact.Ref] = props.closeButtonRef,
+						}),
 					HeaderTextLabel = Roact.createElement(ThemedTextLabel, {
 						fontKey = "Header1",
 						themeKey = "TextEmphasis",

@@ -14,6 +14,7 @@ local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
 
 local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
 local View = Foundation.View
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
@@ -28,7 +29,12 @@ local ControlState = UIBlox.Core.Control.Enum.ControlState
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local Images = UIBlox.App.ImageSet.Images
+local CLOSE_MENU_ICON = if FFlagCoreUiMigrateUIBloxToFoundation
+	then "icons/controls/close-ingame"
+	else Images["icons/controls/close-ingame"]
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
@@ -828,18 +834,30 @@ function TopBarApp:renderWithStyle(style)
 				}) or nil,
 			}) or nil,
 
-			CloseMenuButton = not Unibar and Roact.createElement(ImageSetButton, {
-				Visible = not TenFootInterface:IsEnabled(),
-				BackgroundTransparency = 1,
-				Position = closeMenuButtonPosition,
-				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(0, legacyCloseMenuIconSize, 0, legacyCloseMenuIconSize),
-				Image = Images["icons/controls/close-ingame"],
-				[Roact.Event.Activated] = function()
-					local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-					SettingsHub:ToggleVisibility()
-				end,
-			}) or nil,
+			CloseMenuButton = not Unibar and (if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Visible = not TenFootInterface:IsEnabled(),
+					Position = closeMenuButtonPosition,
+					AnchorPoint = Vector2.new(0, 0.5),
+					Size = UDim2.new(0, legacyCloseMenuIconSize, 0, legacyCloseMenuIconSize),
+					Image = CLOSE_MENU_ICON,
+					onActivated = function()
+						local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+						SettingsHub:ToggleVisibility()
+					end,
+				})
+				else Roact.createElement(ImageSetButton, {
+					Visible = not TenFootInterface:IsEnabled(),
+					BackgroundTransparency = 1,
+					Position = closeMenuButtonPosition,
+					AnchorPoint = Vector2.new(0, 0.5),
+					Size = UDim2.new(0, legacyCloseMenuIconSize, 0, legacyCloseMenuIconSize),
+					Image = CLOSE_MENU_ICON,
+					[Roact.Event.Activated] = function()
+						local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+						SettingsHub:ToggleVisibility()
+					end,
+				})) or nil,
 		}),
 
 		SongbirdDebugAudio = Roact.createElement(Songbird.DebugAudioEmitters),

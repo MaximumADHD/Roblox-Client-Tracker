@@ -78,7 +78,7 @@ return {
 	summary = "Grid",
 	stories = {
 		{
-			name = "Base",
+			name = "Playground",
 			story = function(props)
 				local grid = React.createElement(Grid, {
 					align = props.controls.align,

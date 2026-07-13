@@ -47,8 +47,8 @@ return {
 	summary = "OptionSelectorGroup component",
 	stories = {
 		{
-			name = "Basic",
-			story = BasicStory :: any,
+			name = "Playground",
+			story = BasicStory :: unknown,
 		},
 	},
 	controls = {

@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
@@ -144,7 +145,38 @@ return {
 	summary = "ColorPicker",
 	stories = {
 		{
-			name = "Base",
+			name = "Playground",
+			story = function(props)
+				local controls = props.controls
+				local tokens = useTokens()
+				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+				local selectedAlpha, setSelectedAlpha = React.useState(1)
+
+				return React.createElement(View, {
+					Size = UDim2.fromOffset(300, 340),
+					tag = "col gap-medium",
+				}, {
+					PreviewContainer = React.createElement(ColorPreview, {
+						color = selectedColor,
+						alpha = if controls.hasAlpha then selectedAlpha else nil,
+						showAlpha = controls.hasAlpha,
+					}),
+
+					Picker = React.createElement(ColorPicker, {
+						-- initialMode/initialAlpha are only read on mount, so remount when
+						-- those controls change to let them take effect in the Playground.
+						key = `{controls.initialMode}-{tostring(controls.hasAlpha)}`,
+						initialColor = selectedColor,
+						initialAlpha = if controls.hasAlpha then selectedAlpha else nil,
+						initialMode = controls.initialMode,
+						onColorChanged = setSelectedColor,
+						onAlphaChanged = if controls.hasAlpha then setSelectedAlpha else nil,
+					}),
+				})
+			end :: unknown,
+		},
+		{
+			name = "With Preview",
 			story = function(_props)
 				local tokens = useTokens()
 				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
@@ -504,5 +536,8 @@ return {
 			end,
 		},
 	},
-	controls = {},
+	controls = {
+		initialMode = Dash.values(ColorInputMode),
+		hasAlpha = true,
+	},
 }

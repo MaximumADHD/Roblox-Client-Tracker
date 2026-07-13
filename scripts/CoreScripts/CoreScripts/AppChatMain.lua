@@ -19,7 +19,8 @@ end
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 local ParentContainer = require(CorePackages.Workspace.Packages.AppChat.ParentContainer)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
-local renderCoreScriptInExperienceAppChat = require(CorePackages.Workspace.Packages.AppChat.renderCoreScriptInExperienceAppChat)
+local renderCoreScriptInExperienceAppChat =
+	require(CorePackages.Workspace.Packages.AppChat.renderCoreScriptInExperienceAppChat)
 local ViewportUtil = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ViewportUtil)
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
@@ -55,12 +56,18 @@ local parentContainerContext: ParentContainer.ParentContainerContextType = {
 		return InExperienceAppChatModal.default.frame
 	end,
 	visibilitySignal = InExperienceAppChatModal.default.visibilitySignal.Event,
+	getRequestedRoute = function()
+		return InExperienceAppChatModal.default.requestedRoute
+	end,
+	requestedRouteSignal = InExperienceAppChatModal.default.requestedRouteSignal.Event,
+	clearRequestedRoute = function()
+		InExperienceAppChatModal.default:clearRequestedRoute()
+	end,
 	getShouldSetAppChatVisible = function(...)
 		return InExperienceAppChatModal:getVisible()
 	end,
 	-- todo: ROACTCHAT-1352 consolidate with UA entry point logic
-	entryPoint = 
-		ChatEntryPointNames.ChromeDropdown,
+	entryPoint = ChatEntryPointNames.ChromeDropdown,
 	hideParentContainer = function()
 		InExperienceAppChatModal.default:setVisible(false)
 	end,

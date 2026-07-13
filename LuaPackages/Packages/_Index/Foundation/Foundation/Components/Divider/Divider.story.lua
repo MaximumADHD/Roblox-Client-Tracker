@@ -8,6 +8,17 @@ local DividerVariant = require(Foundation.Enums.DividerVariant)
 local Orientation = require(Foundation.Enums.Orientation)
 local View = require(Foundation.Components.View)
 
+local function PlaygroundStory(props)
+	return React.createElement(View, {
+		tag = "align-x-center align-y-center gap-large size-full-2000 padding-large bg-surface-0",
+	}, {
+		Divider = React.createElement(Divider, {
+			variant = props.controls.variant,
+			orientation = props.controls.orientation,
+		}),
+	})
+end
+
 local function HorizontalStory()
 	local children: { [string]: React.ReactNode } = {}
 	local variants = Dash.values(DividerVariant)
@@ -39,6 +50,10 @@ return {
 	summary = "Divider",
 	stories = {
 		{
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
+		},
+		{
 			name = "Horizontal",
 			summary = "All variants (Default, Heavy, Inset, InsetLeft, InsetRight)",
 			story = HorizontalStory,
@@ -48,5 +63,9 @@ return {
 			summary = "Vertical divider (variant not applicable)",
 			story = VerticalStory,
 		},
+	},
+	controls = {
+		variant = Dash.values(DividerVariant),
+		orientation = Dash.values(Orientation),
 	},
 }
