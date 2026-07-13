@@ -3,7 +3,7 @@ name = "ReactIs"
 version = "17.3.8"
 source = "registry"
 dependencies = [
-    "ReactGlobals ReactGlobals 17.3.8 registry",
+    "ReactGlobals ReactGlobals 17.3.10 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
-    "Shared Shared 17.3.8 registry",
+    "Shared Shared 17.3.10 registry",
 ]

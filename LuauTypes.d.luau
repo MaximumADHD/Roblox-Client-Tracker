@@ -649,5 +649,7 @@ type VirtualInputPointerAction = {
     Pinch: number?,
 }
 
+type BatchDataStoreGetOptions = { }
+
 
 -- SECTION END: Reflection Adjacent

@@ -1,6 +1,6 @@
 [package]
 name = "ReactGlobals"
-version = "17.3.8"
+version = "17.3.10"
 readme = "README.md"
 content_root = "src"
 files = [

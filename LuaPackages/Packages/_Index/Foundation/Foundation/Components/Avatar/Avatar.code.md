@@ -14,12 +14,12 @@ The `Avatar` component displays a user's profile picture or a default icon if no
 local Foundation = require(Packages.Foundation)
 local Avatar = Foundation.Avatar
 local UserPresence = Foundation.Enums.UserPresence
-local InputSize = Foundation.Enums.InputSize
+local AvatarSize = Foundation.Enums.AvatarSize
 ...
 return React.createElement(Avatar, {
 	userId = "24813339",
 	userPresence = UserPresence.InExperience,
-	size = InputSize.Large,
+	size = AvatarSize.Large,
 })
 ...
 ```

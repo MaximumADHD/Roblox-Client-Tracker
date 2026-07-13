@@ -290,6 +290,7 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnalyticsService:LogCustomEvent(player: Player, eventName: string, value: number? = 1, customFields: { [string]: any }? = nil) -> () {🚧Basic}
 	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, amount: number, endingBalance: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> () {🚧Basic}
 	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 1, stepName: string? = "", customFields: { [string]: any }? = nil) -> () {🚧Basic}
+	Function AnalyticsService:LogJourneyEvent(player: Player, journeyName: string, nodeName: string, journeySessionId: string? = "", customFields: { [string]: any }? = nil) -> () {🚧Basic}
 	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, stepName: string? = "", customFields: { [string]: any }? = nil) -> () {🚧Basic}
 	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> () {🚧Basic}
 	Function AnalyticsService:LogProgressionEvent(player: Player, progressionPathName: string, status: Enum.AnalyticsProgressionType, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> () {🚧Basic}
@@ -1015,6 +1016,8 @@ Class AudioSpeechToText : Instance
 	Property AudioSpeechToText.VoiceDetected: boolean {🚧Audio} [ReadOnly]
 	Property AudioSpeechToText.DictationEnabled: boolean {🚧Audio} {🔒RobloxScript} [Hidden]
 	Function AudioSpeechToText:GetConnectedWires(pin: string) -> { Instance } {🚧Audio}
+	Function AudioSpeechToText:GetInputPins() -> { any } {🚧Audio}
+	Function AudioSpeechToText:GetOutputPins() -> { any } {🚧Audio}
 	Event AudioSpeechToText.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioTextToSpeech : Instance
 	Property AudioTextToSpeech.IsLoaded: boolean {🚧Audio} [ReadOnly]
@@ -1029,6 +1032,8 @@ Class AudioTextToSpeech : Instance
 	Property AudioTextToSpeech.TimePosition: number {🚧Audio}
 	Property AudioTextToSpeech.Volume: number {🚧Audio}
 	Function AudioTextToSpeech:GetConnectedWires(pin: string) -> { Instance } {🚧Audio}
+	Function AudioTextToSpeech:GetInputPins() -> { any } {🚧Audio}
+	Function AudioTextToSpeech:GetOutputPins() -> { any } {🚧Audio}
 	Function AudioTextToSpeech:GetWaveformAsync(timeRange: NumberRange, samples: number) -> { any } {🚧Audio} [Yields]
 	Function AudioTextToSpeech:LoadAsync() -> Enum.AssetFetchStatus {🚧Audio} [Yields]
 	Function AudioTextToSpeech:Pause() -> () {🚧Audio}
@@ -1250,6 +1255,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:PrepareAvatarForPreviewAsync(humanoidModel: Model) -> () {🚧AvatarAppearance} [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAssetAsync(tokenId: string, player: Player, assetInstance: Instance, assetType: Enum.AvatarAssetType) -> ...any [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(tokenId: string, player: Player, humanoidDescription: HumanoidDescription) -> ...any {🚧AssetCreateUpdate + Monetization} [Yields]
+	Function AvatarCreationService:PromptCreateMakeupAsync(player: Player, makeupAssetEntries: { any }, thumbnailHeadColor: Color3?) -> ...any {🚧AssetCreateUpdate + Monetization} [Yields]
 	Function AvatarCreationService:PromptSelectAvatarGenerationImageAsync(player: Player) -> string {🚧SensitiveInput} [Yields]
 	Function AvatarCreationService:RequestAvatarGenerationSessionAsync(player: Player, callback: (...any) -> ...any) -> ...any {🚧DynamicGeneration} [Yields]
 	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
@@ -2604,6 +2610,7 @@ Class DraggerService : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplic
 	Property DraggerService.PivotSnapToGeometry: boolean {🔒RobloxScript} [NotReplicated]
 Class EditableService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 	Property EditableService.EditableStatus: Enum.EditableStatus {🔒RobloxEngine} [Hidden] [NotScriptable]
+Class EditorSourceService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class EncodingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function EncodingService:Base64Decode(input: buffer) -> buffer {🧬Safe}
 	Function EncodingService:Base64Encode(input: buffer) -> buffer {🧬Safe}
@@ -2956,6 +2963,7 @@ Class GetTextBoundsParams : Instance [NotReplicated]
 	Property GetTextBoundsParams.Text: string {🚧UI}
 	Property GetTextBoundsParams.Width: number {🚧UI}
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
+	Function GlobalDataStore:BatchGetAsync(keys: { any }, options: { [string]: any }? = nil) -> { [string]: any } {🚧DataStore} [Yields]
 	Function GlobalDataStore:GetAsync(key: string, options: DataStoreGetOptions? = nil) -> ...any {🚧DataStore} [Yields]
 	Function GlobalDataStore:IncrementAsync(key: string, delta: number? = 1, userIds: { any }? = {}, options: DataStoreIncrementOptions? = nil) -> any {🚧DataStore} [Yields]
 	Function GlobalDataStore:RemoveAsync(key: string) -> ...any {🚧DataStore} [Yields]
@@ -4103,6 +4111,7 @@ Class IXPService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotRepl
 	Event IXPService.OnUserLayerLoadingStatusChanged(status: Enum.IXPLoadingStatus) {🔒LocalUser}
 Class ImageScreenCaptureService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 Class ImportSession : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
+	Property ImportSession.UploadSource: string {🔒RobloxScript} [Hidden] [NotReplicated]
 	Function ImportSession:Cancel() -> () {🔒RobloxScript}
 	Function ImportSession:GetFilename() -> string {🔒RobloxScript}
 	Function ImportSession:GetStatuses() -> { [string]: any } {🔒RobloxScript}
@@ -4134,6 +4143,7 @@ Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated
 Class InputAction : Instance
 	Property InputAction.Enabled: boolean {🚧Input}
 	Property InputAction.Type: Enum.InputActionType {🚧Input}
+	Property InputAction.PreferredBinding: InputBinding? {🚧Input} [ReadOnly]
 	Property InputAction.BoolState: boolean {🚧Input} {🔒RobloxScript} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction1DState: number {🚧Input} {🔒RobloxScript} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction2DState: Vector2 {🚧Input} {🔒RobloxScript} [ReadOnly] [NotScriptable]
@@ -4142,6 +4152,7 @@ Class InputAction : Instance
 	Function InputAction:GetState() -> any {🚧Input} {🧬Safe}
 	Function InputAction:Fire(state: any) -> () {🚧Input} [Deprecated]
 	Function InputAction:GetInputBindings() -> { Instance } {🚧Input} {🔒RobloxScript}
+	Function InputAction:GetPreferredBindingList(count: number? = 0) -> { Instance } {🚧Input} {🔒RobloxScript}
 	Event InputAction.Pressed() {🚧Input}
 	Event InputAction.Released() {🚧Input}
 	Event InputAction.StateChanged(value: any) {🚧Input}
@@ -4167,6 +4178,8 @@ Class InputBinding : Instance
 	Property InputBinding.Left: Enum.KeyCode {🚧Input}
 	Property InputBinding.Right: Enum.KeyCode {🚧Input}
 	Property InputBinding.Up: Enum.KeyCode {🚧Input}
+	Property InputBinding.DisplayImage: Content {🚧Input}
+	Property InputBinding.DisplayName: string {🚧Input}
 	Function InputBinding:Fire(state: any) -> () {🚧Input}
 Class InputContext : Instance
 	Property InputContext.Enabled: boolean {🚧Input}
@@ -4627,7 +4640,9 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.MockPurchasePremium() {🔒RobloxScript} [Hidden]
 	Event MarketplaceService.MockPurchaseRobloxSubscription() {🔒RobloxScript} [Hidden]
 	Event MarketplaceService.NativePurchaseFinished(player: Instance, productId: string, wasPurchased: boolean) {🔒RobloxScript}
+	Event MarketplaceService.NativePurchaseFinishedV2(player: Instance, productId: string, wasPurchased: boolean, checkoutSessionId: string) {🔒RobloxScript}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(productId: string, wasPurchased: boolean) {🔒RobloxScript}
+	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayerV2(productId: string, wasPurchased: boolean, checkoutSessionId: string) {🔒RobloxScript}
 	Event MarketplaceService.OpenShopRequested(player: Player) {🔒RobloxScript}
 	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) {🔒RobloxScript}
 	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {🔒RobloxScript}
@@ -5171,6 +5186,11 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:ConvertToSmooth() -> () {🚧Environment} {🔒Plugin} [Deprecated]
 	Function Terrain:CreateVoxelBuffer_beta() -> VoxelBuffer {🚧Environment} {🔒RobloxScript}
 	Function Terrain:DrawBufferAsync(cframe: CFrame, scale: number, resolution: number, source: VoxelBuffer, mergeConfig: { [string]: any }) -> () {🚧Environment} {🔒RobloxScript} [Yields]
+	Function Terrain:FillBallSlot(center: Vector3, radius: number, solidMaterialIndex: number) -> () {🚧Environment} {🔒RobloxScript}
+	Function Terrain:FillBlockSlot(cframe: CFrame, size: Vector3, solidMaterialIndex: number) -> () {🚧Environment} {🔒RobloxScript}
+	Function Terrain:FillCylinderSlot(cframe: CFrame, height: number, radius: number, solidMaterialIndex: number) -> () {🚧Environment} {🔒RobloxScript}
+	Function Terrain:FillRegionSlot(region: Region3, resolution: number, solidMaterialIndex: number) -> () {🚧Environment} {🔒RobloxScript}
+	Function Terrain:FillWedgeSlot(cframe: CFrame, size: Vector3, solidMaterialIndex: number) -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:GetCell(x: number, y: number, z: number) -> ...any {🚧Environment} [Deprecated]
 	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {🚧Environment} {🔒RobloxScript}
 	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any {🚧Environment} [Deprecated]
@@ -5223,6 +5243,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.ChildData: BinaryString {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData2: SharedString {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ComponentIndex: number {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Property PartOperation.Content: Content {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property PartOperation.DCDPropertyData: CSGPropertyData {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.FormFactor: Enum.FormFactor {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property PartOperation.InitialSize: Vector3 {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -5444,6 +5465,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.UseNewLuauTypeSolver: Enum.RolloutState [NotScriptable]
 	Property Workspace.EnableSLIMAvatars: Enum.RolloutState {🚧Players} [NotScriptable]
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
+	Property Workspace.PredictiveStreamingMode: Enum.PredictiveStreamingMode [NotScriptable]
 	Property Workspace.StreamOutBehavior: Enum.StreamOutBehavior [NotScriptable]
 	Property Workspace.StreamingEnabled: boolean {✏️Plugin}
 	Property Workspace.StreamingIntegrityMode: Enum.StreamingIntegrityMode [NotScriptable]
@@ -6447,6 +6469,7 @@ Class RenderingTest : Instance
 	Property RenderingTest.Orientation: Vector3 {🚧Basic} [Hidden] [NotReplicated]
 	Property RenderingTest.Position: Vector3 {🚧Basic} [Hidden] [NotReplicated]
 	Function RenderingTest:RenderdocTriggerCapture() -> () {🚧Basic}
+	Event RenderingTest.TestFramesCountdownAboutToStart() {🚧Basic}
 Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Function ReplicatedFirst:RemoveDefaultLoadingScreen() -> ()
 	Function ReplicatedFirst:IsDefaultLoadingGuiRemoved() -> boolean {🔒RobloxScript}
@@ -6666,6 +6689,7 @@ Class ScriptDocument : Instance {🔒Plugin} [NotCreatable] [NotReplicated]
 	Function ScriptDocument:IsCommandBar() -> boolean {🔒Plugin}
 	Function ScriptDocument:MultiEditTextAsync(edits: { any }) -> ...any {🔒Plugin} [Yields]
 	Function ScriptDocument:RequestSetSelectionAsync(cursorLine: number, cursorCharacter: number, anchorLine: number? = nil, anchorCharacter: number? = nil) -> ...any {🔒Plugin} [Yields]
+	Function ScriptDocument:ReviewableTextEditsAsync(changes: { any }) -> ...any {🔒Plugin} [Yields]
 	Function ScriptDocument:GetInternalUri() -> string {🔒RobloxScript}
 	Event ScriptDocument.SelectionChanged(positionLine: number, positionCharacter: number, anchorLine: number, anchorCharacter: number) {🔒Plugin}
 	Event ScriptDocument.ViewportChanged(startLine: number, endLine: number) {🔒Plugin}
@@ -7444,6 +7468,7 @@ Class Studio : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated]
 	Property Studio.EnableCodeAssist: boolean {🔒RobloxScript}
 	Property Studio.EnableIndentationRulers: boolean {🔒RobloxScript}
 	Property Studio.EnableOnTypeAutocomplete: boolean {🔒RobloxScript} [Hidden] [NotReplicated]
+	Property Studio.EnableOvertypeMode: boolean {🔒RobloxScript}
 	Property Studio.EnableSelectionTooltips: boolean {🔒RobloxScript}
 	Property Studio.LargeFileLineCountThreshold: number {🔒RobloxScript}
 	Property Studio.LargeFileThreshold: number {🔒RobloxScript}
@@ -7553,7 +7578,11 @@ Class StudioDeviceSimulatorService : Instance {🔒Plugin} [NotCreatable] [Servi
 	Function StudioDeviceSimulatorService:SetScalingModeAsync(mode: Enum.DeviceSimulatorScalingMode) -> () {🔒Plugin} [Yields]
 	Function StudioDeviceSimulatorService:StopSimulationAsync() -> () {🔒Plugin} [Yields]
 	Function StudioDeviceSimulatorService:UpdateDeviceAsync(deviceId: string, config: { [string]: any }) -> () {🔒Plugin} [Yields]
+	Function StudioDeviceSimulatorService:GetRegisteredSimulators() -> { any } {🔒RobloxScript}
+	Function StudioDeviceSimulatorService:RegisterSimulator(name: string, config: { [string]: any }) -> { [string]: any } {🔒RobloxScript}
+	Function StudioDeviceSimulatorService:UnregisterSimulator(handle: { [string]: any }) -> () {🔒RobloxScript}
 	Event StudioDeviceSimulatorService.ConfigurationChanged() {🔒Plugin}
+	Event StudioDeviceSimulatorService.SimulatorRegistryChanged() {🔒RobloxScript}
 Class StudioObjectBase : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 Class StudioWidget : StudioObjectBase {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function StudioWidget:SetFixedSize(width: number, height: number) -> () {🔒RobloxScript}
@@ -7840,10 +7869,10 @@ Class TerrainRegion : Instance
 	Function TerrainRegion:ConvertToSmooth() -> () {🚧Environment} {🔒Plugin} [Deprecated]
 	Function TerrainRegion:GetRegionWireframe() -> { any } {🚧Environment} {🔒RobloxScript}
 Class TestCase : Instance [NotCreatable]
-	Function TestCase:Assert(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> ()
-	Function TestCase:EndTest(message: string? = "", source: Instance? = nil, line: number? = 0) -> ()
-	Function TestCase:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
-	Function TestCase:Require(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> ()
+	Function TestCase:Assert(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
+	Function TestCase:EndTest(message: string? = "", source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
+	Function TestCase:Message(text: string, source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
+	Function TestCase:Require(condition: boolean, message: string? = "", source: Instance? = nil, line: number? = 0) -> () {🚧InternalTest}
 Class TestService : Instance [Service]
 	Property TestService.Description: string
 	Property TestService.AutoRuns: boolean
@@ -7867,7 +7896,7 @@ Class TestService : Instance [Service]
 	Function TestService:GetTestControlSchema(providerName: string) -> { [string]: any } {🚧InternalTest}
 	Function TestService:GetTestControls(providerName: string) -> { [string]: any } {🚧InternalTest}
 	Function TestService:Message(text: string, source: Instance? = nil, line: number? = 0) -> ()
-	Function TestService:RegisterTest(testOptions: { [string]: any }) -> TestCase
+	Function TestService:RegisterTest(testOptions: { [string]: any }) -> TestCase {🚧InternalTest}
 	Function TestService:RequestValidationAsync(artifactType: string, artifactName: string) -> ...any {🚧InternalTest} [Yields]
 	Function TestService:Require(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:ResetTestControl(providerName: string, controlName: string) -> () {🚧InternalTest}
@@ -7878,7 +7907,7 @@ Class TestService : Instance [Service]
 	Function TestService:StartVideoCaptureAsync(artifactName: string? = "", options: { [string]: any }? = nil) -> ...any {🚧InternalTest} [Yields]
 	Function TestService:StopTestSession() -> () {🚧InternalTest}
 	Function TestService:StopVideoCaptureAsync() -> ...any {🚧InternalTest} [Yields]
-	Function TestService:TakeSnapshot(snapshotname: string, source: Instance? = nil) -> ()
+	Function TestService:TakeSnapshot(snapshotname: string, source: Instance? = nil) -> () {🚧InternalTest}
 	Function TestService:Warn(condition: boolean, description: string, source: Instance? = nil, line: number? = 0) -> ()
 	Function TestService:getTestSessionProviderStats(providerName: string) -> { [string]: any } {🚧InternalTest}
 	Function TestService:isFeatureEnabled(name: string) -> boolean
@@ -8043,14 +8072,15 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:GetPresetsAsync() -> { [string]: any } {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:GetTextChannelWindows() -> { any } {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:HasAllocatedUniverseChatContext(context: string) -> boolean {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:IsProtectedChatEnabled() -> boolean {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:OnUserChatSettingUpdateAsync(featureName: string, featureValue: string) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendDictatedSpeechUniverseChatAsync(text: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🚧Chat} {🔒RobloxScript}
-	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number, extras: { [string]: any }?) -> () {🚧Chat} {🔒RobloxScript}
-	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown", selectedChannelTab: number? = -1) -> () {🚧Chat} {🔒RobloxScript}
-	Function TextChatService:SendExpChatWindowScroll() -> () {🚧Chat} {🔒RobloxScript}
-	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeBackgroundIdle: number, timeTextIdle: number) -> () {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number, extras: { [string]: any }?, chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown", selectedChannelTab: number? = -1, textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:SendExpChatWindowScroll(chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeBackgroundIdle: number, timeTextIdle: number, chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendUniverseChatMessageAsync(text: string, metadata: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendUniverseChatPresetAsync(presetId: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:setModerationModeEnabled(userId: number, enabled: boolean) -> boolean {🚧Chat} {🔒RobloxScript}
@@ -11642,6 +11672,10 @@ Enum PredictionStatus
 	EnumItem PredictionStatus.Authoritative : 0
 	EnumItem PredictionStatus.Predicted : 1
 	EnumItem PredictionStatus.None : 2
+Enum PredictiveStreamingMode
+	EnumItem PredictiveStreamingMode.Default : 0
+	EnumItem PredictiveStreamingMode.Enabled : 1
+	EnumItem PredictiveStreamingMode.Disabled : 2
 Enum PreferredInput
 	EnumItem PreferredInput.KeyboardAndMouse : 0
 	EnumItem PreferredInput.Gamepad : 1
@@ -11709,6 +11743,14 @@ Enum PromptCreateAvatarResult
 	EnumItem PromptCreateAvatarResult.PurchaseFailure : 10
 	EnumItem PromptCreateAvatarResult.UnknownFailure : 11
 	EnumItem PromptCreateAvatarResult.TokenInvalid : 12
+Enum PromptCreateOutfitResult
+	EnumItem PromptCreateOutfitResult.Success : 1
+	EnumItem PromptCreateOutfitResult.PartialSuccess : 2
+	EnumItem PromptCreateOutfitResult.CreationFailure : 3
+	EnumItem PromptCreateOutfitResult.PermissionDenied : 4
+	EnumItem PromptCreateOutfitResult.Timeout : 5
+	EnumItem PromptCreateOutfitResult.NoUserInput : 6
+	EnumItem PromptCreateOutfitResult.UnknownFailure : 7
 Enum PromptExperienceDetailsResult
 	EnumItem PromptExperienceDetailsResult.PromptClosed : 0
 	EnumItem PromptExperienceDetailsResult.TeleportAttempted : 1
@@ -12185,8 +12227,6 @@ Enum SlimTintMode
 	EnumItem SlimTintMode.None : 0
 	EnumItem SlimTintMode.LOD : 1
 	EnumItem SlimTintMode.Meshes : 2
-	EnumItem SlimTintMode.MeshResourcePtr : 3
-	EnumItem SlimTintMode.ContentId : 4
 	EnumItem SlimTintMode.Zone : 5
 Enum SolidPrimitiveType
 	EnumItem SolidPrimitiveType.Capsule : 5
