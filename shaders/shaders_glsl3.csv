@@ -60,6 +60,7 @@ DefaultUnifiedGlassTintVS,Vertex
 DefaultUnifiedGlassTintVS_00000002,Vertex
 DefaultUnifiedGlassTintVS_00000006,Vertex
 DefaultUnifiedGlassTintVS_00000400,Vertex
+DefaultUnifiedGlassTintVS_00000402,Vertex
 DefaultUnifiedGlassTintVS_00001000,Vertex
 DefaultUnifiedGlassTintVS_00001002,Vertex
 DefaultUnifiedGlassTintVS_00001006,Vertex
@@ -268,7 +269,6 @@ LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
-Memcpy48CS,Compute
 ModelLodDepthFS,Fragment
 ModelLodDepthVS,Vertex
 OutputDepthFS,Fragment
@@ -310,7 +310,6 @@ RadialBlur12FS,Fragment
 RadialBlur3FS,Fragment
 RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
-ScatterMemcpy48CS,Compute
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHoverFS,Fragment

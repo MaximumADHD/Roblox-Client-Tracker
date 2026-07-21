@@ -76,6 +76,7 @@ DefaultUnifiedGlassTintVS,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00000002,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00000006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00000400,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedGlassTintVS_00000402,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001000,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001002,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001006,Vertex,❌,❌,❌,✔,❌
@@ -308,6 +309,7 @@ DefaultUnifiedPlasticReflectionVS_80000200,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80001000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80001002,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80001006,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedPlasticReflectionVS_80001200,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80100001,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80100007,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80100201,Vertex,✔,✔,✔,❌,✔
@@ -375,6 +377,7 @@ HighlightStudioSelectionTeamCreateAlphaTestFS_00000000,Fragment,✔,✔,✔,✔,
 HighlightStudioSelectionTeamCreateFS_00000000,Fragment,✔,✔,✔,✔,✔
 InstancedCopy,Compute,✔,✔,✔,❌,✔
 InstancedDebugGarbage,Compute,✔,✔,✔,❌,✔
+InstancedUploadCFrame,Compute,✔,✔,✔,❌,✔
 InstancedUploadFull,Compute,✔,✔,✔,❌,✔
 LanczosNonRingingFS,Fragment,✔,✔,✔,✔,✔
 LanczosNonRingingWatermarkFS,Fragment,✔,✔,✔,✔,✔
@@ -390,7 +393,7 @@ LightGridPointSplatVS,Vertex,✔,✔,✔,✔,✔
 LinearizeDepthAAFS,Fragment,❌,✔,✔,✔,✔
 LinearizeDepthBufferFS,Fragment,❌,❌,✔,❌,✔
 LinearizeDepthFS,Fragment,✔,✔,✔,✔,✔
-Memcpy48CS,Compute,❌,❌,✔,✔,✔
+Memcpy48CS,Compute,❌,❌,✔,❌,✔
 ModelLodDepthFS,Fragment,✔,✔,✔,✔,✔
 ModelLodDepthVS,Vertex,✔,✔,✔,✔,✔
 motionBufferDepthASWHack,Fragment,❌,❌,✔,❌,✔
@@ -456,7 +459,7 @@ RadialBlur6FS,Fragment,✔,✔,✔,✔,✔
 RadialBlur9FS,Fragment,✔,✔,✔,✔,✔
 ReprojectFilterClippedFS,Fragment,❌,❌,✔,❌,❌
 ReprojectFilterFS,Fragment,❌,❌,✔,❌,✔
-ScatterMemcpy48CS,Compute,❌,❌,✔,✔,✔
+ScatterMemcpy48CS,Compute,❌,❌,✔,❌,✔
 SelectionOutlineActiveFS,Fragment,✔,✔,✔,✔,✔
 SelectionOutlineFS,Fragment,✔,✔,✔,✔,✔
 SelectionOutlineHoverFS,Fragment,✔,✔,✔,✔,✔

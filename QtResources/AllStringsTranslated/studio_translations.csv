@@ -5746,6 +5746,11 @@ Studio.App.Properties.MDIServerTitleFmt1,,,Properties / Server - %1,Properties /
 Studio.App.PropertyItems.RevertPropertyChanges,,,Revert override,Revert override
 Studio.App.RobloxExplorerWidget.OverrideAdded,,,Added by override,Added by override
 Studio.App.RobloxExplorerWidget.OverrideModified,,,Instance has overrides,Instance has overrides
+Studio.App.Property.EnableOvertypeMode,,,Enable Overtype Mode,Enable Overtype Mode
+Studio.App.EmulatorMainWidget.AndroidTV1080p,,,Android TV 1080p,Android TV 1080p
+Studio.App.RobloxRibbonMainWindow.TreatPartsAsBoxes,,,Treat Parts as Boxes,Treat Parts as Boxes
+Studio.App.ActionInitializer.ToggleTreatPartsAsBoxes,,,Treat Parts as Boxes - Toggle,Treat Parts as Boxes - Toggle
+Studio.App.ActionInitializer.ToggleTreatPartsAsBoxesTooltip,,,Toggle whether dragger tools treat parts as their bounding boxes when snapping.,Toggle whether dragger tools treat parts as their bounding boxes when snapping.
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8228,6 +8233,7 @@ Studio.Toolbox.Subcategory.PluginsWorkflow,,,Workflow,Workflow
 Studio.Toolbox.Subcategory.PluginsAiTools,,,AI Tools,AI Tools
 Studio.Toolbox.AssetConfig.UploadDenied_MissingTwoStepVerification,,,Missing two step verification,Missing two step verification
 Studio.Toolbox.AssetConfig.CreationContextMissingTwoStepVerification,,,Two step verification is required to upload avatar items.,Two step verification is required to upload avatar items.
+Studio.Toolbox.HomeView.recently_updated_essentials,,,Discover Something New,Discover Something New
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9600,6 +9606,7 @@ Studio.AssetManager.Toast.AddToExperienceSuccess,,,Added assets to game,Added as
 Studio.AssetManager.Toast.AddToExperienceFailed,,,Failed to add some assets to game,Failed to add some assets to game
 Studio.AssetManager.ContextMenu.AddToExperience,,,Add to {gameName},Add to {gameName}
 Studio.AssetManager.Tooltip.ToggleSidebar,,,Toggle Sidebar,Toggle Sidebar
+Studio.AssetManager.FolderMove.FromSearchSuccess,,,Moved items successfully.,Moved items successfully.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12559,6 +12566,7 @@ Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_129458426,,,Jeans,Je
 Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_129459077,,,Black Slacks,Black Slacks
 Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_7231091126,,,Lime Boxing Shorts - KSI,Lime Boxing Shorts - KSI
 Studio.AvatarCompatibilityPreviewer.Stages.Back,,,Back,Back
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.AvatarLookOwnershipRequired,,,You must have at least one asset created by you or your group.,You must have at least one asset created by you or your group.
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -14418,6 +14426,8 @@ Studio.Assistant.EditSkill.Edited,,,Modified skill: {name},Modified skill: {name
 Studio.Assistant.Skills.ShadowedTooltip,,,Disabled because a personal skill with the same name is enabled.,Disabled because a personal skill with the same name is enabled.
 Studio.Assistant.EditSkill.Editing,,,Modifying skill,Modifying skill
 Studio.Assistant.ToolConfirmation.ToolCallRejected,,,'{toolName}' tool call rejected by user,'{toolName}' tool call rejected by user
+Studio.Assistant.Skills.ShadowedTooltipTitle,,,You have a local copy of this skill,You have a local copy of this skill
+Studio.Assistant.Skills.ShadowedTooltipBody,,,Turn off or delete the local copy to use the Roblox version,Turn off or delete the local copy to use the Roblox version
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15103,6 +15113,7 @@ Studio.BetaFeatures.SecondAttemptCameraControlsTitle,,,Studio Camera Controls (V
 Studio.BetaFeatures.SecondAttemptCameraControlsDescription,,,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
 Studio.BetaFeatures.InputActionManagerTitle,,,Input Action Manager,Input Action Manager
 Studio.BetaFeatures.InputActionManagerDescription,,,Provides a new editor for working with Input Action System.,Provides a new editor for working with Input Action System.
+Studio.BetaFeatures.SearchPlaceholder,,,Search beta features...,Search beta features...
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15676,6 +15687,7 @@ Studio.PropertiesLibrary.Tabs.General,,,General,General
 Studio.PropertiesLibrary.Tabs.AttributesAndTags,,,Attributes & Tags,Attributes & Tags
 Studio.PropertiesLibrary.Tabs.All,,,All,All
 Studio.PropertiesLibrary.SearchBar.PlaceholderText,,,Filter by name or value,Filter by name or value
+Studio.PropertiesLibrary.TagDropdown.NewTag,,,New Tag,New Tag
 Studio.PublishPlace.Error.PublishEligibilityTitle,,,Can't publish place,Can't publish place
 Studio.PublishPlace.Error.PublishEligibilityDescription,,,Check your publishing eligibility in Creator Hub,Check your publishing eligibility in Creator Hub
 Studio.PublishPlace.Button.Manage,,,Check eligibility,Check eligibility
@@ -15983,3 +15995,5 @@ Studio.InputActionManager.Status.DuplicateUIButtonTitle,,,Duplicate UI Button,Du
 Studio.InputActionManager.Status.DuplicateUIButtonDescription,,,{uibutton} is used elsewhere: {actions},{uibutton} is used elsewhere: {actions}
 Studio.InputActionManager.Status.CompositeKeycodeTitle,,,Duplicate Composite Keycode,Duplicate Composite Keycode
 Studio.InputActionManager.Status.CompositeKeycodeDescription,,,Keycode already in use for another direction.,Keycode already in use for another direction.
+Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
+Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager

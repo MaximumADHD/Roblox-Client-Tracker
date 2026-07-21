@@ -830,6 +830,7 @@ Studio.App.EmulatorMainWidget.ActualResolution,,Actual Resolution,Actual Resolut
 Studio.App.EmulatorMainWidget.AmazonFire102019,Emulation devices,Amazon Fire HD 10 (2019),Amazon Fire HD 10 (2019)
 Studio.App.EmulatorMainWidget.Android,,Android,Android
 Studio.App.EmulatorMainWidget.AndroidTV,,AndroidTV,AndroidTV
+Studio.App.EmulatorMainWidget.AndroidTV1080p,"In device emulator for studio, this is the name of a generic 1080p android TV.",Android TV 1080p,Android TV 1080p
 Studio.App.EmulatorMainWidget.AverageLaptop,Emulation devices,Average Laptop,Average Laptop
 Studio.App.EmulatorMainWidget.BeOS,,BeOS,BeOS
 Studio.App.EmulatorMainWidget.CalibratePhysicalScaling,,Calibrate Physical Scaling,Calibrate Physical Scaling
@@ -882,7 +883,6 @@ Studio.App.EmulatorMainWidget.Ouya,,Ouya,Ouya
 Studio.App.EmulatorMainWidget.PS3,,PS3,PS3
 Studio.App.EmulatorMainWidget.PS4,,PS4,PS4
 Studio.App.EmulatorMainWidget.PS5,,PS5,PS5
-Studio.App.EmulatorMainWidget.AndroidTV1080p,,Android TV 1080p,Android TV 1080p
 Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
 Studio.App.EmulatorMainWidget.PhysicalSize,,Physical Size,Physical Size
 Studio.App.EmulatorMainWidget.Portrait,,Portrait,Portrait
@@ -2301,6 +2301,7 @@ Studio.App.PropertyItems.ResetScaleIcon.ToolTip,Tooltip for an icon that when cl
 Studio.App.PropertyItems.ResizeTheMesh,,The mesh you are importing is very large. Would you like to resize the mesh?,The mesh you are importing is very large. Would you like to resize the mesh?
 Studio.App.PropertyItems.RevertPackageChanges,Tooltip that displays when hovering over the revert button in the Status row of the PackageLink Property panel,Revert all overrides,Revert all overrides
 Studio.App.PropertyItems.RevertPackageConfirmation,,Are you sure you want to revert this package to version %1 ?,Are you sure you want to revert this package to version %1 ?
+Studio.App.PropertyItems.RevertPropertyChanges,Tooltip that displays when hovering over revert button for any Package property,Revert override,Revert override
 Studio.App.PropertyItems.SandboxedDisabledKeep,User agreed to PropertyItems.SandboxedDisabledWarning and will not remove sandboxing of a Model,Keep Sandboxed,Keep Sandboxed
 Studio.App.PropertyItems.SandboxedDisabledRemove,User read PropertyItems.SandboxedDisabledWarning and decided to disable sandboxing of a Model,Disable,Disable
 Studio.App.PropertyItems.SandboxedDisabledWarning,Shown when user attempts to remove sandboxed mode from a model taken from the toolbox.,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?,Disabling the Sandboxed property might make your game vulnerable to exploits. Are you sure you want to disable this?
@@ -2454,12 +2455,12 @@ Studio.App.Property.EnableCodeAssist,Enables code assist feature.,Enable Code-As
 Studio.App.Property.EnableCoreScriptDebugger,,Enable CoreScript Debugger,Enable CoreScript Debugger
 Studio.App.Property.EnableHttpSandboxing,,Enable Http Sandboxing,Enable Http Sandboxing
 Studio.App.Property.EnableIndentationRulers,Draw markers for indentation in Script Editor,Enable Indentation Rulers,Enable Indentation Rulers
-Studio.App.Property.EnableOvertypeMode,"When enabled, pressing Insert toggles overtype (replace) mode in the Script Editor",Enable Overtype Mode,Enable Overtype Mode
 Studio.App.Property.EnableInternalBetaFeatures,,Enable Internal Beta Features,Enable Internal Beta Features
 Studio.App.Property.EnableInternalFeatures,,Enable Internal Features,Enable Internal Features
 Studio.App.Property.EnableInternalPlugins,This is a string for an internal-only setting to load a specific list of plugins in studio.,Enable Internal Plugins,Enable Internal Plugins
 Studio.App.Property.EnableLinting,,Enable Linting,Enable Linting
 Studio.App.Property.EnableOnTypeAutocomplete,,Enable On-Type Autocomplete,Enable On-Type Autocomplete
+Studio.App.Property.EnableOvertypeMode,"When enabled, pressing Insert toggles overtype (replace) mode in the Script Editor",Enable Overtype Mode,Enable Overtype Mode
 Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
 Studio.App.Property.EnableScrollbarMarkers,Enable scrollbar markers for Script Editor inside Roblox Studio.,Enable Scrollbar Markers,Enable Scrollbar Markers
 Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
@@ -3488,6 +3489,8 @@ Studio.App.RobloxExplorerWidget.HasCustomizations1,Tooltip shown when hovering t
 Studio.App.RobloxExplorerWidget.NewExplorerFilteringTooltipDescription,,"You can now search by properties, tags, and more. Click the link to open the Creator Hub to learn more.","You can now search by properties, tags, and more. Click the link to open the Creator Hub to learn more."
 Studio.App.RobloxExplorerWidget.NewExplorerFilteringTooltipTitle,,New Explorer Filtering,New Explorer Filtering
 Studio.App.RobloxExplorerWidget.OriginalPackageName,Tooltip shown when hovering the original package name,Original name of this package,Original name of this package
+Studio.App.RobloxExplorerWidget.OverrideAdded,Tooltip for instance added by override,Added by override,Added by override
+Studio.App.RobloxExplorerWidget.OverrideModified,Tooltip for instance modified by override,Instance has overrides,Instance has overrides
 Studio.App.RobloxExplorerWidget.SelectAllMatches1,%1 is the hotkey,Select All Matches (%1),Select All Matches (%1)
 Studio.App.RobloxExplorerWidget.SelectNextMatch1,%1 is the hotkey,Select Next Match (%1),Select Next Match (%1)
 Studio.App.RobloxExplorerWidget.SelectPreviousMatch1,%1 is the hotkey,Select Previous Match (%1),Select Previous Match (%1)
@@ -6178,6 +6181,7 @@ Studio.BetaFeatures.ScriptSyncTitle,,Script Sync [Early Preview],Script Sync [Ea
 Studio.BetaFeatures.ScriptSyncTitle2,Title for the Script Sync beta feature,Script Sync,Script Sync
 Studio.BetaFeatures.ScrollEventOverhaulDescription,Description of beta feature.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.
 Studio.BetaFeatures.ScrollEventOverhaulTitle,Title of beta feature which improves trackpad scrolling.,Scroll Event Overhaul,Scroll Event Overhaul
+Studio.BetaFeatures.SearchPlaceholder,Placeholder text in the search bar of the Beta Features dialog.,Search beta features...,Search beta features...
 Studio.BetaFeatures.SecondAttemptCameraControlsDescription,Description of a new Studio camera controls beta.,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
 Studio.BetaFeatures.SecondAttemptCameraControlsTitle,"Name of a Studio camera controls beta. There are two versions, named the same but ""V1"" vs ""V2""",Studio Camera Controls (V2),Studio Camera Controls (V2)
 Studio.BetaFeatures.SegmentByPartsDescription,beta feature description,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
