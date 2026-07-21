@@ -39,7 +39,7 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Analytics"]
+       18 GETTABLEKS                       R3 R3 K8 ["DEPRECATED_Analytics"]
        20 CALL                             R2 1 1
        21 NEWTABLE                         R3 8 0
        23 GETTABLEKS                       R4 R1 K9 ["ScopeType"]

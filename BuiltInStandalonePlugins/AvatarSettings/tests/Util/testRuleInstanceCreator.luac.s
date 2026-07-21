@@ -134,43 +134,45 @@ PROTO_5:
         5 SETTABLEKS                       R1 R0 K1 ["EnableSound"]
         7 LOADB                            R1 0
         8 SETTABLEKS                       R1 R0 K2 ["EnableVFX"]
-       10 GETIMPORT                        R1 K6 [Enum.AvatarSettingsAccessoryLimitMethod.Remove]
-       12 SETTABLEKS                       R1 R0 K7 ["LimitMethod"]
-       14 LOADK                            R1 K8 [{5, 5, 5}]
-       15 SETTABLEKS                       R1 R0 K9 ["LimitBounds"]
-       17 GETUPVAL                         R1 1
-       18 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       20 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       22 SETTABLEKS                       R1 R0 K12 ["CustomHeadAccessoryId"]
-       24 GETUPVAL                         R1 1
-       25 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       27 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       29 SETTABLEKS                       R1 R0 K13 ["CustomHairAccessoryId"]
-       31 GETUPVAL                         R1 1
-       32 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       34 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       36 SETTABLEKS                       R1 R0 K14 ["CustomFaceAccessoryId"]
-       38 GETUPVAL                         R1 1
-       39 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       41 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       43 SETTABLEKS                       R1 R0 K15 ["CustomNeckAccessoryId"]
-       45 GETUPVAL                         R1 1
-       46 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       48 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       50 SETTABLEKS                       R1 R0 K16 ["CustomShoulderAccessoryId"]
-       52 GETUPVAL                         R1 1
-       53 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       55 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       57 SETTABLEKS                       R1 R0 K17 ["CustomFrontAccessoryId"]
-       59 GETUPVAL                         R1 1
-       60 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       62 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       64 SETTABLEKS                       R1 R0 K18 ["CustomBackAccessoryId"]
-       66 GETUPVAL                         R1 1
-       67 GETTABLEKS                       R1 R1 K10 ["VALID_ASSETID"]
-       69 GETTABLEKS                       R1 R1 K11 ["assetId"]
-       71 SETTABLEKS                       R1 R0 K19 ["CustomWaistAccessoryId"]
-       73 RETURN                           R0 1
+       10 LOADB                            R1 0
+       11 SETTABLEKS                       R1 R0 K3 ["EnableEmissives"]
+       13 GETIMPORT                        R1 K7 [Enum.AvatarSettingsAccessoryLimitMethod.Remove]
+       15 SETTABLEKS                       R1 R0 K8 ["LimitMethod"]
+       17 LOADK                            R1 K9 [{5, 5, 5}]
+       18 SETTABLEKS                       R1 R0 K10 ["LimitBounds"]
+       20 GETUPVAL                         R1 1
+       21 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       23 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       25 SETTABLEKS                       R1 R0 K13 ["CustomHeadAccessoryId"]
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       30 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       32 SETTABLEKS                       R1 R0 K14 ["CustomHairAccessoryId"]
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       37 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       39 SETTABLEKS                       R1 R0 K15 ["CustomFaceAccessoryId"]
+       41 GETUPVAL                         R1 1
+       42 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       44 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       46 SETTABLEKS                       R1 R0 K16 ["CustomNeckAccessoryId"]
+       48 GETUPVAL                         R1 1
+       49 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       51 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       53 SETTABLEKS                       R1 R0 K17 ["CustomShoulderAccessoryId"]
+       55 GETUPVAL                         R1 1
+       56 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       58 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       60 SETTABLEKS                       R1 R0 K18 ["CustomFrontAccessoryId"]
+       62 GETUPVAL                         R1 1
+       63 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       65 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       67 SETTABLEKS                       R1 R0 K19 ["CustomBackAccessoryId"]
+       69 GETUPVAL                         R1 1
+       70 GETTABLEKS                       R1 R1 K11 ["VALID_ASSETID"]
+       72 GETTABLEKS                       R1 R1 K12 ["assetId"]
+       74 SETTABLEKS                       R1 R0 K20 ["CustomWaistAccessoryId"]
+       76 RETURN                           R0 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

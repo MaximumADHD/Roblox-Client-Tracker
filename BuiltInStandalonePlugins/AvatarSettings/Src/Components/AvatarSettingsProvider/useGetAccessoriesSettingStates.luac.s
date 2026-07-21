@@ -136,7 +136,16 @@ PROTO_0:
       168 CALL                             R5 2 -1
       169 CALL                             R3 -1 1
       170 SETTABLEKS                       R3 R2 K19 ["accessoryBehaviorEnableVFXSetting"]
-      172 RETURN                           R2 1
+      172 GETUPVAL                         R3 1
+      173 GETTABLEKS                       R4 R1 K20 ["accessoryBehaviorEnableEmissivesSetting"]
+      175 GETUPVAL                         R5 2
+      176 MOVE                             R6 R0
+      177 GETUPVAL                         R7 3
+      178 GETTABLEKS                       R7 R7 K20 ["accessoryBehaviorEnableEmissivesSetting"]
+      180 CALL                             R5 2 -1
+      181 CALL                             R3 -1 1
+      182 SETTABLEKS                       R3 R2 K20 ["accessoryBehaviorEnableEmissivesSetting"]
+      184 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -157,27 +166,32 @@ MAIN:
        25 GETIMPORT                        R3 K5 [require]
        27 GETTABLEKS                       R4 R0 K6 ["Src"]
        29 GETTABLEKS                       R4 R4 K7 ["Util"]
-       31 GETTABLEKS                       R4 R4 K10 ["assetIdSettingUtil"]
+       31 GETTABLEKS                       R4 R4 K10 ["ProviderTypes"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
        36 GETTABLEKS                       R5 R0 K6 ["Src"]
        38 GETTABLEKS                       R5 R5 K7 ["Util"]
-       40 GETTABLEKS                       R5 R5 K11 ["InvokeKeys"]
+       40 GETTABLEKS                       R5 R5 K11 ["assetIdSettingUtil"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
        45 GETTABLEKS                       R6 R0 K6 ["Src"]
        47 GETTABLEKS                       R6 R6 K7 ["Util"]
-       49 GETTABLEKS                       R6 R6 K12 ["settingUtil"]
+       49 GETTABLEKS                       R6 R6 K12 ["InvokeKeys"]
        51 CALL                             R5 1 1
-       52 GETTABLEKS                       R6 R5 K13 ["useSetting"]
-       54 GETTABLEKS                       R7 R3 K14 ["useAssetIdSetting"]
-       56 GETTABLEKS                       R8 R5 K15 ["createInvokeArgs"]
-       58 GETTABLEKS                       R9 R3 K16 ["createAssetIdSettingInvokeArgs"]
-       60 DUPCLOSURE                       R10 K17 [PROTO_0]
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R8
-       64 CAPTURE                          VAL R4
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R9
-       67 RETURN                           R10 1
+       52 GETIMPORT                        R6 K5 [require]
+       54 GETTABLEKS                       R7 R0 K6 ["Src"]
+       56 GETTABLEKS                       R7 R7 K7 ["Util"]
+       58 GETTABLEKS                       R7 R7 K13 ["settingUtil"]
+       60 CALL                             R6 1 1
+       61 GETTABLEKS                       R7 R6 K14 ["useSetting"]
+       63 GETTABLEKS                       R8 R4 K15 ["useAssetIdSetting"]
+       65 GETTABLEKS                       R9 R6 K16 ["createInvokeArgs"]
+       67 GETTABLEKS                       R10 R4 K17 ["createAssetIdSettingInvokeArgs"]
+       69 DUPCLOSURE                       R11 K18 [PROTO_0]
+       70 CAPTURE                          VAL R1
+       71 CAPTURE                          VAL R7
+       72 CAPTURE                          VAL R9
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R8
+       75 CAPTURE                          VAL R10
+       76 RETURN                           R11 1

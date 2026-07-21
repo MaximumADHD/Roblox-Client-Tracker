@@ -417,9 +417,9 @@ MAIN:
       521 JUMP                             ; [+1]
       522 LOADNIL                          R6
       523 SETTABLEKS                       R6 R5 K39 ["IsPrefetchedKey"]
-      525 DUPTABLE                         R6 K78 [{["DEPRECATED_MaxSearchResultsPerSubjectType"] = 3, ["MaxSearchResultsPerSubjectTypeUsers"] = 3, ["MaxSearchResultsPerSubjectTypeGroups"] = 2}]
-      526 GETTABLEKS                       R7 R1 K79 ["Dictionary"]
-      528 GETTABLEKS                       R7 R7 K80 ["join"]
+      525 DUPTABLE                         R6 K80 [{["DEPRECATED_MaxSearchResultsPerSubjectType"] = 3, ["MaxSearchResultsPerSubjectTypeUsers"] = 3, ["MaxSearchResultsPerSubjectTypeGroups"] = 2, ["GroupDefaultMemberRolesetId"] = 12884901889}]
+      526 GETTABLEKS                       R7 R1 K81 ["Dictionary"]
+      528 GETTABLEKS                       R7 R7 K82 ["join"]
       530 MOVE                             R8 R5
       531 MOVE                             R9 R6
       532 CALL                             R7 2 -1

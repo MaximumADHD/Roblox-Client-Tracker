@@ -231,32 +231,35 @@ PROTO_2:
        18 SETTABLE                         R11 R5 R9
        19 FORGLOOP                         R6 2 ; [-6]
        21 FORGLOOP                         R1 2 ; [-12]
-       23 GETUPVAL                         R1 3
-       24 CALL                             R1 0 3
-       25 FORGPREP                         R1
-       26 GETTABLE                         R6 R0 R4
-       27 JUMPIF                           R6 ; [+1]
-       28 SETTABLE                         R5 R0 R4
-       29 FORGLOOP                         R1 2 ; [-4]
-       31 NEWTABLE                         R1 0 0
-       33 MOVE                             R2 R0
-       34 LOADNIL                          R3
-       35 LOADNIL                          R4
-       36 FORGPREP                         R2
-       37 MOVE                             R8 R1
-       38 GETUPVAL                         R9 4
-       39 MOVE                             R10 R5
-       40 MOVE                             R11 R6
-       41 CALL                             R9 2 -1
-       42 FASTCALL                         TABLE_INSERT ; [+2]
-       43 GETIMPORT                        R7 K2 [table.insert]
-       45 CALL                             R7 -1 0
-       46 FORGLOOP                         R2 2 ; [-10]
-       48 GETUPVAL                         R2 5
-       49 LOADK                            R3 K3 ["BaseStyleSheet"]
-       50 MOVE                             R4 R1
-       51 CALL                             R2 2 -1
-       52 RETURN                           R2 -1
+       23 GETUPVAL                         R4 3
+       24 CALL                             R4 0 1
+       25 MOVE                             R1 R4
+       26 LOADNIL                          R2
+       27 LOADNIL                          R3
+       28 FORGPREP                         R1
+       29 GETTABLE                         R6 R0 R4
+       30 JUMPIF                           R6 ; [+1]
+       31 SETTABLE                         R5 R0 R4
+       32 FORGLOOP                         R1 2 ; [-4]
+       34 NEWTABLE                         R1 0 0
+       36 MOVE                             R2 R0
+       37 LOADNIL                          R3
+       38 LOADNIL                          R4
+       39 FORGPREP                         R2
+       40 MOVE                             R8 R1
+       41 GETUPVAL                         R9 4
+       42 MOVE                             R10 R5
+       43 MOVE                             R11 R6
+       44 CALL                             R9 2 -1
+       45 FASTCALL                         TABLE_INSERT ; [+2]
+       46 GETIMPORT                        R7 K2 [table.insert]
+       48 CALL                             R7 -1 0
+       49 FORGLOOP                         R2 2 ; [-10]
+       51 GETUPVAL                         R2 5
+       52 LOADK                            R3 K3 ["BaseStyleSheet"]
+       53 MOVE                             R4 R1
+       54 CALL                             R2 2 -1
+       55 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

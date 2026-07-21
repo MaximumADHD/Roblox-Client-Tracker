@@ -35,62 +35,67 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["LayoutOrder"]
         2 GETTABLEKS                       R2 R0 K1 ["Size"]
-        4 GETUPVAL                         R3 0
-        5 LOADK                            R5 K2 ["ToolSettings"]
-        6 NAMECALL                         R3 R3 K3 ["use"]
-        8 CALL                             R3 2 1
-        9 GETUPVAL                         R4 1
-       10 NEWTABLE                         R5 0 0
-       12 CALL                             R4 1 2
-       13 GETUPVAL                         R6 2
-       14 NAMECALL                         R6 R6 K3 ["use"]
-       16 CALL                             R6 1 1
-       17 GETUPVAL                         R7 3
-       18 MOVE                             R8 R6
-       19 CALL                             R7 1 2
-       20 GETUPVAL                         R9 4
-       21 MOVE                             R10 R6
-       22 CALL                             R9 1 1
-       23 GETUPVAL                         R10 5
-       24 GETTABLEKS                       R10 R10 K4 ["createElement"]
-       26 GETUPVAL                         R11 6
-       27 DUPTABLE                         R12 K6 [{"BackgroundColor", "LayoutOrder", "Size"}]
-       28 GETTABLEKS                       R13 R3 K5 ["BackgroundColor"]
-       30 SETTABLEKS                       R13 R12 K5 ["BackgroundColor"]
-       32 SETTABLEKS                       R1 R12 K0 ["LayoutOrder"]
-       34 SETTABLEKS                       R2 R12 K1 ["Size"]
-       36 DUPTABLE                         R13 K9 [{"Form", "ProgressDialog"}]
-       37 GETUPVAL                         R14 5
-       38 GETTABLEKS                       R14 R14 K4 ["createElement"]
-       40 GETUPVAL                         R15 7
-       41 DUPTABLE                         R16 K19 [{["Expansion"], ["ExpandByDefault"] = True, ["Items"], ["LabelHeight"] = 20, ["OnChange"], ["OnExpansionChange"], ["Renderers"], ["Size"]}]
-       42 SETTABLEKS                       R4 R16 K10 ["Expansion"]
-       44 SETTABLEKS                       R7 R16 K13 ["Items"]
-       46 NEWCLOSURE                       R17 P0
-       47 CAPTURE                          VAL R7
-       48 CAPTURE                          VAL R8
-       49 SETTABLEKS                       R17 R16 K16 ["OnChange"]
-       51 SETTABLEKS                       R5 R16 K17 ["OnExpansionChange"]
-       53 GETUPVAL                         R17 8
-       54 SETTABLEKS                       R17 R16 K18 ["Renderers"]
-       56 GETIMPORT                        R17 K22 [UDim2.fromScale]
-       58 LOADN                            R18 1
-       59 LOADN                            R19 1
-       60 CALL                             R17 2 1
-       61 SETTABLEKS                       R17 R16 K1 ["Size"]
-       63 CALL                             R14 2 1
-       64 SETTABLEKS                       R14 R13 K7 ["Form"]
-       66 JUMPIFNOT                        R9 ; [+7]
-       67 GETUPVAL                         R14 5
-       68 GETTABLEKS                       R14 R14 K4 ["createElement"]
-       70 GETUPVAL                         R15 9
-       71 MOVE                             R16 R9
-       72 CALL                             R14 2 1
-       73 JUMP                             ; [+1]
-       74 LOADNIL                          R14
-       75 SETTABLEKS                       R14 R13 K8 ["ProgressDialog"]
-       77 CALL                             R10 3 -1
-       78 RETURN                           R10 -1
+        4 GETTABLEKS                       R3 R0 K2 ["AutomaticSize"]
+        6 GETUPVAL                         R4 0
+        7 LOADK                            R6 K3 ["ToolSettings"]
+        8 NAMECALL                         R4 R4 K4 ["use"]
+       10 CALL                             R4 2 1
+       11 GETUPVAL                         R5 1
+       12 NEWTABLE                         R6 0 0
+       14 CALL                             R5 1 2
+       15 GETUPVAL                         R7 2
+       16 NAMECALL                         R7 R7 K4 ["use"]
+       18 CALL                             R7 1 1
+       19 GETUPVAL                         R8 3
+       20 MOVE                             R9 R7
+       21 CALL                             R8 1 2
+       22 GETUPVAL                         R10 4
+       23 MOVE                             R11 R7
+       24 CALL                             R10 1 1
+       25 GETUPVAL                         R11 5
+       26 GETTABLEKS                       R11 R11 K5 ["createElement"]
+       28 GETUPVAL                         R12 6
+       29 DUPTABLE                         R13 K7 [{"BackgroundColor", "LayoutOrder", "Size", "AutomaticSize"}]
+       30 GETTABLEKS                       R14 R4 K6 ["BackgroundColor"]
+       32 SETTABLEKS                       R14 R13 K6 ["BackgroundColor"]
+       34 SETTABLEKS                       R1 R13 K0 ["LayoutOrder"]
+       36 SETTABLEKS                       R2 R13 K1 ["Size"]
+       38 SETTABLEKS                       R3 R13 K2 ["AutomaticSize"]
+       40 DUPTABLE                         R14 K10 [{"Form", "ProgressDialog"}]
+       41 GETUPVAL                         R15 5
+       42 GETTABLEKS                       R15 R15 K5 ["createElement"]
+       44 GETUPVAL                         R16 7
+       45 DUPTABLE                         R17 K21 [{["Expansion"], ["ExpandByDefault"] = True, ["Items"], ["LabelHeight"] = 20, ["OnChange"], ["OnExpansionChange"], ["Renderers"], ["Size"], ["UseScrollingFrame"], ["AutomaticSize"]}]
+       46 SETTABLEKS                       R5 R17 K11 ["Expansion"]
+       48 SETTABLEKS                       R8 R17 K14 ["Items"]
+       50 NEWCLOSURE                       R18 P0
+       51 CAPTURE                          VAL R8
+       52 CAPTURE                          VAL R9
+       53 SETTABLEKS                       R18 R17 K17 ["OnChange"]
+       55 SETTABLEKS                       R6 R17 K18 ["OnExpansionChange"]
+       57 GETUPVAL                         R18 8
+       58 SETTABLEKS                       R18 R17 K19 ["Renderers"]
+       60 GETIMPORT                        R18 K24 [UDim2.fromScale]
+       62 LOADN                            R19 1
+       63 LOADN                            R20 1
+       64 CALL                             R18 2 1
+       65 SETTABLEKS                       R18 R17 K1 ["Size"]
+       67 GETTABLEKS                       R18 R0 K20 ["UseScrollingFrame"]
+       69 SETTABLEKS                       R18 R17 K20 ["UseScrollingFrame"]
+       71 SETTABLEKS                       R3 R17 K2 ["AutomaticSize"]
+       73 CALL                             R15 2 1
+       74 SETTABLEKS                       R15 R14 K8 ["Form"]
+       76 JUMPIFNOT                        R10 ; [+7]
+       77 GETUPVAL                         R15 5
+       78 GETTABLEKS                       R15 R15 K5 ["createElement"]
+       80 GETUPVAL                         R16 9
+       81 MOVE                             R17 R10
+       82 CALL                             R15 2 1
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R15
+       85 SETTABLEKS                       R15 R14 K9 ["ProgressDialog"]
+       87 CALL                             R11 3 -1
+       88 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

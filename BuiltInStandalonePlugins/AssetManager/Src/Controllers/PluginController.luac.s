@@ -721,7 +721,7 @@ MAIN:
        60 CALL                             R10 1 1
        61 GETIMPORT                        R11 K10 [require]
        63 GETTABLEKS                       R12 R2 K11 ["Src"]
-       65 GETTABLEKS                       R12 R12 K22 ["Analytics"]
+       65 GETTABLEKS                       R12 R12 K22 ["DEPRECATED_Analytics"]
        67 CALL                             R11 1 1
        68 GETIMPORT                        R12 K10 [require]
        70 GETTABLEKS                       R13 R2 K11 ["Src"]

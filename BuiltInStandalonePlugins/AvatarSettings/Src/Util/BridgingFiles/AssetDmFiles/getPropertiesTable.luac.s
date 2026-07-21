@@ -240,57 +240,59 @@ PROTO_6:
         7 LOADK                            R3 K1 ["AvatarAccessoryRules not found"]
         8 GETIMPORT                        R1 K3 [assert]
        10 CALL                             R1 2 0
-       11 DUPTABLE                         R1 K10 [{"EnableSound", "EnableVFX", "AccessoryMode", "LimitMethod", "LimitBounds", "CustomAccessoryMode"}]
+       11 DUPTABLE                         R1 K11 [{"EnableSound", "EnableVFX", "EnableEmissives", "AccessoryMode", "LimitMethod", "LimitBounds", "CustomAccessoryMode"}]
        12 GETTABLEKS                       R2 R0 K4 ["EnableSound"]
        14 SETTABLEKS                       R2 R1 K4 ["EnableSound"]
        16 GETTABLEKS                       R2 R0 K5 ["EnableVFX"]
        18 SETTABLEKS                       R2 R1 K5 ["EnableVFX"]
-       20 GETTABLEKS                       R2 R0 K6 ["AccessoryMode"]
-       22 SETTABLEKS                       R2 R1 K6 ["AccessoryMode"]
-       24 GETTABLEKS                       R2 R0 K7 ["LimitMethod"]
-       26 SETTABLEKS                       R2 R1 K7 ["LimitMethod"]
-       28 GETTABLEKS                       R2 R0 K8 ["LimitBounds"]
-       30 SETTABLEKS                       R2 R1 K8 ["LimitBounds"]
-       32 GETTABLEKS                       R2 R0 K9 ["CustomAccessoryMode"]
-       34 SETTABLEKS                       R2 R1 K9 ["CustomAccessoryMode"]
-       36 NEWTABLE                         R2 0 8
-       38 DUPTABLE                         R3 K14 [{["ruleInstance"], ["property"] = "CustomHairAccessory"}]
-       39 SETTABLEKS                       R0 R3 K11 ["ruleInstance"]
-       41 DUPTABLE                         R4 K16 [{["ruleInstance"], ["property"] = "CustomHeadAccessory"}]
-       42 SETTABLEKS                       R0 R4 K11 ["ruleInstance"]
-       44 DUPTABLE                         R5 K18 [{["ruleInstance"], ["property"] = "CustomFaceAccessory"}]
-       45 SETTABLEKS                       R0 R5 K11 ["ruleInstance"]
-       47 DUPTABLE                         R6 K20 [{["ruleInstance"], ["property"] = "CustomNeckAccessory"}]
-       48 SETTABLEKS                       R0 R6 K11 ["ruleInstance"]
-       50 DUPTABLE                         R7 K22 [{["ruleInstance"], ["property"] = "CustomShoulderAccessory"}]
-       51 SETTABLEKS                       R0 R7 K11 ["ruleInstance"]
-       53 DUPTABLE                         R8 K24 [{["ruleInstance"], ["property"] = "CustomFrontAccessory"}]
-       54 SETTABLEKS                       R0 R8 K11 ["ruleInstance"]
-       56 DUPTABLE                         R9 K26 [{["ruleInstance"], ["property"] = "CustomBackAccessory"}]
-       57 SETTABLEKS                       R0 R9 K11 ["ruleInstance"]
-       59 DUPTABLE                         R10 K28 [{["ruleInstance"], ["property"] = "CustomWaistAccessory"}]
-       60 SETTABLEKS                       R0 R10 K11 ["ruleInstance"]
-       62 SETLIST                          R2 R3 8 [1]
-       64 MOVE                             R3 R2
-       65 LOADNIL                          R4
-       66 LOADNIL                          R5
-       67 FORGPREP                         R3
-       68 GETTABLEKS                       R8 R7 K12 ["property"]
-       70 GETTABLEKS                       R10 R7 K11 ["ruleInstance"]
-       72 GETTABLEKS                       R12 R7 K12 ["property"]
-       74 LOADK                            R13 K29 ["Id"]
-       75 CONCAT                           R11 R12 R13
-       76 GETTABLEKS                       R13 R7 K12 ["property"]
-       78 LOADK                            R14 K30 ["Enabled"]
-       79 CONCAT                           R12 R13 R14
-       80 DUPTABLE                         R9 K32 [{"AssetId", "Enabled"}]
-       81 GETTABLE                         R13 R10 R11
-       82 SETTABLEKS                       R13 R9 K31 ["AssetId"]
-       84 GETTABLE                         R13 R10 R12
-       85 SETTABLEKS                       R13 R9 K30 ["Enabled"]
-       87 SETTABLE                         R9 R1 R8
-       88 FORGLOOP                         R3 2 ; [-21]
-       90 RETURN                           R1 1
+       20 GETTABLEKS                       R2 R0 K6 ["EnableEmissives"]
+       22 SETTABLEKS                       R2 R1 K6 ["EnableEmissives"]
+       24 GETTABLEKS                       R2 R0 K7 ["AccessoryMode"]
+       26 SETTABLEKS                       R2 R1 K7 ["AccessoryMode"]
+       28 GETTABLEKS                       R2 R0 K8 ["LimitMethod"]
+       30 SETTABLEKS                       R2 R1 K8 ["LimitMethod"]
+       32 GETTABLEKS                       R2 R0 K9 ["LimitBounds"]
+       34 SETTABLEKS                       R2 R1 K9 ["LimitBounds"]
+       36 GETTABLEKS                       R2 R0 K10 ["CustomAccessoryMode"]
+       38 SETTABLEKS                       R2 R1 K10 ["CustomAccessoryMode"]
+       40 NEWTABLE                         R2 0 8
+       42 DUPTABLE                         R3 K15 [{["ruleInstance"], ["property"] = "CustomHairAccessory"}]
+       43 SETTABLEKS                       R0 R3 K12 ["ruleInstance"]
+       45 DUPTABLE                         R4 K17 [{["ruleInstance"], ["property"] = "CustomHeadAccessory"}]
+       46 SETTABLEKS                       R0 R4 K12 ["ruleInstance"]
+       48 DUPTABLE                         R5 K19 [{["ruleInstance"], ["property"] = "CustomFaceAccessory"}]
+       49 SETTABLEKS                       R0 R5 K12 ["ruleInstance"]
+       51 DUPTABLE                         R6 K21 [{["ruleInstance"], ["property"] = "CustomNeckAccessory"}]
+       52 SETTABLEKS                       R0 R6 K12 ["ruleInstance"]
+       54 DUPTABLE                         R7 K23 [{["ruleInstance"], ["property"] = "CustomShoulderAccessory"}]
+       55 SETTABLEKS                       R0 R7 K12 ["ruleInstance"]
+       57 DUPTABLE                         R8 K25 [{["ruleInstance"], ["property"] = "CustomFrontAccessory"}]
+       58 SETTABLEKS                       R0 R8 K12 ["ruleInstance"]
+       60 DUPTABLE                         R9 K27 [{["ruleInstance"], ["property"] = "CustomBackAccessory"}]
+       61 SETTABLEKS                       R0 R9 K12 ["ruleInstance"]
+       63 DUPTABLE                         R10 K29 [{["ruleInstance"], ["property"] = "CustomWaistAccessory"}]
+       64 SETTABLEKS                       R0 R10 K12 ["ruleInstance"]
+       66 SETLIST                          R2 R3 8 [1]
+       68 MOVE                             R3 R2
+       69 LOADNIL                          R4
+       70 LOADNIL                          R5
+       71 FORGPREP                         R3
+       72 GETTABLEKS                       R8 R7 K13 ["property"]
+       74 GETTABLEKS                       R10 R7 K12 ["ruleInstance"]
+       76 GETTABLEKS                       R12 R7 K13 ["property"]
+       78 LOADK                            R13 K30 ["Id"]
+       79 CONCAT                           R11 R12 R13
+       80 GETTABLEKS                       R13 R7 K13 ["property"]
+       82 LOADK                            R14 K31 ["Enabled"]
+       83 CONCAT                           R12 R13 R14
+       84 DUPTABLE                         R9 K33 [{"AssetId", "Enabled"}]
+       85 GETTABLE                         R13 R10 R11
+       86 SETTABLEKS                       R13 R9 K32 ["AssetId"]
+       88 GETTABLE                         R13 R10 R12
+       89 SETTABLEKS                       R13 R9 K31 ["Enabled"]
+       91 SETTABLE                         R9 R1 R8
+       92 FORGLOOP                         R3 2 ; [-21]
+       94 RETURN                           R1 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0

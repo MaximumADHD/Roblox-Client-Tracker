@@ -534,76 +534,77 @@ PROTO_14:
        30 MOVE                             R17 R15
        31 GETIMPORT                        R16 K10 [tostring]
        33 CALL                             R16 1 1
-       34 JUMPIFEQKN                       R15 K11 [12884901889] ; [+12]
-       36 GETTABLE                         R17 R7 R16
-       37 JUMPIF                           R17 ; [+2]
-       38 GETTABLE                         R17 R8 R16
-       39 JUMPIFNOT                        R17 ; [+7]
-       40 FASTCALL2                        TABLE_INSERT R9 R14 ; [+5]
-       42 MOVE                             R18 R9
-       43 MOVE                             R19 R14
-       44 GETIMPORT                        R17 K14 [table.insert]
-       46 CALL                             R17 2 0
-       47 FORGLOOP                         R10 2 ; [-21]
-       49 NEWTABLE                         R10 0 0
-       51 NEWTABLE                         R11 0 0
-       53 GETIMPORT                        R12 K17 [coroutine.running]
-       55 CALL                             R12 0 1
-       56 LOADN                            R13 0
-       57 LOADN                            R14 0
-       58 MOVE                             R15 R9
-       59 LOADNIL                          R16
-       60 LOADNIL                          R17
-       61 FORGPREP                         R15
-       62 GETTABLEKS                       R20 R19 K8 ["id"]
-       64 FASTCALL1                        TOSTRING R20 ; [+3]
-       65 MOVE                             R22 R20
-       66 GETIMPORT                        R21 K10 [tostring]
-       68 CALL                             R21 1 1
-       69 ADDK                             R14 R14 K18 [1]
-       70 GETIMPORT                        R22 K20 [coroutine.wrap]
-       72 NEWCLOSURE                       R23 P0
-       73 CAPTURE                          VAL R4
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R20
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          UPVAL U1
-       78 CAPTURE                          VAL R19
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R21
-       82 CAPTURE                          UPVAL U2
-       83 CAPTURE                          VAL R8
-       84 CAPTURE                          VAL R10
-       85 CAPTURE                          VAL R11
-       86 CAPTURE                          REF R13
-       87 CAPTURE                          REF R14
-       88 CAPTURE                          VAL R12
-       89 CALL                             R22 1 1
-       90 MOVE                             R23 R22
-       91 CALL                             R23 0 0
-       92 FORGLOOP                         R15 2 ; [-31]
-       94 JUMPIFEQKN                       R14 K21 [0] ; [+4]
-       96 GETIMPORT                        R15 K23 [coroutine.yield]
-       98 CALL                             R15 0 0
-       99 NEWTABLE                         R15 0 0
-      101 MOVE                             R16 R9
-      102 LOADNIL                          R17
-      103 LOADNIL                          R18
-      104 FORGPREP                         R16
-      105 GETTABLEKS                       R22 R20 K8 ["id"]
-      107 GETTABLE                         R21 R10 R22
-      108 JUMPIFNOT                        R21 ; [+8]
-      109 GETTABLEKS                       R23 R20 K8 ["id"]
-      111 FASTCALL2                        TABLE_INSERT R15 R23 ; [+4]
-      113 MOVE                             R22 R15
-      114 GETIMPORT                        R21 K14 [table.insert]
-      116 CALL                             R21 2 0
-      117 FORGLOOP                         R16 2 ; [-13]
-      119 MOVE                             R16 R15
-      120 MOVE                             R17 R11
-      121 CLOSEUPVALS                      R13
-      122 RETURN                           R16 2
+       34 GETUPVAL                         R17 1
+       35 JUMPIFEQ                         R15 R17 ; [+12]
+       37 GETTABLE                         R17 R7 R16
+       38 JUMPIF                           R17 ; [+2]
+       39 GETTABLE                         R17 R8 R16
+       40 JUMPIFNOT                        R17 ; [+7]
+       41 FASTCALL2                        TABLE_INSERT R9 R14 ; [+5]
+       43 MOVE                             R18 R9
+       44 MOVE                             R19 R14
+       45 GETIMPORT                        R17 K13 [table.insert]
+       47 CALL                             R17 2 0
+       48 FORGLOOP                         R10 2 ; [-22]
+       50 NEWTABLE                         R10 0 0
+       52 NEWTABLE                         R11 0 0
+       54 GETIMPORT                        R12 K16 [coroutine.running]
+       56 CALL                             R12 0 1
+       57 LOADN                            R13 0
+       58 LOADN                            R14 0
+       59 MOVE                             R15 R9
+       60 LOADNIL                          R16
+       61 LOADNIL                          R17
+       62 FORGPREP                         R15
+       63 GETTABLEKS                       R20 R19 K8 ["id"]
+       65 FASTCALL1                        TOSTRING R20 ; [+3]
+       66 MOVE                             R22 R20
+       67 GETIMPORT                        R21 K10 [tostring]
+       69 CALL                             R21 1 1
+       70 ADDK                             R14 R14 K17 [1]
+       71 GETIMPORT                        R22 K19 [coroutine.wrap]
+       73 NEWCLOSURE                       R23 P0
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          VAL R20
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          UPVAL U2
+       79 CAPTURE                          VAL R19
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R21
+       83 CAPTURE                          UPVAL U3
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          VAL R10
+       86 CAPTURE                          VAL R11
+       87 CAPTURE                          REF R13
+       88 CAPTURE                          REF R14
+       89 CAPTURE                          VAL R12
+       90 CALL                             R22 1 1
+       91 MOVE                             R23 R22
+       92 CALL                             R23 0 0
+       93 FORGLOOP                         R15 2 ; [-31]
+       95 JUMPIFEQKN                       R14 K20 [0] ; [+4]
+       97 GETIMPORT                        R15 K22 [coroutine.yield]
+       99 CALL                             R15 0 0
+      100 NEWTABLE                         R15 0 0
+      102 MOVE                             R16 R9
+      103 LOADNIL                          R17
+      104 LOADNIL                          R18
+      105 FORGPREP                         R16
+      106 GETTABLEKS                       R22 R20 K8 ["id"]
+      108 GETTABLE                         R21 R10 R22
+      109 JUMPIFNOT                        R21 ; [+8]
+      110 GETTABLEKS                       R23 R20 K8 ["id"]
+      112 FASTCALL2                        TABLE_INSERT R15 R23 ; [+4]
+      114 MOVE                             R22 R15
+      115 GETIMPORT                        R21 K13 [table.insert]
+      117 CALL                             R21 2 0
+      118 FORGLOOP                         R16 2 ; [-13]
+      120 MOVE                             R16 R15
+      121 MOVE                             R17 R11
+      122 CLOSEUPVALS                      R13
+      123 RETURN                           R16 2
 
 PROTO_15:
         0 GETUPVAL                         R0 0
@@ -724,35 +725,37 @@ MAIN:
        51 CALL                             R5 2 1
        52 NEWTABLE                         R6 8 0
        54 SETTABLEKS                       R6 R6 K17 ["__index"]
-       56 NEWTABLE                         R7 0 0
-       58 DUPCLOSURE                       R8 K18 [PROTO_0]
-       59 CAPTURE                          VAL R7
-       60 DUPCLOSURE                       R9 K19 [PROTO_2]
-       61 CAPTURE                          VAL R1
-       62 DUPCLOSURE                       R10 K20 [PROTO_4]
+       56 GETTABLEKS                       R7 R3 K18 ["GroupDefaultMemberRolesetId"]
+       58 NEWTABLE                         R8 0 0
+       60 DUPCLOSURE                       R9 K19 [PROTO_0]
+       61 CAPTURE                          VAL R8
+       62 DUPCLOSURE                       R10 K20 [PROTO_2]
        63 CAPTURE                          VAL R1
-       64 DUPCLOSURE                       R11 K21 [PROTO_5]
-       65 CAPTURE                          VAL R4
-       66 DUPCLOSURE                       R12 K22 [PROTO_6]
-       67 CAPTURE                          VAL R5
-       68 DUPCLOSURE                       R13 K23 [PROTO_7]
-       69 CAPTURE                          VAL R6
-       70 SETTABLEKS                       R13 R6 K24 ["new"]
-       72 DUPCLOSURE                       R13 K25 [PROTO_9]
-       73 CAPTURE                          VAL R7
-       74 CAPTURE                          VAL R1
-       75 SETTABLEKS                       R13 R6 K26 ["setGranularPermissions"]
-       77 DUPCLOSURE                       R13 K27 [PROTO_11]
-       78 CAPTURE                          VAL R7
-       79 CAPTURE                          VAL R11
-       80 CAPTURE                          VAL R1
-       81 SETTABLEKS                       R13 R6 K28 ["getGranularPermissions"]
-       83 DUPCLOSURE                       R13 K29 [PROTO_14]
-       84 CAPTURE                          VAL R12
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R3
-       87 SETTABLEKS                       R13 R6 K30 ["getGranularPermissionsFromGroupsAPI"]
-       89 DUPCLOSURE                       R13 K31 [PROTO_17]
-       90 CAPTURE                          VAL R2
-       91 SETTABLEKS                       R13 R6 K32 ["setGranularPermissionsViaGroupsAPI"]
-       93 RETURN                           R6 1
+       64 DUPCLOSURE                       R11 K21 [PROTO_4]
+       65 CAPTURE                          VAL R1
+       66 DUPCLOSURE                       R12 K22 [PROTO_5]
+       67 CAPTURE                          VAL R4
+       68 DUPCLOSURE                       R13 K23 [PROTO_6]
+       69 CAPTURE                          VAL R5
+       70 DUPCLOSURE                       R14 K24 [PROTO_7]
+       71 CAPTURE                          VAL R6
+       72 SETTABLEKS                       R14 R6 K25 ["new"]
+       74 DUPCLOSURE                       R14 K26 [PROTO_9]
+       75 CAPTURE                          VAL R8
+       76 CAPTURE                          VAL R1
+       77 SETTABLEKS                       R14 R6 K27 ["setGranularPermissions"]
+       79 DUPCLOSURE                       R14 K28 [PROTO_11]
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R12
+       82 CAPTURE                          VAL R1
+       83 SETTABLEKS                       R14 R6 K29 ["getGranularPermissions"]
+       85 DUPCLOSURE                       R14 K30 [PROTO_14]
+       86 CAPTURE                          VAL R13
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R3
+       90 SETTABLEKS                       R14 R6 K31 ["getGranularPermissionsFromGroupsAPI"]
+       92 DUPCLOSURE                       R14 K32 [PROTO_17]
+       93 CAPTURE                          VAL R2
+       94 SETTABLEKS                       R14 R6 K33 ["setGranularPermissionsViaGroupsAPI"]
+       96 RETURN                           R6 1

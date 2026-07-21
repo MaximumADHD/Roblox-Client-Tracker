@@ -76,7 +76,8 @@ PROTO_6:
         6 JUMPIFNOT                        R2 ; [+3]
         7 GETTABLEKS                       R2 R1 K1 ["Name"]
         9 RETURN                           R2 1
-       10 RETURN                           R0 0
+       10 LOADNIL                          R2
+       11 RETURN                           R2 1
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -467,7 +468,7 @@ PROTO_26:
        10 CAPTURE                          UPVAL U4
        11 SETTABLEKS                       R3 R2 K4 ["DoChange"]
        13 CALL                             R1 1 0
-       14 RETURN                           R0 0
+       14 JUMP                             ; [+9]
        15 GETUPVAL                         R1 1
        16 DUPTABLE                         R2 K7 [{[1] = "StyleEditor.RemoveDerive", ["DisplayName"] = "Style Editor - Remove Derive from {derivedSheet.Name}", ["DoChange"]}]
        17 NEWCLOSURE                       R3 P1
@@ -476,7 +477,8 @@ PROTO_26:
        20 CAPTURE                          VAL R0
        21 SETTABLEKS                       R3 R2 K4 ["DoChange"]
        23 CALL                             R1 1 0
-       24 RETURN                           R0 0
+       24 LOADNIL                          R1
+       25 RETURN                           R1 1
 
 PROTO_27:
         0 GETUPVAL                         R3 0

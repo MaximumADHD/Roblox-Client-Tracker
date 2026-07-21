@@ -135,17 +135,21 @@ PROTO_5:
        15 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R0 1
-        1 GETTABLEKS                       R0 R0 K0 ["ImageImportedSignal"]
-        3 NEWCLOSURE                       R2 P0
-        4 CAPTURE                          UPVAL U2
-        5 CAPTURE                          UPVAL U3
-        6 CAPTURE                          UPVAL U4
-        7 CAPTURE                          UPVAL U5
-        8 NAMECALL                         R0 R0 K1 ["Connect"]
-       10 CALL                             R0 2 1
-       11 SETUPVAL                         R0 0
-       12 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+3]
+        2 GETUPVAL                         R1 1
+        3 SETTABLEKS                       R0 R1 K0 ["focusChangedSignal"]
+        5 GETUPVAL                         R1 3
+        6 GETTABLEKS                       R1 R1 K1 ["ImageImportedSignal"]
+        8 NEWCLOSURE                       R3 P0
+        9 CAPTURE                          UPVAL U4
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U5
+       12 CAPTURE                          UPVAL U6
+       13 NAMECALL                         R1 R1 K2 ["Connect"]
+       15 CALL                             R1 2 1
+       16 SETUPVAL                         R1 2
+       17 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -206,39 +210,46 @@ MAIN:
        35 CALL                             R4 1 1
        36 CALL                             R4 0 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K14 ["Packages"]
-       41 GETTABLEKS                       R6 R6 K15 ["Dash"]
-       43 CALL                             R5 1 1
-       44 GETTABLEKS                       R6 R5 K16 ["collectArray"]
-       46 GETTABLEKS                       R7 R5 K17 ["includes"]
-       48 GETIMPORT                        R8 K5 [require]
-       50 GETTABLEKS                       R9 R0 K6 ["Src"]
-       52 GETTABLEKS                       R9 R9 K18 ["Types"]
-       54 CALL                             R8 1 1
-       55 DUPCLOSURE                       R9 K19 [PROTO_0]
-       56 DUPCLOSURE                       R10 K20 [PROTO_2]
-       57 GETTABLEKS                       R11 R1 K21 ["new"]
-       59 MOVE                             R12 R9
-       60 MOVE                             R13 R10
-       61 CALL                             R11 2 1
-       62 NEWTABLE                         R12 0 0
-       64 LOADNIL                          R13
-       65 SETTABLEKS                       R12 R11 K22 ["tempUrls"]
-       67 NEWCLOSURE                       R14 P2
-       68 CAPTURE                          REF R13
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          REF R12
-       71 CAPTURE                          VAL R11
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R6
-       74 SETTABLEKS                       R14 R11 K23 ["load"]
-       76 NEWCLOSURE                       R14 P3
-       77 CAPTURE                          VAL R11
-       78 CAPTURE                          REF R12
-       79 CAPTURE                          REF R13
-       80 SETTABLEKS                       R14 R11 K24 ["unload"]
-       82 DUPCLOSURE                       R14 K25 [PROTO_8]
-       83 CAPTURE                          VAL R4
-       84 SETTABLEKS                       R14 R11 K26 ["invalidateRecentsLists"]
-       86 CLOSEUPVALS                      R12
-       87 RETURN                           R11 1
+       39 GETTABLEKS                       R6 R0 K6 ["Src"]
+       41 GETTABLEKS                       R6 R6 K12 ["SharedFlags"]
+       43 GETTABLEKS                       R6 R6 K14 ["getFFlagLuaStartPageAutoRefresh"]
+       45 CALL                             R5 1 1
+       46 CALL                             R5 0 1
+       47 GETIMPORT                        R6 K5 [require]
+       49 GETTABLEKS                       R7 R0 K15 ["Packages"]
+       51 GETTABLEKS                       R7 R7 K16 ["Dash"]
+       53 CALL                             R6 1 1
+       54 GETTABLEKS                       R7 R6 K17 ["collectArray"]
+       56 GETTABLEKS                       R8 R6 K18 ["includes"]
+       58 GETIMPORT                        R9 K5 [require]
+       60 GETTABLEKS                       R10 R0 K6 ["Src"]
+       62 GETTABLEKS                       R10 R10 K19 ["Types"]
+       64 CALL                             R9 1 1
+       65 DUPCLOSURE                       R10 K20 [PROTO_0]
+       66 DUPCLOSURE                       R11 K21 [PROTO_2]
+       67 GETTABLEKS                       R12 R1 K22 ["new"]
+       69 MOVE                             R13 R10
+       70 MOVE                             R14 R11
+       71 CALL                             R12 2 1
+       72 NEWTABLE                         R13 0 0
+       74 LOADNIL                          R14
+       75 SETTABLEKS                       R13 R12 K23 ["tempUrls"]
+       77 NEWCLOSURE                       R15 P2
+       78 CAPTURE                          VAL R5
+       79 CAPTURE                          VAL R12
+       80 CAPTURE                          REF R14
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          REF R13
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R7
+       85 SETTABLEKS                       R15 R12 K24 ["load"]
+       87 NEWCLOSURE                       R15 P3
+       88 CAPTURE                          VAL R12
+       89 CAPTURE                          REF R13
+       90 CAPTURE                          REF R14
+       91 SETTABLEKS                       R15 R12 K25 ["unload"]
+       93 DUPCLOSURE                       R15 K26 [PROTO_8]
+       94 CAPTURE                          VAL R4
+       95 SETTABLEKS                       R15 R12 K27 ["invalidateRecentsLists"]
+       97 CLOSEUPVALS                      R13
+       98 RETURN                           R12 1

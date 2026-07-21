@@ -90,7 +90,13 @@ PROTO_0:
       120 GETUPVAL                         R6 1
       121 GETTABLEKS                       R6 R6 K18 ["accessoryBehaviorEnableVFXSetting"]
       123 CALL                             R3 3 0
-      124 RETURN                           R0 0
+      124 GETUPVAL                         R3 0
+      125 MOVE                             R4 R1
+      126 GETTABLEKS                       R5 R2 K19 ["accessoryBehaviorEnableEmissivesSetting"]
+      128 GETUPVAL                         R6 1
+      129 GETTABLEKS                       R6 R6 K19 ["accessoryBehaviorEnableEmissivesSetting"]
+      131 CALL                             R3 3 0
+      132 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

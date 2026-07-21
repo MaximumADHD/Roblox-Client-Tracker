@@ -121,7 +121,15 @@ PROTO_1:
        69 GETTABLE                         R8 R1 R9
        70 SETTABLE                         R8 R6 R7
        71 CALL                             R3 3 0
-       72 RETURN                           R0 0
+       72 GETUPVAL                         R3 5
+       73 CALL                             R3 0 1
+       74 JUMPIFNOT                        R3 ; [+8]
+       75 GETTABLEKS                       R3 R0 K9 ["_services"]
+       77 GETTABLEKS                       R3 R3 K19 ["StudioService"]
+       79 LOADK                            R5 K20 [""]
+       80 NAMECALL                         R3 R3 K21 ["CopyToClipboard"]
+       82 CALL                             R3 2 0
+       83 RETURN                           R0 0
 
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["hasError"]
@@ -518,75 +526,81 @@ MAIN:
        59 GETIMPORT                        R16 K5 [require]
        61 GETTABLEKS                       R17 R13 K24 ["SettingsHelper"]
        63 CALL                             R16 1 1
-       64 NEWTABLE                         R17 0 1
-       66 DUPTABLE                         R18 K27 [{"Defaults", "Id"}]
-       67 NEWTABLE                         R19 0 0
-       69 SETTABLEKS                       R19 R18 K25 ["Defaults"]
-       71 GETTABLEKS                       R19 R3 K15 ["SelectionSettings"]
-       73 SETTABLEKS                       R19 R18 K26 ["Id"]
-       75 SETLIST                          R17 R18 1 [1]
-       77 NEWTABLE                         R18 0 1
-       79 DUPTABLE                         R19 K29 [{"Id", "Schema"}]
-       80 GETTABLEKS                       R20 R5 K30 ["Region"]
-       82 SETTABLEKS                       R20 R19 K26 ["Id"]
-       84 DUPTABLE                         R20 K36 [{["Type"], ["Wireframe"] = True, ["Rotation"] = False}]
-       85 GETTABLEKS                       R21 R5 K30 ["Region"]
-       87 SETTABLEKS                       R21 R20 K31 ["Type"]
-       89 SETTABLEKS                       R20 R19 K28 ["Schema"]
-       91 SETLIST                          R18 R19 1 [1]
-       93 GETTABLEKS                       R21 R10 K37 ["Select"]
-       95 GETTABLEKS                       R22 R9 K38 ["Edit"]
-       97 MOVE                             R23 R17
-       98 MOVE                             R24 R18
-       99 NAMECALL                         R19 R1 K39 ["new"]
-      101 CALL                             R19 5 1
-      102 DUPCLOSURE                       R20 K40 [PROTO_0]
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R4
-      106 CAPTURE                          VAL R8
-      107 CAPTURE                          VAL R15
-      108 SETTABLEKS                       R20 R19 K41 ["fillAir"]
-      110 DUPCLOSURE                       R20 K42 [PROTO_1]
-      111 CAPTURE                          VAL R16
+       64 GETIMPORT                        R17 K5 [require]
+       66 GETTABLEKS                       R18 R0 K8 ["Src"]
+       68 GETTABLEKS                       R18 R18 K25 ["Flags"]
+       70 GETTABLEKS                       R18 R18 K26 ["getFFlagTerrainEditorClearStudioClipboardOnCopy"]
+       72 CALL                             R17 1 1
+       73 NEWTABLE                         R18 0 1
+       75 DUPTABLE                         R19 K29 [{"Defaults", "Id"}]
+       76 NEWTABLE                         R20 0 0
+       78 SETTABLEKS                       R20 R19 K27 ["Defaults"]
+       80 GETTABLEKS                       R20 R3 K15 ["SelectionSettings"]
+       82 SETTABLEKS                       R20 R19 K28 ["Id"]
+       84 SETLIST                          R18 R19 1 [1]
+       86 NEWTABLE                         R19 0 1
+       88 DUPTABLE                         R20 K31 [{"Id", "Schema"}]
+       89 GETTABLEKS                       R21 R5 K32 ["Region"]
+       91 SETTABLEKS                       R21 R20 K28 ["Id"]
+       93 DUPTABLE                         R21 K38 [{["Type"], ["Wireframe"] = True, ["Rotation"] = False}]
+       94 GETTABLEKS                       R22 R5 K32 ["Region"]
+       96 SETTABLEKS                       R22 R21 K33 ["Type"]
+       98 SETTABLEKS                       R21 R20 K30 ["Schema"]
+      100 SETLIST                          R19 R20 1 [1]
+      102 GETTABLEKS                       R22 R10 K39 ["Select"]
+      104 GETTABLEKS                       R23 R9 K40 ["Edit"]
+      106 MOVE                             R24 R18
+      107 MOVE                             R25 R19
+      108 NAMECALL                         R20 R1 K41 ["new"]
+      110 CALL                             R20 5 1
+      111 DUPCLOSURE                       R21 K42 [PROTO_0]
       112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R14
-      114 CAPTURE                          VAL R8
-      115 CAPTURE                          VAL R12
-      116 SETTABLEKS                       R20 R19 K43 ["copy"]
-      118 DUPCLOSURE                       R20 K44 [PROTO_2]
-      119 SETTABLEKS                       R20 R19 K45 ["delete"]
-      121 DUPCLOSURE                       R20 K46 [PROTO_3]
-      122 CAPTURE                          VAL R16
-      123 CAPTURE                          VAL R3
-      124 CAPTURE                          VAL R14
-      125 CAPTURE                          VAL R8
-      126 CAPTURE                          VAL R12
-      127 SETTABLEKS                       R20 R19 K47 ["cut"]
-      129 DUPCLOSURE                       R20 K48 [PROTO_4]
-      130 CAPTURE                          VAL R16
-      131 CAPTURE                          VAL R3
-      132 CAPTURE                          VAL R12
-      133 CAPTURE                          VAL R11
-      134 CAPTURE                          VAL R10
-      135 SETTABLEKS                       R20 R19 K49 ["paste"]
-      137 DUPCLOSURE                       R20 K50 [PROTO_5]
-      138 CAPTURE                          VAL R16
-      139 CAPTURE                          VAL R3
-      140 CAPTURE                          VAL R14
-      141 CAPTURE                          VAL R8
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R4
+      115 CAPTURE                          VAL R8
+      116 CAPTURE                          VAL R15
+      117 SETTABLEKS                       R21 R20 K43 ["fillAir"]
+      119 DUPCLOSURE                       R21 K44 [PROTO_1]
+      120 CAPTURE                          VAL R16
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R14
+      123 CAPTURE                          VAL R8
+      124 CAPTURE                          VAL R12
+      125 CAPTURE                          VAL R17
+      126 SETTABLEKS                       R21 R20 K45 ["copy"]
+      128 DUPCLOSURE                       R21 K46 [PROTO_2]
+      129 SETTABLEKS                       R21 R20 K47 ["delete"]
+      131 DUPCLOSURE                       R21 K48 [PROTO_3]
+      132 CAPTURE                          VAL R16
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R14
+      135 CAPTURE                          VAL R8
+      136 CAPTURE                          VAL R12
+      137 SETTABLEKS                       R21 R20 K49 ["cut"]
+      139 DUPCLOSURE                       R21 K50 [PROTO_4]
+      140 CAPTURE                          VAL R16
+      141 CAPTURE                          VAL R3
       142 CAPTURE                          VAL R12
       143 CAPTURE                          VAL R11
       144 CAPTURE                          VAL R10
-      145 SETTABLEKS                       R20 R19 K51 ["duplicate"]
-      147 DUPCLOSURE                       R20 K52 [PROTO_6]
-      148 SETTABLEKS                       R20 R19 K53 ["operation"]
-      150 DUPCLOSURE                       R20 K54 [PROTO_14]
-      151 CAPTURE                          VAL R1
-      152 CAPTURE                          VAL R7
-      153 CAPTURE                          VAL R10
-      154 SETTABLEKS                       R20 R19 K55 ["activate"]
-      156 DUPCLOSURE                       R20 K56 [PROTO_15]
-      157 CAPTURE                          VAL R1
-      158 SETTABLEKS                       R20 R19 K57 ["deactivate"]
-      160 RETURN                           R19 1
+      145 SETTABLEKS                       R21 R20 K51 ["paste"]
+      147 DUPCLOSURE                       R21 K52 [PROTO_5]
+      148 CAPTURE                          VAL R16
+      149 CAPTURE                          VAL R3
+      150 CAPTURE                          VAL R14
+      151 CAPTURE                          VAL R8
+      152 CAPTURE                          VAL R12
+      153 CAPTURE                          VAL R11
+      154 CAPTURE                          VAL R10
+      155 SETTABLEKS                       R21 R20 K53 ["duplicate"]
+      157 DUPCLOSURE                       R21 K54 [PROTO_6]
+      158 SETTABLEKS                       R21 R20 K55 ["operation"]
+      160 DUPCLOSURE                       R21 K56 [PROTO_14]
+      161 CAPTURE                          VAL R1
+      162 CAPTURE                          VAL R7
+      163 CAPTURE                          VAL R10
+      164 SETTABLEKS                       R21 R20 K57 ["activate"]
+      166 DUPCLOSURE                       R21 K58 [PROTO_15]
+      167 CAPTURE                          VAL R1
+      168 SETTABLEKS                       R21 R20 K59 ["deactivate"]
+      170 RETURN                           R20 1

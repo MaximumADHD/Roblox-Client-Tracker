@@ -7,26 +7,33 @@ PROTO_0:
         7 GETTABLEKS                       R3 R1 K3 ["roles"]
         9 CALL                             R2 1 3
        10 FORGPREP_NEXT                    R2
-       11 GETUPVAL                         R8 1
-       12 NEWTABLE                         R9 4 0
-       14 GETUPVAL                         R10 2
-       15 GETTABLEKS                       R10 R10 K4 ["RoleName"]
-       17 GETTABLEKS                       R11 R6 K5 ["name"]
-       19 SETTABLE                         R11 R9 R10
-       20 GETUPVAL                         R10 2
-       21 GETTABLEKS                       R10 R10 K6 ["RoleId"]
-       23 GETTABLEKS                       R11 R6 K7 ["id"]
-       25 SETTABLE                         R11 R9 R10
-       26 GETUPVAL                         R10 2
-       27 GETTABLEKS                       R10 R10 K8 ["RoleRank"]
-       29 GETTABLEKS                       R11 R6 K9 ["rank"]
-       31 SETTABLE                         R11 R9 R10
-       32 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-       34 GETIMPORT                        R7 K12 [table.insert]
-       36 CALL                             R7 2 0
-       37 FORGLOOP                         R2 2 ; [-27]
-       39 GETUPVAL                         R2 1
-       40 RETURN                           R2 1
+       11 GETUPVAL                         R7 1
+       12 GETTABLEKS                       R7 R7 K4 ["fflagManageCollaboratorsFilterDefaultMemberRoleset"]
+       14 JUMPIFNOT                        R7 ; [+7]
+       15 GETTABLEKS                       R7 R6 K5 ["id"]
+       17 GETUPVAL                         R8 2
+       18 GETTABLEKS                       R8 R8 K6 ["GroupDefaultMemberRolesetId"]
+       20 JUMPIFEQ                         R7 R8 ; [+27]
+       22 GETUPVAL                         R8 3
+       23 NEWTABLE                         R9 4 0
+       25 GETUPVAL                         R10 4
+       26 GETTABLEKS                       R10 R10 K7 ["RoleName"]
+       28 GETTABLEKS                       R11 R6 K8 ["name"]
+       30 SETTABLE                         R11 R9 R10
+       31 GETUPVAL                         R10 4
+       32 GETTABLEKS                       R10 R10 K9 ["RoleId"]
+       34 GETTABLEKS                       R11 R6 K5 ["id"]
+       36 SETTABLE                         R11 R9 R10
+       37 GETUPVAL                         R10 4
+       38 GETTABLEKS                       R10 R10 K10 ["RoleRank"]
+       40 GETTABLEKS                       R11 R6 K11 ["rank"]
+       42 SETTABLE                         R11 R9 R10
+       43 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+       45 GETIMPORT                        R7 K14 [table.insert]
+       47 CALL                             R7 2 0
+       48 FORGLOOP                         R2 2 ; [-38]
+       50 GETUPVAL                         R2 3
+       51 RETURN                           R2 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
@@ -44,11 +51,13 @@ PROTO_1:
        16 CALL                             R3 1 1
        17 NEWCLOSURE                       R5 P0
        18 CAPTURE                          UPVAL U1
-       19 CAPTURE                          VAL R1
-       20 CAPTURE                          UPVAL U2
-       21 NAMECALL                         R3 R3 K8 ["andThen"]
-       23 CALL                             R3 2 -1
-       24 RETURN                           R3 -1
+       19 CAPTURE                          UPVAL U2
+       20 CAPTURE                          UPVAL U3
+       21 CAPTURE                          VAL R1
+       22 CAPTURE                          UPVAL U4
+       23 NAMECALL                         R3 R3 K8 ["andThen"]
+       25 CALL                             R3 2 -1
+       26 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -67,15 +76,26 @@ MAIN:
        23 GETTABLEKS                       R3 R3 K11 ["Http"]
        25 CALL                             R2 1 1
        26 GETIMPORT                        R3 K8 [require]
-       28 GETIMPORT                        R4 K5 [script]
-       30 GETTABLEKS                       R4 R4 K6 ["Parent"]
-       32 GETTABLEKS                       R4 R4 K12 ["Constants"]
-       34 CALL                             R3 1 1
-       35 GETTABLEKS                       R4 R3 K13 ["webKeys"]
-       37 NEWTABLE                         R5 1 0
-       39 DUPCLOSURE                       R6 K14 [PROTO_1]
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R4
-       43 SETTABLEKS                       R6 R5 K15 ["Get"]
-       45 RETURN                           R5 1
+       28 GETTABLEKS                       R4 R1 K12 ["Bin"]
+       30 GETTABLEKS                       R4 R4 K13 ["defineLuaFlags"]
+       32 CALL                             R3 1 1
+       33 GETIMPORT                        R4 K8 [require]
+       35 GETIMPORT                        R5 K5 [script]
+       37 GETTABLEKS                       R5 R5 K6 ["Parent"]
+       39 GETTABLEKS                       R5 R5 K14 ["Constants"]
+       41 CALL                             R4 1 1
+       42 GETTABLEKS                       R5 R4 K15 ["webKeys"]
+       44 GETIMPORT                        R6 K8 [require]
+       46 GETTABLEKS                       R7 R1 K9 ["Src"]
+       48 GETTABLEKS                       R7 R7 K16 ["Util"]
+       50 GETTABLEKS                       R7 R7 K17 ["PermissionsConstants"]
+       52 CALL                             R6 1 1
+       53 NEWTABLE                         R7 1 0
+       55 DUPCLOSURE                       R8 K18 [PROTO_1]
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R0
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R5
+       61 SETTABLEKS                       R8 R7 K19 ["Get"]
+       63 RETURN                           R7 1

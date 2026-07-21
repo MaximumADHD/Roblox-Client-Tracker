@@ -130,50 +130,42 @@ PROTO_5:
       107 SETTABLEKS                       R6 R18 K19 ["Rows"]
       109 GETUPVAL                         R19 18
       110 SETTABLEKS                       R19 R18 K20 ["RowComponent"]
-      112 GETUPVAL                         R20 19
-      113 CALL                             R20 0 1
-      114 JUMPIFNOT                        R20 ; [+3]
-      115 GETTABLEKS                       R19 R7 K35 ["ListRowHeight"]
-      117 JUMP                             ; [+5]
-      118 GETUPVAL                         R19 20
-      119 LOADK                            R21 K36 ["ContentListRowHeight"]
-      120 NAMECALL                         R19 R19 K37 ["GetAttribute"]
-      122 CALL                             R19 2 1
-      123 SETTABLEKS                       R19 R18 K21 ["RowHeight"]
-      125 NEWCLOSURE                       R19 P2
-      126 CAPTURE                          VAL R3
-      127 SETTABLEKS                       R19 R18 K22 ["OnLoadRange"]
-      129 GETIMPORT                        R19 K41 [Enum.ScrollBarInset.None]
-      131 SETTABLEKS                       R19 R18 K23 ["VerticalScrollBarInset"]
-      133 GETIMPORT                        R19 K43 [Enum.ScrollingDirection.XY]
-      135 SETTABLEKS                       R19 R18 K24 ["ScrollingDirection"]
-      137 SETTABLEKS                       R9 R18 K25 ["ref"]
-      139 CALL                             R16 2 1
-      140 SETTABLEKS                       R16 R15 K14 ["List"]
-      142 CALL                             R12 3 1
-      143 SETTABLEKS                       R12 R11 K6 ["ListContainer"]
-      145 GETUPVAL                         R12 12
-      146 GETTABLEKS                       R12 R12 K8 ["createElement"]
-      148 GETUPVAL                         R13 21
-      149 GETTABLEKS                       R13 R13 K44 ["View"]
-      151 DUPTABLE                         R14 K51 [{["LayoutOrder"], ["onSecondaryActivated"], ["stateLayer"], ["tag"] = "col align-x-center fill size-full", ["testId"] = "content-list"}]
-      152 GETTABLEKS                       R15 R0 K9 ["LayoutOrder"]
-      154 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
-      156 NEWCLOSURE                       R15 P3
-      157 CAPTURE                          VAL R2
-      158 CAPTURE                          UPVAL U8
-      159 CAPTURE                          VAL R8
-      160 SETTABLEKS                       R15 R14 K45 ["onSecondaryActivated"]
-      162 DUPTABLE                         R15 K53 [{"affordance"}]
-      163 GETUPVAL                         R16 21
-      164 GETTABLEKS                       R16 R16 K54 ["Enums"]
-      166 GETTABLEKS                       R16 R16 K55 ["StateLayerAffordance"]
-      168 GETTABLEKS                       R16 R16 K40 ["None"]
-      170 SETTABLEKS                       R16 R15 K52 ["affordance"]
-      172 SETTABLEKS                       R15 R14 K46 ["stateLayer"]
-      174 MOVE                             R15 R11
-      175 CALL                             R12 3 -1
-      176 RETURN                           R12 -1
+      112 GETTABLEKS                       R19 R7 K35 ["ListRowHeight"]
+      114 SETTABLEKS                       R19 R18 K21 ["RowHeight"]
+      116 NEWCLOSURE                       R19 P2
+      117 CAPTURE                          VAL R3
+      118 SETTABLEKS                       R19 R18 K22 ["OnLoadRange"]
+      120 GETIMPORT                        R19 K39 [Enum.ScrollBarInset.None]
+      122 SETTABLEKS                       R19 R18 K23 ["VerticalScrollBarInset"]
+      124 GETIMPORT                        R19 K41 [Enum.ScrollingDirection.XY]
+      126 SETTABLEKS                       R19 R18 K24 ["ScrollingDirection"]
+      128 SETTABLEKS                       R9 R18 K25 ["ref"]
+      130 CALL                             R16 2 1
+      131 SETTABLEKS                       R16 R15 K14 ["List"]
+      133 CALL                             R12 3 1
+      134 SETTABLEKS                       R12 R11 K6 ["ListContainer"]
+      136 GETUPVAL                         R12 12
+      137 GETTABLEKS                       R12 R12 K8 ["createElement"]
+      139 GETUPVAL                         R13 19
+      140 GETTABLEKS                       R13 R13 K42 ["View"]
+      142 DUPTABLE                         R14 K49 [{["LayoutOrder"], ["onSecondaryActivated"], ["stateLayer"], ["tag"] = "col align-x-center fill size-full", ["testId"] = "content-list"}]
+      143 GETTABLEKS                       R15 R0 K9 ["LayoutOrder"]
+      145 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
+      147 NEWCLOSURE                       R15 P3
+      148 CAPTURE                          VAL R2
+      149 CAPTURE                          UPVAL U8
+      150 CAPTURE                          VAL R8
+      151 SETTABLEKS                       R15 R14 K43 ["onSecondaryActivated"]
+      153 DUPTABLE                         R15 K51 [{"affordance"}]
+      154 GETUPVAL                         R16 19
+      155 GETTABLEKS                       R16 R16 K52 ["Enums"]
+      157 GETTABLEKS                       R16 R16 K53 ["StateLayerAffordance"]
+      159 GETTABLEKS                       R16 R16 K38 ["None"]
+      161 SETTABLEKS                       R16 R15 K50 ["affordance"]
+      163 SETTABLEKS                       R15 R14 K44 ["stateLayer"]
+      165 MOVE                             R15 R11
+      166 CALL                             R12 3 -1
+      167 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -259,41 +251,29 @@ MAIN:
       143 CALL                             R20 1 1
       144 GETIMPORT                        R21 K5 [require]
       146 GETTABLEKS                       R22 R0 K10 ["Src"]
-      148 GETTABLEKS                       R22 R22 K33 ["Flags"]
-      150 GETTABLEKS                       R22 R22 K34 ["getFFlagAmrListViewCustomRowHeight"]
-      152 CALL                             R21 1 1
-      153 GETIMPORT                        R22 K5 [require]
-      155 GETTABLEKS                       R23 R0 K10 ["Src"]
-      157 GETTABLEKS                       R23 R23 K35 ["Types"]
-      159 CALL                             R22 1 1
-      160 GETTABLEKS                       R23 R3 K36 ["Util"]
-      162 GETTABLEKS                       R23 R23 K37 ["LayoutOrderIterator"]
-      164 GETIMPORT                        R24 K5 [require]
-      166 GETTABLEKS                       R25 R0 K10 ["Src"]
-      168 GETTABLEKS                       R25 R25 K11 ["Resources"]
-      170 GETTABLEKS                       R25 R25 K38 ["PluginStyles"]
-      172 CALL                             R24 1 1
-      173 DUPCLOSURE                       R25 K39 [PROTO_5]
-      174 CAPTURE                          VAL R23
-      175 CAPTURE                          VAL R11
-      176 CAPTURE                          VAL R12
-      177 CAPTURE                          VAL R13
-      178 CAPTURE                          VAL R17
-      179 CAPTURE                          VAL R18
-      180 CAPTURE                          VAL R19
-      181 CAPTURE                          VAL R16
-      182 CAPTURE                          VAL R22
-      183 CAPTURE                          VAL R14
-      184 CAPTURE                          VAL R15
-      185 CAPTURE                          VAL R20
-      186 CAPTURE                          VAL R1
-      187 CAPTURE                          VAL R8
-      188 CAPTURE                          VAL R6
-      189 CAPTURE                          VAL R7
-      190 CAPTURE                          VAL R10
-      191 CAPTURE                          VAL R4
-      192 CAPTURE                          VAL R9
-      193 CAPTURE                          VAL R21
-      194 CAPTURE                          VAL R24
-      195 CAPTURE                          VAL R2
-      196 RETURN                           R25 1
+      148 GETTABLEKS                       R22 R22 K33 ["Types"]
+      150 CALL                             R21 1 1
+      151 GETTABLEKS                       R22 R3 K34 ["Util"]
+      153 GETTABLEKS                       R22 R22 K35 ["LayoutOrderIterator"]
+      155 DUPCLOSURE                       R23 K36 [PROTO_5]
+      156 CAPTURE                          VAL R22
+      157 CAPTURE                          VAL R11
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R13
+      160 CAPTURE                          VAL R17
+      161 CAPTURE                          VAL R18
+      162 CAPTURE                          VAL R19
+      163 CAPTURE                          VAL R16
+      164 CAPTURE                          VAL R21
+      165 CAPTURE                          VAL R14
+      166 CAPTURE                          VAL R15
+      167 CAPTURE                          VAL R20
+      168 CAPTURE                          VAL R1
+      169 CAPTURE                          VAL R8
+      170 CAPTURE                          VAL R6
+      171 CAPTURE                          VAL R7
+      172 CAPTURE                          VAL R10
+      173 CAPTURE                          VAL R4
+      174 CAPTURE                          VAL R9
+      175 CAPTURE                          VAL R2
+      176 RETURN                           R23 1

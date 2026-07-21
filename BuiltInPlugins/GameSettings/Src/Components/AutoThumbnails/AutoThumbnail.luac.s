@@ -103,14 +103,15 @@ PROTO_3:
        74 NAMECALL                         R8 R8 K22 ["setState"]
        76 CALL                             R8 2 0
        77 GETUPVAL                         R8 0
-       78 GETTABLEKS                       R8 R8 K23 ["state"]
-       80 GETTABLEKS                       R8 R8 K19 ["contentId"]
-       82 JUMPIFEQ                         R7 R8 ; [+6]
-       84 GETUPVAL                         R8 0
-       85 GETTABLEKS                       R8 R8 K24 ["loadThumbnail"]
-       87 MOVE                             R9 R7
-       88 CALL                             R8 1 0
-       89 RETURN                           R0 0
+       78 GETTABLEKS                       R8 R8 K23 ["currentContentId"]
+       80 JUMPIFEQ                         R7 R8 ; [+9]
+       82 GETUPVAL                         R8 0
+       83 SETTABLEKS                       R7 R8 K23 ["currentContentId"]
+       85 GETUPVAL                         R8 0
+       86 GETTABLEKS                       R8 R8 K24 ["loadThumbnail"]
+       88 MOVE                             R9 R7
+       89 CALL                             R8 1 0
+       90 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R3 0
@@ -175,16 +176,18 @@ PROTO_7:
        13 SETTABLEKS                       R1 R0 K8 ["currentId"]
        15 LOADNIL                          R1
        16 SETTABLEKS                       R1 R0 K9 ["currentThumbnailType"]
-       18 NEWCLOSURE                       R1 P0
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          UPVAL U0
-       22 SETTABLEKS                       R1 R0 K10 ["updateThumbnail"]
-       24 NEWCLOSURE                       R1 P1
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U2
-       27 SETTABLEKS                       R1 R0 K11 ["loadThumbnail"]
-       29 RETURN                           R0 0
+       18 LOADNIL                          R1
+       19 SETTABLEKS                       R1 R0 K10 ["currentContentId"]
+       21 NEWCLOSURE                       R1 P0
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U1
+       24 CAPTURE                          UPVAL U0
+       25 SETTABLEKS                       R1 R0 K11 ["updateThumbnail"]
+       27 NEWCLOSURE                       R1 P1
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          UPVAL U2
+       30 SETTABLEKS                       R1 R0 K12 ["loadThumbnail"]
+       32 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["props"]

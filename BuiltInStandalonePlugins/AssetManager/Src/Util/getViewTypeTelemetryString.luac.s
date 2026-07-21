@@ -22,7 +22,7 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Analytics"]
+       11 GETTABLEKS                       R2 R2 K7 ["DEPRECATED_Analytics"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Src"]

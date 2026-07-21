@@ -1380,196 +1380,193 @@ PROTO_27:
       396 SETTABLEKS                       R39 R38 K88 ["onTabSelected"]
       398 CALL                             R36 2 1
       399 SETTABLEKS                       R36 R35 K74 ["Tabs"]
-      401 JUMPIF                           R30 ; [+5]
-      402 JUMPIF                           R31 ; [+4]
-      403 GETUPVAL                         R37 17
-      404 CALL                             R37 0 1
-      405 JUMPIFNOT                        R37 ; [+3]
-      406 JUMPIFNOT                        R29 ; [+2]
-      407 LOADNIL                          R36
-      408 JUMP                             ; [+23]
-      409 GETUPVAL                         R36 5
-      410 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      412 GETUPVAL                         R37 18
-      413 DUPTABLE                         R38 K95 [{"Position", "maxWidth", "onSearchOptionsToggled", "pluginGui"}]
-      414 GETIMPORT                        R39 K63 [UDim2.new]
-      416 LOADN                            R40 0
-      417 LOADN                            R41 0
-      418 LOADN                            R42 0
-      419 MOVE                             R43 R21
-      420 CALL                             R39 4 1
-      421 SETTABLEKS                       R39 R38 K64 ["Position"]
-      423 SETTABLEKS                       R3 R38 K94 ["maxWidth"]
-      425 GETTABLEKS                       R39 R0 K49 ["toggleSearchOptions"]
-      427 SETTABLEKS                       R39 R38 K51 ["onSearchOptionsToggled"]
-      429 SETTABLEKS                       R15 R38 K14 ["pluginGui"]
-      431 CALL                             R36 2 1
-      432 SETTABLEKS                       R36 R35 K75 ["Header"]
-      434 JUMPIFNOT                        R27 ; [+57]
-      435 GETUPVAL                         R36 5
-      436 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      438 GETUPVAL                         R37 19
-      439 DUPTABLE                         R38 K104 [{"hasValidSize", "webViewLoadingStatus", "webViewError", "manualRetryAttempt", "ChangeMarketplaceTab", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "Plugin", "PluginLoaderContext", "hasWebViewEverLoaded"}]
-      440 GETTABLEKS                       R39 R0 K1 ["state"]
-      442 GETTABLEKS                       R39 R39 K96 ["hasValidSize"]
-      444 SETTABLEKS                       R39 R38 K96 ["hasValidSize"]
-      446 GETTABLEKS                       R39 R0 K1 ["state"]
-      448 GETTABLEKS                       R39 R39 K54 ["webViewLoadingStatus"]
-      450 SETTABLEKS                       R39 R38 K54 ["webViewLoadingStatus"]
-      452 GETTABLEKS                       R39 R0 K1 ["state"]
-      454 GETTABLEKS                       R39 R39 K59 ["webViewError"]
-      456 SETTABLEKS                       R39 R38 K59 ["webViewError"]
-      458 GETTABLEKS                       R39 R0 K1 ["state"]
-      460 GETTABLEKS                       R39 R39 K105 ["webViewRetryAttempt"]
-      462 SETTABLEKS                       R39 R38 K97 ["manualRetryAttempt"]
-      464 GETTABLEKS                       R39 R0 K93 ["changeMarketplaceTab"]
-      466 SETTABLEKS                       R39 R38 K98 ["ChangeMarketplaceTab"]
-      468 GETTABLEKS                       R39 R0 K106 ["handleWebViewError"]
-      470 SETTABLEKS                       R39 R38 K99 ["HandleFailedInitCheck"]
-      472 GETTABLEKS                       R39 R0 K107 ["handleWebViewLoaded"]
-      474 SETTABLEKS                       R39 R38 K100 ["HandlePassedInitAndLoadingCheck"]
-      476 GETTABLEKS                       R39 R1 K108 ["plugin"]
-      478 SETTABLEKS                       R39 R38 K101 ["Plugin"]
-      480 GETTABLEKS                       R39 R1 K109 ["pluginLoaderContext"]
-      482 SETTABLEKS                       R39 R38 K102 ["PluginLoaderContext"]
-      484 GETTABLEKS                       R39 R0 K1 ["state"]
-      486 GETTABLEKS                       R39 R39 K103 ["hasWebViewEverLoaded"]
-      488 SETTABLEKS                       R39 R38 K103 ["hasWebViewEverLoaded"]
-      490 CALL                             R36 2 1
-      491 JUMP                             ; [+1]
-      492 LOADNIL                          R36
-      493 SETTABLEKS                       R36 R35 K76 ["WebViewConnector"]
-      495 JUMPIFNOT                        R31 ; [+21]
-      496 GETUPVAL                         R36 5
-      497 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      499 GETUPVAL                         R37 20
-      500 DUPTABLE                         R38 K112 [{"reason", "OnRetryClicked"}]
-      501 GETTABLEKS                       R39 R0 K1 ["state"]
-      503 GETTABLEKS                       R39 R39 K59 ["webViewError"]
-      505 SETTABLEKS                       R39 R38 K110 ["reason"]
-      507 NEWCLOSURE                       R39 P1
+      401 JUMPIF                           R30 ; [+2]
+      402 JUMPIF                           R31 ; [+1]
+      403 JUMPIFNOT                        R29 ; [+2]
+      404 LOADNIL                          R36
+      405 JUMP                             ; [+23]
+      406 GETUPVAL                         R36 5
+      407 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      409 GETUPVAL                         R37 17
+      410 DUPTABLE                         R38 K95 [{"Position", "maxWidth", "onSearchOptionsToggled", "pluginGui"}]
+      411 GETIMPORT                        R39 K63 [UDim2.new]
+      413 LOADN                            R40 0
+      414 LOADN                            R41 0
+      415 LOADN                            R42 0
+      416 MOVE                             R43 R21
+      417 CALL                             R39 4 1
+      418 SETTABLEKS                       R39 R38 K64 ["Position"]
+      420 SETTABLEKS                       R3 R38 K94 ["maxWidth"]
+      422 GETTABLEKS                       R39 R0 K49 ["toggleSearchOptions"]
+      424 SETTABLEKS                       R39 R38 K51 ["onSearchOptionsToggled"]
+      426 SETTABLEKS                       R15 R38 K14 ["pluginGui"]
+      428 CALL                             R36 2 1
+      429 SETTABLEKS                       R36 R35 K75 ["Header"]
+      431 JUMPIFNOT                        R27 ; [+57]
+      432 GETUPVAL                         R36 5
+      433 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      435 GETUPVAL                         R37 18
+      436 DUPTABLE                         R38 K104 [{"hasValidSize", "webViewLoadingStatus", "webViewError", "manualRetryAttempt", "ChangeMarketplaceTab", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "Plugin", "PluginLoaderContext", "hasWebViewEverLoaded"}]
+      437 GETTABLEKS                       R39 R0 K1 ["state"]
+      439 GETTABLEKS                       R39 R39 K96 ["hasValidSize"]
+      441 SETTABLEKS                       R39 R38 K96 ["hasValidSize"]
+      443 GETTABLEKS                       R39 R0 K1 ["state"]
+      445 GETTABLEKS                       R39 R39 K54 ["webViewLoadingStatus"]
+      447 SETTABLEKS                       R39 R38 K54 ["webViewLoadingStatus"]
+      449 GETTABLEKS                       R39 R0 K1 ["state"]
+      451 GETTABLEKS                       R39 R39 K59 ["webViewError"]
+      453 SETTABLEKS                       R39 R38 K59 ["webViewError"]
+      455 GETTABLEKS                       R39 R0 K1 ["state"]
+      457 GETTABLEKS                       R39 R39 K105 ["webViewRetryAttempt"]
+      459 SETTABLEKS                       R39 R38 K97 ["manualRetryAttempt"]
+      461 GETTABLEKS                       R39 R0 K93 ["changeMarketplaceTab"]
+      463 SETTABLEKS                       R39 R38 K98 ["ChangeMarketplaceTab"]
+      465 GETTABLEKS                       R39 R0 K106 ["handleWebViewError"]
+      467 SETTABLEKS                       R39 R38 K99 ["HandleFailedInitCheck"]
+      469 GETTABLEKS                       R39 R0 K107 ["handleWebViewLoaded"]
+      471 SETTABLEKS                       R39 R38 K100 ["HandlePassedInitAndLoadingCheck"]
+      473 GETTABLEKS                       R39 R1 K108 ["plugin"]
+      475 SETTABLEKS                       R39 R38 K101 ["Plugin"]
+      477 GETTABLEKS                       R39 R1 K109 ["pluginLoaderContext"]
+      479 SETTABLEKS                       R39 R38 K102 ["PluginLoaderContext"]
+      481 GETTABLEKS                       R39 R0 K1 ["state"]
+      483 GETTABLEKS                       R39 R39 K103 ["hasWebViewEverLoaded"]
+      485 SETTABLEKS                       R39 R38 K103 ["hasWebViewEverLoaded"]
+      487 CALL                             R36 2 1
+      488 JUMP                             ; [+1]
+      489 LOADNIL                          R36
+      490 SETTABLEKS                       R36 R35 K76 ["WebViewConnector"]
+      492 JUMPIFNOT                        R31 ; [+21]
+      493 GETUPVAL                         R36 5
+      494 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      496 GETUPVAL                         R37 19
+      497 DUPTABLE                         R38 K112 [{"reason", "OnRetryClicked"}]
+      498 GETTABLEKS                       R39 R0 K1 ["state"]
+      500 GETTABLEKS                       R39 R39 K59 ["webViewError"]
+      502 SETTABLEKS                       R39 R38 K110 ["reason"]
+      504 NEWCLOSURE                       R39 P1
+      505 CAPTURE                          UPVAL U20
+      506 CAPTURE                          VAL R0
+      507 CAPTURE                          UPVAL U10
       508 CAPTURE                          UPVAL U21
-      509 CAPTURE                          VAL R0
-      510 CAPTURE                          UPVAL U10
-      511 CAPTURE                          UPVAL U22
-      512 CAPTURE                          UPVAL U5
-      513 SETTABLEKS                       R39 R38 K111 ["OnRetryClicked"]
-      515 CALL                             R36 2 1
-      516 JUMP                             ; [+129]
-      517 JUMPIFNOT                        R30 ; [+30]
-      518 GETUPVAL                         R36 5
-      519 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      521 GETUPVAL                         R37 23
-      522 DUPTABLE                         R38 K114 [{"Size", "AnchorPoint", "Position"}]
-      523 GETIMPORT                        R39 K63 [UDim2.new]
-      525 LOADN                            R40 0
-      526 LOADN                            R41 100
-      527 LOADN                            R42 0
-      528 LOADN                            R43 100
-      529 CALL                             R39 4 1
-      530 SETTABLEKS                       R39 R38 K15 ["Size"]
-      532 GETIMPORT                        R39 K116 [Vector2.new]
-      534 LOADK                            R40 K117 [0.5]
-      535 LOADK                            R41 K117 [0.5]
-      536 CALL                             R39 2 1
-      537 SETTABLEKS                       R39 R38 K113 ["AnchorPoint"]
-      539 GETIMPORT                        R39 K119 [UDim2.fromScale]
-      541 LOADK                            R40 K117 [0.5]
-      542 LOADK                            R41 K117 [0.5]
-      543 CALL                             R39 2 1
-      544 SETTABLEKS                       R39 R38 K64 ["Position"]
-      546 CALL                             R36 2 1
-      547 JUMP                             ; [+98]
-      548 JUMPIFNOT                        R29 ; [+2]
-      549 LOADNIL                          R36
-      550 JUMP                             ; [+95]
-      551 JUMPIFNOT                        R22 ; [+51]
-      552 GETUPVAL                         R36 5
-      553 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      555 GETUPVAL                         R37 24
-      556 DUPTABLE                         R38 K125 [{"AssetType", "CategoryName", "Locale", "Position", "Size", "SortName", "TryOpenAssetConfig", "EnabledAssetTypes"}]
-      557 SETTABLEKS                       R24 R38 K33 ["AssetType"]
-      559 SETTABLEKS                       R9 R38 K120 ["CategoryName"]
-      561 SETTABLEKS                       R19 R38 K121 ["Locale"]
-      563 GETIMPORT                        R39 K63 [UDim2.new]
-      565 LOADN                            R40 0
-      566 LOADN                            R41 0
-      567 LOADN                            R42 0
-      568 GETUPVAL                         R45 1
-      569 GETTABLEKS                       R45 R45 K127 ["HEADER_HEIGHT"]
-      571 ADD                              R44 R21 R45
-      572 ADDK                             R43 R44 K126 [1]
-      573 CALL                             R39 4 1
-      574 SETTABLEKS                       R39 R38 K64 ["Position"]
-      576 GETIMPORT                        R39 K63 [UDim2.new]
-      578 LOADN                            R40 1
-      579 LOADN                            R41 0
-      580 LOADN                            R42 1
-      581 GETUPVAL                         R46 1
-      582 GETTABLEKS                       R46 R46 K127 ["HEADER_HEIGHT"]
-      584 ADD                              R45 R46 R21
-      585 ADDK                             R44 R45 K128 [2]
-      586 MINUS                            R43 R44
-      587 CALL                             R39 4 1
-      588 SETTABLEKS                       R39 R38 K15 ["Size"]
-      590 GETUPVAL                         R39 25
-      591 GETTABLEKS                       R39 R39 K129 ["getDefaultSortNameForCategory"]
-      593 MOVE                             R40 R9
-      594 CALL                             R39 1 1
-      595 SETTABLEKS                       R39 R38 K122 ["SortName"]
-      597 SETTABLEKS                       R14 R38 K123 ["TryOpenAssetConfig"]
-      599 SETTABLEKS                       R23 R38 K124 ["EnabledAssetTypes"]
-      601 CALL                             R36 2 1
-      602 JUMP                             ; [+43]
-      603 GETUPVAL                         R36 5
-      604 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      606 GETUPVAL                         R37 26
-      607 DUPTABLE                         R38 K131 [{"Position", "Size", "maxWidth", "suggestions", "tryOpenAssetConfig", "onBackToHome"}]
-      608 GETIMPORT                        R39 K63 [UDim2.new]
-      610 LOADN                            R40 0
-      611 LOADN                            R41 0
-      612 LOADN                            R42 0
-      613 GETUPVAL                         R45 1
-      614 GETTABLEKS                       R45 R45 K127 ["HEADER_HEIGHT"]
-      616 ADD                              R44 R21 R45
-      617 ADDK                             R43 R44 K126 [1]
-      618 CALL                             R39 4 1
-      619 SETTABLEKS                       R39 R38 K64 ["Position"]
-      621 GETIMPORT                        R39 K63 [UDim2.new]
-      623 LOADN                            R40 1
-      624 LOADN                            R41 0
-      625 LOADN                            R42 1
-      626 GETUPVAL                         R46 1
-      627 GETTABLEKS                       R46 R46 K127 ["HEADER_HEIGHT"]
-      629 ADD                              R45 R46 R21
-      630 ADDK                             R44 R45 K128 [2]
-      631 MINUS                            R43 R44
-      632 CALL                             R39 4 1
-      633 SETTABLEKS                       R39 R38 K15 ["Size"]
-      635 SETTABLEKS                       R3 R38 K94 ["maxWidth"]
-      637 SETTABLEKS                       R8 R38 K7 ["suggestions"]
-      639 SETTABLEKS                       R14 R38 K13 ["tryOpenAssetConfig"]
-      641 GETTABLEKS                       R39 R0 K130 ["onBackToHome"]
-      643 SETTABLEKS                       R39 R38 K130 ["onBackToHome"]
-      645 CALL                             R36 2 1
-      646 SETTABLEKS                       R36 R35 K77 ["MainView"]
-      648 JUMPIF                           R30 ; [+1]
-      649 JUMPIFNOT                        R29 ; [+2]
-      650 LOADNIL                          R36
-      651 JUMP                             ; [+1]
-      652 MOVE                             R36 R26
-      653 SETTABLEKS                       R36 R35 K78 ["SearchOptions"]
-      655 JUMPIF                           R30 ; [+1]
-      656 JUMPIFNOT                        R29 ; [+2]
-      657 LOADNIL                          R36
-      658 JUMP                             ; [+5]
-      659 GETUPVAL                         R36 5
-      660 GETTABLEKS                       R36 R36 K46 ["createElement"]
-      662 GETUPVAL                         R37 27
-      663 CALL                             R36 1 1
-      664 SETTABLEKS                       R36 R35 K79 ["AudioPreview"]
-      666 CALL                             R32 3 -1
-      667 RETURN                           R32 -1
+      509 CAPTURE                          UPVAL U5
+      510 SETTABLEKS                       R39 R38 K111 ["OnRetryClicked"]
+      512 CALL                             R36 2 1
+      513 JUMP                             ; [+129]
+      514 JUMPIFNOT                        R30 ; [+30]
+      515 GETUPVAL                         R36 5
+      516 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      518 GETUPVAL                         R37 22
+      519 DUPTABLE                         R38 K114 [{"Size", "AnchorPoint", "Position"}]
+      520 GETIMPORT                        R39 K63 [UDim2.new]
+      522 LOADN                            R40 0
+      523 LOADN                            R41 100
+      524 LOADN                            R42 0
+      525 LOADN                            R43 100
+      526 CALL                             R39 4 1
+      527 SETTABLEKS                       R39 R38 K15 ["Size"]
+      529 GETIMPORT                        R39 K116 [Vector2.new]
+      531 LOADK                            R40 K117 [0.5]
+      532 LOADK                            R41 K117 [0.5]
+      533 CALL                             R39 2 1
+      534 SETTABLEKS                       R39 R38 K113 ["AnchorPoint"]
+      536 GETIMPORT                        R39 K119 [UDim2.fromScale]
+      538 LOADK                            R40 K117 [0.5]
+      539 LOADK                            R41 K117 [0.5]
+      540 CALL                             R39 2 1
+      541 SETTABLEKS                       R39 R38 K64 ["Position"]
+      543 CALL                             R36 2 1
+      544 JUMP                             ; [+98]
+      545 JUMPIFNOT                        R29 ; [+2]
+      546 LOADNIL                          R36
+      547 JUMP                             ; [+95]
+      548 JUMPIFNOT                        R22 ; [+51]
+      549 GETUPVAL                         R36 5
+      550 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      552 GETUPVAL                         R37 23
+      553 DUPTABLE                         R38 K125 [{"AssetType", "CategoryName", "Locale", "Position", "Size", "SortName", "TryOpenAssetConfig", "EnabledAssetTypes"}]
+      554 SETTABLEKS                       R24 R38 K33 ["AssetType"]
+      556 SETTABLEKS                       R9 R38 K120 ["CategoryName"]
+      558 SETTABLEKS                       R19 R38 K121 ["Locale"]
+      560 GETIMPORT                        R39 K63 [UDim2.new]
+      562 LOADN                            R40 0
+      563 LOADN                            R41 0
+      564 LOADN                            R42 0
+      565 GETUPVAL                         R45 1
+      566 GETTABLEKS                       R45 R45 K127 ["HEADER_HEIGHT"]
+      568 ADD                              R44 R21 R45
+      569 ADDK                             R43 R44 K126 [1]
+      570 CALL                             R39 4 1
+      571 SETTABLEKS                       R39 R38 K64 ["Position"]
+      573 GETIMPORT                        R39 K63 [UDim2.new]
+      575 LOADN                            R40 1
+      576 LOADN                            R41 0
+      577 LOADN                            R42 1
+      578 GETUPVAL                         R46 1
+      579 GETTABLEKS                       R46 R46 K127 ["HEADER_HEIGHT"]
+      581 ADD                              R45 R46 R21
+      582 ADDK                             R44 R45 K128 [2]
+      583 MINUS                            R43 R44
+      584 CALL                             R39 4 1
+      585 SETTABLEKS                       R39 R38 K15 ["Size"]
+      587 GETUPVAL                         R39 24
+      588 GETTABLEKS                       R39 R39 K129 ["getDefaultSortNameForCategory"]
+      590 MOVE                             R40 R9
+      591 CALL                             R39 1 1
+      592 SETTABLEKS                       R39 R38 K122 ["SortName"]
+      594 SETTABLEKS                       R14 R38 K123 ["TryOpenAssetConfig"]
+      596 SETTABLEKS                       R23 R38 K124 ["EnabledAssetTypes"]
+      598 CALL                             R36 2 1
+      599 JUMP                             ; [+43]
+      600 GETUPVAL                         R36 5
+      601 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      603 GETUPVAL                         R37 25
+      604 DUPTABLE                         R38 K131 [{"Position", "Size", "maxWidth", "suggestions", "tryOpenAssetConfig", "onBackToHome"}]
+      605 GETIMPORT                        R39 K63 [UDim2.new]
+      607 LOADN                            R40 0
+      608 LOADN                            R41 0
+      609 LOADN                            R42 0
+      610 GETUPVAL                         R45 1
+      611 GETTABLEKS                       R45 R45 K127 ["HEADER_HEIGHT"]
+      613 ADD                              R44 R21 R45
+      614 ADDK                             R43 R44 K126 [1]
+      615 CALL                             R39 4 1
+      616 SETTABLEKS                       R39 R38 K64 ["Position"]
+      618 GETIMPORT                        R39 K63 [UDim2.new]
+      620 LOADN                            R40 1
+      621 LOADN                            R41 0
+      622 LOADN                            R42 1
+      623 GETUPVAL                         R46 1
+      624 GETTABLEKS                       R46 R46 K127 ["HEADER_HEIGHT"]
+      626 ADD                              R45 R46 R21
+      627 ADDK                             R44 R45 K128 [2]
+      628 MINUS                            R43 R44
+      629 CALL                             R39 4 1
+      630 SETTABLEKS                       R39 R38 K15 ["Size"]
+      632 SETTABLEKS                       R3 R38 K94 ["maxWidth"]
+      634 SETTABLEKS                       R8 R38 K7 ["suggestions"]
+      636 SETTABLEKS                       R14 R38 K13 ["tryOpenAssetConfig"]
+      638 GETTABLEKS                       R39 R0 K130 ["onBackToHome"]
+      640 SETTABLEKS                       R39 R38 K130 ["onBackToHome"]
+      642 CALL                             R36 2 1
+      643 SETTABLEKS                       R36 R35 K77 ["MainView"]
+      645 JUMPIF                           R30 ; [+1]
+      646 JUMPIFNOT                        R29 ; [+2]
+      647 LOADNIL                          R36
+      648 JUMP                             ; [+1]
+      649 MOVE                             R36 R26
+      650 SETTABLEKS                       R36 R35 K78 ["SearchOptions"]
+      652 JUMPIF                           R30 ; [+1]
+      653 JUMPIFNOT                        R29 ; [+2]
+      654 LOADNIL                          R36
+      655 JUMP                             ; [+5]
+      656 GETUPVAL                         R36 5
+      657 GETTABLEKS                       R36 R36 K46 ["createElement"]
+      659 GETUPVAL                         R37 26
+      660 CALL                             R36 1 1
+      661 SETTABLEKS                       R36 R35 K79 ["AudioPreview"]
+      663 CALL                             R32 3 -1
+      664 RETURN                           R32 -1
 
 PROTO_28:
         0 MOVE                             R2 R0
@@ -1986,172 +1983,167 @@ MAIN:
       418 GETTABLEKS                       R59 R59 K76 ["getFFlagToolboxFallbackAnnouncement"]
       420 CALL                             R58 1 1
       421 GETIMPORT                        R59 K4 [require]
-      423 GETTABLEKS                       R60 R13 K7 ["SharedFlags"]
-      425 GETTABLEKS                       R60 R60 K77 ["getFFlagToolboxWVHideLuaHeader"]
-      427 CALL                             R59 1 1
-      428 GETIMPORT                        R60 K4 [require]
-      430 GETTABLEKS                       R61 R0 K5 ["Src"]
-      432 GETTABLEKS                       R61 R61 K27 ["Types"]
-      434 GETTABLEKS                       R61 R61 K78 ["LayoutMode"]
-      436 CALL                             R60 1 1
-      437 GETIMPORT                        R61 K4 [require]
-      439 GETTABLEKS                       R62 R0 K5 ["Src"]
-      441 GETTABLEKS                       R62 R62 K27 ["Types"]
-      443 GETTABLEKS                       R62 R62 K79 ["Background"]
-      445 CALL                             R61 1 1
-      446 GETIMPORT                        R62 K4 [require]
-      448 GETTABLEKS                       R63 R0 K5 ["Src"]
-      450 GETTABLEKS                       R63 R63 K31 ["Components"]
-      452 GETTABLEKS                       R63 R63 K36 ["WebView"]
-      454 GETTABLEKS                       R63 R63 K80 ["WebViewTypes"]
-      456 CALL                             R62 1 1
-      457 GETIMPORT                        R63 K4 [require]
-      459 GETTABLEKS                       R64 R0 K5 ["Src"]
-      461 GETTABLEKS                       R64 R64 K31 ["Components"]
-      463 GETTABLEKS                       R64 R64 K36 ["WebView"]
-      465 GETTABLEKS                       R64 R64 K81 ["ToolboxWebViewConnector"]
-      467 CALL                             R63 1 1
-      468 GETIMPORT                        R64 K4 [require]
-      470 GETTABLEKS                       R65 R4 K36 ["WebView"]
-      472 CALL                             R64 1 1
-      473 GETTABLEKS                       R65 R64 K24 ["Analytics"]
-      475 GETTABLEKS                       R66 R64 K82 ["WebViewManagerContext"]
-      477 GETTABLEKS                       R67 R6 K83 ["PureComponent"]
-      479 LOADK                            R69 K84 ["Toolbox"]
-      480 NAMECALL                         R67 R67 K85 ["extend"]
-      482 CALL                             R67 2 1
-      483 DUPTABLE                         R68 K87 [{"Size"}]
-      484 GETIMPORT                        R69 K90 [UDim2.new]
-      486 LOADN                            R70 1
-      487 LOADN                            R71 0
-      488 LOADN                            R72 1
-      489 LOADN                            R73 0
-      490 CALL                             R69 4 1
-      491 SETTABLEKS                       R69 R68 K86 ["Size"]
-      493 SETTABLEKS                       R68 R67 K91 ["defaultProps"]
-      495 DUPCLOSURE                       R68 K92 [PROTO_0]
-      496 CAPTURE                          VAL R54
-      497 CAPTURE                          VAL R61
-      498 CAPTURE                          VAL R22
-      499 CAPTURE                          VAL R17
-      500 CAPTURE                          VAL R53
-      501 CAPTURE                          VAL R2
-      502 CAPTURE                          VAL R23
-      503 CAPTURE                          VAL R55
-      504 CAPTURE                          VAL R60
-      505 SETTABLEKS                       R68 R67 K93 ["handleInitialSettings"]
-      507 DUPCLOSURE                       R68 K94 [PROTO_1]
-      508 CAPTURE                          VAL R11
-      509 CAPTURE                          VAL R17
-      510 CAPTURE                          VAL R65
-      511 SETTABLEKS                       R68 R67 K95 ["handleWebViewInit"]
-      513 DUPCLOSURE                       R68 K96 [PROTO_14]
-      514 CAPTURE                          VAL R58
-      515 CAPTURE                          VAL R19
-      516 CAPTURE                          VAL R14
-      517 CAPTURE                          VAL R62
-      518 CAPTURE                          VAL R17
-      519 CAPTURE                          VAL R22
-      520 CAPTURE                          VAL R9
-      521 CAPTURE                          VAL R53
-      522 CAPTURE                          VAL R5
-      523 CAPTURE                          VAL R15
-      524 CAPTURE                          VAL R6
-      525 CAPTURE                          VAL R56
-      526 SETTABLEKS                       R68 R67 K97 ["init"]
-      528 DUPCLOSURE                       R68 K98 [PROTO_15]
-      529 CAPTURE                          VAL R56
-      530 SETTABLEKS                       R68 R67 K99 ["didUpdate"]
-      532 DUPCLOSURE                       R68 K100 [PROTO_16]
-      533 SETTABLEKS                       R68 R67 K101 ["setUpToolboxManagerComponent"]
-      535 DUPCLOSURE                       R68 K102 [PROTO_20]
-      536 CAPTURE                          VAL R12
-      537 CAPTURE                          VAL R22
-      538 CAPTURE                          VAL R17
-      539 CAPTURE                          VAL R14
-      540 SETTABLEKS                       R68 R67 K103 ["connectAllSignals"]
-      542 DUPCLOSURE                       R68 K104 [PROTO_21]
-      543 SETTABLEKS                       R68 R67 K105 ["disconnectAllSignals"]
-      545 DUPCLOSURE                       R68 K106 [PROTO_22]
-      546 SETTABLEKS                       R68 R67 K107 ["didMount"]
-      548 DUPCLOSURE                       R68 K108 [PROTO_24]
-      549 CAPTURE                          VAL R17
-      550 SETTABLEKS                       R68 R67 K109 ["willUnmount"]
-      552 DUPCLOSURE                       R68 K110 [PROTO_27]
-      553 CAPTURE                          VAL R22
-      554 CAPTURE                          VAL R14
-      555 CAPTURE                          VAL R3
-      556 CAPTURE                          VAL R10
-      557 CAPTURE                          VAL R1
-      558 CAPTURE                          VAL R6
-      559 CAPTURE                          VAL R35
-      560 CAPTURE                          VAL R33
-      561 CAPTURE                          VAL R34
-      562 CAPTURE                          VAL R32
-      563 CAPTURE                          VAL R62
-      564 CAPTURE                          VAL R25
-      565 CAPTURE                          VAL R18
-      566 CAPTURE                          VAL R58
-      567 CAPTURE                          VAL R26
-      568 CAPTURE                          VAL R53
-      569 CAPTURE                          VAL R16
-      570 CAPTURE                          VAL R59
-      571 CAPTURE                          VAL R27
-      572 CAPTURE                          VAL R63
-      573 CAPTURE                          VAL R29
-      574 CAPTURE                          VAL R57
-      575 CAPTURE                          VAL R17
-      576 CAPTURE                          VAL R36
-      577 CAPTURE                          VAL R31
-      578 CAPTURE                          VAL R21
-      579 CAPTURE                          VAL R28
-      580 CAPTURE                          VAL R30
-      581 SETTABLEKS                       R68 R67 K111 ["render"]
-      583 MOVE                             R68 R46
-      584 DUPTABLE                         R69 K117 [{"IXP", "Stylizer", "Localization", "Settings", "Modal", "Network", "WebViewManagerContext"}]
-      585 MOVE                             R71 R53
-      586 CALL                             R71 0 1
-      587 JUMPIF                           R71 ; [+6]
-      588 MOVE                             R71 R54
-      589 CALL                             R71 0 1
-      590 JUMPIF                           R71 ; [+3]
-      591 MOVE                             R71 R55
-      592 CALL                             R71 0 1
-      593 JUMPIFNOT                        R71 ; [+2]
-      594 MOVE                             R70 R44
-      595 JUMP                             ; [+1]
-      596 LOADNIL                          R70
-      597 SETTABLEKS                       R70 R69 K112 ["IXP"]
-      599 GETTABLEKS                       R70 R45 K113 ["Stylizer"]
-      601 SETTABLEKS                       R70 R69 K113 ["Stylizer"]
-      603 GETTABLEKS                       R70 R45 K114 ["Localization"]
-      605 SETTABLEKS                       R70 R69 K114 ["Localization"]
-      607 SETTABLEKS                       R47 R69 K59 ["Settings"]
-      609 SETTABLEKS                       R48 R69 K115 ["Modal"]
-      611 SETTABLEKS                       R49 R69 K116 ["Network"]
-      613 SETTABLEKS                       R66 R69 K82 ["WebViewManagerContext"]
-      615 CALL                             R68 1 1
-      616 MOVE                             R69 R67
-      617 CALL                             R68 1 1
-      618 MOVE                             R67 R68
-      619 DUPCLOSURE                       R68 K118 [PROTO_28]
-      620 CAPTURE                          VAL R22
-      621 CAPTURE                          VAL R5
-      622 DUPCLOSURE                       R69 K119 [PROTO_36]
-      623 CAPTURE                          VAL R52
-      624 CAPTURE                          VAL R42
-      625 CAPTURE                          VAL R41
-      626 CAPTURE                          VAL R38
-      627 CAPTURE                          VAL R39
-      628 CAPTURE                          VAL R43
-      629 CAPTURE                          VAL R40
-      630 CAPTURE                          VAL R51
-      631 CAPTURE                          VAL R54
-      632 CAPTURE                          VAL R50
-      633 GETTABLEKS                       R70 R7 K120 ["connect"]
-      635 MOVE                             R71 R68
-      636 MOVE                             R72 R69
-      637 CALL                             R70 2 1
-      638 MOVE                             R71 R67
-      639 CALL                             R70 1 -1
-      640 RETURN                           R70 -1
+      423 GETTABLEKS                       R60 R0 K5 ["Src"]
+      425 GETTABLEKS                       R60 R60 K27 ["Types"]
+      427 GETTABLEKS                       R60 R60 K77 ["LayoutMode"]
+      429 CALL                             R59 1 1
+      430 GETIMPORT                        R60 K4 [require]
+      432 GETTABLEKS                       R61 R0 K5 ["Src"]
+      434 GETTABLEKS                       R61 R61 K27 ["Types"]
+      436 GETTABLEKS                       R61 R61 K78 ["Background"]
+      438 CALL                             R60 1 1
+      439 GETIMPORT                        R61 K4 [require]
+      441 GETTABLEKS                       R62 R0 K5 ["Src"]
+      443 GETTABLEKS                       R62 R62 K31 ["Components"]
+      445 GETTABLEKS                       R62 R62 K36 ["WebView"]
+      447 GETTABLEKS                       R62 R62 K79 ["WebViewTypes"]
+      449 CALL                             R61 1 1
+      450 GETIMPORT                        R62 K4 [require]
+      452 GETTABLEKS                       R63 R0 K5 ["Src"]
+      454 GETTABLEKS                       R63 R63 K31 ["Components"]
+      456 GETTABLEKS                       R63 R63 K36 ["WebView"]
+      458 GETTABLEKS                       R63 R63 K80 ["ToolboxWebViewConnector"]
+      460 CALL                             R62 1 1
+      461 GETIMPORT                        R63 K4 [require]
+      463 GETTABLEKS                       R64 R4 K36 ["WebView"]
+      465 CALL                             R63 1 1
+      466 GETTABLEKS                       R64 R63 K24 ["Analytics"]
+      468 GETTABLEKS                       R65 R63 K81 ["WebViewManagerContext"]
+      470 GETTABLEKS                       R66 R6 K82 ["PureComponent"]
+      472 LOADK                            R68 K83 ["Toolbox"]
+      473 NAMECALL                         R66 R66 K84 ["extend"]
+      475 CALL                             R66 2 1
+      476 DUPTABLE                         R67 K86 [{"Size"}]
+      477 GETIMPORT                        R68 K89 [UDim2.new]
+      479 LOADN                            R69 1
+      480 LOADN                            R70 0
+      481 LOADN                            R71 1
+      482 LOADN                            R72 0
+      483 CALL                             R68 4 1
+      484 SETTABLEKS                       R68 R67 K85 ["Size"]
+      486 SETTABLEKS                       R67 R66 K90 ["defaultProps"]
+      488 DUPCLOSURE                       R67 K91 [PROTO_0]
+      489 CAPTURE                          VAL R54
+      490 CAPTURE                          VAL R60
+      491 CAPTURE                          VAL R22
+      492 CAPTURE                          VAL R17
+      493 CAPTURE                          VAL R53
+      494 CAPTURE                          VAL R2
+      495 CAPTURE                          VAL R23
+      496 CAPTURE                          VAL R55
+      497 CAPTURE                          VAL R59
+      498 SETTABLEKS                       R67 R66 K92 ["handleInitialSettings"]
+      500 DUPCLOSURE                       R67 K93 [PROTO_1]
+      501 CAPTURE                          VAL R11
+      502 CAPTURE                          VAL R17
+      503 CAPTURE                          VAL R64
+      504 SETTABLEKS                       R67 R66 K94 ["handleWebViewInit"]
+      506 DUPCLOSURE                       R67 K95 [PROTO_14]
+      507 CAPTURE                          VAL R58
+      508 CAPTURE                          VAL R19
+      509 CAPTURE                          VAL R14
+      510 CAPTURE                          VAL R61
+      511 CAPTURE                          VAL R17
+      512 CAPTURE                          VAL R22
+      513 CAPTURE                          VAL R9
+      514 CAPTURE                          VAL R53
+      515 CAPTURE                          VAL R5
+      516 CAPTURE                          VAL R15
+      517 CAPTURE                          VAL R6
+      518 CAPTURE                          VAL R56
+      519 SETTABLEKS                       R67 R66 K96 ["init"]
+      521 DUPCLOSURE                       R67 K97 [PROTO_15]
+      522 CAPTURE                          VAL R56
+      523 SETTABLEKS                       R67 R66 K98 ["didUpdate"]
+      525 DUPCLOSURE                       R67 K99 [PROTO_16]
+      526 SETTABLEKS                       R67 R66 K100 ["setUpToolboxManagerComponent"]
+      528 DUPCLOSURE                       R67 K101 [PROTO_20]
+      529 CAPTURE                          VAL R12
+      530 CAPTURE                          VAL R22
+      531 CAPTURE                          VAL R17
+      532 CAPTURE                          VAL R14
+      533 SETTABLEKS                       R67 R66 K102 ["connectAllSignals"]
+      535 DUPCLOSURE                       R67 K103 [PROTO_21]
+      536 SETTABLEKS                       R67 R66 K104 ["disconnectAllSignals"]
+      538 DUPCLOSURE                       R67 K105 [PROTO_22]
+      539 SETTABLEKS                       R67 R66 K106 ["didMount"]
+      541 DUPCLOSURE                       R67 K107 [PROTO_24]
+      542 CAPTURE                          VAL R17
+      543 SETTABLEKS                       R67 R66 K108 ["willUnmount"]
+      545 DUPCLOSURE                       R67 K109 [PROTO_27]
+      546 CAPTURE                          VAL R22
+      547 CAPTURE                          VAL R14
+      548 CAPTURE                          VAL R3
+      549 CAPTURE                          VAL R10
+      550 CAPTURE                          VAL R1
+      551 CAPTURE                          VAL R6
+      552 CAPTURE                          VAL R35
+      553 CAPTURE                          VAL R33
+      554 CAPTURE                          VAL R34
+      555 CAPTURE                          VAL R32
+      556 CAPTURE                          VAL R61
+      557 CAPTURE                          VAL R25
+      558 CAPTURE                          VAL R18
+      559 CAPTURE                          VAL R58
+      560 CAPTURE                          VAL R26
+      561 CAPTURE                          VAL R53
+      562 CAPTURE                          VAL R16
+      563 CAPTURE                          VAL R27
+      564 CAPTURE                          VAL R62
+      565 CAPTURE                          VAL R29
+      566 CAPTURE                          VAL R57
+      567 CAPTURE                          VAL R17
+      568 CAPTURE                          VAL R36
+      569 CAPTURE                          VAL R31
+      570 CAPTURE                          VAL R21
+      571 CAPTURE                          VAL R28
+      572 CAPTURE                          VAL R30
+      573 SETTABLEKS                       R67 R66 K110 ["render"]
+      575 MOVE                             R67 R46
+      576 DUPTABLE                         R68 K116 [{"IXP", "Stylizer", "Localization", "Settings", "Modal", "Network", "WebViewManagerContext"}]
+      577 MOVE                             R70 R53
+      578 CALL                             R70 0 1
+      579 JUMPIF                           R70 ; [+6]
+      580 MOVE                             R70 R54
+      581 CALL                             R70 0 1
+      582 JUMPIF                           R70 ; [+3]
+      583 MOVE                             R70 R55
+      584 CALL                             R70 0 1
+      585 JUMPIFNOT                        R70 ; [+2]
+      586 MOVE                             R69 R44
+      587 JUMP                             ; [+1]
+      588 LOADNIL                          R69
+      589 SETTABLEKS                       R69 R68 K111 ["IXP"]
+      591 GETTABLEKS                       R69 R45 K112 ["Stylizer"]
+      593 SETTABLEKS                       R69 R68 K112 ["Stylizer"]
+      595 GETTABLEKS                       R69 R45 K113 ["Localization"]
+      597 SETTABLEKS                       R69 R68 K113 ["Localization"]
+      599 SETTABLEKS                       R47 R68 K59 ["Settings"]
+      601 SETTABLEKS                       R48 R68 K114 ["Modal"]
+      603 SETTABLEKS                       R49 R68 K115 ["Network"]
+      605 SETTABLEKS                       R65 R68 K81 ["WebViewManagerContext"]
+      607 CALL                             R67 1 1
+      608 MOVE                             R68 R66
+      609 CALL                             R67 1 1
+      610 MOVE                             R66 R67
+      611 DUPCLOSURE                       R67 K117 [PROTO_28]
+      612 CAPTURE                          VAL R22
+      613 CAPTURE                          VAL R5
+      614 DUPCLOSURE                       R68 K118 [PROTO_36]
+      615 CAPTURE                          VAL R52
+      616 CAPTURE                          VAL R42
+      617 CAPTURE                          VAL R41
+      618 CAPTURE                          VAL R38
+      619 CAPTURE                          VAL R39
+      620 CAPTURE                          VAL R43
+      621 CAPTURE                          VAL R40
+      622 CAPTURE                          VAL R51
+      623 CAPTURE                          VAL R54
+      624 CAPTURE                          VAL R50
+      625 GETTABLEKS                       R69 R7 K119 ["connect"]
+      627 MOVE                             R70 R67
+      628 MOVE                             R71 R68
+      629 CALL                             R69 2 1
+      630 MOVE                             R70 R66
+      631 CALL                             R69 1 -1
+      632 RETURN                           R69 -1

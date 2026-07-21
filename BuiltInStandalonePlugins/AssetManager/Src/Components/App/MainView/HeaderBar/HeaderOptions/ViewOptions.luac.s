@@ -298,38 +298,33 @@ PROTO_7:
       275 CAPTURE                          VAL R2
       276 SETTABLEKS                       R25 R24 K73 ["onValueChanged"]
       278 CALL                             R22 2 1
-      279 JUMP                             ; [+32]
-      280 GETUPVAL                         R23 9
-      281 CALL                             R23 0 1
-      282 JUMPIFNOT                        R23 ; [+28]
-      283 GETUPVAL                         R22 2
-      284 GETTABLEKS                       R22 R22 K2 ["createElement"]
-      286 GETUPVAL                         R23 5
-      287 GETTABLEKS                       R23 R23 K62 ["Slider"]
-      289 DUPTABLE                         R24 K74 [{["LayoutOrder"] = 3, ["value"], ["step"] = 1, ["range"], ["onValueChanged"]}]
-      290 GETTABLEKS                       R25 R5 K81 ["ListRowHeight"]
-      292 SETTABLEKS                       R25 R24 K70 ["value"]
-      294 GETIMPORT                        R25 K78 [NumberRange.new]
-      296 GETUPVAL                         R26 8
-      297 GETTABLEKS                       R26 R26 K82 ["ListRowHeightMin"]
-      299 GETUPVAL                         R27 8
-      300 GETTABLEKS                       R27 R27 K83 ["ListRowHeightMax"]
-      302 CALL                             R25 2 1
-      303 SETTABLEKS                       R25 R24 K72 ["range"]
-      305 NEWCLOSURE                       R25 P4
-      306 CAPTURE                          VAL R2
-      307 SETTABLEKS                       R25 R24 K73 ["onValueChanged"]
-      309 CALL                             R22 2 1
-      310 JUMP                             ; [+1]
-      311 LOADNIL                          R22
-      312 SETTABLEKS                       R22 R21 K62 ["Slider"]
-      314 CALL                             R18 3 1
-      315 SETTABLEKS                       R18 R17 K46 ["Menu"]
-      317 CALL                             R14 3 -1
-      318 CALL                             R11 -1 1
-      319 SETTABLEKS                       R11 R10 K10 ["Content"]
-      321 CALL                             R7 3 -1
-      322 RETURN                           R7 -1
+      279 JUMP                             ; [+27]
+      280 GETUPVAL                         R22 2
+      281 GETTABLEKS                       R22 R22 K2 ["createElement"]
+      283 GETUPVAL                         R23 5
+      284 GETTABLEKS                       R23 R23 K62 ["Slider"]
+      286 DUPTABLE                         R24 K74 [{["LayoutOrder"] = 3, ["value"], ["step"] = 1, ["range"], ["onValueChanged"]}]
+      287 GETTABLEKS                       R25 R5 K81 ["ListRowHeight"]
+      289 SETTABLEKS                       R25 R24 K70 ["value"]
+      291 GETIMPORT                        R25 K78 [NumberRange.new]
+      293 GETUPVAL                         R26 8
+      294 GETTABLEKS                       R26 R26 K82 ["ListRowHeightMin"]
+      296 GETUPVAL                         R27 8
+      297 GETTABLEKS                       R27 R27 K83 ["ListRowHeightMax"]
+      299 CALL                             R25 2 1
+      300 SETTABLEKS                       R25 R24 K72 ["range"]
+      302 NEWCLOSURE                       R25 P4
+      303 CAPTURE                          VAL R2
+      304 SETTABLEKS                       R25 R24 K73 ["onValueChanged"]
+      306 CALL                             R22 2 1
+      307 SETTABLEKS                       R22 R21 K62 ["Slider"]
+      309 CALL                             R18 3 1
+      310 SETTABLEKS                       R18 R17 K46 ["Menu"]
+      312 CALL                             R14 3 -1
+      313 CALL                             R11 -1 1
+      314 SETTABLEKS                       R11 R10 K10 ["Content"]
+      316 CALL                             R7 3 -1
+      317 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -372,27 +367,21 @@ MAIN:
        65 GETTABLEKS                       R11 R0 K12 ["Src"]
        67 GETTABLEKS                       R11 R11 K20 ["Types"]
        69 CALL                             R10 1 1
-       70 GETIMPORT                        R11 K5 [require]
-       72 GETTABLEKS                       R12 R0 K12 ["Src"]
-       74 GETTABLEKS                       R12 R12 K21 ["Flags"]
-       76 GETTABLEKS                       R12 R12 K22 ["getFFlagAmrListViewCustomRowHeight"]
-       78 CALL                             R11 1 1
-       79 DUPCLOSURE                       R12 K23 [PROTO_1]
-       80 CAPTURE                          VAL R5
-       81 CAPTURE                          VAL R6
+       70 DUPCLOSURE                       R11 K21 [PROTO_1]
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R10
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          VAL R1
+       77 DUPCLOSURE                       R12 K22 [PROTO_7]
+       78 CAPTURE                          VAL R5
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R7
        82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R2
-       85 CAPTURE                          VAL R1
-       86 DUPCLOSURE                       R13 K24 [PROTO_7]
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R6
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R7
-       91 CAPTURE                          VAL R8
-       92 CAPTURE                          VAL R2
-       93 CAPTURE                          VAL R10
-       94 CAPTURE                          VAL R12
-       95 CAPTURE                          VAL R9
-       96 CAPTURE                          VAL R11
-       97 RETURN                           R13 1
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R10
+       85 CAPTURE                          VAL R11
+       86 CAPTURE                          VAL R9
+       87 RETURN                           R12 1

@@ -11,52 +11,34 @@ MAIN:
        16 GETIMPORT                        R2 K4 [require]
        18 GETTABLEKS                       R3 R0 K7 ["Src"]
        20 GETTABLEKS                       R3 R3 K8 ["Flags"]
-       22 GETTABLEKS                       R3 R3 K9 ["getFFlagStyleQuery"]
+       22 GETTABLEKS                       R3 R3 K9 ["getFFlagStyleEditorSupportTransitions"]
        24 CALL                             R2 1 1
        25 CALL                             R2 0 1
        26 GETIMPORT                        R3 K4 [require]
        28 GETTABLEKS                       R4 R0 K7 ["Src"]
-       30 GETTABLEKS                       R4 R4 K8 ["Flags"]
-       32 GETTABLEKS                       R4 R4 K10 ["getFFlagStyleEditorSupportTransitions"]
-       34 CALL                             R3 1 1
-       35 CALL                             R3 0 1
-       36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R5 R0 K7 ["Src"]
-       40 GETTABLEKS                       R5 R5 K8 ["Flags"]
-       42 GETTABLEKS                       R5 R5 K11 ["getFFlagStyleEditorPropertyCreatedTelemetry"]
-       44 CALL                             R4 1 1
-       45 CALL                             R4 0 1
-       46 GETIMPORT                        R5 K4 [require]
-       48 GETTABLEKS                       R6 R0 K7 ["Src"]
-       50 GETTABLEKS                       R6 R6 K12 ["Types"]
-       52 CALL                             R5 1 1
-       53 NEWTABLE                         R6 0 5
-       55 LOADK                            R7 K13 ["ButtonPressed"]
-       56 LOADK                            R8 K14 ["ContextMenu"]
-       57 LOADK                            R9 K15 ["OnboardingLink"]
-       58 LOADK                            R10 K16 ["PropertyEdited"]
-       59 LOADK                            R11 K17 ["TokenEdited"]
-       60 SETLIST                          R6 R7 5 [1]
-       62 JUMPIF                           R2 ; [+1]
-       63 JUMPIFNOT                        R4 ; [+7]
-       64 FASTCALL2K                       TABLE_INSERT R6 K18 ; [+5]
-       66 MOVE                             R8 R6
-       67 LOADK                            R9 K18 ["PropertyCreated"]
-       68 GETIMPORT                        R7 K21 [table.insert]
-       70 CALL                             R7 2 0
-       71 JUMPIFNOT                        R3 ; [+14]
-       72 FASTCALL2K                       TABLE_INSERT R6 K22 ; [+5]
-       74 MOVE                             R8 R6
-       75 LOADK                            R9 K22 ["TransitionCreated"]
-       76 GETIMPORT                        R7 K21 [table.insert]
-       78 CALL                             R7 2 0
-       79 FASTCALL2K                       TABLE_INSERT R6 K23 ; [+5]
-       81 MOVE                             R8 R6
-       82 LOADK                            R9 K23 ["TransitionEdited"]
-       83 GETIMPORT                        R7 K21 [table.insert]
-       85 CALL                             R7 2 0
-       86 MOVE                             R7 R1
-       87 LOADK                            R8 K24 ["ActionClickedEventType"]
-       88 MOVE                             R9 R6
-       89 CALL                             R7 2 1
-       90 RETURN                           R7 1
+       30 GETTABLEKS                       R4 R4 K10 ["Types"]
+       32 CALL                             R3 1 1
+       33 NEWTABLE                         R4 0 6
+       35 LOADK                            R5 K11 ["ButtonPressed"]
+       36 LOADK                            R6 K12 ["ContextMenu"]
+       37 LOADK                            R7 K13 ["OnboardingLink"]
+       38 LOADK                            R8 K14 ["PropertyEdited"]
+       39 LOADK                            R9 K15 ["TokenEdited"]
+       40 LOADK                            R10 K16 ["PropertyCreated"]
+       41 SETLIST                          R4 R5 6 [1]
+       43 JUMPIFNOT                        R2 ; [+14]
+       44 FASTCALL2K                       TABLE_INSERT R4 K17 ; [+5]
+       46 MOVE                             R6 R4
+       47 LOADK                            R7 K17 ["TransitionCreated"]
+       48 GETIMPORT                        R5 K20 [table.insert]
+       50 CALL                             R5 2 0
+       51 FASTCALL2K                       TABLE_INSERT R4 K21 ; [+5]
+       53 MOVE                             R6 R4
+       54 LOADK                            R7 K21 ["TransitionEdited"]
+       55 GETIMPORT                        R5 K20 [table.insert]
+       57 CALL                             R5 2 0
+       58 MOVE                             R5 R1
+       59 LOADK                            R6 K22 ["ActionClickedEventType"]
+       60 MOVE                             R7 R4
+       61 CALL                             R5 2 1
+       62 RETURN                           R5 1

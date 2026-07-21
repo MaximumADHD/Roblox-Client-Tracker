@@ -62,38 +62,38 @@ PROTO_1:
        28 RETURN                           R0 0
 
 PROTO_2:
-        0 NEWTABLE                         R2 0 2
-        2 MOVE                             R5 R1
-        3 NAMECALL                         R7 R1 K0 ["GetDescendants"]
-        5 CALL                             R7 1 -1
-        6 FASTCALL                         TABLE_UNPACK ; [+2]
-        7 GETIMPORT                        R6 K3 [table.unpack]
-        9 CALL                             R6 -1 -1
-       10 SETLIST                          R2 R5 -1 [1]
-       12 LOADNIL                          R3
-       13 LOADNIL                          R4
-       14 FORGPREP                         R2
-       15 LOADK                            R9 K4 ["BasePart"]
-       16 NAMECALL                         R7 R6 K5 ["IsA"]
-       18 CALL                             R7 2 1
-       19 JUMPIF                           R7 ; [+5]
-       20 LOADK                            R9 K6 ["Decal"]
-       21 NAMECALL                         R7 R6 K5 ["IsA"]
-       23 CALL                             R7 2 1
-       24 JUMPIFNOT                        R7 ; [+17]
-       25 GETTABLEKS                       R8 R6 K7 ["Transparency"]
-       27 GETTABLEKS                       R11 R6 K7 ["Transparency"]
-       29 SUBRK                            R10 K9 [1] R11
-       30 MULK                             R9 R10 K8 [0.5]
-       31 ADD                              R7 R8 R9
-       32 SETTABLEKS                       R7 R6 K7 ["Transparency"]
-       34 GETTABLEKS                       R8 R0 K10 ["_modifiedInstances"]
-       36 FASTCALL2                        TABLE_INSERT R8 R6 ; [+4]
-       38 MOVE                             R9 R6
-       39 GETIMPORT                        R7 K12 [table.insert]
-       41 CALL                             R7 2 0
-       42 FORGLOOP                         R2 2 ; [-28]
-       44 RETURN                           R0 0
+        0 NAMECALL                         R2 R1 K0 ["GetDescendants"]
+        2 CALL                             R2 1 1
+        3 FASTCALL2                        TABLE_INSERT R2 R1 ; [+5]
+        5 MOVE                             R4 R2
+        6 MOVE                             R5 R1
+        7 GETIMPORT                        R3 K3 [table.insert]
+        9 CALL                             R3 2 0
+       10 MOVE                             R3 R2
+       11 LOADNIL                          R4
+       12 LOADNIL                          R5
+       13 FORGPREP                         R3
+       14 LOADK                            R10 K4 ["BasePart"]
+       15 NAMECALL                         R8 R7 K5 ["IsA"]
+       17 CALL                             R8 2 1
+       18 JUMPIF                           R8 ; [+5]
+       19 LOADK                            R10 K6 ["Decal"]
+       20 NAMECALL                         R8 R7 K5 ["IsA"]
+       22 CALL                             R8 2 1
+       23 JUMPIFNOT                        R8 ; [+17]
+       24 GETTABLEKS                       R9 R7 K7 ["Transparency"]
+       26 GETTABLEKS                       R12 R7 K7 ["Transparency"]
+       28 SUBRK                            R11 K9 [1] R12
+       29 MULK                             R10 R11 K8 [0.5]
+       30 ADD                              R8 R9 R10
+       31 SETTABLEKS                       R8 R7 K7 ["Transparency"]
+       33 GETTABLEKS                       R9 R0 K10 ["_modifiedInstances"]
+       35 FASTCALL2                        TABLE_INSERT R9 R7 ; [+4]
+       37 MOVE                             R10 R7
+       38 GETIMPORT                        R8 K3 [table.insert]
+       40 CALL                             R8 2 0
+       41 FORGLOOP                         R3 2 ; [-28]
+       43 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["_modifiedInstances"]

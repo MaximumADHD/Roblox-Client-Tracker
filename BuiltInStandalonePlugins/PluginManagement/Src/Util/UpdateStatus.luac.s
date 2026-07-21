@@ -9,16 +9,16 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K6 ["Symbol"]
        15 CALL                             R1 1 1
        16 DUPTABLE                         R2 K10 [{"Updating", "Success", "Error"}]
-       17 GETTABLEKS                       R3 R1 K11 ["named"]
-       19 LOADK                            R4 K7 ["Updating"]
-       20 CALL                             R3 1 1
-       21 SETTABLEKS                       R3 R2 K7 ["Updating"]
-       23 GETTABLEKS                       R3 R1 K11 ["named"]
-       25 LOADK                            R4 K8 ["Success"]
-       26 CALL                             R3 1 1
-       27 SETTABLEKS                       R3 R2 K8 ["Success"]
-       29 GETTABLEKS                       R3 R1 K11 ["named"]
-       31 LOADK                            R4 K9 ["Error"]
-       32 CALL                             R3 1 1
-       33 SETTABLEKS                       R3 R2 K9 ["Error"]
-       35 RETURN                           R2 1
+       17 MOVE                             R3 R1
+       18 LOADK                            R4 K7 ["Updating"]
+       19 CALL                             R3 1 1
+       20 SETTABLEKS                       R3 R2 K7 ["Updating"]
+       22 MOVE                             R3 R1
+       23 LOADK                            R4 K8 ["Success"]
+       24 CALL                             R3 1 1
+       25 SETTABLEKS                       R3 R2 K8 ["Success"]
+       27 MOVE                             R3 R1
+       28 LOADK                            R4 K9 ["Error"]
+       29 CALL                             R3 1 1
+       30 SETTABLEKS                       R3 R2 K9 ["Error"]
+       32 RETURN                           R2 1

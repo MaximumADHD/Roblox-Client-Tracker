@@ -1,10 +1,10 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K16 [{[1], ["accessoryScaleLimitMethodSetting"], ["accessoryScaleLimitBoundsSetting"] = {0, 0, 0}, ["customAccessoriesSetting"], ["customAccessoriesHairSetting"], ["customAccessoriesHeadSetting"], ["customAccessoriesFaceSetting"], ["customAccessoriesNeckSetting"], ["customAccessoriesShoulderSetting"], ["customAccessoriesFrontSetting"], ["customAccessoriesBackSetting"], ["customAccessoriesWaistSetting"], ["accessoryBehaviorEnableSoundSetting"] = False, ["accessoryBehaviorEnableVFXSetting"] = False}]
-        1 GETIMPORT                        R1 K20 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
+        0 DUPTABLE                         R0 K17 [{[1], ["accessoryScaleLimitMethodSetting"], ["accessoryScaleLimitBoundsSetting"] = {0, 0, 0}, ["customAccessoriesSetting"], ["customAccessoriesHairSetting"], ["customAccessoriesHeadSetting"], ["customAccessoriesFaceSetting"], ["customAccessoriesNeckSetting"], ["customAccessoriesShoulderSetting"], ["customAccessoriesFrontSetting"], ["customAccessoriesBackSetting"], ["customAccessoriesWaistSetting"], ["accessoryBehaviorEnableSoundSetting"] = False, ["accessoryBehaviorEnableVFXSetting"] = False, ["accessoryBehaviorEnableEmissivesSetting"] = False}]
+        1 GETIMPORT                        R1 K21 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
         3 SETTABLEKS                       R1 R0 K0 ["accessoryScaleSetting"]
-        5 GETIMPORT                        R1 K23 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
+        5 GETIMPORT                        R1 K24 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
         7 SETTABLEKS                       R1 R0 K1 ["accessoryScaleLimitMethodSetting"]
-        9 GETIMPORT                        R1 K25 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
+        9 GETIMPORT                        R1 K26 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
        11 SETTABLEKS                       R1 R0 K4 ["customAccessoriesSetting"]
        13 GETUPVAL                         R1 0
        14 LOADB                            R2 0

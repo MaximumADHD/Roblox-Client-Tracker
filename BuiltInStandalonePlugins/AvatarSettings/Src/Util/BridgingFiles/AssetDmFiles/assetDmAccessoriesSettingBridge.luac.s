@@ -130,7 +130,14 @@ PROTO_2:
       151 GETUPVAL                         R7 2
       152 GETTABLEKS                       R7 R7 K64 ["accessoryBehaviorEnableVFXSetting"]
       154 CALL                             R4 3 0
-      155 RETURN                           R0 0
+      155 GETUPVAL                         R4 1
+      156 MOVE                             R5 R0
+      157 DUPTABLE                         R6 K66 [{["ruleInstance"], ["property"] = "EnableEmissives"}]
+      158 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+      160 GETUPVAL                         R7 2
+      161 GETTABLEKS                       R7 R7 K67 ["accessoryBehaviorEnableEmissivesSetting"]
+      163 CALL                             R4 3 0
+      164 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

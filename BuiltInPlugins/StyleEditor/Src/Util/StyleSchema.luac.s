@@ -2733,8 +2733,8 @@ MAIN:
       813 GETTABLEKS                       R35 R29 K298 ["PropertySchemas"]
       815 DUPCLOSURE                       R36 K305 [PROTO_121]
       816 CAPTURE                          VAL R29
-      817 CALL                             R34 2 -1
-      818 CALL                             R33 -1 1
+      817 CALL                             R34 2 1
+      818 CALL                             R33 1 1
       819 SETTABLEKS                       R33 R32 K302 ["Items"]
       821 SETTABLEKS                       R26 R32 K144 ["ItemHeight"]
       823 DUPCLOSURE                       R33 K306 [PROTO_122]

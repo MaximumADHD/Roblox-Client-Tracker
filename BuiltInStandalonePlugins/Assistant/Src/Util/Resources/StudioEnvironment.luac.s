@@ -847,51 +847,30 @@ PROTO_62:
 
 PROTO_63:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantInstancePickerSelectModel"]
-        3 JUMPIFNOT                        R1 ; [+32]
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K1 ["shouldSelectModel"]
-        7 JUMPIFNOTEQKB                    R1 TRUE ; [+3]
-        9 LOADB                            R1 1
-       10 RETURN                           R1 1
-       11 GETUPVAL                         R1 1
-       12 GETTABLEKS                       R1 R1 K2 ["isA"]
-       14 JUMPIFEQKNIL                     R1 ; [+19]
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R2 R2 K2 ["isA"]
-       19 MOVE                             R3 R2
-       20 LOADNIL                          R4
-       21 LOADNIL                          R5
-       22 FORGPREP                         R3
-       23 MOVE                             R10 R7
-       24 NAMECALL                         R8 R0 K3 ["IsA"]
-       26 CALL                             R8 2 1
-       27 JUMPIFNOT                        R8 ; [+2]
-       28 LOADB                            R1 1
+        1 GETTABLEKS                       R1 R1 K0 ["shouldSelectModel"]
+        3 JUMPIFNOTEQKB                    R1 TRUE ; [+3]
+        5 LOADB                            R1 1
+        6 RETURN                           R1 1
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["isA"]
+       10 JUMPIFEQKNIL                     R1 ; [+19]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K1 ["isA"]
+       15 MOVE                             R3 R2
+       16 LOADNIL                          R4
+       17 LOADNIL                          R5
+       18 FORGPREP                         R3
+       19 MOVE                             R10 R7
+       20 NAMECALL                         R8 R0 K2 ["IsA"]
+       22 CALL                             R8 2 1
+       23 JUMPIFNOT                        R8 ; [+2]
+       24 LOADB                            R1 1
+       25 RETURN                           R1 1
+       26 FORGLOOP                         R3 2 ; [-8]
+       28 LOADB                            R1 0
        29 RETURN                           R1 1
-       30 FORGLOOP                         R3 2 ; [-8]
-       32 LOADB                            R1 0
-       33 RETURN                           R1 1
-       34 LOADB                            R1 1
-       35 RETURN                           R1 1
-       36 GETUPVAL                         R1 1
-       37 GETTABLEKS                       R1 R1 K2 ["isA"]
-       39 JUMPIFNOT                        R1 ; [+15]
-       40 MOVE                             R2 R1
-       41 LOADNIL                          R3
-       42 LOADNIL                          R4
-       43 FORGPREP                         R2
-       44 MOVE                             R9 R6
-       45 NAMECALL                         R7 R0 K3 ["IsA"]
-       47 CALL                             R7 2 1
-       48 JUMPIFNOT                        R7 ; [+2]
-       49 LOADB                            R7 1
-       50 RETURN                           R7 1
-       51 FORGLOOP                         R2 2 ; [-8]
-       53 LOADB                            R2 0
-       54 RETURN                           R2 1
-       55 LOADB                            R2 1
-       56 RETURN                           R2 1
+       30 LOADB                            R1 1
+       31 RETURN                           R1 1
 
 PROTO_64:
         0 GETUPVAL                         R3 0
@@ -903,41 +882,37 @@ PROTO_64:
         8 GETTABLEKS                       R2 R2 K3 ["pickInstanceAsync"]
        10 DUPTABLE                         R3 K5 [{"filter"}]
        11 NEWCLOSURE                       R4 P0
-       12 CAPTURE                          UPVAL U1
-       13 CAPTURE                          VAL R1
-       14 SETTABLEKS                       R4 R3 K4 ["filter"]
-       16 CALL                             R2 1 1
-       17 JUMPIF                           R2 ; [+1]
-       18 RETURN                           R0 0
-       19 GETUPVAL                         R3 1
-       20 GETTABLEKS                       R3 R3 K6 ["FFlagAssistantInstancePickerSelectModel"]
-       22 JUMPIFNOT                        R3 ; [+20]
-       23 GETTABLEKS                       R3 R1 K7 ["shouldSelectModel"]
-       25 JUMPIFNOTEQKB                    R3 TRUE ; [+17]
-       27 LOADNIL                          R3
-       28 MOVE                             R4 R2
-       29 JUMPIFNOT                        R4 ; [+9]
-       30 GETTABLEKS                       R5 R4 K8 ["ClassName"]
-       32 JUMPIFNOTEQKS                    R5 K9 ["Model"] ; [+3]
-       34 MOVE                             R3 R4
-       35 JUMP                             ; [+3]
-       36 GETTABLEKS                       R4 R4 K10 ["Parent"]
-       38 JUMPBACK                         ; [-10]
-       39 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       41 RETURN                           R0 0
-       42 MOVE                             R2 R3
-       43 GETUPVAL                         R3 2
-       44 GETTABLEKS                       R3 R3 K11 ["instances"]
-       46 GETTABLEKS                       R3 R3 K12 ["getUniqueId"]
-       48 MOVE                             R4 R2
-       49 CALL                             R3 1 1
-       50 DUPTABLE                         R4 K16 [{"uniqueId", "name", "className"}]
-       51 SETTABLEKS                       R3 R4 K13 ["uniqueId"]
-       53 GETTABLEKS                       R5 R2 K17 ["Name"]
-       55 SETTABLEKS                       R5 R4 K14 ["name"]
-       57 GETTABLEKS                       R5 R2 K8 ["ClassName"]
-       59 SETTABLEKS                       R5 R4 K15 ["className"]
-       61 RETURN                           R4 1
+       12 CAPTURE                          VAL R1
+       13 SETTABLEKS                       R4 R3 K4 ["filter"]
+       15 CALL                             R2 1 1
+       16 JUMPIF                           R2 ; [+1]
+       17 RETURN                           R0 0
+       18 GETTABLEKS                       R3 R1 K6 ["shouldSelectModel"]
+       20 JUMPIFNOTEQKB                    R3 TRUE ; [+17]
+       22 LOADNIL                          R3
+       23 MOVE                             R4 R2
+       24 JUMPIFNOT                        R4 ; [+9]
+       25 GETTABLEKS                       R5 R4 K7 ["ClassName"]
+       27 JUMPIFNOTEQKS                    R5 K8 ["Model"] ; [+3]
+       29 MOVE                             R3 R4
+       30 JUMP                             ; [+3]
+       31 GETTABLEKS                       R4 R4 K9 ["Parent"]
+       33 JUMPBACK                         ; [-10]
+       34 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       36 RETURN                           R0 0
+       37 MOVE                             R2 R3
+       38 GETUPVAL                         R3 1
+       39 GETTABLEKS                       R3 R3 K10 ["instances"]
+       41 GETTABLEKS                       R3 R3 K11 ["getUniqueId"]
+       43 MOVE                             R4 R2
+       44 CALL                             R3 1 1
+       45 DUPTABLE                         R4 K15 [{"uniqueId", "name", "className"}]
+       46 SETTABLEKS                       R3 R4 K12 ["uniqueId"]
+       48 GETTABLEKS                       R5 R2 K16 ["Name"]
+       50 SETTABLEKS                       R5 R4 K13 ["name"]
+       52 GETTABLEKS                       R5 R2 K7 ["ClassName"]
+       54 SETTABLEKS                       R5 R4 K14 ["className"]
+       56 RETURN                           R4 1
 
 PROTO_65:
         0 GETUPVAL                         R1 0
@@ -974,21 +949,20 @@ PROTO_67:
        20 LOADK                            R9 K8 ["InstancePicker_pickInstanceAsync"]
        21 NEWCLOSURE                       R10 P4
        22 CAPTURE                          VAL R4
-       23 CAPTURE                          UPVAL U1
-       24 CAPTURE                          VAL R2
-       25 NAMECALL                         R7 R1 K9 ["OnHostInvokeAsync"]
-       27 CALL                             R7 3 2
-       28 GETTABLEKS                       R9 R2 K2 ["instances"]
-       30 NEWCLOSURE                       R10 P5
-       31 CAPTURE                          VAL R7
-       32 SETTABLEKS                       R10 R9 K10 ["pickInstanceAsync"]
-       34 GETTABLEKS                       R9 R1 K11 ["Destroying"]
-       36 NEWCLOSURE                       R11 P6
-       37 CAPTURE                          VAL R5
-       38 CAPTURE                          VAL R8
-       39 NAMECALL                         R9 R9 K12 ["Once"]
-       41 CALL                             R9 2 0
-       42 RETURN                           R0 0
+       23 CAPTURE                          VAL R2
+       24 NAMECALL                         R7 R1 K9 ["OnHostInvokeAsync"]
+       26 CALL                             R7 3 2
+       27 GETTABLEKS                       R9 R2 K2 ["instances"]
+       29 NEWCLOSURE                       R10 P5
+       30 CAPTURE                          VAL R7
+       31 SETTABLEKS                       R10 R9 K10 ["pickInstanceAsync"]
+       33 GETTABLEKS                       R9 R1 K11 ["Destroying"]
+       35 NEWCLOSURE                       R11 P6
+       36 CAPTURE                          VAL R5
+       37 CAPTURE                          VAL R8
+       38 NAMECALL                         R9 R9 K12 ["Once"]
+       40 CALL                             R9 2 0
+       41 RETURN                           R0 0
 
 PROTO_68:
         0 LOADB                            R0 1

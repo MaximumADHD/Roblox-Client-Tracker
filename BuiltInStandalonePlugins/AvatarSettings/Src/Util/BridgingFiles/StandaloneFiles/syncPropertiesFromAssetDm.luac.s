@@ -374,123 +374,128 @@ PROTO_4:
        23 GETTABLEKS                       R5 R1 K9 ["EnableVFX"]
        25 LOADB                            R6 1
        26 CALL                             R4 2 0
-       27 GETTABLEKS                       R4 R3 K10 ["accessoryScaleSetting"]
+       27 GETTABLEKS                       R4 R3 K10 ["accessoryBehaviorEnableEmissivesSetting"]
        29 GETTABLEKS                       R4 R4 K6 ["set"]
-       31 GETTABLEKS                       R5 R1 K11 ["AccessoryMode"]
+       31 GETTABLEKS                       R5 R1 K11 ["EnableEmissives"]
        33 LOADB                            R6 1
        34 CALL                             R4 2 0
-       35 GETTABLEKS                       R4 R3 K12 ["accessoryScaleLimitMethodSetting"]
+       35 GETTABLEKS                       R4 R3 K12 ["accessoryScaleSetting"]
        37 GETTABLEKS                       R4 R4 K6 ["set"]
-       39 GETTABLEKS                       R5 R1 K13 ["LimitMethod"]
+       39 GETTABLEKS                       R5 R1 K13 ["AccessoryMode"]
        41 LOADB                            R6 1
        42 CALL                             R4 2 0
-       43 GETTABLEKS                       R4 R3 K14 ["accessoryScaleLimitBoundsSetting"]
+       43 GETTABLEKS                       R4 R3 K14 ["accessoryScaleLimitMethodSetting"]
        45 GETTABLEKS                       R4 R4 K6 ["set"]
-       47 GETTABLEKS                       R5 R1 K15 ["LimitBounds"]
+       47 GETTABLEKS                       R5 R1 K15 ["LimitMethod"]
        49 LOADB                            R6 1
        50 CALL                             R4 2 0
-       51 GETTABLEKS                       R4 R3 K16 ["customAccessoriesSetting"]
+       51 GETTABLEKS                       R4 R3 K16 ["accessoryScaleLimitBoundsSetting"]
        53 GETTABLEKS                       R4 R4 K6 ["set"]
-       55 GETTABLEKS                       R5 R1 K17 ["CustomAccessoryMode"]
+       55 GETTABLEKS                       R5 R1 K17 ["LimitBounds"]
        57 LOADB                            R6 1
        58 CALL                             R4 2 0
-       59 GETTABLEKS                       R4 R3 K18 ["customAccessoriesHairSetting"]
-       61 GETTABLEKS                       R5 R1 K19 ["CustomHairAccessory"]
-       63 GETTABLEKS                       R6 R4 K20 ["assetId"]
-       65 GETTABLEKS                       R6 R6 K6 ["set"]
-       67 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-       69 LOADB                            R8 1
-       70 CALL                             R6 2 0
-       71 GETTABLEKS                       R6 R4 K22 ["enabled"]
+       59 GETTABLEKS                       R4 R3 K18 ["customAccessoriesSetting"]
+       61 GETTABLEKS                       R4 R4 K6 ["set"]
+       63 GETTABLEKS                       R5 R1 K19 ["CustomAccessoryMode"]
+       65 LOADB                            R6 1
+       66 CALL                             R4 2 0
+       67 GETTABLEKS                       R4 R3 K20 ["customAccessoriesHairSetting"]
+       69 GETTABLEKS                       R5 R1 K21 ["CustomHairAccessory"]
+       71 GETTABLEKS                       R6 R4 K22 ["assetId"]
        73 GETTABLEKS                       R6 R6 K6 ["set"]
-       75 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+       75 GETTABLEKS                       R7 R5 K23 ["AssetId"]
        77 LOADB                            R8 1
        78 CALL                             R6 2 0
-       79 GETTABLEKS                       R4 R3 K24 ["customAccessoriesHeadSetting"]
-       81 GETTABLEKS                       R5 R1 K25 ["CustomHeadAccessory"]
-       83 GETTABLEKS                       R6 R4 K20 ["assetId"]
-       85 GETTABLEKS                       R6 R6 K6 ["set"]
-       87 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-       89 LOADB                            R8 1
-       90 CALL                             R6 2 0
-       91 GETTABLEKS                       R6 R4 K22 ["enabled"]
+       79 GETTABLEKS                       R6 R4 K24 ["enabled"]
+       81 GETTABLEKS                       R6 R6 K6 ["set"]
+       83 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+       85 LOADB                            R8 1
+       86 CALL                             R6 2 0
+       87 GETTABLEKS                       R4 R3 K26 ["customAccessoriesHeadSetting"]
+       89 GETTABLEKS                       R5 R1 K27 ["CustomHeadAccessory"]
+       91 GETTABLEKS                       R6 R4 K22 ["assetId"]
        93 GETTABLEKS                       R6 R6 K6 ["set"]
-       95 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+       95 GETTABLEKS                       R7 R5 K23 ["AssetId"]
        97 LOADB                            R8 1
        98 CALL                             R6 2 0
-       99 GETTABLEKS                       R4 R3 K26 ["customAccessoriesFaceSetting"]
-      101 GETTABLEKS                       R5 R1 K27 ["CustomFaceAccessory"]
-      103 GETTABLEKS                       R6 R4 K20 ["assetId"]
-      105 GETTABLEKS                       R6 R6 K6 ["set"]
-      107 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-      109 LOADB                            R8 1
-      110 CALL                             R6 2 0
-      111 GETTABLEKS                       R6 R4 K22 ["enabled"]
+       99 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      101 GETTABLEKS                       R6 R6 K6 ["set"]
+      103 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      105 LOADB                            R8 1
+      106 CALL                             R6 2 0
+      107 GETTABLEKS                       R4 R3 K28 ["customAccessoriesFaceSetting"]
+      109 GETTABLEKS                       R5 R1 K29 ["CustomFaceAccessory"]
+      111 GETTABLEKS                       R6 R4 K22 ["assetId"]
       113 GETTABLEKS                       R6 R6 K6 ["set"]
-      115 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      115 GETTABLEKS                       R7 R5 K23 ["AssetId"]
       117 LOADB                            R8 1
       118 CALL                             R6 2 0
-      119 GETTABLEKS                       R4 R3 K28 ["customAccessoriesNeckSetting"]
-      121 GETTABLEKS                       R5 R1 K29 ["CustomNeckAccessory"]
-      123 GETTABLEKS                       R6 R4 K20 ["assetId"]
-      125 GETTABLEKS                       R6 R6 K6 ["set"]
-      127 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-      129 LOADB                            R8 1
-      130 CALL                             R6 2 0
-      131 GETTABLEKS                       R6 R4 K22 ["enabled"]
+      119 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      121 GETTABLEKS                       R6 R6 K6 ["set"]
+      123 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      125 LOADB                            R8 1
+      126 CALL                             R6 2 0
+      127 GETTABLEKS                       R4 R3 K30 ["customAccessoriesNeckSetting"]
+      129 GETTABLEKS                       R5 R1 K31 ["CustomNeckAccessory"]
+      131 GETTABLEKS                       R6 R4 K22 ["assetId"]
       133 GETTABLEKS                       R6 R6 K6 ["set"]
-      135 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      135 GETTABLEKS                       R7 R5 K23 ["AssetId"]
       137 LOADB                            R8 1
       138 CALL                             R6 2 0
-      139 GETTABLEKS                       R4 R3 K30 ["customAccessoriesShoulderSetting"]
-      141 GETTABLEKS                       R5 R1 K31 ["CustomShoulderAccessory"]
-      143 GETTABLEKS                       R6 R4 K20 ["assetId"]
-      145 GETTABLEKS                       R6 R6 K6 ["set"]
-      147 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-      149 LOADB                            R8 1
-      150 CALL                             R6 2 0
-      151 GETTABLEKS                       R6 R4 K22 ["enabled"]
+      139 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      141 GETTABLEKS                       R6 R6 K6 ["set"]
+      143 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      145 LOADB                            R8 1
+      146 CALL                             R6 2 0
+      147 GETTABLEKS                       R4 R3 K32 ["customAccessoriesShoulderSetting"]
+      149 GETTABLEKS                       R5 R1 K33 ["CustomShoulderAccessory"]
+      151 GETTABLEKS                       R6 R4 K22 ["assetId"]
       153 GETTABLEKS                       R6 R6 K6 ["set"]
-      155 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      155 GETTABLEKS                       R7 R5 K23 ["AssetId"]
       157 LOADB                            R8 1
       158 CALL                             R6 2 0
-      159 GETTABLEKS                       R4 R3 K32 ["customAccessoriesFrontSetting"]
-      161 GETTABLEKS                       R5 R1 K33 ["CustomFrontAccessory"]
-      163 GETTABLEKS                       R6 R4 K20 ["assetId"]
-      165 GETTABLEKS                       R6 R6 K6 ["set"]
-      167 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-      169 LOADB                            R8 1
-      170 CALL                             R6 2 0
-      171 GETTABLEKS                       R6 R4 K22 ["enabled"]
+      159 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      161 GETTABLEKS                       R6 R6 K6 ["set"]
+      163 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      165 LOADB                            R8 1
+      166 CALL                             R6 2 0
+      167 GETTABLEKS                       R4 R3 K34 ["customAccessoriesFrontSetting"]
+      169 GETTABLEKS                       R5 R1 K35 ["CustomFrontAccessory"]
+      171 GETTABLEKS                       R6 R4 K22 ["assetId"]
       173 GETTABLEKS                       R6 R6 K6 ["set"]
-      175 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      175 GETTABLEKS                       R7 R5 K23 ["AssetId"]
       177 LOADB                            R8 1
       178 CALL                             R6 2 0
-      179 GETTABLEKS                       R4 R3 K34 ["customAccessoriesBackSetting"]
-      181 GETTABLEKS                       R5 R1 K35 ["CustomBackAccessory"]
-      183 GETTABLEKS                       R6 R4 K20 ["assetId"]
-      185 GETTABLEKS                       R6 R6 K6 ["set"]
-      187 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-      189 LOADB                            R8 1
-      190 CALL                             R6 2 0
-      191 GETTABLEKS                       R6 R4 K22 ["enabled"]
+      179 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      181 GETTABLEKS                       R6 R6 K6 ["set"]
+      183 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      185 LOADB                            R8 1
+      186 CALL                             R6 2 0
+      187 GETTABLEKS                       R4 R3 K36 ["customAccessoriesBackSetting"]
+      189 GETTABLEKS                       R5 R1 K37 ["CustomBackAccessory"]
+      191 GETTABLEKS                       R6 R4 K22 ["assetId"]
       193 GETTABLEKS                       R6 R6 K6 ["set"]
-      195 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      195 GETTABLEKS                       R7 R5 K23 ["AssetId"]
       197 LOADB                            R8 1
       198 CALL                             R6 2 0
-      199 GETTABLEKS                       R4 R3 K36 ["customAccessoriesWaistSetting"]
-      201 GETTABLEKS                       R5 R1 K37 ["CustomWaistAccessory"]
-      203 GETTABLEKS                       R6 R4 K20 ["assetId"]
-      205 GETTABLEKS                       R6 R6 K6 ["set"]
-      207 GETTABLEKS                       R7 R5 K21 ["AssetId"]
-      209 LOADB                            R8 1
-      210 CALL                             R6 2 0
-      211 GETTABLEKS                       R6 R4 K22 ["enabled"]
+      199 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      201 GETTABLEKS                       R6 R6 K6 ["set"]
+      203 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      205 LOADB                            R8 1
+      206 CALL                             R6 2 0
+      207 GETTABLEKS                       R4 R3 K38 ["customAccessoriesWaistSetting"]
+      209 GETTABLEKS                       R5 R1 K39 ["CustomWaistAccessory"]
+      211 GETTABLEKS                       R6 R4 K22 ["assetId"]
       213 GETTABLEKS                       R6 R6 K6 ["set"]
-      215 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      215 GETTABLEKS                       R7 R5 K23 ["AssetId"]
       217 LOADB                            R8 1
       218 CALL                             R6 2 0
-      219 RETURN                           R0 0
+      219 GETTABLEKS                       R6 R4 K24 ["enabled"]
+      221 GETTABLEKS                       R6 R6 K6 ["set"]
+      223 GETTABLEKS                       R7 R5 K25 ["Enabled"]
+      225 LOADB                            R8 1
+      226 CALL                             R6 2 0
+      227 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R2 R0 K0 ["settings"]

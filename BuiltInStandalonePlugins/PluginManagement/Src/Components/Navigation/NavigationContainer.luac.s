@@ -1,15 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
-        3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K2 [{"navigation"}]
-        5 SETTABLEKS                       R0 R4 K1 ["navigation"]
-        7 GETUPVAL                         R5 2
-        8 MOVE                             R6 R0
-        9 MOVE                             R7 R1
-       10 CALL                             R5 2 -1
-       11 CALL                             R2 -1 -1
-       12 RETURN                           R2 -1
+        0 GETTABLEKS                       R1 R0 K0 ["navigation"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createElement"]
+        5 GETUPVAL                         R3 1
+        6 DUPTABLE                         R4 K2 [{"navigation"}]
+        7 SETTABLEKS                       R1 R4 K0 ["navigation"]
+        9 GETUPVAL                         R5 2
+       10 MOVE                             R6 R1
+       11 CALL                             R5 1 -1
+       12 CALL                             R2 -1 -1
+       13 RETURN                           R2 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -17,46 +17,31 @@ PROTO_1:
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
+        6 CAPTURE                          VAL R0
         7 CALL                             R1 1 -1
         8 RETURN                           R1 -1
 
 PROTO_2:
-        0 NEWCLOSURE                       R1 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          UPVAL U1
-        3 CAPTURE                          UPVAL U2
-        4 CAPTURE                          VAL R0
-        5 RETURN                           R1 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
+        3 GETUPVAL                         R2 1
+        4 DUPTABLE                         R3 K2 [{"navigation"}]
+        5 SETTABLEKS                       R0 R3 K1 ["navigation"]
+        7 CALL                             R1 2 -1
+        8 RETURN                           R1 -1
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
-        3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K2 [{"navigation"}]
-        5 SETTABLEKS                       R0 R4 K1 ["navigation"]
-        7 CALL                             R2 2 -1
-        8 RETURN                           R2 -1
-
-PROTO_4:
-        0 GETTABLEKS                       R2 R0 K0 ["getParam"]
-        2 LOADK                            R3 K1 ["assetId"]
-        3 CALL                             R2 1 1
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R3 R3 K2 ["createElement"]
-        7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K5 [{"assetId", "navigation", "Size"}]
-        9 SETTABLEKS                       R2 R5 K1 ["assetId"]
-       11 SETTABLEKS                       R0 R5 K3 ["navigation"]
-       13 GETIMPORT                        R6 K8 [UDim2.new]
-       15 LOADN                            R7 1
-       16 LOADN                            R8 0
-       17 LOADN                            R9 1
-       18 LOADN                            R10 0
-       19 CALL                             R6 4 1
-       20 SETTABLEKS                       R6 R5 K4 ["Size"]
-       22 CALL                             R3 2 -1
-       23 RETURN                           R3 -1
+        0 GETTABLEKS                       R1 R0 K0 ["getParam"]
+        2 LOADK                            R2 K1 ["assetId"]
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K2 ["createElement"]
+        7 GETUPVAL                         R3 1
+        8 DUPTABLE                         R4 K4 [{"assetId", "navigation"}]
+        9 SETTABLEKS                       R1 R4 K1 ["assetId"]
+       11 SETTABLEKS                       R0 R4 K3 ["navigation"]
+       13 CALL                             R2 2 -1
+       14 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -95,41 +80,53 @@ MAIN:
        60 GETTABLEKS                       R7 R7 K15 ["Util"]
        62 GETTABLEKS                       R7 R7 K16 ["Constants"]
        64 CALL                             R6 1 1
-       65 DUPCLOSURE                       R7 K17 [PROTO_2]
+       65 DUPCLOSURE                       R7 K17 [PROTO_1]
        66 CAPTURE                          VAL R2
        67 CAPTURE                          VAL R1
        68 CAPTURE                          VAL R3
-       69 NEWTABLE                         R8 2 0
-       71 GETTABLEKS                       R9 R6 K18 ["APP_PAGE"]
-       73 GETTABLEKS                       R9 R9 K19 ["Main"]
-       75 DUPCLOSURE                       R11 K20 [PROTO_3]
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          VAL R4
-       78 DUPCLOSURE                       R10 K21 [PROTO_1]
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R11
-       83 SETTABLE                         R10 R8 R9
-       84 GETTABLEKS                       R9 R6 K18 ["APP_PAGE"]
-       86 GETTABLEKS                       R9 R9 K22 ["Detail"]
-       88 DUPCLOSURE                       R11 K23 [PROTO_4]
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R5
-       91 DUPCLOSURE                       R10 K21 [PROTO_1]
-       92 CAPTURE                          VAL R2
-       93 CAPTURE                          VAL R1
-       94 CAPTURE                          VAL R3
-       95 CAPTURE                          VAL R11
-       96 SETTABLE                         R10 R8 R9
-       97 GETTABLEKS                       R9 R2 K24 ["createStackNavigator"]
-       99 DUPTABLE                         R10 K27 [{"routes", "initialRouteName"}]
-      100 SETTABLEKS                       R8 R10 K25 ["routes"]
-      102 GETTABLEKS                       R11 R6 K18 ["APP_PAGE"]
-      104 GETTABLEKS                       R11 R11 K19 ["Main"]
-      106 SETTABLEKS                       R11 R10 K26 ["initialRouteName"]
-      108 CALL                             R9 1 1
-      109 GETTABLEKS                       R10 R2 K28 ["createAppContainer"]
-      111 MOVE                             R11 R9
-      112 CALL                             R10 1 -1
-      113 RETURN                           R10 -1
+       69 NEWTABLE                         R8 0 2
+       71 NEWTABLE                         R9 1 0
+       73 GETTABLEKS                       R10 R6 K18 ["APP_PAGE"]
+       75 GETTABLEKS                       R10 R10 K19 ["Main"]
+       77 DUPCLOSURE                       R12 K20 [PROTO_2]
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R4
+       80 GETTABLEKS                       R13 R2 K21 ["withNavigation"]
+       82 DUPCLOSURE                       R14 K22 [PROTO_0]
+       83 CAPTURE                          VAL R1
+       84 CAPTURE                          VAL R3
+       85 CAPTURE                          VAL R12
+       86 CALL                             R13 1 1
+       87 MOVE                             R11 R13
+       88 SETTABLE                         R11 R9 R10
+       89 NEWTABLE                         R10 1 0
+       91 GETTABLEKS                       R11 R6 K18 ["APP_PAGE"]
+       93 GETTABLEKS                       R11 R11 K23 ["Detail"]
+       95 DUPCLOSURE                       R13 K24 [PROTO_3]
+       96 CAPTURE                          VAL R1
+       97 CAPTURE                          VAL R5
+       98 GETTABLEKS                       R14 R2 K21 ["withNavigation"]
+      100 DUPCLOSURE                       R15 K22 [PROTO_0]
+      101 CAPTURE                          VAL R1
+      102 CAPTURE                          VAL R3
+      103 CAPTURE                          VAL R13
+      104 CALL                             R14 1 1
+      105 MOVE                             R12 R14
+      106 SETTABLE                         R12 R10 R11
+      107 SETLIST                          R8 R9 2 [1]
+      109 DUPTABLE                         R9 K26 [{"order"}]
+      110 NEWTABLE                         R10 0 2
+      112 GETTABLEKS                       R11 R6 K18 ["APP_PAGE"]
+      114 GETTABLEKS                       R11 R11 K19 ["Main"]
+      116 GETTABLEKS                       R12 R6 K18 ["APP_PAGE"]
+      118 GETTABLEKS                       R12 R12 K23 ["Detail"]
+      120 SETLIST                          R10 R11 2 [1]
+      122 SETTABLEKS                       R10 R9 K25 ["order"]
+      124 GETTABLEKS                       R10 R2 K27 ["createRobloxStackNavigator"]
+      126 MOVE                             R11 R8
+      127 MOVE                             R12 R9
+      128 CALL                             R10 2 1
+      129 GETTABLEKS                       R11 R2 K28 ["createAppContainer"]
+      131 MOVE                             R12 R10
+      132 CALL                             R11 1 -1
+      133 RETURN                           R11 -1
