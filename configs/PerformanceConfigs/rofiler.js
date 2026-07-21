@@ -3366,7 +3366,10 @@ function DrawHoverToolTip() {
                 }
             }
 
-            if (FFlagMicroprofilerPerFrameCpuSpeed && !Group.isgpu && Frames[nHoverFrame].cpuCoreFreqData != null)
+            // Core/frequency is sampled periodically (per cooldown), so the hovered frame may
+            // contain no sample of its own. Gate on the global timeline and resolve by
+            // nearest-lower timestamp, which carries the last known value forward.
+            if (FFlagMicroprofilerPerFrameCpuSpeed && !Group.isgpu && gCpuCoreFreqData != null)
             {
                 if (gCpuCoreFreqData.threadNumberToCpuIdMapping[nHoverTokenLogIndex]) {
                     let closestTimestamp = binarySearchNearestLowerKey(gCpuCoreFreqData.threadNumberToCpuIdMapping[nHoverTokenLogIndex], RangeCpu.Begin);
@@ -4620,7 +4623,12 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                         for (let frameLoop = FirstFrame; frameLoop < Frames.length; frameLoop++) {
                             if (Frames[frameLoop].frameend > fLastFrameTimeEnd && fLastFrameTimeEnd > 0)
                                 break;
-                           
+
+                            // A frame may contain no core/frequency sample (periodic sampling);
+                            // skip it rather than dereferencing a null cpuCoreFreqData.
+                            if (Frames[frameLoop].cpuCoreFreqData == null)
+                                continue;
+
                             for (let key in Frames[frameLoop].cpuCoreFreqData.threadNumberToCpuIdMapping[nLog]) {
                                 cpuCoreFreqData[key] = Frames[frameLoop].cpuCoreFreqData.threadNumberToCpuIdMapping[nLog][key];
                             }

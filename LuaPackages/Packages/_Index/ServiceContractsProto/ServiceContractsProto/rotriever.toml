@@ -1,6 +1,6 @@
 [package]
 name = "ServiceContractsProto"
-version = "1.0.1750+20260701"
+version = "1.0.1853+20260716"
 readme = "README.md"
 content_root = "protos/gen/luau"
 files = [

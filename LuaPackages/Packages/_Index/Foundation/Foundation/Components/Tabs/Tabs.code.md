@@ -11,6 +11,7 @@ Key features:
 
 - Horizontal scrolling with overflow indicators when tabs don't fit in the available space
 - Support for both text and icon in tab items
+- Optional per-tab StatusIndicator
 - Customizable size and fill behavior
 - Support for disabled tabs
 
@@ -25,6 +26,7 @@ local Foundation = require(Packages.Foundation)
 local Tabs = Foundation.Tabs
 local InputSize = Foundation.Enums.InputSize
 local FillBehavior = Foundation.Enums.FillBehavior
+local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
 
 local function MyComponent()
 	return React.createElement(Tabs, {
@@ -56,10 +58,21 @@ local function MyComponent()
 			},
 			{
 				id = "4",
+				text = "Tab with indicator",
+				indicator = {
+					value = 1,
+					variant = StatusIndicatorVariant.Emphasis,
+				},
+				content = React.createElement(Text, {
+					Text = "Content for Tab 4",
+				}),
+			},
+			{
+				id = "5",
 				text = "Disabled Tab",
 				isDisabled = true,
 				content = React.createElement(Text, {
-					Text = "Content for Tab 4",
+					Text = "Content for Tab 5",
 				}),
 			},
 		},

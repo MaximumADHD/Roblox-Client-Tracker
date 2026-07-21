@@ -6,7 +6,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.37 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.1 registry",
-    "Foundation Foundation 1.94.0 registry",
+    "Foundation Foundation 1.95.0 registry",
     "FoundationImages FoundationImages 2.0.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",

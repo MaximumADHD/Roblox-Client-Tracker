@@ -4,7 +4,7 @@ version = "0.0.5"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.94.0 registry",
+    "Foundation Foundation 1.95.0 registry",
     "MarkdownCore MarkdownCore 0.0.5 registry",
     "React React 17.3.8 registry",
     "ReactIs ReactIs 17.3.8 registry",

@@ -572,6 +572,14 @@ type GenerateModelSchema = {
     PredefinedSchema: string,
 }
 
+type Path3DControlPoint = {
+    Position: Vector3,
+    LeftTangent: Vector3?,
+    RightTangent: Vector3?,
+}
+
+type Path3DControlPoints = { Path3DControlPoint }
+
 type AccessoriesInfo = {
     AccessoryType : Enum.AccessoryType,
     AssetId : number,
