@@ -116779,6 +116779,57 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/IntermediateMeshGenerationResult",
     "code_sample": ""
   },
+  "@roblox/enum/SlimTintMode.None": {
+    "documentation": "No tint is applied. Meshes render with their normal appearance.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.LOD": {
+    "documentation": "Colors each mesh by its current level of detail using a blue-to-red heatmap. Blue indicates the lowest detail and warmer colors indicate higher detail. Useful for verifying that distant meshes are streaming at reduced fidelity.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.Meshes": {
+    "documentation": "Assigns a distinct color to each individual mesh within a model. Useful for identifying mesh boundaries and verifying how a model is split into separate mesh parts.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.Zone": {
+    "documentation": "Colors meshes by streaming zone. Green indicates the high-fidelity zone where the DataModel is present.; yellow indicates the low-fidelity zone where the DataModel is absent).",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.SlimTintMode": {
+    "documentation": "Determines the color-coding mode used by the SLIM debug tint overlay in the Developer Console.",
+    "keys": {
+      "None": "@roblox/enum/SlimTintMode.None",
+      "LOD": "@roblox/enum/SlimTintMode.LOD",
+      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
+      "Zone": "@roblox/enum/SlimTintMode.Zone"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
+    "code_sample": ""
+  },
   "@roblox/enum/DeviceSimulatorScalingMode.ScaleToPhysicalSize": {
     "documentation": "",
     "keys": {

@@ -15496,6 +15496,58 @@
                     "Capabilities": {
                         "Read": [
                             "Audio"
+                        ],
+                        "Write": [
+                            "Audio"
+                        ]
+                    },
+                    "Category": "Emission",
+                    "MemberType": "Property",
+                    "Name": "DistanceAttenuationBounds",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberRange"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
+                        ],
+                        "Write": [
+                            "Audio"
+                        ]
+                    },
+                    "Category": "Emission",
+                    "MemberType": "Property",
+                    "Name": "DistanceAttenuationMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "DistanceAttenuationMode"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio"
                         ]
                     },
                     "Category": "Simulation",
@@ -25933,6 +25985,38 @@
                         "AssetManagement"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetUserBadgesAsync",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "User"
+                            }
+                        },
+                        {
+                            "Name": "badgeIds",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "AssetManagement"
+                    ],
+                    "MemberType": "Function",
                     "Name": "IsDisabled",
                     "Parameters": [
                         {
@@ -28725,6 +28809,29 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarAppearance"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "HSRContent",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -43148,7 +43255,7 @@
                             }
                         },
                         {
-                            "Default": "Unknown",
+                            "Default": "None",
                             "Name": "keyCodeForActivation",
                             "Type": {
                                 "Category": "Enum",
@@ -43215,7 +43322,7 @@
                             }
                         },
                         {
-                            "Default": "Unknown",
+                            "Default": "None",
                             "Name": "keyCodeForActivation",
                             "Type": {
                                 "Category": "Enum",
@@ -55082,6 +55189,29 @@
                     },
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "TexturePackContent",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "Transparency",
                     "Security": {
                         "Read": "None",
@@ -57280,6 +57410,45 @@
                         "Name": "Model"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SegmentMeshAsync",
+                    "Parameters": [
+                        {
+                            "Name": "meshPart",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MeshPart"
+                            }
+                        },
+                        {
+                            "Name": "schema",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "options",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
                     "Tags": [
                         "Yields"
                     ],
@@ -84757,17 +84926,10 @@
                     "Name": "LoadAssetWithBytecodeAsync",
                     "Parameters": [
                         {
-                            "Name": "assetId",
+                            "Name": "content",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "version",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "Content"
                             }
                         }
                     ],
@@ -89798,6 +89960,37 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "CreateExpression",
+                    "Parameters": [
+                        {
+                            "Name": "code",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "LuauExpressionService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "LuauScriptAnalyzerService",
@@ -89887,38 +90080,6 @@
                 },
                 {
                     "Capabilities": [
-                        "Basic"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "GetNPCInferenceSpecAsync",
-                    "Parameters": [
-                        {
-                            "Name": "server",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "port",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
                         "Basic",
                         "InternalTest"
                     ],
@@ -89938,45 +90099,6 @@
                         "Name": "null"
                     },
                     "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Basic"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "RunNPCInferenceAsync",
-                    "Parameters": [
-                        {
-                            "Name": "server",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "port",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        },
-                        {
-                            "Name": "features",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -112964,6 +113086,254 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "GetControlPoint",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetControlPoints",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetLength",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMaxControlPoints",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPositionOnCurve",
+                    "Parameters": [
+                        {
+                            "Name": "t",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetPositionOnCurveArcLength",
+                    "Parameters": [
+                        {
+                            "Name": "t",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSegmentCount",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTangentOnCurve",
+                    "Parameters": [
+                        {
+                            "Name": "t",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTangentOnCurveArcLength",
+                    "Parameters": [
+                        {
+                            "Name": "t",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InsertControlPoint",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "point",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveControlPoint",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetControlPoints",
+                    "Parameters": [
+                        {
+                            "Name": "path3DControlPoints",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdateControlPoint",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "point",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ControlPointChanged",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Path3D",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
                     "Capabilities": {
                         "Read": [
                             "Basic"
@@ -114917,6 +115287,63 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "IsAvailable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PinExperience",
+                    "Parameters": [
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "experienceName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PinShortcutService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "PlaceAssetIdsService",
@@ -116444,6 +116871,33 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Players"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "VoiceChatVolume",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -129269,6 +129723,168 @@
         {
             "Members": [
                 {
+                    "MemberType": "Event",
+                    "Name": "BatchCreated",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "BatchExhausted",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "BatchResponseReceived",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "BatchRetrying",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "BatchSent",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "CacheHit",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "CacheItemAdded",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "JitterStarted",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OperationCoalesced",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OperationEnqueued",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RequestOrchestratorService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "OnNotificationUpdateFromPlugin",
                     "Parameters": [
@@ -134813,6 +135429,29 @@
                     }
                 },
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "IsPioneerBuild",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "IsSFFlagsLoaded",
@@ -134877,6 +135516,29 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "MatchmakingType"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "PioneerSource",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PioneerSource"
                     }
                 },
                 {
@@ -153372,6 +154034,29 @@
                         "Category": "DataType",
                         "Name": "ContentId"
                     }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "TexturePackContent",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -155700,6 +156385,52 @@
                         "InternalTest"
                     ],
                     "MemberType": "Function",
+                    "Name": "AssertLegacy",
+                    "Parameters": [
+                        {
+                            "Name": "condition",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "source",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "line",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
                     "Name": "EndTest",
                     "Parameters": [
                         {
@@ -155778,6 +156509,52 @@
                     ],
                     "MemberType": "Function",
                     "Name": "Require",
+                    "Parameters": [
+                        {
+                            "Name": "condition",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "source",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "line",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RequireLegacy",
                     "Parameters": [
                         {
                             "Name": "condition",
@@ -156405,6 +157182,28 @@
                     ],
                     "MemberType": "Function",
                     "Name": "RegisterTest",
+                    "Parameters": [
+                        {
+                            "Name": "testOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "TestCase"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RegisterTestLegacy",
                     "Parameters": [
                         {
                             "Name": "testOptions",
@@ -177898,6 +178697,299 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "BeginDrag",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Close",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "EndDrag",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetLogicalCaptionButtonsBounds",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetNativeTitleBarControlsPosition",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "TitleBarControlsPosition"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetTitleBarMode",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "TitleBarMode"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetWindowState",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "WindowState"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsAvailable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Maximize",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Minimize",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Restore",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetCustomTitleBarHeight",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "height",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetTitleBarMode",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "mode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "TitleBarMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShouldRenderTitleBarControlsNatively",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnWindowStateChanged",
+                    "Parameters": [
+                        {
+                            "Name": "windowId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "newState",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "WindowState"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "WindowProtocolService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Capabilities": {
                         "Read": [
                             "Basic"
@@ -178123,6 +179215,35 @@
             "MemoryCategory": "Instances",
             "Name": "WrapTextureTransfer",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "Evaluate",
+                    "Parameters": [
+                        {
+                            "Name": "args",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "LuauExpression",
+            "Superclass": "Object",
+            "Tags": [
+                "NotCreatable"
+            ]
         },
         {
             "Members": [
@@ -184272,6 +185393,31 @@
         {
             "Items": [
                 {
+                    "Name": "Custom",
+                    "Value": 0
+                },
+                {
+                    "Name": "InverseTapered",
+                    "Value": 1
+                },
+                {
+                    "Name": "Linear",
+                    "Value": 2
+                },
+                {
+                    "Name": "LinearSquared",
+                    "Value": 3
+                },
+                {
+                    "Name": "Inverse",
+                    "Value": 4
+                }
+            ],
+            "Name": "DistanceAttenuationMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "EXPERIENCE",
                     "Value": 1
                 },
@@ -186958,9 +188104,9 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "None"
+                        "Unknown"
                     ],
-                    "Name": "Unknown",
+                    "Name": "None",
                     "Value": 0
                 },
                 {
@@ -188369,6 +189515,30 @@
                 {
                     "Name": "TouchPinch",
                     "Value": 1050
+                },
+                {
+                    "Name": "ButtonCenter",
+                    "Value": 1051
+                },
+                {
+                    "Name": "ButtonBack",
+                    "Value": 1052
+                },
+                {
+                    "Name": "ButtonUp",
+                    "Value": 1053
+                },
+                {
+                    "Name": "ButtonDown",
+                    "Value": 1054
+                },
+                {
+                    "Name": "ButtonLeft",
+                    "Value": 1055
+                },
+                {
+                    "Name": "ButtonRight",
+                    "Value": 1056
                 }
             ],
             "Name": "KeyCode"
@@ -188415,6 +189585,15 @@
                 }
             ],
             "Name": "KeywordFilterType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Main",
+                    "Value": 0
+                }
+            ],
+            "Name": "KnownWindow"
         },
         {
             "Items": [
@@ -190152,6 +191331,23 @@
         {
             "Items": [
                 {
+                    "Name": "Roblox",
+                    "Value": 0
+                },
+                {
+                    "Name": "DaveyBazooka",
+                    "Value": 1
+                },
+                {
+                    "Name": "Oof",
+                    "Value": 2
+                }
+            ],
+            "Name": "PioneerSource"
+        },
+        {
+            "Items": [
+                {
                     "Name": "None",
                     "Value": 0
                 },
@@ -190605,6 +191801,10 @@
                 {
                     "Name": "Touch",
                     "Value": 2
+                },
+                {
+                    "Name": "MicroGamepad",
+                    "Value": 3
                 }
             ],
             "Name": "PreferredInput"
@@ -195208,6 +196408,36 @@
         {
             "Items": [
                 {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "Left",
+                    "Value": 1
+                },
+                {
+                    "Name": "Right",
+                    "Value": 2
+                }
+            ],
+            "Name": "TitleBarControlsPosition"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Native",
+                    "Value": 0
+                },
+                {
+                    "Name": "Custom",
+                    "Value": 1
+                }
+            ],
+            "Name": "TitleBarMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Default",
                     "Value": 0
                 },
@@ -195778,6 +197008,55 @@
         {
             "Items": [
                 {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "PendingAttribution",
+                    "Value": 1
+                },
+                {
+                    "Name": "HomeRecommendation",
+                    "Value": 2
+                },
+                {
+                    "Name": "ContinueToPlay",
+                    "Value": 3
+                },
+                {
+                    "Name": "Curation",
+                    "Value": 4
+                },
+                {
+                    "Name": "Friends",
+                    "Value": 5
+                },
+                {
+                    "Name": "Search",
+                    "Value": 6
+                },
+                {
+                    "Name": "Teleport",
+                    "Value": 7
+                },
+                {
+                    "Name": "Ads",
+                    "Value": 8
+                },
+                {
+                    "Name": "HomeOther",
+                    "Value": 9
+                },
+                {
+                    "Name": "Other",
+                    "Value": 10
+                }
+            ],
+            "Name": "UserAcquisitionSource"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Head",
                     "Value": 0
                 },
@@ -195795,6 +197074,23 @@
                 }
             ],
             "Name": "UserCFrame"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Invalid",
+                    "Value": 0
+                },
+                {
+                    "Name": "Global",
+                    "Value": 1
+                },
+                {
+                    "Name": "Domain",
+                    "Value": 2
+                }
+            ],
+            "Name": "UserIdMode"
         },
         {
             "Items": [
@@ -195909,6 +197205,23 @@
                 }
             ],
             "Name": "UserInputType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Unknown",
+                    "Value": 0
+                },
+                {
+                    "Name": "New",
+                    "Value": 1
+                },
+                {
+                    "Name": "Returning",
+                    "Value": 2
+                }
+            ],
+            "Name": "UserReturnStatus"
         },
         {
             "Items": [
@@ -196688,6 +198001,23 @@
                 }
             ],
             "Name": "WhisperChatPrivacyMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Normal",
+                    "Value": 0
+                },
+                {
+                    "Name": "Minimized",
+                    "Value": 1
+                },
+                {
+                    "Name": "Maximized",
+                    "Value": 2
+                }
+            ],
+            "Name": "WindowState"
         },
         {
             "Items": [

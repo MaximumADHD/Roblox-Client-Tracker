@@ -7278,7 +7278,7 @@
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>Runs scripts which are parented to <code>TestService</code>.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>RunAsync()</code> instead.<br>Runs scripts which are parented to <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -8914,7 +8914,7 @@
     "documentation": "The distance, in studs, that the <code>Camera</code> needs to be pushed towards its <code>Focus</code> to ensure there are no obstructions between the <code>Focus</code> and <code>CFrame</code> of the <code>Camera</code>."
   },
   "@roblox/globaltype/Camera.GetLargestCutoffDistance": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns how much the <code>Camera</code> needs to be pushed towards its <code>Focus</code> in order to make sure there is no obstructions between the <code>Focus</code> and <code>CFrame</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Returns how much the <code>Camera</code> needs to be pushed towards its <code>Focus</code> in order to make sure there is no obstructions between the <code>Focus</code> and <code>CFrame</code>.",
     "params": [
       {
         "name": "self",
@@ -11602,7 +11602,7 @@
     "documentation": "Version number of the key to remove."
   },
   "@roblox/globaltype/DataStore.RemoveVersionAsync": {
-    "documentation": "<strong>Deprecated:</strong> <br>Permanently deletes the specified version of a key.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Permanently deletes the specified version of a key.",
     "params": [
       {
         "name": "self",
@@ -13260,7 +13260,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ParticleEmitter.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "Determines a multiplier for <code>ParticleEmitter.Transparency</code> that is only visible to the local client.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ParticleEmitter#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -17151,7 +17151,7 @@
     "documentation": "Boolean of <code>true</code> if the badge was awarded successfully."
   },
   "@roblox/globaltype/BadgeService.AwardBadge": {
-    "documentation": "<strong>Deprecated:</strong> <br>Award a badge to a player given the ID of each.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>AwardBadgeAsync()</code> instead.<br>Award a badge to a player given the ID of each.",
     "params": [
       {
         "name": "self",
@@ -27123,9 +27123,7 @@
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseFixedSimulationAlias": "@roblox/globaltype/Workspace.UseFixedSimulationAlias",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
-      "ValidateEnabledProximityPrompt": "@roblox/globaltype/Workspace.ValidateEnabledProximityPrompt",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
-      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -27195,7 +27193,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FilteringEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>Determines whether changes made from the client will replicate to the server or not.",
+    "documentation": "<strong>Deprecated:</strong> This property is discontinued.<br>Determines whether changes made from the client will replicate to the server or not.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FilteringEnabled",
     "code_sample": ""
   },
@@ -27384,11 +27382,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseNewLuauTypeSolver",
     "code_sample": ""
   },
-  "@roblox/globaltype/Workspace.ValidateEnabledProximityPrompt": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ValidateEnabledProximityPrompt",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
     "documentation": "<code>Workspace</code> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
@@ -27396,7 +27389,7 @@
     "documentation": "An array of <code>BaseParts</code> for whom joints are to be broken."
   },
   "@roblox/globaltype/Workspace.BreakJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Goes through all <code>BaseParts</code> given, breaking any joints connected to these parts.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Goes through all <code>BaseParts</code> given, breaking any joints connected to these parts.",
     "params": [
       {
         "name": "self",
@@ -27409,26 +27402,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
-    "documentation": "<code>Workspace</code> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
-    "documentation": "<code>true</code> if the experimental physics solver is enabled, <code>false</code> otherwise."
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
-    "documentation": "Returns <code>true</code> if the experimental physics solver is enabled.",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
@@ -27547,7 +27520,7 @@
     "documentation": "An array of <code>parts</code> for whom joints are to be made."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Goes through all <code>BaseParts</code> given. If any part's side has a <code>SurfaceType</code> that can make a joint it will create a joint with any adjacent parts.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Goes through all <code>BaseParts</code> given. If any part's side has a <code>SurfaceType</code> that can make a joint it will create a joint with any adjacent parts.",
     "params": [
       {
         "name": "self",
@@ -28200,6 +28173,7 @@
   "@roblox/globaltype/StarterGui": {
     "documentation": "A container for <code>LayerCollector</code> objects to be copied into the <code>PlayerGui</code> of <code>Players</code>. Also provides a range of functions for interacting with the <code>CoreGui</code>.",
     "keys": {
+      "ClipsDescendantsSupportsRotation": "@roblox/globaltype/StarterGui.ClipsDescendantsSupportsRotation",
       "ProcessUserInput": "@roblox/globaltype/StarterGui.ProcessUserInput",
       "ResetPlayerGuiOnSpawn": "@roblox/globaltype/StarterGui.ResetPlayerGuiOnSpawn",
       "RtlTextSupport": "@roblox/globaltype/StarterGui.RtlTextSupport",
@@ -28212,6 +28186,11 @@
       "SetCoreGuiEnabled": "@roblox/globaltype/StarterGui.SetCoreGuiEnabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterGui",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StarterGui.ClipsDescendantsSupportsRotation": {
+    "documentation": "Determines whether the <code>ClipsDescendants</code> property of a <code>GuiObject</code> clips <strong>rotated</strong> descendants.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterGui#ClipsDescendantsSupportsRotation",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterGui.ProcessUserInput": {
@@ -29252,7 +29231,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#SetAccessories",
-    "code_sample": "local humanoidDescription = Instance.new(\"HumanoidDescription\")\nlocal originalSpecifications = {\n\t{\n\t\tOrder = 1,\n\t\tAssetId = 123456789,\n\t\tPuffiness = 0.5,\n\t\tAccessoryType = Enum.AccessoryType.Sweater,\n\t},\n}\nhumanoidDescription:SetAccessories(originalSpecifications)\n\nlocal updatedSpecifications = humanoidDescription:GetAccessories(false)\nlocal newIndividualSpecification = {\n\tOrder = 2,\n\tAssetId = 987654321,\n\tPuffiness = 0.7,\n\tAccessoryType = Enum.AccessoryType.Jacket,\n\tIsLayered = true,\n}\nupdatedSpecifications[#updatedSpecifications + 1] = newIndividualSpecification\nhumanoidDescription:SetAccessories(updatedSpecifications)"
+    "code_sample": "local humanoidDescription = Instance.new(\"HumanoidDescription\")\nlocal originalSpecifications = {\n\t{\n\t\tOrder = 1,\n\t\tAssetId = 123456789,\n\t\tPuffiness = 0.5,\n\t\tAccessoryType = Enum.AccessoryType.Sweater,\n\t},\n}\nhumanoidDescription:SetAccessories(originalSpecifications, true)\n\nlocal updatedSpecifications = humanoidDescription:GetAccessories(false)\nlocal newIndividualSpecification = {\n\tOrder = 2,\n\tAssetId = 987654321,\n\tPuffiness = 0.7,\n\tAccessoryType = Enum.AccessoryType.Jacket,\n\tIsLayered = true,\n}\nupdatedSpecifications[#updatedSpecifications + 1] = newIndividualSpecification\nhumanoidDescription:SetAccessories(updatedSpecifications, true)"
   },
   "@roblox/globaltype/HumanoidDescription.SetEmotes/param/0": {
     "documentation": "Describes the appearance of a Humanoid character including body parts, accessories, colors, scales, animations, and emotes."
@@ -32075,7 +32054,7 @@
     "documentation": "A single table (of returned free decals) wrapped in a table."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals": {
-    "documentation": "<strong>Deprecated:</strong> <br>Retrieves a list of free Decals from the Catalog.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>GetFreeDecalsAsync()</code> instead.<br>Retrieves a list of free Decals from the Catalog.",
     "params": [
       {
         "name": "self",
@@ -32143,7 +32122,7 @@
     "documentation": "A single table (of returned free models) wrapped in a table."
   },
   "@roblox/globaltype/InsertService.GetFreeModels": {
-    "documentation": "<strong>Deprecated:</strong> <br>Retrieves a list of Free Models from the Catalog.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>GetFreeModelsAsync()</code> instead.<br>Retrieves a list of Free Models from the Catalog.",
     "params": [
       {
         "name": "self",
@@ -35219,7 +35198,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Trail.LocalTransparencyModifier": {
-    "documentation": "",
+    "documentation": "Determines a multiplier for <code>Trail.Transparency</code> that is only visible to the local client.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Trail#LocalTransparencyModifier",
     "code_sample": ""
   },
@@ -47125,14 +47104,12 @@
       "HealthDisplayDistance": "@roblox/globaltype/Player.HealthDisplayDistance",
       "InputLatency": "@roblox/globaltype/Player.InputLatency",
       "LocaleId": "@roblox/globaltype/Player.LocaleId",
-      "MaximumSimulationRadius": "@roblox/globaltype/Player.MaximumSimulationRadius",
       "MembershipType": "@roblox/globaltype/Player.MembershipType",
       "NameDisplayDistance": "@roblox/globaltype/Player.NameDisplayDistance",
       "Neutral": "@roblox/globaltype/Player.Neutral",
       "PartyId": "@roblox/globaltype/Player.PartyId",
       "ReplicationFocus": "@roblox/globaltype/Player.ReplicationFocus",
       "RespawnLocation": "@roblox/globaltype/Player.RespawnLocation",
-      "SimulationRadius": "@roblox/globaltype/Player.SimulationRadius",
       "StepIdOffset": "@roblox/globaltype/Player.StepIdOffset",
       "Team": "@roblox/globaltype/Player.Team",
       "TeamColor": "@roblox/globaltype/Player.TeamColor",
@@ -47321,11 +47298,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LocaleId",
     "code_sample": ""
   },
-  "@roblox/globaltype/Player.MaximumSimulationRadius": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MaximumSimulationRadius",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Player.MembershipType": {
     "documentation": "Describes the account's membership type.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#MembershipType",
@@ -47354,11 +47326,6 @@
   "@roblox/globaltype/Player.RespawnLocation": {
     "documentation": "If set, the player will respawn at the given <code>SpawnLocation</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#RespawnLocation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Player.SimulationRadius": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#SimulationRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/Player.StepIdOffset": {
@@ -48037,7 +48004,7 @@
     "documentation": "An instance of the asset being loaded, which can be obtained using the <code>InsertService:LoadAsset()</code> function."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>Places the given instance either in the player's character, head, or StarterGear based on the instance's class.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Places the given instance either in the player's character, head, or StarterGear based on the instance's class.",
     "params": [
       {
         "name": "self",
@@ -52091,12 +52058,9 @@
       "GetMarkerReachedSignal": "@roblox/globaltype/AnimationTrack.GetMarkerReachedSignal",
       "GetParameter": "@roblox/globaltype/AnimationTrack.GetParameter",
       "GetParameterDefaults": "@roblox/globaltype/AnimationTrack.GetParameterDefaults",
-      "GetTargetInstance": "@roblox/globaltype/AnimationTrack.GetTargetInstance",
-      "GetTargetNames": "@roblox/globaltype/AnimationTrack.GetTargetNames",
       "GetTimeOfKeyframe": "@roblox/globaltype/AnimationTrack.GetTimeOfKeyframe",
       "Play": "@roblox/globaltype/AnimationTrack.Play",
       "SetParameter": "@roblox/globaltype/AnimationTrack.SetParameter",
-      "SetTargetInstance": "@roblox/globaltype/AnimationTrack.SetTargetInstance",
       "Stop": "@roblox/globaltype/AnimationTrack.Stop"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack",
@@ -52229,13 +52193,13 @@
     "documentation": "Controls the playback of an animation on an <code>Animator</code>."
   },
   "@roblox/globaltype/AnimationTrack.GetParameter/param/1": {
-    "documentation": ""
+    "documentation": "The name of the parameter to retrieve."
   },
   "@roblox/globaltype/AnimationTrack.GetParameter/return/0": {
-    "documentation": ""
+    "documentation": "The current value of the parameter, or nil if not set."
   },
   "@roblox/globaltype/AnimationTrack.GetParameter": {
-    "documentation": "",
+    "documentation": "Returns the value of a parameter on the animation graph by key. Returns nil if the parameter has not been set.",
     "params": [
       {
         "name": "self",
@@ -52256,10 +52220,10 @@
     "documentation": "Controls the playback of an animation on an <code>Animator</code>."
   },
   "@roblox/globaltype/AnimationTrack.GetParameterDefaults/return/0": {
-    "documentation": ""
+    "documentation": "A dictionary mapping parameter names to their default values. Returns an empty dictionary if the animation is not an animation graph."
   },
   "@roblox/globaltype/AnimationTrack.GetParameterDefaults": {
-    "documentation": "",
+    "documentation": "Returns a dictionary of parameter values initially set as instance attributes on the <code>AnimationGraphDefinition</code> instance used to build the animation graph inside this track.",
     "params": [
       {
         "name": "self",
@@ -52270,53 +52234,6 @@
       "@roblox/globaltype/AnimationTrack.GetParameterDefaults/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#GetParameterDefaults",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetInstance/param/0": {
-    "documentation": "Controls the playback of an animation on an <code>Animator</code>."
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetInstance/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetInstance/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetInstance": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AnimationTrack.GetTargetInstance/param/0"
-      },
-      {
-        "name": "name",
-        "documentation": "@roblox/globaltype/AnimationTrack.GetTargetInstance/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AnimationTrack.GetTargetInstance/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#GetTargetInstance",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetNames/param/0": {
-    "documentation": "Controls the playback of an animation on an <code>Animator</code>."
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetNames/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AnimationTrack.GetTargetNames": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AnimationTrack.GetTargetNames/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AnimationTrack.GetTargetNames/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#GetTargetNames",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationTrack.GetTimeOfKeyframe/param/0": {
@@ -52386,13 +52303,13 @@
     "documentation": "Controls the playback of an animation on an <code>Animator</code>."
   },
   "@roblox/globaltype/AnimationTrack.SetParameter/param/1": {
-    "documentation": ""
+    "documentation": "The name of the parameter to set."
   },
   "@roblox/globaltype/AnimationTrack.SetParameter/param/2": {
-    "documentation": ""
+    "documentation": "The value to assign to the parameter. Non-finite numeric values are sanitized to 0."
   },
   "@roblox/globaltype/AnimationTrack.SetParameter": {
-    "documentation": "",
+    "documentation": "Sets a parameter value on the animation graph, driving animation graph node inputs.",
     "params": [
       {
         "name": "self",
@@ -52409,35 +52326,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#SetParameter",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AnimationTrack.SetTargetInstance/param/0": {
-    "documentation": "Controls the playback of an animation on an <code>Animator</code>."
-  },
-  "@roblox/globaltype/AnimationTrack.SetTargetInstance/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AnimationTrack.SetTargetInstance/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AnimationTrack.SetTargetInstance": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/AnimationTrack.SetTargetInstance/param/0"
-      },
-      {
-        "name": "name",
-        "documentation": "@roblox/globaltype/AnimationTrack.SetTargetInstance/param/1"
-      },
-      {
-        "name": "target",
-        "documentation": "@roblox/globaltype/AnimationTrack.SetTargetInstance/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationTrack#SetTargetInstance",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationTrack.Stop/param/0": {
@@ -57904,7 +57792,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotHud.ExperienceNameOverlayEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>Whether the experience name in the overlay is enabled.",
+    "documentation": "<strong>Deprecated:</strong> This property is deprecated. Do not use it for new work.<br>Whether the experience name in the overlay is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotHud#ExperienceNameOverlayEnabled",
     "code_sample": ""
   },
@@ -57919,12 +57807,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotHud.OverlayFont": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>Font</code> used for the experience name in the overlay.",
+    "documentation": "<strong>Deprecated:</strong> This property is deprecated. Do not use it for new work.<br><code>Font</code> used for the experience name in the overlay.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotHud#OverlayFont",
     "code_sample": ""
   },
   "@roblox/globaltype/ScreenshotHud.UsernameOverlayEnabled": {
-    "documentation": "<strong>Deprecated:</strong> <br>Currently disabled with no effect.",
+    "documentation": "<strong>Deprecated:</strong> This property is deprecated. Do not use it for new work.<br>Currently disabled with no effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScreenshotHud#UsernameOverlayEnabled",
     "code_sample": ""
   },
@@ -61774,7 +61662,7 @@
     "documentation": "Asset IDs that are contained in a specified package."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns an array of asset IDs that are contained in a specified package.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>GetAssetIdsForPackageAsync()</code> instead.<br>Returns an array of asset IDs that are contained in a specified package.",
     "params": [
       {
         "name": "self",
@@ -62053,7 +61941,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "<strong>Deprecated:</strong> <br>Finds audio assets matching a variety of search criteria.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>SearchAudioAsync()</code> instead.<br>Finds audio assets matching a variety of search criteria.",
     "params": [
       {
         "name": "self",
@@ -64153,6 +64041,8 @@
       "VoiceId": "@roblox/globaltype/AudioTextToSpeech.VoiceId",
       "Volume": "@roblox/globaltype/AudioTextToSpeech.Volume",
       "GetConnectedWires": "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires",
+      "GetInputPins": "@roblox/globaltype/AudioTextToSpeech.GetInputPins",
+      "GetOutputPins": "@roblox/globaltype/AudioTextToSpeech.GetOutputPins",
       "GetWaveformAsync": "@roblox/globaltype/AudioTextToSpeech.GetWaveformAsync",
       "LoadAsync": "@roblox/globaltype/AudioTextToSpeech.LoadAsync",
       "Pause": "@roblox/globaltype/AudioTextToSpeech.Pause",
@@ -64242,6 +64132,46 @@
       "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTextToSpeech#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTextToSpeech.GetInputPins/param/0": {
+    "documentation": "Plays text as speech audio."
+  },
+  "@roblox/globaltype/AudioTextToSpeech.GetInputPins/return/0": {
+    "documentation": "An array of strings representing valid pin names."
+  },
+  "@roblox/globaltype/AudioTextToSpeech.GetInputPins": {
+    "documentation": "Gets the list of pins that a <code>Wire</code> can use in <code>Wire.TargetName</code> to connect to this instance via its <code>Wire.TargetInstance</code> property.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioTextToSpeech.GetInputPins/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioTextToSpeech.GetInputPins/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTextToSpeech#GetInputPins",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioTextToSpeech.GetOutputPins/param/0": {
+    "documentation": "Plays text as speech audio."
+  },
+  "@roblox/globaltype/AudioTextToSpeech.GetOutputPins/return/0": {
+    "documentation": "An array of strings representing valid pin names."
+  },
+  "@roblox/globaltype/AudioTextToSpeech.GetOutputPins": {
+    "documentation": "Gets the list of pins that a <code>Wire</code> can use in <code>Wire.SourceName</code> to connect to this instance via its <code>Wire.SourceInstance</code> property.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioTextToSpeech.GetOutputPins/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioTextToSpeech.GetOutputPins/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioTextToSpeech#GetOutputPins",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioTextToSpeech.GetWaveformAsync/param/0": {
@@ -67626,7 +67556,7 @@
     "documentation": "List of face IDs which use the given attribute ID."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a list of faces that use a given attribute ID.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Returns a list of faces that use a given attribute ID.",
     "params": [
       {
         "name": "self",
@@ -68307,7 +68237,7 @@
     "documentation": "List of vertex IDs which use the given attribute ID."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a list of vertices that use a given attribute ID.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Returns a list of vertices that use a given attribute ID.",
     "params": [
       {
         "name": "self",
@@ -71760,7 +71690,7 @@
     "documentation": "A <code>CFrame</code> describing the position and orientation of the specified VR device."
   },
   "@roblox/globaltype/UserInputService.GetUserCFrame": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a <code>CFrame</code> describing the position and orientation of a specified virtual reality device.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>VRService:GetUserCFrame()</code> instead.<br>Returns a <code>CFrame</code> describing the position and orientation of a specified virtual reality device.",
     "params": [
       {
         "name": "self",
@@ -74126,7 +74056,7 @@
     "returns": []
   },
   "@roblox/globaltype/UserInputService.UserCFrameChanged": {
-    "documentation": "<strong>Deprecated:</strong> <br>Fires when the <code>CFrame</code> of a specified Virtual Reality device changes.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>VRService.UserCFrameChanged</code> instead.<br>Fires when the <code>CFrame</code> of a specified Virtual Reality device changes.",
     "keys": {
       "Connect": "@roblox/globaltype/UserInputService.UserCFrameChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/UserInputService.UserCFrameChanged.ConnectParallel",
@@ -77212,6 +77142,8 @@
       "Backward": "@roblox/globaltype/InputBinding.Backward",
       "Type": "@roblox/globaltype/InputBinding.Type",
       "ClampMagnitudeToOne": "@roblox/globaltype/InputBinding.ClampMagnitudeToOne",
+      "DisplayImage": "@roblox/globaltype/InputBinding.DisplayImage",
+      "DisplayName": "@roblox/globaltype/InputBinding.DisplayName",
       "Down": "@roblox/globaltype/InputBinding.Down",
       "Forward": "@roblox/globaltype/InputBinding.Forward",
       "KeyCode": "@roblox/globaltype/InputBinding.KeyCode",
@@ -77247,6 +77179,16 @@
   "@roblox/globaltype/InputBinding.ClampMagnitudeToOne": {
     "documentation": "Specifies how the binding normalizes composite directional input to a maximum magnitude of <code>1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#ClampMagnitudeToOne",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputBinding.DisplayImage": {
+    "documentation": "Custom image asset to display for this binding.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#DisplayImage",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputBinding.DisplayName": {
+    "documentation": "Custom display text for this binding.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#DisplayName",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.Down": {
@@ -77362,7 +77304,9 @@
       "Enabled": "@roblox/globaltype/AudioSpeechToText.Enabled",
       "Text": "@roblox/globaltype/AudioSpeechToText.Text",
       "VoiceDetected": "@roblox/globaltype/AudioSpeechToText.VoiceDetected",
-      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires"
+      "GetConnectedWires": "@roblox/globaltype/AudioSpeechToText.GetConnectedWires",
+      "GetInputPins": "@roblox/globaltype/AudioSpeechToText.GetInputPins",
+      "GetOutputPins": "@roblox/globaltype/AudioSpeechToText.GetOutputPins"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText",
     "code_sample": ""
@@ -77407,6 +77351,46 @@
       "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetConnectedWires",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetInputPins/param/0": {
+    "documentation": "Converts spoken audio into text."
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetInputPins/return/0": {
+    "documentation": "An array of strings representing valid pin names."
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetInputPins": {
+    "documentation": "Gets the list of pins that a <code>Wire</code> can use in <code>Wire.TargetName</code> to connect to this instance via its <code>Wire.TargetInstance</code> property.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetInputPins/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetInputPins/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetInputPins",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetOutputPins/param/0": {
+    "documentation": "Converts spoken audio into text."
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetOutputPins/return/0": {
+    "documentation": "An array of strings representing valid pin names."
+  },
+  "@roblox/globaltype/AudioSpeechToText.GetOutputPins": {
+    "documentation": "Gets the list of pins that a <code>Wire</code> can use in <code>Wire.SourceName</code> to connect to this instance via its <code>Wire.SourceInstance</code> property.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AudioSpeechToText.GetOutputPins/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AudioSpeechToText.GetOutputPins/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSpeechToText#GetOutputPins",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText.WiringChanged.Connect/param/0": {
@@ -77856,7 +77840,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.GetApiV1": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.",
     "params": [
       {
         "name": "self",
@@ -77888,7 +77872,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudService.InvokeAsync": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.",
     "params": [
       {
         "name": "self",
@@ -78865,7 +78849,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnalyticsService.ApiKey": {
-    "documentation": "<strong>Deprecated:</strong> <br>PlayFab API key. Must be set in order to use <code>FireEvent</code>.",
+    "documentation": "<strong>Deprecated:</strong> This property is deprecated. Do not use it for new work.<br>PlayFab API key. Must be set in order to use <code>FireEvent</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnalyticsService#ApiKey",
     "code_sample": ""
   },
@@ -79024,7 +79008,7 @@
     "documentation": "Optional. User defined data, could be a string, a number or a table."
   },
   "@roblox/globaltype/AnalyticsService.FireLogEvent": {
-    "documentation": "<strong>Deprecated:</strong> <br>Fire a log event used to track errors and warnings experienced by players.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Fire a log event used to track errors and warnings experienced by players.",
     "params": [
       {
         "name": "self",
@@ -80667,7 +80651,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GameSettings.VideoCaptureEnabled": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> This property is deprecated. Do not use it for new work.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
     "code_sample": ""
   },
@@ -86666,7 +86650,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams.AudioSubtype": {
-    "documentation": "<strong>Deprecated:</strong> <br>The subtype of the audio asset.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>AudioSubType</code> instead.<br>The subtype of the audio asset.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioSearchParams#AudioSubtype",
     "code_sample": ""
   },
@@ -88493,7 +88477,7 @@
     "documentation": "A service to support developer Avatar Editors."
   },
   "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/return/0": {
-    "documentation": "An array of strings, each identifying a head shape owned by <code>Players.LocalPlayer</code>. Possible values include: <code>\"RobloxClassic\"</code>, <code>\"Blockhead\"</code>, <code>\"Cheeks\"</code>, <code>\"Chiseled\"</code>, <code>\"CoolThing\"</code>, <code>\"EraserHead\"</code>, <code>\"FatHead\"</code>, <code>\"FlatTop\"</code>, <code>\"GoldenKorbloxGeneral\"</code>, <code>\"GoldenMrRobot\"</code>, <code>\"KnightOfChivalry\"</code>, <code>\"KnightOfCourage\"</code>, <code>\"ManHead\"</code>, <code>\"MercilessNinja\"</code>, <code>\"Narrow\"</code>, <code>\"Paragon\"</code>, <code>\"Peabrain\"</code>, <code>\"Perfection\"</code>, <code>\"Roll\"</code>, <code>\"Roundy\"</code>, <code>\"RoxBox\"</code>, <code>\"TheEngineer\"</code>, <code>\"Trim\"</code>, <code>\"WomanHead\"</code>."
+    "documentation": "An array of strings, each identifying a head shape owned by <code>Players.LocalPlayer</code>. Possible values include: <code>\"Blockhead\"</code>, <code>\"Cheeks\"</code>, <code>\"Chiseled\"</code>, <code>\"ClassicFemaleV2\"</code>, <code>\"ClassicMaleV2\"</code>, <code>\"CoolThing\"</code>, <code>\"Default\"</code>, <code>\"EraserHead\"</code>, <code>\"FatHead\"</code>, <code>\"FlatTop\"</code>, <code>\"GoldenKorbloxGeneral\"</code>, <code>\"GoldenMrRobot\"</code>, <code>\"KnightOfChivalry\"</code>, <code>\"KnightOfCourage\"</code>, <code>\"ManHead\"</code>, <code>\"MercilessNinja\"</code>, <code>\"MrToilet\"</code>, <code>\"Narrow\"</code>, <code>\"NeoClassicFemaleV2\"</code>, <code>\"NeoClassicMaleV2\"</code>, <code>\"Paragon\"</code>, <code>\"Peabrain\"</code>, <code>\"Perfection\"</code>, <code>\"RobloxClassic\"</code>, <code>\"Roll\"</code>, <code>\"Roundy\"</code>, <code>\"RoxBox\"</code>, <code>\"StrongJaw\"</code>, <code>\"TheEngineer\"</code>, <code>\"Trim\"</code>, <code>\"WomanHead\"</code>."
   },
   "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync": {
     "documentation": "Returns an array of head shape names that the <code>Players.LocalPlayer</code> owns.",
@@ -91089,6 +91073,7 @@
       "Direction2DState": "@roblox/globaltype/InputAction.Direction2DState",
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
+      "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
       "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
@@ -91120,6 +91105,11 @@
   "@roblox/globaltype/InputAction.Enabled": {
     "documentation": "Determines if the <code>InputAction</code> is enabled or not.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.PreferredBinding": {
+    "documentation": "The <code>InputBinding</code> best matching the player's current input device.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#PreferredBinding",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
@@ -91439,7 +91429,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
-    "documentation": "Blends descendants as a group with color/transparency.",
+    "documentation": "Blends descendants as a flattened group with an optional color/transparency modification.",
     "keys": {
       "GroupColor3": "@roblox/globaltype/CanvasGroup.GroupColor3",
       "GroupTransparency": "@roblox/globaltype/CanvasGroup.GroupTransparency"
@@ -91448,12 +91438,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup.GroupColor3": {
-    "documentation": "Color tint that applies to all descendants.",
+    "documentation": "Color tint that applies to the rendered group.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CanvasGroup#GroupColor3",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup.GroupTransparency": {
-    "documentation": "Transparency that applies to all descendants.",
+    "documentation": "Transparency that applies to the rendered group.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CanvasGroup#GroupTransparency",
     "code_sample": ""
   },
@@ -92454,7 +92444,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateModel": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.",
     "params": [
       {
         "name": "self",
@@ -92484,7 +92474,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/OpenCloudApiV1.CreateUserNotificationAsync": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.",
     "params": [
       {
         "name": "self",
@@ -94420,7 +94410,7 @@
     "documentation": "The server access code required by <code>TeleportService:TeleportToPrivateServer()</code> and the <code>DataModel.PrivateServerId</code> for the reserved server."
   },
   "@roblox/globaltype/TeleportService.ReserveServer": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>ReserveServerAsync()</code> instead.<br>Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
     "params": [
       {
         "name": "self",
@@ -95401,7 +95391,7 @@
     "documentation": "The instance validation is run on."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/3": {
-    "documentation": "<code>AccessoryType</code> the instance is expected to be. Expects <code>Eyebrow</code>, <code>Eyelash</code>, or <code>Hair</code>."
+    "documentation": "The <code>AccessoryType</code> the instance is expected to be."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/return/0": {
     "documentation": "A tuple containing, in order: <ul> <li>A boolean indicating if validation was successful for the accessory.</li> <li>An optional table of strings. This includes failure reasons if   validation was unsuccessful; otherwise <code>nil</code> if validation was   successful.</li> </ul>"
@@ -98401,7 +98391,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.HeartbeatTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>A measurement of the total amount of time it takes long it takes for Roblox to update all of its task scheduler jobs, in milliseconds.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>Stats.HeartbeatTime</code> instead.<br>A measurement of the total amount of time it takes long it takes for Roblox to update all of its task scheduler jobs, in milliseconds.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#HeartbeatTimeMs",
     "code_sample": ""
   },
@@ -98436,7 +98426,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Stats.PhysicsStepTimeMs": {
-    "documentation": "<strong>Deprecated:</strong> <br>A measurement of how long it takes for the physics engine to update its current state, in milliseconds. If this value is high, then it means the game instance is under stress from the physics simulations taking place.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>Stats.PhysicsStepTime</code> instead.<br>A measurement of how long it takes for the physics engine to update its current state, in milliseconds. If this value is high, then it means the game instance is under stress from the physics simulations taking place.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Stats#PhysicsStepTimeMs",
     "code_sample": ""
   },
@@ -100573,7 +100563,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceAsync": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a <code>Model</code> containing the assets which the player is wearing, excluding gear.",
+    "documentation": "<strong>Deprecated:</strong> This method is deprecated. Do not use it for new work.<br>Returns a <code>Model</code> containing the assets which the player is wearing, excluding gear.",
     "params": [
       {
         "name": "self",
@@ -104558,7 +104548,7 @@
     "documentation": "A tuple containing an <code>PromptLinkSharingResult</code> indicating the result of the link sharing prompt."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> Use <code>PromptLinkSharingAsync()</code> instead.",
     "params": [
       {
         "name": "self",
@@ -105181,6 +105171,94 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderingTest#RenderdocTriggerCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Connect",
+      "ConnectParallel": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.ConnectParallel",
+      "Once": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Once",
+      "Wait": "@roblox/globaltype/RenderingTest.TestFramesCountdownAboutToStart.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderingTest#TestFramesCountdownAboutToStart",
     "code_sample": ""
   },
   "@roblox/globaltype/GetTextBoundsParams": {
@@ -116831,6 +116909,57 @@
       "HighQualityMesh": "@roblox/enum/IntermediateMeshGenerationResult.HighQualityMesh"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/IntermediateMeshGenerationResult",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.None": {
+    "documentation": "No tint is applied. Meshes render with their normal appearance.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#None",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.LOD": {
+    "documentation": "Colors each mesh by its current level of detail using a blue-to-red heatmap. Blue indicates the lowest detail and warmer colors indicate higher detail. Useful for verifying that distant meshes are streaming at reduced fidelity.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#LOD",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.Meshes": {
+    "documentation": "Assigns a distinct color to each individual mesh within a model. Useful for identifying mesh boundaries and verifying how a model is split into separate mesh parts.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Meshes",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTintMode.Zone": {
+    "documentation": "Colors meshes by streaming zone. Green indicates the high-fidelity zone where the DataModel is present.; yellow indicates the low-fidelity zone where the DataModel is absent).",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode#Zone",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.SlimTintMode": {
+    "documentation": "Determines the color-coding mode used by the SLIM debug tint overlay in the Developer Console.",
+    "keys": {
+      "None": "@roblox/enum/SlimTintMode.None",
+      "LOD": "@roblox/enum/SlimTintMode.LOD",
+      "Meshes": "@roblox/enum/SlimTintMode.Meshes",
+      "Zone": "@roblox/enum/SlimTintMode.Zone"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
     "code_sample": ""
   },
   "@roblox/enum/DeviceSimulatorScalingMode.ScaleToPhysicalSize": {
