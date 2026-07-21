@@ -65,6 +65,7 @@ local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlay
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
 
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
+local FFlagPlayerListReskinMobileLayoutFix = PlayerListPackage.Flags.FFlagPlayerListReskinMobileLayoutFix
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
@@ -418,13 +419,28 @@ function PlayerListController:_setupReskin()
 	end
 
 	local topBarOffset = TopBarConstants.TopBarHeight
-	-- The container only positions the panel (which sizes itself). Mobile/gamepad centers
-	-- (portrait left-aligns to the menu-logo inset); desktop pins top-right.
+	-- ApplyDisplayScale can return 0 before the Display store primes; floor the mobile
+	-- gap at 8px so the panel visibly clears Unibar shadow/safe-area padding even at low DPR.
+	local function computeMobileTopInset()
+		return math.max(8, TopBarConstants.ApplyDisplayScale(8))
+	end
+	local function computeMobilePosition()
+		return UDim2.new(0.5, 0, 0, topBarOffset + computeMobileTopInset())
+	end
+	local mobilePositionBinding, setMobilePosition
+	if FFlagPlayerListReskinMobileLayoutFix then
+		mobilePositionBinding, setMobilePosition = React.createBinding(computeMobilePosition())
+	end
 	local function resolveContainerProps()
 		if isSmallTouchDevice then
-			-- Portrait left-aligns the panel to the Roblox menu logo's screen-side inset
-			-- (designer feedback), display-scaled the same way the top bar applies it.
-			-- Landscape stays centered.
+			if FFlagPlayerListReskinMobileLayoutFix then
+				return {
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = mobilePositionBinding,
+					Size = UDim2.fromOffset(0, 0),
+					tag = "auto-xy",
+				}
+			end
 			local camera = workspace.CurrentCamera
 			local viewport = if camera then camera.ViewportSize else Vector2.new(0, 0)
 			local isPortrait = viewport.Y > viewport.X
@@ -444,8 +460,9 @@ function PlayerListController:_setupReskin()
 				tag = "auto-xy",
 			}
 		end
-		-- 4px edge inset matching the legacy desktop container.
-		local edgeInset = 4
+		local edgeInset = if FFlagPlayerListReskinMobileLayoutFix
+			then math.max(4, TopBarConstants.ApplyDisplayScale(4))
+			else 4
 		return {
 			AnchorPoint = Vector2.new(1, 0),
 			Position = UDim2.new(1, -edgeInset, 0, edgeInset + topBarOffset),
@@ -453,38 +470,39 @@ function PlayerListController:_setupReskin()
 			tag = "auto-xy",
 		}
 	end
-	local containerProps = resolveContainerProps()
 
-	local reskinElement = React.createElement(FoundationProvider, {
-		theme = Theme.Dark,
-		device = foundationDevice,
-		preferences = {
-			preferredTransparency = UserGameSettings.PreferredTransparency,
-		},
-	}, {
-		-- Behind the panel on mobile/console: a full-screen dim preserving legacy's mobile
-		-- backdrop. Renders nothing on desktop. ZIndex 0 keeps it below the panel + menu.
-		Scrim = React.createElement(LeaderboardScrim, {
-			isSmallTouchDevice = isSmallTouchDevice,
-		}),
+	local function buildReskinElement()
+		return React.createElement(FoundationProvider, {
+			theme = Theme.Dark,
+			device = foundationDevice,
+			preferences = {
+				preferredTransparency = UserGameSettings.PreferredTransparency,
+			},
+		}, {
+			-- Full-screen dim behind the panel on mobile/console.
+			-- ZIndex 0 keeps it below the panel + in-experience menu.
+			Scrim = React.createElement(LeaderboardScrim, {
+				isSmallTouchDevice = isSmallTouchDevice,
+			}),
 
-		Container = React.createElement(Foundation.View, containerProps, {
-			ReskinContainer = React.createElement(PlayerListContainer, {
-				leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
-				TopBarConstants = TopBarConstants,
-				isTenFoot = isTenFoot,
-			}, {
-				PlayerListPanel = React.createElement(PlayerListPanel, {
-					isSmallTouchDevice = isSmallTouchDevice,
-					title = leaderboardTitle,
+			Container = React.createElement(Foundation.View, resolveContainerProps(), {
+				ReskinContainer = React.createElement(PlayerListContainer, {
+					leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
+					TopBarConstants = TopBarConstants,
+					isTenFoot = isTenFoot,
+				}, {
+					PlayerListPanel = React.createElement(PlayerListPanel, {
+						isSmallTouchDevice = isSmallTouchDevice,
+						title = leaderboardTitle,
+					}),
 				}),
 			}),
-		}),
 
-		ContextMenu = React.createElement(PlayerContextualMenuView, {
-			isSmallTouchDevice = isSmallTouchDevice,
-		}),
-	})
+			ContextMenu = React.createElement(PlayerContextualMenuView, {
+				isSmallTouchDevice = isSmallTouchDevice,
+			}),
+		})
+	end
 
 	-- Legacy PlayerServiceConnector (Rodux) is not mounted on the reskin path.
 	-- Route MakePlayerInfoRequests through a shim into the Signals stores.
@@ -582,14 +600,40 @@ function PlayerListController:_setupReskin()
 		screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		screenGui.Parent = CoreGui
 		local root = ReactRoblox.createRoot(screenGui)
-		root:render(reskinElement)
+		root:render(buildReskinElement())
 		self._reskinRoot = root
 		self._reskinScreenGui = screenGui
+		if FFlagPlayerListReskinMobileLayoutFix and isSmallTouchDevice then
+			local function connectViewport(cam)
+				if self._reskinViewportConn then
+					self._reskinViewportConn:Disconnect()
+					self._reskinViewportConn = nil
+				end
+				if cam then
+					self._reskinViewportConn = cam:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+						setMobilePosition(computeMobilePosition())
+					end)
+					setMobilePosition(computeMobilePosition())
+				end
+			end
+			self._reskinCameraConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+				connectViewport(workspace.CurrentCamera)
+			end)
+			connectViewport(workspace.CurrentCamera)
+		end
 		setupPlayerInfoRequests()
 	end
 
 	local function unmountReskin()
 		teardownPlayerInfoRequests()
+		if self._reskinCameraConn then
+			self._reskinCameraConn:Disconnect()
+			self._reskinCameraConn = nil
+		end
+		if self._reskinViewportConn then
+			self._reskinViewportConn:Disconnect()
+			self._reskinViewportConn = nil
+		end
 		if self._reskinRoot then
 			self._reskinRoot:unmount()
 			self._reskinRoot = nil

@@ -31,6 +31,10 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 local shouldSuppressUnreadForTabMetadata = ExpChat.shouldSuppressUnreadForTabMetadata
+-- TODO: exp-chat should own friends unread-count tracking and expose an
+-- abstracted interface for chrome, rather than chrome reaching into a
+-- friends-chat store directly.
+local GetFriendsChatIconUnreadStore = require(CorePackages.Workspace.Packages.FriendsChat.GetFriendsChatIconUnreadStore)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
@@ -57,7 +61,6 @@ local ExpChatPerfTracker = ExpChat.ExpChatPerfTracker
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 local unreadMessages = 0
-local friendsChatUnreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
 local chatVisibility: boolean = ChatSelector:GetVisibility()
 local chatChromeIntegration
@@ -74,6 +77,7 @@ local function updateUnreadNotification()
 		return
 	end
 
+	local friendsChatUnreadMessages = GetFriendsChatIconUnreadStore(false).getUnreadCountToDisplay(false)
 	local unreadCount = unreadMessages + friendsChatUnreadMessages
 	if chatVisibility or unreadCount == 0 then
 		chatChromeIntegration.notification:clear()
@@ -146,6 +150,9 @@ end, function()
 	if FFlagExpChatEnableFriendsTab then
 		if isVisible then
 			unreadMessages = 0
+			-- Opening the chat window clears the friends portion of the badge; it
+			-- only reappears when new messages arrive afterward.
+			GetFriendsChatIconUnreadStore(false).clearDisplayCount()
 		end
 		updateUnreadNotification()
 	elseif isVisible and unreadMessages and chatChromeIntegration.notification then
@@ -287,13 +294,11 @@ if FFlagChatIntegrationFixShortcut and FFlagEnableConsoleExpControls then
 end
 
 if FFlagExpChatEnableFriendsTab then
-	local function updateFriendsChatUnreadMessages(nextUnreadCount: number?)
-		friendsChatUnreadMessages = nextUnreadCount or 0
+	-- Refresh the badge whenever the friends display count changes.
+	SignalsRoblox.createDetachedEffect(function(scope)
+		GetFriendsChatIconUnreadStore(scope).getUnreadCountToDisplay(scope)
 		updateUnreadNotification()
-	end
-
-	updateFriendsChatUnreadMessages(InExperienceAppChatModal.default.unreadCount)
-	InExperienceAppChatModal.default.unreadCountSignal.Event:Connect(updateFriendsChatUnreadMessages)
+	end)
 end
 
 -- Purely informational system messages (chat-enabled, welcome, and summary lines)

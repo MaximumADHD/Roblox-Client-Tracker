@@ -7,6 +7,7 @@ local PromptType = {
 	PublishAssetSingleStep = "PublishAssetSingleStep" :: "PublishAssetSingleStep",
 	PublishAvatar = "PublishAvatar" :: "PublishAvatar",
 	PublishAvatarAsset = "PublishAvatarAsset" :: "PublishAvatarAsset",
+	PublishMakeupLook = "PublishMakeupLook" :: "PublishMakeupLook",
 }
 
 return PromptType

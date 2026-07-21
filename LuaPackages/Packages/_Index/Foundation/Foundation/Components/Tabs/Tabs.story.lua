@@ -9,6 +9,8 @@ local FillBehavior = require(Foundation.Enums.FillBehavior)
 local InputSize = require(Foundation.Enums.InputSize)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
+local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
+local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 local Tabs = require(Foundation.Components.Tabs)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -142,6 +144,25 @@ return {
 								text = "With icon",
 								icon = "icons/menu/clothing/limited_on",
 								isDisabled = true,
+							},
+							{
+								id = "6",
+								text = "With indicator",
+								indicator = {
+									value = if props.controls.indicatorValue > 0
+										then props.controls.indicatorValue
+										else nil,
+									variant = props.controls.indicatorVariant,
+									shape = props.controls.indicatorShape,
+								},
+								content = React.createElement(
+									View,
+									{ tag = "size-full-0 auto-y padding-xxlarge" },
+									React.createElement(Text, {
+										tag = "text-align-x-left auto-xy",
+										Text = "This tab shows a StatusIndicator.",
+									})
+								),
 							},
 						},
 						size = props.controls.size,
@@ -368,5 +389,8 @@ return {
 	controls = {
 		size = Dash.values(InputSize),
 		fillBehavior = Dash.values(FillBehavior),
+		indicatorValue = 0,
+		indicatorVariant = Dash.keys(StatusIndicatorVariant),
+		indicatorShape = Dash.keys(StatusIndicatorShape),
 	},
 }

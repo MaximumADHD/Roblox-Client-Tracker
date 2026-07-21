@@ -145,6 +145,8 @@ type _Messages =
 		OverflowMenuSchema_Props: _OverflowMenuSchema_PropsMessage,
 		DetailsPageImageHeaderSchema: _DetailsPageImageHeaderSchemaMessage,
 		DetailsPageImageHeaderSchema_Props: _DetailsPageImageHeaderSchema_PropsMessage,
+		LogoSchema: _LogoSchemaMessage,
+		LogoSchema_Props: _LogoSchema_PropsMessage,
 		PageHeaderSchema: _PageHeaderSchemaMessage,
 		PageHeaderSchema_Props: _PageHeaderSchema_PropsMessage,
 		PageHeaderSchema_WebProps: _PageHeaderSchema_WebPropsMessage,
@@ -1977,7 +1979,7 @@ type _AppDownloadButtonSchema_PropsImpl = {
 
 type _AppDownloadButtonSchema_PropsFields = {
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp?,
 	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
@@ -1988,7 +1990,7 @@ type _AppDownloadButtonSchema_PropsFields = {
 
 type _AppDownloadButtonSchema_PropsPartialFields = {
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp?,
 	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
@@ -3525,6 +3527,8 @@ type _PlayButtonSchema_PropsFields = {
 	enable_ui_blox_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	launch_when_loading: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	launch_on_release_after_unmount: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	prefer_secondary_play_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	expand_width_for_secondary_play_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _PlayButtonSchema_PropsPartialFields = {
@@ -3549,6 +3553,8 @@ type _PlayButtonSchema_PropsPartialFields = {
 	enable_ui_blox_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	launch_when_loading: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	launch_on_release_after_unmount: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	prefer_secondary_play_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	expand_width_for_secondary_play_button: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type PlayButtonSchema_Props = typeof(setmetatable(
@@ -5208,6 +5214,52 @@ type _DetailsPageImageHeaderSchema_PropsMessage = proto.Message<
 	_DetailsPageImageHeaderSchema_PropsPartialFields
 >
 
+type _LogoSchemaImpl = {
+	__index: _LogoSchemaImpl,
+	new: (fields: _LogoSchemaPartialFields?) -> LogoSchema,
+	encode: (self: LogoSchema) -> buffer,
+	decode: (input: buffer) -> LogoSchema,
+	jsonEncode: (self: LogoSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LogoSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _LogoSchemaFields = {
+	props: LogoSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _LogoSchemaPartialFields = {
+	props: LogoSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type LogoSchema = typeof(setmetatable({} :: _LogoSchemaFields, {} :: _LogoSchemaImpl))
+type _LogoSchemaMessage = proto.Message<LogoSchema, _LogoSchemaPartialFields>
+
+type _LogoSchema_PropsImpl = {
+	__index: _LogoSchema_PropsImpl,
+	new: (fields: _LogoSchema_PropsPartialFields?) -> LogoSchema_Props,
+	encode: (self: LogoSchema_Props) -> buffer,
+	decode: (input: buffer) -> LogoSchema_Props,
+	jsonEncode: (self: LogoSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LogoSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _LogoSchema_PropsFields = {
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+type _LogoSchema_PropsPartialFields = {
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+export type LogoSchema_Props = typeof(setmetatable({} :: _LogoSchema_PropsFields, {} :: _LogoSchema_PropsImpl))
+type _LogoSchema_PropsMessage = proto.Message<LogoSchema_Props, _LogoSchema_PropsPartialFields>
+
 type _PageHeaderSchemaImpl = {
 	__index: _PageHeaderSchemaImpl,
 	new: (fields: _PageHeaderSchemaPartialFields?) -> PageHeaderSchema,
@@ -5279,12 +5331,18 @@ type _PageHeaderSchema_WebPropsFields = {
 	background_max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	foreground_max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	foreground_horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_bottom_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_fill: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	foreground_top_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 type _PageHeaderSchema_WebPropsPartialFields = {
 	background_max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	foreground_max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	foreground_horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_bottom_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_fill: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	foreground_top_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 export type PageHeaderSchema_WebProps = typeof(setmetatable(
@@ -9869,6 +9927,7 @@ type _UiComponentSchemaFields = {
 		| { type: "marketplace_favorites_category_menu", value: MarketplaceFavoritesCategoryMenuSchema }
 		| { type: "app_download_button", value: AppDownloadButtonSchema }
 		| { type: "placeholder_tile", value: PlaceholderTileSchema }
+		| { type: "logo", value: LogoSchema }
 	)?,
 }
 
@@ -9953,6 +10012,7 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "marketplace_favorites_category_menu", value: MarketplaceFavoritesCategoryMenuSchema }
 		| { type: "app_download_button", value: AppDownloadButtonSchema }
 		| { type: "placeholder_tile", value: PlaceholderTileSchema }
+		| { type: "logo", value: LogoSchema }
 	)?,
 }
 
@@ -19654,7 +19714,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.decode(value)
+					self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 3 then
 					local value
@@ -19761,7 +19821,7 @@ do
 		end
 
 		if input.text ~= nil then
-			self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.jsonDecode(input.text)
+			self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text)
 		end
 
 		if input.variant ~= nil then
@@ -31134,6 +31194,13 @@ do
 			launch_on_release_after_unmount = if data == nil or data.launch_on_release_after_unmount == nil
 				then nil
 				else data.launch_on_release_after_unmount,
+			prefer_secondary_play_button = if data == nil or data.prefer_secondary_play_button == nil
+				then nil
+				else data.prefer_secondary_play_button,
+			expand_width_for_secondary_play_button = if data == nil
+					or data.expand_width_for_secondary_play_button == nil
+				then nil
+				else data.expand_width_for_secondary_play_button,
 		}, _PlayButtonSchema_PropsImpl :: _PlayButtonSchema_PropsImpl)
 	end
 
@@ -31267,6 +31334,18 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.prefer_secondary_play_button ~= nil then
+			local encoded = self.prefer_secondary_play_button:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.expand_width_for_secondary_play_button ~= nil then
+			local encoded = self.expand_width_for_secondary_play_button:encode()
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -31397,6 +31476,18 @@ do
 					self.launch_on_release_after_unmount =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prefer_secondary_play_button =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.expand_width_for_secondary_play_button =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -31506,6 +31597,14 @@ do
 
 		if self.launch_on_release_after_unmount ~= nil then
 			output.launchOnReleaseAfterUnmount = self.launch_on_release_after_unmount:jsonEncode()
+		end
+
+		if self.prefer_secondary_play_button ~= nil then
+			output.preferSecondaryPlayButton = self.prefer_secondary_play_button:jsonEncode()
+		end
+
+		if self.expand_width_for_secondary_play_button ~= nil then
+			output.expandWidthForSecondaryPlayButton = self.expand_width_for_secondary_play_button:jsonEncode()
 		end
 
 		return output
@@ -31707,6 +31806,31 @@ do
 		if input.launchOnReleaseAfterUnmount ~= nil then
 			self.launch_on_release_after_unmount =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.launchOnReleaseAfterUnmount)
+		end
+
+		if input.prefer_secondary_play_button ~= nil then
+			self.prefer_secondary_play_button = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+				input.prefer_secondary_play_button
+			)
+		end
+
+		if input.preferSecondaryPlayButton ~= nil then
+			self.prefer_secondary_play_button =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.preferSecondaryPlayButton)
+		end
+
+		if input.expand_width_for_secondary_play_button ~= nil then
+			self.expand_width_for_secondary_play_button =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.expand_width_for_secondary_play_button
+				)
+		end
+
+		if input.expandWidthForSecondaryPlayButton ~= nil then
+			self.expand_width_for_secondary_play_button =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.expandWidthForSecondaryPlayButton
+				)
 		end
 
 		return self
@@ -42461,6 +42585,243 @@ do
 end
 
 do
+	local _LogoSchemaImpl = {}
+	_LogoSchemaImpl.__index = _LogoSchemaImpl
+
+	function _LogoSchemaImpl.new(data: _LogoSchemaPartialFields?): LogoSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _LogoSchemaImpl :: _LogoSchemaImpl)
+	end
+
+	function _LogoSchemaImpl.encode(self: LogoSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LogoSchemaImpl.decode(input: buffer): LogoSchema
+		local self = _LogoSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.LogoSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LogoSchemaImpl.jsonEncode(self: LogoSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LogoSchemaImpl.jsonDecode(input: { [string]: any }): LogoSchema
+		local self = _LogoSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.LogoSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_LogoSchemaImpl.descriptor = {
+		name = "LogoSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LogoSchema",
+	}
+
+	messages.LogoSchema = _LogoSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LogoSchema)
+end
+
+do
+	local _LogoSchema_PropsImpl = {}
+	_LogoSchema_PropsImpl.__index = _LogoSchema_PropsImpl
+
+	function _LogoSchema_PropsImpl.new(data: _LogoSchema_PropsPartialFields?): LogoSchema_Props
+		return setmetatable({
+			name = if data == nil or data.name == nil then nil else data.name,
+			width = if data == nil or data.width == nil then nil else data.width,
+		}, _LogoSchema_PropsImpl :: _LogoSchema_PropsImpl)
+	end
+
+	function _LogoSchema_PropsImpl.encode(self: LogoSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.name ~= nil then
+			local encoded = self.name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.width ~= nil then
+			local encoded = self.width:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LogoSchema_PropsImpl.decode(input: buffer): LogoSchema_Props
+		local self = _LogoSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LogoSchema_PropsImpl.jsonEncode(self: LogoSchema_Props): any
+		local output = {}
+
+		if self.name ~= nil then
+			output.name = self.name:jsonEncode()
+		end
+
+		if self.width ~= nil then
+			output.width = self.width:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LogoSchema_PropsImpl.jsonDecode(input: { [string]: any }): LogoSchema_Props
+		local self = _LogoSchema_PropsImpl.new()
+
+		if input.name ~= nil then
+			self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.name)
+		end
+
+		if input.width ~= nil then
+			self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.width)
+		end
+
+		return self
+	end
+
+	_LogoSchema_PropsImpl.descriptor = {
+		name = "LogoSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.LogoSchema_Props = _LogoSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LogoSchema_Props)
+end
+
+do
 	local _PageHeaderSchemaImpl = {}
 	_PageHeaderSchemaImpl.__index = _PageHeaderSchemaImpl
 
@@ -42828,6 +43189,13 @@ do
 			foreground_horizontal_padding = if data == nil or data.foreground_horizontal_padding == nil
 				then nil
 				else data.foreground_horizontal_padding,
+			foreground_bottom_padding = if data == nil or data.foreground_bottom_padding == nil
+				then nil
+				else data.foreground_bottom_padding,
+			foreground_fill = if data == nil or data.foreground_fill == nil then nil else data.foreground_fill,
+			foreground_top_padding = if data == nil or data.foreground_top_padding == nil
+				then nil
+				else data.foreground_top_padding,
 		}, _PageHeaderSchema_WebPropsImpl :: _PageHeaderSchema_WebPropsImpl)
 	end
 
@@ -42850,6 +43218,24 @@ do
 		if self.foreground_horizontal_padding ~= nil then
 			local encoded = self.foreground_horizontal_padding:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_bottom_padding ~= nil then
+			local encoded = self.foreground_bottom_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_fill ~= nil then
+			local encoded = self.foreground_fill:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_top_padding ~= nil then
+			local encoded = self.foreground_top_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -42888,6 +43274,23 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.foreground_horizontal_padding =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_bottom_padding =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_fill = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_top_padding =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
 					continue
 				end
@@ -42929,6 +43332,18 @@ do
 			output.foregroundHorizontalPadding = self.foreground_horizontal_padding:jsonEncode()
 		end
 
+		if self.foreground_bottom_padding ~= nil then
+			output.foregroundBottomPadding = self.foreground_bottom_padding:jsonEncode()
+		end
+
+		if self.foreground_fill ~= nil then
+			output.foregroundFill = self.foreground_fill:jsonEncode()
+		end
+
+		if self.foreground_top_padding ~= nil then
+			output.foregroundTopPadding = self.foreground_top_padding:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -42965,6 +43380,36 @@ do
 			self.foreground_horizontal_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
 				input.foregroundHorizontalPadding
 			)
+		end
+
+		if input.foreground_bottom_padding ~= nil then
+			self.foreground_bottom_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foreground_bottom_padding)
+		end
+
+		if input.foregroundBottomPadding ~= nil then
+			self.foreground_bottom_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foregroundBottomPadding)
+		end
+
+		if input.foreground_fill ~= nil then
+			self.foreground_fill =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.foreground_fill)
+		end
+
+		if input.foregroundFill ~= nil then
+			self.foreground_fill =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.foregroundFill)
+		end
+
+		if input.foreground_top_padding ~= nil then
+			self.foreground_top_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foreground_top_padding)
+		end
+
+		if input.foregroundTopPadding ~= nil then
+			self.foreground_top_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foregroundTopPadding)
 		end
 
 		return self
@@ -68937,6 +69382,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 79, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "logo" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 80, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -69389,6 +69838,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "placeholder_tile", value = messages.PlaceholderTileSchema.decode(value) }
 					continue
+				elseif field == 80 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "logo", value = messages.LogoSchema.decode(value) }
+					continue
 				end
 
 				local length
@@ -69575,6 +70029,8 @@ do
 				output.appDownloadButton = self.kind.value:jsonEncode()
 			elseif self.kind.type == "placeholder_tile" then
 				output.placeholderTile = self.kind.value:jsonEncode()
+			elseif self.kind.type == "logo" then
+				output.logo = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -70314,6 +70770,10 @@ do
 				{ type = "placeholder_tile", value = messages.PlaceholderTileSchema.jsonDecode(input.placeholderTile) }
 		end
 
+		if input.logo ~= nil then
+			self.kind = { type = "logo", value = messages.LogoSchema.jsonDecode(input.logo) }
+		end
+
 		return self
 	end
 
@@ -70458,6 +70918,8 @@ return {
 	OverflowMenuSchema_Props = messages.OverflowMenuSchema_Props,
 	DetailsPageImageHeaderSchema = messages.DetailsPageImageHeaderSchema,
 	DetailsPageImageHeaderSchema_Props = messages.DetailsPageImageHeaderSchema_Props,
+	LogoSchema = messages.LogoSchema,
+	LogoSchema_Props = messages.LogoSchema_Props,
 	PageHeaderSchema = messages.PageHeaderSchema,
 	PageHeaderSchema_Props = messages.PageHeaderSchema_Props,
 	PageHeaderSchema_WebProps = messages.PageHeaderSchema_WebProps,

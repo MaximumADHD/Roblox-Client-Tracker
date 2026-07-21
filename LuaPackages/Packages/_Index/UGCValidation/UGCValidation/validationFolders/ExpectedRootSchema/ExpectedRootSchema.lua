@@ -12,6 +12,8 @@ local getEngineFeatureEngineUGCValidationExpandReturnSchema =
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidationAnimationPackFolderStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
+local getFFlagUGCValidationAnimationPackDisableModelStructure =
+	require(root.flags.getFFlagUGCValidationAnimationPackDisableModelStructure)
 local ExpectedRootSchema = {}
 
 ExpectedRootSchema.categories = Constants.AllUploadCategories
@@ -119,7 +121,10 @@ ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Type
 
 	if uploadEnum.bundleType then
 		if getFFlagUGCValidationAnimationPackSupport() and uploadEnum.bundleType == Enum.BundleType.Animations then
-			if getFFlagUGCValidationAnimationPackFolderStructure() then
+			if
+				not getFFlagUGCValidationAnimationPackDisableModelStructure()
+				and getFFlagUGCValidationAnimationPackFolderStructure()
+			then
 				schema = CreateExpectedSchema.generateAnimationPackBundleSchema(instance)
 			else
 				schema = CreateExpectedSchema.generateAnimationPackBundleSchema(nil)

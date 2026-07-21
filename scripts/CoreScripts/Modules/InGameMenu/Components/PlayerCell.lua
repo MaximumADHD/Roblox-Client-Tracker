@@ -13,11 +13,19 @@ local t = InGameMenuDependencies.t
 
 local Cell = UIBlox.App.Table.Cell
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 local LoadableImage = UIBlox.App.Loading.LoadableImage
 local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 local Images = UIBlox.App.ImageSet.Images
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
 
 local InGameMenu = script.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
@@ -110,6 +118,83 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 		end
 		local bgColor = backgroundStyle.Color
 
+		local onlineIndicatorChildren = {
+			Corner = Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0, ONLINE_INDICATOR_SIZE / 2),
+			}),
+			Border = Roact.createElement("UIStroke", {
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+				Color = Color3.new(
+					bgColor.R * bgBrightness,
+					bgColor.G * bgBrightness,
+					bgColor.B * bgBrightness
+				),
+				Transparency = 0,
+				Thickness = 2,
+			}),
+		}
+
+		local avatarChildren = {
+			BorderRadius = Roact.createElement("UICorner", {
+				CornerRadius = CORNER_RADIUS,
+			}),
+			PlayerIcon = Roact.createElement(LoadableImage, {
+				loadingStrategy = self.props.loadingStrategy,
+				Size = UDim2.fromScale(1, 1),
+				ImageColor3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
+				BackgroundTransparency = 1,
+				Image = props.userId > 0
+						and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=60&h=60"
+					or "",
+				ZIndex = 2,
+				LayoutOrder = 1,
+				useShimmerAnimationWhileLoading = true,
+				renderOnFailed = function()
+					if FFlagCoreUiMigrateUIBloxToFoundation then
+						return Roact.createElement(Image, {
+							Size = UDim2.fromScale(1, 1),
+							Image = "icons/common/user",
+							ZIndex = 2,
+							LayoutOrder = 1,
+							cornerRadius = CORNER_RADIUS,
+						})
+					else
+						return Roact.createElement(ImageSetLabel, {
+							Size = UDim2.fromScale(1, 1),
+							BackgroundTransparency = 1,
+							Image = Images["icons/common/user"],
+							ZIndex = 2,
+							LayoutOrder = 1,
+						}, {
+							Corner = Roact.createElement("UICorner", {
+								CornerRadius = CORNER_RADIUS,
+							}),
+						})
+					end
+				end,
+				cornerRadius = CORNER_RADIUS,
+			}),
+			OnlineIndicator = self.props.isOnline and (
+				if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						AnchorPoint = Vector2.new(1, 1),
+						Image = Assets.Images.Circle,
+						imageStyle = { Color3 = props.isOnline and style.Theme.OnlineStatus.Color or nil, Transparency = 0 },
+						Position = UDim2.new(1, -3, 1, -3),
+						Size = UDim2.new(0, ONLINE_INDICATOR_SIZE, 0, ONLINE_INDICATOR_SIZE),
+						ZIndex = 3,
+					}, onlineIndicatorChildren)
+					else Roact.createElement(ImageSetLabel, {
+						AnchorPoint = Vector2.new(1, 1),
+						Image = Assets.Images.Circle,
+						ImageColor3 = props.isOnline and style.Theme.OnlineStatus.Color or nil,
+						Position = UDim2.new(1, -3, 1, -3),
+						Size = UDim2.new(0, ONLINE_INDICATOR_SIZE, 0, ONLINE_INDICATOR_SIZE),
+						ZIndex = 3,
+					}, onlineIndicatorChildren)
+			) or nil,
+		}
+
 		return Roact.createElement(Cell, {
 
 			background = self.props.isSelected and Roact.createElement("Frame", {
@@ -135,63 +220,16 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
-				AvatarBackground = Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Image = Images["component_assets/userBG_dark"],
-					Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
-				}, {
-					BorderRadius = Roact.createElement("UICorner", {
-						CornerRadius = CORNER_RADIUS,
-					}),
-					PlayerIcon = Roact.createElement(LoadableImage, {
-						loadingStrategy = self.props.loadingStrategy,
-						Size = UDim2.fromScale(1, 1),
-						ImageColor3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
+				AvatarBackground = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Image = "component_assets/userBG_dark",
+						Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
+					}, avatarChildren)
+					else Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
-						Image = props.userId > 0
-								and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=60&h=60"
-							or "",
-						ZIndex = 2,
-						LayoutOrder = 1,
-						useShimmerAnimationWhileLoading = true,
-						renderOnFailed = function()
-							return Roact.createElement(ImageSetLabel, {
-								Size = UDim2.fromScale(1, 1),
-								BackgroundTransparency = 1,
-								Image = Images["icons/common/user"],
-								ZIndex = 2,
-								LayoutOrder = 1,
-							}, {
-								Corner = Roact.createElement("UICorner", {
-									CornerRadius = CORNER_RADIUS,
-								}),
-							})
-						end,
-						cornerRadius = CORNER_RADIUS,
-					}),
-					OnlineIndicator = self.props.isOnline and Roact.createElement(ImageSetLabel, {
-						AnchorPoint = Vector2.new(1, 1),
-						Image = Assets.Images.Circle,
-						ImageColor3 = props.isOnline and style.Theme.OnlineStatus.Color or nil,
-						Position = UDim2.new(1, -3, 1, -3),
-						Size = UDim2.new(0, ONLINE_INDICATOR_SIZE, 0, ONLINE_INDICATOR_SIZE),
-						ZIndex = 3,
-					}, {
-						Corner = Roact.createElement("UICorner", {
-							CornerRadius = UDim.new(0, ONLINE_INDICATOR_SIZE / 2),
-						}),
-						Border = Roact.createElement("UIStroke", {
-							ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-							Color = Color3.new(
-								bgColor.R * bgBrightness,
-								bgColor.G * bgBrightness,
-								bgColor.B * bgBrightness
-							),
-							Transparency = 0,
-							Thickness = 2,
-						}),
-					}) or nil,
-				}),
+						Image = Images["component_assets/userBG_dark"],
+						Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
+					}, avatarChildren),
 
 				NameContainer = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

@@ -47,9 +47,6 @@ type ItemDetails = AvatarExperienceInspectAndBuy.ItemDetails
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
-local FFlagAXParseAdditionalItemDetailsFromCatalog =
-	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
-
 local AssetInfo = {}
 
 -- helper function to round value to 2 decimal places (for meta field)
@@ -366,24 +363,22 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 	newAsset.hasResellers = itemDetails.HasResellers
 	newAsset.collectibleItemId = itemDetails.CollectibleItemId
 
-	if FFlagAXParseAdditionalItemDetailsFromCatalog then
-		local itemRestrictions = {}
-		if itemDetails.ItemRestrictions then
-			for _, value in itemDetails.ItemRestrictions do
-				itemRestrictions[value] = true
-			end
-			newAsset.itemRestrictions = itemRestrictions
+	local itemRestrictions = {}
+	if itemDetails.ItemRestrictions then
+		for _, value in itemDetails.ItemRestrictions do
+			itemRestrictions[value] = true
 		end
-
-		newAsset.saleLocationType = itemDetails.SaleLocationType
-		newAsset.remaining = itemDetails.UnitsAvailableForConsumption
-		newAsset.collectibleTotalQuantity = itemDetails.TotalQuantity
-		newAsset.collectibleLowestResalePrice = itemDetails.LowestResalePrice
-		newAsset.isOffSale = itemDetails.IsOffSale
-		newAsset.saleLocationType = itemDetails.SaleLocationType
-		newAsset.numFavorites = itemDetails.FavoriteCount
-		newAsset.catalogPriceStatus = itemDetails.PriceStatus
+		newAsset.itemRestrictions = itemRestrictions
 	end
+
+	newAsset.saleLocationType = itemDetails.SaleLocationType
+	newAsset.remaining = itemDetails.UnitsAvailableForConsumption
+	newAsset.collectibleTotalQuantity = itemDetails.TotalQuantity
+	newAsset.collectibleLowestResalePrice = itemDetails.LowestResalePrice
+	newAsset.isOffSale = itemDetails.IsOffSale
+	newAsset.saleLocationType = itemDetails.SaleLocationType
+	newAsset.numFavorites = itemDetails.FavoriteCount
+	newAsset.catalogPriceStatus = itemDetails.PriceStatus
 
 	newAsset.creatingUniverseId = itemDetails.CreatingUniverseId
 

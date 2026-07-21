@@ -11,17 +11,19 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
-
 local Foundation = require(CorePackages.Packages.Foundation)
-local Image = Foundation.Image
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagCoreUiMigrateUIBloxToFoundation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
 
-local HOME_ICON_ON = if FFlagCoreUiMigrateUIBloxToFoundation
-	then "icons/menu/home_on"
-	else Images["icons/menu/home_on"]
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
+
+local Image = Foundation.Image
+
+local HOME_ICON_ON = if FFlagCoreUiMigrateUIBloxToFoundation then "icons/menu/home_on" else Images["icons/menu/home_on"]
 local HOME_ICON_OFF = if FFlagCoreUiMigrateUIBloxToFoundation
 	then "icons/menu/home_off"
 	else Images["icons/menu/home_off"]
@@ -53,6 +55,7 @@ function HomeButton:renderWithSelectionCursor(getSelectionCursor)
 			then Roact.createElement(Image, {
 				Image = icon,
 				tag = "position-center-center anchor-center-center size-800",
+				backgroundStyle = { Transparency = 1 },
 				selection = { SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) },
 				onActivated = self.props.onActivated,
 			})

@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
-local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
+local FFlagPlatformLeaderboardRccEnabled = SharedFlags.FFlagPlatformLeaderboardRccEnabled
 local FFlagRemoteAllowListAddExpChatFeatureValueChanged =
 	game:DefineFastFlag("RemoteAllowListAddExpChatFeatureValueChanged", false)
 
@@ -71,6 +73,13 @@ return function()
 
 	-- content/scripts/CoreScripts/Modules/Server/VR/VRAvatarGesturesServer.lua
 	table.insert(allowList, "AvatarGesturesVRPlayer")
+
+	-- content/scripts/CoreScripts/ServerCoreScripts/ServerPlatformLeaderboard.lua
+	if FFlagPlatformLeaderboardRccEnabled then
+		table.insert(allowList, "PlatformLeaderboardPush")
+		table.insert(allowList, "PlatformLeaderboardTabOpened")
+		table.insert(allowList, "PlatformLeaderboardTabClosed")
+	end
 
 	networkPeer:InitializeRemoteAllowList(allowList)
 end

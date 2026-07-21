@@ -5,8 +5,15 @@ local t = InGameMenuDependencies.t
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local Cryo = InGameMenuDependencies.Cryo
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagCoreUiMigrateUIBloxToFoundation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -15,10 +22,7 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
-local Foundation = require(CorePackages.Packages.Foundation)
 local Image = Foundation.Image
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 local ControlState = Foundation.Enums.ControlState
 
 local validateProps = t.strictInterface({
@@ -56,6 +60,7 @@ if FFlagCoreUiMigrateUIBloxToFoundation then
 				AnchorPoint = props.AnchorPoint,
 				Position = props.Position,
 				Size = UDim2.new(0, 32, 0, 32),
+				backgroundStyle = { Transparency = 1 },
 				LayoutOrder = props.layoutOrder,
 				Image = Assets.Images.CloseButton,
 				selection = { SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) },

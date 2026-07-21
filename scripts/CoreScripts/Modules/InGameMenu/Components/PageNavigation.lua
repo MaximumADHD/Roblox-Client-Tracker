@@ -9,8 +9,17 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent
 
@@ -148,19 +157,32 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 					ZIndex = 3,
 					BackgroundTransparency = 1,
 				}, {
-					Icon = Roact.createElement(ImageSetLabel, {
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundTransparency = 1,
-						Image = props.image,
-						ImageColor3 = style.Theme.IconEmphasis.Color,
-						ImageTransparency = divideTransparency(
-							style.Theme.IconEmphasis.Transparency,
-							showPressEffect and 2 or 1
-						),
-						Position = UDim2.new(0, NAV_ICON_LEFT_PADDING, 0.5, 0),
-						Size = UDim2.new(0, NAV_ICON_SIZE, 0, NAV_ICON_SIZE),
-						ZIndex = 3,
-					}),
+					Icon = if FFlagCoreUiMigrateUIBloxToFoundation
+						then Roact.createElement(Image, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							Image = props.image.Image,
+							imageRect = { offset = props.image.ImageRectOffset, size = props.image.ImageRectSize },
+							imageStyle = { Color3 = style.Theme.IconEmphasis.Color, Transparency = divideTransparency(
+								style.Theme.IconEmphasis.Transparency,
+								showPressEffect and 2 or 1
+							) },
+							Position = UDim2.new(0, NAV_ICON_LEFT_PADDING, 0.5, 0),
+							Size = UDim2.new(0, NAV_ICON_SIZE, 0, NAV_ICON_SIZE),
+							ZIndex = 3,
+						})
+						else Roact.createElement(ImageSetLabel, {
+							AnchorPoint = Vector2.new(0, 0.5),
+							BackgroundTransparency = 1,
+							Image = props.image,
+							ImageColor3 = style.Theme.IconEmphasis.Color,
+							ImageTransparency = divideTransparency(
+								style.Theme.IconEmphasis.Transparency,
+								showPressEffect and 2 or 1
+							),
+							Position = UDim2.new(0, NAV_ICON_LEFT_PADDING, 0.5, 0),
+							Size = UDim2.new(0, NAV_ICON_SIZE, 0, NAV_ICON_SIZE),
+							ZIndex = 3,
+						}),
 					Text = Roact.createElement(ThemedTextLabel, {
 						fontKey = "Header1",
 						themeKey = "TextEmphasis",

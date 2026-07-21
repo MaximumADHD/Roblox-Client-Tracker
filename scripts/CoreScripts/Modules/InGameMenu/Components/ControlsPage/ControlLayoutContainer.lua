@@ -7,8 +7,15 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagCoreUiMigrateUIBloxToFoundation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -27,10 +34,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
-local Foundation = require(CorePackages.Packages.Foundation)
 local Image = Foundation.Image
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
 local HEADER_HEIGHT = 132
 
@@ -56,7 +60,10 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 		return withFoundationOrUIBloxStyle(function(tokens)
 			return {
 				Theme = {
-					Overlay = { Color = tokens.Color.Common.Scrim.Color3, Transparency = tokens.Color.Common.Scrim.Transparency },
+					Overlay = {
+						Color = tokens.Color.Common.Scrim.Color3,
+						Transparency = tokens.Color.Common.Scrim.Transparency,
+					},
 				},
 			}
 		end, function(style)
@@ -88,6 +95,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 							AnchorPoint = Vector2.new(0, 0.5),
 							Position = UDim2.new(0, 0, 0, HEADER_CONTENT_Y_CENTER),
 							Size = UDim2.new(0, 36, 0, 36),
+							backgroundStyle = { Transparency = 1 },
 							Image = Assets.Images.CloseModal :: string,
 							selection = { SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) },
 							onActivated = props.onClosed,
@@ -123,26 +131,46 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 					-- }),
 				}),
 
-				RadialGlowBig = Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Image = Assets.Images.RadialGlow,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
+				RadialGlowBig = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Image = Assets.Images.RadialGlow,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
 
-					-- Renders as a square based off of screen width
-					SizeConstraint = Enum.SizeConstraint.RelativeXX,
-					Size = UDim2.new(1, 0, 1, 0),
-				}),
-				RadialGlowSquashed = Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Image = Assets.Images.RadialGlow,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 1, 0),
+						-- Renders as a square based off of screen width
+						SizeConstraint = Enum.SizeConstraint.RelativeXX,
+						Size = UDim2.new(1, 0, 1, 0),
+					})
+					else Roact.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Image = Assets.Images.RadialGlow,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
 
-					-- Renders with height always at 60% of width
-					SizeConstraint = Enum.SizeConstraint.RelativeXX,
-					Size = UDim2.new(1, 0, 0.6, 0),
-				}),
+						-- Renders as a square based off of screen width
+						SizeConstraint = Enum.SizeConstraint.RelativeXX,
+						Size = UDim2.new(1, 0, 1, 0),
+					}),
+				RadialGlowSquashed = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Image = Assets.Images.RadialGlow,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 1, 0),
+
+						-- Renders with height always at 60% of width
+						SizeConstraint = Enum.SizeConstraint.RelativeXX,
+						Size = UDim2.new(1, 0, 0.6, 0),
+					})
+					else Roact.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Image = Assets.Images.RadialGlow,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 1, 0),
+
+						-- Renders with height always at 60% of width
+						SizeConstraint = Enum.SizeConstraint.RelativeXX,
+						Size = UDim2.new(1, 0, 0.6, 0),
+					}),
 			})
 		end)
 	end)

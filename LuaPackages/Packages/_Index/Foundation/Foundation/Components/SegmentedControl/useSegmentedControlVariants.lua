@@ -42,164 +42,102 @@ local function variantsFactory(tokens: Tokens)
 		icon = { style = tokens.Color.Content.Emphasis },
 		divider = { tag = "row" },
 	}
+	-- Radius is pulled out of `sizes` into separate overlays so the circular
+	-- variant can swap in `radius-circle` without duplicating per-size
+	-- declarations.
+	local sizes: { [InputSize]: VariantProps } = {
+		[InputSize.XSmall] = {
+			container = {
+				tag = {
+					["size-600"] = true,
+					["padding-xsmall"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
+				},
+			},
+			segment = { tag = "padding-small" },
+			text = { tag = "text-caption-small" },
+			icon = { size = IconSize.Small },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
+		},
+		[InputSize.Small] = {
+			container = {
+				tag = {
+					["size-800"] = true,
+					["padding-xsmall"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
+				},
+			},
+			segment = { tag = "padding-small" },
+			text = { tag = "text-caption-small" },
+			icon = { size = IconSize.Medium },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
+		},
+		[InputSize.Medium] = {
+			container = { tag = "size-1000 padding-xsmall" },
+			segment = { tag = "padding-small" },
+			text = { tag = "text-caption-medium" },
+			icon = { size = IconSize.Medium },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
+		},
+		[InputSize.Large] = {
+			container = { tag = "size-1200 padding-xsmall" },
+			segment = { tag = "padding-medium" },
+			text = { tag = "text-caption-medium" },
+			icon = { size = IconSize.Large },
+			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
+		},
+	}
 
-	if Flags.FoundationSegmentedControlCircular then
-		-- Radius is pulled out of `sizes` into separate overlays so the circular
-		-- variant can swap in `radius-circle` without duplicating per-size
-		-- declarations.
-		local sizes: { [InputSize]: VariantProps } = {
-			[InputSize.XSmall] = {
-				container = {
-					tag = {
-						["size-600"] = true,
-						["padding-xsmall"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-					},
+	local defaultRadius: { [InputSize]: VariantProps } = {
+		[InputSize.XSmall] = {
+			container = {
+				tag = {
+					["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
+					["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
 				},
-				segment = { tag = "padding-small" },
-				text = { tag = "text-caption-small" },
-				icon = { size = IconSize.Small },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
-			[InputSize.Small] = {
-				container = {
-					tag = {
-						["size-800"] = true,
-						["padding-xsmall"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-					},
+			segment = {
+				tag = {
+					["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
+					["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
 				},
-				segment = { tag = "padding-small" },
-				text = { tag = "text-caption-small" },
-				icon = { size = IconSize.Medium },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 			},
-			[InputSize.Medium] = {
-				container = { tag = "size-1000 padding-xsmall" },
-				segment = { tag = "padding-small" },
-				text = { tag = "text-caption-medium" },
-				icon = { size = IconSize.Medium },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
+		},
+		[InputSize.Small] = {
+			container = { tag = "radius-medium" },
+			segment = {
+				tag = {
+					["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
+					["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
+				},
 			},
-			[InputSize.Large] = {
-				container = { tag = "size-1200 padding-xsmall" },
-				segment = { tag = "padding-medium" },
-				text = { tag = "text-caption-medium" },
-				icon = { size = IconSize.Large },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
-			},
-		}
+		},
+		[InputSize.Medium] = {
+			container = { tag = "radius-medium" },
+			segment = { tag = "radius-small" },
+		},
+		[InputSize.Large] = {
+			container = { tag = "radius-medium" },
+			segment = { tag = "radius-small" },
+		},
+	}
 
-		local defaultRadius: { [InputSize]: VariantProps } = {
-			[InputSize.XSmall] = {
-				container = {
-					tag = {
-						["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
-						["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-					},
-				},
-				segment = {
-					tag = {
-						["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
-						["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-					},
-				},
-			},
-			[InputSize.Small] = {
-				container = { tag = "radius-medium" },
-				segment = {
-					tag = {
-						["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
-						["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-					},
-				},
-			},
-			[InputSize.Medium] = {
-				container = { tag = "radius-medium" },
-				segment = { tag = "radius-small" },
-			},
-			[InputSize.Large] = {
-				container = { tag = "radius-medium" },
-				segment = { tag = "radius-small" },
-			},
-		}
+	local circularRadius: VariantProps = {
+		container = { tag = "radius-circle" },
+		segment = { tag = "radius-circle" },
+	}
 
-		local circularRadius: VariantProps = {
-			container = { tag = "radius-circle" },
-			segment = { tag = "radius-circle" },
-		}
-
-		return {
-			common = common,
-			sizes = sizes,
-			defaultRadius = defaultRadius,
-			circularRadius = circularRadius,
-		}
-	else
-		local sizes: { [InputSize]: VariantProps } = {
-			[InputSize.XSmall] = {
-				container = {
-					tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
-						then "size-600 radius-medium"
-						else "size-600 padding-xsmall radius-small",
-				},
-				segment = {
-					tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
-						then "padding-small radius-medium"
-						else "padding-small radius-small",
-				},
-				text = { tag = "text-caption-small" },
-				icon = { size = IconSize.Small },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
-			},
-			[InputSize.Small] = {
-				container = {
-					tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
-						then "size-800 radius-medium"
-						else "size-800 padding-xsmall radius-medium",
-				},
-				segment = {
-					tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
-						then "padding-small radius-medium"
-						else "padding-small radius-small",
-				},
-				text = { tag = "text-caption-small" },
-				icon = { size = IconSize.Medium },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
-			},
-			[InputSize.Medium] = {
-				container = { tag = "size-1000 padding-xsmall radius-medium" },
-				segment = { tag = "padding-small radius-small" },
-				text = { tag = "text-caption-medium" },
-				icon = { size = IconSize.Medium },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
-			},
-			[InputSize.Large] = {
-				container = { tag = "size-1200 padding-xsmall radius-medium" },
-				segment = { tag = "padding-medium radius-small" },
-				text = { tag = "text-caption-medium" },
-				icon = { size = IconSize.Large },
-				divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
-			},
-		}
-
-		return {
-			common = common,
-			sizes = sizes,
-			defaultRadius = nil :: never,
-			circularRadius = nil :: never,
-		}
-	end
+	return {
+		common = common,
+		sizes = sizes,
+		defaultRadius = defaultRadius,
+		circularRadius = circularRadius,
+	}
 end
 
 return function(tokens: Tokens, size: InputSize, isCircular: boolean?): SegmentedControlVariantProps
 	local props = VariantsContext.useVariants("SegmentedControl", variantsFactory, tokens)
-
-	if Flags.FoundationSegmentedControlCircular then
-		return composeStyleVariant(
-			props.common,
-			props.sizes[size],
-			if isCircular then props.circularRadius else props.defaultRadius[size]
-		)
-	else
-		return composeStyleVariant(props.common, props.sizes[size])
-	end
+	return composeStyleVariant(
+		props.common,
+		props.sizes[size],
+		if isCircular then props.circularRadius else props.defaultRadius[size]
+	)
 end

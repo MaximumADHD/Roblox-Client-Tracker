@@ -38,6 +38,7 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListClientEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListClientEnabled)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
+local FFlagEnablePromptAgeCheckListener = game:DefineFastFlag("EnablePromptAgeCheckListener", false)
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagEnableSocialContextToast =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
@@ -223,6 +224,12 @@ if FFlagEnableSideSheet then
 	coroutine.wrap(safeRequire)(CoreGuiModules.InExperienceSideSheet)
 end
 
+-- What's New
+local FFlagEnableWhatsNew = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableWhatsNew
+if FFlagEnableWhatsNew then
+	coroutine.wrap(safeRequire)(CoreGuiModules.InGameWhatsNew)
+end
+
 -- BuildExperience ChatSheet
 local FFlagAppNavMyStatsTab = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAppNavMyStatsTab
 if FFlagAppNavMyStatsTab then
@@ -336,6 +343,13 @@ end
 -- Prompt Block Player Script
 ScriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/FriendPlayerPrompt", RobloxGui)
+
+if FFlagEnablePromptAgeCheckListener then
+	local PromptAgeCheckHandler = safeRequire(CoreGuiModules.PromptAgeCheckHandler)
+	if PromptAgeCheckHandler then
+		PromptAgeCheckHandler.init()
+	end
+end
 
 -- Avatar Context Menu
 ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarContextMenu", RobloxGui)

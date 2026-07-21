@@ -17,8 +17,18 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 
 local CONTAINER_FRAME_HEIGHT = 70
@@ -135,24 +145,42 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 			[Roact.Ref] = forwardRef,
 			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 		}, {
-			PlayerCutout = Roact.createElement(
-				ImageSetLabel,
-				Cryo.Dictionary.join(iconPos, {
-					BackgroundTransparency = 1,
-					Image = Assets.Images.CircleCutout,
-					ImageColor3 = backgroundStyle.Color,
-					ZIndex = 3,
-				})
-			),
-			PlayerIcon = Roact.createElement(
-				ImageSetLabel,
-				Cryo.Dictionary.join(iconPos, {
-					BackgroundTransparency = 1,
-					Image = props.userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=48&h=48"
-						or "",
-					ZIndex = 2,
-				})
-			),
+			PlayerCutout = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(
+					Image,
+					Cryo.Dictionary.join(iconPos, {
+						Image = Assets.Images.CircleCutout,
+						imageStyle = { Color3 = backgroundStyle.Color, Transparency = 0 },
+						ZIndex = 3,
+					})
+				)
+				else Roact.createElement(
+					ImageSetLabel,
+					Cryo.Dictionary.join(iconPos, {
+						BackgroundTransparency = 1,
+						Image = Assets.Images.CircleCutout,
+						ImageColor3 = backgroundStyle.Color,
+						ZIndex = 3,
+					})
+				),
+			PlayerIcon = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(
+					Image,
+					Cryo.Dictionary.join(iconPos, {
+						Image = props.userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=48&h=48"
+							or "",
+						ZIndex = 2,
+					})
+				)
+				else Roact.createElement(
+					ImageSetLabel,
+					Cryo.Dictionary.join(iconPos, {
+						BackgroundTransparency = 1,
+						Image = props.userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=48&h=48"
+							or "",
+						ZIndex = 2,
+					})
+				),
 			PlayerBackground = Roact.createElement(
 				"Frame",
 				Cryo.Dictionary.join(iconPos, {
@@ -162,14 +190,22 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 				})
 			),
 
-			OnlineIndicator = Roact.createElement(ImageSetLabel, {
-				AnchorPoint = Vector2.new(0, 0.5),
-				BackgroundTransparency = 1,
-				Image = Assets.Images.Circle,
-				ImageColor3 = props.isOnline and style.Theme.OnlineStatus.Color or style.Theme.UIDefault.Color,
-				Position = UDim2.new(0, ONLINE_X_OFFSET, 0.5, 0),
-				Size = UDim2.new(0, ONLINE_SIZE, 0, ONLINE_SIZE),
-			}),
+			OnlineIndicator = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					AnchorPoint = Vector2.new(0, 0.5),
+					Image = Assets.Images.Circle,
+					imageStyle = { Color3 = props.isOnline and style.Theme.OnlineStatus.Color or style.Theme.UIDefault.Color, Transparency = 0 },
+					Position = UDim2.new(0, ONLINE_X_OFFSET, 0.5, 0),
+					Size = UDim2.new(0, ONLINE_SIZE, 0, ONLINE_SIZE),
+				})
+				else Roact.createElement(ImageSetLabel, {
+					AnchorPoint = Vector2.new(0, 0.5),
+					BackgroundTransparency = 1,
+					Image = Assets.Images.Circle,
+					ImageColor3 = props.isOnline and style.Theme.OnlineStatus.Color or style.Theme.UIDefault.Color,
+					Position = UDim2.new(0, ONLINE_X_OFFSET, 0.5, 0),
+					Size = UDim2.new(0, ONLINE_SIZE, 0, ONLINE_SIZE),
+				}),
 			UsernameLabel = Roact.createElement(ThemedTextLabel, {
 				fontKey = "Header2",
 				themeKey = "TextEmphasis",

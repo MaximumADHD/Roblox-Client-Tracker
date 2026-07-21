@@ -87,12 +87,8 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 		withCommonProps(props, {
 			tag = {
 				[variantProps.container.tag] = true,
-				["align-y-center"] = if Flags.FoundationSystemBannerOptionalTitle
-					then props.title == "" or props.description == nil
-					else props.description == nil,
-				["align-y-top"] = if Flags.FoundationSystemBannerOptionalTitle
-					then props.title ~= "" and props.description ~= nil
-					else props.description ~= nil,
+				["align-y-center"] = props.title == "" or props.description == nil,
+				["align-y-top"] = props.title ~= "" and props.description ~= nil,
 			},
 			ref = composedRef,
 		}),
@@ -120,23 +116,15 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 					LayoutOrder = 2,
 					tag = "col auto-xy",
 				}, {
-					Title = if Flags.FoundationSystemBannerOptionalTitle
-						then if props.title ~= ""
-							then React.createElement(Text, {
-								Text = props.title,
-								textStyle = variantProps.title.style,
-								tag = variantProps.title.tag,
-								LayoutOrder = 1,
-								testId = `{props.testId}--title`,
-							})
-							else nil
-						else React.createElement(Text, {
+					Title = if props.title ~= ""
+						then React.createElement(Text, {
 							Text = props.title,
 							textStyle = variantProps.title.style,
 							tag = variantProps.title.tag,
 							LayoutOrder = 1,
 							testId = `{props.testId}--title`,
-						}),
+						})
+						else nil,
 					Description = if props.description
 						then React.createElement(Text, {
 							Text = props.description,

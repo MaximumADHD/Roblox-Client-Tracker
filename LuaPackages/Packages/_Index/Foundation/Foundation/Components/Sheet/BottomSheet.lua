@@ -394,6 +394,21 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		} :: { unknown }
 	)
 
+	if Flags.FoundationBottomSheetFixHeightCap then
+		React.useLayoutEffect(function()
+			if not overlay then
+				return
+			end
+			setOverlayAvailableHeight(overlay.AbsoluteSize.Y)
+			local connection = overlay:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+				setOverlayAvailableHeight(overlay.AbsoluteSize.Y)
+			end)
+			return function()
+				connection:Disconnect()
+			end
+		end, { overlay })
+	end
+
 	-- TODO: maybe attach these to the outer scroll view instead of input service (does it make a difference?)
 	-- TODO: create a ScrollingInertia property that can be used instead of touchpan
 	-- TODO: support mouse wheel scrolling/trackpad scrolling
@@ -592,7 +607,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					selectionGroup = SheetTypes.isolatedSelectionGroup,
 					tag = "size-full",
 					testId = `{props.testId}--surface`,
-					onAbsoluteSizeChanged = if Flags.FoundationBottomSheetCapToOverlayHeight
+					onAbsoluteSizeChanged = if not Flags.FoundationBottomSheetFixHeightCap
+							and Flags.FoundationBottomSheetCapToOverlayHeight
 						then function(rbx: GuiObject)
 							setOverlayAvailableHeight(rbx.AbsoluteSize.Y)
 						end

@@ -4,8 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
-local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
-local reverse = LuauPolyfill.Array.reverse
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
@@ -37,8 +35,6 @@ local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", fals
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
-
-local FFlagReverseUnibar = require(script.Parent.Parent.Parent.Flags.FFlagReverseUnibar)
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -631,17 +627,6 @@ function ChromeService:createIconProps(id: IntegrationId, order: number?): Integ
 	end
 end
 
-function reverseOrder(t)
-	local n = #t
-	local revOrder = {}
-	for i = 1, n do
-		revOrder[i] = t[i].order
-	end
-	for i = 1, n do
-		t[i].order = revOrder[n - i + 1]
-	end
-end
-
 function ChromeService:isIntegrationValid(id: IntegrationId)
 	-- Only display available items
 	local integration = self._integrations[id]
@@ -754,13 +739,6 @@ function ChromeService:updateMenuList()
 		table.remove(root.children, #root.children)
 	end
 
-	if not FFlagReverseUnibar then
-		if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
-			root.children = reverse(root.children)
-			reverseOrder(root.children)
-		end
-	end
-
 	if FFlagEnableChromeWindowsNotInMenu then
 		local windowIds = {}
 		for _, w in windowList do
@@ -822,12 +800,6 @@ if FFlagEnableSideSheet then
 			for _, id in config do
 				order += 1
 				addIntegration(id)
-			end
-		end
-
-		if not FFlagReverseUnibar then
-			if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
-				unibar = reverse(unibar)
 			end
 		end
 

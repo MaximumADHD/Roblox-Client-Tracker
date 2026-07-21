@@ -32,9 +32,6 @@ type BundleInfo = AvatarExperienceInspectAndBuy.BundleInfo
 type BulkPurchaseResultItem = AvatarExperienceInspectAndBuy.BulkPurchaseResultItem
 type ItemDetails = AvatarExperienceInspectAndBuy.ItemDetails
 
-local FFlagAXParseAdditionalItemDetailsFromCatalog =
-	require(InspectAndBuyFolder.Flags.FFlagAXParseAdditionalItemDetailsFromCatalog)
-
 local MockId = require(script.Parent.Parent.MockId)
 local BundleInfo = {}
 
@@ -247,25 +244,25 @@ function BundleInfo.fromGetItemDetails(itemDetails)
 	newBundle.hasResellers = itemDetails.HasResellers
 	newBundle.collectibleItemId = itemDetails.CollectibleItemId
 
-	if FFlagAXParseAdditionalItemDetailsFromCatalog then
-		newBundle.remaining = itemDetails.UnitsAvailableForConsumption
-		newBundle.collectibleTotalQuantity = itemDetails.TotalQuantity
-		newBundle.collectibleLowestResalePrice = itemDetails.LowestResalePrice
-		newBundle.isOffSale = itemDetails.IsOffSale
-		newBundle.saleLocationType = itemDetails.SaleLocationType
-		newBundle.numFavorites = itemDetails.FavoriteCount
-		newBundle.catalogPriceStatus = itemDetails.PriceStatus
+	newBundle.remaining = itemDetails.UnitsAvailableForConsumption
+	newBundle.collectibleTotalQuantity = itemDetails.TotalQuantity
+	newBundle.collectibleLowestResalePrice = itemDetails.LowestResalePrice
+	newBundle.isOffSale = itemDetails.IsOffSale
+	newBundle.saleLocationType = itemDetails.SaleLocationType
+	newBundle.numFavorites = itemDetails.FavoriteCount
+	newBundle.catalogPriceStatus = itemDetails.PriceStatus
 
-		-- parse the assets in the bundle
-		local assetsInBundle = {}
+	-- parse the assets in the bundle
+	local assetsInBundle = {}
+	if itemDetails.BundledItems then
 		for _, bundleAsset in itemDetails.BundledItems do
 			table.insert(assetsInBundle, {
 				id = tostring(bundleAsset.Id),
 				name = bundleAsset.Name,
 			})
 		end
-		newBundle.assetsInBundle = assetsInBundle
 	end
+	newBundle.assetsInBundle = assetsInBundle
 
 	return newBundle
 end

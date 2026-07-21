@@ -65,6 +65,7 @@ return {
 		MoreActions = Images["LuaApp/icons/GameDetails/more"],
 		ViewAvatar = Images["InGameMenu/Icons/ViewAvatar"],
 
+		RoundedRectImageKey = "component_assets/circle_17",
 		RoundedRect = {
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
@@ -81,7 +82,9 @@ return {
 			SliceCenter = Rect.new(0, 0, 0, 0),
 			Image = "rbxasset://textures/ui/InGameMenu/WhiteSquare.png",
 		},
-		Circle = UIBloxImages["component_assets/circle_29"],
+		Circle = if FFlagCoreUiMigrateUIBloxToFoundation
+			then "component_assets/circle_29"
+			else UIBloxImages["component_assets/circle_29"],
 		CircleCutout = "rbxasset://textures/ui/InGameMenu/CircleCutout.png",
 
 		QuarterCircle = "rbxasset://textures/ui/InGameMenu/QuarterCircle.png",
@@ -122,6 +125,8 @@ return {
 		},
 		SliderButton = Images["InGameMenu/Graphic/SliderButton"],
 
-		PlaceholderGameIcon = UIBloxImages["icons/imageUnavailable"],
+		PlaceholderGameIcon = if FFlagCoreUiMigrateUIBloxToFoundation
+			then "icons/imageUnavailable"
+			else UIBloxImages["icons/imageUnavailable"],
 	},
 }

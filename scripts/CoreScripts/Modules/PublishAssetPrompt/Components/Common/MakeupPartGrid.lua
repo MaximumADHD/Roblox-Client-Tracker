@@ -13,6 +13,8 @@ local ItemTile = UIBlox.Tile.ItemTile
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local AvatarItemCard = require(script.Parent.Parent.PublishAvatarPrompt.AvatarParts.AvatarItemCard)
 
+local GetFFlagUploadMakeupSupport = require(script.Parent.Parent.Parent.Flags.GetFFlagUploadMakeupSupport)
+
 local ITEM_HEIGHT_RATIO = 4 / 3
 local ITEM_PADDING = Vector2.new(20, 20)
 local MIN_ITEMS_PER_ROW = 2
@@ -57,10 +59,18 @@ local function getItemsFromFolder(
 			end
 
 			if showAssetTypeInLabel then
-				bodyName = name
-				partName = child.Name
-				if assetType and ASSET_TYPE_DISPLAY_NAMES[assetType] then
-					partName = ASSET_TYPE_DISPLAY_NAMES[assetType]
+				if GetFFlagUploadMakeupSupport() then
+					local assetTypeName = child.Name
+					if assetType and ASSET_TYPE_DISPLAY_NAMES[assetType] then
+						assetTypeName = ASSET_TYPE_DISPLAY_NAMES[assetType]
+					end
+					partName = name .. " - " .. assetTypeName
+				else
+					bodyName = name
+					partName = child.Name
+					if assetType and ASSET_TYPE_DISPLAY_NAMES[assetType] then
+						partName = ASSET_TYPE_DISPLAY_NAMES[assetType]
+					end
 				end
 			end
 
@@ -133,10 +143,20 @@ local function MakeupPartGrid(props: Props)
 				local bodyName = item.bodyName
 				local partName = item.partName
 
-				if showAssetTypeInLabel then
-					bodyName = props.name
+				if GetFFlagUploadMakeupSupport() then
+					if showAssetTypeInLabel then
+						local assetTypeName = item.assetType and ASSET_TYPE_DISPLAY_NAMES[item.assetType] or ""
+						partName = props.name .. " - " .. assetTypeName
+					else
+						partName = props.name
+					end
+					bodyName = nil
 				else
-					partName = props.name
+					if showAssetTypeInLabel then
+						bodyName = props.name
+					else
+						partName = props.name
+					end
 				end
 
 				newItems[index] = {

@@ -16,7 +16,6 @@ local StyleProvider = require(Providers.Style.StyleProvider)
 local Types = require(Foundation.Components.Types)
 local WidgetsProvider = require(Providers.StudioWidgets.WidgetsProvider)
 local ElevationProvider = require(Providers.Elevation.ElevationProvider).ElevationProvider
-local Flags = require(Foundation.Utility.Flags)
 local isPluginElevated = require(Providers.Plugin.isPluginElevated)
 
 type OverlayConfig = Types.OverlayConfig
@@ -59,7 +58,7 @@ local function FoundationProvider(props: FoundationProviderProps)
 		),
 		React.createElement(CursorProvider),
 	}
-	if props.plugin and isPluginElevated(props.plugin) and Flags.FoundationPopoverPluginSupport then
+	if props.plugin and isPluginElevated(props.plugin) then
 		table.insert(providers, React.createElement(WidgetsProvider, {}))
 		table.insert(providers, React.createElement(PanelsProvider, {}))
 	end

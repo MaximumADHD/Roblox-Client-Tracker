@@ -188,7 +188,7 @@ export type BaseInteractableProps = {
 
 export type BaseGuiObjectProps = {
 	aspectRatio: AspectRatio?,
-	cornerRadius: Bindable<UDim>?,
+	cornerRadius: CornerRadius?,
 	flexItem: FlexItem?,
 	layout: ListLayout?,
 	padding: Padding?,
@@ -264,6 +264,17 @@ export type AspectRatioTable = {
 }
 
 export type AspectRatio = Bindable<number> | AspectRatioTable
+
+export type CornerRadiusValue = Bindable<number | UDim>
+
+export type CornerRadiusTable = {
+	topLeft: CornerRadiusValue?,
+	topRight: CornerRadiusValue?,
+	bottomRight: CornerRadiusValue?,
+	bottomLeft: CornerRadiusValue?,
+}
+
+export type CornerRadius = Bindable<UDim> | number | CornerRadiusTable
 
 export type PaddingTable = {
 	top: Bindable<UDim>?,

@@ -3,7 +3,18 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Workspace = game:GetService("Workspace")
 
-local Camera = Workspace.CurrentCamera :: Camera
+local FFlagFixContactListNilCamera = game:DefineFastFlag("FixContactListNilCamera", false)
+
+local Camera = if FFlagFixContactListNilCamera then Workspace.CurrentCamera else Workspace.CurrentCamera :: Camera
+local function getViewportSize(): Vector2
+	if FFlagFixContactListNilCamera then
+		if Camera then
+			return Camera.ViewportSize
+		end
+		return Vector2.new(0, 0)
+	end
+	return (Camera :: Camera).ViewportSize
+end
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -64,7 +75,7 @@ local function CallBarContainer(passedProps: Props)
 	local callBarPosition, setCallBarPosition
 
 	callBarPosition, setCallBarPosition = ReactOtter.useAnimatedBinding({
-		X = (Camera.ViewportSize.X / 2) - (CALL_BAR_SIZE.X / 2),
+		X = (getViewportSize().X / 2) - (CALL_BAR_SIZE.X / 2),
 		Y = -CALL_BAR_SIZE.Y,
 	}, function(callBarPos)
 		if callBarPos.Y == -CALL_BAR_SIZE.Y and isCallBarEnabled then
@@ -83,7 +94,7 @@ local function CallBarContainer(passedProps: Props)
 	--]]
 	local updateCallBarPosition = React.useCallback(function(screenPosition: ScreenPosition)
 		-- By default we set the call bar to be center aligned with the screen
-		local screenPositionXOffset = (Camera.ViewportSize.X / 2) - (CALL_BAR_SIZE.X / 2)
+		local screenPositionXOffset = (getViewportSize().X / 2) - (CALL_BAR_SIZE.X / 2)
 
 		local screenPositionYOffset
 		if screenPosition == ScreenPosition.On then
@@ -101,9 +112,9 @@ local function CallBarContainer(passedProps: Props)
 			local unibarDimensions = ChromeService:layout():get()
 			local unibarMax = unibarDimensions.Max
 
-			if unibarMax.X + CALL_BAR_MARGIN > (Camera.ViewportSize.X / 2) - (CALL_BAR_SIZE.X / 2) then
+			if unibarMax.X + CALL_BAR_MARGIN > (getViewportSize().X / 2) - (CALL_BAR_SIZE.X / 2) then
 				-- If CallBar default position (middle of screen) doesn't fit nicely with unibar
-				if unibarMax.X + (CALL_BAR_MARGIN * 2) + CALL_BAR_SIZE.X > Camera.ViewportSize.X then
+				if unibarMax.X + (CALL_BAR_MARGIN * 2) + CALL_BAR_SIZE.X > getViewportSize().X then
 					-- If CallBar has been pushed down because CallBar overflows Viewport
 					if screenPosition == ScreenPosition.On then
 						screenPositionYOffset = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHeight)
@@ -206,12 +217,23 @@ local function CallBarContainer(passedProps: Props)
 		updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
 
 		-- Listen for screen size changes
-		local viewportSizeConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-			updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
-		end)
+		local viewportSizeConnection
+		if FFlagFixContactListNilCamera then
+			viewportSizeConnection = if Camera
+				then (Camera :: Camera):GetPropertyChangedSignal("ViewportSize"):Connect(function()
+					updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
+				end)
+				else nil
+		else
+			viewportSizeConnection = (Camera :: Camera):GetPropertyChangedSignal("ViewportSize"):Connect(function()
+				updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
+			end)
+		end
 
 		return function()
-			viewportSizeConnection:Disconnect()
+			if viewportSizeConnection then
+				viewportSizeConnection:Disconnect()
+			end
 		end
 	end, {
 		currentCallStatus,

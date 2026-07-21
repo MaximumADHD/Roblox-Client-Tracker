@@ -18,6 +18,7 @@ local Chip = require(Foundation.Components.Chip.Chip)
 local IconName = BuilderIcons.Icon
 
 type Accessory = Accessory.Accessory
+type AvatarGroupConfig = Accessory.AvatarGroupConfig
 
 local function activated(label: string)
 	return function()
@@ -25,7 +26,7 @@ local function activated(label: string)
 	end
 end
 
-local AVATAR_ACCESSORY: Accessory = {
+local AVATAR_ACCESSORY: AvatarGroupConfig = {
 	type = "AvatarGroup",
 	props = {
 		avatars = { 24813339 },

@@ -2,23 +2,10 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Constants = require(Foundation.Constants)
-local Wrappers = require(Foundation.Utility.Wrappers)
-
-local CoreGui = Wrappers.Services.CoreGui
-local RunService = Wrappers.Services.RunService
-local Players = Wrappers.Services.Players
 
 local Flags = require(Foundation.Utility.Flags)
 
-local PlayerGui
-if not Flags.FoundationUseMainGuiUtility then
-	PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
-		then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
-		else nil
-end
-
 local getMainGui = require(Foundation.Utility.getMainGui)
-local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
 local Types = require(Foundation.Components.Types)
@@ -38,9 +25,7 @@ local defaultProps = {
 	DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 }
 
-local mainGui = if Flags.FoundationUseMainGuiUtility
-	then getMainGui()
-	else if isPluginSecurity() then CoreGui else PlayerGui
+local mainGui = getMainGui()
 
 local function OverlayProvider(overlayProps: Props)
 	local props = withDefaults(overlayProps, defaultProps)

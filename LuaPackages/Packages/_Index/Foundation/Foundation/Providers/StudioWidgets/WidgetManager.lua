@@ -7,6 +7,7 @@ local Dash = require(Packages.Dash)
 local filter = Dash.filter
 local values = Dash.values
 
+local Flags = require(Foundation.Utility.Flags)
 local StudioUri = require(Foundation.Utility.Plugin.StudioUri)
 type StudioUri = StudioUri.StudioUri
 local Logger = require(Foundation.Utility.Logger)
@@ -22,7 +23,7 @@ type WidgetInfo = {
 }
 
 type WidgetRegistration = {
-	DEPRECATED_PluginGui: any,
+	DEPRECATED_PluginGui: Instance,
 	Position: Vector2?,
 	Size: Vector2?,
 	Uri: StudioUri,
@@ -40,6 +41,7 @@ type Widgets = {
 
 type WidgetSignals = {
 	Widget: Instance,
+	Host: Instance?,
 	PositionChanged: RBXScriptConnection,
 	SizeChanged: RBXScriptConnection,
 	VisibleChanged: RBXScriptConnection,
@@ -84,11 +86,13 @@ function WidgetManager.flush(self: WidgetManager)
 	local list = filter(values(self._pendingRegisters), function(entry)
 		return entry.Widget:FindFirstAncestorWhichIsA("LayerCollector") ~= nil
 	end)
+	local rebindUris = {}
 	for _, entry in list do
 		entry.Position = entry.Widget.AbsolutePosition
 		entry.Size = entry.Widget.AbsoluteSize
 		entry.Visible = entry.Widget:GetStyled("Visible")
 		local uriString = StudioUri.toString(entry.Uri)
+		local host = entry.DEPRECATED_PluginGui :: Instance
 
 		local currentSignals = self._signals[uriString]
 		if currentSignals then
@@ -97,6 +101,10 @@ function WidgetManager.flush(self: WidgetManager)
 				currentSignals.SizeChanged:Disconnect()
 				currentSignals.VisibleChanged:Disconnect()
 				currentSignals.AncestryChanged:Disconnect()
+			elseif Flags.FoundationPopoverPluginOverlayMeasurement and currentSignals.Host ~= host then
+				currentSignals.Host = host
+				table.insert(rebindUris, entry.Uri)
+				continue
 			else
 				continue
 			end
@@ -104,6 +112,7 @@ function WidgetManager.flush(self: WidgetManager)
 
 		self._signals[uriString] = {
 			Widget = entry.Widget,
+			Host = if Flags.FoundationPopoverPluginOverlayMeasurement then host else nil,
 			PositionChanged = entry.Widget:GetPropertyChangedSignal("AbsolutePosition"):Connect(function()
 				self:register(entry.Uri, entry.Widget)
 			end),
@@ -119,6 +128,12 @@ function WidgetManager.flush(self: WidgetManager)
 				end
 			end),
 		}
+	end
+
+	if Flags.FoundationPopoverPluginOverlayMeasurement and #rebindUris > 0 then
+		pcall(function()
+			self._widgetsApi:DeregisterAsync(rebindUris)
+		end)
 	end
 
 	if #list > 0 then

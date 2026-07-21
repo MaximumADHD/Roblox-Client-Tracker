@@ -32,6 +32,8 @@ type _Messages = {
 	HydrationContent_UniverseUserFollowLimitEntry: _HydrationContent_UniverseUserFollowLimitEntryMessage,
 	HydrationContent_UniverseUserVoteFeedbackMetadataEntry: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryMessage,
 	HydrationContent_MomentEntry: _HydrationContent_MomentEntryMessage,
+	HydrationContent_CommunityEntry: _HydrationContent_CommunityEntryMessage,
+	HydrationContent_CommunityUserMembershipEntry: _HydrationContent_CommunityUserMembershipEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -65,6 +67,9 @@ local _roblox_apppageplatform_shared_v1beta1_game_subscription_data = require(sc
 local _roblox_apppageplatform_shared_v1beta1_age_recommendation_data = require(script.Parent.age_recommendation_data)
 local _roblox_apppageplatform_shared_v1beta1_user_profile_data = require(script.Parent.user_profile_data)
 local _roblox_apppageplatform_shared_v1beta1_moment_data = require(script.Parent.moment_data)
+local _roblox_apppageplatform_shared_v1beta1_community_data = require(script.Parent.community_data)
+local _roblox_apppageplatform_shared_v1beta1_community_user_membership_data =
+	require(script.Parent.community_user_membership_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -124,6 +129,10 @@ type _HydrationContentFields =
 			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
 		},
 		moment: { [string]: _roblox_apppageplatform_shared_v1beta1_moment_data.MomentData },
+		community: { [string]: _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData },
+		community_user_membership: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
+		},
 	}
 
 type _HydrationContentPartialFields =
@@ -174,6 +183,10 @@ type _HydrationContentPartialFields =
 			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
 		}?,
 		moment: { [string]: _roblox_apppageplatform_shared_v1beta1_moment_data.MomentData }?,
+		community: { [string]: _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData }?,
+		community_user_membership: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
+		}?,
 	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -887,6 +900,66 @@ type _HydrationContent_MomentEntryMessage = proto.Message<
 	_HydrationContent_MomentEntryPartialFields
 >
 
+type _HydrationContent_CommunityEntryImpl = {
+	__index: _HydrationContent_CommunityEntryImpl,
+	new: (fields: _HydrationContent_CommunityEntryPartialFields?) -> HydrationContent_CommunityEntry,
+	encode: (self: HydrationContent_CommunityEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_CommunityEntry,
+	jsonEncode: (self: HydrationContent_CommunityEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_CommunityEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_CommunityEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData?,
+}
+
+type _HydrationContent_CommunityEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData?,
+}
+
+export type HydrationContent_CommunityEntry = typeof(setmetatable(
+	{} :: _HydrationContent_CommunityEntryFields,
+	{} :: _HydrationContent_CommunityEntryImpl
+))
+type _HydrationContent_CommunityEntryMessage = proto.Message<
+	HydrationContent_CommunityEntry,
+	_HydrationContent_CommunityEntryPartialFields
+>
+
+type _HydrationContent_CommunityUserMembershipEntryImpl = {
+	__index: _HydrationContent_CommunityUserMembershipEntryImpl,
+	new: (
+		fields: _HydrationContent_CommunityUserMembershipEntryPartialFields?
+	) -> HydrationContent_CommunityUserMembershipEntry,
+	encode: (self: HydrationContent_CommunityUserMembershipEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_CommunityUserMembershipEntry,
+	jsonEncode: (self: HydrationContent_CommunityUserMembershipEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_CommunityUserMembershipEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_CommunityUserMembershipEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData?,
+}
+
+type _HydrationContent_CommunityUserMembershipEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData?,
+}
+
+export type HydrationContent_CommunityUserMembershipEntry = typeof(setmetatable(
+	{} :: _HydrationContent_CommunityUserMembershipEntryFields,
+	{} :: _HydrationContent_CommunityUserMembershipEntryImpl
+))
+type _HydrationContent_CommunityUserMembershipEntryMessage = proto.Message<
+	HydrationContent_CommunityUserMembershipEntry,
+	_HydrationContent_CommunityUserMembershipEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -930,6 +1003,10 @@ do
 				then {}
 				else data.universe_user_vote_feedback_metadata,
 			moment = if data == nil or data.moment == nil then {} else data.moment,
+			community = if data == nil or data.community == nil then {} else data.community,
+			community_user_membership = if data == nil or data.community_user_membership == nil
+				then {}
+				else data.community_user_membership,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1276,6 +1353,34 @@ do
 			end
 		end
 
+		if self.community ~= nil and next(self.community) ~= nil then
+			for key, value in self.community do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.community_user_membership ~= nil and next(self.community_user_membership) ~= nil then
+			for key, value in self.community_user_membership do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1596,6 +1701,31 @@ do
 					self.moment[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_CommunityEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData.new()
+
+					self.community[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_CommunityUserMembershipEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData.new()
+
+					self.community_user_membership[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -1816,6 +1946,22 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.moment = newOutput
+		end
+
+		if self.community ~= nil and next(self.community) ~= nil then
+			local newOutput = {}
+			for key, value in self.community do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.community = newOutput
+		end
+
+		if self.community_user_membership ~= nil and next(self.community_user_membership) ~= nil then
+			local newOutput = {}
+			for key, value in self.community_user_membership do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.communityUserMembership = newOutput
 		end
 
 		return output
@@ -2296,6 +2442,45 @@ do
 			end
 
 			self.moment = newOutput
+		end
+
+		if input.community ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData } = {}
+			for key, value in input.community do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData.jsonDecode(value)
+			end
+
+			self.community = newOutput
+		end
+
+		if input.community_user_membership ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
+			} =
+				{}
+			for key, value in input.community_user_membership do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData.jsonDecode(
+						value
+					)
+			end
+
+			self.community_user_membership = newOutput
+		end
+
+		if input.communityUserMembership ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
+			} =
+				{}
+			for key, value in input.communityUserMembership do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData.jsonDecode(
+						value
+					)
+			end
+
+			self.community_user_membership = newOutput
 		end
 
 		return self
@@ -5308,6 +5493,258 @@ do
 	messages.HydrationContent_MomentEntry = _HydrationContent_MomentEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_MomentEntry)
+end
+
+do
+	local _HydrationContent_CommunityEntryImpl = {}
+	_HydrationContent_CommunityEntryImpl.__index = _HydrationContent_CommunityEntryImpl
+
+	function _HydrationContent_CommunityEntryImpl.new(
+		data: _HydrationContent_CommunityEntryPartialFields?
+	): HydrationContent_CommunityEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_CommunityEntryImpl :: _HydrationContent_CommunityEntryImpl)
+	end
+
+	function _HydrationContent_CommunityEntryImpl.encode(self: HydrationContent_CommunityEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_CommunityEntryImpl.decode(input: buffer): HydrationContent_CommunityEntry
+		local self = _HydrationContent_CommunityEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_CommunityEntryImpl.jsonEncode(self: HydrationContent_CommunityEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_CommunityEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_CommunityEntry
+		local self = _HydrationContent_CommunityEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_community_data.CommunityData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_CommunityEntryImpl.descriptor = {
+		name = "HydrationContent_CommunityEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CommunityEntry",
+	}
+
+	messages.HydrationContent_CommunityEntry = _HydrationContent_CommunityEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_CommunityEntry)
+end
+
+do
+	local _HydrationContent_CommunityUserMembershipEntryImpl = {}
+	_HydrationContent_CommunityUserMembershipEntryImpl.__index = _HydrationContent_CommunityUserMembershipEntryImpl
+
+	function _HydrationContent_CommunityUserMembershipEntryImpl.new(
+		data: _HydrationContent_CommunityUserMembershipEntryPartialFields?
+	): HydrationContent_CommunityUserMembershipEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_CommunityUserMembershipEntryImpl :: _HydrationContent_CommunityUserMembershipEntryImpl)
+	end
+
+	function _HydrationContent_CommunityUserMembershipEntryImpl.encode(
+		self: HydrationContent_CommunityUserMembershipEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_CommunityUserMembershipEntryImpl.decode(
+		input: buffer
+	): HydrationContent_CommunityUserMembershipEntry
+		local self = _HydrationContent_CommunityUserMembershipEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_CommunityUserMembershipEntryImpl.jsonEncode(
+		self: HydrationContent_CommunityUserMembershipEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_CommunityUserMembershipEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_CommunityUserMembershipEntry
+		local self = _HydrationContent_CommunityUserMembershipEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_CommunityUserMembershipEntryImpl.descriptor = {
+		name = "HydrationContent_CommunityUserMembershipEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CommunityUserMembershipEntry",
+	}
+
+	messages.HydrationContent_CommunityUserMembershipEntry = _HydrationContent_CommunityUserMembershipEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_CommunityUserMembershipEntry)
 end
 
 return {

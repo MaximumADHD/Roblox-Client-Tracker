@@ -6,12 +6,11 @@ local Otter = require(Packages.Otter)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 
-local ControlState = require(Foundation.Enums.ControlState)
+local FillBehavior = require(Foundation.Enums.FillBehavior)
 local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
 local ScrollView = require(Foundation.Components.ScrollView)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local Visibility = require(Foundation.Enums.Visibility)
@@ -66,16 +65,14 @@ end
 
 type OverflowScrollContainerProps = {
 	size: InputSize,
+	fillBehavior: FillBehavior.FillBehavior?,
+	fitWidth: React.Binding<number>?,
 	children: React.ReactNode,
 } & Types.CommonProps
 
 local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 	local isEndOverflowVisible, setIsEndOverflowVisible = React.useBinding(false)
 	local isStartVisible, setIsStartVisible = React.useBinding(false)
-	local isHovered, setIsHovered
-	if Flags.FoundationTabsNavArrowsOnlyOnHover then
-		isHovered, setIsHovered = React.useState(false)
-	end
 	local scrollingFrameRef = React.useRef(nil :: ScrollingFrame?)
 	local setGoal = ReactOtter.useMotor(0, function(value)
 		local scrollingFrame = scrollingFrameRef.current
@@ -127,39 +124,33 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 		moveScrollByPixels(SCROLL_STEP)
 	end, { moveScrollByPixels })
 
-	local onStateChanged = if Flags.FoundationTabsNavArrowsOnlyOnHover
-		then React.useCallback(function(state)
-			setIsHovered(state == ControlState.Hover)
-		end, {})
-		else nil :: never
+	local fitSize = if Flags.FoundationFixTabsFitBorderWidth and props.fitWidth
+		then props.fitWidth:map(function(width)
+			return UDim2.fromOffset(width, 0)
+		end)
+		else nil
 
 	return React.createElement(
 		View,
 		withCommonProps(
 			props,
 			if Flags.FoundationTabsInlineSizeFull
-				then { tag = "auto-y", Size = UDim2.fromScale(1, 0) }
+				then {
+					tag = "auto-y",
+					Size = if Flags.FoundationFixTabsFitBorderWidth and fitSize then fitSize else UDim2.fromScale(1, 0),
+				}
 				else { tag = "size-full-0 auto-y" }
 		),
 		{
 			Scroll = React.createElement(ScrollView, {
 				LayoutOrder = 1,
 				tag = if Flags.FoundationTabsInlineSizeFull
-					then if Flags.FoundationTabsNavArrowsOnlyOnHover then "auto-y" else nil
-					else {
-						["size-full-0 auto-y"] = Flags.FoundationTabsNavArrowsOnlyOnHover,
-						["size-full"] = not Flags.FoundationTabsNavArrowsOnlyOnHover,
-					},
+					then if Flags.FoundationFixTabsFitBorderWidth then "auto-y" else nil
+					else "size-full",
 				Size = if Flags.FoundationTabsInlineSizeFull
-					then if Flags.FoundationTabsNavArrowsOnlyOnHover
-						then UDim2.fromScale(1, 0)
+					then if Flags.FoundationFixTabsFitBorderWidth and fitSize
+						then fitSize :: any
 						else UDim2.fromScale(1, 1)
-					else nil,
-				onStateChanged = if Flags.FoundationTabsNavArrowsOnlyOnHover then onStateChanged else nil,
-				stateLayer = if Flags.FoundationTabsNavArrowsOnlyOnHover
-					then {
-						affordance = StateLayerAffordance.None,
-					}
 					else nil,
 				onCanvasPositionChanged = updateVisibility,
 				onAbsoluteWindowSizeChanged = updateVisibility,
@@ -173,7 +164,6 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 					ScrollingDirection = Enum.ScrollingDirection.X,
 					scrollBarVisibility = Visibility.None,
 				},
-				testId = if Flags.FoundationTabsNavArrowsOnlyOnHover then `{props.testId}--scroll` else nil,
 			}, props.children),
 			OverflowStart = React.createElement(OverflowButton, {
 				LayoutOrder = 3,
@@ -181,11 +171,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 				size = props.size,
 				isStart = true,
 				ZIndex = 2,
-				Visible = if Flags.FoundationTabsNavArrowsOnlyOnHover
-					then isStartVisible:map(function(isVisible)
-						return isHovered and isVisible
-					end)
-					else isStartVisible,
+				Visible = isStartVisible,
 				onActivated = onOverflowStartActivated,
 				gradient = START_GRADIENT,
 				tag = "padding-right-small",
@@ -197,11 +183,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 				Position = UDim2.fromScale(1, 0),
 				size = props.size,
 				ZIndex = 2,
-				Visible = if Flags.FoundationTabsNavArrowsOnlyOnHover
-					then isEndOverflowVisible:map(function(isVisible)
-						return isHovered and isVisible
-					end)
-					else isEndOverflowVisible,
+				Visible = isEndOverflowVisible,
 				onActivated = onOverflowEndActivated,
 				gradient = END_GRADIENT,
 				tag = "anchor-top-right padding-left-small",

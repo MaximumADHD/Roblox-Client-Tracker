@@ -46,6 +46,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableFeedbackReportDialogAdjustments =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableFeedbackReportDialogAdjustments)
+local GetFFlagEnableSendImageFeedbackToBackend =
+	require(RobloxGui.Modules.Flags.GetFFlagEnableSendImageFeedbackToBackend)
 local FFlagEnableFeedbackSelectionUpdate = game:DefineFastFlag("EnableFeedbackSelectionUpdate", false)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
@@ -212,10 +214,29 @@ function FeedbackReportDialog:init()
 			numFeedbackSubmissionAttempts = self.state.numFeedbackSubmissionAttempts + 1,
 		})
 
+		local contentType = Constants.ContentType.Text
+		local feedbackOriginalText = self.state.feedbackOriginalText
+		local feedbackIdentifier = self.state.feedbackIdentifier
+
+		if GetFFlagEnableSendImageFeedbackToBackend() and self.state.shouldDisplayFeedbackImage then
+			local assetId = string.match(self.state.feedbackImageUri, "rbxassetid://(%d+)")
+
+			if not assetId then
+				self.props.setFeedbackFlowState(Constants.State.Default)
+				self.resetLocalState()
+				return
+			end
+
+			feedbackOriginalText = assetId -- feedbackOriginalText is set to the assetId of the source image
+			feedbackIdentifier = game.GameId .. ":" .. assetId -- feedbackIdentifier is set to the gameId and the assetId of the source image
+			contentType = Constants.ContentType.Image
+		end
+
 		self.props.sendFeedback(
-			self.state.feedbackOriginalText,
+			contentType,
+			feedbackOriginalText,
 			self.state.feedbackText,
-			self.state.feedbackIdentifier,
+			feedbackIdentifier,
 			self.state.correctTranslationText,
 			self.state.additionalCommentsText,
 			self.props.feedbackReason,
@@ -609,8 +630,9 @@ return RoactRodux.connect(function(state)
 end, function(dispatch)
 	return {
 		sendFeedback = function(
-			originalText,
-			feedbackText,
+			contentType,
+			originalContent,
+			feedbackContent,
 			feedbackIdentifier,
 			suggestedTranslationText,
 			additionalCommentsText,
@@ -619,8 +641,9 @@ end, function(dispatch)
 		)
 			dispatch(
 				SendFeedbackThunk(
-					originalText,
-					feedbackText,
+					contentType,
+					originalContent,
+					feedbackContent,
 					feedbackIdentifier,
 					suggestedTranslationText,
 					additionalCommentsText,

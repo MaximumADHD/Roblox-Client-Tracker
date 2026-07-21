@@ -279,6 +279,7 @@ type _GetChartsSortDetailRequestFields = {
 	session_id: string,
 	age_group: string,
 	max_memory: string,
+	selected_genre: string,
 }
 
 type _GetChartsSortDetailRequestPartialFields = {
@@ -289,6 +290,7 @@ type _GetChartsSortDetailRequestPartialFields = {
 	session_id: string?,
 	age_group: string?,
 	max_memory: string?,
+	selected_genre: string?,
 }
 
 export type GetChartsSortDetailRequest = typeof(setmetatable(
@@ -1831,6 +1833,7 @@ do
 			session_id = if data == nil or data.session_id == nil then "" else data.session_id,
 			age_group = if data == nil or data.age_group == nil then "" else data.age_group,
 			max_memory = if data == nil or data.max_memory == nil then "" else data.max_memory,
+			selected_genre = if data == nil or data.selected_genre == nil then "" else data.selected_genre,
 		}, _GetChartsSortDetailRequestImpl :: _GetChartsSortDetailRequestImpl)
 	end
 
@@ -1871,6 +1874,11 @@ do
 		if self.max_memory ~= nil and self.max_memory ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.max_memory)
+		end
+
+		if self.selected_genre ~= nil and self.selected_genre ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.selected_genre)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -1927,6 +1935,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.max_memory = buffer.tostring(value)
 					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_genre = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -1982,6 +1995,10 @@ do
 			output.maxMemory = self.max_memory
 		end
 
+		if self.selected_genre ~= nil and self.selected_genre ~= "" then
+			output.selectedGenre = self.selected_genre
+		end
+
 		return output
 	end
 
@@ -2034,6 +2051,14 @@ do
 
 		if input.maxMemory ~= nil then
 			self.max_memory = input.maxMemory
+		end
+
+		if input.selected_genre ~= nil then
+			self.selected_genre = input.selected_genre
+		end
+
+		if input.selectedGenre ~= nil then
+			self.selected_genre = input.selectedGenre
 		end
 
 		return self

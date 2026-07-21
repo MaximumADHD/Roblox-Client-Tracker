@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local StudioUri = require(Foundation.Utility.Plugin.StudioUri)
 local usePlugin = require(Foundation.Providers.Plugin.usePlugin)
 
@@ -35,12 +34,9 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 	end, { plugin, props.uriScope } :: { unknown })
 
 	React.useEffect(function()
-		local thread: thread?
-		if Flags.FoundationPopoverPluginPrewarmDepthPool then
-			thread = task.spawn(function()
-				popoverManager:prewarmPoolAsync(PREWARM_MAX_DEPTH)
-			end)
-		end
+		local thread: thread? = task.spawn(function()
+			popoverManager:prewarmPoolAsync(PREWARM_MAX_DEPTH)
+		end)
 
 		return function()
 			if thread then

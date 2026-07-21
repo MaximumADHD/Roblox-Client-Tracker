@@ -12,6 +12,12 @@ local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.Core
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Icon = Foundation.Icon
+local IconSize = Foundation.Enums.IconSize
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -196,12 +202,18 @@ function SearchBar:render()
 						BorderRadius = Roact.createElement("UICorner", {
 							CornerRadius = UDim.new(0, 4),
 						}),
-						SearchImage = Roact.createElement(ImageSetLabel, {
-							LayoutOrder = 1,
-							BackgroundTransparency = 1,
-							Image = Images["icons/common/search_small"],
-							Size = UDim2.fromOffset(SEARCH_ICON_SIZE, SEARCH_ICON_SIZE),
-						}),
+						SearchImage = if FFlagCoreUiMigrateUIBloxToFoundation
+							then Roact.createElement(Icon, {
+								name = "icons/common/search_small",
+								size = IconSize.Medium,
+								LayoutOrder = 1,
+							})
+							else Roact.createElement(ImageSetLabel, {
+								LayoutOrder = 1,
+								BackgroundTransparency = 1,
+								Image = Images["icons/common/search_small"],
+								Size = UDim2.fromOffset(SEARCH_ICON_SIZE, SEARCH_ICON_SIZE),
+							}),
 						SearchInput = Roact.createElement("TextBox", {
 							LayoutOrder = 2,
 							BackgroundTransparency = 1,

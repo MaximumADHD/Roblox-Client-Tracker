@@ -5,6 +5,7 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
@@ -20,6 +21,19 @@ local GetPresencesFromUserIds = dependencies.NetworkingPresence.GetPresencesFrom
 local useLocalization = dependencies.Hooks.useLocalization
 
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
+local FFlagContactListPresenceStoreMigration = game:DefineFastFlag("ContactListPresenceStoreMigration", false)
+	and SharedFlags.FFlagFriendSortedByPresenceSignalsImplementation
+
+local useGetPresenceByUserId = if FFlagContactListPresenceStoreMigration
+	then require(CorePackages.Workspace.Packages.FriendsCommon).Hooks.useGetPresenceByUserId
+	else nil :: never
+
+local STORE_TO_ENUM_PRESENCE_TYPE = {
+	Online = EnumPresenceType.Online,
+	InGame = EnumPresenceType.InGame,
+	InStudio = EnumPresenceType.InStudio,
+	Offline = EnumPresenceType.Offline,
+}
 local UIBlox = dependencies.UIBlox
 
 local ControlState = UIBlox.Core.Control.Enum.ControlState
@@ -79,15 +93,23 @@ local function FriendListItem(props: Props)
 	})
 
 	React.useEffect(function()
-		if props.userPresenceType == nil then
-			dispatch(GetPresencesFromUserIds.API({ props.userId }))
+		if not FFlagContactListPresenceStoreMigration then
+			if props.userPresenceType == nil then
+				dispatch(GetPresencesFromUserIds.API({ props.userId }))
+			end
 		end
 	end, { props.userId :: any, props.userPresenceType })
 
-	local selectUserPresence = React.useCallback(function(state: any)
-		return state.Presence.byUserId[tostring(props.userId)]
-	end, { props.userId })
-	local presence = useSelector(selectUserPresence)
+	local presence
+	if FFlagContactListPresenceStoreMigration then
+		presence =
+			useGetPresenceByUserId(props.userId :: any, { skipFetch = if props.userPresenceType then true else nil })
+	else
+		local selectUserPresence = React.useCallback(function(state: any)
+			return state.Presence.byUserId[tostring(props.userId)]
+		end, { props.userId })
+		presence = useSelector(selectUserPresence)
+	end
 
 	local selectTag = React.useCallback(function(state: any)
 		return state.Navigation.currentTag
@@ -135,7 +157,11 @@ local function FriendListItem(props: Props)
 		local userPresenceType
 		local lastLocation
 		if presence then
-			userPresenceType = presence.userPresenceType
+			if FFlagContactListPresenceStoreMigration then
+				userPresenceType = STORE_TO_ENUM_PRESENCE_TYPE[presence.userPresenceType] or EnumPresenceType.Offline
+			else
+				userPresenceType = presence.userPresenceType
+			end
 			lastLocation = presence.lastLocation
 		else
 			userPresenceType = if props.userPresenceType

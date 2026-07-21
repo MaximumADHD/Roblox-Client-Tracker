@@ -24,6 +24,11 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local CONTAINER_WIDTH = 304
 local TEXT_PADDING_TOP = 10
 local TEXT_PADDING_BOTTOM = 26
@@ -77,13 +82,21 @@ function LoadingFriendsError:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
-				Icon = Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Image = Assets.Images.Friends,
-					Size = UDim2.new(0, 64, 0, 64),
-					ImageTransparency = 0.5,
-					LayoutOrder = 1,
-				}),
+				Icon = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Image = Assets.Images.Friends.Image,
+						imageRect = { offset = Assets.Images.Friends.ImageRectOffset, size = Assets.Images.Friends.ImageRectSize },
+						Size = UDim2.new(0, 64, 0, 64),
+						imageStyle = { Color3 = Color3.new(1, 1, 1), Transparency = 0.5 },
+						LayoutOrder = 1,
+					})
+					else Roact.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Image = Assets.Images.Friends,
+						Size = UDim2.new(0, 64, 0, 64),
+						ImageTransparency = 0.5,
+						LayoutOrder = 1,
+					}),
 
 				TextContainer = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

@@ -11,6 +11,7 @@ local Indicator = require(script.Parent.Indicator)
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+local mapBindable = require(Foundation.Utility.mapBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -28,10 +29,11 @@ local UserPresence = require(Foundation.Enums.UserPresence)
 type UserPresence = UserPresence.UserPresence
 
 local getAvatarSize = require(script.Parent.getAvatarSize)
+type Bindable<T> = Types.Bindable<T>
 
 export type AvatarProps = {
 	-- Roblox user id
-	userId: number,
+	userId: Bindable<number>,
 	backgroundStyle: Types.ColorStyle?,
 	backplateStyle: Types.ColorStyle?,
 	size: AvatarSize?,
@@ -64,9 +66,14 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 		}),
 		{
 			Image = React.createElement(Image, {
-				Image = getRbxThumb(ThumbnailType.AvatarHeadShot, props.userId, ThumbnailSize.Medium),
+				Image = if Flags.FoundationAvatarBindableUserId
+					then mapBindable(props.userId, function(userId)
+						return getRbxThumb(ThumbnailType.AvatarHeadShot, userId, ThumbnailSize.Medium)
+					end)
+					else getRbxThumb(ThumbnailType.AvatarHeadShot, props.userId :: number, ThumbnailSize.Medium),
 				tag = variantProps.avatar.tag,
 				backgroundStyle = props.backgroundStyle,
+				testId = if Flags.FoundationAvatarBindableUserId then `{props.testId}--image` else nil,
 			}),
 			Indicator = if Flags.FoundationAvatarBeta
 				then if variantProps.statusIndicator.isVisible

@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local Avatar = require(Foundation.Components.Avatar)
 local ColorMode = require(Foundation.Enums.ColorMode)
+local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -21,16 +22,23 @@ local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
 type AvatarGroupType = AvatarGroupType.AvatarGroupType
 
 local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
+local getBindableValue = require(Foundation.Utility.getBindableValue)
 local useCumulativeBackground = require(Foundation.Utility.useCumulativeBackground)
 
 local getAvatarSize = require(Foundation.Components.Avatar.getAvatarSize)
+
+type Bindable<T> = Types.Bindable<T>
+export type AvatarGroupItem = {
+	userId: Bindable<number>,
+	userPresence: ("None" | "InExperience")?,
+}
 
 export type AvatarGroupProps = {
 	type: AvatarGroupType?,
 	max: number?,
 	size: InputSize?,
 	backplateStyle: Types.ColorStyle?,
-	avatars: { { userId: number, userPresence: ("None" | "InExperience")? } | number },
+	avatars: { AvatarGroupItem | number },
 } & Types.CommonProps
 
 local defaultProps = {
@@ -102,11 +110,28 @@ local function AvatarGroup(avatarGroupProps: AvatarGroupProps, ref: React.Ref<Gu
 	for index, avatarProps in props.avatars do
 		local position = UDim2.fromOffset(itemWidth * (index - 1), 0)
 		local userPresence: UserPresence?
-		local userId = avatarProps :: number
-		if typeof(avatarProps) == "table" then
-			userPresence = avatarProps.userPresence
-			userId = avatarProps.userId
+		local userId: Bindable<number>
+
+		if Flags.FoundationAvatarBindableUserId then
+			if typeof(avatarProps) == "table" then
+				userPresence = avatarProps.userPresence
+				userId = (avatarProps.userId :: unknown) :: Bindable<number>
+			else
+				userId = avatarProps
+			end
+		else
+			userId = avatarProps :: number
+
+			if typeof(avatarProps) == "table" then
+				userPresence = avatarProps.userPresence
+				userId = avatarProps.userId :: number
+			end
 		end
+
+		local stableId = if Flags.FoundationAvatarBindableUserId
+			then tostring(getBindableValue(userId))
+			else nil :: never
+
 		-- Should be reversed index because the earlier the avatar the higher it should be.
 		-- 1 is subtracted so the smallest ZIndex is 1
 		local ZIndex = #props.avatars - (index - 1)
@@ -125,7 +150,7 @@ local function AvatarGroup(avatarGroupProps: AvatarGroupProps, ref: React.Ref<Gu
 			break
 		end
 		children[index] = React.createElement(Avatar, {
-			key = tostring(userId),
+			key = if Flags.FoundationAvatarBindableUserId then stableId else tostring(userId),
 			userId = userId,
 			backgroundStyle = backgroundStyle,
 			backplateStyle = backplateStyle,
@@ -134,7 +159,9 @@ local function AvatarGroup(avatarGroupProps: AvatarGroupProps, ref: React.Ref<Gu
 			LayoutOrder = index,
 			Position = position,
 			ZIndex = ZIndex,
-			testId = `{props.testId}--avatar-{userId}`,
+			testId = if Flags.FoundationAvatarBindableUserId
+				then `{props.testId}--avatar-{stableId}`
+				else `{props.testId}--avatar-{userId}`,
 		})
 	end
 

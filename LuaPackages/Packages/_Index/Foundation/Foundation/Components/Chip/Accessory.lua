@@ -16,6 +16,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local isMigrated = iconMigrationUtils.isMigrated
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 local AvatarGroup = require(Foundation.Components.AvatarGroup)
+type AvatarGroupItem = AvatarGroup.AvatarGroupItem
 type AvatarGroupProps = AvatarGroup.AvatarGroupProps
 local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
 type AvatarGroupType = AvatarGroupType.AvatarGroupType
@@ -35,7 +36,8 @@ type IconConfig = {
 	onActivated: (() -> ())?,
 	type: nil,
 }
-type AvatarGroupConfig = {
+
+export type AvatarGroupConfig = {
 	type: "AvatarGroup",
 	-- Only subset of the properties is allowed explicitly, the rest come from the Chip
 	props: {

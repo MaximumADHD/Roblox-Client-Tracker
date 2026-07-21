@@ -4,7 +4,6 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 local SegmentModule = require(Foundation.Components.SegmentedControl.Segment)
 type Segment = SegmentModule.Segment
@@ -76,7 +75,7 @@ local function Story(props)
 	}, {
 		TextSegments = React.createElement(SegmentedControl, {
 			size = props.controls.size,
-			isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
+			isCircular = props.controls.isCircular,
 			segments = segments,
 			value = value,
 			onActivated = setValue,
@@ -84,7 +83,7 @@ local function Story(props)
 		}),
 		IconSegments = React.createElement(SegmentedControl, {
 			size = props.controls.size,
-			isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
+			isCircular = props.controls.isCircular,
 			segments = iconSegments,
 			value = iconValue,
 			onActivated = setIconValue,
@@ -92,7 +91,7 @@ local function Story(props)
 		}),
 		MixedSegments = React.createElement(SegmentedControl, {
 			size = props.controls.size,
-			isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
+			isCircular = props.controls.isCircular,
 			segments = mixedSegments,
 			value = mixedValue,
 			onActivated = setMixedValue,
@@ -109,7 +108,7 @@ local function Story(props)
 			TabsComponent = React.createElement(SegmentedControl, {
 				LayoutOrder = 2,
 				size = props.controls.size,
-				isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
+				isCircular = props.controls.isCircular,
 				segments = segments,
 				value = tabsValue,
 				onActivated = setTabsValue,

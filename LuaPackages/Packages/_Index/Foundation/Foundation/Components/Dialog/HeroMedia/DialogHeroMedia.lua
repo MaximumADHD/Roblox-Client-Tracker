@@ -16,6 +16,8 @@ local useDialog = require(script.Parent.Parent.useDialog)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 
+local Flags = require(Foundation.Utility.Flags)
+
 type Bindable<T> = Types.Bindable<T>
 type AspectRatio = Types.AspectRatio
 type ColorStyle = Types.ColorStyle
@@ -52,34 +54,42 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 		LayoutOrder = Constants.MIN_LAYOUT_ORDER,
 		testId = `{dialogContext.testId}--hero-media`,
 	}, {
-		RoundedCorners = React.createElement(Image, {
-			Image = props.media,
-			imageStyle = props.mediaStyle,
-			backgroundStyle = props.backgroundStyle,
-			aspectRatio = props.aspectRatio,
-			Position = UDim2.fromOffset(-offsetX, 0),
-			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
-			ZIndex = 0,
-		}, {
-			TransparencyGradient = React.createElement(Gradient, {
-				fillDirection = Enum.FillDirection.Vertical,
-				top = false,
-			}),
-		}),
-		Image = React.createElement(Image, {
-			Image = props.media,
-			imageStyle = props.mediaStyle,
-			backgroundStyle = props.backgroundStyle,
-			tag = variants.heroMedia.tag,
-			aspectRatio = props.aspectRatio,
-			Position = UDim2.fromOffset(-offsetX, 0),
-			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
-		}, {
-			TransparencyGradient = React.createElement(Gradient, {
-				fillDirection = Enum.FillDirection.Vertical,
-				top = true,
-			}),
-		}),
+		RoundedCorners = if not Flags.FoundationMediaRoundedCornerTags
+			then React.createElement(Image, {
+				Image = props.media,
+				imageStyle = props.mediaStyle,
+				backgroundStyle = props.backgroundStyle,
+				aspectRatio = props.aspectRatio,
+				Position = UDim2.fromOffset(-offsetX, 0),
+				Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
+				ZIndex = 0,
+			}, {
+				TransparencyGradient = React.createElement(Gradient, {
+					fillDirection = Enum.FillDirection.Vertical,
+					top = false,
+				}),
+			})
+			else nil,
+		Image = React.createElement(
+			Image,
+			{
+				Image = props.media,
+				imageStyle = props.mediaStyle,
+				backgroundStyle = props.backgroundStyle,
+				tag = variants.heroMedia.tag,
+				aspectRatio = props.aspectRatio,
+				Position = UDim2.fromOffset(-offsetX, 0),
+				Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
+			},
+			if not Flags.FoundationMediaRoundedCornerTags
+				then {
+					TransparencyGradient = React.createElement(Gradient, {
+						fillDirection = Enum.FillDirection.Vertical,
+						top = true,
+					}),
+				}
+				else nil
+		),
 	})
 end
 

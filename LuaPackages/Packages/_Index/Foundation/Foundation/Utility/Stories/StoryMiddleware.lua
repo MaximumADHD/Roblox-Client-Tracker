@@ -5,7 +5,6 @@ local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 
 local Device = require(Foundation.Enums.Device)
-local Flags = require(Foundation.Utility.Flags)
 local FoundationProvider = require(Foundation.Providers.Foundation)
 local Theme = require(Foundation.Enums.Theme)
 local Types = require(Foundation.Utility.Stories.Types)
@@ -104,11 +103,6 @@ local function StoryMiddleware(story)
 			preferences = devStorybookStoryProps.settings
 		end
 
-		local shouldUsePlugin = Flags.FoundationPopoverPluginSupport
-		if Flags.FoundationPopoverPluginSecurityGate then
-			shouldUsePlugin = shouldUsePlugin and isPluginSecurity()
-		end
-
 		return React.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Size = UDim2.fromScale(1, 0),
@@ -127,7 +121,7 @@ local function StoryMiddleware(story)
 				preferences = preferences,
 				scale = preferences and preferences.scale,
 				overlayGui = overlay,
-				plugin = if shouldUsePlugin then storyProps.plugin else nil,
+				plugin = if isPluginSecurity() then storyProps.plugin else nil,
 				tokenOverrides = tokenOverrides,
 			}, {
 				Child = React.createElement(story, storyProps),

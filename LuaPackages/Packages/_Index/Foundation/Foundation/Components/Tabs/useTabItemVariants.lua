@@ -62,7 +62,9 @@ local function variantsFactory(tokens: Tokens)
 	}
 
 	local paddings: { [InputSize]: VariantProps } = {
-		[InputSize.XSmall] = { content = { tag = "padding-x-small" } },
+		[InputSize.XSmall] = {
+			content = { tag = if Flags.FoundationFixTabsFitBorderWidth then "padding-x-xsmall" else "padding-x-small" },
+		},
 		[InputSize.Small] = { content = { tag = "padding-x-small" } },
 		[InputSize.Medium] = { content = { tag = "padding-x-medium" } },
 		[InputSize.Large] = { content = { tag = "padding-x-large" } },
@@ -88,6 +90,8 @@ return function(tokens: Tokens, size: InputSize, isFill: boolean): TabVariantPro
 		props.common,
 		props.sizes[size],
 		props.isFill[isFill],
-		if isFill then props.paddings[size] else {}
+		if Flags.FoundationFixTabsFitBorderWidth
+			then props.paddings[size]
+			else if isFill then props.paddings[size] else {}
 	)
 end

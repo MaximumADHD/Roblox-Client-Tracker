@@ -7,8 +7,16 @@ local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -18,6 +26,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Image = Foundation.Image
 
 local TEXT_BOX_OFFSET = 44
 local TEXT_BOX_SELECTION_CURSOR_OFFSET = 5
@@ -95,13 +104,20 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 					PaddingTop = UDim.new(0, CLEAR_BUTTON_PADDING_INTERNAL),
 					PaddingBottom = UDim.new(0, CLEAR_BUTTON_PADDING_INTERNAL),
 				}),
-				ClearImage = Roact.createElement(ImageSetLabel, {
-					Size = UDim2.fromScale(1, 1),
-					BackgroundTransparency = 1,
-					Image = Assets.Images.ClearIcon,
-					ImageColor3 = style.Theme.IconEmphasis.Color,
-					Selectable = false,
-				}),
+				ClearImage = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Size = UDim2.fromScale(1, 1),
+						Image = Assets.Images.ClearIcon.Image,
+						imageRect = { offset = Assets.Images.ClearIcon.ImageRectOffset, size = Assets.Images.ClearIcon.ImageRectSize },
+						imageStyle = { Color3 = style.Theme.IconEmphasis.Color, Transparency = 0 },
+					})
+					else Roact.createElement(ImageSetLabel, {
+						Size = UDim2.fromScale(1, 1),
+						BackgroundTransparency = 1,
+						Image = Assets.Images.ClearIcon,
+						ImageColor3 = style.Theme.IconEmphasis.Color,
+						Selectable = false,
+					}),
 			})
 
 			return Roact.createElement(ImageSetLabel, {
@@ -126,14 +142,23 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 					ImageTransparency = style.Theme.Divider.Transparency,
 				}),
 
-				SearchIcon = Roact.createElement(ImageSetLabel, {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, 16, 0, 16),
-					Position = UDim2.new(0, 22, 0.5, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Image = Assets.Images.SearchIcon,
-					ImageColor3 = style.Theme.IconEmphasis.Color,
-				}),
+				SearchIcon = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Size = UDim2.new(0, 16, 0, 16),
+						Position = UDim2.new(0, 22, 0.5, 0),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Image = Assets.Images.SearchIcon.Image,
+						imageRect = { offset = Assets.Images.SearchIcon.ImageRectOffset, size = Assets.Images.SearchIcon.ImageRectSize },
+						imageStyle = { Color3 = style.Theme.IconEmphasis.Color, Transparency = 0 },
+					})
+					else Roact.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(0, 16, 0, 16),
+						Position = UDim2.new(0, 22, 0.5, 0),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Image = Assets.Images.SearchIcon,
+						ImageColor3 = style.Theme.IconEmphasis.Color,
+					}),
 
 				TextBox = Roact.createElement("TextBox", {
 					Size = UDim2.new(1, -textBoxSizeOffset, 1, 0),

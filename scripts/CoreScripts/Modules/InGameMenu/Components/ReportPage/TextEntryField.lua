@@ -11,8 +11,16 @@ local Cryo = InGameMenuDependencies.Cryo
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Images = UIBlox.App.ImageSet.Images
 
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
@@ -21,6 +29,8 @@ local FillCircle = require(script.Parent.FillCircle)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+
+local Image = Foundation.Image
 
 local TextEntryField = Roact.PureComponent:extend("TextEntryField")
 
@@ -112,17 +122,7 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 		local imageWidth = imageSize.X
 		local halfImageWidth = imageWidth / 2
 
-		return Roact.createElement(ImageSetLabel, {
-			BackgroundTransparency = 1,
-			Image = Assets.Images.RoundedRect.Image,
-			ImageColor3 = style.Theme.BackgroundMuted.Color,
-			ImageTransparency = style.Theme.BackgroundMuted.Transparency,
-			Position = self.props.Position,
-			ScaleType = Assets.Images.RoundedRect.ScaleType,
-			Size = self.props.Size,
-			SliceCenter = Assets.Images.RoundedRect.SliceCenter,
-			LayoutOrder = self.props.LayoutOrder,
-		}, {
+		local children = {
 			ScrollingFrame = Roact.createElement("ScrollingFrame", {
 				Size = UDim2.new(1, -(TEXT_SIDE_PADDING * 2), 1, -44),
 				AnchorPoint = Vector2.new(0.5, 0),
@@ -240,7 +240,33 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 					}),
 				}),
 			}),
-		})
+		}
+
+		if FFlagCoreUiMigrateUIBloxToFoundation then
+			return Roact.createElement(Image, {
+				Image = Assets.Images.RoundedRectImageKey,
+				imageStyle = {
+					Color3 = style.Theme.BackgroundMuted.Color,
+					Transparency = style.Theme.BackgroundMuted.Transparency,
+				},
+				Position = self.props.Position,
+				Size = self.props.Size,
+				LayoutOrder = self.props.LayoutOrder,
+				slice = { center = Rect.new(8, 8, 9, 9) },
+			}, children)
+		else
+			return Roact.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Image = Assets.Images.RoundedRect.Image,
+				ImageColor3 = style.Theme.BackgroundMuted.Color,
+				ImageTransparency = style.Theme.BackgroundMuted.Transparency,
+				Position = self.props.Position,
+				ScaleType = Assets.Images.RoundedRect.ScaleType,
+				Size = self.props.Size,
+				SliceCenter = Assets.Images.RoundedRect.SliceCenter,
+				LayoutOrder = self.props.LayoutOrder,
+			}, children)
+		end
 	end)
 end
 

@@ -1,7 +1,6 @@
 local StyleSheetRoot = script.Parent
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(StyleSheetRoot.Rules.Types)
@@ -40,15 +39,6 @@ local function StyleSheet(props: StyleSheetProps)
 	end, { sheet })
 
 	local rules = useGeneratedRules(props.theme, props.device)
-
-	-- Deprecated: remove as soon as StudioPlugins using this are migrated.
-	-- https://roblox.atlassian.net/browse/STUDIOPLAT-38539
-	React.useLayoutEffect(function()
-		if sheet and not Flags.FoundationDisableStyleProviderDerives then
-			sheet:SetDerives((props.derives or {}) :: { Instance })
-		end
-		-- There is no removeDerives, a new call overwrites the old one.
-	end, { sheet, props.derives } :: { unknown })
 
 	local overrideAttributes = React.useMemo(function()
 		return getOverrideAttributes(props.theme, props.device, props.tokenOverrides)

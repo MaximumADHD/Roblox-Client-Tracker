@@ -19,6 +19,11 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local GAMEPAD_IMAGE_HEIGHT = 465
 
 local GAMEPAD_IMAGE_WIDTH = 473
@@ -76,13 +81,14 @@ local function GamepadControls(props)
 		titleText = "CoreScripts.InGameMenu.Controls.GamepadTitle",
 		closeButtonRef = props.closeButtonRef,
 	}, {
-		GamepadImage = Roact.createElement(ImageSetLabel, {
-			BackgroundTransparency = 1,
+		GamepadImage = Roact.createElement(if FFlagCoreUiMigrateUIBloxToFoundation then Image else ImageSetLabel, {
+			BackgroundTransparency = if FFlagCoreUiMigrateUIBloxToFoundation then nil else 1,
 			Image = isXbox and Assets.Images.GamepadXbox or Assets.Images.Gamepad,
 			Size = UDim2.new(0, GAMEPAD_IMAGE_WIDTH, 0, GAMEPAD_IMAGE_HEIGHT),
 			Position = UDim2.new(0.5, GAMEPAD_ICONS_WIDTH / 2, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			[React.Tag] = "data-testid=GamepadInstructions",
+			testId = if FFlagCoreUiMigrateUIBloxToFoundation then "GamepadInstructions" else nil,
+			[React.Tag] = if FFlagCoreUiMigrateUIBloxToFoundation then nil else "data-testid=GamepadInstructions",
 		}, {
 			LeftControlsList = Roact.createElement(verticalControlsList, {
 				TextXAlignment = Enum.TextXAlignment.Right,

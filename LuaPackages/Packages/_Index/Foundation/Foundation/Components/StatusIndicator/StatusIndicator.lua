@@ -35,19 +35,24 @@ type StatusIndicatorEmpty = {
 	value: nil, -- discriminant union mechanism to avoid type errors
 } & Types.CommonProps
 
-type StatusIndicatorNumeric = {
-	variant: (
-		typeof(StatusIndicatorVariant.Emphasis)
-		| typeof(StatusIndicatorVariant.Standard)
-		| typeof(StatusIndicatorVariant.Alert) -- Remove with FoundationStatusIndicatorVariantExperiment
-		| typeof(StatusIndicatorVariant.Contrast_Experiment) -- Remove with FoundationStatusIndicatorVariantExperiment
-	)?,
-	value: Bindable<number>,
-	max: number?,
-	size: StatusIndicatorSize?,
-} & Types.CommonProps
+export type StatusIndicatorNumericVariant =
+	typeof(StatusIndicatorVariant.Emphasis)
+	| typeof(StatusIndicatorVariant.Standard)
+	| typeof(StatusIndicatorVariant.Alert) -- Remove with FoundationStatusIndicatorVariantExperiment
+	| typeof(StatusIndicatorVariant.Contrast_Experiment) -- Remove with FoundationStatusIndicatorVariantExperiment
 
-export type StatusIndicatorProps = StatusIndicatorEmpty | StatusIndicatorNumeric
+type StatusIndicatorNumeric = {
+	variant: StatusIndicatorNumericVariant?,
+	value: Bindable<number>,
+	size: StatusIndicatorSize?,
+	max: number?,
+	shape: nil,
+}
+
+type StatusIndicatorEmptyProps = StatusIndicatorEmpty & Types.CommonProps
+type StatusIndicatorNumericProps = StatusIndicatorNumeric & Types.CommonProps
+
+export type StatusIndicatorProps = StatusIndicatorEmptyProps | StatusIndicatorNumericProps
 
 local defaultProps = {
 	variant = StatusIndicatorVariant.Standard,

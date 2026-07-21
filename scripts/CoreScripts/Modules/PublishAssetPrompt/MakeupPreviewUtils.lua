@@ -2,6 +2,7 @@
 	Utility functions for makeup asset previewing in the publish prompt.
 	Supports Decals (face/lip/eye makeup) and Accessories (eyebrow/eyelash).
 ]]
+local AssetService = game:GetService("AssetService")
 local Players = game:GetService("Players")
 
 local root = script.Parent
@@ -126,6 +127,98 @@ function MakeupPreviewUtils.createMakeupThumbnailPreview(asset: Instance, assetT
 	end
 
 	return character
+end
+
+--[[
+	Composites multiple Decals in a Folder into a single Decal for preview.
+	Each Decal is expected to have an EditableImage in TextureContent and a WrapTextureTransfer child.
+	Layers are drawn in ascending sortOrder (lower = base, higher = on top).
+	Returns a single Decal with all textures blended together, suitable for MakeupDescription.Instance.
+]]
+function MakeupPreviewUtils.compositeMakeupFolder(folder: Folder, sortOrders: { [string]: number }?): Decal?
+	local decals = {}
+	for _, child in ipairs(folder:GetChildren()) do
+		if child:IsA("Decal") then
+			table.insert(decals, child)
+		end
+	end
+
+	if #decals == 0 then
+		return nil
+	end
+
+	local firstImage = decals[1].TextureContent and decals[1].TextureContent.Object
+	if not firstImage then
+		return nil
+	end
+
+	if sortOrders then
+		table.sort(decals, function(a, b)
+			local orderA = sortOrders[a.Name] or 0
+			local orderB = sortOrders[b.Name] or 0
+			return orderA < orderB
+		end)
+	end
+
+	local targetSize = firstImage.Size
+	local canvasSize = Vector2.new(targetSize.X, targetSize.Y)
+
+	-- Composite each texture channel independently. PBR channels may be EditableImages
+	local CHANNEL_PROPERTIES = { "TextureContent", "RoughnessMapContent", "MetalnessMapContent", "NormalMapContent" }
+
+	local resultDecal = Instance.new("Decal")
+
+	for _, channelName in ipairs(CHANNEL_PROPERTIES) do
+		-- Skip channels where no decal has content
+		local hasAnyLayer = false
+		for _, decal in ipairs(decals) do
+			local content = (decal :: any)[channelName]
+			if content and (content.Object or content.Uri) then
+				hasAnyLayer = true
+				break
+			end
+		end
+
+		if hasAnyLayer then
+			local compositedImage = AssetService:CreateEditableImage({ Size = canvasSize })
+			local drawnFirst = false
+
+			for _, decal in ipairs(decals) do
+				local content = (decal :: any)[channelName]
+				if not content then
+					continue
+				end
+
+				-- Content may be an in-memory EditableImage or an asset URI that needs loading
+				local layerImage = content.Object
+				if not layerImage and content.Uri and content.Uri ~= "" then
+					local ok, result = pcall(function()
+						return AssetService:CreateEditableImageAsync(content)
+					end)
+					if ok then
+						layerImage = result
+					end
+				end
+
+				if layerImage then
+					local combineType = if not drawnFirst
+						then Enum.ImageCombineType.Overwrite
+						else Enum.ImageCombineType.AlphaBlend
+					compositedImage:DrawImage(Vector2.new(0, 0), layerImage, combineType)
+					drawnFirst = true
+				end
+			end
+
+			(resultDecal :: any)[channelName] = Content.fromObject(compositedImage)
+		end
+	end
+
+	local firstWTT = decals[1]:FindFirstChildWhichIsA("WrapTextureTransfer")
+	if firstWTT then
+		firstWTT:Clone().Parent = resultDecal
+	end
+
+	return resultDecal
 end
 
 return MakeupPreviewUtils

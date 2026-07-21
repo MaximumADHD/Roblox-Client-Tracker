@@ -1,3 +1,0 @@
-return {
-	RowHeight = 24,
-}

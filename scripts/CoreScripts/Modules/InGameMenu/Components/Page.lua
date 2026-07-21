@@ -6,8 +6,15 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local FFlagCoreUiMigrateUIBloxToFoundation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 local InGameMenu = script.Parent.Parent
 local NavigateUp = require(InGameMenu.Thunks.NavigateUp)
 local Assets = require(InGameMenu.Resources.Assets)
@@ -18,10 +25,7 @@ local Direction = require(InGameMenu.Enums.Direction)
 
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
-local Foundation = require(CorePackages.Packages.Foundation)
 local Image = Foundation.Image
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
 local TITLE_HEIGHT = 28
 local TITLE_TOP_PADDING = 28
@@ -34,8 +38,14 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
 			Theme = {
-				IconEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
-				BackgroundContrast = { Color = tokens.Color.Surface.Surface_100.Color3, Transparency = tokens.Color.Surface.Surface_100.Transparency },
+				IconEmphasis = {
+					Color = tokens.Color.Content.Emphasis.Color3,
+					Transparency = tokens.Color.Content.Emphasis.Transparency,
+				},
+				BackgroundContrast = {
+					Color = tokens.Color.Surface.Surface_100.Color3,
+					Transparency = tokens.Color.Surface.Surface_100.Transparency,
+				},
 			},
 		}
 	end, function(style)
@@ -45,6 +55,7 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 				then Roact.createElement(Image, {
 					Image = Assets.Images.NavigateBack :: string,
 					tag = "content-emphasis anchor-center-left size-900",
+					backgroundStyle = { Transparency = 1 },
 					Position = UDim2.new(0, 4, 0.5, 0),
 					selection = {
 						NextSelectionDown = props.NextSelectionDown,

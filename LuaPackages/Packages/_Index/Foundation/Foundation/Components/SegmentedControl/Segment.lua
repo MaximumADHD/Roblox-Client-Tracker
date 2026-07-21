@@ -5,7 +5,6 @@ local React = require(Packages.React)
 
 local BuilderIcons = require(Packages.BuilderIcons)
 
-local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -43,11 +42,7 @@ type SegmentProps = Segment & {
 
 local function Segment(props: SegmentProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
-	local variantProps = useSegmentedControlVariants(
-		tokens,
-		props.size,
-		if Flags.FoundationSegmentedControlCircular then props.isCircular else nil
-	)
+	local variantProps = useSegmentedControlVariants(tokens, props.size, props.isCircular)
 
 	if _G.__DEV__ == true then
 		assert(

@@ -8,8 +8,16 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -19,6 +27,7 @@ local InviteStatus = Constants.InviteStatus
 local Images = UIBlox.App.ImageSet.Images
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Image = Foundation.Image
 
 local SendInviteButton = Roact.PureComponent:extend("SendInviteButton")
 
@@ -198,33 +207,60 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 				end
 			end,
 		}, {
-			SendLabel = Roact.createElement(ImageSetLabel, {
-				BackgroundTransparency = 1,
-				Image = Images["icons/actions/friends/friendInvite"],
-				Size = UDim2.new(1, 0, 1, 0),
-				ImageColor3 = style.Theme.IconEmphasis.Color,
+			SendLabel = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Image = "icons/actions/friends/friendInvite",
+					Size = UDim2.new(1, 0, 1, 0),
+					imageStyle = self.bindings.sendTransparency:map(function(t)
+						return { Color3 = style.Theme.IconEmphasis.Color, Transparency = t }
+					end),
+				})
+				else Roact.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
+					Image = Images["icons/actions/friends/friendInvite"],
+					Size = UDim2.new(1, 0, 1, 0),
+					ImageColor3 = style.Theme.IconEmphasis.Color,
 
-				ImageTransparency = self.bindings.sendTransparency,
-			}),
-			SuccessLabel = Roact.createElement(ImageSetLabel, {
-				BackgroundTransparency = 1,
-				Image = Images["icons/status/success"],
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				ImageColor3 = style.Theme.IconEmphasis.Color,
+					ImageTransparency = self.bindings.sendTransparency,
+				}),
+			SuccessLabel = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Image = "icons/status/success",
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					imageStyle = self.bindings.successTransparency:map(function(t)
+						return { Color3 = style.Theme.IconEmphasis.Color, Transparency = t }
+					end),
+					Size = self.bindings.successSize,
+				})
+				else Roact.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
+					Image = Images["icons/status/success"],
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					ImageColor3 = style.Theme.IconEmphasis.Color,
 
-				ImageTransparency = self.bindings.successTransparency,
-				Size = self.bindings.successSize,
-			}),
-			FailLabel = Roact.createElement(ImageSetLabel, {
-				BackgroundTransparency = 1,
-				Image = Images["icons/status/alert"],
-				Size = UDim2.new(1, 0, 1, 0),
-				ImageColor3 = style.Theme.IconEmphasis.Color,
+					ImageTransparency = self.bindings.successTransparency,
+					Size = self.bindings.successSize,
+				}),
+			FailLabel = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Image = "icons/status/alert",
+					Size = UDim2.new(1, 0, 1, 0),
+					imageStyle = self.bindings.failTransparency:map(function(t)
+						return { Color3 = style.Theme.IconEmphasis.Color, Transparency = t }
+					end),
+					Position = self.bindings.failPos,
+				})
+				else Roact.createElement(ImageSetLabel, {
+					BackgroundTransparency = 1,
+					Image = Images["icons/status/alert"],
+					Size = UDim2.new(1, 0, 1, 0),
+					ImageColor3 = style.Theme.IconEmphasis.Color,
 
-				ImageTransparency = self.bindings.failTransparency,
-				Position = self.bindings.failPos,
-			}),
+					ImageTransparency = self.bindings.failTransparency,
+					Position = self.bindings.failPos,
+				}),
 		})
 	end)
 end

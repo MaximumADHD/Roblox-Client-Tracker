@@ -20,6 +20,11 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local GAMEPAD_IMAGE_WIDTH = 473
 local GAMEPAD_WIDTH = 440
 local GAMEPAD_ICONS_WIDTH = GAMEPAD_IMAGE_WIDTH - GAMEPAD_WIDTH
@@ -39,14 +44,15 @@ local function GamepadControls(props)
 	return Roact.createElement(ControlLayoutContainer, {
 		titleText = "CoreScripts.InGameMenu.Controls.GamepadTitle",
 	}, {
-		GamepadImage = Roact.createElement(ImageSetLabel, {
-			BackgroundTransparency = 1,
+		GamepadImage = Roact.createElement(if FFlagCoreUiMigrateUIBloxToFoundation then Image else ImageSetLabel, {
+			BackgroundTransparency = if FFlagCoreUiMigrateUIBloxToFoundation then nil else 1,
 			Image = Assets.Images.GamepadQuest,
 			Size = UDim2.new(1, 0, 0.6, 0),
 			Position = UDim2.new(0.5, GAMEPAD_ICONS_WIDTH / 2, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			SizeConstraint = Enum.SizeConstraint.RelativeXX,
-			[React.Tag] = "data-testid=VRGamepadInstructions",
+			testId = if FFlagCoreUiMigrateUIBloxToFoundation then "VRGamepadInstructions" else nil,
+			[React.Tag] = if FFlagCoreUiMigrateUIBloxToFoundation then nil else "data-testid=VRGamepadInstructions",
 		}, {
 			Array.map(Controls.questGamepadLabels, function(item, index)
 				local localizationKey = GAMEPAD_LABEL_KEYS[item.labelKey]

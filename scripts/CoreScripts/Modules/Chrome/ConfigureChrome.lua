@@ -28,7 +28,6 @@ local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
-local FFlagReverseUnibar = require(Chrome.Flags.FFlagReverseUnibar)
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -69,46 +68,23 @@ local function configureUnibar()
 	end
 
 	local v4Ordering = { "nine_dot", "chat", "toggle_mic_mute" }
-	if FFlagReverseUnibar then
-		table.insert(v4Ordering, 3, "join_voice")
+	table.insert(v4Ordering, 3, "join_voice")
 
-		if GetFFlagDebugEnableUnibarDummyIntegrations() then
-			table.insert(v4Ordering, "dummy_window")
-			table.insert(v4Ordering, "dummy_window_2")
-		end
+	if GetFFlagDebugEnableUnibarDummyIntegrations() then
+		table.insert(v4Ordering, "dummy_window")
+		table.insert(v4Ordering, "dummy_window_2")
+	end
 
-		if isConnectUnibarEnabled() then
-			table.insert(
-				v4Ordering,
-				if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
-			)
-		end
+	if isConnectUnibarEnabled() then
+		table.insert(
+			v4Ordering,
+			if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
+		)
+	end
 
-		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
-		if toggleMicIndex then
-			table.insert(v4Ordering, toggleMicIndex, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
-		end
-	else
-		v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
-		table.insert(v4Ordering, 2, "join_voice")
-
-		if GetFFlagDebugEnableUnibarDummyIntegrations() then
-			table.insert(v4Ordering, 1, "dummy_window")
-			table.insert(v4Ordering, 1, "dummy_window_2")
-		end
-
-		if isConnectUnibarEnabled() then
-			table.insert(
-				v4Ordering,
-				1,
-				if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
-			)
-		end
-
-		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
-		if toggleMicIndex then
-			table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
-		end
+	local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
+	if toggleMicIndex then
+		table.insert(v4Ordering, toggleMicIndex, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
 	end
 
 	if FFlagAppNavMyStatsTab then

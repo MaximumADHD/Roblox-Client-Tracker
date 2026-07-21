@@ -43,7 +43,20 @@ local TopBarConstants = require(ContactList.Parent.TopBar.Constants)
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
-local currentCamera = workspace.CurrentCamera :: Camera
+local FFlagFixContactListNilCamera2 = game:DefineFastFlag("FixContactListNilCamera2", false)
+
+local currentCamera = if FFlagFixContactListNilCamera2
+	then workspace.CurrentCamera
+	else workspace.CurrentCamera :: Camera
+local function getCameraViewportSize(): Vector2
+	if FFlagFixContactListNilCamera2 then
+		if currentCamera then
+			return currentCamera.ViewportSize
+		end
+		return Vector2.new(0, 0)
+	end
+	return (currentCamera :: Camera).ViewportSize
+end
 
 local SEARCH_BAR_HEIGHT = 36
 local HEADER_HEIGHT = 36
@@ -69,14 +82,14 @@ local function ContactListContainer()
 
 	local contactListContainerRef = React.useRef(nil :: Frame?)
 	local contactListId, setContactListId = React.useState(0)
-	local isSmallScreen, setIsSmallScreen = React.useState(currentCamera.ViewportSize.X < 640)
+	local isSmallScreen, setIsSmallScreen = React.useState(getCameraViewportSize().X < 640)
 	local searchText, setSearchText = React.useState("")
 	-- The desired height of the content that does not include the backdrop.
 	-- Just used for the small screen size because the PeekView requires a set
 	-- size. We assume that this container is stretched to the height of the
 	-- viewport.
 	local contactListContainerContentHeight, setContactListContainerContentHeight =
-		React.useState(currentCamera.ViewportSize.Y - PHONEBOOK_CONTAINER_TOP_MARGIN)
+		React.useState(getCameraViewportSize().Y - PHONEBOOK_CONTAINER_TOP_MARGIN)
 
 	local expectedPeekViewState, setExpectedPeekViewState = React.useState(nil)
 
@@ -165,14 +178,17 @@ local function ContactListContainer()
 
 	-- Listen for screen size changes
 	React.useEffect(function()
-		local conn = currentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-			if currentCamera.ViewportSize.X < 640 then
+		if FFlagFixContactListNilCamera2 and not currentCamera then
+			return function() end
+		end
+		local conn = (currentCamera :: Camera):GetPropertyChangedSignal("ViewportSize"):Connect(function()
+			if getCameraViewportSize().X < 640 then
 				setIsSmallScreen(true)
 			else
 				setIsSmallScreen(false)
 			end
 
-			setContactListContainerContentHeight(currentCamera.ViewportSize.Y - PHONEBOOK_CONTAINER_TOP_MARGIN)
+			setContactListContainerContentHeight(getCameraViewportSize().Y - PHONEBOOK_CONTAINER_TOP_MARGIN)
 		end)
 
 		return function()

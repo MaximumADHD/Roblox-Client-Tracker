@@ -15,8 +15,9 @@ local PostFeedbackRequest = require(FeedbackModule.Network.PostFeedback)
 local IncrementFeedbackSubmissionAttempts = require(FeedbackModule.Actions.IncrementFeedbackSubmissionAttempts)
 
 return function(
-	originalText,
-	feedbackText,
+	contentType,
+	originalContent,
+	feedbackContent,
 	feedbackIdentifier,
 	suggestedTranslationText,
 	additionalCommentsText,
@@ -26,8 +27,9 @@ return function(
 	-- Make POST request and only update on success if running from client
 	return PerformFetch.Single("PostFeedbackRequest", function(store)
 		return PostFeedbackRequest(
-			originalText,
-			feedbackText,
+			contentType,
+			originalContent,
+			feedbackContent,
 			feedbackIdentifier,
 			suggestedTranslationText,
 			additionalCommentsText,

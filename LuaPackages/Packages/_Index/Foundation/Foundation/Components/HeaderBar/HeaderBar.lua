@@ -4,10 +4,12 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Breakpoint = require(Foundation.Enums.Breakpoint)
+local Flags = require(Foundation.Utility.Flags)
 local HeaderBarContext = require(Foundation.Components.HeaderBar.HeaderBarContext)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local useBreakpoint = require(Foundation.Providers.Responsive.Hooks.useBreakpoint)
+local useViewportBreakpoint = require(Foundation.Providers.Responsive.Hooks.useViewportBreakpoint)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -35,8 +37,13 @@ local defaultProps = {
 local function HeaderBar(headerBarProps: HeaderBarProps): React.Node
 	local props = withDefaults(headerBarProps, defaultProps)
 
-	local container, setContainer = React.useState(nil :: Frame?)
-	local breakpoint: Breakpoint = useBreakpoint(container)
+	local container, setContainer
+	if not Flags.FoundationHeaderBarDualPaneBreakpointsStaySynced then
+		container, setContainer = React.useState(nil :: Frame?)
+	end
+	local breakpoint: Breakpoint = if Flags.FoundationHeaderBarDualPaneBreakpointsStaySynced
+		then useViewportBreakpoint()
+		else useBreakpoint(container)
 
 	return React.createElement(
 		View,
@@ -46,7 +53,7 @@ local function HeaderBar(headerBarProps: HeaderBarProps): React.Node
 				["bg-surface-0"] = props.hasBackground,
 				[SIZE_TAG_BY_BREAKPOINT[breakpoint]] = true,
 			},
-			ref = setContainer,
+			ref = if Flags.FoundationHeaderBarDualPaneBreakpointsStaySynced then nil else setContainer,
 		}),
 		React.createElement(HeaderBarContext.Provider, {
 			testId = props.testId,

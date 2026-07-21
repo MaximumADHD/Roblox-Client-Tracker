@@ -14,6 +14,7 @@ type Tokens = Tokens.Tokens
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+local Flags = require(Foundation.Utility.Flags)
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 local useDialog = require(script.Parent.useDialog)
@@ -95,7 +96,7 @@ local function variantsFactory(tokens: Tokens)
 				offset = tokens.Size.Size_300,
 			},
 			heroMedia = {
-				tag = "radius-medium",
+				tag = if Flags.FoundationMediaRoundedCornerTags then "radius-top-medium" else "radius-medium",
 				offsetX = tokens.Padding.Large,
 			},
 			titleText = {
@@ -123,7 +124,7 @@ local function variantsFactory(tokens: Tokens)
 				offset = tokens.Size.Size_400,
 			},
 			heroMedia = {
-				tag = "radius-large",
+				tag = if Flags.FoundationMediaRoundedCornerTags then "radius-top-large" else "radius-large",
 				offsetX = tokens.Padding.XLarge,
 			},
 			titleText = {
@@ -151,7 +152,7 @@ local function variantsFactory(tokens: Tokens)
 				offset = tokens.Size.Size_400,
 			},
 			heroMedia = {
-				tag = "radius-large",
+				tag = if Flags.FoundationMediaRoundedCornerTags then "radius-top-large" else "radius-large",
 				offsetX = tokens.Padding.XLarge,
 			},
 			titleText = {

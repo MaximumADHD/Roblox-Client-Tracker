@@ -8,6 +8,11 @@ local React = require(CorePackages.Packages.React)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatShowGlobalChatTooltip = SharedFlags.FFlagExpChatShowGlobalChatTooltip
+local FFlagEnableWhatsNew = SharedFlags.FFlagEnableWhatsNew
+
+local WhatsNewAnchor = if FFlagEnableWhatsNew
+	then require(CorePackages.Workspace.Packages.WhatsNew).WhatsNewAnchor
+	else nil
 
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
 local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
@@ -670,15 +675,7 @@ function IconHost(props: IconHostProps)
 		end
 	)
 
-	return React.createElement("Frame", {
-		Size = UDim2.new(0, iconCellWidth, 0, iconCellWidth),
-		LayoutOrder = props.integration.order,
-		BorderSizePixel = 0,
-		BackgroundTransparency = 1,
-		Position = props.position,
-		Visible = props.visible,
-		ZIndex = if FFlagEnableConsoleExpControls then nil else props.integration.order,
-	}, {
+	local hostChildren = {
 
 		React.createElement("Frame", {
 			Name = "IntegrationIconFrame",
@@ -724,7 +721,29 @@ function IconHost(props: IconHostProps)
 				setHovered = setHovered,
 				isCurrentlyOpenSubMenu = isCurrentlyOpenSubMenu,
 			}) :: any,
-	})
+	}
+
+	local hostFrameProps = {
+		Size = UDim2.new(0, iconCellWidth, 0, iconCellWidth),
+		LayoutOrder = props.integration.order,
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		Position = props.position,
+		Visible = props.visible,
+		ZIndex = if FFlagEnableConsoleExpControls then nil else props.integration.order,
+	}
+
+	-- Registry anchorIds match Chrome integration ids (e.g. chat, nine_dot).
+	if FFlagEnableWhatsNew then
+		return React.createElement("Frame", hostFrameProps, {
+			WhatsNewAnchor = React.createElement(WhatsNewAnchor :: any, {
+				anchorId = props.integration.id,
+				tag = "size-full",
+			}, hostChildren),
+		})
+	end
+
+	return React.createElement("Frame", hostFrameProps, hostChildren)
 end
 
 return IconHost

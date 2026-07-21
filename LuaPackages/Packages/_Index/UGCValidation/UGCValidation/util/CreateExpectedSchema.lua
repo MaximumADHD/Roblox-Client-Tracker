@@ -17,6 +17,8 @@ local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidationAnimationPackFolderStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
+local getFFlagUGCValidationAnimationPackDisableModelStructure =
+	require(root.flags.getFFlagUGCValidationAnimationPackDisableModelStructure)
 
 local CreateExpectedSchema = {}
 -- NOTE: We are not going to enforce the R15ArtistIntent name here. These schemas are for the root folder/instance, and not for the copy
@@ -141,7 +143,8 @@ function CreateExpectedSchema.generateAnimationPackBundleSchema(rootInstance: In
 		_children = {},
 	}
 
-	local useFolderAnim = getFFlagUGCValidationAnimationPackFolderStructure() and hasTopLevelR15Anim(rootInstance)
+	local useFolderAnim = getFFlagUGCValidationAnimationPackDisableModelStructure()
+		or (getFFlagUGCValidationAnimationPackFolderStructure() and hasTopLevelR15Anim(rootInstance))
 	for _, info in Constants.ANIMATION_ASSET_INFO do
 		if useFolderAnim then
 			table.insert(rootModelSchema._children, {

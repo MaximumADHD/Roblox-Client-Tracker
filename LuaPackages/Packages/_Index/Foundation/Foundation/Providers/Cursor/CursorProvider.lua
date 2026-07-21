@@ -1,7 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Flags = require(Foundation.Utility.Flags)
 local CoreGui = require(Foundation.Utility.Wrappers).Services.CoreGui
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 
@@ -92,14 +91,7 @@ local function CursorProvider(props: Props)
 	end
 
 	React.useEffect(function()
-		if
-			frameRef.current == nil
-			or (
-				if Flags.FoundationAllowMockDataModel
-					then not game:IsAncestorOf(frameRef.current)
-					else not frameRef.current:IsDescendantOf(game)
-			)
-		then
+		if frameRef.current == nil or not game:IsAncestorOf(frameRef.current) then
 			return
 		end
 

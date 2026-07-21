@@ -81,6 +81,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_REVEAL_TEXT"
 	| "UI_COMPONENT_TYPE_SHIMMER_TEXT"
 	| "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON"
+	| "UI_COMPONENT_TYPE_LOGO"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -235,6 +236,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SHIMMER_TEXT"
 		elseif value == 252 then
 			return "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON"
+		elseif value == 253 then
+			return "UI_COMPONENT_TYPE_LOGO"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -405,6 +408,8 @@ messages.UiComponentType = {
 			return 251
 		elseif self == "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON" then
 			return 252
+		elseif self == "UI_COMPONENT_TYPE_LOGO" then
+			return 253
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -575,6 +580,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SHIMMER_TEXT"
 		elseif name == "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON" then
 			return "UI_COMPONENT_TYPE_APP_DOWNLOAD_BUTTON"
+		elseif name == "UI_COMPONENT_TYPE_LOGO" then
+			return "UI_COMPONENT_TYPE_LOGO"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

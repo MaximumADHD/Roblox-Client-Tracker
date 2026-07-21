@@ -45,11 +45,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 	local props = withDefaults(segmentedControlProps, defaultProps)
 
 	local tokens = useTokens()
-	local variantProps = useSegmentedControlVariants(
-		tokens,
-		props.size,
-		if Flags.FoundationSegmentedControlCircular then props.isCircular else nil
-	)
+	local variantProps = useSegmentedControlVariants(tokens, props.size, props.isCircular)
 
 	local containerRef
 	local overlayData
@@ -138,7 +134,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 						Segment = React.createElement(Segment, {
 							id = segment.id,
 							size = props.size,
-							isCircular = if Flags.FoundationSegmentedControlCircular then props.isCircular else nil,
+							isCircular = props.isCircular,
 							text = segment.text,
 							icon = segment.icon,
 							isActive = segment.id == props.value,

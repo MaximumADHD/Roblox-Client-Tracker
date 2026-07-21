@@ -7,8 +7,16 @@ local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 local InGameMenu = script.Parent.Parent.Parent
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local Assets = require(InGameMenu.Resources.Assets)
@@ -16,6 +24,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local React = require(CorePackages.Packages.React)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Image = Foundation.Image
 
 local CONTAINER_FRAME_HEIGHT = 70
 local GAME_ICON_SIZE = 44
@@ -75,13 +84,20 @@ function GameLabel:renderWithSelectionCursor(getSelectionCursor)
 			[Roact.Ref] = self.props.buttonRef,
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
-			GameIcon = Roact.createElement(ImageSetLabel, {
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, GAME_ICON_PADDING_LEFT, 0.5, 0),
-				Size = UDim2.new(0, GAME_ICON_SIZE, 0, GAME_ICON_SIZE),
-				BackgroundTransparency = 1,
-				Image = gameThumbnail,
-			}),
+			GameIcon = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.new(0, GAME_ICON_PADDING_LEFT, 0.5, 0),
+					Size = UDim2.new(0, GAME_ICON_SIZE, 0, GAME_ICON_SIZE),
+					Image = gameThumbnail,
+				})
+				else Roact.createElement(ImageSetLabel, {
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.new(0, GAME_ICON_PADDING_LEFT, 0.5, 0),
+					Size = UDim2.new(0, GAME_ICON_SIZE, 0, GAME_ICON_SIZE),
+					BackgroundTransparency = 1,
+					Image = gameThumbnail,
+				}),
 
 			GameNameLabel = Roact.createElement(ThemedTextLabel, {
 				fontKey = "Header2",

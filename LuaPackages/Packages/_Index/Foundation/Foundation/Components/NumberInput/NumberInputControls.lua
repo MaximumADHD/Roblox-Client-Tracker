@@ -15,7 +15,6 @@ local Image = require(Components.Image)
 local Types = require(Foundation.Components.Types)
 local View = require(Components.View)
 local blendTransparencies = require(Foundation.Utility.blendTransparencies)
-local getDisabledStyle = require(Foundation.Utility.getDisabledStyle)
 local mapBindable = require(Foundation.Utility.mapBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -112,12 +111,6 @@ local function SplitControls(props: NumberInputControlsProps)
 		variantProps.splitButton.size - outerBorderOffset
 	)
 
-	local getBackgroundStyle = React.useCallback(function(isDisabled: boolean)
-		return if containerProps.bgStyle
-			then getDisabledStyle(containerProps.bgStyle :: Types.ColorStyleValue, isDisabled)
-			else nil
-	end, { containerProps.bgStyle } :: { unknown })
-
 	local getStrokeStyle = React.useCallback(function(isDisabled: Bindable<boolean>): Types.Stroke?
 		return if containerProps.strokeStyle and containerProps.strokeThickness
 			then {
@@ -149,11 +142,6 @@ local function SplitControls(props: NumberInputControlsProps)
 			},
 			padding = variantProps.button.padding,
 			Size = buttonSize,
-			backgroundStyle = if Flags.FoundationTextInputRemoveBackgroundStyle
-				then nil
-				else mapBindable(props.increment.isDisabled, function(isDisabled): Types.ColorStyleValue?
-					return getBackgroundStyle(isDisabled)
-				end) :: Bindable<Types.ColorStyleValue>,
 			stroke = getStrokeStyle(props.increment.isDisabled),
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = 1,
@@ -185,11 +173,6 @@ local function SplitControls(props: NumberInputControlsProps)
 			},
 			padding = variantProps.button.padding,
 			Size = buttonSize,
-			backgroundStyle = if Flags.FoundationTextInputRemoveBackgroundStyle
-				then nil
-				else mapBindable(props.decrement.isDisabled, function(isDisabled): Types.ColorStyleValue?
-					return getBackgroundStyle(isDisabled)
-				end) :: Bindable<Types.ColorStyleValue>,
 			stroke = getStrokeStyle(props.decrement.isDisabled),
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = -1,

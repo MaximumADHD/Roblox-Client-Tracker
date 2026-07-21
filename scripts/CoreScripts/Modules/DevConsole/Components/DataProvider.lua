@@ -21,6 +21,7 @@ local DataContext = require(Components.DataContext)
 local DataProvider = Roact.Component:extend("DataProvider")
 
 local VoiceChatDevConsoleEngineFeatureEnabled = game:GetEngineFeature("VoiceChatDevConsoleTabEnabled")
+local FFlagDevConsoleStartDataOnMount = game:DefineFastFlag("DevConsoleStartDataOnMount", false)
 
 function DataProvider:init()
 	self:setState({
@@ -49,6 +50,14 @@ function DataProvider:didMount()
 	
 	if VoiceChatDevConsoleEngineFeatureEnabled then
 		self.state.DevConsoleData.VoiceChatData:start()
+	end
+
+	if FFlagDevConsoleStartDataOnMount and self.props.isDeveloperView then
+		for _, dataProvider in pairs(self.state.DevConsoleData) do
+			if not dataProvider:isRunning() then
+				dataProvider:start()
+			end
+		end
 	end
 end
 

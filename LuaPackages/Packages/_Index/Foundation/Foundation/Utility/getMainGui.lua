@@ -5,7 +5,6 @@ local CoreGui = Wrappers.Services.CoreGui
 local RunService = Wrappers.Services.RunService
 local Players = Wrappers.Services.Players
 
-local Flags = require(Foundation.Utility.Flags)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
 local gotPlayerGui = false
@@ -20,10 +19,6 @@ local function getPlayerGui(): Instance?
 end
 
 local function getMainGui(): Instance
-	if not Flags.FoundationUseMainGuiUtility then
-		error("FoundationUseMainGuiUtility is not enabled")
-	end
-
 	if isPluginSecurity() then
 		return CoreGui
 	end

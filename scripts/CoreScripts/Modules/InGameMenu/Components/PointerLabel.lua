@@ -13,6 +13,11 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local INPUT_TYPE_TO_ICON_MAP = {
 	[Enum.UserInputType.MouseButton1] = Assets.Images.Mouse1Press,
 	[Enum.UserInputType.MouseButton2] = Assets.Images.Mouse2Press,
@@ -31,14 +36,25 @@ local function PointerLabel(props)
 		assert(validateProps(props))
 	end
 
+	local imageData = INPUT_TYPE_TO_ICON_MAP[props.input]
+
+	if FFlagCoreUiMigrateUIBloxToFoundation then
+		return Roact.createElement(Image, {
+			Image = imageData.Image,
+			imageRect = { offset = imageData.ImageRectOffset, size = imageData.ImageRectSize },
+			Size = UDim2.new(0, 36, 0, 36),
+			Position = props.Position,
+			AnchorPoint = props.AnchorPoint,
+			LayoutOrder = props.LayoutOrder,
+		})
+	end
+
 	return Roact.createElement(ImageSetLabel, {
 		BackgroundTransparency = 1,
-		Image = INPUT_TYPE_TO_ICON_MAP[props.input],
-
+		Image = imageData,
 		Size = UDim2.new(0, 36, 0, 36),
 		Position = props.Position,
 		AnchorPoint = props.AnchorPoint,
-
 		LayoutOrder = props.LayoutOrder,
 	})
 end

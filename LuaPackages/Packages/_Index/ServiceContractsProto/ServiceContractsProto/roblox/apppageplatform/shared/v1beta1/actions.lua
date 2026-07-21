@@ -97,6 +97,12 @@ type _Messages =
 		OpenSduiOverlayAction_Params: _OpenSduiOverlayAction_ParamsMessage,
 		ApplyChartsFilterAction: _ApplyChartsFilterActionMessage,
 		ApplyChartsFilterAction_Params: _ApplyChartsFilterAction_ParamsMessage,
+		RefreshChartsSortDetailAction: _RefreshChartsSortDetailActionMessage,
+		RefreshChartsSortDetailAction_Params: _RefreshChartsSortDetailAction_ParamsMessage,
+		JoinCommunityAction: _JoinCommunityActionMessage,
+		JoinCommunityAction_Params: _JoinCommunityAction_ParamsMessage,
+		ViewCommunityAction: _ViewCommunityActionMessage,
+		ViewCommunityAction_Params: _ViewCommunityAction_ParamsMessage,
 		AnalyticsEventAction: _AnalyticsEventActionMessage,
 		AnalyticsEventAction_Params: _AnalyticsEventAction_ParamsMessage,
 		CustomAnalyticsEventAction: _CustomAnalyticsEventActionMessage,
@@ -153,6 +159,8 @@ type _Messages =
 		OpenSearchResultsWithQueryAction_Params: _OpenSearchResultsWithQueryAction_ParamsMessage,
 		SelectMarketplaceFavoritesCategory: _SelectMarketplaceFavoritesCategoryMessage,
 		SelectMarketplaceFavoritesCategory_Params: _SelectMarketplaceFavoritesCategory_ParamsMessage,
+		PinExperienceShortcutAction: _PinExperienceShortcutActionMessage,
+		PinExperienceShortcutAction_Params: _PinExperienceShortcutAction_ParamsMessage,
 		DownloadAppAction: _DownloadAppActionMessage,
 		DownloadAppAction_Params: _DownloadAppAction_ParamsMessage,
 		Action: _ActionMessage,
@@ -2571,10 +2579,14 @@ type _OpenFaeTrialUpsellAction_ParamsImpl = {
 
 type _OpenFaeTrialUpsellAction_ParamsFields = {
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenFaeTrialUpsellAction_ParamsPartialFields = {
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenFaeTrialUpsellAction_Params = typeof(setmetatable(
@@ -2692,6 +2704,168 @@ export type ApplyChartsFilterAction_Params = typeof(setmetatable(
 type _ApplyChartsFilterAction_ParamsMessage = proto.Message<
 	ApplyChartsFilterAction_Params,
 	_ApplyChartsFilterAction_ParamsPartialFields
+>
+
+type _RefreshChartsSortDetailActionImpl = {
+	__index: _RefreshChartsSortDetailActionImpl,
+	new: (fields: _RefreshChartsSortDetailActionPartialFields?) -> RefreshChartsSortDetailAction,
+	encode: (self: RefreshChartsSortDetailAction) -> buffer,
+	decode: (input: buffer) -> RefreshChartsSortDetailAction,
+	jsonEncode: (self: RefreshChartsSortDetailAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshChartsSortDetailAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshChartsSortDetailActionFields = {
+	action_type: ActionType,
+	action_params: RefreshChartsSortDetailAction_Params?,
+}
+
+type _RefreshChartsSortDetailActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshChartsSortDetailAction_Params?,
+}
+
+export type RefreshChartsSortDetailAction = typeof(setmetatable(
+	{} :: _RefreshChartsSortDetailActionFields,
+	{} :: _RefreshChartsSortDetailActionImpl
+))
+type _RefreshChartsSortDetailActionMessage = proto.Message<
+	RefreshChartsSortDetailAction,
+	_RefreshChartsSortDetailActionPartialFields
+>
+
+type _RefreshChartsSortDetailAction_ParamsImpl = {
+	__index: _RefreshChartsSortDetailAction_ParamsImpl,
+	new: (fields: _RefreshChartsSortDetailAction_ParamsPartialFields?) -> RefreshChartsSortDetailAction_Params,
+	encode: (self: RefreshChartsSortDetailAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshChartsSortDetailAction_Params,
+	jsonEncode: (self: RefreshChartsSortDetailAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshChartsSortDetailAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshChartsSortDetailAction_ParamsFields = {
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RefreshChartsSortDetailAction_ParamsPartialFields = {
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RefreshChartsSortDetailAction_Params = typeof(setmetatable(
+	{} :: _RefreshChartsSortDetailAction_ParamsFields,
+	{} :: _RefreshChartsSortDetailAction_ParamsImpl
+))
+type _RefreshChartsSortDetailAction_ParamsMessage = proto.Message<
+	RefreshChartsSortDetailAction_Params,
+	_RefreshChartsSortDetailAction_ParamsPartialFields
+>
+
+type _JoinCommunityActionImpl = {
+	__index: _JoinCommunityActionImpl,
+	new: (fields: _JoinCommunityActionPartialFields?) -> JoinCommunityAction,
+	encode: (self: JoinCommunityAction) -> buffer,
+	decode: (input: buffer) -> JoinCommunityAction,
+	jsonEncode: (self: JoinCommunityAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> JoinCommunityAction,
+	descriptor: proto.Descriptor,
+}
+
+type _JoinCommunityActionFields = {
+	action_type: ActionType,
+	action_params: JoinCommunityAction_Params?,
+}
+
+type _JoinCommunityActionPartialFields = {
+	action_type: ActionType?,
+	action_params: JoinCommunityAction_Params?,
+}
+
+export type JoinCommunityAction = typeof(setmetatable({} :: _JoinCommunityActionFields, {} :: _JoinCommunityActionImpl))
+type _JoinCommunityActionMessage = proto.Message<JoinCommunityAction, _JoinCommunityActionPartialFields>
+
+type _JoinCommunityAction_ParamsImpl = {
+	__index: _JoinCommunityAction_ParamsImpl,
+	new: (fields: _JoinCommunityAction_ParamsPartialFields?) -> JoinCommunityAction_Params,
+	encode: (self: JoinCommunityAction_Params) -> buffer,
+	decode: (input: buffer) -> JoinCommunityAction_Params,
+	jsonEncode: (self: JoinCommunityAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> JoinCommunityAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _JoinCommunityAction_ParamsFields = {
+	community_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _JoinCommunityAction_ParamsPartialFields = {
+	community_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type JoinCommunityAction_Params = typeof(setmetatable(
+	{} :: _JoinCommunityAction_ParamsFields,
+	{} :: _JoinCommunityAction_ParamsImpl
+))
+type _JoinCommunityAction_ParamsMessage = proto.Message<
+	JoinCommunityAction_Params,
+	_JoinCommunityAction_ParamsPartialFields
+>
+
+type _ViewCommunityActionImpl = {
+	__index: _ViewCommunityActionImpl,
+	new: (fields: _ViewCommunityActionPartialFields?) -> ViewCommunityAction,
+	encode: (self: ViewCommunityAction) -> buffer,
+	decode: (input: buffer) -> ViewCommunityAction,
+	jsonEncode: (self: ViewCommunityAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ViewCommunityAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ViewCommunityActionFields = {
+	action_type: ActionType,
+	action_params: ViewCommunityAction_Params?,
+}
+
+type _ViewCommunityActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ViewCommunityAction_Params?,
+}
+
+export type ViewCommunityAction = typeof(setmetatable({} :: _ViewCommunityActionFields, {} :: _ViewCommunityActionImpl))
+type _ViewCommunityActionMessage = proto.Message<ViewCommunityAction, _ViewCommunityActionPartialFields>
+
+type _ViewCommunityAction_ParamsImpl = {
+	__index: _ViewCommunityAction_ParamsImpl,
+	new: (fields: _ViewCommunityAction_ParamsPartialFields?) -> ViewCommunityAction_Params,
+	encode: (self: ViewCommunityAction_Params) -> buffer,
+	decode: (input: buffer) -> ViewCommunityAction_Params,
+	jsonEncode: (self: ViewCommunityAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ViewCommunityAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ViewCommunityAction_ParamsFields = {
+	community_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ViewCommunityAction_ParamsPartialFields = {
+	community_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ViewCommunityAction_Params = typeof(setmetatable(
+	{} :: _ViewCommunityAction_ParamsFields,
+	{} :: _ViewCommunityAction_ParamsImpl
+))
+type _ViewCommunityAction_ParamsMessage = proto.Message<
+	ViewCommunityAction_Params,
+	_ViewCommunityAction_ParamsPartialFields
 >
 
 type _AnalyticsEventActionImpl = {
@@ -4418,6 +4592,66 @@ type _SelectMarketplaceFavoritesCategory_ParamsMessage = proto.Message<
 	_SelectMarketplaceFavoritesCategory_ParamsPartialFields
 >
 
+type _PinExperienceShortcutActionImpl = {
+	__index: _PinExperienceShortcutActionImpl,
+	new: (fields: _PinExperienceShortcutActionPartialFields?) -> PinExperienceShortcutAction,
+	encode: (self: PinExperienceShortcutAction) -> buffer,
+	decode: (input: buffer) -> PinExperienceShortcutAction,
+	jsonEncode: (self: PinExperienceShortcutAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> PinExperienceShortcutAction,
+	descriptor: proto.Descriptor,
+}
+
+type _PinExperienceShortcutActionFields = {
+	action_type: ActionType,
+	action_params: PinExperienceShortcutAction_Params?,
+}
+
+type _PinExperienceShortcutActionPartialFields = {
+	action_type: ActionType?,
+	action_params: PinExperienceShortcutAction_Params?,
+}
+
+export type PinExperienceShortcutAction = typeof(setmetatable(
+	{} :: _PinExperienceShortcutActionFields,
+	{} :: _PinExperienceShortcutActionImpl
+))
+type _PinExperienceShortcutActionMessage = proto.Message<
+	PinExperienceShortcutAction,
+	_PinExperienceShortcutActionPartialFields
+>
+
+type _PinExperienceShortcutAction_ParamsImpl = {
+	__index: _PinExperienceShortcutAction_ParamsImpl,
+	new: (fields: _PinExperienceShortcutAction_ParamsPartialFields?) -> PinExperienceShortcutAction_Params,
+	encode: (self: PinExperienceShortcutAction_Params) -> buffer,
+	decode: (input: buffer) -> PinExperienceShortcutAction_Params,
+	jsonEncode: (self: PinExperienceShortcutAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> PinExperienceShortcutAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _PinExperienceShortcutAction_ParamsFields = {
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	game_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _PinExperienceShortcutAction_ParamsPartialFields = {
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	game_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type PinExperienceShortcutAction_Params = typeof(setmetatable(
+	{} :: _PinExperienceShortcutAction_ParamsFields,
+	{} :: _PinExperienceShortcutAction_ParamsImpl
+))
+type _PinExperienceShortcutAction_ParamsMessage = proto.Message<
+	PinExperienceShortcutAction_Params,
+	_PinExperienceShortcutAction_ParamsPartialFields
+>
+
 type _DownloadAppActionImpl = {
 	__index: _DownloadAppActionImpl,
 	new: (fields: _DownloadAppActionPartialFields?) -> DownloadAppAction,
@@ -4550,6 +4784,10 @@ type _ActionFields = {
 		| { type: "open_search_results_with_query_action", value: OpenSearchResultsWithQueryAction }
 		| { type: "select_marketplace_favorites_category", value: SelectMarketplaceFavoritesCategory }
 		| { type: "download_app_action", value: DownloadAppAction }
+		| { type: "refresh_charts_sort_detail_action", value: RefreshChartsSortDetailAction }
+		| { type: "join_community_action", value: JoinCommunityAction }
+		| { type: "view_community_action", value: ViewCommunityAction }
+		| { type: "pin_experience_shortcut_action", value: PinExperienceShortcutAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4628,6 +4866,10 @@ type _ActionPartialFields = {
 		| { type: "open_search_results_with_query_action", value: OpenSearchResultsWithQueryAction }
 		| { type: "select_marketplace_favorites_category", value: SelectMarketplaceFavoritesCategory }
 		| { type: "download_app_action", value: DownloadAppAction }
+		| { type: "refresh_charts_sort_detail_action", value: RefreshChartsSortDetailAction }
+		| { type: "join_community_action", value: JoinCommunityAction }
+		| { type: "view_community_action", value: ViewCommunityAction }
+		| { type: "pin_experience_shortcut_action", value: PinExperienceShortcutAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4960,6 +5202,10 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_SEARCH_RESULTS_WITH_QUERY"
 	| "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY"
 	| "ACTION_TYPE_DOWNLOAD_APP"
+	| "ACTION_TYPE_REFRESH_CHARTS_SORT_DETAIL"
+	| "ACTION_TYPE_JOIN_COMMUNITY"
+	| "ACTION_TYPE_VIEW_COMMUNITY"
+	| "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT"
 	| number -- Unknown
 
 do
@@ -17302,6 +17548,8 @@ do
 	): OpenFaeTrialUpsellAction_Params
 		return setmetatable({
 			source = if data == nil or data.source == nil then nil else data.source,
+			config_key = if data == nil or data.config_key == nil then nil else data.config_key,
+			surface_key = if data == nil or data.surface_key == nil then nil else data.surface_key,
 		}, _OpenFaeTrialUpsellAction_ParamsImpl :: _OpenFaeTrialUpsellAction_ParamsImpl)
 	end
 
@@ -17312,6 +17560,18 @@ do
 		if self.source ~= nil then
 			local encoded = self.source:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.config_key ~= nil then
+			local encoded = self.config_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.surface_key ~= nil then
+			local encoded = self.surface_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -17338,6 +17598,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -17370,6 +17640,14 @@ do
 			output.source = self.source:jsonEncode()
 		end
 
+		if self.config_key ~= nil then
+			output.configKey = self.config_key:jsonEncode()
+		end
+
+		if self.surface_key ~= nil then
+			output.surfaceKey = self.surface_key:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -17378,6 +17656,23 @@ do
 
 		if input.source ~= nil then
 			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		if input.config_key ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.config_key)
+		end
+
+		if input.configKey ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.configKey)
+		end
+
+		if input.surface_key ~= nil then
+			self.surface_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surface_key)
+		end
+
+		if input.surfaceKey ~= nil then
+			self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surfaceKey)
 		end
 
 		return self
@@ -17909,6 +18204,836 @@ do
 	messages.ApplyChartsFilterAction_Params = _ApplyChartsFilterAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ApplyChartsFilterAction_Params)
+end
+
+do
+	local _RefreshChartsSortDetailActionImpl = {}
+	_RefreshChartsSortDetailActionImpl.__index = _RefreshChartsSortDetailActionImpl
+
+	function _RefreshChartsSortDetailActionImpl.new(
+		data: _RefreshChartsSortDetailActionPartialFields?
+	): RefreshChartsSortDetailAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshChartsSortDetailActionImpl :: _RefreshChartsSortDetailActionImpl)
+	end
+
+	function _RefreshChartsSortDetailActionImpl.encode(self: RefreshChartsSortDetailAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshChartsSortDetailActionImpl.decode(input: buffer): RefreshChartsSortDetailAction
+		local self = _RefreshChartsSortDetailActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshChartsSortDetailAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshChartsSortDetailActionImpl.jsonEncode(self: RefreshChartsSortDetailAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshChartsSortDetailActionImpl.jsonDecode(input: { [string]: any }): RefreshChartsSortDetailAction
+		local self = _RefreshChartsSortDetailActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshChartsSortDetailAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshChartsSortDetailAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshChartsSortDetailActionImpl.descriptor = {
+		name = "RefreshChartsSortDetailAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshChartsSortDetailAction",
+	}
+
+	messages.RefreshChartsSortDetailAction = _RefreshChartsSortDetailActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshChartsSortDetailAction)
+end
+
+do
+	local _RefreshChartsSortDetailAction_ParamsImpl = {}
+	_RefreshChartsSortDetailAction_ParamsImpl.__index = _RefreshChartsSortDetailAction_ParamsImpl
+
+	function _RefreshChartsSortDetailAction_ParamsImpl.new(
+		data: _RefreshChartsSortDetailAction_ParamsPartialFields?
+	): RefreshChartsSortDetailAction_Params
+		return setmetatable({
+			config_key = if data == nil or data.config_key == nil then nil else data.config_key,
+			selected_option = if data == nil or data.selected_option == nil then nil else data.selected_option,
+			surface_key = if data == nil or data.surface_key == nil then nil else data.surface_key,
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+		}, _RefreshChartsSortDetailAction_ParamsImpl :: _RefreshChartsSortDetailAction_ParamsImpl)
+	end
+
+	function _RefreshChartsSortDetailAction_ParamsImpl.encode(self: RefreshChartsSortDetailAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.config_key ~= nil then
+			local encoded = self.config_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selected_option ~= nil then
+			local encoded = self.selected_option:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.surface_key ~= nil then
+			local encoded = self.surface_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sort_id ~= nil then
+			local encoded = self.sort_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshChartsSortDetailAction_ParamsImpl.decode(input: buffer): RefreshChartsSortDetailAction_Params
+		local self = _RefreshChartsSortDetailAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshChartsSortDetailAction_ParamsImpl.jsonEncode(self: RefreshChartsSortDetailAction_Params): any
+		local output = {}
+
+		if self.config_key ~= nil then
+			output.configKey = self.config_key:jsonEncode()
+		end
+
+		if self.selected_option ~= nil then
+			output.selectedOption = self.selected_option:jsonEncode()
+		end
+
+		if self.surface_key ~= nil then
+			output.surfaceKey = self.surface_key:jsonEncode()
+		end
+
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshChartsSortDetailAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshChartsSortDetailAction_Params
+		local self = _RefreshChartsSortDetailAction_ParamsImpl.new()
+
+		if input.config_key ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.config_key)
+		end
+
+		if input.configKey ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.configKey)
+		end
+
+		if input.selected_option ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selected_option)
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selectedOption)
+		end
+
+		if input.surface_key ~= nil then
+			self.surface_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surface_key)
+		end
+
+		if input.surfaceKey ~= nil then
+			self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surfaceKey)
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sort_id)
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sortId)
+		end
+
+		return self
+	end
+
+	_RefreshChartsSortDetailAction_ParamsImpl.descriptor = {
+		name = "RefreshChartsSortDetailAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshChartsSortDetailAction_Params = _RefreshChartsSortDetailAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshChartsSortDetailAction_Params)
+end
+
+do
+	local _JoinCommunityActionImpl = {}
+	_JoinCommunityActionImpl.__index = _JoinCommunityActionImpl
+
+	function _JoinCommunityActionImpl.new(data: _JoinCommunityActionPartialFields?): JoinCommunityAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _JoinCommunityActionImpl :: _JoinCommunityActionImpl)
+	end
+
+	function _JoinCommunityActionImpl.encode(self: JoinCommunityAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _JoinCommunityActionImpl.decode(input: buffer): JoinCommunityAction
+		local self = _JoinCommunityActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.JoinCommunityAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _JoinCommunityActionImpl.jsonEncode(self: JoinCommunityAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _JoinCommunityActionImpl.jsonDecode(input: { [string]: any }): JoinCommunityAction
+		local self = _JoinCommunityActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.JoinCommunityAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.JoinCommunityAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_JoinCommunityActionImpl.descriptor = {
+		name = "JoinCommunityAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.JoinCommunityAction",
+	}
+
+	messages.JoinCommunityAction = _JoinCommunityActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.JoinCommunityAction)
+end
+
+do
+	local _JoinCommunityAction_ParamsImpl = {}
+	_JoinCommunityAction_ParamsImpl.__index = _JoinCommunityAction_ParamsImpl
+
+	function _JoinCommunityAction_ParamsImpl.new(
+		data: _JoinCommunityAction_ParamsPartialFields?
+	): JoinCommunityAction_Params
+		return setmetatable({
+			community_id = if data == nil or data.community_id == nil then nil else data.community_id,
+		}, _JoinCommunityAction_ParamsImpl :: _JoinCommunityAction_ParamsImpl)
+	end
+
+	function _JoinCommunityAction_ParamsImpl.encode(self: JoinCommunityAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.community_id ~= nil then
+			local encoded = self.community_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _JoinCommunityAction_ParamsImpl.decode(input: buffer): JoinCommunityAction_Params
+		local self = _JoinCommunityAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.community_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _JoinCommunityAction_ParamsImpl.jsonEncode(self: JoinCommunityAction_Params): any
+		local output = {}
+
+		if self.community_id ~= nil then
+			output.communityId = self.community_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _JoinCommunityAction_ParamsImpl.jsonDecode(input: { [string]: any }): JoinCommunityAction_Params
+		local self = _JoinCommunityAction_ParamsImpl.new()
+
+		if input.community_id ~= nil then
+			self.community_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.community_id)
+		end
+
+		if input.communityId ~= nil then
+			self.community_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.communityId)
+		end
+
+		return self
+	end
+
+	_JoinCommunityAction_ParamsImpl.descriptor = {
+		name = "JoinCommunityAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.JoinCommunityAction_Params = _JoinCommunityAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.JoinCommunityAction_Params)
+end
+
+do
+	local _ViewCommunityActionImpl = {}
+	_ViewCommunityActionImpl.__index = _ViewCommunityActionImpl
+
+	function _ViewCommunityActionImpl.new(data: _ViewCommunityActionPartialFields?): ViewCommunityAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ViewCommunityActionImpl :: _ViewCommunityActionImpl)
+	end
+
+	function _ViewCommunityActionImpl.encode(self: ViewCommunityAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ViewCommunityActionImpl.decode(input: buffer): ViewCommunityAction
+		local self = _ViewCommunityActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ViewCommunityAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ViewCommunityActionImpl.jsonEncode(self: ViewCommunityAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ViewCommunityActionImpl.jsonDecode(input: { [string]: any }): ViewCommunityAction
+		local self = _ViewCommunityActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ViewCommunityAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ViewCommunityAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ViewCommunityActionImpl.descriptor = {
+		name = "ViewCommunityAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ViewCommunityAction",
+	}
+
+	messages.ViewCommunityAction = _ViewCommunityActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ViewCommunityAction)
+end
+
+do
+	local _ViewCommunityAction_ParamsImpl = {}
+	_ViewCommunityAction_ParamsImpl.__index = _ViewCommunityAction_ParamsImpl
+
+	function _ViewCommunityAction_ParamsImpl.new(
+		data: _ViewCommunityAction_ParamsPartialFields?
+	): ViewCommunityAction_Params
+		return setmetatable({
+			community_id = if data == nil or data.community_id == nil then nil else data.community_id,
+		}, _ViewCommunityAction_ParamsImpl :: _ViewCommunityAction_ParamsImpl)
+	end
+
+	function _ViewCommunityAction_ParamsImpl.encode(self: ViewCommunityAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.community_id ~= nil then
+			local encoded = self.community_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ViewCommunityAction_ParamsImpl.decode(input: buffer): ViewCommunityAction_Params
+		local self = _ViewCommunityAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.community_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ViewCommunityAction_ParamsImpl.jsonEncode(self: ViewCommunityAction_Params): any
+		local output = {}
+
+		if self.community_id ~= nil then
+			output.communityId = self.community_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ViewCommunityAction_ParamsImpl.jsonDecode(input: { [string]: any }): ViewCommunityAction_Params
+		local self = _ViewCommunityAction_ParamsImpl.new()
+
+		if input.community_id ~= nil then
+			self.community_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.community_id)
+		end
+
+		if input.communityId ~= nil then
+			self.community_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.communityId)
+		end
+
+		return self
+	end
+
+	_ViewCommunityAction_ParamsImpl.descriptor = {
+		name = "ViewCommunityAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ViewCommunityAction_Params = _ViewCommunityAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ViewCommunityAction_Params)
 end
 
 do
@@ -26756,6 +27881,308 @@ do
 end
 
 do
+	local _PinExperienceShortcutActionImpl = {}
+	_PinExperienceShortcutActionImpl.__index = _PinExperienceShortcutActionImpl
+
+	function _PinExperienceShortcutActionImpl.new(
+		data: _PinExperienceShortcutActionPartialFields?
+	): PinExperienceShortcutAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _PinExperienceShortcutActionImpl :: _PinExperienceShortcutActionImpl)
+	end
+
+	function _PinExperienceShortcutActionImpl.encode(self: PinExperienceShortcutAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _PinExperienceShortcutActionImpl.decode(input: buffer): PinExperienceShortcutAction
+		local self = _PinExperienceShortcutActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.PinExperienceShortcutAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _PinExperienceShortcutActionImpl.jsonEncode(self: PinExperienceShortcutAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _PinExperienceShortcutActionImpl.jsonDecode(input: { [string]: any }): PinExperienceShortcutAction
+		local self = _PinExperienceShortcutActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.PinExperienceShortcutAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.PinExperienceShortcutAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_PinExperienceShortcutActionImpl.descriptor = {
+		name = "PinExperienceShortcutAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PinExperienceShortcutAction",
+	}
+
+	messages.PinExperienceShortcutAction = _PinExperienceShortcutActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.PinExperienceShortcutAction)
+end
+
+do
+	local _PinExperienceShortcutAction_ParamsImpl = {}
+	_PinExperienceShortcutAction_ParamsImpl.__index = _PinExperienceShortcutAction_ParamsImpl
+
+	function _PinExperienceShortcutAction_ParamsImpl.new(
+		data: _PinExperienceShortcutAction_ParamsPartialFields?
+	): PinExperienceShortcutAction_Params
+		return setmetatable({
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			game_name = if data == nil or data.game_name == nil then nil else data.game_name,
+		}, _PinExperienceShortcutAction_ParamsImpl :: _PinExperienceShortcutAction_ParamsImpl)
+	end
+
+	function _PinExperienceShortcutAction_ParamsImpl.encode(self: PinExperienceShortcutAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.game_name ~= nil then
+			local encoded = self.game_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _PinExperienceShortcutAction_ParamsImpl.decode(input: buffer): PinExperienceShortcutAction_Params
+		local self = _PinExperienceShortcutAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.game_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _PinExperienceShortcutAction_ParamsImpl.jsonEncode(self: PinExperienceShortcutAction_Params): any
+		local output = {}
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.game_name ~= nil then
+			output.gameName = self.game_name:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _PinExperienceShortcutAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): PinExperienceShortcutAction_Params
+		local self = _PinExperienceShortcutAction_ParamsImpl.new()
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.game_name ~= nil then
+			self.game_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.game_name)
+		end
+
+		if input.gameName ~= nil then
+			self.game_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.gameName)
+		end
+
+		return self
+	end
+
+	_PinExperienceShortcutAction_ParamsImpl.descriptor = {
+		name = "PinExperienceShortcutAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.PinExperienceShortcutAction_Params = _PinExperienceShortcutAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.PinExperienceShortcutAction_Params)
+end
+
+do
 	local _DownloadAppActionImpl = {}
 	_DownloadAppActionImpl.__index = _DownloadAppActionImpl
 
@@ -27315,6 +28742,22 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 68, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_charts_sort_detail_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 69, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "join_community_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 70, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "view_community_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 71, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "pin_experience_shortcut_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 72, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -27820,6 +29263,32 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "download_app_action", value = messages.DownloadAppAction.decode(value) }
 					continue
+				elseif field == 69 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "refresh_charts_sort_detail_action",
+						value = messages.RefreshChartsSortDetailAction.decode(value),
+					}
+					continue
+				elseif field == 70 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "join_community_action", value = messages.JoinCommunityAction.decode(value) }
+					continue
+				elseif field == 71 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "view_community_action", value = messages.ViewCommunityAction.decode(value) }
+					continue
+				elseif field == 72 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "pin_experience_shortcut_action",
+						value = messages.PinExperienceShortcutAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -27995,6 +29464,14 @@ do
 				output.selectMarketplaceFavoritesCategory = self.kind.value:jsonEncode()
 			elseif self.kind.type == "download_app_action" then
 				output.downloadAppAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_charts_sort_detail_action" then
+				output.refreshChartsSortDetailAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "join_community_action" then
+				output.joinCommunityAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "view_community_action" then
+				output.viewCommunityAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "pin_experience_shortcut_action" then
+				output.pinExperienceShortcutAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -28980,6 +30457,62 @@ do
 		if input.downloadAppAction ~= nil then
 			self.kind =
 				{ type = "download_app_action", value = messages.DownloadAppAction.jsonDecode(input.downloadAppAction) }
+		end
+
+		if input.refresh_charts_sort_detail_action ~= nil then
+			self.kind = {
+				type = "refresh_charts_sort_detail_action",
+				value = messages.RefreshChartsSortDetailAction.jsonDecode(input.refresh_charts_sort_detail_action),
+			}
+		end
+
+		if input.refreshChartsSortDetailAction ~= nil then
+			self.kind = {
+				type = "refresh_charts_sort_detail_action",
+				value = messages.RefreshChartsSortDetailAction.jsonDecode(input.refreshChartsSortDetailAction),
+			}
+		end
+
+		if input.join_community_action ~= nil then
+			self.kind = {
+				type = "join_community_action",
+				value = messages.JoinCommunityAction.jsonDecode(input.join_community_action),
+			}
+		end
+
+		if input.joinCommunityAction ~= nil then
+			self.kind = {
+				type = "join_community_action",
+				value = messages.JoinCommunityAction.jsonDecode(input.joinCommunityAction),
+			}
+		end
+
+		if input.view_community_action ~= nil then
+			self.kind = {
+				type = "view_community_action",
+				value = messages.ViewCommunityAction.jsonDecode(input.view_community_action),
+			}
+		end
+
+		if input.viewCommunityAction ~= nil then
+			self.kind = {
+				type = "view_community_action",
+				value = messages.ViewCommunityAction.jsonDecode(input.viewCommunityAction),
+			}
+		end
+
+		if input.pin_experience_shortcut_action ~= nil then
+			self.kind = {
+				type = "pin_experience_shortcut_action",
+				value = messages.PinExperienceShortcutAction.jsonDecode(input.pin_experience_shortcut_action),
+			}
+		end
+
+		if input.pinExperienceShortcutAction ~= nil then
+			self.kind = {
+				type = "pin_experience_shortcut_action",
+				value = messages.PinExperienceShortcutAction.jsonDecode(input.pinExperienceShortcutAction),
+			}
 		end
 
 		if input.telemetry_handler ~= nil then
@@ -30332,6 +31865,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY"
 		elseif value == 68 then
 			return "ACTION_TYPE_DOWNLOAD_APP"
+		elseif value == 69 then
+			return "ACTION_TYPE_REFRESH_CHARTS_SORT_DETAIL"
+		elseif value == 70 then
+			return "ACTION_TYPE_JOIN_COMMUNITY"
+		elseif value == 71 then
+			return "ACTION_TYPE_VIEW_COMMUNITY"
+		elseif value == 72 then
+			return "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT"
 		else
 			return nil
 		end
@@ -30476,6 +32017,14 @@ messages.ActionType = {
 			return 67
 		elseif self == "ACTION_TYPE_DOWNLOAD_APP" then
 			return 68
+		elseif self == "ACTION_TYPE_REFRESH_CHARTS_SORT_DETAIL" then
+			return 69
+		elseif self == "ACTION_TYPE_JOIN_COMMUNITY" then
+			return 70
+		elseif self == "ACTION_TYPE_VIEW_COMMUNITY" then
+			return 71
+		elseif self == "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT" then
+			return 72
 		else
 			return self
 		end
@@ -30620,6 +32169,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_CATEGORY"
 		elseif name == "ACTION_TYPE_DOWNLOAD_APP" then
 			return "ACTION_TYPE_DOWNLOAD_APP"
+		elseif name == "ACTION_TYPE_REFRESH_CHARTS_SORT_DETAIL" then
+			return "ACTION_TYPE_REFRESH_CHARTS_SORT_DETAIL"
+		elseif name == "ACTION_TYPE_JOIN_COMMUNITY" then
+			return "ACTION_TYPE_JOIN_COMMUNITY"
+		elseif name == "ACTION_TYPE_VIEW_COMMUNITY" then
+			return "ACTION_TYPE_VIEW_COMMUNITY"
+		elseif name == "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT" then
+			return "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT"
 		else
 			return nil
 		end
@@ -30716,6 +32273,12 @@ return {
 	OpenSduiOverlayAction_Params = messages.OpenSduiOverlayAction_Params,
 	ApplyChartsFilterAction = messages.ApplyChartsFilterAction,
 	ApplyChartsFilterAction_Params = messages.ApplyChartsFilterAction_Params,
+	RefreshChartsSortDetailAction = messages.RefreshChartsSortDetailAction,
+	RefreshChartsSortDetailAction_Params = messages.RefreshChartsSortDetailAction_Params,
+	JoinCommunityAction = messages.JoinCommunityAction,
+	JoinCommunityAction_Params = messages.JoinCommunityAction_Params,
+	ViewCommunityAction = messages.ViewCommunityAction,
+	ViewCommunityAction_Params = messages.ViewCommunityAction_Params,
 	AnalyticsEventAction = messages.AnalyticsEventAction,
 	AnalyticsEventAction_Params = messages.AnalyticsEventAction_Params,
 	CustomAnalyticsEventAction = messages.CustomAnalyticsEventAction,
@@ -30772,6 +32335,8 @@ return {
 	OpenSearchResultsWithQueryAction_Params = messages.OpenSearchResultsWithQueryAction_Params,
 	SelectMarketplaceFavoritesCategory = messages.SelectMarketplaceFavoritesCategory,
 	SelectMarketplaceFavoritesCategory_Params = messages.SelectMarketplaceFavoritesCategory_Params,
+	PinExperienceShortcutAction = messages.PinExperienceShortcutAction,
+	PinExperienceShortcutAction_Params = messages.PinExperienceShortcutAction_Params,
 	DownloadAppAction = messages.DownloadAppAction,
 	DownloadAppAction_Params = messages.DownloadAppAction_Params,
 	Action = messages.Action,

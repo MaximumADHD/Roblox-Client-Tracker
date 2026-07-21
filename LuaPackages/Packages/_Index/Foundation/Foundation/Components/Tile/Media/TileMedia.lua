@@ -19,6 +19,8 @@ local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 local useTile = require(Foundation.Components.Tile.useTile)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -70,11 +72,15 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 		return getRbxThumb(props.type :: any, props.id)
 	end, { props.type, props.id } :: { any })
 
-	local cornerRadius = if props.shape :: MediaShape == MediaShape.Circle
-		then UDim.new(0, tokens.Radius.Circle)
-		else UDim.new(0, tokens.Radius.Medium)
+	local cornerRadius = if not Flags.FoundationMediaRoundedCornerTags
+		then if props.shape :: MediaShape == MediaShape.Circle
+			then UDim.new(0, tokens.Radius.Circle)
+			else UDim.new(0, tokens.Radius.Medium)
+		else nil
 
-	local hasMiddleCorners = tileContext.isContained and cornerRadius
+	local hasMiddleCorners = if not Flags.FoundationMediaRoundedCornerTags
+		then tileContext.isContained and cornerRadius
+		else nil
 
 	return React.createElement(if backgroundImage then Image else View, {
 		Image = backgroundImage,
@@ -93,6 +99,16 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 				else Enum.DominantAxis.Height,
 		},
 		cornerRadius = cornerRadius,
+		tag = if Flags.FoundationMediaRoundedCornerTags
+			then {
+				["radius-top-medium"] = tileContext.fillDirection == Enum.FillDirection.Vertical
+					and tileContext.isContained,
+				["radius-left-medium"] = tileContext.fillDirection == Enum.FillDirection.Horizontal
+					and tileContext.isContained,
+				["radius-medium"] = props.shape :: MediaShape ~= MediaShape.Circle and not tileContext.isContained,
+				["radius-circle"] = props.shape :: MediaShape == MediaShape.Circle and not tileContext.isContained,
+			}
+			else nil,
 		onStateChanged = props.onStateChanged,
 		testId = `{tileContext.testId}--media`,
 	}, {
@@ -123,10 +139,21 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 			Image = image,
 			cornerRadius = cornerRadius,
 			imageStyle = props.style,
-			tag = {
-				["size-full"] = true,
-				["padding-medium"] = props.children ~= nil,
-			},
+			tag = if Flags.FoundationMediaRoundedCornerTags
+				then {
+					["size-full"] = true,
+					["padding-medium"] = props.children ~= nil,
+					["radius-top-medium"] = tileContext.fillDirection == Enum.FillDirection.Vertical
+						and tileContext.isContained,
+					["radius-left-medium"] = tileContext.fillDirection == Enum.FillDirection.Horizontal
+						and tileContext.isContained,
+					["radius-medium"] = props.shape :: MediaShape ~= MediaShape.Circle and not tileContext.isContained,
+					["radius-circle"] = props.shape :: MediaShape == MediaShape.Circle,
+				}
+				else {
+					["size-full"] = true,
+					["padding-medium"] = props.children ~= nil,
+				},
 			testId = `{tileContext.testId}--media-image`,
 		}, props.children),
 	})

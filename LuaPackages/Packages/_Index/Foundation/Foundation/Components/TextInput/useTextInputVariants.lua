@@ -92,7 +92,6 @@ end
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = {
-			bgStyle = if Flags.FoundationTextInputRemoveBackgroundStyle then nil else tokens.Color.Shift.Shift_100,
 			strokeStyle = tokens.Color.Stroke.Emphasis,
 			strokeThickness = tokens.Stroke.Standard,
 			tag = "row",

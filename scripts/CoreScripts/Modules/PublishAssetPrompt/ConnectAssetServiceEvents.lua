@@ -14,12 +14,14 @@ local PublishAssetPrompt = script.Parent
 local OpenPublishAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAssetPrompt)
 local OpenPublishAvatarPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAvatarPrompt)
 local OpenPublishAvatarAssetPrompt = require(PublishAssetPrompt.Thunks.OpenPublishAvatarAssetPrompt)
+local OpenPublishMakeupLookPrompt = require(PublishAssetPrompt.Thunks.OpenPublishMakeupLookPrompt)
 local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 local SetHumanoidModel = require(PublishAssetPrompt.Actions.SetHumanoidModel)
 local SetAccessoryInstance = require(PublishAssetPrompt.Actions.SetAccessoryInstance)
 local SetPriceInRobux = require(PublishAssetPrompt.Actions.SetPriceInRobux)
 local OpenValidationErrorModal = require(PublishAssetPrompt.Actions.OpenValidationErrorModal)
 
+local GetFFlagUploadMakeupSupport = require(PublishAssetPrompt.Flags.GetFFlagUploadMakeupSupport)
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
 	game:GetEngineFeature("PromptImportAnimationClipFromVideoAsyncEnabled")
 
@@ -72,6 +74,9 @@ local function ConnectAssetServiceEvents(store)
 					store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
 				elseif metadata["outfitToPublish"] then
 					store:dispatch(OpenPublishAvatarPrompt(guid, scopes))
+				elseif GetFFlagUploadMakeupSupport() and metadata["makeupLookToPublish"] then
+					local makeupEntries = metadata["makeupEntries"]
+					store:dispatch(OpenPublishMakeupLookPrompt(guid, scopes, makeupEntries))
 				elseif metadata["accessoryToPublish"] then
 					local accessoryType = metadata["accessoryType"]
 					store:dispatch(OpenPublishAvatarAssetPrompt(accessoryType, guid, scopes))
@@ -97,7 +102,16 @@ local function ConnectAssetServiceEvents(store)
 			connections,
 			AvatarCreationService.UgcValidationSuccess:Connect(function(guid, serializedModel, priceFromToken)
 				local state = store:getState()
-				if state and state.promptRequest.promptInfo.promptType == "PublishAvatarAsset" then
+				if
+					state
+					and (
+						state.promptRequest.promptInfo.promptType == "PublishAvatarAsset"
+						or (
+							GetFFlagUploadMakeupSupport()
+							and state.promptRequest.promptInfo.promptType == "PublishMakeupLook"
+						)
+					)
+				then
 					local avatarAssetInstance = AvatarCreationService:DeserializeAvatarModel(serializedModel)
 					store:dispatch(SetAccessoryInstance(avatarAssetInstance))
 

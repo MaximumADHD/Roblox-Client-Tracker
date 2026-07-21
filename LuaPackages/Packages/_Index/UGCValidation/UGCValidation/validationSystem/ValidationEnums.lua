@@ -128,6 +128,7 @@ ValidationEnums.ValidationModule = {
 	AssetBoundsValid = "AssetBoundsValid",
 	BodyMeshSizesConsistent = "BodyMeshSizesConsistent",
 	ExtentsWithinParent = "ExtentsWithinParent",
+	IndividualMeshPartBoundsValid = "IndividualMeshPartBoundsValid",
 	MeshSizePropertyCorrect = "MeshSizePropertyCorrect",
 
 	-- Layered clothing exploits

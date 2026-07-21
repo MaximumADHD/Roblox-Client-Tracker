@@ -81,11 +81,8 @@ local function PopoverContentPlugin(
 	local styleSheet = useStyleSheet()
 	local tokens = useTokens()
 
-	local depth, elevationToken
-	if Flags.FoundationPopoverPluginDepthPool then
-		elevationToken = useElevation(ElevationLayer.Popover, { stackAboveOwner = true })
-		depth = elevation.getRelativeIndex(elevationToken)
-	end
+	local elevationToken = useElevation(ElevationLayer.Popover, { stackAboveOwner = true })
+	local depth = elevation.getRelativeIndex(elevationToken)
 
 	local contentInstance, setContentInstance = React.useState(nil :: GuiObject?)
 	React.useImperativeHandle(forwardedRef, function()
@@ -211,7 +208,7 @@ local function PopoverContentPlugin(
 
 	local registerPanelAsync = React.useCallback(
 		function(anchorUri: StudioUri, panelPosition: PanelPosition, onClose: () -> (), panelDepth: number?)
-			local parentId = if Flags.FoundationPopoverPluginDepthPool then parentPluginPopoverId else nil
+			local parentId = parentPluginPopoverId
 			return panelsContext.registerPopoverAsync(anchorUri, panelPosition, onClose, panelDepth, parentId)
 		end,
 		{ panelsContext.registerPopoverAsync, parentPluginPopoverId } :: { unknown }
@@ -235,7 +232,7 @@ local function PopoverContentPlugin(
 		end
 	end, { props.onPressedOutside })
 
-	local panelDepth = if Flags.FoundationPopoverPluginDepthPool then (if depth ~= nil then depth else 0) else depth
+	local panelDepth = if depth ~= nil then depth else 0
 	local panel = usePanel({
 		isOpen = if Flags.FoundationPopoverPluginOverlayMeasurement
 			then isOpen
@@ -245,7 +242,7 @@ local function PopoverContentPlugin(
 		registerPanelAsync = registerPanelAsync,
 		position = position,
 		depth = panelDepth,
-		parentPopoverId = if Flags.FoundationPopoverPluginDepthPool then parentPluginPopoverId else nil,
+		parentPopoverId = parentPluginPopoverId,
 	})
 
 	local popoverSize, contentSize
@@ -397,19 +394,17 @@ local function PopoverContentPlugin(
 							ZIndex = 3,
 							testId = `{popoverContext.testId}--content`,
 						},
-						if Flags.FoundationPopoverPluginDepthPool
-							then React.createElement(PluginPopoverParentContext.Provider, {
-								value = if Flags.FoundationPopoverPluginOverlayMeasurement
-									then pluginPopoverParentContext
-									else (panel :: any).popoverId,
-							}, {
-								Nested = React.createElement(
-									ElevationOwnerScope,
-									{ owner = elevationToken },
-									props.children
-								),
-							})
-							else props.children
+						React.createElement(PluginPopoverParentContext.Provider, {
+							value = if Flags.FoundationPopoverPluginOverlayMeasurement
+								then pluginPopoverParentContext
+								else (panel :: any).popoverId,
+						}, {
+							Nested = React.createElement(
+								ElevationOwnerScope,
+								{ owner = elevationToken },
+								props.children
+							),
+						})
 					),
 				}),
 			}),

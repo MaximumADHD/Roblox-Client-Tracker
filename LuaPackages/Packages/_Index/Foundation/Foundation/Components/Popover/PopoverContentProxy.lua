@@ -5,7 +5,6 @@ local React = require(Packages.React)
 
 local Content = require(script.Parent.Content)
 local ContentPlugin = require(script.Parent.ContentPlugin)
-local Flags = require(Foundation.Utility.Flags)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local usePlugin = require(Foundation.Providers.Plugin.usePlugin)
 
@@ -20,11 +19,7 @@ local function PopoverContentProxy(props: PopoverContentProps, forwardedRef: Rea
 		(resolvedProps :: any).ref = forwardedRef
 	end
 
-	local shouldUsePlugin = Flags.FoundationPopoverPluginSupport
-	if Flags.FoundationPopoverPluginSecurityGate then
-		shouldUsePlugin = shouldUsePlugin and isPluginSecurity()
-	end
-	if shouldUsePlugin and isPluginElevated then
+	if isPluginSecurity() and isPluginElevated then
 		return React.createElement(ContentPlugin, resolvedProps)
 	end
 	return React.createElement(Content, resolvedProps)

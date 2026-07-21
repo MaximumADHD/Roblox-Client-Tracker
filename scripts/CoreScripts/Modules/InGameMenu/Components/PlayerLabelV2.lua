@@ -7,8 +7,16 @@ local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
-local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
-local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local Foundation = require(CorePackages.Packages.Foundation)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
+local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.UNSTABLE.withCursorMigration
+	else UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = if FFlagCoreUiMigrateUIBloxToFoundation
+	then Foundation.Enums.CursorType
+	else UIBlox.App.SelectionImage.CursorKind
 local OpenTypeSupport = UIBlox.Utility.OpenTypeSupport
 
 local InGameMenu = script.Parent.Parent
@@ -22,6 +30,7 @@ local GetFFlagLuaAppEnableOpenTypeIGMFix =
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Image = Foundation.Image
 
 local CONTAINER_FRAME_HEIGHT = 71
 local PLAYER_ICON_SIZE = 56
@@ -133,16 +142,23 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 			[Roact.Ref] = forwardRef,
 			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 		}, {
-			PlayerIcon = Roact.createElement(
-				ImageSetLabel,
-				Cryo.Dictionary.join(iconPos, {
+			PlayerIcon = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, Cryo.Dictionary.join(iconPos, {
+					Image = props.userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=60&h=60"
+						or "",
+					imageStyle = {
+						Color3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
+						Transparency = 0,
+					},
+					ZIndex = 2,
+				}))
+				else Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
 					ImageColor3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
 					BackgroundTransparency = 1,
 					Image = props.userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" .. props.userId .. "&w=60&h=60"
 						or "",
 					ZIndex = 2,
-				})
-			),
+				})),
 			DisplayNameLabel = Roact.createElement(ThemedTextLabel, {
 				fontKey = "Header2",
 				themeKey = "TextEmphasis",

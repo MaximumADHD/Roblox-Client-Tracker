@@ -13,6 +13,11 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local Image = Foundation.Image
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+
 local BORDER_SIZE = 2
 local FILL_RING_SIZE = 4
 local EMPTY_COLOR = Color3.fromRGB(98, 98, 99)
@@ -176,23 +181,39 @@ function FillCircle:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = EMPTY_COLOR,
 		}, {
-			OuterRing = Roact.createElement(ImageSetLabel, {
-				Image = Assets.Images.CircleCutout,
-				Size = UDim2.new(1, 0, 1, 0),
-				ImageColor3 = props.BackgroundColor,
-				BackgroundTransparency = 1,
-				ZIndex = 10,
-			}),
+			OuterRing = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Image = Assets.Images.CircleCutout,
+					Size = UDim2.new(1, 0, 1, 0),
+					imageStyle = { Color3 = props.BackgroundColor, Transparency = 0 },
+					ZIndex = 10,
+				})
+				else Roact.createElement(ImageSetLabel, {
+					Image = Assets.Images.CircleCutout,
+					Size = UDim2.new(1, 0, 1, 0),
+					ImageColor3 = props.BackgroundColor,
+					BackgroundTransparency = 1,
+					ZIndex = 10,
+				}),
 
-			InnerRing = Roact.createElement(ImageSetLabel, {
-				Image = Assets.Images.Circle,
-				Size = UDim2.new(1, -FILL_RING_SIZE, 1, -FILL_RING_SIZE),
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				ImageColor3 = props.BackgroundColor,
-				BackgroundTransparency = 1,
-				ZIndex = 10,
-			}),
+			InnerRing = if FFlagCoreUiMigrateUIBloxToFoundation
+				then Roact.createElement(Image, {
+					Image = Assets.Images.Circle,
+					Size = UDim2.new(1, -FILL_RING_SIZE, 1, -FILL_RING_SIZE),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					imageStyle = { Color3 = props.BackgroundColor, Transparency = 0 },
+					ZIndex = 10,
+				})
+				else Roact.createElement(ImageSetLabel, {
+					Image = Assets.Images.Circle,
+					Size = UDim2.new(1, -FILL_RING_SIZE, 1, -FILL_RING_SIZE),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					ImageColor3 = props.BackgroundColor,
+					BackgroundTransparency = 1,
+					ZIndex = 10,
+				}),
 
 			FillRingRotationFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -201,13 +222,20 @@ function FillCircle:render()
 				Rotation = props.fillFraction * 360,
 				ZIndex = getFillRingZIndex(props.fillFraction),
 			}, {
-				FillRing = Roact.createElement(ImageSetLabel, {
-					Image = Assets.Images.QuarterCircle,
-					Size = self.largerSizeBinding,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					ImageColor3 = fillColor,
-					BackgroundTransparency = 1,
-				}),
+				FillRing = if FFlagCoreUiMigrateUIBloxToFoundation
+					then Roact.createElement(Image, {
+						Image = Assets.Images.QuarterCircle,
+						Size = self.largerSizeBinding,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						imageStyle = { Color3 = fillColor, Transparency = 0 },
+					})
+					else Roact.createElement(ImageSetLabel, {
+						Image = Assets.Images.QuarterCircle,
+						Size = self.largerSizeBinding,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						ImageColor3 = fillColor,
+						BackgroundTransparency = 1,
+					}),
 			}),
 
 			EdgeBlockers = Roact.createElement("Frame", {

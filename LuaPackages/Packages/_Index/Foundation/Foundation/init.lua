@@ -6,11 +6,7 @@ local ResponsiveProvider = Responsive.ResponsiveProvider
 local Tokens = require(script.Providers.Style.Tokens)
 local Types = require(script.Components.Types)
 
-local Flags = require(script.Utility.Flags)
-
-local StyleSheetRegistry = if Flags.FoundationUseStyleSheetRegistry
-	then require(script.StyleSheet.StyleSheetRegistry)
-	else nil :: never
+local StyleSheetRegistry = require(script.StyleSheet.StyleSheetRegistry)
 
 local Packages = script.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
@@ -19,6 +15,7 @@ export type ActionProps = Types.ActionProps
 export type AspectRatio = Types.AspectRatio
 export type Bindable<T> = Types.Bindable<T>
 export type CommonProps = Types.CommonProps
+export type CornerRadius = Types.CornerRadius
 export type FlexItem = Types.FlexItem
 export type ListLayout = Types.ListLayout
 export type Padding = Types.Padding
@@ -45,6 +42,7 @@ local AccessoryType = require(script.Enums.AccessoryType)
 local AlertSeverity = require(script.Enums.AlertSeverity)
 local AlertVariant = require(script.Enums.AlertVariant)
 local AvatarGroupType = require(script.Enums.AvatarGroupType)
+local AvatarIconSize = require(script.Enums.AvatarIconSize)
 local AvatarSize = require(script.Enums.AvatarSize)
 local BadgeShape = require(script.Enums.BadgeShape)
 local BadgeSize = require(script.Enums.BadgeSize)
@@ -99,6 +97,7 @@ export type AccessoryType = AccessoryType.AccessoryType
 export type AlertSeverity = AlertSeverity.AlertSeverity
 export type AlertVariant = AlertVariant.AlertVariant
 export type AvatarGroupType = AvatarGroupType.AvatarGroupType
+export type AvatarIconSize = AvatarIconSize.AvatarIconSize
 export type AvatarSize = AvatarSize.AvatarSize
 export type BadgeShape = BadgeShape.BadgeShape
 export type BadgeSize = BadgeSize.BadgeSize
@@ -160,6 +159,10 @@ export type AvatarProps = Avatar.AvatarProps
 
 local AvatarGroup = require(script.Components.AvatarGroup)
 export type AvatarGroupProps = AvatarGroup.AvatarGroupProps
+export type AvatarGroupItem = AvatarGroup.AvatarGroupItem
+
+local AvatarIcon = require(script.Components.AvatarIcon)
+export type AvatarIconProps = AvatarIcon.AvatarIconProps
 
 local Badge = require(script.Components.Badge)
 export type BadgeProps = Badge.BadgeProps
@@ -355,6 +358,7 @@ local Foundation = strict({
 	Accordion = Accordion,
 	Avatar = Avatar,
 	AvatarGroup = AvatarGroup,
+	AvatarIcon = AvatarIcon,
 	Badge = Badge,
 	Button = Button,
 	ButtonGroup = ButtonGroup,
@@ -443,6 +447,7 @@ local Foundation = strict({
 		AlertSeverity = AlertSeverity,
 		AlertVariant = AlertVariant,
 		AvatarGroupType = AvatarGroupType,
+		AvatarIconSize = AvatarIconSize,
 		AvatarSize = AvatarSize,
 		BadgeShape = BadgeShape,
 		BadgeSize = BadgeSize,
@@ -506,8 +511,8 @@ local Foundation = strict({
 
 	-- Utility
 	Utility = {
-		getStyleSheet = if Flags.FoundationUseStyleSheetRegistry then StyleSheetRegistry.getStyleSheet else nil,
-		addStyleTags = if Flags.FoundationUseStyleSheetRegistry then StyleSheetRegistry.addStyleTags else nil,
+		getStyleSheet = StyleSheetRegistry.getStyleSheet,
+		addStyleTags = StyleSheetRegistry.addStyleTags,
 		getTokens = Tokens.getTokens,
 		blendColors = require(script.Utility.blendColors),
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
