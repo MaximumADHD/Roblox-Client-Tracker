@@ -27,6 +27,8 @@ Studio.Actions.Tooltip.SLIM,The description of a button that toggles the SLIM (u
 Studio.Actions.Tooltip.SceneAnalysis,Says what this tool lets you do,"Analyze scene composition, memory usage, and rendering information","Analyze scene composition, memory usage, and rendering information"
 Studio.Actions.Tooltip.SceneMonitor,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view,View triangle and draw call counts for the current camera view
 Studio.Actions.Tooltip.Share,Tooltip for the share button in Studio for users to get a link to the current experience,Get the public link for this experience,Get the public link for this experience
+Studio.AdPlacementManager.Label.AdPlacementManagerTitle,This string is the title of the Ad Placement Manager plugin in Studio. This string will show up below the toggle button in the UI Ribbon tab in Studio to toggle the Ad Placement Manager open / closed. This string will also be used as the title of the widget which houses the Ad Placement Manager.,Ad Placement Manager,Ad Placement Manager
+Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,"This string is shown as a tooltip when hovering over the ""Ad Placement Manager"" button in the UI tab of the Ribbon in Studio, which helps to indicate to the user that they can click the button to view the Ad Placement Manager plugin.",View Ad Placement Manager,View Ad Placement Manager
 Studio.App.Actions.AudioDiscovery,Name of the action to display the Audio Discovery plugin,Audio Discovery,Audio Discovery
 Studio.App.Actions.BillboardGui,,BillboardGui,BillboardGui
 Studio.App.Actions.CanvasGroup,,CanvasGroup,CanvasGroup
@@ -2435,6 +2437,7 @@ Studio.App.Property.DraggerMaxSoftSnaps,,Move/Scale Max Soft Snaps,Move/Scale Ma
 Studio.App.Property.DraggerPassiveColor,,Passive Dragger Color,Passive Dragger Color
 Studio.App.Property.DraggerScaleFactor,Draggers Scale Factor,Draggers Scale Factor,Draggers Scale Factor
 Studio.App.Property.DraggerShowAxisTicks,Dragger Show Axis Ticks,Dragger Show Axis Ticks,Dragger Show Axis Ticks
+Studio.App.Property.DraggerShowDraggedPoint,Title text of a setting that specifies whether to show the point an object was picked up by during a drag.,Show Dragged Point,Show Dragged Point
 Studio.App.Property.DraggerShowHoverRuler,,Show Hover Ruler,Show Hover Ruler
 Studio.App.Property.DraggerShowMeasurement,,Show Numeric Measurements,Show Numeric Measurements
 Studio.App.Property.DraggerShowNegativeAxes,Show Move Dragger Negative Axes,Show Move Dragger Negative Axes,Show Move Dragger Negative Axes
@@ -2702,6 +2705,7 @@ Studio.App.PropertyTooltip.DraggerMaxSoftSnaps,,How many potential soft snaps to
 Studio.App.PropertyTooltip.DraggerPassiveColor,,Color used by the draggers to display passive elements such as grids and guides.,Color used by the draggers to display passive elements such as grids and guides.
 Studio.App.PropertyTooltip.DraggerScaleFactor,The scale factor of the draggers.,The scale factor of the draggers.,The scale factor of the draggers.
 Studio.App.PropertyTooltip.DraggerShowAxisTicks,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.
+Studio.App.PropertyTooltip.DraggerShowDraggedPoint,Tooltip for a Studio setting,Should the point that at object was picked up by be shown during a drag? That point is what will get snapped relative to the target surface.,Should the point that at object was picked up by be shown during a drag? That point is what will get snapped relative to the target surface.
 Studio.App.PropertyTooltip.DraggerShowHoverRuler,,Show a ruler measuring how large the hovered object is.,Show a ruler measuring how large the hovered object is.
 Studio.App.PropertyTooltip.DraggerShowMeasurement,,Show a numeric display of the distance dragged when using draggers.,Show a numeric display of the distance dragged when using draggers.
 Studio.App.PropertyTooltip.DraggerShowNegativeAxes,Show the negative axes of the move draggers as well as the positive.,Show the negative axes of the move draggers as well as the positive.,Show the negative axes of the move draggers as well as the positive.
@@ -3994,10 +3998,12 @@ Studio.App.RobloxRibbonMainWindow.Torque,,Torque,Torque
 Studio.App.RobloxRibbonMainWindow.TorsionSpring,,Torsion Spring,Torsion Spring
 Studio.App.RobloxRibbonMainWindow.Trail,Name of the action to insert Trail (The Trail object is used to create a trail like an effect between two points) VFX into the workspace,Trail,Trail
 Studio.App.RobloxRibbonMainWindow.Transform,,Transform,Transform
+Studio.App.RobloxRibbonMainWindow.TreatPartsAsBoxes,Setting name for a setting that has the Studio draggers treat all geometry as square boxes.,Treat Parts as Boxes,Treat Parts as Boxes
 Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText,,Uncomment out the selected text,Uncomment out the selected text
 Studio.App.RobloxRibbonMainWindow.UngroupModel,,Ungroup the model into the original parts,Ungroup the model into the original parts
 Studio.App.RobloxRibbonMainWindow.Universal,,Universal,Universal
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game
+Studio.App.RobloxRibbonMainWindow.UseBoundingBoxes,name of a ribbon setting,Use Bounding Boxes,Use Bounding Boxes
 Studio.App.RobloxRibbonMainWindow.VectorForce,,Vector Force,Vector Force
 Studio.App.RobloxRibbonMainWindow.View,,View,View
 Studio.App.RobloxRibbonMainWindow.ViewAssetManager,,View Asset Manager,View Asset Manager
@@ -4391,6 +4397,11 @@ Studio.App.AboutStudioDialog.PrivacyPolicy,Hyper link for privacy policy,Privacy
 Studio.App.AboutStudioDialog.UpdatesNotAvailableForBuild,,Updates not available for this build,Updates not available for this build
 Studio.App.ActionInitializer.ToggleSnapToParts,,Snap to Parts - Toggle,Snap to Parts - Toggle
 Studio.App.ActionInitializer.ToggleSnapToPartsTooltip,,Toggle whether dragger tools snap to the edges / centers of parts.,Toggle whether dragger tools snap to the edges / centers of parts.
+Studio.App.ActionInitializer.ToggleTreatPartsAsBoxes,Toggle whether dragger tools treat parts as their bounding boxes when snapping.,Treat Parts as Boxes - Toggle,Treat Parts as Boxes - Toggle
+Studio.App.ActionInitializer.ToggleTreatPartsAsBoxesTooltip,Tooltip for an action.,Toggle whether dragger tools treat parts as their bounding boxes when snapping.,Toggle whether dragger tools treat parts as their bounding boxes when snapping.
+Studio.App.ActionInitializer.ToggleUseBoundingBox,Title for an action toggling a setting.,Toggle - Dragger Snapping Use Bounding Box,Toggle - Dragger Snapping Use Bounding Box
+Studio.App.ActionInitializer.ToggleUseBoundingBoxes,Toggle for a Studio setting.,Toggle - Dragger Snapping Use Bounding Boxes,Toggle - Dragger Snapping Use Bounding Boxes
+Studio.App.ActionInitializer.ToggleUseBoundingBoxesTooltip,Tooltip for an action.,"Toggle the ""Use Bounding Boxes"" checkbox in the ribbon's dragger settings dropdown.","Toggle the ""Use Bounding Boxes"" checkbox in the ribbon's dragger settings dropdown."
 Studio.App.AddAttributeDialog.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
 Studio.App.AddAttributeDialog.AttributeCantStartWithRBX,Displayed when adding a new attribute in the Add Attribute dialog.,Can't start with 'RBX'.,Can't start with 'RBX'.
 Studio.App.AddAttributeDialog.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
@@ -7311,6 +7322,7 @@ Studio.NetworkSettings.Property.OutboundNetworkMinDelay,"This setting will add a
 Studio.NetworkSettings.Property.OutboundPacketLoss,"This setting sets a percent chance that outbound (sent) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 0.5 percent.",Outbound Packet Loss (0-0.5%),Outbound Packet Loss (0-0.5%)
 Studio.NetworkSettings.SettingsCategory.NetworkEmulation,A collection of settings to mimic poor network conditions like packet loss and network latency,Network Emulation,Network Emulation
 Studio.NetworkSettings.SettingsCategory.NetworkSimulation,"A collection of settings to mimic poor network conditions like packet loss and network latency. The choice of ""simulation"" instead of ""emulation"" is deliberate.",Network Simulation,Network Simulation
+Studio.PackageManagement.Error.GenerationInProgress,Warning shown when a user tries to publish or convert a package containing a ProceduralModel that is currently generating its mesh.,Cannot publish or convert this package while generation is in progress. Please wait for generation to complete.,Cannot publish or convert this package while generation is in progress. Please wait for generation to complete.
 Studio.PackageManagement.Errors.ProceduralModelInPackage,An error that occurs when the user tries to publish a package with a ProceduralModel instance in it. We're working on enabling this soon though!,Error: Cannot publish a package that contains a ProceduralModel yet. We're still working out the edge cases on this!,Error: Cannot publish a package that contains a ProceduralModel yet. We're still working out the edge cases on this!
 Studio.PackageManagement.MenuEntry.Permissions,,Permissions,Permissions
 Studio.PackageManagement.Meta.PluginName,,Package Configuration,Package Configuration

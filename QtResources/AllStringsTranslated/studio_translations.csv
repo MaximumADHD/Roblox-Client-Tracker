@@ -5751,6 +5751,12 @@ Studio.App.EmulatorMainWidget.AndroidTV1080p,,,Android TV 1080p,Android TV 1080p
 Studio.App.RobloxRibbonMainWindow.TreatPartsAsBoxes,,,Treat Parts as Boxes,Treat Parts as Boxes
 Studio.App.ActionInitializer.ToggleTreatPartsAsBoxes,,,Treat Parts as Boxes - Toggle,Treat Parts as Boxes - Toggle
 Studio.App.ActionInitializer.ToggleTreatPartsAsBoxesTooltip,,,Toggle whether dragger tools treat parts as their bounding boxes when snapping.,Toggle whether dragger tools treat parts as their bounding boxes when snapping.
+Studio.App.PropertyTooltip.DraggerShowDraggedPoint,,,Should the point that at object was picked up by be shown during a drag? That point is what will get snapped relative to the target surface.,Should the point that at object was picked up by be shown during a drag? That point is what will get snapped relative to the target surface.
+Studio.App.Property.DraggerShowDraggedPoint,,,Show Dragged Point,Show Dragged Point
+Studio.App.ActionInitializer.ToggleUseBoundingBox,,,Toggle - Dragger Snapping Use Bounding Box,Toggle - Dragger Snapping Use Bounding Box
+Studio.App.ActionInitializer.ToggleUseBoundingBoxes,,,Toggle - Dragger Snapping Use Bounding Boxes,Toggle - Dragger Snapping Use Bounding Boxes
+Studio.App.RobloxRibbonMainWindow.UseBoundingBoxes,,,Use Bounding Boxes,Use Bounding Boxes
+Studio.App.ActionInitializer.ToggleUseBoundingBoxesTooltip,,,"Toggle the ""Use Bounding Boxes"" checkbox in the ribbon's dragger settings dropdown.","Toggle the ""Use Bounding Boxes"" checkbox in the ribbon's dragger settings dropdown."
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8234,6 +8240,9 @@ Studio.Toolbox.Subcategory.PluginsAiTools,,,AI Tools,AI Tools
 Studio.Toolbox.AssetConfig.UploadDenied_MissingTwoStepVerification,,,Missing two step verification,Missing two step verification
 Studio.Toolbox.AssetConfig.CreationContextMissingTwoStepVerification,,,Two step verification is required to upload avatar items.,Two step verification is required to upload avatar items.
 Studio.Toolbox.HomeView.recently_updated_essentials,,,Discover Something New,Discover Something New
+Studio.Toolbox.HomView.hidden_gems,,,Discover Something New,Discover Something New
+Studio.Toolbox.HomeView.new_and_upcoming,,,Discover Something New,Discover Something New
+Studio.Toolbox.HomeView.hidden_gems,,,Discover Something New,Discover Something New
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9607,6 +9616,7 @@ Studio.AssetManager.Toast.AddToExperienceFailed,,,Failed to add some assets to g
 Studio.AssetManager.ContextMenu.AddToExperience,,,Add to {gameName},Add to {gameName}
 Studio.AssetManager.Tooltip.ToggleSidebar,,,Toggle Sidebar,Toggle Sidebar
 Studio.AssetManager.FolderMove.FromSearchSuccess,,,Moved items successfully.,Moved items successfully.
+Studio.AssetManager.FolderMove.Success,,,Moved items successfully.,Moved items successfully.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -15936,6 +15946,7 @@ Studio.LoginPage.Heading.QuickSignIn,,,Use another device,Use another device
 Studio.LoginPage.Label.QuickSignInInstructions,,,"Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code.","Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code."
 Studio.LoginPage.Button.Terms,,,Terms,Terms
 Studio.LoginPage.Button.Privacy,,,Privacy,Privacy
+Studio.LoginPage.Label.Loading,,,Loading...,Loading...
 Studio.AssetQualityValidation.Plugin.Name,,,UGC Validation,UGC Validation
 Studio.AssetQualityValidation.Plugin.Description,,,Open UGC Validation,Open UGC Validation
 Studio.AssetQualityValidation.Plugin.Button,,,UGC Validation,UGC Validation
