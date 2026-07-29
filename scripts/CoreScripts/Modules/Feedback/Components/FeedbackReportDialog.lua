@@ -44,8 +44,6 @@ local withStyle = UIBlox.Core.Style.withStyle
 -- Flags
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagEnableFeedbackReportDialogAdjustments =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableFeedbackReportDialogAdjustments)
 local GetFFlagEnableSendImageFeedbackToBackend =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSendImageFeedbackToBackend)
 local FFlagEnableFeedbackSelectionUpdate = game:DefineFastFlag("EnableFeedbackSelectionUpdate", false)
@@ -275,254 +273,72 @@ function FeedbackReportDialog:renderContents(localized)
 			localized.spellingOrGrammarIssue,
 			localized.inappropriateOrDerogatory,
 		}
-
-		if GetFFlagEnableFeedbackReportDialogAdjustments() then
-			return Roact.createFragment({
-				Layout = Roact.createElement("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
-				SelectedTextHeader = Roact.createElement(StyledTextLabel, {
-					text = if self.state.shouldDisplayFeedbackImage
-						then localized.imageSelectionHeader
-						else localized.textSelectionHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 1,
-					fluidSizing = true,
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				SelectedTextLabel = if self.state.shouldDisplayFeedbackImage
-					then Roact.createElement("ImageLabel", {
-						LayoutOrder = 2,
-						Size = UDim2.new(1, 0, 0, 72),
-						Image = self.state.feedbackImageUri,
-						ScaleType = Enum.ScaleType.Fit,
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-					})
-					else Roact.createElement(ThemedTextLabel, {
-						LayoutOrder = 2,
-						fontKey = "Body",
-						themeKey = "TextDefault",
-						Size = UDim2.new(
-							1,
-							0,
-							0,
-							self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false)
-						),
-						Text = if FFlagEnableFeedbackSelectionUpdate
-							then (if self.state.isGenericSelection
-								then localized.genericSelectionWrapper
-								else self.state.feedbackText) or ""
-							else self.state.feedbackText or "",
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-				TranslationProblemsHeader = Roact.createElement(StyledTextLabel, {
-					text = localized.problemDropdownSelectionHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 3,
-					fluidSizing = true,
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				TranslationProblemsListFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 160),
+		return Roact.createFragment({
+			Layout = Roact.createElement("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}),
+			SelectedTextHeader = Roact.createElement(StyledTextLabel, {
+				text = if self.state.shouldDisplayFeedbackImage
+					then localized.imageSelectionHeader
+					else localized.textSelectionHeader,
+				size = UDim2.new(1, 0, 0, 72),
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+				fontStyle = font.Header2,
+				colorStyle = theme.TextEmphasis,
+				richText = true,
+				layoutOrder = 1,
+				fluidSizing = true,
+				automaticSize = Enum.AutomaticSize.X,
+			}),
+			SelectedTextLabel = if self.state.shouldDisplayFeedbackImage
+				then Roact.createElement("ImageLabel", {
+					LayoutOrder = 2,
+					Size = UDim2.new(1, 0, 0, 72),
+					Image = self.state.feedbackImageUri,
+					ScaleType = Enum.ScaleType.Fit,
 					BackgroundTransparency = 1,
-					LayoutOrder = 4,
-				}, {
-					RadioButtonList = Roact.createElement(RadioButtonList, {
-						radioButtons = feedbackReasonOptions,
-						onActivated = function(value)
-							self.props.setFeedbackReason(value)
-						end,
-						currentValue = self.props.feedbackReason,
-						elementSize = UDim2.new(1, 0, 0, 40),
-					}),
-				}),
-				CorrectTranslationHeader = Roact.createElement(StyledTextLabel, {
-					text = localized.correctTranslationHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 5,
-					fluidSizing = true,
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				CorrectTranslationTextEntryField = Roact.createElement(TextEntryField, {
-					LayoutOrder = 6,
-					enabled = true,
-					text = self.state.correctTranslationText,
-					textChanged = self.onCorrectTranslationTextChanged,
-					maxTextLength = math.max(string.len(self.state.correctTranslationText), 180),
-					autoFocusOnEnabled = false,
-					PlaceholderText = localized.correctTranslationPlaceholder,
+					BorderSizePixel = 0,
+				})
+				else Roact.createElement(ThemedTextLabel, {
+					LayoutOrder = 2,
+					fontKey = "Body",
+					themeKey = "TextDefault",
 					Size = UDim2.new(
 						1,
 						0,
 						0,
-						self.calculateFieldHeight(string.len(self.state.correctTranslationText), 14, true)
+						self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false)
 					),
+					Text = if FFlagEnableFeedbackSelectionUpdate
+						then (if self.state.isGenericSelection
+							then localized.genericSelectionWrapper
+							else self.state.feedbackText) or ""
+						else self.state.feedbackText or "",
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
-				AdditionalCommentsHeader = Roact.createElement(StyledTextLabel, {
-					text = localized.additionalCommentsHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 7,
-					fluidSizing = true,
-
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				AdditionalCommentsTextEntryField = Roact.createElement(TextEntryField, {
-					LayoutOrder = 8,
-					enabled = true,
-					text = self.state.additionalCommentsText,
-					textChanged = self.onAdditionalCommentsTextChanged,
-					maxTextLength = ADDITIONAL_COMMENTS_TEXT_ENTRY_MAX_TEXT_LENGTH,
-					autoFocusOnEnabled = false,
-					PlaceholderText = localized.additionalCommentsPlaceholder,
-					Size = UDim2.new(1, 0, 0, ADDITIONAL_COMMENTS_TEXT_ENTRY_FIELD_HEIGHT),
-				}),
-			})
-		else
-			return Roact.createFragment({
-				Layout = Roact.createElement("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}),
-				SelectedTextHeader = Roact.createElement(StyledTextLabel, {
-					text = if self.state.shouldDisplayFeedbackImage
-						then localized.imageSelectionHeader
-						else localized.textSelectionHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 1,
-					fluidSizing = true,
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				SelectedTextLabel = if self.state.shouldDisplayFeedbackImage
-					then Roact.createElement("ImageLabel", {
-						LayoutOrder = 2,
-						Size = UDim2.new(1, 0, 0, 72),
-						Image = self.state.feedbackImageUri,
-						ScaleType = Enum.ScaleType.Fit,
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-					})
-					else Roact.createElement(ThemedTextLabel, {
-						LayoutOrder = 2,
-						fontKey = "Body",
-						themeKey = "TextDefault",
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0, 76, 0.5, 0),
-						Size = UDim2.new(
-							1,
-							0,
-							0,
-							self.calculateFieldHeight(string.len(self.state.feedbackText), 18, false)
-						),
-						Text = if FFlagEnableFeedbackSelectionUpdate
-							then (if self.state.isGenericSelection
-								then localized.genericSelectionWrapper
-								else self.state.feedbackText) or ""
-							else self.state.feedbackText or "",
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-				CorrectTranslationHeader = Roact.createElement(StyledTextLabel, {
-					text = localized.correctTranslationHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 3,
-					fluidSizing = true,
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				CorrectTranslationTextEntryField = Roact.createElement(TextEntryField, {
-					LayoutOrder = 4,
-					enabled = true,
-					text = self.state.correctTranslationText,
-					textChanged = self.onCorrectTranslationTextChanged,
-					maxTextLength = math.max(string.len(self.state.correctTranslationText), 180),
-					autoFocusOnEnabled = false,
-					PlaceholderText = localized.correctTranslationPlaceholder,
-					Size = UDim2.new(
-						1,
-						0,
-						0,
-						self.calculateFieldHeight(string.len(self.state.correctTranslationText), 18, true)
-					),
-				}),
-				AdditionalCommentsHeader = Roact.createElement(StyledTextLabel, {
-					text = localized.additionalCommentsHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-					richText = true,
-					layoutOrder = 5,
-					fluidSizing = true,
-
-					automaticSize = Enum.AutomaticSize.X,
-				}),
-				AdditionalCommentsTextEntryField = Roact.createElement(TextEntryField, {
-					LayoutOrder = 6,
-					enabled = true,
-					text = self.state.additionalCommentsText,
-					textChanged = self.onAdditionalCommentsTextChanged,
-					maxTextLength = ADDITIONAL_COMMENTS_TEXT_ENTRY_MAX_TEXT_LENGTH,
-					autoFocusOnEnabled = false,
-					PlaceholderText = localized.additionalCommentsPlaceholder,
-					Size = UDim2.new(1, 0, 0, ADDITIONAL_COMMENTS_TEXT_ENTRY_FIELD_HEIGHT),
-				}),
-				TranslationProblemsHeader = Roact.createElement(StyledTextLabel, {
-					text = localized.problemDropdownSelectionHeader,
-					size = UDim2.new(1, 0, 0, 72),
-					textTruncate = Enum.TextTruncate.AtEnd,
-					textXAlignment = Enum.TextXAlignment.Left,
-					textYAlignment = Enum.TextYAlignment.Center,
-					fontStyle = font.Header2,
-					colorStyle = theme.TextEmphasis,
-
-					richText = true,
-					layoutOrder = 7,
-					fluidSizing = true,
-
-					automaticSize = Enum.AutomaticSize.X,
-				}),
+			TranslationProblemsHeader = Roact.createElement(StyledTextLabel, {
+				text = localized.problemDropdownSelectionHeader,
+				size = UDim2.new(1, 0, 0, 72),
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+				fontStyle = font.Header2,
+				colorStyle = theme.TextEmphasis,
+				richText = true,
+				layoutOrder = 3,
+				fluidSizing = true,
+				automaticSize = Enum.AutomaticSize.X,
+			}),
+			TranslationProblemsListFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 160),
+				BackgroundTransparency = 1,
+				LayoutOrder = 4,
+			}, {
 				RadioButtonList = Roact.createElement(RadioButtonList, {
 					radioButtons = feedbackReasonOptions,
 					onActivated = function(value)
@@ -530,10 +346,61 @@ function FeedbackReportDialog:renderContents(localized)
 					end,
 					currentValue = self.props.feedbackReason,
 					elementSize = UDim2.new(1, 0, 0, 40),
-					layoutOrder = 8,
 				}),
-			})
-		end
+			}),
+			CorrectTranslationHeader = Roact.createElement(StyledTextLabel, {
+				text = localized.correctTranslationHeader,
+				size = UDim2.new(1, 0, 0, 72),
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+				fontStyle = font.Header2,
+				colorStyle = theme.TextEmphasis,
+				richText = true,
+				layoutOrder = 5,
+				fluidSizing = true,
+				automaticSize = Enum.AutomaticSize.X,
+			}),
+			CorrectTranslationTextEntryField = Roact.createElement(TextEntryField, {
+				LayoutOrder = 6,
+				enabled = true,
+				text = self.state.correctTranslationText,
+				textChanged = self.onCorrectTranslationTextChanged,
+				maxTextLength = math.max(string.len(self.state.correctTranslationText), 180),
+				autoFocusOnEnabled = false,
+				PlaceholderText = localized.correctTranslationPlaceholder,
+				Size = UDim2.new(
+					1,
+					0,
+					0,
+					self.calculateFieldHeight(string.len(self.state.correctTranslationText), 14, true)
+				),
+			}),
+			AdditionalCommentsHeader = Roact.createElement(StyledTextLabel, {
+				text = localized.additionalCommentsHeader,
+				size = UDim2.new(1, 0, 0, 72),
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+				fontStyle = font.Header2,
+				colorStyle = theme.TextEmphasis,
+				richText = true,
+				layoutOrder = 7,
+				fluidSizing = true,
+
+				automaticSize = Enum.AutomaticSize.X,
+			}),
+			AdditionalCommentsTextEntryField = Roact.createElement(TextEntryField, {
+				LayoutOrder = 8,
+				enabled = true,
+				text = self.state.additionalCommentsText,
+				textChanged = self.onAdditionalCommentsTextChanged,
+				maxTextLength = ADDITIONAL_COMMENTS_TEXT_ENTRY_MAX_TEXT_LENGTH,
+				autoFocusOnEnabled = false,
+				PlaceholderText = localized.additionalCommentsPlaceholder,
+				Size = UDim2.new(1, 0, 0, ADDITIONAL_COMMENTS_TEXT_ENTRY_FIELD_HEIGHT),
+			}),
+		})
 	end)
 end
 
@@ -562,18 +429,16 @@ function FeedbackReportDialog:render()
 			visible = self.props.feedbackFlowState == Constants.State.CurrentlyLeavingFeedback,
 			screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
 			titleText = localized.mainHeader,
-			showCloseButton = if GetFFlagEnableFeedbackReportDialogAdjustments() then true else false,
+			showCloseButton = true,
 			contents = Roact.createElement(
 				VerticalScrollView,
 				{
 					useAutomaticCanvasSize = false,
 					-- Do not use auto canvas size as it allows the scroll view to go way further down than the amount of content present. Instead, use a heuristic based on the contents of the scroll view for the report dialog such that overscrolling doesn't happen as much
-					canvasSizeY = if GetFFlagEnableFeedbackReportDialogAdjustments()
-						then UDim.new(
-							0,
-							600 + self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false) * 2
-						)
-						else UDim.new(1, 550),
+					canvasSizeY = UDim.new(
+						0,
+						600 + self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false) * 2
+					),
 				},
 				Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

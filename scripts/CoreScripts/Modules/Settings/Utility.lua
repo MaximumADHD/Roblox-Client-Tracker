@@ -49,7 +49,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --------------- FLAGS ----------------
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
-local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
 
 local Chrome = RobloxGui.Modules.Chrome
@@ -3067,7 +3066,7 @@ function moduleApiTable:IsPortrait()
 	return isPortrait()
 end
 
-if FFlagRefactorMenuConfirmationButtons or FFlagAddNextUpContainer then
+if FFlagRefactorMenuConfirmationButtons then
 	local function isUsingGamepad()
 		return gamepadSet[UserInputService:GetLastInputType()] or false
 	end

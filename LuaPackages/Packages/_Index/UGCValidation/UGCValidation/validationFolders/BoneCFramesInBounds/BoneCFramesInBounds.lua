@@ -2,8 +2,6 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
 local R15plusUtils = require(root.util.R15plusUtils)
@@ -35,9 +33,7 @@ BoneCFramesInBounds.run = function(reporter: Types.ValidationReporter, data: Typ
 		local meshPartCFrameInv = bodyMeshPart.CFrame:Inverse()
 
 		for _, bone in (getAllInstancesIsA(bodyMeshPart, "Bone") :: any) :: { Bone } do
-			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-				reporter:setReportingInstance(bone)
-			end
+			reporter:setReportingInstance(bone)
 			local pos = (meshPartCFrameInv * bone.WorldCFrame).Position
 
 			if not Vector3Utils.isInRange(pos, -halfExtents, halfExtents) then

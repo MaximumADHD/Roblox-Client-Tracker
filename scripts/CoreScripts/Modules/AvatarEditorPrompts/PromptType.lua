@@ -1,9 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local enumerate = require(CorePackages.Packages.enumerate)
 
-local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
-local FFlagAXAvatarTimeoutFlowIE = AvatarExperienceFlags.FFlagAXAvatarTimeoutFlowIE
-
 local promptTypes = {
 	"AllowInventoryReadAccess",
 	"SaveAvatar",
@@ -13,9 +10,7 @@ local promptTypes = {
 	"DeleteOutfit",
 	"RenameOutfit",
 	"UpdateOutfit",
+	"SaveAvatarTimeout",
 }
-if FFlagAXAvatarTimeoutFlowIE then
-	table.insert(promptTypes, "SaveAvatarTimeout")
-end
 
 return enumerate("PromptType", promptTypes)

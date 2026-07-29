@@ -18,9 +18,12 @@ local cageNames = {
 
 Measure_Cage_UV.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Cage_UV
+	if summary == nil then
+		error("Measure_Cage_UV: AQS summary data is nil")
+	end
 	for _, cageName in cageNames do
 		if summary[cageName] == nil or summary[cageName].incorrect_uv_count == nil then
-			reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+			error("Measure_Cage_UV: AQS summary missing required fields for cage " .. cageName)
 		else
 			if tonumber(summary[cageName].incorrect_uv_count) > maxIncorrectUVThreshold then
 				reporter:fail(ErrorSourceStrings.Keys.MeasureCageUV, {

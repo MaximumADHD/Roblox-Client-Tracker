@@ -22,8 +22,10 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
+local PlaytestModeThemeProvider = require(Root.Unibar.PlaytestModeThemeProvider)
 local ChromeService = require(Root.Service)
 local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
@@ -917,6 +919,30 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		end
 	end, {})
 
+	local unibarComponent: React.ReactNode = if isInExperienceUIVREnabled and isSpatial()
+		then React.createElement(UnibarPills, {
+			menuFrameRef = menuFrame,
+			subMenuHostRef = subMenuHostRef,
+		})
+		else React.createElement(Unibar, {
+			menuFrameRef = menuFrame,
+			subMenuHostRef = if FFlagUnibarMenuOpenSubmenu then subMenuHostRef else nil,
+			onAreaChanged = props.onAreaChanged,
+			onMinWidthChanged = props.onMinWidthChanged,
+		})
+
+	if FFlagEnablePlaytestModeUnibar then
+		unibarComponent = React.createElement("Frame", {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		}, {
+			PlaytestModeThemeProvider = React.createElement(PlaytestModeThemeProvider, nil, {
+				Unibar = unibarComponent,
+			}),
+		})
+	end
+
 	return {
 		React.createElement("Frame", {
 			Name = "UnibarMenu",
@@ -947,17 +973,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 				Padding = UDim.new(0, menuSubmenuPadding),
 			}) :: any,
-			if isInExperienceUIVREnabled and isSpatial()
-				then React.createElement(UnibarPills, {
-					menuFrameRef = menuFrame,
-					subMenuHostRef = subMenuHostRef,
-				}) :: any
-				else React.createElement(Unibar, {
-					menuFrameRef = menuFrame,
-					subMenuHostRef = if FFlagUnibarMenuOpenSubmenu then subMenuHostRef else nil,
-					onAreaChanged = props.onAreaChanged,
-					onMinWidthChanged = props.onMinWidthChanged,
-				}) :: any,
+			unibarComponent,
 			if isInExperienceUIVREnabled
 				then React.createElement(SubMenuWrapper, { subMenuHostRef = subMenuHostRef }) :: any
 				else React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any,

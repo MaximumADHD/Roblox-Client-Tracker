@@ -16,7 +16,7 @@ Measure_Cage_Mesh_Distance_Avatar.fflag = require(root.flags.getFFlagUGCValidate
 Measure_Cage_Mesh_Distance_Avatar.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Cage_Mesh_Distance_Avatar.full_body_cage
 	if summary == nil or summary.max_distance == nil or summary.negative_sdf_percent == nil then
-		reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+		error("Measure_Cage_Mesh_Distance_Avatar: AQS summary missing required fields")
 	else
 		if tonumber(summary.max_distance) > maxCageMeshDistanceThreshold / 100 then
 			reporter:fail(ErrorSourceStrings.Keys.MeasureCageMeshDistanceAvatar_CageTooFar, {

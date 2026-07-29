@@ -18,17 +18,11 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local makeBackButton = require(CorePackages.Workspace.Packages.AppHeaderBar).makeBackButton
 
--- Flags
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagEnableFeedbackReportDialogAdjustments =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableFeedbackReportDialogAdjustments)
-
 local MAX_WIDTH = 540
 local MAX_HEIGHT = 645
 local TITLE_HEIGHT = 49
 local CONTENT_HEIGHT = 600
-local ACTION_BAR_HEIGHT = if GetFFlagEnableFeedbackReportDialogAdjustments() then 60 else 48
+local ACTION_BAR_HEIGHT = 60
 local MODAL_DISMISS_ACTION = "ModalDialogDismiss"
 
 local ModalDialog = Roact.Component:extend("ModalDialog")

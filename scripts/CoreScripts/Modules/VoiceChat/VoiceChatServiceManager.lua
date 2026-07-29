@@ -741,6 +741,10 @@ function VoiceChatServiceManager:subscribe(eventName: CoreVoiceManagerEvent, cal
 	return self.coreVoiceManager:subscribe(eventName, callback)
 end
 
+function VoiceChatServiceManager:unsubscribe(eventName: CoreVoiceManagerEvent, callback: any)
+	self.coreVoiceManager:unsubscribe(eventName, callback)
+end
+
 function VoiceChatServiceManager:_reportJoinFailed(result, level)
 	return self.coreVoiceManager:_reportJoinFailed(result, level)
 end

@@ -7,6 +7,7 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 
 local InputReplication
 local avatarAbilitiesInterface
@@ -140,7 +141,12 @@ function ActionController.setupSlotActions(data, playerData)
 			abilityAction.StateChanged:Connect(function(value)
 				local actionInSlot = getAbilityAction(slotMap[slot])
 				if actionInSlot then
-					if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+					if FFlagUserPlayerScriptsSAuthDirectAPIs then
+						local binding = actionInSlot:FindFirstChild("ScriptableBinding")
+						if binding then
+							binding:Fire(value)
+						end
+					elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 						local binding = actionInSlot:FindFirstChild("ScriptableBinding")
 						if binding then
 							local success, result = pcall(function()

@@ -94,6 +94,7 @@ type _Messages =
 		UAMarketplaceCatalogFeedInputData_EntryMapEntry: _UAMarketplaceCatalogFeedInputData_EntryMapEntryMessage,
 		UAMarketplaceCatalogCategoryMenuInputData: _UAMarketplaceCatalogCategoryMenuInputDataMessage,
 		UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage,
+		MarketplaceOfferModalInputData: _MarketplaceOfferModalInputDataMessage,
 		CatalogItemGridInputData: _CatalogItemGridInputDataMessage,
 		CatalogItemGridInputData_CatalogItem: _CatalogItemGridInputData_CatalogItemMessage,
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
@@ -296,6 +297,7 @@ type _PageEntryInputDataFields = {
 		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "catalog_item_grid", value: CatalogItemGridInputData }
+		| { type: "marketplace_offer_modal", value: MarketplaceOfferModalInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
@@ -364,6 +366,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "catalog_item_grid", value: CatalogItemGridInputData }
+		| { type: "marketplace_offer_modal", value: MarketplaceOfferModalInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
@@ -1244,6 +1247,7 @@ type _ExperienceCarouselInputDataFields = {
 	primary_sort_id: number?,
 	applied_filters: string?,
 	pool_id: string?,
+	has_emphasized_tile: boolean,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1260,6 +1264,7 @@ type _ExperienceCarouselInputDataPartialFields = {
 	primary_sort_id: number?,
 	applied_filters: string?,
 	pool_id: string?,
+	has_emphasized_tile: boolean?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -1767,6 +1772,7 @@ type _CardContainerCardInputDataFields = {
 	cta_text: string,
 	prompt_id: string,
 	prompt_type: string,
+	entity_id: string,
 }
 
 type _CardContainerCardInputDataPartialFields = {
@@ -1778,6 +1784,7 @@ type _CardContainerCardInputDataPartialFields = {
 	cta_text: string?,
 	prompt_id: string?,
 	prompt_type: string?,
+	entity_id: string?,
 }
 
 export type CardContainerCardInputData = typeof(setmetatable(
@@ -1840,6 +1847,7 @@ type _CardInputDataFields = {
 	cta_text: string,
 	prompt_id: string,
 	prompt_type: string,
+	entity_id: string,
 }
 
 type _CardInputDataPartialFields = {
@@ -1849,6 +1857,7 @@ type _CardInputDataPartialFields = {
 	cta_text: string?,
 	prompt_id: string?,
 	prompt_type: string?,
+	entity_id: string?,
 }
 
 export type CardInputData = typeof(setmetatable({} :: _CardInputDataFields, {} :: _CardInputDataImpl))
@@ -2806,6 +2815,49 @@ type _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMe
 	_UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemPartialFields
 >
 
+type _MarketplaceOfferModalInputDataImpl = {
+	__index: _MarketplaceOfferModalInputDataImpl,
+	new: (fields: _MarketplaceOfferModalInputDataPartialFields?) -> MarketplaceOfferModalInputData,
+	encode: (self: MarketplaceOfferModalInputData) -> buffer,
+	decode: (input: buffer) -> MarketplaceOfferModalInputData,
+	jsonEncode: (self: MarketplaceOfferModalInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> MarketplaceOfferModalInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _MarketplaceOfferModalInputDataFields = {
+	hero_icon: string?,
+	body_dismiss_button_text: string,
+	body_title: string,
+	body_rich_text: string,
+	terms_link_text: string?,
+	terms_title: string?,
+	terms_body_rich_text: string?,
+	terms_dismiss_button_text: string?,
+	offer_id: string,
+}
+
+type _MarketplaceOfferModalInputDataPartialFields = {
+	hero_icon: string?,
+	body_dismiss_button_text: string?,
+	body_title: string?,
+	body_rich_text: string?,
+	terms_link_text: string?,
+	terms_title: string?,
+	terms_body_rich_text: string?,
+	terms_dismiss_button_text: string?,
+	offer_id: string?,
+}
+
+export type MarketplaceOfferModalInputData = typeof(setmetatable(
+	{} :: _MarketplaceOfferModalInputDataFields,
+	{} :: _MarketplaceOfferModalInputDataImpl
+))
+type _MarketplaceOfferModalInputDataMessage = proto.Message<
+	MarketplaceOfferModalInputData,
+	_MarketplaceOfferModalInputDataPartialFields
+>
+
 type _CatalogItemGridInputDataImpl = {
 	__index: _CatalogItemGridInputDataImpl,
 	new: (fields: _CatalogItemGridInputDataPartialFields?) -> CatalogItemGridInputData,
@@ -2877,12 +2929,14 @@ type _SearchResultsFeedInputDataFields = {
 	entry_map: { [string]: FeedEntry },
 	entry_order: { string },
 	content_pools: { [string]: ContentPool },
+	search_session_id: string,
 }
 
 type _SearchResultsFeedInputDataPartialFields = {
 	entry_map: { [string]: FeedEntry }?,
 	entry_order: { string }?,
 	content_pools: { [string]: ContentPool }?,
+	search_session_id: string?,
 }
 
 export type SearchResultsFeedInputData = typeof(setmetatable(
@@ -3000,7 +3054,6 @@ type _PowerSearchAIOverviewInputDataFields = {
 	show_loading: boolean,
 	title: string,
 	search_query: string,
-	search_session_id: string,
 	universe_ids: string,
 }
 
@@ -3011,7 +3064,6 @@ type _PowerSearchAIOverviewInputDataPartialFields = {
 	show_loading: boolean?,
 	title: string?,
 	search_query: string?,
-	search_session_id: string?,
 	universe_ids: string?,
 }
 
@@ -4326,6 +4378,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 905, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_offer_modal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 906, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "search_results_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1000, proto.wireTypes.lengthDelimited)
@@ -4733,6 +4789,14 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "catalog_item_grid", value = messages.CatalogItemGridInputData.decode(value) }
 					continue
+				elseif field == 906 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_offer_modal",
+						value = messages.MarketplaceOfferModalInputData.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -4915,6 +4979,8 @@ do
 				output.marketplaceCatalogHeroUnit = self.kind.value:jsonEncode()
 			elseif self.kind.type == "catalog_item_grid" then
 				output.catalogItemGrid = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_offer_modal" then
+				output.marketplaceOfferModal = self.kind.value:jsonEncode()
 			elseif self.kind.type == "search_results_feed" then
 				output.searchResultsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "power_search_ai_overview" then
@@ -5627,6 +5693,20 @@ do
 			self.kind = {
 				type = "catalog_item_grid",
 				value = messages.CatalogItemGridInputData.jsonDecode(input.catalogItemGrid),
+			}
+		end
+
+		if input.marketplace_offer_modal ~= nil then
+			self.kind = {
+				type = "marketplace_offer_modal",
+				value = messages.MarketplaceOfferModalInputData.jsonDecode(input.marketplace_offer_modal),
+			}
+		end
+
+		if input.marketplaceOfferModal ~= nil then
+			self.kind = {
+				type = "marketplace_offer_modal",
+				value = messages.MarketplaceOfferModalInputData.jsonDecode(input.marketplaceOfferModal),
 			}
 		end
 
@@ -9801,6 +9881,9 @@ do
 			primary_sort_id = if data == nil or data.primary_sort_id == nil then nil else data.primary_sort_id,
 			applied_filters = if data == nil or data.applied_filters == nil then nil else data.applied_filters,
 			pool_id = if data == nil or data.pool_id == nil then nil else data.pool_id,
+			has_emphasized_tile = if data == nil or data.has_emphasized_tile == nil
+				then false
+				else data.has_emphasized_tile,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -9876,6 +9959,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.pool_id)
 		end
 
+		if self.has_emphasized_tile then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_emphasized_tile then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -9909,6 +9997,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.primary_sort_id = value
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_emphasized_tile = value ~= 0
 					continue
 				end
 
@@ -10043,6 +10136,10 @@ do
 			output.poolId = self.pool_id
 		end
 
+		if self.has_emphasized_tile then
+			output.hasEmphasizedTile = self.has_emphasized_tile
+		end
+
 		return output
 	end
 
@@ -10153,6 +10250,14 @@ do
 
 		if input.poolId ~= nil then
 			self.pool_id = input.poolId
+		end
+
+		if input.has_emphasized_tile ~= nil then
+			self.has_emphasized_tile = input.has_emphasized_tile
+		end
+
+		if input.hasEmphasizedTile ~= nil then
+			self.has_emphasized_tile = input.hasEmphasizedTile
 		end
 
 		return self
@@ -12732,6 +12837,7 @@ do
 			cta_text = if data == nil or data.cta_text == nil then "" else data.cta_text,
 			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
 			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+			entity_id = if data == nil or data.entity_id == nil then "" else data.entity_id,
 		}, _CardContainerCardInputDataImpl :: _CardContainerCardInputDataImpl)
 	end
 
@@ -12777,6 +12883,11 @@ do
 		if self.prompt_type ~= nil and self.prompt_type ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
+		if self.entity_id ~= nil and self.entity_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.entity_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -12838,6 +12949,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.prompt_type = buffer.tostring(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -12897,6 +13013,10 @@ do
 			output.promptType = self.prompt_type
 		end
 
+		if self.entity_id ~= nil and self.entity_id ~= "" then
+			output.entityId = self.entity_id
+		end
+
 		return output
 	end
 
@@ -12953,6 +13073,14 @@ do
 
 		if input.promptType ~= nil then
 			self.prompt_type = input.promptType
+		end
+
+		if input.entity_id ~= nil then
+			self.entity_id = input.entity_id
+		end
+
+		if input.entityId ~= nil then
+			self.entity_id = input.entityId
 		end
 
 		return self
@@ -13200,6 +13328,7 @@ do
 			cta_text = if data == nil or data.cta_text == nil then "" else data.cta_text,
 			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
 			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+			entity_id = if data == nil or data.entity_id == nil then "" else data.entity_id,
 		}, _CardInputDataImpl :: _CardInputDataImpl)
 	end
 
@@ -13235,6 +13364,11 @@ do
 		if self.prompt_type ~= nil and self.prompt_type ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
+		if self.entity_id ~= nil and self.entity_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.entity_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -13285,6 +13419,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.prompt_type = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_id = buffer.tostring(value)
 					continue
 				end
 
@@ -13337,6 +13476,10 @@ do
 			output.promptType = self.prompt_type
 		end
 
+		if self.entity_id ~= nil and self.entity_id ~= "" then
+			output.entityId = self.entity_id
+		end
+
 		return output
 	end
 
@@ -13381,6 +13524,14 @@ do
 
 		if input.promptType ~= nil then
 			self.prompt_type = input.promptType
+		end
+
+		if input.entity_id ~= nil then
+			self.entity_id = input.entity_id
+		end
+
+		if input.entityId ~= nil then
+			self.entity_id = input.entityId
 		end
 
 		return self
@@ -18508,6 +18659,299 @@ do
 end
 
 do
+	local _MarketplaceOfferModalInputDataImpl = {}
+	_MarketplaceOfferModalInputDataImpl.__index = _MarketplaceOfferModalInputDataImpl
+
+	function _MarketplaceOfferModalInputDataImpl.new(
+		data: _MarketplaceOfferModalInputDataPartialFields?
+	): MarketplaceOfferModalInputData
+		return setmetatable({
+			hero_icon = if data == nil or data.hero_icon == nil then nil else data.hero_icon,
+			body_dismiss_button_text = if data == nil or data.body_dismiss_button_text == nil
+				then ""
+				else data.body_dismiss_button_text,
+			body_title = if data == nil or data.body_title == nil then "" else data.body_title,
+			body_rich_text = if data == nil or data.body_rich_text == nil then "" else data.body_rich_text,
+			terms_link_text = if data == nil or data.terms_link_text == nil then nil else data.terms_link_text,
+			terms_title = if data == nil or data.terms_title == nil then nil else data.terms_title,
+			terms_body_rich_text = if data == nil or data.terms_body_rich_text == nil
+				then nil
+				else data.terms_body_rich_text,
+			terms_dismiss_button_text = if data == nil or data.terms_dismiss_button_text == nil
+				then nil
+				else data.terms_dismiss_button_text,
+			offer_id = if data == nil or data.offer_id == nil then "" else data.offer_id,
+		}, _MarketplaceOfferModalInputDataImpl :: _MarketplaceOfferModalInputDataImpl)
+	end
+
+	function _MarketplaceOfferModalInputDataImpl.encode(self: MarketplaceOfferModalInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.hero_icon ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.hero_icon)
+		end
+
+		if self.body_dismiss_button_text ~= nil and self.body_dismiss_button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.body_dismiss_button_text)
+		end
+
+		if self.body_title ~= nil and self.body_title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.body_title)
+		end
+
+		if self.body_rich_text ~= nil and self.body_rich_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.body_rich_text)
+		end
+
+		if self.terms_link_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.terms_link_text)
+		end
+
+		if self.terms_title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.terms_title)
+		end
+
+		if self.terms_body_rich_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.terms_body_rich_text)
+		end
+
+		if self.terms_dismiss_button_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.terms_dismiss_button_text)
+		end
+
+		if self.offer_id ~= nil and self.offer_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.offer_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _MarketplaceOfferModalInputDataImpl.decode(input: buffer): MarketplaceOfferModalInputData
+		local self = _MarketplaceOfferModalInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.hero_icon = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.body_dismiss_button_text = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.body_title = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.body_rich_text = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.terms_link_text = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.terms_title = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.terms_body_rich_text = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.terms_dismiss_button_text = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.offer_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _MarketplaceOfferModalInputDataImpl.jsonEncode(self: MarketplaceOfferModalInputData): any
+		local output = {}
+
+		if self.hero_icon ~= nil then
+			output.heroIcon = self.hero_icon
+		end
+
+		if self.body_dismiss_button_text ~= nil and self.body_dismiss_button_text ~= "" then
+			output.bodyDismissButtonText = self.body_dismiss_button_text
+		end
+
+		if self.body_title ~= nil and self.body_title ~= "" then
+			output.bodyTitle = self.body_title
+		end
+
+		if self.body_rich_text ~= nil and self.body_rich_text ~= "" then
+			output.bodyRichText = self.body_rich_text
+		end
+
+		if self.terms_link_text ~= nil then
+			output.termsLinkText = self.terms_link_text
+		end
+
+		if self.terms_title ~= nil then
+			output.termsTitle = self.terms_title
+		end
+
+		if self.terms_body_rich_text ~= nil then
+			output.termsBodyRichText = self.terms_body_rich_text
+		end
+
+		if self.terms_dismiss_button_text ~= nil then
+			output.termsDismissButtonText = self.terms_dismiss_button_text
+		end
+
+		if self.offer_id ~= nil and self.offer_id ~= "" then
+			output.offerId = self.offer_id
+		end
+
+		return output
+	end
+
+	function _MarketplaceOfferModalInputDataImpl.jsonDecode(input: { [string]: any }): MarketplaceOfferModalInputData
+		local self = _MarketplaceOfferModalInputDataImpl.new()
+
+		if input.hero_icon ~= nil then
+			self.hero_icon = input.hero_icon
+		end
+
+		if input.heroIcon ~= nil then
+			self.hero_icon = input.heroIcon
+		end
+
+		if input.body_dismiss_button_text ~= nil then
+			self.body_dismiss_button_text = input.body_dismiss_button_text
+		end
+
+		if input.bodyDismissButtonText ~= nil then
+			self.body_dismiss_button_text = input.bodyDismissButtonText
+		end
+
+		if input.body_title ~= nil then
+			self.body_title = input.body_title
+		end
+
+		if input.bodyTitle ~= nil then
+			self.body_title = input.bodyTitle
+		end
+
+		if input.body_rich_text ~= nil then
+			self.body_rich_text = input.body_rich_text
+		end
+
+		if input.bodyRichText ~= nil then
+			self.body_rich_text = input.bodyRichText
+		end
+
+		if input.terms_link_text ~= nil then
+			self.terms_link_text = input.terms_link_text
+		end
+
+		if input.termsLinkText ~= nil then
+			self.terms_link_text = input.termsLinkText
+		end
+
+		if input.terms_title ~= nil then
+			self.terms_title = input.terms_title
+		end
+
+		if input.termsTitle ~= nil then
+			self.terms_title = input.termsTitle
+		end
+
+		if input.terms_body_rich_text ~= nil then
+			self.terms_body_rich_text = input.terms_body_rich_text
+		end
+
+		if input.termsBodyRichText ~= nil then
+			self.terms_body_rich_text = input.termsBodyRichText
+		end
+
+		if input.terms_dismiss_button_text ~= nil then
+			self.terms_dismiss_button_text = input.terms_dismiss_button_text
+		end
+
+		if input.termsDismissButtonText ~= nil then
+			self.terms_dismiss_button_text = input.termsDismissButtonText
+		end
+
+		if input.offer_id ~= nil then
+			self.offer_id = input.offer_id
+		end
+
+		if input.offerId ~= nil then
+			self.offer_id = input.offerId
+		end
+
+		return self
+	end
+
+	_MarketplaceOfferModalInputDataImpl.descriptor = {
+		name = "MarketplaceOfferModalInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceOfferModalInputData",
+	}
+
+	messages.MarketplaceOfferModalInputData = _MarketplaceOfferModalInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.MarketplaceOfferModalInputData)
+end
+
+do
 	local _CatalogItemGridInputDataImpl = {}
 	_CatalogItemGridInputDataImpl.__index = _CatalogItemGridInputDataImpl
 
@@ -18793,6 +19237,7 @@ do
 			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
 			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
 			content_pools = if data == nil or data.content_pools == nil then {} else data.content_pools,
+			search_session_id = if data == nil or data.search_session_id == nil then "" else data.search_session_id,
 		}, _SearchResultsFeedInputDataImpl :: _SearchResultsFeedInputDataImpl)
 	end
 
@@ -18833,6 +19278,11 @@ do
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
+		end
+
+		if self.search_session_id ~= nil and self.search_session_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.search_session_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -18883,6 +19333,11 @@ do
 					self.content_pools[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.search_session_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -18932,6 +19387,10 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.contentPools = newOutput
+		end
+
+		if self.search_session_id ~= nil and self.search_session_id ~= "" then
+			output.searchSessionId = self.search_session_id
 		end
 
 		return output
@@ -18992,6 +19451,14 @@ do
 			end
 
 			self.content_pools = newOutput
+		end
+
+		if input.search_session_id ~= nil then
+			self.search_session_id = input.search_session_id
+		end
+
+		if input.searchSessionId ~= nil then
+			self.search_session_id = input.searchSessionId
 		end
 
 		return self
@@ -19401,7 +19868,6 @@ do
 			show_loading = if data == nil or data.show_loading == nil then false else data.show_loading,
 			title = if data == nil or data.title == nil then "" else data.title,
 			search_query = if data == nil or data.search_query == nil then "" else data.search_query,
-			search_session_id = if data == nil or data.search_session_id == nil then "" else data.search_session_id,
 			universe_ids = if data == nil or data.universe_ids == nil then "" else data.universe_ids,
 		}, _PowerSearchAIOverviewInputDataImpl :: _PowerSearchAIOverviewInputDataImpl)
 	end
@@ -19441,11 +19907,6 @@ do
 		if self.search_query ~= nil and self.search_query ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.search_query)
-		end
-
-		if self.search_session_id ~= nil and self.search_session_id ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.search_session_id)
 		end
 
 		if self.universe_ids ~= nil and self.universe_ids ~= "" then
@@ -19501,11 +19962,6 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.search_query = buffer.tostring(value)
-					continue
-				elseif field == 7 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.search_session_id = buffer.tostring(value)
 					continue
 				elseif field == 8 then
 					local value
@@ -19565,10 +20021,6 @@ do
 
 		if self.search_query ~= nil and self.search_query ~= "" then
 			output.searchQuery = self.search_query
-		end
-
-		if self.search_session_id ~= nil and self.search_session_id ~= "" then
-			output.searchSessionId = self.search_session_id
 		end
 
 		if self.universe_ids ~= nil and self.universe_ids ~= "" then
@@ -19633,14 +20085,6 @@ do
 
 		if input.searchQuery ~= nil then
 			self.search_query = input.searchQuery
-		end
-
-		if input.search_session_id ~= nil then
-			self.search_session_id = input.search_session_id
-		end
-
-		if input.searchSessionId ~= nil then
-			self.search_session_id = input.searchSessionId
 		end
 
 		if input.universe_ids ~= nil then
@@ -22693,6 +23137,7 @@ return {
 	UAMarketplaceCatalogFeedInputData = messages.UAMarketplaceCatalogFeedInputData,
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
+	MarketplaceOfferModalInputData = messages.MarketplaceOfferModalInputData,
 	CatalogItemGridInputData = messages.CatalogItemGridInputData,
 	CatalogItemGridInputData_CatalogItem = messages.CatalogItemGridInputData_CatalogItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,

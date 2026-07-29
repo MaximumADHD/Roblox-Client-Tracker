@@ -2,6 +2,7 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getFFlagUGCValidateAQMeshQualityBlockUpload = require(root.flags.getFFlagUGCValidateAQMeshQualityBlockUpload)
 
 local Measure_Mesh_Manifold = {}
 
@@ -16,9 +17,13 @@ Measure_Mesh_Manifold.fflag = require(root.flags.getFFlagUGCValidateAQMeshQualit
 Measure_Mesh_Manifold.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Mesh_Manifold
 	if summary == nil then
-		reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
-			measureName = "Measure_Mesh_Manifold",
-		})
+		if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+			error("Measure_Mesh_Manifold: AQS summary data is nil")
+		else
+			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
+				measureName = "Measure_Mesh_Manifold",
+			})
+		end
 		return
 	end
 	for partName, partData in summary do
@@ -30,10 +35,15 @@ Measure_Mesh_Manifold.run = function(reporter: Types.ValidationReporter, data: T
 				return
 			end
 			if tonumber(partData.score) ~= 100 then
-				reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MeshManifold, {
+				local params = {
 					partName = partName,
 					score = tostring(math.floor(tonumber(partData.score) or 0)),
-				})
+				}
+				if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+					reporter:fail(ErrorSourceStrings.Keys.AQSWarn_MeshManifold, params)
+				else
+					reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MeshManifold, params)
+				end
 			end
 		end
 	end

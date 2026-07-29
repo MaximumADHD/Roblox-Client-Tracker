@@ -45,6 +45,20 @@ local fintMaxKickMessageLength = game:DefineFastInt("MaxKickMessageLength", 200)
 
 local FFlagRefactorReconnectUnblockTeleport = game:DefineFastFlag("RefactorReconnectUnblockTeleport", false)
 
+local FFlagConnectionEnableAutoReconnect = game:DefineFastFlag("ConnectionEnableAutoReconnect", false)
+
+-- Auto-reconnect retry delay settings
+local FIntConnectionAutoReconnectFirstDelayMs = game:DefineFastInt("ConnectionAutoReconnectFirstDelayMs", 2000)
+local FIntConnectionAutoReconnectBaseDelayMs = game:DefineFastInt("ConnectionAutoReconnectBaseDelayMs", 5000)
+local FIntConnectionAutoReconnectMaxDelayMs = game:DefineFastInt("ConnectionAutoReconnectMaxDelayMs", 20000)
+local FIntConnectionAutoReconnectJitterMs = game:DefineFastInt("ConnectionAutoReconnectJitterMs", 2000)
+local FIntConnectionAutoReconnectMaxDurationSeconds = game:DefineFastInt("ConnectionAutoReconnectMaxDurationSeconds", 300)
+
+local autoReconnectRng
+if FFlagConnectionEnableAutoReconnect then
+	autoReconnectRng = Random.new()
+end
+
 local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection")
 
 local LEAVE_GAME_FRAME_WAITS = 2
@@ -71,6 +85,26 @@ local function safeGetFString(name, defaultValue)
 		return settings():GetFVariable(name)
 	end)
 	return success and result or defaultValue
+end
+
+-- Delay (seconds) before the next auto-reconnect: attempt 1 is a
+-- short delay, attempt 2 the base delay, attempt 3+ exponential up to the cap. Jitter
+-- is added to every attempt to prevent a thundering herd for platform wide disconnects.
+local function computeAutoReconnectDelaySeconds(attempt)
+	local delayMs
+	if attempt <= 1 then
+		delayMs = FIntConnectionAutoReconnectFirstDelayMs
+	elseif attempt == 2 then
+		delayMs = FIntConnectionAutoReconnectBaseDelayMs
+	else
+		delayMs = math.min(FIntConnectionAutoReconnectBaseDelayMs * 2 ^ (attempt - 2), FIntConnectionAutoReconnectMaxDelayMs)
+	end
+
+	if FIntConnectionAutoReconnectJitterMs > 0 then
+		delayMs = delayMs + autoReconnectRng:NextInteger(0, FIntConnectionAutoReconnectJitterMs)
+	end
+
+	return delayMs / 1000
 end
 
 -- use the default TopBarHeight before Chrome service loads
@@ -112,10 +146,13 @@ local FFlagConnectionAmpParentalApprovalUpsell =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpParentalApprovalUpsell
 local FFlagConnectionUpsellAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
+local FFlagUniversalFeatureRestrictionReceivers =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagUniversalFeatureRestrictionReceivers
 
 local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError2", false)
 local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
 	game:GetEngineFeature("PlacelaunchCollaborationCoreGatedConnectionError")
+local FFlagRobloxExperienceKickOverride = game:DefineFastFlag("RobloxExperienceKickOverride", false)
 
 -- ConnectionAmpUpsellOnLeave owns AMP-specific bits (ApolloClient lookup,
 -- feature names, telemetry, wizard display order). Required only when the
@@ -124,6 +161,9 @@ local ConnectionAmpUpsellOnLeave
 if FFlagConnectionAmpUpsellOnLeave then
 	ConnectionAmpUpsellOnLeave = require(RobloxGui.Modules.ConnectionAmpUpsellOnLeave)
 end
+
+local buildRobloxExperienceKickContent = require(CorePackages.Workspace.Packages.InterventionShared.buildRobloxExperienceKickContent)
+local showFeatureRestrictionDirect = require(CorePackages.Workspace.Packages.UniversalFeatureRestrictions.showFeatureRestrictionDirect)
 
 local function fetchUniverseIdFromPlaceId(placeId)
 	local url = string.format("%suniverses/v1/places/%d/universe", Url.APIS_URL, placeId)
@@ -186,6 +226,10 @@ local ConnectionPromptState = {
 	RECONNECT_COLLABORATION_CORE_GATED = 14, -- Placelaunch blocked by missing trusted relationships with collaborators; View collaborators opens the collaborators dashboard webpage
 }
 
+if FFlagConnectionEnableAutoReconnect then
+	ConnectionPromptState.AUTO_RECONNECTING = 15 -- Show auto-reconnect "Reconnecting…" prompt (Leave only), retries TeleportReconnect on a backoff loop
+end
+
 local connectionPromptState = ConnectionPromptState.NONE
 
 -- error that triggers reconnection
@@ -213,6 +257,10 @@ if FFlagAddCollaborationCoreGatedConnectionError then
 	ErrorTitles[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = "Join Error"
 end
 
+if FFlagConnectionEnableAutoReconnect then
+	ErrorTitles[ConnectionPromptState.AUTO_RECONNECTING] = "Disconnected"
+end
+
 local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
 	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
@@ -233,6 +281,10 @@ end
 if FFlagAddCollaborationCoreGatedConnectionError then
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] =
 		"InGame.ConnectionError.Title.JoinError"
+end
+
+if FFlagConnectionEnableAutoReconnect then
+	ErrorTitleLocalizationKey[ConnectionPromptState.AUTO_RECONNECTING] = "InGame.ConnectionError.Title.Disconnected"
 end
 
 -- DisplayOrder for the connection-error prompt. Exposed as a local so the
@@ -372,6 +424,177 @@ local closePrompt = function()
 end
 -- Button Callbacks --
 
+local autoReconnectState = {
+	active = false,
+	attempt = 0,
+	pendingThread = nil,
+	nextAttemptAt = 0,
+	tickerThread = nil,
+	errorCode = nil,
+	baseMessage = nil,
+	lastRenderedText = nil,
+	lastRemaining = nil,
+}
+
+local function pushErrorToPrompt(msg, code)
+	if not errorPrompt then return end
+	if GetFFlagDisplayChannelNameOnErrorPrompt() then
+		errorPrompt:onErrorChanged(msg, code, true)
+	else
+		errorPrompt:onErrorChanged(msg, code)
+	end
+end
+
+local function renderAutoReconnectPrompt()
+	if not errorPrompt then
+		return
+	end
+	if connectionPromptState ~= ConnectionPromptState.AUTO_RECONNECTING
+		and connectionPromptState ~= ConnectionPromptState.IS_RECONNECTING then
+		return
+	end
+
+	local remaining
+	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
+		remaining = -1
+	else
+		remaining = math.max(0, math.ceil(autoReconnectState.nextAttemptAt - tick()))
+	end
+	if remaining == autoReconnectState.lastRemaining then
+		return
+	end
+	autoReconnectState.lastRemaining = remaining
+
+	local attempt = autoReconnectState.attempt
+	local status
+	if remaining <= 0 then
+		status = translateString("InGame.ConnectionError.ReconnectingAttempt", { RBX_ATTEMPT = attempt })
+	elseif remaining == 1 then
+		status = translateString("InGame.ConnectionError.ReconnectingAttemptInSecond", { RBX_ATTEMPT = attempt })
+	else
+		status = translateString(
+			"InGame.ConnectionError.ReconnectingAttemptInSeconds",
+			{ RBX_ATTEMPT = attempt, RBX_SECONDS = remaining }
+		)
+	end
+
+	local msg = if autoReconnectState.baseMessage and autoReconnectState.baseMessage ~= ""
+		then autoReconnectState.baseMessage .. "\n" .. status
+		else status
+
+	if msg == autoReconnectState.lastRenderedText then
+		return
+	end
+	autoReconnectState.lastRenderedText = msg
+	pushErrorToPrompt(msg, autoReconnectState.errorCode)
+end
+
+-- Refreshes the countdown ~4x/sec for the cycle's lifetime. Waits before the first
+-- render so the initial prompt open happens on the main thread, not in this task.
+local function ensureAutoReconnectTicker()
+	if autoReconnectState.tickerThread then
+		return
+	end
+	autoReconnectState.tickerThread = task.spawn(function()
+		while autoReconnectState.active do
+			task.wait(0.25)
+			renderAutoReconnectPrompt()
+		end
+		autoReconnectState.tickerThread = nil
+	end)
+end
+
+local function cancelAutoReconnect()
+	autoReconnectState.active = false
+	autoReconnectState.attempt = 0
+	autoReconnectState.nextAttemptAt = 0
+	autoReconnectState.errorCode = nil
+	autoReconnectState.baseMessage = nil
+	autoReconnectState.lastRenderedText = nil
+	autoReconnectState.lastRemaining = nil
+	if autoReconnectState.pendingThread then
+		task.cancel(autoReconnectState.pendingThread)
+		autoReconnectState.pendingThread = nil
+	end
+	if autoReconnectState.tickerThread then
+		task.cancel(autoReconnectState.tickerThread)
+		autoReconnectState.tickerThread = nil
+	end
+end
+
+-- Bucket the attempt index so the AutoReconnectAttempt counter stays low-cardinality.
+local function autoReconnectAttemptBucket(attempt)
+	if attempt <= 5 then
+		return tostring(attempt)
+	elseif attempt <= 8 then
+		return "6-8"
+	else
+		return "9+"
+	end
+end
+
+local function fireAutoReconnect()
+	autoReconnectState.pendingThread = nil
+	-- Never issue a reconnect while one is already in flight (see note above).
+	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
+		return
+	end
+
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "AutoReconnectAttempt", attemptBucket = autoReconnectAttemptBucket(autoReconnectState.attempt)}}, 1.0)
+	-- IS_RECONNECTING is the in-flight marker stateTransit uses to detect the next
+	-- reconnect failure; set it directly, as the manual reconnectFunction does.
+	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
+	renderAutoReconnectPrompt()
+	if errorPrompt then
+		errorPrompt:primaryShimmerPlay()
+	end
+	TeleportService:TeleportReconnect()
+
+	if FFlagCoreScriptShowTeleportPrompt then
+		if FFlagRefactorReconnectUnblockTeleport then
+			TeleportService:UnblockAsync()
+		else
+			GuiService:SetMenuIsOpen(false, DEFAULT_ERROR_PROMPT_KEY)
+		end
+	end
+end
+
+local function scheduleAutoReconnect()
+	autoReconnectState.active = true
+	if autoReconnectState.pendingThread then
+		task.cancel(autoReconnectState.pendingThread)
+		autoReconnectState.pendingThread = nil
+	end
+	autoReconnectState.attempt = autoReconnectState.attempt + 1
+	local delaySeconds = computeAutoReconnectDelaySeconds(autoReconnectState.attempt)
+	autoReconnectState.nextAttemptAt = tick() + delaySeconds
+	autoReconnectState.lastRenderedText = nil
+	autoReconnectState.lastRemaining = nil
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "AutoReconnectScheduled"}}, 1.0)
+	ensureAutoReconnectTicker()
+	autoReconnectState.pendingThread = task.delay(delaySeconds, fireAutoReconnect)
+end
+
+-- "Reconnect" button on the auto prompt: skip the countdown and retry now.
+local function autoReconnectNowFunction()
+	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "UserClickWhileReconnecting"}}, 1.0)
+		return
+	end
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "AutoReconnectManualNow"}}, 1.0)
+	if autoReconnectState.pendingThread then
+		task.cancel(autoReconnectState.pendingThread)
+		autoReconnectState.pendingThread = nil
+	end
+	fireAutoReconnect()
+end
+
+local autoReconnectLeaveFunction = function()
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "AutoReconnectLeave"}}, 1.0)
+	cancelAutoReconnect()
+	leaveFunction()
+end
+
 -- Reconnect Disabled List
 local reconnectDisabledList = {
 	[Enum.ConnectionError.IPRecentlyConnected] = true,
@@ -449,6 +672,23 @@ if FFlagRAKickLogic and supportsRemoteAttestationEnums then
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationGeneralFailure] = true
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationOSOutOfDate] = true
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationBootValidationFailure] = true
+end
+
+local autoReconnectAllowedList = {}
+if FFlagConnectionEnableAutoReconnect then
+	autoReconnectAllowedList = {
+		[Enum.ConnectionError.DisconnectConnectionLost] = true,
+		[Enum.ConnectionError.DisconnectTimeout] = true,
+		[Enum.ConnectionError.DisconnectRaknetErrors] = true,
+		[Enum.ConnectionError.DisconnectReceivePacketError] = true,
+		[Enum.ConnectionError.DisconnectReceivePacketStreamError] = true,
+		[Enum.ConnectionError.DisconnectSendPacketError] = true,
+		[Enum.ConnectionError.DisconnectHashTimeout] = true,
+		[Enum.ConnectionError.ReplicatorTimeout] = true,
+		[Enum.ConnectionError.NetworkTimeout] = true,
+		[Enum.ConnectionError.NetworkInternal] = true,
+		[Enum.ConnectionError.NetworkSend] = true,
+	}
 end
 
 local ButtonList = {
@@ -623,6 +863,26 @@ if FFlagAddCollaborationCoreGatedConnectionError then
 	}
 end
 
+if FFlagConnectionEnableAutoReconnect then
+	-- Auto-reconnect retries on its own, but we keep a Reconnect button so the user
+	-- can skip the countdown and retry immediately, plus Leave (cancels + shuts down).
+	ButtonList[ConnectionPromptState.AUTO_RECONNECTING] = {
+		{
+			Text = "Reconnect Now",
+			LocalizationKey = "InGame.ConnectionError.Button.ReconnectNow",
+			LayoutOrder = 2,
+			Callback = autoReconnectNowFunction,
+			Primary = true,
+		},
+		{
+			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			LayoutOrder = 1,
+			Callback = autoReconnectLeaveFunction,
+		},
+	}
+end
+
 local updateFullScreenEffect = {
 	[ConnectionPromptState.NONE] = function()
 		RunService:SetRobloxGuiFocused(false)
@@ -703,6 +963,13 @@ if FFlagAddCollaborationCoreGatedConnectionError then
 	end
 end
 
+if FFlagConnectionEnableAutoReconnect then
+	-- AUTO_RECONNECTING is the disconnect prompt with retry UI; reuse its effect so the
+	-- two can't drift.
+	updateFullScreenEffect[ConnectionPromptState.AUTO_RECONNECTING] =
+		updateFullScreenEffect[ConnectionPromptState.RECONNECT_DISCONNECT]
+end
+
 local function onEnter(newState)
 	if not errorPrompt then
 		local extraConfiguration = {
@@ -778,6 +1045,9 @@ local function stateTransit(errorType, errorCode, oldState)
 			end
 			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "Disconnected"}}, 1.0)
 			AnalyticsService:ReportCounter("ReconnectPrompt-Disconnect")
+			if FFlagConnectionEnableAutoReconnect and autoReconnectAllowedList[errorCode] then
+				return ConnectionPromptState.AUTO_RECONNECTING
+			end
 			return ConnectionPromptState.RECONNECT_DISCONNECT
 		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
 			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
@@ -839,12 +1109,33 @@ local function stateTransit(errorType, errorCode, oldState)
 				return ConnectionPromptState.RECONNECT_PLACELAUNCH
 			elseif errorForReconnect == Enum.ConnectionError.DisconnectErrors then
 				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "DisconnectReconnectFailed"}}, 1.0)
+				if FFlagConnectionEnableAutoReconnect and autoReconnectState.active then
+					-- Keep auto-retrying until the max duration (default 5 min) elapses since
+					-- the disconnect, then fall back to the manual Reconnect/Leave prompt. 0 = no cap.
+					local maxDurationSeconds = FIntConnectionAutoReconnectMaxDurationSeconds
+					if maxDurationSeconds <= 0 or tick() <= lastErrorTimeStamp + maxDurationSeconds then
+						return ConnectionPromptState.AUTO_RECONNECTING
+					end
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "AutoReconnectExhausted"}}, 1.0)
+				end
 				return ConnectionPromptState.RECONNECT_DISCONNECT
 			elseif errorForReconnect == Enum.ConnectionError.ConnectErrors then
 				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectReconnectFailed"}}, 1.0)
 				return ConnectionPromptState.RECONNECT_CONNECT_FAILURE
 			end
 		end
+	end
+
+	if FFlagConnectionEnableAutoReconnect and oldState == ConnectionPromptState.AUTO_RECONNECTING then
+		if reconnectDisabled then
+			return ConnectionPromptState.RECONNECT_DISABLED
+		end
+		if errorType == Enum.ConnectionError.DisconnectErrors then
+			if reconnectDisabledList[errorCode] then
+				return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
+			end
+		end
+		return oldState
 	end
 
 	return oldState
@@ -1116,11 +1407,44 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 end
 
 local function updateErrorPrompt(errorMsg, errorCode, errorType)
+	if
+		FFlagRobloxExperienceKickOverride and
+		FFlagUniversalFeatureRestrictionReceivers and
+		errorCode == Enum.ConnectionError.DisconnectLuaKick
+	then
+		local errorDetails = GuiService:GetErrorDetails()
+
+		-- Since DisconnectLuaKick is used for both Roblox and developer initiated kicks, we branch out here for the Roblox case.
+		if errorDetails and errorDetails.moderatorType == 'roblox' then
+			local view = buildRobloxExperienceKickContent(errorMsg, errorDetails, translateString)
+			showFeatureRestrictionDirect(view.abuseVector, view.moderationDetail, {
+				onDismiss = leaveFunction,
+				titleOverride = view.options.titleOverride,
+				bodyOverride = view.options.bodyOverride,
+			})
+
+			TelemetryService:LogCounter(
+				connectionEventConfig,
+				{ customFields = { selectedItem = "RobloxExperienceKick" } },
+				1.0
+			)
+			return
+		end
+	end
+
 	local newPromptState = stateTransit(errorType, errorCode, connectionPromptState)
 	if newPromptState ~= connectionPromptState then
 		onExit(connectionPromptState)
 		connectionPromptState = newPromptState
 		onEnter(newPromptState)
+		if FFlagConnectionEnableAutoReconnect then
+			if newPromptState == ConnectionPromptState.AUTO_RECONNECTING then
+				scheduleAutoReconnect()
+			else
+				-- Left the auto-reconnect cycle: stop the countdown + pending retry.
+				cancelAutoReconnect()
+			end
+		end
 	end
 
 	if errorCode == Enum.ConnectionError.PlacelaunchCreatorBan then
@@ -1135,6 +1459,17 @@ local function updateErrorPrompt(errorMsg, errorCode, errorType)
 
 	if connectionPromptState == ConnectionPromptState.RECONNECT_DISABLED then
 		errorMsg = reconnectDisabledReason
+	end
+
+	if FFlagConnectionEnableAutoReconnect and connectionPromptState == ConnectionPromptState.AUTO_RECONNECTING then
+		-- Capture the localized disconnect message + code on the first entry only;
+		-- on failure re-entries errorMsg is the teleport "reconnect failed" text.
+		if autoReconnectState.baseMessage == nil then
+			autoReconnectState.baseMessage = errorMsg
+			autoReconnectState.errorCode = errorCode
+		end
+		renderAutoReconnectPrompt()
+		return
 	end
 
 	if errorPrompt then
@@ -1183,6 +1518,9 @@ if fflagDebugEnableErrorStringTesting then
 				errorType
 			)
 			wait(2)
+			if FFlagConnectionEnableAutoReconnect then
+				cancelAutoReconnect()
+			end
 			connectionPromptState = ConnectionPromptState.NONE
 		end
 	end

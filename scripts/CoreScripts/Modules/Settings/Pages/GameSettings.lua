@@ -86,6 +86,7 @@ local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRe
 local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
 local FFlagDeferProgrammaticChange = game:DefineFastFlag("DeferProgrammaticChange", false)
+local FFlagRenameVolumeToMainVolume = require(RobloxGui.Modules.Flags.FFlagRenameVolumeToMainVolume)
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagChatSummariesSettingEnabled = SharedFlags.FFlagChatSummariesSettingEnabled
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
@@ -2430,7 +2431,9 @@ local function Initialize()
 	local function createVolumeOptions()
 		local startVolumeLevel = math.floor(GameSettings.MasterVolume * 10)
 		this.VolumeFrame, this.VolumeLabel, this.VolumeSlider =
-			utility:AddNewRow(this, "Volume", "Slider", 10, startVolumeLevel)
+			utility:AddNewRow(this, if FFlagRenameVolumeToMainVolume
+				then RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.MainVolume")
+				else "Volume", "Slider", 10, startVolumeLevel)
 		this.VolumeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["VolumeFrame"]
 
 		-- ROBLOX FIXME: We should express the "Sounds" folder statically in the project config

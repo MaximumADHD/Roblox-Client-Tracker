@@ -33,6 +33,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
+local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
 
 local function buildOrder(): { string }
 	return (require(script.Parent.buildMenuOrder))()
@@ -55,21 +56,32 @@ describe("buildMenuOrder", function()
 				expect(contains(order, RESPAWN_ACTION)).toBe(true)
 			end)
 
+			if FFlagDebugEnablePioneerUX then
+				it("SHOULD remove integrations for pioneer", function()
+					local order = buildOrder()
+					expect(contains(order, "connect_dropdown")).toBe(false)
+					expect(contains(order, "invite_friends")).toBe(false)
+					expect(contains(order, "avatar_switcher")).toBe(false)
+					expect(contains(order, "emotes")).toBe(false)
+					expect(contains(order, "traversal_history")).toBe(false)
+				end)
+			end
+
 			describe("reorder", function()
 				it("SHOULD reposition settings based on FIntSideSheetVariant", function()
 					local order = buildOrder()
 					local settingsIndex = table.find(order, "settings")
-					local emotesIndex = table.find(order, "emotes")
+					local leaderboardIndex = table.find(order, "leaderboard")
 
 					expect(settingsIndex).never.toBeNil()
-					expect(emotesIndex).never.toBeNil()
+					expect(leaderboardIndex).never.toBeNil()
 
 					if FIntSideSheetVariant == 0 then
-						-- variant 0 pushes settings (30 -> 103) below emotes (90).
-						expect(settingsIndex).toBeGreaterThan(emotesIndex)
+						-- variant 0 pushes settings (30 -> 103) below leaderboard (80).
+						expect(settingsIndex).toBeGreaterThan(leaderboardIndex)
 					else
-						-- otherwise settings keeps its default placement above emotes.
-						expect(settingsIndex).toBeLessThan(emotesIndex)
+						-- otherwise settings keeps its default placement above leaderboard.
+						expect(settingsIndex).toBeLessThan(leaderboardIndex)
 					end
 				end)
 

@@ -2,8 +2,6 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local newValidationManager = require(root.validationSystem.ValidationManager)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local LegacyValidationAdapter = {}
@@ -111,31 +109,19 @@ function LegacyValidationAdapter.combineResultsIntoLegacy(
 	local pass, reasons = legacyPass, legacyReasons
 	pass = pass and validationData.pass
 
-	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-		if next(validationData.failureMap) ~= nil then
-			if reasons == nil then
-				reasons = {}
-			end
-			for _, failures in validationData.failureMap do
-				for _, entry in failures do
-					table.insert(
-						reasons :: { string },
-						fetchString(localizationFunc, {
-							key = entry.failureStringKey,
-							params = entry.failureStringParams,
-						}, validationData.relevantSourceStrings)
-					)
-				end
-			end
+	if next(validationData.failureMap) ~= nil then
+		if reasons == nil then
+			reasons = {}
 		end
-	else
-		local legacyContexts = (validationData :: any).errorTranslationContexts :: { Types.failureStringContext }?
-		if legacyContexts and #legacyContexts > 0 then
-			if reasons == nil then
-				reasons = {}
-			end
-			for _, failContext in legacyContexts do
-				table.insert(reasons :: { string }, fetchString(localizationFunc, failContext))
+		for _, failures in validationData.failureMap do
+			for _, entry in failures do
+				table.insert(
+					reasons :: { string },
+					fetchString(localizationFunc, {
+						key = entry.failureStringKey,
+						params = entry.failureStringParams,
+					}, validationData.relevantSourceStrings)
+				)
 			end
 		end
 	end
@@ -146,24 +132,13 @@ function LegacyValidationAdapter.combineResultsIntoLegacy(
 			reasons = {}
 		end
 
-		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-			table.insert(
-				reasons :: { string },
-				fetchString(localizationFunc, {
-					key = ErrorSourceStrings.Keys.InternalError,
-					params = { ValidationJobId = validationData.validationJobId },
-				}, validationData.relevantSourceStrings)
-			)
-		else
-			-- For now, provide a generic unkown error message, and in the future make sure this never happens
-			table.insert(
-				reasons :: { string },
-				fetchString(localizationFunc, {
-					key = ErrorSourceStrings.Keys.FailureWithoutReason,
-					params = {},
-				})
-			)
-		end
+		table.insert(
+			reasons :: { string },
+			fetchString(localizationFunc, {
+				key = ErrorSourceStrings.Keys.InternalError,
+				params = { ValidationJobId = validationData.validationJobId },
+			}, validationData.relevantSourceStrings)
+		)
 	end
 
 	return pass, reasons
@@ -174,11 +149,6 @@ function LegacyValidationAdapter.mergeLegacyIntoModern(
 	legacyReasons: { string }?,
 	validationData: Types.ValidationResultData
 )
-	assert(
-		getEngineFeatureEngineUGCValidationExpandReturnSchema(),
-		"mergeLegacyIntoModern requires EngineUGCValidationExpandReturnSchema"
-	)
-
 	validationData.pass = validationData.pass and legacyPass
 
 	if legacyReasons and #legacyReasons > 0 then

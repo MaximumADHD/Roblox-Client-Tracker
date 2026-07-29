@@ -3,10 +3,6 @@
 	The point is that indexing these tables with a typo will give you an error instead of nil, so they can be treated as enums.
 	We use ValidationEnums as a source of truth to run validations, log telemetry, etc.
 ]]
-local root = script.Parent.Parent
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
-
 local ValidationEnums = {}
 
 local function createEnumMetatable(name: string)
@@ -222,7 +218,6 @@ ValidationEnums.ValidationConfig = {
 	conditionalData = "conditionalData", -- List of SharedData enums fetched before running the test. If the data doesn't exist, the test will PASS.
 
 	-- AQS-only configs
-	expectedAqsData = "expectedAqsData", -- Legacy system of demanding a schema. AQ is now 1-to-1 with wrappers.
 	knownAqsUserErrors = "knownAqsUserErrors", -- Mapping of AQS error enum to Validation failure key that has no params. If provided, the error results in FAIL. Otherwise ERROR.
 
 	-- Extra configs you should include
@@ -261,30 +256,27 @@ ValidationEnums.Status = {
 }
 finalizeEnumTable("Status")
 
-if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-	ValidationEnums.AssetQualityCheck = {
-		Measure_Dynamic_Head = "Measure_Dynamic_Head",
-		Measure_Cage_Distance_Head = "Measure_Cage_Distance_Head",
-		Measure_Cage_Mesh_Distance = "Measure_Cage_Mesh_Distance",
-		Measure_Cage_Mesh_Distance_Avatar = "Measure_Cage_Mesh_Distance_Avatar",
-		Measure_Cage_UV = "Measure_Cage_UV",
-		Measure_Cage_UV_Avatar = "Measure_Cage_UV_Avatar",
-		Measure_Cage_Relevancy = "Measure_Cage_Relevancy",
-		Measure_Mesh_Outside_OuterCage = "Measure_Mesh_Outside_OuterCage",
-		Measure_Degen_Triangles = "Measure_Degen_Triangles",
-		Measure_Mesh_Manifold = "Measure_Mesh_Manifold",
-		Measure_Triangle_Intersection = "Measure_Triangle_Intersection",
-		Measure_UV_Bound = "Measure_UV_Bound",
-		Measure_Vertex_Similarity = "Measure_Vertex_Similarity",
-		Measure_Joint_Number = "Measure_Joint_Number",
-		Measure_Texture_Complexity = "Measure_Texture_Complexity",
-		Measure_Texture_Resolution = "Measure_Texture_Resolution",
-	}
-	finalizeEnumTable("AssetQualityCheck")
-else
-	ValidationEnums.ValidationModule.HeadIsDynamic = "HeadIsDynamic"
-	ValidationEnums.ValidationModule.MeasureCageMeshDistanceHead = "MeasureCageMeshDistanceHead"
-end
+ValidationEnums.AssetQualityCheck = {
+	Measure_Dynamic_Head = "Measure_Dynamic_Head",
+	Measure_Cage_Distance_Head = "Measure_Cage_Distance_Head",
+	Measure_Cage_Mesh_Distance = "Measure_Cage_Mesh_Distance",
+	Measure_Cage_Mesh_Distance_Avatar = "Measure_Cage_Mesh_Distance_Avatar",
+	Measure_Cage_UV = "Measure_Cage_UV",
+	Measure_Cage_UV_Avatar = "Measure_Cage_UV_Avatar",
+	Measure_Cage_Relevancy = "Measure_Cage_Relevancy",
+	Measure_Mesh_Outside_OuterCage = "Measure_Mesh_Outside_OuterCage",
+	Measure_Degen_Triangles = "Measure_Degen_Triangles",
+	Measure_Mesh_Manifold = "Measure_Mesh_Manifold",
+	Measure_Mesh_Watertight = "Measure_Mesh_Watertight",
+	Measure_Triangle_Intersection = "Measure_Triangle_Intersection",
+	Measure_UV_Bound = "Measure_UV_Bound",
+	Measure_Vertex_Similarity = "Measure_Vertex_Similarity",
+	Measure_Joint_Number = "Measure_Joint_Number",
+	Measure_Texture_Complexity = "Measure_Texture_Complexity",
+	Measure_Texture_Resolution = "Measure_Texture_Resolution",
+	Measure_Mesh_Island_Volume = "Measure_Mesh_Island_Volume",
+}
+finalizeEnumTable("AssetQualityCheck")
 
 finalizeEnumTable("ValidationModule")
 

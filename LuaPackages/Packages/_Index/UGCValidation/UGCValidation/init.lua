@@ -30,6 +30,9 @@ local validateDynamicHeadMeshPartFormat = require(root.validation.validateDynami
 local ValidationManager = require(root.validationSystem.ValidationManager)
 local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
+local getFFlagUGCValidateBackendInExperienceViaCanPublish =
+	require(root.flags.getFFlagUGCValidateBackendInExperienceViaCanPublish)
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
 local SplitHumanoidRigDescriptionForUpload = require(root.util.SplitHumanoidRigDescriptionForUpload)
 local UGCValidation = {}
@@ -41,6 +44,8 @@ UGCValidation.combineResultsIntoLegacy = LegacyValidationAdapter.combineResultsI
 UGCValidation.mergeLegacyIntoModern = LegacyValidationAdapter.mergeLegacyIntoModern
 UGCValidation.isFolderStructureEnabled = getFFlagUGCValidationEnableFolderStructure
 UGCValidation.isEntrypointMergingEnabled = getFFlagUGCValidationCombineEntrypointResults
+UGCValidation.isBackendInExperienceViaCanPublishEnabled = getFFlagUGCValidateBackendInExperienceViaCanPublish
+UGCValidation.shouldSkipAssetQualityChecks = getFFlagDebugUGCDisableAssetQualityChecks
 UGCValidation.SplitHrdInUpload = SplitHumanoidRigDescriptionForUpload.fixUploadInstance
 
 -- Old endpoints that we need to remove:

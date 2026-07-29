@@ -7,7 +7,6 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local IconVariant = BuilderIcons.IconVariant
 
 local Constants = require(Foundation.Constants)
-local Flags = require(Foundation.Utility.Flags)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -73,49 +72,14 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(chipProps, defaultProps)
 
 	local tokens = useTokens()
-	local leading, trailing
-	if Flags.FoundationChipBeta then
-		leading, trailing = React.useMemo(function()
-			local leadingIcon = props.leading
-			local trailingIcon = props.trailing
+	local leading, trailing = React.useMemo(function()
+		local leadingIcon = props.leading
+		local trailingIcon = props.trailing
 
-			-- Migration step for the deprecated `icon` prop
-			if props.icon ~= nil then
-				if typeof(props.icon) == "string" then
-					leadingIcon = {
-						iconName = props.icon,
-					}
-				else
-					local icon = {
-						iconName = props.icon.name,
-					}
-					if props.icon.position == IconPosition.Left then
-						leadingIcon = icon
-					else
-						trailingIcon = icon
-					end
-				end
-			end
-
-			if typeof(leadingIcon) == "table" and leadingIcon.isCircular then
-				leadingIcon.iconVariant = IconVariant.Filled
-			end
-			if typeof(trailingIcon) == "table" and trailingIcon.isCircular then
-				trailingIcon.iconVariant = IconVariant.Filled
-			end
-
-			return leadingIcon, trailingIcon
-		end, { props.leading, props.icon, props.trailing } :: { unknown })
-	else
-		leading, trailing = React.useMemo(function()
-			-- selene: allow(shadowing)
-			local leading, trailing
-			if props.icon == nil then
-				return props.leading, props.trailing
-			end
-
+		-- Migration step for the deprecated `icon` prop
+		if props.icon ~= nil then
 			if typeof(props.icon) == "string" then
-				leading = {
+				leadingIcon = {
 					iconName = props.icon,
 				}
 			else
@@ -123,15 +87,22 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 					iconName = props.icon.name,
 				}
 				if props.icon.position == IconPosition.Left then
-					leading = icon
+					leadingIcon = icon
 				else
-					trailing = icon
+					trailingIcon = icon
 				end
 			end
+		end
 
-			return props.leading or leading, props.trailing or trailing
-		end, { props.leading, props.icon, props.trailing } :: { unknown })
-	end
+		if typeof(leadingIcon) == "table" and leadingIcon.isCircular then
+			leadingIcon.iconVariant = IconVariant.Filled
+		end
+		if typeof(trailingIcon) == "table" and trailingIcon.isCircular then
+			trailingIcon.iconVariant = IconVariant.Filled
+		end
+
+		return leadingIcon, trailingIcon
+	end, { props.leading, props.icon, props.trailing } :: { unknown })
 
 	local variantProps =
 		useChipVariants(tokens, props.size, props.variant, props.isChecked, leading ~= nil, trailing ~= nil)

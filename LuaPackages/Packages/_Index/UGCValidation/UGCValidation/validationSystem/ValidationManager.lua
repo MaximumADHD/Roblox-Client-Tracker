@@ -20,11 +20,11 @@ local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.Fetch
 local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
-local getEngineFeatureEngineAQSJsonParsingInLua = require(root.flags.getEngineFeatureEngineAQSJsonParsingInLua)
 local R15plusUtils = require(root.util.R15plusUtils)
 local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDebugAllowHRDUploadOnBundleBackend)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
 
 local HttpService = game:GetService("HttpService")
 local TelemetryService = game:GetService("TelemetryService")
@@ -47,12 +47,8 @@ local telemetryConfig = {
 
 local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
-local getEngineFeatureEngineAssetQualityEngineService =
-	require(root.flags.getEngineFeatureEngineAssetQualityEngineService)
 
 local getFIntUGCValidationFetchQualityMaxRetry = require(root.flags.getFIntUGCValidationFetchQualityMaxRetry)
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local ValidationManager = {}
 local consumersThatCannotYield = {
@@ -92,7 +88,14 @@ local function initRunVariables(
 	local skipModules = if getFFlagUGCValidateMigrateSchemaProperties() then configs.skipModules else {}
 
 	for testEnum, validationModule in ValidationModuleLoader.allModules do
-		if skipModules[testEnum] then
+		if
+			skipModules[testEnum]
+			or (
+				getFFlagDebugUGCDisableAssetQualityChecks()
+				and configs.skipAssetQualityChecks
+				and validationModule.isAssetQualityModule
+			)
+		then
 			continue
 		end
 
@@ -108,12 +111,7 @@ local function initRunVariables(
 				desiredData[dataEnum] = true
 			end
 
-			local isQuality
-			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-				isQuality = validationModule.isAssetQualityModule
-			else
-				isQuality = next(validationModule.expectedAqsData) ~= nil
-			end
+			local isQuality = validationModule.isAssetQualityModule
 
 			if isQuality then
 				table.insert(qualityTests, testEnum)
@@ -153,17 +151,14 @@ local function initRunVariables(
 end
 
 local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: { string })
-	if not getEngineFeatureEngineAssetQualityEngineService() or not AssetQualityService then
+	if not AssetQualityService then
 		sharedData.aqsFetchMetrics.fetchStatus = AssetQualityFetchStatus.assetQualityFetchFailure
 		sharedData.aqsFetchMetrics.fetchFailureReason = "Not enabled"
 		return
 	end
 
 	local success, errors, gltfString, gltfScene
-	if
-		getEngineFeatureEngineUGCValidationExpandReturnSchema()
-		and sharedData.consumerConfig.aqFetchStage ~= "scene"
-	then
+	if sharedData.consumerConfig.aqFetchStage ~= "scene" then
 		if sharedData.consumerConfig.aqFetchStage == "gltf" then
 			gltfString = sharedData.consumerConfig.aqFetchData
 		end
@@ -182,10 +177,7 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 				sharedData.aqsFetchMetrics.fetchAttemptCount = iter
 				local startTime = os.clock()
 				local results
-				if
-					getEngineFeatureEngineUGCValidationExpandReturnSchema()
-					and sharedData.consumerConfig.aqFetchStage == "jobId"
-				then
+				if sharedData.consumerConfig.aqFetchStage == "jobId" then
 					results = (AssetQualityService :: any):FetchAssetQualitySummaryFromJobIdAsync(
 						sharedData.consumerConfig.aqFetchData,
 						qualityTests
@@ -196,15 +188,8 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 				local deltaTime = 1000 * (os.clock() - startTime)
 				sharedData.aqsFetchMetrics.visualizationUrl = results.visualizationUrl
 				sharedData.aqsFetchMetrics.fetchTimeMs = deltaTime
-				if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-					sharedData.aqsFetchMetrics.aqJobId = results.aqJobId
-				end
-				if getEngineFeatureEngineAQSJsonParsingInLua() then
-					sharedData.aqsSummaryData = HttpService:JSONDecode(results["rawJson"])
-				else
-					sharedData.aqsFetchMetrics.returnVersion = results.version
-					sharedData.aqsSummaryData = results
-				end
+				sharedData.aqsFetchMetrics.aqJobId = results.aqJobId
+				sharedData.aqsSummaryData = HttpService:JSONDecode(results["rawJson"])
 			end)
 
 			if success then
@@ -307,83 +292,36 @@ local function reportFullResult(results: Types.ValidationResultData, sharedData:
 		aqFetchAttemptCount = containsAQData and sharedData.aqsFetchMetrics.fetchAttemptCount or 0,
 		aqFetchTimeMs = containsAQData and sharedData.aqsFetchMetrics.fetchTimeMs or 0,
 		aqFetchFailureReason = containsAQData and sharedData.aqsFetchMetrics.fetchFailureReason or "",
-		aqJobId = if getEngineFeatureEngineUGCValidationExpandReturnSchema()
-			then sharedData.aqsFetchMetrics.aqJobId or ""
-			else nil,
+		aqJobId = sharedData.aqsFetchMetrics.aqJobId or "",
 	}
 
 	TelemetryService:LogEvent(telemetryConfig, { customFields = telemetryResult })
 
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
-		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-			print(
-				string.format(
-					"==== %s Validation end ==== pass=%s numFailures=%d numWarnings=%d durationMs=%d",
-					getDebugLabel(sharedData),
-					tostring(results.pass),
-					results.numFailures,
-					results.numWarnings,
-					duration
-				)
+		print(
+			string.format(
+				"==== %s Validation end ==== pass=%s numFailures=%d numWarnings=%d durationMs=%d",
+				getDebugLabel(sharedData),
+				tostring(results.pass),
+				results.numFailures,
+				results.numWarnings,
+				duration
 			)
-			for testEnum, failures in results.failureMap do
-				for _, entry in failures do
-					print(
-						string.format(
-							"  FAIL %s: %s @ %s",
-							testEnum,
-							entry.failureStringKey,
-							if entry.instancePath ~= "" then entry.instancePath else "<root>"
-						)
+		)
+		for testEnum, failures in results.failureMap do
+			for _, entry in failures do
+				print(
+					string.format(
+						"  FAIL %s: %s @ %s",
+						testEnum,
+						entry.failureStringKey,
+						if entry.instancePath ~= "" then entry.instancePath else "<root>"
 					)
-				end
+				)
 			end
 		end
 		print(results)
 	end
-end
-
-local function updateResultData_deprecated(
-	currentResults: Types.ValidationResultData,
-	desiredValidations: { [string]: Types.SingleValidationFileData },
-	newResult: Types.SingleValidationResult,
-	jobId: string,
-	enforceShadowValidations: boolean
-)
-	local validationEnum = newResult.validationEnum
-	if enforceShadowValidations or not desiredValidations[validationEnum].isShadow then
-		currentResults.states[validationEnum] = newResult.status
-		if #(newResult :: any).errorTranslationContexts > 0 then
-			table.move(
-				(newResult :: any).errorTranslationContexts,
-				1,
-				#(newResult :: any).errorTranslationContexts,
-				#(currentResults :: any).errorTranslationContexts + 1,
-				(currentResults :: any).errorTranslationContexts
-			)
-		end
-
-		if newResult.status ~= ValidationEnums.Status.PASS then
-			currentResults.pass = false
-			currentResults.numFailures += 1
-
-			if newResult.status == ValidationEnums.Status.ERROR and not currentResults.ranIntoInternalError then
-				currentResults.ranIntoInternalError = true
-				table.insert((currentResults :: any).errorTranslationContexts, {
-					key = ErrorSourceStrings.Keys.InternalError,
-					params = {
-						ValidationJobId = jobId,
-					},
-				})
-			end
-		end
-	end
-
-	for _, nextTest in desiredValidations[validationEnum].postreqs do
-		desiredValidations[nextTest].prereqs[validationEnum] = nil
-	end
-
-	desiredValidations[validationEnum] = nil
 end
 
 local function updateResultData(
@@ -442,6 +380,7 @@ local function createConsumerConfigWithDefaults(
 	newConfigs.preloadedEditableImages = newConfigs.preloadedEditableImages or {}
 	newConfigs.preloadedHsrAssets = newConfigs.preloadedHsrAssets or {}
 	newConfigs.skipModules = newConfigs.skipModules or {}
+	newConfigs.skipAssetQualityChecks = newConfigs.skipAssetQualityChecks or false
 
 	-- Resolve env only for the new system; flag-off keeps legacy behavior bit-identical.
 	if getFFlagUGCValidateMigrateSchemaProperties() then
@@ -493,9 +432,6 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 		relevantSourceStrings = {},
 		aqJobId = "",
 	}
-	if not getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-		(results :: any).errorTranslationContexts = {}
-	end
 
 	-- Step 1, 2: get upload category then the required data tables
 	local uploadCategory: string = getUploadCategory(instance, assetTypeEnum, bundleTypeEnum)
@@ -504,31 +440,16 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 	sharedData.uploadCategory = uploadCategory
 	sharedData.aqsFetchMetrics = {
 		fetchStatus = AssetQualityFetchStatus.assetQualityFetchNA,
-		aqJobId = if getEngineFeatureEngineUGCValidationExpandReturnSchema()
-				and configs.aqFetchStage == "jobId"
-			then configs.aqFetchData
-			else nil,
+		aqJobId = if configs.aqFetchStage == "jobId" then configs.aqFetchData else nil,
 	}
 
 	-- Step 3: Run schema check based on upload category. If schema is wrong, no point in any validations
 	local schemaResults =
 		ValidationTestWrapper(ValidationEnums.ValidationModule.ExpectedRootSchema, sharedData, results.states)
-	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-		updateResultData(results, desiredValidations, schemaResults, sharedData.jobId, configs.enforceShadowValidations)
-	else
-		updateResultData_deprecated(
-			results,
-			desiredValidations,
-			schemaResults,
-			sharedData.jobId,
-			configs.enforceShadowValidations
-		)
-	end
+	updateResultData(results, desiredValidations, schemaResults, sharedData.jobId, configs.enforceShadowValidations)
 	if results.states[ValidationEnums.ValidationModule.ExpectedRootSchema] ~= ValidationEnums.Status.PASS then
-		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-			populateRelevantSourceStrings(results)
-			results.aqJobId = sharedData.aqsFetchMetrics.aqJobId or ""
-		end
+		populateRelevantSourceStrings(results)
+		results.aqJobId = sharedData.aqsFetchMetrics.aqJobId or ""
 		reportFullResult(results, sharedData, -1)
 		return results
 	end
@@ -561,23 +482,13 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 
 		for _, testEnum in layerTests do
 			local validationResult = ValidationTestWrapper(testEnum, sharedData, results.states)
-			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-				updateResultData(
-					results,
-					desiredValidations,
-					validationResult,
-					sharedData.jobId,
-					configs.enforceShadowValidations
-				)
-			else
-				updateResultData_deprecated(
-					results,
-					desiredValidations,
-					validationResult,
-					sharedData.jobId,
-					configs.enforceShadowValidations
-				)
-			end
+			updateResultData(
+				results,
+				desiredValidations,
+				validationResult,
+				sharedData.jobId,
+				configs.enforceShadowValidations
+			)
 			if consumersThatWantExtraYeild[configs.source] then
 				task.wait()
 			end
@@ -589,10 +500,8 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 		end
 	end
 
-	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-		populateRelevantSourceStrings(results)
-		results.aqJobId = sharedData.aqsFetchMetrics.aqJobId or ""
-	end
+	populateRelevantSourceStrings(results)
+	results.aqJobId = sharedData.aqsFetchMetrics.aqJobId or ""
 	reportFullResult(results, sharedData, 1000 * (os.clock() - startTime))
 	return results
 end

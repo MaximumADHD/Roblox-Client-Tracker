@@ -8,6 +8,7 @@
 local Players = game:GetService("Players")
 local InsertService = game:GetService("InsertService")
 
+local FFlagEmoteSkinningDisableUseClassLookup = game:DefineFastFlag("EmoteSkinningDisableUseClassLookup", false)
 local TRANSLATION_THRESHOLD = game:DefineFastInt("UGCEmoteSkinningDisableTranslationThresholdMillistuds", 100) * 0.001
 
 local clipMetadataCache: { [string]: { isUGCEmote: boolean, maxTranslation: number } } = {}
@@ -107,8 +108,21 @@ local function onAnimationPlayed(character: Model, track: AnimationTrack)
 end
 
 local function onCharacterAdded(character: Model)
-	local humanoid = character:WaitForChild("Humanoid")
-	local animator = humanoid:WaitForChild("Animator") :: Animator
+	local animator: Animator
+	if FFlagEmoteSkinningDisableUseClassLookup then
+		local humanoid = character:FindFirstChildOfClass("Humanoid")
+		if not humanoid then
+			return
+		end
+
+		animator = humanoid:FindFirstChildOfClass("Animator") :: Animator
+		if not animator then
+			return
+		end
+	else
+		local humanoid = character:WaitForChild("Humanoid")
+		animator = humanoid:WaitForChild("Animator") :: Animator
+	end
 
 	animator.AnimationPlayed:Connect(function(track)
 		onAnimationPlayed(character, track)

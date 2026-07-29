@@ -127,8 +127,6 @@ local Flags = {
 	FFlagSpatialUIFixMenuPanelChatExclusive = require(RobloxGui.Modules.Settings.Flags.FFlagSpatialUIFixMenuPanelChatExclusive),
     FFlagRemoveLoadingTimeout = require(RobloxGui.Modules.Flags.FFlagRemoveLoadingTimeout),
 
-	FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer),
-
 	FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav,
 
 	ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled(),
@@ -172,6 +170,7 @@ local Flags = {
 	FFlagFixDisabledScrollOnIos = game:DefineFastFlag("FixDisabledScrollOnIos", false),
 
 	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
+	FFlagSideSheetAndroidBack = game:DefineFastFlag("SideSheetAndroidBack", false),
 	FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration,
 	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
 	FFlagImprovePageTitleCloseButton = game:DefineFastFlag("ImprovePageTitleCloseButton", false),
@@ -400,11 +399,7 @@ local function CreateSettingsHub()
 	this.PreferredTransparencyChangedConnection = nil
 	this.TabConnection = nil
 
-	if Flags.FFlagAddNextUpContainer then
-		this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp)
-	else
-		this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
-	end
+	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.LeaveGameUpsellPage = if Flags.GetFFlagEnableLeaveGameUpsellEntrypoint() then require(RobloxGui.Modules.Settings.Pages.LeaveGameUpsell.LeaveGameUpsell) else nil
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
 	-- remove utility CreateSignal upon removing this flag
@@ -2297,12 +2292,6 @@ local function CreateSettingsHub()
 			bufferSize = 0
 		end
 
-		if Flags.FFlagAddNextUpContainer then
-			if this.Pages.CurrentPage and this.Pages.CurrentPage.DisableTopPadding and this.Pages.CurrentPage.MaintainVerticalSize then
-				largestPageSize += this.HubBar.AbsoluteSize.Y
-			end
-		end
-
 		this.MenuContainer.Size = menuPos.Size
 		this.MenuContainer.Position = menuPos.Position
 		this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
@@ -2355,9 +2344,7 @@ local function CreateSettingsHub()
 		--This is in the same frame, so the delay should be very minimal.
 		--Maybe in the future we need to have a way to force AbsoluteSize
 		--to update, or we can just avoid using it so soon.
-		if not Flags.FFlagAddNextUpContainer then
-			RunService.Heartbeat:wait()
-		end
+		RunService.Heartbeat:wait()
 
 		if shouldShowBottomBar() then
 			setBottomBarBindings()
@@ -2477,18 +2464,6 @@ local function CreateSettingsHub()
 		if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
 			if this.BottomButtonFrame then
 				this.BottomButtonFrame.Size = UDim2.new(0, this.HubBar.Size.X.Offset, 0, this.HubBar.Size.Y.Offset)
-			end
-		end
-
-		if Flags.FFlagAddNextUpContainer then
-			if this.Pages.CurrentPage and this.Pages.CurrentPage.ShrinkwrapPageViewClipper and not utility:IsSmallTouchScreen() then
-				local pageSize = this.Pages.CurrentPage:GetSize()
-				newPageViewClipperSize = UDim2.new(
-					newPageViewClipperSize.X.Scale,
-					newPageViewClipperSize.X.Offset,
-					newPageViewClipperSize.Y.Scale,
-					math.min(pageSize.Y - this.PageView.Size.Y.Offset, usePageSize)
-				)
 			end
 		end
 
@@ -2886,7 +2861,7 @@ local function CreateSettingsHub()
 		end
 
 		if not Flags.FFlagEnableSideSheet then
-			if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) and not (Flags.FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper) then
+			if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) then
 				bottomExtra = UDim.new(0, this.BottomButtonFrame.AbsoluteSize.Y)
 			end
 		end
@@ -2901,12 +2876,6 @@ local function CreateSettingsHub()
 		this.MenuContainer.Position = menuPos.Position
 		this.MenuContainer.Size = menuPos.Size
 		this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
-
-		if Flags.FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper then
-			local cs = this.PageViewClipper.Size
-			local pageSize = pageToSwitchTo:GetSize()
-			this.PageViewClipper.Size = UDim2.new(cs.X.Scale, this.HubBar.Size.X.Offset, cs.Y.Scale, pageSize.Y)
-		end
 
 		-- detect direction
 		if direction == nil then
@@ -3005,12 +2974,6 @@ local function CreateSettingsHub()
 			if prop == "AbsoluteSize" and (not Flags.FFlagAddAbilityToDisableIGMScroll or not shouldDisableDefaultScroll()) then
 				local pageSize = this.Pages.CurrentPage:GetSize()
 				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
-
-				if Flags.FFlagAddNextUpContainer then
-					if this.Pages.CurrentPage.ShrinkwrapPageViewClipper then
-						onScreenSizeChanged()
-					end
-				end
 			end
 		end)
 
@@ -3018,13 +2981,9 @@ local function CreateSettingsHub()
 			this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 		end
 
-		if Flags.FFlagAddNextUpContainer then
+		-- When switching page, we want to call this to expand PageViewClipper size if needed by TopPadding being disabled
+		if pageToSwitchTo.DisableTopPadding then
 			onScreenSizeChanged()
-		else
-			-- When switching page, we want to call this to expand PageViewClipper size if needed by TopPadding being disabled
-			if pageToSwitchTo.DisableTopPadding then
-				onScreenSizeChanged()
-			end
 		end
 
 		local eventTable = {}
@@ -4108,11 +4067,21 @@ local function CreateSettingsHub()
 
 	-- connect back button on android
 	GuiService.ShowLeaveConfirmation:connect(function()
-		if #this.MenuStack == 0 then
-			this:SetVisibility(true, nil, nil, nil, Constants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
-			this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1)
+		if Flags.FFlagEnableSideSheet and Flags.FFlagSideSheetAndroidBack then
+			if getSideSheetVisibility() then
+				toggleSideSheet(false)
+			elseif #this.MenuStack > 0 then
+				this:PopMenu(false, true)
+			else
+				toggleSideSheet(true)
+			end
 		else
-			this:PopMenu(false, true)
+			if #this.MenuStack == 0 then
+				this:SetVisibility(true, nil, nil, nil, Constants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
+				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1)
+			else
+				this:PopMenu(false, true)
+			end
 		end
 	end)
 

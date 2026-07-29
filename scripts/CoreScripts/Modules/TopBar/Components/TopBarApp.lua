@@ -62,6 +62,7 @@ local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local HeadsetDisconnectDialog = CoreGuiCommon.Components.HeadsetDisconnectDialog
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
+local PlaytestModeTooltip = require(Presentation.PlaytestModeTooltip)
 
 local TraversalBackButton = require(script.Parent.TraversalBackButton)
 
@@ -69,6 +70,8 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
+local PlaytestModeThemeProvider = require(Chrome.ChromeShared.Unibar.PlaytestModeThemeProvider)
+local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
 local FFlagEnableUISelector = CoreGuiCommon.Flags.FFlagEnableUISelector
 
@@ -94,7 +97,6 @@ local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNe
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -644,6 +646,11 @@ function TopBarApp:renderWithStyle(style)
 	newMenuIcon = Roact.createElement(SelectionCursorProvider, {}, {
 		Icon = newMenuIcon,
 	})
+	if FFlagEnablePlaytestModeUnibar then
+		newMenuIcon = Roact.createElement(PlaytestModeThemeProvider, nil, {
+			MenuIcon = newMenuIcon,
+		})
+	end
 
 	local showMenuIconAtTopLeft = true
 	if isInExperienceUIVREnabled then
@@ -664,6 +671,11 @@ function TopBarApp:renderWithStyle(style)
 			end,
 	}, {
 		Connection = Roact.createElement(Connection),
+		PlaytestTooltip = if FFlagEnablePlaytestModeUnibar
+			then Roact.createElement(PlaytestModeTooltip, {
+				anchorRef = self.unibarMenuRef,
+			})
+			else nil,
 		InExperienceUiSelector = if FFlagEnableUISelector
 			then React.createElement(CoreGuiCommon.Components.InExperienceUiSelector)
 			else nil,

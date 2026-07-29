@@ -23,8 +23,6 @@ local Segment = require(script.Parent.Segment)
 local useSegmentedControlVariants = require(script.Parent.useSegmentedControlVariants)
 type Segment = Segment.Segment
 
-local Flags = require(Foundation.Utility.Flags)
-
 export type SegmentedControlProps = {
 	segments: { Segment },
 	-- The current selected segment.
@@ -58,28 +56,18 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 
 	-- Create refs for each segment (use user-provided ref if available)
 	local segmentRefs
-	if Flags.FoundationFixStaleAnimatedHighlightRefs then
-		local segmentRefsCache = React.useRef({} :: { [Types.ItemId]: React.RefObject<GuiObject?> })
-		segmentRefs = React.useMemo(function()
-			local cache = segmentRefsCache.current
-			for _, segment in props.segments do
-				if segment.ref then
-					cache[segment.id] = segment.ref
-				elseif not cache[segment.id] then
-					cache[segment.id] = React.createRef()
-				end
+	local segmentRefsCache = React.useRef({} :: { [Types.ItemId]: React.RefObject<GuiObject?> })
+	segmentRefs = React.useMemo(function()
+		local cache = segmentRefsCache.current
+		for _, segment in props.segments do
+			if segment.ref then
+				cache[segment.id] = segment.ref
+			elseif not cache[segment.id] then
+				cache[segment.id] = React.createRef()
 			end
-			return cache
-		end, { props.segments })
-	else
-		segmentRefs = React.useMemo(function()
-			local refs = {}
-			for _, segment in props.segments do
-				refs[segment.id] = segment.ref or React.createRef()
-			end
-			return refs
-		end, { props.segments })
-	end
+		end
+		return cache
+	end, { props.segments })
 
 	overlayData = useAnimatedHighlight(props.value, (ref or containerRef) :: { current: GuiObject? }, segmentRefs)
 	overlayHeight, overlayPosition, overlayWidth =

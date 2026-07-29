@@ -164,6 +164,9 @@ export type AvatarGroupItem = AvatarGroup.AvatarGroupItem
 local AvatarIcon = require(script.Components.AvatarIcon)
 export type AvatarIconProps = AvatarIcon.AvatarIconProps
 
+local AvatarIconGroup = require(script.Components.AvatarIconGroup)
+export type AvatarIconGroupProps = AvatarIconGroup.AvatarIconGroupProps
+
 local Badge = require(script.Components.Badge)
 export type BadgeProps = Badge.BadgeProps
 
@@ -359,6 +362,7 @@ local Foundation = strict({
 	Avatar = Avatar,
 	AvatarGroup = AvatarGroup,
 	AvatarIcon = AvatarIcon,
+	AvatarIconGroup = AvatarIconGroup,
 	Badge = Badge,
 	Button = Button,
 	ButtonGroup = ButtonGroup,

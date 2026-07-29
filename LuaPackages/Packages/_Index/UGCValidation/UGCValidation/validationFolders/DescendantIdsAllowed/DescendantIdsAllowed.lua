@@ -12,6 +12,8 @@ local getAssetCreationDetailsRCC = require(root.util.getAssetCreationDetailsRCC)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidateForwardIECRestrictedUserIds =
 	require(root.flags.getFFlagUGCValidateForwardIECRestrictedUserIds)
+local getFFlagUGCValidateBackendInExperienceViaCanPublish =
+	require(root.flags.getFFlagUGCValidateBackendInExperienceViaCanPublish)
 
 -- Accept both proto-enum and legacy camel-case labels.
 local RCC_MODERATION_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true }
@@ -129,13 +131,21 @@ local function runBackend(
 	end
 end
 
-local function runIEC(
+local function runCanPublishOwnershipCheck(
 	reporter: Types.ValidationReporter,
 	rootInstance: Instance,
 	contentIdMap: Types.ContentIdEntriesMap,
 	iecConfigs: Types.IECConfigs
 )
-	if not iecConfigs.token or (getFFlagUGCValidateForwardIECRestrictedUserIds() and RunService:IsStudio()) then
+	-- Backend in-experience jobs carry a universeId but no per-session token (real IEC always has one); /rcc/canPublish authenticates them by RCC identity + universeId instead.
+	local canAuthViaUniverseId = getFFlagUGCValidateBackendInExperienceViaCanPublish()
+		and iecConfigs.token == nil
+		and iecConfigs.universeId ~= nil
+
+	if
+		(not iecConfigs.token and not canAuthViaUniverseId)
+		or (getFFlagUGCValidateForwardIECRestrictedUserIds() and RunService:IsStudio())
+	then
 		-- If the game doesn't have a token yet, or if the developer is testing this in studio, we can't run the ownership check (backend 4xx)
 		return
 	end
@@ -145,6 +155,7 @@ local function runIEC(
 	-- surfaces to the creator as DescendantIdFetchFailed. Gated so the old empty-list behavior stays
 	-- the default until the flag is flipped; the consumer only supplies the field under the same flag.
 	local restrictedUserIds: Types.RestrictedUserIds = if getFFlagUGCValidateForwardIECRestrictedUserIds()
+			or canAuthViaUniverseId
 		then iecConfigs.restrictedUserIds or {}
 		else {}
 	local outcome = canPublishAssets(contentIdMap, restrictedUserIds, iecConfigs.token, iecConfigs.universeId, true)
@@ -203,9 +214,19 @@ DescendantIdsAllowed.run = function(reporter: Types.ValidationReporter, data: Ty
 	if consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Studio then
 		runStudio(reporter, rootInstance, contentIdMap)
 	elseif consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend then
-		runBackend(reporter, contentIdMap, consumerConfig.backendConfigs)
+		local backendConfigs = consumerConfig.backendConfigs
+		-- In-experience deps are guaranteed reviewed before publish by the backend proactive flow, so these jobs check ownership (canPublish) only, not moderation state.
+		-- Enforced backend-side by AssetDependencyCheckActivity.ExecuteAsync (avatar-catalog-moderation) and CreateModerationRecordOperation.AreMeshImageDependenciesModeratedAsync (avtr-mktpl-moderation-status).
+		if getFFlagUGCValidateBackendInExperienceViaCanPublish() and backendConfigs.universeId then
+			runCanPublishOwnershipCheck(reporter, rootInstance, contentIdMap, {
+				universeId = backendConfigs.universeId,
+				restrictedUserIds = backendConfigs.restrictedUserIds,
+			})
+		else
+			runBackend(reporter, contentIdMap, backendConfigs)
+		end
 	elseif consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC then
-		runIEC(reporter, rootInstance, contentIdMap, consumerConfig.iecConfigs)
+		runCanPublishOwnershipCheck(reporter, rootInstance, contentIdMap, consumerConfig.iecConfigs)
 	end
 end
 

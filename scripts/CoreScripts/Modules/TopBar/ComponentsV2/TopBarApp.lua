@@ -29,6 +29,7 @@ local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppP
 -- Flags
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
+local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
@@ -57,6 +58,7 @@ local MenuIcon = require(TopBar.ComponentsV2.MenuIcon)
 local MenuIconContext = require(Components.MenuIconContext)
 local MenuNavigationToggleDialog = require(Presentation.GamepadMenu.MenuNavigationToggleDialog)
 local TraversalBackButton = require(Components.TraversalBackButton)
+local PlaytestModeTooltip = require(Presentation.PlaytestModeTooltip)
 local VRBottomBar = if isInExperienceUIVREnabled
 	then require(Components.VRBottomUnibar)
 	else require(Packages.VR.VRBottomBar.VRBottomBar)
@@ -238,6 +240,11 @@ local function TopBarApp(props: TopBarProps)
 				else nil,
 			ChromeAnalytics = if ChromeAnalytics then React.createElement(ChromeAnalytics) else nil,
 		}),
+		PlaytestTooltip = if FFlagEnablePlaytestModeUnibar
+			then React.createElement(PlaytestModeTooltip, {
+				anchorRef = unibarMenuRef,
+			})
+			else nil,
 		TopBarFrame = React.createElement(View, {
 			Size = UDim2.new(1, 0, 0, topBarHeight),
 		}, {

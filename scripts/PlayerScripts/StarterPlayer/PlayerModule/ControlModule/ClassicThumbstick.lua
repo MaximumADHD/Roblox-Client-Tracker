@@ -9,6 +9,7 @@ local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickRenameUI = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 
 local thumbstickAction
@@ -101,7 +102,12 @@ function ClassicThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+	if FFlagUserPlayerScriptsSAuthDirectAPIs then
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+		if binding then
+			binding:Fire(Vector2.zero)
+		end
+	elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
 		if binding then
 			local success, result = pcall(function()
@@ -251,7 +257,12 @@ function ClassicThumbstick:Create(parentFrame)
 		end
 
 		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-		if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+		if FFlagUserPlayerScriptsSAuthDirectAPIs then
+			local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+			if binding then
+				binding:Fire(currentMoveVector)
+			end
+		elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 			local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
 			if binding then
 				local success, result = pcall(function()

@@ -2,6 +2,7 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getFFlagUGCValidateAQMeshQualityBlockUpload = require(root.flags.getFFlagUGCValidateAQMeshQualityBlockUpload)
 
 local Measure_Triangle_Intersection = {}
 
@@ -16,9 +17,13 @@ Measure_Triangle_Intersection.fflag = require(root.flags.getFFlagUGCValidateAQMe
 Measure_Triangle_Intersection.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Triangle_Intersection
 	if summary == nil then
-		reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
-			measureName = "Measure_Triangle_Intersection",
-		})
+		if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+			error("Measure_Triangle_Intersection: AQS summary data is nil")
+		else
+			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
+				measureName = "Measure_Triangle_Intersection",
+			})
+		end
 		return
 	end
 	for partName, partData in summary do
@@ -30,14 +35,19 @@ Measure_Triangle_Intersection.run = function(reporter: Types.ValidationReporter,
 				return
 			end
 			if tonumber(partData.score) ~= 100 then
-				reporter:warn(ErrorSourceStrings.Keys.AQSWarn_TriangleIntersection, {
+				local params = {
 					partName = partName,
 					intersecting_tri_face_percent = string.format(
 						"%.2f",
 						(tonumber(partData.intersecting_tri_face_percent) or 0) * 100
 					),
 					score = tostring(math.floor(tonumber(partData.score) or 0)),
-				})
+				}
+				if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+					reporter:fail(ErrorSourceStrings.Keys.AQSWarn_TriangleIntersection, params)
+				else
+					reporter:warn(ErrorSourceStrings.Keys.AQSWarn_TriangleIntersection, params)
+				end
 			end
 		end
 	end

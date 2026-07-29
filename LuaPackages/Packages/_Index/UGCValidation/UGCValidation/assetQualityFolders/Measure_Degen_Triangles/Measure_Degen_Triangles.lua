@@ -2,6 +2,7 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getFFlagUGCValidateAQMeshQualityBlockUpload = require(root.flags.getFFlagUGCValidateAQMeshQualityBlockUpload)
 
 local Measure_Degen_Triangles = {}
 
@@ -16,9 +17,13 @@ Measure_Degen_Triangles.fflag = require(root.flags.getFFlagUGCValidateAQMeshQual
 Measure_Degen_Triangles.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Degen_Triangles
 	if summary == nil then
-		reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
-			measureName = "Measure_Degen_Triangles",
-		})
+		if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+			error("Measure_Degen_Triangles: AQS summary data is nil")
+		else
+			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_MissingData, {
+				measureName = "Measure_Degen_Triangles",
+			})
+		end
 		return
 	end
 	for partName, partData in summary do
@@ -30,14 +35,19 @@ Measure_Degen_Triangles.run = function(reporter: Types.ValidationReporter, data:
 				return
 			end
 			if tonumber(partData.score) ~= 100 then
-				reporter:warn(ErrorSourceStrings.Keys.AQSWarn_DegenTriangles, {
+				local params = {
 					partName = partName,
 					degenerate_triangle_percent = string.format(
 						"%.2f",
 						(tonumber(partData.degenerate_triangle_percent) or 0) * 100
 					),
 					score = tostring(math.floor(tonumber(partData.score) or 0)),
-				})
+				}
+				if getFFlagUGCValidateAQMeshQualityBlockUpload() then
+					reporter:fail(ErrorSourceStrings.Keys.AQSWarn_DegenTriangles, params)
+				else
+					reporter:warn(ErrorSourceStrings.Keys.AQSWarn_DegenTriangles, params)
+				end
 			end
 		end
 	end

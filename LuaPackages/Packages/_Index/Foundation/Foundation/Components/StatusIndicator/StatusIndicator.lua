@@ -113,13 +113,11 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 						then (props.value :: React.Binding<number>):map(formatValue)
 						else formatValue(props.value :: number),
 					textStyle = variantProps.content.style,
-					fontStyle = if Flags.FoundationStatusIndicatorBeta
-						then {
-							Font = variantProps.content.font,
-							FontSize = tokens.Typography.LabelSmall.FontSize,
-							LineHeight = tokens.Typography.LabelSmall.LineHeight,
-						}
-						else nil,
+					fontStyle = {
+						Font = variantProps.content.font,
+						FontSize = tokens.Typography.LabelSmall.FontSize,
+						LineHeight = tokens.Typography.LabelSmall.LineHeight,
+					},
 					tag = variantProps.content.tag,
 					testId = `{props.testId}--text`,
 				})

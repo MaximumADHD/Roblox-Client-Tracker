@@ -36,7 +36,6 @@ local TrustAndSafetyIXPManager = require(CorePackages.Workspace.Packages.TrustAn
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
-local GetFFlagContactListClientEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListClientEnabled)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
 local FFlagEnablePromptAgeCheckListener = game:DefineFastFlag("EnablePromptAgeCheckListener", false)
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
@@ -68,6 +67,7 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 	game:DefineFastFlag("EnableExperienceGenericChallengeRenderingOnLoadingScript", false)
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
+local FFlagEnableShareSheet = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableShareSheet
 local FFlagPlayerFeedbackPromptEnabled = game:GetEngineFeature("PlayerFeedbackEnabled")
 local FFlagLuaAppInExperienceDetailsPrompt =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppInExperienceDetailsPrompt
@@ -166,6 +166,8 @@ if GetFFlagJoinWithoutMicPermissions() then
 end
 
 local FFlagInExperienceInterventionApp = game:DefineFastFlag("InExperienceInterventionApp", false)
+local FFlagLuaAppEnableInExperienceDataModelStreamStarter =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppEnableInExperienceDataModelStreamStarter
 
 -- Since prop validation can be expensive in certain scenarios, you can enable
 -- this flag locally to validate props to Roact components.
@@ -198,6 +200,10 @@ end
 
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
+
+if FFlagLuaAppEnableInExperienceDataModelStreamStarter then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/InExperienceDataModelStreamStarter", script.Parent)
+end
 
 -- Channel update prompt for protocol launch (private channel / beta program)
 if game:GetEngineFeature("ProtocolLaunchPrivateChannelUpdateCheckEngineFeature") then
@@ -502,10 +508,6 @@ end
 
 coroutine.wrap(safeRequire)(CoreGuiModules.ApolloClient)
 
-if GetFFlagContactListClientEnabled() then
-	coroutine.wrap(safeRequire)(CoreGuiModules.ContactList)
-end
-
 if isCharacterNameHandlerEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CharacterNameHandler", script.Parent)
 end
@@ -572,6 +574,10 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/CoreGuiEnableAnalytics", RobloxGui
 
 if FFlagEnableLinkSharingEvent then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/OpenShareSheetWithLink", RobloxGui)
+end
+
+if FFlagEnableShareSheet then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/UniversalShareSheetScreenGui", RobloxGui)
 end
 
 if FFlagLuaAppInExperienceDetailsPrompt then

@@ -1,13 +1,5 @@
 local module = {}
 
-local FFlagUserAnimateRemoveEmoteChatHook
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserAnimateRemoveEmoteChatHook")
-	end)
-	FFlagUserAnimateRemoveEmoteChatHook = success and result
-end
-
 -- State stored in HumanoidRootPart/Humanoid for Server Authority rollback:
 export type AnimationStateAttributesType = {
 	-- Previous humanoid state to check for changes:
@@ -24,6 +16,8 @@ export type AnimationStateAttributesType = {
 	queuedTransitionTime: number, -- Once currentAnimTimeRemaining hits 0, how quickly do I fade out from that animation to this?
 	-- Am I playing an emote?
 	currentlyPlayingEmote: boolean,
+	-- Last EmoteAction value we acted on, so we can tell when a new emote is requested:
+	lastEmoteFireValue: number,
 	-- Properties for tracking tool animations (they run in parallel to the main pose animations):
 	previousToolState: string,
 	queuedToolAnimName: string,
@@ -251,7 +245,6 @@ function module.setupAnimation(character)
 	-- Both client and server share the same simulation time() and userId,
 	-- so seeding with f(time(), userId) produces identical rolls on both sides.
 	local frameRng = nil -- Lazily created on first rollAnimation call per frame
-	local frameRngTime = -1 -- The time() for which frameRng was created
 	local player = Players:GetPlayerFromCharacter(character)
 	local animateUserId = if player then player.UserId else 0
 
@@ -483,15 +476,14 @@ function module.setupAnimation(character)
 	--------------------------------------------------------------------------------
 
 	local function getFrameRng()
-		local t = time()
-		if t ~= frameRngTime then
+		if frameRng == nil then
 			-- Combine simulation time and userId into a deterministic seed.
 			-- XOR mixes in the userId so different players on the same server
 			-- don't get identical sequences.
+			local t = time()
 			local timeBits = math.floor(t * 10000)
 			local seed = bit32.bxor(timeBits, animateUserId)
 			frameRng = Random.new(seed)
-			frameRngTime = t
 		end
 		return frameRng
 	end
@@ -780,8 +772,12 @@ function module.setupAnimation(character)
 			end
 			animTrack.Looped = isAnimTrackLooped
 
+			-- Only carry over a looped track's TimePosition when restarting it if the track is still
+			-- visibly contributing (WeightCurrent > 0); a fully-faded track is restarted from the start.
+			local carryOverTimePosition = isAnimTrackLooped and animTrack.WeightCurrent > 0
+
 			local startingTimePosition = 0
-			if isAnimTrackLooped then
+			if carryOverTimePosition then
 				debugPrint("[AnimRepl][Lua] Previous time position of track, before calling Play() =", animTrack.TimePosition)
 				-- If this is a new track, this should still be 0:
 				startingTimePosition = animTrack.TimePosition
@@ -789,7 +785,7 @@ function module.setupAnimation(character)
 
 			debugPrint("[AnimRepl][Lua] Play: name=", newAnimName, " id=", newAnimId, " transitionTime=", animState.queuedTransitionTime, " speed=", animTrack.Speed)
 			animTrack:Play(animState.queuedTransitionTime)
-			if isAnimTrackLooped then
+			if carryOverTimePosition then
 				-- For looped animations, we want to maintain the same time position if restarting a fading track to minimize visual jitter
 				animTrack.TimePosition = startingTimePosition
 				debugPrint("[AnimRepl][Lua] Reset time position, track name =", newAnimName, " id=", newAnimId, " starting time position =", animTrack.TimePosition, " with speed:", animTrack.Speed)
@@ -812,10 +808,17 @@ function module.setupAnimation(character)
 				runTrack.Looped = true
 
 				debugPrint("[AnimRepl][Lua] Play (run blend): id=", runTrack.Animation.AnimationId, " transitionTime=", animState.queuedTransitionTime)
-				local runStartingTimePosition = runTrack.TimePosition
+				-- Same as the walk track: only carry over TimePosition while the track is still contributing.
+				local runCarryOverTimePosition = runTrack.WeightCurrent > 0
+				local runStartingTimePosition = 0
+				if runCarryOverTimePosition then
+					runStartingTimePosition = runTrack.TimePosition
+				end
 				runTrack:Play(animState.queuedTransitionTime)
-				-- For looped animations, we want to maintain the same time position if restarting a fading track to minimize visual jitter
-				runTrack.TimePosition = runStartingTimePosition
+				if runCarryOverTimePosition then
+					-- For looped animations, we want to maintain the same time position if restarting a fading track to minimize visual jitter
+					runTrack.TimePosition = runStartingTimePosition
+				end
 			end
 			--------------------------------------------------------------------------------
 		end
@@ -847,13 +850,6 @@ function module.setupAnimation(character)
 
 	------------------------------------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------------------------------
-
-	-- Persistent table: only the 2 fields the Chatted handler reads between steps.
-	-- Named chatState (not animState) to avoid confusion with the animState parameter in sub-functions.
-	local chatState = {
-		pose = "Standing",
-		currentlyPlayingEmote = false,
-	}
 
 	stopAllAnimations(0, true)
 
@@ -897,6 +893,7 @@ function module.setupAnimation(character)
 			queuedToolAnimName       = "",
 			toolAnimationTimeRemaining = 0,
 			currentlyPlayingEmote    = false,
+			lastEmoteFireValue       = 0,
 		}
 		for k, v in pairs(initAttrs) do
 			humanoidRootPart:SetAttribute(k, v)
@@ -1059,35 +1056,52 @@ function module.setupAnimation(character)
 	end
 
 	--------------------------------------------------------------------------------
-	--- Emotes
+	--- Emotes (default emotes only)
 	--------------------------------------------------------------------------------
+	local EMOTE_INDICES = {
+		wave = 1, point = 2, dance = 3, dance1 = 4, dance2 = 5, dance3 = 6, laugh = 7, cheer = 8
+	}
+	local EMOTE_NAMES = {}
+	for name, idx in pairs(EMOTE_INDICES) do
+		EMOTE_NAMES[idx] = name
+	end
+	-- Used to toggle the largest bit on emote input action value:
+	local EMOTE_FIRE_TOGGLE = 16
 
-	-- setup emote chat hook (RBXEmoteCommand now handles this)
-	if not FFlagUserAnimateRemoveEmoteChatHook then
-		game:GetService("Players"):GetPlayerFromCharacter(character).Chatted:Connect(function(msg)
-			if chatState.pose ~= "Standing" and not chatState.currentlyPlayingEmote then
-				return
-			end
+	local emoteAction = nil -- created by the server, replicated to this client (see below)
 
-			local emote = ""
-			if msg:sub(1, 3) == "/e " then
-				emote = msg:sub(4)
-			elseif msg:sub(1, 7) == "/emote " then
-				emote = msg:sub(8)
-			end
+	local function fireEmote(emoteIndex)
+		-- Flip the high bit relative to the action's current value so a repeated emote still changes it.
+		local lastWasToggled = math.floor(emoteAction:GetState() + 0.5) > EMOTE_FIRE_TOGGLE
+		emoteAction:Fire(emoteIndex + (lastWasToggled and 0 or EMOTE_FIRE_TOGGLE))
+	end
 
-			if DEFAULT_EMOTE_LOOPING_OVERRIDES[emote] ~= nil then
-				debugPrint(time(), "Trying to play emote from chat: ", emote)
-				-- Runs outside stepAnimate — write to attributes directly so next GetAttributes() picks them up
-				humanoidRootPart:SetAttribute("queuedPose",               "EMOTE_"..emote)
-				humanoidRootPart:SetAttribute("queuedTransitionTime",     EMOTE_TRANSITION_TIME)
-				humanoidRootPart:SetAttribute("queuedAnimSpeed",          0)
-				humanoidRootPart:SetAttribute("currentAnimTimeRemaining", 0)
-			elseif emote ~= "" then
-				warn("Did not find emote matching chat command: ", emote)
-			end
-			-- No support for custom emotes yet.
-		end)
+	-- Check for changes to emote action value and play the corresponding animation
+	local function pollEmoteInput(attrs)
+		if not emoteAction then
+			return
+		end
+
+		local fireValue = math.floor(emoteAction:GetState() + 0.5)
+		if fireValue == attrs.lastEmoteFireValue then
+			return
+		end
+		attrs.lastEmoteFireValue = fireValue
+
+		if attrs.pose ~= "Standing" and not attrs.currentlyPlayingEmote then
+			return
+		end
+
+		local raw = if fireValue > EMOTE_FIRE_TOGGLE then fireValue - EMOTE_FIRE_TOGGLE else fireValue
+		local emoteName = EMOTE_NAMES[raw]
+		if not emoteName or DEFAULT_EMOTE_LOOPING_OVERRIDES[emoteName] == nil then
+			return
+		end
+
+		attrs.queuedPose = "EMOTE_" .. emoteName
+		attrs.queuedTransitionTime = EMOTE_TRANSITION_TIME
+		attrs.queuedAnimSpeed = 0
+		attrs.currentAnimTimeRemaining = 0
 	end
 
 	------------------------------------------------------------------------------------------------------------
@@ -1099,12 +1113,14 @@ function module.setupAnimation(character)
 		if not isSimulated(humanoidRootPart) or not isSimulated(animator) then
 			return
 		end
+		frameRng = nil
 		-- One GetAttributes call gets a fresh copy of all state
 		local attrs = humanoidRootPart:GetAttributes()
 		local origAttrs = table.clone(attrs)
 
 		-- Process (pass attrs as the animState parameter to all sub-functions)
 		processHumanoidStateChanges(attrs)
+		pollEmoteInput(attrs)
 
 		debugPrint("time: ", time(), ", Calling stepAnimate, currentPose = ", attrs.pose, ", next pose:", attrs.queuedPose)
 		--printAnimState(attrs)
@@ -1129,10 +1145,6 @@ function module.setupAnimation(character)
 
 		updateToolAnimations(deltaTime, attrs)
 
-		-- Sync the 2 fields chatState needs for the Chatted handler's next read
-		chatState.pose = attrs.pose
-		chatState.currentlyPlayingEmote = attrs.currentlyPlayingEmote
-
 		-- Write back only attributes whose value actually changed this frame
 		for k, orig in pairs(origAttrs) do
 			if attrs[k] ~= orig then
@@ -1148,6 +1160,52 @@ function module.setupAnimation(character)
 		-- This code runs 60 times per second
 		stepAnimate(deltaTime)
 	end, Enum.StepFrequency.Hz60, 4000)
+
+	-- Emotes are player-only. Set them up once the PlayEmote bindable has been added under this script.
+	if player then
+		local function setupEmotes(playEmoteBindable)
+			-- The server creates the EmoteAction; the client uses the replicated copy.
+			local characterContext = player:FindFirstChild("InputContexts")
+			characterContext = characterContext and characterContext:FindFirstChild("CharacterContext")
+			if characterContext then
+				if RunService:IsServer() then
+					emoteAction = characterContext:FindFirstChild("EmoteAction")
+					if not emoteAction then
+						emoteAction = Instance.new("InputAction")
+						emoteAction.Name = "EmoteAction"
+						emoteAction.Type = Enum.InputActionType.Direction1D
+						emoteAction.Parent = characterContext
+					end
+				else
+					emoteAction = characterContext:FindFirstChild("EmoteAction")
+				end
+			end
+
+			-- Invoking PlayEmote fires the EmoteAction; pollEmoteInput then picks it up and plays it.
+			playEmoteBindable.OnInvoke = function(emote)
+				local emoteIndex = typeof(emote) == "string" and EMOTE_INDICES[emote]
+				if not emoteIndex or not emoteAction then
+					return false
+				end
+				fireEmote(emoteIndex)
+				return true
+			end
+		end
+
+		local playEmoteBindable = animateParent:FindFirstChild("PlayEmote")
+		if playEmoteBindable then
+			setupEmotes(playEmoteBindable)
+		else
+			local addedConn
+			addedConn = animateParent.ChildAdded:Connect(function(child)
+				if child.Name ~= "PlayEmote" then
+					return
+				end
+				addedConn:Disconnect()
+				setupEmotes(child)
+			end)
+		end
+	end
 
 	------------------------------------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------------------------------

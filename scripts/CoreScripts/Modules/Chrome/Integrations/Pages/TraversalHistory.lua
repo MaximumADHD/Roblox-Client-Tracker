@@ -1,11 +1,8 @@
 local Chrome = script:FindFirstAncestor("Chrome")
-local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 
 local ChromeService = require(Chrome.Service)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
-local EnumReactPage = require(CoreGui.RobloxGui.Modules.Settings.EnumReactPage)
-
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
@@ -22,11 +19,7 @@ return ChromeService:register({
 	label = "CoreScripts.TopBar.Traversal.History",
 	sideSheetPlacement = SideSheetPlacement.Page,
 	activated = function(self)
-		InGameMenuIntegrationUtils.toggleReactPage(
-			"TraversalHistoryPage",
-			pageOpenSignal:get(),
-			EnumReactPage.TraversalHistory
-		)
+		InGameMenuIntegrationUtils.toggleIGMPage("TraversalHistoryPage", pageOpenSignal:get())
 	end,
 	isActivated = if FFlagChromeActivatedMappedSignal
 		then pageOpenSignal

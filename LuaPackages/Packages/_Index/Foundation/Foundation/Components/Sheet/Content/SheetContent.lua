@@ -1,11 +1,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Constants = require(Foundation.Constants)
 local Flags = require(Foundation.Utility.Flags)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
 local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
@@ -79,6 +81,29 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 		then hasOverflowY:map(function(overflow: boolean)
 			return isSelectableEnabled and overflow
 		end)
+		else nil
+
+	local isVerticalSheetGesture = if Flags.FoundationBottomSheetGestureInteractionSink
+		then sheet.isVerticalSheetGesture
+		else nil
+
+	-- Workaround: View with onActivated=noop acts as an interaction
+	-- sink to block accidental taps on content during vertical drags.
+	local interactionSinkElement = if Flags.FoundationBottomSheetGestureInteractionSink
+		then React.createElement("Folder", nil, {
+			ContentInteractionSink = if isVerticalSheetGesture
+				then React.createElement(View, {
+					Size = UDim2.fromScale(1, 1),
+					Selectable = false,
+					ZIndex = 2,
+					testId = `{testId}--content--interaction-sink`,
+					stateLayer = {
+						affordance = StateLayerAffordance.None,
+					},
+					onActivated = Dash.noop,
+				})
+				else nil,
+		})
 		else nil
 
 	local scrollingFrameRef = if Flags.FoundationBottomSheetInnerScrollingSync
@@ -160,8 +185,16 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 						})
 						else nil,
 					Children = React.createElement(React.Fragment, nil, props.children),
+					ContentInteractionSinkContainer = if Flags.FoundationBottomSheetGestureInteractionSink
+						then interactionSinkElement
+						else nil,
 				}
-				else props.children
+				else if Flags.FoundationBottomSheetGestureInteractionSink
+					then {
+						Children = React.createElement(React.Fragment, nil, props.children),
+						ContentInteractionSinkContainer = interactionSinkElement,
+					}
+					else props.children
 		)
 	)
 end

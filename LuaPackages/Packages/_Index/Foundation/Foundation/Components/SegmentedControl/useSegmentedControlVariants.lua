@@ -42,29 +42,20 @@ local function variantsFactory(tokens: Tokens)
 		icon = { style = tokens.Color.Content.Emphasis },
 		divider = { tag = "row" },
 	}
+
 	-- Radius is pulled out of `sizes` into separate overlays so the circular
 	-- variant can swap in `radius-circle` without duplicating per-size
 	-- declarations.
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			container = {
-				tag = {
-					["size-600"] = true,
-					["padding-xsmall"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-				},
-			},
+			container = { tag = "size-600" },
 			segment = { tag = "padding-small" },
 			text = { tag = "text-caption-small" },
 			icon = { size = IconSize.Small },
 			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 		},
 		[InputSize.Small] = {
-			container = {
-				tag = {
-					["size-800"] = true,
-					["padding-xsmall"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-				},
-			},
+			container = { tag = "size-800" },
 			segment = { tag = "padding-small" },
 			text = { tag = "text-caption-small" },
 			icon = { size = IconSize.Medium },
@@ -88,27 +79,12 @@ local function variantsFactory(tokens: Tokens)
 
 	local defaultRadius: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			container = {
-				tag = {
-					["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
-					["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-				},
-			},
-			segment = {
-				tag = {
-					["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
-					["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-				},
-			},
+			container = { tag = "radius-medium" },
+			segment = { tag = "radius-medium" },
 		},
 		[InputSize.Small] = {
 			container = { tag = "radius-medium" },
-			segment = {
-				tag = {
-					["radius-medium"] = Flags.FoundationSegmentedControlSizePaddingUpdate,
-					["radius-small"] = not Flags.FoundationSegmentedControlSizePaddingUpdate,
-				},
-			},
+			segment = { tag = "radius-medium" },
 		},
 		[InputSize.Medium] = {
 			container = { tag = "radius-medium" },

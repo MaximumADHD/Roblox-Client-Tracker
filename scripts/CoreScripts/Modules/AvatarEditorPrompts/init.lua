@@ -24,9 +24,6 @@ local RoactGlobalConfig = require(script.RoactGlobalConfig)
 
 local ConnectAvatarEditorServiceEvents = require(script.ConnectAvatarEditorServiceEvents)
 
-local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
-local FFlagAXAvatarTimeoutFlowIE = AvatarExperienceFlags.FFlagAXAvatarTimeoutFlowIE
-
 local AvatarEditorPrompts = {}
 AvatarEditorPrompts.__index = AvatarEditorPrompts
 
@@ -50,40 +47,25 @@ function AvatarEditorPrompts.new()
 
 	self.store:dispatch(GetGameName)
 
-	local providerWrappedApp
-	if FFlagAXAvatarTimeoutFlowIE then
-		providerWrappedApp = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
+	local providerWrappedApp = Roact.createElement(RoactRodux.StoreProvider, {
+		store = self.store,
+	}, {
+		LocalizationProvider = Roact.createElement(LocalizationProvider, {
+			localization = Localization.new(LocalizationService.RobloxLocaleId),
 		}, {
-			LocalizationProvider = Roact.createElement(LocalizationProvider, {
-				localization = Localization.new(LocalizationService.RobloxLocaleId),
+			FoundationProvider = Roact.createElement(Foundation.FoundationProvider, {
+				theme = Foundation.Enums.Theme.Dark,
 			}, {
-				FoundationProvider = Roact.createElement(Foundation.FoundationProvider, {
-					theme = Foundation.Enums.Theme.Dark,
+				PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
+					policy = { AvatarEditorPromptsPolicy.Mapper },
 				}, {
-					PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
-						policy = { AvatarEditorPromptsPolicy.Mapper },
-					}, {
-						ThemeProvider = renderWithCoreScriptsStyleProvider({
-							AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp),
-						}),
+					ThemeProvider = renderWithCoreScriptsStyleProvider({
+						AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp),
 					}),
 				}),
 			}),
-		})
-	else
-		providerWrappedApp = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
-				policy = { AvatarEditorPromptsPolicy.Mapper },
-			}, {
-				ThemeProvider = renderWithCoreScriptsStyleProvider({
-					AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp),
-				}),
-			}),
-		})
-	end
+		}),
+	})
 
 	-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
 	self.root = Roact.createElement("Folder", {

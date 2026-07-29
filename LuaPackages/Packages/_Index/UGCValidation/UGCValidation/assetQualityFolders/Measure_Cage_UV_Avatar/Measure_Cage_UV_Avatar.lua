@@ -14,9 +14,12 @@ Measure_Cage_UV_Avatar.fflag = require(root.flags.getFFlagUGCValidateAQCageQuali
 
 Measure_Cage_UV_Avatar.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Cage_UV_Avatar
+	if summary == nil then
+		error("Measure_Cage_UV_Avatar: AQS summary data is nil")
+	end
 	for _, cagePartName in Constants.R15_CAGE_PARTS do
 		if summary[cagePartName] == nil or summary[cagePartName].incorrect_uv_count == nil then
-			reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+			error("Measure_Cage_UV_Avatar: AQS summary missing required fields for cage " .. cagePartName)
 		else
 			if tonumber(summary[cagePartName].incorrect_uv_count) > maxIncorrectUVBodyPartThreshold then
 				reporter:fail(ErrorSourceStrings.Keys.MeasureCageUV, {

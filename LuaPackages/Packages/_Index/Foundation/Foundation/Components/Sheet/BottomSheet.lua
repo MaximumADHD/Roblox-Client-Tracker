@@ -164,6 +164,22 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local springActive = React.useRef(false)
 	local springVelocity = React.useRef(0)
 
+	local isVerticalSheetGestureRef = nil
+	local isVerticalSheetGesture = nil
+	local setIsVerticalSheetGesture = nil
+	local setIsVerticalSheetGestureValue = nil
+	if Flags.FoundationBottomSheetGestureInteractionSink then
+		isVerticalSheetGestureRef = React.useRef(false)
+		isVerticalSheetGesture, setIsVerticalSheetGesture = React.useState(false)
+		setIsVerticalSheetGestureValue = React.useCallback(function(value: boolean)
+			if isVerticalSheetGestureRef.current == value then
+				return
+			end
+			isVerticalSheetGestureRef.current = value
+			setIsVerticalSheetGesture(value)
+		end, {})
+	end
+
 	local stopSpringSimulation = React.useCallback(function()
 		if springConnection.current then
 			springConnection.current:Disconnect()
@@ -414,13 +430,26 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	-- TODO: support mouse wheel scrolling/trackpad scrolling
 	React.useEffect(
 		function()
-			local touchPanConnection = game:GetService("UserInputService").TouchPan:Connect(function(_, _, velocity, _)
-				scrollVelocity.current = velocity.Y
-				updateInnerScrolling()
-			end)
+			local touchPanConnection = game:GetService("UserInputService").TouchPan
+				:Connect(function(_, totalTranslation, velocity, _)
+					scrollVelocity.current = velocity.Y
+					if Flags.FoundationBottomSheetGestureInteractionSink then
+						if inputActive.current and totalTranslation then
+							local verticalDragDistance = math.abs(totalTranslation.Y)
+							local horizontalDragDistance = math.abs(totalTranslation.X)
+							if verticalDragDistance > horizontalDragDistance then
+								setIsVerticalSheetGestureValue(true)
+							end
+						end
+					end
+					updateInnerScrolling()
+				end)
 			local inputBeganConnection = game:GetService("UserInputService").InputBegan:Connect(function()
 				inputActive.current = true
 				scrollVelocity.current = 0
+				if Flags.FoundationBottomSheetGestureInteractionSink then
+					setIsVerticalSheetGestureValue(false)
+				end
 				stopSpringSimulation()
 			end)
 			local inputEndedConnection = game:GetService("UserInputService").InputEnded:Connect(function()
@@ -429,6 +458,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				end
 
 				inputActive.current = false
+				if Flags.FoundationBottomSheetGestureInteractionSink then
+					setIsVerticalSheetGestureValue(false)
+				end
 
 				if Flags.FoundationBottomSheetImproveSpring then
 					local outerScrollVelocityY = if outerScrollingRef.current
@@ -473,6 +505,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			end)
 
 			return function()
+				if Flags.FoundationBottomSheetGestureInteractionSink then
+					setIsVerticalSheetGestureValue(false)
+				end
 				touchPanConnection:Disconnect()
 				inputBeganConnection:Disconnect()
 				inputEndedConnection:Disconnect()
@@ -485,12 +520,14 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				updateInnerScrolling,
 				stopSpringSimulation,
 				isOuterScrollAtMax,
+				if Flags.FoundationBottomSheetGestureInteractionSink then setIsVerticalSheetGestureValue else nil,
 			} :: { unknown }
 			else {
 				overlay,
 				snapToClosestSwipeSnapPoint,
 				updateInnerScrolling,
 				stopSpringSimulation,
+				if Flags.FoundationBottomSheetGestureInteractionSink then setIsVerticalSheetGestureValue else nil,
 			} :: { unknown }
 	)
 
@@ -537,6 +574,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				closeAffordanceRef = closeAffordanceRef,
 				contentStartRef = contentStartRef,
 				setContentStartRef = setContentStartRef,
+				isVerticalSheetGesture = if Flags.FoundationBottomSheetGestureInteractionSink
+					then isVerticalSheetGesture
+					else nil,
 			}
 		end,
 		{
@@ -548,11 +588,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			closeAffordanceRef,
 			contentStartRef,
 			hasFullBleed,
+			if Flags.FoundationBottomSheetGestureInteractionSink then isVerticalSheetGesture else nil,
 		} :: { unknown }
 	)
 
 	local gripperElement = React.createElement(View, {
-		ZIndex = 3,
+		ZIndex = 5,
 		backgroundStyle = tokens.Color.Content.Muted,
 		Position = if Flags.FoundationSheetFullBleed
 			then UDim2.new(0.5, 0, 0, if hasFullBleed then tokens.Padding.Small else -tokens.Padding.XSmall)

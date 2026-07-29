@@ -50,7 +50,7 @@ local function createCanPublishPromise(
 	url: string,
 	assetIds: { string },
 	restrictedIds: Types.RestrictedUserIds,
-	token: string,
+	token: string?,
 	universeId: number?
 )
 	if #assetIds == 0 then
@@ -86,7 +86,7 @@ end
 local function canPublishAssets(
 	contentIdMap: Types.ContentIdEntriesMap,
 	restrictedUserIds: Types.RestrictedUserIds,
-	token: string,
+	token: string?,
 	universeId: number?,
 	isServer: boolean
 ): CanPublishOutcome

@@ -33,6 +33,7 @@ local FFlagUserPlayerScriptsBindActivateOnIAS = FlagUtil.getUserFlag("UserPlayer
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 local FFlagUserPlayerScriptsUseReplicatedCameraAPI = FlagUtil.getUserFlag("UserPlayerScriptsUseReplicatedCameraAPI")
 local FFlagUserPlayerScriptsStopFireCameraAction = FlagUtil.getUserFlag("UserPlayerScriptsStopFireCameraAction")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 }
@@ -191,59 +192,69 @@ local function _fireCustomInputs(player:Player)
 
 	local cameraContext = input:FindFirstChild("CameraContext")
 
-	local shouldFireCameraAction = true
-	if FFlagUserPlayerScriptsStopFireCameraAction then
-		local success, state = pcall(function() return player:GetCameraState() end)
-		if success and state then
-			local cframe = state.CFrame
-			if cframe ~= CFrame.identity and state.FieldOfView > 0 and state.ViewportSize.Magnitude > 0 then
-				shouldFireCameraAction = false
+	if FFlagUserPlayerScriptsSAuthDirectAPIs then
+		local rotationAction = characterContext:FindFirstChild("RotationAction")
+		if rotationAction then
+			local binding = rotationAction:FindFirstChild("RotationScriptableBinding")
+			if binding then
+				binding:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
 			end
 		end
-	end
-	if shouldFireCameraAction then
-		local cameraAction = cameraContext and cameraContext:FindFirstChild("CameraAction")
-		if cameraAction then
-			local camera = Workspace.CurrentCamera
-			if FFlagUserPlayerScriptsFireThroughScriptableBindings then
-				local binding = cameraAction:FindFirstChild("CameraScriptableBinding")
-				if binding then
-					local success, result = pcall(function()
-						binding.Type = Enum.InputBindingType.Scriptable
-						binding:Fire(camera.CFrame.LookVector)
-					end)
-					if not success then
+	else
+		local shouldFireCameraAction = true
+		if FFlagUserPlayerScriptsStopFireCameraAction then
+			local success, state = pcall(function() return player:GetCameraState() end)
+			if success and state then
+				local cframe = state.CFrame
+				if cframe ~= CFrame.identity and state.FieldOfView > 0 and state.ViewportSize.Magnitude > 0 then
+					shouldFireCameraAction = false
+				end
+			end
+		end
+		if shouldFireCameraAction then
+			local cameraAction = cameraContext and cameraContext:FindFirstChild("CameraAction")
+			if cameraAction then
+				local camera = Workspace.CurrentCamera
+				if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+					local binding = cameraAction:FindFirstChild("CameraScriptableBinding")
+					if binding then
+						local success, result = pcall(function()
+							binding.Type = Enum.InputBindingType.Scriptable
+							binding:Fire(camera.CFrame.LookVector)
+						end)
+						if not success then
+							cameraAction:Fire(camera.CFrame.LookVector)
+						end
+					else
 						cameraAction:Fire(camera.CFrame.LookVector)
 					end
 				else
 					cameraAction:Fire(camera.CFrame.LookVector)
 				end
-			else
-				cameraAction:Fire(camera.CFrame.LookVector)
 			end
 		end
-	end
 
-	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
-		local rotationAction = characterContext:FindFirstChild("RotationAction")
-		if rotationAction then
-			local binding = rotationAction:FindFirstChild("RotationScriptableBinding")
-			if binding then
-				local success, result = pcall(function()
-					binding.Type = Enum.InputBindingType.Scriptable
-					binding:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
-				end)
-				if not success then
+		if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			local rotationAction = characterContext:FindFirstChild("RotationAction")
+			if rotationAction then
+				local binding = rotationAction:FindFirstChild("RotationScriptableBinding")
+				if binding then
+					local success, result = pcall(function()
+						binding.Type = Enum.InputBindingType.Scriptable
+						binding:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
+					end)
+					if not success then
+						rotationAction:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
+					end
+				else
 					rotationAction:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
 				end
-			else
+			end
+		else
+			local rotationAction = characterContext.RotationAction
+			if rotationAction then
 				rotationAction:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
 			end
-		end
-	else
-		local rotationAction = characterContext.RotationAction
-		if rotationAction then
-			rotationAction:Fire(UserGameSettings.RotationType == Enum.RotationType.CameraRelative)
 		end
 	end
 end
@@ -858,7 +869,9 @@ function ControlModule:ProcessInputs(player:Player, dt:number)
 
 		local moveVector2D = if moveAction ~= nil then moveAction:GetState() else Vector2.new(0.0, 0.0)
 		local cameraVector3D
-		if FFlagUserPlayerScriptsUseReplicatedCameraAPI then
+		if FFlagUserPlayerScriptsSAuthDirectAPIs then
+			cameraVector3D = player:GetCameraState().CFrame.LookVector
+		elseif FFlagUserPlayerScriptsUseReplicatedCameraAPI then
 			local success, result = pcall(function() return player:GetCameraState() end)
 			if success and result then
 				local cframe = result.CFrame

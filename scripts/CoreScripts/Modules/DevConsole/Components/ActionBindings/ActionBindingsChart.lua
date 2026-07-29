@@ -2,8 +2,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 
-local FFlagFixActionBindingSecurity = game:DefineFastFlag("FixActionBindingSecurity", false)
-
 local Components = script.Parent.Parent.Parent.Components
 local DataConsumer = require(Components.DataConsumer)
 local HeaderButton = require(Components.HeaderButton)
@@ -111,17 +109,9 @@ local function constructEntry(entry, width, layoutOrder)
 	-- use tostring to convert the enum into an actual string also because it's used twice
 	local enumStr = tostring(actionInfo["inputTypes"][1])
 
-	local isCoreString -- inline with FFlagFixActionBindingSecurity
-	if FFlagFixActionBindingSecurity then
-		isCoreString = IS_DEVELOPER_STR
-		if actionInfo["isCore"] then
-			isCoreString = IS_CORE_STR
-		end
-	else
+	local isCoreString = IS_DEVELOPER_STR
+	if actionInfo["isCore"] then
 		isCoreString = IS_CORE_STR
-		if actionInfo["isCore"] then
-			isCoreString = IS_DEVELOPER_STR
-		end
 	end
 
 	local row = {}

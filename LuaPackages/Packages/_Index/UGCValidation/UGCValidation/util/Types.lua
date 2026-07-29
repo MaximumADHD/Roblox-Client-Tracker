@@ -92,7 +92,6 @@ export type AssetQualityMetrics = {
 	fetchTimeMs: number?,
 	fetchFailureReason: string?,
 	visualizationUrl: string?,
-	returnVersion: number?,
 	aqJobId: string?,
 }
 
@@ -153,9 +152,6 @@ export type FailureEntry = {
 	instancePath: string,
 }
 
--- Shape reflects the post-cleanup (EngineUGCValidationExpandReturnSchema permanently on) world.
--- The flag-off path constructs/reads legacy-only fields (e.g. errorTranslationContexts) via
--- `:: any` casts; once the flag flips on permanently those casts and their callers go away.
 export type SingleValidationResult = {
 	validationEnum: string,
 	status: string,
@@ -218,8 +214,7 @@ export type UGCValidationConsumerName =
 -- Pipeline position the AQ fetch should start from:
 --   "scene"  — generate a GLTF from the rootInstance, then fetch AQS from it (default)
 --   "gltf"   — GLTF payload already built upstream; skip generation, fetch AQS from aqFetchData
---   "jobId"  — AQ job already ran; fetch the AQS summary directly via aqFetchData (requires
---              EngineFeatureEngineUGCValidationExpandReturnSchema)
+--   "jobId"  — AQ job already ran; fetch the AQS summary directly via aqFetchData
 export type AqFetchStage = "scene" | "gltf" | "jobId"
 
 export type ConsumerEnv = "Studio" | "Backend" | "IEC"
@@ -231,6 +226,7 @@ export type ConsumerEnv = "Studio" | "Backend" | "IEC"
 export type BackendConfigs = {
 	restrictedUserIds: RestrictedUserIds?,
 	isUserInTrustedCreatorProgram: boolean?,
+	universeId: number?,
 }
 
 export type IECConfigs = {
@@ -255,6 +251,7 @@ export type UGCValidationConsumerConfigs = {
 	-- from results). Use for modules that hit network endpoints unreachable from
 	-- the test env. Production consumers leave this nil.
 	skipModules: { [string]: boolean }?,
+	skipAssetQualityChecks: boolean?, -- default FALSE; when true, drops all isAssetQualityModule modules
 	aqFetchStage: AqFetchStage?, -- default "scene"
 	aqFetchData: string?, -- jobId or GLTF payload; empty when stage == "scene"
 	backendConfigs: BackendConfigs?,
@@ -272,6 +269,7 @@ export type PreloadedConsumerConfigs = {
 	preloadedEditableImages: { [string]: EditableImage },
 	preloadedHsrAssets: { [string]: { Instance } },
 	skipModules: { [string]: boolean },
+	skipAssetQualityChecks: boolean,
 	aqFetchStage: AqFetchStage,
 	aqFetchData: string,
 	backendConfigs: BackendConfigs,
@@ -286,7 +284,6 @@ export type ValidationModule = {
 	conditionalData: { string }?,
 	prereqTests: { string }?,
 	expectedFailures: { string }?,
-	expectedAqsData: { [string]: any }?,
 	knownAqsUserErrors: { [string]: string }?,
 	run: (ValidationReporter, SharedData) -> nil,
 }
@@ -299,7 +296,6 @@ export type PreloadedValidationModule = {
 	conditionalData: { string },
 	prereqTests: { string },
 	expectedFailures: { string },
-	expectedAqsData: { [string]: any },
 	knownAqsUserErrors: { [string]: string },
 	isAssetQualityModule: boolean,
 	run: (ValidationReporter, SharedData) -> nil,

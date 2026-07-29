@@ -58,6 +58,7 @@ local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBar
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
 
 local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
+local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
 if ChromeEnabled then
 	local function SetGlobalGuiInset()
@@ -132,6 +133,11 @@ function TopBar.new()
 
 	if not TenFootInterface:IsEnabled() and not ChromeEnabled then
 		GuiService:SetGlobalGuiInset(0, Constants.TopBarHeight, 0, 0)
+	end
+
+	if FFlagEnablePlaytestModeUnibar then
+		local initPlaytestMode = require(script.initPlaytestMode)
+		initPlaytestMode()
 	end
 
 	self.store = Rodux.Store.new(Reducer, nil, {

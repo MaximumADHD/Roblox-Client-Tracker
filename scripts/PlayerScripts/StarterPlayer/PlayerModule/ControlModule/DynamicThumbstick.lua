@@ -32,6 +32,7 @@ local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 
 local Players = game:GetService("Players")
@@ -161,7 +162,12 @@ function DynamicThumbstick:OnInputEnded()
 	else
 		self.moveTouchObject = nil
 	end
-	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+	if FFlagUserPlayerScriptsSAuthDirectAPIs then
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+		if binding then
+			binding:Fire(Vector2.zero)
+		end
+	elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 		if binding then
 			local success, result = pcall(function()
@@ -279,7 +285,12 @@ function DynamicThumbstick:DoMove(direction: Vector2)
 	end
 
 	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+	if FFlagUserPlayerScriptsSAuthDirectAPIs then
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+		if binding then
+			binding:Fire(currentMoveVector)
+		end
+	elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 		if binding then
 			local success, result = pcall(function()

@@ -16,7 +16,7 @@ Measure_Cage_Relevancy.run = function(reporter: Types.ValidationReporter, data: 
 	local summary = data.aqsSummaryData.Measure_Cage_Relevancy.Handle_OuterCage
 	local relevantPercent = summary and tonumber(summary.outer_cage_face_relevant_percent)
 	if relevantPercent == nil then
-		reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+		error("Measure_Cage_Relevancy: AQS summary missing required fields")
 	else
 		if relevantPercent * 100 < minCageRelevancyThreshold then
 			reporter:fail(ErrorSourceStrings.Keys.MeasureCageRelevancy, {

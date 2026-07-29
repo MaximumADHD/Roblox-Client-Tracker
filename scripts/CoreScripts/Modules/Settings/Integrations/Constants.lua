@@ -18,6 +18,15 @@ local GAMESETTINGS = {
 	LAYOUT_ORDER = GameSettingsConstants.SETTINGS_MENU_LAYOUT_ORDER,
 }
 
+-- Traversal history constants
+local TRAVERSAL_HISTORY = {
+	TAB_HEADER = {
+		NAME = "TraversalHistoryWrapper",
+		TEXT_KEY = "CoreScripts.TopBar.Traversal.History",
+	}
+}
+
 return {
 	GAMESETTINGS = GAMESETTINGS,
+	TRAVERSAL_HISTORY = TRAVERSAL_HISTORY,
 }

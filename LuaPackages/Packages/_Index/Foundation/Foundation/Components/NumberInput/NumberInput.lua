@@ -85,6 +85,10 @@ export type NumberInputProps = {
 	isRequired: boolean?,
 	-- The callback that processes the new value
 	onChanged: (number: number, reason: OnChangeCallbackReason) -> (),
+	-- The callback that fires when text is inputted into the value.
+	-- This is used in rare scenarios such as mathematical expressions (letting people type `1 + 2`),
+	-- and `onChanged` is virtually always what you want.
+	onTextChanged: ((value: string) -> ())?,
 	-- Input label text. To omit, set to an empty string
 	label: string,
 	-- Hint text below the input, is red on error
@@ -157,6 +161,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		precision: number,
 		value: Bindable<number>,
 		onChanged: (number: number, reason: OnChangeCallbackReason) -> (),
+		onTextChanged: ((value: string) -> ())?,
 		formatAsString: (value: number) -> string,
 		isRequired: boolean?,
 		label: string,
@@ -376,21 +381,40 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		end
 	end, { valueChanged, props.onFocusLost, props.value, constrainValue } :: { unknown })
 
-	local onTextChanged = React.useCallback(function(text)
-		setTextInput(text)
-		if not isFocused() then
-			return
-		end
+	local onTextChanged = React.useCallback(
+		function(text)
+			setTextInput(text)
+			if not isFocused() then
+				return
+			end
 
-		local n = tonumber(text)
-		if n == nil then
-			setHasInvalidInput(true)
-			return
-		else
-			setHasInvalidInput(false)
-		end
-		props.onChanged(n :: number, OnChangeCallbackReason.Keyboard)
-	end, { isFocused, props.onChanged } :: { unknown })
+			if Flags.FoundationNumberInputOnTextChanged then
+				local n = tonumber(text)
+
+				if props.onTextChanged ~= nil then
+					props.onTextChanged(text)
+				elseif n == nil then
+					setHasInvalidInput(true)
+					return
+				end
+
+				if n ~= nil then
+					setHasInvalidInput(false)
+					props.onChanged(n, OnChangeCallbackReason.Keyboard)
+				end
+			else
+				local n = tonumber(text)
+				if n == nil then
+					setHasInvalidInput(true)
+					return
+				else
+					setHasInvalidInput(false)
+				end
+				props.onChanged(n :: number, OnChangeCallbackReason.Keyboard)
+			end
+		end,
+		{ isFocused, props.onChanged, if Flags.FoundationNumberInputOnTextChanged then props.onTextChanged else nil } :: { unknown }
+	)
 
 	local onIncrement = React.useCallback(function()
 		if getBindableValue(isUpDisabled) then

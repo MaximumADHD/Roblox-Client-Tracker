@@ -7,9 +7,6 @@ local useSignalState = require(CorePackages.Packages.SignalsReact).useSignalStat
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch
 
-local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
-local FFlagAXTimeoutPromptLabelAbuseTypeFallback = AvatarExperienceFlags.FFlagAXTimeoutPromptLabelAbuseTypeFallback
-
 local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
 local AXPartialPageModal = AvatarExperienceCommon.Components.AXPartialPageModal
 local GetTimeoutStatusStore = AvatarExperienceCommon.Stores.getTimeoutStatusStore
@@ -36,19 +33,11 @@ local function SaveAvatarTimeoutPrompt()
 	end, { dispatch } :: { any })
 
 	local abuseTypeTranslationKey: string?
-	if FFlagAXTimeoutPromptLabelAbuseTypeFallback then
-		if details and labelAbuseTypeMapping then
-			local mapped = labelAbuseTypeMapping[details.labelTranslationKey]
-			abuseTypeTranslationKey = if mapped then mapped else "Feature.NotApproved.Label.AbuseType.Other"
-		else
-			abuseTypeTranslationKey = "Feature.NotApproved.Label.AbuseType.Other"
-		end
+	if details and labelAbuseTypeMapping then
+		local mapped = labelAbuseTypeMapping[details.labelTranslationKey]
+		abuseTypeTranslationKey = if mapped then mapped else "Feature.NotApproved.Label.AbuseType.Other"
 	else
-		if details then
-			abuseTypeTranslationKey = labelAbuseTypeMapping[details.labelTranslationKey]
-		else
-			abuseTypeTranslationKey = nil
-		end
+		abuseTypeTranslationKey = "Feature.NotApproved.Label.AbuseType.Other"
 	end
 	local localizedRule = useLocalization({
 		rule = abuseTypeTranslationKey,

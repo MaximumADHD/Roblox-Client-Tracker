@@ -88,6 +88,7 @@ export type AvatarProps = Package.AvatarProps
 export type AvatarGroupProps = Package.AvatarGroupProps
 export type AvatarGroupItem = Package.AvatarGroupItem
 export type AvatarIconProps = Package.AvatarIconProps
+export type AvatarIconGroupProps = Package.AvatarIconGroupProps
 export type BadgeProps = Package.BadgeProps
 export type BaseMenuProps<Item = BaseMenuItem> = Package.BaseMenuProps<Item > 
 export type BaseMenuItem = Package.BaseMenuItem

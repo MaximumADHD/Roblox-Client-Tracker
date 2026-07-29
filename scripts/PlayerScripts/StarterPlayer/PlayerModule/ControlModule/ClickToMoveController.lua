@@ -33,6 +33,7 @@ local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayer
 local FFlagUserPSIASClickToMoveRelaxTeleport = FlagUtil.getUserFlag("UserPSIASClickToMoveRelaxTeleport")
 local FFlagUserPlayerScriptsRefactor2 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor2")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 
 --[[ Input Actions ]]--
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
@@ -1143,7 +1144,12 @@ function ClickToMove:Update(playerData, dt)
 		if ExistingPather and ExistingPather == currentPather then
 			if FFlagUserPlayerScriptsCTMDirectPlayerData then
 				local expectedState = calculateLocalMoveVector(currentPather.NextActionMoveDirection)
-				if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+				if FFlagUserPlayerScriptsSAuthDirectAPIs then
+					local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+					if binding then
+						binding:Fire(expectedState)
+					end
+				elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 					local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
 					if binding then
 						local success, result = pcall(function()
@@ -1164,7 +1170,12 @@ function ClickToMove:Update(playerData, dt)
 				-- Handle jump request from Pather
 				if currentPather.NextActionJump then
 					if playerData.actions.JumpAction:GetState() ~= true then
-						if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+						if FFlagUserPlayerScriptsSAuthDirectAPIs then
+							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+							if binding then
+								binding:Fire(true)
+							end
+						elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 							if binding then
 								local success, result = pcall(function()
@@ -1185,7 +1196,12 @@ function ClickToMove:Update(playerData, dt)
 					playerData.isJumping = true
 				elseif self.lastPatherJumped then
 					if playerData.actions.JumpAction:GetState() == true then
-						if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+						if FFlagUserPlayerScriptsSAuthDirectAPIs then
+							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+							if binding then
+								binding:Fire(false)
+							end
+						elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 							if binding then
 								local success, result = pcall(function()
@@ -1284,7 +1300,12 @@ function ClickToMove:Update(playerData, dt)
 
 			if self.lastPatherJumped then
 				if playerData.actions.JumpAction:GetState() == true then
-					if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+					if FFlagUserPlayerScriptsSAuthDirectAPIs then
+						local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+						if binding then
+							binding:Fire(false)
+						end
+					elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 						local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 						if binding then
 							local success, result = pcall(function()
@@ -1309,7 +1330,12 @@ function ClickToMove:Update(playerData, dt)
 	if self.shouldCleanupPath then
 		self.shouldCleanupPath = false
 		if FFlagUserPlayerScriptsCTMDirectPlayerData then
-			if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			if FFlagUserPlayerScriptsSAuthDirectAPIs then
+				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if binding then
+					binding:Fire(Vector2.zero)
+				end
+			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
 				if binding then
 					local success, result = pcall(function()
@@ -1327,7 +1353,12 @@ function ClickToMove:Update(playerData, dt)
 			end
 			playerData.moveVector = Vector2.zero
 			self.lastPatherJumped = false
-			if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			if FFlagUserPlayerScriptsSAuthDirectAPIs then
+				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if binding then
+					binding:Fire(false)
+				end
+			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 				if binding then
 					local success, result = pcall(function()
@@ -1346,7 +1377,12 @@ function ClickToMove:Update(playerData, dt)
 			playerData.isJumping = false
 		else
 			self.lastPatherMoveVector = Vector2.zero
-			if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			if FFlagUserPlayerScriptsSAuthDirectAPIs then
+				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if binding then
+					binding:Fire(Vector2.zero)
+				end
+			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
 				if binding then
 					local success, result = pcall(function()
@@ -1363,7 +1399,12 @@ function ClickToMove:Update(playerData, dt)
 				playerData.actions.MoveAction:Fire(Vector2.zero)
 			end
 			self.lastPatherJumped = false
-			if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			if FFlagUserPlayerScriptsSAuthDirectAPIs then
+				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if binding then
+					binding:Fire(false)
+				end
+			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
 				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 				if binding then
 					local success, result = pcall(function()

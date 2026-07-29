@@ -4,8 +4,6 @@ local Types = require(root.util.Types)
 local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local Vector3Utils = require(root.util.Vector3Utils)
 local valueToString = require(root.util.valueToString)
 local LCDeformationWithinBounds = {}
@@ -50,11 +48,7 @@ LCDeformationWithinBounds.run = function(reporter: Types.ValidationReporter, dat
 	) :: Vector3
 
 	if not Vector3Utils.isFirstLessOrEqual(postDeformSize, maxSize) then
-		reporter:fail(
-			ErrorSourceStrings.Keys.LCDeformTooLarge,
-			{ maxSize = valueToString(maxSize) },
-			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then handleInst else nil
-		)
+		reporter:fail(ErrorSourceStrings.Keys.LCDeformTooLarge, { maxSize = valueToString(maxSize) }, handleInst)
 	end
 end
 

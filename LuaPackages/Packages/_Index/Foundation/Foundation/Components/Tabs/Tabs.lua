@@ -74,28 +74,18 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 
 	-- Create refs for each tab (use user-provided ref if available)
 	local tabRefs
-	if Flags.FoundationFixStaleAnimatedHighlightRefs then
-		local tabRefsCache = React.useRef({} :: { [Types.ItemId]: React.RefObject<GuiObject?> })
-		tabRefs = React.useMemo(function()
-			local cache = tabRefsCache.current
-			for _, tab in props.tabs do
-				if tab.ref then
-					cache[tab.id] = tab.ref
-				elseif not cache[tab.id] then
-					cache[tab.id] = React.createRef()
-				end
+	local tabRefsCache = React.useRef({} :: { [Types.ItemId]: React.RefObject<GuiObject?> })
+	tabRefs = React.useMemo(function()
+		local cache = tabRefsCache.current
+		for _, tab in props.tabs do
+			if tab.ref then
+				cache[tab.id] = tab.ref
+			elseif not cache[tab.id] then
+				cache[tab.id] = React.createRef()
 			end
-			return cache
-		end, { props.tabs })
-	else
-		tabRefs = React.useMemo(function()
-			local refs = {}
-			for _, tab in props.tabs do
-				refs[tab.id] = tab.ref or React.createRef()
-			end
-			return refs
-		end, { props.tabs })
-	end
+		end
+		return cache
+	end, { props.tabs })
 
 	local animatedBorder = useAnimatedHighlight(
 		activeTabId,

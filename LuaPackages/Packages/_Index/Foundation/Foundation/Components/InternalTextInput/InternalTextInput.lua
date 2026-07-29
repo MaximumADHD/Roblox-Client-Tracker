@@ -194,21 +194,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 
 	local dragStartPosition = React.useRef(nil :: Vector2?)
 	local lastScrollingFrameCanvasPosition = React.useRef(Vector2.zero)
-	local hover, setHover
-	if not Flags.FoundationTextInputsBetaUpdate then
-		hover, setHover = React.useState(false)
-	end
 	local focus, setFocus = React.useState(false)
 
-	local variantProps = useTextInputVariants(
-		tokens,
-		props.size,
-		props.variant,
-		props.radius,
-		focus,
-		if Flags.FoundationTextInputsBetaUpdate then nil else hover,
-		props.hasError
-	)
+	local variantProps = useTextInputVariants(tokens, props.size, props.variant, props.radius, focus, props.hasError)
 	local containerProps = variantProps.container
 	local textBoxTag = useStyleTags(variantProps.textBox.tag)
 
@@ -319,7 +307,6 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				getIsFocused = getIsFocused,
 				focus = focusTextBox,
 				releaseFocus = releaseTextBoxFocus,
-				setHover = if Flags.FoundationTextInputsBetaUpdate then nil else setHover,
 				getSelectionStart = getSelectionStart,
 				getCursorPosition = getCursorPosition,
 				setCursorPosition = setCursorPosition,
@@ -469,13 +456,6 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		end,
 		{ props.onReturnPressed, isScrollable, props.onFocusLost } :: { unknown }
 	)
-
-	-- Remove with Flags.FoundationTextInputsBetaUpdate
-	local onInputStateChanged = if Flags.FoundationTextInputsBetaUpdate
-		then nil :: never
-		else React.useCallback(function(newState: ControlState)
-			setHover(newState == ControlState.Hover)
-		end, {})
 
 	local onDragStarted = React.useCallback(function(_rbx: InputObject, position: Vector2)
 		dragStartPosition.current = position
@@ -696,7 +676,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						)
 						else containerProps.strokeStyle.Transparency,
 					Thickness = containerProps.strokeThickness,
-					BorderStrokePosition = if focus or (hover and not Flags.FoundationTextInputsBetaUpdate)
+					BorderStrokePosition = if focus
 						then Enum.BorderStrokePosition.Center
 						else Enum.BorderStrokePosition.Inner,
 				}
@@ -718,7 +698,6 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				bottom = UDim.new(0, outerBorderThickness),
 			},
 			onActivated = if not props.isDisabled then focusTextBox else nil,
-			onStateChanged = if Flags.FoundationTextInputsBetaUpdate then nil else onInputStateChanged,
 			isDisabled = props.isDisabled,
 			backgroundStyle = if containerProps.bgStyle
 				then getDisabledStyle({

@@ -21,6 +21,16 @@ local View = require(Foundation.Components.View)
 local Flags = require(Foundation.Utility.Flags)
 local NumberInput = require(Foundation.Components.NumberInput)
 
+local function withDefaultFirst<T>(values: { T }, defaultValue: T): { T }
+	local result = { defaultValue }
+	for _, value in values do
+		if value ~= defaultValue then
+			table.insert(result, value)
+		end
+	end
+	return result
+end
+
 type FormatAsStringEntry = {
 	name: string,
 	callback: ((value: number) -> string)?,
@@ -115,6 +125,10 @@ local function PlaygroundStory(props)
 		end
 	end
 
+	local handleTextChanged = React.useCallback(function(text: string)
+		print(text)
+	end, {})
+
 	return React.createElement(NumberInput, {
 		value = if controls.useBindingValue then valueBinding else value,
 		variant = controls.variant,
@@ -123,6 +137,9 @@ local function PlaygroundStory(props)
 		isDisabled = controls.isDisabled,
 		isRequired = controls.isRequired,
 		onChanged = handleChange,
+		onTextChanged = if Flags.FoundationNumberInputOnTextChanged and controls.onTextChanged
+			then handleTextChanged
+			else nil,
 		formatAsString = formatAsString,
 		label = controls.label,
 		size = controls.size,
@@ -130,7 +147,7 @@ local function PlaygroundStory(props)
 		maximum = controls.maximum,
 		minimum = controls.minimum,
 		step = controls.step,
-		hint = controls.hint,
+		hint = if controls.hint == "" then nil else controls.hint,
 		precision = controls.precision,
 		leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
 		trailingIcon = if Flags.FoundationNumberInputBeta
@@ -362,6 +379,80 @@ local function ScrubBehaviorStory()
 	)
 end
 
+local function evaluateExpression(text: string): number?
+	local trimmed = string.match(text, "^%s*(.-)%s*$")
+	if trimmed == nil or trimmed == "" then
+		return nil
+	end
+
+	local left, op, right = string.match(trimmed, "^(%d+%.?%d*)%s*([+%-])%s*(%d+%.?%d*)$")
+	if left and op and right then
+		local a, b = tonumber(left), tonumber(right)
+		if a and b then
+			if op == "+" then
+				return a + b
+			elseif op == "-" then
+				return a - b
+			end
+		end
+	end
+
+	return tonumber(trimmed)
+end
+
+local EXPRESSION_INPUT_HINT = 'Type an expression like "3 + 5"'
+local INVALID_EXPRESSION_HINT = "Could not compute expression"
+
+local function ExpressionInputStory(_props: any)
+	local value: number?, setValue: (number?) -> () = React.useState(nil :: number?)
+	local expression, setExpression = React.useState("")
+	local errorMessage: string?, setErrorMessage: (string?) -> () = React.useState(nil :: string?)
+
+	local onTextChanged = React.useCallback(function(text: string)
+		setExpression(text)
+		setErrorMessage(nil)
+	end, {})
+
+	local onFocusLost = React.useCallback(function()
+		local result = evaluateExpression(expression)
+		if result ~= nil then
+			setValue(result)
+			setExpression(tostring(result))
+			setErrorMessage(nil)
+		else
+			setValue(nil)
+			setErrorMessage(INVALID_EXPRESSION_HINT)
+		end
+	end, { expression } :: { unknown })
+
+	return React.createElement(View, {
+		tag = "col gap-large auto-xy padding-large",
+	}, {
+		Input = React.createElement(NumberInput, {
+			value = value or 0,
+			label = "Padding",
+			-- Pair hasError with a hint message to tell the user their formula is invalid.
+			hasError = errorMessage ~= nil,
+			hint = errorMessage or EXPRESSION_INPUT_HINT,
+			onTextChanged = onTextChanged,
+			onChanged = function() end,
+			onFocusLost = onFocusLost,
+			width = UDim.new(0, 300),
+			LayoutOrder = 1,
+		}),
+		Expression = React.createElement(Text, {
+			tag = "auto-xy text-body-medium content-default",
+			Text = `Expression: {if expression == "" then "—" else expression}`,
+			LayoutOrder = 2,
+		}),
+		Value = React.createElement(Text, {
+			tag = "auto-xy text-body-medium content-emphasis",
+			Text = if value ~= nil then `Value: {value}` else "Value: nil",
+			LayoutOrder = 3,
+		}),
+	})
+end
+
 type HistoryEntry = {
 	value: number,
 	reason: OnChangeCallbackReason,
@@ -485,7 +576,7 @@ local function UndoRedoStackStory()
 	})
 end
 
-local stories: { { name: string, story: (props: any) -> React.Node } } = {
+local stories: { { name: string, story: (props: any) -> React.Node, summary: string? } } = {
 	{
 		name = "Playground",
 		story = function(props)
@@ -526,45 +617,59 @@ local stories: { { name: string, story: (props: any) -> React.Node } } = {
 	},
 }
 
+if Flags.FoundationNumberInputOnTextChanged then
+	table.insert(
+		stories,
+		{
+			name = "Expression input",
+			summary = "Uses `onTextChanged` to allow for custom expressions to be written instead of exclusively numbers.",
+			story = ExpressionInputStory,
+		} :: { name: string, story: (props: any) -> React.Node, summary: string? }
+	)
+end
+
 return {
 	summary = "NumberInput",
 	stories = stories,
 	controls = {
-		label = "Label",
-		hint = "Number from -5 to 100",
-		size = Dash.values(InputSize),
+		label = "",
+		hint = "",
+		size = withDefaultFirst(Dash.values(InputSize), InputSize.Large),
 		isRequired = { React.None, false, true },
-		variant = Dash.values(InputVariant),
-		controlsVariant = if Flags.FoundationNumberInputBeta then nil else Dash.values(NumberInputControlsVariant),
+		variant = withDefaultFirst(Dash.values(InputVariant), InputVariant.Standard),
+		controlsVariant = if Flags.FoundationNumberInputBeta
+			then nil
+			else withDefaultFirst(Dash.values(NumberInputControlsVariant), NumberInputControlsVariant.Stacked),
 		formatAsString = Dash.values(Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
 			return entry.name
 		end)),
+		onTextChanged = if Flags.FoundationNumberInputOnTextChanged then false else nil,
 		hasError = false,
 		isDisabled = false,
 		useBindingValue = false,
-		maximum = 100,
-		minimum = -5,
-		step = 0.2,
-		precision = 2,
+		maximum = math.huge,
+		minimum = -math.huge,
+		step = 1,
+		precision = 3,
 		prefix = "",
 		suffix = "",
 		width = 0,
-		scrubBehavior = Dash.values(ScrubBehavior),
+		scrubBehavior = withDefaultFirst(Dash.values(ScrubBehavior), ScrubBehavior.Off),
 		leadingIcon = {
+			React.None,
 			"icons/placeholder/placeholderOn_small",
 			"icons/status/private_small",
 			"icons/common/search_small",
-			React.None,
 		},
 		trailingIcon = if Flags.FoundationNumberInputBeta
 			then {
+				React.None,
 				"icons/placeholder/placeholderOn_small",
 				"icons/status/private_small",
 				"icons/common/search_small",
-				React.None,
 			}
 			else nil,
-		hasControls = if Flags.FoundationNumberInputBeta then true else nil,
+		hasControls = if Flags.FoundationNumberInputBeta then false else nil,
 		focusBehavior = if Flags.FoundationTextInputHighlightFix
 			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
 			else nil,

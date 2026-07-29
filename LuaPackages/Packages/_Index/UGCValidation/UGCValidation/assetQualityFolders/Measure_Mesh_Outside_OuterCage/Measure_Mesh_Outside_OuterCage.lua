@@ -17,7 +17,7 @@ Measure_Mesh_Outside_OuterCage.run = function(reporter: Types.ValidationReporter
 	local summary = data.aqsSummaryData.Measure_Mesh_Outside_OuterCage.Handle
 	local meshOutsidePercent = summary and tonumber(summary.mesh_outside_outer_cage_percent)
 	if meshOutsidePercent == nil then
-		reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+		error("Measure_Mesh_Outside_OuterCage: AQS summary missing required fields")
 	else
 		if meshOutsidePercent * 100 > maxRenderMeshInsideOuterCageMeshThreshold then
 			reporter:fail(ErrorSourceStrings.Keys.MeasureMeshOutsideOuterCage, {

@@ -35,11 +35,9 @@ local BuilderSansSemiBold = Font.new(Constants.BUILDER_SANS_FONT_ASSET, Enum.Fon
 function variantsFactory(tokens: Tokens)
 	local common = {
 		content = {
-			tag = if Flags.FoundationStatusIndicatorBeta
-				then "auto-xy text-align-x-left"
-				else "auto-xy text-caption-small text-align-x-left",
+			tag = "auto-xy text-align-x-left",
 			-- To-Do: Use tag for font when BuilderSansSemiBold is supported as token / tag
-			font = if Flags.FoundationStatusIndicatorBeta then BuilderSansSemiBold else nil,
+			font = BuilderSansSemiBold,
 		},
 	}
 

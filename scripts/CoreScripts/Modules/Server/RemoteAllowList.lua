@@ -52,11 +52,6 @@ return function()
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerDialog.lua
 	table.insert(allowList, "SetDialogInUse")
 
-	-- content/scripts/CoreScripts/ServerCoreScripts/ServerContactList.lua
-	table.insert(allowList, "ContactListInvokeIrisInvite")
-	table.insert(allowList, "ContactListIrisInviteTeleport")
-	table.insert(allowList, "UpdateCurrentCall")
-
 	-- content/scripts/CoreScripts/ServerCoreScripts/PlayerViewCapability.lua
 	table.insert(allowList, "RequestDeviceCameraOrientationCapability")
 	table.insert(allowList, "RequestDeviceCameraCFrame")

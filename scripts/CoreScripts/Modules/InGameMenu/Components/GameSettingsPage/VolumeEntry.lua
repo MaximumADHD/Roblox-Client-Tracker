@@ -11,6 +11,8 @@ local MasterVolumeChanged = UserGameSettings:GetPropertyChangedSignal("MasterVol
 
 local InGameMenu = script.Parent.Parent.Parent
 
+local FFlagRenameVolumeToMainVolume = require(CoreGui.RobloxGui.Modules.Flags.FFlagRenameVolumeToMainVolume)
+
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local SliderEntry = require(script.Parent.SliderEntry)
 
@@ -49,7 +51,9 @@ end
 function VolumeEntry:render()
 	return Roact.createFragment({
 		VolumeSlider = Roact.createElement(SliderEntry, {
-			labelKey = "CoreScripts.InGameMenu.GameSettings.Volume",
+			labelKey = if FFlagRenameVolumeToMainVolume
+				then "CoreScripts.InGameMenu.GameSettings.MainVolume"
+				else "CoreScripts.InGameMenu.GameSettings.Volume",
 			LayoutOrder = self.props.LayoutOrder,
 			min = 0,
 			max = 10,

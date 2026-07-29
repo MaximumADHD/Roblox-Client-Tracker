@@ -24,7 +24,9 @@ local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+local useIsPlaytestMode = require(Chrome.ChromeShared.Hooks.useIsPlaytestMode)
 
+local FFlagEnablePlaytestModeUnibar = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePlaytestModeUnibar
 local FFlagChromeActivatedMappedSignal =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagChromeActivatedMappedSignal
 local MappedSignal = ChromeUtils.MappedSignal
@@ -81,6 +83,9 @@ muteSelf = ChromeService:register({
 			else
 				iconSize = Constants.ICON_SIZE
 			end
+			local isPlaytestMode = if FFlagEnablePlaytestModeUnibar then useIsPlaytestMode() else nil
+			local iconStyle = if FFlagEnablePlaytestModeUnibar and isPlaytestMode then "MicDark" else "MicLight"
+
 			return React.createElement("Frame", {
 				Size = UDim2.new(0, iconSize, 0, iconSize),
 				BackgroundTransparency = 1,
@@ -88,7 +93,7 @@ muteSelf = ChromeService:register({
 				React.createElement(VoiceIndicator, {
 					userId = tostring((Players.LocalPlayer :: Player).UserId),
 					hideOnError = false,
-					iconStyle = "MicLight",
+					iconStyle = iconStyle,
 					selectable = false,
 					size = UDim2.new(0, iconSize, 0, iconSize),
 					showConnectingShimmer = true,

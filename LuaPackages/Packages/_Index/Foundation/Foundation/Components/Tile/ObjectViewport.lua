@@ -1,6 +1,3 @@
---!nolint DeprecatedApi
--- TODO: Remove nolint when cleaning up FFlagFoundationMigrateDeprecatedApis
-
 --[[
 	A component for displaying a square ViewportFrame of a given 3D object.
 	Object should be of type Model and passed in as props.model
@@ -15,7 +12,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local RunService = require(Foundation.Utility.Wrappers).Services.RunService
-local Flags = require(Foundation.Utility.Flags)
 
 local WORLD_Y_AXIS = Vector3.new(0, 1, 0)
 
@@ -74,9 +70,7 @@ local function ObjectViewport(objectViewportProps: Props)
 
 	React.useEffect(function()
 		if model ~= nil then
-			local cFrame = if Flags.FoundationMigrateDeprecatedApis
-				then model:GetPivot()
-				else model:GetModelCFrame() :: never
+			local cFrame = model:GetPivot()
 			setModelCFrame(cFrame)
 			setInitialLookVector(cFrame.LookVector)
 
@@ -139,9 +133,8 @@ local function ObjectViewport(objectViewportProps: Props)
 					updateCameraRotationBinding(cameraRotationBinding:getValue() + props.rotationSpeed or 0)
 					local newLookVector =
 						rotateVectorAround(initialLookVector, cameraRotationBinding:getValue(), WORLD_Y_AXIS)
-					local newCFrame = if Flags.FoundationMigrateDeprecatedApis
-						then CFrame.new(modelCFrame.Position + (newLookVector * cameraDistance), modelCFrame.Position)
-						else CFrame.new(modelCFrame.p + (newLookVector * cameraDistance), modelCFrame.p)
+					local newCFrame =
+						CFrame.new(modelCFrame.Position + (newLookVector * cameraDistance), modelCFrame.Position)
 					updateCameraCFrameBinding(newCFrame)
 				end,
 			}),

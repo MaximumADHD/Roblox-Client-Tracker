@@ -23,9 +23,6 @@ local DeleteOutfitPrompt = require(Prompts.DeleteOutfitPrompt)
 local RenameOutfitPrompt = require(Prompts.RenameOutfitPrompt)
 local UpdateOutfitPrompt = require(Prompts.UpdateOutfitPrompt)
 
-local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
-local FFlagAXAvatarTimeoutFlowIE = AvatarExperienceFlags.FFlagAXAvatarTimeoutFlowIE
-
 local LocalPlayer = Players.LocalPlayer
 
 local AvatarEditorPrompts = script.Parent.Parent
@@ -57,10 +54,8 @@ local PROMPT_COMPONENTS_MAP = {
 	[PromptType.DeleteOutfit] = DeleteOutfitPrompt,
 	[PromptType.RenameOutfit] = RenameOutfitPrompt,
 	[PromptType.UpdateOutfit] = UpdateOutfitPrompt,
+	[PromptType.SaveAvatarTimeout] = SaveAvatarTimeoutPrompt,
 }
-if FFlagAXAvatarTimeoutFlowIE then
-	PROMPT_COMPONENTS_MAP[PromptType.SaveAvatarTimeout] = SaveAvatarTimeoutPrompt
-end
 
 local AvatarEditorPromptsApp = Roact.PureComponent:extend("AvatarEditorPromptsApp")
 

@@ -14,6 +14,9 @@ local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextC
 local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
 local FFlagExpChatUseUnifiedTooltipStore = ExpChatShared.Flags.FFlagExpChatUseUnifiedTooltipStore
 
+local FFlagExpChatShowPresetTooltipToNonAgeChecked2 =
+	game:DefineFastFlag("ExpChatShowPresetTooltipToNonAgeChecked2", false)
+
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 
 type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
@@ -64,9 +67,16 @@ local function ChatNotificationBadge(props: ChatNotificationBadgeProps): any?
 					return
 				end
 
+				local presetShouldShow = false
+				if FFlagExpChatShowPresetTooltipToNonAgeChecked2 then
+					presetShouldShow = presetShown and (isChatInputBarVisible or isChatWindowOpen)
+				else
+					presetShouldShow = presetShown and isChatInputBarVisible
+				end
+
 				tooltipStore.setShouldShow("GlobalChatTooltip", globalShown and isChatWindowOpen)
 				if FFlagExpChatPresetChatEnabled then
-					tooltipStore.setShouldShow("PresetChatTooltip", presetShown and isChatInputBarVisible)
+					tooltipStore.setShouldShow("PresetChatTooltip", presetShouldShow)
 				end
 			end,
 			{

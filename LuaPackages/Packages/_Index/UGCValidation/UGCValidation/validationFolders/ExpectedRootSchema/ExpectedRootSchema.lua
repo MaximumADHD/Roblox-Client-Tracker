@@ -7,8 +7,6 @@ local CreateExpectedSchema = require(root.util.CreateExpectedSchema)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local getFFlagUGCValidationExtendSchemaToIgnoreDescendants =
 	require(root.flags.getFFlagUGCValidationExtendSchemaToIgnoreDescendants)
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidationAnimationPackFolderStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
@@ -80,7 +78,7 @@ local function validateInstancesFromSchema(
 				ParentPath = instance:GetFullName(),
 				ExpectedClass = childSchema.ClassName,
 				ExpectedName = getReadableName(childSchema.Name),
-			}, if getEngineFeatureEngineUGCValidationExpandReturnSchema() then instance else nil)
+			}, instance)
 		end
 	end
 end
@@ -101,7 +99,7 @@ local function validateNoInstancesOutsideSchema(
 		reporter:fail(
 			ErrorSourceStrings.Keys.AssetSchemaUnexpectedItems,
 			{ UnexpectedDescendantPaths = table.concat(unauthorizedDescendantPaths, ", ") },
-			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then instance else nil
+			instance
 		)
 	end
 end

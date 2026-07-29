@@ -1472,6 +1472,7 @@ type _TileSchema_PropsFields = {
 	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
 	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	thumbnail_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _TileSchema_PropsPartialFields = {
@@ -1501,6 +1502,7 @@ type _TileSchema_PropsPartialFields = {
 	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
 	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	thumbnail_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type TileSchema_Props = typeof(setmetatable({} :: _TileSchema_PropsFields, {} :: _TileSchema_PropsImpl))
@@ -1685,6 +1687,7 @@ type _BadgeTileSchema_PropsFields = {
 	hold_action_config: HoldActionConfigProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	thumbnail_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _BadgeTileSchema_PropsPartialFields = {
@@ -1714,6 +1717,7 @@ type _BadgeTileSchema_PropsPartialFields = {
 	hold_action_config: HoldActionConfigProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	title_text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	thumbnail_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type BadgeTileSchema_Props = typeof(setmetatable(
@@ -3721,6 +3725,7 @@ type _CollectionCarouselSchema_PropsFields = {
 	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	enable_hover_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	num_columns_override: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	respect_clip_ancestors: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _CollectionCarouselSchema_PropsPartialFields = {
@@ -3747,6 +3752,7 @@ type _CollectionCarouselSchema_PropsPartialFields = {
 	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	enable_hover_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	num_columns_override: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	respect_clip_ancestors: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type CollectionCarouselSchema_Props = typeof(setmetatable(
@@ -3888,6 +3894,7 @@ type _VariableItemWidthCarouselSchema_PropsFields = {
 	should_use_frame_bounds_for_impressions: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	respect_clip_ancestors: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _VariableItemWidthCarouselSchema_PropsPartialFields = {
@@ -3903,6 +3910,7 @@ type _VariableItemWidthCarouselSchema_PropsPartialFields = {
 	should_use_frame_bounds_for_impressions: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	respect_clip_ancestors: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type VariableItemWidthCarouselSchema_Props = typeof(setmetatable(
@@ -5400,6 +5408,8 @@ type _CardSchema_PropsFields = {
 	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	focus_navigation_actions_component: NestedComponentProp?,
 	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	cta_button_component: NestedComponentProp?,
+	image_component: NestedComponentProp?,
 }
 
 type _CardSchema_PropsPartialFields = {
@@ -5415,6 +5425,8 @@ type _CardSchema_PropsPartialFields = {
 	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	focus_navigation_actions_component: NestedComponentProp?,
 	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	cta_button_component: NestedComponentProp?,
+	image_component: NestedComponentProp?,
 }
 
 export type CardSchema_Props = typeof(setmetatable({} :: _CardSchema_PropsFields, {} :: _CardSchema_PropsImpl))
@@ -6128,12 +6140,16 @@ type _CatalogItemGridSchema_PropsFields = {
 	content: _roblox_apppageplatform_shared_v1beta1_catalog_sort_prop_types.ArrayOfCatalogSortContentProp?,
 	preview_columns: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_load_more: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	enable_continuous_load: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	load_more_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _CatalogItemGridSchema_PropsPartialFields = {
 	content: _roblox_apppageplatform_shared_v1beta1_catalog_sort_prop_types.ArrayOfCatalogSortContentProp?,
 	preview_columns: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_load_more: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	enable_continuous_load: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	load_more_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type CatalogItemGridSchema_Props = typeof(setmetatable(
@@ -9361,6 +9377,7 @@ type _SystemBannerSchema_PropsFields = {
 	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	on_close: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	on_view: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	actions: ArrayOfSystemBannerActionsProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
@@ -9375,6 +9392,7 @@ type _SystemBannerSchema_PropsPartialFields = {
 	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	on_close: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	on_view: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	actions: ArrayOfSystemBannerActionsProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
@@ -9549,6 +9567,8 @@ type _AiOverviewSchema_PropsFields = {
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	header_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	section_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 type _AiOverviewSchema_PropsPartialFields = {
@@ -9560,6 +9580,8 @@ type _AiOverviewSchema_PropsPartialFields = {
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	header_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	section_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 export type AiOverviewSchema_Props = typeof(setmetatable(
@@ -15501,6 +15523,7 @@ do
 			image_corner_radius = if data == nil or data.image_corner_radius == nil
 				then nil
 				else data.image_corner_radius,
+			thumbnail_padding = if data == nil or data.thumbnail_padding == nil then nil else data.thumbnail_padding,
 		}, _TileSchema_PropsImpl :: _TileSchema_PropsImpl)
 	end
 
@@ -15664,6 +15687,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.thumbnail_padding ~= nil then
+			local encoded = self.thumbnail_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -15817,6 +15846,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.image_corner_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -15946,6 +15980,10 @@ do
 
 		if self.image_corner_radius ~= nil then
 			output.imageCornerRadius = self.image_corner_radius:jsonEncode()
+		end
+
+		if self.thumbnail_padding ~= nil then
+			output.thumbnailPadding = self.thumbnail_padding:jsonEncode()
 		end
 
 		return output
@@ -16188,6 +16226,16 @@ do
 		if input.imageCornerRadius ~= nil then
 			self.image_corner_radius =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.imageCornerRadius)
+		end
+
+		if input.thumbnail_padding ~= nil then
+			self.thumbnail_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thumbnail_padding)
+		end
+
+		if input.thumbnailPadding ~= nil then
+			self.thumbnail_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thumbnailPadding)
 		end
 
 		return self
@@ -16940,6 +16988,7 @@ do
 			title_text_x_alignment = if data == nil or data.title_text_x_alignment == nil
 				then nil
 				else data.title_text_x_alignment,
+			thumbnail_padding = if data == nil or data.thumbnail_padding == nil then nil else data.thumbnail_padding,
 		}, _BadgeTileSchema_PropsImpl :: _BadgeTileSchema_PropsImpl)
 	end
 
@@ -17103,6 +17152,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.thumbnail_padding ~= nil then
+			local encoded = self.thumbnail_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -17256,6 +17311,11 @@ do
 					self.title_text_x_alignment =
 						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.decode(value)
 					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -17385,6 +17445,10 @@ do
 
 		if self.title_text_x_alignment ~= nil then
 			output.titleTextXAlignment = self.title_text_x_alignment:jsonEncode()
+		end
+
+		if self.thumbnail_padding ~= nil then
+			output.thumbnailPadding = self.thumbnail_padding:jsonEncode()
 		end
 
 		return output
@@ -17627,6 +17691,16 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
 					input.titleTextXAlignment
 				)
+		end
+
+		if input.thumbnail_padding ~= nil then
+			self.thumbnail_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thumbnail_padding)
+		end
+
+		if input.thumbnailPadding ~= nil then
+			self.thumbnail_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thumbnailPadding)
 		end
 
 		return self
@@ -32755,6 +32829,9 @@ do
 			num_columns_override = if data == nil or data.num_columns_override == nil
 				then nil
 				else data.num_columns_override,
+			respect_clip_ancestors = if data == nil or data.respect_clip_ancestors == nil
+				then nil
+				else data.respect_clip_ancestors,
 		}, _CollectionCarouselSchema_PropsImpl :: _CollectionCarouselSchema_PropsImpl)
 	end
 
@@ -32897,6 +32974,12 @@ do
 		if self.num_columns_override ~= nil then
 			local encoded = self.num_columns_override:encode()
 			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.respect_clip_ancestors ~= nil then
+			local encoded = self.respect_clip_ancestors:encode()
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -33046,6 +33129,12 @@ do
 					self.num_columns_override =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.respect_clip_ancestors =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -33163,6 +33252,10 @@ do
 
 		if self.num_columns_override ~= nil then
 			output.numColumnsOverride = self.num_columns_override:jsonEncode()
+		end
+
+		if self.respect_clip_ancestors ~= nil then
+			output.respectClipAncestors = self.respect_clip_ancestors:jsonEncode()
 		end
 
 		return output
@@ -33384,6 +33477,16 @@ do
 		if input.numColumnsOverride ~= nil then
 			self.num_columns_override =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.numColumnsOverride)
+		end
+
+		if input.respect_clip_ancestors ~= nil then
+			self.respect_clip_ancestors =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.respect_clip_ancestors)
+		end
+
+		if input.respectClipAncestors ~= nil then
+			self.respect_clip_ancestors =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.respectClipAncestors)
 		end
 
 		return self
@@ -34037,6 +34140,9 @@ do
 				else data.should_use_frame_bounds_for_impressions,
 			position = if data == nil or data.position == nil then nil else data.position,
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			respect_clip_ancestors = if data == nil or data.respect_clip_ancestors == nil
+				then nil
+				else data.respect_clip_ancestors,
 		}, _VariableItemWidthCarouselSchema_PropsImpl :: _VariableItemWidthCarouselSchema_PropsImpl)
 	end
 
@@ -34113,6 +34219,12 @@ do
 		if self.layout_order ~= nil then
 			local encoded = self.layout_order:encode()
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.respect_clip_ancestors ~= nil then
+			local encoded = self.respect_clip_ancestors:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -34199,6 +34311,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.respect_clip_ancestors =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -34272,6 +34390,10 @@ do
 
 		if self.layout_order ~= nil then
 			output.layoutOrder = self.layout_order:jsonEncode()
+		end
+
+		if self.respect_clip_ancestors ~= nil then
+			output.respectClipAncestors = self.respect_clip_ancestors:jsonEncode()
 		end
 
 		return output
@@ -34378,6 +34500,16 @@ do
 		if input.layoutOrder ~= nil then
 			self.layout_order =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		if input.respect_clip_ancestors ~= nil then
+			self.respect_clip_ancestors =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.respect_clip_ancestors)
+		end
+
+		if input.respectClipAncestors ~= nil then
+			self.respect_clip_ancestors =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.respectClipAncestors)
 		end
 
 		return self
@@ -43565,6 +43697,10 @@ do
 				then nil
 				else data.focus_navigation_actions_component,
 			image_style = if data == nil or data.image_style == nil then nil else data.image_style,
+			cta_button_component = if data == nil or data.cta_button_component == nil
+				then nil
+				else data.cta_button_component,
+			image_component = if data == nil or data.image_component == nil then nil else data.image_component,
 		}, _CardSchema_PropsImpl :: _CardSchema_PropsImpl)
 	end
 
@@ -43641,6 +43777,18 @@ do
 		if self.image_style ~= nil then
 			local encoded = self.image_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cta_button_component ~= nil then
+			local encoded = self.cta_button_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_component ~= nil then
+			local encoded = self.image_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -43724,6 +43872,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_button_component = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_component = messages.NestedComponentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -43797,6 +43955,14 @@ do
 
 		if self.image_style ~= nil then
 			output.imageStyle = self.image_style:jsonEncode()
+		end
+
+		if self.cta_button_component ~= nil then
+			output.ctaButtonComponent = self.cta_button_component:jsonEncode()
+		end
+
+		if self.image_component ~= nil then
+			output.imageComponent = self.image_component:jsonEncode()
 		end
 
 		return output
@@ -43910,6 +44076,22 @@ do
 		if input.imageStyle ~= nil then
 			self.image_style =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.imageStyle)
+		end
+
+		if input.cta_button_component ~= nil then
+			self.cta_button_component = messages.NestedComponentProp.jsonDecode(input.cta_button_component)
+		end
+
+		if input.ctaButtonComponent ~= nil then
+			self.cta_button_component = messages.NestedComponentProp.jsonDecode(input.ctaButtonComponent)
+		end
+
+		if input.image_component ~= nil then
+			self.image_component = messages.NestedComponentProp.jsonDecode(input.image_component)
+		end
+
+		if input.imageComponent ~= nil then
+			self.image_component = messages.NestedComponentProp.jsonDecode(input.imageComponent)
 		end
 
 		return self
@@ -47728,6 +47910,10 @@ do
 			content = if data == nil or data.content == nil then nil else data.content,
 			preview_columns = if data == nil or data.preview_columns == nil then nil else data.preview_columns,
 			on_load_more = if data == nil or data.on_load_more == nil then nil else data.on_load_more,
+			enable_continuous_load = if data == nil or data.enable_continuous_load == nil
+				then nil
+				else data.enable_continuous_load,
+			load_more_label = if data == nil or data.load_more_label == nil then nil else data.load_more_label,
 		}, _CatalogItemGridSchema_PropsImpl :: _CatalogItemGridSchema_PropsImpl)
 	end
 
@@ -47750,6 +47936,18 @@ do
 		if self.on_load_more ~= nil then
 			local encoded = self.on_load_more:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.enable_continuous_load ~= nil then
+			local encoded = self.enable_continuous_load:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.load_more_label ~= nil then
+			local encoded = self.load_more_label:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -47790,6 +47988,17 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.on_load_more = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.enable_continuous_load =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.load_more_label = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -47829,6 +48038,14 @@ do
 			output.onLoadMore = self.on_load_more:jsonEncode()
 		end
 
+		if self.enable_continuous_load ~= nil then
+			output.enableContinuousLoad = self.enable_continuous_load:jsonEncode()
+		end
+
+		if self.load_more_label ~= nil then
+			output.loadMoreLabel = self.load_more_label:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -47858,6 +48075,26 @@ do
 
 		if input.onLoadMore ~= nil then
 			self.on_load_more = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onLoadMore)
+		end
+
+		if input.enable_continuous_load ~= nil then
+			self.enable_continuous_load =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enable_continuous_load)
+		end
+
+		if input.enableContinuousLoad ~= nil then
+			self.enable_continuous_load =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableContinuousLoad)
+		end
+
+		if input.load_more_label ~= nil then
+			self.load_more_label =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.load_more_label)
+		end
+
+		if input.loadMoreLabel ~= nil then
+			self.load_more_label =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.loadMoreLabel)
 		end
 
 		return self
@@ -65968,6 +66205,7 @@ do
 			title = if data == nil or data.title == nil then nil else data.title,
 			description = if data == nil or data.description == nil then nil else data.description,
 			on_close = if data == nil or data.on_close == nil then nil else data.on_close,
+			on_view = if data == nil or data.on_view == nil then nil else data.on_view,
 			actions = if data == nil or data.actions == nil then nil else data.actions,
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
 			position = if data == nil or data.position == nil then nil else data.position,
@@ -66008,6 +66246,12 @@ do
 		if self.on_close ~= nil then
 			local encoded = self.on_close:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_view ~= nil then
+			local encoded = self.on_view:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -66091,6 +66335,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.on_close = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_view = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
 				elseif field == 10 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -66168,6 +66417,10 @@ do
 			output.onClose = self.on_close:jsonEncode()
 		end
 
+		if self.on_view ~= nil then
+			output.onView = self.on_view:jsonEncode()
+		end
+
 		if self.actions ~= nil then
 			output.actions = self.actions:jsonEncode()
 		end
@@ -66221,6 +66474,14 @@ do
 
 		if input.onClose ~= nil then
 			self.on_close = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onClose)
+		end
+
+		if input.on_view ~= nil then
+			self.on_view = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_view)
+		end
+
+		if input.onView ~= nil then
+			self.on_view = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onView)
 		end
 
 		if input.actions ~= nil then
@@ -67070,6 +67331,8 @@ do
 			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
 			test_id = if data == nil or data.test_id == nil then nil else data.test_id,
+			header_gap = if data == nil or data.header_gap == nil then nil else data.header_gap,
+			section_gap = if data == nil or data.section_gap == nil then nil else data.section_gap,
 		}, _AiOverviewSchema_PropsImpl :: _AiOverviewSchema_PropsImpl)
 	end
 
@@ -67122,6 +67385,18 @@ do
 		if self.test_id ~= nil then
 			local encoded = self.test_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.header_gap ~= nil then
+			local encoded = self.header_gap:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.section_gap ~= nil then
+			local encoded = self.section_gap:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -67185,6 +67460,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.header_gap = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section_gap = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
 				end
 
 				local length
@@ -67242,6 +67527,14 @@ do
 
 		if self.test_id ~= nil then
 			output.testId = self.test_id:jsonEncode()
+		end
+
+		if self.header_gap ~= nil then
+			output.headerGap = self.header_gap:jsonEncode()
+		end
+
+		if self.section_gap ~= nil then
+			output.sectionGap = self.section_gap:jsonEncode()
 		end
 
 		return output
@@ -67310,6 +67603,22 @@ do
 
 		if input.testId ~= nil then
 			self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.testId)
+		end
+
+		if input.header_gap ~= nil then
+			self.header_gap = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.header_gap)
+		end
+
+		if input.headerGap ~= nil then
+			self.header_gap = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.headerGap)
+		end
+
+		if input.section_gap ~= nil then
+			self.section_gap = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.section_gap)
+		end
+
+		if input.sectionGap ~= nil then
+			self.section_gap = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.sectionGap)
 		end
 
 		return self

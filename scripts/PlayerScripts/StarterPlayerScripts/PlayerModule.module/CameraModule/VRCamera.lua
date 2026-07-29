@@ -19,6 +19,10 @@ local NECK_OFFSET = -0.7
 -- requires
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
+local FFlagUserVRRemoveLuaEdgeBlur = FlagUtil.getUserFlag("UserVRRemoveLuaEdgeBlur")
 
 --[[ The Module ]]--
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
@@ -62,7 +66,9 @@ function VRCamera:Update(timeDelta)
 
 	-- update fullscreen effects
 	self:UpdateFadeFromBlack(timeDelta)
-	self:UpdateEdgeBlur(player, timeDelta)
+	if not FFlagUserVRRemoveLuaEdgeBlur then
+		self:UpdateEdgeBlur(player, timeDelta)
+	end
 
 	local lastSubjPos = self.lastSubjectPosition
 	local subjectPosition: Vector3 = self:GetSubjectPosition()
@@ -133,9 +139,11 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 
 	-- blur screen edge during movement
 	local player = PlayersService.LocalPlayer
-	local subjectDelta = lastSubjPos - subjectPosition
-	if subjectDelta.magnitude > 0.01 then
-		self:StartVREdgeBlur(player)
+	if not FFlagUserVRRemoveLuaEdgeBlur then
+		local subjectDelta = lastSubjPos - subjectPosition
+		if subjectDelta.magnitude > 0.01 then
+			self:StartVREdgeBlur(player)
+		end
 	end
 	-- straight view, not angled down
 	local cameraFocusP = newCameraFocus.p
@@ -201,8 +209,10 @@ function VRCamera:UpdateImmersionCamera(timeDelta, newCameraCFrame, newCameraFoc
 		-- if seated, just keep aligned with the seat itself
 		if humanoid.Sit then
 			newCameraCFrame = subjectCFrame
-			if (newCameraCFrame.Position - curCamera.CFrame.Position).Magnitude > 0.01 then
-				self:StartVREdgeBlur(PlayersService.LocalPlayer)
+			if not FFlagUserVRRemoveLuaEdgeBlur then
+				if (newCameraCFrame.Position - curCamera.CFrame.Position).Magnitude > 0.01 then
+					self:StartVREdgeBlur(PlayersService.LocalPlayer)
+				end
 			end
 		else
 			-- keep character rotation with torso
@@ -218,7 +228,9 @@ function VRCamera:UpdateImmersionCamera(timeDelta, newCameraCFrame, newCameraFoc
 				self.motionDetTime -= timeDelta
 
 				-- Add an edge blur if the subject moved
-				self:StartVREdgeBlur(PlayersService.LocalPlayer)
+				if not FFlagUserVRRemoveLuaEdgeBlur then
+					self:StartVREdgeBlur(PlayersService.LocalPlayer)
+				end
 
 				-- moving by input, so we should align the vrHead with the character
 				local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
@@ -400,8 +412,10 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	newCameraFocus = newCameraCFrame * CFrame.new(0, 0, -zoom)
 
 	-- vignette
-	if (newCameraFocus.Position - camera.Focus.Position).Magnitude > 0.01 then
-		self:StartVREdgeBlur(PlayersService.LocalPlayer)
+	if not FFlagUserVRRemoveLuaEdgeBlur then
+		if (newCameraFocus.Position - camera.Focus.Position).Magnitude > 0.01 then
+			self:StartVREdgeBlur(PlayersService.LocalPlayer)
+		end
 	end
 
 	return newCameraCFrame, newCameraFocus

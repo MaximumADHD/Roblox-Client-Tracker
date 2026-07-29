@@ -11,8 +11,6 @@ local React = require(CorePackages.Packages.React)
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
 
 local useStyle = UIBlox.Core.Style.useStyle
 
@@ -47,25 +45,21 @@ local function Overlay(props)
 		value = focusNavigationService,
 	}, {
 		FocusNavigationRegistryProvider = React.createElement(FocusNavigationRegistryProvider, nil, {
-			FocusNavigationCoreScriptsWrapper = React.createElement(
-				FocusRoot,
-				{
-					surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-					isIsolated = true,
-					isAutoFocusRoot = true,
-				},
-				{
-					OverlayContainer = React.createElement("Frame", {
-						BackgroundTransparency = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Color.Common.Scrim else style.Tokens.Semantic.Color.Common.Overlay).Transparency,
-						BackgroundColor3 = Colors.Black,
-						BorderSizePixel = 0,
-						Size = UDim2.fromScale(1, 1),
-						Visible = overlayComponent ~= nil,
-					}, {
-						Overlay = overlayComponent and React.createElement(overlayComponent, overlayProps) or nil,
-					}),
-				}
-			),
+			FocusNavigationCoreScriptsWrapper = React.createElement(FocusRoot, {
+				surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+				isIsolated = true,
+				isAutoFocusRoot = true,
+			}, {
+				OverlayContainer = React.createElement("Frame", {
+					BackgroundTransparency = style.Tokens.Color.Common.Scrim.Transparency,
+					BackgroundColor3 = Colors.Black,
+					BorderSizePixel = 0,
+					Size = UDim2.fromScale(1, 1),
+					Visible = overlayComponent ~= nil,
+				}, {
+					Overlay = overlayComponent and React.createElement(overlayComponent, overlayProps) or nil,
+				}),
+			}),
 		}),
 	})
 end

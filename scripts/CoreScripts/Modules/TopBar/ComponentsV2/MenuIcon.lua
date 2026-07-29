@@ -33,6 +33,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
 -- Components
 local View = Foundation.View
@@ -40,6 +41,8 @@ local Icon = Foundation.Icon
 local ControlState = Foundation.Enums.ControlState
 local useTokens = Foundation.Hooks.useTokens
 local useCursor = Foundation.Hooks.useCursor
+
+local useIsPlaytestMode = require(Chrome.ChromeShared.Hooks.useIsPlaytestMode)
 
 local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
 local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
@@ -66,6 +69,8 @@ local shouldDisableBottomBarInteraction = function()
     end
 end
 
+local lightTokens = if FFlagEnablePlaytestModeUnibar then Foundation.Utility.getTokens(Foundation.Enums.Theme.Light) else nil
+
 local BADGE_INDENT = 1
 
 local DEFAULT_DELAY_TIME = 0.65
@@ -76,6 +81,8 @@ local TOGGLE_MENU_HOTKEYS = { Enum.KeyCode.Escape }
 local BADGE_INDENT = 1
 local BADGE_OFFSET = 4
 
+type Tokens = Foundation.Tokens
+
 type MenuIconProps = {
 	menuIconRef: React.RefObject<GuiObject?>?,
 	unibarMenuRef: React.RefObject<GuiObject?>?,
@@ -85,6 +92,20 @@ type MenuIconProps = {
 
 local function MenuIcon(props: MenuIconProps)
     local tokens = useTokens()
+
+	local isPlaytestMode
+	if FFlagEnablePlaytestModeUnibar then
+		isPlaytestMode = useIsPlaytestMode()
+	end
+
+    local iconForegroundStyle = if FFlagEnablePlaytestModeUnibar and isPlaytestMode 
+            then (lightTokens :: Tokens).Color.Content.Emphasis
+        elseif FFlagEnableSideSheet 
+            then tokens.Color.ActionEmphasis.Foreground
+        else nil
+	local iconBackgroundStyle = if FFlagEnablePlaytestModeUnibar and isPlaytestMode 
+        then (lightTokens :: Tokens).Color.OverMedia.OverMedia_0
+        else tokens.Color.OverMedia.OverMedia_0 
 
 	local uiScale = SignalsReact.useSignalState(function(scope) 
 		return Display.GetDisplayStore(scope).getUIScale(scope)
@@ -274,7 +295,7 @@ local function MenuIcon(props: MenuIconProps)
             tag = "radius-circle aspect-1-1",
             backgroundStyle = if not FFlagEnableSideSheet 
 				then preferredTransparency:map(function(trans) 
-					local color = tokens.Color.OverMedia.OverMedia_0
+					local color = iconBackgroundStyle
 					color.Transparency = color.Transparency * trans
 					return color
 				end) 
@@ -305,10 +326,10 @@ local function MenuIcon(props: MenuIconProps)
                 size = menuIconSize.size,
                 Position = UDim2.fromScale(0.5, 0.5),
                 AnchorPoint = Vector2.new(0.5, 0.5),
-				style = if FFlagEnableSideSheet then tokens.Color.ActionEmphasis.Foreground else nil,
+				style = iconForegroundStyle,
             })
         })
-    end, { preferredTransparency, nextSelectionRight, menuIconCursor, menuIconActivated, menuIconStateChanged, props.showBadgeOver12 } :: {unknown})
+    end, { preferredTransparency, nextSelectionRight, menuIconCursor, menuIconActivated, menuIconStateChanged, props.showBadgeOver12, iconForegroundStyle, iconBackgroundStyle } :: {unknown})
 
     return renderWithTooltipCompat(tooltipProps, tooltipOptions, renderCallback)
 end

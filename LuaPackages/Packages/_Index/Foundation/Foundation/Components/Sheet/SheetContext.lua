@@ -48,6 +48,7 @@ return React.createContext({
 	closeAffordanceRef = nil :: React.Ref<GuiObject>?,
 	contentStartRef = nil :: React.Ref<GuiObject>?,
 	setContentStartRef = function(_ref: React.Ref<GuiObject>) end,
+	isVerticalSheetGesture = nil :: boolean?,
 } :: {
 	sheetHeightAvailable: React.Binding<number>?,
 	setSheetHeightAvailable: ((number) -> nil)?,
@@ -76,4 +77,5 @@ return React.createContext({
 	closeAffordanceRef: React.Ref<GuiObject>?,
 	contentStartRef: React.Ref<GuiObject>?,
 	setContentStartRef: ((React.Ref<GuiObject>) -> ())?,
+	isVerticalSheetGesture: boolean?,
 })

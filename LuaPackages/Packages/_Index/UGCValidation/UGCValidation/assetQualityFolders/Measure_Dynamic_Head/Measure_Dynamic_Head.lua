@@ -38,7 +38,7 @@ Measure_Dynamic_Head.run = function(reporter: Types.ValidationReporter, data: Ty
 	end
 
 	if dynamicHeadScores == nil then
-		reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
+		error("Measure_Dynamic_Head: AQS summary missing required fields")
 	else
 		for metric, error_enum in head_metric do
 			if

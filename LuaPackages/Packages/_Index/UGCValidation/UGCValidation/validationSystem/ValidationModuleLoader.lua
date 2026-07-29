@@ -14,8 +14,6 @@
 local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
-local getEngineFeatureEngineUGCValidationExpandReturnSchema =
-	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local validationFolders = root.validationFolders
 local assetQualityFolders = root.assetQualityFolders
@@ -35,10 +33,8 @@ local testEnumToSourceFolder: { [string]: Instance } = {}
 for _, testEnum in ValidationEnums.ValidationModule do
 	testEnumToSourceFolder[testEnum] = validationFolders
 end
-if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-	for _, testEnum in ValidationEnums.AssetQualityCheck do
-		testEnumToSourceFolder[testEnum] = assetQualityFolders
-	end
+for _, testEnum in ValidationEnums.AssetQualityCheck do
+	testEnumToSourceFolder[testEnum] = assetQualityFolders
 end
 
 local existingEnums = {}
@@ -104,22 +100,13 @@ for testEnum, sourceFolder in testEnumToSourceFolder do
 	valModule.conditionalData = valModule.conditionalData or {}
 	valModule.prereqTests = valModule.prereqTests or {}
 	valModule.expectedFailures = valModule.expectedFailures or {}
-	valModule.expectedAqsData = valModule.expectedAqsData or {}
 	valModule.knownAqsUserErrors = valModule.knownAqsUserErrors or {}
 
 	-- Loader-injected, not a ValidationConfig entry the author can set. Signals that the module
 	-- is iterated out of assetQualityFolders/ and its testEnum matches the AQS summary key.
 	valModule.isAssetQualityModule = sourceFolder == assetQualityFolders
 
-	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
-		if valModule.isAssetQualityModule then
-			for _, dataEnum in requiredDatasForAllAQSCalls do
-				if not table.find(valModule.requiredData, dataEnum) then
-					table.insert(valModule.requiredData, dataEnum)
-				end
-			end
-		end
-	elseif next(valModule.expectedAqsData) ~= nil then
+	if valModule.isAssetQualityModule then
 		for _, dataEnum in requiredDatasForAllAQSCalls do
 			if not table.find(valModule.requiredData, dataEnum) then
 				table.insert(valModule.requiredData, dataEnum)

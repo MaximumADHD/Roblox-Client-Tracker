@@ -171,11 +171,6 @@ if game:DefineFastFlag("VersionedFlags_Dev", false) then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/VersionedFlagTest", script.Parent)
 end
 
-local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
-if GetFFlagContactListEnabled() then
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerContactList", script.Parent)
-end
-
 if game:DefineFastFlag("AppBuildReloadRemote", false) then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerBuildExperiencePlaytestTeleport", script.Parent)
 end

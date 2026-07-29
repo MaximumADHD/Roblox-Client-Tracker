@@ -9,6 +9,7 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local Settings = script.Parent.Parent.Parent
 local ReactPageSignal = require(Settings.ReactPageSignal)
@@ -29,6 +30,7 @@ local useHistoryItems = Traversal.useHistoryItems
 local FIntMaximumTraversalHistoryItemsFetch = Traversal.Flags.FIntMaximumTraversalHistoryItemsFetch
 local FFlagTraversalExpPagePaddingFixes = Traversal.Flags.FFlagTraversalExpPagePaddingFixes
 local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
+local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 
 export type TraversalHistoryPageProps = {}
 
@@ -88,7 +90,7 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 	end, { numItems, } )
 
 	return next(items) ~= nil and React.createElement(View, {
-		tag = "size-full " .. (if FFlagTraversalExpPagePaddingFixes then "padding-top-medium" else "padding-large")
+		tag = "size-full " .. if FFlagIntegrateTraversalHistoryInSideSheet then "" else (if FFlagTraversalExpPagePaddingFixes then "padding-top-medium" else "padding-large")
 	}, {
 		HistoryPage = React.createElement(HistoryPage, {
 			historyItems = items,

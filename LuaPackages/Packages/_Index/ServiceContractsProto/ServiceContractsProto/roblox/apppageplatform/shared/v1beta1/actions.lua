@@ -45,6 +45,8 @@ type _Messages =
 		OpenProfileAction_Params: _OpenProfileAction_ParamsMessage,
 		OpenFacialAgeEstimationAction: _OpenFacialAgeEstimationActionMessage,
 		OpenFacialAgeEstimationAction_Params: _OpenFacialAgeEstimationAction_ParamsMessage,
+		ShowToastAction: _ShowToastActionMessage,
+		ShowToastAction_Params: _ShowToastAction_ParamsMessage,
 		OpenPhoneUpsellModalAction: _OpenPhoneUpsellModalActionMessage,
 		OpenPhoneUpsellModalAction_Params: _OpenPhoneUpsellModalAction_ParamsMessage,
 		OpenEmailUpsellModalAction: _OpenEmailUpsellModalActionMessage,
@@ -93,6 +95,8 @@ type _Messages =
 		RefreshDeveloperProductsAction_Params: _RefreshDeveloperProductsAction_ParamsMessage,
 		OpenFaeTrialUpsellAction: _OpenFaeTrialUpsellActionMessage,
 		OpenFaeTrialUpsellAction_Params: _OpenFaeTrialUpsellAction_ParamsMessage,
+		OpenIncomingTransferUpsellAction: _OpenIncomingTransferUpsellActionMessage,
+		OpenIncomingTransferUpsellAction_Params: _OpenIncomingTransferUpsellAction_ParamsMessage,
 		OpenSduiOverlayAction: _OpenSduiOverlayActionMessage,
 		OpenSduiOverlayAction_Params: _OpenSduiOverlayAction_ParamsMessage,
 		ApplyChartsFilterAction: _ApplyChartsFilterActionMessage,
@@ -159,6 +163,8 @@ type _Messages =
 		OpenSearchResultsWithQueryAction_Params: _OpenSearchResultsWithQueryAction_ParamsMessage,
 		SelectMarketplaceFavoritesCategory: _SelectMarketplaceFavoritesCategoryMessage,
 		SelectMarketplaceFavoritesCategory_Params: _SelectMarketplaceFavoritesCategory_ParamsMessage,
+		SelectMarketplaceFavoritesSubcategory: _SelectMarketplaceFavoritesSubcategoryMessage,
+		SelectMarketplaceFavoritesSubcategory_Params: _SelectMarketplaceFavoritesSubcategory_ParamsMessage,
 		PinExperienceShortcutAction: _PinExperienceShortcutActionMessage,
 		PinExperienceShortcutAction_Params: _PinExperienceShortcutAction_ParamsMessage,
 		DownloadAppAction: _DownloadAppActionMessage,
@@ -1197,6 +1203,55 @@ type _OpenFacialAgeEstimationAction_ParamsMessage = proto.Message<
 	OpenFacialAgeEstimationAction_Params,
 	_OpenFacialAgeEstimationAction_ParamsPartialFields
 >
+
+type _ShowToastActionImpl = {
+	__index: _ShowToastActionImpl,
+	new: (fields: _ShowToastActionPartialFields?) -> ShowToastAction,
+	encode: (self: ShowToastAction) -> buffer,
+	decode: (input: buffer) -> ShowToastAction,
+	jsonEncode: (self: ShowToastAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShowToastAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ShowToastActionFields = {
+	action_type: ActionType,
+	action_params: ShowToastAction_Params?,
+}
+
+type _ShowToastActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ShowToastAction_Params?,
+}
+
+export type ShowToastAction = typeof(setmetatable({} :: _ShowToastActionFields, {} :: _ShowToastActionImpl))
+type _ShowToastActionMessage = proto.Message<ShowToastAction, _ShowToastActionPartialFields>
+
+type _ShowToastAction_ParamsImpl = {
+	__index: _ShowToastAction_ParamsImpl,
+	new: (fields: _ShowToastAction_ParamsPartialFields?) -> ShowToastAction_Params,
+	encode: (self: ShowToastAction_Params) -> buffer,
+	decode: (input: buffer) -> ShowToastAction_Params,
+	jsonEncode: (self: ShowToastAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShowToastAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ShowToastAction_ParamsFields = {
+	message_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	toast_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ShowToastAction_ParamsPartialFields = {
+	message_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	toast_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ShowToastAction_Params = typeof(setmetatable(
+	{} :: _ShowToastAction_ParamsFields,
+	{} :: _ShowToastAction_ParamsImpl
+))
+type _ShowToastAction_ParamsMessage = proto.Message<ShowToastAction_Params, _ShowToastAction_ParamsPartialFields>
 
 type _OpenPhoneUpsellModalActionImpl = {
 	__index: _OpenPhoneUpsellModalActionImpl,
@@ -2581,12 +2636,14 @@ type _OpenFaeTrialUpsellAction_ParamsFields = {
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenFaeTrialUpsellAction_ParamsPartialFields = {
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenFaeTrialUpsellAction_Params = typeof(setmetatable(
@@ -2596,6 +2653,66 @@ export type OpenFaeTrialUpsellAction_Params = typeof(setmetatable(
 type _OpenFaeTrialUpsellAction_ParamsMessage = proto.Message<
 	OpenFaeTrialUpsellAction_Params,
 	_OpenFaeTrialUpsellAction_ParamsPartialFields
+>
+
+type _OpenIncomingTransferUpsellActionImpl = {
+	__index: _OpenIncomingTransferUpsellActionImpl,
+	new: (fields: _OpenIncomingTransferUpsellActionPartialFields?) -> OpenIncomingTransferUpsellAction,
+	encode: (self: OpenIncomingTransferUpsellAction) -> buffer,
+	decode: (input: buffer) -> OpenIncomingTransferUpsellAction,
+	jsonEncode: (self: OpenIncomingTransferUpsellAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenIncomingTransferUpsellAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenIncomingTransferUpsellActionFields = {
+	action_type: ActionType,
+	action_params: OpenIncomingTransferUpsellAction_Params?,
+}
+
+type _OpenIncomingTransferUpsellActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenIncomingTransferUpsellAction_Params?,
+}
+
+export type OpenIncomingTransferUpsellAction = typeof(setmetatable(
+	{} :: _OpenIncomingTransferUpsellActionFields,
+	{} :: _OpenIncomingTransferUpsellActionImpl
+))
+type _OpenIncomingTransferUpsellActionMessage = proto.Message<
+	OpenIncomingTransferUpsellAction,
+	_OpenIncomingTransferUpsellActionPartialFields
+>
+
+type _OpenIncomingTransferUpsellAction_ParamsImpl = {
+	__index: _OpenIncomingTransferUpsellAction_ParamsImpl,
+	new: (fields: _OpenIncomingTransferUpsellAction_ParamsPartialFields?) -> OpenIncomingTransferUpsellAction_Params,
+	encode: (self: OpenIncomingTransferUpsellAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenIncomingTransferUpsellAction_Params,
+	jsonEncode: (self: OpenIncomingTransferUpsellAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenIncomingTransferUpsellAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenIncomingTransferUpsellAction_ParamsFields = {
+	url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenIncomingTransferUpsellAction_ParamsPartialFields = {
+	url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenIncomingTransferUpsellAction_Params = typeof(setmetatable(
+	{} :: _OpenIncomingTransferUpsellAction_ParamsFields,
+	{} :: _OpenIncomingTransferUpsellAction_ParamsImpl
+))
+type _OpenIncomingTransferUpsellAction_ParamsMessage = proto.Message<
+	OpenIncomingTransferUpsellAction_Params,
+	_OpenIncomingTransferUpsellAction_ParamsPartialFields
 >
 
 type _OpenSduiOverlayActionImpl = {
@@ -4592,6 +4709,64 @@ type _SelectMarketplaceFavoritesCategory_ParamsMessage = proto.Message<
 	_SelectMarketplaceFavoritesCategory_ParamsPartialFields
 >
 
+type _SelectMarketplaceFavoritesSubcategoryImpl = {
+	__index: _SelectMarketplaceFavoritesSubcategoryImpl,
+	new: (fields: _SelectMarketplaceFavoritesSubcategoryPartialFields?) -> SelectMarketplaceFavoritesSubcategory,
+	encode: (self: SelectMarketplaceFavoritesSubcategory) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceFavoritesSubcategory,
+	jsonEncode: (self: SelectMarketplaceFavoritesSubcategory) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceFavoritesSubcategory,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceFavoritesSubcategoryFields = {
+	action_type: ActionType,
+	action_params: SelectMarketplaceFavoritesSubcategory_Params?,
+}
+
+type _SelectMarketplaceFavoritesSubcategoryPartialFields = {
+	action_type: ActionType?,
+	action_params: SelectMarketplaceFavoritesSubcategory_Params?,
+}
+
+export type SelectMarketplaceFavoritesSubcategory = typeof(setmetatable(
+	{} :: _SelectMarketplaceFavoritesSubcategoryFields,
+	{} :: _SelectMarketplaceFavoritesSubcategoryImpl
+))
+type _SelectMarketplaceFavoritesSubcategoryMessage = proto.Message<
+	SelectMarketplaceFavoritesSubcategory,
+	_SelectMarketplaceFavoritesSubcategoryPartialFields
+>
+
+type _SelectMarketplaceFavoritesSubcategory_ParamsImpl = {
+	__index: _SelectMarketplaceFavoritesSubcategory_ParamsImpl,
+	new: (
+		fields: _SelectMarketplaceFavoritesSubcategory_ParamsPartialFields?
+	) -> SelectMarketplaceFavoritesSubcategory_Params,
+	encode: (self: SelectMarketplaceFavoritesSubcategory_Params) -> buffer,
+	decode: (input: buffer) -> SelectMarketplaceFavoritesSubcategory_Params,
+	jsonEncode: (self: SelectMarketplaceFavoritesSubcategory_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectMarketplaceFavoritesSubcategory_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectMarketplaceFavoritesSubcategory_ParamsFields = {
+	subcategory_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SelectMarketplaceFavoritesSubcategory_ParamsPartialFields = {
+	subcategory_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SelectMarketplaceFavoritesSubcategory_Params = typeof(setmetatable(
+	{} :: _SelectMarketplaceFavoritesSubcategory_ParamsFields,
+	{} :: _SelectMarketplaceFavoritesSubcategory_ParamsImpl
+))
+type _SelectMarketplaceFavoritesSubcategory_ParamsMessage = proto.Message<
+	SelectMarketplaceFavoritesSubcategory_Params,
+	_SelectMarketplaceFavoritesSubcategory_ParamsPartialFields
+>
+
 type _PinExperienceShortcutActionImpl = {
 	__index: _PinExperienceShortcutActionImpl,
 	new: (fields: _PinExperienceShortcutActionPartialFields?) -> PinExperienceShortcutAction,
@@ -4788,6 +4963,9 @@ type _ActionFields = {
 		| { type: "join_community_action", value: JoinCommunityAction }
 		| { type: "view_community_action", value: ViewCommunityAction }
 		| { type: "pin_experience_shortcut_action", value: PinExperienceShortcutAction }
+		| { type: "select_marketplace_favorites_subcategory", value: SelectMarketplaceFavoritesSubcategory }
+		| { type: "show_toast_action", value: ShowToastAction }
+		| { type: "open_incoming_transfer_upsell_action", value: OpenIncomingTransferUpsellAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4870,6 +5048,9 @@ type _ActionPartialFields = {
 		| { type: "join_community_action", value: JoinCommunityAction }
 		| { type: "view_community_action", value: ViewCommunityAction }
 		| { type: "pin_experience_shortcut_action", value: PinExperienceShortcutAction }
+		| { type: "select_marketplace_favorites_subcategory", value: SelectMarketplaceFavoritesSubcategory }
+		| { type: "show_toast_action", value: ShowToastAction }
+		| { type: "open_incoming_transfer_upsell_action", value: OpenIncomingTransferUpsellAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5206,6 +5387,9 @@ export type ActionType =
 	| "ACTION_TYPE_JOIN_COMMUNITY"
 	| "ACTION_TYPE_VIEW_COMMUNITY"
 	| "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT"
+	| "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_SUBCATEGORY"
+	| "ACTION_TYPE_SHOW_TOAST"
+	| "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
 	| number -- Unknown
 
 do
@@ -10525,6 +10709,278 @@ do
 	messages.OpenFacialAgeEstimationAction_Params = _OpenFacialAgeEstimationAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.OpenFacialAgeEstimationAction_Params)
+end
+
+do
+	local _ShowToastActionImpl = {}
+	_ShowToastActionImpl.__index = _ShowToastActionImpl
+
+	function _ShowToastActionImpl.new(data: _ShowToastActionPartialFields?): ShowToastAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ShowToastActionImpl :: _ShowToastActionImpl)
+	end
+
+	function _ShowToastActionImpl.encode(self: ShowToastAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShowToastActionImpl.decode(input: buffer): ShowToastAction
+		local self = _ShowToastActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ShowToastAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShowToastActionImpl.jsonEncode(self: ShowToastAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShowToastActionImpl.jsonDecode(input: { [string]: any }): ShowToastAction
+		local self = _ShowToastActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ShowToastAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ShowToastAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ShowToastActionImpl.descriptor = {
+		name = "ShowToastAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShowToastAction",
+	}
+
+	messages.ShowToastAction = _ShowToastActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShowToastAction)
+end
+
+do
+	local _ShowToastAction_ParamsImpl = {}
+	_ShowToastAction_ParamsImpl.__index = _ShowToastAction_ParamsImpl
+
+	function _ShowToastAction_ParamsImpl.new(data: _ShowToastAction_ParamsPartialFields?): ShowToastAction_Params
+		return setmetatable({
+			message_key = if data == nil or data.message_key == nil then nil else data.message_key,
+			toast_type = if data == nil or data.toast_type == nil then nil else data.toast_type,
+		}, _ShowToastAction_ParamsImpl :: _ShowToastAction_ParamsImpl)
+	end
+
+	function _ShowToastAction_ParamsImpl.encode(self: ShowToastAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.message_key ~= nil then
+			local encoded = self.message_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.toast_type ~= nil then
+			local encoded = self.toast_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShowToastAction_ParamsImpl.decode(input: buffer): ShowToastAction_Params
+		local self = _ShowToastAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.message_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.toast_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShowToastAction_ParamsImpl.jsonEncode(self: ShowToastAction_Params): any
+		local output = {}
+
+		if self.message_key ~= nil then
+			output.messageKey = self.message_key:jsonEncode()
+		end
+
+		if self.toast_type ~= nil then
+			output.toastType = self.toast_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShowToastAction_ParamsImpl.jsonDecode(input: { [string]: any }): ShowToastAction_Params
+		local self = _ShowToastAction_ParamsImpl.new()
+
+		if input.message_key ~= nil then
+			self.message_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.message_key)
+		end
+
+		if input.messageKey ~= nil then
+			self.message_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.messageKey)
+		end
+
+		if input.toast_type ~= nil then
+			self.toast_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.toast_type)
+		end
+
+		if input.toastType ~= nil then
+			self.toast_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.toastType)
+		end
+
+		return self
+	end
+
+	_ShowToastAction_ParamsImpl.descriptor = {
+		name = "ShowToastAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ShowToastAction_Params = _ShowToastAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShowToastAction_Params)
 end
 
 do
@@ -17550,6 +18006,7 @@ do
 			source = if data == nil or data.source == nil then nil else data.source,
 			config_key = if data == nil or data.config_key == nil then nil else data.config_key,
 			surface_key = if data == nil or data.surface_key == nil then nil else data.surface_key,
+			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
 		}, _OpenFaeTrialUpsellAction_ParamsImpl :: _OpenFaeTrialUpsellAction_ParamsImpl)
 	end
 
@@ -17572,6 +18029,12 @@ do
 		if self.surface_key ~= nil then
 			local encoded = self.surface_key:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prompt_type ~= nil then
+			local encoded = self.prompt_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -17608,6 +18071,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -17648,6 +18116,10 @@ do
 			output.surfaceKey = self.surface_key:jsonEncode()
 		end
 
+		if self.prompt_type ~= nil then
+			output.promptType = self.prompt_type:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -17675,6 +18147,15 @@ do
 			self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surfaceKey)
 		end
 
+		if input.prompt_type ~= nil then
+			self.prompt_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_type)
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptType)
+		end
+
 		return self
 	end
 
@@ -17686,6 +18167,306 @@ do
 	messages.OpenFaeTrialUpsellAction_Params = _OpenFaeTrialUpsellAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.OpenFaeTrialUpsellAction_Params)
+end
+
+do
+	local _OpenIncomingTransferUpsellActionImpl = {}
+	_OpenIncomingTransferUpsellActionImpl.__index = _OpenIncomingTransferUpsellActionImpl
+
+	function _OpenIncomingTransferUpsellActionImpl.new(
+		data: _OpenIncomingTransferUpsellActionPartialFields?
+	): OpenIncomingTransferUpsellAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenIncomingTransferUpsellActionImpl :: _OpenIncomingTransferUpsellActionImpl)
+	end
+
+	function _OpenIncomingTransferUpsellActionImpl.encode(self: OpenIncomingTransferUpsellAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenIncomingTransferUpsellActionImpl.decode(input: buffer): OpenIncomingTransferUpsellAction
+		local self = _OpenIncomingTransferUpsellActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenIncomingTransferUpsellAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenIncomingTransferUpsellActionImpl.jsonEncode(self: OpenIncomingTransferUpsellAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenIncomingTransferUpsellActionImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenIncomingTransferUpsellAction
+		local self = _OpenIncomingTransferUpsellActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenIncomingTransferUpsellAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenIncomingTransferUpsellAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenIncomingTransferUpsellActionImpl.descriptor = {
+		name = "OpenIncomingTransferUpsellAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenIncomingTransferUpsellAction",
+	}
+
+	messages.OpenIncomingTransferUpsellAction = _OpenIncomingTransferUpsellActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenIncomingTransferUpsellAction)
+end
+
+do
+	local _OpenIncomingTransferUpsellAction_ParamsImpl = {}
+	_OpenIncomingTransferUpsellAction_ParamsImpl.__index = _OpenIncomingTransferUpsellAction_ParamsImpl
+
+	function _OpenIncomingTransferUpsellAction_ParamsImpl.new(
+		data: _OpenIncomingTransferUpsellAction_ParamsPartialFields?
+	): OpenIncomingTransferUpsellAction_Params
+		return setmetatable({
+			url = if data == nil or data.url == nil then nil else data.url,
+			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
+			prompt_id = if data == nil or data.prompt_id == nil then nil else data.prompt_id,
+		}, _OpenIncomingTransferUpsellAction_ParamsImpl :: _OpenIncomingTransferUpsellAction_ParamsImpl)
+	end
+
+	function _OpenIncomingTransferUpsellAction_ParamsImpl.encode(self: OpenIncomingTransferUpsellAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.url ~= nil then
+			local encoded = self.url:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prompt_type ~= nil then
+			local encoded = self.prompt_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prompt_id ~= nil then
+			local encoded = self.prompt_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenIncomingTransferUpsellAction_ParamsImpl.decode(input: buffer): OpenIncomingTransferUpsellAction_Params
+		local self = _OpenIncomingTransferUpsellAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenIncomingTransferUpsellAction_ParamsImpl.jsonEncode(self: OpenIncomingTransferUpsellAction_Params): any
+		local output = {}
+
+		if self.url ~= nil then
+			output.url = self.url:jsonEncode()
+		end
+
+		if self.prompt_type ~= nil then
+			output.promptType = self.prompt_type:jsonEncode()
+		end
+
+		if self.prompt_id ~= nil then
+			output.promptId = self.prompt_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenIncomingTransferUpsellAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenIncomingTransferUpsellAction_Params
+		local self = _OpenIncomingTransferUpsellAction_ParamsImpl.new()
+
+		if input.url ~= nil then
+			self.url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.url)
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_type)
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptType)
+		end
+
+		if input.prompt_id ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_id)
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptId)
+		end
+
+		return self
+	end
+
+	_OpenIncomingTransferUpsellAction_ParamsImpl.descriptor = {
+		name = "OpenIncomingTransferUpsellAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenIncomingTransferUpsellAction_Params = _OpenIncomingTransferUpsellAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenIncomingTransferUpsellAction_Params)
 end
 
 do
@@ -27881,6 +28662,269 @@ do
 end
 
 do
+	local _SelectMarketplaceFavoritesSubcategoryImpl = {}
+	_SelectMarketplaceFavoritesSubcategoryImpl.__index = _SelectMarketplaceFavoritesSubcategoryImpl
+
+	function _SelectMarketplaceFavoritesSubcategoryImpl.new(
+		data: _SelectMarketplaceFavoritesSubcategoryPartialFields?
+	): SelectMarketplaceFavoritesSubcategory
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SelectMarketplaceFavoritesSubcategoryImpl :: _SelectMarketplaceFavoritesSubcategoryImpl)
+	end
+
+	function _SelectMarketplaceFavoritesSubcategoryImpl.encode(self: SelectMarketplaceFavoritesSubcategory): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceFavoritesSubcategoryImpl.decode(input: buffer): SelectMarketplaceFavoritesSubcategory
+		local self = _SelectMarketplaceFavoritesSubcategoryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SelectMarketplaceFavoritesSubcategory_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceFavoritesSubcategoryImpl.jsonEncode(self: SelectMarketplaceFavoritesSubcategory): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceFavoritesSubcategoryImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceFavoritesSubcategory
+		local self = _SelectMarketplaceFavoritesSubcategoryImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SelectMarketplaceFavoritesSubcategory_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SelectMarketplaceFavoritesSubcategory_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceFavoritesSubcategoryImpl.descriptor = {
+		name = "SelectMarketplaceFavoritesSubcategory",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SelectMarketplaceFavoritesSubcategory",
+	}
+
+	messages.SelectMarketplaceFavoritesSubcategory = _SelectMarketplaceFavoritesSubcategoryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceFavoritesSubcategory)
+end
+
+do
+	local _SelectMarketplaceFavoritesSubcategory_ParamsImpl = {}
+	_SelectMarketplaceFavoritesSubcategory_ParamsImpl.__index = _SelectMarketplaceFavoritesSubcategory_ParamsImpl
+
+	function _SelectMarketplaceFavoritesSubcategory_ParamsImpl.new(
+		data: _SelectMarketplaceFavoritesSubcategory_ParamsPartialFields?
+	): SelectMarketplaceFavoritesSubcategory_Params
+		return setmetatable({
+			subcategory_id = if data == nil or data.subcategory_id == nil then nil else data.subcategory_id,
+		}, _SelectMarketplaceFavoritesSubcategory_ParamsImpl :: _SelectMarketplaceFavoritesSubcategory_ParamsImpl)
+	end
+
+	function _SelectMarketplaceFavoritesSubcategory_ParamsImpl.encode(
+		self: SelectMarketplaceFavoritesSubcategory_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.subcategory_id ~= nil then
+			local encoded = self.subcategory_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectMarketplaceFavoritesSubcategory_ParamsImpl.decode(
+		input: buffer
+	): SelectMarketplaceFavoritesSubcategory_Params
+		local self = _SelectMarketplaceFavoritesSubcategory_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subcategory_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectMarketplaceFavoritesSubcategory_ParamsImpl.jsonEncode(
+		self: SelectMarketplaceFavoritesSubcategory_Params
+	): any
+		local output = {}
+
+		if self.subcategory_id ~= nil then
+			output.subcategoryId = self.subcategory_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SelectMarketplaceFavoritesSubcategory_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): SelectMarketplaceFavoritesSubcategory_Params
+		local self = _SelectMarketplaceFavoritesSubcategory_ParamsImpl.new()
+
+		if input.subcategory_id ~= nil then
+			self.subcategory_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subcategory_id)
+		end
+
+		if input.subcategoryId ~= nil then
+			self.subcategory_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subcategoryId)
+		end
+
+		return self
+	end
+
+	_SelectMarketplaceFavoritesSubcategory_ParamsImpl.descriptor = {
+		name = "SelectMarketplaceFavoritesSubcategory_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SelectMarketplaceFavoritesSubcategory_Params = _SelectMarketplaceFavoritesSubcategory_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectMarketplaceFavoritesSubcategory_Params)
+end
+
+do
 	local _PinExperienceShortcutActionImpl = {}
 	_PinExperienceShortcutActionImpl.__index = _PinExperienceShortcutActionImpl
 
@@ -28758,6 +29802,18 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 72, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "select_marketplace_favorites_subcategory" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 73, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "show_toast_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 74, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_incoming_transfer_upsell_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 75, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -29289,6 +30345,27 @@ do
 						value = messages.PinExperienceShortcutAction.decode(value),
 					}
 					continue
+				elseif field == 73 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "select_marketplace_favorites_subcategory",
+						value = messages.SelectMarketplaceFavoritesSubcategory.decode(value),
+					}
+					continue
+				elseif field == 74 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "show_toast_action", value = messages.ShowToastAction.decode(value) }
+					continue
+				elseif field == 75 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_incoming_transfer_upsell_action",
+						value = messages.OpenIncomingTransferUpsellAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -29472,6 +30549,12 @@ do
 				output.viewCommunityAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "pin_experience_shortcut_action" then
 				output.pinExperienceShortcutAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "select_marketplace_favorites_subcategory" then
+				output.selectMarketplaceFavoritesSubcategory = self.kind.value:jsonEncode()
+			elseif self.kind.type == "show_toast_action" then
+				output.showToastAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_incoming_transfer_upsell_action" then
+				output.openIncomingTransferUpsellAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -30512,6 +31595,50 @@ do
 			self.kind = {
 				type = "pin_experience_shortcut_action",
 				value = messages.PinExperienceShortcutAction.jsonDecode(input.pinExperienceShortcutAction),
+			}
+		end
+
+		if input.select_marketplace_favorites_subcategory ~= nil then
+			self.kind = {
+				type = "select_marketplace_favorites_subcategory",
+				value = messages.SelectMarketplaceFavoritesSubcategory.jsonDecode(
+					input.select_marketplace_favorites_subcategory
+				),
+			}
+		end
+
+		if input.selectMarketplaceFavoritesSubcategory ~= nil then
+			self.kind = {
+				type = "select_marketplace_favorites_subcategory",
+				value = messages.SelectMarketplaceFavoritesSubcategory.jsonDecode(
+					input.selectMarketplaceFavoritesSubcategory
+				),
+			}
+		end
+
+		if input.show_toast_action ~= nil then
+			self.kind =
+				{ type = "show_toast_action", value = messages.ShowToastAction.jsonDecode(input.show_toast_action) }
+		end
+
+		if input.showToastAction ~= nil then
+			self.kind =
+				{ type = "show_toast_action", value = messages.ShowToastAction.jsonDecode(input.showToastAction) }
+		end
+
+		if input.open_incoming_transfer_upsell_action ~= nil then
+			self.kind = {
+				type = "open_incoming_transfer_upsell_action",
+				value = messages.OpenIncomingTransferUpsellAction.jsonDecode(
+					input.open_incoming_transfer_upsell_action
+				),
+			}
+		end
+
+		if input.openIncomingTransferUpsellAction ~= nil then
+			self.kind = {
+				type = "open_incoming_transfer_upsell_action",
+				value = messages.OpenIncomingTransferUpsellAction.jsonDecode(input.openIncomingTransferUpsellAction),
 			}
 		end
 
@@ -31873,6 +33000,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_VIEW_COMMUNITY"
 		elseif value == 72 then
 			return "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT"
+		elseif value == 73 then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_SUBCATEGORY"
+		elseif value == 74 then
+			return "ACTION_TYPE_SHOW_TOAST"
+		elseif value == 75 then
+			return "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
 		else
 			return nil
 		end
@@ -32025,6 +33158,12 @@ messages.ActionType = {
 			return 71
 		elseif self == "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT" then
 			return 72
+		elseif self == "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_SUBCATEGORY" then
+			return 73
+		elseif self == "ACTION_TYPE_SHOW_TOAST" then
+			return 74
+		elseif self == "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL" then
+			return 75
 		else
 			return self
 		end
@@ -32177,6 +33316,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_VIEW_COMMUNITY"
 		elseif name == "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT" then
 			return "ACTION_TYPE_PIN_EXPERIENCE_SHORTCUT"
+		elseif name == "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_SUBCATEGORY" then
+			return "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_SUBCATEGORY"
+		elseif name == "ACTION_TYPE_SHOW_TOAST" then
+			return "ACTION_TYPE_SHOW_TOAST"
+		elseif name == "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL" then
+			return "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
 		else
 			return nil
 		end
@@ -32221,6 +33366,8 @@ return {
 	OpenProfileAction_Params = messages.OpenProfileAction_Params,
 	OpenFacialAgeEstimationAction = messages.OpenFacialAgeEstimationAction,
 	OpenFacialAgeEstimationAction_Params = messages.OpenFacialAgeEstimationAction_Params,
+	ShowToastAction = messages.ShowToastAction,
+	ShowToastAction_Params = messages.ShowToastAction_Params,
 	OpenPhoneUpsellModalAction = messages.OpenPhoneUpsellModalAction,
 	OpenPhoneUpsellModalAction_Params = messages.OpenPhoneUpsellModalAction_Params,
 	OpenEmailUpsellModalAction = messages.OpenEmailUpsellModalAction,
@@ -32269,6 +33416,8 @@ return {
 	RefreshDeveloperProductsAction_Params = messages.RefreshDeveloperProductsAction_Params,
 	OpenFaeTrialUpsellAction = messages.OpenFaeTrialUpsellAction,
 	OpenFaeTrialUpsellAction_Params = messages.OpenFaeTrialUpsellAction_Params,
+	OpenIncomingTransferUpsellAction = messages.OpenIncomingTransferUpsellAction,
+	OpenIncomingTransferUpsellAction_Params = messages.OpenIncomingTransferUpsellAction_Params,
 	OpenSduiOverlayAction = messages.OpenSduiOverlayAction,
 	OpenSduiOverlayAction_Params = messages.OpenSduiOverlayAction_Params,
 	ApplyChartsFilterAction = messages.ApplyChartsFilterAction,
@@ -32335,6 +33484,8 @@ return {
 	OpenSearchResultsWithQueryAction_Params = messages.OpenSearchResultsWithQueryAction_Params,
 	SelectMarketplaceFavoritesCategory = messages.SelectMarketplaceFavoritesCategory,
 	SelectMarketplaceFavoritesCategory_Params = messages.SelectMarketplaceFavoritesCategory_Params,
+	SelectMarketplaceFavoritesSubcategory = messages.SelectMarketplaceFavoritesSubcategory,
+	SelectMarketplaceFavoritesSubcategory_Params = messages.SelectMarketplaceFavoritesSubcategory_Params,
 	PinExperienceShortcutAction = messages.PinExperienceShortcutAction,
 	PinExperienceShortcutAction_Params = messages.PinExperienceShortcutAction_Params,
 	DownloadAppAction = messages.DownloadAppAction,

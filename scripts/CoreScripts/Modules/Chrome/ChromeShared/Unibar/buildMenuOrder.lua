@@ -21,6 +21,7 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
+local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
 
 local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
 	then require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
@@ -72,14 +73,22 @@ local function buildMenuOrder(): Array<string>
 		[SideSheet.Enums.ActionBinding.Respawn] = 190,
 	}
 
-	if FFlagEnableSideSheet and FIntSideSheetVariant == 0 then
-		reorder(menuMap, "settings", 103)
-		reorder(menuMap, "trust_and_safety", 106)
-		reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 143)
-		reorder(menuMap, "backpack", 146)
-	end
+	if FFlagEnableSideSheet then
+		if FIntSideSheetVariant == 0 then
+			reorder(menuMap, "settings", 103)
+			reorder(menuMap, "trust_and_safety", 106)
+			reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 143)
+			reorder(menuMap, "backpack", 146)
+		end
 
-	if not FFlagEnableSideSheet then
+		if FFlagDebugEnablePioneerUX then
+			menuMap.connect_dropdown = nil
+			menuMap.invite_friends = nil
+			menuMap[Constants.AVATAR_SWITCHER_ID] = nil
+			menuMap.emotes = nil
+			menuMap.traversal_history = nil
+		end
+	else
 		reorder(menuMap, "connect_dropdown", 10)
 		reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 20)
 		reorder(menuMap, "selfie_view", 30)
