@@ -297,26 +297,29 @@ PROTO_10:
        35 LOADB                            R9 0
        36 SETTABLEKS                       R9 R8 K8 ["ShouldImport"]
        38 FORGLOOP                         R4 2 ; [-9]
-       40 LOADNIL                          R4
-       41 GETTABLEKS                       R5 R0 K1 ["session"]
-       43 GETTABLEKS                       R5 R5 K9 ["UploadComplete"]
-       45 NEWCLOSURE                       R7 P0
-       46 CAPTURE                          REF R4
-       47 CAPTURE                          VAL R0
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          UPVAL U1
-       50 CAPTURE                          UPVAL U2
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R2
-       53 NAMECALL                         R5 R5 K10 ["Connect"]
-       55 CALL                             R5 2 1
-       56 SETTABLEKS                       R5 R0 K11 ["uploadConnection"]
-       58 GETIMPORT                        R5 K14 [task.spawn]
-       60 NEWCLOSURE                       R6 P1
-       61 CAPTURE                          VAL R0
-       62 CALL                             R5 1 0
-       63 CLOSEUPVALS                      R4
-       64 RETURN                           R0 0
+       40 GETTABLEKS                       R4 R0 K1 ["session"]
+       42 LOADK                            R5 K9 ["QuickImport"]
+       43 SETTABLEKS                       R5 R4 K10 ["UploadSource"]
+       45 LOADNIL                          R4
+       46 GETTABLEKS                       R5 R0 K1 ["session"]
+       48 GETTABLEKS                       R5 R5 K11 ["UploadComplete"]
+       50 NEWCLOSURE                       R7 P0
+       51 CAPTURE                          REF R4
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          UPVAL U1
+       55 CAPTURE                          UPVAL U2
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R2
+       58 NAMECALL                         R5 R5 K12 ["Connect"]
+       60 CALL                             R5 2 1
+       61 SETTABLEKS                       R5 R0 K13 ["uploadConnection"]
+       63 GETIMPORT                        R5 K16 [task.spawn]
+       65 NEWCLOSURE                       R6 P1
+       66 CAPTURE                          VAL R0
+       67 CALL                             R5 1 0
+       68 CLOSEUPVALS                      R4
+       69 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

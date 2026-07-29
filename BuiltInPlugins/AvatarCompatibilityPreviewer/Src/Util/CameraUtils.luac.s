@@ -129,25 +129,55 @@ PROTO_6:
         8 NOT                              R5 R4
         9 RETURN                           R5 1
 
+PROTO_7:
+        0 GETTABLEKS                       R2 R0 K1 ["ViewportSize"]
+        2 DIVK                             R1 R2 K0 [2]
+        3 GETTABLEKS                       R4 R1 K2 ["X"]
+        5 GETTABLEKS                       R5 R1 K3 ["Y"]
+        7 LOADN                            R6 0
+        8 NAMECALL                         R2 R0 K4 ["ViewportPointToRay"]
+       10 CALL                             R2 4 1
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R5 R2 K5 ["Origin"]
+       14 GETTABLEKS                       R7 R2 K7 ["Direction"]
+       16 MULK                             R6 R7 K6 [25]
+       17 NAMECALL                         R3 R3 K8 ["Raycast"]
+       19 CALL                             R3 3 1
+       20 JUMPIFNOTEQKNIL                  R3 ; [+8]
+       22 GETTABLEKS                       R5 R2 K5 ["Origin"]
+       24 GETTABLEKS                       R7 R2 K7 ["Direction"]
+       26 MULK                             R6 R7 K6 [25]
+       27 ADD                              R4 R5 R6
+       28 RETURN                           R4 1
+       29 GETTABLEKS                       R4 R3 K9 ["Position"]
+       31 RETURN                           R4 1
+
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 8 0
-        3 DUPCLOSURE                       R1 K0 [PROTO_0]
-        4 SETTABLEKS                       R1 R0 K1 ["getCuboidDiameter"]
-        6 DUPCLOSURE                       R1 K2 [PROTO_1]
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["fitBoundingBoxToCamera"]
-       10 DUPCLOSURE                       R1 K4 [PROTO_2]
-       11 SETTABLEKS                       R1 R0 K5 ["fitSphereToCamera"]
-       13 DUPCLOSURE                       R1 K6 [PROTO_3]
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K7 ["getZoomedCFrame"]
-       17 DUPCLOSURE                       R1 K8 [PROTO_4]
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R1 R0 K9 ["getAngledAndZoomedCFrame"]
-       21 DUPCLOSURE                       R1 K10 [PROTO_5]
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R1 R0 K11 ["zoomToExtents"]
-       25 DUPCLOSURE                       R1 K12 [PROTO_6]
-       26 SETTABLEKS                       R1 R0 K13 ["zoomIsRequired"]
-       28 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["Workspace"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 NEWTABLE                         R1 8 0
+        9 DUPCLOSURE                       R2 K4 [PROTO_0]
+       10 SETTABLEKS                       R2 R1 K5 ["getCuboidDiameter"]
+       12 DUPCLOSURE                       R2 K6 [PROTO_1]
+       13 CAPTURE                          VAL R1
+       14 SETTABLEKS                       R2 R1 K7 ["fitBoundingBoxToCamera"]
+       16 DUPCLOSURE                       R2 K8 [PROTO_2]
+       17 SETTABLEKS                       R2 R1 K9 ["fitSphereToCamera"]
+       19 DUPCLOSURE                       R2 K10 [PROTO_3]
+       20 CAPTURE                          VAL R1
+       21 SETTABLEKS                       R2 R1 K11 ["getZoomedCFrame"]
+       23 DUPCLOSURE                       R2 K12 [PROTO_4]
+       24 CAPTURE                          VAL R1
+       25 SETTABLEKS                       R2 R1 K13 ["getAngledAndZoomedCFrame"]
+       27 DUPCLOSURE                       R2 K14 [PROTO_5]
+       28 CAPTURE                          VAL R1
+       29 SETTABLEKS                       R2 R1 K15 ["zoomToExtents"]
+       31 DUPCLOSURE                       R2 K16 [PROTO_6]
+       32 SETTABLEKS                       R2 R1 K17 ["zoomIsRequired"]
+       34 DUPCLOSURE                       R2 K18 [PROTO_7]
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R2 R1 K19 ["getViewTargetPosition"]
+       38 RETURN                           R1 1

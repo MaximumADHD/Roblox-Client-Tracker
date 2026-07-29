@@ -89,45 +89,50 @@ PROTO_1:
        93 SETTABLEKS                       R14 R13 K33 ["creators"]
        95 GETTABLEKS                       R14 R0 K34 ["onCreatorChanged"]
        97 SETTABLEKS                       R14 R13 K34 ["onCreatorChanged"]
-       99 GETTABLEKS                       R14 R0 K37 ["isAvatarLook"]
-      101 SETTABLEKS                       R14 R13 K35 ["disabled"]
-      103 CALL                             R11 2 1
-      104 SETTABLEKS                       R11 R10 K28 ["CreatorDropdown"]
-      106 GETTABLEKS                       R12 R0 K37 ["isAvatarLook"]
-      108 JUMPIF                           R12 ; [+26]
-      109 GETTABLEKS                       R12 R0 K38 ["skinColor"]
-      111 JUMPIFNOT                        R12 ; [+23]
-      112 GETTABLEKS                       R12 R0 K39 ["onSkinColorChanged"]
-      114 JUMPIFNOT                        R12 ; [+20]
-      115 GETUPVAL                         R11 1
-      116 GETTABLEKS                       R11 R11 K3 ["createElement"]
-      118 GETUPVAL                         R12 5
-      119 DUPTABLE                         R13 K42 [{"LayoutOrder", "selectedColor", "onColorChanged"}]
-      120 NAMECALL                         R14 R2 K20 ["getNextOrder"]
-      122 CALL                             R14 1 1
-      123 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-      125 GETTABLEKS                       R14 R0 K38 ["skinColor"]
-      127 SETTABLEKS                       R14 R13 K40 ["selectedColor"]
-      129 GETTABLEKS                       R14 R0 K39 ["onSkinColorChanged"]
-      131 SETTABLEKS                       R14 R13 K41 ["onColorChanged"]
-      133 CALL                             R11 2 1
-      134 JUMP                             ; [+1]
-      135 LOADNIL                          R11
-      136 SETTABLEKS                       R11 R10 K29 ["SkinColor"]
-      138 GETUPVAL                         R11 1
-      139 GETTABLEKS                       R11 R11 K3 ["createElement"]
-      141 GETUPVAL                         R12 6
-      142 DUPTABLE                         R13 K44 [{"LayoutOrder", "price"}]
-      143 NAMECALL                         R14 R2 K20 ["getNextOrder"]
-      145 CALL                             R14 1 1
-      146 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-      148 SETTABLEKS                       R1 R13 K43 ["price"]
-      150 CALL                             R11 2 1
-      151 SETTABLEKS                       R11 R10 K30 ["TotalPrice"]
-      153 CALL                             R7 3 1
-      154 SETTABLEKS                       R7 R6 K17 ["InfoColumn"]
-      156 CALL                             R3 3 -1
-      157 RETURN                           R3 -1
+       99 GETUPVAL                         R15 5
+      100 CALL                             R15 0 1
+      101 JUMPIFNOT                        R15 ; [+2]
+      102 LOADB                            R14 0
+      103 JUMP                             ; [+2]
+      104 GETTABLEKS                       R14 R0 K37 ["isAvatarLook"]
+      106 SETTABLEKS                       R14 R13 K35 ["disabled"]
+      108 CALL                             R11 2 1
+      109 SETTABLEKS                       R11 R10 K28 ["CreatorDropdown"]
+      111 GETTABLEKS                       R12 R0 K37 ["isAvatarLook"]
+      113 JUMPIF                           R12 ; [+26]
+      114 GETTABLEKS                       R12 R0 K38 ["skinColor"]
+      116 JUMPIFNOT                        R12 ; [+23]
+      117 GETTABLEKS                       R12 R0 K39 ["onSkinColorChanged"]
+      119 JUMPIFNOT                        R12 ; [+20]
+      120 GETUPVAL                         R11 1
+      121 GETTABLEKS                       R11 R11 K3 ["createElement"]
+      123 GETUPVAL                         R12 6
+      124 DUPTABLE                         R13 K42 [{"LayoutOrder", "selectedColor", "onColorChanged"}]
+      125 NAMECALL                         R14 R2 K20 ["getNextOrder"]
+      127 CALL                             R14 1 1
+      128 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
+      130 GETTABLEKS                       R14 R0 K38 ["skinColor"]
+      132 SETTABLEKS                       R14 R13 K40 ["selectedColor"]
+      134 GETTABLEKS                       R14 R0 K39 ["onSkinColorChanged"]
+      136 SETTABLEKS                       R14 R13 K41 ["onColorChanged"]
+      138 CALL                             R11 2 1
+      139 JUMP                             ; [+1]
+      140 LOADNIL                          R11
+      141 SETTABLEKS                       R11 R10 K29 ["SkinColor"]
+      143 GETUPVAL                         R11 1
+      144 GETTABLEKS                       R11 R11 K3 ["createElement"]
+      146 GETUPVAL                         R12 7
+      147 DUPTABLE                         R13 K44 [{"LayoutOrder", "price"}]
+      148 NAMECALL                         R14 R2 K20 ["getNextOrder"]
+      150 CALL                             R14 1 1
+      151 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
+      153 SETTABLEKS                       R1 R13 K43 ["price"]
+      155 CALL                             R11 2 1
+      156 SETTABLEKS                       R11 R10 K30 ["TotalPrice"]
+      158 CALL                             R7 3 1
+      159 SETTABLEKS                       R7 R6 K17 ["InfoColumn"]
+      161 CALL                             R3 3 -1
+      162 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -172,14 +177,20 @@ MAIN:
        69 CALL                             R9 1 1
        70 GETIMPORT                        R10 K5 [require]
        72 GETTABLEKS                       R11 R0 K17 ["Src"]
-       74 GETTABLEKS                       R11 R11 K20 ["Types"]
-       76 CALL                             R10 1 1
-       77 DUPCLOSURE                       R11 K21 [PROTO_1]
-       78 CAPTURE                          VAL R9
-       79 CAPTURE                          VAL R1
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R6
-       84 CAPTURE                          VAL R5
-       85 RETURN                           R11 1
+       74 GETTABLEKS                       R11 R11 K18 ["Flags"]
+       76 GETTABLEKS                       R11 R11 K20 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+       78 CALL                             R10 1 1
+       79 GETIMPORT                        R11 K5 [require]
+       81 GETTABLEKS                       R12 R0 K17 ["Src"]
+       83 GETTABLEKS                       R12 R12 K21 ["Types"]
+       85 CALL                             R11 1 1
+       86 DUPCLOSURE                       R12 K22 [PROTO_1]
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R1
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R3
+       91 CAPTURE                          VAL R4
+       92 CAPTURE                          VAL R10
+       93 CAPTURE                          VAL R6
+       94 CAPTURE                          VAL R5
+       95 RETURN                           R12 1

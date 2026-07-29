@@ -22,36 +22,53 @@ PROTO_0:
        23 RETURN                           R1 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K3 [{"key", "root", "value"}]
+        0 LOADNIL                          R1
         1 GETUPVAL                         R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["key"]
-        4 GETUPVAL                         R2 1
-        5 SETTABLEKS                       R2 R1 K1 ["root"]
-        7 GETUPVAL                         R4 2
-        8 FASTCALL1                        TYPEOF R4 ; [+2]
-        9 GETIMPORT                        R3 K5 [typeof]
-       11 CALL                             R3 1 1
-       12 JUMPIFNOTEQKS                    R3 K6 ["function"] ; [+10]
-       14 GETUPVAL                         R2 2
-       15 JUMPIFNOTEQKNIL                  R0 ; [+3]
-       17 GETUPVAL                         R3 3
-       18 JUMP                             ; [+2]
-       19 GETTABLEKS                       R3 R0 K2 ["value"]
-       21 CALL                             R2 1 1
-       22 JUMP                             ; [+1]
-       23 GETUPVAL                         R2 2
-       24 SETTABLEKS                       R2 R1 K2 ["value"]
-       26 RETURN                           R1 1
+        2 CALL                             R2 0 1
+        3 JUMPIFNOT                        R2 ; [+17]
+        4 JUMPIFEQKNIL                     R0 ; [+14]
+        6 GETTABLEKS                       R2 R0 K0 ["root"]
+        8 GETUPVAL                         R3 1
+        9 JUMPIFNOTEQ                      R2 R3 ; [+9]
+       11 GETTABLEKS                       R2 R0 K1 ["key"]
+       13 GETUPVAL                         R3 2
+       14 JUMPIFNOTEQ                      R2 R3 ; [+4]
+       16 GETTABLEKS                       R1 R0 K2 ["value"]
+       18 JUMP                             ; [+8]
+       19 GETUPVAL                         R1 3
+       20 JUMP                             ; [+6]
+       21 JUMPIFNOTEQKNIL                  R0 ; [+3]
+       23 GETUPVAL                         R1 3
+       24 JUMP                             ; [+2]
+       25 GETTABLEKS                       R1 R0 K2 ["value"]
+       27 DUPTABLE                         R2 K3 [{"key", "root", "value"}]
+       28 GETUPVAL                         R3 2
+       29 SETTABLEKS                       R3 R2 K1 ["key"]
+       31 GETUPVAL                         R3 1
+       32 SETTABLEKS                       R3 R2 K0 ["root"]
+       34 GETUPVAL                         R5 4
+       35 FASTCALL1                        TYPEOF R5 ; [+2]
+       36 GETIMPORT                        R4 K5 [typeof]
+       38 CALL                             R4 1 1
+       39 JUMPIFNOTEQKS                    R4 K6 ["function"] ; [+5]
+       41 GETUPVAL                         R3 4
+       42 MOVE                             R4 R1
+       43 CALL                             R3 1 1
+       44 JUMP                             ; [+1]
+       45 GETUPVAL                         R3 4
+       46 SETTABLEKS                       R3 R2 K2 ["value"]
+       48 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
-        4 CAPTURE                          VAL R0
-        5 CAPTURE                          UPVAL U3
-        6 CALL                             R1 1 0
-        7 RETURN                           R0 0
+        4 CAPTURE                          UPVAL U3
+        5 CAPTURE                          UPVAL U4
+        6 CAPTURE                          VAL R0
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -115,30 +132,31 @@ PROTO_4:
        61 GETTABLEKS                       R9 R9 K10 ["useCallback"]
        63 NEWCLOSURE                       R10 P1
        64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R1
+       65 CAPTURE                          UPVAL U3
        66 CAPTURE                          VAL R0
-       67 CAPTURE                          VAL R5
-       68 NEWTABLE                         R11 0 3
-       70 MOVE                             R12 R0
-       71 MOVE                             R13 R1
-       72 MOVE                             R14 R5
-       73 SETLIST                          R11 R12 3 [1]
-       75 CALL                             R9 2 1
-       76 GETUPVAL                         R10 1
-       77 GETTABLEKS                       R10 R10 K11 ["useEffect"]
-       79 NEWCLOSURE                       R11 P2
-       80 CAPTURE                          VAL R0
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R8
-       84 NEWTABLE                         R12 0 4
-       86 MOVE                             R13 R4
-       87 MOVE                             R14 R8
-       88 MOVE                             R15 R3
-       89 MOVE                             R16 R0
-       90 SETLIST                          R12 R13 4 [1]
-       92 CALL                             R10 2 0
-       93 RETURN                           R8 2
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          VAL R5
+       69 NEWTABLE                         R11 0 3
+       71 MOVE                             R12 R0
+       72 MOVE                             R13 R1
+       73 MOVE                             R14 R5
+       74 SETLIST                          R11 R12 3 [1]
+       76 CALL                             R9 2 1
+       77 GETUPVAL                         R10 1
+       78 GETTABLEKS                       R10 R10 K11 ["useEffect"]
+       80 NEWCLOSURE                       R11 P2
+       81 CAPTURE                          VAL R0
+       82 CAPTURE                          VAL R4
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R8
+       85 NEWTABLE                         R12 0 4
+       87 MOVE                             R13 R4
+       88 MOVE                             R14 R8
+       89 MOVE                             R15 R3
+       90 MOVE                             R16 R0
+       91 SETLIST                          R12 R13 4 [1]
+       93 CALL                             R10 2 0
+       94 RETURN                           R8 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -162,10 +180,16 @@ MAIN:
        30 GETIMPORT                        R4 K5 [require]
        32 GETTABLEKS                       R5 R0 K8 ["Src"]
        34 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       36 GETTABLEKS                       R5 R5 K13 ["getFFlagDebugAvatarPreviewerAvoidSerialization"]
+       36 GETTABLEKS                       R5 R5 K13 ["getFFlagAvatarPreviewerSelectionStability"]
        38 CALL                             R4 1 1
-       39 DUPCLOSURE                       R5 K14 [PROTO_4]
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R4
-       43 RETURN                           R5 1
+       39 GETIMPORT                        R5 K5 [require]
+       41 GETTABLEKS                       R6 R0 K8 ["Src"]
+       43 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K14 ["getFFlagDebugAvatarPreviewerAvoidSerialization"]
+       47 CALL                             R5 1 1
+       48 DUPCLOSURE                       R6 K15 [PROTO_4]
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R4
+       53 RETURN                           R6 1

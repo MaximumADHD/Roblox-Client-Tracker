@@ -124,53 +124,58 @@ PROTO_4:
        37 CALL                             R12 2 1
        38 SETTABLE                         R12 R3 R8
        39 FORGLOOP                         R5 2 ; [-26]
-       41 NAMECALL                         R5 R1 K14 ["getGridColor"]
-       43 CALL                             R5 1 1
-       44 GETTABLEKS                       R7 R4 K15 ["targetPart"]
-       46 JUMPIFNOT                        R7 ; [+23]
-       47 LOADK                            R10 K16 ["Part"]
-       48 NAMECALL                         R8 R7 K17 ["IsA"]
-       50 CALL                             R8 2 1
-       51 JUMPIFNOT                        R8 ; [+18]
-       52 GETTABLEKS                       R8 R7 K18 ["Shape"]
-       54 GETIMPORT                        R9 K22 [Enum.PartType.Ball]
-       56 JUMPIFNOTEQ                      R8 R9 ; [+4]
-       58 GETIMPORT                        R6 K22 [Enum.PartType.Ball]
-       60 JUMP                             ; [+10]
-       61 GETTABLEKS                       R8 R7 K18 ["Shape"]
-       63 GETIMPORT                        R9 K24 [Enum.PartType.Cylinder]
-       65 JUMPIFNOTEQ                      R8 R9 ; [+4]
-       67 GETIMPORT                        R6 K24 [Enum.PartType.Cylinder]
-       69 JUMP                             ; [+1]
-       70 LOADNIL                          R6
-       71 GETIMPORT                        R7 K22 [Enum.PartType.Ball]
-       73 JUMPIFNOTEQ                      R6 R7 ; [+16]
-       75 GETUPVAL                         R7 0
-       76 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       78 GETUPVAL                         R8 2
-       79 DUPTABLE                         R9 K25 [{"Part", "Color3"}]
-       80 GETTABLEKS                       R10 R4 K15 ["targetPart"]
-       82 SETTABLEKS                       R10 R9 K16 ["Part"]
-       84 SETTABLEKS                       R5 R9 K10 ["Color3"]
-       86 CALL                             R7 2 1
-       87 SETTABLEKS                       R7 R3 K26 ["MajorLines"]
-       89 JUMP                             ; [+18]
-       90 GETIMPORT                        R7 K24 [Enum.PartType.Cylinder]
-       92 JUMPIFNOTEQ                      R6 R7 ; [+15]
-       94 GETUPVAL                         R7 0
-       95 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       97 GETUPVAL                         R8 3
-       98 DUPTABLE                         R9 K25 [{"Part", "Color3"}]
-       99 GETTABLEKS                       R10 R4 K15 ["targetPart"]
-      101 SETTABLEKS                       R10 R9 K16 ["Part"]
-      103 SETTABLEKS                       R5 R9 K10 ["Color3"]
-      105 CALL                             R7 2 1
-      106 SETTABLEKS                       R7 R3 K26 ["MajorLines"]
-      108 GETUPVAL                         R7 0
-      109 GETTABLEKS                       R7 R7 K27 ["createFragment"]
-      111 MOVE                             R8 R3
-      112 CALL                             R7 1 -1
-      113 RETURN                           R7 -1
+       41 GETUPVAL                         R5 2
+       42 CALL                             R5 0 1
+       43 JUMPIFNOT                        R5 ; [+3]
+       44 GETTABLEKS                       R5 R0 K14 ["UseBoundingBoxes"]
+       46 JUMPIF                           R5 ; [+67]
+       47 NAMECALL                         R5 R1 K15 ["getGridColor"]
+       49 CALL                             R5 1 1
+       50 GETTABLEKS                       R7 R4 K16 ["targetPart"]
+       52 JUMPIFNOT                        R7 ; [+23]
+       53 LOADK                            R10 K17 ["Part"]
+       54 NAMECALL                         R8 R7 K18 ["IsA"]
+       56 CALL                             R8 2 1
+       57 JUMPIFNOT                        R8 ; [+18]
+       58 GETTABLEKS                       R8 R7 K19 ["Shape"]
+       60 GETIMPORT                        R9 K23 [Enum.PartType.Ball]
+       62 JUMPIFNOTEQ                      R8 R9 ; [+4]
+       64 GETIMPORT                        R6 K23 [Enum.PartType.Ball]
+       66 JUMP                             ; [+10]
+       67 GETTABLEKS                       R8 R7 K19 ["Shape"]
+       69 GETIMPORT                        R9 K25 [Enum.PartType.Cylinder]
+       71 JUMPIFNOTEQ                      R8 R9 ; [+4]
+       73 GETIMPORT                        R6 K25 [Enum.PartType.Cylinder]
+       75 JUMP                             ; [+1]
+       76 LOADNIL                          R6
+       77 GETIMPORT                        R7 K23 [Enum.PartType.Ball]
+       79 JUMPIFNOTEQ                      R6 R7 ; [+16]
+       81 GETUPVAL                         R7 0
+       82 GETTABLEKS                       R7 R7 K6 ["createElement"]
+       84 GETUPVAL                         R8 3
+       85 DUPTABLE                         R9 K26 [{"Part", "Color3"}]
+       86 GETTABLEKS                       R10 R4 K16 ["targetPart"]
+       88 SETTABLEKS                       R10 R9 K17 ["Part"]
+       90 SETTABLEKS                       R5 R9 K10 ["Color3"]
+       92 CALL                             R7 2 1
+       93 SETTABLEKS                       R7 R3 K27 ["MajorLines"]
+       95 JUMP                             ; [+18]
+       96 GETIMPORT                        R7 K25 [Enum.PartType.Cylinder]
+       98 JUMPIFNOTEQ                      R6 R7 ; [+15]
+      100 GETUPVAL                         R7 0
+      101 GETTABLEKS                       R7 R7 K6 ["createElement"]
+      103 GETUPVAL                         R8 4
+      104 DUPTABLE                         R9 K26 [{"Part", "Color3"}]
+      105 GETTABLEKS                       R10 R4 K16 ["targetPart"]
+      107 SETTABLEKS                       R10 R9 K17 ["Part"]
+      109 SETTABLEKS                       R5 R9 K10 ["Color3"]
+      111 CALL                             R7 2 1
+      112 SETTABLEKS                       R7 R3 K27 ["MajorLines"]
+      114 GETUPVAL                         R5 0
+      115 GETTABLEKS                       R5 R5 K28 ["createFragment"]
+      117 MOVE                             R6 R3
+      118 CALL                             R5 1 -1
+      119 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -195,13 +200,18 @@ MAIN:
        34 GETTABLEKS                       R6 R0 K7 ["Components"]
        36 GETTABLEKS                       R6 R6 K10 ["CylinderMajorLines"]
        38 CALL                             R5 1 1
-       39 DUPCLOSURE                       R6 K11 [PROTO_2]
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R3
-       42 DUPCLOSURE                       R7 K12 [PROTO_3]
-       43 DUPCLOSURE                       R8 K13 [PROTO_4]
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R6
-       46 CAPTURE                          VAL R4
-       47 CAPTURE                          VAL R5
-       48 RETURN                           R8 1
+       39 GETIMPORT                        R6 K4 [require]
+       41 GETTABLEKS                       R7 R0 K11 ["Flags"]
+       43 GETTABLEKS                       R7 R7 K12 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
+       45 CALL                             R6 1 1
+       46 DUPCLOSURE                       R7 K13 [PROTO_2]
+       47 CAPTURE                          VAL R2
+       48 CAPTURE                          VAL R3
+       49 DUPCLOSURE                       R8 K14 [PROTO_3]
+       50 DUPCLOSURE                       R9 K15 [PROTO_4]
+       51 CAPTURE                          VAL R2
+       52 CAPTURE                          VAL R7
+       53 CAPTURE                          VAL R6
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R5
+       56 RETURN                           R9 1

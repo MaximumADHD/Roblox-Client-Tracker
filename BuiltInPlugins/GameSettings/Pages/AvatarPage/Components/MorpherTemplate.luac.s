@@ -58,15 +58,20 @@ PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["frameRef"]
         3 GETTABLEKS                       R1 R1 K1 ["current"]
-        5 GETIMPORT                        R2 K4 [UDim2.new]
-        7 LOADN                            R3 1
-        8 LOADN                            R4 0
-        9 LOADN                            R5 0
-       10 GETTABLEKS                       R6 R0 K5 ["AbsoluteContentSize"]
-       12 GETTABLEKS                       R6 R6 K6 ["y"]
-       14 CALL                             R2 4 1
-       15 SETTABLEKS                       R2 R1 K7 ["Size"]
-       17 RETURN                           R0 0
+        5 JUMPIF                           R1 ; [+1]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["frameRef"]
+       10 GETTABLEKS                       R1 R1 K1 ["current"]
+       12 GETIMPORT                        R2 K4 [UDim2.new]
+       14 LOADN                            R3 1
+       15 LOADN                            R4 0
+       16 LOADN                            R5 0
+       17 GETTABLEKS                       R6 R0 K5 ["AbsoluteContentSize"]
+       19 GETTABLEKS                       R6 R6 K6 ["y"]
+       21 CALL                             R2 4 1
+       22 SETTABLEKS                       R2 R1 K7 ["Size"]
+       24 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0

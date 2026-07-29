@@ -95,229 +95,228 @@ PROTO_2:
        68 MOVE                             R18 R10
        69 NAMECALL                         R14 R14 K20 ["Raycast"]
        71 CALL                             R14 4 1
-       72 JUMPIFNOT                        R14 ; [+21]
-       73 GETTABLEKS                       R18 R14 K21 ["Position"]
-       75 GETTABLEKS                       R19 R14 K22 ["Normal"]
-       77 SUB                              R20 R18 R1
-       78 MOVE                             R22 R19
-       79 NAMECALL                         R20 R20 K23 ["Dot"]
-       81 CALL                             R20 2 1
-       82 MOVE                             R23 R19
-       83 NAMECALL                         R21 R2 K23 ["Dot"]
-       85 CALL                             R21 2 1
-       86 DIV                              R17 R20 R21
-       87 FASTCALL2                        MATH_MIN R9 R17 ; [+4]
-       89 MOVE                             R16 R9
-       90 GETIMPORT                        R15 K26 [math.min]
-       92 CALL                             R15 2 1
-       93 MOVE                             R9 R15
-       94 LOADK                            R15 K0 [0.01]
-       95 LOADN                            R18 1
-       96 LOADN                            R16 14
-       97 LOADN                            R17 1
-       98 FORNPREP                         R16
-       99 JUMPIFLT                         R9 R15 ; [+71]
-      101 GETIMPORT                        R19 K19 [workspace]
-      103 MUL                              R22 R2 R15
-      104 ADD                              R21 R12 R22
-      105 MINUS                            R24 R11
-      106 MULK                             R23 R24 K27 [2]
-      107 MULK                             R22 R23 K0 [0.01]
-      108 MOVE                             R23 R10
-      109 NAMECALL                         R19 R19 K20 ["Raycast"]
-      111 CALL                             R19 4 1
-      112 JUMPIFNOT                        R19 ; [+5]
-      113 GETTABLEKS                       R20 R19 K28 ["Distance"]
-      115 LOADK                            R21 K29 [0.02]
-      116 JUMPIFNOTLT                      R21 R20 ; [+52]
-      118 MUL                              R21 R2 R15
-      119 ADD                              R20 R12 R21
-      120 JUMPIFNOT                        R19 ; [+5]
-      121 GETTABLEKS                       R22 R19 K28 ["Distance"]
-      123 MUL                              R21 R11 R22
-      124 SUB                              R20 R20 R21
-      125 JUMP                             ; [+3]
-      126 MULK                             R22 R11 K27 [2]
-      127 MULK                             R21 R22 K0 [0.01]
-      128 SUB                              R20 R20 R21
-      129 GETIMPORT                        R21 K19 [workspace]
-      131 MOVE                             R23 R20
-      132 SUB                              R24 R1 R20
-      133 MOVE                             R25 R10
-      134 NAMECALL                         R21 R21 K20 ["Raycast"]
-      136 CALL                             R21 4 1
-      137 JUMPIFNOT                        R21 ; [+33]
-      138 GETTABLEKS                       R22 R21 K22 ["Normal"]
-      140 MOVE                             R24 R11
-      141 NAMECALL                         R22 R22 K23 ["Dot"]
-      143 CALL                             R22 2 1
-      144 LOADK                            R23 K30 [0.8]
-      145 JUMPIFNOTLT                      R22 R23 ; [+25]
-      147 GETTABLEKS                       R25 R21 K21 ["Position"]
-      149 GETTABLEKS                       R26 R21 K22 ["Normal"]
-      151 SUB                              R27 R25 R1
-      152 MOVE                             R29 R26
-      153 NAMECALL                         R27 R27 K23 ["Dot"]
-      155 CALL                             R27 2 1
-      156 MOVE                             R30 R26
-      157 NAMECALL                         R28 R2 K23 ["Dot"]
-      159 CALL                             R28 2 1
-      160 DIV                              R24 R27 R28
-      161 FASTCALL2                        MATH_MIN R9 R24 ; [+4]
-      163 MOVE                             R23 R9
-      164 GETIMPORT                        R22 K26 [math.min]
-      166 CALL                             R22 2 1
-      167 MOVE                             R9 R22
-      168 JUMP                             ; [+2]
-      169 MULK                             R15 R15 K31 [2.28]
-      170 FORNLOOP                         R16
-      171 GETIMPORT                        R16 K19 [workspace]
-      173 MULK                             R19 R5 K0 [0.01]
-      174 ADD                              R18 R12 R19
-      175 MINUS                            R20 R2
-      176 MUL                              R19 R20 R7
-      177 MOVE                             R20 R10
-      178 NAMECALL                         R16 R16 K20 ["Raycast"]
-      180 CALL                             R16 4 1
-      181 JUMPIFNOT                        R16 ; [+21]
-      182 GETTABLEKS                       R20 R16 K21 ["Position"]
-      184 GETTABLEKS                       R21 R16 K22 ["Normal"]
-      186 SUB                              R22 R20 R1
-      187 MOVE                             R24 R21
-      188 NAMECALL                         R22 R22 K23 ["Dot"]
-      190 CALL                             R22 2 1
-      191 MOVE                             R25 R21
-      192 NAMECALL                         R23 R2 K23 ["Dot"]
-      194 CALL                             R23 2 1
-      195 DIV                              R19 R22 R23
-      196 FASTCALL2                        MATH_MAX R8 R19 ; [+4]
-      198 MOVE                             R18 R8
-      199 GETIMPORT                        R17 K33 [math.max]
-      201 CALL                             R17 2 1
-      202 MOVE                             R8 R17
-      203 GETIMPORT                        R17 K19 [workspace]
-      205 MULK                             R20 R6 K0 [0.01]
-      206 ADD                              R19 R12 R20
-      207 MINUS                            R21 R2
-      208 MUL                              R20 R21 R7
-      209 MOVE                             R21 R10
-      210 NAMECALL                         R17 R17 K20 ["Raycast"]
-      212 CALL                             R17 4 1
-      213 JUMPIFNOT                        R17 ; [+21]
-      214 GETTABLEKS                       R21 R17 K21 ["Position"]
-      216 GETTABLEKS                       R22 R17 K22 ["Normal"]
-      218 SUB                              R23 R21 R1
-      219 MOVE                             R25 R22
-      220 NAMECALL                         R23 R23 K23 ["Dot"]
-      222 CALL                             R23 2 1
-      223 MOVE                             R26 R22
-      224 NAMECALL                         R24 R2 K23 ["Dot"]
-      226 CALL                             R24 2 1
-      227 DIV                              R20 R23 R24
-      228 FASTCALL2                        MATH_MAX R8 R20 ; [+4]
-      230 MOVE                             R19 R8
-      231 GETIMPORT                        R18 K33 [math.max]
-      233 CALL                             R18 2 1
-      234 MOVE                             R8 R18
-      235 LOADK                            R18 K0 [0.01]
-      236 LOADN                            R21 1
-      237 LOADN                            R19 14
-      238 LOADN                            R20 1
-      239 FORNPREP                         R19
-      240 MINUS                            R22 R18
-      241 JUMPIFLT                         R22 R8 ; [+71]
-      243 GETIMPORT                        R22 K19 [workspace]
-      245 MUL                              R25 R2 R18
-      246 SUB                              R24 R12 R25
-      247 MINUS                            R27 R11
-      248 MULK                             R26 R27 K27 [2]
-      249 MULK                             R25 R26 K0 [0.01]
-      250 MOVE                             R26 R10
-      251 NAMECALL                         R22 R22 K20 ["Raycast"]
-      253 CALL                             R22 4 1
-      254 JUMPIFNOT                        R22 ; [+5]
-      255 GETTABLEKS                       R23 R22 K28 ["Distance"]
-      257 LOADK                            R24 K29 [0.02]
-      258 JUMPIFNOTLT                      R24 R23 ; [+52]
-      260 MUL                              R24 R2 R18
-      261 SUB                              R23 R12 R24
-      262 JUMPIFNOT                        R22 ; [+5]
-      263 GETTABLEKS                       R25 R22 K28 ["Distance"]
-      265 MUL                              R24 R11 R25
-      266 SUB                              R23 R23 R24
-      267 JUMP                             ; [+3]
-      268 MULK                             R25 R11 K27 [2]
-      269 MULK                             R24 R25 K0 [0.01]
-      270 SUB                              R23 R23 R24
-      271 GETIMPORT                        R24 K19 [workspace]
-      273 MOVE                             R26 R23
-      274 SUB                              R27 R1 R23
-      275 MOVE                             R28 R10
-      276 NAMECALL                         R24 R24 K20 ["Raycast"]
-      278 CALL                             R24 4 1
-      279 JUMPIFNOT                        R24 ; [+33]
-      280 GETTABLEKS                       R25 R24 K22 ["Normal"]
-      282 MOVE                             R27 R11
-      283 NAMECALL                         R25 R25 K23 ["Dot"]
-      285 CALL                             R25 2 1
-      286 LOADK                            R26 K30 [0.8]
-      287 JUMPIFNOTLT                      R25 R26 ; [+25]
-      289 GETTABLEKS                       R28 R24 K21 ["Position"]
-      291 GETTABLEKS                       R29 R24 K22 ["Normal"]
-      293 SUB                              R30 R28 R1
-      294 MOVE                             R32 R29
-      295 NAMECALL                         R30 R30 K23 ["Dot"]
-      297 CALL                             R30 2 1
-      298 MOVE                             R33 R29
-      299 NAMECALL                         R31 R2 K23 ["Dot"]
-      301 CALL                             R31 2 1
-      302 DIV                              R27 R30 R31
-      303 FASTCALL2                        MATH_MAX R8 R27 ; [+4]
-      305 MOVE                             R26 R8
-      306 GETIMPORT                        R25 K33 [math.max]
-      308 CALL                             R25 2 1
-      309 MOVE                             R8 R25
-      310 JUMP                             ; [+2]
-      311 MULK                             R18 R18 K31 [2.28]
-      312 FORNLOOP                         R19
-      313 JUMPIFEQKN                       R9 K4 [∞] ; [+53]
-      315 JUMPIFEQKN                       R8 K3 [-∞] ; [+51]
-      317 MUL                              R20 R2 R9
-      318 ADD                              R19 R1 R20
-      319 MUL                              R21 R2 R8
-      320 ADD                              R20 R1 R21
-      321 GETUPVAL                         R21 0
-      322 CALL                             R21 0 1
-      323 JUMPIFNOT                        R21 ; [+7]
-      324 MOVE                             R23 R19
-      325 NAMECALL                         R21 R20 K34 ["FuzzyEq"]
-      327 CALL                             R21 2 1
-      328 JUMPIFNOT                        R21 ; [+2]
-      329 LOADNIL                          R21
-      330 RETURN                           R21 1
-      331 NEWTABLE                         R21 8 0
-      333 SETTABLEKS                       R19 R21 K35 ["a"]
-      335 SETTABLEKS                       R20 R21 K36 ["b"]
-      337 GETTABLEKS                       R23 R21 K36 ["b"]
-      339 GETTABLEKS                       R24 R21 K35 ["a"]
-      341 SUB                              R22 R23 R24
-      342 GETTABLEKS                       R22 R22 K17 ["Unit"]
-      344 SETTABLEKS                       R22 R21 K37 ["direction"]
-      346 GETTABLEKS                       R23 R21 K36 ["b"]
-      348 GETTABLEKS                       R24 R21 K35 ["a"]
-      350 SUB                              R22 R23 R24
-      351 GETTABLEKS                       R22 R22 K2 ["Magnitude"]
-      353 SETTABLEKS                       R22 R21 K38 ["length"]
-      355 LOADK                            R22 K39 [0.5]
-      356 SETTABLEKS                       R22 R21 K40 ["edgeMargin"]
-      358 SETTABLEKS                       R0 R21 K41 ["part"]
-      360 LOADK                            R22 K42 ["Edge"]
-      361 SETTABLEKS                       R22 R21 K43 ["type"]
-      363 LOADB                            R22 1
-      364 SETTABLEKS                       R22 R21 K44 ["inferred"]
-      366 RETURN                           R21 1
-      367 LOADNIL                          R19
-      368 RETURN                           R19 1
+       72 MOVE                             R13 R14
+       73 JUMPIFNOT                        R13 ; [+21]
+       74 GETTABLEKS                       R17 R13 K21 ["Position"]
+       76 GETTABLEKS                       R18 R13 K22 ["Normal"]
+       78 SUB                              R19 R17 R1
+       79 MOVE                             R21 R18
+       80 NAMECALL                         R19 R19 K23 ["Dot"]
+       82 CALL                             R19 2 1
+       83 MOVE                             R22 R18
+       84 NAMECALL                         R20 R2 K23 ["Dot"]
+       86 CALL                             R20 2 1
+       87 DIV                              R16 R19 R20
+       88 FASTCALL2                        MATH_MIN R9 R16 ; [+4]
+       90 MOVE                             R15 R9
+       91 GETIMPORT                        R14 K26 [math.min]
+       93 CALL                             R14 2 1
+       94 MOVE                             R9 R14
+       95 LOADK                            R14 K0 [0.01]
+       96 LOADN                            R17 1
+       97 LOADN                            R15 14
+       98 LOADN                            R16 1
+       99 FORNPREP                         R15
+      100 JUMPIFLT                         R9 R14 ; [+71]
+      102 GETIMPORT                        R18 K19 [workspace]
+      104 MUL                              R21 R2 R14
+      105 ADD                              R20 R12 R21
+      106 MINUS                            R23 R11
+      107 MULK                             R22 R23 K27 [2]
+      108 MULK                             R21 R22 K0 [0.01]
+      109 MOVE                             R22 R10
+      110 NAMECALL                         R18 R18 K20 ["Raycast"]
+      112 CALL                             R18 4 1
+      113 JUMPIFNOT                        R18 ; [+5]
+      114 GETTABLEKS                       R19 R18 K28 ["Distance"]
+      116 LOADK                            R20 K29 [0.02]
+      117 JUMPIFNOTLT                      R20 R19 ; [+52]
+      119 MUL                              R20 R2 R14
+      120 ADD                              R19 R12 R20
+      121 JUMPIFNOT                        R18 ; [+5]
+      122 GETTABLEKS                       R21 R18 K28 ["Distance"]
+      124 MUL                              R20 R11 R21
+      125 SUB                              R19 R19 R20
+      126 JUMP                             ; [+3]
+      127 MULK                             R21 R11 K27 [2]
+      128 MULK                             R20 R21 K0 [0.01]
+      129 SUB                              R19 R19 R20
+      130 GETIMPORT                        R20 K19 [workspace]
+      132 MOVE                             R22 R19
+      133 SUB                              R23 R1 R19
+      134 MOVE                             R24 R10
+      135 NAMECALL                         R20 R20 K20 ["Raycast"]
+      137 CALL                             R20 4 1
+      138 JUMPIFNOT                        R20 ; [+33]
+      139 GETTABLEKS                       R21 R20 K22 ["Normal"]
+      141 MOVE                             R23 R11
+      142 NAMECALL                         R21 R21 K23 ["Dot"]
+      144 CALL                             R21 2 1
+      145 LOADK                            R22 K30 [0.8]
+      146 JUMPIFNOTLT                      R21 R22 ; [+25]
+      148 GETTABLEKS                       R24 R20 K21 ["Position"]
+      150 GETTABLEKS                       R25 R20 K22 ["Normal"]
+      152 SUB                              R26 R24 R1
+      153 MOVE                             R28 R25
+      154 NAMECALL                         R26 R26 K23 ["Dot"]
+      156 CALL                             R26 2 1
+      157 MOVE                             R29 R25
+      158 NAMECALL                         R27 R2 K23 ["Dot"]
+      160 CALL                             R27 2 1
+      161 DIV                              R23 R26 R27
+      162 FASTCALL2                        MATH_MIN R9 R23 ; [+4]
+      164 MOVE                             R22 R9
+      165 GETIMPORT                        R21 K26 [math.min]
+      167 CALL                             R21 2 1
+      168 MOVE                             R9 R21
+      169 JUMP                             ; [+2]
+      170 MULK                             R14 R14 K31 [2.28]
+      171 FORNLOOP                         R15
+      172 GETIMPORT                        R15 K19 [workspace]
+      174 MULK                             R18 R5 K0 [0.01]
+      175 ADD                              R17 R12 R18
+      176 MINUS                            R19 R2
+      177 MUL                              R18 R19 R7
+      178 MOVE                             R19 R10
+      179 NAMECALL                         R15 R15 K20 ["Raycast"]
+      181 CALL                             R15 4 1
+      182 JUMPIFNOT                        R15 ; [+21]
+      183 GETTABLEKS                       R19 R15 K21 ["Position"]
+      185 GETTABLEKS                       R20 R15 K22 ["Normal"]
+      187 SUB                              R21 R19 R1
+      188 MOVE                             R23 R20
+      189 NAMECALL                         R21 R21 K23 ["Dot"]
+      191 CALL                             R21 2 1
+      192 MOVE                             R24 R20
+      193 NAMECALL                         R22 R2 K23 ["Dot"]
+      195 CALL                             R22 2 1
+      196 DIV                              R18 R21 R22
+      197 FASTCALL2                        MATH_MAX R8 R18 ; [+4]
+      199 MOVE                             R17 R8
+      200 GETIMPORT                        R16 K33 [math.max]
+      202 CALL                             R16 2 1
+      203 MOVE                             R8 R16
+      204 GETIMPORT                        R16 K19 [workspace]
+      206 MULK                             R19 R6 K0 [0.01]
+      207 ADD                              R18 R12 R19
+      208 MINUS                            R20 R2
+      209 MUL                              R19 R20 R7
+      210 MOVE                             R20 R10
+      211 NAMECALL                         R16 R16 K20 ["Raycast"]
+      213 CALL                             R16 4 1
+      214 MOVE                             R15 R16
+      215 JUMPIFNOT                        R15 ; [+21]
+      216 GETTABLEKS                       R19 R15 K21 ["Position"]
+      218 GETTABLEKS                       R20 R15 K22 ["Normal"]
+      220 SUB                              R21 R19 R1
+      221 MOVE                             R23 R20
+      222 NAMECALL                         R21 R21 K23 ["Dot"]
+      224 CALL                             R21 2 1
+      225 MOVE                             R24 R20
+      226 NAMECALL                         R22 R2 K23 ["Dot"]
+      228 CALL                             R22 2 1
+      229 DIV                              R18 R21 R22
+      230 FASTCALL2                        MATH_MAX R8 R18 ; [+4]
+      232 MOVE                             R17 R8
+      233 GETIMPORT                        R16 K33 [math.max]
+      235 CALL                             R16 2 1
+      236 MOVE                             R8 R16
+      237 LOADK                            R14 K0 [0.01]
+      238 LOADN                            R18 1
+      239 LOADN                            R16 14
+      240 LOADN                            R17 1
+      241 FORNPREP                         R16
+      242 MINUS                            R19 R14
+      243 JUMPIFLT                         R19 R8 ; [+71]
+      245 GETIMPORT                        R19 K19 [workspace]
+      247 MUL                              R22 R2 R14
+      248 SUB                              R21 R12 R22
+      249 MINUS                            R24 R11
+      250 MULK                             R23 R24 K27 [2]
+      251 MULK                             R22 R23 K0 [0.01]
+      252 MOVE                             R23 R10
+      253 NAMECALL                         R19 R19 K20 ["Raycast"]
+      255 CALL                             R19 4 1
+      256 JUMPIFNOT                        R19 ; [+5]
+      257 GETTABLEKS                       R20 R19 K28 ["Distance"]
+      259 LOADK                            R21 K29 [0.02]
+      260 JUMPIFNOTLT                      R21 R20 ; [+52]
+      262 MUL                              R21 R2 R14
+      263 SUB                              R20 R12 R21
+      264 JUMPIFNOT                        R19 ; [+5]
+      265 GETTABLEKS                       R22 R19 K28 ["Distance"]
+      267 MUL                              R21 R11 R22
+      268 SUB                              R20 R20 R21
+      269 JUMP                             ; [+3]
+      270 MULK                             R22 R11 K27 [2]
+      271 MULK                             R21 R22 K0 [0.01]
+      272 SUB                              R20 R20 R21
+      273 GETIMPORT                        R21 K19 [workspace]
+      275 MOVE                             R23 R20
+      276 SUB                              R24 R1 R20
+      277 MOVE                             R25 R10
+      278 NAMECALL                         R21 R21 K20 ["Raycast"]
+      280 CALL                             R21 4 1
+      281 JUMPIFNOT                        R21 ; [+33]
+      282 GETTABLEKS                       R22 R21 K22 ["Normal"]
+      284 MOVE                             R24 R11
+      285 NAMECALL                         R22 R22 K23 ["Dot"]
+      287 CALL                             R22 2 1
+      288 LOADK                            R23 K30 [0.8]
+      289 JUMPIFNOTLT                      R22 R23 ; [+25]
+      291 GETTABLEKS                       R25 R21 K21 ["Position"]
+      293 GETTABLEKS                       R26 R21 K22 ["Normal"]
+      295 SUB                              R27 R25 R1
+      296 MOVE                             R29 R26
+      297 NAMECALL                         R27 R27 K23 ["Dot"]
+      299 CALL                             R27 2 1
+      300 MOVE                             R30 R26
+      301 NAMECALL                         R28 R2 K23 ["Dot"]
+      303 CALL                             R28 2 1
+      304 DIV                              R24 R27 R28
+      305 FASTCALL2                        MATH_MAX R8 R24 ; [+4]
+      307 MOVE                             R23 R8
+      308 GETIMPORT                        R22 K33 [math.max]
+      310 CALL                             R22 2 1
+      311 MOVE                             R8 R22
+      312 JUMP                             ; [+2]
+      313 MULK                             R14 R14 K31 [2.28]
+      314 FORNLOOP                         R16
+      315 JUMPIFEQKN                       R9 K4 [∞] ; [+50]
+      317 JUMPIFEQKN                       R8 K3 [-∞] ; [+48]
+      319 MUL                              R17 R2 R9
+      320 ADD                              R16 R1 R17
+      321 MUL                              R18 R2 R8
+      322 ADD                              R17 R1 R18
+      323 MOVE                             R20 R16
+      324 NAMECALL                         R18 R17 K34 ["FuzzyEq"]
+      326 CALL                             R18 2 1
+      327 JUMPIFNOT                        R18 ; [+2]
+      328 LOADNIL                          R18
+      329 RETURN                           R18 1
+      330 NEWTABLE                         R18 8 0
+      332 SETTABLEKS                       R16 R18 K35 ["a"]
+      334 SETTABLEKS                       R17 R18 K36 ["b"]
+      336 GETTABLEKS                       R20 R18 K36 ["b"]
+      338 GETTABLEKS                       R21 R18 K35 ["a"]
+      340 SUB                              R19 R20 R21
+      341 GETTABLEKS                       R19 R19 K17 ["Unit"]
+      343 SETTABLEKS                       R19 R18 K37 ["direction"]
+      345 GETTABLEKS                       R20 R18 K36 ["b"]
+      347 GETTABLEKS                       R21 R18 K35 ["a"]
+      349 SUB                              R19 R20 R21
+      350 GETTABLEKS                       R19 R19 K2 ["Magnitude"]
+      352 SETTABLEKS                       R19 R18 K38 ["length"]
+      354 LOADK                            R19 K39 [0.5]
+      355 SETTABLEKS                       R19 R18 K40 ["edgeMargin"]
+      357 SETTABLEKS                       R0 R18 K41 ["part"]
+      359 LOADK                            R19 K42 ["Edge"]
+      360 SETTABLEKS                       R19 R18 K43 ["type"]
+      362 LOADB                            R19 1
+      363 SETTABLEKS                       R19 R18 K44 ["inferred"]
+      365 RETURN                           R18 1
+      366 LOADNIL                          R16
+      367 RETURN                           R16 1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R2 K0 ["XVector"]
@@ -501,41 +500,32 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["DraggerFramework"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Flags"]
-       11 GETTABLEKS                       R2 R2 K7 ["getFFlagDraggerAvoidDegeneratePoints"]
-       13 CALL                             R1 1 1
-       14 DUPCLOSURE                       R2 K8 [PROTO_0]
-       15 DUPCLOSURE                       R3 K9 [PROTO_1]
-       16 DUPCLOSURE                       R4 K10 [PROTO_2]
-       17 CAPTURE                          VAL R1
-       18 DUPCLOSURE                       R5 K11 [PROTO_3]
-       19 GETIMPORT                        R6 K14 [table.freeze]
-       21 NEWTABLE                         R7 0 4
-       23 NEWTABLE                         R8 0 2
-       25 LOADN                            R9 0
-       26 LOADN                            R10 1
-       27 SETLIST                          R8 R9 2 [1]
-       29 NEWTABLE                         R9 0 2
-       31 LOADN                            R10 1
-       32 LOADN                            R11 0
-       33 SETLIST                          R9 R10 2 [1]
-       35 NEWTABLE                         R10 0 2
-       37 LOADN                            R11 0
-       38 LOADN                            R12 -1
-       39 SETLIST                          R10 R11 2 [1]
-       41 NEWTABLE                         R11 0 2
-       43 LOADN                            R12 -1
-       44 LOADN                            R13 0
-       45 SETLIST                          R11 R12 2 [1]
-       47 SETLIST                          R7 R8 4 [1]
-       49 CALL                             R6 1 1
-       50 DUPCLOSURE                       R7 K15 [PROTO_4]
-       51 CAPTURE                          VAL R6
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R4
-       54 RETURN                           R7 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 DUPCLOSURE                       R1 K1 [PROTO_1]
+        3 DUPCLOSURE                       R2 K2 [PROTO_2]
+        4 DUPCLOSURE                       R3 K3 [PROTO_3]
+        5 GETIMPORT                        R4 K6 [table.freeze]
+        7 NEWTABLE                         R5 0 4
+        9 NEWTABLE                         R6 0 2
+       11 LOADN                            R7 0
+       12 LOADN                            R8 1
+       13 SETLIST                          R6 R7 2 [1]
+       15 NEWTABLE                         R7 0 2
+       17 LOADN                            R8 1
+       18 LOADN                            R9 0
+       19 SETLIST                          R7 R8 2 [1]
+       21 NEWTABLE                         R8 0 2
+       23 LOADN                            R9 0
+       24 LOADN                            R10 -1
+       25 SETLIST                          R8 R9 2 [1]
+       27 NEWTABLE                         R9 0 2
+       29 LOADN                            R10 -1
+       30 LOADN                            R11 0
+       31 SETLIST                          R9 R10 2 [1]
+       33 SETLIST                          R5 R6 4 [1]
+       35 CALL                             R4 1 1
+       36 DUPCLOSURE                       R5 K7 [PROTO_4]
+       37 CAPTURE                          VAL R4
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R2
+       40 RETURN                           R5 1

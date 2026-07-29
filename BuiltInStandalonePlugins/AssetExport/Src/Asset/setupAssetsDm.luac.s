@@ -128,31 +128,56 @@ PROTO_10:
        23 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+3]
-        3 GETUPVAL                         R3 1
-        4 JUMPIFNOT                        R3 ; [+1]
+        0 GETUPVAL                         R4 0
+        1 CALL                             R4 0 1
+        2 JUMPIFNOT                        R4 ; [+3]
+        3 GETUPVAL                         R4 1
+        4 JUMPIFNOT                        R4 ; [+1]
         5 RETURN                           R0 0
-        6 GETUPVAL                         R3 2
-        7 LOADK                            R5 K0 ["AssetExportController"]
-        8 NAMECALL                         R3 R3 K1 ["GetPluginComponent"]
-       10 CALL                             R3 2 1
-       11 MOVE                             R5 R0
-       12 MOVE                             R6 R1
-       13 MOVE                             R7 R2
-       14 NAMECALL                         R3 R3 K2 ["StartExportAsync"]
-       16 CALL                             R3 4 0
-       17 RETURN                           R0 0
+        6 GETUPVAL                         R4 2
+        7 CALL                             R4 0 1
+        8 JUMPIFNOT                        R4 ; [+13]
+        9 GETUPVAL                         R4 3
+       10 LOADK                            R6 K0 ["AssetExportController"]
+       11 NAMECALL                         R4 R4 K1 ["GetPluginComponent"]
+       13 CALL                             R4 2 1
+       14 MOVE                             R6 R0
+       15 MOVE                             R7 R3
+       16 MOVE                             R8 R1
+       17 MOVE                             R9 R2
+       18 NAMECALL                         R4 R4 K2 ["StartExportAsync"]
+       20 CALL                             R4 5 0
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R4 3
+       23 LOADK                            R6 K0 ["AssetExportController"]
+       24 NAMECALL                         R4 R4 K1 ["GetPluginComponent"]
+       26 CALL                             R4 2 1
+       27 MOVE                             R6 R0
+       28 MOVE                             R7 R1
+       29 MOVE                             R8 R2
+       30 NAMECALL                         R4 R4 K3 ["DEPRECATED_StartExportAsync"]
+       32 CALL                             R4 4 0
+       33 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["AssetExportController"]
-        2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
-        4 CALL                             R0 2 1
-        5 NAMECALL                         R0 R0 K2 ["SelectExportFileNameAsync"]
-        7 CALL                             R0 1 0
-        8 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+10]
+        3 GETUPVAL                         R1 1
+        4 LOADK                            R3 K0 ["AssetExportController"]
+        5 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
+        7 CALL                             R1 2 1
+        8 MOVE                             R3 R0
+        9 NAMECALL                         R1 R1 K2 ["SelectExportFileNameAsync"]
+       11 CALL                             R1 2 0
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R1 1
+       14 LOADK                            R3 K0 ["AssetExportController"]
+       15 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
+       17 CALL                             R1 2 1
+       18 NAMECALL                         R1 R1 K3 ["DEPRECATED_SelectExportFileNameAsync"]
+       20 CALL                             R1 1 0
+       21 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -385,90 +410,92 @@ PROTO_19:
       189 NEWCLOSURE                       R11 P11
       190 CAPTURE                          UPVAL U2
       191 CAPTURE                          REF R5
-      192 CAPTURE                          VAL R0
-      193 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      195 CALL                             R8 3 -1
-      196 FASTCALL                         TABLE_INSERT ; [+2]
-      197 GETIMPORT                        R6 K6 [table.insert]
-      199 CALL                             R6 -1 0
-      200 MOVE                             R7 R2
-      201 LOADK                            R10 K19 ["OnShouldSelectFilename"]
-      202 NEWCLOSURE                       R11 P12
-      203 CAPTURE                          VAL R0
-      204 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      206 CALL                             R8 3 -1
-      207 FASTCALL                         TABLE_INSERT ; [+2]
-      208 GETIMPORT                        R6 K6 [table.insert]
-      210 CALL                             R6 -1 0
-      211 MOVE                             R7 R2
-      212 LOADK                            R10 K20 ["OnShouldCancelExport"]
-      213 NEWCLOSURE                       R11 P13
-      214 CAPTURE                          UPVAL U2
-      215 CAPTURE                          REF R3
-      216 CAPTURE                          REF R4
-      217 CAPTURE                          VAL R0
-      218 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      220 CALL                             R8 3 -1
-      221 FASTCALL                         TABLE_INSERT ; [+2]
-      222 GETIMPORT                        R6 K6 [table.insert]
-      224 CALL                             R6 -1 0
-      225 MOVE                             R7 R2
-      226 LOADK                            R10 K21 ["OnViewInExplorer"]
-      227 DUPCLOSURE                       R11 K22 [PROTO_14]
-      228 CAPTURE                          UPVAL U3
-      229 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      231 CALL                             R8 3 -1
-      232 FASTCALL                         TABLE_INSERT ; [+2]
-      233 GETIMPORT                        R6 K6 [table.insert]
-      235 CALL                             R6 -1 0
-      236 GETUPVAL                         R6 4
-      237 CALL                             R6 0 1
-      238 JUMPIFNOT                        R6 ; [+24]
-      239 MOVE                             R7 R2
-      240 LOADK                            R10 K23 ["OnCreateCageParts"]
-      241 NEWCLOSURE                       R11 P15
-      242 CAPTURE                          UPVAL U5
-      243 CAPTURE                          VAL R0
-      244 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      246 CALL                             R8 3 -1
-      247 FASTCALL                         TABLE_INSERT ; [+2]
-      248 GETIMPORT                        R6 K6 [table.insert]
-      250 CALL                             R6 -1 0
-      251 MOVE                             R7 R2
-      252 LOADK                            R10 K24 ["OnDestroyCageParts"]
-      253 NEWCLOSURE                       R11 P16
-      254 CAPTURE                          UPVAL U6
-      255 CAPTURE                          VAL R0
-      256 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      258 CALL                             R8 3 -1
-      259 FASTCALL                         TABLE_INSERT ; [+2]
-      260 GETIMPORT                        R6 K6 [table.insert]
-      262 CALL                             R6 -1 0
-      263 GETUPVAL                         R6 7
-      264 CALL                             R6 0 1
-      265 JUMPIFNOT                        R6 ; [+24]
-      266 MOVE                             R7 R2
-      267 LOADK                            R10 K25 ["OnCreateAttachmentParts"]
-      268 NEWCLOSURE                       R11 P17
-      269 CAPTURE                          UPVAL U8
-      270 CAPTURE                          VAL R0
-      271 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      273 CALL                             R8 3 -1
-      274 FASTCALL                         TABLE_INSERT ; [+2]
-      275 GETIMPORT                        R6 K6 [table.insert]
-      277 CALL                             R6 -1 0
-      278 MOVE                             R7 R2
-      279 LOADK                            R10 K26 ["OnDestroyAttachmentParts"]
-      280 NEWCLOSURE                       R11 P18
-      281 CAPTURE                          UPVAL U9
-      282 CAPTURE                          VAL R0
-      283 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      285 CALL                             R8 3 -1
-      286 FASTCALL                         TABLE_INSERT ; [+2]
-      287 GETIMPORT                        R6 K6 [table.insert]
-      289 CALL                             R6 -1 0
-      290 CLOSEUPVALS                      R3
-      291 RETURN                           R2 1
+      192 CAPTURE                          UPVAL U3
+      193 CAPTURE                          VAL R0
+      194 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      196 CALL                             R8 3 -1
+      197 FASTCALL                         TABLE_INSERT ; [+2]
+      198 GETIMPORT                        R6 K6 [table.insert]
+      200 CALL                             R6 -1 0
+      201 MOVE                             R7 R2
+      202 LOADK                            R10 K19 ["OnShouldSelectFilename"]
+      203 NEWCLOSURE                       R11 P12
+      204 CAPTURE                          UPVAL U3
+      205 CAPTURE                          VAL R0
+      206 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      208 CALL                             R8 3 -1
+      209 FASTCALL                         TABLE_INSERT ; [+2]
+      210 GETIMPORT                        R6 K6 [table.insert]
+      212 CALL                             R6 -1 0
+      213 MOVE                             R7 R2
+      214 LOADK                            R10 K20 ["OnShouldCancelExport"]
+      215 NEWCLOSURE                       R11 P13
+      216 CAPTURE                          UPVAL U2
+      217 CAPTURE                          REF R3
+      218 CAPTURE                          REF R4
+      219 CAPTURE                          VAL R0
+      220 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      222 CALL                             R8 3 -1
+      223 FASTCALL                         TABLE_INSERT ; [+2]
+      224 GETIMPORT                        R6 K6 [table.insert]
+      226 CALL                             R6 -1 0
+      227 MOVE                             R7 R2
+      228 LOADK                            R10 K21 ["OnViewInExplorer"]
+      229 DUPCLOSURE                       R11 K22 [PROTO_14]
+      230 CAPTURE                          UPVAL U4
+      231 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      233 CALL                             R8 3 -1
+      234 FASTCALL                         TABLE_INSERT ; [+2]
+      235 GETIMPORT                        R6 K6 [table.insert]
+      237 CALL                             R6 -1 0
+      238 GETUPVAL                         R6 5
+      239 CALL                             R6 0 1
+      240 JUMPIFNOT                        R6 ; [+24]
+      241 MOVE                             R7 R2
+      242 LOADK                            R10 K23 ["OnCreateCageParts"]
+      243 NEWCLOSURE                       R11 P15
+      244 CAPTURE                          UPVAL U6
+      245 CAPTURE                          VAL R0
+      246 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      248 CALL                             R8 3 -1
+      249 FASTCALL                         TABLE_INSERT ; [+2]
+      250 GETIMPORT                        R6 K6 [table.insert]
+      252 CALL                             R6 -1 0
+      253 MOVE                             R7 R2
+      254 LOADK                            R10 K24 ["OnDestroyCageParts"]
+      255 NEWCLOSURE                       R11 P16
+      256 CAPTURE                          UPVAL U7
+      257 CAPTURE                          VAL R0
+      258 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      260 CALL                             R8 3 -1
+      261 FASTCALL                         TABLE_INSERT ; [+2]
+      262 GETIMPORT                        R6 K6 [table.insert]
+      264 CALL                             R6 -1 0
+      265 GETUPVAL                         R6 8
+      266 CALL                             R6 0 1
+      267 JUMPIFNOT                        R6 ; [+24]
+      268 MOVE                             R7 R2
+      269 LOADK                            R10 K25 ["OnCreateAttachmentParts"]
+      270 NEWCLOSURE                       R11 P17
+      271 CAPTURE                          UPVAL U9
+      272 CAPTURE                          VAL R0
+      273 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      275 CALL                             R8 3 -1
+      276 FASTCALL                         TABLE_INSERT ; [+2]
+      277 GETIMPORT                        R6 K6 [table.insert]
+      279 CALL                             R6 -1 0
+      280 MOVE                             R7 R2
+      281 LOADK                            R10 K26 ["OnDestroyAttachmentParts"]
+      282 NEWCLOSURE                       R11 P18
+      283 CAPTURE                          UPVAL U10
+      284 CAPTURE                          VAL R0
+      285 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      287 CALL                             R8 3 -1
+      288 FASTCALL                         TABLE_INSERT ; [+2]
+      289 GETIMPORT                        R6 K6 [table.insert]
+      291 CALL                             R6 -1 0
+      292 CLOSEUPVALS                      R3
+      293 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -516,17 +543,23 @@ MAIN:
        74 GETTABLEKS                       R9 R9 K13 ["Flags"]
        76 GETTABLEKS                       R9 R9 K16 ["getFFlagAnimationExportSupport"]
        78 CALL                             R8 1 1
-       79 DUPTABLE                         R9 K27 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportAsGltf"}]
-       80 DUPTABLE                         R10 K29 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportPlaceAsGltf"}]
-       81 DUPCLOSURE                       R11 K30 [PROTO_19]
-       82 CAPTURE                          VAL R9
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R6
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          VAL R5
-       92 RETURN                           R11 1
+       79 GETIMPORT                        R9 K5 [require]
+       81 GETTABLEKS                       R10 R0 K6 ["Src"]
+       83 GETTABLEKS                       R10 R10 K13 ["Flags"]
+       85 GETTABLEKS                       R10 R10 K17 ["getFFlagAsyncObjExport"]
+       87 CALL                             R9 1 1
+       88 DUPTABLE                         R10 K28 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportAsGltf"}]
+       89 DUPTABLE                         R11 K30 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportPlaceAsGltf"}]
+       90 DUPCLOSURE                       R12 K31 [PROTO_19]
+       91 CAPTURE                          VAL R10
+       92 CAPTURE                          VAL R11
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R9
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R6
+       97 CAPTURE                          VAL R2
+       98 CAPTURE                          VAL R3
+       99 CAPTURE                          VAL R7
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R5
+      102 RETURN                           R12 1

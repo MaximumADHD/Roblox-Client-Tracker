@@ -102,11 +102,13 @@ PROTO_4:
         1 GETTABLEKS                       R0 R0 K0 ["MaterialGenerationServiceApi"]
         3 GETTABLEKS                       R0 R0 K1 ["MaterialGeneration"]
         5 GETTABLEKS                       R0 R0 K2 ["postGetUploadedMaterialAsync"]
-        7 DUPTABLE                         R1 K4 [{"operationId"}]
-        8 GETUPVAL                         R2 1
-        9 SETTABLEKS                       R2 R1 K3 ["operationId"]
-       11 CALL                             R0 1 -1
-       12 RETURN                           R0 -1
+        7 DUPTABLE                         R1 K4 [{"body"}]
+        8 DUPTABLE                         R2 K6 [{"operationId"}]
+        9 GETUPVAL                         R3 1
+       10 SETTABLEKS                       R3 R2 K5 ["operationId"]
+       12 SETTABLEKS                       R2 R1 K3 ["body"]
+       14 CALL                             R0 1 -1
+       15 RETURN                           R0 -1
 
 PROTO_5:
         0 GETUPVAL                         R3 0
@@ -195,13 +197,15 @@ PROTO_6:
         1 GETTABLEKS                       R0 R0 K0 ["MaterialGenerationServiceApi"]
         3 GETTABLEKS                       R0 R0 K1 ["MaterialGeneration"]
         5 GETTABLEKS                       R0 R0 K2 ["postUploadMaterialV2Async"]
-        7 DUPTABLE                         R1 K5 [{"operationId", "sampleIds"}]
-        8 GETUPVAL                         R2 1
-        9 SETTABLEKS                       R2 R1 K3 ["operationId"]
-       11 GETUPVAL                         R2 2
-       12 SETTABLEKS                       R2 R1 K4 ["sampleIds"]
-       14 CALL                             R0 1 -1
-       15 RETURN                           R0 -1
+        7 DUPTABLE                         R1 K4 [{"body"}]
+        8 DUPTABLE                         R2 K7 [{"operationId", "sampleIds"}]
+        9 GETUPVAL                         R3 1
+       10 SETTABLEKS                       R3 R2 K5 ["operationId"]
+       12 GETUPVAL                         R3 2
+       13 SETTABLEKS                       R3 R2 K6 ["sampleIds"]
+       15 SETTABLEKS                       R2 R1 K3 ["body"]
+       17 CALL                             R0 1 -1
+       18 RETURN                           R0 -1
 
 PROTO_7:
         0 FASTCALL1                        TYPEOF R1 ; [+3]
@@ -580,72 +584,70 @@ MAIN:
        30 CALL                             R4 1 1
        31 GETIMPORT                        R5 K11 [require]
        33 GETTABLEKS                       R6 R0 K15 ["Src"]
-       35 GETTABLEKS                       R6 R6 K16 ["Generated"]
-       37 GETTABLEKS                       R6 R6 K17 ["OpenAPI"]
-       39 GETTABLEKS                       R6 R6 K9 ["MaterialGenerationService"]
-       41 CALL                             R5 1 1
-       42 GETIMPORT                        R6 K11 [require]
-       44 GETTABLEKS                       R7 R0 K15 ["Src"]
-       46 GETTABLEKS                       R7 R7 K18 ["Util"]
-       48 GETTABLEKS                       R7 R7 K19 ["NotificationManagerStore"]
-       50 CALL                             R6 1 1
-       51 GETIMPORT                        R7 K11 [require]
-       53 GETTABLEKS                       R8 R0 K12 ["Packages"]
-       55 GETTABLEKS                       R8 R8 K20 ["Signal"]
-       57 CALL                             R7 1 1
-       58 GETIMPORT                        R8 K11 [require]
-       60 GETTABLEKS                       R9 R0 K15 ["Src"]
-       62 GETTABLEKS                       R9 R9 K18 ["Util"]
-       64 GETTABLEKS                       R9 R9 K21 ["StudioEndpointUtil"]
-       66 CALL                             R8 1 1
-       67 GETIMPORT                        R9 K11 [require]
-       69 GETTABLEKS                       R10 R0 K15 ["Src"]
-       71 GETTABLEKS                       R10 R10 K22 ["Host"]
-       73 GETTABLEKS                       R10 R10 K23 ["Resources"]
-       75 GETTABLEKS                       R10 R10 K24 ["StudioEventLogger"]
-       77 CALL                             R9 1 1
-       78 GETIMPORT                        R10 K11 [require]
-       80 GETTABLEKS                       R11 R0 K15 ["Src"]
-       82 GETTABLEKS                       R11 R11 K18 ["Util"]
-       84 GETTABLEKS                       R11 R11 K25 ["StudioNetworking"]
-       86 CALL                             R10 1 1
-       87 GETIMPORT                        R11 K11 [require]
-       89 GETTABLEKS                       R12 R0 K15 ["Src"]
-       91 GETTABLEKS                       R12 R12 K16 ["Generated"]
-       93 GETTABLEKS                       R12 R12 K17 ["OpenAPI"]
-       95 GETTABLEKS                       R12 R12 K9 ["MaterialGenerationService"]
-       97 GETTABLEKS                       R12 R12 K26 ["Models"]
-       99 GETTABLEKS                       R12 R12 K27 ["GetUploadMaterialAsyncResponse"]
-      101 CALL                             R11 1 1
-      102 GETIMPORT                        R12 K11 [require]
-      104 GETTABLEKS                       R13 R0 K15 ["Src"]
-      106 GETTABLEKS                       R13 R13 K28 ["Flags"]
-      108 CALL                             R12 1 1
-      109 DUPCLOSURE                       R13 K29 [PROTO_0]
-      110 DUPCLOSURE                       R14 K30 [PROTO_1]
-      111 DUPCLOSURE                       R15 K31 [PROTO_2]
-      112 DUPCLOSURE                       R16 K32 [PROTO_3]
-      113 DUPCLOSURE                       R17 K33 [PROTO_5]
+       35 GETTABLEKS                       R6 R6 K16 ["Util"]
+       37 GETTABLEKS                       R6 R6 K17 ["NotificationManagerStore"]
+       39 CALL                             R5 1 1
+       40 GETIMPORT                        R6 K11 [require]
+       42 GETTABLEKS                       R7 R0 K12 ["Packages"]
+       44 GETTABLEKS                       R7 R7 K18 ["OpenApiMaterialGenerationService"]
+       46 CALL                             R6 1 1
+       47 GETIMPORT                        R7 K11 [require]
+       49 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       51 GETTABLEKS                       R8 R8 K19 ["Signal"]
+       53 CALL                             R7 1 1
+       54 GETIMPORT                        R8 K11 [require]
+       56 GETTABLEKS                       R9 R0 K15 ["Src"]
+       58 GETTABLEKS                       R9 R9 K16 ["Util"]
+       60 GETTABLEKS                       R9 R9 K20 ["StudioEndpointUtil"]
+       62 CALL                             R8 1 1
+       63 GETIMPORT                        R9 K11 [require]
+       65 GETTABLEKS                       R10 R0 K15 ["Src"]
+       67 GETTABLEKS                       R10 R10 K21 ["Host"]
+       69 GETTABLEKS                       R10 R10 K22 ["Resources"]
+       71 GETTABLEKS                       R10 R10 K23 ["StudioEventLogger"]
+       73 CALL                             R9 1 1
+       74 GETIMPORT                        R10 K11 [require]
+       76 GETTABLEKS                       R11 R0 K15 ["Src"]
+       78 GETTABLEKS                       R11 R11 K16 ["Util"]
+       80 GETTABLEKS                       R11 R11 K24 ["StudioNetworking"]
+       82 CALL                             R10 1 1
+       83 GETIMPORT                        R11 K11 [require]
+       85 GETTABLEKS                       R12 R0 K12 ["Packages"]
+       87 GETTABLEKS                       R12 R12 K25 ["_Index"]
+       89 GETTABLEKS                       R12 R12 K18 ["OpenApiMaterialGenerationService"]
+       91 GETTABLEKS                       R12 R12 K18 ["OpenApiMaterialGenerationService"]
+       93 GETTABLEKS                       R12 R12 K26 ["Models"]
+       95 GETTABLEKS                       R12 R12 K27 ["GetUploadMaterialAsyncResponse"]
+       97 CALL                             R11 1 1
+       98 GETIMPORT                        R12 K11 [require]
+      100 GETTABLEKS                       R13 R0 K15 ["Src"]
+      102 GETTABLEKS                       R13 R13 K28 ["Flags"]
+      104 CALL                             R12 1 1
+      105 DUPCLOSURE                       R13 K29 [PROTO_0]
+      106 DUPCLOSURE                       R14 K30 [PROTO_1]
+      107 DUPCLOSURE                       R15 K31 [PROTO_2]
+      108 DUPCLOSURE                       R16 K32 [PROTO_3]
+      109 DUPCLOSURE                       R17 K33 [PROTO_5]
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R8
+      112 DUPCLOSURE                       R18 K34 [PROTO_7]
+      113 CAPTURE                          VAL R8
       114 CAPTURE                          VAL R12
-      115 CAPTURE                          VAL R8
-      116 DUPCLOSURE                       R18 K34 [PROTO_7]
-      117 CAPTURE                          VAL R8
-      118 CAPTURE                          VAL R12
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          VAL R17
-      121 CAPTURE                          VAL R15
-      122 DUPCLOSURE                       R19 K35 [PROTO_10]
-      123 CAPTURE                          VAL R8
-      124 CAPTURE                          VAL R11
-      125 DUPCLOSURE                       R20 K36 [PROTO_14]
-      126 CAPTURE                          VAL R2
-      127 CAPTURE                          VAL R5
-      128 CAPTURE                          VAL R10
-      129 CAPTURE                          VAL R9
-      130 CAPTURE                          VAL R12
-      131 CAPTURE                          VAL R19
-      132 CAPTURE                          VAL R13
-      133 CAPTURE                          VAL R18
-      134 DUPTABLE                         R21 K38 [{"create"}]
-      135 SETTABLEKS                       R20 R21 K37 ["create"]
-      137 RETURN                           R21 1
+      115 CAPTURE                          VAL R7
+      116 CAPTURE                          VAL R17
+      117 CAPTURE                          VAL R15
+      118 DUPCLOSURE                       R19 K35 [PROTO_10]
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R11
+      121 DUPCLOSURE                       R20 K36 [PROTO_14]
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R6
+      124 CAPTURE                          VAL R10
+      125 CAPTURE                          VAL R9
+      126 CAPTURE                          VAL R12
+      127 CAPTURE                          VAL R19
+      128 CAPTURE                          VAL R13
+      129 CAPTURE                          VAL R18
+      130 DUPTABLE                         R21 K38 [{"create"}]
+      131 SETTABLEKS                       R20 R21 K37 ["create"]
+      133 RETURN                           R21 1

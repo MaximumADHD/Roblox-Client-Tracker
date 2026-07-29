@@ -33,30 +33,26 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 4 0
-        3 GETIMPORT                        R1 K1 [script]
-        5 LOADK                            R3 K2 ["DraggerFramework"]
-        6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
-        8 CALL                             R1 2 1
-        9 DUPTABLE                         R2 K8 [{["Hotkey"] = "H", ["LabelLocEntry"] = "ToggleHelp"}]
-       10 DUPCLOSURE                       R3 K9 [PROTO_0]
-       11 CAPTURE                          VAL R2
-       12 SETTABLEKS                       R3 R0 K10 ["addHelp"]
-       14 GETIMPORT                        R3 K13 [table.freeze]
-       16 NEWTABLE                         R4 2 0
-       18 LOADB                            R5 0
-       19 DUPTABLE                         R6 K16 [{["Hotkey"] = "⬇Shift", ["LabelLocEntry"] = "DisableSnap"}]
-       20 SETTABLE                         R6 R4 R5
-       21 LOADB                            R5 1
-       22 DUPTABLE                         R6 K19 [{["Hotkey"] = "⬆Shift", ["LabelLocEntry"] = "EnableSnap"}]
-       23 SETTABLE                         R6 R4 R5
-       24 CALL                             R3 1 1
-       25 DUPTABLE                         R4 K22 [{["Hotkey"] = "Shift+X/C", ["LabelLocEntry"] = "ToggleSnap"}]
-       26 DUPTABLE                         R5 K25 [{["Hotkey"] = "⬇Tab", ["LabelLocEntry"] = "SummonHandles"}]
-       27 DUPCLOSURE                       R6 K26 [PROTO_1]
-       28 CAPTURE                          VAL R3
-       29 CAPTURE                          VAL R4
-       30 SETTABLEKS                       R6 R0 K27 ["addGridSnap"]
-       32 DUPCLOSURE                       R6 K28 [PROTO_2]
-       33 CAPTURE                          VAL R5
-       34 SETTABLEKS                       R6 R0 K29 ["addSummonHandles"]
-       36 RETURN                           R0 1
+        3 DUPTABLE                         R1 K4 [{[1] = "H", ["LabelLocEntry"] = "ToggleHelp"}]
+        4 DUPCLOSURE                       R2 K5 [PROTO_0]
+        5 CAPTURE                          VAL R1
+        6 SETTABLEKS                       R2 R0 K6 ["addHelp"]
+        8 GETIMPORT                        R2 K9 [table.freeze]
+       10 NEWTABLE                         R3 2 0
+       12 LOADB                            R4 0
+       13 DUPTABLE                         R5 K12 [{[1] = "⬇Shift", ["LabelLocEntry"] = "DisableSnap"}]
+       14 SETTABLE                         R5 R3 R4
+       15 LOADB                            R4 1
+       16 DUPTABLE                         R5 K15 [{[1] = "⬆Shift", ["LabelLocEntry"] = "EnableSnap"}]
+       17 SETTABLE                         R5 R3 R4
+       18 CALL                             R2 1 1
+       19 DUPTABLE                         R3 K18 [{[1] = "Shift+X/C", ["LabelLocEntry"] = "ToggleSnap"}]
+       20 DUPTABLE                         R4 K21 [{[1] = "⬇Tab", ["LabelLocEntry"] = "SummonHandles"}]
+       21 DUPCLOSURE                       R5 K22 [PROTO_1]
+       22 CAPTURE                          VAL R2
+       23 CAPTURE                          VAL R3
+       24 SETTABLEKS                       R5 R0 K23 ["addGridSnap"]
+       26 DUPCLOSURE                       R5 K24 [PROTO_2]
+       27 CAPTURE                          VAL R4
+       28 SETTABLEKS                       R5 R0 K25 ["addSummonHandles"]
+       30 RETURN                           R0 1

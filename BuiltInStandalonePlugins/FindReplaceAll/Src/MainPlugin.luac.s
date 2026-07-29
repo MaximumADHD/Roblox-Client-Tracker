@@ -165,43 +165,29 @@ PROTO_12:
        36 JUMPIFEQKS                       R1 K8 [""] ; [+3]
        38 SETTABLEKS                       R1 R0 K7 ["Text"]
        40 GETUPVAL                         R2 1
-       41 CALL                             R2 0 1
-       42 JUMPIFNOT                        R2 ; [+8]
-       43 GETUPVAL                         R2 2
-       44 GETTABLEKS                       R2 R2 K9 ["PluginLoaderContext"]
-       46 GETTABLEKS                       R2 R2 K10 ["mainDockWidget"]
-       48 NAMECALL                         R3 R2 K11 ["RequestRaise"]
-       50 CALL                             R3 1 0
-       51 NAMECALL                         R2 R0 K12 ["IsFocused"]
-       53 CALL                             R2 1 1
-       54 JUMPIF                           R2 ; [+3]
-       55 NAMECALL                         R2 R0 K13 ["CaptureFocus"]
-       57 CALL                             R2 1 0
-       58 LOADN                            R2 1
-       59 SETTABLEKS                       R2 R0 K14 ["SelectionStart"]
-       61 GETTABLEKS                       R4 R0 K7 ["Text"]
-       63 LENGTH                           R3 R4
-       64 ADDK                             R2 R3 K15 [1]
-       65 SETTABLEKS                       R2 R0 K16 ["CursorPosition"]
-       67 GETUPVAL                         R2 1
-       68 CALL                             R2 0 1
-       69 JUMPIF                           R2 ; [+8]
-       70 GETUPVAL                         R2 2
-       71 GETTABLEKS                       R2 R2 K9 ["PluginLoaderContext"]
-       73 GETTABLEKS                       R2 R2 K10 ["mainDockWidget"]
-       75 NAMECALL                         R3 R2 K11 ["RequestRaise"]
-       77 CALL                             R3 1 0
-       78 GETUPVAL                         R2 0
-       79 LOADB                            R3 0
-       80 SETTABLEKS                       R3 R2 K3 ["isProgrammaticallyFocusing"]
-       82 GETUPVAL                         R2 1
-       83 CALL                             R2 0 1
-       84 JUMPIFNOT                        R2 ; [+5]
-       85 GETIMPORT                        R2 K19 [task.defer]
-       87 NEWCLOSURE                       R3 P0
-       88 CAPTURE                          UPVAL U0
-       89 CALL                             R2 1 0
-       90 RETURN                           R0 0
+       41 GETTABLEKS                       R2 R2 K9 ["PluginLoaderContext"]
+       43 GETTABLEKS                       R2 R2 K10 ["mainDockWidget"]
+       45 NAMECALL                         R3 R2 K11 ["RequestRaise"]
+       47 CALL                             R3 1 0
+       48 NAMECALL                         R3 R0 K12 ["IsFocused"]
+       50 CALL                             R3 1 1
+       51 JUMPIF                           R3 ; [+3]
+       52 NAMECALL                         R3 R0 K13 ["CaptureFocus"]
+       54 CALL                             R3 1 0
+       55 LOADN                            R3 1
+       56 SETTABLEKS                       R3 R0 K14 ["SelectionStart"]
+       58 GETTABLEKS                       R5 R0 K7 ["Text"]
+       60 LENGTH                           R4 R5
+       61 ADDK                             R3 R4 K15 [1]
+       62 SETTABLEKS                       R3 R0 K16 ["CursorPosition"]
+       64 GETUPVAL                         R3 0
+       65 LOADB                            R4 0
+       66 SETTABLEKS                       R4 R3 K3 ["isProgrammaticallyFocusing"]
+       68 GETIMPORT                        R3 K19 [task.defer]
+       70 NEWCLOSURE                       R4 P0
+       71 CAPTURE                          UPVAL U0
+       72 CALL                             R3 1 0
+       73 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -266,102 +252,94 @@ PROTO_15:
        29 SETTABLEKS                       R4 R0 K7 ["state"]
        31 LOADB                            R4 0
        32 SETTABLEKS                       R4 R0 K8 ["isProgrammaticallyFocusing"]
-       34 SETTABLEKS                       R3 R0 K9 ["isWidgetFocused"]
-       36 GETUPVAL                         R4 0
-       37 CALL                             R4 0 1
-       38 JUMPIFNOT                        R4 ; [+3]
-       39 LOADB                            R4 0
-       40 SETTABLEKS                       R4 R0 K9 ["isWidgetFocused"]
-       42 NEWCLOSURE                       R4 P0
-       43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R4 R0 K10 ["toggleEnabled"]
-       46 NEWCLOSURE                       R4 P1
-       47 CAPTURE                          UPVAL U1
-       48 CAPTURE                          UPVAL U2
-       49 CAPTURE                          VAL R0
-       50 SETTABLEKS                       R4 R0 K11 ["onClose"]
-       52 NEWCLOSURE                       R4 P2
-       53 CAPTURE                          VAL R0
-       54 SETTABLEKS                       R4 R0 K12 ["onRestore"]
-       56 NEWCLOSURE                       R4 P3
-       57 CAPTURE                          VAL R0
-       58 SETTABLEKS                       R4 R0 K13 ["onWidgetEnabledChanged"]
-       60 NEWCLOSURE                       R4 P4
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R4 R0 K14 ["onDockWidgetCreated"]
-       64 GETUPVAL                         R4 3
-       65 GETTABLEKS                       R4 R4 K15 ["new"]
-       67 GETTABLEKS                       R5 R1 K16 ["Plugin"]
-       69 NAMECALL                         R5 R5 K17 ["getMouse"]
-       71 CALL                             R5 1 -1
-       72 CALL                             R4 -1 1
-       73 SETTABLEKS                       R4 R0 K18 ["mouse"]
-       75 GETTABLEKS                       R4 R0 K18 ["mouse"]
-       77 LOADK                            R6 K19 ["Arrow"]
-       78 LOADN                            R7 0
-       79 NAMECALL                         R4 R4 K20 ["__pushCursor"]
-       81 CALL                             R4 3 0
-       82 GETUPVAL                         R4 4
-       83 GETTABLEKS                       R4 R4 K21 ["Localization"]
-       85 GETTABLEKS                       R4 R4 K15 ["new"]
-       87 DUPTABLE                         R5 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       88 GETUPVAL                         R6 5
-       89 SETTABLEKS                       R6 R5 K22 ["stringResourceTable"]
-       91 GETUPVAL                         R6 6
-       92 SETTABLEKS                       R6 R5 K23 ["translationResourceTable"]
-       94 GETUPVAL                         R6 2
-       95 GETTABLEKS                       R6 R6 K26 ["PLUGIN_NAME"]
-       97 SETTABLEKS                       R6 R5 K24 ["pluginName"]
-       99 CALL                             R4 1 1
-      100 SETTABLEKS                       R4 R0 K27 ["localization"]
-      102 GETUPVAL                         R4 4
-      103 GETTABLEKS                       R4 R4 K28 ["Analytics"]
-      105 GETTABLEKS                       R4 R4 K15 ["new"]
-      107 DUPCLOSURE                       R5 K29 [PROTO_10]
-      108 NEWTABLE                         R6 0 0
-      110 CALL                             R4 2 1
-      111 SETTABLEKS                       R4 R0 K30 ["analytics"]
-      113 GETUPVAL                         R4 7
-      114 GETTABLEKS                       R4 R4 K15 ["new"]
-      116 CALL                             R4 0 1
-      117 SETTABLEKS                       R4 R0 K31 ["DEPRECATED_stylizer"]
-      119 GETUPVAL                         R4 8
-      120 GETTABLEKS                       R5 R1 K16 ["Plugin"]
-      122 CALL                             R4 1 1
-      123 SETTABLEKS                       R4 R0 K32 ["design"]
-      125 GETUPVAL                         R4 9
-      126 GETTABLEKS                       R4 R4 K33 ["createRef"]
-      128 CALL                             R4 0 1
-      129 SETTABLEKS                       R4 R0 K34 ["textBoxRef"]
-      131 NEWCLOSURE                       R4 P6
+       34 LOADB                            R4 0
+       35 SETTABLEKS                       R4 R0 K9 ["isWidgetFocused"]
+       37 NEWCLOSURE                       R4 P0
+       38 CAPTURE                          VAL R0
+       39 SETTABLEKS                       R4 R0 K10 ["toggleEnabled"]
+       41 NEWCLOSURE                       R4 P1
+       42 CAPTURE                          UPVAL U0
+       43 CAPTURE                          UPVAL U1
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R4 R0 K11 ["onClose"]
+       47 NEWCLOSURE                       R4 P2
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R4 R0 K12 ["onRestore"]
+       51 NEWCLOSURE                       R4 P3
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R4 R0 K13 ["onWidgetEnabledChanged"]
+       55 NEWCLOSURE                       R4 P4
+       56 CAPTURE                          VAL R0
+       57 SETTABLEKS                       R4 R0 K14 ["onDockWidgetCreated"]
+       59 GETUPVAL                         R4 2
+       60 GETTABLEKS                       R4 R4 K15 ["new"]
+       62 GETTABLEKS                       R5 R1 K16 ["Plugin"]
+       64 NAMECALL                         R5 R5 K17 ["getMouse"]
+       66 CALL                             R5 1 -1
+       67 CALL                             R4 -1 1
+       68 SETTABLEKS                       R4 R0 K18 ["mouse"]
+       70 GETTABLEKS                       R4 R0 K18 ["mouse"]
+       72 LOADK                            R6 K19 ["Arrow"]
+       73 LOADN                            R7 0
+       74 NAMECALL                         R4 R4 K20 ["__pushCursor"]
+       76 CALL                             R4 3 0
+       77 GETUPVAL                         R4 3
+       78 GETTABLEKS                       R4 R4 K21 ["Localization"]
+       80 GETTABLEKS                       R4 R4 K15 ["new"]
+       82 DUPTABLE                         R5 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       83 GETUPVAL                         R6 4
+       84 SETTABLEKS                       R6 R5 K22 ["stringResourceTable"]
+       86 GETUPVAL                         R6 5
+       87 SETTABLEKS                       R6 R5 K23 ["translationResourceTable"]
+       89 GETUPVAL                         R6 1
+       90 GETTABLEKS                       R6 R6 K26 ["PLUGIN_NAME"]
+       92 SETTABLEKS                       R6 R5 K24 ["pluginName"]
+       94 CALL                             R4 1 1
+       95 SETTABLEKS                       R4 R0 K27 ["localization"]
+       97 GETUPVAL                         R4 3
+       98 GETTABLEKS                       R4 R4 K28 ["Analytics"]
+      100 GETTABLEKS                       R4 R4 K15 ["new"]
+      102 DUPCLOSURE                       R5 K29 [PROTO_10]
+      103 NEWTABLE                         R6 0 0
+      105 CALL                             R4 2 1
+      106 SETTABLEKS                       R4 R0 K30 ["analytics"]
+      108 GETUPVAL                         R4 6
+      109 GETTABLEKS                       R4 R4 K15 ["new"]
+      111 CALL                             R4 0 1
+      112 SETTABLEKS                       R4 R0 K31 ["DEPRECATED_stylizer"]
+      114 GETUPVAL                         R4 7
+      115 GETTABLEKS                       R5 R1 K16 ["Plugin"]
+      117 CALL                             R4 1 1
+      118 SETTABLEKS                       R4 R0 K32 ["design"]
+      120 GETUPVAL                         R4 8
+      121 GETTABLEKS                       R4 R4 K33 ["createRef"]
+      123 CALL                             R4 0 1
+      124 SETTABLEKS                       R4 R0 K34 ["textBoxRef"]
+      126 NEWCLOSURE                       R4 P6
+      127 CAPTURE                          VAL R0
+      128 CAPTURE                          VAL R1
+      129 SETTABLEKS                       R4 R0 K35 ["onFocus"]
+      131 NEWCLOSURE                       R4 P7
       132 CAPTURE                          VAL R0
-      133 CAPTURE                          UPVAL U0
-      134 CAPTURE                          VAL R1
-      135 SETTABLEKS                       R4 R0 K35 ["onFocus"]
-      137 NEWCLOSURE                       R4 P7
-      138 CAPTURE                          VAL R0
-      139 SETTABLEKS                       R4 R0 K36 ["onFocusReleased"]
-      141 NEWCLOSURE                       R4 P8
-      142 CAPTURE                          VAL R0
-      143 SETTABLEKS                       R4 R0 K37 ["onFindActivationUpdate"]
-      145 GETUPVAL                         R4 1
-      146 GETTABLEKS                       R4 R4 K38 ["FindActivated"]
-      148 GETTABLEKS                       R6 R0 K37 ["onFindActivationUpdate"]
-      150 NAMECALL                         R4 R4 K39 ["Connect"]
-      152 CALL                             R4 2 1
-      153 SETTABLEKS                       R4 R0 K40 ["findActivatedConnection"]
-      155 RETURN                           R0 0
+      133 SETTABLEKS                       R4 R0 K36 ["onFocusReleased"]
+      135 NEWCLOSURE                       R4 P8
+      136 CAPTURE                          VAL R0
+      137 SETTABLEKS                       R4 R0 K37 ["onFindActivationUpdate"]
+      139 GETUPVAL                         R4 0
+      140 GETTABLEKS                       R4 R4 K38 ["FindActivated"]
+      142 GETTABLEKS                       R6 R0 K37 ["onFindActivationUpdate"]
+      144 NAMECALL                         R4 R4 K39 ["Connect"]
+      146 CALL                             R4 2 1
+      147 SETTABLEKS                       R4 R0 K40 ["findActivatedConnection"]
+      149 RETURN                           R0 0
 
 PROTO_16:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+8]
-        3 GETTABLEKS                       R1 R0 K0 ["state"]
-        5 GETTABLEKS                       R1 R1 K1 ["findActivationData"]
-        7 JUMPIFNOT                        R1 ; [+3]
-        8 NAMECALL                         R1 R0 K2 ["focusWidget"]
-       10 CALL                             R1 1 0
-       11 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["state"]
+        2 GETTABLEKS                       R1 R1 K1 ["findActivationData"]
+        4 JUMPIFNOT                        R1 ; [+3]
+        5 NAMECALL                         R1 R0 K2 ["focusWidget"]
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["findActivatedConnection"]
@@ -549,41 +527,33 @@ MAIN:
       108 LOADK                            R19 K34 ["MainPlugin"]
       109 NAMECALL                         R17 R17 K35 ["extend"]
       111 CALL                             R17 2 1
-      112 GETIMPORT                        R18 K5 [require]
-      114 GETTABLEKS                       R19 R0 K36 ["Bin"]
-      116 GETTABLEKS                       R19 R19 K37 ["Common"]
-      118 GETTABLEKS                       R19 R19 K38 ["defineLuaFlags"]
-      120 CALL                             R18 1 1
-      121 GETTABLEKS                       R19 R18 K39 ["getFFlagFindReplaceOnOpen"]
-      123 DUPCLOSURE                       R20 K40 [PROTO_1]
-      124 SETTABLEKS                       R20 R17 K41 ["focusWidget"]
-      126 DUPCLOSURE                       R20 K42 [PROTO_15]
-      127 CAPTURE                          VAL R19
-      128 CAPTURE                          VAL R16
-      129 CAPTURE                          VAL R11
-      130 CAPTURE                          VAL R7
-      131 CAPTURE                          VAL R5
-      132 CAPTURE                          VAL R12
-      133 CAPTURE                          VAL R13
-      134 CAPTURE                          VAL R9
-      135 CAPTURE                          VAL R10
-      136 CAPTURE                          VAL R1
-      137 SETTABLEKS                       R20 R17 K43 ["init"]
-      139 DUPCLOSURE                       R20 K44 [PROTO_16]
-      140 CAPTURE                          VAL R19
-      141 SETTABLEKS                       R20 R17 K45 ["didMount"]
-      143 DUPCLOSURE                       R20 K46 [PROTO_17]
-      144 SETTABLEKS                       R20 R17 K47 ["willUnmount"]
-      146 DUPCLOSURE                       R20 K48 [PROTO_18]
-      147 SETTABLEKS                       R20 R17 K49 ["didUpdate"]
-      149 DUPCLOSURE                       R20 K50 [PROTO_19]
-      150 CAPTURE                          VAL R5
-      151 CAPTURE                          VAL R6
-      152 CAPTURE                          VAL R3
-      153 CAPTURE                          VAL R8
-      154 CAPTURE                          VAL R1
-      155 CAPTURE                          VAL R4
-      156 CAPTURE                          VAL R14
-      157 CAPTURE                          VAL R15
-      158 SETTABLEKS                       R20 R17 K51 ["render"]
-      160 RETURN                           R17 1
+      112 DUPCLOSURE                       R18 K36 [PROTO_1]
+      113 SETTABLEKS                       R18 R17 K37 ["focusWidget"]
+      115 DUPCLOSURE                       R18 K38 [PROTO_15]
+      116 CAPTURE                          VAL R16
+      117 CAPTURE                          VAL R11
+      118 CAPTURE                          VAL R7
+      119 CAPTURE                          VAL R5
+      120 CAPTURE                          VAL R12
+      121 CAPTURE                          VAL R13
+      122 CAPTURE                          VAL R9
+      123 CAPTURE                          VAL R10
+      124 CAPTURE                          VAL R1
+      125 SETTABLEKS                       R18 R17 K39 ["init"]
+      127 DUPCLOSURE                       R18 K40 [PROTO_16]
+      128 SETTABLEKS                       R18 R17 K41 ["didMount"]
+      130 DUPCLOSURE                       R18 K42 [PROTO_17]
+      131 SETTABLEKS                       R18 R17 K43 ["willUnmount"]
+      133 DUPCLOSURE                       R18 K44 [PROTO_18]
+      134 SETTABLEKS                       R18 R17 K45 ["didUpdate"]
+      136 DUPCLOSURE                       R18 K46 [PROTO_19]
+      137 CAPTURE                          VAL R5
+      138 CAPTURE                          VAL R6
+      139 CAPTURE                          VAL R3
+      140 CAPTURE                          VAL R8
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R4
+      143 CAPTURE                          VAL R14
+      144 CAPTURE                          VAL R15
+      145 SETTABLEKS                       R18 R17 K47 ["render"]
+      147 RETURN                           R17 1

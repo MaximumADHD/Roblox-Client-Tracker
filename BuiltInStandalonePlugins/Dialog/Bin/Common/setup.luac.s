@@ -20,26 +20,39 @@ PROTO_1:
        19 GETTABLEKS                       R4 R4 K5 ["Src"]
        21 GETTABLEKS                       R4 R4 K6 ["MainPlugin"]
        23 CALL                             R3 1 1
-       24 GETTABLEKS                       R4 R1 K7 ["createElement"]
-       26 MOVE                             R5 R3
-       27 DUPTABLE                         R6 K9 [{"plugin"}]
-       28 SETTABLEKS                       R0 R6 K8 ["plugin"]
-       30 CALL                             R4 2 1
-       31 GETIMPORT                        R5 K12 [Instance.new]
-       33 LOADK                            R6 K13 ["Frame"]
-       34 CALL                             R5 1 1
-       35 GETTABLEKS                       R6 R2 K14 ["createRoot"]
-       37 MOVE                             R7 R5
-       38 CALL                             R6 1 1
-       39 MOVE                             R9 R4
-       40 NAMECALL                         R7 R6 K15 ["render"]
-       42 CALL                             R7 2 0
-       43 GETTABLEKS                       R7 R0 K16 ["Unloading"]
-       45 NEWCLOSURE                       R9 P0
-       46 CAPTURE                          VAL R6
-       47 NAMECALL                         R7 R7 K17 ["Once"]
-       49 CALL                             R7 2 0
-       50 RETURN                           R0 0
+       24 GETIMPORT                        R4 K1 [require]
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K5 ["Src"]
+       29 GETTABLEKS                       R5 R5 K7 ["Flags"]
+       31 GETTABLEKS                       R5 R5 K8 ["getFFlagStudioDialogFoundationDesignBinding"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K11 [Instance.new]
+       36 LOADK                            R6 K12 ["Frame"]
+       37 CALL                             R5 1 1
+       38 GETTABLEKS                       R6 R1 K13 ["createElement"]
+       40 MOVE                             R7 R3
+       41 DUPTABLE                         R8 K16 [{"plugin", "rootHandle"}]
+       42 SETTABLEKS                       R0 R8 K14 ["plugin"]
+       44 MOVE                             R10 R4
+       45 CALL                             R10 0 1
+       46 JUMPIFNOT                        R10 ; [+2]
+       47 MOVE                             R9 R5
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R9
+       50 SETTABLEKS                       R9 R8 K15 ["rootHandle"]
+       52 CALL                             R6 2 1
+       53 GETTABLEKS                       R7 R2 K17 ["createRoot"]
+       55 MOVE                             R8 R5
+       56 CALL                             R7 1 1
+       57 MOVE                             R10 R6
+       58 NAMECALL                         R8 R7 K18 ["render"]
+       60 CALL                             R8 2 0
+       61 GETTABLEKS                       R8 R0 K19 ["Unloading"]
+       63 NEWCLOSURE                       R10 P0
+       64 CAPTURE                          VAL R7
+       65 NAMECALL                         R8 R8 K20 ["Once"]
+       67 CALL                             R8 2 0
+       68 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

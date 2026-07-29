@@ -108,47 +108,29 @@ PROTO_8:
        21 CALL                             R1 0 1
        22 NEWCLOSURE                       R2 P0
        23 CAPTURE                          UPVAL U1
-       24 DUPTABLE                         R3 K10 [{["skipValidateHSR"] = True}]
-       25 GETUPVAL                         R4 2
-       26 GETTABLEKS                       R4 R4 K11 ["isFolderStructureEnabled"]
-       28 JUMPIFNOT                        R4 ; [+22]
-       29 GETUPVAL                         R4 2
-       30 GETTABLEKS                       R4 R4 K11 ["isFolderStructureEnabled"]
-       32 CALL                             R4 0 1
-       33 JUMPIFNOT                        R4 ; [+17]
-       34 LOADK                            R4 K12 ["AutoSetup"]
-       35 SETTABLEKS                       R4 R3 K13 ["studioPluginName"]
-       37 LOADB                            R4 1
-       38 SETTABLEKS                       R4 R3 K14 ["enforceShadowValidations"]
-       40 GETUPVAL                         R4 2
-       41 GETTABLEKS                       R4 R4 K15 ["isEntrypointMergingEnabled"]
-       43 JUMPIFNOT                        R4 ; [+7]
-       44 GETUPVAL                         R4 2
-       45 GETTABLEKS                       R4 R4 K15 ["isEntrypointMergingEnabled"]
-       47 CALL                             R4 0 1
-       48 JUMPIFNOT                        R4 ; [+2]
-       49 SETTABLEKS                       R2 R3 K16 ["localizationCallback"]
-       51 GETUPVAL                         R4 2
-       52 GETTABLEKS                       R4 R4 K17 ["validateBundleReadyForUpload"]
-       54 GETUPVAL                         R5 3
-       55 GETTABLEKS                       R6 R0 K18 ["metadata"]
-       57 GETTABLEKS                       R6 R6 K19 ["allowedBundleTypeSettings"]
-       59 LOADK                            R7 K20 ["Body"]
-       60 NEWCLOSURE                       R8 P1
-       61 CAPTURE                          UPVAL U4
-       62 CAPTURE                          UPVAL U5
-       63 LOADNIL                          R9
-       64 MOVE                             R10 R3
-       65 CALL                             R4 6 1
-       66 NEWCLOSURE                       R6 P2
-       67 CAPTURE                          UPVAL U4
-       68 CAPTURE                          UPVAL U5
-       69 CAPTURE                          VAL R1
-       70 NAMECALL                         R4 R4 K21 ["andThen"]
-       72 CALL                             R4 2 1
-       73 NAMECALL                         R4 R4 K22 ["finally"]
-       75 CALL                             R4 1 0
-       76 RETURN                           R0 0
+       24 DUPTABLE                         R3 K14 [{["skipValidateHSR"] = True, ["studioPluginName"] = "AutoSetup", ["enforceShadowValidations"] = True, ["localizationCallback"]}]
+       25 SETTABLEKS                       R2 R3 K13 ["localizationCallback"]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K15 ["validateBundleReadyForUpload"]
+       30 GETUPVAL                         R5 3
+       31 GETTABLEKS                       R6 R0 K16 ["metadata"]
+       33 GETTABLEKS                       R6 R6 K17 ["allowedBundleTypeSettings"]
+       35 LOADK                            R7 K18 ["Body"]
+       36 NEWCLOSURE                       R8 P1
+       37 CAPTURE                          UPVAL U4
+       38 CAPTURE                          UPVAL U5
+       39 LOADNIL                          R9
+       40 MOVE                             R10 R3
+       41 CALL                             R4 6 1
+       42 NEWCLOSURE                       R6 P2
+       43 CAPTURE                          UPVAL U4
+       44 CAPTURE                          UPVAL U5
+       45 CAPTURE                          VAL R1
+       46 NAMECALL                         R4 R4 K19 ["andThen"]
+       48 CALL                             R4 2 1
+       49 NAMECALL                         R4 R4 K20 ["finally"]
+       51 CALL                             R4 1 0
+       52 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R1 0

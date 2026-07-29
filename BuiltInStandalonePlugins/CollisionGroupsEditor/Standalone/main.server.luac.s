@@ -5,40 +5,40 @@ PROTO_0:
         5 SETTABLEKS                       R1 R0 K2 ["Name"]
         7 GETUPVAL                         R0 1
         8 GETTABLEKS                       R0 R0 K3 ["createElement"]
-       10 GETGLOBAL                        R1 K4 ["MainPlugin"]
-       12 DUPTABLE                         R2 K6 [{"Plugin"}]
-       13 GETIMPORT                        R3 K1 [plugin]
-       15 SETTABLEKS                       R3 R2 K5 ["Plugin"]
-       17 CALL                             R0 2 1
-       18 GETUPVAL                         R1 1
-       19 GETTABLEKS                       R1 R1 K7 ["mount"]
-       21 MOVE                             R2 R0
-       22 CALL                             R1 1 1
-       23 SETUPVAL                         R1 2
-       24 GETUPVAL                         R1 3
-       25 JUMPIFNOT                        R1 ; [+21]
-       26 GETIMPORT                        R1 K9 [require]
-       28 GETUPVAL                         R2 0
-       29 GETTABLEKS                       R2 R2 K10 ["Packages"]
-       31 GETTABLEKS                       R2 R2 K11 ["DeveloperTools"]
-       33 CALL                             R1 1 1
-       34 GETTABLEKS                       R1 R1 K12 ["forStandalonePlugin"]
-       36 GETUPVAL                         R2 0
-       37 GETTABLEKS                       R2 R2 K2 ["Name"]
-       39 GETIMPORT                        R3 K1 [plugin]
-       41 DUPTABLE                         R4 K14 [{"rootInstance"}]
-       42 GETUPVAL                         R5 2
-       43 SETTABLEKS                       R5 R4 K13 ["rootInstance"]
-       45 CALL                             R1 3 1
-       46 SETUPVAL                         R1 4
-       47 GETUPVAL                         R1 4
-       48 JUMPIFNOT                        R1 ; [+6]
-       49 GETUPVAL                         R1 4
-       50 LOADK                            R3 K15 ["Roact tree"]
-       51 GETUPVAL                         R4 2
-       52 NAMECALL                         R1 R1 K16 ["addRoactTree"]
-       54 CALL                             R1 3 0
-       55 RETURN                           R0 0
+       10 GETUPVAL                         R1 2
+       11 DUPTABLE                         R2 K5 [{"Plugin"}]
+       12 GETIMPORT                        R3 K1 [plugin]
+       14 SETTABLEKS                       R3 R2 K4 ["Plugin"]
+       16 CALL                             R0 2 1
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K6 ["mount"]
+       20 MOVE                             R2 R0
+       21 CALL                             R1 1 1
+       22 SETUPVAL                         R1 3
+       23 GETUPVAL                         R1 4
+       24 JUMPIFNOT                        R1 ; [+21]
+       25 GETIMPORT                        R1 K8 [require]
+       27 GETUPVAL                         R2 0
+       28 GETTABLEKS                       R2 R2 K9 ["Packages"]
+       30 GETTABLEKS                       R2 R2 K10 ["DeveloperTools"]
+       32 CALL                             R1 1 1
+       33 GETTABLEKS                       R1 R1 K11 ["forStandalonePlugin"]
+       35 GETUPVAL                         R2 0
+       36 GETTABLEKS                       R2 R2 K2 ["Name"]
+       38 GETIMPORT                        R3 K1 [plugin]
+       40 DUPTABLE                         R4 K13 [{"rootInstance"}]
+       41 GETUPVAL                         R5 3
+       42 SETTABLEKS                       R5 R4 K12 ["rootInstance"]
+       44 CALL                             R1 3 1
+       45 SETUPVAL                         R1 5
+       46 GETUPVAL                         R1 5
+       47 JUMPIFNOT                        R1 ; [+6]
+       48 GETUPVAL                         R1 5
+       49 LOADK                            R3 K14 ["Roact tree"]
+       50 GETUPVAL                         R4 3
+       51 NAMECALL                         R1 R1 K15 ["addRoactTree"]
+       53 CALL                             R1 3 0
+       54 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -81,25 +81,25 @@ MAIN:
        34 GETTABLEKS                       R5 R0 K14 ["Plugin"]
        36 GETTABLEKS                       R5 R5 K15 ["MainPlugin"]
        38 CALL                             R4 1 1
-       39 SETGLOBAL                        R4 K15 ["MainPlugin"]
-       41 LOADNIL                          R4
-       42 LOADNIL                          R5
-       43 NEWCLOSURE                       R6 P0
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          REF R4
-       47 CAPTURE                          VAL R3
-       48 CAPTURE                          REF R5
-       49 NEWCLOSURE                       R7 P1
+       39 LOADNIL                          R5
+       40 LOADNIL                          R6
+       41 NEWCLOSURE                       R7 P0
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R4
+       45 CAPTURE                          REF R5
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          REF R6
+       48 NEWCLOSURE                       R8 P1
+       49 CAPTURE                          REF R6
        50 CAPTURE                          REF R5
-       51 CAPTURE                          REF R4
-       52 CAPTURE                          VAL R2
-       53 GETIMPORT                        R8 K17 [plugin]
-       55 GETTABLEKS                       R8 R8 K18 ["Unloading"]
-       57 MOVE                             R10 R7
-       58 NAMECALL                         R8 R8 K19 ["connect"]
-       60 CALL                             R8 2 0
-       61 MOVE                             R8 R6
-       62 CALL                             R8 0 0
-       63 CLOSEUPVALS                      R4
-       64 RETURN                           R0 0
+       51 CAPTURE                          VAL R2
+       52 GETIMPORT                        R9 K17 [plugin]
+       54 GETTABLEKS                       R9 R9 K18 ["Unloading"]
+       56 MOVE                             R11 R8
+       57 NAMECALL                         R9 R9 K19 ["Connect"]
+       59 CALL                             R9 2 0
+       60 MOVE                             R9 R7
+       61 CALL                             R9 0 0
+       62 CLOSEUPVALS                      R5
+       63 RETURN                           R0 0

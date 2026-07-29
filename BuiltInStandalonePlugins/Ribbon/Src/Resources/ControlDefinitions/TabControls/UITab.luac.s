@@ -14,7 +14,7 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 DUPTABLE                         R3 K13 [{["Name"] = "UI", ["Controls"]}]
-       24 NEWTABLE                         R4 0 9
+       24 NEWTABLE                         R4 0 11
        26 DUPTABLE                         R5 K21 [{["Type"] = "SplitButton", ["Id"] = "GUI", ["ShowSettingOptions"] = True, ["Setting"]}]
        27 DUPTABLE                         R6 K30 [{["PluginId"] = "BuilderTools", ["DataModel"] = "Standalone", ["ItemId"] = "InsertGui", ["Category"] = "Settings"}]
        28 SETTABLEKS                       R6 R5 K20 ["Setting"]
@@ -40,9 +40,13 @@ MAIN:
        55 DUPTABLE                         R13 K62 [{["Id"] = "StyleEditor", ["Type"] = "IconButton", ["Action"]}]
        56 DUPTABLE                         R14 K65 [{["PluginId"] = "StyleEditor", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
        57 SETTABLEKS                       R14 R13 K61 ["Action"]
-       59 SETLIST                          R4 R5 9 [1]
-       61 SETTABLEKS                       R4 R3 K12 ["Controls"]
-       63 MOVE                             R4 R1
-       64 MOVE                             R5 R3
-       65 CALL                             R4 1 -1
-       66 RETURN                           R4 -1
+       59 DUPTABLE                         R14 K68 [{["Size"] = "Large", ["Type"] = "Separator", ["FastFlag"] = "EnableAdPlacementManager"}]
+       60 DUPTABLE                         R15 K70 [{["Id"] = "AdPlacementManager", ["Type"] = "IconButton", ["Action"], ["FastFlag"] = "EnableAdPlacementManager"}]
+       61 DUPTABLE                         R16 K71 [{["PluginId"] = "AdPlacementManager", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
+       62 SETTABLEKS                       R16 R15 K61 ["Action"]
+       64 SETLIST                          R4 R5 11 [1]
+       66 SETTABLEKS                       R4 R3 K12 ["Controls"]
+       68 MOVE                             R4 R1
+       69 MOVE                             R5 R3
+       70 CALL                             R4 1 -1
+       71 RETURN                           R4 -1

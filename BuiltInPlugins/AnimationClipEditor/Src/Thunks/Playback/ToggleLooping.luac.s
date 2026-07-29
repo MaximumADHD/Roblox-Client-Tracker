@@ -21,21 +21,18 @@ PROTO_0:
        25 CALL                             R4 -1 0
        26 GETUPVAL                         R4 3
        27 CALL                             R4 0 1
-       28 JUMPIFNOT                        R4 ; [+9]
-       29 GETUPVAL                         R4 4
-       30 CALL                             R4 0 1
-       31 JUMPIFNOT                        R4 ; [+6]
-       32 GETUPVAL                         R6 5
-       33 MOVE                             R7 R2
-       34 CALL                             R6 1 -1
-       35 NAMECALL                         R4 R0 K5 ["dispatch"]
-       37 CALL                             R4 -1 0
-       38 GETUPVAL                         R4 6
-       39 LOADK                            R6 K6 ["onControlPressed"]
-       40 LOADK                            R7 K7 ["ToggleLooping"]
-       41 NAMECALL                         R4 R4 K8 ["report"]
-       43 CALL                             R4 3 0
-       44 RETURN                           R0 0
+       28 JUMPIFNOT                        R4 ; [+6]
+       29 GETUPVAL                         R6 4
+       30 MOVE                             R7 R2
+       31 CALL                             R6 1 -1
+       32 NAMECALL                         R4 R0 K5 ["dispatch"]
+       34 CALL                             R4 -1 0
+       35 GETUPVAL                         R4 5
+       36 LOADK                            R6 K6 ["onControlPressed"]
+       37 LOADK                            R7 K7 ["ToggleLooping"]
+       38 NAMECALL                         R4 R4 K8 ["report"]
+       40 CALL                             R4 3 0
+       41 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0
@@ -44,9 +41,8 @@ PROTO_1:
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
         5 CAPTURE                          UPVAL U4
-        6 CAPTURE                          UPVAL U5
-        7 CAPTURE                          VAL R0
-        8 RETURN                           R1 1
+        6 CAPTURE                          VAL R0
+        7 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -78,15 +74,10 @@ MAIN:
        45 GETTABLEKS                       R6 R0 K14 ["LuaFlags"]
        47 GETTABLEKS                       R6 R6 K15 ["GetFFlagEngineAnimator"]
        49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K14 ["LuaFlags"]
-       54 GETTABLEKS                       R7 R7 K16 ["GetFFlagFBXLoop"]
-       56 CALL                             R6 1 1
-       57 DUPCLOSURE                       R7 K17 [PROTO_1]
-       58 CAPTURE                          VAL R1
-       59 CAPTURE                          VAL R2
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R5
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R4
-       64 RETURN                           R7 1
+       50 DUPCLOSURE                       R6 K16 [PROTO_1]
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R4
+       56 RETURN                           R6 1

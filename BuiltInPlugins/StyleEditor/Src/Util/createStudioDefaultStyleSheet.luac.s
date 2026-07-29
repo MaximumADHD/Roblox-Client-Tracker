@@ -188,7 +188,7 @@ PROTO_1:
        87 LOADN                            R8 20
        88 CALL                             R6 2 1
        89 SETTABLEKS                       R6 R5 K36 ["BlurRadius"]
-       91 DUPTABLE                         R6 K56 [{"Frame", "ScrollingFrame", "TextLabel", "TextButton", "TextBox", "ImageButton", "ImageLabel", "ViewportFrame", "VideoFrame", "CanvasGroup", "UIListLayout", "UIGridLayout", "UIPageLayout", "UITableLayout"}]
+       91 DUPTABLE                         R6 K57 [{"Frame", "ScrollingFrame", "TextLabel", "TextButton", "TextBox", "ImageButton", "ImageLabel", "ViewportFrame", "VideoFrame", "CanvasGroup", "UIListLayout", "UIGridLayout", "UIPageLayout", "UITableLayout", "UIShadow"}]
        92 SETTABLEKS                       R0 R6 K42 ["Frame"]
        94 SETTABLEKS                       R4 R6 K43 ["ScrollingFrame"]
        96 SETTABLEKS                       R1 R6 K44 ["TextLabel"]
@@ -203,11 +203,8 @@ PROTO_1:
       114 SETTABLEKS                       R3 R6 K53 ["UIGridLayout"]
       116 SETTABLEKS                       R3 R6 K54 ["UIPageLayout"]
       118 SETTABLEKS                       R3 R6 K55 ["UITableLayout"]
-      120 GETUPVAL                         R7 1
-      121 CALL                             R7 0 1
-      122 JUMPIFNOT                        R7 ; [+2]
-      123 SETTABLEKS                       R5 R6 K57 ["UIShadow"]
-      125 RETURN                           R6 1
+      120 SETTABLEKS                       R5 R6 K56 ["UIShadow"]
+      122 RETURN                           R6 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -284,24 +281,18 @@ MAIN:
        35 GETTABLEKS                       R6 R6 K12 ["Flags"]
        37 GETTABLEKS                       R6 R6 K13 ["getEngineFeatureCustomizedDefaultInstances"]
        39 CALL                             R5 1 1
-       40 GETIMPORT                        R6 K4 [require]
-       42 GETTABLEKS                       R7 R0 K11 ["Src"]
-       44 GETTABLEKS                       R7 R7 K12 ["Flags"]
-       46 GETTABLEKS                       R7 R7 K14 ["getEngineFeatureUIShadow"]
-       48 CALL                             R6 1 1
-       49 DUPCLOSURE                       R7 K15 [PROTO_0]
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R4
+       40 DUPCLOSURE                       R6 K14 [PROTO_0]
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R4
+       43 CAPTURE                          VAL R3
+       44 DUPTABLE                         R7 K30 [{["BorderColor"] = True, ["BackgroundColor"] = True, ["TextColor"] = True, ["FontSize"] = True, ["Font"] = True, ["Transparency"] = True, ["TextWrap"] = True, ["Video"] = True, ["Image"] = True, ["TopImage"] = True, ["MidImage"] = True, ["BottomImage"] = True, ["HoverImage"] = True, ["PressedImage"] = True}]
+       45 DUPCLOSURE                       R8 K31 [PROTO_1]
+       46 CAPTURE                          VAL R2
+       47 DUPCLOSURE                       R9 K32 [PROTO_2]
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R6
+       50 CAPTURE                          VAL R7
+       51 CAPTURE                          VAL R8
        52 CAPTURE                          VAL R3
-       53 DUPTABLE                         R8 K31 [{["BorderColor"] = True, ["BackgroundColor"] = True, ["TextColor"] = True, ["FontSize"] = True, ["Font"] = True, ["Transparency"] = True, ["TextWrap"] = True, ["Video"] = True, ["Image"] = True, ["TopImage"] = True, ["MidImage"] = True, ["BottomImage"] = True, ["HoverImage"] = True, ["PressedImage"] = True}]
-       54 DUPCLOSURE                       R9 K32 [PROTO_1]
-       55 CAPTURE                          VAL R2
-       56 CAPTURE                          VAL R6
-       57 DUPCLOSURE                       R10 K33 [PROTO_2]
-       58 CAPTURE                          VAL R5
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R8
-       61 CAPTURE                          VAL R9
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R4
-       64 RETURN                           R10 1
+       53 CAPTURE                          VAL R4
+       54 RETURN                           R9 1

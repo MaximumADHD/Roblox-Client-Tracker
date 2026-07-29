@@ -115,7 +115,7 @@ PROTO_7:
        17 SETTABLEKS                       R1 R0 K1 ["_handle"]
        19 RETURN                           R0 0
        20 GETUPVAL                         R1 0
-       21 GETTABLEKS                       R1 R1 K4 ["render"]
+       21 GETTABLEKS                       R1 R1 K5 ["mount"]
        23 GETTABLEKS                       R2 R0 K3 ["_draggerToolModel"]
        25 NAMECALL                         R2 R2 K4 ["render"]
        27 CALL                             R2 1 -1

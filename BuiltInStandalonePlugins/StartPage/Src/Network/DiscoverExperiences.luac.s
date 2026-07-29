@@ -307,73 +307,93 @@ PROTO_7:
        51 NAMECALL                         R9 R9 K16 ["andThen"]
        53 CALL                             R9 2 1
        54 MOVE                             R7 R9
-       55 JUMP                             ; [+45]
-       56 GETTABLEKS                       R11 R6 K10 ["composeUrl"]
-       58 GETUPVAL                         R12 1
-       59 GETTABLEKS                       R12 R12 K17 ["EXPERIENCES_SEARCH_URL"]
-       61 GETTABLEKS                       R12 R12 K12 ["Prefix"]
-       63 GETUPVAL                         R13 1
-       64 GETTABLEKS                       R13 R13 K17 ["EXPERIENCES_SEARCH_URL"]
-       66 GETTABLEKS                       R13 R13 K13 ["Url"]
-       68 CALL                             R13 0 1
-       69 MOVE                             R14 R0
-       70 CALL                             R11 3 1
-       71 MOVE                             R9 R11
-       72 LOADK                            R11 K18 ["&surface=StudioStartPage&PageIndex=%*"]
-       73 MOVE                             R13 R1
-       74 NAMECALL                         R11 R11 K9 ["format"]
-       76 CALL                             R11 2 1
-       77 MOVE                             R10 R11
-       78 CONCAT                           R8 R9 R10
-       79 GETUPVAL                         R9 5
-       80 JUMPIFNOT                        R9 ; [+3]
-       81 MOVE                             R9 R8
-       82 LOADK                            R10 K19 ["&needsAssetOptions=true"]
-       83 CONCAT                           R8 R9 R10
-       84 GETUPVAL                         R9 2
-       85 GETUPVAL                         R11 2
-       86 MOVE                             R13 R8
-       87 NAMECALL                         R11 R11 K14 ["get"]
-       89 CALL                             R11 2 -1
-       90 NAMECALL                         R9 R9 K15 ["parseJson"]
-       92 CALL                             R9 -1 1
-       93 DUPCLOSURE                       R11 K20 [PROTO_3]
-       94 CAPTURE                          UPVAL U6
-       95 CAPTURE                          UPVAL U4
-       96 CAPTURE                          UPVAL U7
-       97 NAMECALL                         R9 R9 K16 ["andThen"]
-       99 CALL                             R9 2 1
-      100 MOVE                             R7 R9
-      101 NEWCLOSURE                       R10 P2
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          UPVAL U8
-      104 CAPTURE                          VAL R5
-      105 CAPTURE                          UPVAL U9
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          UPVAL U10
-      108 CAPTURE                          UPVAL U11
-      109 CAPTURE                          VAL R3
-      110 CAPTURE                          UPVAL U12
-      111 CAPTURE                          VAL R2
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          UPVAL U13
-      114 CAPTURE                          UPVAL U14
-      115 CAPTURE                          UPVAL U15
-      116 CAPTURE                          UPVAL U16
-      117 CAPTURE                          UPVAL U17
-      118 CAPTURE                          UPVAL U18
-      119 CAPTURE                          UPVAL U5
-      120 CAPTURE                          UPVAL U19
-      121 CAPTURE                          UPVAL U20
-      122 CAPTURE                          UPVAL U21
-      123 CAPTURE                          UPVAL U22
-      124 CAPTURE                          UPVAL U23
-      125 NAMECALL                         R8 R7 K16 ["andThen"]
-      127 CALL                             R8 2 1
-      128 DUPCLOSURE                       R10 K21 [PROTO_6]
-      129 NAMECALL                         R8 R8 K22 ["catch"]
-      131 CALL                             R8 2 0
-      132 RETURN                           R0 0
+       55 JUMP                             ; [+73]
+       56 GETUPVAL                         R9 5
+       57 JUMPIFNOT                        R9 ; [+7]
+       58 GETTABLEKS                       R9 R0 K17 ["pageIndex"]
+       60 JUMPIFEQKNIL                     R9 ; [+4]
+       62 GETTABLEKS                       R8 R0 K17 ["pageIndex"]
+       64 JUMP                             ; [+1]
+       65 MOVE                             R8 R1
+       66 GETTABLEKS                       R12 R6 K10 ["composeUrl"]
+       68 GETUPVAL                         R13 1
+       69 GETTABLEKS                       R13 R13 K18 ["EXPERIENCES_SEARCH_URL"]
+       71 GETTABLEKS                       R13 R13 K12 ["Prefix"]
+       73 GETUPVAL                         R14 1
+       74 GETTABLEKS                       R14 R14 K18 ["EXPERIENCES_SEARCH_URL"]
+       76 GETTABLEKS                       R14 R14 K13 ["Url"]
+       78 CALL                             R14 0 1
+       79 MOVE                             R15 R0
+       80 CALL                             R12 3 1
+       81 MOVE                             R10 R12
+       82 LOADK                            R12 K19 ["&surface=StudioStartPage&PageIndex=%*"]
+       83 MOVE                             R14 R8
+       84 NAMECALL                         R12 R12 K9 ["format"]
+       86 CALL                             R12 2 1
+       87 MOVE                             R11 R12
+       88 CONCAT                           R9 R10 R11
+       89 GETUPVAL                         R10 5
+       90 JUMPIFNOT                        R10 ; [+16]
+       91 GETTABLEKS                       R10 R0 K17 ["pageIndex"]
+       93 JUMPIFEQKNIL                     R10 ; [+13]
+       95 GETTABLEKS                       R10 R0 K20 ["pageSize"]
+       97 JUMPIFNOT                        R10 ; [+9]
+       98 MOVE                             R10 R9
+       99 LOADK                            R12 K21 ["&PageSize=%*"]
+      100 GETTABLEKS                       R14 R0 K20 ["pageSize"]
+      102 NAMECALL                         R12 R12 K9 ["format"]
+      104 CALL                             R12 2 1
+      105 MOVE                             R11 R12
+      106 CONCAT                           R9 R10 R11
+      107 GETUPVAL                         R10 6
+      108 JUMPIFNOT                        R10 ; [+3]
+      109 MOVE                             R10 R9
+      110 LOADK                            R11 K22 ["&needsAssetOptions=true"]
+      111 CONCAT                           R9 R10 R11
+      112 GETUPVAL                         R10 2
+      113 GETUPVAL                         R12 2
+      114 MOVE                             R14 R9
+      115 NAMECALL                         R12 R12 K14 ["get"]
+      117 CALL                             R12 2 -1
+      118 NAMECALL                         R10 R10 K15 ["parseJson"]
+      120 CALL                             R10 -1 1
+      121 DUPCLOSURE                       R12 K23 [PROTO_3]
+      122 CAPTURE                          UPVAL U7
+      123 CAPTURE                          UPVAL U4
+      124 CAPTURE                          UPVAL U8
+      125 NAMECALL                         R10 R10 K16 ["andThen"]
+      127 CALL                             R10 2 1
+      128 MOVE                             R7 R10
+      129 NEWCLOSURE                       R10 P2
+      130 CAPTURE                          VAL R4
+      131 CAPTURE                          UPVAL U9
+      132 CAPTURE                          VAL R5
+      133 CAPTURE                          UPVAL U10
+      134 CAPTURE                          VAL R0
+      135 CAPTURE                          UPVAL U11
+      136 CAPTURE                          UPVAL U12
+      137 CAPTURE                          VAL R3
+      138 CAPTURE                          UPVAL U13
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          VAL R1
+      141 CAPTURE                          UPVAL U14
+      142 CAPTURE                          UPVAL U15
+      143 CAPTURE                          UPVAL U16
+      144 CAPTURE                          UPVAL U17
+      145 CAPTURE                          UPVAL U18
+      146 CAPTURE                          UPVAL U19
+      147 CAPTURE                          UPVAL U6
+      148 CAPTURE                          UPVAL U20
+      149 CAPTURE                          UPVAL U21
+      150 CAPTURE                          UPVAL U22
+      151 CAPTURE                          UPVAL U23
+      152 CAPTURE                          UPVAL U24
+      153 NAMECALL                         R8 R7 K16 ["andThen"]
+      155 CALL                             R8 2 1
+      156 DUPCLOSURE                       R10 K24 [PROTO_6]
+      157 NAMECALL                         R8 R8 K25 ["catch"]
+      159 CALL                             R8 2 0
+      160 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -509,55 +529,62 @@ MAIN:
       228 CALL                             R27 0 1
       229 GETIMPORT                        R28 K5 [require]
       231 GETTABLEKS                       R29 R0 K6 ["Src"]
-      233 GETTABLEKS                       R29 R29 K20 ["Util"]
-      235 GETTABLEKS                       R29 R29 K45 ["Telemetry"]
-      237 GETTABLEKS                       R29 R29 K46 ["TelemetryContext"]
-      239 CALL                             R28 1 1
-      240 GETIMPORT                        R29 K5 [require]
-      242 GETTABLEKS                       R30 R0 K6 ["Src"]
-      244 GETTABLEKS                       R30 R30 K20 ["Util"]
-      246 GETTABLEKS                       R30 R30 K45 ["Telemetry"]
-      248 GETTABLEKS                       R30 R30 K47 ["StartPageTelemetryEvent"]
-      250 CALL                             R29 1 1
-      251 GETIMPORT                        R30 K5 [require]
-      253 GETTABLEKS                       R31 R0 K6 ["Src"]
-      255 GETTABLEKS                       R31 R31 K18 ["Network"]
-      257 GETTABLEKS                       R31 R31 K48 ["GameCache"]
-      259 CALL                             R30 1 1
-      260 GETIMPORT                        R31 K5 [require]
-      262 GETTABLEKS                       R32 R0 K6 ["Src"]
-      264 GETTABLEKS                       R32 R32 K20 ["Util"]
-      266 GETTABLEKS                       R32 R32 K49 ["generateContextStrFromQuery"]
-      268 CALL                             R31 1 1
-      269 MOVE                             R32 R11
-      270 GETTABLEKS                       R33 R7 K50 ["validate"]
-      272 CALL                             R32 1 1
-      273 MOVE                             R33 R11
-      274 GETTABLEKS                       R34 R8 K50 ["validate"]
-      276 CALL                             R33 1 1
-      277 DUPCLOSURE                       R34 K51 [PROTO_7]
-      278 CAPTURE                          VAL R12
-      279 CAPTURE                          VAL R9
-      280 CAPTURE                          VAL R13
-      281 CAPTURE                          VAL R32
-      282 CAPTURE                          VAL R4
-      283 CAPTURE                          VAL R23
-      284 CAPTURE                          VAL R33
-      285 CAPTURE                          VAL R26
-      286 CAPTURE                          VAL R29
-      287 CAPTURE                          VAL R31
-      288 CAPTURE                          VAL R5
-      289 CAPTURE                          VAL R27
-      290 CAPTURE                          VAL R30
-      291 CAPTURE                          VAL R14
-      292 CAPTURE                          VAL R16
-      293 CAPTURE                          VAL R15
-      294 CAPTURE                          VAL R17
-      295 CAPTURE                          VAL R18
-      296 CAPTURE                          VAL R19
-      297 CAPTURE                          VAL R20
-      298 CAPTURE                          VAL R21
-      299 CAPTURE                          VAL R24
-      300 CAPTURE                          VAL R25
-      301 CAPTURE                          VAL R22
-      302 RETURN                           R34 1
+      233 GETTABLEKS                       R29 R29 K7 ["SharedFlags"]
+      235 GETTABLEKS                       R29 R29 K45 ["getFFlagLuaStartPageNewListView"]
+      237 CALL                             R28 1 1
+      238 CALL                             R28 0 1
+      239 GETIMPORT                        R29 K5 [require]
+      241 GETTABLEKS                       R30 R0 K6 ["Src"]
+      243 GETTABLEKS                       R30 R30 K20 ["Util"]
+      245 GETTABLEKS                       R30 R30 K46 ["Telemetry"]
+      247 GETTABLEKS                       R30 R30 K47 ["TelemetryContext"]
+      249 CALL                             R29 1 1
+      250 GETIMPORT                        R30 K5 [require]
+      252 GETTABLEKS                       R31 R0 K6 ["Src"]
+      254 GETTABLEKS                       R31 R31 K20 ["Util"]
+      256 GETTABLEKS                       R31 R31 K46 ["Telemetry"]
+      258 GETTABLEKS                       R31 R31 K48 ["StartPageTelemetryEvent"]
+      260 CALL                             R30 1 1
+      261 GETIMPORT                        R31 K5 [require]
+      263 GETTABLEKS                       R32 R0 K6 ["Src"]
+      265 GETTABLEKS                       R32 R32 K18 ["Network"]
+      267 GETTABLEKS                       R32 R32 K49 ["GameCache"]
+      269 CALL                             R31 1 1
+      270 GETIMPORT                        R32 K5 [require]
+      272 GETTABLEKS                       R33 R0 K6 ["Src"]
+      274 GETTABLEKS                       R33 R33 K20 ["Util"]
+      276 GETTABLEKS                       R33 R33 K50 ["generateContextStrFromQuery"]
+      278 CALL                             R32 1 1
+      279 MOVE                             R33 R11
+      280 GETTABLEKS                       R34 R7 K51 ["validate"]
+      282 CALL                             R33 1 1
+      283 MOVE                             R34 R11
+      284 GETTABLEKS                       R35 R8 K51 ["validate"]
+      286 CALL                             R34 1 1
+      287 DUPCLOSURE                       R35 K52 [PROTO_7]
+      288 CAPTURE                          VAL R12
+      289 CAPTURE                          VAL R9
+      290 CAPTURE                          VAL R13
+      291 CAPTURE                          VAL R33
+      292 CAPTURE                          VAL R4
+      293 CAPTURE                          VAL R28
+      294 CAPTURE                          VAL R23
+      295 CAPTURE                          VAL R34
+      296 CAPTURE                          VAL R26
+      297 CAPTURE                          VAL R30
+      298 CAPTURE                          VAL R32
+      299 CAPTURE                          VAL R5
+      300 CAPTURE                          VAL R27
+      301 CAPTURE                          VAL R31
+      302 CAPTURE                          VAL R14
+      303 CAPTURE                          VAL R16
+      304 CAPTURE                          VAL R15
+      305 CAPTURE                          VAL R17
+      306 CAPTURE                          VAL R18
+      307 CAPTURE                          VAL R19
+      308 CAPTURE                          VAL R20
+      309 CAPTURE                          VAL R21
+      310 CAPTURE                          VAL R24
+      311 CAPTURE                          VAL R25
+      312 CAPTURE                          VAL R22
+      313 RETURN                           R35 1

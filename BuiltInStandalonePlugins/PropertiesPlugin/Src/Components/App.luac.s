@@ -5,7 +5,7 @@ PROTO_0:
         3 GETUPVAL                         R3 2
         4 GETTABLEKS                       R3 R3 K0 ["ContextStack"]
         6 DUPTABLE                         R4 K2 [{"providers"}]
-        7 NEWTABLE                         R5 0 9
+        7 NEWTABLE                         R5 0 10
         9 GETUPVAL                         R6 1
        10 GETUPVAL                         R7 3
        11 CALL                             R6 1 1
@@ -41,32 +41,40 @@ PROTO_0:
        52 CALL                             R11 1 1
        53 GETUPVAL                         R12 1
        54 GETUPVAL                         R13 10
-       55 DUPTABLE                         R14 K11 [{"theme"}]
-       56 SETTABLEKS                       R1 R14 K5 ["theme"]
-       58 CALL                             R12 2 1
-       59 GETUPVAL                         R13 1
-       60 GETUPVAL                         R14 11
-       61 CALL                             R13 1 1
-       62 GETUPVAL                         R14 1
-       63 GETUPVAL                         R15 12
-       64 GETTABLEKS                       R15 R15 K12 ["Injectables"]
-       66 GETTABLEKS                       R15 R15 K13 ["Host"]
-       68 GETTABLEKS                       R15 R15 K14 ["PropertiesTabsContextProvider"]
-       70 CALL                             R14 1 -1
-       71 SETLIST                          R5 R6 -1 [1]
-       73 SETTABLEKS                       R5 R4 K1 ["providers"]
-       75 DUPTABLE                         R5 K16 [{"MainView"}]
-       76 GETUPVAL                         R6 1
-       77 GETUPVAL                         R7 12
-       78 GETTABLEKS                       R7 R7 K17 ["Components"]
-       80 GETTABLEKS                       R7 R7 K15 ["MainView"]
-       82 DUPTABLE                         R8 K19 [{"overlayGui"}]
-       83 GETTABLEKS                       R9 R0 K8 ["dockWidget"]
-       85 SETTABLEKS                       R9 R8 K18 ["overlayGui"]
-       87 CALL                             R6 2 1
-       88 SETTABLEKS                       R6 R5 K15 ["MainView"]
-       90 CALL                             R2 3 -1
-       91 RETURN                           R2 -1
+       55 DUPTABLE                         R14 K10 [{"plugin"}]
+       56 GETTABLEKS                       R15 R0 K4 ["plugin"]
+       58 SETTABLEKS                       R15 R14 K4 ["plugin"]
+       60 CALL                             R12 2 1
+       61 GETUPVAL                         R13 1
+       62 GETUPVAL                         R14 11
+       63 DUPTABLE                         R15 K11 [{"theme"}]
+       64 SETTABLEKS                       R1 R15 K5 ["theme"]
+       66 CALL                             R13 2 1
+       67 GETUPVAL                         R14 1
+       68 GETUPVAL                         R15 12
+       69 CALL                             R14 1 1
+       70 GETUPVAL                         R15 1
+       71 GETUPVAL                         R16 13
+       72 GETTABLEKS                       R16 R16 K12 ["Injectables"]
+       74 GETTABLEKS                       R16 R16 K13 ["Host"]
+       76 GETTABLEKS                       R16 R16 K14 ["PropertiesTabsContextProvider"]
+       78 CALL                             R15 1 -1
+       79 SETLIST                          R5 R6 -1 [1]
+       81 SETTABLEKS                       R5 R4 K1 ["providers"]
+       83 DUPTABLE                         R5 K16 [{"MainView"}]
+       84 GETUPVAL                         R6 1
+       85 GETUPVAL                         R7 13
+       86 GETTABLEKS                       R7 R7 K17 ["Components"]
+       88 GETTABLEKS                       R7 R7 K15 ["MainView"]
+       90 DUPTABLE                         R8 K19 [{"overlayGui", "plugin"}]
+       91 GETTABLEKS                       R9 R0 K8 ["dockWidget"]
+       93 SETTABLEKS                       R9 R8 K18 ["overlayGui"]
+       95 GETTABLEKS                       R9 R0 K4 ["plugin"]
+       97 SETTABLEKS                       R9 R8 K4 ["plugin"]
+       99 CALL                             R6 2 1
+      100 SETTABLEKS                       R6 R5 K15 ["MainView"]
+      102 CALL                             R2 3 -1
+      103 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -122,29 +130,36 @@ MAIN:
        88 CALL                             R9 1 1
        89 GETIMPORT                        R10 K9 [require]
        91 GETTABLEKS                       R11 R1 K14 ["Src"]
-       93 GETTABLEKS                       R11 R11 K22 ["Hooks"]
-       95 GETTABLEKS                       R11 R11 K23 ["useThemeName"]
-       97 CALL                             R10 1 1
-       98 GETTABLEKS                       R11 R2 K15 ["Components"]
-      100 GETTABLEKS                       R11 R11 K16 ["Contexts"]
-      102 GETTABLEKS                       R11 R11 K24 ["AssetNameContextProvider"]
-      104 GETTABLEKS                       R12 R2 K15 ["Components"]
-      106 GETTABLEKS                       R12 R12 K16 ["Contexts"]
-      108 GETTABLEKS                       R12 R12 K25 ["ThemeContextProvider"]
-      110 GETTABLEKS                       R13 R2 K26 ["AssetPickerProvider"]
-      112 GETTABLEKS                       R14 R3 K27 ["createElement"]
-      114 DUPCLOSURE                       R15 K28 [PROTO_0]
-      115 CAPTURE                          VAL R10
-      116 CAPTURE                          VAL R14
-      117 CAPTURE                          VAL R4
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          VAL R0
-      121 CAPTURE                          VAL R5
-      122 CAPTURE                          VAL R6
-      123 CAPTURE                          VAL R8
-      124 CAPTURE                          VAL R9
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R7
-      127 CAPTURE                          VAL R2
-      128 RETURN                           R15 1
+       93 GETTABLEKS                       R11 R11 K15 ["Components"]
+       95 GETTABLEKS                       R11 R11 K16 ["Contexts"]
+       97 GETTABLEKS                       R11 R11 K22 ["StudioWindowContextProvider"]
+       99 CALL                             R10 1 1
+      100 GETIMPORT                        R11 K9 [require]
+      102 GETTABLEKS                       R12 R1 K14 ["Src"]
+      104 GETTABLEKS                       R12 R12 K23 ["Hooks"]
+      106 GETTABLEKS                       R12 R12 K24 ["useThemeName"]
+      108 CALL                             R11 1 1
+      109 GETTABLEKS                       R12 R2 K15 ["Components"]
+      111 GETTABLEKS                       R12 R12 K16 ["Contexts"]
+      113 GETTABLEKS                       R12 R12 K25 ["AssetNameContextProvider"]
+      115 GETTABLEKS                       R13 R2 K15 ["Components"]
+      117 GETTABLEKS                       R13 R13 K16 ["Contexts"]
+      119 GETTABLEKS                       R13 R13 K26 ["ThemeContextProvider"]
+      121 GETTABLEKS                       R14 R2 K27 ["AssetPickerProvider"]
+      123 GETTABLEKS                       R15 R3 K28 ["createElement"]
+      125 DUPCLOSURE                       R16 K29 [PROTO_0]
+      126 CAPTURE                          VAL R11
+      127 CAPTURE                          VAL R15
+      128 CAPTURE                          VAL R4
+      129 CAPTURE                          VAL R12
+      130 CAPTURE                          VAL R14
+      131 CAPTURE                          VAL R0
+      132 CAPTURE                          VAL R5
+      133 CAPTURE                          VAL R6
+      134 CAPTURE                          VAL R8
+      135 CAPTURE                          VAL R9
+      136 CAPTURE                          VAL R10
+      137 CAPTURE                          VAL R13
+      138 CAPTURE                          VAL R7
+      139 CAPTURE                          VAL R2
+      140 RETURN                           R16 1

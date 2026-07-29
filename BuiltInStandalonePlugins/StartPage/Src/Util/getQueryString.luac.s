@@ -79,13 +79,39 @@ PROTO_0:
       108 MOVE                             R5 R3
       109 GETIMPORT                        R4 K9 [table.insert]
       111 CALL                             R4 2 0
-      112 MOVE                             R5 R2
-      113 GETIMPORT                        R6 K25 [table.concat]
-      115 MOVE                             R7 R3
-      116 LOADK                            R8 K26 ["&"]
-      117 CALL                             R6 2 1
-      118 CONCAT                           R4 R5 R6
-      119 RETURN                           R4 1
+      112 GETUPVAL                         R4 0
+      113 JUMPIFNOT                        R4 ; [+35]
+      114 GETTABLEKS                       R4 R1 K24 ["pageIndex"]
+      116 JUMPIFEQKNIL                     R4 ; [+32]
+      118 GETTABLEKS                       R4 R1 K25 ["pageSize"]
+      120 JUMPIFNOT                        R4 ; [+14]
+      121 LOADK                            R7 K26 ["pageSize="]
+      122 GETTABLEKS                       R9 R1 K25 ["pageSize"]
+      124 FASTCALL1                        TOSTRING R9 ; [+2]
+      125 GETIMPORT                        R8 K15 [tostring]
+      127 CALL                             R8 1 1
+      128 CONCAT                           R6 R7 R8
+      129 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
+      131 MOVE                             R5 R3
+      132 GETIMPORT                        R4 K9 [table.insert]
+      134 CALL                             R4 2 0
+      135 LOADK                            R7 K27 ["pageIndex="]
+      136 GETTABLEKS                       R9 R1 K24 ["pageIndex"]
+      138 FASTCALL1                        TOSTRING R9 ; [+2]
+      139 GETIMPORT                        R8 K15 [tostring]
+      141 CALL                             R8 1 1
+      142 CONCAT                           R6 R7 R8
+      143 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
+      145 MOVE                             R5 R3
+      146 GETIMPORT                        R4 K9 [table.insert]
+      148 CALL                             R4 2 0
+      149 MOVE                             R5 R2
+      150 GETIMPORT                        R6 K29 [table.concat]
+      152 MOVE                             R7 R3
+      153 LOADK                            R8 K30 ["&"]
+      154 CALL                             R6 2 1
+      155 CONCAT                           R4 R5 R6
+      156 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -97,5 +123,12 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 DUPCLOSURE                       R2 K8 [PROTO_0]
-       15 RETURN                           R2 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["SharedFlags"]
+       20 GETTABLEKS                       R3 R3 K9 ["getFFlagLuaStartPageNewListView"]
+       22 CALL                             R2 1 1
+       23 CALL                             R2 0 1
+       24 DUPCLOSURE                       R3 K10 [PROTO_0]
+       25 CAPTURE                          VAL R2
+       26 RETURN                           R3 1

@@ -293,45 +293,41 @@ MAIN:
         3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K1 [game]
-        9 LOADK                            R3 K4 ["CoreGui"]
-       10 NAMECALL                         R1 R1 K3 ["GetService"]
-       12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K6 [script]
-       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
-       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
-       19 GETTABLEKS                       R3 R2 K7 ["Parent"]
-       21 GETTABLEKS                       R3 R3 K7 ["Parent"]
-       23 GETIMPORT                        R4 K9 [require]
-       25 GETTABLEKS                       R5 R3 K10 ["Packages"]
-       27 GETTABLEKS                       R5 R5 K11 ["Roact"]
-       29 CALL                             R4 1 1
-       30 GETIMPORT                        R5 K9 [require]
-       32 GETTABLEKS                       R6 R2 K12 ["Utility"]
-       34 GETTABLEKS                       R6 R6 K13 ["Math"]
-       36 CALL                             R5 1 1
-       37 GETIMPORT                        R6 K17 [Enum.AdornCullingMode.Never]
-       39 GETTABLEKS                       R7 R4 K18 ["PureComponent"]
-       41 LOADK                            R9 K19 ["MovePlanarHandleView"]
-       42 NAMECALL                         R7 R7 K20 ["extend"]
-       44 CALL                             R7 2 1
-       45 DUPCLOSURE                       R8 K21 [PROTO_0]
-       46 SETTABLEKS                       R8 R7 K22 ["init"]
-       48 DUPCLOSURE                       R8 K23 [PROTO_1]
-       49 DUPCLOSURE                       R9 K24 [PROTO_2]
-       50 DUPCLOSURE                       R10 K25 [PROTO_4]
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R1 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       17 GETIMPORT                        R3 K8 [require]
+       19 GETTABLEKS                       R4 R2 K9 ["Packages"]
+       21 GETTABLEKS                       R4 R4 K10 ["Roact"]
+       23 CALL                             R3 1 1
+       24 GETIMPORT                        R4 K8 [require]
+       26 GETTABLEKS                       R5 R1 K11 ["Utility"]
+       28 GETTABLEKS                       R5 R5 K12 ["Math"]
+       30 CALL                             R4 1 1
+       31 GETIMPORT                        R5 K16 [Enum.AdornCullingMode.Never]
+       33 GETTABLEKS                       R6 R3 K17 ["PureComponent"]
+       35 LOADK                            R8 K18 ["MovePlanarHandleView"]
+       36 NAMECALL                         R6 R6 K19 ["extend"]
+       38 CALL                             R6 2 1
+       39 DUPCLOSURE                       R7 K20 [PROTO_0]
+       40 SETTABLEKS                       R7 R6 K21 ["init"]
+       42 DUPCLOSURE                       R7 K22 [PROTO_1]
+       43 DUPCLOSURE                       R8 K23 [PROTO_2]
+       44 DUPCLOSURE                       R9 K24 [PROTO_4]
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          VAL R5
+       48 SETTABLEKS                       R9 R6 K25 ["render"]
+       50 DUPCLOSURE                       R9 K26 [PROTO_5]
        51 CAPTURE                          VAL R4
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          VAL R6
-       54 SETTABLEKS                       R10 R7 K26 ["render"]
-       56 DUPCLOSURE                       R10 K27 [PROTO_5]
-       57 CAPTURE                          VAL R5
-       58 SETTABLEKS                       R10 R7 K28 ["hitTest"]
-       60 DUPCLOSURE                       R10 K29 [PROTO_6]
-       61 SETTABLEKS                       R10 R7 K30 ["distanceFromHandle"]
-       63 DUPCLOSURE                       R10 K31 [PROTO_7]
-       64 CAPTURE                          VAL R5
-       65 SETTABLEKS                       R10 R7 K32 ["_planePoint"]
-       67 DUPCLOSURE                       R10 K33 [PROTO_8]
-       68 SETTABLEKS                       R10 R7 K34 ["getHandleDimensionForScale"]
-       70 RETURN                           R7 1
+       52 SETTABLEKS                       R9 R6 K27 ["hitTest"]
+       54 DUPCLOSURE                       R9 K28 [PROTO_6]
+       55 SETTABLEKS                       R9 R6 K29 ["distanceFromHandle"]
+       57 DUPCLOSURE                       R9 K30 [PROTO_7]
+       58 CAPTURE                          VAL R4
+       59 SETTABLEKS                       R9 R6 K31 ["_planePoint"]
+       61 DUPCLOSURE                       R9 K32 [PROTO_8]
+       62 SETTABLEKS                       R9 R6 K33 ["getHandleDimensionForScale"]
+       64 RETURN                           R6 1

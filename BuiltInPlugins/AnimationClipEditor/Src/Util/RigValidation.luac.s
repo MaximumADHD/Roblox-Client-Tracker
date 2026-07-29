@@ -72,89 +72,106 @@ PROTO_1:
        22 LOADB                            R12 1
        23 SETTABLE                         R12 R5 R11
        24 FORGLOOP                         R6 2 ; [-15]
-       26 NEWTABLE                         R6 0 0
-       28 NEWTABLE                         R7 0 0
-       30 NEWTABLE                         R8 0 0
-       32 NEWCLOSURE                       R9 P0
-       33 CAPTURE                          VAL R6
-       34 CAPTURE                          VAL R7
-       35 CAPTURE                          VAL R4
-       36 CAPTURE                          VAL R8
-       37 CAPTURE                          UPVAL U1
-       38 MOVE                             R10 R9
-       39 GETUPVAL                         R11 1
-       40 MOVE                             R12 R5
-       41 CALL                             R11 1 1
-       42 GETUPVAL                         R12 2
-       43 GETTABLEKS                       R12 R12 K3 ["RIG_ERRORS"]
-       45 GETTABLEKS                       R12 R12 K4 ["NameCollision"]
-       47 CALL                             R10 2 0
-       48 MOVE                             R10 R9
-       49 MOVE                             R11 R3
-       50 GETUPVAL                         R12 2
-       51 GETTABLEKS                       R12 R12 K3 ["RIG_ERRORS"]
-       53 GETTABLEKS                       R12 R12 K5 ["BoneNameCollision"]
-       55 CALL                             R10 2 0
-       56 GETUPVAL                         R11 2
-       57 GETTABLEKS                       R11 R11 K3 ["RIG_ERRORS"]
-       59 GETTABLEKS                       R11 R11 K5 ["BoneNameCollision"]
-       61 GETTABLE                         R10 R6 R11
-       62 JUMPIFNOT                        R10 ; [+78]
-       63 GETUPVAL                         R10 1
-       64 MOVE                             R11 R5
-       65 CALL                             R10 1 3
-       66 FORGPREP                         R10
-       67 GETUPVAL                         R17 2
-       68 GETTABLEKS                       R17 R17 K3 ["RIG_ERRORS"]
-       70 GETTABLEKS                       R17 R17 K5 ["BoneNameCollision"]
-       72 GETTABLE                         R16 R6 R17
-       73 GETTABLEKS                       R17 R14 K6 ["Name"]
-       75 GETTABLE                         R15 R16 R17
-       76 JUMPIFNOT                        R15 ; [+62]
-       77 GETUPVAL                         R15 2
-       78 GETTABLEKS                       R15 R15 K3 ["RIG_ERRORS"]
-       80 GETTABLEKS                       R15 R15 K7 ["PartBoneNameCollision"]
-       82 GETUPVAL                         R17 2
-       83 GETTABLEKS                       R17 R17 K3 ["RIG_ERRORS"]
-       85 GETTABLEKS                       R17 R17 K7 ["PartBoneNameCollision"]
-       87 GETTABLE                         R16 R7 R17
-       88 JUMPIF                           R16 ; [+8]
-       89 GETUPVAL                         R18 2
-       90 GETTABLEKS                       R18 R18 K3 ["RIG_ERRORS"]
-       92 GETTABLEKS                       R18 R18 K7 ["PartBoneNameCollision"]
-       94 NAMECALL                         R16 R4 K8 ["insert"]
-       96 CALL                             R16 2 1
-       97 SETTABLE                         R16 R7 R15
-       98 GETUPVAL                         R15 2
-       99 GETTABLEKS                       R15 R15 K3 ["RIG_ERRORS"]
-      101 GETTABLEKS                       R15 R15 K7 ["PartBoneNameCollision"]
-      103 GETUPVAL                         R17 2
-      104 GETTABLEKS                       R17 R17 K3 ["RIG_ERRORS"]
-      106 GETTABLEKS                       R17 R17 K7 ["PartBoneNameCollision"]
-      108 GETTABLE                         R16 R8 R17
-      109 JUMPIF                           R16 ; [+2]
-      110 NEWTABLE                         R16 0 0
-      112 SETTABLE                         R16 R8 R15
-      113 GETUPVAL                         R16 2
-      114 GETTABLEKS                       R16 R16 K3 ["RIG_ERRORS"]
-      116 GETTABLEKS                       R16 R16 K7 ["PartBoneNameCollision"]
-      118 GETTABLE                         R15 R8 R16
-      119 GETTABLEKS                       R16 R14 K6 ["Name"]
-      121 LOADB                            R17 1
-      122 SETTABLE                         R17 R15 R16
-      123 GETUPVAL                         R16 2
-      124 GETTABLEKS                       R16 R16 K3 ["RIG_ERRORS"]
-      126 GETTABLEKS                       R16 R16 K7 ["PartBoneNameCollision"]
-      128 GETTABLE                         R15 R7 R16
-      129 GETUPVAL                         R16 1
-      130 GETUPVAL                         R18 2
-      131 GETTABLEKS                       R18 R18 K3 ["RIG_ERRORS"]
-      133 GETTABLEKS                       R18 R18 K7 ["PartBoneNameCollision"]
-      135 GETTABLE                         R17 R8 R18
-      136 CALL                             R16 1 1
-      137 SETTABLEKS                       R16 R15 K9 ["details"]
-      139 FORGLOOP                         R10 2 ; [-73]
-      141 RETURN                           R4 1
+       26 GETUPVAL                         R6 1
+       27 JUMPIFNOT                        R6 ; [+17]
+       28 GETUPVAL                         R7 2
+       29 CALL                             R7 0 1
+       30 JUMPIFNOT                        R7 ; [+6]
+       31 GETUPVAL                         R6 3
+       32 GETTABLEKS                       R6 R6 K3 ["getRootPart"]
+       34 MOVE                             R7 R0
+       35 CALL                             R6 1 1
+       36 JUMP                             ; [+5]
+       37 GETUPVAL                         R6 3
+       38 GETTABLEKS                       R6 R6 K4 ["findRootPart"]
+       40 MOVE                             R7 R0
+       41 CALL                             R6 1 1
+       42 JUMPIFNOT                        R6 ; [+2]
+       43 LOADB                            R7 1
+       44 SETTABLE                         R7 R5 R6
+       45 NEWTABLE                         R6 0 0
+       47 NEWTABLE                         R7 0 0
+       49 NEWTABLE                         R8 0 0
+       51 NEWCLOSURE                       R9 P0
+       52 CAPTURE                          VAL R6
+       53 CAPTURE                          VAL R7
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          UPVAL U4
+       57 MOVE                             R10 R9
+       58 GETUPVAL                         R11 4
+       59 MOVE                             R12 R5
+       60 CALL                             R11 1 1
+       61 GETUPVAL                         R12 5
+       62 GETTABLEKS                       R12 R12 K5 ["RIG_ERRORS"]
+       64 GETTABLEKS                       R12 R12 K6 ["NameCollision"]
+       66 CALL                             R10 2 0
+       67 MOVE                             R10 R9
+       68 MOVE                             R11 R3
+       69 GETUPVAL                         R12 5
+       70 GETTABLEKS                       R12 R12 K5 ["RIG_ERRORS"]
+       72 GETTABLEKS                       R12 R12 K7 ["BoneNameCollision"]
+       74 CALL                             R10 2 0
+       75 GETUPVAL                         R11 5
+       76 GETTABLEKS                       R11 R11 K5 ["RIG_ERRORS"]
+       78 GETTABLEKS                       R11 R11 K7 ["BoneNameCollision"]
+       80 GETTABLE                         R10 R6 R11
+       81 JUMPIFNOT                        R10 ; [+78]
+       82 GETUPVAL                         R10 4
+       83 MOVE                             R11 R5
+       84 CALL                             R10 1 3
+       85 FORGPREP                         R10
+       86 GETUPVAL                         R17 5
+       87 GETTABLEKS                       R17 R17 K5 ["RIG_ERRORS"]
+       89 GETTABLEKS                       R17 R17 K7 ["BoneNameCollision"]
+       91 GETTABLE                         R16 R6 R17
+       92 GETTABLEKS                       R17 R14 K8 ["Name"]
+       94 GETTABLE                         R15 R16 R17
+       95 JUMPIFNOT                        R15 ; [+62]
+       96 GETUPVAL                         R15 5
+       97 GETTABLEKS                       R15 R15 K5 ["RIG_ERRORS"]
+       99 GETTABLEKS                       R15 R15 K9 ["PartBoneNameCollision"]
+      101 GETUPVAL                         R17 5
+      102 GETTABLEKS                       R17 R17 K5 ["RIG_ERRORS"]
+      104 GETTABLEKS                       R17 R17 K9 ["PartBoneNameCollision"]
+      106 GETTABLE                         R16 R7 R17
+      107 JUMPIF                           R16 ; [+8]
+      108 GETUPVAL                         R18 5
+      109 GETTABLEKS                       R18 R18 K5 ["RIG_ERRORS"]
+      111 GETTABLEKS                       R18 R18 K9 ["PartBoneNameCollision"]
+      113 NAMECALL                         R16 R4 K10 ["insert"]
+      115 CALL                             R16 2 1
+      116 SETTABLE                         R16 R7 R15
+      117 GETUPVAL                         R15 5
+      118 GETTABLEKS                       R15 R15 K5 ["RIG_ERRORS"]
+      120 GETTABLEKS                       R15 R15 K9 ["PartBoneNameCollision"]
+      122 GETUPVAL                         R17 5
+      123 GETTABLEKS                       R17 R17 K5 ["RIG_ERRORS"]
+      125 GETTABLEKS                       R17 R17 K9 ["PartBoneNameCollision"]
+      127 GETTABLE                         R16 R8 R17
+      128 JUMPIF                           R16 ; [+2]
+      129 NEWTABLE                         R16 0 0
+      131 SETTABLE                         R16 R8 R15
+      132 GETUPVAL                         R16 5
+      133 GETTABLEKS                       R16 R16 K5 ["RIG_ERRORS"]
+      135 GETTABLEKS                       R16 R16 K9 ["PartBoneNameCollision"]
+      137 GETTABLE                         R15 R8 R16
+      138 GETTABLEKS                       R16 R14 K8 ["Name"]
+      140 LOADB                            R17 1
+      141 SETTABLE                         R17 R15 R16
+      142 GETUPVAL                         R16 5
+      143 GETTABLEKS                       R16 R16 K5 ["RIG_ERRORS"]
+      145 GETTABLEKS                       R16 R16 K9 ["PartBoneNameCollision"]
+      147 GETTABLE                         R15 R7 R16
+      148 GETUPVAL                         R16 4
+      149 GETUPVAL                         R18 5
+      150 GETTABLEKS                       R18 R18 K5 ["RIG_ERRORS"]
+      152 GETTABLEKS                       R18 R18 K9 ["PartBoneNameCollision"]
+      154 GETTABLE                         R17 R8 R18
+      155 CALL                             R16 1 1
+      156 SETTABLEKS                       R16 R15 K11 ["details"]
+      158 FORGLOOP                         R10 2 ; [-73]
+      160 RETURN                           R4 1
 
 PROTO_2:
         0 GETUPVAL                         R4 0
@@ -1039,60 +1056,68 @@ MAIN:
        40 GETTABLEKS                       R7 R7 K11 ["Util"]
        42 GETTABLEKS                       R7 R7 K14 ["ValidationResult"]
        44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K5 [require]
-       47 GETTABLEKS                       R8 R0 K15 ["LuaFlags"]
-       49 GETTABLEKS                       R8 R8 K16 ["GetFFlagRootMotion"]
-       51 CALL                             R7 1 1
-       52 NEWTABLE                         R8 1 0
-       54 DUPCLOSURE                       R9 K17 [PROTO_1]
-       55 CAPTURE                          VAL R6
-       56 CAPTURE                          VAL R3
-       57 CAPTURE                          VAL R5
-       58 DUPCLOSURE                       R10 K18 [PROTO_2]
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R7
-       62 CAPTURE                          VAL R4
-       63 DUPCLOSURE                       R11 K19 [PROTO_4]
-       64 CAPTURE                          VAL R6
-       65 CAPTURE                          VAL R5
-       66 CAPTURE                          VAL R4
-       67 DUPCLOSURE                       R12 K20 [PROTO_6]
-       68 CAPTURE                          VAL R6
-       69 CAPTURE                          VAL R4
+       45 GETIMPORT                        R7 K16 [game]
+       47 LOADK                            R9 K17 ["ACEDetectHRPDuplicate"]
+       48 LOADB                            R10 0
+       49 NAMECALL                         R7 R7 K18 ["DefineFastFlag"]
+       51 CALL                             R7 3 1
+       52 GETIMPORT                        R8 K5 [require]
+       54 GETTABLEKS                       R9 R0 K19 ["LuaFlags"]
+       56 GETTABLEKS                       R9 R9 K20 ["GetFFlagRootMotion"]
+       58 CALL                             R8 1 1
+       59 NEWTABLE                         R9 1 0
+       61 DUPCLOSURE                       R10 K21 [PROTO_1]
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R7
+       64 CAPTURE                          VAL R8
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R5
+       68 DUPCLOSURE                       R11 K22 [PROTO_2]
+       69 CAPTURE                          VAL R6
        70 CAPTURE                          VAL R5
-       71 CAPTURE                          VAL R3
-       72 DUPCLOSURE                       R13 K21 [PROTO_7]
-       73 CAPTURE                          VAL R6
-       74 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R8
+       72 CAPTURE                          VAL R4
+       73 DUPCLOSURE                       R12 K23 [PROTO_4]
+       74 CAPTURE                          VAL R6
        75 CAPTURE                          VAL R5
-       76 DUPCLOSURE                       R14 K22 [PROTO_9]
-       77 CAPTURE                          VAL R6
-       78 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R4
+       77 DUPCLOSURE                       R13 K24 [PROTO_6]
+       78 CAPTURE                          VAL R6
        79 CAPTURE                          VAL R4
-       80 DUPCLOSURE                       R15 K23 [PROTO_10]
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R5
-       84 DUPCLOSURE                       R16 K24 [PROTO_11]
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R5
-       88 DUPCLOSURE                       R17 K25 [PROTO_12]
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          VAL R5
-       92 DUPCLOSURE                       R18 K26 [PROTO_13]
-       93 CAPTURE                          VAL R4
-       94 CAPTURE                          VAL R6
-       95 CAPTURE                          VAL R9
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R11
-       98 CAPTURE                          VAL R12
-       99 CAPTURE                          VAL R13
-      100 CAPTURE                          VAL R14
-      101 CAPTURE                          VAL R15
-      102 CAPTURE                          VAL R16
-      103 CAPTURE                          VAL R17
-      104 SETTABLEKS                       R18 R8 K27 ["validate"]
-      106 RETURN                           R8 1
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R3
+       82 DUPCLOSURE                       R14 K25 [PROTO_7]
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R5
+       86 DUPCLOSURE                       R15 K26 [PROTO_9]
+       87 CAPTURE                          VAL R6
+       88 CAPTURE                          VAL R5
+       89 CAPTURE                          VAL R4
+       90 DUPCLOSURE                       R16 K27 [PROTO_10]
+       91 CAPTURE                          VAL R6
+       92 CAPTURE                          VAL R4
+       93 CAPTURE                          VAL R5
+       94 DUPCLOSURE                       R17 K28 [PROTO_11]
+       95 CAPTURE                          VAL R6
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R5
+       98 DUPCLOSURE                       R18 K29 [PROTO_12]
+       99 CAPTURE                          VAL R6
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R5
+      102 DUPCLOSURE                       R19 K30 [PROTO_13]
+      103 CAPTURE                          VAL R4
+      104 CAPTURE                          VAL R6
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R12
+      108 CAPTURE                          VAL R13
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R15
+      111 CAPTURE                          VAL R16
+      112 CAPTURE                          VAL R17
+      113 CAPTURE                          VAL R18
+      114 SETTABLEKS                       R19 R9 K31 ["validate"]
+      116 RETURN                           R9 1

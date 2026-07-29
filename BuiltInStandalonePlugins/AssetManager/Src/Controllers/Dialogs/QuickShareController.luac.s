@@ -9,7 +9,7 @@ PROTO_0:
        13 RETURN                           R0 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K4 [{"_collab", "_universes", "OnCollabItemsChanged", "OnUniverseItemsChanged"}]
+        0 DUPTABLE                         R1 K6 [{[1], ["_universes"], ["_destroyed"] = False, ["OnCollabItemsChanged"], ["OnUniverseItemsChanged"]}]
         1 GETUPVAL                         R2 0
         2 CALL                             R2 0 1
         3 SETTABLEKS                       R2 R1 K0 ["_collab"]
@@ -17,33 +17,35 @@ PROTO_1:
         6 CALL                             R2 0 1
         7 SETTABLEKS                       R2 R1 K1 ["_universes"]
         9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R2 R2 K5 ["new"]
+       10 GETTABLEKS                       R2 R2 K7 ["new"]
        12 CALL                             R2 0 1
-       13 SETTABLEKS                       R2 R1 K2 ["OnCollabItemsChanged"]
+       13 SETTABLEKS                       R2 R1 K4 ["OnCollabItemsChanged"]
        15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R2 R2 K5 ["new"]
+       16 GETTABLEKS                       R2 R2 K7 ["new"]
        18 CALL                             R2 0 1
-       19 SETTABLEKS                       R2 R1 K3 ["OnUniverseItemsChanged"]
+       19 SETTABLEKS                       R2 R1 K5 ["OnUniverseItemsChanged"]
        21 GETUPVAL                         R4 2
        22 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
        24 MOVE                             R3 R1
-       25 GETIMPORT                        R2 K7 [setmetatable]
+       25 GETIMPORT                        R2 K9 [setmetatable]
        27 CALL                             R2 2 0
        28 MOVE                             R4 R0
-       29 NAMECALL                         R2 R1 K8 ["_loadCollaboratorItems"]
+       29 NAMECALL                         R2 R1 K10 ["_loadCollaboratorItems"]
        31 CALL                             R2 2 0
        32 RETURN                           R1 1
 
 PROTO_2:
-        0 LOADNIL                          R1
-        1 SETTABLEKS                       R1 R0 K0 ["_collab"]
+        0 LOADB                            R1 1
+        1 SETTABLEKS                       R1 R0 K0 ["_destroyed"]
         3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K1 ["_universes"]
+        4 SETTABLEKS                       R1 R0 K1 ["_collab"]
         6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K2 ["OnCollabItemsChanged"]
+        7 SETTABLEKS                       R1 R0 K2 ["_universes"]
         9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K3 ["OnUniverseItemsChanged"]
-       12 RETURN                           R0 0
+       10 SETTABLEKS                       R1 R0 K3 ["OnCollabItemsChanged"]
+       12 LOADNIL                          R1
+       13 SETTABLEKS                       R1 R0 K4 ["OnUniverseItemsChanged"]
+       15 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["_collab"]
@@ -112,54 +114,65 @@ PROTO_6:
        16 RETURN                           R2 1
 
 PROTO_7:
-        0 JUMPIF                           R0 ; [+1]
-        1 RETURN                           R0 0
-        2 GETUPVAL                         R1 0
-        3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R3 R3 K0 ["map"]
-        6 MOVE                             R4 R0
-        7 DUPCLOSURE                       R5 K1 [PROTO_6]
-        8 CAPTURE                          UPVAL U2
-        9 CALL                             R3 2 -1
-       10 NAMECALL                         R1 R1 K2 ["_addCollaboratorItems"]
-       12 CALL                             R1 -1 0
-       13 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_destroyed"]
+        3 JUMPIF                           R1 ; [+1]
+        4 JUMPIF                           R0 ; [+1]
+        5 RETURN                           R0 0
+        6 GETUPVAL                         R1 0
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K1 ["map"]
+       10 MOVE                             R4 R0
+       11 DUPCLOSURE                       R5 K2 [PROTO_6]
+       12 CAPTURE                          UPVAL U2
+       13 CALL                             R3 2 -1
+       14 NAMECALL                         R1 R1 K3 ["_addCollaboratorItems"]
+       16 CALL                             R1 -1 0
+       17 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
-        1 NEWTABLE                         R3 0 1
-        3 DUPTABLE                         R4 K4 [{"Id", "Name", "Uri", "Subject"}]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R5 R5 K0 ["Id"]
-        7 SETTABLEKS                       R5 R4 K0 ["Id"]
+        1 GETTABLEKS                       R1 R1 K0 ["_destroyed"]
+        3 JUMPIFNOT                        R1 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R1 0
+        6 NEWTABLE                         R3 0 1
+        8 DUPTABLE                         R4 K5 [{"Id", "Name", "Uri", "Subject"}]
         9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R5 R5 K1 ["Name"]
-       12 SETTABLEKS                       R5 R4 K1 ["Name"]
-       14 SETTABLEKS                       R0 R4 K2 ["Uri"]
-       16 GETUPVAL                         R5 2
-       17 GETTABLEKS                       R5 R5 K5 ["PermissionsSubject"]
-       19 GETTABLEKS                       R5 R5 K6 ["Group"]
-       21 SETTABLEKS                       R5 R4 K3 ["Subject"]
-       23 SETLIST                          R3 R4 1 [1]
-       25 NAMECALL                         R1 R1 K7 ["_addCollaboratorItems"]
-       27 CALL                             R1 2 0
-       28 RETURN                           R0 0
+       10 GETTABLEKS                       R5 R5 K1 ["Id"]
+       12 SETTABLEKS                       R5 R4 K1 ["Id"]
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R5 R5 K2 ["Name"]
+       17 SETTABLEKS                       R5 R4 K2 ["Name"]
+       19 SETTABLEKS                       R0 R4 K3 ["Uri"]
+       21 GETUPVAL                         R5 2
+       22 GETTABLEKS                       R5 R5 K6 ["PermissionsSubject"]
+       24 GETTABLEKS                       R5 R5 K7 ["Group"]
+       26 SETTABLEKS                       R5 R4 K4 ["Subject"]
+       28 SETLIST                          R3 R4 1 [1]
+       30 NAMECALL                         R1 R1 K8 ["_addCollaboratorItems"]
+       32 CALL                             R1 2 0
+       33 RETURN                           R0 0
 
 PROTO_9:
-        0 MOVE                             R1 R0
-        1 LOADNIL                          R2
-        2 LOADNIL                          R3
-        3 FORGPREP                         R1
-        4 GETUPVAL                         R6 0
-        5 MOVE                             R8 R5
-        6 NEWCLOSURE                       R9 P0
-        7 CAPTURE                          UPVAL U1
-        8 CAPTURE                          VAL R5
-        9 CAPTURE                          UPVAL U2
-       10 NAMECALL                         R6 R6 K0 ["getThumbnailForScopeAsync"]
-       12 CALL                             R6 3 0
-       13 FORGLOOP                         R1 2 ; [-10]
-       15 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["_destroyed"]
+        3 JUMPIFNOT                        R1 ; [+1]
+        4 RETURN                           R0 0
+        5 MOVE                             R1 R0
+        6 LOADNIL                          R2
+        7 LOADNIL                          R3
+        8 FORGPREP                         R1
+        9 GETUPVAL                         R6 1
+       10 MOVE                             R8 R5
+       11 NEWCLOSURE                       R9 P0
+       12 CAPTURE                          UPVAL U0
+       13 CAPTURE                          VAL R5
+       14 CAPTURE                          UPVAL U2
+       15 NAMECALL                         R6 R6 K1 ["getThumbnailForScopeAsync"]
+       17 CALL                             R6 3 0
+       18 FORGLOOP                         R1 2 ; [-10]
+       20 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R2 0
@@ -172,8 +185,8 @@ PROTO_10:
         7 CAPTURE                          UPVAL U3
         8 CALL                             R2 1 0
         9 NEWCLOSURE                       R4 P1
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          VAL R0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          VAL R1
        12 CAPTURE                          UPVAL U3
        13 NAMECALL                         R2 R1 K1 ["fetchGroupsAsync"]
        15 CALL                             R2 2 0

@@ -5,7 +5,8 @@ PROTO_0:
         5 GETTABLEKS                       R5 R2 K0 ["clickedFaceInstance"]
         7 SETLIST                          R4 R5 1 [1]
         9 RETURN                           R4 1
-       10 RETURN                           R0 0
+       10 LOADNIL                          R4
+       11 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

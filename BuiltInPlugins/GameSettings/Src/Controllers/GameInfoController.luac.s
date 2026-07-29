@@ -275,28 +275,24 @@ PROTO_17:
        11 RETURN                           R1 1
 
 PROTO_18:
-        0 GETUPVAL                         R2 0
-        1 JUMPIF                           R2 ; [+2]
-        2 LOADNIL                          R2
-        3 RETURN                           R2 1
-        4 MOVE                             R4 R1
-        5 NAMECALL                         R2 R0 K0 ["experienceGenreGET"]
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["experienceGenreGET"]
+        3 CALL                             R2 2 1
+        4 DUPCLOSURE                       R4 K1 [PROTO_17]
+        5 NAMECALL                         R2 R2 K2 ["catch"]
         7 CALL                             R2 2 1
-        8 DUPCLOSURE                       R4 K1 [PROTO_17]
-        9 NAMECALL                         R2 R2 K2 ["catch"]
-       11 CALL                             R2 2 1
-       12 NAMECALL                         R2 R2 K3 ["await"]
-       14 CALL                             R2 1 1
-       15 JUMPIFNOTEQKNIL                  R2 ; [+3]
-       17 LOADNIL                          R3
-       18 RETURN                           R3 1
-       19 GETTABLEKS                       R4 R2 K4 ["responseBody"]
-       21 JUMPIFNOT                        R4 ; [+5]
-       22 GETTABLEKS                       R3 R2 K4 ["responseBody"]
-       24 GETTABLEKS                       R3 R3 K5 ["genre"]
-       26 JUMPIF                           R3 ; [+1]
-       27 LOADNIL                          R3
-       28 RETURN                           R3 1
+        8 NAMECALL                         R2 R2 K3 ["await"]
+       10 CALL                             R2 1 1
+       11 JUMPIFNOTEQKNIL                  R2 ; [+3]
+       13 LOADNIL                          R3
+       14 RETURN                           R3 1
+       15 GETTABLEKS                       R4 R2 K4 ["responseBody"]
+       17 JUMPIFNOT                        R4 ; [+5]
+       18 GETTABLEKS                       R3 R2 K4 ["responseBody"]
+       20 GETTABLEKS                       R3 R3 K5 ["genre"]
+       22 JUMPIF                           R3 ; [+1]
+       23 LOADNIL                          R3
+       24 RETURN                           R3 1
 
 PROTO_19:
         0 MOVE                             R5 R1
@@ -551,95 +547,90 @@ MAIN:
        39 LOADK                            R8 K16 ["GameSettingsExperienceGuidelines"]
        40 NAMECALL                         R6 R6 K17 ["GetFastFlag"]
        42 CALL                             R6 2 1
-       43 GETIMPORT                        R7 K13 [game]
-       45 LOADK                            R9 K18 ["CU1320ExperienceGenre"]
-       46 NAMECALL                         R7 R7 K17 ["GetFastFlag"]
-       48 CALL                             R7 2 1
-       49 NEWTABLE                         R8 64 0
-       51 SETTABLEKS                       R8 R8 K19 ["__index"]
-       53 GETTABLEKS                       R9 R4 K20 ["named"]
-       55 LOADK                            R10 K21 ["NameModerated"]
-       56 CALL                             R9 1 1
-       57 SETTABLEKS                       R9 R8 K21 ["NameModerated"]
-       59 GETTABLEKS                       R9 R4 K20 ["named"]
-       61 LOADK                            R10 K22 ["DescriptionModerated"]
-       62 CALL                             R9 1 1
-       63 SETTABLEKS                       R9 R8 K22 ["DescriptionModerated"]
-       65 GETTABLEKS                       R9 R4 K20 ["named"]
-       67 LOADK                            R10 K23 ["AltTextModerated"]
-       68 CALL                             R9 1 1
-       69 SETTABLEKS                       R9 R8 K23 ["AltTextModerated"]
-       71 DUPCLOSURE                       R9 K24 [PROTO_0]
-       72 CAPTURE                          VAL R8
-       73 SETTABLEKS                       R9 R8 K25 ["new"]
-       75 DUPCLOSURE                       R9 K26 [PROTO_1]
-       76 SETTABLEKS                       R9 R8 K27 ["configurationV2GET"]
-       78 DUPCLOSURE                       R9 K28 [PROTO_2]
-       79 SETTABLEKS                       R9 R8 K29 ["iconV1GET"]
-       81 DUPCLOSURE                       R9 K30 [PROTO_3]
-       82 SETTABLEKS                       R9 R8 K31 ["thumbnailsV2GET"]
-       84 DUPCLOSURE                       R9 K32 [PROTO_4]
-       85 SETTABLEKS                       R9 R8 K33 ["configurationV2PATCH"]
-       87 DUPCLOSURE                       R9 K34 [PROTO_5]
-       88 CAPTURE                          VAL R6
-       89 SETTABLEKS                       R9 R8 K35 ["guidelinesPOST"]
-       91 DUPCLOSURE                       R9 K36 [PROTO_6]
-       92 SETTABLEKS                       R9 R8 K37 ["experienceGenreGET"]
-       94 DUPCLOSURE                       R9 K38 [PROTO_7]
-       95 CAPTURE                          VAL R2
-       96 SETTABLEKS                       R9 R8 K39 ["iconV1POST"]
-       98 DUPCLOSURE                       R9 K40 [PROTO_8]
-       99 CAPTURE                          VAL R2
-      100 SETTABLEKS                       R9 R8 K41 ["thumbnailV1POST"]
-      102 DUPCLOSURE                       R9 K42 [PROTO_9]
-      103 SETTABLEKS                       R9 R8 K43 ["thumbnailV1DELETE"]
-      105 DUPCLOSURE                       R9 K44 [PROTO_10]
-      106 SETTABLEKS                       R9 R8 K45 ["thumbnailOrderV1POST"]
-      108 DUPCLOSURE                       R9 K46 [PROTO_11]
-      109 SETTABLEKS                       R9 R8 K47 ["thumbnailAltTextV1POST"]
-      111 DUPCLOSURE                       R9 K48 [PROTO_12]
-      112 SETTABLEKS                       R9 R8 K49 ["getName"]
-      114 DUPCLOSURE                       R9 K50 [PROTO_14]
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          VAL R5
-      117 SETTABLEKS                       R9 R8 K51 ["setName"]
-      119 DUPCLOSURE                       R9 K52 [PROTO_15]
-      120 SETTABLEKS                       R9 R8 K53 ["getDescription"]
-      122 DUPCLOSURE                       R9 K54 [PROTO_16]
-      123 CAPTURE                          VAL R6
-      124 SETTABLEKS                       R9 R8 K55 ["getGuidelines"]
-      126 DUPCLOSURE                       R9 K56 [PROTO_18]
-      127 CAPTURE                          VAL R7
-      128 SETTABLEKS                       R9 R8 K57 ["getExperienceGenre"]
-      130 DUPCLOSURE                       R9 K58 [PROTO_19]
-      131 SETTABLEKS                       R9 R8 K59 ["setDescription"]
-      133 DUPCLOSURE                       R9 K60 [PROTO_20]
-      134 SETTABLEKS                       R9 R8 K61 ["getGenre"]
-      136 DUPCLOSURE                       R9 K62 [PROTO_21]
-      137 SETTABLEKS                       R9 R8 K63 ["setGenre"]
-      139 DUPCLOSURE                       R9 K64 [PROTO_22]
-      140 SETTABLEKS                       R9 R8 K65 ["getSupportedDevices"]
-      142 DUPCLOSURE                       R9 K66 [PROTO_23]
-      143 SETTABLEKS                       R9 R8 K67 ["setSupportedDevices"]
-      145 DUPCLOSURE                       R9 K68 [PROTO_24]
-      146 SETTABLEKS                       R9 R8 K69 ["getThumbnails"]
-      148 DUPCLOSURE                       R9 K70 [PROTO_26]
-      149 CAPTURE                          VAL R3
-      150 SETTABLEKS                       R9 R8 K71 ["addThumbnails"]
-      152 DUPCLOSURE                       R9 K72 [PROTO_27]
-      153 CAPTURE                          VAL R3
-      154 SETTABLEKS                       R9 R8 K73 ["removeThumbnails"]
-      156 DUPCLOSURE                       R9 K74 [PROTO_30]
-      157 CAPTURE                          VAL R8
-      158 SETTABLEKS                       R9 R8 K75 ["updateThumbnailAltText"]
-      160 DUPCLOSURE                       R9 K76 [PROTO_31]
-      161 SETTABLEKS                       R9 R8 K77 ["setThumbnailsOrder"]
-      163 DUPCLOSURE                       R9 K78 [PROTO_32]
-      164 SETTABLEKS                       R9 R8 K79 ["getIcon"]
-      166 DUPCLOSURE                       R9 K80 [PROTO_33]
-      167 SETTABLEKS                       R9 R8 K81 ["setIcon"]
-      169 DUPCLOSURE                       R9 K82 [PROTO_34]
-      170 SETTABLEKS                       R9 R8 K83 ["getOptInLocations"]
-      172 DUPCLOSURE                       R9 K84 [PROTO_35]
-      173 SETTABLEKS                       R9 R8 K85 ["setOptInLocations"]
-      175 RETURN                           R8 1
+       43 NEWTABLE                         R7 64 0
+       45 SETTABLEKS                       R7 R7 K18 ["__index"]
+       47 GETTABLEKS                       R8 R4 K19 ["named"]
+       49 LOADK                            R9 K20 ["NameModerated"]
+       50 CALL                             R8 1 1
+       51 SETTABLEKS                       R8 R7 K20 ["NameModerated"]
+       53 GETTABLEKS                       R8 R4 K19 ["named"]
+       55 LOADK                            R9 K21 ["DescriptionModerated"]
+       56 CALL                             R8 1 1
+       57 SETTABLEKS                       R8 R7 K21 ["DescriptionModerated"]
+       59 GETTABLEKS                       R8 R4 K19 ["named"]
+       61 LOADK                            R9 K22 ["AltTextModerated"]
+       62 CALL                             R8 1 1
+       63 SETTABLEKS                       R8 R7 K22 ["AltTextModerated"]
+       65 DUPCLOSURE                       R8 K23 [PROTO_0]
+       66 CAPTURE                          VAL R7
+       67 SETTABLEKS                       R8 R7 K24 ["new"]
+       69 DUPCLOSURE                       R8 K25 [PROTO_1]
+       70 SETTABLEKS                       R8 R7 K26 ["configurationV2GET"]
+       72 DUPCLOSURE                       R8 K27 [PROTO_2]
+       73 SETTABLEKS                       R8 R7 K28 ["iconV1GET"]
+       75 DUPCLOSURE                       R8 K29 [PROTO_3]
+       76 SETTABLEKS                       R8 R7 K30 ["thumbnailsV2GET"]
+       78 DUPCLOSURE                       R8 K31 [PROTO_4]
+       79 SETTABLEKS                       R8 R7 K32 ["configurationV2PATCH"]
+       81 DUPCLOSURE                       R8 K33 [PROTO_5]
+       82 CAPTURE                          VAL R6
+       83 SETTABLEKS                       R8 R7 K34 ["guidelinesPOST"]
+       85 DUPCLOSURE                       R8 K35 [PROTO_6]
+       86 SETTABLEKS                       R8 R7 K36 ["experienceGenreGET"]
+       88 DUPCLOSURE                       R8 K37 [PROTO_7]
+       89 CAPTURE                          VAL R2
+       90 SETTABLEKS                       R8 R7 K38 ["iconV1POST"]
+       92 DUPCLOSURE                       R8 K39 [PROTO_8]
+       93 CAPTURE                          VAL R2
+       94 SETTABLEKS                       R8 R7 K40 ["thumbnailV1POST"]
+       96 DUPCLOSURE                       R8 K41 [PROTO_9]
+       97 SETTABLEKS                       R8 R7 K42 ["thumbnailV1DELETE"]
+       99 DUPCLOSURE                       R8 K43 [PROTO_10]
+      100 SETTABLEKS                       R8 R7 K44 ["thumbnailOrderV1POST"]
+      102 DUPCLOSURE                       R8 K45 [PROTO_11]
+      103 SETTABLEKS                       R8 R7 K46 ["thumbnailAltTextV1POST"]
+      105 DUPCLOSURE                       R8 K47 [PROTO_12]
+      106 SETTABLEKS                       R8 R7 K48 ["getName"]
+      108 DUPCLOSURE                       R8 K49 [PROTO_14]
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R5
+      111 SETTABLEKS                       R8 R7 K50 ["setName"]
+      113 DUPCLOSURE                       R8 K51 [PROTO_15]
+      114 SETTABLEKS                       R8 R7 K52 ["getDescription"]
+      116 DUPCLOSURE                       R8 K53 [PROTO_16]
+      117 CAPTURE                          VAL R6
+      118 SETTABLEKS                       R8 R7 K54 ["getGuidelines"]
+      120 DUPCLOSURE                       R8 K55 [PROTO_18]
+      121 SETTABLEKS                       R8 R7 K56 ["getExperienceGenre"]
+      123 DUPCLOSURE                       R8 K57 [PROTO_19]
+      124 SETTABLEKS                       R8 R7 K58 ["setDescription"]
+      126 DUPCLOSURE                       R8 K59 [PROTO_20]
+      127 SETTABLEKS                       R8 R7 K60 ["getGenre"]
+      129 DUPCLOSURE                       R8 K61 [PROTO_21]
+      130 SETTABLEKS                       R8 R7 K62 ["setGenre"]
+      132 DUPCLOSURE                       R8 K63 [PROTO_22]
+      133 SETTABLEKS                       R8 R7 K64 ["getSupportedDevices"]
+      135 DUPCLOSURE                       R8 K65 [PROTO_23]
+      136 SETTABLEKS                       R8 R7 K66 ["setSupportedDevices"]
+      138 DUPCLOSURE                       R8 K67 [PROTO_24]
+      139 SETTABLEKS                       R8 R7 K68 ["getThumbnails"]
+      141 DUPCLOSURE                       R8 K69 [PROTO_26]
+      142 CAPTURE                          VAL R3
+      143 SETTABLEKS                       R8 R7 K70 ["addThumbnails"]
+      145 DUPCLOSURE                       R8 K71 [PROTO_27]
+      146 CAPTURE                          VAL R3
+      147 SETTABLEKS                       R8 R7 K72 ["removeThumbnails"]
+      149 DUPCLOSURE                       R8 K73 [PROTO_30]
+      150 CAPTURE                          VAL R7
+      151 SETTABLEKS                       R8 R7 K74 ["updateThumbnailAltText"]
+      153 DUPCLOSURE                       R8 K75 [PROTO_31]
+      154 SETTABLEKS                       R8 R7 K76 ["setThumbnailsOrder"]
+      156 DUPCLOSURE                       R8 K77 [PROTO_32]
+      157 SETTABLEKS                       R8 R7 K78 ["getIcon"]
+      159 DUPCLOSURE                       R8 K79 [PROTO_33]
+      160 SETTABLEKS                       R8 R7 K80 ["setIcon"]
+      162 DUPCLOSURE                       R8 K81 [PROTO_34]
+      163 SETTABLEKS                       R8 R7 K82 ["getOptInLocations"]
+      165 DUPCLOSURE                       R8 K83 [PROTO_35]
+      166 SETTABLEKS                       R8 R7 K84 ["setOptInLocations"]
+      168 RETURN                           R7 1

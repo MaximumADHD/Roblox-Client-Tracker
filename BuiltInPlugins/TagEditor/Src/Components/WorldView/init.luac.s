@@ -12,21 +12,20 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["enabled"]
-        2 JUMPIFNOT                        R1 ; [+15]
+        2 JUMPIFNOT                        R1 ; [+13]
         3 GETUPVAL                         R1 0
         4 GETTABLEKS                       R1 R1 K1 ["createElement"]
         6 GETUPVAL                         R2 1
-        7 NEWTABLE                         R3 0 0
-        9 DUPTABLE                         R4 K3 [{"render"}]
-       10 NEWCLOSURE                       R5 P0
-       11 CAPTURE                          UPVAL U0
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R5 R4 K2 ["render"]
-       16 CALL                             R1 3 -1
-       17 RETURN                           R1 -1
-       18 LOADNIL                          R1
-       19 RETURN                           R1 1
+        7 DUPTABLE                         R3 K3 [{"render"}]
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          UPVAL U0
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R4 R3 K2 ["render"]
+       14 CALL                             R1 2 -1
+       15 RETURN                           R1 -1
+       16 LOADNIL                          R1
+       17 RETURN                           R1 1
 
 PROTO_2:
         0 DUPTABLE                         R1 K2 [{"enabled", "tags"}]

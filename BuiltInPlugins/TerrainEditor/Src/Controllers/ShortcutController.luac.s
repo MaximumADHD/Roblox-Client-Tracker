@@ -390,6 +390,82 @@ PROTO_11:
         7 RETURN                           R1 -1
 
 PROTO_12:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["BrushSize"]
+        3 JUMPIFNOTEQ                      R0 R1 ; [+54]
+        5 GETUPVAL                         R1 1
+        6 GETUPVAL                         R6 2
+        7 GETTABLEKS                       R6 R6 K1 ["_originalValues"]
+        9 GETTABLE                         R5 R6 R0
+       10 GETTABLEKS                       R5 R5 K2 ["Size"]
+       12 GETUPVAL                         R7 2
+       13 GETTABLEKS                       R7 R7 K3 ["_cachedValues"]
+       15 GETTABLE                         R6 R7 R0
+       16 GETTABLEKS                       R6 R6 K2 ["Size"]
+       18 ADD                              R4 R5 R6
+       19 FASTCALL1                        MATH_FLOOR R4 ; [+2]
+       20 GETIMPORT                        R3 K6 [math.floor]
+       22 CALL                             R3 1 1
+       23 LOADN                            R4 1
+       24 LOADN                            R5 64
+       25 FASTCALL                         MATH_CLAMP ; [+2]
+       26 GETIMPORT                        R2 K8 [math.clamp]
+       28 CALL                             R2 3 1
+       29 SETTABLEKS                       R2 R1 K2 ["Size"]
+       31 GETUPVAL                         R1 1
+       32 GETUPVAL                         R6 2
+       33 GETTABLEKS                       R6 R6 K1 ["_originalValues"]
+       35 GETTABLE                         R5 R6 R0
+       36 GETTABLEKS                       R5 R5 K9 ["Height"]
+       38 GETUPVAL                         R7 2
+       39 GETTABLEKS                       R7 R7 K3 ["_cachedValues"]
+       41 GETTABLE                         R6 R7 R0
+       42 GETTABLEKS                       R6 R6 K9 ["Height"]
+       44 ADD                              R4 R5 R6
+       45 FASTCALL1                        MATH_FLOOR R4 ; [+2]
+       46 GETIMPORT                        R3 K6 [math.floor]
+       48 CALL                             R3 1 1
+       49 LOADN                            R4 1
+       50 LOADN                            R5 64
+       51 FASTCALL                         MATH_CLAMP ; [+2]
+       52 GETIMPORT                        R2 K8 [math.clamp]
+       54 CALL                             R2 3 1
+       55 SETTABLEKS                       R2 R1 K9 ["Height"]
+       57 JUMP                             ; [+27]
+       58 GETUPVAL                         R1 0
+       59 GETTABLEKS                       R1 R1 K10 ["Strength"]
+       61 JUMPIFNOTEQ                      R0 R1 ; [+23]
+       63 GETUPVAL                         R7 2
+       64 GETTABLEKS                       R7 R7 K1 ["_originalValues"]
+       66 GETTABLE                         R6 R7 R0
+       67 GETUPVAL                         R8 2
+       68 GETTABLEKS                       R8 R8 K3 ["_cachedValues"]
+       70 GETTABLE                         R7 R8 R0
+       71 ADD                              R5 R6 R7
+       72 MULK                             R4 R5 K11 [100]
+       73 FASTCALL1                        MATH_FLOOR R4 ; [+2]
+       74 GETIMPORT                        R3 K6 [math.floor]
+       76 CALL                             R3 1 1
+       77 DIVK                             R2 R3 K11 [100]
+       78 LOADN                            R3 0
+       79 LOADN                            R4 1
+       80 FASTCALL                         MATH_CLAMP ; [+2]
+       81 GETIMPORT                        R1 K8 [math.clamp]
+       83 CALL                             R1 3 1
+       84 SETUPVAL                         R1 1
+       85 GETUPVAL                         R1 2
+       86 GETTABLEKS                       R1 R1 K3 ["_cachedValues"]
+       88 GETUPVAL                         R2 3
+       89 LOADNIL                          R3
+       90 SETTABLE                         R3 R1 R2
+       91 GETUPVAL                         R1 2
+       92 GETTABLEKS                       R1 R1 K1 ["_originalValues"]
+       94 GETUPVAL                         R2 3
+       95 LOADNIL                          R3
+       96 SETTABLE                         R3 R1 R2
+       97 RETURN                           R0 0
+
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R7 1
         2 GETTABLEKS                       R7 R7 K1 ["_originalValues"]
@@ -413,7 +489,7 @@ PROTO_12:
        24 CALL                             R0 1 -1
        25 RETURN                           R0 -1
 
-PROTO_13:
+PROTO_14:
         0 GETIMPORT                        R0 K2 [table.clone]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 1
@@ -462,7 +538,7 @@ PROTO_13:
        60 CALL                             R1 1 -1
        61 RETURN                           R1 -1
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+10]
         2 GETUPVAL                         R0 1
@@ -474,7 +550,7 @@ PROTO_14:
        11 CALL                             R0 2 0
        12 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          UPVAL U0
@@ -597,7 +673,7 @@ PROTO_15:
       156 CALL                             R3 0 0
       157 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["isBDown"]
         3 CALL                             R1 1 1
@@ -625,7 +701,7 @@ PROTO_16:
        30 CALL                             R2 2 0
        31 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["isBDown"]
         3 CALL                             R0 1 1
@@ -660,7 +736,7 @@ PROTO_17:
        41 CALL                             R2 2 0
        42 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["UserInputType"]
         2 GETIMPORT                        R2 K3 [Enum.UserInputType.MouseMovement]
         4 JUMPIFNOTEQ                      R1 R2 ; [+4]
@@ -676,7 +752,7 @@ PROTO_18:
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]
         2 GETIMPORT                        R2 K3 [Enum.KeyCode.B]
         4 JUMPIFNOTEQ                      R1 R2 ; [+110]
@@ -762,10 +838,10 @@ PROTO_19:
       114 CALL                             R2 2 0
       115 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]
         2 GETIMPORT                        R2 K3 [Enum.KeyCode.B]
-        4 JUMPIFNOTEQ                      R1 R2 ; [+24]
+        4 JUMPIFNOTEQ                      R1 R2 ; [+31]
         6 GETIMPORT                        R1 K6 [table.find]
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R2 R2 K7 ["_reservedMouseMove"]
@@ -777,72 +853,87 @@ PROTO_20:
        17 GETTABLEKS                       R3 R3 K7 ["_reservedMouseMove"]
        19 MOVE                             R4 R1
        20 CALL                             R2 2 0
-       21 GETUPVAL                         R2 0
-       22 GETTABLEKS                       R2 R2 K10 ["_cachedValues"]
-       24 GETUPVAL                         R3 1
-       25 LOADNIL                          R4
-       26 SETTABLE                         R4 R2 R3
-       27 GETUPVAL                         R2 2
-       28 CALL                             R2 0 0
-       29 RETURN                           R0 0
+       21 GETUPVAL                         R2 2
+       22 CALL                             R2 0 1
+       23 JUMPIFNOT                        R2 ; [+4]
+       24 GETUPVAL                         R2 3
+       25 GETUPVAL                         R3 1
+       26 CALL                             R2 1 0
+       27 RETURN                           R0 0
+       28 GETUPVAL                         R2 0
+       29 GETTABLEKS                       R2 R2 K10 ["_cachedValues"]
+       31 GETUPVAL                         R3 1
+       32 LOADNIL                          R4
+       33 SETTABLE                         R4 R2 R3
+       34 GETUPVAL                         R2 4
+       35 CALL                             R2 0 0
+       36 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 NEWCLOSURE                       R5 P0
-        1 CAPTURE                          VAL R3
-        2 CAPTURE                          VAL R0
-        3 CAPTURE                          VAL R1
-        4 NEWCLOSURE                       R6 P1
-        5 CAPTURE                          VAL R2
-        6 CAPTURE                          VAL R0
-        7 CAPTURE                          VAL R1
-        8 CAPTURE                          VAL R3
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          REF R2
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          VAL R1
+        5 NEWCLOSURE                       R6 P1
+        6 CAPTURE                          VAL R3
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          VAL R1
         9 NEWCLOSURE                       R7 P2
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          VAL R1
-       12 CAPTURE                          UPVAL U0
+       10 CAPTURE                          REF R2
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          VAL R1
        13 CAPTURE                          VAL R3
-       14 CAPTURE                          VAL R2
-       15 CAPTURE                          VAL R6
-       16 NEWCLOSURE                       R8 P3
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          VAL R1
-       19 CAPTURE                          VAL R7
-       20 NEWCLOSURE                       R9 P4
-       21 CAPTURE                          VAL R0
-       22 CAPTURE                          VAL R1
-       23 CAPTURE                          VAL R7
-       24 NEWCLOSURE                       R10 P5
-       25 CAPTURE                          VAL R9
-       26 CAPTURE                          VAL R8
-       27 NEWCLOSURE                       R11 P6
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          VAL R1
-       30 CAPTURE                          UPVAL U0
-       31 CAPTURE                          VAL R2
+       14 NEWCLOSURE                       R8 P3
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          VAL R1
+       17 CAPTURE                          UPVAL U0
+       18 CAPTURE                          VAL R3
+       19 CAPTURE                          REF R2
+       20 CAPTURE                          VAL R7
+       21 NEWCLOSURE                       R9 P4
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          VAL R1
+       24 CAPTURE                          VAL R8
+       25 NEWCLOSURE                       R10 P5
+       26 CAPTURE                          VAL R0
+       27 CAPTURE                          VAL R1
+       28 CAPTURE                          VAL R8
+       29 NEWCLOSURE                       R11 P6
+       30 CAPTURE                          VAL R10
+       31 CAPTURE                          VAL R9
        32 NEWCLOSURE                       R12 P7
        33 CAPTURE                          VAL R0
        34 CAPTURE                          VAL R1
-       35 CAPTURE                          VAL R4
-       36 NEWTABLE                         R13 0 3
-       38 GETTABLEKS                       R14 R0 K0 ["_userInputService"]
-       40 GETTABLEKS                       R14 R14 K1 ["InputChanged"]
-       42 MOVE                             R16 R10
-       43 NAMECALL                         R14 R14 K2 ["Connect"]
-       45 CALL                             R14 2 1
-       46 GETTABLEKS                       R15 R0 K0 ["_userInputService"]
-       48 GETTABLEKS                       R15 R15 K3 ["InputBegan"]
-       50 MOVE                             R17 R11
-       51 NAMECALL                         R15 R15 K2 ["Connect"]
-       53 CALL                             R15 2 1
-       54 GETTABLEKS                       R16 R0 K0 ["_userInputService"]
-       56 GETTABLEKS                       R16 R16 K4 ["InputEnded"]
-       58 MOVE                             R18 R12
-       59 NAMECALL                         R16 R16 K2 ["Connect"]
-       61 CALL                             R16 2 -1
-       62 SETLIST                          R13 R14 -1 [1]
-       64 RETURN                           R13 1
+       35 CAPTURE                          UPVAL U0
+       36 CAPTURE                          REF R2
+       37 NEWCLOSURE                       R13 P8
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          UPVAL U1
+       41 CAPTURE                          VAL R5
+       42 CAPTURE                          VAL R4
+       43 NEWTABLE                         R14 0 3
+       45 GETTABLEKS                       R15 R0 K0 ["_userInputService"]
+       47 GETTABLEKS                       R15 R15 K1 ["InputChanged"]
+       49 MOVE                             R17 R11
+       50 NAMECALL                         R15 R15 K2 ["Connect"]
+       52 CALL                             R15 2 1
+       53 GETTABLEKS                       R16 R0 K0 ["_userInputService"]
+       55 GETTABLEKS                       R16 R16 K3 ["InputBegan"]
+       57 MOVE                             R18 R12
+       58 NAMECALL                         R16 R16 K2 ["Connect"]
+       60 CALL                             R16 2 1
+       61 GETTABLEKS                       R17 R0 K0 ["_userInputService"]
+       63 GETTABLEKS                       R17 R17 K4 ["InputEnded"]
+       65 MOVE                             R19 R13
+       66 NAMECALL                         R17 R17 K2 ["Connect"]
+       68 CALL                             R17 2 -1
+       69 SETLIST                          R14 R15 -1 [1]
+       71 CLOSEUPVALS                      R2
+       72 RETURN                           R14 1
 
-PROTO_22:
+PROTO_23:
         0 LOADB                            R1 1
         1 GETTABLEKS                       R2 R0 K0 ["KeyCode"]
         3 GETIMPORT                        R3 K3 [Enum.KeyCode.LeftControl]
@@ -854,7 +945,7 @@ PROTO_22:
        14 LOADB                            R1 1
        15 RETURN                           R1 1
 
-PROTO_23:
+PROTO_24:
         0 LOADB                            R1 1
         1 GETTABLEKS                       R2 R0 K0 ["KeyCode"]
         3 GETIMPORT                        R3 K3 [Enum.KeyCode.LeftControl]
@@ -873,7 +964,7 @@ PROTO_23:
        24 CALL                             R1 2 0
        25 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 LOADB                            R1 1
         1 GETTABLEKS                       R2 R0 K0 ["KeyCode"]
         3 GETIMPORT                        R3 K3 [Enum.KeyCode.LeftControl]
@@ -897,7 +988,7 @@ PROTO_24:
        30 CALL                             R2 2 0
        31 RETURN                           R0 0
 
-PROTO_25:
+PROTO_26:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["isControlDown"]
         3 CALL                             R0 1 1
@@ -954,8 +1045,8 @@ PROTO_25:
        75 CALL                             R4 1 0
        76 RETURN                           R0 0
 
-PROTO_26:
-        0 DUPCLOSURE                       R3 K0 [PROTO_22]
+PROTO_27:
+        0 DUPCLOSURE                       R3 K0 [PROTO_23]
         1 NEWCLOSURE                       R4 P1
         2 CAPTURE                          VAL R0
         3 CAPTURE                          VAL R1
@@ -988,7 +1079,7 @@ PROTO_26:
        40 SETLIST                          R7 R8 -1 [1]
        42 RETURN                           R7 1
 
-PROTO_27:
+PROTO_28:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]
         2 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
         4 JUMPIFEQ                         R1 R2 ; [+7]
@@ -1032,7 +1123,7 @@ PROTO_27:
        55 SETTABLEKS                       R2 R1 K7 ["_altWasDown"]
        57 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          VAL R1
@@ -1052,7 +1143,7 @@ PROTO_28:
        23 SETLIST                          R4 R5 -1 [1]
        25 RETURN                           R4 1
 
-PROTO_29:
+PROTO_30:
         0 LOADB                            R1 1
         1 GETTABLEKS                       R2 R0 K0 ["KeyCode"]
         3 GETIMPORT                        R3 K3 [Enum.KeyCode.LeftAlt]
@@ -1064,7 +1155,7 @@ PROTO_29:
        14 LOADB                            R1 1
        15 RETURN                           R1 1
 
-PROTO_30:
+PROTO_31:
         0 LOADB                            R1 1
         1 GETTABLEKS                       R2 R0 K0 ["KeyCode"]
         3 GETIMPORT                        R3 K3 [Enum.KeyCode.LeftAlt]
@@ -1083,7 +1174,7 @@ PROTO_30:
        24 CALL                             R1 2 0
        25 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 LOADB                            R1 1
         1 GETTABLEKS                       R2 R0 K0 ["KeyCode"]
         3 GETIMPORT                        R3 K3 [Enum.KeyCode.LeftAlt]
@@ -1107,7 +1198,7 @@ PROTO_31:
        30 CALL                             R2 2 0
        31 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["isAltDown"]
         3 CALL                             R0 1 1
@@ -1164,8 +1255,8 @@ PROTO_32:
        75 CALL                             R4 1 0
        76 RETURN                           R0 0
 
-PROTO_33:
-        0 DUPCLOSURE                       R3 K0 [PROTO_29]
+PROTO_34:
+        0 DUPCLOSURE                       R3 K0 [PROTO_30]
         1 NEWCLOSURE                       R4 P1
         2 CAPTURE                          VAL R0
         3 CAPTURE                          VAL R1
@@ -1198,7 +1289,7 @@ PROTO_33:
        40 SETLIST                          R7 R8 -1 [1]
        42 RETURN                           R7 1
 
-PROTO_34:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]
         2 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftControl]
         4 JUMPIFEQ                         R1 R2 ; [+7]
@@ -1242,7 +1333,7 @@ PROTO_34:
        55 SETTABLEKS                       R2 R1 K7 ["_controlWasDown"]
        57 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          VAL R1
@@ -1262,7 +1353,7 @@ PROTO_35:
        23 SETLIST                          R4 R5 -1 [1]
        25 RETURN                           R4 1
 
-PROTO_36:
+PROTO_37:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]
         2 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftShift]
         4 JUMPIFEQ                         R1 R2 ; [+7]
@@ -1276,7 +1367,7 @@ PROTO_36:
        17 CALL                             R1 -1 0
        18 RETURN                           R0 0
 
-PROTO_37:
+PROTO_38:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
@@ -1294,7 +1385,7 @@ PROTO_37:
        21 SETLIST                          R3 R4 -1 [1]
        23 RETURN                           R3 1
 
-PROTO_38:
+PROTO_39:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K0 ["_manualPlaneLock"]
@@ -1306,7 +1397,7 @@ PROTO_38:
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
-PROTO_39:
+PROTO_40:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["EditPlane"]
@@ -1317,7 +1408,7 @@ PROTO_39:
         9 SETTABLEKS                       R1 R0 K2 ["_toggleEditEnabled"]
        11 RETURN                           R0 0
 
-PROTO_40:
+PROTO_41:
         0 GETTABLEKS                       R3 R0 K0 ["_toggleEditEnabled"]
         2 JUMPIF                           R3 ; [+9]
         3 GETUPVAL                         R5 0
@@ -1348,7 +1439,7 @@ PROTO_40:
        39 SETLIST                          R4 R5 2 [1]
        41 RETURN                           R4 1
 
-PROTO_41:
+PROTO_42:
         0 MOVE                             R7 R1
         1 NAMECALL                         R5 R0 K0 ["supportsShortcut"]
         3 CALL                             R5 2 1
@@ -1409,7 +1500,7 @@ PROTO_41:
        79 RETURN                           R5 -1
        80 RETURN                           R0 0
 
-PROTO_42:
+PROTO_43:
         0 NEWTABLE                         R2 8 0
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K0 ["BrushSize"]
@@ -1442,29 +1533,29 @@ PROTO_42:
        37 GETTABLE                         R3 R2 R1
        38 RETURN                           R3 1
 
-PROTO_43:
+PROTO_44:
         0 GETTABLEKS                       R1 R0 K0 ["_mouse"]
         2 RETURN                           R1 1
 
-PROTO_44:
+PROTO_45:
         0 GETTABLEKS                       R1 R0 K0 ["_mouseDown"]
         2 RETURN                           R1 1
 
-PROTO_45:
+PROTO_46:
         0 MOVE                             R4 R1
         1 LOADB                            R5 1
         2 NAMECALL                         R2 R0 K0 ["SetEnabled"]
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_46:
+PROTO_47:
         0 MOVE                             R4 R1
         1 LOADB                            R5 0
         2 NAMECALL                         R2 R0 K0 ["SetEnabled"]
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_47:
+PROTO_48:
         0 GETTABLEKS                       R3 R0 K0 ["_pluginActions"]
         2 MOVE                             R5 R1
         3 NAMECALL                         R3 R3 K1 ["get"]
@@ -1472,7 +1563,7 @@ PROTO_47:
         6 SETTABLEKS                       R2 R3 K2 ["Enabled"]
         8 RETURN                           R0 0
 
-PROTO_48:
+PROTO_49:
         0 GETTABLEKS                       R3 R0 K0 ["_pluginActions"]
         2 MOVE                             R5 R1
         3 NAMECALL                         R3 R3 K1 ["get"]
@@ -1515,79 +1606,85 @@ MAIN:
        50 CALL                             R9 1 1
        51 GETIMPORT                        R10 K5 [require]
        53 GETTABLEKS                       R11 R0 K13 ["Src"]
-       55 GETTABLEKS                       R11 R11 K19 ["Types"]
-       57 CALL                             R10 1 1
-       58 GETTABLEKS                       R11 R10 K20 ["BrushMode"]
-       60 GETTABLEKS                       R12 R10 K21 ["BrushSettings"]
-       62 GETTABLEKS                       R13 R10 K22 ["MaterialSettings"]
-       64 GETTABLEKS                       R14 R10 K23 ["PluginAction"]
-       66 LOADK                            R17 K24 ["ShortcutController"]
-       67 NAMECALL                         R15 R3 K25 ["extend"]
-       69 CALL                             R15 2 1
-       70 DUPCLOSURE                       R16 K26 [PROTO_5]
-       71 CAPTURE                          VAL R14
-       72 CAPTURE                          VAL R4
-       73 CAPTURE                          VAL R6
-       74 CAPTURE                          VAL R15
-       75 SETTABLEKS                       R16 R15 K27 ["new"]
-       77 DUPCLOSURE                       R16 K28 [PROTO_6]
-       78 SETTABLEKS                       R16 R15 K29 ["isMouseMoveReserved"]
-       80 DUPCLOSURE                       R16 K30 [PROTO_7]
-       81 SETTABLEKS                       R16 R15 K31 ["isMouseDownReserved"]
-       83 DUPCLOSURE                       R16 K32 [PROTO_8]
-       84 SETTABLEKS                       R16 R15 K33 ["isAltDown"]
-       86 DUPCLOSURE                       R16 K34 [PROTO_9]
-       87 SETTABLEKS                       R16 R15 K35 ["isShiftDown"]
-       89 DUPCLOSURE                       R16 K36 [PROTO_10]
-       90 SETTABLEKS                       R16 R15 K37 ["isControlDown"]
-       92 DUPCLOSURE                       R16 K38 [PROTO_11]
-       93 SETTABLEKS                       R16 R15 K39 ["isBDown"]
-       95 DUPCLOSURE                       R16 K40 [PROTO_21]
-       96 CAPTURE                          VAL R12
-       97 SETTABLEKS                       R16 R15 K41 ["onBrushChanged"]
-       99 MOVE                             R16 R9
-      100 CALL                             R16 0 1
-      101 JUMPIFNOT                        R16 ; [+11]
-      102 DUPCLOSURE                       R16 K42 [PROTO_26]
-      103 CAPTURE                          VAL R7
-      104 CAPTURE                          VAL R8
+       55 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       57 GETTABLEKS                       R11 R11 K19 ["getFFlagTerrainEditorCommitBrushSettings"]
+       59 CALL                             R10 1 1
+       60 GETIMPORT                        R11 K5 [require]
+       62 GETTABLEKS                       R12 R0 K13 ["Src"]
+       64 GETTABLEKS                       R12 R12 K20 ["Types"]
+       66 CALL                             R11 1 1
+       67 GETTABLEKS                       R12 R11 K21 ["BrushMode"]
+       69 GETTABLEKS                       R13 R11 K22 ["BrushSettings"]
+       71 GETTABLEKS                       R14 R11 K23 ["MaterialSettings"]
+       73 GETTABLEKS                       R15 R11 K24 ["PluginAction"]
+       75 LOADK                            R18 K25 ["ShortcutController"]
+       76 NAMECALL                         R16 R3 K26 ["extend"]
+       78 CALL                             R16 2 1
+       79 DUPCLOSURE                       R17 K27 [PROTO_5]
+       80 CAPTURE                          VAL R15
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R16
+       84 SETTABLEKS                       R17 R16 K28 ["new"]
+       86 DUPCLOSURE                       R17 K29 [PROTO_6]
+       87 SETTABLEKS                       R17 R16 K30 ["isMouseMoveReserved"]
+       89 DUPCLOSURE                       R17 K31 [PROTO_7]
+       90 SETTABLEKS                       R17 R16 K32 ["isMouseDownReserved"]
+       92 DUPCLOSURE                       R17 K33 [PROTO_8]
+       93 SETTABLEKS                       R17 R16 K34 ["isAltDown"]
+       95 DUPCLOSURE                       R17 K35 [PROTO_9]
+       96 SETTABLEKS                       R17 R16 K36 ["isShiftDown"]
+       98 DUPCLOSURE                       R17 K37 [PROTO_10]
+       99 SETTABLEKS                       R17 R16 K38 ["isControlDown"]
+      101 DUPCLOSURE                       R17 K39 [PROTO_11]
+      102 SETTABLEKS                       R17 R16 K40 ["isBDown"]
+      104 DUPCLOSURE                       R17 K41 [PROTO_22]
       105 CAPTURE                          VAL R13
-      106 SETTABLEKS                       R16 R15 K43 ["onMaterialPicked"]
-      108 DUPCLOSURE                       R16 K44 [PROTO_28]
-      109 CAPTURE                          VAL R11
-      110 SETTABLEKS                       R16 R15 K45 ["onBrushMode"]
-      112 JUMP                             ; [+10]
-      113 DUPCLOSURE                       R16 K46 [PROTO_33]
-      114 CAPTURE                          VAL R7
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          VAL R13
-      117 SETTABLEKS                       R16 R15 K43 ["onMaterialPicked"]
-      119 DUPCLOSURE                       R16 K47 [PROTO_35]
-      120 CAPTURE                          VAL R11
-      121 SETTABLEKS                       R16 R15 K45 ["onBrushMode"]
-      123 DUPCLOSURE                       R16 K48 [PROTO_37]
-      124 SETTABLEKS                       R16 R15 K49 ["onTemporarySmooth"]
-      126 DUPCLOSURE                       R16 K50 [PROTO_40]
-      127 CAPTURE                          VAL R14
-      128 SETTABLEKS                       R16 R15 K51 ["onToggleEdit"]
-      130 DUPCLOSURE                       R16 K52 [PROTO_41]
-      131 CAPTURE                          VAL R12
-      132 CAPTURE                          VAL R13
-      133 SETTABLEKS                       R16 R15 K53 ["registerShortcut"]
-      135 DUPCLOSURE                       R16 K54 [PROTO_42]
-      136 CAPTURE                          VAL R12
-      137 CAPTURE                          VAL R13
-      138 SETTABLEKS                       R16 R15 K55 ["supportsShortcut"]
-      140 DUPCLOSURE                       R16 K56 [PROTO_43]
-      141 SETTABLEKS                       R16 R15 K57 ["getMouse"]
-      143 DUPCLOSURE                       R16 K58 [PROTO_44]
-      144 SETTABLEKS                       R16 R15 K59 ["IsMouseDown"]
-      146 DUPCLOSURE                       R16 K60 [PROTO_45]
-      147 SETTABLEKS                       R16 R15 K61 ["Enable"]
-      149 DUPCLOSURE                       R16 K62 [PROTO_46]
-      150 SETTABLEKS                       R16 R15 K63 ["Disable"]
-      152 DUPCLOSURE                       R16 K64 [PROTO_47]
-      153 SETTABLEKS                       R16 R15 K65 ["SetEnabled"]
-      155 DUPCLOSURE                       R16 K66 [PROTO_48]
-      156 SETTABLEKS                       R16 R15 K67 ["Connect"]
-      158 RETURN                           R15 1
+      106 CAPTURE                          VAL R10
+      107 SETTABLEKS                       R17 R16 K42 ["onBrushChanged"]
+      109 MOVE                             R17 R9
+      110 CALL                             R17 0 1
+      111 JUMPIFNOT                        R17 ; [+11]
+      112 DUPCLOSURE                       R17 K43 [PROTO_27]
+      113 CAPTURE                          VAL R7
+      114 CAPTURE                          VAL R8
+      115 CAPTURE                          VAL R14
+      116 SETTABLEKS                       R17 R16 K44 ["onMaterialPicked"]
+      118 DUPCLOSURE                       R17 K45 [PROTO_29]
+      119 CAPTURE                          VAL R12
+      120 SETTABLEKS                       R17 R16 K46 ["onBrushMode"]
+      122 JUMP                             ; [+10]
+      123 DUPCLOSURE                       R17 K47 [PROTO_34]
+      124 CAPTURE                          VAL R7
+      125 CAPTURE                          VAL R8
+      126 CAPTURE                          VAL R14
+      127 SETTABLEKS                       R17 R16 K44 ["onMaterialPicked"]
+      129 DUPCLOSURE                       R17 K48 [PROTO_36]
+      130 CAPTURE                          VAL R12
+      131 SETTABLEKS                       R17 R16 K46 ["onBrushMode"]
+      133 DUPCLOSURE                       R17 K49 [PROTO_38]
+      134 SETTABLEKS                       R17 R16 K50 ["onTemporarySmooth"]
+      136 DUPCLOSURE                       R17 K51 [PROTO_41]
+      137 CAPTURE                          VAL R15
+      138 SETTABLEKS                       R17 R16 K52 ["onToggleEdit"]
+      140 DUPCLOSURE                       R17 K53 [PROTO_42]
+      141 CAPTURE                          VAL R13
+      142 CAPTURE                          VAL R14
+      143 SETTABLEKS                       R17 R16 K54 ["registerShortcut"]
+      145 DUPCLOSURE                       R17 K55 [PROTO_43]
+      146 CAPTURE                          VAL R13
+      147 CAPTURE                          VAL R14
+      148 SETTABLEKS                       R17 R16 K56 ["supportsShortcut"]
+      150 DUPCLOSURE                       R17 K57 [PROTO_44]
+      151 SETTABLEKS                       R17 R16 K58 ["getMouse"]
+      153 DUPCLOSURE                       R17 K59 [PROTO_45]
+      154 SETTABLEKS                       R17 R16 K60 ["IsMouseDown"]
+      156 DUPCLOSURE                       R17 K61 [PROTO_46]
+      157 SETTABLEKS                       R17 R16 K62 ["Enable"]
+      159 DUPCLOSURE                       R17 K63 [PROTO_47]
+      160 SETTABLEKS                       R17 R16 K64 ["Disable"]
+      162 DUPCLOSURE                       R17 K65 [PROTO_48]
+      163 SETTABLEKS                       R17 R16 K66 ["SetEnabled"]
+      165 DUPCLOSURE                       R17 K67 [PROTO_49]
+      166 SETTABLEKS                       R17 R16 K68 ["Connect"]
+      168 RETURN                           R16 1

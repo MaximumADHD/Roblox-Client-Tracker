@@ -58,10 +58,17 @@ PROTO_3:
         1 RETURN                           R0 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 LOADK                            R2 K0 ["orgs/v2/groups/permissions/createassets"]
-        2 CONCAT                           R0 R1 R2
-        3 RETURN                           R0 1
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+4]
+        3 GETUPVAL                         R1 1
+        4 LOADK                            R2 K0 ["creator-home-api/v1/groups?surface=StudioAssetCreation"]
+        5 CONCAT                           R0 R1 R2
+        6 RETURN                           R0 1
+        7 GETUPVAL                         R1 1
+        8 LOADK                            R2 K1 ["orgs/v2/groups/permissions/createassets"]
+        9 CONCAT                           R0 R1 R2
+       10 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -116,44 +123,50 @@ MAIN:
        17 GETTABLEKS                       R3 R3 K11 ["Flags"]
        19 GETTABLEKS                       R3 R3 K12 ["getFFlagAvatarPreviewerLookComposer"]
        21 CALL                             R2 1 1
-       22 NEWTABLE                         R3 8 0
-       24 DUPCLOSURE                       R4 K13 [PROTO_0]
-       25 CAPTURE                          VAL R2
-       26 CAPTURE                          VAL R0
-       27 MOVE                             R5 R4
-       28 CALL                             R5 0 3
-       29 GETIMPORT                        R8 K16 [string.format]
-       31 LOADK                            R9 K17 ["https://catalog.%s"]
-       32 MOVE                             R10 R7
-       33 CALL                             R8 2 1
-       34 DUPCLOSURE                       R9 K18 [PROTO_1]
-       35 CAPTURE                          VAL R8
-       36 SETTABLEKS                       R9 R3 K19 ["baseCatalogUrl"]
-       38 DUPCLOSURE                       R9 K20 [PROTO_2]
-       39 CAPTURE                          VAL R7
-       40 SETTABLEKS                       R9 R3 K21 ["baseDomain"]
-       42 GETIMPORT                        R9 K16 [string.format]
-       44 LOADK                            R10 K22 ["https://apis.%s"]
-       45 MOVE                             R11 R7
-       46 CALL                             R9 2 1
-       47 DUPCLOSURE                       R10 K23 [PROTO_3]
-       48 CAPTURE                          VAL R9
-       49 SETTABLEKS                       R10 R3 K24 ["baseApisUrl"]
-       51 DUPCLOSURE                       R10 K25 [PROTO_4]
-       52 CAPTURE                          VAL R9
-       53 SETTABLEKS                       R10 R3 K26 ["manageableGroupsUrl"]
-       55 DUPCLOSURE                       R10 K27 [PROTO_5]
-       56 CAPTURE                          VAL R9
-       57 SETTABLEKS                       R10 R3 K28 ["lookPreviewUrl"]
-       59 DUPCLOSURE                       R10 K29 [PROTO_6]
-       60 CAPTURE                          VAL R9
-       61 SETTABLEKS                       R10 R3 K30 ["lookCreateUrl"]
-       63 DUPCLOSURE                       R10 K31 [PROTO_7]
-       64 CAPTURE                          VAL R7
-       65 DUPCLOSURE                       R11 K32 [PROTO_8]
-       66 CAPTURE                          VAL R7
-       67 SETTABLEKS                       R11 R3 K33 ["creatorHubLookConfigureUrl"]
-       69 DUPCLOSURE                       R11 K34 [PROTO_9]
-       70 CAPTURE                          VAL R9
-       71 SETTABLEKS                       R11 R3 K35 ["getFeatureAccessUrl"]
-       73 RETURN                           R3 1
+       22 GETIMPORT                        R3 K9 [require]
+       24 GETTABLEKS                       R4 R1 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       28 GETTABLEKS                       R4 R4 K13 ["getFFlagLookComposerUseCreatorHomeApiGroups"]
+       30 CALL                             R3 1 1
+       31 NEWTABLE                         R4 8 0
+       33 DUPCLOSURE                       R5 K14 [PROTO_0]
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R0
+       36 MOVE                             R6 R5
+       37 CALL                             R6 0 3
+       38 GETIMPORT                        R9 K17 [string.format]
+       40 LOADK                            R10 K18 ["https://catalog.%s"]
+       41 MOVE                             R11 R8
+       42 CALL                             R9 2 1
+       43 DUPCLOSURE                       R10 K19 [PROTO_1]
+       44 CAPTURE                          VAL R9
+       45 SETTABLEKS                       R10 R4 K20 ["baseCatalogUrl"]
+       47 DUPCLOSURE                       R10 K21 [PROTO_2]
+       48 CAPTURE                          VAL R8
+       49 SETTABLEKS                       R10 R4 K22 ["baseDomain"]
+       51 GETIMPORT                        R10 K17 [string.format]
+       53 LOADK                            R11 K23 ["https://apis.%s"]
+       54 MOVE                             R12 R8
+       55 CALL                             R10 2 1
+       56 DUPCLOSURE                       R11 K24 [PROTO_3]
+       57 CAPTURE                          VAL R10
+       58 SETTABLEKS                       R11 R4 K25 ["baseApisUrl"]
+       60 DUPCLOSURE                       R11 K26 [PROTO_4]
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R10
+       63 SETTABLEKS                       R11 R4 K27 ["manageableGroupsUrl"]
+       65 DUPCLOSURE                       R11 K28 [PROTO_5]
+       66 CAPTURE                          VAL R10
+       67 SETTABLEKS                       R11 R4 K29 ["lookPreviewUrl"]
+       69 DUPCLOSURE                       R11 K30 [PROTO_6]
+       70 CAPTURE                          VAL R10
+       71 SETTABLEKS                       R11 R4 K31 ["lookCreateUrl"]
+       73 DUPCLOSURE                       R11 K32 [PROTO_7]
+       74 CAPTURE                          VAL R8
+       75 DUPCLOSURE                       R12 K33 [PROTO_8]
+       76 CAPTURE                          VAL R8
+       77 SETTABLEKS                       R12 R4 K34 ["creatorHubLookConfigureUrl"]
+       79 DUPCLOSURE                       R12 K35 [PROTO_9]
+       80 CAPTURE                          VAL R10
+       81 SETTABLEKS                       R12 R4 K36 ["getFeatureAccessUrl"]
+       83 RETURN                           R4 1

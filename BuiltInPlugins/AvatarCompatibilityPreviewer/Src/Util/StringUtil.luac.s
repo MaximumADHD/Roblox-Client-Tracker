@@ -87,6 +87,14 @@ PROTO_4:
        20 RETURN                           R2 1
        21 RETURN                           R0 1
 
+PROTO_5:
+        0 GETIMPORT                        R1 K2 [string.gsub]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K3 ["^%s*(.-)%s*$"]
+        4 LOADK                            R4 K4 ["%1"]
+        5 CALL                             R1 3 1
+        6 RETURN                           R1 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
@@ -100,4 +108,6 @@ MAIN:
        13 SETTABLEKS                       R1 R0 K7 ["removePrefix"]
        15 DUPCLOSURE                       R1 K8 [PROTO_4]
        16 SETTABLEKS                       R1 R0 K9 ["removePostfix"]
-       18 RETURN                           R0 1
+       18 DUPCLOSURE                       R1 K10 [PROTO_5]
+       19 SETTABLEKS                       R1 R0 K11 ["trimSpaces"]
+       21 RETURN                           R0 1

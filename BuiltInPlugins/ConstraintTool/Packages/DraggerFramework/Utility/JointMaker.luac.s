@@ -416,51 +416,47 @@ PROTO_12:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["RunService"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R3 R1 K9 ["Utility"]
-       17 GETTABLEKS                       R3 R3 K10 ["getGeometry"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K8 [require]
-       22 GETTABLEKS                       R4 R1 K9 ["Utility"]
-       24 GETTABLEKS                       R4 R4 K11 ["JointPairs"]
-       26 CALL                             R3 1 1
-       27 GETIMPORT                        R4 K8 [require]
-       29 GETTABLEKS                       R5 R1 K9 ["Utility"]
-       31 GETTABLEKS                       R5 R5 K12 ["JointUtil"]
-       33 CALL                             R4 1 1
-       34 NEWTABLE                         R5 16 0
-       36 SETTABLEKS                       R5 R5 K13 ["__index"]
-       38 DUPCLOSURE                       R6 K14 [PROTO_0]
-       39 CAPTURE                          VAL R5
-       40 SETTABLEKS                       R6 R5 K15 ["new"]
-       42 DUPCLOSURE                       R6 K16 [PROTO_1]
-       43 DUPCLOSURE                       R7 K17 [PROTO_2]
-       44 DUPCLOSURE                       R8 K18 [PROTO_3]
-       45 CAPTURE                          VAL R4
-       46 SETTABLEKS                       R8 R5 K19 ["pickUpParts"]
-       48 DUPCLOSURE                       R8 K20 [PROTO_4]
-       49 SETTABLEKS                       R8 R5 K21 ["anchorParts"]
-       51 DUPCLOSURE                       R8 K22 [PROTO_5]
-       52 SETTABLEKS                       R8 R5 K23 ["restoreAnchored"]
-       54 DUPCLOSURE                       R8 K24 [PROTO_6]
-       55 SETTABLEKS                       R8 R5 K25 ["breakJointsToOutsiders"]
-       57 DUPCLOSURE                       R8 K26 [PROTO_8]
-       58 CAPTURE                          VAL R3
-       59 SETTABLEKS                       R8 R5 K27 ["computeJointPairs"]
-       61 DUPCLOSURE                       R8 K28 [PROTO_9]
-       62 SETTABLEKS                       R8 R5 K29 ["isColliding"]
-       64 DUPCLOSURE                       R8 K30 [PROTO_10]
-       65 SETTABLEKS                       R8 R5 K31 ["fixupConstraintLengths"]
-       67 DUPCLOSURE                       R8 K32 [PROTO_11]
-       68 SETTABLEKS                       R8 R5 K33 ["putDownParts"]
-       70 DUPCLOSURE                       R8 K34 [PROTO_12]
-       71 CAPTURE                          VAL R2
-       72 SETTABLEKS                       R8 R5 K35 ["_getGeometry"]
-       74 RETURN                           R5 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R2 R0 K5 ["Utility"]
+       11 GETTABLEKS                       R2 R2 K6 ["getGeometry"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K4 [require]
+       16 GETTABLEKS                       R3 R0 K5 ["Utility"]
+       18 GETTABLEKS                       R3 R3 K7 ["JointPairs"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K4 [require]
+       23 GETTABLEKS                       R4 R0 K5 ["Utility"]
+       25 GETTABLEKS                       R4 R4 K8 ["JointUtil"]
+       27 CALL                             R3 1 1
+       28 NEWTABLE                         R4 16 0
+       30 SETTABLEKS                       R4 R4 K9 ["__index"]
+       32 DUPCLOSURE                       R5 K10 [PROTO_0]
+       33 CAPTURE                          VAL R4
+       34 SETTABLEKS                       R5 R4 K11 ["new"]
+       36 DUPCLOSURE                       R5 K12 [PROTO_1]
+       37 DUPCLOSURE                       R6 K13 [PROTO_2]
+       38 DUPCLOSURE                       R7 K14 [PROTO_3]
+       39 CAPTURE                          VAL R3
+       40 SETTABLEKS                       R7 R4 K15 ["pickUpParts"]
+       42 DUPCLOSURE                       R7 K16 [PROTO_4]
+       43 SETTABLEKS                       R7 R4 K17 ["anchorParts"]
+       45 DUPCLOSURE                       R7 K18 [PROTO_5]
+       46 SETTABLEKS                       R7 R4 K19 ["restoreAnchored"]
+       48 DUPCLOSURE                       R7 K20 [PROTO_6]
+       49 SETTABLEKS                       R7 R4 K21 ["breakJointsToOutsiders"]
+       51 DUPCLOSURE                       R7 K22 [PROTO_8]
+       52 CAPTURE                          VAL R2
+       53 SETTABLEKS                       R7 R4 K23 ["computeJointPairs"]
+       55 DUPCLOSURE                       R7 K24 [PROTO_9]
+       56 SETTABLEKS                       R7 R4 K25 ["isColliding"]
+       58 DUPCLOSURE                       R7 K26 [PROTO_10]
+       59 SETTABLEKS                       R7 R4 K27 ["fixupConstraintLengths"]
+       61 DUPCLOSURE                       R7 K28 [PROTO_11]
+       62 SETTABLEKS                       R7 R4 K29 ["putDownParts"]
+       64 DUPCLOSURE                       R7 K30 [PROTO_12]
+       65 CAPTURE                          VAL R1
+       66 SETTABLEKS                       R7 R4 K31 ["_getGeometry"]
+       68 RETURN                           R4 1

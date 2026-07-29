@@ -72,19 +72,16 @@ MAIN:
         3 LOADK                            R2 K2 ["RunService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       13 NEWTABLE                         R2 8 0
-       15 SETTABLEKS                       R2 R2 K7 ["__index"]
-       17 DUPCLOSURE                       R3 K8 [PROTO_0]
-       18 CAPTURE                          VAL R2
-       19 SETTABLEKS                       R3 R2 K9 ["new"]
-       21 DUPCLOSURE                       R3 K10 [PROTO_1]
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R3 R2 K11 ["setDragged"]
-       25 DUPCLOSURE                       R3 K12 [PROTO_2]
-       26 SETTABLEKS                       R3 R2 K13 ["transformTo"]
-       28 DUPCLOSURE                       R3 K14 [PROTO_3]
-       29 SETTABLEKS                       R3 R2 K15 ["commit"]
-       31 RETURN                           R2 1
+        7 NEWTABLE                         R1 8 0
+        9 SETTABLEKS                       R1 R1 K4 ["__index"]
+       11 DUPCLOSURE                       R2 K5 [PROTO_0]
+       12 CAPTURE                          VAL R1
+       13 SETTABLEKS                       R2 R1 K6 ["new"]
+       15 DUPCLOSURE                       R2 K7 [PROTO_1]
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R1 K8 ["setDragged"]
+       19 DUPCLOSURE                       R2 K9 [PROTO_2]
+       20 SETTABLEKS                       R2 R1 K10 ["transformTo"]
+       22 DUPCLOSURE                       R2 K11 [PROTO_3]
+       23 SETTABLEKS                       R2 R1 K12 ["commit"]
+       25 RETURN                           R1 1

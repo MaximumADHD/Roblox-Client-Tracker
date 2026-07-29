@@ -285,12 +285,12 @@ PROTO_25:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["requestFilePicker"]
         3 CALL                             R0 0 1
-        4 JUMPIFEQKS                       R0 K1 [""] ; [+33]
+        4 JUMPIFEQKS                       R0 K1 [""] ; [+70]
         6 GETUPVAL                         R1 0
         7 SETTABLEKS                       R0 R1 K2 ["filePath"]
         9 GETUPVAL                         R1 1
        10 CALL                             R1 0 1
-       11 JUMPIFNOT                        R1 ; [+22]
+       11 JUMPIFNOT                        R1 ; [+23]
        12 GETUPVAL                         R1 0
        13 GETUPVAL                         R2 2
        14 MOVE                             R4 R0
@@ -307,10 +307,38 @@ PROTO_25:
        30 MOVE                             R4 R1
        31 CALL                             R3 1 1
        32 SETTABLEKS                       R3 R2 K7 ["animationClipNames"]
-       34 GETUPVAL                         R1 0
-       35 GETTABLEKS                       R1 R1 K8 ["showRestPoseChoicePrompt"]
-       37 CALL                             R1 0 0
-       38 RETURN                           R0 0
+       34 JUMP                             ; [+11]
+       35 GETUPVAL                         R1 4
+       36 CALL                             R1 0 1
+       37 JUMPIFNOT                        R1 ; [+8]
+       38 GETUPVAL                         R1 0
+       39 GETUPVAL                         R2 2
+       40 MOVE                             R4 R0
+       41 NAMECALL                         R2 R2 K3 ["StartSessionWithPathAsync"]
+       43 CALL                             R2 2 1
+       44 SETTABLEKS                       R2 R1 K4 ["importSession"]
+       46 GETUPVAL                         R1 4
+       47 CALL                             R1 0 1
+       48 JUMPIFNOT                        R1 ; [+22]
+       49 GETUPVAL                         R1 0
+       50 GETTABLEKS                       R1 R1 K4 ["importSession"]
+       52 JUMPIFNOT                        R1 ; [+18]
+       53 GETUPVAL                         R1 0
+       54 GETTABLEKS                       R1 R1 K4 ["importSession"]
+       56 NAMECALL                         R1 R1 K8 ["GetImportTree"]
+       58 CALL                             R1 1 1
+       59 GETUPVAL                         R2 0
+       60 GETTABLEKS                       R4 R1 K9 ["RigType"]
+       62 GETIMPORT                        R5 K12 [Enum.RigType.R15]
+       64 JUMPIFNOTEQ                      R4 R5 ; [+3]
+       66 LOADN                            R3 1
+       67 JUMP                             ; [+1]
+       68 LOADN                            R3 2
+       69 SETTABLEKS                       R3 R2 K13 ["detectedRigTypeIndex"]
+       71 GETUPVAL                         R1 0
+       72 GETTABLEKS                       R1 R1 K14 ["showRestPoseChoicePrompt"]
+       74 CALL                             R1 0 0
+       75 RETURN                           R0 0
 
 PROTO_26:
         0 GETUPVAL                         R0 0
@@ -596,45 +624,46 @@ PROTO_36:
       113 CAPTURE                          UPVAL U6
       114 CAPTURE                          UPVAL U4
       115 CAPTURE                          UPVAL U7
-      116 SETTABLEKS                       R1 R0 K35 ["importFromFileWithRestPoseSelection"]
-      118 NEWCLOSURE                       R1 P26
-      119 CAPTURE                          VAL R0
-      120 CAPTURE                          UPVAL U3
-      121 SETTABLEKS                       R1 R0 K36 ["importFromFileWithRestPoseSelectionRequested"]
-      123 NEWCLOSURE                       R1 P27
-      124 CAPTURE                          VAL R0
-      125 SETTABLEKS                       R1 R0 K37 ["startAnimationFromVideoFlow"]
-      127 NEWCLOSURE                       R1 P28
-      128 CAPTURE                          VAL R0
-      129 CAPTURE                          UPVAL U8
-      130 SETTABLEKS                       R1 R0 K38 ["createFromVideoRequested"]
-      132 NEWCLOSURE                       R1 P29
-      133 CAPTURE                          VAL R0
-      134 CAPTURE                          UPVAL U9
-      135 SETTABLEKS                       R1 R0 K39 ["createNew"]
-      137 NEWCLOSURE                       R1 P30
-      138 CAPTURE                          VAL R0
-      139 SETTABLEKS                       R1 R0 K40 ["createNewClip"]
-      141 NEWCLOSURE                       R1 P31
-      142 CAPTURE                          VAL R0
-      143 SETTABLEKS                       R1 R0 K41 ["loadNew"]
-      145 NEWCLOSURE                       R1 P32
-      146 CAPTURE                          VAL R0
-      147 CAPTURE                          UPVAL U9
-      148 CAPTURE                          UPVAL U2
-      149 CAPTURE                          UPVAL U3
-      150 CAPTURE                          UPVAL U8
-      151 CAPTURE                          UPVAL U5
-      152 SETTABLEKS                       R1 R0 K42 ["handleLoadNewPrompt"]
-      154 NEWCLOSURE                       R1 P33
-      155 CAPTURE                          VAL R0
-      156 SETTABLEKS                       R1 R0 K43 ["onSanitizeAnimation"]
-      158 DUPCLOSURE                       R1 K44 [PROTO_34]
-      159 SETTABLEKS                       R1 R0 K45 ["validateAnimationName"]
-      161 NEWCLOSURE                       R1 P35
-      162 CAPTURE                          VAL R0
-      163 SETTABLEKS                       R1 R0 K46 ["onGenerateControlRigData"]
-      165 RETURN                           R0 0
+      116 CAPTURE                          UPVAL U8
+      117 SETTABLEKS                       R1 R0 K35 ["importFromFileWithRestPoseSelection"]
+      119 NEWCLOSURE                       R1 P26
+      120 CAPTURE                          VAL R0
+      121 CAPTURE                          UPVAL U3
+      122 SETTABLEKS                       R1 R0 K36 ["importFromFileWithRestPoseSelectionRequested"]
+      124 NEWCLOSURE                       R1 P27
+      125 CAPTURE                          VAL R0
+      126 SETTABLEKS                       R1 R0 K37 ["startAnimationFromVideoFlow"]
+      128 NEWCLOSURE                       R1 P28
+      129 CAPTURE                          VAL R0
+      130 CAPTURE                          UPVAL U9
+      131 SETTABLEKS                       R1 R0 K38 ["createFromVideoRequested"]
+      133 NEWCLOSURE                       R1 P29
+      134 CAPTURE                          VAL R0
+      135 CAPTURE                          UPVAL U10
+      136 SETTABLEKS                       R1 R0 K39 ["createNew"]
+      138 NEWCLOSURE                       R1 P30
+      139 CAPTURE                          VAL R0
+      140 SETTABLEKS                       R1 R0 K40 ["createNewClip"]
+      142 NEWCLOSURE                       R1 P31
+      143 CAPTURE                          VAL R0
+      144 SETTABLEKS                       R1 R0 K41 ["loadNew"]
+      146 NEWCLOSURE                       R1 P32
+      147 CAPTURE                          VAL R0
+      148 CAPTURE                          UPVAL U10
+      149 CAPTURE                          UPVAL U2
+      150 CAPTURE                          UPVAL U3
+      151 CAPTURE                          UPVAL U9
+      152 CAPTURE                          UPVAL U5
+      153 SETTABLEKS                       R1 R0 K42 ["handleLoadNewPrompt"]
+      155 NEWCLOSURE                       R1 P33
+      156 CAPTURE                          VAL R0
+      157 SETTABLEKS                       R1 R0 K43 ["onSanitizeAnimation"]
+      159 DUPCLOSURE                       R1 K44 [PROTO_34]
+      160 SETTABLEKS                       R1 R0 K45 ["validateAnimationName"]
+      162 NEWCLOSURE                       R1 P35
+      163 CAPTURE                          VAL R0
+      164 SETTABLEKS                       R1 R0 K46 ["onGenerateControlRigData"]
+      166 RETURN                           R0 0
 
 PROTO_37:
         0 GETUPVAL                         R1 0
@@ -670,156 +699,168 @@ PROTO_38:
        18 RETURN                           R0 0
 
 PROTO_39:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R5 R5 K0 ["hideRestPoseChoicePrompt"]
-        3 CALL                             R5 0 0
-        4 JUMPIFNOTEQKS                    R0 K1 ["Cancel"] ; [+10]
-        6 GETUPVAL                         R5 0
-        7 LOADNIL                          R6
-        8 SETTABLEKS                       R6 R5 K2 ["filePath"]
-       10 GETUPVAL                         R5 0
-       11 LOADNIL                          R6
-       12 SETTABLEKS                       R6 R5 K3 ["importSession"]
-       14 RETURN                           R0 0
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R5 R5 K4 ["showInProgressCover"]
-       18 CALL                             R5 0 0
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R5 R5 K5 ["props"]
-       22 GETTABLEKS                       R5 R5 K6 ["RootInstance"]
-       24 LOADNIL                          R6
-       25 GETUPVAL                         R7 1
-       26 CALL                             R7 0 1
-       27 JUMPIFNOT                        R7 ; [+7]
-       28 GETUPVAL                         R7 2
-       29 GETTABLEKS                       R7 R7 K7 ["mapRestPoseKeyToEnum"]
-       31 MOVE                             R8 R1
-       32 CALL                             R7 1 1
-       33 MOVE                             R6 R7
-       34 JUMP                             ; [+7]
-       35 JUMPIFNOTEQKS                    R1 K8 ["FromRigInACE"] ; [+4]
-       37 GETIMPORT                        R6 K11 [Enum.RestPoseModel.FromRigInACE]
-       39 JUMP                             ; [+2]
-       40 GETIMPORT                        R6 K13 [Enum.RestPoseModel.FromRigInFile]
-       42 LOADNIL                          R7
-       43 GETUPVAL                         R8 1
-       44 CALL                             R8 0 1
-       45 JUMPIFNOT                        R8 ; [+12]
-       46 GETUPVAL                         R8 0
-       47 GETTABLEKS                       R8 R8 K3 ["importSession"]
-       49 JUMPIFNOT                        R8 ; [+8]
-       50 GETUPVAL                         R8 0
-       51 GETTABLEKS                       R7 R8 K3 ["importSession"]
-       53 GETUPVAL                         R8 0
-       54 LOADNIL                          R9
-       55 SETTABLEKS                       R9 R8 K3 ["importSession"]
-       57 JUMP                             ; [+8]
-       58 GETUPVAL                         R8 3
-       59 GETUPVAL                         R10 0
-       60 GETTABLEKS                       R10 R10 K2 ["filePath"]
-       62 NAMECALL                         R8 R8 K14 ["StartSessionWithPathAsync"]
-       64 CALL                             R8 2 1
-       65 MOVE                             R7 R8
-       66 GETUPVAL                         R8 4
-       67 CALL                             R8 0 1
-       68 JUMPIFNOT                        R8 ; [+14]
-       69 JUMPIFNOT                        R4 ; [+13]
-       70 LOADNIL                          R8
-       71 JUMPIFNOTEQKS                    R4 K15 ["R15"] ; [+4]
-       73 GETIMPORT                        R8 K17 [Enum.RigType.R15]
-       75 JUMP                             ; [+2]
-       76 GETIMPORT                        R8 K19 [Enum.RigType.Custom]
-       78 NAMECALL                         R9 R7 K20 ["GetImportTree"]
-       80 CALL                             R9 1 1
-       81 SETTABLEKS                       R8 R9 K16 ["RigType"]
-       83 LOADNIL                          R8
-       84 LOADB                            R9 1
-       85 GETIMPORT                        R10 K22 [Enum.RestPoseModel.FromCustomClip]
-       87 JUMPIFEQ                         R6 R10 ; [+10]
-       89 GETUPVAL                         R9 4
-       90 CALL                             R9 0 1
-       91 JUMPIFNOT                        R9 ; [+6]
-       92 GETIMPORT                        R10 K24 [Enum.RestPoseModel.FromRigInFileZeroedRotations]
-       94 JUMPIFEQ                         R6 R10 ; [+2]
-       96 LOADB                            R9 0 +1
-       97 LOADB                            R9 1
-       98 GETUPVAL                         R10 1
-       99 CALL                             R10 0 1
-      100 JUMPIFNOT                        R10 ; [+10]
-      101 JUMPIFNOT                        R9 ; [+9]
-      102 MOVE                             R12 R5
-      103 MOVE                             R13 R6
-      104 ORK                              R15 R3 K25 [1]
-      105 SUBK                             R14 R15 K25 [1]
-      106 NAMECALL                         R10 R7 K26 ["GetKeyframeSequencesForSelectedRestPoseWithClip"]
-      108 CALL                             R10 4 1
-      109 MOVE                             R8 R10
-      110 JUMP                             ; [+6]
-      111 MOVE                             R12 R5
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["hideRestPoseChoicePrompt"]
+        3 CALL                             R6 0 0
+        4 JUMPIFNOTEQKS                    R0 K1 ["Cancel"] ; [+17]
+        6 GETUPVAL                         R6 0
+        7 LOADNIL                          R7
+        8 SETTABLEKS                       R7 R6 K2 ["filePath"]
+       10 GETUPVAL                         R6 0
+       11 LOADNIL                          R7
+       12 SETTABLEKS                       R7 R6 K3 ["importSession"]
+       14 GETUPVAL                         R6 1
+       15 CALL                             R6 0 1
+       16 JUMPIFNOT                        R6 ; [+4]
+       17 GETUPVAL                         R6 0
+       18 LOADNIL                          R7
+       19 SETTABLEKS                       R7 R6 K4 ["detectedRigTypeIndex"]
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R6 0
+       23 GETTABLEKS                       R6 R6 K5 ["showInProgressCover"]
+       25 CALL                             R6 0 0
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K6 ["props"]
+       29 GETTABLEKS                       R6 R6 K7 ["RootInstance"]
+       31 LOADNIL                          R7
+       32 GETUPVAL                         R8 2
+       33 CALL                             R8 0 1
+       34 JUMPIFNOT                        R8 ; [+7]
+       35 GETUPVAL                         R8 3
+       36 GETTABLEKS                       R8 R8 K8 ["mapRestPoseKeyToEnum"]
+       38 MOVE                             R9 R1
+       39 CALL                             R8 1 1
+       40 MOVE                             R7 R8
+       41 JUMP                             ; [+7]
+       42 JUMPIFNOTEQKS                    R1 K9 ["FromRigInACE"] ; [+4]
+       44 GETIMPORT                        R7 K12 [Enum.RestPoseModel.FromRigInACE]
+       46 JUMP                             ; [+2]
+       47 GETIMPORT                        R7 K14 [Enum.RestPoseModel.FromRigInFile]
+       49 LOADNIL                          R8
+       50 GETUPVAL                         R9 2
+       51 CALL                             R9 0 1
+       52 JUMPIF                           R9 ; [+3]
+       53 GETUPVAL                         R9 1
+       54 CALL                             R9 0 1
+       55 JUMPIFNOT                        R9 ; [+12]
+       56 GETUPVAL                         R9 0
+       57 GETTABLEKS                       R9 R9 K3 ["importSession"]
+       59 JUMPIFNOT                        R9 ; [+8]
+       60 GETUPVAL                         R9 0
+       61 GETTABLEKS                       R8 R9 K3 ["importSession"]
+       63 GETUPVAL                         R9 0
+       64 LOADNIL                          R10
+       65 SETTABLEKS                       R10 R9 K3 ["importSession"]
+       67 JUMP                             ; [+8]
+       68 GETUPVAL                         R9 4
+       69 GETUPVAL                         R11 0
+       70 GETTABLEKS                       R11 R11 K2 ["filePath"]
+       72 NAMECALL                         R9 R9 K15 ["StartSessionWithPathAsync"]
+       74 CALL                             R9 2 1
+       75 MOVE                             R8 R9
+       76 GETUPVAL                         R9 5
+       77 CALL                             R9 0 1
+       78 JUMPIFNOT                        R9 ; [+14]
+       79 JUMPIFNOT                        R4 ; [+13]
+       80 LOADNIL                          R9
+       81 JUMPIFNOTEQKS                    R4 K16 ["R15"] ; [+4]
+       83 GETIMPORT                        R9 K18 [Enum.RigType.R15]
+       85 JUMP                             ; [+2]
+       86 GETIMPORT                        R9 K20 [Enum.RigType.Custom]
+       88 NAMECALL                         R10 R8 K21 ["GetImportTree"]
+       90 CALL                             R10 1 1
+       91 SETTABLEKS                       R9 R10 K17 ["RigType"]
+       93 LOADNIL                          R9
+       94 LOADB                            R10 1
+       95 GETIMPORT                        R11 K23 [Enum.RestPoseModel.FromCustomClip]
+       97 JUMPIFEQ                         R7 R11 ; [+10]
+       99 GETUPVAL                         R10 5
+      100 CALL                             R10 0 1
+      101 JUMPIFNOT                        R10 ; [+6]
+      102 GETIMPORT                        R11 K25 [Enum.RestPoseModel.FromRigInFileZeroedRotations]
+      104 JUMPIFEQ                         R7 R11 ; [+2]
+      106 LOADB                            R10 0 +1
+      107 LOADB                            R10 1
+      108 GETUPVAL                         R11 2
+      109 CALL                             R11 0 1
+      110 JUMPIFNOT                        R11 ; [+10]
+      111 JUMPIFNOT                        R10 ; [+9]
       112 MOVE                             R13 R6
-      113 NAMECALL                         R10 R7 K27 ["GetKeyframeSequencesForSelectedRestPose"]
-      115 CALL                             R10 3 1
-      116 MOVE                             R8 R10
-      117 LENGTH                           R10 R8
-      118 JUMPIFNOTEQKN                    R10 K28 [0] ; [+10]
-      120 GETUPVAL                         R10 0
-      121 LOADNIL                          R11
-      122 SETTABLEKS                       R11 R10 K2 ["filePath"]
-      124 GETUPVAL                         R10 0
-      125 GETTABLEKS                       R10 R10 K29 ["hideInProgressCover"]
-      127 CALL                             R10 0 0
-      128 RETURN                           R0 0
-      129 GETTABLEN                        R10 R8 1
-      130 GETUPVAL                         R11 5
-      131 CALL                             R11 0 1
-      132 JUMPIFNOT                        R11 ; [+3]
-      133 LOADB                            R11 0
-      134 SETTABLEKS                       R11 R10 K30 ["Loop"]
-      136 GETUPVAL                         R11 0
-      137 GETTABLEKS                       R11 R11 K5 ["props"]
-      139 GETTABLEKS                       R11 R11 K31 ["LoadImportedKeyframeSequence"]
-      141 GETUPVAL                         R12 0
-      142 GETTABLEKS                       R12 R12 K5 ["props"]
-      144 GETTABLEKS                       R12 R12 K32 ["Plugin"]
-      146 GETUPVAL                         R13 0
-      147 GETTABLEKS                       R13 R13 K5 ["props"]
-      149 GETTABLEKS                       R13 R13 K33 ["Analytics"]
-      151 MOVE                             R14 R10
-      152 MOVE                             R15 R2
-      153 CALL                             R11 4 0
-      154 GETUPVAL                         R11 0
-      155 GETTABLEKS                       R11 R11 K29 ["hideInProgressCover"]
-      157 CALL                             R11 0 0
-      158 GETUPVAL                         R11 0
-      159 LOADNIL                          R12
-      160 SETTABLEKS                       R12 R11 K2 ["filePath"]
-      162 LOADN                            R13 1
-      163 LENGTH                           R11 R8
-      164 LOADN                            R12 1
-      165 FORNPREP                         R11
-      166 GETTABLE                         R14 R8 R13
-      167 GETUPVAL                         R15 6
-      168 GETTABLEKS                       R15 R15 K34 ["fromKeyframeSequence"]
-      170 MOVE                             R16 R14
-      171 CALL                             R15 1 1
-      172 GETTABLEKS                       R16 R15 K35 ["Metadata"]
-      174 GETTABLEKS                       R17 R14 K36 ["Name"]
-      176 SETTABLEKS                       R17 R16 K36 ["Name"]
-      178 GETUPVAL                         R16 7
-      179 GETTABLEKS                       R16 R16 K37 ["SavePassedInAnimation"]
-      181 GETTABLEKS                       R17 R14 K36 ["Name"]
-      183 GETUPVAL                         R18 0
-      184 GETTABLEKS                       R18 R18 K5 ["props"]
-      186 GETTABLEKS                       R18 R18 K33 ["Analytics"]
-      188 GETUPVAL                         R19 0
-      189 GETTABLEKS                       R19 R19 K5 ["props"]
-      191 GETTABLEKS                       R19 R19 K38 ["Localization"]
-      193 MOVE                             R20 R15
-      194 LOADB                            R21 0
-      195 MOVE                             R22 R5
-      196 CALL                             R16 6 0
-      197 FORNLOOP                         R11
-      198 RETURN                           R0 0
+      113 MOVE                             R14 R7
+      114 ORK                              R16 R3 K26 [1]
+      115 SUBK                             R15 R16 K26 [1]
+      116 NAMECALL                         R11 R8 K27 ["GetKeyframeSequencesForSelectedRestPoseWithClip"]
+      118 CALL                             R11 4 1
+      119 MOVE                             R9 R11
+      120 JUMP                             ; [+6]
+      121 MOVE                             R13 R6
+      122 MOVE                             R14 R7
+      123 NAMECALL                         R11 R8 K28 ["GetKeyframeSequencesForSelectedRestPose"]
+      125 CALL                             R11 3 1
+      126 MOVE                             R9 R11
+      127 LENGTH                           R11 R9
+      128 JUMPIFNOTEQKN                    R11 K29 [0] ; [+10]
+      130 GETUPVAL                         R11 0
+      131 LOADNIL                          R12
+      132 SETTABLEKS                       R12 R11 K2 ["filePath"]
+      134 GETUPVAL                         R11 0
+      135 GETTABLEKS                       R11 R11 K30 ["hideInProgressCover"]
+      137 CALL                             R11 0 0
+      138 RETURN                           R0 0
+      139 GETUPVAL                         R12 6
+      140 CALL                             R12 0 1
+      141 JUMPIFNOT                        R12 ; [+2]
+      142 ORK                              R11 R5 K26 [1]
+      143 JUMP                             ; [+1]
+      144 LOADN                            R11 1
+      145 GETTABLE                         R12 R9 R11
+      146 LOADB                            R13 0
+      147 SETTABLEKS                       R13 R12 K31 ["Loop"]
+      149 GETUPVAL                         R13 0
+      150 GETTABLEKS                       R13 R13 K6 ["props"]
+      152 GETTABLEKS                       R13 R13 K32 ["LoadImportedKeyframeSequence"]
+      154 GETUPVAL                         R14 0
+      155 GETTABLEKS                       R14 R14 K6 ["props"]
+      157 GETTABLEKS                       R14 R14 K33 ["Plugin"]
+      159 GETUPVAL                         R15 0
+      160 GETTABLEKS                       R15 R15 K6 ["props"]
+      162 GETTABLEKS                       R15 R15 K34 ["Analytics"]
+      164 MOVE                             R16 R12
+      165 MOVE                             R17 R2
+      166 CALL                             R13 4 0
+      167 GETUPVAL                         R13 0
+      168 GETTABLEKS                       R13 R13 K30 ["hideInProgressCover"]
+      170 CALL                             R13 0 0
+      171 GETUPVAL                         R13 0
+      172 LOADNIL                          R14
+      173 SETTABLEKS                       R14 R13 K2 ["filePath"]
+      175 LOADN                            R15 1
+      176 LENGTH                           R13 R9
+      177 LOADN                            R14 1
+      178 FORNPREP                         R13
+      179 GETTABLE                         R16 R9 R15
+      180 GETUPVAL                         R17 7
+      181 GETTABLEKS                       R17 R17 K35 ["fromKeyframeSequence"]
+      183 MOVE                             R18 R16
+      184 CALL                             R17 1 1
+      185 GETTABLEKS                       R18 R17 K36 ["Metadata"]
+      187 GETTABLEKS                       R19 R16 K37 ["Name"]
+      189 SETTABLEKS                       R19 R18 K37 ["Name"]
+      191 GETUPVAL                         R18 8
+      192 GETTABLEKS                       R18 R18 K38 ["SavePassedInAnimation"]
+      194 GETTABLEKS                       R19 R16 K37 ["Name"]
+      196 GETUPVAL                         R20 0
+      197 GETTABLEKS                       R20 R20 K6 ["props"]
+      199 GETTABLEKS                       R20 R20 K34 ["Analytics"]
+      201 GETUPVAL                         R21 0
+      202 GETTABLEKS                       R21 R21 K6 ["props"]
+      204 GETTABLEKS                       R21 R21 K39 ["Localization"]
+      206 MOVE                             R22 R17
+      207 LOADB                            R23 0
+      208 MOVE                             R24 R6
+      209 CALL                             R18 6 0
+      210 FORNLOOP                         R13
+      211 RETURN                           R0 0
 
 PROTO_40:
         0 GETUPVAL                         R1 0
@@ -1158,13 +1199,13 @@ PROTO_48:
       381 CALL                             R23 2 1
       382 SETTABLEKS                       R23 R22 K40 ["ImportAnimModelChoicePrompt"]
       384 MOVE                             R23 R10
-      385 JUMPIFNOT                        R23 ; [+110]
+      385 JUMPIFNOT                        R23 ; [+138]
       386 GETUPVAL                         R23 0
       387 GETTABLEKS                       R23 R23 K22 ["createElement"]
       389 GETUPVAL                         R24 9
-      390 DUPTABLE                         R25 K137 [{"HeaderText", "ButtonWidth", "SelectionGroupHeader", "SelectionGroupOptions", "ConditionalDropdownKey", "ConditionalDropdownItems", "Buttons", "OnButtonClicked"}]
+      390 DUPTABLE                         R25 K139 [{"HeaderText", "ButtonWidth", "SelectionGroupHeader", "SelectionGroupOptions", "DefaultRigTypeIndex", "ConditionalDropdownKey", "ConditionalDropdownItems", "TrackSelectionItems", "Buttons", "OnButtonClicked"}]
       391 LOADK                            R28 K108 ["Dialog"]
-      392 LOADK                            R29 K138 ["ImportSettings"]
+      392 LOADK                            R29 K140 ["ImportSettings"]
       393 NAMECALL                         R26 R1 K107 ["getText"]
       395 CALL                             R26 3 1
       396 SETTABLEKS                       R26 R25 K132 ["HeaderText"]
@@ -1173,7 +1214,7 @@ PROTO_48:
       401 GETTABLEKS                       R26 R26 K128 ["X"]
       403 SETTABLEKS                       R26 R25 K121 ["ButtonWidth"]
       405 LOADK                            R28 K108 ["Dialog"]
-      406 LOADK                            R29 K139 ["RestPoseSource"]
+      406 LOADK                            R29 K141 ["RestPoseSource"]
       407 NAMECALL                         R26 R1 K107 ["getText"]
       409 CALL                             R26 3 1
       410 SETTABLEKS                       R26 R25 K133 ["SelectionGroupHeader"]
@@ -1181,282 +1222,303 @@ PROTO_48:
       413 CALL                             R27 0 1
       414 JUMPIFNOT                        R27 ; [+8]
       415 GETUPVAL                         R26 11
-      416 GETTABLEKS                       R26 R26 K140 ["buildRestPoseOptions"]
+      416 GETTABLEKS                       R26 R26 K142 ["buildRestPoseOptions"]
       418 MOVE                             R27 R1
-      419 GETTABLEKS                       R28 R0 K141 ["animationClipNames"]
+      419 GETTABLEKS                       R28 R0 K143 ["animationClipNames"]
       421 CALL                             R26 2 1
       422 JUMP                             ; [+20]
       423 NEWTABLE                         R26 0 2
-      425 DUPTABLE                         R27 K144 [{["Key"] = "FromRigInFile", ["Text"], ["Default"] = True}]
+      425 DUPTABLE                         R27 K146 [{["Key"] = "FromRigInFile", ["Text"], ["Default"] = True}]
       426 LOADK                            R30 K108 ["Dialog"]
-      427 LOADK                            R31 K145 ["ImportedRig"]
+      427 LOADK                            R31 K147 ["ImportedRig"]
       428 NAMECALL                         R28 R1 K107 ["getText"]
       430 CALL                             R28 3 1
       431 SETTABLEKS                       R28 R27 K63 ["Text"]
-      433 DUPTABLE                         R28 K147 [{["Key"] = "FromRigInACE", ["Text"]}]
+      433 DUPTABLE                         R28 K149 [{["Key"] = "FromRigInACE", ["Text"]}]
       434 LOADK                            R31 K108 ["Dialog"]
-      435 LOADK                            R32 K148 ["AnimationEditorRig"]
+      435 LOADK                            R32 K150 ["AnimationEditorRig"]
       436 NAMECALL                         R29 R1 K107 ["getText"]
       438 CALL                             R29 3 1
       439 SETTABLEKS                       R29 R28 K63 ["Text"]
       441 SETLIST                          R26 R27 2 [1]
       443 SETTABLEKS                       R26 R25 K134 ["SelectionGroupOptions"]
-      445 GETUPVAL                         R27 10
+      445 GETUPVAL                         R27 12
       446 CALL                             R27 0 1
-      447 JUMPIFNOT                        R27 ; [+2]
-      448 LOADK                            R26 K149 ["FromCustomClip"]
-      449 JUMP                             ; [+1]
-      450 LOADNIL                          R26
-      451 SETTABLEKS                       R26 R25 K135 ["ConditionalDropdownKey"]
-      453 GETUPVAL                         R27 10
-      454 CALL                             R27 0 1
-      455 JUMPIFNOT                        R27 ; [+3]
-      456 GETTABLEKS                       R26 R0 K141 ["animationClipNames"]
+      447 JUMPIFNOT                        R27 ; [+3]
+      448 GETTABLEKS                       R26 R0 K151 ["detectedRigTypeIndex"]
+      450 JUMP                             ; [+1]
+      451 LOADNIL                          R26
+      452 SETTABLEKS                       R26 R25 K135 ["DefaultRigTypeIndex"]
+      454 GETUPVAL                         R27 10
+      455 CALL                             R27 0 1
+      456 JUMPIFNOT                        R27 ; [+2]
+      457 LOADK                            R26 K152 ["FromCustomClip"]
       458 JUMP                             ; [+1]
       459 LOADNIL                          R26
-      460 SETTABLEKS                       R26 R25 K136 ["ConditionalDropdownItems"]
-      462 NEWTABLE                         R26 0 2
-      464 DUPTABLE                         R27 K150 [{["Key"] = "Cancel", ["Text"], ["Style"] = "Round"}]
-      465 LOADK                            R30 K108 ["Dialog"]
-      466 LOADK                            R31 K115 ["Cancel"]
-      467 NAMECALL                         R28 R1 K107 ["getText"]
-      469 CALL                             R28 3 1
-      470 SETTABLEKS                       R28 R27 K63 ["Text"]
-      472 DUPTABLE                         R28 K152 [{["Key"] = "Import", ["Text"], ["Style"] = "RoundPrimary"}]
-      473 LOADK                            R31 K153 ["Menu"]
-      474 LOADK                            R32 K151 ["Import"]
-      475 NAMECALL                         R29 R1 K107 ["getText"]
-      477 CALL                             R29 3 1
-      478 SETTABLEKS                       R29 R28 K63 ["Text"]
-      480 SETLIST                          R26 R27 2 [1]
-      482 SETTABLEKS                       R26 R25 K101 ["Buttons"]
-      484 NEWCLOSURE                       R26 P2
-      485 CAPTURE                          VAL R0
-      486 CAPTURE                          UPVAL U10
-      487 CAPTURE                          UPVAL U11
-      488 CAPTURE                          UPVAL U12
-      489 CAPTURE                          UPVAL U13
-      490 CAPTURE                          UPVAL U14
-      491 CAPTURE                          UPVAL U15
-      492 CAPTURE                          VAL R2
-      493 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
-      495 CALL                             R23 2 1
-      496 SETTABLEKS                       R23 R22 K41 ["RestPoseChoicePrompt"]
-      498 JUMPIFNOT                        R14 ; [+14]
-      499 GETUPVAL                         R23 0
-      500 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      502 GETUPVAL                         R24 16
-      503 DUPTABLE                         R25 K154 [{"Text"}]
-      504 LOADK                            R28 K108 ["Dialog"]
-      505 LOADK                            R29 K155 ["ImportingAnimation"]
-      506 NAMECALL                         R26 R1 K107 ["getText"]
-      508 CALL                             R26 3 1
-      509 SETTABLEKS                       R26 R25 K63 ["Text"]
-      511 CALL                             R23 2 1
-      512 JUMPIF                           R23 ; [+1]
-      513 LOADNIL                          R23
-      514 SETTABLEKS                       R23 R22 K42 ["InProgressCover"]
-      516 MOVE                             R23 R11
-      517 JUMPIFNOT                        R23 ; [+49]
-      518 GETUPVAL                         R23 0
-      519 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      521 GETUPVAL                         R24 17
-      522 DUPTABLE                         R25 K156 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-      523 LOADK                            R28 K153 ["Menu"]
-      524 LOADK                            R29 K157 ["Overwrite_Migrated"]
-      525 DUPTABLE                         R30 K158 [{"overwriteName"}]
-      526 SETTABLEKS                       R11 R30 K10 ["overwriteName"]
-      528 NAMECALL                         R26 R1 K107 ["getText"]
-      530 CALL                             R26 4 1
-      531 SETTABLEKS                       R26 R25 K98 ["PromptText"]
-      533 NEWTABLE                         R26 0 2
-      535 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
-      536 LOADK                            R30 K108 ["Dialog"]
-      537 LOADK                            R31 K159 ["No"]
-      538 NAMECALL                         R28 R1 K107 ["getText"]
-      540 CALL                             R28 3 1
-      541 SETTABLEKS                       R28 R27 K63 ["Text"]
-      543 DUPTABLE                         R28 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
-      544 LOADK                            R31 K108 ["Dialog"]
-      545 LOADK                            R32 K160 ["Yes"]
-      546 NAMECALL                         R29 R1 K107 ["getText"]
-      548 CALL                             R29 3 1
-      549 SETTABLEKS                       R29 R28 K63 ["Text"]
-      551 SETLIST                          R26 R27 2 [1]
-      553 SETTABLEKS                       R26 R25 K101 ["Buttons"]
-      555 NEWCLOSURE                       R26 P3
-      556 CAPTURE                          VAL R0
-      557 CAPTURE                          VAL R2
-      558 CAPTURE                          VAL R16
-      559 CAPTURE                          VAL R11
-      560 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
-      562 GETTABLEKS                       R26 R0 K161 ["hideOverwritePrompt"]
-      564 SETTABLEKS                       R26 R25 K103 ["OnClose"]
-      566 CALL                             R23 2 1
-      567 SETTABLEKS                       R23 R22 K43 ["OverwritePrompt"]
-      569 JUMPIFNOT                        R13 ; [+45]
-      570 GETUPVAL                         R23 0
-      571 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      573 GETUPVAL                         R24 17
-      574 DUPTABLE                         R25 K156 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-      575 LOADK                            R28 K108 ["Dialog"]
-      576 LOADK                            R29 K44 ["PromotePrompt"]
-      577 NAMECALL                         R26 R1 K107 ["getText"]
-      579 CALL                             R26 3 1
-      580 SETTABLEKS                       R26 R25 K98 ["PromptText"]
-      582 NEWTABLE                         R26 0 2
-      584 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
-      585 LOADK                            R30 K108 ["Dialog"]
-      586 LOADK                            R31 K115 ["Cancel"]
-      587 NAMECALL                         R28 R1 K107 ["getText"]
-      589 CALL                             R28 3 1
-      590 SETTABLEKS                       R28 R27 K63 ["Text"]
-      592 DUPTABLE                         R28 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
-      593 LOADK                            R31 K108 ["Dialog"]
-      594 LOADK                            R32 K162 ["Confirm"]
-      595 NAMECALL                         R29 R1 K107 ["getText"]
-      597 CALL                             R29 3 1
-      598 SETTABLEKS                       R29 R28 K63 ["Text"]
-      600 SETLIST                          R26 R27 2 [1]
-      602 SETTABLEKS                       R26 R25 K101 ["Buttons"]
-      604 NEWCLOSURE                       R26 P4
-      605 CAPTURE                          VAL R0
-      606 CAPTURE                          VAL R2
-      607 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
-      609 GETTABLEKS                       R26 R0 K163 ["hidePromotePrompt"]
-      611 SETTABLEKS                       R26 R25 K103 ["OnClose"]
-      613 CALL                             R23 2 1
-      614 JUMPIF                           R23 ; [+1]
-      615 LOADNIL                          R23
-      616 SETTABLEKS                       R23 R22 K44 ["PromotePrompt"]
-      618 MOVE                             R23 R12
-      619 JUMPIFNOT                        R23 ; [+72]
-      620 GETUPVAL                         R23 0
-      621 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      623 GETUPVAL                         R24 7
-      624 DUPTABLE                         R25 K164 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnButtonClicked", "OnTextSubmitted", "OnClose"}]
-      625 LOADK                            R28 K105 ["Title"]
-      626 LOADK                            R29 K165 ["ConfirmSave"]
-      627 NAMECALL                         R26 R1 K107 ["getText"]
-      629 CALL                             R26 3 1
-      630 SETTABLEKS                       R26 R25 K98 ["PromptText"]
-      632 LOADK                            R28 K108 ["Dialog"]
-      633 LOADK                            R29 K3 ["AnimationName"]
-      634 NAMECALL                         R26 R1 K107 ["getText"]
-      636 CALL                             R26 3 1
-      637 SETTABLEKS                       R26 R25 K99 ["InputText"]
-      639 LOADK                            R28 K108 ["Dialog"]
-      640 LOADK                            R29 K109 ["SaveLocation"]
-      641 NAMECALL                         R26 R1 K107 ["getText"]
-      643 CALL                             R26 3 1
-      644 SETTABLEKS                       R26 R25 K100 ["NoticeText"]
-      646 SETTABLEKS                       R4 R25 K63 ["Text"]
-      648 NEWTABLE                         R26 0 3
-      650 DUPTABLE                         R27 K167 [{["Key"] = "Delete", ["Text"], ["Style"] = "Round"}]
-      651 LOADK                            R30 K108 ["Dialog"]
-      652 LOADK                            R31 K166 ["Delete"]
-      653 NAMECALL                         R28 R1 K107 ["getText"]
-      655 CALL                             R28 3 1
-      656 SETTABLEKS                       R28 R27 K63 ["Text"]
-      658 DUPTABLE                         R28 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
-      659 LOADK                            R31 K108 ["Dialog"]
-      660 LOADK                            R32 K115 ["Cancel"]
-      661 NAMECALL                         R29 R1 K107 ["getText"]
-      663 CALL                             R29 3 1
-      664 SETTABLEKS                       R29 R28 K63 ["Text"]
-      666 DUPTABLE                         R29 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
-      667 LOADK                            R32 K108 ["Dialog"]
-      668 LOADK                            R33 K119 ["Save"]
-      669 NAMECALL                         R30 R1 K107 ["getText"]
-      671 CALL                             R30 3 1
-      672 SETTABLEKS                       R30 R29 K63 ["Text"]
-      674 SETLIST                          R26 R27 3 [1]
-      676 SETTABLEKS                       R26 R25 K101 ["Buttons"]
-      678 NEWCLOSURE                       R26 P5
-      679 CAPTURE                          VAL R0
-      680 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
-      682 NEWCLOSURE                       R26 P6
-      683 CAPTURE                          VAL R2
-      684 CAPTURE                          VAL R0
-      685 SETTABLEKS                       R26 R25 K102 ["OnTextSubmitted"]
-      687 GETTABLEKS                       R26 R0 K168 ["hideLoadNewPrompt"]
-      689 SETTABLEKS                       R26 R25 K103 ["OnClose"]
-      691 CALL                             R23 2 1
-      692 SETTABLEKS                       R23 R22 K45 ["LoadNewPrompt"]
-      694 MOVE                             R23 R17
-      695 JUMPIFNOT                        R23 ; [+43]
-      696 GETUPVAL                         R23 0
-      697 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      699 GETUPVAL                         R24 17
-      700 DUPTABLE                         R25 K156 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-      701 LOADK                            R28 K169 ["AnimationFromVideo"]
-      702 LOADK                            R29 K170 ["TutorialText"]
-      703 NAMECALL                         R26 R1 K107 ["getText"]
-      705 CALL                             R26 3 1
-      706 SETTABLEKS                       R26 R25 K98 ["PromptText"]
-      708 NEWTABLE                         R26 0 2
-      710 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
-      711 LOADK                            R30 K108 ["Dialog"]
-      712 LOADK                            R31 K115 ["Cancel"]
-      713 NAMECALL                         R28 R1 K107 ["getText"]
-      715 CALL                             R28 3 1
-      716 SETTABLEKS                       R28 R27 K63 ["Text"]
-      718 DUPTABLE                         R28 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
-      719 LOADK                            R31 K169 ["AnimationFromVideo"]
-      720 LOADK                            R32 K171 ["ChooseVideo"]
-      721 NAMECALL                         R29 R1 K107 ["getText"]
-      723 CALL                             R29 3 1
-      724 SETTABLEKS                       R29 R28 K63 ["Text"]
-      726 SETLIST                          R26 R27 2 [1]
-      728 SETTABLEKS                       R26 R25 K101 ["Buttons"]
-      730 NEWCLOSURE                       R26 P7
-      731 CAPTURE                          VAL R0
-      732 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
-      734 NEWCLOSURE                       R26 P8
-      735 CAPTURE                          VAL R0
-      736 SETTABLEKS                       R26 R25 K103 ["OnClose"]
-      738 CALL                             R23 2 1
-      739 SETTABLEKS                       R23 R22 K46 ["CreateAnimationFromVideoTutorial"]
-      741 MOVE                             R23 R18
-      742 JUMPIFNOT                        R23 ; [+50]
-      743 GETUPVAL                         R23 0
-      744 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      746 GETUPVAL                         R24 17
-      747 DUPTABLE                         R25 K172 [{"Size", "PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
-      748 GETIMPORT                        R26 K26 [UDim2.new]
-      750 LOADN                            R27 0
-      751 GETUPVAL                         R28 1
-      752 GETTABLEKS                       R28 R28 K173 ["PROMPT_SIZE"]
-      754 GETTABLEKS                       R28 R28 K174 ["Width"]
-      756 GETTABLEKS                       R28 R28 K175 ["Offset"]
-      758 LOADN                            R29 0
-      759 LOADN                            R30 180
-      760 CALL                             R26 4 1
-      761 SETTABLEKS                       R26 R25 K29 ["Size"]
-      763 LOADK                            R28 K169 ["AnimationFromVideo"]
-      764 LOADK                            R29 K176 ["AgeRestricted"]
-      765 NAMECALL                         R26 R1 K107 ["getText"]
-      767 CALL                             R26 3 1
-      768 SETTABLEKS                       R26 R25 K98 ["PromptText"]
-      770 NEWTABLE                         R26 0 1
-      772 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
-      773 LOADK                            R30 K108 ["Dialog"]
-      774 LOADK                            R31 K115 ["Cancel"]
-      775 NAMECALL                         R28 R1 K107 ["getText"]
-      777 CALL                             R28 3 1
-      778 SETTABLEKS                       R28 R27 K63 ["Text"]
-      780 SETLIST                          R26 R27 1 [1]
-      782 SETTABLEKS                       R26 R25 K101 ["Buttons"]
-      784 NEWCLOSURE                       R26 P9
-      785 CAPTURE                          VAL R0
-      786 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
-      788 NEWCLOSURE                       R26 P10
-      789 CAPTURE                          VAL R0
-      790 SETTABLEKS                       R26 R25 K103 ["OnClose"]
-      792 CALL                             R23 2 1
-      793 SETTABLEKS                       R23 R22 K47 ["CreateAnimationFromVideoAgeGate"]
-      795 CALL                             R19 3 -1
-      796 RETURN                           R19 -1
+      460 SETTABLEKS                       R26 R25 K136 ["ConditionalDropdownKey"]
+      462 GETUPVAL                         R27 10
+      463 CALL                             R27 0 1
+      464 JUMPIFNOT                        R27 ; [+3]
+      465 GETTABLEKS                       R26 R0 K143 ["animationClipNames"]
+      467 JUMP                             ; [+1]
+      468 LOADNIL                          R26
+      469 SETTABLEKS                       R26 R25 K137 ["ConditionalDropdownItems"]
+      471 GETUPVAL                         R27 13
+      472 CALL                             R27 0 1
+      473 JUMPIFNOT                        R27 ; [+12]
+      474 GETTABLEKS                       R27 R0 K143 ["animationClipNames"]
+      476 JUMPIFNOT                        R27 ; [+9]
+      477 GETTABLEKS                       R28 R0 K143 ["animationClipNames"]
+      479 LENGTH                           R27 R28
+      480 LOADN                            R28 1
+      481 JUMPIFNOTLT                      R28 R27 ; [+4]
+      483 GETTABLEKS                       R26 R0 K143 ["animationClipNames"]
+      485 JUMP                             ; [+1]
+      486 LOADNIL                          R26
+      487 SETTABLEKS                       R26 R25 K138 ["TrackSelectionItems"]
+      489 NEWTABLE                         R26 0 2
+      491 DUPTABLE                         R27 K153 [{["Key"] = "Cancel", ["Text"], ["Style"] = "Round"}]
+      492 LOADK                            R30 K108 ["Dialog"]
+      493 LOADK                            R31 K115 ["Cancel"]
+      494 NAMECALL                         R28 R1 K107 ["getText"]
+      496 CALL                             R28 3 1
+      497 SETTABLEKS                       R28 R27 K63 ["Text"]
+      499 DUPTABLE                         R28 K155 [{["Key"] = "Import", ["Text"], ["Style"] = "RoundPrimary"}]
+      500 LOADK                            R31 K156 ["Menu"]
+      501 LOADK                            R32 K154 ["Import"]
+      502 NAMECALL                         R29 R1 K107 ["getText"]
+      504 CALL                             R29 3 1
+      505 SETTABLEKS                       R29 R28 K63 ["Text"]
+      507 SETLIST                          R26 R27 2 [1]
+      509 SETTABLEKS                       R26 R25 K101 ["Buttons"]
+      511 NEWCLOSURE                       R26 P2
+      512 CAPTURE                          VAL R0
+      513 CAPTURE                          UPVAL U12
+      514 CAPTURE                          UPVAL U10
+      515 CAPTURE                          UPVAL U11
+      516 CAPTURE                          UPVAL U14
+      517 CAPTURE                          UPVAL U15
+      518 CAPTURE                          UPVAL U13
+      519 CAPTURE                          UPVAL U16
+      520 CAPTURE                          VAL R2
+      521 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
+      523 CALL                             R23 2 1
+      524 SETTABLEKS                       R23 R22 K41 ["RestPoseChoicePrompt"]
+      526 JUMPIFNOT                        R14 ; [+14]
+      527 GETUPVAL                         R23 0
+      528 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      530 GETUPVAL                         R24 17
+      531 DUPTABLE                         R25 K157 [{"Text"}]
+      532 LOADK                            R28 K108 ["Dialog"]
+      533 LOADK                            R29 K158 ["ImportingAnimation"]
+      534 NAMECALL                         R26 R1 K107 ["getText"]
+      536 CALL                             R26 3 1
+      537 SETTABLEKS                       R26 R25 K63 ["Text"]
+      539 CALL                             R23 2 1
+      540 JUMPIF                           R23 ; [+1]
+      541 LOADNIL                          R23
+      542 SETTABLEKS                       R23 R22 K42 ["InProgressCover"]
+      544 MOVE                             R23 R11
+      545 JUMPIFNOT                        R23 ; [+49]
+      546 GETUPVAL                         R23 0
+      547 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      549 GETUPVAL                         R24 18
+      550 DUPTABLE                         R25 K159 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+      551 LOADK                            R28 K156 ["Menu"]
+      552 LOADK                            R29 K160 ["Overwrite_Migrated"]
+      553 DUPTABLE                         R30 K161 [{"overwriteName"}]
+      554 SETTABLEKS                       R11 R30 K10 ["overwriteName"]
+      556 NAMECALL                         R26 R1 K107 ["getText"]
+      558 CALL                             R26 4 1
+      559 SETTABLEKS                       R26 R25 K98 ["PromptText"]
+      561 NEWTABLE                         R26 0 2
+      563 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+      564 LOADK                            R30 K108 ["Dialog"]
+      565 LOADK                            R31 K162 ["No"]
+      566 NAMECALL                         R28 R1 K107 ["getText"]
+      568 CALL                             R28 3 1
+      569 SETTABLEKS                       R28 R27 K63 ["Text"]
+      571 DUPTABLE                         R28 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
+      572 LOADK                            R31 K108 ["Dialog"]
+      573 LOADK                            R32 K163 ["Yes"]
+      574 NAMECALL                         R29 R1 K107 ["getText"]
+      576 CALL                             R29 3 1
+      577 SETTABLEKS                       R29 R28 K63 ["Text"]
+      579 SETLIST                          R26 R27 2 [1]
+      581 SETTABLEKS                       R26 R25 K101 ["Buttons"]
+      583 NEWCLOSURE                       R26 P3
+      584 CAPTURE                          VAL R0
+      585 CAPTURE                          VAL R2
+      586 CAPTURE                          VAL R16
+      587 CAPTURE                          VAL R11
+      588 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
+      590 GETTABLEKS                       R26 R0 K164 ["hideOverwritePrompt"]
+      592 SETTABLEKS                       R26 R25 K103 ["OnClose"]
+      594 CALL                             R23 2 1
+      595 SETTABLEKS                       R23 R22 K43 ["OverwritePrompt"]
+      597 JUMPIFNOT                        R13 ; [+45]
+      598 GETUPVAL                         R23 0
+      599 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      601 GETUPVAL                         R24 18
+      602 DUPTABLE                         R25 K159 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+      603 LOADK                            R28 K108 ["Dialog"]
+      604 LOADK                            R29 K44 ["PromotePrompt"]
+      605 NAMECALL                         R26 R1 K107 ["getText"]
+      607 CALL                             R26 3 1
+      608 SETTABLEKS                       R26 R25 K98 ["PromptText"]
+      610 NEWTABLE                         R26 0 2
+      612 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+      613 LOADK                            R30 K108 ["Dialog"]
+      614 LOADK                            R31 K115 ["Cancel"]
+      615 NAMECALL                         R28 R1 K107 ["getText"]
+      617 CALL                             R28 3 1
+      618 SETTABLEKS                       R28 R27 K63 ["Text"]
+      620 DUPTABLE                         R28 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
+      621 LOADK                            R31 K108 ["Dialog"]
+      622 LOADK                            R32 K165 ["Confirm"]
+      623 NAMECALL                         R29 R1 K107 ["getText"]
+      625 CALL                             R29 3 1
+      626 SETTABLEKS                       R29 R28 K63 ["Text"]
+      628 SETLIST                          R26 R27 2 [1]
+      630 SETTABLEKS                       R26 R25 K101 ["Buttons"]
+      632 NEWCLOSURE                       R26 P4
+      633 CAPTURE                          VAL R0
+      634 CAPTURE                          VAL R2
+      635 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
+      637 GETTABLEKS                       R26 R0 K166 ["hidePromotePrompt"]
+      639 SETTABLEKS                       R26 R25 K103 ["OnClose"]
+      641 CALL                             R23 2 1
+      642 JUMPIF                           R23 ; [+1]
+      643 LOADNIL                          R23
+      644 SETTABLEKS                       R23 R22 K44 ["PromotePrompt"]
+      646 MOVE                             R23 R12
+      647 JUMPIFNOT                        R23 ; [+72]
+      648 GETUPVAL                         R23 0
+      649 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      651 GETUPVAL                         R24 7
+      652 DUPTABLE                         R25 K167 [{"PromptText", "InputText", "NoticeText", "Text", "Buttons", "OnButtonClicked", "OnTextSubmitted", "OnClose"}]
+      653 LOADK                            R28 K105 ["Title"]
+      654 LOADK                            R29 K168 ["ConfirmSave"]
+      655 NAMECALL                         R26 R1 K107 ["getText"]
+      657 CALL                             R26 3 1
+      658 SETTABLEKS                       R26 R25 K98 ["PromptText"]
+      660 LOADK                            R28 K108 ["Dialog"]
+      661 LOADK                            R29 K3 ["AnimationName"]
+      662 NAMECALL                         R26 R1 K107 ["getText"]
+      664 CALL                             R26 3 1
+      665 SETTABLEKS                       R26 R25 K99 ["InputText"]
+      667 LOADK                            R28 K108 ["Dialog"]
+      668 LOADK                            R29 K109 ["SaveLocation"]
+      669 NAMECALL                         R26 R1 K107 ["getText"]
+      671 CALL                             R26 3 1
+      672 SETTABLEKS                       R26 R25 K100 ["NoticeText"]
+      674 SETTABLEKS                       R4 R25 K63 ["Text"]
+      676 NEWTABLE                         R26 0 3
+      678 DUPTABLE                         R27 K170 [{["Key"] = "Delete", ["Text"], ["Style"] = "Round"}]
+      679 LOADK                            R30 K108 ["Dialog"]
+      680 LOADK                            R31 K169 ["Delete"]
+      681 NAMECALL                         R28 R1 K107 ["getText"]
+      683 CALL                             R28 3 1
+      684 SETTABLEKS                       R28 R27 K63 ["Text"]
+      686 DUPTABLE                         R28 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+      687 LOADK                            R31 K108 ["Dialog"]
+      688 LOADK                            R32 K115 ["Cancel"]
+      689 NAMECALL                         R29 R1 K107 ["getText"]
+      691 CALL                             R29 3 1
+      692 SETTABLEKS                       R29 R28 K63 ["Text"]
+      694 DUPTABLE                         R29 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
+      695 LOADK                            R32 K108 ["Dialog"]
+      696 LOADK                            R33 K119 ["Save"]
+      697 NAMECALL                         R30 R1 K107 ["getText"]
+      699 CALL                             R30 3 1
+      700 SETTABLEKS                       R30 R29 K63 ["Text"]
+      702 SETLIST                          R26 R27 3 [1]
+      704 SETTABLEKS                       R26 R25 K101 ["Buttons"]
+      706 NEWCLOSURE                       R26 P5
+      707 CAPTURE                          VAL R0
+      708 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
+      710 NEWCLOSURE                       R26 P6
+      711 CAPTURE                          VAL R2
+      712 CAPTURE                          VAL R0
+      713 SETTABLEKS                       R26 R25 K102 ["OnTextSubmitted"]
+      715 GETTABLEKS                       R26 R0 K171 ["hideLoadNewPrompt"]
+      717 SETTABLEKS                       R26 R25 K103 ["OnClose"]
+      719 CALL                             R23 2 1
+      720 SETTABLEKS                       R23 R22 K45 ["LoadNewPrompt"]
+      722 MOVE                             R23 R17
+      723 JUMPIFNOT                        R23 ; [+43]
+      724 GETUPVAL                         R23 0
+      725 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      727 GETUPVAL                         R24 18
+      728 DUPTABLE                         R25 K159 [{"PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+      729 LOADK                            R28 K172 ["AnimationFromVideo"]
+      730 LOADK                            R29 K173 ["TutorialText"]
+      731 NAMECALL                         R26 R1 K107 ["getText"]
+      733 CALL                             R26 3 1
+      734 SETTABLEKS                       R26 R25 K98 ["PromptText"]
+      736 NEWTABLE                         R26 0 2
+      738 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+      739 LOADK                            R30 K108 ["Dialog"]
+      740 LOADK                            R31 K115 ["Cancel"]
+      741 NAMECALL                         R28 R1 K107 ["getText"]
+      743 CALL                             R28 3 1
+      744 SETTABLEKS                       R28 R27 K63 ["Text"]
+      746 DUPTABLE                         R28 K118 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
+      747 LOADK                            R31 K172 ["AnimationFromVideo"]
+      748 LOADK                            R32 K174 ["ChooseVideo"]
+      749 NAMECALL                         R29 R1 K107 ["getText"]
+      751 CALL                             R29 3 1
+      752 SETTABLEKS                       R29 R28 K63 ["Text"]
+      754 SETLIST                          R26 R27 2 [1]
+      756 SETTABLEKS                       R26 R25 K101 ["Buttons"]
+      758 NEWCLOSURE                       R26 P7
+      759 CAPTURE                          VAL R0
+      760 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
+      762 NEWCLOSURE                       R26 P8
+      763 CAPTURE                          VAL R0
+      764 SETTABLEKS                       R26 R25 K103 ["OnClose"]
+      766 CALL                             R23 2 1
+      767 SETTABLEKS                       R23 R22 K46 ["CreateAnimationFromVideoTutorial"]
+      769 MOVE                             R23 R18
+      770 JUMPIFNOT                        R23 ; [+50]
+      771 GETUPVAL                         R23 0
+      772 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      774 GETUPVAL                         R24 18
+      775 DUPTABLE                         R25 K175 [{"Size", "PromptText", "Buttons", "OnButtonClicked", "OnClose"}]
+      776 GETIMPORT                        R26 K26 [UDim2.new]
+      778 LOADN                            R27 0
+      779 GETUPVAL                         R28 1
+      780 GETTABLEKS                       R28 R28 K176 ["PROMPT_SIZE"]
+      782 GETTABLEKS                       R28 R28 K177 ["Width"]
+      784 GETTABLEKS                       R28 R28 K178 ["Offset"]
+      786 LOADN                            R29 0
+      787 LOADN                            R30 180
+      788 CALL                             R26 4 1
+      789 SETTABLEKS                       R26 R25 K29 ["Size"]
+      791 LOADK                            R28 K172 ["AnimationFromVideo"]
+      792 LOADK                            R29 K179 ["AgeRestricted"]
+      793 NAMECALL                         R26 R1 K107 ["getText"]
+      795 CALL                             R26 3 1
+      796 SETTABLEKS                       R26 R25 K98 ["PromptText"]
+      798 NEWTABLE                         R26 0 1
+      800 DUPTABLE                         R27 K114 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+      801 LOADK                            R30 K108 ["Dialog"]
+      802 LOADK                            R31 K115 ["Cancel"]
+      803 NAMECALL                         R28 R1 K107 ["getText"]
+      805 CALL                             R28 3 1
+      806 SETTABLEKS                       R28 R27 K63 ["Text"]
+      808 SETLIST                          R26 R27 1 [1]
+      810 SETTABLEKS                       R26 R25 K101 ["Buttons"]
+      812 NEWCLOSURE                       R26 P9
+      813 CAPTURE                          VAL R0
+      814 SETTABLEKS                       R26 R25 K122 ["OnButtonClicked"]
+      816 NEWCLOSURE                       R26 P10
+      817 CAPTURE                          VAL R0
+      818 SETTABLEKS                       R26 R25 K103 ["OnClose"]
+      820 CALL                             R23 2 1
+      821 SETTABLEKS                       R23 R22 K47 ["CreateAnimationFromVideoAgeGate"]
+      823 CALL                             R19 3 -1
+      824 RETURN                           R19 -1
 
 PROTO_49:
         0 DUPTABLE                         R2 K4 [{"Analytics", "IsDirty", "ReadOnly", "RootInstance"}]
@@ -1755,215 +1817,221 @@ MAIN:
        44 GETTABLEKS                       R9 R9 K15 ["GetFFlagACEImportRigType"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K11 [require]
-       49 GETTABLEKS                       R10 R6 K12 ["Packages"]
-       51 GETTABLEKS                       R10 R10 K16 ["Roact"]
+       49 GETTABLEKS                       R10 R6 K14 ["LuaFlags"]
+       51 GETTABLEKS                       R10 R10 K16 ["GetFFlagACEImportSettingsDefaults"]
        53 CALL                             R9 1 1
        54 GETIMPORT                        R10 K11 [require]
        56 GETTABLEKS                       R11 R6 K12 ["Packages"]
-       58 GETTABLEKS                       R11 R11 K17 ["RoactRodux"]
+       58 GETTABLEKS                       R11 R11 K17 ["Roact"]
        60 CALL                             R10 1 1
        61 GETIMPORT                        R11 K11 [require]
-       63 GETTABLEKS                       R12 R6 K18 ["Src"]
-       65 GETTABLEKS                       R12 R12 K19 ["Util"]
-       67 GETTABLEKS                       R12 R12 K20 ["Constants"]
-       69 CALL                             R11 1 1
-       70 GETIMPORT                        R12 K11 [require]
-       72 GETTABLEKS                       R13 R6 K18 ["Src"]
-       74 GETTABLEKS                       R13 R13 K19 ["Util"]
-       76 GETTABLEKS                       R13 R13 K21 ["RigSerialization"]
-       78 CALL                             R12 1 1
-       79 GETIMPORT                        R13 K24 [UDim.new]
-       81 LOADN                            R14 0
-       82 GETTABLEKS                       R15 R11 K25 ["INDENT_PADDING"]
-       84 CALL                             R13 2 1
-       85 GETTABLEKS                       R14 R7 K26 ["ContextServices"]
-       87 GETTABLEKS                       R15 R14 K27 ["withContext"]
-       89 GETTABLEKS                       R16 R6 K18 ["Src"]
-       91 GETTABLEKS                       R16 R16 K28 ["Actions"]
-       93 GETIMPORT                        R17 K11 [require]
-       95 GETTABLEKS                       R18 R16 K29 ["SetInReviewState"]
-       97 CALL                             R17 1 1
-       98 GETIMPORT                        R18 K11 [require]
-      100 GETTABLEKS                       R19 R16 K30 ["SetIsDirty"]
-      102 CALL                             R18 1 1
-      103 GETIMPORT                        R19 K11 [require]
-      105 GETTABLEKS                       R20 R16 K31 ["SetIsLegacyAnimSaves"]
-      107 CALL                             R19 1 1
-      108 GETIMPORT                        R20 K11 [require]
-      110 GETTABLEKS                       R21 R16 K32 ["SetPlayState"]
-      112 CALL                             R20 1 1
-      113 GETIMPORT                        R21 K11 [require]
-      115 GETTABLEKS                       R22 R16 K33 ["SetReduceKeyframesDialogMode"]
-      117 CALL                             R21 1 1
-      118 GETTABLEKS                       R22 R6 K18 ["Src"]
-      120 GETTABLEKS                       R22 R22 K34 ["Components"]
-      122 GETIMPORT                        R23 K11 [require]
-      124 GETTABLEKS                       R24 R22 K35 ["Toast"]
-      126 GETTABLEKS                       R24 R24 K36 ["ActionToast"]
-      128 CALL                             R23 1 1
+       63 GETTABLEKS                       R12 R6 K12 ["Packages"]
+       65 GETTABLEKS                       R12 R12 K18 ["RoactRodux"]
+       67 CALL                             R11 1 1
+       68 GETIMPORT                        R12 K11 [require]
+       70 GETTABLEKS                       R13 R6 K19 ["Src"]
+       72 GETTABLEKS                       R13 R13 K20 ["Util"]
+       74 GETTABLEKS                       R13 R13 K21 ["Constants"]
+       76 CALL                             R12 1 1
+       77 GETIMPORT                        R13 K11 [require]
+       79 GETTABLEKS                       R14 R6 K19 ["Src"]
+       81 GETTABLEKS                       R14 R14 K20 ["Util"]
+       83 GETTABLEKS                       R14 R14 K22 ["RigSerialization"]
+       85 CALL                             R13 1 1
+       86 GETIMPORT                        R14 K25 [UDim.new]
+       88 LOADN                            R15 0
+       89 GETTABLEKS                       R16 R12 K26 ["INDENT_PADDING"]
+       91 CALL                             R14 2 1
+       92 GETTABLEKS                       R15 R7 K27 ["ContextServices"]
+       94 GETTABLEKS                       R16 R15 K28 ["withContext"]
+       96 GETTABLEKS                       R17 R6 K19 ["Src"]
+       98 GETTABLEKS                       R17 R17 K29 ["Actions"]
+      100 GETIMPORT                        R18 K11 [require]
+      102 GETTABLEKS                       R19 R17 K30 ["SetInReviewState"]
+      104 CALL                             R18 1 1
+      105 GETIMPORT                        R19 K11 [require]
+      107 GETTABLEKS                       R20 R17 K31 ["SetIsDirty"]
+      109 CALL                             R19 1 1
+      110 GETIMPORT                        R20 K11 [require]
+      112 GETTABLEKS                       R21 R17 K32 ["SetIsLegacyAnimSaves"]
+      114 CALL                             R20 1 1
+      115 GETIMPORT                        R21 K11 [require]
+      117 GETTABLEKS                       R22 R17 K33 ["SetPlayState"]
+      119 CALL                             R21 1 1
+      120 GETIMPORT                        R22 K11 [require]
+      122 GETTABLEKS                       R23 R17 K34 ["SetReduceKeyframesDialogMode"]
+      124 CALL                             R22 1 1
+      125 GETTABLEKS                       R23 R6 K19 ["Src"]
+      127 GETTABLEKS                       R23 R23 K35 ["Components"]
       129 GETIMPORT                        R24 K11 [require]
-      131 GETTABLEKS                       R25 R22 K37 ["AnimationClipMenu"]
-      133 CALL                             R24 1 1
-      134 GETIMPORT                        R25 K11 [require]
-      136 GETTABLEKS                       R26 R22 K38 ["ContextButton"]
-      138 CALL                             R25 1 1
-      139 GETIMPORT                        R26 K11 [require]
-      141 GETTABLEKS                       R27 R22 K39 ["EditEventsDialog"]
-      143 GETTABLEKS                       R27 R27 K40 ["FocusedPrompt"]
+      131 GETTABLEKS                       R25 R23 K36 ["Toast"]
+      133 GETTABLEKS                       R25 R25 K37 ["ActionToast"]
+      135 CALL                             R24 1 1
+      136 GETIMPORT                        R25 K11 [require]
+      138 GETTABLEKS                       R26 R23 K38 ["AnimationClipMenu"]
+      140 CALL                             R25 1 1
+      141 GETIMPORT                        R26 K11 [require]
+      143 GETTABLEKS                       R27 R23 K39 ["ContextButton"]
       145 CALL                             R26 1 1
       146 GETIMPORT                        R27 K11 [require]
-      148 GETTABLEKS                       R28 R22 K41 ["MultipleOptionPrompt"]
-      150 CALL                             R27 1 1
-      151 GETIMPORT                        R28 K11 [require]
-      153 GETTABLEKS                       R29 R22 K42 ["InProgressCover"]
-      155 CALL                             R28 1 1
-      156 GETIMPORT                        R29 K11 [require]
-      158 GETTABLEKS                       R30 R22 K43 ["TextEntryPrompt"]
-      160 CALL                             R29 1 1
-      161 GETTABLEKS                       R30 R6 K18 ["Src"]
-      163 GETTABLEKS                       R30 R30 K44 ["Thunks"]
-      165 GETIMPORT                        R31 K11 [require]
-      167 GETTABLEKS                       R32 R30 K45 ["Exporting"]
-      169 GETTABLEKS                       R32 R32 K46 ["CreateFromVideoAndImportFBXAnimationUserMayChooseModel"]
-      171 CALL                             R31 1 1
+      148 GETTABLEKS                       R28 R23 K40 ["EditEventsDialog"]
+      150 GETTABLEKS                       R28 R28 K41 ["FocusedPrompt"]
+      152 CALL                             R27 1 1
+      153 GETIMPORT                        R28 K11 [require]
+      155 GETTABLEKS                       R29 R23 K42 ["MultipleOptionPrompt"]
+      157 CALL                             R28 1 1
+      158 GETIMPORT                        R29 K11 [require]
+      160 GETTABLEKS                       R30 R23 K43 ["InProgressCover"]
+      162 CALL                             R29 1 1
+      163 GETIMPORT                        R30 K11 [require]
+      165 GETTABLEKS                       R31 R23 K44 ["TextEntryPrompt"]
+      167 CALL                             R30 1 1
+      168 GETTABLEKS                       R31 R6 K19 ["Src"]
+      170 GETTABLEKS                       R31 R31 K45 ["Thunks"]
       172 GETIMPORT                        R32 K11 [require]
-      174 GETTABLEKS                       R33 R30 K47 ["CreateNewAnimation"]
-      176 CALL                             R32 1 1
-      177 GETIMPORT                        R33 K11 [require]
-      179 GETTABLEKS                       R34 R30 K48 ["GenerateControlRigData"]
-      181 CALL                             R33 1 1
-      182 GETIMPORT                        R34 K11 [require]
-      184 GETTABLEKS                       R35 R30 K45 ["Exporting"]
-      186 GETTABLEKS                       R35 R35 K49 ["ImportFBXAnimationUserMayChooseModel"]
+      174 GETTABLEKS                       R33 R31 K46 ["Exporting"]
+      176 GETTABLEKS                       R33 R33 K47 ["CreateFromVideoAndImportFBXAnimationUserMayChooseModel"]
+      178 CALL                             R32 1 1
+      179 GETIMPORT                        R33 K11 [require]
+      181 GETTABLEKS                       R34 R31 K48 ["CreateNewAnimation"]
+      183 CALL                             R33 1 1
+      184 GETIMPORT                        R34 K11 [require]
+      186 GETTABLEKS                       R35 R31 K49 ["GenerateControlRigData"]
       188 CALL                             R34 1 1
       189 GETIMPORT                        R35 K11 [require]
-      191 GETTABLEKS                       R36 R30 K45 ["Exporting"]
-      193 GETTABLEKS                       R36 R36 K50 ["ImportKeyframeSequence"]
+      191 GETTABLEKS                       R36 R31 K46 ["Exporting"]
+      193 GETTABLEKS                       R36 R36 K50 ["ImportFBXAnimationUserMayChooseModel"]
       195 CALL                             R35 1 1
       196 GETIMPORT                        R36 K11 [require]
-      198 GETTABLEKS                       R37 R30 K45 ["Exporting"]
-      200 GETTABLEKS                       R37 R37 K51 ["ImportLoadedFBXAnimation"]
+      198 GETTABLEKS                       R37 R31 K46 ["Exporting"]
+      200 GETTABLEKS                       R37 R37 K51 ["ImportKeyframeSequence"]
       202 CALL                             R36 1 1
       203 GETIMPORT                        R37 K11 [require]
-      205 GETTABLEKS                       R38 R30 K45 ["Exporting"]
-      207 GETTABLEKS                       R38 R38 K52 ["LoadAnimation"]
+      205 GETTABLEKS                       R38 R31 K46 ["Exporting"]
+      207 GETTABLEKS                       R38 R38 K52 ["ImportLoadedFBXAnimation"]
       209 CALL                             R37 1 1
       210 GETIMPORT                        R38 K11 [require]
-      212 GETTABLEKS                       R39 R30 K53 ["LoadAnimationData"]
-      214 CALL                             R38 1 1
-      215 GETIMPORT                        R39 K11 [require]
-      217 GETTABLEKS                       R40 R30 K54 ["SanitizeAnimation"]
-      219 CALL                             R39 1 1
-      220 GETIMPORT                        R40 K11 [require]
-      222 GETTABLEKS                       R41 R30 K45 ["Exporting"]
-      224 GETTABLEKS                       R41 R41 K55 ["SaveAnimation"]
+      212 GETTABLEKS                       R39 R31 K46 ["Exporting"]
+      214 GETTABLEKS                       R39 R39 K53 ["LoadAnimation"]
+      216 CALL                             R38 1 1
+      217 GETIMPORT                        R39 K11 [require]
+      219 GETTABLEKS                       R40 R31 K54 ["LoadAnimationData"]
+      221 CALL                             R39 1 1
+      222 GETIMPORT                        R40 K11 [require]
+      224 GETTABLEKS                       R41 R31 K55 ["SanitizeAnimation"]
       226 CALL                             R40 1 1
       227 GETIMPORT                        R41 K11 [require]
-      229 GETTABLEKS                       R42 R30 K56 ["UpdateMetadata"]
-      231 CALL                             R41 1 1
-      232 GETIMPORT                        R42 K11 [require]
-      234 GETTABLEKS                       R43 R30 K45 ["Exporting"]
-      236 GETTABLEKS                       R43 R43 K57 ["LoadImportedKeyframeSequence"]
+      229 GETTABLEKS                       R42 R31 K46 ["Exporting"]
+      231 GETTABLEKS                       R42 R42 K56 ["SaveAnimation"]
+      233 CALL                             R41 1 1
+      234 GETIMPORT                        R42 K11 [require]
+      236 GETTABLEKS                       R43 R31 K57 ["UpdateMetadata"]
       238 CALL                             R42 1 1
       239 GETIMPORT                        R43 K11 [require]
-      241 GETTABLEKS                       R44 R30 K45 ["Exporting"]
-      243 GETTABLEKS                       R44 R44 K58 ["SavePassedInAnimation"]
+      241 GETTABLEKS                       R44 R31 K46 ["Exporting"]
+      243 GETTABLEKS                       R44 R44 K58 ["LoadImportedKeyframeSequence"]
       245 CALL                             R43 1 1
-      246 GETTABLEKS                       R44 R7 K59 ["UI"]
-      248 GETTABLEKS                       R45 R44 K60 ["Pane"]
-      250 GETTABLEKS                       R46 R44 K61 ["TextInput"]
-      252 GETIMPORT                        R47 K11 [require]
-      254 GETTABLEKS                       R48 R6 K14 ["LuaFlags"]
-      256 GETTABLEKS                       R48 R48 K62 ["GetFFlagFBXLoop"]
-      258 CALL                             R47 1 1
+      246 GETIMPORT                        R44 K11 [require]
+      248 GETTABLEKS                       R45 R31 K46 ["Exporting"]
+      250 GETTABLEKS                       R45 R45 K59 ["SavePassedInAnimation"]
+      252 CALL                             R44 1 1
+      253 GETTABLEKS                       R45 R7 K60 ["UI"]
+      255 GETTABLEKS                       R46 R45 K61 ["Pane"]
+      257 GETTABLEKS                       R47 R45 K62 ["TextInput"]
       259 GETIMPORT                        R48 K11 [require]
       261 GETTABLEKS                       R49 R6 K14 ["LuaFlags"]
       263 GETTABLEKS                       R49 R49 K63 ["GetFFlagACEExtendedRestPoseOptions"]
       265 CALL                             R48 1 1
       266 GETIMPORT                        R49 K11 [require]
-      268 GETTABLEKS                       R50 R6 K18 ["Src"]
-      270 GETTABLEKS                       R50 R50 K19 ["Util"]
+      268 GETTABLEKS                       R50 R6 K19 ["Src"]
+      270 GETTABLEKS                       R50 R50 K20 ["Util"]
       272 GETTABLEKS                       R50 R50 K64 ["RestPoseUtils"]
       274 CALL                             R49 1 1
       275 GETIMPORT                        R50 K11 [require]
       277 GETTABLEKS                       R51 R6 K14 ["LuaFlags"]
       279 GETTABLEKS                       R51 R51 K65 ["GetFFlagAnimationExportSupport"]
       281 CALL                             R50 1 1
-      282 GETTABLEKS                       R51 R9 K66 ["PureComponent"]
-      284 LOADK                            R53 K67 ["AnimationClipDropdown"]
-      285 NAMECALL                         R51 R51 K68 ["extend"]
-      287 CALL                             R51 2 1
-      288 DUPCLOSURE                       R52 K69 [PROTO_36]
-      289 CAPTURE                          VAL R11
-      290 CAPTURE                          VAL R9
-      291 CAPTURE                          VAL R2
-      292 CAPTURE                          VAL R3
-      293 CAPTURE                          VAL R0
-      294 CAPTURE                          VAL R4
-      295 CAPTURE                          VAL R48
-      296 CAPTURE                          VAL R49
-      297 CAPTURE                          VAL R5
-      298 CAPTURE                          VAL R1
-      299 SETTABLEKS                       R52 R51 K70 ["init"]
-      301 DUPCLOSURE                       R52 K71 [PROTO_48]
-      302 CAPTURE                          VAL R9
-      303 CAPTURE                          VAL R11
-      304 CAPTURE                          VAL R13
-      305 CAPTURE                          VAL R45
-      306 CAPTURE                          VAL R46
-      307 CAPTURE                          VAL R25
-      308 CAPTURE                          VAL R24
-      309 CAPTURE                          VAL R29
-      310 CAPTURE                          VAL R23
-      311 CAPTURE                          VAL R27
-      312 CAPTURE                          VAL R48
-      313 CAPTURE                          VAL R49
-      314 CAPTURE                          VAL R0
-      315 CAPTURE                          VAL R8
-      316 CAPTURE                          VAL R47
-      317 CAPTURE                          VAL R12
-      318 CAPTURE                          VAL R28
-      319 CAPTURE                          VAL R26
-      320 SETTABLEKS                       R52 R51 K72 ["render"]
-      322 MOVE                             R52 R15
-      323 DUPTABLE                         R53 K77 [{"Stylizer", "Localization", "Plugin", "Analytics"}]
-      324 GETTABLEKS                       R54 R14 K73 ["Stylizer"]
-      326 SETTABLEKS                       R54 R53 K73 ["Stylizer"]
-      328 GETTABLEKS                       R54 R14 K74 ["Localization"]
-      330 SETTABLEKS                       R54 R53 K74 ["Localization"]
-      332 GETTABLEKS                       R54 R14 K75 ["Plugin"]
-      334 SETTABLEKS                       R54 R53 K75 ["Plugin"]
-      336 GETTABLEKS                       R54 R14 K76 ["Analytics"]
-      338 SETTABLEKS                       R54 R53 K76 ["Analytics"]
-      340 CALL                             R52 1 1
-      341 MOVE                             R53 R51
-      342 CALL                             R52 1 1
-      343 MOVE                             R51 R52
-      344 DUPCLOSURE                       R52 K78 [PROTO_49]
-      345 CAPTURE                          VAL R50
-      346 DUPCLOSURE                       R53 K79 [PROTO_68]
-      347 CAPTURE                          VAL R32
-      348 CAPTURE                          VAL R38
-      349 CAPTURE                          VAL R37
-      350 CAPTURE                          VAL R40
-      351 CAPTURE                          VAL R43
-      352 CAPTURE                          VAL R35
-      353 CAPTURE                          VAL R34
-      354 CAPTURE                          VAL R31
-      355 CAPTURE                          VAL R33
-      356 CAPTURE                          VAL R36
+      282 GETIMPORT                        R51 K11 [require]
+      284 GETTABLEKS                       R52 R6 K14 ["LuaFlags"]
+      286 GETTABLEKS                       R52 R52 K66 ["GetFFlagACEImportTrackSelection"]
+      288 CALL                             R51 1 1
+      289 GETTABLEKS                       R52 R10 K67 ["PureComponent"]
+      291 LOADK                            R54 K68 ["AnimationClipDropdown"]
+      292 NAMECALL                         R52 R52 K69 ["extend"]
+      294 CALL                             R52 2 1
+      295 DUPCLOSURE                       R53 K70 [PROTO_36]
+      296 CAPTURE                          VAL R12
+      297 CAPTURE                          VAL R10
+      298 CAPTURE                          VAL R2
+      299 CAPTURE                          VAL R3
+      300 CAPTURE                          VAL R0
+      301 CAPTURE                          VAL R4
+      302 CAPTURE                          VAL R48
+      303 CAPTURE                          VAL R49
+      304 CAPTURE                          VAL R9
+      305 CAPTURE                          VAL R5
+      306 CAPTURE                          VAL R1
+      307 SETTABLEKS                       R53 R52 K71 ["init"]
+      309 DUPCLOSURE                       R53 K72 [PROTO_48]
+      310 CAPTURE                          VAL R10
+      311 CAPTURE                          VAL R12
+      312 CAPTURE                          VAL R14
+      313 CAPTURE                          VAL R46
+      314 CAPTURE                          VAL R47
+      315 CAPTURE                          VAL R26
+      316 CAPTURE                          VAL R25
+      317 CAPTURE                          VAL R30
+      318 CAPTURE                          VAL R24
+      319 CAPTURE                          VAL R28
+      320 CAPTURE                          VAL R48
+      321 CAPTURE                          VAL R49
+      322 CAPTURE                          VAL R9
+      323 CAPTURE                          VAL R51
+      324 CAPTURE                          VAL R0
+      325 CAPTURE                          VAL R8
+      326 CAPTURE                          VAL R13
+      327 CAPTURE                          VAL R29
+      328 CAPTURE                          VAL R27
+      329 SETTABLEKS                       R53 R52 K73 ["render"]
+      331 MOVE                             R53 R16
+      332 DUPTABLE                         R54 K78 [{"Stylizer", "Localization", "Plugin", "Analytics"}]
+      333 GETTABLEKS                       R55 R15 K74 ["Stylizer"]
+      335 SETTABLEKS                       R55 R54 K74 ["Stylizer"]
+      337 GETTABLEKS                       R55 R15 K75 ["Localization"]
+      339 SETTABLEKS                       R55 R54 K75 ["Localization"]
+      341 GETTABLEKS                       R55 R15 K76 ["Plugin"]
+      343 SETTABLEKS                       R55 R54 K76 ["Plugin"]
+      345 GETTABLEKS                       R55 R15 K77 ["Analytics"]
+      347 SETTABLEKS                       R55 R54 K77 ["Analytics"]
+      349 CALL                             R53 1 1
+      350 MOVE                             R54 R52
+      351 CALL                             R53 1 1
+      352 MOVE                             R52 R53
+      353 DUPCLOSURE                       R53 K79 [PROTO_49]
+      354 CAPTURE                          VAL R50
+      355 DUPCLOSURE                       R54 K80 [PROTO_68]
+      356 CAPTURE                          VAL R33
       357 CAPTURE                          VAL R39
-      358 CAPTURE                          VAL R41
-      359 CAPTURE                          VAL R17
-      360 CAPTURE                          VAL R18
-      361 CAPTURE                          VAL R19
-      362 CAPTURE                          VAL R20
-      363 CAPTURE                          VAL R21
-      364 CAPTURE                          VAL R42
-      365 GETTABLEKS                       R54 R10 K80 ["connect"]
-      367 MOVE                             R55 R52
-      368 MOVE                             R56 R53
-      369 CALL                             R54 2 1
-      370 MOVE                             R55 R51
-      371 CALL                             R54 1 -1
-      372 RETURN                           R54 -1
+      358 CAPTURE                          VAL R38
+      359 CAPTURE                          VAL R41
+      360 CAPTURE                          VAL R44
+      361 CAPTURE                          VAL R36
+      362 CAPTURE                          VAL R35
+      363 CAPTURE                          VAL R32
+      364 CAPTURE                          VAL R34
+      365 CAPTURE                          VAL R37
+      366 CAPTURE                          VAL R40
+      367 CAPTURE                          VAL R42
+      368 CAPTURE                          VAL R18
+      369 CAPTURE                          VAL R19
+      370 CAPTURE                          VAL R20
+      371 CAPTURE                          VAL R21
+      372 CAPTURE                          VAL R22
+      373 CAPTURE                          VAL R43
+      374 GETTABLEKS                       R55 R11 K81 ["connect"]
+      376 MOVE                             R56 R53
+      377 MOVE                             R57 R54
+      378 CALL                             R55 2 1
+      379 MOVE                             R56 R52
+      380 CALL                             R55 1 -1
+      381 RETURN                           R55 -1

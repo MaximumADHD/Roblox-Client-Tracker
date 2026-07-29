@@ -96,15 +96,11 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R0 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
-        9 NEWTABLE                         R3 4 0
-       11 SETTABLEKS                       R3 R3 K4 ["__index"]
-       13 DUPCLOSURE                       R4 K5 [PROTO_3]
-       14 CAPTURE                          VAL R3
-       15 SETTABLEKS                       R4 R3 K6 ["new"]
-       17 DUPCLOSURE                       R4 K7 [PROTO_4]
-       18 SETTABLEKS                       R4 R3 K8 ["destroy"]
-       20 RETURN                           R3 1
+        1 NEWTABLE                         R0 4 0
+        3 SETTABLEKS                       R0 R0 K0 ["__index"]
+        5 DUPCLOSURE                       R1 K1 [PROTO_3]
+        6 CAPTURE                          VAL R0
+        7 SETTABLEKS                       R1 R0 K2 ["new"]
+        9 DUPCLOSURE                       R1 K3 [PROTO_4]
+       10 SETTABLEKS                       R1 R0 K4 ["destroy"]
+       12 RETURN                           R0 1

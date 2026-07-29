@@ -7,15 +7,15 @@ PROTO_0:
         7 LOADNIL                          R8
         8 LOADNIL                          R9
         9 FORGPREP                         R7
-       10 MOVE                             R14 R1
-       11 MOVE                             R15 R11
-       12 GETUPVAL                         R16 0
-       13 GETTABLEKS                       R16 R16 K0 ["AssetInfoField"]
-       15 GETTABLEKS                       R16 R16 K1 ["AssetType"]
-       17 NAMECALL                         R12 R2 K2 ["getItemField"]
-       19 CALL                             R12 4 1
-       20 LOADB                            R13 0
-       21 JUMPIFNOTEQKNIL                  R12 ; [+14]
+       10 LOADB                            R12 0
+       11 MOVE                             R15 R1
+       12 MOVE                             R16 R11
+       13 GETUPVAL                         R17 0
+       14 GETTABLEKS                       R17 R17 K0 ["AssetInfoField"]
+       16 GETTABLEKS                       R17 R17 K1 ["AssetType"]
+       18 NAMECALL                         R13 R2 K2 ["getItemField"]
+       20 CALL                             R13 4 1
+       21 JUMPIFNOTEQKNIL                  R13 ; [+14]
        23 LENGTH                           R16 R0
        24 JUMPIFEQKN                       R16 K3 [1] ; [+2]
        26 LOADB                            R15 0 +1
@@ -24,22 +24,22 @@ PROTO_0:
        30 LOADK                            R16 K4 ["If item type is not in cache, there should only be one folder being moved"]
        31 GETIMPORT                        R14 K6 [assert]
        33 CALL                             R14 2 0
-       34 LOADB                            R13 1
+       34 LOADB                            R12 1
        35 JUMP                             ; [+9]
        36 GETUPVAL                         R14 0
        37 GETTABLEKS                       R14 R14 K1 ["AssetType"]
        39 GETTABLEKS                       R14 R14 K7 ["Folder"]
-       41 JUMPIFEQ                         R12 R14 ; [+2]
-       43 LOADB                            R13 0 +1
-       44 LOADB                            R13 1
-       45 MOVE                             R14 R13
+       41 JUMPIFEQ                         R13 R14 ; [+2]
+       43 LOADB                            R12 0 +1
+       44 LOADB                            R12 1
+       45 MOVE                             R14 R12
        46 JUMPIFNOT                        R14 ; [+7]
        47 GETUPVAL                         R15 1
        48 GETTABLEKS                       R15 R15 K8 ["MoveBatchFolderMax"]
        50 JUMPIFLE                         R15 R5 ; [+2]
        52 LOADB                            R14 0 +1
        53 LOADB                            R14 1
-       54 NOT                              R15 R13
+       54 NOT                              R15 R12
        55 JUMPIFNOT                        R15 ; [+7]
        56 GETUPVAL                         R16 1
        57 GETTABLEKS                       R16 R16 K9 ["MoveBatchAssetMax"]
@@ -61,7 +61,7 @@ PROTO_0:
        79 MOVE                             R18 R11
        80 GETIMPORT                        R16 K12 [table.insert]
        82 CALL                             R16 2 0
-       83 JUMPIFNOT                        R13 ; [+2]
+       83 JUMPIFNOT                        R12 ; [+2]
        84 ADDK                             R5 R5 K3 [1]
        85 JUMP                             ; [+1]
        86 ADDK                             R6 R6 K3 [1]

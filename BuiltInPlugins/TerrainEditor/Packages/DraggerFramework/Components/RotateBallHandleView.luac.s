@@ -113,21 +113,20 @@ MAIN:
        26 GETTABLEKS                       R5 R1 K11 ["Utility"]
        28 GETTABLEKS                       R5 R5 K12 ["Math"]
        30 CALL                             R4 1 1
-       31 GETIMPORT                        R5 K16 [Enum.AdornCullingMode.Never]
-       33 GETTABLEKS                       R6 R3 K17 ["PureComponent"]
-       35 LOADK                            R8 K18 ["RotateBallHandleView"]
-       36 NAMECALL                         R6 R6 K19 ["extend"]
-       38 CALL                             R6 2 1
-       39 DUPCLOSURE                       R7 K20 [PROTO_0]
-       40 SETTABLEKS                       R7 R6 K21 ["init"]
-       42 DUPCLOSURE                       R7 K22 [PROTO_1]
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R0
-       45 SETTABLEKS                       R7 R6 K23 ["render"]
-       47 DUPCLOSURE                       R7 K24 [PROTO_2]
-       48 CAPTURE                          VAL R4
-       49 SETTABLEKS                       R7 R6 K25 ["hitTest"]
-       51 DUPCLOSURE                       R7 K26 [PROTO_3]
-       52 CAPTURE                          VAL R4
-       53 SETTABLEKS                       R7 R6 K27 ["_spherePoint"]
-       55 RETURN                           R6 1
+       31 GETTABLEKS                       R5 R3 K13 ["PureComponent"]
+       33 LOADK                            R7 K14 ["RotateBallHandleView"]
+       34 NAMECALL                         R5 R5 K15 ["extend"]
+       36 CALL                             R5 2 1
+       37 DUPCLOSURE                       R6 K16 [PROTO_0]
+       38 SETTABLEKS                       R6 R5 K17 ["init"]
+       40 DUPCLOSURE                       R6 K18 [PROTO_1]
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R0
+       43 SETTABLEKS                       R6 R5 K19 ["render"]
+       45 DUPCLOSURE                       R6 K20 [PROTO_2]
+       46 CAPTURE                          VAL R4
+       47 SETTABLEKS                       R6 R5 K21 ["hitTest"]
+       49 DUPCLOSURE                       R6 K22 [PROTO_3]
+       50 CAPTURE                          VAL R4
+       51 SETTABLEKS                       R6 R5 K23 ["_spherePoint"]
+       53 RETURN                           R5 1

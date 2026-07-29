@@ -339,85 +339,87 @@ PROTO_7:
        62 CALL                             R10 1 0
        63 CLOSEUPVALS                      R4
        64 RETURN                           R0 0
-       65 NAMECALL                         R10 R9 K12 ["GetImportTree"]
-       67 CALL                             R10 1 1
-       68 JUMPIFNOTEQKNIL                  R10 ; [+7]
-       70 GETTABLEKS                       R10 R1 K2 ["error"]
-       72 LOADK                            R11 K13 ["Import tree is nil"]
-       73 CALL                             R10 1 0
-       74 CLOSEUPVALS                      R4
-       75 RETURN                           R0 0
-       76 ADDK                             R4 R4 K14 [0.1]
-       77 MULK                             R11 R5 K8 [0.6]
-       78 ADD                              R10 R4 R11
-       79 GETTABLEKS                       R11 R1 K9 ["progress"]
-       81 MOVE                             R12 R10
-       82 CALL                             R11 1 0
-       83 GETTABLEKS                       R10 R9 K15 ["UploadProgress"]
-       85 NEWCLOSURE                       R12 P1
-       86 CAPTURE                          REF R5
-       87 CAPTURE                          REF R4
-       88 CAPTURE                          VAL R1
-       89 NAMECALL                         R10 R10 K16 ["Connect"]
-       91 CALL                             R10 2 0
-       92 NEWCLOSURE                       R10 P2
-       93 CAPTURE                          REF R5
-       94 CAPTURE                          REF R4
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          UPVAL U2
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          UPVAL U3
-       99 CAPTURE                          VAL R0
-      100 CAPTURE                          REF R7
-      101 CAPTURE                          UPVAL U0
-      102 CAPTURE                          REF R8
-      103 LOADNIL                          R11
-      104 GETTABLEKS                       R12 R9 K17 ["UploadComplete"]
-      106 NEWCLOSURE                       R14 P3
-      107 CAPTURE                          UPVAL U4
-      108 CAPTURE                          REF R11
-      109 CAPTURE                          VAL R10
-      110 NAMECALL                         R12 R12 K16 ["Connect"]
-      112 CALL                             R12 2 0
-      113 NAMECALL                         R12 R9 K12 ["GetImportTree"]
-      115 CALL                             R12 1 1
-      116 LOADB                            R13 0
-      117 SETTABLEKS                       R13 R12 K18 ["AddModelToInventory"]
-      119 GETUPVAL                         R13 5
-      120 CALL                             R13 0 1
-      121 JUMPIFNOT                        R13 ; [+8]
-      122 GETTABLEKS                       R13 R8 K19 ["creatorId"]
-      124 JUMPIFEQKNIL                     R13 ; [+5]
-      126 GETTABLEKS                       R13 R8 K19 ["creatorId"]
-      128 SETTABLEKS                       R13 R12 K20 ["PreferredUploadId"]
-      130 GETTABLEKS                       R13 R8 K21 ["preset"]
-      132 JUMPIFEQKNIL                     R13 ; [+11]
-      134 GETUPVAL                         R13 1
-      135 GETTABLEKS                       R15 R8 K21 ["preset"]
-      137 NAMECALL                         R13 R13 K22 ["GetPreset"]
-      139 CALL                             R13 2 1
-      140 MOVE                             R16 R13
-      141 NAMECALL                         R14 R9 K23 ["ApplyPreset"]
-      143 CALL                             R14 2 0
-      144 GETUPVAL                         R13 4
-      145 CALL                             R13 0 1
-      146 JUMPIFNOT                        R13 ; [+9]
-      147 GETUPVAL                         R13 6
-      148 GETTABLEKS                       R13 R13 K24 ["acquireLock"]
-      150 GETTABLEKS                       R14 R8 K5 ["filepath"]
-      152 GETTABLEKS                       R15 R8 K19 ["creatorId"]
-      154 CALL                             R13 2 1
-      155 MOVE                             R11 R13
-      156 NAMECALL                         R13 R9 K25 ["Upload"]
-      158 CALL                             R13 1 0
-      159 ADDK                             R4 R4 K14 [0.1]
-      160 MULK                             R14 R5 K8 [0.6]
-      161 ADD                              R13 R4 R14
-      162 GETTABLEKS                       R14 R1 K9 ["progress"]
-      164 MOVE                             R15 R13
-      165 CALL                             R14 1 0
-      166 CLOSEUPVALS                      R4
-      167 RETURN                           R0 0
+       65 LOADK                            R10 K12 ["Reimport"]
+       66 SETTABLEKS                       R10 R9 K13 ["UploadSource"]
+       68 NAMECALL                         R10 R9 K14 ["GetImportTree"]
+       70 CALL                             R10 1 1
+       71 JUMPIFNOTEQKNIL                  R10 ; [+7]
+       73 GETTABLEKS                       R10 R1 K2 ["error"]
+       75 LOADK                            R11 K15 ["Import tree is nil"]
+       76 CALL                             R10 1 0
+       77 CLOSEUPVALS                      R4
+       78 RETURN                           R0 0
+       79 ADDK                             R4 R4 K16 [0.1]
+       80 MULK                             R11 R5 K8 [0.6]
+       81 ADD                              R10 R4 R11
+       82 GETTABLEKS                       R11 R1 K9 ["progress"]
+       84 MOVE                             R12 R10
+       85 CALL                             R11 1 0
+       86 GETTABLEKS                       R10 R9 K17 ["UploadProgress"]
+       88 NEWCLOSURE                       R12 P1
+       89 CAPTURE                          REF R5
+       90 CAPTURE                          REF R4
+       91 CAPTURE                          VAL R1
+       92 NAMECALL                         R10 R10 K18 ["Connect"]
+       94 CALL                             R10 2 0
+       95 NEWCLOSURE                       R10 P2
+       96 CAPTURE                          REF R5
+       97 CAPTURE                          REF R4
+       98 CAPTURE                          VAL R1
+       99 CAPTURE                          UPVAL U2
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          UPVAL U3
+      102 CAPTURE                          VAL R0
+      103 CAPTURE                          REF R7
+      104 CAPTURE                          UPVAL U0
+      105 CAPTURE                          REF R8
+      106 LOADNIL                          R11
+      107 GETTABLEKS                       R12 R9 K19 ["UploadComplete"]
+      109 NEWCLOSURE                       R14 P3
+      110 CAPTURE                          UPVAL U4
+      111 CAPTURE                          REF R11
+      112 CAPTURE                          VAL R10
+      113 NAMECALL                         R12 R12 K18 ["Connect"]
+      115 CALL                             R12 2 0
+      116 NAMECALL                         R12 R9 K14 ["GetImportTree"]
+      118 CALL                             R12 1 1
+      119 LOADB                            R13 0
+      120 SETTABLEKS                       R13 R12 K20 ["AddModelToInventory"]
+      122 GETUPVAL                         R13 5
+      123 CALL                             R13 0 1
+      124 JUMPIFNOT                        R13 ; [+8]
+      125 GETTABLEKS                       R13 R8 K21 ["creatorId"]
+      127 JUMPIFEQKNIL                     R13 ; [+5]
+      129 GETTABLEKS                       R13 R8 K21 ["creatorId"]
+      131 SETTABLEKS                       R13 R12 K22 ["PreferredUploadId"]
+      133 GETTABLEKS                       R13 R8 K23 ["preset"]
+      135 JUMPIFEQKNIL                     R13 ; [+11]
+      137 GETUPVAL                         R13 1
+      138 GETTABLEKS                       R15 R8 K23 ["preset"]
+      140 NAMECALL                         R13 R13 K24 ["GetPreset"]
+      142 CALL                             R13 2 1
+      143 MOVE                             R16 R13
+      144 NAMECALL                         R14 R9 K25 ["ApplyPreset"]
+      146 CALL                             R14 2 0
+      147 GETUPVAL                         R13 4
+      148 CALL                             R13 0 1
+      149 JUMPIFNOT                        R13 ; [+9]
+      150 GETUPVAL                         R13 6
+      151 GETTABLEKS                       R13 R13 K26 ["acquireLock"]
+      153 GETTABLEKS                       R14 R8 K5 ["filepath"]
+      155 GETTABLEKS                       R15 R8 K21 ["creatorId"]
+      157 CALL                             R13 2 1
+      158 MOVE                             R11 R13
+      159 NAMECALL                         R13 R9 K27 ["Upload"]
+      161 CALL                             R13 1 0
+      162 ADDK                             R4 R4 K16 [0.1]
+      163 MULK                             R14 R5 K8 [0.6]
+      164 ADD                              R13 R4 R14
+      165 GETTABLEKS                       R14 R1 K9 ["progress"]
+      167 MOVE                             R15 R13
+      168 CALL                             R14 1 0
+      169 CLOSEUPVALS                      R4
+      170 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

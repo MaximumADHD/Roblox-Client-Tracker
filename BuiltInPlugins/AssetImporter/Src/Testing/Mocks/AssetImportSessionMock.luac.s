@@ -12,27 +12,29 @@ PROTO_0:
        15 GETTABLEKS                       R1 R1 K2 ["new"]
        17 CALL                             R1 0 1
        18 SETTABLEKS                       R1 R0 K4 ["UploadComplete"]
-       20 LOADB                            R1 0
-       21 SETTABLEKS                       R1 R0 K5 ["_isAvatar"]
+       20 LOADK                            R1 K5 [""]
+       21 SETTABLEKS                       R1 R0 K6 ["UploadSource"]
        23 LOADB                            R1 0
-       24 SETTABLEKS                       R1 R0 K6 ["_isR15"]
+       24 SETTABLEKS                       R1 R0 K7 ["_isAvatar"]
        26 LOADB                            R1 0
-       27 SETTABLEKS                       R1 R0 K7 ["_isGltf"]
+       27 SETTABLEKS                       R1 R0 K8 ["_isR15"]
        29 LOADB                            R1 0
-       30 SETTABLEKS                       R1 R0 K8 ["_didUpload"]
+       30 SETTABLEKS                       R1 R0 K9 ["_isGltf"]
        32 LOADB                            R1 0
-       33 SETTABLEKS                       R1 R0 K9 ["_didCancel"]
-       35 NEWTABLE                         R1 0 0
-       37 SETTABLEKS                       R1 R0 K10 ["_statuses"]
-       39 LOADNIL                          R1
-       40 SETTABLEKS                       R1 R0 K11 ["_importTree"]
-       42 LOADB                            R1 0
-       43 SETTABLEKS                       R1 R0 K12 ["_hasAnimation"]
-       45 NEWTABLE                         R1 0 0
-       47 SETTABLEKS                       R1 R0 K13 ["_results"]
-       49 NEWTABLE                         R1 0 0
-       51 SETTABLEKS                       R1 R0 K14 ["_uploadRequestStatusMap"]
-       53 RETURN                           R0 1
+       33 SETTABLEKS                       R1 R0 K10 ["_didUpload"]
+       35 LOADB                            R1 0
+       36 SETTABLEKS                       R1 R0 K11 ["_didCancel"]
+       38 NEWTABLE                         R1 0 0
+       40 SETTABLEKS                       R1 R0 K12 ["_statuses"]
+       42 LOADNIL                          R1
+       43 SETTABLEKS                       R1 R0 K13 ["_importTree"]
+       45 LOADB                            R1 0
+       46 SETTABLEKS                       R1 R0 K14 ["_hasAnimation"]
+       48 NEWTABLE                         R1 0 0
+       50 SETTABLEKS                       R1 R0 K15 ["_results"]
+       52 NEWTABLE                         R1 0 0
+       54 SETTABLEKS                       R1 R0 K16 ["_uploadRequestStatusMap"]
+       56 RETURN                           R0 1
 
 PROTO_1:
         0 SETTABLEKS                       R1 R0 K0 ["_fileName"]

@@ -184,10 +184,15 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 0
-        2 GETUPVAL                         R0 1
-        3 CALL                             R0 0 0
-        4 RETURN                           R0 0
+        1 GETUPVAL                         R1 1
+        2 JUMPIFNOTEQ                      R0 R1 ; [+3]
+        4 LOADNIL                          R0
+        5 SETUPVAL                         R0 0
+        6 GETUPVAL                         R0 2
+        7 CALL                             R0 0 0
+        8 GETUPVAL                         R0 3
+        9 CALL                             R0 0 0
+       10 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R3 0
@@ -224,14 +229,21 @@ PROTO_14:
        48 SETTABLEKS                       R11 R10 K11 ["publishStartedSignal"]
        50 GETTABLEKS                       R11 R5 K12 ["publishEndedSignal"]
        52 SETTABLEKS                       R11 R10 K12 ["publishEndedSignal"]
-       54 CALL                             R9 1 0
-       55 GETTABLEKS                       R9 R1 K16 ["Destroying"]
-       57 NEWCLOSURE                       R11 P0
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          VAL R6
-       60 NAMECALL                         R9 R9 K17 ["Once"]
-       62 CALL                             R9 2 0
-       63 RETURN                           R0 0
+       54 CALL                             R9 1 1
+       55 SETUPVAL                         R9 5
+       56 GETTABLEKS                       R10 R1 K16 ["Destroying"]
+       58 NEWCLOSURE                       R12 P0
+       59 CAPTURE                          UPVAL U5
+       60 CAPTURE                          VAL R9
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R6
+       63 NAMECALL                         R10 R10 K17 ["Once"]
+       65 CALL                             R10 2 0
+       66 RETURN                           R0 0
+
+PROTO_15:
+        0 GETUPVAL                         R0 0
+        1 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -266,17 +278,23 @@ MAIN:
        49 GETTABLEKS                       R8 R8 K17 ["TelemetryIO"]
        51 CALL                             R7 1 1
        52 GETTABLEKS                       R8 R3 K18 ["Persistence"]
-       54 DUPCLOSURE                       R9 K19 [PROTO_8]
-       55 CAPTURE                          VAL R5
-       56 DUPCLOSURE                       R10 K20 [PROTO_12]
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R2
-       59 DUPCLOSURE                       R11 K21 [PROTO_14]
-       60 CAPTURE                          VAL R9
+       54 LOADNIL                          R9
+       55 DUPCLOSURE                       R10 K19 [PROTO_8]
+       56 CAPTURE                          VAL R5
+       57 DUPCLOSURE                       R11 K20 [PROTO_12]
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R2
+       60 NEWCLOSURE                       R12 P2
        61 CAPTURE                          VAL R10
-       62 CAPTURE                          VAL R7
-       63 CAPTURE                          VAL R6
-       64 CAPTURE                          VAL R8
-       65 DUPTABLE                         R12 K23 [{"connect"}]
-       66 SETTABLEKS                       R11 R12 K22 ["connect"]
-       68 RETURN                           R12 1
+       62 CAPTURE                          VAL R11
+       63 CAPTURE                          VAL R7
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R8
+       66 CAPTURE                          REF R9
+       67 DUPTABLE                         R13 K23 [{"connect", "getAgentPersistenceAccess"}]
+       68 SETTABLEKS                       R12 R13 K21 ["connect"]
+       70 NEWCLOSURE                       R14 P3
+       71 CAPTURE                          REF R9
+       72 SETTABLEKS                       R14 R13 K22 ["getAgentPersistenceAccess"]
+       74 CLOSEUPVALS                      R9
+       75 RETURN                           R13 1

@@ -1,4 +1,10 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["GetPlaceIsPersistedToCloudAsync"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
+
+PROTO_1:
         0 JUMPIFNOT                        R0 ; [+2]
         1 LOADK                            R1 K0 ["FilePublishPlaceAsCancel"]
         2 JUMP                             ; [+1]
@@ -12,30 +18,55 @@ PROTO_0:
        12 NAMECALL                         R3 R3 K6 ["GetSessionId"]
        14 CALL                             R3 1 1
        15 SETTABLEKS                       R3 R2 K3 ["studioSid"]
-       17 GETUPVAL                         R3 0
-       18 NAMECALL                         R3 R3 K7 ["GetPlaceIsPersistedToCloud"]
-       20 CALL                             R3 1 1
-       21 JUMPIFNOT                        R3 ; [+15]
-       22 GETUPVAL                         R3 2
-       23 GETTABLEKS                       R3 R3 K8 ["Dictionary"]
-       25 GETTABLEKS                       R3 R3 K9 ["join"]
-       27 MOVE                             R4 R2
-       28 DUPTABLE                         R5 K11 [{"placeId"}]
-       29 GETIMPORT                        R6 K13 [game]
-       31 GETTABLEKS                       R6 R6 K14 ["PlaceId"]
-       33 SETTABLEKS                       R6 R5 K10 ["placeId"]
-       35 CALL                             R3 2 1
-       36 MOVE                             R2 R3
-       37 GETUPVAL                         R3 1
-       38 LOADK                            R5 K15 ["studio"]
-       39 LOADK                            R6 K16 ["TeamCreate"]
-       40 MOVE                             R7 R1
-       41 MOVE                             R8 R2
-       42 NAMECALL                         R3 R3 K17 ["SendEventDeferred"]
-       44 CALL                             R3 5 0
-       45 RETURN                           R0 0
+       17 LOADB                            R3 0
+       18 GETUPVAL                         R4 2
+       19 JUMPIFNOT                        R4 ; [+26]
+       20 GETIMPORT                        R4 K8 [script]
+       22 LOADK                            R6 K9 ["Plugin"]
+       23 NAMECALL                         R4 R4 K10 ["FindFirstAncestorWhichIsA"]
+       25 CALL                             R4 2 1
+       26 MOVE                             R5 R4
+       27 JUMPIFNOT                        R5 ; [+4]
+       28 LOADK                            R7 K11 ["PlaceSessionContextBridge"]
+       29 NAMECALL                         R5 R4 K12 ["GetPluginComponent"]
+       31 CALL                             R5 2 1
+       32 JUMPIFNOT                        R5 ; [+18]
+       33 GETIMPORT                        R6 K14 [pcall]
+       35 NEWCLOSURE                       R7 P0
+       36 CAPTURE                          VAL R5
+       37 CALL                             R6 1 2
+       38 MOVE                             R8 R6
+       39 JUMPIFNOT                        R8 ; [+4]
+       40 JUMPIFEQKB                       R7 TRUE ; [+2]
+       42 LOADB                            R8 0 +1
+       43 LOADB                            R8 1
+       44 MOVE                             R3 R8
+       45 JUMP                             ; [+5]
+       46 GETUPVAL                         R4 0
+       47 NAMECALL                         R4 R4 K15 ["GetPlaceIsPersistedToCloud"]
+       49 CALL                             R4 1 1
+       50 MOVE                             R3 R4
+       51 JUMPIFNOT                        R3 ; [+15]
+       52 GETUPVAL                         R4 3
+       53 GETTABLEKS                       R4 R4 K16 ["Dictionary"]
+       55 GETTABLEKS                       R4 R4 K17 ["join"]
+       57 MOVE                             R5 R2
+       58 DUPTABLE                         R6 K19 [{"placeId"}]
+       59 GETIMPORT                        R7 K21 [game]
+       61 GETTABLEKS                       R7 R7 K22 ["PlaceId"]
+       63 SETTABLEKS                       R7 R6 K18 ["placeId"]
+       65 CALL                             R4 2 1
+       66 MOVE                             R2 R4
+       67 GETUPVAL                         R4 1
+       68 LOADK                            R6 K23 ["studio"]
+       69 LOADK                            R7 K24 ["TeamCreate"]
+       70 MOVE                             R8 R1
+       71 MOVE                             R9 R2
+       72 NAMECALL                         R4 R4 K25 ["SendEventDeferred"]
+       74 CALL                             R4 5 0
+       75 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 DUPTABLE                         R4 K5 [{"userId", "dataSharingFetchState", "dataSharingEnabled", "universeId", "groupId"}]
         1 GETUPVAL                         R5 0
         2 NAMECALL                         R5 R5 K6 ["GetUserId"]
@@ -54,7 +85,7 @@ PROTO_1:
        22 CALL                             R5 5 0
        23 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -100,18 +131,23 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K11 ["Cryo"]
        27 CALL                             R3 1 1
        28 NEWTABLE                         R4 4 0
-       30 DUPCLOSURE                       R5 K12 [PROTO_0]
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          VAL R0
-       33 CAPTURE                          VAL R3
-       34 SETTABLEKS                       R5 R4 K13 ["reportSaveCancel"]
-       36 DUPCLOSURE                       R5 K14 [PROTO_1]
+       30 GETIMPORT                        R5 K1 [game]
+       32 LOADK                            R7 K12 ["AddGetPlaceIsPersistedToCloudPscBridge"]
+       33 NAMECALL                         R5 R5 K13 ["GetEngineFeature"]
+       35 CALL                             R5 2 1
+       36 DUPCLOSURE                       R6 K14 [PROTO_1]
        37 CAPTURE                          VAL R1
        38 CAPTURE                          VAL R0
-       39 SETTABLEKS                       R5 R4 K15 ["reportDataSharingToEventIngest"]
-       41 DUPCLOSURE                       R5 K16 [PROTO_2]
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R0
-       45 SETTABLEKS                       R5 R4 K17 ["sendEventDeferred"]
-       47 RETURN                           R4 1
+       39 CAPTURE                          VAL R5
+       40 CAPTURE                          VAL R3
+       41 SETTABLEKS                       R6 R4 K15 ["reportSaveCancel"]
+       43 DUPCLOSURE                       R6 K16 [PROTO_2]
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R6 R4 K17 ["reportDataSharingToEventIngest"]
+       48 DUPCLOSURE                       R6 K18 [PROTO_3]
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R6 R4 K19 ["sendEventDeferred"]
+       54 RETURN                           R4 1

@@ -1060,7 +1060,7 @@ PROTO_37:
        33 JUMPIFNOTEQ                      R8 R10 ; [+2]
        35 LOADB                            R4 0
        36 FORGLOOP                         R5 1 ; [-16]
-       38 JUMPIFNOT                        R4 ; [+15]
+       38 JUMPIFNOT                        R4 ; [+40]
        39 GETUPVAL                         R5 4
        40 GETTABLEKS                       R5 R5 K12 ["validate"]
        42 MOVE                             R6 R0
@@ -1072,51 +1072,36 @@ PROTO_37:
        50 CALL                             R5 2 2
        51 MOVE                             R1 R5
        52 MOVE                             R2 R6
-       53 JUMP                             ; [+3]
-       54 LOADB                            R1 1
-       55 NEWTABLE                         R2 0 0
-       57 JUMPIFNOT                        R4 ; [+43]
-       58 GETUPVAL                         R5 4
-       59 GETTABLEKS                       R5 R5 K14 ["isFolderStructureEnabled"]
-       61 JUMPIFNOT                        R5 ; [+39]
-       62 GETUPVAL                         R5 4
-       63 GETTABLEKS                       R5 R5 K14 ["isFolderStructureEnabled"]
-       65 CALL                             R5 0 1
-       66 JUMPIFNOT                        R5 ; [+34]
-       67 GETUPVAL                         R5 4
-       68 GETTABLEKS                       R5 R5 K15 ["ValidateAsset"]
-       70 MOVE                             R6 R0
-       71 GETUPVAL                         R7 5
-       72 GETTABLEKS                       R7 R7 K13 ["instances"]
-       74 CALL                             R6 1 1
-       75 GETUPVAL                         R7 3
-       76 GETTABLEKS                       R7 R7 K10 ["currentAssetType"]
-       78 DUPTABLE                         R8 K20 [{["source"] = "Toolbox", ["enforceR15FolderStructure"] = False}]
-       79 CALL                             R5 3 1
-       80 GETUPVAL                         R6 4
-       81 GETTABLEKS                       R6 R6 K21 ["isEntrypointMergingEnabled"]
-       83 JUMPIFNOT                        R6 ; [+17]
-       84 GETUPVAL                         R6 4
-       85 GETTABLEKS                       R6 R6 K21 ["isEntrypointMergingEnabled"]
-       87 CALL                             R6 0 1
-       88 JUMPIFNOT                        R6 ; [+12]
-       89 GETUPVAL                         R6 4
-       90 GETTABLEKS                       R6 R6 K22 ["combineResultsIntoLegacy"]
-       92 MOVE                             R7 R1
-       93 MOVE                             R8 R2
-       94 MOVE                             R9 R5
-       95 NEWCLOSURE                       R10 P1
-       96 CAPTURE                          UPVAL U6
-       97 CAPTURE                          UPVAL U5
-       98 CALL                             R6 4 2
-       99 MOVE                             R1 R6
-      100 MOVE                             R2 R7
-      101 GETUPVAL                         R5 7
-      102 GETTABLEKS                       R5 R5 K23 ["validationCallback"]
-      104 MOVE                             R6 R1
-      105 MOVE                             R7 R2
-      106 CALL                             R5 2 0
-      107 RETURN                           R0 0
+       53 GETUPVAL                         R5 4
+       54 GETTABLEKS                       R5 R5 K14 ["ValidateAsset"]
+       56 MOVE                             R6 R0
+       57 GETUPVAL                         R7 5
+       58 GETTABLEKS                       R7 R7 K13 ["instances"]
+       60 CALL                             R6 1 1
+       61 GETUPVAL                         R7 3
+       62 GETTABLEKS                       R7 R7 K10 ["currentAssetType"]
+       64 DUPTABLE                         R8 K19 [{["source"] = "Toolbox", ["enforceR15FolderStructure"] = False}]
+       65 CALL                             R5 3 1
+       66 GETUPVAL                         R6 4
+       67 GETTABLEKS                       R6 R6 K20 ["combineResultsIntoLegacy"]
+       69 MOVE                             R7 R1
+       70 MOVE                             R8 R2
+       71 MOVE                             R9 R5
+       72 NEWCLOSURE                       R10 P1
+       73 CAPTURE                          UPVAL U6
+       74 CAPTURE                          UPVAL U5
+       75 CALL                             R6 4 2
+       76 MOVE                             R1 R6
+       77 MOVE                             R2 R7
+       78 JUMP                             ; [+3]
+       79 LOADB                            R1 1
+       80 NEWTABLE                         R2 0 0
+       82 GETUPVAL                         R5 7
+       83 GETTABLEKS                       R5 R5 K21 ["validationCallback"]
+       85 MOVE                             R6 R1
+       86 MOVE                             R7 R2
+       87 CALL                             R5 2 0
+       88 RETURN                           R0 0
 
 PROTO_38:
         0 GETTABLEKS                       R3 R0 K0 ["props"]

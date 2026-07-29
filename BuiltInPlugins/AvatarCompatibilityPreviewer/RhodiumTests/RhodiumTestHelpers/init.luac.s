@@ -239,92 +239,112 @@ PROTO_19:
         5 GETUPVAL                         R3 2
         6 GETTABLEKS                       R3 R3 K3 ["List"]
         8 GETTABLEKS                       R3 R3 K4 ["join"]
-       10 NEWTABLE                         R4 0 1
+       10 NEWTABLE                         R4 0 2
        12 GETUPVAL                         R5 0
        13 GETTABLEKS                       R5 R5 K0 ["createElement"]
        15 GETUPVAL                         R6 3
-       16 GETTABLEKS                       R6 R6 K5 ["FoundationProvider"]
-       18 DUPTABLE                         R7 K8 [{"theme", "overlayGui"}]
-       19 GETUPVAL                         R8 3
-       20 GETTABLEKS                       R8 R8 K9 ["Enums"]
-       22 GETTABLEKS                       R8 R8 K10 ["Theme"]
-       24 GETTABLEKS                       R8 R8 K11 ["Dark"]
-       26 SETTABLEKS                       R8 R7 K6 ["theme"]
-       28 GETUPVAL                         R8 4
-       29 SETTABLEKS                       R8 R7 K7 ["overlayGui"]
-       31 CALL                             R5 2 -1
-       32 SETLIST                          R4 R5 -1 [1]
-       34 NEWTABLE                         R5 0 6
-       36 GETUPVAL                         R6 0
-       37 GETTABLEKS                       R6 R6 K0 ["createElement"]
-       39 GETUPVAL                         R7 5
-       40 GETTABLEKS                       R7 R7 K12 ["Provider"]
-       42 DUPTABLE                         R8 K14 [{"value"}]
-       43 GETUPVAL                         R9 6
-       44 SETTABLEKS                       R9 R8 K13 ["value"]
-       46 CALL                             R6 2 1
-       47 GETUPVAL                         R7 0
-       48 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       50 GETUPVAL                         R8 7
-       51 CALL                             R7 1 1
-       52 GETUPVAL                         R8 0
-       53 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       55 GETUPVAL                         R9 8
-       56 GETTABLEKS                       R9 R9 K12 ["Provider"]
-       58 DUPTABLE                         R10 K14 [{"value"}]
-       59 GETUPVAL                         R11 9
-       60 GETTABLEKS                       R11 R11 K15 ["placesService"]
-       62 SETTABLEKS                       R11 R10 K13 ["value"]
-       64 CALL                             R8 2 1
-       65 GETUPVAL                         R9 0
-       66 GETTABLEKS                       R9 R9 K0 ["createElement"]
-       68 GETUPVAL                         R10 10
-       69 GETTABLEKS                       R10 R10 K12 ["Provider"]
-       71 DUPTABLE                         R11 K14 [{"value"}]
-       72 GETUPVAL                         R12 11
-       73 SETTABLEKS                       R12 R11 K13 ["value"]
-       75 CALL                             R9 2 1
-       76 GETUPVAL                         R10 0
-       77 GETTABLEKS                       R10 R10 K0 ["createElement"]
-       79 GETUPVAL                         R11 12
-       80 GETTABLEKS                       R11 R11 K16 ["NeverReturnsProvider"]
-       82 CALL                             R10 1 1
-       83 GETUPVAL                         R12 13
-       84 CALL                             R12 0 1
-       85 JUMPIFNOT                        R12 ; [+8]
-       86 GETUPVAL                         R11 0
-       87 GETTABLEKS                       R11 R11 K0 ["createElement"]
-       89 GETUPVAL                         R12 14
-       90 GETTABLEKS                       R12 R12 K12 ["Provider"]
-       92 CALL                             R11 1 1
-       93 JUMP                             ; [+1]
-       94 LOADNIL                          R11
-       95 SETLIST                          R5 R6 6 [1]
-       97 GETUPVAL                         R7 15
-       98 JUMPIFEQKNIL                     R7 ; [+10]
-      100 GETUPVAL                         R7 15
-      101 GETTABLEKS                       R7 R7 K17 ["wrapAppContexts"]
-      103 JUMPIFEQKNIL                     R7 ; [+5]
-      105 GETUPVAL                         R6 15
-      106 GETTABLEKS                       R6 R6 K17 ["wrapAppContexts"]
-      108 JUMP                             ; [+2]
-      109 NEWTABLE                         R6 0 0
-      111 CALL                             R3 3 1
-      112 SETTABLEKS                       R3 R2 K1 ["providers"]
-      114 GETUPVAL                         R3 0
-      115 GETTABLEKS                       R3 R3 K0 ["createElement"]
-      117 GETUPVAL                         R4 16
-      118 CALL                             R3 1 -1
-      119 CALL                             R0 -1 1
-      120 GETUPVAL                         R1 17
-      121 GETUPVAL                         R3 18
-      122 GETUPVAL                         R4 19
-      123 GETTABLEKS                       R4 R4 K18 ["context"]
-      125 MOVE                             R5 R0
-      126 CALL                             R3 2 -1
-      127 NAMECALL                         R1 R1 K19 ["render"]
-      129 CALL                             R1 -1 0
-      130 RETURN                           R0 0
+       16 GETTABLEKS                       R6 R6 K5 ["Provider"]
+       18 DUPTABLE                         R7 K7 [{"value"}]
+       19 GETUPVAL                         R8 4
+       20 CALL                             R8 0 1
+       21 SETTABLEKS                       R8 R7 K6 ["value"]
+       23 CALL                             R5 2 1
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       27 GETUPVAL                         R7 5
+       28 GETTABLEKS                       R7 R7 K5 ["Provider"]
+       30 DUPTABLE                         R8 K7 [{"value"}]
+       31 GETUPVAL                         R9 6
+       32 CALL                             R9 0 1
+       33 SETTABLEKS                       R9 R8 K6 ["value"]
+       35 CALL                             R6 2 -1
+       36 SETLIST                          R4 R5 -1 [1]
+       38 NEWTABLE                         R5 0 1
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       43 GETUPVAL                         R7 7
+       44 GETTABLEKS                       R7 R7 K8 ["FoundationProvider"]
+       46 DUPTABLE                         R8 K11 [{"theme", "overlayGui"}]
+       47 GETUPVAL                         R9 7
+       48 GETTABLEKS                       R9 R9 K12 ["Enums"]
+       50 GETTABLEKS                       R9 R9 K13 ["Theme"]
+       52 GETTABLEKS                       R9 R9 K14 ["Dark"]
+       54 SETTABLEKS                       R9 R8 K9 ["theme"]
+       56 GETUPVAL                         R9 8
+       57 SETTABLEKS                       R9 R8 K10 ["overlayGui"]
+       59 CALL                             R6 2 -1
+       60 SETLIST                          R5 R6 -1 [1]
+       62 NEWTABLE                         R6 0 6
+       64 GETUPVAL                         R7 0
+       65 GETTABLEKS                       R7 R7 K0 ["createElement"]
+       67 GETUPVAL                         R8 9
+       68 GETTABLEKS                       R8 R8 K5 ["Provider"]
+       70 DUPTABLE                         R9 K7 [{"value"}]
+       71 GETUPVAL                         R10 10
+       72 SETTABLEKS                       R10 R9 K6 ["value"]
+       74 CALL                             R7 2 1
+       75 GETUPVAL                         R8 0
+       76 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       78 GETUPVAL                         R9 11
+       79 CALL                             R8 1 1
+       80 GETUPVAL                         R9 0
+       81 GETTABLEKS                       R9 R9 K0 ["createElement"]
+       83 GETUPVAL                         R10 12
+       84 GETTABLEKS                       R10 R10 K5 ["Provider"]
+       86 DUPTABLE                         R11 K7 [{"value"}]
+       87 GETUPVAL                         R12 13
+       88 GETTABLEKS                       R12 R12 K15 ["placesService"]
+       90 SETTABLEKS                       R12 R11 K6 ["value"]
+       92 CALL                             R9 2 1
+       93 GETUPVAL                         R10 0
+       94 GETTABLEKS                       R10 R10 K0 ["createElement"]
+       96 GETUPVAL                         R11 14
+       97 GETTABLEKS                       R11 R11 K5 ["Provider"]
+       99 DUPTABLE                         R12 K7 [{"value"}]
+      100 GETUPVAL                         R13 15
+      101 SETTABLEKS                       R13 R12 K6 ["value"]
+      103 CALL                             R10 2 1
+      104 GETUPVAL                         R11 0
+      105 GETTABLEKS                       R11 R11 K0 ["createElement"]
+      107 GETUPVAL                         R12 16
+      108 GETTABLEKS                       R12 R12 K16 ["NeverReturnsProvider"]
+      110 CALL                             R11 1 1
+      111 GETUPVAL                         R13 17
+      112 CALL                             R13 0 1
+      113 JUMPIFNOT                        R13 ; [+8]
+      114 GETUPVAL                         R12 0
+      115 GETTABLEKS                       R12 R12 K0 ["createElement"]
+      117 GETUPVAL                         R13 18
+      118 GETTABLEKS                       R13 R13 K5 ["Provider"]
+      120 CALL                             R12 1 1
+      121 JUMP                             ; [+1]
+      122 LOADNIL                          R12
+      123 SETLIST                          R6 R7 6 [1]
+      125 GETUPVAL                         R8 19
+      126 JUMPIFEQKNIL                     R8 ; [+10]
+      128 GETUPVAL                         R8 19
+      129 GETTABLEKS                       R8 R8 K17 ["wrapAppContexts"]
+      131 JUMPIFEQKNIL                     R8 ; [+5]
+      133 GETUPVAL                         R7 19
+      134 GETTABLEKS                       R7 R7 K17 ["wrapAppContexts"]
+      136 JUMP                             ; [+2]
+      137 NEWTABLE                         R7 0 0
+      139 CALL                             R3 4 1
+      140 SETTABLEKS                       R3 R2 K1 ["providers"]
+      142 GETUPVAL                         R3 0
+      143 GETTABLEKS                       R3 R3 K0 ["createElement"]
+      145 GETUPVAL                         R4 20
+      146 CALL                             R3 1 -1
+      147 CALL                             R0 -1 1
+      148 GETUPVAL                         R1 21
+      149 GETUPVAL                         R3 22
+      150 GETUPVAL                         R4 23
+      151 GETTABLEKS                       R4 R4 K18 ["context"]
+      153 MOVE                             R5 R0
+      154 CALL                             R3 2 -1
+      155 NAMECALL                         R1 R1 K19 ["render"]
+      157 CALL                             R1 -1 0
+      158 RETURN                           R0 0
 
 PROTO_20:
         0 GETUPVAL                         R0 0
@@ -716,6 +736,31 @@ PROTO_43:
         8 RETURN                           R0 0
 
 PROTO_44:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
+        3 GETTABLEKS                       R0 R0 K1 ["click"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
+
+PROTO_45:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["getByTestId"]
+        9 MOVE                             R2 R0
+       10 CALL                             R1 1 1
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K3 ["act"]
+       14 NEWCLOSURE                       R3 P0
+       15 CAPTURE                          UPVAL U0
+       16 CAPTURE                          VAL R1
+       17 CALL                             R2 1 0
+       18 RETURN                           R0 0
+
+PROTO_46:
         0 NEWTABLE                         R1 0 0
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K0 ["ui"]
@@ -743,7 +788,7 @@ PROTO_44:
        34 FORGLOOP                         R2 2 ; [-26]
        36 RETURN                           R1 1
 
-PROTO_45:
+PROTO_47:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AvatarScreen"]
         2 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
@@ -757,7 +802,7 @@ PROTO_45:
        14 CALL                             R1 0 0
        15 RETURN                           R0 0
 
-PROTO_46:
+PROTO_48:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["act"]
         3 NEWCLOSURE                       R3 P0
@@ -767,7 +812,7 @@ PROTO_46:
         7 CALL                             R2 1 0
         8 RETURN                           R0 0
 
-PROTO_47:
+PROTO_49:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["resize"]
         3 LOADN                            R1 1024
@@ -775,23 +820,23 @@ PROTO_47:
         5 CALL                             R0 2 0
         6 RETURN                           R0 0
 
-PROTO_48:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
-        3 GETTABLEKS                       R0 R0 K1 ["click"]
-        5 GETUPVAL                         R1 1
-        6 CALL                             R0 1 0
-        7 RETURN                           R0 0
-
-PROTO_49:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
-        3 GETTABLEKS                       R0 R0 K1 ["click"]
-        5 GETUPVAL                         R1 1
-        6 CALL                             R0 1 0
-        7 RETURN                           R0 0
-
 PROTO_50:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
+        3 GETTABLEKS                       R0 R0 K1 ["click"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
+
+PROTO_51:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
+        3 GETTABLEKS                       R0 R0 K1 ["click"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
+
+PROTO_52:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["act"]
         3 NEWCLOSURE                       R3 P0
@@ -901,7 +946,7 @@ PROTO_50:
       146 CALL                             R8 1 0
       147 RETURN                           R0 0
 
-PROTO_51:
+PROTO_53:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["expectInstanceByPath"]
         3 MOVE                             R3 R0
@@ -954,7 +999,7 @@ PROTO_51:
        66 CALL                             R3 1 0
        67 RETURN                           R0 0
 
-PROTO_52:
+PROTO_54:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["instanceByPath"]
         3 LOADK                            R2 K1 ["AvatarScreen"]
@@ -964,7 +1009,7 @@ PROTO_52:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_53:
+PROTO_55:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["instanceByPath"]
         3 LOADK                            R2 K1 ["AvatarScreen.Contents.Tabs.AssetPalettes.PickTabMenu"]
@@ -974,7 +1019,7 @@ PROTO_53:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_54:
+PROTO_56:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["instanceByPath"]
         3 LOADK                            R2 K1 ["AvatarScreen.Contents.Tabs.TabBar.PickTabMenu"]
@@ -984,7 +1029,7 @@ PROTO_54:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_55:
+PROTO_57:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["TopLevelDetector"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -994,7 +1039,7 @@ PROTO_55:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_56:
+PROTO_58:
         0 GETIMPORT                        R1 K2 [os.clock]
         2 CALL                             R1 0 1
         3 GETIMPORT                        R3 K2 [os.clock]
@@ -1018,14 +1063,14 @@ PROTO_56:
        28 CALL                             R2 1 0
        29 RETURN                           R0 0
 
-PROTO_57:
+PROTO_59:
         0 GETUPVAL                         R1 0
         1 LOADK                            R2 K0 ["AvatarScreen.Contents.Tabs.TabBar.ScrollingFrame.Scroller.Tabs"]
         2 MOVE                             R3 R0
         3 CALL                             R1 2 0
         4 RETURN                           R0 0
 
-PROTO_58:
+PROTO_60:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["AvatarScreen"]
@@ -1034,13 +1079,13 @@ PROTO_58:
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
-PROTO_59:
+PROTO_61:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["click"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_60:
+PROTO_62:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["expectElementByPath"]
         3 LOADK                            R3 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.ScrollingFrame.Scroller.item_builtin_%*.Contents.TextButton"]
@@ -1056,13 +1101,13 @@ PROTO_60:
        15 CALL                             R2 1 0
        16 RETURN                           R0 0
 
-PROTO_61:
+PROTO_63:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["click"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_62:
+PROTO_64:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["expectElementByPath"]
         3 LOADK                            R3 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.ScrollingFrame.Scroller.item_instance_%*.Contents.TextButton"]
@@ -1078,7 +1123,7 @@ PROTO_62:
        15 CALL                             R2 1 0
        16 RETURN                           R0 0
 
-PROTO_63:
+PROTO_65:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["expectInstanceByPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.ScrollingFrame.Scroller"]
@@ -1138,7 +1183,7 @@ PROTO_63:
        77 SETTABLEKS                       R2 R3 K22 ["instances"]
        79 RETURN                           R3 1
 
-PROTO_64:
+PROTO_66:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["expectInstanceByPath"]
         3 GETUPVAL                         R1 0
@@ -1171,7 +1216,7 @@ PROTO_64:
        44 CALL                             R1 1 0
        45 RETURN                           R0 0
 
-PROTO_65:
+PROTO_67:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["AvatarScreen"]
         3 GETTABLEKS                       R1 R1 K1 ["selectedPaletteText"]
@@ -1185,7 +1230,7 @@ PROTO_65:
        15 CALL                             R0 2 1
        16 RETURN                           R0 1
 
-PROTO_66:
+PROTO_68:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["instanceByPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.Contents.Contents.Preview.DummyPreview.DummyPreview.WorldModel.Dummy"]
@@ -1198,7 +1243,32 @@ PROTO_66:
        12 CALL                             R1 1 1
        13 RETURN                           R1 1
 
-PROTO_67:
+PROTO_69:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["expectInstanceByPath"]
+        3 LOADK                            R1 K1 ["AvatarScreen.Contents.Contents.Preview.DummyPreview.DummyPreview"]
+        4 CALL                             R0 1 1
+        5 LOADB                            R2 0
+        6 JUMPIFEQKNIL                     R0 ; [+5]
+        8 LOADK                            R4 K2 ["ViewportFrame"]
+        9 NAMECALL                         R2 R0 K3 ["IsA"]
+       11 CALL                             R2 2 1
+       12 FASTCALL2K                       ASSERT R2 K4 ; [+4]
+       14 LOADK                            R3 K4 ["AvatarScreen ViewportFrame not found"]
+       15 GETIMPORT                        R1 K6 [assert]
+       17 CALL                             R1 2 0
+       18 GETTABLEKS                       R1 R0 K7 ["CurrentCamera"]
+       20 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       22 LOADB                            R3 0 +1
+       23 LOADB                            R3 1
+       24 FASTCALL2K                       ASSERT R3 K8 ; [+4]
+       26 LOADK                            R4 K8 ["AvatarScreen ViewportFrame has no CurrentCamera"]
+       27 GETIMPORT                        R2 K6 [assert]
+       29 CALL                             R2 2 0
+       30 GETTABLEKS                       R2 R1 K9 ["CFrame"]
+       32 RETURN                           R2 1
+
+PROTO_70:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+6]
@@ -1213,7 +1283,7 @@ PROTO_67:
        13 CALL                             R0 1 0
        14 RETURN                           R0 0
 
-PROTO_68:
+PROTO_71:
         0 LOADK                            R4 K0 ["ImageLabel"]
         1 NAMECALL                         R2 R0 K1 ["IsA"]
         3 CALL                             R2 2 1
@@ -1223,7 +1293,7 @@ PROTO_68:
         8 MOVE                             R1 R0
         9 RETURN                           R1 1
 
-PROTO_69:
+PROTO_72:
         0 GETTABLEKS                       R3 R0 K0 ["yPosition"]
         2 GETTABLEKS                       R4 R1 K0 ["yPosition"]
         4 JUMPIFLT                         R3 R4 ; [+2]
@@ -1231,9 +1301,9 @@ PROTO_69:
         7 LOADB                            R2 1
         8 RETURN                           R2 1
 
-PROTO_70:
-        0 DUPCLOSURE                       R0 K0 [PROTO_68]
-        1 DUPCLOSURE                       R1 K1 [PROTO_69]
+PROTO_73:
+        0 DUPCLOSURE                       R0 K0 [PROTO_71]
+        1 DUPCLOSURE                       R1 K1 [PROTO_72]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K2 ["expectInstanceByPath"]
         5 LOADK                            R3 K3 ["AvatarScreen.Contents.Contents.Preview.EquippedItemsSidebar"]
@@ -1312,42 +1382,42 @@ PROTO_70:
       115 SETTABLEKS                       R4 R5 K29 ["otherEquipment"]
       117 RETURN                           R5 1
 
-PROTO_71:
+PROTO_74:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.StageSelect.Contents.Publish"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_72:
+PROTO_75:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.StageSelect.Contents.CheckBody"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_73:
+PROTO_76:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.StageSelect.Contents.CheckFace"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_74:
+PROTO_77:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.StageSelect.SettingsButton"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_75:
+PROTO_78:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["AvatarScreen.StageSelect.Contents.Back.Button"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_76:
+PROTO_79:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
         3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
@@ -1365,7 +1435,7 @@ PROTO_76:
        23 CALL                             R0 0 0
        24 RETURN                           R0 0
 
-PROTO_77:
+PROTO_80:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["AvatarScreen"]
         3 GETTABLEKS                       R0 R0 K1 ["getSidebarItems"]
@@ -1428,7 +1498,7 @@ PROTO_77:
        82 CALL                             R4 1 0
        83 RETURN                           R0 0
 
-PROTO_78:
+PROTO_81:
         0 GETTABLEKS                       R2 R0 K0 ["AbsolutePosition"]
         2 GETTABLEKS                       R2 R2 K1 ["Y"]
         4 GETTABLEKS                       R3 R1 K0 ["AbsolutePosition"]
@@ -1451,7 +1521,7 @@ PROTO_78:
        34 LOADB                            R2 1
        35 RETURN                           R2 1
 
-PROTO_79:
+PROTO_82:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Element"]
         3 GETTABLEKS                       R0 R0 K1 ["new"]
@@ -1461,7 +1531,7 @@ PROTO_79:
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
-PROTO_80:
+PROTO_83:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["act"]
         3 NEWCLOSURE                       R1 P0
@@ -1470,7 +1540,7 @@ PROTO_80:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_81:
+PROTO_84:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["AvatarScreen"]
         3 GETTABLEKS                       R2 R2 K1 ["selectedPaletteKey"]
@@ -1491,7 +1561,7 @@ PROTO_81:
        25 CALL                             R1 2 1
        26 GETIMPORT                        R2 K11 [table.sort]
        28 MOVE                             R3 R1
-       29 DUPCLOSURE                       R4 K12 [PROTO_78]
+       29 DUPCLOSURE                       R4 K12 [PROTO_81]
        30 CALL                             R2 2 0
        31 MOVE                             R2 R1
        32 LOADNIL                          R3
@@ -1517,7 +1587,7 @@ PROTO_81:
        59 FORGLOOP                         R2 2 ; [-25]
        61 RETURN                           R0 1
 
-PROTO_82:
+PROTO_85:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["Decal"]
         3 CALL                             R1 1 1
@@ -1565,7 +1635,7 @@ PROTO_82:
        64 CALL                             R5 0 0
        65 RETURN                           R0 0
 
-PROTO_83:
+PROTO_86:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
         3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
@@ -1593,7 +1663,7 @@ PROTO_83:
        37 CALL                             R0 0 0
        38 RETURN                           R0 0
 
-PROTO_84:
+PROTO_87:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["expectInstanceByPath"]
         3 LOADK                            R2 K1 ["AvatarScreen.Contents.Contents.CatalogContainer.CatalogContainer.Catalog.ScrollingFrame.Scroller"]
@@ -1682,7 +1752,7 @@ PROTO_84:
       112 CLOSEUPVALS                      R3
       113 RETURN                           R0 0
 
-PROTO_85:
+PROTO_88:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
         3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
@@ -1696,21 +1766,21 @@ PROTO_85:
        15 CALL                             R0 0 0
        16 RETURN                           R0 0
 
-PROTO_86:
+PROTO_89:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["act"]
-        3 DUPCLOSURE                       R1 K1 [PROTO_85]
+        3 DUPCLOSURE                       R1 K1 [PROTO_88]
         4 CAPTURE                          UPVAL U1
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_87:
+PROTO_90:
         0 LOADK                            R3 K0 ["MakeupDescription"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 -1
         4 RETURN                           R1 -1
 
-PROTO_88:
+PROTO_91:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["AvatarScreen"]
         3 GETTABLEKS                       R0 R0 K1 ["getDummy"]
@@ -1728,11 +1798,11 @@ PROTO_88:
        19 GETTABLEKS                       R2 R2 K7 ["count"]
        21 NAMECALL                         R3 R1 K8 ["GetChildren"]
        23 CALL                             R3 1 1
-       24 DUPCLOSURE                       R4 K9 [PROTO_87]
+       24 DUPCLOSURE                       R4 K9 [PROTO_90]
        25 CALL                             R2 2 -1
        26 RETURN                           R2 -1
 
-PROTO_89:
+PROTO_92:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["instanceByPath"]
         3 LOADK                            R1 K1 ["Children.ErrorAlert.Alert.Contents.Description"]
@@ -1751,7 +1821,7 @@ PROTO_89:
        20 GETTABLEKS                       R1 R0 K7 ["Text"]
        22 RETURN                           R1 1
 
-PROTO_90:
+PROTO_93:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["instanceByPath"]
         3 LOADK                            R1 K1 ["Children.GenerationCard.TitlePane.Title"]
@@ -1770,21 +1840,21 @@ PROTO_90:
        20 GETTABLEKS                       R1 R0 K7 ["Text"]
        22 RETURN                           R1 1
 
-PROTO_91:
+PROTO_94:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["expectInstanceByPath"]
         3 LOADK                            R1 K1 ["Children.Contents.SplitView.Pane 1.Child.ModelPreview.ModelPreview.ViewportFrame.WorldModel.Dummy"]
         4 CALL                             R0 1 1
         5 RETURN                           R0 1
 
-PROTO_92:
+PROTO_95:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Children.Controls.Controls.Contents.Start"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_93:
+PROTO_96:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Children.GenerationCard"]
@@ -1800,7 +1870,7 @@ PROTO_93:
        15 CALL                             R1 2 0
        16 RETURN                           R0 0
 
-PROTO_94:
+PROTO_97:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["AutoSetupScreen"]
         3 GETTABLEKS                       R1 R1 K1 ["isActive"]
@@ -1818,7 +1888,7 @@ PROTO_94:
        20 LOADB                            R0 1
        21 RETURN                           R0 1
 
-PROTO_95:
+PROTO_98:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["AutoSetupScreen"]
         3 GETTABLEKS                       R1 R1 K1 ["getDummy"]
@@ -1828,14 +1898,14 @@ PROTO_95:
         9 LOADB                            R0 1
        10 RETURN                           R0 1
 
-PROTO_96:
+PROTO_99:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Children.Contents.SplitView.Pane 1.Child.ToggleBar.Toggle"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_97:
+PROTO_100:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["act"]
         3 GETIMPORT                        R3 K3 [task.wait]
@@ -1888,21 +1958,21 @@ PROTO_97:
        68 CALL                             R6 2 0
        69 RETURN                           R0 0
 
-PROTO_98:
+PROTO_101:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Children.StageSelect.SettingsButton"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_99:
+PROTO_102:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Children.StageSelect.Contents.Back.Button"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_100:
+PROTO_103:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["TopLevelDetector"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -1912,7 +1982,7 @@ PROTO_100:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_101:
+PROTO_104:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Element"]
         3 GETTABLEKS                       R0 R0 K1 ["new"]
@@ -1922,7 +1992,7 @@ PROTO_101:
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
-PROTO_102:
+PROTO_105:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["TopLevelDetector"]
         2 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
@@ -1940,7 +2010,7 @@ PROTO_102:
        18 CALL                             R1 1 0
        19 RETURN                           R0 0
 
-PROTO_103:
+PROTO_106:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["X"]
@@ -1965,7 +2035,7 @@ PROTO_103:
        29 CALL                             R0 7 0
        30 RETURN                           R0 0
 
-PROTO_104:
+PROTO_107:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["TopLevelDetector"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -2018,7 +2088,7 @@ PROTO_104:
        67 CALL                             R2 1 0
        68 RETURN                           R0 0
 
-PROTO_105:
+PROTO_108:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["AutoSetupScreen"]
         3 GETTABLEKS                       R0 R0 K1 ["clickSettings"]
@@ -2034,7 +2104,7 @@ PROTO_105:
        18 CALL                             R0 0 0
        19 RETURN                           R0 0
 
-PROTO_106:
+PROTO_109:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["expectInstanceByPath"]
         3 LOADK                            R1 K1 ["Children.Contents.SplitView.Pane 1.Child.ModelPreview.ModelPreview.ViewportFrame"]
@@ -2059,7 +2129,7 @@ PROTO_106:
        30 GETTABLEKS                       R2 R1 K9 ["CFrame"]
        32 RETURN                           R2 1
 
-PROTO_107:
+PROTO_110:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["instanceByPath"]
         3 LOADK                            R2 K1 ["Provider.Buttons"]
@@ -2069,14 +2139,384 @@ PROTO_107:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_108:
+PROTO_111:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Provider.Buttons.AddSelected"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_109:
+PROTO_112:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByText"]
+        9 LOADK                            R2 K3 ["SelectScreen.AvatarCreationTitle"]
+       10 DUPTABLE                         R3 K6 [{["exact"] = False}]
+       11 CALL                             R1 2 1
+       12 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       14 LOADB                            R0 0 +1
+       15 LOADB                            R0 1
+       16 RETURN                           R0 1
+
+PROTO_113:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-creation-generate"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_114:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-screen"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_115:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-empty"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_116:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-confirm"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_117:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-failed"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_118:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-generating"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_119:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-generating-cancel"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_120:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-preview-image"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_121:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 1
+        5 GETTABLEKS                       R1 R1 K1 ["queryByTestId"]
+        7 LOADK                            R2 K2 ["avatar-chat-image-dialog--container"]
+        8 CALL                             R1 1 1
+        9 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       11 LOADB                            R0 0 +1
+       12 LOADB                            R0 1
+       13 RETURN                           R0 1
+
+PROTO_122:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["within"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 1
+        5 GETTABLEKS                       R0 R0 K1 ["getByTestId"]
+        7 LOADK                            R1 K2 ["avatar-chat-image-dialog--actions-container"]
+        8 CALL                             R0 1 1
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K0 ["within"]
+       12 MOVE                             R2 R0
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R1 R1 K1 ["getByTestId"]
+       16 LOADK                            R2 K3 ["--foundation-button"]
+       17 CALL                             R1 1 1
+       18 GETUPVAL                         R2 2
+       19 MOVE                             R3 R1
+       20 DUPTABLE                         R4 K7 [{["resizeAncestors"] = True, ["forceResize"] = True}]
+       21 CALL                             R2 2 0
+       22 GETIMPORT                        R2 K10 [os.clock]
+       24 CALL                             R2 0 1
+       25 GETUPVAL                         R3 3
+       26 GETTABLEKS                       R3 R3 K11 ["AvatarChatScreen"]
+       28 GETTABLEKS                       R3 R3 K12 ["isImageDialogOpen"]
+       30 CALL                             R3 0 1
+       31 JUMPIFNOT                        R3 ; [+18]
+       32 GETIMPORT                        R4 K10 [os.clock]
+       34 CALL                             R4 0 1
+       35 SUB                              R3 R4 R2
+       36 LOADN                            R4 1
+       37 JUMPIFNOTLE                      R4 R3 ; [+5]
+       39 GETIMPORT                        R3 K14 [error]
+       41 LOADK                            R4 K15 ["Image dialog didn't close within timeout"]
+       42 CALL                             R3 1 0
+       43 GETUPVAL                         R3 4
+       44 GETTABLEKS                       R3 R3 K16 ["act"]
+       46 GETIMPORT                        R4 K19 [task.wait]
+       48 CALL                             R3 1 0
+       49 JUMPBACK                         ; [-25]
+       50 RETURN                           R0 0
+
+PROTO_123:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-turn-failed"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_124:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-turn-cancelled"]
+       10 CALL                             R1 1 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       13 LOADB                            R0 0 +1
+       14 LOADB                            R0 1
+       15 RETURN                           R0 1
+
+PROTO_125:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["queryAllByTestId"]
+        9 LOADK                            R2 K3 ["avatar-chat-turn"]
+       10 CALL                             R1 1 1
+       11 LENGTH                           R0 R1
+       12 RETURN                           R0 1
+
+PROTO_126:
+        0 GETTABLEKS                       R3 R0 K0 ["LayoutOrder"]
+        2 GETTABLEKS                       R4 R1 K0 ["LayoutOrder"]
+        4 JUMPIFLT                         R3 R4 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 RETURN                           R2 1
+
+PROTO_127:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
+        3 GETTABLEKS                       R0 R0 K1 ["click"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
+
+PROTO_128:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
+        3 GETTABLEKS                       R0 R0 K1 ["click"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
+
+PROTO_129:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["within"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["ui"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K2 ["getAllByTestId"]
+        9 LOADK                            R3 K3 ["avatar-chat-turn"]
+       10 CALL                             R2 1 1
+       11 GETIMPORT                        R3 K6 [table.sort]
+       13 MOVE                             R4 R2
+       14 DUPCLOSURE                       R5 K7 [PROTO_126]
+       15 CALL                             R3 2 0
+       16 GETTABLE                         R3 R2 R0
+       17 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       19 LOADB                            R5 0 +1
+       20 LOADB                            R5 1
+       21 LOADK                            R7 K8 ["No chat turn at index %*"]
+       22 MOVE                             R9 R0
+       23 NAMECALL                         R7 R7 K9 ["format"]
+       25 CALL                             R7 2 1
+       26 MOVE                             R6 R7
+       27 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       29 GETIMPORT                        R4 K11 [assert]
+       31 CALL                             R4 2 0
+       32 GETUPVAL                         R4 0
+       33 GETTABLEKS                       R4 R4 K0 ["within"]
+       35 MOVE                             R5 R3
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R4 R4 K12 ["queryByTestId"]
+       39 MOVE                             R5 R1
+       40 CALL                             R4 1 1
+       41 JUMPIFNOTEQKNIL                  R4 ; [+17]
+       43 GETUPVAL                         R4 0
+       44 GETTABLEKS                       R4 R4 K0 ["within"]
+       46 MOVE                             R5 R3
+       47 CALL                             R4 1 1
+       48 GETTABLEKS                       R4 R4 K13 ["getByTestId"]
+       50 LOADK                            R5 K14 ["avatar-chat-turn-header"]
+       51 CALL                             R4 1 1
+       52 GETUPVAL                         R5 2
+       53 GETTABLEKS                       R5 R5 K15 ["act"]
+       55 NEWCLOSURE                       R6 P1
+       56 CAPTURE                          UPVAL U0
+       57 CAPTURE                          VAL R4
+       58 CALL                             R5 1 0
+       59 GETUPVAL                         R4 0
+       60 GETTABLEKS                       R4 R4 K0 ["within"]
+       62 MOVE                             R5 R3
+       63 CALL                             R4 1 1
+       64 GETTABLEKS                       R4 R4 K13 ["getByTestId"]
+       66 MOVE                             R5 R1
+       67 CALL                             R4 1 1
+       68 GETUPVAL                         R5 2
+       69 GETTABLEKS                       R5 R5 K15 ["act"]
+       71 NEWCLOSURE                       R6 P2
+       72 CAPTURE                          UPVAL U0
+       73 CAPTURE                          VAL R4
+       74 CALL                             R5 1 0
+       75 RETURN                           R0 0
+
+PROTO_130:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 LOADK                            R3 K0 ["avatar-chat-regenerate"]
+        3 CALL                             R1 2 0
+        4 RETURN                           R0 0
+
+PROTO_131:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
+        3 GETTABLEKS                       R0 R0 K1 ["change"]
+        5 GETUPVAL                         R1 1
+        6 DUPTABLE                         R2 K3 [{"target"}]
+        7 DUPTABLE                         R3 K5 [{"Text"}]
+        8 GETUPVAL                         R4 2
+        9 SETTABLEKS                       R4 R3 K4 ["Text"]
+       11 SETTABLEKS                       R3 R2 K2 ["target"]
+       13 CALL                             R0 2 0
+       14 RETURN                           R0 0
+
+PROTO_132:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["within"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["ui"]
+        6 CALL                             R1 1 1
+        7 GETTABLEKS                       R1 R1 K2 ["getByPlaceholderText"]
+        9 LOADK                            R2 K3 ["Studio.Test.AvatarChatScreen.InputPlaceholder:[]"]
+       10 CALL                             R1 1 1
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R2 R2 K4 ["act"]
+       14 NEWCLOSURE                       R3 P0
+       15 CAPTURE                          UPVAL U0
+       16 CAPTURE                          VAL R1
+       17 CAPTURE                          VAL R0
+       18 CALL                             R2 1 0
+       19 RETURN                           R0 0
+
+PROTO_133:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-send"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_134:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["AvatarChatScreen"]
+        3 GETTABLEKS                       R1 R1 K1 ["typePrompt"]
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 0
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["AvatarChatScreen"]
+       10 GETTABLEKS                       R1 R1 K2 ["clickSend"]
+       12 CALL                             R1 0 0
+       13 RETURN                           R0 0
+
+PROTO_135:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-confirm"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_136:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-regenerate"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_137:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-cancel"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_138:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["clickByTestId"]
+        3 LOADK                            R1 K1 ["avatar-chat-back"]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_139:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["instanceByPath"]
         3 LOADK                            R2 K1 ["Children.StopButton"]
@@ -2086,14 +2526,14 @@ PROTO_109:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_110:
+PROTO_140:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Children.StopButton"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_111:
+PROTO_141:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Toolbar"]
@@ -2106,7 +2546,7 @@ PROTO_111:
        11 CALL                             R0 2 0
        12 RETURN                           R0 0
 
-PROTO_112:
+PROTO_142:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["AvatarPreviewerBodyPointsToolToolbar"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -2116,7 +2556,7 @@ PROTO_112:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_113:
+PROTO_143:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickPath"]
         3 LOADK                            R1 K1 ["Toolbar"]
@@ -2129,7 +2569,7 @@ PROTO_113:
        11 CALL                             R0 2 0
        12 RETURN                           R0 0
 
-PROTO_114:
+PROTO_144:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["AvatarPreviewerCageEditingToolToolbar"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChild"]
@@ -2139,7 +2579,7 @@ PROTO_114:
         8 LOADB                            R0 1
         9 RETURN                           R0 1
 
-PROTO_115:
+PROTO_145:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AvatarPreviewerCageEditingToolToolbar"]
         2 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
@@ -2169,7 +2609,7 @@ PROTO_115:
        40 LOADNIL                          R2
        41 RETURN                           R2 1
 
-PROTO_116:
+PROTO_146:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AvatarPreviewerCageEditingToolToolbar"]
         2 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
@@ -2199,7 +2639,7 @@ PROTO_116:
        40 LOADNIL                          R2
        41 RETURN                           R2 1
 
-PROTO_117:
+PROTO_147:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftShift]
         3 NAMECALL                         R0 R0 K4 ["IsKeyDown"]
@@ -2236,16 +2676,16 @@ PROTO_117:
        53 CALL                             R0 0 0
        54 RETURN                           R0 0
 
-PROTO_118:
+PROTO_148:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["act"]
-        3 DUPCLOSURE                       R1 K1 [PROTO_117]
+        3 DUPCLOSURE                       R1 K1 [PROTO_147]
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_119:
+PROTO_149:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R2 K3 [Enum.KeyCode.B]
         3 NAMECALL                         R0 R0 K4 ["IsKeyDown"]
@@ -2270,16 +2710,16 @@ PROTO_119:
        33 CALL                             R0 0 0
        34 RETURN                           R0 0
 
-PROTO_120:
+PROTO_150:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["act"]
-        3 DUPCLOSURE                       R1 K1 [PROTO_119]
+        3 DUPCLOSURE                       R1 K1 [PROTO_149]
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_121:
+PROTO_151:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 LOADN                            R3 0
@@ -2292,7 +2732,7 @@ PROTO_121:
        12 CALL                             R0 0 0
        13 RETURN                           R0 0
 
-PROTO_122:
+PROTO_152:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 FASTCALL2K                       ASSERT R3 K0 ; [+4]
@@ -2324,7 +2764,7 @@ PROTO_122:
        37 CALL                             R3 0 0
        38 RETURN                           R0 0
 
-PROTO_123:
+PROTO_153:
         0 LOADN                            R2 1
         1 GETUPVAL                         R0 0
         2 LOADN                            R1 1
@@ -2344,7 +2784,7 @@ PROTO_123:
        21 CALL                             R0 0 0
        22 RETURN                           R0 0
 
-PROTO_124:
+PROTO_154:
         0 LOADNIL                          R2
         1 JUMPIFNOTEQKS                    R0 K0 ["radius"] ; [+7]
         3 GETUPVAL                         R3 0
@@ -2378,7 +2818,7 @@ PROTO_124:
        39 CALL                             R5 0 0
        40 RETURN                           R0 0
 
-PROTO_125:
+PROTO_155:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["Folder"]
         3 CALL                             R1 1 1
@@ -2445,415 +2885,538 @@ PROTO_125:
        90 CAPTURE                          UPVAL U7
        91 CAPTURE                          UPVAL U5
        92 CAPTURE                          UPVAL U8
-       93 CAPTURE                          VAL R3
-       94 CAPTURE                          UPVAL U9
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          UPVAL U10
-       97 CAPTURE                          UPVAL U11
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          UPVAL U12
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          UPVAL U13
-      102 CAPTURE                          UPVAL U14
-      103 CAPTURE                          UPVAL U15
-      104 CAPTURE                          VAL R0
-      105 CAPTURE                          UPVAL U16
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          UPVAL U17
-      108 CAPTURE                          VAL R5
-      109 CALL                             R9 1 0
-      110 NAMECALL                         R12 R3 K26 ["GetChildren"]
-      112 CALL                             R12 1 1
-      113 LENGTH                           R11 R12
-      114 LOADN                            R12 0
-      115 JUMPIFLT                         R12 R11 ; [+2]
-      117 LOADB                            R10 0 +1
-      118 LOADB                            R10 1
-      119 FASTCALL2K                       ASSERT R10 K27 ; [+4]
-      121 LOADK                            R11 K27 ["Container is empty after mount"]
-      122 GETIMPORT                        R9 K29 [assert]
-      124 CALL                             R9 2 0
-      125 NEWTABLE                         R9 64 0
-      127 GETUPVAL                         R11 1
-      128 MOVE                             R13 R2
-      129 NAMECALL                         R11 R11 K30 ["FindFirstChild"]
-      131 CALL                             R11 2 1
-      132 FASTCALL2K                       ASSERT R11 K31 ; [+4]
-      134 LOADK                            R12 K31 ["Couldn't find previewer screen"]
-      135 GETIMPORT                        R10 K29 [assert]
-      137 CALL                             R10 2 1
-      138 SETTABLEKS                       R10 R9 K32 ["ui"]
-      140 SETTABLEKS                       R7 R9 K33 ["focusContainer"]
-      142 GETTABLEKS                       R10 R5 K34 ["placesService"]
-      144 SETTABLEKS                       R10 R9 K34 ["placesService"]
-      146 NEWCLOSURE                       R10 P3
-      147 CAPTURE                          UPVAL U2
-      148 CAPTURE                          VAL R4
-      149 CAPTURE                          VAL R3
-      150 CAPTURE                          VAL R7
-      151 SETTABLEKS                       R10 R9 K35 ["destroy"]
-      153 NEWCLOSURE                       R10 P4
-      154 CAPTURE                          UPVAL U2
-      155 CAPTURE                          VAL R5
-      156 SETTABLEKS                       R10 R9 K36 ["select"]
-      158 NEWCLOSURE                       R10 P5
+       93 CAPTURE                          UPVAL U9
+       94 CAPTURE                          UPVAL U10
+       95 CAPTURE                          UPVAL U11
+       96 CAPTURE                          UPVAL U12
+       97 CAPTURE                          VAL R3
+       98 CAPTURE                          UPVAL U13
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          UPVAL U14
+      101 CAPTURE                          UPVAL U15
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          UPVAL U16
+      104 CAPTURE                          VAL R8
+      105 CAPTURE                          UPVAL U17
+      106 CAPTURE                          UPVAL U18
+      107 CAPTURE                          UPVAL U19
+      108 CAPTURE                          VAL R0
+      109 CAPTURE                          UPVAL U20
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          UPVAL U21
+      112 CAPTURE                          VAL R5
+      113 CALL                             R9 1 0
+      114 NAMECALL                         R12 R3 K26 ["GetChildren"]
+      116 CALL                             R12 1 1
+      117 LENGTH                           R11 R12
+      118 LOADN                            R12 0
+      119 JUMPIFLT                         R12 R11 ; [+2]
+      121 LOADB                            R10 0 +1
+      122 LOADB                            R10 1
+      123 FASTCALL2K                       ASSERT R10 K27 ; [+4]
+      125 LOADK                            R11 K27 ["Container is empty after mount"]
+      126 GETIMPORT                        R9 K29 [assert]
+      128 CALL                             R9 2 0
+      129 NEWTABLE                         R9 64 0
+      131 GETUPVAL                         R11 1
+      132 MOVE                             R13 R2
+      133 NAMECALL                         R11 R11 K30 ["FindFirstChild"]
+      135 CALL                             R11 2 1
+      136 FASTCALL2K                       ASSERT R11 K31 ; [+4]
+      138 LOADK                            R12 K31 ["Couldn't find previewer screen"]
+      139 GETIMPORT                        R10 K29 [assert]
+      141 CALL                             R10 2 1
+      142 SETTABLEKS                       R10 R9 K32 ["ui"]
+      144 SETTABLEKS                       R7 R9 K33 ["focusContainer"]
+      146 GETTABLEKS                       R10 R5 K34 ["placesService"]
+      148 SETTABLEKS                       R10 R9 K34 ["placesService"]
+      150 NEWCLOSURE                       R10 P3
+      151 CAPTURE                          UPVAL U2
+      152 CAPTURE                          VAL R4
+      153 CAPTURE                          VAL R3
+      154 CAPTURE                          VAL R7
+      155 SETTABLEKS                       R10 R9 K35 ["destroy"]
+      157 NEWCLOSURE                       R10 P4
+      158 CAPTURE                          UPVAL U2
       159 CAPTURE                          VAL R5
-      160 SETTABLEKS                       R10 R9 K37 ["getSelection"]
-      162 NEWCLOSURE                       R10 P6
+      160 SETTABLEKS                       R10 R9 K36 ["select"]
+      162 NEWCLOSURE                       R10 P5
       163 CAPTURE                          VAL R5
-      164 SETTABLEKS                       R10 R9 K38 ["getLastAnalyticsEvent"]
-      166 NEWCLOSURE                       R10 P7
+      164 SETTABLEKS                       R10 R9 K37 ["getSelection"]
+      166 NEWCLOSURE                       R10 P6
       167 CAPTURE                          VAL R5
-      168 SETTABLEKS                       R10 R9 K39 ["subWindows"]
-      170 NEWCLOSURE                       R10 P8
+      168 SETTABLEKS                       R10 R9 K38 ["getLastAnalyticsEvent"]
+      170 NEWCLOSURE                       R10 P7
       171 CAPTURE                          VAL R5
-      172 SETTABLEKS                       R10 R9 K40 ["getSubWindow"]
-      174 DUPCLOSURE                       R10 K41 [PROTO_28]
-      175 SETTABLEKS                       R10 R9 K42 ["getStyledDialogButton"]
-      177 NEWCLOSURE                       R10 P10
-      178 CAPTURE                          UPVAL U2
-      179 CAPTURE                          UPVAL U18
-      180 CAPTURE                          VAL R9
-      181 SETTABLEKS                       R10 R9 K43 ["clickStyledDialogButton"]
-      183 DUPCLOSURE                       R10 K44 [PROTO_31]
-      184 SETTABLEKS                       R10 R9 K45 ["getStyledDialogContent"]
-      186 DUPCLOSURE                       R10 K46 [PROTO_32]
-      187 CAPTURE                          UPVAL U19
-      188 CAPTURE                          UPVAL U20
-      189 SETTABLEKS                       R10 R9 K47 ["clickButtonInDialog"]
-      191 DUPCLOSURE                       R10 K48 [PROTO_33]
-      192 CAPTURE                          UPVAL U19
-      193 CAPTURE                          UPVAL U20
-      194 SETTABLEKS                       R10 R9 K49 ["clickCheckboxInDialog"]
-      196 NEWCLOSURE                       R10 P14
-      197 CAPTURE                          VAL R1
-      198 SETTABLEKS                       R10 R9 K50 ["getMockUGCAvatarService"]
-      200 NEWCLOSURE                       R10 P15
-      201 CAPTURE                          VAL R9
-      202 CAPTURE                          UPVAL U21
-      203 CAPTURE                          VAL R2
-      204 SETTABLEKS                       R10 R9 K51 ["selectFreshLizard"]
-      206 NEWCLOSURE                       R10 P16
-      207 CAPTURE                          UPVAL U18
-      208 CAPTURE                          VAL R2
-      209 SETTABLEKS                       R10 R9 K52 ["pathOf"]
-      211 NEWCLOSURE                       R10 P17
-      212 CAPTURE                          UPVAL U18
-      213 CAPTURE                          VAL R9
-      214 SETTABLEKS                       R10 R9 K53 ["elementByPath"]
-      216 NEWCLOSURE                       R10 P18
-      217 CAPTURE                          UPVAL U18
-      218 CAPTURE                          VAL R9
-      219 SETTABLEKS                       R10 R9 K54 ["debugPath"]
-      221 NEWCLOSURE                       R10 P19
+      172 SETTABLEKS                       R10 R9 K39 ["subWindows"]
+      174 NEWCLOSURE                       R10 P8
+      175 CAPTURE                          VAL R5
+      176 SETTABLEKS                       R10 R9 K40 ["getSubWindow"]
+      178 DUPCLOSURE                       R10 K41 [PROTO_28]
+      179 SETTABLEKS                       R10 R9 K42 ["getStyledDialogButton"]
+      181 NEWCLOSURE                       R10 P10
+      182 CAPTURE                          UPVAL U2
+      183 CAPTURE                          UPVAL U22
+      184 CAPTURE                          VAL R9
+      185 SETTABLEKS                       R10 R9 K43 ["clickStyledDialogButton"]
+      187 DUPCLOSURE                       R10 K44 [PROTO_31]
+      188 SETTABLEKS                       R10 R9 K45 ["getStyledDialogContent"]
+      190 DUPCLOSURE                       R10 K46 [PROTO_32]
+      191 CAPTURE                          UPVAL U23
+      192 CAPTURE                          UPVAL U24
+      193 SETTABLEKS                       R10 R9 K47 ["clickButtonInDialog"]
+      195 DUPCLOSURE                       R10 K48 [PROTO_33]
+      196 CAPTURE                          UPVAL U23
+      197 CAPTURE                          UPVAL U24
+      198 SETTABLEKS                       R10 R9 K49 ["clickCheckboxInDialog"]
+      200 NEWCLOSURE                       R10 P14
+      201 CAPTURE                          VAL R1
+      202 SETTABLEKS                       R10 R9 K50 ["getMockUGCAvatarService"]
+      204 NEWCLOSURE                       R10 P15
+      205 CAPTURE                          VAL R9
+      206 CAPTURE                          UPVAL U25
+      207 CAPTURE                          VAL R2
+      208 SETTABLEKS                       R10 R9 K51 ["selectFreshLizard"]
+      210 NEWCLOSURE                       R10 P16
+      211 CAPTURE                          UPVAL U22
+      212 CAPTURE                          VAL R2
+      213 SETTABLEKS                       R10 R9 K52 ["pathOf"]
+      215 NEWCLOSURE                       R10 P17
+      216 CAPTURE                          UPVAL U22
+      217 CAPTURE                          VAL R9
+      218 SETTABLEKS                       R10 R9 K53 ["elementByPath"]
+      220 NEWCLOSURE                       R10 P18
+      221 CAPTURE                          UPVAL U22
       222 CAPTURE                          VAL R9
-      223 SETTABLEKS                       R10 R9 K55 ["expectElementByPath"]
-      225 NEWCLOSURE                       R10 P20
+      223 SETTABLEKS                       R10 R9 K54 ["debugPath"]
+      225 NEWCLOSURE                       R10 P19
       226 CAPTURE                          VAL R9
-      227 CAPTURE                          UPVAL U2
-      228 CAPTURE                          UPVAL U21
-      229 SETTABLEKS                       R10 R9 K56 ["expectInstanceByPath"]
-      231 NEWCLOSURE                       R10 P21
-      232 CAPTURE                          VAL R9
-      233 SETTABLEKS                       R10 R9 K57 ["instanceByPath"]
-      235 NEWCLOSURE                       R10 P22
-      236 CAPTURE                          UPVAL U2
-      237 CAPTURE                          VAL R9
-      238 SETTABLEKS                       R10 R9 K58 ["clickPath"]
-      240 NEWCLOSURE                       R10 P23
+      227 SETTABLEKS                       R10 R9 K55 ["expectElementByPath"]
+      229 NEWCLOSURE                       R10 P20
+      230 CAPTURE                          VAL R9
+      231 CAPTURE                          UPVAL U2
+      232 CAPTURE                          UPVAL U25
+      233 SETTABLEKS                       R10 R9 K56 ["expectInstanceByPath"]
+      235 NEWCLOSURE                       R10 P21
+      236 CAPTURE                          VAL R9
+      237 SETTABLEKS                       R10 R9 K57 ["instanceByPath"]
+      239 NEWCLOSURE                       R10 P22
+      240 CAPTURE                          UPVAL U2
       241 CAPTURE                          VAL R9
-      242 SETTABLEKS                       R10 R9 K59 ["getByImage"]
-      244 NEWCLOSURE                       R10 P24
-      245 CAPTURE                          UPVAL U2
-      246 CAPTURE                          VAL R3
-      247 SETTABLEKS                       R10 R9 K60 ["resize"]
-      249 NEWCLOSURE                       R10 P25
-      250 CAPTURE                          VAL R9
-      251 SETTABLEKS                       R10 R9 K61 ["resizeToDefault"]
-      253 NEWCLOSURE                       R10 P26
-      254 CAPTURE                          UPVAL U2
-      255 CAPTURE                          UPVAL U19
-      256 CAPTURE                          VAL R7
-      257 SETTABLEKS                       R10 R9 K62 ["selectDropdownOption"]
-      259 NEWTABLE                         R10 0 0
-      261 SETTABLEKS                       R10 R9 K63 ["AvatarScreen"]
-      263 GETTABLEKS                       R10 R9 K63 ["AvatarScreen"]
-      265 LOADK                            R11 K64 ["AvatarScreen.Contents.Tabs.AssetPalettes.ScrollingFrame.Scroller.Tabs"]
-      266 SETTABLEKS                       R11 R10 K65 ["XPATH_ASSET_PALETTES"]
-      268 NEWCLOSURE                       R10 P27
-      269 CAPTURE                          VAL R9
-      270 CAPTURE                          UPVAL U21
-      271 NEWCLOSURE                       R11 P28
-      272 CAPTURE                          VAL R9
-      273 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      275 SETTABLEKS                       R11 R12 K66 ["isActive"]
-      277 NEWCLOSURE                       R11 P29
-      278 CAPTURE                          VAL R9
-      279 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      281 SETTABLEKS                       R11 R12 K67 ["isPalettesPickTabMenuActive"]
-      283 NEWCLOSURE                       R11 P30
-      284 CAPTURE                          VAL R9
-      285 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      287 SETTABLEKS                       R11 R12 K68 ["isCategoryPickTabMenuActive"]
-      289 NEWCLOSURE                       R11 P31
-      290 CAPTURE                          VAL R7
-      291 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      293 SETTABLEKS                       R11 R12 K69 ["isAvatarSettingsActive"]
-      295 NEWCLOSURE                       R11 P32
-      296 CAPTURE                          VAL R9
-      297 CAPTURE                          UPVAL U2
-      298 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      300 SETTABLEKS                       R11 R12 K70 ["waitUntilActive"]
-      302 NEWCLOSURE                       R11 P33
-      303 CAPTURE                          VAL R10
-      304 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      306 SETTABLEKS                       R11 R12 K71 ["clickCategory"]
-      308 NEWCLOSURE                       R11 P34
-      309 CAPTURE                          VAL R10
-      310 CAPTURE                          VAL R9
-      311 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      313 SETTABLEKS                       R11 R12 K72 ["clickPalette"]
-      315 NEWCLOSURE                       R11 P35
-      316 CAPTURE                          VAL R9
-      317 CAPTURE                          UPVAL U2
-      318 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      320 SETTABLEKS                       R11 R12 K73 ["clickBuiltin"]
-      322 NEWCLOSURE                       R11 P36
-      323 CAPTURE                          VAL R9
-      324 CAPTURE                          UPVAL U2
-      325 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      327 SETTABLEKS                       R11 R12 K74 ["clickInstance"]
-      329 NEWCLOSURE                       R11 P37
-      330 CAPTURE                          VAL R9
-      331 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      333 SETTABLEKS                       R11 R12 K75 ["catalogItemCounts"]
-      335 NEWCLOSURE                       R11 P38
-      336 CAPTURE                          VAL R9
-      337 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      339 SETTABLEKS                       R11 R12 K76 ["selectedPaletteText"]
-      341 NEWCLOSURE                       R11 P39
-      342 CAPTURE                          VAL R9
-      343 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      345 SETTABLEKS                       R11 R12 K77 ["selectedPaletteKey"]
-      347 NEWCLOSURE                       R11 P40
-      348 CAPTURE                          VAL R9
-      349 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      351 SETTABLEKS                       R11 R12 K78 ["getDummy"]
-      353 NEWCLOSURE                       R11 P41
-      354 CAPTURE                          UPVAL U22
-      355 CAPTURE                          VAL R9
-      356 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      358 SETTABLEKS                       R11 R12 K79 ["clickAddItem"]
-      360 NEWCLOSURE                       R11 P42
-      361 CAPTURE                          VAL R9
-      362 CAPTURE                          UPVAL U19
-      363 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      365 SETTABLEKS                       R11 R12 K80 ["getSidebarItems"]
-      367 NEWCLOSURE                       R11 P43
-      368 CAPTURE                          VAL R9
-      369 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      371 SETTABLEKS                       R11 R12 K81 ["clickSubmitButton"]
-      373 NEWCLOSURE                       R11 P44
-      374 CAPTURE                          VAL R9
-      375 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      377 SETTABLEKS                       R11 R12 K82 ["clickCheckBodyMode"]
-      379 NEWCLOSURE                       R11 P45
-      380 CAPTURE                          VAL R9
-      381 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      383 SETTABLEKS                       R11 R12 K83 ["clickCheckFaceMode"]
-      385 NEWCLOSURE                       R11 P46
-      386 CAPTURE                          VAL R9
-      387 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      389 SETTABLEKS                       R11 R12 K84 ["clickAvatarSettings"]
-      391 NEWCLOSURE                       R11 P47
-      392 CAPTURE                          VAL R9
-      393 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      395 SETTABLEKS                       R11 R12 K85 ["clickBack"]
-      397 NEWCLOSURE                       R11 P48
-      398 CAPTURE                          VAL R9
-      399 CAPTURE                          UPVAL U2
-      400 CAPTURE                          UPVAL U18
-      401 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      403 SETTABLEKS                       R11 R12 K86 ["clickHideShowButton"]
-      405 NEWCLOSURE                       R11 P49
-      406 CAPTURE                          VAL R9
-      407 CAPTURE                          UPVAL U19
-      408 CAPTURE                          UPVAL U2
-      409 CAPTURE                          UPVAL U18
-      410 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      412 SETTABLEKS                       R11 R12 K87 ["getSkinToneButtons"]
-      414 NEWCLOSURE                       R11 P50
-      415 CAPTURE                          VAL R9
-      416 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      418 SETTABLEKS                       R11 R12 K88 ["createAndEquipMakeupItem"]
-      420 NEWCLOSURE                       R11 P51
-      421 CAPTURE                          VAL R9
-      422 CAPTURE                          UPVAL U2
-      423 CAPTURE                          UPVAL U18
-      424 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      426 SETTABLEKS                       R11 R12 K89 ["hoverFirstCatalogItemOfSourceType"]
-      428 DUPCLOSURE                       R11 K90 [PROTO_86]
-      429 CAPTURE                          UPVAL U2
-      430 CAPTURE                          UPVAL U18
-      431 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      433 SETTABLEKS                       R11 R12 K91 ["moveMouseAway"]
-      435 NEWCLOSURE                       R11 P53
-      436 CAPTURE                          VAL R9
-      437 CAPTURE                          UPVAL U23
-      438 GETTABLEKS                       R12 R9 K63 ["AvatarScreen"]
-      440 SETTABLEKS                       R11 R12 K92 ["countEquippedMakeup"]
-      442 NEWTABLE                         R11 0 0
-      444 SETTABLEKS                       R11 R9 K93 ["AutoSetupScreen"]
-      446 NEWCLOSURE                       R11 P54
-      447 CAPTURE                          VAL R9
-      448 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      450 SETTABLEKS                       R11 R12 K94 ["getAlertDescription"]
-      452 NEWCLOSURE                       R11 P55
-      453 CAPTURE                          VAL R9
-      454 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      456 SETTABLEKS                       R11 R12 K95 ["getAlertTitle"]
-      458 NEWCLOSURE                       R11 P56
-      459 CAPTURE                          VAL R9
-      460 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      462 SETTABLEKS                       R11 R12 K78 ["getDummy"]
-      464 NEWCLOSURE                       R11 P57
-      465 CAPTURE                          VAL R9
-      466 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      468 SETTABLEKS                       R11 R12 K96 ["startAutoSetup"]
-      470 NEWCLOSURE                       R11 P58
-      471 CAPTURE                          VAL R9
-      472 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      474 SETTABLEKS                       R11 R12 K97 ["cancelAutoSetup"]
-      476 NEWCLOSURE                       R11 P59
-      477 CAPTURE                          VAL R9
-      478 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      480 SETTABLEKS                       R11 R12 K98 ["controlsActive"]
-      482 NEWCLOSURE                       R11 P60
-      483 CAPTURE                          VAL R9
-      484 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      486 SETTABLEKS                       R11 R12 K66 ["isActive"]
-      488 NEWCLOSURE                       R11 P61
-      489 CAPTURE                          VAL R9
-      490 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      492 SETTABLEKS                       R11 R12 K99 ["toggleClothingTable"]
-      494 NEWCLOSURE                       R11 P62
-      495 CAPTURE                          UPVAL U2
-      496 CAPTURE                          VAL R9
-      497 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      499 SETTABLEKS                       R11 R12 K100 ["selectClothingType"]
-      501 NEWCLOSURE                       R11 P63
-      502 CAPTURE                          VAL R9
-      503 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      505 SETTABLEKS                       R11 R12 K101 ["clickSettings"]
-      507 NEWCLOSURE                       R11 P64
-      508 CAPTURE                          VAL R9
-      509 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      511 SETTABLEKS                       R11 R12 K85 ["clickBack"]
-      513 NEWCLOSURE                       R11 P65
-      514 CAPTURE                          VAL R7
-      515 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      517 SETTABLEKS                       R11 R12 K102 ["isSettingsActive"]
-      519 NEWCLOSURE                       R11 P66
-      520 CAPTURE                          VAL R7
-      521 CAPTURE                          UPVAL U2
-      522 CAPTURE                          UPVAL U18
-      523 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      525 SETTABLEKS                       R11 R12 K103 ["dismissSettings"]
-      527 NEWCLOSURE                       R11 P67
-      528 CAPTURE                          VAL R7
-      529 CAPTURE                          UPVAL U2
-      530 CAPTURE                          UPVAL U24
-      531 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      533 SETTABLEKS                       R11 R12 K104 ["clickSettingsSetupType"]
+      242 SETTABLEKS                       R10 R9 K58 ["clickPath"]
+      244 NEWCLOSURE                       R10 P23
+      245 CAPTURE                          UPVAL U23
+      246 CAPTURE                          VAL R9
+      247 CAPTURE                          UPVAL U2
+      248 SETTABLEKS                       R10 R9 K59 ["clickByTestId"]
+      250 NEWCLOSURE                       R10 P24
+      251 CAPTURE                          VAL R9
+      252 SETTABLEKS                       R10 R9 K60 ["getByImage"]
+      254 NEWCLOSURE                       R10 P25
+      255 CAPTURE                          UPVAL U2
+      256 CAPTURE                          VAL R3
+      257 SETTABLEKS                       R10 R9 K61 ["resize"]
+      259 NEWCLOSURE                       R10 P26
+      260 CAPTURE                          VAL R9
+      261 SETTABLEKS                       R10 R9 K62 ["resizeToDefault"]
+      263 NEWCLOSURE                       R10 P27
+      264 CAPTURE                          UPVAL U2
+      265 CAPTURE                          UPVAL U23
+      266 CAPTURE                          VAL R7
+      267 SETTABLEKS                       R10 R9 K63 ["selectDropdownOption"]
+      269 NEWTABLE                         R10 0 0
+      271 SETTABLEKS                       R10 R9 K64 ["AvatarScreen"]
+      273 GETTABLEKS                       R10 R9 K64 ["AvatarScreen"]
+      275 LOADK                            R11 K65 ["AvatarScreen.Contents.Tabs.AssetPalettes.ScrollingFrame.Scroller.Tabs"]
+      276 SETTABLEKS                       R11 R10 K66 ["XPATH_ASSET_PALETTES"]
+      278 NEWCLOSURE                       R10 P28
+      279 CAPTURE                          VAL R9
+      280 CAPTURE                          UPVAL U25
+      281 NEWCLOSURE                       R11 P29
+      282 CAPTURE                          VAL R9
+      283 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      285 SETTABLEKS                       R11 R12 K67 ["isActive"]
+      287 NEWCLOSURE                       R11 P30
+      288 CAPTURE                          VAL R9
+      289 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      291 SETTABLEKS                       R11 R12 K68 ["isPalettesPickTabMenuActive"]
+      293 NEWCLOSURE                       R11 P31
+      294 CAPTURE                          VAL R9
+      295 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      297 SETTABLEKS                       R11 R12 K69 ["isCategoryPickTabMenuActive"]
+      299 NEWCLOSURE                       R11 P32
+      300 CAPTURE                          VAL R7
+      301 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      303 SETTABLEKS                       R11 R12 K70 ["isAvatarSettingsActive"]
+      305 NEWCLOSURE                       R11 P33
+      306 CAPTURE                          VAL R9
+      307 CAPTURE                          UPVAL U2
+      308 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      310 SETTABLEKS                       R11 R12 K71 ["waitUntilActive"]
+      312 NEWCLOSURE                       R11 P34
+      313 CAPTURE                          VAL R10
+      314 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      316 SETTABLEKS                       R11 R12 K72 ["clickCategory"]
+      318 NEWCLOSURE                       R11 P35
+      319 CAPTURE                          VAL R10
+      320 CAPTURE                          VAL R9
+      321 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      323 SETTABLEKS                       R11 R12 K73 ["clickPalette"]
+      325 NEWCLOSURE                       R11 P36
+      326 CAPTURE                          VAL R9
+      327 CAPTURE                          UPVAL U2
+      328 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      330 SETTABLEKS                       R11 R12 K74 ["clickBuiltin"]
+      332 NEWCLOSURE                       R11 P37
+      333 CAPTURE                          VAL R9
+      334 CAPTURE                          UPVAL U2
+      335 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      337 SETTABLEKS                       R11 R12 K75 ["clickInstance"]
+      339 NEWCLOSURE                       R11 P38
+      340 CAPTURE                          VAL R9
+      341 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      343 SETTABLEKS                       R11 R12 K76 ["catalogItemCounts"]
+      345 NEWCLOSURE                       R11 P39
+      346 CAPTURE                          VAL R9
+      347 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      349 SETTABLEKS                       R11 R12 K77 ["selectedPaletteText"]
+      351 NEWCLOSURE                       R11 P40
+      352 CAPTURE                          VAL R9
+      353 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      355 SETTABLEKS                       R11 R12 K78 ["selectedPaletteKey"]
+      357 NEWCLOSURE                       R11 P41
+      358 CAPTURE                          VAL R9
+      359 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      361 SETTABLEKS                       R11 R12 K79 ["getDummy"]
+      363 NEWCLOSURE                       R11 P42
+      364 CAPTURE                          VAL R9
+      365 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      367 SETTABLEKS                       R11 R12 K80 ["getCameraCFrame"]
+      369 NEWCLOSURE                       R11 P43
+      370 CAPTURE                          UPVAL U26
+      371 CAPTURE                          VAL R9
+      372 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      374 SETTABLEKS                       R11 R12 K81 ["clickAddItem"]
+      376 NEWCLOSURE                       R11 P44
+      377 CAPTURE                          VAL R9
+      378 CAPTURE                          UPVAL U23
+      379 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      381 SETTABLEKS                       R11 R12 K82 ["getSidebarItems"]
+      383 NEWCLOSURE                       R11 P45
+      384 CAPTURE                          VAL R9
+      385 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      387 SETTABLEKS                       R11 R12 K83 ["clickSubmitButton"]
+      389 NEWCLOSURE                       R11 P46
+      390 CAPTURE                          VAL R9
+      391 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      393 SETTABLEKS                       R11 R12 K84 ["clickCheckBodyMode"]
+      395 NEWCLOSURE                       R11 P47
+      396 CAPTURE                          VAL R9
+      397 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      399 SETTABLEKS                       R11 R12 K85 ["clickCheckFaceMode"]
+      401 NEWCLOSURE                       R11 P48
+      402 CAPTURE                          VAL R9
+      403 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      405 SETTABLEKS                       R11 R12 K86 ["clickAvatarSettings"]
+      407 NEWCLOSURE                       R11 P49
+      408 CAPTURE                          VAL R9
+      409 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      411 SETTABLEKS                       R11 R12 K87 ["clickBack"]
+      413 NEWCLOSURE                       R11 P50
+      414 CAPTURE                          VAL R9
+      415 CAPTURE                          UPVAL U2
+      416 CAPTURE                          UPVAL U22
+      417 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      419 SETTABLEKS                       R11 R12 K88 ["clickHideShowButton"]
+      421 NEWCLOSURE                       R11 P51
+      422 CAPTURE                          VAL R9
+      423 CAPTURE                          UPVAL U23
+      424 CAPTURE                          UPVAL U2
+      425 CAPTURE                          UPVAL U22
+      426 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      428 SETTABLEKS                       R11 R12 K89 ["getSkinToneButtons"]
+      430 NEWCLOSURE                       R11 P52
+      431 CAPTURE                          VAL R9
+      432 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      434 SETTABLEKS                       R11 R12 K90 ["createAndEquipMakeupItem"]
+      436 NEWCLOSURE                       R11 P53
+      437 CAPTURE                          VAL R9
+      438 CAPTURE                          UPVAL U2
+      439 CAPTURE                          UPVAL U22
+      440 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      442 SETTABLEKS                       R11 R12 K91 ["hoverFirstCatalogItemOfSourceType"]
+      444 DUPCLOSURE                       R11 K92 [PROTO_89]
+      445 CAPTURE                          UPVAL U2
+      446 CAPTURE                          UPVAL U22
+      447 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      449 SETTABLEKS                       R11 R12 K93 ["moveMouseAway"]
+      451 NEWCLOSURE                       R11 P55
+      452 CAPTURE                          VAL R9
+      453 CAPTURE                          UPVAL U27
+      454 GETTABLEKS                       R12 R9 K64 ["AvatarScreen"]
+      456 SETTABLEKS                       R11 R12 K94 ["countEquippedMakeup"]
+      458 NEWTABLE                         R11 0 0
+      460 SETTABLEKS                       R11 R9 K95 ["AutoSetupScreen"]
+      462 NEWCLOSURE                       R11 P56
+      463 CAPTURE                          VAL R9
+      464 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      466 SETTABLEKS                       R11 R12 K96 ["getAlertDescription"]
+      468 NEWCLOSURE                       R11 P57
+      469 CAPTURE                          VAL R9
+      470 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      472 SETTABLEKS                       R11 R12 K97 ["getAlertTitle"]
+      474 NEWCLOSURE                       R11 P58
+      475 CAPTURE                          VAL R9
+      476 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      478 SETTABLEKS                       R11 R12 K79 ["getDummy"]
+      480 NEWCLOSURE                       R11 P59
+      481 CAPTURE                          VAL R9
+      482 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      484 SETTABLEKS                       R11 R12 K98 ["startAutoSetup"]
+      486 NEWCLOSURE                       R11 P60
+      487 CAPTURE                          VAL R9
+      488 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      490 SETTABLEKS                       R11 R12 K99 ["cancelAutoSetup"]
+      492 NEWCLOSURE                       R11 P61
+      493 CAPTURE                          VAL R9
+      494 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      496 SETTABLEKS                       R11 R12 K100 ["controlsActive"]
+      498 NEWCLOSURE                       R11 P62
+      499 CAPTURE                          VAL R9
+      500 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      502 SETTABLEKS                       R11 R12 K67 ["isActive"]
+      504 NEWCLOSURE                       R11 P63
+      505 CAPTURE                          VAL R9
+      506 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      508 SETTABLEKS                       R11 R12 K101 ["toggleClothingTable"]
+      510 NEWCLOSURE                       R11 P64
+      511 CAPTURE                          UPVAL U2
+      512 CAPTURE                          VAL R9
+      513 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      515 SETTABLEKS                       R11 R12 K102 ["selectClothingType"]
+      517 NEWCLOSURE                       R11 P65
+      518 CAPTURE                          VAL R9
+      519 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      521 SETTABLEKS                       R11 R12 K103 ["clickSettings"]
+      523 NEWCLOSURE                       R11 P66
+      524 CAPTURE                          VAL R9
+      525 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      527 SETTABLEKS                       R11 R12 K87 ["clickBack"]
+      529 NEWCLOSURE                       R11 P67
+      530 CAPTURE                          VAL R7
+      531 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      533 SETTABLEKS                       R11 R12 K104 ["isSettingsActive"]
       535 NEWCLOSURE                       R11 P68
-      536 CAPTURE                          VAL R9
-      537 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      539 SETTABLEKS                       R11 R12 K105 ["toggleAlignFrontAngle"]
-      541 NEWCLOSURE                       R11 P69
-      542 CAPTURE                          VAL R9
-      543 GETTABLEKS                       R12 R9 K93 ["AutoSetupScreen"]
-      545 SETTABLEKS                       R11 R12 K106 ["getModelPreviewCameraCFrame"]
-      547 NEWTABLE                         R11 0 0
-      549 SETTABLEKS                       R11 R9 K107 ["SelectScreen"]
+      536 CAPTURE                          VAL R7
+      537 CAPTURE                          UPVAL U2
+      538 CAPTURE                          UPVAL U22
+      539 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      541 SETTABLEKS                       R11 R12 K105 ["dismissSettings"]
+      543 NEWCLOSURE                       R11 P69
+      544 CAPTURE                          VAL R7
+      545 CAPTURE                          UPVAL U2
+      546 CAPTURE                          UPVAL U28
+      547 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      549 SETTABLEKS                       R11 R12 K106 ["clickSettingsSetupType"]
       551 NEWCLOSURE                       R11 P70
       552 CAPTURE                          VAL R9
-      553 GETTABLEKS                       R12 R9 K107 ["SelectScreen"]
-      555 SETTABLEKS                       R11 R12 K66 ["isActive"]
+      553 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      555 SETTABLEKS                       R11 R12 K107 ["toggleAlignFrontAngle"]
       557 NEWCLOSURE                       R11 P71
       558 CAPTURE                          VAL R9
-      559 GETTABLEKS                       R12 R9 K107 ["SelectScreen"]
-      561 SETTABLEKS                       R11 R12 K108 ["clickAddSelected"]
-      563 GETUPVAL                         R11 25
-      564 MOVE                             R12 R9
-      565 CALL                             R11 1 1
-      566 SETTABLEKS                       R11 R9 K109 ["DisambiguationMenu"]
-      568 NEWTABLE                         R11 0 0
-      570 SETTABLEKS                       R11 R9 K110 ["TestingScreen"]
-      572 NEWCLOSURE                       R11 P72
-      573 CAPTURE                          VAL R9
-      574 GETTABLEKS                       R12 R9 K110 ["TestingScreen"]
-      576 SETTABLEKS                       R11 R12 K66 ["isActive"]
-      578 NEWCLOSURE                       R11 P73
-      579 CAPTURE                          VAL R9
-      580 GETTABLEKS                       R12 R9 K110 ["TestingScreen"]
-      582 SETTABLEKS                       R11 R12 K111 ["clickStop"]
-      584 NEWTABLE                         R11 0 0
-      586 SETTABLEKS                       R11 R9 K112 ["EditingTools"]
-      588 NEWCLOSURE                       R11 P74
-      589 CAPTURE                          VAL R9
-      590 GETTABLEKS                       R12 R9 K112 ["EditingTools"]
-      592 SETTABLEKS                       R11 R12 K113 ["clickBodyPointsToolButton"]
-      594 DUPCLOSURE                       R11 K114 [PROTO_112]
-      595 CAPTURE                          UPVAL U1
-      596 GETTABLEKS                       R12 R9 K112 ["EditingTools"]
-      598 SETTABLEKS                       R11 R12 K115 ["bodyPointsToolIsActive"]
-      600 NEWCLOSURE                       R11 P76
-      601 CAPTURE                          VAL R9
-      602 GETTABLEKS                       R12 R9 K112 ["EditingTools"]
-      604 SETTABLEKS                       R11 R12 K116 ["clickCageEditingToolButton"]
-      606 DUPCLOSURE                       R11 K117 [PROTO_114]
-      607 CAPTURE                          UPVAL U1
-      608 GETTABLEKS                       R12 R9 K112 ["EditingTools"]
-      610 SETTABLEKS                       R11 R12 K118 ["cageEditingToolIsActive"]
-      612 NEWTABLE                         R11 0 0
-      614 SETTABLEKS                       R11 R9 K119 ["CageEditingTool"]
-      616 DUPCLOSURE                       R11 K120 [PROTO_115]
-      617 CAPTURE                          UPVAL U1
-      618 GETTABLEKS                       R12 R9 K119 ["CageEditingTool"]
-      620 SETTABLEKS                       R11 R12 K121 ["getBrushRadiusSliderValue"]
-      622 DUPCLOSURE                       R11 K122 [PROTO_116]
-      623 CAPTURE                          UPVAL U1
-      624 GETTABLEKS                       R12 R9 K119 ["CageEditingTool"]
-      626 SETTABLEKS                       R11 R12 K123 ["getBrushFalloffSliderValue"]
-      628 DUPCLOSURE                       R11 K124 [PROTO_118]
-      629 CAPTURE                          UPVAL U2
-      630 CAPTURE                          UPVAL U26
-      631 CAPTURE                          UPVAL U18
-      632 GETTABLEKS                       R12 R9 K119 ["CageEditingTool"]
-      634 SETTABLEKS                       R11 R12 K125 ["ToggleShiftB"]
-      636 DUPCLOSURE                       R11 K126 [PROTO_120]
-      637 CAPTURE                          UPVAL U2
-      638 CAPTURE                          UPVAL U26
-      639 CAPTURE                          UPVAL U18
-      640 GETTABLEKS                       R12 R9 K119 ["CageEditingTool"]
-      642 SETTABLEKS                       R11 R12 K127 ["ToggleB"]
-      644 NEWCLOSURE                       R11 P82
-      645 CAPTURE                          UPVAL U27
-      646 CAPTURE                          VAL R9
-      647 CAPTURE                          UPVAL U2
-      648 CAPTURE                          UPVAL U24
-      649 CAPTURE                          UPVAL U18
-      650 GETTABLEKS                       R12 R9 K119 ["CageEditingTool"]
-      652 SETTABLEKS                       R11 R12 K128 ["activateShortcutAndMoveMouse"]
-      654 NEWCLOSURE                       R11 P83
-      655 CAPTURE                          VAL R9
-      656 CAPTURE                          UPVAL U2
-      657 CAPTURE                          UPVAL U18
-      658 GETTABLEKS                       R12 R9 K119 ["CageEditingTool"]
-      660 SETTABLEKS                       R11 R12 K129 ["activateShortcutAndMoveMouseWheel"]
-      662 RETURN                           R9 1
+      559 GETTABLEKS                       R12 R9 K95 ["AutoSetupScreen"]
+      561 SETTABLEKS                       R11 R12 K108 ["getModelPreviewCameraCFrame"]
+      563 NEWTABLE                         R11 0 0
+      565 SETTABLEKS                       R11 R9 K109 ["SelectScreen"]
+      567 NEWCLOSURE                       R11 P72
+      568 CAPTURE                          VAL R9
+      569 GETTABLEKS                       R12 R9 K109 ["SelectScreen"]
+      571 SETTABLEKS                       R11 R12 K67 ["isActive"]
+      573 NEWCLOSURE                       R11 P73
+      574 CAPTURE                          VAL R9
+      575 GETTABLEKS                       R12 R9 K109 ["SelectScreen"]
+      577 SETTABLEKS                       R11 R12 K110 ["clickAddSelected"]
+      579 NEWCLOSURE                       R11 P74
+      580 CAPTURE                          UPVAL U23
+      581 CAPTURE                          VAL R9
+      582 GETTABLEKS                       R12 R9 K109 ["SelectScreen"]
+      584 SETTABLEKS                       R11 R12 K111 ["isAvatarCreationEntryActive"]
+      586 NEWCLOSURE                       R11 P75
+      587 CAPTURE                          VAL R9
+      588 GETTABLEKS                       R12 R9 K109 ["SelectScreen"]
+      590 SETTABLEKS                       R11 R12 K112 ["clickGenerateAvatar"]
+      592 NEWTABLE                         R11 0 0
+      594 SETTABLEKS                       R11 R9 K113 ["AvatarChatScreen"]
+      596 NEWCLOSURE                       R11 P76
+      597 CAPTURE                          UPVAL U23
+      598 CAPTURE                          VAL R9
+      599 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      601 SETTABLEKS                       R11 R12 K67 ["isActive"]
+      603 NEWCLOSURE                       R11 P77
+      604 CAPTURE                          UPVAL U23
+      605 CAPTURE                          VAL R9
+      606 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      608 SETTABLEKS                       R11 R12 K114 ["isEmpty"]
+      610 NEWCLOSURE                       R11 P78
+      611 CAPTURE                          UPVAL U23
+      612 CAPTURE                          VAL R9
+      613 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      615 SETTABLEKS                       R11 R12 K115 ["hasConfirmAction"]
+      617 NEWCLOSURE                       R11 P79
+      618 CAPTURE                          UPVAL U23
+      619 CAPTURE                          VAL R9
+      620 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      622 SETTABLEKS                       R11 R12 K116 ["hasFailedState"]
+      624 NEWCLOSURE                       R11 P80
+      625 CAPTURE                          UPVAL U23
+      626 CAPTURE                          VAL R9
+      627 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      629 SETTABLEKS                       R11 R12 K117 ["isGenerating3D"]
+      631 NEWCLOSURE                       R11 P81
+      632 CAPTURE                          VAL R9
+      633 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      635 SETTABLEKS                       R11 R12 K118 ["clickGenerating3DCancel"]
+      637 NEWCLOSURE                       R11 P82
+      638 CAPTURE                          VAL R9
+      639 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      641 SETTABLEKS                       R11 R12 K119 ["clickPreviewImage"]
+      643 DUPCLOSURE                       R11 K120 [PROTO_121]
+      644 CAPTURE                          UPVAL U23
+      645 CAPTURE                          UPVAL U1
+      646 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      648 SETTABLEKS                       R11 R12 K121 ["isImageDialogOpen"]
+      650 NEWCLOSURE                       R11 P84
+      651 CAPTURE                          UPVAL U23
+      652 CAPTURE                          UPVAL U1
+      653 CAPTURE                          UPVAL U24
+      654 CAPTURE                          VAL R9
+      655 CAPTURE                          UPVAL U2
+      656 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      658 SETTABLEKS                       R11 R12 K122 ["closeImageDialog"]
+      660 NEWCLOSURE                       R11 P85
+      661 CAPTURE                          UPVAL U23
+      662 CAPTURE                          VAL R9
+      663 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      665 SETTABLEKS                       R11 R12 K123 ["hasFailedTurn"]
+      667 NEWCLOSURE                       R11 P86
+      668 CAPTURE                          UPVAL U23
+      669 CAPTURE                          VAL R9
+      670 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      672 SETTABLEKS                       R11 R12 K124 ["isTurnCancelled"]
+      674 NEWCLOSURE                       R11 P87
+      675 CAPTURE                          UPVAL U23
+      676 CAPTURE                          VAL R9
+      677 GETTABLEKS                       R12 R9 K113 ["AvatarChatScreen"]
+      679 SETTABLEKS                       R11 R12 K125 ["turnCount"]
+      681 NEWCLOSURE                       R11 P88
+      682 CAPTURE                          UPVAL U23
+      683 CAPTURE                          VAL R9
+      684 CAPTURE                          UPVAL U2
+      685 NEWCLOSURE                       R12 P89
+      686 CAPTURE                          VAL R11
+      687 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      689 SETTABLEKS                       R12 R13 K126 ["clickTurnRegenerate"]
+      691 NEWCLOSURE                       R12 P90
+      692 CAPTURE                          UPVAL U23
+      693 CAPTURE                          VAL R9
+      694 CAPTURE                          UPVAL U2
+      695 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      697 SETTABLEKS                       R12 R13 K127 ["typePrompt"]
+      699 NEWCLOSURE                       R12 P91
+      700 CAPTURE                          VAL R9
+      701 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      703 SETTABLEKS                       R12 R13 K128 ["clickSend"]
+      705 NEWCLOSURE                       R12 P92
+      706 CAPTURE                          VAL R9
+      707 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      709 SETTABLEKS                       R12 R13 K129 ["submitPrompt"]
+      711 NEWCLOSURE                       R12 P93
+      712 CAPTURE                          VAL R9
+      713 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      715 SETTABLEKS                       R12 R13 K130 ["clickConfirm"]
+      717 NEWCLOSURE                       R12 P94
+      718 CAPTURE                          VAL R9
+      719 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      721 SETTABLEKS                       R12 R13 K131 ["clickRegenerate"]
+      723 NEWCLOSURE                       R12 P95
+      724 CAPTURE                          VAL R9
+      725 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      727 SETTABLEKS                       R12 R13 K132 ["clickCancel"]
+      729 NEWCLOSURE                       R12 P96
+      730 CAPTURE                          VAL R9
+      731 GETTABLEKS                       R13 R9 K113 ["AvatarChatScreen"]
+      733 SETTABLEKS                       R12 R13 K87 ["clickBack"]
+      735 GETUPVAL                         R12 29
+      736 MOVE                             R13 R9
+      737 CALL                             R12 1 1
+      738 SETTABLEKS                       R12 R9 K133 ["DisambiguationMenu"]
+      740 NEWTABLE                         R12 0 0
+      742 SETTABLEKS                       R12 R9 K134 ["TestingScreen"]
+      744 NEWCLOSURE                       R12 P97
+      745 CAPTURE                          VAL R9
+      746 GETTABLEKS                       R13 R9 K134 ["TestingScreen"]
+      748 SETTABLEKS                       R12 R13 K67 ["isActive"]
+      750 NEWCLOSURE                       R12 P98
+      751 CAPTURE                          VAL R9
+      752 GETTABLEKS                       R13 R9 K134 ["TestingScreen"]
+      754 SETTABLEKS                       R12 R13 K135 ["clickStop"]
+      756 NEWTABLE                         R12 0 0
+      758 SETTABLEKS                       R12 R9 K136 ["EditingTools"]
+      760 NEWCLOSURE                       R12 P99
+      761 CAPTURE                          VAL R9
+      762 GETTABLEKS                       R13 R9 K136 ["EditingTools"]
+      764 SETTABLEKS                       R12 R13 K137 ["clickBodyPointsToolButton"]
+      766 DUPCLOSURE                       R12 K138 [PROTO_142]
+      767 CAPTURE                          UPVAL U1
+      768 GETTABLEKS                       R13 R9 K136 ["EditingTools"]
+      770 SETTABLEKS                       R12 R13 K139 ["bodyPointsToolIsActive"]
+      772 NEWCLOSURE                       R12 P101
+      773 CAPTURE                          VAL R9
+      774 GETTABLEKS                       R13 R9 K136 ["EditingTools"]
+      776 SETTABLEKS                       R12 R13 K140 ["clickCageEditingToolButton"]
+      778 DUPCLOSURE                       R12 K141 [PROTO_144]
+      779 CAPTURE                          UPVAL U1
+      780 GETTABLEKS                       R13 R9 K136 ["EditingTools"]
+      782 SETTABLEKS                       R12 R13 K142 ["cageEditingToolIsActive"]
+      784 NEWTABLE                         R12 0 0
+      786 SETTABLEKS                       R12 R9 K143 ["CageEditingTool"]
+      788 DUPCLOSURE                       R12 K144 [PROTO_145]
+      789 CAPTURE                          UPVAL U1
+      790 GETTABLEKS                       R13 R9 K143 ["CageEditingTool"]
+      792 SETTABLEKS                       R12 R13 K145 ["getBrushRadiusSliderValue"]
+      794 DUPCLOSURE                       R12 K146 [PROTO_146]
+      795 CAPTURE                          UPVAL U1
+      796 GETTABLEKS                       R13 R9 K143 ["CageEditingTool"]
+      798 SETTABLEKS                       R12 R13 K147 ["getBrushFalloffSliderValue"]
+      800 DUPCLOSURE                       R12 K148 [PROTO_148]
+      801 CAPTURE                          UPVAL U2
+      802 CAPTURE                          UPVAL U30
+      803 CAPTURE                          UPVAL U22
+      804 GETTABLEKS                       R13 R9 K143 ["CageEditingTool"]
+      806 SETTABLEKS                       R12 R13 K149 ["ToggleShiftB"]
+      808 DUPCLOSURE                       R12 K150 [PROTO_150]
+      809 CAPTURE                          UPVAL U2
+      810 CAPTURE                          UPVAL U30
+      811 CAPTURE                          UPVAL U22
+      812 GETTABLEKS                       R13 R9 K143 ["CageEditingTool"]
+      814 SETTABLEKS                       R12 R13 K151 ["ToggleB"]
+      816 NEWCLOSURE                       R12 P107
+      817 CAPTURE                          UPVAL U31
+      818 CAPTURE                          VAL R9
+      819 CAPTURE                          UPVAL U2
+      820 CAPTURE                          UPVAL U28
+      821 CAPTURE                          UPVAL U22
+      822 GETTABLEKS                       R13 R9 K143 ["CageEditingTool"]
+      824 SETTABLEKS                       R12 R13 K152 ["activateShortcutAndMoveMouse"]
+      826 NEWCLOSURE                       R12 P108
+      827 CAPTURE                          VAL R9
+      828 CAPTURE                          UPVAL U2
+      829 CAPTURE                          UPVAL U22
+      830 GETTABLEKS                       R13 R9 K143 ["CageEditingTool"]
+      832 SETTABLEKS                       R12 R13 K153 ["activateShortcutAndMoveMouseWheel"]
+      834 RETURN                           R9 1
 
-PROTO_126:
+PROTO_156:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 CALL                             R0 1 1
@@ -2869,7 +3432,7 @@ PROTO_126:
        13 CALL                             R2 0 0
        14 RETURN                           R0 0
 
-PROTO_127:
+PROTO_157:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R1
@@ -2877,7 +3440,7 @@ PROTO_127:
         4 CAPTURE                          VAL R0
         5 RETURN                           R2 1
 
-PROTO_128:
+PROTO_158:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["cloneLizard"]
         3 LOADK                            R1 K1 ["ClonedLizard"]
@@ -2887,13 +3450,13 @@ PROTO_128:
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
 
-PROTO_129:
+PROTO_159:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
         3 RETURN                           R1 1
 
-PROTO_130:
+PROTO_160:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["select"]
         3 NEWTABLE                         R2 0 1
@@ -2906,7 +3469,7 @@ PROTO_130:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_131:
+PROTO_161:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["withClonedLizard"]
         3 NEWCLOSURE                       R2 P0
@@ -2916,7 +3479,7 @@ PROTO_131:
         7 CALL                             R1 0 -1
         8 RETURN                           R1 -1
 
-PROTO_132:
+PROTO_162:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["withTestPreviewer"]
         3 NEWCLOSURE                       R3 P0
@@ -2926,7 +3489,7 @@ PROTO_132:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_133:
+PROTO_163:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 CALL                             R0 1 1
@@ -2937,14 +3500,14 @@ PROTO_133:
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
-PROTO_134:
+PROTO_164:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R1
         3 CAPTURE                          VAL R0
         4 RETURN                           R2 1
 
-PROTO_135:
+PROTO_165:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["select"]
         3 NEWTABLE                         R2 0 1
@@ -2957,7 +3520,7 @@ PROTO_135:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_136:
+PROTO_166:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["withClonedLizard"]
         3 NEWCLOSURE                       R2 P0
@@ -2967,7 +3530,7 @@ PROTO_136:
         7 CALL                             R1 0 -1
         8 RETURN                           R1 -1
 
-PROTO_137:
+PROTO_167:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["withTestPreviewerEditingTools"]
         3 NEWCLOSURE                       R3 P0
@@ -2977,13 +3540,13 @@ PROTO_137:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_138:
+PROTO_168:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Destroy"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_139:
+PROTO_169:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["testAssets"]
         3 GETTABLEKS                       R0 R0 K1 ["AutoSetupTarget"]
@@ -3110,123 +3673,145 @@ MAIN:
       184 GETIMPORT                        R25 K15 [require]
       186 GETTABLEKS                       R26 R7 K32 ["Src"]
       188 GETTABLEKS                       R26 R26 K34 ["Components"]
-      190 GETTABLEKS                       R26 R26 K40 ["PlacesServiceContext"]
+      190 GETTABLEKS                       R26 R26 K40 ["HumanoidServiceContext"]
       192 CALL                             R25 1 1
       193 GETIMPORT                        R26 K15 [require]
       195 GETTABLEKS                       R27 R7 K32 ["Src"]
       197 GETTABLEKS                       R27 R27 K34 ["Components"]
-      199 GETTABLEKS                       R27 R27 K41 ["RunServiceContext"]
+      199 GETTABLEKS                       R27 R27 K41 ["PlacesServiceContext"]
       201 CALL                             R26 1 1
       202 GETIMPORT                        R27 K15 [require]
       204 GETTABLEKS                       R28 R7 K32 ["Src"]
       206 GETTABLEKS                       R28 R28 K34 ["Components"]
-      208 GETTABLEKS                       R28 R28 K42 ["UGCAvatarServiceContext"]
+      208 GETTABLEKS                       R28 R28 K42 ["PlayersServiceContext"]
       210 CALL                             R27 1 1
       211 GETIMPORT                        R28 K15 [require]
-      213 GETTABLEKS                       R29 R7 K26 ["RhodiumTests"]
-      215 GETTABLEKS                       R29 R29 K43 ["UGCValidationContextMocks"]
-      217 CALL                             R28 1 1
-      218 GETIMPORT                        R29 K15 [require]
-      220 GETTABLEKS                       R30 R7 K32 ["Src"]
-      222 GETTABLEKS                       R30 R30 K44 ["Flags"]
-      224 GETTABLEKS                       R30 R30 K45 ["getFFlagAvatarPreviewerEditingTools"]
-      226 CALL                             R29 1 1
-      227 GETIMPORT                        R30 K15 [require]
-      229 GETTABLEKS                       R31 R7 K32 ["Src"]
-      231 GETTABLEKS                       R31 R31 K44 ["Flags"]
-      233 GETTABLEKS                       R31 R31 K46 ["getFFlagAvatarPreviewerLookComposer"]
+      213 GETTABLEKS                       R29 R7 K32 ["Src"]
+      215 GETTABLEKS                       R29 R29 K34 ["Components"]
+      217 GETTABLEKS                       R29 R29 K43 ["RunServiceContext"]
+      219 CALL                             R28 1 1
+      220 GETIMPORT                        R29 K15 [require]
+      222 GETTABLEKS                       R30 R7 K32 ["Src"]
+      224 GETTABLEKS                       R30 R30 K34 ["Components"]
+      226 GETTABLEKS                       R30 R30 K44 ["UGCAvatarServiceContext"]
+      228 CALL                             R29 1 1
+      229 GETIMPORT                        R30 K15 [require]
+      231 GETTABLEKS                       R31 R7 K26 ["RhodiumTests"]
+      233 GETTABLEKS                       R31 R31 K45 ["UGCValidationContextMocks"]
       235 CALL                             R30 1 1
       236 GETIMPORT                        R31 K15 [require]
-      238 GETTABLEKS                       R32 R7 K32 ["Src"]
-      240 GETTABLEKS                       R32 R32 K44 ["Flags"]
-      242 GETTABLEKS                       R32 R32 K47 ["getFFlagVirtualInputManagerMouseMoveDeltaEvent"]
-      244 CALL                             R31 1 1
-      245 GETTABLEKS                       R32 R10 K48 ["ContextServices"]
-      247 GETTABLEKS                       R33 R10 K49 ["TestHelpers"]
-      249 GETTABLEKS                       R33 R33 K50 ["provideMockContext"]
-      251 NEWTABLE                         R34 16 0
-      253 GETTABLEKS                       R35 R3 K51 ["TestAssets"]
-      255 SETTABLEKS                       R35 R34 K52 ["testAssets"]
-      257 DUPCLOSURE                       R35 K53 [PROTO_1]
-      258 CAPTURE                          VAL R13
-      259 CAPTURE                          VAL R15
-      260 SETTABLEKS                       R35 R34 K54 ["clickSimpleTab"]
-      262 DUPCLOSURE                       R35 K55 [PROTO_2]
-      263 SETTABLEKS                       R35 R34 K56 ["deferYield"]
-      265 DUPCLOSURE                       R35 K57 [PROTO_4]
-      266 CAPTURE                          VAL R13
-      267 CAPTURE                          VAL R34
-      268 SETTABLEKS                       R35 R34 K58 ["startAutoSetupAndWaitUntilClick"]
-      270 DUPCLOSURE                       R35 K59 [PROTO_6]
-      271 CAPTURE                          VAL R34
-      272 CAPTURE                          VAL R13
-      273 SETTABLEKS                       R35 R34 K60 ["startAutoSetupAndComplete"]
-      275 DUPCLOSURE                       R35 K61 [PROTO_8]
-      276 CAPTURE                          VAL R34
-      277 CAPTURE                          VAL R16
-      278 CAPTURE                          VAL R6
-      279 SETTABLEKS                       R35 R34 K62 ["cloneLizard"]
-      281 DUPCLOSURE                       R35 K63 [PROTO_10]
-      282 CAPTURE                          VAL R34
-      283 CAPTURE                          VAL R16
-      284 CAPTURE                          VAL R6
-      285 SETTABLEKS                       R35 R34 K64 ["cloneRigidHat"]
-      287 DUPCLOSURE                       R35 K65 [PROTO_12]
-      288 CAPTURE                          VAL R34
-      289 CAPTURE                          VAL R16
-      290 CAPTURE                          VAL R6
-      291 SETTABLEKS                       R35 R34 K66 ["cloneLayeredJacket"]
-      293 DUPCLOSURE                       R35 K67 [PROTO_16]
-      294 CAPTURE                          VAL R29
-      295 CAPTURE                          VAL R0
-      296 DUPCLOSURE                       R36 K68 [PROTO_125]
-      297 CAPTURE                          VAL R2
-      298 CAPTURE                          VAL R1
-      299 CAPTURE                          VAL R13
-      300 CAPTURE                          VAL R19
-      301 CAPTURE                          VAL R32
-      302 CAPTURE                          VAL R8
-      303 CAPTURE                          VAL R12
-      304 CAPTURE                          VAL R23
-      305 CAPTURE                          VAL R11
-      306 CAPTURE                          VAL R27
-      307 CAPTURE                          VAL R21
-      308 CAPTURE                          VAL R25
-      309 CAPTURE                          VAL R26
-      310 CAPTURE                          VAL R28
-      311 CAPTURE                          VAL R29
-      312 CAPTURE                          VAL R24
-      313 CAPTURE                          VAL R22
-      314 CAPTURE                          VAL R33
-      315 CAPTURE                          VAL R15
-      316 CAPTURE                          VAL R14
-      317 CAPTURE                          VAL R17
-      318 CAPTURE                          VAL R34
-      319 CAPTURE                          VAL R30
-      320 CAPTURE                          VAL R9
-      321 CAPTURE                          VAL R5
-      322 CAPTURE                          VAL R18
-      323 CAPTURE                          VAL R4
-      324 CAPTURE                          VAL R31
-      325 DUPCLOSURE                       R37 K69 [PROTO_127]
-      326 CAPTURE                          VAL R36
-      327 CAPTURE                          VAL R35
-      328 SETTABLEKS                       R37 R34 K70 ["withTestPreviewer"]
-      330 DUPCLOSURE                       R37 K71 [PROTO_129]
-      331 CAPTURE                          VAL R34
-      332 SETTABLEKS                       R37 R34 K72 ["withClonedLizard"]
-      334 DUPCLOSURE                       R37 K73 [PROTO_132]
-      335 CAPTURE                          VAL R34
-      336 SETTABLEKS                       R37 R34 K74 ["withPreviewerAndLizard"]
-      338 DUPCLOSURE                       R37 K75 [PROTO_134]
-      339 CAPTURE                          VAL R36
-      340 SETTABLEKS                       R37 R34 K76 ["withTestPreviewerEditingTools"]
-      342 DUPCLOSURE                       R37 K77 [PROTO_137]
-      343 CAPTURE                          VAL R34
-      344 SETTABLEKS                       R37 R34 K78 ["withPreviewerAndLizardEditingTools"]
-      346 DUPCLOSURE                       R37 K79 [PROTO_139]
-      347 CAPTURE                          VAL R34
-      348 CAPTURE                          VAL R6
-      349 CAPTURE                          VAL R16
-      350 SETTABLEKS                       R37 R34 K80 ["cloneAutoSetupTarget"]
-      352 RETURN                           R34 1
+      238 GETIMPORT                        R32 K11 [script]
+      240 GETTABLEKS                       R32 R32 K46 ["HumanoidServiceContextMock"]
+      242 CALL                             R31 1 1
+      243 GETIMPORT                        R32 K15 [require]
+      245 GETIMPORT                        R33 K11 [script]
+      247 GETTABLEKS                       R33 R33 K47 ["PlayersServiceContextMock"]
+      249 CALL                             R32 1 1
+      250 GETIMPORT                        R33 K15 [require]
+      252 GETTABLEKS                       R34 R7 K32 ["Src"]
+      254 GETTABLEKS                       R34 R34 K48 ["Flags"]
+      256 GETTABLEKS                       R34 R34 K49 ["getFFlagAvatarPreviewerEditingTools"]
+      258 CALL                             R33 1 1
+      259 GETIMPORT                        R34 K15 [require]
+      261 GETTABLEKS                       R35 R7 K32 ["Src"]
+      263 GETTABLEKS                       R35 R35 K48 ["Flags"]
+      265 GETTABLEKS                       R35 R35 K50 ["getFFlagAvatarPreviewerLookComposer"]
+      267 CALL                             R34 1 1
+      268 GETIMPORT                        R35 K15 [require]
+      270 GETTABLEKS                       R36 R7 K32 ["Src"]
+      272 GETTABLEKS                       R36 R36 K48 ["Flags"]
+      274 GETTABLEKS                       R36 R36 K51 ["getFFlagVirtualInputManagerMouseMoveDeltaEvent"]
+      276 CALL                             R35 1 1
+      277 GETTABLEKS                       R36 R10 K52 ["ContextServices"]
+      279 GETTABLEKS                       R37 R10 K53 ["TestHelpers"]
+      281 GETTABLEKS                       R37 R37 K54 ["provideMockContext"]
+      283 NEWTABLE                         R38 16 0
+      285 GETTABLEKS                       R39 R3 K55 ["TestAssets"]
+      287 SETTABLEKS                       R39 R38 K56 ["testAssets"]
+      289 DUPCLOSURE                       R39 K57 [PROTO_1]
+      290 CAPTURE                          VAL R13
+      291 CAPTURE                          VAL R15
+      292 SETTABLEKS                       R39 R38 K58 ["clickSimpleTab"]
+      294 DUPCLOSURE                       R39 K59 [PROTO_2]
+      295 SETTABLEKS                       R39 R38 K60 ["deferYield"]
+      297 DUPCLOSURE                       R39 K61 [PROTO_4]
+      298 CAPTURE                          VAL R13
+      299 CAPTURE                          VAL R38
+      300 SETTABLEKS                       R39 R38 K62 ["startAutoSetupAndWaitUntilClick"]
+      302 DUPCLOSURE                       R39 K63 [PROTO_6]
+      303 CAPTURE                          VAL R38
+      304 CAPTURE                          VAL R13
+      305 SETTABLEKS                       R39 R38 K64 ["startAutoSetupAndComplete"]
+      307 DUPCLOSURE                       R39 K65 [PROTO_8]
+      308 CAPTURE                          VAL R38
+      309 CAPTURE                          VAL R16
+      310 CAPTURE                          VAL R6
+      311 SETTABLEKS                       R39 R38 K66 ["cloneLizard"]
+      313 DUPCLOSURE                       R39 K67 [PROTO_10]
+      314 CAPTURE                          VAL R38
+      315 CAPTURE                          VAL R16
+      316 CAPTURE                          VAL R6
+      317 SETTABLEKS                       R39 R38 K68 ["cloneRigidHat"]
+      319 DUPCLOSURE                       R39 K69 [PROTO_12]
+      320 CAPTURE                          VAL R38
+      321 CAPTURE                          VAL R16
+      322 CAPTURE                          VAL R6
+      323 SETTABLEKS                       R39 R38 K70 ["cloneLayeredJacket"]
+      325 DUPCLOSURE                       R39 K71 [PROTO_16]
+      326 CAPTURE                          VAL R33
+      327 CAPTURE                          VAL R0
+      328 DUPCLOSURE                       R40 K72 [PROTO_155]
+      329 CAPTURE                          VAL R2
+      330 CAPTURE                          VAL R1
+      331 CAPTURE                          VAL R13
+      332 CAPTURE                          VAL R19
+      333 CAPTURE                          VAL R36
+      334 CAPTURE                          VAL R8
+      335 CAPTURE                          VAL R12
+      336 CAPTURE                          VAL R23
+      337 CAPTURE                          VAL R25
+      338 CAPTURE                          VAL R31
+      339 CAPTURE                          VAL R27
+      340 CAPTURE                          VAL R32
+      341 CAPTURE                          VAL R11
+      342 CAPTURE                          VAL R29
+      343 CAPTURE                          VAL R21
+      344 CAPTURE                          VAL R26
+      345 CAPTURE                          VAL R28
+      346 CAPTURE                          VAL R30
+      347 CAPTURE                          VAL R33
+      348 CAPTURE                          VAL R24
+      349 CAPTURE                          VAL R22
+      350 CAPTURE                          VAL R37
+      351 CAPTURE                          VAL R15
+      352 CAPTURE                          VAL R14
+      353 CAPTURE                          VAL R17
+      354 CAPTURE                          VAL R38
+      355 CAPTURE                          VAL R34
+      356 CAPTURE                          VAL R9
+      357 CAPTURE                          VAL R5
+      358 CAPTURE                          VAL R18
+      359 CAPTURE                          VAL R4
+      360 CAPTURE                          VAL R35
+      361 DUPCLOSURE                       R41 K73 [PROTO_157]
+      362 CAPTURE                          VAL R40
+      363 CAPTURE                          VAL R39
+      364 SETTABLEKS                       R41 R38 K74 ["withTestPreviewer"]
+      366 DUPCLOSURE                       R41 K75 [PROTO_159]
+      367 CAPTURE                          VAL R38
+      368 SETTABLEKS                       R41 R38 K76 ["withClonedLizard"]
+      370 DUPCLOSURE                       R41 K77 [PROTO_162]
+      371 CAPTURE                          VAL R38
+      372 SETTABLEKS                       R41 R38 K78 ["withPreviewerAndLizard"]
+      374 DUPCLOSURE                       R41 K79 [PROTO_164]
+      375 CAPTURE                          VAL R40
+      376 SETTABLEKS                       R41 R38 K80 ["withTestPreviewerEditingTools"]
+      378 DUPCLOSURE                       R41 K81 [PROTO_167]
+      379 CAPTURE                          VAL R38
+      380 SETTABLEKS                       R41 R38 K82 ["withPreviewerAndLizardEditingTools"]
+      382 DUPCLOSURE                       R41 K83 [PROTO_169]
+      383 CAPTURE                          VAL R38
+      384 CAPTURE                          VAL R6
+      385 CAPTURE                          VAL R16
+      386 SETTABLEKS                       R41 R38 K84 ["cloneAutoSetupTarget"]
+      388 RETURN                           R38 1

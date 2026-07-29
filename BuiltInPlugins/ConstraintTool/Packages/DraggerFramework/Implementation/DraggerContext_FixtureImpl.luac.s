@@ -2,48 +2,49 @@ PROTO_0:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 LOADB                            R4 0 +1
         3 LOADB                            R4 1
-        4 FASTCALL1                        ASSERT R4 ; [+2]
-        5 GETIMPORT                        R3 K1 [assert]
-        7 CALL                             R3 1 0
-        8 DUPTABLE                         R4 K36 [{["_realCamera"], ["_workspace"], ["_guiTarget"], ["_useLocalSpace"] = False, ["_areCollisionsEnabled"] = True, ["_areConstraintsEnabled"] = False, ["_areConstraintDetailsShown"] = False, ["_drawConstraintsOnTop"] = False, ["_shouldJoinSurfaces"] = True, ["_shouldAlignDraggedObjects"] = True, ["_mouseLocation"], ["_mouseUnitRay"], ["_cameraCFrame"], ["_cameraSize"] = 10, ["_mouseIcon"] = "", ["_isSimulating"] = False, ["_gridSize"] = 1, ["_gridSnapEnabled"] = True, ["_partSnapEnabled"] = True, ["_rotateIncrement"] = 0.523598775598299, ["_rotateSnapEnabled"] = True, ["_selection"], ["_undoWaypoints"], ["_isTabDown"] = False, ["_isAltDown"] = False, ["_isCtrlDown"] = False, ["_isShiftDown"] = False, ["_settingValues"]}]
-        9 JUMPIFEQKB                       R2 TRUE ; [+2]
-       11 LOADB                            R5 0 +1
-       12 LOADB                            R5 1
-       13 SETTABLEKS                       R5 R4 K2 ["_realCamera"]
-       15 JUMPIFNOTEQKB                    R2 TRUE ; [+8]
-       17 GETIMPORT                        R5 K38 [game]
-       19 LOADK                            R7 K39 ["Workspace"]
-       20 NAMECALL                         R5 R5 K40 ["GetService"]
-       22 CALL                             R5 2 1
-       23 JUMP                             ; [+1]
-       24 LOADNIL                          R5
-       25 SETTABLEKS                       R5 R4 K3 ["_workspace"]
-       27 SETTABLEKS                       R0 R4 K4 ["_guiTarget"]
-       29 GETIMPORT                        R5 K43 [Vector2.new]
-       31 CALL                             R5 0 1
-       32 SETTABLEKS                       R5 R4 K14 ["_mouseLocation"]
-       34 GETIMPORT                        R5 K45 [Ray.new]
-       36 FASTCALL                         VECTOR ; [+2]
-       37 GETIMPORT                        R6 K47 [Vector3.new]
-       39 CALL                             R6 0 1
-       40 FASTCALL                         VECTOR ; [+2]
-       41 GETIMPORT                        R7 K47 [Vector3.new]
-       43 CALL                             R7 0 1
-       44 CALL                             R5 2 1
-       45 SETTABLEKS                       R5 R4 K15 ["_mouseUnitRay"]
-       47 GETIMPORT                        R5 K49 [CFrame.new]
-       49 CALL                             R5 0 1
-       50 SETTABLEKS                       R5 R4 K16 ["_cameraCFrame"]
-       52 SETTABLEKS                       R1 R4 K29 ["_selection"]
-       54 NEWTABLE                         R5 0 0
-       56 SETTABLEKS                       R5 R4 K30 ["_undoWaypoints"]
-       58 NEWTABLE                         R5 0 0
-       60 SETTABLEKS                       R5 R4 K35 ["_settingValues"]
-       62 GETUPVAL                         R5 0
-       63 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       65 GETIMPORT                        R3 K51 [setmetatable]
-       67 CALL                             R3 2 1
-       68 RETURN                           R3 1
+        4 FASTCALL2K                       ASSERT R4 K0 ; [+4]
+        6 LOADK                            R5 K0 ["Selection Missing"]
+        7 GETIMPORT                        R3 K2 [assert]
+        9 CALL                             R3 2 0
+       10 DUPTABLE                         R4 K38 [{["_realCamera"], ["_workspace"], ["_guiTarget"], ["_useLocalSpace"] = False, ["_areCollisionsEnabled"] = True, ["_areConstraintsEnabled"] = False, ["_areConstraintDetailsShown"] = False, ["_drawConstraintsOnTop"] = False, ["_shouldJoinSurfaces"] = True, ["_shouldAlignDraggedObjects"] = True, ["_useBoundingBoxes"] = False, ["_mouseLocation"], ["_mouseUnitRay"], ["_cameraCFrame"], ["_cameraSize"] = 10, ["_mouseIcon"] = "", ["_isSimulating"] = False, ["_gridSize"] = 1, ["_gridSnapEnabled"] = True, ["_partSnapEnabled"] = True, ["_rotateIncrement"] = 0.523598775598299, ["_rotateSnapEnabled"] = True, ["_selection"], ["_undoWaypoints"], ["_isTabDown"] = False, ["_isAltDown"] = False, ["_isCtrlDown"] = False, ["_isShiftDown"] = False, ["_settingValues"]}]
+       11 JUMPIFEQKB                       R2 TRUE ; [+2]
+       13 LOADB                            R5 0 +1
+       14 LOADB                            R5 1
+       15 SETTABLEKS                       R5 R4 K3 ["_realCamera"]
+       17 JUMPIFNOTEQKB                    R2 TRUE ; [+8]
+       19 GETIMPORT                        R5 K40 [game]
+       21 LOADK                            R7 K41 ["Workspace"]
+       22 NAMECALL                         R5 R5 K42 ["GetService"]
+       24 CALL                             R5 2 1
+       25 JUMP                             ; [+1]
+       26 LOADNIL                          R5
+       27 SETTABLEKS                       R5 R4 K4 ["_workspace"]
+       29 SETTABLEKS                       R0 R4 K5 ["_guiTarget"]
+       31 GETIMPORT                        R5 K45 [Vector2.new]
+       33 CALL                             R5 0 1
+       34 SETTABLEKS                       R5 R4 K16 ["_mouseLocation"]
+       36 GETIMPORT                        R5 K47 [Ray.new]
+       38 FASTCALL                         VECTOR ; [+2]
+       39 GETIMPORT                        R6 K49 [Vector3.new]
+       41 CALL                             R6 0 1
+       42 FASTCALL                         VECTOR ; [+2]
+       43 GETIMPORT                        R7 K49 [Vector3.new]
+       45 CALL                             R7 0 1
+       46 CALL                             R5 2 1
+       47 SETTABLEKS                       R5 R4 K17 ["_mouseUnitRay"]
+       49 GETIMPORT                        R5 K51 [CFrame.new]
+       51 CALL                             R5 0 1
+       52 SETTABLEKS                       R5 R4 K18 ["_cameraCFrame"]
+       54 SETTABLEKS                       R1 R4 K31 ["_selection"]
+       56 NEWTABLE                         R5 0 0
+       58 SETTABLEKS                       R5 R4 K32 ["_undoWaypoints"]
+       60 NEWTABLE                         R5 0 0
+       62 SETTABLEKS                       R5 R4 K37 ["_settingValues"]
+       64 GETUPVAL                         R5 0
+       65 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       67 GETIMPORT                        R3 K53 [setmetatable]
+       69 CALL                             R3 2 1
+       70 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_guiTarget"]
@@ -150,11 +151,12 @@ PROTO_18:
         5 JUMPIFEQKS                       R4 K2 ["boolean"] ; [+2]
         7 LOADB                            R3 0 +1
         8 LOADB                            R3 1
-        9 FASTCALL1                        ASSERT R3 ; [+2]
-       10 GETIMPORT                        R2 K4 [assert]
-       12 CALL                             R2 1 0
-       13 SETTABLEKS                       R1 R0 K5 ["_shouldJoinSurfaces"]
-       15 RETURN                           R0 0
+        9 FASTCALL2K                       ASSERT R3 K3 ; [+4]
+       11 LOADK                            R4 K3 ["You accidentally tried to pass the enum, pass a boolean status"]
+       12 GETIMPORT                        R2 K5 [assert]
+       14 CALL                             R2 2 0
+       15 SETTABLEKS                       R1 R0 K6 ["_shouldJoinSurfaces"]
+       17 RETURN                           R0 0
 
 PROTO_19:
         0 LOADB                            R1 1
@@ -250,11 +252,11 @@ PROTO_39:
         1 RETURN                           R1 1
 
 PROTO_40:
-        0 LOADN                            R1 5
+        0 LOADB                            R1 1
         1 RETURN                           R1 1
 
 PROTO_41:
-        0 LOADN                            R1 1
+        0 LOADN                            R1 5
         1 RETURN                           R1 1
 
 PROTO_42:
@@ -262,11 +264,11 @@ PROTO_42:
         1 RETURN                           R1 1
 
 PROTO_43:
-        0 LOADB                            R1 0
+        0 LOADN                            R1 1
         1 RETURN                           R1 1
 
 PROTO_44:
-        0 LOADB                            R1 1
+        0 LOADB                            R1 0
         1 RETURN                           R1 1
 
 PROTO_45:
@@ -278,19 +280,19 @@ PROTO_46:
         1 RETURN                           R1 1
 
 PROTO_47:
-        0 LOADB                            R1 0
+        0 LOADB                            R1 1
         1 RETURN                           R1 1
 
 PROTO_48:
-        0 LOADK                            R1 K0 [0.13]
+        0 LOADB                            R1 0
         1 RETURN                           R1 1
 
 PROTO_49:
-        0 LOADN                            R1 100
+        0 LOADK                            R1 K0 [0.13]
         1 RETURN                           R1 1
 
 PROTO_50:
-        0 LOADN                            R1 1
+        0 LOADN                            R1 100
         1 RETURN                           R1 1
 
 PROTO_51:
@@ -298,6 +300,10 @@ PROTO_51:
         1 RETURN                           R1 1
 
 PROTO_52:
+        0 LOADN                            R1 1
+        1 RETURN                           R1 1
+
+PROTO_53:
         0 GETTABLEKS                       R1 R0 K0 ["_realCamera"]
         2 JUMPIFNOT                        R1 ; [+7]
         3 GETTABLEKS                       R1 R0 K1 ["_workspace"]
@@ -307,7 +313,7 @@ PROTO_52:
        10 GETTABLEKS                       R1 R0 K4 ["_cameraCFrame"]
        12 RETURN                           R1 1
 
-PROTO_53:
+PROTO_54:
         0 GETTABLEKS                       R2 R0 K0 ["_workspace"]
         2 JUMPIFNOT                        R2 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["_workspace"]
@@ -316,7 +322,7 @@ PROTO_53:
         8 LOADNIL                          R1
         9 RETURN                           R1 1
 
-PROTO_54:
+PROTO_55:
         0 GETTABLEKS                       R3 R0 K0 ["_workspace"]
         2 JUMPIFNOT                        R3 ; [+6]
         3 GETTABLEKS                       R3 R0 K0 ["_workspace"]
@@ -327,7 +333,7 @@ PROTO_54:
        12 SETTABLEKS                       R3 R0 K5 ["_cameraSize"]
        14 RETURN                           R0 0
 
-PROTO_55:
+PROTO_56:
         0 GETTABLEKS                       R2 R0 K0 ["_realCamera"]
         2 JUMPIFNOT                        R2 ; [+29]
         3 NAMECALL                         R2 R0 K1 ["getCameraCFrame"]
@@ -353,13 +359,13 @@ PROTO_55:
        32 LOADN                            R2 1
        33 RETURN                           R2 1
 
-PROTO_56:
+PROTO_57:
         0 GETTABLEKS                       R3 R0 K0 ["_mouseLocation"]
         2 NAMECALL                         R1 R0 K1 ["viewportPointToRay"]
         4 CALL                             R1 2 -1
         5 RETURN                           R1 -1
 
-PROTO_57:
+PROTO_58:
         0 NAMECALL                         R1 R0 K0 ["getMouseUnitRay"]
         2 CALL                             R1 1 1
         3 GETIMPORT                        R2 K3 [Ray.new]
@@ -369,15 +375,15 @@ PROTO_57:
        10 CALL                             R2 2 -1
        11 RETURN                           R2 -1
 
-PROTO_58:
+PROTO_59:
         0 GETTABLEKS                       R1 R0 K0 ["_mouseLocation"]
         2 RETURN                           R1 1
 
-PROTO_59:
+PROTO_60:
         0 SETTABLEKS                       R1 R0 K0 ["_mouseLocation"]
         2 RETURN                           R0 0
 
-PROTO_60:
+PROTO_61:
         0 GETTABLEKS                       R2 R0 K0 ["_workspace"]
         2 JUMPIFNOT                        R2 ; [+12]
         3 GETTABLEKS                       R2 R0 K0 ["_workspace"]
@@ -413,7 +419,7 @@ PROTO_60:
        49 CALL                             R5 2 -1
        50 RETURN                           R5 -1
 
-PROTO_61:
+PROTO_62:
         0 GETTABLEKS                       R2 R0 K0 ["_workspace"]
         2 JUMPIFNOT                        R2 ; [+9]
         3 GETTABLEKS                       R2 R0 K0 ["_workspace"]
@@ -462,7 +468,7 @@ PROTO_61:
        63 MOVE                             R7 R5
        64 RETURN                           R6 2
 
-PROTO_62:
+PROTO_63:
         0 GETTABLEKS                       R1 R0 K0 ["_workspace"]
         2 JUMPIFNOT                        R1 ; [+7]
         3 GETTABLEKS                       R1 R0 K0 ["_workspace"]
@@ -475,11 +481,11 @@ PROTO_62:
        14 CALL                             R1 2 -1
        15 RETURN                           R1 -1
 
-PROTO_63:
+PROTO_64:
         0 SETTABLEKS                       R1 R0 K0 ["_mouseIcon"]
         2 RETURN                           R0 0
 
-PROTO_64:
+PROTO_65:
         0 GETTABLEKS                       R2 R0 K0 ["_mouseIcon"]
         2 JUMPIFEQ                         R2 R1 ; [+13]
         4 ORK                              R2 R1 K1 ["nil"]
@@ -494,35 +500,35 @@ PROTO_64:
        15 CALL                             R4 1 0
        16 RETURN                           R0 0
 
-PROTO_65:
+PROTO_66:
         0 GETTABLEKS                       R1 R0 K0 ["_selection"]
         2 RETURN                           R1 1
 
-PROTO_66:
+PROTO_67:
         0 GETTABLEKS                       R1 R0 K0 ["_isSimulating"]
         2 RETURN                           R1 1
 
-PROTO_67:
+PROTO_68:
         0 SETTABLEKS                       R1 R0 K0 ["_isSimulating"]
         2 RETURN                           R0 0
 
-PROTO_68:
+PROTO_69:
         0 GETTABLEKS                       R1 R0 K0 ["_isTabDown"]
         2 RETURN                           R1 1
 
-PROTO_69:
+PROTO_70:
         0 GETTABLEKS                       R1 R0 K0 ["_isAltDown"]
         2 RETURN                           R1 1
 
-PROTO_70:
+PROTO_71:
         0 GETTABLEKS                       R1 R0 K0 ["_isCtrlDown"]
         2 RETURN                           R1 1
 
-PROTO_71:
+PROTO_72:
         0 GETTABLEKS                       R1 R0 K0 ["_isShiftDown"]
         2 RETURN                           R1 1
 
-PROTO_72:
+PROTO_73:
         0 GETTABLEKS                       R1 R0 K0 ["_newCameraControlsBetaUpdate"]
         2 JUMPIFNOT                        R1 ; [+4]
         3 NAMECALL                         R1 R0 K1 ["isShiftKeyDown"]
@@ -535,7 +541,7 @@ PROTO_72:
        13 CALL                             R1 1 1
        14 RETURN                           R1 1
 
-PROTO_73:
+PROTO_74:
         0 GETTABLEKS                       R1 R0 K0 ["_newCameraControlsBetaUpdate"]
         2 JUMPIFNOT                        R1 ; [+8]
         3 NAMECALL                         R1 R0 K1 ["isAltKeyDown"]
@@ -548,37 +554,37 @@ PROTO_73:
        13 CALL                             R1 1 -1
        14 RETURN                           R1 -1
 
-PROTO_74:
+PROTO_75:
         0 SETTABLEKS                       R1 R0 K0 ["_newCameraControlsBetaUpdate"]
         2 RETURN                           R0 0
 
-PROTO_75:
+PROTO_76:
         0 SETTABLEKS                       R1 R0 K0 ["_isCtrlDown"]
         2 SETTABLEKS                       R2 R0 K1 ["_isAltDown"]
         4 SETTABLEKS                       R3 R0 K2 ["_isShiftDown"]
         6 RETURN                           R0 0
 
-PROTO_76:
+PROTO_77:
         0 SETTABLEKS                       R1 R0 K0 ["_isTabDown"]
         2 RETURN                           R0 0
 
-PROTO_77:
+PROTO_78:
         0 GETTABLEKS                       R1 R0 K0 ["_gridSize"]
         2 RETURN                           R1 1
 
-PROTO_78:
+PROTO_79:
         0 GETTABLEKS                       R1 R0 K0 ["_gridSnapEnabled"]
         2 RETURN                           R1 1
 
-PROTO_79:
+PROTO_80:
         0 SETTABLEKS                       R1 R0 K0 ["_partSnapEnabled"]
         2 RETURN                           R0 0
 
-PROTO_80:
+PROTO_81:
         0 GETTABLEKS                       R1 R0 K0 ["_partSnapEnabled"]
         2 RETURN                           R1 1
 
-PROTO_81:
+PROTO_82:
         0 NAMECALL                         R1 R0 K0 ["getPartSnapEnabled"]
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+4]
@@ -587,7 +593,7 @@ PROTO_81:
         7 NOT                              R1 R2
         8 RETURN                           R1 1
 
-PROTO_82:
+PROTO_83:
         0 NAMECALL                         R1 R0 K0 ["getGridSnapEnabled"]
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+4]
@@ -596,7 +602,7 @@ PROTO_82:
         7 NOT                              R1 R2
         8 RETURN                           R1 1
 
-PROTO_83:
+PROTO_84:
         0 GETTABLEKS                       R1 R0 K0 ["_rotateSnapEnabled"]
         2 JUMPIFNOT                        R1 ; [+4]
         3 NAMECALL                         R2 R0 K1 ["isShiftKeyDown"]
@@ -604,7 +610,7 @@ PROTO_83:
         6 NOT                              R1 R2
         7 RETURN                           R1 1
 
-PROTO_84:
+PROTO_85:
         0 GETTABLEKS                       R2 R0 K0 ["_gridSnapEnabled"]
         2 JUMPIFNOT                        R2 ; [+12]
         3 GETTABLEKS                       R6 R0 K2 ["_gridSize"]
@@ -618,11 +624,11 @@ PROTO_84:
        14 RETURN                           R2 1
        15 RETURN                           R1 1
 
-PROTO_85:
+PROTO_86:
         0 GETTABLEKS                       R1 R0 K0 ["_rotateIncrement"]
         2 RETURN                           R1 1
 
-PROTO_86:
+PROTO_87:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 LOADB                            R4 0 +1
         3 LOADB                            R4 1
@@ -641,7 +647,7 @@ PROTO_86:
        22 SETTABLEKS                       R2 R0 K5 ["_gridSize"]
        24 RETURN                           R0 0
 
-PROTO_87:
+PROTO_88:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 LOADB                            R4 0 +1
         3 LOADB                            R4 1
@@ -660,11 +666,11 @@ PROTO_87:
        22 SETTABLEKS                       R2 R0 K5 ["_rotateIncrement"]
        24 RETURN                           R0 0
 
-PROTO_88:
+PROTO_89:
         0 GETUPVAL                         R1 0
         1 RETURN                           R1 1
 
-PROTO_89:
+PROTO_90:
         0 GETUPVAL                         R4 0
         1 MOVE                             R6 R1
         2 MOVE                             R7 R2
@@ -673,11 +679,11 @@ PROTO_89:
         6 CALL                             R4 4 -1
         7 RETURN                           R4 -1
 
-PROTO_90:
+PROTO_91:
         0 SETTABLEKS                       R1 R0 K0 ["_insertPoint"]
         2 RETURN                           R0 0
 
-PROTO_91:
+PROTO_92:
         0 GETTABLEKS                       R2 R0 K0 ["_insertPoint"]
         2 JUMPIFEQ                         R2 R1 ; [+20]
         4 FASTCALL1                        TOSTRING R1 ; [+3]
@@ -697,19 +703,27 @@ PROTO_91:
        22 CALL                             R4 1 0
        23 RETURN                           R0 0
 
-PROTO_92:
+PROTO_93:
         0 LOADB                            R1 1
         1 RETURN                           R1 1
 
-PROTO_93:
+PROTO_94:
         0 GETTABLEKS                       R1 R0 K0 ["_shouldAlignDraggedObjects"]
         2 RETURN                           R1 1
 
-PROTO_94:
+PROTO_95:
         0 SETTABLEKS                       R1 R0 K0 ["_shouldAlignDraggedObjects"]
         2 RETURN                           R0 0
 
-PROTO_95:
+PROTO_96:
+        0 GETTABLEKS                       R1 R0 K0 ["_useBoundingBoxes"]
+        2 RETURN                           R1 1
+
+PROTO_97:
+        0 SETTABLEKS                       R1 R0 K0 ["_useBoundingBoxes"]
+        2 RETURN                           R0 0
+
+PROTO_98:
         0 GETUPVAL                         R3 0
         1 JUMPIFNOT                        R3 ; [+5]
         2 GETUPVAL                         R3 0
@@ -732,7 +746,7 @@ PROTO_95:
        27 JUMPBACK                         ; [-13]
        28 RETURN                           R0 0
 
-PROTO_96:
+PROTO_99:
         0 GETTABLEKS                       R3 R0 K0 ["_undoWaypoints"]
         2 GETTABLEKS                       R5 R0 K0 ["_undoWaypoints"]
         4 LENGTH                           R4 R5
@@ -747,7 +761,7 @@ PROTO_96:
        15 CALL                             R3 1 0
        16 RETURN                           R0 0
 
-PROTO_97:
+PROTO_100:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["expectMostRecentUndoWaypoint"]
         3 CALL                             R2 2 0
@@ -763,7 +777,7 @@ PROTO_97:
        16 CALL                             R2 1 0
        17 RETURN                           R0 0
 
-PROTO_98:
+PROTO_101:
         0 JUMPIFNOT                        R3 ; [+12]
         1 LOADK                            R4 K0 ["%s.%s (%s)"]
         2 GETTABLEKS                       R4 R4 K1 ["format"]
@@ -782,7 +796,7 @@ PROTO_98:
        18 CALL                             R4 2 -1
        19 RETURN                           R4 -1
 
-PROTO_99:
+PROTO_102:
         0 GETIMPORT                        R3 K3 [Enum.StudioStyleGuideColor.MainBackground]
         2 JUMPIFNOTEQ                      R1 R3 ; [+5]
         4 GETUPVAL                         R3 0
@@ -792,21 +806,21 @@ PROTO_99:
         9 GETTABLEKS                       R3 R3 K5 ["BLACK"]
        11 RETURN                           R3 1
 
-PROTO_100:
+PROTO_103:
         0 LOADK                            R1 K0 ["Dark"]
         1 RETURN                           R1 1
 
-PROTO_101:
+PROTO_104:
         0 GETTABLEKS                       R3 R0 K0 ["_settingValues"]
         2 GETTABLE                         R2 R3 R1
         3 RETURN                           R2 1
 
-PROTO_102:
+PROTO_105:
         0 GETTABLEKS                       R3 R0 K0 ["_settingValues"]
         2 SETTABLE                         R2 R3 R1
         3 RETURN                           R0 0
 
-PROTO_103:
+PROTO_106:
         0 LOADB                            R2 0
         1 RETURN                           R2 1
 
@@ -927,137 +941,143 @@ MAIN:
       169 DUPCLOSURE                       R8 K94 [PROTO_39]
       170 SETTABLEKS                       R8 R6 K95 ["shouldShowPreciseInput"]
       172 DUPCLOSURE                       R8 K96 [PROTO_40]
-      173 SETTABLEKS                       R8 R6 K97 ["getMajorGridIncrement"]
+      173 SETTABLEKS                       R8 R6 K97 ["shouldShowDraggedPoint"]
       175 DUPCLOSURE                       R8 K98 [PROTO_41]
-      176 SETTABLEKS                       R8 R6 K99 ["getDraggerScaleFactor"]
+      176 SETTABLEKS                       R8 R6 K99 ["getMajorGridIncrement"]
       178 DUPCLOSURE                       R8 K100 [PROTO_42]
-      179 SETTABLEKS                       R8 R6 K101 ["getDraggerLengthFactor"]
+      179 SETTABLEKS                       R8 R6 K101 ["getDraggerScaleFactor"]
       181 DUPCLOSURE                       R8 K102 [PROTO_43]
-      182 SETTABLEKS                       R8 R6 K103 ["getDraggerShowNegativeAxes"]
+      182 SETTABLEKS                       R8 R6 K103 ["getDraggerLengthFactor"]
       184 DUPCLOSURE                       R8 K104 [PROTO_44]
-      185 SETTABLEKS                       R8 R6 K105 ["getDraggerShowPlanes"]
+      185 SETTABLEKS                       R8 R6 K105 ["getDraggerShowNegativeAxes"]
       187 DUPCLOSURE                       R8 K106 [PROTO_45]
-      188 SETTABLEKS                       R8 R6 K107 ["getDraggerShowTrackball"]
+      188 SETTABLEKS                       R8 R6 K107 ["getDraggerShowPlanes"]
       190 DUPCLOSURE                       R8 K108 [PROTO_46]
-      191 SETTABLEKS                       R8 R6 K109 ["getDraggerShowWhileDragging"]
+      191 SETTABLEKS                       R8 R6 K109 ["getDraggerShowTrackball"]
       193 DUPCLOSURE                       R8 K110 [PROTO_47]
-      194 SETTABLEKS                       R8 R6 K111 ["getDraggerShowAxisTicks"]
+      194 SETTABLEKS                       R8 R6 K111 ["getDraggerShowWhileDragging"]
       196 DUPCLOSURE                       R8 K112 [PROTO_48]
-      197 SETTABLEKS                       R8 R6 K113 ["getTiltRotateDuration"]
+      197 SETTABLEKS                       R8 R6 K113 ["getDraggerShowAxisTicks"]
       199 DUPCLOSURE                       R8 K114 [PROTO_49]
-      200 SETTABLEKS                       R8 R6 K115 ["getMaxSoftSnaps"]
+      200 SETTABLEKS                       R8 R6 K115 ["getTiltRotateDuration"]
       202 DUPCLOSURE                       R8 K116 [PROTO_50]
-      203 SETTABLEKS                       R8 R6 K117 ["getSoftSnapMarginFactor"]
+      203 SETTABLEKS                       R8 R6 K117 ["getMaxSoftSnaps"]
       205 DUPCLOSURE                       R8 K118 [PROTO_51]
-      206 SETTABLEKS                       R8 R6 K119 ["getSummonMarginFactor"]
+      206 SETTABLEKS                       R8 R6 K119 ["getSoftSnapMarginFactor"]
       208 DUPCLOSURE                       R8 K120 [PROTO_52]
-      209 SETTABLEKS                       R8 R6 K121 ["getCameraCFrame"]
+      209 SETTABLEKS                       R8 R6 K121 ["getSummonMarginFactor"]
       211 DUPCLOSURE                       R8 K122 [PROTO_53]
-      212 SETTABLEKS                       R8 R6 K123 ["getCamera"]
+      212 SETTABLEKS                       R8 R6 K123 ["getCameraCFrame"]
       214 DUPCLOSURE                       R8 K124 [PROTO_54]
-      215 SETTABLEKS                       R8 R6 K125 ["setCamera"]
+      215 SETTABLEKS                       R8 R6 K125 ["getCamera"]
       217 DUPCLOSURE                       R8 K126 [PROTO_55]
-      218 CAPTURE                          VAL R7
-      219 SETTABLEKS                       R8 R6 K127 ["getHandleScale"]
-      221 DUPCLOSURE                       R8 K128 [PROTO_56]
-      222 SETTABLEKS                       R8 R6 K129 ["getMouseUnitRay"]
+      218 SETTABLEKS                       R8 R6 K127 ["setCamera"]
+      220 DUPCLOSURE                       R8 K128 [PROTO_56]
+      221 CAPTURE                          VAL R7
+      222 SETTABLEKS                       R8 R6 K129 ["getHandleScale"]
       224 DUPCLOSURE                       R8 K130 [PROTO_57]
-      225 SETTABLEKS                       R8 R6 K131 ["getMouseRay"]
+      225 SETTABLEKS                       R8 R6 K131 ["getMouseUnitRay"]
       227 DUPCLOSURE                       R8 K132 [PROTO_58]
-      228 SETTABLEKS                       R8 R6 K133 ["getMouseLocation"]
+      228 SETTABLEKS                       R8 R6 K133 ["getMouseRay"]
       230 DUPCLOSURE                       R8 K134 [PROTO_59]
-      231 SETTABLEKS                       R8 R6 K135 ["setMouseLocation"]
+      231 SETTABLEKS                       R8 R6 K135 ["getMouseLocation"]
       233 DUPCLOSURE                       R8 K136 [PROTO_60]
-      234 SETTABLEKS                       R8 R6 K137 ["viewportPointToRay"]
+      234 SETTABLEKS                       R8 R6 K137 ["setMouseLocation"]
       236 DUPCLOSURE                       R8 K138 [PROTO_61]
-      237 SETTABLEKS                       R8 R6 K139 ["worldToViewportPoint"]
+      237 SETTABLEKS                       R8 R6 K139 ["viewportPointToRay"]
       239 DUPCLOSURE                       R8 K140 [PROTO_62]
-      240 SETTABLEKS                       R8 R6 K141 ["getViewportSize"]
+      240 SETTABLEKS                       R8 R6 K141 ["worldToViewportPoint"]
       242 DUPCLOSURE                       R8 K142 [PROTO_63]
-      243 SETTABLEKS                       R8 R6 K143 ["setMouseIcon"]
+      243 SETTABLEKS                       R8 R6 K143 ["getViewportSize"]
       245 DUPCLOSURE                       R8 K144 [PROTO_64]
-      246 SETTABLEKS                       R8 R6 K145 ["expectMouseIcon"]
+      246 SETTABLEKS                       R8 R6 K145 ["setMouseIcon"]
       248 DUPCLOSURE                       R8 K146 [PROTO_65]
-      249 SETTABLEKS                       R8 R6 K147 ["getSelection"]
+      249 SETTABLEKS                       R8 R6 K147 ["expectMouseIcon"]
       251 DUPCLOSURE                       R8 K148 [PROTO_66]
-      252 SETTABLEKS                       R8 R6 K149 ["isSimulating"]
+      252 SETTABLEKS                       R8 R6 K149 ["getSelection"]
       254 DUPCLOSURE                       R8 K150 [PROTO_67]
-      255 SETTABLEKS                       R8 R6 K151 ["setSimulating"]
+      255 SETTABLEKS                       R8 R6 K151 ["isSimulating"]
       257 DUPCLOSURE                       R8 K152 [PROTO_68]
-      258 SETTABLEKS                       R8 R6 K153 ["isTabKeyDown"]
+      258 SETTABLEKS                       R8 R6 K153 ["setSimulating"]
       260 DUPCLOSURE                       R8 K154 [PROTO_69]
-      261 SETTABLEKS                       R8 R6 K155 ["isAltKeyDown"]
+      261 SETTABLEKS                       R8 R6 K155 ["isTabKeyDown"]
       263 DUPCLOSURE                       R8 K156 [PROTO_70]
-      264 SETTABLEKS                       R8 R6 K157 ["isCtrlKeyDown"]
+      264 SETTABLEKS                       R8 R6 K157 ["isAltKeyDown"]
       266 DUPCLOSURE                       R8 K158 [PROTO_71]
-      267 SETTABLEKS                       R8 R6 K159 ["isShiftKeyDown"]
+      267 SETTABLEKS                       R8 R6 K159 ["isCtrlKeyDown"]
       269 DUPCLOSURE                       R8 K160 [PROTO_72]
-      270 SETTABLEKS                       R8 R6 K161 ["shouldExtendSelection"]
+      270 SETTABLEKS                       R8 R6 K161 ["isShiftKeyDown"]
       272 DUPCLOSURE                       R8 K162 [PROTO_73]
-      273 SETTABLEKS                       R8 R6 K163 ["isSelectionCycleModifierDown"]
+      273 SETTABLEKS                       R8 R6 K163 ["shouldExtendSelection"]
       275 DUPCLOSURE                       R8 K164 [PROTO_74]
-      276 SETTABLEKS                       R8 R6 K165 ["setNewCameraControlsBetaUpdate"]
+      276 SETTABLEKS                       R8 R6 K165 ["isSelectionCycleModifierDown"]
       278 DUPCLOSURE                       R8 K166 [PROTO_75]
-      279 SETTABLEKS                       R8 R6 K167 ["setCtrlAltShift"]
+      279 SETTABLEKS                       R8 R6 K167 ["setNewCameraControlsBetaUpdate"]
       281 DUPCLOSURE                       R8 K168 [PROTO_76]
-      282 SETTABLEKS                       R8 R6 K169 ["setTab"]
+      282 SETTABLEKS                       R8 R6 K169 ["setCtrlAltShift"]
       284 DUPCLOSURE                       R8 K170 [PROTO_77]
-      285 SETTABLEKS                       R8 R6 K171 ["getGridSize"]
+      285 SETTABLEKS                       R8 R6 K171 ["setTab"]
       287 DUPCLOSURE                       R8 K172 [PROTO_78]
-      288 SETTABLEKS                       R8 R6 K173 ["getGridSnapEnabled"]
+      288 SETTABLEKS                       R8 R6 K173 ["getGridSize"]
       290 DUPCLOSURE                       R8 K174 [PROTO_79]
-      291 SETTABLEKS                       R8 R6 K175 ["setPartSnapEnabled"]
+      291 SETTABLEKS                       R8 R6 K175 ["getGridSnapEnabled"]
       293 DUPCLOSURE                       R8 K176 [PROTO_80]
-      294 SETTABLEKS                       R8 R6 K177 ["getPartSnapEnabled"]
+      294 SETTABLEKS                       R8 R6 K177 ["setPartSnapEnabled"]
       296 DUPCLOSURE                       R8 K178 [PROTO_81]
-      297 SETTABLEKS                       R8 R6 K179 ["shouldPartSnap"]
+      297 SETTABLEKS                       R8 R6 K179 ["getPartSnapEnabled"]
       299 DUPCLOSURE                       R8 K180 [PROTO_82]
-      300 SETTABLEKS                       R8 R6 K181 ["shouldGridSnap"]
+      300 SETTABLEKS                       R8 R6 K181 ["shouldPartSnap"]
       302 DUPCLOSURE                       R8 K182 [PROTO_83]
-      303 SETTABLEKS                       R8 R6 K183 ["shouldAngleSnap"]
+      303 SETTABLEKS                       R8 R6 K183 ["shouldGridSnap"]
       305 DUPCLOSURE                       R8 K184 [PROTO_84]
-      306 SETTABLEKS                       R8 R6 K185 ["snapToGridSize"]
+      306 SETTABLEKS                       R8 R6 K185 ["shouldAngleSnap"]
       308 DUPCLOSURE                       R8 K186 [PROTO_85]
-      309 SETTABLEKS                       R8 R6 K187 ["getRotateIncrement"]
+      309 SETTABLEKS                       R8 R6 K187 ["snapToGridSize"]
       311 DUPCLOSURE                       R8 K188 [PROTO_86]
-      312 SETTABLEKS                       R8 R6 K189 ["setGridSnap"]
+      312 SETTABLEKS                       R8 R6 K189 ["getRotateIncrement"]
       314 DUPCLOSURE                       R8 K190 [PROTO_87]
-      315 SETTABLEKS                       R8 R6 K191 ["setRotateSnap"]
+      315 SETTABLEKS                       R8 R6 K191 ["setGridSnap"]
       317 DUPCLOSURE                       R8 K192 [PROTO_88]
-      318 CAPTURE                          VAL R4
-      319 SETTABLEKS                       R8 R6 K193 ["getAnalytics"]
-      321 DUPCLOSURE                       R8 K194 [PROTO_89]
-      322 CAPTURE                          VAL R0
-      323 SETTABLEKS                       R8 R6 K195 ["gizmoRaycast"]
-      325 DUPCLOSURE                       R8 K196 [PROTO_90]
-      326 SETTABLEKS                       R8 R6 K197 ["setInsertPoint"]
+      318 SETTABLEKS                       R8 R6 K193 ["setRotateSnap"]
+      320 DUPCLOSURE                       R8 K194 [PROTO_89]
+      321 CAPTURE                          VAL R4
+      322 SETTABLEKS                       R8 R6 K195 ["getAnalytics"]
+      324 DUPCLOSURE                       R8 K196 [PROTO_90]
+      325 CAPTURE                          VAL R0
+      326 SETTABLEKS                       R8 R6 K197 ["gizmoRaycast"]
       328 DUPCLOSURE                       R8 K198 [PROTO_91]
-      329 SETTABLEKS                       R8 R6 K199 ["expectInsertPoint"]
+      329 SETTABLEKS                       R8 R6 K199 ["setInsertPoint"]
       331 DUPCLOSURE                       R8 K200 [PROTO_92]
-      332 SETTABLEKS                       R8 R6 K201 ["shouldShowActiveInstanceHighlight"]
+      332 SETTABLEKS                       R8 R6 K201 ["expectInsertPoint"]
       334 DUPCLOSURE                       R8 K202 [PROTO_93]
-      335 SETTABLEKS                       R8 R6 K203 ["shouldAlignDraggedObjects"]
+      335 SETTABLEKS                       R8 R6 K203 ["shouldShowActiveInstanceHighlight"]
       337 DUPCLOSURE                       R8 K204 [PROTO_94]
-      338 SETTABLEKS                       R8 R6 K205 ["setAlignDraggedObjects"]
+      338 SETTABLEKS                       R8 R6 K205 ["shouldAlignDraggedObjects"]
       340 DUPCLOSURE                       R8 K206 [PROTO_95]
-      341 CAPTURE                          VAL R1
-      342 SETTABLEKS                       R8 R6 K207 ["addUndoWaypoint"]
-      344 DUPCLOSURE                       R8 K208 [PROTO_96]
-      345 SETTABLEKS                       R8 R6 K209 ["expectMostRecentUndoWaypoint"]
-      347 DUPCLOSURE                       R8 K210 [PROTO_97]
-      348 CAPTURE                          VAL R1
-      349 SETTABLEKS                       R8 R6 K211 ["expectAndUndo"]
-      351 DUPCLOSURE                       R8 K212 [PROTO_98]
-      352 SETTABLEKS                       R8 R6 K213 ["getText"]
-      354 DUPCLOSURE                       R8 K214 [PROTO_99]
-      355 CAPTURE                          VAL R3
-      356 SETTABLEKS                       R8 R6 K215 ["getThemeColor"]
-      358 DUPCLOSURE                       R8 K216 [PROTO_100]
-      359 SETTABLEKS                       R8 R6 K217 ["getTheme"]
-      361 DUPCLOSURE                       R8 K218 [PROTO_101]
-      362 SETTABLEKS                       R8 R6 K219 ["getSetting"]
-      364 DUPCLOSURE                       R8 K220 [PROTO_102]
-      365 SETTABLEKS                       R8 R6 K221 ["setSetting"]
+      341 SETTABLEKS                       R8 R6 K207 ["setAlignDraggedObjects"]
+      343 DUPCLOSURE                       R8 K208 [PROTO_96]
+      344 SETTABLEKS                       R8 R6 K209 ["shouldUseBoundingBoxes"]
+      346 DUPCLOSURE                       R8 K210 [PROTO_97]
+      347 SETTABLEKS                       R8 R6 K211 ["setUseBoundingBoxes"]
+      349 DUPCLOSURE                       R8 K212 [PROTO_98]
+      350 CAPTURE                          VAL R1
+      351 SETTABLEKS                       R8 R6 K213 ["addUndoWaypoint"]
+      353 DUPCLOSURE                       R8 K214 [PROTO_99]
+      354 SETTABLEKS                       R8 R6 K215 ["expectMostRecentUndoWaypoint"]
+      356 DUPCLOSURE                       R8 K216 [PROTO_100]
+      357 CAPTURE                          VAL R1
+      358 SETTABLEKS                       R8 R6 K217 ["expectAndUndo"]
+      360 DUPCLOSURE                       R8 K218 [PROTO_101]
+      361 SETTABLEKS                       R8 R6 K219 ["getText"]
+      363 DUPCLOSURE                       R8 K220 [PROTO_102]
+      364 CAPTURE                          VAL R3
+      365 SETTABLEKS                       R8 R6 K221 ["getThemeColor"]
       367 DUPCLOSURE                       R8 K222 [PROTO_103]
-      368 SETTABLEKS                       R8 R6 K223 ["setPivotIndicator"]
-      370 RETURN                           R6 1
+      368 SETTABLEKS                       R8 R6 K223 ["getTheme"]
+      370 DUPCLOSURE                       R8 K224 [PROTO_104]
+      371 SETTABLEKS                       R8 R6 K225 ["getSetting"]
+      373 DUPCLOSURE                       R8 K226 [PROTO_105]
+      374 SETTABLEKS                       R8 R6 K227 ["setSetting"]
+      376 DUPCLOSURE                       R8 K228 [PROTO_106]
+      377 SETTABLEKS                       R8 R6 K229 ["setPivotIndicator"]
+      379 RETURN                           R6 1

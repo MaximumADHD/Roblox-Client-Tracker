@@ -155,79 +155,82 @@ PROTO_12:
         3 NAMECALL                         R1 R1 K1 ["StartSessionWithPathAsync"]
         5 CALL                             R1 2 1
         6 SETTABLEKS                       R1 R0 K2 ["_session"]
-        8 NAMECALL                         R1 R0 K3 ["_isClosed"]
-       10 CALL                             R1 1 1
-       11 JUMPIFNOT                        R1 ; [+14]
-       12 GETTABLEKS                       R1 R0 K2 ["_session"]
-       14 JUMPIFEQKNIL                     R1 ; [+9]
-       16 GETTABLEKS                       R1 R0 K2 ["_session"]
-       18 NAMECALL                         R1 R1 K4 ["Cancel"]
-       20 CALL                             R1 1 0
-       21 LOADNIL                          R1
-       22 SETTABLEKS                       R1 R0 K2 ["_session"]
-       24 LOADNIL                          R1
-       25 RETURN                           R1 1
-       26 GETTABLEKS                       R2 R0 K2 ["_session"]
-       28 JUMPIFNOT                        R2 ; [+6]
-       29 GETTABLEKS                       R1 R0 K2 ["_session"]
-       31 NAMECALL                         R1 R1 K5 ["GetImportTree"]
-       33 CALL                             R1 1 1
-       34 JUMP                             ; [+1]
-       35 LOADNIL                          R1
-       36 JUMPIF                           R1 ; [+39]
-       37 NEWTABLE                         R4 1 0
-       39 GETTABLEKS                       R6 R0 K0 ["_filePath"]
-       41 GETIMPORT                        R7 K8 [string.match]
-       43 MOVE                             R8 R6
-       44 LOADK                            R9 K9 ["/?([^/]+)$"]
-       45 CALL                             R7 2 1
-       46 JUMPIFEQKNIL                     R7 ; [+3]
-       48 MOVE                             R5 R7
-       49 JUMP                             ; [+1]
-       50 LOADK                            R5 K10 [""]
-       51 GETUPVAL                         R6 1
-       52 DUPTABLE                         R8 K15 [{["httpResponse"], ["simpleErrorMessage"], ["operationId"] = -1}]
-       53 NEWTABLE                         R9 0 0
-       55 SETTABLEKS                       R9 R8 K11 ["httpResponse"]
-       57 GETUPVAL                         R9 2
-       58 GETTABLEKS                       R9 R9 K16 ["ErrorCode"]
-       60 GETTABLEKS                       R9 R9 K17 ["CorruptedFile"]
-       62 SETTABLEKS                       R9 R8 K12 ["simpleErrorMessage"]
-       64 NAMECALL                         R6 R6 K18 ["JSONEncode"]
-       66 CALL                             R6 2 1
-       67 SETTABLE                         R6 R4 R5
-       68 NAMECALL                         R2 R0 K19 ["_setErrors"]
-       70 CALL                             R2 2 0
-       71 NAMECALL                         R2 R0 K20 ["_importFailed"]
-       73 CALL                             R2 1 0
-       74 LOADNIL                          R2
-       75 RETURN                           R2 1
-       76 LOADB                            R2 0
-       77 SETTABLEKS                       R2 R1 K21 ["AddModelToInventory"]
-       79 LOADB                            R2 1
-       80 SETTABLEKS                       R2 R1 K22 ["MergeMeshes"]
-       82 NAMECALL                         R2 R1 K23 ["GetDescendants"]
-       84 CALL                             R2 1 3
-       85 FORGPREP                         R2
-       86 LOADK                            R9 K24 ["AnimationImportData"]
-       87 NAMECALL                         R7 R6 K25 ["IsA"]
-       89 CALL                             R7 2 1
-       90 JUMPIFNOT                        R7 ; [+3]
-       91 LOADB                            R7 0
-       92 SETTABLEKS                       R7 R6 K26 ["ShouldImport"]
-       94 FORGLOOP                         R2 2 ; [-9]
-       96 GETUPVAL                         R2 3
-       97 CALL                             R2 0 1
-       98 JUMPIFNOT                        R2 ; [+2]
-       99 LOADB                            R2 1
-      100 RETURN                           R2 1
-      101 GETUPVAL                         R4 4
-      102 GETTABLEKS                       R4 R4 K27 ["state"]
-      104 GETTABLEKS                       R4 R4 K28 ["location"]
-      106 NAMECALL                         R2 R0 K29 ["_setState"]
-      108 CALL                             R2 2 0
-      109 LOADNIL                          R2
-      110 RETURN                           R2 1
+        8 GETTABLEKS                       R1 R0 K2 ["_session"]
+       10 LOADK                            R2 K3 ["Properties Import"]
+       11 SETTABLEKS                       R2 R1 K4 ["UploadSource"]
+       13 NAMECALL                         R1 R0 K5 ["_isClosed"]
+       15 CALL                             R1 1 1
+       16 JUMPIFNOT                        R1 ; [+14]
+       17 GETTABLEKS                       R1 R0 K2 ["_session"]
+       19 JUMPIFEQKNIL                     R1 ; [+9]
+       21 GETTABLEKS                       R1 R0 K2 ["_session"]
+       23 NAMECALL                         R1 R1 K6 ["Cancel"]
+       25 CALL                             R1 1 0
+       26 LOADNIL                          R1
+       27 SETTABLEKS                       R1 R0 K2 ["_session"]
+       29 LOADNIL                          R1
+       30 RETURN                           R1 1
+       31 GETTABLEKS                       R2 R0 K2 ["_session"]
+       33 JUMPIFNOT                        R2 ; [+6]
+       34 GETTABLEKS                       R1 R0 K2 ["_session"]
+       36 NAMECALL                         R1 R1 K7 ["GetImportTree"]
+       38 CALL                             R1 1 1
+       39 JUMP                             ; [+1]
+       40 LOADNIL                          R1
+       41 JUMPIF                           R1 ; [+39]
+       42 NEWTABLE                         R4 1 0
+       44 GETTABLEKS                       R6 R0 K0 ["_filePath"]
+       46 GETIMPORT                        R7 K10 [string.match]
+       48 MOVE                             R8 R6
+       49 LOADK                            R9 K11 ["/?([^/]+)$"]
+       50 CALL                             R7 2 1
+       51 JUMPIFEQKNIL                     R7 ; [+3]
+       53 MOVE                             R5 R7
+       54 JUMP                             ; [+1]
+       55 LOADK                            R5 K12 [""]
+       56 GETUPVAL                         R6 1
+       57 DUPTABLE                         R8 K17 [{["httpResponse"], ["simpleErrorMessage"], ["operationId"] = -1}]
+       58 NEWTABLE                         R9 0 0
+       60 SETTABLEKS                       R9 R8 K13 ["httpResponse"]
+       62 GETUPVAL                         R9 2
+       63 GETTABLEKS                       R9 R9 K18 ["ErrorCode"]
+       65 GETTABLEKS                       R9 R9 K19 ["CorruptedFile"]
+       67 SETTABLEKS                       R9 R8 K14 ["simpleErrorMessage"]
+       69 NAMECALL                         R6 R6 K20 ["JSONEncode"]
+       71 CALL                             R6 2 1
+       72 SETTABLE                         R6 R4 R5
+       73 NAMECALL                         R2 R0 K21 ["_setErrors"]
+       75 CALL                             R2 2 0
+       76 NAMECALL                         R2 R0 K22 ["_importFailed"]
+       78 CALL                             R2 1 0
+       79 LOADNIL                          R2
+       80 RETURN                           R2 1
+       81 LOADB                            R2 0
+       82 SETTABLEKS                       R2 R1 K23 ["AddModelToInventory"]
+       84 LOADB                            R2 1
+       85 SETTABLEKS                       R2 R1 K24 ["MergeMeshes"]
+       87 NAMECALL                         R2 R1 K25 ["GetDescendants"]
+       89 CALL                             R2 1 3
+       90 FORGPREP                         R2
+       91 LOADK                            R9 K26 ["AnimationImportData"]
+       92 NAMECALL                         R7 R6 K27 ["IsA"]
+       94 CALL                             R7 2 1
+       95 JUMPIFNOT                        R7 ; [+3]
+       96 LOADB                            R7 0
+       97 SETTABLEKS                       R7 R6 K28 ["ShouldImport"]
+       99 FORGLOOP                         R2 2 ; [-9]
+      101 GETUPVAL                         R2 3
+      102 CALL                             R2 0 1
+      103 JUMPIFNOT                        R2 ; [+2]
+      104 LOADB                            R2 1
+      105 RETURN                           R2 1
+      106 GETUPVAL                         R4 4
+      107 GETTABLEKS                       R4 R4 K29 ["state"]
+      109 GETTABLEKS                       R4 R4 K30 ["location"]
+      111 NAMECALL                         R2 R0 K31 ["_setState"]
+      113 CALL                             R2 2 0
+      114 LOADNIL                          R2
+      115 RETURN                           R2 1
 
 PROTO_13:
         0 GETUPVAL                         R3 0

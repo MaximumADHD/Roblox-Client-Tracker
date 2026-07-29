@@ -2,14 +2,16 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["frameRef"]
         3 GETTABLEKS                       R0 R0 K1 ["current"]
-        5 GETTABLEKS                       R1 R0 K2 ["AbsoluteSize"]
-        7 GETTABLEKS                       R1 R1 K3 ["x"]
-        9 GETUPVAL                         R2 0
-       10 DUPTABLE                         R4 K5 [{"maxChildWidth"}]
-       11 SETTABLEKS                       R1 R4 K4 ["maxChildWidth"]
-       13 NAMECALL                         R2 R2 K6 ["setState"]
-       15 CALL                             R2 2 0
-       16 RETURN                           R0 0
+        5 JUMPIF                           R0 ; [+1]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R1 0
+        8 DUPTABLE                         R3 K3 [{"maxChildWidth"}]
+        9 GETTABLEKS                       R4 R0 K4 ["AbsoluteSize"]
+       11 GETTABLEKS                       R4 R4 K5 ["x"]
+       13 SETTABLEKS                       R4 R3 K2 ["maxChildWidth"]
+       15 NAMECALL                         R1 R1 K6 ["setState"]
+       17 CALL                             R1 2 0
+       18 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0

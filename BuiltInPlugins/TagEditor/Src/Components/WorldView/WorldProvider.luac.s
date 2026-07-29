@@ -1005,19 +1005,14 @@ PROTO_23:
        25 RETURN                           R0 0
 
 PROTO_24:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["oneChild"]
-        3 GETTABLEKS                       R3 R0 K1 ["props"]
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R4 R4 K2 ["Children"]
-        8 GETTABLE                         R2 R3 R4
-        9 CALL                             R1 1 1
-       10 GETTABLEKS                       R2 R0 K3 ["state"]
-       12 GETTABLEKS                       R2 R2 K4 ["partsList"]
-       14 MOVE                             R3 R1
-       15 MOVE                             R4 R2
-       16 CALL                             R3 1 -1
-       17 RETURN                           R3 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["render"]
+        4 GETTABLEKS                       R2 R0 K2 ["state"]
+        6 GETTABLEKS                       R2 R2 K3 ["partsList"]
+        8 MOVE                             R3 R1
+        9 MOVE                             R4 R2
+       10 CALL                             R3 1 -1
+       11 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1103,6 +1098,5 @@ MAIN:
       118 DUPCLOSURE                       R13 K48 [PROTO_23]
       119 SETTABLEKS                       R13 R7 K49 ["willUnmount"]
       121 DUPCLOSURE                       R13 K50 [PROTO_24]
-      122 CAPTURE                          VAL R2
-      123 SETTABLEKS                       R13 R7 K51 ["render"]
-      125 RETURN                           R7 1
+      122 SETTABLEKS                       R13 R7 K51 ["render"]
+      124 RETURN                           R7 1

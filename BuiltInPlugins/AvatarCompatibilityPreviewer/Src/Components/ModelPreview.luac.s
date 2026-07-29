@@ -109,24 +109,42 @@ PROTO_1:
        22 MOVE                             R3 R1
        23 CALL                             R2 1 1
        24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R4 R2 K5 ["cframe"]
-       27 JUMPIF                           R4 ; [+2]
-       28 GETTABLEKS                       R4 R0 K5 ["cframe"]
-       30 SETTABLEKS                       R4 R3 K6 ["CFrame"]
-       32 GETUPVAL                         R3 2
-       33 GETTABLEKS                       R4 R2 K7 ["focus"]
-       35 JUMPIF                           R4 ; [+2]
-       36 GETTABLEKS                       R4 R0 K7 ["focus"]
-       38 SETTABLEKS                       R4 R3 K8 ["Focus"]
-       40 GETUPVAL                         R3 2
-       41 GETTABLEKS                       R4 R2 K9 ["fov"]
-       43 SETTABLEKS                       R4 R3 K10 ["FieldOfView"]
-       45 GETUPVAL                         R3 3
-       46 GETTABLEKS                       R4 R2 K5 ["cframe"]
-       48 JUMPIF                           R4 ; [+2]
-       49 GETTABLEKS                       R4 R0 K5 ["cframe"]
-       51 CALL                             R3 1 0
-       52 RETURN                           R0 0
+       25 CALL                             R3 0 1
+       26 JUMPIFNOT                        R3 ; [+24]
+       27 GETTABLEKS                       R3 R2 K5 ["cframe"]
+       29 JUMPIFNOTEQKNIL                  R3 ; [+21]
+       31 GETUPVAL                         R3 3
+       32 GETTABLEKS                       R3 R3 K6 ["getAngledAndZoomedCFrame"]
+       34 GETUPVAL                         R4 4
+       35 GETTABLEKS                       R5 R0 K1 ["model"]
+       37 LOADN                            R6 1
+       38 CALL                             R3 3 1
+       39 SETTABLEKS                       R3 R0 K5 ["cframe"]
+       41 GETTABLEKS                       R3 R2 K7 ["focus"]
+       43 JUMPIF                           R3 ; [+5]
+       44 GETTABLEKS                       R3 R0 K1 ["model"]
+       46 NAMECALL                         R3 R3 K8 ["GetBoundingBox"]
+       48 CALL                             R3 1 1
+       49 SETTABLEKS                       R3 R0 K7 ["focus"]
+       51 GETUPVAL                         R3 4
+       52 GETTABLEKS                       R4 R2 K5 ["cframe"]
+       54 JUMPIF                           R4 ; [+2]
+       55 GETTABLEKS                       R4 R0 K5 ["cframe"]
+       57 SETTABLEKS                       R4 R3 K9 ["CFrame"]
+       59 GETUPVAL                         R3 4
+       60 GETTABLEKS                       R4 R2 K7 ["focus"]
+       62 JUMPIF                           R4 ; [+2]
+       63 GETTABLEKS                       R4 R0 K7 ["focus"]
+       65 SETTABLEKS                       R4 R3 K10 ["Focus"]
+       67 GETUPVAL                         R3 4
+       68 GETTABLEKS                       R4 R2 K11 ["fov"]
+       70 SETTABLEKS                       R4 R3 K12 ["FieldOfView"]
+       72 GETUPVAL                         R3 5
+       73 GETTABLEKS                       R4 R2 K5 ["cframe"]
+       75 JUMPIF                           R4 ; [+2]
+       76 GETTABLEKS                       R4 R0 K5 ["cframe"]
+       78 CALL                             R3 1 0
+       79 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -329,117 +347,119 @@ PROTO_10:
        83 NEWCLOSURE                       R9 P1
        84 CAPTURE                          VAL R4
        85 CAPTURE                          VAL R0
-       86 CAPTURE                          VAL R5
-       87 CAPTURE                          VAL R7
-       88 NEWTABLE                         R10 0 1
-       90 GETTABLEKS                       R11 R0 K23 ["GetCameraModifications"]
-       92 SETLIST                          R10 R11 1 [1]
-       94 CALL                             R8 2 1
-       95 GETUPVAL                         R9 1
-       96 GETTABLEKS                       R9 R9 K22 ["useCallback"]
-       98 NEWCLOSURE                       R10 P2
-       99 CAPTURE                          VAL R0
-      100 CAPTURE                          VAL R5
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          UPVAL U5
-      103 NEWTABLE                         R11 0 1
-      105 GETTABLEKS                       R12 R0 K23 ["GetCameraModifications"]
-      107 SETLIST                          R11 R12 1 [1]
-      109 CALL                             R9 2 1
-      110 GETUPVAL                         R10 1
-      111 GETTABLEKS                       R10 R10 K17 ["useEffect"]
-      113 NEWCLOSURE                       R11 P3
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R9
-      116 CAPTURE                          VAL R8
-      117 NEWTABLE                         R12 0 1
-      119 GETTABLEKS                       R13 R0 K23 ["GetCameraModifications"]
-      121 SETLIST                          R12 R13 1 [1]
-      123 CALL                             R10 2 0
-      124 GETUPVAL                         R10 1
-      125 GETTABLEKS                       R10 R10 K22 ["useCallback"]
-      127 NEWCLOSURE                       R11 P4
-      128 CAPTURE                          VAL R9
-      129 CAPTURE                          VAL R8
-      130 NEWTABLE                         R12 0 2
-      132 GETUPVAL                         R14 2
-      133 CALL                             R14 0 1
-      134 JUMPIFNOT                        R14 ; [+2]
-      135 MOVE                             R13 R9
-      136 JUMP                             ; [+1]
-      137 LOADNIL                          R13
-      138 GETUPVAL                         R15 2
-      139 CALL                             R15 0 1
-      140 JUMPIFNOT                        R15 ; [+2]
-      141 MOVE                             R14 R8
-      142 JUMP                             ; [+1]
-      143 LOADNIL                          R14
-      144 SETLIST                          R12 R13 2 [1]
-      146 CALL                             R10 2 1
-      147 GETUPVAL                         R11 1
-      148 GETTABLEKS                       R11 R11 K17 ["useEffect"]
-      150 NEWCLOSURE                       R12 P5
-      151 CAPTURE                          VAL R0
-      152 CAPTURE                          UPVAL U3
-      153 CAPTURE                          VAL R8
-      154 NEWTABLE                         R13 0 2
-      156 MOVE                             R14 R8
-      157 GETTABLEKS                       R15 R0 K24 ["ResetCameraSignal"]
-      159 SETLIST                          R13 R14 2 [1]
-      161 CALL                             R11 2 0
-      162 GETUPVAL                         R11 1
-      163 GETTABLEKS                       R11 R11 K17 ["useEffect"]
-      165 NEWCLOSURE                       R12 P6
-      166 CAPTURE                          VAL R2
-      167 NEWTABLE                         R13 0 1
-      169 MOVE                             R14 R2
-      170 SETLIST                          R13 R14 1 [1]
-      172 CALL                             R11 2 0
-      173 GETTABLEKS                       R11 R4 K25 ["current"]
-      175 GETTABLEKS                       R11 R11 K10 ["focus"]
-      177 JUMPIFNOT                        R2 ; [+67]
-      178 GETUPVAL                         R12 1
-      179 GETTABLEKS                       R12 R12 K26 ["createElement"]
-      181 GETUPVAL                         R13 6
-      182 DUPTABLE                         R14 K45 [{["Camera"], [2], ["FocusPosition"], ["FocusDirection"], ["Size"], ["Ambient"], ["EnableSky"], ["LightColor"], ["LightDirection"], ["PanSpeedMultiplier"], ["ShouldClone"] = False, ["RecenterModelOnUpdate"] = True, ["RecenterCameraOnUpdate"] = True, ["Static"], ["ResetCameraPosition"], ["OnViewModelLoaded"], ["ShowResetCamera"], ["ShowAxisIndicator"]}]
-      183 SETTABLEKS                       R5 R14 K21 ["Camera"]
-      185 SETTABLEKS                       R2 R14 K0 ["Model"]
-      187 GETTABLEKS                       R15 R11 K46 ["Position"]
-      189 SETTABLEKS                       R15 R14 K27 ["FocusPosition"]
-      191 GETTABLEKS                       R15 R11 K47 ["LookVector"]
-      193 SETTABLEKS                       R15 R14 K28 ["FocusDirection"]
-      195 GETIMPORT                        R15 K50 [UDim2.fromScale]
-      197 LOADN                            R16 1
-      198 LOADN                            R17 1
-      199 CALL                             R15 2 1
-      200 SETTABLEKS                       R15 R14 K29 ["Size"]
-      202 GETTABLEKS                       R15 R1 K30 ["Ambient"]
-      204 SETTABLEKS                       R15 R14 K30 ["Ambient"]
-      206 GETTABLEKS                       R15 R1 K31 ["EnableSky"]
-      208 SETTABLEKS                       R15 R14 K31 ["EnableSky"]
-      210 GETTABLEKS                       R15 R1 K32 ["LightColor"]
-      212 SETTABLEKS                       R15 R14 K32 ["LightColor"]
-      214 GETTABLEKS                       R15 R1 K33 ["LightDirection"]
-      216 SETTABLEKS                       R15 R14 K33 ["LightDirection"]
-      218 GETTABLEKS                       R15 R1 K34 ["PanSpeedMultiplier"]
-      220 SETTABLEKS                       R15 R14 K34 ["PanSpeedMultiplier"]
-      222 GETTABLEKS                       R15 R0 K40 ["Static"]
-      224 SETTABLEKS                       R15 R14 K40 ["Static"]
-      226 SETTABLEKS                       R6 R14 K41 ["ResetCameraPosition"]
-      228 SETTABLEKS                       R10 R14 K42 ["OnViewModelLoaded"]
-      230 GETTABLEKS                       R15 R0 K51 ["ShowResetCameraButton"]
-      232 SETTABLEKS                       R15 R14 K43 ["ShowResetCamera"]
-      234 GETUPVAL                         R16 2
-      235 CALL                             R16 0 1
-      236 JUMPIF                           R16 ; [+3]
-      237 GETTABLEKS                       R15 R0 K44 ["ShowAxisIndicator"]
-      239 JUMP                             ; [+1]
-      240 LOADNIL                          R15
-      241 SETTABLEKS                       R15 R14 K44 ["ShowAxisIndicator"]
-      243 CALL                             R12 2 1
-      244 RETURN                           R12 1
-      245 LOADNIL                          R12
+       86 CAPTURE                          UPVAL U5
+       87 CAPTURE                          UPVAL U6
+       88 CAPTURE                          VAL R5
+       89 CAPTURE                          VAL R7
+       90 NEWTABLE                         R10 0 1
+       92 GETTABLEKS                       R11 R0 K23 ["GetCameraModifications"]
+       94 SETLIST                          R10 R11 1 [1]
+       96 CALL                             R8 2 1
+       97 GETUPVAL                         R9 1
+       98 GETTABLEKS                       R9 R9 K22 ["useCallback"]
+      100 NEWCLOSURE                       R10 P2
+      101 CAPTURE                          VAL R0
+      102 CAPTURE                          VAL R5
+      103 CAPTURE                          VAL R4
+      104 CAPTURE                          UPVAL U6
+      105 NEWTABLE                         R11 0 1
+      107 GETTABLEKS                       R12 R0 K23 ["GetCameraModifications"]
+      109 SETLIST                          R11 R12 1 [1]
+      111 CALL                             R9 2 1
+      112 GETUPVAL                         R10 1
+      113 GETTABLEKS                       R10 R10 K17 ["useEffect"]
+      115 NEWCLOSURE                       R11 P3
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R8
+      119 NEWTABLE                         R12 0 1
+      121 GETTABLEKS                       R13 R0 K23 ["GetCameraModifications"]
+      123 SETLIST                          R12 R13 1 [1]
+      125 CALL                             R10 2 0
+      126 GETUPVAL                         R10 1
+      127 GETTABLEKS                       R10 R10 K22 ["useCallback"]
+      129 NEWCLOSURE                       R11 P4
+      130 CAPTURE                          VAL R9
+      131 CAPTURE                          VAL R8
+      132 NEWTABLE                         R12 0 2
+      134 GETUPVAL                         R14 2
+      135 CALL                             R14 0 1
+      136 JUMPIFNOT                        R14 ; [+2]
+      137 MOVE                             R13 R9
+      138 JUMP                             ; [+1]
+      139 LOADNIL                          R13
+      140 GETUPVAL                         R15 2
+      141 CALL                             R15 0 1
+      142 JUMPIFNOT                        R15 ; [+2]
+      143 MOVE                             R14 R8
+      144 JUMP                             ; [+1]
+      145 LOADNIL                          R14
+      146 SETLIST                          R12 R13 2 [1]
+      148 CALL                             R10 2 1
+      149 GETUPVAL                         R11 1
+      150 GETTABLEKS                       R11 R11 K17 ["useEffect"]
+      152 NEWCLOSURE                       R12 P5
+      153 CAPTURE                          VAL R0
+      154 CAPTURE                          UPVAL U3
+      155 CAPTURE                          VAL R8
+      156 NEWTABLE                         R13 0 2
+      158 MOVE                             R14 R8
+      159 GETTABLEKS                       R15 R0 K24 ["ResetCameraSignal"]
+      161 SETLIST                          R13 R14 2 [1]
+      163 CALL                             R11 2 0
+      164 GETUPVAL                         R11 1
+      165 GETTABLEKS                       R11 R11 K17 ["useEffect"]
+      167 NEWCLOSURE                       R12 P6
+      168 CAPTURE                          VAL R2
+      169 NEWTABLE                         R13 0 1
+      171 MOVE                             R14 R2
+      172 SETLIST                          R13 R14 1 [1]
+      174 CALL                             R11 2 0
+      175 GETTABLEKS                       R11 R4 K25 ["current"]
+      177 GETTABLEKS                       R11 R11 K10 ["focus"]
+      179 JUMPIFNOT                        R2 ; [+67]
+      180 GETUPVAL                         R12 1
+      181 GETTABLEKS                       R12 R12 K26 ["createElement"]
+      183 GETUPVAL                         R13 7
+      184 DUPTABLE                         R14 K45 [{["Camera"], [2], ["FocusPosition"], ["FocusDirection"], ["Size"], ["Ambient"], ["EnableSky"], ["LightColor"], ["LightDirection"], ["PanSpeedMultiplier"], ["ShouldClone"] = False, ["RecenterModelOnUpdate"] = True, ["RecenterCameraOnUpdate"] = True, ["Static"], ["ResetCameraPosition"], ["OnViewModelLoaded"], ["ShowResetCamera"], ["ShowAxisIndicator"]}]
+      185 SETTABLEKS                       R5 R14 K21 ["Camera"]
+      187 SETTABLEKS                       R2 R14 K0 ["Model"]
+      189 GETTABLEKS                       R15 R11 K46 ["Position"]
+      191 SETTABLEKS                       R15 R14 K27 ["FocusPosition"]
+      193 GETTABLEKS                       R15 R11 K47 ["LookVector"]
+      195 SETTABLEKS                       R15 R14 K28 ["FocusDirection"]
+      197 GETIMPORT                        R15 K50 [UDim2.fromScale]
+      199 LOADN                            R16 1
+      200 LOADN                            R17 1
+      201 CALL                             R15 2 1
+      202 SETTABLEKS                       R15 R14 K29 ["Size"]
+      204 GETTABLEKS                       R15 R1 K30 ["Ambient"]
+      206 SETTABLEKS                       R15 R14 K30 ["Ambient"]
+      208 GETTABLEKS                       R15 R1 K31 ["EnableSky"]
+      210 SETTABLEKS                       R15 R14 K31 ["EnableSky"]
+      212 GETTABLEKS                       R15 R1 K32 ["LightColor"]
+      214 SETTABLEKS                       R15 R14 K32 ["LightColor"]
+      216 GETTABLEKS                       R15 R1 K33 ["LightDirection"]
+      218 SETTABLEKS                       R15 R14 K33 ["LightDirection"]
+      220 GETTABLEKS                       R15 R1 K34 ["PanSpeedMultiplier"]
+      222 SETTABLEKS                       R15 R14 K34 ["PanSpeedMultiplier"]
+      224 GETTABLEKS                       R15 R0 K40 ["Static"]
+      226 SETTABLEKS                       R15 R14 K40 ["Static"]
+      228 SETTABLEKS                       R6 R14 K41 ["ResetCameraPosition"]
+      230 SETTABLEKS                       R10 R14 K42 ["OnViewModelLoaded"]
+      232 GETTABLEKS                       R15 R0 K51 ["ShowResetCameraButton"]
+      234 SETTABLEKS                       R15 R14 K43 ["ShowResetCamera"]
+      236 GETUPVAL                         R16 2
+      237 CALL                             R16 0 1
+      238 JUMPIF                           R16 ; [+3]
+      239 GETTABLEKS                       R15 R0 K44 ["ShowAxisIndicator"]
+      241 JUMP                             ; [+1]
+      242 LOADNIL                          R15
+      243 SETTABLEKS                       R15 R14 K44 ["ShowAxisIndicator"]
+      245 CALL                             R12 2 1
       246 RETURN                           R12 1
+      247 LOADNIL                          R12
+      248 RETURN                           R12 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -472,39 +492,45 @@ MAIN:
        47 CALL                             R5 1 1
        48 GETIMPORT                        R6 K5 [require]
        50 GETTABLEKS                       R7 R0 K9 ["Src"]
-       52 GETTABLEKS                       R7 R7 K15 ["Components"]
-       54 GETTABLEKS                       R7 R7 K16 ["Screens"]
-       56 GETTABLEKS                       R7 R7 K17 ["AvatarScreen"]
-       58 GETTABLEKS                       R7 R7 K18 ["Stages"]
-       60 GETTABLEKS                       R7 R7 K19 ["StageType"]
-       62 CALL                             R6 1 1
-       63 GETTABLEKS                       R7 R1 K20 ["UI"]
-       65 GETTABLEKS                       R8 R7 K21 ["AssetRenderModel"]
-       67 GETTABLEKS                       R9 R1 K22 ["ContextServices"]
-       69 GETTABLEKS                       R9 R9 K23 ["Stylizer"]
-       71 GETIMPORT                        R10 K5 [require]
-       73 GETTABLEKS                       R11 R0 K9 ["Src"]
-       75 GETTABLEKS                       R11 R11 K10 ["Util"]
-       77 GETTABLEKS                       R11 R11 K24 ["Constants"]
-       79 CALL                             R10 1 1
+       52 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       54 GETTABLEKS                       R7 R7 K15 ["getFFlagAvatarPreviewerSelectionStability"]
+       56 CALL                             R6 1 1
+       57 GETIMPORT                        R7 K5 [require]
+       59 GETTABLEKS                       R8 R0 K9 ["Src"]
+       61 GETTABLEKS                       R8 R8 K16 ["Components"]
+       63 GETTABLEKS                       R8 R8 K17 ["Screens"]
+       65 GETTABLEKS                       R8 R8 K18 ["AvatarScreen"]
+       67 GETTABLEKS                       R8 R8 K19 ["Stages"]
+       69 GETTABLEKS                       R8 R8 K20 ["StageType"]
+       71 CALL                             R7 1 1
+       72 GETTABLEKS                       R8 R1 K21 ["UI"]
+       74 GETTABLEKS                       R9 R8 K22 ["AssetRenderModel"]
+       76 GETTABLEKS                       R10 R1 K23 ["ContextServices"]
+       78 GETTABLEKS                       R10 R10 K24 ["Stylizer"]
        80 GETIMPORT                        R11 K5 [require]
        82 GETTABLEKS                       R12 R0 K9 ["Src"]
-       84 GETTABLEKS                       R12 R12 K25 ["Resources"]
-       86 GETTABLEKS                       R12 R12 K26 ["Theme"]
+       84 GETTABLEKS                       R12 R12 K10 ["Util"]
+       86 GETTABLEKS                       R12 R12 K25 ["Constants"]
        88 CALL                             R11 1 1
        89 GETIMPORT                        R12 K5 [require]
        91 GETTABLEKS                       R13 R0 K9 ["Src"]
-       93 GETTABLEKS                       R13 R13 K27 ["Types"]
-       95 CALL                             R12 1 1
-       96 DUPCLOSURE                       R13 K28 [PROTO_10]
-       97 CAPTURE                          VAL R9
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          VAL R5
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R3
-      103 CAPTURE                          VAL R8
-      104 GETTABLEKS                       R14 R2 K29 ["memo"]
-      106 MOVE                             R15 R13
-      107 CALL                             R14 1 1
-      108 RETURN                           R14 1
+       93 GETTABLEKS                       R13 R13 K26 ["Resources"]
+       95 GETTABLEKS                       R13 R13 K27 ["Theme"]
+       97 CALL                             R12 1 1
+       98 GETIMPORT                        R13 K5 [require]
+      100 GETTABLEKS                       R14 R0 K9 ["Src"]
+      102 GETTABLEKS                       R14 R14 K28 ["Types"]
+      104 CALL                             R13 1 1
+      105 DUPCLOSURE                       R14 K29 [PROTO_10]
+      106 CAPTURE                          VAL R10
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R5
+      109 CAPTURE                          VAL R11
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R6
+      112 CAPTURE                          VAL R3
+      113 CAPTURE                          VAL R9
+      114 GETTABLEKS                       R15 R2 K30 ["memo"]
+      116 MOVE                             R16 R14
+      117 CALL                             R15 1 1
+      118 RETURN                           R15 1

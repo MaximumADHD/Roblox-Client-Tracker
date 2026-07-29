@@ -18,26 +18,35 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["GetUserId"]
-        3 CALL                             R0 1 1
-        4 GETUPVAL                         R1 1
-        5 MOVE                             R3 R0
-        6 NAMECALL                         R1 R1 K1 ["GetFriendsAsync"]
-        8 CALL                             R1 2 1
-        9 JUMPIF                           R1 ; [+4]
-       10 GETUPVAL                         R2 2
-       11 LOADNIL                          R3
-       12 CALL                             R2 1 0
-       13 RETURN                           R0 0
-       14 GETUPVAL                         R2 3
-       15 MOVE                             R3 R1
-       16 CALL                             R2 1 1
-       17 GETUPVAL                         R3 2
-       18 MOVE                             R4 R2
-       19 CALL                             R3 1 0
-       20 RETURN                           R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["GetFriendsAsync"]
+        4 CALL                             R0 2 -1
+        5 RETURN                           R0 -1
 
 PROTO_2:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["GetUserId"]
+        3 CALL                             R0 1 1
+        4 GETIMPORT                        R1 K2 [pcall]
+        6 NEWCLOSURE                       R2 P0
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          VAL R0
+        9 CALL                             R1 1 2
+       10 JUMPIFNOT                        R1 ; [+1]
+       11 JUMPIF                           R2 ; [+4]
+       12 GETUPVAL                         R3 2
+       13 LOADNIL                          R4
+       14 CALL                             R3 1 0
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R3 3
+       17 MOVE                             R4 R2
+       18 CALL                             R3 1 1
+       19 GETUPVAL                         R4 2
+       20 MOVE                             R5 R3
+       21 CALL                             R4 1 0
+       22 RETURN                           R0 0
+
+PROTO_3:
         0 GETIMPORT                        R1 K2 [task.spawn]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          UPVAL U0
@@ -69,7 +78,7 @@ MAIN:
        29 LOADK                            R5 K12 ["Players"]
        30 CALL                             R4 1 1
        31 DUPCLOSURE                       R5 K13 [PROTO_0]
-       32 DUPCLOSURE                       R6 K14 [PROTO_2]
+       32 DUPCLOSURE                       R6 K14 [PROTO_3]
        33 CAPTURE                          VAL R3
        34 CAPTURE                          VAL R4
        35 CAPTURE                          VAL R5

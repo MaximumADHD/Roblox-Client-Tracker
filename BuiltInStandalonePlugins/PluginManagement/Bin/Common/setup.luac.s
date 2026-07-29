@@ -28,47 +28,54 @@ PROTO_4:
         7 SETTABLEKS                       R3 R2 K1 ["getName"]
         9 DUPCLOSURE                       R3 K11 [PROTO_1]
        10 SETTABLEKS                       R3 R2 K2 ["getDescription"]
-       12 DUPTABLE                         R3 K19 [{["plugin"], ["pluginName"] = "PluginManagement", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["buttonInfo"]}]
+       12 DUPTABLE                         R3 K18 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
        13 SETTABLEKS                       R0 R3 K12 ["plugin"]
-       15 GETUPVAL                         R4 1
-       16 SETTABLEKS                       R4 R3 K15 ["translationResourceTable"]
-       18 GETUPVAL                         R4 2
-       19 SETTABLEKS                       R4 R3 K16 ["fallbackResourceTable"]
-       21 DUPCLOSURE                       R4 K20 [PROTO_2]
-       22 SETTABLEKS                       R4 R3 K17 ["getToolbarName"]
-       24 SETTABLEKS                       R2 R3 K18 ["buttonInfo"]
-       26 LOADB                            R4 1
-       27 SETTABLEKS                       R4 R2 K5 ["enabled"]
-       29 DUPTABLE                         R4 K26 [{["id"] = "PluginManagement", ["name"] = "PluginManagement", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
-       30 GETIMPORT                        R5 K29 [DockWidgetPluginGuiInfo.new]
-       32 GETIMPORT                        R6 K33 [Enum.InitialDockState.Float]
-       34 LOADB                            R7 0
-       35 LOADB                            R8 0
-       36 LOADN                            R9 600
-       37 LOADN                            R10 560
-       38 LOADN                            R11 600
-       39 LOADN                            R12 180
-       40 CALL                             R5 7 1
-       41 SETTABLEKS                       R5 R4 K23 ["dockWidgetPluginGuiInfo"]
-       43 DUPCLOSURE                       R5 K34 [PROTO_3]
-       44 SETTABLEKS                       R5 R4 K24 ["getDockTitle"]
-       46 GETIMPORT                        R5 K37 [Enum.ZIndexBehavior.Sibling]
-       48 SETTABLEKS                       R5 R4 K25 ["zIndexBehavior"]
-       50 SETTABLEKS                       R4 R3 K38 ["dockWidgetInfo"]
-       52 GETUPVAL                         R4 3
-       53 GETTABLEKS                       R4 R4 K39 ["build"]
-       55 MOVE                             R5 R3
-       56 CALL                             R4 1 1
-       57 GETTABLEKS                       R5 R4 K40 ["pluginLoader"]
-       59 NAMECALL                         R5 R5 K41 ["waitForUserInteraction"]
-       61 CALL                             R5 1 1
-       62 JUMPIF                           R5 ; [+1]
-       63 RETURN                           R0 0
-       64 MOVE                             R6 R1
-       65 MOVE                             R7 R0
-       66 MOVE                             R8 R4
-       67 CALL                             R6 2 0
-       68 RETURN                           R0 0
+       15 GETUPVAL                         R5 1
+       16 CALL                             R5 0 1
+       17 JUMPIFNOT                        R5 ; [+2]
+       18 LOADK                            R4 K19 ["PluginInstallation"]
+       19 JUMP                             ; [+1]
+       20 LOADK                            R4 K20 ["PluginManagement"]
+       21 SETTABLEKS                       R4 R3 K13 ["pluginName"]
+       23 GETUPVAL                         R4 2
+       24 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
+       26 GETUPVAL                         R4 3
+       27 SETTABLEKS                       R4 R3 K15 ["fallbackResourceTable"]
+       29 DUPCLOSURE                       R4 K21 [PROTO_2]
+       30 SETTABLEKS                       R4 R3 K16 ["getToolbarName"]
+       32 SETTABLEKS                       R2 R3 K17 ["buttonInfo"]
+       34 LOADB                            R4 1
+       35 SETTABLEKS                       R4 R2 K5 ["enabled"]
+       37 DUPTABLE                         R4 K27 [{["id"] = "PluginManagement", ["name"] = "PluginManagement", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+       38 GETIMPORT                        R5 K30 [DockWidgetPluginGuiInfo.new]
+       40 GETIMPORT                        R6 K34 [Enum.InitialDockState.Float]
+       42 LOADB                            R7 0
+       43 LOADB                            R8 0
+       44 LOADN                            R9 600
+       45 LOADN                            R10 560
+       46 LOADN                            R11 600
+       47 LOADN                            R12 180
+       48 CALL                             R5 7 1
+       49 SETTABLEKS                       R5 R4 K24 ["dockWidgetPluginGuiInfo"]
+       51 DUPCLOSURE                       R5 K35 [PROTO_3]
+       52 SETTABLEKS                       R5 R4 K25 ["getDockTitle"]
+       54 GETIMPORT                        R5 K38 [Enum.ZIndexBehavior.Sibling]
+       56 SETTABLEKS                       R5 R4 K26 ["zIndexBehavior"]
+       58 SETTABLEKS                       R4 R3 K39 ["dockWidgetInfo"]
+       60 GETUPVAL                         R4 4
+       61 GETTABLEKS                       R4 R4 K40 ["build"]
+       63 MOVE                             R5 R3
+       64 CALL                             R4 1 1
+       65 GETTABLEKS                       R5 R4 K41 ["pluginLoader"]
+       67 NAMECALL                         R5 R5 K42 ["waitForUserInteraction"]
+       69 CALL                             R5 1 1
+       70 JUMPIF                           R5 ; [+1]
+       71 RETURN                           R0 0
+       72 MOVE                             R6 R1
+       73 MOVE                             R7 R0
+       74 MOVE                             R8 R4
+       75 CALL                             R6 2 0
+       76 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -77,19 +84,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["PluginLoader"]
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["PluginLoaderBuilder"]
-       16 GETTABLEKS                       R3 R0 K9 ["Src"]
-       18 GETTABLEKS                       R3 R3 K10 ["Resources"]
-       20 GETTABLEKS                       R3 R3 K11 ["SourceStrings"]
-       22 GETTABLEKS                       R4 R0 K9 ["Src"]
-       24 GETTABLEKS                       R4 R4 K10 ["Resources"]
-       26 GETTABLEKS                       R4 R4 K12 ["LocalizedStrings"]
-       28 DUPCLOSURE                       R5 K13 [PROTO_4]
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R4
-       31 CAPTURE                          VAL R3
-       32 CAPTURE                          VAL R2
-       33 RETURN                           R5 1
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagStudioFixPluginManagementTitle"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["PluginLoader"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K11 ["PluginLoaderBuilder"]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K12 ["Resources"]
+       29 GETTABLEKS                       R4 R4 K13 ["SourceStrings"]
+       31 GETTABLEKS                       R5 R0 K6 ["Src"]
+       33 GETTABLEKS                       R5 R5 K12 ["Resources"]
+       35 GETTABLEKS                       R5 R5 K14 ["LocalizedStrings"]
+       37 DUPCLOSURE                       R6 K15 [PROTO_4]
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R5
+       41 CAPTURE                          VAL R4
+       42 CAPTURE                          VAL R3
+       43 RETURN                           R6 1

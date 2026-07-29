@@ -192,6 +192,21 @@ PROTO_12:
       110 RETURN                           R0 0
 
 PROTO_13:
+        0 GETIMPORT                        R1 K1 [game]
+        2 LOADK                            R3 K2 ["MemStorageService"]
+        3 NAMECALL                         R1 R1 K3 ["GetService"]
+        5 CALL                             R1 2 1
+        6 LOADK                            R3 K4 ["SuperTemplateLoaded"]
+        7 NAMECALL                         R1 R1 K5 ["SetItem"]
+        9 CALL                             R1 2 0
+       10 GETTABLEKS                       R1 R0 K6 ["props"]
+       12 GETTABLEKS                       R1 R1 K7 ["Plugin"]
+       14 LOADK                            R3 K8 ["Opened"]
+       15 NAMECALL                         R1 R1 K9 ["Invoke"]
+       17 CALL                             R1 2 0
+       18 RETURN                           R0 0
+
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -292,7 +307,7 @@ PROTO_13:
       154 CALL                             R5 2 -1
       155 RETURN                           R5 -1
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
@@ -372,16 +387,18 @@ MAIN:
       106 CAPTURE                          VAL R13
       107 SETTABLEKS                       R20 R18 K38 ["init"]
       109 DUPCLOSURE                       R20 K39 [PROTO_13]
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R8
-      112 CAPTURE                          VAL R9
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R1
-      115 CAPTURE                          VAL R6
-      116 CAPTURE                          VAL R4
-      117 CAPTURE                          VAL R5
-      118 CAPTURE                          VAL R17
-      119 SETTABLEKS                       R20 R18 K40 ["render"]
-      121 DUPCLOSURE                       R20 K41 [PROTO_14]
-      122 SETTABLEKS                       R20 R18 K42 ["willUnmount"]
-      124 RETURN                           R18 1
+      110 SETTABLEKS                       R20 R18 K40 ["didMount"]
+      112 DUPCLOSURE                       R20 K41 [PROTO_14]
+      113 CAPTURE                          VAL R7
+      114 CAPTURE                          VAL R8
+      115 CAPTURE                          VAL R9
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          VAL R1
+      118 CAPTURE                          VAL R6
+      119 CAPTURE                          VAL R4
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          VAL R17
+      122 SETTABLEKS                       R20 R18 K42 ["render"]
+      124 DUPCLOSURE                       R20 K43 [PROTO_15]
+      125 SETTABLEKS                       R20 R18 K44 ["willUnmount"]
+      127 RETURN                           R18 1

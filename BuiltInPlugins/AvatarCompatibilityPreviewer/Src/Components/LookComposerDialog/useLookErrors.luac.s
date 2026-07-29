@@ -94,9 +94,57 @@ PROTO_0:
       125 FASTCALL                         TABLE_INSERT ; [+2]
       126 GETIMPORT                        R4 K5 [table.insert]
       128 CALL                             R4 -1 0
-      129 MOVE                             R4 R1
-      130 MOVE                             R5 R0
-      131 RETURN                           R4 2
+      129 GETUPVAL                         R4 1
+      130 CALL                             R4 0 1
+      131 JUMPIFNOT                        R4 ; [+65]
+      132 GETUPVAL                         R4 0
+      133 GETTABLEKS                       R4 R4 K16 ["dialogLookType"]
+      135 JUMPIFNOTEQKS                    R4 K22 ["AvatarLook"] ; [+61]
+      137 GETUPVAL                         R5 0
+      138 GETTABLEKS                       R5 R5 K23 ["selectedCreatorId"]
+      140 LOADK                            R7 K24 ["_"]
+      141 NAMECALL                         R5 R5 K25 ["split"]
+      143 CALL                             R5 2 1
+      144 GETTABLEN                        R4 R5 1
+      145 GETUPVAL                         R6 0
+      146 GETTABLEKS                       R6 R6 K23 ["selectedCreatorId"]
+      148 LOADK                            R8 K24 ["_"]
+      149 NAMECALL                         R6 R6 K25 ["split"]
+      151 CALL                             R6 2 1
+      152 GETTABLEN                        R5 R6 2
+      153 LOADB                            R6 0
+      154 GETUPVAL                         R7 0
+      155 GETTABLEKS                       R7 R7 K8 ["dialogItems"]
+      157 LOADNIL                          R8
+      158 LOADNIL                          R9
+      159 FORGPREP                         R7
+      160 GETTABLEKS                       R12 R11 K9 ["itemRowType"]
+      162 JUMPIFEQKS                       R12 K10 ["Asset"] ; [+5]
+      164 GETTABLEKS                       R12 R11 K9 ["itemRowType"]
+      166 JUMPIFNOTEQKS                    R12 K11 ["Bundle"] ; [+15]
+      168 GETTABLEKS                       R12 R11 K12 ["rowState"]
+      170 JUMPIFNOTEQKS                    R12 K14 ["Selected"] ; [+11]
+      172 GETTABLEKS                       R12 R11 K26 ["creatorId"]
+      174 JUMPIFNOTEQ                      R12 R5 ; [+7]
+      176 GETTABLEKS                       R12 R11 K27 ["creatorType"]
+      178 JUMPIFNOTEQ                      R12 R4 ; [+3]
+      180 LOADB                            R6 1
+      181 JUMP                             ; [+2]
+      182 FORGLOOP                         R7 2 ; [-23]
+      184 JUMPIF                           R6 ; [+12]
+      185 MOVE                             R8 R1
+      186 GETUPVAL                         R9 2
+      187 LOADK                            R11 K18 ["LookComposerDialog"]
+      188 LOADK                            R12 K28 ["AvatarLookOwnershipRequired"]
+      189 NAMECALL                         R9 R9 K20 ["getText"]
+      191 CALL                             R9 3 -1
+      192 FASTCALL                         TABLE_INSERT ; [+2]
+      193 GETIMPORT                        R7 K5 [table.insert]
+      195 CALL                             R7 -1 0
+      196 LOADB                            R0 1
+      197 MOVE                             R4 R1
+      198 MOVE                             R5 R0
+      199 RETURN                           R4 2
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -158,82 +206,94 @@ PROTO_6:
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U2
        10 CAPTURE                          VAL R1
-       11 NEWTABLE                         R4 0 5
+       11 NEWTABLE                         R4 0 7
        13 GETTABLEKS                       R5 R0 K2 ["previewErrorMessages"]
        15 GETTABLEKS                       R6 R0 K3 ["validationErrorMessages"]
        17 GETTABLEKS                       R7 R0 K4 ["dialogItems"]
        19 GETTABLEKS                       R8 R0 K5 ["dialogLookType"]
        21 GETTABLEKS                       R9 R0 K6 ["isDialogItemsInitialized"]
-       23 SETLIST                          R4 R5 5 [1]
-       25 CALL                             R2 2 2
-       26 MOVE                             R4 R2
-       27 LOADNIL                          R5
-       28 LOADB                            R6 0
-       29 GETUPVAL                         R7 3
-       30 CALL                             R7 0 1
-       31 JUMPIFNOT                        R7 ; [+62]
-       32 GETUPVAL                         R7 1
-       33 GETTABLEKS                       R7 R7 K7 ["useState"]
-       35 NEWTABLE                         R8 0 0
-       37 CALL                             R7 1 2
-       38 GETUPVAL                         R9 4
-       39 GETTABLEKS                       R9 R9 K8 ["filter"]
-       41 MOVE                             R10 R2
-       42 NEWCLOSURE                       R11 P1
-       43 CAPTURE                          VAL R7
-       44 CALL                             R9 2 1
-       45 MOVE                             R4 R9
-       46 LOADK                            R11 K9 ["LookComposerDialog"]
-       47 LOADK                            R12 K10 ["MakeupLookDifferentCreator"]
-       48 NAMECALL                         R9 R1 K11 ["getText"]
-       50 CALL                             R9 3 1
-       51 GETUPVAL                         R10 1
-       52 GETTABLEKS                       R10 R10 K1 ["useMemo"]
-       54 NEWCLOSURE                       R11 P2
-       55 CAPTURE                          VAL R9
-       56 NEWTABLE                         R12 0 1
-       58 MOVE                             R13 R9
-       59 SETLIST                          R12 R13 1 [1]
-       61 CALL                             R10 2 1
-       62 GETUPVAL                         R11 1
-       63 GETTABLEKS                       R11 R11 K1 ["useMemo"]
-       65 NEWCLOSURE                       R12 P3
-       66 CAPTURE                          REF R4
-       67 CAPTURE                          VAL R10
-       68 NEWTABLE                         R13 0 2
-       70 MOVE                             R14 R4
-       71 MOVE                             R15 R10
-       72 SETLIST                          R13 R14 2 [1]
-       74 CALL                             R11 2 1
-       75 MOVE                             R6 R11
-       76 GETUPVAL                         R11 1
-       77 GETTABLEKS                       R11 R11 K12 ["useCallback"]
-       79 NEWCLOSURE                       R12 P4
-       80 CAPTURE                          REF R6
-       81 CAPTURE                          REF R4
-       82 CAPTURE                          VAL R8
-       83 NEWTABLE                         R13 0 2
-       85 MOVE                             R14 R6
-       86 MOVE                             R15 R4
-       87 SETLIST                          R13 R14 2 [1]
-       89 CALL                             R11 2 1
-       90 JUMPIFNOT                        R6 ; [+2]
-       91 MOVE                             R5 R11
-       92 JUMP                             ; [+1]
-       93 LOADNIL                          R5
-       94 DUPTABLE                         R7 K16 [{"errorBannerMessages", "hasBlockingError", "dismissMessage"}]
-       95 SETTABLEKS                       R4 R7 K13 ["errorBannerMessages"]
-       97 SETTABLEKS                       R3 R7 K14 ["hasBlockingError"]
-       99 GETUPVAL                         R9 3
-      100 CALL                             R9 0 1
-      101 JUMPIFNOT                        R9 ; [+3]
-      102 JUMPIFNOT                        R6 ; [+2]
-      103 MOVE                             R8 R5
-      104 JUMP                             ; [+1]
-      105 LOADNIL                          R8
-      106 SETTABLEKS                       R8 R7 K15 ["dismissMessage"]
-      108 CLOSEUPVALS                      R4
-      109 RETURN                           R7 1
+       23 GETUPVAL                         R11 2
+       24 CALL                             R11 0 1
+       25 JUMPIFNOT                        R11 ; [+3]
+       26 GETTABLEKS                       R10 R0 K7 ["selectedCreatorId"]
+       28 JUMP                             ; [+1]
+       29 LOADNIL                          R10
+       30 GETUPVAL                         R12 2
+       31 CALL                             R12 0 1
+       32 JUMPIFNOT                        R12 ; [+2]
+       33 MOVE                             R11 R1
+       34 JUMP                             ; [+1]
+       35 LOADNIL                          R11
+       36 SETLIST                          R4 R5 7 [1]
+       38 CALL                             R2 2 2
+       39 MOVE                             R4 R2
+       40 LOADNIL                          R5
+       41 LOADB                            R6 0
+       42 GETUPVAL                         R7 3
+       43 CALL                             R7 0 1
+       44 JUMPIFNOT                        R7 ; [+62]
+       45 GETUPVAL                         R7 1
+       46 GETTABLEKS                       R7 R7 K8 ["useState"]
+       48 NEWTABLE                         R8 0 0
+       50 CALL                             R7 1 2
+       51 GETUPVAL                         R9 4
+       52 GETTABLEKS                       R9 R9 K9 ["filter"]
+       54 MOVE                             R10 R2
+       55 NEWCLOSURE                       R11 P1
+       56 CAPTURE                          VAL R7
+       57 CALL                             R9 2 1
+       58 MOVE                             R4 R9
+       59 LOADK                            R11 K10 ["LookComposerDialog"]
+       60 LOADK                            R12 K11 ["MakeupLookDifferentCreator"]
+       61 NAMECALL                         R9 R1 K12 ["getText"]
+       63 CALL                             R9 3 1
+       64 GETUPVAL                         R10 1
+       65 GETTABLEKS                       R10 R10 K1 ["useMemo"]
+       67 NEWCLOSURE                       R11 P2
+       68 CAPTURE                          VAL R9
+       69 NEWTABLE                         R12 0 1
+       71 MOVE                             R13 R9
+       72 SETLIST                          R12 R13 1 [1]
+       74 CALL                             R10 2 1
+       75 GETUPVAL                         R11 1
+       76 GETTABLEKS                       R11 R11 K1 ["useMemo"]
+       78 NEWCLOSURE                       R12 P3
+       79 CAPTURE                          REF R4
+       80 CAPTURE                          VAL R10
+       81 NEWTABLE                         R13 0 2
+       83 MOVE                             R14 R4
+       84 MOVE                             R15 R10
+       85 SETLIST                          R13 R14 2 [1]
+       87 CALL                             R11 2 1
+       88 MOVE                             R6 R11
+       89 GETUPVAL                         R11 1
+       90 GETTABLEKS                       R11 R11 K13 ["useCallback"]
+       92 NEWCLOSURE                       R12 P4
+       93 CAPTURE                          REF R6
+       94 CAPTURE                          REF R4
+       95 CAPTURE                          VAL R8
+       96 NEWTABLE                         R13 0 2
+       98 MOVE                             R14 R6
+       99 MOVE                             R15 R4
+      100 SETLIST                          R13 R14 2 [1]
+      102 CALL                             R11 2 1
+      103 JUMPIFNOT                        R6 ; [+2]
+      104 MOVE                             R5 R11
+      105 JUMP                             ; [+1]
+      106 LOADNIL                          R5
+      107 DUPTABLE                         R7 K17 [{"errorBannerMessages", "hasBlockingError", "dismissMessage"}]
+      108 SETTABLEKS                       R4 R7 K14 ["errorBannerMessages"]
+      110 SETTABLEKS                       R3 R7 K15 ["hasBlockingError"]
+      112 GETUPVAL                         R9 3
+      113 CALL                             R9 0 1
+      114 JUMPIFNOT                        R9 ; [+3]
+      115 JUMPIFNOT                        R6 ; [+2]
+      116 MOVE                             R8 R5
+      117 JUMP                             ; [+1]
+      118 LOADNIL                          R8
+      119 SETTABLEKS                       R8 R7 K16 ["dismissMessage"]
+      121 CLOSEUPVALS                      R4
+      122 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0

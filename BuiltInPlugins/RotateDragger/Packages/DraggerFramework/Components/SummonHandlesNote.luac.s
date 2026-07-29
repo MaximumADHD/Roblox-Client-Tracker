@@ -197,31 +197,27 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["StudioService"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       13 GETTABLEKS                       R2 R1 K6 ["Parent"]
-       15 GETTABLEKS                       R2 R2 K6 ["Parent"]
-       17 GETIMPORT                        R3 K8 [require]
-       19 GETTABLEKS                       R4 R2 K9 ["Packages"]
-       21 GETTABLEKS                       R4 R4 K10 ["Roact"]
-       23 CALL                             R3 1 1
-       24 GETTABLEKS                       R4 R3 K11 ["PureComponent"]
-       26 LOADK                            R6 K12 ["SummonHandlesNote"]
-       27 NAMECALL                         R4 R4 K13 ["extend"]
-       29 CALL                             R4 2 1
-       30 DUPCLOSURE                       R5 K14 [PROTO_1]
-       31 SETTABLEKS                       R5 R4 K15 ["didMount"]
-       33 DUPCLOSURE                       R5 K16 [PROTO_2]
-       34 CAPTURE                          VAL R3
-       35 SETGLOBAL                        R5 K17 ["SimplePadding"]
-       37 DUPCLOSURE                       R5 K18 [PROTO_3]
-       38 CAPTURE                          VAL R3
-       39 SETTABLEKS                       R5 R4 K19 ["render"]
-       41 DUPCLOSURE                       R5 K20 [PROTO_4]
-       42 SETTABLEKS                       R5 R4 K21 ["willUnmount"]
-       44 RETURN                           R4 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R1 K2 ["Parent"]
+       11 GETIMPORT                        R2 K4 [require]
+       13 GETTABLEKS                       R3 R1 K5 ["Packages"]
+       15 GETTABLEKS                       R3 R3 K6 ["Roact"]
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R3 R2 K7 ["PureComponent"]
+       20 LOADK                            R5 K8 ["SummonHandlesNote"]
+       21 NAMECALL                         R3 R3 K9 ["extend"]
+       23 CALL                             R3 2 1
+       24 DUPCLOSURE                       R4 K10 [PROTO_1]
+       25 SETTABLEKS                       R4 R3 K11 ["didMount"]
+       27 DUPCLOSURE                       R4 K12 [PROTO_2]
+       28 CAPTURE                          VAL R2
+       29 SETGLOBAL                        R4 K13 ["SimplePadding"]
+       31 DUPCLOSURE                       R4 K14 [PROTO_3]
+       32 CAPTURE                          VAL R2
+       33 SETTABLEKS                       R4 R3 K15 ["render"]
+       35 DUPCLOSURE                       R4 K16 [PROTO_4]
+       36 SETTABLEKS                       R4 R3 K17 ["willUnmount"]
+       38 RETURN                           R3 1

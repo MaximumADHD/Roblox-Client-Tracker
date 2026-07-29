@@ -205,44 +205,40 @@ MAIN:
        17 GETTABLEKS                       R4 R2 K9 ["Roact"]
        19 CALL                             R3 1 1
        20 GETIMPORT                        R4 K8 [require]
-       22 GETTABLEKS                       R5 R1 K10 ["Flags"]
-       24 GETTABLEKS                       R5 R5 K11 ["getFFlagNextGenDraggers"]
+       22 GETTABLEKS                       R5 R1 K10 ["Utility"]
+       24 GETTABLEKS                       R5 R5 K11 ["Math"]
        26 CALL                             R4 1 1
-       27 GETIMPORT                        R5 K8 [require]
-       29 GETTABLEKS                       R6 R1 K12 ["Utility"]
-       31 GETTABLEKS                       R6 R6 K13 ["Math"]
-       33 CALL                             R5 1 1
-       34 GETIMPORT                        R6 K17 [Enum.AdornCullingMode.Never]
-       36 GETTABLEKS                       R7 R3 K18 ["PureComponent"]
-       38 LOADK                            R9 K19 ["ScaleHandleView"]
-       39 NAMECALL                         R7 R7 K20 ["extend"]
-       41 CALL                             R7 2 1
-       42 LOADK                            R8 K21 [0.5]
-       43 LOADK                            R9 K22 [0.75]
-       44 LOADK                            R10 K23 [0.2]
-       45 LOADK                            R11 K24 [1.5]
-       46 DUPCLOSURE                       R12 K25 [PROTO_0]
+       27 GETIMPORT                        R5 K15 [Enum.AdornCullingMode.Never]
+       29 GETTABLEKS                       R6 R3 K16 ["PureComponent"]
+       31 LOADK                            R8 K17 ["ScaleHandleView"]
+       32 NAMECALL                         R6 R6 K18 ["extend"]
+       34 CALL                             R6 2 1
+       35 LOADK                            R7 K19 [0.5]
+       36 LOADK                            R8 K20 [0.75]
+       37 LOADK                            R9 K21 [0.2]
+       38 LOADK                            R10 K22 [1.5]
+       39 DUPCLOSURE                       R11 K23 [PROTO_0]
+       40 CAPTURE                          VAL R0
+       41 NEWCLOSURE                       R12 P1
+       42 CAPTURE                          REF R10
+       43 SETTABLEKS                       R12 R6 K24 ["getLocalHandleOffset"]
+       45 NEWCLOSURE                       R12 P2
+       46 CAPTURE                          REF R10
        47 CAPTURE                          VAL R0
-       48 NEWCLOSURE                       R13 P1
-       49 CAPTURE                          REF R11
-       50 SETTABLEKS                       R13 R7 K26 ["getLocalHandleOffset"]
-       52 NEWCLOSURE                       R13 P2
-       53 CAPTURE                          REF R11
-       54 CAPTURE                          VAL R0
-       55 CAPTURE                          REF R8
-       56 CAPTURE                          REF R9
+       48 CAPTURE                          REF R7
+       49 CAPTURE                          REF R8
+       50 CAPTURE                          REF R9
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R5
+       53 SETTABLEKS                       R12 R6 K25 ["render"]
+       55 NEWCLOSURE                       R12 P3
+       56 CAPTURE                          REF R7
        57 CAPTURE                          REF R10
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R6
-       60 SETTABLEKS                       R13 R7 K27 ["render"]
-       62 NEWCLOSURE                       R13 P3
-       63 CAPTURE                          REF R8
-       64 CAPTURE                          REF R11
-       65 CAPTURE                          VAL R5
-       66 SETTABLEKS                       R13 R7 K28 ["hitTest"]
-       68 NEWCLOSURE                       R13 P4
-       69 CAPTURE                          REF R8
-       70 CAPTURE                          REF R11
-       71 SETTABLEKS                       R13 R7 K29 ["distanceFromHandle"]
-       73 CLOSEUPVALS                      R8
-       74 RETURN                           R7 1
+       58 CAPTURE                          VAL R4
+       59 SETTABLEKS                       R12 R6 K26 ["hitTest"]
+       61 NEWCLOSURE                       R12 P4
+       62 CAPTURE                          REF R7
+       63 CAPTURE                          REF R10
+       64 SETTABLEKS                       R12 R6 K27 ["distanceFromHandle"]
+       66 CLOSEUPVALS                      R7
+       67 RETURN                           R6 1

@@ -139,47 +139,43 @@ MAIN:
         3 GETTABLEKS                       R0 R0 K2 ["Parent"]
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R1 R0 K2 ["Parent"]
-       11 GETIMPORT                        R2 K4 [require]
-       13 GETTABLEKS                       R3 R1 K5 ["Roact"]
-       15 CALL                             R2 1 1
-       16 GETIMPORT                        R3 K4 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Implementation"]
-       20 GETTABLEKS                       R4 R4 K7 ["DraggerStateType"]
-       22 CALL                             R3 1 1
-       23 GETIMPORT                        R4 K4 [require]
-       25 GETTABLEKS                       R5 R0 K8 ["Utility"]
-       27 GETTABLEKS                       R5 R5 K9 ["StandardCursor"]
-       29 CALL                             R4 1 1
-       30 NEWTABLE                         R5 16 0
-       32 SETTABLEKS                       R5 R5 K10 ["__index"]
-       34 DUPCLOSURE                       R6 K11 [PROTO_0]
-       35 CAPTURE                          VAL R5
-       36 SETTABLEKS                       R6 R5 K12 ["new"]
-       38 DUPCLOSURE                       R6 K13 [PROTO_2]
-       39 CAPTURE                          VAL R3
-       40 SETTABLEKS                       R6 R5 K14 ["enter"]
-       42 DUPCLOSURE                       R6 K15 [PROTO_3]
-       43 SETTABLEKS                       R6 R5 K16 ["leave"]
-       45 DUPCLOSURE                       R6 K17 [PROTO_4]
-       46 CAPTURE                          VAL R4
-       47 SETTABLEKS                       R6 R5 K18 ["render"]
-       49 DUPCLOSURE                       R6 K19 [PROTO_5]
-       50 SETTABLEKS                       R6 R5 K20 ["processSelectionChanged"]
-       52 DUPCLOSURE                       R6 K21 [PROTO_6]
-       53 CAPTURE                          VAL R3
-       54 SETTABLEKS                       R6 R5 K22 ["processViewChanged"]
-       56 DUPCLOSURE                       R6 K23 [PROTO_7]
-       57 SETTABLEKS                       R6 R5 K24 ["processMouseDown"]
-       59 DUPCLOSURE                       R6 K25 [PROTO_8]
-       60 CAPTURE                          VAL R3
-       61 SETTABLEKS                       R6 R5 K26 ["processMouseUp"]
-       63 DUPCLOSURE                       R6 K27 [PROTO_9]
-       64 SETTABLEKS                       R6 R5 K28 ["processMouseEnter"]
-       66 DUPCLOSURE                       R6 K29 [PROTO_10]
-       67 SETTABLEKS                       R6 R5 K30 ["processMouseLeave"]
-       69 DUPCLOSURE                       R6 K31 [PROTO_11]
-       70 SETTABLEKS                       R6 R5 K32 ["processKeyDown"]
-       72 DUPCLOSURE                       R6 K33 [PROTO_12]
-       73 SETTABLEKS                       R6 R5 K34 ["processKeyUp"]
-       75 RETURN                           R5 1
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Implementation"]
+       13 GETTABLEKS                       R2 R2 K6 ["DraggerStateType"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K7 ["Utility"]
+       20 GETTABLEKS                       R3 R3 K8 ["StandardCursor"]
+       22 CALL                             R2 1 1
+       23 NEWTABLE                         R3 16 0
+       25 SETTABLEKS                       R3 R3 K9 ["__index"]
+       27 DUPCLOSURE                       R4 K10 [PROTO_0]
+       28 CAPTURE                          VAL R3
+       29 SETTABLEKS                       R4 R3 K11 ["new"]
+       31 DUPCLOSURE                       R4 K12 [PROTO_2]
+       32 CAPTURE                          VAL R1
+       33 SETTABLEKS                       R4 R3 K13 ["enter"]
+       35 DUPCLOSURE                       R4 K14 [PROTO_3]
+       36 SETTABLEKS                       R4 R3 K15 ["leave"]
+       38 DUPCLOSURE                       R4 K16 [PROTO_4]
+       39 CAPTURE                          VAL R2
+       40 SETTABLEKS                       R4 R3 K17 ["render"]
+       42 DUPCLOSURE                       R4 K18 [PROTO_5]
+       43 SETTABLEKS                       R4 R3 K19 ["processSelectionChanged"]
+       45 DUPCLOSURE                       R4 K20 [PROTO_6]
+       46 CAPTURE                          VAL R1
+       47 SETTABLEKS                       R4 R3 K21 ["processViewChanged"]
+       49 DUPCLOSURE                       R4 K22 [PROTO_7]
+       50 SETTABLEKS                       R4 R3 K23 ["processMouseDown"]
+       52 DUPCLOSURE                       R4 K24 [PROTO_8]
+       53 CAPTURE                          VAL R1
+       54 SETTABLEKS                       R4 R3 K25 ["processMouseUp"]
+       56 DUPCLOSURE                       R4 K26 [PROTO_9]
+       57 SETTABLEKS                       R4 R3 K27 ["processMouseEnter"]
+       59 DUPCLOSURE                       R4 K28 [PROTO_10]
+       60 SETTABLEKS                       R4 R3 K29 ["processMouseLeave"]
+       62 DUPCLOSURE                       R4 K30 [PROTO_11]
+       63 SETTABLEKS                       R4 R3 K31 ["processKeyDown"]
+       65 DUPCLOSURE                       R4 K32 [PROTO_12]
+       66 SETTABLEKS                       R4 R3 K33 ["processKeyUp"]
+       68 RETURN                           R3 1

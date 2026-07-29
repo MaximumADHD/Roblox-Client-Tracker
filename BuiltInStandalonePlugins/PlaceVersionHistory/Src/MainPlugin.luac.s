@@ -166,33 +166,18 @@ PROTO_4:
       141 SETTABLEKS                       R16 R15 K26 ["providers"]
       143 DUPTABLE                         R16 K32 [{"App"}]
       144 MOVE                             R17 R1
-      145 JUMPIFNOT                        R17 ; [+25]
-      146 GETUPVAL                         R18 19
-      147 GETTABLEKS                       R18 R18 K33 ["FFlagPVHZeroPlaceIdCheck"]
-      149 JUMPIFNOT                        R18 ; [+7]
-      150 GETUPVAL                         R17 3
-      151 GETTABLEKS                       R17 R17 K10 ["createElement"]
-      153 GETGLOBAL                        R18 K31 ["App"]
-      155 CALL                             R17 1 1
-      156 JUMP                             ; [+14]
-      157 GETUPVAL                         R17 3
-      158 GETTABLEKS                       R17 R17 K10 ["createElement"]
-      160 GETUPVAL                         R18 20
-      161 LOADNIL                          R19
-      162 DUPTABLE                         R20 K35 [{"MainView"}]
-      163 GETUPVAL                         R21 3
-      164 GETTABLEKS                       R21 R21 K10 ["createElement"]
-      166 GETUPVAL                         R22 21
-      167 CALL                             R21 1 1
-      168 SETTABLEKS                       R21 R20 K34 ["MainView"]
-      170 CALL                             R17 3 1
-      171 SETTABLEKS                       R17 R16 K31 ["App"]
-      173 CALL                             R13 3 1
-      174 SETTABLEKS                       R13 R12 K24 ["ContextStack"]
-      176 CALL                             R9 3 1
-      177 SETTABLEKS                       R9 R8 K8 ["MainWidget"]
-      179 CALL                             R6 2 -1
-      180 RETURN                           R6 -1
+      145 JUMPIFNOT                        R17 ; [+6]
+      146 GETUPVAL                         R17 3
+      147 GETTABLEKS                       R17 R17 K10 ["createElement"]
+      149 GETGLOBAL                        R18 K31 ["App"]
+      151 CALL                             R17 1 1
+      152 SETTABLEKS                       R17 R16 K31 ["App"]
+      154 CALL                             R13 3 1
+      155 SETTABLEKS                       R13 R12 K24 ["ContextStack"]
+      157 CALL                             R9 3 1
+      158 SETTABLEKS                       R9 R8 K8 ["MainWidget"]
+      160 CALL                             R6 2 -1
+      161 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -201,111 +186,103 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R2 R2 K7 ["Common"]
-       13 GETTABLEKS                       R2 R2 K8 ["flags"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K10 ["React"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K11 ["ReactUtils"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R5 K12 ["Framework"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       41 GETTABLEKS                       R6 R6 K13 ["StudioFoundation"]
-       43 CALL                             R5 1 1
-       44 GETTABLEKS                       R6 R4 K14 ["ContextServices"]
-       46 GETTABLEKS                       R7 R6 K15 ["Plugin"]
-       48 GETTABLEKS                       R8 R6 K16 ["Design"]
-       50 GETTABLEKS                       R9 R6 K17 ["Localization"]
-       52 GETTABLEKS                       R10 R0 K18 ["Src"]
-       54 GETTABLEKS                       R10 R10 K19 ["Resources"]
-       56 GETTABLEKS                       R10 R10 K17 ["Localization"]
-       58 GETTABLEKS                       R10 R10 K20 ["SourceStrings"]
-       60 GETTABLEKS                       R11 R0 K18 ["Src"]
-       62 GETTABLEKS                       R11 R11 K19 ["Resources"]
-       64 GETTABLEKS                       R11 R11 K17 ["Localization"]
-       66 GETTABLEKS                       R11 R11 K21 ["LocalizedStrings"]
-       68 GETTABLEKS                       R12 R5 K22 ["Components"]
-       70 GETTABLEKS                       R12 R12 K23 ["FoundationProviderAdapter"]
-       72 GETTABLEKS                       R13 R0 K18 ["Src"]
-       74 GETTABLEKS                       R13 R13 K22 ["Components"]
-       76 GETIMPORT                        R14 K5 [require]
-       78 GETTABLEKS                       R15 R13 K24 ["MainView"]
-       80 CALL                             R14 1 1
-       81 GETTABLEKS                       R15 R0 K18 ["Src"]
-       83 GETTABLEKS                       R15 R15 K25 ["Hooks"]
-       85 GETIMPORT                        R16 K5 [require]
-       87 GETTABLEKS                       R17 R15 K26 ["useActionConnection"]
-       89 CALL                             R16 1 1
-       90 GETTABLEKS                       R17 R3 K27 ["useEventConnection"]
-       92 GETTABLEKS                       R18 R0 K18 ["Src"]
-       94 GETTABLEKS                       R18 R18 K28 ["Contexts"]
-       96 GETIMPORT                        R19 K5 [require]
-       98 GETTABLEKS                       R20 R18 K29 ["SettingContext"]
-      100 CALL                             R19 1 1
-      101 GETIMPORT                        R20 K5 [require]
-      103 GETTABLEKS                       R21 R18 K30 ["WidgetContextProvider"]
-      105 CALL                             R20 1 1
-      106 GETIMPORT                        R21 K5 [require]
-      108 GETTABLEKS                       R22 R18 K31 ["SettingContextProvider"]
-      110 CALL                             R21 1 1
-      111 GETIMPORT                        R22 K5 [require]
-      113 GETTABLEKS                       R23 R18 K32 ["NetworkContextProvider"]
-      115 CALL                             R22 1 1
-      116 GETIMPORT                        R23 K5 [require]
-      118 GETTABLEKS                       R24 R18 K33 ["StudioContextProvider"]
-      120 CALL                             R23 1 1
-      121 GETIMPORT                        R24 K5 [require]
-      123 GETTABLEKS                       R25 R18 K34 ["ControllerContextProvider"]
-      125 CALL                             R24 1 1
-      126 GETIMPORT                        R25 K5 [require]
-      128 GETTABLEKS                       R26 R18 K35 ["DialogContextProvider"]
-      130 CALL                             R25 1 1
-      131 GETIMPORT                        R26 K5 [require]
-      133 GETTABLEKS                       R27 R18 K36 ["PopoverContextProvider"]
-      135 CALL                             R26 1 1
-      136 GETIMPORT                        R27 K5 [require]
-      138 GETTABLEKS                       R28 R0 K18 ["Src"]
-      140 GETTABLEKS                       R28 R28 K37 ["Types"]
-      142 CALL                             R27 1 1
-      143 DUPTABLE                         R28 K45 [{["DataModel"] = "Standalone", ["PluginId"] = "PlaceVersionHistory", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
-      144 DUPCLOSURE                       R29 K46 [PROTO_0]
-      145 CAPTURE                          VAL R2
-      146 CAPTURE                          VAL R19
-      147 CAPTURE                          VAL R24
-      148 CAPTURE                          VAL R14
-      149 SETGLOBAL                        R29 K47 ["App"]
-      151 DUPCLOSURE                       R29 K48 [PROTO_4]
-      152 CAPTURE                          VAL R16
-      153 CAPTURE                          VAL R28
-      154 CAPTURE                          VAL R17
-      155 CAPTURE                          VAL R2
-      156 CAPTURE                          VAL R7
-      157 CAPTURE                          VAL R8
-      158 CAPTURE                          VAL R9
-      159 CAPTURE                          VAL R10
-      160 CAPTURE                          VAL R11
-      161 CAPTURE                          VAL R6
-      162 CAPTURE                          VAL R4
-      163 CAPTURE                          VAL R3
-      164 CAPTURE                          VAL R12
-      165 CAPTURE                          VAL R20
-      166 CAPTURE                          VAL R21
-      167 CAPTURE                          VAL R22
-      168 CAPTURE                          VAL R23
-      169 CAPTURE                          VAL R25
-      170 CAPTURE                          VAL R26
-      171 CAPTURE                          VAL R1
-      172 CAPTURE                          VAL R24
-      173 CAPTURE                          VAL R14
-      174 SETGLOBAL                        R29 K49 ["MainPlugin"]
-      176 GETGLOBAL                        R29 K49 ["MainPlugin"]
-      178 RETURN                           R29 1
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["StudioFoundation"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
+       37 GETTABLEKS                       R6 R5 K12 ["Plugin"]
+       39 GETTABLEKS                       R7 R5 K13 ["Design"]
+       41 GETTABLEKS                       R8 R5 K14 ["Localization"]
+       43 GETTABLEKS                       R9 R0 K15 ["Src"]
+       45 GETTABLEKS                       R9 R9 K16 ["Resources"]
+       47 GETTABLEKS                       R9 R9 K14 ["Localization"]
+       49 GETTABLEKS                       R9 R9 K17 ["SourceStrings"]
+       51 GETTABLEKS                       R10 R0 K15 ["Src"]
+       53 GETTABLEKS                       R10 R10 K16 ["Resources"]
+       55 GETTABLEKS                       R10 R10 K14 ["Localization"]
+       57 GETTABLEKS                       R10 R10 K18 ["LocalizedStrings"]
+       59 GETTABLEKS                       R11 R4 K19 ["Components"]
+       61 GETTABLEKS                       R11 R11 K20 ["FoundationProviderAdapter"]
+       63 GETTABLEKS                       R12 R0 K15 ["Src"]
+       65 GETTABLEKS                       R12 R12 K19 ["Components"]
+       67 GETIMPORT                        R13 K5 [require]
+       69 GETTABLEKS                       R14 R12 K21 ["MainView"]
+       71 CALL                             R13 1 1
+       72 GETTABLEKS                       R14 R0 K15 ["Src"]
+       74 GETTABLEKS                       R14 R14 K22 ["Hooks"]
+       76 GETIMPORT                        R15 K5 [require]
+       78 GETTABLEKS                       R16 R14 K23 ["useActionConnection"]
+       80 CALL                             R15 1 1
+       81 GETTABLEKS                       R16 R2 K24 ["useEventConnection"]
+       83 GETTABLEKS                       R17 R0 K15 ["Src"]
+       85 GETTABLEKS                       R17 R17 K25 ["Contexts"]
+       87 GETIMPORT                        R18 K5 [require]
+       89 GETTABLEKS                       R19 R17 K26 ["SettingContext"]
+       91 CALL                             R18 1 1
+       92 GETIMPORT                        R19 K5 [require]
+       94 GETTABLEKS                       R20 R17 K27 ["WidgetContextProvider"]
+       96 CALL                             R19 1 1
+       97 GETIMPORT                        R20 K5 [require]
+       99 GETTABLEKS                       R21 R17 K28 ["SettingContextProvider"]
+      101 CALL                             R20 1 1
+      102 GETIMPORT                        R21 K5 [require]
+      104 GETTABLEKS                       R22 R17 K29 ["NetworkContextProvider"]
+      106 CALL                             R21 1 1
+      107 GETIMPORT                        R22 K5 [require]
+      109 GETTABLEKS                       R23 R17 K30 ["StudioContextProvider"]
+      111 CALL                             R22 1 1
+      112 GETIMPORT                        R23 K5 [require]
+      114 GETTABLEKS                       R24 R17 K31 ["ControllerContextProvider"]
+      116 CALL                             R23 1 1
+      117 GETIMPORT                        R24 K5 [require]
+      119 GETTABLEKS                       R25 R17 K32 ["DialogContextProvider"]
+      121 CALL                             R24 1 1
+      122 GETIMPORT                        R25 K5 [require]
+      124 GETTABLEKS                       R26 R17 K33 ["PopoverContextProvider"]
+      126 CALL                             R25 1 1
+      127 GETIMPORT                        R26 K5 [require]
+      129 GETTABLEKS                       R27 R0 K15 ["Src"]
+      131 GETTABLEKS                       R27 R27 K34 ["Types"]
+      133 CALL                             R26 1 1
+      134 DUPTABLE                         R27 K42 [{["DataModel"] = "Standalone", ["PluginId"] = "PlaceVersionHistory", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      135 DUPCLOSURE                       R28 K43 [PROTO_0]
+      136 CAPTURE                          VAL R1
+      137 CAPTURE                          VAL R18
+      138 CAPTURE                          VAL R23
+      139 CAPTURE                          VAL R13
+      140 SETGLOBAL                        R28 K44 ["App"]
+      142 DUPCLOSURE                       R28 K45 [PROTO_4]
+      143 CAPTURE                          VAL R15
+      144 CAPTURE                          VAL R27
+      145 CAPTURE                          VAL R16
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R6
+      148 CAPTURE                          VAL R7
+      149 CAPTURE                          VAL R8
+      150 CAPTURE                          VAL R9
+      151 CAPTURE                          VAL R10
+      152 CAPTURE                          VAL R5
+      153 CAPTURE                          VAL R3
+      154 CAPTURE                          VAL R2
+      155 CAPTURE                          VAL R11
+      156 CAPTURE                          VAL R19
+      157 CAPTURE                          VAL R20
+      158 CAPTURE                          VAL R21
+      159 CAPTURE                          VAL R22
+      160 CAPTURE                          VAL R24
+      161 CAPTURE                          VAL R25
+      162 SETGLOBAL                        R28 K46 ["MainPlugin"]
+      164 GETGLOBAL                        R28 K46 ["MainPlugin"]
+      166 RETURN                           R28 1

@@ -296,89 +296,94 @@ PROTO_3:
       319 GETIMPORT                        R7 K10 [math.max]
       321 CALL                             R7 3 1
       322 MOVE                             R5 R7
-      323 GETTABLEKS                       R8 R3 K3 ["X"]
-      325 FASTCALL1                        MATH_ABS R8 ; [+2]
-      326 GETIMPORT                        R7 K6 [math.abs]
-      328 CALL                             R7 1 1
-      329 GETTABLEKS                       R9 R3 K7 ["Y"]
-      331 FASTCALL1                        MATH_ABS R9 ; [+2]
-      332 GETIMPORT                        R8 K6 [math.abs]
-      334 CALL                             R8 1 1
-      335 GETTABLEKS                       R10 R3 K8 ["Z"]
-      337 FASTCALL1                        MATH_ABS R10 ; [+2]
-      338 GETIMPORT                        R9 K6 [math.abs]
-      340 CALL                             R9 1 1
-      341 FASTCALL                         MATH_MAX ; [+2]
-      342 GETIMPORT                        R6 K10 [math.max]
-      344 CALL                             R6 3 1
-      345 JUMPIFNOTLT                      R5 R4 ; [+24]
-      347 JUMPIFNOTLT                      R6 R4 ; [+22]
-      349 GETUPVAL                         R7 1
-      350 MOVE                             R8 R1
-      351 CALL                             R7 1 1
-      352 MOVE                             R1 R7
-      353 JUMPIFNOTLT                      R6 R5 ; [+6]
-      355 GETUPVAL                         R7 1
-      356 MOVE                             R8 R2
-      357 CALL                             R7 1 1
-      358 MOVE                             R2 R7
-      359 JUMP                             ; [+59]
-      360 GETUPVAL                         R7 1
-      361 MOVE                             R8 R3
-      362 CALL                             R7 1 1
-      363 MOVE                             R10 R1
-      364 NAMECALL                         R8 R7 K11 ["Cross"]
-      366 CALL                             R8 2 1
-      367 GETTABLEKS                       R2 R8 K17 ["Unit"]
-      369 JUMP                             ; [+49]
-      370 JUMPIFNOTLT                      R6 R5 ; [+22]
-      372 GETUPVAL                         R7 1
-      373 MOVE                             R8 R2
-      374 CALL                             R7 1 1
-      375 MOVE                             R2 R7
-      376 JUMPIFNOTLT                      R6 R4 ; [+6]
-      378 GETUPVAL                         R7 1
-      379 MOVE                             R8 R1
-      380 CALL                             R7 1 1
-      381 MOVE                             R1 R7
-      382 JUMP                             ; [+36]
-      383 GETUPVAL                         R7 1
-      384 MOVE                             R8 R3
-      385 CALL                             R7 1 1
-      386 MOVE                             R10 R7
-      387 NAMECALL                         R8 R2 K11 ["Cross"]
-      389 CALL                             R8 2 1
-      390 GETTABLEKS                       R1 R8 K17 ["Unit"]
-      392 JUMP                             ; [+26]
-      393 GETUPVAL                         R7 1
-      394 MOVE                             R8 R3
-      395 CALL                             R7 1 1
-      396 JUMPIFNOTLT                      R5 R4 ; [+12]
-      398 GETUPVAL                         R8 1
-      399 MOVE                             R9 R1
-      400 CALL                             R8 1 1
-      401 MOVE                             R1 R8
-      402 MOVE                             R10 R1
-      403 NAMECALL                         R8 R7 K11 ["Cross"]
-      405 CALL                             R8 2 1
-      406 GETTABLEKS                       R2 R8 K17 ["Unit"]
-      408 JUMP                             ; [+10]
-      409 GETUPVAL                         R8 1
-      410 MOVE                             R9 R2
-      411 CALL                             R8 1 1
-      412 MOVE                             R2 R8
-      413 MOVE                             R10 R7
-      414 NAMECALL                         R8 R2 K11 ["Cross"]
-      416 CALL                             R8 2 1
-      417 GETTABLEKS                       R1 R8 K17 ["Unit"]
-      419 GETIMPORT                        R7 K20 [CFrame.fromMatrix]
-      421 FASTCALL                         VECTOR ; [+2]
-      422 GETIMPORT                        R8 K23 [Vector3.new]
-      424 CALL                             R8 0 1
-      425 MOVE                             R9 R1
-      426 MOVE                             R10 R2
-      427 CALL                             R7 3 -1
-      428 RETURN                           R7 -1
+      323 MOVE                             R7 R3
+      324 GETTABLEKS                       R10 R7 K3 ["X"]
+      326 FASTCALL1                        MATH_ABS R10 ; [+2]
+      327 GETIMPORT                        R9 K6 [math.abs]
+      329 CALL                             R9 1 1
+      330 GETTABLEKS                       R11 R7 K7 ["Y"]
+      332 FASTCALL1                        MATH_ABS R11 ; [+2]
+      333 GETIMPORT                        R10 K6 [math.abs]
+      335 CALL                             R10 1 1
+      336 GETTABLEKS                       R12 R7 K8 ["Z"]
+      338 FASTCALL1                        MATH_ABS R12 ; [+2]
+      339 GETIMPORT                        R11 K6 [math.abs]
+      341 CALL                             R11 1 1
+      342 FASTCALL                         MATH_MAX ; [+2]
+      343 GETIMPORT                        R8 K10 [math.max]
+      345 CALL                             R8 3 1
+      346 MOVE                             R6 R8
+      347 JUMPIFNOTLT                      R5 R4 ; [+25]
+      349 JUMPIFNOTLT                      R6 R4 ; [+23]
+      351 GETUPVAL                         R7 1
+      352 MOVE                             R8 R1
+      353 CALL                             R7 1 1
+      354 MOVE                             R1 R7
+      355 JUMPIFNOTLT                      R6 R5 ; [+6]
+      357 GETUPVAL                         R7 1
+      358 MOVE                             R8 R2
+      359 CALL                             R7 1 1
+      360 MOVE                             R2 R7
+      361 JUMP                             ; [+62]
+      362 GETUPVAL                         R7 1
+      363 MOVE                             R8 R3
+      364 CALL                             R7 1 1
+      365 MOVE                             R3 R7
+      366 MOVE                             R9 R1
+      367 NAMECALL                         R7 R3 K11 ["Cross"]
+      369 CALL                             R7 2 1
+      370 GETTABLEKS                       R2 R7 K17 ["Unit"]
+      372 JUMP                             ; [+51]
+      373 JUMPIFNOTLT                      R6 R5 ; [+23]
+      375 GETUPVAL                         R7 1
+      376 MOVE                             R8 R2
+      377 CALL                             R7 1 1
+      378 MOVE                             R2 R7
+      379 JUMPIFNOTLT                      R6 R4 ; [+6]
+      381 GETUPVAL                         R7 1
+      382 MOVE                             R8 R1
+      383 CALL                             R7 1 1
+      384 MOVE                             R1 R7
+      385 JUMP                             ; [+38]
+      386 GETUPVAL                         R7 1
+      387 MOVE                             R8 R3
+      388 CALL                             R7 1 1
+      389 MOVE                             R3 R7
+      390 MOVE                             R9 R3
+      391 NAMECALL                         R7 R2 K11 ["Cross"]
+      393 CALL                             R7 2 1
+      394 GETTABLEKS                       R1 R7 K17 ["Unit"]
+      396 JUMP                             ; [+27]
+      397 GETUPVAL                         R7 1
+      398 MOVE                             R8 R3
+      399 CALL                             R7 1 1
+      400 MOVE                             R3 R7
+      401 JUMPIFNOTLT                      R5 R4 ; [+12]
+      403 GETUPVAL                         R7 1
+      404 MOVE                             R8 R1
+      405 CALL                             R7 1 1
+      406 MOVE                             R1 R7
+      407 MOVE                             R9 R1
+      408 NAMECALL                         R7 R3 K11 ["Cross"]
+      410 CALL                             R7 2 1
+      411 GETTABLEKS                       R2 R7 K17 ["Unit"]
+      413 JUMP                             ; [+10]
+      414 GETUPVAL                         R7 1
+      415 MOVE                             R8 R2
+      416 CALL                             R7 1 1
+      417 MOVE                             R2 R7
+      418 MOVE                             R9 R3
+      419 NAMECALL                         R7 R2 K11 ["Cross"]
+      421 CALL                             R7 2 1
+      422 GETTABLEKS                       R1 R7 K17 ["Unit"]
+      424 GETIMPORT                        R7 K20 [CFrame.fromMatrix]
+      426 FASTCALL                         VECTOR ; [+2]
+      427 GETIMPORT                        R8 K23 [Vector3.new]
+      429 CALL                             R8 0 1
+      430 MOVE                             R9 R1
+      431 MOVE                             R10 R2
+      432 CALL                             R7 3 -1
+      433 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

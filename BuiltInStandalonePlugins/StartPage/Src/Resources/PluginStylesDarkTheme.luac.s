@@ -16,94 +16,105 @@ MAIN:
        24 GETTABLEKS                       R4 R4 K12 ["getFFlagLuaStartPageNotFoundImageUpdate"]
        26 CALL                             R3 1 1
        27 CALL                             R3 0 1
-       28 DUPTABLE                         R4 K37 [{["PageBackground"], ["PillBackground"], ["TileBackground"], ["ContextMenuBackground"], ["Selected"], ["TextColor"], ["Contrast"], ["Standard"], ["StandardDark"], ["Border"], ["SemanticColorContentMuted"], ["ShimmerBackground"], ["ShimmerBackgroundTransparency"] = 0.8, ["ShimmerForeground"], ["ShimmerGradientTransparency"], ["NoExperiences"], ["RightChevron"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Medium/RightChevron.png", ["Cancel"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/CancelStandard.png", ["CancelWhite"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/CancelStandard.png", ["Kebab"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/Kebab.png"}]
-       29 GETIMPORT                        R5 K40 [Color3.fromHex]
-       31 LOADK                            R6 K41 ["#1F2024"]
-       32 CALL                             R5 1 1
-       33 SETTABLEKS                       R5 R4 K13 ["PageBackground"]
-       35 GETIMPORT                        R5 K40 [Color3.fromHex]
-       37 LOADK                            R6 K42 ["#111216"]
-       38 CALL                             R5 1 1
-       39 SETTABLEKS                       R5 R4 K14 ["PillBackground"]
-       41 GETIMPORT                        R5 K44 [Color3.fromRGB]
-       43 LOADN                            R6 25
-       44 LOADN                            R7 26
-       45 LOADN                            R8 31
-       46 CALL                             R5 3 1
-       47 SETTABLEKS                       R5 R4 K15 ["TileBackground"]
-       49 GETIMPORT                        R5 K40 [Color3.fromHex]
-       51 LOADK                            R6 K45 ["#25262C"]
-       52 CALL                             R5 1 1
-       53 SETTABLEKS                       R5 R4 K16 ["ContextMenuBackground"]
-       55 GETIMPORT                        R5 K40 [Color3.fromHex]
-       57 LOADK                            R6 K46 ["#000000"]
-       58 CALL                             R5 1 1
-       59 SETTABLEKS                       R5 R4 K17 ["Selected"]
-       61 GETIMPORT                        R5 K40 [Color3.fromHex]
-       63 LOADK                            R6 K47 ["#E1E1E1"]
-       64 CALL                             R5 1 1
-       65 SETTABLEKS                       R5 R4 K18 ["TextColor"]
-       67 GETIMPORT                        R5 K40 [Color3.fromHex]
-       69 LOADK                            R6 K42 ["#111216"]
-       70 CALL                             R5 1 1
-       71 SETTABLEKS                       R5 R4 K19 ["Contrast"]
-       73 GETIMPORT                        R5 K40 [Color3.fromHex]
-       75 LOADK                            R6 K48 ["#FFFFFF"]
-       76 CALL                             R5 1 1
-       77 SETTABLEKS                       R5 R4 K20 ["Standard"]
-       79 GETIMPORT                        R5 K40 [Color3.fromHex]
-       81 LOADK                            R6 K42 ["#111216"]
-       82 CALL                             R5 1 1
-       83 SETTABLEKS                       R5 R4 K21 ["StandardDark"]
-       85 GETIMPORT                        R5 K40 [Color3.fromHex]
-       87 LOADK                            R6 K48 ["#FFFFFF"]
-       88 CALL                             R5 1 1
-       89 SETTABLEKS                       R5 R4 K22 ["Border"]
-       91 GETIMPORT                        R5 K40 [Color3.fromHex]
-       93 LOADK                            R6 K49 ["#BBBCBE"]
-       94 CALL                             R5 1 1
-       95 SETTABLEKS                       R5 R4 K23 ["SemanticColorContentMuted"]
-       97 GETIMPORT                        R5 K40 [Color3.fromHex]
-       99 LOADK                            R6 K50 ["#2B2D33"]
-      100 CALL                             R5 1 1
-      101 SETTABLEKS                       R5 R4 K24 ["ShimmerBackground"]
-      103 GETIMPORT                        R5 K40 [Color3.fromHex]
-      105 LOADK                            R6 K51 ["#EEEEEE"]
-      106 CALL                             R5 1 1
-      107 SETTABLEKS                       R5 R4 K27 ["ShimmerForeground"]
-      109 GETIMPORT                        R5 K54 [NumberSequence.new]
-      111 NEWTABLE                         R6 0 5
-      113 GETIMPORT                        R7 K56 [NumberSequenceKeypoint.new]
-      115 LOADN                            R8 0
-      116 LOADN                            R9 1
-      117 CALL                             R7 2 1
-      118 GETIMPORT                        R8 K56 [NumberSequenceKeypoint.new]
-      120 LOADK                            R9 K57 [0.05]
-      121 LOADN                            R10 1
-      122 CALL                             R8 2 1
-      123 GETIMPORT                        R9 K56 [NumberSequenceKeypoint.new]
-      125 LOADK                            R10 K58 [0.5]
-      126 LOADK                            R11 K59 [0.85]
-      127 CALL                             R9 2 1
-      128 GETIMPORT                        R10 K56 [NumberSequenceKeypoint.new]
-      130 LOADK                            R11 K60 [0.95]
-      131 LOADN                            R12 1
-      132 CALL                             R10 2 1
-      133 GETIMPORT                        R11 K56 [NumberSequenceKeypoint.new]
-      135 LOADN                            R12 1
-      136 LOADN                            R13 1
-      137 CALL                             R11 2 -1
-      138 SETLIST                          R6 R7 -1 [1]
-      140 CALL                             R5 1 1
-      141 SETTABLEKS                       R5 R4 K28 ["ShimmerGradientTransparency"]
-      143 JUMPIFNOT                        R3 ; [+2]
-      144 LOADK                            R5 K61 ["rbxasset://textures/StartPage/videoGameExp_dark.png"]
-      145 JUMP                             ; [+1]
-      146 LOADK                            R5 K62 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/SI-Standard/NoExperiences.png"]
-      147 SETTABLEKS                       R5 R4 K29 ["NoExperiences"]
-      149 MOVE                             R5 R2
-      150 LOADK                            R6 K63 ["StartPageDarkTheme"]
-      151 NEWTABLE                         R7 0 0
-      153 MOVE                             R8 R4
-      154 CALL                             R5 3 -1
-      155 RETURN                           R5 -1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["SharedFlags"]
+       34 GETTABLEKS                       R5 R5 K13 ["getFFlagLuaStartPageNewListView"]
+       36 CALL                             R4 1 1
+       37 CALL                             R4 0 1
+       38 DUPTABLE                         R5 K39 [{["PageBackground"], ["PillBackground"], ["TileBackground"], ["ContextMenuBackground"], ["Selected"], ["TextColor"], ["Contrast"], ["Standard"], ["StandardDark"], ["Border"], ["SemanticColorContentMuted"], ["ShimmerBackground"], ["ShimmerBackgroundTransparency"] = 0.8, ["ShimmerForeground"], ["ShimmerGradientTransparency"], ["NoExperiences"], ["Placeholder"], ["RightChevron"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Medium/RightChevron.png", ["Cancel"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/CancelStandard.png", ["CancelWhite"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/CancelStandard.png", ["Kebab"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/Kebab.png"}]
+       39 GETIMPORT                        R6 K42 [Color3.fromHex]
+       41 LOADK                            R7 K43 ["#1F2024"]
+       42 CALL                             R6 1 1
+       43 SETTABLEKS                       R6 R5 K14 ["PageBackground"]
+       45 GETIMPORT                        R6 K42 [Color3.fromHex]
+       47 LOADK                            R7 K44 ["#111216"]
+       48 CALL                             R6 1 1
+       49 SETTABLEKS                       R6 R5 K15 ["PillBackground"]
+       51 GETIMPORT                        R6 K46 [Color3.fromRGB]
+       53 LOADN                            R7 25
+       54 LOADN                            R8 26
+       55 LOADN                            R9 31
+       56 CALL                             R6 3 1
+       57 SETTABLEKS                       R6 R5 K16 ["TileBackground"]
+       59 GETIMPORT                        R6 K42 [Color3.fromHex]
+       61 LOADK                            R7 K47 ["#25262C"]
+       62 CALL                             R6 1 1
+       63 SETTABLEKS                       R6 R5 K17 ["ContextMenuBackground"]
+       65 GETIMPORT                        R6 K42 [Color3.fromHex]
+       67 LOADK                            R7 K48 ["#000000"]
+       68 CALL                             R6 1 1
+       69 SETTABLEKS                       R6 R5 K18 ["Selected"]
+       71 GETIMPORT                        R6 K42 [Color3.fromHex]
+       73 LOADK                            R7 K49 ["#E1E1E1"]
+       74 CALL                             R6 1 1
+       75 SETTABLEKS                       R6 R5 K19 ["TextColor"]
+       77 GETIMPORT                        R6 K42 [Color3.fromHex]
+       79 LOADK                            R7 K44 ["#111216"]
+       80 CALL                             R6 1 1
+       81 SETTABLEKS                       R6 R5 K20 ["Contrast"]
+       83 GETIMPORT                        R6 K42 [Color3.fromHex]
+       85 LOADK                            R7 K50 ["#FFFFFF"]
+       86 CALL                             R6 1 1
+       87 SETTABLEKS                       R6 R5 K21 ["Standard"]
+       89 GETIMPORT                        R6 K42 [Color3.fromHex]
+       91 LOADK                            R7 K44 ["#111216"]
+       92 CALL                             R6 1 1
+       93 SETTABLEKS                       R6 R5 K22 ["StandardDark"]
+       95 GETIMPORT                        R6 K42 [Color3.fromHex]
+       97 LOADK                            R7 K50 ["#FFFFFF"]
+       98 CALL                             R6 1 1
+       99 SETTABLEKS                       R6 R5 K23 ["Border"]
+      101 GETIMPORT                        R6 K42 [Color3.fromHex]
+      103 LOADK                            R7 K51 ["#BBBCBE"]
+      104 CALL                             R6 1 1
+      105 SETTABLEKS                       R6 R5 K24 ["SemanticColorContentMuted"]
+      107 GETIMPORT                        R6 K42 [Color3.fromHex]
+      109 LOADK                            R7 K52 ["#2B2D33"]
+      110 CALL                             R6 1 1
+      111 SETTABLEKS                       R6 R5 K25 ["ShimmerBackground"]
+      113 GETIMPORT                        R6 K42 [Color3.fromHex]
+      115 LOADK                            R7 K53 ["#EEEEEE"]
+      116 CALL                             R6 1 1
+      117 SETTABLEKS                       R6 R5 K28 ["ShimmerForeground"]
+      119 GETIMPORT                        R6 K56 [NumberSequence.new]
+      121 NEWTABLE                         R7 0 5
+      123 GETIMPORT                        R8 K58 [NumberSequenceKeypoint.new]
+      125 LOADN                            R9 0
+      126 LOADN                            R10 1
+      127 CALL                             R8 2 1
+      128 GETIMPORT                        R9 K58 [NumberSequenceKeypoint.new]
+      130 LOADK                            R10 K59 [0.05]
+      131 LOADN                            R11 1
+      132 CALL                             R9 2 1
+      133 GETIMPORT                        R10 K58 [NumberSequenceKeypoint.new]
+      135 LOADK                            R11 K60 [0.5]
+      136 LOADK                            R12 K61 [0.85]
+      137 CALL                             R10 2 1
+      138 GETIMPORT                        R11 K58 [NumberSequenceKeypoint.new]
+      140 LOADK                            R12 K62 [0.95]
+      141 LOADN                            R13 1
+      142 CALL                             R11 2 1
+      143 GETIMPORT                        R12 K58 [NumberSequenceKeypoint.new]
+      145 LOADN                            R13 1
+      146 LOADN                            R14 1
+      147 CALL                             R12 2 -1
+      148 SETLIST                          R7 R8 -1 [1]
+      150 CALL                             R6 1 1
+      151 SETTABLEKS                       R6 R5 K29 ["ShimmerGradientTransparency"]
+      153 JUMPIFNOT                        R3 ; [+2]
+      154 LOADK                            R6 K63 ["rbxasset://textures/StartPage/videoGameExp_dark.png"]
+      155 JUMP                             ; [+1]
+      156 LOADK                            R6 K64 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/SI-Standard/NoExperiences.png"]
+      157 SETTABLEKS                       R6 R5 K30 ["NoExperiences"]
+      159 JUMPIFNOT                        R4 ; [+2]
+      160 LOADK                            R6 K65 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/SI-Standard/Placeholder.png"]
+      161 JUMP                             ; [+1]
+      162 LOADNIL                          R6
+      163 SETTABLEKS                       R6 R5 K31 ["Placeholder"]
+      165 MOVE                             R6 R2
+      166 LOADK                            R7 K66 ["StartPageDarkTheme"]
+      167 NEWTABLE                         R8 0 0
+      169 MOVE                             R9 R5
+      170 CALL                             R6 3 -1
+      171 RETURN                           R6 -1

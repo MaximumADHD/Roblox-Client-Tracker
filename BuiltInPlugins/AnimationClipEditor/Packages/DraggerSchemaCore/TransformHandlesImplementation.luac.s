@@ -136,44 +136,41 @@ PROTO_3:
        13 RETURN                           R2 -1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+9]
+        0 LOADNIL                          R1
+        1 SETTABLEKS                       R1 R0 K0 ["_pivotSnapTarget"]
         3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K0 ["_pivotSnapTarget"]
+        4 SETTABLEKS                       R1 R0 K1 ["_pivotSnapTo"]
         6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K1 ["_pivotSnapTo"]
-        9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K2 ["_pivotSnapFrom"]
-       12 GETTABLEKS                       R1 R0 K3 ["_draggerContext"]
-       14 NAMECALL                         R1 R1 K4 ["shouldJoinSurfaces"]
-       16 CALL                             R1 1 1
-       17 JUMPIFNOT                        R1 ; [+8]
+        7 SETTABLEKS                       R1 R0 K2 ["_pivotSnapFrom"]
+        9 GETTABLEKS                       R1 R0 K3 ["_draggerContext"]
+       11 NAMECALL                         R1 R1 K4 ["shouldJoinSurfaces"]
+       13 CALL                             R1 1 1
+       14 JUMPIFNOT                        R1 ; [+8]
+       15 GETTABLEKS                       R1 R0 K5 ["_jointPairs"]
+       17 JUMPIFNOT                        R1 ; [+5]
        18 GETTABLEKS                       R1 R0 K5 ["_jointPairs"]
-       20 JUMPIFNOT                        R1 ; [+5]
-       21 GETTABLEKS                       R1 R0 K5 ["_jointPairs"]
-       23 NAMECALL                         R1 R1 K6 ["createJoints"]
-       25 CALL                             R1 1 0
-       26 LOADNIL                          R1
-       27 SETTABLEKS                       R1 R0 K5 ["_jointPairs"]
-       29 GETTABLEKS                       R1 R0 K7 ["_partMover"]
-       31 NAMECALL                         R1 R1 K8 ["commit"]
-       33 CALL                             R1 1 0
-       34 GETTABLEKS                       R1 R0 K9 ["_attachmentMover"]
-       36 NAMECALL                         R1 R1 K8 ["commit"]
-       38 CALL                             R1 1 0
+       20 NAMECALL                         R1 R1 K6 ["createJoints"]
+       22 CALL                             R1 1 0
+       23 LOADNIL                          R1
+       24 SETTABLEKS                       R1 R0 K5 ["_jointPairs"]
+       26 GETTABLEKS                       R1 R0 K7 ["_partMover"]
+       28 NAMECALL                         R1 R1 K8 ["commit"]
+       30 CALL                             R1 1 0
+       31 GETTABLEKS                       R1 R0 K9 ["_attachmentMover"]
+       33 NAMECALL                         R1 R1 K8 ["commit"]
+       35 CALL                             R1 1 0
+       36 GETTABLEKS                       R1 R0 K10 ["_temporaryTransparency"]
+       38 JUMPIFNOT                        R1 ; [+8]
        39 GETTABLEKS                       R1 R0 K10 ["_temporaryTransparency"]
-       41 JUMPIFNOT                        R1 ; [+8]
-       42 GETTABLEKS                       R1 R0 K10 ["_temporaryTransparency"]
-       44 NAMECALL                         R1 R1 K11 ["destroy"]
-       46 CALL                             R1 1 0
-       47 LOADNIL                          R1
-       48 SETTABLEKS                       R1 R0 K10 ["_temporaryTransparency"]
-       50 GETTABLEKS                       R1 R0 K12 ["_initialSelectionInfo"]
-       52 GETTABLEKS                       R3 R0 K13 ["_lastAppliedTransform"]
-       54 NAMECALL                         R1 R1 K14 ["getTransformedCopy"]
-       56 CALL                             R1 2 -1
-       57 RETURN                           R1 -1
+       41 NAMECALL                         R1 R1 K11 ["destroy"]
+       43 CALL                             R1 1 0
+       44 LOADNIL                          R1
+       45 SETTABLEKS                       R1 R0 K10 ["_temporaryTransparency"]
+       47 GETTABLEKS                       R1 R0 K12 ["_initialSelectionInfo"]
+       49 GETTABLEKS                       R3 R0 K13 ["_lastAppliedTransform"]
+       51 NAMECALL                         R1 R1 K14 ["getTransformedCopy"]
+       53 CALL                             R1 2 -1
+       54 RETURN                           R1 -1
 
 PROTO_5:
         0 GETUPVAL                         R3 0
@@ -198,81 +195,58 @@ PROTO_6:
        13 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+76]
-        3 NEWTABLE                         R2 4 0
-        5 GETTABLEKS                       R4 R0 K0 ["_centerPoint"]
-        7 MUL                              R3 R1 R4
-        8 GETTABLEKS                       R4 R0 K1 ["_draggerContext"]
-       10 NAMECALL                         R4 R4 K2 ["shouldJoinSurfaces"]
-       12 CALL                             R4 1 1
-       13 JUMPIFNOT                        R4 ; [+18]
-       14 GETTABLEKS                       R4 R0 K3 ["_jointPairs"]
-       16 JUMPIFNOT                        R4 ; [+15]
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R5 R0 K1 ["_draggerContext"]
-       20 MOVE                             R6 R3
-       21 GETTABLEKS                       R7 R0 K4 ["_boundingBoxSize"]
-       23 CALL                             R4 3 1
-       24 GETTABLEKS                       R5 R0 K3 ["_jointPairs"]
-       26 MOVE                             R7 R4
-       27 NAMECALL                         R5 R5 K5 ["renderJoints"]
-       29 CALL                             R5 2 1
-       30 SETTABLEKS                       R5 R2 K6 ["JoinedSurfaces"]
-       32 GETTABLEKS                       R4 R0 K7 ["_pivotSnapTarget"]
-       34 JUMPIFNOT                        R4 ; [+38]
-       35 GETUPVAL                         R4 2
-       36 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       38 GETUPVAL                         R5 3
-       39 DUPTABLE                         R6 K13 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
-       40 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
-       42 NAMECALL                         R7 R7 K14 ["getChosenColor"]
-       44 CALL                             R7 1 1
-       45 SETTABLEKS                       R7 R6 K9 ["Color3"]
-       47 NEWCLOSURE                       R7 P0
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R7 R6 K12 ["Render"]
-       51 CALL                             R4 2 1
-       52 SETTABLEKS                       R4 R2 K15 ["SnapToLine"]
-       54 GETUPVAL                         R4 2
-       55 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       57 GETUPVAL                         R5 3
-       58 DUPTABLE                         R6 K13 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
-       59 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
-       61 NAMECALL                         R7 R7 K14 ["getChosenColor"]
-       63 CALL                             R7 1 1
-       64 SETTABLEKS                       R7 R6 K9 ["Color3"]
-       66 NEWCLOSURE                       R7 P1
-       67 CAPTURE                          VAL R0
-       68 SETTABLEKS                       R7 R6 K12 ["Render"]
-       70 CALL                             R4 2 1
-       71 SETTABLEKS                       R4 R2 K16 ["SnapBecauseLine"]
-       73 GETUPVAL                         R4 2
-       74 GETTABLEKS                       R4 R4 K17 ["createFragment"]
-       76 MOVE                             R5 R2
-       77 CALL                             R4 1 -1
-       78 RETURN                           R4 -1
-       79 GETTABLEKS                       R3 R0 K0 ["_centerPoint"]
-       81 MUL                              R2 R1 R3
-       82 GETTABLEKS                       R3 R0 K1 ["_draggerContext"]
-       84 NAMECALL                         R3 R3 K2 ["shouldJoinSurfaces"]
-       86 CALL                             R3 1 1
-       87 JUMPIFNOT                        R3 ; [+17]
-       88 GETTABLEKS                       R3 R0 K3 ["_jointPairs"]
-       90 JUMPIFNOT                        R3 ; [+14]
-       91 GETUPVAL                         R3 1
-       92 GETTABLEKS                       R4 R0 K1 ["_draggerContext"]
-       94 MOVE                             R5 R2
-       95 GETTABLEKS                       R6 R0 K4 ["_boundingBoxSize"]
-       97 CALL                             R3 3 1
-       98 GETTABLEKS                       R4 R0 K3 ["_jointPairs"]
-      100 MOVE                             R6 R3
-      101 NAMECALL                         R4 R4 K5 ["renderJoints"]
-      103 CALL                             R4 2 -1
-      104 RETURN                           R4 -1
-      105 LOADNIL                          R3
-      106 RETURN                           R3 1
+        0 NEWTABLE                         R2 4 0
+        2 GETTABLEKS                       R4 R0 K0 ["_centerPoint"]
+        4 MUL                              R3 R1 R4
+        5 GETTABLEKS                       R4 R0 K1 ["_draggerContext"]
+        7 NAMECALL                         R4 R4 K2 ["shouldJoinSurfaces"]
+        9 CALL                             R4 1 1
+       10 JUMPIFNOT                        R4 ; [+18]
+       11 GETTABLEKS                       R4 R0 K3 ["_jointPairs"]
+       13 JUMPIFNOT                        R4 ; [+15]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R5 R0 K1 ["_draggerContext"]
+       17 MOVE                             R6 R3
+       18 GETTABLEKS                       R7 R0 K4 ["_boundingBoxSize"]
+       20 CALL                             R4 3 1
+       21 GETTABLEKS                       R5 R0 K3 ["_jointPairs"]
+       23 MOVE                             R7 R4
+       24 NAMECALL                         R5 R5 K5 ["renderJoints"]
+       26 CALL                             R5 2 1
+       27 SETTABLEKS                       R5 R2 K6 ["JoinedSurfaces"]
+       29 GETTABLEKS                       R4 R0 K7 ["_pivotSnapTarget"]
+       31 JUMPIFNOT                        R4 ; [+38]
+       32 GETUPVAL                         R4 1
+       33 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       35 GETUPVAL                         R5 2
+       36 DUPTABLE                         R6 K13 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
+       37 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
+       39 NAMECALL                         R7 R7 K14 ["getChosenColor"]
+       41 CALL                             R7 1 1
+       42 SETTABLEKS                       R7 R6 K9 ["Color3"]
+       44 NEWCLOSURE                       R7 P0
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R7 R6 K12 ["Render"]
+       48 CALL                             R4 2 1
+       49 SETTABLEKS                       R4 R2 K15 ["SnapToLine"]
+       51 GETUPVAL                         R4 1
+       52 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       54 GETUPVAL                         R5 2
+       55 DUPTABLE                         R6 K13 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
+       56 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
+       58 NAMECALL                         R7 R7 K14 ["getChosenColor"]
+       60 CALL                             R7 1 1
+       61 SETTABLEKS                       R7 R6 K9 ["Color3"]
+       63 NEWCLOSURE                       R7 P1
+       64 CAPTURE                          VAL R0
+       65 SETTABLEKS                       R7 R6 K12 ["Render"]
+       67 CALL                             R4 2 1
+       68 SETTABLEKS                       R4 R2 K16 ["SnapBecauseLine"]
+       70 GETUPVAL                         R4 1
+       71 GETTABLEKS                       R4 R4 K17 ["createFragment"]
+       73 MOVE                             R5 R2
+       74 CALL                             R4 1 -1
+       75 RETURN                           R4 -1
 
 PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["_lastGoodGeometricTransform"]
@@ -535,182 +509,6 @@ PROTO_14:
         6 GETTABLEKS                       R1 R0 K2 ["_hasPartsToMove"]
         8 RETURN                           R1 1
 
-PROTO_15:
-        0 GETIMPORT                        R1 K2 [Vector2.new]
-        2 GETTABLEKS                       R2 R0 K3 ["X"]
-        4 GETTABLEKS                       R3 R0 K4 ["Y"]
-        6 CALL                             R1 2 -1
-        7 RETURN                           R1 -1
-
-PROTO_16:
-        0 GETUPVAL                         R5 0
-        1 CALL                             R5 0 1
-        2 NOT                              R4 R5
-        3 FASTCALL2K                       ASSERT R4 K0 ; [+4]
-        5 LOADK                            R5 K0 ["Wrong flag branching"]
-        6 GETIMPORT                        R3 K2 [assert]
-        8 CALL                             R3 2 0
-        9 LOADK                            R5 K3 ["Terrain"]
-       10 NAMECALL                         R3 R2 K4 ["IsA"]
-       12 CALL                             R3 2 1
-       13 JUMPIFNOT                        R3 ; [+2]
-       14 LOADNIL                          R3
-       15 RETURN                           R3 1
-       16 LOADK                            R5 K5 ["BasePart"]
-       17 NAMECALL                         R3 R2 K4 ["IsA"]
-       19 CALL                             R3 2 1
-       20 JUMPIF                           R3 ; [+2]
-       21 LOADNIL                          R3
-       22 RETURN                           R3 1
-       23 GETUPVAL                         R3 1
-       24 MOVE                             R4 R2
-       25 CALL                             R3 1 1
-       26 GETTABLEKS                       R4 R3 K6 ["shape"]
-       28 JUMPIFEQKS                       R4 K7 ["Mesh"] ; [+3]
-       30 LOADNIL                          R4
-       31 RETURN                           R4 1
-       32 LOADNIL                          R4
-       33 LOADK                            R5 K8 [∞]
-       34 GETIMPORT                        R6 K10 [ipairs]
-       36 GETTABLEKS                       R7 R3 K11 ["faces"]
-       38 CALL                             R6 1 3
-       39 FORGPREP_INEXT                   R6
-       40 GETTABLEKS                       R14 R10 K12 ["vertices"]
-       42 GETTABLEN                        R13 R14 1
-       43 SUB                              R12 R1 R13
-       44 GETTABLEKS                       R12 R12 K13 ["Unit"]
-       46 GETTABLEKS                       R14 R10 K14 ["normal"]
-       48 NAMECALL                         R12 R12 K15 ["Dot"]
-       50 CALL                             R12 2 1
-       51 FASTCALL1                        MATH_ABS R12 ; [+2]
-       52 GETIMPORT                        R11 K18 [math.abs]
-       54 CALL                             R11 1 1
-       55 JUMPIFNOTLT                      R11 R5 ; [+3]
-       57 MOVE                             R5 R11
-       58 MOVE                             R4 R10
-       59 FORGLOOP                         R6 2 [inext] ; [-20]
-       61 GETTABLEKS                       R7 R0 K19 ["_draggerContext"]
-       63 MOVE                             R9 R1
-       64 NAMECALL                         R7 R7 K20 ["worldToViewportPoint"]
-       66 CALL                             R7 2 1
-       67 GETIMPORT                        R8 K23 [Vector2.new]
-       69 GETTABLEKS                       R9 R7 K24 ["X"]
-       71 GETTABLEKS                       R10 R7 K25 ["Y"]
-       73 CALL                             R8 2 1
-       74 MOVE                             R6 R8
-       75 LOADNIL                          R7
-       76 LOADN                            R8 16
-       77 GETIMPORT                        R9 K10 [ipairs]
-       79 GETTABLEKS                       R10 R4 K12 ["vertices"]
-       81 CALL                             R9 1 3
-       82 FORGPREP_INEXT                   R9
-       83 GETTABLEKS                       R15 R0 K19 ["_draggerContext"]
-       85 MOVE                             R17 R13
-       86 NAMECALL                         R15 R15 K20 ["worldToViewportPoint"]
-       88 CALL                             R15 2 1
-       89 GETIMPORT                        R16 K23 [Vector2.new]
-       91 GETTABLEKS                       R17 R15 K24 ["X"]
-       93 GETTABLEKS                       R18 R15 K25 ["Y"]
-       95 CALL                             R16 2 1
-       96 MOVE                             R14 R16
-       97 SUB                              R15 R14 R6
-       98 GETTABLEKS                       R15 R15 K26 ["Magnitude"]
-      100 JUMPIFNOTLT                      R15 R8 ; [+3]
-      102 MOVE                             R8 R15
-      103 MOVE                             R7 R13
-      104 FORGLOOP                         R9 2 [inext] ; [-22]
-      106 JUMPIFNOT                        R7 ; [+10]
-      107 GETIMPORT                        R9 K29 [CFrame.fromMatrix]
-      109 MOVE                             R10 R7
-      110 GETTABLEKS                       R11 R4 K30 ["direction"]
-      112 GETTABLEKS                       R12 R4 K14 ["normal"]
-      114 CALL                             R9 3 1
-      115 LOADB                            R10 1
-      116 RETURN                           R9 2
-      117 LOADNIL                          R9
-      118 LOADNIL                          R10
-      119 LOADN                            R11 16
-      120 GETTABLEKS                       R13 R4 K12 ["vertices"]
-      122 LENGTH                           R12 R13
-      123 LOADN                            R15 1
-      124 MOVE                             R13 R12
-      125 LOADN                            R14 1
-      126 FORNPREP                         R13
-      127 GETTABLEKS                       R17 R4 K12 ["vertices"]
-      129 GETTABLE                         R16 R17 R15
-      130 GETTABLEKS                       R18 R4 K12 ["vertices"]
-      132 MOD                              R20 R15 R12
-      133 ADDK                             R19 R20 K31 [1]
-      134 GETTABLE                         R17 R18 R19
-      135 GETTABLEKS                       R19 R0 K19 ["_draggerContext"]
-      137 MOVE                             R21 R16
-      138 NAMECALL                         R19 R19 K20 ["worldToViewportPoint"]
-      140 CALL                             R19 2 1
-      141 GETIMPORT                        R20 K23 [Vector2.new]
-      143 GETTABLEKS                       R21 R19 K24 ["X"]
-      145 GETTABLEKS                       R22 R19 K25 ["Y"]
-      147 CALL                             R20 2 1
-      148 MOVE                             R18 R20
-      149 GETTABLEKS                       R20 R0 K19 ["_draggerContext"]
-      151 MOVE                             R22 R17
-      152 NAMECALL                         R20 R20 K20 ["worldToViewportPoint"]
-      154 CALL                             R20 2 1
-      155 GETIMPORT                        R21 K23 [Vector2.new]
-      157 GETTABLEKS                       R22 R20 K24 ["X"]
-      159 GETTABLEKS                       R23 R20 K25 ["Y"]
-      161 CALL                             R21 2 1
-      162 MOVE                             R19 R21
-      163 SUB                              R20 R19 R18
-      164 GETTABLEKS                       R20 R20 K13 ["Unit"]
-      166 SUB                              R21 R6 R18
-      167 MOVE                             R25 R20
-      168 NAMECALL                         R23 R21 K15 ["Dot"]
-      170 CALL                             R23 2 1
-      171 MUL                              R22 R20 R23
-      172 SUB                              R23 R21 R22
-      173 GETTABLEKS                       R23 R23 K26 ["Magnitude"]
-      175 JUMPIFNOTLT                      R23 R11 ; [+13]
-      177 MOVE                             R11 R23
-      178 SUB                              R24 R17 R16
-      179 GETTABLEKS                       R24 R24 K13 ["Unit"]
-      181 SUB                              R25 R1 R16
-      182 MOVE                             R29 R24
-      183 NAMECALL                         R27 R25 K15 ["Dot"]
-      185 CALL                             R27 2 1
-      186 MUL                              R26 R24 R27
-      187 ADD                              R9 R16 R26
-      188 MOVE                             R10 R24
-      189 FORNLOOP                         R13
-      190 JUMPIFNOT                        R9 ; [+9]
-      191 GETIMPORT                        R13 K29 [CFrame.fromMatrix]
-      193 MOVE                             R14 R9
-      194 MOVE                             R15 R10
-      195 GETTABLEKS                       R16 R4 K14 ["normal"]
-      197 CALL                             R13 3 1
-      198 LOADB                            R14 1
-      199 RETURN                           R13 2
-      200 GETTABLEKS                       R13 R0 K19 ["_draggerContext"]
-      202 NAMECALL                         R13 R13 K32 ["getMouseLocation"]
-      204 CALL                             R13 1 1
-      205 GETTABLEKS                       R15 R0 K19 ["_draggerContext"]
-      207 GETTABLEKS                       R17 R2 K33 ["Position"]
-      209 NAMECALL                         R15 R15 K20 ["worldToViewportPoint"]
-      211 CALL                             R15 2 1
-      212 GETIMPORT                        R16 K23 [Vector2.new]
-      214 GETTABLEKS                       R17 R15 K24 ["X"]
-      216 GETTABLEKS                       R18 R15 K25 ["Y"]
-      218 CALL                             R16 2 1
-      219 MOVE                             R14 R16
-      220 SUB                              R15 R13 R14
-      221 GETTABLEKS                       R15 R15 K26 ["Magnitude"]
-      223 LOADN                            R16 20
-      224 JUMPIFNOTLT                      R15 R16 ; [+5]
-      226 GETTABLEKS                       R15 R2 K27 ["CFrame"]
-      228 LOADB                            R16 0
-      229 RETURN                           R15 2
-      230 LOADNIL                          R15
-      231 RETURN                           R15 1
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -734,63 +532,49 @@ MAIN:
        33 GETTABLEKS                       R9 R3 K11 ["AttachmentMover"]
        35 CALL                             R8 1 1
        36 GETIMPORT                        R9 K6 [require]
-       38 GETTABLEKS                       R10 R3 K12 ["getGeometry"]
+       38 GETTABLEKS                       R10 R3 K12 ["getSoftSnaps"]
        40 CALL                             R9 1 1
        41 GETIMPORT                        R10 K6 [require]
-       43 GETTABLEKS                       R11 R3 K13 ["getSoftSnaps"]
+       43 GETTABLEKS                       R11 R3 K13 ["Math"]
        45 CALL                             R10 1 1
        46 GETIMPORT                        R11 K6 [require]
-       48 GETTABLEKS                       R12 R3 K14 ["Math"]
-       50 CALL                             R11 1 1
-       51 GETIMPORT                        R12 K6 [require]
-       53 GETTABLEKS                       R13 R2 K15 ["Components"]
-       55 GETTABLEKS                       R13 R13 K16 ["WireframeHandleAdornment"]
-       57 CALL                             R12 1 1
-       58 GETIMPORT                        R13 K6 [require]
-       60 GETTABLEKS                       R14 R2 K17 ["Flags"]
-       62 GETTABLEKS                       R14 R14 K18 ["getFFlagDraggerImprovements"]
-       64 CALL                             R13 1 1
-       65 NEWTABLE                         R14 16 0
-       67 SETTABLEKS                       R14 R14 K19 ["__index"]
-       69 DUPCLOSURE                       R15 K20 [PROTO_0]
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R8
-       72 CAPTURE                          VAL R14
-       73 SETTABLEKS                       R15 R14 K21 ["new"]
-       75 DUPCLOSURE                       R15 K22 [PROTO_1]
-       76 CAPTURE                          VAL R5
-       77 SETTABLEKS                       R15 R14 K23 ["beginDrag"]
-       79 DUPCLOSURE                       R15 K24 [PROTO_2]
-       80 CAPTURE                          VAL R11
-       81 CAPTURE                          VAL R10
-       82 SETTABLEKS                       R15 R14 K13 ["getSoftSnaps"]
-       84 DUPCLOSURE                       R15 K25 [PROTO_3]
-       85 SETTABLEKS                       R15 R14 K26 ["updateDrag"]
-       87 DUPCLOSURE                       R15 K27 [PROTO_4]
-       88 CAPTURE                          VAL R13
-       89 SETTABLEKS                       R15 R14 K28 ["endDrag"]
-       91 DUPCLOSURE                       R15 K29 [PROTO_7]
-       92 CAPTURE                          VAL R13
-       93 CAPTURE                          VAL R6
-       94 CAPTURE                          VAL R4
-       95 CAPTURE                          VAL R12
-       96 SETTABLEKS                       R15 R14 K30 ["render"]
-       98 DUPCLOSURE                       R15 K31 [PROTO_8]
-       99 SETTABLEKS                       R15 R14 K32 ["_transformGeometric"]
-      101 DUPCLOSURE                       R15 K33 [PROTO_9]
-      102 SETTABLEKS                       R15 R14 K34 ["_transformInverseKinematics"]
-      104 DUPCLOSURE                       R15 K35 [PROTO_10]
-      105 DUPCLOSURE                       R16 K36 [PROTO_11]
-      106 SETTABLEKS                       R16 R14 K37 ["_toLocalTransform"]
-      108 DUPCLOSURE                       R16 K38 [PROTO_12]
-      109 SETTABLEKS                       R16 R14 K39 ["_toGlobalTransform"]
-      111 DUPCLOSURE                       R16 K40 [PROTO_13]
-      112 SETTABLEKS                       R16 R14 K41 ["_safelyTransformParts"]
-      114 DUPCLOSURE                       R16 K42 [PROTO_14]
-      115 SETTABLEKS                       R16 R14 K43 ["_shouldSolveConstraints"]
-      117 DUPCLOSURE                       R16 K44 [PROTO_15]
-      118 DUPCLOSURE                       R17 K45 [PROTO_16]
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          VAL R9
-      121 SETTABLEKS                       R17 R14 K46 ["findSummonSnap"]
-      123 RETURN                           R14 1
+       48 GETTABLEKS                       R12 R2 K14 ["Components"]
+       50 GETTABLEKS                       R12 R12 K15 ["WireframeHandleAdornment"]
+       52 CALL                             R11 1 1
+       53 NEWTABLE                         R12 16 0
+       55 SETTABLEKS                       R12 R12 K16 ["__index"]
+       57 DUPCLOSURE                       R13 K17 [PROTO_0]
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R8
+       60 CAPTURE                          VAL R12
+       61 SETTABLEKS                       R13 R12 K18 ["new"]
+       63 DUPCLOSURE                       R13 K19 [PROTO_1]
+       64 CAPTURE                          VAL R5
+       65 SETTABLEKS                       R13 R12 K20 ["beginDrag"]
+       67 DUPCLOSURE                       R13 K21 [PROTO_2]
+       68 CAPTURE                          VAL R10
+       69 CAPTURE                          VAL R9
+       70 SETTABLEKS                       R13 R12 K12 ["getSoftSnaps"]
+       72 DUPCLOSURE                       R13 K22 [PROTO_3]
+       73 SETTABLEKS                       R13 R12 K23 ["updateDrag"]
+       75 DUPCLOSURE                       R13 K24 [PROTO_4]
+       76 SETTABLEKS                       R13 R12 K25 ["endDrag"]
+       78 DUPCLOSURE                       R13 K26 [PROTO_7]
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          VAL R11
+       82 SETTABLEKS                       R13 R12 K27 ["render"]
+       84 DUPCLOSURE                       R13 K28 [PROTO_8]
+       85 SETTABLEKS                       R13 R12 K29 ["_transformGeometric"]
+       87 DUPCLOSURE                       R13 K30 [PROTO_9]
+       88 SETTABLEKS                       R13 R12 K31 ["_transformInverseKinematics"]
+       90 DUPCLOSURE                       R13 K32 [PROTO_10]
+       91 DUPCLOSURE                       R14 K33 [PROTO_11]
+       92 SETTABLEKS                       R14 R12 K34 ["_toLocalTransform"]
+       94 DUPCLOSURE                       R14 K35 [PROTO_12]
+       95 SETTABLEKS                       R14 R12 K36 ["_toGlobalTransform"]
+       97 DUPCLOSURE                       R14 K37 [PROTO_13]
+       98 SETTABLEKS                       R14 R12 K38 ["_safelyTransformParts"]
+      100 DUPCLOSURE                       R14 K39 [PROTO_14]
+      101 SETTABLEKS                       R14 R12 K40 ["_shouldSolveConstraints"]
+      103 RETURN                           R12 1

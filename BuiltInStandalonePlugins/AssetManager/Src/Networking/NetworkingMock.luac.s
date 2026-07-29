@@ -810,6 +810,62 @@ PROTO_50:
 PROTO_51:
         0 JUMPIFNOT                        R0 ; [+4]
         1 GETUPVAL                         R2 0
+        2 DUPTABLE                         R3 K4 [{[1] = 400, ["message"] = "Test getItemParentsAsync error"}]
+        3 CALL                             R2 1 0
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R2 1
+        6 GETUPVAL                         R3 2
+        7 DUPTABLE                         R4 K6 [{"results"}]
+        8 MOVE                             R5 R1
+        9 JUMPIF                           R5 ; [+2]
+       10 NEWTABLE                         R5 0 0
+       12 SETTABLEKS                       R5 R4 K5 ["results"]
+       14 CALL                             R2 2 0
+       15 RETURN                           R0 0
+
+PROTO_52:
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U0
+        4 RETURN                           R2 1
+
+PROTO_53:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["ResumeAsync"]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          UPVAL U1
+        7 SETTABLEKS                       R3 R2 K1 ["GetItemParents"]
+        9 RETURN                           R0 0
+
+PROTO_54:
+        0 NEWTABLE                         R2 0 0
+        2 MOVE                             R3 R1
+        3 LOADNIL                          R4
+        4 LOADNIL                          R5
+        5 FORGPREP                         R3
+        6 DUPTABLE                         R10 K1 [{"path"}]
+        7 SETTABLEKS                       R7 R10 K0 ["path"]
+        9 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       11 MOVE                             R9 R2
+       12 GETIMPORT                        R8 K4 [table.insert]
+       14 CALL                             R8 2 0
+       15 FORGLOOP                         R3 2 ; [-10]
+       17 NEWCLOSURE                       R3 P0
+       18 CAPTURE                          VAL R2
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K5 ["new"]
+       22 NEWCLOSURE                       R5 P1
+       23 CAPTURE                          UPVAL U1
+       24 CAPTURE                          VAL R2
+       25 CALL                             R4 1 -1
+       26 RETURN                           R4 -1
+
+PROTO_55:
+        0 JUMPIFNOT                        R0 ; [+4]
+        1 GETUPVAL                         R2 0
         2 DUPTABLE                         R3 K4 [{[1] = 400, ["message"] = "Test moveItemsAsync error"}]
         3 CALL                             R2 1 0
         4 RETURN                           R0 0
@@ -822,13 +878,13 @@ PROTO_51:
        13 CALL                             R2 1 0
        14 RETURN                           R0 0
 
-PROTO_52:
+PROTO_56:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
         3 RETURN                           R2 1
 
-PROTO_53:
+PROTO_57:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R3 P0
@@ -837,16 +893,16 @@ PROTO_53:
         6 SETTABLEKS                       R3 R2 K1 ["MoveItems"]
         8 RETURN                           R0 0
 
-PROTO_54:
-        0 DUPCLOSURE                       R4 K0 [PROTO_52]
+PROTO_58:
+        0 DUPCLOSURE                       R4 K0 [PROTO_56]
         1 GETUPVAL                         R5 0
         2 GETTABLEKS                       R5 R5 K1 ["new"]
-        4 DUPCLOSURE                       R6 K2 [PROTO_53]
+        4 DUPCLOSURE                       R6 K2 [PROTO_57]
         5 CAPTURE                          UPVAL U1
         6 CALL                             R5 1 -1
         7 RETURN                           R5 -1
 
-PROTO_55:
+PROTO_59:
         0 PREPVARARGS                      1
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K0 ["ResumeAsync"]
@@ -994,8 +1050,12 @@ MAIN:
       173 DUPCLOSURE                       R8 K65 [PROTO_54]
       174 CAPTURE                          VAL R3
       175 CAPTURE                          VAL R7
-      176 SETTABLEKS                       R8 R7 K66 ["moveItemsAsync"]
-      178 DUPCLOSURE                       R8 K67 [PROTO_55]
-      179 CAPTURE                          VAL R7
-      180 SETTABLEKS                       R8 R7 K68 ["resume"]
-      182 RETURN                           R7 1
+      176 SETTABLEKS                       R8 R7 K66 ["getItemParentsAsync"]
+      178 DUPCLOSURE                       R8 K67 [PROTO_58]
+      179 CAPTURE                          VAL R3
+      180 CAPTURE                          VAL R7
+      181 SETTABLEKS                       R8 R7 K68 ["moveItemsAsync"]
+      183 DUPCLOSURE                       R8 K69 [PROTO_59]
+      184 CAPTURE                          VAL R7
+      185 SETTABLEKS                       R8 R7 K70 ["resume"]
+      187 RETURN                           R7 1

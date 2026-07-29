@@ -19,45 +19,29 @@ MAIN:
        26 CALL                             R2 0 1
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
-       29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R3 R0 K13 ["Bin"]
-       33 GETTABLEKS                       R3 R3 K14 ["Common"]
-       35 GETTABLEKS                       R3 R3 K15 ["defineLuaFlags"]
-       37 CALL                             R2 1 1
-       38 GETIMPORT                        R3 K7 [require]
-       40 GETTABLEKS                       R4 R0 K11 ["Src"]
-       42 GETTABLEKS                       R4 R4 K16 ["Util"]
-       44 GETTABLEKS                       R4 R4 K17 ["MockableEngineFeatures"]
-       46 CALL                             R3 1 1
-       47 GETTABLEKS                       R4 R2 K18 ["getFFlagEnableMultitouchEmulator"]
-       49 CALL                             R4 0 1
-       50 JUMPIFNOT                        R4 ; [+3]
-       51 GETTABLEKS                       R4 R3 K19 ["TouchInputEmulationRefresh"]
-       53 JUMPIF                           R4 ; [+1]
-       54 RETURN                           R0 0
-       55 GETIMPORT                        R4 K21 [game]
-       57 LOADK                            R6 K22 ["RunService"]
-       58 NAMECALL                         R4 R4 K23 ["GetService"]
-       60 CALL                             R4 2 1
-       61 NAMECALL                         R5 R4 K24 ["IsEdit"]
-       63 CALL                             R5 1 1
-       64 JUMPIF                           R5 ; [+4]
-       65 NAMECALL                         R5 R4 K25 ["IsServer"]
-       67 CALL                             R5 1 1
-       68 JUMPIFNOT                        R5 ; [+1]
-       69 RETURN                           R0 0
-       70 GETIMPORT                        R5 K7 [require]
-       72 GETTABLEKS                       R6 R0 K13 ["Bin"]
-       74 GETTABLEKS                       R6 R6 K14 ["Common"]
-       76 GETTABLEKS                       R6 R6 K26 ["setup"]
-       78 CALL                             R5 1 1
-       79 GETIMPORT                        R6 K7 [require]
-       81 GETTABLEKS                       R7 R0 K13 ["Bin"]
-       83 GETTABLEKS                       R7 R7 K14 ["Common"]
-       85 GETTABLEKS                       R7 R7 K27 ["setupMain"]
-       87 CALL                             R6 1 1
-       88 MOVE                             R7 R5
-       89 GETIMPORT                        R8 K1 [plugin]
-       91 MOVE                             R9 R6
-       92 CALL                             R7 2 0
-       93 RETURN                           R0 0
+       29 GETIMPORT                        R2 K14 [game]
+       31 LOADK                            R4 K15 ["RunService"]
+       32 NAMECALL                         R2 R2 K16 ["GetService"]
+       34 CALL                             R2 2 1
+       35 NAMECALL                         R3 R2 K17 ["IsEdit"]
+       37 CALL                             R3 1 1
+       38 JUMPIF                           R3 ; [+4]
+       39 NAMECALL                         R3 R2 K18 ["IsServer"]
+       41 CALL                             R3 1 1
+       42 JUMPIFNOT                        R3 ; [+1]
+       43 RETURN                           R0 0
+       44 GETIMPORT                        R3 K7 [require]
+       46 GETTABLEKS                       R4 R0 K19 ["Bin"]
+       48 GETTABLEKS                       R4 R4 K20 ["Common"]
+       50 GETTABLEKS                       R4 R4 K21 ["setup"]
+       52 CALL                             R3 1 1
+       53 GETIMPORT                        R4 K7 [require]
+       55 GETTABLEKS                       R5 R0 K19 ["Bin"]
+       57 GETTABLEKS                       R5 R5 K20 ["Common"]
+       59 GETTABLEKS                       R5 R5 K22 ["setupMain"]
+       61 CALL                             R4 1 1
+       62 MOVE                             R5 R3
+       63 GETIMPORT                        R6 K1 [plugin]
+       65 MOVE                             R7 R4
+       66 CALL                             R5 2 0
+       67 RETURN                           R0 0

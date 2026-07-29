@@ -77,12 +77,57 @@ PROTO_0:
       107 CALL                             R2 2 1
       108 MOVE                             R1 R2
       109 RETURN                           R1 1
-      110 LOADNIL                          R1
-      111 RETURN                           R1 1
+      110 GETUPVAL                         R1 0
+      111 JUMPIFNOT                        R1 ; [+46]
+      112 GETTABLEKS                       R1 R0 K15 ["created"]
+      114 JUMPIFNOT                        R1 ; [+20]
+      115 GETTABLEKS                       R2 R0 K15 ["created"]
+      117 FASTCALL1                        TYPEOF R2 ; [+2]
+      118 GETIMPORT                        R1 K1 [typeof]
+      120 CALL                             R1 1 1
+      121 JUMPIFEQKS                       R1 K11 ["string"] ; [+13]
+      123 LOADK                            R2 K16 ["\"created\" > Expected string, got %*"]
+      124 GETTABLEKS                       R5 R0 K15 ["created"]
+      126 FASTCALL1                        TYPEOF R5 ; [+2]
+      127 GETIMPORT                        R4 K1 [typeof]
+      129 CALL                             R4 1 1
+      130 NAMECALL                         R2 R2 K4 ["format"]
+      132 CALL                             R2 2 1
+      133 MOVE                             R1 R2
+      134 RETURN                           R1 1
+      135 GETTABLEKS                       R1 R0 K17 ["updated"]
+      137 JUMPIFNOT                        R1 ; [+20]
+      138 GETTABLEKS                       R2 R0 K17 ["updated"]
+      140 FASTCALL1                        TYPEOF R2 ; [+2]
+      141 GETIMPORT                        R1 K1 [typeof]
+      143 CALL                             R1 1 1
+      144 JUMPIFEQKS                       R1 K11 ["string"] ; [+13]
+      146 LOADK                            R2 K18 ["\"updated\" > Expected string, got %*"]
+      147 GETTABLEKS                       R5 R0 K17 ["updated"]
+      149 FASTCALL1                        TYPEOF R5 ; [+2]
+      150 GETIMPORT                        R4 K1 [typeof]
+      152 CALL                             R4 1 1
+      153 NAMECALL                         R2 R2 K4 ["format"]
+      155 CALL                             R2 2 1
+      156 MOVE                             R1 R2
+      157 RETURN                           R1 1
+      158 LOADNIL                          R1
+      159 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPCLOSURE                       R0 K0 [PROTO_0]
-        2 DUPTABLE                         R1 K2 [{"validate"}]
-        3 SETTABLEKS                       R0 R1 K1 ["validate"]
-        5 RETURN                           R1 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["StartPage"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagLuaStartPageViewPlacesDialog"]
+       15 CALL                             R1 1 1
+       16 CALL                             R1 0 1
+       17 DUPCLOSURE                       R2 K9 [PROTO_0]
+       18 CAPTURE                          VAL R1
+       19 DUPTABLE                         R3 K11 [{"validate"}]
+       20 SETTABLEKS                       R2 R3 K10 ["validate"]
+       22 RETURN                           R3 1

@@ -1,0 +1,396 @@
+
+Animate¨1--!nocheck
+--[[
+	Animate ‚Äî loads and plays the animation graph for this character.
+
+	This script is configured through attributes set by the Animation Graph Editor:
+	  ‚Ä¢ GraphName / CharacterName / SourceAssetId ‚Äî identify the graph to play.
+	  ‚Ä¢ IsServerAuthority ‚Äî whether the place used Server Authority when the scripts were created.
+	  ‚Ä¢ PreviewInStudio ‚Äî when true (the default), Studio play-testing loads the unpublished graph
+	    locally so you can iterate without publishing. Toggle this attribute OFF to test the
+	    PUBLISHED asset (SourceAssetId) in Studio instead.
+]]
+local RunService = game:GetService("RunService")
+
+local module = {}
+
+local getGraphMetadata
+local resolveServerPreviewClip
+local resolveClientPreviewClip
+
+-- Loads and plays a local, unpublished animation graph during Studio play-testing.
+-- On the client (player characters): uses the clone staged into ReplicatedStorage.
+-- On the server (NPCs): registers the graph directly from ServerStorage. This only renders in
+-- single-player Studio play, where the server and client share one process.
+-- This block can be removed when publishing your game.
+function module.setupPreview(character: Model?)
+	character = character or script.Parent
+	if not character or not character:IsA("Model") then
+		return
+	end
+
+	-- RegisterAnimationClip is process-local, so an unpublished graph can't cross the
+	-- client/server boundary that Server Authority relies on.
+	if script:GetAttribute("IsServerAuthority") then
+		warn(
+			"This Animate script was created while Workspace.AuthorityMode was Server. "
+				.. "Previewing an unpublished graph only works in Automatic mode ‚Äî publish the graph, "
+				.. "or recreate the Animate script in Automatic mode, to preview."
+		)
+	end
+
+	local humanoid = character:WaitForChild("Humanoid")
+	local animator: Animator? = humanoid:FindFirstChildOfClass("Animator")
+	if not animator then
+		if RunService:IsServer() then
+			animator = Instance.new("Animator")
+			animator.Name = "Animator"
+			animator.Parent = humanoid
+		else
+			animator = humanoid:WaitForChild("Animator")
+			assert(animator:IsA("Animator"), "Animator is not an Animator")
+		end
+	end
+
+	if not animator then
+		warn("Animator not found")
+		return
+	end
+
+	local graphName, characterName = getGraphMetadata()
+	if not graphName or graphName == "" or not characterName or characterName == "" then
+		warn("Missing GraphName or CharacterName for Studio preview")
+		return
+	end
+
+	local graphAssetId
+	if RunService:IsServer() then
+		graphAssetId = resolveServerPreviewClip(graphName, characterName)
+	else
+		graphAssetId = resolveClientPreviewClip(graphName, characterName)
+	end
+	if not graphAssetId then
+		return
+	end
+
+	local animation = Instance.new("Animation")
+	animation.AnimationId = graphAssetId
+	animation:AddTag("AnimationEditor_GraphAnimation")
+	animation.Parent = script
+
+	local track = animator:LoadAnimation(animation)
+	track:Play()
+
+	-- Set graph parameters each frame (uncomment and edit as needed):
+	-- RunService.Stepped:Connect(function()
+	-- 	track:SetParameter("ParameterName", value)
+	-- end)
+end
+
+-- Loads and plays the animation graph using the SourceAssetId.
+function module.setup(character: Model?)
+	character = character or script.Parent
+	if not character or not character:IsA("Model") then
+		return
+	end
+
+	local humanoid = character:WaitForChild("Humanoid")
+	local animator = humanoid:FindFirstChildOfClass("Animator")
+	if not animator then
+		if RunService:IsServer() then
+			animator = Instance.new("Animator")
+			animator.Name = "Animator"
+			animator.Parent = humanoid
+		else
+			animator = humanoid:WaitForChild("Animator")
+			assert(animator:IsA("Animator"), "Animator is not an Animator")
+		end
+	end
+
+	if not animator then
+		warn("Animator not found")
+		return
+	end
+
+	local sourceAssetId = script:GetAttribute("SourceAssetId")
+	if not sourceAssetId or sourceAssetId == "" then
+		return
+	end
+
+	local graphAssetId = `rbxassetid://{sourceAssetId}`
+	local animation = Instance.new("Animation")
+	animation.AnimationId = graphAssetId
+	animation:AddTag("AnimationEditor_GraphAnimation")
+	animation.Parent = script
+
+	local function findGraphTrack(): AnimationTrack?
+		for _, track in animator:GetPlayingAnimationTracks() do
+			if track.Animation and track.Animation.AnimationId == graphAssetId then
+				return track
+			end
+		end
+		return nil
+	end
+
+	local bindConn = nil
+	local function step()
+		local track = findGraphTrack()
+		if not track then
+			track = animator:LoadAnimation(animation)
+			track:Play()
+		end
+
+		-- Set graph parameters here:
+		-- track:SetParameter("ParameterName", value)
+	end
+	bindConn = RunService:BindToSimulation(step, Enum.StepFrequency.Hz60, 1999)
+
+	humanoid.Died:Once(function()
+		bindConn:Disconnect()
+	end)
+end
+
+-- Helper functions
+
+function getGraphMetadata()
+	local graphName = script:GetAttribute("GraphName")
+	local characterName = script:GetAttribute("CharacterName")
+	return graphName, characterName
+end
+
+function resolveServerPreviewClip(graphName: string, characterName: string): string?
+	local ServerStorage = game:GetService("ServerStorage")
+	local AnimationClipProvider = game:GetService("AnimationClipProvider")
+
+	local animSavesRoot = ServerStorage:FindFirstChild("RBX_ANIMSAVES")
+	local perCharSaves = animSavesRoot and animSavesRoot:FindFirstChild(characterName)
+	local graphInstance = perCharSaves and perCharSaves:FindFirstChild(graphName)
+	if not graphInstance then
+		warn(`Graph "{graphName}" not found in ServerStorage.RBX_ANIMSAVES/{characterName}`)
+		return nil
+	end
+	return AnimationClipProvider:RegisterAnimationClip(graphInstance)
+end
+
+function resolveClientPreviewClip(graphName: string, characterName: string): string?
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local AnimationClipProvider = game:GetService("AnimationClipProvider")
+	local editorFolder = ReplicatedStorage:WaitForChild("AnimationGraphEditor", 30)
+	if not editorFolder then
+		warn("AnimationGraphEditor folder not found in ReplicatedStorage")
+		return nil
+	end
+	local key = characterName .. "_" .. graphName
+	local graphClone = editorFolder:WaitForChild(key, 30)
+	if not graphClone then
+		warn(`Graph clone "{key}" not found in ReplicatedStorage.AnimationGraphEditor`)
+		return nil
+	end
+	return AnimationClipProvider:RegisterAnimationClip(graphClone)
+end
+
+return module
+AnimateLegacy≈--!nocheck
+local AnimationClipProvider = game:GetService("AnimationClipProvider")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+if not RunService:IsRunning() then
+	return
+end
+
+local track = nil
+
+-- {{PARAMETERS}}
+
+local character = script.Parent
+local humanoid = character:WaitForChild("Humanoid")
+local graphNameValue = script:FindFirstChild("GraphName")
+local graphName = if graphNameValue then graphNameValue.Value else nil
+local characterNameValue = script:FindFirstChild("CharacterName")
+local characterName = if characterNameValue then characterNameValue.Value else nil
+
+local editorFolder = nil
+local graphKey = nil
+
+if RunService:IsStudio() and characterName and graphName then
+	editorFolder = ReplicatedStorage:WaitForChild("AnimationGraphEditor", 1)
+	graphKey = characterName .. "_" .. graphName
+end
+
+local animator = humanoid:FindFirstChildOfClass("Animator") or humanoid
+
+local animation = nil
+local lastAnimationId = nil
+
+local function stopCurrentAnimation()
+	if track then
+		track:Stop()
+		track:Destroy()
+		track = nil
+	end
+	if animation then
+		animation:Destroy()
+		animation = nil
+	end
+	lastAnimationId = nil
+end
+
+local function registerGraphClone()
+	if not editorFolder or not graphKey then
+		return nil
+	end
+
+	local graphClone = editorFolder:FindFirstChild(graphKey)
+	if not graphClone then
+		return nil
+	end
+
+	return AnimationClipProvider:RegisterAnimationClip(graphClone)
+end
+
+local function resolveAnimationId()
+	if not RunService:IsStudio() then
+		local sourceAssetIdValue = script:FindFirstChild("SourceAssetId")
+		local sourceAssetId = if sourceAssetIdValue then sourceAssetIdValue.Value else nil
+
+		if sourceAssetId and sourceAssetId ~= "" then
+			return `rbxassetid://{sourceAssetId}`
+		end
+		return nil
+	end
+
+	return registerGraphClone()
+end
+
+local function updatePlayState()
+	local animationId = resolveAnimationId()
+
+	if animationId and animationId ~= "" then
+		if animationId ~= lastAnimationId then
+			stopCurrentAnimation()
+			animation = Instance.new("Animation")
+			animation.AnimationId = animationId
+			animation:AddTag("AnimationEditor_GraphAnimation")
+			animation.Parent = script
+			track = animator:LoadAnimation(animation)
+			track:Play()
+			lastAnimationId = animationId
+		end
+	else
+		stopCurrentAnimation()
+	end
+end
+
+updatePlayState()
+
+if editorFolder and graphKey then
+	editorFolder.ChildAdded:Connect(function(child)
+		if child.Name == graphKey then
+			updatePlayState()
+		end
+	end)
+end
+PreviewStagingè--!nocheck
+-- Preview-only helper for the Animation Graph Editor.
+-- Stages unpublished animation graphs from ServerStorage into ReplicatedStorage so client
+-- scripts can load them during Studio play-testing. Does nothing in a published game.
+-- This script is safe to delete when publishing.
+local RunService = game:GetService("RunService")
+
+if not RunService:IsStudio() then
+	return
+end
+
+local CollectionService = game:GetService("CollectionService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerStorage = game:GetService("ServerStorage")
+
+local animSavesRoot = ServerStorage:FindFirstChild("RBX_ANIMSAVES")
+if not animSavesRoot then
+	return
+end
+
+local editorFolder = ReplicatedStorage:FindFirstChild("AnimationGraphEditor")
+if not editorFolder then
+	local newFolder = Instance.new("Folder")
+	newFolder.Name = "AnimationGraphEditor"
+	newFolder.Parent = ReplicatedStorage
+	editorFolder = newFolder
+end
+
+local clonedKeys = {}
+for _, animateScript in CollectionService:GetTagged("AnimationEditor_AnimateScript") do
+	local graphName = animateScript:GetAttribute("GraphName")
+	local characterName = animateScript:GetAttribute("CharacterName")
+	if not graphName or graphName == "" or not characterName or characterName == "" then
+		continue
+	end
+
+	local key = characterName .. "_" .. graphName
+	if clonedKeys[key] then
+		continue
+	end
+
+	local perCharSaves = animSavesRoot:FindFirstChild(characterName)
+	local graphInstance = perCharSaves and perCharSaves:FindFirstChild(graphName)
+	if not graphInstance then
+		continue
+	end
+
+	local graphClone = graphInstance:Clone()
+	graphClone.Name = key
+	graphClone.Parent = editorFolder
+	clonedKeys[key] = true
+end
+	RunClient—	--!nocheck
+-- Runs on all clients for the player character.
+-- During Studio play-testing (with the PreviewInStudio attribute enabled) the graph is loaded
+-- locally, ignoring Server Authority, since RegisterAnimationClip is process-local. Set the
+-- PreviewInStudio attribute to false to test the published asset in Studio instead.
+-- In a published game with Server Authority, the owning player enables prediction rollback.
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local character = script.Parent.Parent
+local animate = require(script.Parent)
+
+if RunService:IsStudio() and script.Parent:GetAttribute("PreviewInStudio") then
+	animate.setupPreview(character)
+	return
+end
+
+local isServerAuthority = script.Parent:GetAttribute("IsServerAuthority")
+if isServerAuthority then
+	local localPlayer = Players.LocalPlayer
+	if localPlayer and localPlayer.Character == character then
+		local humanoid = character:WaitForChild("Humanoid")
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+		if animator then
+			RunService:SetPredictionMode(animator, Enum.PredictionMode.On)
+			RunService:SetPredictionMode(humanoid, Enum.PredictionMode.On)
+		end
+	end
+end
+
+animate.setup(character)
+	RunServerÒ--!nocheck
+-- Runs on the server: loads and plays the animation graph, which replicates to all clients.
+local RunService = game:GetService("RunService")
+
+local character = script.Parent.Parent
+
+if RunService:IsStudio() and script.Parent:GetAttribute("PreviewInStudio") then
+	-- When a RunClient sibling exists (player character), the owning client renders the preview.
+	-- Otherwise (NPC) preview on the server, which is visible in single-player Studio play.
+	if script.Parent:FindFirstChild("RunClient") then
+		return
+	end
+	require(script.Parent).setupPreview(character)
+	return
+end
+
+require(script.Parent).setup(character)
+    A   6 
+   	
+             	      ¯   ù    

@@ -74,47 +74,38 @@ PROTO_4:
        42 GETTABLEKS                       R3 R3 K11 ["plugin"]
        44 CALL                             R2 1 1
        45 SETTABLEKS                       R2 R0 K12 ["pluginContext"]
-       47 GETUPVAL                         R3 1
-       48 CALL                             R3 0 1
-       49 JUMPIFNOT                        R3 ; [+5]
-       50 GETTABLEKS                       R2 R0 K0 ["props"]
-       52 GETTABLEKS                       R2 R2 K13 ["api"]
-       54 JUMP                             ; [+8]
-       55 GETUPVAL                         R2 2
+       47 GETTABLEKS                       R2 R0 K0 ["props"]
+       49 GETTABLEKS                       R2 R2 K13 ["api"]
+       51 SETTABLEKS                       R2 R0 K14 ["apiContext"]
+       53 GETUPVAL                         R2 0
+       54 GETTABLEKS                       R2 R2 K15 ["Store"]
        56 GETTABLEKS                       R2 R2 K10 ["new"]
        58 GETTABLEKS                       R3 R0 K0 ["props"]
-       60 GETTABLEKS                       R3 R3 K13 ["api"]
+       60 GETTABLEKS                       R3 R3 K16 ["store"]
        62 CALL                             R2 1 1
-       63 SETTABLEKS                       R2 R0 K14 ["apiContext"]
+       63 SETTABLEKS                       R2 R0 K17 ["storeContext"]
        65 GETUPVAL                         R2 0
-       66 GETTABLEKS                       R2 R2 K15 ["Store"]
+       66 GETTABLEKS                       R2 R2 K18 ["Mouse"]
        68 GETTABLEKS                       R2 R2 K10 ["new"]
        70 GETTABLEKS                       R3 R0 K0 ["props"]
-       72 GETTABLEKS                       R3 R3 K16 ["store"]
-       74 CALL                             R2 1 1
-       75 SETTABLEKS                       R2 R0 K17 ["storeContext"]
-       77 GETUPVAL                         R2 0
-       78 GETTABLEKS                       R2 R2 K18 ["Mouse"]
-       80 GETTABLEKS                       R2 R2 K10 ["new"]
-       82 GETTABLEKS                       R3 R0 K0 ["props"]
-       84 GETTABLEKS                       R3 R3 K11 ["plugin"]
-       86 NAMECALL                         R3 R3 K19 ["GetMouse"]
-       88 CALL                             R3 1 -1
-       89 CALL                             R2 -1 1
-       90 SETTABLEKS                       R2 R0 K20 ["mouseContext"]
-       92 NEWCLOSURE                       R2 P0
+       72 GETTABLEKS                       R3 R3 K11 ["plugin"]
+       74 NAMECALL                         R3 R3 K19 ["GetMouse"]
+       76 CALL                             R3 1 -1
+       77 CALL                             R2 -1 1
+       78 SETTABLEKS                       R2 R0 K20 ["mouseContext"]
+       80 NEWCLOSURE                       R2 P0
+       81 CAPTURE                          VAL R0
+       82 SETTABLEKS                       R2 R0 K21 ["toggleState"]
+       84 NEWCLOSURE                       R2 P1
+       85 CAPTURE                          VAL R0
+       86 SETTABLEKS                       R2 R0 K22 ["onClose"]
+       88 NEWCLOSURE                       R2 P2
+       89 CAPTURE                          VAL R0
+       90 SETTABLEKS                       R2 R0 K23 ["onWidgetEnabledChanged"]
+       92 NEWCLOSURE                       R2 P3
        93 CAPTURE                          VAL R0
-       94 SETTABLEKS                       R2 R0 K21 ["toggleState"]
-       96 NEWCLOSURE                       R2 P1
-       97 CAPTURE                          VAL R0
-       98 SETTABLEKS                       R2 R0 K22 ["onClose"]
-      100 NEWCLOSURE                       R2 P2
-      101 CAPTURE                          VAL R0
-      102 SETTABLEKS                       R2 R0 K23 ["onWidgetEnabledChanged"]
-      104 NEWCLOSURE                       R2 P3
-      105 CAPTURE                          VAL R0
-      106 SETTABLEKS                       R2 R0 K24 ["onDockWidgetCreated"]
-      108 RETURN                           R0 0
+       94 SETTABLEKS                       R2 R0 K24 ["onDockWidgetCreated"]
+       96 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -211,47 +202,35 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R2 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioPluginManagementUpgradeHttp"]
-       17 CALL                             R1 1 1
-       18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       22 GETTABLEKS                       R3 R3 K9 ["Roact"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R4 R0 K5 ["Src"]
-       29 GETTABLEKS                       R4 R4 K10 ["Components"]
-       31 GETTABLEKS                       R4 R4 K11 ["Navigation"]
-       33 GETTABLEKS                       R4 R4 K12 ["NavigationContainer"]
-       35 CALL                             R3 1 1
-       36 GETIMPORT                        R4 K4 [require]
-       38 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       40 GETTABLEKS                       R5 R5 K13 ["Framework"]
-       42 CALL                             R4 1 1
-       43 GETTABLEKS                       R5 R4 K14 ["ContextServices"]
-       45 GETIMPORT                        R6 K4 [require]
-       47 GETTABLEKS                       R7 R0 K5 ["Src"]
-       49 GETTABLEKS                       R7 R7 K14 ["ContextServices"]
-       51 GETTABLEKS                       R7 R7 K15 ["PluginAPI2"]
-       53 CALL                             R6 1 1
-       54 GETTABLEKS                       R7 R4 K16 ["UI"]
-       56 GETTABLEKS                       R8 R7 K17 ["DockWidget"]
-       58 GETTABLEKS                       R9 R2 K18 ["PureComponent"]
-       60 LOADK                            R11 K19 ["ManagementApp"]
-       61 NAMECALL                         R9 R9 K20 ["extend"]
-       63 CALL                             R9 2 1
-       64 DUPCLOSURE                       R10 K21 [PROTO_4]
-       65 CAPTURE                          VAL R5
-       66 CAPTURE                          VAL R1
-       67 CAPTURE                          VAL R6
-       68 SETTABLEKS                       R10 R9 K22 ["init"]
-       70 DUPCLOSURE                       R10 K23 [PROTO_5]
-       71 SETTABLEKS                       R10 R9 K24 ["didUpdate"]
-       73 DUPCLOSURE                       R10 K25 [PROTO_6]
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R2
-       76 CAPTURE                          VAL R8
-       77 CAPTURE                          VAL R3
-       78 SETTABLEKS                       R10 R9 K26 ["render"]
-       80 RETURN                           R9 1
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Components"]
+       22 GETTABLEKS                       R3 R3 K9 ["Navigation"]
+       24 GETTABLEKS                       R3 R3 K10 ["NavigationContainer"]
+       26 CALL                             R2 1 1
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       31 GETTABLEKS                       R4 R4 K11 ["Framework"]
+       33 CALL                             R3 1 1
+       34 GETTABLEKS                       R4 R3 K12 ["ContextServices"]
+       36 GETTABLEKS                       R5 R3 K13 ["UI"]
+       38 GETTABLEKS                       R6 R5 K14 ["DockWidget"]
+       40 GETTABLEKS                       R7 R1 K15 ["PureComponent"]
+       42 LOADK                            R9 K16 ["ManagementApp"]
+       43 NAMECALL                         R7 R7 K17 ["extend"]
+       45 CALL                             R7 2 1
+       46 DUPCLOSURE                       R8 K18 [PROTO_4]
+       47 CAPTURE                          VAL R4
+       48 SETTABLEKS                       R8 R7 K19 ["init"]
+       50 DUPCLOSURE                       R8 K20 [PROTO_5]
+       51 SETTABLEKS                       R8 R7 K21 ["didUpdate"]
+       53 DUPCLOSURE                       R8 K22 [PROTO_6]
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R2
+       58 SETTABLEKS                       R8 R7 K23 ["render"]
+       60 RETURN                           R7 1

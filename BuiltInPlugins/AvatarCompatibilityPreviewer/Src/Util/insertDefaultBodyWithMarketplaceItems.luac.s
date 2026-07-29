@@ -84,36 +84,6 @@ PROTO_3:
        14 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["CurrentCamera"]
-        3 FASTCALL2K                       ASSERT R0 K1 ; [+5]
-        5 MOVE                             R2 R0
-        6 LOADK                            R3 K1 ["Workspace.CurrentCamera was nil while inserting default body"]
-        7 GETIMPORT                        R1 K3 [assert]
-        9 CALL                             R1 2 0
-       10 GETTABLEKS                       R2 R0 K5 ["ViewportSize"]
-       12 DIVK                             R1 R2 K4 [2]
-       13 GETTABLEKS                       R4 R1 K6 ["X"]
-       15 GETTABLEKS                       R5 R1 K7 ["Y"]
-       17 LOADN                            R6 0
-       18 NAMECALL                         R2 R0 K8 ["ViewportPointToRay"]
-       20 CALL                             R2 4 1
-       21 GETUPVAL                         R3 0
-       22 GETTABLEKS                       R5 R2 K9 ["Origin"]
-       24 GETTABLEKS                       R7 R2 K11 ["Direction"]
-       26 MULK                             R6 R7 K10 [25]
-       27 NAMECALL                         R3 R3 K12 ["Raycast"]
-       29 CALL                             R3 3 1
-       30 JUMPIF                           R3 ; [+7]
-       31 GETTABLEKS                       R5 R2 K9 ["Origin"]
-       33 GETTABLEKS                       R7 R2 K11 ["Direction"]
-       35 MULK                             R6 R7 K10 [25]
-       36 ADD                              R4 R5 R6
-       37 RETURN                           R4 1
-       38 GETTABLEKS                       R4 R3 K13 ["Position"]
-       40 RETURN                           R4 1
-
-PROTO_5:
         0 LENGTH                           R2 R1
         1 JUMPIFNOTEQKN                    R2 K0 [0] ; [+2]
         3 RETURN                           R0 0
@@ -150,7 +120,7 @@ PROTO_5:
        45 FORGLOOP                         R5 2 ; [-14]
        47 RETURN                           R0 0
 
-PROTO_6:
+PROTO_5:
         0 GETIMPORT                        R3 K2 [Instance.new]
         2 LOADK                            R4 K3 ["HumanoidDescription"]
         3 CALL                             R3 1 1
@@ -218,74 +188,57 @@ PROTO_6:
        92 LOADK                            R8 K36 ["Generated rig does not have PrimaryPart"]
        93 GETIMPORT                        R6 K33 [assert]
        95 CALL                             R6 2 0
-       96 GETUPVAL                         R7 3
-       97 GETTABLEKS                       R7 R7 K37 ["CurrentCamera"]
-       99 FASTCALL2K                       ASSERT R7 K38 ; [+5]
-      101 MOVE                             R9 R7
-      102 LOADK                            R10 K38 ["Workspace.CurrentCamera was nil while inserting default body"]
-      103 GETIMPORT                        R8 K33 [assert]
-      105 CALL                             R8 2 0
-      106 GETTABLEKS                       R9 R7 K40 ["ViewportSize"]
-      108 DIVK                             R8 R9 K39 [2]
-      109 GETTABLEKS                       R11 R8 K41 ["X"]
-      111 GETTABLEKS                       R12 R8 K42 ["Y"]
-      113 LOADN                            R13 0
-      114 NAMECALL                         R9 R7 K43 ["ViewportPointToRay"]
-      116 CALL                             R9 4 1
-      117 GETUPVAL                         R10 3
-      118 GETTABLEKS                       R12 R9 K44 ["Origin"]
-      120 GETTABLEKS                       R14 R9 K46 ["Direction"]
-      122 MULK                             R13 R14 K45 [25]
-      123 NAMECALL                         R10 R10 K47 ["Raycast"]
-      125 CALL                             R10 3 1
-      126 JUMPIF                           R10 ; [+7]
-      127 GETTABLEKS                       R11 R9 K44 ["Origin"]
-      129 GETTABLEKS                       R13 R9 K46 ["Direction"]
-      131 MULK                             R12 R13 K45 [25]
-      132 ADD                              R6 R11 R12
-      133 JUMP                             ; [+2]
-      134 GETTABLEKS                       R6 R10 K48 ["Position"]
-      136 GETTABLEKS                       R7 R3 K35 ["PrimaryPart"]
-      138 GETIMPORT                        R8 K50 [CFrame.new]
-      140 LOADN                            R9 0
-      141 GETTABLEKS                       R13 R3 K35 ["PrimaryPart"]
-      143 GETTABLEKS                       R13 R13 K51 ["Size"]
-      145 GETTABLEKS                       R13 R13 K42 ["Y"]
-      147 MINUS                            R12 R13
-      148 DIVK                             R11 R12 K39 [2]
-      149 GETTABLEKS                       R12 R4 K52 ["HipHeight"]
-      151 SUB                              R10 R11 R12
-      152 LOADN                            R11 0
-      153 CALL                             R8 3 1
-      154 SETTABLEKS                       R8 R7 K53 ["PivotOffset"]
-      156 GETIMPORT                        R9 K50 [CFrame.new]
-      158 MOVE                             R10 R6
-      159 CALL                             R9 1 -1
-      160 NAMECALL                         R7 R3 K54 ["PivotTo"]
-      162 CALL                             R7 -1 0
-      163 GETUPVAL                         R7 4
-      164 MOVE                             R8 R3
-      165 MOVE                             R9 R1
-      166 CALL                             R7 2 0
-      167 GETUPVAL                         R7 5
-      168 LOADK                            R9 K55 ["Insert Default Body"]
-      169 LOADK                            R10 K56 ["Inserting Default Body"]
-      170 NAMECALL                         R7 R7 K57 ["TryBeginRecording"]
-      172 CALL                             R7 3 1
-      173 GETUPVAL                         R8 3
-      174 SETTABLEKS                       R8 R3 K58 ["Parent"]
-      176 NEWTABLE                         R10 0 1
-      178 MOVE                             R11 R3
-      179 SETLIST                          R10 R11 1 [1]
-      181 NAMECALL                         R8 R0 K59 ["Set"]
-      183 CALL                             R8 2 0
-      184 JUMPIFEQKNIL                     R7 ; [+8]
-      186 GETUPVAL                         R8 5
-      187 MOVE                             R10 R7
-      188 GETIMPORT                        R11 K62 [Enum.FinishRecordingOperation.Commit]
-      190 NAMECALL                         R8 R8 K63 ["FinishRecording"]
-      192 CALL                             R8 3 0
-      193 RETURN                           R0 0
+       96 GETUPVAL                         R6 3
+       97 GETTABLEKS                       R6 R6 K37 ["CurrentCamera"]
+       99 FASTCALL2K                       ASSERT R6 K38 ; [+5]
+      101 MOVE                             R8 R6
+      102 LOADK                            R9 K38 ["Workspace.CurrentCamera was nil while inserting default body"]
+      103 GETIMPORT                        R7 K33 [assert]
+      105 CALL                             R7 2 0
+      106 GETTABLEKS                       R7 R3 K35 ["PrimaryPart"]
+      108 GETIMPORT                        R8 K40 [CFrame.new]
+      110 LOADN                            R9 0
+      111 GETTABLEKS                       R13 R3 K35 ["PrimaryPart"]
+      113 GETTABLEKS                       R13 R13 K42 ["Size"]
+      115 GETTABLEKS                       R13 R13 K43 ["Y"]
+      117 MINUS                            R12 R13
+      118 DIVK                             R11 R12 K41 [2]
+      119 GETTABLEKS                       R12 R4 K44 ["HipHeight"]
+      121 SUB                              R10 R11 R12
+      122 LOADN                            R11 0
+      123 CALL                             R8 3 1
+      124 SETTABLEKS                       R8 R7 K45 ["PivotOffset"]
+      126 GETIMPORT                        R9 K40 [CFrame.new]
+      128 GETUPVAL                         R10 4
+      129 GETTABLEKS                       R10 R10 K46 ["getViewTargetPosition"]
+      131 MOVE                             R11 R6
+      132 CALL                             R10 1 -1
+      133 CALL                             R9 -1 -1
+      134 NAMECALL                         R7 R3 K47 ["PivotTo"]
+      136 CALL                             R7 -1 0
+      137 GETUPVAL                         R7 5
+      138 MOVE                             R8 R3
+      139 MOVE                             R9 R1
+      140 CALL                             R7 2 0
+      141 GETUPVAL                         R7 6
+      142 LOADK                            R9 K48 ["Insert Default Body"]
+      143 LOADK                            R10 K49 ["Inserting Default Body"]
+      144 NAMECALL                         R7 R7 K50 ["TryBeginRecording"]
+      146 CALL                             R7 3 1
+      147 GETUPVAL                         R8 3
+      148 SETTABLEKS                       R8 R3 K51 ["Parent"]
+      150 NEWTABLE                         R10 0 1
+      152 MOVE                             R11 R3
+      153 SETLIST                          R10 R11 1 [1]
+      155 NAMECALL                         R8 R0 K52 ["Set"]
+      157 CALL                             R8 2 0
+      158 JUMPIFEQKNIL                     R7 ; [+8]
+      160 GETUPVAL                         R8 6
+      161 MOVE                             R10 R7
+      162 GETIMPORT                        R11 K55 [Enum.FinishRecordingOperation.Commit]
+      164 NAMECALL                         R8 R8 K56 ["FinishRecording"]
+      166 CALL                             R8 3 0
+      167 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -308,32 +261,36 @@ MAIN:
        25 GETIMPORT                        R4 K11 [require]
        27 GETTABLEKS                       R5 R3 K12 ["Src"]
        29 GETTABLEKS                       R5 R5 K13 ["Util"]
-       31 GETTABLEKS                       R5 R5 K14 ["MarketplaceCatalogUtils"]
+       31 GETTABLEKS                       R5 R5 K14 ["CameraUtils"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K11 [require]
        36 GETTABLEKS                       R6 R3 K12 ["Src"]
-       38 GETTABLEKS                       R6 R6 K15 ["Types"]
-       40 CALL                             R5 1 1
-       41 GETIMPORT                        R6 K18 [Color3.new]
-       43 LOADK                            R7 K19 [0.5]
-       44 LOADK                            R8 K19 [0.5]
-       45 LOADK                            R9 K19 [0.5]
-       46 CALL                             R6 3 1
-       47 DUPCLOSURE                       R7 K20 [PROTO_0]
-       48 DUPCLOSURE                       R8 K21 [PROTO_1]
-       49 CAPTURE                          VAL R6
-       50 DUPCLOSURE                       R9 K22 [PROTO_2]
-       51 CAPTURE                          VAL R6
-       52 DUPCLOSURE                       R10 K23 [PROTO_3]
-       53 DUPCLOSURE                       R11 K24 [PROTO_4]
-       54 CAPTURE                          VAL R2
-       55 DUPCLOSURE                       R12 K25 [PROTO_5]
-       56 CAPTURE                          VAL R4
-       57 DUPCLOSURE                       R13 K26 [PROTO_6]
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R10
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R12
-       63 CAPTURE                          VAL R0
-       64 RETURN                           R13 1
+       38 GETTABLEKS                       R6 R6 K13 ["Util"]
+       40 GETTABLEKS                       R6 R6 K15 ["MarketplaceCatalogUtils"]
+       42 CALL                             R5 1 1
+       43 GETIMPORT                        R6 K11 [require]
+       45 GETTABLEKS                       R7 R3 K12 ["Src"]
+       47 GETTABLEKS                       R7 R7 K16 ["Types"]
+       49 CALL                             R6 1 1
+       50 GETIMPORT                        R7 K19 [Color3.new]
+       52 LOADK                            R8 K20 [0.5]
+       53 LOADK                            R9 K20 [0.5]
+       54 LOADK                            R10 K20 [0.5]
+       55 CALL                             R7 3 1
+       56 DUPCLOSURE                       R8 K21 [PROTO_0]
+       57 DUPCLOSURE                       R9 K22 [PROTO_1]
+       58 CAPTURE                          VAL R7
+       59 DUPCLOSURE                       R10 K23 [PROTO_2]
+       60 CAPTURE                          VAL R7
+       61 DUPCLOSURE                       R11 K24 [PROTO_3]
+       62 DUPCLOSURE                       R12 K25 [PROTO_4]
+       63 CAPTURE                          VAL R5
+       64 DUPCLOSURE                       R13 K26 [PROTO_5]
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R11
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          VAL R4
+       70 CAPTURE                          VAL R12
+       71 CAPTURE                          VAL R0
+       72 RETURN                           R13 1

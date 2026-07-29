@@ -109,7 +109,7 @@ PROTO_2:
        13 GETUPVAL                         R6 0
        14 MOVE                             R7 R5
        15 CALL                             R6 1 1
-       16 JUMPIFNOT                        R6 ; [+298]
+       16 JUMPIFNOT                        R6 ; [+300]
        17 GETTABLEKS                       R7 R5 K6 ["Normal"]
        19 GETTABLEKS                       R9 R2 K4 ["Unit"]
        21 NAMECALL                         R7 R7 K7 ["Dot"]
@@ -211,7 +211,7 @@ PROTO_2:
       164 GETUPVAL                         R11 0
       165 MOVE                             R12 R10
       166 CALL                             R11 1 1
-      167 JUMPIFNOT                        R11 ; [+115]
+      167 JUMPIFNOT                        R11 ; [+117]
       168 GETTABLEKS                       R12 R10 K6 ["Normal"]
       170 GETTABLEKS                       R14 R2 K4 ["Unit"]
       172 NAMECALL                         R12 R12 K7 ["Dot"]
@@ -220,7 +220,7 @@ PROTO_2:
       176 GETIMPORT                        R11 K10 [math.abs]
       178 CALL                             R11 1 1
       179 LOADK                            R12 K11 [0.3]
-      180 JUMPIFNOTLT                      R11 R12 ; [+67]
+      180 JUMPIFNOTLT                      R11 R12 ; [+68]
       182 GETTABLEKS                       R11 R3 K12 ["FilterType"]
       184 GETIMPORT                        R12 K16 [Enum.RaycastFilterType.Exclude]
       186 JUMPIFNOTEQ                      R11 R12 ; [+27]
@@ -260,61 +260,63 @@ PROTO_2:
       235 SETTABLEKS                       R13 R12 K6 ["Normal"]
       237 GETTABLEKS                       R13 R5 K23 ["Instance"]
       239 SETTABLEKS                       R13 R12 K23 ["Instance"]
-      241 GETUPVAL                         R13 5
-      242 JUMPIFNOT                        R13 ; [+4]
-      243 GETUPVAL                         R13 6
-      244 MOVE                             R14 R2
-      245 MOVE                             R15 R12
-      246 CALL                             R13 2 0
-      247 RETURN                           R12 1
-      248 GETUPVAL                         R11 4
-      249 GETTABLEKS                       R11 R11 K37 ["intersectRayPlane"]
-      251 MOVE                             R12 R4
-      252 MOVE                             R13 R2
-      253 GETTABLEKS                       R14 R10 K0 ["Position"]
-      255 GETTABLEKS                       R15 R10 K6 ["Normal"]
-      257 CALL                             R11 4 1
-      258 DUPTABLE                         R12 K39 [{"Position", "Distance", "Normal", "Instance"}]
-      259 MUL                              R14 R2 R11
-      260 ADD                              R13 R4 R14
-      261 SETTABLEKS                       R13 R12 K0 ["Position"]
-      263 GETTABLEKS                       R14 R2 K32 ["Magnitude"]
-      265 MUL                              R13 R14 R11
-      266 SETTABLEKS                       R13 R12 K38 ["Distance"]
-      268 GETTABLEKS                       R13 R10 K6 ["Normal"]
-      270 SETTABLEKS                       R13 R12 K6 ["Normal"]
-      272 GETTABLEKS                       R13 R5 K23 ["Instance"]
-      274 SETTABLEKS                       R13 R12 K23 ["Instance"]
-      276 GETUPVAL                         R13 5
-      277 JUMPIFNOT                        R13 ; [+4]
-      278 GETUPVAL                         R13 6
-      279 MOVE                             R14 R2
-      280 MOVE                             R15 R12
-      281 CALL                             R13 2 0
-      282 RETURN                           R12 1
-      283 GETTABLEKS                       R11 R3 K12 ["FilterType"]
-      285 GETIMPORT                        R12 K16 [Enum.RaycastFilterType.Exclude]
-      287 JUMPIFNOTEQ                      R11 R12 ; [+27]
-      289 GETIMPORT                        R11 K19 [RaycastParams.new]
-      291 CALL                             R11 0 1
-      292 GETTABLEKS                       R12 R3 K20 ["FilterDescendantsInstances"]
-      294 SETTABLEKS                       R12 R11 K20 ["FilterDescendantsInstances"]
-      296 GETTABLEKS                       R12 R3 K21 ["BruteForceAllSlow"]
-      298 SETTABLEKS                       R12 R11 K21 ["BruteForceAllSlow"]
-      300 GETUPVAL                         R12 1
-      301 SETTABLEKS                       R12 R11 K22 ["CollisionGroup"]
-      303 GETTABLEKS                       R14 R5 K23 ["Instance"]
-      305 NAMECALL                         R12 R11 K24 ["AddToFilter"]
-      307 CALL                             R12 2 0
-      308 GETUPVAL                         R12 2
-      309 MOVE                             R13 R0
-      310 MOVE                             R14 R1
-      311 MOVE                             R15 R2
-      312 MOVE                             R16 R11
-      313 CALL                             R12 4 -1
-      314 RETURN                           R12 -1
-      315 LOADNIL                          R6
-      316 RETURN                           R6 1
+      241 MOVE                             R5 R12
+      242 GETUPVAL                         R12 5
+      243 JUMPIFNOT                        R12 ; [+4]
+      244 GETUPVAL                         R12 6
+      245 MOVE                             R13 R2
+      246 MOVE                             R14 R5
+      247 CALL                             R12 2 0
+      248 RETURN                           R5 1
+      249 GETUPVAL                         R11 4
+      250 GETTABLEKS                       R11 R11 K37 ["intersectRayPlane"]
+      252 MOVE                             R12 R4
+      253 MOVE                             R13 R2
+      254 GETTABLEKS                       R14 R10 K0 ["Position"]
+      256 GETTABLEKS                       R15 R10 K6 ["Normal"]
+      258 CALL                             R11 4 1
+      259 DUPTABLE                         R12 K39 [{"Position", "Distance", "Normal", "Instance"}]
+      260 MUL                              R14 R2 R11
+      261 ADD                              R13 R4 R14
+      262 SETTABLEKS                       R13 R12 K0 ["Position"]
+      264 GETTABLEKS                       R14 R2 K32 ["Magnitude"]
+      266 MUL                              R13 R14 R11
+      267 SETTABLEKS                       R13 R12 K38 ["Distance"]
+      269 GETTABLEKS                       R13 R10 K6 ["Normal"]
+      271 SETTABLEKS                       R13 R12 K6 ["Normal"]
+      273 GETTABLEKS                       R13 R5 K23 ["Instance"]
+      275 SETTABLEKS                       R13 R12 K23 ["Instance"]
+      277 MOVE                             R5 R12
+      278 GETUPVAL                         R12 5
+      279 JUMPIFNOT                        R12 ; [+4]
+      280 GETUPVAL                         R12 6
+      281 MOVE                             R13 R2
+      282 MOVE                             R14 R5
+      283 CALL                             R12 2 0
+      284 RETURN                           R5 1
+      285 GETTABLEKS                       R11 R3 K12 ["FilterType"]
+      287 GETIMPORT                        R12 K16 [Enum.RaycastFilterType.Exclude]
+      289 JUMPIFNOTEQ                      R11 R12 ; [+27]
+      291 GETIMPORT                        R11 K19 [RaycastParams.new]
+      293 CALL                             R11 0 1
+      294 GETTABLEKS                       R12 R3 K20 ["FilterDescendantsInstances"]
+      296 SETTABLEKS                       R12 R11 K20 ["FilterDescendantsInstances"]
+      298 GETTABLEKS                       R12 R3 K21 ["BruteForceAllSlow"]
+      300 SETTABLEKS                       R12 R11 K21 ["BruteForceAllSlow"]
+      302 GETUPVAL                         R12 1
+      303 SETTABLEKS                       R12 R11 K22 ["CollisionGroup"]
+      305 GETTABLEKS                       R14 R5 K23 ["Instance"]
+      307 NAMECALL                         R12 R11 K24 ["AddToFilter"]
+      309 CALL                             R12 2 0
+      310 GETUPVAL                         R12 2
+      311 MOVE                             R13 R0
+      312 MOVE                             R14 R1
+      313 MOVE                             R15 R2
+      314 MOVE                             R16 R11
+      315 CALL                             R12 4 -1
+      316 RETURN                           R12 -1
+      317 LOADNIL                          R6
+      318 RETURN                           R6 1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R2 K0 ["Instance"]

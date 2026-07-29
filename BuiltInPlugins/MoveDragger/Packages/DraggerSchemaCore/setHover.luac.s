@@ -6,9 +6,5 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        5 GETTABLEKS                       R1 R0 K2 ["Parent"]
-        7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
-        9 DUPCLOSURE                       R3 K4 [PROTO_0]
-       10 RETURN                           R3 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

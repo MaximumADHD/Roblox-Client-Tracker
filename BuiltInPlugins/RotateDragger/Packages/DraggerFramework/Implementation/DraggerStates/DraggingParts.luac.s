@@ -81,41 +81,34 @@ PROTO_4:
         5 CALL                             R3 0 -1
         6 NAMECALL                         R1 R1 K2 ["setMouseCursor"]
         8 CALL                             R1 -1 0
-        9 GETUPVAL                         R1 1
-       10 CALL                             R1 0 1
-       11 JUMPIFNOT                        R1 ; [+42]
-       12 GETTABLEKS                       R1 R0 K3 ["_freeformDragger"]
-       14 NAMECALL                         R1 R1 K4 ["render"]
-       16 CALL                             R1 1 1
-       17 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-       19 GETTABLEKS                       R2 R2 K5 ["_draggerContext"]
-       21 LOADK                            R4 K6 ["HotkeyUsageHidden"]
-       22 NAMECALL                         R2 R2 K7 ["getSetting"]
-       24 CALL                             R2 2 1
-       25 JUMPIFNOT                        R2 ; [+1]
-       26 RETURN                           R1 1
-       27 GETUPVAL                         R2 2
-       28 GETTABLEKS                       R2 R2 K8 ["createFragment"]
-       30 DUPTABLE                         R3 K11 [{"DraggerElements", "HotkeyUsageInfo"}]
-       31 SETTABLEKS                       R1 R3 K9 ["DraggerElements"]
-       33 GETUPVAL                         R4 2
-       34 GETTABLEKS                       R4 R4 K12 ["createElement"]
-       36 GETUPVAL                         R5 3
-       37 DUPTABLE                         R6 K15 [{"DraggerContext", "HotkeyList"}]
-       38 GETTABLEKS                       R7 R0 K0 ["_draggerToolModel"]
-       40 GETTABLEKS                       R7 R7 K5 ["_draggerContext"]
-       42 SETTABLEKS                       R7 R6 K13 ["DraggerContext"]
-       44 NAMECALL                         R7 R0 K16 ["_getHotkeyList"]
-       46 CALL                             R7 1 1
-       47 SETTABLEKS                       R7 R6 K14 ["HotkeyList"]
-       49 CALL                             R4 2 1
-       50 SETTABLEKS                       R4 R3 K10 ["HotkeyUsageInfo"]
-       52 CALL                             R2 1 -1
-       53 RETURN                           R2 -1
-       54 GETTABLEKS                       R1 R0 K3 ["_freeformDragger"]
-       56 NAMECALL                         R1 R1 K4 ["render"]
-       58 CALL                             R1 1 -1
-       59 RETURN                           R1 -1
+        9 GETTABLEKS                       R1 R0 K3 ["_freeformDragger"]
+       11 NAMECALL                         R1 R1 K4 ["render"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
+       16 GETTABLEKS                       R2 R2 K5 ["_draggerContext"]
+       18 LOADK                            R4 K6 ["HotkeyUsageHidden"]
+       19 NAMECALL                         R2 R2 K7 ["getSetting"]
+       21 CALL                             R2 2 1
+       22 JUMPIFNOT                        R2 ; [+1]
+       23 RETURN                           R1 1
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K8 ["createFragment"]
+       27 DUPTABLE                         R3 K11 [{"DraggerElements", "HotkeyUsageInfo"}]
+       28 SETTABLEKS                       R1 R3 K9 ["DraggerElements"]
+       30 GETUPVAL                         R4 1
+       31 GETTABLEKS                       R4 R4 K12 ["createElement"]
+       33 GETUPVAL                         R5 2
+       34 DUPTABLE                         R6 K15 [{"DraggerContext", "HotkeyList"}]
+       35 GETTABLEKS                       R7 R0 K0 ["_draggerToolModel"]
+       37 GETTABLEKS                       R7 R7 K5 ["_draggerContext"]
+       39 SETTABLEKS                       R7 R6 K13 ["DraggerContext"]
+       41 NAMECALL                         R7 R0 K16 ["_getHotkeyList"]
+       43 CALL                             R7 1 1
+       44 SETTABLEKS                       R7 R6 K14 ["HotkeyList"]
+       46 CALL                             R4 2 1
+       47 SETTABLEKS                       R4 R3 K10 ["HotkeyUsageInfo"]
+       49 CALL                             R2 1 -1
+       50 RETURN                           R2 -1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_freeformDragger"]
@@ -186,50 +179,41 @@ PROTO_11:
        40 NAMECALL                         R2 R0 K9 ["_tiltRotateFreeformSelectionDrag"]
        42 CALL                             R2 2 0
        43 RETURN                           R0 0
-       44 GETUPVAL                         R2 0
-       45 CALL                             R2 0 1
-       46 JUMPIFNOT                        R2 ; [+23]
-       47 GETIMPORT                        R2 K15 [Enum.KeyCode.H]
-       49 JUMPIFNOTEQ                      R1 R2 ; [+20]
-       51 GETTABLEKS                       R2 R0 K4 ["_draggerToolModel"]
-       53 GETTABLEKS                       R2 R2 K16 ["_draggerContext"]
-       55 LOADK                            R5 K17 ["HotkeyUsageHidden"]
-       56 LOADK                            R9 K17 ["HotkeyUsageHidden"]
-       57 NAMECALL                         R7 R2 K18 ["getSetting"]
-       59 CALL                             R7 2 1
-       60 NOT                              R6 R7
-       61 NAMECALL                         R3 R2 K19 ["setSetting"]
-       63 CALL                             R3 3 0
-       64 GETTABLEKS                       R3 R0 K4 ["_draggerToolModel"]
-       66 NAMECALL                         R3 R3 K20 ["_scheduleRender"]
-       68 CALL                             R3 1 0
-       69 RETURN                           R0 0
-       70 GETUPVAL                         R2 0
-       71 CALL                             R2 0 1
-       72 JUMPIFNOT                        R2 ; [+11]
-       73 GETUPVAL                         R3 1
-       74 GETTABLE                         R2 R3 R1
-       75 JUMPIFNOT                        R2 ; [+8]
-       76 NAMECALL                         R2 R0 K21 ["_updateFreeformSelectionDrag"]
-       78 CALL                             R2 1 0
-       79 GETTABLEKS                       R2 R0 K4 ["_draggerToolModel"]
-       81 NAMECALL                         R2 R2 K20 ["_scheduleRender"]
-       83 CALL                             R2 1 0
-       84 RETURN                           R0 0
+       44 GETIMPORT                        R2 K15 [Enum.KeyCode.H]
+       46 JUMPIFNOTEQ                      R1 R2 ; [+20]
+       48 GETTABLEKS                       R2 R0 K4 ["_draggerToolModel"]
+       50 GETTABLEKS                       R2 R2 K16 ["_draggerContext"]
+       52 LOADK                            R5 K17 ["HotkeyUsageHidden"]
+       53 LOADK                            R9 K17 ["HotkeyUsageHidden"]
+       54 NAMECALL                         R7 R2 K18 ["getSetting"]
+       56 CALL                             R7 2 1
+       57 NOT                              R6 R7
+       58 NAMECALL                         R3 R2 K19 ["setSetting"]
+       60 CALL                             R3 3 0
+       61 GETTABLEKS                       R3 R0 K4 ["_draggerToolModel"]
+       63 NAMECALL                         R3 R3 K20 ["_scheduleRender"]
+       65 CALL                             R3 1 0
+       66 RETURN                           R0 0
+       67 GETUPVAL                         R3 0
+       68 GETTABLE                         R2 R3 R1
+       69 JUMPIFNOT                        R2 ; [+8]
+       70 NAMECALL                         R2 R0 K21 ["_updateFreeformSelectionDrag"]
+       72 CALL                             R2 1 0
+       73 GETTABLEKS                       R2 R0 K4 ["_draggerToolModel"]
+       75 NAMECALL                         R2 R2 K20 ["_scheduleRender"]
+       77 CALL                             R2 1 0
+       78 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+11]
-        3 GETUPVAL                         R3 1
-        4 GETTABLE                         R2 R3 R1
-        5 JUMPIFNOT                        R2 ; [+8]
-        6 NAMECALL                         R2 R0 K0 ["_updateFreeformSelectionDrag"]
-        8 CALL                             R2 1 0
-        9 GETTABLEKS                       R2 R0 K1 ["_draggerToolModel"]
-       11 NAMECALL                         R2 R2 K2 ["_scheduleRender"]
-       13 CALL                             R2 1 0
-       14 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R1
+        2 JUMPIFNOT                        R2 ; [+8]
+        3 NAMECALL                         R2 R0 K0 ["_updateFreeformSelectionDrag"]
+        5 CALL                             R2 1 0
+        6 GETTABLEKS                       R2 R0 K1 ["_draggerToolModel"]
+        8 NAMECALL                         R2 R2 K2 ["_scheduleRender"]
+       10 CALL                             R2 1 0
+       11 RETURN                           R0 0
 
 PROTO_13:
         0 GETTABLEKS                       R2 R0 K0 ["_freeformDragger"]
@@ -311,90 +295,83 @@ MAIN:
        39 GETTABLEKS                       R7 R0 K10 ["Utility"]
        41 GETTABLEKS                       R7 R7 K12 ["HotkeyHelpBuilder"]
        43 CALL                             R6 1 1
-       44 GETIMPORT                        R7 K4 [require]
-       46 GETTABLEKS                       R8 R0 K13 ["Flags"]
-       48 GETTABLEKS                       R8 R8 K14 ["getFFlagDraggerImprovements"]
-       50 CALL                             R7 1 1
-       51 NEWTABLE                         R8 32 0
-       53 SETTABLEKS                       R8 R8 K15 ["__index"]
-       55 DUPCLOSURE                       R9 K16 [PROTO_0]
-       56 CAPTURE                          VAL R8
-       57 SETTABLEKS                       R9 R8 K17 ["new"]
-       59 DUPCLOSURE                       R9 K18 [PROTO_1]
-       60 SETTABLEKS                       R9 R8 K19 ["enter"]
-       62 DUPCLOSURE                       R9 K20 [PROTO_2]
-       63 SETTABLEKS                       R9 R8 K21 ["leave"]
-       65 GETIMPORT                        R9 K24 [table.freeze]
-       67 DUPTABLE                         R10 K29 [{["Hotkey"] = "T", ["LabelLocEntry"] = "DragTilt"}]
-       68 CALL                             R9 1 1
-       69 GETIMPORT                        R10 K24 [table.freeze]
-       71 DUPTABLE                         R11 K32 [{["Hotkey"] = "R", ["LabelLocEntry"] = "DragRotate"}]
-       72 CALL                             R10 1 1
-       73 GETIMPORT                        R11 K24 [table.freeze]
-       75 DUPTABLE                         R12 K35 [{["Hotkey"] = "⬇Alt", ["LabelLocEntry"] = "HoldOrientation"}]
-       76 CALL                             R11 1 1
-       77 GETIMPORT                        R12 K24 [table.freeze]
-       79 DUPTABLE                         R13 K38 [{["Hotkey"] = "⬆Alt", ["LabelLocEntry"] = "UnholdOrientation"}]
-       80 CALL                             R12 1 1
-       81 DUPCLOSURE                       R13 K39 [PROTO_3]
-       82 CAPTURE                          VAL R9
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R12
-       85 CAPTURE                          VAL R11
-       86 CAPTURE                          VAL R6
-       87 SETTABLEKS                       R13 R8 K40 ["_getHotkeyList"]
-       89 DUPCLOSURE                       R13 K41 [PROTO_4]
-       90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R2
-       93 CAPTURE                          VAL R3
-       94 SETTABLEKS                       R13 R8 K42 ["render"]
-       96 DUPCLOSURE                       R13 K43 [PROTO_5]
-       97 SETTABLEKS                       R13 R8 K44 ["processSelectionChanged"]
-       99 DUPCLOSURE                       R13 K45 [PROTO_6]
-      100 SETTABLEKS                       R13 R8 K46 ["processMouseDown"]
-      102 DUPCLOSURE                       R13 K47 [PROTO_7]
-      103 SETTABLEKS                       R13 R8 K48 ["processViewChanged"]
-      105 DUPCLOSURE                       R13 K49 [PROTO_8]
-      106 SETTABLEKS                       R13 R8 K50 ["processMouseUp"]
-      108 DUPCLOSURE                       R13 K51 [PROTO_9]
-      109 SETTABLEKS                       R13 R8 K52 ["processMouseEnter"]
-      111 DUPCLOSURE                       R13 K53 [PROTO_10]
-      112 SETTABLEKS                       R13 R8 K54 ["processMouseLeave"]
-      114 GETIMPORT                        R13 K24 [table.freeze]
-      116 NEWTABLE                         R14 8 0
-      118 GETIMPORT                        R15 K58 [Enum.KeyCode.RightShift]
-      120 LOADB                            R16 1
-      121 SETTABLE                         R16 R14 R15
-      122 GETIMPORT                        R15 K60 [Enum.KeyCode.LeftShift]
-      124 LOADB                            R16 1
-      125 SETTABLE                         R16 R14 R15
-      126 GETIMPORT                        R15 K62 [Enum.KeyCode.RightControl]
-      128 LOADB                            R16 1
-      129 SETTABLE                         R16 R14 R15
-      130 GETIMPORT                        R15 K64 [Enum.KeyCode.LeftControl]
-      132 LOADB                            R16 1
-      133 SETTABLE                         R16 R14 R15
-      134 GETIMPORT                        R15 K66 [Enum.KeyCode.RightAlt]
-      136 LOADB                            R16 1
-      137 SETTABLE                         R16 R14 R15
-      138 GETIMPORT                        R15 K68 [Enum.KeyCode.LeftAlt]
-      140 LOADB                            R16 1
-      141 SETTABLE                         R16 R14 R15
-      142 CALL                             R13 1 1
-      143 DUPCLOSURE                       R14 K69 [PROTO_11]
-      144 CAPTURE                          VAL R7
-      145 CAPTURE                          VAL R13
-      146 SETTABLEKS                       R14 R8 K70 ["processKeyDown"]
-      148 DUPCLOSURE                       R14 K71 [PROTO_12]
-      149 CAPTURE                          VAL R7
-      150 CAPTURE                          VAL R13
-      151 SETTABLEKS                       R14 R8 K72 ["processKeyUp"]
-      153 DUPCLOSURE                       R14 K73 [PROTO_13]
-      154 SETTABLEKS                       R14 R8 K74 ["_tiltRotateFreeformSelectionDrag"]
-      156 DUPCLOSURE                       R14 K75 [PROTO_14]
-      157 SETTABLEKS                       R14 R8 K76 ["_updateFreeformSelectionDrag"]
-      159 DUPCLOSURE                       R14 K77 [PROTO_15]
-      160 CAPTURE                          VAL R4
-      161 SETTABLEKS                       R14 R8 K78 ["_endFreeformSelectionDrag"]
-      163 RETURN                           R8 1
+       44 NEWTABLE                         R7 32 0
+       46 SETTABLEKS                       R7 R7 K13 ["__index"]
+       48 DUPCLOSURE                       R8 K14 [PROTO_0]
+       49 CAPTURE                          VAL R7
+       50 SETTABLEKS                       R8 R7 K15 ["new"]
+       52 DUPCLOSURE                       R8 K16 [PROTO_1]
+       53 SETTABLEKS                       R8 R7 K17 ["enter"]
+       55 DUPCLOSURE                       R8 K18 [PROTO_2]
+       56 SETTABLEKS                       R8 R7 K19 ["leave"]
+       58 GETIMPORT                        R8 K22 [table.freeze]
+       60 DUPTABLE                         R9 K27 [{["Hotkey"] = "T", ["LabelLocEntry"] = "DragTilt"}]
+       61 CALL                             R8 1 1
+       62 GETIMPORT                        R9 K22 [table.freeze]
+       64 DUPTABLE                         R10 K30 [{["Hotkey"] = "R", ["LabelLocEntry"] = "DragRotate"}]
+       65 CALL                             R9 1 1
+       66 GETIMPORT                        R10 K22 [table.freeze]
+       68 DUPTABLE                         R11 K33 [{["Hotkey"] = "⬇Alt", ["LabelLocEntry"] = "HoldOrientation"}]
+       69 CALL                             R10 1 1
+       70 GETIMPORT                        R11 K22 [table.freeze]
+       72 DUPTABLE                         R12 K36 [{["Hotkey"] = "⬆Alt", ["LabelLocEntry"] = "UnholdOrientation"}]
+       73 CALL                             R11 1 1
+       74 DUPCLOSURE                       R12 K37 [PROTO_3]
+       75 CAPTURE                          VAL R8
+       76 CAPTURE                          VAL R9
+       77 CAPTURE                          VAL R11
+       78 CAPTURE                          VAL R10
+       79 CAPTURE                          VAL R6
+       80 SETTABLEKS                       R12 R7 K38 ["_getHotkeyList"]
+       82 DUPCLOSURE                       R12 K39 [PROTO_4]
+       83 CAPTURE                          VAL R5
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R3
+       86 SETTABLEKS                       R12 R7 K40 ["render"]
+       88 DUPCLOSURE                       R12 K41 [PROTO_5]
+       89 SETTABLEKS                       R12 R7 K42 ["processSelectionChanged"]
+       91 DUPCLOSURE                       R12 K43 [PROTO_6]
+       92 SETTABLEKS                       R12 R7 K44 ["processMouseDown"]
+       94 DUPCLOSURE                       R12 K45 [PROTO_7]
+       95 SETTABLEKS                       R12 R7 K46 ["processViewChanged"]
+       97 DUPCLOSURE                       R12 K47 [PROTO_8]
+       98 SETTABLEKS                       R12 R7 K48 ["processMouseUp"]
+      100 DUPCLOSURE                       R12 K49 [PROTO_9]
+      101 SETTABLEKS                       R12 R7 K50 ["processMouseEnter"]
+      103 DUPCLOSURE                       R12 K51 [PROTO_10]
+      104 SETTABLEKS                       R12 R7 K52 ["processMouseLeave"]
+      106 GETIMPORT                        R12 K22 [table.freeze]
+      108 NEWTABLE                         R13 8 0
+      110 GETIMPORT                        R14 K56 [Enum.KeyCode.RightShift]
+      112 LOADB                            R15 1
+      113 SETTABLE                         R15 R13 R14
+      114 GETIMPORT                        R14 K58 [Enum.KeyCode.LeftShift]
+      116 LOADB                            R15 1
+      117 SETTABLE                         R15 R13 R14
+      118 GETIMPORT                        R14 K60 [Enum.KeyCode.RightControl]
+      120 LOADB                            R15 1
+      121 SETTABLE                         R15 R13 R14
+      122 GETIMPORT                        R14 K62 [Enum.KeyCode.LeftControl]
+      124 LOADB                            R15 1
+      125 SETTABLE                         R15 R13 R14
+      126 GETIMPORT                        R14 K64 [Enum.KeyCode.RightAlt]
+      128 LOADB                            R15 1
+      129 SETTABLE                         R15 R13 R14
+      130 GETIMPORT                        R14 K66 [Enum.KeyCode.LeftAlt]
+      132 LOADB                            R15 1
+      133 SETTABLE                         R15 R13 R14
+      134 CALL                             R12 1 1
+      135 DUPCLOSURE                       R13 K67 [PROTO_11]
+      136 CAPTURE                          VAL R12
+      137 SETTABLEKS                       R13 R7 K68 ["processKeyDown"]
+      139 DUPCLOSURE                       R13 K69 [PROTO_12]
+      140 CAPTURE                          VAL R12
+      141 SETTABLEKS                       R13 R7 K70 ["processKeyUp"]
+      143 DUPCLOSURE                       R13 K71 [PROTO_13]
+      144 SETTABLEKS                       R13 R7 K72 ["_tiltRotateFreeformSelectionDrag"]
+      146 DUPCLOSURE                       R13 K73 [PROTO_14]
+      147 SETTABLEKS                       R13 R7 K74 ["_updateFreeformSelectionDrag"]
+      149 DUPCLOSURE                       R13 K75 [PROTO_15]
+      150 CAPTURE                          VAL R4
+      151 SETTABLEKS                       R13 R7 K76 ["_endFreeformSelectionDrag"]
+      153 RETURN                           R7 1

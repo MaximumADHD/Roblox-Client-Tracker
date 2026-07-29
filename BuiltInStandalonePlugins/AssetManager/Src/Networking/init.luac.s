@@ -447,6 +447,14 @@ PROTO_34:
         7 RETURN                           R3 -1
 
 PROTO_35:
+        0 GETTABLEKS                       R3 R0 K0 ["_impl"]
+        2 GETTABLEKS                       R3 R3 K1 ["getItemParentsAsync"]
+        4 MOVE                             R4 R1
+        5 MOVE                             R5 R2
+        6 CALL                             R3 2 -1
+        7 RETURN                           R3 -1
+
+PROTO_36:
         0 GETTABLEKS                       R5 R0 K0 ["_impl"]
         2 GETTABLEKS                       R5 R5 K1 ["moveItemsAsync"]
         4 MOVE                             R6 R1
@@ -570,5 +578,7 @@ MAIN:
       170 DUPCLOSURE                       R14 K76 [PROTO_34]
       171 SETTABLEKS                       R14 R13 K77 ["updateFolderMetadataAsync"]
       173 DUPCLOSURE                       R14 K78 [PROTO_35]
-      174 SETTABLEKS                       R14 R13 K79 ["moveItemsAsync"]
-      176 RETURN                           R13 1
+      174 SETTABLEKS                       R14 R13 K79 ["getItemParentsAsync"]
+      176 DUPCLOSURE                       R14 K80 [PROTO_36]
+      177 SETTABLEKS                       R14 R13 K81 ["moveItemsAsync"]
+      179 RETURN                           R13 1

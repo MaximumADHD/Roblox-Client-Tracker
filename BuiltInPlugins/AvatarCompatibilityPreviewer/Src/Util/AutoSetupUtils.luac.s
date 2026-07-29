@@ -893,6 +893,45 @@ PROTO_15:
       131 RETURN                           R0 0
 
 PROTO_16:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R4 K0 ["AvatarCreation"]
+        2 LOADK                            R5 K1 ["Avatar Creation"]
+        3 NAMECALL                         R2 R2 K2 ["TryBeginRecording"]
+        5 CALL                             R2 3 1
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K3 ["setPivotOffset"]
+        9 MOVE                             R4 R1
+       10 CALL                             R3 1 0
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R3 R3 K4 ["CurrentCamera"]
+       14 JUMPIFEQKNIL                     R3 ; [+7]
+       16 GETUPVAL                         R4 3
+       17 GETTABLEKS                       R4 R4 K5 ["getViewTargetPosition"]
+       19 MOVE                             R5 R3
+       20 CALL                             R4 1 1
+       21 JUMP                             ; [+1]
+       22 LOADK                            R4 K6 [{0, 0, 0}]
+       23 GETIMPORT                        R7 K9 [CFrame.new]
+       25 MOVE                             R8 R4
+       26 CALL                             R7 1 -1
+       27 NAMECALL                         R5 R1 K10 ["PivotTo"]
+       29 CALL                             R5 -1 0
+       30 GETUPVAL                         R5 2
+       31 SETTABLEKS                       R5 R1 K11 ["Parent"]
+       33 NEWTABLE                         R7 0 1
+       35 MOVE                             R8 R1
+       36 SETLIST                          R7 R8 1 [1]
+       38 NAMECALL                         R5 R0 K12 ["Set"]
+       40 CALL                             R5 2 0
+       41 JUMPIFEQKNIL                     R2 ; [+8]
+       43 GETUPVAL                         R5 0
+       44 MOVE                             R7 R2
+       45 GETIMPORT                        R8 K16 [Enum.FinishRecordingOperation.Commit]
+       47 NAMECALL                         R5 R5 K17 ["FinishRecording"]
+       49 CALL                             R5 3 0
+       50 RETURN                           R0 0
+
+PROTO_17:
         0 LOADK                            R4 K0 ["Humanoid"]
         1 NAMECALL                         R2 R0 K1 ["FindFirstChild"]
         3 CALL                             R2 2 1
@@ -917,7 +956,7 @@ PROTO_16:
        28 FORGLOOP                         R2 2 ; [-18]
        30 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 NAMECALL                         R1 R0 K0 ["GetDescendants"]
         2 CALL                             R1 1 3
         3 FORGPREP                         R1
@@ -964,7 +1003,7 @@ PROTO_17:
        63 FORGLOOP                         R1 2 ; [-60]
        65 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+23]
@@ -998,7 +1037,7 @@ PROTO_18:
        40 CALL                             R1 2 1
        41 RETURN                           R1 1
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+40]
@@ -1072,7 +1111,7 @@ PROTO_19:
        99 SETTABLEKS                       R1 R0 K2 ["Name"]
       101 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 NAMECALL                         R2 R0 K0 ["GetChildren"]
         2 CALL                             R2 1 3
         3 FORGPREP                         R2
@@ -1093,7 +1132,7 @@ PROTO_20:
        21 FORGLOOP                         R2 2 ; [-18]
        23 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["types"]
         3 GETTABLE                         R2 R3 R1
@@ -1128,7 +1167,7 @@ PROTO_21:
        43 CALL                             R3 2 0
        44 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 GETUPVAL                         R4 0
         1 GETTABLE                         R3 R4 R0
         2 GETUPVAL                         R5 0
@@ -1138,7 +1177,7 @@ PROTO_22:
         7 LOADB                            R2 1
         8 RETURN                           R2 1
 
-PROTO_23:
+PROTO_24:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 MOVE                             R3 R0
@@ -1177,7 +1216,7 @@ PROTO_23:
        49 FORGLOOP                         R3 2 ; [-3]
        51 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K0 ["FindFirstChild"]
@@ -1192,7 +1231,7 @@ PROTO_24:
        14 GETTABLEKS                       R3 R2 K3 ["Color"]
        16 RETURN                           R3 1
 
-PROTO_25:
+PROTO_26:
         0 LOADK                            R3 K0 ["BodyColors"]
         1 NAMECALL                         R1 R0 K1 ["FindFirstAncestorWhichIsA"]
         3 CALL                             R1 2 1
@@ -1296,7 +1335,7 @@ PROTO_25:
       138 SETTABLEKS                       R0 R3 K21 ["Parent"]
       140 RETURN                           R0 0
 
-PROTO_26:
+PROTO_27:
         0 NAMECALL                         R1 R0 K0 ["GetChildren"]
         2 CALL                             R1 1 3
         3 FORGPREP                         R1
@@ -1314,7 +1353,7 @@ PROTO_26:
        19 FORGLOOP                         R1 2 ; [-16]
        21 RETURN                           R0 0
 
-PROTO_27:
+PROTO_28:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 2
         2 NEWTABLE                         R3 0 0
@@ -1407,7 +1446,7 @@ PROTO_27:
       117 CALL                             R5 1 0
       118 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 LOADK                            R3 K0 ["LowerTorso"]
         1 NAMECALL                         R1 R0 K1 ["FindFirstChild"]
         3 CALL                             R1 2 1
@@ -1444,7 +1483,7 @@ PROTO_28:
        47 SUB                              R5 R6 R7
        48 RETURN                           R5 1
 
-PROTO_29:
+PROTO_30:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["computeTranslationUponParent"]
         3 MOVE                             R2 R0
@@ -1470,7 +1509,7 @@ PROTO_29:
        29 FORGLOOP                         R2 2 ; [-17]
        31 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 JUMPIFNOTEQKNIL                  R0 ; [+3]
         2 LOADNIL                          R1
         3 RETURN                           R1 1
@@ -1515,7 +1554,7 @@ PROTO_30:
        58 LOADNIL                          R3
        59 RETURN                           R3 1
 
-PROTO_31:
+PROTO_32:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["LIMBS"]
         3 LOADNIL                          R3
@@ -1538,8 +1577,8 @@ PROTO_31:
        26 LOADNIL                          R2
        27 RETURN                           R2 1
 
-PROTO_32:
-        0 DUPCLOSURE                       R1 K0 [PROTO_31]
+PROTO_33:
+        0 DUPCLOSURE                       R1 K0 [PROTO_32]
         1 CAPTURE                          UPVAL U0
         2 NAMECALL                         R2 R0 K1 ["GetChildren"]
         4 CALL                             R2 1 3
@@ -1574,7 +1613,7 @@ PROTO_32:
        47 FORGLOOP                         R2 2 ; [-42]
        49 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETUPVAL                         R8 0
         1 CALL                             R8 0 1
         2 NOT                              R7 R8
@@ -1743,7 +1782,7 @@ PROTO_33:
       224 CALL                             R10 3 0
       225 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 JUMPIFNOTEQKNIL                  R3 ; [+2]
         2 LOADB                            R8 0 +1
         3 LOADB                            R8 1
@@ -1943,7 +1982,7 @@ PROTO_34:
       266 CALL                             R11 3 0
       267 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 JUMPIFNOTEQKNIL                  R2 ; [+2]
         2 LOADB                            R6 0 +1
         3 LOADB                            R6 1
@@ -2142,7 +2181,7 @@ PROTO_35:
       272 CALL                             R10 3 0
       273 RETURN                           R0 0
 
-PROTO_36:
+PROTO_37:
         0 LOADB                            R1 0
         1 JUMPIFEQKNIL                     R0 ; [+16]
         3 LOADB                            R1 0
@@ -2156,7 +2195,7 @@ PROTO_36:
        17 LOADB                            R1 1
        18 RETURN                           R1 1
 
-PROTO_37:
+PROTO_38:
         0 GETUPVAL                         R7 0
         1 GETTABLEKS                       R7 R7 K0 ["isClothingOnly"]
         3 MOVE                             R8 R6
@@ -2248,7 +2287,7 @@ PROTO_37:
       106 CALL                             R7 6 0
       107 RETURN                           R0 0
 
-PROTO_38:
+PROTO_39:
         0 DUPTABLE                         R1 K5 [{[1] = 0, ["Layered"] = 0, ["Rigid"] = 0, ["Unselected"] = 0}]
         1 NAMECALL                         R2 R0 K6 ["GetChildren"]
         3 CALL                             R2 1 3
@@ -2269,7 +2308,7 @@ PROTO_38:
        23 FORGLOOP                         R2 2 ; [-19]
        25 RETURN                           R1 1
 
-PROTO_39:
+PROTO_40:
         0 GETIMPORT                        R1 K2 [Color3.new]
         2 LOADK                            R2 K3 [0.5]
         3 LOADK                            R3 K3 [0.5]
@@ -2299,7 +2338,7 @@ PROTO_39:
        40 SETTABLEKS                       R2 R0 K17 ["WalkAnimation"]
        42 RETURN                           R0 0
 
-PROTO_40:
+PROTO_41:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["TEMPLATE_BODY_PARTS_ASSET_IDS"]
         3 GETTABLEKS                       R1 R1 K1 ["Head"]
@@ -2326,7 +2365,7 @@ PROTO_40:
        40 SETTABLEKS                       R1 R0 K6 ["RightLeg"]
        42 RETURN                           R0 0
 
-PROTO_41:
+PROTO_42:
         0 NAMECALL                         R1 R0 K0 ["GetDescendants"]
         2 CALL                             R1 1 3
         3 FORGPREP                         R1
@@ -2339,11 +2378,11 @@ PROTO_41:
        12 FORGLOOP                         R1 2 ; [-9]
        14 RETURN                           R0 0
 
-PROTO_42:
-        0 DUPCLOSURE                       R0 K0 [PROTO_39]
-        1 DUPCLOSURE                       R1 K1 [PROTO_40]
+PROTO_43:
+        0 DUPCLOSURE                       R0 K0 [PROTO_40]
+        1 DUPCLOSURE                       R1 K1 [PROTO_41]
         2 CAPTURE                          UPVAL U0
-        3 DUPCLOSURE                       R2 K2 [PROTO_41]
+        3 DUPCLOSURE                       R2 K2 [PROTO_42]
         4 GETIMPORT                        R4 K4 [game]
         6 LOADK                            R6 K5 ["AsyncRenamesUsedInLuaApps"]
         7 NAMECALL                         R4 R4 K6 ["GetEngineFeature"]
@@ -2454,7 +2493,7 @@ PROTO_42:
       163 JUMPBACK                         ; [-20]
       164 RETURN                           R4 1
 
-PROTO_43:
+PROTO_44:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["endsWith"]
         3 GETTABLEKS                       R2 R0 K1 ["Name"]
@@ -2469,7 +2508,7 @@ PROTO_43:
        16 LOADB                            R1 1
        17 RETURN                           R1 1
 
-PROTO_44:
+PROTO_45:
         0 GETIMPORT                        R1 K2 [string.find]
         2 GETTABLEKS                       R2 R0 K3 ["Name"]
         4 LOADK                            R4 K4 ["^%*_%%a+_Att$"]
@@ -2481,7 +2520,7 @@ PROTO_44:
        12 CALL                             R1 2 -1
        13 RETURN                           R1 -1
 
-PROTO_45:
+PROTO_46:
         0 LENGTH                           R2 R0
         1 JUMPIFNOTEQKN                    R2 K0 [1] ; [+3]
         3 GETTABLEN                        R2 R0 1
@@ -2494,7 +2533,7 @@ PROTO_45:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_46:
+PROTO_47:
         0 GETIMPORT                        R1 K2 [string.find]
         2 MOVE                             R2 R0
         3 LOADK                            R3 K3 ["%a+_Att$"]
@@ -2513,23 +2552,23 @@ PROTO_46:
        19 CONCAT                           R3 R4 R5
        20 RETURN                           R3 1
 
-PROTO_47:
+PROTO_48:
         0 LOADK                            R3 K0 ["BasePart"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 -1
         4 RETURN                           R1 -1
 
-PROTO_48:
-        0 DUPCLOSURE                       R1 K0 [PROTO_43]
+PROTO_49:
+        0 DUPCLOSURE                       R1 K0 [PROTO_44]
         1 CAPTURE                          UPVAL U0
-        2 DUPCLOSURE                       R2 K1 [PROTO_45]
+        2 DUPCLOSURE                       R2 K1 [PROTO_46]
         3 CAPTURE                          UPVAL U1
-        4 DUPCLOSURE                       R3 K2 [PROTO_46]
+        4 DUPCLOSURE                       R3 K2 [PROTO_47]
         5 GETUPVAL                         R4 1
         6 GETTABLEKS                       R4 R4 K3 ["filter"]
         8 NAMECALL                         R5 R0 K4 ["GetDescendants"]
        10 CALL                             R5 1 1
-       11 DUPCLOSURE                       R6 K5 [PROTO_47]
+       11 DUPCLOSURE                       R6 K5 [PROTO_48]
        12 CALL                             R4 2 1
        13 NEWTABLE                         R5 0 0
        15 NEWTABLE                         R6 0 0
@@ -2835,105 +2874,111 @@ MAIN:
       335 CAPTURE                          VAL R3
       336 SETTABLEKS                       R35 R34 K67 ["positionInWorkspace"]
       338 DUPCLOSURE                       R35 K68 [PROTO_16]
-      339 SETTABLEKS                       R35 R34 K69 ["wearAccessories"]
-      341 DUPCLOSURE                       R35 K70 [PROTO_17]
-      342 CAPTURE                          VAL R21
-      343 CAPTURE                          VAL R24
-      344 CAPTURE                          VAL R11
-      345 SETTABLEKS                       R35 R34 K71 ["ensureSurfaceAppearances"]
-      347 DUPCLOSURE                       R35 K72 [PROTO_18]
-      348 CAPTURE                          VAL R23
-      349 CAPTURE                          VAL R6
-      350 CAPTURE                          VAL R15
-      351 SETTABLEKS                       R35 R34 K73 ["isPreSetupAutoSetupClothes"]
-      353 DUPCLOSURE                       R35 K74 [PROTO_19]
-      354 CAPTURE                          VAL R23
-      355 CAPTURE                          VAL R34
+      339 CAPTURE                          VAL R0
+      340 CAPTURE                          VAL R34
+      341 CAPTURE                          VAL R3
+      342 CAPTURE                          VAL R10
+      343 SETTABLEKS                       R35 R34 K69 ["placeGeneratedAvatar"]
+      345 DUPCLOSURE                       R35 K70 [PROTO_17]
+      346 SETTABLEKS                       R35 R34 K71 ["wearAccessories"]
+      348 DUPCLOSURE                       R35 K72 [PROTO_18]
+      349 CAPTURE                          VAL R21
+      350 CAPTURE                          VAL R24
+      351 CAPTURE                          VAL R11
+      352 SETTABLEKS                       R35 R34 K73 ["ensureSurfaceAppearances"]
+      354 DUPCLOSURE                       R35 K74 [PROTO_19]
+      355 CAPTURE                          VAL R23
       356 CAPTURE                          VAL R6
       357 CAPTURE                          VAL R15
-      358 SETTABLEKS                       R35 R34 K75 ["removePreSetupAutoSetupClothesPrefix"]
+      358 SETTABLEKS                       R35 R34 K75 ["isPreSetupAutoSetupClothes"]
       360 DUPCLOSURE                       R35 K76 [PROTO_20]
-      361 CAPTURE                          VAL R34
-      362 CAPTURE                          VAL R13
-      363 SETTABLEKS                       R35 R34 K77 ["applyLayeredClothingProportions"]
-      365 DUPCLOSURE                       R35 K78 [PROTO_21]
-      366 CAPTURE                          VAL R7
-      367 CAPTURE                          VAL R13
-      368 SETTABLEKS                       R35 R34 K79 ["applyProportions"]
-      370 DUPCLOSURE                       R35 K80 [PROTO_23]
-      371 SETTABLEKS                       R35 R34 K81 ["assignWrapLayerOrder"]
-      373 DUPCLOSURE                       R35 K82 [PROTO_25]
-      374 SETTABLEKS                       R35 R34 K83 ["ensureBodyColors"]
-      376 DUPCLOSURE                       R35 K84 [PROTO_26]
-      377 SETTABLEKS                       R35 R34 K85 ["removeExtraAttachmentParts"]
-      379 DUPCLOSURE                       R35 K86 [PROTO_27]
-      380 CAPTURE                          VAL R18
-      381 CAPTURE                          VAL R23
-      382 CAPTURE                          VAL R34
-      383 CAPTURE                          VAL R11
-      384 CAPTURE                          VAL R6
-      385 CAPTURE                          VAL R31
-      386 CAPTURE                          VAL R33
-      387 SETTABLEKS                       R35 R34 K87 ["assignLayeredClothing"]
-      389 DUPCLOSURE                       R35 K88 [PROTO_28]
-      390 SETTABLEKS                       R35 R34 K89 ["computeTranslationUponParent"]
-      392 DUPCLOSURE                       R35 K90 [PROTO_29]
-      393 CAPTURE                          VAL R34
-      394 CAPTURE                          VAL R11
-      395 SETTABLEKS                       R35 R34 K91 ["translateBodyPartsToFinalCFrame"]
-      397 DUPCLOSURE                       R35 K92 [PROTO_30]
-      398 SETTABLEKS                       R35 R34 K93 ["findProportionsFromHumanoid"]
-      400 DUPCLOSURE                       R35 K94 [PROTO_32]
+      361 CAPTURE                          VAL R23
+      362 CAPTURE                          VAL R34
+      363 CAPTURE                          VAL R6
+      364 CAPTURE                          VAL R15
+      365 SETTABLEKS                       R35 R34 K77 ["removePreSetupAutoSetupClothesPrefix"]
+      367 DUPCLOSURE                       R35 K78 [PROTO_21]
+      368 CAPTURE                          VAL R34
+      369 CAPTURE                          VAL R13
+      370 SETTABLEKS                       R35 R34 K79 ["applyLayeredClothingProportions"]
+      372 DUPCLOSURE                       R35 K80 [PROTO_22]
+      373 CAPTURE                          VAL R7
+      374 CAPTURE                          VAL R13
+      375 SETTABLEKS                       R35 R34 K81 ["applyProportions"]
+      377 DUPCLOSURE                       R35 K82 [PROTO_24]
+      378 SETTABLEKS                       R35 R34 K83 ["assignWrapLayerOrder"]
+      380 DUPCLOSURE                       R35 K84 [PROTO_26]
+      381 SETTABLEKS                       R35 R34 K85 ["ensureBodyColors"]
+      383 DUPCLOSURE                       R35 K86 [PROTO_27]
+      384 SETTABLEKS                       R35 R34 K87 ["removeExtraAttachmentParts"]
+      386 DUPCLOSURE                       R35 K88 [PROTO_28]
+      387 CAPTURE                          VAL R18
+      388 CAPTURE                          VAL R23
+      389 CAPTURE                          VAL R34
+      390 CAPTURE                          VAL R11
+      391 CAPTURE                          VAL R6
+      392 CAPTURE                          VAL R31
+      393 CAPTURE                          VAL R33
+      394 SETTABLEKS                       R35 R34 K89 ["assignLayeredClothing"]
+      396 DUPCLOSURE                       R35 K90 [PROTO_29]
+      397 SETTABLEKS                       R35 R34 K91 ["computeTranslationUponParent"]
+      399 DUPCLOSURE                       R35 K92 [PROTO_30]
+      400 CAPTURE                          VAL R34
       401 CAPTURE                          VAL R11
-      402 CAPTURE                          VAL R6
-      403 SETTABLEKS                       R35 R34 K95 ["moveRigidToAvatarAttachmentPoints"]
-      405 DUPCLOSURE                       R35 K96 [PROTO_33]
-      406 CAPTURE                          VAL R22
-      407 CAPTURE                          VAL R0
+      402 SETTABLEKS                       R35 R34 K93 ["translateBodyPartsToFinalCFrame"]
+      404 DUPCLOSURE                       R35 K94 [PROTO_31]
+      405 SETTABLEKS                       R35 R34 K95 ["findProportionsFromHumanoid"]
+      407 DUPCLOSURE                       R35 K96 [PROTO_33]
       408 CAPTURE                          VAL R11
-      409 CAPTURE                          VAL R34
-      410 CAPTURE                          VAL R26
-      411 CAPTURE                          VAL R3
-      412 CAPTURE                          VAL R10
-      413 SETTABLEKS                       R35 R34 K97 ["DEPRECATED_insertBodyAsync"]
-      415 DUPCLOSURE                       R35 K98 [PROTO_34]
-      416 CAPTURE                          VAL R0
-      417 CAPTURE                          VAL R11
-      418 CAPTURE                          VAL R34
-      419 CAPTURE                          VAL R26
-      420 CAPTURE                          VAL R3
-      421 CAPTURE                          VAL R10
-      422 CAPTURE                          VAL R22
-      423 CAPTURE                          VAL R19
-      424 CAPTURE                          VAL R5
-      425 CAPTURE                          VAL R30
-      426 SETTABLEKS                       R35 R34 K99 ["insertBodyAsync"]
-      428 DUPCLOSURE                       R35 K100 [PROTO_35]
-      429 CAPTURE                          VAL R0
-      430 CAPTURE                          VAL R32
-      431 CAPTURE                          VAL R34
-      432 CAPTURE                          VAL R3
-      433 CAPTURE                          VAL R11
-      434 CAPTURE                          VAL R10
-      435 CAPTURE                          VAL R6
-      436 SETTABLEKS                       R35 R34 K101 ["insertClothingAsync"]
-      438 DUPCLOSURE                       R35 K102 [PROTO_36]
-      439 SETTABLEKS                       R35 R34 K103 ["isClothingOnly"]
-      441 DUPCLOSURE                       R35 K104 [PROTO_37]
-      442 CAPTURE                          VAL R34
-      443 CAPTURE                          VAL R26
-      444 CAPTURE                          VAL R22
-      445 SETTABLEKS                       R35 R34 K105 ["insertResultAsync"]
-      447 DUPCLOSURE                       R35 K106 [PROTO_38]
-      448 CAPTURE                          VAL R6
-      449 SETTABLEKS                       R35 R34 K107 ["getClothingCategoryCounts"]
-      451 DUPCLOSURE                       R35 K108 [PROTO_42]
-      452 CAPTURE                          VAL R11
-      453 CAPTURE                          VAL R2
-      454 CAPTURE                          VAL R27
-      455 SETTABLEKS                       R35 R34 K109 ["createTemplateBody"]
-      457 DUPCLOSURE                       R35 K110 [PROTO_48]
-      458 CAPTURE                          VAL R15
-      459 CAPTURE                          VAL R12
-      460 SETTABLEKS                       R35 R34 K111 ["processRigidAndAttachmentMeshes"]
-      462 RETURN                           R34 1
+      409 CAPTURE                          VAL R6
+      410 SETTABLEKS                       R35 R34 K97 ["moveRigidToAvatarAttachmentPoints"]
+      412 DUPCLOSURE                       R35 K98 [PROTO_34]
+      413 CAPTURE                          VAL R22
+      414 CAPTURE                          VAL R0
+      415 CAPTURE                          VAL R11
+      416 CAPTURE                          VAL R34
+      417 CAPTURE                          VAL R26
+      418 CAPTURE                          VAL R3
+      419 CAPTURE                          VAL R10
+      420 SETTABLEKS                       R35 R34 K99 ["DEPRECATED_insertBodyAsync"]
+      422 DUPCLOSURE                       R35 K100 [PROTO_35]
+      423 CAPTURE                          VAL R0
+      424 CAPTURE                          VAL R11
+      425 CAPTURE                          VAL R34
+      426 CAPTURE                          VAL R26
+      427 CAPTURE                          VAL R3
+      428 CAPTURE                          VAL R10
+      429 CAPTURE                          VAL R22
+      430 CAPTURE                          VAL R19
+      431 CAPTURE                          VAL R5
+      432 CAPTURE                          VAL R30
+      433 SETTABLEKS                       R35 R34 K101 ["insertBodyAsync"]
+      435 DUPCLOSURE                       R35 K102 [PROTO_36]
+      436 CAPTURE                          VAL R0
+      437 CAPTURE                          VAL R32
+      438 CAPTURE                          VAL R34
+      439 CAPTURE                          VAL R3
+      440 CAPTURE                          VAL R11
+      441 CAPTURE                          VAL R10
+      442 CAPTURE                          VAL R6
+      443 SETTABLEKS                       R35 R34 K103 ["insertClothingAsync"]
+      445 DUPCLOSURE                       R35 K104 [PROTO_37]
+      446 SETTABLEKS                       R35 R34 K105 ["isClothingOnly"]
+      448 DUPCLOSURE                       R35 K106 [PROTO_38]
+      449 CAPTURE                          VAL R34
+      450 CAPTURE                          VAL R26
+      451 CAPTURE                          VAL R22
+      452 SETTABLEKS                       R35 R34 K107 ["insertResultAsync"]
+      454 DUPCLOSURE                       R35 K108 [PROTO_39]
+      455 CAPTURE                          VAL R6
+      456 SETTABLEKS                       R35 R34 K109 ["getClothingCategoryCounts"]
+      458 DUPCLOSURE                       R35 K110 [PROTO_43]
+      459 CAPTURE                          VAL R11
+      460 CAPTURE                          VAL R2
+      461 CAPTURE                          VAL R27
+      462 SETTABLEKS                       R35 R34 K111 ["createTemplateBody"]
+      464 DUPCLOSURE                       R35 K112 [PROTO_49]
+      465 CAPTURE                          VAL R15
+      466 CAPTURE                          VAL R12
+      467 SETTABLEKS                       R35 R34 K113 ["processRigidAndAttachmentMeshes"]
+      469 RETURN                           R34 1

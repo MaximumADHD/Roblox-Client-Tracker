@@ -329,21 +329,15 @@ PROTO_21:
 
 PROTO_22:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R3 K0 ["Opened_%*"]
-        2 GETUPVAL                         R5 1
-        3 GETTABLEKS                       R5 R5 K1 ["Plugin"]
-        5 GETTABLEKS                       R5 R5 K2 ["Name"]
-        7 NAMECALL                         R3 R3 K3 ["format"]
-        9 CALL                             R3 2 1
-       10 MOVE                             R2 R3
-       11 NAMECALL                         R0 R0 K4 ["SetItem"]
-       13 CALL                             R0 2 0
-       14 GETUPVAL                         R0 1
-       15 GETTABLEKS                       R0 R0 K1 ["Plugin"]
-       17 LOADK                            R2 K5 ["Opened"]
-       18 NAMECALL                         R0 R0 K6 ["Invoke"]
-       20 CALL                             R0 2 0
-       21 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["AnimationGraphEditorLoaded"]
+        2 NAMECALL                         R0 R0 K1 ["SetItem"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K2 ["Plugin"]
+        8 LOADK                            R2 K3 ["Opened"]
+        9 NAMECALL                         R0 R0 K4 ["Invoke"]
+       11 CALL                             R0 2 0
+       12 RETURN                           R0 0
 
 PROTO_23:
         0 GETUPVAL                         R0 0

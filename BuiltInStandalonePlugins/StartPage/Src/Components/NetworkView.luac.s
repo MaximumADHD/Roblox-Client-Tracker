@@ -75,7 +75,7 @@ PROTO_1:
        85 GETUPVAL                         R8 4
        86 GETTABLEKS                       R8 R8 K16 ["createElement"]
        88 GETTABLEKS                       R9 R0 K19 ["DisplayComponent"]
-       90 DUPTABLE                         R10 K28 [{"Cells", "OnLoadRange", "LayoutOrder", "CellComponent", "CellSize", "CellPadding", "Size", "DisplayComponentHasAdjustedQuery", "CanDisplayComponentAdjustQuery", "Query"}]
+       90 DUPTABLE                         R10 K29 [{"Cells", "TotalCount", "OnLoadRange", "LayoutOrder", "CellComponent", "CellSize", "CellPadding", "Size", "DisplayComponentHasAdjustedQuery", "CanDisplayComponentAdjustQuery", "Query"}]
        91 GETTABLEKS                       R12 R0 K10 ["MaxCount"]
        93 JUMPIFNOT                        R12 ; [+7]
        94 GETUPVAL                         R11 5
@@ -86,34 +86,42 @@ PROTO_1:
       100 JUMP                             ; [+1]
       101 MOVE                             R11 R4
       102 SETTABLEKS                       R11 R10 K20 ["Cells"]
-      104 SETTABLEKS                       R6 R10 K21 ["OnLoadRange"]
-      106 GETTABLEKS                       R11 R0 K22 ["LayoutOrder"]
-      108 SETTABLEKS                       R11 R10 K22 ["LayoutOrder"]
-      110 GETTABLEKS                       R11 R0 K23 ["CellComponent"]
-      112 SETTABLEKS                       R11 R10 K23 ["CellComponent"]
-      114 GETTABLEKS                       R11 R0 K24 ["CellSize"]
-      116 SETTABLEKS                       R11 R10 K24 ["CellSize"]
-      118 GETTABLEKS                       R11 R0 K25 ["CellPadding"]
-      120 SETTABLEKS                       R11 R10 K25 ["CellPadding"]
-      122 GETTABLEKS                       R11 R0 K17 ["Size"]
-      124 SETTABLEKS                       R11 R10 K17 ["Size"]
-      126 GETTABLEKS                       R12 R0 K27 ["CanDisplayComponentAdjustQuery"]
-      128 JUMPIFNOT                        R12 ; [+3]
-      129 GETTABLEKS                       R11 R0 K26 ["DisplayComponentHasAdjustedQuery"]
-      131 JUMP                             ; [+1]
-      132 LOADNIL                          R11
-      133 SETTABLEKS                       R11 R10 K26 ["DisplayComponentHasAdjustedQuery"]
-      135 GETTABLEKS                       R12 R0 K27 ["CanDisplayComponentAdjustQuery"]
-      137 ORK                              R11 R12 K29 []
-      138 SETTABLEKS                       R11 R10 K27 ["CanDisplayComponentAdjustQuery"]
-      140 GETTABLEKS                       R12 R0 K27 ["CanDisplayComponentAdjustQuery"]
-      142 JUMPIFNOT                        R12 ; [+3]
-      143 GETTABLEKS                       R11 R0 K0 ["Query"]
-      145 JUMP                             ; [+1]
-      146 LOADNIL                          R11
-      147 SETTABLEKS                       R11 R10 K0 ["Query"]
-      149 CALL                             R8 2 -1
-      150 RETURN                           R8 -1
+      104 GETUPVAL                         R12 6
+      105 JUMPIFNOT                        R12 ; [+5]
+      106 GETTABLEKS                       R12 R0 K28 ["CanDisplayComponentAdjustQuery"]
+      108 JUMPIFNOT                        R12 ; [+2]
+      109 MOVE                             R11 R5
+      110 JUMP                             ; [+1]
+      111 LOADNIL                          R11
+      112 SETTABLEKS                       R11 R10 K21 ["TotalCount"]
+      114 SETTABLEKS                       R6 R10 K22 ["OnLoadRange"]
+      116 GETTABLEKS                       R11 R0 K23 ["LayoutOrder"]
+      118 SETTABLEKS                       R11 R10 K23 ["LayoutOrder"]
+      120 GETTABLEKS                       R11 R0 K24 ["CellComponent"]
+      122 SETTABLEKS                       R11 R10 K24 ["CellComponent"]
+      124 GETTABLEKS                       R11 R0 K25 ["CellSize"]
+      126 SETTABLEKS                       R11 R10 K25 ["CellSize"]
+      128 GETTABLEKS                       R11 R0 K26 ["CellPadding"]
+      130 SETTABLEKS                       R11 R10 K26 ["CellPadding"]
+      132 GETTABLEKS                       R11 R0 K17 ["Size"]
+      134 SETTABLEKS                       R11 R10 K17 ["Size"]
+      136 GETTABLEKS                       R12 R0 K28 ["CanDisplayComponentAdjustQuery"]
+      138 JUMPIFNOT                        R12 ; [+3]
+      139 GETTABLEKS                       R11 R0 K27 ["DisplayComponentHasAdjustedQuery"]
+      141 JUMP                             ; [+1]
+      142 LOADNIL                          R11
+      143 SETTABLEKS                       R11 R10 K27 ["DisplayComponentHasAdjustedQuery"]
+      145 GETTABLEKS                       R12 R0 K28 ["CanDisplayComponentAdjustQuery"]
+      147 ORK                              R11 R12 K30 []
+      148 SETTABLEKS                       R11 R10 K28 ["CanDisplayComponentAdjustQuery"]
+      150 GETTABLEKS                       R12 R0 K28 ["CanDisplayComponentAdjustQuery"]
+      152 JUMPIFNOT                        R12 ; [+3]
+      153 GETTABLEKS                       R11 R0 K0 ["Query"]
+      155 JUMP                             ; [+1]
+      156 LOADNIL                          R11
+      157 SETTABLEKS                       R11 R10 K0 ["Query"]
+      159 CALL                             R8 2 -1
+      160 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -153,15 +161,22 @@ MAIN:
        60 GETTABLEKS                       R11 R11 K14 ["Util"]
        62 GETTABLEKS                       R11 R11 K20 ["getQueryString"]
        64 CALL                             R10 1 1
-       65 DUPCLOSURE                       R11 K21 [PROTO_1]
-       66 CAPTURE                          VAL R10
-       67 CAPTURE                          VAL R8
-       68 CAPTURE                          VAL R4
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R6
-       72 SETGLOBAL                        R11 K22 ["NetworkView"]
-       74 MOVE                             R11 R2
-       75 GETGLOBAL                        R12 K22 ["NetworkView"]
-       77 CALL                             R11 1 -1
-       78 RETURN                           R11 -1
+       65 GETIMPORT                        R11 K5 [require]
+       67 GETTABLEKS                       R12 R0 K13 ["Src"]
+       69 GETTABLEKS                       R12 R12 K21 ["SharedFlags"]
+       71 GETTABLEKS                       R12 R12 K22 ["getFFlagLuaStartPageNewListView"]
+       73 CALL                             R11 1 1
+       74 CALL                             R11 0 1
+       75 DUPCLOSURE                       R12 K23 [PROTO_1]
+       76 CAPTURE                          VAL R10
+       77 CAPTURE                          VAL R8
+       78 CAPTURE                          VAL R4
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R6
+       82 CAPTURE                          VAL R11
+       83 SETGLOBAL                        R12 K24 ["NetworkView"]
+       85 MOVE                             R12 R2
+       86 GETGLOBAL                        R13 K24 ["NetworkView"]
+       88 CALL                             R12 1 -1
+       89 RETURN                           R12 -1

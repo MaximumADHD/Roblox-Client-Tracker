@@ -297,20 +297,17 @@ PROTO_18:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        7 DUPCLOSURE                       R1 K3 [PROTO_0]
-        8 DUPCLOSURE                       R2 K4 [PROTO_1]
-        9 NEWTABLE                         R3 4 0
-       11 SETTABLEKS                       R3 R3 K5 ["__index"]
-       13 DUPCLOSURE                       R4 K6 [PROTO_2]
-       14 CAPTURE                          VAL R3
-       15 SETTABLEKS                       R4 R3 K7 ["new"]
-       17 DUPCLOSURE                       R4 K8 [PROTO_4]
-       18 CAPTURE                          VAL R2
-       19 CAPTURE                          VAL R1
-       20 SETTABLEKS                       R4 R3 K9 ["Connect"]
-       22 DUPCLOSURE                       R4 K10 [PROTO_5]
-       23 SETTABLEKS                       R4 R3 K11 ["Fire"]
-       25 RETURN                           R3 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 DUPCLOSURE                       R1 K1 [PROTO_1]
+        3 NEWTABLE                         R2 4 0
+        5 SETTABLEKS                       R2 R2 K2 ["__index"]
+        7 DUPCLOSURE                       R3 K3 [PROTO_2]
+        8 CAPTURE                          VAL R2
+        9 SETTABLEKS                       R3 R2 K4 ["new"]
+       11 DUPCLOSURE                       R3 K5 [PROTO_4]
+       12 CAPTURE                          VAL R1
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R3 R2 K6 ["Connect"]
+       16 DUPCLOSURE                       R3 K7 [PROTO_5]
+       17 SETTABLEKS                       R3 R2 K8 ["Fire"]
+       19 RETURN                           R2 1

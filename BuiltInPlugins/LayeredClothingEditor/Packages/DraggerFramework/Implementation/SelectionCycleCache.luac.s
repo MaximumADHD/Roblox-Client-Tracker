@@ -132,61 +132,56 @@ PROTO_4:
        56 CALL                             R5 1 1
        57 JUMP                             ; [+1]
        58 LOADNIL                          R5
-       59 LOADNIL                          R6
-       60 LOADNIL                          R7
-       61 GETTABLEKS                       R8 R3 K12 ["Instance"]
-       63 LOADK                            R10 K13 ["PVInstance"]
-       64 NAMECALL                         R8 R8 K14 ["IsA"]
-       66 CALL                             R8 2 1
-       67 JUMPIFNOT                        R8 ; [+44]
-       68 GETUPVAL                         R8 0
-       69 CALL                             R8 0 1
-       70 JUMPIFNOT                        R8 ; [+20]
-       71 GETUPVAL                         R8 1
-       72 GETTABLEKS                       R8 R8 K15 ["getSurfaceMatrix"]
-       74 GETTABLEKS                       R9 R0 K9 ["_draggerContext"]
-       76 NAMECALL                         R9 R9 K16 ["getMouseRay"]
-       78 CALL                             R9 1 1
-       79 MOVE                             R10 R3
-       80 LOADNIL                          R11
-       81 MOVE                             R12 R5
-       82 CALL                             R8 4 1
-       83 JUMPIFNOT                        R8 ; [+35]
-       84 GETTABLEKS                       R6 R8 K17 ["matrix"]
-       86 GETTABLEKS                       R7 R8 K18 ["size"]
-       88 SETTABLEKS                       R6 R4 K19 ["PreviousTargetMatrix"]
-       90 JUMP                             ; [+28]
-       91 LOADNIL                          R8
-       92 LOADNIL                          R9
-       93 GETUPVAL                         R10 1
-       94 GETTABLEKS                       R10 R10 K15 ["getSurfaceMatrix"]
-       96 GETTABLEKS                       R11 R0 K9 ["_draggerContext"]
-       98 NAMECALL                         R11 R11 K16 ["getMouseRay"]
-      100 CALL                             R11 1 1
-      101 NEWTABLE                         R12 0 0
-      103 LOADNIL                          R13
-      104 CALL                             R10 3 3
-      105 MOVE                             R6 R10
-      106 MOVE                             R8 R11
-      107 MOVE                             R9 R12
-      108 LOADK                            R7 K20 [{0, 0, 0}]
-      109 SETTABLEKS                       R6 R4 K19 ["PreviousTargetMatrix"]
-      111 JUMP                             ; [+7]
-      112 GETIMPORT                        R8 K23 [CFrame.new]
-      114 GETTABLEKS                       R9 R3 K24 ["Position"]
-      116 CALL                             R8 1 1
-      117 MOVE                             R6 R8
-      118 LOADK                            R7 K20 [{0, 0, 0}]
-      119 MOVE                             R8 R2
-      120 GETTABLEKS                       R9 R3 K12 ["Instance"]
-      122 GETTABLEKS                       R10 R3 K25 ["Distance"]
-      124 GETIMPORT                        R11 K28 [table.freeze]
-      126 DUPTABLE                         R12 K34 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"], ["IsPivot"] = False}]
-      127 SETTABLEKS                       R3 R12 K29 ["RaycastResult"]
-      129 SETTABLEKS                       R6 R12 K30 ["TargetMatrix"]
-      131 SETTABLEKS                       R7 R12 K31 ["TargetSize"]
-      133 CALL                             R11 1 -1
-      134 RETURN                           R8 -1
+       59 GETUPVAL                         R7 0
+       60 CALL                             R7 0 1
+       61 JUMPIFNOT                        R7 ; [+4]
+       62 NAMECALL                         R6 R4 K12 ["shouldUseBoundingBoxes"]
+       64 CALL                             R6 1 1
+       65 JUMP                             ; [+1]
+       66 LOADNIL                          R6
+       67 LOADNIL                          R7
+       68 LOADNIL                          R8
+       69 GETTABLEKS                       R9 R3 K13 ["Instance"]
+       71 LOADK                            R11 K14 ["PVInstance"]
+       72 NAMECALL                         R9 R9 K15 ["IsA"]
+       74 CALL                             R9 2 1
+       75 JUMPIFNOT                        R9 ; [+28]
+       76 GETUPVAL                         R9 1
+       77 GETTABLEKS                       R9 R9 K16 ["getSurfaceMatrix"]
+       79 GETTABLEKS                       R10 R0 K9 ["_draggerContext"]
+       81 NAMECALL                         R10 R10 K17 ["getMouseRay"]
+       83 CALL                             R10 1 1
+       84 MOVE                             R11 R3
+       85 GETUPVAL                         R13 0
+       86 CALL                             R13 0 1
+       87 JUMPIFNOT                        R13 ; [+4]
+       88 GETIMPORT                        R12 K20 [CFrame.new]
+       90 CALL                             R12 0 1
+       91 JUMP                             ; [+1]
+       92 LOADNIL                          R12
+       93 MOVE                             R13 R5
+       94 MOVE                             R14 R6
+       95 CALL                             R9 5 1
+       96 JUMPIFNOT                        R9 ; [+14]
+       97 GETTABLEKS                       R7 R9 K21 ["matrix"]
+       99 GETTABLEKS                       R8 R9 K22 ["size"]
+      101 SETTABLEKS                       R7 R4 K23 ["PreviousTargetMatrix"]
+      103 JUMP                             ; [+7]
+      104 GETIMPORT                        R9 K20 [CFrame.new]
+      106 GETTABLEKS                       R10 R3 K24 ["Position"]
+      108 CALL                             R9 1 1
+      109 MOVE                             R7 R9
+      110 LOADK                            R8 K25 [{0, 0, 0}]
+      111 MOVE                             R9 R2
+      112 GETTABLEKS                       R10 R3 K13 ["Instance"]
+      114 GETTABLEKS                       R11 R3 K26 ["Distance"]
+      116 GETIMPORT                        R12 K29 [table.freeze]
+      118 DUPTABLE                         R13 K35 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"], ["IsPivot"] = False}]
+      119 SETTABLEKS                       R3 R13 K30 ["RaycastResult"]
+      121 SETTABLEKS                       R7 R13 K31 ["TargetMatrix"]
+      123 SETTABLEKS                       R8 R13 K32 ["TargetSize"]
+      125 CALL                             R12 1 -1
+      126 RETURN                           R9 -1
 
 PROTO_5:
         0 NAMECALL                         R1 R0 K0 ["isValid"]
@@ -272,12 +267,12 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K6 ["CursorGroupName"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K4 [require]
-       16 GETTABLEKS                       R3 R0 K5 ["Utility"]
-       18 GETTABLEKS                       R3 R3 K7 ["DragHelper"]
+       16 GETTABLEKS                       R3 R0 K7 ["Flags"]
+       18 GETTABLEKS                       R3 R3 K8 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K4 [require]
-       23 GETTABLEKS                       R4 R0 K8 ["Flags"]
-       25 GETTABLEKS                       R4 R4 K9 ["getFFlagDraggerImprovements"]
+       23 GETTABLEKS                       R4 R0 K5 ["Utility"]
+       25 GETTABLEKS                       R4 R4 K9 ["DragHelper"]
        27 CALL                             R3 1 1
        28 DUPCLOSURE                       R4 K10 [PROTO_0]
        29 CAPTURE                          VAL R1
@@ -290,8 +285,8 @@ MAIN:
        39 DUPCLOSURE                       R7 K15 [PROTO_3]
        40 SETTABLEKS                       R7 R6 K16 ["size"]
        42 DUPCLOSURE                       R7 K17 [PROTO_4]
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R2
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R3
        45 SETTABLEKS                       R7 R6 K18 ["getNextSelectable"]
        47 DUPCLOSURE                       R7 K19 [PROTO_5]
        48 SETTABLEKS                       R7 R6 K20 ["hasCycled"]

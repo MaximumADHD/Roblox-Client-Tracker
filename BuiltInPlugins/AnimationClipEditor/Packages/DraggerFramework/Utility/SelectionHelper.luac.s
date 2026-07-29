@@ -252,20 +252,9 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["Workspace"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R3 R1 K9 ["Utility"]
-       17 GETTABLEKS                       R3 R3 K10 ["shouldDragAsFace"]
-       19 CALL                             R2 1 1
-       20 NEWTABLE                         R3 2 0
-       22 DUPCLOSURE                       R4 K11 [PROTO_0]
-       23 SETTABLEKS                       R4 R3 K12 ["updateSelection"]
-       25 DUPCLOSURE                       R4 K13 [PROTO_1]
-       26 SETTABLEKS                       R4 R3 K14 ["updateSelectionWithMultipleSelectables"]
-       28 RETURN                           R3 1
+        1 NEWTABLE                         R0 2 0
+        3 DUPCLOSURE                       R1 K0 [PROTO_0]
+        4 SETTABLEKS                       R1 R0 K1 ["updateSelection"]
+        6 DUPCLOSURE                       R1 K2 [PROTO_1]
+        7 SETTABLEKS                       R1 R0 K3 ["updateSelectionWithMultipleSelectables"]
+        9 RETURN                           R0 1

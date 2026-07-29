@@ -74,84 +74,77 @@ PROTO_3:
 
 PROTO_4:
         0 DUPTABLE                         R3 K4 [{[1] = True, ["Y"] = True, ["Z"] = True}]
-        1 GETUPVAL                         R5 0
-        2 CALL                             R5 0 1
-        3 JUMPIFNOT                        R5 ; [+6]
-        4 GETTABLEKS                       R4 R0 K5 ["_draggerContext"]
-        6 NAMECALL                         R4 R4 K6 ["isAltKeyDown"]
-        8 CALL                             R4 1 1
-        9 JUMP                             ; [+5]
-       10 GETTABLEKS                       R4 R0 K5 ["_draggerContext"]
-       12 NAMECALL                         R4 R4 K7 ["isShiftKeyDown"]
-       14 CALL                             R4 1 1
-       15 JUMPIFNOT                        R4 ; [+1]
-       16 RETURN                           R3 1
-       17 NAMECALL                         R4 R1 K8 ["getRootModelMapping"]
-       19 CALL                             R4 1 1
-       20 GETTABLEKS                       R6 R4 K9 ["LoosePartMap"]
-       22 LOADN                            R7 0
-       23 MOVE                             R8 R6
-       24 LOADNIL                          R9
-       25 LOADNIL                          R10
-       26 FORGPREP                         R8
-       27 ADDK                             R7 R7 K10 [1]
-       28 FORGLOOP                         R8 1 ; [-2]
-       30 MOVE                             R5 R7
-       31 GETUPVAL                         R6 1
-       32 JUMPIFNOT                        R6 ; [+25]
-       33 LOADN                            R6 0
-       34 LOADN                            R7 0
-       35 GETTABLEKS                       R8 R4 K11 ["RootModelMap"]
-       37 LOADNIL                          R9
-       38 LOADNIL                          R10
-       39 FORGPREP                         R8
-       40 LOADK                            R15 K12 ["ProceduralModel"]
-       41 NAMECALL                         R13 R11 K13 ["IsA"]
-       43 CALL                             R13 2 1
-       44 JUMPIFNOT                        R13 ; [+2]
-       45 ADDK                             R7 R7 K10 [1]
-       46 JUMP                             ; [+1]
-       47 ADDK                             R6 R6 K10 [1]
-       48 FORGLOOP                         R8 1 ; [-9]
-       50 LOADN                            R8 0
-       51 JUMPIFLT                         R8 R6 ; [+4]
-       53 LOADN                            R8 1
-       54 JUMPIFNOTLT                      R8 R5 ; [+21]
-       56 RETURN                           R3 1
-       57 JUMP                             ; [+18]
-       58 GETTABLEKS                       R7 R4 K11 ["RootModelMap"]
-       60 LOADN                            R8 0
-       61 MOVE                             R9 R7
-       62 LOADNIL                          R10
-       63 LOADNIL                          R11
-       64 FORGPREP                         R9
-       65 ADDK                             R8 R8 K10 [1]
-       66 FORGLOOP                         R9 1 ; [-2]
-       68 MOVE                             R6 R8
-       69 LOADN                            R7 0
-       70 JUMPIFLT                         R7 R6 ; [+4]
-       72 LOADN                            R7 1
-       73 JUMPIFNOTLT                      R7 R5 ; [+2]
-       75 RETURN                           R3 1
-       76 GETIMPORT                        R6 K15 [next]
-       78 GETTABLEKS                       R7 R4 K9 ["LoosePartMap"]
-       80 CALL                             R6 1 1
-       81 JUMPIFNOT                        R6 ; [+12]
-       82 LOADK                            R9 K16 ["Part"]
-       83 NAMECALL                         R7 R6 K13 ["IsA"]
-       85 CALL                             R7 2 1
-       86 JUMPIFNOT                        R7 ; [+7]
-       87 GETTABLEKS                       R7 R6 K17 ["Shape"]
-       89 GETIMPORT                        R8 K21 [Enum.PartType.Ball]
-       91 JUMPIFNOTEQ                      R7 R8 ; [+2]
-       93 RETURN                           R3 1
-       94 NEWTABLE                         R7 0 3
-       96 DUPTABLE                         R8 K22 [{[1] = True}]
-       97 DUPTABLE                         R9 K23 [{["Y"] = True}]
-       98 DUPTABLE                         R10 K24 [{["Z"] = True}]
-       99 SETLIST                          R7 R8 3 [1]
-      101 GETTABLE                         R8 R7 R2
-      102 RETURN                           R8 1
+        1 GETTABLEKS                       R4 R0 K5 ["_draggerContext"]
+        3 NAMECALL                         R4 R4 K6 ["isAltKeyDown"]
+        5 CALL                             R4 1 1
+        6 JUMPIFNOT                        R4 ; [+1]
+        7 RETURN                           R3 1
+        8 NAMECALL                         R4 R1 K7 ["getRootModelMapping"]
+       10 CALL                             R4 1 1
+       11 GETTABLEKS                       R6 R4 K8 ["LoosePartMap"]
+       13 LOADN                            R7 0
+       14 MOVE                             R8 R6
+       15 LOADNIL                          R9
+       16 LOADNIL                          R10
+       17 FORGPREP                         R8
+       18 ADDK                             R7 R7 K9 [1]
+       19 FORGLOOP                         R8 1 ; [-2]
+       21 MOVE                             R5 R7
+       22 GETUPVAL                         R6 0
+       23 JUMPIFNOT                        R6 ; [+25]
+       24 LOADN                            R6 0
+       25 LOADN                            R7 0
+       26 GETTABLEKS                       R8 R4 K10 ["RootModelMap"]
+       28 LOADNIL                          R9
+       29 LOADNIL                          R10
+       30 FORGPREP                         R8
+       31 LOADK                            R15 K11 ["ProceduralModel"]
+       32 NAMECALL                         R13 R11 K12 ["IsA"]
+       34 CALL                             R13 2 1
+       35 JUMPIFNOT                        R13 ; [+2]
+       36 ADDK                             R7 R7 K9 [1]
+       37 JUMP                             ; [+1]
+       38 ADDK                             R6 R6 K9 [1]
+       39 FORGLOOP                         R8 1 ; [-9]
+       41 LOADN                            R8 0
+       42 JUMPIFLT                         R8 R6 ; [+4]
+       44 LOADN                            R8 1
+       45 JUMPIFNOTLT                      R8 R5 ; [+21]
+       47 RETURN                           R3 1
+       48 JUMP                             ; [+18]
+       49 GETTABLEKS                       R7 R4 K10 ["RootModelMap"]
+       51 LOADN                            R8 0
+       52 MOVE                             R9 R7
+       53 LOADNIL                          R10
+       54 LOADNIL                          R11
+       55 FORGPREP                         R9
+       56 ADDK                             R8 R8 K9 [1]
+       57 FORGLOOP                         R9 1 ; [-2]
+       59 MOVE                             R6 R8
+       60 LOADN                            R7 0
+       61 JUMPIFLT                         R7 R6 ; [+4]
+       63 LOADN                            R7 1
+       64 JUMPIFNOTLT                      R7 R5 ; [+2]
+       66 RETURN                           R3 1
+       67 GETIMPORT                        R6 K14 [next]
+       69 GETTABLEKS                       R7 R4 K8 ["LoosePartMap"]
+       71 CALL                             R6 1 1
+       72 JUMPIFNOT                        R6 ; [+12]
+       73 LOADK                            R9 K15 ["Part"]
+       74 NAMECALL                         R7 R6 K12 ["IsA"]
+       76 CALL                             R7 2 1
+       77 JUMPIFNOT                        R7 ; [+7]
+       78 GETTABLEKS                       R7 R6 K16 ["Shape"]
+       80 GETIMPORT                        R8 K20 [Enum.PartType.Ball]
+       82 JUMPIFNOTEQ                      R7 R8 ; [+2]
+       84 RETURN                           R3 1
+       85 NEWTABLE                         R7 0 3
+       87 DUPTABLE                         R8 K21 [{[1] = True}]
+       88 DUPTABLE                         R9 K22 [{["Y"] = True}]
+       89 DUPTABLE                         R10 K23 [{["Z"] = True}]
+       90 SETLIST                          R7 R8 3 [1]
+       92 GETTABLE                         R8 R7 R2
+       93 RETURN                           R8 1
 
 PROTO_5:
         0 GETUPVAL                         R4 0
@@ -1328,80 +1321,75 @@ MAIN:
        56 CALL                             R9 1 1
        57 GETIMPORT                        R10 K9 [require]
        59 GETTABLEKS                       R11 R3 K17 ["Flags"]
-       61 GETTABLEKS                       R11 R11 K18 ["getFFlagDraggerImprovements"]
+       61 GETTABLEKS                       R11 R11 K18 ["getFFlagDraggerEditProcModels"]
        63 CALL                             R10 1 1
-       64 GETIMPORT                        R11 K9 [require]
-       66 GETTABLEKS                       R12 R3 K17 ["Flags"]
-       68 GETTABLEKS                       R12 R12 K19 ["getFFlagDraggerEditProcModels"]
-       70 CALL                             R11 1 1
-       71 MOVE                             R12 R11
-       72 CALL                             R12 0 1
-       73 GETIMPORT                        R13 K22 [CFrame.new]
-       75 CALL                             R13 0 1
-       76 FASTCALL                         VECTOR ; [+2]
-       77 GETIMPORT                        R14 K24 [Vector3.new]
-       79 CALL                             R14 0 1
-       80 LOADK                            R16 K26 [{1, 1, 1}]
-       81 MULK                             R15 R16 K25 [∞]
-       82 NEWTABLE                         R16 32 0
-       84 SETTABLEKS                       R16 R16 K27 ["__index"]
-       86 DUPCLOSURE                       R17 K28 [PROTO_0]
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R16
-       89 SETTABLEKS                       R17 R16 K21 ["new"]
-       91 DUPCLOSURE                       R17 K29 [PROTO_1]
-       92 CAPTURE                          VAL R12
-       93 CAPTURE                          VAL R14
-       94 SETTABLEKS                       R17 R16 K30 ["getBoundingBox"]
-       96 DUPCLOSURE                       R17 K31 [PROTO_2]
-       97 SETTABLEKS                       R17 R16 K32 ["shouldScaleFromCenter"]
-       99 DUPCLOSURE                       R17 K33 [PROTO_3]
-      100 DUPCLOSURE                       R18 K34 [PROTO_4]
-      101 CAPTURE                          VAL R10
-      102 CAPTURE                          VAL R12
-      103 SETTABLEKS                       R18 R16 K35 ["axesToScale"]
-      105 DUPCLOSURE                       R18 K36 [PROTO_5]
-      106 CAPTURE                          VAL R7
-      107 CAPTURE                          VAL R14
-      108 CAPTURE                          VAL R15
-      109 SETTABLEKS                       R18 R16 K37 ["getMinMaxSizes"]
-      111 DUPCLOSURE                       R18 K38 [PROTO_6]
-      112 CAPTURE                          VAL R8
-      113 SETTABLEKS                       R18 R16 K39 ["_unjoinRoots"]
-      115 DUPCLOSURE                       R18 K40 [PROTO_7]
-      116 SETTABLEKS                       R18 R16 K41 ["_rejoinRoots"]
-      118 DUPCLOSURE                       R18 K42 [PROTO_8]
-      119 CAPTURE                          VAL R12
-      120 CAPTURE                          VAL R0
-      121 CAPTURE                          VAL R6
-      122 SETTABLEKS                       R18 R16 K43 ["beginScale"]
-      124 DUPCLOSURE                       R18 K44 [PROTO_9]
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R9
-      127 SETTABLEKS                       R18 R16 K16 ["getSoftSnaps"]
-      129 DUPCLOSURE                       R18 K45 [PROTO_10]
-      130 DUPCLOSURE                       R19 K46 [PROTO_11]
-      131 SETTABLEKS                       R19 R16 K47 ["_maybeSnapPartSizeBackDownToGrid"]
-      133 DUPCLOSURE                       R19 K48 [PROTO_12]
-      134 DUPCLOSURE                       R20 K49 [PROTO_13]
-      135 DUPCLOSURE                       R21 K50 [PROTO_14]
-      136 DUPCLOSURE                       R22 K51 [PROTO_18]
-      137 CAPTURE                          VAL R12
-      138 SETTABLEKS                       R22 R16 K52 ["updateScale"]
-      140 DUPCLOSURE                       R22 K53 [PROTO_19]
-      141 SETTABLEKS                       R22 R16 K54 ["endScale"]
-      143 DUPCLOSURE                       R22 K55 [PROTO_20]
-      144 CAPTURE                          VAL R5
-      145 SETTABLEKS                       R22 R16 K56 ["render"]
-      147 DUPCLOSURE                       R22 K57 [PROTO_21]
-      148 SETTABLEKS                       R22 R16 K58 ["_binarySearchForGoodPartSize"]
-      150 DUPCLOSURE                       R22 K59 [PROTO_23]
-      151 SETTABLEKS                       R22 R16 K60 ["_recordLooseAttachmentFixup"]
-      153 DUPCLOSURE                       R22 K61 [PROTO_24]
-      154 SETTABLEKS                       R22 R16 K62 ["_applyLooseAttachmentFixup"]
-      156 DUPCLOSURE                       R22 K63 [PROTO_25]
-      157 CAPTURE                          VAL R13
-      158 SETTABLEKS                       R22 R16 K64 ["_recordLoosePartFixup"]
-      160 DUPCLOSURE                       R22 K65 [PROTO_26]
-      161 SETTABLEKS                       R22 R16 K66 ["_applyLoosePartFixup"]
-      163 RETURN                           R16 1
+       64 MOVE                             R11 R10
+       65 CALL                             R11 0 1
+       66 GETIMPORT                        R12 K21 [CFrame.new]
+       68 CALL                             R12 0 1
+       69 FASTCALL                         VECTOR ; [+2]
+       70 GETIMPORT                        R13 K23 [Vector3.new]
+       72 CALL                             R13 0 1
+       73 LOADK                            R15 K25 [{1, 1, 1}]
+       74 MULK                             R14 R15 K24 [∞]
+       75 NEWTABLE                         R15 32 0
+       77 SETTABLEKS                       R15 R15 K26 ["__index"]
+       79 DUPCLOSURE                       R16 K27 [PROTO_0]
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          VAL R15
+       82 SETTABLEKS                       R16 R15 K20 ["new"]
+       84 DUPCLOSURE                       R16 K28 [PROTO_1]
+       85 CAPTURE                          VAL R11
+       86 CAPTURE                          VAL R13
+       87 SETTABLEKS                       R16 R15 K29 ["getBoundingBox"]
+       89 DUPCLOSURE                       R16 K30 [PROTO_2]
+       90 SETTABLEKS                       R16 R15 K31 ["shouldScaleFromCenter"]
+       92 DUPCLOSURE                       R16 K32 [PROTO_3]
+       93 DUPCLOSURE                       R17 K33 [PROTO_4]
+       94 CAPTURE                          VAL R11
+       95 SETTABLEKS                       R17 R15 K34 ["axesToScale"]
+       97 DUPCLOSURE                       R17 K35 [PROTO_5]
+       98 CAPTURE                          VAL R7
+       99 CAPTURE                          VAL R13
+      100 CAPTURE                          VAL R14
+      101 SETTABLEKS                       R17 R15 K36 ["getMinMaxSizes"]
+      103 DUPCLOSURE                       R17 K37 [PROTO_6]
+      104 CAPTURE                          VAL R8
+      105 SETTABLEKS                       R17 R15 K38 ["_unjoinRoots"]
+      107 DUPCLOSURE                       R17 K39 [PROTO_7]
+      108 SETTABLEKS                       R17 R15 K40 ["_rejoinRoots"]
+      110 DUPCLOSURE                       R17 K41 [PROTO_8]
+      111 CAPTURE                          VAL R11
+      112 CAPTURE                          VAL R0
+      113 CAPTURE                          VAL R6
+      114 SETTABLEKS                       R17 R15 K42 ["beginScale"]
+      116 DUPCLOSURE                       R17 K43 [PROTO_9]
+      117 CAPTURE                          VAL R7
+      118 CAPTURE                          VAL R9
+      119 SETTABLEKS                       R17 R15 K16 ["getSoftSnaps"]
+      121 DUPCLOSURE                       R17 K44 [PROTO_10]
+      122 DUPCLOSURE                       R18 K45 [PROTO_11]
+      123 SETTABLEKS                       R18 R15 K46 ["_maybeSnapPartSizeBackDownToGrid"]
+      125 DUPCLOSURE                       R18 K47 [PROTO_12]
+      126 DUPCLOSURE                       R19 K48 [PROTO_13]
+      127 DUPCLOSURE                       R20 K49 [PROTO_14]
+      128 DUPCLOSURE                       R21 K50 [PROTO_18]
+      129 CAPTURE                          VAL R11
+      130 SETTABLEKS                       R21 R15 K51 ["updateScale"]
+      132 DUPCLOSURE                       R21 K52 [PROTO_19]
+      133 SETTABLEKS                       R21 R15 K53 ["endScale"]
+      135 DUPCLOSURE                       R21 K54 [PROTO_20]
+      136 CAPTURE                          VAL R5
+      137 SETTABLEKS                       R21 R15 K55 ["render"]
+      139 DUPCLOSURE                       R21 K56 [PROTO_21]
+      140 SETTABLEKS                       R21 R15 K57 ["_binarySearchForGoodPartSize"]
+      142 DUPCLOSURE                       R21 K58 [PROTO_23]
+      143 SETTABLEKS                       R21 R15 K59 ["_recordLooseAttachmentFixup"]
+      145 DUPCLOSURE                       R21 K60 [PROTO_24]
+      146 SETTABLEKS                       R21 R15 K61 ["_applyLooseAttachmentFixup"]
+      148 DUPCLOSURE                       R21 K62 [PROTO_25]
+      149 CAPTURE                          VAL R12
+      150 SETTABLEKS                       R21 R15 K63 ["_recordLoosePartFixup"]
+      152 DUPCLOSURE                       R21 K64 [PROTO_26]
+      153 SETTABLEKS                       R21 R15 K65 ["_applyLoosePartFixup"]
+      155 RETURN                           R15 1

@@ -318,31 +318,27 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["Workspace"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
-       13 GETIMPORT                        R2 K8 [require]
-       15 GETTABLEKS                       R3 R1 K9 ["Utility"]
-       17 GETTABLEKS                       R3 R3 K10 ["SelectionHelper"]
-       19 CALL                             R2 1 1
-       20 NEWTABLE                         R3 8 0
-       22 SETTABLEKS                       R3 R3 K11 ["__index"]
-       24 DUPCLOSURE                       R4 K12 [PROTO_0]
-       25 CAPTURE                          VAL R3
-       26 SETTABLEKS                       R4 R3 K13 ["new"]
-       28 DUPCLOSURE                       R4 K14 [PROTO_1]
-       29 DUPCLOSURE                       R5 K15 [PROTO_2]
-       30 SETTABLEKS                       R5 R3 K16 ["getStartLocation"]
-       32 DUPCLOSURE                       R5 K17 [PROTO_3]
-       33 SETTABLEKS                       R5 R3 K18 ["beginDrag"]
-       35 DUPCLOSURE                       R5 K19 [PROTO_5]
-       36 CAPTURE                          VAL R4
-       37 CAPTURE                          VAL R2
-       38 SETTABLEKS                       R5 R3 K20 ["updateDrag"]
-       40 DUPCLOSURE                       R5 K21 [PROTO_6]
-       41 SETTABLEKS                       R5 R3 K22 ["commitDrag"]
-       43 RETURN                           R3 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R2 R0 K5 ["Utility"]
+       11 GETTABLEKS                       R2 R2 K6 ["SelectionHelper"]
+       13 CALL                             R1 1 1
+       14 NEWTABLE                         R2 8 0
+       16 SETTABLEKS                       R2 R2 K7 ["__index"]
+       18 DUPCLOSURE                       R3 K8 [PROTO_0]
+       19 CAPTURE                          VAL R2
+       20 SETTABLEKS                       R3 R2 K9 ["new"]
+       22 DUPCLOSURE                       R3 K10 [PROTO_1]
+       23 DUPCLOSURE                       R4 K11 [PROTO_2]
+       24 SETTABLEKS                       R4 R2 K12 ["getStartLocation"]
+       26 DUPCLOSURE                       R4 K13 [PROTO_3]
+       27 SETTABLEKS                       R4 R2 K14 ["beginDrag"]
+       29 DUPCLOSURE                       R4 K15 [PROTO_5]
+       30 CAPTURE                          VAL R3
+       31 CAPTURE                          VAL R1
+       32 SETTABLEKS                       R4 R2 K16 ["updateDrag"]
+       34 DUPCLOSURE                       R4 K17 [PROTO_6]
+       35 SETTABLEKS                       R4 R2 K18 ["commitDrag"]
+       37 RETURN                           R2 1

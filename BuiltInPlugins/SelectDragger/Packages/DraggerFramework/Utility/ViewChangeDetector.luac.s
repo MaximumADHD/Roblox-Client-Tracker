@@ -48,20 +48,17 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        7 GETIMPORT                        R1 K4 [game]
-        9 LOADK                            R3 K5 ["Workspace"]
-       10 NAMECALL                         R1 R1 K6 ["GetService"]
-       12 CALL                             R1 2 1
-       13 NEWTABLE                         R2 4 0
-       15 SETTABLEKS                       R2 R2 K7 ["__index"]
-       17 DUPCLOSURE                       R3 K8 [PROTO_0]
-       18 CAPTURE                          VAL R1
-       19 CAPTURE                          VAL R2
-       20 SETTABLEKS                       R3 R2 K9 ["new"]
-       22 DUPCLOSURE                       R3 K10 [PROTO_1]
-       23 CAPTURE                          VAL R1
-       24 SETTABLEKS                       R3 R2 K11 ["poll"]
-       26 RETURN                           R2 1
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["Workspace"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 NEWTABLE                         R1 4 0
+        9 SETTABLEKS                       R1 R1 K4 ["__index"]
+       11 DUPCLOSURE                       R2 K5 [PROTO_0]
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          VAL R1
+       14 SETTABLEKS                       R2 R1 K6 ["new"]
+       16 DUPCLOSURE                       R2 K7 [PROTO_1]
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R1 K8 ["poll"]
+       20 RETURN                           R1 1

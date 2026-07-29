@@ -2051,11 +2051,110 @@ PROTO_75:
 
 PROTO_76:
         0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R3 R0 K0 ["responseBody"]
+        4 CALL                             R1 2 0
+        5 RETURN                           R0 0
+
+PROTO_77:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["Failed to get item parents: %*"]
+        2 GETUPVAL                         R5 1
+        3 GETTABLEKS                       R5 R5 K1 ["pretty"]
+        5 MOVE                             R6 R0
+        6 CALL                             R5 1 1
+        7 NAMECALL                         R3 R3 K2 ["format"]
+        9 CALL                             R3 2 1
+       10 MOVE                             R2 R3
+       11 LOADK                            R3 K3 ["WARN"]
+       12 CALL                             R1 2 0
+       13 GETUPVAL                         R1 2
+       14 GETTABLEKS                       R2 R0 K4 ["responseBody"]
+       16 CALL                             R1 1 0
+       17 RETURN                           R0 0
+
+PROTO_78:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["CreateGetItemParentsRequest"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["Id"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K2 ["Type"]
+        9 GETUPVAL                         R6 2
+       10 GETTABLEKS                       R6 R6 K3 ["ScopeType"]
+       12 GETTABLEKS                       R6 R6 K4 ["User"]
+       14 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       16 LOADK                            R4 K5 ["users"]
+       17 JUMP                             ; [+26]
+       18 GETUPVAL                         R6 2
+       19 GETTABLEKS                       R6 R6 K3 ["ScopeType"]
+       21 GETTABLEKS                       R6 R6 K6 ["Group"]
+       23 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       25 LOADK                            R4 K7 ["groups"]
+       26 JUMP                             ; [+17]
+       27 GETUPVAL                         R6 2
+       28 GETTABLEKS                       R6 R6 K3 ["ScopeType"]
+       30 GETTABLEKS                       R6 R6 K8 ["Universe"]
+       32 JUMPIFEQ                         R5 R6 ; [+8]
+       34 GETUPVAL                         R6 2
+       35 GETTABLEKS                       R6 R6 K3 ["ScopeType"]
+       37 GETTABLEKS                       R6 R6 K9 ["ProjectShared"]
+       39 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       41 LOADK                            R4 K10 ["universes"]
+       42 JUMP                             ; [+1]
+       43 LOADK                            R4 K11 [""]
+       44 GETUPVAL                         R5 3
+       45 CALL                             R2 3 1
+       46 NAMECALL                         R2 R2 K12 ["makeRequest"]
+       48 CALL                             R2 1 1
+       49 NEWCLOSURE                       R4 P0
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          UPVAL U4
+       52 NAMECALL                         R2 R2 K13 ["andThen"]
+       54 CALL                             R2 2 1
+       55 NEWCLOSURE                       R4 P1
+       56 CAPTURE                          UPVAL U5
+       57 CAPTURE                          UPVAL U6
+       58 CAPTURE                          VAL R1
+       59 NAMECALL                         R2 R2 K14 ["catch"]
+       61 CALL                             R2 2 0
+       62 RETURN                           R0 0
+
+PROTO_79:
+        0 NEWTABLE                         R2 0 0
+        2 MOVE                             R3 R1
+        3 LOADNIL                          R4
+        4 LOADNIL                          R5
+        5 FORGPREP                         R3
+        6 DUPTABLE                         R10 K1 [{"path"}]
+        7 SETTABLEKS                       R7 R10 K0 ["path"]
+        9 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       11 MOVE                             R9 R2
+       12 GETIMPORT                        R8 K4 [table.insert]
+       14 CALL                             R8 2 0
+       15 FORGLOOP                         R3 2 ; [-10]
+       17 DUPTABLE                         R3 K6 [{"items"}]
+       18 SETTABLEKS                       R2 R3 K5 ["items"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K7 ["new"]
+       23 NEWCLOSURE                       R5 P0
+       24 CAPTURE                          UPVAL U1
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U2
+       27 CAPTURE                          VAL R3
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          UPVAL U3
+       30 CAPTURE                          UPVAL U4
+       31 CALL                             R4 1 -1
+       32 RETURN                           R4 -1
+
+PROTO_80:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["responseBody"]
         3 CALL                             R1 1 0
         4 RETURN                           R0 0
 
-PROTO_77:
+PROTO_81:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["Failed to move items: %*"]
         2 GETUPVAL                         R5 1
@@ -2072,7 +2171,7 @@ PROTO_77:
        16 CALL                             R1 1 0
        17 RETURN                           R0 0
 
-PROTO_78:
+PROTO_82:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["CreateMoveItemsRequest"]
         3 GETUPVAL                         R3 1
@@ -2118,7 +2217,7 @@ PROTO_78:
        60 CALL                             R2 2 0
        61 RETURN                           R0 0
 
-PROTO_79:
+PROTO_83:
         0 NEWTABLE                         R4 0 0
         2 MOVE                             R5 R1
         3 LOADNIL                          R6
@@ -2147,7 +2246,7 @@ PROTO_79:
        34 CALL                             R6 1 -1
        35 RETURN                           R6 -1
 
-PROTO_80:
+PROTO_84:
         0 PREPVARARGS                      1
         1 LOADB                            R1 0
         2 RETURN                           R1 1
@@ -2255,7 +2354,7 @@ MAIN:
       169 GETTABLEKS                       R23 R23 K15 ["Util"]
       171 GETTABLEKS                       R23 R23 K34 ["logIfDebug"]
       173 CALL                             R22 1 1
-      174 NEWTABLE                         R23 32 0
+      174 NEWTABLE                         R23 64 0
       176 LOADN                            R24 0
       177 SETTABLEKS                       R24 R23 K35 ["_fetchTotalAssets"]
       179 DUPCLOSURE                       R24 K36 [PROTO_0]
@@ -2425,7 +2524,14 @@ MAIN:
       372 CAPTURE                          VAL R1
       373 CAPTURE                          VAL R22
       374 CAPTURE                          VAL R4
-      375 SETTABLEKS                       R26 R23 K97 ["moveItemsAsync"]
-      377 DUPCLOSURE                       R26 K98 [PROTO_80]
-      378 SETTABLEKS                       R26 R23 K99 ["resume"]
-      380 RETURN                           R23 1
+      375 SETTABLEKS                       R26 R23 K97 ["getItemParentsAsync"]
+      377 DUPCLOSURE                       R26 K98 [PROTO_83]
+      378 CAPTURE                          VAL R3
+      379 CAPTURE                          VAL R5
+      380 CAPTURE                          VAL R1
+      381 CAPTURE                          VAL R22
+      382 CAPTURE                          VAL R4
+      383 SETTABLEKS                       R26 R23 K99 ["moveItemsAsync"]
+      385 DUPCLOSURE                       R26 K100 [PROTO_84]
+      386 SETTABLEKS                       R26 R23 K101 ["resume"]
+      388 RETURN                           R23 1

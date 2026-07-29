@@ -5,7 +5,12 @@ PROTO_0:
         4 GETUPVAL                         R0 1
         5 NAMECALL                         R0 R0 K1 ["Destroy"]
         7 CALL                             R0 1 0
-        8 RETURN                           R0 0
+        8 GETUPVAL                         R0 2
+        9 JUMPIFEQKNIL                     R0 ; [+5]
+       11 GETUPVAL                         R0 2
+       12 NAMECALL                         R0 R0 K1 ["Destroy"]
+       14 CALL                             R0 1 0
+       15 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [require]
@@ -67,47 +72,91 @@ PROTO_1:
        79 SETTABLEKS                       R6 R5 K17 ["Title"]
        81 GETIMPORT                        R6 K34 [Enum.ZIndexBehavior.Sibling]
        83 SETTABLEKS                       R6 R5 K32 ["ZIndexBehavior"]
-       85 GETTABLEKS                       R6 R1 K43 ["createElement"]
-       87 MOVE                             R7 R3
-       88 DUPTABLE                         R8 K47 [{"Plugin", "Widget", "Floating", "Mdi"}]
-       89 SETTABLEKS                       R0 R8 K44 ["Plugin"]
-       91 SETTABLEKS                       R4 R8 K45 ["Widget"]
-       93 SETTABLEKS                       R5 R8 K35 ["Floating"]
-       95 GETTABLEKS                       R9 R0 K48 ["MultipleDocumentInterfaceInstance"]
-       97 SETTABLEKS                       R9 R8 K46 ["Mdi"]
-       99 CALL                             R6 2 1
-      100 GETTABLEKS                       R7 R2 K49 ["createRoot"]
-      102 MOVE                             R8 R4
-      103 CALL                             R7 1 1
-      104 MOVE                             R10 R6
-      105 NAMECALL                         R8 R7 K50 ["render"]
-      107 CALL                             R8 2 0
-      108 GETTABLEKS                       R8 R0 K51 ["Unloading"]
-      110 NEWCLOSURE                       R10 P0
-      111 CAPTURE                          VAL R7
-      112 CAPTURE                          VAL R4
-      113 NAMECALL                         R8 R8 K52 ["Once"]
-      115 CALL                             R8 2 0
-      116 GETUPVAL                         R8 3
-      117 CALL                             R8 0 1
-      118 JUMPIFNOT                        R8 ; [+23]
-      119 GETIMPORT                        R8 K54 [game]
-      121 LOADK                            R10 K55 ["RobloxPluginGuiService"]
-      122 NAMECALL                         R8 R8 K56 ["GetService"]
-      124 CALL                             R8 2 1
-      125 GETIMPORT                        R9 K1 [require]
-      127 GETUPVAL                         R10 0
-      128 GETTABLEKS                       R10 R10 K5 ["Src"]
-      130 GETTABLEKS                       R10 R10 K57 ["FoundationInspector"]
-      132 CALL                             R9 1 1
-      133 GETTABLEKS                       R10 R9 K58 ["open"]
-      135 MOVE                             R11 R0
-      136 CALL                             R10 1 0
-      137 GETTABLEKS                       R10 R9 K59 ["watchDockWidgets"]
-      139 MOVE                             R11 R0
-      140 MOVE                             R12 R8
-      141 CALL                             R10 2 0
-      142 RETURN                           R0 0
+       85 LOADNIL                          R6
+       86 GETUPVAL                         R7 3
+       87 CALL                             R7 0 1
+       88 JUMPIFNOT                        R7 ; [+53]
+       89 LOADK                            R9 K43 ["WindowChromeController"]
+       90 NAMECALL                         R7 R0 K44 ["GetPluginComponent"]
+       92 CALL                             R7 2 1
+       93 NAMECALL                         R8 R7 K45 ["IsSystemMenuInWindowAsync"]
+       95 CALL                             R8 1 1
+       96 JUMPIFNOT                        R8 ; [+45]
+       97 NAMECALL                         R8 R7 K46 ["GetSystemButtonRectAsync"]
+       99 CALL                             R8 1 1
+      100 GETTABLEKS                       R9 R8 K47 ["Height"]
+      102 LOADK                            R12 K48 ["SystemMenu"]
+      103 DUPTABLE                         R13 K51 [{["Id"] = "SystemMenu", ["InitialEnabled"] = True, ["Title"] = "SystemMenu", ["Parent"] = "studioTopBar", ["AddAsMenuBar"] = True, ["Modal"] = False, ["Panel"] = True, ["Resizable"] = True, ["Transparent"] = True, ["Size"], ["MinSize"]}]
+      104 GETIMPORT                        R14 K24 [Vector2.new]
+      106 LOADN                            R15 640
+      107 MOVE                             R16 R9
+      108 CALL                             R14 2 1
+      109 SETTABLEKS                       R14 R13 K16 ["Size"]
+      111 GETIMPORT                        R14 K24 [Vector2.new]
+      113 LOADN                            R15 640
+      114 MOVE                             R16 R9
+      115 CALL                             R14 2 1
+      116 SETTABLEKS                       R14 R13 K11 ["MinSize"]
+      118 NAMECALL                         R10 R0 K25 ["CreateQWidgetPluginGui"]
+      120 CALL                             R10 3 1
+      121 MOVE                             R6 R10
+      122 JUMPIFNOTEQKNIL                  R6 ; [+2]
+      124 LOADB                            R11 0 +1
+      125 LOADB                            R11 1
+      126 FASTCALL2K                       ASSERT R11 K52 ; [+4]
+      128 LOADK                            R12 K52 ["systemMenuWidget must be non-nil"]
+      129 GETIMPORT                        R10 K54 [assert]
+      131 CALL                             R10 2 0
+      132 LOADB                            R10 1
+      133 SETTABLEKS                       R10 R6 K29 ["Enabled"]
+      135 LOADK                            R10 K48 ["SystemMenu"]
+      136 SETTABLEKS                       R10 R6 K30 ["Name"]
+      138 GETIMPORT                        R10 K34 [Enum.ZIndexBehavior.Sibling]
+      140 SETTABLEKS                       R10 R6 K32 ["ZIndexBehavior"]
+      142 GETTABLEKS                       R7 R1 K55 ["createElement"]
+      144 MOVE                             R8 R3
+      145 DUPTABLE                         R9 K60 [{"Plugin", "Widget", "Floating", "Mdi", "SystemMenuWidget"}]
+      146 SETTABLEKS                       R0 R9 K56 ["Plugin"]
+      148 SETTABLEKS                       R4 R9 K57 ["Widget"]
+      150 SETTABLEKS                       R5 R9 K35 ["Floating"]
+      152 GETTABLEKS                       R10 R0 K61 ["MultipleDocumentInterfaceInstance"]
+      154 SETTABLEKS                       R10 R9 K58 ["Mdi"]
+      156 SETTABLEKS                       R6 R9 K59 ["SystemMenuWidget"]
+      158 CALL                             R7 2 1
+      159 GETTABLEKS                       R8 R2 K62 ["createRoot"]
+      161 MOVE                             R9 R4
+      162 CALL                             R8 1 1
+      163 MOVE                             R11 R7
+      164 NAMECALL                         R9 R8 K63 ["render"]
+      166 CALL                             R9 2 0
+      167 GETTABLEKS                       R9 R0 K64 ["Unloading"]
+      169 NEWCLOSURE                       R11 P0
+      170 CAPTURE                          VAL R8
+      171 CAPTURE                          VAL R4
+      172 CAPTURE                          REF R6
+      173 NAMECALL                         R9 R9 K65 ["Once"]
+      175 CALL                             R9 2 0
+      176 GETUPVAL                         R9 4
+      177 CALL                             R9 0 1
+      178 JUMPIFNOT                        R9 ; [+23]
+      179 GETIMPORT                        R9 K67 [game]
+      181 LOADK                            R11 K68 ["RobloxPluginGuiService"]
+      182 NAMECALL                         R9 R9 K69 ["GetService"]
+      184 CALL                             R9 2 1
+      185 GETIMPORT                        R10 K1 [require]
+      187 GETUPVAL                         R11 0
+      188 GETTABLEKS                       R11 R11 K5 ["Src"]
+      190 GETTABLEKS                       R11 R11 K70 ["FoundationInspector"]
+      192 CALL                             R10 1 1
+      193 GETTABLEKS                       R11 R10 K71 ["open"]
+      195 MOVE                             R12 R0
+      196 CALL                             R11 1 0
+      197 GETTABLEKS                       R11 R10 K72 ["watchDockWidgets"]
+      199 MOVE                             R12 R0
+      200 MOVE                             R13 R9
+      201 CALL                             R11 2 0
+      202 CLOSEUPVALS                      R6
+      203 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -130,9 +179,15 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K7 ["SharedFlags"]
        31 GETTABLEKS                       R4 R4 K10 ["getFFlagRibbonTextLengthImprovements"]
        33 CALL                             R3 1 1
-       34 DUPCLOSURE                       R4 K11 [PROTO_1]
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R1
-       39 RETURN                           R4 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R5 R0 K6 ["Src"]
+       38 GETTABLEKS                       R5 R5 K7 ["SharedFlags"]
+       40 GETTABLEKS                       R5 R5 K11 ["getFeatureStudioCustomWindowChrome"]
+       42 CALL                             R4 1 1
+       43 DUPCLOSURE                       R5 K12 [PROTO_1]
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R1
+       49 RETURN                           R5 1

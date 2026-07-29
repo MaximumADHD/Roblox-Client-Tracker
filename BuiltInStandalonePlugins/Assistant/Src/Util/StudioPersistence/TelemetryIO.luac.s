@@ -506,8 +506,110 @@ PROTO_10:
        90 RETURN                           R4 1
 
 PROTO_11:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R2 0 1
+        4 GETIMPORT                        R3 K2 [pcall]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K3 ["getAgentMessagesAsync"]
+        9 MOVE                             R5 R0
+       10 MOVE                             R6 R1
+       11 CALL                             R3 3 3
+       12 JUMPIFNOT                        R3 ; [+1]
+       13 JUMPIF                           R4 ; [+31]
+       14 GETUPVAL                         R6 2
+       15 GETUPVAL                         R7 3
+       16 GETTABLEKS                       R7 R7 K4 ["Load"]
+       18 GETUPVAL                         R8 4
+       19 GETTABLEKS                       R8 R8 K5 ["Messages"]
+       21 GETUPVAL                         R10 0
+       22 GETTABLEKS                       R10 R10 K0 ["getTimestampMilliseconds"]
+       24 CALL                             R10 0 1
+       25 SUB                              R9 R10 R2
+       26 GETTABLEKS                       R10 R6 K6 ["logPersistenceOperation"]
+       28 DUPTABLE                         R11 K12 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
+       29 SETTABLEKS                       R7 R11 K7 ["operation"]
+       31 SETTABLEKS                       R8 R11 K8 ["scope"]
+       33 SETTABLEKS                       R9 R11 K11 ["latencyMs"]
+       35 CALL                             R10 1 0
+       36 JUMPIF                           R3 ; [+5]
+       37 GETIMPORT                        R6 K14 [error]
+       39 MOVE                             R7 R4
+       40 LOADN                            R8 0
+       41 CALL                             R6 2 0
+       42 LOADB                            R6 0
+       43 MOVE                             R7 R5
+       44 RETURN                           R6 2
+       45 GETUPVAL                         R6 2
+       46 GETUPVAL                         R7 3
+       47 GETTABLEKS                       R7 R7 K4 ["Load"]
+       49 GETUPVAL                         R8 4
+       50 GETTABLEKS                       R8 R8 K5 ["Messages"]
+       52 GETUPVAL                         R10 0
+       53 GETTABLEKS                       R10 R10 K0 ["getTimestampMilliseconds"]
+       55 CALL                             R10 0 1
+       56 SUB                              R9 R10 R2
+       57 GETTABLEKS                       R10 R6 K6 ["logPersistenceOperation"]
+       59 DUPTABLE                         R11 K16 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       60 SETTABLEKS                       R7 R11 K7 ["operation"]
+       62 SETTABLEKS                       R8 R11 K8 ["scope"]
+       64 SETTABLEKS                       R9 R11 K11 ["latencyMs"]
+       66 CALL                             R10 1 0
+       67 LOADB                            R6 1
+       68 MOVE                             R7 R5
+       69 RETURN                           R6 2
+
+PROTO_12:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getTimestampMilliseconds"]
+        3 CALL                             R2 0 1
+        4 GETIMPORT                        R3 K2 [pcall]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K3 ["uploadAgentSessionsAsync"]
+        9 MOVE                             R5 R0
+       10 MOVE                             R6 R1
+       11 CALL                             R3 3 2
+       12 JUMPIFNOT                        R3 ; [+1]
+       13 JUMPIF                           R4 ; [+27]
+       14 GETUPVAL                         R5 2
+       15 GETUPVAL                         R6 3
+       16 GETTABLEKS                       R6 R6 K4 ["Save"]
+       18 GETUPVAL                         R7 4
+       19 GETTABLEKS                       R7 R7 K5 ["Messages"]
+       21 GETUPVAL                         R9 0
+       22 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
+       24 CALL                             R9 0 1
+       25 SUB                              R8 R9 R2
+       26 GETTABLEKS                       R9 R5 K6 ["logPersistenceOperation"]
+       28 DUPTABLE                         R10 K12 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
+       29 SETTABLEKS                       R6 R10 K7 ["operation"]
+       31 SETTABLEKS                       R7 R10 K8 ["scope"]
+       33 SETTABLEKS                       R8 R10 K11 ["latencyMs"]
+       35 CALL                             R9 1 0
+       36 GETIMPORT                        R5 K14 [error]
+       38 MOVE                             R6 R4
+       39 LOADN                            R7 0
+       40 CALL                             R5 2 0
+       41 GETUPVAL                         R5 2
+       42 GETUPVAL                         R6 3
+       43 GETTABLEKS                       R6 R6 K4 ["Save"]
+       45 GETUPVAL                         R7 4
+       46 GETTABLEKS                       R7 R7 K5 ["Messages"]
+       48 GETUPVAL                         R9 0
+       49 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
+       51 CALL                             R9 0 1
+       52 SUB                              R8 R9 R2
+       53 GETTABLEKS                       R9 R5 K6 ["logPersistenceOperation"]
+       55 DUPTABLE                         R10 K16 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       56 SETTABLEKS                       R6 R10 K7 ["operation"]
+       58 SETTABLEKS                       R7 R10 K8 ["scope"]
+       60 SETTABLEKS                       R8 R10 K11 ["latencyMs"]
+       62 CALL                             R9 1 0
+       63 RETURN                           R4 1
+
+PROTO_13:
         0 GETTABLEKS                       R2 R1 K0 ["EventLogger"]
-        2 DUPTABLE                         R3 K6 [{"getThreadsAsync", "uploadThreadsAsync", "deleteThreadAsync", "getMessagesAsync", "uploadMessagesAsync"}]
+        2 DUPTABLE                         R3 K8 [{"getThreadsAsync", "uploadThreadsAsync", "deleteThreadAsync", "getMessagesAsync", "uploadMessagesAsync", "getAgentMessagesAsync", "uploadAgentSessionsAsync"}]
         3 NEWCLOSURE                       R4 P0
         4 CAPTURE                          UPVAL U0
         5 CAPTURE                          VAL R0
@@ -548,7 +650,35 @@ PROTO_11:
        44 CAPTURE                          UPVAL U2
        45 CAPTURE                          UPVAL U3
        46 SETTABLEKS                       R4 R3 K5 ["uploadMessagesAsync"]
-       48 RETURN                           R3 1
+       48 GETUPVAL                         R5 1
+       49 GETTABLEKS                       R5 R5 K9 ["FFlagAssistantHarnessSplit"]
+       51 JUMPIFNOT                        R5 ; [+10]
+       52 GETTABLEKS                       R5 R0 K6 ["getAgentMessagesAsync"]
+       54 JUMPIFNOT                        R5 ; [+7]
+       55 NEWCLOSURE                       R4 P5
+       56 CAPTURE                          UPVAL U0
+       57 CAPTURE                          VAL R0
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          UPVAL U2
+       60 CAPTURE                          UPVAL U3
+       61 JUMP                             ; [+1]
+       62 LOADNIL                          R4
+       63 SETTABLEKS                       R4 R3 K6 ["getAgentMessagesAsync"]
+       65 GETUPVAL                         R5 1
+       66 GETTABLEKS                       R5 R5 K9 ["FFlagAssistantHarnessSplit"]
+       68 JUMPIFNOT                        R5 ; [+10]
+       69 GETTABLEKS                       R5 R0 K7 ["uploadAgentSessionsAsync"]
+       71 JUMPIFNOT                        R5 ; [+7]
+       72 NEWCLOSURE                       R4 P6
+       73 CAPTURE                          UPVAL U0
+       74 CAPTURE                          VAL R0
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          UPVAL U2
+       77 CAPTURE                          UPVAL U3
+       78 JUMP                             ; [+1]
+       79 LOADNIL                          R4
+       80 SETTABLEKS                       R4 R3 K7 ["uploadAgentSessionsAsync"]
+       82 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -576,7 +706,7 @@ MAIN:
        38 GETTABLEKS                       R6 R6 K15 ["ScopeTypes"]
        40 DUPCLOSURE                       R7 K16 [PROTO_0]
        41 CAPTURE                          VAL R4
-       42 DUPCLOSURE                       R8 K17 [PROTO_11]
+       42 DUPCLOSURE                       R8 K17 [PROTO_13]
        43 CAPTURE                          VAL R4
        44 CAPTURE                          VAL R3
        45 CAPTURE                          VAL R5

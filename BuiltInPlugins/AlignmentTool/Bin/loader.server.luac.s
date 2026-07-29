@@ -42,50 +42,60 @@ MAIN:
        35 GETTABLEKS                       R4 R4 K10 ["Resources"]
        37 GETTABLEKS                       R4 R4 K11 ["Localization"]
        39 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
-       41 DUPTABLE                         R5 K25 [{["plugin"], ["pluginName"] = "AlignmentTool", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
-       42 GETIMPORT                        R6 K26 [plugin]
-       44 SETTABLEKS                       R6 R5 K14 ["plugin"]
-       46 SETTABLEKS                       R4 R5 K17 ["translationResourceTable"]
-       48 SETTABLEKS                       R3 R5 K18 ["fallbackResourceTable"]
-       50 DUPCLOSURE                       R6 K27 [PROTO_0]
-       51 SETTABLEKS                       R6 R5 K22 ["getToolbarName"]
-       53 DUPTABLE                         R6 K35 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = , ["clickableWhenViewportHidden"] = True}]
-       54 DUPCLOSURE                       R7 K36 [PROTO_1]
-       55 SETTABLEKS                       R7 R6 K28 ["getName"]
-       57 DUPCLOSURE                       R7 K37 [PROTO_2]
-       58 SETTABLEKS                       R7 R6 K29 ["getDescription"]
-       60 SETTABLEKS                       R6 R5 K23 ["buttonInfo"]
-       62 DUPTABLE                         R6 K42 [{["id"] = "AlignmentTool", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
-       63 GETIMPORT                        R7 K45 [DockWidgetPluginGuiInfo.new]
-       65 GETIMPORT                        R8 K49 [Enum.InitialDockState.Left]
-       67 LOADB                            R9 0
-       68 LOADB                            R10 0
-       69 LOADN                            R11 300
-       70 LOADN                            R12 250
-       71 LOADN                            R13 175
-       72 LOADN                            R14 250
-       73 CALL                             R7 7 1
-       74 SETTABLEKS                       R7 R6 K39 ["dockWidgetPluginGuiInfo"]
-       76 DUPCLOSURE                       R7 K50 [PROTO_3]
-       77 SETTABLEKS                       R7 R6 K40 ["getDockTitle"]
-       79 GETIMPORT                        R7 K53 [Enum.ZIndexBehavior.Sibling]
-       81 SETTABLEKS                       R7 R6 K41 ["zIndexBehavior"]
-       83 SETTABLEKS                       R6 R5 K24 ["dockWidgetInfo"]
-       85 GETTABLEKS                       R6 R2 K54 ["build"]
-       87 MOVE                             R7 R5
-       88 CALL                             R6 1 1
-       89 GETTABLEKS                       R7 R6 K55 ["pluginLoader"]
-       91 NAMECALL                         R7 R7 K56 ["waitForUserInteraction"]
-       93 CALL                             R7 1 1
-       94 JUMPIF                           R7 ; [+1]
-       95 RETURN                           R0 0
-       96 GETIMPORT                        R8 K1 [require]
-       98 GETIMPORT                        R9 K3 [script]
-      100 GETTABLEKS                       R9 R9 K4 ["Parent"]
-      102 GETTABLEKS                       R9 R9 K57 ["main"]
-      104 CALL                             R8 1 1
-      105 MOVE                             R9 R8
-      106 GETIMPORT                        R10 K26 [plugin]
-      108 MOVE                             R11 R6
-      109 CALL                             R9 2 0
-      110 RETURN                           R0 0
+       41 GETIMPORT                        R5 K15 [game]
+       43 LOADK                            R7 K16 ["AlignToolEnableKeyboardNav"]
+       44 LOADB                            R8 0
+       45 NAMECALL                         R5 R5 K17 ["DefineFastFlag"]
+       47 CALL                             R5 3 1
+       48 DUPTABLE                         R6 K29 [{["plugin"], ["pluginName"] = "AlignmentTool", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
+       49 GETIMPORT                        R7 K30 [plugin]
+       51 SETTABLEKS                       R7 R6 K18 ["plugin"]
+       53 SETTABLEKS                       R4 R6 K21 ["translationResourceTable"]
+       55 SETTABLEKS                       R3 R6 K22 ["fallbackResourceTable"]
+       57 DUPCLOSURE                       R7 K31 [PROTO_0]
+       58 SETTABLEKS                       R7 R6 K26 ["getToolbarName"]
+       60 DUPTABLE                         R7 K39 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = , ["clickableWhenViewportHidden"] = True}]
+       61 DUPCLOSURE                       R8 K40 [PROTO_1]
+       62 SETTABLEKS                       R8 R7 K32 ["getName"]
+       64 DUPCLOSURE                       R8 K41 [PROTO_2]
+       65 SETTABLEKS                       R8 R7 K33 ["getDescription"]
+       67 SETTABLEKS                       R7 R6 K27 ["buttonInfo"]
+       69 DUPTABLE                         R7 K47 [{["id"] = "AlignmentTool", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"], ["keyboardNavigationEnabled"]}]
+       70 GETIMPORT                        R8 K50 [DockWidgetPluginGuiInfo.new]
+       72 GETIMPORT                        R9 K54 [Enum.InitialDockState.Left]
+       74 LOADB                            R10 0
+       75 LOADB                            R11 0
+       76 LOADN                            R12 300
+       77 LOADN                            R13 250
+       78 LOADN                            R14 175
+       79 LOADN                            R15 250
+       80 CALL                             R8 7 1
+       81 SETTABLEKS                       R8 R7 K43 ["dockWidgetPluginGuiInfo"]
+       83 DUPCLOSURE                       R8 K55 [PROTO_3]
+       84 SETTABLEKS                       R8 R7 K44 ["getDockTitle"]
+       86 GETIMPORT                        R8 K58 [Enum.ZIndexBehavior.Sibling]
+       88 SETTABLEKS                       R8 R7 K45 ["zIndexBehavior"]
+       90 JUMPIFNOT                        R5 ; [+2]
+       91 LOADB                            R8 1
+       92 JUMP                             ; [+1]
+       93 LOADNIL                          R8
+       94 SETTABLEKS                       R8 R7 K46 ["keyboardNavigationEnabled"]
+       96 SETTABLEKS                       R7 R6 K28 ["dockWidgetInfo"]
+       98 GETTABLEKS                       R7 R2 K59 ["build"]
+      100 MOVE                             R8 R6
+      101 CALL                             R7 1 1
+      102 GETTABLEKS                       R8 R7 K60 ["pluginLoader"]
+      104 NAMECALL                         R8 R8 K61 ["waitForUserInteraction"]
+      106 CALL                             R8 1 1
+      107 JUMPIF                           R8 ; [+1]
+      108 RETURN                           R0 0
+      109 GETIMPORT                        R9 K1 [require]
+      111 GETIMPORT                        R10 K3 [script]
+      113 GETTABLEKS                       R10 R10 K4 ["Parent"]
+      115 GETTABLEKS                       R10 R10 K62 ["main"]
+      117 CALL                             R9 1 1
+      118 MOVE                             R10 R9
+      119 GETIMPORT                        R11 K30 [plugin]
+      121 MOVE                             R12 R7
+      122 CALL                             R10 2 0
+      123 RETURN                           R0 0

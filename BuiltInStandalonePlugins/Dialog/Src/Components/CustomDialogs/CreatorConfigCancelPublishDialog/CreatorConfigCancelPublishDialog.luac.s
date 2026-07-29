@@ -34,37 +34,50 @@ PROTO_2:
        28 GETUPVAL                         R4 0
        29 GETTABLEKS                       R4 R4 K4 ["createElement"]
        31 GETUPVAL                         R5 1
-       32 DUPTABLE                         R6 K16 [{["uri"], ["type"] = "Default", ["title"], ["width"] = 320, ["primaryAction"], ["secondaryAction"], ["description"], ["showIndeterminateProgressIndicator"] = False}]
+       32 DUPTABLE                         R6 K17 [{["uri"], ["type"] = "Default", ["title"], ["width"] = 320, ["primaryAction"], ["secondaryAction"], ["escapeAction"], ["description"], ["showIndeterminateProgressIndicator"] = False}]
        33 GETTABLEKS                       R7 R0 K5 ["uri"]
        35 SETTABLEKS                       R7 R6 K5 ["uri"]
-       37 GETTABLEKS                       R7 R1 K17 ["Title"]
+       37 GETTABLEKS                       R7 R1 K18 ["Title"]
        39 SETTABLEKS                       R7 R6 K8 ["title"]
-       41 DUPTABLE                         R7 K20 [{"uri", "text", "onActivated"}]
+       41 DUPTABLE                         R7 K21 [{"uri", "text", "onActivated"}]
        42 GETUPVAL                         R8 2
-       43 GETTABLEKS                       R8 R8 K21 ["child"]
+       43 GETTABLEKS                       R8 R8 K22 ["child"]
        45 GETTABLEKS                       R9 R0 K5 ["uri"]
-       47 LOADK                            R10 K22 ["Publish"]
+       47 LOADK                            R10 K23 ["Publish"]
        48 CALL                             R8 2 1
        49 SETTABLEKS                       R8 R7 K5 ["uri"]
-       51 GETTABLEKS                       R8 R1 K23 ["ConfirmButton"]
-       53 SETTABLEKS                       R8 R7 K18 ["text"]
-       55 SETTABLEKS                       R2 R7 K19 ["onActivated"]
+       51 GETTABLEKS                       R8 R1 K24 ["ConfirmButton"]
+       53 SETTABLEKS                       R8 R7 K19 ["text"]
+       55 SETTABLEKS                       R2 R7 K20 ["onActivated"]
        57 SETTABLEKS                       R7 R6 K11 ["primaryAction"]
-       59 DUPTABLE                         R7 K20 [{"uri", "text", "onActivated"}]
+       59 DUPTABLE                         R7 K21 [{"uri", "text", "onActivated"}]
        60 GETUPVAL                         R8 2
-       61 GETTABLEKS                       R8 R8 K21 ["child"]
+       61 GETTABLEKS                       R8 R8 K22 ["child"]
        63 GETTABLEKS                       R9 R0 K5 ["uri"]
-       65 LOADK                            R10 K24 ["Cancel"]
+       65 LOADK                            R10 K25 ["Cancel"]
        66 CALL                             R8 2 1
        67 SETTABLEKS                       R8 R7 K5 ["uri"]
-       69 GETTABLEKS                       R8 R1 K25 ["CancelButton"]
-       71 SETTABLEKS                       R8 R7 K18 ["text"]
-       73 SETTABLEKS                       R3 R7 K19 ["onActivated"]
+       69 GETTABLEKS                       R8 R1 K26 ["CancelButton"]
+       71 SETTABLEKS                       R8 R7 K19 ["text"]
+       73 SETTABLEKS                       R3 R7 K20 ["onActivated"]
        75 SETTABLEKS                       R7 R6 K12 ["secondaryAction"]
-       77 GETTABLEKS                       R7 R1 K26 ["Description"]
-       79 SETTABLEKS                       R7 R6 K13 ["description"]
-       81 CALL                             R4 2 -1
-       82 RETURN                           R4 -1
+       77 GETUPVAL                         R8 3
+       78 JUMPIFNOT                        R8 ; [+13]
+       79 DUPTABLE                         R7 K28 [{"uri", "onClose"}]
+       80 GETUPVAL                         R8 2
+       81 GETTABLEKS                       R8 R8 K22 ["child"]
+       83 GETTABLEKS                       R9 R0 K5 ["uri"]
+       85 LOADK                            R10 K29 ["Close"]
+       86 CALL                             R8 2 1
+       87 SETTABLEKS                       R8 R7 K5 ["uri"]
+       89 SETTABLEKS                       R3 R7 K27 ["onClose"]
+       91 JUMP                             ; [+1]
+       92 LOADNIL                          R7
+       93 SETTABLEKS                       R7 R6 K13 ["escapeAction"]
+       95 GETTABLEKS                       R7 R1 K30 ["Description"]
+       97 SETTABLEKS                       R7 R6 K14 ["description"]
+       99 CALL                             R4 2 -1
+      100 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -87,41 +100,49 @@ MAIN:
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R5 R0 K9 ["Src"]
        32 GETTABLEKS                       R5 R5 K11 ["Flags"]
-       34 GETTABLEKS                       R5 R5 K12 ["getFFlagCreatorConfigStudioPublishWorkflow"]
+       34 GETTABLEKS                       R5 R5 K12 ["getFFlagCreatorConfigDialogEscapeAction"]
        36 CALL                             R4 1 1
-       37 GETTABLEKS                       R6 R2 K13 ["SharedFlags"]
-       39 GETTABLEKS                       R6 R6 K14 ["getFFlagStudioFoundationDialogComponent"]
-       41 CALL                             R6 0 1
-       42 JUMPIFNOT                        R6 ; [+5]
-       43 GETTABLEKS                       R5 R2 K15 ["Components"]
-       45 GETTABLEKS                       R5 R5 K2 ["Dialog"]
-       47 JUMP                             ; [+9]
-       48 GETIMPORT                        R5 K5 [require]
-       50 GETTABLEKS                       R6 R0 K9 ["Src"]
-       52 GETTABLEKS                       R6 R6 K15 ["Components"]
-       54 GETTABLEKS                       R6 R6 K16 ["DEPRECATED_Dialog"]
-       56 CALL                             R5 1 1
-       57 GETTABLEKS                       R6 R2 K17 ["Util"]
-       59 GETTABLEKS                       R6 R6 K18 ["StudioUri"]
-       61 DUPCLOSURE                       R7 K19 [PROTO_2]
-       62 CAPTURE                          VAL R1
-       63 CAPTURE                          VAL R5
-       64 CAPTURE                          VAL R6
-       65 MOVE                             R9 R4
-       66 CALL                             R9 0 1
-       67 JUMPIFNOT                        R9 ; [+18]
-       68 GETIMPORT                        R8 K22 [table.freeze]
-       70 DUPTABLE                         R9 K25 [{"uri", "component"}]
-       71 GETTABLEKS                       R10 R6 K26 ["fromWidget"]
-       73 LOADK                            R11 K27 ["CreatorConfig"]
-       74 LOADK                            R12 K28 ["CancelPublishDialog"]
-       75 CALL                             R10 2 1
-       76 SETTABLEKS                       R10 R9 K23 ["uri"]
-       78 GETTABLEKS                       R10 R1 K29 ["memo"]
-       80 MOVE                             R11 R7
-       81 CALL                             R10 1 1
-       82 SETTABLEKS                       R10 R9 K24 ["component"]
-       84 CALL                             R8 1 1
-       85 RETURN                           R8 1
-       86 LOADNIL                          R8
-       87 RETURN                           R8 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K9 ["Src"]
+       41 GETTABLEKS                       R6 R6 K11 ["Flags"]
+       43 GETTABLEKS                       R6 R6 K13 ["getFFlagCreatorConfigStudioPublishWorkflow"]
+       45 CALL                             R5 1 1
+       46 MOVE                             R6 R4
+       47 CALL                             R6 0 1
+       48 GETTABLEKS                       R8 R2 K14 ["SharedFlags"]
+       50 GETTABLEKS                       R8 R8 K15 ["getFFlagStudioFoundationDialogComponent"]
+       52 CALL                             R8 0 1
+       53 JUMPIFNOT                        R8 ; [+5]
+       54 GETTABLEKS                       R7 R2 K16 ["Components"]
+       56 GETTABLEKS                       R7 R7 K2 ["Dialog"]
+       58 JUMP                             ; [+9]
+       59 GETIMPORT                        R7 K5 [require]
+       61 GETTABLEKS                       R8 R0 K9 ["Src"]
+       63 GETTABLEKS                       R8 R8 K16 ["Components"]
+       65 GETTABLEKS                       R8 R8 K17 ["DEPRECATED_Dialog"]
+       67 CALL                             R7 1 1
+       68 GETTABLEKS                       R8 R2 K18 ["Util"]
+       70 GETTABLEKS                       R8 R8 K19 ["StudioUri"]
+       72 DUPCLOSURE                       R9 K20 [PROTO_2]
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          VAL R8
+       76 CAPTURE                          VAL R6
+       77 MOVE                             R11 R5
+       78 CALL                             R11 0 1
+       79 JUMPIFNOT                        R11 ; [+18]
+       80 GETIMPORT                        R10 K23 [table.freeze]
+       82 DUPTABLE                         R11 K26 [{"uri", "component"}]
+       83 GETTABLEKS                       R12 R8 K27 ["fromWidget"]
+       85 LOADK                            R13 K28 ["CreatorConfig"]
+       86 LOADK                            R14 K29 ["CancelPublishDialog"]
+       87 CALL                             R12 2 1
+       88 SETTABLEKS                       R12 R11 K24 ["uri"]
+       90 GETTABLEKS                       R12 R1 K30 ["memo"]
+       92 MOVE                             R13 R9
+       93 CALL                             R12 1 1
+       94 SETTABLEKS                       R12 R11 K25 ["component"]
+       96 CALL                             R10 1 1
+       97 RETURN                           R10 1
+       98 LOADNIL                          R10
+       99 RETURN                           R10 1

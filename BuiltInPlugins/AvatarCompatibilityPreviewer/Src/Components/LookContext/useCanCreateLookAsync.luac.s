@@ -149,7 +149,7 @@ MAIN:
        49 GETIMPORT                        R7 K9 [require]
        51 GETTABLEKS                       R8 R1 K15 ["Src"]
        53 GETTABLEKS                       R8 R8 K19 ["Flags"]
-       55 GETTABLEKS                       R8 R8 K20 ["getFFlagDebugAvatarPreviewerLookApiNeverFails"]
+       55 GETTABLEKS                       R8 R8 K20 ["getFFlagDebugAvatarPreviewerForceCanCreateLooks"]
        57 CALL                             R7 1 1
        58 DUPCLOSURE                       R8 K21 [PROTO_4]
        59 CAPTURE                          VAL R3

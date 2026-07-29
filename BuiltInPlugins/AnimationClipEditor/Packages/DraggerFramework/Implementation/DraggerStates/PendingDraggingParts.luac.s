@@ -27,31 +27,29 @@ PROTO_3:
         5 CALL                             R3 0 -1
         6 NAMECALL                         R1 R1 K2 ["setMouseCursor"]
         8 CALL                             R1 -1 0
-        9 GETUPVAL                         R1 1
-       10 CALL                             R1 0 1
-       11 JUMPIFNOT                        R1 ; [+32]
-       12 GETTABLEKS                       R1 R0 K0 ["_draggerToolModel"]
-       14 NAMECALL                         R1 R1 K3 ["getSchema"]
-       16 CALL                             R1 1 1
-       17 GETTABLEKS                       R1 R1 K4 ["getHoverComponent"]
-       19 JUMPIFNOT                        R1 ; [+24]
-       20 MOVE                             R2 R1
-       21 GETTABLEKS                       R3 R0 K0 ["_draggerToolModel"]
-       23 GETTABLEKS                       R3 R3 K5 ["_draggerContext"]
-       25 CALL                             R2 1 1
-       26 JUMPIFNOT                        R2 ; [+17]
-       27 GETUPVAL                         R3 2
-       28 GETTABLEKS                       R3 R3 K6 ["createElement"]
-       30 MOVE                             R4 R2
-       31 DUPTABLE                         R5 K11 [{["DraggerContext"], ["HoverMetadata"], ["Pending"] = True}]
-       32 GETTABLEKS                       R6 R0 K0 ["_draggerToolModel"]
-       34 GETTABLEKS                       R6 R6 K5 ["_draggerContext"]
-       36 SETTABLEKS                       R6 R5 K7 ["DraggerContext"]
-       38 GETTABLEKS                       R6 R0 K12 ["_clickedMetadata"]
-       40 SETTABLEKS                       R6 R5 K8 ["HoverMetadata"]
-       42 CALL                             R3 2 -1
-       43 RETURN                           R3 -1
-       44 RETURN                           R0 0
+        9 GETTABLEKS                       R1 R0 K0 ["_draggerToolModel"]
+       11 NAMECALL                         R1 R1 K3 ["getSchema"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R1 R1 K4 ["getHoverComponent"]
+       16 JUMPIFNOT                        R1 ; [+24]
+       17 MOVE                             R2 R1
+       18 GETTABLEKS                       R3 R0 K0 ["_draggerToolModel"]
+       20 GETTABLEKS                       R3 R3 K5 ["_draggerContext"]
+       22 CALL                             R2 1 1
+       23 JUMPIFNOT                        R2 ; [+17]
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       27 MOVE                             R4 R2
+       28 DUPTABLE                         R5 K11 [{["DraggerContext"], ["HoverMetadata"], ["Pending"] = True}]
+       29 GETTABLEKS                       R6 R0 K0 ["_draggerToolModel"]
+       31 GETTABLEKS                       R6 R6 K5 ["_draggerContext"]
+       33 SETTABLEKS                       R6 R5 K7 ["DraggerContext"]
+       35 GETTABLEKS                       R6 R0 K12 ["_clickedMetadata"]
+       37 SETTABLEKS                       R6 R5 K8 ["HoverMetadata"]
+       39 CALL                             R3 2 -1
+       40 RETURN                           R3 -1
+       41 LOADNIL                          R2
+       42 RETURN                           R2 1
 
 PROTO_4:
         0 RETURN                           R0 0
@@ -129,17 +127,14 @@ PROTO_9:
         0 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+11]
-        3 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-        5 GETUPVAL                         R4 1
-        6 GETTABLEKS                       R4 R4 K1 ["DraggingParts"]
-        8 GETTABLEKS                       R5 R0 K2 ["_dragInfo"]
-       10 MOVE                             R6 R1
-       11 NAMECALL                         R2 R2 K3 ["transitionToState"]
-       13 CALL                             R2 4 0
-       14 RETURN                           R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R4 R4 K1 ["DraggingParts"]
+        5 GETTABLEKS                       R5 R0 K2 ["_dragInfo"]
+        7 MOVE                             R6 R1
+        8 NAMECALL                         R2 R2 K3 ["transitionToState"]
+       10 CALL                             R2 4 0
+       11 RETURN                           R0 0
 
 PROTO_11:
         0 RETURN                           R0 0
@@ -162,42 +157,36 @@ MAIN:
        25 GETTABLEKS                       R5 R0 K8 ["Utility"]
        27 GETTABLEKS                       R5 R5 K9 ["StandardCursor"]
        29 CALL                             R4 1 1
-       30 GETIMPORT                        R5 K4 [require]
-       32 GETTABLEKS                       R6 R0 K10 ["Flags"]
-       34 GETTABLEKS                       R6 R6 K11 ["getFFlagDraggerImprovements"]
-       36 CALL                             R5 1 1
-       37 NEWTABLE                         R6 16 0
-       39 SETTABLEKS                       R6 R6 K12 ["__index"]
-       41 DUPCLOSURE                       R7 K13 [PROTO_0]
-       42 CAPTURE                          VAL R6
-       43 SETTABLEKS                       R7 R6 K14 ["new"]
-       45 DUPCLOSURE                       R7 K15 [PROTO_1]
-       46 SETTABLEKS                       R7 R6 K16 ["enter"]
-       48 DUPCLOSURE                       R7 K17 [PROTO_2]
-       49 SETTABLEKS                       R7 R6 K18 ["leave"]
-       51 DUPCLOSURE                       R7 K19 [PROTO_3]
-       52 CAPTURE                          VAL R4
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R2
-       55 SETTABLEKS                       R7 R6 K20 ["render"]
-       57 DUPCLOSURE                       R7 K21 [PROTO_4]
-       58 SETTABLEKS                       R7 R6 K22 ["processSelectionChanged"]
-       60 DUPCLOSURE                       R7 K23 [PROTO_5]
-       61 SETTABLEKS                       R7 R6 K24 ["processMouseDown"]
-       63 DUPCLOSURE                       R7 K25 [PROTO_6]
-       64 CAPTURE                          VAL R3
-       65 SETTABLEKS                       R7 R6 K26 ["processViewChanged"]
-       67 DUPCLOSURE                       R7 K27 [PROTO_7]
-       68 CAPTURE                          VAL R3
-       69 SETTABLEKS                       R7 R6 K28 ["processMouseUp"]
-       71 DUPCLOSURE                       R7 K29 [PROTO_8]
-       72 SETTABLEKS                       R7 R6 K30 ["processMouseEnter"]
-       74 DUPCLOSURE                       R7 K31 [PROTO_9]
-       75 SETTABLEKS                       R7 R6 K32 ["processMouseLeave"]
-       77 DUPCLOSURE                       R7 K33 [PROTO_10]
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R3
-       80 SETTABLEKS                       R7 R6 K34 ["processKeyDown"]
-       82 DUPCLOSURE                       R7 K35 [PROTO_11]
-       83 SETTABLEKS                       R7 R6 K36 ["processKeyUp"]
-       85 RETURN                           R6 1
+       30 NEWTABLE                         R5 16 0
+       32 SETTABLEKS                       R5 R5 K10 ["__index"]
+       34 DUPCLOSURE                       R6 K11 [PROTO_0]
+       35 CAPTURE                          VAL R5
+       36 SETTABLEKS                       R6 R5 K12 ["new"]
+       38 DUPCLOSURE                       R6 K13 [PROTO_1]
+       39 SETTABLEKS                       R6 R5 K14 ["enter"]
+       41 DUPCLOSURE                       R6 K15 [PROTO_2]
+       42 SETTABLEKS                       R6 R5 K16 ["leave"]
+       44 DUPCLOSURE                       R6 K17 [PROTO_3]
+       45 CAPTURE                          VAL R4
+       46 CAPTURE                          VAL R2
+       47 SETTABLEKS                       R6 R5 K18 ["render"]
+       49 DUPCLOSURE                       R6 K19 [PROTO_4]
+       50 SETTABLEKS                       R6 R5 K20 ["processSelectionChanged"]
+       52 DUPCLOSURE                       R6 K21 [PROTO_5]
+       53 SETTABLEKS                       R6 R5 K22 ["processMouseDown"]
+       55 DUPCLOSURE                       R6 K23 [PROTO_6]
+       56 CAPTURE                          VAL R3
+       57 SETTABLEKS                       R6 R5 K24 ["processViewChanged"]
+       59 DUPCLOSURE                       R6 K25 [PROTO_7]
+       60 CAPTURE                          VAL R3
+       61 SETTABLEKS                       R6 R5 K26 ["processMouseUp"]
+       63 DUPCLOSURE                       R6 K27 [PROTO_8]
+       64 SETTABLEKS                       R6 R5 K28 ["processMouseEnter"]
+       66 DUPCLOSURE                       R6 K29 [PROTO_9]
+       67 SETTABLEKS                       R6 R5 K30 ["processMouseLeave"]
+       69 DUPCLOSURE                       R6 K31 [PROTO_10]
+       70 CAPTURE                          VAL R3
+       71 SETTABLEKS                       R6 R5 K32 ["processKeyDown"]
+       73 DUPCLOSURE                       R6 K33 [PROTO_11]
+       74 SETTABLEKS                       R6 R5 K34 ["processKeyUp"]
+       76 RETURN                           R5 1

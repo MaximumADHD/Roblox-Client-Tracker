@@ -1,18 +1,30 @@
 PROTO_0:
-        0 LOADB                            R1 1
-        1 GETTABLEKS                       R2 R0 K0 ["Type"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
-        6 GETTABLEKS                       R3 R3 K2 ["ProjectPlaces"]
-        8 JUMPIFEQ                         R2 R3 ; [+12]
-       10 GETTABLEKS                       R2 R0 K0 ["Type"]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
-       15 GETTABLEKS                       R3 R3 K3 ["ProjectShared"]
-       17 JUMPIFEQ                         R2 R3 ; [+2]
-       19 LOADB                            R1 0 +1
-       20 LOADB                            R1 1
-       21 RETURN                           R1 1
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 JUMPIFNOT                        R2 ; [+12]
+        3 GETTABLEKS                       R2 R0 K0 ["Type"]
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+        8 GETTABLEKS                       R3 R3 K2 ["Universe"]
+       10 JUMPIFEQ                         R2 R3 ; [+2]
+       12 LOADB                            R1 0 +1
+       13 LOADB                            R1 1
+       14 JUMP                             ; [+11]
+       15 GETTABLEKS                       R2 R0 K0 ["Type"]
+       17 GETUPVAL                         R3 1
+       18 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+       20 GETTABLEKS                       R3 R3 K3 ["ProjectShared"]
+       22 JUMPIFEQ                         R2 R3 ; [+2]
+       24 LOADB                            R1 0 +1
+       25 LOADB                            R1 1
+       26 LOADB                            R2 1
+       27 GETTABLEKS                       R3 R0 K0 ["Type"]
+       29 GETUPVAL                         R4 1
+       30 GETTABLEKS                       R4 R4 K1 ["ScopeType"]
+       32 GETTABLEKS                       R4 R4 K4 ["ProjectPlaces"]
+       34 JUMPIFEQ                         R3 R4 ; [+2]
+       36 MOVE                             R2 R1
+       37 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -392,25 +404,37 @@ PROTO_15:
        14 CALL                             R3 1 1
        15 MOVE                             R2 R3
        16 RETURN                           R2 1
-       17 LOADB                            R3 1
-       18 GETTABLEKS                       R4 R1 K0 ["Type"]
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R5 R5 K1 ["ScopeType"]
-       23 GETTABLEKS                       R5 R5 K5 ["ProjectPlaces"]
-       25 JUMPIFEQ                         R4 R5 ; [+12]
-       27 GETTABLEKS                       R4 R1 K0 ["Type"]
-       29 GETUPVAL                         R5 0
-       30 GETTABLEKS                       R5 R5 K1 ["ScopeType"]
-       32 GETTABLEKS                       R5 R5 K6 ["ProjectShared"]
-       34 JUMPIFEQ                         R4 R5 ; [+2]
-       36 LOADB                            R3 0 +1
-       37 LOADB                            R3 1
-       38 JUMPIFNOT                        R3 ; [+6]
-       39 GETTABLEKS                       R3 R0 K3 ["_pluginController"]
-       41 NAMECALL                         R3 R3 K7 ["getGameInfo"]
-       43 CALL                             R3 1 1
-       44 MOVE                             R2 R3
-       45 RETURN                           R2 1
+       17 GETUPVAL                         R5 1
+       18 CALL                             R5 0 1
+       19 JUMPIFNOT                        R5 ; [+12]
+       20 GETTABLEKS                       R5 R1 K0 ["Type"]
+       22 GETUPVAL                         R6 0
+       23 GETTABLEKS                       R6 R6 K1 ["ScopeType"]
+       25 GETTABLEKS                       R6 R6 K5 ["Universe"]
+       27 JUMPIFEQ                         R5 R6 ; [+2]
+       29 LOADB                            R4 0 +1
+       30 LOADB                            R4 1
+       31 JUMP                             ; [+11]
+       32 GETTABLEKS                       R5 R1 K0 ["Type"]
+       34 GETUPVAL                         R6 0
+       35 GETTABLEKS                       R6 R6 K1 ["ScopeType"]
+       37 GETTABLEKS                       R6 R6 K6 ["ProjectShared"]
+       39 JUMPIFEQ                         R5 R6 ; [+2]
+       41 LOADB                            R4 0 +1
+       42 LOADB                            R4 1
+       43 LOADB                            R3 1
+       44 GETTABLEKS                       R5 R1 K0 ["Type"]
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K1 ["ScopeType"]
+       49 GETTABLEKS                       R6 R6 K7 ["ProjectPlaces"]
+       51 JUMPIFEQ                         R5 R6 ; [+2]
+       53 MOVE                             R3 R4
+       54 JUMPIFNOT                        R3 ; [+6]
+       55 GETTABLEKS                       R3 R0 K3 ["_pluginController"]
+       57 NAMECALL                         R3 R3 K8 ["getGameInfo"]
+       59 CALL                             R3 1 1
+       60 MOVE                             R2 R3
+       61 RETURN                           R2 1
 
 PROTO_16:
         0 GETTABLEKS                       R2 R0 K0 ["_searchOptions"]
@@ -666,65 +690,72 @@ MAIN:
        65 GETTABLEKS                       R11 R11 K11 ["Util"]
        67 GETTABLEKS                       R11 R11 K18 ["getScopeAnalyticsContext"]
        69 CALL                             R10 1 1
-       70 LOADK                            R13 K19 ["SearchController"]
-       71 NAMECALL                         R11 R4 K20 ["extend"]
-       73 CALL                             R11 2 1
-       74 DUPCLOSURE                       R12 K21 [PROTO_0]
-       75 CAPTURE                          VAL R8
-       76 DUPCLOSURE                       R13 K22 [PROTO_5]
-       77 CAPTURE                          VAL R8
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R11
-       80 CAPTURE                          VAL R2
-       81 SETTABLEKS                       R13 R11 K23 ["new"]
-       83 DUPCLOSURE                       R13 K24 [PROTO_6]
+       70 GETIMPORT                        R11 K5 [require]
+       72 GETTABLEKS                       R12 R0 K13 ["Src"]
+       74 GETTABLEKS                       R12 R12 K19 ["Flags"]
+       76 GETTABLEKS                       R12 R12 K20 ["getFFlagAmrUnifyGameScopeType"]
+       78 CALL                             R11 1 1
+       79 LOADK                            R14 K21 ["SearchController"]
+       80 NAMECALL                         R12 R4 K22 ["extend"]
+       82 CALL                             R12 2 1
+       83 DUPCLOSURE                       R13 K23 [PROTO_0]
        84 CAPTURE                          VAL R11
-       85 SETTABLEKS                       R13 R11 K25 ["mock"]
-       87 DUPCLOSURE                       R13 K26 [PROTO_7]
-       88 CAPTURE                          VAL R6
-       89 SETTABLEKS                       R13 R11 K27 ["destroy"]
-       91 DUPCLOSURE                       R13 K28 [PROTO_8]
-       92 SETTABLEKS                       R13 R11 K29 ["_restoreSearchState"]
-       94 DUPCLOSURE                       R13 K30 [PROTO_9]
-       95 SETTABLEKS                       R13 R11 K31 ["getSearchTerm"]
-       97 DUPCLOSURE                       R13 K32 [PROTO_10]
-       98 SETTABLEKS                       R13 R11 K33 ["setSearchTerm"]
-      100 DUPCLOSURE                       R13 K34 [PROTO_11]
-      101 SETTABLEKS                       R13 R11 K35 ["getSourceList"]
-      103 DUPCLOSURE                       R13 K36 [PROTO_12]
-      104 CAPTURE                          VAL R10
-      105 CAPTURE                          VAL R7
-      106 SETTABLEKS                       R13 R11 K37 ["requestSearch"]
-      108 DUPCLOSURE                       R13 K38 [PROTO_13]
-      109 SETTABLEKS                       R13 R11 K39 ["getSearchOptions"]
-      111 DUPCLOSURE                       R13 K40 [PROTO_14]
-      112 CAPTURE                          VAL R8
-      113 SETTABLEKS                       R13 R11 K41 ["setScope"]
-      115 DUPCLOSURE                       R13 K42 [PROTO_15]
-      116 CAPTURE                          VAL R8
-      117 SETTABLEKS                       R13 R11 K43 ["_getValidScope"]
-      119 DUPCLOSURE                       R13 K44 [PROTO_16]
-      120 SETTABLEKS                       R13 R11 K45 ["setAssetTypeFilter"]
-      122 DUPCLOSURE                       R13 K46 [PROTO_17]
-      123 SETTABLEKS                       R13 R11 K47 ["setSearchOptions"]
-      125 DUPCLOSURE                       R13 K48 [PROTO_18]
-      126 SETTABLEKS                       R13 R11 K49 ["getIsDefaultSearchState"]
-      128 DUPCLOSURE                       R13 K50 [PROTO_19]
-      129 SETTABLEKS                       R13 R11 K51 ["getShowSearchOptions"]
-      131 DUPCLOSURE                       R13 K52 [PROTO_20]
-      132 CAPTURE                          VAL R7
-      133 SETTABLEKS                       R13 R11 K53 ["showSearchOptions"]
-      135 DUPCLOSURE                       R13 K54 [PROTO_21]
-      136 CAPTURE                          VAL R8
-      137 CAPTURE                          VAL R9
-      138 SETTABLEKS                       R13 R11 K55 ["hideSearchOptions"]
-      140 DUPCLOSURE                       R13 K56 [PROTO_22]
-      141 SETTABLEKS                       R13 R11 K57 ["getSearchId"]
-      143 DUPCLOSURE                       R13 K58 [PROTO_23]
-      144 SETTABLEKS                       R13 R11 K59 ["_getSearchState"]
-      146 DUPCLOSURE                       R13 K60 [PROTO_25]
-      147 CAPTURE                          VAL R2
-      148 SETTABLEKS                       R13 R11 K61 ["_pushSearchHistoryItem"]
-      150 DUPCLOSURE                       R13 K62 [PROTO_26]
-      151 SETTABLEKS                       R13 R11 K63 ["getSearchHistory"]
-      153 RETURN                           R11 1
+       85 CAPTURE                          VAL R8
+       86 DUPCLOSURE                       R14 K24 [PROTO_5]
+       87 CAPTURE                          VAL R8
+       88 CAPTURE                          VAL R5
+       89 CAPTURE                          VAL R12
+       90 CAPTURE                          VAL R2
+       91 SETTABLEKS                       R14 R12 K25 ["new"]
+       93 DUPCLOSURE                       R14 K26 [PROTO_6]
+       94 CAPTURE                          VAL R12
+       95 SETTABLEKS                       R14 R12 K27 ["mock"]
+       97 DUPCLOSURE                       R14 K28 [PROTO_7]
+       98 CAPTURE                          VAL R6
+       99 SETTABLEKS                       R14 R12 K29 ["destroy"]
+      101 DUPCLOSURE                       R14 K30 [PROTO_8]
+      102 SETTABLEKS                       R14 R12 K31 ["_restoreSearchState"]
+      104 DUPCLOSURE                       R14 K32 [PROTO_9]
+      105 SETTABLEKS                       R14 R12 K33 ["getSearchTerm"]
+      107 DUPCLOSURE                       R14 K34 [PROTO_10]
+      108 SETTABLEKS                       R14 R12 K35 ["setSearchTerm"]
+      110 DUPCLOSURE                       R14 K36 [PROTO_11]
+      111 SETTABLEKS                       R14 R12 K37 ["getSourceList"]
+      113 DUPCLOSURE                       R14 K38 [PROTO_12]
+      114 CAPTURE                          VAL R10
+      115 CAPTURE                          VAL R7
+      116 SETTABLEKS                       R14 R12 K39 ["requestSearch"]
+      118 DUPCLOSURE                       R14 K40 [PROTO_13]
+      119 SETTABLEKS                       R14 R12 K41 ["getSearchOptions"]
+      121 DUPCLOSURE                       R14 K42 [PROTO_14]
+      122 CAPTURE                          VAL R8
+      123 SETTABLEKS                       R14 R12 K43 ["setScope"]
+      125 DUPCLOSURE                       R14 K44 [PROTO_15]
+      126 CAPTURE                          VAL R8
+      127 CAPTURE                          VAL R11
+      128 SETTABLEKS                       R14 R12 K45 ["_getValidScope"]
+      130 DUPCLOSURE                       R14 K46 [PROTO_16]
+      131 SETTABLEKS                       R14 R12 K47 ["setAssetTypeFilter"]
+      133 DUPCLOSURE                       R14 K48 [PROTO_17]
+      134 SETTABLEKS                       R14 R12 K49 ["setSearchOptions"]
+      136 DUPCLOSURE                       R14 K50 [PROTO_18]
+      137 SETTABLEKS                       R14 R12 K51 ["getIsDefaultSearchState"]
+      139 DUPCLOSURE                       R14 K52 [PROTO_19]
+      140 SETTABLEKS                       R14 R12 K53 ["getShowSearchOptions"]
+      142 DUPCLOSURE                       R14 K54 [PROTO_20]
+      143 CAPTURE                          VAL R7
+      144 SETTABLEKS                       R14 R12 K55 ["showSearchOptions"]
+      146 DUPCLOSURE                       R14 K56 [PROTO_21]
+      147 CAPTURE                          VAL R8
+      148 CAPTURE                          VAL R9
+      149 SETTABLEKS                       R14 R12 K57 ["hideSearchOptions"]
+      151 DUPCLOSURE                       R14 K58 [PROTO_22]
+      152 SETTABLEKS                       R14 R12 K59 ["getSearchId"]
+      154 DUPCLOSURE                       R14 K60 [PROTO_23]
+      155 SETTABLEKS                       R14 R12 K61 ["_getSearchState"]
+      157 DUPCLOSURE                       R14 K62 [PROTO_25]
+      158 CAPTURE                          VAL R2
+      159 SETTABLEKS                       R14 R12 K63 ["_pushSearchHistoryItem"]
+      161 DUPCLOSURE                       R14 K64 [PROTO_26]
+      162 SETTABLEKS                       R14 R12 K65 ["getSearchHistory"]
+      164 RETURN                           R12 1

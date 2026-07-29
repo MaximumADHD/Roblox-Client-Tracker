@@ -48,7 +48,7 @@ PROTO_3:
         7 GETTABLEKS                       R3 R3 K3 ["new"]
         9 CALL                             R3 0 1
        10 GETTABLEKS                       R4 R0 K4 ["state"]
-       12 GETTABLEKS                       R4 R4 K5 ["colo"]
+       12 GETTABLEKS                       R4 R4 K5 ["color"]
        14 GETUPVAL                         R5 1
        15 GETTABLEKS                       R5 R5 K6 ["createElement"]
        17 GETUPVAL                         R6 2

@@ -168,6 +168,13 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 [""]
+        2 NAMECALL                         R0 R0 K1 ["setSearchTerm"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["requestSearch"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 1
@@ -175,14 +182,14 @@ PROTO_8:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["setSearchTerm"]
         4 CALL                             R1 2 0
         5 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["showSearchOptions"]
         3 CALL                             R0 1 0
@@ -191,7 +198,7 @@ PROTO_10:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 GETUPVAL                         R2 1
@@ -242,60 +249,76 @@ PROTO_11:
        58 GETTABLEKS                       R14 R14 K5 ["createElement"]
        60 GETUPVAL                         R15 5
        61 GETTABLEKS                       R15 R15 K14 ["TextInput"]
-       63 DUPTABLE                         R16 K27 [{["label"] = "", ["leadingIcon"], ["placeholder"], ["text"], ["size"], ["width"], ["variant"], ["onReturnPressed"], ["onChanged"], ["onFocusGained"], ["ref"]}]
+       63 DUPTABLE                         R16 K28 [{["label"] = "", ["leadingIcon"], ["iconTrailing"], ["placeholder"], ["text"], ["size"], ["width"], ["variant"], ["onReturnPressed"], ["onChanged"], ["onFocusGained"], ["ref"]}]
        64 GETUPVAL                         R17 5
-       65 GETTABLEKS                       R17 R17 K28 ["Enums"]
-       67 GETTABLEKS                       R17 R17 K29 ["IconName"]
-       69 GETTABLEKS                       R17 R17 K30 ["MagnifyingGlass"]
+       65 GETTABLEKS                       R17 R17 K29 ["Enums"]
+       67 GETTABLEKS                       R17 R17 K30 ["IconName"]
+       69 GETTABLEKS                       R17 R17 K31 ["MagnifyingGlass"]
        71 SETTABLEKS                       R17 R16 K17 ["leadingIcon"]
-       73 LOADK                            R19 K31 ["Search"]
-       74 LOADK                            R20 K32 ["Placeholder"]
-       75 NAMECALL                         R17 R3 K33 ["getText"]
-       77 CALL                             R17 3 1
-       78 SETTABLEKS                       R17 R16 K18 ["placeholder"]
-       80 GETTABLEKS                       R17 R1 K34 ["SearchTerm"]
-       82 SETTABLEKS                       R17 R16 K19 ["text"]
-       84 GETUPVAL                         R17 5
-       85 GETTABLEKS                       R17 R17 K28 ["Enums"]
-       87 GETTABLEKS                       R17 R17 K35 ["InputSize"]
-       89 GETTABLEKS                       R17 R17 K36 ["XSmall"]
-       91 SETTABLEKS                       R17 R16 K20 ["size"]
-       93 GETIMPORT                        R17 K39 [UDim.new]
-       95 LOADN                            R18 1
-       96 LOADN                            R19 0
-       97 CALL                             R17 2 1
-       98 SETTABLEKS                       R17 R16 K21 ["width"]
-      100 GETUPVAL                         R17 5
-      101 GETTABLEKS                       R17 R17 K28 ["Enums"]
-      103 GETTABLEKS                       R17 R17 K40 ["InputVariant"]
-      105 GETTABLEKS                       R17 R17 K41 ["Standard"]
-      107 SETTABLEKS                       R17 R16 K22 ["variant"]
-      109 NEWCLOSURE                       R17 P2
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          VAL R6
-      112 SETTABLEKS                       R17 R16 K23 ["onReturnPressed"]
-      114 NEWCLOSURE                       R17 P3
-      115 CAPTURE                          VAL R4
-      116 SETTABLEKS                       R17 R16 K24 ["onChanged"]
-      118 NEWCLOSURE                       R17 P4
-      119 CAPTURE                          VAL R4
-      120 CAPTURE                          VAL R6
-      121 SETTABLEKS                       R17 R16 K25 ["onFocusGained"]
-      123 SETTABLEKS                       R7 R16 K26 ["ref"]
-      125 CALL                             R14 2 1
-      126 SETTABLEKS                       R14 R13 K11 ["SearchInput"]
-      128 LENGTH                           R15 R2
-      129 LOADN                            R16 0
-      130 JUMPIFNOTLT                      R16 R15 ; [+7]
-      132 GETUPVAL                         R14 4
-      133 GETTABLEKS                       R14 R14 K5 ["createElement"]
-      135 MOVE                             R15 R9
-      136 CALL                             R14 1 1
-      137 JUMP                             ; [+1]
-      138 LOADNIL                          R14
-      139 SETTABLEKS                       R14 R13 K12 ["History"]
-      141 CALL                             R10 3 -1
-      142 RETURN                           R10 -1
+       73 GETTABLEKS                       R19 R1 K32 ["SearchTerm"]
+       75 LENGTH                           R18 R19
+       76 LOADN                            R19 0
+       77 JUMPIFNOTLT                      R19 R18 ; [+16]
+       79 DUPTABLE                         R17 K35 [{"name", "onActivated"}]
+       80 GETUPVAL                         R18 5
+       81 GETTABLEKS                       R18 R18 K29 ["Enums"]
+       83 GETTABLEKS                       R18 R18 K30 ["IconName"]
+       85 GETTABLEKS                       R18 R18 K36 ["CircleX"]
+       87 SETTABLEKS                       R18 R17 K33 ["name"]
+       89 NEWCLOSURE                       R18 P2
+       90 CAPTURE                          VAL R4
+       91 SETTABLEKS                       R18 R17 K34 ["onActivated"]
+       93 JUMP                             ; [+1]
+       94 LOADNIL                          R17
+       95 SETTABLEKS                       R17 R16 K18 ["iconTrailing"]
+       97 LOADK                            R19 K37 ["Search"]
+       98 LOADK                            R20 K38 ["Placeholder"]
+       99 NAMECALL                         R17 R3 K39 ["getText"]
+      101 CALL                             R17 3 1
+      102 SETTABLEKS                       R17 R16 K19 ["placeholder"]
+      104 GETTABLEKS                       R17 R1 K32 ["SearchTerm"]
+      106 SETTABLEKS                       R17 R16 K20 ["text"]
+      108 GETUPVAL                         R17 5
+      109 GETTABLEKS                       R17 R17 K29 ["Enums"]
+      111 GETTABLEKS                       R17 R17 K40 ["InputSize"]
+      113 GETTABLEKS                       R17 R17 K41 ["XSmall"]
+      115 SETTABLEKS                       R17 R16 K21 ["size"]
+      117 GETIMPORT                        R17 K44 [UDim.new]
+      119 LOADN                            R18 1
+      120 LOADN                            R19 0
+      121 CALL                             R17 2 1
+      122 SETTABLEKS                       R17 R16 K22 ["width"]
+      124 GETUPVAL                         R17 5
+      125 GETTABLEKS                       R17 R17 K29 ["Enums"]
+      127 GETTABLEKS                       R17 R17 K45 ["InputVariant"]
+      129 GETTABLEKS                       R17 R17 K46 ["Standard"]
+      131 SETTABLEKS                       R17 R16 K23 ["variant"]
+      133 NEWCLOSURE                       R17 P3
+      134 CAPTURE                          VAL R4
+      135 CAPTURE                          VAL R6
+      136 SETTABLEKS                       R17 R16 K24 ["onReturnPressed"]
+      138 NEWCLOSURE                       R17 P4
+      139 CAPTURE                          VAL R4
+      140 SETTABLEKS                       R17 R16 K25 ["onChanged"]
+      142 NEWCLOSURE                       R17 P5
+      143 CAPTURE                          VAL R4
+      144 CAPTURE                          VAL R6
+      145 SETTABLEKS                       R17 R16 K26 ["onFocusGained"]
+      147 SETTABLEKS                       R7 R16 K27 ["ref"]
+      149 CALL                             R14 2 1
+      150 SETTABLEKS                       R14 R13 K11 ["SearchInput"]
+      152 LENGTH                           R15 R2
+      153 LOADN                            R16 0
+      154 JUMPIFNOTLT                      R16 R15 ; [+7]
+      156 GETUPVAL                         R14 4
+      157 GETTABLEKS                       R14 R14 K5 ["createElement"]
+      159 MOVE                             R15 R9
+      160 CALL                             R14 1 1
+      161 JUMP                             ; [+1]
+      162 LOADNIL                          R14
+      163 SETTABLEKS                       R14 R13 K12 ["History"]
+      165 CALL                             R10 3 -1
+      166 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -339,7 +362,7 @@ MAIN:
        66 DUPCLOSURE                       R10 K19 [PROTO_0]
        67 CAPTURE                          VAL R1
        68 CAPTURE                          VAL R3
-       69 DUPCLOSURE                       R11 K20 [PROTO_11]
+       69 DUPCLOSURE                       R11 K20 [PROTO_12]
        70 CAPTURE                          VAL R8
        71 CAPTURE                          VAL R9
        72 CAPTURE                          VAL R6

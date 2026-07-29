@@ -422,7 +422,7 @@ PROTO_5:
         4 GETTABLEKS                       R4 R1 K2 ["Z"]
         6 GETUPVAL                         R6 0
         7 MUL                              R5 R6 R0
-        8 NAMECALL                         R6 R5 K3 ["components"]
+        8 NAMECALL                         R6 R5 K3 ["GetComponents"]
        10 CALL                             R6 1 12
        11 MUL                              R22 R2 R9
        12 FASTCALL1                        MATH_ABS R22 ; [+2]
@@ -508,7 +508,7 @@ PROTO_5:
       115 GETIMPORT                        R24 K11 [math.max]
       117 CALL                             R24 2 1
       118 SETUPVAL                         R24 6
-      119 NAMECALL                         R24 R0 K3 ["components"]
+      119 NAMECALL                         R24 R0 K3 ["GetComponents"]
       121 CALL                             R24 1 12
       122 MOVE                             R8 R24
       123 MOVE                             R8 R25

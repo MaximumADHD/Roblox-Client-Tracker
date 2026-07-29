@@ -50,10 +50,5 @@ MAIN:
        67 LOADK                            R3 K15 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
        68 NAMECALL                         R0 R0 K13 ["DefineFastString"]
        70 CALL                             R0 3 0
-       71 GETIMPORT                        R0 K1 [game]
-       73 LOADK                            R2 K16 ["CU1320ExperienceGenre"]
-       74 LOADB                            R3 0
-       75 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
-       77 CALL                             R0 3 0
-       78 LOADNIL                          R0
-       79 RETURN                           R0 1
+       71 LOADNIL                          R0
+       72 RETURN                           R0 1

@@ -160,30 +160,14 @@ PROTO_10:
        15 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+12]
-        3 GETTABLEKS                       R2 R0 K0 ["Develop"]
-        5 GETTABLEKS                       R2 R2 K1 ["V1"]
-        7 GETTABLEKS                       R2 R2 K2 ["plugin"]
-        9 MOVE                             R3 R1
-       10 CALL                             R2 1 1
-       11 NAMECALL                         R2 R2 K3 ["getUrl"]
-       13 CALL                             R2 1 -1
-       14 RETURN                           R2 -1
-       15 LENGTH                           R4 R1
-       16 JUMPIFEQKN                       R4 K4 [1] ; [+2]
-       18 LOADB                            R3 0 +1
-       19 LOADB                            R3 1
-       20 FASTCALL2K                       ASSERT R3 K5 ; [+4]
-       22 LOADK                            R4 K5 ["generatePluginInfoUrl only supports 1 asset"]
-       23 GETIMPORT                        R2 K7 [assert]
-       25 CALL                             R2 2 0
-       26 LOADK                            R2 K8 ["https://apis.roblox.com/studio-plugin-api/v1/plugins?pluginIds=%d"]
-       27 GETTABLEN                        R4 R1 1
-       28 NAMECALL                         R2 R2 K9 ["format"]
-       30 CALL                             R2 2 -1
-       31 RETURN                           R2 -1
+        0 GETTABLEKS                       R2 R0 K0 ["Develop"]
+        2 GETTABLEKS                       R2 R2 K1 ["V1"]
+        4 GETTABLEKS                       R2 R2 K2 ["plugin"]
+        6 MOVE                             R3 R1
+        7 CALL                             R2 1 1
+        8 NAMECALL                         R2 R2 K3 ["getUrl"]
+       10 CALL                             R2 1 -1
+       11 RETURN                           R2 -1
 
 PROTO_12:
         0 LENGTH                           R3 R0
@@ -217,51 +201,35 @@ PROTO_13:
        11 GETIMPORT                        R8 K3 [table.insert]
        13 CALL                             R8 2 0
        14 FORGLOOP                         R3 2 ; [-9]
-       16 GETUPVAL                         R4 0
-       17 CALL                             R4 0 1
-       18 JUMPIFNOT                        R4 ; [+12]
-       19 GETTABLEKS                       R3 R0 K4 ["Develop"]
-       21 GETTABLEKS                       R3 R3 K5 ["V1"]
-       23 GETTABLEKS                       R3 R3 K6 ["plugin"]
-       25 MOVE                             R4 R2
+       16 GETTABLEKS                       R3 R0 K4 ["Develop"]
+       18 GETTABLEKS                       R3 R3 K5 ["V1"]
+       20 GETTABLEKS                       R3 R3 K6 ["plugin"]
+       22 MOVE                             R4 R2
+       23 CALL                             R3 1 1
+       24 NAMECALL                         R3 R3 K7 ["getUrl"]
        26 CALL                             R3 1 1
-       27 NAMECALL                         R3 R3 K7 ["getUrl"]
-       29 CALL                             R3 1 1
-       30 JUMP                             ; [+16]
-       31 LENGTH                           R6 R2
-       32 JUMPIFEQKN                       R6 K8 [1] ; [+2]
-       34 LOADB                            R5 0 +1
-       35 LOADB                            R5 1
-       36 FASTCALL2K                       ASSERT R5 K9 ; [+4]
-       38 LOADK                            R6 K9 ["generatePluginInfoUrl only supports 1 asset"]
-       39 GETIMPORT                        R4 K11 [assert]
-       41 CALL                             R4 2 0
-       42 LOADK                            R3 K12 ["https://apis.roblox.com/studio-plugin-api/v1/plugins?pluginIds=%d"]
-       43 GETTABLEN                        R5 R2 1
-       44 NAMECALL                         R3 R3 K13 ["format"]
-       46 CALL                             R3 2 1
-       47 LENGTH                           R7 R1
-       48 JUMPIFEQKN                       R7 K8 [1] ; [+2]
-       50 LOADB                            R6 0 +1
-       51 LOADB                            R6 1
-       52 FASTCALL2K                       ASSERT R6 K14 ; [+4]
-       54 LOADK                            R7 K14 ["generatePluginInfoBody only supports 1 asset"]
-       55 GETIMPORT                        R5 K11 [assert]
-       57 CALL                             R5 2 0
-       58 GETTABLEN                        R5 R1 1
-       59 GETTABLEKS                       R5 R5 K0 ["assetId"]
-       61 GETTABLEN                        R6 R1 1
-       62 GETTABLEKS                       R6 R6 K15 ["name"]
-       64 LOADK                            R7 K16 ["{\n    \"data\": [\n        {\n            \"id\": %d,\n            \"name\": \"%s\",\n            \"description\": \"bar\",\n            \"commentsEnabled\": false,\n            \"versionId\": 1,\n            \"created\": \"2019-03-17T19:28:52.967Z\",\n            \"updated\": \"2025-09-01T07:47:46.463Z\"\n        }\n    ]\n}\n"]
-       65 MOVE                             R9 R5
-       66 MOVE                             R10 R6
-       67 NAMECALL                         R7 R7 K13 ["format"]
-       69 CALL                             R7 3 1
-       70 MOVE                             R4 R7
-       71 MOVE                             R5 R3
-       72 DUPTABLE                         R6 K24 [{["Body"], ["Success"] = True, ["StatusMessage"] = "OK", ["StatusCode"] = 200}]
-       73 SETTABLEKS                       R4 R6 K17 ["Body"]
-       75 RETURN                           R5 2
+       27 LENGTH                           R7 R1
+       28 JUMPIFEQKN                       R7 K8 [1] ; [+2]
+       30 LOADB                            R6 0 +1
+       31 LOADB                            R6 1
+       32 FASTCALL2K                       ASSERT R6 K9 ; [+4]
+       34 LOADK                            R7 K9 ["generatePluginInfoBody only supports 1 asset"]
+       35 GETIMPORT                        R5 K11 [assert]
+       37 CALL                             R5 2 0
+       38 GETTABLEN                        R5 R1 1
+       39 GETTABLEKS                       R5 R5 K0 ["assetId"]
+       41 GETTABLEN                        R6 R1 1
+       42 GETTABLEKS                       R6 R6 K12 ["name"]
+       44 LOADK                            R7 K13 ["{\n    \"data\": [\n        {\n            \"id\": %d,\n            \"name\": \"%s\",\n            \"description\": \"bar\",\n            \"commentsEnabled\": false,\n            \"versionId\": 1,\n            \"created\": \"2019-03-17T19:28:52.967Z\",\n            \"updated\": \"2025-09-01T07:47:46.463Z\"\n        }\n    ]\n}\n"]
+       45 MOVE                             R9 R5
+       46 MOVE                             R10 R6
+       47 NAMECALL                         R7 R7 K14 ["format"]
+       49 CALL                             R7 3 1
+       50 MOVE                             R4 R7
+       51 MOVE                             R5 R3
+       52 DUPTABLE                         R6 K22 [{["Body"], ["Success"] = True, ["StatusMessage"] = "OK", ["StatusCode"] = 200}]
+       53 SETTABLEKS                       R4 R6 K15 ["Body"]
+       55 RETURN                           R5 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -271,61 +239,54 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
        11 GETTABLEKS                       R2 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioPluginManagementUpgradeHttp"]
+       13 GETTABLEKS                       R2 R2 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R2 K7 ["SetAllPluginPermissions"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
        20 GETTABLEKS                       R3 R0 K5 ["Src"]
-       22 GETTABLEKS                       R3 R3 K8 ["Actions"]
-       24 GETTABLEKS                       R3 R3 K9 ["SetAllPluginPermissions"]
+       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
+       24 GETTABLEKS                       R3 R3 K8 ["SetLoadedPluginData"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
        29 GETTABLEKS                       R4 R0 K5 ["Src"]
-       31 GETTABLEKS                       R4 R4 K8 ["Actions"]
-       33 GETTABLEKS                       R4 R4 K10 ["SetLoadedPluginData"]
+       31 GETTABLEKS                       R4 R4 K9 ["Util"]
+       33 GETTABLEKS                       R4 R4 K10 ["Types"]
        35 CALL                             R3 1 1
        36 GETIMPORT                        R4 K4 [require]
        38 GETTABLEKS                       R5 R0 K5 ["Src"]
-       40 GETTABLEKS                       R5 R5 K11 ["Util"]
-       42 GETTABLEKS                       R5 R5 K12 ["Types"]
+       40 GETTABLEKS                       R5 R5 K11 ["Tests"]
+       42 GETTABLEKS                       R5 R5 K12 ["SyncFlag"]
        44 CALL                             R4 1 1
-       45 GETIMPORT                        R5 K4 [require]
-       47 GETTABLEKS                       R6 R0 K5 ["Src"]
-       49 GETTABLEKS                       R6 R6 K13 ["Tests"]
-       51 GETTABLEKS                       R6 R6 K14 ["SyncFlag"]
-       53 CALL                             R5 1 1
-       54 DUPCLOSURE                       R6 K15 [PROTO_0]
-       55 DUPCLOSURE                       R7 K16 [PROTO_1]
-       56 DUPCLOSURE                       R8 K17 [PROTO_2]
-       57 DUPCLOSURE                       R9 K18 [PROTO_3]
-       58 DUPCLOSURE                       R10 K19 [PROTO_4]
-       59 DUPCLOSURE                       R11 K20 [PROTO_6]
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R3
-       62 DUPCLOSURE                       R12 K21 [PROTO_8]
-       63 CAPTURE                          VAL R5
-       64 CAPTURE                          VAL R2
-       65 DUPCLOSURE                       R13 K22 [PROTO_9]
-       66 CAPTURE                          VAL R10
-       67 CAPTURE                          VAL R11
-       68 DUPCLOSURE                       R14 K23 [PROTO_10]
-       69 CAPTURE                          VAL R12
-       70 DUPCLOSURE                       R15 K24 [PROTO_11]
-       71 CAPTURE                          VAL R1
-       72 DUPCLOSURE                       R16 K25 [PROTO_12]
-       73 DUPCLOSURE                       R17 K26 [PROTO_13]
-       74 CAPTURE                          VAL R1
-       75 DUPTABLE                         R18 K39 [{"generateCreator", "generatePluginData", "generateInstalledPluginData", "generateInstalledPluginDataMap", "pluginStoreDataFromInstalledPluginData", "loadStoreWithPluginList", "loadStoreWithPermissions", "loadMockServiesAndStoreWithInstalledPluginData", "loadMockServicesAndStoreWithPluginPermissions", "generatePluginInfoUrl", "generatePluginInfoBody", "generatePluginInfoNetworkResponse"}]
-       76 SETTABLEKS                       R6 R18 K27 ["generateCreator"]
-       78 SETTABLEKS                       R7 R18 K28 ["generatePluginData"]
-       80 SETTABLEKS                       R8 R18 K29 ["generateInstalledPluginData"]
-       82 SETTABLEKS                       R9 R18 K30 ["generateInstalledPluginDataMap"]
-       84 SETTABLEKS                       R10 R18 K31 ["pluginStoreDataFromInstalledPluginData"]
-       86 SETTABLEKS                       R11 R18 K32 ["loadStoreWithPluginList"]
-       88 SETTABLEKS                       R12 R18 K33 ["loadStoreWithPermissions"]
-       90 SETTABLEKS                       R13 R18 K34 ["loadMockServiesAndStoreWithInstalledPluginData"]
-       92 SETTABLEKS                       R14 R18 K35 ["loadMockServicesAndStoreWithPluginPermissions"]
-       94 SETTABLEKS                       R15 R18 K36 ["generatePluginInfoUrl"]
-       96 SETTABLEKS                       R16 R18 K37 ["generatePluginInfoBody"]
-       98 SETTABLEKS                       R17 R18 K38 ["generatePluginInfoNetworkResponse"]
-      100 RETURN                           R18 1
+       45 DUPCLOSURE                       R5 K13 [PROTO_0]
+       46 DUPCLOSURE                       R6 K14 [PROTO_1]
+       47 DUPCLOSURE                       R7 K15 [PROTO_2]
+       48 DUPCLOSURE                       R8 K16 [PROTO_3]
+       49 DUPCLOSURE                       R9 K17 [PROTO_4]
+       50 DUPCLOSURE                       R10 K18 [PROTO_6]
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R2
+       53 DUPCLOSURE                       R11 K19 [PROTO_8]
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R1
+       56 DUPCLOSURE                       R12 K20 [PROTO_9]
+       57 CAPTURE                          VAL R9
+       58 CAPTURE                          VAL R10
+       59 DUPCLOSURE                       R13 K21 [PROTO_10]
+       60 CAPTURE                          VAL R11
+       61 DUPCLOSURE                       R14 K22 [PROTO_11]
+       62 DUPCLOSURE                       R15 K23 [PROTO_12]
+       63 DUPCLOSURE                       R16 K24 [PROTO_13]
+       64 DUPTABLE                         R17 K37 [{"generateCreator", "generatePluginData", "generateInstalledPluginData", "generateInstalledPluginDataMap", "pluginStoreDataFromInstalledPluginData", "loadStoreWithPluginList", "loadStoreWithPermissions", "loadMockServiesAndStoreWithInstalledPluginData", "loadMockServicesAndStoreWithPluginPermissions", "generatePluginInfoUrl", "generatePluginInfoBody", "generatePluginInfoNetworkResponse"}]
+       65 SETTABLEKS                       R5 R17 K25 ["generateCreator"]
+       67 SETTABLEKS                       R6 R17 K26 ["generatePluginData"]
+       69 SETTABLEKS                       R7 R17 K27 ["generateInstalledPluginData"]
+       71 SETTABLEKS                       R8 R17 K28 ["generateInstalledPluginDataMap"]
+       73 SETTABLEKS                       R9 R17 K29 ["pluginStoreDataFromInstalledPluginData"]
+       75 SETTABLEKS                       R10 R17 K30 ["loadStoreWithPluginList"]
+       77 SETTABLEKS                       R11 R17 K31 ["loadStoreWithPermissions"]
+       79 SETTABLEKS                       R12 R17 K32 ["loadMockServiesAndStoreWithInstalledPluginData"]
+       81 SETTABLEKS                       R13 R17 K33 ["loadMockServicesAndStoreWithPluginPermissions"]
+       83 SETTABLEKS                       R14 R17 K34 ["generatePluginInfoUrl"]
+       85 SETTABLEKS                       R15 R17 K35 ["generatePluginInfoBody"]
+       87 SETTABLEKS                       R16 R17 K36 ["generatePluginInfoNetworkResponse"]
+       89 RETURN                           R17 1

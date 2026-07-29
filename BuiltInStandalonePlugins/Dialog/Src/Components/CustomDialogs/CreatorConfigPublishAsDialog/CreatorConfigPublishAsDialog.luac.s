@@ -1063,20 +1063,31 @@ PROTO_20:
       290 SETTABLEKS                       R22 R21 K29 ["secondaryAction"]
       292 MOVE                             R16 R21
       293 LOADNIL                          R17
-      294 GETUPVAL                         R18 1
-      295 GETTABLEKS                       R18 R18 K62 ["createElement"]
-      297 GETUPVAL                         R19 5
-      298 MOVE                             R20 R16
-      299 DUPTABLE                         R21 K64 [{"Content"}]
-      300 GETUPVAL                         R22 1
-      301 GETTABLEKS                       R22 R22 K62 ["createElement"]
-      303 GETUPVAL                         R23 6
-      304 DUPTABLE                         R24 K67 [{["tag"] = "col align-x-center align-y-center gap-medium size-full-0 auto-y"}]
-      305 MOVE                             R25 R17
-      306 CALL                             R22 3 1
-      307 SETTABLEKS                       R22 R21 K63 ["Content"]
-      309 CALL                             R18 3 -1
-      310 RETURN                           R18 -1
+      294 GETUPVAL                         R18 5
+      295 JUMPIFNOT                        R18 ; [+14]
+      296 DUPTABLE                         R18 K63 [{"uri", "onClose"}]
+      297 GETUPVAL                         R19 3
+      298 GETTABLEKS                       R19 R19 K37 ["child"]
+      300 GETTABLEKS                       R20 R0 K20 ["uri"]
+      302 LOADK                            R21 K61 ["Close"]
+      303 CALL                             R19 2 1
+      304 SETTABLEKS                       R19 R18 K20 ["uri"]
+      306 SETTABLEKS                       R14 R18 K62 ["onClose"]
+      308 SETTABLEKS                       R18 R16 K64 ["escapeAction"]
+      310 GETUPVAL                         R18 1
+      311 GETTABLEKS                       R18 R18 K65 ["createElement"]
+      313 GETUPVAL                         R19 6
+      314 MOVE                             R20 R16
+      315 DUPTABLE                         R21 K67 [{"Content"}]
+      316 GETUPVAL                         R22 1
+      317 GETTABLEKS                       R22 R22 K65 ["createElement"]
+      319 GETUPVAL                         R23 7
+      320 DUPTABLE                         R24 K70 [{["tag"] = "col align-x-center align-y-center gap-medium size-full-0 auto-y"}]
+      321 MOVE                             R25 R17
+      322 CALL                             R22 3 1
+      323 SETTABLEKS                       R22 R21 K66 ["Content"]
+      325 CALL                             R18 3 -1
+      326 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1107,121 +1118,129 @@ MAIN:
        41 GETIMPORT                        R6 K9 [require]
        43 GETTABLEKS                       R7 R1 K14 ["Src"]
        45 GETTABLEKS                       R7 R7 K16 ["Flags"]
-       47 GETTABLEKS                       R7 R7 K17 ["getFFlagCreatorConfigPublishAsDropdownBugfix"]
+       47 GETTABLEKS                       R7 R7 K17 ["getFFlagCreatorConfigDialogEscapeAction"]
        49 CALL                             R6 1 1
        50 GETIMPORT                        R7 K9 [require]
        52 GETTABLEKS                       R8 R1 K14 ["Src"]
        54 GETTABLEKS                       R8 R8 K16 ["Flags"]
-       56 GETTABLEKS                       R8 R8 K18 ["getFFlagCreatorConfigStudioPublishWorkflow"]
+       56 GETTABLEKS                       R8 R8 K18 ["getFFlagCreatorConfigPublishAsDropdownBugfix"]
        58 CALL                             R7 1 1
        59 GETIMPORT                        R8 K9 [require]
-       61 GETTABLEKS                       R9 R1 K10 ["Packages"]
-       63 GETTABLEKS                       R9 R9 K19 ["Framework"]
-       65 CALL                             R8 1 1
-       66 GETTABLEKS                       R9 R8 K20 ["Util"]
-       68 GETTABLEKS                       R9 R9 K21 ["counter"]
-       70 GETTABLEKS                       R11 R4 K22 ["SharedFlags"]
-       72 GETTABLEKS                       R11 R11 K23 ["getFFlagStudioFoundationDialogComponent"]
-       74 CALL                             R11 0 1
-       75 JUMPIFNOT                        R11 ; [+5]
-       76 GETTABLEKS                       R10 R4 K24 ["Components"]
-       78 GETTABLEKS                       R10 R10 K6 ["Dialog"]
-       80 JUMP                             ; [+9]
-       81 GETIMPORT                        R10 K9 [require]
-       83 GETTABLEKS                       R11 R1 K14 ["Src"]
-       85 GETTABLEKS                       R11 R11 K24 ["Components"]
-       87 GETTABLEKS                       R11 R11 K25 ["DEPRECATED_Dialog"]
-       89 CALL                             R10 1 1
-       90 GETTABLEKS                       R11 R4 K20 ["Util"]
-       92 GETTABLEKS                       R11 R11 K26 ["StudioUri"]
-       94 GETTABLEKS                       R12 R2 K27 ["SearchInput"]
-       96 GETTABLEKS                       R13 R2 K28 ["TextInput"]
-       98 GETTABLEKS                       R14 R2 K29 ["ScrollView"]
-      100 GETTABLEKS                       R15 R2 K30 ["RadioGroup"]
-      102 GETTABLEKS                       R16 R2 K31 ["Dropdown"]
-      104 GETTABLEKS                       R17 R2 K32 ["Progress"]
-      106 GETTABLEKS                       R18 R2 K33 ["Button"]
-      108 GETTABLEKS                       R19 R2 K34 ["Image"]
-      110 GETTABLEKS                       R20 R2 K35 ["View"]
-      112 GETTABLEKS                       R21 R2 K36 ["Text"]
-      114 GETTABLEKS                       R22 R2 K37 ["Enums"]
-      116 GETTABLEKS                       R22 R22 K38 ["SearchInputShape"]
-      118 GETTABLEKS                       R23 R2 K37 ["Enums"]
-      120 GETTABLEKS                       R23 R23 K39 ["InputSize"]
-      122 GETTABLEKS                       R24 R2 K37 ["Enums"]
-      124 GETTABLEKS                       R24 R24 K40 ["Visibility"]
-      126 GETTABLEKS                       R25 R2 K37 ["Enums"]
-      128 GETTABLEKS                       R25 R25 K41 ["ButtonVariant"]
-      130 GETTABLEKS                       R26 R2 K37 ["Enums"]
-      132 GETTABLEKS                       R26 R26 K42 ["StateLayerAffordance"]
-      134 GETTABLEKS                       R27 R2 K37 ["Enums"]
-      136 GETTABLEKS                       R27 R27 K43 ["ProgressShape"]
-      138 GETTABLEKS                       R28 R2 K37 ["Enums"]
-      140 GETTABLEKS                       R28 R28 K44 ["ProgressSize"]
-      142 MOVE                             R29 R6
-      143 CALL                             R29 0 1
-      144 DUPCLOSURE                       R30 K45 [PROTO_1]
-      145 CAPTURE                          VAL R9
-      146 CAPTURE                          VAL R2
-      147 CAPTURE                          VAL R3
-      148 CAPTURE                          VAL R20
-      149 CAPTURE                          VAL R26
-      150 CAPTURE                          VAL R15
-      151 CAPTURE                          VAL R23
-      152 CAPTURE                          VAL R19
-      153 CAPTURE                          VAL R21
-      154 DUPCLOSURE                       R31 K46 [PROTO_2]
-      155 CAPTURE                          VAL R9
-      156 CAPTURE                          VAL R3
-      157 CAPTURE                          VAL R20
-      158 CAPTURE                          VAL R17
-      159 CAPTURE                          VAL R27
-      160 CAPTURE                          VAL R28
-      161 CAPTURE                          VAL R21
-      162 DUPCLOSURE                       R32 K47 [PROTO_16]
-      163 CAPTURE                          VAL R3
-      164 CAPTURE                          VAL R0
-      165 CAPTURE                          VAL R30
-      166 CAPTURE                          VAL R9
-      167 CAPTURE                          VAL R20
-      168 CAPTURE                          VAL R16
-      169 CAPTURE                          VAL R23
-      170 CAPTURE                          VAL R29
-      171 CAPTURE                          VAL R12
+       61 GETTABLEKS                       R9 R1 K14 ["Src"]
+       63 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       65 GETTABLEKS                       R9 R9 K19 ["getFFlagCreatorConfigStudioPublishWorkflow"]
+       67 CALL                             R8 1 1
+       68 GETIMPORT                        R9 K9 [require]
+       70 GETTABLEKS                       R10 R1 K10 ["Packages"]
+       72 GETTABLEKS                       R10 R10 K20 ["Framework"]
+       74 CALL                             R9 1 1
+       75 GETTABLEKS                       R10 R9 K21 ["Util"]
+       77 GETTABLEKS                       R10 R10 K22 ["counter"]
+       79 GETTABLEKS                       R12 R4 K23 ["SharedFlags"]
+       81 GETTABLEKS                       R12 R12 K24 ["getFFlagStudioFoundationDialogComponent"]
+       83 CALL                             R12 0 1
+       84 JUMPIFNOT                        R12 ; [+5]
+       85 GETTABLEKS                       R11 R4 K25 ["Components"]
+       87 GETTABLEKS                       R11 R11 K6 ["Dialog"]
+       89 JUMP                             ; [+9]
+       90 GETIMPORT                        R11 K9 [require]
+       92 GETTABLEKS                       R12 R1 K14 ["Src"]
+       94 GETTABLEKS                       R12 R12 K25 ["Components"]
+       96 GETTABLEKS                       R12 R12 K26 ["DEPRECATED_Dialog"]
+       98 CALL                             R11 1 1
+       99 GETTABLEKS                       R12 R4 K21 ["Util"]
+      101 GETTABLEKS                       R12 R12 K27 ["StudioUri"]
+      103 GETTABLEKS                       R13 R2 K28 ["SearchInput"]
+      105 GETTABLEKS                       R14 R2 K29 ["TextInput"]
+      107 GETTABLEKS                       R15 R2 K30 ["ScrollView"]
+      109 GETTABLEKS                       R16 R2 K31 ["RadioGroup"]
+      111 GETTABLEKS                       R17 R2 K32 ["Dropdown"]
+      113 GETTABLEKS                       R18 R2 K33 ["Progress"]
+      115 GETTABLEKS                       R19 R2 K34 ["Button"]
+      117 GETTABLEKS                       R20 R2 K35 ["Image"]
+      119 GETTABLEKS                       R21 R2 K36 ["View"]
+      121 GETTABLEKS                       R22 R2 K37 ["Text"]
+      123 GETTABLEKS                       R23 R2 K38 ["Enums"]
+      125 GETTABLEKS                       R23 R23 K39 ["SearchInputShape"]
+      127 GETTABLEKS                       R24 R2 K38 ["Enums"]
+      129 GETTABLEKS                       R24 R24 K40 ["InputSize"]
+      131 GETTABLEKS                       R25 R2 K38 ["Enums"]
+      133 GETTABLEKS                       R25 R25 K41 ["Visibility"]
+      135 GETTABLEKS                       R26 R2 K38 ["Enums"]
+      137 GETTABLEKS                       R26 R26 K42 ["ButtonVariant"]
+      139 GETTABLEKS                       R27 R2 K38 ["Enums"]
+      141 GETTABLEKS                       R27 R27 K43 ["StateLayerAffordance"]
+      143 GETTABLEKS                       R28 R2 K38 ["Enums"]
+      145 GETTABLEKS                       R28 R28 K44 ["ProgressShape"]
+      147 GETTABLEKS                       R29 R2 K38 ["Enums"]
+      149 GETTABLEKS                       R29 R29 K45 ["ProgressSize"]
+      151 MOVE                             R30 R7
+      152 CALL                             R30 0 1
+      153 MOVE                             R31 R6
+      154 CALL                             R31 0 1
+      155 DUPCLOSURE                       R32 K46 [PROTO_1]
+      156 CAPTURE                          VAL R10
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R3
+      159 CAPTURE                          VAL R21
+      160 CAPTURE                          VAL R27
+      161 CAPTURE                          VAL R16
+      162 CAPTURE                          VAL R24
+      163 CAPTURE                          VAL R20
+      164 CAPTURE                          VAL R22
+      165 DUPCLOSURE                       R33 K47 [PROTO_2]
+      166 CAPTURE                          VAL R10
+      167 CAPTURE                          VAL R3
+      168 CAPTURE                          VAL R21
+      169 CAPTURE                          VAL R18
+      170 CAPTURE                          VAL R28
+      171 CAPTURE                          VAL R29
       172 CAPTURE                          VAL R22
-      173 CAPTURE                          VAL R17
-      174 CAPTURE                          VAL R27
-      175 CAPTURE                          VAL R28
-      176 CAPTURE                          VAL R14
-      177 CAPTURE                          VAL R24
+      173 DUPCLOSURE                       R34 K48 [PROTO_16]
+      174 CAPTURE                          VAL R3
+      175 CAPTURE                          VAL R0
+      176 CAPTURE                          VAL R32
+      177 CAPTURE                          VAL R10
       178 CAPTURE                          VAL R21
-      179 CAPTURE                          VAL R18
-      180 CAPTURE                          VAL R25
-      181 CAPTURE                          VAL R15
+      179 CAPTURE                          VAL R17
+      180 CAPTURE                          VAL R24
+      181 CAPTURE                          VAL R30
       182 CAPTURE                          VAL R13
-      183 DUPCLOSURE                       R33 K48 [PROTO_20]
-      184 CAPTURE                          VAL R2
-      185 CAPTURE                          VAL R3
-      186 CAPTURE                          VAL R32
-      187 CAPTURE                          VAL R11
-      188 CAPTURE                          VAL R31
-      189 CAPTURE                          VAL R10
-      190 CAPTURE                          VAL R20
-      191 MOVE                             R35 R7
-      192 CALL                             R35 0 1
-      193 JUMPIFNOT                        R35 ; [+18]
-      194 GETIMPORT                        R34 K51 [table.freeze]
-      196 DUPTABLE                         R35 K54 [{"uri", "component"}]
-      197 GETTABLEKS                       R36 R11 K55 ["fromWidget"]
-      199 LOADK                            R37 K56 ["CreatorConfig"]
-      200 LOADK                            R38 K57 ["PublishAsDialog"]
-      201 CALL                             R36 2 1
-      202 SETTABLEKS                       R36 R35 K52 ["uri"]
-      204 GETTABLEKS                       R36 R3 K58 ["memo"]
-      206 MOVE                             R37 R33
-      207 CALL                             R36 1 1
-      208 SETTABLEKS                       R36 R35 K53 ["component"]
-      210 CALL                             R34 1 1
-      211 RETURN                           R34 1
-      212 LOADNIL                          R34
-      213 RETURN                           R34 1
+      183 CAPTURE                          VAL R23
+      184 CAPTURE                          VAL R18
+      185 CAPTURE                          VAL R28
+      186 CAPTURE                          VAL R29
+      187 CAPTURE                          VAL R15
+      188 CAPTURE                          VAL R25
+      189 CAPTURE                          VAL R22
+      190 CAPTURE                          VAL R19
+      191 CAPTURE                          VAL R26
+      192 CAPTURE                          VAL R16
+      193 CAPTURE                          VAL R14
+      194 DUPCLOSURE                       R35 K49 [PROTO_20]
+      195 CAPTURE                          VAL R2
+      196 CAPTURE                          VAL R3
+      197 CAPTURE                          VAL R34
+      198 CAPTURE                          VAL R12
+      199 CAPTURE                          VAL R33
+      200 CAPTURE                          VAL R31
+      201 CAPTURE                          VAL R11
+      202 CAPTURE                          VAL R21
+      203 MOVE                             R37 R8
+      204 CALL                             R37 0 1
+      205 JUMPIFNOT                        R37 ; [+18]
+      206 GETIMPORT                        R36 K52 [table.freeze]
+      208 DUPTABLE                         R37 K55 [{"uri", "component"}]
+      209 GETTABLEKS                       R38 R12 K56 ["fromWidget"]
+      211 LOADK                            R39 K57 ["CreatorConfig"]
+      212 LOADK                            R40 K58 ["PublishAsDialog"]
+      213 CALL                             R38 2 1
+      214 SETTABLEKS                       R38 R37 K53 ["uri"]
+      216 GETTABLEKS                       R38 R3 K59 ["memo"]
+      218 MOVE                             R39 R35
+      219 CALL                             R38 1 1
+      220 SETTABLEKS                       R38 R37 K54 ["component"]
+      222 CALL                             R36 1 1
+      223 RETURN                           R36 1
+      224 LOADNIL                          R36
+      225 RETURN                           R36 1

@@ -540,27 +540,32 @@ PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["DragTarget"]
         4 GETTABLEKS                       R3 R2 K2 ["targetPart"]
-        6 JUMPIFNOT                        R3 ; [+25]
-        7 LOADK                            R6 K3 ["Part"]
-        8 NAMECALL                         R4 R3 K4 ["IsA"]
-       10 CALL                             R4 2 1
-       11 JUMPIFNOT                        R4 ; [+20]
-       12 GETTABLEKS                       R4 R3 K5 ["Shape"]
-       14 GETIMPORT                        R5 K9 [Enum.PartType.Ball]
-       16 JUMPIFNOTEQ                      R4 R5 ; [+5]
-       18 NAMECALL                         R4 R0 K10 ["_renderGridSnapToSphere"]
-       20 CALL                             R4 1 -1
-       21 RETURN                           R4 -1
-       22 GETTABLEKS                       R4 R3 K5 ["Shape"]
-       24 GETIMPORT                        R5 K12 [Enum.PartType.Cylinder]
-       26 JUMPIFNOTEQ                      R4 R5 ; [+5]
-       28 NAMECALL                         R4 R0 K13 ["_renderGridSnapToCylinder"]
-       30 CALL                             R4 1 -1
-       31 RETURN                           R4 -1
-       32 LOADNIL                          R6
-       33 NAMECALL                         R4 R0 K14 ["_renderRulerSnapToPolygon"]
-       35 CALL                             R4 2 -1
-       36 RETURN                           R4 -1
+        6 GETUPVAL                         R4 0
+        7 CALL                             R4 0 1
+        8 JUMPIFNOT                        R4 ; [+3]
+        9 GETTABLEKS                       R4 R1 K3 ["UseBoundingBoxes"]
+       11 JUMPIF                           R4 ; [+26]
+       12 JUMPIFNOT                        R3 ; [+25]
+       13 LOADK                            R6 K4 ["Part"]
+       14 NAMECALL                         R4 R3 K5 ["IsA"]
+       16 CALL                             R4 2 1
+       17 JUMPIFNOT                        R4 ; [+20]
+       18 GETTABLEKS                       R4 R3 K6 ["Shape"]
+       20 GETIMPORT                        R5 K10 [Enum.PartType.Ball]
+       22 JUMPIFNOTEQ                      R4 R5 ; [+5]
+       24 NAMECALL                         R4 R0 K11 ["_renderGridSnapToSphere"]
+       26 CALL                             R4 1 -1
+       27 RETURN                           R4 -1
+       28 GETTABLEKS                       R4 R3 K6 ["Shape"]
+       30 GETIMPORT                        R5 K13 [Enum.PartType.Cylinder]
+       32 JUMPIFNOTEQ                      R4 R5 ; [+5]
+       34 NAMECALL                         R4 R0 K14 ["_renderGridSnapToCylinder"]
+       36 CALL                             R4 1 -1
+       37 RETURN                           R4 -1
+       38 LOADNIL                          R6
+       39 NAMECALL                         R4 R0 K15 ["_renderRulerSnapToPolygon"]
+       41 CALL                             R4 2 -1
+       42 RETURN                           R4 -1
 
 PROTO_11:
         0 JUMPIFNOT                        R0 ; [+23]
@@ -744,58 +749,63 @@ MAIN:
        55 GETTABLEKS                       R9 R0 K7 ["Components"]
        57 GETTABLEKS                       R9 R9 K13 ["RulerView"]
        59 CALL                             R8 1 1
-       60 GETIMPORT                        R9 K15 [game]
-       62 LOADK                            R11 K16 ["DraggerShowFullCross"]
-       63 LOADB                            R12 0
-       64 NAMECALL                         R9 R9 K17 ["DefineFastFlag"]
-       66 CALL                             R9 3 1
-       67 GETTABLEKS                       R10 R2 K18 ["PureComponent"]
-       69 LOADK                            R12 K19 ["TargetGridView"]
-       70 NAMECALL                         R10 R10 K20 ["extend"]
-       72 CALL                             R10 2 1
-       73 DUPCLOSURE                       R11 K21 [PROTO_0]
-       74 DUPCLOSURE                       R12 K22 [PROTO_1]
-       75 CAPTURE                          VAL R11
-       76 CAPTURE                          VAL R9
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R8
-       79 SETTABLEKS                       R12 R10 K23 ["_renderRulerSnapToPolygon"]
-       81 DUPCLOSURE                       R12 K24 [PROTO_2]
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R7
-       84 SETTABLEKS                       R12 R10 K25 ["_renderLattitudeGuide"]
-       86 DUPCLOSURE                       R12 K26 [PROTO_4]
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R4
-       89 SETTABLEKS                       R12 R10 K27 ["_renderCylinderRingGuide"]
-       91 DUPCLOSURE                       R12 K28 [PROTO_5]
-       92 CAPTURE                          VAL R2
-       93 DUPCLOSURE                       R13 K29 [PROTO_7]
+       60 GETIMPORT                        R9 K4 [require]
+       62 GETTABLEKS                       R10 R0 K14 ["Flags"]
+       64 GETTABLEKS                       R10 R10 K15 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
+       66 CALL                             R9 1 1
+       67 GETIMPORT                        R10 K17 [game]
+       69 LOADK                            R12 K18 ["DraggerShowFullCross"]
+       70 LOADB                            R13 0
+       71 NAMECALL                         R10 R10 K19 ["DefineFastFlag"]
+       73 CALL                             R10 3 1
+       74 GETTABLEKS                       R11 R2 K20 ["PureComponent"]
+       76 LOADK                            R13 K21 ["TargetGridView"]
+       77 NAMECALL                         R11 R11 K22 ["extend"]
+       79 CALL                             R11 2 1
+       80 DUPCLOSURE                       R12 K23 [PROTO_0]
+       81 DUPCLOSURE                       R13 K24 [PROTO_1]
+       82 CAPTURE                          VAL R12
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R8
+       86 SETTABLEKS                       R13 R11 K25 ["_renderRulerSnapToPolygon"]
+       88 DUPCLOSURE                       R13 K26 [PROTO_2]
+       89 CAPTURE                          VAL R2
+       90 CAPTURE                          VAL R7
+       91 SETTABLEKS                       R13 R11 K27 ["_renderLattitudeGuide"]
+       93 DUPCLOSURE                       R13 K28 [PROTO_4]
        94 CAPTURE                          VAL R2
-       95 CAPTURE                          VAL R5
-       96 CAPTURE                          VAL R11
-       97 CAPTURE                          VAL R4
-       98 CAPTURE                          VAL R12
-       99 CAPTURE                          VAL R3
-      100 SETTABLEKS                       R13 R10 K30 ["_renderGridSnapToSphere"]
-      102 DUPCLOSURE                       R13 K31 [PROTO_9]
-      103 CAPTURE                          VAL R11
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          VAL R6
-      106 CAPTURE                          VAL R12
-      107 CAPTURE                          VAL R3
-      108 CAPTURE                          VAL R4
-      109 SETTABLEKS                       R13 R10 K32 ["_renderGridSnapToCylinder"]
-      111 DUPCLOSURE                       R13 K33 [PROTO_10]
-      112 SETTABLEKS                       R13 R10 K34 ["_renderGridSnap"]
-      114 DUPCLOSURE                       R13 K35 [PROTO_11]
-      115 DUPCLOSURE                       R14 K36 [PROTO_13]
-      116 CAPTURE                          VAL R11
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R5
-      119 CAPTURE                          VAL R6
-      120 CAPTURE                          VAL R4
-      121 SETTABLEKS                       R14 R10 K37 ["_renderGridNoSnap"]
-      123 DUPCLOSURE                       R14 K38 [PROTO_14]
-      124 SETTABLEKS                       R14 R10 K39 ["render"]
-      126 RETURN                           R10 1
+       95 CAPTURE                          VAL R4
+       96 SETTABLEKS                       R13 R11 K29 ["_renderCylinderRingGuide"]
+       98 DUPCLOSURE                       R13 K30 [PROTO_5]
+       99 CAPTURE                          VAL R2
+      100 DUPCLOSURE                       R14 K31 [PROTO_7]
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R5
+      103 CAPTURE                          VAL R12
+      104 CAPTURE                          VAL R4
+      105 CAPTURE                          VAL R13
+      106 CAPTURE                          VAL R3
+      107 SETTABLEKS                       R14 R11 K32 ["_renderGridSnapToSphere"]
+      109 DUPCLOSURE                       R14 K33 [PROTO_9]
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R2
+      112 CAPTURE                          VAL R6
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R3
+      115 CAPTURE                          VAL R4
+      116 SETTABLEKS                       R14 R11 K34 ["_renderGridSnapToCylinder"]
+      118 DUPCLOSURE                       R14 K35 [PROTO_10]
+      119 CAPTURE                          VAL R9
+      120 SETTABLEKS                       R14 R11 K36 ["_renderGridSnap"]
+      122 DUPCLOSURE                       R14 K37 [PROTO_11]
+      123 DUPCLOSURE                       R15 K38 [PROTO_13]
+      124 CAPTURE                          VAL R12
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R5
+      127 CAPTURE                          VAL R6
+      128 CAPTURE                          VAL R4
+      129 SETTABLEKS                       R15 R11 K39 ["_renderGridNoSnap"]
+      131 DUPCLOSURE                       R15 K40 [PROTO_14]
+      132 SETTABLEKS                       R15 R11 K41 ["render"]
+      134 RETURN                           R11 1

@@ -90,76 +90,70 @@ PROTO_5:
         9 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R4 0
-        1 CALL                             R4 0 1
-        2 FASTCALL2K                       ASSERT R4 K0 ; [+4]
-        4 LOADK                            R5 K0 ["renderTestCustomDialog should only be used when the custom dialogs feature is enabled"]
-        5 GETIMPORT                        R3 K2 [assert]
-        7 CALL                             R3 2 0
-        8 JUMPIFNOT                        R2 ; [+2]
-        9 MOVE                             R3 R2
-       10 JUMP                             ; [+4]
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R3 R3 K3 ["new"]
-       14 CALL                             R3 0 1
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R4 R4 K4 ["mock"]
-       18 CALL                             R4 0 1
-       19 GETUPVAL                         R5 3
-       20 GETTABLEKS                       R5 R5 K5 ["fn"]
-       22 CALL                             R5 0 2
-       23 NEWCLOSURE                       R7 P0
-       24 CAPTURE                          UPVAL U4
-       25 CAPTURE                          UPVAL U5
-       26 CAPTURE                          UPVAL U6
-       27 CAPTURE                          VAL R3
-       28 CAPTURE                          VAL R4
-       29 CAPTURE                          UPVAL U7
-       30 CAPTURE                          UPVAL U8
-       31 CAPTURE                          UPVAL U9
-       32 CAPTURE                          UPVAL U10
-       33 CAPTURE                          VAL R0
-       34 CAPTURE                          VAL R6
-       35 GETUPVAL                         R8 11
-       36 MOVE                             R9 R7
-       37 MOVE                             R10 R1
-       38 CALL                             R9 1 -1
-       39 CALL                             R8 -1 1
-       40 GETUPVAL                         R9 12
-       41 GETTABLEKS                       R10 R3 K6 ["subWindows"]
-       43 CALL                             R9 1 1
-       44 GETTABLEKS                       R9 R9 K7 ["toHaveLength"]
-       46 LOADN                            R10 1
-       47 CALL                             R9 1 0
-       48 GETTABLEKS                       R10 R3 K6 ["subWindows"]
-       50 GETTABLEN                        R9 R10 1
-       51 GETUPVAL                         R10 13
-       52 MOVE                             R11 R9
-       53 CALL                             R10 1 1
-       54 GETUPVAL                         R11 14
-       55 GETTABLEKS                       R11 R11 K8 ["join"]
-       57 MOVE                             R12 R8
-       58 MOVE                             R13 R10
-       59 DUPTABLE                         R14 K14 [{"onResolvedSpy", "rerender", "clickPrimaryButton", "clickSecondaryButton", "clickTertiaryButton"}]
-       60 SETTABLEKS                       R5 R14 K9 ["onResolvedSpy"]
-       62 NEWCLOSURE                       R15 P1
-       63 CAPTURE                          VAL R8
-       64 CAPTURE                          VAL R7
-       65 SETTABLEKS                       R15 R14 K10 ["rerender"]
-       67 NEWCLOSURE                       R15 P2
-       68 CAPTURE                          UPVAL U15
-       69 CAPTURE                          VAL R10
-       70 SETTABLEKS                       R15 R14 K11 ["clickPrimaryButton"]
-       72 NEWCLOSURE                       R15 P3
-       73 CAPTURE                          UPVAL U15
-       74 CAPTURE                          VAL R10
-       75 SETTABLEKS                       R15 R14 K12 ["clickSecondaryButton"]
-       77 NEWCLOSURE                       R15 P4
-       78 CAPTURE                          UPVAL U15
-       79 CAPTURE                          VAL R10
-       80 SETTABLEKS                       R15 R14 K13 ["clickTertiaryButton"]
-       82 CALL                             R11 3 -1
-       83 RETURN                           R11 -1
+        0 JUMPIFNOT                        R2 ; [+2]
+        1 MOVE                             R3 R2
+        2 JUMP                             ; [+4]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K0 ["new"]
+        6 CALL                             R3 0 1
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K1 ["mock"]
+       10 CALL                             R4 0 1
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R5 R5 K2 ["fn"]
+       14 CALL                             R5 0 2
+       15 NEWCLOSURE                       R7 P0
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          UPVAL U4
+       18 CAPTURE                          UPVAL U5
+       19 CAPTURE                          VAL R3
+       20 CAPTURE                          VAL R4
+       21 CAPTURE                          UPVAL U6
+       22 CAPTURE                          UPVAL U7
+       23 CAPTURE                          UPVAL U8
+       24 CAPTURE                          UPVAL U9
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          VAL R6
+       27 GETUPVAL                         R8 10
+       28 MOVE                             R9 R7
+       29 MOVE                             R10 R1
+       30 CALL                             R9 1 -1
+       31 CALL                             R8 -1 1
+       32 GETUPVAL                         R9 11
+       33 GETTABLEKS                       R10 R3 K3 ["subWindows"]
+       35 CALL                             R9 1 1
+       36 GETTABLEKS                       R9 R9 K4 ["toHaveLength"]
+       38 LOADN                            R10 1
+       39 CALL                             R9 1 0
+       40 GETTABLEKS                       R10 R3 K3 ["subWindows"]
+       42 GETTABLEN                        R9 R10 1
+       43 GETUPVAL                         R10 12
+       44 MOVE                             R11 R9
+       45 CALL                             R10 1 1
+       46 GETUPVAL                         R11 13
+       47 GETTABLEKS                       R11 R11 K5 ["join"]
+       49 MOVE                             R12 R8
+       50 MOVE                             R13 R10
+       51 DUPTABLE                         R14 K11 [{"onResolvedSpy", "rerender", "clickPrimaryButton", "clickSecondaryButton", "clickTertiaryButton"}]
+       52 SETTABLEKS                       R5 R14 K6 ["onResolvedSpy"]
+       54 NEWCLOSURE                       R15 P1
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          VAL R7
+       57 SETTABLEKS                       R15 R14 K7 ["rerender"]
+       59 NEWCLOSURE                       R15 P2
+       60 CAPTURE                          UPVAL U14
+       61 CAPTURE                          VAL R10
+       62 SETTABLEKS                       R15 R14 K8 ["clickPrimaryButton"]
+       64 NEWCLOSURE                       R15 P3
+       65 CAPTURE                          UPVAL U14
+       66 CAPTURE                          VAL R10
+       67 SETTABLEKS                       R15 R14 K9 ["clickSecondaryButton"]
+       69 NEWCLOSURE                       R15 P4
+       70 CAPTURE                          UPVAL U14
+       71 CAPTURE                          VAL R10
+       72 SETTABLEKS                       R15 R14 K10 ["clickTertiaryButton"]
+       74 CALL                             R11 3 -1
+       75 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -204,46 +198,40 @@ MAIN:
        68 CALL                             R8 1 1
        69 GETIMPORT                        R9 K5 [require]
        71 GETTABLEKS                       R10 R0 K14 ["Src"]
-       73 GETTABLEKS                       R10 R10 K18 ["Flags"]
-       75 GETTABLEKS                       R10 R10 K19 ["getFeatureStudioDialogManagerCustomDialogs"]
+       73 GETTABLEKS                       R10 R10 K18 ["Util"]
+       75 GETTABLEKS                       R10 R10 K19 ["mockContext"]
        77 CALL                             R9 1 1
-       78 GETIMPORT                        R10 K5 [require]
-       80 GETTABLEKS                       R11 R0 K14 ["Src"]
-       82 GETTABLEKS                       R11 R11 K20 ["Util"]
-       84 GETTABLEKS                       R11 R11 K21 ["mockContext"]
-       86 CALL                             R10 1 1
-       87 GETTABLEKS                       R11 R2 K22 ["TestHelpers"]
-       89 GETTABLEKS                       R11 R11 K23 ["Instances"]
-       91 GETTABLEKS                       R11 R11 K24 ["MockPlugin"]
-       93 GETTABLEKS                       R12 R2 K25 ["ContextServices"]
-       95 GETTABLEKS                       R12 R12 K26 ["Plugin"]
-       97 GETTABLEKS                       R13 R2 K25 ["ContextServices"]
-       99 GETTABLEKS                       R13 R13 K27 ["Localization"]
-      101 GETTABLEKS                       R14 R4 K28 ["createElement"]
-      103 GETTABLEKS                       R15 R3 K29 ["expect"]
-      105 GETTABLEKS                       R16 R5 K30 ["fireEvent"]
-      107 GETTABLEKS                       R17 R6 K31 ["SharedFlags"]
-      109 GETTABLEKS                       R17 R17 K32 ["getFFlagStudioFoundationDialogComponent"]
-      111 GETTABLEKS                       R18 R3 K33 ["jest"]
-      113 GETTABLEKS                       R19 R2 K25 ["ContextServices"]
-      115 GETTABLEKS                       R19 R19 K34 ["provide"]
-      117 GETTABLEKS                       R20 R5 K35 ["render"]
-      119 GETTABLEKS                       R21 R5 K36 ["within"]
-      121 DUPCLOSURE                       R22 K37 [PROTO_6]
-      122 CAPTURE                          VAL R9
-      123 CAPTURE                          VAL R11
-      124 CAPTURE                          VAL R13
-      125 CAPTURE                          VAL R18
-      126 CAPTURE                          VAL R10
-      127 CAPTURE                          VAL R19
-      128 CAPTURE                          VAL R12
-      129 CAPTURE                          VAL R14
-      130 CAPTURE                          VAL R17
-      131 CAPTURE                          VAL R6
-      132 CAPTURE                          VAL R7
-      133 CAPTURE                          VAL R20
-      134 CAPTURE                          VAL R15
-      135 CAPTURE                          VAL R21
-      136 CAPTURE                          VAL R1
-      137 CAPTURE                          VAL R16
-      138 RETURN                           R22 1
+       78 GETTABLEKS                       R10 R2 K20 ["TestHelpers"]
+       80 GETTABLEKS                       R10 R10 K21 ["Instances"]
+       82 GETTABLEKS                       R10 R10 K22 ["MockPlugin"]
+       84 GETTABLEKS                       R11 R2 K23 ["ContextServices"]
+       86 GETTABLEKS                       R11 R11 K24 ["Plugin"]
+       88 GETTABLEKS                       R12 R2 K23 ["ContextServices"]
+       90 GETTABLEKS                       R12 R12 K25 ["Localization"]
+       92 GETTABLEKS                       R13 R4 K26 ["createElement"]
+       94 GETTABLEKS                       R14 R3 K27 ["expect"]
+       96 GETTABLEKS                       R15 R5 K28 ["fireEvent"]
+       98 GETTABLEKS                       R16 R6 K29 ["SharedFlags"]
+      100 GETTABLEKS                       R16 R16 K30 ["getFFlagStudioFoundationDialogComponent"]
+      102 GETTABLEKS                       R17 R3 K31 ["jest"]
+      104 GETTABLEKS                       R18 R2 K23 ["ContextServices"]
+      106 GETTABLEKS                       R18 R18 K32 ["provide"]
+      108 GETTABLEKS                       R19 R5 K33 ["render"]
+      110 GETTABLEKS                       R20 R5 K34 ["within"]
+      112 DUPCLOSURE                       R21 K35 [PROTO_6]
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R12
+      115 CAPTURE                          VAL R17
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R18
+      118 CAPTURE                          VAL R11
+      119 CAPTURE                          VAL R13
+      120 CAPTURE                          VAL R16
+      121 CAPTURE                          VAL R6
+      122 CAPTURE                          VAL R7
+      123 CAPTURE                          VAL R19
+      124 CAPTURE                          VAL R14
+      125 CAPTURE                          VAL R20
+      126 CAPTURE                          VAL R1
+      127 CAPTURE                          VAL R15
+      128 RETURN                           R21 1

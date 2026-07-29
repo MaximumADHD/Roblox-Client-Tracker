@@ -39,7 +39,7 @@ PROTO_11:
         4 MOVE                             R1 R2
         5 LOADNIL                          R2
         6 GETTABLEKS                       R3 R1 K0 ["selectionInfo"]
-        8 JUMPIF                           R3 ; [+15]
+        8 JUMPIF                           R3 ; [+14]
         9 GETUPVAL                         R3 0
        10 GETTABLEKS                       R3 R3 K1 ["new"]
        12 CALL                             R3 0 1
@@ -47,64 +47,63 @@ PROTO_11:
        14 GETTABLEKS                       R4 R4 K1 ["new"]
        16 MOVE                             R5 R0
        17 NAMECALL                         R6 R3 K2 ["Get"]
-       19 CALL                             R6 1 1
-       20 LOADN                            R7 1
-       21 CALL                             R4 3 1
-       22 MOVE                             R2 R4
-       23 JUMP                             ; [+2]
-       24 GETTABLEKS                       R2 R1 K0 ["selectionInfo"]
-       26 GETUPVAL                         R3 2
-       27 GETTABLEKS                       R3 R3 K1 ["new"]
-       29 MOVE                             R4 R0
-       30 GETTABLEKS                       R5 R1 K3 ["schema"]
-       32 JUMPIF                           R5 ; [+1]
-       33 GETUPVAL                         R5 3
-       34 DUPTABLE                         R6 K8 [{["AnalyticsName"], ["AllowDragSelect"] = True, ["AllowFreeformDrag"] = True}]
-       35 GETTABLEKS                       R8 R1 K10 ["analyticsName"]
-       37 ORK                              R7 R8 K9 ["TestDragger"]
-       38 SETTABLEKS                       R7 R6 K4 ["AnalyticsName"]
-       40 GETTABLEKS                       R7 R1 K11 ["requestRenderCallback"]
-       42 JUMPIF                           R7 ; [+1]
-       43 DUPCLOSURE                       R7 K12 [PROTO_0]
-       44 GETTABLEKS                       R8 R1 K13 ["markViewDirtyCallback"]
-       46 JUMPIF                           R8 ; [+1]
-       47 DUPCLOSURE                       R8 K14 [PROTO_1]
-       48 GETTABLEKS                       R9 R1 K15 ["markSelectionDirtyCallback"]
-       50 JUMPIF                           R9 ; [+1]
-       51 DUPCLOSURE                       R9 K16 [PROTO_2]
-       52 CALL                             R3 6 1
-       53 GETTABLEKS                       R4 R1 K17 ["selectionWrapper"]
-       55 JUMPIF                           R4 ; [+4]
-       56 DUPTABLE                         R4 K19 [{"get"}]
-       57 DUPCLOSURE                       R5 K20 [PROTO_3]
-       58 SETTABLEKS                       R5 R4 K18 ["get"]
-       60 SETTABLEKS                       R4 R3 K21 ["_selectionWrapper"]
-       62 GETTABLEKS                       R4 R1 K22 ["boundsChangedTracker"]
-       64 JUMPIF                           R4 ; [+10]
-       65 DUPTABLE                         R4 K26 [{"uninstall", "install", "setSelection"}]
-       66 DUPCLOSURE                       R5 K27 [PROTO_4]
-       67 SETTABLEKS                       R5 R4 K23 ["uninstall"]
-       69 DUPCLOSURE                       R5 K28 [PROTO_5]
-       70 SETTABLEKS                       R5 R4 K24 ["install"]
-       72 DUPCLOSURE                       R5 K29 [PROTO_6]
-       73 SETTABLEKS                       R5 R4 K25 ["setSelection"]
-       75 SETTABLEKS                       R4 R3 K30 ["_boundsChangedTracker"]
-       77 GETTABLEKS                       R4 R1 K31 ["sessionAnalytics"]
-       79 JUMPIF                           R4 ; [+1]
-       80 DUPTABLE                         R4 K36 [{["freeformDrags"] = 0, ["handleDrags"] = 0, ["dragSelects"] = 0}]
-       81 SETTABLEKS                       R4 R3 K37 ["_sessionAnalytics"]
-       83 SETTABLEKS                       R2 R3 K38 ["_selectionInfo"]
-       85 DUPTABLE                         R4 K40 [{"leave"}]
-       86 DUPCLOSURE                       R5 K41 [PROTO_7]
-       87 SETTABLEKS                       R5 R4 K39 ["leave"]
-       89 SETTABLEKS                       R4 R3 K42 ["_currentState"]
-       91 DUPCLOSURE                       R4 K43 [PROTO_8]
-       92 SETTABLEKS                       R4 R3 K44 ["selectNextSelectables"]
-       94 DUPCLOSURE                       R4 K45 [PROTO_9]
-       95 SETTABLEKS                       R4 R3 K46 ["transitionToState"]
-       97 DUPCLOSURE                       R4 K47 [PROTO_10]
-       98 SETTABLEKS                       R4 R3 K48 ["_scheduleRender"]
-      100 RETURN                           R3 1
+       19 CALL                             R6 1 -1
+       20 CALL                             R4 -1 1
+       21 MOVE                             R2 R4
+       22 JUMP                             ; [+2]
+       23 GETTABLEKS                       R2 R1 K0 ["selectionInfo"]
+       25 GETUPVAL                         R3 2
+       26 GETTABLEKS                       R3 R3 K1 ["new"]
+       28 MOVE                             R4 R0
+       29 GETTABLEKS                       R5 R1 K3 ["schema"]
+       31 JUMPIF                           R5 ; [+1]
+       32 GETUPVAL                         R5 3
+       33 DUPTABLE                         R6 K8 [{["AnalyticsName"], ["AllowDragSelect"] = True, ["AllowFreeformDrag"] = True}]
+       34 GETTABLEKS                       R8 R1 K10 ["analyticsName"]
+       36 ORK                              R7 R8 K9 ["TestDragger"]
+       37 SETTABLEKS                       R7 R6 K4 ["AnalyticsName"]
+       39 GETTABLEKS                       R7 R1 K11 ["requestRenderCallback"]
+       41 JUMPIF                           R7 ; [+1]
+       42 DUPCLOSURE                       R7 K12 [PROTO_0]
+       43 GETTABLEKS                       R8 R1 K13 ["markViewDirtyCallback"]
+       45 JUMPIF                           R8 ; [+1]
+       46 DUPCLOSURE                       R8 K14 [PROTO_1]
+       47 GETTABLEKS                       R9 R1 K15 ["markSelectionDirtyCallback"]
+       49 JUMPIF                           R9 ; [+1]
+       50 DUPCLOSURE                       R9 K16 [PROTO_2]
+       51 CALL                             R3 6 1
+       52 GETTABLEKS                       R4 R1 K17 ["selectionWrapper"]
+       54 JUMPIF                           R4 ; [+4]
+       55 DUPTABLE                         R4 K19 [{"get"}]
+       56 DUPCLOSURE                       R5 K20 [PROTO_3]
+       57 SETTABLEKS                       R5 R4 K18 ["get"]
+       59 SETTABLEKS                       R4 R3 K21 ["_selectionWrapper"]
+       61 GETTABLEKS                       R4 R1 K22 ["boundsChangedTracker"]
+       63 JUMPIF                           R4 ; [+10]
+       64 DUPTABLE                         R4 K26 [{"uninstall", "install", "setSelection"}]
+       65 DUPCLOSURE                       R5 K27 [PROTO_4]
+       66 SETTABLEKS                       R5 R4 K23 ["uninstall"]
+       68 DUPCLOSURE                       R5 K28 [PROTO_5]
+       69 SETTABLEKS                       R5 R4 K24 ["install"]
+       71 DUPCLOSURE                       R5 K29 [PROTO_6]
+       72 SETTABLEKS                       R5 R4 K25 ["setSelection"]
+       74 SETTABLEKS                       R4 R3 K30 ["_boundsChangedTracker"]
+       76 GETTABLEKS                       R4 R1 K31 ["sessionAnalytics"]
+       78 JUMPIF                           R4 ; [+1]
+       79 DUPTABLE                         R4 K36 [{["freeformDrags"] = 0, ["handleDrags"] = 0, ["dragSelects"] = 0}]
+       80 SETTABLEKS                       R4 R3 K37 ["_sessionAnalytics"]
+       82 SETTABLEKS                       R2 R3 K38 ["_selectionInfo"]
+       84 DUPTABLE                         R4 K40 [{"leave"}]
+       85 DUPCLOSURE                       R5 K41 [PROTO_7]
+       86 SETTABLEKS                       R5 R4 K39 ["leave"]
+       88 SETTABLEKS                       R4 R3 K42 ["_currentState"]
+       90 DUPCLOSURE                       R4 K43 [PROTO_8]
+       91 SETTABLEKS                       R4 R3 K44 ["selectNextSelectables"]
+       93 DUPCLOSURE                       R4 K45 [PROTO_9]
+       94 SETTABLEKS                       R4 R3 K46 ["transitionToState"]
+       96 DUPCLOSURE                       R4 K47 [PROTO_10]
+       97 SETTABLEKS                       R4 R3 K48 ["_scheduleRender"]
+       99 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

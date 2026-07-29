@@ -538,23 +538,26 @@ PROTO_24:
 
 PROTO_25:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+14]
-        2 LOADN                            R2 0
-        3 GETUPVAL                         R0 1
-        4 GETTABLEKS                       R0 R0 K0 ["pageIndex"]
-        6 LOADN                            R1 1
-        7 FORNPREP                         R0
-        8 GETUPVAL                         R3 2
-        9 GETUPVAL                         R4 3
-       10 MOVE                             R5 R2
-       11 GETUPVAL                         R6 4
-       12 LOADB                            R7 1
-       13 GETUPVAL                         R8 5
-       14 CALL                             R3 5 0
-       15 FORNLOOP                         R0
-       16 GETUPVAL                         R0 6
-       17 CALL                             R0 0 0
-       18 RETURN                           R0 0
+        1 JUMPIFNOT                        R0 ; [+21]
+        2 GETUPVAL                         R0 1
+        3 GETTABLEKS                       R0 R0 K0 ["searchKey"]
+        5 JUMPIFNOTEQKS                    R0 K1 ["Experiences"] ; [+17]
+        7 LOADN                            R2 0
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["pageIndex"]
+       11 LOADN                            R1 1
+       12 FORNPREP                         R0
+       13 GETUPVAL                         R3 3
+       14 GETUPVAL                         R4 1
+       15 MOVE                             R5 R2
+       16 GETUPVAL                         R6 4
+       17 LOADB                            R7 1
+       18 GETUPVAL                         R8 5
+       19 CALL                             R3 5 0
+       20 FORNLOOP                         R0
+       21 GETUPVAL                         R0 6
+       22 CALL                             R0 0 0
+       23 RETURN                           R0 0
 
 PROTO_26:
         0 GETIMPORT                        R0 K2 [task.delay]
@@ -694,32 +697,33 @@ PROTO_30:
        41 CAPTURE                          UPVAL U4
        42 CAPTURE                          UPVAL U5
        43 CAPTURE                          VAL R9
-       44 CAPTURE                          VAL R5
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R1
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R5
+       46 CAPTURE                          VAL R3
        47 CAPTURE                          VAL R2
        48 CAPTURE                          VAL R4
-       49 NEWTABLE                         R13 0 2
+       49 NEWTABLE                         R13 0 3
        51 MOVE                             R14 R9
-       52 MOVE                             R15 R2
-       53 SETLIST                          R13 R14 2 [1]
-       55 CALL                             R11 2 0
-       56 GETUPVAL                         R11 6
-       57 NEWCLOSURE                       R12 P2
-       58 CAPTURE                          VAL R5
-       59 CAPTURE                          VAL R8
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R2
-       63 CAPTURE                          VAL R4
-       64 NEWTABLE                         R13 0 1
-       66 MOVE                             R14 R2
-       67 SETLIST                          R13 R14 1 [1]
-       69 CALL                             R11 2 1
-       70 MOVE                             R12 R6
-       71 GETTABLEKS                       R13 R5 K4 ["targetCount"]
-       73 MOVE                             R14 R11
-       74 RETURN                           R12 3
+       52 MOVE                             R15 R1
+       53 MOVE                             R16 R2
+       54 SETLIST                          R13 R14 3 [1]
+       56 CALL                             R11 2 0
+       57 GETUPVAL                         R11 6
+       58 NEWCLOSURE                       R12 P2
+       59 CAPTURE                          VAL R5
+       60 CAPTURE                          VAL R8
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R2
+       64 CAPTURE                          VAL R4
+       65 NEWTABLE                         R13 0 1
+       67 MOVE                             R14 R2
+       68 SETLIST                          R13 R14 1 [1]
+       70 CALL                             R11 2 1
+       71 MOVE                             R12 R6
+       72 GETTABLEKS                       R13 R5 K4 ["targetCount"]
+       74 MOVE                             R14 R11
+       75 RETURN                           R12 3
 
 PROTO_31:
         0 GETUPVAL                         R3 0

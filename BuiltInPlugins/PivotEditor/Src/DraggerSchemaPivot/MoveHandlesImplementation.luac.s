@@ -96,58 +96,41 @@ PROTO_5:
 PROTO_6:
         0 NAMECALL                         R2 R1 K0 ["GetTouchingParts"]
         2 CALL                             R2 1 1
-        3 GETUPVAL                         R3 0
-        4 CALL                             R3 0 1
-        5 JUMPIFNOT                        R3 ; [+18]
-        6 MOVE                             R3 R2
-        7 LOADNIL                          R4
-        8 LOADNIL                          R5
-        9 FORGPREP                         R3
-       10 GETTABLEKS                       R8 R0 K1 ["_snapPointsAreFor"]
-       12 JUMPIFEQ                         R7 R8 ; [+7]
-       14 GETTABLEKS                       R10 R0 K1 ["_snapPointsAreFor"]
-       16 NAMECALL                         R8 R7 K2 ["IsDescendantOf"]
-       18 CALL                             R8 2 1
-       19 JUMPIFNOT                        R8 ; [+1]
-       20 RETURN                           R0 0
-       21 FORGLOOP                         R3 2 ; [-12]
-       23 JUMP                             ; [+14]
-       24 GETIMPORT                        R3 K4 [ipairs]
-       26 MOVE                             R4 R2
-       27 CALL                             R3 1 3
-       28 FORGPREP_INEXT                   R3
-       29 GETTABLEKS                       R10 R0 K1 ["_snapPointsAreFor"]
-       31 NAMECALL                         R8 R7 K2 ["IsDescendantOf"]
-       33 CALL                             R8 2 1
-       34 JUMPIFNOT                        R8 ; [+1]
-       35 RETURN                           R0 0
-       36 FORGLOOP                         R3 2 [inext] ; [-8]
-       38 GETUPVAL                         R3 0
-       39 CALL                             R3 0 1
-       40 JUMPIFNOT                        R3 ; [+22]
-       41 MOVE                             R3 R2
-       42 LOADNIL                          R4
-       43 LOADNIL                          R5
-       44 FORGPREP                         R3
-       45 GETTABLEKS                       R8 R0 K5 ["_primaryObject"]
-       47 JUMPIFEQ                         R7 R8 ; [+7]
-       49 GETTABLEKS                       R10 R0 K5 ["_primaryObject"]
-       51 NAMECALL                         R8 R7 K2 ["IsDescendantOf"]
-       53 CALL                             R8 2 1
-       54 JUMPIFNOT                        R8 ; [+6]
-       55 GETTABLEKS                       R10 R0 K5 ["_primaryObject"]
-       57 NAMECALL                         R8 R0 K6 ["_setCurrentSnap"]
-       59 CALL                             R8 2 0
-       60 RETURN                           R0 0
-       61 FORGLOOP                         R3 2 ; [-17]
-       63 GETUPVAL                         R3 1
-       64 MOVE                             R4 R2
-       65 CALL                             R3 1 1
-       66 JUMPIFNOT                        R3 ; [+4]
-       67 MOVE                             R6 R3
-       68 NAMECALL                         R4 R0 K6 ["_setCurrentSnap"]
-       70 CALL                             R4 2 0
-       71 RETURN                           R0 0
+        3 MOVE                             R3 R2
+        4 LOADNIL                          R4
+        5 LOADNIL                          R5
+        6 FORGPREP                         R3
+        7 GETTABLEKS                       R8 R0 K1 ["_snapPointsAreFor"]
+        9 JUMPIFEQ                         R7 R8 ; [+7]
+       11 GETTABLEKS                       R10 R0 K1 ["_snapPointsAreFor"]
+       13 NAMECALL                         R8 R7 K2 ["IsDescendantOf"]
+       15 CALL                             R8 2 1
+       16 JUMPIFNOT                        R8 ; [+1]
+       17 RETURN                           R0 0
+       18 FORGLOOP                         R3 2 ; [-12]
+       20 MOVE                             R3 R2
+       21 LOADNIL                          R4
+       22 LOADNIL                          R5
+       23 FORGPREP                         R3
+       24 GETTABLEKS                       R8 R0 K3 ["_primaryObject"]
+       26 JUMPIFEQ                         R7 R8 ; [+7]
+       28 GETTABLEKS                       R10 R0 K3 ["_primaryObject"]
+       30 NAMECALL                         R8 R7 K2 ["IsDescendantOf"]
+       32 CALL                             R8 2 1
+       33 JUMPIFNOT                        R8 ; [+6]
+       34 GETTABLEKS                       R10 R0 K3 ["_primaryObject"]
+       36 NAMECALL                         R8 R0 K4 ["_setCurrentSnap"]
+       38 CALL                             R8 2 0
+       39 RETURN                           R0 0
+       40 FORGLOOP                         R3 2 ; [-17]
+       42 GETUPVAL                         R3 0
+       43 MOVE                             R4 R2
+       44 CALL                             R3 1 1
+       45 JUMPIFNOT                        R3 ; [+4]
+       46 MOVE                             R6 R3
+       47 NAMECALL                         R4 R0 K4 ["_setCurrentSnap"]
+       49 CALL                             R4 2 0
+       50 RETURN                           R0 0
 
 PROTO_7:
         0 GETIMPORT                        R2 K2 [Instance.new]
@@ -302,44 +285,39 @@ MAIN:
        74 GETTABLEKS                       R10 R1 K11 ["Utility"]
        76 GETTABLEKS                       R10 R10 K18 ["getSoftSnaps"]
        78 CALL                             R9 1 1
-       79 GETIMPORT                        R10 K6 [require]
-       81 GETTABLEKS                       R11 R1 K19 ["Flags"]
-       83 GETTABLEKS                       R11 R11 K20 ["getFFlagDraggerImprovements"]
-       85 CALL                             R10 1 1
-       86 NEWTABLE                         R11 16 0
-       88 SETTABLEKS                       R11 R11 K21 ["__index"]
-       90 DUPCLOSURE                       R12 K22 [PROTO_0]
-       91 CAPTURE                          VAL R11
-       92 SETTABLEKS                       R12 R11 K23 ["new"]
-       94 DUPCLOSURE                       R12 K24 [PROTO_1]
-       95 CAPTURE                          VAL R9
-       96 SETTABLEKS                       R12 R11 K18 ["getSoftSnaps"]
-       98 DUPCLOSURE                       R12 K25 [PROTO_2]
-       99 SETTABLEKS                       R12 R11 K26 ["_selectedIsActive"]
-      101 DUPCLOSURE                       R12 K27 [PROTO_3]
-      102 CAPTURE                          VAL R5
-      103 SETTABLEKS                       R12 R11 K28 ["_setCurrentSnap"]
-      105 DUPCLOSURE                       R12 K29 [PROTO_4]
-      106 SETTABLEKS                       R12 R11 K30 ["beginDrag"]
-      108 DUPCLOSURE                       R12 K31 [PROTO_5]
-      109 CAPTURE                          VAL R3
-      110 DUPCLOSURE                       R13 K32 [PROTO_6]
-      111 CAPTURE                          VAL R10
-      112 CAPTURE                          VAL R12
-      113 SETTABLEKS                       R13 R11 K33 ["_findNewSnapTargetImpl"]
-      115 DUPCLOSURE                       R13 K34 [PROTO_7]
-      116 SETTABLEKS                       R13 R11 K35 ["_findNewSnapTargetViaCollision"]
-      118 DUPCLOSURE                       R13 K36 [PROTO_8]
-      119 CAPTURE                          VAL R4
-      120 SETTABLEKS                       R13 R11 K37 ["updateDrag"]
-      122 DUPCLOSURE                       R13 K38 [PROTO_9]
-      123 CAPTURE                          VAL R8
-      124 SETTABLEKS                       R13 R11 K39 ["endDrag"]
-      126 DUPCLOSURE                       R13 K40 [PROTO_10]
-      127 SETTABLEKS                       R13 R11 K41 ["getSnapPoints"]
-      129 DUPCLOSURE                       R13 K42 [PROTO_11]
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R7
-      132 CAPTURE                          VAL R6
-      133 SETTABLEKS                       R13 R11 K43 ["render"]
-      135 RETURN                           R11 1
+       79 NEWTABLE                         R10 16 0
+       81 SETTABLEKS                       R10 R10 K19 ["__index"]
+       83 DUPCLOSURE                       R11 K20 [PROTO_0]
+       84 CAPTURE                          VAL R10
+       85 SETTABLEKS                       R11 R10 K21 ["new"]
+       87 DUPCLOSURE                       R11 K22 [PROTO_1]
+       88 CAPTURE                          VAL R9
+       89 SETTABLEKS                       R11 R10 K18 ["getSoftSnaps"]
+       91 DUPCLOSURE                       R11 K23 [PROTO_2]
+       92 SETTABLEKS                       R11 R10 K24 ["_selectedIsActive"]
+       94 DUPCLOSURE                       R11 K25 [PROTO_3]
+       95 CAPTURE                          VAL R5
+       96 SETTABLEKS                       R11 R10 K26 ["_setCurrentSnap"]
+       98 DUPCLOSURE                       R11 K27 [PROTO_4]
+       99 SETTABLEKS                       R11 R10 K28 ["beginDrag"]
+      101 DUPCLOSURE                       R11 K29 [PROTO_5]
+      102 CAPTURE                          VAL R3
+      103 DUPCLOSURE                       R12 K30 [PROTO_6]
+      104 CAPTURE                          VAL R11
+      105 SETTABLEKS                       R12 R10 K31 ["_findNewSnapTargetImpl"]
+      107 DUPCLOSURE                       R12 K32 [PROTO_7]
+      108 SETTABLEKS                       R12 R10 K33 ["_findNewSnapTargetViaCollision"]
+      110 DUPCLOSURE                       R12 K34 [PROTO_8]
+      111 CAPTURE                          VAL R4
+      112 SETTABLEKS                       R12 R10 K35 ["updateDrag"]
+      114 DUPCLOSURE                       R12 K36 [PROTO_9]
+      115 CAPTURE                          VAL R8
+      116 SETTABLEKS                       R12 R10 K37 ["endDrag"]
+      118 DUPCLOSURE                       R12 K38 [PROTO_10]
+      119 SETTABLEKS                       R12 R10 K39 ["getSnapPoints"]
+      121 DUPCLOSURE                       R12 K40 [PROTO_11]
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R7
+      124 CAPTURE                          VAL R6
+      125 SETTABLEKS                       R12 R10 K41 ["render"]
+      127 RETURN                           R10 1

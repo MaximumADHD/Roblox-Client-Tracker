@@ -677,7 +677,7 @@ MAIN:
      1014 NAMECALL                         R24 R8 K43 ["add"]
      1016 CALL                             R24 2 0
      1017 GETTABLEKS                       R24 R8 K334 ["SimpleSelectScreen"]
-     1019 DUPTABLE                         R25 K341 [{["BackgroundColor"], ["ImageBackgroundColor"], ["IconColor"], ["LineColor"], ["FontFace"], ["ImageSize"], ["Spacing"], ["LineSize"], ["ButtonHeight"] = 32, ["Image"]}]
+     1019 DUPTABLE                         R25 K341 [{["BackgroundColor"], ["ImageBackgroundColor"], ["IconColor"], ["LineColor"], ["FontFace"], ["TextSize"] = 18, ["ImageSize"], ["Spacing"], ["LineSize"], ["ButtonHeight"] = 32, ["Image"]}]
      1020 GETTABLEKS                       R26 R6 K342 ["IconBackgroundColor"]
      1022 SETTABLEKS                       R26 R25 K95 ["BackgroundColor"]
      1024 GETTABLEKS                       R26 R6 K155 ["SubBackground"]
