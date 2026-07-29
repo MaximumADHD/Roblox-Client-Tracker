@@ -15062,43 +15062,30 @@
     "keys": {
       "EvaluationThrottled": "@roblox/globaltype/Animator.EvaluationThrottled",
       "PreferLodEnabled": "@roblox/globaltype/Animator.PreferLodEnabled",
-      "RootMotion": "@roblox/globaltype/Animator.RootMotion",
-      "RootMotionWeight": "@roblox/globaltype/Animator.RootMotionWeight",
       "ApplyJointVelocities": "@roblox/globaltype/Animator.ApplyJointVelocities",
       "GetPlayingAnimationTracks": "@roblox/globaltype/Animator.GetPlayingAnimationTracks",
       "GetTrackByAnimationId": "@roblox/globaltype/Animator.GetTrackByAnimationId",
       "LoadAnimation": "@roblox/globaltype/Animator.LoadAnimation",
-      "RegisterEvaluationParallelCallback": "@roblox/globaltype/Animator.RegisterEvaluationParallelCallback",
       "StepAnimations": "@roblox/globaltype/Animator.StepAnimations"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator",
     "code_sample": ""
   },
   "@roblox/globaltype/Animator.EvaluationThrottled": {
-    "documentation": "",
+    "documentation": "Indicates whether animation evaluation was throttled (skipped) this frame for this <code>Animator</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#EvaluationThrottled",
     "code_sample": ""
   },
   "@roblox/globaltype/Animator.PreferLodEnabled": {
-    "documentation": "",
+    "documentation": "Controls whether animation LOD throttling is allowed for this <code>Animator</code>. When set to <code>false</code>, animations always evaluate at full fidelity.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#PreferLodEnabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Animator.RootMotion": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#RootMotion",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Animator.RootMotionWeight": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#RootMotionWeight",
     "code_sample": ""
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities/param/0": {
     "documentation": "Responsible for the playback and replication of <code>Animations</code>."
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities/param/1": {
-    "documentation": ""
+    "documentation": "An array of <code>Motor6D</code> instances to compute and apply velocities for."
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities": {
     "documentation": "Computes relative velocities between parts and applies them to <code>Motor6D.Part1</code>.",
@@ -15188,28 +15175,6 @@
       "@roblox/globaltype/Animator.LoadAnimation/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#LoadAnimation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Animator.RegisterEvaluationParallelCallback/param/0": {
-    "documentation": "Responsible for the playback and replication of <code>Animations</code>."
-  },
-  "@roblox/globaltype/Animator.RegisterEvaluationParallelCallback/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Animator.RegisterEvaluationParallelCallback": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Animator.RegisterEvaluationParallelCallback/param/0"
-      },
-      {
-        "name": "callback",
-        "documentation": "@roblox/globaltype/Animator.RegisterEvaluationParallelCallback/param/1"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#RegisterEvaluationParallelCallback",
     "code_sample": ""
   },
   "@roblox/globaltype/Animator.StepAnimations/param/0": {
@@ -126177,16 +126142,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserInputState",
     "code_sample": ""
   },
-  "@roblox/enum/KeyCode.Unknown": {
-    "documentation": "Blank value that represents no key being pressed.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Unknown",
-    "code_sample": ""
-  },
   "@roblox/enum/KeyCode.Backspace": {
     "documentation": "The <code>Backspace</code> key.",
     "keys": {
@@ -128950,7 +128905,6 @@
   "@roblox/global/Enum.KeyCode": {
     "documentation": "Byte keycodes that represent the key or button involved in user input.",
     "keys": {
-      "Unknown": "@roblox/enum/KeyCode.Unknown",
       "Backspace": "@roblox/enum/KeyCode.Backspace",
       "Tab": "@roblox/enum/KeyCode.Tab",
       "Clear": "@roblox/enum/KeyCode.Clear",
