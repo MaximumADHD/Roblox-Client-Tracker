@@ -1,6 +1,6 @@
 [package]
 name = "ServiceContractsProto"
-version = "1.0.1853+20260716"
+version = "1.0.1915+20260723"
 readme = "README.md"
 content_root = "protos/gen/luau"
 files = [
@@ -30,6 +30,8 @@ files = [
     "roblox/apppageplatform/search/v1beta1/*",
     "roblox/apppageplatform/spotlightcollection/v1beta1/**/*",
     "roblox/apppageplatform/spotlightcollection/v1beta1/*",
+    "roblox/apppageplatform/partychat/v1beta1/**/*",
+    "roblox/apppageplatform/partychat/v1beta1/*",
     "roblox/apppageplatform/*",
 ]
 publish = true

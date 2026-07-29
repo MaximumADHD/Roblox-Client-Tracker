@@ -3383,6 +3383,26 @@
         </Item>
       </Item>
     </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioWindSynthesizer</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">EnableAudioWindSynthesizer</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">3</double>
+            <double name="UINumTicks">100</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -4324,6 +4344,30 @@
             <string name="Name">Offset</string>
           </Properties>
         </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Type</string>
+            <string name="FFlag">UIGradientExtendedModes</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TileMode</string>
+            <string name="FFlag">UIGradientExtendedModes</string>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Scale</string>
+            <string name="FFlag">UIGradientExtendedModes</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -4405,7 +4449,6 @@
         <string name="ExplorerImageIndex">26</string>
         <string name="ClassCategory">GUI</string>
         <string name="PreferredParent">GuiBase2d</string>
-        <string name="FFlag">UIShadow</string>
       </Properties>
 
       <Item class="ReflectionMetadataProperties">
@@ -4626,6 +4669,15 @@
         <string name="ExplorerOrder">31</string>
         <string name="ClassCategory">Input</string>
         <string name="PreferredParent">InputAction</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">InputActionLabel</string>
+        <string name="ExplorerOrder">185</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiBase2d</string>
       </Properties>
     </Item>
 

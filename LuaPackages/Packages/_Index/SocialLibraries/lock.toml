@@ -4,7 +4,7 @@ version = "4.3.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Foundation Foundation 1.95.0 registry",
+    "Foundation Foundation 1.96.0 registry",
     "GenericPagination GenericPagination 0.1.1 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",

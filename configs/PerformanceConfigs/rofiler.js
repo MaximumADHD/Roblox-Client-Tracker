@@ -149,8 +149,9 @@ li a{ float:none; }
 .helpstart {position:absolute;z-index:5;text-align:left;padding:2px;background-color: #313131;width:300px;display:none}
 .root {z-index:1;position:absolute;top:0px;left:0px;}
 .filterinput0{z-index:3;position:fixed;bottom:20px;left:25px;background-color: #313131}
-.filterinput1{z-index:3;position:fixed;bottom:20px;left:175px;background-color: #313131}
+.filterinput1{z-index:3;position:fixed;bottom:20px;left:190px;background-color: #313131}
 .filterinputTooltip{z-index:2;position:fixed;bottom:5px;left:25px;background-color: #313131}
+#filtergroup,#filtertimer{box-sizing:border-box;width:165px}
 
 /* Diff UI */
 .tooltip-area .tooltip-text {
@@ -242,7 +243,7 @@ g_Loader.bodyText = `
 <div id='filterinput' style="display: none;">
 <div class="filterinput0">Group<br><input type="text" id="filtergroup"></div>
 <div class="filterinput1">Timer/Thread<br><input type="text" id="filtertimer"></div>
-<div class="filterinputTooltip">Left/Right keys = navigate</div>
+<div class="filterinputTooltip" id="filterinputTooltip">Ctrl + Left/Right  navigate matches   |   Esc  hides</div>
 </div>
 <canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
 <canvas id="NetworkHistory" height="150" style="background-color:#474747;margin:0px;padding:0px;display:none;"></canvas>
@@ -272,7 +273,7 @@ x: Toggle X-Ray view<br>
 c: Toggle X-Ray count/sum modes<br>
 <hr>
 Detailed View:<br>
-W: Go To Worst Instance<br>
+W: Go To Slowest (Worst) Instance<br>
 Left/Right Arrow: Next/Prev Instance<br>
 <hr>
 Timer Views:<br>
@@ -365,6 +366,8 @@ Esc: Exit &amp; Clear filter
         <li id='ShowHelp'><a href="javascript:void(0)" onclick="ShowHelp(1,1);">Help</a></li>
 <!-- <li><a href="javascript:void(0)" onclick="ToggleDebug();">DEBUG</a></li> -->
     </ul>
+</li>
+<li id="ilFind" title="Find timer (Ctrl + F)" style="cursor: pointer;"><a class="highlighted-text">&nbsp;&#8981;&nbsp;</a>
 </li>
 <li id="ilReload" title="Re-capture" style="cursor: pointer; display: none;"><a class="highlighted-text">&nbsp;&#8635;&nbsp;</a>
 </li>
@@ -575,6 +578,7 @@ function InitViewerVars() {
     window.KeyShiftDown = 0;
     window.MouseDragButton = 0;
     window.KeyCtrlDown = 0;
+    window.NanoScale = 0; // held-'N' momentary flag: render all durations in ns while set
     window.ToolTip = 1; //0: off, 1: default, 2: flipped
     window.DetailedViewMouseX = 0;
     window.DetailedViewMouseY = 0;
@@ -628,6 +632,11 @@ function InitViewerVars() {
     window.FRAME_HISTORY_COLOR_INCOMPLETE = '#202020';
     window.FRAME_HISTORY_COLOR_WRAPAROUND = '#ff0000'; // these frames are partially clobbered by the ring buffer
     window.FRAME_HISTORY_COLOR_MOUSE_HOVER = '#ffffff';
+    // Per-thread buffer-status label colors (see InitFrameInfo classification + thread labels).
+    window.THREAD_STATUS_BOTTLENECK = '#ff8c00'; // orange: smallest buffer frame-capacity -> caps capture look-back
+    window.THREAD_STATUS_EARLY = '#3fa9f5';      // blue: has ok pre-capture scopes (e.g. occlusion-cull debug)
+    window.THREAD_STATUS_WRAPAROUND = '#ff0000'; // red: markers far outside the frame window -> possible wraparound
+    window.THREAD_STATUS_MISALIGNED = '#c586ff'; // purple: GPU thread with scattered (non-leading) wraparound frames -> GPU/CPU timestamp misalignment, not a true wraparound
     window.ZOOM_TIME = 0.5;
     window.AnimationActive = false;
     window.nHoverCSCpu = -1;
@@ -654,6 +663,7 @@ function InitViewerVars() {
     window.RangeCpu = RangeInit();
     window.RangeGpu = RangeInit();
     window.RangeSelect = RangeInit();
+    window.SelectionSummary = null; // right-drag region top-scopes summary (set on release)
 
     window.RangeCpuNext = RangeInit();
     window.RangeGpuNext = RangeInit();
@@ -1012,38 +1022,113 @@ function BuildInfoInnerHtml(div, layout) {
     div.style.padding = "8px";
 }
 
+function DescribeBoundaryMarker(kind, threadIdx, timerIndex, entryType, time, frameEnd, wrapOvershoot, firstStart, avgFrameTime, frameIdx) {
+    // Console diagnostic explaining WHY a thread was flagged: the offending entry (enter/leave +
+    // timestamp), the reference boundary it was compared against and which frame value it derives
+    // from, the overshoot allowance added to that reference, and how far outside the marker fell.
+    var name = (TimerInfo[timerIndex] && TimerInfo[timerIndex].name) ? TimerInfo[timerIndex].name : ('#' + timerIndex);
+    var typeStr = entryType === 1 ? 'enter' : (entryType === 0 ? 'leave' : ('type' + entryType));
+    var futureLimit = frameEnd + wrapOvershoot;
+    var earliestOkStart = firstStart - avgFrameTime;
+    var detail;
+    if (time >= futureLimit) {
+        detail = (time - futureLimit).toFixed(3) + 'ms after boundary (ref frame-end ' + frameEnd.toFixed(3) +
+            ' + overshoot ' + wrapOvershoot.toFixed(3) + ' = ' + futureLimit.toFixed(3) + ')';
+    } else if (time < earliestOkStart) {
+        detail = (earliestOkStart - time).toFixed(3) + 'ms before boundary (ref first-frame-start ' + firstStart.toFixed(3) +
+            ' - avg-frame ' + avgFrameTime.toFixed(3) + ' = ' + earliestOkStart.toFixed(3) + ')';
+    } else {
+        detail = (firstStart - time).toFixed(3) + 'ms before first-frame-start (ref first-frame-start ' + firstStart.toFixed(3) +
+            ', within one avg-frame ' + avgFrameTime.toFixed(3) + ')';
+    }
+    console.log('[MicroProfiler] ' + kind + ': thread "' + ThreadNames[threadIdx] + '", frame ' + frameIdx +
+        ', timer "' + name + '", ' + typeStr + ' ts=' + time + ', ' + detail);
+}
 function InitFrameInfo() {
     AggregateInfo.EmptyFrames = Array(Frames.length);
     emptyFrames = 0;
+
+    var nNumLogs = (Frames.length > 0 && Frames[0].tt) ? Frames[0].tt.length : 0;
+
+    // Average frame duration sets how far outside its frame window a marker may fall before we
+    // treat it as a possible ring-buffer wraparound -- applied on both the past side (before the
+    // first frame) and the future side (after a frame's end).
+    var avgFrameTime = 0;
     for (var i = 0; i < Frames.length; i++) {
-        var clobbered = false;
+        avgFrameTime += Frames[i].frameend - Frames[i].framestart;
+    }
+    avgFrameTime = Frames.length > 0 ? avgFrameTime / Frames.length : 0;
+    var firstStart = Frames.length > 0 ? Frames[0].framestart : 0;
+    var earliestOkStart = firstStart - avgFrameTime; // earlier than this = wraparound; [here, firstStart) = ok early scope
+
+    // Per-thread classification accumulators (indexed by thread/log).
+    var totalEntries = new Array(nNumLogs).fill(0);
+    var hasEarlyScopes = new Array(nNumLogs).fill(false); // a: pre-capture scopes within one frame (ok)
+    var hasWraparound = new Array(nNumLogs).fill(false);  // b: markers far outside the window (suspect)
+    var loggedWrap = new Array(nNumLogs).fill(false);     // console-log each thread's marking reason once
+    var loggedEarly = new Array(nNumLogs).fill(false);
+    // GPU-only: a "misaligned" thread has wraparound frames MIXED with normal ones (a wrap frame that
+    // follows a normal, data-bearing frame) rather than a contiguous leading run of overwritten
+    // frames -- that scattered pattern is a GPU/CPU timestamp misalignment, not a true ring wraparound.
+    var misaligned = new Array(nNumLogs).fill(false);
+    var seenNormalWithData = new Array(nNumLogs).fill(false);
+
+    for (var i = 0; i < Frames.length; i++) {
+        var wraparoundFrame = false;
         var empty = true;
         var frame = Frames[i];
-        if (frame) {
-            typeArray = frame.tt;
-            if (typeArray) {
-                for (var threadIdx = 0; threadIdx < typeArray.length; ++threadIdx) {
-                    if (typeArray[threadIdx] && typeArray[threadIdx].length > 0) {
-                        empty = false;
-                        var ts = frame.ts[threadIdx];
-                        var ti = frame.ti[threadIdx];
-                        var tt = frame.tt[threadIdx];
-                        var count = ts.length;
-                        var frameOverflow = OverflowAllowance(threadIdx, frame);
-                        for (j = 0; j < count; j++) {
-                            var type = tt[j];
-
-                            if (type == 1 || type == 0) //enter or leave
-                            {
-                                var time = ts[j] | 0; // Convert to signed
-                                // This frame has ring buffer wrap around data in it
-                                if (time >= frameOverflow) {
-                                    clobbered = true;
-                                    if (ThreadClobbered.length > 0)
-                                        ThreadClobbered[threadIdx] = 1;
-                                    break;
+        if (frame && frame.tt) {
+            for (var threadIdx = 0; threadIdx < frame.tt.length; ++threadIdx) {
+                var tt = frame.tt[threadIdx];
+                if (tt && tt.length > 0) {
+                    empty = false;
+                    totalEntries[threadIdx] += tt.length;
+                    var ts = frame.ts[threadIdx];
+                    var ti = frame.ti[threadIdx];
+                    // A GPU frame with no recorded GPU end (frameendgpu == 0) would give a bogus
+                    // boundary, so fall back to the CPU frame end for that frame.
+                    var frameEndRef = (ThreadGpu[threadIdx] && frame.frameendgpu) ? frame.frameendgpu : frame.frameend;
+                    // GPU work finishes a few frames behind the CPU, so its markers legitimately land
+                    // well past the frame end; allow a 3x-avg-frame overshoot before calling it a wrap.
+                    var wrapOvershoot = (ThreadGpu[threadIdx] ? 3 : 1) * avgFrameTime;
+                    var futureLimit = frameEndRef + wrapOvershoot;
+                    var threadWrappedThisFrame = false;
+                    for (var j = 0; j < tt.length; j++) {
+                        var type = tt[j];
+                        if (type == 1 || type == 0) { // enter or leave
+                            var time = ts[j] | 0; // Convert to signed
+                            // A normal scope records each marker within its own frame (a cross-frame
+                            // scope's leave lands in the frame it completes in), so a marker -- enter
+                            // OR leave -- timestamped outside its frame window is abnormal: a ring
+                            // buffer wraparound. (The one legit exception, occlusion-cull scopes that
+                            // backdate their enter before the capture, is the past-side "early" case.)
+                            if (time >= futureLimit || time < earliestOkStart) {
+                                hasWraparound[threadIdx] = true;
+                                wraparoundFrame = true;
+                                threadWrappedThisFrame = true;
+                                if (!loggedWrap[threadIdx]) {
+                                    loggedWrap[threadIdx] = true;
+                                    DescribeBoundaryMarker('Wraparound', threadIdx, ti[j], type, time, frameEndRef, wrapOvershoot, firstStart, avgFrameTime, i);
                                 }
                             }
+                            else if (time < firstStart) {
+                                hasEarlyScopes[threadIdx] = true;
+                                if (!loggedEarly[threadIdx]) {
+                                    loggedEarly[threadIdx] = true;
+                                    DescribeBoundaryMarker('EarlyTime', threadIdx, ti[j], type, time, frameEndRef, wrapOvershoot, firstStart, avgFrameTime, i);
+                                }
+                            }
+                        }
+                    }
+                    // GPU-only misalignment: a wrap frame that follows a normal (data, no-wrap) frame
+                    // means the wrap frames are not a contiguous leading run -- flag as misaligned.
+                    if (ThreadGpu[threadIdx]) {
+                        if (threadWrappedThisFrame) {
+                            if (seenNormalWithData[threadIdx]) {
+                                misaligned[threadIdx] = true;
+                            }
+                        } else {
+                            seenNormalWithData[threadIdx] = true;
                         }
                     }
                 }
@@ -1054,20 +1139,48 @@ function InitFrameInfo() {
             AggregateInfo.EmptyFrames[i] = 1;
             emptyFrames += 1; // empty
         }
+        else if (wraparoundFrame) {
+            // Wraparound: some thread's marker fell outside its frame window (overwritten ring data),
+            // so the whole frame is dropped from stats (see CalculateTimers) and excluded from the
+            // frame count. Drawn red in the history bar.
+            AggregateInfo.EmptyFrames[i] = 2;
+            emptyFrames += 1;
+        }
         else {
-            if (clobbered) {
-                emptyFrames += 1; // considered invalid or empty
-                AggregateInfo.EmptyFrames[i] = 2; // clobbered.
-            }
-            else {
-                AggregateInfo.EmptyFrames[i] = 0;
-            }
+            AggregateInfo.EmptyFrames[i] = 0; // valid (buffer-full and ok-early frames included)
         }
     }
     AggregateInfo.EmptyFrameCount = emptyFrames;
     AggregateInfo.TotalFrames = function () {
         return (Frames.length - AggregateInfo.EmptyFrameCount);
     }
+
+    // The "LimitsHistory" thread is the one whose ring buffer holds the fewest frames of history:
+    // framesHeld = capacity / (totalEntries / Frames.length) -- capacity over the average entries
+    // per DUMPED frame. The rate MUST divide by the TOTAL frame count, not by the frames the thread
+    // was active in: dividing by active frames wrongly flags a rarely-active thread that writes a
+    // burst (its few active frames inflate its per-frame rate and collapse framesHeld). Min
+    // framesHeld caps how far back the whole capture reaches (equivalently: the highest fill len/cap).
+    var isBottleneck = new Array(nNumLogs).fill(false);
+    if (ThreadBufferSizes && ThreadBufferSizes.length > 0 && Frames.length > 0) {
+        var minFramesHeld = Infinity;
+        var bottleneckLog = -1;
+        for (var nLog = 0; nLog < nNumLogs; ++nLog) {
+            var capacity = ThreadBufferSizes[nLog];
+            var avgPerFrame = totalEntries[nLog] / Frames.length;
+            if (capacity > 0 && avgPerFrame > 0) {
+                var framesHeld = capacity / avgPerFrame;
+                if (framesHeld < minFramesHeld) {
+                    minFramesHeld = framesHeld;
+                    bottleneckLog = nLog;
+                }
+            }
+        }
+        if (bottleneckLog >= 0) {
+            isBottleneck[bottleneckLog] = true;
+        }
+    }
+    window.ThreadStatus = { isBottleneck: isBottleneck, hasEarlyScopes: hasEarlyScopes, hasWraparound: hasWraparound, isMisaligned: misaligned };
 
     if (globalThis.g_cliMode) {
         return;
@@ -1130,7 +1243,7 @@ function InitGroups() {
     for (groupid in GroupInfo) {
         var TimerArray = Array();
         for (timerid in TimerInfo) {
-            if (TimerInfo[timerid].group == groupid) {
+            if (TimerInfo[timerid].group == groupid && TimerInfo[timerid].name && TimerInfo[timerid].name.length > 0) {
                 TimerArray.push(timerid);
             }
         }
@@ -1266,7 +1379,7 @@ function ToggleDmFilter(dmId) {
     RequestRedraw();
 }
 
-// gDmFilter.hasData also gates the hover tooltip, so it is computed before the DOM/CLI guards —
+// gDmFilter.hasData also gates the hover tooltip, so it is computed before the DOM/CLI guards -
 // it must be set even when headless or the menu element is absent.
 function PopulateDmFilterMenu() {
     gDmFilter.cache = {}; // gDmContextData was just (re)built; drop stale caches
@@ -2210,7 +2323,8 @@ function CalculateTimers(GroupInfo, TimerInfo, nFrame) {
         timer.worstthread = -1;
     }
 
-    // Remove this frame from the global framecount
+    // Drop the whole frame from stats if it is empty (==1) or contains any wraparound marker (==2):
+    // the ring data is unreliable, so no thread in that frame is counted.
     if (AggregateInfo.EmptyFrames[nFrame]) {
         return;
     }
@@ -3024,10 +3138,22 @@ function DrawDetailedFrameHistory() {
     }
     ProfileLeave();
 }
+function FormatDuration(Time, msDecimals) {
+    // Central duration formatter. While 'N' is held (NanoScale), render every duration in
+    // nanoseconds; otherwise milliseconds with the caller's precision (default 3 decimals).
+    // Times are stored in ms, so 1 ms = 1e6 ns.
+    if (NanoScale) {
+        return (Time * 1e6).toFixed(0) + "ns";
+    }
+    return Time.toFixed(msDecimals === undefined ? 3 : msDecimals) + "ms";
+}
 function TimeToMsString(Time) {
-    return Time.toFixed(3) + "ms";
+    return FormatDuration(Time, 3);
 }
 function TimeToString(Time) {
+    if (NanoScale) {
+        return FormatDuration(Time);
+    }
     if (Time > 1000) {
         return (Time / 1000.0).toFixed(0) + "s";
     }
@@ -3241,8 +3367,9 @@ function DrawHoverToolTip() {
         }
         // This frame is empty, we need to display something else.
         let threadSuspect = 1;
-        if (nHoverTokenLogIndex !== -1 && ThreadClobbered.length > 0) {
-            threadSuspect = ThreadClobbered[nHoverTokenLogIndex];
+        if (nHoverTokenLogIndex !== -1 && window.ThreadStatus) {
+            // Only genuine wraparound threads are "suspect"; buffer-full and ok-early threads are not.
+            threadSuspect = ThreadStatus.hasWraparound[nHoverTokenLogIndex] ? 1 : 0;
         }
         if (threadSuspect && nHoverFrame >= 0 && AggregateInfo.EmptyFrames[nHoverFrame]) {
             Warning = [];
@@ -3266,23 +3393,23 @@ function DrawHoverToolTip() {
             StringArray.push("");
 
             StringArray.push("Average:");
-            StringArray.push(Timer.average.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.average));
             StringArray.push("Max:");
-            StringArray.push(Timer.max.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.max));
 
             StringArray.push("");
             StringArray.push("");
 
             StringArray.push("Exclusive Average:");
-            StringArray.push(Timer.exclaverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.exclaverage));
             StringArray.push("Exclusive Max:");
-            StringArray.push(Timer.exclmax.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.exclmax));
 
             StringArray.push("");
             StringArray.push("");
 
             StringArray.push("Call Average:");
-            StringArray.push(Timer.callaverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.callaverage));
             StringArray.push("Call Count:");
             StringArray.push((Timer.callcount / AggregateInfo.TotalFrames()).toFixed(2));
 
@@ -3292,9 +3419,9 @@ function DrawHoverToolTip() {
             StringArray.push("Group:");
             StringArray.push(Group.name);
             StringArray.push("Frame Average:");
-            StringArray.push(Group.average.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Group.average));
             StringArray.push("Frame Max:");
-            StringArray.push(Group.max.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Group.max));
         }
         else {
             let FrameGroup, FrameTimer;
@@ -3304,23 +3431,23 @@ function DrawHoverToolTip() {
             StringArray.push("Timer:");
             StringArray.push(Timer.name);
             StringArray.push("Time:");
-            StringArray.push((Group.isgpu ? RangeGpu.End - RangeGpu.Begin : RangeCpu.End - RangeCpu.Begin).toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Group.isgpu ? RangeGpu.End - RangeGpu.Begin : RangeCpu.End - RangeCpu.Begin));
 
             StringArray.push("");
             StringArray.push("");
 
             StringArray.push("Frame Time:");
-            StringArray.push(FrameTimer.Sum.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(FrameTimer.Sum));
             StringArray.push("Average:");
-            StringArray.push(Timer.FrameAverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.FrameAverage));
             StringArray.push("Max:");
-            StringArray.push(Timer.MaxSum.toFixed(3) + "ms @" + Timer.MaxSumFrame);
+            StringArray.push(FormatDuration(Timer.MaxSum) + " @" + Timer.MaxSumFrame);
 
             StringArray.push("");
             StringArray.push("");
 
             StringArray.push("Call Average:");
-            StringArray.push(Timer.CallAverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.CallAverage));
             StringArray.push("Call Count In Frame:");
             StringArray.push(FrameTimer.CallCount);
             StringArray.push("Call Count Average:");
@@ -3332,11 +3459,11 @@ function DrawHoverToolTip() {
             StringArray.push("");
 
             StringArray.push("Exclusive Frame Time:");
-            StringArray.push(FrameTimer.ExclusiveSum.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(FrameTimer.ExclusiveSum));
             StringArray.push("Exclusive Average:");
-            StringArray.push(Timer.ExclusiveFrameAverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Timer.ExclusiveFrameAverage));
             StringArray.push("Exclusive Max:");
-            StringArray.push(Timer.MaxExclusiveSum.toFixed(3) + "ms @" + Timer.MaxExclusiveSumFrame);
+            StringArray.push(FormatDuration(Timer.MaxExclusiveSum) + " @" + Timer.MaxExclusiveSumFrame);
 
             StringArray.push("");
             StringArray.push("");
@@ -3344,17 +3471,17 @@ function DrawHoverToolTip() {
             StringArray.push("Group:");
             StringArray.push(Group.name);
             StringArray.push("Frame Time:");
-            StringArray.push(FrameGroup.Sum.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(FrameGroup.Sum));
             StringArray.push("Frame Average:");
-            StringArray.push(Group.FrameAverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Group.FrameAverage));
             StringArray.push("Frame Max:");
-            StringArray.push(Group.MaxSum.toFixed(3) + "ms @" + Group.MaxSumFrame);
+            StringArray.push(FormatDuration(Group.MaxSum) + " @" + Group.MaxSumFrame);
             StringArray.push("Exclusive Frame Time:");
-            StringArray.push(Group.ExclusiveSum.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Group.ExclusiveSum));
             StringArray.push("Exclusive Frame Average:");
-            StringArray.push(Group.ExclusiveFrameAverage.toFixed(3) + "ms");
+            StringArray.push(FormatDuration(Group.ExclusiveFrameAverage));
             StringArray.push("Exclusive Frame Max:");
-            StringArray.push(Group.MaxExclusiveSum.toFixed(3) + "ms @" + Group.MaxExclusiveSumFrame);
+            StringArray.push(FormatDuration(Group.MaxExclusiveSum) + " @" + Group.MaxExclusiveSumFrame);
 
             const HoverMeta = GatherHoverMetaCounters(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
             if (HoverMeta != null && Object.keys(HoverMeta).length > 0) {
@@ -3726,7 +3853,7 @@ function DrawBarView() {
         OrderArray.sort(function (a, b) { return Flip * (KeyFunc(b) - KeyFunc(a)); });
 
         for (var i in OrderArray) {
-            if (!TimerInfo[OrderArray[i]].name.startsWith("$UserToken_")) {
+            if (TimerInfo[OrderArray[i]].name && TimerInfo[OrderArray[i]].name.length > 0 && !TimerInfo[OrderArray[i]].name.startsWith("$UserToken_")) {
                 DrawTimerRow(OrderArray[i], 1);
                 Y += Height;
             }
@@ -3827,7 +3954,7 @@ function DrawBarView() {
                     for (var timerindex in TimerArray) {
                         var timerid = TimerArray[timerindex];
                         if (FilterMatch(FilterTimer, TimerInfo[timerid].name)) {
-                            if (!TimerInfo[timerid].name.startsWith("$UserToken_")) {
+                            if (TimerInfo[timerid].name && TimerInfo[timerid].name.length > 0 && !TimerInfo[timerid].name.startsWith("$UserToken_")) {
                                 DrawTimerRow(timerid, 0);
                                 Y += Height;
                             }
@@ -4511,6 +4638,21 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
     const transparentTimerFillAlpha = 0.2;
     const transparentTimerTextAlpha = 0.3;
 
+    // When a Ctrl+F search filter is active, dim scopes whose timer/group don't match so the
+    // matches stay bright and stand out -- this works off each drawn scope's timer index, so it
+    // highlights matches even in overflow threads that have no aggregated stats to jump to.
+    // Precompute the per-timer dim flags once (only for the full redraws that draw scopes).
+    var searchFilterActive = !!(FilterTimer || FilterGroup);
+    var searchDimmed = null;
+    if (searchFilterActive && bDrawEnabled) {
+        searchDimmed = new Uint8Array(TimerInfo.length);
+        for (var sfi = 0; sfi < TimerInfo.length; ++sfi) {
+            var matchesFilter = SearchFilterMatch(FilterTimer, TimerInfo[sfi].name) &&
+                SearchFilterMatch(FilterGroup, GroupInfo[TimerInfo[sfi].group].name);
+            searchDimmed[sfi] = matchesFilter ? 0 : 1;
+        }
+    }
+
     var barYOffset = g_Ext.xray.isBarEnabled() ? g_Ext.xray.barYOffset : 0;
     var fScaleX = nWidth / fDetailedRange;
     var fOffsetY = -nOffsetY + BoxHeight + barYOffset;
@@ -4597,21 +4739,36 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 context.fillStyle = 'white';
                 const MaxStackCapped = Math.min(g_MaxStack[nLog], window.MaxStackDepthToVisualize);
                 const IsStackCapped = g_MaxStack[nLog] >= window.MaxStackDepthToVisualize;
+                // Always show the buffer fill "[len/cap]" (when buffer sizes are known), then append a
+                // single "[S1, S2, ...]" group listing every status that applies -- e.g. "[Wraparound]"
+                // or "[EarlyTime, StackLimit]".
+                var status = window.ThreadStatus;
+                if (ThreadBufferSizes && ThreadBufferSizes.length > 0) {
+                    var capacity = ThreadBufferSizes[nLog];
+                    var lastFrame = Frames.length - 1;
+                    var len = Frames[lastFrame].LogEnd[nLog] - Frames[0].LogStart[nLog];
+                    ThreadName += ' [' + len + '/' + capacity + ']';
+                }
+                var statuses = [];
+                if (status && status.hasWraparound[nLog]) statuses.push((status.isMisaligned && status.isMisaligned[nLog]) ? 'Misaligned' : 'Wraparound');
+                if (status && status.isBottleneck[nLog]) statuses.push('LimitsHistory');
+                if (status && status.hasEarlyScopes[nLog]) statuses.push('EarlyTime');
+                if (IsStackCapped) statuses.push('StackLimit/' + g_MaxStack[nLog]);
+                if (statuses.length > 0) {
+                    ThreadName += ' [' + statuses.join(', ') + ']';
+                }
+                // Colour by severity: StackLimit / Wraparound red > LimitsHistory orange > EarlyTime blue.
                 if (IsStackCapped) {
-                    ThreadName += ' [StackLimit/' + g_MaxStack[nLog] + ']';
                     context.fillStyle = 'red';
                 }
-                if (ThreadClobbered.length > 0) {
-                    var capacity = ThreadBufferSizes[nLog];
-                    if (ThreadClobbered[nLog]) {
-                        ThreadName += ' [Overflow/' + capacity + ']';
-                        context.fillStyle = 'red';
-                    }
-                    else {
-                        var lastFrame = Frames.length - 1;
-                        var len = Frames[lastFrame].LogEnd[nLog] - Frames[0].LogStart[nLog];
-                        ThreadName += ' [' + len + '/' + capacity + ']';
-                    }
+                else if (status && status.hasWraparound[nLog]) {
+                    context.fillStyle = (status.isMisaligned && status.isMisaligned[nLog]) ? THREAD_STATUS_MISALIGNED : THREAD_STATUS_WRAPAROUND;
+                }
+                else if (status && status.isBottleneck[nLog]) {
+                    context.fillStyle = THREAD_STATUS_BOTTLENECK;
+                }
+                else if (status && status.hasEarlyScopes[nLog]) {
+                    context.fillStyle = THREAD_STATUS_EARLY;
                 }
                 fOffsetY += BoxHeight;
                 context.fillText(ThreadName, 0, fOffsetY);
@@ -4937,6 +5094,7 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                 var isSelectedScope = (i >= TimerInfo.length);
                 var timerIndex = i % TimerInfo.length;
                 var isTransparentScope = transparentTimerIndexes.has(timerIndex);
+                var filterDim = searchDimmed ? searchDimmed[timerIndex] : 0;
                 if (!bDrawEnabled && isTransparentScope)
                     continue;
 
@@ -5009,6 +5167,10 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                             context.fillStyle = rgbToDesaturated(outlineColor, 1.0);
                             colorChanged = true;
                         }
+                        if (filterDim) {
+                            context.fillStyle = rgbToDesaturated(outlineColor, 1.0);
+                            colorChanged = true;
+                        }
                         var X = a[j];
                         var Y = a[j + 1];
                         var W = a[j + 2];
@@ -5047,6 +5209,11 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled) {
                         }
 
                         if (gDmFilter.active && BatchesDmDimmed[i][j / 3]) {
+                            context.fillStyle = rgbToDesaturated(origColor, 1.0);
+                            colorChanged = true;
+                        }
+
+                        if (filterDim) {
                             context.fillStyle = rgbToDesaturated(origColor, 1.0);
                             colorChanged = true;
                         }
@@ -5166,7 +5333,7 @@ function DrawRange(context, Range, ColorBack, ColorFront, Name, IsSimplified) {
         context.fillRect(X, OffsetTop + fRulerOffset, W, OffsetBottom - OffsetTop);
         context.globalAlpha = 1;
 
-        var Duration = (fEnd - fBegin).toFixed(2) + "ms";
+        var Duration = FormatDuration(fEnd - fBegin, 2);
         var Center = ((fBegin + fEnd) / 2.0) - fDetailedOffset;
         var DurationWidth = context.measureText(Duration + "   ").width;
         if (IsSimplified) {
@@ -5381,6 +5548,8 @@ function DrawDetailed(Animation) {
     Offset = DrawRange(context, RangeCpu, '#009900', '#00ff00', "Cpu", IsSimplifiedCpuRange);
     Offset = DrawRange(context, RangeGpu, '#996600', '#775500', "Gpu");
 
+    DrawSelectionSummary(context);
+
     nHoverCSCpu = nHoverCSCpuNext;
     ProfileLeave();
 }
@@ -5409,7 +5578,11 @@ function MoveToNext(direction) { //1 forward, -1 backwards
     let fTimeBegin, nSelectedIndex;
     const numLogs = Frames[0].ts.length;
 
-    if (nHoverToken !== -1 && nHoverTokenLogIndex !== -1) {
+    // While a Ctrl+F search filter is active, a stray mouse hover must not hijack next/prev
+    // navigation. Honor the search selection (set when a match is chosen) so navigation stays
+    // on the searched scope; outside search, hover still acts as the implicit selection.
+    const preferSelection = IsFilterActive() && RangeValid(RangeSelect) && RangeSelect.Index >= 0;
+    if (!preferSelection && nHoverToken !== -1 && nHoverTokenLogIndex !== -1) {
         fTimeBegin = RangeCpu.Begin;
         nSelectedIndex = nHoverToken;
     } else if (RangeValid(RangeSelect)) {
@@ -5564,6 +5737,11 @@ function ZoomTo(fZoomBegin, fZoomEnd, OffsetYDest, ZoomTime) {
                 nOffsetY = OffsetYOriginal + (OffsetYTarget - OffsetYOriginal) * fPrc;
             }
             DrawDetailed(true);
+            // Keep the top frame-history viewport marker in sync with the animated view.
+            // AutoRedraw suppresses the normal Draw() (hence this redraw) while Ctrl is held,
+            // so keyboard navigation (Ctrl + Left/Right) would otherwise leave the marker
+            // stuck on the previous frame even though the detailed view has scrolled.
+            DrawDetailedFrameHistory();
             if (fPrc >= 1.0) {
                 AnimationActive = false;
                 fDetailedOffset = fDetailedOffsetTarget;
@@ -5792,6 +5970,165 @@ function MouseDragPan() {
 function MouseDragSelectRange() {
     return MouseDragState == MouseDragMove && (MouseDragButton == 3 || (MouseDragKeyShift && MouseDragKeyCtrl));
 }
+// Snap a screen Y to the nearest non-GPU (OS) thread band; -1 if none / not laid out yet.
+// ThreadY[n]..ThreadY[n+1] is thread n's band in screen space (see DrawDetailedView).
+function ClosestOsThread(y) {
+    if (!ThreadY || !Frames.length) return -1;
+    var nNumLogs = Frames[0].ts.length;
+    var best = -1, bestDist = Infinity;
+    for (var n = 0; n < nNumLogs; ++n) {
+        if (ThreadGpu[n]) continue;
+        var top = ThreadY[n], bot = ThreadY[n + 1];
+        if (top === undefined || bot === undefined) continue;
+        var d = (y < top) ? (top - y) : (y > bot ? (y - bot) : 0);
+        if (d < bestDist) { bestDist = d; best = n; }
+    }
+    return best;
+}
+
+// Aggregate one OS thread's scopes over the time region [B, E] into a top-scopes summary.
+// Walks the thread's log from FirstFrameIndex (so scopes open at the selection start, possibly
+// entered frames earlier, are reconstructed) through the last overlapping frame, maintaining a
+// persistent stack across frame borders. Each scope's [enter, leave] is clipped to [B, E];
+// per-timer inclusive (total) and exclusive (self) clipped time are accumulated (mirrors
+// CalculateTimers' StackChild exclusive-time bookkeeping and OverflowAllowance wrap filtering).
+function ComputeSelectionSummary(nLog, B, E) {
+    if (nLog < 0 || !Frames.length || ThreadGpu[nLog] || !(E > B)) return null;
+
+    // Frames tile contiguously by CPU framestart/frameend.
+    var selBeginFrame = -1, selEndFrame = -1;
+    for (var f = 0; f < Frames.length; ++f) {
+        if (selBeginFrame < 0 && Frames[f].frameend > B) selBeginFrame = f;
+        if (Frames[f].framestart < E) selEndFrame = f;
+    }
+    if (selBeginFrame < 0) return null;
+    if (selEndFrame < selBeginFrame) selEndFrame = selBeginFrame;
+
+    var startFrame = selBeginFrame;
+    if (Frames[selBeginFrame].FirstFrameIndex && Frames[selBeginFrame].FirstFrameIndex[nLog] !== undefined) {
+        startFrame = Frames[selBeginFrame].FirstFrameIndex[nLog];
+    }
+
+    var stackEnter = [], stackIdx = [], childClip = [0], sp = 0;
+    var acc = {}; // timer index -> { incl, excl, count }
+    for (var fi = startFrame; fi <= selEndFrame; ++fi) {
+        var frame = Frames[fi];
+        var ts = frame.ts[nLog], tt = frame.tt[nLog], ti = frame.ti[nLog];
+        if (!ts || !tt || !ti) continue;
+        var overflow = OverflowAllowance(nLog, frame);
+        var discardLast = 0;
+        for (var j = 0; j < ts.length; ++j) {
+            var type = tt[j], time = ts[j];
+            if (type === 1) { // enter
+                discardLast = 0;
+                if (time >= overflow) { discardLast = 1; continue; }
+                stackEnter[sp] = time; stackIdx[sp] = ti[j]; sp++; childClip[sp] = 0;
+            } else if (type === 0) { // leave
+                if (discardLast || time >= overflow) { discardLast = 0; continue; }
+                var enter, idx, depth;
+                if (sp > 0) { sp--; depth = sp; enter = stackEnter[sp]; idx = stackIdx[sp]; }
+                else { depth = -1; enter = frame.framestart; idx = ti[j]; } // orphan leave (no matching enter)
+                var cs = enter > B ? enter : B, ce = time < E ? time : E;
+                var incl = ce - cs; if (incl < 0) incl = 0;
+                if (incl > 0) {
+                    var childT = (depth >= 0) ? (childClip[depth + 1] || 0) : 0;
+                    var excl = incl - childT; if (excl < 0) excl = 0;
+                    var a = acc[idx] || (acc[idx] = { incl: 0, excl: 0, count: 0 });
+                    a.incl += incl; a.excl += excl; a.count++;
+                }
+                if (depth >= 0) childClip[depth] = (childClip[depth] || 0) + incl;
+            }
+            // labels / meta / events: ignored for timing
+        }
+    }
+    // Close out scopes still open at E (deepest first, so children roll into parents before parents close).
+    for (var d = sp - 1; d >= 0; --d) {
+        var cs2 = stackEnter[d] > B ? stackEnter[d] : B;
+        var incl2 = E - cs2; if (incl2 < 0) incl2 = 0;
+        if (incl2 > 0) {
+            var excl2 = incl2 - (childClip[d + 1] || 0); if (excl2 < 0) excl2 = 0;
+            var a2 = acc[stackIdx[d]] || (acc[stackIdx[d]] = { incl: 0, excl: 0, count: 0 });
+            a2.incl += incl2; a2.excl += excl2; a2.count++;
+        }
+        childClip[d] = (childClip[d] || 0) + incl2;
+    }
+
+    var lines = [];
+    for (var k in acc) {
+        if (acc[k].incl < 0.0005) continue; // drop scopes whose self/total round to 0.000ms
+        var t = TimerInfo[k];
+        lines.push({ name: (t ? t.name : ('#' + k)), color: (t ? t.color : '#ffffff'), incl: acc[k].incl, excl: acc[k].excl, count: acc[k].count });
+    }
+    lines.sort(function (a, b) { return b.excl - a.excl; }); // widest self-time first
+    return { threadName: ThreadNames[nLog], regionMs: E - B, lines: lines };
+}
+
+// Compute the selection summary once per settled selection (keyed by region+thread signature).
+// Called from every drag-end path so it fires even when the right-button scope-lock guard in
+// MouseDrag early-returns (e.g. the drag is released while the cursor is over a scope).
+function EnsureSelectionSummary() {
+    if (!(RangeValid(RangeSelect) && RangeSelect.Thread >= 0)) return;
+    var sig = RangeSelect.Begin + '_' + RangeSelect.End + '_' + RangeSelect.Thread;
+    if (window.SelectionSummary && window.SelectionSummary.sig === sig) return;
+    window.SelectionSummary = ComputeSelectionSummary(RangeSelect.Thread, RangeSelect.Begin, RangeSelect.End);
+    if (window.SelectionSummary) window.SelectionSummary.sig = sig;
+}
+
+// Draw the right-drag selection's top-scopes summary as bottom-anchored text starting at the
+// selection's right edge. Computed on release (EnsureSelectionSummary) into window.SelectionSummary.
+function DrawSelectionSummary(context) {
+    var s = window.SelectionSummary;
+    if (!s || !RangeValid(RangeSelect) || RangeSelect.Thread < 0) return;
+
+    var maxRows = 12;
+    var n = Math.min(s.lines.length, maxRows);
+    var NAME_W = 34, NUM_W = 10, CNT_W = 6;
+    function padR(v, w) { v = String(v); return v.length >= w ? v.substring(0, w) : v + ' '.repeat(w - v.length); }
+    function padL(v, w) { v = String(v); return v.length >= w ? v : ' '.repeat(w - v.length) + v; }
+    function clipName(v) { v = String(v); return v.length > NAME_W ? v.substring(0, NAME_W - 3) + '...' : v; }
+    function cols(a, b, c, d) { return padR(a, NAME_W) + padL(b, NUM_W) + '  ' + padL(c, NUM_W) + '  ' + padL(d, CNT_W); }
+
+    // Column-aligned monospace text; every line is drawn at a common textX so the title, header and
+    // rows line up, and each data row gets a filled color swatch in the fixed gutter to its left.
+    var lines = [s.threadName + '  [' + s.regionMs.toFixed(3) + 'ms selected]'];
+    lines.push(cols('scope', 'self', 'total', 'count'));
+    for (var i = 0; i < n; ++i) {
+        var L = s.lines[i];
+        lines.push(cols(clipName(L.name), L.excl.toFixed(3) + 'ms', L.incl.toFixed(3) + 'ms', 'x' + L.count));
+    }
+    if (n === 0) lines.push('(no scopes in selection)');
+    var firstDataLine = 2;
+
+    context.font = Font;
+    var SQ = FontHeight, GAP = 4, lead = SQ + GAP;
+    var maxW = 0;
+    for (var m = 0; m < lines.length; ++m) maxW = Math.max(maxW, context.measureText(lines[m]).width);
+    var boxW = lead + maxW;
+
+    // Stick the block to the selection's left vertical side, clamped on-screen.
+    var x = (RangeSelect.Begin - fDetailedOffset) * (nWidth / fDetailedRange) + 3;
+    if (x + boxW + 6 > nWidth) x = nWidth - boxW - 6;
+    if (x < 0) x = 0;
+    var textX = x + lead;
+
+    var lineH = BoxHeight;
+    var top = nHeight - 6 - lineH * lines.length;
+    context.globalAlpha = 0.78;
+    context.fillStyle = '#000000';
+    context.fillRect(x - 3, top - 2, boxW + 6, lineH * lines.length + 4);
+    context.globalAlpha = 1;
+    context.textAlign = 'left';
+    for (var r = 0; r < lines.length; ++r) {
+        var baseY = top + lineH * (r + 1) - 2;
+        if (r >= firstDataLine && (r - firstDataLine) < n) {
+            context.fillStyle = s.lines[r - firstDataLine].color || '#ffffff';
+            context.fillRect(x, baseY - SQ, SQ, SQ);
+        }
+        context.fillStyle = (r === 0) ? '#59d0ff' : (r === 1 ? '#a0a0a0' : 'white');
+        context.fillText(lines[r], textX, baseY);
+    }
+}
+
 function MouseHandleDrag() {
     if (MouseDragTarget == CanvasDetailedView) {
         if (Mode == ModeDetailed) {
@@ -5808,8 +6145,9 @@ function MouseHandleDrag() {
                     RangeCpu.End = fDetailedOffset + fDetailedRange * (xEnd / nWidth);
                     RangeSelect.Begin = fDetailedOffset + fDetailedRange * (xStart / nWidth);
                     RangeSelect.End = fDetailedOffset + fDetailedRange * (xEnd / nWidth);
-                    RangeSelect.Thread = -1;
+                    RangeSelect.Thread = ClosestOsThread(MouseDragYStart);
                     RangeSelect.Index = -1;
+                    window.SelectionSummary = null; // recomputed on release (MouseHandleDragEnd)
                 }
             }
             else if (MouseDragPan()) {
@@ -5889,7 +6227,7 @@ function MouseHandleDrag() {
 }
 function MouseHandleDragEnd() {
     if (MouseDragTarget == CanvasDetailedView) {
-
+        EnsureSelectionSummary();
     }
     else if (MouseDragTarget == CanvasHistory) {
         if (!MouseDragSelectRange() && !MouseDragPan()) {
@@ -5956,7 +6294,7 @@ function MouseDrag(Source, Event) {
         MouseDragReset();
         return;
     }
-    
+
     const MouseButtonRight = 3;
     if (MapMouseButton(Event) == MouseButtonRight) {
         if (g_Loader.hoverScope && g_Loader.hoverScope.jobInfo &&
@@ -5984,6 +6322,7 @@ function MouseDrag(Source, Event) {
 
     if (Source == MouseDragUp && !HasSelection()) {
         RangeSelect = RangeInit();
+        window.SelectionSummary = null;
         g_Loader.lockScope = null;
         Invalidate = 0;
     }
@@ -6080,6 +6419,8 @@ function MouseButton(bPressed, evt) {
     evt.preventDefault();
     MouseDrag(bPressed ? MouseDragDown : MouseDragUp, evt);
     if (!bPressed) {
+        EnsureSelectionSummary(); // finalize a right-drag region summary (runs even if MouseDrag early-returned on the scope-lock)
+        if (window.SelectionSummary) RequestRedraw(); // paint it immediately on release
         if (SortColumnMouseOverNext) {
             if (SortColumnMouseOverNext == SortColumnMouseOver) {
                 SortColumnOrderFlip = 1 - SortColumnOrderFlip;
@@ -6220,26 +6561,34 @@ function ToggleFilterInput(escape) {
             ActiveElement = i;
         }
     }
-    var OldActiveElement = ActiveElement;
-    if (ActiveElement >= 0) {
-        FilterInputArray[ActiveElement].blur();
-    }
-    ActiveElement++;
-    if (!escape) {
-        if (!ShowFilterInput()) {
-            // First show -> set focus on the last filter input field
-            ActiveElement = FilterInputArray.length - 1;
+    if (escape) {
+        // Esc closes the dialog outright on the first press (blur + clear + hide).
+        if (ActiveElement >= 0) {
+            FilterInputArray[ActiveElement].blur();
         }
-        if (ActiveElement < FilterInputArray.length) {
-            ShowFilterInput(1);
-            FilterInputArray[ActiveElement].focus();
-        }
+        SetFilterInput();
+        return;
     }
-    else {
-        if (-1 == OldActiveElement) {
-            SetFilterInput();
-        }
+    // Ctrl/Cmd+F opens the dialog, then toggles between the two inputs (group <-> timer),
+    // never landing on a "no input focused" state.
+    var target;
+    if (!ShowFilterInput()) {
+        target = FilterInputArray.length - 1;                   // first open focuses Timer/Thread
+    } else if (ActiveElement >= 0) {
+        target = (ActiveElement + 1) % FilterInputArray.length; // switch to the other field
+    } else {
+        target = FilterInputArray.length - 1;                   // visible but unfocused -> Timer/Thread
     }
+    ShowFilterInput(1);
+    FilterInputArray[target].focus();
+}
+
+function IsFilterInputFocused() {
+    return FilterInputArray.indexOf(document.activeElement) >= 0;
+}
+
+function IsFilterActive() {
+    return !!(FilterInputTimerString || FilterInputGroupString);
 }
 
 function GotoWorst(Token) {
@@ -6250,9 +6599,19 @@ function GotoWorst(Token) {
         RangeSelect.End = end;
         RangeSelect.Thread = TimerInfo[Token].worstthread;
         RangeSelect.Index = Token;
-        ShowFlashMessage('Worst: ' + (end - start).toFixed(2) + 'ms ' + TimerInfo[Token].name, 100);
+        ShowFlashMessage('Slowest: ' + (end - start).toFixed(2) + 'ms ' + TimerInfo[Token].name, 100, '#5cd65c');
         MoveTo(RangeSelect.Begin, RangeSelect.End, ThreadY[RangeSelect.Thread] + nOffsetY, ThreadY[RangeSelect.Thread + 1] + nOffsetY);
         MouseHandleDragEnd();
+    }
+    else {
+        // The name matched but this timer has no recorded worst instance in the loaded frames.
+        // Surface it rather than failing silently, and log the stats that explain why (e.g. no
+        // complete scope, or all its scopes fell in dropped boundary frames).
+        var t = TimerInfo[Token];
+        ShowFlashMessage('No timing recorded for ' + t.name, 100);
+        console.log('[MicroProfiler] No worst instance for timer "' + t.name + '" (index ' + Token +
+            '): CallCount=' + t.CallCount + ', Max=' + t.Max + ', worstend=' + t.worstend +
+            ' -- CallCount>0 with Max<0 means no complete scope survived; CallCount=0 means all its scopes were in dropped first-frames.');
     }
 }
 
@@ -6265,6 +6624,18 @@ function ClickMenuButton(elId) {
 }
 
 function KeyUp(evt) {
+    if (evt.keyCode == 78 && NanoScale) { // release 'N': leave nanosecond scale
+        NanoScale = 0;
+        Invalidate = 0;
+    }
+    // While the Ctrl+F search field is focused, suppress the viewer hotkeys so typing a
+    // query (x, c, z, w, space, ...) can't mutate viewer state. Keep Esc (close search),
+    // Enter (jump to first match) and Ctrl/Shift, which the search flow relies on.
+    if (IsFilterInputFocused() &&
+        evt.keyCode != 27 && evt.keyCode != 13 &&
+        evt.keyCode != 17 && evt.keyCode != 16) {
+        return;
+    }
     if (evt.keyCode == 17) {
         KeyCtrlDown = 0;
         MouseDragKeyUp();
@@ -6277,6 +6648,7 @@ function KeyUp(evt) {
         if (RangeSelect.Begin < RangeSelect.End) {
             ZoomTo(RangeSelect.Begin, RangeSelect.End);
             RangeSelect = RangeInit();
+            window.SelectionSummary = null;
             MouseHandleDragEnd();
         }
     }
@@ -6301,25 +6673,63 @@ function KeyUp(evt) {
         if (evt.keyCode == 13 && (FilterInputTimerString || FilterInputGroupString)) {
             var tokenCompareString = FilterInputTimerString ? FilterInputTimerString.toLowerCase() : "";
             var tokenGroupCompareString = FilterInputGroupString ? FilterInputGroupString.toLowerCase() : "";
-            var Token = 0;
-            while (Token < TimerInfo.length) {
+            // Rank matches by name quality first -- exact name > prefix > mid-string -- then prefer
+            // a navigable timer (one with a recorded worst instance) as the tie-breaker within a
+            // quality tier (e.g. picks the CPU/GPU duplicate that has one), then the earliest timer. So typing
+            // a full timer name lands on THAT timer.
+            var bestToken = -1;
+            var bestRank = -1;
+            for (var Token = 0; Token < TimerInfo.length; ++Token) {
                 var groupIndex = TimerInfo[Token].group;
                 var tokenGroupString = GroupInfo[groupIndex].name.toLowerCase();
-                if (tokenGroupString.startsWith(tokenGroupCompareString)) {
-                    var tokenString = TimerInfo[Token].name.toLowerCase();
-                    if (tokenString.startsWith(tokenCompareString)) {
-                        break;
+                if (!tokenGroupString.startsWith(tokenGroupCompareString)) {
+                    continue;
+                }
+                var tokenName = TimerInfo[Token].name.toLowerCase();
+                var pos = tokenName.indexOf(tokenCompareString);
+                if (pos < 0) {
+                    continue;
+                }
+                var quality = (pos === 0) ? (tokenName.length === tokenCompareString.length ? 2 : 1) : 0; // exact 2 > prefix 1 > mid-string 0
+                var jumpable = TimerInfo[Token].worstend > 0;
+                var rank = quality * 2 + (jumpable ? 1 : 0); // exact 4-5 > prefix 2-3 > mid-string 0-1; +1 when navigable
+                if (rank > bestRank) {
+                    bestRank = rank;
+                    bestToken = Token;
+                    if (rank === 5) {
+                        break; // best possible: earliest navigable exact-name match
                     }
                 }
-                ++Token;
             }
-            if (Token != -1 && Token < TimerInfo.length) {
-                GotoWorst(Token);
+            if (bestToken !== -1) {
+                GotoWorst(bestToken);
+            }
+            else {
+                // If we searched by group and didn't find a matching group name, report that specifically.
+                var groupExists = !FilterInputGroupString;
+                if (FilterInputGroupString) {
+                    for (var gi = 0; gi < GroupInfo.length; ++gi) {
+                        if (GroupInfo[gi] && GroupInfo[gi].name.toLowerCase().startsWith(tokenGroupCompareString)) {
+                            groupExists = true;
+                            break;
+                        }
+                    }
+                }
+                if (!groupExists) {
+                    ShowFlashMessage('No group matches "' + FilterInputGroupString + '"', 100);
+                }
+                else if (FilterInputTimerString) {
+                    ShowFlashMessage('No timer matches "' + FilterInputTimerString + '"', 100);
+                }
+                else {
+                    ShowFlashMessage('No timers in group "' + FilterInputGroupString + '"', 100);
+                }
             }
         }
     }
     if (evt.keyCode == 27) {
         RangeSelect = RangeInit();
+        window.SelectionSummary = null;
         g_Loader.lockScope = null;
         SortColumn = 0;
         SortColumnMouseOver = "";
@@ -6362,7 +6772,13 @@ function CreateFilter(Filter) {
     }
     Filter = Filter.split(' ');
     for (var i = 0; i < Filter.length; ++i) {
-        Filter[i] = new RegExp(Filter[i], "i");
+        try {
+            Filter[i] = new RegExp(Filter[i], "i");
+        } catch (e) {
+            // Not a valid regex (e.g. a literal '*' from the overflow display prefix) - escape
+            // and match it literally so the search box never throws on characters users see.
+            Filter[i] = new RegExp(Filter[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "i");
+        }
     }
     return Filter;
 }
@@ -6372,17 +6788,49 @@ function FilterKeyUp() {
     FilterUpdate();
 }
 
+function SearchFilterMatch(FilterArray, value) {
+    // Mirrors the Timers-view FilterMatch: every space-separated term must match (regex
+    // search); a null/empty filter matches everything.
+    if (!FilterArray) {
+        return true;
+    }
+    for (var i = 0; i < FilterArray.length; ++i) {
+        if (value.search(FilterArray[i]) < 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function FilterUpdate() {
     FilterTimer = CreateFilter(FilterInputTimerString);
     FilterGroup = CreateFilter(FilterInputGroupString);
+    // Repaint the detailed timeline so live match highlighting tracks the query as it changes.
+    Invalidate = 0;
 }
 
 function KeyDown(evt) {
-    if (evt.keyCode === 39) {
-        MoveToNext(1);
+    // Left/Right step through scope instances. While the search field is focused, plain
+    // arrows edit the query text; Ctrl (Cmd on Mac) + arrow navigates instead, overriding
+    // the browser's word/line jump so the search box doubles as a match stepper.
+    var filterFocused = IsFilterInputFocused();
+    if (evt.keyCode === 39 || evt.keyCode === 37) {
+        var direction = evt.keyCode === 39 ? 1 : -1;
+        var navModifier = window.IsMac ? evt.metaKey : evt.ctrlKey;
+        if (!filterFocused) {
+            MoveToNext(direction);
+        } else if (navModifier) {
+            evt.preventDefault();
+            MoveToNext(direction);
+        } else {
+            // Plain Left/Right in the focused search field only moves the text caret. Return
+            // before the trailing Invalidate=0 so caret movement doesn't force a needless
+            // redraw of the detailed viewport's scope-selection highlight.
+            return;
+        }
     }
-    if (evt.keyCode === 37) {
-        MoveToNext(-1);
+    if (evt.keyCode === 78 && !filterFocused) { // hold 'N': render durations in nanoseconds
+        NanoScale = 1;
     }
     if (evt.keyCode === 17) {
         KeyCtrlDown = 1;
@@ -6516,6 +6964,9 @@ function RegisterInputListeners() {
     CanvasNetworkHistory.addEventListener('contextmenu', function (e) { e.preventDefault(); }, false);
     FilterInputTimer.addEventListener('keyup', FilterKeyUp);
     FilterInputGroup.addEventListener('keyup', FilterKeyUp);
+    // Ctrl is the nav modifier everywhere except Mac, where it is Cmd (see KeyDown).
+    document.getElementById('filterinputTooltip').textContent =
+        (window.IsMac ? 'Cmd' : 'Ctrl') + ' + Left/Right  navigate matches   |   Esc  hides';
     window.addEventListener('keydown', KeyDown);
     window.addEventListener('keyup', KeyUp);
     window.addEventListener('resize', ResizeCanvas, false);
@@ -6586,6 +7037,7 @@ function PreprocessBuildSplitArray() {
         var TypeArray = g_TypeArray[nLog];
         var TimeArray = g_TimeArray[nLog];
         var DeltaTimes = new Array(TypeArray.length);
+        var negativeDeltas = 0;
 
         for (var j = 0; j < TypeArray.length; ++j) {
             var type = TypeArray[j];
@@ -6598,12 +7050,24 @@ function PreprocessBuildSplitArray() {
             else if (type == 0) {
                 if (StackPos > 0) {
                     StackPos--;
-                    DeltaTimes[j] = time - Stack[StackPos];
+                    var delta = time - Stack[StackPos];
+                    if (delta < 0) {
+                        // Leave before enter -> corrupted scope (ring-buffer wraparound). Clamp so a
+                        // negative duration can't poison the LOD split thresholds (this used to trip
+                        // an assert).
+                        negativeDeltas++;
+                        delta = 0;
+                    }
+                    DeltaTimes[j] = delta;
                 }
                 else {
                     DeltaTimes[j] = 0;
                 }
             }
+        }
+        if (negativeDeltas > 0) {
+            console.log('[MicroProfiler] LOD: thread "' + ThreadNames[nLog] + '" had ' + negativeDeltas +
+                ' scope(s) with leave before enter (negative duration, likely wraparound); clamped to 0');
         }
         DeltaTimes.sort(function (a, b) { return b - a; });
         var SplitArray = Array(NumLodSplits);
@@ -6626,10 +7090,6 @@ function PreprocessBuildSplitArray() {
             else {
                 SplitArray[j] = SPLIT_LIMIT;
             }
-            if (j > 0) {
-                console.assert(SplitArray[j - 1] <= SplitArray[j], "must be less");
-            }
-
         }
         for (; j < NumLodSplits; ++j) {
             SplitArray[j] = SPLIT_LIMIT;
@@ -6895,7 +7355,11 @@ function PreprocessMeta() {
 function PreprocessMinimal() {
     PreprocessTimerSubstitutions(
         timer => timer.name.startsWith("$"),
-        (groupName, oldTimerName, label) => oldTimerName.slice(1) + "_" + label,
+        // Overflow buckets ($...Overflow) are aliased scopes: show '*' + the label alone.
+        // Other '$' timers keep the "<stripped>_<label>" form (e.g. $Script -> Script_<name>).
+        (groupName, oldTimerName, label) => oldTimerName.endsWith("Overflow")
+            ? "*" + label
+            : oldTimerName.slice(1) + "_" + label,
     );
     PreprocessCalculateAllTimers();
 }
@@ -7336,6 +7800,17 @@ function GetHtmlSource(checkOnly, rawDataZipB64) {
 function InitAuxMenus() {
     var OptionsMenu = document.getElementById('OptionsMenu');
     AdjustMenuItemsWidth(OptionsMenu);
+
+    // Always-visible Find button (unlike Re-capture/Save it isn't gated on http). Toggles the
+    // find inputs open/closed, mirroring Ctrl+F (Cmd+F on Mac).
+    var FindMenu = document.getElementById('ilFind');
+    if (FindMenu) {
+        FindMenu.title = 'Find timer (' + (window.IsMac ? 'Cmd' : 'Ctrl') + ' + F)';
+        FindMenu.onclick = function () {
+            // Toggle: close if the dialog is open (Esc path), else open and focus.
+            ToggleFilterInput(ShowFilterInput() ? 1 : 0);
+        };
+    }
 
     var isHttpProtocol = window.location.protocol.startsWith("http");
     var reloadAllowed = isHttpProtocol;
