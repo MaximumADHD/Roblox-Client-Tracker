@@ -2721,7 +2721,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/SharedTable#update",
-    "code_sample": "local st = SharedTable.new()\nst[\"x\"] = \"abcd\"\n\nSharedTable.update(st, \"x\", function(v)\n    assert(v == \"abcd\")\n    return v .. \"e\"\nend)\n\nassert(st[\"x\"] == \"abcde\")"
+    "code_sample": "local st = SharedTable.new()\nst[\"x\"] = \"abcd\"\n\nSharedTable.update(st, \"x\", function(v)\n\tassert(v == \"abcd\")\n\treturn v .. \"e\"\nend)\n\nassert(st[\"x\"] == \"abcde\")"
   },
   "@roblox/globaltype/Enum": {
     "documentation": "A data type that represents an individual enum.",
@@ -4334,7 +4334,7 @@
       "fromString": "@roblox/global/User.fromString"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User",
-    "code_sample": ""
+    "code_sample": "-- Serialize\nlocal encoded = player.User:ToString()\n\n-- Deserialize\nlocal user = User.fromString(encoded)"
   },
   "@roblox/global/User.fromId/param/0": {
     "documentation": ""
@@ -4349,7 +4349,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#fromId",
-    "code_sample": ""
+    "code_sample": "local user = User.fromId(domainUserId)\nprint(user.Id)         -- domainUserId\nprint(user.DomainType) -- Enum.DomainType.EXPERIENCE"
   },
   "@roblox/global/User.fromString/param/0": {
     "documentation": ""
@@ -4364,7 +4364,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#fromString",
-    "code_sample": ""
+    "code_sample": "local encoded = player.User:ToString()\nlocal restored = User.fromString(encoded)\nprint(restored.Id == player.User.Id) -- true"
   },
   "@roblox/globaltype/User": {
     "documentation": "Represents a user's domain-scoped identity within a specific domain.",
@@ -4375,7 +4375,7 @@
       "ToString": "@roblox/globaltype/User.ToString"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User",
-    "code_sample": ""
+    "code_sample": "-- Serialize\nlocal encoded = player.User:ToString()\n\n-- Deserialize\nlocal user = User.fromString(encoded)"
   },
   "@roblox/globaltype/User.Id": {
     "documentation": "The domain user ID, unique within this domain.",
@@ -4410,7 +4410,7 @@
       "@roblox/globaltype/User.ToString/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#ToString",
-    "code_sample": ""
+    "code_sample": "local encoded = player.User:ToString()\n-- Store in a data store, send over a remote, etc.\nDataStore:SetAsync(\"last_visitor\", encoded)"
   },
   "@roblox/global/Ray": {
     "documentation": "Represents a line with a starting point that casts infinitely in a specific direction.",
@@ -6127,7 +6127,7 @@
       "AddSuffix": "@roblox/globaltype/Secret.AddSuffix"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Secret",
-    "code_sample": ""
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal mySiteApiKey = HttpService:GetSecret(\"my_site\")\nlocal url = \"https://apis.mysite.com?apiKey=\"\nlocal urlWithKey = mySiteApiKey:AddPrefix(url)\nlocal params = \"&request=join&user=myname\"\nlocal resultingUrl = urlWithKey:AddSuffix(params)"
   },
   "@roblox/globaltype/Secret.AddPrefix/param/0": {
     "documentation": "Stores secret non-printable content."
@@ -6154,7 +6154,7 @@
       "@roblox/globaltype/Secret.AddPrefix/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Secret#AddPrefix",
-    "code_sample": ""
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\n\nlocal secret = HttpService:GetSecret(\"yelp\")\nlocal authHeader = secret:AddPrefix(\"Bearer \")"
   },
   "@roblox/globaltype/Secret.AddSuffix/param/0": {
     "documentation": "Stores secret non-printable content."
@@ -6591,22 +6591,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.CardboardName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in Cardboard.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#CardboardName",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.CarpetName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in Carpet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#CarpetName",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.CeramicTilesName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in CeramicTiles.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#CeramicTilesName",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.ClayRoofTilesName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in ClayRoofTiles.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#ClayRoofTilesName",
     "code_sample": ""
   },
@@ -6676,7 +6676,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.LeatherName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in Leather.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#LeatherName",
     "code_sample": ""
   },
@@ -6711,7 +6711,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.PlasterName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in Plaster.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#PlasterName",
     "code_sample": ""
   },
@@ -6726,12 +6726,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.RoofShinglesName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in RoofShingles.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#RoofShinglesName",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialService.RubberName": {
-    "documentation": "",
+    "documentation": "Specify <code>MaterialVariant</code> name to override built-in Rubber.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialService#RubberName",
     "code_sample": ""
   },
@@ -8058,7 +8058,8 @@
       "OnUpdate": "@roblox/globaltype/GlobalDataStore.OnUpdate",
       "RemoveAsync": "@roblox/globaltype/GlobalDataStore.RemoveAsync",
       "SetAsync": "@roblox/globaltype/GlobalDataStore.SetAsync",
-      "UpdateAsync": "@roblox/globaltype/GlobalDataStore.UpdateAsync"
+      "UpdateAsync": "@roblox/globaltype/GlobalDataStore.UpdateAsync",
+      "BatchGetAsync": "@roblox/globaltype/GlobalDataStore.BatchGetAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GlobalDataStore",
     "code_sample": ""
@@ -8287,6 +8288,40 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GlobalDataStore#UpdateAsync",
     "code_sample": ""
+  },
+  "@roblox/globaltype/GlobalDataStore.BatchGetAsync/param/0": {
+    "documentation": "An object that exposes methods to access a single data store."
+  },
+  "@roblox/globaltype/GlobalDataStore.BatchGetAsync/param/1": {
+    "documentation": "An array of key name strings to retrieve. The maximum number of keys per request is determined by a server-side limit (default 100)."
+  },
+  "@roblox/globaltype/GlobalDataStore.BatchGetAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/GlobalDataStore.BatchGetAsync/return/0": {
+    "documentation": "A dictionary mapping each requested key (string) to a table containing a <code>value</code> field with the key's current value. Keys that don't exist or have no value are omitted from the result."
+  },
+  "@roblox/globaltype/GlobalDataStore.BatchGetAsync": {
+    "documentation": "Returns the values of multiple keys from the data store in a single request.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GlobalDataStore.BatchGetAsync/param/0"
+      },
+      {
+        "name": "keys",
+        "documentation": "@roblox/globaltype/GlobalDataStore.BatchGetAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/GlobalDataStore.BatchGetAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/GlobalDataStore.BatchGetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GlobalDataStore#BatchGetAsync",
+    "code_sample": "local DataStoreService = game:GetService(\"DataStoreService\")\nlocal playerScores = DataStoreService:GetOrderedDataStore(\"PlayerScores\")\nlocal keys = {\"Player_123\", \"Player_456\", \"Player_789\"}\nlocal success, results = pcall(function()\n\treturn playerScores:BatchGetAsync(keys)\nend)\nif success then\n\tfor _, key in keys do\n\t\tlocal entry = results[key]\n\t\tif entry then\n\t\t\tprint(key .. \" : \" .. tostring(entry.value))\n\t\telse\n\t\t\tprint(key .. \" has no saved entry\")\n\t\tend\n\tend\nend"
   },
   "@roblox/globaltype/UIDragDetector": {
     "documentation": "Instance which facilitates and encourages interaction with UI elements in an experience.",
@@ -8832,7 +8867,7 @@
   "@roblox/globaltype/Camera.CameraSubject": {
     "documentation": "The <code>Humanoid</code> or <code>BasePart</code> that is the <code>Camera</code> subject.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Camera#CameraSubject",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal localPlayer = Players.LocalPlayer\nlocal camera = workspace.CurrentCamera\n\nlocal function resetCameraSubject()\n\tif camera and localPlayer.Character then\n\t\tlocal humanoid = localPlayer.Character:FindFirstChildWhichIsA(\"Humanoid\")\n\t\tif humanoid then\n\t\t\tcamera.CameraSubject = humanoid\n\t\tend\n\tend\nend"
   },
   "@roblox/globaltype/Camera.CameraType": {
     "documentation": "Specifies the <code>CameraType</code> to be read by the camera scripts.",
@@ -9337,7 +9372,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Camera#ZoomToExtents",
-    "code_sample": ""
+    "code_sample": "local camera = workspace.CurrentCamera\nlocal model = workspace:FindFirstChild(\"MyModel\")\n\nif model then\n\tlocal modelCFrame = model:GetModelCFrame()\n\tlocal extentsSize = model:GetExtentsSize()\n\tcamera:ZoomToExtents(modelCFrame, extentsSize)\nend"
   },
   "@roblox/globaltype/Camera.InterpolationFinished.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -11402,12 +11437,12 @@
   "@roblox/globaltype/WeldConstraint.Part0": {
     "documentation": "The first part connected by the constraint.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WeldConstraint#Part0",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal partA = Instance.new(\"Part\")\nlocal partB = Instance.new(\"Part\")\n\npartA.Position = Vector3.new(0, 10, 0)\npartA.Parent = Workspace\n\npartB.Position = Vector3.new(0, 10, 10)\npartB.Parent = Workspace\n\nlocal weld = Instance.new(\"WeldConstraint\")\nweld.Part0 = partA\nweld.Part1 = partB\nweld.Parent = partA"
   },
   "@roblox/globaltype/WeldConstraint.Part1": {
     "documentation": "The second part connected by the constraint.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WeldConstraint#Part1",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal partA = Instance.new(\"Part\")\nlocal partB = Instance.new(\"Part\")\n\npartA.Position = Vector3.new(0, 10, 0)\npartA.Parent = Workspace\n\npartB.Position = Vector3.new(0, 10, 10)\npartB.Parent = Workspace\n\nlocal weld = Instance.new(\"WeldConstraint\")\nweld.Part0 = partA\nweld.Part1 = partB\nweld.Parent = partA"
   },
   "@roblox/globaltype/DataStore": {
     "documentation": "",
@@ -13993,7 +14028,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DragDetector#SetPermissionPolicyFunction",
-    "code_sample": ""
+    "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nlocal dragDetector = Instance.new(\"DragDetector\")\ndragDetector.Parent = part\ndragDetector.PermissionPolicy = Enum.DragDetectorPermissionPolicy.Scriptable\n\ndragDetector:SetPermissionPolicyFunction(function(player, part)\n\tif player and player:GetAttribute(\"IsInTurn\") then\n\t\treturn true\n\telseif part and not part:GetAttribute(\"IsDraggable\") then\n\t\treturn false\n\telse\n\t\treturn true\n\tend\nend)"
   },
   "@roblox/globaltype/DragDetector.DragContinue.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -15074,7 +15109,7 @@
   "@roblox/globaltype/Animator.EvaluationThrottled": {
     "documentation": "Indicates whether animation evaluation was throttled (skipped) this frame for this <code>Animator</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Animator#EvaluationThrottled",
-    "code_sample": ""
+    "code_sample": "local RunService = game:GetService(\"RunService\")\nlocal Workspace = game:GetService(\"Workspace\")\n\nlocal animationController = Instance.new(\"AnimationController\")\nlocal animator = Instance.new(\"Animator\")\nanimator.Parent = animationController\nanimationController.Parent = Workspace\n\nlocal neck = Instance.new(\"Motor6D\")\n\nlocal function computeNeckRotation()\n    return CFrame.Angles(0, 0.01, 0)\nend\n\nRunService.PreSimulation:Connect(function()\n    if not animator.EvaluationThrottled then\n        neck.Transform = computeNeckRotation() * neck.Transform\n    end\nend)"
   },
   "@roblox/globaltype/Animator.PreferLodEnabled": {
     "documentation": "Controls whether animation LOD throttling is allowed for this <code>Animator</code>. When set to <code>false</code>, animations always evaluate at full fidelity.",
@@ -16108,7 +16143,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HeapProfilerService": {
-    "documentation": "",
+    "documentation": "Provides methods which return Luau heap memory usage summaries on client and server.",
     "keys": {
       "ClientRequestDataAsync": "@roblox/globaltype/HeapProfilerService.ClientRequestDataAsync",
       "ServerRequestDataAsync": "@roblox/globaltype/HeapProfilerService.ServerRequestDataAsync"
@@ -16117,7 +16152,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HeapProfilerService.ClientRequestDataAsync/param/0": {
-    "documentation": ""
+    "documentation": "Provides methods which return Luau heap memory usage summaries on client and server."
   },
   "@roblox/globaltype/HeapProfilerService.ClientRequestDataAsync/param/1": {
     "documentation": ""
@@ -16126,7 +16161,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HeapProfilerService.ClientRequestDataAsync": {
-    "documentation": "",
+    "documentation": "Returns a summary of Luau heap memory usage for the requested player's client.",
     "params": [
       {
         "name": "self",
@@ -16144,13 +16179,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HeapProfilerService.ServerRequestDataAsync/param/0": {
-    "documentation": ""
+    "documentation": "Provides methods which return Luau heap memory usage summaries on client and server."
   },
   "@roblox/globaltype/HeapProfilerService.ServerRequestDataAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/HeapProfilerService.ServerRequestDataAsync": {
-    "documentation": "",
+    "documentation": "Returns a summary of Luau heap memory usage on the client.",
     "params": [
       {
         "name": "self",
@@ -16385,7 +16420,7 @@
       "@roblox/globaltype/Model.GetBoundingBox/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Model#GetBoundingBox",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal model = Workspace.Model\nlocal part = Workspace.Part\nlocal orientation, size = model:GetBoundingBox()\n\n-- Resize and position part equal to bounding box of model\npart.Size = size\npart.CFrame = orientation"
   },
   "@roblox/globaltype/Model.GetExtentsSize/param/0": {
     "documentation": "Models are container objects, meaning they group objects together. They are best used to hold collections of <code>BaseParts</code> and have a number of functions that extend their functionality."
@@ -18048,10 +18083,10 @@
     "documentation": "The abstract base class for in-world objects that physically interact."
   },
   "@roblox/globaltype/BasePart.GetJoints/return/0": {
-    "documentation": "An array of all Joints or Constraints connected to the Part."
+    "documentation": "An array of all <code>JointInstances</code> or <code>Constraints</code> connected to this <code>BasePart</code>."
   },
   "@roblox/globaltype/BasePart.GetJoints": {
-    "documentation": "Return all Joints or Constraints that is connected to this Part.",
+    "documentation": "Return all joints or constraints that are connected to this part.",
     "params": [
       {
         "name": "self",
@@ -18267,7 +18302,7 @@
     "documentation": "Resulting <code>IntersectOperation</code> with default name <strong>Intersect</strong>."
   },
   "@roblox/globaltype/BasePart.IntersectAsync": {
-    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:IntersectAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.</li> </ul> Creates a new <code>IntersectOperation</code> from the overlapping geometry   of the part and the other parts in the given array.",
+    "documentation": "Creates a new <code>IntersectOperation</code> from the overlapping geometry of the part and the other parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -18463,7 +18498,7 @@
     "documentation": "Resulting <code>UnionOperation</code> with default name <strong>Union</strong>."
   },
   "@roblox/globaltype/BasePart.SubtractAsync": {
-    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:UnionAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.</li> </ul> Creates a new <code>UnionOperation</code> from the part, minus the geometry   occupied by the parts in the given array.",
+    "documentation": "Creates a new <code>UnionOperation</code> from the part, minus the geometry occupied by the parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -18538,7 +18573,7 @@
     "documentation": "Resulting <code>UnionOperation</code> with default name <strong>Union</strong>."
   },
   "@roblox/globaltype/BasePart.UnionAsync": {
-    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:UnionAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.<pre><code>Creates a new `UnionOperation` from the part, plus the geometry </code></pre> </li> </ul> occupied by the parts in the given array.",
+    "documentation": "Creates a new <code>UnionOperation</code> from the part, plus the geometry occupied by the parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -22195,7 +22230,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings": {
-    "documentation": "",
+    "documentation": "Lets you view debugging features in Roblox's physics engine, found under the Physics tab in Studio's settings menu.",
     "keys": {
       "AllowSleep": "@roblox/globaltype/PhysicsSettings.AllowSleep",
       "AreAnchorsShown": "@roblox/globaltype/PhysicsSettings.AreAnchorsShown",
@@ -22265,7 +22300,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreAssemblyCentersOfMassShown": {
-    "documentation": "",
+    "documentation": "When set to true, shows the center of mass for each physics assembly.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreAssemblyCentersOfMassShown",
     "code_sample": ""
   },
@@ -22280,22 +22315,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreCollisionCostsShown": {
-    "documentation": "",
+    "documentation": "When set to true, displays collision cost annotations for parts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreCollisionCostsShown",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreConstraintForcesShownForSelectedOrHoveredInstances": {
-    "documentation": "",
+    "documentation": "When set to true, draws force vectors for constraints on selected or hovered instances.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreConstraintForcesShownForSelectedOrHoveredInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreConstraintTorquesShownForSelectedOrHoveredInstances": {
-    "documentation": "",
+    "documentation": "When set to true, draws torque vectors for constraints on selected or hovered instances.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreConstraintTorquesShownForSelectedOrHoveredInstances",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreContactForcesShownForSelectedOrHoveredAssemblies": {
-    "documentation": "",
+    "documentation": "When set to true, draws contact force vectors for selected or hovered assemblies.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreContactForcesShownForSelectedOrHoveredAssemblies",
     "code_sample": ""
   },
@@ -22310,7 +22345,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreGravityForcesShownForSelectedOrHoveredAssemblies": {
-    "documentation": "",
+    "documentation": "When set to true, draws gravity force vectors for selected or hovered assemblies.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreGravityForcesShownForSelectedOrHoveredAssemblies",
     "code_sample": ""
   },
@@ -22320,7 +22355,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreMagnitudesShownForDrawnForcesAndTorques": {
-    "documentation": "",
+    "documentation": "When set to true, displays magnitude labels alongside drawn force and torque vectors.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreMagnitudesShownForDrawnForcesAndTorques",
     "code_sample": ""
   },
@@ -22335,7 +22370,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreNonAnchorsShown": {
-    "documentation": "",
+    "documentation": "When set to true, parts that are not <code>BasePart.Anchored</code> will be highlighted.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreNonAnchorsShown",
     "code_sample": ""
   },
@@ -22355,17 +22390,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreSolverIslandsShown": {
-    "documentation": "",
+    "documentation": "When set to true, each solver island is highlighted with a unique color.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreSolverIslandsShown",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreTerrainReplicationRegionsShown": {
-    "documentation": "",
+    "documentation": "When set to true, shows terrain replication streaming regions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreTerrainReplicationRegionsShown",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.AreTimestepsShown": {
-    "documentation": "",
+    "documentation": "When set to true, shows physics timestep information for assemblies.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#AreTimestepsShown",
     "code_sample": ""
   },
@@ -22385,27 +22420,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.DisableCSGv3ForPlugins": {
-    "documentation": "",
+    "documentation": "When set to true, disables CSGv3 for plugin solid modeling operations.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#DisableCSGv3ForPlugins",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.DrawConstraintsNetForce": {
-    "documentation": "",
+    "documentation": "When set to true, draws the net force from all constraints on selected or hovered assemblies.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#DrawConstraintsNetForce",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.DrawContactsNetForce": {
-    "documentation": "",
+    "documentation": "When set to true, draws the net force from all contacts on selected or hovered assemblies.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#DrawContactsNetForce",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.DrawTotalNetForce": {
-    "documentation": "",
+    "documentation": "When set to true, draws the total net force on selected or hovered assemblies.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#DrawTotalNetForce",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.EnableForceVisualizationSmoothing": {
-    "documentation": "",
+    "documentation": "When set to true, enables temporal smoothing for force and torque visualizations.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#EnableForceVisualizationSmoothing",
     "code_sample": ""
   },
@@ -22415,22 +22450,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.ForceCSGv2": {
-    "documentation": "",
+    "documentation": "When set to true, forces the use of CSGv2 for solid modeling operations.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#ForceCSGv2",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.ForceDrawScale": {
-    "documentation": "",
+    "documentation": "Sets the scale of arrows drawn for force visualization.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#ForceDrawScale",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.ForceVisualizationSmoothingSteps": {
-    "documentation": "",
+    "documentation": "Controls the number of frames used for force visualization smoothing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#ForceVisualizationSmoothingSteps",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.IsInterpolationThrottleShown": {
-    "documentation": "",
+    "documentation": "When set to true, shows physics interpolation throttle information.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#IsInterpolationThrottleShown",
     "code_sample": ""
   },
@@ -22460,17 +22495,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.ShowInstanceNamesForDrawnForcesAndTorques": {
-    "documentation": "",
+    "documentation": "When set to true, displays instance names alongside drawn force and torque vectors.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#ShowInstanceNamesForDrawnForcesAndTorques",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.SolverConvergenceMetricType": {
-    "documentation": "",
+    "documentation": "Controls which metric is used for solver convergence visualization.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#SolverConvergenceMetricType",
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.SolverConvergenceVisualizationMode": {
-    "documentation": "",
+    "documentation": "Controls the visualization mode for solver convergence.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#SolverConvergenceVisualizationMode",
     "code_sample": ""
   },
@@ -22480,7 +22515,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PhysicsSettings.TorqueDrawScale": {
-    "documentation": "",
+    "documentation": "Sets the scale of arrows drawn for torque visualization.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#TorqueDrawScale",
     "code_sample": ""
   },
@@ -22549,7 +22584,7 @@
       "SetTopbarTransparency": "@roblox/globaltype/PlayerGui.SetTopbarTransparency"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PlayerGui",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player.PlayerGui"
   },
   "@roblox/globaltype/PlayerGui.CurrentScreenOrientation": {
     "documentation": "Describes the player's current screen orientation.",
@@ -23391,7 +23426,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BaseWrap.HSRAssetId": {
-    "documentation": "",
+    "documentation": "Asset ID for the hidden surface removal (HSR) data used by layered clothing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseWrap#HSRAssetId",
     "code_sample": ""
   },
@@ -24550,7 +24585,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/WrapLayer.AutoSkin": {
-    "documentation": "",
+    "documentation": "Determines whether this WrapLayer automatically transfers skinning data from the underlying body mesh to the clothing mesh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/WrapLayer#AutoSkin",
     "code_sample": ""
   },
@@ -27140,7 +27175,7 @@
   "@roblox/globaltype/Workspace.DistributedGameTime": {
     "documentation": "The amount of time, in seconds, that the game has been running.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#DistributedGameTime",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nprint(Workspace.DistributedGameTime) -- Time the game started running\nprint(os.time()) -- Time since epoch (1 January 1970, 00:00:00) UTC\nprint(tick()) -- Time since epoch (1 January 1970, 00:00:00) system time\nprint(time()) -- Time the game started running\nprint(elapsedTime()) -- Time since Roblox started running"
   },
   "@roblox/globaltype/Workspace.EnableSLIMAvatars": {
     "documentation": "Controls whether SLIM rendering is used for avatars in the experience.",
@@ -27909,7 +27944,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#SetCondition",
-    "code_sample": ""
+    "code_sample": "local styleQuery = Instance.new(\"StyleQuery\")\nstyleQuery:SetCondition(\"MaxSize\", Vector2.new(200, math.huge))"
   },
   "@roblox/globaltype/StyleQuery.SetConditions/param/0": {
     "documentation": "Instance used to set conditions such as <code>\"MaxSize\"</code> and <code>\"PreferredInput\"</code> for a <code>StyleRule</code>."
@@ -27931,7 +27966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleQuery#SetConditions",
-    "code_sample": ""
+    "code_sample": "local styleQuery = Instance.new(\"StyleQuery\")\nstyleQuery:SetConditions({\n\t[\"AspectRatioRange\"] = NumberRange.new(0, 1),\n\t[\"MaxSize\"] = Vector2.new(200, math.huge),\n})"
   },
   "@roblox/globaltype/AudioDeviceOutput": {
     "documentation": "Accepts audio streams to be rendered out to physical hardware devices such as speakers or headphones.",
@@ -29710,7 +29745,6 @@
       "Specular": "@roblox/globaltype/Decal.Specular",
       "Texture": "@roblox/globaltype/Decal.Texture",
       "TextureContent": "@roblox/globaltype/Decal.TextureContent",
-      "TexturePack": "@roblox/globaltype/Decal.TexturePack",
       "Transparency": "@roblox/globaltype/Decal.Transparency",
       "UVOffset": "@roblox/globaltype/Decal.UVOffset",
       "UVScale": "@roblox/globaltype/Decal.UVScale",
@@ -29792,11 +29826,6 @@
   "@roblox/globaltype/Decal.TextureContent": {
     "documentation": "The texture content displayed by the <code>Decal</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TextureContent",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Decal.TexturePack": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Decal#TexturePack",
     "code_sample": ""
   },
   "@roblox/globaltype/Decal.Transparency": {
@@ -32849,12 +32878,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NotificationService.IsLuaGameDetailsEnabled": {
-    "documentation": "",
+    "documentation": "This property is not functional and cannot be used.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NotificationService#IsLuaGameDetailsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/NotificationService.SelectedTheme": {
-    "documentation": "",
+    "documentation": "This property is not functional and cannot be used.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NotificationService#SelectedTheme",
     "code_sample": ""
   },
@@ -32936,7 +32965,7 @@
     "returns": []
   },
   "@roblox/globaltype/NotificationService.Roblox17sConnectionChanged": {
-    "documentation": "",
+    "documentation": "This event is not functional and cannot be used.",
     "keys": {
       "Connect": "@roblox/globaltype/NotificationService.Roblox17sConnectionChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/NotificationService.Roblox17sConnectionChanged.ConnectParallel",
@@ -33024,7 +33053,7 @@
     "returns": []
   },
   "@roblox/globaltype/NotificationService.Roblox17sEventReceived": {
-    "documentation": "",
+    "documentation": "This event is not functional and cannot be used.",
     "keys": {
       "Connect": "@roblox/globaltype/NotificationService.Roblox17sEventReceived.Connect",
       "ConnectParallel": "@roblox/globaltype/NotificationService.Roblox17sEventReceived.ConnectParallel",
@@ -33881,25 +33910,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleLink#StyleSheet",
     "code_sample": ""
   },
-  "@roblox/globaltype/ServiceVisibilityService": {
-    "documentation": "",
-    "keys": {
-      "HiddenServices": "@roblox/globaltype/ServiceVisibilityService.HiddenServices",
-      "VisibleServices": "@roblox/globaltype/ServiceVisibilityService.VisibleServices"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ServiceVisibilityService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ServiceVisibilityService.HiddenServices": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ServiceVisibilityService#HiddenServices",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ServiceVisibilityService.VisibleServices": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ServiceVisibilityService#VisibleServices",
-    "code_sample": ""
-  },
   "@roblox/globaltype/TextChatMessage": {
     "documentation": "A data object representing a text chat message.",
     "keys": {
@@ -34741,7 +34751,7 @@
       "Wait": "@roblox/globaltype/Tool.Activated.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Activated",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.RequiresHandle = false\ntool.Parent = Players.LocalPlayer.Backpack\n\nfunction onActivation()\n\tprint(\"Tool activated\")\nend\n\ntool.Activated:Connect(onActivation)"
   },
   "@roblox/globaltype/Tool.Deactivated.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -34829,7 +34839,7 @@
       "Wait": "@roblox/globaltype/Tool.Deactivated.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Tool#Deactivated",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal tool = Instance.new(\"Tool\")\ntool.RequiresHandle = false\ntool.Parent = Players.LocalPlayer.Backpack\n\nfunction toolDeactivated()\n\tprint(\"Tool deactivated\")\nend\n\ntool.Deactivated:Connect(toolDeactivated)"
   },
   "@roblox/globaltype/Tool.Equipped.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -35288,7 +35298,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plugin.IsDebuggable": {
-    "documentation": "",
+    "documentation": "Indicates whether the plugin's scripts can be debugged in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#IsDebuggable",
     "code_sample": ""
   },
@@ -37157,7 +37167,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleBase#SetStyleRules",
-    "code_sample": ""
+    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal coreSheet = Instance.new(\"StyleSheet\")\ncoreSheet.Name = \"CoreSheet\"\ncoreSheet.Parent = ReplicatedStorage\n\nlocal styleRuleA = Instance.new(\"StyleRule\")\nstyleRuleA.Selector = \"Frame\"\nstyleRuleA:SetProperty(\"BackgroundColor3\", Color3.new(1, 0, 0))\n\nlocal styleRuleB = Instance.new(\"StyleRule\")\nstyleRuleB.Selector = \"Frame\"\nstyleRuleB:SetProperty(\"BackgroundColor3\", Color3.new(0, 1, 0))\n\ncoreSheet:SetStyleRules({ styleRuleA, styleRuleB })"
   },
   "@roblox/globaltype/StyleBase.StyleRulesChanged.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -37727,7 +37737,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#SetMinutesAfterMidnight",
-    "code_sample": ""
+    "code_sample": "local Lighting = game:GetService(\"Lighting\")\n\nlocal TIME_SPEED = 60  -- 1 min = 1 hour\nlocal START_TIME = 9  -- 9 AM\n\nlocal minutesAfterMidnight = START_TIME * 60\nlocal waitTime = 60 / TIME_SPEED\n\nwhile true do\n\tminutesAfterMidnight = minutesAfterMidnight + 1\n\n\tLighting:SetMinutesAfterMidnight(minutesAfterMidnight)\n\n\ttask.wait(waitTime)\nend"
   },
   "@roblox/globaltype/Lighting.setMinutesAfterMidnight/param/0": {
     "documentation": "The <code>Lighting</code> service controls global lighting in an experience. It includes a range of adjustable properties that you can use to change how lighting appears and interacts with other objects."
@@ -38668,47 +38678,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Studio.\"function\" Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the <code>function</code> keyword in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Studio.\"function\" Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Studio.\"local\" Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the <code>local</code> keyword in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Studio.\"local\" Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Studio.\"nil\" Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the <code>nil</code> keyword in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Studio.\"nil\" Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Studio.\"self\" Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the <code>self</code> keyword in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Studio.\"self\" Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Studio.\"TODO\" Color": {
-    "documentation": "",
+    "documentation": "Sets the color of TODO comments in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Studio.\"TODO\" Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ActionOnAutoResumeSync": {
-    "documentation": "",
+    "documentation": "Sets the action Studio takes when auto-resuming file sync.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ActionOnAutoResumeSync",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ActionOnStopSync": {
-    "documentation": "",
+    "documentation": "Sets the action Studio takes when stopping file sync.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ActionOnStopSync",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Active Color": {
-    "documentation": "",
+    "documentation": "Sets the color of active UI elements in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Active Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Active Hover Over Color": {
-    "documentation": "",
+    "documentation": "Sets the color of active UI elements when hovered in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Active Hover Over Color",
     "code_sample": ""
   },
@@ -38723,57 +38733,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto Clean Empty Line": {
-    "documentation": "",
+    "documentation": "Controls whether trailing whitespace is automatically removed from empty lines in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto Clean Empty Line",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto Closing Brackets": {
-    "documentation": "",
+    "documentation": "Controls whether the script editor automatically inserts a matching closing bracket.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto Closing Brackets",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto Closing Quotes": {
-    "documentation": "",
+    "documentation": "Controls whether the script editor automatically inserts a matching closing quote.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto Closing Quotes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto Delete Closing Brackets and Quotes": {
-    "documentation": "",
+    "documentation": "Controls whether deleting an opening bracket or quote also removes its closing counterpart.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto Delete Closing Brackets and Quotes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto Indent Rule": {
-    "documentation": "",
+    "documentation": "Sets the rule used to determine automatic indentation in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto Indent Rule",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto-Recovery Enabled": {
-    "documentation": "",
+    "documentation": "Controls whether Studio automatically saves recovery files at a set interval.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto-Recovery Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Auto-Recovery Interval ": {
-    "documentation": "",
+    "documentation": "Sets the interval in minutes at which Studio saves auto-recovery files.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Auto-Recovery Interval ",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.AutocompleteAcceptanceBehavior": {
-    "documentation": "",
+    "documentation": "Sets the key used to accept autocomplete suggestions in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#AutocompleteAcceptanceBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Automatically trigger AI Code Completion": {
-    "documentation": "",
+    "documentation": "Controls whether AI code completion suggestions trigger automatically while typing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Automatically trigger AI Code Completion",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.AutoResumeSyncOnPlaceOpen": {
-    "documentation": "",
+    "documentation": "Controls whether file sync resumes automatically when a place is opened.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#AutoResumeSyncOnPlaceOpen",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.AutoUpdateEnabled": {
-    "documentation": "",
+    "documentation": "Controls whether Studio updates itself automatically when a new version is available.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#AutoUpdateEnabled",
     "code_sample": ""
   },
@@ -38788,12 +38798,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Bool Color": {
-    "documentation": "",
+    "documentation": "Sets the color of boolean literals in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Bool Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Bracket Color": {
-    "documentation": "",
+    "documentation": "Sets the color of brackets in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Bracket Color",
     "code_sample": ""
   },
@@ -38808,7 +38818,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Pan Speed": {
-    "documentation": "",
+    "documentation": "Sets the speed of camera panning in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Pan Speed",
     "code_sample": ""
   },
@@ -38823,47 +38833,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Speed Adjust Binding": {
-    "documentation": "",
+    "documentation": "Sets the mouse button used to adjust the camera speed in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Speed Adjust Binding",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Zoom to Mouse Position": {
-    "documentation": "",
+    "documentation": "Controls whether the camera zooms toward the mouse cursor position.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "",
+    "documentation": "Controls whether camera movement speed adapts based on distance to nearby objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
-    "documentation": "",
+    "documentation": "Sets the navigation model used for camera movement in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "",
+    "documentation": "Sets the mouse sensitivity for camera orbit in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "",
+    "documentation": "Sets the mouse sensitivity for camera panning in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
-    "documentation": "",
+    "documentation": "Sets the speed multiplier applied to camera movement when Shift is held.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
-    "documentation": "",
+    "documentation": "Controls whether the camera smoothly tweens when refocusing on a selected object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "",
+    "documentation": "Sets the speed of camera zooming in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
     "code_sample": ""
   },
@@ -38873,17 +38883,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarEnterExec": {
-    "documentation": "",
+    "documentation": "Controls whether pressing Enter immediately executes the command bar input.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarEnterExec",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarFont": {
-    "documentation": "",
+    "documentation": "Sets the font used in the Studio command bar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarFont",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarLocalState": {
-    "documentation": "",
+    "documentation": "Controls whether the command bar retains its input state between sessions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarLocalState",
     "code_sample": ""
   },
@@ -38893,27 +38903,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Current Line Highlight Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the current line highlight in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Current Line Highlight Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Debugger Current Line Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the current debugger line in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Debugger Current Line Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Debugger Error Line Color": {
-    "documentation": "",
+    "documentation": "Sets the color of debugger error lines in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Debugger Error Line Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DefaultInstancesDir": {
-    "documentation": "",
+    "documentation": "Sets the default directory where Studio saves instance files.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DefaultInstancesDir",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DefaultScriptSyncFileType": {
-    "documentation": "",
+    "documentation": "Sets the default file type used when syncing scripts to the file system.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DefaultScriptSyncFileType",
     "code_sample": ""
   },
@@ -38923,92 +38933,92 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DisplayLanguage": {
-    "documentation": "",
+    "documentation": "Sets the display language used by the Studio interface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DisplayLanguage",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerActiveColor": {
-    "documentation": "",
+    "documentation": "Sets the color of the active dragger handle in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerActiveColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerLengthFactor": {
-    "documentation": "",
+    "documentation": "Sets the length scale factor of dragger handles in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerLengthFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMajorGridIncrement": {
-    "documentation": "",
+    "documentation": "Sets the major grid increment used when snapping with the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMajorGridIncrement",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMaxSoftSnaps": {
-    "documentation": "",
+    "documentation": "Sets the maximum number of soft snap points shown by the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMaxSoftSnaps",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerPassiveColor": {
-    "documentation": "",
+    "documentation": "Sets the color of inactive dragger handles in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerPassiveColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerScaleFactor": {
-    "documentation": "",
+    "documentation": "Sets the scale factor controlling the overall size of dragger handles.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerScaleFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowAxisTicks": {
-    "documentation": "",
+    "documentation": "Controls whether tick marks are shown on dragger axis lines.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowAxisTicks",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowHoverRuler": {
-    "documentation": "",
+    "documentation": "Controls whether a ruler is shown when hovering near the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowHoverRuler",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowMeasurement": {
-    "documentation": "",
+    "documentation": "Controls whether distance measurements are shown while dragging.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowMeasurement",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowNegativeAxes": {
-    "documentation": "",
+    "documentation": "Controls whether negative axis handles are shown on the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowNegativeAxes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowPlanes": {
-    "documentation": "",
+    "documentation": "Controls whether planar translation handles are shown on the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowPlanes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTargetSnap": {
-    "documentation": "",
+    "documentation": "Controls whether the target snap indicator is shown on the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTargetSnap",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTrackball": {
-    "documentation": "",
+    "documentation": "Controls whether the trackball handle is shown on the rotation dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTrackball",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowWhileDragging": {
-    "documentation": "",
+    "documentation": "Controls whether dragger handles remain visible while actively dragging.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowWhileDragging",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSoftSnapMarginFactor": {
-    "documentation": "",
+    "documentation": "Sets the margin factor used to determine proximity for soft snapping.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSoftSnapMarginFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSummonMarginFactor": {
-    "documentation": "",
+    "documentation": "Sets the margin factor used to summon the dragger near a surface.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSummonMarginFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerTiltRotateDuration": {
-    "documentation": "",
+    "documentation": "Sets the duration in seconds of the tilt rotation animation in the dragger.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerTiltRotateDuration",
     "code_sample": ""
   },
@@ -39018,87 +39028,87 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Autocomplete Doc View": {
-    "documentation": "",
+    "documentation": "Controls whether documentation is shown alongside autocomplete suggestions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Autocomplete Doc View",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable CoreScript Debugger": {
-    "documentation": "",
+    "documentation": "Controls whether the CoreScript debugger is available in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable CoreScript Debugger",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Http Sandboxing": {
-    "documentation": "",
+    "documentation": "Controls whether HTTP requests from plugins are sandboxed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Http Sandboxing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Internal Beta Features": {
-    "documentation": "",
+    "documentation": "Controls whether internal beta features are accessible in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Internal Beta Features",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Internal Features": {
-    "documentation": "",
+    "documentation": "Controls whether internal developer features are accessible in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Internal Features",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Script Analysis": {
-    "documentation": "",
+    "documentation": "Controls whether the script editor performs real-time Luau script analysis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Script Analysis",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Scrollbar Markers": {
-    "documentation": "",
+    "documentation": "Controls whether error and warning markers are shown on the script editor scrollbar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Scrollbar Markers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help": {
-    "documentation": "",
+    "documentation": "Controls whether function signature help popups are shown while typing.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help Doc View": {
-    "documentation": "",
+    "documentation": "Controls whether documentation is shown alongside signature help popups.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help Doc View",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Temporary Tabs": {
-    "documentation": "",
+    "documentation": "Controls whether opening a script creates a temporary tab that is replaced on the next open.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Temporary Tabs",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Temporary Tabs In Explorer": {
-    "documentation": "",
+    "documentation": "Controls whether clicking a script in the Explorer opens it in a temporary tab.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Temporary Tabs In Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Type Hover": {
-    "documentation": "",
+    "documentation": "Controls whether hovering over an identifier shows its inferred type.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Type Hover",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableCodeAssist": {
-    "documentation": "",
+    "documentation": "Controls whether AI-powered code assist features are enabled in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableCodeAssist",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableFindOnType": {
-    "documentation": "",
+    "documentation": "Controls whether the Find bar activates when typing in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableFindOnType",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableIndentationRulers": {
-    "documentation": "",
+    "documentation": "Controls whether indentation ruler lines are shown in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableIndentationRulers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableSelectionTooltips": {
-    "documentation": "",
+    "documentation": "Controls whether tooltips are shown when hovering over selected objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableSelectionTooltips",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableStudioStreaming": {
-    "documentation": "",
+    "documentation": "Controls whether Studio streaming mode is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableStudioStreaming",
     "code_sample": ""
   },
@@ -39108,12 +39118,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorMode": {
-    "documentation": "",
+    "documentation": "Sets the mode used when opening scripts in an external editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorSelection": {
-    "documentation": "",
+    "documentation": "Sets which external editor Studio opens scripts with.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorSelection",
     "code_sample": ""
   },
@@ -39128,32 +39138,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Format On Paste": {
-    "documentation": "",
+    "documentation": "Controls whether pasted code is automatically formatted in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Paste",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Format On Type": {
-    "documentation": "",
+    "documentation": "Controls whether code is automatically formatted as you type in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Type",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Function Name Color": {
-    "documentation": "",
+    "documentation": "Sets the color of function names in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Function Name Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Highlight Current Line": {
-    "documentation": "",
+    "documentation": "Controls whether the current line is highlighted in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Highlight Current Line",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Highlight Occurances": {
-    "documentation": "",
+    "documentation": "Controls whether other occurrences of the word under the cursor are highlighted.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Highlight Occurances",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.HintColor": {
-    "documentation": "",
+    "documentation": "Sets the color of hint diagnostics in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#HintColor",
     "code_sample": ""
   },
@@ -39163,12 +39173,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Box Thickness": {
-    "documentation": "",
+    "documentation": "Sets the thickness of the selection box shown when hovering over objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Box Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Line Thickness": {
-    "documentation": "",
+    "documentation": "Sets the line thickness of the hover selection box.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Line Thickness",
     "code_sample": ""
   },
@@ -39178,22 +39188,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.IconOverrideDir": {
-    "documentation": "",
+    "documentation": "Sets the directory Studio uses to load icon overrides.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#IconOverrideDir",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Indent Using Spaces": {
-    "documentation": "",
+    "documentation": "Controls whether the script editor uses spaces instead of tabs for indentation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Indent Using Spaces",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.IndentationRulerColor": {
-    "documentation": "",
+    "documentation": "Sets the color of indentation rulers in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#IndentationRulerColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.InformationColor": {
-    "documentation": "",
+    "documentation": "Sets the color of information diagnostics in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#InformationColor",
     "code_sample": ""
   },
@@ -39203,12 +39213,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LargeFileLineCountThreshold": {
-    "documentation": "",
+    "documentation": "Sets the line count at which a script is treated as a large file by the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LargeFileLineCountThreshold",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LargeFileThreshold": {
-    "documentation": "",
+    "documentation": "Sets the byte size at which a script is treated as a large file by the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LargeFileThreshold",
     "code_sample": ""
   },
@@ -39218,22 +39228,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadAllBuiltinPluginsInRunModes": {
-    "documentation": "",
+    "documentation": "Controls whether all built-in plugins are loaded when using run modes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadAllBuiltinPluginsInRunModes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadInternalPlugins": {
-    "documentation": "",
+    "documentation": "Controls whether internal Roblox plugins are loaded in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadInternalPlugins",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadUserPluginsInRunModes": {
-    "documentation": "",
+    "documentation": "Controls whether user-installed plugins are loaded when using run modes.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadUserPluginsInRunModes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LocalAssetsFolder": {
-    "documentation": "",
+    "documentation": "Sets the local folder Studio uses for local asset storage.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LocalAssetsFolder",
     "code_sample": ""
   },
@@ -39243,17 +39253,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LuaDebuggerEnabledAtStartup": {
-    "documentation": "",
+    "documentation": "Controls whether the Lua debugger is enabled when Studio starts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LuaDebuggerEnabledAtStartup",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Luau Keyword Color": {
-    "documentation": "",
+    "documentation": "Sets the color of Luau-specific keywords in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Luau Keyword Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Main Volume": {
-    "documentation": "",
+    "documentation": "Sets the main audio playback volume in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Main Volume",
     "code_sample": ""
   },
@@ -39263,7 +39273,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.MaxFindReplaceAllResults": {
-    "documentation": "",
+    "documentation": "Sets the maximum number of results returned by the Find All operation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#MaxFindReplaceAllResults",
     "code_sample": ""
   },
@@ -39273,12 +39283,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Menu Item Background Color": {
-    "documentation": "",
+    "documentation": "Sets the background color of menu items in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Menu Item Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Method Color": {
-    "documentation": "",
+    "documentation": "Sets the color of method names in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Method Color",
     "code_sample": ""
   },
@@ -39313,17 +39323,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Physical Draggers Select Scope By Default": {
-    "documentation": "",
+    "documentation": "Controls whether physical draggers default to selecting within the current scope.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Physical Draggers Select Scope By Default",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Pivot Snap To Geometry Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the pivot snap-to-geometry indicator in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Pivot Snap To Geometry Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PluginDebuggingEnabled": {
-    "documentation": "",
+    "documentation": "Controls whether plugin script debugging is enabled in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PluginDebuggingEnabled",
     "code_sample": ""
   },
@@ -39333,27 +39343,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PreferredTextSize": {
-    "documentation": "",
+    "documentation": "Sets the preferred font size in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PreferredTextSize",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Primary Text Color": {
-    "documentation": "",
+    "documentation": "Sets the primary text color in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Primary Text Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Property Color": {
-    "documentation": "",
+    "documentation": "Sets the color of property names in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Property Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ReloadBuiltinPluginsOnChange": {
-    "documentation": "",
+    "documentation": "Controls whether built-in plugins are automatically reloaded when their files change.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ReloadBuiltinPluginsOnChange",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ReloadLocalPluginsOnChange": {
-    "documentation": "",
+    "documentation": "Controls whether local plugins are automatically reloaded when their files change.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ReloadLocalPluginsOnChange",
     "code_sample": ""
   },
@@ -39363,32 +39373,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Ruler Color": {
-    "documentation": "",
+    "documentation": "Sets the color of the column ruler in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Ruler Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Rulers": {
-    "documentation": "",
+    "documentation": "Sets the column positions at which vertical ruler lines are drawn in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Rulers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.RuntimeUndoBehavior": {
-    "documentation": "",
+    "documentation": "Sets how Studio handles undo operations during runtime playback.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#RuntimeUndoBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Color Preset": {
-    "documentation": "",
+    "documentation": "Sets the color preset applied to the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Color Preset",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Background Color": {
-    "documentation": "",
+    "documentation": "Sets the background color of the script editor scrollbar in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Handle Color": {
-    "documentation": "",
+    "documentation": "Sets the handle color of the script editor scrollbar in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Handle Color",
     "code_sample": ""
   },
@@ -39398,12 +39408,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Scroll Past Last Line": {
-    "documentation": "",
+    "documentation": "Controls whether the script editor allows scrolling below the last line.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Scroll Past Last Line",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Secondary Text Color": {
-    "documentation": "",
+    "documentation": "Sets the secondary text color in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Secondary Text Color",
     "code_sample": ""
   },
@@ -39418,12 +39428,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selected Menu Item Background Color": {
-    "documentation": "",
+    "documentation": "Sets the background color of selected menu items in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selected Menu Item Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selected Text Color": {
-    "documentation": "",
+    "documentation": "Sets the color of selected text in Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selected Text Color",
     "code_sample": ""
   },
@@ -39433,7 +39443,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Box Thickness": {
-    "documentation": "",
+    "documentation": "Sets the thickness of the selection box around selected objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Box Thickness",
     "code_sample": ""
   },
@@ -39443,12 +39453,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Line Thickness": {
-    "documentation": "",
+    "documentation": "Sets the line thickness of the selection box around selected objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Line Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Set Pivot of Imported Parts": {
-    "documentation": "",
+    "documentation": "Sets whether the pivot point is repositioned when parts are imported.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Set Pivot of Imported Parts",
     "code_sample": ""
   },
@@ -39463,12 +39473,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show FileSyncService": {
-    "documentation": "",
+    "documentation": "Controls whether FileSyncService is shown in the Explorer panel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show FileSyncService",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hidden Objects in Explorer": {
-    "documentation": "",
+    "documentation": "Controls whether hidden objects are visible in the Explorer panel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hidden Objects in Explorer",
     "code_sample": ""
   },
@@ -39478,12 +39488,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Light Guides": {
-    "documentation": "",
+    "documentation": "Controls whether light guide visualizations are shown in the viewport.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Light Guides",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Labels": {
-    "documentation": "",
+    "documentation": "Controls whether navigation mesh region labels are shown in the viewport.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Labels",
     "code_sample": ""
   },
@@ -39493,7 +39503,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Pathfinding Links": {
-    "documentation": "",
+    "documentation": "Controls whether PathfindingLink visualizations are shown in the viewport.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Pathfinding Links",
     "code_sample": ""
   },
@@ -39503,27 +39513,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show plus button on hover in Explorer": {
-    "documentation": "",
+    "documentation": "Controls whether a plus button appears when hovering over items in the Explorer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show plus button on hover in Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Singly Selected Attachment Parent Frame": {
-    "documentation": "",
+    "documentation": "Controls whether the parent part frame is shown when a single attachment is selected.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Singly Selected Attachment Parent Frame",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Whitespace": {
-    "documentation": "",
+    "documentation": "Controls whether whitespace characters are shown as visible glyphs in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Whitespace",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ShowCorePackagesInExplorer": {
-    "documentation": "",
+    "documentation": "Controls whether core packages are shown in the Explorer panel.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ShowCorePackagesInExplorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Skip Closing Brackets and Quotes": {
-    "documentation": "",
+    "documentation": "Controls whether the cursor skips over a typed closing bracket or quote if one already exists.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Skip Closing Brackets and Quotes",
     "code_sample": ""
   },
@@ -39553,7 +39563,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.TypeColor": {
-    "documentation": "",
+    "documentation": "Sets the color of type annotations in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#TypeColor",
     "code_sample": ""
   },
@@ -39563,17 +39573,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Use Bounding Box Move Handles": {
-    "documentation": "",
+    "documentation": "Controls whether move handles are placed at the bounding box edges instead of the pivot.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Use Bounding Box Move Handles",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.UseDefaultExternalEditor": {
-    "documentation": "",
+    "documentation": "Controls whether Studio uses the system's default application to open scripts externally.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#UseDefaultExternalEditor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.VAxisColor": {
-    "documentation": "",
+    "documentation": "Sets the color of the V axis handle in Studio's draggers.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#VAxisColor",
     "code_sample": ""
   },
@@ -39583,22 +39593,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Whitespace Color": {
-    "documentation": "",
+    "documentation": "Sets the color of visible whitespace characters in the script editor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Whitespace Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.XAxisColor": {
-    "documentation": "",
+    "documentation": "Sets the color of the X axis handle in Studio's draggers.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#XAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.YAxisColor": {
-    "documentation": "",
+    "documentation": "Sets the color of the Y axis handle in Studio's draggers.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#YAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ZAxisColor": {
-    "documentation": "",
+    "documentation": "Sets the color of the Z axis handle in Studio's draggers.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ZAxisColor",
     "code_sample": ""
   },
@@ -46825,31 +46835,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/IntConstrainedValue#changed",
     "code_sample": ""
   },
-  "@roblox/globaltype/VisualizationMode": {
-    "documentation": "",
-    "keys": {
-      "Enabled": "@roblox/globaltype/VisualizationMode.Enabled",
-      "Title": "@roblox/globaltype/VisualizationMode.Title",
-      "ToolTip": "@roblox/globaltype/VisualizationMode.ToolTip"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationMode",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VisualizationMode.Enabled": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationMode#Enabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VisualizationMode.Title": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationMode#Title",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VisualizationMode.ToolTip": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationMode#ToolTip",
-    "code_sample": ""
-  },
   "@roblox/globaltype/PlayerListConfiguration": {
     "documentation": "",
     "keys": {
@@ -47171,7 +47156,7 @@
   "@roblox/globaltype/Player.Character": {
     "documentation": "A <code>Model</code> controlled by the player that contains a <code>Humanoid</code>, body parts, scripts, and other objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#Character",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character\nif not character or character.Parent == nil then\n\tcharacter = player.CharacterAdded:Wait()\nend"
   },
   "@roblox/globaltype/Player.CharacterAppearance": {
     "documentation": "<strong>Deprecated:</strong> This item is deprecated. Do not use it for new work.<br>The URL of the asset containing the character's appearance, clothing, and gear.",
@@ -47254,7 +47239,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.InputLatency": {
-    "documentation": "",
+    "documentation": "An internal property used by the Server Authority netcode system.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#InputLatency",
     "code_sample": ""
   },
@@ -47294,7 +47279,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Player.StepIdOffset": {
-    "documentation": "",
+    "documentation": "An internal offset between client and server used by the Server Authority system.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#StepIdOffset",
     "code_sample": ""
   },
@@ -47316,7 +47301,7 @@
   "@roblox/globaltype/Player.User": {
     "documentation": "The <code>User</code> representing this player's domain-scoped identity within the current experience.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#User",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n    local user = player.User\n    print(\"Domain user ID:\", user.Id)\n    print(\"Domain type:\", user.DomainType)\n    print(\"Domain ID:\", user.DomainId)\nend)"
   },
   "@roblox/globaltype/Player.UserId": {
     "documentation": "A unique identifying integer assigned to all user accounts.",
@@ -47425,7 +47410,7 @@
       "@roblox/globaltype/Player.GetCameraState/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetCameraState",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal cameraState = player:GetCameraState()\n\nprint(cameraState.CFrame)\nprint(cameraState.FieldOfView)\nprint(cameraState.ViewportSize)"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -50260,7 +50245,7 @@
       "@roblox/globaltype/Actor.BindToMessage/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#BindToMessage",
-    "code_sample": ""
+    "code_sample": "local actor = script:GetActor()\n\n-- Print out a message when a greeting message is sent to the Actor\n-- this script is a descendant of.\nlocal connection = actor:BindToMessage(\"Greeting\", function(message)\n  print(\"Received Greeting Message:\", message)\nend)"
   },
   "@roblox/globaltype/Actor.BindToMessageParallel/param/0": {
     "documentation": "An <code>Actor</code> is a container for code that can be safely split into its own thread."
@@ -50294,7 +50279,7 @@
       "@roblox/globaltype/Actor.BindToMessageParallel/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#BindToMessageParallel",
-    "code_sample": ""
+    "code_sample": "local actor = script:GetActor()\n\n-- Print out a message when a greeting message is sent to the Actor\n-- this script is a descendant of.\nlocal connection = actor:BindToMessageParallel(\"Greeting\", function(message)\n  print(\"Received Greeting Message:\", message)\nend)"
   },
   "@roblox/globaltype/Actor.SendMessage/param/0": {
     "documentation": "An <code>Actor</code> is a container for code that can be safely split into its own thread."
@@ -50323,7 +50308,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Actor#SendMessage",
-    "code_sample": ""
+    "code_sample": "local actor = script:GetActor()\n\nactor:SendMessage(\"Greeting\", \"Hello World\")"
   },
   "@roblox/globaltype/RenderSettings": {
     "documentation": "",
@@ -50803,7 +50788,7 @@
       "@roblox/globaltype/SharedTableRegistry.GetSharedTable/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SharedTableRegistry#GetSharedTable",
-    "code_sample": ""
+    "code_sample": "local SharedTableRegistry = game:GetService(\"SharedTableRegistry\")\nlocal st = SharedTableRegistry:GetSharedTable(\"MyData\")"
   },
   "@roblox/globaltype/SharedTableRegistry.SetSharedTable/param/0": {
     "documentation": "Provides a global registry of named <code>SharedTable</code> objects."
@@ -50832,7 +50817,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SharedTableRegistry#SetSharedTable",
-    "code_sample": ""
+    "code_sample": "local SharedTableRegistry = game:GetService(\"SharedTableRegistry\")\n\n-- Register a SharedTable with the name \"MyData\":\nlocal st = SharedTable.new({1, 2, 3})\nSharedTableRegistry:SetSharedTable(\"MyData\", st)\n\n-- Unregister the SharedTable with the name \"MyData\":\nSharedTableRegistry:SetSharedTable(\"MyData\", nil)"
   },
   "@roblox/globaltype/TextChannel": {
     "documentation": "Represents a text chat channel.",
@@ -50968,7 +50953,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChannel#SetDirectChatRequester",
-    "code_sample": ""
+    "code_sample": "local function createWhisperChannel(fromPlayer, toPlayer)\n  local whisperChannel = Instance.new(\"TextChannel\")\n  whisperChannel:SetDirectChatRequester(fromPlayer)\n  whisperChannel:AddUserAsync(toPlayer.UserId)\n  -- The TextChannel instance now has two TextSource instances.\n  return whisperChannel\nend"
   },
   "@roblox/globaltype/TextChannel.OnIncomingMessage/param/0": {
     "documentation": "The incoming <code>TextChatMessage</code>."
@@ -53738,7 +53723,7 @@
       "Wait": "@roblox/globaltype/RunService.Rollback.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#Rollback",
-    "code_sample": ""
+    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal stateHistory = {} -- your custom state tracked per fixed step\n\nRunService.Rollback:Connect(function(time)\n\t-- Discard any custom state newer than the rolled-back-to step\n\t-- and restore the state at that step before resimulation begins\n\tfor step, _ in stateHistory do\n\t\tif step > time then\n\t\t\tstateHistory[step] = nil\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/RunService.Stepped.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -53955,6 +53940,85 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ClientReplicator",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputActionLabel": {
+    "documentation": "A <code>GuiObject</code> that automatically displays the keybinding for an action as text or an image.",
+    "keys": {
+      "FontFace": "@roblox/globaltype/InputActionLabel.FontFace",
+      "ImageColor3": "@roblox/globaltype/InputActionLabel.ImageColor3",
+      "ImageTransparency": "@roblox/globaltype/InputActionLabel.ImageTransparency",
+      "InputAction": "@roblox/globaltype/InputActionLabel.InputAction",
+      "ResolvedImageContent": "@roblox/globaltype/InputActionLabel.ResolvedImageContent",
+      "ResolvedText": "@roblox/globaltype/InputActionLabel.ResolvedText",
+      "TextColor3": "@roblox/globaltype/InputActionLabel.TextColor3",
+      "TextSize": "@roblox/globaltype/InputActionLabel.TextSize",
+      "TextTransparency": "@roblox/globaltype/InputActionLabel.TextTransparency",
+      "TextWrapped": "@roblox/globaltype/InputActionLabel.TextWrapped",
+      "TextXAlignment": "@roblox/globaltype/InputActionLabel.TextXAlignment",
+      "TextYAlignment": "@roblox/globaltype/InputActionLabel.TextYAlignment"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.FontFace": {
+    "documentation": "Determines the font used to render text.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#FontFace",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.ImageColor3": {
+    "documentation": "Determines how rendered label images will be colorized.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#ImageColor3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.ImageTransparency": {
+    "documentation": "Determines the transparency of rendered label images.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#ImageTransparency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.InputAction": {
+    "documentation": "The <code>InputAction</code> whose preferred binding this label displays.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#InputAction",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.ResolvedImageContent": {
+    "documentation": "Read-only. The resolved image content currently being displayed.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#ResolvedImageContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.ResolvedText": {
+    "documentation": "The resolved key name string currently being displayed.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#ResolvedText",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.TextColor3": {
+    "documentation": "Determines the color of rendered text.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#TextColor3",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.TextSize": {
+    "documentation": "Determines the line height of text in offsets.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#TextSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.TextTransparency": {
+    "documentation": "Determines the transparency of rendered text.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#TextTransparency",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.TextWrapped": {
+    "documentation": "Determines if text wraps to multiple lines within the label's space.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#TextWrapped",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.TextXAlignment": {
+    "documentation": "Determines the horizontal alignment of rendered text.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#TextXAlignment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputActionLabel.TextYAlignment": {
+    "documentation": "Determines the vertical alignment of rendered text.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputActionLabel#TextYAlignment",
+    "code_sample": ""
+  },
   "@roblox/globaltype/PVInstance": {
     "documentation": "Abstract class for all objects that have a physical location in the world.",
     "keys": {
@@ -54076,7 +54140,7 @@
   "@roblox/globaltype/Instance.Archivable": {
     "documentation": "Determines if an <code>Instance</code> and its descendants can be cloned using <code>Instance:Clone()</code>, and can be saved/published.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
-    "code_sample": ""
+    "code_sample": "local part = Instance.new(\"Part\")\nprint(part:Clone())  --> Part\npart.Archivable = false\nprint(part:Clone())  --> nil"
   },
   "@roblox/globaltype/Instance.archivable": {
     "documentation": "<strong>Deprecated:</strong> This deprecated property is a variant of <code>Instance.Archivable</code> which should be used instead.",
@@ -54715,7 +54779,7 @@
       "@roblox/globaltype/Instance.GetStyled/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#GetStyled",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player.PlayerGui\nlocal HUDContainer = playerGui:WaitForChild(\"HUDContainer\")\n\nlocal coreSheet = ReplicatedStorage:FindFirstChild(\"CoreSheet\")\nlocal rule = coreSheet:FindFirstChildWhichIsA(\"StyleRule\")\nrule.Selector = \"TextButton\"\n\n-- Reference to a button\nlocal button = HUDContainer:FindFirstChildWhichIsA(\"TextButton\")\n\nprint(button:GetStyled(\"Rotation\")) --> 0 (default value)\nprint(button.Rotation) --> 0 (default value)\n\n-- Apply rotation through style rule property\nrule:SetProperty(\"Rotation\", 30)\n\nprint(button:GetStyled(\"Rotation\")) --> 30 (styled value based on rule)\nprint(button.Rotation) --> 0 (default value)\n\n-- Explicitly modify/override styled property\nbutton.Rotation = 45\n\nprint(button:GetStyled(\"Rotation\")) --> 45 (modified value)\nprint(button.Rotation) --> 45 (modified value)"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
     "documentation": "<code>Instance</code> is the base class for all classes in the Roblox class hierarchy which can be part of the <code>DataModel</code> tree."
@@ -55853,7 +55917,7 @@
       "Wait": "@roblox/globaltype/Instance.StyledPropertiesChanged.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#StyledPropertiesChanged",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player.PlayerGui\nlocal HUDContainer = playerGui:WaitForChild(\"HUDContainer\")\nlocal meterBar = HUDContainer.MeterBar\n\nlocal function stylePropertyChanged()\n\tprint(\"Styled properties changed\")\nend\n\nmeterBar:StyledPropertiesChanged():Connect(stylePropertyChanged)"
   },
   "@roblox/globaltype/AudioEcho": {
     "documentation": "Overlays delayed copies of audio streams.",
@@ -57700,12 +57764,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BaseScript.Disabled": {
-    "documentation": "Determines whether a <code>BaseScript</code> will run or not.",
+    "documentation": "Determines whether a <code>BaseScript</code> runs or not.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseScript#Disabled",
     "code_sample": ""
   },
   "@roblox/globaltype/BaseScript.Enabled": {
-    "documentation": "Determines whether a <code>BaseScript</code> will run or not.",
+    "documentation": "Determines whether a <code>BaseScript</code> runs or not.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseScript#Enabled",
     "code_sample": ""
   },
@@ -57715,7 +57779,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BaseScript.RunContext": {
-    "documentation": "Determines the context under which the script will run.",
+    "documentation": "Determines the context under which the script runs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BaseScript#RunContext",
     "code_sample": ""
   },
@@ -59794,7 +59858,7 @@
       "@roblox/globaltype/GuiService.GetGuiInset/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GuiService#GetGuiInset",
-    "code_sample": ""
+    "code_sample": "local GuiService = game:GetService(\"GuiService\")\n\nlocal screenAreaTopLeft, screenAreaBottomRight = GuiService:GetGuiInset()\nprint(screenAreaTopLeft, screenAreaBottomRight)"
   },
   "@roblox/globaltype/GuiService.GetInsetArea/param/0": {
     "documentation": "Offers numerous properties and methods for working with <code>GuiObjects</code>, player preferences, and other UI‑related tasks."
@@ -60419,7 +60483,7 @@
       "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#IsVoiceEnabledForUserIdAsync",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal VoiceChatService = game:GetService(\"VoiceChatService\")\n\nlocal localPlayer = Players.LocalPlayer\nlocal success, enabled = pcall(function()\n\treturn VoiceChatService:IsVoiceEnabledForUserIdAsync(localPlayer.UserId)\nend)\nif success and enabled then\n\tprint(\"Voice chat enabled!\")\nend"
   },
   "@roblox/globaltype/Frame": {
     "documentation": "A <code>GuiObject</code> that renders as a plain rectangle, generally used as a container.",
@@ -62215,7 +62279,7 @@
       "@roblox/globaltype/StyleRule.GetProperties/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#GetProperties",
-    "code_sample": ""
+    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal coreSheet = Instance.new(\"StyleSheet\")\ncoreSheet.Name = \"CoreSheet\"\ncoreSheet.Parent = ReplicatedStorage\n\nlocal frameRule = Instance.new(\"StyleRule\")\nframeRule.Name = \"Frame\"\nframeRule:SetProperty(\"AnchorPoint\", Vector2.new(0.5, 0))\nframeRule:SetProperty(\"BackgroundColor3\", Color3.new(1, 0, 0.25))\nframeRule.Parent = coreSheet\n\n-- Get reference to style rule\nlocal frameRule = coreSheet.Frame\n\nlocal props = frameRule:GetProperties()\nprint(props)\n--[[\n{\n\t[\"AnchorPoint\"] = 0.5, 0,\n\t[\"BackgroundColor3\"] = 1, 0, 0.25\n}\n]]"
   },
   "@roblox/globaltype/StyleRule.GetProperty/param/0": {
     "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
@@ -62242,7 +62306,7 @@
       "@roblox/globaltype/StyleRule.GetProperty/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#GetProperty",
-    "code_sample": ""
+    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal coreSheet = Instance.new(\"StyleSheet\")\ncoreSheet.Name = \"CoreSheet\"\ncoreSheet.Parent = ReplicatedStorage\n\nlocal frameRule = Instance.new(\"StyleRule\")\nframeRule.Name = \"Frame\"\nframeRule:SetProperty(\"AnchorPoint\", Vector2.new(0.5, 0))\nframeRule.Parent = coreSheet\n\nlocal prop = frameRule:GetProperty(\"AnchorPoint\")\nprint(prop) --> 0.5, 0"
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions/param/0": {
     "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
@@ -62629,7 +62693,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LocalizationTable#RemoveKey",
-    "code_sample": ""
+    "code_sample": "local localizationTable = Instance.new(\"LocalizationTable\")\nlocal key = \"Hello\"\nlocalizationTable:SetEntryValue(key, \"\", \"\", \"en\", \"Hello\")\n\nlocalizationTable:RemoveEntry(key, \"\", \"\")"
   },
   "@roblox/globaltype/LocalizationTable.RemoveTargetLocale/param/0": {
     "documentation": "A LocalizationTable is a database of translations. It contains source strings and translations for various languages."
@@ -69459,7 +69523,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScriptEditorService#UpdateSourceAsync",
-    "code_sample": ""
+    "code_sample": "local ScriptEditorService = game:GetService(\"ScriptEditorService\")\n\nScriptEditorService:UpdateSourceAsync(workspace.Script, function(oldContent)\n\treturn oldContent .. \" World!\"\nend)"
   },
   "@roblox/globaltype/ScriptEditorService.TextDocumentDidChange.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -69925,7 +69989,7 @@
   "@roblox/globaltype/Object.ClassName": {
     "documentation": "A read-only string representing the class this <code>Object</code> belongs to.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Object#ClassName",
-    "code_sample": ""
+    "code_sample": "for _, child in workspace:GetChildren() do\n    if child.ClassName == \"Part\" then\n        print(\"Found a Part\")\n        -- will find Parts in model, but NOT TrussParts, WedgeParts, etc\n    end\nend"
   },
   "@roblox/globaltype/Object.className": {
     "documentation": "<strong>Deprecated:</strong> This deprecated property is a variant of <code>Object.ClassName</code> which should be used instead.",
@@ -70266,7 +70330,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StudioService.Secrets": {
-    "documentation": "",
+    "documentation": "A JSON string storing the local secrets for the current experience, used internally by Studio to support HttpService:GetSecret().",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#Secrets",
     "code_sample": ""
   },
@@ -70283,7 +70347,7 @@
   "@roblox/globaltype/StudioService.StudioLocaleId": {
     "documentation": "The locale currently in-use by Studio, e.g. <code>en_US</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#StudioLocaleId",
-    "code_sample": ""
+    "code_sample": "local locale = game:GetService(\"StudioService\").StudioLocaleId\nif locale == \"en_US\" then\n\tprint(\"Howdy, ya'll\")\nelseif locale == \"en_GB\" then\n\tprint(\"'Ello, gov'na\")\nelseif locale:sub(1, 2) == \"en\" then\n\tprint(\"Hello\")\nelseif locale == \"fr_FR\" then\n\tprint(\"Bonjour\")\nend"
   },
   "@roblox/globaltype/StudioService.UseLocalSpace": {
     "documentation": "Determines whether Studio tools will use local space of an object or global space.",
@@ -74239,7 +74303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character.",
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character.",
     "keys": {
       "AllTutorialsDisabled": "@roblox/globaltype/UserGameSettings.AllTutorialsDisabled",
       "BadgeVisible": "@roblox/globaltype/UserGameSettings.BadgeVisible",
@@ -74275,6 +74339,7 @@
       "UsedCustomGuiIsVisibleToggle": "@roblox/globaltype/UserGameSettings.UsedCustomGuiIsVisibleToggle",
       "UsedHideHudShortcut": "@roblox/globaltype/UserGameSettings.UsedHideHudShortcut",
       "VignetteEnabled": "@roblox/globaltype/UserGameSettings.VignetteEnabled",
+      "VoiceChatVolume": "@roblox/globaltype/UserGameSettings.VoiceChatVolume",
       "VREnabled": "@roblox/globaltype/UserGameSettings.VREnabled",
       "VRRotationIntensity": "@roblox/globaltype/UserGameSettings.VRRotationIntensity",
       "VRSmoothRotationEnabled": "@roblox/globaltype/UserGameSettings.VRSmoothRotationEnabled",
@@ -74290,7 +74355,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.AllTutorialsDisabled": {
-    "documentation": "Indicates whether all in-experience tutorials have been disabled by the user.",
+    "documentation": "Indicates whether all in-game tutorials have been disabled by the user.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#AllTutorialsDisabled",
     "code_sample": ""
   },
@@ -74305,7 +74370,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.ChatVisible": {
-    "documentation": "Indicates whether the in-experience chat is visible to the client.",
+    "documentation": "Indicates whether the in-game chat is visible to the client.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#ChatVisible",
     "code_sample": ""
   },
@@ -74380,17 +74445,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.PeoplePageLayout": {
-    "documentation": "The layout style used to display the people page in the in-experience menu.",
+    "documentation": "The layout style used to display the people page in the in-game menu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#PeoplePageLayout",
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.PlayerListVisible": {
-    "documentation": "Indicates whether the in-experience player list is visible to the client.",
+    "documentation": "Indicates whether the in-game player list is visible to the client.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#PlayerListVisible",
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.PlayerNamesEnabled": {
-    "documentation": "Indicates whether player names are displayed above characters in the experience.",
+    "documentation": "Indicates whether player names are displayed above characters in the game.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#PlayerNamesEnabled",
     "code_sample": ""
   },
@@ -74459,6 +74524,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#VignetteEnabled",
     "code_sample": ""
   },
+  "@roblox/globaltype/UserGameSettings.VoiceChatVolume": {
+    "documentation": "A float between <code>0</code> and <code>2</code> representing the volume of in-game voice chat.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#VoiceChatVolume",
+    "code_sample": ""
+  },
   "@roblox/globaltype/UserGameSettings.VREnabled": {
     "documentation": "Indicates whether the client is currently running in VR mode.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserGameSettings#VREnabled",
@@ -74475,7 +74545,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.GetCameraYInvertValue/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.GetCameraYInvertValue/return/0": {
     "documentation": ""
@@ -74495,7 +74565,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.GetOnboardingCompleted/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.GetOnboardingCompleted/param/1": {
     "documentation": "The onboarding ID to inquire about."
@@ -74522,7 +74592,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.InFullScreen/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.InFullScreen/return/0": {
     "documentation": ""
@@ -74542,7 +74612,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.InStudioMode/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.InStudioMode/return/0": {
     "documentation": ""
@@ -74562,7 +74632,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.SetCameraYInvertVisible/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.SetCameraYInvertVisible": {
     "documentation": "If called, Roblox toggles the menu option to invert the user's camera y axis.",
@@ -74577,7 +74647,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.SetGamepadCameraSensitivityVisible/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.SetGamepadCameraSensitivityVisible": {
     "documentation": "If called, Roblox toggles the menu option to control the camera sensitivity with gamepads.",
@@ -74592,7 +74662,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UserGameSettings.SetOnboardingCompleted/param/0": {
-    "documentation": "The UserGameSettings is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
+    "documentation": "<code>UserGameSettings</code> is a singleton class found inside of the <code>UserSettings</code> singleton. It holds various persistent settings relating to how the user wants to control their camera, and their character."
   },
   "@roblox/globaltype/UserGameSettings.SetOnboardingCompleted/param/1": {
     "documentation": "The onboarding ID to set as completed."
@@ -74833,7 +74903,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#CaptureScreenshot",
-    "code_sample": ""
+    "code_sample": "local CaptureService = game:GetService(\"CaptureService\")\n\n-- Reference to an ImageLabel parent of the script containing this code\nlocal imageLabel = script.Parent\n\nlocal function onCaptureReady(contentId)\n\timageLabel.Image = contentId\nend\n\nCaptureService:CaptureScreenshot(onCaptureReady)"
   },
   "@roblox/globaltype/CaptureService.CheckUploadCaptureStatusAsync/param/0": {
     "documentation": "A service which provides control over screenshot and video capture features."
@@ -76210,7 +76280,7 @@
       "@roblox/globaltype/GroupService.GetRolesInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService#GetRolesInGroupAsync",
-    "code_sample": ""
+    "code_sample": "local GroupService = game:GetService(\"GroupService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal GROUP_ID = 377251\nlocal localPlayer = Players.LocalPlayer\n\nlocal result = GroupService:GetRolesInGroupAsync(localPlayer.UserId, GROUP_ID)\nif result.IsMember then\n    print(\"User is a member with\", #result.Roles, \"role(s)\")\n    for _, role in ipairs(result.Roles) do\n        print(role.Name, \"rank\", role.Rank)\n    end\nelse\n    print(\"User is not a member\")\nend"
   },
   "@roblox/globaltype/GroupService.PromptJoinAsync/param/0": {
     "documentation": "GroupService is a service that allows developers to fetch information about a Roblox group from within a game."
@@ -80620,25 +80690,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GameSettings#VideoCaptureEnabled",
     "code_sample": ""
   },
-  "@roblox/globaltype/VisualizationModeCategory": {
-    "documentation": "",
-    "keys": {
-      "Enabled": "@roblox/globaltype/VisualizationModeCategory.Enabled",
-      "Title": "@roblox/globaltype/VisualizationModeCategory.Title"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationModeCategory",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VisualizationModeCategory.Enabled": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationModeCategory#Enabled",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/VisualizationModeCategory.Title": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationModeCategory#Title",
-    "code_sample": ""
-  },
   "@roblox/globaltype/GuiBase": {
     "documentation": "GuiBase is an abstract class which most graphical user interface objects inherit from.",
     "keys": {},
@@ -84027,7 +84078,7 @@
   "@roblox/globaltype/Mouse.UnitRay": {
     "documentation": "A <code>Ray</code> directed towards the mouse's world position, originating from the <code>Workspace.CurrentCamera</code> world position.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Mouse#UnitRay",
-    "code_sample": ""
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\nlocal mouse = player:GetMouse()\nprint(mouse.UnitRay.Direction.Magnitude) -- Always 1"
   },
   "@roblox/globaltype/Mouse.ViewSizeX": {
     "documentation": "Describes the width of the game window in pixels.",
@@ -87597,7 +87648,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CoreGui.SelectionImageObject": {
-    "documentation": "",
+    "documentation": "Overrides the default selection adornment used for gamepad selection in the CoreGui.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CoreGui#SelectionImageObject",
     "code_sample": ""
   },
@@ -87897,8 +87948,7 @@
       "NormalMapContent": "@roblox/globaltype/SurfaceAppearance.NormalMapContent",
       "ResampleMode": "@roblox/globaltype/SurfaceAppearance.ResampleMode",
       "RoughnessMap": "@roblox/globaltype/SurfaceAppearance.RoughnessMap",
-      "RoughnessMapContent": "@roblox/globaltype/SurfaceAppearance.RoughnessMapContent",
-      "TexturePack": "@roblox/globaltype/SurfaceAppearance.TexturePack"
+      "RoughnessMapContent": "@roblox/globaltype/SurfaceAppearance.RoughnessMapContent"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance",
     "code_sample": ""
@@ -87971,11 +88021,6 @@
   "@roblox/globaltype/SurfaceAppearance.RoughnessMapContent": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#RoughnessMapContent",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/SurfaceAppearance.TexturePack": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#TexturePack",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModelSession": {
@@ -92347,12 +92392,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Hopper",
     "code_sample": ""
   },
-  "@roblox/globaltype/VisualizationModeService": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisualizationModeService",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sparkles": {
     "documentation": "A particle emitter with the visual aesthetic of sparkles.",
     "keys": {
@@ -95037,7 +95076,7 @@
       "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GenerateAvatar2DPreviewAsync",
-    "code_sample": ""
+    "code_sample": "local AvatarCreationService = game:GetService(\"AvatarCreationService\")\n\nfunction generateAvatar2DPreview(sessionId, fileId, textPrompt)\n    local pcallSuccess, result = pcall(function()\n        local args = {}\n        args.SessionId = sessionId\n        args.FileId = fileId\n        args.TextPrompt = textPrompt\n        return AvatarCreationService:GenerateAvatar2DPreviewAsync(args)\n    end)\n\n    if not pcallSuccess then\n        warn(\"Generating 2D preview failed: \", result)\n    end\n\n    return result\nend"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0": {
     "documentation": "A service to support developer avatar creators."
@@ -95071,7 +95110,7 @@
       "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#GenerateAvatarAsync",
-    "code_sample": ""
+    "code_sample": "local AvatarCreationService = game:GetService(\"AvatarCreationService\")\n\nfunction generateAvatar(sessionId, previewId)\n    local pcallSuccess, result = pcall(function()\n        local args = {}\n        args.SessionId = sessionId\n        args.PreviewId = previewId\n        return AvatarCreationService:GenerateAvatarAsync(args)\n    end)\n\n    if not pcallSuccess then\n        warn(\"Generating avatar failed: \", result)\n    end\n\n    return result\nend"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/0": {
     "documentation": "A service to support developer avatar creators."
@@ -95145,7 +95184,7 @@
       "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#LoadAvatar2DPreviewAsync",
-    "code_sample": ""
+    "code_sample": "local AvatarCreationService = game:GetService(\"AvatarCreationService\")\n\nfunction loadAvatar2DPreview(previewId)\n    local pcallSuccess, result = pcall(function()\n        return AvatarCreationService:LoadAvatar2DPreviewAsync(previewId)\n    end)\n\n    if not pcallSuccess then\n        warn(\"Failed to load preview: \", result)\n    end\n\n    return result\nend"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/0": {
     "documentation": "A service to support developer avatar creators."
@@ -96364,17 +96403,17 @@
   "@roblox/globaltype/HapticEffect.Looped": {
     "documentation": "Whether the haptic effect loops continuously.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Looped",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal effect = Instance.new(\"HapticEffect\")\neffect.Type = Enum.HapticEffectType.GameplayExplosion\neffect.Looped = true\neffect.Parent = Workspace\n\n-- Start the haptic effect\neffect:Play()\n-- After two seconds, stop the effect\ntask.wait(2)\neffect:Stop()"
   },
   "@roblox/globaltype/HapticEffect.Position": {
     "documentation": "Along with <code>Radius</code>, specifies the impact position relative to the input device and, effectively, how broadly that impact effects nearby motors.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Position",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal effect = Instance.new(\"HapticEffect\")\n\n-- Set the position and radius of impact\neffect.Position = Vector3.new(0.5, 0.5, 0)\neffect.Radius = 1\neffect.Parent = Workspace\n\neffect:Play()"
   },
   "@roblox/globaltype/HapticEffect.Radius": {
     "documentation": "Along with <code>Position</code>, specifies the impact radius relative to the input device and, effectively, how broadly that impact effects nearby motors.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Radius",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal effect = Instance.new(\"HapticEffect\")\n\n-- Set the position and radius of impact\neffect.Position = Vector3.new(0.5, 0.5, 0)\neffect.Radius = 1\neffect.Parent = Workspace\n\n-- Play the haptic effect\neffect:Play()"
   },
   "@roblox/globaltype/HapticEffect.Type": {
     "documentation": "<code>HapticEffectType</code> describing the haptic type.",
@@ -96394,7 +96433,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Play",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal effect = Instance.new(\"HapticEffect\")\neffect.Type = Enum.HapticEffectType.GameplayExplosion\neffect.Parent = Workspace\n\n-- Play the haptic effect\neffect:Play()"
   },
   "@roblox/globaltype/HapticEffect.SetWaveformKeys/param/0": {
     "documentation": ""
@@ -96431,7 +96470,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Stop",
-    "code_sample": ""
+    "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\nlocal effect = Instance.new(\"HapticEffect\")\neffect.Type = Enum.HapticEffectType.GameplayExplosion\neffect.Looped = true\neffect.Parent = Workspace\n\n-- Start the haptic effect\neffect:Play()\n-- After two seconds, stop the effect\ntask.wait(2)\neffect:Stop()"
   },
   "@roblox/globaltype/HapticEffect.Ended.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -100252,7 +100291,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.BanningEnabled": {
-    "documentation": "Enables or disables the three <code>Players</code> methods (<code>BanAsync()</code>, <code>UnbanAsync()</code>, and <code>GetBanHistoryAsync()</code>) that constitute the ban API. This property is not scriptable and can only be modified in Studio.",
+    "documentation": "Enables or disables the three <code>Players</code> methods (<code>BanAsync()</code>, <code>UnbanAsync()</code>, and <code>GetBanHistoryAsync()</code>) that constitute the ban API. This property cannot be set through developer-facing Luau and must be set in Studio through the Players properties window.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#BanningEnabled",
     "code_sample": ""
   },
@@ -102952,7 +102991,7 @@
       "@roblox/globaltype/UserService.GetUserFromGlobalUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UserService#GetUserFromGlobalUserIdAsync",
-    "code_sample": ""
+    "code_sample": "local UserService = game:GetService(\"UserService\")\n\nlocal user = UserService:GetUserFromGlobalUserIdAsync(globalUserId)\nprint(user.Id)         -- Domain user ID for this experience\nprint(user.DomainType) -- Enum.DomainType.EXPERIENCE\nprint(user.DomainId)   -- Current universe ID"
   },
   "@roblox/globaltype/VideoFrame": {
     "documentation": "A GUI object that renders a rectangle, like a <code>Frame</code> does, with a moving video image.",
@@ -104566,7 +104605,7 @@
       "@roblox/globaltype/SocialService.PromptLinkSharingAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptLinkSharingAsync",
-    "code_sample": ""
+    "code_sample": "local HttpService = game:GetService(\"HttpService\")\nlocal SocialService = game:GetService(\"SocialService\")\n\nlocal success, result  = pcall(function()\n\tlocal data = {\n    \tpromoCode = \"j7du67\"\n\t}\n\n\tlocal launchData = HttpService:JSONEncode(data)\n\n\tlocal LinkSharingOptions = {\n\t\tExpirationSeconds = 20000,\n\t\tPreviewTitle = \"Awesome Game\",\n\t\tPreviewDescription = \"Lets play together\",\n\t\tLaunchData = launchData,\n\t}\n\n\treturn SocialService:PromptLinkSharingAsync(player, LinkSharingOptions)\nend)\n\nif not success or result ~= Enum.PromptLinkSharingResult.Success then\n\twarn(\"PromptLinkSharingAsync failed:\", tostring(result))\nend"
   },
   "@roblox/globaltype/SocialService.PromptPhoneBook/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
@@ -126142,6 +126181,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/UserInputState",
     "code_sample": ""
   },
+  "@roblox/enum/KeyCode.None": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#None",
+    "code_sample": ""
+  },
   "@roblox/enum/KeyCode.Backspace": {
     "documentation": "The <code>Backspace</code> key.",
     "keys": {
@@ -128902,9 +128951,70 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#TouchPinch",
     "code_sample": ""
   },
+  "@roblox/enum/KeyCode.ButtonCenter": {
+    "documentation": "TV remote <code>Center</code> button.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#ButtonCenter",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.ButtonBack": {
+    "documentation": "TV remote <code>Back</code> button.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#ButtonBack",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.ButtonUp": {
+    "documentation": "<code>MicroGamepad</code> (including TV remotes) <code>Up</code> directional button.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#ButtonUp",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.ButtonDown": {
+    "documentation": "<code>MicroGamepad</code> (including TV remotes) <code>Down</code> directional button.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#ButtonDown",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.ButtonLeft": {
+    "documentation": "<code>MicroGamepad</code> (including TV remotes) <code>Left</code> directional button.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#ButtonLeft",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.ButtonRight": {
+    "documentation": "<code>MicroGamepad</code> (including TV remotes) <code>Right</code> directional button.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#ButtonRight",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.KeyCode": {
     "documentation": "Byte keycodes that represent the key or button involved in user input.",
     "keys": {
+      "None": "@roblox/enum/KeyCode.None",
       "Backspace": "@roblox/enum/KeyCode.Backspace",
       "Tab": "@roblox/enum/KeyCode.Tab",
       "Clear": "@roblox/enum/KeyCode.Clear",
@@ -129180,7 +129290,13 @@
       "TrackpadPinch": "@roblox/enum/KeyCode.TrackpadPinch",
       "MouseDelta": "@roblox/enum/KeyCode.MouseDelta",
       "TouchDelta": "@roblox/enum/KeyCode.TouchDelta",
-      "TouchPinch": "@roblox/enum/KeyCode.TouchPinch"
+      "TouchPinch": "@roblox/enum/KeyCode.TouchPinch",
+      "ButtonCenter": "@roblox/enum/KeyCode.ButtonCenter",
+      "ButtonBack": "@roblox/enum/KeyCode.ButtonBack",
+      "ButtonUp": "@roblox/enum/KeyCode.ButtonUp",
+      "ButtonDown": "@roblox/enum/KeyCode.ButtonDown",
+      "ButtonLeft": "@roblox/enum/KeyCode.ButtonLeft",
+      "ButtonRight": "@roblox/enum/KeyCode.ButtonRight"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode",
     "code_sample": ""
@@ -138002,6 +138118,90 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/BulkMoveMode",
     "code_sample": ""
   },
+  "@roblox/enum/SlimTranscoderStatus.Unknown": {
+    "documentation": "The transcoding status has not yet been determined. This is the initial state before the model has been queried. Shown as magenta in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Unknown",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTranscoderStatus.NoHash": {
+    "documentation": "The model is SLIM-enabled but does not yet have a generated hash, so transcoding has not been requested. Shown as cyan in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NoHash",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
+    "documentation": "The model's property set has not been uploaded to the content-delivery network. Shown as orange in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#NotUploaded",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTranscoderStatus.Uploaded": {
+    "documentation": "The property set has been uploaded to the content-delivery network but has not yet been transcoded into SLIM assets. Shown as yellow in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Uploaded",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTranscoderStatus.InProgress": {
+    "documentation": "SLIM transcoding is currently in progress on the backend. The model is expected to transition to Succeeded or Failed once transcoding completes. Shown as blue in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#InProgress",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTranscoderStatus.Succeeded": {
+    "documentation": "Transcoding completed successfully and the SLIM assets are available for streaming. Shown as green in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Succeeded",
+    "code_sample": ""
+  },
+  "@roblox/enum/SlimTranscoderStatus.Failed": {
+    "documentation": "Transcoding did not complete successfully. Shown as red in the debug tint overlay.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus#Failed",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.SlimTranscoderStatus": {
+    "documentation": "Describes the backend transcoding state of a SLIM model, from upload through transcoding to success or failure.",
+    "keys": {
+      "Unknown": "@roblox/enum/SlimTranscoderStatus.Unknown",
+      "NoHash": "@roblox/enum/SlimTranscoderStatus.NoHash",
+      "NotUploaded": "@roblox/enum/SlimTranscoderStatus.NotUploaded",
+      "Uploaded": "@roblox/enum/SlimTranscoderStatus.Uploaded",
+      "InProgress": "@roblox/enum/SlimTranscoderStatus.InProgress",
+      "Succeeded": "@roblox/enum/SlimTranscoderStatus.Succeeded",
+      "Failed": "@roblox/enum/SlimTranscoderStatus.Failed"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/SlimTranscoderStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/LoadDynamicHeads.Default": {
     "documentation": "",
     "keys": {
@@ -141864,12 +142064,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput#Touch",
     "code_sample": ""
   },
+  "@roblox/enum/PreferredInput.MicroGamepad": {
+    "documentation": "The player has connected or most recently interacted with a gamepad without a thumbstick (for example, a TV remote or another limited-input gamepad), and no standard gamepad is currently connected.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput#MicroGamepad",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.PreferredInput": {
     "documentation": "This enum is used with <code>UserInputService.PreferredInput</code> to indicate the primary input type a player is likely using.",
     "keys": {
       "KeyboardAndMouse": "@roblox/enum/PreferredInput.KeyboardAndMouse",
       "Gamepad": "@roblox/enum/PreferredInput.Gamepad",
-      "Touch": "@roblox/enum/PreferredInput.Touch"
+      "Touch": "@roblox/enum/PreferredInput.Touch",
+      "MicroGamepad": "@roblox/enum/PreferredInput.MicroGamepad"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PreferredInput",
     "code_sample": ""
@@ -144120,6 +144331,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetType#VoxelFragment",
     "code_sample": ""
   },
+  "@roblox/enum/AssetType.TextDocument": {
+    "documentation": "The asset is a text document.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetType#TextDocument",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AssetType": {
     "documentation": "This Enum can be used to match the AssetTypeId from <code>MarketplaceService:GetProductInfoAsync()</code> to an asset type.",
     "keys": {
@@ -144185,7 +144406,8 @@
       "FaceMakeup": "@roblox/enum/AssetType.FaceMakeup",
       "LipMakeup": "@roblox/enum/AssetType.LipMakeup",
       "EyeMakeup": "@roblox/enum/AssetType.EyeMakeup",
-      "VoxelFragment": "@roblox/enum/AssetType.VoxelFragment"
+      "VoxelFragment": "@roblox/enum/AssetType.VoxelFragment",
+      "TextDocument": "@roblox/enum/AssetType.TextDocument"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AssetType",
     "code_sample": ""
@@ -149076,7 +149298,7 @@
       "@luau/global/assert/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#assert",
-    "code_sample": ""
+    "code_sample": "local product = 90 * 4\nassert(product == 360, \"Oh dear, multiplication is broken\")\n-- The line above does nothing, because 90 times 4 is 360"
   },
   "@luau/global/collectgarbage/param/0": {
     "documentation": "The name of the operation that should be performed by the garbage collector."
@@ -149198,7 +149420,7 @@
       "@luau/global/ipairs/return/2"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#ipairs",
-    "code_sample": ""
+    "code_sample": "local fruits = {\"apples\", \"oranges\", \"kiwi\"}\nfor index, fruit in ipairs(fruits) do\n   print(index, fruit) --> 1 apples, 2 oranges, 3 kiwi, etc...\nend"
   },
   "@luau/global/loadstring/param/0": {
     "documentation": "The specified string to be loaded as Luau code."
@@ -149300,7 +149522,7 @@
       "@luau/global/pairs/return/1"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#pairs",
-    "code_sample": ""
+    "code_sample": "local scores = {\n    [\"John\"] = 5,\n    [\"Sally\"] = 10\n}\n\nfor name, score in pairs(scores) do\n    print(name .. \" has score: \" .. score)\nend"
   },
   "@luau/global/pcall/param/0": {
     "documentation": "The function to be called in protected mode."
@@ -149474,7 +149696,7 @@
       "@luau/global/require/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#require",
-    "code_sample": ""
+    "code_sample": "-- \"./\" prefix is equivalent to script.Parent\nrequire(\"./MySibling\")\nrequire((script.Parent).MySibling)\n\n-- \"../\" prefix is equivalent to script.Parent.Parent\nrequire(\"../SiblingOfMyParent\")\nrequire((script.Parent.Parent).SiblingOfMyParent)\n\n-- \"../\" can be chained to go up multiple levels\nrequire(\"../../SiblingOfMyGrandparent\")\nrequire((script.Parent.Parent).Parent.SiblingOfMyGrandparent)\n\n-- \"@self\" prefix corresponds to the script itself\nrequire(\"@self/MyChild\")\nrequire((script).MyChild)\n\n-- \"@game\" prefix corresponds to the DataModel root\nrequire(\"@game/ReplicatedStorage/Shared/MyModule\")\nrequire((game).ReplicatedStorage.Shared.MyModule)"
   },
   "@luau/global/select/param/0": {
     "documentation": "The index of the argument to return all arguments after in <code>args</code>. If it's set to <code>\"#\"</code>, the number of arguments that were passed after it is returned."
@@ -149501,7 +149723,7 @@
       "@luau/global/select/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#select",
-    "code_sample": ""
+    "code_sample": "print(select(2, \"A\", \"B\", \"C\")) --> B C\nprint(select(-1, \"A\", \"B\", \"C\")) --> C\nprint(select(\"#\", \"A\", \"B\", \"C\")) --> 3"
   },
   "@luau/global/setfenv/param/0": {
     "documentation": "Either a function or a number that specifies the function at that stack level."
@@ -149602,7 +149824,7 @@
       "@luau/global/tostring/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#tostring",
-    "code_sample": ""
+    "code_sample": "local isRobloxCool = true\n-- Convert the boolean to a string then concatenate:\nprint(\"Roblox is cool: \" .. tostring(isRobloxCool)) --> Roblox is cool: true"
   },
   "@luau/global/type/param/0": {
     "documentation": "The object to return the type of."
@@ -149804,7 +150026,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#spawn",
-    "code_sample": ""
+    "code_sample": "spawn(print) -- 0.0079617658390703 451.55683163643"
   },
   "@roblox/global/stats/return/0": {
     "documentation": ""
@@ -149969,7 +150191,7 @@
   "@roblox/global/plugin": {
     "documentation": "Refers to a Plugin singleton when the code is run in the context of a Studio plugin.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#plugin",
-    "code_sample": ""
+    "code_sample": "assert(plugin, \"This script must be run as a plugin!\")\n-- Code beyond this point will execute only if the script is run as a plugin"
   },
   "@roblox/global/shared": {
     "documentation": "A table shared between all code running at the same execution context level.",
