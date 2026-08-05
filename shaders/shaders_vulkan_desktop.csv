@@ -49,6 +49,7 @@ CloudsBsmFS,Fragment
 CloudsBsmFSOld,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
+CloudsCompSingleTapFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsReprojectFilterFS,Fragment
@@ -366,6 +367,7 @@ RadialBlur3FS,Fragment
 RadialBlur6FS,Fragment
 RadialBlur9FS,Fragment
 ReprojectFilterFS,Fragment
+RGBtoNV12CS,Compute
 ScatterMemcpy48CS,Compute
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment

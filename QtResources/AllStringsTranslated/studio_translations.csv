@@ -5722,9 +5722,15 @@ Studio.App.PropertyItems.RevertPackageChanges,,,Revert all overrides,Revert all 
 Studio.App.PinnedUpdateAvailableWithOverrides,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.RobloxExplorerWidget.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.App.Property.CameraInputMultiplier,,,Input Multiplier,Input Multiplier
 Studio.App.PropertyItems.AutoUpdateDisabledForNested,,,Auto Update disabled for nested packages,Auto Update disabled for nested packages
 Studio.App.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
 Studio.App.PropertyItems.NoPermissionsAudio,,,Failed to load audio. User is not authorized to access asset.,Failed to load audio. User is not authorized to access asset.
+Studio.App.Property.CameraAltLeftMouseToRotate,,,Alt + Left Mouse drag to rotate,Alt + Left Mouse drag to rotate
+Studio.App.RBXMainWindow.ToggleNavModel,,,Toggle Navigation Model,Toggle Navigation Model
+Studio.App.RBXMainWindow.ZoomToKeepDistance,,,Zoom To and Keep Distance,Zoom To and Keep Distance
+Studio.App.IdeDoc.MeshStreamingRestartTitle,,,Restart Studio,Restart Studio
+Studio.App.IdeDoc.MeshStreamingRestartMessage,,,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?
 Studio.App.Property.EnableClientServerMDI,,,Enable Client/Server MDI for Play Solo,Enable Client/Server MDI for Play Solo
 Studio.App.RBXMainWindow.MDIClient,,,Client,Client
 Studio.App.RBXMainWindow.MDIClientActive,,,Client,Client
@@ -5746,6 +5752,7 @@ Studio.App.Properties.MDIServerTitleFmt1,,,Properties / Server - %1,Properties /
 Studio.App.PropertyItems.RevertPropertyChanges,,,Revert override,Revert override
 Studio.App.RobloxExplorerWidget.OverrideAdded,,,Added by override,Added by override
 Studio.App.RobloxExplorerWidget.OverrideModified,,,Instance has overrides,Instance has overrides
+Studio.App.ExplorerFiltering.InvalidQuery,,,'%1' is an invalid query: %2,'%1' is an invalid query: %2
 Studio.App.Property.EnableOvertypeMode,,,Enable Overtype Mode,Enable Overtype Mode
 Studio.App.EmulatorMainWidget.AndroidTV1080p,,,Android TV 1080p,Android TV 1080p
 Studio.App.RobloxRibbonMainWindow.TreatPartsAsBoxes,,,Treat Parts as Boxes,Treat Parts as Boxes
@@ -5757,6 +5764,80 @@ Studio.App.ActionInitializer.ToggleUseBoundingBox,,,Toggle - Dragger Snapping Us
 Studio.App.ActionInitializer.ToggleUseBoundingBoxes,,,Toggle - Dragger Snapping Use Bounding Boxes,Toggle - Dragger Snapping Use Bounding Boxes
 Studio.App.RobloxRibbonMainWindow.UseBoundingBoxes,,,Use Bounding Boxes,Use Bounding Boxes
 Studio.App.ActionInitializer.ToggleUseBoundingBoxesTooltip,,,"Toggle the ""Use Bounding Boxes"" checkbox in the ribbon's dragger settings dropdown.","Toggle the ""Use Bounding Boxes"" checkbox in the ribbon's dragger settings dropdown."
+Studio.App.SettingsCategory.StudioUpdates,,,Updates,Updates
+Studio.App.RobloxStudio.BelowMinSpec,,,"Your system is below the minimum requirements. To keep using the Roblox Studio, please use a device that meets the minimum requirements.","Your system is below the minimum requirements. To keep using the Roblox Studio, please use a device that meets the minimum requirements."
+Studio.App.AutoReconnectDialog.FailureReason.NoInternetConnection,,,"Unable to reach network, no internet connection.","Unable to reach network, no internet connection."
+Studio.App.BetaFeatures.HapticEffectDescription,,,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.
+Studio.App.FileType.GltfFiles,,,glTF Files,glTF Files
+Studio.App.GenerativeAI.ClickToSwapAssetVariation,,,Click on any variation to swap the asset.,Click on any variation to swap the asset.
+Studio.App.BetaFeatures.HapticEffectTitle,,,Haptic Effects,Haptic Effects
+Studio.App.Property.CameraMouseWheelMultiplier,,,Mouse Wheel Multiplier,Mouse Wheel Multiplier
+Studio.App.PackageService.PublishPackageError.DependenciesLimitExceeded,,,Dependent asset count exceeds %1 limit,Dependent asset count exceeds %1 limit
+Studio.App.PlaceManager.TeamTestError,,,Error loading TeamTest. Please try again later.,Error loading TeamTest. Please try again later.
+Studio.App.PropertyEnum.DontResume,,,Do not resume,Do not resume
+Studio.App.PropertyEnum.CustomEditor,,,Custom editor,Custom editor
+Studio.App.PropertyEnum.IndustryCompatible,,,Industry Compatible,Industry Compatible
+Studio.App.PropertyEnum.KeepLocal,,,Always keep local version,Always keep local version
+Studio.App.PropertyEnum.NewAPI,,,New Audio API,New Audio API
+Studio.App.PropertyEnum.KeepStudio,,,Always keep Studio version,Always keep Studio version
+Studio.App.PropertyEnum.OldAPI,,,Legacy Sound API,Legacy Sound API
+Studio.App.PropertyEnum.UserSelectedEditor,,,Custom editor,Custom editor
+Studio.App.Property.ActionOnAutoResumeSync,,,Resume conflicted sync on place open,Resume conflicted sync on place open
+Studio.App.Property.AutoUpdateEnabled,,,Automatically background download updates,Automatically background download updates
+Studio.App.Property.CameraMouseMultiplier,,,Mouse Multiplier,Mouse Multiplier
+Studio.App.Property.CameraNavigationModel,,,Navigation Model,Navigation Model
+Studio.App.Property.CameraShiftKeyMultiplier,,,Shift Key Multiplier,Shift Key Multiplier
+Studio.App.Property.CameraZoomSensitivity,,,Camera Zoom Sensitivity,Camera Zoom Sensitivity
+Studio.App.Property.CameraZoomSpeed2,,,Zoom Speed,Zoom Speed
+Studio.App.Property.CameraZoomTowardsCursorPosition,,,Zoom Towards Cursor Position,Zoom Towards Cursor Position
+Studio.App.Property.EnableStudioStreaming,,,Enable Studio Streaming,Enable Studio Streaming
+Studio.App.Property.InsertObjectWidgetUIInstancePolicySelection,,,UI Instance defaults,UI Instance defaults
+Studio.App.Property.OpenDestinationAfterPublishAs,,,Open Destination After Publish As,Open Destination After Publish As
+Studio.App.Property.PluginHangDetectionEnabled,,,Enable Plugin Hang Detection,Enable Plugin Hang Detection
+Studio.App.Property.PreferredTextSize,,,Preferred Text Size,Preferred Text Size
+Studio.App.Property.StreamingMaxRadius,,,Maximum Radius for Streaming,Maximum Radius for Streaming
+Studio.App.Property.StreamingMinRadius,,,Minimum Radius for Streaming,Minimum Radius for Streaming
+Studio.App.Property.ToolboxAudioInsertionMode,,,Toolbox Audio Insertion Mode,Toolbox Audio Insertion Mode
+Studio.App.RBXMainWindow.ExportAsGltf,,,Export as glTF,Export as glTF
+Studio.App.RBXMainWindow.ExportAsGltfElps,,,Export as glTF...,Export as glTF...
+Studio.App.RBXMainWindow.ViewBack,,,View Back,View Back
+Studio.App.RBXMainWindow.ViewBottom,,,View Bottom,View Bottom
+Studio.App.RBXMainWindow.ViewFront,,,View Front,View Front
+Studio.App.RBXMainWindow.ViewLeft,,,View Left,View Left
+Studio.App.RBXMainWindow.ViewRight,,,View Right,View Right
+Studio.App.RBXMainWindow.ViewTop,,,View Top,View Top
+Studio.App.RobloxChatWidget.ChattingWith,,,Chatting with %1,Chatting with %1
+Studio.App.RobloxChatWidget.ChatOptions,,,Chat Options,Chat Options
+Studio.App.RobloxChatWidget.ConnectingToChatElps,,,Connecting to chat...,Connecting to chat...
+Studio.App.RobloxChatWidget.ContentModerated,,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
+Studio.App.RobloxChatWidget.DeprecatingSoon,,,Team Chat is deprecated and will be removed in January 2025.,Team Chat is deprecated and will be removed in January 2025.
+Studio.App.RobloxChatWidget.DeprecatingSoon2,,,"Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>"
+Studio.App.RobloxChatWidget.DisabledChatMessage,,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
+Studio.App.RobloxChatWidget.FailedSendAMessage,,,Failed to send message:,Failed to send message:
+Studio.App.RobloxChatWidget.NotFriendErrorMessage,,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
+Studio.App.RobloxRibbonMainWindow.AnimationGraphEditor,,,Graph Editor,Graph Editor
+Studio.App.RobloxChatWidget.SendAMessage,,,Send a message,Send a message
+Studio.App.RobloxRibbonMainWindow.AvatarSettings,,,Avatar Settings,Avatar Settings
+Studio.App.RobloxRibbonMainWindow.AnimationGraphEditorTooltip,,,"Create, preview and publish animation graphs","Create, preview and publish animation graphs"
+Studio.App.RobloxRibbonMainWindow.Bone,,,Bone,Bone
+Studio.App.RobloxRibbonMainWindow.DynamicHeadQA,,,Dynamic Head QA,Dynamic Head QA
+Studio.App.RobloxRibbonMainWindow.DynamicHeadQATooltip,,,Internal tool for QAing Dynamic Head Assets,Internal tool for QAing Dynamic Head Assets
+Studio.App.RobloxRibbonMainWindow.InsertBone,,,Insert bone,Insert bone
+Studio.App.RobloxRibbonMainWindow.Streaming,,,Streaming,Streaming
+Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPTUPDATED,,,Explain,Explain
+Studio.App.SettingsCategory.StudioScriptSync,,,Script Sync,Script Sync
+Studio.App.SettingsCategory.StudioStreaming,,,Streaming,Streaming
+Studio.App.AnimationFromTextCreatorStudioService.NoFolderSelected,,,No folder selected,No folder selected
+Studio.App.AnimationFromTextCreatorStudioService.SelectOutputFolder,,,Select output folder,Select output folder
+Studio.App.PackageService.PublishPackageError.ModelVersionWithAnotherCreatorsAssets,,,User cannot include the following assets since they were not created by the user nor open use: %1,User cannot include the following assets since they were not created by the user nor open use: %1
+Studio.App.PackageService.PublishPackageError.AdditionalDependentAssetIds,,,and %1 more.,and %1 more.
+Studio.App.PackageService.PublishPackageError.NoPermissionForAllDependentAssets,,,User does not have permission to include all dependent assets when creating this asset: %1,User does not have permission to include all dependent assets when creating this asset: %1
+Studio.App.PropertyItems.ImportAsNewAsset,,,Import as new asset,Import as new asset
+Studio.App.PropertyItems.ImportAsVersion,,,Import as version,Import as version
+Studio.App.Property.CameraMovementSmoothing,,,Smooth Keyboard Camera Movement,Smooth Keyboard Camera Movement
+Studio.App.Property.CameraMovementSmoothingTooltip,,,"When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?","When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?"
+Studio.App.Property.CameraRotateShiftFactor,,,Rotational Shift Key Multiplier,Rotational Shift Key Multiplier
+Studio.App.Property.CameraRotateShiftFactorTooltip,,,Optionally change the speed at which the camera rotates by a custom scale factor. Applies to rotation thanks to mouse input.,Optionally change the speed at which the camera rotates by a custom scale factor. Applies to rotation thanks to mouse input.
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -6423,6 +6504,27 @@ Studio.GameSettings.CreatorHub.MonetizationLocation,,,Monetization > Developer P
 Studio.GameSettings.CreatorHub.EngagementLocation,,,Engagement > Badges,Engagement > Badges
 Studio.GameSettings.CreatorHub.Engagement,,,Create and manage badges.,Create and manage badges.
 Studio.GameSettings.CreatorHub.LocalizationLocation,,,Audience > Localization,Audience > Localization
+Studio.GameSettings.General.GenreManageMessage2,,,[link] to manage.,[link] to manage.
+Studio.GameSettings.Monetization.RewardedAdsSuspendedSubtextLink,,,Submit an appeal here.,Submit an appeal here.
+Studio.GameSettings.General.GenreManageButton,,,Manage Genre,Manage Genre
+Studio.GameSettings.General.GenreManageHelperText2,,,View and update your experience’s genre in Creator Hub.,View and update your experience’s genre in Creator Hub.
+Studio.GameSettings.General.GenreManageHelperText,,,Manage your experience’s genre in Creator Hub.,Manage your experience’s genre in Creator Hub.
+Studio.GameSettings.General.GenreManageButton2,,,Manage,Manage
+Studio.GameSettings.Monetization.RewardedAdsSubtext,,,"After enabling this feature, implement the APIs to allow clients to serve ad inventory.","After enabling this feature, implement the APIs to allow clients to serve ad inventory."
+Studio.GameSettings.General.AudioApiByDefault,,,The system that Studio will use by default when inserting audio instances.,The system that Studio will use by default when inserting audio instances.
+Studio.GameSettings.General.GenreManageMessage3,,,[link] to manage in Creator Hub.,[link] to manage in Creator Hub.
+Studio.GameSettings.General.MovedToAvatarSettingsPanel,,,"Avatar tab has moved!
+Check out the new Avatar Settings feature under Avatar in the Ribbon","Avatar tab has moved!
+Check out the new Avatar Settings feature under Avatar in the Ribbon"
+Studio.GameSettings.General.TitleAudioApiByDefault,,,Default API for Audio Insertion,Default API for Audio Insertion
+Studio.GameSettings.General.GenreManageMessage,,,[link] to manage your experience’s genre.,[link] to manage your experience’s genre.
+Studio.GameSettings.Monetization.RewardedAdsIneligibleSubtext,,,This setting is disabled because your experience doesn't meet eligibility requirements.,This setting is disabled because your experience doesn't meet eligibility requirements.
+Studio.GameSettings.General.TitleSubgenre,,,Subgenre,Subgenre
+Studio.GameSettings.Monetization.RewardedAdsIneligibleSubtextLink,,,Review requirements here.,Review requirements here.
+Studio.GameSettings.Monetization.RewardedAdsLostEligibilitySubtext,,,This setting is disabled because your experience doesn't meet eligibility requirements.,This setting is disabled because your experience doesn't meet eligibility requirements.
+Studio.GameSettings.Monetization.RewardedAdsLostEligibilitySubtextLink,,,Review requirements here.,Review requirements here.
+Studio.GameSettings.Monetization.RewardedAdsSuspendedSubtext,,,This setting is disabled because your experience got moderated.,This setting is disabled because your experience got moderated.
+Studio.GameSettings.Monetization.RewardedAdsTitle,,,Enable Rewarded Video Ads,Enable Rewarded Video Ads
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8243,6 +8345,12 @@ Studio.Toolbox.HomeView.recently_updated_essentials,,,Discover Something New,Dis
 Studio.Toolbox.HomView.hidden_gems,,,Discover Something New,Discover Something New
 Studio.Toolbox.HomeView.new_and_upcoming,,,Discover Something New,Discover Something New
 Studio.Toolbox.HomeView.hidden_gems,,,Discover Something New,Discover Something New
+Studio.Toolbox.AssetConfigUpload.DependenciesLimitExceeded,,,Dependent asset count exceeds {countLimit} limit,Dependent asset count exceeds {countLimit} limit
+Studio.Toolbox.AssetConfigUpload.ModelVersionWithAnotherCreatorsAssets,,,User cannot include the following assets since they were not created by the user nor open use: {assetIds},User cannot include the following assets since they were not created by the user nor open use: {assetIds}
+Studio.Toolbox.AAC.AssetDependencyGrantEventTimeoutWarning,,,Dependency grants timed out after {timeoutSeconds:int} seconds for asset {assetId:int}; continuing with insertion.,Dependency grants timed out after {timeoutSeconds:int} seconds for asset {assetId:int}; continuing with insertion.
+Studio.Toolbox.AssetConfigUpload.AdditionalDependentAssetIds,,,and {assetIdsCount} more.,and {assetIdsCount} more.
+Studio.Toolbox.AssetConfigUpload.ModelVersionDependentAssetsNotOpenUse,,,All dependent assets must be open use for this asset: {assetIds},All dependent assets must be open use for this asset: {assetIds}
+Studio.Toolbox.AssetConfigUpload.NoPermissionForAllDependentAssets,,,User does not have permission to include all dependent assets when creating this asset: {assetIds},User does not have permission to include all dependent assets when creating this asset: {assetIds}
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -8338,6 +8446,7 @@ Studio.Common.Input.NumberErrorBetween,,,Please enter a number between {minRange
 Studio.Common.Input.NumberErrorBelow,,,Please enter a number up to {maxRange:int}.,Please enter a number up to {maxRange:int}.
 Studio.Common.Input.NumberErrorAbove,,,Please enter a number that is at least {minRange:int}.,Please enter a number that is at least {minRange:int}.
 Studio.Common.Action.AvatarSettings,,,Avatar Settings,Avatar Settings
+Studio.Common.Action.DynamicHeadQA,,,Dynamic Head QA,Dynamic Head QA
 Studio.TerrainToolsV2.Action.Apply,,,Apply,Apply
 Studio.TerrainToolsV2.Action.Back,,,Back,Back
 Studio.TerrainToolsV2.Action.Cancel,,,Cancel,Cancel
@@ -9068,6 +9177,25 @@ Studio.AnimationClipEditor.Dialog.RigType,,,Rig Type,Rig Type
 Studio.AnimationClipEditor.Dialog.RigTypeCustom,,,Custom,Custom
 Studio.AnimationClipEditor.Dialog.RigTypeCustomHumanoid,,,Custom Humanoid,Custom Humanoid
 Studio.AnimationClipEditor.Dialog.RigTypeR15,,,R15,R15
+Studio.AnimationClipEditor.Dialog.AnimationTrack,,,Animation Track,Animation Track
+Studio.AnimationClipEditor.AnimationFromText.ChooseOutputFolder,,,Output Folder,Output Folder
+Studio.AnimationClipEditor.ContextMenu.AddIkTarget,,,Add IK Target,Add IK Target
+Studio.AnimationClipEditor.ContextMenu.ClearEndEffector,,,Clear EndEffector,Clear EndEffector
+Studio.AnimationClipEditor.ContextMenu.DeleteIkTarget,,,Delete IK Target,Delete IK Target
+Studio.AnimationClipEditor.ContextMenu.SetEndEffector,,,Set EndEffector,Set EndEffector
+Studio.AnimationClipEditor.AnimationFromText.TutorialText,,,"[Choose Video] Choose a short video (15 seconds or less) containing a single person, fully in frame, with a stable, unmoving camera. [Text Prompt] Describe an action.","[Choose Video] Choose a short video (15 seconds or less) containing a single person, fully in frame, with a stable, unmoving camera. [Text Prompt] Describe an action."
+Studio.AnimationClipEditor.AnimationFromText.ConfirmText,,,Confirm Text,Confirm Text
+Studio.AnimationClipEditor.ContextMenu.SetTargetInstance,,,Set Target Instance,Set Target Instance
+Studio.AnimationClipEditor.AnimationFromText.PlaceholderText,,,"Provide a detailed text prompt describing a person’s action, then click the Confirm Text button. To change the output location, click the Output Folder button.","Provide a detailed text prompt describing a person’s action, then click the Confirm Text button. To change the output location, click the Output Folder button."
+Studio.AnimationClipEditor.Dialog.AddAlignOrientationPrompt,,,You changed the Orientation of a non-anchored part. Create an AlignOrientation constraint so you can animate with Physics torques?,You changed the Orientation of a non-anchored part. Create an AlignOrientation constraint so you can animate with Physics torques?
+Studio.AnimationClipEditor.AnimationFromText.TextPrompt,,,Text Prompt,Text Prompt
+Studio.AnimationClipEditor.Dialog.AddAlignPositionPrompt,,,You changed the Position of a non-anchored part. Create an AlignPosition constraint so you can animate with Physics forces?,You changed the Position of a non-anchored part. Create an AlignPosition constraint so you can animate with Physics forces?
+Studio.AnimationClipEditor.Dialog.SelectTarget,,,Select the target instance,Select the target instance
+Studio.AnimationClipEditor.Menu.GenerateControlRigData,,,Generate ControlRig Data,Generate ControlRig Data
+Studio.AnimationClipEditor.TextPrompt,,,Text Prompt,Text Prompt
+Studio.AnimationClipEditor.Tooltip.RecordPhysics,,,Record From Start With Physics Enabled,Record From Start With Physics Enabled
+Studio.AnimationClipEditor.Title.CreateNewRig,,,Create and Load a new rig.,Create and Load a new rig.
+Studio.AnimationClipEditor.Tooltip.ResetPhysics,,,Stop Recording Physics,Stop Recording Physics
 Studio.ConvertToPackage.Meta.PluginName,,,Convert To Package,Convert To Package
 Studio.ConvertToPackage.General.Submit,,,Submit,Submit
 Studio.ConvertToPackage.General.Comments,,,Allow Comments,Allow Comments
@@ -9089,6 +9217,12 @@ Studio.ConvertToPackage.Action.Close,,,Close,Close
 Studio.ConvertToPackage.Action.Discard,,,Discard,Discard
 Studio.ConvertToPackage.Action.Submit,,,Submit,Submit
 Studio.ConvertToPackage.Action.Converting,,,Converting,Converting
+Studio.ConvertToPackage.AssetConfigUpload.AdditionalDependentAssetIds,,,and {assetIdsCount} more.,and {assetIdsCount} more.
+Studio.ConvertToPackage.AssetConfigUpload.DependenciesLimitExceeded,,,Dependent asset count exceeds {countLimit} limit,Dependent asset count exceeds {countLimit} limit
+Studio.ConvertToPackage.AssetConfigUpload.DependenciesPermissionDenied,,,You do not have permission to include the following dependent assets: {assetIds},You do not have permission to include the following dependent assets: {assetIds}
+Studio.ConvertToPackage.AssetConfigUpload.ModelVersionDependentAssetsNotOpenUse,,,All dependent assets must be open use for this asset: {assetIds},All dependent assets must be open use for this asset: {assetIds}
+Studio.ConvertToPackage.AssetConfigUpload.NoPermissionForAllDependentAssets,,,User does not have permission to include all dependent assets when creating this asset: {assetIds},User does not have permission to include all dependent assets when creating this asset: {assetIds}
+Studio.ConvertToPackage.AssetConfigUpload.ModelVersionWithAnotherCreatorsAssets,,,User cannot include the following assets since they were not created by the user nor open use: {assetIds},User cannot include the following assets since they were not created by the user nor open use: {assetIds}
 Studio.Drafts.Meta.PluginButtonTooltip,,,View Drafts,View Drafts
 Studio.Drafts.Meta.PluginDescription,,,I'm a hover message,I'm a hover message
 Studio.Drafts.Meta.PluginName,,,Drafts,Drafts
@@ -9277,6 +9411,14 @@ Studio.PublishPlaceAs.General.SaveExperience,,,Save Experience,Save Experience
 Studio.PublishPlaceAs.General.PublishExperience,,,Publish Experience,Publish Experience
 Studio.PublishPlaceAs.General.UntitledExperience,,,Untitled Experience,Untitled Experience
 Studio.PublishPlaceAs.PrivacyType.Limited,,,Limited,Limited
+Studio.PublishPlaceAs.PublishSuccess.Done,,,Done,Done
+Studio.PublishPlaceAs.PublishSuccess.ViewOnCreatorHub,,,View on Creator Hub,View on Creator Hub
+Studio.PublishPlaceAs.PublishSuccess.PublicUnrated,,,Public (Unrated),Public (Unrated)
+Studio.PublishPlaceAs.PublishSuccess.PostPublishInfo,,,"Now use Creator Hub to add a team of creators, earn money from your experience, or translate it to other languages.","Now use Creator Hub to add a team of creators, earn money from your experience, or translate it to other languages."
+Studio.PublishPlaceAs.PublishSuccess.PostPublishInfoUnrated,,,Your experience is still unrated. Take the questionnaire to assign a content maturity label.,Your experience is still unrated. Take the questionnaire to assign a content maturity label.
+Studio.PublishPlaceAs.PublishSuccess.Private,,,Private,Private
+Studio.PublishPlaceAs.PublishSuccess.ViewQuestionnaire,,,View questionnaire,View questionnaire
+Studio.PublishPlaceAs.PublishSuccess.Public,,,Public,Public
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9617,6 +9759,9 @@ Studio.AssetManager.ContextMenu.AddToExperience,,,Add to {gameName},Add to {game
 Studio.AssetManager.Tooltip.ToggleSidebar,,,Toggle Sidebar,Toggle Sidebar
 Studio.AssetManager.FolderMove.FromSearchSuccess,,,Moved items successfully.,Moved items successfully.
 Studio.AssetManager.FolderMove.Success,,,Moved items successfully.,Moved items successfully.
+Studio.AssetManager.AssetPermission.Edit,,,Edit,Edit
+Studio.AssetManager.Toast.FindInExplorerNotFound,,,No instances found,No instances found
+Studio.AssetManager.AssetPermission.Use,,,Use,Use
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10128,6 +10273,8 @@ Studio.Debugger.BreakpointsWindow.RemoveOnHitColumn,,,Remove on Hit,Remove on Hi
 Studio.Debugger.BreakpointsWindow.RemoveOnHitColumnTooltip,,,Removes the breakpoint when it pauses execution,Removes the breakpoint when it pauses execution
 Studio.Debugger.Watch.ExpressionColumnTooltip,,,The declared name of a expression,The declared name of a expression
 Studio.Debugger.Watch.AllColumns,,,All Columns,All Columns
+Studio.Debugger.RemoteDebugger.ScriptChanged,,,The contents of this script have changed. You are viewing a newer version of the script.,The contents of this script have changed. You are viewing a newer version of the script.
+Studio.Debugger.RemoteDebugger.OtherClientDebugging,,,Another user is already debugging the Server DataModel. Server breakpoints will not be hit.,Another user is already debugging the Server DataModel. Server breakpoints will not be hit.
 Studio.UpdateNotifications.Ribbon.WhatsNewButton,,,What's New,What's New
 Studio.UpdateNotifications.Ribbon.WhatsNewTooltip,,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
 Studio.UpdateNotifications.Ribbon.UpdateAvailableButton,,,Update Available,Update Available
@@ -10517,6 +10664,14 @@ Studio.AssetImporter.Properties.PhysicalConstraintType,,,Constraint Type,Constra
 Studio.AssetImporter.EnumItem.AnimationConstraint,,,Joint Upgrade (AnimationConstraint),Joint Upgrade (AnimationConstraint)
 Studio.AssetImporter.EnumItem.Motor6D,,,Legacy (Motor6D),Legacy (Motor6D)
 Studio.AssetImporter.HttpError.Unknown,,,Unknown error occurred. Please verify if upload succeeded.,Unknown error occurred. Please verify if upload succeeded.
+Studio.AssetImporter.Buttons.DontShowAgain,,,Don't show again,Don't show again
+Studio.AssetImporter.Buttons.Dismiss,,,Dismiss,Dismiss
+Studio.AssetImporter.ReimportCallout.Body,,,"Try our latest feature Reimport for faster, one-click updates.","Try our latest feature Reimport for faster, one-click updates."
+Studio.AssetImporter.ReimportCallout.Header,,,Have you imported this before?,Have you imported this before?
+Studio.AssetImporter.Buttons.No,,,No,No
+Studio.AssetImporter.Buttons.LearnMore,,,Learn More,Learn More
+Studio.AssetImporter.Buttons.Yes,,,Yes,Yes
+Studio.AssetImporter.Buttons.Ok,,,Ok,Ok
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -11130,6 +11285,10 @@ Studio.DeviceEmulator.EmulatorMainWidget.IPadProM411Inch,,,iPad Pro M4 (11in),iP
 Studio.DeviceEmulator.EmulatorMainWidget.IPadProM513Inch,,,iPad Pro M5 (13in),iPad Pro M5 (13in)
 Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabA9Plus,,,Samsung Galaxy Tab A9+,Samsung Galaxy Tab A9+
 Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabS11,,,Samsung Galaxy Tab S11,Samsung Galaxy Tab S11
+Studio.DeviceEmulator.Shortcut.EnableMultitouch,,,Enable Multi-touch,Enable Multi-touch
+Studio.DeviceEmulator.Shortcut.EnableMultitouchDescription,,,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator
+Studio.DeviceEmulator.Shortcut.EnableMultitouchPanningDescription,,,Hold to simulate two-finger panning in Device Emulator,Hold to simulate two-finger panning in Device Emulator
+Studio.DeviceEmulator.Shortcut.EnableMultitouchPanning,,,Enable Multi-touch Panning,Enable Multi-touch Panning
 Studio.R15Migrator.Plugin.Name,,,R6 to R15 Conversion Tool,R6 to R15 Conversion Tool
 Studio.R15Migrator.Plugin.Toolbar,,,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Button,,,Migrate Avatars,Migrate Avatars
@@ -11576,6 +11735,7 @@ Studio.StyleEditor.Label.PropertyNameErrorConflictsWithProperty,,,Property confl
 Studio.StyleEditor.Label.ValueErrorIncorrectType,,,Error: Incorrect value type for property,Error: Incorrect value type for property
 Studio.StyleEditor.ContextMenu.New.Query.Builtin,,,Builtin,Builtin
 Studio.StyleEditor.ContextMenu.New.Query.Custom,,,Custom,Custom
+Studio.StyleEditor.Table.ConditionNamePlaceholder,,,Add a Condition...,Add a Condition...
 Studio.AudioDiscovery.Plugin.Name,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Toolbar,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Button,,,View Sounds,View Sounds
@@ -11792,6 +11952,13 @@ Studio.RobloxPropertiesWidget.AddConditionPopup.NoConditionsCreated,,,No Conditi
 Studio.RobloxPropertiesWidget.AddConditionPopup.LineEditText,,,Search for a condition,Search for a condition
 Studio.RobloxPropertiesWidget.Category.IndividualCorners,,,Individual Corners,Individual Corners
 Studio.RobloxPropertiesWidget.WorkspaceAuthorityModeDepProperty,,,This property is required given your Server Authority settings.,This property is required given your Server Authority settings.
+Studio.RobloxPropertiesWidget.Category.Makeup,,,Makeup,Makeup
+Studio.RobloxPropertiesWidget.Category.CompositeDirections,,,Composite Directions,Composite Directions
+Studio.RobloxPropertiesWidget.Category.AutoPlayInEditMode,,,AutoPlayInEditMode,AutoPlayInEditMode
+Studio.RobloxPropertiesWidget.Category.Haptic,,,Haptic,Haptic
+Studio.RobloxPropertiesWidget.Category.Updates,,,Updates,Updates
+Studio.RobloxPropertiesWidget.Category.Behaviors,,,Behaviors,Behaviors
+Studio.RobloxPropertiesWidget.Category.Skin,,,Skin,Skin
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -12543,6 +12710,9 @@ Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Rigid,,,Rigid,Rigid
 Studio.AvatarCompatibilityPreviewer.Categories.body_face,,,Body,Body
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TooltipItemCreatorMismatch,,,The creator of this item needs to match the creator of the makeup look,The creator of this item needs to match the creator of the makeup look
 Studio.AvatarCompatibilityPreviewer.CatalogItemButton.CopyAssetId,,,Copy Asset ID,Copy Asset ID
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.RigidAccessoryOnlyTitle,,,Rigid accessory only detected,Rigid accessory only detected
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.RigidAccessoryOnlyDescription,,,Avatar Setup will set up your provided input as a rigid accessory,Avatar Setup will set up your provided input as a rigid accessory
+Studio.AvatarCompatibilityPreviewer.ProgressBar.DecalToDynamicHead,,,Processing face as a 2D decal,Processing face as a 2D decal
 Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_382537569,,,Black Jeans,Black Jeans
 Studio.AvatarCompatibilityPreviewer.SelectScreen.AddAssetID,,,Add AssetID,Add AssetID
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.ClassicShirts,,,Classic Shirts,Classic Shirts
@@ -12576,7 +12746,146 @@ Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_129458426,,,Jeans,Je
 Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_129459077,,,Black Slacks,Black Slacks
 Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_7231091126,,,Lime Boxing Shorts - KSI,Lime Boxing Shorts - KSI
 Studio.AvatarCompatibilityPreviewer.Stages.Back,,,Back,Back
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonBackToChat,,,Back to chat,Back to chat
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonRegenerate,,,Retry,Retry
+Studio.AvatarCompatibilityPreviewer.SelectScreen.AvatarCreationTitle,,,Avatar Creation & Setup,Avatar Creation & Setup
+Studio.AvatarCompatibilityPreviewer.SelectScreen.AvatarCreationDescription,,,Generate or set up Avatar assets. [LearnMore] about Avatar asset types.,Generate or set up Avatar assets. [LearnMore] about Avatar asset types.
+Studio.AvatarCompatibilityPreviewer.SelectScreen.GenerateAvatarButton,,,Generate Avatar (BETA),Generate Avatar (BETA)
+Studio.AvatarCompatibilityPreviewer.SelectScreen.Import,,,Import,Import
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.Title,,,Avatar Creation,Avatar Creation
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.EmptyHint,,,Describe the avatar you want to create. You can refine the image with follow-up prompts.,Describe the avatar you want to create. You can refine the image with follow-up prompts.
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.InputPlaceholder,,,Describe the avatar or refinement...,Describe the avatar or refinement...
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.InputPlaceholderGenerating,,,Generating...,Generating...
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ProgressTitle,,,Generating avatar,Generating avatar
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ProgressFailed,,,Avatar creation failed.,Avatar creation failed.
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StatusGenerating,,,Generating,Generating
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StatusCancelled,,,Cancelled generation,Cancelled generation
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StatusFailed,,,Generation failed.,Generation failed.
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonUse,,,Generate 3D,Generate 3D
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonBranch,,,Branch,Branch
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonCancel,,,Cancel,Cancel
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonClose,,,Close,Close
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.AvatarLookOwnershipRequired,,,You must have at least one asset created by you or your group.,You must have at least one asset created by you or your group.
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.HeaderComplete,,,Design ready,Design ready
+Studio.AvatarCompatibilityPreviewer.SortClothingTable.AvatarExplanationDescription,,,Your asset will be used as a reference for setting up other content in your session,Your asset will be used as a reference for setting up other content in your session
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_3963483107,,,Summer - Right Leg,Summer - Right Leg
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.ClothingOnlyWithCageDescription,,,Avatar Setup will use your provided cage to set up clothing,Avatar Setup will use your provided cage to set up clothing
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_11715257112,,,Andi - Left Arm,Andi - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_3963479563,,,Summer - Left Leg,Summer - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_13490415688,,,Piper - Head,Piper - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_117733298730179,,,Bombastic Bonnie - RightArm,Bombastic Bonnie - RightArm
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.CustomBodyRigDetectedPartitionsTitle,,,Non-R15 rig and partitions detected,Non-R15 rig and partitions detected
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_2739553403,,,Nick Bass - Left Arm,Nick Bass - Left Arm
+Studio.AvatarCompatibilityPreviewer.SortClothingTable.BodyExplanationTitle,,,Humanoid detected,Humanoid detected
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_3963476651,,,Summer - Left Arm,Summer - Left Arm
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.FaceDetectedPartitionsTitle,,,Body parts and face rig detected,Body parts and face rig detected
+Studio.AvatarCompatibilityPreviewer.SortClothingTable.Automatic,,,Automatic,Automatic
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_7198455404,,,Felix the Fishman - Right Arm,Felix the Fishman - Right Arm
+Studio.AvatarCompatibilityPreviewer.AssetClassification.SelectLessBodiesHint,,,Use only one body model per session,Use only one body model per session
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.LipMakeup,,,Lips,Lips
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Eyes,,,Eyes,Eyes
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_133986177057036,,,Mannequin - Left Arm,Mannequin - Left Arm
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.FaceMakeup,,,Face,Face
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.EyeMakeup,,,Eyes,Eyes
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Lips,,,Lips,Lips
+Studio.AvatarCompatibilityPreviewer.AssetType.EyeMakeup,,,Eye Makeup,Eye Makeup
+Studio.AvatarCompatibilityPreviewer.AssetPalettes.Makeup,,,Makeup,Makeup
+Studio.AvatarCompatibilityPreviewer.AssetType.FaceMakeup,,,Face Makeup,Face Makeup
+Studio.AvatarCompatibilityPreviewer.AssetType.LipMakeup,,,Lip Makeup,Lip Makeup
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.CustomBodyRigDetectedPartitionsDescription,,,Avatar Setup will keep your provided partitions and replace your body rig,Avatar Setup will keep your provided partitions and replace your body rig
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.FaceDetectedHeadDescription,,,Avatar Setup will keep your provided face rig and head part,Avatar Setup will keep your provided face rig and head part
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.ClothingOnlyWithCageTitle,,,Inner cage detected,Inner cage detected
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.FaceDetectedHeadTitle,,,Face rig and head part detected,Face rig and head part detected
+Studio.AvatarCompatibilityPreviewer.SortClothingTable.Content,,,Content,Content
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.FaceDetectedPartitionsDescription,,,Avatar Setup will keep your provided body parts and face rig,Avatar Setup will keep your provided body parts and face rig
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.FaceR15BodyRigDetectedPartitionsDescription,,,Avatar Setup will keep your provided body parts and rigs,Avatar Setup will keep your provided body parts and rigs
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.MeshOnlyPartitionsTitle,,,Partitions detected,Partitions detected
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.MeshOnlyPartitionsDescription,,,Avatar Setup will keep your provided partitions,Avatar Setup will keep your provided partitions
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.FaceR15BodyRigDetectedPartitionsTitle,,,"Body parts, body rig and face rig detected","Body parts, body rig and face rig detected"
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.R15BodyRigDetectedPartitionsDescription,,,Avatar Setup will keep your provided body parts and body rig,Avatar Setup will keep your provided body parts and body rig
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_7198456660,,,Felix the Fishman - Right Leg,Felix the Fishman - Right Leg
+Studio.AvatarCompatibilityPreviewer.AutoSetupAlert.R15BodyRigDetectedPartitionsTitle,,,Body parts and body rig detected,Body parts and body rig detected
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.DecalToDynamicHead,,,Handle face as 2D decal,Handle face as 2D decal
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.DecalToDynamicHeadDescription,,,Assume face is a 2D decal and set it up as a dynamic head,Assume face is a 2D decal and set it up as a dynamic head
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.DecalToDynamicHeadTitle,,,Handle face as 2D decal,Handle face as 2D decal
+Studio.AvatarCompatibilityPreviewer.Categories.makeup,,,Makeup,Makeup
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_10725826963,,,Man Face - Head,Man Face - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_108140862598253,,,Nick Bass - Head,Nick Bass - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11254193498,,,Rock Golem - Head,Rock Golem - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11702291006,,,Addison - Head,Addison - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11317454381,,,Felix the Fishman - Head,Felix the Fishman - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11163789916,,,The Winning Smile - Head,The Winning Smile - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11714044513,,,Rene - Head,Rene - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11715265417,,,Andi - Head,Andi - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_83377686242799,,,Bombastic Bonnie - LeftArm,Bombastic Bonnie - LeftArm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_11740063830,,,Jordan - Head,Jordan - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_12724232885,,,Junkbot - Head,Junkbot - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_12853000475,,,Summer - Head,Summer - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_13479925381,,,Easton - Head,Easton - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_13820744684,,,Anime Surprise - Head,Anime Surprise - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_13682084865,,,Award Winning Smile - Head,Award Winning Smile - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_139835947319060,,,Bombastic Bonnie - Head,Bombastic Bonnie - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_11702279057,,,Addison - Left Arm,Addison - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.HeadBodyPart_72510165520892,,,Mannequin - Head,Mannequin - Head
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_11584239464,,,Anime Style 2 - Right Leg,Anime Style 2 - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_11584231502,,,Anime Style 2 - Left Arm,Anime Style 2 - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_11714033534,,,Rene - Left Arm,Rene - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_13479913091,,,Easton - Left Arm,Easton - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_13479919352,,,Easton - Right Arm,Easton - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_13490404457,,,Piper - Left Arm,Piper - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_4381815211,,,Junkbot - Left Arm,Junkbot - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_7198453654,,,Felix the Fishman - Left Arm,Felix the Fishman - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftArm_7200828041,,,Rock Golem - Left Arm,Rock Golem - Left Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_11584235843,,,Anime Style 2 - Left Leg,Anime Style 2 - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_11702282072,,,Addison - Left Leg,Addison - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_11714035598,,,Rene - Left Leg,Rene - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_11715258659,,,Andi - Left Leg,Andi - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_13490406444,,,Piper - Left Leg,Piper - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_13479916783,,,Easton - Left Leg,Easton - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_2739765336,,,Nick Bass - Left Leg,Nick Bass - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_7198454372,,,Felix the Fishman - Left Leg,Felix the Fishman - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_4381817635,,,Junkbot - Left Leg,Junkbot - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_7200828755,,,Rock Golem - Left Leg,Rock Golem - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_76021575176814,,,Bombastic Bonnie - LeftLeg,Bombastic Bonnie - LeftLeg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.LeftLeg_78536356632840,,,Mannequin - Left Leg,Mannequin - Left Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_11584238141,,,Anime Style 2 - Right Arm,Anime Style 2 - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_101158810738872,,,Mannequin - Right Arm,Mannequin - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_11702284438,,,Addison - Right Arm,Addison - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_11714037276,,,Rene - Right Arm,Rene - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_11715260558,,,Andi - Right Arm,Andi - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_13490409014,,,Piper - Right Arm,Piper - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_2739555394,,,Nick Bass - Right Arm,Nick Bass - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_4381819685,,,Junkbot - Right Arm,Junkbot - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_3963481369,,,Summer - Right Arm,Summer - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_11584241181,,,Anime Style 2 - Torso,Anime Style 2 - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_11702286099,,,Addison - Right Leg,Addison - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightArm_7200829517,,,Rock Golem - Right Arm,Rock Golem - Right Arm
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_11714039415,,,Rene - Right Leg,Rene - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_129290873866258,,,Mannequin - Right Leg,Mannequin - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_11715262273,,,Andi - Right Leg,Andi - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_13479921373,,,Easton - Right Leg,Easton - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_13490411021,,,Piper - Right Leg,Piper - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_139704754106917,,,Bombastic Bonnie - RightLeg,Bombastic Bonnie - RightLeg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_2739556467,,,Nick Bass - Right Leg,Nick Bass - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_4381821661,,,Junkbot - Right Leg,Junkbot - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_113518345769072,,,Bombastic Bonnie - Torso,Bombastic Bonnie - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.RightLeg_7200830218,,,Rock Golem - Right Leg,Rock Golem - Right Leg
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_116488623753864,,,Mannequin - Torso,Mannequin - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_11702287641,,,Addison - Torso,Addison - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_11714041015,,,Rene - Torso,Rene - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_13490413139,,,Piper - Torso,Piper - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_11715264057,,,Andi - Torso,Andi - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_13479923313,,,Easton - Torso,Easton - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_2739557383,,,Nick Bass - Torso,Nick Bass - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_3963485362,,,Summer - Torso,Summer - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_4381823417,,,Junkbot - Torso,Junkbot - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_7198457558,,,Felix the Fishman - Torso,Felix the Fishman - Torso
+Studio.AvatarCompatibilityPreviewer.ItemNames2.Torso_7200830734,,,Rock Golem - Torso,Rock Golem - Torso
+Studio.AvatarCompatibilityPreviewer.SelectScreen.SelectInstructions,,,Group meshes as one model per avatar asset.,Group meshes as one model per avatar asset.
+Studio.AvatarCompatibilityPreviewer.ToggleBar.ConfigureParts,,,Configure Parts,Configure Parts
+Studio.AvatarCompatibilityPreviewer.SortClothingTable.EyeLayered,,,Eye Layered,Eye Layered
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddMultipleIdsHint,,,Add multiple IDs by separating with commas or spaces.,Add multiple IDs by separating with commas or spaces.
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.OffSale,,,Off Sale,Off Sale
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -12651,6 +12960,18 @@ Studio.CompositorDebugger.CompositorMenu.Graph,,,Graph,Graph
 Studio.CompositorDebugger.CompositorMenu.SaveToRoblox,,,Save to Roblox,Save to Roblox
 Studio.CompositorDebugger.CompositorMenu.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...
 Studio.CompositorDebugger.CompositorMenu.OpenPopup,,,Open...,Open...
+Studio.CompositorDebugger.MaskEditorPopup.Title,,,Mask Editor Popup,Mask Editor Popup
+Studio.CompositorDebugger.MaskConfiguration.Rig,,,Rig,Rig
+Studio.CompositorDebugger.MaskConfiguration.Custom,,,Custom,Custom
+Studio.CompositorDebugger.MaskConfiguration.HRD,,,Humanoid Rig Description,Humanoid Rig Description
+Studio.CompositorDebugger.MaskConfiguration.Name,,,Name,Name
+Studio.CompositorDebugger.MaskConfiguration.PickRig,,,Pick Rig...,Pick Rig...
+Studio.CompositorDebugger.MaskConfiguration.NoRigSelected,,,No Rig Selected,No Rig Selected
+Studio.CompositorDebugger.MaskEditorPopup.Masks,,,Masks,Masks
+Studio.CompositorDebugger.MaskConfiguration.RigType,,,Rig Type,Rig Type
+Studio.CompositorDebugger.MaskEditorPopup.Joint,,,Joint,Joint
+Studio.CompositorDebugger.MaskProperty.CreateNewMask,,,Create New Mask…,Create New Mask…
+Studio.CompositorDebugger.MaskEditorPopup.Weight,,,Weight,Weight
 Studio.Tutorials.Plugin.Name,,,Tutorials,Tutorials
 Studio.Tutorials.Plugin.Button,,,Toggle,Toggle
 Studio.Tutorials.Plugin.Description,,,Toggles the Template plugin window.,Toggles the Template plugin window.
@@ -13010,6 +13331,7 @@ Studio.ActivityFeed.Description.DraftCommitOneMoreScript,,,1 more script,1 more 
 Studio.ActivityFeed.Description.RobloxModerationRejection,,,Ratings rejected,Ratings rejected
 Studio.ActivityFeed.Description.EscapeHatchSaveCopyToCloud,,,"Saved a copy of ""{oldName}"" as ""{newName}""","Saved a copy of ""{oldName}"" as ""{newName}"""
 Studio.ActivityFeed.Description.ActionFriendsTitle,,,Friends Only,Friends Only
+Studio.ActivityFeed.Description.More,,,more,more
 Studio.StreamingServiceDispatcherRegistry.CreateMaterial.FailedToCreateMaterialTextFilteredError,,,Your prompt is filtered and cannot be generated. Try a different prompt.,Your prompt is filtered and cannot be generated. Try a different prompt.
 Studio.StreamingServiceDispatcherRegistry.Plugin.Name,,,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
 Studio.StreamingServiceDispatcherRegistry.Plugin.Toolbar,,,StreamingServiceDispatcherRegistry,StreamingServiceDispatcherRegistry
@@ -13172,6 +13494,13 @@ Studio.Actions.Title.SLIM,,,SLIM,SLIM
 Studio.Actions.Tooltip.SLIM,,,Toggle the visuals of models that are SLIM,Toggle the visuals of models that are SLIM
 Studio.Actions.Title.SceneAnalysis,,,Scene Analysis,Scene Analysis
 Studio.Actions.Tooltip.SceneAnalysis,,,"Analyze scene composition, memory usage, and rendering information","Analyze scene composition, memory usage, and rendering information"
+Studio.Actions.Title.AudioPlayerEditor,,,AudioPlayerEditor,AudioPlayerEditor
+Studio.Actions.Title.CopyUniqueId,,,Copy Unique ID,Copy Unique ID
+Studio.Actions.Submenu.CopyAs,,,Copy As,Copy As
+Studio.Actions.Tooltip.CopyPath,,,Copy the paths of instances in the selection,Copy the paths of instances in the selection
+Studio.Actions.Tooltip.CopyUniqueId,,,Copy the unique IDs of instances in the selection,Copy the unique IDs of instances in the selection
+Studio.Actions.Title.CopyPath,,,Copy Path,Copy Path
+Studio.Actions.Tooltip.AudioPlayerEditor,,,AudioPlayerEditor,AudioPlayerEditor
 Studio.PathEditor.Plugin.Name,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Toolbar,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Button,,,Toggle,Toggle
@@ -13360,6 +13689,26 @@ Studio.Ribbon.Action.PreparingUpdate,,,Preparing update,Preparing update
 Studio.Ribbon.Action.RestartToUpdate,,,Restart to update,Restart to update
 Studio.Ribbon.Tooltip.UpdateInProgressTitle,,,Downloading update in the background,Downloading update in the background
 Studio.Ribbon.Tooltip.UpdateFailedTitle,,,The background download failed,The background download failed
+Studio.Ribbon.Plugin.Setting_InsertEffect,,,Effects,Effects
+Studio.Ribbon.Action.ViewReleaseNotes,,,View release notes,View release notes
+Studio.Ribbon.Title.UpdateReady,,,Restart now to get a new version of Studio,Restart now to get a new version of Studio
+Studio.Ribbon.Plugin.Tooltip_InsertEffect,,,Insert Audio instances that apply an effect on audio streams.,Insert Audio instances that apply an effect on audio streams.
+Studio.Ribbon.Action.Continue,,,Continue,Continue
+Studio.Ribbon.Plugin.Tooltip_InsertSpatial,,,Insert Audio instance which interact spatially with the 3D environment.,Insert Audio instance which interact spatially with the 3D environment.
+Studio.Ribbon.Plugin.Setting_InsertSpatial,,,Spatial,Spatial
+Studio.Ribbon.Plugin.Tooltip_InsertInOut,,,Insert Audio instances which act as inputs or outputs.,Insert Audio instances which act as inputs or outputs.
+Studio.Ribbon.Plugin.UpdateReady,,,Update Ready,Update Ready
+Studio.Ribbon.Action.ToggleUpdateStatusPanel,,,Get Studio update,Get Studio update
+Studio.Ribbon.Action.CancelUpdate,,,Cancel update,Cancel update
+Studio.Ribbon.Action.UpdateInProgress,,,Downloading update,Downloading update
+Studio.Ribbon.Dialog.ClosingStudio,,,Closing all open places,Closing all open places
+Studio.Ribbon.Plugin.Setting_InsertInOut,,,In/Out,In/Out
+Studio.Ribbon.Plugin.UpdateAvailable,,,Update Available,Update Available
+Studio.Ribbon.Plugin.UpdateInProgress,,,Updating...,Updating...
+Studio.Ribbon.Plugin.UpdateFailed,,,Update Failed,Update Failed
+Studio.Ribbon.Title.UpdateAvailable,,,Download the new version of Studio,Download the new version of Studio
+Studio.Ribbon.Title.UpdateInProgress,,,Downloading update in the background,Downloading update in the background
+Studio.Ribbon.Title.UpdateFailed,,,The background download failed. Want to try again?,The background download failed. Want to try again?
 Studio.VisualizationModes.Plugin.Name,,,Visualization Modes,Visualization Modes
 Studio.VisualizationModes.Plugin.Text,,,Hello World,Hello World
 Studio.VisualizationModes.Plugin.Button,,,Visualization Modes,Visualization Modes
@@ -13466,6 +13815,20 @@ Studio.VisualizationModes.StudioModes.SLIM,,,SLIM,SLIM
 Studio.VisualizationModes.StudioModes.SLIMToolTip,,,Show the visuals of models that are SLIM,Show the visuals of models that are SLIM
 Studio.VisualizationModes.ShowAnimationSkeletonAxesToolTip,,,-,-
 Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonRotationsToolTip,,,Show rotation arcs as axis-angle in the 3D view,Show rotation arcs as axis-angle in the 3D view
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonRotations,,,Show rotations,Show rotations
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonAxes,,,Show axes,Show axes
+Studio.VisualizationModes.StudioModes.AnimationSkeletonScale,,,Scale,Scale
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonToolTip,,,Toggle skeleton visualization,Toggle skeleton visualization
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonAttachments,,,Show attachments,Show attachments
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeleton,,,Show skeleton,Show skeleton
+Studio.VisualizationModes.StudioModes.AnimationSkeletonTransparency,,,Transparency,Transparency
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonAttachmentsToolTip,,,Show attachments in the 3D view,Show attachments in the 3D view
+Studio.VisualizationModes.StudioModes.AnimationSkeletonTransparencyToolTip,,,Adjust the transparency of animation visuals,Adjust the transparency of animation visuals
+Studio.VisualizationModes.StudioModes.AnimationSkeletonScaleToolTip,,,Adjust the scale of animation visuals,Adjust the scale of animation visuals
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonAxesToolTip,,,Show axes in the 3D view,Show axes in the 3D view
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonTextToolTip,,,Show text labels in the 3D view,Show text labels in the 3D view
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonText,,,Show text,Show text
+Studio.VisualizationModes.VisualizationModeCategories.Animation,,,Animation,Animation
 Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...
 Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.
@@ -13719,6 +14082,7 @@ Studio.ControlsEmulator.VRControls.TranslationSensitivityLabel,,,Translation sen
 Studio.ControlsEmulator.VRControls.TooltipInfoLabel,,,i,i
 Studio.ControlsEmulator.VRControls.ResetAllLabel,,,Reset Positions,Reset Positions
 Studio.ControlsEmulator.DeviceDropdown.GenericHandheld,,,Generic Handheld,Generic Handheld
+Studio.ControlsEmulator.DeviceDropdown.TVRemote,,,TV Remote,TV Remote
 Studio.PlaceAnnotations.Plugin.Name,,,Comments,Comments
 Studio.PlaceAnnotations.Plugin.Toolbar,,,Place Annotations,Place Annotations
 Studio.PlaceAnnotations.Plugin.Button,,,Place Annotations,Place Annotations
@@ -13780,6 +14144,7 @@ Studio.PlaceAnnotations.Dropdown.UnsubscribeFromAll,,,Unsubscribe from all comme
 Studio.PlaceAnnotations.Dropdown.OnlyMentions,,,Only receive notifications for mentions and replies in this place,Only receive notifications for mentions and replies in this place
 Studio.PlaceAnnotations.Dropdown.Unsubscribe,,,Unsubscribe,Unsubscribe
 Studio.PlaceAnnotations.Dropdown.Subscribe,,,Subscribe,Subscribe
+Studio.PlaceAnnotations.Dropdown.Report,,,Report,Report
 Studio.ModerationDialog.CounterExample.Button,,,Push me!,Push me!
 Studio.ModerationDialog.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!
 Studio.ModerationDialog.Plugin.Name,,,ModerationDialog,ModerationDialog
@@ -13841,6 +14206,13 @@ Studio.ModerationDialog.Agreement.TermsOfUse,,,You may re-activate your account 
 Studio.ModerationDialog.Links.AppealPortal,,,Appeals Portal,Appeals Portal
 Studio.ModerationDialog.Links.GuidelinesLink,,,Roblox Community Standards,Roblox Community Standards
 Studio.ModerationDialog.Links.ToULink,,,Terms of Use,Terms of Use
+Studio.ModerationDialog.QuitConfirmationDialog.Text,,,"To re-activate your account, you must agree to the Terms of Use.","To re-activate your account, you must agree to the Terms of Use."
+Studio.ModerationDialog.Buttons.ReviewToU,,,Review Terms of Use,Review Terms of Use
+Studio.ModerationDialog.Body.Deactivated,,,Your account is currently deactivated.,Your account is currently deactivated.
+Studio.ModerationDialog.BanHeader.Deactivated,,,Account Deactivated,Account Deactivated
+Studio.ModerationDialog.Buttons.Quit,,,Quit,Quit
+Studio.ModerationDialog.QuitConfirmationDialog.Title,,,Are you sure you want to quit Studio?,Are you sure you want to quit Studio?
+Studio.ModerationDialog.BanHeader.Terminated,,,Account Terminated,Account Terminated
 Studio.AudioEqualizerEditor.Plugin.Name,,,AudioEqualizerEditor,AudioEqualizerEditor
 Studio.AudioEqualizerEditor.Plugin.Button,,,Audio Equalizer Editor,Audio Equalizer Editor
 Studio.AudioEqualizerEditor.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -13928,6 +14300,10 @@ Studio.ExplorerPlugin.ContextMenu.Reimport,,,Reimport,Reimport
 Studio.ExplorerPlugin.ContextMenu.stream,,,Stream,Stream
 Studio.ExplorerPlugin.NegateSelection.PartIsNegated,,,Part is negated,Part is negated
 Studio.ExplorerPlugin.ContextMenu.package,,,Package,Package
+Studio.ExplorerPlugin.ContextMenu.CopyAs,,,Copy As,Copy As
+Studio.ExplorerPlugin.ContextMenu.wiring,,,Wiring,Wiring
+Studio.ExplorerPlugin.ContextMenu.scriptSync,,,Script Sync,Script Sync
+Studio.ExplorerPlugin.ContextMenu.hierarchySpec,,,Hierarchy Spec,Hierarchy Spec
 Studio.StartPage.Plugin.Name,,,StartPage,StartPage
 Studio.StartPage.Plugin.AgeRestrictionDialog.Body,,,This experience is not accessible due to age restrictions.,This experience is not accessible due to age restrictions.
 Studio.StartPage.Plugin.LastModified,,,Modified {lastModified},Modified {lastModified}
@@ -14097,6 +14473,7 @@ Studio.StartPage.TrustedConnectionRequestSnackbar.Message,,,Your request has bee
 Studio.StartPage.TrustedConnectionLinkCopiedSnackbar.Message,,,Link copied. Share it with others to make a trusted friend request.,Link copied. Share it with others to make a trusted friend request.
 Studio.StartPage.Plugin.Yes,,,Yes,Yes
 Studio.StartPage.Plugin.No,,,No,No
+Studio.StartPage.Plugin.DisableTeamCreate,,,Disable Team Create,Disable Team Create
 Studio.StartPage.Plugin.OpenACopy,,,Open a Copy,Open a Copy
 Studio.StartPage.PrivacyBadge.Tooltip.Body,,,Complete the content maturity rating on Creator Hub for your game and have it playable by others.,Complete the content maturity rating on Creator Hub for your game and have it playable by others.
 Studio.StartPage.Plugin.PrivacyType.PubliclyUnavailable,,,Publicly unavailable,Publicly unavailable
@@ -14105,6 +14482,41 @@ Studio.StartPage.Plugin.SaveAs,,,Save a copy,Save a copy
 Studio.StartPage.SaveAsCopySuccessSnackbar.Message,,,Copy created,Copy created
 Studio.StartPage.SaveAsCopyFailureSnackbar.Message,,,Couldn't create a copy,Couldn't create a copy
 Studio.StartPage.SaveAsCopyPartialFailureSnackbar.Message,,,Created universe but couldn't copy place,Created universe but couldn't copy place
+Studio.StartPage.Plugin.ListView.Name,,,Name,Name
+Studio.StartPage.Plugin.ListView.Owner,,,Owner,Owner
+Studio.StartPage.Plugin.ListView.Description,,,Description,Description
+Studio.StartPage.Plugin.ListView.Places,,,Places,Places
+Studio.StartPage.Plugin.ListView.LastEdited,,,Last Edited,Last Edited
+Studio.StartPage.Plugin.ListView.DateCreated,,,Date Created,Date Created
+Studio.StartPage.Plugin.ListView.Playability,,,Playability,Playability
+Studio.StartPage.Plugin.ListView.TeamCreate,,,Team Create,Team Create
+Studio.StartPage.Plugin.ListView.Labels,,,Labels,Labels
+Studio.StartPage.Plugin.ListView.Pagination.RowsPerPage,,,Rows per page,Rows per page
+Studio.StartPage.Plugin.ListView.Pagination.RangeOfTotal,,,{start}-{end} of {total},{start}-{end} of {total}
+Studio.StartPage.Plugin.PlaceDialog.ViewPlaces,,,View places,View places
+Studio.StartPage.Plugin.PlaceDialog.Description,,,Games can have one or multiple places for different gameplay areas.,Games can have one or multiple places for different gameplay areas.
+Studio.StartPage.Plugin.PlaceDialog.Cancel,,,Cancel,Cancel
+Studio.StartPage.Plugin.PlaceDialog.Title,,,{experienceName} places,{experienceName} places
+Studio.StartPage.Plugin.PlaceDialog.ViewInCreatorHub,,,View in Creator Hub,View in Creator Hub
+Studio.StartPage.Plugin.PinExperience,,,Pin,Pin
+Studio.StartPage.Plugin.UnpinExperience,,,Unpin,Unpin
+Studio.StartPage.Plugin.MoveToTop,,,Move to top,Move to top
+Studio.StartPage.Plugin.PlaceDialog.ManagePlaces,,,Manage Places,Manage Places
+Studio.StartPage.Plugin.BuildSealBadge,,,Build,Build
+Studio.StartPage.AgeReverificationBanner.PrimaryAction,,,Continue,Continue
+Studio.StartPage.Plugin.VerifyAgeGateDialog.Title,,,Verify your age,Verify your age
+Studio.StartPage.Plugin.TestTemplatesPage.Title,,,Test Templates,Test Templates
+Studio.StartPage.Plugin.TrustedConnectionsGateDialog.Description,,,"To continue collaborating in Studio with older users, you need to establish trust.","To continue collaborating in Studio with older users, you need to establish trust."
+Studio.StartPage.AgeReverificationBanner.Title,,,Let's recheck your age. Your age check is no longer valid,Let's recheck your age. Your age check is no longer valid
+Studio.StartPage.Plugin.VerifyAgeGateDialog.Description,,,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
+Studio.StartPage.Plugin.TrustedConnectionsGateDialog.Title,,,Establish Trusted Connections,Establish Trusted Connections
+Studio.StartPage.Plugin.PageMenu.TestTemplates,,,Test Templates,Test Templates
+Studio.StartPage.Plugin.TrustedConnectionsGateDialog.PrimaryAction,,,Become Trusted Connections,Become Trusted Connections
+Studio.StartPage.Plugin.TrustedConnectionsGateDialog.SecondaryAction,,,Get parent permission,Get parent permission
+Studio.StartPage.Plugin.VerifyAgeGateDialog.PrimaryAction,,,Verify,Verify
+Studio.StartPage.Plugin.VerifyAgeGateDialog.SecondaryAction,,,Cancel,Cancel
+Studio.StartPage.Plugin.AddLabels,,,Add labels,Add labels
+Studio.StartPage.Plugin.ExperienceLabels.SearchPlaceholder,,,Search for or create labels,Search for or create labels
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14318,10 +14730,24 @@ Studio.Assistant.PrimitiveGen.RetryYes,,,Yes,Yes
 Studio.Assistant.PrimitiveGen.RetryNo,,,No,No
 Studio.Assistant.PrimitiveGen.GenerationCancelledPlayModeRetryPrompt,,,"Generation cancelled. You are currently running the game, but you must stop it to insert this generation. <b>Try again?</b>","Generation cancelled. You are currently running the game, but you must stop it to insert this generation. <b>Try again?</b>"
 Studio.Assistant.PrimitiveGen.InsertAgain,,,Insert again,Insert again
+Studio.Assistant.ThreadsMenu.ThreadsLoadError,,,Failed to load chats,Failed to load chats
+Studio.Assistant.ChatHistory.MessagesLoadError,,,Failed to load messages,Failed to load messages
+Studio.Assistant.AnimationGen.InputDuration,,,Duration,Duration
+Studio.Assistant.AnimationGen.InputDisclaimer,,,Please complete the following to generate the animation,Please complete the following to generate the animation
+Studio.Assistant.AnimationGen.InputGenerate,,,Generate,Generate
+Studio.Assistant.AnimationGen.InputRig,,,Character Rig,Character Rig
+Studio.Assistant.AnimationGen.InputLoop,,,Loop,Loop
+Studio.Assistant.AnimationGen.InputRootMode,,,Root translation,Root translation
+Studio.Assistant.AnimationGen.RootModeLocomotion,,,Locomotion (XYZ),Locomotion (XYZ)
+Studio.Assistant.AnimationGen.RootModeVertical,,,Vertical (Y only),Vertical (Y only)
+Studio.Assistant.AnimationGen.RootModeOrigin,,,Origin,Origin
 Studio.Assistant.MeshGen.InputPartNamesTitle,,,Part Names,Part Names
 Studio.Assistant.HttpGet.Found,,,Found '{query}' in {url},Found '{query}' in {url}
 Studio.Assistant.HttpGet.NotFound,,,No match for '{query}' in {url},No match for '{query}' in {url}
 Studio.Assistant.HttpGet.Searching,,,Searching '{query}' in {url}...,Searching '{query}' in {url}...
+Studio.Assistant.AnimationGen.NoRigSelected,,,"No rig selected, please select a rig","No rig selected, please select a rig"
+Studio.Assistant.AnimationGen.NoPromptProvided,,,"No prompt provided, please provide a prompt","No prompt provided, please provide a prompt"
+Studio.Assistant.AnimationGen.InputPickModel,,,Pick Model,Pick Model
 Studio.Assistant.MeshGen.InputSegmentationTitle,,,Segmentation,Segmentation
 Studio.Assistant.MeshGen.InputHintImageTitle,,,Hint Image,Hint Image
 Studio.Assistant.AssetSearch.FoundSingularWithQuery,,,"Found 1 result for ""{query}""","Found 1 result for ""{query}"""
@@ -14354,6 +14780,8 @@ Studio.Assistant.FinalizePlan.OpenPlan,,,Open Plan,Open Plan
 Studio.Assistant.FinalizePlan.Versions,,,Versions,Versions
 Studio.Assistant.FinalizePlan.Save,,,Save,Save
 Studio.Assistant.FinalizePlan.Revert,,,Revert,Revert
+Studio.Assistant.Tools.AssetSearch,,,Search Asset,Search Asset
+Studio.Assistant.Tools.AssetInsert,,,Insert Asset,Insert Asset
 Studio.Assistant.MeshGen.InputPromptTitle,,,Prompt,Prompt
 Studio.Assistant.PrimitiveGen.InputPartNamesTitle,,,Part Names,Part Names
 Studio.Assistant.MeshGen.InputPartNamesPlaceholder,,,enter part name...,enter part name...
@@ -14362,6 +14790,10 @@ Studio.Assistant.MeshGen.InputPromptModeTitle,,,Input Mode,Input Mode
 Studio.Assistant.Gen3d.PromptModeText,,,Prompt,Prompt
 Studio.Assistant.Gen3d.PromptModeImage,,,Image,Image
 Studio.Assistant.Gen3d.SuggestSegmentationTitle,,,Suggest segmentation,Suggest segmentation
+Studio.Assistant.Tools.MultiPlayerAgentsCommunication,,,Multi Player Agents Communication,Multi Player Agents Communication
+Studio.Assistant.Tools.StartMultiPlayerAgents,,,Start Multi Player Agents,Start Multi Player Agents
+Studio.Assistant.Tools.StopMultiPlayerAgents,,,Stop Multi Player Agents,Stop Multi Player Agents
+Studio.Assistant.Tools.WaitForMultiPlayerAgentsCommunication,,,Wait For Multi Player Agents Communication,Wait For Multi Player Agents Communication
 Studio.Assistant.ScopePermissions.Subtitle,,,{enabled:int} of {total:int} scopes enabled,{enabled:int} of {total:int} scopes enabled
 Studio.Assistant.ScopePermissions.LearnMoreRiskLevels,,,Learn more about {linkStart}risk levels{linkEnd},Learn more about {linkStart}risk levels{linkEnd}
 Studio.Assistant.ScopePermissions.PresetCustom,,,Custom,Custom
@@ -14393,6 +14825,7 @@ Studio.Assistant.Skills.Refresh,,,Refresh,Refresh
 Studio.Assistant.MeshGenSegmentation.ExperimentalFeature,,,Early preview: Segment a mesh by parts. Try it early and help shape what's next.,Early preview: Segment a mesh by parts. Try it early and help shape what's next.
 Studio.Assistant.MeshGenSegmentation.ExperimentalFeatureLearnMore,,,Learn more.,Learn more.
 Studio.Assistant.PrimGenSegmentation.ExperimentalFeature,,,Early preview: Segment a procedural model by parts. Try it early and help shape what's next.,Early preview: Segment a procedural model by parts. Try it early and help shape what's next.
+Studio.Assistant.Tools.GetStudioState,,,Get Studio State,Get Studio State
 Studio.Assistant.Segmentation.Uploading,,,Uploading...,Uploading...
 Studio.Assistant.Image.Uploadf,,,Upload image,Upload image
 Studio.Assistant.Skills.ConflictMessage,,,"""{name}"" was changed on disk while you were editing. What would you like to do?","""{name}"" was changed on disk while you were editing. What would you like to do?"
@@ -14409,6 +14842,7 @@ Studio.Assistant.Skills.CreateModalNamePlaceholder,,,e.g. my_skill,e.g. my_skill
 Studio.Assistant.Skills.CreateNameInvalid,,,Name can only contain letters numbers underscores and dashes.,Name can only contain letters numbers underscores and dashes.
 Studio.Assistant.Skills.CreateNameTaken,,,A skill with this name already exists.,A skill with this name already exists.
 Studio.Assistant.Skills.Save,,,Save,Save
+Studio.Assistant.AnimationGen.Publish,,,Publish,Publish
 Studio.Assistant.Segmentation.Suggesting,,,suggesting...,suggesting...
 Studio.Assistant.Segmentation.TextPrompt,,,Describe your model...,Describe your model...
 Studio.Assistant.VersionMismatch.VersionMismatchWarning,,,Version mismatch detected. Please restart Roblox Studio.,Version mismatch detected. Please restart Roblox Studio.
@@ -14422,6 +14856,41 @@ Studio.Assistant.FileSearch.Failed,,,Failed to search for '{keywords}',Failed to
 Studio.Assistant.GameTree.Failed,,,Failed when exploring game tree,Failed when exploring game tree
 Studio.Assistant.GrepSearch.Failed,,,Search failed,Search failed
 Studio.Assistant.InspectInstance.Failed,,,Failed to inspect {path},Failed to inspect {path}
+Studio.Assistant.GenerateLayout.HeaderGeneratingImages,,,Generating images: {displayName},Generating images: {displayName}
+Studio.Assistant.GenerateLayout.Position,,,Position,Position
+Studio.Assistant.GenerateLayout.Size,,,Size,Size
+Studio.Assistant.GenerateLayout.AreaDescription,,,Position and size the area where layout should be generated.,Position and size the area where layout should be generated.
+Studio.Assistant.GenerateLayout.Generate,,,Generate layout,Generate layout
+Studio.Assistant.GenerateLayout.AttachImageDescription,,,Attach a reference image and generate layout,Attach a reference image and generate layout
+Studio.Assistant.GenerateLayout.ButtonGenerateAndInsert,,,Generate and insert,Generate and insert
+Studio.Assistant.GenerateLayout.ButtonRetry,,,Retry,Retry
+Studio.Assistant.GenerateLayout.ErrorExecutionFailed,,,Execution failed: {errorMessage}. Script body is at workspace.{scriptName} - enable and re-run manually,Execution failed: {errorMessage}. Script body is at workspace.{scriptName} - enable and re-run manually
+Studio.Assistant.GenerateLayout.ErrorFailedToDownloadMaps,,,Failed to download maps,Failed to download maps
+Studio.Assistant.GenerateLayout.ErrorFailedToDownloadSceneScript,,,Failed to download scene script,Failed to download scene script
+Studio.Assistant.GenerateLayout.ErrorImageAttachmentRequired,,,An image attachment is required,An image attachment is required
+Studio.Assistant.GenerateLayout.ErrorMapGenerationFailed,,,Map generation failed,Map generation failed
+Studio.Assistant.GenerateLayout.ErrorSceneGenerationFailed,,,Scene generation failed,Scene generation failed
+Studio.Assistant.GenerateLayout.HeaderCancelled,,,Layout generation cancelled,Layout generation cancelled
+Studio.Assistant.GenerateLayout.HeaderFailedWithError,,,Layout generation failed: {errorMessage},Layout generation failed: {errorMessage}
+Studio.Assistant.GenerateLayout.HeaderGeneratingScript,,,Generating script: {displayName},Generating script: {displayName}
+Studio.Assistant.GenerateLayout.HeaderInserted,,,Inserted: {displayName},Inserted: {displayName}
+Studio.Assistant.GenerateLayout.HeaderPreparing,,,Generating layout...,Generating layout...
+Studio.Assistant.GenerateLayout.HeaderReviewMaps,,,Review maps: {displayName},Review maps: {displayName}
+Studio.Assistant.GenerateLayout.HeaderRunningScript,,,Running script: {displayName},Running script: {displayName}
+Studio.Assistant.GenerateLayout.HeaderSceneFailed,,,Scene script generation failed,Scene script generation failed
+Studio.Assistant.GenerateLayout.ReferenceImage,,,Reference image,Reference image
+Studio.Assistant.GenerateLayout.SlashDescription,,,Generates layout from a reference image,Generates layout from a reference image
+Studio.Assistant.GenerateLayout.StageSubmitting,,,Submitting,Submitting
+Studio.Assistant.GenerateLayout.StatusJobSubmitted,,,Layout generation job submitted. Job ID: {jobId},Layout generation job submitted. Job ID: {jobId}
+Studio.Assistant.GenerateLayout.Title,,,Generate Layout,Generate Layout
+Studio.Assistant.GenerateLayout.StyleSelectorTitle,,,Style,Style
+Studio.Assistant.GenerateLayout.StyleGreybox,,,Greybox,Greybox
+Studio.Assistant.GenerateLayout.StyleLowPoly,,,Low-Poly,Low-Poly
+Studio.Assistant.GenerateLayout.RoadFormatTitle,,,Road Format,Road Format
+Studio.Assistant.GenerateLayout.RoadFormatTerrainMaterial,,,Terrain Material,Terrain Material
+Studio.Assistant.GenerateLayout.RoadFormat3dParts,,,3D Parts,3D Parts
+Studio.Assistant.Gen3d.ImageSelectionHeader,,,Pick a reference image,Pick a reference image
+Studio.Assistant.Gen3d.ImageSelectionSlotFailed,,,Failed to generate,Failed to generate
 Studio.Assistant.ErrorMessage.InputTokenLimit,,,This conversation is too long to continue. Start a new chat.,This conversation is too long to continue. Start a new chat.
 Studio.Assistant.Skills.Delete,,,Delete,Delete
 Studio.Assistant.Skills.AlreadyDuplicated,,,Already Duplicated,Already Duplicated
@@ -14432,12 +14901,290 @@ Studio.Assistant.CreateSkill.Created,,,Created skill: {name},Created skill: {nam
 Studio.Assistant.CloseTooltip.Title,,,AI Assistant,AI Assistant
 Studio.Assistant.CloseTooltip.BodyWithShortcut,,,Use this button or {shortcut} to open the Assistant panel again.,Use this button or {shortcut} to open the Assistant panel again.
 Studio.Assistant.CloseTooltip.Body,,,Use this button to open the Assistant panel again.,Use this button to open the Assistant panel again.
+Studio.Assistant.Gen3d.Back,,,Back,Back
 Studio.Assistant.EditSkill.Edited,,,Modified skill: {name},Modified skill: {name}
 Studio.Assistant.Skills.ShadowedTooltip,,,Disabled because a personal skill with the same name is enabled.,Disabled because a personal skill with the same name is enabled.
 Studio.Assistant.EditSkill.Editing,,,Modifying skill,Modifying skill
 Studio.Assistant.ToolConfirmation.ToolCallRejected,,,'{toolName}' tool call rejected by user,'{toolName}' tool call rejected by user
 Studio.Assistant.Skills.ShadowedTooltipTitle,,,You have a local copy of this skill,You have a local copy of this skill
 Studio.Assistant.Skills.ShadowedTooltipBody,,,Turn off or delete the local copy to use the Roblox version,Turn off or delete the local copy to use the Roblox version
+Studio.Assistant.TextureGen.Preparing,,,Preparing re-texture,Preparing re-texture
+Studio.Assistant.TextureGen.FailedToGenerate,,,Failed to re-texture,Failed to re-texture
+Studio.Assistant.TextureGen.UserCancelled,,,Re-texture cancelled,Re-texture cancelled
+Studio.Assistant.TextureGen.HeaderGenerating,,,Re-texturing: {displayName},Re-texturing: {displayName}
+Studio.Assistant.TextureGen.HeaderReady,,,Re-texture ready: {displayName},Re-texture ready: {displayName}
+Studio.Assistant.TextureGen.HeaderInserting,,,Inserting re-textured model: {displayName},Inserting re-textured model: {displayName}
+Studio.Assistant.TextureGen.HeaderInserted,,,Inserted: {displayName},Inserted: {displayName}
+Studio.Assistant.TextureGen.HeaderFailed,,,Re-texture failed,Re-texture failed
+Studio.Assistant.TextureGen.ButtonInsert,,,Add to place,Add to place
+Studio.Assistant.TextureGen.ButtonCancel,,,Cancel,Cancel
+Studio.Assistant.TextureGen.ButtonRegenerate,,,Re-generate,Re-generate
+Studio.Assistant.TextureGen.InputPromptTitle,,,Prompt,Prompt
+Studio.Assistant.TextureGen.InputHintImageTitle,,,Image,Image
+Studio.Assistant.TextureGen.InputSelectedMesh,,,Source mesh,Source mesh
+Studio.Assistant.TextureGen.InputGenerateTexture,,,Re-texture,Re-texture
+Studio.Assistant.TextureGen.InputDisclaimer,,,Create a re-textured copy of the source mesh,Create a re-textured copy of the source mesh
+Studio.Assistant.Common.Preparing,,,Preparing,Preparing
+Studio.Assistant.Common.Inserting,,,Inserting,Inserting
+Studio.Assistant.Common.Inserted,,,Inserted,Inserted
+Studio.Assistant.Common.InsertFailed,,,Insert failed,Insert failed
+Studio.Assistant.Common.Cancel,,,Cancel,Cancel
+Studio.Assistant.Common.TryAgain,,,Try again,Try again
+Studio.Assistant.Common.Insert,,,Add to place,Add to place
+Studio.Assistant.Common.Regenerate,,,Regenerate,Regenerate
+Studio.Assistant.Common.UnknownError,,,Something went wrong. Please try again.,Something went wrong. Please try again.
+Studio.Assistant.Common.Working,,,Working,Working
+Studio.Assistant.Common.Completed,,,Completed,Completed
+Studio.Assistant.Common.Cancelled,,,Cancelled,Cancelled
+Studio.Assistant.Common.Failed,,,Failed,Failed
+Studio.Assistant.AnimationGen.AnimationClip,,,Animation Clip,Animation Clip
+Studio.Assistant.AnimationGen.Prompt,,,Prompt,Prompt
+Studio.Assistant.SegmentMesh.MeshInstanceLabel,,,Mesh,Mesh
+Studio.Assistant.Common.Confirm,,,Confirm,Confirm
+Studio.Assistant.Common.PartNamesLabel,,,Part Names,Part Names
+Studio.Assistant.SegmentMesh.PickDescription,,,"Pick a mesh instance and enter up to {max} comma-separated part names (e.g. """"head, body, tail"""")","Pick a mesh instance and enter up to {max} comma-separated part names (e.g. """"head, body, tail"""")"
+Studio.Assistant.AnimationGen.RigRequired,,,A character rig is required,A character rig is required
+Studio.Assistant.ThreadsMenu.Unpin,,,Unpin,Unpin
+Studio.Assistant.MaterialsSettingsWidget.StudsPerTile,,,Studs Per Tile,Studs Per Tile
+Studio.Assistant.MeshGen.PublishAndInsert,,,Publish and insert,Publish and insert
+Studio.Assistant.AssetVariation.Generated,,,Inserted {name},Inserted {name}
+Studio.Assistant.MeshGen.FailedToGenerate,,,Failed to generate mesh,Failed to generate mesh
+Studio.Assistant.AnimationGen.Generated,,,Generated animation,Generated animation
+Studio.Assistant.ToolContent.Generating,,,Generating {tool},Generating {tool}
+Studio.Assistant.MeshGen.InputGenerateMesh,,,Generate mesh,Generate mesh
+Studio.Assistant.IntegrationManagement.Disconnected,,,Disconnected,Disconnected
+Studio.Assistant.SettingsDialog.InternalTab,,,Internal,Internal
+Studio.Assistant.QuestionAnswer.Error,,,Encountered an error while attempting to ask a question,Encountered an error while attempting to ask a question
+Studio.Assistant.AnimationGen.Generating,,,Generating animation,Generating animation
+Studio.Assistant.MeshGen.UnknownErrorHeader,,,Unknown error occurred during mesh generation,Unknown error occurred during mesh generation
+Studio.Assistant.InputRequiredWidget.ConfirmButton,,,Confirm,Confirm
+Studio.Assistant.AnimationGen.InsertAnimation,,,Insert Animation,Insert Animation
+Studio.Assistant.MeshGen.Cancel,,,Cancel,Cancel
+Studio.Assistant.AssetVariation.UnknownErrorHeader,,,Unknown error occurred during asset insertion,Unknown error occurred during asset insertion
+Studio.Assistant.ThreadsMenu.ThreadHistory,,,Chat history,Chat history
+Studio.Assistant.IntegrationMenu.ThirdPartyDisabled,,,"To use external tools, you will need to use your own API key.","To use external tools, you will need to use your own API key."
+Studio.Assistant.InternalFeatures.ScriptIdentityDescription,,,Select the security identity used when Assistant executes Luau code.,Select the security identity used when Assistant executes Luau code.
+Studio.Assistant.Thinking.Generating,,,Planning next moves,Planning next moves
+Studio.Assistant.MaterialGen.FailedToCreateMaterialTextFilteredError,,,Your prompt is filtered and cannot be generated. Try a different prompt.,Your prompt is filtered and cannot be generated. Try a different prompt.
+Studio.Assistant.MeshGen.UnknownError,,,Unknown error.,Unknown error.
+Studio.Assistant.MeshGen.Preparing,,,Preparing to generate mesh,Preparing to generate mesh
+Studio.Assistant.ReadFile.Complete,,,Read a script's contents,Read a script's contents
+Studio.Assistant.ReadFile.Pending,,,Reading a script's contents,Reading a script's contents
+Studio.Assistant.McpServer.Connecting,,,Starting...,Starting...
+Studio.Assistant.ThreadsMenu.Pinned,,,Pinned,Pinned
+Studio.Assistant.QuestionAnswer.CompletedOption,,,> {optionText},> {optionText}
+Studio.Assistant.IntegrationManagement.LogOut,,,Log out,Log out
+Studio.Assistant.MeshGen.GeneratingMesh,,,Generating mesh,Generating mesh
+Studio.Assistant.McpSetup.Loading,,,Loading...,Loading...
+Studio.Assistant.QuestionAnswer.Dismissed,,,Questions dismissed.,Questions dismissed.
+Studio.Assistant.ToolContent.Result,,,Result,Result
+Studio.Assistant.InputArea.Responding,,,Responding...,Responding...
+Studio.Assistant.MeshGen.InputPickPart,,,Pick Part,Pick Part
+Studio.Assistant.MaterialGen.Generated,,,Generated material {name},Generated material {name}
+Studio.Assistant.MeshGen.InsertAgain,,,Insert again,Insert again
+Studio.Assistant.InputRequiredWidget.ResponseRecorded,,,Response recorded,Response recorded
+Studio.Assistant.AssetVariation.Deleted,,,{assetName} (Deleted),{assetName} (Deleted)
+Studio.Assistant.IntegrationManagement.UnsupportedVersion,,,Unsupported MCP Version,Unsupported MCP Version
+Studio.Assistant.McpSetup.Copied,,,Copied!,Copied!
+Studio.Assistant.MeshGen.PublishFailed,,,Publish failed.,Publish failed.
+Studio.Assistant.MeshGen.GeneratingTexture,,,Generating texture,Generating texture
+Studio.Assistant.SlashCommandDescriptions.ExecuteLuau,,,Run code in the command bar,Run code in the command bar
+Studio.Assistant.InputArea.StudioNotificationServiceWarning,,,Trying to reconnect...,Trying to reconnect...
+Studio.Assistant.AssetVariation.AssetVariationsDescription,,,Select a variant to replace,Select a variant to replace
+Studio.Assistant.AnimationGen.Playing,,,Playing animation,Playing animation
+Studio.Assistant.AssetVariation.Preparing,,,Preparing to insert asset,Preparing to insert asset
+Studio.Assistant.IntegrationManagement.MCPUrlLabel,,,URL *,URL *
+Studio.Assistant.ThreadsMenu.Rename,,,Rename,Rename
+Studio.Assistant.SlashCommandDescriptions.AnimationGen,,,Generate a character animation from a text description,Generate a character animation from a text description
+Studio.Assistant.MaterialGen.OrganicPattern,,,Organic pattern,Organic pattern
+Studio.Assistant.ModelQualityWarning.Text,,,Advanced model quota is used up for the day. You can continue using the standard model; your quota resets tomorrow.,Advanced model quota is used up for the day. You can continue using the standard model; your quota resets tomorrow.
+Studio.Assistant.Plugin.NameAdvanced,,,Assistant (Advanced),Assistant (Advanced)
+Studio.Assistant.IntegrationManagement.MCPNamePlaceholder,,,Enter MCP Name,Enter MCP Name
+Studio.Assistant.McpSetup.Title,,,Enable Studio as MCP server,Enable Studio as MCP server
+Studio.Assistant.QuestionAnswer.StepText,,,{current}/{total},{current}/{total}
+Studio.Assistant.IntegrationManagement.Disclaimer,,,Connecting a third-party service to Roblox Studio via an MCP server will share your data with that external service provider. Please review their privacy practices and terms before proceeding.,Connecting a third-party service to Roblox Studio via an MCP server will share your data with that external service provider. Please review their privacy practices and terms before proceeding.
+Studio.Assistant.MeshGen.GenerationFailed,,,Generation failed.,Generation failed.
+Studio.Assistant.RunCode.CommandCode,,,Command code,Command code
+Studio.Assistant.RunCode.RunAgain,,,Run again,Run again
+Studio.Assistant.IntegrationManagement.AuthorizationPending,,,Login Required,Login Required
+Studio.Assistant.AnimationGen.GenerationFailed,,,Animation generation failed. Please try again.,Animation generation failed. Please try again.
+Studio.Assistant.AnimationGen.Failed,,,Failed to generate animation,Failed to generate animation
+Studio.Assistant.AnimationGen.GeneratingVariants,,,Generating animations ({completed}/{total}),Generating animations ({completed}/{total})
+Studio.Assistant.AnimationGen.Preparing,,,Preparing to generate animation,Preparing to generate animation
+Studio.Assistant.MaterialGen.StudsPerTile,,,Studs per tile,Studs per tile
+Studio.Assistant.AnimationGen.Retry,,,Retry,Retry
+Studio.Assistant.MaterialGen.GeneratingDescription,,,Creating variants of {baseMaterial} described as '{materialDescription}' and has a {materialPattern} pattern.,Creating variants of {baseMaterial} described as '{materialDescription}' and has a {materialPattern} pattern.
+Studio.Assistant.AnimationGen.Stop,,,Stop,Stop
+Studio.Assistant.AssetIterationMessageContentWidget.ClickToSwapVariation,,,Click on any variation to swap the model.,Click on any variation to swap the model.
+Studio.Assistant.AssetVariation.Added,,,Added,Added
+Studio.Assistant.AssetVariation.FailedToGenerate,,,Failed to insert query,Failed to insert query
+Studio.Assistant.AssetVariation.Generating,,,Inserting {query},Inserting {query}
+Studio.Assistant.MaterialGen.FailedToCreateMaterial,,,Failed to create a new material. Error:,Failed to create a new material. Error:
+Studio.Assistant.AssetVariation.MultipleCopies,,,{assetName} (x{count:int}),{assetName} (x{count:int})
+Studio.Assistant.AssistantMode.Agent,,,Agent,Agent
+Studio.Assistant.AssistantMode.Plan,,,Plan,Plan
+Studio.Assistant.QuestionAnswer.AskedOption,,,{index}. {optionText},{index}. {optionText}
+Studio.Assistant.AssistantMode.Test,,,Test,Test
+Studio.Assistant.MeshGen.InputTriangleCountTitle,,,Triangle Count,Triangle Count
+Studio.Assistant.ConversationalAIInputTextEdit.PlaceholderText,,,Enter request here,Enter request here
+Studio.Assistant.Image.ViewImage,,,{count} Attachment,{count} Attachment
+Studio.Assistant.GenerationIndicator.TimeWarning,,,"Generation is taking longer than expected, please wait.","Generation is taking longer than expected, please wait."
+Studio.Assistant.ThreadsMenu.Threads,,,Chats,Chats
+Studio.Assistant.Image.ViewImages,,,{count} Attachments,{count} Attachments
+Studio.Assistant.InputArea.AskAssistant,,,Ask Assistant,Ask Assistant
+Studio.Assistant.InputRequiredWidget.CancelButton,,,Cancel,Cancel
+Studio.Assistant.InputRequiredWidget.CommandCancelled,,,Command was cancelled,Command was cancelled
+Studio.Assistant.IntegrationManagement.AddIntegration,,,Add an MCP server,Add an MCP server
+Studio.Assistant.IntegrationManagement.Connected,,,Connected,Connected
+Studio.Assistant.IntegrationManagement.ConnectionError,,,Connection Error,Connection Error
+Studio.Assistant.IntegrationManagement.HttpNonLocalhost,,,HTTP is only allowed for localhost,HTTP is only allowed for localhost
+Studio.Assistant.IntegrationManagement.IntegrationNameAlreadyExists,,,MCP server with name already exists,MCP server with name already exists
+Studio.Assistant.IntegrationManagement.IntegrationUrlAlreadyExists,,,MCP server with URL already exists,MCP server with URL already exists
+Studio.Assistant.IntegrationManagement.InvalidUrlScheme,,,Only HTTP and HTTPS URLs are supported,Only HTTP and HTTPS URLs are supported
+Studio.Assistant.IntegrationManagement.MCPNameLabel,,,MCP Name *,MCP Name *
+Studio.Assistant.IntegrationManagement.MCPUrlPlaceholder,,,Enter MCP URL,Enter MCP URL
+Studio.Assistant.IntegrationManagement.MalformedUrl,,,Please enter a valid URL,Please enter a valid URL
+Studio.Assistant.IntegrationManagement.ManageIntegrations,,,Manage MCP Servers,Manage MCP Servers
+Studio.Assistant.InternalFeatures.AssistantIdentity,,,Assistant (default),Assistant (default)
+Studio.Assistant.ThreadsMenu.NewThread,,,New chat,New chat
+Studio.Assistant.InternalFeatures.RestartRequired,,,Restart Studio to apply this change.,Restart Studio to apply this change.
+Studio.Assistant.InternalFeatures.ElevatedIdentity,,,ElevatedStudioPlugin,ElevatedStudioPlugin
+Studio.Assistant.InternalFeatures.Title,,,Internal Features,Internal Features
+Studio.Assistant.ThreadsMenu.RenameThreadDialogTitle,,,Rename Assistant Chat,Rename Assistant Chat
+Studio.Assistant.InternalFeatures.ScriptIdentitySection,,,Script Identity,Script Identity
+Studio.Assistant.MarkdownText.FailedParse,,,Failed to parse the provided markdown.,Failed to parse the provided markdown.
+Studio.Assistant.MaterialGen.FailedToCreateMaterialImprovedError,,,Failed to create the material. Please try again.,Failed to create the material. Please try again.
+Studio.Assistant.MaterialGen.Applied,,,Applied,Applied
+Studio.Assistant.MaterialGen.FailedToGenerate,,,Failed to generate material,Failed to generate material
+Studio.Assistant.MaterialGen.Generating,,,Generating material {name},Generating material {name}
+Studio.Assistant.MaterialGen.Preparing,,,Preparing to generate material,Preparing to generate material
+Studio.Assistant.MaterialGen.SelectAVariant,,,Select a variant to apply to your model,Select a variant to apply to your model
+Studio.Assistant.MaterialGen.UnknownErrorHeader,,,Unknown error occurred during material generation,Unknown error occurred during material generation
+Studio.Assistant.MaterialsSettingsWidget.Organic,,,Organic,Organic
+Studio.Assistant.MaterialsSettingsWidget.Pattern,,,Pattern,Pattern
+Studio.Assistant.McpSetup.InstructionsBody,,,"To use Roblox Studio MCP tools, configure your external MCP client to point to the Roblox Studio MCP server application. A configuration will use the following:","To use Roblox Studio MCP tools, configure your external MCP client to point to the Roblox Studio MCP server application. A configuration will use the following:"
+Studio.Assistant.McpSetup.ClientsConnected,,,{count} clients connected,{count} clients connected
+Studio.Assistant.McpSetup.ClientConnected,,,1 client connected,1 client connected
+Studio.Assistant.McpServer.Label,,,MCP Server,MCP Server
+Studio.Assistant.McpSetup.Disclaimer,,,"Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output.","Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output."
+Studio.Assistant.MessageWidget.StopGenerationButton,,,Stop generation,Stop generation
+Studio.Assistant.McpSetup.InstructionsHeader,,,Setup instructions,Setup instructions
+Studio.Assistant.MeshGen.InputDisclaimer,,,Please complete the following to generate the mesh,Please complete the following to generate the mesh
+Studio.Assistant.McpSetup.JsonConfigLabel,,,JSON Configuration,JSON Configuration
+Studio.Assistant.ModelQualityWarning.Title,,,Advanced Quota Reached Today,Advanced Quota Reached Today
+Studio.Assistant.McpSetup.LearnMore,,,For detailed instructions {linkStart}see documentation{linkEnd},For detailed instructions {linkStart}see documentation{linkEnd}
+Studio.Assistant.McpSetup.NoClientsConnected,,,No clients connected,No clients connected
+Studio.Assistant.McpSetup.QuickCommandDescription,,,Run this command in your project directory to connect:,Run this command in your project directory to connect:
+Studio.Assistant.Settings.RemoveCurrentChat,,,Remove Current Chat,Remove Current Chat
+Studio.Assistant.McpSetup.QuickConnectTitle,,,Quick connect,Quick connect
+Studio.Assistant.McpSetup.StartupCommandLabel,,,Startup Command (for CLI tools),Startup Command (for CLI tools)
+Studio.Assistant.MeshGen.AssetPermissionCreationFailed,,,Failed to grant asset permissions to universe.,Failed to grant asset permissions to universe.
+Studio.Assistant.SlashCommandDescriptions.MaterialGen,,,Create a material using the Material Generator,Create a material using the Material Generator
+Studio.Assistant.MeshGen.AddToPlace,,,Add to place,Add to place
+Studio.Assistant.MeshGen.Generate,,,Generate,Generate
+Studio.Assistant.MeshGen.Generated,,,Generated,Generated
+Studio.Assistant.MeshGen.GenerationCanceled,,,Generation canceled.,Generation canceled.
+Studio.Assistant.MeshGen.InputBoundingBox,,,Bounding Box,Bounding Box
+Studio.Assistant.MeshGen.GenerationModerated,,,This request violated content policies. [Learn more]({link}),This request violated content policies. [Learn more]({link})
+Studio.Assistant.MeshGen.Insert,,,Insert,Insert
+Studio.Assistant.MeshGen.InsertFailed,,,Insertion failed.,Insertion failed.
+Studio.Assistant.MeshGen.MaxTriangles,,,Max Triangles,Max Triangles
+Studio.Assistant.QuestionAnswer.CustomOption,,,{index}. {textBox},{index}. {textBox}
+Studio.Assistant.MeshGen.Inserting,,,Inserting...,Inserting...
+Studio.Assistant.MeshGen.MeshGenerationFailed,,,Failed to generate mesh.,Failed to generate mesh.
+Studio.Assistant.MeshGen.Publish,,,Publish,Publish
+Studio.Assistant.MeshGen.Published,,,Published,Published
+Studio.Assistant.Thinking.CompleteSingular,,,Thought for {x:int} second,Thought for {x:int} second
+Studio.Assistant.MeshGen.Publishing,,,Publishing...,Publishing...
+Studio.Assistant.MeshGen.Regenerate,,,Regenerate,Regenerate
+Studio.Assistant.MeshGen.Retry,,,Retry,Retry
+Studio.Assistant.MeshGen.TextureGenerationFailed,,,Failed to generate texture.,Failed to generate texture.
+Studio.Assistant.ThreadsMenu.DeleteThread,,,Remove chat,Remove chat
+Studio.Assistant.MeshGen.ToolRejected,,,Generation rejected by user,Generation rejected by user
+Studio.Assistant.MeshGen.TryAgain,,,Try again,Try again
+Studio.Assistant.MeshGen.UseSelection,,,Use selected bounding box,Use selected bounding box
+Studio.Assistant.MessageActions.TooltipRetry,,,Regenerate message,Regenerate message
+Studio.Assistant.MeshGen.WaitingForUser,,,Waiting for user input...,Waiting for user input...
+Studio.Assistant.MessageActions.TooltipBranch,,,Branch in new chat,Branch in new chat
+Studio.Assistant.MessageActions.TooltipThumbsDown,,,Thumbs down,Thumbs down
+Studio.Assistant.Settings.ClearConversation,,,Clear conversation,Clear conversation
+Studio.Assistant.Missing.Title,,,"Failed to find ""{name}"" content widget","Failed to find ""{name}"" content widget"
+Studio.Assistant.MessageActions.TooltipThumbsUp,,,Thumbs up,Thumbs up
+Studio.Assistant.Plugin.Toolbar,,,Assistant,Assistant
+Studio.Assistant.QuestionAnswer.CompletedHeader,,,Responses,Responses
+Studio.Assistant.QuestionAnswer.Continue,,,Continue,Continue
+Studio.Assistant.QuestionAnswer.Dismiss,,,Dismiss,Dismiss
+Studio.Assistant.QuestionAnswer.InputAreaKeyboardHint,,,Use arrows to navigate answers and sections,Use arrows to navigate answers and sections
+Studio.Assistant.QuestionAnswer.Edit,,,Edit,Edit
+Studio.Assistant.QuestionAnswer.Preparing,,,Preparing questions...,Preparing questions...
+Studio.Assistant.QuestionAnswer.OtherPlaceholder,,,Other...,Other...
+Studio.Assistant.QuestionAnswer.Review,,,Review,Review
+Studio.Assistant.QuestionAnswer.Skip,,,Skip,Skip
+Studio.Assistant.QuestionAnswer.TypeYourAnswer,,,Type your answer,Type your answer
+Studio.Assistant.RunCode.Generating,,,Generating response,Generating response
+Studio.Assistant.RunCode.Running,,,Running command,Running command
+Studio.Assistant.Settings.Add,,,Add,Add
+Studio.Assistant.SettingsDialog.FirstPartyTools,,,First party tools,First party tools
+Studio.Assistant.Settings.Delete,,,Delete,Delete
+Studio.Assistant.SlashCommandDescriptions.MeshGen,,,Generate mesh assets using Cube 3D,Generate mesh assets using Cube 3D
+Studio.Assistant.SlashCommandDescriptions.MarketplaceInsertion,,,Insert an asset from the Creator Store,Insert an asset from the Creator Store
+Studio.Assistant.SlashCommandDescriptions.AgentMode,,,Switch to Agent mode,Switch to Agent mode
+Studio.Assistant.SlashCommandDescriptions.PlanMode,,,Switch to Plan mode,Switch to Plan mode
+Studio.Assistant.SlashCommandDescriptions.TestMode,,,Switch to Test mode,Switch to Test mode
+Studio.Assistant.Thinking.Complete,,,Thought for {x:int} seconds,Thought for {x:int} seconds
+Studio.Assistant.Thinking.CompleteFractional,,,Thought for {x:fixed} seconds,Thought for {x:fixed} seconds
+Studio.Assistant.ThreadsMenu.Cancel,,,Cancel,Cancel
+Studio.Assistant.ThreadsMenu.EditName,,,Edit name,Edit name
+Studio.Assistant.ThreadsMenu.Pin,,,Pin,Pin
+Studio.Assistant.ToolContent.Calling,,,Calling {tool},Calling {tool}
+Studio.Assistant.ToolContent.Called,,,Called {tool},Called {tool}
+Studio.Assistant.Tools.AnimationGen,,,Generate Animation,Generate Animation
+Studio.Assistant.Tools.CreatorStoreSearch,,,Search Creator Store,Search Creator Store
+Studio.Assistant.ToolContent.Input,,,Input,Input
+Studio.Assistant.Tools.CreatorStoreInsert,,,Insert From Creator Store,Insert From Creator Store
+Studio.Assistant.AskInput.UnsupportedInput,,,Unsupported input type,Unsupported input type
+Studio.Assistant.AvatarAutoSetupStage.ATTACHMENT,,,Creating attachments,Creating attachments
+Studio.Assistant.AvatarAutoSetupAlert.R15BodyRigDetectedPartitions,,,Body parts and body rig detected,Body parts and body rig detected
+Studio.Assistant.AvatarAutoSetupStage.ResetTransform,,,Resetting transform,Resetting transform
+Studio.Assistant.AvatarAutoSetupStage.GeometryDisentanglement,,,Looking for clothes,Looking for clothes
+Studio.Assistant.AvatarAutoSetupStage.RiggingBody,,,Rigging body,Rigging body
+Studio.Assistant.AvatarAutoSetupStage.HeadCagePostProcessing,,,Improving facial caging,Improving facial caging
+Studio.Assistant.AvatarAutoSetupStage.CombiningTextures,,,Combining textures,Combining textures
+Studio.Assistant.AvatarAutoSetupStage.DecalToDynamicHead,,,Processing face as a 2D decal,Processing face as a 2D decal
+Studio.Assistant.AvatarAutoSetupStage.CAGEREGRESSION,,,Rigging body,Rigging body
+Studio.Assistant.AvatarAutoSetupStage.Clothes,,,Caging clothes,Caging clothes
+Studio.Assistant.AvatarAutoSetupStage.CreatingAttachments,,,Creating attachments,Creating attachments
+Studio.Assistant.AvatarAutoSetupStage.Decimation,,,Decimating polygons,Decimating polygons
+Studio.Assistant.AvatarAutoSetupStage.Enqueued,,,Queueing,Queueing
+Studio.Assistant.AvatarAutoSetupStage.Exporting,,,Exporting,Exporting
+Studio.Assistant.AvatarAutoSetupStage.Finalizing,,,Finalizing,Finalizing
+Studio.Assistant.AvatarAutoSetupStage.HumanoidValidation,,,Validating for humanoid,Validating for humanoid
+Studio.Assistant.AvatarAutoSetupStage.Initializing,,,Initializing,Initializing
+Studio.Assistant.AvatarAutoSetupStage.InsertingResults,,,Inserting results,Inserting results
+Studio.Assistant.AvatarAutoSetupStage.NotProcessing,,,Not processing,Not processing
+Studio.Assistant.AvatarAutoSetupStage.Partitioning,,,Partitioning,Partitioning
+Studio.Assistant.AvatarAutoSetupStage.PrepareTextures,,,Preparing textures,Preparing textures
+Studio.Assistant.AvatarAutoSetupStage.PreppingMesh,,,Preparing model,Preparing model
+Studio.Assistant.AvatarAutoSetupStage.RepackingTextures,,,Repacking textures,Repacking textures
+Studio.Assistant.AvatarAutoSetupStage.TransferringRig,,,Transferring rig,Transferring rig
+Studio.Assistant.AvatarAutoSetupStage.Unknown,,,Unknown,Unknown
+Studio.Assistant.AvatarAutoSetupStage.UploadingResults,,,Uploading results,Uploading results
+Studio.Assistant.AvatarAutoSetupAlert.ClothingOnly,,,Clothing only detected,Clothing only detected
+Studio.Assistant.AvatarAutoSetupAlert.ClothingOnlyWithCage,,,Inner cage detected,Inner cage detected
+Studio.Assistant.AvatarAutoSetupAlert.CustomBodyRigDetected,,,Non-R15 rig detected,Non-R15 rig detected
+Studio.Assistant.AvatarAutoSetupAlert.CustomBodyRigDetectedPartitions,,,Non-R15 rig and partitions detected,Non-R15 rig and partitions detected
+Studio.Assistant.AvatarAutoSetupAlert.CustomFaceBodyRigDetected,,,Non-compatible face rig detected,Non-compatible face rig detected
+Studio.Assistant.AvatarAutoSetupAlert.FaceDetected,,,Face rig detected,Face rig detected
+Studio.Assistant.AvatarAutoSetupAlert.FaceDetectedHead,,,Face rig and head part detected,Face rig and head part detected
+Studio.Assistant.AvatarAutoSetupAlert.FaceDetectedPartitions,,,Body parts and face rig detected,Body parts and face rig detected
+Studio.Assistant.AvatarAutoSetupAlert.FaceR15BodyRigDetected,,,Body rig and face rig detected,Body rig and face rig detected
+Studio.Assistant.AvatarAutoSetupAlert.FaceR15BodyRigDetectedPartitions,,,"Body parts, body rig and face rig detected","Body parts, body rig and face rig detected"
+Studio.Assistant.AvatarAutoSetupAlert.MeshOnlyPartitions,,,Partitions detected,Partitions detected
+Studio.Assistant.AvatarAutoSetupAlert.NonHumanoidModelDetected,,,Non-humanoid model,Non-humanoid model
+Studio.Assistant.AvatarAutoSetupAlert.NonR15OutputModelDetected,,,Non-humanoid model produced,Non-humanoid model produced
+Studio.Assistant.AvatarAutoSetupAlert.R15BodyRigDetected,,,Body rig detected,Body rig detected
+Studio.Assistant.AvatarAutoSetupAlert.RigidAccessoryOnly,,,Rigid accessory only detected,Rigid accessory only detected
+Studio.Assistant.AvatarAutoSetupAlert.Unknown,,,Unknown,Unknown
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14744,6 +15491,11 @@ Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableSprinting,,,
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableStrafing,,,Strafing,Strafing
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableReaching,,,Reaching,Reaching
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableHolding,,,Holding,Holding
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionEnableEmissives,,,Enable Emissives,Enable Emissives
+Studio.AvatarSettings.PreviewToolbar.TestAsAvatarDisabled,,,Make a selection in the AvatarPreview folder to play as avatar,Make a selection in the AvatarPreview folder to play as avatar
+Studio.AvatarSettings.PreviewToolbar.TestAsAvatar,,,Test as selected avatar,Test as selected avatar
+Studio.AvatarSettings.PreviewToolbar.SettingsVisibility,,,Toggle Settings Visibility,Toggle Settings Visibility
+Studio.AvatarSettings.PreviewToolbar.ResetAvatarsToCamera,,,Reset avatars to camera,Reset avatars to camera
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -14780,6 +15532,9 @@ Studio.ExplorerLibrary.LiveSync.AncestorErrored,,,Syncing stopped due to error a
 Studio.ExplorerLibrary.PackageStatus.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.ExplorerLibrary.LiveSync.CollaboratorSyncing,,,Script Sync is on for {collaboratorNames},Script Sync is on for {collaboratorNames}
 Studio.ExplorerLibrary.LiveSync.CollaboratorSyncingDetail,,,"Some features might work differently, like automatic instance naming","Some features might work differently, like automatic instance naming"
+Studio.ExplorerLibrary.HistoryDropdown.ClearText,,,Clear history,Clear history
+Studio.ExplorerLibrary.AuroraScript.NotUnderBehaviorFolder,,,Move this script into ReplicatedStorage.Behaviors to get it to run,Move this script into ReplicatedStorage.Behaviors to get it to run
+Studio.ExplorerLibrary.AuroraScript.BadAuthorityMode,,,Selected AuthorityMode does not allow running this script. Change Workspace's AuthorityMode to Server,Selected AuthorityMode does not allow running this script. Change Workspace's AuthorityMode to Server
 Studio.AudioCompressorEditor.Plugin.AudioCompressorEditor,,,AudioCompressorEditor,AudioCompressorEditor
 Studio.AudioCompressorEditor.Label.Bypass,,,Bypass,Bypass
 Studio.AudioCompressorEditor.Label.EnableMetering,,,Enable Metering,Enable Metering
@@ -15117,13 +15872,51 @@ Studio.BetaFeatures.SceneAnalysisDescription,,,"Enables detailed performance sta
 Studio.BetaFeatures.SceneAnalysisTitle,,,Scene Analysis,Scene Analysis
 Studio.BetaFeatures.PackageOverridesTitle,,,Package Overrides,Package Overrides
 Studio.BetaFeatures.PackageOverridesDescription,,,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.
+Studio.BetaFeatures.CreateAnimationFromTextTitle,,,Create animation from text,Create animation from text
+Studio.BetaFeatures.CreateAnimationFromTextDescription,,,Create animations using Assistant,Create animations using Assistant
 Studio.BetaFeatures.SegmentByPartsTitle,,,Segment by Parts,Segment by Parts
 Studio.BetaFeatures.SegmentByPartsDescription,,,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
 Studio.BetaFeatures.SecondAttemptCameraControlsTitle,,,Studio Camera Controls (V2),Studio Camera Controls (V2)
 Studio.BetaFeatures.SecondAttemptCameraControlsDescription,,,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
+Studio.BetaFeatures.DebuggerLuauAPITitle,,,Debugger Luau API,Debugger Luau API
+Studio.BetaFeatures.DebuggerLuauAPIDescription,,,Enables the Debugger Luau API (ScriptDebuggerService) for programmatic control over the Roblox Studio debugger.,Enables the Debugger Luau API (ScriptDebuggerService) for programmatic control over the Roblox Studio debugger.
 Studio.BetaFeatures.InputActionManagerTitle,,,Input Action Manager,Input Action Manager
 Studio.BetaFeatures.InputActionManagerDescription,,,Provides a new editor for working with Input Action System.,Provides a new editor for working with Input Action System.
+Studio.BetaFeatures.AssetQualityValidation.Title,,,Visualizing UGC Validation,Visualizing UGC Validation
+Studio.BetaFeatures.AssetQualityValidation.Description,,,"Provides visual feedback for UGC validation checks on avatar bodies, clothing and accessories.","Provides visual feedback for UGC validation checks on avatar bodies, clothing and accessories."
 Studio.BetaFeatures.SearchPlaceholder,,,Search beta features...,Search beta features...
+Studio.BetaFeatures.DetachedAttachmentsTitle,,,Detached Attachments,Detached Attachments
+Studio.BetaFeatures.EditableMeshBatchingTitle,,,EditableMesh Batching,EditableMesh Batching
+Studio.BetaFeatures.EditableMeshBatchingDescription,,,Introduces EditableMesh batching API for improved performance when executing many mesh operations at once.,Introduces EditableMesh batching API for improved performance when executing many mesh operations at once.
+Studio.BetaFeatures.MaterialVariantAlphaModeTitle,,,MaterialVariant Alpha Mode,MaterialVariant Alpha Mode
+Studio.BetaFeatures.ViewportDisplaySizeAPIDescription,,,"Adds the ability to retrieve the physical screen size of the viewport in S, M, L buckets.","Adds the ability to retrieve the physical screen size of the viewport in S, M, L buckets."
+Studio.BetaFeatures.AdaptiveAnimationsDescription,,,Enables custom humanoid rigs to work seamlessly with R15 animations and platform features through joint mapping with HumanoidRigDescription instances and retargeting.,Enables custom humanoid rigs to work seamlessly with R15 animations and platform features through joint mapping with HumanoidRigDescription instances and retargeting.
+Studio.BetaFeatures.AdaptiveAnimationsTitle,,,Adaptive Animations,Adaptive Animations
+Studio.BetaFeatures.AnimationGraphEditorDescription,,,"Create, preview and publish animation graphs","Create, preview and publish animation graphs"
+Studio.BetaFeatures.AnimationGraphEditorTitle,,,Animation Graph,Animation Graph
+Studio.BetaFeatures.DetachedAttachmentsDescription,,,"Loosens restrictions, allowing Attachments as children of anything.","Loosens restrictions, allowing Attachments as children of anything."
+Studio.BetaFeatures.GltfExportDescription,,,Enable the option to export your places and models using the glTF format.,Enable the option to export your places and models using the glTF format.
+Studio.BetaFeatures.HapticEffectDescription,,,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.
+Studio.BetaFeatures.GltfExportTitle,,,glTF Export,glTF Export
+Studio.BetaFeatures.HapticEffectTitle,,,Haptic Effects,Haptic Effects
+Studio.BetaFeatures.ImprovedStrokesDescription,,,"Adds new properties to UIStroke: SizingMode, BorderStrokePosition, BorderOffset, and ZIndex. You can also now add multiple UIStrokes to each parent UI element!","Adds new properties to UIStroke: SizingMode, BorderStrokePosition, BorderOffset, and ZIndex. You can also now add multiple UIStrokes to each parent UI element!"
+Studio.BetaFeatures.ImprovedStrokesTitle,,,Improved UIStrokes,Improved UIStrokes
+Studio.BetaFeatures.MaterialVariantAlphaModeDescription,,,Enable AlphaMode on MaterialVariants and add Opaque AlphaMode.,Enable AlphaMode on MaterialVariants and add Opaque AlphaMode.
+Studio.BetaFeatures.NextGenDraggersDescription,,,"Redesigned Move, Rotate and Scale draggers with a fresh look and improved functionality for a more intuitive and efficient editing experience.","Redesigned Move, Rotate and Scale draggers with a fresh look and improved functionality for a more intuitive and efficient editing experience."
+Studio.BetaFeatures.SoundAsAShimDescription,,,"Replaces the implementation of Sounds with the advanced Audio API, enabling Acoustic Simulation and new audio features when using the legacy Sound framework.","Replaces the implementation of Sounds with the advanced Audio API, enabling Acoustic Simulation and new audio features when using the legacy Sound framework."
+Studio.BetaFeatures.NextGenDraggersTitle,,,Next-Gen Draggers,Next-Gen Draggers
+Studio.BetaFeatures.RemoteBreakpointsDescription,,,Enables the ability to debug Team Test servers from Studio.,Enables the ability to debug Team Test servers from Studio.
+Studio.BetaFeatures.RemoteBreakpointsTitle,,,Remote Breakpoints,Remote Breakpoints
+Studio.BetaFeatures.ScriptSyncDescription2,,,Bidirectionally sync Folders and Scripts in Studio with directories and files on disk,Bidirectionally sync Folders and Scripts in Studio with directories and files on disk
+Studio.BetaFeatures.ScriptSyncTitle2,,,Script Sync,Script Sync
+Studio.BetaFeatures.ServerAuthorityDescription,,,"Make the server, not your players' devices, have the final say on game logic and state. Also enables Behaviors, a new way to script.","Make the server, not your players' devices, have the final say on game logic and state. Also enables Behaviors, a new way to script."
+Studio.BetaFeatures.ServerAuthorityTitle,,,Server Authority,Server Authority
+Studio.BetaFeatures.SoundAsAShimTitle,,,Sound as a Shim,Sound as a Shim
+Studio.BetaFeatures.Texture4kDescription,,,"Textures will stream at up to 4k resolution for MeshParts, SurfaceAppearance, Texture, Decal and MaterialVariant instances.","Textures will stream at up to 4k resolution for MeshParts, SurfaceAppearance, Texture, Decal and MaterialVariant instances."
+Studio.BetaFeatures.Texture4kTitle,,,4k Texture Rendering,4k Texture Rendering
+Studio.BetaFeatures.ThirdPartyMCPDescription,,,Enables connections to third-party Model Context Protocol (MCP) servers in Studio Assistant.,Enables connections to third-party Model Context Protocol (MCP) servers in Studio Assistant.
+Studio.BetaFeatures.ThirdPartyMCPTitle,,,Third-Party MCP Servers,Third-Party MCP Servers
+Studio.BetaFeatures.ViewportDisplaySizeAPITitle,,,New Display Size API,New Display Size API
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15191,9 +15984,61 @@ Studio.LiveSync.ErrorDuringSyncWithCode,,,Can't sync %1 to disk: Error during sy
 Studio.LiveSync.StudioStreamingNotSupported,,,Can't sync %1 to disk: Syncing under Workspace is not supported while Studio Streaming is enabled,Can't sync %1 to disk: Syncing under Workspace is not supported while Studio Streaming is enabled
 Studio.LiveSync.ErrorFromPreviousSession,,,Error from previous session -,Error from previous session -
 Studio.LiveSync.ErrorServiceCannotUseInitFile,,,Can't sync %1: Services cannot be converted to Scripts using init files,Can't sync %1: Services cannot be converted to Scripts using init files
+Studio.LiveSync.PluginLoadingErrorPathNotUnique,,,Can't sync %1 to disk: DataModel path is not unique,Can't sync %1 to disk: DataModel path is not unique
+Studio.LiveSync.PluginLoadingErrorInstanceNotFound,,,Can't sync %1 to disk: instance not found,Can't sync %1 to disk: instance not found
+Studio.LiveSync.PropertyItems.ApplicationNotFound1,,,Application not found (%1),Application not found (%1)
+Studio.LiveSync.PropertyItems.ChooseApp,,,Choose an application,Choose an application
+Studio.LiveSync.ErrorPathOverlapsWithAncestor,,,Can't sync with %1 because its ancestor %2 is already being synced,Can't sync with %1 because its ancestor %2 is already being synced
+Studio.LiveSync.SyncToTooltip,,,"Start syncing a Script, Folder, or Service to a location on disk","Start syncing a Script, Folder, or Service to a location on disk"
+Studio.LiveSync.Property.ExternalEditorSelection,,,Editor path,Editor path
+Studio.LiveSync.ErrorChangingRootType,,,Can't sync %1 to the disk: The file's root type has changed.,Can't sync %1 to the disk: The file's root type has changed.
+Studio.LiveSync.FileSyncPathsPermission,,,Do you want to allow Plugin %1 to see the file paths of Instances that are syncing?,Do you want to allow Plugin %1 to see the file paths of Instances that are syncing?
+Studio.LiveSync.ErrorPathOverlapsWithDescendant,,,Can't sync with %1 because its descendant %2 is already being synced,Can't sync with %1 because its descendant %2 is already being synced
+Studio.LiveSync.FileSyncPathsDeniedError,,,Plugin %1 was denied file sync paths permission. You can grant this permission in the Plugin Manager.,Plugin %1 was denied file sync paths permission. You can grant this permission in the Plugin Manager.
+Studio.LiveSync.FileSyncPathsWarning,,,"Plugin %1 is attempting to see the file paths for your syncing Instances. Your user home directory will be anonymized before being shown to the plugin. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management.","Plugin %1 is attempting to see the file paths for your syncing Instances. Your user home directory will be anonymized before being shown to the plugin. Click Allow to permit all future attempts, or Deny to block. You can edit these settings in Plugin Management."
+Studio.LiveSync.FileSyncPathsFirstDeniedError,,,Plugin %1 was denied file sync paths permission. The user has been prompted for future attempts.,Plugin %1 was denied file sync paths permission. The user has been prompted for future attempts.
+Studio.LiveSync.OpenInExternalEditor,,,Open in External Editor,Open in External Editor
+Studio.LiveSync.OpenInExternalEditorTooltip,,,Open the synced file in the users default editor,Open the synced file in the users default editor
+Studio.LiveSync.Property.ExternalEditorMode,,,External script editor,External script editor
+Studio.LiveSync.Property.UseDefaultExternalEditor,,,Use default as external script editor,Use default as external script editor
+Studio.LiveSync.PropertyItems.SystemDefault,,,System Default,System Default
+Studio.LiveSync.ResumeSyncConflictsCondensedM3,,,%1 instance(s) not resumed - contents differ from disk. Resume manually via context menu or set behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,%1 instance(s) not resumed - contents differ from disk. Resume manually via context menu or set behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
+Studio.LiveSync.SyncFolderBestExperience,,,Sync a folder for the best experience,Sync a folder for the best experience
+Studio.LiveSync.SyncTo,,,Sync to...,Sync to...
+Studio.LiveSync.SyncToFile,,,Sync to file,Sync to file
+Studio.LiveSync.Upsell,,,"To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting <b>Script Sync > Sync with directory</b> in the right-click menu","To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting <b>Script Sync > Sync with directory</b> in the right-click menu"
+Studio.LiveSync.WarningIgnoredChildren,,,%1 has children that are incompatible instances which will not be synced,%1 has children that are incompatible instances which will not be synced
+Studio.LiveSync.WarningUnsupportedProperties,,,%1 has unsupported properties which will not be synced,%1 has unsupported properties which will not be synced
+Studio.LiveSync.WarningIgnoredDescendants,,,%1 has descendants that are incompatible instances which will not be synced,%1 has descendants that are incompatible instances which will not be synced
+Studio.LiveSync.WarningUnsupportedPropertiesDescendants,,,%1 has descendants with unsupported properties which will not be synced,%1 has descendants with unsupported properties which will not be synced
 Studio.ScriptEditor.TypeColor,,,Type Color,Type Color
 Studio.ScriptEditor.NoDeclarationFoundTooltip,,,No declaration found,No declaration found
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,,,No declaration found for '%1',No declaration found for '%1'
+Studio.ScriptEditor.ReviewableChange.Accept,,,Accept,Accept
+Studio.ScriptEditor.ReviewableChange.Reject,,,Reject,Reject
+Studio.AudioActions.Action.FindPlaying,,,Find Playing,Find Playing
+Studio.AudioActions.Action.InsertBefore,,,Insert Before...,Insert Before...
+Studio.AudioActions.Action.Insert,,,%s,%s
+Studio.AudioActions.Action.InsertBetween,,,Insert Between...,Insert Between...
+Studio.AudioActions.Action.InsertAfter,,,Insert After...,Insert After...
+Studio.AudioActions.Action.MainVolume,,,Main Volume,Main Volume
+Studio.AudioActions.Action.MigrateSounds,,,Migrate Sounds,Migrate Sounds
+Studio.AudioActions.Action.SelectOutputs,,,Select Outputs,Select Outputs
+Studio.AudioActions.Action.SelectInputs,,,Select Inputs,Select Inputs
+Studio.AudioActions.Action.StopPlaying,,,Stop Playing,Stop Playing
+Studio.AudioActions.Action.WireUp,,,Wire %s -> %t,Wire %s -> %t
+Studio.AudioActions.Action.WireUpDisabled,,,Wire Up,Wire Up
+Studio.AudioActions.Tooltip.FindPlaying,,,Select all AudioPlayers that are currently playing audio,Select all AudioPlayers that are currently playing audio
+Studio.AudioActions.Tooltip.Insert,,,Insert %s under the selected instance,Insert %s under the selected instance
+Studio.AudioActions.Tooltip.InsertAfter,,,Insert an intsance as an output from the selected instance,Insert an intsance as an output from the selected instance
+Studio.AudioActions.Tooltip.InsertBefore,,,Insert an instance as an input to the selected instance,Insert an instance as an input to the selected instance
+Studio.AudioActions.Tooltip.InsertBetween,,,Insert an instance between two nodes connected by a Wire,Insert an instance between two nodes connected by a Wire
+Studio.AudioActions.Tooltip.MainVolume,,,Change the sound output level of Studio,Change the sound output level of Studio
+Studio.AudioActions.Tooltip.MigrateSounds,,,Update selected Sound instances to AudioPlayers,Update selected Sound instances to AudioPlayers
+Studio.AudioActions.Tooltip.WireUp,,,Connect two selected audio instances with a Wire,Connect two selected audio instances with a Wire
+Studio.AudioActions.Tooltip.SelectInputs,,,Select all input instances wired to an Instance,Select all input instances wired to an Instance
+Studio.AudioActions.Tooltip.StopPlaying,,,Stop all audio instances that are playing sound,Stop all audio instances that are playing sound
+Studio.AudioActions.Tooltip.SelectOutputs,,,Select all output instances wired from an Instance,Select all output instances wired from an Instance
 Studio.PlaceVersionHistory.Label.PlaceVersionHistory,,,Place Version History,Place Version History
 Studio.PlaceVersionHistory.VersionHistory,,,Version History,Version History
 Studio.PlaceVersionHistory.Label.VersionHistory,,,Version History,Version History
@@ -15248,6 +16093,11 @@ Studio.PlaceVersionHistory.Label.PreviouslyPublished,,,Previously Published,Prev
 Studio.PlaceVersionHistory.Title.AddVersionNotes,,,Add version notes,Add version notes
 Studio.PlaceVersionHistory.Label.VersionNamePlaceholder,,,Describe what changed in this version,Describe what changed in this version
 Studio.PlaceVersionHistory.Label.VersionNotesPlaceholder,,,Add more information about the changes,Add more information about the changes
+Studio.MinSpec.DialogClose,,,Close,Close
+Studio.MinSpec.DialogDetailedText,,,Please upgrade or access on a different device.,Please upgrade or access on a different device.
+Studio.MinSpec.DialogCreatorHub,,,Visit Creator Hub,Visit Creator Hub
+Studio.MinSpec.DialogText,,,This system does not meet the minimum requirements to run Roblox Studio,This system does not meet the minimum requirements to run Roblox Studio
+Studio.MinSpec.DialogTitle,,,Roblox Studio,Roblox Studio
 Studio.PerformanceTools.SceneBudgetThermometer.Plugin.Toolbar,,,Performance Tools,Performance Tools
 Studio.PerformanceTools.SceneBudgetThermometer.Name,,,Scene Budget Thermometer,Scene Budget Thermometer
 Studio.PerformanceTools.SceneBudgetThermometer.Button,,,Scene Budget Thermometer,Scene Budget Thermometer
@@ -15330,6 +16180,12 @@ Studio.PerformanceTools.SceneBudgetThermometer.GraphicsSettings,,,Graphics Setti
 Studio.PerformanceTools.SceneBudgetThermometer.QualitySettingWarning,,,Scene geometry can change under different graphics quality settings.,Scene geometry can change under different graphics quality settings.
 Studio.PerformanceTools.SceneBudgetThermometer.Manual,,,Manual,Manual
 Studio.PerformanceTools.SceneBudgetThermometer.Automatic,,,Automatic,Automatic
+Studio.PerformanceTools.SceneMonitor.GraphicsQualityDescription,,,"The level of graphics quality that is currently visible in your viewport. This is a per-device setting, and changing this will show how your game might appear on different devices.","The level of graphics quality that is currently visible in your viewport. This is a per-device setting, and changing this will show how your game might appear on different devices."
+Studio.PerformanceTools.SceneMonitor.CPU,,,CPU,CPU
+Studio.PerformanceTools.SceneMonitor.DefaultSettingsInformation,,,The default values are for low end devices. Staying under these values is a good sign that your game will be able to run at 60 frames per second on over 90% of player's devices.,The default values are for low end devices. Staying under these values is a good sign that your game will be able to run at 60 frames per second on over 90% of player's devices.
+Studio.PerformanceTools.SceneMonitor.Auto,,,Auto,Auto
+Studio.PerformanceTools.SceneMonitor.Name,,,Scene Monitor,Scene Monitor
+Studio.PerformanceTools.SceneMonitor.Geometry,,,Geometry,Geometry
 Studio.CreatorStore.Label.Recent,,,Recent,Recent
 Studio.CreatorStore.Label.CreatorStore,,,Creator Store,Creator Store
 Studio.CreatorStore.Label.Inventory,,,Inventory,Inventory
@@ -15483,8 +16339,12 @@ Studio.SystemMenu.Tooltip.Performance,,,A basic performance overlay,A basic perf
 Studio.SystemMenu.Title.ReportIllegalContent,,,Report Illegal Content,Report Illegal Content
 Studio.SystemMenu.Tooltip.ReportIllegalContent,,,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
 Studio.SystemMenu.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
+Studio.SystemMenu.Title.Input,,,Input,Input
 Studio.SystemMenu.Title.GroupAsFrame,,,Group as Frame,Group as Frame
 Studio.SystemMenu.Title.UserInputPlayback,,,User Input Playback,User Input Playback
+Studio.SystemMenu.Title.PublishToRobloxWithNotes,,,Publish to Roblox with Notes,Publish to Roblox with Notes
+Studio.SystemMenu.Tooltip.PublishToRobloxWithNotes,,,Publish active document to Roblox with version notes,Publish active document to Roblox with version notes
+Studio.SystemMenu.Title.UIAuthoring,,,Designer,Designer
 Studio.PlaceUpload.ErrorMessage.BadRequest,,,Place save was rejected. Check your network and try again later.,Place save was rejected. Check your network and try again later.
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,,Search for a Behavior to bind to,Search for a Behavior to bind to
@@ -15575,6 +16435,14 @@ Studio.DownloadPlaceCopy.DownloadingPlaceFile,,,Downloading place file… this m
 Studio.DownloadPlaceCopy.PublishInProgress,,,"Place publish in progress, please retry downloading the place when publishing is complete.","Place publish in progress, please retry downloading the place when publishing is complete."
 Studio.DownloadPlaceCopy.PlaceFileDownloaded1,,,Place file downloaded to '%1',Place file downloaded to '%1'
 Studio.DownloadPlaceCopy.FallbackToLocal,,,Saving local place content ...,Saving local place content ...
+Studio.MaxInstanceCount.CriticalDialogDetailedText,,,You have opened the maximum allowed Studio windows. Please close some and try again.<br><a href='%1'>Learn More</a>,You have opened the maximum allowed Studio windows. Please close some and try again.<br><a href='%1'>Learn More</a>
+Studio.MaxInstanceCount.CriticalDialogOKButton,,,OK,OK
+Studio.MaxInstanceCount.WarningDialogCloseInstanceButton,,,Close,Close
+Studio.MaxInstanceCount.WarningDialogDetailedText,,,"If you proceed, you may experience reduced performance.<br><a href='%1'>Learn More</a>","If you proceed, you may experience reduced performance.<br><a href='%1'>Learn More</a>"
+Studio.MaxInstanceCount.CriticalDialogText,,,Can’t open Studio window,Can’t open Studio window
+Studio.MaxInstanceCount.DialogTitle,,,Roblox Studio,Roblox Studio
+Studio.MaxInstanceCount.WarningDialogDismissButton,,,Proceed,Proceed
+Studio.MaxInstanceCount.WarningDialogText,,,Low System Resources,Low System Resources
 Studio.CommandBar.Label.RunCommandInStandaloneDM,,,Run command in Standalone DataModel,Run command in Standalone DataModel
 Studio.CommandBar.Label.Standalone,,,Standalone,Standalone
 Studio.CommandBar.Label.CommandBarRun,,,Command Bar Run,Command Bar Run
@@ -15586,12 +16454,68 @@ Studio.CommandBar.Label.PlaceholderText,,,Type a command or use %1+%2/%3 for his
 Studio.CommandBar.Label.RunWithShortcut,,,Run %1%2,Run %1%2
 Studio.CommandBar.Label.PlaceholderTextWithShortcut,,,Execute a command with %1%2 or use %3+%4/%5 for history,Execute a command with %1%2 or use %3+%4/%5 for history
 Studio.CommandBar.ExecuteWithEnterProperty,,,Execute Command with Return,Execute Command with Return
+Studio.CommandBar.HistoryLenProperty,,,Command History Length,Command History Length
+Studio.CommandBar.Dialog.DangerousCommandContinue,,,Continue,Continue
+Studio.CommandBar.ExecutionOption.Local,,,Local Execution,Local Execution
+Studio.CommandBar.Dialog.DangerousCommandDesc,,,This command uses %1 and may not be undoable. Would you like to continue?,This command uses %1 and may not be undoable. Would you like to continue?
+Studio.CommandBar.FontProperty,,,Font,Font
+Studio.CommandBar.Dialog.DangerousCommandAlwaysContinue,,,Always Continue,Always Continue
+Studio.CommandBar.Description.MultilineToggleCommandDescription,,,Switch between single-line and multi-line modes in the Command Bar,Switch between single-line and multi-line modes in the Command Bar
+Studio.CommandBar.Description.MultilineToggleCommandName,,,Toggle multi-line mode,Toggle multi-line mode
+Studio.CommandBar.Description.SaveToggleCommandDescription,,,Save / unsave the current command in the command bar,Save / unsave the current command in the command bar
+Studio.CommandBar.Description.ShowHistoryCommandDescription,,,Show menu with recently executed and saved commands,Show menu with recently executed and saved commands
+Studio.CommandBar.Description.SaveToggleCommandName,,,Save/unsave command,Save/unsave command
+Studio.CommandBar.Dialog.DangerousCommandCancel,,,Cancel,Cancel
+Studio.CommandBar.Dialog.DangerousCommandTitle,,,Dangerous Command Detected,Dangerous Command Detected
+Studio.CommandBar.ExecutionOption.Remote,,,Cloud Execution,Cloud Execution
+Studio.CommandBar.Label.CommandHistoryTooltip,,,Command history,Command history
+Studio.CommandBar.Label.SaveCommandTooltip,,,Save command,Save command
+Studio.CommandBar.Label.UnsaveCommandTooltip,,,Unsave command,Unsave command
+Studio.CommandBar.SettingsCategory,,,Command Bar,Command Bar
 Studio.AssetExport.SettingName.Format,,,Format,Format
+Studio.AssetExport.Buttons.Export,,,Export,Export
+Studio.AssetExport.Context.Browser,,,Open in Browser,Open in Browser
+Studio.AssetExport.Info.Issues,,,Some assets can't be exported due to permission restrictions. You can export the rest or adjust your settings.,Some assets can't be exported due to permission restrictions. You can export the rest or adjust your settings.
+Studio.AssetExport.Info.UsagePlural,,,Used in {count} instances,Used in {count} instances
+Studio.AssetExport.Buttons.Back,,,Back,Back
+Studio.AssetExport.Buttons.ExportRemaining,,,Export Remaining,Export Remaining
+Studio.AssetExport.SettingTitle.Include,,,Include,Include
+Studio.AssetExport.Buttons.Processing,,,Processing...,Processing...
+Studio.AssetExport.Title.Review,,,Review Issues,Review Issues
+Studio.AssetExport.SettingName.pbr,,,PBR Textures,PBR Textures
+Studio.AssetExport.Info.Failure,,,"Try again, or reach out on the dev forum if the issue persists","Try again, or reach out on the dev forum if the issue persists"
+Studio.AssetExport.Info.Customize,,,Pick the components to include in your GLTF file,Pick the components to include in your GLTF file
+Studio.AssetExport.Buttons.Cancel,,,Cancel,Cancel
+Studio.AssetExport.SettingName.facs,,,Dynamic Heads,Dynamic Heads
+Studio.AssetExport.Info.Permission,,,Permission Issues,Permission Issues
+Studio.AssetExport.SettingName.skinning,,,Skinning,Skinning
+Studio.AssetExport.SettingName.attachments,,,Attachments,Attachments
+Studio.AssetExport.AssetType.Mesh,,,Mesh,Mesh
+Studio.AssetExport.AssetType.Image,,,Image,Image
+Studio.AssetExport.Buttons.Done,,,Done,Done
+Studio.AssetExport.Info.Learn,,,Learn how to ensure you have permissions,Learn how to ensure you have permissions
+Studio.AssetExport.Context.Explorer,,,Show in Explorer,Show in Explorer
+Studio.AssetExport.Info.Review,,,Some assets can't be exported due to permission restrictions. The other assets in your selection will still be exported.,Some assets can't be exported due to permission restrictions. The other assets in your selection will still be exported.
+Studio.AssetExport.Info.Success,,,You may safely close the exporter,You may safely close the exporter
+Studio.AssetExport.Info.UsageSingle,,,Used in {count} instance,Used in {count} instance
+Studio.AssetExport.SettingName.cages,,,Cages,Cages
+Studio.AssetExport.Title.Customize,,,Customize your export,Customize your export
+Studio.AssetExport.Title.Failure,,,Export failed,Export failed
+Studio.AssetExport.SettingName.textures,,,Textures,Textures
+Studio.AssetExport.Title.Success,,,Export successful,Export successful
 Studio.NativeDialog.Yes,,,Yes,Yes
 Studio.NativeDialog.No,,,No,No
 Studio.NativeDialog.NativeDialogTitle,,,%1 is not responding,%1 is not responding
 Studio.NativeDialog.NativeDialogDescription,,,Would you like Studio to stop this plugin?,Would you like Studio to stop this plugin?
 Studio.NativeDialog.NativeDialogTitleUnknownName,,,A plugin is not responding,A plugin is not responding
+Studio.NativeDialog.CommandBarText,,,Would you like to stop this command?,Would you like to stop this command?
+Studio.NativeDialog.StudioFrozenTitle,,,Studio Frozen,Studio Frozen
+Studio.NativeDialog.CommandBarTitle,,,Long Running Command,Long Running Command
+Studio.NativeDialog.Ok,,,Ok,Ok
+Studio.NativeDialog.TerminateBuiltInKnownName,,,"The '%1' window is taking too long to respond. Do you want to terminate it and continue editing your place, or keep waiting?","The '%1' window is taking too long to respond. Do you want to terminate it and continue editing your place, or keep waiting?"
+Studio.NativeDialog.TerminateBuiltInNoName,,,"A window is not responding. Do you want to terminate it and continue editing your place, or keep waiting?","A window is not responding. Do you want to terminate it and continue editing your place, or keep waiting?"
+Studio.NativeDialog.TerminatePluginNoName,,,"A plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting?","A plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting?"
+Studio.NativeDialog.TerminateUserPluginNoName,,,"A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer."
 Studio.AnimateEverything.BasicExample.Text,,,Capybaras are cute!,Capybaras are cute!
 Studio.AnimateEverything.CounterExample.Button,,,Push me!,Push me!
 Studio.AnimateEverything.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!
@@ -15606,6 +16530,57 @@ Studio.AnimateEverything.TimeUnitsPostfix.Seconds,,,s,s
 Studio.AnimateEverything.FaceControlEditor.SymmetryCheckbox,,,Enable Symmetry,Enable Symmetry
 Studio.AnimateEverything.FaceControlEditor.FocusFaceCheckbox,,,Focus on Face,Focus on Face
 Studio.AnimateEverything.FaceControlEditor.ResetAllButton,,,Reset All,Reset All
+Studio.AnimateEverything.FaceControlEditor.RightLowerLipDepressorTooltip,,,RightLowerLipDepressor,RightLowerLipDepressor
+Studio.AnimateEverything.FaceControlEditor.LeftEyeUpperLidRaiserTooltip,,,LeftEyeUpperLidRaiser,LeftEyeUpperLidRaiser
+Studio.AnimateEverything.FaceControlEditor.MouthLeftTooltip,,,MouthLeft,MouthLeft
+Studio.AnimateEverything.FaceControlEditor.EyesLookRightTooltip,,,EyesLookRight,EyesLookRight
+Studio.AnimateEverything.FaceControlEditor.LeftEyeClosedTooltip,,,LeftEyeClosed,LeftEyeClosed
+Studio.AnimateEverything.FaceControlEditor.JawDropTooltip,,,JawDrop,JawDrop
+Studio.AnimateEverything.FaceControlEditor.RightCheekPuffTooltip,,,RightCheekPuff,RightCheekPuff
+Studio.AnimateEverything.FaceControlEditor.LeftLipCornerPullerTooltip,,,LeftLipCornerPuller,LeftLipCornerPuller
+Studio.AnimateEverything.FaceControlEditor.ChinRaiserTooltip,,,ChinRaiser,ChinRaiser
+Studio.AnimateEverything.FaceControlEditor.TongueDownTooltip,,,TongueDown,TongueDown
+Studio.AnimateEverything.FaceControlEditor.RightOuterBrowRaiserTooltip,,,RightOuterBrowRaiser,RightOuterBrowRaiser
+Studio.AnimateEverything.FaceControlEditor.LipPresserTooltip,,,LipPresser,LipPresser
+Studio.AnimateEverything.FaceControlEditor.PuckerTooltip,,,Pucker,Pucker
+Studio.AnimateEverything.FaceControlEditor.LeftLipCornerDownTooltip,,,LeftLipCornerDown,LeftLipCornerDown
+Studio.AnimateEverything.FaceControlEditor.LeftBrowLowererTooltip,,,LeftBrowLowerer,LeftBrowLowerer
+Studio.AnimateEverything.FaceControlEditor.LowerLipSuckTooltip,,,LowerLipSuck,LowerLipSuck
+Studio.AnimateEverything.FaceControlEditor.LeftInnerBrowRaiserTooltip,,,LeftInnerBrowRaiser,LeftInnerBrowRaiser
+Studio.AnimateEverything.FaceControlEditor.FunnelerCheckbox,,,Funneler,Funneler
+Studio.AnimateEverything.FaceControlEditor.EyesLookDownTooltip,,,EyesLookDown,EyesLookDown
+Studio.AnimateEverything.FaceControlEditor.JawRightTooltip,,,JawRight,JawRight
+Studio.AnimateEverything.FaceControlEditor.RightDimplerTooltip,,,RightDimpler,RightDimpler
+Studio.AnimateEverything.FaceControlEditor.MouthRightTooltip,,,MouthRight,MouthRight
+Studio.AnimateEverything.FaceControlEditor.LeftLowerLipDepressorTooltip,,,LeftLowerLipDepressor,LeftLowerLipDepressor
+Studio.AnimateEverything.FaceControlEditor.CorrugatorTooltip,,,Corrugator,Corrugator
+Studio.AnimateEverything.FaceControlEditor.LeftCheekPuffTooltip,,,LeftCheekPuff,LeftCheekPuff
+Studio.AnimateEverything.FaceControlEditor.EyesLookLeftTooltip,,,EyesLookLeft,EyesLookLeft
+Studio.AnimateEverything.FaceControlEditor.FunnelerTooltip,,,Funneler,Funneler
+Studio.AnimateEverything.FaceControlEditor.ChinRaiserUpperLipTooltip,,,ChinRaiserUpperLip,ChinRaiserUpperLip
+Studio.AnimateEverything.FaceControlEditor.FlatPuckerTooltip,,,FlatPucker,FlatPucker
+Studio.AnimateEverything.FaceControlEditor.EyesLookUpTooltip,,,EyesLookRight,EyesLookRight
+Studio.AnimateEverything.FaceControlEditor.JawLeftTooltip,,,JawLeft,JawLeft
+Studio.AnimateEverything.FaceControlEditor.LeftDimplerTooltip,,,LeftDimpler,LeftDimpler
+Studio.AnimateEverything.FaceControlEditor.LeftCheekRaiserTooltip,,,LeftCheekRaiser,LeftCheekRaiser
+Studio.AnimateEverything.FaceControlEditor.LeftLipStretcherTooltip,,,LeftLipStretcher,LeftLipStretcher
+Studio.AnimateEverything.FaceControlEditor.LeftNoseWrinklerTooltip,,,LeftNoseWrinkler,LeftNoseWrinkler
+Studio.AnimateEverything.FaceControlEditor.LeftUpperLipRaiserTooltip,,,LeftUpperLipRaiser,LeftUpperLipRaiser
+Studio.AnimateEverything.FaceControlEditor.LeftOuterBrowRaiserTooltip,,,LeftOuterBrowRaiser,LeftOuterBrowRaiser
+Studio.AnimateEverything.FaceControlEditor.LipsTogetherTooltip,,,LipsTogether,LipsTogether
+Studio.AnimateEverything.FaceControlEditor.RightCheekRaiserTooltip,,,RightCheekRaiser,RightCheekRaiser
+Studio.AnimateEverything.FaceControlEditor.RightBrowLowererTooltip,,,RightBrowLowerer,RightBrowLowerer
+Studio.AnimateEverything.FaceControlEditor.RightEyeClosedTooltip,,,RightEyeClosed,RightEyeClosed
+Studio.AnimateEverything.FaceControlEditor.RightLipCornerDownTooltip,,,RightLipCornerDown,RightLipCornerDown
+Studio.AnimateEverything.FaceControlEditor.RightEyeUpperLidRaiserTooltip,,,RightEyeUpperLidRaiser,RightEyeUpperLidRaiser
+Studio.AnimateEverything.FaceControlEditor.RightInnerBrowRaiserTooltip,,,RightInnerBrowRaiser,RightInnerBrowRaiser
+Studio.AnimateEverything.FaceControlEditor.RightLipCornerPullerTooltip,,,RightLipCornerPuller,RightLipCornerPuller
+Studio.AnimateEverything.FaceControlEditor.RightLipStretcherTooltip,,,RightLipStretcher,RightLipStretcher
+Studio.AnimateEverything.FaceControlEditor.RightNoseWrinklerTooltip,,,RightNoseWrinkler,RightNoseWrinkler
+Studio.AnimateEverything.FaceControlEditor.RightUpperLipRaiserTooltip,,,RightUpperLipRaiser,RightUpperLipRaiser
+Studio.AnimateEverything.FaceControlEditor.TongueOutTooltip,,,TongueOut,TongueOut
+Studio.AnimateEverything.FaceControlEditor.TongueUpTooltip,,,TongueUp,TongueUp
+Studio.AnimateEverything.FaceControlEditor.UpperLipSuckTooltip,,,UpperLipSuck,UpperLipSuck
 Studio.AssetInserter.Plugin.Name,,,Asset Inserter,Asset Inserter
 Studio.AssetInserter.Progress.Title,,,Inserting Assets,Inserting Assets
 Studio.CreatorConfig.Plugin.Name,,,Experience Configs,Experience Configs
@@ -15658,6 +16633,7 @@ Studio.PartyEmulator.Label.TestModeCompatibilityWarning,,,Switch to Server & Cli
 Studio.PartyEmulator.Plugin.Button,,,Party Simulator,Party Simulator
 Studio.PartyEmulator.Plugin.Description,,,Simulates Parties during Server & Clients play tests,Simulates Parties during Server & Clients play tests
 Studio.PartyEmulator.Plugin.Toolbar,,,Party Simulator,Party Simulator
+Studio.PartyEmulator.Action.AddExternalPlayer,,,Add External Player,Add External Player
 Studio.CustomizedDefaults.DefaultPropertiesReset,,,Default Properties of %1 have been reset.,Default Properties of %1 have been reset.
 Studio.CustomizedDefaults.DefaultPropertiesUpdated,,,Default Properties of %1 have been updated.,Default Properties of %1 have been updated.
 Studio.CustomizedDefaults.ResetDefault,,,Reset Default %1,Reset Default %1
@@ -15698,6 +16674,18 @@ Studio.PropertiesLibrary.Tabs.AttributesAndTags,,,Attributes & Tags,Attributes &
 Studio.PropertiesLibrary.Tabs.All,,,All,All
 Studio.PropertiesLibrary.SearchBar.PlaceholderText,,,Filter by name or value,Filter by name or value
 Studio.PropertiesLibrary.TagDropdown.NewTag,,,New Tag,New Tag
+Studio.PropertiesLibrary.AttributeContextMenu.CopyAttribute,,,Copy Attribute,Copy Attribute
+Studio.PropertiesLibrary.AttributeContextMenu.PasteAttribute,,,Paste Attribute,Paste Attribute
+Studio.PropertiesLibrary.Common.Rename,,,Rename,Rename
+Studio.PropertiesLibrary.AttributeContextMenu.ChangeType,,,Change Type,Change Type
+Studio.PropertiesLibrary.Common.Delete,,,Delete,Delete
+Studio.PropertiesLibrary.AssetAccess.ShareFailed,,,Failed to grant universe access to {assetType} with assetId {assetId},Failed to grant universe access to {assetType} with assetId {assetId}
+Studio.PropertiesLibrary.InstanceRef.Empty,,,Empty,Empty
+Studio.PropertiesLibrary.InstanceRef.Multiple,,,Multiple,Multiple
+Studio.PropertiesLibrary.InstanceRef.Selecting,,,Selecting...,Selecting...
+Studio.PropertiesLibrary.TagsAndAttributes.AttributesHeader,,,Attributes,Attributes
+Studio.PropertiesLibrary.TagsAndAttributes.TagsHeader,,,Tags,Tags
+Studio.PropertiesLibrary.InstanceRef.SelectInstanceType,,,"Select ""{typeOfInstance}""...","Select ""{typeOfInstance}""..."
 Studio.PublishPlace.Error.PublishEligibilityTitle,,,Can't publish place,Can't publish place
 Studio.PublishPlace.Error.PublishEligibilityDescription,,,Check your publishing eligibility in Creator Hub,Check your publishing eligibility in Creator Hub
 Studio.PublishPlace.Button.Manage,,,Check eligibility,Check eligibility
@@ -15714,6 +16702,7 @@ Studio.PublishPlace.Message.QuickLinks,,,Quick Links:,Quick Links:
 Studio.PublishPlace.Message.PlacePublished.Anyone,,,Place published. Eligible players can now play this place in Roblox.,Place published. Eligible players can now play this place in Roblox.
 Studio.PublishPlace.Toast.PlacePublished.Anyone,,,Published. Eligible players can play now.,Published. Eligible players can play now.
 Studio.PublishPlace.Message.AddNotes,,,→ Add publish notes to v%1,→ Add publish notes to v%1
+Studio.PublishPlace.Toast.PlacePublished.Editors,,,Published. Editors can play now.,Published. Editors can play now.
 Studio.PublishPlace.Message.PlacePublished.Editors,,,Place published. Editors can now play this place in Roblox.,Place published. Editors can now play this place in Roblox.
 Studio.PublishPlace.Message.PlacePublished.Friends,,,Place published. Friends can now play this place in Roblox.,Place published. Friends can now play this place in Roblox.
 Studio.PublishPlace.Toast.PlacePublished.Friends,,,Published. Friends can play now.,Published. Friends can play now.
@@ -15731,6 +16720,10 @@ Studio.PublishPlace.Message.PublishIneligible,,,Publish failed. The account isn'
 Studio.PublishPlace.Error.SelectEligibilityTitle,,,Publishing is blocked to protect visibility,Publishing is blocked to protect visibility
 Studio.PublishPlace.Error.SelectEligibilityDescription,,,"The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings.","The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings."
 Studio.PublishPlace.Button.AudienceSettings,,,Manage audience,Manage audience
+Studio.PublishPlace.AfterPublish.ViewCreatorHub,,,View on Creator Hub,View on Creator Hub
+Studio.PublishPlace.AfterPublish.ViewQuestionnaire,,,View questionnaire,View questionnaire
+Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,,,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
+Studio.PublishPlace.AfterPublish.ViewCreatorHubText,,,Changes published.,Changes published.
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -15792,6 +16785,15 @@ Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adap
 Studio.AdaptiveAnimationSupport.Animation.AddCustom,,,Add Custom...,Add Custom...
 Studio.AdaptiveAnimationSupport.Mannequin.RemapRig,,,Remap Rig,Remap Rig
 Studio.AdaptiveAnimationSupport.Mannequin.Documentation,,,Documentation,Documentation
+Studio.AdaptiveAnimationSupport.Mode.Mapping,,,Mapping Mode,Mapping Mode
+Studio.AdaptiveAnimationSupport.Animation.Fingers2,,,Fingers 2,Fingers 2
+Studio.AdaptiveAnimationSupport.Mannequin.HrdDetected,,,Humanoid Rig Description Detected,Humanoid Rig Description Detected
+Studio.AdaptiveAnimationSupport.Mannequin.SelectHRDPlaceholder,,,Select a humanoid to begin editing,Select a humanoid to begin editing
+Studio.AdaptiveAnimationSupport.Animation.Fingers,,,Fingers,Fingers
+Studio.AdaptiveAnimationSupport.Mannequin.CreateHrd,,,Create,Create
+Studio.AdaptiveAnimationSupport.Mannequin.SelectHrd,,,Select,Select
+Studio.AdaptiveAnimationSupport.Mannequin.NoHrd,,,No Humanoid Rig Description,No Humanoid Rig Description
+Studio.AdaptiveAnimationSupport.Mannequin.Title,,,Remap Rig,Remap Rig
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
 Studio.TeamCreate.SafetyEvictDialog.BreakTermsOfUseAppealUnlock,,,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.
@@ -15812,8 +16814,22 @@ Studio.TeamCreate.JoinErrorUnauthorized,,,You do not have permission to join thi
 Studio.TeamCreate.JoinErrorInvalidRequest,,,Invalid request,Invalid request
 Studio.TeamCreate.JoinErrorRccChannel,,,Invalid RCC channel,Invalid RCC channel
 Studio.TeamCreate.JoinErrorGeneric,,,Join failed,Join failed
+Studio.TeamCreate.SafetyEvictDialog.LaterButton,,,Later,Later
+Studio.TeamCreate.SafetyEvictDialog.AskForParentPermission,,,You need parent permission to work with older collaborators,You need parent permission to work with older collaborators
+Studio.TeamCreate.SafetyEvictDialog.AskForParentPermissionDescription,,,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.
+Studio.TeamCreate.SafetyEvictDialog.BecomeTCButton,,,Add,Add
+Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedConnections,,,Add Trusted Connections,Add Trusted Connections
+Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedConnectionsDescription,,,"To continue collaborating in Studio with older users, you need to establish trust.","To continue collaborating in Studio with older users, you need to establish trust."
+Studio.TeamCreate.SafetyEvictDialog.GetParentPermission,,,Ask parent,Ask parent
+Studio.TeamCreate.SafetyEvictDialog.OwnerFurtherAction,,,"To collaborate on this experience, the owner needs to take further action","To collaborate on this experience, the owner needs to take further action"
+Studio.TeamCreate.SafetyEvictDialog.OwnerFurtherActionDescription,,,People in different age groups need additional steps to work together on Studio.,People in different age groups need additional steps to work together on Studio.
+Studio.TeamCreate.SafetyEvictDialog.VerifyButton,,,Verify,Verify
+Studio.TeamCreate.SafetyEvictDialog.VerifyYourAge,,,Verify your age,Verify your age
+Studio.TeamCreate.SafetyEvictDialog.VerifyYourAgeDescription,,,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
+Studio.AnimationGraphEditor.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
+Studio.NetworkSettings.Property.EnableNetworkEmulation,,,Enable Network Simulation,Enable Network Simulation
 Studio.NetworkSettings.Property.InboundNetworkMinDelay,,,Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)
 Studio.NetworkSettings.Property.OutboundNetworkMinDelay,,,Min Outbound Delay (0-1000ms),Min Outbound Delay (0-1000ms)
 Studio.NetworkSettings.Property.InboundPacketLoss,,,Inbound Packet Loss (0-0.5%),Inbound Packet Loss (0-0.5%)
@@ -15821,6 +16837,9 @@ Studio.NetworkSettings.Property.OutboundPacketLoss,,,Outbound Packet Loss (0-0.5
 Studio.NetworkSettings.Property.OutboundNetworkJitter,,,Outbound Jitter (0-1000ms),Outbound Jitter (0-1000ms)
 Studio.NetworkSettings.Property.InboundNetworkJitter,,,Inbound Jitter (0-1000ms),Inbound Jitter (0-1000ms)
 Studio.NetworkSettings.SettingsCategory.NetworkSimulation,,,Network Simulation,Network Simulation
+Studio.NetworkSettings.Property.OutboundNetworkMaxDelay,,,Max Outbound Delay (0-2000ms),Max Outbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.InboundNetworkMaxDelay,,,Max Inbound Delay (0-2000ms),Max Inbound Delay (0-2000ms)
+Studio.NetworkSettings.SettingsCategory.NetworkEmulation,,,Network Emulation,Network Emulation
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Friends for {age:int} years,Friends for {age:int} years
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneYear,,,Connected for one year,Connected for one year
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age:int} months,Connected for {age:int} months
@@ -15867,6 +16886,7 @@ Studio.TeamCreateCollaborators.PCRequestSentDialog.NotFriendsBannerMessage,,,Una
 Studio.TeamCreateCollaborators.VPCRequestSentDialog.NotFriendsBannerMessage,,,Unable to send request to {count:int} users,Unable to send request to {count:int} users
 Studio.TeamCreateCollaborators.VPCRequestSentDialog.NotFriendsSubtitle,,,Make sure you are friends first before you send a trusted friend request.,Make sure you are friends first before you send a trusted friend request.
 Studio.TeamCreateCollaborators.MainView.RequiresTrustedConnectionTitle,,,Some collaborators require trusted friends to collaborate,Some collaborators require trusted friends to collaborate
+Studio.TeamCreateCollaborators.Label.TeamCreateCollaborators,,,TEST,TEST
 Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
 Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
 Studio.AssetPicker.OptionMenuItem.List,,,List,List
@@ -15936,7 +16956,16 @@ Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Over16.Body,,,Some collaborators
 Studio.DialogPlugin.SafetySomeUserCountryBlocked.Title,,,You can't collaborate on this experience right now.,You can't collaborate on this experience right now.
 Studio.DialogPlugin.SafetyDialog.PleaseTryAgainLater,,,Please try again later.,Please try again later.
 Studio.DialogPlugin.SafetyOwnerCountryBlocked.Body,,,The owner is in a country where live collaboration is Studio is temporarily suspended. Please try again later.,The owner is in a country where live collaboration is Studio is temporarily suspended. Please try again later.
+Studio.DialogPlugin.BuildSealedDialog.Title,,,Editing in Studio will change your game's publish settings,Editing in Studio will change your game's publish settings
+Studio.DialogPlugin.BuildSealedDialog.Body,,,"Editing in Studio will remove your content rating, making it publicly unplayable. It will no longer be searchable or recommended.","Editing in Studio will remove your content rating, making it publicly unplayable. It will no longer be searchable or recommended."
+Studio.DialogPlugin.DialogButton.LearnMore,,,Learn more,Learn more
+Studio.DialogPlugin.BuildSealedDialog.Body.Second,,,Take the content questionnaire first to keep your game playable.,Take the content questionnaire first to keep your game playable.
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
+Studio.Platform.YouHaveBeenKicked1,,,"You have been kicked by this experience or its moderators. Moderation message: 
+
+%1","You have been kicked by this experience or its moderators. Moderation message: 
+
+%1"
 Studio.LoginPage.Label.SignUp1,,,Don't have an account?,Don't have an account?
 Studio.LoginPage.Label.SignUp2,,,Create one,Create one
 Studio.LoginPage.Heading.SignIn,,,Sign in,Sign in
@@ -15946,6 +16975,7 @@ Studio.LoginPage.Heading.QuickSignIn,,,Use another device,Use another device
 Studio.LoginPage.Label.QuickSignInInstructions,,,"Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code.","Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code."
 Studio.LoginPage.Button.Terms,,,Terms,Terms
 Studio.LoginPage.Button.Privacy,,,Privacy,Privacy
+Studio.LoginPage.AutoLogin.Loading,,,Signing you in…,Signing you in…
 Studio.LoginPage.Label.Loading,,,Loading...,Loading...
 Studio.AssetQualityValidation.Plugin.Name,,,UGC Validation,UGC Validation
 Studio.AssetQualityValidation.Plugin.Description,,,Open UGC Validation,Open UGC Validation
@@ -16008,3 +17038,6 @@ Studio.InputActionManager.Status.CompositeKeycodeTitle,,,Duplicate Composite Key
 Studio.InputActionManager.Status.CompositeKeycodeDescription,,,Keycode already in use for another direction.,Keycode already in use for another direction.
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
+Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
+Studio.AdPlacementManager.Plugin.Button,,,Ad Placement Manager,Ad Placement Manager
+Studio.AdPlacementManager.Plugin.Name,,,Ad Placement Manager,Ad Placement Manager

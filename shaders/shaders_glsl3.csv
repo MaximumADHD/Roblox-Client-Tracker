@@ -42,6 +42,7 @@ CloudsBsmFS,Fragment
 CloudsBsmFSOld,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
+CloudsCompSingleTapFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsReprojectFilterFS,Fragment
