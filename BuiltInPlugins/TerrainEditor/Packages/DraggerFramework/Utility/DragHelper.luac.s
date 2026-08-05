@@ -269,23 +269,24 @@ PROTO_10:
         7 MINUS                            R9 R10
         8 MOVE                             R10 R5
         9 CALL                             R7 3 1
-       10 JUMPIF                           R4 ; [+7]
-       11 GETUPVAL                         R8 0
-       12 GETTABLEKS                       R8 R8 K4 ["getSizeInSurface"]
-       14 MOVE                             R9 R0
-       15 MOVE                             R10 R7
-       16 CALL                             R8 2 1
-       17 MOVE                             R4 R8
-       18 GETIMPORT                        R8 K7 [table.freeze]
-       20 DUPTABLE                         R9 K13 [{"matrix", "size", "hit", "type", "color"}]
-       21 SETTABLEKS                       R7 R9 K8 ["matrix"]
-       23 SETTABLEKS                       R4 R9 K9 ["size"]
-       25 SETTABLEKS                       R1 R9 K10 ["hit"]
-       27 SETTABLEKS                       R2 R9 K11 ["type"]
-       29 GETTABLEKS                       R10 R0 K14 ["Color"]
-       31 SETTABLEKS                       R10 R9 K12 ["color"]
-       33 CALL                             R8 1 -1
-       34 RETURN                           R8 -1
+       10 GETIMPORT                        R8 K6 [table.freeze]
+       12 DUPTABLE                         R9 K12 [{"matrix", "size", "hit", "type", "color"}]
+       13 SETTABLEKS                       R7 R9 K7 ["matrix"]
+       15 JUMPIFNOT                        R4 ; [+2]
+       16 MOVE                             R10 R4
+       17 JUMP                             ; [+6]
+       18 GETUPVAL                         R10 0
+       19 GETTABLEKS                       R10 R10 K13 ["getSizeInSurface"]
+       21 MOVE                             R11 R0
+       22 MOVE                             R12 R7
+       23 CALL                             R10 2 1
+       24 SETTABLEKS                       R10 R9 K8 ["size"]
+       26 SETTABLEKS                       R1 R9 K9 ["hit"]
+       28 SETTABLEKS                       R2 R9 K10 ["type"]
+       30 GETTABLEKS                       R10 R0 K14 ["Color"]
+       32 SETTABLEKS                       R10 R9 K11 ["color"]
+       34 CALL                             R8 1 -1
+       35 RETURN                           R8 -1
 
 PROTO_11:
         0 GETTABLEKS                       R3 R1 K0 ["Position"]

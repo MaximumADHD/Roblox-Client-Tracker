@@ -158,15 +158,15 @@ PROTO_2:
       175 GETUPVAL                         R5 1
       176 GETTABLEKS                       R5 R5 K5 ["createElement"]
       178 GETUPVAL                         R6 6
-      179 DUPTABLE                         R7 K45 [{"DragTarget", "DraggerContext"}]
+      179 DUPTABLE                         R7 K47 [{["DragTarget"], ["DraggerContext"], ["UseBoundingBoxes"] = }]
       180 GETTABLEKS                       R8 R0 K0 ["_lastDragTarget"]
       182 SETTABLEKS                       R8 R7 K32 ["DragTarget"]
       184 GETTABLEKS                       R8 R0 K15 ["_draggerContext"]
       186 SETTABLEKS                       R8 R7 K18 ["DraggerContext"]
       188 CALL                             R5 2 1
-      189 SETTABLEKS                       R5 R1 K46 ["TargetSoftSnapView"]
+      189 SETTABLEKS                       R5 R1 K48 ["TargetSoftSnapView"]
       191 GETUPVAL                         R2 1
-      192 GETTABLEKS                       R2 R2 K47 ["createFragment"]
+      192 GETTABLEKS                       R2 R2 K49 ["createFragment"]
       194 MOVE                             R3 R1
       195 CALL                             R2 1 -1
       196 RETURN                           R2 -1

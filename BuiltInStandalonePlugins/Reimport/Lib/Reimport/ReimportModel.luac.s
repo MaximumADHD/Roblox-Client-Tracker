@@ -401,25 +401,42 @@ PROTO_7:
       143 MOVE                             R16 R13
       144 NAMECALL                         R14 R9 K25 ["ApplyPreset"]
       146 CALL                             R14 2 0
-      147 GETUPVAL                         R13 4
+      147 GETUPVAL                         R13 6
       148 CALL                             R13 0 1
       149 JUMPIFNOT                        R13 ; [+9]
-      150 GETUPVAL                         R13 6
-      151 GETTABLEKS                       R13 R13 K26 ["acquireLock"]
-      153 GETTABLEKS                       R14 R8 K5 ["filepath"]
-      155 GETTABLEKS                       R15 R8 K21 ["creatorId"]
-      157 CALL                             R13 2 1
-      158 MOVE                             R11 R13
-      159 NAMECALL                         R13 R9 K27 ["Upload"]
-      161 CALL                             R13 1 0
-      162 ADDK                             R4 R4 K16 [0.1]
-      163 MULK                             R14 R5 K8 [0.6]
-      164 ADD                              R13 R4 R14
-      165 GETTABLEKS                       R14 R1 K9 ["progress"]
-      167 MOVE                             R15 R13
-      168 CALL                             R14 1 0
-      169 CLOSEUPVALS                      R4
-      170 RETURN                           R0 0
+      150 GETTABLEKS                       R13 R12 K26 ["MergeMeshes"]
+      152 JUMPIFNOT                        R13 ; [+6]
+      153 GETTABLEKS                       R13 R1 K2 ["error"]
+      155 LOADK                            R14 K27 ["Reimport does not support merged meshes. Please select a different import preset."]
+      156 CALL                             R13 1 0
+      157 CLOSEUPVALS                      R4
+      158 RETURN                           R0 0
+      159 GETUPVAL                         R13 7
+      160 CALL                             R13 0 1
+      161 JUMPIFNOT                        R13 ; [+4]
+      162 GETUPVAL                         R13 8
+      163 MOVE                             R14 R9
+      164 MOVE                             R15 R0
+      165 CALL                             R13 2 0
+      166 GETUPVAL                         R13 4
+      167 CALL                             R13 0 1
+      168 JUMPIFNOT                        R13 ; [+9]
+      169 GETUPVAL                         R13 9
+      170 GETTABLEKS                       R13 R13 K28 ["acquireLock"]
+      172 GETTABLEKS                       R14 R8 K5 ["filepath"]
+      174 GETTABLEKS                       R15 R8 K21 ["creatorId"]
+      176 CALL                             R13 2 1
+      177 MOVE                             R11 R13
+      178 NAMECALL                         R13 R9 K29 ["Upload"]
+      180 CALL                             R13 1 0
+      181 ADDK                             R4 R4 K16 [0.1]
+      182 MULK                             R14 R5 K8 [0.6]
+      183 ADD                              R13 R4 R14
+      184 GETTABLEKS                       R14 R1 K9 ["progress"]
+      186 MOVE                             R15 R13
+      187 CALL                             R14 1 0
+      188 CLOSEUPVALS                      R4
+      189 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -440,49 +457,65 @@ MAIN:
        25 GETIMPORT                        R3 K5 [require]
        27 GETTABLEKS                       R4 R0 K6 ["Lib"]
        29 GETTABLEKS                       R4 R4 K10 ["Reimport"]
-       31 GETTABLEKS                       R4 R4 K11 ["ReimportConfigs"]
+       31 GETTABLEKS                       R4 R4 K11 ["InjectVersionedAssetIds"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K5 [require]
        36 GETTABLEKS                       R5 R0 K6 ["Lib"]
        38 GETTABLEKS                       R5 R5 K10 ["Reimport"]
-       40 GETTABLEKS                       R5 R5 K12 ["TreeMerge"]
+       40 GETTABLEKS                       R5 R5 K12 ["ReimportConfigs"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K5 [require]
        45 GETTABLEKS                       R6 R0 K6 ["Lib"]
        47 GETTABLEKS                       R6 R6 K10 ["Reimport"]
-       49 GETTABLEKS                       R6 R6 K13 ["UploadUtils"]
+       49 GETTABLEKS                       R6 R6 K13 ["TreeMerge"]
        51 CALL                             R5 1 1
        52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R7 R0 K14 ["Flags"]
-       56 GETTABLEKS                       R7 R7 K15 ["GetFFlagEnableGroupUpload"]
-       58 CALL                             R6 1 1
-       59 GETIMPORT                        R7 K5 [require]
-       61 GETTABLEKS                       R8 R0 K14 ["Flags"]
-       63 GETTABLEKS                       R8 R8 K16 ["GetFFlagReimportEmptyModelPivotFix"]
-       65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K14 ["Flags"]
-       70 GETTABLEKS                       R9 R9 K17 ["GetFFlagReimportFileWatcher"]
-       72 CALL                             R8 1 1
-       73 GETIMPORT                        R9 K5 [require]
-       75 GETIMPORT                        R10 K1 [script]
-       77 GETTABLEKS                       R10 R10 K18 ["Parent"]
-       79 GETTABLEKS                       R10 R10 K19 ["Types"]
+       54 GETTABLEKS                       R7 R0 K6 ["Lib"]
+       56 GETTABLEKS                       R7 R7 K10 ["Reimport"]
+       58 GETTABLEKS                       R7 R7 K14 ["UploadUtils"]
+       60 CALL                             R6 1 1
+       61 GETIMPORT                        R7 K5 [require]
+       63 GETTABLEKS                       R8 R0 K15 ["Flags"]
+       65 GETTABLEKS                       R8 R8 K16 ["GetFFlagReimportVersionedModels"]
+       67 CALL                             R7 1 1
+       68 GETIMPORT                        R8 K5 [require]
+       70 GETTABLEKS                       R9 R0 K15 ["Flags"]
+       72 GETTABLEKS                       R9 R9 K17 ["GetFFlagEnableGroupUpload"]
+       74 CALL                             R8 1 1
+       75 GETIMPORT                        R9 K5 [require]
+       77 GETTABLEKS                       R10 R0 K15 ["Flags"]
+       79 GETTABLEKS                       R10 R10 K18 ["GetFFlagReimportEmptyModelPivotFix"]
        81 CALL                             R9 1 1
-       82 DUPCLOSURE                       R10 K20 [PROTO_0]
-       83 NEWTABLE                         R11 2 0
-       85 DUPCLOSURE                       R12 K21 [PROTO_1]
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          VAL R4
-       89 SETTABLEKS                       R12 R11 K22 ["doReimportApply"]
-       91 DUPCLOSURE                       R12 K23 [PROTO_7]
-       92 CAPTURE                          VAL R3
-       93 CAPTURE                          VAL R1
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          VAL R11
-       96 CAPTURE                          VAL R8
-       97 CAPTURE                          VAL R6
-       98 CAPTURE                          VAL R5
-       99 SETTABLEKS                       R12 R11 K24 ["reimport"]
-      101 RETURN                           R11 1
+       82 GETIMPORT                        R10 K5 [require]
+       84 GETTABLEKS                       R11 R0 K15 ["Flags"]
+       86 GETTABLEKS                       R11 R11 K19 ["GetFFlagReimportFileWatcher"]
+       88 CALL                             R10 1 1
+       89 GETIMPORT                        R11 K5 [require]
+       91 GETTABLEKS                       R12 R0 K15 ["Flags"]
+       93 GETTABLEKS                       R12 R12 K20 ["GetFFlagReimportRejectMergeMeshes"]
+       95 CALL                             R11 1 1
+       96 GETIMPORT                        R12 K5 [require]
+       98 GETIMPORT                        R13 K1 [script]
+      100 GETTABLEKS                       R13 R13 K21 ["Parent"]
+      102 GETTABLEKS                       R13 R13 K22 ["Types"]
+      104 CALL                             R12 1 1
+      105 DUPCLOSURE                       R13 K23 [PROTO_0]
+      106 NEWTABLE                         R14 2 0
+      108 DUPCLOSURE                       R15 K24 [PROTO_1]
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R13
+      111 CAPTURE                          VAL R5
+      112 SETTABLEKS                       R15 R14 K25 ["doReimportApply"]
+      114 DUPCLOSURE                       R15 K26 [PROTO_7]
+      115 CAPTURE                          VAL R4
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R2
+      118 CAPTURE                          VAL R14
+      119 CAPTURE                          VAL R10
+      120 CAPTURE                          VAL R8
+      121 CAPTURE                          VAL R11
+      122 CAPTURE                          VAL R7
+      123 CAPTURE                          VAL R3
+      124 CAPTURE                          VAL R6
+      125 SETTABLEKS                       R15 R14 K27 ["reimport"]
+      127 RETURN                           R14 1

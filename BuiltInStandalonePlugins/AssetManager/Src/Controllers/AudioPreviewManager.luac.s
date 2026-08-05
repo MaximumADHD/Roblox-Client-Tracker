@@ -19,13 +19,6 @@ PROTO_0:
        26 RETURN                           R2 1
 
 PROTO_1:
-        0 NAMECALL                         R1 R0 K0 ["_teardownAudioPlayer"]
-        2 CALL                             R1 1 0
-        3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K1 ["_connections"]
-        6 RETURN                           R0 0
-
-PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_isPlaying"]
         3 JUMPIFNOT                        R0 ; [+33]
@@ -54,7 +47,7 @@ PROTO_2:
        36 CALL                             R1 2 0
        37 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 0
         2 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
@@ -75,8 +68,8 @@ PROTO_3:
        24 CALL                             R0 1 0
        25 RETURN                           R0 0
 
-PROTO_4:
-        0 NAMECALL                         R1 R0 K0 ["_teardownAudioPlayer"]
+PROTO_3:
+        0 NAMECALL                         R1 R0 K0 ["teardownAudioPlayer"]
         2 CALL                             R1 1 0
         3 GETIMPORT                        R1 K3 [Instance.new]
         5 LOADK                            R2 K4 ["AudioPlayer"]
@@ -112,7 +105,7 @@ PROTO_4:
        50 SETTABLEKS                       R5 R4 K14 ["Ended"]
        52 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["_connections"]
         3 CALL                             R1 1 0
@@ -127,7 +120,7 @@ PROTO_5:
        17 SETTABLEKS                       R1 R0 K1 ["_audioPlayer"]
        19 RETURN                           R0 0
 
-PROTO_6:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["rbxassetid://%*"]
         2 GETUPVAL                         R5 1
@@ -175,7 +168,7 @@ PROTO_6:
        61 CALL                             R0 1 0
        62 RETURN                           R0 0
 
-PROTO_7:
+PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["_isMock"]
         2 JUMPIFNOT                        R2 ; [+23]
         3 SETTABLEKS                       R1 R0 K1 ["_currentSoundId"]
@@ -221,7 +214,7 @@ PROTO_7:
        62 CALL                             R3 1 0
        63 RETURN                           R0 0
 
-PROTO_8:
+PROTO_7:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
         3 GETTABLEKS                       R1 R0 K1 ["OnStateChanged"]
@@ -234,7 +227,7 @@ PROTO_8:
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
         3 GETTABLEKS                       R1 R0 K1 ["OnStateChanged"]
@@ -247,7 +240,7 @@ PROTO_9:
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
 
-PROTO_10:
+PROTO_9:
         0 LOADN                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["_currentSoundId"]
         3 LOADB                            R1 0
@@ -258,14 +251,14 @@ PROTO_10:
        11 LOADN                            R3 0
        12 NAMECALL                         R1 R1 K4 ["Fire"]
        14 CALL                             R1 2 0
-       15 NAMECALL                         R1 R0 K5 ["_teardownAudioPlayer"]
+       15 NAMECALL                         R1 R0 K5 ["teardownAudioPlayer"]
        17 CALL                             R1 1 0
        18 GETTABLEKS                       R1 R0 K6 ["OnStateChanged"]
        20 NAMECALL                         R1 R1 K4 ["Fire"]
        22 CALL                             R1 1 0
        23 RETURN                           R0 0
 
-PROTO_11:
+PROTO_10:
         0 DUPTABLE                         R1 K4 [{"CurrentSoundId", "IsPlaying", "IsLoading", "TotalTime"}]
         1 GETTABLEKS                       R2 R0 K5 ["_currentSoundId"]
         3 SETTABLEKS                       R2 R1 K0 ["CurrentSoundId"]
@@ -308,24 +301,22 @@ MAIN:
        44 CAPTURE                          VAL R4
        45 CAPTURE                          VAL R6
        46 SETTABLEKS                       R7 R6 K19 ["new"]
-       48 DUPCLOSURE                       R7 K20 [PROTO_1]
-       49 SETTABLEKS                       R7 R6 K21 ["destroy"]
-       51 DUPCLOSURE                       R7 K22 [PROTO_4]
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          VAL R1
-       54 SETTABLEKS                       R7 R6 K23 ["_setupAudioPlayer"]
-       56 DUPCLOSURE                       R7 K24 [PROTO_5]
-       57 CAPTURE                          VAL R5
-       58 SETTABLEKS                       R7 R6 K25 ["_teardownAudioPlayer"]
-       60 DUPCLOSURE                       R7 K26 [PROTO_7]
-       61 CAPTURE                          VAL R1
-       62 SETTABLEKS                       R7 R6 K27 ["play"]
+       48 DUPCLOSURE                       R7 K20 [PROTO_3]
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R7 R6 K21 ["_setupAudioPlayer"]
+       53 DUPCLOSURE                       R7 K22 [PROTO_4]
+       54 CAPTURE                          VAL R5
+       55 SETTABLEKS                       R7 R6 K23 ["teardownAudioPlayer"]
+       57 DUPCLOSURE                       R7 K24 [PROTO_6]
+       58 CAPTURE                          VAL R1
+       59 SETTABLEKS                       R7 R6 K25 ["play"]
+       61 DUPCLOSURE                       R7 K26 [PROTO_7]
+       62 SETTABLEKS                       R7 R6 K27 ["pause"]
        64 DUPCLOSURE                       R7 K28 [PROTO_8]
-       65 SETTABLEKS                       R7 R6 K29 ["pause"]
+       65 SETTABLEKS                       R7 R6 K29 ["resume"]
        67 DUPCLOSURE                       R7 K30 [PROTO_9]
-       68 SETTABLEKS                       R7 R6 K31 ["resume"]
+       68 SETTABLEKS                       R7 R6 K31 ["stop"]
        70 DUPCLOSURE                       R7 K32 [PROTO_10]
-       71 SETTABLEKS                       R7 R6 K33 ["stop"]
-       73 DUPCLOSURE                       R7 K34 [PROTO_11]
-       74 SETTABLEKS                       R7 R6 K35 ["getState"]
-       76 RETURN                           R6 1
+       71 SETTABLEKS                       R7 R6 K33 ["getState"]
+       73 RETURN                           R6 1

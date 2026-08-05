@@ -130,16 +130,16 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K6 ["Src"]
        20 GETTABLEKS                       R3 R3 K9 ["Flags"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K16 [{["TestAutomation"] = "TestAutomation", ["NewAssetToolSet"] = "NewAssetToolSet", ["UnitTestSubagent"] = "UnitTestSubagent", ["ScreenCaptureSubagent"] = "ScreenCaptureSubagent", ["BackgroundDataModelToolCall"] = "BackgroundDataModelToolCall", ["StudioStateSystemReminder"] = "StudioStateSystemReminder"}]
+       23 DUPTABLE                         R3 K17 [{["TestAutomation"] = "TestAutomation", ["NewAssetToolSet"] = "NewAssetToolSet", ["UnitTestSubagent"] = "UnitTestSubagent", ["ScreenCaptureSubagent"] = "ScreenCaptureSubagent", ["BackgroundDataModelToolCall"] = "BackgroundDataModelToolCall", ["StudioStateSystemReminder"] = "StudioStateSystemReminder", ["AssistantHarnessSplit"] = "AssistantHarnessSplit"}]
        24 NEWTABLE                         R4 4 0
        26 GETTABLEKS                       R5 R3 K11 ["NewAssetToolSet"]
-       28 GETTABLEKS                       R6 R2 K17 ["FFlagAssistantAssetSearchInsertTool"]
+       28 GETTABLEKS                       R6 R2 K18 ["FFlagAssistantAssetSearchInsertTool"]
        30 SETTABLE                         R6 R4 R5
        31 GETTABLEKS                       R5 R3 K14 ["BackgroundDataModelToolCall"]
-       33 GETTABLEKS                       R6 R2 K18 ["FFlagForceAssistantBackgroundDataModelToolCall"]
+       33 GETTABLEKS                       R6 R2 K19 ["FFlagForceAssistantBackgroundDataModelToolCall"]
        35 SETTABLE                         R6 R4 R5
        36 GETTABLEKS                       R5 R3 K15 ["StudioStateSystemReminder"]
-       38 GETTABLEKS                       R6 R2 K19 ["FFlagForceAssistantStudioStateSystemReminder"]
+       38 GETTABLEKS                       R6 R2 K20 ["FFlagForceAssistantStudioStateSystemReminder"]
        40 SETTABLE                         R6 R4 R5
        41 LOADNIL                          R5
        42 LOADNIL                          R6
@@ -157,12 +157,12 @@ MAIN:
        54 NEWCLOSURE                       R10 P3
        55 CAPTURE                          VAL R8
        56 CAPTURE                          REF R6
-       57 DUPTABLE                         R11 K26 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
-       58 SETTABLEKS                       R3 R11 K20 ["FeatureNames"]
-       60 SETTABLEKS                       R4 R11 K21 ["ForceEnabledFeatureNames"]
-       62 SETTABLEKS                       R7 R11 K22 ["setIxpService"]
-       64 SETTABLEKS                       R8 R11 K23 ["getExperimentFeatureEnabled"]
-       66 SETTABLEKS                       R9 R11 K24 ["getOnExperimentChanged"]
-       68 SETTABLEKS                       R10 R11 K25 ["onceExperimentFeatureEnabled"]
+       57 DUPTABLE                         R11 K27 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
+       58 SETTABLEKS                       R3 R11 K21 ["FeatureNames"]
+       60 SETTABLEKS                       R4 R11 K22 ["ForceEnabledFeatureNames"]
+       62 SETTABLEKS                       R7 R11 K23 ["setIxpService"]
+       64 SETTABLEKS                       R8 R11 K24 ["getExperimentFeatureEnabled"]
+       66 SETTABLEKS                       R9 R11 K25 ["getOnExperimentChanged"]
+       68 SETTABLEKS                       R10 R11 K26 ["onceExperimentFeatureEnabled"]
        70 CLOSEUPVALS                      R5
        71 RETURN                           R11 1

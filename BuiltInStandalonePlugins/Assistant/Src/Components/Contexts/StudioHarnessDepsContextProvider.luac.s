@@ -78,34 +78,34 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantHarnessSplit"]
-        3 JUMPIF                           R0 ; [+2]
-        4 LOADNIL                          R0
-        5 RETURN                           R0 1
-        6 GETUPVAL                         R0 1
-        7 GETTABLEKS                       R0 R0 K1 ["Persistence"]
-        9 GETTABLEKS                       R0 R0 K2 ["getCoordinator"]
-       11 CALL                             R0 0 1
-       12 DUPCLOSURE                       R1 K3 [PROTO_0]
-       13 CAPTURE                          UPVAL U2
-       14 DUPTABLE                         R2 K9 [{"listSessions", "loadSession", "onSaveRequested", "saveSessions", "deleteSession"}]
-       15 DUPCLOSURE                       R3 K10 [PROTO_1]
-       16 CAPTURE                          UPVAL U2
-       17 SETTABLEKS                       R3 R2 K4 ["listSessions"]
-       19 DUPCLOSURE                       R3 K11 [PROTO_2]
-       20 CAPTURE                          UPVAL U2
-       21 SETTABLEKS                       R3 R2 K5 ["loadSession"]
-       23 NEWCLOSURE                       R3 P3
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R3 R2 K6 ["onSaveRequested"]
-       27 NEWCLOSURE                       R3 P4
-       28 CAPTURE                          VAL R0
-       29 SETTABLEKS                       R3 R2 K7 ["saveSessions"]
-       31 NEWCLOSURE                       R3 P5
-       32 CAPTURE                          VAL R0
-       33 CAPTURE                          UPVAL U1
-       34 SETTABLEKS                       R3 R2 K8 ["deleteSession"]
-       36 RETURN                           R2 1
+        1 CALL                             R0 0 1
+        2 JUMPIF                           R0 ; [+2]
+        3 LOADNIL                          R0
+        4 RETURN                           R0 1
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["Persistence"]
+        8 GETTABLEKS                       R0 R0 K1 ["getCoordinator"]
+       10 CALL                             R0 0 1
+       11 DUPCLOSURE                       R1 K2 [PROTO_0]
+       12 CAPTURE                          UPVAL U2
+       13 DUPTABLE                         R2 K8 [{"listSessions", "loadSession", "onSaveRequested", "saveSessions", "deleteSession"}]
+       14 DUPCLOSURE                       R3 K9 [PROTO_1]
+       15 CAPTURE                          UPVAL U2
+       16 SETTABLEKS                       R3 R2 K3 ["listSessions"]
+       18 DUPCLOSURE                       R3 K10 [PROTO_2]
+       19 CAPTURE                          UPVAL U2
+       20 SETTABLEKS                       R3 R2 K4 ["loadSession"]
+       22 NEWCLOSURE                       R3 P3
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R3 R2 K5 ["onSaveRequested"]
+       26 NEWCLOSURE                       R3 P4
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R3 R2 K6 ["saveSessions"]
+       30 NEWCLOSURE                       R3 P5
+       31 CAPTURE                          VAL R0
+       32 CAPTURE                          UPVAL U1
+       33 SETTABLEKS                       R3 R2 K7 ["deleteSession"]
+       35 RETURN                           R2 1
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -140,22 +140,20 @@ MAIN:
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K9 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Util"]
-       34 GETTABLEKS                       R5 R5 K12 ["StudioPersistence"]
-       36 CALL                             R4 1 1
-       37 GETTABLEKS                       R5 R1 K13 ["Components"]
-       39 GETTABLEKS                       R5 R5 K14 ["Contexts"]
-       41 GETTABLEKS                       R5 R5 K15 ["StudioHarnessDepsContextProvider"]
-       43 GETTABLEKS                       R6 R2 K16 ["createElement"]
-       45 DUPCLOSURE                       R7 K17 [PROTO_8]
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          VAL R3
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R6
-       51 CAPTURE                          VAL R5
-       52 RETURN                           R7 1
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["StudioPersistence"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R1 K12 ["Components"]
+       32 GETTABLEKS                       R4 R4 K13 ["Contexts"]
+       34 GETTABLEKS                       R4 R4 K14 ["StudioHarnessDepsContextProvider"]
+       36 GETTABLEKS                       R5 R1 K15 ["FlagUtils"]
+       38 GETTABLEKS                       R5 R5 K16 ["getIsAssistantHarnessSplit"]
+       40 GETTABLEKS                       R6 R2 K17 ["createElement"]
+       42 DUPCLOSURE                       R7 K18 [PROTO_8]
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R4
+       49 RETURN                           R7 1

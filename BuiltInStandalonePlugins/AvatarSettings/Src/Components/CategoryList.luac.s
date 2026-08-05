@@ -50,51 +50,48 @@ PROTO_1:
        42 GETTABLEKS                       R14 R14 K8 ["avatarType"]
        44 GETTABLEKS                       R14 R14 K9 ["value"]
        46 GETIMPORT                        R15 K13 [Enum.GameAvatarType.R6]
-       48 JUMPIFNOTEQ                      R14 R15 ; [+15]
+       48 JUMPIFNOTEQ                      R14 R15 ; [+12]
        50 LOADB                            R14 1
-       51 JUMPIFEQKS                       R13 K14 ["Body"] ; [+5]
-       53 JUMPIFEQKS                       R13 K15 ["Clothing"] ; [+2]
-       55 LOADB                            R14 0 +1
-       56 LOADB                            R14 1
-       57 LOADB                            R15 0
-       58 JUMPIFNOTEQKS                    R13 K16 ["Movement"] ; [+3]
-       60 GETUPVAL                         R15 6
-       61 CALL                             R15 0 1
-       62 JUMPIF                           R14 ; [+1]
-       63 JUMPIFNOT                        R15 ; [+39]
-       64 NEWCLOSURE                       R14 P0
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          VAL R13
-       67 CAPTURE                          VAL R2
-       68 GETUPVAL                         R15 7
-       69 GETUPVAL                         R16 8
-       70 DUPTABLE                         R17 K23 [{"name", "layoutOrder", "selected", "imageTag", "expanded", "onClick"}]
-       71 LOADK                            R20 K24 ["CategoryList"]
-       72 MOVE                             R21 R13
-       73 NAMECALL                         R18 R1 K25 ["getText"]
-       75 CALL                             R18 3 1
-       76 SETTABLEKS                       R18 R17 K17 ["name"]
-       78 MOVE                             R18 R4
-       79 CALL                             R18 0 1
-       80 SETTABLEKS                       R18 R17 K18 ["layoutOrder"]
-       82 GETTABLEKS                       R19 R6 K26 ["currentSettingsPage"]
-       84 JUMPIFEQ                         R19 R13 ; [+2]
-       86 LOADB                            R18 0 +1
-       87 LOADB                            R18 1
-       88 SETTABLEKS                       R18 R17 K19 ["selected"]
-       90 GETUPVAL                         R19 9
-       91 GETTABLE                         R18 R19 R13
-       92 SETTABLEKS                       R18 R17 K20 ["imageTag"]
-       94 GETTABLEKS                       R18 R7 K27 ["enabled"]
-       96 SETTABLEKS                       R18 R17 K21 ["expanded"]
-       98 SETTABLEKS                       R14 R17 K22 ["onClick"]
-      100 CALL                             R15 2 1
-      101 SETTABLE                         R15 R3 R13
-      102 ADDK                             R8 R8 K28 [1]
-      103 FORGLOOP                         R9 2 ; [-64]
-      105 MOVE                             R9 R3
-      106 MOVE                             R10 R8
-      107 RETURN                           R9 2
+       51 JUMPIFEQKS                       R13 K14 ["Body"] ; [+8]
+       53 LOADB                            R14 1
+       54 JUMPIFEQKS                       R13 K15 ["Clothing"] ; [+5]
+       56 JUMPIFEQKS                       R13 K16 ["Movement"] ; [+2]
+       58 LOADB                            R14 0 +1
+       59 LOADB                            R14 1
+       60 JUMPIFNOT                        R14 ; [+39]
+       61 NEWCLOSURE                       R14 P0
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R13
+       64 CAPTURE                          VAL R2
+       65 GETUPVAL                         R15 6
+       66 GETUPVAL                         R16 7
+       67 DUPTABLE                         R17 K23 [{"name", "layoutOrder", "selected", "imageTag", "expanded", "onClick"}]
+       68 LOADK                            R20 K24 ["CategoryList"]
+       69 MOVE                             R21 R13
+       70 NAMECALL                         R18 R1 K25 ["getText"]
+       72 CALL                             R18 3 1
+       73 SETTABLEKS                       R18 R17 K17 ["name"]
+       75 MOVE                             R18 R4
+       76 CALL                             R18 0 1
+       77 SETTABLEKS                       R18 R17 K18 ["layoutOrder"]
+       79 GETTABLEKS                       R19 R6 K26 ["currentSettingsPage"]
+       81 JUMPIFEQ                         R19 R13 ; [+2]
+       83 LOADB                            R18 0 +1
+       84 LOADB                            R18 1
+       85 SETTABLEKS                       R18 R17 K19 ["selected"]
+       87 GETUPVAL                         R19 8
+       88 GETTABLE                         R18 R19 R13
+       89 SETTABLEKS                       R18 R17 K20 ["imageTag"]
+       91 GETTABLEKS                       R18 R7 K27 ["enabled"]
+       93 SETTABLEKS                       R18 R17 K21 ["expanded"]
+       95 SETTABLEKS                       R14 R17 K22 ["onClick"]
+       97 CALL                             R15 2 1
+       98 SETTABLE                         R15 R3 R13
+       99 ADDK                             R8 R8 K28 [1]
+      100 FORGLOOP                         R9 2 ; [-61]
+      102 MOVE                             R9 R3
+      103 MOVE                             R10 R8
+      104 RETURN                           R9 2
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -239,52 +236,46 @@ MAIN:
        61 GETTABLEKS                       R8 R0 K14 ["Packages"]
        63 GETTABLEKS                       R8 R8 K17 ["ReactUtils"]
        65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K6 ["Src"]
-       70 GETTABLEKS                       R9 R9 K18 ["Flags"]
-       72 GETTABLEKS                       R9 R9 K19 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
-       74 CALL                             R8 1 1
-       75 GETTABLEKS                       R9 R5 K20 ["ContextServices"]
-       77 GETTABLEKS                       R10 R5 K21 ["Styling"]
-       79 GETTABLEKS                       R10 R10 K22 ["joinTags"]
-       81 GETTABLEKS                       R11 R9 K23 ["Localization"]
-       83 GETIMPORT                        R12 K5 [require]
-       85 GETTABLEKS                       R13 R0 K6 ["Src"]
-       87 GETTABLEKS                       R13 R13 K10 ["Util"]
-       89 GETTABLEKS                       R13 R13 K24 ["Telemetry"]
-       91 GETTABLEKS                       R13 R13 K25 ["TelemetryContext"]
-       93 CALL                             R12 1 1
-       94 GETTABLEKS                       R13 R5 K26 ["UI"]
-       96 GETTABLEKS                       R14 R13 K27 ["Pane"]
-       98 GETTABLEKS                       R15 R7 K28 ["createNextOrder"]
-      100 GETTABLEKS                       R16 R6 K29 ["createElement"]
-      102 NEWTABLE                         R17 0 5
-      104 LOADK                            R18 K30 ["General"]
-      105 LOADK                            R19 K31 ["Body"]
-      106 LOADK                            R20 K32 ["Clothing"]
-      107 LOADK                            R21 K33 ["Accessories"]
-      108 LOADK                            R22 K34 ["Movement"]
-      109 SETLIST                          R17 R18 5 [1]
-      111 DUPTABLE                         R18 K40 [{["General"] = "GeneralCategoryImage data-testid=GeneralCategoryImage", ["Body"] = "BodyCategoryImage data-testid=BodyCategoryImage", ["Movement"] = "MovementCategoryImage data-testid=MovementCategoryImage", ["Accessories"] = "AccessoriesCategoryImage data-testid=AccessoriesCategoryImage", ["Clothing"] = "ClothingCategoryImage data-testid=ClothingCategoryImage"}]
-      112 DUPCLOSURE                       R19 K41 [PROTO_1]
-      113 CAPTURE                          VAL R11
-      114 CAPTURE                          VAL R12
-      115 CAPTURE                          VAL R15
-      116 CAPTURE                          VAL R6
-      117 CAPTURE                          VAL R1
-      118 CAPTURE                          VAL R17
-      119 CAPTURE                          VAL R8
-      120 CAPTURE                          VAL R16
+       66 GETTABLEKS                       R8 R5 K18 ["ContextServices"]
+       68 GETTABLEKS                       R9 R5 K19 ["Styling"]
+       70 GETTABLEKS                       R9 R9 K20 ["joinTags"]
+       72 GETTABLEKS                       R10 R8 K21 ["Localization"]
+       74 GETIMPORT                        R11 K5 [require]
+       76 GETTABLEKS                       R12 R0 K6 ["Src"]
+       78 GETTABLEKS                       R12 R12 K10 ["Util"]
+       80 GETTABLEKS                       R12 R12 K22 ["Telemetry"]
+       82 GETTABLEKS                       R12 R12 K23 ["TelemetryContext"]
+       84 CALL                             R11 1 1
+       85 GETTABLEKS                       R12 R5 K24 ["UI"]
+       87 GETTABLEKS                       R13 R12 K25 ["Pane"]
+       89 GETTABLEKS                       R14 R7 K26 ["createNextOrder"]
+       91 GETTABLEKS                       R15 R6 K27 ["createElement"]
+       93 NEWTABLE                         R16 0 5
+       95 LOADK                            R17 K28 ["General"]
+       96 LOADK                            R18 K29 ["Body"]
+       97 LOADK                            R19 K30 ["Clothing"]
+       98 LOADK                            R20 K31 ["Accessories"]
+       99 LOADK                            R21 K32 ["Movement"]
+      100 SETLIST                          R16 R17 5 [1]
+      102 DUPTABLE                         R17 K38 [{["General"] = "GeneralCategoryImage data-testid=GeneralCategoryImage", ["Body"] = "BodyCategoryImage data-testid=BodyCategoryImage", ["Movement"] = "MovementCategoryImage data-testid=MovementCategoryImage", ["Accessories"] = "AccessoriesCategoryImage data-testid=AccessoriesCategoryImage", ["Clothing"] = "ClothingCategoryImage data-testid=ClothingCategoryImage"}]
+      103 DUPCLOSURE                       R18 K39 [PROTO_1]
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R11
+      106 CAPTURE                          VAL R14
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R16
+      110 CAPTURE                          VAL R15
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R17
+      113 DUPCLOSURE                       R19 K40 [PROTO_2]
+      114 CAPTURE                          VAL R10
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R18
+      118 CAPTURE                          VAL R15
+      119 CAPTURE                          VAL R13
+      120 CAPTURE                          VAL R4
       121 CAPTURE                          VAL R3
-      122 CAPTURE                          VAL R18
-      123 DUPCLOSURE                       R20 K42 [PROTO_2]
-      124 CAPTURE                          VAL R11
-      125 CAPTURE                          VAL R6
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          VAL R19
-      128 CAPTURE                          VAL R16
-      129 CAPTURE                          VAL R14
-      130 CAPTURE                          VAL R4
-      131 CAPTURE                          VAL R3
-      132 CAPTURE                          VAL R10
-      133 RETURN                           R20 1
+      122 CAPTURE                          VAL R9
+      123 RETURN                           R19 1

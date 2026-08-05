@@ -10,7 +10,7 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R3 K6 [{[1], ["_installed"] = False, ["_partToEntry"], ["_proceduralModelToEntry"], ["_attachmentToEntry"]}]
+        0 DUPTABLE                         R3 K8 [{[1], ["_installed"] = False, ["_partToEntry"], ["_proceduralModelToEntry"], ["_attachmentToEntry"], ["_basisObject"] = }]
         1 SETTABLEKS                       R1 R3 K0 ["_handler"]
         3 NEWTABLE                         R4 0 0
         5 SETTABLEKS                       R4 R3 K3 ["_partToEntry"]
@@ -20,12 +20,12 @@ PROTO_2:
        13 SETTABLEKS                       R4 R3 K5 ["_attachmentToEntry"]
        15 GETUPVAL                         R4 0
        16 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       18 GETIMPORT                        R2 K8 [setmetatable]
+       18 GETIMPORT                        R2 K10 [setmetatable]
        20 CALL                             R2 2 1
        21 NEWCLOSURE                       R3 P0
        22 CAPTURE                          VAL R1
        23 CAPTURE                          VAL R2
-       24 SETTABLEKS                       R3 R2 K9 ["_basisPivotChangedTrampoline"]
+       24 SETTABLEKS                       R3 R2 K11 ["_basisPivotChangedTrampoline"]
        26 RETURN                           R2 1
 
 PROTO_3:
@@ -123,123 +123,125 @@ PROTO_10:
 PROTO_11:
         0 GETTABLEKS                       R3 R0 K0 ["_installed"]
         2 NOT                              R2 R3
-        3 FASTCALL1                        ASSERT R2 ; [+2]
-        4 GETIMPORT                        R1 K2 [assert]
-        6 CALL                             R1 1 0
-        7 LOADB                            R1 1
-        8 SETTABLEKS                       R1 R0 K0 ["_installed"]
-       10 GETIMPORT                        R1 K4 [pairs]
-       12 GETTABLEKS                       R2 R0 K5 ["_partToEntry"]
-       14 CALL                             R1 1 3
-       15 FORGPREP_NEXT                    R1
-       16 GETTABLEKS                       R6 R5 K6 ["CFrameChangedSignal"]
-       18 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
-       20 NAMECALL                         R6 R6 K8 ["Connect"]
-       22 CALL                             R6 2 1
-       23 SETTABLEKS                       R6 R5 K9 ["CFrameChangedConnection"]
-       25 GETTABLEKS                       R6 R5 K10 ["RootCFrameChangedSignal"]
-       27 JUMPIFNOT                        R6 ; [+9]
-       28 GETTABLEKS                       R6 R5 K10 ["RootCFrameChangedSignal"]
-       30 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
-       32 NAMECALL                         R6 R6 K8 ["Connect"]
-       34 CALL                             R6 2 1
-       35 SETTABLEKS                       R6 R5 K11 ["RootCFrameChangedConnection"]
-       37 GETTABLEKS                       R6 R5 K12 ["SizeChangedSignal"]
-       39 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
-       41 NAMECALL                         R6 R6 K8 ["Connect"]
-       43 CALL                             R6 2 1
-       44 SETTABLEKS                       R6 R5 K13 ["SizeChangedConnection"]
-       46 FORGLOOP                         R1 2 ; [-31]
-       48 GETIMPORT                        R1 K4 [pairs]
-       50 GETTABLEKS                       R2 R0 K14 ["_attachmentToEntry"]
-       52 CALL                             R1 1 3
-       53 FORGPREP_NEXT                    R1
-       54 GETTABLEKS                       R6 R5 K6 ["CFrameChangedSignal"]
-       56 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
-       58 NAMECALL                         R6 R6 K8 ["Connect"]
-       60 CALL                             R6 2 1
-       61 SETTABLEKS                       R6 R5 K9 ["CFrameChangedConnection"]
-       63 GETUPVAL                         R6 0
-       64 JUMPIFNOT                        R6 ; [+12]
-       65 GETTABLEKS                       R6 R5 K15 ["CameraCFrameChangedSignal"]
-       67 JUMPIFNOT                        R6 ; [+9]
-       68 GETTABLEKS                       R6 R5 K15 ["CameraCFrameChangedSignal"]
-       70 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
-       72 NAMECALL                         R6 R6 K8 ["Connect"]
-       74 CALL                             R6 2 1
-       75 SETTABLEKS                       R6 R5 K16 ["CameraCFrameChangedConnection"]
-       77 FORGLOOP                         R1 2 ; [-24]
-       79 GETUPVAL                         R1 1
-       80 JUMPIFNOT                        R1 ; [+16]
-       81 GETTABLEKS                       R1 R0 K17 ["_proceduralModelToEntry"]
-       83 LOADNIL                          R2
-       84 LOADNIL                          R3
-       85 FORGPREP                         R1
-       86 GETTABLEKS                       R6 R5 K12 ["SizeChangedSignal"]
-       88 GETTABLEKS                       R8 R5 K7 ["Trampoline"]
-       90 NAMECALL                         R6 R6 K8 ["Connect"]
-       92 CALL                             R6 2 1
-       93 SETTABLEKS                       R6 R5 K13 ["SizeChangedConnection"]
-       95 FORGLOOP                         R1 2 ; [-10]
-       97 GETTABLEKS                       R1 R0 K18 ["_basisObject"]
-       99 JUMPIFNOT                        R1 ; [+3]
-      100 NAMECALL                         R1 R0 K19 ["_hookupBasisConnection"]
-      102 CALL                             R1 1 0
-      103 RETURN                           R0 0
+        3 FASTCALL2K                       ASSERT R2 K1 ; [+4]
+        5 LOADK                            R3 K1 ["Already installed"]
+        6 GETIMPORT                        R1 K3 [assert]
+        8 CALL                             R1 2 0
+        9 LOADB                            R1 1
+       10 SETTABLEKS                       R1 R0 K0 ["_installed"]
+       12 GETIMPORT                        R1 K5 [pairs]
+       14 GETTABLEKS                       R2 R0 K6 ["_partToEntry"]
+       16 CALL                             R1 1 3
+       17 FORGPREP_NEXT                    R1
+       18 GETTABLEKS                       R6 R5 K7 ["CFrameChangedSignal"]
+       20 GETTABLEKS                       R8 R5 K8 ["Trampoline"]
+       22 NAMECALL                         R6 R6 K9 ["Connect"]
+       24 CALL                             R6 2 1
+       25 SETTABLEKS                       R6 R5 K10 ["CFrameChangedConnection"]
+       27 GETTABLEKS                       R6 R5 K11 ["RootCFrameChangedSignal"]
+       29 JUMPIFNOT                        R6 ; [+9]
+       30 GETTABLEKS                       R6 R5 K11 ["RootCFrameChangedSignal"]
+       32 GETTABLEKS                       R8 R5 K8 ["Trampoline"]
+       34 NAMECALL                         R6 R6 K9 ["Connect"]
+       36 CALL                             R6 2 1
+       37 SETTABLEKS                       R6 R5 K12 ["RootCFrameChangedConnection"]
+       39 GETTABLEKS                       R6 R5 K13 ["SizeChangedSignal"]
+       41 GETTABLEKS                       R8 R5 K8 ["Trampoline"]
+       43 NAMECALL                         R6 R6 K9 ["Connect"]
+       45 CALL                             R6 2 1
+       46 SETTABLEKS                       R6 R5 K14 ["SizeChangedConnection"]
+       48 FORGLOOP                         R1 2 ; [-31]
+       50 GETIMPORT                        R1 K5 [pairs]
+       52 GETTABLEKS                       R2 R0 K15 ["_attachmentToEntry"]
+       54 CALL                             R1 1 3
+       55 FORGPREP_NEXT                    R1
+       56 GETTABLEKS                       R6 R5 K7 ["CFrameChangedSignal"]
+       58 GETTABLEKS                       R8 R5 K8 ["Trampoline"]
+       60 NAMECALL                         R6 R6 K9 ["Connect"]
+       62 CALL                             R6 2 1
+       63 SETTABLEKS                       R6 R5 K10 ["CFrameChangedConnection"]
+       65 GETUPVAL                         R6 0
+       66 JUMPIFNOT                        R6 ; [+12]
+       67 GETTABLEKS                       R6 R5 K16 ["CameraCFrameChangedSignal"]
+       69 JUMPIFNOT                        R6 ; [+9]
+       70 GETTABLEKS                       R6 R5 K16 ["CameraCFrameChangedSignal"]
+       72 GETTABLEKS                       R8 R5 K8 ["Trampoline"]
+       74 NAMECALL                         R6 R6 K9 ["Connect"]
+       76 CALL                             R6 2 1
+       77 SETTABLEKS                       R6 R5 K17 ["CameraCFrameChangedConnection"]
+       79 FORGLOOP                         R1 2 ; [-24]
+       81 GETUPVAL                         R1 1
+       82 JUMPIFNOT                        R1 ; [+16]
+       83 GETTABLEKS                       R1 R0 K18 ["_proceduralModelToEntry"]
+       85 LOADNIL                          R2
+       86 LOADNIL                          R3
+       87 FORGPREP                         R1
+       88 GETTABLEKS                       R6 R5 K13 ["SizeChangedSignal"]
+       90 GETTABLEKS                       R8 R5 K8 ["Trampoline"]
+       92 NAMECALL                         R6 R6 K9 ["Connect"]
+       94 CALL                             R6 2 1
+       95 SETTABLEKS                       R6 R5 K14 ["SizeChangedConnection"]
+       97 FORGLOOP                         R1 2 ; [-10]
+       99 GETTABLEKS                       R1 R0 K19 ["_basisObject"]
+      101 JUMPIFNOT                        R1 ; [+3]
+      102 NAMECALL                         R1 R0 K20 ["_hookupBasisConnection"]
+      104 CALL                             R1 1 0
+      105 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["_installed"]
-        2 FASTCALL1                        ASSERT R2 ; [+2]
-        3 GETIMPORT                        R1 K2 [assert]
-        5 CALL                             R1 1 0
-        6 LOADB                            R1 0
-        7 SETTABLEKS                       R1 R0 K0 ["_installed"]
-        9 GETIMPORT                        R1 K4 [pairs]
-       11 GETTABLEKS                       R2 R0 K5 ["_partToEntry"]
-       13 CALL                             R1 1 3
-       14 FORGPREP_NEXT                    R1
-       15 GETTABLEKS                       R6 R5 K6 ["CFrameChangedConnection"]
-       17 NAMECALL                         R6 R6 K7 ["Disconnect"]
-       19 CALL                             R6 1 0
-       20 GETTABLEKS                       R6 R5 K8 ["RootCFrameChangedConnection"]
-       22 JUMPIFNOT                        R6 ; [+5]
-       23 GETTABLEKS                       R6 R5 K8 ["RootCFrameChangedConnection"]
-       25 NAMECALL                         R6 R6 K7 ["Disconnect"]
-       27 CALL                             R6 1 0
-       28 GETTABLEKS                       R6 R5 K9 ["SizeChangedConnection"]
-       30 NAMECALL                         R6 R6 K7 ["Disconnect"]
-       32 CALL                             R6 1 0
-       33 FORGLOOP                         R1 2 ; [-19]
-       35 GETIMPORT                        R1 K4 [pairs]
-       37 GETTABLEKS                       R2 R0 K10 ["_attachmentToEntry"]
-       39 CALL                             R1 1 3
-       40 FORGPREP_NEXT                    R1
-       41 GETTABLEKS                       R6 R5 K6 ["CFrameChangedConnection"]
-       43 NAMECALL                         R6 R6 K7 ["Disconnect"]
-       45 CALL                             R6 1 0
-       46 GETUPVAL                         R6 0
-       47 JUMPIFNOT                        R6 ; [+8]
-       48 GETTABLEKS                       R6 R5 K11 ["CameraCFrameChangedConnection"]
-       50 JUMPIFNOT                        R6 ; [+5]
-       51 GETTABLEKS                       R6 R5 K11 ["CameraCFrameChangedConnection"]
-       53 NAMECALL                         R6 R6 K7 ["Disconnect"]
-       55 CALL                             R6 1 0
-       56 FORGLOOP                         R1 2 ; [-16]
-       58 GETUPVAL                         R1 1
-       59 JUMPIFNOT                        R1 ; [+12]
-       60 GETTABLEKS                       R1 R0 K12 ["_proceduralModelToEntry"]
-       62 LOADNIL                          R2
-       63 LOADNIL                          R3
-       64 FORGPREP                         R1
-       65 GETTABLEKS                       R6 R5 K9 ["SizeChangedConnection"]
-       67 NAMECALL                         R6 R6 K7 ["Disconnect"]
-       69 CALL                             R6 1 0
-       70 FORGLOOP                         R1 2 ; [-6]
-       72 GETTABLEKS                       R1 R0 K13 ["_basisObject"]
-       74 JUMPIFNOT                        R1 ; [+3]
-       75 NAMECALL                         R1 R0 K14 ["_disconnectBasisConnection"]
-       77 CALL                             R1 1 0
-       78 RETURN                           R0 0
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+4]
+        4 LOADK                            R3 K1 ["Not installed"]
+        5 GETIMPORT                        R1 K3 [assert]
+        7 CALL                             R1 2 0
+        8 LOADB                            R1 0
+        9 SETTABLEKS                       R1 R0 K0 ["_installed"]
+       11 GETIMPORT                        R1 K5 [pairs]
+       13 GETTABLEKS                       R2 R0 K6 ["_partToEntry"]
+       15 CALL                             R1 1 3
+       16 FORGPREP_NEXT                    R1
+       17 GETTABLEKS                       R6 R5 K7 ["CFrameChangedConnection"]
+       19 NAMECALL                         R6 R6 K8 ["Disconnect"]
+       21 CALL                             R6 1 0
+       22 GETTABLEKS                       R6 R5 K9 ["RootCFrameChangedConnection"]
+       24 JUMPIFNOT                        R6 ; [+5]
+       25 GETTABLEKS                       R6 R5 K9 ["RootCFrameChangedConnection"]
+       27 NAMECALL                         R6 R6 K8 ["Disconnect"]
+       29 CALL                             R6 1 0
+       30 GETTABLEKS                       R6 R5 K10 ["SizeChangedConnection"]
+       32 NAMECALL                         R6 R6 K8 ["Disconnect"]
+       34 CALL                             R6 1 0
+       35 FORGLOOP                         R1 2 ; [-19]
+       37 GETIMPORT                        R1 K5 [pairs]
+       39 GETTABLEKS                       R2 R0 K11 ["_attachmentToEntry"]
+       41 CALL                             R1 1 3
+       42 FORGPREP_NEXT                    R1
+       43 GETTABLEKS                       R6 R5 K7 ["CFrameChangedConnection"]
+       45 NAMECALL                         R6 R6 K8 ["Disconnect"]
+       47 CALL                             R6 1 0
+       48 GETUPVAL                         R6 0
+       49 JUMPIFNOT                        R6 ; [+8]
+       50 GETTABLEKS                       R6 R5 K12 ["CameraCFrameChangedConnection"]
+       52 JUMPIFNOT                        R6 ; [+5]
+       53 GETTABLEKS                       R6 R5 K12 ["CameraCFrameChangedConnection"]
+       55 NAMECALL                         R6 R6 K8 ["Disconnect"]
+       57 CALL                             R6 1 0
+       58 FORGLOOP                         R1 2 ; [-16]
+       60 GETUPVAL                         R1 1
+       61 JUMPIFNOT                        R1 ; [+12]
+       62 GETTABLEKS                       R1 R0 K13 ["_proceduralModelToEntry"]
+       64 LOADNIL                          R2
+       65 LOADNIL                          R3
+       66 FORGPREP                         R1
+       67 GETTABLEKS                       R6 R5 K10 ["SizeChangedConnection"]
+       69 NAMECALL                         R6 R6 K8 ["Disconnect"]
+       71 CALL                             R6 1 0
+       72 FORGLOOP                         R1 2 ; [-6]
+       74 GETTABLEKS                       R1 R0 K14 ["_basisObject"]
+       76 JUMPIFNOT                        R1 ; [+3]
+       77 NAMECALL                         R1 R0 K15 ["_disconnectBasisConnection"]
+       79 CALL                             R1 1 0
+       80 RETURN                           R0 0
 
 PROTO_13:
         0 NAMECALL                         R4 R1 K0 ["getAllAttachments"]
@@ -465,86 +467,86 @@ PROTO_21:
         5 CALL                             R3 1 3
         6 FORGPREP_INEXT                   R3
         7 LOADN                            R8 1024
-        8 JUMPIFLT                         R8 R6 ; [+85]
+        8 JUMPIFLT                         R8 R6 ; [+86]
        10 GETTABLEKS                       R9 R0 K2 ["_partToEntry"]
        12 GETTABLE                         R8 R9 R7
        13 GETTABLEKS                       R9 R0 K2 ["_partToEntry"]
        15 LOADNIL                          R10
        16 SETTABLE                         R10 R9 R7
-       17 JUMPIF                           R8 ; [+67]
-       18 NAMECALL                         R9 R7 K3 ["GetRootPart"]
-       20 CALL                             R9 1 1
-       21 LOADNIL                          R10
-       22 JUMPIFNOT                        R9 ; [+7]
-       23 JUMPIFEQ                         R9 R7 ; [+6]
-       25 LOADK                            R13 K4 ["CFrame"]
-       26 NAMECALL                         R11 R9 K5 ["GetPropertyChangedSignal"]
-       28 CALL                             R11 2 1
-       29 MOVE                             R10 R11
-       30 DUPTABLE                         R11 K10 [{"CFrameChangedSignal", "RootCFrameChangedSignal", "SizeChangedSignal", "Trampoline"}]
-       31 LOADK                            R14 K4 ["CFrame"]
-       32 NAMECALL                         R12 R7 K5 ["GetPropertyChangedSignal"]
-       34 CALL                             R12 2 1
-       35 SETTABLEKS                       R12 R11 K6 ["CFrameChangedSignal"]
-       37 SETTABLEKS                       R10 R11 K7 ["RootCFrameChangedSignal"]
-       39 LOADK                            R14 K11 ["Size"]
-       40 NAMECALL                         R12 R7 K5 ["GetPropertyChangedSignal"]
-       42 CALL                             R12 2 1
-       43 SETTABLEKS                       R12 R11 K8 ["SizeChangedSignal"]
-       45 NEWCLOSURE                       R12 P0
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          VAL R7
-       48 SETTABLEKS                       R12 R11 K9 ["Trampoline"]
-       50 MOVE                             R8 R11
-       51 GETTABLEKS                       R11 R0 K12 ["_installed"]
-       53 JUMPIFNOT                        R11 ; [+31]
-       54 MOVE                             R11 R8
-       55 GETTABLEKS                       R12 R11 K6 ["CFrameChangedSignal"]
-       57 GETTABLEKS                       R14 R11 K9 ["Trampoline"]
-       59 NAMECALL                         R12 R12 K13 ["Connect"]
-       61 CALL                             R12 2 1
-       62 SETTABLEKS                       R12 R11 K14 ["CFrameChangedConnection"]
-       64 GETTABLEKS                       R12 R11 K7 ["RootCFrameChangedSignal"]
-       66 JUMPIFNOT                        R12 ; [+9]
-       67 GETTABLEKS                       R12 R11 K7 ["RootCFrameChangedSignal"]
-       69 GETTABLEKS                       R14 R11 K9 ["Trampoline"]
-       71 NAMECALL                         R12 R12 K13 ["Connect"]
-       73 CALL                             R12 2 1
-       74 SETTABLEKS                       R12 R11 K15 ["RootCFrameChangedConnection"]
-       76 GETTABLEKS                       R12 R11 K8 ["SizeChangedSignal"]
-       78 GETTABLEKS                       R14 R11 K9 ["Trampoline"]
-       80 NAMECALL                         R12 R12 K13 ["Connect"]
-       82 CALL                             R12 2 1
-       83 SETTABLEKS                       R12 R11 K16 ["SizeChangedConnection"]
-       85 GETTABLE                         R11 R2 R7
-       86 NOT                              R10 R11
-       87 FASTCALL1                        ASSERT R10 ; [+2]
-       88 GETIMPORT                        R9 K18 [assert]
-       90 CALL                             R9 1 0
-       91 SETTABLE                         R8 R2 R7
-       92 FORGLOOP                         R3 2 [inext] ; [-86]
-       94 GETTABLEKS                       R3 R0 K12 ["_installed"]
-       96 JUMPIFNOT                        R3 ; [+28]
-       97 GETIMPORT                        R3 K20 [pairs]
-       99 GETTABLEKS                       R4 R0 K2 ["_partToEntry"]
-      101 CALL                             R3 1 3
-      102 FORGPREP_NEXT                    R3
-      103 GETTABLE                         R8 R2 R6
-      104 JUMPIF                           R8 ; [+18]
-      105 GETTABLEKS                       R8 R7 K14 ["CFrameChangedConnection"]
-      107 NAMECALL                         R8 R8 K21 ["Disconnect"]
-      109 CALL                             R8 1 0
-      110 GETTABLEKS                       R8 R7 K15 ["RootCFrameChangedConnection"]
-      112 JUMPIFNOT                        R8 ; [+5]
-      113 GETTABLEKS                       R8 R7 K15 ["RootCFrameChangedConnection"]
-      115 NAMECALL                         R8 R8 K21 ["Disconnect"]
-      117 CALL                             R8 1 0
-      118 GETTABLEKS                       R8 R7 K16 ["SizeChangedConnection"]
-      120 NAMECALL                         R8 R8 K21 ["Disconnect"]
-      122 CALL                             R8 1 0
-      123 FORGLOOP                         R3 2 ; [-21]
-      125 SETTABLEKS                       R2 R0 K2 ["_partToEntry"]
-      127 RETURN                           R0 0
+       17 JUMPIF                           R8 ; [+66]
+       18 GETTABLEKS                       R9 R7 K3 ["AssemblyRootPart"]
+       20 LOADNIL                          R10
+       21 JUMPIFNOT                        R9 ; [+7]
+       22 JUMPIFEQ                         R9 R7 ; [+6]
+       24 LOADK                            R13 K4 ["CFrame"]
+       25 NAMECALL                         R11 R9 K5 ["GetPropertyChangedSignal"]
+       27 CALL                             R11 2 1
+       28 MOVE                             R10 R11
+       29 DUPTABLE                         R11 K10 [{"CFrameChangedSignal", "RootCFrameChangedSignal", "SizeChangedSignal", "Trampoline"}]
+       30 LOADK                            R14 K4 ["CFrame"]
+       31 NAMECALL                         R12 R7 K5 ["GetPropertyChangedSignal"]
+       33 CALL                             R12 2 1
+       34 SETTABLEKS                       R12 R11 K6 ["CFrameChangedSignal"]
+       36 SETTABLEKS                       R10 R11 K7 ["RootCFrameChangedSignal"]
+       38 LOADK                            R14 K11 ["Size"]
+       39 NAMECALL                         R12 R7 K5 ["GetPropertyChangedSignal"]
+       41 CALL                             R12 2 1
+       42 SETTABLEKS                       R12 R11 K8 ["SizeChangedSignal"]
+       44 NEWCLOSURE                       R12 P0
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          VAL R7
+       47 SETTABLEKS                       R12 R11 K9 ["Trampoline"]
+       49 MOVE                             R8 R11
+       50 GETTABLEKS                       R11 R0 K12 ["_installed"]
+       52 JUMPIFNOT                        R11 ; [+31]
+       53 MOVE                             R11 R8
+       54 GETTABLEKS                       R12 R11 K6 ["CFrameChangedSignal"]
+       56 GETTABLEKS                       R14 R11 K9 ["Trampoline"]
+       58 NAMECALL                         R12 R12 K13 ["Connect"]
+       60 CALL                             R12 2 1
+       61 SETTABLEKS                       R12 R11 K14 ["CFrameChangedConnection"]
+       63 GETTABLEKS                       R12 R11 K7 ["RootCFrameChangedSignal"]
+       65 JUMPIFNOT                        R12 ; [+9]
+       66 GETTABLEKS                       R12 R11 K7 ["RootCFrameChangedSignal"]
+       68 GETTABLEKS                       R14 R11 K9 ["Trampoline"]
+       70 NAMECALL                         R12 R12 K13 ["Connect"]
+       72 CALL                             R12 2 1
+       73 SETTABLEKS                       R12 R11 K15 ["RootCFrameChangedConnection"]
+       75 GETTABLEKS                       R12 R11 K8 ["SizeChangedSignal"]
+       77 GETTABLEKS                       R14 R11 K9 ["Trampoline"]
+       79 NAMECALL                         R12 R12 K13 ["Connect"]
+       81 CALL                             R12 2 1
+       82 SETTABLEKS                       R12 R11 K16 ["SizeChangedConnection"]
+       84 GETTABLE                         R11 R2 R7
+       85 NOT                              R10 R11
+       86 FASTCALL2K                       ASSERT R10 K17 ; [+4]
+       88 LOADK                            R11 K17 ["Duplicate in selection"]
+       89 GETIMPORT                        R9 K19 [assert]
+       91 CALL                             R9 2 0
+       92 SETTABLE                         R8 R2 R7
+       93 FORGLOOP                         R3 2 [inext] ; [-87]
+       95 GETTABLEKS                       R3 R0 K12 ["_installed"]
+       97 JUMPIFNOT                        R3 ; [+28]
+       98 GETIMPORT                        R3 K21 [pairs]
+      100 GETTABLEKS                       R4 R0 K2 ["_partToEntry"]
+      102 CALL                             R3 1 3
+      103 FORGPREP_NEXT                    R3
+      104 GETTABLE                         R8 R2 R6
+      105 JUMPIF                           R8 ; [+18]
+      106 GETTABLEKS                       R8 R7 K14 ["CFrameChangedConnection"]
+      108 NAMECALL                         R8 R8 K22 ["Disconnect"]
+      110 CALL                             R8 1 0
+      111 GETTABLEKS                       R8 R7 K15 ["RootCFrameChangedConnection"]
+      113 JUMPIFNOT                        R8 ; [+5]
+      114 GETTABLEKS                       R8 R7 K15 ["RootCFrameChangedConnection"]
+      116 NAMECALL                         R8 R8 K22 ["Disconnect"]
+      118 CALL                             R8 1 0
+      119 GETTABLEKS                       R8 R7 K16 ["SizeChangedConnection"]
+      121 NAMECALL                         R8 R8 K22 ["Disconnect"]
+      123 CALL                             R8 1 0
+      124 FORGLOOP                         R3 2 ; [-21]
+      126 SETTABLEKS                       R2 R0 K2 ["_partToEntry"]
+      128 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -559,48 +561,51 @@ MAIN:
        15 DUPCLOSURE                       R4 K8 [PROTO_0]
        16 CAPTURE                          VAL R3
        17 GETIMPORT                        R5 K10 [require]
-       19 GETTABLEKS                       R6 R2 K11 ["Flags"]
-       21 GETTABLEKS                       R6 R6 K12 ["getFFlagDraggerEditProcModels"]
-       23 CALL                             R5 1 1
-       24 MOVE                             R6 R5
-       25 CALL                             R6 0 1
-       26 NEWTABLE                         R7 16 0
-       28 SETTABLEKS                       R7 R7 K13 ["__index"]
-       30 DUPCLOSURE                       R8 K14 [PROTO_2]
-       31 CAPTURE                          VAL R7
-       32 SETTABLEKS                       R8 R7 K15 ["new"]
-       34 DUPCLOSURE                       R8 K16 [PROTO_3]
-       35 DUPCLOSURE                       R9 K17 [PROTO_4]
-       36 DUPCLOSURE                       R10 K18 [PROTO_5]
-       37 CAPTURE                          VAL R3
-       38 DUPCLOSURE                       R11 K19 [PROTO_6]
-       39 CAPTURE                          VAL R3
-       40 DUPCLOSURE                       R12 K20 [PROTO_7]
-       41 DUPCLOSURE                       R13 K21 [PROTO_8]
-       42 DUPCLOSURE                       R14 K22 [PROTO_9]
-       43 SETTABLEKS                       R14 R7 K23 ["_hookupBasisConnection"]
-       45 DUPCLOSURE                       R14 K24 [PROTO_10]
-       46 SETTABLEKS                       R14 R7 K25 ["_disconnectBasisConnection"]
-       48 DUPCLOSURE                       R14 K26 [PROTO_11]
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R6
-       51 SETTABLEKS                       R14 R7 K27 ["install"]
-       53 DUPCLOSURE                       R14 K28 [PROTO_12]
+       19 GETTABLEKS                       R6 R2 K11 ["Types"]
+       21 CALL                             R5 1 1
+       22 GETIMPORT                        R6 K10 [require]
+       24 GETTABLEKS                       R7 R2 K12 ["Flags"]
+       26 GETTABLEKS                       R7 R7 K13 ["getFFlagDraggerEditProcModels"]
+       28 CALL                             R6 1 1
+       29 MOVE                             R7 R6
+       30 CALL                             R7 0 1
+       31 NEWTABLE                         R8 16 0
+       33 SETTABLEKS                       R8 R8 K14 ["__index"]
+       35 DUPCLOSURE                       R9 K15 [PROTO_2]
+       36 CAPTURE                          VAL R8
+       37 SETTABLEKS                       R9 R8 K16 ["new"]
+       39 DUPCLOSURE                       R9 K17 [PROTO_3]
+       40 DUPCLOSURE                       R10 K18 [PROTO_4]
+       41 DUPCLOSURE                       R11 K19 [PROTO_5]
+       42 CAPTURE                          VAL R3
+       43 DUPCLOSURE                       R12 K20 [PROTO_6]
+       44 CAPTURE                          VAL R3
+       45 DUPCLOSURE                       R13 K21 [PROTO_7]
+       46 DUPCLOSURE                       R14 K22 [PROTO_8]
+       47 DUPCLOSURE                       R15 K23 [PROTO_9]
+       48 SETTABLEKS                       R15 R8 K24 ["_hookupBasisConnection"]
+       50 DUPCLOSURE                       R15 K25 [PROTO_10]
+       51 SETTABLEKS                       R15 R8 K26 ["_disconnectBasisConnection"]
+       53 DUPCLOSURE                       R15 K27 [PROTO_11]
        54 CAPTURE                          VAL R3
-       55 CAPTURE                          VAL R6
-       56 SETTABLEKS                       R14 R7 K29 ["uninstall"]
-       58 DUPCLOSURE                       R14 K30 [PROTO_13]
-       59 CAPTURE                          VAL R6
-       60 SETTABLEKS                       R14 R7 K31 ["setSelection"]
-       62 DUPCLOSURE                       R14 K32 [PROTO_14]
-       63 SETTABLEKS                       R14 R7 K33 ["setParts"]
-       65 DUPCLOSURE                       R14 K34 [PROTO_15]
-       66 SETTABLEKS                       R14 R7 K35 ["_setBasisObject"]
-       68 DUPCLOSURE                       R14 K36 [PROTO_17]
-       69 CAPTURE                          VAL R3
-       70 SETTABLEKS                       R14 R7 K37 ["_setAttachments"]
-       72 DUPCLOSURE                       R14 K38 [PROTO_19]
-       73 SETTABLEKS                       R14 R7 K39 ["_setProceduralModels"]
-       75 DUPCLOSURE                       R14 K40 [PROTO_21]
-       76 SETTABLEKS                       R14 R7 K41 ["_setParts"]
-       78 RETURN                           R7 1
+       55 CAPTURE                          VAL R7
+       56 SETTABLEKS                       R15 R8 K28 ["install"]
+       58 DUPCLOSURE                       R15 K29 [PROTO_12]
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R7
+       61 SETTABLEKS                       R15 R8 K30 ["uninstall"]
+       63 DUPCLOSURE                       R15 K31 [PROTO_13]
+       64 CAPTURE                          VAL R7
+       65 SETTABLEKS                       R15 R8 K32 ["setSelection"]
+       67 DUPCLOSURE                       R15 K33 [PROTO_14]
+       68 SETTABLEKS                       R15 R8 K34 ["setParts"]
+       70 DUPCLOSURE                       R15 K35 [PROTO_15]
+       71 SETTABLEKS                       R15 R8 K36 ["_setBasisObject"]
+       73 DUPCLOSURE                       R15 K37 [PROTO_17]
+       74 CAPTURE                          VAL R3
+       75 SETTABLEKS                       R15 R8 K38 ["_setAttachments"]
+       77 DUPCLOSURE                       R15 K39 [PROTO_19]
+       78 SETTABLEKS                       R15 R8 K40 ["_setProceduralModels"]
+       80 DUPCLOSURE                       R15 K41 [PROTO_21]
+       81 SETTABLEKS                       R15 R8 K42 ["_setParts"]
+       83 RETURN                           R8 1

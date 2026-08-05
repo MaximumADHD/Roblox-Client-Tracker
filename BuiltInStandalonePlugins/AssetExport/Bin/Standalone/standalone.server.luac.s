@@ -5,16 +5,7 @@ PROTO_0:
         3 LOADNIL                          R2
         4 NAMECALL                         R0 R0 K0 ["render"]
         6 CALL                             R0 2 0
-        7 GETUPVAL                         R0 1
-        8 JUMPIFNOT                        R0 ; [+9]
-        9 GETUPVAL                         R0 1
-       10 LOADNIL                          R1
-       11 LOADNIL                          R2
-       12 FORGPREP                         R0
-       13 NAMECALL                         R5 R4 K1 ["Disconnect"]
-       15 CALL                             R5 1 0
-       16 FORGLOOP                         R0 2 ; [-4]
-       18 RETURN                           R0 0
+        7 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -38,10 +29,9 @@ PROTO_1:
        25 GETTABLEKS                       R3 R3 K13 ["Unloading"]
        27 NEWCLOSURE                       R5 P0
        28 CAPTURE                          VAL R2
-       29 CAPTURE                          UPVAL U3
-       30 NAMECALL                         R3 R3 K14 ["Connect"]
-       32 CALL                             R3 2 0
-       33 RETURN                           R0 0
+       29 NAMECALL                         R3 R3 K14 ["Connect"]
+       31 CALL                             R3 2 0
+       32 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -65,52 +55,30 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K12 ["ReactRoblox"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K7 [require]
-       34 GETTABLEKS                       R5 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R5 K13 ["Flags"]
-       38 GETTABLEKS                       R5 R5 K14 ["getFFlagCreateCagesOnAssetDm"]
-       40 CALL                             R4 1 1
-       41 LOADNIL                          R5
-       42 MOVE                             R6 R4
-       43 CALL                             R6 0 1
-       44 JUMPIF                           R6 ; [+14]
-       45 GETIMPORT                        R6 K7 [require]
-       47 GETTABLEKS                       R7 R0 K8 ["Src"]
-       49 GETTABLEKS                       R7 R7 K15 ["Util"]
-       51 GETTABLEKS                       R7 R7 K16 ["setupCages"]
-       53 CALL                             R6 1 1
-       54 MOVE                             R7 R6
-       55 GETIMPORT                        R8 K1 [plugin]
-       57 CALL                             R7 1 1
-       58 MOVE                             R5 R7
-       59 GETIMPORT                        R6 K7 [require]
-       61 GETTABLEKS                       R7 R0 K10 ["Packages"]
-       63 GETTABLEKS                       R7 R7 K17 ["TestLoader"]
-       65 CALL                             R6 1 1
-       66 GETTABLEKS                       R7 R6 K18 ["launch"]
-       68 LOADK                            R8 K4 ["AssetExport"]
-       69 GETTABLEKS                       R9 R0 K8 ["Src"]
-       71 CALL                             R7 2 0
-       72 GETTABLEKS                       R7 R6 K19 ["isCli"]
-       74 CALL                             R7 0 1
-       75 JUMPIFNOT                        R7 ; [+2]
-       76 CLOSEUPVALS                      R5
-       77 RETURN                           R0 0
-       78 GETIMPORT                        R7 K7 [require]
-       80 GETTABLEKS                       R8 R0 K20 ["Bin"]
-       82 GETTABLEKS                       R8 R8 K21 ["Common"]
-       84 GETTABLEKS                       R8 R8 K22 ["defineLuaFlags"]
-       86 CALL                             R7 1 1
-       87 GETTABLEKS                       R8 R7 K23 ["getFFlagEnableAssetExport"]
-       89 CALL                             R8 0 1
-       90 JUMPIF                           R8 ; [+2]
-       91 CLOSEUPVALS                      R5
-       92 RETURN                           R0 0
-       93 NEWCLOSURE                       R8 P0
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          VAL R3
-       97 CAPTURE                          REF R5
-       98 MOVE                             R9 R8
-       99 CALL                             R9 0 0
-      100 CLOSEUPVALS                      R5
-      101 RETURN                           R0 0
+       34 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K13 ["TestLoader"]
+       38 CALL                             R4 1 1
+       39 GETTABLEKS                       R5 R4 K14 ["launch"]
+       41 LOADK                            R6 K4 ["AssetExport"]
+       42 GETTABLEKS                       R7 R0 K8 ["Src"]
+       44 CALL                             R5 2 0
+       45 GETTABLEKS                       R5 R4 K15 ["isCli"]
+       47 CALL                             R5 0 1
+       48 JUMPIFNOT                        R5 ; [+1]
+       49 RETURN                           R0 0
+       50 GETIMPORT                        R5 K7 [require]
+       52 GETTABLEKS                       R6 R0 K16 ["Bin"]
+       54 GETTABLEKS                       R6 R6 K17 ["Common"]
+       56 GETTABLEKS                       R6 R6 K18 ["defineLuaFlags"]
+       58 CALL                             R5 1 1
+       59 GETTABLEKS                       R6 R5 K19 ["getFFlagEnableAssetExport"]
+       61 CALL                             R6 0 1
+       62 JUMPIF                           R6 ; [+1]
+       63 RETURN                           R0 0
+       64 DUPCLOSURE                       R6 K20 [PROTO_1]
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R3
+       68 MOVE                             R7 R6
+       69 CALL                             R7 0 0
+       70 RETURN                           R0 0

@@ -16,7 +16,7 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestorWhichIsA"]
         6 CALL                             R0 2 1
         7 LOADK                            R4 K2 ["Plugin"]
-        8 NAMECALL                         R2 R0 K4 ["isA"]
+        8 NAMECALL                         R2 R0 K4 ["IsA"]
        10 CALL                             R2 2 -1
        11 FASTCALL                         ASSERT ; [+2]
        12 GETIMPORT                        R1 K6 [assert]

@@ -24,35 +24,35 @@ PROTO_1:
        15 GETUPVAL                         R4 0
        16 GETTABLEKS                       R4 R4 K3 ["createElement"]
        18 GETUPVAL                         R5 1
-       19 DUPTABLE                         R6 K6 [{"DragTarget", "DraggerContext"}]
+       19 DUPTABLE                         R6 K8 [{["DragTarget"], ["DraggerContext"], ["UseBoundingBoxes"] = }]
        20 SETTABLEKS                       R1 R6 K4 ["DragTarget"]
        22 SETTABLEKS                       R2 R6 K5 ["DraggerContext"]
        24 CALL                             R4 2 -1
        25 RETURN                           R4 -1
-       26 NAMECALL                         R5 R2 K7 ["shouldGridSnap"]
+       26 NAMECALL                         R5 R2 K9 ["shouldGridSnap"]
        28 CALL                             R5 1 1
        29 JUMPIFNOT                        R5 ; [+4]
-       30 NAMECALL                         R4 R2 K8 ["getGridSize"]
+       30 NAMECALL                         R4 R2 K10 ["getGridSize"]
        32 CALL                             R4 1 1
        33 JUMP                             ; [+1]
        34 LOADNIL                          R4
        35 GETUPVAL                         R5 0
        36 GETTABLEKS                       R5 R5 K3 ["createElement"]
        38 GETUPVAL                         R6 2
-       39 DUPTABLE                         R7 K15 [{["DragTarget"], ["SourceSize"] = {0, 0, 0}, ["Scale"], ["GridSize"], ["Color"], ["PrimaryColor"]}]
+       39 DUPTABLE                         R7 K17 [{["DragTarget"], ["SourceSize"] = {0, 0, 0}, ["Scale"], ["GridSize"], ["Color"], ["PrimaryColor"]}]
        40 SETTABLEKS                       R1 R7 K4 ["DragTarget"]
-       42 GETTABLEKS                       R10 R1 K16 ["targetMatrix"]
-       44 GETTABLEKS                       R10 R10 K17 ["Position"]
-       46 NAMECALL                         R8 R2 K18 ["getHandleScale"]
+       42 GETTABLEKS                       R10 R1 K18 ["targetMatrix"]
+       44 GETTABLEKS                       R10 R10 K19 ["Position"]
+       46 NAMECALL                         R8 R2 K20 ["getHandleScale"]
        48 CALL                             R8 2 1
-       49 SETTABLEKS                       R8 R7 K11 ["Scale"]
-       51 SETTABLEKS                       R4 R7 K12 ["GridSize"]
-       53 NAMECALL                         R8 R2 K19 ["getGridColor"]
+       49 SETTABLEKS                       R8 R7 K13 ["Scale"]
+       51 SETTABLEKS                       R4 R7 K14 ["GridSize"]
+       53 NAMECALL                         R8 R2 K21 ["getGridColor"]
        55 CALL                             R8 1 1
-       56 SETTABLEKS                       R8 R7 K13 ["Color"]
-       58 NAMECALL                         R8 R2 K20 ["getChosenColor"]
+       56 SETTABLEKS                       R8 R7 K15 ["Color"]
+       58 NAMECALL                         R8 R2 K22 ["getChosenColor"]
        60 CALL                             R8 1 1
-       61 SETTABLEKS                       R8 R7 K14 ["PrimaryColor"]
+       61 SETTABLEKS                       R8 R7 K16 ["PrimaryColor"]
        63 CALL                             R5 2 -1
        64 RETURN                           R5 -1
        65 LOADNIL                          R3
@@ -163,101 +163,108 @@ MAIN:
        13 GETTABLEKS                       R2 R0 K8 ["Packages"]
        15 GETTABLEKS                       R2 R2 K9 ["DraggerFramework"]
        17 GETIMPORT                        R3 K11 [require]
-       19 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       21 GETTABLEKS                       R4 R4 K12 ["Roact"]
-       23 CALL                             R3 1 1
-       24 GETIMPORT                        R4 K11 [require]
-       26 GETTABLEKS                       R5 R2 K13 ["Components"]
-       28 GETTABLEKS                       R5 R5 K14 ["TargetGridView"]
-       30 CALL                             R4 1 1
-       31 GETIMPORT                        R5 K11 [require]
-       33 GETTABLEKS                       R6 R2 K13 ["Components"]
-       35 GETTABLEKS                       R6 R6 K15 ["TargetSoftSnapView"]
-       37 CALL                             R5 1 1
-       38 GETIMPORT                        R6 K11 [require]
-       40 GETTABLEKS                       R7 R2 K13 ["Components"]
-       42 GETTABLEKS                       R7 R7 K16 ["HotkeyUsageInfo"]
-       44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K11 [require]
-       47 GETTABLEKS                       R8 R2 K17 ["Utility"]
-       49 GETTABLEKS                       R8 R8 K18 ["HotkeyHelpBuilder"]
-       51 CALL                             R7 1 1
-       52 GETIMPORT                        R8 K5 [game]
-       54 LOADK                            R10 K19 ["EnableConstraintToolPartPassthroughFeature"]
-       55 NAMECALL                         R8 R8 K20 ["GetFastFlag"]
-       57 CALL                             R8 2 1
-       58 NEWTABLE                         R9 8 0
-       60 SETTABLEKS                       R9 R9 K21 ["__index"]
-       62 DUPCLOSURE                       R10 K22 [PROTO_0]
-       63 CAPTURE                          VAL R9
-       64 SETTABLEKS                       R10 R9 K23 ["new"]
-       66 DUPCLOSURE                       R10 K24 [PROTO_1]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          VAL R4
-       70 SETTABLEKS                       R10 R9 K25 ["_renderSnapTarget"]
-       72 DUPCLOSURE                       R10 K26 [PROTO_2]
-       73 CAPTURE                          VAL R3
-       74 SETTABLEKS                       R10 R9 K27 ["_renderSnap"]
-       76 GETIMPORT                        R10 K30 [table.freeze]
-       78 DUPTABLE                         R11 K35 [{["Hotkey"] = "T", ["LabelLocEntry"] = "DragTilt"}]
-       79 CALL                             R10 1 1
-       80 GETIMPORT                        R11 K30 [table.freeze]
-       82 DUPTABLE                         R12 K38 [{["Hotkey"] = "R", ["LabelLocEntry"] = "DragRotate"}]
-       83 CALL                             R11 1 1
-       84 GETIMPORT                        R12 K30 [table.freeze]
-       86 NEWTABLE                         R13 2 0
-       88 LOADB                            R14 1
-       89 DUPTABLE                         R15 K41 [{["Hotkey"] = "G", ["LabelLocEntry"] = "DisablePartPassthrough"}]
-       90 SETTABLE                         R15 R13 R14
-       91 LOADB                            R14 0
-       92 DUPTABLE                         R15 K43 [{["Hotkey"] = "G", ["LabelLocEntry"] = "EnablePartPassthrough"}]
-       93 SETTABLE                         R15 R13 R14
-       94 CALL                             R12 1 1
-       95 GETIMPORT                        R13 K30 [table.freeze]
-       97 NEWTABLE                         R14 2 0
-       99 LOADB                            R15 1
-      100 DUPTABLE                         R16 K46 [{["Hotkey"] = "M", ["LabelLocEntry"] = "DisableMultipleConstraintMode"}]
-      101 SETTABLE                         R16 R14 R15
-      102 LOADB                            R15 0
-      103 DUPTABLE                         R16 K48 [{["Hotkey"] = "M", ["LabelLocEntry"] = "EnableMultipleConstraintMode"}]
-      104 SETTABLE                         R16 R14 R15
-      105 CALL                             R13 1 1
-      106 GETIMPORT                        R14 K30 [table.freeze]
-      108 NEWTABLE                         R15 2 0
-      110 LOADB                            R16 1
-      111 DUPTABLE                         R17 K51 [{["Hotkey"] = "Alt+W", ["LabelLocEntry"] = "DisableWeldVisualization"}]
-      112 SETTABLE                         R17 R15 R16
-      113 LOADB                            R16 0
-      114 DUPTABLE                         R17 K53 [{["Hotkey"] = "Alt+W", ["LabelLocEntry"] = "EnableWeldVisualization"}]
-      115 SETTABLE                         R17 R15 R16
-      116 CALL                             R14 1 1
-      117 GETIMPORT                        R15 K30 [table.freeze]
-      119 NEWTABLE                         R16 2 0
-      121 LOADB                            R17 1
-      122 DUPTABLE                         R18 K56 [{["Hotkey"] = "Alt+D", ["LabelLocEntry"] = "DisableConstraintVisualization"}]
-      123 SETTABLE                         R18 R16 R17
-      124 LOADB                            R17 0
-      125 DUPTABLE                         R18 K58 [{["Hotkey"] = "Alt+D", ["LabelLocEntry"] = "EnableConstraintVisualization"}]
-      126 SETTABLE                         R18 R16 R17
-      127 CALL                             R15 1 1
-      128 GETIMPORT                        R16 K30 [table.freeze]
-      130 DUPTABLE                         R17 K61 [{["Hotkey"] = "Esc", ["LabelLocEntry"] = "Escape"}]
-      131 CALL                             R16 1 1
-      132 DUPCLOSURE                       R17 K62 [PROTO_3]
-      133 CAPTURE                          VAL R16
-      134 CAPTURE                          VAL R10
-      135 CAPTURE                          VAL R11
-      136 CAPTURE                          VAL R14
-      137 CAPTURE                          VAL R1
-      138 CAPTURE                          VAL R15
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R12
-      141 CAPTURE                          VAL R13
-      142 CAPTURE                          VAL R7
-      143 SETTABLEKS                       R17 R9 K63 ["_getHotkeyList"]
-      145 DUPCLOSURE                       R17 K64 [PROTO_4]
-      146 CAPTURE                          VAL R3
-      147 CAPTURE                          VAL R6
-      148 SETTABLEKS                       R17 R9 K65 ["render"]
-      150 RETURN                           R9 1
+       19 GETTABLEKS                       R4 R2 K12 ["Types"]
+       21 CALL                             R3 1 1
+       22 GETIMPORT                        R4 K11 [require]
+       24 GETTABLEKS                       R5 R2 K13 ["Utility"]
+       26 GETTABLEKS                       R5 R5 K14 ["DragHelper"]
+       28 CALL                             R4 1 1
+       29 GETIMPORT                        R5 K11 [require]
+       31 GETTABLEKS                       R6 R0 K8 ["Packages"]
+       33 GETTABLEKS                       R6 R6 K15 ["Roact"]
+       35 CALL                             R5 1 1
+       36 GETIMPORT                        R6 K11 [require]
+       38 GETTABLEKS                       R7 R2 K16 ["Components"]
+       40 GETTABLEKS                       R7 R7 K17 ["TargetGridView"]
+       42 CALL                             R6 1 1
+       43 GETIMPORT                        R7 K11 [require]
+       45 GETTABLEKS                       R8 R2 K16 ["Components"]
+       47 GETTABLEKS                       R8 R8 K18 ["TargetSoftSnapView"]
+       49 CALL                             R7 1 1
+       50 GETIMPORT                        R8 K11 [require]
+       52 GETTABLEKS                       R9 R2 K16 ["Components"]
+       54 GETTABLEKS                       R9 R9 K19 ["HotkeyUsageInfo"]
+       56 CALL                             R8 1 1
+       57 GETIMPORT                        R9 K11 [require]
+       59 GETTABLEKS                       R10 R2 K13 ["Utility"]
+       61 GETTABLEKS                       R10 R10 K20 ["HotkeyHelpBuilder"]
+       63 CALL                             R9 1 1
+       64 GETIMPORT                        R10 K5 [game]
+       66 LOADK                            R12 K21 ["EnableConstraintToolPartPassthroughFeature"]
+       67 NAMECALL                         R10 R10 K22 ["GetFastFlag"]
+       69 CALL                             R10 2 1
+       70 NEWTABLE                         R11 8 0
+       72 SETTABLEKS                       R11 R11 K23 ["__index"]
+       74 DUPCLOSURE                       R12 K24 [PROTO_0]
+       75 CAPTURE                          VAL R11
+       76 SETTABLEKS                       R12 R11 K25 ["new"]
+       78 DUPCLOSURE                       R12 K26 [PROTO_1]
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R6
+       82 SETTABLEKS                       R12 R11 K27 ["_renderSnapTarget"]
+       84 DUPCLOSURE                       R12 K28 [PROTO_2]
+       85 CAPTURE                          VAL R5
+       86 SETTABLEKS                       R12 R11 K29 ["_renderSnap"]
+       88 GETIMPORT                        R12 K32 [table.freeze]
+       90 DUPTABLE                         R13 K37 [{["Hotkey"] = "T", ["LabelLocEntry"] = "DragTilt"}]
+       91 CALL                             R12 1 1
+       92 GETIMPORT                        R13 K32 [table.freeze]
+       94 DUPTABLE                         R14 K40 [{["Hotkey"] = "R", ["LabelLocEntry"] = "DragRotate"}]
+       95 CALL                             R13 1 1
+       96 GETIMPORT                        R14 K32 [table.freeze]
+       98 NEWTABLE                         R15 2 0
+      100 LOADB                            R16 1
+      101 DUPTABLE                         R17 K43 [{["Hotkey"] = "G", ["LabelLocEntry"] = "DisablePartPassthrough"}]
+      102 SETTABLE                         R17 R15 R16
+      103 LOADB                            R16 0
+      104 DUPTABLE                         R17 K45 [{["Hotkey"] = "G", ["LabelLocEntry"] = "EnablePartPassthrough"}]
+      105 SETTABLE                         R17 R15 R16
+      106 CALL                             R14 1 1
+      107 GETIMPORT                        R15 K32 [table.freeze]
+      109 NEWTABLE                         R16 2 0
+      111 LOADB                            R17 1
+      112 DUPTABLE                         R18 K48 [{["Hotkey"] = "M", ["LabelLocEntry"] = "DisableMultipleConstraintMode"}]
+      113 SETTABLE                         R18 R16 R17
+      114 LOADB                            R17 0
+      115 DUPTABLE                         R18 K50 [{["Hotkey"] = "M", ["LabelLocEntry"] = "EnableMultipleConstraintMode"}]
+      116 SETTABLE                         R18 R16 R17
+      117 CALL                             R15 1 1
+      118 GETIMPORT                        R16 K32 [table.freeze]
+      120 NEWTABLE                         R17 2 0
+      122 LOADB                            R18 1
+      123 DUPTABLE                         R19 K53 [{["Hotkey"] = "Alt+W", ["LabelLocEntry"] = "DisableWeldVisualization"}]
+      124 SETTABLE                         R19 R17 R18
+      125 LOADB                            R18 0
+      126 DUPTABLE                         R19 K55 [{["Hotkey"] = "Alt+W", ["LabelLocEntry"] = "EnableWeldVisualization"}]
+      127 SETTABLE                         R19 R17 R18
+      128 CALL                             R16 1 1
+      129 GETIMPORT                        R17 K32 [table.freeze]
+      131 NEWTABLE                         R18 2 0
+      133 LOADB                            R19 1
+      134 DUPTABLE                         R20 K58 [{["Hotkey"] = "Alt+D", ["LabelLocEntry"] = "DisableConstraintVisualization"}]
+      135 SETTABLE                         R20 R18 R19
+      136 LOADB                            R19 0
+      137 DUPTABLE                         R20 K60 [{["Hotkey"] = "Alt+D", ["LabelLocEntry"] = "EnableConstraintVisualization"}]
+      138 SETTABLE                         R20 R18 R19
+      139 CALL                             R17 1 1
+      140 GETIMPORT                        R18 K32 [table.freeze]
+      142 DUPTABLE                         R19 K63 [{["Hotkey"] = "Esc", ["LabelLocEntry"] = "Escape"}]
+      143 CALL                             R18 1 1
+      144 DUPCLOSURE                       R19 K64 [PROTO_3]
+      145 CAPTURE                          VAL R18
+      146 CAPTURE                          VAL R12
+      147 CAPTURE                          VAL R13
+      148 CAPTURE                          VAL R16
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          VAL R17
+      151 CAPTURE                          VAL R10
+      152 CAPTURE                          VAL R14
+      153 CAPTURE                          VAL R15
+      154 CAPTURE                          VAL R9
+      155 SETTABLEKS                       R19 R11 K65 ["_getHotkeyList"]
+      157 DUPCLOSURE                       R19 K66 [PROTO_4]
+      158 CAPTURE                          VAL R5
+      159 CAPTURE                          VAL R8
+      160 SETTABLEKS                       R19 R11 K67 ["render"]
+      162 RETURN                           R11 1

@@ -8,5 +8,10 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 LOADNIL                          R2
-       15 RETURN                           R2 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["DraggerFramework"]
+       20 GETTABLEKS                       R3 R3 K7 ["Types"]
+       22 CALL                             R2 1 1
+       23 LOADNIL                          R3
+       24 RETURN                           R3 1

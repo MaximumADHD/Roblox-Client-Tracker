@@ -7,90 +7,92 @@ PROTO_0:
         7 CALL                             R3 1 1
         8 NEWTABLE                         R4 0 0
        10 NEWTABLE                         R5 0 0
-       12 GETUPVAL                         R6 1
-       13 NAMECALL                         R6 R6 K1 ["GetDescendants"]
-       15 CALL                             R6 1 1
-       16 MOVE                             R7 R6
-       17 LOADNIL                          R8
-       18 LOADNIL                          R9
-       19 FORGPREP                         R7
-       20 LOADK                            R14 K2 ["BasePart"]
-       21 NAMECALL                         R12 R11 K3 ["IsA"]
-       23 CALL                             R12 2 1
-       24 JUMPIFNOT                        R12 ; [+49]
-       25 GETTABLEKS                       R12 R11 K4 ["Locked"]
-       27 JUMPIF                           R12 ; [+68]
-       28 GETUPVAL                         R12 2
-       29 MOVE                             R13 R11
-       30 MOVE                             R14 R3
-       31 MOVE                             R15 R4
-       32 CALL                             R12 3 1
-       33 JUMPIFNOT                        R12 ; [+62]
-       34 GETTABLE                         R13 R5 R12
-       35 JUMPIF                           R13 ; [+60]
-       36 LOADNIL                          R13
-       37 LOADK                            R16 K5 ["Tool"]
-       38 NAMECALL                         R14 R12 K3 ["IsA"]
-       40 CALL                             R14 2 1
-       41 JUMPIFNOT                        R14 ; [+3]
-       42 GETTABLEKS                       R13 R11 K6 ["Position"]
-       44 JUMP                             ; [+15]
-       45 LOADK                            R16 K7 ["Model"]
-       46 NAMECALL                         R14 R12 K3 ["IsA"]
-       48 CALL                             R14 2 1
-       49 JUMPIFNOT                        R14 ; [+6]
-       50 NAMECALL                         R14 R12 K8 ["GetBoundingBox"]
-       52 CALL                             R14 1 1
-       53 GETTABLEKS                       R13 R14 K6 ["Position"]
-       55 JUMP                             ; [+4]
-       56 GETTABLEKS                       R14 R12 K9 ["ExtentsCFrame"]
-       58 GETTABLEKS                       R13 R14 K6 ["Position"]
-       60 LOADB                            R14 1
-       61 SETTABLE                         R14 R5 R12
-       62 DUPTABLE                         R16 K12 [{"Center", "Selectable"}]
-       63 SETTABLEKS                       R13 R16 K10 ["Center"]
-       65 SETTABLEKS                       R12 R16 K11 ["Selectable"]
-       67 FASTCALL2                        TABLE_INSERT R1 R16 ; [+4]
-       69 MOVE                             R15 R1
-       70 GETIMPORT                        R14 K15 [table.insert]
-       72 CALL                             R14 2 0
-       73 JUMP                             ; [+22]
-       74 LOADK                            R14 K16 ["Attachment"]
-       75 NAMECALL                         R12 R11 K3 ["IsA"]
-       77 CALL                             R12 2 1
-       78 JUMPIFNOT                        R12 ; [+17]
-       79 GETTABLEKS                       R12 R11 K17 ["Visible"]
-       81 JUMPIF                           R12 ; [+1]
-       82 JUMPIFNOT                        R2 ; [+13]
-       83 DUPTABLE                         R14 K12 [{"Center", "Selectable"}]
-       84 GETTABLEKS                       R15 R11 K18 ["WorldPosition"]
-       86 SETTABLEKS                       R15 R14 K10 ["Center"]
-       88 SETTABLEKS                       R11 R14 K11 ["Selectable"]
-       90 FASTCALL2                        TABLE_INSERT R1 R14 ; [+4]
-       92 MOVE                             R13 R1
-       93 GETIMPORT                        R12 K15 [table.insert]
-       95 CALL                             R12 2 0
-       96 FORGLOOP                         R7 2 ; [-77]
-       98 RETURN                           R1 1
+       12 GETIMPORT                        R6 K2 [workspace]
+       14 NAMECALL                         R6 R6 K3 ["GetDescendants"]
+       16 CALL                             R6 1 1
+       17 MOVE                             R7 R6
+       18 LOADNIL                          R8
+       19 LOADNIL                          R9
+       20 FORGPREP                         R7
+       21 LOADK                            R14 K4 ["BasePart"]
+       22 NAMECALL                         R12 R11 K5 ["IsA"]
+       24 CALL                             R12 2 1
+       25 JUMPIFNOT                        R12 ; [+49]
+       26 GETTABLEKS                       R12 R11 K6 ["Locked"]
+       28 JUMPIF                           R12 ; [+68]
+       29 GETUPVAL                         R12 1
+       30 MOVE                             R13 R11
+       31 MOVE                             R14 R3
+       32 MOVE                             R15 R4
+       33 CALL                             R12 3 1
+       34 JUMPIFNOT                        R12 ; [+62]
+       35 GETTABLE                         R13 R5 R12
+       36 JUMPIF                           R13 ; [+60]
+       37 LOADNIL                          R13
+       38 LOADK                            R16 K7 ["Tool"]
+       39 NAMECALL                         R14 R12 K5 ["IsA"]
+       41 CALL                             R14 2 1
+       42 JUMPIFNOT                        R14 ; [+3]
+       43 GETTABLEKS                       R13 R11 K8 ["Position"]
+       45 JUMP                             ; [+15]
+       46 LOADK                            R16 K9 ["Model"]
+       47 NAMECALL                         R14 R12 K5 ["IsA"]
+       49 CALL                             R14 2 1
+       50 JUMPIFNOT                        R14 ; [+6]
+       51 NAMECALL                         R14 R12 K10 ["GetBoundingBox"]
+       53 CALL                             R14 1 1
+       54 GETTABLEKS                       R13 R14 K8 ["Position"]
+       56 JUMP                             ; [+4]
+       57 GETTABLEKS                       R14 R12 K11 ["ExtentsCFrame"]
+       59 GETTABLEKS                       R13 R14 K8 ["Position"]
+       61 LOADB                            R14 1
+       62 SETTABLE                         R14 R5 R12
+       63 DUPTABLE                         R16 K14 [{"Center", "Selectable"}]
+       64 SETTABLEKS                       R13 R16 K12 ["Center"]
+       66 SETTABLEKS                       R12 R16 K13 ["Selectable"]
+       68 FASTCALL2                        TABLE_INSERT R1 R16 ; [+4]
+       70 MOVE                             R15 R1
+       71 GETIMPORT                        R14 K17 [table.insert]
+       73 CALL                             R14 2 0
+       74 JUMP                             ; [+22]
+       75 LOADK                            R14 K18 ["Attachment"]
+       76 NAMECALL                         R12 R11 K5 ["IsA"]
+       78 CALL                             R12 2 1
+       79 JUMPIFNOT                        R12 ; [+17]
+       80 GETTABLEKS                       R12 R11 K19 ["Visible"]
+       82 JUMPIF                           R12 ; [+1]
+       83 JUMPIFNOT                        R2 ; [+13]
+       84 DUPTABLE                         R14 K14 [{"Center", "Selectable"}]
+       85 GETTABLEKS                       R15 R11 K20 ["WorldPosition"]
+       87 SETTABLEKS                       R15 R14 K12 ["Center"]
+       89 SETTABLEKS                       R11 R14 K13 ["Selectable"]
+       91 FASTCALL2                        TABLE_INSERT R1 R14 ; [+4]
+       93 MOVE                             R13 R1
+       94 GETIMPORT                        R12 K17 [table.insert]
+       96 CALL                             R12 2 0
+       97 FORGLOOP                         R7 2 ; [-77]
+       99 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["Workspace"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETIMPORT                        R2 K7 [script]
-       11 GETTABLEKS                       R2 R2 K8 ["Parent"]
-       13 GETTABLEKS                       R2 R2 K9 ["getSelectableWithCache"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETIMPORT                        R3 K7 [script]
-       20 GETTABLEKS                       R3 R3 K8 ["Parent"]
-       22 GETTABLEKS                       R3 R3 K10 ["shouldSelectSubPart"]
-       24 CALL                             R2 1 1
-       25 DUPCLOSURE                       R3 K11 [PROTO_0]
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R0
-       28 CAPTURE                          VAL R1
-       29 RETURN                           R3 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R2 R1 K3 ["DraggerFramework"]
+        9 GETIMPORT                        R3 K5 [require]
+       11 GETTABLEKS                       R4 R2 K6 ["Types"]
+       13 CALL                             R3 1 1
+       14 GETIMPORT                        R4 K5 [require]
+       16 GETIMPORT                        R5 K1 [script]
+       18 GETTABLEKS                       R5 R5 K2 ["Parent"]
+       20 GETTABLEKS                       R5 R5 K7 ["getSelectableWithCache"]
+       22 CALL                             R4 1 1
+       23 GETIMPORT                        R5 K5 [require]
+       25 GETIMPORT                        R6 K1 [script]
+       27 GETTABLEKS                       R6 R6 K2 ["Parent"]
+       29 GETTABLEKS                       R6 R6 K8 ["shouldSelectSubPart"]
+       31 CALL                             R5 1 1
+       32 DUPCLOSURE                       R6 K9 [PROTO_0]
+       33 CAPTURE                          VAL R5
+       34 CAPTURE                          VAL R4
+       35 RETURN                           R6 1

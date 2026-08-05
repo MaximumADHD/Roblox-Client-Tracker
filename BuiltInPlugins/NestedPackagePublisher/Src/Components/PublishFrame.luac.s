@@ -937,75 +937,77 @@ PROTO_25:
       148 SETTABLEKS                       R5 R4 K19 ["tempContainer"]
       150 NAMECALL                         R2 R0 K21 ["setState"]
       152 CALL                             R2 2 0
-      153 NAMECALL                         R2 R0 K45 ["onChangeSelection"]
-      155 CALL                             R2 1 0
-      156 RETURN                           R0 0
+      153 LOADB                            R4 1
+      154 NAMECALL                         R2 R0 K45 ["onChangeSelection"]
+      156 CALL                             R2 2 0
+      157 RETURN                           R0 0
 
 PROTO_26:
-        0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R1 R1 K1 ["Enabled"]
-        4 JUMPIF                           R1 ; [+1]
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R2 K1 ["Enabled"]
+        4 JUMPIF                           R2 ; [+1]
         5 RETURN                           R0 0
-        6 GETTABLEKS                       R1 R0 K2 ["state"]
-        8 GETTABLEKS                       R1 R1 K3 ["isPublishing"]
-       10 JUMPIFNOT                        R1 ; [+1]
-       11 RETURN                           R0 0
-       12 GETUPVAL                         R1 0
-       13 NAMECALL                         R1 R1 K4 ["Get"]
-       15 CALL                             R1 1 1
-       16 LENGTH                           R2 R1
-       17 JUMPIFEQKN                       R2 K5 [1] ; [+16]
-       19 DUPTABLE                         R4 K10 [{["selectedInstance"], ["packageLists"], ["canPublish"] = False}]
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R5 R5 K11 ["None"]
-       23 SETTABLEKS                       R5 R4 K6 ["selectedInstance"]
-       25 GETUPVAL                         R5 1
-       26 GETTABLEKS                       R5 R5 K11 ["None"]
-       28 SETTABLEKS                       R5 R4 K7 ["packageLists"]
-       30 NAMECALL                         R2 R0 K12 ["setState"]
-       32 CALL                             R2 2 0
-       33 RETURN                           R0 0
-       34 GETTABLEN                        R2 R1 1
-       35 JUMPIF                           R2 ; [+2]
-       36 LOADNIL                          R3
-       37 JUMP                             ; [+4]
-       38 LOADK                            R5 K13 ["PackageLink"]
-       39 NAMECALL                         R3 R2 K14 ["FindFirstChildOfClass"]
-       41 CALL                             R3 2 1
-       42 JUMPIFNOT                        R3 ; [+4]
-       43 GETTABLEKS                       R4 R3 K15 ["Status"]
-       45 JUMPIFNOTEQKS                    R4 K16 ["Up To Date"] ; [+16]
-       47 DUPTABLE                         R6 K10 [{["selectedInstance"], ["packageLists"], ["canPublish"] = False}]
-       48 GETUPVAL                         R7 1
-       49 GETTABLEKS                       R7 R7 K11 ["None"]
-       51 SETTABLEKS                       R7 R6 K6 ["selectedInstance"]
-       53 GETUPVAL                         R7 1
-       54 GETTABLEKS                       R7 R7 K11 ["None"]
-       56 SETTABLEKS                       R7 R6 K7 ["packageLists"]
-       58 NAMECALL                         R4 R0 K12 ["setState"]
-       60 CALL                             R4 2 0
-       61 RETURN                           R0 0
-       62 GETUPVAL                         R4 2
-       63 MOVE                             R5 R2
-       64 GETIMPORT                        R6 K18 [game]
-       66 CALL                             R4 2 1
-       67 GETIMPORT                        R5 K21 [table.sort]
-       69 MOVE                             R6 R4
-       70 GETUPVAL                         R7 3
-       71 CALL                             R5 2 0
-       72 GETIMPORT                        R5 K23 [ipairs]
-       74 MOVE                             R6 R4
-       75 CALL                             R5 1 3
-       76 FORGPREP_INEXT                   R5
-       77 LOADN                            R10 0
-       78 SETTABLEKS                       R10 R9 K24 ["PublishStatus"]
-       80 FORGLOOP                         R5 2 [inext] ; [-4]
-       82 DUPTABLE                         R7 K26 [{["selectedInstance"], ["packageLists"], ["canPublish"] = True}]
-       83 SETTABLEKS                       R2 R7 K6 ["selectedInstance"]
-       85 SETTABLEKS                       R4 R7 K7 ["packageLists"]
-       87 NAMECALL                         R5 R0 K12 ["setState"]
-       89 CALL                             R5 2 0
-       90 RETURN                           R0 0
+        6 JUMPIF                           R1 ; [+6]
+        7 GETTABLEKS                       R2 R0 K2 ["state"]
+        9 GETTABLEKS                       R2 R2 K3 ["isPublishing"]
+       11 JUMPIFNOT                        R2 ; [+1]
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R2 0
+       14 NAMECALL                         R2 R2 K4 ["Get"]
+       16 CALL                             R2 1 1
+       17 LENGTH                           R3 R2
+       18 JUMPIFEQKN                       R3 K5 [1] ; [+16]
+       20 DUPTABLE                         R5 K10 [{["selectedInstance"], ["packageLists"], ["canPublish"] = False}]
+       21 GETUPVAL                         R6 1
+       22 GETTABLEKS                       R6 R6 K11 ["None"]
+       24 SETTABLEKS                       R6 R5 K6 ["selectedInstance"]
+       26 GETUPVAL                         R6 1
+       27 GETTABLEKS                       R6 R6 K11 ["None"]
+       29 SETTABLEKS                       R6 R5 K7 ["packageLists"]
+       31 NAMECALL                         R3 R0 K12 ["setState"]
+       33 CALL                             R3 2 0
+       34 RETURN                           R0 0
+       35 GETTABLEN                        R3 R2 1
+       36 JUMPIF                           R3 ; [+2]
+       37 LOADNIL                          R4
+       38 JUMP                             ; [+4]
+       39 LOADK                            R6 K13 ["PackageLink"]
+       40 NAMECALL                         R4 R3 K14 ["FindFirstChildOfClass"]
+       42 CALL                             R4 2 1
+       43 JUMPIFNOT                        R4 ; [+4]
+       44 GETTABLEKS                       R5 R4 K15 ["Status"]
+       46 JUMPIFNOTEQKS                    R5 K16 ["Up To Date"] ; [+16]
+       48 DUPTABLE                         R7 K10 [{["selectedInstance"], ["packageLists"], ["canPublish"] = False}]
+       49 GETUPVAL                         R8 1
+       50 GETTABLEKS                       R8 R8 K11 ["None"]
+       52 SETTABLEKS                       R8 R7 K6 ["selectedInstance"]
+       54 GETUPVAL                         R8 1
+       55 GETTABLEKS                       R8 R8 K11 ["None"]
+       57 SETTABLEKS                       R8 R7 K7 ["packageLists"]
+       59 NAMECALL                         R5 R0 K12 ["setState"]
+       61 CALL                             R5 2 0
+       62 RETURN                           R0 0
+       63 GETUPVAL                         R5 2
+       64 MOVE                             R6 R3
+       65 GETIMPORT                        R7 K18 [game]
+       67 CALL                             R5 2 1
+       68 GETIMPORT                        R6 K21 [table.sort]
+       70 MOVE                             R7 R5
+       71 GETUPVAL                         R8 3
+       72 CALL                             R6 2 0
+       73 GETIMPORT                        R6 K23 [ipairs]
+       75 MOVE                             R7 R5
+       76 CALL                             R6 1 3
+       77 FORGPREP_INEXT                   R6
+       78 LOADN                            R11 0
+       79 SETTABLEKS                       R11 R10 K24 ["PublishStatus"]
+       81 FORGLOOP                         R6 2 [inext] ; [-4]
+       83 DUPTABLE                         R8 K26 [{["selectedInstance"], ["packageLists"], ["canPublish"] = True}]
+       84 SETTABLEKS                       R3 R8 K6 ["selectedInstance"]
+       86 SETTABLEKS                       R5 R8 K7 ["packageLists"]
+       88 NAMECALL                         R6 R0 K12 ["setState"]
+       90 CALL                             R6 2 0
+       91 RETURN                           R0 0
 
 PROTO_27:
         0 GETUPVAL                         R0 0

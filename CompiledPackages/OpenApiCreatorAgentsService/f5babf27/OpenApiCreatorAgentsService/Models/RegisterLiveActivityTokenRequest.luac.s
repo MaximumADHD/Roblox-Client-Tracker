@@ -1,0 +1,163 @@
+PROTO_0:
+        0 FASTCALL1                        TYPEOF R0 ; [+3]
+        1 MOVE                             R4 R0
+        2 GETIMPORT                        R3 K1 [typeof]
+        4 CALL                             R3 1 1
+        5 JUMPIFEQKS                       R3 K2 ["table"] ; [+19]
+        7 LOADK                            R6 K3 ["%*Expected table, got %*"]
+        8 MOVE                             R8 R2
+        9 FASTCALL1                        TYPEOF R0 ; [+3]
+       10 MOVE                             R10 R0
+       11 GETIMPORT                        R9 K1 [typeof]
+       13 CALL                             R9 1 1
+       14 NAMECALL                         R6 R6 K4 ["format"]
+       16 CALL                             R6 3 1
+       17 MOVE                             R5 R6
+       18 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       20 MOVE                             R4 R1
+       21 GETIMPORT                        R3 K6 [table.insert]
+       23 CALL                             R3 2 0
+       24 RETURN                           R0 1
+       25 GETTABLEKS                       R3 R0 K7 ["pushToken"]
+       27 JUMPIFEQKNIL                     R3 ; [+27]
+       29 GETTABLEKS                       R4 R0 K7 ["pushToken"]
+       31 FASTCALL1                        TYPEOF R4 ; [+2]
+       32 GETIMPORT                        R3 K1 [typeof]
+       34 CALL                             R3 1 1
+       35 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+       37 LOADK                            R6 K9 ["%*\"pushToken\" > Expected string, got %*"]
+       38 MOVE                             R8 R2
+       39 GETTABLEKS                       R10 R0 K7 ["pushToken"]
+       41 FASTCALL1                        TYPEOF R10 ; [+2]
+       42 GETIMPORT                        R9 K1 [typeof]
+       44 CALL                             R9 1 1
+       45 NAMECALL                         R6 R6 K4 ["format"]
+       47 CALL                             R6 3 1
+       48 MOVE                             R5 R6
+       49 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       51 MOVE                             R4 R1
+       52 GETIMPORT                        R3 K6 [table.insert]
+       54 CALL                             R3 2 0
+       55 GETTABLEKS                       R3 R0 K10 ["activityId"]
+       57 JUMPIFEQKNIL                     R3 ; [+27]
+       59 GETTABLEKS                       R4 R0 K10 ["activityId"]
+       61 FASTCALL1                        TYPEOF R4 ; [+2]
+       62 GETIMPORT                        R3 K1 [typeof]
+       64 CALL                             R3 1 1
+       65 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+       67 LOADK                            R6 K11 ["%*\"activityId\" > Expected string, got %*"]
+       68 MOVE                             R8 R2
+       69 GETTABLEKS                       R10 R0 K10 ["activityId"]
+       71 FASTCALL1                        TYPEOF R10 ; [+2]
+       72 GETIMPORT                        R9 K1 [typeof]
+       74 CALL                             R9 1 1
+       75 NAMECALL                         R6 R6 K4 ["format"]
+       77 CALL                             R6 3 1
+       78 MOVE                             R5 R6
+       79 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       81 MOVE                             R4 R1
+       82 GETIMPORT                        R3 K6 [table.insert]
+       84 CALL                             R3 2 0
+       85 GETTABLEKS                       R3 R0 K12 ["turnId"]
+       87 JUMPIFEQKNIL                     R3 ; [+27]
+       89 GETTABLEKS                       R4 R0 K12 ["turnId"]
+       91 FASTCALL1                        TYPEOF R4 ; [+2]
+       92 GETIMPORT                        R3 K1 [typeof]
+       94 CALL                             R3 1 1
+       95 JUMPIFEQKS                       R3 K13 ["number"] ; [+19]
+       97 LOADK                            R6 K14 ["%*\"turnId\" > Expected number, got %*"]
+       98 MOVE                             R8 R2
+       99 GETTABLEKS                       R10 R0 K12 ["turnId"]
+      101 FASTCALL1                        TYPEOF R10 ; [+2]
+      102 GETIMPORT                        R9 K1 [typeof]
+      104 CALL                             R9 1 1
+      105 NAMECALL                         R6 R6 K4 ["format"]
+      107 CALL                             R6 3 1
+      108 MOVE                             R5 R6
+      109 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      111 MOVE                             R4 R1
+      112 GETIMPORT                        R3 K6 [table.insert]
+      114 CALL                             R3 2 0
+      115 GETTABLEKS                       R3 R0 K15 ["tokenVersion"]
+      117 JUMPIFEQKNIL                     R3 ; [+27]
+      119 GETTABLEKS                       R4 R0 K15 ["tokenVersion"]
+      121 FASTCALL1                        TYPEOF R4 ; [+2]
+      122 GETIMPORT                        R3 K1 [typeof]
+      124 CALL                             R3 1 1
+      125 JUMPIFEQKS                       R3 K13 ["number"] ; [+19]
+      127 LOADK                            R6 K16 ["%*\"tokenVersion\" > Expected number, got %*"]
+      128 MOVE                             R8 R2
+      129 GETTABLEKS                       R10 R0 K15 ["tokenVersion"]
+      131 FASTCALL1                        TYPEOF R10 ; [+2]
+      132 GETIMPORT                        R9 K1 [typeof]
+      134 CALL                             R9 1 1
+      135 NAMECALL                         R6 R6 K4 ["format"]
+      137 CALL                             R6 3 1
+      138 MOVE                             R5 R6
+      139 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      141 MOVE                             R4 R1
+      142 GETIMPORT                        R3 K6 [table.insert]
+      144 CALL                             R3 2 0
+      145 GETTABLEKS                       R3 R0 K17 ["apnsEnvironment"]
+      147 JUMPIFEQKNIL                     R3 ; [+27]
+      149 GETTABLEKS                       R4 R0 K17 ["apnsEnvironment"]
+      151 FASTCALL1                        TYPEOF R4 ; [+2]
+      152 GETIMPORT                        R3 K1 [typeof]
+      154 CALL                             R3 1 1
+      155 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+      157 LOADK                            R6 K18 ["%*\"apnsEnvironment\" > Expected string, got %*"]
+      158 MOVE                             R8 R2
+      159 GETTABLEKS                       R10 R0 K17 ["apnsEnvironment"]
+      161 FASTCALL1                        TYPEOF R10 ; [+2]
+      162 GETIMPORT                        R9 K1 [typeof]
+      164 CALL                             R9 1 1
+      165 NAMECALL                         R6 R6 K4 ["format"]
+      167 CALL                             R6 3 1
+      168 MOVE                             R5 R6
+      169 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      171 MOVE                             R4 R1
+      172 GETIMPORT                        R3 K6 [table.insert]
+      174 CALL                             R3 2 0
+      175 GETTABLEKS                       R3 R0 K19 ["bundleId"]
+      177 JUMPIFEQKNIL                     R3 ; [+27]
+      179 GETTABLEKS                       R4 R0 K19 ["bundleId"]
+      181 FASTCALL1                        TYPEOF R4 ; [+2]
+      182 GETIMPORT                        R3 K1 [typeof]
+      184 CALL                             R3 1 1
+      185 JUMPIFEQKS                       R3 K8 ["string"] ; [+19]
+      187 LOADK                            R6 K20 ["%*\"bundleId\" > Expected string, got %*"]
+      188 MOVE                             R8 R2
+      189 GETTABLEKS                       R10 R0 K19 ["bundleId"]
+      191 FASTCALL1                        TYPEOF R10 ; [+2]
+      192 GETIMPORT                        R9 K1 [typeof]
+      194 CALL                             R9 1 1
+      195 NAMECALL                         R6 R6 K4 ["format"]
+      197 CALL                             R6 3 1
+      198 MOVE                             R5 R6
+      199 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+      201 MOVE                             R4 R1
+      202 GETIMPORT                        R3 K6 [table.insert]
+      204 CALL                             R3 2 0
+      205 RETURN                           R0 1
+
+PROTO_1:
+        0 RETURN                           R0 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["OpenApiCreatorAgentsService"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["HttpWrapper"]
+       13 CALL                             R2 1 1
+       14 DUPCLOSURE                       R3 K8 [PROTO_0]
+       15 DUPCLOSURE                       R4 K9 [PROTO_1]
+       16 GETIMPORT                        R5 K12 [table.freeze]
+       18 DUPTABLE                         R6 K15 [{"fromResponse", "toRequest"}]
+       19 SETTABLEKS                       R3 R6 K13 ["fromResponse"]
+       21 SETTABLEKS                       R4 R6 K14 ["toRequest"]
+       23 CALL                             R5 1 1
+       24 RETURN                           R5 1

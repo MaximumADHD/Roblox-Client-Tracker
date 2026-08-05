@@ -19,49 +19,63 @@ PROTO_0:
        28 GETUPVAL                         R3 1
        29 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
        31 GETTABLEKS                       R3 R3 K7 ["Created"]
-       33 JUMPIFNOTEQ                      R1 R3 ; [+14]
-       35 GETIMPORT                        R3 K10 [DateTime.fromIsoDate]
-       37 MOVE                             R4 R0
-       38 CALL                             R3 1 1
-       39 JUMPIFNOT                        R3 ; [+6]
-       40 LOADK                            R6 K11 ["lll"]
-       41 LOADK                            R7 K12 ["en-us"]
-       42 NAMECALL                         R4 R3 K13 ["FormatLocalTime"]
-       44 CALL                             R4 3 1
-       45 RETURN                           R4 1
-       46 LOADK                            R4 K14 ["--"]
-       47 RETURN                           R4 1
-       48 GETUPVAL                         R3 1
-       49 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
-       51 GETTABLEKS                       R3 R3 K15 ["AssetType"]
-       53 JUMPIFNOTEQ                      R1 R3 ; [+7]
-       55 LOADK                            R5 K15 ["AssetType"]
-       56 MOVE                             R6 R0
-       57 NAMECALL                         R3 R2 K16 ["getText"]
-       59 CALL                             R3 3 -1
-       60 RETURN                           R3 -1
-       61 GETUPVAL                         R3 1
-       62 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
-       64 GETTABLEKS                       R3 R3 K17 ["Source"]
-       66 JUMPIFNOTEQ                      R1 R3 ; [+7]
-       68 LOADK                            R5 K18 ["AssetSource"]
-       69 MOVE                             R6 R0
-       70 NAMECALL                         R3 R2 K16 ["getText"]
-       72 CALL                             R3 3 -1
-       73 RETURN                           R3 -1
-       74 GETUPVAL                         R3 1
-       75 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
-       77 GETTABLEKS                       R3 R3 K19 ["AssetId"]
-       79 JUMPIFNOTEQ                      R1 R3 ; [+7]
-       81 JUMPIFNOTEQKN                    R0 K20 [0] ; [+5]
-       83 GETUPVAL                         R3 2
-       84 GETTABLEKS                       R3 R3 K21 ["PlaceholderText"]
-       86 RETURN                           R3 1
-       87 FASTCALL1                        TOSTRING R0 ; [+3]
-       88 MOVE                             R4 R0
-       89 GETIMPORT                        R3 K23 [tostring]
-       91 CALL                             R3 1 1
-       92 RETURN                           R3 1
+       33 JUMPIFNOTEQ                      R1 R3 ; [+31]
+       35 GETUPVAL                         R3 2
+       36 CALL                             R3 0 1
+       37 JUMPIFNOT                        R3 ; [+14]
+       38 JUMPIFNOTEQKN                    R0 K8 [0] ; [+3]
+       40 LOADK                            R3 K9 ["--"]
+       41 RETURN                           R3 1
+       42 GETIMPORT                        R3 K12 [DateTime.fromUnixTimestampMillis]
+       44 MOVE                             R4 R0
+       45 CALL                             R3 1 1
+       46 LOADK                            R6 K13 ["lll"]
+       47 LOADK                            R7 K14 ["en-us"]
+       48 NAMECALL                         R4 R3 K15 ["FormatLocalTime"]
+       50 CALL                             R4 3 -1
+       51 RETURN                           R4 -1
+       52 GETIMPORT                        R3 K17 [DateTime.fromIsoDate]
+       54 MOVE                             R4 R0
+       55 CALL                             R3 1 1
+       56 JUMPIFNOT                        R3 ; [+6]
+       57 LOADK                            R6 K13 ["lll"]
+       58 LOADK                            R7 K14 ["en-us"]
+       59 NAMECALL                         R4 R3 K15 ["FormatLocalTime"]
+       61 CALL                             R4 3 1
+       62 RETURN                           R4 1
+       63 LOADK                            R4 K9 ["--"]
+       64 RETURN                           R4 1
+       65 GETUPVAL                         R3 1
+       66 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
+       68 GETTABLEKS                       R3 R3 K18 ["AssetType"]
+       70 JUMPIFNOTEQ                      R1 R3 ; [+7]
+       72 LOADK                            R5 K18 ["AssetType"]
+       73 MOVE                             R6 R0
+       74 NAMECALL                         R3 R2 K19 ["getText"]
+       76 CALL                             R3 3 -1
+       77 RETURN                           R3 -1
+       78 GETUPVAL                         R3 1
+       79 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
+       81 GETTABLEKS                       R3 R3 K20 ["Source"]
+       83 JUMPIFNOTEQ                      R1 R3 ; [+7]
+       85 LOADK                            R5 K21 ["AssetSource"]
+       86 MOVE                             R6 R0
+       87 NAMECALL                         R3 R2 K19 ["getText"]
+       89 CALL                             R3 3 -1
+       90 RETURN                           R3 -1
+       91 GETUPVAL                         R3 1
+       92 GETTABLEKS                       R3 R3 K1 ["AssetInfoField"]
+       94 GETTABLEKS                       R3 R3 K22 ["AssetId"]
+       96 JUMPIFNOTEQ                      R1 R3 ; [+7]
+       98 JUMPIFNOTEQKN                    R0 K8 [0] ; [+5]
+      100 GETUPVAL                         R3 3
+      101 GETTABLEKS                       R3 R3 K23 ["PlaceholderText"]
+      103 RETURN                           R3 1
+      104 FASTCALL1                        TOSTRING R0 ; [+3]
+      105 MOVE                             R4 R0
+      106 GETIMPORT                        R3 K25 [tostring]
+      108 CALL                             R3 1 1
+      109 RETURN                           R3 1
 
 PROTO_1:
         0 NEWTABLE                         R4 0 0
@@ -591,38 +605,44 @@ MAIN:
       192 GETTABLEKS                       R25 R25 K37 ["Flags"]
       194 GETTABLEKS                       R25 R25 K38 ["getFFlagAmrAudioInlinePlay"]
       196 CALL                             R24 1 1
-      197 DUPCLOSURE                       R25 K39 [PROTO_0]
-      198 CAPTURE                          VAL R5
-      199 CAPTURE                          VAL R19
-      200 CAPTURE                          VAL R20
-      201 DUPCLOSURE                       R26 K40 [PROTO_1]
-      202 CAPTURE                          VAL R12
-      203 CAPTURE                          VAL R18
-      204 CAPTURE                          VAL R1
-      205 CAPTURE                          VAL R15
-      206 CAPTURE                          VAL R21
-      207 CAPTURE                          VAL R25
-      208 CAPTURE                          VAL R20
-      209 CAPTURE                          VAL R22
-      210 CAPTURE                          VAL R23
-      211 CAPTURE                          VAL R19
-      212 CAPTURE                          VAL R2
-      213 CAPTURE                          VAL R8
-      214 CAPTURE                          VAL R24
-      215 CAPTURE                          VAL R6
-      216 CAPTURE                          VAL R7
-      217 DUPCLOSURE                       R27 K41 [PROTO_5]
-      218 CAPTURE                          VAL R9
-      219 CAPTURE                          VAL R10
-      220 CAPTURE                          VAL R17
-      221 CAPTURE                          VAL R14
-      222 CAPTURE                          VAL R18
-      223 CAPTURE                          VAL R1
-      224 CAPTURE                          VAL R15
-      225 CAPTURE                          VAL R16
-      226 CAPTURE                          VAL R11
-      227 CAPTURE                          VAL R13
-      228 CAPTURE                          VAL R19
-      229 CAPTURE                          VAL R26
-      230 CAPTURE                          VAL R2
-      231 RETURN                           R27 1
+      197 GETIMPORT                        R25 K5 [require]
+      199 GETTABLEKS                       R26 R0 K12 ["Src"]
+      201 GETTABLEKS                       R26 R26 K37 ["Flags"]
+      203 GETTABLEKS                       R26 R26 K39 ["getFFlagAmrOptimizeLoadingPerformance"]
+      205 CALL                             R25 1 1
+      206 DUPCLOSURE                       R26 K40 [PROTO_0]
+      207 CAPTURE                          VAL R5
+      208 CAPTURE                          VAL R19
+      209 CAPTURE                          VAL R25
+      210 CAPTURE                          VAL R20
+      211 DUPCLOSURE                       R27 K41 [PROTO_1]
+      212 CAPTURE                          VAL R12
+      213 CAPTURE                          VAL R18
+      214 CAPTURE                          VAL R1
+      215 CAPTURE                          VAL R15
+      216 CAPTURE                          VAL R21
+      217 CAPTURE                          VAL R26
+      218 CAPTURE                          VAL R20
+      219 CAPTURE                          VAL R22
+      220 CAPTURE                          VAL R23
+      221 CAPTURE                          VAL R19
+      222 CAPTURE                          VAL R2
+      223 CAPTURE                          VAL R8
+      224 CAPTURE                          VAL R24
+      225 CAPTURE                          VAL R6
+      226 CAPTURE                          VAL R7
+      227 DUPCLOSURE                       R28 K42 [PROTO_5]
+      228 CAPTURE                          VAL R9
+      229 CAPTURE                          VAL R10
+      230 CAPTURE                          VAL R17
+      231 CAPTURE                          VAL R14
+      232 CAPTURE                          VAL R18
+      233 CAPTURE                          VAL R1
+      234 CAPTURE                          VAL R15
+      235 CAPTURE                          VAL R16
+      236 CAPTURE                          VAL R11
+      237 CAPTURE                          VAL R13
+      238 CAPTURE                          VAL R19
+      239 CAPTURE                          VAL R27
+      240 CAPTURE                          VAL R2
+      241 RETURN                           R28 1

@@ -1,29 +1,33 @@
 PROTO_0:
         0 DUPTABLE                         R2 K1 [{"customFields"}]
-        1 DUPTABLE                         R3 K6 [{"usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType", "success"}]
+        1 DUPTABLE                         R3 K8 [{"usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType", "creatorId", "wasAutoReimport", "success"}]
         2 GETTABLEKS                       R4 R0 K2 ["usedStudioDefaultPreset"]
         4 SETTABLEKS                       R4 R3 K2 ["usedStudioDefaultPreset"]
         6 GETTABLEKS                       R4 R0 K3 ["wasReimportRelativeToThis"]
         8 SETTABLEKS                       R4 R3 K3 ["wasReimportRelativeToThis"]
        10 GETTABLEKS                       R4 R0 K4 ["targetType"]
        12 SETTABLEKS                       R4 R3 K4 ["targetType"]
-       14 SETTABLEKS                       R1 R3 K5 ["success"]
-       16 SETTABLEKS                       R3 R2 K0 ["customFields"]
-       18 GETUPVAL                         R3 0
-       19 GETUPVAL                         R5 1
-       20 MOVE                             R6 R2
-       21 NAMECALL                         R3 R3 K7 ["LogCounter"]
-       23 CALL                             R3 3 0
-       24 JUMPIFNOT                        R1 ; [+12]
-       25 GETTABLEKS                       R3 R2 K0 ["customFields"]
-       27 GETTABLEKS                       R4 R0 K8 ["configId"]
-       29 SETTABLEKS                       R4 R3 K8 ["configId"]
-       31 GETUPVAL                         R3 0
-       32 GETUPVAL                         R5 2
-       33 MOVE                             R6 R2
-       34 NAMECALL                         R3 R3 K9 ["LogEvent"]
-       36 CALL                             R3 3 0
-       37 RETURN                           R0 0
+       14 GETTABLEKS                       R4 R0 K5 ["creatorId"]
+       16 SETTABLEKS                       R4 R3 K5 ["creatorId"]
+       18 GETTABLEKS                       R4 R0 K6 ["wasAutoReimport"]
+       20 SETTABLEKS                       R4 R3 K6 ["wasAutoReimport"]
+       22 SETTABLEKS                       R1 R3 K7 ["success"]
+       24 SETTABLEKS                       R3 R2 K0 ["customFields"]
+       26 GETUPVAL                         R3 0
+       27 GETUPVAL                         R5 1
+       28 MOVE                             R6 R2
+       29 NAMECALL                         R3 R3 K9 ["LogCounter"]
+       31 CALL                             R3 3 0
+       32 JUMPIFNOT                        R1 ; [+12]
+       33 GETTABLEKS                       R3 R2 K0 ["customFields"]
+       35 GETTABLEKS                       R4 R0 K10 ["configId"]
+       37 SETTABLEKS                       R4 R3 K10 ["configId"]
+       39 GETUPVAL                         R3 0
+       40 GETUPVAL                         R5 2
+       41 MOVE                             R6 R2
+       42 NAMECALL                         R3 R3 K11 ["LogEvent"]
+       44 CALL                             R3 3 0
+       45 RETURN                           R0 0
 
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"customFields"}]

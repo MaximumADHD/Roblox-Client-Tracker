@@ -8,7 +8,7 @@ PROTO_0:
         7 ADDK                             R4 R5 K0 [0.5]
         8 MOVE                             R7 R0
         9 MOVE                             R8 R4
-       10 NAMECALL                         R5 R1 K5 ["lerp"]
+       10 NAMECALL                         R5 R1 K5 ["Lerp"]
        12 CALL                             R5 3 -1
        13 RETURN                           R5 -1
 
@@ -96,7 +96,7 @@ PROTO_3:
        32 ADDK                             R6 R7 K8 [0.5]
        33 MOVE                             R9 R4
        34 MOVE                             R10 R6
-       35 NAMECALL                         R7 R5 K13 ["lerp"]
+       35 NAMECALL                         R7 R5 K13 ["Lerp"]
        37 CALL                             R7 3 1
        38 MOVE                             R3 R7
        39 GETUPVAL                         R4 0

@@ -15,7 +15,7 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["From"]
         2 GETTABLEKS                       R2 R0 K1 ["To"]
-        4 JUMPIFNOTEQ                      R1 R2 ; [+33]
+        4 JUMPIFNOTEQ                      R1 R2 ; [+32]
         6 GETUPVAL                         R3 0
         7 GETTABLEKS                       R3 R3 K2 ["createElement"]
         9 LOADK                            R4 K3 ["BoxHandleAdornment"]
@@ -28,54 +28,52 @@ PROTO_2:
        19 GETTABLEKS                       R6 R6 K17 ["Terrain"]
        21 SETTABLEKS                       R6 R5 K5 ["Adornee"]
        23 LOADK                            R7 K18 [{1, 1, 1}]
-       24 LOADK                            R9 K19 [0.3]
-       25 GETTABLEKS                       R10 R0 K20 ["Scale"]
-       27 MUL                              R8 R9 R10
-       28 MUL                              R6 R7 R8
-       29 SETTABLEKS                       R6 R5 K6 ["Size"]
-       31 GETTABLEKS                       R6 R0 K7 ["Color3"]
-       33 SETTABLEKS                       R6 R5 K7 ["Color3"]
-       35 CALL                             R3 2 -1
-       36 CLOSEUPVALS                      R1
-       37 RETURN                           R3 -1
-       38 SUB                              R3 R2 R1
-       39 GETTABLEKS                       R4 R3 K21 ["Unit"]
-       41 LOADK                            R7 K22 [1.5]
-       42 GETTABLEKS                       R8 R0 K20 ["Scale"]
-       44 MUL                              R6 R7 R8
-       45 MUL                              R5 R4 R6
-       46 SUB                              R1 R1 R5
-       47 ADD                              R2 R2 R5
-       48 GETUPVAL                         R6 0
-       49 GETTABLEKS                       R6 R6 K23 ["createFragment"]
-       51 DUPTABLE                         R7 K26 [{"Bottom", "Top"}]
-       52 GETUPVAL                         R8 0
-       53 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       55 GETUPVAL                         R9 1
-       56 DUPTABLE                         R10 K29 [{["Color3"], ["AlwaysOnTop"] = False, ["Render"]}]
-       57 GETTABLEKS                       R11 R0 K7 ["Color3"]
-       59 SETTABLEKS                       R11 R10 K7 ["Color3"]
-       61 NEWCLOSURE                       R11 P0
-       62 CAPTURE                          REF R1
-       63 CAPTURE                          REF R2
-       64 SETTABLEKS                       R11 R10 K28 ["Render"]
-       66 CALL                             R8 2 1
-       67 SETTABLEKS                       R8 R7 K24 ["Bottom"]
-       69 GETUPVAL                         R8 0
-       70 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       72 GETUPVAL                         R9 1
-       73 DUPTABLE                         R10 K32 [{["Color3"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.6, ["Render"]}]
-       74 GETTABLEKS                       R11 R0 K7 ["Color3"]
-       76 SETTABLEKS                       R11 R10 K7 ["Color3"]
-       78 NEWCLOSURE                       R11 P1
-       79 CAPTURE                          REF R1
-       80 CAPTURE                          REF R2
-       81 SETTABLEKS                       R11 R10 K28 ["Render"]
-       83 CALL                             R8 2 1
-       84 SETTABLEKS                       R8 R7 K25 ["Top"]
-       86 CALL                             R6 1 -1
-       87 CLOSEUPVALS                      R1
-       88 RETURN                           R6 -1
+       24 GETTABLEKS                       R9 R0 K20 ["Scale"]
+       26 MULK                             R8 R9 K19 [0.3]
+       27 MUL                              R6 R7 R8
+       28 SETTABLEKS                       R6 R5 K6 ["Size"]
+       30 GETTABLEKS                       R6 R0 K7 ["Color3"]
+       32 SETTABLEKS                       R6 R5 K7 ["Color3"]
+       34 CALL                             R3 2 -1
+       35 CLOSEUPVALS                      R1
+       36 RETURN                           R3 -1
+       37 SUB                              R3 R2 R1
+       38 GETTABLEKS                       R4 R3 K21 ["Unit"]
+       40 GETTABLEKS                       R7 R0 K20 ["Scale"]
+       42 MULK                             R6 R7 K22 [1.5]
+       43 MUL                              R5 R4 R6
+       44 SUB                              R1 R1 R5
+       45 ADD                              R2 R2 R5
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K23 ["createFragment"]
+       49 DUPTABLE                         R7 K26 [{"Bottom", "Top"}]
+       50 GETUPVAL                         R8 0
+       51 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       53 GETUPVAL                         R9 1
+       54 DUPTABLE                         R10 K29 [{["Color3"], ["AlwaysOnTop"] = False, ["Render"]}]
+       55 GETTABLEKS                       R11 R0 K7 ["Color3"]
+       57 SETTABLEKS                       R11 R10 K7 ["Color3"]
+       59 NEWCLOSURE                       R11 P0
+       60 CAPTURE                          REF R1
+       61 CAPTURE                          REF R2
+       62 SETTABLEKS                       R11 R10 K28 ["Render"]
+       64 CALL                             R8 2 1
+       65 SETTABLEKS                       R8 R7 K24 ["Bottom"]
+       67 GETUPVAL                         R8 0
+       68 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       70 GETUPVAL                         R9 1
+       71 DUPTABLE                         R10 K32 [{["Color3"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.6, ["Render"]}]
+       72 GETTABLEKS                       R11 R0 K7 ["Color3"]
+       74 SETTABLEKS                       R11 R10 K7 ["Color3"]
+       76 NEWCLOSURE                       R11 P1
+       77 CAPTURE                          REF R1
+       78 CAPTURE                          REF R2
+       79 SETTABLEKS                       R11 R10 K28 ["Render"]
+       81 CALL                             R8 2 1
+       82 SETTABLEKS                       R8 R7 K25 ["Top"]
+       84 CALL                             R6 1 -1
+       85 CLOSEUPVALS                      R1
+       86 RETURN                           R6 -1
 
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+23]
@@ -201,17 +199,24 @@ MAIN:
        36 GETTABLEKS                       R6 R6 K10 ["CylinderMajorLines"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K4 [require]
-       41 GETTABLEKS                       R7 R0 K11 ["Flags"]
-       43 GETTABLEKS                       R7 R7 K12 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
-       45 CALL                             R6 1 1
-       46 DUPCLOSURE                       R7 K13 [PROTO_2]
-       47 CAPTURE                          VAL R2
-       48 CAPTURE                          VAL R3
-       49 DUPCLOSURE                       R8 K14 [PROTO_3]
-       50 DUPCLOSURE                       R9 K15 [PROTO_4]
-       51 CAPTURE                          VAL R2
-       52 CAPTURE                          VAL R7
-       53 CAPTURE                          VAL R6
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          VAL R5
-       56 RETURN                           R9 1
+       41 GETTABLEKS                       R7 R0 K11 ["Types"]
+       43 CALL                             R6 1 1
+       44 GETIMPORT                        R7 K4 [require]
+       46 GETTABLEKS                       R8 R0 K12 ["Utility"]
+       48 GETTABLEKS                       R8 R8 K13 ["DragHelper"]
+       50 CALL                             R7 1 1
+       51 GETIMPORT                        R8 K4 [require]
+       53 GETTABLEKS                       R9 R0 K14 ["Flags"]
+       55 GETTABLEKS                       R9 R9 K15 ["getEngineFeatureDraggerServiceUseBoundingBoxes"]
+       57 CALL                             R8 1 1
+       58 DUPCLOSURE                       R9 K16 [PROTO_2]
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R3
+       61 DUPCLOSURE                       R10 K17 [PROTO_3]
+       62 DUPCLOSURE                       R11 K18 [PROTO_4]
+       63 CAPTURE                          VAL R2
+       64 CAPTURE                          VAL R9
+       65 CAPTURE                          VAL R8
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R5
+       68 RETURN                           R11 1

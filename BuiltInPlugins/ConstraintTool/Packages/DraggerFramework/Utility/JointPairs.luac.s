@@ -130,17 +130,18 @@ PROTO_2:
       100 MOVE                             R17 R0
       101 MOVE                             R18 R5
       102 CALL                             R14 4 2
-      103 FASTCALL1                        ASSERT R14 ; [+3]
-      104 MOVE                             R17 R14
-      105 GETIMPORT                        R16 K13 [assert]
-      107 CALL                             R16 1 0
-      108 LOADB                            R16 0
-      109 JUMPIFNOTLE                      R11 R15 ; [+6]
-      111 SUBRK                            R17 K3 [1] R11
-      112 JUMPIFLE                         R15 R17 ; [+2]
-      114 LOADB                            R16 0 +1
-      115 LOADB                            R16 1
-      116 RETURN                           R16 1
+      103 FASTCALL2K                       ASSERT R14 K12 ; [+5]
+      105 MOVE                             R17 R14
+      106 LOADK                            R18 K12 ["Must be true if intersects was true"]
+      107 GETIMPORT                        R16 K14 [assert]
+      109 CALL                             R16 2 0
+      110 LOADB                            R16 0
+      111 JUMPIFNOTLE                      R11 R15 ; [+6]
+      113 SUBRK                            R17 K3 [1] R11
+      114 JUMPIFLE                         R15 R17 ; [+2]
+      116 LOADB                            R16 0 +1
+      117 LOADB                            R16 1
+      118 RETURN                           R16 1
 
 PROTO_3:
         0 LOADN                            R5 1
@@ -444,7 +445,7 @@ PROTO_10:
        20 RETURN                           R1 1
 
 PROTO_11:
-        0 NEWTABLE                         R7 2 0
+        0 NEWTABLE                         R7 0 0
         2 GETUPVAL                         R8 0
         3 FASTCALL2                        SETMETATABLE R7 R8 ; [+3]
         5 GETIMPORT                        R6 K1 [setmetatable]
@@ -510,44 +511,43 @@ PROTO_11:
        93 CALL                             R20 1 3
        94 FORGPREP_INEXT                   R20
        95 GETTABLE                         R25 R1 R24
-       96 JUMPIF                           R25 ; [+42]
-       97 NAMECALL                         R26 R24 K29 ["GetRootPart"]
-       99 CALL                             R26 1 1
-      100 GETTABLE                         R25 R2 R26
-      101 JUMPIF                           R25 ; [+37]
-      102 JUMPIFEQ                         R24 R9 ; [+36]
-      104 GETTABLEKS                       R26 R24 K6 ["Size"]
-      106 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
-      108 DIVK                             R25 R26 K5 [2]
-      109 GETTABLEKS                       R27 R24 K14 ["Position"]
-      111 GETTABLEKS                       R28 R16 K14 ["Position"]
-      113 SUB                              R26 R27 R28
-      114 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
-      116 ADD                              R28 R17 R25
-      117 ADDK                             R27 R28 K30 [0.05]
-      118 JUMPIFNOTLE                      R26 R27 ; [+20]
-      120 GETTABLE                         R27 R4 R16
-      121 GETTABLE                         R26 R27 R24
-      122 JUMPIF                           R26 ; [+16]
-      123 GETUPVAL                         R26 2
-      124 MOVE                             R27 R3
-      125 MOVE                             R28 R16
-      126 MOVE                             R29 R24
-      127 MOVE                             R30 R10
-      128 MOVE                             R31 R5
-      129 MOVE                             R32 R8
-      130 CALL                             R26 6 2
-      131 JUMPIFNOT                        R26 ; [+7]
-      132 FASTCALL2                        TABLE_INSERT R11 R27 ; [+5]
-      134 MOVE                             R29 R11
-      135 MOVE                             R30 R27
-      136 GETIMPORT                        R28 K28 [table.insert]
-      138 CALL                             R28 2 0
-      139 FORGLOOP                         R20 2 [inext] ; [-45]
-      141 FORGLOOP                         R12 2 [inext] ; [-117]
-      143 SETTABLEKS                       R11 R6 K31 ["_jointPairs"]
-      145 SETTABLEKS                       R10 R6 K32 ["_facesToHighlightSet"]
-      147 RETURN                           R6 1
+       96 JUMPIF                           R25 ; [+41]
+       97 GETTABLEKS                       R26 R24 K29 ["AssemblyRootPart"]
+       99 GETTABLE                         R25 R2 R26
+      100 JUMPIF                           R25 ; [+37]
+      101 JUMPIFEQ                         R24 R9 ; [+36]
+      103 GETTABLEKS                       R26 R24 K6 ["Size"]
+      105 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
+      107 DIVK                             R25 R26 K5 [2]
+      108 GETTABLEKS                       R27 R24 K14 ["Position"]
+      110 GETTABLEKS                       R28 R16 K14 ["Position"]
+      112 SUB                              R26 R27 R28
+      113 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
+      115 ADD                              R28 R17 R25
+      116 ADDK                             R27 R28 K30 [0.05]
+      117 JUMPIFNOTLE                      R26 R27 ; [+20]
+      119 GETTABLE                         R27 R4 R16
+      120 GETTABLE                         R26 R27 R24
+      121 JUMPIF                           R26 ; [+16]
+      122 GETUPVAL                         R26 2
+      123 MOVE                             R27 R3
+      124 MOVE                             R28 R16
+      125 MOVE                             R29 R24
+      126 MOVE                             R30 R10
+      127 MOVE                             R31 R5
+      128 MOVE                             R32 R8
+      129 CALL                             R26 6 2
+      130 JUMPIFNOT                        R26 ; [+7]
+      131 FASTCALL2                        TABLE_INSERT R11 R27 ; [+5]
+      133 MOVE                             R29 R11
+      134 MOVE                             R30 R27
+      135 GETIMPORT                        R28 K28 [table.insert]
+      137 CALL                             R28 2 0
+      138 FORGLOOP                         R20 2 [inext] ; [-44]
+      140 FORGLOOP                         R12 2 [inext] ; [-116]
+      142 SETTABLEKS                       R11 R6 K31 ["_jointPairs"]
+      144 SETTABLEKS                       R10 R6 K32 ["_facesToHighlightSet"]
+      146 RETURN                           R6 1
 
 PROTO_12:
         0 NEWTABLE                         R2 0 0
@@ -604,35 +604,33 @@ PROTO_12:
        68 GETTABLEKS                       R20 R7 K20 ["ClassName"]
        70 GETTABLE                         R18 R19 R20
        71 SETTABLEKS                       R18 R17 K9 ["Color3"]
-       73 LOADK                            R19 K21 [0.05]
-       74 LOADK                            R21 K21 [0.05]
-       75 MUL                              R20 R21 R1
-       76 ADD                              R18 R19 R20
-       77 SETTABLEKS                       R18 R17 K10 ["Radius"]
-       79 SETTABLEKS                       R14 R17 K11 ["Height"]
-       81 GETUPVAL                         R18 2
-       82 GETTABLEKS                       R18 R18 K22 ["Terrain"]
-       84 SETTABLEKS                       R18 R17 K12 ["Adornee"]
-       86 CALL                             R15 2 1
-       87 SETTABLE                         R15 R8 R11
-       88 FORNLOOP                         R9
-       89 FASTCALL1                        TOSTRING R6 ; [+3]
-       90 MOVE                             R10 R6
-       91 GETIMPORT                        R9 K24 [tostring]
-       93 CALL                             R9 1 1
-       94 GETUPVAL                         R10 0
-       95 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       97 LOADK                            R11 K25 ["Folder"]
-       98 NEWTABLE                         R12 0 0
-      100 MOVE                             R13 R8
-      101 CALL                             R10 3 1
-      102 SETTABLE                         R10 R2 R9
-      103 FORGLOOP                         R3 2 ; [-96]
-      105 GETUPVAL                         R3 0
-      106 GETTABLEKS                       R3 R3 K26 ["createFragment"]
-      108 MOVE                             R4 R2
-      109 CALL                             R3 1 -1
-      110 RETURN                           R3 -1
+       73 MULK                             R19 R1 K21 [0.05]
+       74 ADDK                             R18 R19 K21 [0.05]
+       75 SETTABLEKS                       R18 R17 K10 ["Radius"]
+       77 SETTABLEKS                       R14 R17 K11 ["Height"]
+       79 GETUPVAL                         R18 2
+       80 GETTABLEKS                       R18 R18 K22 ["Terrain"]
+       82 SETTABLEKS                       R18 R17 K12 ["Adornee"]
+       84 CALL                             R15 2 1
+       85 SETTABLE                         R15 R8 R11
+       86 FORNLOOP                         R9
+       87 FASTCALL1                        TOSTRING R6 ; [+3]
+       88 MOVE                             R10 R6
+       89 GETIMPORT                        R9 K24 [tostring]
+       91 CALL                             R9 1 1
+       92 GETUPVAL                         R10 0
+       93 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       95 LOADK                            R11 K25 ["Folder"]
+       96 NEWTABLE                         R12 0 0
+       98 MOVE                             R13 R8
+       99 CALL                             R10 3 1
+      100 SETTABLE                         R10 R2 R9
+      101 FORGLOOP                         R3 2 ; [-94]
+      103 GETUPVAL                         R3 0
+      104 GETTABLEKS                       R3 R3 K26 ["createFragment"]
+      106 MOVE                             R4 R2
+      107 CALL                             R3 1 -1
+      108 RETURN                           R3 -1
 
 PROTO_13:
         0 GETIMPORT                        R1 K1 [ipairs]

@@ -226,54 +226,28 @@ PROTO_7:
         6 RETURN                           R1 -1
 
 PROTO_8:
-        0 LOADNIL                          R1
-        1 SETTABLEKS                       R1 R0 K0 ["OnDrag"]
-        3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K1 ["OnDrop"]
-        6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K2 ["OnDragMove"]
-        9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K3 ["OnEnterViewport"]
-       12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K4 ["OnMouseMove"]
-       15 LOADNIL                          R1
-       16 SETTABLEKS                       R1 R0 K5 ["_pressedKeys"]
-       18 LOADNIL                          R1
-       19 SETTABLEKS                       R1 R0 K6 ["_lastClickMousePosition"]
-       21 LOADNIL                          R1
-       22 SETTABLEKS                       R1 R0 K7 ["_lastZone"]
-       24 LOADNIL                          R1
-       25 SETTABLEKS                       R1 R0 K8 ["_doubleClickDetector"]
-       27 GETTABLEKS                       R1 R0 K9 ["_keyHoldDetector"]
-       29 NAMECALL                         R1 R1 K10 ["destroy"]
+        0 GETTABLEKS                       R1 R0 K0 ["_keyHoldDetector"]
+        2 NAMECALL                         R1 R1 K1 ["destroy"]
+        4 CALL                             R1 1 0
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R2 R0 K2 ["_connections"]
+        8 CALL                             R1 1 0
+        9 GETTABLEKS                       R1 R0 K3 ["_threads"]
+       11 LOADNIL                          R2
+       12 LOADNIL                          R3
+       13 FORGPREP                         R1
+       14 GETIMPORT                        R6 K6 [task.cancel]
+       16 MOVE                             R7 R5
+       17 CALL                             R6 1 0
+       18 FORGLOOP                         R1 2 ; [-5]
+       20 GETTABLEKS                       R1 R0 K7 ["_mouseTrackerInstance"]
+       22 JUMPIFEQKNIL                     R1 ; [+6]
+       24 GETTABLEKS                       R1 R0 K7 ["_mouseTrackerInstance"]
+       26 NAMECALL                         R1 R1 K8 ["Destroy"]
+       28 CALL                             R1 1 0
+       29 NAMECALL                         R1 R0 K9 ["_deregisterWidgetAsync"]
        31 CALL                             R1 1 0
-       32 LOADNIL                          R1
-       33 SETTABLEKS                       R1 R0 K9 ["_keyHoldDetector"]
-       35 GETUPVAL                         R1 0
-       36 GETTABLEKS                       R2 R0 K11 ["_connections"]
-       38 CALL                             R1 1 0
-       39 LOADNIL                          R1
-       40 SETTABLEKS                       R1 R0 K11 ["_connections"]
-       42 GETTABLEKS                       R1 R0 K12 ["_threads"]
-       44 LOADNIL                          R2
-       45 LOADNIL                          R3
-       46 FORGPREP                         R1
-       47 GETIMPORT                        R6 K15 [task.cancel]
-       49 MOVE                             R7 R5
-       50 CALL                             R6 1 0
-       51 FORGLOOP                         R1 2 ; [-5]
-       53 LOADNIL                          R1
-       54 SETTABLEKS                       R1 R0 K12 ["_threads"]
-       56 GETTABLEKS                       R1 R0 K16 ["_mouseTrackerInstance"]
-       58 JUMPIFEQKNIL                     R1 ; [+9]
-       60 GETTABLEKS                       R1 R0 K16 ["_mouseTrackerInstance"]
-       62 NAMECALL                         R1 R1 K17 ["Destroy"]
-       64 CALL                             R1 1 0
-       65 LOADNIL                          R1
-       66 SETTABLEKS                       R1 R0 K16 ["_mouseTrackerInstance"]
-       68 NAMECALL                         R1 R0 K18 ["_deregisterWidgetAsync"]
-       70 CALL                             R1 1 0
-       71 RETURN                           R0 0
+       32 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R1 0

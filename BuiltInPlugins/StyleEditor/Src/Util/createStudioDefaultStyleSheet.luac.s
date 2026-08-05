@@ -188,23 +188,57 @@ PROTO_1:
        87 LOADN                            R8 20
        88 CALL                             R6 2 1
        89 SETTABLEKS                       R6 R5 K36 ["BlurRadius"]
-       91 DUPTABLE                         R6 K57 [{"Frame", "ScrollingFrame", "TextLabel", "TextButton", "TextBox", "ImageButton", "ImageLabel", "ViewportFrame", "VideoFrame", "CanvasGroup", "UIListLayout", "UIGridLayout", "UIPageLayout", "UITableLayout", "UIShadow"}]
-       92 SETTABLEKS                       R0 R6 K42 ["Frame"]
-       94 SETTABLEKS                       R4 R6 K43 ["ScrollingFrame"]
-       96 SETTABLEKS                       R1 R6 K44 ["TextLabel"]
-       98 SETTABLEKS                       R1 R6 K45 ["TextButton"]
-      100 SETTABLEKS                       R1 R6 K46 ["TextBox"]
-      102 SETTABLEKS                       R2 R6 K47 ["ImageButton"]
-      104 SETTABLEKS                       R2 R6 K48 ["ImageLabel"]
-      106 SETTABLEKS                       R0 R6 K49 ["ViewportFrame"]
-      108 SETTABLEKS                       R0 R6 K50 ["VideoFrame"]
-      110 SETTABLEKS                       R0 R6 K51 ["CanvasGroup"]
-      112 SETTABLEKS                       R3 R6 K52 ["UIListLayout"]
-      114 SETTABLEKS                       R3 R6 K53 ["UIGridLayout"]
-      116 SETTABLEKS                       R3 R6 K54 ["UIPageLayout"]
-      118 SETTABLEKS                       R3 R6 K55 ["UITableLayout"]
-      120 SETTABLEKS                       R5 R6 K56 ["UIShadow"]
-      122 RETURN                           R6 1
+       91 DUPTABLE                         R6 K44 [{["AutomaticSize"], [2], ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["TextColor3"], ["TextSize"] = 14, ["FontFace"], ["ImageColor3"]}]
+       92 GETIMPORT                        R7 K46 [Enum.AutomaticSize.X]
+       94 SETTABLEKS                       R7 R6 K42 ["AutomaticSize"]
+       96 GETIMPORT                        R7 K8 [UDim2.fromOffset]
+       98 LOADN                            R8 0
+       99 LOADN                            R9 36
+      100 CALL                             R7 2 1
+      101 SETTABLEKS                       R7 R6 K0 ["Size"]
+      103 GETIMPORT                        R7 K48 [Color3.fromRGB]
+      105 LOADN                            R8 255
+      106 LOADN                            R9 255
+      107 LOADN                            R10 255
+      108 CALL                             R7 3 1
+      109 SETTABLEKS                       R7 R6 K1 ["BackgroundColor3"]
+      111 GETIMPORT                        R7 K48 [Color3.fromRGB]
+      113 LOADN                            R8 0
+      114 LOADN                            R9 0
+      115 LOADN                            R10 0
+      116 CALL                             R7 3 1
+      117 SETTABLEKS                       R7 R6 K17 ["TextColor3"]
+      119 GETIMPORT                        R7 K21 [Font.fromEnum]
+      121 GETIMPORT                        R8 K24 [Enum.Font.SourceSans]
+      123 CALL                             R7 1 1
+      124 SETTABLEKS                       R7 R6 K14 ["FontFace"]
+      126 GETIMPORT                        R7 K48 [Color3.fromRGB]
+      128 LOADN                            R8 0
+      129 LOADN                            R9 0
+      130 LOADN                            R10 0
+      131 CALL                             R7 3 1
+      132 SETTABLEKS                       R7 R6 K43 ["ImageColor3"]
+      134 DUPTABLE                         R7 K64 [{"Frame", "ScrollingFrame", "TextLabel", "TextButton", "TextBox", "ImageButton", "ImageLabel", "ViewportFrame", "VideoFrame", "CanvasGroup", "UIListLayout", "UIGridLayout", "UIPageLayout", "UITableLayout", "UIShadow"}]
+      135 SETTABLEKS                       R0 R7 K49 ["Frame"]
+      137 SETTABLEKS                       R4 R7 K50 ["ScrollingFrame"]
+      139 SETTABLEKS                       R1 R7 K51 ["TextLabel"]
+      141 SETTABLEKS                       R1 R7 K52 ["TextButton"]
+      143 SETTABLEKS                       R1 R7 K53 ["TextBox"]
+      145 SETTABLEKS                       R2 R7 K54 ["ImageButton"]
+      147 SETTABLEKS                       R2 R7 K55 ["ImageLabel"]
+      149 SETTABLEKS                       R0 R7 K56 ["ViewportFrame"]
+      151 SETTABLEKS                       R0 R7 K57 ["VideoFrame"]
+      153 SETTABLEKS                       R0 R7 K58 ["CanvasGroup"]
+      155 SETTABLEKS                       R3 R7 K59 ["UIListLayout"]
+      157 SETTABLEKS                       R3 R7 K60 ["UIGridLayout"]
+      159 SETTABLEKS                       R3 R7 K61 ["UIPageLayout"]
+      161 SETTABLEKS                       R3 R7 K62 ["UITableLayout"]
+      163 SETTABLEKS                       R5 R7 K63 ["UIShadow"]
+      165 GETUPVAL                         R8 1
+      166 CALL                             R8 0 1
+      167 JUMPIFNOT                        R8 ; [+2]
+      168 SETTABLEKS                       R6 R7 K65 ["InputActionLabel"]
+      170 RETURN                           R7 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -281,18 +315,24 @@ MAIN:
        35 GETTABLEKS                       R6 R6 K12 ["Flags"]
        37 GETTABLEKS                       R6 R6 K13 ["getEngineFeatureCustomizedDefaultInstances"]
        39 CALL                             R5 1 1
-       40 DUPCLOSURE                       R6 K14 [PROTO_0]
-       41 CAPTURE                          VAL R2
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          VAL R3
-       44 DUPTABLE                         R7 K30 [{["BorderColor"] = True, ["BackgroundColor"] = True, ["TextColor"] = True, ["FontSize"] = True, ["Font"] = True, ["Transparency"] = True, ["TextWrap"] = True, ["Video"] = True, ["Image"] = True, ["TopImage"] = True, ["MidImage"] = True, ["BottomImage"] = True, ["HoverImage"] = True, ["PressedImage"] = True}]
-       45 DUPCLOSURE                       R8 K31 [PROTO_1]
-       46 CAPTURE                          VAL R2
-       47 DUPCLOSURE                       R9 K32 [PROTO_2]
-       48 CAPTURE                          VAL R5
-       49 CAPTURE                          VAL R6
-       50 CAPTURE                          VAL R7
-       51 CAPTURE                          VAL R8
+       40 GETIMPORT                        R6 K4 [require]
+       42 GETTABLEKS                       R7 R0 K11 ["Src"]
+       44 GETTABLEKS                       R7 R7 K12 ["Flags"]
+       46 GETTABLEKS                       R7 R7 K14 ["getEngineFeatureInputActionLabel"]
+       48 CALL                             R6 1 1
+       49 DUPCLOSURE                       R7 K15 [PROTO_0]
+       50 CAPTURE                          VAL R2
+       51 CAPTURE                          VAL R4
        52 CAPTURE                          VAL R3
-       53 CAPTURE                          VAL R4
-       54 RETURN                           R9 1
+       53 DUPTABLE                         R8 K31 [{["BorderColor"] = True, ["BackgroundColor"] = True, ["TextColor"] = True, ["FontSize"] = True, ["Font"] = True, ["Transparency"] = True, ["TextWrap"] = True, ["Video"] = True, ["Image"] = True, ["TopImage"] = True, ["MidImage"] = True, ["BottomImage"] = True, ["HoverImage"] = True, ["PressedImage"] = True}]
+       54 DUPCLOSURE                       R9 K32 [PROTO_1]
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R6
+       57 DUPCLOSURE                       R10 K33 [PROTO_2]
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R7
+       60 CAPTURE                          VAL R8
+       61 CAPTURE                          VAL R9
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R4
+       64 RETURN                           R10 1

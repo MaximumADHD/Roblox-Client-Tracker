@@ -579,10 +579,10 @@ PROTO_17:
       154 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
       156 MOVE                             R18 R14
       157 CALL                             R15 3 2
-      158 JUMPIFNOTEQKS                    R15 K32 ["Ready"] ; [+16]
-      160 JUMPIFNOT                        R5 ; [+57]
+      158 JUMPIFNOTEQKS                    R15 K32 ["Ready"] ; [+15]
+      160 JUMPIFNOT                        R5 ; [+56]
       161 JUMPIFNOT                        R11 ; [+1]
-      162 JUMPIFNOT                        R1 ; [+55]
+      162 JUMPIFNOT                        R1 ; [+54]
       163 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
       165 GETUPVAL                         R19 1
       166 GETTABLEKS                       R19 R19 K33 ["PendingSelectNext"]
@@ -591,39 +591,38 @@ PROTO_17:
       170 NAMECALL                         R17 R17 K34 ["transitionToState"]
       172 CALL                             R17 4 0
       173 RETURN                           R0 0
-      174 RETURN                           R0 0
-      175 JUMPIFNOTEQKS                    R15 K35 ["DragSelecting"] ; [+16]
-      177 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
-      179 NAMECALL                         R17 R17 K36 ["doesAllowDragSelect"]
-      181 CALL                             R17 1 1
-      182 JUMPIFNOT                        R17 ; [+35]
-      183 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
-      185 GETUPVAL                         R19 1
-      186 GETTABLEKS                       R19 R19 K35 ["DragSelecting"]
-      188 NAMECALL                         R17 R17 K34 ["transitionToState"]
-      190 CALL                             R17 2 0
-      191 RETURN                           R0 0
-      192 JUMPIFNOTEQKS                    R15 K37 ["FreeformSelectionDrag"] ; [+13]
-      194 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
-      196 GETUPVAL                         R19 1
-      197 GETTABLEKS                       R19 R19 K38 ["PendingDraggingParts"]
-      199 MOVE                             R20 R1
-      200 MOVE                             R21 R16
-      201 MOVE                             R22 R6
-      202 NAMECALL                         R17 R17 K34 ["transitionToState"]
-      204 CALL                             R17 5 0
-      205 RETURN                           R0 0
-      206 GETIMPORT                        R17 K40 [error]
-      208 LOADK                            R19 K41 ["Bad state returned from dispatchWorldClick: `"]
-      209 FASTCALL1                        TOSTRING R15 ; [+3]
-      210 MOVE                             R23 R15
-      211 GETIMPORT                        R22 K43 [tostring]
-      213 CALL                             R22 1 1
-      214 MOVE                             R20 R22
-      215 LOADK                            R21 K44 ["`"]
-      216 CONCAT                           R18 R19 R21
-      217 CALL                             R17 1 0
-      218 RETURN                           R0 0
+      174 JUMPIFNOTEQKS                    R15 K35 ["DragSelecting"] ; [+16]
+      176 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
+      178 NAMECALL                         R17 R17 K36 ["doesAllowDragSelect"]
+      180 CALL                             R17 1 1
+      181 JUMPIFNOT                        R17 ; [+35]
+      182 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
+      184 GETUPVAL                         R19 1
+      185 GETTABLEKS                       R19 R19 K35 ["DragSelecting"]
+      187 NAMECALL                         R17 R17 K34 ["transitionToState"]
+      189 CALL                             R17 2 0
+      190 RETURN                           R0 0
+      191 JUMPIFNOTEQKS                    R15 K37 ["FreeformSelectionDrag"] ; [+13]
+      193 GETTABLEKS                       R17 R0 K0 ["_draggerToolModel"]
+      195 GETUPVAL                         R19 1
+      196 GETTABLEKS                       R19 R19 K38 ["PendingDraggingParts"]
+      198 MOVE                             R20 R1
+      199 MOVE                             R21 R16
+      200 MOVE                             R22 R6
+      201 NAMECALL                         R17 R17 K34 ["transitionToState"]
+      203 CALL                             R17 5 0
+      204 RETURN                           R0 0
+      205 GETIMPORT                        R17 K40 [error]
+      207 LOADK                            R19 K41 ["Bad state returned from dispatchWorldClick: `"]
+      208 FASTCALL1                        TOSTRING R15 ; [+3]
+      209 MOVE                             R23 R15
+      210 GETIMPORT                        R22 K43 [tostring]
+      212 CALL                             R22 1 1
+      213 MOVE                             R20 R22
+      214 LOADK                            R21 K44 ["`"]
+      215 CONCAT                           R18 R19 R21
+      216 CALL                             R17 1 0
+      217 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

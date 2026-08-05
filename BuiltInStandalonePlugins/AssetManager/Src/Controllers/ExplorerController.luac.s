@@ -305,44 +305,10 @@ PROTO_5:
         2 RETURN                           R1 1
 
 PROTO_6:
-        0 LOADNIL                          R1
-        1 SETTABLEKS                       R1 R0 K0 ["_explorerItems"]
-        3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K1 ["_scopes"]
-        6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K2 ["_visibleInventories"]
-        9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K3 ["_selection"]
-       12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K4 ["_expansion"]
-       15 LOADNIL                          R1
-       16 SETTABLEKS                       R1 R0 K5 ["_stagedFolder"]
-       18 LOADNIL                          R1
-       19 SETTABLEKS                       R1 R0 K6 ["_recentlyCreatedFolder"]
-       21 LOADNIL                          R1
-       22 SETTABLEKS                       R1 R0 K7 ["OnExplorerItemsChanged"]
-       24 LOADNIL                          R1
-       25 SETTABLEKS                       R1 R0 K8 ["OnGroupOptionsChanged"]
-       27 LOADNIL                          R1
-       28 SETTABLEKS                       R1 R0 K9 ["OnExpansionChanged"]
-       30 LOADNIL                          R1
-       31 SETTABLEKS                       R1 R0 K10 ["OnShowScopeOptionsChanged"]
-       33 LOADNIL                          R1
-       34 SETTABLEKS                       R1 R0 K11 ["OnToggleSetChanged"]
-       36 LOADNIL                          R1
-       37 SETTABLEKS                       R1 R0 K12 ["OnScopeNotificationsChanged"]
-       39 LOADNIL                          R1
-       40 SETTABLEKS                       R1 R0 K13 ["OnHistoryChanged"]
-       42 LOADNIL                          R1
-       43 SETTABLEKS                       R1 R0 K14 ["OnRestoreSearchState"]
-       45 LOADNIL                          R1
-       46 SETTABLEKS                       R1 R0 K15 ["OnFolderReadyMapChanged"]
-       48 GETUPVAL                         R1 0
-       49 GETTABLEKS                       R2 R0 K16 ["_connections"]
-       51 CALL                             R1 1 0
-       52 LOADNIL                          R1
-       53 SETTABLEKS                       R1 R0 K16 ["_connections"]
-       55 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["_connections"]
+        3 CALL                             R1 1 0
+        4 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0

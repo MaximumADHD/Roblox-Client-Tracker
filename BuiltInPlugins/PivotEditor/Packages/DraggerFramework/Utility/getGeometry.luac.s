@@ -76,15 +76,15 @@ PROTO_1:
         0 MOVE                             R3 R2
         1 JUMPIF                           R3 ; [+2]
         2 GETTABLEKS                       R3 R0 K0 ["CFrame"]
-        4 GETTABLEKS                       R4 R3 K1 ["p"]
+        4 GETTABLEKS                       R4 R3 K1 ["Position"]
         6 GETTABLEKS                       R6 R0 K3 ["Size"]
-        8 GETTABLEKS                       R6 R6 K4 ["x"]
+        8 GETTABLEKS                       R6 R6 K4 ["X"]
        10 DIVK                             R5 R6 K2 [2]
        11 GETTABLEKS                       R7 R0 K3 ["Size"]
-       13 GETTABLEKS                       R7 R7 K5 ["y"]
+       13 GETTABLEKS                       R7 R7 K5 ["Y"]
        15 DIVK                             R6 R7 K2 [2]
        16 GETTABLEKS                       R8 R0 K3 ["Size"]
-       18 GETTABLEKS                       R8 R8 K6 ["z"]
+       18 GETTABLEKS                       R8 R8 K6 ["Z"]
        20 DIVK                             R7 R8 K2 [2]
        21 GETTABLEKS                       R8 R3 K7 ["RightVector"]
        23 GETTABLEKS                       R9 R3 K8 ["UpVector"]
@@ -96,15 +96,15 @@ PROTO_1:
        31 GETUPVAL                         R14 0
        32 MOVE                             R15 R0
        33 CALL                             R14 1 2
-       34 GETTABLEKS                       R16 R15 K10 ["X"]
+       34 GETTABLEKS                       R16 R15 K4 ["X"]
        36 MUL                              R5 R5 R16
-       37 GETTABLEKS                       R16 R15 K11 ["Y"]
+       37 GETTABLEKS                       R16 R15 K5 ["Y"]
        39 MUL                              R6 R6 R16
-       40 GETTABLEKS                       R16 R15 K12 ["Z"]
+       40 GETTABLEKS                       R16 R15 K6 ["Z"]
        42 MUL                              R7 R7 R16
-       43 JUMPIFEQKS                       R14 K13 ["Brick"] ; [+5]
-       45 JUMPIFEQKS                       R14 K14 ["Sphere"] ; [+3]
-       47 JUMPIFNOTEQKS                    R14 K15 ["Cylinder"] ; [+341]
+       43 JUMPIFEQKS                       R14 K10 ["Brick"] ; [+5]
+       45 JUMPIFEQKS                       R14 K11 ["Sphere"] ; [+3]
+       47 JUMPIFNOTEQKS                    R14 K12 ["Cylinder"] ; [+341]
        49 NEWTABLE                         R16 0 8
        51 MUL                              R20 R8 R5
        52 ADD                              R19 R4 R20
@@ -165,7 +165,7 @@ PROTO_1:
       110 LOADN                            R23 2
       111 MUL                              R22 R23 R6
       112 FASTCALL2                        MATH_MIN R21 R22 ; [+3]
-      114 GETIMPORT                        R20 K18 [math.min]
+      114 GETIMPORT                        R20 K15 [math.min]
       116 CALL                             R20 2 1
       117 SETLIST                          R17 R18 3 [1]
       119 NEWTABLE                         R18 0 3
@@ -176,7 +176,7 @@ PROTO_1:
       125 LOADN                            R24 2
       126 MUL                              R23 R24 R6
       127 FASTCALL2                        MATH_MIN R22 R23 ; [+3]
-      129 GETIMPORT                        R21 K18 [math.min]
+      129 GETIMPORT                        R21 K15 [math.min]
       131 CALL                             R21 2 1
       132 SETLIST                          R18 R19 3 [1]
       134 NEWTABLE                         R19 0 3
@@ -187,7 +187,7 @@ PROTO_1:
       140 LOADN                            R25 2
       141 MUL                              R24 R25 R7
       142 FASTCALL2                        MATH_MIN R23 R24 ; [+3]
-      144 GETIMPORT                        R22 K18 [math.min]
+      144 GETIMPORT                        R22 K15 [math.min]
       146 CALL                             R22 2 1
       147 SETLIST                          R19 R20 3 [1]
       149 NEWTABLE                         R20 0 3
@@ -198,7 +198,7 @@ PROTO_1:
       155 LOADN                            R26 2
       156 MUL                              R25 R26 R7
       157 FASTCALL2                        MATH_MIN R24 R25 ; [+3]
-      159 GETIMPORT                        R23 K18 [math.min]
+      159 GETIMPORT                        R23 K15 [math.min]
       161 CALL                             R23 2 1
       162 SETLIST                          R20 R21 3 [1]
       164 NEWTABLE                         R21 0 3
@@ -209,7 +209,7 @@ PROTO_1:
       170 LOADN                            R27 2
       171 MUL                              R26 R27 R6
       172 FASTCALL2                        MATH_MIN R25 R26 ; [+3]
-      174 GETIMPORT                        R24 K18 [math.min]
+      174 GETIMPORT                        R24 K15 [math.min]
       176 CALL                             R24 2 1
       177 SETLIST                          R21 R22 3 [1]
       179 NEWTABLE                         R22 0 3
@@ -220,7 +220,7 @@ PROTO_1:
       185 LOADN                            R28 2
       186 MUL                              R27 R28 R6
       187 FASTCALL2                        MATH_MIN R26 R27 ; [+3]
-      189 GETIMPORT                        R25 K18 [math.min]
+      189 GETIMPORT                        R25 K15 [math.min]
       191 CALL                             R25 2 1
       192 SETLIST                          R22 R23 3 [1]
       194 NEWTABLE                         R23 0 3
@@ -231,7 +231,7 @@ PROTO_1:
       200 LOADN                            R29 2
       201 MUL                              R28 R29 R7
       202 FASTCALL2                        MATH_MIN R27 R28 ; [+3]
-      204 GETIMPORT                        R26 K18 [math.min]
+      204 GETIMPORT                        R26 K15 [math.min]
       206 CALL                             R26 2 1
       207 SETLIST                          R23 R24 3 [1]
       209 NEWTABLE                         R24 0 3
@@ -242,7 +242,7 @@ PROTO_1:
       215 LOADN                            R30 2
       216 MUL                              R29 R30 R7
       217 FASTCALL2                        MATH_MIN R28 R29 ; [+3]
-      219 GETIMPORT                        R27 K18 [math.min]
+      219 GETIMPORT                        R27 K15 [math.min]
       221 CALL                             R27 2 1
       222 SETLIST                          R24 R25 3 [1]
       224 NEWTABLE                         R25 0 3
@@ -253,7 +253,7 @@ PROTO_1:
       230 LOADN                            R31 2
       231 MUL                              R30 R31 R7
       232 FASTCALL2                        MATH_MIN R29 R30 ; [+3]
-      234 GETIMPORT                        R28 K18 [math.min]
+      234 GETIMPORT                        R28 K15 [math.min]
       236 CALL                             R28 2 1
       237 SETLIST                          R25 R26 3 [1]
       239 NEWTABLE                         R26 0 3
@@ -264,7 +264,7 @@ PROTO_1:
       245 LOADN                            R32 2
       246 MUL                              R31 R32 R7
       247 FASTCALL2                        MATH_MIN R30 R31 ; [+3]
-      249 GETIMPORT                        R29 K18 [math.min]
+      249 GETIMPORT                        R29 K15 [math.min]
       251 CALL                             R29 2 1
       252 SETLIST                          R26 R27 3 [1]
       254 NEWTABLE                         R27 0 3
@@ -275,7 +275,7 @@ PROTO_1:
       260 LOADN                            R33 2
       261 MUL                              R32 R33 R7
       262 FASTCALL2                        MATH_MIN R31 R32 ; [+3]
-      264 GETIMPORT                        R30 K18 [math.min]
+      264 GETIMPORT                        R30 K15 [math.min]
       266 CALL                             R30 2 1
       267 SETLIST                          R27 R28 3 [1]
       269 NEWTABLE                         R28 0 3
@@ -286,7 +286,7 @@ PROTO_1:
       275 LOADN                            R34 2
       276 MUL                              R33 R34 R7
       277 FASTCALL2                        MATH_MIN R32 R33 ; [+3]
-      279 GETIMPORT                        R31 K18 [math.min]
+      279 GETIMPORT                        R31 K15 [math.min]
       281 CALL                             R31 2 1
       282 SETLIST                          R28 R29 3 [1]
       284 SETLIST                          R16 R17 12 [1]
@@ -295,7 +295,7 @@ PROTO_1:
       289 NEWTABLE                         R17 0 5
       291 GETTABLEN                        R18 R11 1
       292 MOVE                             R19 R8
-      293 LOADK                            R20 K19 ["RightSurface"]
+      293 LOADK                            R20 K16 ["RightSurface"]
       294 MOVE                             R21 R10
       295 NEWTABLE                         R22 0 4
       297 GETTABLEN                        R23 R11 5
@@ -307,7 +307,7 @@ PROTO_1:
       305 NEWTABLE                         R18 0 5
       307 GETTABLEN                        R19 R11 3
       308 MINUS                            R20 R8
-      309 LOADK                            R21 K20 ["LeftSurface"]
+      309 LOADK                            R21 K17 ["LeftSurface"]
       310 MOVE                             R22 R10
       311 NEWTABLE                         R23 0 4
       313 GETTABLEN                        R24 R11 3
@@ -319,7 +319,7 @@ PROTO_1:
       321 NEWTABLE                         R19 0 5
       323 GETTABLEN                        R20 R11 1
       324 MOVE                             R21 R9
-      325 LOADK                            R22 K21 ["TopSurface"]
+      325 LOADK                            R22 K18 ["TopSurface"]
       326 MOVE                             R23 R8
       327 NEWTABLE                         R24 0 4
       329 GETTABLEN                        R25 R11 1
@@ -331,7 +331,7 @@ PROTO_1:
       337 NEWTABLE                         R20 0 5
       339 GETTABLEN                        R21 R11 5
       340 MINUS                            R22 R9
-      341 LOADK                            R23 K22 ["BottomSurface"]
+      341 LOADK                            R23 K19 ["BottomSurface"]
       342 MOVE                             R24 R8
       343 NEWTABLE                         R25 0 4
       345 GETTABLEN                        R26 R11 7
@@ -343,7 +343,7 @@ PROTO_1:
       353 NEWTABLE                         R21 0 5
       355 GETTABLEN                        R22 R11 1
       356 MOVE                             R23 R10
-      357 LOADK                            R24 K23 ["BackSurface"]
+      357 LOADK                            R24 K20 ["BackSurface"]
       358 MOVE                             R25 R8
       359 NEWTABLE                         R26 0 4
       361 GETTABLEN                        R27 R11 1
@@ -355,7 +355,7 @@ PROTO_1:
       369 NEWTABLE                         R22 0 5
       371 GETTABLEN                        R23 R11 2
       372 MINUS                            R24 R10
-      373 LOADK                            R25 K24 ["FrontSurface"]
+      373 LOADK                            R25 K21 ["FrontSurface"]
       374 MOVE                             R26 R8
       375 NEWTABLE                         R27 0 4
       377 GETTABLEN                        R28 R11 6
@@ -367,8 +367,8 @@ PROTO_1:
       385 SETLIST                          R16 R17 6 [1]
       387 MOVE                             R13 R16
       388 JUMP                             ; [+598]
-      389 JUMPIFEQKS                       R14 K14 ["Sphere"] ; [+3]
-      391 JUMPIFNOTEQKS                    R14 K15 ["Cylinder"] ; [+109]
+      389 JUMPIFEQKS                       R14 K11 ["Sphere"] ; [+3]
+      391 JUMPIFNOTEQKS                    R14 K12 ["Cylinder"] ; [+109]
       393 GETUPVAL                         R16 1
       394 CALL                             R16 0 1
       395 JUMPIF                           R16 ; [+591]
@@ -378,61 +378,61 @@ PROTO_1:
       401 MOVE                             R11 R16
       402 NEWTABLE                         R12 0 0
       404 SUB                              R16 R1 R4
-      405 GETTABLEKS                       R16 R16 K25 ["Unit"]
-      407 LOADK                            R19 K26 [{0, 1, 0}]
-      408 NAMECALL                         R17 R16 K27 ["Cross"]
+      405 GETTABLEKS                       R16 R16 K22 ["Unit"]
+      407 LOADK                            R19 K23 [{0, 1, 0}]
+      408 NAMECALL                         R17 R16 K24 ["Cross"]
       410 CALL                             R17 2 1
-      411 GETTABLEKS                       R17 R17 K25 ["Unit"]
+      411 GETTABLEKS                       R17 R17 K22 ["Unit"]
       413 LOADNIL                          R18
-      414 GETTABLEKS                       R20 R16 K10 ["X"]
+      414 GETTABLEKS                       R20 R16 K4 ["X"]
       416 FASTCALL1                        MATH_ABS R20 ; [+2]
-      417 GETIMPORT                        R19 K29 [math.abs]
+      417 GETIMPORT                        R19 K26 [math.abs]
       419 CALL                             R19 1 1
-      420 GETTABLEKS                       R21 R16 K11 ["Y"]
+      420 GETTABLEKS                       R21 R16 K5 ["Y"]
       422 FASTCALL1                        MATH_ABS R21 ; [+2]
-      423 GETIMPORT                        R20 K29 [math.abs]
+      423 GETIMPORT                        R20 K26 [math.abs]
       425 CALL                             R20 1 1
       426 JUMPIFNOTLT                      R20 R19 ; [+25]
-      428 GETTABLEKS                       R20 R16 K10 ["X"]
+      428 GETTABLEKS                       R20 R16 K4 ["X"]
       430 FASTCALL1                        MATH_ABS R20 ; [+2]
-      431 GETIMPORT                        R19 K29 [math.abs]
+      431 GETIMPORT                        R19 K26 [math.abs]
       433 CALL                             R19 1 1
-      434 GETTABLEKS                       R21 R16 K12 ["Z"]
+      434 GETTABLEKS                       R21 R16 K6 ["Z"]
       436 FASTCALL1                        MATH_ABS R21 ; [+2]
-      437 GETIMPORT                        R20 K29 [math.abs]
+      437 GETIMPORT                        R20 K26 [math.abs]
       439 CALL                             R20 1 1
       440 JUMPIFNOTLT                      R20 R19 ; [+11]
-      442 GETTABLEKS                       R20 R16 K10 ["X"]
+      442 GETTABLEKS                       R20 R16 K4 ["X"]
       444 LOADN                            R21 0
       445 JUMPIFNOTLT                      R21 R20 ; [+3]
-      447 LOADK                            R19 K19 ["RightSurface"]
+      447 LOADK                            R19 K16 ["RightSurface"]
       448 JUMP                             ; [+1]
-      449 LOADK                            R19 K20 ["LeftSurface"]
+      449 LOADK                            R19 K17 ["LeftSurface"]
       450 MOVE                             R18 R19
       451 JUMP                             ; [+33]
-      452 GETTABLEKS                       R20 R16 K11 ["Y"]
+      452 GETTABLEKS                       R20 R16 K5 ["Y"]
       454 FASTCALL1                        MATH_ABS R20 ; [+2]
-      455 GETIMPORT                        R19 K29 [math.abs]
+      455 GETIMPORT                        R19 K26 [math.abs]
       457 CALL                             R19 1 1
-      458 GETTABLEKS                       R21 R16 K12 ["Z"]
+      458 GETTABLEKS                       R21 R16 K6 ["Z"]
       460 FASTCALL1                        MATH_ABS R21 ; [+2]
-      461 GETIMPORT                        R20 K29 [math.abs]
+      461 GETIMPORT                        R20 K26 [math.abs]
       463 CALL                             R20 1 1
       464 JUMPIFNOTLT                      R20 R19 ; [+11]
-      466 GETTABLEKS                       R20 R16 K11 ["Y"]
+      466 GETTABLEKS                       R20 R16 K5 ["Y"]
       468 LOADN                            R21 0
       469 JUMPIFNOTLT                      R21 R20 ; [+3]
-      471 LOADK                            R19 K21 ["TopSurface"]
+      471 LOADK                            R19 K18 ["TopSurface"]
       472 JUMP                             ; [+1]
-      473 LOADK                            R19 K22 ["BottomSurface"]
+      473 LOADK                            R19 K19 ["BottomSurface"]
       474 MOVE                             R18 R19
       475 JUMP                             ; [+9]
-      476 GETTABLEKS                       R20 R16 K12 ["Z"]
+      476 GETTABLEKS                       R20 R16 K6 ["Z"]
       478 LOADN                            R21 0
       479 JUMPIFNOTLT                      R21 R20 ; [+3]
-      481 LOADK                            R19 K23 ["BackSurface"]
+      481 LOADK                            R19 K20 ["BackSurface"]
       482 JUMP                             ; [+1]
-      483 LOADK                            R19 K24 ["FrontSurface"]
+      483 LOADK                            R19 K21 ["FrontSurface"]
       484 MOVE                             R18 R19
       485 NEWTABLE                         R19 0 1
       487 NEWTABLE                         R20 0 5
@@ -445,16 +445,16 @@ PROTO_1:
       497 SETLIST                          R19 R20 1 [1]
       499 MOVE                             R13 R19
       500 JUMP                             ; [+486]
-      501 JUMPIFNOTEQKS                    R14 K30 ["CornerWedge"] ; [+190]
+      501 JUMPIFNOTEQKS                    R14 K27 ["CornerWedge"] ; [+190]
       503 MUL                              R17 R10 R6
       504 MUL                              R18 R9 R7
       505 ADD                              R16 R17 R18
-      506 GETTABLEKS                       R16 R16 K25 ["Unit"]
+      506 GETTABLEKS                       R16 R16 K22 ["Unit"]
       508 MINUS                            R19 R8
       509 MUL                              R18 R19 R6
       510 MUL                              R19 R9 R5
       511 ADD                              R17 R18 R19
-      512 GETTABLEKS                       R17 R17 K25 ["Unit"]
+      512 GETTABLEKS                       R17 R17 K22 ["Unit"]
       514 NEWTABLE                         R18 0 5
       516 MUL                              R22 R8 R5
       517 ADD                              R21 R4 R22
@@ -535,7 +535,7 @@ PROTO_1:
       612 NEWTABLE                         R19 0 5
       614 GETTABLEN                        R20 R11 2
       615 MINUS                            R21 R9
-      616 LOADK                            R22 K22 ["BottomSurface"]
+      616 LOADK                            R22 K19 ["BottomSurface"]
       617 MOVE                             R23 R8
       618 NEWTABLE                         R24 0 4
       620 GETTABLEN                        R25 R11 2
@@ -547,7 +547,7 @@ PROTO_1:
       628 NEWTABLE                         R20 0 5
       630 GETTABLEN                        R21 R11 1
       631 MOVE                             R22 R8
-      632 LOADK                            R23 K19 ["RightSurface"]
+      632 LOADK                            R23 K16 ["RightSurface"]
       633 MINUS                            R24 R9
       634 NEWTABLE                         R25 0 3
       636 GETTABLEN                        R26 R11 1
@@ -558,7 +558,7 @@ PROTO_1:
       643 NEWTABLE                         R21 0 5
       645 GETTABLEN                        R22 R11 1
       646 MINUS                            R23 R10
-      647 LOADK                            R24 K24 ["FrontSurface"]
+      647 LOADK                            R24 K21 ["FrontSurface"]
       648 MINUS                            R25 R9
       649 NEWTABLE                         R26 0 3
       651 GETTABLEN                        R27 R11 1
@@ -569,7 +569,7 @@ PROTO_1:
       658 NEWTABLE                         R22 0 5
       660 GETTABLEN                        R23 R11 1
       661 MOVE                             R24 R16
-      662 LOADK                            R25 K23 ["BackSurface"]
+      662 LOADK                            R25 K20 ["BackSurface"]
       663 MOVE                             R26 R8
       664 NEWTABLE                         R27 0 3
       666 GETTABLEN                        R28 R11 1
@@ -580,7 +580,7 @@ PROTO_1:
       673 NEWTABLE                         R23 0 5
       675 GETTABLEN                        R24 R11 1
       676 MOVE                             R25 R17
-      677 LOADK                            R26 K20 ["LeftSurface"]
+      677 LOADK                            R26 K17 ["LeftSurface"]
       678 MOVE                             R27 R10
       679 NEWTABLE                         R28 0 3
       681 GETTABLEN                        R29 R11 1
@@ -591,12 +591,12 @@ PROTO_1:
       688 SETLIST                          R18 R19 5 [1]
       690 MOVE                             R13 R18
       691 JUMP                             ; [+295]
-      692 JUMPIFNOTEQKS                    R14 K31 ["Wedge"] ; [+275]
+      692 JUMPIFNOTEQKS                    R14 K28 ["Wedge"] ; [+275]
       694 MINUS                            R18 R10
       695 MUL                              R17 R18 R6
       696 MUL                              R18 R9 R7
       697 ADD                              R16 R17 R18
-      698 GETTABLEKS                       R16 R16 K25 ["Unit"]
+      698 GETTABLEKS                       R16 R16 K22 ["Unit"]
       700 NEWTABLE                         R17 0 6
       702 MUL                              R21 R8 R5
       703 ADD                              R20 R4 R21
@@ -645,7 +645,7 @@ PROTO_1:
       749 LOADN                            R24 2
       750 MUL                              R23 R24 R7
       751 FASTCALL2                        MATH_MIN R22 R23 ; [+3]
-      753 GETIMPORT                        R21 K18 [math.min]
+      753 GETIMPORT                        R21 K15 [math.min]
       755 CALL                             R21 2 1
       756 SETLIST                          R18 R19 3 [1]
       758 NEWTABLE                         R19 0 3
@@ -656,7 +656,7 @@ PROTO_1:
       764 LOADN                            R25 2
       765 MUL                              R24 R25 R7
       766 FASTCALL2                        MATH_MIN R23 R24 ; [+3]
-      768 GETIMPORT                        R22 K18 [math.min]
+      768 GETIMPORT                        R22 K15 [math.min]
       770 CALL                             R22 2 1
       771 SETLIST                          R19 R20 3 [1]
       773 NEWTABLE                         R20 0 3
@@ -667,7 +667,7 @@ PROTO_1:
       779 LOADN                            R26 2
       780 MUL                              R25 R26 R7
       781 FASTCALL2                        MATH_MIN R24 R25 ; [+3]
-      783 GETIMPORT                        R23 K18 [math.min]
+      783 GETIMPORT                        R23 K15 [math.min]
       785 CALL                             R23 2 1
       786 SETLIST                          R20 R21 3 [1]
       788 NEWTABLE                         R21 0 3
@@ -678,7 +678,7 @@ PROTO_1:
       794 LOADN                            R27 2
       795 MUL                              R26 R27 R6
       796 FASTCALL2                        MATH_MIN R25 R26 ; [+3]
-      798 GETIMPORT                        R24 K18 [math.min]
+      798 GETIMPORT                        R24 K15 [math.min]
       800 CALL                             R24 2 1
       801 SETLIST                          R21 R22 3 [1]
       803 NEWTABLE                         R22 0 3
@@ -689,7 +689,7 @@ PROTO_1:
       809 LOADN                            R28 2
       810 MUL                              R27 R28 R6
       811 FASTCALL2                        MATH_MIN R26 R27 ; [+3]
-      813 GETIMPORT                        R25 K18 [math.min]
+      813 GETIMPORT                        R25 K15 [math.min]
       815 CALL                             R25 2 1
       816 SETLIST                          R22 R23 3 [1]
       818 NEWTABLE                         R23 0 3
@@ -700,7 +700,7 @@ PROTO_1:
       824 LOADN                            R29 2
       825 MUL                              R28 R29 R7
       826 FASTCALL2                        MATH_MIN R27 R28 ; [+3]
-      828 GETIMPORT                        R26 K18 [math.min]
+      828 GETIMPORT                        R26 K15 [math.min]
       830 CALL                             R26 2 1
       831 SETLIST                          R23 R24 3 [1]
       833 NEWTABLE                         R24 0 3
@@ -711,7 +711,7 @@ PROTO_1:
       839 LOADN                            R30 2
       840 MUL                              R29 R30 R7
       841 FASTCALL2                        MATH_MIN R28 R29 ; [+3]
-      843 GETIMPORT                        R27 K18 [math.min]
+      843 GETIMPORT                        R27 K15 [math.min]
       845 CALL                             R27 2 1
       846 SETLIST                          R24 R25 3 [1]
       848 NEWTABLE                         R25 0 3
@@ -722,7 +722,7 @@ PROTO_1:
       854 LOADN                            R31 2
       855 MUL                              R30 R31 R7
       856 FASTCALL2                        MATH_MIN R29 R30 ; [+3]
-      858 GETIMPORT                        R28 K18 [math.min]
+      858 GETIMPORT                        R28 K15 [math.min]
       860 CALL                             R28 2 1
       861 SETLIST                          R25 R26 3 [1]
       863 NEWTABLE                         R26 0 3
@@ -733,7 +733,7 @@ PROTO_1:
       869 LOADN                            R32 2
       870 MUL                              R31 R32 R7
       871 FASTCALL2                        MATH_MIN R30 R31 ; [+3]
-      873 GETIMPORT                        R29 K18 [math.min]
+      873 GETIMPORT                        R29 K15 [math.min]
       875 CALL                             R29 2 1
       876 SETLIST                          R26 R27 3 [1]
       878 SETLIST                          R17 R18 9 [1]
@@ -742,7 +742,7 @@ PROTO_1:
       883 NEWTABLE                         R18 0 5
       885 GETTABLEN                        R19 R11 1
       886 MOVE                             R20 R8
-      887 LOADK                            R21 K19 ["RightSurface"]
+      887 LOADK                            R21 K16 ["RightSurface"]
       888 MOVE                             R22 R10
       889 NEWTABLE                         R23 0 3
       891 GETTABLEN                        R24 R11 4
@@ -753,7 +753,7 @@ PROTO_1:
       898 NEWTABLE                         R19 0 5
       900 GETTABLEN                        R20 R11 2
       901 MINUS                            R21 R8
-      902 LOADK                            R22 K20 ["LeftSurface"]
+      902 LOADK                            R22 K17 ["LeftSurface"]
       903 MOVE                             R23 R10
       904 NEWTABLE                         R24 0 3
       906 GETTABLEN                        R25 R11 2
@@ -764,7 +764,7 @@ PROTO_1:
       913 NEWTABLE                         R20 0 5
       915 GETTABLEN                        R21 R11 3
       916 MINUS                            R22 R9
-      917 LOADK                            R23 K22 ["BottomSurface"]
+      917 LOADK                            R23 K19 ["BottomSurface"]
       918 MOVE                             R24 R8
       919 NEWTABLE                         R25 0 4
       921 GETTABLEN                        R26 R11 5
@@ -776,7 +776,7 @@ PROTO_1:
       929 NEWTABLE                         R21 0 5
       931 GETTABLEN                        R22 R11 1
       932 MOVE                             R23 R10
-      933 LOADK                            R24 K23 ["BackSurface"]
+      933 LOADK                            R24 K20 ["BackSurface"]
       934 MOVE                             R25 R8
       935 NEWTABLE                         R26 0 4
       937 GETTABLEN                        R27 R11 1
@@ -788,9 +788,9 @@ PROTO_1:
       945 NEWTABLE                         R22 0 5
       947 GETTABLEN                        R23 R11 2
       948 MOVE                             R24 R16
-      949 LOADK                            R25 K24 ["FrontSurface"]
+      949 LOADK                            R25 K21 ["FrontSurface"]
       950 MOVE                             R28 R8
-      951 NAMECALL                         R26 R16 K27 ["Cross"]
+      951 NAMECALL                         R26 R16 K24 ["Cross"]
       953 CALL                             R26 2 1
       954 NEWTABLE                         R27 0 4
       956 GETTABLEN                        R28 R11 2
@@ -802,59 +802,59 @@ PROTO_1:
       964 SETLIST                          R17 R18 5 [1]
       966 MOVE                             R13 R17
       967 JUMP                             ; [+19]
-      968 JUMPIFNOTEQKS                    R14 K32 ["Terrain"] ; [+9]
+      968 JUMPIFNOTEQKS                    R14 K29 ["Terrain"] ; [+9]
       970 LOADB                            R17 0
-      971 FASTCALL2K                       ASSERT R17 K33 ; [+4]
-      973 LOADK                            R18 K33 ["Called GetGeometry on Terrain"]
-      974 GETIMPORT                        R16 K35 [assert]
+      971 FASTCALL2K                       ASSERT R17 K30 ; [+4]
+      973 LOADK                            R18 K30 ["Called GetGeometry on Terrain"]
+      974 GETIMPORT                        R16 K32 [assert]
       976 CALL                             R16 2 0
       977 JUMP                             ; [+9]
       978 LOADB                            R17 0
-      979 LOADK                            R19 K36 ["Bad shape: "]
+      979 LOADK                            R19 K33 ["Bad shape: "]
       980 MOVE                             R20 R14
       981 CONCAT                           R18 R19 R20
       982 FASTCALL2                        ASSERT R17 R18 ; [+3]
-      984 GETIMPORT                        R16 K35 [assert]
+      984 GETIMPORT                        R16 K32 [assert]
       986 CALL                             R16 2 0
-      987 DUPTABLE                         R16 K43 [{"part", "shape", "vertices", "edges", "faces", "vertexMargin"}]
-      988 SETTABLEKS                       R0 R16 K37 ["part"]
-      990 JUMPIFEQKS                       R14 K14 ["Sphere"] ; [+3]
-      992 JUMPIFNOTEQKS                    R14 K15 ["Cylinder"] ; [+3]
+      987 DUPTABLE                         R16 K40 [{"part", "shape", "vertices", "edges", "faces", "vertexMargin"}]
+      988 SETTABLEKS                       R0 R16 K34 ["part"]
+      990 JUMPIFEQKS                       R14 K11 ["Sphere"] ; [+3]
+      992 JUMPIFNOTEQKS                    R14 K12 ["Cylinder"] ; [+3]
       994 MOVE                             R17 R14
       995 JUMPIF                           R17 ; [+1]
-      996 LOADK                            R17 K44 ["Mesh"]
-      997 SETTABLEKS                       R17 R16 K38 ["shape"]
-      999 SETTABLEKS                       R11 R16 K39 ["vertices"]
-     1001 SETTABLEKS                       R12 R16 K40 ["edges"]
-     1003 SETTABLEKS                       R13 R16 K41 ["faces"]
+      996 LOADK                            R17 K41 ["Mesh"]
+      997 SETTABLEKS                       R17 R16 K35 ["shape"]
+      999 SETTABLEKS                       R11 R16 K36 ["vertices"]
+     1001 SETTABLEKS                       R12 R16 K37 ["edges"]
+     1003 SETTABLEKS                       R13 R16 K38 ["faces"]
      1005 FASTCALL3                        MATH_MIN R5 R6 R7
      1007 MOVE                             R19 R5
      1008 MOVE                             R20 R6
      1009 MOVE                             R21 R7
-     1010 GETIMPORT                        R18 K18 [math.min]
+     1010 GETIMPORT                        R18 K15 [math.min]
      1012 CALL                             R18 3 1
      1013 MULK                             R17 R18 K2 [2]
-     1014 SETTABLEKS                       R17 R16 K42 ["vertexMargin"]
+     1014 SETTABLEKS                       R17 R16 K39 ["vertexMargin"]
      1016 LOADN                            R17 0
-     1017 GETIMPORT                        R18 K46 [ipairs]
+     1017 GETIMPORT                        R18 K43 [ipairs]
      1019 MOVE                             R19 R13
      1020 CALL                             R18 1 3
      1021 FORGPREP_INEXT                   R18
-     1022 ADDK                             R17 R17 K47 [1]
-     1023 SETTABLEKS                       R17 R22 K48 ["id"]
+     1022 ADDK                             R17 R17 K44 [1]
+     1023 SETTABLEKS                       R17 R22 K45 ["id"]
      1025 GETTABLEN                        R23 R22 1
-     1026 SETTABLEKS                       R23 R22 K49 ["point"]
+     1026 SETTABLEKS                       R23 R22 K46 ["point"]
      1028 GETTABLEN                        R23 R22 2
-     1029 SETTABLEKS                       R23 R22 K50 ["normal"]
+     1029 SETTABLEKS                       R23 R22 K47 ["normal"]
      1031 GETTABLEN                        R23 R22 3
-     1032 SETTABLEKS                       R23 R22 K51 ["surface"]
+     1032 SETTABLEKS                       R23 R22 K48 ["surface"]
      1034 GETTABLEN                        R23 R22 4
-     1035 SETTABLEKS                       R23 R22 K52 ["direction"]
+     1035 SETTABLEKS                       R23 R22 K49 ["direction"]
      1037 GETTABLEN                        R23 R22 5
-     1038 SETTABLEKS                       R23 R22 K39 ["vertices"]
-     1040 SETTABLEKS                       R0 R22 K37 ["part"]
-     1042 LOADK                            R23 K53 ["Face"]
-     1043 SETTABLEKS                       R23 R22 K54 ["type"]
+     1038 SETTABLEKS                       R23 R22 K36 ["vertices"]
+     1040 SETTABLEKS                       R0 R22 K34 ["part"]
+     1042 LOADK                            R23 K50 ["Face"]
+     1043 SETTABLEKS                       R23 R22 K51 ["type"]
      1045 LOADNIL                          R23
      1046 LOADNIL                          R24
      1047 LOADNIL                          R25
@@ -864,33 +864,33 @@ PROTO_1:
      1051 SETTABLEN                        R25 R22 3
      1052 SETTABLEN                        R26 R22 4
      1053 FORGLOOP                         R18 2 [inext] ; [-32]
-     1055 GETIMPORT                        R18 K46 [ipairs]
+     1055 GETIMPORT                        R18 K43 [ipairs]
      1057 MOVE                             R19 R12
      1058 CALL                             R18 1 3
      1059 FORGPREP_INEXT                   R18
-     1060 ADDK                             R17 R17 K47 [1]
-     1061 SETTABLEKS                       R17 R22 K48 ["id"]
+     1060 ADDK                             R17 R17 K44 [1]
+     1061 SETTABLEKS                       R17 R22 K45 ["id"]
      1063 GETTABLEN                        R23 R22 1
      1064 GETTABLEN                        R24 R22 2
-     1065 SETTABLEKS                       R23 R22 K55 ["a"]
-     1067 SETTABLEKS                       R24 R22 K56 ["b"]
-     1069 GETTABLEKS                       R24 R22 K56 ["b"]
-     1071 GETTABLEKS                       R25 R22 K55 ["a"]
+     1065 SETTABLEKS                       R23 R22 K52 ["a"]
+     1067 SETTABLEKS                       R24 R22 K53 ["b"]
+     1069 GETTABLEKS                       R24 R22 K53 ["b"]
+     1071 GETTABLEKS                       R25 R22 K52 ["a"]
      1073 SUB                              R23 R24 R25
-     1074 GETTABLEKS                       R23 R23 K25 ["Unit"]
-     1076 SETTABLEKS                       R23 R22 K52 ["direction"]
-     1078 GETTABLEKS                       R24 R22 K56 ["b"]
-     1080 GETTABLEKS                       R25 R22 K55 ["a"]
+     1074 GETTABLEKS                       R23 R23 K22 ["Unit"]
+     1076 SETTABLEKS                       R23 R22 K49 ["direction"]
+     1078 GETTABLEKS                       R24 R22 K53 ["b"]
+     1080 GETTABLEKS                       R25 R22 K52 ["a"]
      1082 SUB                              R23 R24 R25
-     1083 GETTABLEKS                       R23 R23 K57 ["Magnitude"]
-     1085 SETTABLEKS                       R23 R22 K58 ["length"]
+     1083 GETTABLEKS                       R23 R23 K54 ["Magnitude"]
+     1085 SETTABLEKS                       R23 R22 K55 ["length"]
      1087 GETTABLEN                        R23 R22 3
-     1088 SETTABLEKS                       R23 R22 K59 ["edgeMargin"]
-     1090 SETTABLEKS                       R0 R22 K37 ["part"]
-     1092 GETTABLEKS                       R23 R16 K42 ["vertexMargin"]
-     1094 SETTABLEKS                       R23 R22 K42 ["vertexMargin"]
-     1096 LOADK                            R23 K60 ["Edge"]
-     1097 SETTABLEKS                       R23 R22 K54 ["type"]
+     1088 SETTABLEKS                       R23 R22 K56 ["edgeMargin"]
+     1090 SETTABLEKS                       R0 R22 K34 ["part"]
+     1092 GETTABLEKS                       R23 R16 K39 ["vertexMargin"]
+     1094 SETTABLEKS                       R23 R22 K39 ["vertexMargin"]
+     1096 LOADK                            R23 K57 ["Edge"]
+     1097 SETTABLEKS                       R23 R22 K51 ["type"]
      1099 LOADNIL                          R23
      1100 LOADNIL                          R24
      1101 LOADNIL                          R25
@@ -898,14 +898,14 @@ PROTO_1:
      1103 SETTABLEN                        R24 R22 2
      1104 SETTABLEN                        R25 R22 3
      1105 FORGLOOP                         R18 2 [inext] ; [-46]
-     1107 GETIMPORT                        R18 K46 [ipairs]
+     1107 GETIMPORT                        R18 K43 [ipairs]
      1109 MOVE                             R19 R11
      1110 CALL                             R18 1 3
      1111 FORGPREP_INEXT                   R18
-     1112 ADDK                             R17 R17 K47 [1]
-     1113 DUPTABLE                         R23 K63 [{["position"], ["id"], ["type"] = "Vertex"}]
-     1114 SETTABLEKS                       R22 R23 K61 ["position"]
-     1116 SETTABLEKS                       R17 R23 K48 ["id"]
+     1112 ADDK                             R17 R17 K44 [1]
+     1113 DUPTABLE                         R23 K60 [{["position"], ["id"], ["type"] = "Vertex"}]
+     1114 SETTABLEKS                       R22 R23 K58 ["position"]
+     1116 SETTABLEKS                       R17 R23 K45 ["id"]
      1118 SETTABLE                         R23 R11 R21
      1119 FORGLOOP                         R18 2 [inext] ; [-8]
      1121 RETURN                           R16 1

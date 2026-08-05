@@ -1087,119 +1087,123 @@ MAIN:
        61 CALL                             R8 1 1
        62 GETIMPORT                        R9 K9 [require]
        64 GETIMPORT                        R10 K5 [script]
-       66 GETTABLEKS                       R10 R10 K19 ["BodyPointAdornment"]
+       66 GETTABLEKS                       R10 R10 K18 ["Types"]
        68 CALL                             R9 1 1
        69 GETIMPORT                        R10 K9 [require]
        71 GETIMPORT                        R11 K5 [script]
-       73 GETTABLEKS                       R11 R11 K18 ["Types"]
+       73 GETTABLEKS                       R11 R11 K19 ["BodyPointAdornment"]
        75 CALL                             R10 1 1
        76 GETIMPORT                        R11 K9 [require]
        78 GETIMPORT                        R12 K5 [script]
-       80 GETTABLEKS                       R12 R12 K20 ["getBoundingBox"]
+       80 GETTABLEKS                       R12 R12 K18 ["Types"]
        82 CALL                             R11 1 1
        83 GETIMPORT                        R12 K9 [require]
        85 GETIMPORT                        R13 K5 [script]
-       87 GETTABLEKS                       R13 R13 K21 ["useBodyMoveHandles"]
+       87 GETTABLEKS                       R13 R13 K20 ["getBoundingBox"]
        89 CALL                             R12 1 1
-       90 GETTABLEKS                       R13 R3 K22 ["Implementation"]
-       92 GETTABLEKS                       R13 R13 K23 ["DraggerContext_PluginImpl"]
-       94 GETIMPORT                        R14 K9 [require]
-       96 GETIMPORT                        R15 K5 [script]
-       98 GETTABLEKS                       R15 R15 K24 ["DraggerSchema"]
-      100 CALL                             R14 1 1
-      101 GETTABLEKS                       R15 R3 K25 ["DraggerTools"]
-      103 GETTABLEKS                       R15 R15 K26 ["DraggerToolComponent"]
-      105 GETIMPORT                        R16 K9 [require]
-      107 GETIMPORT                        R17 K5 [script]
-      109 GETTABLEKS                       R17 R17 K27 ["DraggerSelection"]
-      111 CALL                             R16 1 1
-      112 GETTABLEKS                       R17 R3 K28 ["Handles"]
-      114 GETTABLEKS                       R17 R17 K29 ["MoveHandles"]
-      116 GETTABLEKS                       R18 R3 K28 ["Handles"]
-      118 GETTABLEKS                       R18 R18 K30 ["RotateHandles"]
-      120 GETIMPORT                        R19 K9 [require]
-      122 GETTABLEKS                       R20 R1 K17 ["Src"]
-      124 GETTABLEKS                       R20 R20 K31 ["Util"]
-      126 GETTABLEKS                       R20 R20 K32 ["Constants"]
-      128 CALL                             R19 1 1
-      129 GETIMPORT                        R20 K9 [require]
-      131 GETTABLEKS                       R21 R1 K17 ["Src"]
-      133 GETTABLEKS                       R21 R21 K33 ["Resources"]
-      135 GETTABLEKS                       R21 R21 K34 ["Theme"]
-      137 CALL                             R20 1 1
-      138 GETIMPORT                        R21 K9 [require]
-      140 GETTABLEKS                       R22 R1 K17 ["Src"]
-      142 GETTABLEKS                       R22 R22 K35 ["Flags"]
-      144 GETTABLEKS                       R22 R22 K36 ["getFFlagAvatarPreviewerBodyPointsSymmetricalNilFix"]
-      146 CALL                             R21 1 1
-      147 GETIMPORT                        R22 K9 [require]
-      149 GETTABLEKS                       R23 R1 K17 ["Src"]
-      151 GETTABLEKS                       R23 R23 K37 ["Components"]
-      153 GETTABLEKS                       R23 R23 K38 ["EditingTools"]
-      155 GETTABLEKS                       R23 R23 K39 ["useBindFocusOnPositions"]
-      157 CALL                             R22 1 1
-      158 GETIMPORT                        R23 K9 [require]
-      160 GETIMPORT                        R24 K5 [script]
-      162 GETTABLEKS                       R24 R24 K40 ["useDisambiguationContextMenu"]
+       90 GETIMPORT                        R13 K9 [require]
+       92 GETIMPORT                        R14 K5 [script]
+       94 GETTABLEKS                       R14 R14 K21 ["useBodyMoveHandles"]
+       96 CALL                             R13 1 1
+       97 GETTABLEKS                       R14 R3 K22 ["Implementation"]
+       99 GETTABLEKS                       R14 R14 K23 ["DraggerContext_PluginImpl"]
+      101 GETIMPORT                        R15 K9 [require]
+      103 GETIMPORT                        R16 K5 [script]
+      105 GETTABLEKS                       R16 R16 K24 ["DraggerSchema"]
+      107 CALL                             R15 1 1
+      108 GETTABLEKS                       R16 R3 K25 ["DraggerTools"]
+      110 GETTABLEKS                       R16 R16 K26 ["DraggerToolComponent"]
+      112 GETIMPORT                        R17 K9 [require]
+      114 GETIMPORT                        R18 K5 [script]
+      116 GETTABLEKS                       R18 R18 K27 ["DraggerSelection"]
+      118 CALL                             R17 1 1
+      119 GETTABLEKS                       R18 R3 K28 ["Handles"]
+      121 GETTABLEKS                       R18 R18 K29 ["MoveHandles"]
+      123 GETTABLEKS                       R19 R3 K28 ["Handles"]
+      125 GETTABLEKS                       R19 R19 K30 ["RotateHandles"]
+      127 GETIMPORT                        R20 K9 [require]
+      129 GETTABLEKS                       R21 R1 K17 ["Src"]
+      131 GETTABLEKS                       R21 R21 K31 ["Util"]
+      133 GETTABLEKS                       R21 R21 K32 ["Constants"]
+      135 CALL                             R20 1 1
+      136 GETIMPORT                        R21 K9 [require]
+      138 GETTABLEKS                       R22 R1 K17 ["Src"]
+      140 GETTABLEKS                       R22 R22 K33 ["Resources"]
+      142 GETTABLEKS                       R22 R22 K34 ["Theme"]
+      144 CALL                             R21 1 1
+      145 GETIMPORT                        R22 K9 [require]
+      147 GETTABLEKS                       R23 R1 K17 ["Src"]
+      149 GETTABLEKS                       R23 R23 K35 ["Flags"]
+      151 GETTABLEKS                       R23 R23 K36 ["getFFlagAvatarPreviewerBodyPointsSymmetricalNilFix"]
+      153 CALL                             R22 1 1
+      154 GETIMPORT                        R23 K9 [require]
+      156 GETTABLEKS                       R24 R1 K17 ["Src"]
+      158 GETTABLEKS                       R24 R24 K37 ["Components"]
+      160 GETTABLEKS                       R24 R24 K38 ["EditingTools"]
+      162 GETTABLEKS                       R24 R24 K39 ["useBindFocusOnPositions"]
       164 CALL                             R23 1 1
       165 GETIMPORT                        R24 K9 [require]
-      167 GETTABLEKS                       R25 R1 K17 ["Src"]
-      169 GETTABLEKS                       R25 R25 K41 ["Hooks"]
-      171 GETTABLEKS                       R25 R25 K42 ["useRefWithInitial"]
-      173 CALL                             R24 1 1
-      174 GETIMPORT                        R25 K9 [require]
-      176 GETTABLEKS                       R26 R1 K17 ["Src"]
-      178 GETTABLEKS                       R26 R26 K41 ["Hooks"]
-      180 GETTABLEKS                       R26 R26 K43 ["useTogglePluginSetting"]
-      182 CALL                             R25 1 1
-      183 GETIMPORT                        R26 K9 [require]
-      185 GETTABLEKS                       R27 R1 K17 ["Src"]
-      187 GETTABLEKS                       R27 R27 K41 ["Hooks"]
-      189 GETTABLEKS                       R27 R27 K44 ["useToggleState"]
-      191 CALL                             R26 1 1
-      192 GETIMPORT                        R27 K9 [require]
-      194 GETTABLEKS                       R28 R1 K17 ["Src"]
-      196 GETTABLEKS                       R28 R28 K41 ["Hooks"]
-      198 GETTABLEKS                       R28 R28 K45 ["useUndoRedoActions"]
-      200 CALL                             R27 1 1
-      201 GETTABLEKS                       R28 R4 K46 ["ContextServices"]
-      203 GETTABLEKS                       R28 R28 K47 ["Mouse"]
-      205 GETTABLEKS                       R29 R4 K46 ["ContextServices"]
-      207 GETTABLEKS                       R29 R29 K48 ["Plugin"]
-      209 GETTABLEKS                       R30 R4 K46 ["ContextServices"]
-      211 GETTABLEKS                       R30 R30 K49 ["Stylizer"]
-      213 DUPCLOSURE                       R31 K50 [PROTO_0]
-      214 DUPCLOSURE                       R32 K51 [PROTO_2]
-      215 CAPTURE                          VAL R32
-      216 DUPCLOSURE                       R33 K52 [PROTO_3]
-      217 CAPTURE                          VAL R19
-      218 DUPCLOSURE                       R34 K53 [PROTO_37]
-      219 CAPTURE                          VAL R30
-      220 CAPTURE                          VAL R4
-      221 CAPTURE                          VAL R5
-      222 CAPTURE                          VAL R29
-      223 CAPTURE                          VAL R26
-      224 CAPTURE                          VAL R24
-      225 CAPTURE                          VAL R16
-      226 CAPTURE                          VAL R25
-      227 CAPTURE                          VAL R31
-      228 CAPTURE                          VAL R32
-      229 CAPTURE                          VAL R13
-      230 CAPTURE                          VAL R2
-      231 CAPTURE                          VAL R23
-      232 CAPTURE                          VAL R28
-      233 CAPTURE                          VAL R27
-      234 CAPTURE                          VAL R19
-      235 CAPTURE                          VAL R22
-      236 CAPTURE                          VAL R21
-      237 CAPTURE                          VAL R9
-      238 CAPTURE                          VAL R12
-      239 CAPTURE                          VAL R11
-      240 CAPTURE                          VAL R17
-      241 CAPTURE                          VAL R18
-      242 CAPTURE                          VAL R14
-      243 CAPTURE                          VAL R6
-      244 CAPTURE                          VAL R15
-      245 CAPTURE                          VAL R0
-      246 CAPTURE                          VAL R7
-      247 RETURN                           R34 1
+      167 GETIMPORT                        R25 K5 [script]
+      169 GETTABLEKS                       R25 R25 K40 ["useDisambiguationContextMenu"]
+      171 CALL                             R24 1 1
+      172 GETIMPORT                        R25 K9 [require]
+      174 GETTABLEKS                       R26 R1 K17 ["Src"]
+      176 GETTABLEKS                       R26 R26 K41 ["Hooks"]
+      178 GETTABLEKS                       R26 R26 K42 ["useRefWithInitial"]
+      180 CALL                             R25 1 1
+      181 GETIMPORT                        R26 K9 [require]
+      183 GETTABLEKS                       R27 R1 K17 ["Src"]
+      185 GETTABLEKS                       R27 R27 K41 ["Hooks"]
+      187 GETTABLEKS                       R27 R27 K43 ["useTogglePluginSetting"]
+      189 CALL                             R26 1 1
+      190 GETIMPORT                        R27 K9 [require]
+      192 GETTABLEKS                       R28 R1 K17 ["Src"]
+      194 GETTABLEKS                       R28 R28 K41 ["Hooks"]
+      196 GETTABLEKS                       R28 R28 K44 ["useToggleState"]
+      198 CALL                             R27 1 1
+      199 GETIMPORT                        R28 K9 [require]
+      201 GETTABLEKS                       R29 R1 K17 ["Src"]
+      203 GETTABLEKS                       R29 R29 K41 ["Hooks"]
+      205 GETTABLEKS                       R29 R29 K45 ["useUndoRedoActions"]
+      207 CALL                             R28 1 1
+      208 GETTABLEKS                       R29 R4 K46 ["ContextServices"]
+      210 GETTABLEKS                       R29 R29 K47 ["Mouse"]
+      212 GETTABLEKS                       R30 R4 K46 ["ContextServices"]
+      214 GETTABLEKS                       R30 R30 K48 ["Plugin"]
+      216 GETTABLEKS                       R31 R4 K46 ["ContextServices"]
+      218 GETTABLEKS                       R31 R31 K49 ["Stylizer"]
+      220 DUPCLOSURE                       R32 K50 [PROTO_0]
+      221 DUPCLOSURE                       R33 K51 [PROTO_2]
+      222 CAPTURE                          VAL R33
+      223 DUPCLOSURE                       R34 K52 [PROTO_3]
+      224 CAPTURE                          VAL R20
+      225 DUPCLOSURE                       R35 K53 [PROTO_37]
+      226 CAPTURE                          VAL R31
+      227 CAPTURE                          VAL R4
+      228 CAPTURE                          VAL R5
+      229 CAPTURE                          VAL R30
+      230 CAPTURE                          VAL R27
+      231 CAPTURE                          VAL R25
+      232 CAPTURE                          VAL R17
+      233 CAPTURE                          VAL R26
+      234 CAPTURE                          VAL R32
+      235 CAPTURE                          VAL R33
+      236 CAPTURE                          VAL R14
+      237 CAPTURE                          VAL R2
+      238 CAPTURE                          VAL R24
+      239 CAPTURE                          VAL R29
+      240 CAPTURE                          VAL R28
+      241 CAPTURE                          VAL R20
+      242 CAPTURE                          VAL R23
+      243 CAPTURE                          VAL R22
+      244 CAPTURE                          VAL R10
+      245 CAPTURE                          VAL R13
+      246 CAPTURE                          VAL R12
+      247 CAPTURE                          VAL R18
+      248 CAPTURE                          VAL R19
+      249 CAPTURE                          VAL R15
+      250 CAPTURE                          VAL R6
+      251 CAPTURE                          VAL R16
+      252 CAPTURE                          VAL R0
+      253 CAPTURE                          VAL R7
+      254 RETURN                           R35 1

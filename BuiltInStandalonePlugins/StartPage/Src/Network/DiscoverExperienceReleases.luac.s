@@ -46,45 +46,50 @@ PROTO_1:
         9 RETURN                           R0 0
 
 PROTO_2:
-        0 LENGTH                           R1 R0
-        1 JUMPIFNOTEQKN                    R1 K0 [0] ; [+2]
-        3 RETURN                           R0 0
-        4 DUPTABLE                         R1 K2 [{"universeIds"}]
-        5 SETTABLEKS                       R0 R1 K1 ["universeIds"]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K3 ["new"]
-       10 CALL                             R2 0 1
-       11 GETTABLEKS                       R3 R2 K4 ["composeUrl"]
-       13 GETUPVAL                         R4 1
-       14 GETTABLEKS                       R4 R4 K5 ["MULTI_RELEASE_STATUSES"]
-       16 GETTABLEKS                       R4 R4 K6 ["Prefix"]
-       18 GETUPVAL                         R5 1
-       19 GETTABLEKS                       R5 R5 K5 ["MULTI_RELEASE_STATUSES"]
-       21 GETTABLEKS                       R5 R5 K7 ["Url"]
-       23 CALL                             R5 0 -1
-       24 CALL                             R3 -1 1
-       25 GETUPVAL                         R4 2
-       26 MOVE                             R6 R3
-       27 GETUPVAL                         R7 3
-       28 MOVE                             R9 R1
-       29 NAMECALL                         R7 R7 K8 ["JSONEncode"]
-       31 CALL                             R7 2 1
-       32 GETUPVAL                         R8 4
-       33 NAMECALL                         R4 R4 K9 ["post"]
-       35 CALL                             R4 4 1
-       36 GETUPVAL                         R5 2
-       37 MOVE                             R7 R4
-       38 NAMECALL                         R5 R5 K10 ["parseJson"]
-       40 CALL                             R5 2 1
-       41 DUPCLOSURE                       R7 K11 [PROTO_0]
-       42 CAPTURE                          UPVAL U5
-       43 CAPTURE                          UPVAL U6
-       44 NAMECALL                         R5 R5 K12 ["andThen"]
+        0 GETUPVAL                         R3 0
+        1 NOT                              R2 R3
+        2 FASTCALL1                        ASSERT R2 ; [+2]
+        3 GETIMPORT                        R1 K1 [assert]
+        5 CALL                             R1 1 0
+        6 LENGTH                           R1 R0
+        7 JUMPIFNOTEQKN                    R1 K2 [0] ; [+2]
+        9 RETURN                           R0 0
+       10 DUPTABLE                         R1 K4 [{"universeIds"}]
+       11 SETTABLEKS                       R0 R1 K3 ["universeIds"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K5 ["new"]
+       16 CALL                             R2 0 1
+       17 GETTABLEKS                       R3 R2 K6 ["composeUrl"]
+       19 GETUPVAL                         R4 2
+       20 GETTABLEKS                       R4 R4 K7 ["MULTI_RELEASE_STATUSES"]
+       22 GETTABLEKS                       R4 R4 K8 ["Prefix"]
+       24 GETUPVAL                         R5 2
+       25 GETTABLEKS                       R5 R5 K7 ["MULTI_RELEASE_STATUSES"]
+       27 GETTABLEKS                       R5 R5 K9 ["Url"]
+       29 CALL                             R5 0 -1
+       30 CALL                             R3 -1 1
+       31 GETUPVAL                         R4 3
+       32 MOVE                             R6 R3
+       33 GETUPVAL                         R7 4
+       34 MOVE                             R9 R1
+       35 NAMECALL                         R7 R7 K10 ["JSONEncode"]
+       37 CALL                             R7 2 1
+       38 GETUPVAL                         R8 5
+       39 NAMECALL                         R4 R4 K11 ["post"]
+       41 CALL                             R4 4 1
+       42 GETUPVAL                         R5 3
+       43 MOVE                             R7 R4
+       44 NAMECALL                         R5 R5 K12 ["parseJson"]
        46 CALL                             R5 2 1
-       47 DUPCLOSURE                       R7 K13 [PROTO_1]
-       48 NAMECALL                         R5 R5 K14 ["catch"]
-       50 CALL                             R5 2 0
-       51 RETURN                           R0 0
+       47 DUPCLOSURE                       R7 K13 [PROTO_0]
+       48 CAPTURE                          UPVAL U6
+       49 CAPTURE                          UPVAL U7
+       50 NAMECALL                         R5 R5 K14 ["andThen"]
+       52 CALL                             R5 2 1
+       53 DUPCLOSURE                       R7 K15 [PROTO_1]
+       54 NAMECALL                         R5 R5 K16 ["catch"]
+       56 CALL                             R5 2 0
+       57 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -144,12 +149,19 @@ MAIN:
        92 MOVE                             R12 R6
        93 GETTABLEKS                       R13 R3 K35 ["validate"]
        95 CALL                             R12 1 1
-       96 DUPCLOSURE                       R13 K36 [PROTO_2]
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R12
-      103 CAPTURE                          VAL R11
-      104 RETURN                           R13 1
+       96 GETIMPORT                        R13 K5 [require]
+       98 GETTABLEKS                       R14 R0 K6 ["Src"]
+      100 GETTABLEKS                       R14 R14 K7 ["SharedFlags"]
+      102 GETTABLEKS                       R14 R14 K36 ["getFFlagRemoveUnusedStartPageApis"]
+      104 CALL                             R13 1 1
+      105 CALL                             R13 0 1
+      106 DUPCLOSURE                       R14 K37 [PROTO_2]
+      107 CAPTURE                          VAL R13
+      108 CAPTURE                          VAL R7
+      109 CAPTURE                          VAL R4
+      110 CAPTURE                          VAL R8
+      111 CAPTURE                          VAL R10
+      112 CAPTURE                          VAL R9
+      113 CAPTURE                          VAL R12
+      114 CAPTURE                          VAL R11
+      115 RETURN                           R14 1

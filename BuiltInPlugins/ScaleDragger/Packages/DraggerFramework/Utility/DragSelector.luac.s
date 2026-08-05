@@ -212,94 +212,94 @@ PROTO_5:
        10 CALL                             R2 1 1
        11 NAMECALL                         R3 R1 K5 ["getMouseLocation"]
        13 CALL                             R3 1 1
-       14 LOADNIL                          R4
-       15 JUMPIF                           R2 ; [+7]
-       16 GETTABLEKS                       R5 R0 K6 ["_selectionWrapper"]
-       18 NAMECALL                         R5 R5 K7 ["get"]
-       20 CALL                             R5 1 1
-       21 MOVE                             R4 R5
-       22 JUMP                             ; [+2]
-       23 GETTABLEKS                       R4 R0 K8 ["_selectionBeforeDrag"]
-       25 GETTABLEKS                       R5 R0 K9 ["_updateBoxSelect"]
-       27 MOVE                             R6 R1
-       28 GETTABLEKS                       R7 R0 K10 ["_dragStartLocation"]
-       30 MOVE                             R8 R3
-       31 CALL                             R5 3 0
-       32 GETTABLEKS                       R6 R0 K10 ["_dragStartLocation"]
-       34 SUB                              R5 R3 R6
-       35 GETTABLEKS                       R6 R5 K11 ["Magnitude"]
-       37 LOADN                            R7 3
-       38 JUMPIFNOTLT                      R6 R7 ; [+2]
-       40 RETURN                           R0 0
-       41 GETUPVAL                         R6 0
-       42 MOVE                             R7 R1
-       43 GETTABLEKS                       R8 R0 K10 ["_dragStartLocation"]
-       45 MOVE                             R9 R3
-       46 CALL                             R6 3 1
-       47 JUMPIF                           R6 ; [+1]
-       48 RETURN                           R0 0
-       49 NEWTABLE                         R7 0 0
-       51 LOADB                            R8 0
-       52 GETTABLEKS                       R9 R0 K12 ["_insertionOrder"]
-       54 GETIMPORT                        R10 K14 [ipairs]
-       56 GETTABLEKS                       R11 R0 K15 ["_dragCandidates"]
-       58 CALL                             R10 1 3
-       59 FORGPREP_INEXT                   R10
-       60 LOADB                            R15 1
-       61 GETIMPORT                        R16 K14 [ipairs]
-       63 MOVE                             R17 R6
-       64 CALL                             R16 1 3
-       65 FORGPREP_INEXT                   R16
-       66 GETTABLEKS                       R22 R14 K16 ["Center"]
-       68 GETTABLEKS                       R23 R20 K17 ["origin"]
-       70 SUB                              R21 R22 R23
-       71 GETTABLEKS                       R23 R20 K18 ["normal"]
-       73 NAMECALL                         R21 R21 K19 ["Dot"]
-       75 CALL                             R21 2 1
-       76 LOADN                            R22 0
-       77 JUMPIFNOTLT                      R21 R22 ; [+3]
-       79 LOADB                            R15 0
-       80 JUMP                             ; [+2]
-       81 FORGLOOP                         R16 2 [inext] ; [-16]
-       83 GETTABLEKS                       R16 R14 K20 ["Selected"]
-       85 JUMPIFEQ                         R15 R16 ; [+15]
-       87 SETTABLEKS                       R15 R14 K20 ["Selected"]
-       89 LOADB                            R8 1
-       90 JUMPIFNOT                        R15 ; [+10]
-       91 GETTABLEKS                       R16 R14 K21 ["Selectable"]
-       93 GETTABLEKS                       R17 R0 K22 ["_insertionOrderNext"]
-       95 SETTABLE                         R17 R9 R16
-       96 GETTABLEKS                       R16 R0 K22 ["_insertionOrderNext"]
-       98 ADDK                             R16 R16 K23 [1]
-       99 SETTABLEKS                       R16 R0 K22 ["_insertionOrderNext"]
-      101 JUMPIFNOT                        R15 ; [+8]
-      102 GETTABLEKS                       R18 R14 K21 ["Selectable"]
-      104 FASTCALL2                        TABLE_INSERT R7 R18 ; [+4]
-      106 MOVE                             R17 R7
-      107 GETIMPORT                        R16 K26 [table.insert]
-      109 CALL                             R16 2 0
-      110 FORGLOOP                         R10 2 [inext] ; [-51]
-      112 JUMPIFNOT                        R8 ; [+23]
-      113 GETIMPORT                        R10 K28 [table.sort]
-      115 MOVE                             R11 R7
-      116 NEWCLOSURE                       R12 P0
-      117 CAPTURE                          VAL R9
-      118 CALL                             R10 2 0
-      119 LOADNIL                          R10
-      120 GETUPVAL                         R11 1
-      121 GETTABLEKS                       R11 R11 K29 ["updateSelectionWithMultipleSelectables"]
-      123 MOVE                             R12 R7
-      124 MOVE                             R13 R4
-      125 MOVE                             R14 R2
-      126 CALL                             R11 3 2
-      127 MOVE                             R7 R11
-      128 MOVE                             R10 R12
-      129 GETTABLEKS                       R11 R0 K6 ["_selectionWrapper"]
-      131 MOVE                             R13 R7
-      132 MOVE                             R14 R10
-      133 NAMECALL                         R11 R11 K30 ["set"]
-      135 CALL                             R11 3 0
-      136 RETURN                           R0 0
+       14 GETTABLEKS                       R4 R0 K6 ["_dragStartLocation"]
+       16 LOADNIL                          R5
+       17 JUMPIF                           R2 ; [+7]
+       18 GETTABLEKS                       R6 R0 K7 ["_selectionWrapper"]
+       20 NAMECALL                         R6 R6 K8 ["get"]
+       22 CALL                             R6 1 1
+       23 MOVE                             R5 R6
+       24 JUMP                             ; [+2]
+       25 GETTABLEKS                       R5 R0 K9 ["_selectionBeforeDrag"]
+       27 GETTABLEKS                       R6 R0 K10 ["_updateBoxSelect"]
+       29 MOVE                             R7 R1
+       30 MOVE                             R8 R4
+       31 MOVE                             R9 R3
+       32 CALL                             R6 3 0
+       33 SUB                              R6 R3 R4
+       34 GETTABLEKS                       R7 R6 K11 ["Magnitude"]
+       36 LOADN                            R8 3
+       37 JUMPIFNOTLT                      R7 R8 ; [+2]
+       39 RETURN                           R0 0
+       40 GETUPVAL                         R7 0
+       41 MOVE                             R8 R1
+       42 MOVE                             R9 R4
+       43 MOVE                             R10 R3
+       44 CALL                             R7 3 1
+       45 JUMPIF                           R7 ; [+1]
+       46 RETURN                           R0 0
+       47 NEWTABLE                         R8 0 0
+       49 LOADB                            R9 0
+       50 GETTABLEKS                       R10 R0 K12 ["_insertionOrder"]
+       52 GETIMPORT                        R11 K14 [ipairs]
+       54 GETTABLEKS                       R12 R0 K15 ["_dragCandidates"]
+       56 CALL                             R11 1 3
+       57 FORGPREP_INEXT                   R11
+       58 LOADB                            R16 1
+       59 GETIMPORT                        R17 K14 [ipairs]
+       61 MOVE                             R18 R7
+       62 CALL                             R17 1 3
+       63 FORGPREP_INEXT                   R17
+       64 GETTABLEKS                       R23 R15 K16 ["Center"]
+       66 GETTABLEKS                       R24 R21 K17 ["origin"]
+       68 SUB                              R22 R23 R24
+       69 GETTABLEKS                       R24 R21 K18 ["normal"]
+       71 NAMECALL                         R22 R22 K19 ["Dot"]
+       73 CALL                             R22 2 1
+       74 LOADN                            R23 0
+       75 JUMPIFNOTLT                      R22 R23 ; [+3]
+       77 LOADB                            R16 0
+       78 JUMP                             ; [+2]
+       79 FORGLOOP                         R17 2 [inext] ; [-16]
+       81 GETTABLEKS                       R17 R15 K20 ["Selected"]
+       83 JUMPIFEQ                         R16 R17 ; [+15]
+       85 SETTABLEKS                       R16 R15 K20 ["Selected"]
+       87 LOADB                            R9 1
+       88 JUMPIFNOT                        R16 ; [+10]
+       89 GETTABLEKS                       R17 R15 K21 ["Selectable"]
+       91 GETTABLEKS                       R18 R0 K22 ["_insertionOrderNext"]
+       93 SETTABLE                         R18 R10 R17
+       94 GETTABLEKS                       R17 R0 K22 ["_insertionOrderNext"]
+       96 ADDK                             R17 R17 K23 [1]
+       97 SETTABLEKS                       R17 R0 K22 ["_insertionOrderNext"]
+       99 JUMPIFNOT                        R16 ; [+8]
+      100 GETTABLEKS                       R19 R15 K21 ["Selectable"]
+      102 FASTCALL2                        TABLE_INSERT R8 R19 ; [+4]
+      104 MOVE                             R18 R8
+      105 GETIMPORT                        R17 K26 [table.insert]
+      107 CALL                             R17 2 0
+      108 FORGLOOP                         R11 2 [inext] ; [-51]
+      110 JUMPIFNOT                        R9 ; [+23]
+      111 GETIMPORT                        R11 K28 [table.sort]
+      113 MOVE                             R12 R8
+      114 NEWCLOSURE                       R13 P0
+      115 CAPTURE                          VAL R10
+      116 CALL                             R11 2 0
+      117 LOADNIL                          R11
+      118 GETUPVAL                         R12 1
+      119 GETTABLEKS                       R12 R12 K29 ["updateSelectionWithMultipleSelectables"]
+      121 MOVE                             R13 R8
+      122 MOVE                             R14 R5
+      123 MOVE                             R15 R2
+      124 CALL                             R12 3 2
+      125 MOVE                             R8 R12
+      126 MOVE                             R11 R13
+      127 GETTABLEKS                       R12 R0 K7 ["_selectionWrapper"]
+      129 MOVE                             R14 R8
+      130 MOVE                             R15 R11
+      131 NAMECALL                         R12 R12 K30 ["set"]
+      133 CALL                             R12 3 0
+      134 RETURN                           R0 0
 
 PROTO_6:
         0 MOVE                             R4 R1
@@ -325,20 +325,23 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K5 ["Utility"]
        11 GETTABLEKS                       R2 R2 K6 ["SelectionHelper"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 8 0
-       16 SETTABLEKS                       R2 R2 K7 ["__index"]
-       18 DUPCLOSURE                       R3 K8 [PROTO_0]
-       19 CAPTURE                          VAL R2
-       20 SETTABLEKS                       R3 R2 K9 ["new"]
-       22 DUPCLOSURE                       R3 K10 [PROTO_1]
-       23 DUPCLOSURE                       R4 K11 [PROTO_2]
-       24 SETTABLEKS                       R4 R2 K12 ["getStartLocation"]
-       26 DUPCLOSURE                       R4 K13 [PROTO_3]
-       27 SETTABLEKS                       R4 R2 K14 ["beginDrag"]
-       29 DUPCLOSURE                       R4 K15 [PROTO_5]
-       30 CAPTURE                          VAL R3
-       31 CAPTURE                          VAL R1
-       32 SETTABLEKS                       R4 R2 K16 ["updateDrag"]
-       34 DUPCLOSURE                       R4 K17 [PROTO_6]
-       35 SETTABLEKS                       R4 R2 K18 ["commitDrag"]
-       37 RETURN                           R2 1
+       14 GETIMPORT                        R2 K4 [require]
+       16 GETTABLEKS                       R3 R0 K7 ["Types"]
+       18 CALL                             R2 1 1
+       19 NEWTABLE                         R3 8 0
+       21 SETTABLEKS                       R3 R3 K8 ["__index"]
+       23 DUPCLOSURE                       R4 K9 [PROTO_0]
+       24 CAPTURE                          VAL R3
+       25 SETTABLEKS                       R4 R3 K10 ["new"]
+       27 DUPCLOSURE                       R4 K11 [PROTO_1]
+       28 DUPCLOSURE                       R5 K12 [PROTO_2]
+       29 SETTABLEKS                       R5 R3 K13 ["getStartLocation"]
+       31 DUPCLOSURE                       R5 K14 [PROTO_3]
+       32 SETTABLEKS                       R5 R3 K15 ["beginDrag"]
+       34 DUPCLOSURE                       R5 K16 [PROTO_5]
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R1
+       37 SETTABLEKS                       R5 R3 K17 ["updateDrag"]
+       39 DUPCLOSURE                       R5 K18 [PROTO_6]
+       40 SETTABLEKS                       R5 R3 K19 ["commitDrag"]
+       42 RETURN                           R3 1

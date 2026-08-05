@@ -37,25 +37,20 @@ PROTO_1:
        24 GETTABLEKS                       R9 R9 K13 ["Text"]
        26 DUPTABLE                         R10 K16 [{["Text"], ["TextTruncate"], ["tag"] = "auto-xy text-body-medium text-align-x-left text-align-y-center content-link"}]
        27 JUMPIFNOT                        R2 ; [+2]
-       28 JUMPIFNOTEQKS                    R2 K2 [""] ; [+12]
-       30 GETUPVAL                         R12 4
-       31 CALL                             R12 0 1
-       32 JUMPIFNOT                        R12 ; [+6]
-       33 LOADK                            R13 K17 ["ConfigDialog"]
-       34 LOADK                            R14 K18 ["SelectFile"]
-       35 NAMECALL                         R11 R1 K19 ["getText"]
-       37 CALL                             R11 3 1
-       38 JUMP                             ; [+3]
-       39 LOADK                            R11 K20 ["Click to select file"]
-       40 JUMP                             ; [+1]
-       41 MOVE                             R11 R2
-       42 SETTABLEKS                       R11 R10 K13 ["Text"]
-       44 GETIMPORT                        R11 K23 [Enum.TextTruncate.SplitWord]
-       46 SETTABLEKS                       R11 R10 K14 ["TextTruncate"]
-       48 CALL                             R8 2 1
-       49 SETTABLEKS                       R8 R7 K11 ["filepathText"]
-       51 CALL                             R4 3 -1
-       52 RETURN                           R4 -1
+       28 JUMPIFNOTEQKS                    R2 K2 [""] ; [+7]
+       30 LOADK                            R13 K17 ["ConfigDialog"]
+       31 LOADK                            R14 K18 ["SelectFile"]
+       32 NAMECALL                         R11 R1 K19 ["getText"]
+       34 CALL                             R11 3 1
+       35 JUMP                             ; [+1]
+       36 MOVE                             R11 R2
+       37 SETTABLEKS                       R11 R10 K13 ["Text"]
+       39 GETIMPORT                        R11 K22 [Enum.TextTruncate.SplitWord]
+       41 SETTABLEKS                       R11 R10 K14 ["TextTruncate"]
+       43 CALL                             R8 2 1
+       44 SETTABLEKS                       R8 R7 K11 ["filepathText"]
+       46 CALL                             R4 3 -1
+       47 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -78,14 +73,9 @@ MAIN:
        28 GETTABLEKS                       R4 R3 K10 ["createElement"]
        30 GETTABLEKS                       R5 R2 K11 ["ContextServices"]
        32 GETTABLEKS                       R6 R5 K12 ["Localization"]
-       34 GETIMPORT                        R7 K5 [require]
-       36 GETTABLEKS                       R8 R0 K13 ["Flags"]
-       38 GETTABLEKS                       R8 R8 K14 ["GetFFlagReimportLocalizeDialogs"]
-       40 CALL                             R7 1 1
-       41 DUPCLOSURE                       R8 K15 [PROTO_1]
-       42 CAPTURE                          VAL R6
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R4
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R7
-       47 RETURN                           R8 1
+       34 DUPCLOSURE                       R7 K13 [PROTO_1]
+       35 CAPTURE                          VAL R6
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R4
+       38 CAPTURE                          VAL R1
+       39 RETURN                           R7 1

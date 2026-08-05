@@ -448,54 +448,51 @@ PROTO_19:
       234 FASTCALL                         TABLE_INSERT ; [+2]
       235 GETIMPORT                        R6 K6 [table.insert]
       237 CALL                             R6 -1 0
-      238 GETUPVAL                         R6 5
-      239 CALL                             R6 0 1
-      240 JUMPIFNOT                        R6 ; [+24]
-      241 MOVE                             R7 R2
-      242 LOADK                            R10 K23 ["OnCreateCageParts"]
-      243 NEWCLOSURE                       R11 P15
-      244 CAPTURE                          UPVAL U6
-      245 CAPTURE                          VAL R0
-      246 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      248 CALL                             R8 3 -1
-      249 FASTCALL                         TABLE_INSERT ; [+2]
-      250 GETIMPORT                        R6 K6 [table.insert]
-      252 CALL                             R6 -1 0
-      253 MOVE                             R7 R2
-      254 LOADK                            R10 K24 ["OnDestroyCageParts"]
-      255 NEWCLOSURE                       R11 P16
-      256 CAPTURE                          UPVAL U7
-      257 CAPTURE                          VAL R0
-      258 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      260 CALL                             R8 3 -1
-      261 FASTCALL                         TABLE_INSERT ; [+2]
-      262 GETIMPORT                        R6 K6 [table.insert]
-      264 CALL                             R6 -1 0
-      265 GETUPVAL                         R6 8
-      266 CALL                             R6 0 1
-      267 JUMPIFNOT                        R6 ; [+24]
-      268 MOVE                             R7 R2
-      269 LOADK                            R10 K25 ["OnCreateAttachmentParts"]
-      270 NEWCLOSURE                       R11 P17
-      271 CAPTURE                          UPVAL U9
-      272 CAPTURE                          VAL R0
-      273 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      275 CALL                             R8 3 -1
-      276 FASTCALL                         TABLE_INSERT ; [+2]
-      277 GETIMPORT                        R6 K6 [table.insert]
-      279 CALL                             R6 -1 0
-      280 MOVE                             R7 R2
-      281 LOADK                            R10 K26 ["OnDestroyAttachmentParts"]
-      282 NEWCLOSURE                       R11 P18
-      283 CAPTURE                          UPVAL U10
-      284 CAPTURE                          VAL R0
-      285 NAMECALL                         R8 R0 K15 ["OnInvoke"]
-      287 CALL                             R8 3 -1
-      288 FASTCALL                         TABLE_INSERT ; [+2]
-      289 GETIMPORT                        R6 K6 [table.insert]
-      291 CALL                             R6 -1 0
-      292 CLOSEUPVALS                      R3
-      293 RETURN                           R2 1
+      238 MOVE                             R7 R2
+      239 LOADK                            R10 K23 ["OnCreateCageParts"]
+      240 NEWCLOSURE                       R11 P15
+      241 CAPTURE                          UPVAL U5
+      242 CAPTURE                          VAL R0
+      243 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      245 CALL                             R8 3 -1
+      246 FASTCALL                         TABLE_INSERT ; [+2]
+      247 GETIMPORT                        R6 K6 [table.insert]
+      249 CALL                             R6 -1 0
+      250 MOVE                             R7 R2
+      251 LOADK                            R10 K24 ["OnDestroyCageParts"]
+      252 NEWCLOSURE                       R11 P16
+      253 CAPTURE                          UPVAL U6
+      254 CAPTURE                          VAL R0
+      255 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      257 CALL                             R8 3 -1
+      258 FASTCALL                         TABLE_INSERT ; [+2]
+      259 GETIMPORT                        R6 K6 [table.insert]
+      261 CALL                             R6 -1 0
+      262 GETUPVAL                         R6 7
+      263 CALL                             R6 0 1
+      264 JUMPIFNOT                        R6 ; [+24]
+      265 MOVE                             R7 R2
+      266 LOADK                            R10 K25 ["OnCreateAttachmentParts"]
+      267 NEWCLOSURE                       R11 P17
+      268 CAPTURE                          UPVAL U8
+      269 CAPTURE                          VAL R0
+      270 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      272 CALL                             R8 3 -1
+      273 FASTCALL                         TABLE_INSERT ; [+2]
+      274 GETIMPORT                        R6 K6 [table.insert]
+      276 CALL                             R6 -1 0
+      277 MOVE                             R7 R2
+      278 LOADK                            R10 K26 ["OnDestroyAttachmentParts"]
+      279 NEWCLOSURE                       R11 P18
+      280 CAPTURE                          UPVAL U9
+      281 CAPTURE                          VAL R0
+      282 NAMECALL                         R8 R0 K15 ["OnInvoke"]
+      284 CALL                             R8 3 -1
+      285 FASTCALL                         TABLE_INSERT ; [+2]
+      286 GETIMPORT                        R6 K6 [table.insert]
+      288 CALL                             R6 -1 0
+      289 CLOSEUPVALS                      R3
+      290 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -531,35 +528,29 @@ MAIN:
        52 GETIMPORT                        R6 K5 [require]
        54 GETTABLEKS                       R7 R0 K6 ["Src"]
        56 GETTABLEKS                       R7 R7 K13 ["Flags"]
-       58 GETTABLEKS                       R7 R7 K14 ["getFFlagCreateCagesOnAssetDm"]
+       58 GETTABLEKS                       R7 R7 K14 ["getFFlagCreateAttachmentsOnAssetDm"]
        60 CALL                             R6 1 1
        61 GETIMPORT                        R7 K5 [require]
        63 GETTABLEKS                       R8 R0 K6 ["Src"]
        65 GETTABLEKS                       R8 R8 K13 ["Flags"]
-       67 GETTABLEKS                       R8 R8 K15 ["getFFlagCreateAttachmentsOnAssetDm"]
+       67 GETTABLEKS                       R8 R8 K15 ["getFFlagAnimationExportSupport"]
        69 CALL                             R7 1 1
        70 GETIMPORT                        R8 K5 [require]
        72 GETTABLEKS                       R9 R0 K6 ["Src"]
        74 GETTABLEKS                       R9 R9 K13 ["Flags"]
-       76 GETTABLEKS                       R9 R9 K16 ["getFFlagAnimationExportSupport"]
+       76 GETTABLEKS                       R9 R9 K16 ["getFFlagAsyncObjExport"]
        78 CALL                             R8 1 1
-       79 GETIMPORT                        R9 K5 [require]
-       81 GETTABLEKS                       R10 R0 K6 ["Src"]
-       83 GETTABLEKS                       R10 R10 K13 ["Flags"]
-       85 GETTABLEKS                       R10 R10 K17 ["getFFlagAsyncObjExport"]
-       87 CALL                             R9 1 1
-       88 DUPTABLE                         R10 K28 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportAsGltf"}]
-       89 DUPTABLE                         R11 K30 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportPlaceAsGltf"}]
-       90 DUPCLOSURE                       R12 K31 [PROTO_19]
-       91 CAPTURE                          VAL R10
-       92 CAPTURE                          VAL R11
-       93 CAPTURE                          VAL R8
-       94 CAPTURE                          VAL R9
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R2
-       98 CAPTURE                          VAL R3
-       99 CAPTURE                          VAL R7
-      100 CAPTURE                          VAL R4
-      101 CAPTURE                          VAL R5
-      102 RETURN                           R12 1
+       79 DUPTABLE                         R9 K27 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportAsGltf"}]
+       80 DUPTABLE                         R10 K29 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportPlaceAsGltf"}]
+       81 DUPCLOSURE                       R11 K30 [PROTO_19]
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R8
+       86 CAPTURE                          VAL R1
+       87 CAPTURE                          VAL R2
+       88 CAPTURE                          VAL R3
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R5
+       92 RETURN                           R11 1

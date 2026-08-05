@@ -41,47 +41,48 @@ PROTO_3:
        23 MOVE                             R3 R9
        24 MOVE                             R4 R10
        25 FORGLOOP                         R5 2 ; [-12]
-       27 LOADNIL                          R5
-       28 GETTABLEKS                       R6 R0 K7 ["_draggerContext"]
-       30 NAMECALL                         R6 R6 K8 ["shouldGridSnap"]
-       32 CALL                             R6 1 1
-       33 JUMPIFNOT                        R6 ; [+8]
-       34 LOADK                            R6 K9 [0.5]
-       35 GETTABLEKS                       R7 R0 K7 ["_draggerContext"]
-       37 NAMECALL                         R7 R7 K10 ["getGridSize"]
-       39 CALL                             R7 1 1
-       40 MUL                              R5 R6 R7
-       41 JUMP                             ; [+9]
-       42 LOADK                            R6 K11 [0.4]
-       43 GETTABLEKS                       R7 R0 K7 ["_draggerContext"]
-       45 GETTABLEKS                       R9 R3 K12 ["Point"]
-       47 NAMECALL                         R7 R7 K13 ["getHandleScale"]
-       49 CALL                             R7 2 1
-       50 MUL                              R5 R6 R7
-       51 GETTABLEKS                       R6 R0 K7 ["_draggerContext"]
-       53 NAMECALL                         R6 R6 K14 ["getSoftSnapMarginFactor"]
-       55 CALL                             R6 1 1
-       56 MUL                              R5 R5 R6
-       57 JUMPIFNOTLT                      R5 R4 ; [+6]
-       59 LOADNIL                          R6
-       60 SETTABLEKS                       R6 R0 K15 ["_currentSoftSnap"]
-       62 LOADNIL                          R6
-       63 RETURN                           R6 1
-       64 GETTABLEKS                       R8 R3 K3 ["Distance"]
-       66 SUB                              R7 R8 R1
-       67 FASTCALL1                        MATH_ABS R7 ; [+2]
-       68 GETIMPORT                        R6 K6 [math.abs]
-       70 CALL                             R6 1 1
-       71 JUMPIFNOT                        R2 ; [+3]
-       72 ADDK                             R7 R2 K16 [0.01]
-       73 JUMPIFNOTLT                      R6 R7 ; [+6]
-       75 SETTABLEKS                       R3 R0 K15 ["_currentSoftSnap"]
-       77 GETTABLEKS                       R7 R3 K3 ["Distance"]
-       79 RETURN                           R7 1
-       80 LOADNIL                          R7
-       81 SETTABLEKS                       R7 R0 K15 ["_currentSoftSnap"]
-       83 LOADNIL                          R7
-       84 RETURN                           R7 1
+       27 MOVE                             R5 R3
+       28 LOADNIL                          R6
+       29 GETTABLEKS                       R7 R0 K7 ["_draggerContext"]
+       31 NAMECALL                         R7 R7 K8 ["shouldGridSnap"]
+       33 CALL                             R7 1 1
+       34 JUMPIFNOT                        R7 ; [+8]
+       35 LOADK                            R7 K9 [0.5]
+       36 GETTABLEKS                       R8 R0 K7 ["_draggerContext"]
+       38 NAMECALL                         R8 R8 K10 ["getGridSize"]
+       40 CALL                             R8 1 1
+       41 MUL                              R6 R7 R8
+       42 JUMP                             ; [+9]
+       43 LOADK                            R7 K11 [0.4]
+       44 GETTABLEKS                       R8 R0 K7 ["_draggerContext"]
+       46 GETTABLEKS                       R10 R5 K12 ["Point"]
+       48 NAMECALL                         R8 R8 K13 ["getHandleScale"]
+       50 CALL                             R8 2 1
+       51 MUL                              R6 R7 R8
+       52 GETTABLEKS                       R7 R0 K7 ["_draggerContext"]
+       54 NAMECALL                         R7 R7 K14 ["getSoftSnapMarginFactor"]
+       56 CALL                             R7 1 1
+       57 MUL                              R6 R6 R7
+       58 JUMPIFNOTLT                      R6 R4 ; [+6]
+       60 LOADNIL                          R7
+       61 SETTABLEKS                       R7 R0 K15 ["_currentSoftSnap"]
+       63 LOADNIL                          R7
+       64 RETURN                           R7 1
+       65 GETTABLEKS                       R9 R5 K3 ["Distance"]
+       67 SUB                              R8 R9 R1
+       68 FASTCALL1                        MATH_ABS R8 ; [+2]
+       69 GETIMPORT                        R7 K6 [math.abs]
+       71 CALL                             R7 1 1
+       72 JUMPIFNOT                        R2 ; [+3]
+       73 ADDK                             R8 R2 K16 [0.01]
+       74 JUMPIFNOTLT                      R7 R8 ; [+6]
+       76 SETTABLEKS                       R5 R0 K15 ["_currentSoftSnap"]
+       78 GETTABLEKS                       R8 R5 K3 ["Distance"]
+       80 RETURN                           R8 1
+       81 LOADNIL                          R8
+       82 SETTABLEKS                       R8 R0 K15 ["_currentSoftSnap"]
+       84 LOADNIL                          R8
+       85 RETURN                           R8 1
 
 PROTO_4:
         0 NEWTABLE                         R2 0 0

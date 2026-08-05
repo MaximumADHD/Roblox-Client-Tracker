@@ -10,60 +10,60 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantHarnessSplit"]
-        3 FASTCALL2K                       ASSERT R2 K1 ; [+4]
-        5 LOADK                            R3 K1 ["serializeAgentContent requires AssistantHarnessSplit"]
-        6 GETIMPORT                        R1 K3 [assert]
-        8 CALL                             R1 2 0
-        9 GETTABLEKS                       R1 R0 K4 ["type"]
-       11 JUMPIFNOTEQKS                    R1 K5 ["text"] ; [+25]
-       13 GETTABLEKS                       R1 R0 K6 ["_meta"]
-       15 JUMPIFNOTEQKNIL                  R1 ; [+21]
-       17 DUPTABLE                         R1 K7 [{["type"] = "text", ["text"], ["_meta"]}]
-       18 GETTABLEKS                       R3 R0 K5 ["text"]
-       20 ORK                              R2 R3 K8 [""]
-       21 SETTABLEKS                       R2 R1 K5 ["text"]
-       23 DUPTABLE                         R2 K10 [{"roblox_studio_assistant"}]
-       24 DUPTABLE                         R3 K13 [{"base", "widget"}]
-       25 DUPTABLE                         R4 K15 [{["type"] = "Text"}]
-       26 SETTABLEKS                       R4 R3 K11 ["base"]
-       28 NEWTABLE                         R4 0 0
-       30 SETTABLEKS                       R4 R3 K12 ["widget"]
-       32 SETTABLEKS                       R3 R2 K9 ["roblox_studio_assistant"]
-       34 SETTABLEKS                       R2 R1 K6 ["_meta"]
-       36 RETURN                           R1 1
-       37 GETTABLEKS                       R1 R0 K4 ["type"]
-       39 JUMPIFNOTEQKS                    R1 K16 ["thinking"] ; [+24]
-       41 DUPTABLE                         R1 K7 [{["type"] = "text", ["text"], ["_meta"]}]
-       42 GETTABLEKS                       R3 R0 K16 ["thinking"]
-       44 ORK                              R2 R3 K8 [""]
-       45 SETTABLEKS                       R2 R1 K5 ["text"]
-       47 DUPTABLE                         R2 K10 [{"roblox_studio_assistant"}]
-       48 DUPTABLE                         R3 K13 [{"base", "widget"}]
-       49 DUPTABLE                         R4 K18 [{["type"] = "Thinking"}]
-       50 SETTABLEKS                       R4 R3 K11 ["base"]
-       52 DUPTABLE                         R4 K20 [{"signature"}]
-       53 GETTABLEKS                       R5 R0 K19 ["signature"]
-       55 SETTABLEKS                       R5 R4 K19 ["signature"]
-       57 SETTABLEKS                       R4 R3 K12 ["widget"]
-       59 SETTABLEKS                       R3 R2 K9 ["roblox_studio_assistant"]
-       61 SETTABLEKS                       R2 R1 K6 ["_meta"]
-       63 RETURN                           R1 1
-       64 GETTABLEKS                       R1 R0 K4 ["type"]
-       66 JUMPIFNOTEQKS                    R1 K21 ["tool_result"] ; [+22]
-       68 DUPTABLE                         R1 K26 [{["type"] = "tool_result", ["toolUseId"], ["content"], ["structuredContent"], ["isError"]}]
-       69 GETTABLEKS                       R2 R0 K22 ["toolUseId"]
-       71 JUMPIF                           R2 ; [+2]
-       72 GETTABLEKS                       R2 R0 K27 ["id"]
-       74 SETTABLEKS                       R2 R1 K22 ["toolUseId"]
-       76 GETTABLEKS                       R2 R0 K23 ["content"]
-       78 SETTABLEKS                       R2 R1 K23 ["content"]
-       80 GETTABLEKS                       R2 R0 K24 ["structuredContent"]
-       82 SETTABLEKS                       R2 R1 K24 ["structuredContent"]
-       84 GETTABLEKS                       R2 R0 K25 ["isError"]
-       86 SETTABLEKS                       R2 R1 K25 ["isError"]
-       88 RETURN                           R1 1
-       89 RETURN                           R0 1
+        1 CALL                             R2 0 1
+        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        4 LOADK                            R3 K0 ["serializeAgentContent requires AssistantHarnessSplit"]
+        5 GETIMPORT                        R1 K2 [assert]
+        7 CALL                             R1 2 0
+        8 GETTABLEKS                       R1 R0 K3 ["type"]
+       10 JUMPIFNOTEQKS                    R1 K4 ["text"] ; [+25]
+       12 GETTABLEKS                       R1 R0 K5 ["_meta"]
+       14 JUMPIFNOTEQKNIL                  R1 ; [+21]
+       16 DUPTABLE                         R1 K6 [{["type"] = "text", ["text"], ["_meta"]}]
+       17 GETTABLEKS                       R3 R0 K4 ["text"]
+       19 ORK                              R2 R3 K7 [""]
+       20 SETTABLEKS                       R2 R1 K4 ["text"]
+       22 DUPTABLE                         R2 K9 [{"roblox_studio_assistant"}]
+       23 DUPTABLE                         R3 K12 [{"base", "widget"}]
+       24 DUPTABLE                         R4 K14 [{["type"] = "Text"}]
+       25 SETTABLEKS                       R4 R3 K10 ["base"]
+       27 NEWTABLE                         R4 0 0
+       29 SETTABLEKS                       R4 R3 K11 ["widget"]
+       31 SETTABLEKS                       R3 R2 K8 ["roblox_studio_assistant"]
+       33 SETTABLEKS                       R2 R1 K5 ["_meta"]
+       35 RETURN                           R1 1
+       36 GETTABLEKS                       R1 R0 K3 ["type"]
+       38 JUMPIFNOTEQKS                    R1 K15 ["thinking"] ; [+24]
+       40 DUPTABLE                         R1 K6 [{["type"] = "text", ["text"], ["_meta"]}]
+       41 GETTABLEKS                       R3 R0 K15 ["thinking"]
+       43 ORK                              R2 R3 K7 [""]
+       44 SETTABLEKS                       R2 R1 K4 ["text"]
+       46 DUPTABLE                         R2 K9 [{"roblox_studio_assistant"}]
+       47 DUPTABLE                         R3 K12 [{"base", "widget"}]
+       48 DUPTABLE                         R4 K17 [{["type"] = "Thinking"}]
+       49 SETTABLEKS                       R4 R3 K10 ["base"]
+       51 DUPTABLE                         R4 K19 [{"signature"}]
+       52 GETTABLEKS                       R5 R0 K18 ["signature"]
+       54 SETTABLEKS                       R5 R4 K18 ["signature"]
+       56 SETTABLEKS                       R4 R3 K11 ["widget"]
+       58 SETTABLEKS                       R3 R2 K8 ["roblox_studio_assistant"]
+       60 SETTABLEKS                       R2 R1 K5 ["_meta"]
+       62 RETURN                           R1 1
+       63 GETTABLEKS                       R1 R0 K3 ["type"]
+       65 JUMPIFNOTEQKS                    R1 K20 ["tool_result"] ; [+22]
+       67 DUPTABLE                         R1 K25 [{["type"] = "tool_result", ["toolUseId"], ["content"], ["structuredContent"], ["isError"]}]
+       68 GETTABLEKS                       R2 R0 K21 ["toolUseId"]
+       70 JUMPIF                           R2 ; [+2]
+       71 GETTABLEKS                       R2 R0 K26 ["id"]
+       73 SETTABLEKS                       R2 R1 K21 ["toolUseId"]
+       75 GETTABLEKS                       R2 R0 K22 ["content"]
+       77 SETTABLEKS                       R2 R1 K22 ["content"]
+       79 GETTABLEKS                       R2 R0 K23 ["structuredContent"]
+       81 SETTABLEKS                       R2 R1 K23 ["structuredContent"]
+       83 GETTABLEKS                       R2 R0 K24 ["isError"]
+       85 SETTABLEKS                       R2 R1 K24 ["isError"]
+       87 RETURN                           R1 1
+       88 RETURN                           R0 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["_meta"]
@@ -1424,36 +1424,36 @@ PROTO_29:
        34 CAPTURE                          UPVAL U0
        35 CAPTURE                          UPVAL U1
        36 SETTABLEKS                       R1 R0 K4 ["uploadMessagesAsync"]
-       38 GETUPVAL                         R2 3
-       39 GETTABLEKS                       R2 R2 K13 ["FFlagAssistantHarnessSplit"]
-       41 JUMPIFNOT                        R2 ; [+8]
-       42 DUPCLOSURE                       R1 K14 [PROTO_25]
-       43 CAPTURE                          UPVAL U0
-       44 CAPTURE                          UPVAL U1
-       45 CAPTURE                          UPVAL U2
-       46 CAPTURE                          UPVAL U7
-       47 CAPTURE                          UPVAL U5
-       48 CAPTURE                          UPVAL U3
-       49 JUMP                             ; [+1]
-       50 LOADNIL                          R1
-       51 SETTABLEKS                       R1 R0 K5 ["getAgentMessagesAsync"]
-       53 GETUPVAL                         R2 3
-       54 GETTABLEKS                       R2 R2 K13 ["FFlagAssistantHarnessSplit"]
-       56 JUMPIFNOT                        R2 ; [+11]
-       57 DUPCLOSURE                       R1 K15 [PROTO_28]
-       58 CAPTURE                          UPVAL U0
-       59 CAPTURE                          UPVAL U1
-       60 CAPTURE                          UPVAL U2
-       61 CAPTURE                          UPVAL U8
-       62 CAPTURE                          UPVAL U6
-       63 CAPTURE                          UPVAL U9
-       64 CAPTURE                          UPVAL U3
-       65 CAPTURE                          UPVAL U10
-       66 CAPTURE                          UPVAL U11
-       67 JUMP                             ; [+1]
-       68 LOADNIL                          R1
-       69 SETTABLEKS                       R1 R0 K6 ["uploadAgentSessionsAsync"]
-       71 RETURN                           R0 1
+       38 GETUPVAL                         R2 7
+       39 CALL                             R2 0 1
+       40 JUMPIFNOT                        R2 ; [+8]
+       41 DUPCLOSURE                       R1 K13 [PROTO_25]
+       42 CAPTURE                          UPVAL U0
+       43 CAPTURE                          UPVAL U1
+       44 CAPTURE                          UPVAL U2
+       45 CAPTURE                          UPVAL U8
+       46 CAPTURE                          UPVAL U5
+       47 CAPTURE                          UPVAL U3
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R1
+       50 SETTABLEKS                       R1 R0 K5 ["getAgentMessagesAsync"]
+       52 GETUPVAL                         R2 7
+       53 CALL                             R2 0 1
+       54 JUMPIFNOT                        R2 ; [+11]
+       55 DUPCLOSURE                       R1 K14 [PROTO_28]
+       56 CAPTURE                          UPVAL U0
+       57 CAPTURE                          UPVAL U1
+       58 CAPTURE                          UPVAL U2
+       59 CAPTURE                          UPVAL U9
+       60 CAPTURE                          UPVAL U6
+       61 CAPTURE                          UPVAL U10
+       62 CAPTURE                          UPVAL U3
+       63 CAPTURE                          UPVAL U11
+       64 CAPTURE                          UPVAL U12
+       65 JUMP                             ; [+1]
+       66 LOADNIL                          R1
+       67 SETTABLEKS                       R1 R0 K6 ["uploadAgentSessionsAsync"]
+       69 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1486,61 +1486,64 @@ MAIN:
        45 GETTABLEKS                       R7 R7 K16 ["Util"]
        47 GETTABLEKS                       R7 R7 K17 ["StudioEndpointUtil"]
        49 CALL                             R6 1 1
-       50 GETIMPORT                        R7 K9 [require]
-       52 GETTABLEKS                       R8 R0 K10 ["Packages"]
-       54 GETTABLEKS                       R8 R8 K18 ["_Index"]
-       56 GETTABLEKS                       R8 R8 K15 ["OpenApiMcpAssistantStorageApi"]
-       58 GETTABLEKS                       R8 R8 K15 ["OpenApiMcpAssistantStorageApi"]
-       60 GETTABLEKS                       R8 R8 K19 ["Models"]
-       62 GETTABLEKS                       R8 R8 K20 ["ContentBody"]
-       64 CALL                             R7 1 1
-       65 GETIMPORT                        R8 K9 [require]
-       67 GETTABLEKS                       R9 R0 K10 ["Packages"]
-       69 GETTABLEKS                       R9 R9 K18 ["_Index"]
-       71 GETTABLEKS                       R9 R9 K15 ["OpenApiMcpAssistantStorageApi"]
-       73 GETTABLEKS                       R9 R9 K15 ["OpenApiMcpAssistantStorageApi"]
-       75 GETTABLEKS                       R9 R9 K19 ["Models"]
-       77 GETTABLEKS                       R9 R9 K21 ["MessageBody"]
-       79 CALL                             R8 1 1
-       80 GETIMPORT                        R9 K9 [require]
-       82 GETTABLEKS                       R10 R0 K10 ["Packages"]
-       84 GETTABLEKS                       R10 R10 K18 ["_Index"]
-       86 GETTABLEKS                       R10 R10 K15 ["OpenApiMcpAssistantStorageApi"]
-       88 GETTABLEKS                       R10 R10 K15 ["OpenApiMcpAssistantStorageApi"]
-       90 GETTABLEKS                       R10 R10 K19 ["Models"]
-       92 GETTABLEKS                       R10 R10 K22 ["ThreadBody"]
-       94 CALL                             R9 1 1
-       95 GETTABLEKS                       R10 R2 K23 ["Serializer"]
-       97 GETTABLEKS                       R11 R2 K24 ["Persistence"]
-       99 GETTABLEKS                       R11 R11 K25 ["HistoryNormalizer"]
-      101 DUPTABLE                         R14 K27 [{"historyWriter"}]
-      102 GETTABLEKS                       R15 R11 K28 ["ACP_HISTORY_WRITER"]
-      104 SETTABLEKS                       R15 R14 K26 ["historyWriter"]
-      106 NAMECALL                         R12 R1 K29 ["JSONEncode"]
-      108 CALL                             R12 2 1
-      109 DUPCLOSURE                       R13 K30 [PROTO_0]
-      110 CAPTURE                          VAL R2
-      111 DUPCLOSURE                       R14 K31 [PROTO_1]
-      112 CAPTURE                          VAL R3
-      113 DUPCLOSURE                       R15 K32 [PROTO_2]
-      114 DUPCLOSURE                       R16 K33 [PROTO_3]
-      115 DUPCLOSURE                       R17 K34 [PROTO_4]
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          VAL R16
-      118 DUPCLOSURE                       R18 K35 [PROTO_29]
-      119 CAPTURE                          VAL R6
-      120 CAPTURE                          VAL R5
-      121 CAPTURE                          VAL R1
-      122 CAPTURE                          VAL R3
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R4
-      126 CAPTURE                          VAL R15
-      127 CAPTURE                          VAL R14
-      128 CAPTURE                          VAL R12
-      129 CAPTURE                          VAL R17
-      130 CAPTURE                          VAL R11
-      131 DUPTABLE                         R19 K38 [{"createCloudIO", "deserializeAgentContent"}]
-      132 SETTABLEKS                       R18 R19 K36 ["createCloudIO"]
-      134 SETTABLEKS                       R15 R19 K37 ["deserializeAgentContent"]
-      136 RETURN                           R19 1
+       50 GETTABLEKS                       R7 R2 K18 ["FlagUtils"]
+       52 GETTABLEKS                       R7 R7 K19 ["getIsAssistantHarnessSplit"]
+       54 GETIMPORT                        R8 K9 [require]
+       56 GETTABLEKS                       R9 R0 K10 ["Packages"]
+       58 GETTABLEKS                       R9 R9 K20 ["_Index"]
+       60 GETTABLEKS                       R9 R9 K15 ["OpenApiMcpAssistantStorageApi"]
+       62 GETTABLEKS                       R9 R9 K15 ["OpenApiMcpAssistantStorageApi"]
+       64 GETTABLEKS                       R9 R9 K21 ["Models"]
+       66 GETTABLEKS                       R9 R9 K22 ["ContentBody"]
+       68 CALL                             R8 1 1
+       69 GETIMPORT                        R9 K9 [require]
+       71 GETTABLEKS                       R10 R0 K10 ["Packages"]
+       73 GETTABLEKS                       R10 R10 K20 ["_Index"]
+       75 GETTABLEKS                       R10 R10 K15 ["OpenApiMcpAssistantStorageApi"]
+       77 GETTABLEKS                       R10 R10 K15 ["OpenApiMcpAssistantStorageApi"]
+       79 GETTABLEKS                       R10 R10 K21 ["Models"]
+       81 GETTABLEKS                       R10 R10 K23 ["MessageBody"]
+       83 CALL                             R9 1 1
+       84 GETIMPORT                        R10 K9 [require]
+       86 GETTABLEKS                       R11 R0 K10 ["Packages"]
+       88 GETTABLEKS                       R11 R11 K20 ["_Index"]
+       90 GETTABLEKS                       R11 R11 K15 ["OpenApiMcpAssistantStorageApi"]
+       92 GETTABLEKS                       R11 R11 K15 ["OpenApiMcpAssistantStorageApi"]
+       94 GETTABLEKS                       R11 R11 K21 ["Models"]
+       96 GETTABLEKS                       R11 R11 K24 ["ThreadBody"]
+       98 CALL                             R10 1 1
+       99 GETTABLEKS                       R11 R2 K25 ["Serializer"]
+      101 GETTABLEKS                       R12 R2 K26 ["Persistence"]
+      103 GETTABLEKS                       R12 R12 K27 ["HistoryNormalizer"]
+      105 DUPTABLE                         R15 K29 [{"historyWriter"}]
+      106 GETTABLEKS                       R16 R12 K30 ["ACP_HISTORY_WRITER"]
+      108 SETTABLEKS                       R16 R15 K28 ["historyWriter"]
+      110 NAMECALL                         R13 R1 K31 ["JSONEncode"]
+      112 CALL                             R13 2 1
+      113 DUPCLOSURE                       R14 K32 [PROTO_0]
+      114 CAPTURE                          VAL R2
+      115 DUPCLOSURE                       R15 K33 [PROTO_1]
+      116 CAPTURE                          VAL R7
+      117 DUPCLOSURE                       R16 K34 [PROTO_2]
+      118 DUPCLOSURE                       R17 K35 [PROTO_3]
+      119 DUPCLOSURE                       R18 K36 [PROTO_4]
+      120 CAPTURE                          VAL R1
+      121 CAPTURE                          VAL R17
+      122 DUPCLOSURE                       R19 K37 [PROTO_29]
+      123 CAPTURE                          VAL R6
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R1
+      126 CAPTURE                          VAL R3
+      127 CAPTURE                          VAL R11
+      128 CAPTURE                          VAL R2
+      129 CAPTURE                          VAL R4
+      130 CAPTURE                          VAL R7
+      131 CAPTURE                          VAL R16
+      132 CAPTURE                          VAL R15
+      133 CAPTURE                          VAL R13
+      134 CAPTURE                          VAL R18
+      135 CAPTURE                          VAL R12
+      136 DUPTABLE                         R20 K40 [{"createCloudIO", "deserializeAgentContent"}]
+      137 SETTABLEKS                       R19 R20 K38 ["createCloudIO"]
+      139 SETTABLEKS                       R16 R20 K39 ["deserializeAgentContent"]
+      141 RETURN                           R20 1

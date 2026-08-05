@@ -121,35 +121,33 @@ PROTO_4:
        58 MOVE                             R11 R9
        59 GETIMPORT                        R10 K7 [math.abs]
        61 CALL                             R10 1 1
-       62 LOADK                            R12 K8 [0.5]
-       63 MUL                              R11 R12 R3
-       64 JUMPIFNOTLE                      R10 R11 ; [+4]
-       66 LOADB                            R10 1
-       67 MOVE                             R11 R8
-       68 RETURN                           R10 2
-       69 MINUS                            R12 R5
-       70 FASTCALL1                        MATH_SQRT R7 ; [+3]
-       71 MOVE                             R14 R7
-       72 GETIMPORT                        R13 K4 [math.sqrt]
-       74 CALL                             R13 1 1
-       75 ADD                              R11 R12 R13
-       76 DIV                              R10 R11 R4
-       77 GETTABLEKS                       R12 R0 K5 ["X"]
-       79 GETTABLEKS                       R14 R1 K5 ["X"]
-       81 MUL                              R13 R10 R14
-       82 ADD                              R11 R12 R13
-       83 FASTCALL1                        MATH_ABS R11 ; [+3]
-       84 MOVE                             R13 R11
-       85 GETIMPORT                        R12 K7 [math.abs]
-       87 CALL                             R12 1 1
-       88 LOADK                            R14 K8 [0.5]
-       89 MUL                              R13 R14 R3
-       90 JUMPIFNOTLE                      R12 R13 ; [+4]
-       92 LOADB                            R12 1
-       93 MOVE                             R13 R10
-       94 RETURN                           R12 2
-       95 LOADB                            R12 0
-       96 RETURN                           R12 1
+       62 MULK                             R11 R3 K8 [0.5]
+       63 JUMPIFNOTLE                      R10 R11 ; [+4]
+       65 LOADB                            R10 1
+       66 MOVE                             R11 R8
+       67 RETURN                           R10 2
+       68 MINUS                            R12 R5
+       69 FASTCALL1                        MATH_SQRT R7 ; [+3]
+       70 MOVE                             R14 R7
+       71 GETIMPORT                        R13 K4 [math.sqrt]
+       73 CALL                             R13 1 1
+       74 ADD                              R11 R12 R13
+       75 DIV                              R10 R11 R4
+       76 GETTABLEKS                       R12 R0 K5 ["X"]
+       78 GETTABLEKS                       R14 R1 K5 ["X"]
+       80 MUL                              R13 R10 R14
+       81 ADD                              R11 R12 R13
+       82 FASTCALL1                        MATH_ABS R11 ; [+3]
+       83 MOVE                             R13 R11
+       84 GETIMPORT                        R12 K7 [math.abs]
+       86 CALL                             R12 1 1
+       87 MULK                             R13 R3 K8 [0.5]
+       88 JUMPIFNOTLE                      R12 R13 ; [+4]
+       90 LOADB                            R12 1
+       91 MOVE                             R13 R10
+       92 RETURN                           R12 2
+       93 LOADB                            R12 0
+       94 RETURN                           R12 1
 
 PROTO_5:
         0 SUB                              R4 R0 R2

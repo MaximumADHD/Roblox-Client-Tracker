@@ -1,28 +1,4 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 NEWTABLE                         R4 0 1
-        3 MOVE                             R5 R0
-        4 SETLIST                          R4 R5 1 [1]
-        6 NAMECALL                         R2 R2 K0 ["GetAsync"]
-        8 CALL                             R2 2 1
-        9 LENGTH                           R3 R2
-       10 JUMPIFNOTEQKN                    R3 K1 [0] ; [+2]
-       12 RETURN                           R0 0
-       13 GETTABLEN                        R3 R2 1
-       14 GETTABLEKS                       R4 R3 K2 ["Shortcuts"]
-       16 JUMPIFEQKNIL                     R4 ; [+6]
-       18 GETTABLEKS                       R5 R3 K2 ["Shortcuts"]
-       20 LENGTH                           R4 R5
-       21 JUMPIFNOTEQKN                    R4 K1 [0] ; [+9]
-       23 SETTABLEKS                       R1 R3 K2 ["Shortcuts"]
-       25 GETUPVAL                         R4 0
-       26 MOVE                             R6 R3
-       27 LOADB                            R7 1
-       28 NAMECALL                         R4 R4 K3 ["CreateAsync"]
-       30 CALL                             R4 3 0
-       31 RETURN                           R0 0
-
-PROTO_1:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -35,7 +11,7 @@ PROTO_1:
        11 FORGLOOP                         R0 2 ; [-8]
        13 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 NEWTABLE                         R0 8 0
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K0 ["actionUri"]
@@ -51,86 +27,74 @@ PROTO_2:
        17 NAMECALL                         R2 R2 K4 ["Connect"]
        19 CALL                             R2 2 1
        20 SETTABLEKS                       R2 R0 K3 ["reimport"]
-       22 GETUPVAL                         R2 4
-       23 CALL                             R2 0 1
-       24 JUMPIF                           R2 ; [+8]
-       25 GETUPVAL                         R2 5
-       26 MOVE                             R3 R1
-       27 NEWTABLE                         R4 0 1
-       29 LOADK                            R5 K5 ["Shift+Alt+R"]
-       30 SETLIST                          R4 R5 1 [1]
-       32 CALL                             R2 2 0
-       33 GETUPVAL                         R2 0
-       34 GETTABLEKS                       R2 R2 K0 ["actionUri"]
-       36 GETUPVAL                         R3 1
-       37 GETTABLEKS                       R3 R3 K6 ["REIMPORT_RELATIVE_TO_THIS"]
-       39 CALL                             R2 1 1
-       40 GETUPVAL                         R3 2
-       41 MOVE                             R5 R2
-       42 NAMECALL                         R3 R3 K2 ["BindToActivatedAsync"]
-       44 CALL                             R3 2 1
-       45 GETUPVAL                         R5 3
-       46 GETTABLEKS                       R5 R5 K7 ["reimportRelative"]
-       48 NAMECALL                         R3 R3 K4 ["Connect"]
-       50 CALL                             R3 2 1
-       51 SETTABLEKS                       R3 R0 K8 ["reimport_rel"]
-       53 GETUPVAL                         R3 0
-       54 GETTABLEKS                       R3 R3 K0 ["actionUri"]
-       56 GETUPVAL                         R4 1
-       57 GETTABLEKS                       R4 R4 K9 ["CONFIGURE"]
-       59 CALL                             R3 1 1
-       60 GETUPVAL                         R4 2
-       61 MOVE                             R6 R3
-       62 NAMECALL                         R4 R4 K2 ["BindToActivatedAsync"]
-       64 CALL                             R4 2 1
-       65 GETUPVAL                         R6 3
-       66 GETTABLEKS                       R6 R6 K10 ["configure"]
-       68 NAMECALL                         R4 R4 K4 ["Connect"]
-       70 CALL                             R4 2 1
-       71 SETTABLEKS                       R4 R0 K10 ["configure"]
-       73 GETUPVAL                         R4 6
-       74 CALL                             R4 0 1
-       75 JUMPIFNOT                        R4 ; [+20]
-       76 GETUPVAL                         R4 0
-       77 GETTABLEKS                       R4 R4 K0 ["actionUri"]
-       79 GETUPVAL                         R5 1
-       80 GETTABLEKS                       R5 R5 K11 ["CLEAR_REIMPORT_CONFIG"]
-       82 CALL                             R4 1 1
-       83 GETUPVAL                         R5 2
-       84 MOVE                             R7 R4
-       85 NAMECALL                         R5 R5 K2 ["BindToActivatedAsync"]
-       87 CALL                             R5 2 1
-       88 GETUPVAL                         R7 3
-       89 GETTABLEKS                       R7 R7 K12 ["clearConfig"]
-       91 NAMECALL                         R5 R5 K4 ["Connect"]
-       93 CALL                             R5 2 1
-       94 SETTABLEKS                       R5 R0 K13 ["clear_config"]
-       96 GETUPVAL                         R4 7
-       97 CALL                             R4 0 1
-       98 JUMPIFNOT                        R4 ; [+20]
-       99 GETUPVAL                         R4 0
-      100 GETTABLEKS                       R4 R4 K0 ["actionUri"]
-      102 GETUPVAL                         R5 1
-      103 GETTABLEKS                       R5 R5 K14 ["WATCH_INSTANCE_FILE"]
-      105 CALL                             R4 1 1
-      106 GETUPVAL                         R5 2
-      107 MOVE                             R7 R4
-      108 NAMECALL                         R5 R5 K2 ["BindToActivatedAsync"]
-      110 CALL                             R5 2 1
-      111 GETUPVAL                         R7 3
-      112 GETTABLEKS                       R7 R7 K15 ["watchInstanceFile"]
-      114 NAMECALL                         R5 R5 K4 ["Connect"]
-      116 CALL                             R5 2 1
-      117 SETTABLEKS                       R5 R0 K16 ["watch_instance_file"]
-      119 GETUPVAL                         R4 8
-      120 GETTABLEKS                       R4 R4 K17 ["Unloading"]
-      122 NEWCLOSURE                       R6 P0
-      123 CAPTURE                          VAL R0
-      124 NAMECALL                         R4 R4 K4 ["Connect"]
-      126 CALL                             R4 2 0
-      127 RETURN                           R0 0
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K0 ["actionUri"]
+       25 GETUPVAL                         R3 1
+       26 GETTABLEKS                       R3 R3 K5 ["REIMPORT_RELATIVE_TO_THIS"]
+       28 CALL                             R2 1 1
+       29 GETUPVAL                         R3 2
+       30 MOVE                             R5 R2
+       31 NAMECALL                         R3 R3 K2 ["BindToActivatedAsync"]
+       33 CALL                             R3 2 1
+       34 GETUPVAL                         R5 3
+       35 GETTABLEKS                       R5 R5 K6 ["reimportRelative"]
+       37 NAMECALL                         R3 R3 K4 ["Connect"]
+       39 CALL                             R3 2 1
+       40 SETTABLEKS                       R3 R0 K7 ["reimport_rel"]
+       42 GETUPVAL                         R3 0
+       43 GETTABLEKS                       R3 R3 K0 ["actionUri"]
+       45 GETUPVAL                         R4 1
+       46 GETTABLEKS                       R4 R4 K8 ["CONFIGURE"]
+       48 CALL                             R3 1 1
+       49 GETUPVAL                         R4 2
+       50 MOVE                             R6 R3
+       51 NAMECALL                         R4 R4 K2 ["BindToActivatedAsync"]
+       53 CALL                             R4 2 1
+       54 GETUPVAL                         R6 3
+       55 GETTABLEKS                       R6 R6 K9 ["configure"]
+       57 NAMECALL                         R4 R4 K4 ["Connect"]
+       59 CALL                             R4 2 1
+       60 SETTABLEKS                       R4 R0 K9 ["configure"]
+       62 GETUPVAL                         R4 0
+       63 GETTABLEKS                       R4 R4 K0 ["actionUri"]
+       65 GETUPVAL                         R5 1
+       66 GETTABLEKS                       R5 R5 K10 ["CLEAR_REIMPORT_CONFIG"]
+       68 CALL                             R4 1 1
+       69 GETUPVAL                         R5 2
+       70 MOVE                             R7 R4
+       71 NAMECALL                         R5 R5 K2 ["BindToActivatedAsync"]
+       73 CALL                             R5 2 1
+       74 GETUPVAL                         R7 3
+       75 GETTABLEKS                       R7 R7 K11 ["clearConfig"]
+       77 NAMECALL                         R5 R5 K4 ["Connect"]
+       79 CALL                             R5 2 1
+       80 SETTABLEKS                       R5 R0 K12 ["clear_config"]
+       82 GETUPVAL                         R5 4
+       83 CALL                             R5 0 1
+       84 JUMPIFNOT                        R5 ; [+20]
+       85 GETUPVAL                         R5 0
+       86 GETTABLEKS                       R5 R5 K0 ["actionUri"]
+       88 GETUPVAL                         R6 1
+       89 GETTABLEKS                       R6 R6 K13 ["WATCH_INSTANCE_FILE"]
+       91 CALL                             R5 1 1
+       92 GETUPVAL                         R6 2
+       93 MOVE                             R8 R5
+       94 NAMECALL                         R6 R6 K2 ["BindToActivatedAsync"]
+       96 CALL                             R6 2 1
+       97 GETUPVAL                         R8 3
+       98 GETTABLEKS                       R8 R8 K14 ["watchInstanceFile"]
+      100 NAMECALL                         R6 R6 K4 ["Connect"]
+      102 CALL                             R6 2 1
+      103 SETTABLEKS                       R6 R0 K15 ["watch_instance_file"]
+      105 GETUPVAL                         R5 5
+      106 GETTABLEKS                       R5 R5 K16 ["Unloading"]
+      108 NEWCLOSURE                       R7 P0
+      109 CAPTURE                          VAL R0
+      110 NAMECALL                         R5 R5 K4 ["Connect"]
+      112 CALL                             R5 2 0
+      113 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["newConfig"]
         3 MOVE                             R3 R0
@@ -143,7 +107,7 @@ PROTO_3:
        13 CALL                             R3 3 0
        14 RETURN                           R0 0
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -156,7 +120,7 @@ PROTO_4:
        11 FORGLOOP                         R0 2 ; [-8]
        13 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 NEWTABLE                         R0 1 0
         2 GETUPVAL                         R1 0
         3 CALL                             R1 0 1
@@ -228,38 +192,25 @@ MAIN:
        79 CALL                             R10 1 1
        80 GETIMPORT                        R11 K7 [require]
        82 GETTABLEKS                       R12 R0 K24 ["Flags"]
-       84 GETTABLEKS                       R12 R12 K26 ["GetFFlagReimportDuplicateAction"]
+       84 GETTABLEKS                       R12 R12 K26 ["GetFFlagReimportFileWatcher"]
        86 CALL                             R11 1 1
-       87 GETIMPORT                        R12 K7 [require]
-       89 GETTABLEKS                       R13 R0 K24 ["Flags"]
-       91 GETTABLEKS                       R13 R13 K27 ["GetFFlagReimportClearAction"]
-       93 CALL                             R12 1 1
-       94 GETIMPORT                        R13 K7 [require]
-       96 GETTABLEKS                       R14 R0 K24 ["Flags"]
-       98 GETTABLEKS                       R14 R14 K28 ["GetFFlagReimportFileWatcher"]
-      100 CALL                             R13 1 1
-      101 NEWTABLE                         R14 2 0
-      103 DUPCLOSURE                       R15 K29 [PROTO_0]
-      104 CAPTURE                          VAL R4
-      105 DUPCLOSURE                       R16 K30 [PROTO_2]
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R6
-      108 CAPTURE                          VAL R4
-      109 CAPTURE                          VAL R3
-      110 CAPTURE                          VAL R11
-      111 CAPTURE                          VAL R15
-      112 CAPTURE                          VAL R12
-      113 CAPTURE                          VAL R13
-      114 CAPTURE                          VAL R1
-      115 SETTABLEKS                       R16 R14 K31 ["registerActions"]
-      117 DUPCLOSURE                       R16 K32 [PROTO_3]
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R2
-      120 SETGLOBAL                        R16 K33 ["_configureId"]
-      122 DUPCLOSURE                       R16 K34 [PROTO_5]
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R2
-      126 CAPTURE                          VAL R1
-      127 SETTABLEKS                       R16 R14 K35 ["registerCrossPluginListeners"]
-      129 RETURN                           R14 1
+       87 NEWTABLE                         R12 2 0
+       89 DUPCLOSURE                       R13 K27 [PROTO_1]
+       90 CAPTURE                          VAL R5
+       91 CAPTURE                          VAL R6
+       92 CAPTURE                          VAL R4
+       93 CAPTURE                          VAL R3
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R1
+       96 SETTABLEKS                       R13 R12 K28 ["registerActions"]
+       98 DUPCLOSURE                       R13 K29 [PROTO_2]
+       99 CAPTURE                          VAL R9
+      100 CAPTURE                          VAL R2
+      101 SETGLOBAL                        R13 K30 ["_configureId"]
+      103 DUPCLOSURE                       R13 K31 [PROTO_4]
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R2
+      107 CAPTURE                          VAL R1
+      108 SETTABLEKS                       R13 R12 K32 ["registerCrossPluginListeners"]
+      110 RETURN                           R12 1

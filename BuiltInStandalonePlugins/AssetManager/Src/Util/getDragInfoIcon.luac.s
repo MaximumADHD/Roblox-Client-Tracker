@@ -59,7 +59,7 @@ PROTO_0:
        82 GETTABLEKS                       R7 R7 K9 ["AssetType"]
        84 GETTABLEKS                       R7 R7 K16 ["FontFamily"]
        86 JUMPIFNOTEQ                      R3 R7 ; [+3]
-       88 LOADK                            R6 K17 ["UiTextSizeConstraint"]
+       88 LOADK                            R6 K17 ["UITextSizeConstraint"]
        89 JUMP                             ; [+58]
        90 GETUPVAL                         R7 0
        91 GETTABLEKS                       R7 R7 K9 ["AssetType"]

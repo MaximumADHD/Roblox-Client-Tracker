@@ -298,70 +298,100 @@ PROTO_9:
         8 LENGTH                           R3 R2
         9 JUMPIFNOTEQKN                    R3 K2 [0] ; [+2]
        11 RETURN                           R0 1
-       12 GETIMPORT                        R3 K5 [table.clone]
-       14 GETTABLEKS                       R4 R0 K6 ["inputSchema"]
-       16 CALL                             R3 1 1
-       17 GETTABLEKS                       R4 R3 K7 ["required"]
-       19 JUMPIF                           R4 ; [+5]
-       20 NEWTABLE                         R4 0 0
-       22 SETTABLEKS                       R4 R3 K7 ["required"]
-       24 JUMP                             ; [+7]
-       25 GETIMPORT                        R4 K5 [table.clone]
-       27 GETTABLEKS                       R5 R3 K7 ["required"]
-       29 CALL                             R4 1 1
-       30 SETTABLEKS                       R4 R3 K7 ["required"]
-       32 GETTABLEKS                       R5 R3 K7 ["required"]
-       34 FASTCALL2K                       ASSERT R5 K8 ; [+4]
-       36 LOADK                            R6 K8 ["Expected required to be present in input schema"]
-       37 GETIMPORT                        R4 K10 [assert]
-       39 CALL                             R4 2 0
-       40 GETTABLEKS                       R5 R3 K7 ["required"]
-       42 FASTCALL2K                       TABLE_INSERT R5 K11 ; [+4]
-       44 LOADK                            R6 K11 ["datamodel_type"]
-       45 GETIMPORT                        R4 K13 [table.insert]
-       47 CALL                             R4 2 0
-       48 GETTABLEKS                       R4 R3 K14 ["properties"]
-       50 JUMPIF                           R4 ; [+5]
-       51 NEWTABLE                         R4 0 0
-       53 SETTABLEKS                       R4 R3 K14 ["properties"]
-       55 JUMP                             ; [+7]
-       56 GETIMPORT                        R4 K5 [table.clone]
-       58 GETTABLEKS                       R5 R3 K14 ["properties"]
-       60 CALL                             R4 1 1
-       61 SETTABLEKS                       R4 R3 K14 ["properties"]
-       63 GETTABLEKS                       R5 R3 K14 ["properties"]
-       65 FASTCALL2K                       ASSERT R5 K15 ; [+4]
-       67 LOADK                            R6 K15 ["Expected properties to be present in input schema"]
-       68 GETIMPORT                        R4 K10 [assert]
-       70 CALL                             R4 2 0
-       71 GETTABLEKS                       R4 R3 K14 ["properties"]
-       73 DUPTABLE                         R5 K20 [{["type"] = "string", ["enum"], ["description"]}]
-       74 SETTABLEKS                       R2 R5 K18 ["enum"]
-       76 GETUPVAL                         R7 1
-       77 GETTABLEKS                       R7 R7 K21 ["FFlagAssistantGetStudioState"]
-       79 JUMPIFNOT                        R7 ; [+12]
-       80 LOADK                            R7 K22 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. call %* to get current available datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
-       81 GETUPVAL                         R9 2
-       82 GETTABLEKS                       R9 R9 K23 ["GetStudioState"]
-       84 GETUPVAL                         R10 2
-       85 GETTABLEKS                       R10 R10 K24 ["StartStopPlay"]
-       87 NAMECALL                         R7 R7 K25 ["format"]
-       89 CALL                             R7 3 1
-       90 MOVE                             R6 R7
-       91 JUMP                             ; [+8]
-       92 LOADK                            R7 K26 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
-       93 GETUPVAL                         R9 2
-       94 GETTABLEKS                       R9 R9 K24 ["StartStopPlay"]
-       96 NAMECALL                         R7 R7 K25 ["format"]
-       98 CALL                             R7 2 1
-       99 MOVE                             R6 R7
-      100 SETTABLEKS                       R6 R5 K19 ["description"]
-      102 SETTABLEKS                       R5 R4 K11 ["datamodel_type"]
-      104 GETIMPORT                        R4 K5 [table.clone]
-      106 MOVE                             R5 R0
-      107 CALL                             R4 1 1
-      108 SETTABLEKS                       R3 R4 K6 ["inputSchema"]
-      110 RETURN                           R4 1
+       12 LOADNIL                          R3
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K3 ["FFlagAssistantStandaloneDataModel"]
+       16 JUMPIFNOT                        R4 ; [+35]
+       17 NEWTABLE                         R3 0 0
+       19 GETUPVAL                         R4 2
+       20 GETTABLEKS                       R4 R4 K4 ["get"]
+       22 CALL                             R4 0 1
+       23 GETTABLEKS                       R4 R4 K5 ["hasInternalPermission"]
+       25 CALL                             R4 0 1
+       26 MOVE                             R5 R2
+       27 LOADNIL                          R6
+       28 LOADNIL                          R7
+       29 FORGPREP                         R5
+       30 GETUPVAL                         R10 3
+       31 GETTABLEKS                       R10 R10 K6 ["Types"]
+       33 GETTABLEKS                       R10 R10 K7 ["Standalone"]
+       35 JUMPIFNOTEQ                      R9 R10 ; [+2]
+       37 JUMPIFNOT                        R4 ; [+7]
+       38 FASTCALL2                        TABLE_INSERT R3 R9 ; [+5]
+       40 MOVE                             R11 R3
+       41 MOVE                             R12 R9
+       42 GETIMPORT                        R10 K10 [table.insert]
+       44 CALL                             R10 2 0
+       45 FORGLOOP                         R5 2 ; [-16]
+       47 LENGTH                           R5 R3
+       48 JUMPIFNOTEQKN                    R5 K2 [0] ; [+4]
+       50 RETURN                           R0 1
+       51 JUMP                             ; [+1]
+       52 MOVE                             R3 R2
+       53 GETIMPORT                        R4 K12 [table.clone]
+       55 GETTABLEKS                       R5 R0 K13 ["inputSchema"]
+       57 CALL                             R4 1 1
+       58 GETTABLEKS                       R5 R4 K14 ["required"]
+       60 JUMPIF                           R5 ; [+5]
+       61 NEWTABLE                         R5 0 0
+       63 SETTABLEKS                       R5 R4 K14 ["required"]
+       65 JUMP                             ; [+7]
+       66 GETIMPORT                        R5 K12 [table.clone]
+       68 GETTABLEKS                       R6 R4 K14 ["required"]
+       70 CALL                             R5 1 1
+       71 SETTABLEKS                       R5 R4 K14 ["required"]
+       73 GETTABLEKS                       R6 R4 K14 ["required"]
+       75 FASTCALL2K                       ASSERT R6 K15 ; [+4]
+       77 LOADK                            R7 K15 ["Expected required to be present in input schema"]
+       78 GETIMPORT                        R5 K17 [assert]
+       80 CALL                             R5 2 0
+       81 GETTABLEKS                       R6 R4 K14 ["required"]
+       83 FASTCALL2K                       TABLE_INSERT R6 K18 ; [+4]
+       85 LOADK                            R7 K18 ["datamodel_type"]
+       86 GETIMPORT                        R5 K10 [table.insert]
+       88 CALL                             R5 2 0
+       89 GETTABLEKS                       R5 R4 K19 ["properties"]
+       91 JUMPIF                           R5 ; [+5]
+       92 NEWTABLE                         R5 0 0
+       94 SETTABLEKS                       R5 R4 K19 ["properties"]
+       96 JUMP                             ; [+7]
+       97 GETIMPORT                        R5 K12 [table.clone]
+       99 GETTABLEKS                       R6 R4 K19 ["properties"]
+      101 CALL                             R5 1 1
+      102 SETTABLEKS                       R5 R4 K19 ["properties"]
+      104 GETTABLEKS                       R6 R4 K19 ["properties"]
+      106 FASTCALL2K                       ASSERT R6 K20 ; [+4]
+      108 LOADK                            R7 K20 ["Expected properties to be present in input schema"]
+      109 GETIMPORT                        R5 K17 [assert]
+      111 CALL                             R5 2 0
+      112 GETTABLEKS                       R5 R4 K19 ["properties"]
+      114 DUPTABLE                         R6 K25 [{["type"] = "string", ["enum"], ["description"]}]
+      115 SETTABLEKS                       R3 R6 K23 ["enum"]
+      117 GETUPVAL                         R8 1
+      118 GETTABLEKS                       R8 R8 K26 ["FFlagAssistantGetStudioState"]
+      120 JUMPIFNOT                        R8 ; [+12]
+      121 LOADK                            R8 K27 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. call %* to get current available datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
+      122 GETUPVAL                         R10 4
+      123 GETTABLEKS                       R10 R10 K28 ["GetStudioState"]
+      125 GETUPVAL                         R11 4
+      126 GETTABLEKS                       R11 R11 K29 ["StartStopPlay"]
+      128 NAMECALL                         R8 R8 K30 ["format"]
+      130 CALL                             R8 3 1
+      131 MOVE                             R7 R8
+      132 JUMP                             ; [+8]
+      133 LOADK                            R8 K31 ["The target datamodel to operate on, the tool can only be performed in those datamodel types. if the target datamodel is not available in current mode, consider using %* to switch to the desired mode and then use the tools. This is a required argument."]
+      134 GETUPVAL                         R10 4
+      135 GETTABLEKS                       R10 R10 K29 ["StartStopPlay"]
+      137 NAMECALL                         R8 R8 K30 ["format"]
+      139 CALL                             R8 2 1
+      140 MOVE                             R7 R8
+      141 SETTABLEKS                       R7 R6 K24 ["description"]
+      143 SETTABLEKS                       R6 R5 K18 ["datamodel_type"]
+      145 GETIMPORT                        R5 K12 [table.clone]
+      147 MOVE                             R6 R0
+      148 CALL                             R5 1 1
+      149 SETTABLEKS                       R4 R5 K13 ["inputSchema"]
+      151 RETURN                           R5 1
 
 PROTO_10:
         0 MOVE                             R2 R0
@@ -774,69 +804,73 @@ PROTO_22:
        50 LOADB                            R10 0
        51 NAMECALL                         R8 R8 K14 ["GenerateGUID"]
        53 CALL                             R8 2 1
-       54 GETTABLEKS                       R9 R6 K15 ["logToolStarted"]
-       56 DUPTABLE                         R10 K25 [{["messageGuid"], ["sessionId"], ["toolId"], ["toolName"], ["clientName"], ["isThirdPartyRequest"] = True, ["isSlashCommand"] = False, ["input"]}]
-       57 SETTABLEKS                       R7 R10 K16 ["messageGuid"]
-       59 GETUPVAL                         R12 2
-       60 ORK                              R11 R12 K26 [""]
-       61 SETTABLEKS                       R11 R10 K17 ["sessionId"]
-       63 SETTABLEKS                       R8 R10 K18 ["toolId"]
-       65 SETTABLEKS                       R4 R10 K19 ["toolName"]
-       67 GETTABLEKS                       R11 R3 K27 ["client_name"]
-       69 SETTABLEKS                       R11 R10 K20 ["clientName"]
-       71 SETTABLEKS                       R5 R10 K24 ["input"]
-       73 CALL                             R9 1 0
-       74 GETUPVAL                         R9 3
-       75 GETTABLEKS                       R9 R9 K28 ["getTimestampMilliseconds"]
-       77 CALL                             R9 0 1
-       78 LOADNIL                          R10
-       79 GETUPVAL                         R11 4
-       80 GETTABLEKS                       R11 R11 K29 ["FFlagSkipExternalToolsNoDebugMode"]
-       82 JUMPIFNOT                        R11 ; [+13]
-       83 GETUPVAL                         R11 5
-       84 CALL                             R11 0 1
-       85 JUMPIFNOT                        R11 ; [+10]
-       86 DUPTABLE                         R11 K32 [{["isError"] = True, ["content"]}]
-       87 NEWTABLE                         R12 0 1
-       89 DUPTABLE                         R13 K36 [{["type"] = "text", ["text"] = "Tool calls are not allowed while in Play mode."}]
-       90 SETLIST                          R12 R13 1 [1]
-       92 SETTABLEKS                       R12 R11 K31 ["content"]
-       94 MOVE                             R10 R11
-       95 JUMP                             ; [+15]
-       96 GETUPVAL                         R11 6
-       97 DUPTABLE                         R12 K41 [{"name", "args", "meta", "extra", "listTools"}]
-       98 SETTABLEKS                       R4 R12 K6 ["name"]
-      100 SETTABLEKS                       R5 R12 K37 ["args"]
-      102 SETTABLEKS                       R3 R12 K38 ["meta"]
-      104 SETTABLEKS                       R1 R12 K39 ["extra"]
-      106 GETUPVAL                         R13 7
-      107 SETTABLEKS                       R13 R12 K40 ["listTools"]
-      109 CALL                             R11 1 1
-      110 MOVE                             R10 R11
-      111 GETUPVAL                         R11 3
-      112 GETTABLEKS                       R11 R11 K28 ["getTimestampMilliseconds"]
-      114 CALL                             R11 0 1
-      115 GETTABLEKS                       R12 R6 K42 ["logToolEnded"]
-      117 DUPTABLE                         R13 K47 [{["messageGuid"], ["toolId"], ["toolName"], ["startTime"], ["startTimeAfterConfirmation"], ["endTime"], ["isError"], ["clientName"], ["isThirdPartyRequest"] = True, ["isSlashCommand"] = False, ["toolResultContent"]}]
-      118 SETTABLEKS                       R7 R13 K16 ["messageGuid"]
-      120 SETTABLEKS                       R8 R13 K18 ["toolId"]
-      122 SETTABLEKS                       R4 R13 K19 ["toolName"]
-      124 SETTABLEKS                       R9 R13 K43 ["startTime"]
-      126 SETTABLEKS                       R9 R13 K44 ["startTimeAfterConfirmation"]
-      128 SETTABLEKS                       R11 R13 K45 ["endTime"]
-      130 GETTABLEKS                       R15 R10 K30 ["isError"]
-      132 ORK                              R14 R15 K23 [False]
-      133 SETTABLEKS                       R14 R13 K30 ["isError"]
-      135 GETTABLEKS                       R14 R3 K27 ["client_name"]
-      137 SETTABLEKS                       R14 R13 K20 ["clientName"]
-      139 GETTABLEKS                       R14 R10 K31 ["content"]
-      141 SETTABLEKS                       R14 R13 K46 ["toolResultContent"]
-      143 CALL                             R12 1 0
-      144 GETUPVAL                         R12 8
-      145 MOVE                             R13 R10
-      146 CALL                             R12 1 1
-      147 MOVE                             R10 R12
-      148 RETURN                           R10 1
+       54 GETUPVAL                         R9 2
+       55 GETTABLEKS                       R9 R9 K15 ["FFlagAssistantSplitToolsAndWidgets"]
+       57 JUMPIFNOT                        R9 ; [+2]
+       58 SETTABLEKS                       R8 R3 K16 ["toolId"]
+       60 GETTABLEKS                       R9 R6 K17 ["logToolStarted"]
+       62 DUPTABLE                         R10 K26 [{["messageGuid"], ["sessionId"], ["toolId"], ["toolName"], ["clientName"], ["isThirdPartyRequest"] = True, ["isSlashCommand"] = False, ["input"]}]
+       63 SETTABLEKS                       R7 R10 K18 ["messageGuid"]
+       65 GETUPVAL                         R12 3
+       66 ORK                              R11 R12 K27 [""]
+       67 SETTABLEKS                       R11 R10 K19 ["sessionId"]
+       69 SETTABLEKS                       R8 R10 K16 ["toolId"]
+       71 SETTABLEKS                       R4 R10 K20 ["toolName"]
+       73 GETTABLEKS                       R11 R3 K28 ["client_name"]
+       75 SETTABLEKS                       R11 R10 K21 ["clientName"]
+       77 SETTABLEKS                       R5 R10 K25 ["input"]
+       79 CALL                             R9 1 0
+       80 GETUPVAL                         R9 4
+       81 GETTABLEKS                       R9 R9 K29 ["getTimestampMilliseconds"]
+       83 CALL                             R9 0 1
+       84 LOADNIL                          R10
+       85 GETUPVAL                         R11 2
+       86 GETTABLEKS                       R11 R11 K30 ["FFlagSkipExternalToolsNoDebugMode"]
+       88 JUMPIFNOT                        R11 ; [+13]
+       89 GETUPVAL                         R11 5
+       90 CALL                             R11 0 1
+       91 JUMPIFNOT                        R11 ; [+10]
+       92 DUPTABLE                         R11 K33 [{["isError"] = True, ["content"]}]
+       93 NEWTABLE                         R12 0 1
+       95 DUPTABLE                         R13 K37 [{["type"] = "text", ["text"] = "Tool calls are not allowed while in Play mode."}]
+       96 SETLIST                          R12 R13 1 [1]
+       98 SETTABLEKS                       R12 R11 K32 ["content"]
+      100 MOVE                             R10 R11
+      101 JUMP                             ; [+15]
+      102 GETUPVAL                         R11 6
+      103 DUPTABLE                         R12 K42 [{"name", "args", "meta", "extra", "listTools"}]
+      104 SETTABLEKS                       R4 R12 K6 ["name"]
+      106 SETTABLEKS                       R5 R12 K38 ["args"]
+      108 SETTABLEKS                       R3 R12 K39 ["meta"]
+      110 SETTABLEKS                       R1 R12 K40 ["extra"]
+      112 GETUPVAL                         R13 7
+      113 SETTABLEKS                       R13 R12 K41 ["listTools"]
+      115 CALL                             R11 1 1
+      116 MOVE                             R10 R11
+      117 GETUPVAL                         R11 4
+      118 GETTABLEKS                       R11 R11 K29 ["getTimestampMilliseconds"]
+      120 CALL                             R11 0 1
+      121 GETTABLEKS                       R12 R6 K43 ["logToolEnded"]
+      123 DUPTABLE                         R13 K48 [{["messageGuid"], ["toolId"], ["toolName"], ["startTime"], ["startTimeAfterConfirmation"], ["endTime"], ["isError"], ["clientName"], ["isThirdPartyRequest"] = True, ["isSlashCommand"] = False, ["toolResultContent"]}]
+      124 SETTABLEKS                       R7 R13 K18 ["messageGuid"]
+      126 SETTABLEKS                       R8 R13 K16 ["toolId"]
+      128 SETTABLEKS                       R4 R13 K20 ["toolName"]
+      130 SETTABLEKS                       R9 R13 K44 ["startTime"]
+      132 SETTABLEKS                       R9 R13 K45 ["startTimeAfterConfirmation"]
+      134 SETTABLEKS                       R11 R13 K46 ["endTime"]
+      136 GETTABLEKS                       R15 R10 K31 ["isError"]
+      138 ORK                              R14 R15 K24 [False]
+      139 SETTABLEKS                       R14 R13 K31 ["isError"]
+      141 GETTABLEKS                       R14 R3 K28 ["client_name"]
+      143 SETTABLEKS                       R14 R13 K21 ["clientName"]
+      145 GETTABLEKS                       R14 R10 K32 ["content"]
+      147 SETTABLEKS                       R14 R13 K47 ["toolResultContent"]
+      149 CALL                             R12 1 0
+      150 GETUPVAL                         R12 8
+      151 MOVE                             R13 R10
+      152 CALL                             R12 1 1
+      153 MOVE                             R10 R12
+      154 RETURN                           R10 1
 
 PROTO_23:
         0 GETUPVAL                         R0 0
@@ -952,8 +986,8 @@ PROTO_26:
        41 NEWCLOSURE                       R11 P4
        42 CAPTURE                          UPVAL U3
        43 CAPTURE                          UPVAL U8
-       44 CAPTURE                          VAL R4
-       45 CAPTURE                          UPVAL U9
+       44 CAPTURE                          UPVAL U9
+       45 CAPTURE                          VAL R4
        46 CAPTURE                          UPVAL U10
        47 CAPTURE                          VAL R1
        48 CAPTURE                          UPVAL U11
@@ -1459,76 +1493,78 @@ MAIN:
       387 DUPCLOSURE                       R46 K121 [PROTO_9]
       388 CAPTURE                          VAL R14
       389 CAPTURE                          VAL R5
-      390 CAPTURE                          VAL R33
-      391 DUPCLOSURE                       R47 K122 [PROTO_10]
-      392 CAPTURE                          VAL R14
-      393 DUPCLOSURE                       R48 K123 [PROTO_11]
-      394 NEWCLOSURE                       R49 P10
-      395 CAPTURE                          VAL R23
-      396 CAPTURE                          VAL R36
-      397 CAPTURE                          VAL R44
-      398 CAPTURE                          VAL R26
-      399 CAPTURE                          VAL R5
-      400 CAPTURE                          VAL R13
-      401 CAPTURE                          VAL R41
-      402 CAPTURE                          REF R38
-      403 CAPTURE                          VAL R40
-      404 CAPTURE                          VAL R42
-      405 CAPTURE                          VAL R9
-      406 CAPTURE                          VAL R33
-      407 CAPTURE                          VAL R15
-      408 CAPTURE                          VAL R46
-      409 CAPTURE                          VAL R47
-      410 CAPTURE                          VAL R45
-      411 CAPTURE                          VAL R16
-      412 SETGLOBAL                        R49 K124 ["getBuiltinServer"]
-      414 DUPCLOSURE                       R49 K125 [PROTO_17]
-      415 CAPTURE                          VAL R24
-      416 SETGLOBAL                        R49 K126 ["startLocalServer"]
-      418 DUPCLOSURE                       R49 K127 [PROTO_26]
-      419 CAPTURE                          VAL R23
-      420 CAPTURE                          VAL R36
-      421 CAPTURE                          VAL R20
-      422 CAPTURE                          VAL R28
-      423 CAPTURE                          VAL R43
-      424 CAPTURE                          VAL R47
-      425 CAPTURE                          VAL R15
-      426 CAPTURE                          VAL R46
-      427 CAPTURE                          VAL R1
-      428 CAPTURE                          VAL R32
-      429 CAPTURE                          VAL R5
-      430 CAPTURE                          VAL R45
-      431 CAPTURE                          VAL R48
-      432 CAPTURE                          VAL R24
-      433 SETGLOBAL                        R49 K128 ["startExternalServer"]
-      435 DUPCLOSURE                       R49 K129 [PROTO_27]
-      436 CAPTURE                          VAL R21
-      437 DUPCLOSURE                       R50 K130 [PROTO_29]
-      438 CAPTURE                          VAL R17
-      439 CAPTURE                          VAL R5
-      440 CAPTURE                          VAL R29
-      441 CAPTURE                          VAL R1
-      442 DUPCLOSURE                       R51 K131 [PROTO_32]
-      443 CAPTURE                          VAL R21
-      444 CAPTURE                          VAL R22
-      445 CAPTURE                          VAL R19
-      446 CAPTURE                          VAL R10
-      447 CAPTURE                          VAL R18
-      448 CAPTURE                          VAL R5
-      449 CAPTURE                          VAL R35
-      450 CAPTURE                          VAL R28
-      451 CAPTURE                          VAL R27
-      452 CAPTURE                          VAL R30
-      453 CAPTURE                          VAL R25
-      454 CAPTURE                          VAL R4
-      455 DUPTABLE                         R52 K136 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer", "startExternalServer", "setToolEnabledStates", "TOOL_AVAILABILITY"}]
-      456 SETTABLEKS                       R51 R52 K132 ["promiseMcpHost"]
-      458 SETTABLEKS                       R50 R52 K133 ["configureModelContextProtocol"]
-      460 GETGLOBAL                        R53 K126 ["startLocalServer"]
-      462 SETTABLEKS                       R53 R52 K126 ["startLocalServer"]
-      464 GETGLOBAL                        R53 K128 ["startExternalServer"]
-      466 SETTABLEKS                       R53 R52 K128 ["startExternalServer"]
-      468 SETTABLEKS                       R39 R52 K134 ["setToolEnabledStates"]
-      470 SETTABLEKS                       R37 R52 K135 ["TOOL_AVAILABILITY"]
-      472 CLOSEUPVALS                      R38
-      473 RETURN                           R52 1
+      390 CAPTURE                          VAL R28
+      391 CAPTURE                          VAL R12
+      392 CAPTURE                          VAL R33
+      393 DUPCLOSURE                       R47 K122 [PROTO_10]
+      394 CAPTURE                          VAL R14
+      395 DUPCLOSURE                       R48 K123 [PROTO_11]
+      396 NEWCLOSURE                       R49 P10
+      397 CAPTURE                          VAL R23
+      398 CAPTURE                          VAL R36
+      399 CAPTURE                          VAL R44
+      400 CAPTURE                          VAL R26
+      401 CAPTURE                          VAL R5
+      402 CAPTURE                          VAL R13
+      403 CAPTURE                          VAL R41
+      404 CAPTURE                          REF R38
+      405 CAPTURE                          VAL R40
+      406 CAPTURE                          VAL R42
+      407 CAPTURE                          VAL R9
+      408 CAPTURE                          VAL R33
+      409 CAPTURE                          VAL R15
+      410 CAPTURE                          VAL R46
+      411 CAPTURE                          VAL R47
+      412 CAPTURE                          VAL R45
+      413 CAPTURE                          VAL R16
+      414 SETGLOBAL                        R49 K124 ["getBuiltinServer"]
+      416 DUPCLOSURE                       R49 K125 [PROTO_17]
+      417 CAPTURE                          VAL R24
+      418 SETGLOBAL                        R49 K126 ["startLocalServer"]
+      420 DUPCLOSURE                       R49 K127 [PROTO_26]
+      421 CAPTURE                          VAL R23
+      422 CAPTURE                          VAL R36
+      423 CAPTURE                          VAL R20
+      424 CAPTURE                          VAL R28
+      425 CAPTURE                          VAL R43
+      426 CAPTURE                          VAL R47
+      427 CAPTURE                          VAL R15
+      428 CAPTURE                          VAL R46
+      429 CAPTURE                          VAL R1
+      430 CAPTURE                          VAL R5
+      431 CAPTURE                          VAL R32
+      432 CAPTURE                          VAL R45
+      433 CAPTURE                          VAL R48
+      434 CAPTURE                          VAL R24
+      435 SETGLOBAL                        R49 K128 ["startExternalServer"]
+      437 DUPCLOSURE                       R49 K129 [PROTO_27]
+      438 CAPTURE                          VAL R21
+      439 DUPCLOSURE                       R50 K130 [PROTO_29]
+      440 CAPTURE                          VAL R17
+      441 CAPTURE                          VAL R5
+      442 CAPTURE                          VAL R29
+      443 CAPTURE                          VAL R1
+      444 DUPCLOSURE                       R51 K131 [PROTO_32]
+      445 CAPTURE                          VAL R21
+      446 CAPTURE                          VAL R22
+      447 CAPTURE                          VAL R19
+      448 CAPTURE                          VAL R10
+      449 CAPTURE                          VAL R18
+      450 CAPTURE                          VAL R5
+      451 CAPTURE                          VAL R35
+      452 CAPTURE                          VAL R28
+      453 CAPTURE                          VAL R27
+      454 CAPTURE                          VAL R30
+      455 CAPTURE                          VAL R25
+      456 CAPTURE                          VAL R4
+      457 DUPTABLE                         R52 K136 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer", "startExternalServer", "setToolEnabledStates", "TOOL_AVAILABILITY"}]
+      458 SETTABLEKS                       R51 R52 K132 ["promiseMcpHost"]
+      460 SETTABLEKS                       R50 R52 K133 ["configureModelContextProtocol"]
+      462 GETGLOBAL                        R53 K126 ["startLocalServer"]
+      464 SETTABLEKS                       R53 R52 K126 ["startLocalServer"]
+      466 GETGLOBAL                        R53 K128 ["startExternalServer"]
+      468 SETTABLEKS                       R53 R52 K128 ["startExternalServer"]
+      470 SETTABLEKS                       R39 R52 K134 ["setToolEnabledStates"]
+      472 SETTABLEKS                       R37 R52 K135 ["TOOL_AVAILABILITY"]
+      474 CLOSEUPVALS                      R38
+      475 RETURN                           R52 1

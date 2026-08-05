@@ -38,7 +38,10 @@ MAIN:
        19 GETTABLEKS                       R4 R2 K9 ["Packages"]
        21 GETTABLEKS                       R4 R4 K10 ["Roact"]
        23 CALL                             R3 1 1
-       24 DUPCLOSURE                       R4 K11 [PROTO_0]
-       25 CAPTURE                          VAL R3
-       26 CAPTURE                          VAL R0
-       27 RETURN                           R4 1
+       24 GETIMPORT                        R4 K8 [require]
+       26 GETTABLEKS                       R5 R1 K11 ["Types"]
+       28 CALL                             R4 1 1
+       29 DUPCLOSURE                       R5 K12 [PROTO_0]
+       30 CAPTURE                          VAL R3
+       31 CAPTURE                          VAL R0
+       32 RETURN                           R5 1

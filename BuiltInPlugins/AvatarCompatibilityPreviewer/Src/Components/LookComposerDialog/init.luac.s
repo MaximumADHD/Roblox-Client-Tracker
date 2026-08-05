@@ -385,42 +385,47 @@ PROTO_0:
       590 SETTABLEKS                       R21 R20 K122 ["MinContentSize"]
       592 GETIMPORT                        R21 K132 [Vector2.new]
       594 LOADN                            R22 800
-      595 LOADN                            R23 600
-      596 CALL                             R21 2 1
-      597 SETTABLEKS                       R21 R20 K123 ["Size"]
-      599 GETIMPORT                        R21 K132 [Vector2.new]
-      601 LOADN                            R22 800
-      602 LOADN                            R23 600
-      603 CALL                             R21 2 1
-      604 SETTABLEKS                       R21 R20 K124 ["MinSize"]
-      606 GETTABLEKS                       R21 R0 K25 ["onClose"]
-      608 SETTABLEKS                       R21 R20 K127 ["OnClose"]
-      610 DUPTABLE                         R21 K134 [{"OverlayProviderWrapper"}]
-      611 GETUPVAL                         R22 12
-      612 GETTABLEKS                       R22 R22 K30 ["createElement"]
-      614 GETUPVAL                         R23 26
-      615 DUPTABLE                         R24 K136 [{"gui"}]
-      616 SETTABLEKS                       R16 R24 K135 ["gui"]
-      618 DUPTABLE                         R25 K140 [{"StyleLink", "MainContainer", "Overlay"}]
-      619 GETUPVAL                         R26 12
-      620 GETTABLEKS                       R26 R26 K30 ["createElement"]
-      622 LOADK                            R27 K137 ["StyleLink"]
-      623 DUPTABLE                         R28 K142 [{"StyleSheet"}]
-      624 SETTABLEKS                       R1 R28 K141 ["StyleSheet"]
-      626 CALL                             R26 2 1
-      627 SETTABLEKS                       R26 R25 K137 ["StyleLink"]
-      629 SETTABLEKS                       R15 R25 K138 ["MainContainer"]
-      631 GETUPVAL                         R26 12
-      632 GETTABLEKS                       R26 R26 K30 ["createElement"]
-      634 GETUPVAL                         R27 14
-      635 DUPTABLE                         R28 K146 [{["tag"] = "size-full", ["ref"], ["ZIndex"] = 100}]
-      636 SETTABLEKS                       R17 R28 K143 ["ref"]
-      638 CALL                             R26 2 1
-      639 SETTABLEKS                       R26 R25 K139 ["Overlay"]
-      641 CALL                             R22 3 1
-      642 SETTABLEKS                       R22 R21 K133 ["OverlayProviderWrapper"]
-      644 CALL                             R18 3 -1
-      645 RETURN                           R18 -1
+      595 GETUPVAL                         R24 26
+      596 CALL                             R24 0 1
+      597 JUMPIFNOT                        R24 ; [+2]
+      598 LOADN                            R23 750
+      599 JUMP                             ; [+1]
+      600 LOADN                            R23 600
+      601 CALL                             R21 2 1
+      602 SETTABLEKS                       R21 R20 K123 ["Size"]
+      604 GETIMPORT                        R21 K132 [Vector2.new]
+      606 LOADN                            R22 800
+      607 LOADN                            R23 600
+      608 CALL                             R21 2 1
+      609 SETTABLEKS                       R21 R20 K124 ["MinSize"]
+      611 GETTABLEKS                       R21 R0 K25 ["onClose"]
+      613 SETTABLEKS                       R21 R20 K127 ["OnClose"]
+      615 DUPTABLE                         R21 K134 [{"OverlayProviderWrapper"}]
+      616 GETUPVAL                         R22 12
+      617 GETTABLEKS                       R22 R22 K30 ["createElement"]
+      619 GETUPVAL                         R23 27
+      620 DUPTABLE                         R24 K136 [{"gui"}]
+      621 SETTABLEKS                       R16 R24 K135 ["gui"]
+      623 DUPTABLE                         R25 K140 [{"StyleLink", "MainContainer", "Overlay"}]
+      624 GETUPVAL                         R26 12
+      625 GETTABLEKS                       R26 R26 K30 ["createElement"]
+      627 LOADK                            R27 K137 ["StyleLink"]
+      628 DUPTABLE                         R28 K142 [{"StyleSheet"}]
+      629 SETTABLEKS                       R1 R28 K141 ["StyleSheet"]
+      631 CALL                             R26 2 1
+      632 SETTABLEKS                       R26 R25 K137 ["StyleLink"]
+      634 SETTABLEKS                       R15 R25 K138 ["MainContainer"]
+      636 GETUPVAL                         R26 12
+      637 GETTABLEKS                       R26 R26 K30 ["createElement"]
+      639 GETUPVAL                         R27 14
+      640 DUPTABLE                         R28 K146 [{["tag"] = "size-full", ["ref"], ["ZIndex"] = 100}]
+      641 SETTABLEKS                       R17 R28 K143 ["ref"]
+      643 CALL                             R26 2 1
+      644 SETTABLEKS                       R26 R25 K139 ["Overlay"]
+      646 CALL                             R22 3 1
+      647 SETTABLEKS                       R22 R21 K133 ["OverlayProviderWrapper"]
+      649 CALL                             R18 3 -1
+      650 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -540,37 +545,43 @@ MAIN:
       205 GETTABLEKS                       R30 R30 K40 ["Flags"]
       207 GETTABLEKS                       R30 R30 K41 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
       209 CALL                             R29 1 1
-      210 DUPTABLE                         R30 K44 [{"AvatarLook", "MakeupLook"}]
-      211 DUPTABLE                         R31 K49 [{["title"] = "CreateAnAvatarLook", ["description"] = "CreateAnAvatarLookDescription"}]
-      212 SETTABLEKS                       R31 R30 K42 ["AvatarLook"]
-      214 DUPTABLE                         R31 K52 [{["title"] = "CreateAMakeupLook", ["description"] = "CreateAMakeupLookDescription"}]
-      215 SETTABLEKS                       R31 R30 K43 ["MakeupLook"]
-      217 DUPCLOSURE                       R31 K53 [PROTO_0]
-      218 CAPTURE                          VAL R29
-      219 CAPTURE                          VAL R10
-      220 CAPTURE                          VAL R9
-      221 CAPTURE                          VAL R22
-      222 CAPTURE                          VAL R23
-      223 CAPTURE                          VAL R24
-      224 CAPTURE                          VAL R21
-      225 CAPTURE                          VAL R25
-      226 CAPTURE                          VAL R27
-      227 CAPTURE                          VAL R26
-      228 CAPTURE                          VAL R28
-      229 CAPTURE                          VAL R11
-      230 CAPTURE                          VAL R1
-      231 CAPTURE                          VAL R5
-      232 CAPTURE                          VAL R3
-      233 CAPTURE                          VAL R15
-      234 CAPTURE                          VAL R16
-      235 CAPTURE                          VAL R20
-      236 CAPTURE                          VAL R18
-      237 CAPTURE                          VAL R19
-      238 CAPTURE                          VAL R4
-      239 CAPTURE                          VAL R30
-      240 CAPTURE                          VAL R13
-      241 CAPTURE                          VAL R14
-      242 CAPTURE                          VAL R17
-      243 CAPTURE                          VAL R8
-      244 CAPTURE                          VAL R6
-      245 RETURN                           R31 1
+      210 GETIMPORT                        R30 K5 [require]
+      212 GETTABLEKS                       R31 R0 K20 ["Src"]
+      214 GETTABLEKS                       R31 R31 K40 ["Flags"]
+      216 GETTABLEKS                       R31 R31 K42 ["getFFlagAvatarPreviewerLookComposerLargerDefaultSize"]
+      218 CALL                             R30 1 1
+      219 DUPTABLE                         R31 K45 [{"AvatarLook", "MakeupLook"}]
+      220 DUPTABLE                         R32 K50 [{["title"] = "CreateAnAvatarLook", ["description"] = "CreateAnAvatarLookDescription"}]
+      221 SETTABLEKS                       R32 R31 K43 ["AvatarLook"]
+      223 DUPTABLE                         R32 K53 [{["title"] = "CreateAMakeupLook", ["description"] = "CreateAMakeupLookDescription"}]
+      224 SETTABLEKS                       R32 R31 K44 ["MakeupLook"]
+      226 DUPCLOSURE                       R32 K54 [PROTO_0]
+      227 CAPTURE                          VAL R29
+      228 CAPTURE                          VAL R10
+      229 CAPTURE                          VAL R9
+      230 CAPTURE                          VAL R22
+      231 CAPTURE                          VAL R23
+      232 CAPTURE                          VAL R24
+      233 CAPTURE                          VAL R21
+      234 CAPTURE                          VAL R25
+      235 CAPTURE                          VAL R27
+      236 CAPTURE                          VAL R26
+      237 CAPTURE                          VAL R28
+      238 CAPTURE                          VAL R11
+      239 CAPTURE                          VAL R1
+      240 CAPTURE                          VAL R5
+      241 CAPTURE                          VAL R3
+      242 CAPTURE                          VAL R15
+      243 CAPTURE                          VAL R16
+      244 CAPTURE                          VAL R20
+      245 CAPTURE                          VAL R18
+      246 CAPTURE                          VAL R19
+      247 CAPTURE                          VAL R4
+      248 CAPTURE                          VAL R31
+      249 CAPTURE                          VAL R13
+      250 CAPTURE                          VAL R14
+      251 CAPTURE                          VAL R17
+      252 CAPTURE                          VAL R8
+      253 CAPTURE                          VAL R30
+      254 CAPTURE                          VAL R6
+      255 RETURN                           R32 1

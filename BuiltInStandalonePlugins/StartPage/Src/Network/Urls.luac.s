@@ -160,7 +160,7 @@ PROTO_29:
         1 RETURN                           R0 1
 
 PROTO_30:
-        0 LOADK                            R2 K0 ["v1/universes/%*/places"]
+        0 LOADK                            R2 K0 ["v1/universes/%*/activation-eligibility"]
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K1 ["format"]
         4 CALL                             R2 2 1
@@ -168,10 +168,18 @@ PROTO_30:
         6 RETURN                           R1 1
 
 PROTO_31:
+        0 LOADK                            R2 K0 ["v1/universes/%*/places"]
+        1 MOVE                             R4 R0
+        2 NAMECALL                         R2 R2 K1 ["format"]
+        4 CALL                             R2 2 1
+        5 MOVE                             R1 R2
+        6 RETURN                           R1 1
+
+PROTO_32:
         0 LOADK                            R0 K0 ["universes/v1/universes/create"]
         1 RETURN                           R0 1
 
-PROTO_32:
+PROTO_33:
         0 LOADK                            R2 K0 ["v2/universes/%*/configuration"]
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K1 ["format"]
@@ -179,8 +187,20 @@ PROTO_32:
         5 MOVE                             R1 R2
         6 RETURN                           R1 1
 
-PROTO_33:
+PROTO_34:
         0 LOADK                            R2 K0 ["universes/v1/user/universes/%*/places"]
+        1 MOVE                             R4 R0
+        2 NAMECALL                         R2 R2 K1 ["format"]
+        4 CALL                             R2 2 1
+        5 MOVE                             R1 R2
+        6 RETURN                           R1 1
+
+PROTO_35:
+        0 LOADK                            R0 K0 ["studio-user-data-api/pinned-experiences"]
+        1 RETURN                           R0 1
+
+PROTO_36:
+        0 LOADK                            R2 K0 ["studio-user-data-api/pinned-experiences/%*"]
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K1 ["format"]
         4 CALL                             R2 2 1
@@ -387,23 +407,41 @@ MAIN:
       326 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       328 DUPCLOSURE                       R6 K78 [PROTO_30]
       329 SETTABLEKS                       R6 R5 K9 ["Url"]
-      331 SETTABLEKS                       R5 R4 K79 ["UNIVERSE_PLACES"]
+      331 SETTABLEKS                       R5 R4 K79 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
       333 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      334 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      334 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
       336 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       338 DUPCLOSURE                       R6 K80 [PROTO_31]
       339 SETTABLEKS                       R6 R5 K9 ["Url"]
-      341 SETTABLEKS                       R5 R4 K81 ["CREATE_UNIVERSE"]
+      341 SETTABLEKS                       R5 R4 K81 ["UNIVERSE_PLACES"]
       343 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      344 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
+      344 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       346 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       348 DUPCLOSURE                       R6 K82 [PROTO_32]
       349 SETTABLEKS                       R6 R5 K9 ["Url"]
-      351 SETTABLEKS                       R5 R4 K83 ["UNIVERSE_CONFIGURATION_V2"]
+      351 SETTABLEKS                       R5 R4 K83 ["CREATE_UNIVERSE"]
       353 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      354 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      354 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
       356 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       358 DUPCLOSURE                       R6 K84 [PROTO_33]
       359 SETTABLEKS                       R6 R5 K9 ["Url"]
-      361 SETTABLEKS                       R5 R4 K85 ["COPY_PLACE_TO_UNIVERSE"]
-      363 RETURN                           R4 1
+      361 SETTABLEKS                       R5 R4 K85 ["UNIVERSE_CONFIGURATION_V2"]
+      363 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
+      364 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      366 SETTABLEKS                       R6 R5 K11 ["Prefix"]
+      368 DUPCLOSURE                       R6 K86 [PROTO_34]
+      369 SETTABLEKS                       R6 R5 K9 ["Url"]
+      371 SETTABLEKS                       R5 R4 K87 ["COPY_PLACE_TO_UNIVERSE"]
+      373 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
+      374 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      376 SETTABLEKS                       R6 R5 K11 ["Prefix"]
+      378 DUPCLOSURE                       R6 K88 [PROTO_35]
+      379 SETTABLEKS                       R6 R5 K9 ["Url"]
+      381 SETTABLEKS                       R5 R4 K89 ["PINNED_EXPERIENCES"]
+      383 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
+      384 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      386 SETTABLEKS                       R6 R5 K11 ["Prefix"]
+      388 DUPCLOSURE                       R6 K90 [PROTO_36]
+      389 SETTABLEKS                       R6 R5 K9 ["Url"]
+      391 SETTABLEKS                       R5 R4 K91 ["PINNED_EXPERIENCE"]
+      393 RETURN                           R4 1

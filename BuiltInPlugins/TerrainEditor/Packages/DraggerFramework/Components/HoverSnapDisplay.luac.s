@@ -250,16 +250,19 @@ MAIN:
        37 GETTABLEKS                       R7 R0 K6 ["Components"]
        39 GETTABLEKS                       R7 R7 K10 ["RulerView"]
        41 CALL                             R6 1 1
-       42 GETTABLEKS                       R7 R2 K11 ["Component"]
-       44 LOADK                            R9 K12 ["HoverSnapDisplay"]
-       45 NAMECALL                         R7 R7 K13 ["extend"]
-       47 CALL                             R7 2 1
-       48 DUPCLOSURE                       R8 K14 [PROTO_0]
-       49 DUPCLOSURE                       R9 K15 [PROTO_1]
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R6
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          VAL R4
-       55 SETTABLEKS                       R9 R7 K16 ["render"]
-       57 RETURN                           R7 1
+       42 GETIMPORT                        R7 K4 [require]
+       44 GETTABLEKS                       R8 R0 K11 ["Types"]
+       46 CALL                             R7 1 1
+       47 GETTABLEKS                       R8 R2 K12 ["Component"]
+       49 LOADK                            R10 K13 ["HoverSnapDisplay"]
+       50 NAMECALL                         R8 R8 K14 ["extend"]
+       52 CALL                             R8 2 1
+       53 DUPCLOSURE                       R9 K15 [PROTO_0]
+       54 DUPCLOSURE                       R10 K16 [PROTO_1]
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R4
+       60 SETTABLEKS                       R10 R8 K17 ["render"]
+       62 RETURN                           R8 1

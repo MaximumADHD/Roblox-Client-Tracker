@@ -212,26 +212,10 @@ PROTO_6:
         6 RETURN                           R1 -1
 
 PROTO_7:
-        0 LOADNIL                          R1
-        1 SETTABLEKS                       R1 R0 K0 ["OnSearchTermChanged"]
-        3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K1 ["OnSearchOptionsChanged"]
-        6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K2 ["OnSearchRequested"]
-        9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K3 ["OnSourceListChanged"]
-       12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K4 ["OnShowSearchOptionsChanged"]
-       15 LOADNIL                          R1
-       16 SETTABLEKS                       R1 R0 K5 ["OnIsDefaultSearchStateChanged"]
-       18 LOADNIL                          R1
-       19 SETTABLEKS                       R1 R0 K6 ["OnSearchHistoryChanged"]
-       21 GETUPVAL                         R1 0
-       22 GETTABLEKS                       R2 R0 K7 ["_connections"]
-       24 CALL                             R1 1 0
-       25 LOADNIL                          R1
-       26 SETTABLEKS                       R1 R0 K7 ["_connections"]
-       28 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["_connections"]
+        3 CALL                             R1 1 0
+        4 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R2 R1 K0 ["SearchTerm"]

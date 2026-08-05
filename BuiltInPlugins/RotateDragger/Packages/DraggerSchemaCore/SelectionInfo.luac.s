@@ -42,7 +42,7 @@ PROTO_2:
         4 GETTABLEKS                       R4 R1 K2 ["Z"]
         6 GETUPVAL                         R6 0
         7 MUL                              R5 R6 R0
-        8 NAMECALL                         R6 R5 K3 ["components"]
+        8 NAMECALL                         R6 R5 K3 ["GetComponents"]
        10 CALL                             R6 1 12
        11 MUL                              R22 R2 R9
        12 FASTCALL1                        MATH_ABS R22 ; [+2]
@@ -262,7 +262,7 @@ PROTO_4:
        45 GETTABLEKS                       R19 R17 K16 ["Y"]
        47 GETTABLEKS                       R20 R17 K17 ["Z"]
        49 MUL                              R21 R3 R16
-       50 NAMECALL                         R22 R21 K18 ["components"]
+       50 NAMECALL                         R22 R21 K18 ["GetComponents"]
        52 CALL                             R22 1 12
        53 MUL                              R38 R18 R25
        54 FASTCALL1                        MATH_ABS R38 ; [+2]
@@ -823,7 +823,7 @@ PROTO_7:
        57 GETTABLEKS                       R28 R26 K4 ["Y"]
        59 GETTABLEKS                       R29 R26 K5 ["Z"]
        61 MUL                              R30 R6 R25
-       62 NAMECALL                         R31 R30 K18 ["components"]
+       62 NAMECALL                         R31 R30 K18 ["GetComponents"]
        64 CALL                             R31 1 12
        65 MUL                              R47 R27 R34
        66 FASTCALL1                        MATH_ABS R47 ; [+2]
@@ -909,7 +909,7 @@ PROTO_7:
       169 GETIMPORT                        R49 K26 [math.max]
       171 CALL                             R49 2 1
       172 MOVE                             R12 R49
-      173 NAMECALL                         R49 R25 K18 ["components"]
+      173 NAMECALL                         R49 R25 K18 ["GetComponents"]
       175 CALL                             R49 1 12
       176 MOVE                             R33 R49
       177 MOVE                             R33 R50
@@ -1227,7 +1227,7 @@ PROTO_11:
        22 GETTABLEKS                       R6 R1 K3 ["PartToRootMap"]
        24 SETTABLE                         R0 R6 R0
        25 SETTABLEKS                       R0 R1 K4 ["BasisObject"]
-       27 JUMP                             ; [+61]
+       27 JUMP                             ; [+60]
        28 GETUPVAL                         R5 2
        29 JUMPIFNOT                        R5 ; [+24]
        30 JUMPIFNOTEQKS                    R3 K5 ["ProceduralModel"] ; [+23]
@@ -1248,7 +1248,7 @@ PROTO_11:
        49 LOADB                            R7 1
        50 SETTABLE                         R7 R6 R0
        51 SETTABLEKS                       R0 R1 K4 ["BasisObject"]
-       53 JUMP                             ; [+35]
+       53 JUMP                             ; [+34]
        54 JUMPIFNOTEQKS                    R3 K8 ["Model"] ; [+13]
        56 LOADB                            R4 1
        57 GETTABLEKS                       R5 R1 K7 ["ModelSet"]
@@ -1259,93 +1259,91 @@ PROTO_11:
        63 LOADB                            R6 1
        64 SETTABLE                         R6 R5 R0
        65 SETTABLEKS                       R0 R1 K4 ["BasisObject"]
-       67 JUMP                             ; [+21]
+       67 JUMP                             ; [+20]
        68 JUMPIFNOTEQKS                    R3 K9 ["Attachment"] ; [+6]
        70 GETTABLEKS                       R5 R1 K10 ["AttachmentSet"]
        72 LOADB                            R6 1
        73 SETTABLE                         R6 R5 R0
-       74 JUMP                             ; [+14]
+       74 JUMP                             ; [+13]
        75 JUMPIFNOTEQKS                    R3 K11 ["Bone"] ; [+6]
        77 GETTABLEKS                       R5 R1 K12 ["BoneSet"]
        79 LOADB                            R6 1
        80 SETTABLE                         R6 R5 R0
-       81 JUMP                             ; [+7]
-       82 JUMPIFNOTEQKS                    R3 K13 ["FaceInstance"] ; [+6]
+       81 JUMP                             ; [+6]
+       82 JUMPIFNOTEQKS                    R3 K13 ["FaceInstance"] ; [+5]
        84 GETTABLEKS                       R5 R1 K14 ["FaceInstanceSet"]
        86 LOADB                            R6 1
        87 SETTABLE                         R6 R5 R0
-       88 JUMP                             ; [0]
-       89 JUMPIFNOT                        R4 ; [+77]
-       90 GETTABLEKS                       R5 R1 K7 ["ModelSet"]
-       92 GETTABLEKS                       R6 R1 K2 ["PartSet"]
-       94 GETTABLEKS                       R7 R1 K3 ["PartToRootMap"]
-       96 LOADN                            R8 0
-       97 GETTABLEKS                       R9 R1 K15 ["RootToDescendantCountMap"]
-       99 GETUPVAL                         R10 2
-      100 JUMPIFNOT                        R10 ; [+8]
-      101 LOADK                            R12 K5 ["ProceduralModel"]
-      102 NAMECALL                         R10 R0 K16 ["IsA"]
-      104 CALL                             R10 2 1
-      105 JUMPIFNOT                        R10 ; [+3]
-      106 LOADN                            R10 0
-      107 SETTABLE                         R10 R9 R0
-      108 RETURN                           R0 0
-      109 NAMECALL                         R10 R0 K17 ["GetDescendants"]
-      111 CALL                             R10 1 3
-      112 FORGPREP                         R10
-      113 GETUPVAL                         R16 0
-      114 GETTABLEKS                       R17 R14 K0 ["ClassName"]
-      116 GETTABLE                         R15 R16 R17
-      117 JUMPIFNOTEQKNIL                  R15 ; [+5]
-      119 GETUPVAL                         R16 1
-      120 MOVE                             R17 R14
-      121 CALL                             R16 1 1
-      122 MOVE                             R15 R16
-      123 JUMPIFNOTEQKS                    R15 K1 ["BasePart"] ; [+9]
-      125 LOADB                            R16 1
-      126 SETTABLE                         R16 R6 R14
-      127 ADDK                             R8 R8 K18 [1]
-      128 SETTABLE                         R0 R7 R14
-      129 JUMPIFNOT                        R2 ; [+33]
-      130 LOADNIL                          R16
-      131 SETTABLE                         R16 R9 R14
-      132 JUMP                             ; [+30]
-      133 JUMPIFNOTEQKS                    R15 K8 ["Model"] ; [+8]
-      135 LOADB                            R16 1
-      136 SETTABLE                         R16 R5 R14
-      137 ADDK                             R8 R8 K18 [1]
-      138 JUMPIFNOT                        R2 ; [+24]
-      139 LOADNIL                          R16
-      140 SETTABLE                         R16 R9 R14
-      141 JUMP                             ; [+21]
-      142 JUMPIFNOTEQKS                    R15 K9 ["Attachment"] ; [+6]
-      144 GETTABLEKS                       R16 R1 K10 ["AttachmentSet"]
-      146 LOADB                            R17 1
-      147 SETTABLE                         R17 R16 R14
-      148 JUMP                             ; [+14]
-      149 JUMPIFNOTEQKS                    R15 K11 ["Bone"] ; [+6]
-      151 GETTABLEKS                       R16 R1 K12 ["BoneSet"]
-      153 LOADB                            R17 1
-      154 SETTABLE                         R17 R16 R14
-      155 JUMP                             ; [+7]
-      156 JUMPIFNOTEQKS                    R15 K13 ["FaceInstance"] ; [+6]
-      158 GETTABLEKS                       R16 R1 K14 ["FaceInstanceSet"]
-      160 LOADB                            R17 1
-      161 SETTABLE                         R17 R16 R14
-      162 JUMP                             ; [0]
-      163 FORGLOOP                         R10 2 ; [-51]
-      165 SETTABLE                         R8 R9 R0
-      166 RETURN                           R0 0
-      167 NAMECALL                         R5 R0 K19 ["GetChildren"]
-      169 CALL                             R5 1 3
-      170 FORGPREP                         R5
-      171 GETUPVAL                         R10 3
-      172 MOVE                             R11 R9
-      173 MOVE                             R12 R1
-      174 MOVE                             R13 R2
-      175 CALL                             R10 3 0
-      176 FORGLOOP                         R5 2 ; [-6]
-      178 RETURN                           R0 0
+       88 JUMPIFNOT                        R4 ; [+76]
+       89 GETTABLEKS                       R5 R1 K7 ["ModelSet"]
+       91 GETTABLEKS                       R6 R1 K2 ["PartSet"]
+       93 GETTABLEKS                       R7 R1 K3 ["PartToRootMap"]
+       95 LOADN                            R8 0
+       96 GETTABLEKS                       R9 R1 K15 ["RootToDescendantCountMap"]
+       98 GETUPVAL                         R10 2
+       99 JUMPIFNOT                        R10 ; [+8]
+      100 LOADK                            R12 K5 ["ProceduralModel"]
+      101 NAMECALL                         R10 R0 K16 ["IsA"]
+      103 CALL                             R10 2 1
+      104 JUMPIFNOT                        R10 ; [+3]
+      105 LOADN                            R10 0
+      106 SETTABLE                         R10 R9 R0
+      107 RETURN                           R0 0
+      108 NAMECALL                         R10 R0 K17 ["GetDescendants"]
+      110 CALL                             R10 1 3
+      111 FORGPREP                         R10
+      112 GETUPVAL                         R16 0
+      113 GETTABLEKS                       R17 R14 K0 ["ClassName"]
+      115 GETTABLE                         R15 R16 R17
+      116 JUMPIFNOTEQKNIL                  R15 ; [+5]
+      118 GETUPVAL                         R16 1
+      119 MOVE                             R17 R14
+      120 CALL                             R16 1 1
+      121 MOVE                             R15 R16
+      122 JUMPIFNOTEQKS                    R15 K1 ["BasePart"] ; [+9]
+      124 LOADB                            R16 1
+      125 SETTABLE                         R16 R6 R14
+      126 ADDK                             R8 R8 K18 [1]
+      127 SETTABLE                         R0 R7 R14
+      128 JUMPIFNOT                        R2 ; [+32]
+      129 LOADNIL                          R16
+      130 SETTABLE                         R16 R9 R14
+      131 JUMP                             ; [+29]
+      132 JUMPIFNOTEQKS                    R15 K8 ["Model"] ; [+8]
+      134 LOADB                            R16 1
+      135 SETTABLE                         R16 R5 R14
+      136 ADDK                             R8 R8 K18 [1]
+      137 JUMPIFNOT                        R2 ; [+23]
+      138 LOADNIL                          R16
+      139 SETTABLE                         R16 R9 R14
+      140 JUMP                             ; [+20]
+      141 JUMPIFNOTEQKS                    R15 K9 ["Attachment"] ; [+6]
+      143 GETTABLEKS                       R16 R1 K10 ["AttachmentSet"]
+      145 LOADB                            R17 1
+      146 SETTABLE                         R17 R16 R14
+      147 JUMP                             ; [+13]
+      148 JUMPIFNOTEQKS                    R15 K11 ["Bone"] ; [+6]
+      150 GETTABLEKS                       R16 R1 K12 ["BoneSet"]
+      152 LOADB                            R17 1
+      153 SETTABLE                         R17 R16 R14
+      154 JUMP                             ; [+6]
+      155 JUMPIFNOTEQKS                    R15 K13 ["FaceInstance"] ; [+5]
+      157 GETTABLEKS                       R16 R1 K14 ["FaceInstanceSet"]
+      159 LOADB                            R17 1
+      160 SETTABLE                         R17 R16 R14
+      161 FORGLOOP                         R10 2 ; [-50]
+      163 SETTABLE                         R8 R9 R0
+      164 RETURN                           R0 0
+      165 NAMECALL                         R5 R0 K19 ["GetChildren"]
+      167 CALL                             R5 1 3
+      168 FORGPREP                         R5
+      169 GETUPVAL                         R10 3
+      170 MOVE                             R11 R9
+      171 MOVE                             R12 R1
+      172 MOVE                             R13 R2
+      173 CALL                             R10 3 0
+      174 FORGLOOP                         R5 2 ; [-6]
+      176 RETURN                           R0 0
 
 PROTO_12:
         0 DUPTABLE                         R1 K10 [{[1], ["PartToRootMap"], ["PartSet"], ["ModelSet"], ["ProceduralModelSet"], ["AttachmentSet"], ["BoneSet"], ["FaceInstanceSet"], ["BasisObject"] = }]
@@ -2196,107 +2194,110 @@ MAIN:
        21 GETTABLEKS                       R3 R3 K10 ["getSingleSelectionInterface"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R4 R1 K11 ["Flags"]
-       28 GETTABLEKS                       R4 R4 K12 ["getFFlagDraggerEditProcModels"]
-       30 CALL                             R3 1 1
-       31 MOVE                             R4 R3
-       32 CALL                             R4 0 1
-       33 GETIMPORT                        R5 K1 [game]
-       35 LOADK                            R7 K13 ["DetachedAttachments"]
-       36 NAMECALL                         R5 R5 K14 ["GetEngineFeature"]
-       38 CALL                             R5 2 1
-       39 DUPCLOSURE                       R6 K15 [PROTO_0]
-       40 CAPTURE                          VAL R5
-       41 DUPCLOSURE                       R7 K16 [PROTO_1]
-       42 CAPTURE                          VAL R0
-       43 DUPCLOSURE                       R8 K17 [PROTO_3]
-       44 CAPTURE                          VAL R4
-       45 CAPTURE                          VAL R7
-       46 DUPCLOSURE                       R9 K18 [PROTO_4]
-       47 CAPTURE                          VAL R4
-       48 CAPTURE                          VAL R0
-       49 DUPCLOSURE                       R10 K19 [PROTO_6]
-       50 CAPTURE                          VAL R4
-       51 CAPTURE                          VAL R7
-       52 DUPCLOSURE                       R11 K20 [PROTO_7]
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R0
-       55 DUPCLOSURE                       R12 K21 [PROTO_8]
-       56 CAPTURE                          VAL R12
-       57 DUPCLOSURE                       R13 K22 [PROTO_9]
+       26 GETTABLEKS                       R4 R1 K11 ["Types"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K9 [require]
+       31 GETTABLEKS                       R5 R1 K12 ["Flags"]
+       33 GETTABLEKS                       R5 R5 K13 ["getFFlagDraggerEditProcModels"]
+       35 CALL                             R4 1 1
+       36 MOVE                             R5 R4
+       37 CALL                             R5 0 1
+       38 GETIMPORT                        R6 K1 [game]
+       40 LOADK                            R8 K14 ["DetachedAttachments"]
+       41 NAMECALL                         R6 R6 K15 ["GetEngineFeature"]
+       43 CALL                             R6 2 1
+       44 DUPCLOSURE                       R7 K16 [PROTO_0]
+       45 CAPTURE                          VAL R6
+       46 DUPCLOSURE                       R8 K17 [PROTO_1]
+       47 CAPTURE                          VAL R0
+       48 DUPCLOSURE                       R9 K18 [PROTO_3]
+       49 CAPTURE                          VAL R5
+       50 CAPTURE                          VAL R8
+       51 DUPCLOSURE                       R10 K19 [PROTO_4]
+       52 CAPTURE                          VAL R5
+       53 CAPTURE                          VAL R0
+       54 DUPCLOSURE                       R11 K20 [PROTO_6]
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R8
+       57 DUPCLOSURE                       R12 K21 [PROTO_7]
        58 CAPTURE                          VAL R5
-       59 CAPTURE                          VAL R12
-       60 JUMPIFNOT                        R4 ; [+2]
-       61 DUPTABLE                         R14 K31 [{["BasePart"] = "BasePart", ["Model"] = "Model", ["ProceduralModel"] = "ProceduralModel", ["Attachment"] = "Attachment", ["Bone"] = "Bone", ["FaceInstance"] = "FaceInstance", ["SurfaceGui"] = "FaceInstance", ["Terrain"] = "Terrain"}]
-       62 JUMP                             ; [+1]
-       63 DUPTABLE                         R14 K32 [{["BasePart"] = "BasePart", ["Model"] = "Model", ["Attachment"] = "Attachment", ["Bone"] = "Bone", ["FaceInstance"] = "FaceInstance", ["SurfaceGui"] = "FaceInstance", ["Terrain"] = "Terrain"}]
-       64 DUPCLOSURE                       R15 K33 [PROTO_10]
-       65 CAPTURE                          VAL R14
-       66 DUPCLOSURE                       R16 K34 [PROTO_11]
-       67 CAPTURE                          VAL R14
-       68 CAPTURE                          VAL R15
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R16
-       71 DUPCLOSURE                       R17 K35 [PROTO_12]
-       72 CAPTURE                          VAL R16
-       73 DUPCLOSURE                       R18 K36 [PROTO_13]
-       74 DUPCLOSURE                       R19 K37 [PROTO_14]
+       59 CAPTURE                          VAL R0
+       60 DUPCLOSURE                       R13 K22 [PROTO_8]
+       61 CAPTURE                          VAL R13
+       62 DUPCLOSURE                       R14 K23 [PROTO_9]
+       63 CAPTURE                          VAL R6
+       64 CAPTURE                          VAL R13
+       65 JUMPIFNOT                        R5 ; [+2]
+       66 DUPTABLE                         R15 K32 [{["BasePart"] = "BasePart", ["Model"] = "Model", ["ProceduralModel"] = "ProceduralModel", ["Attachment"] = "Attachment", ["Bone"] = "Bone", ["FaceInstance"] = "FaceInstance", ["SurfaceGui"] = "FaceInstance", ["Terrain"] = "Terrain"}]
+       67 JUMP                             ; [+1]
+       68 DUPTABLE                         R15 K33 [{["BasePart"] = "BasePart", ["Model"] = "Model", ["Attachment"] = "Attachment", ["Bone"] = "Bone", ["FaceInstance"] = "FaceInstance", ["SurfaceGui"] = "FaceInstance", ["Terrain"] = "Terrain"}]
+       69 DUPCLOSURE                       R16 K34 [PROTO_10]
+       70 CAPTURE                          VAL R15
+       71 DUPCLOSURE                       R17 K35 [PROTO_11]
+       72 CAPTURE                          VAL R15
+       73 CAPTURE                          VAL R16
+       74 CAPTURE                          VAL R5
        75 CAPTURE                          VAL R17
-       76 CAPTURE                          VAL R4
-       77 CAPTURE                          VAL R13
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R8
-       80 CAPTURE                          VAL R9
-       81 CAPTURE                          VAL R10
-       82 CAPTURE                          VAL R11
-       83 NEWTABLE                         R20 32 0
-       85 SETTABLEKS                       R20 R20 K38 ["__index"]
-       87 DUPCLOSURE                       R21 K39 [PROTO_15]
-       88 CAPTURE                          VAL R19
-       89 CAPTURE                          VAL R20
-       90 SETTABLEKS                       R21 R20 K40 ["new"]
-       92 DUPCLOSURE                       R21 K41 [PROTO_16]
+       76 DUPCLOSURE                       R18 K36 [PROTO_12]
+       77 CAPTURE                          VAL R17
+       78 DUPCLOSURE                       R19 K37 [PROTO_13]
+       79 DUPCLOSURE                       R20 K38 [PROTO_14]
+       80 CAPTURE                          VAL R18
+       81 CAPTURE                          VAL R5
+       82 CAPTURE                          VAL R14
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R9
+       85 CAPTURE                          VAL R10
+       86 CAPTURE                          VAL R11
+       87 CAPTURE                          VAL R12
+       88 NEWTABLE                         R21 32 0
+       90 SETTABLEKS                       R21 R21 K39 ["__index"]
+       92 DUPCLOSURE                       R22 K40 [PROTO_15]
        93 CAPTURE                          VAL R20
-       94 SETTABLEKS                       R21 R20 K42 ["getTransformedCopy"]
-       96 DUPCLOSURE                       R21 K43 [PROTO_17]
-       97 CAPTURE                          VAL R4
-       98 SETTABLEKS                       R21 R20 K44 ["isEmpty"]
-      100 DUPCLOSURE                       R21 K45 [PROTO_18]
-      101 SETTABLEKS                       R21 R20 K46 ["getBoundingBox"]
-      103 DUPCLOSURE                       R21 K47 [PROTO_19]
-      104 SETTABLEKS                       R21 R20 K48 ["doesContainItem"]
-      106 DUPCLOSURE                       R21 K49 [PROTO_20]
-      107 SETTABLEKS                       R21 R20 K50 ["isDynamic"]
-      109 DUPCLOSURE                       R21 K51 [PROTO_21]
-      110 SETTABLEKS                       R21 R20 K52 ["getOriginalCFrameMap"]
-      112 DUPCLOSURE                       R21 K53 [PROTO_22]
-      113 SETTABLEKS                       R21 R20 K54 ["getLocalBoundingBox"]
-      115 DUPCLOSURE                       R21 K55 [PROTO_23]
-      116 SETTABLEKS                       R21 R20 K56 ["getBoundingBoxDiscrepancy"]
-      118 DUPCLOSURE                       R21 K57 [PROTO_24]
-      119 SETTABLEKS                       R21 R20 K58 ["getObjectsToTransform"]
-      121 DUPCLOSURE                       R21 K59 [PROTO_25]
-      122 CAPTURE                          VAL R4
-      123 SETTABLEKS                       R21 R20 K60 ["getProceduralModels"]
-      125 DUPCLOSURE                       R21 K61 [PROTO_26]
-      126 SETTABLEKS                       R21 R20 K62 ["getRootMapping"]
-      128 DUPCLOSURE                       R21 K63 [PROTO_27]
-      129 SETTABLEKS                       R21 R20 K64 ["getBasisObject"]
-      131 DUPCLOSURE                       R21 K65 [PROTO_28]
-      132 SETTABLEKS                       R21 R20 K66 ["getAllAttachments"]
-      134 DUPCLOSURE                       R21 K67 [PROTO_29]
-      135 CAPTURE                          VAL R21
-      136 DUPCLOSURE                       R22 K68 [PROTO_30]
-      137 CAPTURE                          VAL R21
-      138 DUPCLOSURE                       R23 K69 [PROTO_31]
-      139 CAPTURE                          VAL R22
-      140 SETTABLEKS                       R23 R20 K70 ["getRootModelMapping"]
-      142 DUPCLOSURE                       R23 K71 [PROTO_32]
-      143 DUPCLOSURE                       R24 K72 [PROTO_33]
-      144 CAPTURE                          VAL R4
-      145 SETTABLEKS                       R24 R20 K73 ["isSelectionSinglePart_DEPRECATED"]
-      147 DUPCLOSURE                       R24 K74 [PROTO_34]
-      148 CAPTURE                          VAL R4
-      149 CAPTURE                          VAL R2
-      150 SETTABLEKS                       R24 R20 K10 ["getSingleSelectionInterface"]
-      152 RETURN                           R20 1
+       94 CAPTURE                          VAL R21
+       95 SETTABLEKS                       R22 R21 K41 ["new"]
+       97 DUPCLOSURE                       R22 K42 [PROTO_16]
+       98 CAPTURE                          VAL R21
+       99 SETTABLEKS                       R22 R21 K43 ["getTransformedCopy"]
+      101 DUPCLOSURE                       R22 K44 [PROTO_17]
+      102 CAPTURE                          VAL R5
+      103 SETTABLEKS                       R22 R21 K45 ["isEmpty"]
+      105 DUPCLOSURE                       R22 K46 [PROTO_18]
+      106 SETTABLEKS                       R22 R21 K47 ["getBoundingBox"]
+      108 DUPCLOSURE                       R22 K48 [PROTO_19]
+      109 SETTABLEKS                       R22 R21 K49 ["doesContainItem"]
+      111 DUPCLOSURE                       R22 K50 [PROTO_20]
+      112 SETTABLEKS                       R22 R21 K51 ["isDynamic"]
+      114 DUPCLOSURE                       R22 K52 [PROTO_21]
+      115 SETTABLEKS                       R22 R21 K53 ["getOriginalCFrameMap"]
+      117 DUPCLOSURE                       R22 K54 [PROTO_22]
+      118 SETTABLEKS                       R22 R21 K55 ["getLocalBoundingBox"]
+      120 DUPCLOSURE                       R22 K56 [PROTO_23]
+      121 SETTABLEKS                       R22 R21 K57 ["getBoundingBoxDiscrepancy"]
+      123 DUPCLOSURE                       R22 K58 [PROTO_24]
+      124 SETTABLEKS                       R22 R21 K59 ["getObjectsToTransform"]
+      126 DUPCLOSURE                       R22 K60 [PROTO_25]
+      127 CAPTURE                          VAL R5
+      128 SETTABLEKS                       R22 R21 K61 ["getProceduralModels"]
+      130 DUPCLOSURE                       R22 K62 [PROTO_26]
+      131 SETTABLEKS                       R22 R21 K63 ["getRootMapping"]
+      133 DUPCLOSURE                       R22 K64 [PROTO_27]
+      134 SETTABLEKS                       R22 R21 K65 ["getBasisObject"]
+      136 DUPCLOSURE                       R22 K66 [PROTO_28]
+      137 SETTABLEKS                       R22 R21 K67 ["getAllAttachments"]
+      139 DUPCLOSURE                       R22 K68 [PROTO_29]
+      140 CAPTURE                          VAL R22
+      141 DUPCLOSURE                       R23 K69 [PROTO_30]
+      142 CAPTURE                          VAL R22
+      143 DUPCLOSURE                       R24 K70 [PROTO_31]
+      144 CAPTURE                          VAL R23
+      145 SETTABLEKS                       R24 R21 K71 ["getRootModelMapping"]
+      147 DUPCLOSURE                       R24 K72 [PROTO_32]
+      148 DUPCLOSURE                       R25 K73 [PROTO_33]
+      149 CAPTURE                          VAL R5
+      150 SETTABLEKS                       R25 R21 K74 ["isSelectionSinglePart_DEPRECATED"]
+      152 DUPCLOSURE                       R25 K75 [PROTO_34]
+      153 CAPTURE                          VAL R5
+      154 CAPTURE                          VAL R2
+      155 SETTABLEKS                       R25 R21 K10 ["getSingleSelectionInterface"]
+      157 RETURN                           R21 1

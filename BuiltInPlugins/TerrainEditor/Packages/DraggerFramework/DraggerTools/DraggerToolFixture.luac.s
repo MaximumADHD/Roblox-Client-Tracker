@@ -17,29 +17,28 @@ PROTO_3:
         0 MOVE                             R3 R2
         1 JUMPIF                           R3 ; [+2]
         2 NEWTABLE                         R3 0 0
-        4 MOVE                             R2 R3
-        5 DUPTABLE                         R4 K5 [{[1], ["_viewBoundsDirty"] = True, ["_selectionBoundsDirty"] = True, ["_lastShouldUseLocalSpace"]}]
-        6 SETTABLEKS                       R0 R4 K0 ["_draggerContext"]
-        8 NAMECALL                         R5 R0 K6 ["shouldUseLocalSpace"]
-       10 CALL                             R5 1 1
-       11 SETTABLEKS                       R5 R4 K4 ["_lastShouldUseLocalSpace"]
-       13 GETUPVAL                         R5 0
-       14 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       16 GETIMPORT                        R3 K8 [setmetatable]
-       18 CALL                             R3 2 1
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R4 R4 K9 ["new"]
-       22 MOVE                             R5 R0
-       23 MOVE                             R6 R1
-       24 MOVE                             R7 R2
-       25 DUPCLOSURE                       R8 K10 [PROTO_0]
-       26 NEWCLOSURE                       R9 P1
-       27 CAPTURE                          VAL R3
-       28 NEWCLOSURE                       R10 P2
-       29 CAPTURE                          VAL R3
-       30 CALL                             R4 6 1
-       31 SETTABLEKS                       R4 R3 K11 ["_draggerToolModel"]
-       33 RETURN                           R3 1
+        4 DUPTABLE                         R5 K5 [{[1], ["_viewBoundsDirty"] = True, ["_selectionBoundsDirty"] = True, ["_lastShouldUseLocalSpace"]}]
+        5 SETTABLEKS                       R0 R5 K0 ["_draggerContext"]
+        7 NAMECALL                         R6 R0 K6 ["shouldUseLocalSpace"]
+        9 CALL                             R6 1 1
+       10 SETTABLEKS                       R6 R5 K4 ["_lastShouldUseLocalSpace"]
+       12 GETUPVAL                         R6 0
+       13 FASTCALL2                        SETMETATABLE R5 R6 ; [+3]
+       15 GETIMPORT                        R4 K8 [setmetatable]
+       17 CALL                             R4 2 1
+       18 GETUPVAL                         R5 1
+       19 GETTABLEKS                       R5 R5 K9 ["new"]
+       21 MOVE                             R6 R0
+       22 MOVE                             R7 R1
+       23 MOVE                             R8 R3
+       24 DUPCLOSURE                       R9 K10 [PROTO_0]
+       25 NEWCLOSURE                       R10 P1
+       26 CAPTURE                          VAL R4
+       27 NEWCLOSURE                       R11 P2
+       28 CAPTURE                          VAL R4
+       29 CALL                             R5 6 1
+       30 SETTABLEKS                       R5 R4 K11 ["_draggerToolModel"]
+       32 RETURN                           R4 1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerToolModel"]
@@ -431,47 +430,50 @@ MAIN:
        20 GETTABLEKS                       R3 R0 K7 ["Implementation"]
        22 GETTABLEKS                       R3 R3 K8 ["DraggerToolModel"]
        24 CALL                             R2 1 1
-       25 NEWTABLE                         R3 32 0
-       27 SETTABLEKS                       R3 R3 K9 ["__index"]
-       29 DUPCLOSURE                       R4 K10 [PROTO_3]
-       30 CAPTURE                          VAL R3
-       31 CAPTURE                          VAL R2
-       32 SETTABLEKS                       R4 R3 K11 ["new"]
-       34 DUPCLOSURE                       R4 K12 [PROTO_4]
-       35 SETTABLEKS                       R4 R3 K13 ["getModel"]
-       37 DUPCLOSURE                       R4 K14 [PROTO_5]
-       38 SETTABLEKS                       R4 R3 K15 ["_update"]
-       40 DUPCLOSURE                       R4 K16 [PROTO_6]
-       41 CAPTURE                          VAL R1
-       42 SETTABLEKS                       R4 R3 K17 ["select"]
-       44 DUPCLOSURE                       R4 K18 [PROTO_7]
-       45 CAPTURE                          VAL R1
-       46 SETTABLEKS                       R4 R3 K19 ["render"]
-       48 DUPCLOSURE                       R4 K20 [PROTO_8]
-       49 SETTABLEKS                       R4 R3 K21 ["mouseDown"]
-       51 DUPCLOSURE                       R4 K22 [PROTO_9]
-       52 SETTABLEKS                       R4 R3 K23 ["mouseMove"]
-       54 DUPCLOSURE                       R4 K24 [PROTO_10]
-       55 SETTABLEKS                       R4 R3 K25 ["motionToHandleSpace"]
-       57 DUPCLOSURE                       R4 K26 [PROTO_11]
-       58 SETTABLEKS                       R4 R3 K27 ["mouseMoveOverHandle"]
-       60 DUPCLOSURE                       R4 K28 [PROTO_13]
-       61 SETTABLEKS                       R4 R3 K29 ["setSelection"]
-       63 DUPCLOSURE                       R4 K30 [PROTO_14]
-       64 SETTABLEKS                       R4 R3 K31 ["mouseMoveOverPoint"]
-       66 DUPCLOSURE                       R4 K32 [PROTO_15]
-       67 SETTABLEKS                       R4 R3 K33 ["mouseDownOverHandle"]
-       69 DUPCLOSURE                       R4 K34 [PROTO_16]
-       70 SETTABLEKS                       R4 R3 K35 ["mouseDownOverPoint"]
-       72 DUPCLOSURE                       R4 K36 [PROTO_17]
-       73 SETTABLEKS                       R4 R3 K37 ["mouseUp"]
-       75 DUPCLOSURE                       R4 K38 [PROTO_18]
-       76 SETTABLEKS                       R4 R3 K39 ["mouseClick"]
-       78 DUPCLOSURE                       R4 K40 [PROTO_19]
-       79 SETTABLEKS                       R4 R3 K41 ["mouseClickPoint"]
-       81 DUPCLOSURE                       R4 K42 [PROTO_20]
-       82 SETTABLEKS                       R4 R3 K43 ["keyPress"]
-       84 DUPCLOSURE                       R4 K44 [PROTO_21]
-       85 CAPTURE                          VAL R1
-       86 SETTABLEKS                       R4 R3 K45 ["deselect"]
-       88 RETURN                           R3 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETTABLEKS                       R4 R0 K9 ["Types"]
+       29 CALL                             R3 1 1
+       30 NEWTABLE                         R4 32 0
+       32 SETTABLEKS                       R4 R4 K10 ["__index"]
+       34 DUPCLOSURE                       R5 K11 [PROTO_3]
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R2
+       37 SETTABLEKS                       R5 R4 K12 ["new"]
+       39 DUPCLOSURE                       R5 K13 [PROTO_4]
+       40 SETTABLEKS                       R5 R4 K14 ["getModel"]
+       42 DUPCLOSURE                       R5 K15 [PROTO_5]
+       43 SETTABLEKS                       R5 R4 K16 ["_update"]
+       45 DUPCLOSURE                       R5 K17 [PROTO_6]
+       46 CAPTURE                          VAL R1
+       47 SETTABLEKS                       R5 R4 K18 ["select"]
+       49 DUPCLOSURE                       R5 K19 [PROTO_7]
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R5 R4 K20 ["render"]
+       53 DUPCLOSURE                       R5 K21 [PROTO_8]
+       54 SETTABLEKS                       R5 R4 K22 ["mouseDown"]
+       56 DUPCLOSURE                       R5 K23 [PROTO_9]
+       57 SETTABLEKS                       R5 R4 K24 ["mouseMove"]
+       59 DUPCLOSURE                       R5 K25 [PROTO_10]
+       60 SETTABLEKS                       R5 R4 K26 ["motionToHandleSpace"]
+       62 DUPCLOSURE                       R5 K27 [PROTO_11]
+       63 SETTABLEKS                       R5 R4 K28 ["mouseMoveOverHandle"]
+       65 DUPCLOSURE                       R5 K29 [PROTO_13]
+       66 SETTABLEKS                       R5 R4 K30 ["setSelection"]
+       68 DUPCLOSURE                       R5 K31 [PROTO_14]
+       69 SETTABLEKS                       R5 R4 K32 ["mouseMoveOverPoint"]
+       71 DUPCLOSURE                       R5 K33 [PROTO_15]
+       72 SETTABLEKS                       R5 R4 K34 ["mouseDownOverHandle"]
+       74 DUPCLOSURE                       R5 K35 [PROTO_16]
+       75 SETTABLEKS                       R5 R4 K36 ["mouseDownOverPoint"]
+       77 DUPCLOSURE                       R5 K37 [PROTO_17]
+       78 SETTABLEKS                       R5 R4 K38 ["mouseUp"]
+       80 DUPCLOSURE                       R5 K39 [PROTO_18]
+       81 SETTABLEKS                       R5 R4 K40 ["mouseClick"]
+       83 DUPCLOSURE                       R5 K41 [PROTO_19]
+       84 SETTABLEKS                       R5 R4 K42 ["mouseClickPoint"]
+       86 DUPCLOSURE                       R5 K43 [PROTO_20]
+       87 SETTABLEKS                       R5 R4 K44 ["keyPress"]
+       89 DUPCLOSURE                       R5 K45 [PROTO_21]
+       90 CAPTURE                          VAL R1
+       91 SETTABLEKS                       R5 R4 K46 ["deselect"]
+       93 RETURN                           R4 1

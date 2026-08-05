@@ -432,19 +432,21 @@ PROTO_32:
         6 RETURN                           R2 -1
 
 PROTO_33:
-        0 GETTABLEKS                       R2 R0 K0 ["_impl"]
-        2 GETTABLEKS                       R2 R2 K1 ["deleteFolderAsync"]
-        4 MOVE                             R3 R1
-        5 CALL                             R2 1 -1
-        6 RETURN                           R2 -1
-
-PROTO_34:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
-        2 GETTABLEKS                       R3 R3 K1 ["updateFolderMetadataAsync"]
+        2 GETTABLEKS                       R3 R3 K1 ["deleteFolderAsync"]
         4 MOVE                             R4 R1
         5 MOVE                             R5 R2
         6 CALL                             R3 2 -1
         7 RETURN                           R3 -1
+
+PROTO_34:
+        0 GETTABLEKS                       R4 R0 K0 ["_impl"]
+        2 GETTABLEKS                       R4 R4 K1 ["updateFolderMetadataAsync"]
+        4 MOVE                             R5 R1
+        5 MOVE                             R6 R2
+        6 MOVE                             R7 R3
+        7 CALL                             R4 3 -1
+        8 RETURN                           R4 -1
 
 PROTO_35:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
@@ -455,14 +457,11 @@ PROTO_35:
         7 RETURN                           R3 -1
 
 PROTO_36:
-        0 GETTABLEKS                       R5 R0 K0 ["_impl"]
-        2 GETTABLEKS                       R5 R5 K1 ["moveItemsAsync"]
-        4 MOVE                             R6 R1
-        5 MOVE                             R7 R2
-        6 MOVE                             R8 R3
-        7 MOVE                             R9 R4
-        8 CALL                             R5 4 -1
-        9 RETURN                           R5 -1
+        0 GETTABLEKS                       R2 R0 K0 ["_impl"]
+        2 GETTABLEKS                       R2 R2 K1 ["moveItemsAsync"]
+        4 MOVE                             R3 R1
+        5 CALL                             R2 1 -1
+        6 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

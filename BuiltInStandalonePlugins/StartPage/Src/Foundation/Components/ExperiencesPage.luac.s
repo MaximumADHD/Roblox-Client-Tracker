@@ -609,25 +609,29 @@ PROTO_12:
         8 DUPTABLE                         R4 K15 [{["BaseQuery"], ["IsPrivacyVisible"] = True, ["IsDateModifiedVisible"] = True, ["IsDropdownMenuVisible"] = False, ["IsCreatorNameVisible"] = False, ["KebabMenu"], ["CellSize"], ["FetchItems"], ["NetworkQuery"], ["OnClick"], ["NetworkViewProps"]}]
         9 GETTABLEKS                       R5 R0 K2 ["BaseQuery"]
        11 SETTABLEKS                       R5 R4 K2 ["BaseQuery"]
-       13 NEWTABLE                         R5 0 1
-       15 LOADK                            R6 K16 ["RemoveRecent"]
-       16 SETLIST                          R5 R6 1 [1]
-       18 SETTABLEKS                       R5 R4 K9 ["KebabMenu"]
-       20 GETUPVAL                         R5 3
-       21 SETTABLEKS                       R5 R4 K10 ["CellSize"]
-       23 GETUPVAL                         R5 4
-       24 SETTABLEKS                       R5 R4 K11 ["FetchItems"]
-       26 DUPTABLE                         R5 K21 [{["searchKey"] = "Local", ["getRecentLocalFiles"] = True, ["getRecentAPIGames"] = False}]
-       27 SETTABLEKS                       R5 R4 K12 ["NetworkQuery"]
-       29 NEWCLOSURE                       R5 P0
-       30 CAPTURE                          UPVAL U5
-       31 CAPTURE                          UPVAL U6
-       32 CAPTURE                          VAL R1
-       33 CAPTURE                          UPVAL U7
-       34 SETTABLEKS                       R5 R4 K13 ["OnClick"]
-       36 SETTABLEKS                       R0 R4 K14 ["NetworkViewProps"]
-       38 CALL                             R2 2 -1
-       39 RETURN                           R2 -1
+       13 GETUPVAL                         R6 3
+       14 JUMPIFNOT                        R6 ; [+3]
+       15 NEWTABLE                         R5 0 0
+       17 JUMP                             ; [+5]
+       18 NEWTABLE                         R5 0 1
+       20 LOADK                            R6 K16 ["RemoveRecent"]
+       21 SETLIST                          R5 R6 1 [1]
+       23 SETTABLEKS                       R5 R4 K9 ["KebabMenu"]
+       25 GETUPVAL                         R5 4
+       26 SETTABLEKS                       R5 R4 K10 ["CellSize"]
+       28 GETUPVAL                         R5 5
+       29 SETTABLEKS                       R5 R4 K11 ["FetchItems"]
+       31 DUPTABLE                         R5 K21 [{["searchKey"] = "Local", ["getRecentLocalFiles"] = True, ["getRecentAPIGames"] = False}]
+       32 SETTABLEKS                       R5 R4 K12 ["NetworkQuery"]
+       34 NEWCLOSURE                       R5 P0
+       35 CAPTURE                          UPVAL U6
+       36 CAPTURE                          UPVAL U7
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          UPVAL U8
+       39 SETTABLEKS                       R5 R4 K13 ["OnClick"]
+       41 SETTABLEKS                       R0 R4 K14 ["NetworkViewProps"]
+       43 CALL                             R2 2 -1
+       44 RETURN                           R2 -1
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -999,21 +1003,22 @@ MAIN:
       394 CAPTURE                          VAL R33
       395 CAPTURE                          VAL R1
       396 CAPTURE                          VAL R42
-      397 CAPTURE                          VAL R38
-      398 CAPTURE                          VAL R18
-      399 CAPTURE                          VAL R31
-      400 CAPTURE                          VAL R5
-      401 CAPTURE                          VAL R34
-      402 DUPCLOSURE                       R47 K69 [PROTO_14]
-      403 CAPTURE                          VAL R8
-      404 CAPTURE                          VAL R2
-      405 CAPTURE                          VAL R40
-      406 CAPTURE                          VAL R3
-      407 CAPTURE                          VAL R16
-      408 CAPTURE                          VAL R1
-      409 CAPTURE                          VAL R14
-      410 CAPTURE                          VAL R43
-      411 CAPTURE                          VAL R44
-      412 CAPTURE                          VAL R45
-      413 CAPTURE                          VAL R46
-      414 RETURN                           R47 1
+      397 CAPTURE                          VAL R22
+      398 CAPTURE                          VAL R38
+      399 CAPTURE                          VAL R18
+      400 CAPTURE                          VAL R31
+      401 CAPTURE                          VAL R5
+      402 CAPTURE                          VAL R34
+      403 DUPCLOSURE                       R47 K69 [PROTO_14]
+      404 CAPTURE                          VAL R8
+      405 CAPTURE                          VAL R2
+      406 CAPTURE                          VAL R40
+      407 CAPTURE                          VAL R3
+      408 CAPTURE                          VAL R16
+      409 CAPTURE                          VAL R1
+      410 CAPTURE                          VAL R14
+      411 CAPTURE                          VAL R43
+      412 CAPTURE                          VAL R44
+      413 CAPTURE                          VAL R45
+      414 CAPTURE                          VAL R46
+      415 RETURN                           R47 1

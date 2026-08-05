@@ -74,63 +74,71 @@ PROTO_0:
       100 GETUPVAL                         R24 5
       101 DUPTABLE                         R25 K52 [{["text"], ["width"], ["onChanged"], ["hint"], ["placeholder"] = "", ["label"], ["hasError"], ["numLines"] = 1, ["LayoutOrder"]}]
       102 SETTABLEKS                       R2 R25 K42 ["text"]
-      104 GETIMPORT                        R26 K54 [UDim.new]
-      106 LOADN                            R27 1
-      107 LOADN                            R28 0
-      108 CALL                             R26 2 1
-      109 SETTABLEKS                       R26 R25 K43 ["width"]
-      111 SETTABLEKS                       R6 R25 K44 ["onChanged"]
-      113 GETIMPORT                        R26 K56 [string.format]
-      115 LOADK                            R27 K57 ["%d/%d"]
-      116 MOVE                             R28 R3
-      117 LOADN                            R29 50
-      118 CALL                             R26 3 1
-      119 SETTABLEKS                       R26 R25 K45 ["hint"]
-      121 LOADK                            R28 K58 ["LookComposerDialog"]
-      122 LOADK                            R29 K39 ["Name"]
-      123 NAMECALL                         R26 R1 K59 ["getText"]
-      125 CALL                             R26 3 1
-      126 SETTABLEKS                       R26 R25 K48 ["label"]
-      128 SETTABLEKS                       R8 R25 K49 ["hasError"]
-      130 NAMECALL                         R26 R10 K31 ["getNextOrder"]
-      132 CALL                             R26 1 1
-      133 SETTABLEKS                       R26 R25 K29 ["LayoutOrder"]
-      135 CALL                             R23 2 1
-      136 SETTABLEKS                       R23 R22 K39 ["Name"]
-      138 GETUPVAL                         R23 3
-      139 GETTABLEKS                       R23 R23 K9 ["createElement"]
-      141 GETUPVAL                         R24 5
-      142 DUPTABLE                         R25 K61 [{["text"], ["width"], ["onChanged"], ["hint"], ["placeholder"] = "", ["label"], ["hasError"], ["numLines"] = 2, ["LayoutOrder"]}]
-      143 SETTABLEKS                       R4 R25 K42 ["text"]
-      145 GETIMPORT                        R26 K54 [UDim.new]
-      147 LOADK                            R27 K62 [1.8]
-      148 LOADN                            R28 0
-      149 CALL                             R26 2 1
-      150 SETTABLEKS                       R26 R25 K43 ["width"]
-      152 SETTABLEKS                       R7 R25 K44 ["onChanged"]
-      154 GETIMPORT                        R26 K56 [string.format]
-      156 LOADK                            R27 K57 ["%d/%d"]
-      157 MOVE                             R28 R5
-      158 LOADN                            R29 1000
-      159 CALL                             R26 3 1
-      160 SETTABLEKS                       R26 R25 K45 ["hint"]
-      162 LOADK                            R28 K58 ["LookComposerDialog"]
-      163 LOADK                            R29 K40 ["Description"]
-      164 NAMECALL                         R26 R1 K59 ["getText"]
-      166 CALL                             R26 3 1
-      167 SETTABLEKS                       R26 R25 K48 ["label"]
-      169 SETTABLEKS                       R9 R25 K49 ["hasError"]
-      171 NAMECALL                         R26 R10 K31 ["getNextOrder"]
-      173 CALL                             R26 1 1
-      174 SETTABLEKS                       R26 R25 K29 ["LayoutOrder"]
-      176 CALL                             R23 2 1
-      177 SETTABLEKS                       R23 R22 K40 ["Description"]
-      179 CALL                             R19 3 1
-      180 SETTABLEKS                       R19 R18 K27 ["InfoColumn"]
-      182 CALL                             R15 3 1
-      183 SETTABLEKS                       R15 R14 K13 ["Content"]
-      185 CALL                             R11 3 -1
-      186 RETURN                           R11 -1
+      104 GETUPVAL                         R27 6
+      105 CALL                             R27 0 1
+      106 JUMPIFNOT                        R27 ; [+6]
+      107 GETIMPORT                        R26 K54 [UDim.new]
+      109 LOADK                            R27 K55 [1.8]
+      110 LOADN                            R28 0
+      111 CALL                             R26 2 1
+      112 JUMP                             ; [+5]
+      113 GETIMPORT                        R26 K54 [UDim.new]
+      115 LOADN                            R27 1
+      116 LOADN                            R28 0
+      117 CALL                             R26 2 1
+      118 SETTABLEKS                       R26 R25 K43 ["width"]
+      120 SETTABLEKS                       R6 R25 K44 ["onChanged"]
+      122 GETIMPORT                        R26 K57 [string.format]
+      124 LOADK                            R27 K58 ["%d/%d"]
+      125 MOVE                             R28 R3
+      126 LOADN                            R29 50
+      127 CALL                             R26 3 1
+      128 SETTABLEKS                       R26 R25 K45 ["hint"]
+      130 LOADK                            R28 K59 ["LookComposerDialog"]
+      131 LOADK                            R29 K39 ["Name"]
+      132 NAMECALL                         R26 R1 K60 ["getText"]
+      134 CALL                             R26 3 1
+      135 SETTABLEKS                       R26 R25 K48 ["label"]
+      137 SETTABLEKS                       R8 R25 K49 ["hasError"]
+      139 NAMECALL                         R26 R10 K31 ["getNextOrder"]
+      141 CALL                             R26 1 1
+      142 SETTABLEKS                       R26 R25 K29 ["LayoutOrder"]
+      144 CALL                             R23 2 1
+      145 SETTABLEKS                       R23 R22 K39 ["Name"]
+      147 GETUPVAL                         R23 3
+      148 GETTABLEKS                       R23 R23 K9 ["createElement"]
+      150 GETUPVAL                         R24 5
+      151 DUPTABLE                         R25 K62 [{["text"], ["width"], ["onChanged"], ["hint"], ["placeholder"] = "", ["label"], ["hasError"], ["numLines"] = 2, ["LayoutOrder"]}]
+      152 SETTABLEKS                       R4 R25 K42 ["text"]
+      154 GETIMPORT                        R26 K54 [UDim.new]
+      156 LOADK                            R27 K55 [1.8]
+      157 LOADN                            R28 0
+      158 CALL                             R26 2 1
+      159 SETTABLEKS                       R26 R25 K43 ["width"]
+      161 SETTABLEKS                       R7 R25 K44 ["onChanged"]
+      163 GETIMPORT                        R26 K57 [string.format]
+      165 LOADK                            R27 K58 ["%d/%d"]
+      166 MOVE                             R28 R5
+      167 LOADN                            R29 1000
+      168 CALL                             R26 3 1
+      169 SETTABLEKS                       R26 R25 K45 ["hint"]
+      171 LOADK                            R28 K59 ["LookComposerDialog"]
+      172 LOADK                            R29 K40 ["Description"]
+      173 NAMECALL                         R26 R1 K60 ["getText"]
+      175 CALL                             R26 3 1
+      176 SETTABLEKS                       R26 R25 K48 ["label"]
+      178 SETTABLEKS                       R9 R25 K49 ["hasError"]
+      180 NAMECALL                         R26 R10 K31 ["getNextOrder"]
+      182 CALL                             R26 1 1
+      183 SETTABLEKS                       R26 R25 K29 ["LayoutOrder"]
+      185 CALL                             R23 2 1
+      186 SETTABLEKS                       R23 R22 K40 ["Description"]
+      188 CALL                             R19 3 1
+      189 SETTABLEKS                       R19 R18 K27 ["InfoColumn"]
+      191 CALL                             R15 3 1
+      192 SETTABLEKS                       R15 R14 K13 ["Content"]
+      194 CALL                             R11 3 -1
+      195 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -163,13 +171,19 @@ MAIN:
        48 CALL                             R8 1 1
        49 GETIMPORT                        R9 K5 [require]
        51 GETTABLEKS                       R10 R0 K16 ["Src"]
-       53 GETTABLEKS                       R10 R10 K19 ["Types"]
-       55 CALL                             R9 1 1
-       56 DUPCLOSURE                       R10 K20 [PROTO_0]
-       57 CAPTURE                          VAL R8
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R4
-       63 RETURN                           R10 1
+       53 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       55 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerLookComposerEqualInputWidth"]
+       57 CALL                             R9 1 1
+       58 GETIMPORT                        R10 K5 [require]
+       60 GETTABLEKS                       R11 R0 K16 ["Src"]
+       62 GETTABLEKS                       R11 R11 K20 ["Types"]
+       64 CALL                             R10 1 1
+       65 DUPCLOSURE                       R11 K21 [PROTO_0]
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R1
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R9
+       73 RETURN                           R11 1

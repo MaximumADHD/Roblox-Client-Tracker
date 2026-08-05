@@ -295,9 +295,10 @@ PROTO_13:
        10 GETTABLEKS                       R1 R1 K3 ["SizeLimitReached"]
        12 RETURN                           R1 1
        13 GETTABLEKS                       R1 R0 K4 ["_draggerContext"]
-       15 NAMECALL                         R1 R1 K5 ["getSelectionBoxColor"]
-       17 CALL                             R1 1 -1
-       18 RETURN                           R1 -1
+       15 LOADB                            R3 0
+       16 NAMECALL                         R1 R1 K5 ["getSelectionBoxColor"]
+       18 CALL                             R1 2 -1
+       19 RETURN                           R1 -1
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
@@ -759,24 +760,24 @@ PROTO_28:
        91 CALL                             R5 4 0
        92 GETTABLEKS                       R5 R0 K21 ["_implementation"]
        94 GETTABLEKS                       R5 R5 K26 ["getSoftSnaps"]
-       96 JUMPIFNOT                        R5 ; [+21]
-       97 NAMECALL                         R5 R0 K27 ["_needsSoftSnaps"]
-       99 CALL                             R5 1 1
-      100 JUMPIFNOT                        R5 ; [+17]
-      101 GETTABLEKS                       R5 R0 K28 ["_softSnapper"]
-      103 GETTABLEKS                       R7 R0 K21 ["_implementation"]
-      105 GETTABLEKS                       R9 R0 K5 ["_handleCFrame"]
-      107 GETTABLEKS                       R9 R9 K29 ["LookVector"]
-      109 GETTABLEKS                       R10 R0 K30 ["_summonBasisOffset"]
-      111 NAMECALL                         R7 R7 K26 ["getSoftSnaps"]
-      113 CALL                             R7 3 -1
-      114 NAMECALL                         R5 R5 K31 ["setSnaps"]
-      116 CALL                             R5 -1 0
-      117 RETURN                           R0 0
-      118 GETTABLEKS                       R5 R0 K28 ["_softSnapper"]
-      120 NAMECALL                         R5 R5 K32 ["clearSnaps"]
-      122 CALL                             R5 1 0
-      123 RETURN                           R0 0
+       96 JUMPIFNOT                        R5 ; [+20]
+       97 NAMECALL                         R6 R0 K27 ["_needsSoftSnaps"]
+       99 CALL                             R6 1 1
+      100 JUMPIFNOT                        R6 ; [+16]
+      101 GETTABLEKS                       R6 R0 K28 ["_softSnapper"]
+      103 MOVE                             R8 R5
+      104 GETTABLEKS                       R9 R0 K21 ["_implementation"]
+      106 GETTABLEKS                       R10 R0 K5 ["_handleCFrame"]
+      108 GETTABLEKS                       R10 R10 K29 ["LookVector"]
+      110 GETTABLEKS                       R11 R0 K30 ["_summonBasisOffset"]
+      112 CALL                             R8 3 -1
+      113 NAMECALL                         R6 R6 K31 ["setSnaps"]
+      115 CALL                             R6 -1 0
+      116 RETURN                           R0 0
+      117 GETTABLEKS                       R6 R0 K28 ["_softSnapper"]
+      119 NAMECALL                         R6 R6 K32 ["clearSnaps"]
+      121 CALL                             R6 1 0
+      122 RETURN                           R0 0
 
 PROTO_29:
         0 JUMPIFNOTLT                      R0 R1 ; [+10]
@@ -1404,13 +1405,13 @@ PROTO_41:
 PROTO_42:
         0 GETTABLEKS                       R1 R0 K0 ["_implementation"]
         2 GETTABLEKS                       R1 R1 K1 ["getPriority"]
-        4 JUMPIFNOT                        R1 ; [+6]
-        5 GETTABLEKS                       R1 R0 K0 ["_implementation"]
-        7 GETTABLEKS                       R1 R1 K1 ["getPriority"]
-        9 CALL                             R1 0 -1
-       10 RETURN                           R1 -1
-       11 LOADN                            R1 0
-       12 RETURN                           R1 1
+        4 JUMPIFNOT                        R1 ; [+5]
+        5 MOVE                             R2 R1
+        6 GETTABLEKS                       R3 R0 K0 ["_implementation"]
+        8 CALL                             R2 1 -1
+        9 RETURN                           R2 -1
+       10 LOADN                            R2 0
+       11 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1479,243 +1480,246 @@ MAIN:
       111 GETTABLEKS                       R17 R0 K22 ["Flags"]
       113 GETTABLEKS                       R17 R17 K23 ["getFFlagNextGenDraggers"]
       115 CALL                             R16 1 1
-      116 NEWTABLE                         R17 64 0
-      118 SETTABLEKS                       R17 R17 K24 ["__index"]
-      120 GETIMPORT                        R18 K27 [table.freeze]
-      122 DUPTABLE                         R19 K34 [{["X_AXIS"] = 1, ["Y_AXIS"] = 2, ["Z_AXIS"] = 3}]
-      123 CALL                             R18 1 1
-      124 GETIMPORT                        R19 K27 [table.freeze]
-      126 DUPTABLE                         R20 K41 [{"MinusX", "PlusX", "MinusY", "PlusY", "MinusZ", "PlusZ"}]
-      127 DUPTABLE                         R21 K47 [{["Offset"], ["Color"], ["Axis"] = "X", ["NormalId"]}]
-      128 GETIMPORT                        R22 K50 [CFrame.fromMatrix]
-      130 FASTCALL                         VECTOR ; [+2]
-      131 GETIMPORT                        R23 K53 [Vector3.new]
-      133 CALL                             R23 0 1
-      134 LOADK                            R24 K54 [{0, 1, 0}]
-      135 LOADK                            R25 K55 [{0, 0, 1}]
-      136 CALL                             R22 3 1
-      137 SETTABLEKS                       R22 R21 K42 ["Offset"]
-      139 GETTABLEKS                       R22 R3 K28 ["X_AXIS"]
-      141 SETTABLEKS                       R22 R21 K43 ["Color"]
-      143 GETTABLEKS                       R22 R18 K28 ["X_AXIS"]
-      145 SETTABLEKS                       R22 R21 K46 ["NormalId"]
-      147 SETTABLEKS                       R21 R20 K35 ["MinusX"]
-      149 DUPTABLE                         R21 K47 [{["Offset"], ["Color"], ["Axis"] = "X", ["NormalId"]}]
-      150 GETIMPORT                        R22 K50 [CFrame.fromMatrix]
-      152 FASTCALL                         VECTOR ; [+2]
-      153 GETIMPORT                        R23 K53 [Vector3.new]
-      155 CALL                             R23 0 1
-      156 LOADK                            R24 K54 [{0, 1, 0}]
-      157 LOADK                            R25 K56 [{0, 0, -1}]
-      158 CALL                             R22 3 1
-      159 SETTABLEKS                       R22 R21 K42 ["Offset"]
-      161 GETTABLEKS                       R22 R3 K28 ["X_AXIS"]
-      163 SETTABLEKS                       R22 R21 K43 ["Color"]
-      165 GETTABLEKS                       R22 R18 K28 ["X_AXIS"]
-      167 SETTABLEKS                       R22 R21 K46 ["NormalId"]
-      169 SETTABLEKS                       R21 R20 K36 ["PlusX"]
-      171 DUPTABLE                         R21 K58 [{["Offset"], ["Color"], ["Axis"] = "Y", ["NormalId"]}]
-      172 GETIMPORT                        R22 K50 [CFrame.fromMatrix]
-      174 FASTCALL                         VECTOR ; [+2]
-      175 GETIMPORT                        R23 K53 [Vector3.new]
-      177 CALL                             R23 0 1
-      178 LOADK                            R24 K55 [{0, 0, 1}]
-      179 LOADK                            R25 K59 [{1, 0, 0}]
-      180 CALL                             R22 3 1
-      181 SETTABLEKS                       R22 R21 K42 ["Offset"]
-      183 GETTABLEKS                       R22 R3 K30 ["Y_AXIS"]
-      185 SETTABLEKS                       R22 R21 K43 ["Color"]
-      187 GETTABLEKS                       R22 R18 K30 ["Y_AXIS"]
-      189 SETTABLEKS                       R22 R21 K46 ["NormalId"]
-      191 SETTABLEKS                       R21 R20 K37 ["MinusY"]
-      193 DUPTABLE                         R21 K58 [{["Offset"], ["Color"], ["Axis"] = "Y", ["NormalId"]}]
-      194 GETIMPORT                        R22 K50 [CFrame.fromMatrix]
-      196 FASTCALL                         VECTOR ; [+2]
-      197 GETIMPORT                        R23 K53 [Vector3.new]
-      199 CALL                             R23 0 1
-      200 LOADK                            R24 K55 [{0, 0, 1}]
-      201 LOADK                            R25 K60 [{-1, 0, 0}]
-      202 CALL                             R22 3 1
-      203 SETTABLEKS                       R22 R21 K42 ["Offset"]
-      205 GETTABLEKS                       R22 R3 K30 ["Y_AXIS"]
-      207 SETTABLEKS                       R22 R21 K43 ["Color"]
-      209 GETTABLEKS                       R22 R18 K30 ["Y_AXIS"]
-      211 SETTABLEKS                       R22 R21 K46 ["NormalId"]
-      213 SETTABLEKS                       R21 R20 K38 ["PlusY"]
-      215 DUPTABLE                         R21 K62 [{["Offset"], ["Color"], ["Axis"] = "Z", ["NormalId"]}]
-      216 GETIMPORT                        R22 K50 [CFrame.fromMatrix]
-      218 FASTCALL                         VECTOR ; [+2]
-      219 GETIMPORT                        R23 K53 [Vector3.new]
-      221 CALL                             R23 0 1
-      222 LOADK                            R24 K59 [{1, 0, 0}]
-      223 LOADK                            R25 K54 [{0, 1, 0}]
-      224 CALL                             R22 3 1
-      225 SETTABLEKS                       R22 R21 K42 ["Offset"]
-      227 GETTABLEKS                       R22 R3 K32 ["Z_AXIS"]
-      229 SETTABLEKS                       R22 R21 K43 ["Color"]
-      231 GETTABLEKS                       R22 R18 K32 ["Z_AXIS"]
-      233 SETTABLEKS                       R22 R21 K46 ["NormalId"]
-      235 SETTABLEKS                       R21 R20 K39 ["MinusZ"]
-      237 DUPTABLE                         R21 K62 [{["Offset"], ["Color"], ["Axis"] = "Z", ["NormalId"]}]
-      238 GETIMPORT                        R22 K50 [CFrame.fromMatrix]
-      240 FASTCALL                         VECTOR ; [+2]
-      241 GETIMPORT                        R23 K53 [Vector3.new]
-      243 CALL                             R23 0 1
-      244 LOADK                            R24 K59 [{1, 0, 0}]
-      245 LOADK                            R25 K63 [{0, -1, 0}]
-      246 CALL                             R22 3 1
-      247 SETTABLEKS                       R22 R21 K42 ["Offset"]
-      249 GETTABLEKS                       R22 R3 K32 ["Z_AXIS"]
-      251 SETTABLEKS                       R22 R21 K43 ["Color"]
-      253 GETTABLEKS                       R22 R18 K32 ["Z_AXIS"]
-      255 SETTABLEKS                       R22 R21 K46 ["NormalId"]
-      257 SETTABLEKS                       R21 R20 K40 ["PlusZ"]
-      259 CALL                             R19 1 1
-      260 DUPCLOSURE                       R20 K64 [PROTO_0]
-      261 CAPTURE                          VAL R16
-      262 CAPTURE                          VAL R3
-      263 CAPTURE                          VAL R13
-      264 CAPTURE                          VAL R17
-      265 SETTABLEKS                       R20 R17 K52 ["new"]
-      267 DUPCLOSURE                       R20 K65 [PROTO_1]
-      268 SETTABLEKS                       R20 R17 K66 ["_hasSoftSnap"]
-      270 DUPCLOSURE                       R20 K67 [PROTO_2]
-      271 SETTABLEKS                       R20 R17 K68 ["beginSummon"]
-      273 DUPCLOSURE                       R20 K69 [PROTO_3]
-      274 SETTABLEKS                       R20 R17 K70 ["endSummon"]
-      276 DUPCLOSURE                       R20 K71 [PROTO_4]
-      277 SETTABLEKS                       R20 R17 K72 ["_getBasisOffset"]
-      279 DUPCLOSURE                       R20 K73 [PROTO_5]
-      280 SETTABLEKS                       R20 R17 K74 ["update"]
-      282 DUPCLOSURE                       R20 K75 [PROTO_6]
-      283 SETTABLEKS                       R20 R17 K76 ["shouldBiasTowardsObjects"]
-      285 DUPCLOSURE                       R20 K77 [PROTO_7]
-      286 SETTABLEKS                       R20 R17 K78 ["_rememberCurrentBoundsAsOriginal"]
-      288 DUPCLOSURE                       R20 K79 [PROTO_8]
-      289 SETTABLEKS                       R20 R17 K80 ["_refreshDrag"]
-      291 DUPCLOSURE                       R20 K81 [PROTO_9]
-      292 DUPCLOSURE                       R21 K82 [PROTO_10]
-      293 SETTABLEKS                       R21 R17 K83 ["_updateExtrudeMode"]
-      295 DUPCLOSURE                       R21 K84 [PROTO_11]
-      296 SETTABLEKS                       R21 R17 K85 ["_refreshDragIfNeeded"]
-      298 DUPCLOSURE                       R21 K86 [PROTO_12]
-      299 CAPTURE                          VAL R6
-      300 SETTABLEKS                       R21 R17 K87 ["hitTest"]
-      302 DUPCLOSURE                       R21 K88 [PROTO_13]
-      303 CAPTURE                          VAL R3
-      304 SETTABLEKS                       R21 R17 K89 ["_getBoundingBoxColor"]
-      306 DUPCLOSURE                       R21 K90 [PROTO_14]
-      307 SETTABLEKS                       R21 R17 K91 ["_getBoundingBoxThickness"]
-      309 DUPCLOSURE                       R21 K92 [PROTO_15]
-      310 SETTABLEKS                       R21 R17 K93 ["_shouldDrawBoundingBox"]
-      312 DUPTABLE                         R21 K98 [{["Hotkey"] = "⬇Alt", ["LabelLocEntry"] = "ScaleUniformly"}]
-      313 DUPTABLE                         R22 K101 [{["Hotkey"] = "⬆Alt", ["LabelLocEntry"] = "ScaleResize"}]
-      314 DUPTABLE                         R23 K104 [{["Hotkey"] = "⬇Ctrl", ["LabelLocEntry"] = "ScaleAroundPivot"}]
-      315 DUPTABLE                         R24 K107 [{["Hotkey"] = "⬆Ctrl", ["LabelLocEntry"] = "ScaleFromEdge"}]
-      316 DUPCLOSURE                       R25 K108 [PROTO_16]
-      317 CAPTURE                          VAL R10
-      318 CAPTURE                          VAL R24
-      319 CAPTURE                          VAL R23
-      320 CAPTURE                          VAL R22
-      321 CAPTURE                          VAL R21
-      322 CAPTURE                          VAL R2
-      323 CAPTURE                          VAL R8
-      324 SETTABLEKS                       R25 R17 K109 ["_renderHotkeyHelp"]
-      326 DUPCLOSURE                       R25 K110 [PROTO_17]
-      327 SETTABLEKS                       R25 R17 K111 ["_renderSoftSnaps"]
-      329 DUPCLOSURE                       R25 K112 [PROTO_19]
-      330 CAPTURE                          VAL R2
-      331 CAPTURE                          VAL R9
-      332 SETTABLEKS                       R25 R17 K113 ["_renderChosenAxis"]
-      334 DUPCLOSURE                       R25 K114 [PROTO_20]
+      116 GETIMPORT                        R17 K4 [require]
+      118 GETTABLEKS                       R18 R0 K24 ["Types"]
+      120 CALL                             R17 1 1
+      121 NEWTABLE                         R18 64 0
+      123 SETTABLEKS                       R18 R18 K25 ["__index"]
+      125 GETIMPORT                        R19 K28 [table.freeze]
+      127 DUPTABLE                         R20 K35 [{["X_AXIS"] = 1, ["Y_AXIS"] = 2, ["Z_AXIS"] = 3}]
+      128 CALL                             R19 1 1
+      129 GETIMPORT                        R20 K28 [table.freeze]
+      131 DUPTABLE                         R21 K42 [{"MinusX", "PlusX", "MinusY", "PlusY", "MinusZ", "PlusZ"}]
+      132 DUPTABLE                         R22 K48 [{["Offset"], ["Color"], ["Axis"] = "X", ["NormalId"]}]
+      133 GETIMPORT                        R23 K51 [CFrame.fromMatrix]
+      135 FASTCALL                         VECTOR ; [+2]
+      136 GETIMPORT                        R24 K54 [Vector3.new]
+      138 CALL                             R24 0 1
+      139 LOADK                            R25 K55 [{0, 1, 0}]
+      140 LOADK                            R26 K56 [{0, 0, 1}]
+      141 CALL                             R23 3 1
+      142 SETTABLEKS                       R23 R22 K43 ["Offset"]
+      144 GETTABLEKS                       R23 R3 K29 ["X_AXIS"]
+      146 SETTABLEKS                       R23 R22 K44 ["Color"]
+      148 GETTABLEKS                       R23 R19 K29 ["X_AXIS"]
+      150 SETTABLEKS                       R23 R22 K47 ["NormalId"]
+      152 SETTABLEKS                       R22 R21 K36 ["MinusX"]
+      154 DUPTABLE                         R22 K48 [{["Offset"], ["Color"], ["Axis"] = "X", ["NormalId"]}]
+      155 GETIMPORT                        R23 K51 [CFrame.fromMatrix]
+      157 FASTCALL                         VECTOR ; [+2]
+      158 GETIMPORT                        R24 K54 [Vector3.new]
+      160 CALL                             R24 0 1
+      161 LOADK                            R25 K55 [{0, 1, 0}]
+      162 LOADK                            R26 K57 [{0, 0, -1}]
+      163 CALL                             R23 3 1
+      164 SETTABLEKS                       R23 R22 K43 ["Offset"]
+      166 GETTABLEKS                       R23 R3 K29 ["X_AXIS"]
+      168 SETTABLEKS                       R23 R22 K44 ["Color"]
+      170 GETTABLEKS                       R23 R19 K29 ["X_AXIS"]
+      172 SETTABLEKS                       R23 R22 K47 ["NormalId"]
+      174 SETTABLEKS                       R22 R21 K37 ["PlusX"]
+      176 DUPTABLE                         R22 K59 [{["Offset"], ["Color"], ["Axis"] = "Y", ["NormalId"]}]
+      177 GETIMPORT                        R23 K51 [CFrame.fromMatrix]
+      179 FASTCALL                         VECTOR ; [+2]
+      180 GETIMPORT                        R24 K54 [Vector3.new]
+      182 CALL                             R24 0 1
+      183 LOADK                            R25 K56 [{0, 0, 1}]
+      184 LOADK                            R26 K60 [{1, 0, 0}]
+      185 CALL                             R23 3 1
+      186 SETTABLEKS                       R23 R22 K43 ["Offset"]
+      188 GETTABLEKS                       R23 R3 K31 ["Y_AXIS"]
+      190 SETTABLEKS                       R23 R22 K44 ["Color"]
+      192 GETTABLEKS                       R23 R19 K31 ["Y_AXIS"]
+      194 SETTABLEKS                       R23 R22 K47 ["NormalId"]
+      196 SETTABLEKS                       R22 R21 K38 ["MinusY"]
+      198 DUPTABLE                         R22 K59 [{["Offset"], ["Color"], ["Axis"] = "Y", ["NormalId"]}]
+      199 GETIMPORT                        R23 K51 [CFrame.fromMatrix]
+      201 FASTCALL                         VECTOR ; [+2]
+      202 GETIMPORT                        R24 K54 [Vector3.new]
+      204 CALL                             R24 0 1
+      205 LOADK                            R25 K56 [{0, 0, 1}]
+      206 LOADK                            R26 K61 [{-1, 0, 0}]
+      207 CALL                             R23 3 1
+      208 SETTABLEKS                       R23 R22 K43 ["Offset"]
+      210 GETTABLEKS                       R23 R3 K31 ["Y_AXIS"]
+      212 SETTABLEKS                       R23 R22 K44 ["Color"]
+      214 GETTABLEKS                       R23 R19 K31 ["Y_AXIS"]
+      216 SETTABLEKS                       R23 R22 K47 ["NormalId"]
+      218 SETTABLEKS                       R22 R21 K39 ["PlusY"]
+      220 DUPTABLE                         R22 K63 [{["Offset"], ["Color"], ["Axis"] = "Z", ["NormalId"]}]
+      221 GETIMPORT                        R23 K51 [CFrame.fromMatrix]
+      223 FASTCALL                         VECTOR ; [+2]
+      224 GETIMPORT                        R24 K54 [Vector3.new]
+      226 CALL                             R24 0 1
+      227 LOADK                            R25 K60 [{1, 0, 0}]
+      228 LOADK                            R26 K55 [{0, 1, 0}]
+      229 CALL                             R23 3 1
+      230 SETTABLEKS                       R23 R22 K43 ["Offset"]
+      232 GETTABLEKS                       R23 R3 K33 ["Z_AXIS"]
+      234 SETTABLEKS                       R23 R22 K44 ["Color"]
+      236 GETTABLEKS                       R23 R19 K33 ["Z_AXIS"]
+      238 SETTABLEKS                       R23 R22 K47 ["NormalId"]
+      240 SETTABLEKS                       R22 R21 K40 ["MinusZ"]
+      242 DUPTABLE                         R22 K63 [{["Offset"], ["Color"], ["Axis"] = "Z", ["NormalId"]}]
+      243 GETIMPORT                        R23 K51 [CFrame.fromMatrix]
+      245 FASTCALL                         VECTOR ; [+2]
+      246 GETIMPORT                        R24 K54 [Vector3.new]
+      248 CALL                             R24 0 1
+      249 LOADK                            R25 K60 [{1, 0, 0}]
+      250 LOADK                            R26 K64 [{0, -1, 0}]
+      251 CALL                             R23 3 1
+      252 SETTABLEKS                       R23 R22 K43 ["Offset"]
+      254 GETTABLEKS                       R23 R3 K33 ["Z_AXIS"]
+      256 SETTABLEKS                       R23 R22 K44 ["Color"]
+      258 GETTABLEKS                       R23 R19 K33 ["Z_AXIS"]
+      260 SETTABLEKS                       R23 R22 K47 ["NormalId"]
+      262 SETTABLEKS                       R22 R21 K41 ["PlusZ"]
+      264 CALL                             R20 1 1
+      265 DUPCLOSURE                       R21 K65 [PROTO_0]
+      266 CAPTURE                          VAL R16
+      267 CAPTURE                          VAL R3
+      268 CAPTURE                          VAL R13
+      269 CAPTURE                          VAL R18
+      270 SETTABLEKS                       R21 R18 K53 ["new"]
+      272 DUPCLOSURE                       R21 K66 [PROTO_1]
+      273 SETTABLEKS                       R21 R18 K67 ["_hasSoftSnap"]
+      275 DUPCLOSURE                       R21 K68 [PROTO_2]
+      276 SETTABLEKS                       R21 R18 K69 ["beginSummon"]
+      278 DUPCLOSURE                       R21 K70 [PROTO_3]
+      279 SETTABLEKS                       R21 R18 K71 ["endSummon"]
+      281 DUPCLOSURE                       R21 K72 [PROTO_4]
+      282 SETTABLEKS                       R21 R18 K73 ["_getBasisOffset"]
+      284 DUPCLOSURE                       R21 K74 [PROTO_5]
+      285 SETTABLEKS                       R21 R18 K75 ["update"]
+      287 DUPCLOSURE                       R21 K76 [PROTO_6]
+      288 SETTABLEKS                       R21 R18 K77 ["shouldBiasTowardsObjects"]
+      290 DUPCLOSURE                       R21 K78 [PROTO_7]
+      291 SETTABLEKS                       R21 R18 K79 ["_rememberCurrentBoundsAsOriginal"]
+      293 DUPCLOSURE                       R21 K80 [PROTO_8]
+      294 SETTABLEKS                       R21 R18 K81 ["_refreshDrag"]
+      296 DUPCLOSURE                       R21 K82 [PROTO_9]
+      297 DUPCLOSURE                       R22 K83 [PROTO_10]
+      298 SETTABLEKS                       R22 R18 K84 ["_updateExtrudeMode"]
+      300 DUPCLOSURE                       R22 K85 [PROTO_11]
+      301 SETTABLEKS                       R22 R18 K86 ["_refreshDragIfNeeded"]
+      303 DUPCLOSURE                       R22 K87 [PROTO_12]
+      304 CAPTURE                          VAL R6
+      305 SETTABLEKS                       R22 R18 K88 ["hitTest"]
+      307 DUPCLOSURE                       R22 K89 [PROTO_13]
+      308 CAPTURE                          VAL R3
+      309 SETTABLEKS                       R22 R18 K90 ["_getBoundingBoxColor"]
+      311 DUPCLOSURE                       R22 K91 [PROTO_14]
+      312 SETTABLEKS                       R22 R18 K92 ["_getBoundingBoxThickness"]
+      314 DUPCLOSURE                       R22 K93 [PROTO_15]
+      315 SETTABLEKS                       R22 R18 K94 ["_shouldDrawBoundingBox"]
+      317 DUPTABLE                         R22 K99 [{["Hotkey"] = "⬇Alt", ["LabelLocEntry"] = "ScaleUniformly"}]
+      318 DUPTABLE                         R23 K102 [{["Hotkey"] = "⬆Alt", ["LabelLocEntry"] = "ScaleResize"}]
+      319 DUPTABLE                         R24 K105 [{["Hotkey"] = "⬇Ctrl", ["LabelLocEntry"] = "ScaleAroundPivot"}]
+      320 DUPTABLE                         R25 K108 [{["Hotkey"] = "⬆Ctrl", ["LabelLocEntry"] = "ScaleFromEdge"}]
+      321 DUPCLOSURE                       R26 K109 [PROTO_16]
+      322 CAPTURE                          VAL R10
+      323 CAPTURE                          VAL R25
+      324 CAPTURE                          VAL R24
+      325 CAPTURE                          VAL R23
+      326 CAPTURE                          VAL R22
+      327 CAPTURE                          VAL R2
+      328 CAPTURE                          VAL R8
+      329 SETTABLEKS                       R26 R18 K110 ["_renderHotkeyHelp"]
+      331 DUPCLOSURE                       R26 K111 [PROTO_17]
+      332 SETTABLEKS                       R26 R18 K112 ["_renderSoftSnaps"]
+      334 DUPCLOSURE                       R26 K113 [PROTO_19]
       335 CAPTURE                          VAL R2
-      336 CAPTURE                          VAL R6
-      337 CAPTURE                          VAL R16
-      338 SETTABLEKS                       R25 R17 K115 ["_renderDraggingHandles"]
-      340 DUPCLOSURE                       R25 K116 [PROTO_21]
-      341 CAPTURE                          VAL R16
-      342 CAPTURE                          VAL R2
-      343 CAPTURE                          VAL R11
-      344 CAPTURE                          VAL R12
-      345 SETTABLEKS                       R25 R17 K117 ["_renderSizeMeasurement"]
-      347 DUPCLOSURE                       R25 K118 [PROTO_22]
-      348 CAPTURE                          VAL R2
-      349 CAPTURE                          VAL R7
-      350 SETTABLEKS                       R25 R17 K119 ["_renderSummon"]
-      352 DUPCLOSURE                       R25 K120 [PROTO_23]
+      336 CAPTURE                          VAL R9
+      337 SETTABLEKS                       R26 R18 K114 ["_renderChosenAxis"]
+      339 DUPCLOSURE                       R26 K115 [PROTO_20]
+      340 CAPTURE                          VAL R2
+      341 CAPTURE                          VAL R6
+      342 CAPTURE                          VAL R16
+      343 SETTABLEKS                       R26 R18 K116 ["_renderDraggingHandles"]
+      345 DUPCLOSURE                       R26 K117 [PROTO_21]
+      346 CAPTURE                          VAL R16
+      347 CAPTURE                          VAL R2
+      348 CAPTURE                          VAL R11
+      349 CAPTURE                          VAL R12
+      350 SETTABLEKS                       R26 R18 K118 ["_renderSizeMeasurement"]
+      352 DUPCLOSURE                       R26 K119 [PROTO_22]
       353 CAPTURE                          VAL R2
-      354 CAPTURE                          VAL R5
-      355 SETTABLEKS                       R25 R17 K121 ["_renderBoundingBox"]
-      357 DUPCLOSURE                       R25 K122 [PROTO_24]
-      358 CAPTURE                          VAL R16
-      359 CAPTURE                          VAL R3
-      360 CAPTURE                          VAL R2
-      361 CAPTURE                          VAL R6
-      362 SETTABLEKS                       R25 R17 K123 ["_renderHovering"]
-      364 DUPCLOSURE                       R25 K124 [PROTO_25]
+      354 CAPTURE                          VAL R7
+      355 SETTABLEKS                       R26 R18 K120 ["_renderSummon"]
+      357 DUPCLOSURE                       R26 K121 [PROTO_23]
+      358 CAPTURE                          VAL R2
+      359 CAPTURE                          VAL R5
+      360 SETTABLEKS                       R26 R18 K122 ["_renderBoundingBox"]
+      362 DUPCLOSURE                       R26 K123 [PROTO_24]
+      363 CAPTURE                          VAL R16
+      364 CAPTURE                          VAL R3
       365 CAPTURE                          VAL R2
-      366 SETTABLEKS                       R25 R17 K125 ["_renderDragging"]
-      368 DUPCLOSURE                       R25 K126 [PROTO_26]
-      369 CAPTURE                          VAL R2
-      370 SETTABLEKS                       R25 R17 K127 ["render"]
-      372 DUPCLOSURE                       R25 K128 [PROTO_27]
-      373 SETTABLEKS                       R25 R17 K129 ["_needsSoftSnaps"]
-      375 DUPCLOSURE                       R25 K130 [PROTO_28]
-      376 SETTABLEKS                       R25 R17 K131 ["mouseDown"]
-      378 DUPCLOSURE                       R25 K132 [PROTO_29]
-      379 DUPCLOSURE                       R26 K133 [PROTO_30]
-      380 CAPTURE                          VAL R4
-      381 DUPCLOSURE                       R27 K134 [PROTO_31]
-      382 DUPCLOSURE                       R28 K135 [PROTO_33]
-      383 CAPTURE                          VAL R16
-      384 CAPTURE                          VAL R14
-      385 CAPTURE                          VAL R26
-      386 CAPTURE                          VAL R4
-      387 SETTABLEKS                       R28 R17 K136 ["mouseDrag"]
-      389 DUPCLOSURE                       R28 K137 [PROTO_34]
-      390 SETTABLEKS                       R28 R17 K138 ["mouseUp"]
-      392 DUPCLOSURE                       R28 K139 [PROTO_35]
-      393 CAPTURE                          VAL R19
-      394 SETTABLEKS                       R28 R17 K140 ["_getLocalOppositeBoundingBoxSideCenterOffset"]
-      396 DUPCLOSURE                       R28 K141 [PROTO_36]
-      397 SETTABLEKS                       R28 R17 K142 ["_getScaleCenterToOppositeBoundingBoxSide"]
-      399 DUPCLOSURE                       R28 K143 [PROTO_37]
-      400 CAPTURE                          VAL R6
-      401 CAPTURE                          VAL R4
-      402 SETTABLEKS                       R28 R17 K144 ["_computeProjectionLineAndScaleCenter"]
-      404 DUPCLOSURE                       R28 K145 [PROTO_38]
-      405 CAPTURE                          VAL R15
-      406 SETTABLEKS                       R28 R17 K146 ["_getDistanceAlongAxis"]
-      408 DUPCLOSURE                       R28 K147 [PROTO_39]
-      409 CAPTURE                          VAL R19
-      410 CAPTURE                          VAL R16
-      411 CAPTURE                          VAL R3
-      412 SETTABLEKS                       R28 R17 K148 ["_updateHandles"]
-      414 NEWTABLE                         R28 8 0
-      416 GETIMPORT                        R29 K152 [Enum.KeyCode.RightShift]
-      418 LOADB                            R30 1
-      419 SETTABLE                         R30 R28 R29
-      420 GETIMPORT                        R29 K154 [Enum.KeyCode.LeftShift]
-      422 LOADB                            R30 1
-      423 SETTABLE                         R30 R28 R29
-      424 GETIMPORT                        R29 K156 [Enum.KeyCode.RightControl]
-      426 LOADB                            R30 1
-      427 SETTABLE                         R30 R28 R29
-      428 GETIMPORT                        R29 K158 [Enum.KeyCode.LeftControl]
-      430 LOADB                            R30 1
-      431 SETTABLE                         R30 R28 R29
-      432 GETIMPORT                        R29 K160 [Enum.KeyCode.RightAlt]
-      434 LOADB                            R30 1
-      435 SETTABLE                         R30 R28 R29
-      436 GETIMPORT                        R29 K162 [Enum.KeyCode.LeftAlt]
-      438 LOADB                            R30 1
-      439 SETTABLE                         R30 R28 R29
-      440 DUPCLOSURE                       R29 K163 [PROTO_40]
-      441 CAPTURE                          VAL R28
-      442 SETTABLEKS                       R29 R17 K164 ["keyDown"]
-      444 DUPCLOSURE                       R29 K165 [PROTO_41]
-      445 CAPTURE                          VAL R28
-      446 SETTABLEKS                       R29 R17 K166 ["keyUp"]
-      448 DUPCLOSURE                       R29 K167 [PROTO_42]
-      449 SETTABLEKS                       R29 R17 K168 ["getPriority"]
-      451 RETURN                           R17 1
+      366 CAPTURE                          VAL R6
+      367 SETTABLEKS                       R26 R18 K124 ["_renderHovering"]
+      369 DUPCLOSURE                       R26 K125 [PROTO_25]
+      370 CAPTURE                          VAL R2
+      371 SETTABLEKS                       R26 R18 K126 ["_renderDragging"]
+      373 DUPCLOSURE                       R26 K127 [PROTO_26]
+      374 CAPTURE                          VAL R2
+      375 SETTABLEKS                       R26 R18 K128 ["render"]
+      377 DUPCLOSURE                       R26 K129 [PROTO_27]
+      378 SETTABLEKS                       R26 R18 K130 ["_needsSoftSnaps"]
+      380 DUPCLOSURE                       R26 K131 [PROTO_28]
+      381 SETTABLEKS                       R26 R18 K132 ["mouseDown"]
+      383 DUPCLOSURE                       R26 K133 [PROTO_29]
+      384 DUPCLOSURE                       R27 K134 [PROTO_30]
+      385 CAPTURE                          VAL R4
+      386 DUPCLOSURE                       R28 K135 [PROTO_31]
+      387 DUPCLOSURE                       R29 K136 [PROTO_33]
+      388 CAPTURE                          VAL R16
+      389 CAPTURE                          VAL R14
+      390 CAPTURE                          VAL R27
+      391 CAPTURE                          VAL R4
+      392 SETTABLEKS                       R29 R18 K137 ["mouseDrag"]
+      394 DUPCLOSURE                       R29 K138 [PROTO_34]
+      395 SETTABLEKS                       R29 R18 K139 ["mouseUp"]
+      397 DUPCLOSURE                       R29 K140 [PROTO_35]
+      398 CAPTURE                          VAL R20
+      399 SETTABLEKS                       R29 R18 K141 ["_getLocalOppositeBoundingBoxSideCenterOffset"]
+      401 DUPCLOSURE                       R29 K142 [PROTO_36]
+      402 SETTABLEKS                       R29 R18 K143 ["_getScaleCenterToOppositeBoundingBoxSide"]
+      404 DUPCLOSURE                       R29 K144 [PROTO_37]
+      405 CAPTURE                          VAL R6
+      406 CAPTURE                          VAL R4
+      407 SETTABLEKS                       R29 R18 K145 ["_computeProjectionLineAndScaleCenter"]
+      409 DUPCLOSURE                       R29 K146 [PROTO_38]
+      410 CAPTURE                          VAL R15
+      411 SETTABLEKS                       R29 R18 K147 ["_getDistanceAlongAxis"]
+      413 DUPCLOSURE                       R29 K148 [PROTO_39]
+      414 CAPTURE                          VAL R20
+      415 CAPTURE                          VAL R16
+      416 CAPTURE                          VAL R3
+      417 SETTABLEKS                       R29 R18 K149 ["_updateHandles"]
+      419 NEWTABLE                         R29 8 0
+      421 GETIMPORT                        R30 K153 [Enum.KeyCode.RightShift]
+      423 LOADB                            R31 1
+      424 SETTABLE                         R31 R29 R30
+      425 GETIMPORT                        R30 K155 [Enum.KeyCode.LeftShift]
+      427 LOADB                            R31 1
+      428 SETTABLE                         R31 R29 R30
+      429 GETIMPORT                        R30 K157 [Enum.KeyCode.RightControl]
+      431 LOADB                            R31 1
+      432 SETTABLE                         R31 R29 R30
+      433 GETIMPORT                        R30 K159 [Enum.KeyCode.LeftControl]
+      435 LOADB                            R31 1
+      436 SETTABLE                         R31 R29 R30
+      437 GETIMPORT                        R30 K161 [Enum.KeyCode.RightAlt]
+      439 LOADB                            R31 1
+      440 SETTABLE                         R31 R29 R30
+      441 GETIMPORT                        R30 K163 [Enum.KeyCode.LeftAlt]
+      443 LOADB                            R31 1
+      444 SETTABLE                         R31 R29 R30
+      445 DUPCLOSURE                       R30 K164 [PROTO_40]
+      446 CAPTURE                          VAL R29
+      447 SETTABLEKS                       R30 R18 K165 ["keyDown"]
+      449 DUPCLOSURE                       R30 K166 [PROTO_41]
+      450 CAPTURE                          VAL R29
+      451 SETTABLEKS                       R30 R18 K167 ["keyUp"]
+      453 DUPCLOSURE                       R30 K168 [PROTO_42]
+      454 SETTABLEKS                       R30 R18 K169 ["getPriority"]
+      456 RETURN                           R18 1

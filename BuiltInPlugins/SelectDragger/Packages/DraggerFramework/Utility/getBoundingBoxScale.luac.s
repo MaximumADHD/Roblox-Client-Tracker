@@ -20,16 +20,22 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 0 8
-        3 LOADK                            R1 K0 [{0.5, 0.5, 0.5}]
-        4 LOADK                            R2 K1 [{-0.5, 0.5, 0.5}]
-        5 LOADK                            R3 K2 [{0.5, -0.5, 0.5}]
-        6 LOADK                            R4 K3 [{-0.5, -0.5, 0.5}]
-        7 LOADK                            R5 K4 [{0.5, 0.5, -0.5}]
-        8 LOADK                            R6 K5 [{-0.5, 0.5, -0.5}]
-        9 LOADK                            R7 K6 [{0.5, -0.5, -0.5}]
-       10 LOADK                            R8 K7 [{-0.5, -0.5, -0.5}]
-       11 SETLIST                          R0 R1 8 [1]
-       13 DUPCLOSURE                       R1 K8 [PROTO_0]
-       14 CAPTURE                          VAL R0
-       15 RETURN                           R1 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R2 R0 K5 ["Types"]
+       11 CALL                             R1 1 1
+       12 NEWTABLE                         R2 0 8
+       14 LOADK                            R3 K6 [{0.5, 0.5, 0.5}]
+       15 LOADK                            R4 K7 [{-0.5, 0.5, 0.5}]
+       16 LOADK                            R5 K8 [{0.5, -0.5, 0.5}]
+       17 LOADK                            R6 K9 [{-0.5, -0.5, 0.5}]
+       18 LOADK                            R7 K10 [{0.5, 0.5, -0.5}]
+       19 LOADK                            R8 K11 [{-0.5, 0.5, -0.5}]
+       20 LOADK                            R9 K12 [{0.5, -0.5, -0.5}]
+       21 LOADK                            R10 K13 [{-0.5, -0.5, -0.5}]
+       22 SETLIST                          R2 R3 8 [1]
+       24 DUPCLOSURE                       R3 K14 [PROTO_0]
+       25 CAPTURE                          VAL R2
+       26 RETURN                           R3 1

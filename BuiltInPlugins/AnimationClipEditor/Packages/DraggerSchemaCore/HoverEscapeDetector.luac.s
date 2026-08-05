@@ -81,18 +81,19 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["_destroyed"]
         2 NOT                              R2 R3
-        3 FASTCALL1                        ASSERT R2 ; [+2]
-        4 GETIMPORT                        R1 K2 [assert]
-        6 CALL                             R1 1 0
-        7 LOADB                            R1 1
-        8 SETTABLEKS                       R1 R0 K0 ["_destroyed"]
-       10 GETTABLEKS                       R1 R0 K3 ["_hoverInstanceEscapedConnection"]
-       12 NAMECALL                         R1 R1 K4 ["Disconnect"]
-       14 CALL                             R1 1 0
-       15 GETTABLEKS                       R1 R0 K5 ["_hoverInstanceContentsChangedConnection"]
-       17 NAMECALL                         R1 R1 K4 ["Disconnect"]
-       19 CALL                             R1 1 0
-       20 RETURN                           R0 0
+        3 FASTCALL2K                       ASSERT R2 K1 ; [+4]
+        5 LOADK                            R3 K1 ["Already destroyed"]
+        6 GETIMPORT                        R1 K3 [assert]
+        8 CALL                             R1 2 0
+        9 LOADB                            R1 1
+       10 SETTABLEKS                       R1 R0 K0 ["_destroyed"]
+       12 GETTABLEKS                       R1 R0 K4 ["_hoverInstanceEscapedConnection"]
+       14 NAMECALL                         R1 R1 K5 ["Disconnect"]
+       16 CALL                             R1 1 0
+       17 GETTABLEKS                       R1 R0 K6 ["_hoverInstanceContentsChangedConnection"]
+       19 NAMECALL                         R1 R1 K5 ["Disconnect"]
+       21 CALL                             R1 1 0
+       22 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

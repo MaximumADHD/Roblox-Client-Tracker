@@ -37,15 +37,7 @@ PROTO_1:
 PROTO_2:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["_destroyed"]
-        3 LOADNIL                          R1
-        4 SETTABLEKS                       R1 R0 K1 ["_collab"]
-        6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K2 ["_universes"]
-        9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K3 ["OnCollabItemsChanged"]
-       12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K4 ["OnUniverseItemsChanged"]
-       15 RETURN                           R0 0
+        3 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["_collab"]

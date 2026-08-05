@@ -541,40 +541,46 @@ MAIN:
        48 GETTABLEKS                       R12 R2 K14 ["Components"]
        50 GETTABLEKS                       R12 R12 K15 ["WireframeHandleAdornment"]
        52 CALL                             R11 1 1
-       53 NEWTABLE                         R12 16 0
-       55 SETTABLEKS                       R12 R12 K16 ["__index"]
-       57 DUPCLOSURE                       R13 K17 [PROTO_0]
-       58 CAPTURE                          VAL R7
-       59 CAPTURE                          VAL R8
-       60 CAPTURE                          VAL R12
-       61 SETTABLEKS                       R13 R12 K18 ["new"]
-       63 DUPCLOSURE                       R13 K19 [PROTO_1]
-       64 CAPTURE                          VAL R5
-       65 SETTABLEKS                       R13 R12 K20 ["beginDrag"]
-       67 DUPCLOSURE                       R13 K21 [PROTO_2]
-       68 CAPTURE                          VAL R10
-       69 CAPTURE                          VAL R9
-       70 SETTABLEKS                       R13 R12 K12 ["getSoftSnaps"]
-       72 DUPCLOSURE                       R13 K22 [PROTO_3]
-       73 SETTABLEKS                       R13 R12 K23 ["updateDrag"]
-       75 DUPCLOSURE                       R13 K24 [PROTO_4]
-       76 SETTABLEKS                       R13 R12 K25 ["endDrag"]
-       78 DUPCLOSURE                       R13 K26 [PROTO_7]
-       79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R4
-       81 CAPTURE                          VAL R11
-       82 SETTABLEKS                       R13 R12 K27 ["render"]
-       84 DUPCLOSURE                       R13 K28 [PROTO_8]
-       85 SETTABLEKS                       R13 R12 K29 ["_transformGeometric"]
-       87 DUPCLOSURE                       R13 K30 [PROTO_9]
-       88 SETTABLEKS                       R13 R12 K31 ["_transformInverseKinematics"]
-       90 DUPCLOSURE                       R13 K32 [PROTO_10]
-       91 DUPCLOSURE                       R14 K33 [PROTO_11]
-       92 SETTABLEKS                       R14 R12 K34 ["_toLocalTransform"]
-       94 DUPCLOSURE                       R14 K35 [PROTO_12]
-       95 SETTABLEKS                       R14 R12 K36 ["_toGlobalTransform"]
-       97 DUPCLOSURE                       R14 K37 [PROTO_13]
-       98 SETTABLEKS                       R14 R12 K38 ["_safelyTransformParts"]
-      100 DUPCLOSURE                       R14 K39 [PROTO_14]
-      101 SETTABLEKS                       R14 R12 K40 ["_shouldSolveConstraints"]
-      103 RETURN                           R12 1
+       53 GETIMPORT                        R12 K6 [require]
+       55 GETTABLEKS                       R13 R0 K16 ["SelectionInfo"]
+       57 CALL                             R12 1 1
+       58 GETIMPORT                        R13 K6 [require]
+       60 GETTABLEKS                       R14 R2 K17 ["Types"]
+       62 CALL                             R13 1 1
+       63 NEWTABLE                         R14 16 0
+       65 SETTABLEKS                       R14 R14 K18 ["__index"]
+       67 DUPCLOSURE                       R15 K19 [PROTO_0]
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R8
+       70 CAPTURE                          VAL R14
+       71 SETTABLEKS                       R15 R14 K20 ["new"]
+       73 DUPCLOSURE                       R15 K21 [PROTO_1]
+       74 CAPTURE                          VAL R5
+       75 SETTABLEKS                       R15 R14 K22 ["beginDrag"]
+       77 DUPCLOSURE                       R15 K23 [PROTO_2]
+       78 CAPTURE                          VAL R10
+       79 CAPTURE                          VAL R9
+       80 SETTABLEKS                       R15 R14 K12 ["getSoftSnaps"]
+       82 DUPCLOSURE                       R15 K24 [PROTO_3]
+       83 SETTABLEKS                       R15 R14 K25 ["updateDrag"]
+       85 DUPCLOSURE                       R15 K26 [PROTO_4]
+       86 SETTABLEKS                       R15 R14 K27 ["endDrag"]
+       88 DUPCLOSURE                       R15 K28 [PROTO_7]
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R11
+       92 SETTABLEKS                       R15 R14 K29 ["render"]
+       94 DUPCLOSURE                       R15 K30 [PROTO_8]
+       95 SETTABLEKS                       R15 R14 K31 ["_transformGeometric"]
+       97 DUPCLOSURE                       R15 K32 [PROTO_9]
+       98 SETTABLEKS                       R15 R14 K33 ["_transformInverseKinematics"]
+      100 DUPCLOSURE                       R15 K34 [PROTO_10]
+      101 DUPCLOSURE                       R16 K35 [PROTO_11]
+      102 SETTABLEKS                       R16 R14 K36 ["_toLocalTransform"]
+      104 DUPCLOSURE                       R16 K37 [PROTO_12]
+      105 SETTABLEKS                       R16 R14 K38 ["_toGlobalTransform"]
+      107 DUPCLOSURE                       R16 K39 [PROTO_13]
+      108 SETTABLEKS                       R16 R14 K40 ["_safelyTransformParts"]
+      110 DUPCLOSURE                       R16 K41 [PROTO_14]
+      111 SETTABLEKS                       R16 R14 K42 ["_shouldSolveConstraints"]
+      113 RETURN                           R14 1

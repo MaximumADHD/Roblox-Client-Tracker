@@ -2,8 +2,9 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["reimportInstanceDebounced"]
         3 GETUPVAL                         R1 1
-        4 CALL                             R0 1 0
-        5 RETURN                           R0 0
+        4 DUPTABLE                         R2 K3 [{["wasAutoReimport"] = True}]
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -196,8 +197,9 @@ PROTO_6:
        88 GETUPVAL                         R4 9
        89 GETTABLEKS                       R4 R4 K19 ["reimportInstanceDebounced"]
        91 MOVE                             R5 R0
-       92 CALL                             R4 1 0
-       93 RETURN                           R0 0
+       92 DUPTABLE                         R6 K21 [{["wasAutoReimport"] = True}]
+       93 CALL                             R4 2 0
+       94 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R3 0

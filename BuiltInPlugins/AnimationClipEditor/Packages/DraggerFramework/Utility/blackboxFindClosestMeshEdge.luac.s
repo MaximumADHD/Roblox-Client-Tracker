@@ -282,8 +282,8 @@ PROTO_2:
       312 JUMP                             ; [+2]
       313 MULK                             R14 R14 K31 [2.28]
       314 FORNLOOP                         R16
-      315 JUMPIFEQKN                       R9 K4 [∞] ; [+50]
-      317 JUMPIFEQKN                       R8 K3 [-∞] ; [+48]
+      315 JUMPIFEQKN                       R9 K4 [∞] ; [+32]
+      317 JUMPIFEQKN                       R8 K3 [-∞] ; [+30]
       319 MUL                              R17 R2 R9
       320 ADD                              R16 R1 R17
       321 MUL                              R18 R2 R8
@@ -294,29 +294,19 @@ PROTO_2:
       327 JUMPIFNOT                        R18 ; [+2]
       328 LOADNIL                          R18
       329 RETURN                           R18 1
-      330 NEWTABLE                         R18 8 0
-      332 SETTABLEKS                       R16 R18 K35 ["a"]
-      334 SETTABLEKS                       R17 R18 K36 ["b"]
-      336 GETTABLEKS                       R20 R18 K36 ["b"]
-      338 GETTABLEKS                       R21 R18 K35 ["a"]
-      340 SUB                              R19 R20 R21
-      341 GETTABLEKS                       R19 R19 K17 ["Unit"]
-      343 SETTABLEKS                       R19 R18 K37 ["direction"]
-      345 GETTABLEKS                       R20 R18 K36 ["b"]
-      347 GETTABLEKS                       R21 R18 K35 ["a"]
-      349 SUB                              R19 R20 R21
-      350 GETTABLEKS                       R19 R19 K2 ["Magnitude"]
-      352 SETTABLEKS                       R19 R18 K38 ["length"]
-      354 LOADK                            R19 K39 [0.5]
-      355 SETTABLEKS                       R19 R18 K40 ["edgeMargin"]
-      357 SETTABLEKS                       R0 R18 K41 ["part"]
-      359 LOADK                            R19 K42 ["Edge"]
-      360 SETTABLEKS                       R19 R18 K43 ["type"]
-      362 LOADB                            R19 1
-      363 SETTABLEKS                       R19 R18 K44 ["inferred"]
-      365 RETURN                           R18 1
-      366 LOADNIL                          R16
-      367 RETURN                           R16 1
+      330 DUPTABLE                         R18 K46 [{["a"], ["b"], ["direction"], ["length"], ["edgeMargin"] = 0.5, ["part"], ["type"] = "Edge", ["inferred"] = True}]
+      331 SETTABLEKS                       R16 R18 K35 ["a"]
+      333 SETTABLEKS                       R17 R18 K36 ["b"]
+      335 SUB                              R19 R17 R16
+      336 GETTABLEKS                       R19 R19 K17 ["Unit"]
+      338 SETTABLEKS                       R19 R18 K37 ["direction"]
+      340 SUB                              R19 R17 R16
+      341 GETTABLEKS                       R19 R19 K2 ["Magnitude"]
+      343 SETTABLEKS                       R19 R18 K38 ["length"]
+      345 SETTABLEKS                       R0 R18 K41 ["part"]
+      347 RETURN                           R18 1
+      348 LOADNIL                          R16
+      349 RETURN                           R16 1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R2 K0 ["XVector"]

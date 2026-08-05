@@ -2,35 +2,37 @@ PROTO_0:
         0 LOADB                            R1 0
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K0 ["current"]
-        4 JUMPIFEQKNIL                     R2 ; [+17]
-        6 GETUPVAL                         R1 1
-        7 MOVE                             R2 R0
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R3 R3 K0 ["current"]
-       11 LOADN                            R4 1
-       12 CALL                             R1 3 1
-       13 JUMPIFNOT                        R1 ; [+8]
-       14 GETUPVAL                         R2 2
-       15 NAMECALL                         R2 R2 K1 ["getLastZoneClicked"]
-       17 CALL                             R2 1 1
-       18 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       20 LOADB                            R1 0 +1
-       21 LOADB                            R1 1
-       22 GETUPVAL                         R2 2
-       23 GETUPVAL                         R4 3
-       24 GETUPVAL                         R5 4
-       25 NAMECALL                         R2 R2 K2 ["isValidDragForTarget"]
-       27 CALL                             R2 3 1
-       28 GETUPVAL                         R3 5
-       29 AND                              R4 R1 R2
-       30 CALL                             R3 1 0
-       31 JUMPIFNOT                        R1 ; [+6]
-       32 JUMPIF                           R2 ; [+5]
-       33 GETUPVAL                         R3 2
-       34 MOVE                             R5 R0
-       35 NAMECALL                         R3 R3 K3 ["setInvalidDragHoverPosition"]
-       37 CALL                             R3 2 0
-       38 RETURN                           R0 0
+        4 JUMPIFEQKNIL                     R2 ; [+20]
+        6 LOADB                            R1 0
+        7 JUMPIFEQKNIL                     R0 ; [+17]
+        9 GETUPVAL                         R1 1
+       10 MOVE                             R2 R0
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K0 ["current"]
+       14 LOADN                            R4 1
+       15 CALL                             R1 3 1
+       16 JUMPIFNOT                        R1 ; [+8]
+       17 GETUPVAL                         R2 2
+       18 NAMECALL                         R2 R2 K1 ["getLastZoneClicked"]
+       20 CALL                             R2 1 1
+       21 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       23 LOADB                            R1 0 +1
+       24 LOADB                            R1 1
+       25 GETUPVAL                         R2 2
+       26 GETUPVAL                         R4 3
+       27 GETUPVAL                         R5 4
+       28 NAMECALL                         R2 R2 K2 ["isValidDragForTarget"]
+       30 CALL                             R2 3 1
+       31 GETUPVAL                         R3 5
+       32 AND                              R4 R1 R2
+       33 CALL                             R3 1 0
+       34 JUMPIFNOT                        R1 ; [+6]
+       35 JUMPIF                           R2 ; [+5]
+       36 GETUPVAL                         R3 2
+       37 MOVE                             R5 R0
+       38 NAMECALL                         R3 R3 K3 ["setInvalidDragHoverPosition"]
+       40 CALL                             R3 2 0
+       41 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

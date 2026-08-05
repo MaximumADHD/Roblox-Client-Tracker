@@ -75,6 +75,9 @@ PROTO_3:
        40 RETURN                           R2 1
 
 PROTO_4:
+        0 RETURN                           R1 1
+
+PROTO_5:
         0 MOVE                             R2 R1
         1 JUMPIF                           R2 ; [+2]
         2 NEWTABLE                         R2 0 0
@@ -96,7 +99,7 @@ PROTO_4:
        23 GETTABLEKS                       R5 R1 K4 ["implementation"]
        25 JUMPIFNOT                        R5 ; [+3]
        26 GETTABLEKS                       R4 R1 K4 ["implementation"]
-       28 JUMP                             ; [+16]
+       28 JUMP                             ; [+17]
        29 GETUPVAL                         R5 3
        30 JUMPIFNOTEQ                      R0 R5 ; [+8]
        32 GETUPVAL                         R5 4
@@ -104,67 +107,68 @@ PROTO_4:
        35 MOVE                             R6 R2
        36 CALL                             R5 1 1
        37 MOVE                             R4 R5
-       38 JUMP                             ; [+6]
+       38 JUMP                             ; [+7]
        39 GETUPVAL                         R5 5
        40 GETTABLEKS                       R5 R5 K0 ["new"]
        42 MOVE                             R6 R2
-       43 CALL                             R5 1 1
-       44 MOVE                             R4 R5
-       45 DUPTABLE                         R5 K8 [{"MustPositionAtPivot", "Summonable", "ShowBoundingBox"}]
-       46 GETTABLEKS                       R7 R1 K5 ["MustPositionAtPivot"]
-       48 ORK                              R6 R7 K9 [False]
-       49 SETTABLEKS                       R6 R5 K5 ["MustPositionAtPivot"]
-       51 GETTABLEKS                       R7 R1 K6 ["Summonable"]
-       53 ORK                              R6 R7 K10 [True]
-       54 SETTABLEKS                       R6 R5 K6 ["Summonable"]
-       56 GETTABLEKS                       R7 R1 K7 ["ShowBoundingBox"]
-       58 ORK                              R6 R7 K10 [True]
-       59 SETTABLEKS                       R6 R5 K7 ["ShowBoundingBox"]
-       61 GETTABLEKS                       R6 R0 K0 ["new"]
-       63 MOVE                             R7 R2
-       64 MOVE                             R8 R5
-       65 MOVE                             R9 R4
-       66 CALL                             R6 3 1
-       67 SETTABLEKS                       R4 R6 K11 ["_implementation"]
-       69 NAMECALL                         R7 R2 K12 ["getSelection"]
-       71 CALL                             R7 1 1
-       72 NEWTABLE                         R9 0 1
-       74 MOVE                             R10 R3
-       75 SETLIST                          R9 R10 1 [1]
-       77 NAMECALL                         R7 R7 K13 ["Set"]
-       79 CALL                             R7 2 0
-       80 GETUPVAL                         R7 6
-       81 GETTABLEKS                       R7 R7 K0 ["new"]
-       83 MOVE                             R8 R2
-       84 GETUPVAL                         R9 7
-       85 DUPTABLE                         R10 K16 [{["AnalyticsName"] = "Test"}]
-       86 CALL                             R7 3 1
-       87 NAMECALL                         R8 R7 K17 ["select"]
-       89 CALL                             R8 1 0
-       90 NAMECALL                         R8 R7 K18 ["getModel"]
-       92 CALL                             R8 1 1
-       93 GETUPVAL                         R9 8
-       94 GETTABLEKS                       R9 R9 K0 ["new"]
-       96 MOVE                             R10 R2
-       97 NAMECALL                         R11 R2 K12 ["getSelection"]
-       99 CALL                             R11 1 1
-      100 NAMECALL                         R11 R11 K19 ["Get"]
-      102 CALL                             R11 1 -1
-      103 CALL                             R9 -1 1
-      104 MOVE                             R12 R8
-      105 MOVE                             R13 R9
-      106 NAMECALL                         R10 R6 K20 ["update"]
-      108 CALL                             R10 3 0
-      109 MOVE                             R10 R6
-      110 MOVE                             R11 R2
-      111 MOVE                             R12 R4
-      112 MOVE                             R13 R8
-      113 MOVE                             R14 R9
-      114 MOVE                             R15 R3
-      115 MOVE                             R16 R7
-      116 RETURN                           R10 7
+       43 DUPCLOSURE                       R7 K5 [PROTO_4]
+       44 CALL                             R5 2 1
+       45 MOVE                             R4 R5
+       46 DUPTABLE                         R5 K9 [{"MustPositionAtPivot", "Summonable", "ShowBoundingBox"}]
+       47 GETTABLEKS                       R7 R1 K6 ["MustPositionAtPivot"]
+       49 ORK                              R6 R7 K10 [False]
+       50 SETTABLEKS                       R6 R5 K6 ["MustPositionAtPivot"]
+       52 GETTABLEKS                       R7 R1 K7 ["Summonable"]
+       54 ORK                              R6 R7 K11 [True]
+       55 SETTABLEKS                       R6 R5 K7 ["Summonable"]
+       57 GETTABLEKS                       R7 R1 K8 ["ShowBoundingBox"]
+       59 ORK                              R6 R7 K11 [True]
+       60 SETTABLEKS                       R6 R5 K8 ["ShowBoundingBox"]
+       62 GETTABLEKS                       R6 R0 K0 ["new"]
+       64 MOVE                             R7 R2
+       65 MOVE                             R8 R5
+       66 MOVE                             R9 R4
+       67 CALL                             R6 3 1
+       68 SETTABLEKS                       R4 R6 K12 ["_implementation"]
+       70 NAMECALL                         R7 R2 K13 ["getSelection"]
+       72 CALL                             R7 1 1
+       73 NEWTABLE                         R9 0 1
+       75 MOVE                             R10 R3
+       76 SETLIST                          R9 R10 1 [1]
+       78 NAMECALL                         R7 R7 K14 ["Set"]
+       80 CALL                             R7 2 0
+       81 GETUPVAL                         R7 6
+       82 GETTABLEKS                       R7 R7 K0 ["new"]
+       84 MOVE                             R8 R2
+       85 GETUPVAL                         R9 7
+       86 DUPTABLE                         R10 K17 [{["AnalyticsName"] = "Test"}]
+       87 CALL                             R7 3 1
+       88 NAMECALL                         R8 R7 K18 ["select"]
+       90 CALL                             R8 1 0
+       91 NAMECALL                         R8 R7 K19 ["getModel"]
+       93 CALL                             R8 1 1
+       94 GETUPVAL                         R9 8
+       95 GETTABLEKS                       R9 R9 K0 ["new"]
+       97 MOVE                             R10 R2
+       98 NAMECALL                         R11 R2 K13 ["getSelection"]
+      100 CALL                             R11 1 1
+      101 NAMECALL                         R11 R11 K20 ["Get"]
+      103 CALL                             R11 1 -1
+      104 CALL                             R9 -1 1
+      105 MOVE                             R12 R8
+      106 MOVE                             R13 R9
+      107 NAMECALL                         R10 R6 K21 ["update"]
+      109 CALL                             R10 3 0
+      110 MOVE                             R10 R6
+      111 MOVE                             R11 R2
+      112 MOVE                             R12 R4
+      113 MOVE                             R13 R8
+      114 MOVE                             R14 R9
+      115 MOVE                             R15 R3
+      116 MOVE                             R16 R7
+      117 RETURN                           R10 7
 
-PROTO_5:
+PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["_handles"]
         2 LOADNIL                          R3
         3 LOADNIL                          R4
@@ -182,7 +186,7 @@ PROTO_5:
        20 CALL                             R2 1 0
        21 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createMouseRay"]
         3 CALL                             R1 0 1
@@ -258,7 +262,7 @@ MAIN:
        80 SETTABLEKS                       R16 R15 K27 ["Part"]
        82 DUPCLOSURE                       R16 K31 [PROTO_3]
        83 SETTABLEKS                       R16 R15 K28 ["ProceduralModel"]
-       85 DUPCLOSURE                       R16 K32 [PROTO_4]
+       85 DUPCLOSURE                       R16 K32 [PROTO_5]
        86 CAPTURE                          VAL R8
        87 CAPTURE                          VAL R7
        88 CAPTURE                          VAL R15
@@ -269,9 +273,9 @@ MAIN:
        93 CAPTURE                          VAL R6
        94 CAPTURE                          VAL R13
        95 SETTABLEKS                       R16 R14 K33 ["setupStandardTestEnvironment"]
-       97 DUPCLOSURE                       R16 K34 [PROTO_5]
+       97 DUPCLOSURE                       R16 K34 [PROTO_6]
        98 SETTABLEKS                       R16 R14 K35 ["getHandleWithNormalId"]
-      100 DUPCLOSURE                       R16 K36 [PROTO_6]
+      100 DUPCLOSURE                       R16 K36 [PROTO_7]
       101 CAPTURE                          VAL R14
       102 SETTABLEKS                       R16 R14 K37 ["testMouseEvents"]
       104 RETURN                           R14 1

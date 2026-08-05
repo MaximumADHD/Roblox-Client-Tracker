@@ -386,181 +386,76 @@ PROTO_5:
         2 SETUPVAL                         R2 0
         3 LOADNIL                          R2
         4 LOADNIL                          R3
-        5 GETUPVAL                         R4 1
-        6 CALL                             R4 0 1
-        7 JUMPIFNOT                        R4 ; [+26]
-        8 LOADK                            R6 K1 ["ProceduralModel"]
-        9 NAMECALL                         R4 R0 K2 ["IsA"]
-       11 CALL                             R4 2 1
-       12 JUMPIFNOT                        R4 ; [+21]
-       13 NAMECALL                         R4 R0 K3 ["GetBoundingBox"]
-       15 CALL                             R4 1 2
-       16 GETUPVAL                         R6 2
-       17 MOVE                             R7 R4
-       18 DIVK                             R8 R5 K4 [2]
-       19 MOVE                             R9 R2
-       20 MOVE                             R10 R3
-       21 MOVE                             R11 R1
-       22 CALL                             R6 5 2
-       23 MOVE                             R2 R6
-       24 MOVE                             R3 R7
-       25 GETUPVAL                         R7 0
-       26 SUBK                             R6 R7 K0 [1]
-       27 SETUPVAL                         R6 0
-       28 DUPTABLE                         R6 K7 [{"Lower", "Upper"}]
-       29 SETTABLEKS                       R2 R6 K5 ["Lower"]
-       31 SETTABLEKS                       R3 R6 K6 ["Upper"]
-       33 RETURN                           R6 1
-       34 NAMECALL                         R4 R0 K8 ["GetChildren"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K10 [ipairs]
-       39 MOVE                             R6 R4
-       40 CALL                             R5 1 3
-       41 FORGPREP_INEXT                   R5
-       42 GETGLOBAL                        R10 K11 ["getExtentsRecursive"]
-       44 MOVE                             R11 R9
-       45 MOVE                             R12 R1
-       46 CALL                             R10 2 1
-       47 GETGLOBAL                        R11 K12 ["unionVector3"]
-       49 GETTABLEKS                       R12 R10 K5 ["Lower"]
-       51 MOVE                             R13 R2
-       52 MOVE                             R14 R3
-       53 MOVE                             R15 R1
-       54 CALL                             R11 4 2
-       55 MOVE                             R2 R11
-       56 MOVE                             R3 R12
-       57 GETGLOBAL                        R11 K12 ["unionVector3"]
-       59 GETTABLEKS                       R12 R10 K6 ["Upper"]
-       61 MOVE                             R13 R2
-       62 MOVE                             R14 R3
-       63 MOVE                             R15 R1
-       64 CALL                             R11 4 2
-       65 MOVE                             R2 R11
-       66 MOVE                             R3 R12
-       67 FORGLOOP                         R5 2 [inext] ; [-26]
-       69 LOADK                            R7 K13 ["BasePart"]
-       70 NAMECALL                         R5 R0 K2 ["IsA"]
-       72 CALL                             R5 2 1
-       73 JUMPIFNOT                        R5 ; [+139]
-       74 GETUPVAL                         R5 1
-       75 CALL                             R5 0 1
-       76 JUMPIFNOT                        R5 ; [+13]
-       77 GETUPVAL                         R5 2
-       78 GETTABLEKS                       R6 R0 K14 ["CFrame"]
-       80 GETTABLEKS                       R8 R0 K15 ["Size"]
-       82 DIVK                             R7 R8 K4 [2]
-       83 MOVE                             R8 R2
-       84 MOVE                             R9 R3
-       85 MOVE                             R10 R1
-       86 CALL                             R5 5 2
-       87 MOVE                             R2 R5
-       88 MOVE                             R3 R6
-       89 JUMP                             ; [+123]
-       90 GETTABLEKS                       R6 R0 K15 ["Size"]
-       92 DIVK                             R5 R6 K4 [2]
-       93 GETGLOBAL                        R6 K12 ["unionVector3"]
-       95 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-       97 LOADK                            R10 K16 [{-1, -1, -1}]
-       98 MUL                              R9 R5 R10
-       99 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      101 CALL                             R7 2 1
-      102 MOVE                             R8 R2
-      103 MOVE                             R9 R3
-      104 MOVE                             R10 R1
-      105 CALL                             R6 4 2
-      106 MOVE                             R2 R6
-      107 MOVE                             R3 R7
-      108 GETGLOBAL                        R6 K12 ["unionVector3"]
-      110 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      112 LOADK                            R10 K18 [{-1, -1, 1}]
-      113 MUL                              R9 R5 R10
-      114 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      116 CALL                             R7 2 1
-      117 MOVE                             R8 R2
-      118 MOVE                             R9 R3
-      119 MOVE                             R10 R1
-      120 CALL                             R6 4 2
-      121 MOVE                             R2 R6
-      122 MOVE                             R3 R7
-      123 GETGLOBAL                        R6 K12 ["unionVector3"]
-      125 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      127 LOADK                            R10 K19 [{-1, 1, -1}]
-      128 MUL                              R9 R5 R10
-      129 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      131 CALL                             R7 2 1
-      132 MOVE                             R8 R2
-      133 MOVE                             R9 R3
-      134 MOVE                             R10 R1
-      135 CALL                             R6 4 2
-      136 MOVE                             R2 R6
-      137 MOVE                             R3 R7
-      138 GETGLOBAL                        R6 K12 ["unionVector3"]
-      140 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      142 LOADK                            R10 K20 [{-1, 1, 1}]
-      143 MUL                              R9 R5 R10
-      144 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      146 CALL                             R7 2 1
-      147 MOVE                             R8 R2
-      148 MOVE                             R9 R3
-      149 MOVE                             R10 R1
-      150 CALL                             R6 4 2
-      151 MOVE                             R2 R6
-      152 MOVE                             R3 R7
-      153 GETGLOBAL                        R6 K12 ["unionVector3"]
-      155 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      157 LOADK                            R10 K21 [{1, -1, -1}]
-      158 MUL                              R9 R5 R10
-      159 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      161 CALL                             R7 2 1
-      162 MOVE                             R8 R2
-      163 MOVE                             R9 R3
-      164 MOVE                             R10 R1
-      165 CALL                             R6 4 2
-      166 MOVE                             R2 R6
-      167 MOVE                             R3 R7
-      168 GETGLOBAL                        R6 K12 ["unionVector3"]
-      170 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      172 LOADK                            R10 K22 [{1, -1, 1}]
-      173 MUL                              R9 R5 R10
-      174 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      176 CALL                             R7 2 1
-      177 MOVE                             R8 R2
-      178 MOVE                             R9 R3
-      179 MOVE                             R10 R1
-      180 CALL                             R6 4 2
-      181 MOVE                             R2 R6
-      182 MOVE                             R3 R7
-      183 GETGLOBAL                        R6 K12 ["unionVector3"]
-      185 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      187 LOADK                            R10 K23 [{1, 1, -1}]
-      188 MUL                              R9 R5 R10
-      189 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      191 CALL                             R7 2 1
-      192 MOVE                             R8 R2
-      193 MOVE                             R9 R3
-      194 MOVE                             R10 R1
-      195 CALL                             R6 4 2
-      196 MOVE                             R2 R6
-      197 MOVE                             R3 R7
-      198 GETGLOBAL                        R6 K12 ["unionVector3"]
-      200 GETTABLEKS                       R7 R0 K14 ["CFrame"]
-      202 LOADK                            R10 K24 [{1, 1, 1}]
-      203 MUL                              R9 R5 R10
-      204 NAMECALL                         R7 R7 K17 ["pointToWorldSpace"]
-      206 CALL                             R7 2 1
-      207 MOVE                             R8 R2
-      208 MOVE                             R9 R3
-      209 MOVE                             R10 R1
-      210 CALL                             R6 4 2
-      211 MOVE                             R2 R6
-      212 MOVE                             R3 R7
-      213 GETUPVAL                         R6 0
-      214 SUBK                             R5 R6 K0 [1]
-      215 SETUPVAL                         R5 0
-      216 DUPTABLE                         R5 K7 [{"Lower", "Upper"}]
-      217 SETTABLEKS                       R2 R5 K5 ["Lower"]
-      219 SETTABLEKS                       R3 R5 K6 ["Upper"]
-      221 RETURN                           R5 1
+        5 LOADK                            R6 K1 ["ProceduralModel"]
+        6 NAMECALL                         R4 R0 K2 ["IsA"]
+        8 CALL                             R4 2 1
+        9 JUMPIFNOT                        R4 ; [+21]
+       10 NAMECALL                         R4 R0 K3 ["GetBoundingBox"]
+       12 CALL                             R4 1 2
+       13 GETUPVAL                         R6 1
+       14 MOVE                             R7 R4
+       15 DIVK                             R8 R5 K4 [2]
+       16 MOVE                             R9 R2
+       17 MOVE                             R10 R3
+       18 MOVE                             R11 R1
+       19 CALL                             R6 5 2
+       20 MOVE                             R2 R6
+       21 MOVE                             R3 R7
+       22 GETUPVAL                         R7 0
+       23 SUBK                             R6 R7 K0 [1]
+       24 SETUPVAL                         R6 0
+       25 DUPTABLE                         R6 K7 [{"Lower", "Upper"}]
+       26 SETTABLEKS                       R2 R6 K5 ["Lower"]
+       28 SETTABLEKS                       R3 R6 K6 ["Upper"]
+       30 RETURN                           R6 1
+       31 NAMECALL                         R4 R0 K8 ["GetChildren"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K10 [ipairs]
+       36 MOVE                             R6 R4
+       37 CALL                             R5 1 3
+       38 FORGPREP_INEXT                   R5
+       39 GETGLOBAL                        R10 K11 ["getExtentsRecursive"]
+       41 MOVE                             R11 R9
+       42 MOVE                             R12 R1
+       43 CALL                             R10 2 1
+       44 GETGLOBAL                        R11 K12 ["unionVector3"]
+       46 GETTABLEKS                       R12 R10 K5 ["Lower"]
+       48 MOVE                             R13 R2
+       49 MOVE                             R14 R3
+       50 MOVE                             R15 R1
+       51 CALL                             R11 4 2
+       52 MOVE                             R2 R11
+       53 MOVE                             R3 R12
+       54 GETGLOBAL                        R11 K12 ["unionVector3"]
+       56 GETTABLEKS                       R12 R10 K6 ["Upper"]
+       58 MOVE                             R13 R2
+       59 MOVE                             R14 R3
+       60 MOVE                             R15 R1
+       61 CALL                             R11 4 2
+       62 MOVE                             R2 R11
+       63 MOVE                             R3 R12
+       64 FORGLOOP                         R5 2 [inext] ; [-26]
+       66 LOADK                            R7 K13 ["BasePart"]
+       67 NAMECALL                         R5 R0 K2 ["IsA"]
+       69 CALL                             R5 2 1
+       70 JUMPIFNOT                        R5 ; [+12]
+       71 GETUPVAL                         R5 1
+       72 GETTABLEKS                       R6 R0 K14 ["CFrame"]
+       74 GETTABLEKS                       R8 R0 K15 ["Size"]
+       76 DIVK                             R7 R8 K4 [2]
+       77 MOVE                             R8 R2
+       78 MOVE                             R9 R3
+       79 MOVE                             R10 R1
+       80 CALL                             R5 5 2
+       81 MOVE                             R2 R5
+       82 MOVE                             R3 R6
+       83 GETUPVAL                         R6 0
+       84 SUBK                             R5 R6 K0 [1]
+       85 SETUPVAL                         R5 0
+       86 DUPTABLE                         R5 K7 [{"Lower", "Upper"}]
+       87 SETTABLEKS                       R2 R5 K5 ["Lower"]
+       89 SETTABLEKS                       R3 R5 K6 ["Upper"]
+       91 RETURN                           R5 1
 
 PROTO_6:
         0 GETIMPORT                        R1 K1 [game]
@@ -759,56 +654,49 @@ MAIN:
         5 GETTABLEKS                       R1 R1 K4 ["Parent"]
         7 GETTABLEKS                       R1 R1 K5 ["Utility"]
         9 CALL                             R0 1 1
-       10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R2 K3 [script]
-       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       18 GETTABLEKS                       R2 R2 K7 ["getFFlagTransformProceduralModel"]
-       20 CALL                             R1 1 1
-       21 DUPCLOSURE                       R2 K8 [PROTO_0]
-       22 SETGLOBAL                        R2 K9 ["unionVector3"]
-       24 DUPCLOSURE                       R2 K10 [PROTO_1]
-       25 CAPTURE                          VAL R0
-       26 SETGLOBAL                        R2 K11 ["unionTuple"]
-       28 LOADN                            R2 0
-       29 DUPCLOSURE                       R3 K12 [PROTO_2]
-       30 SETGLOBAL                        R3 K13 ["unionVector3NoSpaceChange"]
-       32 DUPCLOSURE                       R3 K14 [PROTO_3]
-       33 SETGLOBAL                        R3 K15 ["getPartBounds"]
-       35 DUPCLOSURE                       R3 K16 [PROTO_4]
-       36 NEWCLOSURE                       R4 P5
-       37 CAPTURE                          REF R2
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R3
-       40 SETGLOBAL                        R4 K17 ["getExtentsRecursive"]
-       42 DUPCLOSURE                       R4 K18 [PROTO_6]
-       43 GETIMPORT                        R5 K1 [require]
-       45 GETIMPORT                        R6 K3 [script]
-       47 GETTABLEKS                       R6 R6 K4 ["Parent"]
-       49 GETTABLEKS                       R6 R6 K19 ["FuzzyMath"]
-       51 CALL                             R5 1 1
-       52 DUPCLOSURE                       R6 K20 [PROTO_7]
-       53 SETGLOBAL                        R6 K21 ["getExtentsOfList"]
-       55 DUPCLOSURE                       R6 K22 [PROTO_8]
-       56 CAPTURE                          VAL R4
-       57 SETGLOBAL                        R6 K23 ["getExtents"]
-       59 DUPCLOSURE                       R6 K24 [PROTO_9]
-       60 CAPTURE                          VAL R0
-       61 SETGLOBAL                        R6 K25 ["extentsToCFrameAndSize"]
-       63 DUPCLOSURE                       R6 K26 [PROTO_10]
-       64 SETGLOBAL                        R6 K27 ["setPartCFrameToExtents"]
-       66 DUPCLOSURE                       R6 K28 [PROTO_11]
-       67 DUPCLOSURE                       R7 K29 [PROTO_12]
-       68 DUPCLOSURE                       R8 K30 [PROTO_13]
-       69 NEWTABLE                         R9 8 0
-       71 GETGLOBAL                        R10 K27 ["setPartCFrameToExtents"]
-       73 SETTABLEKS                       R10 R9 K27 ["setPartCFrameToExtents"]
-       75 GETGLOBAL                        R10 K13 ["unionVector3NoSpaceChange"]
-       77 SETTABLEKS                       R10 R9 K13 ["unionVector3NoSpaceChange"]
-       79 GETGLOBAL                        R10 K15 ["getPartBounds"]
-       81 SETTABLEKS                       R10 R9 K15 ["getPartBounds"]
-       83 SETTABLEKS                       R6 R9 K31 ["getCFrameOfList"]
-       85 SETTABLEKS                       R7 R9 K32 ["getSizeOfList"]
-       87 SETTABLEKS                       R8 R9 K33 ["getCFrameAndSizeOfList"]
-       89 CLOSEUPVALS                      R2
-       90 RETURN                           R9 1
+       10 DUPCLOSURE                       R1 K6 [PROTO_0]
+       11 SETGLOBAL                        R1 K7 ["unionVector3"]
+       13 DUPCLOSURE                       R1 K8 [PROTO_1]
+       14 CAPTURE                          VAL R0
+       15 SETGLOBAL                        R1 K9 ["unionTuple"]
+       17 LOADN                            R1 0
+       18 DUPCLOSURE                       R2 K10 [PROTO_2]
+       19 SETGLOBAL                        R2 K11 ["unionVector3NoSpaceChange"]
+       21 DUPCLOSURE                       R2 K12 [PROTO_3]
+       22 SETGLOBAL                        R2 K13 ["getPartBounds"]
+       24 DUPCLOSURE                       R2 K14 [PROTO_4]
+       25 NEWCLOSURE                       R3 P5
+       26 CAPTURE                          REF R1
+       27 CAPTURE                          VAL R2
+       28 SETGLOBAL                        R3 K15 ["getExtentsRecursive"]
+       30 DUPCLOSURE                       R3 K16 [PROTO_6]
+       31 GETIMPORT                        R4 K1 [require]
+       33 GETIMPORT                        R5 K3 [script]
+       35 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       37 GETTABLEKS                       R5 R5 K17 ["FuzzyMath"]
+       39 CALL                             R4 1 1
+       40 DUPCLOSURE                       R5 K18 [PROTO_7]
+       41 SETGLOBAL                        R5 K19 ["getExtentsOfList"]
+       43 DUPCLOSURE                       R5 K20 [PROTO_8]
+       44 CAPTURE                          VAL R3
+       45 SETGLOBAL                        R5 K21 ["getExtents"]
+       47 DUPCLOSURE                       R5 K22 [PROTO_9]
+       48 CAPTURE                          VAL R0
+       49 SETGLOBAL                        R5 K23 ["extentsToCFrameAndSize"]
+       51 DUPCLOSURE                       R5 K24 [PROTO_10]
+       52 SETGLOBAL                        R5 K25 ["setPartCFrameToExtents"]
+       54 DUPCLOSURE                       R5 K26 [PROTO_11]
+       55 DUPCLOSURE                       R6 K27 [PROTO_12]
+       56 DUPCLOSURE                       R7 K28 [PROTO_13]
+       57 NEWTABLE                         R8 8 0
+       59 GETGLOBAL                        R9 K25 ["setPartCFrameToExtents"]
+       61 SETTABLEKS                       R9 R8 K25 ["setPartCFrameToExtents"]
+       63 GETGLOBAL                        R9 K11 ["unionVector3NoSpaceChange"]
+       65 SETTABLEKS                       R9 R8 K11 ["unionVector3NoSpaceChange"]
+       67 GETGLOBAL                        R9 K13 ["getPartBounds"]
+       69 SETTABLEKS                       R9 R8 K13 ["getPartBounds"]
+       71 SETTABLEKS                       R5 R8 K29 ["getCFrameOfList"]
+       73 SETTABLEKS                       R6 R8 K30 ["getSizeOfList"]
+       75 SETTABLEKS                       R7 R8 K31 ["getCFrameAndSizeOfList"]
+       77 CLOSEUPVALS                      R1
+       78 RETURN                           R8 1

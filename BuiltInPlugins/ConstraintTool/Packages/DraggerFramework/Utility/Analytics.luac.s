@@ -10,16 +10,19 @@ PROTO_2:
         0 RETURN                           R0 0
 
 PROTO_3:
-        0 RETURN                           R0 0
+        0 LOADK                            R1 K0 [""]
+        1 RETURN                           R1 1
 
 PROTO_4:
-        0 RETURN                           R0 0
+        0 LOADK                            R1 K0 [""]
+        1 RETURN                           R1 1
 
 PROTO_5:
         0 RETURN                           R0 0
 
 PROTO_6:
-        0 RETURN                           R0 0
+        0 LOADNIL                          R1
+        1 RETURN                           R1 1
 
 PROTO_7:
         0 RETURN                           R0 0
@@ -164,25 +167,26 @@ MAIN:
        63 NEWTABLE                         R2 0 0
        65 DUPCLOSURE                       R7 K26 [PROTO_6]
        66 SETTABLEKS                       R7 R2 K27 ["LogCounter"]
-       68 JUMPIF                           R3 ; [+5]
-       69 NEWTABLE                         R3 0 0
-       71 DUPCLOSURE                       R7 K28 [PROTO_7]
-       72 SETTABLEKS                       R7 R3 K29 ["GetUserId"]
-       74 NEWCLOSURE                       R7 P8
-       75 CAPTURE                          REF R1
-       76 CAPTURE                          REF R3
-       77 CAPTURE                          VAL R5
-       78 CAPTURE                          VAL R0
-       79 SETTABLEKS                       R7 R6 K30 ["sendEvent"]
-       81 NEWCLOSURE                       R7 P9
-       82 CAPTURE                          VAL R5
-       83 CAPTURE                          REF R1
-       84 SETTABLEKS                       R7 R6 K31 ["reportCounter"]
-       86 NEWCLOSURE                       R7 P10
-       87 CAPTURE                          REF R2
-       88 SETTABLEKS                       R7 R6 K32 ["logTelemetryCounter"]
-       90 NEWCLOSURE                       R7 P11
-       91 CAPTURE                          REF R1
-       92 SETTABLEKS                       R7 R6 K33 ["reportStats"]
-       94 CLOSEUPVALS                      R1
-       95 RETURN                           R6 1
+       68 JUMPIF                           R3 ; [+6]
+       69 NEWTABLE                         R7 1 0
+       71 DUPCLOSURE                       R8 K28 [PROTO_7]
+       72 SETTABLEKS                       R8 R7 K29 ["GetUserId"]
+       74 MOVE                             R3 R7
+       75 NEWCLOSURE                       R7 P8
+       76 CAPTURE                          REF R1
+       77 CAPTURE                          REF R3
+       78 CAPTURE                          VAL R5
+       79 CAPTURE                          VAL R0
+       80 SETTABLEKS                       R7 R6 K30 ["sendEvent"]
+       82 NEWCLOSURE                       R7 P9
+       83 CAPTURE                          VAL R5
+       84 CAPTURE                          REF R1
+       85 SETTABLEKS                       R7 R6 K31 ["reportCounter"]
+       87 NEWCLOSURE                       R7 P10
+       88 CAPTURE                          REF R2
+       89 SETTABLEKS                       R7 R6 K32 ["logTelemetryCounter"]
+       91 NEWCLOSURE                       R7 P11
+       92 CAPTURE                          REF R1
+       93 SETTABLEKS                       R7 R6 K33 ["reportStats"]
+       95 CLOSEUPVALS                      R1
+       96 RETURN                           R6 1

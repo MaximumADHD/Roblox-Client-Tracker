@@ -21,28 +21,28 @@ PROTO_0:
        25 GETTABLEKS                       R6 R10 K8 ["Instance"]
        27 GETTABLEKS                       R7 R10 K9 ["Distance"]
        29 MOVE                             R8 R10
-       30 GETIMPORT                        R11 K13 [Enum.RaycastFilterType.Whitelist]
+       30 GETIMPORT                        R11 K13 [Enum.RaycastFilterType.Include]
        32 SETTABLEKS                       R11 R9 K14 ["FilterType"]
        34 SETTABLEKS                       R2 R9 K15 ["FilterDescendantsInstances"]
        36 GETUPVAL                         R11 2
        37 GETTABLEKS                       R13 R1 K5 ["Origin"]
        39 GETTABLEKS                       R14 R1 K6 ["Direction"]
        41 MOVE                             R15 R9
-       42 NAMECALL                         R11 R11 K16 ["raycast"]
+       42 NAMECALL                         R11 R11 K7 ["Raycast"]
        44 CALL                             R11 4 1
        45 JUMPIFNOT                        R11 ; [+13]
        46 AND                              R12 R3 R5
        47 JUMPIF                           R12 ; [+8]
-       48 GETTABLEKS                       R13 R11 K17 ["Position"]
-       50 GETTABLEKS                       R15 R10 K17 ["Position"]
-       52 NAMECALL                         R13 R13 K18 ["FuzzyEq"]
+       48 GETTABLEKS                       R13 R11 K16 ["Position"]
+       50 GETTABLEKS                       R15 R10 K16 ["Position"]
+       52 NAMECALL                         R13 R13 K17 ["FuzzyEq"]
        54 CALL                             R13 2 1
        55 JUMPIFNOT                        R13 ; [+3]
        56 GETTABLEKS                       R6 R11 K8 ["Instance"]
        58 MOVE                             R8 R11
        59 JUMPIFNOT                        R4 ; [+77]
        60 JUMPIF                           R5 ; [+76]
-       61 NAMECALL                         R11 R0 K19 ["getMouseLocation"]
+       61 NAMECALL                         R11 R0 K18 ["getMouseLocation"]
        63 CALL                             R11 1 1
        64 LOADN                            R12 7
        65 LOADNIL                          R13
@@ -52,21 +52,21 @@ PROTO_0:
        69 LOADNIL                          R17
        70 LOADNIL                          R18
        71 FORGPREP                         R16
-       72 LOADK                            R23 K20 ["PVInstance"]
-       73 NAMECALL                         R21 R20 K21 ["IsA"]
+       72 LOADK                            R23 K19 ["PVInstance"]
+       73 NAMECALL                         R21 R20 K20 ["IsA"]
        75 CALL                             R21 2 1
        76 JUMPIFNOT                        R21 ; [+24]
-       77 NAMECALL                         R21 R20 K22 ["GetPivot"]
+       77 NAMECALL                         R21 R20 K21 ["GetPivot"]
        79 CALL                             R21 1 1
-       80 GETTABLEKS                       R24 R21 K17 ["Position"]
-       82 NAMECALL                         R22 R0 K23 ["worldToViewportPoint"]
+       80 GETTABLEKS                       R24 R21 K16 ["Position"]
+       82 NAMECALL                         R22 R0 K22 ["worldToViewportPoint"]
        84 CALL                             R22 2 1
-       85 GETIMPORT                        R23 K25 [Vector2.new]
-       87 GETTABLEKS                       R24 R22 K26 ["X"]
-       89 GETTABLEKS                       R25 R22 K27 ["Y"]
+       85 GETIMPORT                        R23 K24 [Vector2.new]
+       87 GETTABLEKS                       R24 R22 K25 ["X"]
+       89 GETTABLEKS                       R25 R22 K26 ["Y"]
        91 CALL                             R23 2 1
        92 SUB                              R24 R11 R23
-       93 GETTABLEKS                       R24 R24 K28 ["Magnitude"]
+       93 GETTABLEKS                       R24 R24 K27 ["Magnitude"]
        95 JUMPIFNOTLT                      R24 R12 ; [+5]
        97 MOVE                             R12 R24
        98 MOVE                             R13 R20
@@ -74,22 +74,22 @@ PROTO_0:
       100 MOVE                             R15 R19
       101 FORGLOOP                         R16 2 ; [-30]
       103 JUMPIFNOT                        R13 ; [+33]
-      104 GETIMPORT                        R16 K31 [table.freeze]
-      106 DUPTABLE                         R17 K39 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"] = {0, 0, 0}, ["IsPivot"] = True, ["IsActivePivot"]}]
-      107 SETTABLEKS                       R8 R17 K32 ["RaycastResult"]
-      109 SETTABLEKS                       R14 R17 K33 ["TargetMatrix"]
+      104 GETIMPORT                        R16 K30 [table.freeze]
+      106 DUPTABLE                         R17 K38 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"] = {0, 0, 0}, ["IsPivot"] = True, ["IsActivePivot"]}]
+      107 SETTABLEKS                       R8 R17 K31 ["RaycastResult"]
+      109 SETTABLEKS                       R14 R17 K32 ["TargetMatrix"]
       111 LENGTH                           R19 R2
       112 JUMPIFEQ                         R15 R19 ; [+2]
       114 LOADB                            R18 0 +1
       115 LOADB                            R18 1
-      116 SETTABLEKS                       R18 R17 K38 ["IsActivePivot"]
+      116 SETTABLEKS                       R18 R17 K37 ["IsActivePivot"]
       118 CALL                             R16 1 1
-      119 GETTABLEKS                       R17 R14 K17 ["Position"]
+      119 GETTABLEKS                       R17 R14 K16 ["Position"]
       121 GETTABLEKS                       R19 R1 K5 ["Origin"]
       123 SUB                              R18 R17 R19
       124 GETTABLEKS                       R20 R1 K6 ["Direction"]
-      126 GETTABLEKS                       R20 R20 K40 ["Unit"]
-      128 NAMECALL                         R18 R18 K41 ["Dot"]
+      126 GETTABLEKS                       R20 R20 K39 ["Unit"]
+      128 NAMECALL                         R18 R18 K40 ["Dot"]
       130 CALL                             R18 2 1
       131 MOVE                             R7 R18
       132 MOVE                             R18 R13
@@ -101,10 +101,10 @@ PROTO_0:
       139 GETTABLEKS                       R14 R1 K6 ["Direction"]
       141 GETIMPORT                        R15 K2 [RaycastParams.new]
       143 CALL                             R15 0 -1
-      144 NAMECALL                         R11 R0 K42 ["gizmoRaycast"]
+      144 NAMECALL                         R11 R0 K41 ["gizmoRaycast"]
       146 CALL                             R11 -1 1
       147 JUMPIFNOT                        R11 ; [+17]
-      148 NAMECALL                         R12 R0 K43 ["shouldDrawConstraintsOnTop"]
+      148 NAMECALL                         R12 R0 K42 ["shouldDrawConstraintsOnTop"]
       150 CALL                             R12 1 1
       151 JUMPIF                           R12 ; [+8]
       152 JUMPIFNOT                        R10 ; [+7]
@@ -124,41 +124,41 @@ PROTO_0:
       172 LOADNIL                          R13
       173 LOADNIL                          R14
       174 GETTABLEKS                       R15 R8 K8 ["Instance"]
-      176 LOADK                            R17 K20 ["PVInstance"]
-      177 NAMECALL                         R15 R15 K21 ["IsA"]
+      176 LOADK                            R17 K19 ["PVInstance"]
+      177 NAMECALL                         R15 R15 K20 ["IsA"]
       179 CALL                             R15 2 1
       180 JUMPIFNOT                        R15 ; [+34]
-      181 NAMECALL                         R16 R0 K44 ["shouldGridSnap"]
+      181 NAMECALL                         R16 R0 K43 ["shouldGridSnap"]
       183 CALL                             R16 1 1
       184 JUMPIFNOT                        R16 ; [+4]
-      185 NAMECALL                         R15 R0 K45 ["getGridSize"]
+      185 NAMECALL                         R15 R0 K44 ["getGridSize"]
       187 CALL                             R15 1 1
       188 JUMP                             ; [+1]
       189 LOADNIL                          R15
       190 GETUPVAL                         R17 4
       191 CALL                             R17 0 1
       192 JUMPIFNOT                        R17 ; [+4]
-      193 NAMECALL                         R16 R0 K46 ["shouldUseBoundingBoxes"]
+      193 NAMECALL                         R16 R0 K45 ["shouldUseBoundingBoxes"]
       195 CALL                             R16 1 1
       196 JUMP                             ; [+1]
       197 LOADNIL                          R16
       198 GETUPVAL                         R17 5
-      199 GETTABLEKS                       R17 R17 K47 ["getSurfaceMatrix"]
+      199 GETTABLEKS                       R17 R17 K46 ["getSurfaceMatrix"]
       201 MOVE                             R18 R1
       202 MOVE                             R19 R8
-      203 GETTABLEKS                       R20 R0 K48 ["PreviousTargetMatrix"]
+      203 GETTABLEKS                       R20 R0 K47 ["PreviousTargetMatrix"]
       205 MOVE                             R21 R15
       206 MOVE                             R22 R16
       207 CALL                             R17 5 1
       208 JUMPIFNOT                        R17 ; [+6]
-      209 GETTABLEKS                       R13 R17 K49 ["matrix"]
-      211 GETTABLEKS                       R14 R17 K50 ["size"]
-      213 SETTABLEKS                       R13 R0 K48 ["PreviousTargetMatrix"]
-      215 GETIMPORT                        R15 K31 [table.freeze]
-      217 DUPTABLE                         R16 K52 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"], ["IsPivot"] = False}]
-      218 SETTABLEKS                       R8 R16 K32 ["RaycastResult"]
-      220 SETTABLEKS                       R13 R16 K33 ["TargetMatrix"]
-      222 SETTABLEKS                       R14 R16 K34 ["TargetSize"]
+      209 GETTABLEKS                       R13 R17 K48 ["matrix"]
+      211 GETTABLEKS                       R14 R17 K49 ["size"]
+      213 SETTABLEKS                       R13 R0 K47 ["PreviousTargetMatrix"]
+      215 GETIMPORT                        R15 K30 [table.freeze]
+      217 DUPTABLE                         R16 K51 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"], ["IsPivot"] = False}]
+      218 SETTABLEKS                       R8 R16 K31 ["RaycastResult"]
+      220 SETTABLEKS                       R13 R16 K32 ["TargetMatrix"]
+      222 SETTABLEKS                       R14 R16 K33 ["TargetSize"]
       224 CALL                             R15 1 1
       225 MOVE                             R16 R12
       226 MOVE                             R17 R6

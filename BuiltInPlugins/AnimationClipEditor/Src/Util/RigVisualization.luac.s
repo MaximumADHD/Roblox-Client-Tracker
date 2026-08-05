@@ -397,11 +397,11 @@ PROTO_8:
         4 LOADK                            R5 K2 ["Sphere"]
         5 NAMECALL                         R3 R0 K1 ["FindFirstChild"]
         7 CALL                             R3 2 1
-        8 JUMPIFNOT                        R2 ; [+79]
+        8 JUMPIFNOT                        R2 ; [+93]
         9 LOADK                            R6 K3 ["ConeHandleAdornment"]
        10 NAMECALL                         R4 R2 K4 ["IsA"]
        12 CALL                             R4 2 1
-       13 JUMPIFNOT                        R4 ; [+74]
+       13 JUMPIFNOT                        R4 ; [+88]
        14 GETUPVAL                         R4 0
        15 GETTABLEKS                       R4 R4 K5 ["intersectRayRay"]
        17 GETTABLEKS                       R5 R0 K6 ["CFrame"]
@@ -415,58 +415,68 @@ PROTO_8:
        32 JUMPIF                           R4 ; [+2]
        33 LOADNIL                          R6
        34 RETURN                           R6 1
-       35 GETUPVAL                         R6 0
-       36 GETTABLEKS                       R6 R6 K5 ["intersectRayRay"]
-       38 GETTABLEKS                       R7 R1 K9 ["Origin"]
-       40 GETTABLEKS                       R8 R1 K10 ["Direction"]
-       42 GETTABLEKS                       R8 R8 K11 ["Unit"]
-       44 GETTABLEKS                       R9 R0 K6 ["CFrame"]
-       46 GETTABLEKS                       R9 R9 K7 ["Position"]
-       48 GETTABLEKS                       R10 R0 K6 ["CFrame"]
-       50 GETTABLEKS                       R10 R10 K8 ["LookVector"]
-       52 CALL                             R6 4 2
-       53 GETTABLEKS                       R10 R0 K6 ["CFrame"]
-       55 GETTABLEKS                       R10 R10 K7 ["Position"]
-       57 GETTABLEKS                       R12 R0 K6 ["CFrame"]
-       59 GETTABLEKS                       R12 R12 K8 ["LookVector"]
-       61 MUL                              R11 R12 R5
-       62 ADD                              R9 R10 R11
-       63 GETTABLEKS                       R11 R1 K9 ["Origin"]
-       65 GETTABLEKS                       R13 R1 K10 ["Direction"]
-       67 GETTABLEKS                       R13 R13 K11 ["Unit"]
-       69 MUL                              R12 R13 R7
-       70 ADD                              R10 R11 R12
-       71 SUB                              R8 R9 R10
-       72 GETTABLEKS                       R8 R8 K12 ["Magnitude"]
-       74 GETTABLEKS                       R9 R2 K13 ["Radius"]
-       76 JUMPIFNOTLT                      R8 R9 ; [+9]
-       78 LOADN                            R9 0
-       79 JUMPIFNOTLT                      R9 R5 ; [+6]
-       81 GETTABLEKS                       R9 R2 K14 ["Height"]
-       83 JUMPIFNOTLT                      R5 R9 ; [+2]
-       85 RETURN                           R7 1
-       86 LOADNIL                          R9
-       87 RETURN                           R9 1
-       88 JUMPIFNOT                        R3 ; [+25]
-       89 LOADK                            R6 K15 ["SphereHandleAdornment"]
-       90 NAMECALL                         R4 R3 K4 ["IsA"]
-       92 CALL                             R4 2 1
-       93 JUMPIFNOT                        R4 ; [+20]
-       94 GETUPVAL                         R4 0
-       95 GETTABLEKS                       R4 R4 K16 ["intersectRaySphere"]
-       97 GETTABLEKS                       R5 R1 K9 ["Origin"]
-       99 GETTABLEKS                       R6 R1 K10 ["Direction"]
-      101 GETTABLEKS                       R6 R6 K11 ["Unit"]
-      103 GETTABLEKS                       R7 R0 K6 ["CFrame"]
-      105 GETTABLEKS                       R7 R7 K7 ["Position"]
-      107 GETTABLEKS                       R8 R3 K13 ["Radius"]
-      109 CALL                             R4 4 2
-      110 JUMPIFNOT                        R4 ; [+1]
-      111 RETURN                           R5 1
-      112 LOADNIL                          R6
-      113 RETURN                           R6 1
-      114 LOADNIL                          R4
-      115 RETURN                           R4 1
+       35 FASTCALL2K                       ASSERT R5 K12 ; [+5]
+       37 MOVE                             R7 R5
+       38 LOADK                            R8 K12 ["Non-nil because hasIntersection is true"]
+       39 GETIMPORT                        R6 K14 [assert]
+       41 CALL                             R6 2 0
+       42 GETUPVAL                         R6 0
+       43 GETTABLEKS                       R6 R6 K5 ["intersectRayRay"]
+       45 GETTABLEKS                       R7 R1 K9 ["Origin"]
+       47 GETTABLEKS                       R8 R1 K10 ["Direction"]
+       49 GETTABLEKS                       R8 R8 K11 ["Unit"]
+       51 GETTABLEKS                       R9 R0 K6 ["CFrame"]
+       53 GETTABLEKS                       R9 R9 K7 ["Position"]
+       55 GETTABLEKS                       R10 R0 K6 ["CFrame"]
+       57 GETTABLEKS                       R10 R10 K8 ["LookVector"]
+       59 CALL                             R6 4 2
+       60 FASTCALL2K                       ASSERT R7 K15 ; [+5]
+       62 MOVE                             R9 R7
+       63 LOADK                            R10 K15 ["Directions should not be parallel"]
+       64 GETIMPORT                        R8 K14 [assert]
+       66 CALL                             R8 2 0
+       67 GETTABLEKS                       R10 R0 K6 ["CFrame"]
+       69 GETTABLEKS                       R10 R10 K7 ["Position"]
+       71 GETTABLEKS                       R12 R0 K6 ["CFrame"]
+       73 GETTABLEKS                       R12 R12 K8 ["LookVector"]
+       75 MUL                              R11 R12 R5
+       76 ADD                              R9 R10 R11
+       77 GETTABLEKS                       R11 R1 K9 ["Origin"]
+       79 GETTABLEKS                       R13 R1 K10 ["Direction"]
+       81 GETTABLEKS                       R13 R13 K11 ["Unit"]
+       83 MUL                              R12 R13 R7
+       84 ADD                              R10 R11 R12
+       85 SUB                              R8 R9 R10
+       86 GETTABLEKS                       R8 R8 K16 ["Magnitude"]
+       88 GETTABLEKS                       R9 R2 K17 ["Radius"]
+       90 JUMPIFNOTLT                      R8 R9 ; [+9]
+       92 LOADN                            R9 0
+       93 JUMPIFNOTLT                      R9 R5 ; [+6]
+       95 GETTABLEKS                       R9 R2 K18 ["Height"]
+       97 JUMPIFNOTLT                      R5 R9 ; [+2]
+       99 RETURN                           R7 1
+      100 LOADNIL                          R9
+      101 RETURN                           R9 1
+      102 JUMPIFNOT                        R3 ; [+25]
+      103 LOADK                            R6 K19 ["SphereHandleAdornment"]
+      104 NAMECALL                         R4 R3 K4 ["IsA"]
+      106 CALL                             R4 2 1
+      107 JUMPIFNOT                        R4 ; [+20]
+      108 GETUPVAL                         R4 0
+      109 GETTABLEKS                       R4 R4 K20 ["intersectRaySphere"]
+      111 GETTABLEKS                       R5 R1 K9 ["Origin"]
+      113 GETTABLEKS                       R6 R1 K10 ["Direction"]
+      115 GETTABLEKS                       R6 R6 K11 ["Unit"]
+      117 GETTABLEKS                       R7 R0 K6 ["CFrame"]
+      119 GETTABLEKS                       R7 R7 K7 ["Position"]
+      121 GETTABLEKS                       R8 R3 K17 ["Radius"]
+      123 CALL                             R4 4 2
+      124 JUMPIFNOT                        R4 ; [+1]
+      125 RETURN                           R5 1
+      126 LOADNIL                          R6
+      127 RETURN                           R6 1
+      128 LOADNIL                          R4
+      129 RETURN                           R4 1
 
 PROTO_9:
         0 LOADNIL                          R1

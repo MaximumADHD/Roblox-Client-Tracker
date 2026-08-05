@@ -69,123 +69,121 @@ PROTO_0:
        97 GETTABLEKS                       R6 R1 K9 ["GridSize"]
        99 GETTABLEKS                       R8 R1 K11 ["MajorStep"]
       101 ORK                              R7 R8 K10 [5]
-      102 JUMPIFNOT                        R6 ; [+115]
-      103 LOADK                            R9 K12 [0.15]
-      104 MUL                              R8 R9 R6
-      105 LOADK                            R10 K13 [0.65]
-      106 MUL                              R9 R10 R6
-      107 DIV                              R13 R3 R6
-      108 ADDK                             R12 R13 K15 [0.001]
-      109 FASTCALL1                        MATH_FLOOR R12 ; [+2]
-      110 GETIMPORT                        R11 K18 [math.floor]
-      112 CALL                             R11 1 1
-      113 ADDK                             R10 R11 K14 [1]
-      114 LOADN                            R11 48
-      115 JUMPIFNOTLT                      R10 R11 ; [+34]
-      117 LOADN                            R13 1
-      118 MOVE                             R11 R10
-      119 LOADN                            R12 1
-      120 FORNPREP                         R11
-      121 LOADNIL                          R14
-      122 SUBK                             R16 R13 K14 [1]
-      123 MOD                              R15 R16 R7
-      124 JUMPIFNOTEQKN                    R15 K19 [0] ; [+3]
-      126 MOVE                             R14 R9
-      127 JUMP                             ; [+1]
-      128 MOVE                             R14 R8
-      129 SUBK                             R19 R13 K14 [1]
-      130 MUL                              R18 R19 R6
-      131 LOADN                            R19 0
-      132 SUB                              R20 R4 R14
-      133 FASTCALL                         VECTOR ; [+2]
-      134 GETIMPORT                        R17 K6 [Vector3.new]
-      136 CALL                             R17 3 1
-      137 SUBK                             R20 R13 K14 [1]
-      138 MUL                              R19 R20 R6
-      139 LOADN                            R20 0
-      140 ADD                              R21 R4 R14
-      141 FASTCALL                         VECTOR ; [+2]
-      142 GETIMPORT                        R18 K6 [Vector3.new]
-      144 CALL                             R18 3 1
-      145 NAMECALL                         R15 R0 K7 ["AddLine"]
-      147 CALL                             R15 3 0
-      148 FORNLOOP                         R11
-      149 JUMP                             ; [+12]
-      150 LOADK                            R13 K20 [{0, 0, 0}]
-      151 LOADN                            R16 0
-      152 LOADN                            R17 0
-      153 FASTCALL3                        VECTOR R3 R16 R17
-      155 MOVE                             R15 R3
-      156 GETIMPORT                        R14 K6 [Vector3.new]
-      158 CALL                             R14 3 1
-      159 NAMECALL                         R11 R0 K7 ["AddLine"]
-      161 CALL                             R11 3 0
-      162 DIV                              R14 R4 R6
-      163 ADDK                             R13 R14 K15 [0.001]
-      164 FASTCALL1                        MATH_FLOOR R13 ; [+2]
-      165 GETIMPORT                        R12 K18 [math.floor]
-      167 CALL                             R12 1 1
-      168 ADDK                             R11 R12 K14 [1]
-      169 LOADN                            R12 48
-      170 JUMPIFNOTLT                      R11 R12 ; [+34]
-      172 LOADN                            R14 1
-      173 MOVE                             R12 R11
-      174 LOADN                            R13 1
-      175 FORNPREP                         R12
-      176 LOADNIL                          R15
-      177 SUBK                             R17 R14 K14 [1]
-      178 MOD                              R16 R17 R7
-      179 JUMPIFNOTEQKN                    R16 K19 [0] ; [+3]
-      181 MOVE                             R15 R9
-      182 JUMP                             ; [+1]
-      183 MOVE                             R15 R8
-      184 SUB                              R19 R3 R15
-      185 LOADN                            R20 0
-      186 SUBK                             R22 R14 K14 [1]
-      187 MUL                              R21 R22 R6
-      188 FASTCALL                         VECTOR ; [+2]
-      189 GETIMPORT                        R18 K6 [Vector3.new]
-      191 CALL                             R18 3 1
-      192 ADD                              R20 R3 R15
-      193 LOADN                            R21 0
-      194 SUBK                             R23 R14 K14 [1]
-      195 MUL                              R22 R23 R6
-      196 FASTCALL                         VECTOR ; [+2]
-      197 GETIMPORT                        R19 K6 [Vector3.new]
-      199 CALL                             R19 3 1
-      200 NAMECALL                         R16 R0 K7 ["AddLine"]
-      202 CALL                             R16 3 0
-      203 FORNLOOP                         R12
-      204 RETURN                           R0 0
-      205 LOADK                            R14 K20 [{0, 0, 0}]
-      206 LOADN                            R16 0
-      207 LOADN                            R17 0
-      208 FASTCALL3                        VECTOR R16 R17 R4
-      210 MOVE                             R18 R4
-      211 GETIMPORT                        R15 K6 [Vector3.new]
-      213 CALL                             R15 3 1
-      214 NAMECALL                         R12 R0 K7 ["AddLine"]
-      216 CALL                             R12 3 0
-      217 RETURN                           R0 0
-      218 LOADK                            R10 K20 [{0, 0, 0}]
-      219 LOADN                            R12 0
-      220 LOADN                            R13 0
-      221 FASTCALL3                        VECTOR R12 R13 R4
-      223 MOVE                             R14 R4
-      224 GETIMPORT                        R11 K6 [Vector3.new]
-      226 CALL                             R11 3 1
-      227 NAMECALL                         R8 R0 K7 ["AddLine"]
-      229 CALL                             R8 3 0
-      230 LOADK                            R10 K20 [{0, 0, 0}]
-      231 LOADN                            R13 0
-      232 LOADN                            R14 0
-      233 FASTCALL3                        VECTOR R3 R13 R14
-      235 MOVE                             R12 R3
-      236 GETIMPORT                        R11 K6 [Vector3.new]
-      238 CALL                             R11 3 1
-      239 NAMECALL                         R8 R0 K7 ["AddLine"]
-      241 CALL                             R8 3 0
-      242 RETURN                           R0 0
+      102 JUMPIFNOT                        R6 ; [+113]
+      103 MULK                             R8 R6 K12 [0.15]
+      104 MULK                             R9 R6 K13 [0.65]
+      105 DIV                              R13 R3 R6
+      106 ADDK                             R12 R13 K15 [0.001]
+      107 FASTCALL1                        MATH_FLOOR R12 ; [+2]
+      108 GETIMPORT                        R11 K18 [math.floor]
+      110 CALL                             R11 1 1
+      111 ADDK                             R10 R11 K14 [1]
+      112 LOADN                            R11 48
+      113 JUMPIFNOTLT                      R10 R11 ; [+34]
+      115 LOADN                            R13 1
+      116 MOVE                             R11 R10
+      117 LOADN                            R12 1
+      118 FORNPREP                         R11
+      119 LOADNIL                          R14
+      120 SUBK                             R16 R13 K14 [1]
+      121 MOD                              R15 R16 R7
+      122 JUMPIFNOTEQKN                    R15 K19 [0] ; [+3]
+      124 MOVE                             R14 R9
+      125 JUMP                             ; [+1]
+      126 MOVE                             R14 R8
+      127 SUBK                             R19 R13 K14 [1]
+      128 MUL                              R18 R19 R6
+      129 LOADN                            R19 0
+      130 SUB                              R20 R4 R14
+      131 FASTCALL                         VECTOR ; [+2]
+      132 GETIMPORT                        R17 K6 [Vector3.new]
+      134 CALL                             R17 3 1
+      135 SUBK                             R20 R13 K14 [1]
+      136 MUL                              R19 R20 R6
+      137 LOADN                            R20 0
+      138 ADD                              R21 R4 R14
+      139 FASTCALL                         VECTOR ; [+2]
+      140 GETIMPORT                        R18 K6 [Vector3.new]
+      142 CALL                             R18 3 1
+      143 NAMECALL                         R15 R0 K7 ["AddLine"]
+      145 CALL                             R15 3 0
+      146 FORNLOOP                         R11
+      147 JUMP                             ; [+12]
+      148 LOADK                            R13 K20 [{0, 0, 0}]
+      149 LOADN                            R16 0
+      150 LOADN                            R17 0
+      151 FASTCALL3                        VECTOR R3 R16 R17
+      153 MOVE                             R15 R3
+      154 GETIMPORT                        R14 K6 [Vector3.new]
+      156 CALL                             R14 3 1
+      157 NAMECALL                         R11 R0 K7 ["AddLine"]
+      159 CALL                             R11 3 0
+      160 DIV                              R14 R4 R6
+      161 ADDK                             R13 R14 K15 [0.001]
+      162 FASTCALL1                        MATH_FLOOR R13 ; [+2]
+      163 GETIMPORT                        R12 K18 [math.floor]
+      165 CALL                             R12 1 1
+      166 ADDK                             R11 R12 K14 [1]
+      167 LOADN                            R12 48
+      168 JUMPIFNOTLT                      R11 R12 ; [+34]
+      170 LOADN                            R14 1
+      171 MOVE                             R12 R11
+      172 LOADN                            R13 1
+      173 FORNPREP                         R12
+      174 LOADNIL                          R15
+      175 SUBK                             R17 R14 K14 [1]
+      176 MOD                              R16 R17 R7
+      177 JUMPIFNOTEQKN                    R16 K19 [0] ; [+3]
+      179 MOVE                             R15 R9
+      180 JUMP                             ; [+1]
+      181 MOVE                             R15 R8
+      182 SUB                              R19 R3 R15
+      183 LOADN                            R20 0
+      184 SUBK                             R22 R14 K14 [1]
+      185 MUL                              R21 R22 R6
+      186 FASTCALL                         VECTOR ; [+2]
+      187 GETIMPORT                        R18 K6 [Vector3.new]
+      189 CALL                             R18 3 1
+      190 ADD                              R20 R3 R15
+      191 LOADN                            R21 0
+      192 SUBK                             R23 R14 K14 [1]
+      193 MUL                              R22 R23 R6
+      194 FASTCALL                         VECTOR ; [+2]
+      195 GETIMPORT                        R19 K6 [Vector3.new]
+      197 CALL                             R19 3 1
+      198 NAMECALL                         R16 R0 K7 ["AddLine"]
+      200 CALL                             R16 3 0
+      201 FORNLOOP                         R12
+      202 RETURN                           R0 0
+      203 LOADK                            R14 K20 [{0, 0, 0}]
+      204 LOADN                            R16 0
+      205 LOADN                            R17 0
+      206 FASTCALL3                        VECTOR R16 R17 R4
+      208 MOVE                             R18 R4
+      209 GETIMPORT                        R15 K6 [Vector3.new]
+      211 CALL                             R15 3 1
+      212 NAMECALL                         R12 R0 K7 ["AddLine"]
+      214 CALL                             R12 3 0
+      215 RETURN                           R0 0
+      216 LOADK                            R10 K20 [{0, 0, 0}]
+      217 LOADN                            R12 0
+      218 LOADN                            R13 0
+      219 FASTCALL3                        VECTOR R12 R13 R4
+      221 MOVE                             R14 R4
+      222 GETIMPORT                        R11 K6 [Vector3.new]
+      224 CALL                             R11 3 1
+      225 NAMECALL                         R8 R0 K7 ["AddLine"]
+      227 CALL                             R8 3 0
+      228 LOADK                            R10 K20 [{0, 0, 0}]
+      229 LOADN                            R13 0
+      230 LOADN                            R14 0
+      231 FASTCALL3                        VECTOR R3 R13 R14
+      233 MOVE                             R12 R3
+      234 GETIMPORT                        R11 K6 [Vector3.new]
+      236 CALL                             R11 3 1
+      237 NAMECALL                         R8 R0 K7 ["AddLine"]
+      239 CALL                             R8 3 0
+      240 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

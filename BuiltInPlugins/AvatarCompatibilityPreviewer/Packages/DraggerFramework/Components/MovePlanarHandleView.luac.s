@@ -101,90 +101,89 @@ PROTO_4:
        59 GETTABLEKS                       R10 R10 K7 ["Hovered"]
        61 JUMPIFNOT                        R10 ; [+2]
        62 LOADN                            R9 0
-       63 JUMP                             ; [+4]
-       64 LOADN                            R11 1
-       65 SUBRK                            R12 K1 [1] R4
-       66 MUL                              R10 R11 R12
-       67 SUBRK                            R9 K1 [1] R10
-       68 SETTABLEKS                       R9 R8 K14 ["Transparency"]
-       70 CALL                             R6 2 1
-       71 SETTABLEKS                       R6 R5 K27 ["Box"]
-       73 NEWCLOSURE                       R6 P0
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          UPVAL U0
-       76 CAPTURE                          UPVAL U1
-       77 CAPTURE                          UPVAL U2
-       78 GETTABLEKS                       R7 R0 K0 ["props"]
-       80 GETTABLEKS                       R7 R7 K28 ["TailStart"]
-       82 GETTABLEKS                       R8 R0 K0 ["props"]
-       84 GETTABLEKS                       R8 R8 K29 ["TailEnd"]
-       86 JUMPIFNOT                        R7 ; [+87]
-       87 JUMPIFNOT                        R8 ; [+86]
-       88 GETTABLEKS                       R11 R0 K0 ["props"]
-       90 GETTABLEKS                       R11 R11 K30 ["TailScale"]
-       92 FASTCALL2                        MATH_MIN R1 R11 ; [+4]
-       94 MOVE                             R10 R1
-       95 GETIMPORT                        R9 K33 [math.min]
-       97 CALL                             R9 2 1
-       98 MULK                             R11 R9 K35 [0.1]
-       99 MULK                             R10 R11 K34 [0.65]
-      100 GETTABLEKS                       R11 R0 K0 ["props"]
-      102 GETTABLEKS                       R11 R11 K36 ["LocalPlaneDelta"]
-      104 JUMPIFNOT                        R11 ; [+69]
-      105 GETTABLEKS                       R11 R0 K0 ["props"]
-      107 GETTABLEKS                       R11 R11 K37 ["PlaneCf"]
-      109 JUMPIFNOT                        R11 ; [+64]
-      110 GETTABLEKS                       R11 R0 K0 ["props"]
-      112 GETTABLEKS                       R11 R11 K36 ["LocalPlaneDelta"]
-      114 GETTABLEKS                       R11 R11 K38 ["X"]
-      116 GETTABLEKS                       R12 R0 K0 ["props"]
-      118 GETTABLEKS                       R12 R12 K36 ["LocalPlaneDelta"]
-      120 GETTABLEKS                       R12 R12 K39 ["Y"]
-      122 GETTABLEKS                       R13 R0 K0 ["props"]
-      124 GETTABLEKS                       R13 R13 K37 ["PlaneCf"]
-      126 LOADN                            R17 0
-      127 LOADN                            R18 0
-      128 FASTCALL3                        VECTOR R11 R17 R18
-      130 MOVE                             R16 R11
-      131 GETIMPORT                        R15 K41 [Vector3.new]
-      133 CALL                             R15 3 1
-      134 NAMECALL                         R13 R13 K42 ["PointToWorldSpace"]
-      136 CALL                             R13 2 1
-      137 GETTABLEKS                       R14 R0 K0 ["props"]
-      139 GETTABLEKS                       R14 R14 K37 ["PlaneCf"]
-      141 LOADN                            R17 0
-      142 LOADN                            R19 0
-      143 FASTCALL3                        VECTOR R17 R12 R19
-      145 MOVE                             R18 R12
-      146 GETIMPORT                        R16 K41 [Vector3.new]
-      148 CALL                             R16 3 1
-      149 NAMECALL                         R14 R14 K42 ["PointToWorldSpace"]
-      151 CALL                             R14 2 1
-      152 MOVE                             R15 R6
-      153 LOADK                            R16 K43 ["Tail1"]
-      154 MOVE                             R17 R10
-      155 MOVE                             R18 R7
-      156 MOVE                             R19 R13
-      157 GETTABLEKS                       R21 R0 K0 ["props"]
-      159 GETTABLEKS                       R21 R21 K44 ["PlaneColors"]
-      161 GETTABLEN                        R20 R21 1
-      162 CALL                             R15 5 0
-      163 MOVE                             R15 R6
-      164 LOADK                            R16 K45 ["Tail2"]
-      165 MOVE                             R17 R10
-      166 MOVE                             R18 R7
-      167 MOVE                             R19 R14
-      168 GETTABLEKS                       R21 R0 K0 ["props"]
-      170 GETTABLEKS                       R21 R21 K44 ["PlaneColors"]
-      172 GETTABLEN                        R20 R21 2
-      173 CALL                             R15 5 0
-      174 GETUPVAL                         R9 0
-      175 GETTABLEKS                       R9 R9 K15 ["createElement"]
-      177 LOADK                            R10 K46 ["Folder"]
-      178 NEWTABLE                         R11 0 0
-      180 MOVE                             R12 R5
-      181 CALL                             R9 3 -1
-      182 RETURN                           R9 -1
+       63 JUMP                             ; [+3]
+       64 SUBRK                            R11 K1 [1] R4
+       65 MULK                             R10 R11 K1 [1]
+       66 SUBRK                            R9 K1 [1] R10
+       67 SETTABLEKS                       R9 R8 K14 ["Transparency"]
+       69 CALL                             R6 2 1
+       70 SETTABLEKS                       R6 R5 K27 ["Box"]
+       72 NEWCLOSURE                       R6 P0
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          UPVAL U0
+       75 CAPTURE                          UPVAL U1
+       76 CAPTURE                          UPVAL U2
+       77 GETTABLEKS                       R7 R0 K0 ["props"]
+       79 GETTABLEKS                       R7 R7 K28 ["TailStart"]
+       81 GETTABLEKS                       R8 R0 K0 ["props"]
+       83 GETTABLEKS                       R8 R8 K29 ["TailEnd"]
+       85 JUMPIFNOT                        R7 ; [+87]
+       86 JUMPIFNOT                        R8 ; [+86]
+       87 GETTABLEKS                       R11 R0 K0 ["props"]
+       89 GETTABLEKS                       R11 R11 K30 ["TailScale"]
+       91 FASTCALL2                        MATH_MIN R1 R11 ; [+4]
+       93 MOVE                             R10 R1
+       94 GETIMPORT                        R9 K33 [math.min]
+       96 CALL                             R9 2 1
+       97 MULK                             R11 R9 K35 [0.1]
+       98 MULK                             R10 R11 K34 [0.65]
+       99 GETTABLEKS                       R11 R0 K0 ["props"]
+      101 GETTABLEKS                       R11 R11 K36 ["LocalPlaneDelta"]
+      103 JUMPIFNOT                        R11 ; [+69]
+      104 GETTABLEKS                       R11 R0 K0 ["props"]
+      106 GETTABLEKS                       R11 R11 K37 ["PlaneCf"]
+      108 JUMPIFNOT                        R11 ; [+64]
+      109 GETTABLEKS                       R11 R0 K0 ["props"]
+      111 GETTABLEKS                       R11 R11 K36 ["LocalPlaneDelta"]
+      113 GETTABLEKS                       R11 R11 K38 ["X"]
+      115 GETTABLEKS                       R12 R0 K0 ["props"]
+      117 GETTABLEKS                       R12 R12 K36 ["LocalPlaneDelta"]
+      119 GETTABLEKS                       R12 R12 K39 ["Y"]
+      121 GETTABLEKS                       R13 R0 K0 ["props"]
+      123 GETTABLEKS                       R13 R13 K37 ["PlaneCf"]
+      125 LOADN                            R17 0
+      126 LOADN                            R18 0
+      127 FASTCALL3                        VECTOR R11 R17 R18
+      129 MOVE                             R16 R11
+      130 GETIMPORT                        R15 K41 [Vector3.new]
+      132 CALL                             R15 3 1
+      133 NAMECALL                         R13 R13 K42 ["PointToWorldSpace"]
+      135 CALL                             R13 2 1
+      136 GETTABLEKS                       R14 R0 K0 ["props"]
+      138 GETTABLEKS                       R14 R14 K37 ["PlaneCf"]
+      140 LOADN                            R17 0
+      141 LOADN                            R19 0
+      142 FASTCALL3                        VECTOR R17 R12 R19
+      144 MOVE                             R18 R12
+      145 GETIMPORT                        R16 K41 [Vector3.new]
+      147 CALL                             R16 3 1
+      148 NAMECALL                         R14 R14 K42 ["PointToWorldSpace"]
+      150 CALL                             R14 2 1
+      151 MOVE                             R15 R6
+      152 LOADK                            R16 K43 ["Tail1"]
+      153 MOVE                             R17 R10
+      154 MOVE                             R18 R7
+      155 MOVE                             R19 R13
+      156 GETTABLEKS                       R21 R0 K0 ["props"]
+      158 GETTABLEKS                       R21 R21 K44 ["PlaneColors"]
+      160 GETTABLEN                        R20 R21 1
+      161 CALL                             R15 5 0
+      162 MOVE                             R15 R6
+      163 LOADK                            R16 K45 ["Tail2"]
+      164 MOVE                             R17 R10
+      165 MOVE                             R18 R7
+      166 MOVE                             R19 R14
+      167 GETTABLEKS                       R21 R0 K0 ["props"]
+      169 GETTABLEKS                       R21 R21 K44 ["PlaneColors"]
+      171 GETTABLEN                        R20 R21 2
+      172 CALL                             R15 5 0
+      173 GETUPVAL                         R9 0
+      174 GETTABLEKS                       R9 R9 K15 ["createElement"]
+      176 LOADK                            R10 K46 ["Folder"]
+      177 NEWTABLE                         R11 0 0
+      179 MOVE                             R12 R5
+      180 CALL                             R9 3 -1
+      181 RETURN                           R9 -1
 
 PROTO_5:
         0 GETTABLEKS                       R6 R0 K1 ["Scale"]

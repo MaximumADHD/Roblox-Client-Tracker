@@ -166,100 +166,100 @@ PROTO_2:
       146 FASTCALL                         TABLE_INSERT ; [+2]
       147 GETIMPORT                        R2 K7 [table.insert]
       149 CALL                             R2 -1 0
-      150 GETUPVAL                         R2 8
-      151 GETTABLEKS                       R2 R2 K15 ["FFlagAssistantHarnessSplit"]
-      153 JUMPIFNOT                        R2 ; [+8]
-      154 MOVE                             R3 R1
-      155 GETUPVAL                         R4 0
-      156 GETUPVAL                         R5 10
-      157 CALL                             R4 1 -1
-      158 FASTCALL                         TABLE_INSERT ; [+2]
-      159 GETIMPORT                        R2 K7 [table.insert]
-      161 CALL                             R2 -1 0
-      162 MOVE                             R3 R1
-      163 GETUPVAL                         R4 0
-      164 GETUPVAL                         R5 11
-      165 CALL                             R4 1 -1
-      166 FASTCALL                         TABLE_INSERT ; [+2]
-      167 GETIMPORT                        R2 K7 [table.insert]
-      169 CALL                             R2 -1 0
-      170 MOVE                             R3 R1
-      171 GETUPVAL                         R4 0
-      172 GETUPVAL                         R5 12
-      173 DUPTABLE                         R6 K17 [{"dataModel"}]
-      174 GETIMPORT                        R7 K19 [game]
-      176 SETTABLEKS                       R7 R6 K16 ["dataModel"]
-      178 CALL                             R4 2 -1
-      179 FASTCALL                         TABLE_INSERT ; [+2]
-      180 GETIMPORT                        R2 K7 [table.insert]
-      182 CALL                             R2 -1 0
-      183 MOVE                             R3 R1
-      184 GETUPVAL                         R4 0
-      185 GETUPVAL                         R5 13
-      186 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      188 DUPTABLE                         R6 K21 [{"dockWidget"}]
-      189 GETTABLEKS                       R7 R0 K20 ["dockWidget"]
-      191 SETTABLEKS                       R7 R6 K20 ["dockWidget"]
-      193 CALL                             R4 2 -1
-      194 FASTCALL                         TABLE_INSERT ; [+2]
-      195 GETIMPORT                        R2 K7 [table.insert]
-      197 CALL                             R2 -1 0
-      198 MOVE                             R3 R1
-      199 GETUPVAL                         R4 0
-      200 GETUPVAL                         R5 14
-      201 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      203 CALL                             R4 1 -1
-      204 FASTCALL                         TABLE_INSERT ; [+2]
-      205 GETIMPORT                        R2 K7 [table.insert]
-      207 CALL                             R2 -1 0
-      208 MOVE                             R3 R1
-      209 GETUPVAL                         R4 0
-      210 GETUPVAL                         R5 15
-      211 CALL                             R4 1 -1
-      212 FASTCALL                         TABLE_INSERT ; [+2]
-      213 GETIMPORT                        R2 K7 [table.insert]
-      215 CALL                             R2 -1 0
-      216 GETUPVAL                         R2 8
-      217 GETTABLEKS                       R2 R2 K22 ["FFlagAssistantFeedbackView"]
-      219 JUMPIFNOT                        R2 ; [+10]
-      220 MOVE                             R3 R1
-      221 GETUPVAL                         R4 0
-      222 GETUPVAL                         R5 16
-      223 GETTABLEKS                       R5 R5 K4 ["Provider"]
-      225 CALL                             R4 1 -1
-      226 FASTCALL                         TABLE_INSERT ; [+2]
-      227 GETIMPORT                        R2 K7 [table.insert]
-      229 CALL                             R2 -1 0
-      230 GETUPVAL                         R2 8
-      231 GETTABLEKS                       R2 R2 K23 ["FFlagAssistantSplitToolsAndWidgets"]
-      233 JUMPIFNOT                        R2 ; [+12]
-      234 GETUPVAL                         R2 17
-      235 GETTABLEKS                       R3 R0 K24 ["args"]
-      237 GETTABLEKS                       R3 R3 K25 ["bridges"]
-      239 CALL                             R2 1 1
-      240 GETUPVAL                         R3 18
-      241 GETTABLEKS                       R3 R3 K26 ["append"]
-      243 MOVE                             R4 R1
-      244 MOVE                             R5 R2
-      245 CALL                             R3 2 0
-      246 GETUPVAL                         R2 0
-      247 GETUPVAL                         R3 19
-      248 DUPTABLE                         R4 K28 [{"onStyleSheetChange"}]
-      249 GETTABLEKS                       R5 R0 K29 ["onFoundationStyleSheetChange"]
-      251 SETTABLEKS                       R5 R4 K27 ["onStyleSheetChange"]
-      253 DUPTABLE                         R5 K31 [{"ContextStack"}]
-      254 GETUPVAL                         R6 0
-      255 GETUPVAL                         R7 20
-      256 GETTABLEKS                       R7 R7 K30 ["ContextStack"]
-      258 DUPTABLE                         R8 K33 [{"providers"}]
-      259 SETTABLEKS                       R1 R8 K32 ["providers"]
-      261 GETUPVAL                         R9 21
-      262 MOVE                             R10 R0
-      263 CALL                             R9 1 1
-      264 CALL                             R6 3 1
-      265 SETTABLEKS                       R6 R5 K30 ["ContextStack"]
-      267 CALL                             R2 3 -1
-      268 RETURN                           R2 -1
+      150 GETUPVAL                         R2 10
+      151 CALL                             R2 0 1
+      152 JUMPIFNOT                        R2 ; [+8]
+      153 MOVE                             R3 R1
+      154 GETUPVAL                         R4 0
+      155 GETUPVAL                         R5 11
+      156 CALL                             R4 1 -1
+      157 FASTCALL                         TABLE_INSERT ; [+2]
+      158 GETIMPORT                        R2 K7 [table.insert]
+      160 CALL                             R2 -1 0
+      161 MOVE                             R3 R1
+      162 GETUPVAL                         R4 0
+      163 GETUPVAL                         R5 12
+      164 CALL                             R4 1 -1
+      165 FASTCALL                         TABLE_INSERT ; [+2]
+      166 GETIMPORT                        R2 K7 [table.insert]
+      168 CALL                             R2 -1 0
+      169 MOVE                             R3 R1
+      170 GETUPVAL                         R4 0
+      171 GETUPVAL                         R5 13
+      172 DUPTABLE                         R6 K16 [{"dataModel"}]
+      173 GETIMPORT                        R7 K18 [game]
+      175 SETTABLEKS                       R7 R6 K15 ["dataModel"]
+      177 CALL                             R4 2 -1
+      178 FASTCALL                         TABLE_INSERT ; [+2]
+      179 GETIMPORT                        R2 K7 [table.insert]
+      181 CALL                             R2 -1 0
+      182 MOVE                             R3 R1
+      183 GETUPVAL                         R4 0
+      184 GETUPVAL                         R5 14
+      185 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      187 DUPTABLE                         R6 K20 [{"dockWidget"}]
+      188 GETTABLEKS                       R7 R0 K19 ["dockWidget"]
+      190 SETTABLEKS                       R7 R6 K19 ["dockWidget"]
+      192 CALL                             R4 2 -1
+      193 FASTCALL                         TABLE_INSERT ; [+2]
+      194 GETIMPORT                        R2 K7 [table.insert]
+      196 CALL                             R2 -1 0
+      197 MOVE                             R3 R1
+      198 GETUPVAL                         R4 0
+      199 GETUPVAL                         R5 15
+      200 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      202 CALL                             R4 1 -1
+      203 FASTCALL                         TABLE_INSERT ; [+2]
+      204 GETIMPORT                        R2 K7 [table.insert]
+      206 CALL                             R2 -1 0
+      207 MOVE                             R3 R1
+      208 GETUPVAL                         R4 0
+      209 GETUPVAL                         R5 16
+      210 CALL                             R4 1 -1
+      211 FASTCALL                         TABLE_INSERT ; [+2]
+      212 GETIMPORT                        R2 K7 [table.insert]
+      214 CALL                             R2 -1 0
+      215 GETUPVAL                         R2 8
+      216 GETTABLEKS                       R2 R2 K21 ["FFlagAssistantFeedbackView"]
+      218 JUMPIFNOT                        R2 ; [+10]
+      219 MOVE                             R3 R1
+      220 GETUPVAL                         R4 0
+      221 GETUPVAL                         R5 17
+      222 GETTABLEKS                       R5 R5 K4 ["Provider"]
+      224 CALL                             R4 1 -1
+      225 FASTCALL                         TABLE_INSERT ; [+2]
+      226 GETIMPORT                        R2 K7 [table.insert]
+      228 CALL                             R2 -1 0
+      229 GETUPVAL                         R2 8
+      230 GETTABLEKS                       R2 R2 K22 ["FFlagAssistantSplitToolsAndWidgets"]
+      232 JUMPIFNOT                        R2 ; [+12]
+      233 GETUPVAL                         R2 18
+      234 GETTABLEKS                       R3 R0 K23 ["args"]
+      236 GETTABLEKS                       R3 R3 K24 ["bridges"]
+      238 CALL                             R2 1 1
+      239 GETUPVAL                         R3 19
+      240 GETTABLEKS                       R3 R3 K25 ["append"]
+      242 MOVE                             R4 R1
+      243 MOVE                             R5 R2
+      244 CALL                             R3 2 0
+      245 GETUPVAL                         R2 0
+      246 GETUPVAL                         R3 20
+      247 DUPTABLE                         R4 K27 [{"onStyleSheetChange"}]
+      248 GETTABLEKS                       R5 R0 K28 ["onFoundationStyleSheetChange"]
+      250 SETTABLEKS                       R5 R4 K26 ["onStyleSheetChange"]
+      252 DUPTABLE                         R5 K30 [{"ContextStack"}]
+      253 GETUPVAL                         R6 0
+      254 GETUPVAL                         R7 21
+      255 GETTABLEKS                       R7 R7 K29 ["ContextStack"]
+      257 DUPTABLE                         R8 K32 [{"providers"}]
+      258 SETTABLEKS                       R1 R8 K31 ["providers"]
+      260 GETUPVAL                         R9 22
+      261 MOVE                             R10 R0
+      262 CALL                             R9 1 1
+      263 CALL                             R6 3 1
+      264 SETTABLEKS                       R6 R5 K29 ["ContextStack"]
+      266 CALL                             R2 3 -1
+      267 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -350,58 +350,61 @@ MAIN:
       152 GETTABLEKS                       R17 R0 K11 ["Src"]
       154 GETTABLEKS                       R17 R17 K27 ["Flags"]
       156 CALL                             R16 1 1
-      157 GETTABLEKS                       R17 R6 K12 ["Components"]
-      159 GETTABLEKS                       R17 R17 K28 ["FoundationProviderAdapter"]
-      161 GETTABLEKS                       R18 R1 K12 ["Components"]
-      163 GETTABLEKS                       R18 R18 K13 ["Contexts"]
-      165 GETTABLEKS                       R18 R18 K29 ["FeedbackContext"]
-      167 GETTABLEKS                       R19 R1 K12 ["Components"]
-      169 GETTABLEKS                       R19 R19 K13 ["Contexts"]
-      171 GETTABLEKS                       R19 R19 K30 ["McpAuthorizerManagerContext"]
-      173 GETTABLEKS                       R20 R1 K12 ["Components"]
-      175 GETTABLEKS                       R20 R20 K13 ["Contexts"]
-      177 GETTABLEKS                       R20 R20 K31 ["ModelQualityContext"]
-      179 GETTABLEKS                       R21 R1 K12 ["Components"]
-      181 GETTABLEKS                       R21 R21 K13 ["Contexts"]
-      183 GETTABLEKS                       R21 R21 K32 ["PersistedIntegrationContext"]
-      185 GETTABLEKS                       R22 R1 K12 ["Components"]
-      187 GETTABLEKS                       R22 R22 K13 ["Contexts"]
-      189 GETTABLEKS                       R22 R22 K33 ["PersistedSettingsContext"]
-      191 GETTABLEKS                       R23 R1 K34 ["Resources"]
-      193 GETTABLEKS                       R23 R23 K35 ["Localization"]
-      195 GETTABLEKS                       R23 R23 K36 ["Translator"]
-      197 GETTABLEKS                       R24 R1 K12 ["Components"]
-      199 GETTABLEKS                       R24 R24 K37 ["Hooks"]
-      201 GETTABLEKS                       R24 R24 K38 ["useBridges"]
-      203 GETTABLEKS                       R25 R3 K39 ["createElement"]
-      205 DUPCLOSURE                       R26 K40 [PROTO_1]
-      206 CAPTURE                          VAL R16
-      207 CAPTURE                          VAL R3
-      208 CAPTURE                          VAL R20
-      209 CAPTURE                          VAL R23
-      210 CAPTURE                          VAL R25
-      211 CAPTURE                          VAL R15
-      212 DUPCLOSURE                       R27 K41 [PROTO_2]
-      213 CAPTURE                          VAL R25
-      214 CAPTURE                          VAL R1
-      215 CAPTURE                          VAL R13
-      216 CAPTURE                          VAL R19
-      217 CAPTURE                          VAL R21
-      218 CAPTURE                          VAL R5
-      219 CAPTURE                          VAL R10
-      220 CAPTURE                          VAL R22
-      221 CAPTURE                          VAL R16
-      222 CAPTURE                          VAL R9
-      223 CAPTURE                          VAL R7
-      224 CAPTURE                          VAL R11
-      225 CAPTURE                          VAL R8
-      226 CAPTURE                          VAL R14
-      227 CAPTURE                          VAL R20
-      228 CAPTURE                          VAL R12
-      229 CAPTURE                          VAL R18
-      230 CAPTURE                          VAL R24
-      231 CAPTURE                          VAL R2
-      232 CAPTURE                          VAL R17
-      233 CAPTURE                          VAL R4
-      234 CAPTURE                          VAL R26
-      235 RETURN                           R27 1
+      157 GETTABLEKS                       R17 R1 K28 ["FlagUtils"]
+      159 GETTABLEKS                       R17 R17 K29 ["getIsAssistantHarnessSplit"]
+      161 GETTABLEKS                       R18 R6 K12 ["Components"]
+      163 GETTABLEKS                       R18 R18 K30 ["FoundationProviderAdapter"]
+      165 GETTABLEKS                       R19 R1 K12 ["Components"]
+      167 GETTABLEKS                       R19 R19 K13 ["Contexts"]
+      169 GETTABLEKS                       R19 R19 K31 ["FeedbackContext"]
+      171 GETTABLEKS                       R20 R1 K12 ["Components"]
+      173 GETTABLEKS                       R20 R20 K13 ["Contexts"]
+      175 GETTABLEKS                       R20 R20 K32 ["McpAuthorizerManagerContext"]
+      177 GETTABLEKS                       R21 R1 K12 ["Components"]
+      179 GETTABLEKS                       R21 R21 K13 ["Contexts"]
+      181 GETTABLEKS                       R21 R21 K33 ["ModelQualityContext"]
+      183 GETTABLEKS                       R22 R1 K12 ["Components"]
+      185 GETTABLEKS                       R22 R22 K13 ["Contexts"]
+      187 GETTABLEKS                       R22 R22 K34 ["PersistedIntegrationContext"]
+      189 GETTABLEKS                       R23 R1 K12 ["Components"]
+      191 GETTABLEKS                       R23 R23 K13 ["Contexts"]
+      193 GETTABLEKS                       R23 R23 K35 ["PersistedSettingsContext"]
+      195 GETTABLEKS                       R24 R1 K36 ["Resources"]
+      197 GETTABLEKS                       R24 R24 K37 ["Localization"]
+      199 GETTABLEKS                       R24 R24 K38 ["Translator"]
+      201 GETTABLEKS                       R25 R1 K12 ["Components"]
+      203 GETTABLEKS                       R25 R25 K39 ["Hooks"]
+      205 GETTABLEKS                       R25 R25 K40 ["useBridges"]
+      207 GETTABLEKS                       R26 R3 K41 ["createElement"]
+      209 DUPCLOSURE                       R27 K42 [PROTO_1]
+      210 CAPTURE                          VAL R16
+      211 CAPTURE                          VAL R3
+      212 CAPTURE                          VAL R21
+      213 CAPTURE                          VAL R24
+      214 CAPTURE                          VAL R26
+      215 CAPTURE                          VAL R15
+      216 DUPCLOSURE                       R28 K43 [PROTO_2]
+      217 CAPTURE                          VAL R26
+      218 CAPTURE                          VAL R1
+      219 CAPTURE                          VAL R13
+      220 CAPTURE                          VAL R20
+      221 CAPTURE                          VAL R22
+      222 CAPTURE                          VAL R5
+      223 CAPTURE                          VAL R10
+      224 CAPTURE                          VAL R23
+      225 CAPTURE                          VAL R16
+      226 CAPTURE                          VAL R9
+      227 CAPTURE                          VAL R17
+      228 CAPTURE                          VAL R7
+      229 CAPTURE                          VAL R11
+      230 CAPTURE                          VAL R8
+      231 CAPTURE                          VAL R14
+      232 CAPTURE                          VAL R21
+      233 CAPTURE                          VAL R12
+      234 CAPTURE                          VAL R19
+      235 CAPTURE                          VAL R25
+      236 CAPTURE                          VAL R2
+      237 CAPTURE                          VAL R18
+      238 CAPTURE                          VAL R4
+      239 CAPTURE                          VAL R27
+      240 RETURN                           R28 1

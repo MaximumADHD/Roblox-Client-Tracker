@@ -9,10 +9,9 @@ PROTO_0:
        10 SETTABLEKS                       R4 R3 K3 ["translationResourceTable"]
        12 CALL                             R2 1 1
        13 SETTABLEKS                       R2 R0 K7 ["localization"]
-       15 DUPTABLE                         R4 K10 [{["promptExportNonAccessoryOpen"] = False}]
-       16 NAMECALL                         R2 R0 K11 ["setState"]
-       18 CALL                             R2 2 0
-       19 RETURN                           R0 0
+       15 DUPTABLE                         R2 K10 [{["promptExportNonAccessoryOpen"] = False}]
+       16 SETTABLEKS                       R2 R0 K11 ["state"]
+       18 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
