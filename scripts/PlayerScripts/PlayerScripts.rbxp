@@ -190,13 +190,13 @@
                                 "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "C"
+                                        "KeyCode": "MouseLeftButton"
                                     }
                                 },
                                 "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "ButtonL1"
+                                        "KeyCode": "ButtonR2"
                                     }
                                 },
                                 "TouchBinding": {
@@ -230,7 +230,7 @@
                                 "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "F"
+                                        "KeyCode": "X"
                                     }
                                 },
                                 "GamepadBinding": {
@@ -250,13 +250,13 @@
                                 "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "V"
+                                        "KeyCode": "C"
                                     }
                                 },
                                 "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "DPadLeft"
+                                        "KeyCode": "ButtonL1"
                                     }
                                 },
                                 "TouchBinding": {
@@ -270,13 +270,13 @@
                                 "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "B"
+                                        "KeyCode": "F"
                                     }
                                 },
                                 "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "DPadRight"
+                                        "KeyCode": "DPadLeft"
                                     }
                                 },
                                 "TouchBinding": {
@@ -291,6 +291,26 @@
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "G"
+                                    }
+                                },
+                                "GamepadBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "DPadRight"
+                                    }
+                                },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {}
+                                }
+                            },                            
+                            "AbilityAction11": {
+                                "$className": "InputAction",
+                                "$properties": {},
+                                "KeyboardBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "V"
                                     }
                                 },
                                 "GamepadBinding": {

@@ -24,6 +24,10 @@ Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
 	Function ConfigSnapshot:GetValueChangedSignal(key: string) -> RBXScriptSignal {🚧Basic}
 	Function ConfigSnapshot:Refresh() -> () {🚧Basic}
 	Event ConfigSnapshot.UpdateAvailable() {🚧Basic}
+Class DataModelDiff : Object {🔒RobloxScript} [NotCreatable]
+	Function DataModelDiff:GetChangeType(identity: ScopedInstanceIdentity) -> Enum.DataModelChangeType? {🚧PluginOrOpenCloud} {🔒RobloxScript}
+	Function DataModelDiff:GetIdentities() -> { any } {🚧PluginOrOpenCloud} {🔒RobloxScript}
+	Function DataModelDiff:GetPropertyNames(identity: ScopedInstanceIdentity) -> { any } {🚧PluginOrOpenCloud} {🔒RobloxScript}
 Class EditableImage : Object [NotCreatable]
 	Property EditableImage.Size: Vector2 [ReadOnly] {🚧DynamicGeneration}
 	Property EditableImage.ImageData: BinaryString [Hidden] [NotReplicated] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
@@ -50,65 +54,65 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:AddUV(uv: Vector2) -> number {🚧DynamicGeneration}
 	Function EditableMesh:AddVertex(p: Vector3) -> number {🚧DynamicGeneration}
 	Function EditableMesh:BatchAdd(attr: Enum.MeshAttribute, data: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:BatchGetFaceAttributes(attr: Enum.MeshAttribute, faceIds: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:BatchGetValues(ids: { any }) -> ...any [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:BatchGetVertexAttributes(attr: Enum.MeshAttribute, vertexIds: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:BatchGetVertexFaceAttributes(attr: Enum.MeshAttribute, vertexIds: { any }, faceIds: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration}
+	Function EditableMesh:BatchGetFaceAttributes(attr: Enum.MeshAttribute, faceIds: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:BatchGetValues(ids: { any }) -> ...any [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:BatchGetVertexAttributes(attr: Enum.MeshAttribute, vertexIds: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:BatchGetVertexFaceAttributes(attr: Enum.MeshAttribute, vertexIds: { any }, faceIds: { any }) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
 	Function EditableMesh:BatchRemove(ids: { any }) -> () [CustomLuaState] {🚧DynamicGeneration}
 	Function EditableMesh:BatchSetFaceAttributes(faceIds: { any }, attrIdArrays: { any }) -> () [CustomLuaState] {🚧DynamicGeneration}
 	Function EditableMesh:BatchSetValues(ids: { any }, values: { any }) -> () [CustomLuaState] {🚧DynamicGeneration}
 	Function EditableMesh:BatchSetVertexFaceAttributes(vertexIds: { any }, faceIds: { any }, attrIds: { any }) -> () [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:Clear() -> () [NotBrowsable] {🚧DynamicGeneration}
+	Function EditableMesh:Clear() -> () {🚧DynamicGeneration}
 	Function EditableMesh:Destroy() -> () {🚧DynamicGeneration}
-	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any {🚧DynamicGeneration}
-	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number {🚧DynamicGeneration}
-	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetBoneByName(boneName: string) -> number {🚧DynamicGeneration}
-	Function EditableMesh:GetBoneCFrame(boneId: number) -> CFrame {🚧DynamicGeneration}
-	Function EditableMesh:GetBoneIsVirtual(boneId: number) -> boolean {🚧DynamicGeneration}
-	Function EditableMesh:GetBoneName(boneId: number) -> string {🚧DynamicGeneration}
-	Function EditableMesh:GetBoneParent(boneId: number) -> number {🚧DynamicGeneration}
-	Function EditableMesh:GetBones() -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetCenter() -> Vector3 {🚧DynamicGeneration}
-	Function EditableMesh:GetColor(colorId: number) -> Color3? {🚧DynamicGeneration}
-	Function EditableMesh:GetColorAlpha(colorId: number) -> number? {🚧DynamicGeneration}
-	Function EditableMesh:GetColors() -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFaceColors(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFaces() -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFacesWithColor(colorId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFacesWithNormal(normalId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFacesWithUV(uvId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetFacsCorrectivePose(actions: { any }) -> ...any {🚧DynamicGeneration}
-	Function EditableMesh:GetFacsCorrectivePoses() -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetFacsPose(action: Enum.FacsActionUnit) -> ...any {🚧DynamicGeneration}
-	Function EditableMesh:GetFacsPoses() -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetNormal(normalId: number) -> Vector3? {🚧DynamicGeneration}
-	Function EditableMesh:GetNormals() -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetPosition(vertexId: number) -> Vector3 {🚧DynamicGeneration}
-	Function EditableMesh:GetSize() -> Vector3 {🚧DynamicGeneration}
-	Function EditableMesh:GetUV(uvId: number) -> Vector2? {🚧DynamicGeneration}
-	Function EditableMesh:GetUVs() -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexBoneWeights(vertexId: number) -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexBones(vertexId: number) -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexColors(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexFaceColor(vertexId: number, faceId: number) -> number {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexFaceNormal(vertexId: number, faceId: number) -> number {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexFaceUV(vertexId: number, faceId: number) -> number {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexFaces(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexNormals(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVertexUVs(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVertices() -> { any } {🚧DynamicGeneration}
-	Function EditableMesh:GetVerticesWithColor(colorId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVerticesWithNormal(normalId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
-	Function EditableMesh:GetVerticesWithUV(uvId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration}
+	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetBoneByName(boneName: string) -> number {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetBoneCFrame(boneId: number) -> CFrame {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetBoneIsVirtual(boneId: number) -> boolean {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetBoneName(boneId: number) -> string {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetBoneParent(boneId: number) -> number {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetBones() -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetCenter() -> Vector3 {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetColor(colorId: number) -> Color3? {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetColorAlpha(colorId: number) -> number? {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetColors() -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFaceColors(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFaces() -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacesWithColor(colorId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacesWithNormal(normalId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacesWithUV(uvId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacsCorrectivePose(actions: { any }) -> ...any {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacsCorrectivePoses() -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacsPose(action: Enum.FacsActionUnit) -> ...any {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetFacsPoses() -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetNormal(normalId: number) -> Vector3? {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetNormals() -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetPosition(vertexId: number) -> Vector3 {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetSize() -> Vector3 {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetUV(uvId: number) -> Vector2? {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetUVs() -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexBoneWeights(vertexId: number) -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexBones(vertexId: number) -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexColors(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexFaceColor(vertexId: number, faceId: number) -> number {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexFaceNormal(vertexId: number, faceId: number) -> number {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexFaceUV(vertexId: number, faceId: number) -> number {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexFaces(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexNormals(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertexUVs(vertexId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVertices() -> { any } {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVerticesWithColor(colorId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVerticesWithNormal(normalId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVerticesWithUV(uvId: number) -> { any } [CustomLuaState] {🚧DynamicGeneration} {🧬Safe}
 	Function EditableMesh:IdDebugString(id: number) -> string {🚧DynamicGeneration}
 	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [any]: any } {🚧DynamicGeneration}
-	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any {🚧DynamicGeneration}
+	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any {🚧DynamicGeneration} {🧬Safe}
 	Function EditableMesh:RemoveBone(boneId: number) -> () {🚧DynamicGeneration}
 	Function EditableMesh:RemoveFace(faceId: number) -> () {🚧DynamicGeneration}
 	Function EditableMesh:RemoveUnused() -> { any } {🚧DynamicGeneration}
@@ -135,8 +139,8 @@ Class EditableMesh : Object [NotCreatable]
 	Function EditableMesh:SetVertexFaceNormal(vertexId: number, faceId: number, normalId: number) -> () {🚧DynamicGeneration}
 	Function EditableMesh:SetVertexFaceUV(vertexId: number, faceId: number, uvId: number) -> () {🚧DynamicGeneration}
 	Function EditableMesh:Triangulate() -> () {🚧DynamicGeneration}
-	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any } [Deprecated] {🚧DynamicGeneration}
-	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any } [Deprecated] {🚧DynamicGeneration}
+	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any } [Deprecated] {🚧DynamicGeneration} {🧬Safe}
+	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any } [Deprecated] {🚧DynamicGeneration} {🧬Safe}
 Class ExecutedRemoteCommand : Object [NotCreatable] [NotReplicated]
 	Function ExecutedRemoteCommand:RunMoreCode(code: string, args: ...any) -> ()
 	Function ExecutedRemoteCommand:SendUpdate(args: ...any) -> ()
@@ -648,6 +652,7 @@ Class AssetQualityService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfData: string, desiredQualityChecks: { any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualitySummaryFromJobIdAsync(jobId: string, desiredQualityChecks: { any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualityValidationEntriesFromModelsAsync(models: { any }, assetTypeIds: { any }, settings: { [string]: any }) -> { [string]: any } [Yields] {🔒RobloxScript}
+	Function AssetQualityService:FetchAssetQualityValidationRawFromModelsAsync(models: { any }, assetTypeIds: { any }, settings: { [string]: any }) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:FetchAssetQualityVisualizationDataFromUrlAsync(visualizationUrl: string) -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(uploadModel: Model) -> string [Yields] {🔒RobloxScript}
 Class AssetService : Instance [NotCreatable] [Service]
@@ -1449,7 +1454,6 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property RootImportData.ScaleUnit: Enum.MeshScaleUnit
 	Property RootImportData.UseSceneOriginAsPivot: boolean
 	Property RootImportData.UsesCages: boolean
-	Property RootImportData.ValidateUgcBody: boolean
 	Property RootImportData.VersionedAssetId: number
 	Property RootImportData.WorldForward: Enum.NormalId
 	Property RootImportData.WorldUp: Enum.NormalId
@@ -3116,6 +3120,7 @@ Class ImageButton : GuiButton
 	Property ImageButton.SliceScale: number {🚧UI}
 	Property ImageButton.TileSize: UDim2 {🚧UI}
 	Property ImageButton.ContentImageSize: Vector2 [Hidden] [ReadOnly] {🚧UI} {🔒RobloxScript}
+	Property ImageButton.LocalizedImageContent: Content [ReadOnly] {🚧UI} {🔒RobloxScript}
 	Function ImageButton:SetEnableContentImageSizeChangedEvents(enabled: boolean) -> () {🚧UI} {🔒RobloxScript}
 Class TextButton : GuiButton
 	Property TextButton.ContentText: string [ReadOnly] {🚧UI}
@@ -3163,6 +3168,7 @@ Class ImageLabel : GuiLabel
 	Property ImageLabel.SliceScale: number {🚧UI}
 	Property ImageLabel.TileSize: UDim2 {🚧UI}
 	Property ImageLabel.ContentImageSize: Vector2 [Hidden] [ReadOnly] {🚧UI} {🔒RobloxScript}
+	Property ImageLabel.LocalizedImageContent: Content [ReadOnly] {🚧UI} {🔒RobloxScript}
 	Function ImageLabel:SetEnableContentImageSizeChangedEvents(enabled: boolean) -> () {🚧UI} {🔒RobloxScript}
 Class TextLabel : GuiLabel
 	Property TextLabel.ContentText: string [ReadOnly] {🚧UI}
@@ -4468,6 +4474,8 @@ Class LodDataEntity : Instance [NotCreatable]
 	Property LodDataEntity.IsSlimEnabled: boolean [Hidden] [NotScriptable]
 	Property LodDataEntity.SlimAnimationSource: SlimAnimationDataEntity? [Hidden] [NotScriptable]
 	Property LodDataEntity.SlimReplicationTimestampSec: number [Hidden] [NotScriptable]
+	Property LodDataEntity.TranscoderFailureReason: string [Hidden] [NotScriptable] {🔒RobloxEngine}
+	Property LodDataEntity.TranscoderStatus: Enum.SlimTranscoderStatus [Hidden] [NotScriptable] {🔒RobloxEngine}
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogReporterService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {🔒RobloxScript}
@@ -4775,6 +4783,9 @@ Class MemStorageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [
 	Function MemStorageService:HasItem(key: string) -> boolean {🔒RobloxScript}
 	Function MemStorageService:RemoveItem(key: string) -> boolean {🔒RobloxScript}
 	Function MemStorageService:SetItem(key: string, value: string? = "") -> () {🔒RobloxScript}
+Class MemoryStoreDistributedCounter : Instance [NotCreatable] [NotReplicated]
+	Function MemoryStoreDistributedCounter:GetAsync() -> number [Yields] {🚧DataStore}
+	Function MemoryStoreDistributedCounter:IncrementAsync(delta: number, expiration: number) -> number [Yields] {🚧DataStore}
 Class MemoryStoreHashMap : Instance [NotCreatable] [NotReplicated]
 	Function MemoryStoreHashMap:GetAsync(key: string) -> any [Yields] {🚧DataStore}
 	Function MemoryStoreHashMap:ListItemsAsync(count: number) -> MemoryStoreHashMapPages [Yields] {🚧DataStore}
@@ -4787,6 +4798,7 @@ Class MemoryStoreQueue : Instance [NotCreatable] [NotReplicated]
 	Function MemoryStoreQueue:ReadAsync(count: number, allOrNothing: boolean? = false, waitTimeout: number? = -1) -> ...any [Yields] {🚧DataStore}
 	Function MemoryStoreQueue:RemoveAsync(id: string) -> () [Yields] {🚧DataStore}
 Class MemoryStoreService : Instance [Service]
+	Function MemoryStoreService:GetDistributedCounter(name: string) -> MemoryStoreDistributedCounter {🚧DataStore}
 	Function MemoryStoreService:GetHashMap(name: string) -> MemoryStoreHashMap {🚧DataStore}
 	Function MemoryStoreService:GetQueue(name: string, invisibilityTimeout: number? = 30) -> MemoryStoreQueue {🚧DataStore}
 	Function MemoryStoreService:GetSortedMap(name: string) -> MemoryStoreSortedMap {🚧DataStore}
@@ -5067,6 +5079,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:ApplyAngularImpulse(impulse: Vector3) -> () {🚀SimAccess}
 	Function BasePart:ApplyImpulse(impulse: Vector3) -> () {🚀SimAccess}
 	Function BasePart:ApplyImpulseAtPosition(impulse: Vector3, position: Vector3) -> () {🚀SimAccess}
+	Function BasePart:BindToCollisionSummaries(callback: (...any) -> ...any) -> RBXScriptConnection {🚧Basic}
 	Function BasePart:CanCollideWith(part: BasePart) -> boolean {🧬Safe} {🚀SimAccess}
 	Function BasePart:CanSetNetworkOwnership() -> ...any {🚀SimAccess}
 	Function BasePart:GetClosestPointOnSurface(position: Vector3) -> Vector3 {🚀SimAccess}
@@ -5545,6 +5558,7 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.Status: string [ReadOnly] {🚧AssetRead} {🔒RobloxScript}
 	Property PackageLink.VersionIdSerialize: number [Hidden] [NotScriptable] {🚧AssetRead}
 	Property PackageLink.CanAutoUpdate: boolean [Hidden] [NotReplicated] [NotScriptable] {🚧AssetRead} {🔒RobloxEngine}
+	Function PackageLink:getOverrides() -> DataModelDiff {🚧AssetRead} {🔒RobloxScript}
 Class PackageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function PackageService:UpdateAsync(packageRoot: Instance, version: number? = 0) -> Instance? [Yields] {🔒RobloxScript}
 Class PackageUIService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
@@ -5874,7 +5888,7 @@ Class Player : Instance
 	Function Player:HasAppearanceLoaded() -> boolean {🚧Players}
 	Function Player:IsFriendsWithAsync(userId: User) -> boolean [Yields] {🚧Players + Social}
 	Function Player:IsInGroupAsync(groupId: number) -> boolean [Yields] {🚧Groups + Players}
-	Function Player:IsVerified() -> boolean {🚧Players}
+	Function Player:IsVerified(level: Enum.VerifiedLevel? = "Low") -> boolean {🚧Players}
 	Function Player:Kick(message: string? = "") -> () {🚧Consequences + Players}
 	Function Player:LoadCharacterAsync() -> () [Yields] {🚧Players}
 	Function Player:LoadCharacterBlocking() -> () [Yields] {🚧Players} {🔒LocalUser}
@@ -6517,6 +6531,14 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() {🔒RobloxScript}
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RequestOrchestratorService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
+	Function RequestOrchestratorService:ClearCache(name: string) -> () {🔒RobloxScript}
+	Function RequestOrchestratorService:GetBatchWindowDelayMax(name: string) -> number {🔒RobloxScript}
+	Function RequestOrchestratorService:GetBatchWindowDelayMin(name: string) -> number {🔒RobloxScript}
+	Function RequestOrchestratorService:GetRegisteredOrchestrators() -> { any } {🔒RobloxScript}
+	Function RequestOrchestratorService:GetResponseDelayMax(name: string) -> number {🔒RobloxScript}
+	Function RequestOrchestratorService:GetResponseDelayMin(name: string) -> number {🔒RobloxScript}
+	Function RequestOrchestratorService:SetBatchWindowDelay(name: string, minMs: number, maxMs: number) -> () {🔒RobloxScript}
+	Function RequestOrchestratorService:SetResponseDelay(name: string, minMs: number, maxMs: number) -> () {🔒RobloxScript}
 	Event RequestOrchestratorService.BatchCreated(payload: { [string]: any }) {🔒RobloxScript}
 	Event RequestOrchestratorService.BatchExhausted(payload: { [string]: any }) {🔒RobloxScript}
 	Event RequestOrchestratorService.BatchResponseReceived(payload: { [string]: any }) {🔒RobloxScript}
@@ -8486,8 +8508,10 @@ Class UIScale : UIComponent
 Class UIShadow : UIComponent
 	Property UIShadow.BlurRadius: UDim {🚧UI}
 	Property UIShadow.Color: Color3 {🚧UI}
+	Property UIShadow.Inset: boolean {🚧UI}
 	Property UIShadow.Mode: Enum.ApplyShadowMode {🚧UI}
 	Property UIShadow.Offset: UDim2 {🚧UI}
+	Property UIShadow.ShowBehindParent: boolean {🚧UI}
 	Property UIShadow.Spread: UDim2 {🚧UI}
 	Property UIShadow.Transparency: number {🚧UI}
 	Property UIShadow.ZIndex: number {🚧UI}
@@ -8948,7 +8972,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.DefaultDistanceAttenuation: Enum.VoiceChatDistanceAttenuationType {🚧Audio + Chat} {🔒Plugin}
 	Property VoiceChatService.EnableDefaultVoice: boolean {🚧Audio + Chat} {🔒Plugin}
 	Property VoiceChatService.UseAudioApi: Enum.AudioApiRollout {🚧Audio + Chat} {🔒Plugin}
-	Property VoiceChatService.EnableVoiceVolumeControls: Enum.RolloutState [NotBrowsable] {🚧Audio + Chat} {🔒RobloxScript}
+	Property VoiceChatService.EnableVoiceVolumeControls: Enum.RolloutState {🚧Audio + Chat} {🔒RobloxScript}
 	Property VoiceChatService.UseNewAudioApi: boolean [Hidden] {🚧Audio + Chat} {🔒RobloxScript}
 	Property VoiceChatService.UseNewControlPaths: boolean [Hidden] {🚧Audio + Chat} {🔒RobloxEngine}
 	Property VoiceChatService.UseNewJoinFlow: boolean [Hidden] {🚧Audio + Chat} {🔒RobloxEngine}
@@ -9051,6 +9075,7 @@ Class WindowProtocolService : Instance {🔒RobloxScript} [NotCreatable] [Servic
 	Function WindowProtocolService:IsAvailable() -> boolean {🔒RobloxScript}
 	Function WindowProtocolService:Maximize(windowId: number) -> () {🔒RobloxScript}
 	Function WindowProtocolService:Minimize(windowId: number) -> () {🔒RobloxScript}
+	Function WindowProtocolService:OnDragAreaDoubleClicked(windowId: number) -> () {🔒RobloxScript}
 	Function WindowProtocolService:Restore(windowId: number) -> () {🔒RobloxScript}
 	Function WindowProtocolService:SetCustomTitleBarHeight(windowId: number, height: number) -> () {🔒RobloxScript}
 	Function WindowProtocolService:SetTitleBarMode(windowId: number, mode: Enum.TitleBarMode) -> () {🔒RobloxScript}
@@ -10156,6 +10181,11 @@ Enum CustomCameraMode
 	EnumItem CustomCameraMode.Default : 0
 	EnumItem CustomCameraMode.Classic : 1
 	EnumItem CustomCameraMode.Follow : 2
+Enum DataModelChangeType
+	EnumItem DataModelChangeType.Add : 0
+	EnumItem DataModelChangeType.Remove : 1
+	EnumItem DataModelChangeType.Modify : 2
+	EnumItem DataModelChangeType.AddPackage : 3
 Enum DataModelExtractorFileType
 	EnumItem DataModelExtractorFileType.PlaceFile : 0
 	EnumItem DataModelExtractorFileType.FirstSlice : 1
@@ -12331,6 +12361,14 @@ Enum SlimTintMode
 	EnumItem SlimTintMode.LOD : 1
 	EnumItem SlimTintMode.Meshes : 2
 	EnumItem SlimTintMode.Zone : 5
+Enum SlimTranscoderStatus
+	EnumItem SlimTranscoderStatus.Unknown : 0
+	EnumItem SlimTranscoderStatus.NoHash : 1
+	EnumItem SlimTranscoderStatus.NotUploaded : 2
+	EnumItem SlimTranscoderStatus.Uploaded : 3
+	EnumItem SlimTranscoderStatus.InProgress : 4
+	EnumItem SlimTranscoderStatus.Succeeded : 5
+	EnumItem SlimTranscoderStatus.Failed : 6
 Enum SolidPrimitiveType
 	EnumItem SolidPrimitiveType.Capsule : 5
 	EnumItem SolidPrimitiveType.Cone : 6
@@ -13096,6 +13134,9 @@ Enum VelocityConstraintMode
 	EnumItem VelocityConstraintMode.Line : 0
 	EnumItem VelocityConstraintMode.Plane : 1
 	EnumItem VelocityConstraintMode.Vector : 2
+Enum VerifiedLevel
+	EnumItem VerifiedLevel.Low : 0
+	EnumItem VerifiedLevel.High : 1
 Enum VerticalAlignment
 	EnumItem VerticalAlignment.Center : 0
 	EnumItem VerticalAlignment.Top : 1

@@ -20,7 +20,7 @@ struct Globals
     vec4 ShadowMatrix0;
     vec4 ShadowMatrix1;
     vec4 ShadowMatrix2;
-    vec4 RefractionBias_FadeDistance_GlowFactor_Free;
+    vec4 RefractionBias_FadeDistance_GlowFactor_ConstFogLowQl;
     vec4 TextureData_ShadowInfo;
     vec4 SkyGradientTop_EnvDiffuse;
     vec4 SkyGradientBottom_EnvSpec;

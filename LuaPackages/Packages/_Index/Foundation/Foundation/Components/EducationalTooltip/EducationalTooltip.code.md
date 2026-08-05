@@ -4,11 +4,9 @@ category: Display
 
 ## Overview
 
-!!! note "The canonical name from Foundation v2"
+!!! note "Migrating from `Coachmark`"
 
-    **`EducationalTooltip` is the v2-canonical name** for what was called [[Coachmark]] in Foundation v1. **`Coachmark` will be removed in Foundation v2** — `EducationalTooltip` is the name you should use going forward.
-
-    Foundation v1 already exposes `Foundation.EducationalTooltip` as an alias for `Foundation.Coachmark`, so you can adopt the new name **today** without breaking your build. Run the standalone [`rename-coachmark-to-education-tooltip`](https://github.com/Roblox/luau-ecosystem-codemod/blob/main/src/transforms/rename-coachmark-to-education-tooltip/README.md) codemod to migrate automatically, and see [Breaking Changes](../../develop/breaking-changes.md) for the full v2 migration guide.
+    Prefer `Foundation.EducationalTooltip` over the deprecated [[Coachmark]] alias. Run the standalone [`rename-coachmark-to-education-tooltip`](https://github.com/Roblox/luau-ecosystem-codemod/blob/main/src/transforms/rename-coachmark-to-education-tooltip/README.md) codemod to migrate automatically. `Coachmark` will be removed in Foundation v2 — see [Breaking Changes](../../develop/breaking-changes.md).
 
 EducationalTooltip is a component for displaying a popover with a title, optional text, optional media, optional step indicator, optional close affordance, and action buttons when clicking an anchor element. It's designed for guided user experiences and feature tours.
 

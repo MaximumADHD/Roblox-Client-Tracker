@@ -105,6 +105,9 @@ when the trigger item is clicked. Nesting can be arbitrarily deep.
 
 When a leaf item is activated, all ancestor submenus close automatically along with the root menu.
 
+The `maxHeight` property is inherited by submenus: when set, any submenu whose content exceeds
+`maxHeight` becomes scrollable, just like the root menu.
+
 ```luau
 local menuItems = {
 	{

@@ -659,5 +659,11 @@ type VirtualInputPointerAction = {
 
 type BatchDataStoreGetOptions = { }
 
+type CameraState = {
+    CFrame: CFrame,
+    FieldOfView: number,
+    ViewportSize: Vector2,
+}
+
 
 -- SECTION END: Reflection Adjacent

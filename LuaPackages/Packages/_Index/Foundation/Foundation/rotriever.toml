@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.96.0"
+version = "1.98.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -30,7 +30,7 @@ keywords = [
 homepage = "https://foundation.roblox.com"
 documentation = "https://foundation.roblox.com"
 [dependencies.BuilderIcons]
-version = "^0.1.32"
+version = "^0.1.39"
 
 [dependencies.Dash]
 version = "^3.3.0"
