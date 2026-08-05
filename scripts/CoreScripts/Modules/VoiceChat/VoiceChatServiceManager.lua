@@ -2277,6 +2277,11 @@ VoiceChatServiceManager.default = VoiceChatServiceManager.new(
 	BlockingUtility:GetAfterBlockedStatusChangedEvent()
 )
 
+if game:DefineFastFlag("VoiceVolumeControlsEnablePerUserVolumeInteractionTelemetry", false) then
+	local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
+	PeopleService.getService("PerUserVoiceVolumeSessionLifecycle").ensureStarted()
+end
+
 export type VoiceChatServiceManager = typeof(VoiceChatServiceManager.default)
 
 return VoiceChatServiceManager

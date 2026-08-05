@@ -1,3 +1,4 @@
+-- Remove this file when cleaning up FFlagFoundationSliderOffloadDraggingMath
 --[[
 	Calculates a new slider value by applying a normalized delta to the current value,
 	scaled by the slider's range and clamped to the range bounds.

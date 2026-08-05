@@ -30,6 +30,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_SPOTLIGHT_COLLECTION"
 	| "DISPLAY_LOCATION_PARTY_CHAT"
 	| "DISPLAY_LOCATION_MARKETPLACE_FAVORITES_SAVED"
+	| "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -68,6 +69,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_PARTY_CHAT"
 		elseif value == 16 then
 			return "DISPLAY_LOCATION_MARKETPLACE_FAVORITES_SAVED"
+		elseif value == 17 then
+			return "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 		else
 			return nil
 		end
@@ -108,6 +111,8 @@ messages.DisplayLocation = {
 			return 15
 		elseif self == "DISPLAY_LOCATION_MARKETPLACE_FAVORITES_SAVED" then
 			return 16
+		elseif self == "DISPLAY_LOCATION_PRE_AUTH_LANDING" then
+			return 17
 		else
 			return self
 		end
@@ -148,6 +153,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_PARTY_CHAT"
 		elseif name == "DISPLAY_LOCATION_MARKETPLACE_FAVORITES_SAVED" then
 			return "DISPLAY_LOCATION_MARKETPLACE_FAVORITES_SAVED"
+		elseif name == "DISPLAY_LOCATION_PRE_AUTH_LANDING" then
+			return "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 		else
 			return nil
 		end

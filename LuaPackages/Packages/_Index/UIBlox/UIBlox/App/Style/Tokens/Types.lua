@@ -58,4 +58,28 @@ export type BaseTokens = {
 
 export type Tokens = BaseTokens & FoundationTokens
 
+-- Public-facing token type. Intentionally excludes `Global`, `Semantic` and
+-- `Component` so consumers outside of UIBlox cannot depend on internal tokens.
+local publicTokens = {
+	Color = themeTokens.Color,
+	Config = themeTokens.Config,
+	DarkMode = themeTokens.DarkMode,
+	Ease = themeTokens.Ease,
+	LightMode = themeTokens.LightMode,
+	Inverse = themeTokens.Inverse,
+	Size = themeTokens.Size,
+	Padding = themeTokens.Padding,
+	Margin = themeTokens.Margin,
+	Gap = themeTokens.Gap,
+	Gutter = themeTokens.Gutter,
+	Radius = themeTokens.Radius,
+	Stroke = themeTokens.Stroke,
+	LineHeight = themeTokens.LineHeight,
+	FontSize = themeTokens.FontSize,
+	FontWeight = themeTokens.FontWeight,
+	Time = themeTokens.Time,
+	Typography = themeTokens.Typography,
+}
+export type PublicTokens = typeof(publicTokens)
+
 return {}

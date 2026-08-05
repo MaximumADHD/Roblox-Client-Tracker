@@ -14,6 +14,7 @@
 		string Id: The plugin's uniqueId.
 		Vector2 MinSize: The minimum size of the widget, in pixels.
 		Enum.ZIndexBehavior ZIndexBehavior: The ZIndexBehavior of the widget.
+		boolean KeyboardNavigationEnabled: whether to enable keyboard navigation in the plugin.
 
 		boolean ShouldRestore: Whether the widget should restore to its previous
 			enabled state and position on creation, if the widget was created before.
@@ -46,6 +47,9 @@ local Framework = script:FindFirstAncestor("UI").Parent
 local Typecheck = require(Framework.Util).Typecheck
 local createPluginWidget = require(Framework.UI.Components.createPluginWidget)
 
+local FFlagDevFrameworkKeyboardNavigation = game:DefineFastFlag("DevFrameworkKeyboardNavigation", false)
+local FFlagDevFrameworkKeyboardNavigationDefault = game:DefineFastFlag("DevFrameworkKeyboardNavigationDefault", false)
+
 local DockWidget = createPluginWidget("DockWidget", function(props)
 	if props.Widget then
 		return props.Widget
@@ -72,7 +76,15 @@ local DockWidget = createPluginWidget("DockWidget", function(props)
 		minSize.Y
 	)
 
-	return plugin:CreateDockWidgetPluginGui(pluginId, info)
+	local dockWidget = plugin:CreateDockWidgetPluginGui(pluginId, info)
+
+	if FFlagDevFrameworkKeyboardNavigation then
+		dockWidget.TabKeyboardNavigation = if props.KeyboardNavigationEnabled ~= nil
+			then props.KeyboardNavigationEnabled
+			else FFlagDevFrameworkKeyboardNavigationDefault
+	end
+
+	return dockWidget
 end)
 
 Typecheck.wrap(DockWidget, script)

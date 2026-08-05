@@ -1,24 +1,32 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+
 local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
+local MatrixGrid = require(Foundation.Utility.Stories.MatrixGrid)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-type InputSize = InputSize.InputSize
+
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
-type ButtonVariant = ButtonVariant.ButtonVariant
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+
+type InputSize = InputSize.InputSize
+type SupportedButtonVariant = ButtonVariant.SupportedButtonVariant
 type FillBehavior = FillBehavior.FillBehavior
 
-local BUTTON_VARIANTS: { ButtonVariant } = {
+local IconName = BuilderIcons.Icon
+
+local BUTTON_VARIANTS: { SupportedButtonVariant } = {
 	ButtonVariant.Standard,
 	ButtonVariant.Emphasis,
 	ButtonVariant.SoftEmphasis,
@@ -27,216 +35,716 @@ local BUTTON_VARIANTS: { ButtonVariant } = {
 	ButtonVariant.Alert,
 }
 
-local function PlaygroundStory(props)
-	local controls = props.controls
-	local colorMode = controls.colorMode
-	local tokens = useTokens()
-	Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
+local SIZE_ORDER: { InputSize } = {
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Medium,
+	InputSize.Large,
+}
 
-	local button = React.createElement(Button, {
-		icon = if controls.icon == "" then nil else controls.icon,
-		text = controls.text,
-		variant = controls.variant,
-		isLoading = controls.isLoading,
-		isDisabled = controls.isDisabled,
-		size = controls.size,
-		fillBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior,
-		inputDelay = controls.inputDelay,
-		onActivated = function()
-			print(`{colorMode} {controls.variant} Button activated`)
-		end,
-	})
+local STORY_BUTTON_WIDTH = 140
+local LAYOUT_COLUMN_WIDTH = 280
+local INFO_COLUMN_WIDTH = 260
+local LONG_TEXT_CONTAINER_WIDTH = 200
+local LONG_BUTTON_TEXT =
+	"This is a very long button label that should truncate with an ellipsis when it exceeds the container width"
+local INPUT_DELAY_SECONDS = 3
 
-	return React.createElement(View, {
-		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
-		backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
-	}, React.createElement(PresentationContext.Provider, { value = { colorMode = colorMode } }, button))
+local CONTROL_ICON_EXAMPLES: { { label: string, name: string } } = {
+	{ label = "PlaySmall", name = IconName.PlaySmall },
+	{ label = "CirclePlus", name = IconName.CirclePlus },
+	{ label = "House", name = IconName.House },
+	{ label = "Legacy placeholder icon", name = "icons/placeholder/placeholderOn_small" },
+	{ label = "Legacy limited item icon", name = "icons/menu/clothing/limited_on" },
+}
+
+local function getIconInputType(iconName: string): string
+	if isBuilderIcon(iconName) then
+		return "builder"
+	elseif iconMigrationUtils.isMigrated(iconName) then
+		return "migrated"
+	else
+		return "non-migrated"
+	end
 end
 
-local stories = Dash.map(BUTTON_VARIANTS, function(variant)
-	return {
-		name = variant,
-		story = function()
-			local tokens = useTokens()
+local function getIconPathNote(iconName: string): string
+	if isBuilderIcon(iconName) then
+		return "Builder icon · Icon component"
+	elseif iconMigrationUtils.isMigrated(iconName) then
+		return "Migrated legacy string · Icon component"
+	else
+		return "Non-migrated legacy string · Image component"
+	end
+end
 
-			return React.createElement(View, {
-				tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
-				backgroundStyle = if variant == ButtonVariant.OverMedia
-					then tokens.Color.Extended.White.White_100
-					else nil,
-			}, {
-				Gradient = if variant == ButtonVariant.OverMedia
-					then React.createElement("UIGradient", {
-						Color = ColorSequence.new({
-							ColorSequenceKeypoint.new(0, tokens.Color.Extended.Green.Green_500.Color3),
-							ColorSequenceKeypoint.new(1, tokens.Color.Extended.Blue.Blue_500.Color3),
-						}),
-					})
-					else nil,
-				Buttons = React.createElement(
-					PresentationContext.Provider,
-					{ value = { isIconSize = false, colorMode = ColorMode.Color } },
-					Dash.map(
-						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
-						function(size)
-							return React.createElement(Button, {
-								icon = BuilderIcons.Icon.PlaySmall,
-								text = "Lorem ipsum",
-								variant = variant,
-								onActivated = function()
-									print(`{variant} Button ({size}) activated`)
-								end,
-								size = size,
-							})
-						end
-					)
-				),
+local ICON_TYPE_EXAMPLES: { { title: string, subtitle: string, name: string } } = {}
+do
+	local seenInputTypes: { [string]: boolean } = {}
+	for _, example in CONTROL_ICON_EXAMPLES do
+		local inputType = getIconInputType(example.name)
+		if not seenInputTypes[inputType] then
+			seenInputTypes[inputType] = true
+			table.insert(ICON_TYPE_EXAMPLES, {
+				title = getIconPathNote(example.name),
+				subtitle = example.name,
+				name = example.name,
 			})
-		end,
-	}
+		end
+	end
+end
+
+local controlIconOptions: { string } = Dash.map(ICON_TYPE_EXAMPLES, function(example)
+	return example.name
 end)
+table.insert(controlIconOptions, 1, "")
+table.insert(controlIconOptions, IconName.ArrowUpRightFromSquare)
 
-table.insert(stories, 1, {
-	name = "Playground",
-	story = PlaygroundStory :: unknown,
+local defaultButtonProps: {
+	text: string,
+	variant: SupportedButtonVariant,
+	size: InputSize,
+	icon: string,
+} = {
+	text = "Button",
+	variant = ButtonVariant.Emphasis,
+	size = InputSize.Medium,
+	icon = IconName.PlaySmall,
+}
+
+local PLAYGROUND_VARIANT_OPTIONS: { SupportedButtonVariant } = {
+	ButtonVariant.Emphasis,
+	ButtonVariant.Standard,
+	ButtonVariant.SoftEmphasis,
+	ButtonVariant.Utility,
+	ButtonVariant.Link,
+	ButtonVariant.Alert,
+}
+
+local PLAYGROUND_SIZE_OPTIONS: { InputSize } = {
+	InputSize.Medium,
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Large,
+}
+
+local function noop() end
+
+local function StoryButton(props: {
+	text: string?,
+	icon: string?,
+	variant: SupportedButtonVariant?,
+	size: InputSize?,
+	isDisabled: boolean?,
+	isLoading: boolean?,
+	fillBehavior: FillBehavior?,
+	width: UDim?,
+	inputDelay: number?,
+	hug: boolean?,
+	useDefaults: boolean?,
+	textOnly: boolean?,
 })
+	local text = props.text
+	local icon = props.icon
+	local variant = props.variant
+	local size = props.size
 
-table.insert(stories, {
-	name = "Width",
-	summary = "Width, fillBehavior, and precedence. Default uses AutomaticSize.X. Width (scale or offset) overrides. fillBehavior.Fill takes precedence over width.",
-	story = function()
+	if props.useDefaults then
+		text = text or defaultButtonProps.text
+		if not props.textOnly then
+			icon = icon or defaultButtonProps.icon
+		end
+		variant = variant or defaultButtonProps.variant
+		size = size or defaultButtonProps.size
+	end
+
+	local fillBehavior: FillBehavior? = props.fillBehavior
+	if fillBehavior == nil and not props.hug and props.width == nil then
+		fillBehavior = FillBehavior.Fill
+	end
+
+	local button = React.createElement(Button, {
+		text = text,
+		icon = icon,
+		variant = (variant or defaultButtonProps.variant) :: SupportedButtonVariant,
+		size = (size or defaultButtonProps.size) :: InputSize,
+		isDisabled = props.isDisabled,
+		isLoading = props.isLoading,
+		fillBehavior = fillBehavior,
+		width = props.width,
+		inputDelay = props.inputDelay or 0,
+		onActivated = noop,
+	})
+
+	if props.hug then
 		return React.createElement(View, {
-			tag = "col gap-large size-full-0 auto-xy padding-large radius-medium",
+			tag = "auto-xy",
 		}, {
-			Default = React.createElement(View, {
-				LayoutOrder = 1,
-				tag = "col gap-xxsmall auto-xy",
-			}, {
-				Label = React.createElement(Text, {
-					Text = "Default (AutomaticSize.X)",
-					tag = "auto-xy text-body-small",
-					LayoutOrder = 1,
-				}),
-				Row = React.createElement(View, {
-					tag = "row gap-medium auto-xy",
-					LayoutOrder = 2,
-				}, {
-					React.createElement(Button, {
-						text = "Auto",
-						variant = ButtonVariant.Emphasis,
-						onActivated = function() end,
-						size = InputSize.Medium,
-					}),
-				}),
-			}),
-			FixedWidth = React.createElement(View, {
-				LayoutOrder = 2,
-				tag = "col gap-xxsmall auto-xy",
-			}, {
-				Label = React.createElement(Text, {
-					Text = "Fixed width (0, 200px)",
-					tag = "auto-xy text-body-small",
-					LayoutOrder = 1,
-				}),
-				Row = React.createElement(View, {
-					tag = "row gap-medium auto-xy",
-					LayoutOrder = 2,
-				}, {
-					React.createElement(Button, {
-						text = "200px",
-						variant = ButtonVariant.Emphasis,
-						onActivated = function() end,
-						size = InputSize.Medium,
-						width = UDim.new(0, 200),
-					}),
-				}),
-			}),
-			FillBehaviorTakesPrecedence = React.createElement(View, {
-				LayoutOrder = 4,
-				tag = "col gap-xxsmall auto-xy",
-			}, {
-				Label = React.createElement(Text, {
-					Text = "fillBehavior.Fill takes precedence over width=200px",
-					tag = "auto-xy text-body-small",
-					LayoutOrder = 1,
-				}),
-				Row = React.createElement(View, {
-					tag = "row size-full-0 auto-xy",
-					LayoutOrder = 2,
-					Size = UDim2.new(1, 0, 0, 60),
-				}, {
-					React.createElement(Button, {
-						text = "Fill wins",
-						variant = ButtonVariant.Emphasis,
-						onActivated = function() end,
-						size = InputSize.Medium,
-						width = UDim.new(0, 200),
-						fillBehavior = FillBehavior.Fill,
-					}),
-				}),
-			}),
+			Content = button,
 		})
-	end,
-})
+	end
 
-table.insert(stories, {
-	name = "FillBehavior",
-	summary = "The same button rendered with each fillBehavior",
-	story = function()
-		return React.createElement(View, {
-			tag = "row gap-medium size-full-0 auto-y padding-medium radius-medium",
+	local containerWidth = if props.width and props.width.Offset > 0 then props.width.Offset else STORY_BUTTON_WIDTH
+
+	return React.createElement(View, {
+		tag = "size-full-0 auto-y",
+		Size = UDim2.fromOffset(containerWidth, 0),
+	}, {
+		Content = button,
+	})
+end
+
+local function Section(props: {
+	layoutOrder: number,
+	name: string,
+	contentTag: string?,
+	children: React.ReactNode,
+})
+	return React.createElement(View, {
+		tag = "col gap-medium size-full-0 auto-y",
+		LayoutOrder = props.layoutOrder,
+	}, {
+		Title = React.createElement(Text, {
+			Text = props.name,
+			tag = "text-label-medium content-default auto-xy",
+			LayoutOrder = 1,
+		}),
+		Content = React.createElement(View, {
+			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			LayoutOrder = 2,
+		}, props.children),
+	})
+end
+
+local function LabeledButton(props: {
+	label: string,
+	layoutOrder: number,
+	text: string?,
+	icon: string?,
+	variant: SupportedButtonVariant?,
+	size: InputSize?,
+	isDisabled: boolean?,
+	isLoading: boolean?,
+	fillBehavior: FillBehavior?,
+	width: UDim?,
+	inputDelay: number?,
+	hug: boolean?,
+})
+	return React.createElement(View, {
+		tag = "col gap-small align-x-left auto-xy",
+		LayoutOrder = props.layoutOrder,
+	}, {
+		Label = React.createElement(Text, {
+			Text = props.label,
+			tag = "auto-xy text-caption-small text-align-x-left content-default",
+			LayoutOrder = 1,
+		}),
+		Button = React.createElement(View, {
+			tag = "auto-xy",
+			LayoutOrder = 2,
 		}, {
-			None = React.createElement(Button, {
-				text = "Default",
+			Content = React.createElement(StoryButton, {
+				text = props.text,
+				icon = props.icon,
+				variant = props.variant or defaultButtonProps.variant,
+				size = props.size or defaultButtonProps.size,
+				isDisabled = props.isDisabled,
+				isLoading = props.isLoading,
+				fillBehavior = props.fillBehavior,
+				width = props.width,
+				inputDelay = props.inputDelay,
+				hug = if props.hug ~= nil then props.hug else props.text == nil and props.icon ~= nil,
+			}),
+		}),
+	})
+end
+
+local function PlaygroundStory(props: {
+	controls: {
+		icon: string,
+		text: string,
+		variant: SupportedButtonVariant,
+		size: InputSize,
+		isDisabled: boolean,
+		isLoading: boolean,
+		fillBehavior: FillBehavior?,
+		width: number,
+		inputDelay: number,
+		usePath2DSpinner: boolean,
+	},
+}): React.ReactNode
+	local controls = props.controls
+	Flags.FoundationUsePath2DSpinner = controls.usePath2DSpinner
+
+	local fillBehavior: FillBehavior? = if controls.fillBehavior == React.None then nil else controls.fillBehavior
+	local width = if controls.width == 0 then UDim.new(0, 0) else UDim.new(0, controls.width)
+
+	return React.createElement(View, {
+		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium",
+	}, {
+		Button = React.createElement(Button, {
+			icon = if controls.icon == "" then nil else controls.icon,
+			text = controls.text,
+			variant = controls.variant,
+			isLoading = controls.isLoading,
+			isDisabled = controls.isDisabled,
+			size = controls.size,
+			fillBehavior = fillBehavior,
+			width = width,
+			inputDelay = controls.inputDelay,
+			onActivated = function()
+				print(`{controls.variant} Button activated`)
+			end,
+		}),
+	})
+end
+
+local function VariantsStory(): React.ReactNode
+	return React.createElement(
+		View,
+		{
+			tag = "row gap-large align-y-start auto-xy wrap padding-y-large bg-surface-0",
+		},
+		Dash.map(BUTTON_VARIANTS, function(variant, index)
+			return React.createElement(LabeledButton, {
+				label = variant,
+				layoutOrder = index,
+				variant = variant,
+				text = defaultButtonProps.text,
+				icon = defaultButtonProps.icon,
+				size = defaultButtonProps.size,
+				hug = true,
+			})
+		end)
+	)
+end
+
+local function StatesStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		Disabled = React.createElement(Section, {
+			layoutOrder = 1,
+			name = "Disabled",
+			contentTag = "auto-xy",
+		}, {
+			Button = React.createElement(StoryButton, {
+				useDefaults = true,
+				textOnly = true,
+				isDisabled = true,
+				hug = true,
+			}),
+		}),
+		Loading = React.createElement(Section, {
+			layoutOrder = 2,
+			name = "Loading",
+		}, {
+			Examples = React.createElement(
+				View,
+				{
+					tag = "row gap-large align-y-start auto-xy wrap",
+					LayoutOrder = 1,
+				},
+				Dash.map(SIZE_ORDER, function(size, index)
+					return React.createElement(LabeledButton, {
+						label = size,
+						layoutOrder = index,
+						size = size,
+						text = defaultButtonProps.text,
+						icon = nil,
+						variant = defaultButtonProps.variant,
+						isLoading = true,
+						hug = true,
+					})
+				end)
+			),
+		}),
+	})
+end
+
+local function ControlledRegularButtonExample(): React.ReactNode
+	local clickCount, setClickCount = React.useState(0)
+
+	return React.createElement(Button, {
+		text = `Clicked {clickCount} time(s)`,
+		variant = defaultButtonProps.variant,
+		size = defaultButtonProps.size,
+		onActivated = function()
+			setClickCount(clickCount + 1)
+		end,
+	})
+end
+
+local function ControlledInputDelayExample(): React.ReactNode
+	local delayKey, setDelayKey = React.useState(0)
+
+	return React.createElement(Button, {
+		key = tostring(delayKey),
+		text = "Click to see input delay",
+		variant = defaultButtonProps.variant,
+		size = defaultButtonProps.size,
+		inputDelay = INPUT_DELAY_SECONDS,
+		onActivated = function()
+			setDelayKey(delayKey + 1)
+		end,
+	})
+end
+
+local function ControlledStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		RegularButton = React.createElement(Section, {
+			layoutOrder = 1,
+			name = "Regular button",
+			contentTag = "auto-xy",
+		}, {
+			Button = React.createElement(ControlledRegularButtonExample),
+		}),
+		InputDelay = React.createElement(Section, {
+			layoutOrder = 2,
+			name = "Input delay",
+			contentTag = "auto-xy",
+		}, {
+			Button = React.createElement(ControlledInputDelayExample),
+		}),
+	})
+end
+
+local function FillBehaviorExample(props: {
+	label: string,
+	layoutOrder: number,
+	fillBehavior: FillBehavior?,
+})
+	return React.createElement(View, {
+		tag = "col gap-small align-x-left auto-xy",
+		Size = UDim2.fromOffset(LAYOUT_COLUMN_WIDTH, 0),
+		LayoutOrder = props.layoutOrder,
+	}, {
+		Label = React.createElement(Text, {
+			Text = props.label,
+			tag = "auto-xy text-caption-small text-align-x-left content-default",
+			LayoutOrder = 1,
+		}),
+		Container = React.createElement(View, {
+			tag = "row gap-medium size-full-0 auto-xy padding-large radius-medium bg-surface-100",
+			Size = UDim2.fromOffset(LAYOUT_COLUMN_WIDTH, 0),
+			LayoutOrder = 2,
+		}, {
+			Button = React.createElement(Button, {
+				text = defaultButtonProps.text,
 				variant = ButtonVariant.Emphasis,
-				onActivated = function() end,
-				size = InputSize.Medium,
+				size = defaultButtonProps.size,
+				fillBehavior = props.fillBehavior,
+				onActivated = noop,
 				LayoutOrder = 1,
 			}),
-			Fit = React.createElement(Button, {
-				text = "Fit",
-				variant = ButtonVariant.Emphasis,
-				onActivated = function() end,
-				size = InputSize.Medium,
+		}),
+	})
+end
+
+local function SizingStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		Size = React.createElement(
+			Section,
+			{
+				layoutOrder = 1,
+				name = "Size",
+				contentTag = "row gap-large align-y-start auto-xy wrap",
+			},
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(LabeledButton, {
+					label = size,
+					layoutOrder = index,
+					size = size,
+					text = defaultButtonProps.text,
+					icon = nil,
+					variant = ButtonVariant.Emphasis,
+					hug = true,
+				})
+			end)
+		),
+		FillBehavior = React.createElement(Section, {
+			layoutOrder = 2,
+			name = "Fill behavior",
+			contentTag = "row gap-xxlarge align-y-start auto-xy wrap",
+		}, {
+			Fit = React.createElement(FillBehaviorExample, {
+				label = "fillBehavior = Fit",
+				layoutOrder = 1,
 				fillBehavior = FillBehavior.Fit,
-				LayoutOrder = 2,
 			}),
-			Fill = React.createElement(Button, {
-				text = "Fill",
-				variant = ButtonVariant.Emphasis,
-				onActivated = function() end,
-				size = InputSize.Medium,
+			Fill = React.createElement(FillBehaviorExample, {
+				label = "fillBehavior = Fill",
+				layoutOrder = 2,
 				fillBehavior = FillBehavior.Fill,
-				LayoutOrder = 3,
 			}),
-		})
-	end,
+		}),
+	})
+end
+
+local function LongTextExample(props: {
+	label: string,
+	layoutOrder: number,
+	variant: SupportedButtonVariant,
+	icon: string?,
 })
+	return React.createElement(View, {
+		tag = "col gap-small align-x-left auto-xy",
+		LayoutOrder = props.layoutOrder,
+	}, {
+		Label = React.createElement(Text, {
+			Text = props.label,
+			tag = "auto-xy text-caption-small text-align-x-left content-default",
+			LayoutOrder = 1,
+		}),
+		Container = React.createElement(View, {
+			tag = "row size-full-0 auto-y padding-large radius-medium bg-surface-100",
+			Size = UDim2.fromOffset(LONG_TEXT_CONTAINER_WIDTH, 0),
+			LayoutOrder = 2,
+		}, {
+			Button = React.createElement(Button, {
+				text = LONG_BUTTON_TEXT,
+				icon = props.icon,
+				variant = props.variant,
+				size = defaultButtonProps.size,
+				fillBehavior = FillBehavior.Fill,
+				onActivated = noop,
+				LayoutOrder = 1,
+			}),
+		}),
+	})
+end
+
+local function matrixInfoLabel(title: string, subtitle: string): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xsmall size-full-0 auto-y",
+	}, {
+		Title = React.createElement(Text, {
+			Text = title,
+			tag = "size-full-0 auto-y text-caption-small text-wrap text-align-x-left content-default",
+			LayoutOrder = 1,
+		}),
+		Subtitle = React.createElement(Text, {
+			Text = subtitle,
+			tag = "size-full-0 auto-y text-caption-small text-wrap text-align-x-left content-muted",
+			LayoutOrder = 2,
+		}),
+	})
+end
+
+local function ContentStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		Icon = React.createElement(Section, {
+			layoutOrder = 1,
+			name = "Icon",
+		}, {
+			Examples = React.createElement(
+				View,
+				{
+					tag = "row gap-large align-y-start auto-xy wrap",
+					LayoutOrder = 1,
+				},
+				Dash.map(SIZE_ORDER, function(size, index)
+					return React.createElement(LabeledButton, {
+						label = size,
+						layoutOrder = index,
+						size = size,
+						text = defaultButtonProps.text,
+						icon = defaultButtonProps.icon,
+					})
+				end)
+			),
+		}),
+		IconByType = React.createElement(Section, {
+			layoutOrder = 2,
+			name = "Icon by type",
+			contentTag = "auto-xy",
+		}, {
+			Matrix = React.createElement(MatrixGrid, {
+				labelColumnWidth = INFO_COLUMN_WIDTH,
+				showHeader = false,
+				columnHeaders = { "Button" },
+				headerTextAlign = "left",
+				cellAlign = "left",
+				rowGap = "xxlarge",
+				rows = Dash.map(ICON_TYPE_EXAMPLES, function(iconExample)
+					return {
+						label = matrixInfoLabel(iconExample.title, iconExample.subtitle),
+						cells = {
+							React.createElement(StoryButton, {
+								text = defaultButtonProps.text,
+								icon = iconExample.name,
+								variant = defaultButtonProps.variant,
+								size = defaultButtonProps.size,
+								hug = true,
+							}),
+						},
+					}
+				end),
+			}),
+		}),
+		EndAlignedIcon = React.createElement(Section, {
+			layoutOrder = 3,
+			name = "End-aligned icon",
+			contentTag = "col gap-medium align-x-left auto-xy",
+		}, {
+			Description = React.createElement(Text, {
+				Text = "End-aligned placement is automatic for ArrowUpRightFromSquare (see endAlignedIcons).",
+				tag = "auto-xy text-body-small text-align-x-left content-default",
+				LayoutOrder = 1,
+			}),
+			Button = React.createElement(View, {
+				tag = "auto-xy",
+				LayoutOrder = 2,
+			}, {
+				Example = React.createElement(StoryButton, {
+					text = "Open link",
+					icon = IconName.ArrowUpRightFromSquare,
+					variant = ButtonVariant.Link,
+					size = defaultButtonProps.size,
+					hug = true,
+				}),
+			}),
+		}),
+		LongText = React.createElement(Section, {
+			layoutOrder = 4,
+			name = "Long text",
+		}, {
+			Examples = React.createElement(View, {
+				tag = "row gap-large align-y-start auto-xy wrap",
+				LayoutOrder = 1,
+			}, {
+				Emphasis = React.createElement(LongTextExample, {
+					label = ButtonVariant.Emphasis :: string,
+					layoutOrder = 1,
+					variant = ButtonVariant.Emphasis,
+					icon = defaultButtonProps.icon,
+				}),
+				Link = React.createElement(LongTextExample, {
+					label = ButtonVariant.Link :: string,
+					layoutOrder = 2,
+					variant = ButtonVariant.Link,
+					icon = IconName.ArrowUpRightFromSquare,
+				}),
+			}),
+		}),
+	})
+end
+
+local function InverseSurfaceButtonExample(props: {
+	label: string,
+	layoutOrder: number,
+	variant: SupportedButtonVariant,
+})
+	local tokens = useTokens()
+
+	return React.createElement(View, {
+		tag = "col gap-small align-x-left auto-xy",
+		LayoutOrder = props.layoutOrder,
+	}, {
+		Label = React.createElement(Text, {
+			Text = props.label :: string,
+			tag = "auto-xy text-caption-small text-align-x-left content-default",
+			LayoutOrder = 1,
+		}),
+		Surface = React.createElement(View, {
+			tag = "row align-y-center padding-medium radius-medium auto-xy",
+			backgroundStyle = tokens.Inverse.Surface.Surface_100,
+			LayoutOrder = 2,
+		}, {
+			Button = React.createElement(
+				PresentationContext.Provider,
+				{ value = { colorNamespace = ColorNamespace.Inverse } },
+				React.createElement(StoryButton, {
+					useDefaults = true,
+					textOnly = true,
+					variant = props.variant,
+					hug = true,
+				})
+			),
+		}),
+	})
+end
+
+local function InContextStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		InverseSurface = React.createElement(Section, {
+			layoutOrder = 1,
+			name = "On inverse surface",
+			contentTag = "col gap-medium align-x-left auto-xy",
+		}, {
+
+			Examples = React.createElement(
+				View,
+				{
+					tag = "row gap-large align-y-start auto-xy wrap",
+					LayoutOrder = 1,
+				},
+				Dash.map(BUTTON_VARIANTS, function(variant, index)
+					return React.createElement(InverseSurfaceButtonExample, {
+						label = variant,
+						layoutOrder = index,
+						variant = variant,
+					})
+				end)
+			),
+		}),
+	})
+end
 
 return {
-	summary = "Button",
-	stories = stories,
-	controls = {
-		icon = {
-			"play-small",
-			"play-large",
-			"play-xlarge",
-			"robux",
-			"heart",
-			"glasses",
-			"",
+	summary = "Buttons communicate calls to action and allow users to interact with the interface. Button labels clearly express the action that will occur when clicked.",
+	stories = {
+		{
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
 		},
-		text = "Lorem ipsum",
-		variant = BUTTON_VARIANTS,
-		size = { InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
+		{
+			name = "Variants",
+			story = VariantsStory,
+		},
+		{
+			name = "Sizing",
+			story = SizingStory,
+		},
+		{
+			name = "States",
+			story = StatesStory,
+		},
+		{
+			name = "Controlled component",
+			story = ControlledStory,
+		},
+		{
+			name = "Content",
+			story = ContentStory,
+		},
+		{
+			name = "In context",
+			summary = "Button reads colorNamespace from PresentationContext, not from props.",
+			story = InContextStory,
+		},
+	},
+	controls = {
+		icon = controlIconOptions,
+		text = defaultButtonProps.text,
+		variant = PLAYGROUND_VARIANT_OPTIONS,
+		size = PLAYGROUND_SIZE_OPTIONS,
 		isDisabled = false,
 		isLoading = false,
-		colorMode = Dash.values(ColorMode),
 		fillBehavior = {
 			React.None,
 			FillBehavior.Fit,
 			FillBehavior.Fill,
 		} :: { FillBehavior },
+		width = 0,
 		inputDelay = 0,
 		usePath2DSpinner = Flags.FoundationUsePath2DSpinner,
 	},

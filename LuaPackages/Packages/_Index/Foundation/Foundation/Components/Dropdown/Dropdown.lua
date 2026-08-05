@@ -63,6 +63,9 @@ export type DropdownProps = {
 	size: InputSize?,
 	-- Maximum height after which the menu starts scrolling
 	maxHeight: number?,
+	-- Ref to the open menu's scrolling frame. Only resolves while the menu is open and
+	-- scrollable; lets callers scroll it, e.g. to the selection.
+	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 	-- Selection behavior applied to the open menu's popover surface (focus trap configuration).
 	selection: Types.Selection?,
 	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
@@ -185,6 +188,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				maxHeight = props.maxHeight,
 				onActivated = onActivated,
 				radius = Radius.Medium,
+				scrollingFrameRef = props.scrollingFrameRef,
 				testId = `{props.testId}--menu`,
 			})
 		),

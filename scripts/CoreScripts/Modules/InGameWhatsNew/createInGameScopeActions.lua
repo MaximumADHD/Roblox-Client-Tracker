@@ -1,6 +1,7 @@
 --[[
 	Builds the What's New ScopeActions for the in-game onboarding tour, wiring the
-	nested TiltMenu open/close keys to the side sheet.
+	nested TiltMenu open/close keys to the side sheet and binding its open signal
+	so external open/close advances or ends the tour.
 ]]
 
 local CorePackages = game:GetService("CorePackages")
@@ -23,6 +24,11 @@ local function createInGameScopeActions()
 	scopeActions:register(CLOSE_TILT_MENU, function()
 		toggleSideSheet(false)
 	end)
+	scopeActions:bindOpenState({
+		openActionKey = OPEN_TILT_MENU,
+		closeActionKey = CLOSE_TILT_MENU,
+		getIsOpen = InExperienceSideSheet.getSideSheetVisibility,
+	})
 
 	return scopeActions
 end

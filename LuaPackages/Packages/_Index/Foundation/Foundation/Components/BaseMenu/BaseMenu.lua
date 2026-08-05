@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Flags = require(Foundation.Utility.Flags)
-local ScrollView = require(Foundation.Components.ScrollView)
 local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 
@@ -24,6 +23,7 @@ type OnItemActivated = Types.OnItemActivated
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
+local BaseMenuScrollContainer = require(script.Parent.BaseMenuScrollContainer)
 local useSubmenuHover = require(script.Parent.useSubmenuHover)
 
 local DeclarativeBaseMenuContent = require(script.Parent.DeclarativeBaseMenuContent)
@@ -50,6 +50,8 @@ export type BaseMenuProps<Item = BaseMenuItem> = {
 	maxHeight: Bindable<number?>,
 	-- Radius of the menu
 	radius: Radius?,
+	-- Ref to the scrolling frame when the menu is scrollable (`maxHeight` set).
+	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -64,22 +66,6 @@ local radiusToTag: { [Radius]: string } = {
 local MIN_WIDTH = 260
 local MAX_WIDTH = 320
 
-local function computeAutomaticSize(values: { autoSize: boolean, isOverMaxHeight: boolean }): Enum.AutomaticSize
-	return if values.autoSize
-		then if values.isOverMaxHeight then Enum.AutomaticSize.X else Enum.AutomaticSize.XY
-		else if values.isOverMaxHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y
-end
-
-local function computeSize(values: {
-	autoSize: boolean,
-	isOverMaxHeight: boolean,
-	maxHeight: number?,
-	width: UDim?,
-}): UDim2?
-	local y = if values.isOverMaxHeight and values.maxHeight then UDim.new(0, values.maxHeight) else UDim.new()
-	return if values.autoSize then UDim2.new(UDim.new(), y) else UDim2.new(values.width or UDim.new(), y)
-end
-
 local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?): React.ReactNode
 	local isVisible, setIsVisible = React.useBinding(false)
 	local defaultWithVisible = table.clone(defaultProps)
@@ -91,7 +77,6 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 	local scaledMinWidth = useScaledValue(MIN_WIDTH)
 	local scaledMaxWidth = useScaledValue(MAX_WIDTH)
 	local hasLeading, internalSetHasLeading = React.useState(false)
-	local canvasSize, setCanvasSize = React.useBinding(UDim2.fromScale(0, 1))
 	local submenuHover = useSubmenuHover()
 	React.useEffect(function()
 		task.delay(0, function()
@@ -142,17 +127,6 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 		}
 	end, { autoSize, minWidth, scaledMaxWidth } :: { unknown })
 
-	local isOverMaxHeight = React.useMemo(function()
-		return React.joinBindings({ canvasSize = canvasSize, maxHeight = maxHeight })
-			:map(function(values: { canvasSize: UDim2, maxHeight: number? })
-				return values.maxHeight ~= nil and values.canvasSize.Y.Offset > values.maxHeight
-			end)
-	end, { maxHeight })
-
-	local onContentAbsoluteSizeChanged = React.useCallback(function(frame: GuiObject)
-		return setCanvasSize(UDim2.fromOffset(frame.AbsoluteSize.X, frame.AbsoluteSize.Y))
-	end, { setCanvasSize })
-
 	local children = props.children
 	if not children and props.items then
 		children = React.createElement(DeclarativeBaseMenuContent, {
@@ -163,57 +137,34 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 
 	local radiusTag = if props.radius ~= nil then radiusToTag[props.radius] else ""
 
-	if props.maxHeight then
-		local automaticSize = React.joinBindings({ autoSize = autoSize, isOverMaxHeight = isOverMaxHeight })
-			:map(computeAutomaticSize)
+	local menuContent = React.createElement(BaseMenuContext.Provider, {
+		value = {
+			onActivated = props.onActivated,
+			onNestedLeafActivated = props.onNestedLeafActivated,
+			size = props.size,
+			hasLeading = hasLeading,
+			setHasLeading = setHasLeading,
+			hoverOpenPath = submenuHover.openPath,
+			hoverOpenAtDepth = submenuHover.openAtDepth,
+			hoverCloseAtDepth = submenuHover.closeAtDepth,
+			hoverReset = submenuHover.reset,
+			depth = 1,
+			maxHeight = props.maxHeight,
+		},
+	}, children)
 
-		return React.createElement(
-			ScrollView,
-			withCommonProps(props, {
+	if props.maxHeight then
+		return React.createElement(BaseMenuScrollContainer, {
+			maxHeight = maxHeight,
+			autoSize = autoSize,
+			width = width,
+			scrollViewProps = withCommonProps(props, {
 				ref = ref,
-				scroll = {
-					-- Setting XY works almost everywhere except the scroll itself, making the scroll container to be full content height.
-					AutomaticCanvasSize = if Flags.FoundationBaseMenuAutoYCanvasSizing
-						then Enum.AutomaticSize.Y
-						else nil,
-					AutomaticSize = automaticSize,
-					ScrollingDirection = Enum.ScrollingDirection.Y,
-					CanvasSize = canvasSize,
-				},
-				AutomaticSize = automaticSize,
-				Size = React.joinBindings({
-					autoSize = autoSize,
-					width = width,
-					isOverMaxHeight = isOverMaxHeight,
-					maxHeight = maxHeight,
-				}):map(computeSize),
 				sizeConstraint = sizeConstraint,
+				scrollingFrameRef = props.scrollingFrameRef,
 				tag = `stroke-standard stroke-default {radiusTag}`,
 			}),
-			React.createElement(
-				View,
-				{
-					tag = if Flags.FoundationBaseMenuAutoYCanvasSizing
-						then "col size-full-0 auto-y"
-						else "col size-full",
-					onAbsoluteSizeChanged = onContentAbsoluteSizeChanged,
-				},
-				React.createElement(BaseMenuContext.Provider, {
-					value = {
-						onActivated = props.onActivated,
-						onNestedLeafActivated = props.onNestedLeafActivated,
-						size = props.size,
-						hasLeading = hasLeading,
-						setHasLeading = setHasLeading,
-						hoverOpenPath = submenuHover.openPath,
-						hoverOpenAtDepth = submenuHover.openAtDepth,
-						hoverCloseAtDepth = submenuHover.closeAtDepth,
-						hoverReset = submenuHover.reset,
-						depth = 1,
-					},
-				}, children)
-			)
-		)
+		}, menuContent)
 	else
 		return React.createElement(
 			View,
@@ -230,20 +181,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 				ref = ref,
 				sizeConstraint = sizeConstraint,
 			}),
-			React.createElement(BaseMenuContext.Provider, {
-				value = {
-					onActivated = props.onActivated,
-					onNestedLeafActivated = props.onNestedLeafActivated,
-					size = props.size,
-					hasLeading = hasLeading,
-					setHasLeading = setHasLeading,
-					hoverOpenPath = submenuHover.openPath,
-					hoverOpenAtDepth = submenuHover.openAtDepth,
-					hoverCloseAtDepth = submenuHover.closeAtDepth,
-					hoverReset = submenuHover.reset,
-					depth = 1,
-				},
-			}, children)
+			menuContent
 		)
 	end
 end

@@ -38,7 +38,6 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
@@ -134,11 +133,7 @@ end
 
 local function TopBarApp(props: TopBarProps)
 	local showBadgeOver12 = UniversalAppPolicy.useAppPolicy(function(appPolicy)
-		if FFlagAddTopBarPoliciesToUniversalPolicies then
-			return appPolicy.getShowBadgeOver12()
-		else
-			return appPolicy.ShowBadgeOver12 or false
-		end
+		return appPolicy.getShowBadgeOver12()
 	end)
 
 	local keepOutAreasStore = SignalsReact.useSignalState(function(scope) 

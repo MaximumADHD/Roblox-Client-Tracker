@@ -38,6 +38,9 @@ export type AvatarProps = {
 	backplateStyle: Types.ColorStyle?,
 	size: AvatarSize?,
 	userPresence: UserPresence?,
+	-- When true, requests the thumbnail service to composite the user's
+	-- equipped profile frame into the headshot server-side.
+	includeProfileFrame: boolean?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -68,9 +71,23 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 			Image = React.createElement(Image, {
 				Image = if Flags.FoundationAvatarBindableUserId
 					then mapBindable(props.userId, function(userId)
-						return getRbxThumb(ThumbnailType.AvatarHeadShot, userId, ThumbnailSize.Medium)
+						return getRbxThumb(
+							ThumbnailType.AvatarHeadShot,
+							userId,
+							ThumbnailSize.Medium,
+							if Flags.FoundationAvatarIncludeProfileFrame
+								then { includeProfileFrame = props.includeProfileFrame }
+								else nil
+						)
 					end)
-					else getRbxThumb(ThumbnailType.AvatarHeadShot, props.userId :: number, ThumbnailSize.Medium),
+					else getRbxThumb(
+						ThumbnailType.AvatarHeadShot,
+						props.userId :: number,
+						ThumbnailSize.Medium,
+						if Flags.FoundationAvatarIncludeProfileFrame
+							then { includeProfileFrame = props.includeProfileFrame }
+							else nil
+					),
 				tag = variantProps.avatar.tag,
 				backgroundStyle = props.backgroundStyle,
 				testId = if Flags.FoundationAvatarBindableUserId then `{props.testId}--image` else nil,

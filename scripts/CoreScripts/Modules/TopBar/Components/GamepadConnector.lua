@@ -33,6 +33,7 @@ local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
 
 local FFlagAddTopBarScrim = require(TopBar.Flags.FFlagAddTopBarScrim)
+local FFlagUseObservableDefaultForChromeFocused = require(TopBar.Flags.FFlagUseObservableDefaultForChromeFocused)
 
 local isSpatial = AppCommonLib.isSpatial
 local TopBarTelemetry = require(TopBar:WaitForChild("Telemetry"))
@@ -42,7 +43,8 @@ local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: any
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
-local ObservableValue = if ChromeEnabled and FFlagEnableConsoleExpControls
+local ObservableValue = if FFlagUseObservableDefaultForChromeFocused
+		or (ChromeEnabled and FFlagEnableConsoleExpControls)
 	then ChromeUtils.ObservableValue
 	else nil
 local ChromeConstants = if ChromeEnabled then require(Chrome.ChromeShared.Unibar.Constants) else nil :: any
@@ -148,7 +150,10 @@ function GamepadConnector.new(): GamepadConnector
 	local self = {}
 	self._loggedExperienceMenuGamepadExposure = false
 	self._devSetCoreGuiNavEnabled = GuiService.CoreGuiNavigationEnabled
-	self._chromeFocused = if ChromeService then ChromeService:inFocusNav() else false
+	self._chromeFocused = if ChromeService
+		then ChromeService:inFocusNav()
+		elseif FFlagUseObservableDefaultForChromeFocused then (ObservableValue :: never).new(false)
+		else false
 	self._lastMenuButtonPress = 0
 	self._dismissFocusConnections = {}
 	self._selectedCoreObject = if ChromeEnabled and FFlagEnableConsoleExpControls

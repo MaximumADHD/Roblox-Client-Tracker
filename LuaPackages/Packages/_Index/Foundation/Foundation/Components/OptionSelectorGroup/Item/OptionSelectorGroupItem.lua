@@ -13,6 +13,7 @@ local Types = require(Components.Types)
 local View = require(Components.View)
 
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 local escapeRichText = require(Foundation.Utility.escapeRichText)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -73,10 +74,14 @@ export type OptionSelectorGroupItemProps = {
 	metadata: string?,
 	-- Optional description to give more context about the option selector item.
 	description: string?,
-	-- Size of the option selector item
+	-- Size of the option selector item.
 	size: InputSize?,
-	-- Width of the button. `fillBehavior` is preferred and works better with flex layouts. Intended for cross-directional scaled sizing.
+	-- Absolute/scaled width override. Prefer `fillBehavior` for flex layouts; use `width` when
+	-- you need cross-directional scaled sizing that fill/fit cannot express.
 	width: UDim?,
+	-- How the item sizes along the group's main axis. Only applies to stacked-elements items
+	-- (Horizontal group); defaults to Fit. Inline-elements items (Vertical group) always span
+	-- the group width (Fill).
 	fillBehavior: FillBehavior?,
 } & Types.CommonProps
 
@@ -86,6 +91,7 @@ local defaultProps = {
 	width = UDim.new(0, 0),
 }
 
+-- selene: allow(high_cyclomatic_complexity) -- remove when FoundationOptionSelectorGroupFixes is cleaned up
 local function OptionSelectorGroupItem(
 	optionSelectorGroupItemProps: OptionSelectorGroupItemProps,
 	ref: React.Ref<GuiObject>?
@@ -96,18 +102,30 @@ local function OptionSelectorGroupItem(
 	local isSelected = optionSelectorGroupContext.value == props.value
 	local label = props.label or props.value
 
-	-- Layout of the item depends on the orientation of the parent OptionSelectorGroup: the item orientation always opposite to the group orientation.
-	local orientation = if optionSelectorGroupContext.orientation == Orientation.Vertical
+	-- Item orientation is opposite the group: Vertical group → label in the top strip;
+	-- Horizontal group → label below the strip. fillBehavior only applies to the latter.
+	local orientation: Orientation = if optionSelectorGroupContext.orientation == Orientation.Vertical
 		then Orientation.Horizontal
 		else Orientation.Vertical
 
-	local fillBehavior = if orientation == Orientation.Horizontal
-		then FillBehavior.Fit
-		else (props.fillBehavior or FillBehavior.Fill)
-	local containerSize = UDim2.fromScale(1, 0)
+	local fillBehavior: FillBehavior
+	if Flags.FoundationOptionSelectorGroupFixes then
+		-- Inline (Vertical group) always fills; stacked (Horizontal group) defaults to Fit.
+		fillBehavior = if orientation == Orientation.Horizontal
+			then FillBehavior.Fill
+			else props.fillBehavior or FillBehavior.Fit
+	else
+		fillBehavior = if orientation == Orientation.Horizontal
+			then FillBehavior.Fit
+			else props.fillBehavior or FillBehavior.Fill
+	end
+	local isStackedFit = orientation == Orientation.Vertical and fillBehavior == FillBehavior.Fit
+	local containerSize = if Flags.FoundationOptionSelectorGroupFixes and isStackedFit
+		then nil
+		else UDim2.fromScale(1, 0)
 
 	local tokens = useTokens()
-	local variantProps = useOptionSelectorGroupItemVariants(tokens, props.size)
+	local variantProps = useOptionSelectorGroupItemVariants(tokens, props.size, orientation, fillBehavior)
 
 	local contentColor = variantProps.content.Color3 :: Color3
 	local strokeStyle = if isSelected then tokens.Color.System.Contrast else tokens.Color.Stroke.Emphasis
@@ -151,6 +169,7 @@ local function OptionSelectorGroupItem(
 		tag = variantProps.label.tag,
 		textStyle = getTextStyle(values.textTransparency, disabledValues.transparency, contentColor),
 		LayoutOrder = 2,
+		testId = `{props.testId}--label`,
 	})
 
 	return React.createElement(
@@ -167,11 +186,13 @@ local function OptionSelectorGroupItem(
 			cursor = cursor,
 			onActivated = onActivated,
 			isDisabled = props.isDisabled,
-			tag = {
-				["auto-xy"] = fillBehavior ~= FillBehavior.Fill,
-				["fill auto-y"] = fillBehavior == FillBehavior.Fill,
-				[variantProps.container.tag] = true,
-			},
+			tag = if Flags.FoundationOptionSelectorGroupFixes
+				then variantProps.container.tag
+				else {
+					["auto-xy"] = fillBehavior ~= FillBehavior.Fill,
+					["fill auto-y"] = fillBehavior == FillBehavior.Fill,
+					[variantProps.container.tag] = true,
+				},
 			ref = ref,
 		}),
 		{
@@ -179,8 +200,10 @@ local function OptionSelectorGroupItem(
 				tag = variantProps.itemInner.tag,
 				Size = containerSize,
 			}, {
-				IconRow = React.createElement(View, {
-					tag = "row align-y-center gap-small size-full-0 auto-y",
+				Header = React.createElement(View, {
+					tag = if Flags.FoundationOptionSelectorGroupFixes
+						then variantProps.header.tag
+						else "row align-y-center gap-small size-full-0 auto-y",
 					LayoutOrder = 1,
 				}, {
 					Icon = if props.icon
@@ -194,27 +217,86 @@ local function OptionSelectorGroupItem(
 								}
 							end),
 							LayoutOrder = 0,
+							testId = `{props.testId}--icon`,
 						})
 						else nil,
+					-- Inline: label here. Stacked Fit: label in TextContainer. Else: grow for trailing check.
 					Label = if orientation == Orientation.Horizontal
 						then labelElement
+						elseif Flags.FoundationOptionSelectorGroupFixes and isStackedFit then nil
 						else React.createElement(View, { tag = "grow" }),
+					-- flex-x-between needs a leading sibling when there is no icon.
+					LeadingSpacer = if Flags.FoundationOptionSelectorGroupFixes
+							and isStackedFit
+							and not props.icon
+						then React.createElement(View, {
+							Size = UDim2.fromOffset(0, 0),
+							LayoutOrder = 0,
+						})
+						else nil,
 					Checkmark = React.createElement(Icon, {
 						name = "check-large",
 						size = variantProps.icon.size,
 						style = disabledValues.transparency:map(function(transparency)
 							return {
 								Color3 = contentColor,
-								-- We don't use Visible since we want the layout to not shift when selected state changes
+								-- Hide via Transparency (not Visible) so selection does not shift layout.
 								Transparency = if isSelected then transparency else 1,
 							}
 						end),
 						LayoutOrder = 3,
+						testId = if isSelected
+							then `{props.testId}--checkmark-selected`
+							else `{props.testId}--checkmark-unselected`,
 					}),
 				}),
-				Label = if orientation == Orientation.Vertical then labelElement else nil,
-				Metadata = if props.metadata
-					then React.createElement(Text, {
+				TextContainer = if Flags.FoundationOptionSelectorGroupFixes and isStackedFit
+					then React.createElement(View, {
+						tag = (variantProps.textContainer :: { tag: string }).tag,
+						LayoutOrder = 2,
+					}, {
+						Label = if orientation == Orientation.Vertical then labelElement else nil,
+						Metadata = if props.metadata
+							then React.createElement(Text, {
+								Text = escapeRichText(props.metadata),
+								TextTruncate = Enum.TextTruncate.AtEnd,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								RichText = true,
+								tag = variantProps.metadata.tag,
+								textStyle = getTextStyle(
+									values.textTransparency,
+									disabledValues.transparency,
+									contentColor
+								),
+								LayoutOrder = 3,
+								testId = `{props.testId}--metadata`,
+							})
+							else nil,
+						Description = if props.description
+							then React.createElement(Text, {
+								Text = escapeRichText(props.description),
+								TextWrapped = true,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								RichText = true,
+								tag = variantProps.description.tag,
+								textStyle = getTextStyle(
+									values.textTransparency,
+									disabledValues.transparency,
+									contentColor
+								),
+								LayoutOrder = 4,
+								testId = `{props.testId}--description`,
+							})
+							else nil,
+					})
+					else nil,
+				Label = if Flags.FoundationOptionSelectorGroupFixes and isStackedFit
+					then nil
+					elseif orientation == Orientation.Vertical then labelElement
+					else nil,
+				Metadata = if Flags.FoundationOptionSelectorGroupFixes and isStackedFit
+					then nil
+					elseif props.metadata then React.createElement(Text, {
 						Text = escapeRichText(props.metadata),
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -222,10 +304,12 @@ local function OptionSelectorGroupItem(
 						tag = variantProps.metadata.tag,
 						textStyle = getTextStyle(values.textTransparency, disabledValues.transparency, contentColor),
 						LayoutOrder = 3,
+						testId = `{props.testId}--metadata`,
 					})
 					else nil,
-				Description = if props.description
-					then React.createElement(Text, {
+				Description = if Flags.FoundationOptionSelectorGroupFixes and isStackedFit
+					then nil
+					elseif props.description then React.createElement(Text, {
 						Text = escapeRichText(props.description),
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -233,6 +317,7 @@ local function OptionSelectorGroupItem(
 						tag = variantProps.description.tag,
 						textStyle = getTextStyle(values.textTransparency, disabledValues.transparency, contentColor),
 						LayoutOrder = 4,
+						testId = `{props.testId}--description`,
 					})
 					else nil,
 			}),

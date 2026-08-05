@@ -2,14 +2,16 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local IconSize = require(Foundation.Enums.IconSize)
 
-local Input = require(Foundation.Components.InternalInput)
-type InputVariantProps = Input.InputVariantProps
-
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local ControlState = require(Foundation.Enums.ControlState)
-type ControlState = ControlState.ControlState
+local FillBehavior = require(Foundation.Enums.FillBehavior)
+type FillBehavior = FillBehavior.FillBehavior
+
+local Orientation = require(Foundation.Enums.Orientation)
+type Orientation = Orientation.Orientation
+
+local Flags = require(Foundation.Utility.Flags)
 
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
@@ -30,6 +32,8 @@ type OptionSelectorGroupItemVariantProps = {
 	},
 	content: ColorStyleValue,
 	itemInner: { tag: string },
+	header: { tag: string },
+	textContainer: { tag: string }?,
 	label: { tag: string },
 	metadata: { tag: string },
 	description: { tag: string },
@@ -43,8 +47,13 @@ local function variantsFactory(tokens: Tokens)
 			radius = tokens.Radius.Medium,
 		},
 		content = tokens.Color.Content.Default,
-		itemInner = {
-			tag = "col gap-xsmall size-full-0 auto-y",
+		itemInner = if Flags.FoundationOptionSelectorGroupFixes
+			then nil :: never
+			else {
+				tag = "col gap-xsmall size-full-0 auto-y",
+			},
+		header = {
+			tag = "row align-y-center gap-small size-full-0 auto-y",
 		},
 		label = { tag = "fill auto-xy" },
 		metadata = { tag = "shrink auto-xy" },
@@ -82,11 +91,45 @@ local function variantsFactory(tokens: Tokens)
 		},
 	}
 
-	return { common = common, sizes = sizes }
+	local layouts: { [string]: VariantProps } = if Flags.FoundationOptionSelectorGroupFixes
+		then {
+			Inline = {
+				container = { tag = "size-full-0 auto-y" },
+				itemInner = { tag = "col gap-xsmall size-full-0 auto-y" },
+			},
+			StackedFill = {
+				container = { tag = "fill auto-y" },
+				itemInner = { tag = "col gap-xsmall size-full-0 auto-y" },
+			},
+			StackedFit = {
+				container = { tag = "auto-xy" },
+				itemInner = { tag = "col gap-xsmall auto-xy" },
+				header = { tag = "flex-x-between" },
+				textContainer = { tag = "col gap-xsmall auto-xy" },
+			},
+		}
+		else {}
+
+	return { common = common, sizes = sizes, layouts = layouts }
 end
 
-return function(tokens: Tokens, size: InputSize): OptionSelectorGroupItemVariantProps
+return function(
+	tokens: Tokens,
+	size: InputSize,
+	orientation: Orientation,
+	fillBehavior: FillBehavior
+): OptionSelectorGroupItemVariantProps
 	local props = VariantsContext.useVariants("OptionSelectorGroupItem", variantsFactory, tokens)
+
+	if Flags.FoundationOptionSelectorGroupFixes then
+		local isStackedFit = orientation == Orientation.Vertical and fillBehavior == FillBehavior.Fit
+		local layout = if orientation == Orientation.Horizontal
+			then props.layouts.Inline
+			elseif isStackedFit then props.layouts.StackedFit
+			else props.layouts.StackedFill
+
+		return composeStyleVariant(props.common, props.sizes[size], layout)
+	end
 
 	return composeStyleVariant(props.common, props.sizes[size])
 end

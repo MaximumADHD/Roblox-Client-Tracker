@@ -95,13 +95,8 @@ if FFlagSlimDevConsole then
 
 	content["SlimTintMode"] = {
 		name = "SlimTintMode",
-		description = [[
-None - No tint will be applied.
-LOD - Distinct colors for each LOD. Blue is always the lowest.
-Meshes - Distinct colors for each mesh.
-MeshResourcePtr - Distinct colors for each shared Mesh Resource.
-ContentId - Distinct colors based on Content Id.
-Zone - Green for HL zone (datamodel is present), Yellow for LL zone (datamodel is absent).]],
+		description = "Color-codes meshes by the selected debug criterion. Select a mode from the dropdown to visualize SLIM streaming behavior.",
+		learnMoreUrl = "https://create.roblox.com/docs/reference/engine/enums/SlimTintMode",
 		tags = {"Performance"},
 		type = "Tint",
 		kind = "Dropdown",

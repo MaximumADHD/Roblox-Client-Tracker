@@ -4,17 +4,18 @@ export type BadgeVariant =
 	| "Alert"
 	| "Success"
 	| "Warning"
-	| "Neutral"
+	| "Standard"
 	| "Contrast"
 	| "OverMedia"
 	| "Emphasis"
+	| "Neutral"
 
 local BadgeVariantEnum = {
-	Neutral = "Neutral" :: "Neutral",
 	Contrast = "Contrast" :: "Contrast",
 	Alert = "Alert" :: "Alert",
 	Success = "Success" :: "Success",
 	Warning = "Warning" :: "Warning",
+	Standard = "Standard" :: "Standard",
 	OverMedia = "OverMedia" :: "OverMedia",
 	Emphasis = "Emphasis" :: "Emphasis",
 
@@ -22,6 +23,8 @@ local BadgeVariantEnum = {
 	Primary = "Primary" :: "Primary",
 	-- DEPRECATED Scheduled for removal in the next major release (2.0)
 	Secondary = "Secondary" :: "Secondary",
+	-- DEPRECATED Scheduled for removal in the next major release (2.0)
+	Neutral = "Neutral" :: "Neutral",
 }
 
 return BadgeVariantEnum

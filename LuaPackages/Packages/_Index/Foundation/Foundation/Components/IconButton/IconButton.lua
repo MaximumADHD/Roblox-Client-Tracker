@@ -96,7 +96,7 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		tokens,
 		props.size,
 		props.variant,
-		if presentationContext then presentationContext.colorMode else nil
+		if presentationContext then presentationContext.colorNamespace else nil
 	)
 
 	local containerSize = variantProps.container.size

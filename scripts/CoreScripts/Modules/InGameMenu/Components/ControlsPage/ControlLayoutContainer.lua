@@ -8,7 +8,8 @@ local t = InGameMenuDependencies.t
 
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagCoreUiMigrateUIBloxToFoundation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagCoreUiMigrateUIBloxToFoundation =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -136,6 +137,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 						Image = Assets.Images.RadialGlow,
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 0.5, 0),
+						backgroundStyle = { Transparency = 1 },
 
 						-- Renders as a square based off of screen width
 						SizeConstraint = Enum.SizeConstraint.RelativeXX,
@@ -156,6 +158,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 						Image = Assets.Images.RadialGlow,
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 1, 0),
+						backgroundStyle = { Transparency = 1 },
 
 						-- Renders with height always at 60% of width
 						SizeConstraint = Enum.SizeConstraint.RelativeXX,

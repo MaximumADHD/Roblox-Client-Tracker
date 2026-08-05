@@ -8,7 +8,7 @@ local React = require(Packages.React)
 local IconVariant = BuilderIcons.IconVariant
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local Icon = require(Foundation.Components.Icon)
 local InputSize = require(Foundation.Enums.InputSize)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
@@ -51,7 +51,7 @@ local defaultProps = {
 	testId = "--foundation-snackbar",
 }
 
-local IS_INVERSE = { colorMode = ColorMode.Inverse }
+local IS_INVERSE = { colorNamespace = ColorNamespace.Inverse }
 
 local function Snackbar(snackbarProps: SnackbarProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(snackbarProps, defaultProps)

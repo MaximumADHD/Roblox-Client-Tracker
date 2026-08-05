@@ -26,7 +26,7 @@ local ContextActionService = game:GetService("ContextActionService")
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
+local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
 local FFlagUserPSSpecifySimulationFrequency = FlagUtil.getUserFlag("UserPSSpecifySimulationFrequency")
 local FFlagUserPSFixTouchInitialization = FlagUtil.getUserFlag("UserPSFixTouchInitialization")
 local FFlagUserPlayerScriptsBindActivateOnIAS = FlagUtil.getUserFlag("UserPlayerScriptsBindActivateOnIAS")
@@ -34,12 +34,15 @@ local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag
 local FFlagUserPlayerScriptsUseReplicatedCameraAPI = FlagUtil.getUserFlag("UserPlayerScriptsUseReplicatedCameraAPI")
 local FFlagUserPlayerScriptsStopFireCameraAction = FlagUtil.getUserFlag("UserPlayerScriptsStopFireCameraAction")
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
+local FFlagUserPlayerScriptsFixSAuthRenderStepMove = FlagUtil.getUserFlag("UserPlayerScriptsFixSAuthRenderStepMove")
+local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlayerScriptsSupportMicroGamepad")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 }
 
 local ActionController = require(script:WaitForChild("ActionController"))
-local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationB then require(script:WaitForChild("InputReplication")) else nil
+local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationC then require(script:WaitForChild("InputReplication")) else nil
+local InputSlots = if FFlagUserPlayerScriptsCCLIntegrationC then require(script:WaitForChild("InputSlots")) else nil
 local DynamicThumbstick
 if RunService:IsClient() then
 	DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
@@ -51,11 +54,12 @@ local ClassicThumbstick = require(script:WaitForChild("ClassicThumbstick"))
 -- TouchJump controller if any of these are active
 local ClickToMove = require(script:WaitForChild("ClickToMoveController"))
 local TouchJump = require(script:WaitForChild("TouchJump"))
+local TouchAbilities = if FFlagUserPlayerScriptsCCLIntegrationC then require(script:WaitForChild("TouchAbilities")) else nil
 
 local VehicleController = require(script:WaitForChild("VehicleController"))
 local AvatarAbilitiesInterface
 local avatarAbilitiesInterface
-if FFlagUserPlayerScriptsCCLIntegrationB then
+if FFlagUserPlayerScriptsCCLIntegrationC then
 	AvatarAbilitiesInterface = require(script:WaitForChild("AvatarAbilitiesInterface"))
 	avatarAbilitiesInterface = AvatarAbilitiesInterface.get(Players.LocalPlayer)
 end
@@ -106,9 +110,11 @@ function ControlModule.new() -- TODO ControlModule should be static
 	self.activeControlModule = nil	-- Used to prevent unnecessarily expensive checks on each input event
 	self.activeController = nil
 	self.touchJumpController = nil
+	self.touchAbilitiesController = nil
 	self.moveFunction = Players.LocalPlayer.Move
 	self.humanoid = nil
 	self.controlsEnabled = true
+	self.enabled = false
 
 	-- For Roblox self.vehicleController
 	self.humanoidSeatedConn = nil
@@ -140,6 +146,11 @@ function ControlModule.new() -- TODO ControlModule should be static
 	Players.LocalPlayer:GetPropertyChangedSignal("DevComputerMovementMode"):Connect(function()
 		self:UpdateMovementMode()
 	end)
+	if FFlagUserPlayerScriptsCCLIntegrationC then
+		avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(function()
+			self:UpdateAbilitiesControllers()
+		end)
+	end
 
 	--[[ Touch Device UI ]]--
 	self.playerGui = nil
@@ -178,7 +189,7 @@ function ControlModule.new() -- TODO ControlModule should be static
 	return self
 end
 
--- remove with FFlagUserPlayerScriptsCCLIntegrationB
+-- remove with FFlagUserPlayerScriptsCCLIntegrationC
 local function _fireCustomInputs(player:Player)
 	local input = player:FindFirstChild("InputContexts")
 	if input == nil then
@@ -259,7 +270,7 @@ local function _fireCustomInputs(player:Player)
 	end
 end
 
--- remove with FFlagUserPlayerScriptsCCLIntegrationB
+-- remove with FFlagUserPlayerScriptsCCLIntegrationC
 local function _cloneInputs(player:Player)
 	local newInput = StarterPlayer.PlayerModule.InputContexts:Clone()
 	newInput.CharacterContext.Enabled = true
@@ -270,7 +281,7 @@ end
 function ControlModule:InitializeServerAuthority()
 	if RunService:IsServer() then
 		-- Server Creates Inputs
-		if FFlagUserPlayerScriptsCCLIntegrationB then
+		if FFlagUserPlayerScriptsCCLIntegrationC then
 			for _, player in Players:GetPlayers() do
 				InputReplication.CloneInputsIfAbsent(player)
 			end
@@ -298,7 +309,7 @@ function ControlModule:InitializeServerAuthority()
 	else
 		-- Fire Custom Inputs
 		RunService:BindToRenderStep("CameraInput", Enum.RenderPriority.Last.Value, function()
-			if FFlagUserPlayerScriptsCCLIntegrationB then
+			if FFlagUserPlayerScriptsCCLIntegrationC then
 				InputReplication.FireCustomInputs(Players.LocalPlayer)
 			else
 				_fireCustomInputs(Players.LocalPlayer)
@@ -384,38 +395,85 @@ function ControlModule:GetActiveController()
 	return self.activeController
 end
 
+function ControlModule:UpdateAbilitiesControllers()
+	local shouldShowTouchControls = self.enabled and self.touchControlFrame and (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
+		and (
+			self.activeControlModule == ClickToMove
+			or self.activeControlModule == ClassicThumbstick
+			or self.activeControlModule == DynamicThumbstick
+		)
+	local shouldShowTouchJump = shouldShowTouchControls and not avatarAbilitiesInterface:isEnabled()
+	local shouldShowTouchAbilities = shouldShowTouchControls and avatarAbilitiesInterface:isEnabled()
+	if shouldShowTouchJump then
+		if not self.controllers[TouchJump] then
+			self.controllers[TouchJump] = TouchJump.new(self.data, self.playerData)
+		end
+
+		self.touchJumpController = self.controllers[TouchJump]
+		self.touchJumpController:Enable(true, self.touchControlFrame)
+	else
+		if self.touchJumpController then
+			self.touchJumpController:Enable(false)
+		end
+	end
+	if shouldShowTouchAbilities then
+		if not self.controllers[TouchAbilities] then
+			self.controllers[TouchAbilities] = TouchAbilities.new(self.touchControlFrame)
+		end
+
+		self.touchAbilitiesController = self.controllers[TouchAbilities]
+		self.touchAbilitiesController:Enable(true)
+	else
+		if self.touchAbilitiesController then
+			self.touchAbilitiesController:Enable(false)
+		end
+	end
+end
+
 -- Checks for conditions for enabling/disabling the active controller and updates whether the active controller is enabled/disabled
 function ControlModule:UpdateActiveControlModuleEnabled()
 	-- helpers for disable/enable
 	local disable = function()
+		if FFlagUserPlayerScriptsCCLIntegrationC then
+			self.enabled = false
+		end
 		self.activeController:Enable(false)
-		if self.touchJumpController then 
-			self.touchJumpController:Enable(false)
+		if FFlagUserPlayerScriptsCCLIntegrationC then
+			self:UpdateAbilitiesControllers()
+		else
+			if self.touchJumpController then 
+				self.touchJumpController:Enable(false)
+			end
 		end
 
 		if self.moveFunction then
-			if not FFlagUserPlayerScriptsCCLIntegrationB or not avatarAbilitiesInterface:isEnabled() then
+			if not FFlagUserPlayerScriptsCCLIntegrationC or not avatarAbilitiesInterface:isEnabled() then
 				self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), true)
 			end
 		end
 	end
 
 	local enable = function()
-		if self.touchControlFrame and (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
-			and (
-				self.activeControlModule == ClickToMove
-				or self.activeControlModule == ClassicThumbstick
-				or self.activeControlModule == DynamicThumbstick
-			)
-		then
-			if not self.controllers[TouchJump] then
-				self.controllers[TouchJump] = TouchJump.new(self.data, self.playerData)
-			end
-			self.touchJumpController = self.controllers[TouchJump]
-			self.touchJumpController:Enable(true, self.touchControlFrame)
+		if FFlagUserPlayerScriptsCCLIntegrationC then
+			self.enabled = true
+			self:UpdateAbilitiesControllers()
 		else
-			if self.touchJumpController then
-				self.touchJumpController:Enable(false)
+			if self.touchControlFrame and (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
+				and (
+					self.activeControlModule == ClickToMove
+					or self.activeControlModule == ClassicThumbstick
+					or self.activeControlModule == DynamicThumbstick
+				)
+			then
+				if not self.controllers[TouchJump] then
+					self.controllers[TouchJump] = TouchJump.new(self.data, self.playerData)
+				end
+				self.touchJumpController = self.controllers[TouchJump]
+				self.touchJumpController:Enable(true, self.touchControlFrame)
+			else
+				if self.touchJumpController then
+					self.touchJumpController:Enable(false)
+				end
 			end
 		end
 
@@ -480,7 +538,14 @@ end
 
 -- Returns module (possibly nil) and success code to differentiate returning nil due to error vs Scriptable
 function ControlModule:SelectComputerMovementModule(): ({}?, boolean)
-	if not (UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad) then
+	local preferMicroGamepad = false
+	if FFlagUserPlayerScriptsSupportMicroGamepad then
+		pcall(function()
+			preferMicroGamepad = UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+		end)
+	end
+	if not (UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse or
+		UserInputService.PreferredInput == Enum.PreferredInput.Gamepad or preferMicroGamepad) then
 		return nil, false
 	end
 
@@ -598,8 +663,8 @@ function ControlModule:initialize(data, playerData)
 		self:UpdateMovementMode()
 	end
 	ActionController.initializeActions(self.data, self.playerData)
-	if FFlagUserPlayerScriptsCCLIntegrationB then
-		ActionController.setupSlotActions(self.data, self.playerData)
+	if FFlagUserPlayerScriptsCCLIntegrationC then
+		InputSlots.setupSlotActions(self.playerData.player)
 	end
 end
 
@@ -639,7 +704,8 @@ function ControlModule:Update(data, playerData, dt)
 			moveVector = self:updateVRMoveVector(moveVector)
 		end
 
-		if not FFlagUserPlayerScriptsCCLIntegrationB or not avatarAbilitiesInterface:isEnabled() then
+		if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
+			and (not FFlagUserPlayerScriptsCCLIntegrationC or not avatarAbilitiesInterface:isEnabled()) then
 			self.moveFunction(Players.LocalPlayer, moveVector, false)
 			-- And make them jump if needed
 			self.humanoid.Jump = playerData.isJumping
@@ -818,7 +884,7 @@ end
 
 function ControlModule:ProcessInputs(player:Player, dt:number)
 
-	if FFlagUserPlayerScriptsCCLIntegrationB then
+	if FFlagUserPlayerScriptsCCLIntegrationC then
 		local thisAvatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
 		-- when CCL is enabled, server inputs are instead sent to the character through SendInputToCCLCharacter
 		if not thisAvatarAbilitiesInterface:isEnabled() then

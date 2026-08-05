@@ -6,14 +6,14 @@ local React = require(Packages.React)
 local Cursor = require(script.Parent.Cursor)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
 local cursorTypes: { CursorType } = Dash.values(CursorType)
 table.sort(cursorTypes)
 
-local function CursorPreview(cursorType, colorMode, layoutOrder: number?)
+local function CursorPreview(cursorType, colorNamespace, layoutOrder: number?)
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromOffset(100, 50),
@@ -27,14 +27,14 @@ local function CursorPreview(cursorType, colorMode, layoutOrder: number?)
 			Cursor = React.createElement(Cursor, {
 				cursorType = cursorType :: CursorType,
 				isVisible = true,
-				colorMode = colorMode,
+				colorNamespace = colorNamespace,
 			}),
 		}),
 	})
 end
 
 local function PlaygroundStory(props)
-	return CursorPreview(props.controls.cursorType, props.controls.colorMode)
+	return CursorPreview(props.controls.cursorType, props.controls.colorNamespace)
 end
 
 local function AllVariantsStory(props)
@@ -44,7 +44,7 @@ local function AllVariantsStory(props)
 			tag = "col align-x-center gap-xsmall auto-xy",
 			LayoutOrder = index,
 		}, {
-			Preview = CursorPreview(cursorType, props.controls.colorMode, 1),
+			Preview = CursorPreview(cursorType, props.controls.colorNamespace, 1),
 			Label = React.createElement(Text, {
 				Text = cursorType,
 				tag = "auto-xy text-body-small content-default",
@@ -72,6 +72,6 @@ return {
 	},
 	controls = {
 		cursorType = cursorTypes,
-		colorMode = Dash.values(ColorMode),
+		colorNamespace = Dash.values(ColorNamespace),
 	},
 }

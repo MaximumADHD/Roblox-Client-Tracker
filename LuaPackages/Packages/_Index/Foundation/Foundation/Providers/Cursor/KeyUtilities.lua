@@ -1,11 +1,11 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(Foundation.Components.Types)
-type ColorMode = ColorMode.ColorMode
+type ColorNamespace = ColorNamespace.ColorNamespace
 type Tokens = Tokens.Tokens
 
 local function encodeKey(
@@ -13,40 +13,40 @@ local function encodeKey(
 	radius: UDim?,
 	offset: number?,
 	borderWidth: number?,
-	colorMode: ColorMode?
+	colorNamespace: ColorNamespace?
 ): string
 	local pRadius = radius or UDim.new(0, 0)
 	local defaultBorderWidth = tokens.Stroke.Thicker
 	local pBorderWidth = borderWidth or defaultBorderWidth
 	local pOffset = (offset or tokens.Size.Size_150) - pBorderWidth
-	local pColorMode = colorMode or ColorMode.Color
+	local pColorNamespace = colorNamespace or ColorNamespace.Color
 
-	return pRadius.Scale .. " " .. pRadius.Offset .. " " .. pOffset .. " " .. pBorderWidth .. " " .. pColorMode
+	return pRadius.Scale .. " " .. pRadius.Offset .. " " .. pOffset .. " " .. pBorderWidth .. " " .. pColorNamespace
 end
 
-local decodeKey = function(key: string | { string }): (UDim, number, number, ColorMode)
+local decodeKey = function(key: string | { string }): (UDim, number, number, ColorNamespace)
 	local parts = if typeof(key) == "string" then string.split(key, " ") else key
 	local radius1 = tonumber(parts[1]) :: number
 	local radius2 = tonumber(parts[2]) :: number
 	local offset = tonumber(parts[3]) :: number
 	local borderWidth = tonumber(parts[4]) :: number
-	local colorMode: ColorMode = parts[5] :: ColorMode
+	local colorNamespace: ColorNamespace = parts[5] :: ColorNamespace
 
 	local cornerRadius = UDim.new(radius1, math.max(0, radius2 + offset))
 
-	return cornerRadius, offset, borderWidth, colorMode
+	return cornerRadius, offset, borderWidth, colorNamespace
 end
 
-local function encodeCursorTypeKey(cursorType: CursorType.CursorType, colorMode: ColorMode?)
-	local pColorMode = colorMode or ColorMode.Color
-	return cursorType .. " " .. pColorMode
+local function encodeCursorTypeKey(cursorType: CursorType.CursorType, colorNamespace: ColorNamespace?)
+	local pColorNamespace = colorNamespace or ColorNamespace.Color
+	return cursorType .. " " .. pColorNamespace
 end
 
-local function decodeCursorTypeKey(key: string | { string }): (CursorType, ColorMode)
+local function decodeCursorTypeKey(key: string | { string }): (CursorType, ColorNamespace)
 	local parts = if typeof(key) == "string" then string.split(key, " ") else key
 	local cursorType: CursorType = parts[1] :: CursorType
-	local colorMode: ColorMode = parts[2] :: ColorMode
-	return cursorType, colorMode
+	local colorNamespace: ColorNamespace = parts[2] :: ColorNamespace
+	return cursorType, colorNamespace
 end
 
 local function migrateCursorType(cursor: Types.Cursor?)

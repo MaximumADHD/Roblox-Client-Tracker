@@ -19,6 +19,7 @@ local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGr
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagUpdateRephraseSettingUI = game:DefineFastFlag("UpdateRephraseSettingUI", false)
 local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
+local FFlagExpChatEnableFriendsTab = require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatEnableFriendsTab
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 
@@ -70,6 +71,9 @@ else
 	SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationFrame = 40
 	SETTINGS_MENU_LAYOUT_ORDER.ChatLanguageSelectorFrame = 41
 	SETTINGS_MENU_LAYOUT_ORDER.ChatTranslationToggleFrame = 42
+end
+if FFlagExpChatEnableFriendsTab then
+	SETTINGS_MENU_LAYOUT_ORDER.ChatNotificationsFrame = 44
 end
 -- VR Settings
 if isInExperienceUIVREnabled then
@@ -157,6 +161,7 @@ if FFlagIEMSettingsGroups then
 		ChatTranslationFrame = nextOrder(),
 		ChatLanguageSelectorFrame = nextOrder(),
 		ChatTranslationToggleFrame = nextOrder(),
+		ChatNotificationsFrame = if FFlagExpChatEnableFriendsTab then nextOrder() else nil,
 		LanguageDivider = nextOrder(),
 
 		DisplayHeader = nextOrder(),

@@ -66,7 +66,7 @@ function EducationalPopup:render()
 			cancelText = localized.actionExit,
 			confirmText = localized.actionHome,
 			titleBackgroundImageProps = {
-				image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
+				image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground_05202026.jpg",
 				imageHeight = 200,
 				text = [[<font face="GothamBlack" size="42">]]
 					.. localized.title

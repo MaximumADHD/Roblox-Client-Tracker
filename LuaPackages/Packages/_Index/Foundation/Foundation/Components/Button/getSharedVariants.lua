@@ -10,8 +10,8 @@ type StateLayer = Types.StateLayer
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local ColorMode = require(Foundation.Enums.ColorMode)
-type ColorMode = ColorMode.ColorMode
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+type ColorNamespace = ColorNamespace.ColorNamespace
 
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode
@@ -49,19 +49,19 @@ local function createButtonVariantStyles(
 	tokens: Tokens,
 	actionName: string | { string },
 	isInverse: boolean?
-): { [ColorMode]: VariantProps }
-	local styles: { [ColorMode]: any } = {}
-	for colorMode in ColorMode do
-		local colors = tokens[colorMode]
+): { [ColorNamespace]: VariantProps }
+	local styles: { [ColorNamespace]: any } = {}
+	for colorNamespace in ColorNamespace do
+		local colors = tokens[colorNamespace]
 		local buttonStyle = if type(actionName) == "table"
 			then { Foreground = Dash.get(colors, actionName) }
 			else colors[actionName]
-		styles[colorMode :: ColorMode] = {
+		styles[colorNamespace :: ColorNamespace] = {
 			container = {
 				style = buttonStyle.Background,
 				stroke = if buttonStyle.Border then toStroke(buttonStyle.Border) else nil,
 				stateLayer = {
-					mode = Constants.COLOR_MODE_TO_STATE_LAYER_MODE[isInverse or false][colorMode :: ColorMode],
+					mode = Constants.COLOR_NAMESPACE_TO_STATE_LAYER_MODE[isInverse or false][colorNamespace :: ColorNamespace],
 				},
 			},
 			content = {
@@ -85,8 +85,8 @@ type SharedButtonVariantProps = {
 	},
 }
 
--- Returns all button variant types - indexed by variant then by ColorMode
-local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: { [ColorMode]: VariantProps } }
+-- Returns all button variant types - indexed by variant then by ColorNamespace
+local function getButtonTypes(tokens: Tokens): { [ButtonVariant]: { [ColorNamespace]: VariantProps } }
 	return {
 		[ButtonVariant.Utility] = createButtonVariantStyles(tokens, "ActionUtility"),
 		[ButtonVariant.Standard] = createButtonVariantStyles(tokens, "ActionStandard"),
@@ -122,7 +122,7 @@ end
 
 local function getSharedVariants(tokens: Tokens): {
 	sizes: { [InputSize]: VariantProps },
-	types: { [ButtonVariant]: { [ColorMode]: VariantProps } },
+	types: { [ButtonVariant]: { [ColorNamespace]: VariantProps } },
 }
 	local sizes = getSizes(tokens)
 	local types = getButtonTypes(tokens)

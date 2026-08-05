@@ -42,6 +42,12 @@ type AvatarBustRbxThumb = (
 	)?
 ) -> string
 
+type AvatarHeadShotOptions = {
+	-- When true, the thumbnail service composites the user's equipped profile
+	-- frame into the headshot image server-side.
+	includeProfileFrame: boolean?,
+}
+
 type AvatarHeadShotRbxThumb = (
 	type: typeof(ThumbnailType.AvatarHeadShot),
 	id: AssetId,
@@ -50,7 +56,8 @@ type AvatarHeadShotRbxThumb = (
 		| typeof(ThumbnailSize.Medium)
 		| typeof(ThumbnailSize.Large)
 		| typeof(ThumbnailSize.XLarge)
-	)?
+	)?,
+	options: AvatarHeadShotOptions?
 ) -> string
 
 type BadgeIconRbxThumb = (
@@ -183,9 +190,16 @@ local SIZE_TO_DIMENSIONS: { [ThumbnailType]: { [ThumbnailSize]: Vector2 } } = {
 	@param type The type of thumbnail to generate
 	@param id The ID of the asset/user/experience to generate a thumbnail for
 	@param size The size of the thumbnail to generate (defaults to Medium)
+	@param options Optional parameters. For AvatarHeadShot only: includeProfileFrame
+	       requests server-side compositing of the user's equipped profile frame.
 	@return A rbxthumb URL string
 ]]
-local getRbxThumb: GetRbxThumb = function(type: ThumbnailType, id: AssetId, size: ThumbnailSize?): string
+local getRbxThumb: GetRbxThumb = function(
+	type: ThumbnailType,
+	id: AssetId,
+	size: ThumbnailSize?,
+	options: AvatarHeadShotOptions?
+): string
 	local dimensions = SIZE_TO_DIMENSIONS[type][size or ThumbnailSize.Medium]
 
 	local assetId = getAssetIdAsNumeric(id)
@@ -195,7 +209,13 @@ local getRbxThumb: GetRbxThumb = function(type: ThumbnailType, id: AssetId, size
 		dimensions = SIZE_TO_DIMENSIONS[type][ThumbnailSize.Medium]
 	end
 
-	return `rbxthumb://type={type}&id={assetId}&w={dimensions.X}&h={dimensions.Y}`
+	local url = `rbxthumb://type={type}&id={assetId}&w={dimensions.X}&h={dimensions.Y}`
+
+	if type == ThumbnailType.AvatarHeadShot and options and options.includeProfileFrame then
+		url = url .. "&includeprofileframe=true"
+	end
+
+	return url
 end
 
 return getRbxThumb

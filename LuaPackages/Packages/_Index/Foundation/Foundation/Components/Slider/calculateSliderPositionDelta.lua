@@ -1,3 +1,4 @@
+-- Remove this file when cleaning up FFlagFoundationSliderOffloadDraggingMath
 --[[
 	Calculates the raw position delta between two drag positions,
 	normalized by the slider length.

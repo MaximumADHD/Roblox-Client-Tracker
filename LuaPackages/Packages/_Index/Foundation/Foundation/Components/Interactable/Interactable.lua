@@ -5,6 +5,7 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local blendColors = require(Foundation.Utility.blendColors)
 local getOriginalBackgroundStyle = require(script.Parent.getOriginalBackgroundStyle)
@@ -153,8 +154,14 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 		Active = not props.isDisabled,
 		Interactable = not props.isDisabled,
 		[React.Event.Activated] = if not props.isDisabled then props.onActivated else nil,
-		-- TODO: Replace with SecondaryActivated when available
-		[React.Event.MouseButton2Click] = if not props.isDisabled then props.onSecondaryActivated else nil,
+		[React.Event.SecondaryActivated] = if Flags.FoundationInteractableSecondaryActivated
+				and not props.isDisabled
+			then props.onSecondaryActivated
+			else nil,
+		[React.Event.MouseButton2Click] = if not Flags.FoundationInteractableSecondaryActivated
+				and not props.isDisabled
+			then props.onSecondaryActivated
+			else nil,
 		ref = wrappedRef,
 		SelectionImageObject = props.SelectionImageObject or cursor,
 	}

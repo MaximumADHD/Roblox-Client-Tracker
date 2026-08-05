@@ -2,8 +2,8 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 
-local ColorMode = require(Foundation.Enums.ColorMode)
-type ColorMode = ColorMode.ColorMode
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+type ColorNamespace = ColorNamespace.ColorNamespace
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -97,21 +97,21 @@ local variantsMap = function(tokens: Tokens)
 		},
 	}
 
-	local types: { [CloseAffordanceVariant]: { [ColorMode]: VariantProps } } = {
-		[CloseAffordanceVariant.OverMedia] = Dash.map(ColorMode, function()
+	local types: { [CloseAffordanceVariant]: { [ColorNamespace]: VariantProps } } = {
+		[CloseAffordanceVariant.OverMedia] = Dash.map(ColorNamespace, function()
 			return {
 				container = { tag = "bg-over-media-100" },
 				content = { style = tokens.Color.Content.Emphasis },
 			}
 		end),
-		[CloseAffordanceVariant.Utility] = Dash.map(ColorMode, function(colorMode: ColorMode)
+		[CloseAffordanceVariant.Utility] = Dash.map(ColorNamespace, function(colorNamespace: ColorNamespace)
 			return {
 				container = {
 					stateLayer = {
-						mode = Constants.COLOR_MODE_TO_STATE_LAYER_MODE[false][colorMode],
+						mode = Constants.COLOR_NAMESPACE_TO_STATE_LAYER_MODE[false][colorNamespace],
 					},
 				},
-				content = { style = tokens[colorMode].Content.Emphasis },
+				content = { style = tokens[colorNamespace].Content.Emphasis },
 			}
 		end),
 	}
@@ -139,7 +139,7 @@ return function(
 	tokens: Tokens,
 	size: InputSize,
 	variant: CloseAffordanceVariant,
-	colorMode: ColorMode?,
+	colorNamespace: ColorNamespace?,
 	hasPadding: boolean,
 	isCircular: boolean
 ): CloseAffordanceVariantProps
@@ -148,7 +148,7 @@ return function(
 
 	return composeStyleVariant(
 		variants.common,
-		variants.types[variant][colorMode or ColorMode.Color],
+		variants.types[variant][colorNamespace or ColorNamespace.Color],
 		variants.sizes[hasPadding][size],
 		variants.padding[hasPadding],
 		variants.circular[isShapeCircular]

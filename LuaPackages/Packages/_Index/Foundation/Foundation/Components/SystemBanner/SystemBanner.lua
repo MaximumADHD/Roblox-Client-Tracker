@@ -93,7 +93,7 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 			ref = composedRef,
 		}),
 		React.createElement(PresentationContext.Provider, {
-			value = { colorMode = variantProps.container.colorMode },
+			value = { colorNamespace = variantProps.container.colorNamespace },
 		}, {
 			Icon = React.createElement(Icon, {
 				LayoutOrder = 1,

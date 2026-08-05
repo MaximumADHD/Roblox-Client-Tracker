@@ -23,7 +23,7 @@ export type Images = ImagesTypes.Images
 export type Theme = StyleTypes.Theme
 export type ThemeItem = StyleTypes.ThemeItem
 export type AppStyle = StyleTypes.AppStyle
-export type Tokens = StyleTypes.Tokens
+export type Tokens = StyleTypes.PublicTokens
 
 export type ResponsiveLayoutConfig<T = number> = ResponsiveLayoutConfigReader.Config<T>
 

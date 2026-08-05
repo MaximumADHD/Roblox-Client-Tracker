@@ -6,14 +6,10 @@ local React = require(Packages.React)
 
 local Chip = require(Foundation.Components.Chip)
 local ChipSize = require(Foundation.Enums.ChipSize)
-local Icon = require(Foundation.Components.Icon)
-local IconSize = require(Foundation.Enums.IconSize)
 local Rating = require(Foundation.Components.Rating)
 local RatingValue = require(Foundation.Enums.RatingValue)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
-
-local IconName = require(Packages.BuilderIcons).Icon
 
 type RatingValue = RatingValue.RatingValue
 type ChipSize = ChipSize.ChipSize
@@ -51,7 +47,6 @@ end
 local function Section(props: {
 	layoutOrder: number,
 	name: string,
-	iconName: string?,
 	contentTag: string?,
 	children: React.ReactNode,
 })
@@ -59,22 +54,10 @@ local function Section(props: {
 		tag = "col gap-medium size-full-0 auto-y",
 		LayoutOrder = props.layoutOrder,
 	}, {
-		Title = React.createElement(View, {
-			tag = "row gap-xsmall align-y-center auto-xy",
+		Title = React.createElement(Text, {
+			Text = props.name,
+			tag = "text-label-medium content-default auto-xy",
 			LayoutOrder = 1,
-		}, {
-			Icon = if props.iconName
-				then React.createElement(Icon, {
-					name = props.iconName,
-					size = IconSize.Small,
-					LayoutOrder = 1,
-				})
-				else nil,
-			Label = React.createElement(Text, {
-				Text = props.name,
-				tag = "text-label-medium content-default auto-xy",
-				LayoutOrder = 2,
-			}),
 		}),
 		Content = React.createElement(View, {
 			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
@@ -156,7 +139,7 @@ local function SiblingRow(props: { layoutOrder: number, size: ChipSize })
 	})
 end
 
-local function StyleStory(): React.ReactNode
+local function SizingStory(): React.ReactNode
 	return React.createElement(View, {
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
@@ -164,8 +147,7 @@ local function StyleStory(): React.ReactNode
 			Section,
 			{
 				layoutOrder = 1,
-				name = "Sizes (static)",
-				iconName = IconName.Image,
+				name = "Size",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(ChipSize, function(size, index)
@@ -204,16 +186,14 @@ local function ControlledStory(): React.ReactNode
 	}, {
 		ControlledImplementation = React.createElement(Section, {
 			layoutOrder = 1,
-			name = "Controlled implementation (dynamic)",
-			iconName = IconName.HandHalfEllipse,
+			name = "Controlled implementation",
 			contentTag = "auto-xy",
 		}, React.createElement(ControlledImplementationExample)),
 		Values = React.createElement(
 			Section,
 			{
 				layoutOrder = 2,
-				name = "Value (static)",
-				iconName = IconName.Image,
+				name = "Value",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(VALUE_ORDER, function(value, index)
@@ -263,8 +243,7 @@ local function ContentStory(): React.ReactNode
 			Section,
 			{
 				layoutOrder = 1,
-				name = "Truncation (static)",
-				iconName = IconName.Image,
+				name = "Truncation",
 				contentTag = "col gap-large size-full-0 auto-y",
 			},
 			Dash.map(ChipSize, function(size, index)
@@ -283,8 +262,7 @@ local function InContextStory(): React.ReactNode
 	}, {
 		Chips = React.createElement(Section, {
 			layoutOrder = 1,
-			name = "Chips (static)",
-			iconName = IconName.Image,
+			name = "Chips",
 			contentTag = "col gap-medium size-full-0 auto-y",
 		}, {
 			Small = React.createElement(SiblingRow, {
@@ -304,15 +282,15 @@ local function InContextStory(): React.ReactNode
 end
 
 return {
-	summary = 'Rating is a component that displays user voting feedback with upvote and downvote options. It shows a percentage of positive votes (e.g., "99% liked") and provides icon buttons for voting.',
+	summary = "Rating is a component that displays user voting feedback with upvote and downvote options.",
 	stories = {
 		{
-			name = "Controls output",
-			story = PlaygroundStory,
+			name = "Playground",
+			story = PlaygroundStory :: unknown,
 		},
 		{
-			name = "Style",
-			story = StyleStory,
+			name = "Sizing",
+			story = SizingStory,
 		},
 		{
 			name = "Controlled component",

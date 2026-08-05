@@ -56,8 +56,6 @@ local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FF
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
-
-local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
 if ChromeEnabled then
@@ -220,13 +218,9 @@ function TopBar.new()
 		store = self.store,
 	}, {
 		PolicyProvider = Roact.createElement(
-			if FFlagTopBarRefactor and FFlagAddTopBarPoliciesToUniversalPolicies
-				then RoactAppPolicy.Provider
-				else TopBarAppPolicy.Provider,
+			if FFlagTopBarRefactor then RoactAppPolicy.Provider else TopBarAppPolicy.Provider,
 			{
-				policy = if FFlagTopBarRefactor and FFlagAddTopBarPoliciesToUniversalPolicies
-					then { AppFeaturePolicies }
-					else { TopBarAppPolicy.Mapper },
+				policy = if FFlagTopBarRefactor then { AppFeaturePolicies } else { TopBarAppPolicy.Mapper },
 			},
 			wrapWithUiModeStyleProvider({
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {

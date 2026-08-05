@@ -31,7 +31,7 @@ local UserRelationshipModals = require(CorePackages.Workspace.Packages.UserRelat
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 local FFlagRemoveHardCodedFriendLimitPrompt = require(CoreGuiModules.Flags.FFlagRemoveHardCodedFriendLimitPrompt)
-local FFlagFriendRequestModalRevamp = game:DefineFastFlag("FriendRequestModalRevampV3", false)
+local FFlagFriendRequestModalRevamp = game:DefineFastFlag("FriendRequestModalRevampV4", false)
 local FFlagFriendRequestModalIxpEnabled = game:DefineFastFlag("FriendRequestModalIxpEnabled", false)
 local FStringFriendRequestModalIxpLayer = game:DefineFastString("FriendRequestModalIxpLayer", "")
 

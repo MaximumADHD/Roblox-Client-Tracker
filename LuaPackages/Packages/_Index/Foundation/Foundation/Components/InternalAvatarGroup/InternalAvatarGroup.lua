@@ -4,7 +4,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 local Text = require(Foundation.Components.Text)
@@ -26,7 +26,7 @@ local useCumulativeBackground = require(Foundation.Utility.useCumulativeBackgrou
 type Bindable<T> = Types.Bindable<T>
 type AvatarTable = { userId: Bindable<number>, userPresence: UserPresence? }
 export type AvatarData = AvatarTable | Bindable<number>
-type AvatarGroupRender = (avatarData: AvatarData, layoutProps: LayoutProps) -> React.ReactNode
+export type AvatarGroupRender = (avatarData: AvatarData, layoutProps: LayoutProps) -> React.ReactNode
 export type LayoutProps = {
 	LayoutOrder: number,
 	Position: UDim2,
@@ -66,7 +66,7 @@ local function AvatarOverflow(props: {
 	local presentationContext = usePresentationContext()
 	local backgroundStyle = useCumulativeBackground(props.backplateStyle, props.backgroundStyle)
 	local textTag = if props.isEllipsed then "text-caption-small" else "text-caption-medium"
-	local contentStyle = tokens[presentationContext.colorMode or ColorMode.Color].Content.Emphasis
+	local contentStyle = tokens[presentationContext.colorNamespace or ColorNamespace.Color].Content.Emphasis
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -95,7 +95,7 @@ local function InternalAvatarGroup(internalAvatarGroupProps: InternalAvatarGroup
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
 
-	local backgroundStyle = tokens[presentationContext.colorMode or ColorMode.Color].Shift.Shift_300
+	local backgroundStyle = tokens[presentationContext.colorNamespace or ColorNamespace.Color].Shift.Shift_300
 	local backplateStyle = props.backplateStyle or tokens.Color.Surface.Surface_0
 
 	local size = props.resolvedSize

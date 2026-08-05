@@ -7,19 +7,11 @@ local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagExpChatShowGlobalChatTooltip = SharedFlags.FFlagExpChatShowGlobalChatTooltip
 local FFlagEnableWhatsNew = SharedFlags.FFlagEnableWhatsNew
 
 local WhatsNewAnchor = if FFlagEnableWhatsNew
 	then require(CorePackages.Workspace.Packages.WhatsNew).WhatsNewAnchor
 	else nil
-
-local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
-local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
-local FFlagExpChatUseUnifiedTooltipStore = ExpChatShared.Flags.FFlagExpChatUseUnifiedTooltipStore
-
-local useChatNotificationBadge = FFlagExpChatShowGlobalChatTooltip
-	or (FFlagExpChatPresetChatEnabled and FFlagExpChatUseUnifiedTooltipStore)
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Parent.Flags)
 local FFlagUnibarMenuOpenHamburger = ChromeFlags.FFlagUnibarMenuOpenHamburger
@@ -194,30 +186,17 @@ function NotificationBadge(props: IconHostProps): any?
 	local minBadgeCount = props.minBadgeCount or 0
 
 	local displayBadge
-	if useChatNotificationBadge then
-		if FFlagUseBindingForUnreadChat then
-			displayBadge = shouldShowBadge or minBadgeCount > 0
-		else
-			displayBadge = notificationCount > 0 or minBadgeCount > 0
-		end
+	if FFlagUseBindingForUnreadChat then
+		displayBadge = shouldShowBadge or minBadgeCount > 0
 	else
-		displayBadge = if FFlagUseBindingForUnreadChat then shouldShowBadge else notificationCount > 0
+		displayBadge = notificationCount > 0 or minBadgeCount > 0
 	end
 
-	local badgeValue: any
-	if useChatNotificationBadge then
-		badgeValue = if FFlagUseBindingForUnreadChat
-			then notificationData:map(function(count)
-				return math.min(math.max(count, minBadgeCount), MAX_BADGE_VALUE)
-			end)
-			else math.min(math.max(notificationCount, minBadgeCount), MAX_BADGE_VALUE)
-	else
-		badgeValue = if FFlagUseBindingForUnreadChat
-			then notificationData:map(function(count)
-				return math.min(count, MAX_BADGE_VALUE)
-			end)
-			else math.min(notificationCount, MAX_BADGE_VALUE)
-	end
+	local badgeValue: any = if FFlagUseBindingForUnreadChat
+		then notificationData:map(function(count)
+			return math.min(math.max(count, minBadgeCount), MAX_BADGE_VALUE)
+		end)
+		else math.min(math.max(notificationCount, minBadgeCount), MAX_BADGE_VALUE)
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -708,7 +687,7 @@ function IconHost(props: IconHostProps)
 			color = backgroundHover,
 			visible = isHovered,
 		}),
-		if useChatNotificationBadge and props.integration.id == "chat"
+		if props.integration.id == "chat"
 			then React.createElement(ChatNotificationBadge, {
 				iconHostProps = props,
 				NotificationBadge = NotificationBadge,

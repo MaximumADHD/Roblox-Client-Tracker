@@ -55,6 +55,7 @@ return {
 					userPresence = props.controls.userPresence,
 					backgroundStyle = surfaceColors[props.controls.background],
 					backplateStyle = surfaceColors[props.controls.backplate],
+					includeProfileFrame = props.controls.includeProfileFrame,
 				})
 			end :: unknown,
 		},
@@ -97,5 +98,6 @@ return {
 		userPresence = Dash.values(UserPresence),
 		background = surfaceColorKeys,
 		backplate = surfaceColorKeys,
+		includeProfileFrame = false,
 	},
 }

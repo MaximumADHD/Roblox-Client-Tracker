@@ -16,6 +16,7 @@ type _Messages =
 		GetChartsPageResponse_TemplatesEntry: _GetChartsPageResponse_TemplatesEntryMessage,
 		GetChartsPageResponse_LocalizedLiteralsEntry: _GetChartsPageResponse_LocalizedLiteralsEntryMessage,
 		GetChartsSortDetailRequest: _GetChartsSortDetailRequestMessage,
+		GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryMessage,
 		GetChartsSortDetailResponse: _GetChartsSortDetailResponseMessage,
 		GetChartsSortDetailResponse_TemplatesEntry: _GetChartsSortDetailResponse_TemplatesEntryMessage,
 		GetChartsSortDetailResponse_LocalizedLiteralsEntry: _GetChartsSortDetailResponse_LocalizedLiteralsEntryMessage,
@@ -280,6 +281,8 @@ type _GetChartsSortDetailRequestFields = {
 	age_group: string,
 	max_memory: string,
 	selected_genre: string,
+	cached_roblox_component_to_template_id: { [string]: string },
+	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
 }
 
 type _GetChartsSortDetailRequestPartialFields = {
@@ -291,6 +294,8 @@ type _GetChartsSortDetailRequestPartialFields = {
 	age_group: string?,
 	max_memory: string?,
 	selected_genre: string?,
+	cached_roblox_component_to_template_id: { [string]: string }?,
+	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
 }
 
 export type GetChartsSortDetailRequest = typeof(setmetatable(
@@ -300,6 +305,37 @@ export type GetChartsSortDetailRequest = typeof(setmetatable(
 type _GetChartsSortDetailRequestMessage = proto.Message<
 	GetChartsSortDetailRequest,
 	_GetChartsSortDetailRequestPartialFields
+>
+
+type _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl = {
+	__index: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl,
+	new: (
+		fields: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryPartialFields?
+	) -> GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry,
+	encode: (self: GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry) -> buffer,
+	decode: (input: buffer) -> GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry,
+	jsonEncode: (self: GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry = typeof(setmetatable(
+	{} :: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryFields,
+	{} :: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl
+))
+type _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryMessage = proto.Message<
+	GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry,
+	_GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryPartialFields
 >
 
 type _GetChartsSortDetailResponseImpl = {
@@ -1834,6 +1870,13 @@ do
 			age_group = if data == nil or data.age_group == nil then "" else data.age_group,
 			max_memory = if data == nil or data.max_memory == nil then "" else data.max_memory,
 			selected_genre = if data == nil or data.selected_genre == nil then "" else data.selected_genre,
+			cached_roblox_component_to_template_id = if data == nil
+					or data.cached_roblox_component_to_template_id == nil
+				then {}
+				else data.cached_roblox_component_to_template_id,
+			client_capabilities = if data == nil or data.client_capabilities == nil
+				then nil
+				else data.client_capabilities,
 		}, _GetChartsSortDetailRequestImpl :: _GetChartsSortDetailRequestImpl)
 	end
 
@@ -1879,6 +1922,28 @@ do
 		if self.selected_genre ~= nil and self.selected_genre ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.selected_genre)
+		end
+
+		if
+			self.cached_roblox_component_to_template_id ~= nil
+			and next(self.cached_roblox_component_to_template_id) ~= nil
+		then
+			for key, value in self.cached_roblox_component_to_template_id do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.client_capabilities ~= nil then
+			local encoded = self.client_capabilities:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -1940,6 +2005,26 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.selected_genre = buffer.tostring(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry =
+						messages.GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.cached_roblox_component_to_template_id[mapEntry.key or keyDefault] = mapEntry.value
+						or valueDefault
+
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.client_capabilities =
+						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
+					continue
 				end
 
 				local length
@@ -1997,6 +2082,21 @@ do
 
 		if self.selected_genre ~= nil and self.selected_genre ~= "" then
 			output.selectedGenre = self.selected_genre
+		end
+
+		if
+			self.cached_roblox_component_to_template_id ~= nil
+			and next(self.cached_roblox_component_to_template_id) ~= nil
+		then
+			local newOutput = {}
+			for key, value in self.cached_roblox_component_to_template_id do
+				newOutput[key] = value
+			end
+			output.cachedRobloxComponentToTemplateId = newOutput
+		end
+
+		if self.client_capabilities ~= nil then
+			output.clientCapabilities = self.client_capabilities:jsonEncode()
 		end
 
 		return output
@@ -2061,6 +2161,38 @@ do
 			self.selected_genre = input.selectedGenre
 		end
 
+		if input.cached_roblox_component_to_template_id ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.cached_roblox_component_to_template_id do
+				newOutput[key] = value
+			end
+
+			self.cached_roblox_component_to_template_id = newOutput
+		end
+
+		if input.cachedRobloxComponentToTemplateId ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.cachedRobloxComponentToTemplateId do
+				newOutput[key] = value
+			end
+
+			self.cached_roblox_component_to_template_id = newOutput
+		end
+
+		if input.client_capabilities ~= nil then
+			self.client_capabilities =
+				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
+					input.client_capabilities
+				)
+		end
+
+		if input.clientCapabilities ~= nil then
+			self.client_capabilities =
+				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
+					input.clientCapabilities
+				)
+		end
+
 		return self
 	end
 
@@ -2072,6 +2204,137 @@ do
 	messages.GetChartsSortDetailRequest = _GetChartsSortDetailRequestImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GetChartsSortDetailRequest)
+end
+
+do
+	local _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl = {}
+	_GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.__index =
+		_GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl
+
+	function _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.new(
+		data: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryPartialFields?
+	): GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl :: _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl
+		)
+	end
+
+	function _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.encode(
+		self: GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.decode(
+		input: buffer
+	): GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry
+		local self = _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.jsonEncode(
+		self: GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry
+		local self = _GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl.descriptor = {
+		name = "GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry",
+		fullName = "roblox.apppageplatform.charts.v1beta1.CachedRobloxComponentToTemplateIdEntry",
+	}
+
+	messages.GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry =
+		_GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GetChartsSortDetailRequest_CachedRobloxComponentToTemplateIdEntry)
 end
 
 do

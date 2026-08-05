@@ -32,7 +32,7 @@ type BaseMenuTitleItemProps = {
 local function BaseMenuTitleItem(props: BaseMenuTitleItemProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 
-	local variantProps = useBaseMenuItemVariants(tokens, props.size, false)
+	local variantProps = useBaseMenuItemVariants(tokens, props.size, false, false)
 
 	if Flags.FoundationBaseMenuBeta then
 		local menuHasCheck = props.menuHasCheck == true

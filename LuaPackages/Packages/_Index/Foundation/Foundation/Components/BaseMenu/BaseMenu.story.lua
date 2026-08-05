@@ -67,6 +67,98 @@ local EXPERIENCE_DATA: { { name: string, universeId: number } } = {
 	{ name = "[❤️‍🔥] Adopt Me!", universeId = 383310974 },
 }
 
+local SCROLL_TO_SELECTION_MAX_HEIGHT = 120
+local SCROLL_TO_SELECTION_ITEM_COUNT = 20
+
+-- Scroll from the scrollingFrameRef callback once the menu is measured and
+-- clamped to maxHeight (canvas taller than the window). Before that, window
+-- equals content height and centering math collapses to the top. Row position
+-- is derived from canvasHeight / itemCount rather than AbsolutePosition.
+local function useScrollToSelectedRef(items: { BaseMenuItem }, selectedId: ItemId)
+	local connections = React.useRef(nil :: { RBXScriptConnection }?)
+	local disconnect = React.useCallback(function()
+		if connections.current then
+			for _, connection in connections.current do
+				connection:Disconnect()
+			end
+			connections.current = nil
+		end
+	end, {})
+
+	local refCallback = React.useCallback(function(frame: ScrollingFrame?)
+		disconnect()
+		if not frame then
+			return
+		end
+
+		local scrollingFrame = frame
+		local function scrollToSelected(): boolean
+			local count = #items
+			local canvasHeight = scrollingFrame.AbsoluteCanvasSize.Y
+			local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
+			if count == 0 or windowHeight <= 0 or canvasHeight <= windowHeight then
+				return false
+			end
+			local rowHeight = canvasHeight / count
+			local targetIndex = 0
+			for index, item in items do
+				if item.id == selectedId then
+					targetIndex = index - 1
+					break
+				end
+			end
+			local centeredY = targetIndex * rowHeight - windowHeight / 2 + rowHeight / 2
+			scrollingFrame.CanvasPosition = Vector2.new(0, math.clamp(centeredY, 0, canvasHeight - windowHeight))
+			return true
+		end
+
+		if not scrollToSelected() then
+			local function onSizeChanged()
+				if scrollToSelected() then
+					disconnect()
+				end
+			end
+			connections.current = {
+				scrollingFrame:GetPropertyChangedSignal("AbsoluteCanvasSize"):Connect(onSizeChanged),
+				scrollingFrame:GetPropertyChangedSignal("AbsoluteWindowSize"):Connect(onSizeChanged),
+			}
+		end
+	end, { items, selectedId, disconnect } :: { unknown })
+
+	React.useEffect(function()
+		return disconnect
+	end, { disconnect } :: { unknown })
+
+	return refCallback
+end
+
+local function ScrollToSelectionStory(props): React.ReactNode
+	local selectedId, setSelectedId = React.useState("18" :: ItemId)
+
+	local items = React.useMemo(function()
+		local list: { BaseMenuItem } = {}
+		for index = 1, SCROLL_TO_SELECTION_ITEM_COUNT do
+			local id = tostring(index)
+			table.insert(list, {
+				id = id,
+				text = `Item {index}`,
+				isChecked = selectedId == id,
+			})
+		end
+		return list
+	end, { selectedId })
+
+	local scrollingFrameRef = useScrollToSelectedRef(items, selectedId)
+
+	return React.createElement(BaseMenu.Root, {
+		size = props.controls.size,
+		items = items,
+		maxHeight = SCROLL_TO_SELECTION_MAX_HEIGHT,
+		scrollingFrameRef = scrollingFrameRef,
+		onActivated = setSelectedId,
+	})
+end
+
 return {
 	summary = "BaseMenu",
 	stories = {
@@ -277,6 +369,11 @@ return {
 					onActivated = Dash.noop(),
 				})
 			end,
+		},
+		{
+			name = "Scroll-to-selection",
+			summary = "Use scrollingFrameRef to scroll the menu to the selected item.",
+			story = ScrollToSelectionStory,
 		},
 		{
 			name = "Dynamically Sizing",

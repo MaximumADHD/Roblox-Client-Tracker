@@ -1,7 +1,9 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local InputFocusBehavior = require(Foundation.Enums.InputFocusBehavior)
+type InputFocusBehavior = InputFocusBehavior.InputFocusBehavior
 local React = require(Packages.React)
 
 local InputSize = require(Foundation.Enums.InputSize)
@@ -11,25 +13,66 @@ local InputVariant = require(Foundation.Enums.InputVariant)
 type InputVariant = InputVariant.InputVariant
 
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
+type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
 local OnChangeCallbackReason = require(Foundation.Enums.OnChangeCallbackReason)
 type OnChangeCallbackReason = OnChangeCallbackReason.OnChangeCallbackReason
-local Button = require(Foundation.Components.Button)
 local ScrubBehavior = require(Foundation.Enums.ScrubBehavior)
+type ScrubBehavior = ScrubBehavior.ScrubBehavior
+local MatrixGrid = require(Foundation.Utility.Stories.MatrixGrid)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
 local Flags = require(Foundation.Utility.Flags)
 local NumberInput = require(Foundation.Components.NumberInput)
 
-local function withDefaultFirst<T>(values: { T }, defaultValue: T): { T }
-	local result = { defaultValue }
-	for _, value in values do
-		if value ~= defaultValue then
-			table.insert(result, value)
-		end
-	end
-	return result
-end
+local IconName = BuilderIcons.Icon
+
+-- Shared ordered constants: reuse the same enum order in every matrix and control.
+local SIZE_ORDER: { InputSize } = {
+	InputSize.XSmall,
+	InputSize.Small,
+	InputSize.Medium,
+	InputSize.Large,
+}
+local VARIANT_ORDER: { InputVariant } = {
+	InputVariant.Standard,
+	InputVariant.Contrast,
+	InputVariant.Utility,
+}
+local CONTROLS_VARIANT_ORDER: { NumberInputControlsVariant } = {
+	NumberInputControlsVariant.Stacked,
+	NumberInputControlsVariant.Split,
+	NumberInputControlsVariant.None,
+}
+local SCRUB_ORDER: { ScrubBehavior } = {
+	ScrubBehavior.Off,
+	ScrubBehavior.On,
+}
+
+local WIDTH_EXAMPLES: { { label: string, width: UDim? } } = {
+	{ label = "Default (300)", width = nil },
+	{ label = "120", width = UDim.new(0, 120) },
+	{ label = "200", width = UDim.new(0, 200) },
+	{ label = "320", width = UDim.new(0, 320) },
+}
+
+-- The three accepted icon input types (builder, migrated legacy string, non-migrated
+-- legacy string). The legacy strings match the classification used in Button.
+local ICON_TYPES: { { caption: string, icon: string } } = {
+	{ caption = "Builder", icon = IconName.House },
+	{ caption = "Migrated legacy", icon = "icons/placeholder/placeholderOn_small" },
+	{ caption = "Non-migrated legacy", icon = "icons/menu/clothing/limited_on" },
+}
+
+local ICON_INFO_COLUMN_WIDTH = 140
+local ICON_CELL_COLUMN_WIDTH = 220
+
+local ICON_CONTROL_OPTIONS = {
+	React.None,
+	IconName.House,
+	"icons/placeholder/placeholderOn_small",
+	"icons/menu/clothing/limited_on",
+}
 
 type FormatAsStringEntry = {
 	name: string,
@@ -69,6 +112,30 @@ local FORMAT_AS_STRING_CALLBACKS: { FormatAsStringEntry } = {
 	},
 }
 
+type SectionProps = {
+	caption: string,
+	contentTag: string?,
+	LayoutOrder: number?,
+	children: React.ReactNode?,
+}
+
+local function Section(props: SectionProps)
+	return React.createElement(View, {
+		tag = "col gap-medium size-full-0 auto-y",
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Title = React.createElement(Text, {
+			Text = props.caption,
+			tag = "text-label-medium content-default auto-xy text-align-x-left",
+			LayoutOrder = 1,
+		}),
+		Content = React.createElement(View, {
+			tag = props.contentTag or "row gap-xxlarge auto-xy align-y-start wrap",
+			LayoutOrder = 2,
+		}, props.children),
+	})
+end
+
 type GroupProps = {
 	caption: string,
 	contentTag: string,
@@ -78,12 +145,12 @@ type GroupProps = {
 
 local function Group(props: GroupProps)
 	return React.createElement(View, {
-		tag = "col gap-medium auto-xy",
+		tag = "col gap-small align-x-left auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Caption = React.createElement(Text, {
 			Text = props.caption,
-			tag = "text-body-small content-default auto-xy",
+			tag = "text-caption-small content-default auto-xy text-align-x-left",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -108,35 +175,54 @@ local function StatefulNumberInput(props)
 	)
 end
 
-local function PlaygroundStory(props)
+local function IconMatrixCell(props: { layoutOrder: number, leadingIcon: string?, trailingIcon: string? })
+	return React.createElement(View, {
+		tag = "col align-x-left auto-y",
+		Size = UDim2.fromOffset(ICON_CELL_COLUMN_WIDTH, 0),
+		LayoutOrder = props.layoutOrder,
+	}, {
+		Input = React.createElement(StatefulNumberInput, {
+			defaultValue = 0,
+			label = "Value",
+			leadingIcon = props.leadingIcon,
+			trailingIcon = props.trailingIcon,
+			minimum = 0,
+			maximum = 100,
+			step = 1,
+			width = UDim.new(0, 200),
+		}),
+	})
+end
+
+local function matrixLabel(text: string): React.ReactNode
+	return React.createElement(Text, {
+		Text = text,
+		tag = "auto-xy text-caption-small text-align-x-left content-default",
+	})
+end
+
+local function PlaygroundStory(props): React.ReactNode
 	local controls = props.controls
 	local formatAsString = (Dash.find(FORMAT_AS_STRING_CALLBACKS, function(entry)
-		return entry.name == controls.formatAsString
+		return entry.name == controls.format
 	end) :: FormatAsStringEntry).callback
 
 	local value, setValue = React.useState(0)
-	local valueBinding, setValueBinding = React.useBinding(0)
-
-	local function handleChange(newValue: number)
-		if controls.useBindingValue then
-			setValueBinding(newValue)
-		else
-			setValue(newValue)
-		end
-	end
 
 	local handleTextChanged = React.useCallback(function(text: string)
 		print(text)
 	end, {})
 
 	return React.createElement(NumberInput, {
-		value = if controls.useBindingValue then valueBinding else value,
+		value = value,
 		variant = controls.variant,
 		controlsVariant = if Flags.FoundationNumberInputBeta then nil else controls.controlsVariant,
 		hasError = controls.hasError,
 		isDisabled = controls.isDisabled,
 		isRequired = controls.isRequired,
-		onChanged = handleChange,
+		onChanged = function(newValue: number)
+			setValue(newValue)
+		end,
 		onTextChanged = if Flags.FoundationNumberInputOnTextChanged and controls.onTextChanged
 			then handleTextChanged
 			else nil,
@@ -147,7 +233,7 @@ local function PlaygroundStory(props)
 		maximum = controls.maximum,
 		minimum = controls.minimum,
 		step = controls.step,
-		hint = if controls.hint == "" then nil else controls.hint,
+		hint = controls.hint,
 		precision = controls.precision,
 		leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
 		trailingIcon = if Flags.FoundationNumberInputBeta
@@ -161,43 +247,18 @@ local function PlaygroundStory(props)
 	})
 end
 
-local function SizesStory()
-	return React.createElement(
-		View,
-		{ tag = "row gap-xxlarge auto-xy align-y-bottom" },
-		Dash.map(
-			{ Large = InputSize.Large, Medium = InputSize.Medium, Small = InputSize.Small, XSmall = InputSize.XSmall },
-			function(size, name)
-				return React.createElement(Group, {
-					caption = name,
-					contentTag = "auto-xy",
-				}, {
-					Input = React.createElement(StatefulNumberInput, {
-						defaultValue = 42,
-						size = size,
-						label = "Value",
-						minimum = 0,
-						maximum = 100,
-						step = 1,
-						width = UDim.new(0, 200),
-					}),
-				})
-			end
-		)
-	)
-end
-
 local function VariantsStory()
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy" },
-		Dash.map(InputVariant, function(variant, name)
+		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		Dash.map(VARIANT_ORDER, function(variant, index)
 			return React.createElement(Group, {
-				caption = name,
+				caption = variant,
 				contentTag = "auto-xy",
+				LayoutOrder = index,
 			}, {
 				Input = React.createElement(StatefulNumberInput, {
-					defaultValue = 25,
+					defaultValue = 0,
 					variant = variant,
 					label = "Value",
 					minimum = 0,
@@ -210,16 +271,67 @@ local function VariantsStory()
 	)
 end
 
+local function SizingStory()
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y",
+	}, {
+		Size = React.createElement(
+			Section,
+			{ caption = "Size", LayoutOrder = 1, contentTag = "row gap-xxlarge auto-xy align-y-bottom wrap" },
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(Group, {
+					caption = size,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 0,
+						size = size,
+						label = "Value",
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		),
+		Width = React.createElement(
+			Section,
+			{ caption = "Width", LayoutOrder = 2, contentTag = "row gap-xxlarge auto-xy align-y-bottom wrap" },
+			Dash.map(WIDTH_EXAMPLES, function(example, index)
+				return React.createElement(Group, {
+					caption = example.label,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 0,
+						label = "Value",
+						width = example.width,
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+					}),
+				})
+			end)
+		),
+	})
+end
+
 local function StatesStory()
-	local states = {
-		{ caption = "Enabled", isDisabled = false, hasError = false },
-		{ caption = "Disabled", isDisabled = true, hasError = false },
-		{ caption = "Error", isDisabled = false, hasError = true },
-	}
+	local states: { { caption: string, hint: string?, isDisabled: boolean?, hasError: boolean?, isRequired: boolean? } } =
+		{
+			{ caption = "Enabled" },
+			{ caption = "Hint", hint = "Hint text" },
+			{ caption = "Disabled", isDisabled = true },
+			{ caption = "Error", hasError = true, hint = "Value is invalid" },
+			{ caption = "Required", isRequired = true },
+		}
 
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy" },
+		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
 		Dash.map(states, function(state, index)
 			return React.createElement(Group, {
 				caption = state.caption,
@@ -227,11 +339,12 @@ local function StatesStory()
 				LayoutOrder = index,
 			}, {
 				Input = React.createElement(StatefulNumberInput, {
-					defaultValue = 50,
+					defaultValue = 0,
 					label = "Value",
-					hint = if state.hasError then "Value is invalid" else "Hint text",
+					hint = state.hint,
 					isDisabled = state.isDisabled,
 					hasError = state.hasError,
+					isRequired = state.isRequired,
 					minimum = 0,
 					maximum = 100,
 					step = 1,
@@ -242,133 +355,88 @@ local function StatesStory()
 	)
 end
 
-local function ControlsVariantStory()
-	if Flags.FoundationNumberInputBeta then
-		return React.createElement(
-			View,
-			{ tag = "row gap-xxlarge auto-xy" },
-			Dash.map({
-				{ caption = "With Controls", hasControls = true },
-				{ caption = "Without Controls", hasControls = false },
-			}, function(option, index)
-				return React.createElement(Group, {
-					caption = option.caption,
-					contentTag = "auto-xy",
-					LayoutOrder = index,
-				}, {
-					Input = React.createElement(StatefulNumberInput, {
-						defaultValue = 10,
-						label = "Value",
-						hasControls = option.hasControls,
-						minimum = 0,
-						maximum = 100,
-						step = 1,
-						width = UDim.new(0, 200),
-					}),
-				})
-			end)
-		)
-	else
-		return React.createElement(
-			View,
-			{ tag = "row gap-xxlarge auto-xy" },
-			Dash.map(NumberInputControlsVariant, function(variant, name)
-				return React.createElement(Group, {
-					caption = name,
-					contentTag = "auto-xy",
-				}, {
-					Input = React.createElement(StatefulNumberInput, {
-						defaultValue = 10,
-						controlsVariant = variant,
-						label = "Value",
-						minimum = 0,
-						maximum = 100,
-						step = 1,
-						width = UDim.new(0, 200),
-					}),
-				})
-			end)
-		)
-	end
+local function ControlledStory()
+	local value, setValue = React.useState(0)
+	local lastReason, setLastReason = React.useState(nil :: OnChangeCallbackReason?)
+
+	return React.createElement(View, {
+		tag = "col gap-medium size-full-0 auto-y",
+	}, {
+		Input = React.createElement(NumberInput, {
+			value = value,
+			onChanged = function(newValue: number, reason: OnChangeCallbackReason)
+				setValue(newValue)
+				setLastReason(reason)
+			end,
+			label = "Quantity",
+			hint = "Number from 0 to 100",
+			hasControls = true,
+			controlsVariant = NumberInputControlsVariant.Split,
+			minimum = 0,
+			maximum = 100,
+			step = 1,
+			width = UDim.new(0, 200),
+			LayoutOrder = 1,
+		}),
+		Readout = React.createElement(Text, {
+			Text = `Value: {value} — last change: {lastReason or "none"}`,
+			tag = "auto-xy text-body-medium content-emphasis text-align-x-left",
+			LayoutOrder = 2,
+		}),
+	})
 end
 
-local function PrefixSuffixStory()
-	local examples: { { caption: string, prefix: string?, suffix: string? } } = {
-		{ caption = "Prefix ($)", prefix = "$", suffix = nil },
-		{ caption = "Suffix (%)", prefix = nil, suffix = "%" },
-		{ caption = "Suffix (px) + Icon", prefix = nil, suffix = "px", leadingIcon = "icons/common/search_small" },
-	}
-
+local function ScrubbingStory()
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy" },
-		Dash.map(examples, function(example, index)
+		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		Dash.map(SCRUB_ORDER, function(behavior, index)
 			return React.createElement(Group, {
-				caption = example.caption,
+				caption = behavior,
 				contentTag = "auto-xy",
 				LayoutOrder = index,
 			}, {
 				Input = React.createElement(StatefulNumberInput, {
-					defaultValue = 100,
-					label = "Value",
-					prefix = example.prefix,
-					suffix = example.suffix,
-					leadingIcon = example.leadingIcon,
-					minimum = 0,
-					maximum = 9999,
-					step = 1,
-					width = UDim.new(0, 200),
-				}),
-			})
-		end)
-	)
-end
-
-local function IconsStory()
-	local examples: { { caption: string, leadingIcon: string?, trailingIcon: string? } } = {
-		{ caption = "Leading", leadingIcon = "icons/common/search_small", trailingIcon = nil },
-		{ caption = "Trailing", leadingIcon = nil, trailingIcon = "icons/status/private_small" },
-		{ caption = "Both", leadingIcon = "icons/common/search_small", trailingIcon = "icons/status/private_small" },
-	}
-
-	return React.createElement(
-		View,
-		{ tag = "row gap-xxlarge auto-xy" },
-		Dash.map(examples, function(example, index)
-			return React.createElement(Group, {
-				caption = example.caption,
-				contentTag = "auto-xy",
-				LayoutOrder = index,
-			}, {
-				Input = React.createElement(StatefulNumberInput, {
-					defaultValue = 42,
-					label = "Value",
-					leadingIcon = example.leadingIcon,
-					trailingIcon = if Flags.FoundationNumberInputBeta then example.trailingIcon else nil,
-					minimum = 0,
-					maximum = 100,
-					step = 1,
-					width = UDim.new(0, 200),
-				}),
-			})
-		end)
-	)
-end
-
-local function ScrubBehaviorStory()
-	return React.createElement(
-		View,
-		{ tag = "row gap-xxlarge auto-xy" },
-		Dash.map(ScrubBehavior, function(behavior, name)
-			return React.createElement(Group, {
-				caption = name,
-				contentTag = "auto-xy",
-			}, {
-				Input = React.createElement(StatefulNumberInput, {
-					defaultValue = 50,
+					defaultValue = 0,
 					label = "Drag to change",
 					hint = if behavior == ScrubBehavior.On then "Scrub enabled" else "Scrub disabled",
 					scrubBehavior = behavior,
+					hasControls = false,
+					controlsVariant = NumberInputControlsVariant.None,
+					minimum = 0,
+					maximum = 100,
+					step = 1,
+					width = UDim.new(0, 200),
+				}),
+			})
+		end)
+	)
+end
+
+local function FocusBehaviorStory(): React.Node
+	local options: { { caption: string, focusBehavior: InputFocusBehavior, hint: string } } = {
+		{ caption = "Clear", focusBehavior = InputFocusBehavior.Clear, hint = "Cursor placed on focus" },
+		{
+			caption = "Highlight",
+			focusBehavior = InputFocusBehavior.Highlight,
+			hint = "Selects all on focus (desktop only)",
+		},
+	}
+
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		Dash.map(options, function(option, index)
+			return React.createElement(Group, {
+				caption = option.caption,
+				contentTag = "auto-xy",
+				LayoutOrder = index,
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = 0,
+					label = "Value",
+					hint = option.hint,
+					focusBehavior = option.focusBehavior,
 					minimum = 0,
 					maximum = 100,
 					step = 1,
@@ -403,7 +471,7 @@ end
 local EXPRESSION_INPUT_HINT = 'Type an expression like "3 + 5"'
 local INVALID_EXPRESSION_HINT = "Could not compute expression"
 
-local function ExpressionInputStory(_props: any)
+local function ExpressionInputStory(_props: any): React.ReactNode
 	local value: number?, setValue: (number?) -> () = React.useState(nil :: number?)
 	local expression, setExpression = React.useState("")
 	local errorMessage: string?, setErrorMessage: (string?) -> () = React.useState(nil :: string?)
@@ -431,7 +499,6 @@ local function ExpressionInputStory(_props: any)
 		Input = React.createElement(NumberInput, {
 			value = value or 0,
 			label = "Padding",
-			-- Pair hasError with a hint message to tell the user their formula is invalid.
 			hasError = errorMessage ~= nil,
 			hint = errorMessage or EXPRESSION_INPUT_HINT,
 			onTextChanged = onTextChanged,
@@ -453,225 +520,288 @@ local function ExpressionInputStory(_props: any)
 	})
 end
 
-type HistoryEntry = {
-	value: number,
-	reason: OnChangeCallbackReason,
-}
+local function StepIncrementsStory(): React.Node
+	-- step is interactive-only: it only changes what a stepper click / arrow key / scrub
+	-- adds or subtracts, so it's demonstrated here (steppers on) rather than in Content.
+	-- The tight-range cell also surfaces min/max enforcement during interaction.
+	local stepExamples: { { caption: string, step: number, precision: number?, minimum: number, maximum: number, defaultValue: number } } =
+		{
+			{ caption = "Step 1", step = 1, minimum = 0, maximum = 100, defaultValue = 10 },
+			{ caption = "Step 5", step = 5, minimum = 0, maximum = 100, defaultValue = 10 },
+			{ caption = "Step 0.25", step = 0.25, precision = 2, minimum = 0, maximum = 100, defaultValue = 1 },
+			{ caption = "Tight range (0–5)", step = 1, minimum = 0, maximum = 5, defaultValue = 3 },
+		}
 
-local function UndoRedoStackStory()
-	local value, setValue = React.useState(50)
-	local history, setHistory =
-		React.useState({ { value = 50, reason = OnChangeCallbackReason.FocusLost } } :: { HistoryEntry })
-	local historyIndex, setHistoryIndex = React.useState(1)
-	local lastReasonRef = React.useRef(nil :: OnChangeCallbackReason?)
-
-	local canUndo = historyIndex > 1
-	local canRedo = historyIndex < #history
-
-	local function handleChange(newValue: number, reason: OnChangeCallbackReason)
-		setValue(newValue)
-
-		if reason == OnChangeCallbackReason.Keyboard then
-			return
-		end
-
-		if reason == OnChangeCallbackReason.Drag and lastReasonRef.current == OnChangeCallbackReason.Drag then
-			setHistory(function(prev)
-				local newHistory = table.clone(prev)
-				newHistory[historyIndex] = { value = newValue, reason = reason }
-				return newHistory
-			end)
-		else
-			setHistory(function(prev)
-				local newHistory = {}
-				for i = 1, historyIndex do
-					table.insert(newHistory, prev[i])
-				end
-				table.insert(newHistory, { value = newValue, reason = reason })
-				return newHistory
-			end)
-			setHistoryIndex(function(prev)
-				return prev + 1
-			end)
-		end
-
-		lastReasonRef.current = reason
-	end
-
-	local function undo()
-		if canUndo then
-			local newIndex = historyIndex - 1
-			setHistoryIndex(newIndex)
-			setValue(history[newIndex].value)
-			lastReasonRef.current = nil
-		end
-	end
-
-	local function redo()
-		if canRedo then
-			local newIndex = historyIndex + 1
-			setHistoryIndex(newIndex)
-			setValue(history[newIndex].value)
-			lastReasonRef.current = nil
-		end
-	end
-
-	local historyItems = {}
-	for i, entry in history do
-		local isCurrent = i == historyIndex
-		table.insert(
-			historyItems,
-			React.createElement(Text, {
-				key = tostring(i),
-				tag = {
-					["auto-xy text-body-medium content-emphasis"] = isCurrent,
-					["auto-xy text-body-medium content-default"] = not isCurrent,
-				},
-				Text = `{i}. {entry.value} ({entry.reason}){if isCurrent then " ←" else ""}`,
+	return React.createElement(
+		View,
+		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		Dash.map(stepExamples, function(example, index)
+			return React.createElement(Group, {
+				caption = example.caption,
+				contentTag = "auto-xy",
+				LayoutOrder = index,
+			}, {
+				Input = React.createElement(StatefulNumberInput, {
+					defaultValue = example.defaultValue,
+					label = "Value",
+					hint = if example.maximum == 5 then "Stops at 0 and 5" else `Steps by {example.step}`,
+					-- Steppers rendered in both flag states: Split passes the beta hasControls
+					-- guard (not Stacked/None) and renders SplitControls pre-beta.
+					hasControls = true,
+					controlsVariant = NumberInputControlsVariant.Split,
+					minimum = example.minimum,
+					maximum = example.maximum,
+					step = example.step,
+					precision = example.precision,
+					width = UDim.new(0, 200),
+				}),
 			})
-		)
-	end
+		end)
+	)
+end
+
+local function SteppersSection(): React.ReactNode
+	return Dash.map(SIZE_ORDER, function(size, index)
+		return React.createElement(Group, {
+			caption = size,
+			contentTag = "auto-xy",
+			LayoutOrder = index,
+		}, {
+			Input = React.createElement(StatefulNumberInput, {
+				defaultValue = 0,
+				size = size,
+				label = "Value",
+				-- Steppers rendered in both flag states: Split passes the beta hasControls
+				-- guard (not Stacked/None) and renders SplitControls pre-beta.
+				hasControls = true,
+				controlsVariant = NumberInputControlsVariant.Split,
+				minimum = 0,
+				maximum = 100,
+				step = 1,
+				width = UDim.new(0, 200),
+			}),
+		})
+	end)
+end
+
+local function ContentStory()
+	local prefixSuffixExamples: { { caption: string, prefix: string?, suffix: string?, leadingIcon: string? } } = {
+		{ caption = "Prefix ($)", prefix = "$" },
+		{ caption = "Suffix (%)", suffix = "%" },
+		{ caption = "Suffix (px) + icon", suffix = "px", leadingIcon = IconName.House },
+	}
+
+	-- The field constrains its displayed value to [minimum, maximum] on render, so
+	-- out-of-range values clamp to the nearest bound (e.g. 1000000 shows as 9999).
+	local limitExamples: { { caption: string, defaultValue: number } } = {
+		{ caption = "Above maximum (1000000 → 9999)", defaultValue = 1000000 },
+		{ caption = "Below minimum (-500 → 0)", defaultValue = -500 },
+	}
+
+	-- precision rounds the displayed value, so the same underlying number renders
+	-- differently per precision. This is statically visible (no interaction needed).
+	local precisionExamples: { { caption: string, precision: number } } = {
+		{ caption = "0", precision = 0 },
+		{ caption = "1", precision = 1 },
+		{ caption = "2", precision = 2 },
+		{ caption = "3 (default)", precision = 3 },
+	}
 
 	return React.createElement(View, {
-		tag = "col gap-large size-full-0 auto-y padding-large",
+		tag = "col gap-xxlarge size-full-0 auto-y",
 	}, {
-		Input = React.createElement(NumberInput, {
-			value = value,
-			onChanged = handleChange,
-			label = "Value with Undo/Redo",
-			hint = "Drag consolidates, buttons/keyboard create entries",
-			minimum = 0,
-			maximum = 100,
-			step = 1,
-			isScrubbable = true,
-			width = UDim.new(0, 300),
-			LayoutOrder = 1,
-		}),
-		Controls = React.createElement(View, {
-			tag = "row gap-small auto-xy",
-			LayoutOrder = 2,
+		NumberLimits = React.createElement(
+			Section,
+			{ caption = "Number limits", LayoutOrder = 1 },
+			Dash.map(limitExamples, function(example, index)
+				return React.createElement(Group, {
+					caption = example.caption,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = example.defaultValue,
+						label = "Value",
+						minimum = 0,
+						maximum = 9999,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		),
+		Precision = React.createElement(
+			Section,
+			{ caption = "Precision", LayoutOrder = 2 },
+			Dash.map(precisionExamples, function(example, index)
+				return React.createElement(Group, {
+					caption = example.caption,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 3.14159,
+						label = "Value",
+						precision = example.precision,
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		),
+		Steppers = React.createElement(Section, { caption = "Steppers", LayoutOrder = 3 }, SteppersSection()),
+		PrefixSuffix = React.createElement(
+			Section,
+			{ caption = "Prefix / suffix", LayoutOrder = 4 },
+			Dash.map(prefixSuffixExamples, function(example, index)
+				return React.createElement(Group, {
+					caption = example.caption,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 0,
+						label = "Value",
+						prefix = example.prefix,
+						suffix = example.suffix,
+						leadingIcon = example.leadingIcon,
+						minimum = 0,
+						maximum = 9999,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		),
+		Icons = React.createElement(Section, {
+			caption = "Icon types and placement",
+			LayoutOrder = 5,
+			contentTag = "auto-xy",
 		}, {
-			UndoButton = React.createElement(Button, {
-				text = "Undo",
-				onActivated = undo,
-				isDisabled = not canUndo,
-				LayoutOrder = 1,
-			}),
-			RedoButton = React.createElement(Button, {
-				text = "Redo",
-				onActivated = redo,
-				isDisabled = not canRedo,
-				LayoutOrder = 2,
+			Matrix = React.createElement(MatrixGrid, {
+				labelColumnWidth = ICON_INFO_COLUMN_WIDTH,
+				columnHeaders = { "Leading", "Trailing" },
+				cellColumnWidth = ICON_CELL_COLUMN_WIDTH,
+				headerTextAlign = "left",
+				cellAlign = "left",
+				rows = Dash.map(ICON_TYPES, function(iconType)
+					return {
+						label = matrixLabel(iconType.caption),
+						cells = {
+							React.createElement(IconMatrixCell, {
+								layoutOrder = 1,
+								leadingIcon = iconType.icon,
+							}),
+							React.createElement(IconMatrixCell, {
+								layoutOrder = 1,
+								trailingIcon = if Flags.FoundationNumberInputBeta then iconType.icon else nil,
+							}),
+						},
+					}
+				end),
 			}),
 		}),
-		HistoryLabel = React.createElement(Text, {
-			tag = "auto-xy text-title-medium content-emphasis",
-			Text = "History Stack:",
-			LayoutOrder = 3,
-		}),
-		History = React.createElement(View, {
-			tag = "col gap-xsmall auto-y",
-			LayoutOrder = 4,
-		}, historyItems),
+		IconPerSize = React.createElement(
+			Section,
+			{ caption = "Icon per size", LayoutOrder = 6, contentTag = "row gap-xxlarge auto-xy align-y-bottom wrap" },
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(Group, {
+					caption = size,
+					contentTag = "auto-xy",
+					LayoutOrder = index,
+				}, {
+					Input = React.createElement(StatefulNumberInput, {
+						defaultValue = 0,
+						size = size,
+						label = "Value",
+						leadingIcon = IconName.House,
+						minimum = 0,
+						maximum = 100,
+						step = 1,
+						width = UDim.new(0, 200),
+					}),
+				})
+			end)
+		),
 	})
 end
 
-local stories: { { name: string, story: (props: any) -> React.Node, summary: string? } } = {
+local stories = {
 	{
 		name = "Playground",
-		story = function(props)
-			return React.createElement(PlaygroundStory, { controls = props.controls })
-		end,
-	},
-	{
-		name = "Sizes",
-		story = SizesStory,
+		story = PlaygroundStory :: unknown,
 	},
 	{
 		name = "Variants",
 		story = VariantsStory,
 	},
 	{
+		name = "Sizing",
+		story = SizingStory,
+	},
+	{
 		name = "States",
 		story = StatesStory,
 	},
 	{
-		name = "ControlsVariant",
-		story = ControlsVariantStory,
+		name = "Controlled component",
+		story = ControlledStory,
 	},
 	{
-		name = "PrefixSuffix",
-		story = PrefixSuffixStory,
+		name = "Scrubbing",
+		story = ScrubbingStory,
 	},
 	{
-		name = "Icons",
-		story = IconsStory,
+		name = "Step increments",
+		story = StepIncrementsStory,
 	},
 	{
-		name = "ScrubBehavior",
-		story = ScrubBehaviorStory,
+		name = "Focus behavior",
+		story = FocusBehaviorStory,
 	},
 	{
-		name = "UndoRedoStack",
-		story = UndoRedoStackStory,
+		name = "Content",
+		story = ContentStory,
 	},
 }
 
 if Flags.FoundationNumberInputOnTextChanged then
-	table.insert(
-		stories,
-		{
-			name = "Expression input",
-			summary = "Uses `onTextChanged` to allow for custom expressions to be written instead of exclusively numbers.",
-			story = ExpressionInputStory,
-		} :: { name: string, story: (props: any) -> React.Node, summary: string? }
-	)
+	table.insert(stories, {
+		name = "Expression input",
+		summary = "Uses `onTextChanged` to allow for custom expressions to be written instead of exclusively numbers.",
+		story = ExpressionInputStory,
+	})
 end
 
 return {
-	summary = "NumberInput",
+	summary = "Numeric text input with steppers, scrubbing, prefix/suffix, formatting, and validation.",
 	stories = stories,
 	controls = {
-		label = "",
-		hint = "",
-		size = withDefaultFirst(Dash.values(InputSize), InputSize.Large),
-		isRequired = { React.None, false, true },
-		variant = withDefaultFirst(Dash.values(InputVariant), InputVariant.Standard),
-		controlsVariant = if Flags.FoundationNumberInputBeta
-			then nil
-			else withDefaultFirst(Dash.values(NumberInputControlsVariant), NumberInputControlsVariant.Stacked),
-		formatAsString = Dash.values(Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
+		label = "Label",
+		hint = "Number from -5 to 100",
+		size = SIZE_ORDER,
+		isRequired = { false, true },
+		variant = VARIANT_ORDER,
+		controlsVariant = if Flags.FoundationNumberInputBeta then nil else CONTROLS_VARIANT_ORDER,
+		format = Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
 			return entry.name
-		end)),
+		end),
 		onTextChanged = if Flags.FoundationNumberInputOnTextChanged then false else nil,
 		hasError = false,
 		isDisabled = false,
-		useBindingValue = false,
-		maximum = math.huge,
-		minimum = -math.huge,
-		step = 1,
-		precision = 3,
+		maximum = 100,
+		minimum = -5,
+		step = 0.2,
+		precision = 2,
 		prefix = "",
 		suffix = "",
 		width = 0,
-		scrubBehavior = withDefaultFirst(Dash.values(ScrubBehavior), ScrubBehavior.Off),
-		leadingIcon = {
-			React.None,
-			"icons/placeholder/placeholderOn_small",
-			"icons/status/private_small",
-			"icons/common/search_small",
-		},
-		trailingIcon = if Flags.FoundationNumberInputBeta
-			then {
-				React.None,
-				"icons/placeholder/placeholderOn_small",
-				"icons/status/private_small",
-				"icons/common/search_small",
-			}
-			else nil,
-		hasControls = if Flags.FoundationNumberInputBeta then false else nil,
-		focusBehavior = if Flags.FoundationTextInputHighlightFix
-			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
-			else nil,
+		scrubBehavior = SCRUB_ORDER,
+		leadingIcon = ICON_CONTROL_OPTIONS,
+		trailingIcon = if Flags.FoundationNumberInputBeta then ICON_CONTROL_OPTIONS else nil,
+		hasControls = if Flags.FoundationNumberInputBeta then true else nil,
+		focusBehavior = { React.None, unpack(Dash.values(InputFocusBehavior)) },
 	},
 }

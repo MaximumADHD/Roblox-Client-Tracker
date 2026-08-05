@@ -169,6 +169,8 @@ type _Messages =
 		PinExperienceShortcutAction_Params: _PinExperienceShortcutAction_ParamsMessage,
 		DownloadAppAction: _DownloadAppActionMessage,
 		DownloadAppAction_Params: _DownloadAppAction_ParamsMessage,
+		ActionSequenceAction: _ActionSequenceActionMessage,
+		ActionSequenceAction_Params: _ActionSequenceAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -1184,6 +1186,7 @@ type _OpenFacialAgeEstimationAction_ParamsFields = {
 	is_in_experience: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	on_success: ActionProp?,
 	on_failure: ActionProp?,
+	should_include_vpc: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _OpenFacialAgeEstimationAction_ParamsPartialFields = {
@@ -1193,6 +1196,7 @@ type _OpenFacialAgeEstimationAction_ParamsPartialFields = {
 	is_in_experience: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	on_success: ActionProp?,
 	on_failure: ActionProp?,
+	should_include_vpc: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type OpenFacialAgeEstimationAction_Params = typeof(setmetatable(
@@ -1238,13 +1242,19 @@ type _ShowToastAction_ParamsImpl = {
 }
 
 type _ShowToastAction_ParamsFields = {
-	message_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	toast_message: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	toast_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	dismiss_prompt: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _ShowToastAction_ParamsPartialFields = {
-	message_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	toast_message: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	toast_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	dismiss_prompt: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type ShowToastAction_Params = typeof(setmetatable(
@@ -4396,11 +4406,15 @@ type _DismissPromptAction_ParamsImpl = {
 type _DismissPromptAction_ParamsFields = {
 	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	entity_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _DismissPromptAction_ParamsPartialFields = {
 	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	entity_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type DismissPromptAction_Params = typeof(setmetatable(
@@ -4876,6 +4890,59 @@ export type DownloadAppAction_Params = typeof(setmetatable(
 ))
 type _DownloadAppAction_ParamsMessage = proto.Message<DownloadAppAction_Params, _DownloadAppAction_ParamsPartialFields>
 
+type _ActionSequenceActionImpl = {
+	__index: _ActionSequenceActionImpl,
+	new: (fields: _ActionSequenceActionPartialFields?) -> ActionSequenceAction,
+	encode: (self: ActionSequenceAction) -> buffer,
+	decode: (input: buffer) -> ActionSequenceAction,
+	jsonEncode: (self: ActionSequenceAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ActionSequenceAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ActionSequenceActionFields = {
+	action_type: ActionType,
+	action_params: ActionSequenceAction_Params?,
+}
+
+type _ActionSequenceActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ActionSequenceAction_Params?,
+}
+
+export type ActionSequenceAction = typeof(setmetatable(
+	{} :: _ActionSequenceActionFields,
+	{} :: _ActionSequenceActionImpl
+))
+type _ActionSequenceActionMessage = proto.Message<ActionSequenceAction, _ActionSequenceActionPartialFields>
+
+type _ActionSequenceAction_ParamsImpl = {
+	__index: _ActionSequenceAction_ParamsImpl,
+	new: (fields: _ActionSequenceAction_ParamsPartialFields?) -> ActionSequenceAction_Params,
+	encode: (self: ActionSequenceAction_Params) -> buffer,
+	decode: (input: buffer) -> ActionSequenceAction_Params,
+	jsonEncode: (self: ActionSequenceAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ActionSequenceAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ActionSequenceAction_ParamsFields = {
+	actions: { ActionProp },
+}
+
+type _ActionSequenceAction_ParamsPartialFields = {
+	actions: { ActionProp }?,
+}
+
+export type ActionSequenceAction_Params = typeof(setmetatable(
+	{} :: _ActionSequenceAction_ParamsFields,
+	{} :: _ActionSequenceAction_ParamsImpl
+))
+type _ActionSequenceAction_ParamsMessage = proto.Message<
+	ActionSequenceAction_Params,
+	_ActionSequenceAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -4966,9 +5033,11 @@ type _ActionFields = {
 		| { type: "select_marketplace_favorites_subcategory", value: SelectMarketplaceFavoritesSubcategory }
 		| { type: "show_toast_action", value: ShowToastAction }
 		| { type: "open_incoming_transfer_upsell_action", value: OpenIncomingTransferUpsellAction }
+		| { type: "action_sequence_action", value: ActionSequenceAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
+	skip_unified_logging: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _ActionPartialFields = {
@@ -5051,9 +5120,11 @@ type _ActionPartialFields = {
 		| { type: "select_marketplace_favorites_subcategory", value: SelectMarketplaceFavoritesSubcategory }
 		| { type: "show_toast_action", value: ShowToastAction }
 		| { type: "open_incoming_transfer_upsell_action", value: OpenIncomingTransferUpsellAction }
+		| { type: "action_sequence_action", value: ActionSequenceAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
+	skip_unified_logging: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type Action = typeof(setmetatable({} :: _ActionFields, {} :: _ActionImpl))
@@ -5390,6 +5461,7 @@ export type ActionType =
 	| "ACTION_TYPE_SELECT_MARKETPLACE_FAVORITES_SUBCATEGORY"
 	| "ACTION_TYPE_SHOW_TOAST"
 	| "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
+	| "ACTION_TYPE_ACTION_SEQUENCE"
 	| number -- Unknown
 
 do
@@ -10505,6 +10577,7 @@ do
 			is_in_experience = if data == nil or data.is_in_experience == nil then nil else data.is_in_experience,
 			on_success = if data == nil or data.on_success == nil then nil else data.on_success,
 			on_failure = if data == nil or data.on_failure == nil then nil else data.on_failure,
+			should_include_vpc = if data == nil or data.should_include_vpc == nil then nil else data.should_include_vpc,
 		}, _OpenFacialAgeEstimationAction_ParamsImpl :: _OpenFacialAgeEstimationAction_ParamsImpl)
 	end
 
@@ -10545,6 +10618,12 @@ do
 		if self.on_failure ~= nil then
 			local encoded = self.on_failure:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.should_include_vpc ~= nil then
+			local encoded = self.should_include_vpc:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -10597,6 +10676,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.on_failure = messages.ActionProp.decode(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.should_include_vpc = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -10648,6 +10732,10 @@ do
 			output.onFailure = self.on_failure:jsonEncode()
 		end
 
+		if self.should_include_vpc ~= nil then
+			output.shouldIncludeVpc = self.should_include_vpc:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -10696,6 +10784,16 @@ do
 
 		if input.onFailure ~= nil then
 			self.on_failure = messages.ActionProp.jsonDecode(input.onFailure)
+		end
+
+		if input.should_include_vpc ~= nil then
+			self.should_include_vpc =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.should_include_vpc)
+		end
+
+		if input.shouldIncludeVpc ~= nil then
+			self.should_include_vpc =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.shouldIncludeVpc)
 		end
 
 		return self
@@ -10862,8 +10960,11 @@ do
 
 	function _ShowToastAction_ParamsImpl.new(data: _ShowToastAction_ParamsPartialFields?): ShowToastAction_Params
 		return setmetatable({
-			message_key = if data == nil or data.message_key == nil then nil else data.message_key,
+			toast_message = if data == nil or data.toast_message == nil then nil else data.toast_message,
 			toast_type = if data == nil or data.toast_type == nil then nil else data.toast_type,
+			dismiss_prompt = if data == nil or data.dismiss_prompt == nil then nil else data.dismiss_prompt,
+			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
+			prompt_id = if data == nil or data.prompt_id == nil then nil else data.prompt_id,
 		}, _ShowToastAction_ParamsImpl :: _ShowToastAction_ParamsImpl)
 	end
 
@@ -10871,8 +10972,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.message_key ~= nil then
-			local encoded = self.message_key:encode()
+		if self.toast_message ~= nil then
+			local encoded = self.toast_message:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -10880,6 +10981,24 @@ do
 		if self.toast_type ~= nil then
 			local encoded = self.toast_type:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.dismiss_prompt ~= nil then
+			local encoded = self.dismiss_prompt:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prompt_type ~= nil then
+			local encoded = self.prompt_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prompt_id ~= nil then
+			local encoded = self.prompt_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -10905,12 +11024,27 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.message_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.toast_message = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.toast_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.dismiss_prompt = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -10939,12 +11073,24 @@ do
 	function _ShowToastAction_ParamsImpl.jsonEncode(self: ShowToastAction_Params): any
 		local output = {}
 
-		if self.message_key ~= nil then
-			output.messageKey = self.message_key:jsonEncode()
+		if self.toast_message ~= nil then
+			output.toastMessage = self.toast_message:jsonEncode()
 		end
 
 		if self.toast_type ~= nil then
 			output.toastType = self.toast_type:jsonEncode()
+		end
+
+		if self.dismiss_prompt ~= nil then
+			output.dismissPrompt = self.dismiss_prompt:jsonEncode()
+		end
+
+		if self.prompt_type ~= nil then
+			output.promptType = self.prompt_type:jsonEncode()
+		end
+
+		if self.prompt_id ~= nil then
+			output.promptId = self.prompt_id:jsonEncode()
 		end
 
 		return output
@@ -10953,13 +11099,14 @@ do
 	function _ShowToastAction_ParamsImpl.jsonDecode(input: { [string]: any }): ShowToastAction_Params
 		local self = _ShowToastAction_ParamsImpl.new()
 
-		if input.message_key ~= nil then
-			self.message_key =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.message_key)
+		if input.toast_message ~= nil then
+			self.toast_message =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.toast_message)
 		end
 
-		if input.messageKey ~= nil then
-			self.message_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.messageKey)
+		if input.toastMessage ~= nil then
+			self.toast_message =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.toastMessage)
 		end
 
 		if input.toast_type ~= nil then
@@ -10968,6 +11115,33 @@ do
 
 		if input.toastType ~= nil then
 			self.toast_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.toastType)
+		end
+
+		if input.dismiss_prompt ~= nil then
+			self.dismiss_prompt =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.dismiss_prompt)
+		end
+
+		if input.dismissPrompt ~= nil then
+			self.dismiss_prompt =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.dismissPrompt)
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_type)
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptType)
+		end
+
+		if input.prompt_id ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_id)
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptId)
 		end
 
 		return self
@@ -27080,6 +27254,8 @@ do
 		return setmetatable({
 			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
 			prompt_id = if data == nil or data.prompt_id == nil then nil else data.prompt_id,
+			entity_type = if data == nil or data.entity_type == nil then nil else data.entity_type,
+			entity_id = if data == nil or data.entity_id == nil then nil else data.entity_id,
 		}, _DismissPromptAction_ParamsImpl :: _DismissPromptAction_ParamsImpl)
 	end
 
@@ -27096,6 +27272,18 @@ do
 		if self.prompt_id ~= nil then
 			local encoded = self.prompt_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.entity_type ~= nil then
+			local encoded = self.entity_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.entity_id ~= nil then
+			local encoded = self.entity_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -27127,6 +27315,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -27163,6 +27361,14 @@ do
 			output.promptId = self.prompt_id:jsonEncode()
 		end
 
+		if self.entity_type ~= nil then
+			output.entityType = self.entity_type:jsonEncode()
+		end
+
+		if self.entity_id ~= nil then
+			output.entityId = self.entity_id:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -27184,6 +27390,23 @@ do
 
 		if input.promptId ~= nil then
 			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptId)
+		end
+
+		if input.entity_type ~= nil then
+			self.entity_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entity_type)
+		end
+
+		if input.entityType ~= nil then
+			self.entity_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entityType)
+		end
+
+		if input.entity_id ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entity_id)
+		end
+
+		if input.entityId ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entityId)
 		end
 
 		return self
@@ -29496,6 +29719,262 @@ do
 end
 
 do
+	local _ActionSequenceActionImpl = {}
+	_ActionSequenceActionImpl.__index = _ActionSequenceActionImpl
+
+	function _ActionSequenceActionImpl.new(data: _ActionSequenceActionPartialFields?): ActionSequenceAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ActionSequenceActionImpl :: _ActionSequenceActionImpl)
+	end
+
+	function _ActionSequenceActionImpl.encode(self: ActionSequenceAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ActionSequenceActionImpl.decode(input: buffer): ActionSequenceAction
+		local self = _ActionSequenceActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ActionSequenceAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ActionSequenceActionImpl.jsonEncode(self: ActionSequenceAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ActionSequenceActionImpl.jsonDecode(input: { [string]: any }): ActionSequenceAction
+		local self = _ActionSequenceActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ActionSequenceAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ActionSequenceAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ActionSequenceActionImpl.descriptor = {
+		name = "ActionSequenceAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ActionSequenceAction",
+	}
+
+	messages.ActionSequenceAction = _ActionSequenceActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ActionSequenceAction)
+end
+
+do
+	local _ActionSequenceAction_ParamsImpl = {}
+	_ActionSequenceAction_ParamsImpl.__index = _ActionSequenceAction_ParamsImpl
+
+	function _ActionSequenceAction_ParamsImpl.new(
+		data: _ActionSequenceAction_ParamsPartialFields?
+	): ActionSequenceAction_Params
+		return setmetatable({
+			actions = if data == nil or data.actions == nil then {} else data.actions,
+		}, _ActionSequenceAction_ParamsImpl :: _ActionSequenceAction_ParamsImpl)
+	end
+
+	function _ActionSequenceAction_ParamsImpl.encode(self: ActionSequenceAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.actions ~= nil and #self.actions > 0 then
+			for _, value in self.actions do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ActionSequenceAction_ParamsImpl.decode(input: buffer): ActionSequenceAction_Params
+		local self = _ActionSequenceAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.actions, messages.ActionProp.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ActionSequenceAction_ParamsImpl.jsonEncode(self: ActionSequenceAction_Params): any
+		local output = {}
+
+		if self.actions ~= nil and #self.actions > 0 then
+			local newOutput = {}
+			for _, value in self.actions do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.actions = newOutput
+		end
+
+		return output
+	end
+
+	function _ActionSequenceAction_ParamsImpl.jsonDecode(input: { [string]: any }): ActionSequenceAction_Params
+		local self = _ActionSequenceAction_ParamsImpl.new()
+
+		if input.actions ~= nil then
+			local newOutput: { ActionProp } = {}
+			for _, value in input.actions do
+				table.insert(newOutput, messages.ActionProp.jsonDecode(value))
+			end
+
+			self.actions = newOutput
+		end
+
+		return self
+	end
+
+	_ActionSequenceAction_ParamsImpl.descriptor = {
+		name = "ActionSequenceAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ActionSequenceAction_Params = _ActionSequenceAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ActionSequenceAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -29506,6 +29985,9 @@ do
 			accessibility_label = if data == nil or data.accessibility_label == nil
 				then nil
 				else data.accessibility_label,
+			skip_unified_logging = if data == nil or data.skip_unified_logging == nil
+				then nil
+				else data.skip_unified_logging,
 		}, _ActionImpl :: _ActionImpl)
 	end
 
@@ -29814,6 +30296,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 75, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "action_sequence_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 76, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -29826,6 +30312,12 @@ do
 		if self.accessibility_label ~= nil then
 			local encoded = self.accessibility_label:encode()
 			output, cursor = proto.writeTag(output, cursor, 1001, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_unified_logging ~= nil then
+			local encoded = self.skip_unified_logging:encode()
+			output, cursor = proto.writeTag(output, cursor, 1002, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -30366,6 +30858,11 @@ do
 						value = messages.OpenIncomingTransferUpsellAction.decode(value),
 					}
 					continue
+				elseif field == 76 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "action_sequence_action", value = messages.ActionSequenceAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -30376,6 +30873,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.accessibility_label =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.decode(value)
+					continue
+				elseif field == 1002 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_unified_logging = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -30555,6 +31057,8 @@ do
 				output.showToastAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_incoming_transfer_upsell_action" then
 				output.openIncomingTransferUpsellAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "action_sequence_action" then
+				output.actionSequenceAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -30564,6 +31068,10 @@ do
 
 		if self.accessibility_label ~= nil then
 			output.accessibilityLabel = self.accessibility_label:jsonEncode()
+		end
+
+		if self.skip_unified_logging ~= nil then
+			output.skipUnifiedLogging = self.skip_unified_logging:jsonEncode()
 		end
 
 		return output
@@ -31642,6 +32150,20 @@ do
 			}
 		end
 
+		if input.action_sequence_action ~= nil then
+			self.kind = {
+				type = "action_sequence_action",
+				value = messages.ActionSequenceAction.jsonDecode(input.action_sequence_action),
+			}
+		end
+
+		if input.actionSequenceAction ~= nil then
+			self.kind = {
+				type = "action_sequence_action",
+				value = messages.ActionSequenceAction.jsonDecode(input.actionSequenceAction),
+			}
+		end
+
 		if input.telemetry_handler ~= nil then
 			self.telemetry_handler =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetry_handler)
@@ -31660,6 +32182,16 @@ do
 		if input.accessibilityLabel ~= nil then
 			self.accessibility_label =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.jsonDecode(input.accessibilityLabel)
+		end
+
+		if input.skip_unified_logging ~= nil then
+			self.skip_unified_logging =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_unified_logging)
+		end
+
+		if input.skipUnifiedLogging ~= nil then
+			self.skip_unified_logging =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipUnifiedLogging)
 		end
 
 		return self
@@ -33006,6 +33538,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_SHOW_TOAST"
 		elseif value == 75 then
 			return "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
+		elseif value == 76 then
+			return "ACTION_TYPE_ACTION_SEQUENCE"
 		else
 			return nil
 		end
@@ -33164,6 +33698,8 @@ messages.ActionType = {
 			return 74
 		elseif self == "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL" then
 			return 75
+		elseif self == "ACTION_TYPE_ACTION_SEQUENCE" then
+			return 76
 		else
 			return self
 		end
@@ -33322,6 +33858,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_SHOW_TOAST"
 		elseif name == "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL" then
 			return "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
+		elseif name == "ACTION_TYPE_ACTION_SEQUENCE" then
+			return "ACTION_TYPE_ACTION_SEQUENCE"
 		else
 			return nil
 		end
@@ -33490,6 +34028,8 @@ return {
 	PinExperienceShortcutAction_Params = messages.PinExperienceShortcutAction_Params,
 	DownloadAppAction = messages.DownloadAppAction,
 	DownloadAppAction_Params = messages.DownloadAppAction_Params,
+	ActionSequenceAction = messages.ActionSequenceAction,
+	ActionSequenceAction_Params = messages.ActionSequenceAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

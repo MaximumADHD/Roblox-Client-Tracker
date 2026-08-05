@@ -16,8 +16,8 @@ local CursorContext = require(script.Parent.CursorContext)
 local CursorType = require(Foundation.Enums.CursorType)
 local KeyUtilities = require(script.Parent.KeyUtilities)
 type CursorType = CursorType.CursorType
-local ColorMode = require(Foundation.Enums.ColorMode)
-type ColorMode = ColorMode.ColorMode
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+type ColorNamespace = ColorNamespace.ColorNamespace
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
@@ -65,16 +65,16 @@ local function CursorProvider(props: Props)
 			local isCursorTypeKey = #keyParts == 2
 
 			if isCursorTypeKey then
-				local cursorType, colorMode = KeyUtilities.decodeCursorTypeKey(keyParts)
+				local cursorType, colorNamespace = KeyUtilities.decodeCursorTypeKey(keyParts)
 
 				cursors[key] = React.createElement(Cursor, {
 					ref = refCache[key],
 					isVisible = isVisible,
 					cursorType = cursorType :: CursorType,
-					colorMode = colorMode :: ColorMode,
+					colorNamespace = colorNamespace :: ColorNamespace,
 				})
 			else
-				local cornerRadius, offset, borderWidth, colorMode = KeyUtilities.decodeKey(keyParts)
+				local cornerRadius, offset, borderWidth, colorNamespace = KeyUtilities.decodeKey(keyParts)
 
 				cursors[key] = React.createElement(CursorComponent, {
 					ref = refCache[key],
@@ -82,7 +82,7 @@ local function CursorProvider(props: Props)
 					cornerRadius = cornerRadius,
 					offset = offset,
 					borderWidth = borderWidth,
-					colorMode = colorMode :: ColorMode,
+					colorNamespace = colorNamespace :: ColorNamespace,
 				})
 			end
 		end

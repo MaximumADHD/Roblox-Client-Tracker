@@ -1,3 +1,4 @@
+-- Remove this file when cleaning up FFlagFoundationSliderOffloadDraggingMath
 local function calculateNextStepValue(
 	displacementX: number,
 	currentValue: number,

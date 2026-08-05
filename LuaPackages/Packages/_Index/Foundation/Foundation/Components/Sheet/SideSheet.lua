@@ -10,7 +10,6 @@ local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local Constants = require(Foundation.Constants)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
-local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -42,9 +41,6 @@ type SideSheetProps = {
 	displaySize: Enum.DisplaySize,
 } & SheetProps
 
-local SMALL_DISPLAY_WIDTH = 400
-local LARGE_DISPLAY_WIDTH = 360
-
 local SIDE_SHEET_WIDTHS: { [DialogSize]: { TARGET_WIDTH: number, MIN: number, MAX: number } } = {
 	[DialogSize.Medium] = {
 		TARGET_WIDTH = 0.40,
@@ -60,7 +56,7 @@ local SIDE_SHEET_WIDTHS: { [DialogSize]: { TARGET_WIDTH: number, MIN: number, MA
 
 local defaultProps = {
 	testId = "--foundation-sheet",
-	size = if Flags.FoundationSideSheetNewWidthCalculation then DialogSize.Medium else nil :: never,
+	size = DialogSize.Medium,
 }
 
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
@@ -75,24 +71,16 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local reducedMotion = preferences.reducedMotion
 
 	local hardwareInsets = useHardwareInsets(overlay)
-	local screenSize = if Flags.FoundationSideSheetNewWidthCalculation then useScreenSize() else nil :: never
+	local screenSize = useScreenSize()
 	local safeAreaPadding = hardwareInsets.right
 
 	local isSmallDisplay = props.displaySize == Enum.DisplaySize.Small
 
-	local targetWidth
-	local minWidth
-	local maxWidth
-	if Flags.FoundationSideSheetNewWidthCalculation then
-		local scaleFactor = tokens.Config.UI.Scale
-		targetWidth = SIDE_SHEET_WIDTHS[props.size].TARGET_WIDTH
-		minWidth = SIDE_SHEET_WIDTHS[props.size].MIN * scaleFactor
-		maxWidth = SIDE_SHEET_WIDTHS[props.size].MAX * scaleFactor
-	end
+	local targetWidth = SIDE_SHEET_WIDTHS[props.size].TARGET_WIDTH
+	local minWidth = SIDE_SHEET_WIDTHS[props.size].MIN * tokens.Config.UI.Scale
+	local maxWidth = SIDE_SHEET_WIDTHS[props.size].MAX * tokens.Config.UI.Scale
 
-	local width = if Flags.FoundationSideSheetNewWidthCalculation
-		then math.clamp(screenSize.X * targetWidth, minWidth, maxWidth)
-		else useScaledValue(if isSmallDisplay then SMALL_DISPLAY_WIDTH else LARGE_DISPLAY_WIDTH)
+	local width = math.clamp(screenSize.X * targetWidth, minWidth, maxWidth)
 	local sheetPadding = tokens.Padding.Medium
 
 	local closing = React.useRef(false)

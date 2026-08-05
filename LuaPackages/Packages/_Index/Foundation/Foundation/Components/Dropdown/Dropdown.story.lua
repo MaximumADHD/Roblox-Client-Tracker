@@ -118,10 +118,12 @@ type DemoDropdownProps = {
 	items: DropdownItems?,
 	width: UDim?,
 	maxHeight: number?,
+	value: ItemId?,
+	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 }
 
 local function DemoDropdown(props: DemoDropdownProps): React.ReactNode
-	local id, setId = React.useState(nil :: ItemId?)
+	local id, setId = React.useState(props.value)
 	return React.createElement(Dropdown.Root, {
 		value = id,
 		placeholder = props.placeholder,
@@ -137,6 +139,7 @@ local function DemoDropdown(props: DemoDropdownProps): React.ReactNode
 		hint = props.hint,
 		width = props.width,
 		maxHeight = props.maxHeight,
+		scrollingFrameRef = props.scrollingFrameRef,
 	})
 end
 
@@ -403,6 +406,98 @@ local function OverflowStory(_props: { controls: Controls }): React.ReactNode
 	})
 end
 
+local SCROLL_TO_SELECTION_MAX_HEIGHT = 120
+local SCROLL_TO_SELECTION_ITEM_COUNT = 20
+
+-- Scroll from the scrollingFrameRef callback once the menu is measured and
+-- clamped to maxHeight (canvas taller than the window). Before that, window
+-- equals content height and centering math collapses to the top. Row position
+-- is derived from canvasHeight / itemCount rather than AbsolutePosition.
+local function useScrollToSelectedRef(items: { DropdownItem }, selectedId: ItemId)
+	local connections = React.useRef(nil :: { RBXScriptConnection }?)
+	local disconnect = React.useCallback(function()
+		if connections.current then
+			for _, connection in connections.current do
+				connection:Disconnect()
+			end
+			connections.current = nil
+		end
+	end, {})
+
+	local refCallback = React.useCallback(function(frame: ScrollingFrame?)
+		disconnect()
+		if not frame then
+			return
+		end
+
+		local scrollingFrame = frame
+		local function scrollToSelected(): boolean
+			local count = #items
+			local canvasHeight = scrollingFrame.AbsoluteCanvasSize.Y
+			local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
+			if count == 0 or windowHeight <= 0 or canvasHeight <= windowHeight then
+				return false
+			end
+			local rowHeight = canvasHeight / count
+			local targetIndex = 0
+			for index, item in items do
+				if item.id == selectedId then
+					targetIndex = index - 1
+					break
+				end
+			end
+			local centeredY = targetIndex * rowHeight - windowHeight / 2 + rowHeight / 2
+			scrollingFrame.CanvasPosition = Vector2.new(0, math.clamp(centeredY, 0, canvasHeight - windowHeight))
+			return true
+		end
+
+		if not scrollToSelected() then
+			local function onSizeChanged()
+				if scrollToSelected() then
+					disconnect()
+				end
+			end
+			connections.current = {
+				scrollingFrame:GetPropertyChangedSignal("AbsoluteCanvasSize"):Connect(onSizeChanged),
+				scrollingFrame:GetPropertyChangedSignal("AbsoluteWindowSize"):Connect(onSizeChanged),
+			}
+		end
+	end, { items, selectedId, disconnect } :: { unknown })
+
+	React.useEffect(function()
+		return disconnect
+	end, { disconnect } :: { unknown })
+
+	return refCallback
+end
+
+local function ScrollToSelectionStory(_props: { controls: Controls }): React.ReactNode
+	local items = React.useMemo(function()
+		local list: { DropdownItem } = {}
+		for index = 1, SCROLL_TO_SELECTION_ITEM_COUNT do
+			table.insert(list, {
+				id = `item-{index}`,
+				text = `Item {index}`,
+			})
+		end
+		return list
+	end, {})
+
+	local value, setValue = React.useState("item-18" :: ItemId)
+	local scrollingFrameRef = useScrollToSelectedRef(items, value)
+
+	return React.createElement(Dropdown.Root, {
+		label = "Year",
+		placeholder = "Choose a year",
+		width = SHOWCASE_WIDTH,
+		maxHeight = SCROLL_TO_SELECTION_MAX_HEIGHT,
+		value = value,
+		onItemChanged = setValue,
+		items = items,
+		scrollingFrameRef = scrollingFrameRef,
+	})
+end
+
 local function LeadingAccessoriesStory(_props: { controls: Controls }): React.ReactNode
 	if not Flags.FoundationBaseMenuBeta then
 		return React.createElement(Text, {
@@ -581,6 +676,7 @@ return {
 		{ name = "Widths", story = WidthsStory },
 		{ name = "Item groups", story = ItemGroupsStory },
 		{ name = "Overflow", story = OverflowStory },
+		{ name = "Scroll-to-selection", story = ScrollToSelectionStory },
 		{ name = "Leading accessories", story = LeadingAccessoriesStory },
 		{ name = "Trailing accessories", story = TrailingAccessoriesStory },
 		{ name = "Check column", story = CheckColumnStory },

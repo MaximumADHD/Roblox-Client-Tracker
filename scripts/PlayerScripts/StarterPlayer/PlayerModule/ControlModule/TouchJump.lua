@@ -13,19 +13,18 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
+local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
 local FFlagUserPlayerScriptsRefactor1 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor1")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 
 local Players = game:GetService("Players")
 
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationB
-	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
-	else nil
 
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 local JUMP_BUTTON_ZINDEX = 10
+
+-- remove with FFlagUserPlayerScriptsCCLIntegrationC
 local JUMP_BUTTON_IMAGES = {
 	"rbxasset://textures/ui/Input/JumpButtonRegular.png",
 	"rbxasset://textures/ui/Input/JumpButtonPressed.png"}
@@ -87,10 +86,7 @@ function TouchJump:_reset()
 		end
 	end
 	if self.jumpButton then
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
-			avatarAbilitiesInterface:isEnabled() else
-			AvatarAbilitiesInterface.isEnabled()
-		if isCCLEnabled then
+		if not FFlagUserPlayerScriptsCCLIntegrationC and AvatarAbilitiesInterface.isEnabled() then
 			self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
 		else
 			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
@@ -206,9 +202,11 @@ function TouchJump:Create()
 		self.absoluteSizeChangedConn = nil
 	end
 	
-	if self.avatarAbilitiesEnabledChangedConn then
-		self.avatarAbilitiesEnabledChangedConn:Disconnect()
-		self.avatarAbilitiesEnabledChangedConn = nil
+	if not FFlagUserPlayerScriptsCCLIntegrationC then
+		if self.avatarAbilitiesEnabledChangedConn then
+			self.avatarAbilitiesEnabledChangedConn:Disconnect()
+			self.avatarAbilitiesEnabledChangedConn = nil
+		end
 	end
 
 	self.jumpButton = Instance.new("ImageButton")
@@ -219,10 +217,7 @@ function TouchJump:Create()
 		self.jumpButton.ZIndex = JUMP_BUTTON_ZINDEX
 	end
 
-	local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
-		avatarAbilitiesInterface:isEnabled() else
-		AvatarAbilitiesInterface.isEnabled()
-	if isCCLEnabled then		
+	if not FFlagUserPlayerScriptsCCLIntegrationC and AvatarAbilitiesInterface.isEnabled() then
 		self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
 	else
 		self.jumpButton.Image = TOUCH_CONTROL_SHEET
@@ -234,10 +229,7 @@ function TouchJump:Create()
 		local minAxis = math.min(self.parentUIFrame.AbsoluteSize.x, self.parentUIFrame.AbsoluteSize.y)
 		local isSmallScreen = minAxis <= 500
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
-			avatarAbilitiesInterface:isEnabled() else
-			AvatarAbilitiesInterface.isEnabled()
-		if isCCLEnabled then
+		if not FFlagUserPlayerScriptsCCLIntegrationC and AvatarAbilitiesInterface.isEnabled() then
 			local jumpButtonSize = isSmallScreen and 72 or 120
 			local buttonInsetX = isSmallScreen and 64 or 100
 			local buttonInsetY = isSmallScreen and 64 or 112
@@ -264,9 +256,7 @@ function TouchJump:Create()
 
 	ResizeJumpButton()
 	self.absoluteSizeChangedConn = self.parentUIFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeJumpButton)
-	if FFlagUserPlayerScriptsCCLIntegrationB then
-		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeJumpButton)
-	else
+	if not FFlagUserPlayerScriptsCCLIntegrationC then
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeJumpButton)
 	end
 
@@ -282,10 +272,7 @@ function TouchJump:Create()
 			return
 		end
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
-			avatarAbilitiesInterface:isEnabled() else
-			AvatarAbilitiesInterface.isEnabled()
-		if isCCLEnabled then
+		if not FFlagUserPlayerScriptsCCLIntegrationC and AvatarAbilitiesInterface.isEnabled() then
 			self.jumpButton.Image = JUMP_BUTTON_IMAGES[2]
 		else
 			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
@@ -297,10 +284,7 @@ function TouchJump:Create()
 			return
 		end
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
-			avatarAbilitiesInterface:isEnabled() else
-			AvatarAbilitiesInterface.isEnabled()
-		if isCCLEnabled then
+		if not FFlagUserPlayerScriptsCCLIntegrationC and AvatarAbilitiesInterface.isEnabled() then
 			self.jumpButton.Image = JUMP_BUTTON_IMAGES[1]
 		else
 			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)

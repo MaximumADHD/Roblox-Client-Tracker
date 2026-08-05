@@ -27,7 +27,10 @@ local InviteStatus = Constants.InviteStatus
 local Images = UIBlox.App.ImageSet.Images
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local Image = Foundation.Image
+local Icon = Foundation.Icon
+local IconName = Foundation.Enums.IconName
+local IconVariant = Foundation.Enums.IconVariant
+local IconSize = Foundation.Enums.IconSize
 
 local SendInviteButton = Roact.PureComponent:extend("SendInviteButton")
 
@@ -163,6 +166,7 @@ function SendInviteButton:init(initialProps)
 		successSize = successSize:map(function(size)
 			return UDim2.new(size, 0, size, 0)
 		end),
+		successScale = successSize,
 		failPos = failPos:map(function(pos)
 			return UDim2.new(pos, 0, 0, 0)
 		end),
@@ -190,6 +194,7 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 			Theme = {
 				IconEmphasis = { Color = tokens.Color.Content.Emphasis.Color3, Transparency = tokens.Color.Content.Emphasis.Transparency },
 			},
+			IconSize = tokens.Size.Size_800,
 		}
 	end, function(style)
 		return Roact.createElement("TextButton", {
@@ -208,10 +213,11 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 			end,
 		}, {
 			SendLabel = if FFlagCoreUiMigrateUIBloxToFoundation
-				then Roact.createElement(Image, {
-					Image = "icons/actions/friends/friendInvite",
-					Size = UDim2.new(1, 0, 1, 0),
-					imageStyle = self.bindings.sendTransparency:map(function(t)
+				then Roact.createElement(Icon, {
+					name = IconName.PersonArrowFromBottomRight,
+					variant = IconVariant.Regular,
+					size = IconSize.XXLarge,
+					style = self.bindings.sendTransparency:map(function(t)
 						return { Color3 = style.Theme.IconEmphasis.Color, Transparency = t }
 					end),
 				})
@@ -224,14 +230,17 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 					ImageTransparency = self.bindings.sendTransparency,
 				}),
 			SuccessLabel = if FFlagCoreUiMigrateUIBloxToFoundation
-				then Roact.createElement(Image, {
-					Image = "icons/status/success",
+				then Roact.createElement(Icon, {
+					name = IconName.CheckLarge,
+					variant = IconVariant.Filled,
+					size = self.bindings.successScale:map(function(scale)
+						return style.IconSize * scale
+					end),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					AnchorPoint = Vector2.new(0.5, 0.5),
-					imageStyle = self.bindings.successTransparency:map(function(t)
+					style = self.bindings.successTransparency:map(function(t)
 						return { Color3 = style.Theme.IconEmphasis.Color, Transparency = t }
 					end),
-					Size = self.bindings.successSize,
 				})
 				else Roact.createElement(ImageSetLabel, {
 					BackgroundTransparency = 1,
@@ -244,10 +253,11 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 					Size = self.bindings.successSize,
 				}),
 			FailLabel = if FFlagCoreUiMigrateUIBloxToFoundation
-				then Roact.createElement(Image, {
-					Image = "icons/status/alert",
-					Size = UDim2.new(1, 0, 1, 0),
-					imageStyle = self.bindings.failTransparency:map(function(t)
+				then Roact.createElement(Icon, {
+					name = IconName.TriangleExclamation,
+					variant = IconVariant.Filled,
+					size = IconSize.XXLarge,
+					style = self.bindings.failTransparency:map(function(t)
 						return { Color3 = style.Theme.IconEmphasis.Color, Transparency = t }
 					end),
 					Position = self.bindings.failPos,

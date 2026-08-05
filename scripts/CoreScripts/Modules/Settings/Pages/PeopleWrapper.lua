@@ -58,6 +58,12 @@ local GetFFlagAddPeoplePageCardLayout = PeopleFlags.GetFFlagAddPeoplePageCardLay
 local GetFFlagPeoplePageLazyRenderCards = PeopleFlags.GetFFlagPeoplePageLazyRenderCards
 local FFlagEnablePeopleListLazyRender = PeopleFlags.FFlagEnablePeopleListLazyRender
 local FFlagPeopleCardsEnableVirtualizedGrid = PeopleFlags.FFlagPeopleCardsEnableVirtualizedGrid
+local FFlagPeoplePageDismissVolumePopoverOnScrollOutOfView =
+	PeopleFlags.FFlagPeoplePageDismissVolumePopoverOnScrollOutOfView
+local FFlagPeoplePageFlipVolumePopoverToFitViewport =
+	PeopleFlags.FFlagPeoplePageFlipVolumePopoverToFitViewport
+local FFlagPeoplePageDismissCardMenuOnScrollOutOfView =
+	PeopleFlags.FFlagPeoplePageDismissCardMenuOnScrollOutOfView
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
@@ -110,6 +116,9 @@ local function createPeoplePage()
 		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards()
 				or FFlagEnablePeopleListLazyRender
 				or FFlagPeopleCardsEnableVirtualizedGrid
+				or FFlagPeoplePageDismissVolumePopoverOnScrollOutOfView
+				or FFlagPeoplePageFlipVolumePopoverToFitViewport
+				or FFlagPeoplePageDismissCardMenuOnScrollOutOfView
 			then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame")
 			else nil
 
@@ -129,6 +138,9 @@ local function createPeoplePage()
 								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards()
 										or FFlagEnablePeopleListLazyRender
 										or FFlagPeopleCardsEnableVirtualizedGrid
+										or FFlagPeoplePageDismissVolumePopoverOnScrollOutOfView
+										or FFlagPeoplePageFlipVolumePopoverToFitViewport
+										or FFlagPeoplePageDismissCardMenuOnScrollOutOfView
 									then scrollingFrame
 									else nil,
 								chromeEnabled = ChromeEnabled,

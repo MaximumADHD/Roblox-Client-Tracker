@@ -32,19 +32,20 @@ local SAMPLE_MENU_ITEMS: { MenuItem } = {
 	{ id = "delete", icon = "icons/actions/edit/delete", text = "Delete", isDisabled = true },
 }
 
-local LONG_MENU_ITEMS: { MenuItem } = {
-	{ id = "new", icon = "icons/actions/edit/add", text = "New" },
-	{ id = "open", icon = "icons/actions/edit/edit", text = "Open" },
-	{ id = "save", icon = "icons/actions/edit/edit", text = "Save" },
-	{ id = "save-as", icon = "icons/actions/edit/edit", text = "Save As..." },
-	{ id = "rename", icon = "icons/actions/edit/edit", text = "Rename" },
-	{ id = "duplicate", icon = "icons/actions/edit/copy", text = "Duplicate" },
-	{ id = "copy", icon = "icons/actions/edit/copy", text = "Copy" },
-	{ id = "cut", icon = "icons/actions/edit/copy", text = "Cut" },
-	{ id = "paste", icon = "icons/actions/edit/copy", text = "Paste" },
-	{ id = "export", icon = "icons/actions/edit/edit", text = "Export" },
-	{ id = "import", icon = "icons/actions/edit/edit", text = "Import" },
-	{ id = "delete", icon = "icons/actions/edit/delete", text = "Delete" },
+-- Pool of sample labels/icons cycled through to build arbitrarily long menus in the Playground.
+local LONG_MENU_ITEMS: { { icon: string, text: string } } = {
+	{ icon = "icons/actions/edit/add", text = "New" },
+	{ icon = "icons/actions/edit/edit", text = "Open" },
+	{ icon = "icons/actions/edit/edit", text = "Save" },
+	{ icon = "icons/actions/edit/edit", text = "Save As..." },
+	{ icon = "icons/actions/edit/edit", text = "Rename" },
+	{ icon = "icons/actions/edit/copy", text = "Duplicate" },
+	{ icon = "icons/actions/edit/copy", text = "Copy" },
+	{ icon = "icons/actions/edit/copy", text = "Cut" },
+	{ icon = "icons/actions/edit/copy", text = "Paste" },
+	{ icon = "icons/actions/edit/edit", text = "Export" },
+	{ icon = "icons/actions/edit/edit", text = "Import" },
+	{ icon = "icons/actions/edit/delete", text = "Delete" },
 }
 
 local SELECTION_MENU_ITEMS: { MenuItem } = {
@@ -59,6 +60,10 @@ type Props = {
 		side: PopoverSide,
 		align: PopoverAlign,
 		maxDepth: number,
+		-- Number of items generated per menu level in the Playground.
+		numMenuItems: number,
+		-- Height (in px) after which the menu and its submenus scroll; `0` means no cap.
+		maxHeight: number,
 		leading: string?,
 		trailing: string?,
 		firstItemText: string,
@@ -309,16 +314,21 @@ return {
 
 				local itemTexts: { [string]: string } = {}
 
-				local function buildMenu(currentDepth: number, prefix: string, isTopLevel: boolean): MenuItems
+				local function buildMenu(
+					currentDepth: number,
+					prefix: string,
+					isTopLevel: boolean,
+					count: number
+				): MenuItems
 					local hasNested = currentDepth > 1
 					local function buildItem(
-						itemPrefix: string,
-						label: string,
 						index: number,
 						isSubmenuTrigger: boolean,
 						isFirstOverall: boolean
 					): MenuItem
-						local id = `{itemPrefix}-{index}`
+						local id = `{prefix}-{index}`
+						local poolItem = LONG_MENU_ITEMS[((index - 1) % #LONG_MENU_ITEMS) + 1]
+						local label = if isSubmenuTrigger then `More ({poolItem.text})` else poolItem.text
 						local resolvedText = if isFirstOverall and firstItemText ~= "" then firstItemText else label
 						itemTexts[id] = resolvedText
 						local item: MenuItem = {
@@ -329,43 +339,32 @@ return {
 							isChecked = if isSubmenuTrigger then nil else selectedId == id,
 						}
 						if isSubmenuTrigger then
-							item.items = buildMenu(currentDepth - 1, `{id}-sub`, false)
+							item.items = buildMenu(currentDepth - 1, `{id}-sub`, false, count)
 						end
 						return item
 					end
 
-					local groupA = {
-						title = "Group A",
-						items = {
-							buildItem(`{prefix}-a`, "Action one", 1, false, isTopLevel),
-							buildItem(`{prefix}-a`, "Action two", 2, false, false),
-							buildItem(
-								`{prefix}-a`,
-								if hasNested then "More actions" else "Action three",
-								3,
-								hasNested,
-								false
-							),
-						},
-					}
-					local groupB = {
-						title = "Group B",
-						items = {
-							buildItem(`{prefix}-b`, "Other one", 4, false, false),
-							buildItem(`{prefix}-b`, "Other two", 5, false, false),
-							buildItem(
-								`{prefix}-b`,
-								if hasNested then "More options" else "Other three",
-								6,
-								hasNested,
-								false
-							),
-						},
-					}
-					return { groupA, groupB }
+					-- Split the items across two groups; the last item of each group opens a submenu
+					-- (when nesting is enabled) so deeper levels stay reachable.
+					local half = math.max(1, math.ceil(count / 2))
+					local groupAItems: { MenuItem } = {}
+					local groupBItems: { MenuItem } = {}
+					for i = 1, count do
+						local isSubmenuTrigger = hasNested and (i == half or i == count)
+						local item = buildItem(i, isSubmenuTrigger, isTopLevel and i == 1)
+						if i <= half then
+							table.insert(groupAItems, item)
+						else
+							table.insert(groupBItems, item)
+						end
+					end
+
+					local groupA = { title = "Group A" :: string?, items = groupAItems }
+					local groupB = { title = "Group B" :: string?, items = groupBItems }
+					return (if #groupBItems > 0 then { groupA, groupB } else { groupA }) :: MenuItems
 				end
 
-				local items = buildMenu(recursionDepth, "p", true)
+				local items = buildMenu(recursionDepth, "p", true, props.controls.numMenuItems)
 
 				return React.createElement(View, {
 					Size = UDim2.new(1, 0, 0, 480),
@@ -377,6 +376,7 @@ return {
 						size = props.controls.size,
 						side = props.controls.side,
 						align = props.controls.align,
+						maxHeight = if props.controls.maxHeight > 0 then props.controls.maxHeight else nil,
 						onPressedOutside = function()
 							setIsOpen(false)
 						end,
@@ -451,41 +451,6 @@ return {
 					}, {
 						Button = React.createElement(Button, {
 							text = "Open Menu",
-							size = InputSize.Medium,
-							onActivated = function()
-								setIsOpen(not isOpen)
-							end,
-						}),
-					}),
-				})
-			end,
-		},
-		{
-			name = "Scrollable (maxHeight)",
-			story = function(props: Props)
-				local isOpen, setIsOpen = React.useState(false)
-
-				return React.createElement(View, {
-					Size = UDim2.new(1, 0, 0, 400),
-					tag = "row align-x-center align-y-center",
-				}, {
-					Menu = React.createElement(Menu, {
-						isOpen = isOpen,
-						items = LONG_MENU_ITEMS,
-						size = props.controls.size,
-						side = props.controls.side,
-						align = props.controls.align,
-						maxHeight = 180,
-						onPressedOutside = function()
-							setIsOpen(false)
-						end,
-						onActivated = function(id)
-							print("Menu item activated:", id)
-							setIsOpen(false)
-						end,
-					}, {
-						Button = React.createElement(Button, {
-							text = "Open Scrollable Menu",
 							size = InputSize.Medium,
 							onActivated = function()
 								setIsOpen(not isOpen)
@@ -960,6 +925,8 @@ return {
 		side = { PopoverSide.Bottom, PopoverSide.Top, PopoverSide.Left, PopoverSide.Right } :: { PopoverSide },
 		align = Dash.values(PopoverAlign),
 		maxDepth = { 3, 4, 5, 2, 1 },
+		numMenuItems = 6,
+		maxHeight = { 0, 180, 240, 360 },
 		firstItemText = "Action one",
 		leading = if Flags.FoundationBaseMenuBeta then { "Icon", "Avatar", "Mixed", "None" } else nil,
 		trailing = if Flags.FoundationBaseMenuBeta then { "Hint", "Badge", "Mixed", "None" } else nil,

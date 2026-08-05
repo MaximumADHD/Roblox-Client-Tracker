@@ -3,6 +3,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local StyleSheetContext = require(Style.StyleSheetContext)
 local TagsContext = require(Style.TagsContext)
@@ -18,7 +19,11 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local getTokens = Tokens.getTokens
 
 export type StyleProviderProps = {
-	theme: Theme,
+	-- The color mode (Light/Dark) to resolve tokens and styles for.
+	-- Takes precedence over `theme` when both are provided.
+	colorMode: ColorMode?,
+	-- **Deprecated**. Use `colorMode` instead. Kept for backward compatibility.
+	theme: Theme?,
 	device: Device?,
 	scale: number?,
 	-- **Deprecated**. Use useStyleSheet hook insteads to derive the Foundation styles.
@@ -32,6 +37,7 @@ export type StyleProviderProps = {
 	children: React.ReactNode,
 }
 
+type ColorMode = ColorMode.ColorMode
 type Theme = Theme.Theme
 type Device = Device.Device
 type Tokens = Tokens.Tokens
@@ -48,7 +54,7 @@ local defaultStyle = {
 
 local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local props = withDefaults({
-		theme = styleProviderProps.theme,
+		theme = styleProviderProps.colorMode or styleProviderProps.theme,
 		device = styleProviderProps.device,
 		scale = styleProviderProps.scale,
 	}, defaultStyle)

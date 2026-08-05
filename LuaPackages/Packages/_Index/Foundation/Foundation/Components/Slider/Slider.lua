@@ -19,6 +19,7 @@ local calculatePixelsPerStep = require(script.Parent.calculatePixelsPerStep)
 local calculateSliderPositionDelta = require(script.Parent.calculateSliderPositionDelta)
 local calculateSliderStepValue = require(script.Parent.calculateSliderStepValue)
 local calculateSliderValueFromPosition = require(script.Parent.calculateSliderValueFromPosition)
+local useSliderDirectionalInput = require(script.Parent.useSliderDirectionalInput)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -29,7 +30,7 @@ type Visibility = Visibility.Visibility
 local SliderVariant = require(Foundation.Enums.SliderVariant)
 type SliderVariant = SliderVariant.SliderVariant
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local ControlState = require(Foundation.Enums.ControlState)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 type ControlState = ControlState.ControlState
@@ -81,8 +82,16 @@ local defaultProps = {
 	testId = "--foundation-slider",
 }
 
-local IS_INVERSE = { colorMode = ColorMode.Inverse }
+local IS_INVERSE = { colorNamespace = ColorNamespace.Inverse }
 
+local DIRECTIONAL_SELECTION_GROUP: Types.SelectionGroup = {
+	SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+	SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
+	SelectionBehaviorUp = Enum.SelectionBehavior.Escape,
+	SelectionBehaviorDown = Enum.SelectionBehavior.Escape,
+}
+
+-- selene: allow(high_cyclomatic_complexity) -- try removing when cleaning up either FFlagFoundationSliderOffloadDraggingMath or FFlagFoundationSliderAsSeenOnTV
 local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>?)
 	local props = withDefaults(sliderProps, defaultProps)
 	local tokens = useTokens()
@@ -93,14 +102,26 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		return math.clamp(currValue, props.range.Min, props.range.Max)
 	end)
 
-	local lastDragPosition = React.useRef(nil :: Vector2?)
+	local lastDragPosition = if Flags.FoundationSliderOffloadDraggingMath
+		then nil :: never
+		else React.useRef(nil :: Vector2?)
+	local dragDetectorRef = if Flags.FoundationSliderOffloadDraggingMath
+		then React.useRef<<UIDragDetector?>>(nil)
+		else nil :: never
+	-- The fraction we seek to on DragStart. DragUDim2 deltas are anchored to it.
+	local dragStartFractionRef = if Flags.FoundationSliderOffloadDraggingMath then React.useRef(0) else nil :: never
+	-- Previous DragUDim2 scale, used to detect the engine resetting the drag origin
+	-- when directional input changes direction.
+	local lastDragUDim2Ref = if Flags.FoundationSliderOffloadDraggingMath then React.useRef(0) else nil :: never
 	local lastInputMode = useLastInputMode()
 	local ref = React.useRef(nil :: GuiObject?)
 	React.useImperativeHandle(forwardRef, function()
 		return ref.current
 	end, {})
 
-	local pointerPosition = usePointerPosition(ref.current)
+	local pointerPosition = if Flags.FoundationSliderOffloadDraggingMath
+		then nil :: never
+		else usePointerPosition(ref.current)
 
 	local variant = useSliderVariants(tokens, props.size, props.variant)
 	local motionStates = useSliderMotionStates(variant.knob.style, variant.knob.dragStyle)
@@ -128,18 +149,20 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		end
 	end, { props.knobVisibility, controlState, isDragging } :: { unknown })
 
-	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
-		if ref.current then
-			local unsteppedValue = calculateSliderValueFromPosition(position, ref.current, props.range)
-			if props.step then
-				return calculateSliderStepValue(unsteppedValue, props.step, props.range)
-			end
+	local calculateValueFromAbsPosition = if Flags.FoundationSliderOffloadDraggingMath
+		then nil :: never
+		else React.useCallback(function(position: Vector2)
+			if ref.current then
+				local unsteppedValue = calculateSliderValueFromPosition(position, ref.current, props.range)
+				if props.step then
+					return calculateSliderStepValue(unsteppedValue, props.step, props.range)
+				end
 
-			return unsteppedValue
-		else
-			return 0
-		end
-	end, { ref, props.range, props.step } :: { unknown })
+				return unsteppedValue
+			else
+				return 0
+			end
+		end, { ref, props.range, props.step } :: { unknown })
 
 	local updateValue = React.useCallback(function(newValue: number)
 		if newValue ~= value:getValue() then
@@ -149,88 +172,175 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 		end
 	end, { value, props.onValueChanged } :: { unknown })
 
-	local onSeek = React.useCallback(function()
-		local newValue = calculateValueFromAbsPosition(pointerPosition:getValue())
-		updateValue(newValue)
-	end, { calculateValueFromAbsPosition, pointerPosition, updateValue } :: { unknown })
+	local onSeek = if Flags.FoundationSliderOffloadDraggingMath
+		then nil :: never
+		else React.useCallback(function()
+			local newValue = calculateValueFromAbsPosition(pointerPosition:getValue())
+			updateValue(newValue)
+		end, { calculateValueFromAbsPosition, pointerPosition, updateValue } :: { unknown })
 
-	local onDragStarted = React.useCallback(function(_rbx, inputPosition: Vector2)
-		lastDragPosition.current = inputPosition
-		setIsDragging(true)
+	if Flags.FoundationSliderAsSeenOnTV then
+		local isSelected = controlState == ControlState.Selected or controlState == ControlState.SelectedPressed
+		useSliderDirectionalInput(isSelected and not props.isDisabled, props.step, props.range, {
+			getValue = function()
+				return value:getValue()
+			end,
+			onStep = function(newValue: number)
+				updateValue(
+					if props.step then calculateSliderStepValue(newValue, props.step, props.range) else newValue
+				)
+			end,
+		})
+	end
 
-		if props.onDragStarted then
-			props.onDragStarted()
-		end
-	end, { props.onDragStarted })
-
-	local onDrag = React.useCallback(function(_rbx, position: Vector2)
-		if ref.current and lastDragPosition.current then
-			-- When step is enabled, use absolute position calculation for better
-			-- stepping behavior instead of delta-based calculation
-			if props.step and props.step > 0 then
-				if lastInputMode == InputMode.Directional then
-					-- Handle directional input movement by stepping one `props.step` at a time
-
-					local pixelDisplacement = position - lastDragPosition.current
-					local pixelDistanceX = math.abs(pixelDisplacement.X)
-					local pixelsPerStep = calculatePixelsPerStep(ref.current.AbsoluteSize.X, props.step, props.range)
-
-					-- Detect position jumps that are too large for a single frame
-					-- Thumbstick movement is gradual, so anything > 2 steps is likely a position reset
-					local maxExpectedMovement = pixelsPerStep * 2
-					if pixelDistanceX > maxExpectedMovement then
-						lastDragPosition.current = position
-						return
-					end
-
-					-- Only register movement if it's at least the half the size of one step
-					if pixelDistanceX < pixelsPerStep / 2 then
-						return
-					end
-
-					local currentValue = value:getValue()
-					local newValue = calculateNextStepValue(pixelDisplacement.X, currentValue, props.step, props.range)
-
-					if newValue ~= currentValue then
-						-- Only update position baseline when we actually step
-						updateValue(newValue)
-						lastDragPosition.current = position
-					end
-				else
-					-- Handle normal drag movement by snapping to the nearest step
-					local newValue = calculateValueFromAbsPosition(position)
-					updateValue(newValue)
-					lastDragPosition.current = position
-				end
-			else
-				local length = ref.current.AbsoluteSize.Magnitude
-				local delta = calculateSliderPositionDelta(position, lastDragPosition.current, length)
-
-				lastDragPosition.current = position
-
-				-- When using directional input (Gamepad/WASD/Arrow keys) with a Scriptable UIDragDetector,
-				-- the `position` gets reset when making significant directional changes.
-				-- Examples of this include going from Right -> Right+Up or Right -> Left.
-				--
-				-- In practice, this means that if the user moves the Slider to the right then wants to adjust
-				-- and move back a bit towards the left, this will immediately jump to the center of the
-				-- bar. To work around this, we discard that jump in position by making sure the delta isn't too large,
-				-- then from there we receive incremental changes like normal and sliding continues to work smoothly.
-				if lastInputMode == InputMode.Directional and math.abs(delta) > MAX_DIRECTIONAL_INPUT_DRAG_DELTA then
-					return
-				end
-
-				-- Calculate the new value from the position
-				local unsteppedValue = calculateValueFromAbsPosition(position)
-
-				updateValue(unsteppedValue)
+	local onDrag = if Flags.FoundationSliderOffloadDraggingMath
+		then React.useCallback(function(_rbx: UIDragDetector, _inputPosition: Vector2)
+			local dragDetector = dragDetectorRef.current
+			if not dragDetector then
+				return
 			end
-		end
-	end, { props.step, props.range, lastInputMode, value, updateValue, calculateValueFromAbsPosition } :: { unknown })
 
-	local onDragEnded = React.useCallback(function()
+			local rangeSpan = props.range.Max - props.range.Min
+			local delta = dragDetector.DragUDim2.X.Scale
+
+			-- Directional input resets the engine's drag origin when the direction flips,
+			-- which surfaces as a large jump in DragUDim2. Discard it and re-anchor to the
+			-- current value so the knob keeps its position instead of snapping back.
+			if
+				lastInputMode == InputMode.Directional
+				and math.abs(delta - lastDragUDim2Ref.current) > MAX_DIRECTIONAL_INPUT_DRAG_DELTA
+			then
+				dragStartFractionRef.current = (value:getValue() - props.range.Min) / rangeSpan - delta
+				lastDragUDim2Ref.current = delta
+				return
+			end
+
+			lastDragUDim2Ref.current = delta
+
+			-- DragUDim2 reports the drag's translation from the press point, so add it to
+			-- the fraction we seeked to on DragStart to get the absolute position.
+			local fraction = math.clamp(dragStartFractionRef.current + delta, 0, 1)
+			local newValue = props.range.Min + fraction * rangeSpan
+
+			updateValue(if props.step then calculateSliderStepValue(newValue, props.step, props.range) else newValue)
+		end, { props.step, props.range, lastInputMode, value, updateValue } :: { unknown })
+		else React.useCallback(
+				function(_rbx: UIDragDetector, position: Vector2)
+					if ref.current and lastDragPosition.current then
+						-- When step is enabled, use absolute position calculation for better
+						-- stepping behavior instead of delta-based calculation
+						if props.step and props.step > 0 then
+							if lastInputMode == InputMode.Directional then
+								-- Handle directional input movement by stepping one `props.step` at a time
+
+								local pixelDisplacement = position - lastDragPosition.current
+								local pixelDistanceX = math.abs(pixelDisplacement.X)
+								local pixelsPerStep =
+									calculatePixelsPerStep(ref.current.AbsoluteSize.X, props.step, props.range)
+
+								-- Detect position jumps that are too large for a single frame
+								-- Thumbstick movement is gradual, so anything > 2 steps is likely a position reset
+								local maxExpectedMovement = pixelsPerStep * 2
+								if pixelDistanceX > maxExpectedMovement then
+									lastDragPosition.current = position
+									return
+								end
+
+								-- Only register movement if it's at least the half the size of one step
+								if pixelDistanceX < pixelsPerStep / 2 then
+									return
+								end
+
+								local currentValue = value:getValue()
+								local newValue =
+									calculateNextStepValue(pixelDisplacement.X, currentValue, props.step, props.range)
+
+								if newValue ~= currentValue then
+									-- Only update position baseline when we actually step
+									updateValue(newValue)
+									lastDragPosition.current = position
+								end
+							else
+								-- Handle normal drag movement by snapping to the nearest step
+								local newValue = calculateValueFromAbsPosition(position)
+								updateValue(newValue)
+								lastDragPosition.current = position
+							end
+						else
+							local length = ref.current.AbsoluteSize.Magnitude
+							local delta = calculateSliderPositionDelta(position, lastDragPosition.current, length)
+
+							lastDragPosition.current = position
+
+							-- When using directional input (Gamepad/WASD/Arrow keys) with a Scriptable UIDragDetector,
+							-- the `position` gets reset when making significant directional changes.
+							-- Examples of this include going from Right -> Right+Up or Right -> Left.
+							--
+							-- In practice, this means that if the user moves the Slider to the right then wants to adjust
+							-- and move back a bit towards the left, this will immediately jump to the center of the
+							-- bar. To work around this, we discard that jump in position by making sure the delta isn't too large,
+							-- then from there we receive incremental changes like normal and sliding continues to work smoothly.
+							if
+								lastInputMode == InputMode.Directional
+								and math.abs(delta) > MAX_DIRECTIONAL_INPUT_DRAG_DELTA
+							then
+								return
+							end
+
+							-- Calculate the new value from the position
+							local unsteppedValue = calculateValueFromAbsPosition(position)
+
+							updateValue(unsteppedValue)
+						end
+					end
+				end,
+				{ props.step, props.range, lastInputMode, value, updateValue, calculateValueFromAbsPosition } :: { unknown }
+			) :: never
+
+	local onDragStarted = if Flags.FoundationSliderOffloadDraggingMath
+		then React.useCallback(function(_rbx: UIDragDetector, inputPosition: Vector2)
+			setIsDragging(true)
+
+			if props.onDragStarted then
+				props.onDragStarted()
+			end
+
+			lastDragUDim2Ref.current = 0
+
+			local rangeSpan = props.range.Max - props.range.Min
+
+			if lastInputMode == InputMode.Directional then
+				-- Directional input has no meaningful press position, so anchor to the
+				-- current value and let DragUDim2 deltas adjust it from there.
+				dragStartFractionRef.current = (value:getValue() - props.range.Min) / rangeSpan
+				return
+			end
+
+			-- DragUDim2 only reports movement *after* the grab, so seek to the press point
+			-- here and anchor subsequent drag deltas to this fraction.
+			local pressValue = if ref.current
+				then calculateSliderValueFromPosition(inputPosition, ref.current, props.range)
+				else props.range.Min
+
+			dragStartFractionRef.current = (pressValue - props.range.Min) / rangeSpan
+
+			updateValue(
+				if props.step then calculateSliderStepValue(pressValue, props.step, props.range) else pressValue
+			)
+		end, { props.onDragStarted, props.step, props.range, lastInputMode, value, updateValue } :: { unknown })
+		else React.useCallback(function(_rbx: UIDragDetector, inputPosition: Vector2)
+			lastDragPosition.current = inputPosition
+			setIsDragging(true)
+			if props.onDragStarted then
+				props.onDragStarted()
+			end
+		end, { props.onDragStarted }) :: never
+
+	local onDragEnded = React.useCallback(function(_rbx: UIDragDetector, _position: Vector2)
 		setIsDragging(false)
-		lastDragPosition.current = nil
+		if not Flags.FoundationSliderOffloadDraggingMath then
+			lastDragPosition.current = nil
+		end
 
 		if props.onDragEnded then
 			props.onDragEnded()
@@ -240,12 +350,32 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local onStateChanged = React.useCallback(function(state: ControlState)
 		setControlState(state)
 
-		-- Only need to set this once on Pressed to jump to the right position.
-		-- The UIDragDetector takes care of the rest
-		if state == ControlState.Pressed then
+		if not Flags.FoundationSliderOffloadDraggingMath and state == ControlState.Pressed then
 			onSeek()
 		end
 	end, { onSeek })
+
+	if Flags.FoundationSliderOffloadDraggingMath then
+		React.useEffect(function()
+			local dragDetector = dragDetectorRef.current
+			if not dragDetector then
+				return
+			end
+			local connection = dragDetector:AddConstraintFunction(
+				1,
+				function(proposedPosition: UDim2, proposedRotation: number)
+					-- Keep the seeked fraction plus the drag delta within [0, 1] so the knob
+					-- stops at the ends instead of over-dragging past them.
+					local base = dragStartFractionRef.current
+					local clampedDelta = math.clamp(proposedPosition.X.Scale, -base, 1 - base)
+					return UDim2.fromScale(clampedDelta, 0), proposedRotation
+				end
+			)
+			return function()
+				connection:Disconnect()
+			end
+		end, {})
+	end
 
 	local knobPosition = UDim2.fromScale(1, 0.5)
 	local knobAnchorPoint = if props.isContained
@@ -264,18 +394,33 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				-- This element is just the hitbox so we don't actually want it to visually change
 				affordance = StateLayerAffordance.None,
 			},
+			selectionGroup = if Flags.FoundationSliderAsSeenOnTV then DIRECTIONAL_SELECTION_GROUP else nil,
 			onStateChanged = onStateChanged,
 			isDisabled = props.isDisabled,
 			ref = ref,
 		}),
 		{
-			DragDetector = React.createElement("UIDragDetector", {
-				DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
-				[React.Event.DragStart] = onDragStarted :: any,
-				[React.Event.DragContinue] = onDrag :: any,
-				[React.Event.DragEnd] = onDragEnded :: any,
-				Enabled = not props.isDisabled,
-			}),
+			DragDetector = if Flags.FoundationSliderOffloadDraggingMath
+				then React.createElement("UIDragDetector", {
+					ref = dragDetectorRef,
+					DragStyle = Enum.UIDragDetectorDragStyle.TranslateLine,
+					DragAxis = Vector2.new(1, 0),
+					ResponseStyle = Enum.UIDragDetectorResponseStyle.CustomScale,
+					DragRelativity = Enum.UIDragDetectorDragRelativity.Absolute,
+					[React.Event.DragStart] = onDragStarted,
+					[React.Event.DragContinue] = onDrag,
+					[React.Event.DragEnd] = onDragEnded,
+					SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
+					Enabled = not props.isDisabled,
+				})
+				else React.createElement("UIDragDetector", {
+					DragStyle = Enum.UIDragDetectorDragStyle.Scriptable,
+					[React.Event.DragStart] = onDragStarted :: any,
+					[React.Event.DragContinue] = onDrag :: any,
+					[React.Event.DragEnd] = onDragEnded :: any,
+					SelectionModeDragSpeed = if Flags.FoundationSliderAsSeenOnTV then UDim2.new() else nil,
+					Enabled = not props.isDisabled,
+				}),
 
 			Bar = React.createElement(View, {
 				tag = variant.bar.tag,

@@ -31,6 +31,7 @@ type _HydrationDataSpecFields = {
 	client_fetch: boolean,
 	required_fields: { string },
 	required: boolean,
+	client_hints: { string },
 }
 
 type _HydrationDataSpecPartialFields = {
@@ -40,6 +41,7 @@ type _HydrationDataSpecPartialFields = {
 	client_fetch: boolean?,
 	required_fields: { string }?,
 	required: boolean?,
+	client_hints: { string }?,
 }
 
 export type HydrationDataSpec = typeof(setmetatable({} :: _HydrationDataSpecFields, {} :: _HydrationDataSpecImpl))
@@ -83,6 +85,7 @@ do
 			client_fetch = if data == nil or data.client_fetch == nil then false else data.client_fetch,
 			required_fields = if data == nil or data.required_fields == nil then {} else data.required_fields,
 			required = if data == nil or data.required == nil then false else data.required,
+			client_hints = if data == nil or data.client_hints == nil then {} else data.client_hints,
 		}, _HydrationDataSpecImpl :: _HydrationDataSpecImpl)
 	end
 
@@ -134,6 +137,13 @@ do
 		if self.required then
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.required then 1 else 0)
+		end
+
+		if self.client_hints ~= nil and #self.client_hints > 0 then
+			for _, value in self.client_hints do
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -188,6 +198,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.required_fields, buffer.tostring(value))
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.client_hints, buffer.tostring(value))
 					continue
 				end
 
@@ -253,6 +268,14 @@ do
 
 		if self.required then
 			output.required = self.required
+		end
+
+		if self.client_hints ~= nil and #self.client_hints > 0 then
+			local newOutput = {}
+			for _, value in self.client_hints do
+				table.insert(newOutput, value)
+			end
+			output.clientHints = newOutput
 		end
 
 		return output
@@ -321,6 +344,24 @@ do
 
 		if input.required ~= nil then
 			self.required = input.required
+		end
+
+		if input.client_hints ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.client_hints do
+				table.insert(newOutput, value)
+			end
+
+			self.client_hints = newOutput
+		end
+
+		if input.clientHints ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.clientHints do
+				table.insert(newOutput, value)
+			end
+
+			self.client_hints = newOutput
 		end
 
 		return self

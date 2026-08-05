@@ -59,7 +59,6 @@ local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
@@ -329,11 +328,9 @@ function HamburgerButton(props)
 		})
 		else nil
 
-	local showBadgeOver12 = if FFlagAddTopBarPoliciesToUniversalPolicies
-		then useAppPolicy(function(appPolicy)
-			return appPolicy.getShowBadgeOver12()
-		end)
-		else nil
+	local showBadgeOver12 = useAppPolicy(function(appPolicy)
+		return appPolicy.getShowBadgeOver12()
+	end)
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, iconSize, 0, iconSize),

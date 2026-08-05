@@ -33,6 +33,7 @@ local PlayerListSwitcher = require(PlayerList.PlayerListSwitcher)
 local MakePlayerInfoRequests = require(PlayerList.Thunks.MakePlayerInfoRequests)
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local PlatformLeaderboardsClient = require(CorePackages.Workspace.Packages.PlatformLeaderboardsClient)
 local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local PlayerListConstants = PlayerListPackage.Common.Constants
@@ -63,6 +64,8 @@ local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewP
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
+local FFlagPlatformLeaderboardPersistStoreOnRemount =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardPersistStoreOnRemount
 
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
 local FFlagPlayerListReskinMobileLayoutFix = PlayerListPackage.Flags.FFlagPlayerListReskinMobileLayoutFix
@@ -391,6 +394,9 @@ function PlayerListController:_setupReskin()
 
 	local PlayerListInitialVisibleState = require(PlayerList.PlayerListInitialVisibleState)
 	PlayerListVisibilityStore.reset()
+	if FFlagPlatformLeaderboardPersistStoreOnRemount then
+		PlatformLeaderboardsClient.reset()
+	end
 	PlayerListVisibilityStore.setVisible(PlayerListInitialVisibleState())
 
 	self.SetVisibleChangedEvent = Instance.new("BindableEvent")

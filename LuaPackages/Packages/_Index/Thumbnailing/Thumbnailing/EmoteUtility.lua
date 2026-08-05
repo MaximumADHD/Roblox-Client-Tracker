@@ -13,6 +13,8 @@ local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 local FFlagEmoteUtilityDefaultMoodFromCharacter = game:DefineFastFlag("EmoteUtilityDefaultMoodFromCharacter", false)
 local FFlagEmoteUtilityUseIdleAnimationFallback = game:DefineFastFlag("EmoteUtilityUseIdleAnimationFallback", false)
+local FFlagEmoteUtilityReportPoseAnimationDownloadFailure =
+	game:DefineFastFlag("EmoteUtilityReportPoseAnimationDownloadFailure", false)
 
 local module = {}
 
@@ -1362,7 +1364,7 @@ module.SetPlayerCharacterPoseWithMoodFallback = function(
 	moodAssetId: number?,
 	ignoreRotationInPoseAsset: boolean?,
 	forCloseup: boolean?
-)
+): string?
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	if not humanoid then
 		return
@@ -1373,8 +1375,17 @@ module.SetPlayerCharacterPoseWithMoodFallback = function(
 
 	local keyframesForPose =
 		module.LoadKeyframesForPose(character, animationAssetId, moodAssetId, ignoreRotationInPoseAsset, forCloseup)
-
 	module.ApplyKeyframesForPose(character, keyframesForPose)
+
+	if not FFlagEmoteUtilityReportPoseAnimationDownloadFailure or not keyframesForPose then
+		return nil
+	end
+
+	return humanoid.RigType == Enum.HumanoidRigType.R15
+			and animationAssetId ~= nil
+			and keyframesForPose.poseKeyframe == nil
+			and "Failed to download requested pose animation"
+		or nil
 end
 
 --[[

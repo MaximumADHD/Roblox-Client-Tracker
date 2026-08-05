@@ -53,6 +53,14 @@ local TouchJump = require(script:WaitForChild("TouchJump"))
 
 local VehicleController = require(script:WaitForChild("VehicleController"))
 
+local FFlagUserPlayerScriptsSupportMicroGamepad
+do
+    local success, result = pcall(function()
+        return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsSupportMicroGamepad")
+    end)
+    FFlagUserPlayerScriptsSupportMicroGamepad = success and result
+end
+
 local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local NECK_OFFSET = -0.7
 local FIRST_PERSON_THRESHOLD_DISTANCE = 5
@@ -334,7 +342,13 @@ function ControlModule:SelectComputerMovementModule(): ({}?, boolean)
 	local DevMovementMode = Players.LocalPlayer.DevComputerMovementMode
 
 	if DevMovementMode == Enum.DevComputerMovementMode.UserChoice then
-		if UserInputService.PreferredInput == Enum.PreferredInput.Gamepad then
+		local preferMicroGamepad = false
+		if FFlagUserPlayerScriptsSupportMicroGamepad then
+			pcall(function()
+				preferMicroGamepad = UserInputService.PreferredInput == Enum.PreferredInput.MicroGamepad
+			end)
+		end
+		if UserInputService.PreferredInput == Enum.PreferredInput.Gamepad or preferMicroGamepad then
 			computerModule = Gamepad
 		elseif UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse then
 			computerModule = Keyboard

@@ -33,17 +33,8 @@ return {
 	-- Foundation@1.47.0
 	FoundationUsePath2DSpinner = SafeFlags.createGetFFlag("FoundationUsePath2DSpinner")(),
 
-	-- Foundation@1.54.0
-	FoundationStatusIndicatorVariantExperiment = SafeFlags.createGetFFlag("FoundationStatusIndicatorVariantExperiment")(),
-
 	-- Foundation@1.60.0
 	FoundationToggleVisualUpdate = SafeFlags.createGetFFlag("FoundationToggleVisualUpdate")(),
-
-	-- Foundation@1.69.0
-	FoundationSideSheetNewWidthCalculation = SafeFlags.createGetFFlag("FoundationSideSheetNewWidthCalculation")(),
-
-	-- Foundation@1.72.1
-	FoundationUseGetInsetArea = SafeFlags.createGetFFlag("FoundationUseGetInsetArea")(),
 
 	-- Foundation@1.73.0
 	FoundationOverlayKeyboardAwareness = SafeFlags.createGetFFlag("FoundationOverlayKeyboardAwareness")(),
@@ -75,7 +66,6 @@ return {
 	FoundationInputSelectionProps = SafeFlags.createGetFFlag("FoundationInputSelectionProps")(),
 
 	-- Foundation@1.86.0
-	FoundationTextInputHighlightFix = SafeFlags.createGetFFlag("FoundationTextInputHighlightFix")(),
 	FoundationTokenOverrides = SafeFlags.createGetFFlag("FoundationTokenOverrides2")(),
 
 	-- Foundation@1.87.0
@@ -96,7 +86,6 @@ return {
 	FoundationTabsInlineSizeFull = FoundationTabsInlineSizeFull,
 
 	-- Foundation@1.90.0
-	FoundationBadgeBetaUpdate = SafeFlags.createGetFFlag("FoundationBadgeBetaUpdate")(),
 	FoundationBaseMenuAutoYCanvasSizing = SafeFlags.createGetFFlag("FoundationBaseMenuAutoYCanvasSizing")(),
 	FoundationBaseMenuBeta = SafeFlags.createGetFFlag("FoundationBaseMenuBeta")(),
 	FoundationBottomSheetInnerScrollingSync = SafeFlags.createGetFFlag("FoundationBottomSheetInnerScrollingSync")(),
@@ -111,7 +100,6 @@ return {
 	FoundationSystemBannerWrapActionsOnXSmall = SafeFlags.createGetFFlag("FoundationSystemBannerWrapActionsOnXSmall")(),
 
 	-- Foundation@1.93.0
-	FoundationAvatarBeta = SafeFlags.createGetFFlag("FoundationAvatarBeta2")(),
 	FoundationBaseMenuContentSizing = SafeFlags.createGetFFlag("FoundationBaseMenuContentSizing")(),
 	FoundationBottomSheetOnSnapPointChanged = SafeFlags.createGetFFlag("FoundationBottomSheetOnSnapPointChanged")(),
 	FoundationBottomSheetScrollAtMaxTolerance = SafeFlags.createGetFFlag("FoundationBottomSheetScrollAtMaxTolerance")(),
@@ -136,6 +124,28 @@ return {
 		"FoundationBottomSheetGestureInteractionSink"
 	)(),
 	FoundationNumberInputOnTextChanged = SafeFlags.createGetFFlag("FoundationNumberInputOnTextChanged")(),
+
+	-- Foundation@1.97.0
+	FoundationAvatarBeta = SafeFlags.createGetFFlag("FoundationAvatarBeta3")(),
+	FoundationBadgeBetaUpdate = SafeFlags.createGetFFlag("FoundationBadgeBetaUpdate2")(),
+	FoundationBaseMenuSubmenuMaxHeight = SafeFlags.createGetFFlag("FoundationBaseMenuSubmenuMaxHeight")(),
+	FoundationImageContentSupport = SafeFlags.createGetFFlag("FoundationImageContentSupport")(),
+	FoundationInteractableSecondaryActivated = SafeFlags.createGetFFlag("FoundationInteractableSecondaryActivated")(),
+	FoundationSliderOffloadDraggingMath = SafeFlags.createGetFFlag("FoundationSliderOffloadDraggingMath")(),
+	FoundationViewMemoizationChanges = SafeFlags.createGetFFlag("FoundationViewMemoizationChanges")(),
+
+	-- Foundation@1.98.0
+	FoundationAvatarIncludeProfileFrame = SafeFlags.createGetFFlag("FoundationAvatarIncludeProfileFrame")(),
+	FoundationOptionSelectorGroupFixes = SafeFlags.createGetFFlag("FoundationOptionSelectorGroupFixes")(),
+	FoundationOverlayResilientMainGui = SafeFlags.createGetFFlag("FoundationOverlayResilientMainGui")(),
+	FoundationRemoveSecondUIDDFromScrubbableTextboxes = SafeFlags.createGetFFlag(
+		"FoundationRemoveSecondUIDDFromScrubbableTextboxes"
+	)(),
+	FoundationSliderAsSeenOnTV = SafeFlags.createGetFFlag("FoundationSliderAsSeenOnTV")(),
+	FoundationStatusIndicatorVariantExperiment = SafeFlags.createGetFFlag(
+		"FoundationStatusIndicatorVariantExperiment2"
+	)(),
+	FoundationWidgetManagerSnapshotFlush = SafeFlags.createGetFFlag("FoundationWidgetManagerSnapshotFlush")(),
 
 	-- Unreleased flags
 }

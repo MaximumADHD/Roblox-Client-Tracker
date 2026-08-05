@@ -4,7 +4,7 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local CursorContext = require(script.Parent.CursorContext)
 local KeyUtilities = require(script.Parent.KeyUtilities)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
@@ -12,12 +12,14 @@ local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePresentationContext = PresentationContext.usePresentationContext
 
-type ColorMode = ColorMode.ColorMode
+type ColorNamespace = ColorNamespace.ColorNamespace
 
 local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
-	local cursorColorMode = if presentationContext.colorMode then presentationContext.colorMode else ColorMode.Color
+	local cursorColorNamespace = if presentationContext.colorNamespace
+		then presentationContext.colorNamespace
+		else ColorNamespace.Color
 
 	local context = React.useContext(CursorContext)
 	local refCache = context.refCache
@@ -30,13 +32,13 @@ local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 				cursor.radius,
 				cursor.offset,
 				cursor.borderWidth,
-				cursorColorMode :: ColorMode
+				cursorColorNamespace :: ColorNamespace
 			)
 		elseif cursor == nil then
-			return KeyUtilities.encodeKey(tokens, nil, nil, nil, cursorColorMode :: ColorMode)
+			return KeyUtilities.encodeKey(tokens, nil, nil, nil, cursorColorNamespace :: ColorNamespace)
 		end
-		return KeyUtilities.encodeCursorTypeKey(cursor, cursorColorMode :: ColorMode)
-	end, { cursor, tokens, cursorColorMode } :: { unknown })
+		return KeyUtilities.encodeCursorTypeKey(cursor, cursorColorNamespace :: ColorNamespace)
+	end, { cursor, tokens, cursorColorNamespace } :: { unknown })
 
 	React.useEffect(function()
 		setMountedCursors(function(mountedExisting)

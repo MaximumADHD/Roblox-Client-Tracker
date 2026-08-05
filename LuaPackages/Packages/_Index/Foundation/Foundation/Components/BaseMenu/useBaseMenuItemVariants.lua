@@ -56,7 +56,7 @@ local function legacyVariants(tokens: Tokens)
 		},
 		check = { tag = "content-emphasis", style = tokens.Color.Content.Emphasis },
 		slotAlign = { tag = "align-x-center align-y-center" },
-		submenuContent = { tag = "col auto-xy stroke-standard stroke-default radius-medium" },
+		submenuContent = { tag = "stroke-standard stroke-default radius-medium" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
@@ -103,6 +103,11 @@ local function legacyVariants(tokens: Tokens)
 		[true] = { container = { tag = "bg-surface-200" } },
 	}
 
+	local isScrollable = {
+		[false] = { submenuContent = { tag = "col auto-xy" } },
+		[true] = { submenuContent = { tag = "" } },
+	}
+
 	-- `common.container.tag` already includes `auto-x`; this entry exists only for shape parity
 	-- with `refreshVariants`. Goes away with the rest of `legacyVariants` on flag cleanup.
 	-- TODO: Remove this when FoundationBaseMenuBeta is cleaned up.
@@ -112,6 +117,7 @@ local function legacyVariants(tokens: Tokens)
 		common = common,
 		sizes = sizes,
 		isChecked = isChecked,
+		isScrollable = isScrollable,
 		defaultSize = defaultSize,
 	}
 end
@@ -131,7 +137,7 @@ local function refreshVariants(tokens: Tokens)
 		},
 		check = { tag = "content-emphasis", style = tokens.Color.Content.Emphasis },
 		slotAlign = { tag = "align-x-center align-y-center" },
-		submenuContent = { tag = "col auto-xy stroke-standard stroke-default radius-medium" },
+		submenuContent = { tag = "stroke-standard stroke-default radius-medium" },
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
@@ -206,12 +212,18 @@ local function refreshVariants(tokens: Tokens)
 		[true] = { container = { tag = "" } },
 	}
 
+	local isScrollable = {
+		[false] = { submenuContent = { tag = "col auto-xy" } },
+		[true] = { submenuContent = { tag = "" } },
+	}
+
 	local defaultSize = { container = { tag = "auto-x" } }
 
 	return {
 		common = common,
 		sizes = sizes,
 		isChecked = isChecked,
+		isScrollable = isScrollable,
 		defaultSize = defaultSize,
 	}
 end
@@ -228,12 +240,22 @@ end
 -- TODO: When FoundationBaseMenuBeta is cleaned up:
 --   * Drop the `isChecked` parameter (only the legacy branch reads it) and update all callers.
 --   * Remove the `if not Flags.FoundationBaseMenuBeta` branch below.
-return function(tokens: Tokens, size: InputSize, isChecked: boolean): BaseMenuItemVariantProps
+return function(tokens: Tokens, size: InputSize, isChecked: boolean, isScrollable: boolean): BaseMenuItemVariantProps
 	local variants = VariantsContext.useVariants("BaseMenuItem", variantsMap, tokens)
 
 	if not Flags.FoundationBaseMenuBeta then
-		return composeStyleVariant(variants.common, variants.sizes[size], variants.isChecked[isChecked])
+		return composeStyleVariant(
+			variants.common,
+			variants.sizes[size],
+			variants.isChecked[isChecked],
+			variants.isScrollable[isScrollable]
+		)
 	end
 
-	return composeStyleVariant(variants.common, variants.sizes[size], variants.defaultSize)
+	return composeStyleVariant(
+		variants.common,
+		variants.sizes[size],
+		variants.defaultSize,
+		variants.isScrollable[isScrollable]
+	)
 end

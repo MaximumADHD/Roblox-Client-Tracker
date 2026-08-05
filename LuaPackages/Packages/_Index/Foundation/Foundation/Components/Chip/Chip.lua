@@ -20,7 +20,7 @@ local Accessory = require(script.Parent.Accessory)
 local IconPosition = require(Foundation.Enums.IconPosition)
 type IconPosition = IconPosition.IconPosition
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 
 local CursorType = require(Foundation.Enums.CursorType)
@@ -138,7 +138,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 		}),
 		React.createElement(PresentationContext.Provider, {
 			value = {
-				colorMode = if props.isChecked then ColorMode.Inverse else ColorMode.Color,
+				colorNamespace = if props.isChecked then ColorNamespace.Inverse else ColorNamespace.Color,
 				isIconSize = true,
 			},
 		}, {

@@ -59,6 +59,7 @@ function WidgetManager.new(widgetsApi: Widgets)
 	self._pendingDeregisters = {} :: { [string]: StudioUri }
 	self._registeredWidgets = {} :: { [string]: GuiBase2d }
 	self._signals = {} :: { [string]: WidgetSignals }
+	self._deferredAncestrySignals = {} :: { [string]: RBXScriptConnection }
 	self._running = false
 
 	return self
@@ -71,8 +72,27 @@ function WidgetManager.nextId(_self: WidgetManager): string
 end
 
 function WidgetManager.flush(self: WidgetManager)
+	if Flags.FoundationWidgetManagerSnapshotFlush then
+		local pendingDeregisters = self._pendingDeregisters
+		local pendingRegisters = self._pendingRegisters
+		self._pendingDeregisters = {}
+		self._pendingRegisters = {}
+
+		self:_flushWith(pendingDeregisters, pendingRegisters)
+	else
+		self:_flushWith(self._pendingDeregisters, self._pendingRegisters)
+		self._pendingDeregisters = {}
+		self._pendingRegisters = {}
+	end
+end
+
+function WidgetManager._flushWith(
+	self: WidgetManager,
+	pendingDeregisters: { [string]: StudioUri },
+	pendingRegisters: { [string]: any }
+)
 	local deregisterUris = {}
-	for uriString, uri in self._pendingDeregisters do
+	for uriString, uri in pendingDeregisters do
 		table.insert(deregisterUris, uri)
 		self._registeredWidgets[uriString] = nil
 	end
@@ -81,11 +101,42 @@ function WidgetManager.flush(self: WidgetManager)
 			self._widgetsApi:DeregisterAsync(deregisterUris)
 		end)
 	end
-	self._pendingDeregisters = {}
 
-	local list = filter(values(self._pendingRegisters), function(entry)
-		return entry.Widget:FindFirstAncestorWhichIsA("LayerCollector") ~= nil
+	local deferred = if Flags.FoundationWidgetManagerSnapshotFlush then {} else nil :: never
+	local list = filter(values(pendingRegisters), function(entry)
+		local hasLayerCollector = entry.Widget:FindFirstAncestorWhichIsA("LayerCollector") ~= nil
+		if Flags.FoundationWidgetManagerSnapshotFlush and not hasLayerCollector then
+			table.insert(deferred, entry)
+		end
+		return hasLayerCollector
 	end)
+
+	if Flags.FoundationWidgetManagerSnapshotFlush then
+		for _, entry in deferred do
+			local uriString = StudioUri.toString(entry.Uri)
+			if not self._deferredAncestrySignals[uriString] then
+				self._deferredAncestrySignals[uriString] = entry.Widget.AncestryChanged:Connect(function(_, parent)
+					if parent == nil then
+						local conn = self._deferredAncestrySignals[uriString]
+						if conn then
+							conn:Disconnect()
+							self._deferredAncestrySignals[uriString] = nil
+						end
+						return
+					end
+					if entry.Widget:FindFirstAncestorWhichIsA("LayerCollector") then
+						local conn = self._deferredAncestrySignals[uriString]
+						if conn then
+							conn:Disconnect()
+							self._deferredAncestrySignals[uriString] = nil
+						end
+						self:register(entry.Uri, entry.Widget)
+					end
+				end)
+			end
+		end
+	end
+
 	local rebindUris = {}
 	for _, entry in list do
 		entry.Position = entry.Widget.AbsolutePosition
@@ -139,7 +190,6 @@ function WidgetManager.flush(self: WidgetManager)
 	if #list > 0 then
 		self._widgetsApi:RegisterAsync(list)
 	end
-	self._pendingRegisters = {}
 end
 
 function WidgetManager._run(self: WidgetManager)
@@ -164,6 +214,13 @@ function WidgetManager.register(self: WidgetManager, widgetUri: StudioUri, gui: 
 	end
 	if pluginGui then
 		local uriString = StudioUri.toString(widgetUri)
+		if Flags.FoundationWidgetManagerSnapshotFlush then
+			local deferredConn = self._deferredAncestrySignals[uriString]
+			if deferredConn then
+				deferredConn:Disconnect()
+				self._deferredAncestrySignals[uriString] = nil
+			end
+		end
 		self._registeredWidgets[uriString] = gui
 		self._pendingRegisters[uriString] = { Uri = widgetUri, Widget = gui, DEPRECATED_PluginGui = pluginGui }
 		self._pendingDeregisters[uriString] = nil
@@ -174,6 +231,14 @@ end
 function WidgetManager.deregister(self: WidgetManager, widgetUri: StudioUri, gui: GuiBase2d?)
 	local uriString = StudioUri.toString(widgetUri)
 	self._pendingDeregisters[uriString] = widgetUri
+	if Flags.FoundationWidgetManagerSnapshotFlush then
+		self._pendingRegisters[uriString] = nil
+		local deferredConn = self._deferredAncestrySignals[uriString]
+		if deferredConn then
+			deferredConn:Disconnect()
+			self._deferredAncestrySignals[uriString] = nil
+		end
+	end
 	local signals = self._signals[uriString]
 	if signals then
 		if gui == nil or signals.Widget == gui then
@@ -195,6 +260,12 @@ function WidgetManager.destroy(self: WidgetManager)
 		signals.SizeChanged:Disconnect()
 		signals.VisibleChanged:Disconnect()
 		signals.AncestryChanged:Disconnect()
+	end
+	if Flags.FoundationWidgetManagerSnapshotFlush then
+		for _, conn in self._deferredAncestrySignals do
+			conn:Disconnect()
+		end
+		self._deferredAncestrySignals = {}
 	end
 	self._signals = {}
 	self._pendingRegisters = {}

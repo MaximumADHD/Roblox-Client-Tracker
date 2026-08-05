@@ -59,7 +59,7 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 		tokens,
 		props.size,
 		props.variant,
-		presentationContext.colorMode,
+		presentationContext.colorNamespace,
 		props.hasPadding,
 		props.isCircular
 	)

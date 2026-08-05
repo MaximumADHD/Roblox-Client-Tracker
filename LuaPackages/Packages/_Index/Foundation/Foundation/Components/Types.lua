@@ -178,7 +178,6 @@ export type BaseInteractableProps = {
 	-- A callback that is called when the element is activated with the primary input object.
 	onActivated: ((self: GuiObject, inputObject: InputObject, clickCount: number) -> ())?,
 	-- A callback that is called when the element is activated with the secondary input object.
-	-- Currently, this is only used for right-click. When SecondaryActivated is enabled, this will be used for left-click.
 	onSecondaryActivated: ((self: GuiObject, inputObject: InputObject) -> ())?,
 	-- A callback that is called when the state of the element changes.
 	onStateChanged: StateChangedCallback?,

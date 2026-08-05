@@ -1,9 +1,9 @@
 local Players = game:GetService("Players")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
+local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
 
-if FFlagUserPlayerScriptsCCLIntegrationB then
+if FFlagUserPlayerScriptsCCLIntegrationC then
     local AvatarAbilitiesInterface = {}
     AvatarAbilitiesInterface.__index = AvatarAbilitiesInterface
 
@@ -164,14 +164,16 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
         end
     end
 
-    function AvatarAbilitiesInterface:GetAbilityAttribute(abilityName, attributeName)
+    function AvatarAbilitiesInterface:GetAbilityAttribute(abilityName, attributeName, defaultValue)
         local abilityList = self._inputMap[abilityName]
-        if #abilityList < 1 then return end
+        if #abilityList < 1 then return defaultValue end
         local ability = abilityList[1]
-        if not ability then return false end
+        if not ability then return defaultValue end
         local syncedState = ability:FindFirstChild("SyncedState")
-        if not syncedState then return false end
-        return not not syncedState:GetAttribute(attributeName)
+        if not syncedState then return defaultValue end
+        local value = syncedState:GetAttribute(attributeName)
+        if value == nil then return defaultValue end
+        return value
     end
 
     function AvatarAbilitiesInterface:GetAbilityAttributeChangedSignal(abilityName, attributeName)
@@ -191,7 +193,7 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
     end
 
     function AvatarAbilitiesInterface:GetAbilityEnabled(abilityName)
-        return self:GetAbilityAttribute(abilityName, "Enabled")
+        return self:GetAbilityAttribute(abilityName, "Enabled", false)
     end
 
     function AvatarAbilitiesInterface:GetAbilityEnabledChangedSignal(abilityName)
@@ -199,7 +201,7 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
     end
 
     function AvatarAbilitiesInterface:GetAbilitySuspended(abilityName)
-        return self:GetAbilityAttribute(abilityName, "Suspended")
+        return self:GetAbilityAttribute(abilityName, "Suspended", false)
     end
 
     function AvatarAbilitiesInterface:GetAbilitySuspendedChangedSignal(abilityName)
@@ -207,11 +209,19 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
     end
 
     function AvatarAbilitiesInterface:GetAbilityActive(abilityName)
-        return self:GetAbilityAttribute(abilityName, "Active")
+        return self:GetAbilityAttribute(abilityName, "Active", false)
     end
 
     function AvatarAbilitiesInterface:GetAbilityActiveChangedSignal(abilityName)
         return self:GetAbilityAttributeChangedSignal(abilityName, "Active")
+    end
+
+    function AvatarAbilitiesInterface:GetAbilityValid(abilityName)
+        return self:GetAbilityAttribute(abilityName, "IsValid", true)
+    end
+
+    function AvatarAbilitiesInterface:GetAbilityValidChangedSignal(abilityName)
+        return self:GetAbilityAttributeChangedSignal(abilityName, "IsValid")
     end
 
     function AvatarAbilitiesInterface:GetAbilities()
@@ -237,8 +247,18 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
         local actionSlotAttribute = ability:GetAttribute("ActionSlot")
         if not actionSlotAttribute then return defaultReturn end
         local actionSlot = tonumber(actionSlotAttribute)
+
+        local customIconAttribute = ability:GetAttribute("CustomIcon")
+        local customIconActiveAttribute = ability:GetAttribute("CustomIconActive")
+        local customIconInvalidAttribute = ability:GetAttribute("CustomIconInvalid")
+        local iconVisibleWhenInvalidAttribute = ability:GetAttribute("IconVisibleWhenInvalid")
+
         return {
             Slot = actionSlot,
+            ButtonAssetId = customIconAttribute,
+            ButtonPressedAssetId = customIconActiveAttribute,
+            ButtonInvalidAssetId = customIconInvalidAttribute,
+            IconVisibleWhenInvalid = iconVisibleWhenInvalidAttribute,
         }
     end
 
@@ -261,7 +281,7 @@ if FFlagUserPlayerScriptsCCLIntegrationB then
 
     return AvatarAbilitiesInterface
 
-else -- FFlagUserPlayerScriptsCCLIntegrationB
+else -- FFlagUserPlayerScriptsCCLIntegrationC
 
     local Players = game:GetService("Players")
 
@@ -322,4 +342,4 @@ else -- FFlagUserPlayerScriptsCCLIntegrationB
 
     return AvatarAbilitiesInterface
 
-end -- FFlagUserPlayerScriptsCCLIntegrationB
+end -- FFlagUserPlayerScriptsCCLIntegrationC

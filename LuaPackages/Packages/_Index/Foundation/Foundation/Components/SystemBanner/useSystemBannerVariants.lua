@@ -4,8 +4,8 @@ local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type ColorStyle = Types.ColorStyle
 
-local ColorMode = require(Foundation.Enums.ColorMode)
-type ColorMode = ColorMode.ColorMode
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+type ColorNamespace = ColorNamespace.ColorNamespace
 
 local AlertVariant = require(Foundation.Enums.AlertVariant)
 type AlertVariant = AlertVariant.AlertVariant
@@ -22,7 +22,7 @@ type Tokens = Tokens.Tokens
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 type AlertVariantProps = {
-	container: { tag: string, colorMode: ColorMode },
+	container: { tag: string, colorNamespace: ColorNamespace },
 	icon: { style: ColorStyle },
 	title: { style: ColorStyle, tag: string },
 	description: { style: ColorStyle, tag: string },
@@ -32,7 +32,7 @@ local function createStandardVariantStyles(tokens: Tokens, iconStyle: ColorStyle
 	return {
 		container = {
 			tag = "bg-shift-200",
-			colorMode = ColorMode.Color,
+			colorNamespace = ColorNamespace.Color,
 		},
 		title = { style = tokens.Color.Content.Emphasis },
 		description = { style = tokens.Color.Content.Default },
@@ -40,15 +40,19 @@ local function createStandardVariantStyles(tokens: Tokens, iconStyle: ColorStyle
 	}
 end
 
-local function createEmphasisVariantStyles(tokens: Tokens, containerTag: string, colorMode: ColorMode): VariantProps
+local function createEmphasisVariantStyles(
+	tokens: Tokens,
+	containerTag: string,
+	colorNamespace: ColorNamespace
+): VariantProps
 	return {
 		container = {
 			tag = containerTag,
-			colorMode = colorMode,
+			colorNamespace = colorNamespace,
 		},
-		title = { style = tokens[colorMode].Content.Emphasis },
-		description = { style = tokens[colorMode].Content.Default },
-		icon = { style = tokens[colorMode].Content.Emphasis },
+		title = { style = tokens[colorNamespace].Content.Emphasis },
+		description = { style = tokens[colorNamespace].Content.Default },
+		icon = { style = tokens[colorNamespace].Content.Emphasis },
 	}
 end
 
@@ -73,10 +77,18 @@ local function variantsFactory(tokens: Tokens)
 			[AlertSeverity.Error] = createStandardVariantStyles(tokens, tokens.Color.System.Alert),
 		},
 		[AlertVariant.Emphasis] = {
-			[AlertSeverity.Info] = createEmphasisVariantStyles(tokens, "bg-system-emphasis", ColorMode.DarkMode),
-			[AlertSeverity.Warning] = createEmphasisVariantStyles(tokens, "bg-system-warning", ColorMode.LightMode),
-			[AlertSeverity.Success] = createEmphasisVariantStyles(tokens, "bg-system-success", ColorMode.LightMode),
-			[AlertSeverity.Error] = createEmphasisVariantStyles(tokens, "bg-system-alert", ColorMode.DarkMode),
+			[AlertSeverity.Info] = createEmphasisVariantStyles(tokens, "bg-system-emphasis", ColorNamespace.DarkMode),
+			[AlertSeverity.Warning] = createEmphasisVariantStyles(
+				tokens,
+				"bg-system-warning",
+				ColorNamespace.LightMode
+			),
+			[AlertSeverity.Success] = createEmphasisVariantStyles(
+				tokens,
+				"bg-system-success",
+				ColorNamespace.LightMode
+			),
+			[AlertSeverity.Error] = createEmphasisVariantStyles(tokens, "bg-system-alert", ColorNamespace.DarkMode),
 		},
 	}
 

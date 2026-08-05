@@ -20,6 +20,7 @@ type OnItemActivated = Types.OnItemActivated
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+local useBindable = require(Foundation.Utility.useBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -37,6 +38,8 @@ local Flags = require(Foundation.Utility.Flags)
 
 local Accessory = require(script.Parent.BaseMenuItemAccessory)
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
+local BaseMenuScrollContainer = require(script.Parent.BaseMenuScrollContainer)
+type ScrollContainerProps = BaseMenuScrollContainer.ScrollContainerProps
 local useBaseMenuItemVariants = require(script.Parent.useBaseMenuItemVariants)
 local useMenuItemHover = require(script.Parent.useMenuItemHover)
 
@@ -130,7 +133,9 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 	local resolvedLeading = if Flags.FoundationBaseMenuBeta then resolveAccessory(props.leading or props.icon) else nil
 	local resolvedTrailing = if Flags.FoundationBaseMenuBeta then resolveAccessory(props.trailing) else nil
 
-	local variantProps = useBaseMenuItemVariants(tokens, size, if isSubmenu then false else props.isChecked)
+	local isSubmenuScrollable = Flags.FoundationBaseMenuSubmenuMaxHeight and context.maxHeight ~= nil
+	local variantProps =
+		useBaseMenuItemVariants(tokens, size, if isSubmenu then false else props.isChecked, isSubmenuScrollable)
 
 	local itemRef = React.useRef(nil :: GuiObject?)
 	local hasCheckedForContext = props.isChecked == true and not isSubmenu
@@ -203,6 +208,8 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 			context.hoverReset()
 		end
 	end, { context.hoverReset })
+
+	local submenuMaxHeight = useBindable(context.maxHeight) :: React.Binding<number?>
 
 	local cursor = React.useMemo(function()
 		return {
@@ -392,6 +399,35 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 	local strokeThickness = tokens.Stroke.Standard
 	local groupPadding = variantProps.groupPadding.size
 
+	local submenuInner = React.createElement(BaseMenuContext.Provider, {
+		value = {
+			onActivated = context.onActivated,
+			onNestedLeafActivated = context.onNestedLeafActivated,
+			size = size,
+			hasLeading = submenuHasLeading,
+			setHasLeading = setSubmenuHasLeading,
+			hoverOpenPath = context.hoverOpenPath,
+			hoverOpenAtDepth = context.hoverOpenAtDepth,
+			hoverCloseAtDepth = context.hoverCloseAtDepth,
+			hoverReset = context.hoverReset,
+			depth = depth + 1,
+			maxHeight = context.maxHeight,
+		},
+	}, props.children)
+
+	local submenuContent = if isSubmenuScrollable
+		then React.createElement(BaseMenuScrollContainer, {
+			maxHeight = submenuMaxHeight,
+			scrollViewProps = {
+				tag = variantProps.submenuContent.tag,
+				InputSink = InputSinkAll,
+			} :: ScrollContainerProps,
+		}, submenuInner)
+		else React.createElement(View, {
+			tag = variantProps.submenuContent.tag,
+			InputSink = InputSinkAll,
+		}, submenuInner)
+
 	return React.createElement(React.Fragment, nil, {
 		Item = itemElement,
 		Submenu = React.createElement(Popover.Root, {
@@ -401,46 +437,22 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 			Anchor = React.createElement(Popover.Anchor, {
 				anchorRef = itemRef,
 			}),
-			Content = React.createElement(
-				Popover.Content,
-				{
-					side = {
-						position = PopoverSide.Right,
-						offset = groupPadding / 2 + strokeThickness,
-					},
-					align = {
-						position = PopoverAlign.Start,
-						offset = -groupPadding,
-					},
-					hasArrow = false,
-					onPressedOutside = onSubmenuPressedOutside,
-					backgroundStyle = if Flags.FoundationBaseMenuBeta
-						then tokens.Color.Surface.Surface_200
-						else tokens.Color.Surface.Surface_100,
-					radius = Radius.Medium,
+			Content = React.createElement(Popover.Content, {
+				side = {
+					position = PopoverSide.Right,
+					offset = groupPadding / 2 + strokeThickness,
 				},
-				React.createElement(
-					View,
-					{
-						tag = variantProps.submenuContent.tag,
-						InputSink = InputSinkAll,
-					},
-					React.createElement(BaseMenuContext.Provider, {
-						value = {
-							onActivated = context.onActivated,
-							onNestedLeafActivated = context.onNestedLeafActivated,
-							size = size,
-							hasLeading = submenuHasLeading,
-							setHasLeading = setSubmenuHasLeading,
-							hoverOpenPath = context.hoverOpenPath,
-							hoverOpenAtDepth = context.hoverOpenAtDepth,
-							hoverCloseAtDepth = context.hoverCloseAtDepth,
-							hoverReset = context.hoverReset,
-							depth = depth + 1,
-						},
-					}, props.children)
-				)
-			),
+				align = {
+					position = PopoverAlign.Start,
+					offset = -groupPadding,
+				},
+				hasArrow = false,
+				onPressedOutside = onSubmenuPressedOutside,
+				backgroundStyle = if Flags.FoundationBaseMenuBeta
+					then tokens.Color.Surface.Surface_200
+					else tokens.Color.Surface.Surface_100,
+				radius = Radius.Medium,
+			}, submenuContent),
 		}),
 	})
 end

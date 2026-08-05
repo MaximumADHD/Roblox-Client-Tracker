@@ -47,7 +47,7 @@ local function ButtonIcon(props: ButtonIconProps): React.Node
 		tokens,
 		props.size,
 		props.variant,
-		if presentationContext then presentationContext.colorMode else nil
+		if presentationContext then presentationContext.colorNamespace else nil
 	)
 
 	if not props.icon then

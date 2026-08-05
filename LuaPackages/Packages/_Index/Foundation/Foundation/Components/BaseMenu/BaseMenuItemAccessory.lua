@@ -14,7 +14,7 @@ local PresentationContext = require(Foundation.Providers.Style.PresentationConte
 local Tokens = require(Foundation.Providers.Style.Tokens)
 
 local AccessoryType = require(Foundation.Enums.AccessoryType)
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local InputSize = require(Foundation.Enums.InputSize)
 
 type Tokens = Tokens.Tokens
@@ -59,7 +59,7 @@ local function Accessory(props: AccessoryProps): React.ReactNode
 		}, {
 			Avatar = React.createElement(PresentationContext.Provider, {
 				value = {
-					colorMode = ColorMode.Color,
+					colorNamespace = ColorNamespace.Color,
 					isIconSize = true,
 				},
 			}, {

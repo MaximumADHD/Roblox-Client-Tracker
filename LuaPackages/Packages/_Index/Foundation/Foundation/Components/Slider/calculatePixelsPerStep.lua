@@ -1,3 +1,4 @@
+-- Remove this file when cleaning up FFlagFoundationSliderOffloadDraggingMath
 --[[
 	Calculates the number of pixels per step for a slider, taking into account the slider's length, step, and range.
 ]]

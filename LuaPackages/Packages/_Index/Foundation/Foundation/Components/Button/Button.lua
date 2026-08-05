@@ -137,7 +137,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 		tokens,
 		props.size,
 		props.variant,
-		if presentationContext then presentationContext.colorMode else nil
+		if presentationContext then presentationContext.colorNamespace else nil
 	)
 
 	local motionStates = useButtonMotionStates(variantProps.content.style.Transparency, Constants.DISABLED_TRANSPARENCY)

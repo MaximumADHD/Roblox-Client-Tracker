@@ -8,8 +8,8 @@ local Images = FoundationImages.Images
 local CursorComponent = require(script.Parent.Parent.CursorComponent)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
-local ColorMode = require(Foundation.Enums.ColorMode)
-type ColorMode = ColorMode.ColorMode
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+type ColorNamespace = ColorNamespace.ColorNamespace
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = script.Parent.Parent.Parent.Parent.Components
@@ -134,12 +134,12 @@ local CURSOR_TYPE_DETAILS: { [CursorType]: SlicedImage | FixedSizeImage | Rounde
 type Props = {
 	cursorType: CursorType,
 	isVisible: boolean,
-	colorMode: ColorMode.ColorMode,
+	colorNamespace: ColorNamespace.ColorNamespace,
 }
 
 local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
-	local colorIndex = props.colorMode
+	local colorIndex = props.colorNamespace
 	if props.cursorType == CursorType.NavHighlight then
 		return React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 1),
@@ -209,7 +209,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				cornerRadius = roundedCursorDetails.CornerRadius,
 				offset = roundedCursorDetails.Offset - roundedCursorDetails.BorderWidth,
 				borderWidth = roundedCursorDetails.BorderWidth,
-				colorMode = props.colorMode,
+				colorNamespace = props.colorNamespace,
 				ref = ref,
 			})
 		end

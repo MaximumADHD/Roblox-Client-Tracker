@@ -10,7 +10,8 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Foundation = require(CorePackages.Packages.Foundation)
-local Image = Foundation.Image
+local Icon = Foundation.Icon
+local IconSize = Foundation.Enums.IconSize
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
@@ -158,22 +159,21 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 					BackgroundTransparency = 1,
 				}, {
 					Icon = if FFlagCoreUiMigrateUIBloxToFoundation
-						then Roact.createElement(Image, {
+						then Roact.createElement(Icon, {
 							AnchorPoint = Vector2.new(0, 0.5),
-							Image = props.image.Image,
-							imageRect = { offset = props.image.ImageRectOffset, size = props.image.ImageRectSize },
-							imageStyle = { Color3 = style.Theme.IconEmphasis.Color, Transparency = divideTransparency(
+							name = props.icon,
+							size = IconSize.Medium,
+							style = { Color3 = style.Theme.IconEmphasis.Color, Transparency = divideTransparency(
 								style.Theme.IconEmphasis.Transparency,
 								showPressEffect and 2 or 1
 							) },
 							Position = UDim2.new(0, NAV_ICON_LEFT_PADDING, 0.5, 0),
-							Size = UDim2.new(0, NAV_ICON_SIZE, 0, NAV_ICON_SIZE),
 							ZIndex = 3,
 						})
 						else Roact.createElement(ImageSetLabel, {
 							AnchorPoint = Vector2.new(0, 0.5),
 							BackgroundTransparency = 1,
-							Image = props.image,
+							Image = props.icon,
 							ImageColor3 = style.Theme.IconEmphasis.Color,
 							ImageTransparency = divideTransparency(
 								style.Theme.IconEmphasis.Transparency,
@@ -241,7 +241,7 @@ local function PageNavigation(props)
 	for index, page in ipairs(Pages.pagesByIndex) do
 		if page.parentPage == Constants.MainPagePageKey then
 			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
-				image = page.icon,
+				icon = page.icon,
 				LayoutOrder = layoutOrder,
 				selected = props.currentPage == page.key,
 				text = page.title,

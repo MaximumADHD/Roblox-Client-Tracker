@@ -1,7 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local Types = require(Foundation.Components.Types)
-type ColorMode = ColorMode.ColorMode
+type ColorNamespace = ColorNamespace.ColorNamespace
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode
 
@@ -21,21 +21,18 @@ local INPUT_PLACEMENT_TO_LABEL_ALIGNMENT: { [InputPlacement]: Enum.HorizontalAli
 	[InputPlacement.End] = Enum.HorizontalAlignment.Left,
 }
 
--- Mapping of color mode to state layer mode for normal and inverse buttons
--- Boolean index reflects whether we want an inverted state layer, which requires
--- the correctly inverted state layer corresponding to that ColorMode.
-local ColorModeToStateLayerMode: { [boolean]: { [ColorMode]: StateLayerMode } } = {
+local ColorNamespaceToStateLayerMode: { [boolean]: { [ColorNamespace]: StateLayerMode } } = {
 	[false] = {
-		[ColorMode.Color] = StateLayerMode.Default,
-		[ColorMode.Inverse] = StateLayerMode.Inverse,
-		[ColorMode.LightMode] = StateLayerMode.Light,
-		[ColorMode.DarkMode] = StateLayerMode.Dark,
+		[ColorNamespace.Color] = StateLayerMode.Default,
+		[ColorNamespace.Inverse] = StateLayerMode.Inverse,
+		[ColorNamespace.LightMode] = StateLayerMode.Light,
+		[ColorNamespace.DarkMode] = StateLayerMode.Dark,
 	},
 	[true] = {
-		[ColorMode.Color] = StateLayerMode.Inverse,
-		[ColorMode.Inverse] = StateLayerMode.Default,
-		[ColorMode.LightMode] = StateLayerMode.Dark,
-		[ColorMode.DarkMode] = StateLayerMode.Light,
+		[ColorNamespace.Color] = StateLayerMode.Inverse,
+		[ColorNamespace.Inverse] = StateLayerMode.Default,
+		[ColorNamespace.LightMode] = StateLayerMode.Dark,
+		[ColorNamespace.DarkMode] = StateLayerMode.Light,
 	},
 }
 
@@ -61,7 +58,7 @@ return {
 			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
 		} :: Types.SelectionGroup,
 	},
-	COLOR_MODE_TO_STATE_LAYER_MODE = ColorModeToStateLayerMode,
+	COLOR_NAMESPACE_TO_STATE_LAYER_MODE = ColorNamespaceToStateLayerMode,
 	INPUT_PLACEMENT_TO_LABEL_ALIGNMENT = INPUT_PLACEMENT_TO_LABEL_ALIGNMENT,
 	BUILDER_SANS_FONT_ASSET = "rbxasset://fonts/families/BuilderSans.json",
 }

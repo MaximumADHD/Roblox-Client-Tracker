@@ -19,7 +19,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
@@ -61,7 +61,7 @@ local defaultProps = {
 	testId = "--foundation-toggle",
 }
 
-local IS_INVERSE = { colorMode = ColorMode.Color }
+local IS_INVERSE = { colorNamespace = ColorNamespace.Color }
 
 local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(toggleProps, defaultProps)

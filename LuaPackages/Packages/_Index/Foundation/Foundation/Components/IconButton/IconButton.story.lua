@@ -4,7 +4,7 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local IconButton = require(Foundation.Components.IconButton)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
@@ -30,7 +30,7 @@ local SUPPORTED_VARIANTS: { ButtonVariant } = {
 
 local function PlaygroundStory(props)
 	local controls = props.controls
-	local colorMode = controls.colorMode
+	local colorNamespace = controls.colorNamespace
 	local tokens = useTokens()
 
 	local iconButton = React.createElement(IconButton, {
@@ -40,7 +40,7 @@ local function PlaygroundStory(props)
 		},
 		variant = controls.buttonVariant,
 		onActivated = function()
-			print(`{colorMode} {controls.buttonVariant} IconButton activated`)
+			print(`{colorNamespace} {controls.buttonVariant} IconButton activated`)
 		end,
 		isDisabled = controls.isDisabled,
 		size = controls.size,
@@ -52,7 +52,7 @@ local function PlaygroundStory(props)
 		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
 		backgroundStyle = if controls.buttonVariant == ButtonVariant.OverMedia
 			then tokens.Color.Extended.White.White_100
-			elseif colorMode then tokens[colorMode].Surface.Surface_100
+			elseif colorNamespace then tokens[colorNamespace].Surface.Surface_100
 			else nil,
 	}, {
 		Gradient = if controls.buttonVariant == ButtonVariant.OverMedia
@@ -65,7 +65,7 @@ local function PlaygroundStory(props)
 			else nil,
 		IconButton = React.createElement(
 			PresentationContext.Provider,
-			{ value = { colorMode = colorMode } },
+			{ value = { colorNamespace = colorNamespace } },
 			iconButton
 		),
 	})
@@ -93,7 +93,7 @@ local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 					else nil,
 				IconButtons = React.createElement(
 					PresentationContext.Provider,
-					{ value = { isIconSize = false, colorMode = ColorMode.Color } },
+					{ value = { isIconSize = false, colorNamespace = ColorNamespace.Color } },
 					Dash.map(
 						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 						function(size)
@@ -248,7 +248,7 @@ return {
 		size = { InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 		isDisabled = false,
 		isCircular = false,
-		colorMode = Dash.values(ColorMode),
+		colorNamespace = Dash.values(ColorNamespace),
 		fillBehavior = {
 			React.None,
 			FillBehavior.Fit,

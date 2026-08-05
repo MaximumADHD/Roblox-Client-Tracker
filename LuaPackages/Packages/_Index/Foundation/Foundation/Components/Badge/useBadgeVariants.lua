@@ -107,19 +107,26 @@ function variantsFactory(tokens: Tokens)
 			},
 			icon = { style = tokens.Inverse.Content.Emphasis },
 		},
-		[BadgeVariant.Neutral] = {
+		[BadgeVariant.Standard] = {
 			container = {
-				backgroundStyle = if Flags.FoundationBadgeBetaUpdate
-					then tokens.Color.ActionStandard.Background
-					else tokens.Color.Shift.Shift_300,
+				backgroundStyle = tokens.Color.ActionStandard.Background,
 			},
 			content = {
-				style = if Flags.FoundationBadgeBetaUpdate
-					then tokens.Color.ActionStandard.Foreground
-					else tokens.Color.Content.Emphasis,
+				style = tokens.Color.ActionStandard.Foreground,
 			},
 			icon = { style = tokens.Color.ActionStandard.Foreground },
 		},
+		[BadgeVariant.Neutral] = if Flags.FoundationBadgeBetaUpdate
+			then nil :: never
+			else {
+				container = {
+					backgroundStyle = tokens.Color.Shift.Shift_300,
+				},
+				content = {
+					style = tokens.Color.Content.Emphasis,
+				},
+				icon = { style = tokens.Color.ActionStandard.Foreground },
+			},
 		[BadgeVariant.OverMedia] = {
 			container = {
 				backgroundStyle = if Flags.FoundationBadgeBetaUpdate

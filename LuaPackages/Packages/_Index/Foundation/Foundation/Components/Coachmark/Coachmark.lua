@@ -8,7 +8,7 @@ type ReactNode = React.ReactNode
 local Button = require(Foundation.Components.Button)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -141,7 +141,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 			},
 			React.createElement(
 				PresentationContext.Provider,
-				{ value = { colorMode = ColorMode.Inverse } },
+				{ value = { colorNamespace = ColorNamespace.Inverse } },
 				React.createElement(View, {
 					tag = "col gap-medium auto-xy padding-bottom-medium",
 					sizeConstraint = {

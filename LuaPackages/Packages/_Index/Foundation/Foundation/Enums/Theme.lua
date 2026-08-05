@@ -1,8 +1,8 @@
-export type Theme = "Dark" | "Light"
+-- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
+-- The light/dark/system concept is now called ColorMode. "Theme" is reserved
+-- for app-level themes (e.g. Circuit Rush, Kinetic Energy).
+local ColorMode = require(script.Parent.ColorMode)
 
-local Theme = {
-	Dark = "Dark" :: "Dark",
-	Light = "Light" :: "Light",
-}
+export type Theme = ColorMode.ColorMode
 
-return Theme
+return ColorMode

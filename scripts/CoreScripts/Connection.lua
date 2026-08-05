@@ -28,7 +28,6 @@ local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocaliz
 local fflagUpdateConnectionErrorLoc = game:DefineFastFlag("UpdateConnectionErrorLoc", false)
 
 local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
-local fflagAddConnectionErrorLocalizationKeys = game:DefineFastFlag("AddConnectionErrorLocalizationKeys", false)
 
 local connectionEventConfig = {
 	eventName = "ConnectionEvent",
@@ -613,7 +612,11 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectDuplicatePlayer] = true,
 	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
+	[Enum.ConnectionError.DisconnectBySecurityPolicy] = true,
+	[Enum.ConnectionError.DisconnectBlockedIP] = true,
 	[Enum.ConnectionError.DisconnectPrivateServerKickout] = true,
+	[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = true,
+	[Enum.ConnectionError.DisconnectCollaboratorUnderage] = true,
 	[Enum.ConnectionError.PlacelaunchFlooded] = true,
 	[Enum.ConnectionError.PlacelaunchHashException] = true,
 	[Enum.ConnectionError.PlacelaunchHashExpired] = true,
@@ -635,13 +638,6 @@ end
 
 if fflagShowScreentimeLockoutKickMessage then
 	reconnectDisabledList[Enum.ConnectionError.ScreentimeLockoutKick] = true
-end
-
-if fflagAddConnectionErrorLocalizationKeys then
-	reconnectDisabledList[Enum.ConnectionError.DisconnectBySecurityPolicy] = true
-	reconnectDisabledList[Enum.ConnectionError.DisconnectBlockedIP] = true
-	reconnectDisabledList[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = true
-	reconnectDisabledList[Enum.ConnectionError.DisconnectCollaboratorUnderage] = true
 end
 
 if FFlagAddPlacelaunchDeviceBlock then
@@ -1245,27 +1241,27 @@ local enumToLocalizationKey = {
 	[Enum.ConnectionError.DisconnectIdle] = "InGame.ConnectionError.DisconnectIdle",
 	[Enum.ConnectionError.DisconnectRaknetErrors] = "InGame.ConnectionError.DisconnectRaknetErrors",
 	[Enum.ConnectionError.DisconnectWrongVersion] = "InGame.ConnectionError.DisconnectWrongVersion",
-	[Enum.ConnectionError.DisconnectBySecurityPolicy] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectBySecurityPolicy",
-	[Enum.ConnectionError.DisconnectBlockedIP] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectBlockedIP",
-	[Enum.ConnectionError.DisconnectClientFailure] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectClientFailure",
-	[Enum.ConnectionError.DisconnectClientRequest] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectClientRequest",
+	[Enum.ConnectionError.DisconnectBySecurityPolicy] = "InGame.ConnectionError.DisconnectBlockedConnection",
+	[Enum.ConnectionError.DisconnectBlockedIP] = "InGame.ConnectionError.DisconnectBlockedConnection",
+	[Enum.ConnectionError.DisconnectClientFailure] = "InGame.ConnectionError.DisconnectClientFailure",
+	[Enum.ConnectionError.DisconnectClientRequest] = "InGame.ConnectionError.DisconnectClientRequest",
 	[Enum.ConnectionError.DisconnectPrivateServerKickout] = "InGame.ConnectionError.DisconnectPrivateServerKickout",
-	[Enum.ConnectionError.DisconnectModeratedGame] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectModeratedGame",
-	[Enum.ConnectionError.ServerShutdown] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.ServerShutdown",
-	[Enum.ConnectionError.ReplicatorTimeout] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.ReplicatorTimeout",
-	[Enum.ConnectionError.PlayerRemoved] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.PlayerRemoved",
+	[Enum.ConnectionError.DisconnectModeratedGame] = "InGame.ConnectionError.ServerShutdown",
+	[Enum.ConnectionError.ServerShutdown] = "InGame.ConnectionError.ServerShutdown",
+	[Enum.ConnectionError.ReplicatorTimeout] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.PlayerRemoved] = "InGame.ConnectionError.DisconnectTryAgain",
 	[Enum.ConnectionError.DisconnectOutOfMemoryKeepPlayingLeave] = "InGame.ConnectionError.DisconnectOutOfMemoryKeepPlayingLeave",
-	[Enum.ConnectionError.DisconnectRomarkEndOfTest] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectRomarkEndOfTest",
-	[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectCollaboratorPermissionRevoked",
-	[Enum.ConnectionError.DisconnectCollaboratorUnderage] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectCollaboratorUnderage",
-	[Enum.ConnectionError.NetworkInternal] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.NetworkInternal",
-	[Enum.ConnectionError.NetworkSend] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.NetworkSend",
-	[Enum.ConnectionError.NetworkTimeout] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.NetworkTimeout",
-	[Enum.ConnectionError.NetworkMisbehavior] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.NetworkMisbehavior",
-	[Enum.ConnectionError.NetworkSecurity] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.NetworkSecurity",
-	[Enum.ConnectionError.ReplacementReady] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.ReplacementReady",
-	[Enum.ConnectionError.ServerEmpty] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.ServerEmpty",
-	[Enum.ConnectionError.PhantomFreeze] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.PhantomFreeze",
+	[Enum.ConnectionError.DisconnectRomarkEndOfTest] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = "InGame.ConnectionError.DisconnectCollaboratorPermissionRevoked",
+	[Enum.ConnectionError.DisconnectCollaboratorUnderage] = "InGame.ConnectionError.DisconnectCollaboratorUnderage",
+	[Enum.ConnectionError.NetworkInternal] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.NetworkSend] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.NetworkTimeout] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.NetworkMisbehavior] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.NetworkSecurity] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.ReplacementReady] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.ServerEmpty] = "InGame.ConnectionError.DisconnectTryAgain",
+	[Enum.ConnectionError.PhantomFreeze] = "InGame.ConnectionError.DisconnectTryAgain",
 	[Enum.ConnectionError.AndroidAnticheatKick] = "InGame.ConnectionError.AndroidAnticheatKick",
 	[Enum.ConnectionError.AndroidEmulatorKick] = "InGame.ConnectionError.AndroidEmulatorKick",
 	[Enum.ConnectionError.PlacelaunchErrors] = "InGame.ConnectionError.PlacelaunchErrors",
@@ -1282,7 +1278,7 @@ local enumToLocalizationKey = {
 	[Enum.ConnectionError.PlacelaunchPartyCannotFit] = "InGame.ConnectionError.PlacelaunchPartyCannotFit",
 	[Enum.ConnectionError.PlacelaunchHttpError] = "InGame.ConnectionError.PlacelaunchHttpError",
 	[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = "InGame.ConnectionError.PlacelaunchUserPrivacyUnauthorized",
-	[Enum.ConnectionError.PlacelaunchCreatorBan] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.PlacelaunchCreatorBan",
+	[Enum.ConnectionError.PlacelaunchCreatorBan] = "InGame.ConnectionError.CreatorBanNoTime",
 	[Enum.ConnectionError.PlacelaunchCustomMessage] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.PlacelaunchCustomMessage",
 	[Enum.ConnectionError.PlacelaunchOtherError] = "InGame.ConnectionError.PlacelaunchOtherError",
 	[Enum.ConnectionError.TeleportErrors] = "InGame.ConnectionError.TeleportErrors",
@@ -1299,29 +1295,6 @@ local enumToLocalizationKey = {
 
 if fflagShowScreentimeLockoutKickMessage then
 	enumToLocalizationKey[Enum.ConnectionError.ScreentimeLockoutKick] = "Feature.Screentime.Content.ScreentimeLimitDialog"
-end
-
-if fflagAddConnectionErrorLocalizationKeys then
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectBySecurityPolicy] = "InGame.ConnectionError.DisconnectBlockedConnection"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectBlockedIP] = "InGame.ConnectionError.DisconnectBlockedConnection"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectClientFailure] = "InGame.ConnectionError.DisconnectClientFailure"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectClientRequest] = "InGame.ConnectionError.DisconnectClientRequest"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectModeratedGame] = "InGame.ConnectionError.ServerShutdown"
-	enumToLocalizationKey[Enum.ConnectionError.ServerShutdown] = "InGame.ConnectionError.ServerShutdown"
-	enumToLocalizationKey[Enum.ConnectionError.ReplicatorTimeout] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.PlayerRemoved] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectRomarkEndOfTest] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectCollaboratorPermissionRevoked] = "InGame.ConnectionError.DisconnectCollaboratorPermissionRevoked"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectCollaboratorUnderage] = "InGame.ConnectionError.DisconnectCollaboratorUnderage"
-	enumToLocalizationKey[Enum.ConnectionError.NetworkInternal] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.NetworkSend] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.NetworkTimeout] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.NetworkMisbehavior] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.NetworkSecurity] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.ReplacementReady] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.ServerEmpty] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.PhantomFreeze] = "InGame.ConnectionError.DisconnectTryAgain"
-	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchCreatorBan] = "InGame.ConnectionError.CreatorBanNoTime"
 end
 
 if FFlagAddPlacelaunchDeviceBlock then

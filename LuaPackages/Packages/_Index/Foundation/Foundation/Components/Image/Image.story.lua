@@ -5,6 +5,9 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local Assets = require(Packages.FoundationCloudAssets).Assets
 
+local AssetService = game:GetService("AssetService")
+
+local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
@@ -16,6 +19,65 @@ local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 type ThumbnailSize = ThumbnailSize.ThumbnailSize
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
+
+local RING_COLORS = {
+	{ 255, 91, 184 },
+	{ 84, 220, 255 },
+	{ 255, 218, 92 },
+}
+
+local function drawRingFrame(image: EditableImage, center: Vector2?, progress: number?)
+	local size = image.Size
+	local pixelsBuffer = image:ReadPixelsBuffer(Vector2.zero, size)
+	local maxRadius = if center
+		then math.max(
+			(center - Vector2.zero).Magnitude,
+			(center - Vector2.new(size.X, 0)).Magnitude,
+			(center - Vector2.new(0, size.Y)).Magnitude,
+			(center - size).Magnitude
+		) + (#RING_COLORS - 1) * 18 + 4
+		else 0
+
+	for y = 0, size.Y - 1 do
+		for x = 0, size.X - 1 do
+			local index = (y * size.X + x) * 4
+			local r, g, b, a = 0, 0, 0, 0
+
+			if center and progress then
+				local distance = (Vector2.new(x, y) - center).Magnitude
+				for ringIndex = 0, #RING_COLORS - 1 do
+					local radius = progress * maxRadius - ringIndex * 18
+					if radius >= 0 and math.abs(distance - radius) < 3 then
+						local color = RING_COLORS[ringIndex + 1]
+						r, g, b = color[1], color[2], color[3]
+						a = 255
+						break
+					end
+				end
+			end
+
+			buffer.writeu8(pixelsBuffer, index, r)
+			buffer.writeu8(pixelsBuffer, index + 1, g)
+			buffer.writeu8(pixelsBuffer, index + 2, b)
+			buffer.writeu8(pixelsBuffer, index + 3, a)
+		end
+	end
+
+	image:WritePixelsBuffer(Vector2.zero, size, pixelsBuffer)
+end
+
+local function createEditableImage(size: Vector2): EditableImage?
+	local success, editableImage = pcall(function()
+		return AssetService:CreateEditableImage({ Size = size })
+	end)
+	if not success then
+		return nil
+	end
+
+	local image = editableImage :: EditableImage
+	drawRingFrame(image, nil, nil)
+	return image
+end
 
 local function AssetStory()
 	local tokens = useTokens()
@@ -170,6 +232,86 @@ local function PlaygroundStory(props)
 	})
 end
 
+local function InteractiveEditableImageStory()
+	local editableImage, setEditableImage = React.useState(nil :: EditableImage?)
+	local animationId = React.useRef(0)
+
+	React.useEffect(function()
+		local createdImage = createEditableImage(Vector2.new(128, 128))
+		setEditableImage(createdImage)
+
+		return function()
+			animationId.current += 1
+			if createdImage then
+				createdImage:Destroy()
+			end
+		end
+	end, {})
+
+	local onActivated = React.useCallback(function(guiObject: GuiObject, inputObject: InputObject)
+		if not editableImage then
+			return
+		end
+
+		local inputPosition = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
+		local relativePosition = inputPosition - guiObject.AbsolutePosition
+		local absoluteSize = guiObject.AbsoluteSize
+		local center = Vector2.new(
+			relativePosition.X / math.max(absoluteSize.X, 1) * editableImage.Size.X,
+			relativePosition.Y / math.max(absoluteSize.Y, 1) * editableImage.Size.Y
+		)
+
+		animationId.current += 1
+		local currentAnimationId = animationId.current
+		task.spawn(function()
+			for frame = 0, 24 do
+				if animationId.current ~= currentAnimationId then
+					return
+				end
+				drawRingFrame(editableImage, center, frame / 24)
+				for _ = 0, 5 do
+					task.wait()
+				end
+			end
+		end)
+	end, { editableImage })
+
+	return React.createElement(View, {
+		tag = "col gap-small auto-xy align-x-center",
+	}, {
+		Label = React.createElement(Text, {
+			Text = "Click for EditableImage rings",
+			tag = "text-body-small content-emphasis auto-xy",
+			LayoutOrder = 1,
+		}),
+		Image = if editableImage
+			then React.createElement(Image, {
+				ImageContent = Content.fromObject(editableImage),
+				tag = "bg-surface-100",
+				Size = UDim2.fromOffset(360, 360),
+				ScaleType = Enum.ScaleType.Stretch,
+				LayoutOrder = 2,
+				onActivated = onActivated,
+			})
+			else React.createElement(Text, {
+				Text = "EditableImage unavailable in this environment",
+				tag = "text-caption-small content-default text-wrap size-2800-800 text-align-x-center",
+				LayoutOrder = 2,
+			}),
+	})
+end
+
+local function ImageContentStory()
+	if not Flags.FoundationImageContentSupport then
+		return React.createElement(Text, {
+			Text = "Enable FoundationImageContentSupport to view this story.",
+			tag = "text-body-medium content-default auto-xy",
+		})
+	end
+
+	return React.createElement(InteractiveEditableImageStory)
+end
+
 return {
 	summary = "Image",
 	stories = {
@@ -229,6 +371,10 @@ return {
 			story = function(props)
 				return React.createElement(ImageSliceWithChildren, props)
 			end,
+		},
+		{
+			name = "Interactive EditableImage",
+			story = ImageContentStory,
 		},
 	},
 	controls = {

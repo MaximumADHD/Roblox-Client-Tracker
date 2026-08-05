@@ -30,10 +30,12 @@ type _AccessibilityPropsImpl = {
 
 type _AccessibilityPropsFields = {
 	hidden: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _AccessibilityPropsPartialFields = {
 	hidden: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type AccessibilityProps = typeof(setmetatable({} :: _AccessibilityPropsFields, {} :: _AccessibilityPropsImpl))
@@ -104,6 +106,7 @@ do
 	function _AccessibilityPropsImpl.new(data: _AccessibilityPropsPartialFields?): AccessibilityProps
 		return setmetatable({
 			hidden = if data == nil or data.hidden == nil then nil else data.hidden,
+			label = if data == nil or data.label == nil then nil else data.label,
 		}, _AccessibilityPropsImpl :: _AccessibilityPropsImpl)
 	end
 
@@ -114,6 +117,12 @@ do
 		if self.hidden ~= nil then
 			local encoded = self.hidden:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.label ~= nil then
+			local encoded = self.label:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -140,6 +149,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.hidden = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.label = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -172,6 +186,10 @@ do
 			output.hidden = self.hidden:jsonEncode()
 		end
 
+		if self.label ~= nil then
+			output.label = self.label:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -180,6 +198,10 @@ do
 
 		if input.hidden ~= nil then
 			self.hidden = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.hidden)
+		end
+
+		if input.label ~= nil then
+			self.label = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.label)
 		end
 
 		return self

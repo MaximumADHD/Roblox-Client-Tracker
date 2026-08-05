@@ -89,6 +89,7 @@ local FFlagDeferProgrammaticChange = game:DefineFastFlag("DeferProgrammaticChang
 local FFlagRenameVolumeToMainVolume = require(RobloxGui.Modules.Flags.FFlagRenameVolumeToMainVolume)
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagChatSummariesSettingEnabled = SharedFlags.FFlagChatSummariesSettingEnabled
+local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
 local FFlagVoiceSelectorIgnoreFailedStateDisconnect = game:DefineFastFlag("VoiceSelectorIgnoreFailedStateDisconnect", false)
@@ -102,6 +103,8 @@ local FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry =
 	require(CorePackages.Workspace.Packages.VoiceChatCore).Flags.GetFFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry()
 local FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast =
 	require(RobloxGui.Modules.VoiceChat.Flags.FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast)
+local FFlagVoiceVolumeControlsSuppressInExperienceUiForPartyVoice =
+	game:DefineFastFlag("VoiceVolumeControlsSuppressInExperienceUiForPartyVoice", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -3376,6 +3379,89 @@ local function Initialize()
 		end
 	end
 
+	local function createChatNotificationsSettingOptions()
+		local ToastNotification = require(CorePackages.Workspace.Packages.ToastNotification)
+		local ToastNotificationSnoozeManager = ToastNotification.ToastNotificationSnoozeManager.default
+		local NotificationGroups = ToastNotification.NotificationGroups
+		local ToastNotificationTypeModule = ToastNotification.ToastNotificationTypeModule
+		local NotificationSnoozedSignal = ToastNotification.Signals.NotificationSnoozedSignal
+		local NotificationTypeEnum = ToastNotificationTypeModule.NotificationTypeEnum
+		local SnoozeActionEnum = ToastNotificationTypeModule.SnoozeActionEnum
+
+		local CHAT_NOTIFICATIONS_VALUES = {
+			Off = 1,
+			On = 2,
+		}
+
+		local title = RobloxTranslator:FormatByKey("Feature.Chat.Label.InGameFriendsChatNotifications")
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+
+		local function getSelectorIndex()
+			return if ToastNotificationSnoozeManager:isSnoozedNotificationType(NotificationTypeEnum.ChatNewMessage) then CHAT_NOTIFICATIONS_VALUES.Off else CHAT_NOTIFICATIONS_VALUES.On
+		end
+
+		local previousIndex = getSelectorIndex()
+
+		this.ChatNotificationsFrame, _, this.ChatNotificationsSelector = utility:AddNewRow(
+			this,
+			title,
+			"Selector",
+			{ offLabel, onLabel },
+			previousIndex
+		)
+		this.ChatNotificationsFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.ChatNotificationsFrame
+
+		this.ChatNotificationsSelector.IndexChanged:connect(function(newIndex)
+			if newIndex == previousIndex then
+				return
+			end
+
+			local wasEnabled = previousIndex == CHAT_NOTIFICATIONS_VALUES.On
+			local isEnabled = newIndex == CHAT_NOTIFICATIONS_VALUES.On
+			previousIndex = newIndex
+
+			if isEnabled then
+				ToastNotificationSnoozeManager:unmuteNotification({
+					notificationType = NotificationGroups.ChatLandingNotificationsGroup,
+					context = "InGameSettingsChatNotifications",
+				})
+			else
+				ToastNotificationSnoozeManager:snoozeNotification({
+					notificationType = NotificationGroups.ChatLandingNotificationsGroup,
+					durationMinutes = -1, -- -1 represents an indefinite snooze time
+					context = "InGameSettingsChatNotifications",
+				})
+			end
+
+			reportSettingsChangeForAnalytics("chat_notifications", wasEnabled, isEnabled)
+		end)
+
+		-- Keep selector in sync when muted/unmuted from other entrypoints
+		NotificationSnoozedSignal:connect(function(params)
+			if params.notificationType ~= NotificationTypeEnum.ChatNewMessage then
+				return
+			end
+
+			local index = if params.actionType == SnoozeActionEnum.Mute
+				then CHAT_NOTIFICATIONS_VALUES.Off
+				else CHAT_NOTIFICATIONS_VALUES.On
+			if this.ChatNotificationsSelector:GetSelectedIndex() ~= index then
+				previousIndex = index
+				this.ChatNotificationsSelector:SetSelectionIndex(index)
+			end
+		end)
+
+		-- Timed snoozes can expire without a signal; refresh when the Settings tab is shown.
+		this.Displayed.Event:Connect(function()
+			local index = getSelectorIndex()
+			if this.ChatNotificationsSelector:GetSelectedIndex() ~= index then
+				previousIndex = index
+				this.ChatNotificationsSelector:SetSelectionIndex(index)
+			end
+		end)
+	end
+
 	------------------------------------------------------
 	------------------
 	------------------ Video Camera Device ---------------
@@ -4132,17 +4218,30 @@ local function Initialize()
 									else (voiceChatInternal and voiceChatInternal.VoiceChatState)
 								local isConnected = currentState == (Enum :: any).VoiceChatState.Joined
 								local audioApiEnabled = voiceChatService and voiceChatService.UseNewAudioApi
+								local isPartyVoiceFocused = FFlagVoiceVolumeControlsSuppressInExperienceUiForPartyVoice
+									and GetFFlagEnableCrossExpVoice()
+									and GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice()
+									and isVoiceFocused()
 								this.VoiceChatVolumeFrame.Visible =
 									VoiceVolumeControlsEligibility.isVoiceChatVolumeSliderVisible(
 										isConnected,
 										audioApiEnabled
-									)
+									) and not isPartyVoiceFocused
 							end)
 							if not ok then
 								log:debug("[GameSettings] updateVoiceChatVolumeVisibility ERROR:", err)
 							end
 						end
 						updateVoiceChatVolumeVisibility()
+						if
+							FFlagVoiceVolumeControlsSuppressInExperienceUiForPartyVoice
+							and GetFFlagEnableCrossExpVoice()
+							and GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice()
+						then
+							observeIsVoiceFocused(function()
+								updateVoiceChatVolumeVisibility()
+							end)
+						end
 						if FFlagVoiceVolumeControlsFixSliderVisibilityOnEligibleGames then
 							VoiceChatServiceManager:subscribe("OnStateChanged", function(_, newState)
 								updateVoiceChatVolumeVisibility(newState)
@@ -4169,7 +4268,15 @@ local function Initialize()
 					-- Check volume settings. Show prompt if volume is 0
 					if not GetFFlagEnableUniveralVoiceToasts() then
 						VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
-						if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast then 
+						local shouldSuppressVoiceChatVolumeToast =
+							FFlagVoiceVolumeControlsSuppressInExperienceUiForPartyVoice
+							and GetFFlagEnableCrossExpVoice()
+							and GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice()
+							and isVoiceFocused()
+						if
+							FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast
+							and not shouldSuppressVoiceChatVolumeToast
+						then
 							VoiceChatServiceManager:ShowNotAudiblePromptVoiceChatVolume()
 						end
 					end
@@ -4495,6 +4602,10 @@ local function Initialize()
 
 	if FFlagChatSummariesSettingEnabled then
 		createChatSummariesSettingOptions()
+	end
+
+	if FFlagExpChatEnableFriendsTab then
+		createChatNotificationsSettingOptions()
 	end
 
 	-- dev console option only shows for place/group place owners

@@ -6,6 +6,7 @@ local React = require(Packages.React)
 local Orientation = require(Foundation.Enums.Orientation)
 type Orientation = Orientation.Orientation
 
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -49,7 +50,10 @@ local function OptionSelectorGroup(optionSelectorGroupProps: OptionSelectorGroup
 		withCommonProps(props, {
 			tag = {
 				["col size-full-0 auto-y"] = props.orientation :: Orientation == Orientation.Vertical,
-				["row auto-x"] = props.orientation :: Orientation == Orientation.Horizontal,
+				["row size-full-0 auto-y"] = Flags.FoundationOptionSelectorGroupFixes
+					and props.orientation :: Orientation == Orientation.Horizontal,
+				["row auto-x"] = not Flags.FoundationOptionSelectorGroupFixes
+					and props.orientation :: Orientation == Orientation.Horizontal,
 				["gap-small"] = true,
 			},
 			ref = ref,

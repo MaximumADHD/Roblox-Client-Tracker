@@ -23,7 +23,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local useKnobVariants = require(script.Parent.useKnobVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 local Flags = require(Foundation.Utility.Flags)
@@ -50,8 +50,11 @@ local function Knob(knobProps: KnobProps)
 	local props = withDefaults(knobProps, defaultProps)
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
-	local variantProps =
-		useKnobVariants(tokens, props.size, presentationContext and presentationContext.colorMode == ColorMode.Inverse)
+	local variantProps = useKnobVariants(
+		tokens,
+		props.size,
+		presentationContext and presentationContext.colorNamespace == ColorNamespace.Inverse
+	)
 	local knobStyle = props.style or variantProps.knob.style
 
 	local getShadowStyle = React.useCallback(function(style: ColorStyleValue)

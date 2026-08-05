@@ -60,6 +60,7 @@ type _Messages =
 		DynamicStoreCategoryInputData_DynamicStoreCategoryItem: _DynamicStoreCategoryInputData_DynamicStoreCategoryItemMessage,
 		DynamicStoreCategoryInputData_DynamicStoreCategoryItemType: _DynamicStoreCategoryInputData_DynamicStoreCategoryItemTypeMessage,
 		CardContainerCardInputData: _CardContainerCardInputDataMessage,
+		CommunitiesCardClientAttributes: _CommunitiesCardClientAttributesMessage,
 		CardContainerInputData: _CardContainerInputDataMessage,
 		CardInputData: _CardInputDataMessage,
 		DialogInputData: _DialogInputDataMessage,
@@ -110,13 +111,16 @@ type _Messages =
 		MomentsCarouselInputData: _MomentsCarouselInputDataMessage,
 		MomentsCarouselInputData_MomentItem: _MomentsCarouselInputData_MomentItemMessage,
 		AttributionRowInputData: _AttributionRowInputDataMessage,
+		CtaButtonsInputData: _CtaButtonsInputDataMessage,
 		ImageInputData: _ImageInputDataMessage,
+		VideoInputData: _VideoInputDataMessage,
 		TextInputData: _TextInputDataMessage,
 		VerticalFeedInputData: _VerticalFeedInputDataMessage,
 		VerticalFeedInputData_EntryMapEntry: _VerticalFeedInputData_EntryMapEntryMessage,
 		VerticalFeedInputData_EntryOrderMapEntry: _VerticalFeedInputData_EntryOrderMapEntryMessage,
 		VerticalFeedInputData_ContentPoolsEntry: _VerticalFeedInputData_ContentPoolsEntryMessage,
 		PageHeaderInputData: _PageHeaderInputDataMessage,
+		PreAuthLandingStickyHeaderInputData: _PreAuthLandingStickyHeaderInputDataMessage,
 		OptionSelectorCarouselInputData: _OptionSelectorCarouselInputDataMessage,
 		SelectorOption: _SelectorOptionMessage,
 		ItemWithLayout: _ItemWithLayoutMessage,
@@ -188,11 +192,13 @@ type _ForegroundHeaderEntryImpl = {
 type _ForegroundHeaderEntryFields = {
 	roblox_component: string,
 	input_data: { type: "attribution_row", value: AttributionRowInputData }?,
+	cta_buttons: CtaButtonsInputData?,
 }
 
 type _ForegroundHeaderEntryPartialFields = {
 	roblox_component: string?,
 	input_data: { type: "attribution_row", value: AttributionRowInputData }?,
+	cta_buttons: CtaButtonsInputData?,
 }
 
 export type ForegroundHeaderEntry = typeof(setmetatable(
@@ -213,12 +219,12 @@ type _BackgroundHeaderEntryImpl = {
 
 type _BackgroundHeaderEntryFields = {
 	roblox_component: string,
-	input_data: { type: "image", value: ImageInputData }?,
+	input_data: ({ type: "image", value: ImageInputData } | { type: "video", value: VideoInputData })?,
 }
 
 type _BackgroundHeaderEntryPartialFields = {
 	roblox_component: string?,
-	input_data: { type: "image", value: ImageInputData }?,
+	input_data: ({ type: "image", value: ImageInputData } | { type: "video", value: VideoInputData })?,
 }
 
 export type BackgroundHeaderEntry = typeof(setmetatable(
@@ -303,6 +309,7 @@ type _PageEntryInputDataFields = {
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
+		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 	)?,
 }
 
@@ -372,6 +379,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
+		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 	)?,
 }
 
@@ -1299,6 +1307,7 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	badge_text: string,
 	player_count: number?,
 	creator_key: string,
+	rank: number?,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1314,6 +1323,7 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	badge_text: string?,
 	player_count: number?,
 	creator_key: string?,
+	rank: number?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1796,6 +1806,35 @@ type _CardContainerCardInputDataMessage = proto.Message<
 	_CardContainerCardInputDataPartialFields
 >
 
+type _CommunitiesCardClientAttributesImpl = {
+	__index: _CommunitiesCardClientAttributesImpl,
+	new: (fields: _CommunitiesCardClientAttributesPartialFields?) -> CommunitiesCardClientAttributes,
+	encode: (self: CommunitiesCardClientAttributes) -> buffer,
+	decode: (input: buffer) -> CommunitiesCardClientAttributes,
+	jsonEncode: (self: CommunitiesCardClientAttributes) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CommunitiesCardClientAttributes,
+	descriptor: proto.Descriptor,
+}
+
+type _CommunitiesCardClientAttributesFields = {
+	group_id: string,
+	experience_id: string,
+}
+
+type _CommunitiesCardClientAttributesPartialFields = {
+	group_id: string?,
+	experience_id: string?,
+}
+
+export type CommunitiesCardClientAttributes = typeof(setmetatable(
+	{} :: _CommunitiesCardClientAttributesFields,
+	{} :: _CommunitiesCardClientAttributesImpl
+))
+type _CommunitiesCardClientAttributesMessage = proto.Message<
+	CommunitiesCardClientAttributes,
+	_CommunitiesCardClientAttributesPartialFields
+>
+
 type _CardContainerInputDataImpl = {
 	__index: _CardContainerInputDataImpl,
 	new: (fields: _CardContainerInputDataPartialFields?) -> CardContainerInputData,
@@ -1813,6 +1852,9 @@ type _CardContainerInputDataFields = {
 	cards: { CardContainerCardInputData },
 	prompt_id: string,
 	prompt_type: string,
+	sort_id: string,
+	feed_item_key: string,
+	client_attributes: { type: "communities_client_attributes", value: CommunitiesCardClientAttributes }?,
 }
 
 type _CardContainerInputDataPartialFields = {
@@ -1822,6 +1864,9 @@ type _CardContainerInputDataPartialFields = {
 	cards: { CardContainerCardInputData }?,
 	prompt_id: string?,
 	prompt_type: string?,
+	sort_id: string?,
+	feed_item_key: string?,
+	client_attributes: { type: "communities_client_attributes", value: CommunitiesCardClientAttributes }?,
 }
 
 export type CardContainerInputData = typeof(setmetatable(
@@ -3303,6 +3348,29 @@ export type AttributionRowInputData = typeof(setmetatable(
 ))
 type _AttributionRowInputDataMessage = proto.Message<AttributionRowInputData, _AttributionRowInputDataPartialFields>
 
+type _CtaButtonsInputDataImpl = {
+	__index: _CtaButtonsInputDataImpl,
+	new: (fields: _CtaButtonsInputDataPartialFields?) -> CtaButtonsInputData,
+	encode: (self: CtaButtonsInputData) -> buffer,
+	decode: (input: buffer) -> CtaButtonsInputData,
+	jsonEncode: (self: CtaButtonsInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CtaButtonsInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _CtaButtonsInputDataFields = {
+	primary_cta_button_text: string,
+	secondary_cta_button_text: string,
+}
+
+type _CtaButtonsInputDataPartialFields = {
+	primary_cta_button_text: string?,
+	secondary_cta_button_text: string?,
+}
+
+export type CtaButtonsInputData = typeof(setmetatable({} :: _CtaButtonsInputDataFields, {} :: _CtaButtonsInputDataImpl))
+type _CtaButtonsInputDataMessage = proto.Message<CtaButtonsInputData, _CtaButtonsInputDataPartialFields>
+
 type _ImageInputDataImpl = {
 	__index: _ImageInputDataImpl,
 	new: (fields: _ImageInputDataPartialFields?) -> ImageInputData,
@@ -3323,6 +3391,27 @@ type _ImageInputDataPartialFields = {
 
 export type ImageInputData = typeof(setmetatable({} :: _ImageInputDataFields, {} :: _ImageInputDataImpl))
 type _ImageInputDataMessage = proto.Message<ImageInputData, _ImageInputDataPartialFields>
+
+type _VideoInputDataImpl = {
+	__index: _VideoInputDataImpl,
+	new: (fields: _VideoInputDataPartialFields?) -> VideoInputData,
+	encode: (self: VideoInputData) -> buffer,
+	decode: (input: buffer) -> VideoInputData,
+	jsonEncode: (self: VideoInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VideoInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _VideoInputDataFields = {
+	video_asset_id: string,
+}
+
+type _VideoInputDataPartialFields = {
+	video_asset_id: string?,
+}
+
+export type VideoInputData = typeof(setmetatable({} :: _VideoInputDataFields, {} :: _VideoInputDataImpl))
+type _VideoInputDataMessage = proto.Message<VideoInputData, _VideoInputDataPartialFields>
 
 type _TextInputDataImpl = {
 	__index: _TextInputDataImpl,
@@ -3486,6 +3575,33 @@ type _PageHeaderInputDataPartialFields = {
 
 export type PageHeaderInputData = typeof(setmetatable({} :: _PageHeaderInputDataFields, {} :: _PageHeaderInputDataImpl))
 type _PageHeaderInputDataMessage = proto.Message<PageHeaderInputData, _PageHeaderInputDataPartialFields>
+
+type _PreAuthLandingStickyHeaderInputDataImpl = {
+	__index: _PreAuthLandingStickyHeaderInputDataImpl,
+	new: (fields: _PreAuthLandingStickyHeaderInputDataPartialFields?) -> PreAuthLandingStickyHeaderInputData,
+	encode: (self: PreAuthLandingStickyHeaderInputData) -> buffer,
+	decode: (input: buffer) -> PreAuthLandingStickyHeaderInputData,
+	jsonEncode: (self: PreAuthLandingStickyHeaderInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> PreAuthLandingStickyHeaderInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _PreAuthLandingStickyHeaderInputDataFields = {
+	cta_button_text: string,
+}
+
+type _PreAuthLandingStickyHeaderInputDataPartialFields = {
+	cta_button_text: string?,
+}
+
+export type PreAuthLandingStickyHeaderInputData = typeof(setmetatable(
+	{} :: _PreAuthLandingStickyHeaderInputDataFields,
+	{} :: _PreAuthLandingStickyHeaderInputDataImpl
+))
+type _PreAuthLandingStickyHeaderInputDataMessage = proto.Message<
+	PreAuthLandingStickyHeaderInputData,
+	_PreAuthLandingStickyHeaderInputDataPartialFields
+>
 
 type _OptionSelectorCarouselInputDataImpl = {
 	__index: _OptionSelectorCarouselInputDataImpl,
@@ -3882,6 +3998,7 @@ do
 		return setmetatable({
 			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 			input_data = if data == nil or data.input_data == nil then nil else data.input_data,
+			cta_buttons = if data == nil or data.cta_buttons == nil then nil else data.cta_buttons,
 		}, _ForegroundHeaderEntryImpl :: _ForegroundHeaderEntryImpl)
 	end
 
@@ -3900,6 +4017,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.cta_buttons ~= nil then
+			local encoded = self.cta_buttons:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -3931,6 +4054,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.input_data =
 						{ type = "attribution_row", value = messages.AttributionRowInputData.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_buttons = messages.CtaButtonsInputData.decode(value)
 					continue
 				end
 
@@ -3969,6 +4097,10 @@ do
 			end
 		end
 
+		if self.cta_buttons ~= nil then
+			output.ctaButtons = self.cta_buttons:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -3991,6 +4123,14 @@ do
 		if input.attributionRow ~= nil then
 			self.input_data =
 				{ type = "attribution_row", value = messages.AttributionRowInputData.jsonDecode(input.attributionRow) }
+		end
+
+		if input.cta_buttons ~= nil then
+			self.cta_buttons = messages.CtaButtonsInputData.jsonDecode(input.cta_buttons)
+		end
+
+		if input.ctaButtons ~= nil then
+			self.cta_buttons = messages.CtaButtonsInputData.jsonDecode(input.ctaButtons)
 		end
 
 		return self
@@ -4031,6 +4171,10 @@ do
 				local encoded = self.input_data.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.input_data.type == "video" then
+				local encoded = self.input_data.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -4062,6 +4206,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.input_data = { type = "image", value = messages.ImageInputData.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.input_data = { type = "video", value = messages.VideoInputData.decode(value) }
 					continue
 				end
 
@@ -4097,6 +4246,8 @@ do
 		if self.input_data ~= nil then
 			if self.input_data.type == "image" then
 				output.image = self.input_data.value:jsonEncode()
+			elseif self.input_data.type == "video" then
+				output.video = self.input_data.value:jsonEncode()
 			end
 		end
 
@@ -4116,6 +4267,10 @@ do
 
 		if input.image ~= nil then
 			self.input_data = { type = "image", value = messages.ImageInputData.jsonDecode(input.image) }
+		end
+
+		if input.video ~= nil then
+			self.input_data = { type = "video", value = messages.VideoInputData.jsonDecode(input.video) }
 		end
 
 		return self
@@ -4401,6 +4556,10 @@ do
 			elseif self.kind.type == "party_chat_conversation_upsell" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1200, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "pre_auth_landing_sticky_header" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1300, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -4835,6 +4994,14 @@ do
 						value = messages.PartyChatConversationUpsellInputData.decode(value),
 					}
 					continue
+				elseif field == 1300 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "pre_auth_landing_sticky_header",
+						value = messages.PreAuthLandingStickyHeaderInputData.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -4991,6 +5158,8 @@ do
 				output.optionSelectorCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "party_chat_conversation_upsell" then
 				output.partyChatConversationUpsell = self.kind.value:jsonEncode()
+			elseif self.kind.type == "pre_auth_landing_sticky_header" then
+				output.preAuthLandingStickyHeader = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -5777,6 +5946,20 @@ do
 			self.kind = {
 				type = "party_chat_conversation_upsell",
 				value = messages.PartyChatConversationUpsellInputData.jsonDecode(input.partyChatConversationUpsell),
+			}
+		end
+
+		if input.pre_auth_landing_sticky_header ~= nil then
+			self.kind = {
+				type = "pre_auth_landing_sticky_header",
+				value = messages.PreAuthLandingStickyHeaderInputData.jsonDecode(input.pre_auth_landing_sticky_header),
+			}
+		end
+
+		if input.preAuthLandingStickyHeader ~= nil then
+			self.kind = {
+				type = "pre_auth_landing_sticky_header",
+				value = messages.PreAuthLandingStickyHeaderInputData.jsonDecode(input.preAuthLandingStickyHeader),
 			}
 		end
 
@@ -10293,6 +10476,7 @@ do
 			badge_text = if data == nil or data.badge_text == nil then "" else data.badge_text,
 			player_count = if data == nil or data.player_count == nil then nil else data.player_count,
 			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			rank = if data == nil or data.rank == nil then nil else data.rank,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -10362,6 +10546,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.creator_key)
 		end
 
+		if self.rank ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.rank)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -10392,6 +10581,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.player_count = value
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.rank = value
 					continue
 				end
 
@@ -10520,6 +10714,10 @@ do
 			output.creatorKey = self.creator_key
 		end
 
+		if self.rank ~= nil then
+			output.rank = self.rank
+		end
+
 		return output
 	end
 
@@ -10614,6 +10812,10 @@ do
 
 		if input.creatorKey ~= nil then
 			self.creator_key = input.creatorKey
+		end
+
+		if input.rank ~= nil then
+			self.rank = input.rank
 		end
 
 		return self
@@ -13097,6 +13299,132 @@ do
 end
 
 do
+	local _CommunitiesCardClientAttributesImpl = {}
+	_CommunitiesCardClientAttributesImpl.__index = _CommunitiesCardClientAttributesImpl
+
+	function _CommunitiesCardClientAttributesImpl.new(
+		data: _CommunitiesCardClientAttributesPartialFields?
+	): CommunitiesCardClientAttributes
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then "" else data.group_id,
+			experience_id = if data == nil or data.experience_id == nil then "" else data.experience_id,
+		}, _CommunitiesCardClientAttributesImpl :: _CommunitiesCardClientAttributesImpl)
+	end
+
+	function _CommunitiesCardClientAttributesImpl.encode(self: CommunitiesCardClientAttributes): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		if self.experience_id ~= nil and self.experience_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.experience_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CommunitiesCardClientAttributesImpl.decode(input: buffer): CommunitiesCardClientAttributes
+		local self = _CommunitiesCardClientAttributesImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CommunitiesCardClientAttributesImpl.jsonEncode(self: CommunitiesCardClientAttributes): any
+		local output = {}
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output.groupId = self.group_id
+		end
+
+		if self.experience_id ~= nil and self.experience_id ~= "" then
+			output.experienceId = self.experience_id
+		end
+
+		return output
+	end
+
+	function _CommunitiesCardClientAttributesImpl.jsonDecode(input: { [string]: any }): CommunitiesCardClientAttributes
+		local self = _CommunitiesCardClientAttributesImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = input.group_id
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = input.groupId
+		end
+
+		if input.experience_id ~= nil then
+			self.experience_id = input.experience_id
+		end
+
+		if input.experienceId ~= nil then
+			self.experience_id = input.experienceId
+		end
+
+		return self
+	end
+
+	_CommunitiesCardClientAttributesImpl.descriptor = {
+		name = "CommunitiesCardClientAttributes",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CommunitiesCardClientAttributes",
+	}
+
+	messages.CommunitiesCardClientAttributes = _CommunitiesCardClientAttributesImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CommunitiesCardClientAttributes)
+end
+
+do
 	local _CardContainerInputDataImpl = {}
 	_CardContainerInputDataImpl.__index = _CardContainerInputDataImpl
 
@@ -13108,6 +13436,9 @@ do
 			cards = if data == nil or data.cards == nil then {} else data.cards,
 			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
 			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			feed_item_key = if data == nil or data.feed_item_key == nil then "" else data.feed_item_key,
+			client_attributes = if data == nil or data.client_attributes == nil then nil else data.client_attributes,
 		}, _CardContainerInputDataImpl :: _CardContainerInputDataImpl)
 	end
 
@@ -13146,6 +13477,24 @@ do
 		if self.prompt_type ~= nil and self.prompt_type ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.feed_item_key ~= nil and self.feed_item_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.feed_item_key)
+		end
+
+		if self.client_attributes ~= nil then
+			if self.client_attributes.type == "communities_client_attributes" then
+				local encoded = self.client_attributes.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -13196,6 +13545,24 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.prompt_type = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.feed_item_key = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.client_attributes = {
+						type = "communities_client_attributes",
+						value = messages.CommunitiesCardClientAttributes.decode(value),
+					}
 					continue
 				end
 
@@ -13252,6 +13619,20 @@ do
 			output.promptType = self.prompt_type
 		end
 
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.feed_item_key ~= nil and self.feed_item_key ~= "" then
+			output.feedItemKey = self.feed_item_key
+		end
+
+		if self.client_attributes ~= nil then
+			if self.client_attributes.type == "communities_client_attributes" then
+				output.communitiesClientAttributes = self.client_attributes.value:jsonEncode()
+			end
+		end
+
 		return output
 	end
 
@@ -13301,6 +13682,36 @@ do
 
 		if input.promptType ~= nil then
 			self.prompt_type = input.promptType
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.feed_item_key ~= nil then
+			self.feed_item_key = input.feed_item_key
+		end
+
+		if input.feedItemKey ~= nil then
+			self.feed_item_key = input.feedItemKey
+		end
+
+		if input.communities_client_attributes ~= nil then
+			self.client_attributes = {
+				type = "communities_client_attributes",
+				value = messages.CommunitiesCardClientAttributes.jsonDecode(input.communities_client_attributes),
+			}
+		end
+
+		if input.communitiesClientAttributes ~= nil then
+			self.client_attributes = {
+				type = "communities_client_attributes",
+				value = messages.CommunitiesCardClientAttributes.jsonDecode(input.communitiesClientAttributes),
+			}
 		end
 
 		return self
@@ -21250,6 +21661,134 @@ do
 end
 
 do
+	local _CtaButtonsInputDataImpl = {}
+	_CtaButtonsInputDataImpl.__index = _CtaButtonsInputDataImpl
+
+	function _CtaButtonsInputDataImpl.new(data: _CtaButtonsInputDataPartialFields?): CtaButtonsInputData
+		return setmetatable({
+			primary_cta_button_text = if data == nil or data.primary_cta_button_text == nil
+				then ""
+				else data.primary_cta_button_text,
+			secondary_cta_button_text = if data == nil or data.secondary_cta_button_text == nil
+				then ""
+				else data.secondary_cta_button_text,
+		}, _CtaButtonsInputDataImpl :: _CtaButtonsInputDataImpl)
+	end
+
+	function _CtaButtonsInputDataImpl.encode(self: CtaButtonsInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.primary_cta_button_text ~= nil and self.primary_cta_button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.primary_cta_button_text)
+		end
+
+		if self.secondary_cta_button_text ~= nil and self.secondary_cta_button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.secondary_cta_button_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CtaButtonsInputDataImpl.decode(input: buffer): CtaButtonsInputData
+		local self = _CtaButtonsInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.primary_cta_button_text = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.secondary_cta_button_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CtaButtonsInputDataImpl.jsonEncode(self: CtaButtonsInputData): any
+		local output = {}
+
+		if self.primary_cta_button_text ~= nil and self.primary_cta_button_text ~= "" then
+			output.primaryCtaButtonText = self.primary_cta_button_text
+		end
+
+		if self.secondary_cta_button_text ~= nil and self.secondary_cta_button_text ~= "" then
+			output.secondaryCtaButtonText = self.secondary_cta_button_text
+		end
+
+		return output
+	end
+
+	function _CtaButtonsInputDataImpl.jsonDecode(input: { [string]: any }): CtaButtonsInputData
+		local self = _CtaButtonsInputDataImpl.new()
+
+		if input.primary_cta_button_text ~= nil then
+			self.primary_cta_button_text = input.primary_cta_button_text
+		end
+
+		if input.primaryCtaButtonText ~= nil then
+			self.primary_cta_button_text = input.primaryCtaButtonText
+		end
+
+		if input.secondary_cta_button_text ~= nil then
+			self.secondary_cta_button_text = input.secondary_cta_button_text
+		end
+
+		if input.secondaryCtaButtonText ~= nil then
+			self.secondary_cta_button_text = input.secondaryCtaButtonText
+		end
+
+		return self
+	end
+
+	_CtaButtonsInputDataImpl.descriptor = {
+		name = "CtaButtonsInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CtaButtonsInputData",
+	}
+
+	messages.CtaButtonsInputData = _CtaButtonsInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CtaButtonsInputData)
+end
+
+do
 	local _ImageInputDataImpl = {}
 	_ImageInputDataImpl.__index = _ImageInputDataImpl
 
@@ -21348,6 +21887,107 @@ do
 	messages.ImageInputData = _ImageInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ImageInputData)
+end
+
+do
+	local _VideoInputDataImpl = {}
+	_VideoInputDataImpl.__index = _VideoInputDataImpl
+
+	function _VideoInputDataImpl.new(data: _VideoInputDataPartialFields?): VideoInputData
+		return setmetatable({
+			video_asset_id = if data == nil or data.video_asset_id == nil then "" else data.video_asset_id,
+		}, _VideoInputDataImpl :: _VideoInputDataImpl)
+	end
+
+	function _VideoInputDataImpl.encode(self: VideoInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.video_asset_id ~= nil and self.video_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.video_asset_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VideoInputDataImpl.decode(input: buffer): VideoInputData
+		local self = _VideoInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_asset_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VideoInputDataImpl.jsonEncode(self: VideoInputData): any
+		local output = {}
+
+		if self.video_asset_id ~= nil and self.video_asset_id ~= "" then
+			output.videoAssetId = self.video_asset_id
+		end
+
+		return output
+	end
+
+	function _VideoInputDataImpl.jsonDecode(input: { [string]: any }): VideoInputData
+		local self = _VideoInputDataImpl.new()
+
+		if input.video_asset_id ~= nil then
+			self.video_asset_id = input.video_asset_id
+		end
+
+		if input.videoAssetId ~= nil then
+			self.video_asset_id = input.videoAssetId
+		end
+
+		return self
+	end
+
+	_VideoInputDataImpl.descriptor = {
+		name = "VideoInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VideoInputData",
+	}
+
+	messages.VideoInputData = _VideoInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VideoInputData)
 end
 
 do
@@ -22246,6 +22886,111 @@ do
 end
 
 do
+	local _PreAuthLandingStickyHeaderInputDataImpl = {}
+	_PreAuthLandingStickyHeaderInputDataImpl.__index = _PreAuthLandingStickyHeaderInputDataImpl
+
+	function _PreAuthLandingStickyHeaderInputDataImpl.new(
+		data: _PreAuthLandingStickyHeaderInputDataPartialFields?
+	): PreAuthLandingStickyHeaderInputData
+		return setmetatable({
+			cta_button_text = if data == nil or data.cta_button_text == nil then "" else data.cta_button_text,
+		}, _PreAuthLandingStickyHeaderInputDataImpl :: _PreAuthLandingStickyHeaderInputDataImpl)
+	end
+
+	function _PreAuthLandingStickyHeaderInputDataImpl.encode(self: PreAuthLandingStickyHeaderInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.cta_button_text ~= nil and self.cta_button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cta_button_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _PreAuthLandingStickyHeaderInputDataImpl.decode(input: buffer): PreAuthLandingStickyHeaderInputData
+		local self = _PreAuthLandingStickyHeaderInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_button_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _PreAuthLandingStickyHeaderInputDataImpl.jsonEncode(self: PreAuthLandingStickyHeaderInputData): any
+		local output = {}
+
+		if self.cta_button_text ~= nil and self.cta_button_text ~= "" then
+			output.ctaButtonText = self.cta_button_text
+		end
+
+		return output
+	end
+
+	function _PreAuthLandingStickyHeaderInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): PreAuthLandingStickyHeaderInputData
+		local self = _PreAuthLandingStickyHeaderInputDataImpl.new()
+
+		if input.cta_button_text ~= nil then
+			self.cta_button_text = input.cta_button_text
+		end
+
+		if input.ctaButtonText ~= nil then
+			self.cta_button_text = input.ctaButtonText
+		end
+
+		return self
+	end
+
+	_PreAuthLandingStickyHeaderInputDataImpl.descriptor = {
+		name = "PreAuthLandingStickyHeaderInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PreAuthLandingStickyHeaderInputData",
+	}
+
+	messages.PreAuthLandingStickyHeaderInputData = _PreAuthLandingStickyHeaderInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.PreAuthLandingStickyHeaderInputData)
+end
+
+do
 	local _OptionSelectorCarouselInputDataImpl = {}
 	_OptionSelectorCarouselInputDataImpl.__index = _OptionSelectorCarouselInputDataImpl
 
@@ -23106,6 +23851,7 @@ return {
 	DynamicStoreCategoryInputData_DynamicStoreCategoryItem = messages.DynamicStoreCategoryInputData_DynamicStoreCategoryItem,
 	DynamicStoreCategoryInputData_DynamicStoreCategoryItemType = messages.DynamicStoreCategoryInputData_DynamicStoreCategoryItemType,
 	CardContainerCardInputData = messages.CardContainerCardInputData,
+	CommunitiesCardClientAttributes = messages.CommunitiesCardClientAttributes,
 	CardContainerInputData = messages.CardContainerInputData,
 	CardInputData = messages.CardInputData,
 	DialogInputData = messages.DialogInputData,
@@ -23151,10 +23897,13 @@ return {
 	MomentsCarouselInputData = messages.MomentsCarouselInputData,
 	MomentsCarouselInputData_MomentItem = messages.MomentsCarouselInputData_MomentItem,
 	AttributionRowInputData = messages.AttributionRowInputData,
+	CtaButtonsInputData = messages.CtaButtonsInputData,
 	ImageInputData = messages.ImageInputData,
+	VideoInputData = messages.VideoInputData,
 	TextInputData = messages.TextInputData,
 	VerticalFeedInputData = messages.VerticalFeedInputData,
 	PageHeaderInputData = messages.PageHeaderInputData,
+	PreAuthLandingStickyHeaderInputData = messages.PreAuthLandingStickyHeaderInputData,
 	OptionSelectorCarouselInputData = messages.OptionSelectorCarouselInputData,
 	SelectorOption = messages.SelectorOption,
 	ItemWithLayout = messages.ItemWithLayout,

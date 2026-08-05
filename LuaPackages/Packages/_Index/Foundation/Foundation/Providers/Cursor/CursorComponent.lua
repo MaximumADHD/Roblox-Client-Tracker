@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local ColorMode = require(Foundation.Enums.ColorMode)
+local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-type ColorMode = ColorMode.ColorMode
+type ColorNamespace = ColorNamespace.ColorNamespace
 
 --selene: allow(roblox_internal_custom_color)
 
@@ -13,12 +13,12 @@ type Props = {
 	cornerRadius: UDim,
 	offset: number,
 	borderWidth: number,
-	colorMode: ColorMode.ColorMode,
+	colorNamespace: ColorNamespace.ColorNamespace,
 }
 
 local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
-	local colorIndex = props.colorMode
+	local colorIndex = props.colorNamespace
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,

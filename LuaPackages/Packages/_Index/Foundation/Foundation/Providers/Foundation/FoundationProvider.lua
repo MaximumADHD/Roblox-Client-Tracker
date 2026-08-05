@@ -43,6 +43,7 @@ local function FoundationProvider(props: FoundationProviderProps)
 		React.createElement(ElevationProvider, nil),
 		React.createElement(PreferencesProvider, preferences),
 		React.createElement(StyleProvider, {
+			colorMode = props.colorMode,
 			theme = props.theme,
 			device = props.device,
 			derives = props.derives,

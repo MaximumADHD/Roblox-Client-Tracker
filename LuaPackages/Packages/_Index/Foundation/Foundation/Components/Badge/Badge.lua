@@ -62,10 +62,11 @@ local defaultProps = {
 	testId = "--foundation-badge",
 }
 
--- DEPRECATED Primary and Secondary variants are scheduled for removal in the next major release (2.0)
+-- DEPRECATED Primary, Secondary, and Neutral variants are scheduled for removal in the next major release (2.0)
 local deprecatedVariantsMapping: { [BadgeVariant]: BadgeVariant } = {
 	[BadgeVariant.Primary] = BadgeVariant.Contrast,
-	[BadgeVariant.Secondary] = BadgeVariant.Neutral,
+	[BadgeVariant.Secondary] = if Flags.FoundationBadgeBetaUpdate then BadgeVariant.Standard else BadgeVariant.Neutral,
+	[BadgeVariant.Neutral] = if Flags.FoundationBadgeBetaUpdate then BadgeVariant.Standard else nil :: never,
 }
 
 local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)

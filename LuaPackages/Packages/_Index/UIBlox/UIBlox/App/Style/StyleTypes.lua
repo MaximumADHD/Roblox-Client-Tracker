@@ -10,6 +10,7 @@ export type ThemeItem = {
 
 export type BaseTokens = TokenTypes.BaseTokens
 export type Tokens = TokenTypes.Tokens
+export type PublicTokens = TokenTypes.PublicTokens
 export type FoundationTokens = TokenTypes.FoundationTokens
 export type RbxDesignFoundationsV2Tokens = TokenTypes.RbxDesignFoundationsV2Tokens
 export type ComponentTokens = TokenTypes.ComponentTokens
