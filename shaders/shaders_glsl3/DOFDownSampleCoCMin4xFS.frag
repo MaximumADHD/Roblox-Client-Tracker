@@ -1,7 +1,7 @@
 #version 150
 
 #extension GL_ARB_shading_language_include : require
-#include <Params.h>
+#include <ScreenSpaceDoFCB.h>
 uniform vec4 CB1[18];
 uniform sampler2D iChannel0Texture;
 

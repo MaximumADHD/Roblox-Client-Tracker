@@ -1,7 +1,7 @@
 #version 150
 
 #extension GL_ARB_shading_language_include : require
-#include <Params.h>
+#include <ScreenSpaceSSAOCB.h>
 uniform vec4 CB1[18];
 in vec4 POSITION;
 out vec2 VARYING0;
