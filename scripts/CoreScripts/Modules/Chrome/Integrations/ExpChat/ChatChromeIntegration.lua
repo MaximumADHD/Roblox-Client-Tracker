@@ -28,6 +28,15 @@ local SignalsRoblox = require(CorePackages.Packages.SignalsRoblox)
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
+type ChatOpenCapability = {
+	isAvailable: () -> boolean,
+	ensureOpenChat: (isCurrentRequest: () -> boolean) -> (),
+}
+
+type ChatIntegration = ChromePackage.IntegrationProps & {
+	chatOpenCapability: ChatOpenCapability?,
+}
+
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 local shouldSuppressUnreadForTabMetadata = ExpChat.shouldSuppressUnreadForTabMetadata
@@ -39,7 +48,6 @@ local GetFriendsChatIconUnreadStore = require(CorePackages.Workspace.Packages.Fr
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
@@ -63,7 +71,7 @@ local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialE
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
 local chatVisibility: boolean = ChatSelector:GetVisibility()
-local chatChromeIntegration
+local chatChromeIntegration: ChatIntegration
 
 local chatSelectorVisibilitySignal = ChatSelector.VisibilityStateChanged
 
@@ -161,15 +169,49 @@ end, function()
 	end
 end)
 
-local dismissCallback = function()
-	if InExperienceAppChatModal:getVisible() then
-		InExperienceAppChatModal.default:setVisible(false)
+local function hideAppChat()
+	if not InExperienceAppChatModal:getVisible() then
+		return
 	end
+
+	InExperienceAppChatModal.default:setVisible(false)
+end
+
+local function revealChat()
+	hideAppChat()
 
 	ChatSelector:SetVisible(true)
 
 	if FFlagEnableConsoleExpControls then
 		FocusSelectExpChat(chatChromeIntegration.id)
+	end
+end
+
+local function isChatOpenAvailable(): boolean
+	return chatChromeIntegration.availability:get() ~= ChromeService.AvailabilitySignal.Unavailable
+end
+
+local function isSpatialDirectOpen(): boolean
+	return (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter()
+end
+
+-- Reveals ExpChat for the Friends Chat handoff. Callers are expected to have
+-- already checked `isAvailable` and reserved the chat session.
+local function ensureOpenChat(isCurrentRequest: () -> boolean)
+	if chatVisibility then
+		hideAppChat()
+	elseif isSpatialDirectOpen() then
+		revealChat()
+	else
+		ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+			-- Dismissing the menu is slow enough that a newer handoff can
+			-- supersede this one, or chat can stop being available, before the
+			-- menu finishes closing. Revealing anyway would show the previous
+			-- conversation.
+			if isCurrentRequest() and isChatOpenAvailable() then
+				revealChat()
+			end
+		end)
 	end
 end
 
@@ -188,20 +230,16 @@ chatChromeIntegration = ChromeService:register({
 			if FFlagExpChatPerfTracking then
 				ExpChatPerfTracker.start(ExpChatPerfTracker.Events.ChatWindowMountTTI, {})
 			end
-			if (isInExperienceUIVREnabled and isSpatial()) and not InExperienceUIVRIXP:isMovePanelToCenter() then
+			if isSpatialDirectOpen() then
 				ChatSelector:SetVisible(true)
 			else
 				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-					dismissCallback()
+					revealChat()
 				end)
 			end
 		end
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then chatVisibilitySignal
-		else function()
-			return chatVisibilitySignal:get()
-		end,
+	isActivated = chatVisibilitySignal,
 	selected = if FFlagEnableConsoleExpControls
 		then function(self)
 			if FFlagExpChatUnibarThumbstickNavigate then
@@ -254,7 +292,14 @@ chatChromeIntegration = ChromeService:register({
 			return CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
 		end,
 	},
-})
+}) :: ChatIntegration
+
+chatChromeIntegration.chatOpenCapability = if FFlagExpChatEnableFriendsTab
+	then {
+		isAvailable = isChatOpenAvailable,
+		ensureOpenChat = ensureOpenChat,
+	}
+	else nil
 
 if FFlagExpChatUnibarAvailabilityRefactor then
 	-- We are using a detached effect here because we don't have a great

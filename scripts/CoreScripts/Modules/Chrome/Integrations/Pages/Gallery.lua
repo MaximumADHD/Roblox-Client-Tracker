@@ -12,7 +12,6 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagFixSpatialUICaptures = SharedFlags.FFlagFixSpatialUICaptures
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 local FFlagUpdateGalleryIcon = game:DefineFastFlag("UpdateGalleryIcon", false)
 
@@ -39,11 +38,7 @@ return ChromeService:register({
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("CapturesPage", pageOpenSignal:get())
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then pageOpenSignal
-		else function()
-			return pageOpenSignal:get()
-		end,
+	isActivated = pageOpenSignal,
 	components = {
 		Icon = function(props)
 			if FFlagUpdateGalleryIcon then

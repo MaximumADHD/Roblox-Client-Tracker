@@ -11,9 +11,6 @@ local ScreenshotReviewDialog = require(RAFolder.Components.ScreenshotReviewDialo
 
 local Types = require(script.Parent.Parent.Parent.Components.Types)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagAvatarIdentificationSafeAreaFix = SharedFlags.GetFFlagAvatarIdentificationSafeAreaFix
-
 export type Props = ScreenshotDialog.Props & {
 	titleText: never,
 	skipAnnotationAction: () -> (),
@@ -47,7 +44,7 @@ local function ScreenshotFlowStepHandler(props: Props)
 		local camera = game.Workspace.CurrentCamera
 		if camera ~= nil then
 			local uiSafeAreaViewportSize = camera.viewportSize
-			if GetFFlagAvatarIdentificationSafeAreaFix() and props.viewportInfo then
+			if props.viewportInfo then
 				-- size of the rendered viewport (which can be larger than the `camera.uiSafeAreaViewportSize` on displays with cutouts or notches)
 				-- this is necessary to ensure the screenshot aspect ratio when annotating matches the screenshot itself
 				setImageAspectRatio(props.viewportInfo.width / props.viewportInfo.height)

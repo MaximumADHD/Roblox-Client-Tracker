@@ -9,6 +9,9 @@ local Cryo = require(Framework.Parent.Cryo)
 local Roact = require(Framework.Parent.Roact)
 local Context = require(Framework.UI.ContextServices.Context)
 local Stylizer = require(Framework.UI.ContextServices.Stylizer)
+local getFFlagDevFrameworkFixWithContextUnsafeLifecycleHoist =
+	require(Framework.SharedFlags.getFFlagDevFrameworkFixWithContextUnsafeLifecycleHoist)
+local FFlagDevFrameworkFixWithContextUnsafeLifecycleHoist = getFFlagDevFrameworkFixWithContextUnsafeLifecycleHoist()
 
 -- All members of a component class, except the ones in this list, get hoisted
 -- to the wrapper component. This is to ensure that static members defined on a
@@ -46,6 +49,9 @@ local ROACT_INTERNAL_MEMBERS = {
 	getSnapshotBeforeUpdate = true,
 	propTypes = true,
 	shouldComponentUpdate = true,
+	UNSAFE_componentWillMount = FFlagDevFrameworkFixWithContextUnsafeLifecycleHoist,
+	UNSAFE_componentWillReceiveProps = FFlagDevFrameworkFixWithContextUnsafeLifecycleHoist,
+	UNSAFE_componentWillUpdate = FFlagDevFrameworkFixWithContextUnsafeLifecycleHoist,
 
 	-- DEPRECATED_withContext
 	__initWithContext = true,

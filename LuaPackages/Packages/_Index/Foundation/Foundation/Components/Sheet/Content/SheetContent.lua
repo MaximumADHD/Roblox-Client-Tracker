@@ -106,19 +106,15 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 		})
 		else nil
 
-	local scrollingFrameRef = if Flags.FoundationBottomSheetInnerScrollingSync
-		then useComposedRef(
-				innerScrollingRef :: React.Ref<any>,
-				props.scrollingFrameRef :: React.Ref<any>?
-			) :: React.Ref<any>
-		else nil
+	local scrollingFrameRef = useComposedRef(
+		innerScrollingRef :: React.Ref<any>,
+		props.scrollingFrameRef :: React.Ref<any>?
+	) :: React.Ref<any>
 
 	return React.createElement(
 		ScrollView,
 		{
-			scrollingFrameRef = if Flags.FoundationBottomSheetInnerScrollingSync
-				then scrollingFrameRef
-				else props.scrollingFrameRef,
+			scrollingFrameRef = scrollingFrameRef,
 			ZIndex = 1,
 			selection = {
 				Selectable = selectable,

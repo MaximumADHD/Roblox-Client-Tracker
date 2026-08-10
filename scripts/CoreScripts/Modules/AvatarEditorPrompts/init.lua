@@ -54,7 +54,7 @@ function AvatarEditorPrompts.new()
 			localization = Localization.new(LocalizationService.RobloxLocaleId),
 		}, {
 			FoundationProvider = Roact.createElement(Foundation.FoundationProvider, {
-				theme = Foundation.Enums.Theme.Dark,
+				colorMode = Foundation.Enums.ColorMode.Dark,
 			}, {
 				PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
 					policy = { AvatarEditorPromptsPolicy.Mapper },

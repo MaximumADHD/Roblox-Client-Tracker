@@ -6,6 +6,8 @@ type ReactNode = React.ReactNode
 
 local UserInputService = require(Foundation.Utility.Wrappers).Services.UserInputService
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Logger = require(Foundation.Utility.Logger)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverContext = require(Foundation.Components.Popover.PopoverContext)
@@ -115,6 +117,11 @@ local function Tooltip(tooltipProps: TooltipProps)
 				radius = Radius.Small,
 				backgroundStyle = tokens.Inverse.Surface.Surface_0,
 				selectionGroup = false,
+				onPressedOutside = if Flags.FoundationTooltipPressedOutside
+					then function()
+						setIsOpen(false)
+					end
+					else nil,
 			},
 			React.createElement(View, {
 				tag = {

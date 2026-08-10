@@ -1,8 +1,6 @@
 --!nonstrict
 local root = script.Parent.Parent
 
-local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local getFFlagUGCValidationExtendSchemaToIgnoreDescendants =
 	require(root.flags.getFFlagUGCValidationExtendSchemaToIgnoreDescendants)
 
@@ -105,11 +103,7 @@ local function validateWithSchema(schema, instance, _validationContext)
 	local result = validateWithSchemaHelper(schema, instance, authorizedSet)
 
 	if not result.success then
-		if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationCombineEntrypointResults() then
-			return { success = false, message = "" }
-		end
-
-		return result
+		return { success = false, message = "" }
 	end
 
 	-- check for extra descendants
@@ -121,14 +115,7 @@ local function validateWithSchema(schema, instance, _validationContext)
 	end
 
 	if #unauthorizedDescendantPaths > 0 then
-		if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationCombineEntrypointResults() then
-			return { success = false, message = "" }
-		end
-
-		return {
-			success = false,
-			message = "Unexpected Descendants:\n" .. table.concat(unauthorizedDescendantPaths, "\n"),
-		}
+		return { success = false, message = "" }
 	end
 
 	return { success = true }

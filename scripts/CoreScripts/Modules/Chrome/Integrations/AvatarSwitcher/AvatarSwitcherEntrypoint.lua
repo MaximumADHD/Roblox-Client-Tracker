@@ -21,7 +21,6 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeWindowSignalConstraintsToggle = SharedFlags.FFlagChromeWindowSignalConstraintsToggle
 local FFlagRemoveAvatarSwitcherIfUnsupported = SharedFlags.FFlagRemoveAvatarSwitcherIfUnsupported
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 local isActive = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), function()
 	return ChromeService:isWindowOpen(Constants.AVATAR_SWITCHER_ID)
@@ -56,11 +55,7 @@ local integration = ChromeService:register({
 	activated = function(self)
 		ChromeService:toggleWindow(Constants.AVATAR_SWITCHER_ID)
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then isActive
-		else function()
-			return isActive:get()
-		end,
+	isActivated = isActive,
 	cachePosition = true,
 	draggable = true,
 	windowSize = windowSize,

@@ -97,6 +97,7 @@ local GlobalConfig = require(script.GlobalConfig)
 
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
+local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local FFlagGamepadNavigationDialogABTest = require(script.Flags.FFlagGamepadNavigationDialogABTest)
 
 -- Cross Experience Voice
@@ -218,9 +219,9 @@ function TopBar.new()
 		store = self.store,
 	}, {
 		PolicyProvider = Roact.createElement(
-			if FFlagTopBarRefactor then RoactAppPolicy.Provider else TopBarAppPolicy.Provider,
+			if FFlagTopBarRefactor or FFlagShowGameAgeRating then RoactAppPolicy.Provider else TopBarAppPolicy.Provider,
 			{
-				policy = if FFlagTopBarRefactor then { AppFeaturePolicies } else { TopBarAppPolicy.Mapper },
+				policy = if FFlagTopBarRefactor or FFlagShowGameAgeRating then { AppFeaturePolicies } else { TopBarAppPolicy.Mapper },
 			},
 			wrapWithUiModeStyleProvider({
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {

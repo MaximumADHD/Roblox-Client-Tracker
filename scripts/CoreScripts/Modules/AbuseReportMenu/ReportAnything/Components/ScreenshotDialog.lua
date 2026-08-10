@@ -17,8 +17,6 @@ local VirtualKeyboardMonitor = require(RAFolder.Utility.VirtualKeyboardMonitor)
 local ScreenshotDialogPortraitModeHeader = require(RAFolder.Components.ScreenshotDialogPortraitModeHeader)
 local ScreenshotDialogLandscapeModeHeader = require(RAFolder.Components.ScreenshotDialogLandscapeModeHeader)
 local ReportAnythingAnalytics = require(RAFolder.Utility.ReportAnythingAnalytics)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagAvatarIdentificationSafeAreaFix = SharedFlags.GetFFlagAvatarIdentificationSafeAreaFix
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -223,17 +221,10 @@ local function ScreenshotDialog(props: Props): React.ReactNode?
 						Position = UDim2.fromScale(0.5, 0.5),
 						BackgroundTransparency = 1,
 					}, {
-						UIAspectRatioConstraint = if GetFFlagAvatarIdentificationSafeAreaFix()
-							then nil
-							else React.createElement("UIAspectRatioConstraint", {
-								AspectRatio = props.imageAspectRatio,
-							}),
-						Layout = if GetFFlagAvatarIdentificationSafeAreaFix()
-							then React.createElement("UIListLayout", {
-								HorizontalAlignment = Enum.HorizontalAlignment.Center,
-								VerticalAlignment = Enum.VerticalAlignment.Center,
-							})
-							else nil,
+						Layout = React.createElement("UIListLayout", {
+							HorizontalAlignment = Enum.HorizontalAlignment.Center,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+						}),
 						Padding = React.createElement("UIPadding", {
 							PaddingTop = UDim.new(0, 16),
 							PaddingBottom = UDim.new(0, 16),
@@ -243,16 +234,12 @@ local function ScreenshotDialog(props: Props): React.ReactNode?
 						AnnotationLayer = React.createElement("Frame", {
 							Size = UDim2.new(1, 0, 1, 0),
 							BorderSizePixel = 2,
-							BorderMode = if GetFFlagAvatarIdentificationSafeAreaFix()
-								then Enum.BorderMode.Outline
-								else Enum.BorderMode.Inset,
+							BorderMode = Enum.BorderMode.Outline,
 							BorderColor3 = Color3.fromRGB(255, 255, 255),
 						}, {
-							UIAspectRatioConstraint = if GetFFlagAvatarIdentificationSafeAreaFix()
-								then React.createElement("UIAspectRatioConstraint", {
-									AspectRatio = props.imageAspectRatio,
-								})
-								else nil,
+							UIAspectRatioConstraint = React.createElement("UIAspectRatioConstraint", {
+								AspectRatio = props.imageAspectRatio,
+							}),
 							ScreenshotImage = React.createElement("ImageLabel", {
 								Size = UDim2.fromScale(1, 1),
 								Image = props.screenshot,

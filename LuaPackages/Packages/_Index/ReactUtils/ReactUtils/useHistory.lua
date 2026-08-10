@@ -6,7 +6,7 @@ local ReactUtils = script:FindFirstAncestor("ReactUtils")
 local Packages = ReactUtils.Parent
 local React = require(Packages.React)
 
-local LUAU_ANALYZE_ERROR = ReactUtils.LUAU_ANALYZE_ERROR
+local LUAU_ANALYZE_ERROR = require(ReactUtils.LUAU_ANALYZE_ERROR)
 
 local function useHistory<T>(item: T, setItem: (item: T) -> (), dependencies: {}): (string, T) -> ()
 	local lastItemRef = React.useRef(item)

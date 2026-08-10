@@ -38,7 +38,6 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
 	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
@@ -94,10 +93,8 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	end
 	do
 		local skipFlags = {
-			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
-			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties(),
 		}
 		success, reasons = validateDependencies(instance, validationContext, skipFlags)
 		if not success then
@@ -168,7 +165,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	textureInfo.editableImage = editableImage
 
 	local failedReason: any = {}
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		success, failedReason = validateMaterials(instance, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
@@ -188,7 +185,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		success, failedReason = validateAttributes(instance, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
@@ -223,7 +220,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		local checkModeration = not isServer
 		if allowUnreviewedAssets then
 			checkModeration = false

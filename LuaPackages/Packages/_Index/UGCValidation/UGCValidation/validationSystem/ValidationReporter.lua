@@ -5,6 +5,10 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
 
+local getFFlagUGCValidationLogFailureInfo = require(root.flags.getFFlagUGCValidationLogFailureInfo)
+
+local FIntUGCValidationLogFailureLength = game:DefineFastInt("UGCValidationLogFailureLength", 100)
+
 -- Strips the root's GetFullName() prefix off the target's GetFullName(). Returns "" when the
 -- target is the rootInstance itself.
 local function getRelativePath(rootInstance: Instance, target: Instance?): string
@@ -101,6 +105,18 @@ function ValidationReporter:complete(): Types.SingleValidationResult
 
 	if getFFlagDebugUGCValidationPrintNewStructureResults() and self._status ~= ValidationEnums.Status.PASS then
 		print("Reporting:", self._testEnum, "has status", self._status, "in", duration)
+	end
+
+	if getFFlagUGCValidationLogFailureInfo() and self._status == ValidationEnums.Status.FAIL then
+		for _, failure in self._failures do
+			self._telemetryContext = (self._telemetryContext :: string) .. failure.failureStringKey .. ";"
+			if failure.failureStringParams then
+				for _, param in failure.failureStringParams do
+					self._telemetryContext = self._telemetryContext .. tostring(param) .. ";"
+				end
+			end
+		end
+		self._telemetryContext = string.sub(self._telemetryContext, 1, FIntUGCValidationLogFailureLength)
 	end
 
 	return {

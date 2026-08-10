@@ -171,6 +171,10 @@ type _Messages =
 		DownloadAppAction_Params: _DownloadAppAction_ParamsMessage,
 		ActionSequenceAction: _ActionSequenceActionMessage,
 		ActionSequenceAction_Params: _ActionSequenceAction_ParamsMessage,
+		RefreshFeedEntryFromApiAction: _RefreshFeedEntryFromApiActionMessage,
+		RefreshFeedEntryFromApiAction_Params: _RefreshFeedEntryFromApiAction_ParamsMessage,
+		OpenProfileFramesEditorAction: _OpenProfileFramesEditorActionMessage,
+		OpenProfileFramesEditorAction_Params: _OpenProfileFramesEditorAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -3716,6 +3720,7 @@ type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralFields = {
 	completion_button_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	prevent_double_confirm: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	provided_robux_balance: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	launch_after_purchase_root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralPartialFields = {
@@ -3725,6 +3730,7 @@ type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralPartialFiel
 	completion_button_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	prevent_double_confirm: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	provided_robux_balance: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	launch_after_purchase_root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral = typeof(setmetatable(
@@ -4943,6 +4949,126 @@ type _ActionSequenceAction_ParamsMessage = proto.Message<
 	_ActionSequenceAction_ParamsPartialFields
 >
 
+type _RefreshFeedEntryFromApiActionImpl = {
+	__index: _RefreshFeedEntryFromApiActionImpl,
+	new: (fields: _RefreshFeedEntryFromApiActionPartialFields?) -> RefreshFeedEntryFromApiAction,
+	encode: (self: RefreshFeedEntryFromApiAction) -> buffer,
+	decode: (input: buffer) -> RefreshFeedEntryFromApiAction,
+	jsonEncode: (self: RefreshFeedEntryFromApiAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshFeedEntryFromApiAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshFeedEntryFromApiActionFields = {
+	action_type: ActionType,
+	action_params: RefreshFeedEntryFromApiAction_Params?,
+}
+
+type _RefreshFeedEntryFromApiActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshFeedEntryFromApiAction_Params?,
+}
+
+export type RefreshFeedEntryFromApiAction = typeof(setmetatable(
+	{} :: _RefreshFeedEntryFromApiActionFields,
+	{} :: _RefreshFeedEntryFromApiActionImpl
+))
+type _RefreshFeedEntryFromApiActionMessage = proto.Message<
+	RefreshFeedEntryFromApiAction,
+	_RefreshFeedEntryFromApiActionPartialFields
+>
+
+type _RefreshFeedEntryFromApiAction_ParamsImpl = {
+	__index: _RefreshFeedEntryFromApiAction_ParamsImpl,
+	new: (fields: _RefreshFeedEntryFromApiAction_ParamsPartialFields?) -> RefreshFeedEntryFromApiAction_Params,
+	encode: (self: RefreshFeedEntryFromApiAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshFeedEntryFromApiAction_Params,
+	jsonEncode: (self: RefreshFeedEntryFromApiAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshFeedEntryFromApiAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshFeedEntryFromApiAction_ParamsFields = {
+	page_entry_identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	feed_entry_identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option_ids: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
+}
+
+type _RefreshFeedEntryFromApiAction_ParamsPartialFields = {
+	page_entry_identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	feed_entry_identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option_ids: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
+}
+
+export type RefreshFeedEntryFromApiAction_Params = typeof(setmetatable(
+	{} :: _RefreshFeedEntryFromApiAction_ParamsFields,
+	{} :: _RefreshFeedEntryFromApiAction_ParamsImpl
+))
+type _RefreshFeedEntryFromApiAction_ParamsMessage = proto.Message<
+	RefreshFeedEntryFromApiAction_Params,
+	_RefreshFeedEntryFromApiAction_ParamsPartialFields
+>
+
+type _OpenProfileFramesEditorActionImpl = {
+	__index: _OpenProfileFramesEditorActionImpl,
+	new: (fields: _OpenProfileFramesEditorActionPartialFields?) -> OpenProfileFramesEditorAction,
+	encode: (self: OpenProfileFramesEditorAction) -> buffer,
+	decode: (input: buffer) -> OpenProfileFramesEditorAction,
+	jsonEncode: (self: OpenProfileFramesEditorAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenProfileFramesEditorAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenProfileFramesEditorActionFields = {
+	action_type: ActionType,
+	action_params: OpenProfileFramesEditorAction_Params?,
+}
+
+type _OpenProfileFramesEditorActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenProfileFramesEditorAction_Params?,
+}
+
+export type OpenProfileFramesEditorAction = typeof(setmetatable(
+	{} :: _OpenProfileFramesEditorActionFields,
+	{} :: _OpenProfileFramesEditorActionImpl
+))
+type _OpenProfileFramesEditorActionMessage = proto.Message<
+	OpenProfileFramesEditorAction,
+	_OpenProfileFramesEditorActionPartialFields
+>
+
+type _OpenProfileFramesEditorAction_ParamsImpl = {
+	__index: _OpenProfileFramesEditorAction_ParamsImpl,
+	new: (fields: _OpenProfileFramesEditorAction_ParamsPartialFields?) -> OpenProfileFramesEditorAction_Params,
+	encode: (self: OpenProfileFramesEditorAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenProfileFramesEditorAction_Params,
+	jsonEncode: (self: OpenProfileFramesEditorAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenProfileFramesEditorAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenProfileFramesEditorAction_ParamsFields = {
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenProfileFramesEditorAction_ParamsPartialFields = {
+	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenProfileFramesEditorAction_Params = typeof(setmetatable(
+	{} :: _OpenProfileFramesEditorAction_ParamsFields,
+	{} :: _OpenProfileFramesEditorAction_ParamsImpl
+))
+type _OpenProfileFramesEditorAction_ParamsMessage = proto.Message<
+	OpenProfileFramesEditorAction_Params,
+	_OpenProfileFramesEditorAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -5034,6 +5160,8 @@ type _ActionFields = {
 		| { type: "show_toast_action", value: ShowToastAction }
 		| { type: "open_incoming_transfer_upsell_action", value: OpenIncomingTransferUpsellAction }
 		| { type: "action_sequence_action", value: ActionSequenceAction }
+		| { type: "refresh_feed_entry_from_api_action", value: RefreshFeedEntryFromApiAction }
+		| { type: "open_profile_frames_editor_action", value: OpenProfileFramesEditorAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5121,6 +5249,8 @@ type _ActionPartialFields = {
 		| { type: "show_toast_action", value: ShowToastAction }
 		| { type: "open_incoming_transfer_upsell_action", value: OpenIncomingTransferUpsellAction }
 		| { type: "action_sequence_action", value: ActionSequenceAction }
+		| { type: "refresh_feed_entry_from_api_action", value: RefreshFeedEntryFromApiAction }
+		| { type: "open_profile_frames_editor_action", value: OpenProfileFramesEditorAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5462,6 +5592,8 @@ export type ActionType =
 	| "ACTION_TYPE_SHOW_TOAST"
 	| "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
 	| "ACTION_TYPE_ACTION_SEQUENCE"
+	| "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
+	| "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
 	| number -- Unknown
 
 do
@@ -23713,6 +23845,10 @@ do
 				provided_robux_balance = if data == nil or data.provided_robux_balance == nil
 					then nil
 					else data.provided_robux_balance,
+				launch_after_purchase_root_place_id = if data == nil
+						or data.launch_after_purchase_root_place_id == nil
+					then nil
+					else data.launch_after_purchase_root_place_id,
 			},
 			_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl :: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl
 		)
@@ -23757,6 +23893,12 @@ do
 		if self.provided_robux_balance ~= nil then
 			local encoded = self.provided_robux_balance:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.launch_after_purchase_root_place_id ~= nil then
+			local encoded = self.launch_after_purchase_root_place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -23816,6 +23958,12 @@ do
 					self.provided_robux_balance =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_after_purchase_root_place_id =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -23867,6 +24015,10 @@ do
 
 		if self.provided_robux_balance ~= nil then
 			output.providedRobuxBalance = self.provided_robux_balance:jsonEncode()
+		end
+
+		if self.launch_after_purchase_root_place_id ~= nil then
+			output.launchAfterPurchaseRootPlaceId = self.launch_after_purchase_root_place_id:jsonEncode()
 		end
 
 		return output
@@ -23936,6 +24088,20 @@ do
 		if input.providedRobuxBalance ~= nil then
 			self.provided_robux_balance =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.providedRobuxBalance)
+		end
+
+		if input.launch_after_purchase_root_place_id ~= nil then
+			self.launch_after_purchase_root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+					input.launch_after_purchase_root_place_id
+				)
+		end
+
+		if input.launchAfterPurchaseRootPlaceId ~= nil then
+			self.launch_after_purchase_root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+					input.launchAfterPurchaseRootPlaceId
+				)
 		end
 
 		return self
@@ -29975,6 +30141,620 @@ do
 end
 
 do
+	local _RefreshFeedEntryFromApiActionImpl = {}
+	_RefreshFeedEntryFromApiActionImpl.__index = _RefreshFeedEntryFromApiActionImpl
+
+	function _RefreshFeedEntryFromApiActionImpl.new(
+		data: _RefreshFeedEntryFromApiActionPartialFields?
+	): RefreshFeedEntryFromApiAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshFeedEntryFromApiActionImpl :: _RefreshFeedEntryFromApiActionImpl)
+	end
+
+	function _RefreshFeedEntryFromApiActionImpl.encode(self: RefreshFeedEntryFromApiAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshFeedEntryFromApiActionImpl.decode(input: buffer): RefreshFeedEntryFromApiAction
+		local self = _RefreshFeedEntryFromApiActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshFeedEntryFromApiAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshFeedEntryFromApiActionImpl.jsonEncode(self: RefreshFeedEntryFromApiAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshFeedEntryFromApiActionImpl.jsonDecode(input: { [string]: any }): RefreshFeedEntryFromApiAction
+		local self = _RefreshFeedEntryFromApiActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshFeedEntryFromApiAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshFeedEntryFromApiAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshFeedEntryFromApiActionImpl.descriptor = {
+		name = "RefreshFeedEntryFromApiAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshFeedEntryFromApiAction",
+	}
+
+	messages.RefreshFeedEntryFromApiAction = _RefreshFeedEntryFromApiActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshFeedEntryFromApiAction)
+end
+
+do
+	local _RefreshFeedEntryFromApiAction_ParamsImpl = {}
+	_RefreshFeedEntryFromApiAction_ParamsImpl.__index = _RefreshFeedEntryFromApiAction_ParamsImpl
+
+	function _RefreshFeedEntryFromApiAction_ParamsImpl.new(
+		data: _RefreshFeedEntryFromApiAction_ParamsPartialFields?
+	): RefreshFeedEntryFromApiAction_Params
+		return setmetatable({
+			page_entry_identifier = if data == nil or data.page_entry_identifier == nil
+				then nil
+				else data.page_entry_identifier,
+			feed_entry_identifier = if data == nil or data.feed_entry_identifier == nil
+				then nil
+				else data.feed_entry_identifier,
+			selected_option_ids = if data == nil or data.selected_option_ids == nil
+				then nil
+				else data.selected_option_ids,
+		}, _RefreshFeedEntryFromApiAction_ParamsImpl :: _RefreshFeedEntryFromApiAction_ParamsImpl)
+	end
+
+	function _RefreshFeedEntryFromApiAction_ParamsImpl.encode(self: RefreshFeedEntryFromApiAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.page_entry_identifier ~= nil then
+			local encoded = self.page_entry_identifier:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.feed_entry_identifier ~= nil then
+			local encoded = self.feed_entry_identifier:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selected_option_ids ~= nil then
+			local encoded = self.selected_option_ids:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshFeedEntryFromApiAction_ParamsImpl.decode(input: buffer): RefreshFeedEntryFromApiAction_Params
+		local self = _RefreshFeedEntryFromApiAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.page_entry_identifier =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.feed_entry_identifier =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option_ids =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshFeedEntryFromApiAction_ParamsImpl.jsonEncode(self: RefreshFeedEntryFromApiAction_Params): any
+		local output = {}
+
+		if self.page_entry_identifier ~= nil then
+			output.pageEntryIdentifier = self.page_entry_identifier:jsonEncode()
+		end
+
+		if self.feed_entry_identifier ~= nil then
+			output.feedEntryIdentifier = self.feed_entry_identifier:jsonEncode()
+		end
+
+		if self.selected_option_ids ~= nil then
+			output.selectedOptionIds = self.selected_option_ids:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshFeedEntryFromApiAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshFeedEntryFromApiAction_Params
+		local self = _RefreshFeedEntryFromApiAction_ParamsImpl.new()
+
+		if input.page_entry_identifier ~= nil then
+			self.page_entry_identifier =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.page_entry_identifier)
+		end
+
+		if input.pageEntryIdentifier ~= nil then
+			self.page_entry_identifier =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.pageEntryIdentifier)
+		end
+
+		if input.feed_entry_identifier ~= nil then
+			self.feed_entry_identifier =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.feed_entry_identifier)
+		end
+
+		if input.feedEntryIdentifier ~= nil then
+			self.feed_entry_identifier =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.feedEntryIdentifier)
+		end
+
+		if input.selected_option_ids ~= nil then
+			self.selected_option_ids =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.selected_option_ids)
+		end
+
+		if input.selectedOptionIds ~= nil then
+			self.selected_option_ids =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.selectedOptionIds)
+		end
+
+		return self
+	end
+
+	_RefreshFeedEntryFromApiAction_ParamsImpl.descriptor = {
+		name = "RefreshFeedEntryFromApiAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshFeedEntryFromApiAction_Params = _RefreshFeedEntryFromApiAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshFeedEntryFromApiAction_Params)
+end
+
+do
+	local _OpenProfileFramesEditorActionImpl = {}
+	_OpenProfileFramesEditorActionImpl.__index = _OpenProfileFramesEditorActionImpl
+
+	function _OpenProfileFramesEditorActionImpl.new(
+		data: _OpenProfileFramesEditorActionPartialFields?
+	): OpenProfileFramesEditorAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenProfileFramesEditorActionImpl :: _OpenProfileFramesEditorActionImpl)
+	end
+
+	function _OpenProfileFramesEditorActionImpl.encode(self: OpenProfileFramesEditorAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenProfileFramesEditorActionImpl.decode(input: buffer): OpenProfileFramesEditorAction
+		local self = _OpenProfileFramesEditorActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenProfileFramesEditorAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenProfileFramesEditorActionImpl.jsonEncode(self: OpenProfileFramesEditorAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenProfileFramesEditorActionImpl.jsonDecode(input: { [string]: any }): OpenProfileFramesEditorAction
+		local self = _OpenProfileFramesEditorActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenProfileFramesEditorAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenProfileFramesEditorAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenProfileFramesEditorActionImpl.descriptor = {
+		name = "OpenProfileFramesEditorAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenProfileFramesEditorAction",
+	}
+
+	messages.OpenProfileFramesEditorAction = _OpenProfileFramesEditorActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenProfileFramesEditorAction)
+end
+
+do
+	local _OpenProfileFramesEditorAction_ParamsImpl = {}
+	_OpenProfileFramesEditorAction_ParamsImpl.__index = _OpenProfileFramesEditorAction_ParamsImpl
+
+	function _OpenProfileFramesEditorAction_ParamsImpl.new(
+		data: _OpenProfileFramesEditorAction_ParamsPartialFields?
+	): OpenProfileFramesEditorAction_Params
+		return setmetatable({
+			prompt_id = if data == nil or data.prompt_id == nil then nil else data.prompt_id,
+			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _OpenProfileFramesEditorAction_ParamsImpl :: _OpenProfileFramesEditorAction_ParamsImpl)
+	end
+
+	function _OpenProfileFramesEditorAction_ParamsImpl.encode(self: OpenProfileFramesEditorAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.prompt_id ~= nil then
+			local encoded = self.prompt_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prompt_type ~= nil then
+			local encoded = self.prompt_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenProfileFramesEditorAction_ParamsImpl.decode(input: buffer): OpenProfileFramesEditorAction_Params
+		local self = _OpenProfileFramesEditorAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenProfileFramesEditorAction_ParamsImpl.jsonEncode(self: OpenProfileFramesEditorAction_Params): any
+		local output = {}
+
+		if self.prompt_id ~= nil then
+			output.promptId = self.prompt_id:jsonEncode()
+		end
+
+		if self.prompt_type ~= nil then
+			output.promptType = self.prompt_type:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenProfileFramesEditorAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenProfileFramesEditorAction_Params
+		local self = _OpenProfileFramesEditorAction_ParamsImpl.new()
+
+		if input.prompt_id ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_id)
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptId)
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.prompt_type)
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.promptType)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_OpenProfileFramesEditorAction_ParamsImpl.descriptor = {
+		name = "OpenProfileFramesEditorAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenProfileFramesEditorAction_Params = _OpenProfileFramesEditorAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenProfileFramesEditorAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -30299,6 +31079,14 @@ do
 			elseif self.kind.type == "action_sequence_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 76, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_feed_entry_from_api_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 77, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_profile_frames_editor_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 78, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -30863,6 +31651,22 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "action_sequence_action", value = messages.ActionSequenceAction.decode(value) }
 					continue
+				elseif field == 77 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "refresh_feed_entry_from_api_action",
+						value = messages.RefreshFeedEntryFromApiAction.decode(value),
+					}
+					continue
+				elseif field == 78 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_profile_frames_editor_action",
+						value = messages.OpenProfileFramesEditorAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -31059,6 +31863,10 @@ do
 				output.openIncomingTransferUpsellAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "action_sequence_action" then
 				output.actionSequenceAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_feed_entry_from_api_action" then
+				output.refreshFeedEntryFromApiAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_profile_frames_editor_action" then
+				output.openProfileFramesEditorAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -32161,6 +32969,34 @@ do
 			self.kind = {
 				type = "action_sequence_action",
 				value = messages.ActionSequenceAction.jsonDecode(input.actionSequenceAction),
+			}
+		end
+
+		if input.refresh_feed_entry_from_api_action ~= nil then
+			self.kind = {
+				type = "refresh_feed_entry_from_api_action",
+				value = messages.RefreshFeedEntryFromApiAction.jsonDecode(input.refresh_feed_entry_from_api_action),
+			}
+		end
+
+		if input.refreshFeedEntryFromApiAction ~= nil then
+			self.kind = {
+				type = "refresh_feed_entry_from_api_action",
+				value = messages.RefreshFeedEntryFromApiAction.jsonDecode(input.refreshFeedEntryFromApiAction),
+			}
+		end
+
+		if input.open_profile_frames_editor_action ~= nil then
+			self.kind = {
+				type = "open_profile_frames_editor_action",
+				value = messages.OpenProfileFramesEditorAction.jsonDecode(input.open_profile_frames_editor_action),
+			}
+		end
+
+		if input.openProfileFramesEditorAction ~= nil then
+			self.kind = {
+				type = "open_profile_frames_editor_action",
+				value = messages.OpenProfileFramesEditorAction.jsonDecode(input.openProfileFramesEditorAction),
 			}
 		end
 
@@ -33540,6 +34376,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
 		elseif value == 76 then
 			return "ACTION_TYPE_ACTION_SEQUENCE"
+		elseif value == 77 then
+			return "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
+		elseif value == 78 then
+			return "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
 		else
 			return nil
 		end
@@ -33700,6 +34540,10 @@ messages.ActionType = {
 			return 75
 		elseif self == "ACTION_TYPE_ACTION_SEQUENCE" then
 			return 76
+		elseif self == "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API" then
+			return 77
+		elseif self == "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR" then
+			return 78
 		else
 			return self
 		end
@@ -33860,6 +34704,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_INCOMING_TRANSFER_UPSELL"
 		elseif name == "ACTION_TYPE_ACTION_SEQUENCE" then
 			return "ACTION_TYPE_ACTION_SEQUENCE"
+		elseif name == "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API" then
+			return "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
+		elseif name == "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR" then
+			return "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
 		else
 			return nil
 		end
@@ -34030,6 +34878,10 @@ return {
 	DownloadAppAction_Params = messages.DownloadAppAction_Params,
 	ActionSequenceAction = messages.ActionSequenceAction,
 	ActionSequenceAction_Params = messages.ActionSequenceAction_Params,
+	RefreshFeedEntryFromApiAction = messages.RefreshFeedEntryFromApiAction,
+	RefreshFeedEntryFromApiAction_Params = messages.RefreshFeedEntryFromApiAction_Params,
+	OpenProfileFramesEditorAction = messages.OpenProfileFramesEditorAction,
+	OpenProfileFramesEditorAction_Params = messages.OpenProfileFramesEditorAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

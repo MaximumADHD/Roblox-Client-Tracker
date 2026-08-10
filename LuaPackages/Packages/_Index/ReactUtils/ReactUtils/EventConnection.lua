@@ -1,6 +1,12 @@
 --[[
 	A component that establishes a connection to a Roblox event when it is rendered.
 ]]
+
+local ReactUtils = script:FindFirstAncestor("ReactUtils")
+
+local Packages = ReactUtils.Parent
+local GoodSignal = require(Packages.GoodSignal)
+
 local useEventConnection = require(script.Parent.useEventConnection)
 
 --[[
@@ -13,7 +19,7 @@ local useEventConnection = require(script.Parent.useEventConnection)
 ]]
 
 export type Props = {
-	event: RBXScriptSignal,
+	event: RBXScriptSignal | GoodSignal.Signal<any>,
 	callback: (any) -> (),
 }
 

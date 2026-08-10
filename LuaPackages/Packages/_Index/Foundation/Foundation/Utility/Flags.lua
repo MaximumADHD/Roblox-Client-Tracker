@@ -26,7 +26,6 @@ local SafeFlags = require(Packages.SafeFlags)
 local FoundationDropdownVariant = SafeFlags.createGetFFlag("FoundationDropdownVariant")()
 local FoundationBottomSheetCapToOverlayHeight = SafeFlags.createGetFFlag("FoundationBottomSheetCapToOverlayHeight")()
 local FoundationBottomSheetFixHeightCap = SafeFlags.createGetFFlag("FoundationBottomSheetFixHeightCap")()
-local FoundationTabsInlineSizeFull = SafeFlags.createGetFFlag("FoundationTabsInlineSizeFull")()
 local FoundationFixTabsFitBorderWidth = SafeFlags.createGetFFlag("FoundationFixTabsFitBorderWidth")()
 
 return {
@@ -83,12 +82,10 @@ return {
 
 	-- Foundation@1.89.1
 	FoundationPopoverClipAwareVisibility = SafeFlags.createGetFFlag("FoundationPopoverClipAwareVisibility")(),
-	FoundationTabsInlineSizeFull = FoundationTabsInlineSizeFull,
 
 	-- Foundation@1.90.0
 	FoundationBaseMenuAutoYCanvasSizing = SafeFlags.createGetFFlag("FoundationBaseMenuAutoYCanvasSizing")(),
 	FoundationBaseMenuBeta = SafeFlags.createGetFFlag("FoundationBaseMenuBeta")(),
-	FoundationBottomSheetInnerScrollingSync = SafeFlags.createGetFFlag("FoundationBottomSheetInnerScrollingSync")(),
 	FoundationDialogAnimation = SafeFlags.createGetFFlag("FoundationDialogAnimation2")(),
 	FoundationDropdownSelectionProps = SafeFlags.createGetFFlag("FoundationDropdownSelectionProps")(),
 
@@ -112,7 +109,7 @@ return {
 	FoundationAvatarBindableUserId = SafeFlags.createGetFFlag("FoundationAvatarBindableUserId")(),
 	FoundationBottomSheetFixHeightCap = FoundationBottomSheetCapToOverlayHeight and FoundationBottomSheetFixHeightCap,
 	FoundationCornerRadiusPerCorner = SafeFlags.createGetFFlag("FoundationCornerRadiusPerCorner")(),
-	FoundationFixTabsFitBorderWidth = FoundationTabsInlineSizeFull and FoundationFixTabsFitBorderWidth,
+	FoundationFixTabsFitBorderWidth = FoundationFixTabsFitBorderWidth,
 	FoundationHeaderBarDualPaneBreakpointsStaySynced = SafeFlags.createGetFFlag(
 		"FoundationHeaderBarDualPaneBreakpointsStaySynced"
 	)(),
@@ -146,6 +143,11 @@ return {
 		"FoundationStatusIndicatorVariantExperiment2"
 	)(),
 	FoundationWidgetManagerSnapshotFlush = SafeFlags.createGetFFlag("FoundationWidgetManagerSnapshotFlush")(),
+
+	-- Foundation@1.99.0
+	FoundationFixTabsBorderPosition = SafeFlags.createGetFFlag("FoundationFixTabsBorderPosition")(),
+	FoundationSegmentedControlBeta = SafeFlags.createGetFFlag("FoundationSegmentedControlBeta")(),
+	FoundationTooltipPressedOutside = SafeFlags.createGetFFlag("FoundationTooltipPressedOutside")(),
 
 	-- Unreleased flags
 }

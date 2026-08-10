@@ -1,26 +1,26 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local React = require(Packages.React)
-local Theme = require(Foundation.Enums.Theme)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 
 local styleSheetRegistry = require(Foundation.StyleSheet.StyleSheetRegistry)
 
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 type TokenOverrides = Tokens.TokenOverrides
 
 local function useRegistryStyleSheet(
-	theme: Theme,
+	colorMode: ColorMode,
 	device: Device,
 	scale: number,
 	tokenOverrides: TokenOverrides?
 ): (StyleSheet, ({ string }) -> ())
 	local requestedRegistryTagsRef = React.useRef({} :: { [string]: boolean })
 	local registryStyleSheet = React.useMemo(function()
-		return styleSheetRegistry.getStyleSheet(theme, device, scale, tokenOverrides)
-	end, { theme, device, scale, tokenOverrides } :: { unknown })
+		return styleSheetRegistry.getStyleSheet(colorMode, device, scale, tokenOverrides)
+	end, { colorMode, device, scale, tokenOverrides } :: { unknown })
 	local registryStyleSheetRef = React.useRef(registryStyleSheet)
 	registryStyleSheetRef.current = registryStyleSheet
 

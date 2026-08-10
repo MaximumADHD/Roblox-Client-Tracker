@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local PreferencesProvider = require(Foundation.Providers.Preferences.PreferencesProvider)
-local Theme = require(Foundation.Enums.Theme)
 
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 type Preferences = PreferencesProvider.PreferencesProps
 
@@ -12,7 +12,7 @@ local Types = {}
 
 export type DeveloperStorybookStoryProps = {
 	focus: LayerCollector,
-	theme: Theme,
+	theme: ColorMode,
 	platform: Platform,
 	settings: Preferences,
 	plugin: Plugin,

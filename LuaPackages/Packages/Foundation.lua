@@ -74,6 +74,7 @@ export type ProgressSize = Package.ProgressSize
 export type RatingValue = Package.RatingValue
 export type Radius = Package.Radius
 export type SearchInputShape = Package.SearchInputShape
+export type SegmentedControlVariant = Package.SegmentedControlVariant
 export type SliderVariant = Package.SliderVariant
 export type StateLayerAffordance = Package.StateLayerAffordance
 export type StateLayerMode = Package.StateLayerMode

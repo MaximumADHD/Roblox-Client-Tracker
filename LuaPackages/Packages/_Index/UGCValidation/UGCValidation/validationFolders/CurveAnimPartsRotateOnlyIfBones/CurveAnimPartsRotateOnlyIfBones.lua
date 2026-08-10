@@ -5,10 +5,14 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local CurveAnimationHierarchyUtils = require(root.util.CurveAnimationHierarchyUtils)
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
+local CurveAnimTranslationUtils = require(root.util.CurveAnimTranslationUtils)
 
 local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 local getFFlagUGCValidateAnimPartsRotationOnly = require(root.flags.getFFlagUGCValidateAnimPartsRotationOnly)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getFFlagUGCValidateAnimTranslationThreshold = require(root.flags.getFFlagUGCValidateAnimTranslationThreshold)
+local FIntUGCValidateBodyPartTranslationMaxDistanceHundredths =
+	game:DefineFastInt("UGCValidateBodyPartTranslationMaxDistanceHundredths", 50)
 
 local CurveAnimPartsRotateOnlyIfBones = {}
 
@@ -30,23 +34,10 @@ end
 CurveAnimPartsRotateOnlyIfBones.expectedFailures = {}
 CurveAnimPartsRotateOnlyIfBones.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
-local function bodyPartPositionHasKeyframes(bodyPartFolder: Folder): boolean
-	local pos = bodyPartFolder:FindFirstChild("Position")
-	if not pos or not pos:IsA("Vector3Curve") then
-		return false
-	end
-	for _, axis in { "X", "Y", "Z" } do
-		local floatCurve = pos:FindFirstChild(axis)
-		if floatCurve and floatCurve:IsA("FloatCurve") and #(floatCurve :: FloatCurve):GetKeys() > 0 then
-			return true
-		end
-	end
-	return false
-end
-
 CurveAnimPartsRotateOnlyIfBones.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local isAnimationCategory = getFFlagUGCValidateAnimPartsRotationOnly()
 		and data.uploadCategory == ValidationEnums.UploadCategory.ANIMATION
+	local maxDistance = FIntUGCValidateBodyPartTranslationMaxDistanceHundredths / 100
 
 	for _, inst in data.curveAnimations do
 		local curveAnim = inst :: CurveAnimation
@@ -66,15 +57,26 @@ CurveAnimPartsRotateOnlyIfBones.run = function(reporter: Types.ValidationReporte
 
 		for _, desc in curveAnim:GetDescendants() do
 			if desc:IsA("Folder") and CurveAnimationHierarchyUtils.isBodyPartFolderNameValid(desc.Name) then
-				if bodyPartPositionHasKeyframes(desc) then
-					if isAnimationCategory then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BodyPartHasPosition, {
+				if getFFlagUGCValidateAnimTranslationThreshold() then
+					local exceeds, distance = CurveAnimTranslationUtils.translationExceedsThreshold(desc, maxDistance)
+					if exceeds then
+						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BodyPartTranslationExceedsThreshold, {
 							bodyPartName = desc.Name,
+							distance = string.format("%.3f", distance),
+							maxDistance = string.format("%.3f", maxDistance),
 						})
-					else
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BodyPartWithBoneHasPosition, {
-							bodyPartName = desc.Name,
-						})
+					end
+				else
+					if CurveAnimTranslationUtils.positionHasKeyframes(desc) then
+						if isAnimationCategory then
+							reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BodyPartHasPosition, {
+								bodyPartName = desc.Name,
+							})
+						else
+							reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BodyPartWithBoneHasPosition, {
+								bodyPartName = desc.Name,
+							})
+						end
 					end
 				end
 			end

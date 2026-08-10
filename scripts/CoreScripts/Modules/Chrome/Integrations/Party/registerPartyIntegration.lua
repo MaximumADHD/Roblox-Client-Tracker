@@ -18,20 +18,16 @@ local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local React = require(CorePackages.Packages.React)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local FFlagConnectIntegrationCheckForDirectionalInput =
 	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
-local partyVisibilitySignal = if FFlagChromeActivatedMappedSignal
-	then MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
-		return InExperienceAppChatModal:getVisible()
-	end)
-	else nil :: any
+local partyVisibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
+	return InExperienceAppChatModal:getVisible()
+end)
 
 return function(id: string, initialAvailability: number)
 	local integration = ChromeService:register({
@@ -58,11 +54,7 @@ return function(id: string, initialAvailability: number)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
 		end,
-		isActivated = if FFlagChromeActivatedMappedSignal
-			then partyVisibilitySignal
-			else function()
-				return InExperienceAppChatModal:getVisible()
-			end,
+		isActivated = partyVisibilitySignal,
 		components = {
 			Icon = function(props)
 				return React.createElement(PartyIcon, {

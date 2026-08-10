@@ -5,7 +5,7 @@ local VirtualKeyboardMonitor = {
 	_isKeyboardJustOff = false,
 }
 
-function VirtualKeyboardMonitor:getInstance()
+function VirtualKeyboardMonitor.getInstance(self: typeof(VirtualKeyboardMonitor))
 	if not self._initialized then
 		self:initialize()
 		self._initialized = true

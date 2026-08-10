@@ -28,6 +28,16 @@ local ASSET_TYPE_TO_ACCESSORY_TYPE = {
 	[Enum.AvatarAssetType.EyelashAccessory] = Enum.AccessoryType.Eyelash,
 }
 
+-- Accessory types anchored to the head. These are kept in the head-only preview;
+-- everything else (clothing and other body-anchored accessories) is removed.
+local HEAD_ACCESSORY_TYPES = {
+	[Enum.AccessoryType.Hat] = true,
+	[Enum.AccessoryType.Hair] = true,
+	[Enum.AccessoryType.Face] = true,
+	[Enum.AccessoryType.Eyebrow] = true,
+	[Enum.AccessoryType.Eyelash] = true,
+}
+
 -- Adds the asset to a HumanoidDescription based on its type (Decal → MakeupDescription, Accessory → AccessoryDescription)
 local function addAssetToDescription(desc: HumanoidDescription, asset: Instance, assetType: Enum.AvatarAssetType?)
 	local makeupType = assetType and ASSET_TYPE_TO_MAKEUP_TYPE[assetType]
@@ -53,8 +63,33 @@ local function addAssetToDescription(desc: HumanoidDescription, asset: Instance,
 	end
 end
 
+--[[
+	Reduces a full character Model to just the head and head-anchored accessories
+	(hair, hats, face, eyebrows, eyelashes) for camera framing.
+	Non-head body parts are removed. Body-anchored accessories (clothing, layered
+	clothing, etc.) are also removed
+]]
+function MakeupPreviewUtils.stripToHead(character: Model)
+	local head = character:FindFirstChild("Head")
+	if not head then
+		return
+	end
+
+	for _, child in ipairs(character:GetChildren()) do
+		if child:IsA("BasePart") then
+			if child ~= head then
+				child:Destroy()
+			end
+		elseif child:IsA("Accessory") then
+			if not HEAD_ACCESSORY_TYPES[child.AccessoryType] then
+				child:Destroy()
+			end
+		end
+	end
+end
+
 -- Shared helper: creates a character from a description with an asset applied,
--- removes non-head body parts, and returns the character Model.
+-- reduces it to a head-only preview, and returns the character Model.
 local function createHeadWithAsset(desc: HumanoidDescription, asset: Instance, assetType: Enum.AvatarAssetType?): Model?
 	addAssetToDescription(desc, asset, assetType)
 
@@ -67,16 +102,7 @@ local function createHeadWithAsset(desc: HumanoidDescription, asset: Instance, a
 		return nil
 	end
 
-	-- Remove non-head body parts so only the head remains for camera framing.
-	-- Keep non-BasePart children (Humanoid, BodyColors, etc.) for appearance.
-	local head = character:FindFirstChild("Head")
-	if head then
-		for _, child in ipairs(character:GetChildren()) do
-			if child:IsA("BasePart") and child ~= head then
-				child:Destroy()
-			end
-		end
-	end
+	MakeupPreviewUtils.stripToHead(character)
 
 	return character
 end

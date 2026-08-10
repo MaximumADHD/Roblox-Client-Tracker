@@ -74,9 +74,7 @@ local function variantsFactory(tokens: Tokens)
 		[false] = { container = { tag = "auto-xy" }, content = { tag = "size-0-0 auto-xy" } },
 		[true] = {
 			container = { tag = "grow auto-xy" },
-			content = if Flags.FoundationTabsInlineSizeFull
-				then { tag = "auto-y", Size = UDim2.fromScale(1, 0) }
-				else { tag = "size-full-0 auto-y" },
+			content = { tag = "auto-y", Size = UDim2.fromScale(1, 0) },
 		},
 	}
 

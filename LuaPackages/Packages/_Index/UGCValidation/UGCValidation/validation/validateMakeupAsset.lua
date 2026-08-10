@@ -18,7 +18,6 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local getFFlagUGCValidateMigrateWrapAndMakeup = require(root.flags.getFFlagUGCValidateMigrateWrapAndMakeup)
 
 local function validateMakeupAsset(validationContext: Types.ValidationContext): (boolean, { string }?)
@@ -33,14 +32,14 @@ local function validateMakeupAsset(validationContext: Types.ValidationContext): 
 	local instance = instances[1]
 	local schema = createMakeupSchema()
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		success, reasons = validateInstanceTree(schema, instance, validationContext)
 		if not success then
 			return false, reasons
 		end
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		if getEngineFeatureEngineUGCValidatePropertiesSensible() then
 			success, reasons = ValidatePropertiesSensible.validate(instance, validationContext)
 			if not success then
@@ -52,10 +51,8 @@ local function validateMakeupAsset(validationContext: Types.ValidationContext): 
 	do
 		-- Skip flags collapse validateDependencies to a no-op once migration is on.
 		local skipFlags = {
-			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
-			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties(),
 		}
 		success, reasons = validateDependencies(instance, validationContext, skipFlags)
 		if not success then
@@ -65,17 +62,17 @@ local function validateMakeupAsset(validationContext: Types.ValidationContext): 
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validatePropertyRequirements(instance, nil, validationContext))
 	end
 
 	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateModeration(instance, {}, validationContext))
 	end
 

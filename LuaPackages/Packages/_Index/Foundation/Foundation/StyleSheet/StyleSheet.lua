@@ -8,10 +8,10 @@ local createStyleSheetRules = require(StyleSheetRoot.createStyleSheetRules)
 local getOverrideAttributes = require(StyleSheetRoot.getOverrideAttributes)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
-local Theme = require(Foundation.Enums.Theme)
 
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 type TokenOverrides = Tokens.TokenOverrides
 type StyleRule = Types.StyleRule
@@ -19,7 +19,7 @@ type StyleAttribute<T> = Types.StyleAttribute<T>
 type AttributesCache = createStyleSheetRules.AttributesCache
 
 type StyleSheetProps = {
-	theme: Theme,
+	colorMode: ColorMode,
 	device: Device,
 	scale: number?,
 	tags: { [string]: boolean },
@@ -38,11 +38,11 @@ local function StyleSheet(props: StyleSheetProps)
 		end
 	end, { sheet })
 
-	local rules = useGeneratedRules(props.theme, props.device)
+	local rules = useGeneratedRules(props.colorMode, props.device)
 
 	local overrideAttributes = React.useMemo(function()
-		return getOverrideAttributes(props.theme, props.device, props.tokenOverrides)
-	end, { props.theme, props.device, props.tokenOverrides } :: { unknown })
+		return getOverrideAttributes(props.colorMode, props.device, props.tokenOverrides)
+	end, { props.colorMode, props.device, props.tokenOverrides } :: { unknown })
 
 	local styleRules = React.useMemo(function()
 		if sheet then

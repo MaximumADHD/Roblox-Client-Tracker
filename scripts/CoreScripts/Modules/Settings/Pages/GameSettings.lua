@@ -77,7 +77,6 @@ local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Fla
 local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
 local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
-local FFlagEnableVoiceSelectorTranslations = game:DefineFastFlag("EnableVoiceSelectorTranslations_AEGIS2", false)
 local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
 local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
@@ -3424,13 +3423,13 @@ local function Initialize()
 			if isEnabled then
 				ToastNotificationSnoozeManager:unmuteNotification({
 					notificationType = NotificationGroups.ChatLandingNotificationsGroup,
-					context = "InGameSettingsChatNotifications",
+					context = "InGameSettings",
 				})
 			else
 				ToastNotificationSnoozeManager:snoozeNotification({
 					notificationType = NotificationGroups.ChatLandingNotificationsGroup,
 					durationMinutes = -1, -- -1 represents an indefinite snooze time
-					context = "InGameSettingsChatNotifications",
+					context = "InGameSettings",
 				})
 			end
 
@@ -3701,15 +3700,9 @@ local function Initialize()
 			end
 		end
 
-		local frameText = "Voice Chat"
-		local disconnectedText = "Disconnected"
-		local connectedText = "Connected"
-
-		if FFlagEnableVoiceSelectorTranslations then
-			frameText = locales:Format("Feature.GameDetails.Label.VoiceChat")
-			disconnectedText = locales:Format("Feature.SettingsHub.Label.Disconnected")
-			connectedText = locales:Format("Feature.SettingsHub.Label.Connected")
-		end
+		local frameText = locales:Format("Feature.GameDetails.Label.VoiceChat")
+		local disconnectedText = locales:Format("Feature.SettingsHub.Label.Disconnected")
+		local connectedText = locales:Format("Feature.SettingsHub.Label.Connected")
 
 		local initialIndex = if VoiceChatServiceManager:VoiceChatEnded() then 1 else 2
 		this.VoiceConnectDisconnectFrame, _, this.VoiceConnectDisconnectSelector =

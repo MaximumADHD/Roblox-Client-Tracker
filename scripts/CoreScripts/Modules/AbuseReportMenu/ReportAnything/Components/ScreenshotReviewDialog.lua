@@ -30,9 +30,6 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagAvatarIdentificationSafeAreaFix = SharedFlags.GetFFlagAvatarIdentificationSafeAreaFix
-
 local TITLE_HEIGHT = 49
 local HEADER_HEIGHT = 48
 local FOOTER_HEIGHT = 60
@@ -306,9 +303,7 @@ local function ScreenshotReviewDialog(props: Props)
 								Position = UDim2.fromScale(0.5, 0.5),
 								AnchorPoint = Vector2.new(0.5, 0.5),
 								BorderSizePixel = 2,
-								BorderMode = if GetFFlagAvatarIdentificationSafeAreaFix()
-									then Enum.BorderMode.Outline
-									else Enum.BorderMode.Inset,
+								BorderMode = Enum.BorderMode.Outline,
 								BorderColor3 = Color3.fromRGB(255, 255, 255),
 								LayoutOrder = 1,
 							}, {

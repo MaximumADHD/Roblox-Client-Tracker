@@ -1,10 +1,9 @@
-local Players = game:GetService("Players")
-
 local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local AssetCalculator = require(root.util.AssetCalculator)
 local CurveAnimationHierarchyUtils = require(root.util.CurveAnimationHierarchyUtils)
+local RigBuilder = require(root.util.RigBuilder)
 
 local flags = root.flags
 local getFFlagUGCValidateDuplicatesInAnimation = require(flags.getFFlagUGCValidateDuplicatesInAnimation)
@@ -19,36 +18,6 @@ local Vector3CurveName = "Vector3Curve"
 local EulerRotationCurveName = "EulerRotationCurve"
 local FloatCurveName = "FloatCurve"
 local FaceControlsName = CurveAnimationHierarchyUtils.FaceControlsName
-
-local function createDefaultCharacter(removeMotors: boolean): Model
-	local defaultCharacter
-
-	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-		defaultCharacter = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
-			Instance.new("HumanoidDescription"),
-			Enum.HumanoidRigType.R15
-		)
-	else
-		defaultCharacter = (game.Players :: any):CreateHumanoidModelFromDescription(
-			Instance.new("HumanoidDescription"),
-			Enum.HumanoidRigType.R15
-		)
-	end
-
-	for _, desc in defaultCharacter:GetDescendants() do
-		if desc:IsA("Decal") then
-			desc.Transparency = 1
-		elseif desc:IsA("MeshPart") then
-			desc.Transparency = 1
-			desc.CanCollide = false
-		elseif desc:IsA("Motor6D") then
-			if removeMotors then
-				desc:Destroy()
-			end
-		end
-	end
-	return defaultCharacter
-end
 
 local function hasFloatCurveKeys(inst: Instance): boolean
 	local X = inst:FindFirstChild("X")
@@ -169,7 +138,7 @@ function CurveAnimationFrameCalculator.calculateAnimFramesAtOrigin(curveAnim: Cu
 		return results
 	end
 
-	local defaultCharacter = createDefaultCharacter(false)
+	local defaultCharacter = RigBuilder.createDefaultCharacter(false)
 	local fullBodyAssets = {}
 	for _, child in defaultCharacter:GetChildren() do
 		if not CurveAnimationHierarchyUtils.isBodyPartFolderNameValid(child.Name) then

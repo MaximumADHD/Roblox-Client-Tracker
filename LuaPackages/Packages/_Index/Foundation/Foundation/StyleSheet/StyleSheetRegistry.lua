@@ -11,11 +11,11 @@ For now this was avoided to keep the change less disruptive, simpler, and likely
 Reading the DataModel to get state for every operation can be very slow, especially on Android.
 ]]
 local Foundation = script:FindFirstAncestor("Foundation")
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
-local Theme = require(Foundation.Enums.Theme)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(script.Parent.Rules.Types)
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 type TokenOverrides = Tokens.TokenOverrides
 type StyleRuleNoTag = Types.StyleRuleNoTag
@@ -31,7 +31,7 @@ registryFolder.Name = "FoundationStyleSheets"
 registryFolder.Parent = Foundation
 
 type FoundationStyleSheet = {
-	theme: Theme,
+	colorMode: ColorMode,
 	device: Device,
 	scale: number,
 	tokenOverrides: TokenOverrides?,
@@ -45,7 +45,7 @@ type FoundationStyleSheet = {
 local styleSheetRegistry: { [StyleSheet]: FoundationStyleSheet } = {}
 
 local function createStyleSheet(
-	theme: Theme,
+	colorMode: ColorMode,
 	deviceInput: Device?,
 	scaleInput: number?,
 	tokenOverrides: TokenOverrides?
@@ -54,18 +54,18 @@ local function createStyleSheet(
 	local scale = scaleInput or 1
 	local styleSheet = Instance.new("StyleSheet")
 	styleSheet.Name = if tokenOverrides ~= nil
-		then `{theme}-{device}-{scale}-{tostring(tokenOverrides)}`
-		else `{theme}-{device}-{scale}`
+		then `{colorMode}-{device}-{scale}-{tostring(tokenOverrides)}`
+		else `{colorMode}-{device}-{scale}`
 	styleSheet.Parent = registryFolder
 	return {
-		theme = theme,
+		colorMode = colorMode,
 		device = device,
 		scale = scale,
 		tokenOverrides = tokenOverrides,
-		overrideAttributes = getOverrideAttributes(theme, device, tokenOverrides),
+		overrideAttributes = getOverrideAttributes(colorMode, device, tokenOverrides),
 		instance = styleSheet,
 		tags = {},
-		rules = getGeneratedRules(theme, device),
+		rules = getGeneratedRules(colorMode, device),
 		attributes = {},
 	}
 end
@@ -137,7 +137,7 @@ ref) -- passing a fresh table each time will create a new StyleSheet entry
 every call and never hit the cache.
 ]]
 local function getStyleSheet(
-	theme: Theme,
+	colorMode: ColorMode,
 	deviceInput: Device?,
 	scaleInput: number?,
 	tokenOverrides: TokenOverrides?
@@ -146,7 +146,7 @@ local function getStyleSheet(
 	local scale = scaleInput or 1
 	for instance, foundationStyleSheet in styleSheetRegistry do
 		if
-			foundationStyleSheet.theme == theme
+			foundationStyleSheet.colorMode == colorMode
 			and foundationStyleSheet.device == device
 			and foundationStyleSheet.scale == scale
 			and foundationStyleSheet.tokenOverrides == tokenOverrides
@@ -154,7 +154,7 @@ local function getStyleSheet(
 			return instance
 		end
 	end
-	local foundationStyleSheet = createStyleSheet(theme, device, scale, tokenOverrides)
+	local foundationStyleSheet = createStyleSheet(colorMode, device, scale, tokenOverrides)
 	styleSheetRegistry[foundationStyleSheet.instance] = foundationStyleSheet
 	return foundationStyleSheet.instance
 end
@@ -169,7 +169,7 @@ end
 
 --[[ Example consumer usage with signals:
 local getStyleSheet = createComputed(functione(scope)
-	return Foundation.getStyleSheet(theme(scope), device(scope), scale(scope))
+	return Foundation.getStyleSheet(colorMode(scope), device(scope), scale(scope))
 end)
 
 local dispose = createEffect(function(scope)

@@ -21,7 +21,6 @@ local locales = Localization.new(LocalizationService.RobloxLocaleId)
 return {
 	type = "groupedListItem",
 	fetch = function(_params)
-		-- TODO: [future] work through and validate this properly (abech)
 		local store = ExpChatShared.context.store
 		if not store then
 			return Promise.resolve({})

@@ -2,16 +2,16 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
-local Theme = require(Foundation.Enums.Theme)
 local getGeneratedRules = require(Foundation.Utility.getGeneratedRules)
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 
-local function useGeneratedRules(theme: Theme, device: Device)
+local function useGeneratedRules(colorMode: ColorMode, device: Device)
 	return React.useMemo(function(): any
-		return getGeneratedRules(theme, device)
-	end, { theme, device } :: { unknown })
+		return getGeneratedRules(colorMode, device)
+	end, { colorMode, device } :: { unknown })
 end
 
 return useGeneratedRules

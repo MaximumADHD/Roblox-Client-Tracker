@@ -32,6 +32,8 @@ local PlayerContextualMenuStore = PlayerListPackage.PlayerContextualMenuStore
 local builderIcon = PlayerListPackage.builderIcon
 local buildMenuHeader = PlayerContextualMenuStore.buildMenuHeader
 
+type ContextMenuTelemetryAction = PlayerListPackage.ContextMenuTelemetryAction
+
 local LocalPlayer = Players.LocalPlayer
 
 local ICON_FRIEND_ADD = builderIcon("person-plus")
@@ -59,6 +61,20 @@ local function getFriendLabelAndIcon(friendStatus: Enum.FriendStatus): (string, 
 		return translate("InGame.PlayerDropDown.Accept", "Accept request"), ICON_FRIEND_ADD
 	end
 	return translate("InGame.PlayerDropDown.Action.ConnectionRequest", "Friend request"), ICON_FRIEND_ADD
+end
+
+-- Telemetry `action` value for the friend item, mirroring the branches in buildFriendAction so the
+-- new TelemetryV2 events (FFlagPlayerListContextMenuTelemetry, emitted from the store) distinguish
+-- sending / accepting / cancelling / unfriending.
+local function getFriendTelemetryAction(friendStatus: Enum.FriendStatus): ContextMenuTelemetryAction
+	if friendStatus == Enum.FriendStatus.Friend then
+		return "friend_remove"
+	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
+		return "friend_cancel"
+	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
+		return "friend_accept"
+	end
+	return "friend_send"
 end
 
 local function openReportDialog(player: Player)
@@ -97,6 +113,7 @@ local function assembleMenuItems(params: {
 			label = label,
 			icon = icon,
 			onActivated = params.actions.onFriend,
+			telemetryAction = getFriendTelemetryAction(params.friendStatus),
 			requiresConfirm = if isUnfriend then true else nil,
 			confirmLabel = if isUnfriend
 				then translate("InGame.PlayerDropDown.ConfirmUnFriend", "Tap to confirm unfriend")
@@ -109,6 +126,7 @@ local function assembleMenuItems(params: {
 				label = translate("InGame.PlayerDropDown.Decline", "Decline"),
 				icon = ICON_FRIEND_REMOVE,
 				onActivated = params.actions.onDecline,
+				telemetryAction = "friend_decline",
 			})
 		end
 	end
@@ -119,6 +137,7 @@ local function assembleMenuItems(params: {
 			label = translate("InGame.PlayerDropDown.Examine", "Examine avatar"),
 			icon = ICON_INSPECT,
 			onActivated = params.actions.onExamine,
+			telemetryAction = "avatar_examine",
 		})
 	end
 
@@ -130,6 +149,7 @@ local function assembleMenuItems(params: {
 				else translate("InGame.PlayerDropDown.Block", "Block"),
 			icon = ICON_BLOCK,
 			onActivated = params.actions.onBlock,
+			telemetryAction = if params.isBlocked then "user_unblock" else "user_block",
 		})
 
 		table.insert(items, {
@@ -137,6 +157,7 @@ local function assembleMenuItems(params: {
 			label = translate("InGame.PlayerDropDown.Report", "Report abuse"),
 			icon = ICON_REPORT,
 			onActivated = params.actions.onReport,
+			telemetryAction = "user_report",
 		})
 	end
 
@@ -220,6 +241,10 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 		player = player,
 		header = buildMenuHeader(player),
 		items = items,
+		telemetry = {
+			isSelf = isSelf,
+			friendStatus = if isSelf then nil else friendStatus.Name,
+		},
 	}
 end
 

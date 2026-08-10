@@ -8,7 +8,6 @@ local Device = require(Foundation.Enums.Device)
 local StyleSheetContext = require(Style.StyleSheetContext)
 local TagsContext = require(Style.TagsContext)
 local TextSizeOffsetContext = require(Style.TextSizeOffsetContext)
-local Theme = require(Foundation.Enums.Theme)
 local Tokens = require(Style.Tokens)
 local TokensContext = require(Style.TokensContext)
 local VariantsContext = require(Style.VariantsContext)
@@ -23,7 +22,7 @@ export type StyleProviderProps = {
 	-- Takes precedence over `theme` when both are provided.
 	colorMode: ColorMode?,
 	-- **Deprecated**. Use `colorMode` instead. Kept for backward compatibility.
-	theme: Theme?,
+	theme: ColorMode?,
 	device: Device?,
 	scale: number?,
 	-- **Deprecated**. Use useStyleSheet hook insteads to derive the Foundation styles.
@@ -38,7 +37,6 @@ export type StyleProviderProps = {
 }
 
 type ColorMode = ColorMode.ColorMode
-type Theme = Theme.Theme
 type Device = Device.Device
 type Tokens = Tokens.Tokens
 type TokenOverrides = Tokens.TokenOverrides
@@ -47,14 +45,14 @@ local useRegistryStyleSheet = require(Style.useRegistryStyleSheet)
 
 -- After join, there are no optional values
 local defaultStyle = {
-	theme = Theme.Dark :: Theme,
+	colorMode = ColorMode.Dark :: ColorMode,
 	device = Device.Desktop :: Device,
 	scale = 1,
 }
 
 local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local props = withDefaults({
-		theme = styleProviderProps.colorMode or styleProviderProps.theme,
+		colorMode = styleProviderProps.colorMode or styleProviderProps.theme,
 		device = styleProviderProps.device,
 		scale = styleProviderProps.scale,
 	}, defaultStyle)
@@ -62,8 +60,8 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local useVariants = VariantsContext.useVariantsState()
 
 	local tokens: Tokens = React.useMemo(function()
-		return getTokens(props.theme, props.device, props.scale, styleProviderProps.tokenOverrides)
-	end, { props.device, props.theme, props.scale, styleProviderProps.tokenOverrides } :: { unknown })
+		return getTokens(props.colorMode, props.device, props.scale, styleProviderProps.tokenOverrides)
+	end, { props.device, props.colorMode, props.scale, styleProviderProps.tokenOverrides } :: { unknown })
 
 	local preferences = usePreferences()
 	local preferredTextSize = preferences.preferredTextSize
@@ -73,7 +71,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	end, { preferredTextSize })
 
 	local registryStyleSheet, addStyleTags =
-		useRegistryStyleSheet(props.theme, props.device, props.scale, styleProviderProps.tokenOverrides)
+		useRegistryStyleSheet(props.colorMode, props.device, props.scale, styleProviderProps.tokenOverrides)
 
 	return React.createElement(TokensContext.Provider, {
 		value = tokens,

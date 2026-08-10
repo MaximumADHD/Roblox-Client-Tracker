@@ -68,6 +68,7 @@ local FFlagPlatformLeaderboardPersistStoreOnRemount =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardPersistStoreOnRemount
 
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
+local FFlagPlayerListReskinConsoleMobileRouting = PlayerListPackage.Flags.FFlagPlayerListReskinConsoleMobileRouting
 local FFlagPlayerListReskinMobileLayoutFix = PlayerListPackage.Flags.FFlagPlayerListReskinMobileLayoutFix
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
@@ -83,12 +84,6 @@ local function isUnderTestEZ(): boolean
 	return _G.__TESTEZ_RUNNING_TEST__ == true
 end
 
--- The reskin / mobile-on-console layout never uses the 10-foot (TV) layout, so TenFoot is
--- forced off when FFlagEnableMobilePlayerListOnConsole is on.
-local function resolveIsTenFoot(): boolean
-	return if FFlagEnableMobilePlayerListOnConsole then false else TenFootInterface:IsEnabled()
-end
-
 -- Foundation's useBreakpoint / usePreferredInput are React hooks (render-time only); these
 -- checks run imperatively at controller construction, so we compute them locally instead.
 local function isTouchOrGamepadInput(): boolean
@@ -96,11 +91,34 @@ local function isTouchOrGamepadInput(): boolean
 		or UserInputService.PreferredInput == Enum.PreferredInput.Gamepad
 end
 
--- The mobile-on-console layout: a console (Large display) being driven by gamepad or touch.
-local function isLargeConsoleLayout(): boolean
-	return FFlagEnableMobilePlayerListOnConsole
+-- Reskin console-mobile routing kicks in only when the device would otherwise be a
+-- TenFoot user — Large display AND touch/gamepad input. Display size alone can
+-- misclassify a desktop on a very large monitor (APPEXP-3482 established this on the
+-- Small side; the Large side needs the symmetric check). Sub-flag lets us disable the
+-- reskin console→mobile routing independently of the master reskin gate.
+local function isReskinConsoleMobileRoute(): boolean
+	return FFlagPlayerListReskin
+		and FFlagPlayerListReskinConsoleMobileRouting
 		and GuiService.ViewportDisplaySize == Enum.DisplaySize.Large
 		and isTouchOrGamepadInput()
+end
+
+-- 10-foot (TV) layout is suppressed when either the reskin console-mobile routing or
+-- master's mobile-on-console path applies. Otherwise fall back to TenFootInterface.
+local function resolveIsTenFoot(): boolean
+	return if isReskinConsoleMobileRoute() or FFlagEnableMobilePlayerListOnConsole
+		then false
+		else TenFootInterface:IsEnabled()
+end
+
+-- Uses ViewportDisplaySize rather than TenFootInterface — the latter is being retired
+-- across PlayerList (see APPEXP-3354). Both the reskin and master paths require Large
+-- display + touch/gamepad input (see isReskinConsoleMobileRoute for rationale).
+local function isLargeConsoleLayout(): boolean
+	if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Large or not isTouchOrGamepadInput() then
+		return false
+	end
+	return (FFlagPlayerListReskin and FFlagPlayerListReskinConsoleMobileRouting) or FFlagEnableMobilePlayerListOnConsole
 end
 
 local function isSmallTouchScreen()
@@ -356,11 +374,11 @@ function PlayerListController:_setupReskin()
 	local isSmallTouchDevice = isSmallTouchScreen()
 
 	-- Foundation applies a 1.5x platform scale only for Device.Console (Foundation Tokens
-	-- getPlatformScale). Pass Device.Console whenever the reskin runs on a TV -- either a true
-	-- 10-foot interface or the mobile-on-console layout -- otherwise it renders at desktop size.
-	local foundationDevice = if TenFootInterface:IsEnabled() or isLargeConsoleLayout()
-		then Device.Console
-		else Device.Unknown
+	-- getPlatformScale). Pass Device.Console for TV (isTenFoot) and mobile-on-console
+	-- (isLargeConsoleLayout — Large + touch/gamepad); desktop-Large-KB renders at desktop
+	-- size. Gating on ViewportDisplaySize alone would misclassify a desktop on a very
+	-- large monitor (same trap as APPEXP-3482 on the Small side).
+	local foundationDevice = if isTenFoot or isLargeConsoleLayout() then Device.Console else Device.Unknown
 
 	if isSmallTouchDevice then
 		PlayerContextualMenuStore.setOnDismiss(function()

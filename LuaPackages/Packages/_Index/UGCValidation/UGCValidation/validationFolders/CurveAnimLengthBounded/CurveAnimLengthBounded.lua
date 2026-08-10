@@ -9,10 +9,22 @@ local getFFlagUGCValidateCurveAnimMinTimeFix = require(root.flags.getFFlagUGCVal
 local GetFStringUGCValidateCurveAnimationMinLength = require(root.flags.GetFStringUGCValidateCurveAnimationMinLength)
 local GetFStringUGCValidationMaxAnimationLength = require(root.flags.GetFStringUGCValidationMaxAnimationLength)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
+	require(root.flags.getEngineFeatureEngineUGCValidateEmoteAnimationExport)
+local getFFlagUGCValidateAQEmoteDuration = require(root.flags.getFFlagUGCValidateAQEmoteDuration)
 
 local CurveAnimLengthBounded = {}
 
-CurveAnimLengthBounded.categories = { ValidationEnums.UploadCategory.EMOTE_ANIMATION }
+-- AQ's Measure_Animation_Duration owns the length check for EMOTE_ANIMATION once its
+-- flags are on, so drop that category here. ANIMATION-pack uploads are NOT covered by
+-- AQ, so they must keep this check.
+local emoteAqOwnsLength = getEngineFeatureEngineUGCValidateEmoteAnimationExport()
+	and getFFlagUGCValidateAQEmoteDuration()
+
+CurveAnimLengthBounded.categories = {}
+if not emoteAqOwnsLength then
+	table.insert(CurveAnimLengthBounded.categories, ValidationEnums.UploadCategory.EMOTE_ANIMATION)
+end
 if getFFlagUGCValidationAnimationPackSupport() then
 	table.insert(CurveAnimLengthBounded.categories, ValidationEnums.UploadCategory.ANIMATION)
 end
@@ -20,7 +32,9 @@ CurveAnimLengthBounded.requiredData = {
 	ValidationEnums.SharedDataMember.curveAnimations,
 	ValidationEnums.SharedDataMember.curveAnimComputedFrames,
 }
-CurveAnimLengthBounded.fflag = getFFlagUGCValidateMigrateCurveAnim
+CurveAnimLengthBounded.fflag = function()
+	return getFFlagUGCValidateMigrateCurveAnim()
+end
 CurveAnimLengthBounded.expectedFailures = {}
 CurveAnimLengthBounded.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 

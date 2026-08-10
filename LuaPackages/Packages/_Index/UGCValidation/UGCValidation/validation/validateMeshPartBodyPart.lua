@@ -46,7 +46,6 @@ local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
 local getFFlagUGCValidateMigratePoseBlocking = require(root.flags.getFFlagUGCValidateMigratePoseBlocking)
@@ -86,10 +85,8 @@ local function validateMeshPartBodyPart(
 
 	do
 		local skipFlags = {
-			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
-			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties(),
 		}
 		local result, failureReasons = validateDependencies(inst, validationContext, skipFlags)
 		if not result then
@@ -141,14 +138,14 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
 	end
 	if not getFFlagUGCValidateMigrateBodyPartBounds() then
 		reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(
 			validateBodyPartChildAttachmentOrientations.runValidation(inst, validationContext)
 		)
@@ -186,7 +183,7 @@ local function validateMeshPartBodyPart(
 		reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 	end
 
@@ -196,7 +193,7 @@ local function validateMeshPartBodyPart(
 		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateMaterials(inst, validationContext))
 
 		reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
@@ -216,7 +213,7 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		local checkModeration = not isServer
 		if allowUnreviewedAssets then
 			checkModeration = false

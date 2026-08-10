@@ -10,14 +10,12 @@ local ColorMode = require(Foundation.Enums.ColorMode)
 local StyleProvider = require(Style.StyleProvider)
 local SystemBanner = require(Foundation.Components.SystemBanner)
 local Text = require(Foundation.Components.Text)
-local Theme = require(Foundation.Enums.Theme)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local useTokens = require(Style.useTokens)
 
 type ColorMode = ColorMode.ColorMode
 type FontStyle = Types.FontStyle
-type Theme = Theme.Theme
 
 local UNSET = "Unset"
 
@@ -193,7 +191,7 @@ local function CategoryRow(props: {
 end
 
 local function DemoContent(props: {
-	theme: Theme?,
+	theme: ColorMode?,
 	colorMode: ColorMode?,
 	LayoutOrder: number?,
 })
@@ -279,7 +277,7 @@ local function PlaygroundStory(props: {
 		colorMode: string,
 	},
 })
-	local theme: Theme? = if props.controls.theme ~= UNSET then props.controls.theme :: Theme else nil
+	local theme: ColorMode? = if props.controls.theme ~= UNSET then props.controls.theme :: ColorMode else nil
 	local colorMode: ColorMode? = if props.controls.colorMode ~= UNSET
 		then props.controls.colorMode :: ColorMode
 		else nil
@@ -330,7 +328,7 @@ return {
 		},
 	},
 	controls = {
-		theme = Dash.append({ UNSET }, Dash.values(Theme)),
+		theme = Dash.append({ UNSET }, Dash.values(ColorMode)),
 		colorMode = Dash.append({ UNSET }, Dash.values(ColorMode)),
 	},
 }

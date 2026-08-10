@@ -17,7 +17,6 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 -- This is an indirect way of setting up the mapped signal for the icon state
 -- We need to ensure we don't require SettingsHub before TopBar has finished
@@ -54,11 +53,7 @@ return ChromeService:register({
 			SettingsHub:SetVisibility(true, false, SettingsHub.Instance.ReportAbusePage)
 		end
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then mappedReportPageOpenSignal
-		else function()
-			return mappedReportPageOpenSignal:get()
-		end,
+	isActivated = mappedReportPageOpenSignal,
 	components = {
 		Icon = function(props)
 			if FFlagStandardizeSafetyIcon then

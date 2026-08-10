@@ -16,7 +16,7 @@ local usePropertiesBase = require(script.Parent.usePropertiesBase)
 type ChangeFunc = usePropertiesBase.ChangeFunc
 type PropNames = usePropertiesBase.PropNames
 
-local function usePropertiesDeferred<T>(forwardRef: React.Ref<T>, update: ChangeFunc, ...: PropNames): React.Ref<T>
+local function usePropertiesDeferred<T>(forwardRef: React.Ref<T>?, update: ChangeFunc, ...: PropNames): React.Ref<T>
 	return usePropertiesBase(forwardRef, update, true, ...)
 end
 

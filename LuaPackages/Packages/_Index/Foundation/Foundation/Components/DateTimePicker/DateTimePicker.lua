@@ -17,49 +17,15 @@ local Popover = require(Foundation.Components.Popover)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local TextInput = require(Foundation.Components.TextInput)
 local Translator = require(Foundation.Utility.Localization.Translator)
-local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
+local DateTimePickerPropsModule = require(script.Parent.DateTimePickerProps)
 local DateTimePickerVariant = require(Foundation.Enums.DateTimePickerVariant)
-type DateTimePickerVariant = DateTimePickerVariant.DateTimePickerVariant
 
-type Bindable<T> = Types.Bindable<T>
-type Selection = Types.Selection
-type SelectionGroup = Types.SelectionGroup
-
-export type DateTimePickerProps = {
-	-- Default dates selected. If not provided, the current date will be used
-	-- If variant is Dual, then the first date will be used as the start date and the second date (if provided) will be used as the end date.
-	defaultDates: (DateTime | { DateTime })?,
-	-- Whether the input has an error
-	hasError: boolean?,
-	-- Hint text for the text input
-	hint: string?,
-	-- Whether the input is disabled
-	isDisabled: boolean?,
-	-- Whether the input is required
-	isRequired: boolean?,
-	-- Label used for the text input
-	label: string,
-	-- On input text change. dateTimes are nil if not valid DateTimes. endDateTime is the end date if variant is Dual
-	onChanged: (startDateTime: DateTime?, endDateTime: DateTime?) -> (),
-	-- Selectable date range (inclusive). Note, these dates will be rounded to the start of the day for date-only comparison
-	selectableDateRange: {
-		startDate: DateTime,
-		endDate: DateTime,
-	}?,
-	-- Variant of the date time picker
-	variant: DateTimePickerVariant?,
-	-- Width of the text input component
-	width: UDim?,
-
-	-- Selection behavior
-	selection: Types.Selection?,
-	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
-} & Types.CommonProps
+export type DateTimePickerProps = DateTimePickerPropsModule.DateTimePickerProps
 
 local defaultProps = {
 	variant = DateTimePickerVariant.Single,

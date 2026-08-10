@@ -132,26 +132,17 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 
 	return React.createElement(
 		View,
-		withCommonProps(
-			props,
-			if Flags.FoundationTabsInlineSizeFull
-				then {
-					tag = "auto-y",
-					Size = if Flags.FoundationFixTabsFitBorderWidth and fitSize then fitSize else UDim2.fromScale(1, 0),
-				}
-				else { tag = "size-full-0 auto-y" }
-		),
+		withCommonProps(props, {
+			tag = "auto-y",
+			Size = if Flags.FoundationFixTabsFitBorderWidth and fitSize then fitSize else UDim2.fromScale(1, 0),
+		}),
 		{
 			Scroll = React.createElement(ScrollView, {
 				LayoutOrder = 1,
-				tag = if Flags.FoundationTabsInlineSizeFull
-					then if Flags.FoundationFixTabsFitBorderWidth then "auto-y" else nil
-					else "size-full",
-				Size = if Flags.FoundationTabsInlineSizeFull
-					then if Flags.FoundationFixTabsFitBorderWidth and fitSize
-						then fitSize :: any
-						else UDim2.fromScale(1, 1)
-					else nil,
+				tag = if Flags.FoundationFixTabsFitBorderWidth then "auto-y" else nil,
+				Size = if Flags.FoundationFixTabsFitBorderWidth and fitSize
+					then fitSize :: any
+					else UDim2.fromScale(1, 1),
 				onCanvasPositionChanged = updateVisibility,
 				onAbsoluteWindowSizeChanged = updateVisibility,
 				scrollingFrameRef = scrollingFrameRef,

@@ -29,16 +29,13 @@ local FFlagConnectIntegrationCheckForDirectionalInput =
 	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
 
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
-local connectVisibilitySignal = if FFlagChromeActivatedMappedSignal
-	then MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
-		return InExperienceAppChatModal:getVisible()
-	end)
-	else nil :: any
+local connectVisibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
+	return InExperienceAppChatModal:getVisible()
+end)
 
 return function(id: string, initialAvailability: number)
 	-- only enable squad (a.k.a. party) indicator for the unibar icon, other variants, like dropdown icon, won't need it
@@ -73,11 +70,7 @@ return function(id: string, initialAvailability: number)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
 		end,
-		isActivated = if FFlagChromeActivatedMappedSignal
-			then connectVisibilitySignal
-			else function()
-				return InExperienceAppChatModal:getVisible()
-			end,
+		isActivated = connectVisibilitySignal,
 		components = {
 			Icon = function(props)
 				return React.createElement(ConnectIcon, {

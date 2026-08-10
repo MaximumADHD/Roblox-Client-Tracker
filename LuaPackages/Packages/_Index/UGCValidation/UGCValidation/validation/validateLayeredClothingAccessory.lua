@@ -59,7 +59,6 @@ local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPar
 local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
 	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateMigrateCageGeometry = require(root.flags.getFFlagUGCValidateMigrateCageGeometry)
 
@@ -116,10 +115,8 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	end
 	do
 		local skipFlags = {
-			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
-			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties(),
 		}
 		success, reasons = validateDependencies(instance, validationContext, skipFlags)
 		if not success then
@@ -240,7 +237,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	local boundsInfo = assetInfo.bounds[attachment.Name]
 
 	local failedReason: any = {}
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		success, failedReason = validateMaterials(instance, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
@@ -260,7 +257,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		validationResult = false
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		success, failedReason = validateAttributes(instance, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
@@ -288,7 +285,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
 		if partScaleType and partScaleType:IsA("StringValue") then
 			success, failedReason = validateScaleType(partScaleType, validationContext)
@@ -299,7 +296,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		if not isEyebrowOrEyelash then
 			success, failedReason =
 				validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
@@ -328,9 +325,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			)
 			validationResult = false
 		else
-			if
-				not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults())
-			then
+			if not getFFlagUGCValidateMigrateSchemaProperties() then
 				success, failedReason = validateHSR(wrapLayer, validationContext)
 				if not success then
 					table.insert(reasons, table.concat(failedReason, "\n"))
@@ -338,9 +333,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 				end
 			end
 
-			if
-				not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults())
-			then
+			if not getFFlagUGCValidateMigrateSchemaProperties() then
 				local allowEditableInstances = validationContext.allowEditableInstances
 				if not allowEditableInstances then
 					-- If editable instances are allowed, we skip HSR file data validation
@@ -355,7 +348,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		local checkModeration = not isServer
 		if allowUnreviewedAssets then
 			checkModeration = false

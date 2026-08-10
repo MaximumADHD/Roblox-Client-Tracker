@@ -1,12 +1,17 @@
+local ChromeShared = script:FindFirstAncestor("ChromeShared")
+
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local React = require(CorePackages.Packages.React)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
+local ChromeService = require(ChromeShared.Service)
+
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local getGlobalChatTooltipStore = ExpChat.Stores.GetGlobalChatTooltipStore
 local getChatTooltipStore = ExpChat.Stores.GetChatTooltipStore
 local getChatStatusStore = ExpChat.Stores.GetChatStatusStore
+local getTransparencyStore = ExpChat.Stores.GetTransparencyStore
 local isUserChatEnabled = ExpChat.isUserChatEnabled
 
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
@@ -14,8 +19,12 @@ local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextC
 local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
 local FFlagExpChatUseUnifiedTooltipStore = ExpChatShared.Flags.FFlagExpChatUseUnifiedTooltipStore
 
+local ExpChatPresetChatBadgeFTUXExperimentation =
+	require(CorePackages.Workspace.Packages.SocialExperiments).ExpChatPresetChatBadgeFTUXExperimentation
+
 local FFlagExpChatShowPresetTooltipToNonAgeChecked2 =
 	game:DefineFastFlag("ExpChatShowPresetTooltipToNonAgeChecked2", false)
+local FFlagExpChatFixTooltipBadgeTransientOpen = game:DefineFastFlag("ExpChatFixTooltipBadgeTransientOpen", false)
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 
@@ -50,6 +59,7 @@ local function ChatNotificationBadge(props: ChatNotificationBadgeProps): any?
 	local tooltipEligible
 	local tooltipStore
 	local isChatWindowOpen
+	local presetShown = false
 	if FFlagExpChatUseUnifiedTooltipStore then
 		tooltipStore = getChatTooltipStore(false)
 		isChatWindowOpen = SignalsReact.useSignalState(tooltipStore.getIsChatWindowOpen)
@@ -59,7 +69,7 @@ local function ChatNotificationBadge(props: ChatNotificationBadgeProps): any?
 
 		local commonEligible = isChatIntegration and isScreenWideEnough and isChatInDefaultPosition
 		local globalShown = activeTooltipKey == "GlobalChatTooltip" and commonEligible
-		local presetShown = FFlagExpChatPresetChatEnabled and activeTooltipKey == "PresetChatTooltip" and commonEligible
+		presetShown = FFlagExpChatPresetChatEnabled and activeTooltipKey == "PresetChatTooltip" and commonEligible
 
 		React.useEffect(
 			function()
@@ -141,15 +151,52 @@ local function ChatNotificationBadge(props: ChatNotificationBadgeProps): any?
 	end
 
 	local hasOpenedChat, setHasOpenedChat = React.useState(false)
-	React.useEffect(function()
-		if tooltipEligible and isChatWindowOpen then
-			setHasOpenedChat(true)
-		end
-	end, { tooltipEligible, isChatWindowOpen })
+	if FFlagExpChatFixTooltipBadgeTransientOpen then
+		local isChatInputBarFocused = SignalsReact.useSignalState(getTransparencyStore(false).getIsTextBoxFocused)
+
+		React.useEffect(function()
+			if tooltipEligible and isChatInputBarFocused then
+				setHasOpenedChat(true)
+			end
+
+			if not tooltipEligible then
+				return
+			end
+
+			local connection = ChromeService:onIntegrationActivated():connect(function(activatedId)
+				if activatedId == "chat" and not isChatWindowOpen then
+					setHasOpenedChat(true)
+				end
+			end)
+			return function()
+				connection:disconnect()
+			end
+		end, { tooltipEligible, isChatInputBarFocused, isChatWindowOpen })
+	else
+		React.useEffect(function()
+			if tooltipEligible and isChatWindowOpen then
+				setHasOpenedChat(true)
+			end
+		end, { tooltipEligible, isChatWindowOpen })
+	end
+
+	local shouldOfferBadge = tooltipEligible and not hasOpenedChat
+
+	if FFlagExpChatFixTooltipBadgeTransientOpen then
+		React.useEffect(function()
+			if shouldOfferBadge and presetShown and ExpChatPresetChatBadgeFTUXExperimentation.isExperimentEnabled then
+				ExpChatPresetChatBadgeFTUXExperimentation.logExposure()
+			end
+		end, { shouldOfferBadge, presetShown })
+	end
 
 	local badgeProps = table.clone(iconHostProps) :: any
-	if tooltipEligible and not hasOpenedChat then
-		badgeProps.minBadgeCount = 1
+	if shouldOfferBadge then
+		local shouldShowBadge = not presetShown
+			or ExpChatPresetChatBadgeFTUXExperimentation.getShouldShowPresetChatIconBadge()
+		if shouldShowBadge then
+			badgeProps.minBadgeCount = 1
+		end
 	end
 	return React.createElement(props.NotificationBadge, badgeProps)
 end

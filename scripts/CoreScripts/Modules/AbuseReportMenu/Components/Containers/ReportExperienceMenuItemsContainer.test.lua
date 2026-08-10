@@ -47,7 +47,7 @@ local utilityProps = {
 
 -- Create ReportExperienceMenuItemsContainer component
 local element = React.createElement(Foundation.FoundationProvider, {
-	theme = Foundation.Enums.Theme.Dark,
+	colorMode = Foundation.Enums.ColorMode.Dark,
 }, {
 	LocalizationProvider = React.createElement(LocalizationProvider, {
 		localization = Localization.new(LocalizationService.RobloxLocaleId),

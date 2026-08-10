@@ -22,7 +22,6 @@ local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
 local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
 local FFlagCenterInExperienceShopWindow = Shop.FFlagCenterInExperienceShopWindow
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local FFlagEnableMenuTrailingBadge = SharedFlags.FFlagEnableMenuTrailingBadge
 local FFlagExperienceShopNewIconography = Shop.FFlagExperienceShopNewIconography
 
@@ -100,11 +99,7 @@ local integration = ChromeService:register({
 			maxViewCount = FIntNewBadgeDismissalMaxCountInExperienceShop,
 		}
 		else nil,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then isActive
-		else function()
-			return isActive:get()
-		end,
+	isActivated = isActive,
 	components = {
 		Icon = function()
 			return CommonIcon(

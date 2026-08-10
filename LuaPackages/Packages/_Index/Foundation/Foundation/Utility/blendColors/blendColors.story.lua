@@ -10,8 +10,8 @@ local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 type ColorStyleValue = Types.ColorStyleValue
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
-local Theme = require(Foundation.Enums.Theme)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
@@ -222,7 +222,7 @@ local function BlendingVisualization(props)
 	}, children)
 end
 
-local tokens = Tokens.getTokens(Theme.Dark, Device.Console)
+local tokens = Tokens.getTokens(ColorMode.Dark, Device.Console)
 
 return {
 	summary = "Visualizes results of blendColors, allowing a comparison with blending approaches used by EditableImages",

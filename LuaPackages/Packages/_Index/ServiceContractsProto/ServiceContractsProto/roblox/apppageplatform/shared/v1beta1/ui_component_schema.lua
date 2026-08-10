@@ -10,10 +10,6 @@ type _Messages =
 	{
 		TemplateArg: _TemplateArgMessage,
 		TemplateArg_LiteralValue: _TemplateArg_LiteralValueMessage,
-		StringArrayProp: _StringArrayPropMessage,
-		StringArrayProp_LiteralValue: _StringArrayProp_LiteralValueMessage,
-		StringArrayProp_ConditionalOption: _StringArrayProp_ConditionalOptionMessage,
-		StringArrayProp_ConditionalOptions: _StringArrayProp_ConditionalOptionsMessage,
 		NestedComponentProp: _NestedComponentPropMessage,
 		NestedComponentProp_ConditionalOption: _NestedComponentProp_ConditionalOptionMessage,
 		NestedComponentProp_ConditionalOptions: _NestedComponentProp_ConditionalOptionsMessage,
@@ -147,6 +143,12 @@ type _Messages =
 		OverflowMenuSchema_Props: _OverflowMenuSchema_PropsMessage,
 		DetailsPageImageHeaderSchema: _DetailsPageImageHeaderSchemaMessage,
 		DetailsPageImageHeaderSchema_Props: _DetailsPageImageHeaderSchema_PropsMessage,
+		LayeredContainerSchema: _LayeredContainerSchemaMessage,
+		LayeredContainerSchema_Props: _LayeredContainerSchema_PropsMessage,
+		LayeredContainerSchema_WebProps: _LayeredContainerSchema_WebPropsMessage,
+		BackgroundBlurSchema: _BackgroundBlurSchemaMessage,
+		BackgroundBlurSchema_Props: _BackgroundBlurSchema_PropsMessage,
+		BackgroundBlurSchema_WebProps: _BackgroundBlurSchema_WebPropsMessage,
 		LogoSchema: _LogoSchemaMessage,
 		LogoSchema_Props: _LogoSchema_PropsMessage,
 		PageHeaderSchema: _PageHeaderSchemaMessage,
@@ -383,126 +385,6 @@ export type TemplateArg_LiteralValue = typeof(setmetatable(
 	{} :: _TemplateArg_LiteralValueImpl
 ))
 type _TemplateArg_LiteralValueMessage = proto.Message<TemplateArg_LiteralValue, _TemplateArg_LiteralValuePartialFields>
-
-type _StringArrayPropImpl = {
-	__index: _StringArrayPropImpl,
-	new: (fields: _StringArrayPropPartialFields?) -> StringArrayProp,
-	encode: (self: StringArrayProp) -> buffer,
-	decode: (input: buffer) -> StringArrayProp,
-	jsonEncode: (self: StringArrayProp) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> StringArrayProp,
-	descriptor: proto.Descriptor,
-}
-
-type _StringArrayPropFields = {
-	kind: (
-		{ type: "literal", value: StringArrayProp_LiteralValue }
-		| { type: "binding_path", value: string }
-		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
-	)?,
-}
-
-type _StringArrayPropPartialFields = {
-	kind: (
-		{ type: "literal", value: StringArrayProp_LiteralValue }
-		| { type: "binding_path", value: string }
-		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
-	)?,
-}
-
-export type StringArrayProp = typeof(setmetatable({} :: _StringArrayPropFields, {} :: _StringArrayPropImpl))
-type _StringArrayPropMessage = proto.Message<StringArrayProp, _StringArrayPropPartialFields>
-
-type _StringArrayProp_LiteralValueImpl = {
-	__index: _StringArrayProp_LiteralValueImpl,
-	new: (fields: _StringArrayProp_LiteralValuePartialFields?) -> StringArrayProp_LiteralValue,
-	encode: (self: StringArrayProp_LiteralValue) -> buffer,
-	decode: (input: buffer) -> StringArrayProp_LiteralValue,
-	jsonEncode: (self: StringArrayProp_LiteralValue) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> StringArrayProp_LiteralValue,
-	descriptor: proto.Descriptor,
-}
-
-type _StringArrayProp_LiteralValueFields = {
-	items: { string },
-}
-
-type _StringArrayProp_LiteralValuePartialFields = {
-	items: { string }?,
-}
-
-export type StringArrayProp_LiteralValue = typeof(setmetatable(
-	{} :: _StringArrayProp_LiteralValueFields,
-	{} :: _StringArrayProp_LiteralValueImpl
-))
-type _StringArrayProp_LiteralValueMessage = proto.Message<
-	StringArrayProp_LiteralValue,
-	_StringArrayProp_LiteralValuePartialFields
->
-
-type _StringArrayProp_ConditionalOptionImpl = {
-	__index: _StringArrayProp_ConditionalOptionImpl,
-	new: (fields: _StringArrayProp_ConditionalOptionPartialFields?) -> StringArrayProp_ConditionalOption,
-	encode: (self: StringArrayProp_ConditionalOption) -> buffer,
-	decode: (input: buffer) -> StringArrayProp_ConditionalOption,
-	jsonEncode: (self: StringArrayProp_ConditionalOption) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> StringArrayProp_ConditionalOption,
-	descriptor: proto.Descriptor,
-}
-
-type _StringArrayProp_ConditionalOptionFields = {
-	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: (
-		{ type: "literal", value: StringArrayProp_LiteralValue }
-		| { type: "binding_path", value: string }
-		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
-	)?,
-}
-
-type _StringArrayProp_ConditionalOptionPartialFields = {
-	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: (
-		{ type: "literal", value: StringArrayProp_LiteralValue }
-		| { type: "binding_path", value: string }
-		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
-	)?,
-}
-
-export type StringArrayProp_ConditionalOption = typeof(setmetatable(
-	{} :: _StringArrayProp_ConditionalOptionFields,
-	{} :: _StringArrayProp_ConditionalOptionImpl
-))
-type _StringArrayProp_ConditionalOptionMessage = proto.Message<
-	StringArrayProp_ConditionalOption,
-	_StringArrayProp_ConditionalOptionPartialFields
->
-
-type _StringArrayProp_ConditionalOptionsImpl = {
-	__index: _StringArrayProp_ConditionalOptionsImpl,
-	new: (fields: _StringArrayProp_ConditionalOptionsPartialFields?) -> StringArrayProp_ConditionalOptions,
-	encode: (self: StringArrayProp_ConditionalOptions) -> buffer,
-	decode: (input: buffer) -> StringArrayProp_ConditionalOptions,
-	jsonEncode: (self: StringArrayProp_ConditionalOptions) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> StringArrayProp_ConditionalOptions,
-	descriptor: proto.Descriptor,
-}
-
-type _StringArrayProp_ConditionalOptionsFields = {
-	options: { StringArrayProp_ConditionalOption },
-}
-
-type _StringArrayProp_ConditionalOptionsPartialFields = {
-	options: { StringArrayProp_ConditionalOption }?,
-}
-
-export type StringArrayProp_ConditionalOptions = typeof(setmetatable(
-	{} :: _StringArrayProp_ConditionalOptionsFields,
-	{} :: _StringArrayProp_ConditionalOptionsImpl
-))
-type _StringArrayProp_ConditionalOptionsMessage = proto.Message<
-	StringArrayProp_ConditionalOptions,
-	_StringArrayProp_ConditionalOptionsPartialFields
->
 
 type _NestedComponentPropImpl = {
 	__index: _NestedComponentPropImpl,
@@ -1334,7 +1216,7 @@ type _LazyNestedComponentListProp_ComponentListFields = {
 		| { type: "pool", value: boolean }
 	)?,
 	default_item: LazyNestedComponentListProp_Item?,
-	ordered_identifiers: StringArrayProp?,
+	ordered_identifiers: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
 	item_overrides: { [string]: LazyNestedComponentListProp_Item },
 	defer_item_build: boolean,
 	pool_config: LazyNestedComponentListProp_PoolConfig?,
@@ -1347,7 +1229,7 @@ type _LazyNestedComponentListProp_ComponentListPartialFields = {
 		| { type: "pool", value: boolean }
 	)?,
 	default_item: LazyNestedComponentListProp_Item?,
-	ordered_identifiers: StringArrayProp?,
+	ordered_identifiers: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
 	item_overrides: { [string]: LazyNestedComponentListProp_Item }?,
 	defer_item_build: boolean?,
 	pool_config: LazyNestedComponentListProp_PoolConfig?,
@@ -2282,12 +2164,14 @@ type _TextSchema_WebPropsFields = {
 	is_rendered_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	heading_level: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	font_family: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _TextSchema_WebPropsPartialFields = {
 	is_rendered_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	heading_level: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	font_family: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type TextSchema_WebProps = typeof(setmetatable({} :: _TextSchema_WebPropsFields, {} :: _TextSchema_WebPropsImpl))
@@ -4441,6 +4325,7 @@ type _VerticalFeedSchema_PropsFields = {
 	initial_num_to_render: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_rate: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_interval_ms: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	enable_back_to_top: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -4465,6 +4350,7 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	initial_num_to_render: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_rate: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_interval_ms: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	enable_back_to_top: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -5292,6 +5178,182 @@ export type DetailsPageImageHeaderSchema_Props = typeof(setmetatable(
 type _DetailsPageImageHeaderSchema_PropsMessage = proto.Message<
 	DetailsPageImageHeaderSchema_Props,
 	_DetailsPageImageHeaderSchema_PropsPartialFields
+>
+
+type _LayeredContainerSchemaImpl = {
+	__index: _LayeredContainerSchemaImpl,
+	new: (fields: _LayeredContainerSchemaPartialFields?) -> LayeredContainerSchema,
+	encode: (self: LayeredContainerSchema) -> buffer,
+	decode: (input: buffer) -> LayeredContainerSchema,
+	jsonEncode: (self: LayeredContainerSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LayeredContainerSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _LayeredContainerSchemaFields = {
+	props: LayeredContainerSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+	web_props: LayeredContainerSchema_WebProps?,
+}
+
+type _LayeredContainerSchemaPartialFields = {
+	props: LayeredContainerSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+	web_props: LayeredContainerSchema_WebProps?,
+}
+
+export type LayeredContainerSchema = typeof(setmetatable(
+	{} :: _LayeredContainerSchemaFields,
+	{} :: _LayeredContainerSchemaImpl
+))
+type _LayeredContainerSchemaMessage = proto.Message<LayeredContainerSchema, _LayeredContainerSchemaPartialFields>
+
+type _LayeredContainerSchema_PropsImpl = {
+	__index: _LayeredContainerSchema_PropsImpl,
+	new: (fields: _LayeredContainerSchema_PropsPartialFields?) -> LayeredContainerSchema_Props,
+	encode: (self: LayeredContainerSchema_Props) -> buffer,
+	decode: (input: buffer) -> LayeredContainerSchema_Props,
+	jsonEncode: (self: LayeredContainerSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LayeredContainerSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _LayeredContainerSchema_PropsFields = {
+	background_component: NestedComponentProp?,
+	foreground_component: NestedComponentProp?,
+}
+
+type _LayeredContainerSchema_PropsPartialFields = {
+	background_component: NestedComponentProp?,
+	foreground_component: NestedComponentProp?,
+}
+
+export type LayeredContainerSchema_Props = typeof(setmetatable(
+	{} :: _LayeredContainerSchema_PropsFields,
+	{} :: _LayeredContainerSchema_PropsImpl
+))
+type _LayeredContainerSchema_PropsMessage = proto.Message<
+	LayeredContainerSchema_Props,
+	_LayeredContainerSchema_PropsPartialFields
+>
+
+type _LayeredContainerSchema_WebPropsImpl = {
+	__index: _LayeredContainerSchema_WebPropsImpl,
+	new: (fields: _LayeredContainerSchema_WebPropsPartialFields?) -> LayeredContainerSchema_WebProps,
+	encode: (self: LayeredContainerSchema_WebProps) -> buffer,
+	decode: (input: buffer) -> LayeredContainerSchema_WebProps,
+	jsonEncode: (self: LayeredContainerSchema_WebProps) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LayeredContainerSchema_WebProps,
+	descriptor: proto.Descriptor,
+}
+
+type _LayeredContainerSchema_WebPropsFields = {
+	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _LayeredContainerSchema_WebPropsPartialFields = {
+	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type LayeredContainerSchema_WebProps = typeof(setmetatable(
+	{} :: _LayeredContainerSchema_WebPropsFields,
+	{} :: _LayeredContainerSchema_WebPropsImpl
+))
+type _LayeredContainerSchema_WebPropsMessage = proto.Message<
+	LayeredContainerSchema_WebProps,
+	_LayeredContainerSchema_WebPropsPartialFields
+>
+
+type _BackgroundBlurSchemaImpl = {
+	__index: _BackgroundBlurSchemaImpl,
+	new: (fields: _BackgroundBlurSchemaPartialFields?) -> BackgroundBlurSchema,
+	encode: (self: BackgroundBlurSchema) -> buffer,
+	decode: (input: buffer) -> BackgroundBlurSchema,
+	jsonEncode: (self: BackgroundBlurSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BackgroundBlurSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _BackgroundBlurSchemaFields = {
+	props: BackgroundBlurSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+	web_props: BackgroundBlurSchema_WebProps?,
+}
+
+type _BackgroundBlurSchemaPartialFields = {
+	props: BackgroundBlurSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+	web_props: BackgroundBlurSchema_WebProps?,
+}
+
+export type BackgroundBlurSchema = typeof(setmetatable(
+	{} :: _BackgroundBlurSchemaFields,
+	{} :: _BackgroundBlurSchemaImpl
+))
+type _BackgroundBlurSchemaMessage = proto.Message<BackgroundBlurSchema, _BackgroundBlurSchemaPartialFields>
+
+type _BackgroundBlurSchema_PropsImpl = {
+	__index: _BackgroundBlurSchema_PropsImpl,
+	new: (fields: _BackgroundBlurSchema_PropsPartialFields?) -> BackgroundBlurSchema_Props,
+	encode: (self: BackgroundBlurSchema_Props) -> buffer,
+	decode: (input: buffer) -> BackgroundBlurSchema_Props,
+	jsonEncode: (self: BackgroundBlurSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BackgroundBlurSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _BackgroundBlurSchema_PropsFields = {
+	scrim_gradient: _roblox_apppageplatform_shared_v1beta1_prop_types.GradientProp?,
+	opacity: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_fade_viewport_percent: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_fade_offset_px: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_fade_range_px: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+type _BackgroundBlurSchema_PropsPartialFields = {
+	scrim_gradient: _roblox_apppageplatform_shared_v1beta1_prop_types.GradientProp?,
+	opacity: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_fade_viewport_percent: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_fade_offset_px: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_fade_range_px: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+export type BackgroundBlurSchema_Props = typeof(setmetatable(
+	{} :: _BackgroundBlurSchema_PropsFields,
+	{} :: _BackgroundBlurSchema_PropsImpl
+))
+type _BackgroundBlurSchema_PropsMessage = proto.Message<
+	BackgroundBlurSchema_Props,
+	_BackgroundBlurSchema_PropsPartialFields
+>
+
+type _BackgroundBlurSchema_WebPropsImpl = {
+	__index: _BackgroundBlurSchema_WebPropsImpl,
+	new: (fields: _BackgroundBlurSchema_WebPropsPartialFields?) -> BackgroundBlurSchema_WebProps,
+	encode: (self: BackgroundBlurSchema_WebProps) -> buffer,
+	decode: (input: buffer) -> BackgroundBlurSchema_WebProps,
+	jsonEncode: (self: BackgroundBlurSchema_WebProps) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BackgroundBlurSchema_WebProps,
+	descriptor: proto.Descriptor,
+}
+
+type _BackgroundBlurSchema_WebPropsFields = {
+	blur_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	mask: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _BackgroundBlurSchema_WebPropsPartialFields = {
+	blur_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	mask: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type BackgroundBlurSchema_WebProps = typeof(setmetatable(
+	{} :: _BackgroundBlurSchema_WebPropsFields,
+	{} :: _BackgroundBlurSchema_WebPropsImpl
+))
+type _BackgroundBlurSchema_WebPropsMessage = proto.Message<
+	BackgroundBlurSchema_WebProps,
+	_BackgroundBlurSchema_WebPropsPartialFields
 >
 
 type _LogoSchemaImpl = {
@@ -8787,6 +8849,7 @@ type _BadgeSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	foundation_icon: _roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp?,
 }
 
 type _BadgeSchema_PropsPartialFields = {
@@ -8798,6 +8861,7 @@ type _BadgeSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	foundation_icon: _roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp?,
 }
 
 export type BadgeSchema_Props = typeof(setmetatable({} :: _BadgeSchema_PropsFields, {} :: _BadgeSchema_PropsImpl))
@@ -10482,6 +10546,8 @@ type _UiComponentSchemaFields = {
 		| { type: "logo", value: LogoSchema }
 		| { type: "feedback_banner", value: FeedbackBannerSchema }
 		| { type: "game_sort_drop_down", value: GameSortDropDownSchema }
+		| { type: "layered_container", value: LayeredContainerSchema }
+		| { type: "background_blur", value: BackgroundBlurSchema }
 	)?,
 }
 
@@ -10569,6 +10635,8 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "logo", value: LogoSchema }
 		| { type: "feedback_banner", value: FeedbackBannerSchema }
 		| { type: "game_sort_drop_down", value: GameSortDropDownSchema }
+		| { type: "layered_container", value: LayeredContainerSchema }
+		| { type: "background_blur", value: BackgroundBlurSchema }
 	)?,
 }
 
@@ -10930,532 +10998,6 @@ do
 	messages.TemplateArg_LiteralValue = _TemplateArg_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.TemplateArg_LiteralValue)
-end
-
-do
-	local _StringArrayPropImpl = {}
-	_StringArrayPropImpl.__index = _StringArrayPropImpl
-
-	function _StringArrayPropImpl.new(data: _StringArrayPropPartialFields?): StringArrayProp
-		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _StringArrayPropImpl :: _StringArrayPropImpl)
-	end
-
-	function _StringArrayPropImpl.encode(self: StringArrayProp): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "binding_path" then
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			elseif self.kind.type == "conditional" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _StringArrayPropImpl.decode(input: buffer): StringArrayProp
-		local self = _StringArrayPropImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.decode(value) }
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "binding_path", value = buffer.tostring(value) }
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "conditional", value = messages.StringArrayProp_ConditionalOptions.decode(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _StringArrayPropImpl.jsonEncode(self: StringArrayProp): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			elseif self.kind.type == "binding_path" then
-				output.bindingPath = self.kind.value
-			elseif self.kind.type == "conditional" then
-				output.conditional = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _StringArrayPropImpl.jsonDecode(input: { [string]: any }): StringArrayProp
-		local self = _StringArrayPropImpl.new()
-
-		if input.literal ~= nil then
-			self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.jsonDecode(input.literal) }
-		end
-
-		if input.binding_path ~= nil then
-			self.kind = { type = "binding_path", value = input.binding_path }
-		end
-
-		if input.bindingPath ~= nil then
-			self.kind = { type = "binding_path", value = input.bindingPath }
-		end
-
-		if input.conditional ~= nil then
-			self.kind = {
-				type = "conditional",
-				value = messages.StringArrayProp_ConditionalOptions.jsonDecode(input.conditional),
-			}
-		end
-
-		return self
-	end
-
-	_StringArrayPropImpl.descriptor = {
-		name = "StringArrayProp",
-		fullName = "roblox.apppageplatform.shared.v1beta1.StringArrayProp",
-	}
-
-	messages.StringArrayProp = _StringArrayPropImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.StringArrayProp)
-end
-
-do
-	local _StringArrayProp_LiteralValueImpl = {}
-	_StringArrayProp_LiteralValueImpl.__index = _StringArrayProp_LiteralValueImpl
-
-	function _StringArrayProp_LiteralValueImpl.new(
-		data: _StringArrayProp_LiteralValuePartialFields?
-	): StringArrayProp_LiteralValue
-		return setmetatable({
-			items = if data == nil or data.items == nil then {} else data.items,
-		}, _StringArrayProp_LiteralValueImpl :: _StringArrayProp_LiteralValueImpl)
-	end
-
-	function _StringArrayProp_LiteralValueImpl.encode(self: StringArrayProp_LiteralValue): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.items ~= nil and #self.items > 0 then
-			for _, value in self.items do
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, value)
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _StringArrayProp_LiteralValueImpl.decode(input: buffer): StringArrayProp_LiteralValue
-		local self = _StringArrayProp_LiteralValueImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.items, buffer.tostring(value))
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _StringArrayProp_LiteralValueImpl.jsonEncode(self: StringArrayProp_LiteralValue): any
-		local output = {}
-
-		if self.items ~= nil and #self.items > 0 then
-			local newOutput = {}
-			for _, value in self.items do
-				table.insert(newOutput, value)
-			end
-			output.items = newOutput
-		end
-
-		return output
-	end
-
-	function _StringArrayProp_LiteralValueImpl.jsonDecode(input: { [string]: any }): StringArrayProp_LiteralValue
-		local self = _StringArrayProp_LiteralValueImpl.new()
-
-		if input.items ~= nil then
-			local newOutput: { string } = {}
-			for _, value in input.items do
-				table.insert(newOutput, value)
-			end
-
-			self.items = newOutput
-		end
-
-		return self
-	end
-
-	_StringArrayProp_LiteralValueImpl.descriptor = {
-		name = "StringArrayProp_LiteralValue",
-		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralValue",
-	}
-
-	messages.StringArrayProp_LiteralValue = _StringArrayProp_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.StringArrayProp_LiteralValue)
-end
-
-do
-	local _StringArrayProp_ConditionalOptionImpl = {}
-	_StringArrayProp_ConditionalOptionImpl.__index = _StringArrayProp_ConditionalOptionImpl
-
-	function _StringArrayProp_ConditionalOptionImpl.new(
-		data: _StringArrayProp_ConditionalOptionPartialFields?
-	): StringArrayProp_ConditionalOption
-		return setmetatable({
-			condition = if data == nil or data.condition == nil then nil else data.condition,
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _StringArrayProp_ConditionalOptionImpl :: _StringArrayProp_ConditionalOptionImpl)
-	end
-
-	function _StringArrayProp_ConditionalOptionImpl.encode(self: StringArrayProp_ConditionalOption): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.condition ~= nil then
-			local encoded = self.condition:encode()
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "binding_path" then
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			elseif self.kind.type == "conditional" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _StringArrayProp_ConditionalOptionImpl.decode(input: buffer): StringArrayProp_ConditionalOption
-		local self = _StringArrayProp_ConditionalOptionImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.decode(value) }
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "binding_path", value = buffer.tostring(value) }
-					continue
-				elseif field == 4 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "conditional", value = messages.StringArrayProp_ConditionalOptions.decode(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _StringArrayProp_ConditionalOptionImpl.jsonEncode(self: StringArrayProp_ConditionalOption): any
-		local output = {}
-
-		if self.condition ~= nil then
-			output.condition = self.condition:jsonEncode()
-		end
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			elseif self.kind.type == "binding_path" then
-				output.bindingPath = self.kind.value
-			elseif self.kind.type == "conditional" then
-				output.conditional = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _StringArrayProp_ConditionalOptionImpl.jsonDecode(
-		input: { [string]: any }
-	): StringArrayProp_ConditionalOption
-		local self = _StringArrayProp_ConditionalOptionImpl.new()
-
-		if input.condition ~= nil then
-			self.condition =
-				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
-		end
-
-		if input.literal ~= nil then
-			self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.jsonDecode(input.literal) }
-		end
-
-		if input.binding_path ~= nil then
-			self.kind = { type = "binding_path", value = input.binding_path }
-		end
-
-		if input.bindingPath ~= nil then
-			self.kind = { type = "binding_path", value = input.bindingPath }
-		end
-
-		if input.conditional ~= nil then
-			self.kind = {
-				type = "conditional",
-				value = messages.StringArrayProp_ConditionalOptions.jsonDecode(input.conditional),
-			}
-		end
-
-		return self
-	end
-
-	_StringArrayProp_ConditionalOptionImpl.descriptor = {
-		name = "StringArrayProp_ConditionalOption",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
-	}
-
-	messages.StringArrayProp_ConditionalOption = _StringArrayProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.StringArrayProp_ConditionalOption)
-end
-
-do
-	local _StringArrayProp_ConditionalOptionsImpl = {}
-	_StringArrayProp_ConditionalOptionsImpl.__index = _StringArrayProp_ConditionalOptionsImpl
-
-	function _StringArrayProp_ConditionalOptionsImpl.new(
-		data: _StringArrayProp_ConditionalOptionsPartialFields?
-	): StringArrayProp_ConditionalOptions
-		return setmetatable({
-			options = if data == nil or data.options == nil then {} else data.options,
-		}, _StringArrayProp_ConditionalOptionsImpl :: _StringArrayProp_ConditionalOptionsImpl)
-	end
-
-	function _StringArrayProp_ConditionalOptionsImpl.encode(self: StringArrayProp_ConditionalOptions): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.options ~= nil and #self.options > 0 then
-			for _, value in self.options do
-				local encoded = (value :: any):encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _StringArrayProp_ConditionalOptionsImpl.decode(input: buffer): StringArrayProp_ConditionalOptions
-		local self = _StringArrayProp_ConditionalOptionsImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.options, messages.StringArrayProp_ConditionalOption.decode(value))
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _StringArrayProp_ConditionalOptionsImpl.jsonEncode(self: StringArrayProp_ConditionalOptions): any
-		local output = {}
-
-		if self.options ~= nil and #self.options > 0 then
-			local newOutput = {}
-			for _, value in self.options do
-				table.insert(newOutput, (value :: any):jsonEncode())
-			end
-			output.options = newOutput
-		end
-
-		return output
-	end
-
-	function _StringArrayProp_ConditionalOptionsImpl.jsonDecode(
-		input: { [string]: any }
-	): StringArrayProp_ConditionalOptions
-		local self = _StringArrayProp_ConditionalOptionsImpl.new()
-
-		if input.options ~= nil then
-			local newOutput: { StringArrayProp_ConditionalOption } = {}
-			for _, value in input.options do
-				table.insert(newOutput, messages.StringArrayProp_ConditionalOption.jsonDecode(value))
-			end
-
-			self.options = newOutput
-		end
-
-		return self
-	end
-
-	_StringArrayProp_ConditionalOptionsImpl.descriptor = {
-		name = "StringArrayProp_ConditionalOptions",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
-	}
-
-	messages.StringArrayProp_ConditionalOptions = _StringArrayProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.StringArrayProp_ConditionalOptions)
 end
 
 do
@@ -15363,7 +14905,8 @@ do
 				elseif field == 4 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.ordered_identifiers = messages.StringArrayProp.decode(value)
+					self.ordered_identifiers =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.decode(value)
 					continue
 				elseif field == 5 then
 					local value
@@ -15479,11 +15022,13 @@ do
 		end
 
 		if input.ordered_identifiers ~= nil then
-			self.ordered_identifiers = messages.StringArrayProp.jsonDecode(input.ordered_identifiers)
+			self.ordered_identifiers =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.ordered_identifiers)
 		end
 
 		if input.orderedIdentifiers ~= nil then
-			self.ordered_identifiers = messages.StringArrayProp.jsonDecode(input.orderedIdentifiers)
+			self.ordered_identifiers =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.orderedIdentifiers)
 		end
 
 		if input.item_overrides ~= nil then
@@ -22402,6 +21947,7 @@ do
 			is_rendered_text = if data == nil or data.is_rendered_text == nil then nil else data.is_rendered_text,
 			heading_level = if data == nil or data.heading_level == nil then nil else data.heading_level,
 			max_lines = if data == nil or data.max_lines == nil then nil else data.max_lines,
+			font_family = if data == nil or data.font_family == nil then nil else data.font_family,
 		}, _TextSchema_WebPropsImpl :: _TextSchema_WebPropsImpl)
 	end
 
@@ -22424,6 +21970,12 @@ do
 		if self.max_lines ~= nil then
 			local encoded = self.max_lines:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.font_family ~= nil then
+			local encoded = self.font_family:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -22460,6 +22012,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.max_lines = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.font_family = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -22500,6 +22057,10 @@ do
 			output.maxLines = self.max_lines:jsonEncode()
 		end
 
+		if self.font_family ~= nil then
+			output.fontFamily = self.font_family:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -22532,6 +22093,15 @@ do
 
 		if input.maxLines ~= nil then
 			self.max_lines = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.maxLines)
+		end
+
+		if input.font_family ~= nil then
+			self.font_family =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.font_family)
+		end
+
+		if input.fontFamily ~= nil then
+			self.font_family = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.fontFamily)
 		end
 
 		return self
@@ -38001,6 +37571,7 @@ do
 			progressive_fill_interval_ms = if data == nil or data.progressive_fill_interval_ms == nil
 				then nil
 				else data.progressive_fill_interval_ms,
+			enable_back_to_top = if data == nil or data.enable_back_to_top == nil then nil else data.enable_back_to_top,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -38131,6 +37702,12 @@ do
 		if self.progressive_fill_interval_ms ~= nil then
 			local encoded = self.progressive_fill_interval_ms:encode()
 			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.enable_back_to_top ~= nil then
+			local encoded = self.enable_back_to_top:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -38268,6 +37845,11 @@ do
 					self.progressive_fill_interval_ms =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.enable_back_to_top = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -38377,6 +37959,10 @@ do
 
 		if self.progressive_fill_interval_ms ~= nil then
 			output.progressiveFillIntervalMs = self.progressive_fill_interval_ms:jsonEncode()
+		end
+
+		if self.enable_back_to_top ~= nil then
+			output.enableBackToTop = self.enable_back_to_top:jsonEncode()
 		end
 
 		return output
@@ -38600,6 +38186,16 @@ do
 		if input.progressiveFillIntervalMs ~= nil then
 			self.progressive_fill_interval_ms =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.progressiveFillIntervalMs)
+		end
+
+		if input.enable_back_to_top ~= nil then
+			self.enable_back_to_top =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enable_back_to_top)
+		end
+
+		if input.enableBackToTop ~= nil then
+			self.enable_back_to_top =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableBackToTop)
 		end
 
 		return self
@@ -43594,6 +43190,867 @@ do
 	messages.DetailsPageImageHeaderSchema_Props = _DetailsPageImageHeaderSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.DetailsPageImageHeaderSchema_Props)
+end
+
+do
+	local _LayeredContainerSchemaImpl = {}
+	_LayeredContainerSchemaImpl.__index = _LayeredContainerSchemaImpl
+
+	function _LayeredContainerSchemaImpl.new(data: _LayeredContainerSchemaPartialFields?): LayeredContainerSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+			web_props = if data == nil or data.web_props == nil then nil else data.web_props,
+		}, _LayeredContainerSchemaImpl :: _LayeredContainerSchemaImpl)
+	end
+
+	function _LayeredContainerSchemaImpl.encode(self: LayeredContainerSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.web_props ~= nil then
+			local encoded = self.web_props:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LayeredContainerSchemaImpl.decode(input: buffer): LayeredContainerSchema
+		local self = _LayeredContainerSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.LayeredContainerSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.web_props = messages.LayeredContainerSchema_WebProps.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LayeredContainerSchemaImpl.jsonEncode(self: LayeredContainerSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		if self.web_props ~= nil then
+			output.webProps = self.web_props:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LayeredContainerSchemaImpl.jsonDecode(input: { [string]: any }): LayeredContainerSchema
+		local self = _LayeredContainerSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.LayeredContainerSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		if input.web_props ~= nil then
+			self.web_props = messages.LayeredContainerSchema_WebProps.jsonDecode(input.web_props)
+		end
+
+		if input.webProps ~= nil then
+			self.web_props = messages.LayeredContainerSchema_WebProps.jsonDecode(input.webProps)
+		end
+
+		return self
+	end
+
+	_LayeredContainerSchemaImpl.descriptor = {
+		name = "LayeredContainerSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LayeredContainerSchema",
+	}
+
+	messages.LayeredContainerSchema = _LayeredContainerSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LayeredContainerSchema)
+end
+
+do
+	local _LayeredContainerSchema_PropsImpl = {}
+	_LayeredContainerSchema_PropsImpl.__index = _LayeredContainerSchema_PropsImpl
+
+	function _LayeredContainerSchema_PropsImpl.new(
+		data: _LayeredContainerSchema_PropsPartialFields?
+	): LayeredContainerSchema_Props
+		return setmetatable({
+			background_component = if data == nil or data.background_component == nil
+				then nil
+				else data.background_component,
+			foreground_component = if data == nil or data.foreground_component == nil
+				then nil
+				else data.foreground_component,
+		}, _LayeredContainerSchema_PropsImpl :: _LayeredContainerSchema_PropsImpl)
+	end
+
+	function _LayeredContainerSchema_PropsImpl.encode(self: LayeredContainerSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.background_component ~= nil then
+			local encoded = self.background_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_component ~= nil then
+			local encoded = self.foreground_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LayeredContainerSchema_PropsImpl.decode(input: buffer): LayeredContainerSchema_Props
+		local self = _LayeredContainerSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_component = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_component = messages.NestedComponentProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LayeredContainerSchema_PropsImpl.jsonEncode(self: LayeredContainerSchema_Props): any
+		local output = {}
+
+		if self.background_component ~= nil then
+			output.backgroundComponent = self.background_component:jsonEncode()
+		end
+
+		if self.foreground_component ~= nil then
+			output.foregroundComponent = self.foreground_component:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LayeredContainerSchema_PropsImpl.jsonDecode(input: { [string]: any }): LayeredContainerSchema_Props
+		local self = _LayeredContainerSchema_PropsImpl.new()
+
+		if input.background_component ~= nil then
+			self.background_component = messages.NestedComponentProp.jsonDecode(input.background_component)
+		end
+
+		if input.backgroundComponent ~= nil then
+			self.background_component = messages.NestedComponentProp.jsonDecode(input.backgroundComponent)
+		end
+
+		if input.foreground_component ~= nil then
+			self.foreground_component = messages.NestedComponentProp.jsonDecode(input.foreground_component)
+		end
+
+		if input.foregroundComponent ~= nil then
+			self.foreground_component = messages.NestedComponentProp.jsonDecode(input.foregroundComponent)
+		end
+
+		return self
+	end
+
+	_LayeredContainerSchema_PropsImpl.descriptor = {
+		name = "LayeredContainerSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.LayeredContainerSchema_Props = _LayeredContainerSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LayeredContainerSchema_Props)
+end
+
+do
+	local _LayeredContainerSchema_WebPropsImpl = {}
+	_LayeredContainerSchema_WebPropsImpl.__index = _LayeredContainerSchema_WebPropsImpl
+
+	function _LayeredContainerSchema_WebPropsImpl.new(
+		data: _LayeredContainerSchema_WebPropsPartialFields?
+	): LayeredContainerSchema_WebProps
+		return setmetatable({
+			class_names = if data == nil or data.class_names == nil then nil else data.class_names,
+		}, _LayeredContainerSchema_WebPropsImpl :: _LayeredContainerSchema_WebPropsImpl)
+	end
+
+	function _LayeredContainerSchema_WebPropsImpl.encode(self: LayeredContainerSchema_WebProps): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.class_names ~= nil then
+			local encoded = self.class_names:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LayeredContainerSchema_WebPropsImpl.decode(input: buffer): LayeredContainerSchema_WebProps
+		local self = _LayeredContainerSchema_WebPropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LayeredContainerSchema_WebPropsImpl.jsonEncode(self: LayeredContainerSchema_WebProps): any
+		local output = {}
+
+		if self.class_names ~= nil then
+			output.classNames = self.class_names:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LayeredContainerSchema_WebPropsImpl.jsonDecode(input: { [string]: any }): LayeredContainerSchema_WebProps
+		local self = _LayeredContainerSchema_WebPropsImpl.new()
+
+		if input.class_names ~= nil then
+			self.class_names =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.class_names)
+		end
+
+		if input.classNames ~= nil then
+			self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.classNames)
+		end
+
+		return self
+	end
+
+	_LayeredContainerSchema_WebPropsImpl.descriptor = {
+		name = "LayeredContainerSchema_WebProps",
+		fullName = "roblox.apppageplatform.shared.v1beta1.WebProps",
+	}
+
+	messages.LayeredContainerSchema_WebProps = _LayeredContainerSchema_WebPropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LayeredContainerSchema_WebProps)
+end
+
+do
+	local _BackgroundBlurSchemaImpl = {}
+	_BackgroundBlurSchemaImpl.__index = _BackgroundBlurSchemaImpl
+
+	function _BackgroundBlurSchemaImpl.new(data: _BackgroundBlurSchemaPartialFields?): BackgroundBlurSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+			web_props = if data == nil or data.web_props == nil then nil else data.web_props,
+		}, _BackgroundBlurSchemaImpl :: _BackgroundBlurSchemaImpl)
+	end
+
+	function _BackgroundBlurSchemaImpl.encode(self: BackgroundBlurSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.web_props ~= nil then
+			local encoded = self.web_props:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BackgroundBlurSchemaImpl.decode(input: buffer): BackgroundBlurSchema
+		local self = _BackgroundBlurSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.BackgroundBlurSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.web_props = messages.BackgroundBlurSchema_WebProps.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BackgroundBlurSchemaImpl.jsonEncode(self: BackgroundBlurSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		if self.web_props ~= nil then
+			output.webProps = self.web_props:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BackgroundBlurSchemaImpl.jsonDecode(input: { [string]: any }): BackgroundBlurSchema
+		local self = _BackgroundBlurSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.BackgroundBlurSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		if input.web_props ~= nil then
+			self.web_props = messages.BackgroundBlurSchema_WebProps.jsonDecode(input.web_props)
+		end
+
+		if input.webProps ~= nil then
+			self.web_props = messages.BackgroundBlurSchema_WebProps.jsonDecode(input.webProps)
+		end
+
+		return self
+	end
+
+	_BackgroundBlurSchemaImpl.descriptor = {
+		name = "BackgroundBlurSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BackgroundBlurSchema",
+	}
+
+	messages.BackgroundBlurSchema = _BackgroundBlurSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BackgroundBlurSchema)
+end
+
+do
+	local _BackgroundBlurSchema_PropsImpl = {}
+	_BackgroundBlurSchema_PropsImpl.__index = _BackgroundBlurSchema_PropsImpl
+
+	function _BackgroundBlurSchema_PropsImpl.new(
+		data: _BackgroundBlurSchema_PropsPartialFields?
+	): BackgroundBlurSchema_Props
+		return setmetatable({
+			scrim_gradient = if data == nil or data.scrim_gradient == nil then nil else data.scrim_gradient,
+			opacity = if data == nil or data.opacity == nil then nil else data.opacity,
+			scroll_fade_viewport_percent = if data == nil or data.scroll_fade_viewport_percent == nil
+				then nil
+				else data.scroll_fade_viewport_percent,
+			scroll_fade_offset_px = if data == nil or data.scroll_fade_offset_px == nil
+				then nil
+				else data.scroll_fade_offset_px,
+			scroll_fade_range_px = if data == nil or data.scroll_fade_range_px == nil
+				then nil
+				else data.scroll_fade_range_px,
+		}, _BackgroundBlurSchema_PropsImpl :: _BackgroundBlurSchema_PropsImpl)
+	end
+
+	function _BackgroundBlurSchema_PropsImpl.encode(self: BackgroundBlurSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.scrim_gradient ~= nil then
+			local encoded = self.scrim_gradient:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.opacity ~= nil then
+			local encoded = self.opacity:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scroll_fade_viewport_percent ~= nil then
+			local encoded = self.scroll_fade_viewport_percent:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scroll_fade_offset_px ~= nil then
+			local encoded = self.scroll_fade_offset_px:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scroll_fade_range_px ~= nil then
+			local encoded = self.scroll_fade_range_px:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BackgroundBlurSchema_PropsImpl.decode(input: buffer): BackgroundBlurSchema_Props
+		local self = _BackgroundBlurSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scrim_gradient = _roblox_apppageplatform_shared_v1beta1_prop_types.GradientProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.opacity = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scroll_fade_viewport_percent =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scroll_fade_offset_px =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scroll_fade_range_px =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BackgroundBlurSchema_PropsImpl.jsonEncode(self: BackgroundBlurSchema_Props): any
+		local output = {}
+
+		if self.scrim_gradient ~= nil then
+			output.scrimGradient = self.scrim_gradient:jsonEncode()
+		end
+
+		if self.opacity ~= nil then
+			output.opacity = self.opacity:jsonEncode()
+		end
+
+		if self.scroll_fade_viewport_percent ~= nil then
+			output.scrollFadeViewportPercent = self.scroll_fade_viewport_percent:jsonEncode()
+		end
+
+		if self.scroll_fade_offset_px ~= nil then
+			output.scrollFadeOffsetPx = self.scroll_fade_offset_px:jsonEncode()
+		end
+
+		if self.scroll_fade_range_px ~= nil then
+			output.scrollFadeRangePx = self.scroll_fade_range_px:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BackgroundBlurSchema_PropsImpl.jsonDecode(input: { [string]: any }): BackgroundBlurSchema_Props
+		local self = _BackgroundBlurSchema_PropsImpl.new()
+
+		if input.scrim_gradient ~= nil then
+			self.scrim_gradient =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.GradientProp.jsonDecode(input.scrim_gradient)
+		end
+
+		if input.scrimGradient ~= nil then
+			self.scrim_gradient =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.GradientProp.jsonDecode(input.scrimGradient)
+		end
+
+		if input.opacity ~= nil then
+			self.opacity = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.opacity)
+		end
+
+		if input.scroll_fade_viewport_percent ~= nil then
+			self.scroll_fade_viewport_percent = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+				input.scroll_fade_viewport_percent
+			)
+		end
+
+		if input.scrollFadeViewportPercent ~= nil then
+			self.scroll_fade_viewport_percent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scrollFadeViewportPercent)
+		end
+
+		if input.scroll_fade_offset_px ~= nil then
+			self.scroll_fade_offset_px =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scroll_fade_offset_px)
+		end
+
+		if input.scrollFadeOffsetPx ~= nil then
+			self.scroll_fade_offset_px =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scrollFadeOffsetPx)
+		end
+
+		if input.scroll_fade_range_px ~= nil then
+			self.scroll_fade_range_px =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scroll_fade_range_px)
+		end
+
+		if input.scrollFadeRangePx ~= nil then
+			self.scroll_fade_range_px =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scrollFadeRangePx)
+		end
+
+		return self
+	end
+
+	_BackgroundBlurSchema_PropsImpl.descriptor = {
+		name = "BackgroundBlurSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.BackgroundBlurSchema_Props = _BackgroundBlurSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BackgroundBlurSchema_Props)
+end
+
+do
+	local _BackgroundBlurSchema_WebPropsImpl = {}
+	_BackgroundBlurSchema_WebPropsImpl.__index = _BackgroundBlurSchema_WebPropsImpl
+
+	function _BackgroundBlurSchema_WebPropsImpl.new(
+		data: _BackgroundBlurSchema_WebPropsPartialFields?
+	): BackgroundBlurSchema_WebProps
+		return setmetatable({
+			blur_radius = if data == nil or data.blur_radius == nil then nil else data.blur_radius,
+			mask = if data == nil or data.mask == nil then nil else data.mask,
+		}, _BackgroundBlurSchema_WebPropsImpl :: _BackgroundBlurSchema_WebPropsImpl)
+	end
+
+	function _BackgroundBlurSchema_WebPropsImpl.encode(self: BackgroundBlurSchema_WebProps): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.blur_radius ~= nil then
+			local encoded = self.blur_radius:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.mask ~= nil then
+			local encoded = self.mask:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BackgroundBlurSchema_WebPropsImpl.decode(input: buffer): BackgroundBlurSchema_WebProps
+		local self = _BackgroundBlurSchema_WebPropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.blur_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.mask = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BackgroundBlurSchema_WebPropsImpl.jsonEncode(self: BackgroundBlurSchema_WebProps): any
+		local output = {}
+
+		if self.blur_radius ~= nil then
+			output.blurRadius = self.blur_radius:jsonEncode()
+		end
+
+		if self.mask ~= nil then
+			output.mask = self.mask:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BackgroundBlurSchema_WebPropsImpl.jsonDecode(input: { [string]: any }): BackgroundBlurSchema_WebProps
+		local self = _BackgroundBlurSchema_WebPropsImpl.new()
+
+		if input.blur_radius ~= nil then
+			self.blur_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.blur_radius)
+		end
+
+		if input.blurRadius ~= nil then
+			self.blur_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.blurRadius)
+		end
+
+		if input.mask ~= nil then
+			self.mask = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.mask)
+		end
+
+		return self
+	end
+
+	_BackgroundBlurSchema_WebPropsImpl.descriptor = {
+		name = "BackgroundBlurSchema_WebProps",
+		fullName = "roblox.apppageplatform.shared.v1beta1.WebProps",
+	}
+
+	messages.BackgroundBlurSchema_WebProps = _BackgroundBlurSchema_WebPropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BackgroundBlurSchema_WebProps)
 end
 
 do
@@ -62808,6 +63265,7 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			visible = if data == nil or data.visible == nil then nil else data.visible,
 			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+			foundation_icon = if data == nil or data.foundation_icon == nil then nil else data.foundation_icon,
 		}, _BadgeSchema_PropsImpl :: _BadgeSchema_PropsImpl)
 	end
 
@@ -62860,6 +63318,12 @@ do
 		if self.z_index ~= nil then
 			local encoded = self.z_index:encode()
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foundation_icon ~= nil then
+			local encoded = self.foundation_icon:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -62922,6 +63386,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foundation_icon =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp.decode(value)
+					continue
 				end
 
 				local length
@@ -62981,6 +63451,10 @@ do
 			output.zIndex = self.z_index:jsonEncode()
 		end
 
+		if self.foundation_icon ~= nil then
+			output.foundationIcon = self.foundation_icon:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -63033,6 +63507,20 @@ do
 
 		if input.zIndex ~= nil then
 			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		if input.foundation_icon ~= nil then
+			self.foundation_icon =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp.jsonDecode(
+					input.foundation_icon
+				)
+		end
+
+		if input.foundationIcon ~= nil then
+			self.foundation_icon =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp.jsonDecode(
+					input.foundationIcon
+				)
 		end
 
 		return self
@@ -72736,6 +73224,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 82, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "layered_container" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 83, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "background_blur" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 84, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -73203,6 +73699,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "game_sort_drop_down", value = messages.GameSortDropDownSchema.decode(value) }
 					continue
+				elseif field == 83 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "layered_container", value = messages.LayeredContainerSchema.decode(value) }
+					continue
+				elseif field == 84 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "background_blur", value = messages.BackgroundBlurSchema.decode(value) }
+					continue
 				end
 
 				local length
@@ -73395,6 +73901,10 @@ do
 				output.feedbackBanner = self.kind.value:jsonEncode()
 			elseif self.kind.type == "game_sort_drop_down" then
 				output.gameSortDropDown = self.kind.value:jsonEncode()
+			elseif self.kind.type == "layered_container" then
+				output.layeredContainer = self.kind.value:jsonEncode()
+			elseif self.kind.type == "background_blur" then
+				output.backgroundBlur = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -74162,6 +74672,30 @@ do
 			}
 		end
 
+		if input.layered_container ~= nil then
+			self.kind = {
+				type = "layered_container",
+				value = messages.LayeredContainerSchema.jsonDecode(input.layered_container),
+			}
+		end
+
+		if input.layeredContainer ~= nil then
+			self.kind = {
+				type = "layered_container",
+				value = messages.LayeredContainerSchema.jsonDecode(input.layeredContainer),
+			}
+		end
+
+		if input.background_blur ~= nil then
+			self.kind =
+				{ type = "background_blur", value = messages.BackgroundBlurSchema.jsonDecode(input.background_blur) }
+		end
+
+		if input.backgroundBlur ~= nil then
+			self.kind =
+				{ type = "background_blur", value = messages.BackgroundBlurSchema.jsonDecode(input.backgroundBlur) }
+		end
+
 		return self
 	end
 
@@ -74178,10 +74712,6 @@ end
 return {
 	TemplateArg = messages.TemplateArg,
 	TemplateArg_LiteralValue = messages.TemplateArg_LiteralValue,
-	StringArrayProp = messages.StringArrayProp,
-	StringArrayProp_LiteralValue = messages.StringArrayProp_LiteralValue,
-	StringArrayProp_ConditionalOption = messages.StringArrayProp_ConditionalOption,
-	StringArrayProp_ConditionalOptions = messages.StringArrayProp_ConditionalOptions,
 	NestedComponentProp = messages.NestedComponentProp,
 	NestedComponentProp_ConditionalOption = messages.NestedComponentProp_ConditionalOption,
 	NestedComponentProp_ConditionalOptions = messages.NestedComponentProp_ConditionalOptions,
@@ -74308,6 +74838,12 @@ return {
 	OverflowMenuSchema_Props = messages.OverflowMenuSchema_Props,
 	DetailsPageImageHeaderSchema = messages.DetailsPageImageHeaderSchema,
 	DetailsPageImageHeaderSchema_Props = messages.DetailsPageImageHeaderSchema_Props,
+	LayeredContainerSchema = messages.LayeredContainerSchema,
+	LayeredContainerSchema_Props = messages.LayeredContainerSchema_Props,
+	LayeredContainerSchema_WebProps = messages.LayeredContainerSchema_WebProps,
+	BackgroundBlurSchema = messages.BackgroundBlurSchema,
+	BackgroundBlurSchema_Props = messages.BackgroundBlurSchema_Props,
+	BackgroundBlurSchema_WebProps = messages.BackgroundBlurSchema_WebProps,
 	LogoSchema = messages.LogoSchema,
 	LogoSchema_Props = messages.LogoSchema_Props,
 	PageHeaderSchema = messages.PageHeaderSchema,

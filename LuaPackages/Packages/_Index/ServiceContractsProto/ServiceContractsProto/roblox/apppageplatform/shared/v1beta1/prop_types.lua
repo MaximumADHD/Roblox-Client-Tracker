@@ -100,6 +100,10 @@ type _Messages = {
 	ArrayOfAvatarProp_ConditionalOptions: _ArrayOfAvatarProp_ConditionalOptionsMessage,
 	ArrayOfAvatarProp_ArrayOfAvatars: _ArrayOfAvatarProp_ArrayOfAvatarsMessage,
 	ArrayOfAvatarProp_ArrayMap: _ArrayOfAvatarProp_ArrayMapMessage,
+	StringArrayProp: _StringArrayPropMessage,
+	StringArrayProp_LiteralValue: _StringArrayProp_LiteralValueMessage,
+	StringArrayProp_ConditionalOption: _StringArrayProp_ConditionalOptionMessage,
+	StringArrayProp_ConditionalOptions: _StringArrayProp_ConditionalOptionsMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -2804,6 +2808,126 @@ export type ArrayOfAvatarProp_ArrayMap = typeof(setmetatable(
 type _ArrayOfAvatarProp_ArrayMapMessage = proto.Message<
 	ArrayOfAvatarProp_ArrayMap,
 	_ArrayOfAvatarProp_ArrayMapPartialFields
+>
+
+type _StringArrayPropImpl = {
+	__index: _StringArrayPropImpl,
+	new: (fields: _StringArrayPropPartialFields?) -> StringArrayProp,
+	encode: (self: StringArrayProp) -> buffer,
+	decode: (input: buffer) -> StringArrayProp,
+	jsonEncode: (self: StringArrayProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayPropFields = {
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+type _StringArrayPropPartialFields = {
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+export type StringArrayProp = typeof(setmetatable({} :: _StringArrayPropFields, {} :: _StringArrayPropImpl))
+type _StringArrayPropMessage = proto.Message<StringArrayProp, _StringArrayPropPartialFields>
+
+type _StringArrayProp_LiteralValueImpl = {
+	__index: _StringArrayProp_LiteralValueImpl,
+	new: (fields: _StringArrayProp_LiteralValuePartialFields?) -> StringArrayProp_LiteralValue,
+	encode: (self: StringArrayProp_LiteralValue) -> buffer,
+	decode: (input: buffer) -> StringArrayProp_LiteralValue,
+	jsonEncode: (self: StringArrayProp_LiteralValue) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp_LiteralValue,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayProp_LiteralValueFields = {
+	items: { string },
+}
+
+type _StringArrayProp_LiteralValuePartialFields = {
+	items: { string }?,
+}
+
+export type StringArrayProp_LiteralValue = typeof(setmetatable(
+	{} :: _StringArrayProp_LiteralValueFields,
+	{} :: _StringArrayProp_LiteralValueImpl
+))
+type _StringArrayProp_LiteralValueMessage = proto.Message<
+	StringArrayProp_LiteralValue,
+	_StringArrayProp_LiteralValuePartialFields
+>
+
+type _StringArrayProp_ConditionalOptionImpl = {
+	__index: _StringArrayProp_ConditionalOptionImpl,
+	new: (fields: _StringArrayProp_ConditionalOptionPartialFields?) -> StringArrayProp_ConditionalOption,
+	encode: (self: StringArrayProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> StringArrayProp_ConditionalOption,
+	jsonEncode: (self: StringArrayProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+type _StringArrayProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+export type StringArrayProp_ConditionalOption = typeof(setmetatable(
+	{} :: _StringArrayProp_ConditionalOptionFields,
+	{} :: _StringArrayProp_ConditionalOptionImpl
+))
+type _StringArrayProp_ConditionalOptionMessage = proto.Message<
+	StringArrayProp_ConditionalOption,
+	_StringArrayProp_ConditionalOptionPartialFields
+>
+
+type _StringArrayProp_ConditionalOptionsImpl = {
+	__index: _StringArrayProp_ConditionalOptionsImpl,
+	new: (fields: _StringArrayProp_ConditionalOptionsPartialFields?) -> StringArrayProp_ConditionalOptions,
+	encode: (self: StringArrayProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> StringArrayProp_ConditionalOptions,
+	jsonEncode: (self: StringArrayProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayProp_ConditionalOptionsFields = {
+	options: { StringArrayProp_ConditionalOption },
+}
+
+type _StringArrayProp_ConditionalOptionsPartialFields = {
+	options: { StringArrayProp_ConditionalOption }?,
+}
+
+export type StringArrayProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _StringArrayProp_ConditionalOptionsFields,
+	{} :: _StringArrayProp_ConditionalOptionsImpl
+))
+type _StringArrayProp_ConditionalOptionsMessage = proto.Message<
+	StringArrayProp_ConditionalOptions,
+	_StringArrayProp_ConditionalOptionsPartialFields
 >
 
 do
@@ -15422,6 +15546,532 @@ do
 	typeRegistry.default:register(messages.ArrayOfAvatarProp_ArrayMap)
 end
 
+do
+	local _StringArrayPropImpl = {}
+	_StringArrayPropImpl.__index = _StringArrayPropImpl
+
+	function _StringArrayPropImpl.new(data: _StringArrayPropPartialFields?): StringArrayProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _StringArrayPropImpl :: _StringArrayPropImpl)
+	end
+
+	function _StringArrayPropImpl.encode(self: StringArrayProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayPropImpl.decode(input: buffer): StringArrayProp
+		local self = _StringArrayPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.StringArrayProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayPropImpl.jsonEncode(self: StringArrayProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _StringArrayPropImpl.jsonDecode(input: { [string]: any }): StringArrayProp
+		local self = _StringArrayPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.StringArrayProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_StringArrayPropImpl.descriptor = {
+		name = "StringArrayProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.StringArrayProp",
+	}
+
+	messages.StringArrayProp = _StringArrayPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp)
+end
+
+do
+	local _StringArrayProp_LiteralValueImpl = {}
+	_StringArrayProp_LiteralValueImpl.__index = _StringArrayProp_LiteralValueImpl
+
+	function _StringArrayProp_LiteralValueImpl.new(
+		data: _StringArrayProp_LiteralValuePartialFields?
+	): StringArrayProp_LiteralValue
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _StringArrayProp_LiteralValueImpl :: _StringArrayProp_LiteralValueImpl)
+	end
+
+	function _StringArrayProp_LiteralValueImpl.encode(self: StringArrayProp_LiteralValue): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayProp_LiteralValueImpl.decode(input: buffer): StringArrayProp_LiteralValue
+		local self = _StringArrayProp_LiteralValueImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, buffer.tostring(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayProp_LiteralValueImpl.jsonEncode(self: StringArrayProp_LiteralValue): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value)
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _StringArrayProp_LiteralValueImpl.jsonDecode(input: { [string]: any }): StringArrayProp_LiteralValue
+		local self = _StringArrayProp_LiteralValueImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.items do
+				table.insert(newOutput, value)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_StringArrayProp_LiteralValueImpl.descriptor = {
+		name = "StringArrayProp_LiteralValue",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralValue",
+	}
+
+	messages.StringArrayProp_LiteralValue = _StringArrayProp_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp_LiteralValue)
+end
+
+do
+	local _StringArrayProp_ConditionalOptionImpl = {}
+	_StringArrayProp_ConditionalOptionImpl.__index = _StringArrayProp_ConditionalOptionImpl
+
+	function _StringArrayProp_ConditionalOptionImpl.new(
+		data: _StringArrayProp_ConditionalOptionPartialFields?
+	): StringArrayProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _StringArrayProp_ConditionalOptionImpl :: _StringArrayProp_ConditionalOptionImpl)
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.encode(self: StringArrayProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.decode(input: buffer): StringArrayProp_ConditionalOption
+		local self = _StringArrayProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.StringArrayProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.jsonEncode(self: StringArrayProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): StringArrayProp_ConditionalOption
+		local self = _StringArrayProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.StringArrayProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_StringArrayProp_ConditionalOptionImpl.descriptor = {
+		name = "StringArrayProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.StringArrayProp_ConditionalOption = _StringArrayProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp_ConditionalOption)
+end
+
+do
+	local _StringArrayProp_ConditionalOptionsImpl = {}
+	_StringArrayProp_ConditionalOptionsImpl.__index = _StringArrayProp_ConditionalOptionsImpl
+
+	function _StringArrayProp_ConditionalOptionsImpl.new(
+		data: _StringArrayProp_ConditionalOptionsPartialFields?
+	): StringArrayProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _StringArrayProp_ConditionalOptionsImpl :: _StringArrayProp_ConditionalOptionsImpl)
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.encode(self: StringArrayProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.decode(input: buffer): StringArrayProp_ConditionalOptions
+		local self = _StringArrayProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.StringArrayProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.jsonEncode(self: StringArrayProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): StringArrayProp_ConditionalOptions
+		local self = _StringArrayProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { StringArrayProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.StringArrayProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_StringArrayProp_ConditionalOptionsImpl.descriptor = {
+		name = "StringArrayProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.StringArrayProp_ConditionalOptions = _StringArrayProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp_ConditionalOptions)
+end
+
 return {
 	TranslationRef = messages.TranslationRef,
 	StringFormat = messages.StringFormat,
@@ -15515,4 +16165,8 @@ return {
 	ArrayOfAvatarProp_ConditionalOptions = messages.ArrayOfAvatarProp_ConditionalOptions,
 	ArrayOfAvatarProp_ArrayOfAvatars = messages.ArrayOfAvatarProp_ArrayOfAvatars,
 	ArrayOfAvatarProp_ArrayMap = messages.ArrayOfAvatarProp_ArrayMap,
+	StringArrayProp = messages.StringArrayProp,
+	StringArrayProp_LiteralValue = messages.StringArrayProp_LiteralValue,
+	StringArrayProp_ConditionalOption = messages.StringArrayProp_ConditionalOption,
+	StringArrayProp_ConditionalOptions = messages.StringArrayProp_ConditionalOptions,
 }

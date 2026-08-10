@@ -169,6 +169,7 @@ ValidationEnums.ValidationModule = {
 	CurveAnimPartsRotateOnlyIfBones = "CurveAnimPartsRotateOnlyIfBones",
 	CurveAnimBoneHierarchyValid = "CurveAnimBoneHierarchyValid",
 	CurveAnimLoopingRequired = "CurveAnimLoopingRequired",
+	EmissiveMapAllowed = "EmissiveMapAllowed",
 }
 
 ---- Camel case enums (module members) ----
@@ -275,6 +276,8 @@ ValidationEnums.AssetQualityCheck = {
 	Measure_Texture_Complexity = "Measure_Texture_Complexity",
 	Measure_Texture_Resolution = "Measure_Texture_Resolution",
 	Measure_Mesh_Island_Volume = "Measure_Mesh_Island_Volume",
+	Measure_Mesh_Island_ML = "Measure_Mesh_Island_ML",
+	Measure_Animation_Duration = "Measure_Animation_Duration",
 }
 finalizeEnumTable("AssetQualityCheck")
 

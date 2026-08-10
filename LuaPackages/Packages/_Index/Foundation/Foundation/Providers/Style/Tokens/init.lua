@@ -2,13 +2,13 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local Flags = require(Foundation.Utility.Flags)
-local Theme = require(Foundation.Enums.Theme)
 local TokenProcessingUtilities = require(script.TokenProcessingUtilities)
 local Types = require(Foundation.Components.Types)
 
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 type ColorStyleValue = Types.ColorStyleValue
 
@@ -47,13 +47,20 @@ local function applyTokenOverrides(tokens: any, overrides: TokenOverrides): any
 	return tokens
 end
 
-local function getTokens(theme: Theme, deviceInput: Device?, scaleFactor: number?, tokenOverrides: TokenOverrides?)
+local function getTokens(
+	colorMode: ColorMode,
+	deviceInput: Device?,
+	scaleFactor: number?,
+	tokenOverrides: TokenOverrides?
+)
 	local generators = RbxDesignFoundations.Tokens
 	local device: Device = deviceInput or Device.Desktop
 	local scale = getPlatformScale(device, scaleFactor)
-	local themeTokens: typeof(generators.Dark) = if theme == Theme.Dark then generators.Dark else generators.Light
+	local colorModeTokens: typeof(generators.Dark) = if colorMode == ColorMode.Dark
+		then generators.Dark
+		else generators.Light
 
-	local tokens = themeTokens(scale)
+	local tokens = colorModeTokens(scale)
 
 	local filteredTokens = {
 		Color = tokens.Color,
@@ -84,7 +91,7 @@ local function getTokens(theme: Theme, deviceInput: Device?, scaleFactor: number
 	return filteredTokens
 end
 
-local defaultTokens = getTokens(Theme.Dark, Device.Desktop)
+local defaultTokens = getTokens(ColorMode.Dark, Device.Desktop)
 export type Tokens = typeof(defaultTokens)
 
 return {

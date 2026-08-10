@@ -1,7 +1,6 @@
 local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local newValidationManager = require(root.validationSystem.ValidationManager)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local LegacyValidationAdapter = {}
@@ -212,16 +211,12 @@ function LegacyValidationAdapter.studioRFUAssetValidation(
 		}
 	)
 
-	if getFFlagUGCValidationCombineEntrypointResults() then
-		return LegacyValidationAdapter.combineResultsIntoLegacy(
-			legacyPass,
-			legacyReasons,
-			validationData,
-			if validationContext.bypassFlags ~= nil then validationContext.bypassFlags.localizationCallback else nil
-		)
-	end
-
-	return legacyPass, legacyReasons
+	return LegacyValidationAdapter.combineResultsIntoLegacy(
+		legacyPass,
+		legacyReasons,
+		validationData,
+		if validationContext.bypassFlags ~= nil then validationContext.bypassFlags.localizationCallback else nil
+	)
 end
 
 function LegacyValidationAdapter.studioRFUBundleValidation(
@@ -263,18 +258,14 @@ function LegacyValidationAdapter.studioRFUBundleValidation(
 			else nil,
 	})
 
-	if getFFlagUGCValidationCombineEntrypointResults() then
-		assert(validationContext.bypassFlags)
-		assert(validationContext.bypassFlags.localizationCallback)
-		return LegacyValidationAdapter.combineResultsIntoLegacy(
-			legacyPass,
-			legacyReasons,
-			validationData,
-			if validationContext.bypassFlags ~= nil then validationContext.bypassFlags.localizationCallback else nil
-		)
-	end
-
-	return legacyPass, legacyReasons
+	assert(validationContext.bypassFlags)
+	assert(validationContext.bypassFlags.localizationCallback)
+	return LegacyValidationAdapter.combineResultsIntoLegacy(
+		legacyPass,
+		legacyReasons,
+		validationData,
+		if validationContext.bypassFlags ~= nil then validationContext.bypassFlags.localizationCallback else nil
+	)
 end
 
 return LegacyValidationAdapter

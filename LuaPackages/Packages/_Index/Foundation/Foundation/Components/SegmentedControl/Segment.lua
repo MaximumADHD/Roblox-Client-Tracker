@@ -10,12 +10,17 @@ local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 
+local FillBehavior = require(Foundation.Enums.FillBehavior)
+local Flags = require(Foundation.Utility.Flags)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
+local SegmentedControlVariant = require(Foundation.Enums.SegmentedControlVariant)
 
+type FillBehavior = FillBehavior.FillBehavior
 type IconSize = IconSize.IconSize
 type InputSize = InputSize.InputSize
 type ColorStyleValue = Types.ColorStyleValue
+type SegmentedControlVariant = SegmentedControlVariant.SegmentedControlVariant
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -37,12 +42,25 @@ type SegmentProps = Segment & {
 	isActive: boolean,
 	onActivated: (id: Types.ItemId) -> (),
 	size: InputSize,
+	variant: SegmentedControlVariant,
+	fillBehavior: FillBehavior,
 	isCircular: boolean?,
 } & Types.CommonProps
 
 local function Segment(props: SegmentProps, ref: React.Ref<GuiObject>?)
+	local variant: SegmentedControlVariant = if Flags.FoundationSegmentedControlBeta
+		then props.variant
+		else nil :: never
+	local fillBehavior: FillBehavior = if Flags.FoundationSegmentedControlBeta then props.fillBehavior else nil :: never
 	local tokens = useTokens()
-	local variantProps = useSegmentedControlVariants(tokens, props.size, props.isCircular)
+	local variantProps = useSegmentedControlVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationSegmentedControlBeta then variant else nil :: never,
+		if Flags.FoundationSegmentedControlBeta then fillBehavior else nil :: never,
+		props.isCircular,
+		if Flags.FoundationSegmentedControlBeta then props.isActive else nil
+	)
 
 	if _G.__DEV__ == true then
 		assert(
@@ -86,10 +104,13 @@ local function Segment(props: SegmentProps, ref: React.Ref<GuiObject>?)
 					variant = iconVariant,
 					size = iconVariants.size,
 					style = iconVariants.style,
+					testId = if Flags.FoundationSegmentedControlBeta then `{props.testId}--icon` else nil,
 				})
 				else React.createElement(Text, {
 					tag = variantProps.text.tag,
 					Text = props.text :: string,
+					textStyle = if Flags.FoundationSegmentedControlBeta then variantProps.text.style else nil,
+					testId = if Flags.FoundationSegmentedControlBeta then `{props.testId}--text` else nil,
 				}),
 		}
 	)

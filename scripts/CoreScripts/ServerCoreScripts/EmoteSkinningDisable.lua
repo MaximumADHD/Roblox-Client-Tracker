@@ -9,6 +9,8 @@ local Players = game:GetService("Players")
 local InsertService = game:GetService("InsertService")
 
 local FFlagEmoteSkinningDisableUseClassLookup = game:DefineFastFlag("EmoteSkinningDisableUseClassLookup", false)
+local FFlagEmoteSkinningDisableCleanupCharacterConnections =
+	game:DefineFastFlag("EmoteSkinningDisableCleanupCharacterConnections", false)
 local TRANSLATION_THRESHOLD = game:DefineFastInt("UGCEmoteSkinningDisableTranslationThresholdMillistuds", 100) * 0.001
 
 local clipMetadataCache: { [string]: { isUGCEmote: boolean, maxTranslation: number } } = {}
@@ -61,6 +63,7 @@ local function setAllJointsSkinning(character: Model, enabled: boolean)
 end
 
 local activeEmoteConnections: { [Model]: RBXScriptConnection } = {}
+local animationPlayedConnections: { [Model]: RBXScriptConnection } = {}
 
 local function clearActiveEmoteConnection(character: Model)
 	if activeEmoteConnections[character] then
@@ -69,8 +72,18 @@ local function clearActiveEmoteConnection(character: Model)
 	end
 end
 
+local function clearAnimationPlayedConnection(character: Model)
+	if animationPlayedConnections[character] then
+		animationPlayedConnections[character]:Disconnect()
+		animationPlayedConnections[character] = nil
+	end
+end
+
 local function onCharacterRemoving(character: Model)
 	clearActiveEmoteConnection(character)
+	if FFlagEmoteSkinningDisableCleanupCharacterConnections then
+		clearAnimationPlayedConnection(character)
+	end
 end
 
 local function onAnimationPlayed(character: Model, track: AnimationTrack)
@@ -124,9 +137,14 @@ local function onCharacterAdded(character: Model)
 		animator = humanoid:WaitForChild("Animator") :: Animator
 	end
 
-	animator.AnimationPlayed:Connect(function(track)
+	local connection = animator.AnimationPlayed:Connect(function(track)
 		onAnimationPlayed(character, track)
 	end)
+
+	if FFlagEmoteSkinningDisableCleanupCharacterConnections then
+		clearAnimationPlayedConnection(character)
+		animationPlayedConnections[character] = connection
+	end
 end
 
 local function onPlayerAdded(player: Player)

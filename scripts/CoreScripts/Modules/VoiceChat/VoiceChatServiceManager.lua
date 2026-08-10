@@ -141,7 +141,6 @@ local SeamlessVoiceStatus = require(RobloxGui.Modules.Settings.Enum.SeamlessVoic
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
-local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
 local GetFFlagDisconnectToastClientRewrite =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
 local GetFFlagEnableVrVoiceParity = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceParity
@@ -505,7 +504,7 @@ function VoiceChatServiceManager.new(
 	end)
 	self.coreVoiceManager:subscribe("OnRequestMicPermissionRejected", function()
 		-- Check mic permission settings. Show prompt if no permission
-		if GetFFlagEnableSeamlessVoiceV2() and self:IsSeamlessVoice() then
+		if self:IsSeamlessVoice() then
 			self.deniedMicPermissions = true
 		end
 		if GetFFlagEnableUniveralVoiceToasts() and not FFlagSkipVoicePermissionCheck then
@@ -686,10 +685,7 @@ function VoiceChatServiceManager.new(
 				"voiceConnectFtuxLeaveEvent",
 				self:GetConnectDisconnectAnalyticsData()
 			)
-		elseif
-			GetFFlagEnableSeamlessVoiceV2()
-			and self:IsSeamlessVoice()
-		then
+		elseif self:IsSeamlessVoice() then
 			if GetFFlagEnableVoiceTrustedConnectionsToasts() then
 				self:showJoinVoicePrompt()
 			elseif GetFFlagUpdateVoiceConnectionToasts() then
@@ -1486,22 +1482,15 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 	local function showPrompt()
 		local userEligible = self.userEligible
 		if self.voiceEnabled or userEligible then
-			-- we already checked and requested permissions above. If we got here then Mic permissions were denied.
-			if not GetFFlagEnableSeamlessVoiceV2() and GetFFlagJoinWithoutMicPermissions() then
-				if self.permissionState == PERMISSION_STATE.LISTEN_ONLY then
-					self:showPrompt(VoiceChatPromptType.Permission)
-				end
-			else
-				return self.PermissionsService
-					:hasPermissions({
-						PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
-					})
-					:andThen(function(permissionResponse)
-						if permissionResponse and permissionResponse.status == PermissionsProtocol.Status.DENIED then
-							self:showPrompt(VoiceChatPromptType.Permission)
-						end
-					end)
-			end
+			return self.PermissionsService
+				:hasPermissions({
+					PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
+				})
+				:andThen(function(permissionResponse)
+					if permissionResponse and permissionResponse.status == PermissionsProtocol.Status.DENIED then
+						self:showPrompt(VoiceChatPromptType.Permission)
+					end
+				end)
 		end
 		return Promise.resolve()
 	end
@@ -1850,7 +1839,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			self.isInitialJoin = true
 		end
 		self.attemptVoiceRejoin:Fire()
-		if GetFFlagEnableSeamlessVoiceV2() and self:IsNewSeamlessVoiceUserDisconnect() then
+		if self:IsNewSeamlessVoiceUserDisconnect() then
 			self:SetVoiceConnectCookieValue(true)
 			self:SetNewUserFTUXCookieValue(true)
 		end

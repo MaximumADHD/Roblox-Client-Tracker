@@ -184,6 +184,7 @@ export type ValidationReporterReportMethod = (
 export type ValidationReporter = {
 	fail: ValidationReporterReportMethod,
 	warn: ValidationReporterReportMethod,
+	err: (self: ValidationReporter, logMessage: string) -> nil,
 	setReportingInstance: (self: ValidationReporter, instance: Instance?) -> nil,
 	-- Backend-only: throws past ValidationManager so RCC reschedules the job.
 	forceError: (self: ValidationReporter, message: string) -> never,
@@ -226,6 +227,7 @@ export type ConsumerEnv = "Studio" | "Backend" | "IEC"
 export type BackendConfigs = {
 	restrictedUserIds: RestrictedUserIds?,
 	isUserInTrustedCreatorProgram: boolean?,
+	isEmissiveAllowed: boolean?,
 	universeId: number?,
 }
 

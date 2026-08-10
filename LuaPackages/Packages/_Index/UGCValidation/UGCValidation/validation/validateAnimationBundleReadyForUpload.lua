@@ -11,7 +11,6 @@ local destroyEditableInstances = require(root.util.destroyEditableInstances)
 
 local validateBundleReadyForUpload = require(root.validation.validateBundleReadyForUpload)
 
-local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidationAnimationPackFolderStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
@@ -243,10 +242,7 @@ local function validateAnimationBundleReadyForUpload(
 
 	progressCallback(response)
 
-	local telemetryBundleId
-	if getFFlagUGCValidationEnableFolderStructure() then
-		telemetryBundleId = HttpService:GenerateGUID()
-	end
+	local telemetryBundleId = HttpService:GenerateGUID()
 
 	return Promise.each(pieces, function(piece: AvatarValidationPiece, index: number)
 		if piece.status == "finished" then
@@ -273,14 +269,12 @@ local function validateAnimationBundleReadyForUpload(
 			validationContext.editableImages = result.editableImages :: Types.EditableImages
 
 			success, problems = true, nil
-			if getFFlagUGCValidationEnableFolderStructure() then
-				success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
-					validationContext,
-					telemetryBundleId,
-					success,
-					problems
-				)
-			end
+			success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
+				validationContext,
+				telemetryBundleId,
+				success,
+				problems
+			)
 
 			destroyEditableInstances(
 				validationContext.editableMeshes :: Types.EditableMeshes,
@@ -348,7 +342,7 @@ local function validateAnimationBundleReadyForUpload(
 				validationContext.editableImages = result.editableImages :: Types.EditableImages
 
 				success, failures = true, nil
-				if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationAnimationPackSupport() then
+				if getFFlagUGCValidationAnimationPackSupport() then
 					success, failures = LegacyValidationAdapter.studioRFUBundleValidation(
 						fullBodyData,
 						Enum.BundleType.Animations,

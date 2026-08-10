@@ -26,7 +26,15 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
-local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
+local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
+local ChatChromeIntegration = if FFlagExpChatEnableFriendsTab and ChromeEnabled
+	then require(RobloxGui.Modules.Chrome.Integrations.ExpChat.ChatChromeIntegration)
+	else nil
+local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
+local openConversation = require(CorePackages.Workspace.Packages.FriendsChat.openConversation)
+local Promise = require(CorePackages.Packages.Promise)
 local SSUIMetaLua = game:GetEngineFeature("SSUIMetaLua")
 
 local TopBarTopMargin = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarTopMargin)
@@ -50,6 +58,18 @@ end
 local updateAppChatUnreadMessagesCount = function(newCount)
 	InExperienceAppChatModal:setUnreadCount(newCount)
 end
+
+local chatOpenCapability = if ChatChromeIntegration then ChatChromeIntegration.chatOpenCapability else nil
+local openFriendsChatConversation = if chatOpenCapability
+	then ParentContainer.createOpenFriendsChatConversation({
+		isChatAvailable = chatOpenCapability.isAvailable,
+		openConversation = openConversation,
+		requestSelectTab = ExpChat.requestSelectTab,
+		ensureOpenChat = chatOpenCapability.ensureOpenChat,
+	})
+	else function(_conversationId: string)
+		return Promise.resolve(false)
+	end
 
 local parentContainerContext: ParentContainer.ParentContainerContextType = {
 	getParentContainer = function()
@@ -79,6 +99,7 @@ local parentContainerContext: ParentContainer.ParentContainerContextType = {
 			InExperienceAppChatModal:setCurrentSquadId(squadId)
 		end
 	end,
+	openFriendsChatConversation = openFriendsChatConversation,
 }
 
 renderCoreScriptInExperienceAppChat(ApolloClient, parentContainerContext, updateAppChatUnreadMessagesCount)

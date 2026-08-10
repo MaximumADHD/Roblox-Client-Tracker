@@ -16,6 +16,7 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
 local FFlagUserPlayerScriptsRefactor1 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor1")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsFixTouchJumpVisibility = FlagUtil.getUserFlag("UserPlayerScriptsFixTouchJumpVisibility")
 
 local Players = game:GetService("Players")
 
@@ -67,6 +68,10 @@ function TouchJump.new(data, playerData)
 	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 	data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
 		self:Create()
+		if FFlagUserPlayerScriptsFixTouchJumpVisibility and self._active then
+			self._active = false
+			self:EnableButton(true)
+		end
 	end)
 
 	self.parentUIFrame = nil

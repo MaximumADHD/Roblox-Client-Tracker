@@ -28,7 +28,6 @@ local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
 local FFlagUserPSSpecifySimulationFrequency = FlagUtil.getUserFlag("UserPSSpecifySimulationFrequency")
-local FFlagUserPSFixTouchInitialization = FlagUtil.getUserFlag("UserPSFixTouchInitialization")
 local FFlagUserPlayerScriptsBindActivateOnIAS = FlagUtil.getUserFlag("UserPlayerScriptsBindActivateOnIAS")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 local FFlagUserPlayerScriptsUseReplicatedCameraAPI = FlagUtil.getUserFlag("UserPlayerScriptsUseReplicatedCameraAPI")
@@ -176,10 +175,6 @@ function ControlModule.new() -- TODO ControlModule should be static
 				self:UpdateMovementMode()
 			end
 		end)
-	end
-
-	if not FFlagUserPSFixTouchInitialization then
-		self:UpdateMovementMode()
 	end
 
 	if FFlagUserPlayerScriptsBindActivateOnIAS then
@@ -659,9 +654,8 @@ function ControlModule:initialize(data, playerData)
 	self.data = data
 	self.playerData = playerData -- DO NOT DO THIS, THIS IS A CONVERSION STEP. MODULES SHOULD NOT SAVE STATE
 
-	if FFlagUserPSFixTouchInitialization then
-		self:UpdateMovementMode()
-	end
+	self:UpdateMovementMode()
+
 	ActionController.initializeActions(self.data, self.playerData)
 	if FFlagUserPlayerScriptsCCLIntegrationC then
 		InputSlots.setupSlotActions(self.playerData.player)

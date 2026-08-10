@@ -21,6 +21,9 @@ local getAppChatNavbarItemConfig = require(CorePackages.Workspace.Packages.AppCh
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
+local FFlagEnableChatIconUnibarDropdownFixEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableChatIconUnibarDropdownFixEnabled
+
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 local AVATAR_SIZE = 24
@@ -114,6 +117,19 @@ local function ConnectIcon(_props: Props): React.ReactElement
 			else transparency
 	end
 
+	local iconStyle
+	if FFlagEnableChatIconUnibarDropdownFixEnabled then
+		local defaultTransparency = tokens.Color.Content.Default.Transparency
+		iconStyle = if submenuTransition
+			then submenuTransition:map(function(v)
+				return {
+					Color3 = tokens.Color.Content.Default.Color3,
+					Transparency = defaultTransparency + (1 - defaultTransparency) * (1 - v),
+				}
+			end)
+			else tokens.Color.Content.Default
+	end
+
 	return React.createElement(Foundation.View, {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 	}, {
@@ -123,6 +139,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 				Position = UDim2.fromScale(0.5, 0.5),
 				name = visualConfig.icon,
 				variant = if visible then Foundation.Enums.IconVariant.Filled else Foundation.Enums.IconVariant.Regular,
+				style = if FFlagEnableChatIconUnibarDropdownFixEnabled then iconStyle else nil,
 			})
 			else React.createElement(Foundation.Image, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -160,7 +177,10 @@ local function ConnectIcon(_props: Props): React.ReactElement
 					Transparency = getTransparency(tokens.Color.Surface.Surface_0.Transparency),
 					Thickness = tokens.Stroke.Thicker,
 				},
-				tag = "anchor-top-right radius-circle size-200 stroke-thicker",
+				tag = {
+					["anchor-top-right radius-circle size-200"] = true,
+					["stroke-thicker"] = not FFlagEnableChatIconUnibarDropdownFixEnabled,
+				},
 				ZIndex = 2,
 			})
 			else nil,

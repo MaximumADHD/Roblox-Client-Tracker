@@ -12,9 +12,6 @@ local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUt
 local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
 local Enums = InExperienceSideSheet.Enums
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
-
 local pageOpenSignal = InGameMenuIntegrationUtils.createPageOpenSignal("LeaveGamePage")
 
 return ChromeService:register({
@@ -25,11 +22,7 @@ return ChromeService:register({
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("LeaveGamePage", pageOpenSignal:get())
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then pageOpenSignal
-		else function()
-			return pageOpenSignal:get()
-		end,
+	isActivated = pageOpenSignal,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/actions/leave", nil, pageOpenSignal)

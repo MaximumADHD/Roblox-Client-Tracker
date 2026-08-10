@@ -121,6 +121,10 @@ type _Messages =
 		VerticalFeedInputData_ContentPoolsEntry: _VerticalFeedInputData_ContentPoolsEntryMessage,
 		PageHeaderInputData: _PageHeaderInputDataMessage,
 		PreAuthLandingStickyHeaderInputData: _PreAuthLandingStickyHeaderInputDataMessage,
+		FriendRecommendationCarouselInputData: _FriendRecommendationCarouselInputDataMessage,
+		FriendRecommendationCarouselInputData_UserRecommendation: _FriendRecommendationCarouselInputData_UserRecommendationMessage,
+		FriendRecommendationCarouselInputData_ContactRecommendation: _FriendRecommendationCarouselInputData_ContactRecommendationMessage,
+		FriendRecommendationCarouselInputData_RecommendationItem: _FriendRecommendationCarouselInputData_RecommendationItemMessage,
 		OptionSelectorCarouselInputData: _OptionSelectorCarouselInputDataMessage,
 		SelectorOption: _SelectorOptionMessage,
 		ItemWithLayout: _ItemWithLayoutMessage,
@@ -308,6 +312,7 @@ type _PageEntryInputDataFields = {
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
+		| { type: "friend_recommendation_carousel", value: FriendRecommendationCarouselInputData }
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 	)?,
@@ -378,6 +383,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
+		| { type: "friend_recommendation_carousel", value: FriendRecommendationCarouselInputData }
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 	)?,
@@ -1706,12 +1712,18 @@ type _DynamicStoreCategoryInputDataFields = {
 	items: { DynamicStoreCategoryInputData_DynamicStoreCategoryItem },
 	universe_id: string,
 	section_title: string,
+	creator_key: string,
+	collection_item_size: string,
+	item_height_mode: string,
 }
 
 type _DynamicStoreCategoryInputDataPartialFields = {
 	items: { DynamicStoreCategoryInputData_DynamicStoreCategoryItem }?,
 	universe_id: string?,
 	section_title: string?,
+	creator_key: string?,
+	collection_item_size: string?,
+	item_height_mode: string?,
 }
 
 export type DynamicStoreCategoryInputData = typeof(setmetatable(
@@ -1761,6 +1773,7 @@ export type DynamicStoreCategoryInputData_DynamicStoreCategoryItemType =
 	"DYNAMIC_STORE_CATEGORY_ITEM_TYPE_INVALID"
 	| "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_GAME_PASS"
 	| "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_DEVELOPER_PRODUCT"
+	| "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_SUBSCRIPTION"
 	| number -- Unknown
 
 type _CardContainerCardInputDataImpl = {
@@ -3135,12 +3148,14 @@ type _UserListInputDataFields = {
 	title: string,
 	user_items: { UserListInputData_UserItem },
 	max_visible_rows: number,
+	sort_id: string?,
 }
 
 type _UserListInputDataPartialFields = {
 	title: string?,
 	user_items: { UserListInputData_UserItem }?,
 	max_visible_rows: number?,
+	sort_id: string?,
 }
 
 export type UserListInputData = typeof(setmetatable({} :: _UserListInputDataFields, {} :: _UserListInputDataImpl))
@@ -3187,12 +3202,14 @@ type _CatalogItemListInputDataFields = {
 	title: string,
 	items: { CatalogItemListInputData_CatalogItem },
 	max_visible_rows: number,
+	sort_id: string?,
 }
 
 type _CatalogItemListInputDataPartialFields = {
 	title: string?,
 	items: { CatalogItemListInputData_CatalogItem }?,
 	max_visible_rows: number?,
+	sort_id: string?,
 }
 
 export type CatalogItemListInputData = typeof(setmetatable(
@@ -3601,6 +3618,142 @@ export type PreAuthLandingStickyHeaderInputData = typeof(setmetatable(
 type _PreAuthLandingStickyHeaderInputDataMessage = proto.Message<
 	PreAuthLandingStickyHeaderInputData,
 	_PreAuthLandingStickyHeaderInputDataPartialFields
+>
+
+type _FriendRecommendationCarouselInputDataImpl = {
+	__index: _FriendRecommendationCarouselInputDataImpl,
+	new: (fields: _FriendRecommendationCarouselInputDataPartialFields?) -> FriendRecommendationCarouselInputData,
+	encode: (self: FriendRecommendationCarouselInputData) -> buffer,
+	decode: (input: buffer) -> FriendRecommendationCarouselInputData,
+	jsonEncode: (self: FriendRecommendationCarouselInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FriendRecommendationCarouselInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _FriendRecommendationCarouselInputDataFields = {
+	items: { FriendRecommendationCarouselInputData_RecommendationItem },
+	sort_id: string,
+	recommendation_request_id: string,
+}
+
+type _FriendRecommendationCarouselInputDataPartialFields = {
+	items: { FriendRecommendationCarouselInputData_RecommendationItem }?,
+	sort_id: string?,
+	recommendation_request_id: string?,
+}
+
+export type FriendRecommendationCarouselInputData = typeof(setmetatable(
+	{} :: _FriendRecommendationCarouselInputDataFields,
+	{} :: _FriendRecommendationCarouselInputDataImpl
+))
+type _FriendRecommendationCarouselInputDataMessage = proto.Message<
+	FriendRecommendationCarouselInputData,
+	_FriendRecommendationCarouselInputDataPartialFields
+>
+
+type _FriendRecommendationCarouselInputData_UserRecommendationImpl = {
+	__index: _FriendRecommendationCarouselInputData_UserRecommendationImpl,
+	new: (
+		fields: _FriendRecommendationCarouselInputData_UserRecommendationPartialFields?
+	) -> FriendRecommendationCarouselInputData_UserRecommendation,
+	encode: (self: FriendRecommendationCarouselInputData_UserRecommendation) -> buffer,
+	decode: (input: buffer) -> FriendRecommendationCarouselInputData_UserRecommendation,
+	jsonEncode: (self: FriendRecommendationCarouselInputData_UserRecommendation) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FriendRecommendationCarouselInputData_UserRecommendation,
+	descriptor: proto.Descriptor,
+}
+
+type _FriendRecommendationCarouselInputData_UserRecommendationFields = {
+	user_id: string,
+}
+
+type _FriendRecommendationCarouselInputData_UserRecommendationPartialFields = {
+	user_id: string?,
+}
+
+export type FriendRecommendationCarouselInputData_UserRecommendation = typeof(setmetatable(
+	{} :: _FriendRecommendationCarouselInputData_UserRecommendationFields,
+	{} :: _FriendRecommendationCarouselInputData_UserRecommendationImpl
+))
+type _FriendRecommendationCarouselInputData_UserRecommendationMessage = proto.Message<
+	FriendRecommendationCarouselInputData_UserRecommendation,
+	_FriendRecommendationCarouselInputData_UserRecommendationPartialFields
+>
+
+type _FriendRecommendationCarouselInputData_ContactRecommendationImpl = {
+	__index: _FriendRecommendationCarouselInputData_ContactRecommendationImpl,
+	new: (
+		fields: _FriendRecommendationCarouselInputData_ContactRecommendationPartialFields?
+	) -> FriendRecommendationCarouselInputData_ContactRecommendation,
+	encode: (self: FriendRecommendationCarouselInputData_ContactRecommendation) -> buffer,
+	decode: (input: buffer) -> FriendRecommendationCarouselInputData_ContactRecommendation,
+	jsonEncode: (self: FriendRecommendationCarouselInputData_ContactRecommendation) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FriendRecommendationCarouselInputData_ContactRecommendation,
+	descriptor: proto.Descriptor,
+}
+
+type _FriendRecommendationCarouselInputData_ContactRecommendationFields = {
+	contact_id: string,
+	contact_name: string,
+	avatar_thumbnail_url: string,
+	headshot_thumbnail_url: string,
+}
+
+type _FriendRecommendationCarouselInputData_ContactRecommendationPartialFields = {
+	contact_id: string?,
+	contact_name: string?,
+	avatar_thumbnail_url: string?,
+	headshot_thumbnail_url: string?,
+}
+
+export type FriendRecommendationCarouselInputData_ContactRecommendation = typeof(setmetatable(
+	{} :: _FriendRecommendationCarouselInputData_ContactRecommendationFields,
+	{} :: _FriendRecommendationCarouselInputData_ContactRecommendationImpl
+))
+type _FriendRecommendationCarouselInputData_ContactRecommendationMessage = proto.Message<
+	FriendRecommendationCarouselInputData_ContactRecommendation,
+	_FriendRecommendationCarouselInputData_ContactRecommendationPartialFields
+>
+
+type _FriendRecommendationCarouselInputData_RecommendationItemImpl = {
+	__index: _FriendRecommendationCarouselInputData_RecommendationItemImpl,
+	new: (
+		fields: _FriendRecommendationCarouselInputData_RecommendationItemPartialFields?
+	) -> FriendRecommendationCarouselInputData_RecommendationItem,
+	encode: (self: FriendRecommendationCarouselInputData_RecommendationItem) -> buffer,
+	decode: (input: buffer) -> FriendRecommendationCarouselInputData_RecommendationItem,
+	jsonEncode: (self: FriendRecommendationCarouselInputData_RecommendationItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FriendRecommendationCarouselInputData_RecommendationItem,
+	descriptor: proto.Descriptor,
+}
+
+type _FriendRecommendationCarouselInputData_RecommendationItemFields = {
+	context_type: string,
+	mutual_friends_count: number,
+	kind: (
+		{ type: "user", value: FriendRecommendationCarouselInputData_UserRecommendation }
+		| { type: "contact", value: FriendRecommendationCarouselInputData_ContactRecommendation }
+	)?,
+	has_pending_friend_request: boolean,
+}
+
+type _FriendRecommendationCarouselInputData_RecommendationItemPartialFields = {
+	context_type: string?,
+	mutual_friends_count: number?,
+	kind: (
+		{ type: "user", value: FriendRecommendationCarouselInputData_UserRecommendation }
+		| { type: "contact", value: FriendRecommendationCarouselInputData_ContactRecommendation }
+	)?,
+	has_pending_friend_request: boolean?,
+}
+
+export type FriendRecommendationCarouselInputData_RecommendationItem = typeof(setmetatable(
+	{} :: _FriendRecommendationCarouselInputData_RecommendationItemFields,
+	{} :: _FriendRecommendationCarouselInputData_RecommendationItemImpl
+))
+type _FriendRecommendationCarouselInputData_RecommendationItemMessage = proto.Message<
+	FriendRecommendationCarouselInputData_RecommendationItem,
+	_FriendRecommendationCarouselInputData_RecommendationItemPartialFields
 >
 
 type _OptionSelectorCarouselInputDataImpl = {
@@ -4553,6 +4706,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1100, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "friend_recommendation_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1103, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "party_chat_conversation_upsell" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1200, proto.wireTypes.lengthDelimited)
@@ -4986,6 +5143,14 @@ do
 						value = messages.OptionSelectorCarouselInputData.decode(value),
 					}
 					continue
+				elseif field == 1103 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "friend_recommendation_carousel",
+						value = messages.FriendRecommendationCarouselInputData.decode(value),
+					}
+					continue
 				elseif field == 1200 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -5156,6 +5321,8 @@ do
 				output.experienceEmphasisTile = self.kind.value:jsonEncode()
 			elseif self.kind.type == "option_selector_carousel" then
 				output.optionSelectorCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "friend_recommendation_carousel" then
+				output.friendRecommendationCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "party_chat_conversation_upsell" then
 				output.partyChatConversationUpsell = self.kind.value:jsonEncode()
 			elseif self.kind.type == "pre_auth_landing_sticky_header" then
@@ -5932,6 +6099,20 @@ do
 			self.kind = {
 				type = "option_selector_carousel",
 				value = messages.OptionSelectorCarouselInputData.jsonDecode(input.optionSelectorCarousel),
+			}
+		end
+
+		if input.friend_recommendation_carousel ~= nil then
+			self.kind = {
+				type = "friend_recommendation_carousel",
+				value = messages.FriendRecommendationCarouselInputData.jsonDecode(input.friend_recommendation_carousel),
+			}
+		end
+
+		if input.friendRecommendationCarousel ~= nil then
+			self.kind = {
+				type = "friend_recommendation_carousel",
+				value = messages.FriendRecommendationCarouselInputData.jsonDecode(input.friendRecommendationCarousel),
 			}
 		end
 
@@ -12662,6 +12843,11 @@ do
 			items = if data == nil or data.items == nil then {} else data.items,
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			section_title = if data == nil or data.section_title == nil then "" else data.section_title,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			collection_item_size = if data == nil or data.collection_item_size == nil
+				then ""
+				else data.collection_item_size,
+			item_height_mode = if data == nil or data.item_height_mode == nil then "" else data.item_height_mode,
 		}, _DynamicStoreCategoryInputDataImpl :: _DynamicStoreCategoryInputDataImpl)
 	end
 
@@ -12685,6 +12871,21 @@ do
 		if self.section_title ~= nil and self.section_title ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.section_title)
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		if self.collection_item_size ~= nil and self.collection_item_size ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_item_size)
+		end
+
+		if self.item_height_mode ~= nil and self.item_height_mode ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_height_mode)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -12723,6 +12924,21 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.section_title = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_key = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_item_size = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_height_mode = buffer.tostring(value)
 					continue
 				end
 
@@ -12767,6 +12983,18 @@ do
 			output.sectionTitle = self.section_title
 		end
 
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
+		if self.collection_item_size ~= nil and self.collection_item_size ~= "" then
+			output.collectionItemSize = self.collection_item_size
+		end
+
+		if self.item_height_mode ~= nil and self.item_height_mode ~= "" then
+			output.itemHeightMode = self.item_height_mode
+		end
+
 		return output
 	end
 
@@ -12799,6 +13027,30 @@ do
 
 		if input.sectionTitle ~= nil then
 			self.section_title = input.sectionTitle
+		end
+
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
+		end
+
+		if input.collection_item_size ~= nil then
+			self.collection_item_size = input.collection_item_size
+		end
+
+		if input.collectionItemSize ~= nil then
+			self.collection_item_size = input.collectionItemSize
+		end
+
+		if input.item_height_mode ~= nil then
+			self.item_height_mode = input.item_height_mode
+		end
+
+		if input.itemHeightMode ~= nil then
+			self.item_height_mode = input.itemHeightMode
 		end
 
 		return self
@@ -12993,6 +13245,8 @@ messages.DynamicStoreCategoryInputData_DynamicStoreCategoryItemType = {
 			return "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_GAME_PASS"
 		elseif value == 2 then
 			return "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_DEVELOPER_PRODUCT"
+		elseif value == 3 then
+			return "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_SUBSCRIPTION"
 		else
 			return nil
 		end
@@ -13005,6 +13259,8 @@ messages.DynamicStoreCategoryInputData_DynamicStoreCategoryItemType = {
 			return 1
 		elseif self == "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_DEVELOPER_PRODUCT" then
 			return 2
+		elseif self == "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_SUBSCRIPTION" then
+			return 3
 		else
 			return self
 		end
@@ -13017,6 +13273,8 @@ messages.DynamicStoreCategoryInputData_DynamicStoreCategoryItemType = {
 			return "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_GAME_PASS"
 		elseif name == "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_DEVELOPER_PRODUCT" then
 			return "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_DEVELOPER_PRODUCT"
+		elseif name == "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_SUBSCRIPTION" then
+			return "DYNAMIC_STORE_CATEGORY_ITEM_TYPE_SUBSCRIPTION"
 		else
 			return nil
 		end
@@ -20528,6 +20786,7 @@ do
 			title = if data == nil or data.title == nil then "" else data.title,
 			user_items = if data == nil or data.user_items == nil then {} else data.user_items,
 			max_visible_rows = if data == nil or data.max_visible_rows == nil then 0 else data.max_visible_rows,
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
 		}, _UserListInputDataImpl :: _UserListInputDataImpl)
 	end
 
@@ -20551,6 +20810,11 @@ do
 		if self.max_visible_rows ~= nil and self.max_visible_rows ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.max_visible_rows)
+		end
+
+		if self.sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -20586,6 +20850,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.user_items, messages.UserListInputData_UserItem.decode(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
 					continue
 				end
 
@@ -20630,6 +20899,10 @@ do
 			output.maxVisibleRows = self.max_visible_rows
 		end
 
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id
+		end
+
 		return output
 	end
 
@@ -20664,6 +20937,14 @@ do
 
 		if input.maxVisibleRows ~= nil then
 			self.max_visible_rows = input.maxVisibleRows
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
 		end
 
 		return self
@@ -20791,6 +21072,7 @@ do
 			title = if data == nil or data.title == nil then "" else data.title,
 			items = if data == nil or data.items == nil then {} else data.items,
 			max_visible_rows = if data == nil or data.max_visible_rows == nil then 0 else data.max_visible_rows,
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
 		}, _CatalogItemListInputDataImpl :: _CatalogItemListInputDataImpl)
 	end
 
@@ -20814,6 +21096,11 @@ do
 		if self.max_visible_rows ~= nil and self.max_visible_rows ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.max_visible_rows)
+		end
+
+		if self.sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -20849,6 +21136,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.items, messages.CatalogItemListInputData_CatalogItem.decode(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
 					continue
 				end
 
@@ -20893,6 +21185,10 @@ do
 			output.maxVisibleRows = self.max_visible_rows
 		end
 
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id
+		end
+
 		return output
 	end
 
@@ -20918,6 +21214,14 @@ do
 
 		if input.maxVisibleRows ~= nil then
 			self.max_visible_rows = input.maxVisibleRows
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
 		end
 
 		return self
@@ -22991,6 +23295,695 @@ do
 end
 
 do
+	local _FriendRecommendationCarouselInputDataImpl = {}
+	_FriendRecommendationCarouselInputDataImpl.__index = _FriendRecommendationCarouselInputDataImpl
+
+	function _FriendRecommendationCarouselInputDataImpl.new(
+		data: _FriendRecommendationCarouselInputDataPartialFields?
+	): FriendRecommendationCarouselInputData
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			recommendation_request_id = if data == nil or data.recommendation_request_id == nil
+				then ""
+				else data.recommendation_request_id,
+		}, _FriendRecommendationCarouselInputDataImpl :: _FriendRecommendationCarouselInputDataImpl)
+	end
+
+	function _FriendRecommendationCarouselInputDataImpl.encode(self: FriendRecommendationCarouselInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.recommendation_request_id ~= nil and self.recommendation_request_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.recommendation_request_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FriendRecommendationCarouselInputDataImpl.decode(input: buffer): FriendRecommendationCarouselInputData
+		local self = _FriendRecommendationCarouselInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.items,
+						messages.FriendRecommendationCarouselInputData_RecommendationItem.decode(value)
+					)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.recommendation_request_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FriendRecommendationCarouselInputDataImpl.jsonEncode(self: FriendRecommendationCarouselInputData): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.recommendation_request_id ~= nil and self.recommendation_request_id ~= "" then
+			output.recommendationRequestId = self.recommendation_request_id
+		end
+
+		return output
+	end
+
+	function _FriendRecommendationCarouselInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): FriendRecommendationCarouselInputData
+		local self = _FriendRecommendationCarouselInputDataImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { FriendRecommendationCarouselInputData_RecommendationItem } = {}
+			for _, value in input.items do
+				table.insert(
+					newOutput,
+					messages.FriendRecommendationCarouselInputData_RecommendationItem.jsonDecode(value)
+				)
+			end
+
+			self.items = newOutput
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.recommendation_request_id ~= nil then
+			self.recommendation_request_id = input.recommendation_request_id
+		end
+
+		if input.recommendationRequestId ~= nil then
+			self.recommendation_request_id = input.recommendationRequestId
+		end
+
+		return self
+	end
+
+	_FriendRecommendationCarouselInputDataImpl.descriptor = {
+		name = "FriendRecommendationCarouselInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FriendRecommendationCarouselInputData",
+	}
+
+	messages.FriendRecommendationCarouselInputData = _FriendRecommendationCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FriendRecommendationCarouselInputData)
+end
+
+do
+	local _FriendRecommendationCarouselInputData_UserRecommendationImpl = {}
+	_FriendRecommendationCarouselInputData_UserRecommendationImpl.__index =
+		_FriendRecommendationCarouselInputData_UserRecommendationImpl
+
+	function _FriendRecommendationCarouselInputData_UserRecommendationImpl.new(
+		data: _FriendRecommendationCarouselInputData_UserRecommendationPartialFields?
+	): FriendRecommendationCarouselInputData_UserRecommendation
+		return setmetatable(
+			{
+				user_id = if data == nil or data.user_id == nil then "" else data.user_id,
+			},
+			_FriendRecommendationCarouselInputData_UserRecommendationImpl :: _FriendRecommendationCarouselInputData_UserRecommendationImpl
+		)
+	end
+
+	function _FriendRecommendationCarouselInputData_UserRecommendationImpl.encode(
+		self: FriendRecommendationCarouselInputData_UserRecommendation
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil and self.user_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.user_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FriendRecommendationCarouselInputData_UserRecommendationImpl.decode(
+		input: buffer
+	): FriendRecommendationCarouselInputData_UserRecommendation
+		local self = _FriendRecommendationCarouselInputData_UserRecommendationImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FriendRecommendationCarouselInputData_UserRecommendationImpl.jsonEncode(
+		self: FriendRecommendationCarouselInputData_UserRecommendation
+	): any
+		local output = {}
+
+		if self.user_id ~= nil and self.user_id ~= "" then
+			output.userId = self.user_id
+		end
+
+		return output
+	end
+
+	function _FriendRecommendationCarouselInputData_UserRecommendationImpl.jsonDecode(
+		input: { [string]: any }
+	): FriendRecommendationCarouselInputData_UserRecommendation
+		local self = _FriendRecommendationCarouselInputData_UserRecommendationImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = input.user_id
+		end
+
+		if input.userId ~= nil then
+			self.user_id = input.userId
+		end
+
+		return self
+	end
+
+	_FriendRecommendationCarouselInputData_UserRecommendationImpl.descriptor = {
+		name = "FriendRecommendationCarouselInputData_UserRecommendation",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserRecommendation",
+	}
+
+	messages.FriendRecommendationCarouselInputData_UserRecommendation =
+		_FriendRecommendationCarouselInputData_UserRecommendationImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FriendRecommendationCarouselInputData_UserRecommendation)
+end
+
+do
+	local _FriendRecommendationCarouselInputData_ContactRecommendationImpl = {}
+	_FriendRecommendationCarouselInputData_ContactRecommendationImpl.__index =
+		_FriendRecommendationCarouselInputData_ContactRecommendationImpl
+
+	function _FriendRecommendationCarouselInputData_ContactRecommendationImpl.new(
+		data: _FriendRecommendationCarouselInputData_ContactRecommendationPartialFields?
+	): FriendRecommendationCarouselInputData_ContactRecommendation
+		return setmetatable(
+			{
+				contact_id = if data == nil or data.contact_id == nil then "" else data.contact_id,
+				contact_name = if data == nil or data.contact_name == nil then "" else data.contact_name,
+				avatar_thumbnail_url = if data == nil or data.avatar_thumbnail_url == nil
+					then ""
+					else data.avatar_thumbnail_url,
+				headshot_thumbnail_url = if data == nil or data.headshot_thumbnail_url == nil
+					then ""
+					else data.headshot_thumbnail_url,
+			},
+			_FriendRecommendationCarouselInputData_ContactRecommendationImpl :: _FriendRecommendationCarouselInputData_ContactRecommendationImpl
+		)
+	end
+
+	function _FriendRecommendationCarouselInputData_ContactRecommendationImpl.encode(
+		self: FriendRecommendationCarouselInputData_ContactRecommendation
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.contact_id ~= nil and self.contact_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.contact_id)
+		end
+
+		if self.contact_name ~= nil and self.contact_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.contact_name)
+		end
+
+		if self.avatar_thumbnail_url ~= nil and self.avatar_thumbnail_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.avatar_thumbnail_url)
+		end
+
+		if self.headshot_thumbnail_url ~= nil and self.headshot_thumbnail_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.headshot_thumbnail_url)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FriendRecommendationCarouselInputData_ContactRecommendationImpl.decode(
+		input: buffer
+	): FriendRecommendationCarouselInputData_ContactRecommendation
+		local self = _FriendRecommendationCarouselInputData_ContactRecommendationImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.contact_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.contact_name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.avatar_thumbnail_url = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.headshot_thumbnail_url = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FriendRecommendationCarouselInputData_ContactRecommendationImpl.jsonEncode(
+		self: FriendRecommendationCarouselInputData_ContactRecommendation
+	): any
+		local output = {}
+
+		if self.contact_id ~= nil and self.contact_id ~= "" then
+			output.contactId = self.contact_id
+		end
+
+		if self.contact_name ~= nil and self.contact_name ~= "" then
+			output.contactName = self.contact_name
+		end
+
+		if self.avatar_thumbnail_url ~= nil and self.avatar_thumbnail_url ~= "" then
+			output.avatarThumbnailUrl = self.avatar_thumbnail_url
+		end
+
+		if self.headshot_thumbnail_url ~= nil and self.headshot_thumbnail_url ~= "" then
+			output.headshotThumbnailUrl = self.headshot_thumbnail_url
+		end
+
+		return output
+	end
+
+	function _FriendRecommendationCarouselInputData_ContactRecommendationImpl.jsonDecode(
+		input: { [string]: any }
+	): FriendRecommendationCarouselInputData_ContactRecommendation
+		local self = _FriendRecommendationCarouselInputData_ContactRecommendationImpl.new()
+
+		if input.contact_id ~= nil then
+			self.contact_id = input.contact_id
+		end
+
+		if input.contactId ~= nil then
+			self.contact_id = input.contactId
+		end
+
+		if input.contact_name ~= nil then
+			self.contact_name = input.contact_name
+		end
+
+		if input.contactName ~= nil then
+			self.contact_name = input.contactName
+		end
+
+		if input.avatar_thumbnail_url ~= nil then
+			self.avatar_thumbnail_url = input.avatar_thumbnail_url
+		end
+
+		if input.avatarThumbnailUrl ~= nil then
+			self.avatar_thumbnail_url = input.avatarThumbnailUrl
+		end
+
+		if input.headshot_thumbnail_url ~= nil then
+			self.headshot_thumbnail_url = input.headshot_thumbnail_url
+		end
+
+		if input.headshotThumbnailUrl ~= nil then
+			self.headshot_thumbnail_url = input.headshotThumbnailUrl
+		end
+
+		return self
+	end
+
+	_FriendRecommendationCarouselInputData_ContactRecommendationImpl.descriptor = {
+		name = "FriendRecommendationCarouselInputData_ContactRecommendation",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ContactRecommendation",
+	}
+
+	messages.FriendRecommendationCarouselInputData_ContactRecommendation =
+		_FriendRecommendationCarouselInputData_ContactRecommendationImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FriendRecommendationCarouselInputData_ContactRecommendation)
+end
+
+do
+	local _FriendRecommendationCarouselInputData_RecommendationItemImpl = {}
+	_FriendRecommendationCarouselInputData_RecommendationItemImpl.__index =
+		_FriendRecommendationCarouselInputData_RecommendationItemImpl
+
+	function _FriendRecommendationCarouselInputData_RecommendationItemImpl.new(
+		data: _FriendRecommendationCarouselInputData_RecommendationItemPartialFields?
+	): FriendRecommendationCarouselInputData_RecommendationItem
+		return setmetatable(
+			{
+				context_type = if data == nil or data.context_type == nil then "" else data.context_type,
+				mutual_friends_count = if data == nil or data.mutual_friends_count == nil
+					then 0
+					else data.mutual_friends_count,
+				kind = if data == nil or data.kind == nil then nil else data.kind,
+				has_pending_friend_request = if data == nil or data.has_pending_friend_request == nil
+					then false
+					else data.has_pending_friend_request,
+			},
+			_FriendRecommendationCarouselInputData_RecommendationItemImpl :: _FriendRecommendationCarouselInputData_RecommendationItemImpl
+		)
+	end
+
+	function _FriendRecommendationCarouselInputData_RecommendationItemImpl.encode(
+		self: FriendRecommendationCarouselInputData_RecommendationItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.context_type ~= nil and self.context_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.context_type)
+		end
+
+		if self.mutual_friends_count ~= nil and self.mutual_friends_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.mutual_friends_count)
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "user" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "contact" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.has_pending_friend_request then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_pending_friend_request then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FriendRecommendationCarouselInputData_RecommendationItemImpl.decode(
+		input: buffer
+	): FriendRecommendationCarouselInputData_RecommendationItem
+		local self = _FriendRecommendationCarouselInputData_RecommendationItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.mutual_friends_count = value
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_pending_friend_request = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.context_type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "user",
+						value = messages.FriendRecommendationCarouselInputData_UserRecommendation.decode(value),
+					}
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "contact",
+						value = messages.FriendRecommendationCarouselInputData_ContactRecommendation.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FriendRecommendationCarouselInputData_RecommendationItemImpl.jsonEncode(
+		self: FriendRecommendationCarouselInputData_RecommendationItem
+	): any
+		local output = {}
+
+		if self.context_type ~= nil and self.context_type ~= "" then
+			output.contextType = self.context_type
+		end
+
+		if self.mutual_friends_count ~= nil and self.mutual_friends_count ~= 0 then
+			output.mutualFriendsCount = self.mutual_friends_count
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "user" then
+				output.user = self.kind.value:jsonEncode()
+			elseif self.kind.type == "contact" then
+				output.contact = self.kind.value:jsonEncode()
+			end
+		end
+
+		if self.has_pending_friend_request then
+			output.hasPendingFriendRequest = self.has_pending_friend_request
+		end
+
+		return output
+	end
+
+	function _FriendRecommendationCarouselInputData_RecommendationItemImpl.jsonDecode(
+		input: { [string]: any }
+	): FriendRecommendationCarouselInputData_RecommendationItem
+		local self = _FriendRecommendationCarouselInputData_RecommendationItemImpl.new()
+
+		if input.context_type ~= nil then
+			self.context_type = input.context_type
+		end
+
+		if input.contextType ~= nil then
+			self.context_type = input.contextType
+		end
+
+		if input.mutual_friends_count ~= nil then
+			self.mutual_friends_count = input.mutual_friends_count
+		end
+
+		if input.mutualFriendsCount ~= nil then
+			self.mutual_friends_count = input.mutualFriendsCount
+		end
+
+		if input.user ~= nil then
+			self.kind = {
+				type = "user",
+				value = messages.FriendRecommendationCarouselInputData_UserRecommendation.jsonDecode(input.user),
+			}
+		end
+
+		if input.contact ~= nil then
+			self.kind = {
+				type = "contact",
+				value = messages.FriendRecommendationCarouselInputData_ContactRecommendation.jsonDecode(input.contact),
+			}
+		end
+
+		if input.has_pending_friend_request ~= nil then
+			self.has_pending_friend_request = input.has_pending_friend_request
+		end
+
+		if input.hasPendingFriendRequest ~= nil then
+			self.has_pending_friend_request = input.hasPendingFriendRequest
+		end
+
+		return self
+	end
+
+	_FriendRecommendationCarouselInputData_RecommendationItemImpl.descriptor = {
+		name = "FriendRecommendationCarouselInputData_RecommendationItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RecommendationItem",
+	}
+
+	messages.FriendRecommendationCarouselInputData_RecommendationItem =
+		_FriendRecommendationCarouselInputData_RecommendationItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FriendRecommendationCarouselInputData_RecommendationItem)
+end
+
+do
 	local _OptionSelectorCarouselInputDataImpl = {}
 	_OptionSelectorCarouselInputDataImpl.__index = _OptionSelectorCarouselInputDataImpl
 
@@ -23904,6 +24897,10 @@ return {
 	VerticalFeedInputData = messages.VerticalFeedInputData,
 	PageHeaderInputData = messages.PageHeaderInputData,
 	PreAuthLandingStickyHeaderInputData = messages.PreAuthLandingStickyHeaderInputData,
+	FriendRecommendationCarouselInputData = messages.FriendRecommendationCarouselInputData,
+	FriendRecommendationCarouselInputData_UserRecommendation = messages.FriendRecommendationCarouselInputData_UserRecommendation,
+	FriendRecommendationCarouselInputData_ContactRecommendation = messages.FriendRecommendationCarouselInputData_ContactRecommendation,
+	FriendRecommendationCarouselInputData_RecommendationItem = messages.FriendRecommendationCarouselInputData_RecommendationItem,
 	OptionSelectorCarouselInputData = messages.OptionSelectorCarouselInputData,
 	SelectorOption = messages.SelectorOption,
 	ItemWithLayout = messages.ItemWithLayout,

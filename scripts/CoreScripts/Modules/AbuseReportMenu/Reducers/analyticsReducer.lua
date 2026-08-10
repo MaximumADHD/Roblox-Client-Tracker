@@ -6,8 +6,6 @@ local Cryo = require(CorePackages.Packages.Cryo)
 
 local Actions = Constants.AnalyticsActions
 
-local FFlagInGameMenuAddChatLineReporting =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting
 local FFlagAddPreselectedAbuseTypeAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddPreselectedAbuseTypeAnalytics
 
@@ -39,8 +37,6 @@ local function analyticsReducer(state: Types.AnalyticsState, action: any): Types
 		newState.reasonChangeCount += 1
 	elseif actionType == Actions.IncrementCaptureScene then
 		newState.captureSceneCount += 1
-	elseif FFlagInGameMenuAddChatLineReporting and actionType == Actions.IncrementChatLineChanged then
-		newState.chatLineChangeCount += 1
 	elseif actionType == Actions.SetViewportInformation then
 		newState.viewportSizeX = action.viewportSizeX
 		newState.viewportSizeY = action.viewportSizeY

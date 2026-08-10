@@ -84,6 +84,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_LOGO"
 	| "UI_COMPONENT_TYPE_FEEDBACK_BANNER"
 	| "UI_COMPONENT_TYPE_GAME_SORT_DROP_DOWN"
+	| "UI_COMPONENT_TYPE_LAYERED_CONTAINER"
+	| "UI_COMPONENT_TYPE_BACKGROUND_BLUR"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -244,6 +246,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FEEDBACK_BANNER"
 		elseif value == 255 then
 			return "UI_COMPONENT_TYPE_GAME_SORT_DROP_DOWN"
+		elseif value == 256 then
+			return "UI_COMPONENT_TYPE_LAYERED_CONTAINER"
+		elseif value == 257 then
+			return "UI_COMPONENT_TYPE_BACKGROUND_BLUR"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -420,6 +426,10 @@ messages.UiComponentType = {
 			return 254
 		elseif self == "UI_COMPONENT_TYPE_GAME_SORT_DROP_DOWN" then
 			return 255
+		elseif self == "UI_COMPONENT_TYPE_LAYERED_CONTAINER" then
+			return 256
+		elseif self == "UI_COMPONENT_TYPE_BACKGROUND_BLUR" then
+			return 257
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -596,6 +606,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FEEDBACK_BANNER"
 		elseif name == "UI_COMPONENT_TYPE_GAME_SORT_DROP_DOWN" then
 			return "UI_COMPONENT_TYPE_GAME_SORT_DROP_DOWN"
+		elseif name == "UI_COMPONENT_TYPE_LAYERED_CONTAINER" then
+			return "UI_COMPONENT_TYPE_LAYERED_CONTAINER"
+		elseif name == "UI_COMPONENT_TYPE_BACKGROUND_BLUR" then
+			return "UI_COMPONENT_TYPE_BACKGROUND_BLUR"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

@@ -44,6 +44,7 @@ FriendDropDownButton.validateProps = t.strictInterface({
 	selectedPlayer = t.optional(t.instanceIsA("Player")),
 	dropDownOpen = t.boolean,
 	requestFriendship = t.callback,
+	contentVisible = t.optional(t.boolean), -- unused in the non-mobile version, but sent by the parent FriendDropDownButton
 })
 
 local function getFriendTextAndIcon(friendStatus)

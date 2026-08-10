@@ -19,12 +19,15 @@ local ValidationTestWrapper = require(root.validationSystem.ValidationTestWrappe
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
+local stripMeshFromGltf = require(root.util.stripMeshFromGltf)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local R15plusUtils = require(root.util.R15plusUtils)
 local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDebugAllowHRDUploadOnBundleBackend)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
+local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
+	require(root.flags.getEngineFeatureEngineUGCValidateEmoteAnimationExport)
 
 local HttpService = game:GetService("HttpService")
 local TelemetryService = game:GetService("TelemetryService")
@@ -164,10 +167,25 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 		end
 		success = true
 	else
-		gltfScene = RecreateSceneFromEditables.createModelForGltfExport(sharedData)
 		success, errors = pcall(function()
+			gltfScene = RecreateSceneFromEditables.createModelForGltfExport(sharedData)
 			gltfString = AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(gltfScene)
 		end)
+
+		-- For emote exports, strip mesh geometry from the glTF so AQ only sees animation data.
+		if
+			getEngineFeatureEngineUGCValidateEmoteAnimationExport()
+			and success
+			and gltfString
+			and sharedData.uploadCategory == ValidationEnums.UploadCategory.EMOTE_ANIMATION
+		then
+			-- If stripping fails (e.g. unexpected glTF shape), fall back to the
+			-- unstripped glTF rather than failing the whole validation.
+			local stripOk, strippedGltf = pcall(stripMeshFromGltf, gltfString)
+			if stripOk then
+				gltfString = strippedGltf
+			end
+		end
 	end
 
 	if success then

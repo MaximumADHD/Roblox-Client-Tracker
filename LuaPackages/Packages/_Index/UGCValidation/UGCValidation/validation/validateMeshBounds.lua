@@ -14,8 +14,6 @@ local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10) -- 1 = 0.001
 local FIntUGCValidationScaleMaximumThousandths = game:DefineFastInt("FIntUGCValidationScaleMaximumThousandths", 10000) -- 1 = 0.001
 
-local FFlagRenderBoundsCheckAttachmentOrientation = game:DefineFastFlag("RenderBoundsCheckAttachmentOrientation", false)
-
 local function pointInBounds(worldPos, boundsCF, boundsSize)
 	local objectPos = boundsCF:PointToObjectSpace(worldPos)
 	return objectPos.X >= -boundsSize.X / 2
@@ -24,10 +22,6 @@ local function pointInBounds(worldPos, boundsCF, boundsSize)
 		and objectPos.Y <= boundsSize.Y / 2
 		and objectPos.Z >= -boundsSize.Z / 2
 		and objectPos.Z <= boundsSize.Z / 2
-end
-
-local function isSizeWithinBounds_deprecated(part: BasePart, boundsSize)
-	return part.Size.X <= boundsSize.X and part.Size.Y <= boundsSize.Y and part.Size.Z <= boundsSize.Z
 end
 
 local function isSizeWithinBounds(part: BasePart, boundsSize: Vector3, transform: CFrame)
@@ -140,17 +134,10 @@ local function validateMeshBounds(
 		end
 	end
 
-	if FFlagRenderBoundsCheckAttachmentOrientation then
-		local handleToBoundsOrientation = attachment.CFrame.Rotation
-		if not isSizeWithinBounds(handle, boundsSize, handleToBoundsOrientation) then
-			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
-			return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
-		end
-	else
-		if not isSizeWithinBounds_deprecated(handle, boundsSize) then
-			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
-			return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
-		end
+	local handleToBoundsOrientation = attachment.CFrame.Rotation
+	if not isSizeWithinBounds(handle, boundsSize, handleToBoundsOrientation) then
+		Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge, nil, validationContext)
+		return false, getErrors(handle:GetFullName(), assetTypeName, boundsSize)
 	end
 
 	-- I am not sure how we dont have the scale here, but don't want to make downstream changes so we will clone it

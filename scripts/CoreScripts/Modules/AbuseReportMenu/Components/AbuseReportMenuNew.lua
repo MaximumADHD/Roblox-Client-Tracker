@@ -21,7 +21,6 @@ local ReportExperienceMenuItemsContainer = require(root.Components.Containers.Re
 local ReportAnythingAnalytics = require(root.ReportAnything.Utility.ReportAnythingAnalytics)
 local ReportAbuseAnalytics = require(root.Analytics.ReportAbuseAnalytics)
 local AnnotationModal = require(root.ReportAnything.Components.AnnotationModal)
-local ChatModalSelectorDialogController = require(root.Components.ChatModalSelectorDialogController)
 local ModalBasedSelectorDialogController = require(root.Components.ModalBasedSelectorDialogController)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
@@ -176,7 +175,6 @@ local AbuseReportMenuNew = function(props: Props)
 			setIsReportTabVisible(false)
 			AnnotationModal.unmountAnnotationPage()
 			-- We need to unmount all modals when the report tab is closed to prevent weird open/close state bugs
-			ChatModalSelectorDialogController.unmountModalSelector()
 			ModalBasedSelectorDialogController.unmountModalSelector()
 			if isAbuseReportMenuOpenCloseSignalEnabled() and isInWHAM1707Experiment() then
 				SafetyService:ReportMenuTabClose()

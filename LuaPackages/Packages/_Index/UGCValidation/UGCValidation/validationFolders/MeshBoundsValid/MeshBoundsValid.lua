@@ -23,7 +23,6 @@ local FFlagMeshpartAccessoryCheckAvatarPartScaleType =
 
 local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10)
 local FIntUGCValidationScaleMaximumThousandths = game:DefineFastInt("FIntUGCValidationScaleMaximumThousandths", 10000)
-local FFlagRenderBoundsCheckAttachmentOrientation = game:DefineFastFlag("RenderBoundsCheckAttachmentOrientation", false)
 
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
@@ -170,36 +169,23 @@ MeshBoundsValid.run = function(reporter: Types.ValidationReporter, data: Types.S
 	end
 
 	-- Part size check
-	if FFlagRenderBoundsCheckAttachmentOrientation then
-		local handleToBoundsOrientation = attachment.CFrame.Rotation
-		local partSizeInBoundsSpace = (handleToBoundsOrientation * handle.Size):Abs()
-		if
-			not (
-				partSizeInBoundsSpace.X <= boundsSize.X
-				and partSizeInBoundsSpace.Y <= boundsSize.Y
-				and partSizeInBoundsSpace.Z <= boundsSize.Z
-			)
-		then
-			reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ExceedsBounds, {
-				meshName = handle:GetFullName(),
-				assetTypeName = assetTypeEnum.Name,
-				maxSizeX = string.format("%.2f", truncate(boundsSize.X)),
-				maxSizeY = string.format("%.2f", truncate(boundsSize.Y)),
-				maxSizeZ = string.format("%.2f", truncate(boundsSize.Z)),
-			})
-			return
-		end
-	else
-		if not (handle.Size.X <= boundsSize.X and handle.Size.Y <= boundsSize.Y and handle.Size.Z <= boundsSize.Z) then
-			reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ExceedsBounds, {
-				meshName = handle:GetFullName(),
-				assetTypeName = assetTypeEnum.Name,
-				maxSizeX = string.format("%.2f", truncate(boundsSize.X)),
-				maxSizeY = string.format("%.2f", truncate(boundsSize.Y)),
-				maxSizeZ = string.format("%.2f", truncate(boundsSize.Z)),
-			})
-			return
-		end
+	local handleToBoundsOrientation = attachment.CFrame.Rotation
+	local partSizeInBoundsSpace = (handleToBoundsOrientation * handle.Size):Abs()
+	if
+		not (
+			partSizeInBoundsSpace.X <= boundsSize.X
+			and partSizeInBoundsSpace.Y <= boundsSize.Y
+			and partSizeInBoundsSpace.Z <= boundsSize.Z
+		)
+	then
+		reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ExceedsBounds, {
+			meshName = handle:GetFullName(),
+			assetTypeName = assetTypeEnum.Name,
+			maxSizeX = string.format("%.2f", truncate(boundsSize.X)),
+			maxSizeY = string.format("%.2f", truncate(boundsSize.Y)),
+			maxSizeZ = string.format("%.2f", truncate(boundsSize.Z)),
+		})
+		return
 	end
 
 	-- Mesh centering check (skip for IEC consumers, matching legacy allowEditableInstances behavior)

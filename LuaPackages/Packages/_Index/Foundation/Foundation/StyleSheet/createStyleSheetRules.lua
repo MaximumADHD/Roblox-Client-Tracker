@@ -5,13 +5,13 @@ local React = require(Packages.React)
 local StyleRule = require(StyleSheetRoot.StyleRule)
 local Types = require(StyleSheetRoot.Rules.Types)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local Flags = require(Foundation.Utility.Flags)
-local Theme = require(Foundation.Enums.Theme)
 local getOverrideAttributes = require(StyleSheetRoot.getOverrideAttributes)
 local scaleValue = require(Foundation.Utility.scaleValue)
 
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 type StyleRule = Types.StyleRule
 type StyleAttribute<T> = Types.StyleAttribute<T>

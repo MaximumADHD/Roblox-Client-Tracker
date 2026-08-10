@@ -25,7 +25,6 @@ local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol)
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
-local fflagUpdateConnectionErrorLoc = game:DefineFastFlag("UpdateConnectionErrorLoc", false)
 
 local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
 
@@ -120,8 +119,6 @@ local reconnectDisabledReason = safeGetFString(
 
 local lastErrorTimeStamp = tick()
 
-local FFlagUpdateConnectionLocWarning = game:DefineFastFlag("UpdateConnectionLocWarning", false)
-
 local FFlagAddPlacelaunchDeviceBlock = game:DefineFastFlag("AddPlacelaunchDeviceBlock2", false)
 local FFlagAddContextualPlayabilityConnectionErrors = game:DefineFastFlag("AddContextualPlayabilityConnectionErrors", false)
 local FFlagAddVipOwnerNotPresentConnectionError = game:DefineFastFlag("AddVipOwnerNotPresentConnectionError", false)
@@ -195,11 +192,7 @@ local function translateString(key: string, arguments: { [string]: any }?): stri
 	if success then
 		return result
 	end
-	if FFlagUpdateConnectionLocWarning then
-		Logging.warn("Failed to translate string with key: " .. key .. ", LocaleId: ".. localeId)
-	else
-		Logging.warn("Failed to translate string with key: " .. key)
-	end
+	Logging.warn("Failed to translate string with key: " .. key .. ", LocaleId: ".. localeId)
 	return ""
 end
 
@@ -1350,15 +1343,10 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		return errorMsg
 	end
 
-	local key
-	if fflagUpdateConnectionErrorLoc then
-		key = enumToLocalizationKey[errorCode]
-		if not key then
-			mutedError("Cannot find localization key for " .. tostring(errorCode))
-			key = "InGame.ConnectionError.UnknownError"
-		end
-	else
-		key = string.gsub(tostring(errorCode), "Enum", "InGame")
+	local key = enumToLocalizationKey[errorCode]
+	if not key then
+		mutedError("Cannot find localization key for " .. tostring(errorCode))
+		key = "InGame.ConnectionError.UnknownError"
 	end
 
 	local attemptTranslation

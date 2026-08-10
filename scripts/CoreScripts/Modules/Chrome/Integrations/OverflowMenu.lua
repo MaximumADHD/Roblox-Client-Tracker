@@ -22,8 +22,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local FFlagEnableNewBackpack = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableNewBackpack
-local FFlagChromeActivatedMappedSignal =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagChromeActivatedMappedSignal
 local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 local Features: any = if FFlagEnableNewBackpack then require(CorePackages.Workspace.Packages.System).Features else nil
 local BackpackModule: any = if not FFlagEnableNewBackpack then require(RobloxGui.Modules.BackpackScript) else nil
@@ -52,13 +50,13 @@ local GetFIntRobloxConnectFtuxDismissDelayMs = require(Chrome.Flags.GetFIntRoblo
 local GetFFlagEnableAppChatInExperience =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
-local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon", false)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
@@ -109,11 +107,7 @@ local leaderboard = ChromeService:register({
 			end
 		end
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then leaderboardVisibility
-		else function()
-			return leaderboardVisibility:get()
-		end,
+	isActivated = leaderboardVisibility,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/leaderboardOff", "icons/controls/leaderboardOn", leaderboardVisibility)
@@ -142,11 +136,7 @@ local emotes = ChromeService:register({
 			end
 		end
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then emotesVisibility
-		else function()
-			return emotesVisibility:get()
-		end,
+	isActivated = emotesVisibility,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/emoteOff", "icons/controls/emoteOn", emotesVisibility)
@@ -182,19 +172,17 @@ local backpackVisibility: any = if not FFlagEnableNewBackpack
 	else nil
 
 local backpackActivatedSignal: any = nil
-if FFlagChromeActivatedMappedSignal then
-	if FFlagEnableNewBackpack then
-		local backpackVisibilityChanged = Signal.new()
-		Features.onVisibilityChanged(Features.FeatureName.Backpack, function()
-			backpackVisibilityChanged:fire()
-			return nil
-		end)
-		backpackActivatedSignal = MappedSignal.new(backpackVisibilityChanged, function()
-			return Features.getVisibility(Features.FeatureName.Backpack)
-		end)
-	else
-		backpackActivatedSignal = backpackVisibility
-	end
+if FFlagEnableNewBackpack then
+	local backpackVisibilityChanged = Signal.new()
+	Features.onVisibilityChanged(Features.FeatureName.Backpack, function()
+		backpackVisibilityChanged:fire()
+		return nil
+	end)
+	backpackActivatedSignal = MappedSignal.new(backpackVisibilityChanged, function()
+		return Features.getVisibility(Features.FeatureName.Backpack)
+	end)
+else
+	backpackActivatedSignal = backpackVisibility
 end
 local backpack = ChromeService:register({
 	id = "backpack",
@@ -227,14 +215,7 @@ local backpack = ChromeService:register({
 			end
 		end
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then backpackActivatedSignal
-		else function()
-			if FFlagEnableNewBackpack then
-				return Features.getVisibility(Features.FeatureName.Backpack)
-			end
-			return backpackVisibility:get()
-		end,
+	isActivated = backpackActivatedSignal,
 	components = {
 		Icon = function(props)
 			return CommonIcon(
@@ -254,11 +235,7 @@ local respawn = ChromeService:register({
 	activated = function(self)
 		RespawnUtils.respawnPage()
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then RespawnUtils.respawnPageOpenSignal
-		else function()
-			return RespawnUtils.respawnPageOpenSignal:get()
-		end,
+	isActivated = RespawnUtils.respawnPageOpenSignal,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/actions/respawn")
@@ -328,9 +305,13 @@ function HamburgerButton(props)
 		})
 		else nil
 
-	local showBadgeOver12 = useAppPolicy(function(appPolicy)
-		return appPolicy.getShowBadgeOver12()
-	end)
+	local showGameAgeRating = if FFlagShowGameAgeRating
+		then useAppPolicy(function(appPolicy)
+			return appPolicy.getShowGameAgeRating()
+		end)
+		else useAppPolicy(function(appPolicy)
+			return appPolicy.getShowBadgeOver12()
+		end)
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
@@ -347,7 +328,7 @@ function HamburgerButton(props)
 		if FFlagEnableSideSheet
 			then React.createElement(SelectionCursorProvider, {}, {
 				Icon = React.createElement(MenuIcon, {
-					showBadgeOver12 = showBadgeOver12,
+					showBadgeOver12 = showGameAgeRating,
 				}),
 			})
 			else nil,
@@ -415,13 +396,7 @@ return ChromeService:register({
 	label = if FFlagEnableSideSheet then "CoreScripts.TopBar.RobloxMenu" else "CoreScripts.TopBar.MoreMenu",
 	sideSheetPlacement = SideSheetPlacement.None,
 	hotkeyCodes = if FFlagEnableSideSheet then { Enum.KeyCode.Escape } else nil,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then submenuVisibility
-		else if FFlagFixIntegrationActivated
-			then function()
-				return submenuVisibility:get()
-			end
-			else nil,
+	isActivated = submenuVisibility,
 	components = {
 		Icon = function(props)
 			return React.createElement(HamburgerButton, props)

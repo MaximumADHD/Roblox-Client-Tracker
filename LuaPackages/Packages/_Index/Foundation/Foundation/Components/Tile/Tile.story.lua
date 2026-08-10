@@ -18,9 +18,9 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local MediaShape = require(Foundation.Enums.MediaShape)
 local MediaType = require(Foundation.Enums.MediaType)
-local Theme = require(Foundation.Enums.Theme)
 local Tile = require(Foundation.Components.Tile)
 
 local Icon = require(Foundation.Components.Icon)
@@ -152,8 +152,9 @@ return {
 			name = "Fun Tile",
 			story = function(props)
 				local tokens = useTokens()
-				local itemBG =
-					`component_assets/itemBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`
+				local itemBG = `component_assets/itemBG_{if tokens.Config.ColorMode.Name == ColorMode.Dark
+					then "dark"
+					else "light"}`
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
 				local model, setModel = React.useState(nil :: Model?)
@@ -407,8 +408,9 @@ return {
 			name = "Item Tile",
 			story = function(props)
 				local tokens = useTokens()
-				local itemBG =
-					`component_assets/itemBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`
+				local itemBG = `component_assets/itemBG_{if tokens.Config.ColorMode.Name == ColorMode.Dark
+					then "dark"
+					else "light"}`
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
 				local itemId = props.controls.itemId
@@ -471,8 +473,9 @@ return {
 			name = "Player Tile",
 			story = function()
 				local tokens = useTokens()
-				local avatarBG =
-					`component_assets/avatarBG_{if tokens.Config.ColorMode.Name == Theme.Dark then "dark" else "light"}`
+				local avatarBG = `component_assets/avatarBG_{if tokens.Config.ColorMode.Name == ColorMode.Dark
+					then "dark"
+					else "light"}`
 
 				local relevancyInfo = {
 					text = "Hueblox",

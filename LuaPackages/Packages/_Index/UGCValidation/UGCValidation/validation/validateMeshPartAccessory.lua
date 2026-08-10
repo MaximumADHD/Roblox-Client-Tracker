@@ -47,7 +47,6 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
 local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
 	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
@@ -107,10 +106,8 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	end
 	do
 		local skipFlags = {
-			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
-			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties(),
 		}
 		success, reasons = validateDependencies(instance, validationContext, skipFlags)
 		if not success then
@@ -202,7 +199,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateMaterials(instance, validationContext))
 
 		reasonsAccumulator:updateReasons(validatePropertyRequirements(instance, nil, validationContext))
@@ -210,7 +207,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
 	end
 
@@ -224,13 +221,13 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		)
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(
 			validateThumbnailConfiguration(instance, handle, meshInfo, meshScale, validationContext)
 		)
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		local checkModeration = not isServer
 		if allowUnreviewedAssets then
 			checkModeration = false
@@ -299,7 +296,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		reasonsAccumulator:updateReasons(validateRigidMeshNotSkinned(meshInfo.contentId, validationContext))
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
 		if partScaleType and partScaleType:IsA("StringValue") then
 			reasonsAccumulator:updateReasons(validateScaleType(partScaleType, validationContext))

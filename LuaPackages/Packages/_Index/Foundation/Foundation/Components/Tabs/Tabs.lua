@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
@@ -42,6 +41,7 @@ local defaultProps = {
 	ZIndex = 1,
 }
 
+-- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationFixTabsFitBorderWidth is cleaned up
 local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local props = withDefaults(tabsProps, defaultProps)
@@ -123,155 +123,110 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 
 	return React.createElement(
 		View,
-		withCommonProps(
-			props,
-			if Flags.FoundationTabsInlineSizeFull
-				then {
-					tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.outer else "auto-y clip",
+		withCommonProps(props, {
+			tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.outer else "auto-y clip",
+			Size = if Flags.FoundationFixTabsFitBorderWidth
+				then if isFill then UDim2.fromScale(1, 0) else nil
+				else UDim2.fromScale(1, 0),
+		}),
+		{
+			Tabs = React.createElement(View, {
+				ref = ref or containerRef,
+				tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.tabs else "col auto-y",
+				Size = if Flags.FoundationFixTabsFitBorderWidth
+					then if isFill then UDim2.fromScale(1, 0) else nil
+					else UDim2.fromScale(1, 0),
+			}, {
+				Wrapper = React.createElement(View, {
+					LayoutOrder = 1,
+					tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.wrapper else "auto-y",
 					Size = if Flags.FoundationFixTabsFitBorderWidth
 						then if isFill then UDim2.fromScale(1, 0) else nil
 						else UDim2.fromScale(1, 0),
-				}
-				else { tag = "size-full-0 auto-y clip" }
-		),
-		{
-			Tabs = React.createElement(
-				View,
-				if Flags.FoundationTabsInlineSizeFull
-					then {
-						ref = ref or containerRef,
-						tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.tabs else "col auto-y",
-						Size = if Flags.FoundationFixTabsFitBorderWidth
-							then if isFill then UDim2.fromScale(1, 0) else nil
-							else UDim2.fromScale(1, 0),
-					}
-					else { ref = ref or containerRef, tag = "col size-full-0 auto-y" },
-				{
-					Wrapper = React.createElement(
-						View,
-						if Flags.FoundationTabsInlineSizeFull
-							then {
-								LayoutOrder = 1,
-								tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.wrapper else "auto-y",
-								Size = if Flags.FoundationFixTabsFitBorderWidth
-									then if isFill then UDim2.fromScale(1, 0) else nil
-									else UDim2.fromScale(1, 0),
-								testId = `{props.testId}--wrapper`,
-							}
-							else {
-								LayoutOrder = 1,
-								tag = "size-full-0 auto-y",
-								testId = `{props.testId}--wrapper`,
-							},
-						{
-							ScrollContainer = React.createElement(OverflowScrollContainer, {
-								LayoutOrder = 1,
-								size = props.size,
-								fillBehavior = if Flags.FoundationFixTabsFitBorderWidth
-									then if isFill then nil else props.fillBehavior
-									else nil,
-								fitWidth = if Flags.FoundationFixTabsFitBorderWidth
-									then if isFill then nil else tabListWidth
-									else nil,
-								testId = `{props.testId}--scroll-container`,
-							}, {
-								TabList = React.createElement(
-									View,
-									{
-										onAbsoluteSizeChanged = if Flags.FoundationFixTabsFitBorderWidth
-											then updateTabListsWidth
-											else nil,
-										tag = if Flags.FoundationTabsInlineSizeFull
-											then {
-												["row flex-y-fill auto-xy"] = true,
-												["gap-large"] = if Flags.FoundationFixTabsFitBorderWidth
-													then not isFill
-														and (
-															tabsSize == InputSize.Small
-															or tabsSize == InputSize.XSmall
-														)
-													else not isFill,
-											}
-											else {
-												["row flex-y-fill auto-xy"] = true,
-												["gap-large"] = if Flags.FoundationFixTabsFitBorderWidth
-													then not isFill
-														and (
-															tabsSize == InputSize.Small
-															or tabsSize == InputSize.XSmall
-														)
-													else not isFill,
-												["size-full-0"] = isFill,
-											},
-										Size = if Flags.FoundationTabsInlineSizeFull and isFill
-											then UDim2.fromScale(1, 0)
-											else nil,
-										testId = `{props.testId}--list`,
-									},
-									Dash.map(props.tabs, function(tab, index)
-										return React.createElement(TabItem, {
-											id = tab.id,
-											text = tab.text,
-											indicator = tab.indicator,
-											key = tostring(tab.id),
-											icon = tab.icon,
-											isActive = tab.id == activeTabId,
-											onActivated = onActivated,
-											LayoutOrder = index,
-											fillBehavior = props.fillBehavior,
-											size = props.size,
-											isDisabled = tab.isDisabled,
-											testId = `{props.testId}--item-{tab.id}`,
-											ref = tabRefs[tab.id],
-										})
-									end)
-								),
-							}),
-							Border = React.createElement(View, {
-								LayoutOrder = 2,
-								AnchorPoint = Vector2.new(0, 1),
-								Size = if Flags.FoundationFixTabsFitBorderWidth
-									then if isFill
-										then UDim2.new(1, 0, 0, tokens.Stroke.Thick)
-										else tabListWidth:map(function(width)
-											return UDim2.fromOffset(width, tokens.Stroke.Thick)
-										end)
-									else UDim2.new(1, 0, 0, tokens.Stroke.Thick),
-								Position = UDim2.fromScale(0, 1),
-								backgroundStyle = tokens.Color.Stroke.Default,
-								testId = `{props.testId}--border`,
-							}),
-						}
-					),
-					Content = if activeTab and activeTab.content
-						then React.createElement(
+					testId = `{props.testId}--wrapper`,
+				}, {
+					ScrollContainer = React.createElement(OverflowScrollContainer, {
+						LayoutOrder = 1,
+						size = props.size,
+						fillBehavior = if Flags.FoundationFixTabsFitBorderWidth
+							then if isFill then nil else props.fillBehavior
+							else nil,
+						fitWidth = if Flags.FoundationFixTabsFitBorderWidth
+							then if isFill then nil else tabListWidth
+							else nil,
+						testId = `{props.testId}--scroll-container`,
+					}, {
+						TabList = React.createElement(
 							View,
-							if Flags.FoundationTabsInlineSizeFull
-								then {
-									LayoutOrder = 2,
-									tag = "auto-y",
-									Size = UDim2.fromScale(1, 0),
-									testId = `{props.testId}--content`,
-								}
-								else {
-									LayoutOrder = 2,
-									tag = "size-full-0 auto-y",
-									testId = `{props.testId}--content`,
+							{
+								onAbsoluteSizeChanged = if Flags.FoundationFixTabsFitBorderWidth
+									then updateTabListsWidth
+									else nil,
+								tag = {
+									["row flex-y-fill auto-xy"] = true,
+									["gap-large"] = if Flags.FoundationFixTabsFitBorderWidth
+										then not isFill and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall)
+										else not isFill,
 								},
-							activeTab.content
-						)
-						else nil,
-				}
-			),
+								Size = if isFill then UDim2.fromScale(1, 0) else nil,
+								testId = `{props.testId}--list`,
+							},
+							Dash.map(props.tabs, function(tab, index)
+								return React.createElement(TabItem, {
+									id = tab.id,
+									text = tab.text,
+									indicator = tab.indicator,
+									key = tostring(tab.id),
+									icon = tab.icon,
+									isActive = tab.id == activeTabId,
+									onActivated = onActivated,
+									LayoutOrder = index,
+									fillBehavior = props.fillBehavior,
+									size = props.size,
+									isDisabled = tab.isDisabled,
+									testId = `{props.testId}--item-{tab.id}`,
+									ref = tabRefs[tab.id],
+								})
+							end)
+						),
+					}),
+					Border = React.createElement(View, {
+						LayoutOrder = 2,
+						AnchorPoint = Vector2.new(0, 1),
+						Size = if Flags.FoundationFixTabsFitBorderWidth
+							then if isFill
+								then UDim2.new(1, 0, 0, tokens.Stroke.Thick)
+								else tabListWidth:map(function(width)
+									return UDim2.fromOffset(width, tokens.Stroke.Thick)
+								end)
+							else UDim2.new(1, 0, 0, tokens.Stroke.Thick),
+						Position = UDim2.fromScale(0, 1),
+						backgroundStyle = tokens.Color.Stroke.Default,
+						testId = `{props.testId}--border`,
+					}),
+				}),
+				Content = if activeTab and activeTab.content
+					then React.createElement(View, {
+						LayoutOrder = 2,
+						tag = "auto-y",
+						Size = UDim2.fromScale(1, 0),
+						testId = `{props.testId}--content`,
+					}, activeTab.content)
+					else nil,
+			}),
 			AnimatedBorder = React.createElement(View, {
 				LayoutOrder = 0,
 				ZIndex = props.ZIndex + 1,
 				Size = borderWidth:map(function(value)
 					return UDim2.fromOffset(value, tokens.Stroke.Thick)
 				end),
+				AnchorPoint = if Flags.FoundationFixTabsBorderPosition then Vector2.new(0, 1) else nil,
 				Position = React.joinBindings({ borderPosition, activeTabHeight }):map(function(value)
 					local xPosition, yPosition = value[1], value[2]
-					return UDim2.fromOffset(xPosition, yPosition - tokens.Stroke.Thick)
+					return UDim2.fromOffset(
+						xPosition,
+						if Flags.FoundationFixTabsBorderPosition then yPosition else yPosition - tokens.Stroke.Thick
+					)
 				end),
 				backgroundStyle = tokens.Color.System.Contrast,
 				testId = `{props.testId}--animated-border`,

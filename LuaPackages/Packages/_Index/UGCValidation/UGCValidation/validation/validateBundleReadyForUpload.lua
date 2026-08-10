@@ -13,7 +13,6 @@ local fixUpPreValidation = require(root.util.fixUpPreValidation)
 local validateInternal = require(root.validation.validateInternal)
 local validateFullBody = require(root.validation.validateFullBody)
 
-local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
 local HttpService = game:GetService("HttpService")
 
@@ -152,10 +151,7 @@ local function validateBundleReadyForUpload(
 	}
 
 	progressCallback(response)
-	local telemetryBundleId
-	if getFFlagUGCValidationEnableFolderStructure() then
-		telemetryBundleId = HttpService:GenerateGUID()
-	end
+	local telemetryBundleId = HttpService:GenerateGUID()
 
 	-- Calling serially because the UGC validation service gets throttled fast.
 	return Promise.each(pieces, function(piece: AvatarValidationPiece, index: number)
@@ -189,14 +185,12 @@ local function validateBundleReadyForUpload(
 			validationContext.editableImages = result.editableImages :: Types.EditableImages
 
 			success, problems = validateInternal(validationContext)
-			if getFFlagUGCValidationEnableFolderStructure() then
-				success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
-					validationContext,
-					telemetryBundleId,
-					success,
-					problems
-				)
-			end
+			success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
+				validationContext,
+				telemetryBundleId,
+				success,
+				problems
+			)
 
 			destroyEditableInstances(
 				validationContext.editableMeshes :: Types.EditableMeshes,
@@ -273,16 +267,14 @@ local function validateBundleReadyForUpload(
 					validationContext.editableImages = result.editableImages :: Types.EditableImages
 
 					success, failures = validateFullBody(validationContext)
-					if getFFlagUGCValidationEnableFolderStructure() then
-						success, failures = LegacyValidationAdapter.studioRFUBundleValidation(
-							fullBodyData,
-							Enum.BundleType.BodyParts,
-							validationContext,
-							telemetryBundleId,
-							success,
-							failures
-						)
-					end
+					success, failures = LegacyValidationAdapter.studioRFUBundleValidation(
+						fullBodyData,
+						Enum.BundleType.BodyParts,
+						validationContext,
+						telemetryBundleId,
+						success,
+						failures
+					)
 
 					destroyEditableInstances(
 						validationContext.editableMeshes :: Types.EditableMeshes,

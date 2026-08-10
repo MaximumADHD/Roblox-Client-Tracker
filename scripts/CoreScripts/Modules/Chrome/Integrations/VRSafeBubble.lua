@@ -11,9 +11,6 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
-
 local ICON_SAFETY_OFF = "rbxasset://textures/ui/MenuBar/icon_safety_off.png"
 local ICON_SAFETY_ON = "rbxasset://textures/ui/MenuBar/icon_safety_on.png"
 
@@ -36,11 +33,7 @@ local VRSafeBubbleIntegration = ChromeService:register({
 	initialAvailability = initialAvailability,
 	id = "vr_safety_bubble",
 	label = "CoreScripts.VRFTUX.Heading.SafetyBubble.Title",
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then mappedSignal
-		else function()
-			return mappedSignal:get()
-		end,
+	isActivated = mappedSignal,
 	activated = function()
 		VRHub:ToggleSafetyBubble()
 		AnalyticsService:ReportCounter("VR-BottomBar-Safety")

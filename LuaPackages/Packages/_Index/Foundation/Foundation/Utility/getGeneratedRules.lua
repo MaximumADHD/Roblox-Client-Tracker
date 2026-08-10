@@ -1,13 +1,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local Flags = require(Foundation.Utility.Flags)
-local Theme = require(Foundation.Enums.Theme)
 
-type Theme = Theme.Theme
+type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
 
-local requirePaths: { [typeof("Common") | Theme | Device]: () -> any } = {
+local requirePaths: { [typeof("Common") | ColorMode | Device]: () -> any } = {
 	Common = function()
 		return require(Foundation.Generated.StyleRules.CommonAttribute)
 	end,
@@ -25,14 +25,14 @@ local requirePaths: { [typeof("Common") | Theme | Device]: () -> any } = {
 	end,
 }
 
-local function getGeneratedRules(theme: Theme, device: Device): any
-	local themeRules, sizeRules, commonRules
+local function getGeneratedRules(colorMode: ColorMode, device: Device): any
+	local colorModeRules, sizeRules, commonRules
 	commonRules = requirePaths["Common"]()
 
-	if theme == Theme.Dark then
-		themeRules = requirePaths["Dark" :: Theme]()
-	elseif theme == Theme.Light then
-		themeRules = requirePaths["Light" :: Theme]()
+	if colorMode == ColorMode.Dark then
+		colorModeRules = requirePaths["Dark" :: ColorMode]()
+	elseif colorMode == ColorMode.Light then
+		colorModeRules = requirePaths["Light" :: ColorMode]()
 	end
 
 	if device == Device.Console and not Flags.FoundationDisableTokenScaling then
@@ -41,7 +41,7 @@ local function getGeneratedRules(theme: Theme, device: Device): any
 		sizeRules = requirePaths["Desktop" :: Device]()
 	end
 
-	if not themeRules or not sizeRules or not commonRules then
+	if not colorModeRules or not sizeRules or not commonRules then
 		return {}
 	end
 
@@ -51,7 +51,7 @@ local function getGeneratedRules(theme: Theme, device: Device): any
 		combinedRules[key] = value
 	end
 
-	for key, value in themeRules do
+	for key, value in colorModeRules do
 		combinedRules[key] = value
 	end
 

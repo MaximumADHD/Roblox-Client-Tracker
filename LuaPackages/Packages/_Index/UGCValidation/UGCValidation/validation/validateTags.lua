@@ -1,8 +1,6 @@
 local CollectionService = game:GetService("CollectionService")
 
 local root = script.Parent.Parent
-local getFFlagUGCValidationEnableFolderStructure = require(root.flags.getFFlagUGCValidationEnableFolderStructure)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
@@ -19,16 +17,9 @@ local function validateTags(instance: Instance, validationContext: Types.Validat
 	end
 
 	if #hasTags > 0 then
-		local reasons = { "Found the following instance tags which are not allowed:" }
-		for _, obj in ipairs(hasTags) do
-			table.insert(reasons, obj:GetFullName())
-		end
 		Analytics.reportFailure(Analytics.ErrorType.validateTags, nil, validationContext)
 
-		if getFFlagUGCValidationEnableFolderStructure() and getFFlagUGCValidationCombineEntrypointResults() then
-			return false, {}
-		end
-		return false, reasons
+		return false, {}
 	end
 
 	return true

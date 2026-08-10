@@ -14,9 +14,6 @@ local PartyMicIcon = require(Chrome.Integrations.Party.PartyMicIcon)
 local Constants = require(Chrome.Integrations.Party.Constants)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
-
-local FFlagChromeActivatedMappedSignal =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagChromeActivatedMappedSignal
 local MappedSignal = ChromeUtils.MappedSignal
 
 local CrossExperienceVoiceManager = CrossExperienceVoice.CrossExperienceVoiceManager.default
@@ -35,11 +32,9 @@ isVoiceConnectedSignal:connect(function(isConnected)
 	isVoiceConnected = isConnected
 end)
 
-local partyMicActivatedSignal: any = if FFlagChromeActivatedMappedSignal
-	then MappedSignal.new(isLocalPlayerMutedSignal, function()
-		return isVoiceConnected and isLocalPlayerMuted == false
-	end)
-	else nil
+local partyMicActivatedSignal: any = MappedSignal.new(isLocalPlayerMutedSignal, function()
+	return isVoiceConnected and isLocalPlayerMuted == false
+end)
 
 local FFlagChangeToggleMicText = require(Chrome.Flags.FFlagChangeToggleMicText)
 
@@ -50,7 +45,7 @@ if GetFFlagEnableCrossExpVoice() then
 		id = Constants.TOGGLE_MIC_INTEGRATION_ID,
 		label = if FFlagChangeToggleMicText then "CoreScripts.TopBar.Mic" else "CoreScripts.TopBar.ToggleMic",
 		sideSheetPlacement = SideSheetPlacement.Unibar,
-		isActivated = if FFlagChromeActivatedMappedSignal then partyMicActivatedSignal else nil,
+		isActivated = partyMicActivatedSignal,
 		activated = function()
 			local userId = Players and Players.LocalPlayer and Players.LocalPlayer.UserId or -1
 			if userId ~= -1 and isVoiceConnected and isLocalPlayerMuted ~= nil then

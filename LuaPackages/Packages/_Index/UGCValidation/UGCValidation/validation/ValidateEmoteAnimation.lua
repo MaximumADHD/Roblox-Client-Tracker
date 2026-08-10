@@ -27,7 +27,6 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateMigrateCurveAnim = require(root.flags.getFFlagUGCValidateMigrateCurveAnim)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
-local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 
 local ValidateEmoteAnimation = {}
 
@@ -86,10 +85,8 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 
 	do
 		local skipFlags = {
-			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
-			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
-				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties(),
 		}
 		local success, reasons = validateDependencies(instance, validationContext, skipFlags)
 		if not success then
@@ -99,11 +96,11 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
 	end
 
-	if not (getFFlagUGCValidateMigrateCurveAnim() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateCurveAnim() then
 		local anim = nil
 		do
 			local successfullyExecuted, animOpt = pcallDeferred(function()
@@ -134,7 +131,7 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 		reasonsAccumulator:updateReasons(ValidateCurveAnimation.validate(anim, validationContext))
 	end
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(
 			validateModeration(instance, validationContext.restrictedUserIds, validationContext)
 		)

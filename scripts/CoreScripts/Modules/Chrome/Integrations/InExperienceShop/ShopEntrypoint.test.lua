@@ -222,7 +222,6 @@ jest.mock(InExperienceShopPackage.prefetchShopDataOnGameJoin, function()
 end)
 
 local mockSharedFlags = {
-	FFlagChromeActivatedMappedSignal = false,
 	FFlagEnableMenuTrailingBadge = false,
 }
 jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
@@ -249,7 +248,6 @@ type LoadOpts = {
 	coreGuiShopEnabled: boolean?,
 	centerEnabled: boolean?,
 	addIGMToSideSheet: boolean?,
-	chromeActivatedMappedSignal: boolean?,
 	menuTrailingBadgeFlag: boolean?,
 	newIconographyEnabled: boolean?,
 }
@@ -272,7 +270,6 @@ local function loadShopEntrypoint(opts: LoadOpts): any
 	commonIconSpy:mockClear()
 	shopChromeWrapperSpy:mockClear()
 
-	mockSharedFlags.FFlagChromeActivatedMappedSignal = opts.chromeActivatedMappedSignal == true
 	mockSharedFlags.FFlagEnableMenuTrailingBadge = opts.menuTrailingBadgeFlag == true
 
 	-- Seed the real `StarterGui` state ShopEntrypoint reads at module
@@ -315,7 +312,6 @@ describe("ShopEntrypoint", function()
 	end)
 
 	afterEach(function()
-		mockSharedFlags.FFlagChromeActivatedMappedSignal = false
 		mockSharedFlags.FFlagEnableMenuTrailingBadge = false
 	end)
 
@@ -717,30 +713,14 @@ describe("ShopEntrypoint", function()
 			})
 		end)
 
-		it("SHOULD register isActivated as the MappedSignal when ChromeActivatedMappedSignal is on", function()
+		it("SHOULD register isActivated as the MappedSignal", function()
 			loadShopEntrypoint({
 				prefetchEnabled = false,
 				hideEnabled = false,
 				coreGuiShopEnabled = true,
-				chromeActivatedMappedSignal = true,
 			})
 
 			expect(lastRegisterProps.isActivated).toBe(mockedIsActiveSignal)
-		end)
-
-		it("SHOULD register isActivated as a getter function when ChromeActivatedMappedSignal is off", function()
-			loadShopEntrypoint({
-				prefetchEnabled = false,
-				hideEnabled = false,
-				coreGuiShopEnabled = true,
-				chromeActivatedMappedSignal = false,
-			})
-
-			expect(lastRegisterProps.isActivated).toEqual(expect.any("function"))
-			expect(lastRegisterProps.isActivated()).toBe(false)
-
-			mappedSignalActive = true
-			expect(lastRegisterProps.isActivated()).toBe(true)
 		end)
 	end)
 

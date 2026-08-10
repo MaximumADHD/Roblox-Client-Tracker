@@ -4,9 +4,9 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
 
+local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local FoundationProvider = require(Foundation.Providers.Foundation)
-local Theme = require(Foundation.Enums.Theme)
 local Types = require(Foundation.Utility.Stories.Types)
 local getTokenOverridesStore = require(script.Parent.TokenOverridesStore)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
@@ -92,7 +92,7 @@ local function StoryMiddleware(story)
 	-- A component wrapping each story in the StyleProvider
 	return function(storyProps: StoryProps)
 		local overlay = useCreateOverlay(storyProps)
-		local theme = Theme[storyProps.theme]
+		local theme = ColorMode[storyProps.theme]
 		local tokenOverrides = useTokenOverrides()
 
 		local devStorybookStoryProps = Types.toDeveloperStorybookStoryProps(storyProps)

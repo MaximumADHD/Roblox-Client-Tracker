@@ -26,10 +26,11 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
-local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagEnableTeamTestLua = SharedFlags.FFlagEnableTeamTestLua
 
 local Images = UIBlox.App.ImageSet.Images
 local CLOSE_MENU_ICON = if FFlagCoreUiMigrateUIBloxToFoundation
@@ -61,8 +62,8 @@ local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local HeadsetDisconnectDialog = CoreGuiCommon.Components.HeadsetDisconnectDialog
-local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 local PlaytestModeTooltip = require(Presentation.PlaytestModeTooltip)
+local UnpublishedPlaytestModeTooltip = BuildExperience.UnpublishedPlaytestModeTooltip
 
 local TraversalBackButton = require(script.Parent.TraversalBackButton)
 
@@ -97,6 +98,7 @@ local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNe
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -150,7 +152,6 @@ end
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
-local GetFFlagBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagBetaBadge)
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 
@@ -194,12 +195,11 @@ local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 TopBarApp.validateProps = t.strictInterface({
 	menuOpen = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.boolean),
 	inspectMenuOpen = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.boolean),
-	displayBetaBadge = t.boolean,
 
 	setScreenSize = if FFlagTopBarSignalizeScreenSize then nil else t.callback,
 	setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
 	removeKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas then nil else t.callback,
-	showBadgeOver12 = t.optional(t.boolean),
+	showGameAgeRating = t.optional(t.boolean),
 })
 
 function TopBarApp:init()
@@ -576,8 +576,6 @@ end
 
 function TopBarApp:renderWithStyle(style)
 	local chromeEnabled = ChromeEnabled()
-	local showBetaBadge = GetFFlagBetaBadge() and not chromeEnabled
-	local policyAllowsBetaBadge = self.props.displayBetaBadge
 
 	local unibarAlignment = Enum.HorizontalAlignment.Right
 	if self.state.unibarAlignment ~= nil then
@@ -613,8 +611,7 @@ function TopBarApp:renderWithStyle(style)
 		end)
 		else not (self.props.menuOpen or self.props.inspectMenuOpen)
 
-	local topBarFramePosition =
-		UDim2.new(0, 0, 0, topBarTopMargin)
+	local topBarFramePosition = UDim2.new(0, 0, 0, topBarTopMargin)
 	local topBarFrameHeight = topBarHeight - topBarTopMargin
 	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
 	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
@@ -627,7 +624,7 @@ function TopBarApp:renderWithStyle(style)
 				voiceChatServiceManager = VoiceChatServiceManager,
 				voiceEnabled = voiceContext.voiceEnabled,
 				voiceState = voiceContext.voiceState,
-				showBadgeOver12 = if isInExperienceUIVREnabled then self.props.showBadgeOver12 else nil,
+				showBadgeOver12 = if isInExperienceUIVREnabled then self.props.showGameAgeRating else nil,
 			})
 		end),
 	})
@@ -638,7 +635,7 @@ function TopBarApp:renderWithStyle(style)
 			elseif self.props.menuOpen then Constants.MenuIconOpenScale
 			else 1,
 		layoutOrder = 1,
-		showBadgeOver12 = self.props.showBadgeOver12,
+		showBadgeOver12 = self.props.showGameAgeRating,
 		menuIconRef = if chromeEnabled and FFlagEnableConsoleExpControls then self.menuIconRef else nil :: never,
 		unibarMenuRef = if chromeEnabled and FFlagEnableConsoleExpControls then self.unibarMenuRef else nil :: never,
 		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else nil,
@@ -674,6 +671,12 @@ function TopBarApp:renderWithStyle(style)
 		PlaytestTooltip = if FFlagEnablePlaytestModeUnibar
 			then Roact.createElement(PlaytestModeTooltip, {
 				anchorRef = self.unibarMenuRef,
+			})
+			else nil,
+		UnpublishedPlaytestTooltip = if FFlagEnableTeamTestLua
+			then Roact.createElement(UnpublishedPlaytestModeTooltip, {
+				anchorRef = self.unibarMenuRef,
+				isVisible = isTopBarVisible,
 			})
 			else nil,
 		InExperienceUiSelector = if FFlagEnableUISelector
@@ -963,13 +966,6 @@ function TopBarApp:renderWithStyle(style)
 						else Roact.createElement(HealthBar, {
 							layoutOrder = 10,
 						}),
-
-					VoiceBetaBadge = if GetFFlagBetaBadge() and policyAllowsBetaBadge
-						then Roact.createElement(VoiceBetaBadge, {
-							layoutOrder = 6,
-							Analytics = Analytics.new(),
-						})
-						else nil,
 				}),
 			}
 		) or nil,
@@ -1035,7 +1031,7 @@ function TopBarApp:renderWithStyle(style)
 
 				MenuIcon = not isNewTiltIconEnabled() and Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
-					showBadgeOver12 = self.props.showBadgeOver12,
+					showBadgeOver12 = self.props.showGameAgeRating,
 					onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
 						then self.keepOutAreasStore.setKeepOutArea
 						else nil,
@@ -1044,13 +1040,6 @@ function TopBarApp:renderWithStyle(style)
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,
 				}) or nil,
-
-				VoiceBetaBadge = if showBetaBadge and policyAllowsBetaBadge
-					then Roact.createElement(VoiceBetaBadge, {
-						layoutOrder = 4,
-						Analytics = Analytics.new(),
-					})
-					else nil,
 			}),
 
 			RightFrame = not Unibar and Roact.createElement("Frame", {
@@ -1092,12 +1081,17 @@ local function mapStateToProps(state)
 	}
 end
 
-local TopBarAppWithPolicy = TopBarAppPolicy.connect(function(appPolicy, props)
-	return {
-		displayBetaBadge = appPolicy.getDisplayVoiceBetaBadge(),
-		showBadgeOver12 = appPolicy.showBadgeOver12(),
-	}
-end)(TopBarApp)
+local TopBarAppWithPolicy = if FFlagShowGameAgeRating
+	then UniversalAppPolicy.UniversalAppPolicy.connect(function(appPolicy, props)
+		return {
+			showGameAgeRating = appPolicy.getShowGameAgeRating(),
+		}
+	end)(TopBarApp)
+	else TopBarAppPolicy.connect(function(appPolicy, props)
+		return {
+			showGameAgeRating = appPolicy.showBadgeOver12(),
+		}
+	end)(TopBarApp)
 
 local function mapDispatchToProps(dispatch)
 	return {

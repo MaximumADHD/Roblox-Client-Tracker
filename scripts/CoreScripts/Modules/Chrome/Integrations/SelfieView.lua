@@ -30,7 +30,6 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -72,11 +71,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 	activated = function()
 		ChromeService:toggleWindow(ID)
 	end,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then mappedSelfieWindowOpenSignal
-		else function()
-			return mappedSelfieWindowOpenSignal:get()
-		end,
+	isActivated = mappedSelfieWindowOpenSignal,
 	draggable = true,
 	cachePosition = true,
 	components = {

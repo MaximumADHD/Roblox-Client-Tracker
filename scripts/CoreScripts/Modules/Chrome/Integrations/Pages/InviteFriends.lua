@@ -19,7 +19,6 @@ local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUt
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
-local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 -- TODO APPEXP-4782: update mappedSignal to work on console if sidesheet can be open when modal is open
 local gameInviteModalChangedSignal = Signal.new()
@@ -44,11 +43,7 @@ return ChromeService:register({
 		else "CommonUI.Features.Label.InviteConnections",
 	sideSheetPlacement = SideSheetPlacement.Vertical,
 	activated = InGameMenuIntegrationUtils.toggleInviteFriendsPage,
-	isActivated = if FFlagChromeActivatedMappedSignal
-		then mappedGameInviteModalOpenSignal
-		else function()
-			return mappedGameInviteModalOpenSignal:get()
-		end,
+	isActivated = mappedGameInviteModalOpenSignal,
 	components = {
 		Icon = function()
 			return CommonIcon("PersonArrowFromBottomRight", nil, mappedGameInviteModalOpenSignal)

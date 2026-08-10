@@ -30,6 +30,7 @@ local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppP
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
+local FFlagEnableTeamTestLua = SharedFlags.FFlagEnableTeamTestLua
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
@@ -38,6 +39,7 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
@@ -63,6 +65,7 @@ local VRBottomBar = if isInExperienceUIVREnabled
 	else require(Packages.VR.VRBottomBar.VRBottomBar)
 local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
 local BuildPillMenuPortalHost = BuildExperience.BuildPillMenuPortalHost
+local UnpublishedPlaytestModeTooltip = BuildExperience.UnpublishedPlaytestModeTooltip
 local ChromeAnalytics = if game:GetEngineFeature("InGameChromeSignalAPI") 
 	then require(Chrome.ChromeShared.Analytics) 
 	else nil
@@ -132,9 +135,13 @@ local function canShowAssistantBuild(): boolean
 end
 
 local function TopBarApp(props: TopBarProps)
-	local showBadgeOver12 = UniversalAppPolicy.useAppPolicy(function(appPolicy)
-		return appPolicy.getShowBadgeOver12()
-	end)
+	local showGameAgeRating = if FFlagShowGameAgeRating
+		then UniversalAppPolicy.useAppPolicy(function(appPolicy)
+			return appPolicy.getShowGameAgeRating()
+		end)
+		else UniversalAppPolicy.useAppPolicy(function(appPolicy)
+			return appPolicy.getShowBadgeOver12()
+		end)
 
 	local keepOutAreasStore = SignalsReact.useSignalState(function(scope) 
 		return CoreGuiCommon.Stores.GetKeepOutAreasStore(scope)
@@ -240,6 +247,12 @@ local function TopBarApp(props: TopBarProps)
 				anchorRef = unibarMenuRef,
 			})
 			else nil,
+		UnpublishedPlaytestTooltip = if FFlagEnableTeamTestLua
+			then React.createElement(UnpublishedPlaytestModeTooltip, {
+				anchorRef = unibarMenuRef,
+				isVisible = showTopBar,
+			})
+			else nil,
 		TopBarFrame = React.createElement(View, {
 			Size = UDim2.new(1, 0, 0, topBarHeight),
 		}, {
@@ -253,7 +266,7 @@ local function TopBarApp(props: TopBarProps)
 			}, {
 				MenuIcon = if not FFlagEnableSideSheet then React.createElement(SelectionCursorProvider, {}, {
 					Icon = React.createElement(MenuIcon, {
-						showBadgeOver12 = showBadgeOver12,
+						showBadgeOver12 = showGameAgeRating,
 						menuIconRef = menuIconRef,
 						unibarMenuRef = unibarMenuRef,
 					}),
@@ -306,7 +319,7 @@ local function TopBarApp(props: TopBarProps)
 						voiceChatServiceManager = VoiceChatServiceManager,
 						voiceEnabled = voiceContext.voiceEnabled,
 						voiceState = voiceContext.voiceState,
-						showBadgeOver12 = if isInExperienceUIVREnabled then showBadgeOver12 else nil,
+						showBadgeOver12 = if isInExperienceUIVREnabled then showGameAgeRating else nil,
 					})
 				end)
 			}) else nil,
