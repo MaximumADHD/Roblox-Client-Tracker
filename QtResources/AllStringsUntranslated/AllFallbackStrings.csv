@@ -2267,6 +2267,8 @@ Studio.App.PropertyItems.DoubleClickToGoTo1,Tooltip that displays on both the 'I
 Studio.App.PropertyItems.EditableImage,Text that displays when the texture content is an EditableImage,Editable Image,Editable Image
 Studio.App.PropertyItems.EditableMesh,Text that displays in the properties widget when the mesh part is an EditableMesh,Editable Mesh,Editable Mesh
 Studio.App.PropertyItems.FlipbookLayout.IncompatibleTexture,Particle flipbooks require a square image.,"Flipbook only supports particle Textures of sizes 8x8, 16x16, 32x32, 64x64, 128x128, 256x256, 512x512 or 1024x1024.","Flipbook only supports particle Textures of sizes 8x8, 16x16, 32x32, 64x64, 128x128, 256x256, 512x512 or 1024x1024."
+Studio.App.PropertyItems.ImportAsNewAsset,Context menu option to import a mesh file as a new asset.,Import as new asset,Import as new asset
+Studio.App.PropertyItems.ImportAsVersion,Context menu option to import a mesh file as a new version of an existing asset.,Import as version,Import as version
 Studio.App.PropertyItems.ImportingMesh,,Importing mesh...,Importing mesh...
 Studio.App.PropertyItems.InappropriateName,One of the reasons that an uploaded MeshPart would be rejected.,Inappropriate name,Inappropriate name
 Studio.App.PropertyItems.InfluencedBy,"Text which displays under a property in the Properties widget if the property is being influenced by another Instance. 'Influenced', in this case, means that the property's value will only be set by the other Instance under certain circumstances (e.g. a UISizeConstraint clamping a UI element's Size property down if it exceeds a certain maximum).",Influenced by,Influenced by
@@ -2389,10 +2391,14 @@ Studio.App.Property.CameraLookSensitivity,Factor applied to the mouse delta when
 Studio.App.Property.CameraMouseMultiplier,Multiplier applied to camera navigation with the mouse,Mouse Multiplier,Mouse Multiplier
 Studio.App.Property.CameraMouseWheelMultiplier,Factor applied to camera navigation with the mouse wheel,Mouse Wheel Multiplier,Mouse Wheel Multiplier
 Studio.App.Property.CameraMouseWheelSpeed,,Scroll Speed,Scroll Speed
+Studio.App.Property.CameraMovementSmoothing,"When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?",Smooth Keyboard Camera Movement,Smooth Keyboard Camera Movement
+Studio.App.Property.CameraMovementSmoothingTooltip,Tooltip for a setting,"When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?","When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?"
 Studio.App.Property.CameraNavigationModel,Navigation model for the studio camera,Navigation Model,Navigation Model
 Studio.App.Property.CameraOrbitSensitivity,Factor applied to camera orbit movements in Studio,Camera Orbit Sensitivity,Camera Orbit Sensitivity
 Studio.App.Property.CameraPanSensitivity,Factor applied to camera panning movements in Studio,Camera Pan Sensitivity,Camera Pan Sensitivity
 Studio.App.Property.CameraPanSpeed,,Pan Speed,Pan Speed
+Studio.App.Property.CameraRotateShiftFactor,Setting name for setting that changes how aggressively the camera rotates with mouse input when shift is held.,Rotational Shift Key Multiplier,Rotational Shift Key Multiplier
+Studio.App.Property.CameraRotateShiftFactorTooltip,Tooltip text for an optional numeric scale factor on camera rotation.,Optionally change the speed at which the camera rotates by a custom scale factor. Applies to rotation thanks to mouse input.,Optionally change the speed at which the camera rotates by a custom scale factor. Applies to rotation thanks to mouse input.
 Studio.App.Property.CameraShiftFactor,Factor applied to camera movements when holding the shift key in Studio,Camera Shift Factor,Camera Shift Factor
 Studio.App.Property.CameraShiftKeyMultiplier,Multiplier applied to camera motions while the shift key is held,Shift Key Multiplier,Shift Key Multiplier
 Studio.App.Property.CameraShiftSpeed,,Shift Speed,Shift Speed
@@ -3347,7 +3353,7 @@ Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not
 Studio.App.RobloxChatWidget.DeprecatingSoon,,Team Chat is deprecated and will be removed in January 2025.,Team Chat is deprecated and will be removed in January 2025.
 Studio.App.RobloxChatWidget.DeprecatingSoon2,"Informs user about deprecation of TC chat widget. The tags around ""Learn more"" are for formatting purposes and do not need translation.","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>"
 Studio.App.RobloxChatWidget.DisabledChatMessage,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
-Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message: ,Failed to send message: 
+Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message:,Failed to send message:
 Studio.App.RobloxChatWidget.NotFriendErrorMessage,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
 Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
 Studio.App.RobloxCustomWidgets.BrickColor1,https://developer.roblox.com/en-us/articles/BrickColor-Codes,White,White
@@ -5987,6 +5993,8 @@ Studio.BetaFeatures.ClarifiedIKDraggersDescription,,Enables a new clarified UI f
 Studio.BetaFeatures.ClarifiedIKDraggersTitle,,New Physical Draggers,New Physical Draggers
 Studio.BetaFeatures.CloudLoadFailedFmt1,error fetching BF from cloud,Failed to load beta features from cloud: %1,Failed to load beta features from cloud: %1
 Studio.BetaFeatures.CloudReloadPrompt,reload because BFs loaded from cloud,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.,Beta features enabled for this account differ from those saved locally. Updated Beta features will not be available until you restart Studio.
+Studio.BetaFeatures.CollectionsDescription,"Description for the Collections Studio beta feature, a reactive query engine for matching DataModel instances.",Enables query-based Collections via CollectionService:CreateCollection. Collections automatically track query results and per-instance callbacks,Enables query-based Collections via CollectionService:CreateCollection. Collections automatically track query results and per-instance callbacks
+Studio.BetaFeatures.CollectionsTitle,Title for the Collections Studio beta feature.,Collections,Collections
 Studio.BetaFeatures.ConstraintVisualsDescription,,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.
 Studio.BetaFeatures.ContextActionServiceRedesignDescription,"Description for a studio beta feature improving user input handling (keyboard, mouse, shortcuts, etc...)","Context Action Service 2.0 enables new Instances, InputContext, InputAction and InputBinding, allowing you to create more complex and flexible input handling at edit time.","Context Action Service 2.0 enables new Instances, InputContext, InputAction and InputBinding, allowing you to create more complex and flexible input handling at edit time."
 Studio.BetaFeatures.ContextActionServiceRedesignTitle,"Title for the ""Context Action Service 2.0"" beta feature, a feature updating the current Context Action Service",Context Action Service 2.0,Context Action Service 2.0
@@ -6053,10 +6061,10 @@ Studio.BetaFeatures.ImprovedModelLodDescription,This is the description for the 
 Studio.BetaFeatures.ImprovedModelLodTitle,title for the upcoming Studio Beta Feature,SLIM,SLIM
 Studio.BetaFeatures.ImprovedStrokesDescription,"Description for the checkbox to enable the ""Improved UIStrokes"" beta feature","Adds new properties to UIStroke: SizingMode, BorderStrokePosition, BorderOffset, and ZIndex. You can also now add multiple UIStrokes to each parent UI element!","Adds new properties to UIStroke: SizingMode, BorderStrokePosition, BorderOffset, and ZIndex. You can also now add multiple UIStrokes to each parent UI element!"
 Studio.BetaFeatures.ImprovedStrokesTitle,"The title for the ""Improved UIStrokes"" beta feature",Improved UIStrokes,Improved UIStrokes
+Studio.BetaFeatures.InputActionLabelDescription,Provides a description for what the Input Action Label does.,New UI instance that displays an InputAction's preferred active keybinding.,New UI instance that displays an InputAction's preferred active keybinding.
+Studio.BetaFeatures.InputActionLabelTitle,Defines the title for the Input Action Label beta feature.,InputActionLabel,InputActionLabel
 Studio.BetaFeatures.InputActionManagerDescription,Provides a description for what the Input Action Manager does.,Provides a new editor for working with Input Action System.,Provides a new editor for working with Input Action System.
 Studio.BetaFeatures.InputActionManagerTitle,Defines the title for the Input Action Manager beta feature.,Input Action Manager,Input Action Manager
-Studio.BetaFeatures.InputActionLabelDescription,Provides a description for what the InputActionLabel does.,New UI instance that displays an InputAction's preferred active keybinding.,New UI instance that displays an InputAction's preferred active keybinding.
-Studio.BetaFeatures.InputActionLabelTitle,Defines the title for the InputActionLabel beta feature.,InputActionLabel,InputActionLabel
 Studio.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlining,Insert Object Streamlining
 Studio.BetaFeatures.LSPGoToDeclDescription,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Go To Declaration feature in Script Editor, enhancing performance and reliability."
@@ -7899,8 +7907,8 @@ Studio.SceneAnalysis.Tooltip.InstanceCountLabel,Label for a tooltip that shows I
 Studio.SceneAnalysis.Tooltip.MemoryLabel,Label for a tooltip that shows memory sizes,Memory: {value},Memory: {value}
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,No declaration/definition was found for the given parameter,No declaration found for '%1',No declaration found for '%1'
 Studio.ScriptEditor.NoDeclarationFoundTooltip,Tooltip string indicating that no declaration/definition was found,No declaration found,No declaration found
-Studio.ScriptEditor.ReviewableChange.Accept,Button that accepts a proposed script edit,Accept,Accept
-Studio.ScriptEditor.ReviewableChange.Reject,Button that rejects a proposed script edit,Reject,Reject
+Studio.ScriptEditor.ReviewableChange.Accept,Button that keeps a proposed script edit,Keep,Keep
+Studio.ScriptEditor.ReviewableChange.Reject,Button that undoes a proposed script edit,Undo,Undo
 Studio.ScriptEditor.TypeColor,The color of Luau Types in the Studio Script Editor Syntax highlighter,Type Color,Type Color
 Studio.SettingsDialog.Property.IconOverrideDir,User can specify a folder on their machine containing custom icons to use instead of default Roblox Studio icons,Custom Icon Dir,Custom Icon Dir
 Studio.Settings.BetaFeature.HighDpiAndIconsDescription,Studio will look better on monitors with higher resolution.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.

@@ -1,7 +1,7 @@
 Name,Shader Type
 AdornAALineFS,Fragment
 AdornAALineVS,Vertex
-AdornDebugFS,Fragment
+AdornCvxDebugFS,Fragment
 AdornFixedWidthAALineVS,Vertex
 AdornFS,Fragment
 AdornLightingVS,Vertex
@@ -214,6 +214,8 @@ DefaultUnifiedPlasticReflectionVS_80000000,Vertex
 DefaultUnifiedPlasticReflectionVS_80000002,Vertex
 DefaultUnifiedPlasticReflectionVS_80000006,Vertex
 DefaultUnifiedPlasticReflectionVS_80000200,Vertex
+DefaultUnifiedPlasticReflectionVS_80000202,Vertex
+DefaultUnifiedPlasticReflectionVS_80000206,Vertex
 DefaultUnifiedPlasticReflectionVS_80001000,Vertex
 DefaultUnifiedPlasticReflectionVS_80001002,Vertex
 DefaultUnifiedPlasticReflectionVS_80001006,Vertex

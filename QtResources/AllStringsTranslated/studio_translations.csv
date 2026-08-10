@@ -14145,6 +14145,36 @@ Studio.PlaceAnnotations.Dropdown.OnlyMentions,,,Only receive notifications for m
 Studio.PlaceAnnotations.Dropdown.Unsubscribe,,,Unsubscribe,Unsubscribe
 Studio.PlaceAnnotations.Dropdown.Subscribe,,,Subscribe,Subscribe
 Studio.PlaceAnnotations.Dropdown.Report,,,Report,Report
+Studio.PlaceAnnotations.Report.RomanceOrSex,,,Romance or Sex,Romance or Sex
+Studio.PlaceAnnotations.Report.ThreatsOfViolence,,,Threats of Violence,Threats of Violence
+Studio.PlaceAnnotations.Report.OtherDescription,,,Describe another issue such as scams,Describe another issue such as scams
+Studio.PlaceAnnotations.Report.Reporting,,,Reporting,Reporting
+Studio.PlaceAnnotations.Report.DangerousSuggestions,,,Dangerous suggestions,Dangerous suggestions
+Studio.PlaceAnnotations.Report.Bullying,,,Bullying,Bullying
+Studio.PlaceAnnotations.Report.BullyingDescription,,,Being mean to someone or threatening them,Being mean to someone or threatening them
+Studio.PlaceAnnotations.Report.Discrimination,,,Discrimination,Discrimination
+Studio.PlaceAnnotations.Report.DiscriminationDescription,,,"Attacking people based on characteristics such as race, ethnicity, religion, gender, gender reassignment, disability, or sexual orientation","Attacking people based on characteristics such as race, ethnicity, religion, gender, gender reassignment, disability, or sexual orientation"
+Studio.PlaceAnnotations.Report.SharingPersonalInformation,,,Sharing personal information,Sharing personal information
+Studio.PlaceAnnotations.Report.SharingPersonalInformationDescription,,,"Asking for or sharing full names, phone numbers, addresses, passwords, and more","Asking for or sharing full names, phone numbers, addresses, passwords, and more"
+Studio.PlaceAnnotations.Report.Continue,,,Continue,Continue
+Studio.PlaceAnnotations.Report.DangerousSuggestionsDescription,,,"Sharing viral challenges, instructions, and other information that can hurt people in real life","Sharing viral challenges, instructions, and other information that can hurt people in real life"
+Studio.PlaceAnnotations.Report.UnsafeRequests,,,Asking you or others to do things that aren’t safe,Asking you or others to do things that aren’t safe
+Studio.PlaceAnnotations.Report.UnsafeRequestsDescription,,,"People asking you or others to keep secrets, meet in real life, or join harmful groups","People asking you or others to keep secrets, meet in real life, or join harmful groups"
+Studio.PlaceAnnotations.Report.ThreatsOfViolenceDescription,,,Threats to physically harm people in real life,Threats to physically harm people in real life
+Studio.PlaceAnnotations.Report.RomanceOrSexDescription,,,"Sharing, requesting, or describing sexual content, or flirting with or pursuing romantic relationships with other users","Sharing, requesting, or describing sexual content, or flirting with or pursuing romantic relationships with other users"
+Studio.PlaceAnnotations.Report.IllegalGoodsActivities,,,Illegal Goods and Activities,Illegal Goods and Activities
+Studio.PlaceAnnotations.Report.IllegalGoodsActivitiesDescription,,,"Discussing, showing, or promoting drugs, alcohol, smoking, gambling, or other illegal activities","Discussing, showing, or promoting drugs, alcohol, smoking, gambling, or other illegal activities"
+Studio.PlaceAnnotations.Report.SuicideSelfHarm,,,Suicide & Self-Harm,Suicide & Self-Harm
+Studio.PlaceAnnotations.Report.SuicideSelfHarmDescription,,,"Content which encourages, promotes or provides instructions for suicide or acts of deliberate self-injury","Content which encourages, promotes or provides instructions for suicide or acts of deliberate self-injury"
+Studio.PlaceAnnotations.Report.Other,,,"Other (e.g., scams)","Other (e.g., scams)"
+Studio.PlaceAnnotations.Report.SelectComment,,,Select a comment to report,Select a comment to report
+Studio.PlaceAnnotations.Report.AddDetails,,,Add details here (optional),Add details here (optional)
+Studio.PlaceAnnotations.Report.AdditionalContext,,,Additional context,Additional context
+Studio.PlaceAnnotations.Report.DetailsPlaceholder,,,Add details here (optional),Add details here (optional)
+Studio.PlaceAnnotations.Report.Done,,,Done,Done
+Studio.PlaceAnnotations.Report.Search,,,Search,Search
+Studio.PlaceAnnotations.Report.SelectCategory,,,What was the issue?,What was the issue?
+Studio.PlaceAnnotations.Report.SubmittedSuccessfully,,,Report submitted successfully.,Report submitted successfully.
 Studio.ModerationDialog.CounterExample.Button,,,Push me!,Push me!
 Studio.ModerationDialog.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!
 Studio.ModerationDialog.Plugin.Name,,,ModerationDialog,ModerationDialog
@@ -15185,6 +15215,15 @@ Studio.Assistant.AvatarAutoSetupAlert.NonR15OutputModelDetected,,,Non-humanoid m
 Studio.Assistant.AvatarAutoSetupAlert.R15BodyRigDetected,,,Body rig detected,Body rig detected
 Studio.Assistant.AvatarAutoSetupAlert.RigidAccessoryOnly,,,Rigid accessory only detected,Rigid accessory only detected
 Studio.Assistant.AvatarAutoSetupAlert.Unknown,,,Unknown,Unknown
+Studio.Assistant.JobWait.Failed,,,{tool} job failed,{tool} job failed
+Studio.Assistant.JobRun.Completed,,,{tool} job finished,{tool} job finished
+Studio.Assistant.JobRun.Failed,,,{tool} job failed,{tool} job failed
+Studio.Assistant.JobRun.Preparing,,,Preparing job...,Preparing job...
+Studio.Assistant.JobRun.Running,,,Running {tool} job...,Running {tool} job...
+Studio.Assistant.JobWait.Completed,,,{tool} job finished,{tool} job finished
+Studio.Assistant.JobWait.Preparing,,,Preparing job...,Preparing job...
+Studio.Assistant.JobWait.Waiting,,,Waiting for {tool} job...,Waiting for {tool} job...
+Studio.Assistant.JobRun.RunningAfterResult,,,({jobId}) Running {tool} job...,({jobId}) Running {tool} job...
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15917,6 +15956,8 @@ Studio.BetaFeatures.Texture4kTitle,,,4k Texture Rendering,4k Texture Rendering
 Studio.BetaFeatures.ThirdPartyMCPDescription,,,Enables connections to third-party Model Context Protocol (MCP) servers in Studio Assistant.,Enables connections to third-party Model Context Protocol (MCP) servers in Studio Assistant.
 Studio.BetaFeatures.ThirdPartyMCPTitle,,,Third-Party MCP Servers,Third-Party MCP Servers
 Studio.BetaFeatures.ViewportDisplaySizeAPITitle,,,New Display Size API,New Display Size API
+Studio.BetaFeatures.InputActionLabelTitle,,,InputActionLabel,InputActionLabel
+Studio.BetaFeatures.InputActionLabelDescription,,,New UI instance that displays an InputAction's preferred active keybinding.,New UI instance that displays an InputAction's preferred active keybinding.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -16014,8 +16055,8 @@ Studio.LiveSync.WarningUnsupportedPropertiesDescendants,,,%1 has descendants wit
 Studio.ScriptEditor.TypeColor,,,Type Color,Type Color
 Studio.ScriptEditor.NoDeclarationFoundTooltip,,,No declaration found,No declaration found
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,,,No declaration found for '%1',No declaration found for '%1'
-Studio.ScriptEditor.ReviewableChange.Accept,,,Accept,Accept
-Studio.ScriptEditor.ReviewableChange.Reject,,,Reject,Reject
+Studio.ScriptEditor.ReviewableChange.Accept,,,Keep,Keep
+Studio.ScriptEditor.ReviewableChange.Reject,,,Undo,Undo
 Studio.AudioActions.Action.FindPlaying,,,Find Playing,Find Playing
 Studio.AudioActions.Action.InsertBefore,,,Insert Before...,Insert Before...
 Studio.AudioActions.Action.Insert,,,%s,%s
@@ -17036,6 +17077,7 @@ Studio.InputActionManager.Status.DuplicateUIButtonTitle,,,Duplicate UI Button,Du
 Studio.InputActionManager.Status.DuplicateUIButtonDescription,,,{uibutton} is used elsewhere: {actions},{uibutton} is used elsewhere: {actions}
 Studio.InputActionManager.Status.CompositeKeycodeTitle,,,Duplicate Composite Keycode,Duplicate Composite Keycode
 Studio.InputActionManager.Status.CompositeKeycodeDescription,,,Keycode already in use for another direction.,Keycode already in use for another direction.
+Studio.InputActionManager.Menu.Duplicate,,,Duplicate,Duplicate
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.

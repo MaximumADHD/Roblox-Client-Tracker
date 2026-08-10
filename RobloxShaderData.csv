@@ -1,7 +1,7 @@
 Name,Shader Type,d3d10,d3d10_1,d3d11,glsl3,vulkan_desktop
 AdornAALineFS,Fragment,✔,✔,✔,✔,✔
 AdornAALineVS,Vertex,✔,✔,✔,✔,✔
-AdornDebugFS,Fragment,✔,✔,✔,✔,✔
+AdornCvxDebugFS,Fragment,✔,✔,✔,✔,✔
 AdornFixedWidthAALineVS,Vertex,✔,✔,✔,✔,✔
 AdornFS,Fragment,✔,✔,✔,✔,✔
 AdornLightingVS,Vertex,✔,✔,✔,✔,✔
@@ -78,10 +78,12 @@ DefaultUnifiedGlassTintVS_00000002,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00000006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00000400,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00000402,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedGlassTintVS_00000406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001000,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001002,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00001400,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedGlassTintVS_00001402,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00100001,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00100007,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedGlassTintVS_00100401,Vertex,❌,❌,❌,✔,❌
@@ -307,6 +309,8 @@ DefaultUnifiedPlasticReflectionVS_80000000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80000002,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80000006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80000200,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedPlasticReflectionVS_80000202,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedPlasticReflectionVS_80000206,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80001000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80001002,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedPlasticReflectionVS_80001006,Vertex,✔,✔,✔,❌,✔
