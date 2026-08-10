@@ -18083,10 +18083,10 @@
     "documentation": "The abstract base class for in-world objects that physically interact."
   },
   "@roblox/globaltype/BasePart.GetJoints/return/0": {
-    "documentation": "An array of all <code>JointInstances</code> or <code>Constraints</code> connected to this <code>BasePart</code>."
+    "documentation": "An array of all Joints or Constraints connected to the Part."
   },
   "@roblox/globaltype/BasePart.GetJoints": {
-    "documentation": "Return all joints or constraints that are connected to this part.",
+    "documentation": "Return all Joints or Constraints that is connected to this Part.",
     "params": [
       {
         "name": "self",
@@ -18302,7 +18302,7 @@
     "documentation": "Resulting <code>IntersectOperation</code> with default name <strong>Intersect</strong>."
   },
   "@roblox/globaltype/BasePart.IntersectAsync": {
-    "documentation": "Creates a new <code>IntersectOperation</code> from the overlapping geometry of the part and the other parts in the given array.",
+    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:IntersectAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.</li> </ul> Creates a new <code>IntersectOperation</code> from the overlapping geometry   of the part and the other parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -18498,7 +18498,7 @@
     "documentation": "Resulting <code>UnionOperation</code> with default name <strong>Union</strong>."
   },
   "@roblox/globaltype/BasePart.SubtractAsync": {
-    "documentation": "Creates a new <code>UnionOperation</code> from the part, minus the geometry occupied by the parts in the given array.",
+    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:UnionAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.</li> </ul> Creates a new <code>UnionOperation</code> from the part, minus the geometry   occupied by the parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -18573,7 +18573,7 @@
     "documentation": "Resulting <code>UnionOperation</code> with default name <strong>Union</strong>."
   },
   "@roblox/globaltype/BasePart.UnionAsync": {
-    "documentation": "Creates a new <code>UnionOperation</code> from the part, plus the geometry occupied by the parts in the given array.",
+    "documentation": "Note: It is highly recommended to use the newer <code>GeometryService:UnionAsync</code> instead of this function. As well as having better performance and more features, the new function differs as follows: <ul> <li>The output is an array of instances rather than a single instance.</li> <li>The input parts do not need to be parented to the scene, allowing for   background operations.</li> <li>When the <code>SplitApart</code> option is set to <code>true</code> (default), each distinct   body will be returned in its own <code>PartOperation</code>.</li> <li>All the returned parts are in the coordinate space of the main part, so   their <code>PVInstance.Origin</code> positions are the same as the main   part's. This keeps the vertices of the mesh in the same position   relative to the object as before the operation, but it does also mean   the <code>(0, 0, 0)</code> of a returned part is not necessarily at the center of   its body.<pre><code>Creates a new `UnionOperation` from the part, plus the geometry </code></pre> </li> </ul> occupied by the parts in the given array.",
     "params": [
       {
         "name": "self",
@@ -27090,6 +27090,8 @@
       "GlobalWind": "@roblox/globaltype/Workspace.GlobalWind",
       "Gravity": "@roblox/globaltype/Workspace.Gravity",
       "IKControlConstraintSupport": "@roblox/globaltype/Workspace.IKControlConstraintSupport",
+      "ImprovedAnimationConstraint": "@roblox/globaltype/Workspace.ImprovedAnimationConstraint",
+      "ImprovedPhysicsReplication": "@roblox/globaltype/Workspace.ImprovedPhysicsReplication",
       "InsertPoint": "@roblox/globaltype/Workspace.InsertPoint",
       "InterpolationThrottling": "@roblox/globaltype/Workspace.InterpolationThrottling",
       "LayeredClothingCacheOptimizations": "@roblox/globaltype/Workspace.LayeredClothingCacheOptimizations",
@@ -27104,6 +27106,7 @@
       "PlayerCharacterDestroyBehavior": "@roblox/globaltype/Workspace.PlayerCharacterDestroyBehavior",
       "PlayerScriptsUseInputActionSystem": "@roblox/globaltype/Workspace.PlayerScriptsUseInputActionSystem",
       "PlayerScriptsUseInputActionSystemAlias": "@roblox/globaltype/Workspace.PlayerScriptsUseInputActionSystemAlias",
+      "PredictiveStreamingMode": "@roblox/globaltype/Workspace.PredictiveStreamingMode",
       "PrimalPhysicsSolver": "@roblox/globaltype/Workspace.PrimalPhysicsSolver",
       "RejectCharacterDeletions": "@roblox/globaltype/Workspace.RejectCharacterDeletions",
       "RenderingCacheOptimizations": "@roblox/globaltype/Workspace.RenderingCacheOptimizations",
@@ -27123,6 +27126,7 @@
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseFixedSimulationAlias": "@roblox/globaltype/Workspace.UseFixedSimulationAlias",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
+      "ApplyRecommendedStreamingSettings": "@roblox/globaltype/Workspace.ApplyRecommendedStreamingSettings",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
@@ -27217,6 +27221,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#IKControlConstraintSupport",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.ImprovedAnimationConstraint": {
+    "documentation": "Controls whether <code>AnimationConstraints</code> use the improved soft-formulation controller.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ImprovedAnimationConstraint",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.ImprovedPhysicsReplication": {
+    "documentation": "Controls whether the experience uses the improved physics replication path between the server and clients.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ImprovedPhysicsReplication",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.InsertPoint": {
     "documentation": "The world position at which new objects are placed when inserted from the toolbox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InsertPoint",
@@ -27285,6 +27299,11 @@
   "@roblox/globaltype/Workspace.PlayerScriptsUseInputActionSystemAlias": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PlayerScriptsUseInputActionSystemAlias",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.PredictiveStreamingMode": {
+    "documentation": "Controls whether the engine makes instance streaming decisions. predictively.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PredictiveStreamingMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PrimalPhysicsSolver": {
@@ -27380,6 +27399,26 @@
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
     "documentation": "Controls whether the new Luau type solver is used for type inference.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseNewLuauTypeSolver",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.ApplyRecommendedStreamingSettings/param/0": {
+    "documentation": "<code>Workspace</code> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
+  },
+  "@roblox/globaltype/Workspace.ApplyRecommendedStreamingSettings/return/0": {
+    "documentation": "<code>true</code> if one or more streaming properties were changed; <code>false</code> if every value already matched its recommended setting."
+  },
+  "@roblox/globaltype/Workspace.ApplyRecommendedStreamingSettings": {
+    "documentation": "Applies Roblox's recommended instance streaming settings to the <code>Workspace</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Workspace.ApplyRecommendedStreamingSettings/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Workspace.ApplyRecommendedStreamingSettings/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ApplyRecommendedStreamingSettings",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.BreakJoints/param/0": {
@@ -47839,15 +47878,22 @@
   "@roblox/globaltype/Player.IsVerified/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
+  "@roblox/globaltype/Player.IsVerified/param/1": {
+    "documentation": "The verification level to check. Defaults to <code>VerifiedLevel.Low</code>."
+  },
   "@roblox/globaltype/Player.IsVerified/return/0": {
-    "documentation": "A boolean indicating whether the player is verified."
+    "documentation": "A boolean indicating whether the player meets the specified verification level."
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "Returns whether the player is verified with concrete, real-world signals.",
+    "documentation": "Returns whether the player meets the specified verification level.",
     "params": [
       {
         "name": "self",
         "documentation": "@roblox/globaltype/Player.IsVerified/param/0"
+      },
+      {
+        "name": "level",
+        "documentation": "@roblox/globaltype/Player.IsVerified/param/1"
       }
     ],
     "returns": [
@@ -100354,10 +100400,10 @@
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
   "@roblox/globaltype/Players.BanAsync/param/1": {
-    "documentation": "<ul> <li> <code>UserIds</code> (required; array) — Array of <code>UserIds</code>   of players to be banned. Max size is <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (optional; boolean) — Whether ban propagates to   all places within the experience universe. Default is <code>true</code>. </li> <li> <code>Duration</code> (required; integer) — Duration of the ban, in seconds.   Permanent bans should have a value of <code>-1</code>. <code>0</code> and all other   negative values are invalid. </li> <li> <code>DisplayReason</code> (required; string) — The message that will be   displayed to users when they attempt to and fail to join an   experience. Maximum string length is <code>400</code>. </li> <li> <code>PrivateReason</code> (required; string) — Internal messaging that will be   returned when querying the user's ban history. Maximum string length   is <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (optional; boolean) — When <code>true</code>, Roblox does   not attempt to ban alternate accounts. Default is <code>false</code>. </li> <li> <code>ApplyDeviceBlock</code> (optional; boolean) — When <code>true</code>, Roblox will   block banned users' devices from rejoining the experience for 24   hours after the ban is applied. Default is <code>false</code>. The block can be   overridden by unbanning a user via a call to   <code>Players:UnbanAsync()</code>. Note that unbanning a user through any   other method will not lift the device block. </li> </ul>"
+    "documentation": "<ul> <li> <code>UserIds</code> (required; array) — Array of <code>UserIds</code>   of players to be banned. Max size is <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (optional; boolean) — Whether ban propagates to   all places within the game universe. Default is <code>true</code>. </li> <li> <code>Duration</code> (required; integer) — Duration of the ban, in seconds.   Permanent bans should have a value of <code>-1</code>. <code>0</code> and all other   negative values are invalid. </li> <li> <code>DisplayReason</code> (required; string) — The message that will be   displayed to users when they attempt to and fail to join a game.   Maximum string length is <code>400</code>. </li> <li> <code>PrivateReason</code> (required; string) — Internal messaging that will be   returned when querying the user's ban history. Maximum string length   is <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (optional; boolean) — When <code>true</code>, Roblox does   not attempt to ban alternate accounts. Default is <code>false</code>. </li> <li> <code>ApplyDeviceBlock</code> (optional; boolean) — When <code>true</code>, Roblox will   block banned users' devices from rejoining the game for 24 hours   after the ban is applied. Default is <code>false</code>. The block can be   overridden by unbanning a user via a call to   <code>Players:UnbanAsync()</code>. Note that unbanning a user through any   other method will not lift the device block. </li> </ul>"
   },
   "@roblox/globaltype/Players.BanAsync": {
-    "documentation": "Bans users from your experience, with options to specify duration, reason, whether the ban applies to the entire universe or just the current place, and more. This method is enabled and disabled by the <code>Players.BanningEnabled</code> property, which you can toggle in Studio.",
+    "documentation": "Bans users from your game, with options to specify duration, reason, whether the ban applies to the entire universe or just the current place, and more. This method is enabled and disabled by the <code>Players.BanningEnabled</code> property, which you can toggle in Studio.",
     "params": [
       {
         "name": "self",
@@ -100451,7 +100497,7 @@
     "documentation": "A <code>Humanoid</code> character <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
-    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>. If <code>UseAvatarSettings</code> is set to true, Avatar Settings in the experience will be applied to the returned model.",
+    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>. If <code>UseAvatarSettings</code> is set to true, Avatar Settings in the game will be applied to the returned model.",
     "params": [
       {
         "name": "self",
@@ -100540,7 +100586,7 @@
     "documentation": "See <code>BanHistoryPages</code> for return reference."
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync": {
-    "documentation": "Retrieves the ban and unban history of any user within the experience's universe. This method is enabled and disabled by the <code>Players.BanningEnabled</code> property, which you can toggle in Studio.",
+    "documentation": "Retrieves the ban and unban history of any user within the game's universe. This method is enabled and disabled by the <code>Players.BanningEnabled</code> property, which you can toggle in Studio.",
     "params": [
       {
         "name": "self",
@@ -100783,7 +100829,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetPlayerByUserId": {
-    "documentation": "Returns the <code>Player</code> with the given <code>UserId</code> if they are in-experience.",
+    "documentation": "Returns the <code>Player</code> with the given <code>UserId</code> if they are in-game.",
     "params": [
       {
         "name": "self",
@@ -100969,7 +101015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.players": {
-    "documentation": "<strong>Deprecated:</strong> This item has been superseded by <code>Players:GetPlayers()</code> which should be used in all new work.<br>Returns a list of players in an experience.",
+    "documentation": "<strong>Deprecated:</strong> This item has been superseded by <code>Players:GetPlayers()</code> which should be used in all new work.<br>Returns a list of players in a game.",
     "params": [
       {
         "name": "self",
@@ -101030,7 +101076,7 @@
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
   "@roblox/globaltype/Players.UnbanAsync/param/1": {
-    "documentation": "<table><thead> <tr>   <th>Name</th>   <th>Type</th>   <th>Description</th> </tr></thead> <tbody>   <tr>     <td><code>UserIds</code></td>     <td>array</td>     <td>UserIDs to be force allowed into the experience(s). <br /> <br />Max size is <code>50</code>.</td>   </tr>   <tr>     <td><code>ApplyToUniverse</code></td>     <td>boolean</td>     <td>Propagates the unban to all places within this universe.<br /></td>   </tr> </tbody> </table>"
+    "documentation": "<table><thead> <tr>   <th>Name</th>   <th>Type</th>   <th>Description</th> </tr></thead> <tbody>   <tr>     <td><code>UserIds</code></td>     <td>array</td>     <td>UserIDs to be force allowed into the game(s). <br /> <br />Max size is <code>50</code>.</td>   </tr>   <tr>     <td><code>ApplyToUniverse</code></td>     <td>boolean</td>     <td>Propagates the unban to all places within this universe.<br /></td>   </tr> </tbody> </table>"
   },
   "@roblox/globaltype/Players.UnbanAsync": {
     "documentation": "Unbans players banned from <code>Players:BanAsync()</code> or the User Restrictions Open Cloud API. This method is enabled and disabled by the <code>Players.BanningEnabled</code> property, which you can toggle in Studio.",
@@ -101126,7 +101172,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerAdded": {
-    "documentation": "Fires when a player enters the experience.",
+    "documentation": "Fires when a player enters the game.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerAdded.ConnectParallel",
@@ -101214,7 +101260,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerMembershipChanged": {
-    "documentation": "Fires when the experience server recognizes that a player's membership has changed.",
+    "documentation": "Fires when the game server recognizes that a player's membership has changed.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerMembershipChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerMembershipChanged.ConnectParallel",
@@ -101302,7 +101348,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerRemoving": {
-    "documentation": "Fires when a player is about to leave the experience.",
+    "documentation": "Fires when a player is about to leave the game.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerRemoving.ConnectParallel",
@@ -101390,7 +101436,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "Fires when the experience server recognizes that the user's status for a certain subscription has changed.",
+    "documentation": "Fires when the game server recognizes that the user's status for a certain subscription has changed.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",
@@ -117261,6 +117307,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AnimatorRetargetingMode",
     "code_sample": ""
   },
+  "@roblox/enum/VerifiedLevel.Low": {
+    "documentation": "Requires the player to meet the low verification level or higher. This is the default value for <code>Player:IsVerified()</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel#Low",
+    "code_sample": ""
+  },
+  "@roblox/enum/VerifiedLevel.High": {
+    "documentation": "Requires the player to meet the high verification level.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel#High",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.VerifiedLevel": {
+    "documentation": "Specifies the level of player verification required by <code>Player:IsVerified()</code>.",
+    "keys": {
+      "Low": "@roblox/enum/VerifiedLevel.Low",
+      "High": "@roblox/enum/VerifiedLevel.High"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VerifiedLevel",
+    "code_sample": ""
+  },
   "@roblox/enum/ChatCallbackType.OnCreatingChatWindow": {
     "documentation": "",
     "keys": {
@@ -130203,6 +130278,46 @@
       "Unknown": "@roblox/enum/Font.Unknown"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/Font",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictiveStreamingMode.Default": {
+    "documentation": "Default behavior, currently equivalent to <code>Disabled</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictiveStreamingMode#Default",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictiveStreamingMode.Enabled": {
+    "documentation": "Allow the engine to make streaming decisions predictively.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictiveStreamingMode#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictiveStreamingMode.Disabled": {
+    "documentation": "Disable predictive streaming.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictiveStreamingMode#Disabled",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PredictiveStreamingMode": {
+    "documentation": "Used with <code>Workspace.PredictiveStreamingMode</code> to control whether the engine streams instances predictively. predictively.",
+    "keys": {
+      "Default": "@roblox/enum/PredictiveStreamingMode.Default",
+      "Enabled": "@roblox/enum/PredictiveStreamingMode.Enabled",
+      "Disabled": "@roblox/enum/PredictiveStreamingMode.Disabled"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictiveStreamingMode",
     "code_sample": ""
   },
   "@roblox/enum/CoreGuiType.PlayerList": {
