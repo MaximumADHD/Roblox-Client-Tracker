@@ -5,7 +5,7 @@ source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "React React 17.3.8 registry",
-    "ReactUtils ReactUtils 1.9.1 registry",
+    "ReactUtils ReactUtils 1.13.1 registry",
     "SafeFlags SafeFlags 0.1.1 registry",
     "SceneUnderstanding SceneUnderstanding 0.13.1 registry",
 ]

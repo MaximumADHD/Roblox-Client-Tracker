@@ -1,6 +1,6 @@
 [package]
 name = "ReactUtils"
-version = "1.9.1"
+version = "1.13.1"
 content_root = "src"
 files = [
     "*",
@@ -8,6 +8,10 @@ files = [
 ]
 publish = true
 authors = ["Roblox"]
+[dependencies.GoodSignal]
+package = "GoodSignal"
+version = "^0.3.1"
+
 [dependencies.LuauPolyfill]
 version = "^1.2.3"
 

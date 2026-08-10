@@ -1213,7 +1213,10 @@ function InitFrameInfo() {
                                 }
                             }
                         }
-                    ] : [])
+                    ] : []),
+                    "TotalPlayers",
+                    "GameInstances",
+                    "GameIds",
                 ]
             },
             {

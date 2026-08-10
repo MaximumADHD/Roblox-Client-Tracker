@@ -154,6 +154,12 @@ type BrushConfig = {
     Decal : EditableImage
 }
 
+type SampleImageProjectedBrushConfig = {
+    AlphaBlendType : Enum.ImageAlphaType,
+    ColorBlendType : Enum.ImageCombineType,
+    FadeAngle : number
+}
+
 type BanConfigType = {
     Duration: number,
     DisplayReason: string,
