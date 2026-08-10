@@ -39,5 +39,10 @@ MAIN:
        65 GETTABLEKS                       R8 R8 K7 ["Enums"]
        67 GETTABLEKS                       R8 R8 K14 ["AnnotationChannelContentPreference"]
        69 CALL                             R7 1 1
-       70 NEWTABLE                         R8 0 0
-       72 RETURN                           R8 1
+       70 GETIMPORT                        R8 K5 [require]
+       72 GETTABLEKS                       R9 R0 K6 ["Src"]
+       74 GETTABLEKS                       R9 R9 K7 ["Enums"]
+       76 GETTABLEKS                       R9 R9 K15 ["ReportStep"]
+       78 CALL                             R8 1 1
+       79 NEWTABLE                         R9 0 0
+       81 RETURN                           R9 1

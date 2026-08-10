@@ -4,49 +4,49 @@ PROTO_0:
         3 NAMECALL                         R2 R2 K2 ["GetPluginComponent"]
         5 CALL                             R2 2 1
         6 SETTABLEKS                       R2 R0 K3 ["loginPluginBridgeComponent"]
-        8 DUPTABLE                         R4 K7 [{["enabled"] = True, ["IsLoggedIn"]}]
-        9 GETIMPORT                        R5 K9 [game]
-       11 LOADK                            R7 K10 ["StudioUserService"]
-       12 NAMECALL                         R5 R5 K11 ["GetService"]
-       14 CALL                             R5 2 1
-       15 GETTABLEKS                       R5 R5 K6 ["IsLoggedIn"]
-       17 SETTABLEKS                       R5 R4 K6 ["IsLoggedIn"]
-       19 NAMECALL                         R2 R0 K12 ["setState"]
-       21 CALL                             R2 2 0
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R2 R2 K13 ["Localization"]
-       25 GETTABLEKS                       R2 R2 K14 ["new"]
-       27 DUPTABLE                         R3 K19 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
-       28 GETUPVAL                         R4 1
-       29 SETTABLEKS                       R4 R3 K15 ["stringResourceTable"]
-       31 GETUPVAL                         R4 2
-       32 SETTABLEKS                       R4 R3 K16 ["translationResourceTable"]
-       34 CALL                             R2 1 1
-       35 SETTABLEKS                       R2 R0 K20 ["localization"]
-       37 GETUPVAL                         R2 3
-       38 GETTABLEKS                       R2 R2 K13 ["Localization"]
-       40 GETTABLEKS                       R2 R2 K14 ["new"]
-       42 DUPTABLE                         R3 K19 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
-       43 GETUPVAL                         R4 1
-       44 SETTABLEKS                       R4 R3 K15 ["stringResourceTable"]
-       46 GETUPVAL                         R4 2
-       47 SETTABLEKS                       R4 R3 K16 ["translationResourceTable"]
-       49 CALL                             R2 1 1
-       50 SETTABLEKS                       R2 R0 K21 ["localizationLEGACY"]
-       52 GETUPVAL                         R2 4
-       53 GETTABLEKS                       R2 R2 K22 ["Util"]
-       55 GETTABLEKS                       R2 R2 K23 ["createFoundationDesignBinding"]
-       57 CALL                             R2 0 2
-       58 SETTABLEKS                       R3 R0 K24 ["onFoundationStyleSheetChange"]
-       60 GETUPVAL                         R4 5
-       61 GETTABLEKS                       R5 R1 K0 ["Plugin"]
-       63 LOADNIL                          R6
-       64 LOADNIL                          R7
-       65 NEWTABLE                         R8 0 1
-       67 MOVE                             R9 R2
-       68 SETLIST                          R8 R9 1 [1]
-       70 CALL                             R4 4 1
-       71 SETTABLEKS                       R4 R0 K25 ["design"]
+        8 GETIMPORT                        R2 K5 [game]
+       10 LOADK                            R4 K6 ["StudioUserService"]
+       11 NAMECALL                         R2 R2 K7 ["GetService"]
+       13 CALL                             R2 2 1
+       14 GETTABLEKS                       R2 R2 K8 ["IsLoggedIn"]
+       16 DUPTABLE                         R5 K11 [{["enabled"] = True, ["IsLoggedIn"]}]
+       17 SETTABLEKS                       R2 R5 K8 ["IsLoggedIn"]
+       19 NAMECALL                         R3 R0 K12 ["setState"]
+       21 CALL                             R3 2 0
+       22 GETUPVAL                         R3 0
+       23 GETTABLEKS                       R3 R3 K13 ["Localization"]
+       25 GETTABLEKS                       R3 R3 K14 ["new"]
+       27 DUPTABLE                         R4 K19 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
+       28 GETUPVAL                         R5 1
+       29 SETTABLEKS                       R5 R4 K15 ["stringResourceTable"]
+       31 GETUPVAL                         R5 2
+       32 SETTABLEKS                       R5 R4 K16 ["translationResourceTable"]
+       34 CALL                             R3 1 1
+       35 SETTABLEKS                       R3 R0 K20 ["localization"]
+       37 GETUPVAL                         R3 3
+       38 GETTABLEKS                       R3 R3 K13 ["Localization"]
+       40 GETTABLEKS                       R3 R3 K14 ["new"]
+       42 DUPTABLE                         R4 K19 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
+       43 GETUPVAL                         R5 1
+       44 SETTABLEKS                       R5 R4 K15 ["stringResourceTable"]
+       46 GETUPVAL                         R5 2
+       47 SETTABLEKS                       R5 R4 K16 ["translationResourceTable"]
+       49 CALL                             R3 1 1
+       50 SETTABLEKS                       R3 R0 K21 ["localizationLEGACY"]
+       52 GETUPVAL                         R3 4
+       53 GETTABLEKS                       R3 R3 K22 ["Util"]
+       55 GETTABLEKS                       R3 R3 K23 ["createFoundationDesignBinding"]
+       57 CALL                             R3 0 2
+       58 SETTABLEKS                       R4 R0 K24 ["onFoundationStyleSheetChange"]
+       60 GETUPVAL                         R5 5
+       61 GETTABLEKS                       R6 R1 K0 ["Plugin"]
+       63 LOADNIL                          R7
+       64 LOADNIL                          R8
+       65 NEWTABLE                         R9 0 1
+       67 MOVE                             R10 R3
+       68 SETLIST                          R9 R10 1 [1]
+       70 CALL                             R5 4 1
+       71 SETTABLEKS                       R5 R0 K25 ["design"]
        73 RETURN                           R0 0
 
 PROTO_1:
@@ -60,28 +60,37 @@ PROTO_1:
        10 RETURN                           R0 0
 
 PROTO_2:
-        0 GETIMPORT                        R1 K1 [game]
-        2 LOADK                            R3 K2 ["StudioUserService"]
-        3 NAMECALL                         R1 R1 K3 ["GetService"]
-        5 CALL                             R1 2 1
-        6 LOADK                            R4 K4 ["IsLoggedIn"]
-        7 NAMECALL                         R2 R1 K5 ["GetPropertyChangedSignal"]
-        9 CALL                             R2 2 1
-       10 NEWCLOSURE                       R4 P0
-       11 CAPTURE                          VAL R0
-       12 CAPTURE                          VAL R1
-       13 NAMECALL                         R2 R2 K6 ["Connect"]
-       15 CALL                             R2 2 1
-       16 SETTABLEKS                       R2 R0 K7 ["loggedInConnection"]
-       18 RETURN                           R0 0
+        0 LOADB                            R1 1
+        1 SETTABLEKS                       R1 R0 K0 ["isMounted"]
+        3 GETIMPORT                        R1 K2 [game]
+        5 LOADK                            R3 K3 ["StudioUserService"]
+        6 NAMECALL                         R1 R1 K4 ["GetService"]
+        8 CALL                             R1 2 1
+        9 LOADK                            R4 K5 ["IsLoggedIn"]
+       10 NAMECALL                         R2 R1 K6 ["GetPropertyChangedSignal"]
+       12 CALL                             R2 2 1
+       13 NEWCLOSURE                       R4 P0
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          VAL R1
+       16 NAMECALL                         R2 R2 K7 ["Connect"]
+       18 CALL                             R2 2 1
+       19 SETTABLEKS                       R2 R0 K8 ["loggedInConnection"]
+       21 DUPTABLE                         R4 K9 [{"IsLoggedIn"}]
+       22 GETTABLEKS                       R5 R1 K5 ["IsLoggedIn"]
+       24 SETTABLEKS                       R5 R4 K5 ["IsLoggedIn"]
+       26 NAMECALL                         R2 R0 K10 ["setState"]
+       28 CALL                             R2 2 0
+       29 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R1 R0 K0 ["loggedInConnection"]
-        2 JUMPIFNOT                        R1 ; [+5]
-        3 GETTABLEKS                       R1 R0 K0 ["loggedInConnection"]
-        5 NAMECALL                         R1 R1 K1 ["Disconnect"]
-        7 CALL                             R1 1 0
-        8 RETURN                           R0 0
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["isMounted"]
+        3 GETTABLEKS                       R1 R0 K1 ["loggedInConnection"]
+        5 JUMPIFNOT                        R1 ; [+5]
+        6 GETTABLEKS                       R1 R0 K1 ["loggedInConnection"]
+        8 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -93,79 +102,79 @@ PROTO_4:
        11 LOADNIL                          R5
        12 RETURN                           R5 1
        13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K5 ["provide"]
-       16 NEWTABLE                         R6 0 4
-       18 GETUPVAL                         R7 1
-       19 GETTABLEKS                       R7 R7 K6 ["new"]
-       21 MOVE                             R8 R3
-       22 CALL                             R7 1 1
-       23 GETUPVAL                         R8 2
-       24 GETTABLEKS                       R8 R8 K6 ["new"]
-       26 NAMECALL                         R9 R3 K7 ["getMouse"]
-       28 CALL                             R9 1 -1
-       29 CALL                             R8 -1 1
-       30 GETUPVAL                         R9 3
-       31 GETTABLEKS                       R9 R9 K6 ["new"]
-       33 GETTABLEKS                       R10 R0 K8 ["design"]
-       35 CALL                             R9 1 1
-       36 GETTABLEKS                       R10 R0 K9 ["localizationLEGACY"]
-       38 SETLIST                          R6 R7 4 [1]
-       40 DUPTABLE                         R7 K11 [{"MainWidget"}]
-       41 GETUPVAL                         R8 4
-       42 GETTABLEKS                       R8 R8 K12 ["createElement"]
-       44 GETUPVAL                         R9 5
-       45 DUPTABLE                         R10 K25 [{["Id"] = "LoginPage", ["Enabled"], ["Title"], ["ZIndexBehavior"], ["InitialDockState"], ["Size"], ["MinSize"], ["ShouldRestore"] = False, ["CreateWidgetImmediately"] = True}]
-       46 SETTABLEKS                       R4 R10 K15 ["Enabled"]
-       48 GETTABLEKS                       R11 R0 K26 ["localization"]
-       50 LOADK                            R13 K2 ["Plugin"]
-       51 LOADK                            R14 K27 ["Name"]
-       52 NAMECALL                         R11 R11 K28 ["getText"]
-       54 CALL                             R11 3 1
-       55 SETTABLEKS                       R11 R10 K16 ["Title"]
-       57 GETIMPORT                        R11 K31 [Enum.ZIndexBehavior.Sibling]
-       59 SETTABLEKS                       R11 R10 K17 ["ZIndexBehavior"]
-       61 GETIMPORT                        R11 K33 [Enum.InitialDockState.Float]
-       63 SETTABLEKS                       R11 R10 K18 ["InitialDockState"]
-       65 GETIMPORT                        R11 K35 [Vector2.new]
-       67 LOADN                            R12 1000
-       68 LOADN                            R13 1000
-       69 CALL                             R11 2 1
-       70 SETTABLEKS                       R11 R10 K19 ["Size"]
-       72 GETIMPORT                        R11 K35 [Vector2.new]
-       74 LOADN                            R12 1000
-       75 LOADN                            R13 1000
-       76 CALL                             R11 2 1
-       77 SETTABLEKS                       R11 R10 K20 ["MinSize"]
-       79 GETUPVAL                         R11 4
-       80 GETTABLEKS                       R11 R11 K12 ["createElement"]
-       82 GETUPVAL                         R12 6
-       83 DUPTABLE                         R13 K39 [{["theme"] = "Dark", ["onStyleSheetChange"]}]
-       84 GETTABLEKS                       R14 R0 K40 ["onFoundationStyleSheetChange"]
-       86 SETTABLEKS                       R14 R13 K38 ["onStyleSheetChange"]
-       88 NEWTABLE                         R14 0 1
-       90 GETUPVAL                         R15 4
-       91 GETTABLEKS                       R15 R15 K12 ["createElement"]
-       93 GETUPVAL                         R16 7
-       94 GETTABLEKS                       R16 R16 K41 ["Provider"]
-       96 DUPTABLE                         R17 K42 [{"localization"}]
-       97 GETTABLEKS                       R18 R0 K26 ["localization"]
-       99 SETTABLEKS                       R18 R17 K26 ["localization"]
-      101 DUPTABLE                         R18 K44 [{"LoginPageContent"}]
-      102 GETUPVAL                         R19 4
-      103 GETTABLEKS                       R19 R19 K12 ["createElement"]
-      105 GETUPVAL                         R20 8
-      106 DUPTABLE                         R21 K46 [{"LoginPluginBridge"}]
-      107 GETTABLEKS                       R22 R0 K47 ["loginPluginBridgeComponent"]
-      109 SETTABLEKS                       R22 R21 K45 ["LoginPluginBridge"]
-      111 CALL                             R19 2 1
-      112 SETTABLEKS                       R19 R18 K43 ["LoginPageContent"]
-      114 CALL                             R15 3 -1
-      115 SETLIST                          R14 R15 -1 [1]
-      117 CALL                             R11 3 -1
-      118 CALL                             R8 -1 1
-      119 SETTABLEKS                       R8 R7 K10 ["MainWidget"]
-      121 CALL                             R5 2 -1
-      122 RETURN                           R5 -1
+       14 GETTABLEKS                       R5 R5 K5 ["createElement"]
+       16 GETUPVAL                         R6 1
+       17 DUPTABLE                         R7 K7 [{"LoginPluginBridge"}]
+       18 GETTABLEKS                       R8 R0 K8 ["loginPluginBridgeComponent"]
+       20 SETTABLEKS                       R8 R7 K6 ["LoginPluginBridge"]
+       22 CALL                             R5 2 1
+       23 GETUPVAL                         R6 2
+       24 GETTABLEKS                       R6 R6 K9 ["provide"]
+       26 NEWTABLE                         R7 0 4
+       28 GETUPVAL                         R8 3
+       29 GETTABLEKS                       R8 R8 K10 ["new"]
+       31 MOVE                             R9 R3
+       32 CALL                             R8 1 1
+       33 GETUPVAL                         R9 4
+       34 GETTABLEKS                       R9 R9 K10 ["new"]
+       36 NAMECALL                         R10 R3 K11 ["getMouse"]
+       38 CALL                             R10 1 -1
+       39 CALL                             R9 -1 1
+       40 GETUPVAL                         R10 5
+       41 GETTABLEKS                       R10 R10 K10 ["new"]
+       43 GETTABLEKS                       R11 R0 K12 ["design"]
+       45 CALL                             R10 1 1
+       46 GETTABLEKS                       R11 R0 K13 ["localizationLEGACY"]
+       48 SETLIST                          R7 R8 4 [1]
+       50 DUPTABLE                         R8 K15 [{"MainWidget"}]
+       51 GETUPVAL                         R9 0
+       52 GETTABLEKS                       R9 R9 K5 ["createElement"]
+       54 GETUPVAL                         R10 6
+       55 DUPTABLE                         R11 K28 [{["Id"] = "LoginPage", ["Enabled"], ["Title"], ["ZIndexBehavior"], ["InitialDockState"], ["Size"], ["MinSize"], ["ShouldRestore"] = False, ["CreateWidgetImmediately"] = True}]
+       56 SETTABLEKS                       R4 R11 K18 ["Enabled"]
+       58 GETTABLEKS                       R12 R0 K29 ["localization"]
+       60 LOADK                            R14 K2 ["Plugin"]
+       61 LOADK                            R15 K30 ["Name"]
+       62 NAMECALL                         R12 R12 K31 ["getText"]
+       64 CALL                             R12 3 1
+       65 SETTABLEKS                       R12 R11 K19 ["Title"]
+       67 GETIMPORT                        R12 K34 [Enum.ZIndexBehavior.Sibling]
+       69 SETTABLEKS                       R12 R11 K20 ["ZIndexBehavior"]
+       71 GETIMPORT                        R12 K36 [Enum.InitialDockState.Float]
+       73 SETTABLEKS                       R12 R11 K21 ["InitialDockState"]
+       75 GETIMPORT                        R12 K38 [Vector2.new]
+       77 LOADN                            R13 1000
+       78 LOADN                            R14 1000
+       79 CALL                             R12 2 1
+       80 SETTABLEKS                       R12 R11 K22 ["Size"]
+       82 GETIMPORT                        R12 K38 [Vector2.new]
+       84 LOADN                            R13 1000
+       85 LOADN                            R14 1000
+       86 CALL                             R12 2 1
+       87 SETTABLEKS                       R12 R11 K23 ["MinSize"]
+       89 GETUPVAL                         R12 0
+       90 GETTABLEKS                       R12 R12 K5 ["createElement"]
+       92 GETUPVAL                         R13 7
+       93 DUPTABLE                         R14 K42 [{["theme"] = "Dark", ["onStyleSheetChange"]}]
+       94 GETTABLEKS                       R15 R0 K43 ["onFoundationStyleSheetChange"]
+       96 SETTABLEKS                       R15 R14 K41 ["onStyleSheetChange"]
+       98 NEWTABLE                         R15 0 1
+      100 GETUPVAL                         R16 0
+      101 GETTABLEKS                       R16 R16 K5 ["createElement"]
+      103 GETUPVAL                         R17 8
+      104 GETTABLEKS                       R17 R17 K44 ["Provider"]
+      106 DUPTABLE                         R18 K45 [{"localization"}]
+      107 GETTABLEKS                       R19 R0 K29 ["localization"]
+      109 SETTABLEKS                       R19 R18 K29 ["localization"]
+      111 DUPTABLE                         R19 K47 [{"LoginPageContent"}]
+      112 SETTABLEKS                       R5 R19 K46 ["LoginPageContent"]
+      114 CALL                             R16 3 -1
+      115 SETLIST                          R15 R16 -1 [1]
+      117 CALL                             R12 3 -1
+      118 CALL                             R9 -1 1
+      119 SETTABLEKS                       R9 R8 K14 ["MainWidget"]
+      121 CALL                             R6 2 -1
+      122 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -227,14 +236,14 @@ MAIN:
        95 DUPCLOSURE                       R16 K34 [PROTO_3]
        96 SETTABLEKS                       R16 R15 K35 ["willUnmount"]
        98 DUPCLOSURE                       R16 K36 [PROTO_4]
-       99 CAPTURE                          VAL R7
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R10
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R4
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R14
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          VAL R14
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R8
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R6
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R5
       108 SETTABLEKS                       R16 R15 K37 ["render"]
       110 RETURN                           R15 1

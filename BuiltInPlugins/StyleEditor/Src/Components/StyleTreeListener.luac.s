@@ -34,18 +34,6 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["IsDirty"]
-        3 LOADN                            R1 0
-        4 JUMPIFNOTLT                      R1 R0 ; [+6]
-        6 GETUPVAL                         R0 1
-        7 GETUPVAL                         R1 2
-        8 LOADB                            R2 0
-        9 CALL                             R1 1 -1
-       10 CALL                             R0 -1 0
-       11 RETURN                           R0 0
-
-PROTO_2:
-        0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+4]
         2 GETUPVAL                         R0 0
         3 NAMECALL                         R0 R0 K0 ["destroyListener"]
@@ -54,7 +42,7 @@ PROTO_2:
         7 SETUPVAL                         R0 0
         8 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 NEWTABLE                         R0 4 0
         2 NEWTABLE                         R1 0 2
         4 LOADK                            R2 K0 ["Name"]
@@ -91,7 +79,7 @@ PROTO_3:
        47 CLOSEUPVALS                      R1
        48 RETURN                           R2 1
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 NEWCLOSURE                       R2 P0
@@ -99,29 +87,18 @@ PROTO_4:
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 GETUPVAL                         R3 3
-        7 JUMPIF                           R3 ; [+12]
-        8 GETUPVAL                         R3 4
-        9 NEWCLOSURE                       R4 P1
+        7 NEWCLOSURE                       R4 P1
+        8 CAPTURE                          UPVAL U4
+        9 CAPTURE                          VAL R2
        10 CAPTURE                          VAL R0
-       11 CAPTURE                          VAL R1
-       12 CAPTURE                          UPVAL U2
-       13 NEWTABLE                         R5 0 1
-       15 GETTABLEKS                       R6 R0 K0 ["IsDirty"]
-       17 SETLIST                          R5 R6 1 [1]
-       19 CALL                             R3 2 0
-       20 GETUPVAL                         R3 5
-       21 NEWCLOSURE                       R4 P2
-       22 CAPTURE                          UPVAL U6
-       23 CAPTURE                          VAL R2
-       24 CAPTURE                          VAL R0
-       25 NEWTABLE                         R5 0 1
-       27 GETTABLEKS                       R6 R0 K1 ["Source"]
-       29 SETLIST                          R5 R6 1 [1]
-       31 CALL                             R3 2 0
-       32 LOADNIL                          R3
-       33 RETURN                           R3 1
+       11 NEWTABLE                         R5 0 1
+       13 GETTABLEKS                       R6 R0 K0 ["Source"]
+       15 SETLIST                          R5 R6 1 [1]
+       17 CALL                             R3 2 0
+       18 LOADNIL                          R3
+       19 RETURN                           R3 1
 
-PROTO_5:
+PROTO_4:
         0 DUPTABLE                         R1 K2 [{"IsDirty", "Source"}]
         1 GETTABLEKS                       R2 R0 K3 ["Window"]
         3 GETTABLEKS                       R2 R2 K0 ["IsDirty"]
@@ -138,63 +115,54 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R2 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStyleEditorNewRuleRenameFix"]
-       17 CALL                             R1 1 1
-       18 CALL                             R1 0 1
-       19 GETIMPORT                        R2 K4 [require]
-       21 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       23 GETTABLEKS                       R3 R3 K9 ["RoactRodux"]
-       25 CALL                             R2 1 1
-       26 GETIMPORT                        R3 K4 [require]
-       28 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       30 GETTABLEKS                       R4 R4 K10 ["React"]
-       32 CALL                             R3 1 1
-       33 GETTABLEKS                       R4 R3 K11 ["useEffect"]
-       35 GETTABLEKS                       R5 R3 K12 ["useLayoutEffect"]
-       37 GETIMPORT                        R6 K4 [require]
-       39 GETTABLEKS                       R7 R0 K5 ["Src"]
-       41 GETTABLEKS                       R7 R7 K13 ["Reducers"]
-       43 GETTABLEKS                       R7 R7 K14 ["RootReducer"]
-       45 CALL                             R6 1 1
-       46 GETIMPORT                        R7 K4 [require]
-       48 GETTABLEKS                       R8 R0 K5 ["Src"]
-       50 GETTABLEKS                       R8 R8 K15 ["Hooks"]
-       52 GETTABLEKS                       R8 R8 K16 ["useDispatch"]
-       54 CALL                             R7 1 1
-       55 GETIMPORT                        R8 K4 [require]
-       57 GETTABLEKS                       R9 R0 K5 ["Src"]
-       59 GETTABLEKS                       R9 R9 K17 ["Util"]
-       61 GETTABLEKS                       R9 R9 K18 ["TreeListener"]
-       63 CALL                             R8 1 1
-       64 GETTABLEKS                       R9 R0 K5 ["Src"]
-       66 GETTABLEKS                       R9 R9 K19 ["Actions"]
-       68 GETIMPORT                        R10 K4 [require]
-       70 GETTABLEKS                       R11 R9 K20 ["Window"]
-       72 GETTABLEKS                       R11 R11 K21 ["SetIsDirty"]
-       74 CALL                             R10 1 1
-       75 GETTABLEKS                       R11 R0 K5 ["Src"]
-       77 GETTABLEKS                       R11 R11 K22 ["Thunks"]
-       79 GETIMPORT                        R12 K4 [require]
-       81 GETTABLEKS                       R13 R11 K23 ["StyleTree"]
-       83 GETTABLEKS                       R13 R13 K24 ["UpdateStyleSheetReferences"]
-       85 CALL                             R12 1 1
-       86 GETIMPORT                        R13 K4 [require]
-       88 GETTABLEKS                       R14 R0 K5 ["Src"]
-       90 GETTABLEKS                       R14 R14 K25 ["Types"]
-       92 CALL                             R13 1 1
-       93 DUPCLOSURE                       R14 K26 [PROTO_4]
-       94 CAPTURE                          VAL R7
-       95 CAPTURE                          VAL R12
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R1
-       98 CAPTURE                          VAL R5
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          VAL R8
-      101 GETTABLEKS                       R15 R2 K27 ["connect"]
-      103 DUPCLOSURE                       R16 K28 [PROTO_5]
-      104 CALL                             R15 1 1
-      105 MOVE                             R16 R14
-      106 CALL                             R15 1 -1
-      107 RETURN                           R15 -1
+       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R2 K6 ["RoactRodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K7 ["React"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["useEffect"]
+       25 GETIMPORT                        R4 K4 [require]
+       27 GETTABLEKS                       R5 R0 K9 ["Src"]
+       29 GETTABLEKS                       R5 R5 K10 ["Reducers"]
+       31 GETTABLEKS                       R5 R5 K11 ["RootReducer"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K4 [require]
+       36 GETTABLEKS                       R6 R0 K9 ["Src"]
+       38 GETTABLEKS                       R6 R6 K12 ["Hooks"]
+       40 GETTABLEKS                       R6 R6 K13 ["useDispatch"]
+       42 CALL                             R5 1 1
+       43 GETIMPORT                        R6 K4 [require]
+       45 GETTABLEKS                       R7 R0 K9 ["Src"]
+       47 GETTABLEKS                       R7 R7 K14 ["Util"]
+       49 GETTABLEKS                       R7 R7 K15 ["TreeListener"]
+       51 CALL                             R6 1 1
+       52 GETTABLEKS                       R7 R0 K9 ["Src"]
+       54 GETTABLEKS                       R7 R7 K16 ["Actions"]
+       56 GETIMPORT                        R8 K4 [require]
+       58 GETTABLEKS                       R9 R7 K17 ["Window"]
+       60 GETTABLEKS                       R9 R9 K18 ["SetIsDirty"]
+       62 CALL                             R8 1 1
+       63 GETTABLEKS                       R9 R0 K9 ["Src"]
+       65 GETTABLEKS                       R9 R9 K19 ["Thunks"]
+       67 GETIMPORT                        R10 K4 [require]
+       69 GETTABLEKS                       R11 R9 K20 ["StyleTree"]
+       71 GETTABLEKS                       R11 R11 K21 ["UpdateStyleSheetReferences"]
+       73 CALL                             R10 1 1
+       74 GETIMPORT                        R11 K4 [require]
+       76 GETTABLEKS                       R12 R0 K9 ["Src"]
+       78 GETTABLEKS                       R12 R12 K22 ["Types"]
+       80 CALL                             R11 1 1
+       81 DUPCLOSURE                       R12 K23 [PROTO_3]
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R6
+       87 GETTABLEKS                       R13 R1 K24 ["connect"]
+       89 DUPCLOSURE                       R14 K25 [PROTO_4]
+       90 CALL                             R13 1 1
+       91 MOVE                             R14 R12
+       92 CALL                             R13 1 -1
+       93 RETURN                           R13 -1

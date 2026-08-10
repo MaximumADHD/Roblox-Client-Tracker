@@ -1,24 +1,35 @@
 PROTO_0:
-        0 NEWTABLE                         R2 0 0
-        2 GETIMPORT                        R3 K1 [pairs]
-        4 MOVE                             R4 R1
-        5 CALL                             R3 1 3
-        6 FORGPREP_NEXT                    R3
-        7 DUPTABLE                         R10 K4 [{"Name", "Collides"}]
-        8 GETTABLEKS                       R11 R7 K5 ["name"]
-       10 SETTABLEKS                       R11 R10 K2 ["Name"]
-       12 GETUPVAL                         R11 0
-       13 GETTABLEKS                       R13 R0 K5 ["name"]
-       15 GETTABLEKS                       R14 R7 K5 ["name"]
-       17 NAMECALL                         R11 R11 K6 ["CollisionGroupsAreCollidable"]
-       19 CALL                             R11 3 1
-       20 SETTABLEKS                       R11 R10 K3 ["Collides"]
-       22 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
-       24 MOVE                             R9 R2
-       25 GETIMPORT                        R8 K9 [table.insert]
-       27 CALL                             R8 2 0
-       28 FORGLOOP                         R3 2 ; [-22]
-       30 RETURN                           R2 1
+        0 NEWTABLE                         R3 0 0
+        2 GETIMPORT                        R4 K1 [pairs]
+        4 MOVE                             R5 R1
+        5 CALL                             R4 1 3
+        6 FORGPREP_NEXT                    R4
+        7 LOADB                            R9 0
+        8 GETUPVAL                         R10 0
+        9 CALL                             R10 0 1
+       10 JUMPIFNOT                        R10 ; [+9]
+       11 GETTABLEKS                       R12 R0 K2 ["name"]
+       13 GETTABLEKS                       R13 R8 K2 ["name"]
+       15 NAMECALL                         R10 R2 K3 ["CollisionGroupsAreCollidable"]
+       17 CALL                             R10 3 1
+       18 MOVE                             R9 R10
+       19 JUMP                             ; [+9]
+       20 GETUPVAL                         R10 1
+       21 GETTABLEKS                       R12 R0 K2 ["name"]
+       23 GETTABLEKS                       R13 R8 K2 ["name"]
+       25 NAMECALL                         R10 R10 K3 ["CollisionGroupsAreCollidable"]
+       27 CALL                             R10 3 1
+       28 MOVE                             R9 R10
+       29 DUPTABLE                         R12 K6 [{"Name", "Collides"}]
+       30 GETTABLEKS                       R13 R8 K2 ["name"]
+       32 SETTABLEKS                       R13 R12 K4 ["Name"]
+       34 SETTABLEKS                       R9 R12 K5 ["Collides"]
+       36 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
+       38 MOVE                             R11 R3
+       39 GETIMPORT                        R10 K9 [table.insert]
+       41 CALL                             R10 2 0
+       42 FORGLOOP                         R4 2 ; [-36]
+       44 RETURN                           R3 1
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [pairs]
@@ -140,34 +151,47 @@ PROTO_4:
        64 RETURN                           R4 1
 
 PROTO_5:
-        0 NEWTABLE                         R0 0 0
-        2 GETUPVAL                         R1 0
-        3 NAMECALL                         R1 R1 K0 ["GetRegisteredCollisionGroups"]
-        5 CALL                             R1 1 1
-        6 GETIMPORT                        R2 K2 [pairs]
-        8 MOVE                             R3 R1
-        9 CALL                             R2 1 3
-       10 FORGPREP_NEXT                    R2
-       11 DUPTABLE                         R9 K6 [{"Name", "Id", "Collisions"}]
-       12 GETTABLEKS                       R10 R6 K7 ["name"]
-       14 SETTABLEKS                       R10 R9 K3 ["Name"]
-       16 GETTABLEKS                       R10 R6 K7 ["name"]
-       18 SETTABLEKS                       R10 R9 K4 ["Id"]
-       20 GETUPVAL                         R10 1
-       21 MOVE                             R11 R6
-       22 MOVE                             R12 R1
-       23 CALL                             R10 2 1
-       24 SETTABLEKS                       R10 R9 K5 ["Collisions"]
-       26 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
-       28 MOVE                             R8 R0
-       29 GETIMPORT                        R7 K10 [table.insert]
-       31 CALL                             R7 2 0
-       32 FORGLOOP                         R2 2 ; [-22]
-       34 GETUPVAL                         R2 2
-       35 MOVE                             R3 R0
-       36 CALL                             R2 1 1
-       37 MOVE                             R0 R2
-       38 RETURN                           R0 1
+        0 NEWTABLE                         R1 0 0
+        2 MOVE                             R2 R0
+        3 JUMPIF                           R2 ; [+2]
+        4 GETIMPORT                        R2 K1 [workspace]
+        6 NEWTABLE                         R3 0 0
+        8 GETUPVAL                         R4 0
+        9 CALL                             R4 0 1
+       10 JUMPIFNOT                        R4 ; [+5]
+       11 NAMECALL                         R4 R2 K2 ["GetRegisteredCollisionGroups"]
+       13 CALL                             R4 1 1
+       14 MOVE                             R3 R4
+       15 JUMP                             ; [+5]
+       16 GETUPVAL                         R4 1
+       17 NAMECALL                         R4 R4 K2 ["GetRegisteredCollisionGroups"]
+       19 CALL                             R4 1 1
+       20 MOVE                             R3 R4
+       21 GETIMPORT                        R4 K4 [pairs]
+       23 MOVE                             R5 R3
+       24 CALL                             R4 1 3
+       25 FORGPREP_NEXT                    R4
+       26 DUPTABLE                         R11 K8 [{"Name", "Id", "Collisions"}]
+       27 GETTABLEKS                       R12 R8 K9 ["name"]
+       29 SETTABLEKS                       R12 R11 K5 ["Name"]
+       31 GETTABLEKS                       R12 R8 K9 ["name"]
+       33 SETTABLEKS                       R12 R11 K6 ["Id"]
+       35 GETUPVAL                         R12 2
+       36 MOVE                             R13 R8
+       37 MOVE                             R14 R3
+       38 MOVE                             R15 R2
+       39 CALL                             R12 3 1
+       40 SETTABLEKS                       R12 R11 K7 ["Collisions"]
+       42 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
+       44 MOVE                             R10 R1
+       45 GETIMPORT                        R9 K12 [table.insert]
+       47 CALL                             R9 2 0
+       48 FORGLOOP                         R4 2 ; [-23]
+       50 GETUPVAL                         R4 3
+       51 MOVE                             R5 R1
+       52 CALL                             R4 1 1
+       53 MOVE                             R1 R4
+       54 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -180,15 +204,22 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K8 ["Parent"]
        13 GETTABLEKS                       R2 R2 K9 ["Constants"]
        15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K10 [PROTO_0]
-       17 CAPTURE                          VAL R0
-       18 DUPCLOSURE                       R3 K11 [PROTO_1]
-       19 DUPCLOSURE                       R4 K12 [PROTO_2]
-       20 CAPTURE                          VAL R1
-       21 DUPCLOSURE                       R5 K13 [PROTO_4]
-       22 CAPTURE                          VAL R4
-       23 DUPCLOSURE                       R6 K14 [PROTO_5]
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          VAL R2
-       26 CAPTURE                          VAL R5
-       27 RETURN                           R6 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETIMPORT                        R3 K7 [script]
+       20 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       22 GETTABLEKS                       R3 R3 K10 ["getEngineFeatureMultiworldCollisionGroups"]
+       24 CALL                             R2 1 1
+       25 DUPCLOSURE                       R3 K11 [PROTO_0]
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          VAL R0
+       28 DUPCLOSURE                       R4 K12 [PROTO_1]
+       29 DUPCLOSURE                       R5 K13 [PROTO_2]
+       30 CAPTURE                          VAL R1
+       31 DUPCLOSURE                       R6 K14 [PROTO_4]
+       32 CAPTURE                          VAL R5
+       33 DUPCLOSURE                       R7 K15 [PROTO_5]
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R6
+       38 RETURN                           R7 1

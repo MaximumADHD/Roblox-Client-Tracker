@@ -180,19 +180,20 @@ PROTO_8:
        33 RETURN                           R3 1
 
 PROTO_9:
-        0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
-        2 LOADK                            R5 K1 ["right_click_position"]
-        3 NAMECALL                         R3 R3 K2 ["setAnalyticsInsertAction"]
-        5 CALL                             R3 2 0
-        6 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
-        8 GETUPVAL                         R4 0
-        9 MOVE                             R5 R3
-       10 NAMECALL                         R6 R3 K3 ["getCurrentShownScope"]
-       12 CALL                             R6 1 1
-       13 GETTABLEKS                       R7 R1 K4 ["Networking"]
-       15 LOADNIL                          R8
-       16 CALL                             R4 4 0
-       17 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{[1] = True}]
+        1 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
+        3 LOADK                            R6 K4 ["right_click_position"]
+        4 NAMECALL                         R4 R4 K5 ["setAnalyticsInsertAction"]
+        6 CALL                             R4 2 0
+        7 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
+        9 GETUPVAL                         R5 0
+       10 MOVE                             R6 R4
+       11 NAMECALL                         R7 R4 K6 ["getCurrentShownScope"]
+       13 CALL                             R7 1 1
+       14 GETTABLEKS                       R8 R1 K7 ["Networking"]
+       16 MOVE                             R9 R3
+       17 CALL                             R5 4 0
+       18 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R6 R1 K0 ["ItemsController"]

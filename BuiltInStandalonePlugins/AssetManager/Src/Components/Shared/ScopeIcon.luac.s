@@ -140,32 +140,28 @@ MAIN:
        70 GETTABLEKS                       R10 R5 K21 ["UserFolder"]
        72 SETTABLE                         R10 R8 R9
        73 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       75 GETTABLEKS                       R9 R9 K22 ["ProjectShared"]
+       75 GETTABLEKS                       R9 R9 K22 ["Universe"]
        77 GETTABLEKS                       R10 R5 K23 ["GameFolder"]
        79 SETTABLE                         R10 R8 R9
        80 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       82 GETTABLEKS                       R9 R9 K24 ["Universe"]
-       84 GETTABLEKS                       R10 R5 K23 ["GameFolder"]
+       82 GETTABLEKS                       R9 R9 K24 ["ProjectPlaces"]
+       84 GETTABLEKS                       R10 R5 K25 ["PlacesFolder"]
        86 SETTABLE                         R10 R8 R9
        87 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       89 GETTABLEKS                       R9 R9 K25 ["ProjectPlaces"]
-       91 GETTABLEKS                       R10 R5 K26 ["PlacesFolder"]
+       89 GETTABLEKS                       R9 R9 K26 ["Folder"]
+       91 GETTABLEKS                       R10 R5 K26 ["Folder"]
        93 SETTABLE                         R10 R8 R9
-       94 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       96 GETTABLEKS                       R9 R9 K27 ["Folder"]
-       98 GETTABLEKS                       R10 R5 K27 ["Folder"]
-      100 SETTABLE                         R10 R8 R9
-      101 DUPCLOSURE                       R9 K28 [PROTO_0]
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R8
-      104 CAPTURE                          VAL R5
-      105 DUPCLOSURE                       R10 K29 [PROTO_1]
-      106 CAPTURE                          VAL R6
-      107 CAPTURE                          VAL R1
-      108 CAPTURE                          VAL R4
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R5
-      111 CAPTURE                          VAL R2
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R7
-      114 RETURN                           R10 1
+       94 DUPCLOSURE                       R9 K27 [PROTO_0]
+       95 CAPTURE                          VAL R4
+       96 CAPTURE                          VAL R8
+       97 CAPTURE                          VAL R5
+       98 DUPCLOSURE                       R10 K28 [PROTO_1]
+       99 CAPTURE                          VAL R6
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R8
+      103 CAPTURE                          VAL R5
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R3
+      106 CAPTURE                          VAL R7
+      107 RETURN                           R10 1

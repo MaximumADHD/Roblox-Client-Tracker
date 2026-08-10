@@ -4,7 +4,7 @@ PROTO_0:
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["Provider"]
         6 DUPTABLE                         R3 K3 [{"value"}]
-        7 DUPTABLE                         R4 K11 [{"getPlaces", "getContributors", "getVersionHistory", "saveVersionNotes", "getUserName", "getPlaceName", "getNotesValidation"}]
+        7 DUPTABLE                         R4 K12 [{"getPlaces", "getContributors", "getVersionHistory", "saveVersionNotes", "getUserName", "getPlaceName", "getNotesValidation", "getGeneratedNotes"}]
         8 GETUPVAL                         R5 2
         9 SETTABLEKS                       R5 R4 K4 ["getPlaces"]
        11 GETUPVAL                         R5 3
@@ -19,10 +19,12 @@ PROTO_0:
        24 SETTABLEKS                       R5 R4 K9 ["getPlaceName"]
        26 GETUPVAL                         R5 8
        27 SETTABLEKS                       R5 R4 K10 ["getNotesValidation"]
-       29 SETTABLEKS                       R4 R3 K2 ["value"]
-       31 GETTABLEKS                       R4 R0 K12 ["children"]
-       33 CALL                             R1 3 -1
-       34 RETURN                           R1 -1
+       29 GETUPVAL                         R5 9
+       30 SETTABLEKS                       R5 R4 K11 ["getGeneratedNotes"]
+       32 SETTABLEKS                       R4 R3 K2 ["value"]
+       34 GETTABLEKS                       R4 R0 K13 ["children"]
+       36 CALL                             R1 3 -1
+       37 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -62,14 +64,18 @@ MAIN:
        57 GETIMPORT                        R11 K5 [require]
        59 GETTABLEKS                       R12 R4 K18 ["GetNotesValidation"]
        61 CALL                             R11 1 1
-       62 DUPCLOSURE                       R12 K19 [PROTO_0]
-       63 CAPTURE                          VAL R1
-       64 CAPTURE                          VAL R3
-       65 CAPTURE                          VAL R5
-       66 CAPTURE                          VAL R6
-       67 CAPTURE                          VAL R7
-       68 CAPTURE                          VAL R8
-       69 CAPTURE                          VAL R9
-       70 CAPTURE                          VAL R10
-       71 CAPTURE                          VAL R11
-       72 RETURN                           R12 1
+       62 GETIMPORT                        R12 K5 [require]
+       64 GETTABLEKS                       R13 R4 K19 ["GetGeneratedNotes"]
+       66 CALL                             R12 1 1
+       67 DUPCLOSURE                       R13 K20 [PROTO_0]
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R6
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R9
+       75 CAPTURE                          VAL R10
+       76 CAPTURE                          VAL R11
+       77 CAPTURE                          VAL R12
+       78 RETURN                           R13 1

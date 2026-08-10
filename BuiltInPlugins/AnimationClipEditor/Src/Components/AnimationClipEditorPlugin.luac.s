@@ -252,6 +252,69 @@ PROTO_12:
         5 RETURN                           R0 0
 
 PROTO_13:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["JSONDecode"]
+        4 CALL                             R0 2 -1
+        5 RETURN                           R0 -1
+
+PROTO_14:
+        0 JUMPIFEQKNIL                     R0 ; [+3]
+        2 JUMPIFNOTEQKS                    R0 K0 [""] ; [+2]
+        4 RETURN                           R0 0
+        5 GETIMPORT                        R1 K2 [pcall]
+        7 NEWCLOSURE                       R2 P0
+        8 CAPTURE                          UPVAL U0
+        9 CAPTURE                          VAL R0
+       10 CALL                             R1 1 2
+       11 JUMPIFNOT                        R1 ; [+7]
+       12 FASTCALL1                        TYPEOF R2 ; [+3]
+       13 MOVE                             R4 R2
+       14 GETIMPORT                        R3 K4 [typeof]
+       16 CALL                             R3 1 1
+       17 JUMPIFEQKS                       R3 K5 ["table"] ; [+6]
+       19 GETIMPORT                        R3 K7 [warn]
+       21 LOADK                            R4 K8 ["[AnimationClipEditor] Ignoring malformed Open in Clip Editor request."]
+       22 CALL                             R3 1 0
+       23 RETURN                           R0 0
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R5 R2 K9 ["animationTag"]
+       27 GETTABLEKS                       R6 R2 K10 ["rigUniqueId"]
+       29 NAMECALL                         R3 R3 K11 ["openAnimationGenAnimation"]
+       31 CALL                             R3 3 0
+       32 RETURN                           R0 0
+
+PROTO_15:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["store"]
+        3 NAMECALL                         R1 R1 K1 ["getState"]
+        5 CALL                             R1 1 1
+        6 GETTABLEKS                       R1 R1 K2 ["Status"]
+        8 GETTABLEKS                       R1 R1 K3 ["RootInstance"]
+       10 JUMPIFEQKNIL                     R1 ; [+5]
+       12 JUMPIFEQKNIL                     R0 ; [+3]
+       14 JUMPIFNOTEQKS                    R0 K4 [""] ; [+2]
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R2 1
+       18 MOVE                             R4 R0
+       19 NAMECALL                         R2 R2 K5 ["GetInstanceByRfc4122String"]
+       21 CALL                             R2 2 1
+       22 JUMPIFEQ                         R2 R1 ; [+2]
+       24 RETURN                           R0 0
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K6 ["state"]
+       28 GETTABLEKS                       R2 R2 K7 ["enabled"]
+       30 JUMPIFNOT                        R2 ; [+9]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEKS                       R2 R2 K0 ["store"]
+       34 GETUPVAL                         R4 2
+       35 LOADB                            R5 0
+       36 CALL                             R4 1 -1
+       37 NAMECALL                         R2 R2 K8 ["dispatch"]
+       39 CALL                             R2 -1 0
+       40 RETURN                           R0 0
+
+PROTO_16:
         0 GETTABLEKS                       R4 R1 K0 ["plugin"]
         2 JUMPIFNOTEQKNIL                  R4 ; [+2]
         4 LOADB                            R3 0 +1
@@ -443,9 +506,29 @@ PROTO_13:
       268 NEWCLOSURE                       R7 P7
       269 CAPTURE                          VAL R0
       270 SETTABLEKS                       R7 R0 K63 ["closeWidget"]
-      272 RETURN                           R0 0
+      272 GETUPVAL                         R7 21
+      273 CALL                             R7 0 1
+      274 JUMPIFNOT                        R7 ; [+21]
+      275 GETUPVAL                         R7 22
+      276 LOADK                            R9 K64 ["OpenAnimationInClipEditor"]
+      277 NEWCLOSURE                       R10 P8
+      278 CAPTURE                          UPVAL U23
+      279 CAPTURE                          VAL R0
+      280 NAMECALL                         R7 R7 K65 ["Bind"]
+      282 CALL                             R7 3 1
+      283 SETTABLEKS                       R7 R0 K66 ["animationGenOpenConnection"]
+      285 GETUPVAL                         R7 22
+      286 LOADK                            R9 K67 ["AnimationGenTookOverAnimator"]
+      287 NEWCLOSURE                       R10 P9
+      288 CAPTURE                          VAL R0
+      289 CAPTURE                          UPVAL U24
+      290 CAPTURE                          UPVAL U25
+      291 NAMECALL                         R7 R7 K65 ["Bind"]
+      293 CALL                             R7 3 1
+      294 SETTABLEKS                       R7 R0 K68 ["animationGenTookOverAnimatorConnection"]
+      296 RETURN                           R0 0
 
-PROTO_14:
+PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["plugin"]
         4 GETUPVAL                         R4 0
@@ -499,7 +582,7 @@ PROTO_14:
        77 CALL                             R6 -1 0
        78 RETURN                           R0 0
 
-PROTO_15:
+PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["plugin"]
         4 GETTABLEKS                       R2 R0 K2 ["store"]
@@ -532,7 +615,7 @@ PROTO_15:
        50 CALL                             R3 3 0
        51 RETURN                           R0 0
 
-PROTO_16:
+PROTO_19:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 RETURN                           R1 1
@@ -542,7 +625,7 @@ PROTO_16:
         8 CALL                             R1 2 -1
         9 RETURN                           R1 -1
 
-PROTO_17:
+PROTO_20:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 JUMP                             ; [+6]
@@ -561,7 +644,7 @@ PROTO_17:
        20 SETTABLEKS                       R0 R1 K7 ["Parent"]
        22 RETURN                           R1 1
 
-PROTO_18:
+PROTO_21:
         0 JUMPIF                           R0 ; [+2]
         1 LOADNIL                          R1
         2 JUMP                             ; [+6]
@@ -574,7 +657,7 @@ PROTO_18:
        12 CALL                             R2 1 0
        13 RETURN                           R0 0
 
-PROTO_19:
+PROTO_22:
         0 DUPTABLE                         R3 K2 [{"pluginGui", "enabled"}]
         1 GETTABLEKS                       R4 R0 K3 ["dockWidget"]
         3 SETTABLEKS                       R4 R3 K0 ["pluginGui"]
@@ -602,9 +685,82 @@ PROTO_19:
        35 GETTABLEKS                       R3 R3 K7 ["ANIMATION_UPLOAD_SUCCESS_EVENT_NAME"]
        37 SETTABLEKS                       R3 R2 K13 ["Name"]
        39 SETTABLEKS                       R1 R2 K14 ["Parent"]
-       41 RETURN                           R0 0
+       41 GETUPVAL                         R1 1
+       42 CALL                             R1 0 1
+       43 JUMPIFNOT                        R1 ; [+6]
+       44 GETUPVAL                         R1 2
+       45 LOADK                            R3 K15 ["AnimationClipEditorReady"]
+       46 LOADK                            R4 K16 ["true"]
+       47 NAMECALL                         R1 R1 K17 ["SetItem"]
+       49 CALL                             R1 3 0
+       50 RETURN                           R0 0
 
-PROTO_20:
+PROTO_23:
+        0 JUMPIFEQKNIL                     R1 ; [+3]
+        2 JUMPIFNOTEQKNIL                  R2 ; [+6]
+        4 GETIMPORT                        R3 K1 [warn]
+        6 LOADK                            R4 K2 ["[AnimationClipEditor] Open in Clip Editor request missing animation or rig."]
+        7 CALL                             R3 1 0
+        8 RETURN                           R0 0
+        9 GETUPVAL                         R3 0
+       10 MOVE                             R5 R2
+       11 NAMECALL                         R3 R3 K3 ["GetInstanceByRfc4122String"]
+       13 CALL                             R3 2 1
+       14 JUMPIFEQKNIL                     R3 ; [+6]
+       16 LOADK                            R6 K4 ["Model"]
+       17 NAMECALL                         R4 R3 K5 ["IsA"]
+       19 CALL                             R4 2 1
+       20 JUMPIF                           R4 ; [+5]
+       21 GETIMPORT                        R4 K1 [warn]
+       23 LOADK                            R5 K6 ["[AnimationClipEditor] Open in Clip Editor: could not resolve the target rig."]
+       24 CALL                             R4 1 0
+       25 RETURN                           R0 0
+       26 LOADNIL                          R4
+       27 GETUPVAL                         R5 1
+       28 MOVE                             R7 R1
+       29 NAMECALL                         R5 R5 K7 ["GetTagged"]
+       31 CALL                             R5 2 3
+       32 FORGPREP                         R5
+       33 LOADK                            R12 K8 ["KeyframeSequence"]
+       34 NAMECALL                         R10 R9 K5 ["IsA"]
+       36 CALL                             R10 2 1
+       37 JUMPIFNOT                        R10 ; [+18]
+       38 GETTABLEKS                       R10 R9 K9 ["Parent"]
+       40 JUMPIFNOT                        R10 ; [+15]
+       41 GETTABLEKS                       R10 R9 K9 ["Parent"]
+       43 LOADK                            R12 K10 ["ObjectValue"]
+       44 NAMECALL                         R10 R10 K5 ["IsA"]
+       46 CALL                             R10 2 1
+       47 JUMPIFNOT                        R10 ; [+8]
+       48 GETTABLEKS                       R10 R9 K9 ["Parent"]
+       50 GETTABLEKS                       R10 R10 K11 ["Value"]
+       52 JUMPIFNOTEQ                      R10 R3 ; [+3]
+       54 MOVE                             R4 R9
+       55 JUMP                             ; [+2]
+       56 FORGLOOP                         R5 2 ; [-24]
+       58 JUMPIFNOTEQKNIL                  R4 ; [+6]
+       60 GETIMPORT                        R5 K1 [warn]
+       62 LOADK                            R6 K12 ["[AnimationClipEditor] Open in Clip Editor: no matching animation found for the rig."]
+       63 CALL                             R5 1 0
+       64 RETURN                           R0 0
+       65 GETTABLEKS                       R5 R0 K13 ["store"]
+       67 GETUPVAL                         R7 2
+       68 MOVE                             R8 R3
+       69 GETTABLEKS                       R9 R0 K14 ["analytics"]
+       71 GETTABLEKS                       R10 R0 K15 ["localization"]
+       73 MOVE                             R11 R4
+       74 CALL                             R7 4 -1
+       75 NAMECALL                         R5 R5 K16 ["dispatch"]
+       77 CALL                             R5 -1 0
+       78 GETTABLEKS                       R5 R0 K17 ["state"]
+       80 GETTABLEKS                       R5 R5 K18 ["enabled"]
+       82 JUMPIFNOT                        R5 ; [+5]
+       83 GETTABLEKS                       R5 R0 K19 ["dockWidget"]
+       85 NAMECALL                         R5 R5 K20 ["RequestRaise"]
+       87 CALL                             R5 1 0
+       88 RETURN                           R0 0
+
+PROTO_24:
         0 GETTABLEKS                       R1 R0 K0 ["deactivationListener"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["deactivationListener"]
@@ -617,25 +773,42 @@ PROTO_20:
        13 GETTABLEKS                       R1 R0 K2 ["unloadingListener"]
        15 NAMECALL                         R1 R1 K1 ["Disconnect"]
        17 CALL                             R1 1 0
-       18 GETTABLEKS                       R1 R0 K3 ["dockWidget"]
-       20 JUMPIF                           R1 ; [+2]
-       21 LOADNIL                          R2
-       22 JUMP                             ; [+6]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R4 R4 K4 ["ANIMATION_UPLOAD_SUCCESS_EVENT_NAME"]
-       26 NAMECALL                         R2 R1 K5 ["FindFirstChild"]
-       28 CALL                             R2 2 1
-       29 JUMPIFNOT                        R2 ; [+3]
-       30 NAMECALL                         R3 R2 K6 ["Destroy"]
-       32 CALL                             R3 1 0
-       33 NAMECALL                         R1 R0 K7 ["setPluginSettings"]
-       35 CALL                             R1 1 0
-       36 GETTABLEKS                       R1 R0 K8 ["theme"]
-       38 NAMECALL                         R1 R1 K9 ["destroy"]
-       40 CALL                             R1 1 0
-       41 RETURN                           R0 0
+       18 GETUPVAL                         R1 1
+       19 CALL                             R1 0 1
+       20 JUMPIFNOT                        R1 ; [+21]
+       21 GETTABLEKS                       R1 R0 K3 ["animationGenOpenConnection"]
+       23 JUMPIFNOT                        R1 ; [+5]
+       24 GETTABLEKS                       R1 R0 K3 ["animationGenOpenConnection"]
+       26 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       28 CALL                             R1 1 0
+       29 GETTABLEKS                       R1 R0 K4 ["animationGenTookOverAnimatorConnection"]
+       31 JUMPIFNOT                        R1 ; [+5]
+       32 GETTABLEKS                       R1 R0 K4 ["animationGenTookOverAnimatorConnection"]
+       34 NAMECALL                         R1 R1 K1 ["Disconnect"]
+       36 CALL                             R1 1 0
+       37 GETUPVAL                         R1 2
+       38 LOADK                            R3 K5 ["AnimationClipEditorReady"]
+       39 NAMECALL                         R1 R1 K6 ["RemoveItem"]
+       41 CALL                             R1 2 0
+       42 GETTABLEKS                       R1 R0 K7 ["dockWidget"]
+       44 JUMPIF                           R1 ; [+2]
+       45 LOADNIL                          R2
+       46 JUMP                             ; [+6]
+       47 GETUPVAL                         R4 3
+       48 GETTABLEKS                       R4 R4 K8 ["ANIMATION_UPLOAD_SUCCESS_EVENT_NAME"]
+       50 NAMECALL                         R2 R1 K9 ["FindFirstChild"]
+       52 CALL                             R2 2 1
+       53 JUMPIFNOT                        R2 ; [+3]
+       54 NAMECALL                         R3 R2 K10 ["Destroy"]
+       56 CALL                             R3 1 0
+       57 NAMECALL                         R1 R0 K11 ["setPluginSettings"]
+       59 CALL                             R1 1 0
+       60 GETTABLEKS                       R1 R0 K12 ["theme"]
+       62 NAMECALL                         R1 R1 K13 ["destroy"]
+       64 CALL                             R1 1 0
+       65 RETURN                           R0 0
 
-PROTO_21:
+PROTO_25:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["store"]
         4 GETTABLEKS                       R3 R0 K2 ["localization"]
@@ -725,195 +898,236 @@ PROTO_21:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["RunService"]
+        3 LOADK                            R2 K2 ["CollectionService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 LOADK                            R3 K6 ["AnimationClipEditor"]
-       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+        7 GETIMPORT                        R1 K1 [game]
+        9 LOADK                            R3 K4 ["HttpService"]
+       10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K11 ["Roact"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K12 ["Rodux"]
-       26 CALL                             R3 1 1
-       27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R5 K13 ["Framework"]
-       33 CALL                             R4 1 1
-       34 GETTABLEKS                       R5 R4 K14 ["ContextServices"]
-       36 GETTABLEKS                       R6 R1 K15 ["Src"]
-       38 GETTABLEKS                       R6 R6 K16 ["Actions"]
-       40 GETIMPORT                        R7 K9 [require]
-       42 GETTABLEKS                       R8 R6 K17 ["SetDefaultEulerAnglesOrder"]
-       44 CALL                             R7 1 1
-       45 GETIMPORT                        R8 K9 [require]
-       47 GETTABLEKS                       R9 R6 K18 ["SetDefaultRotationType"]
-       49 CALL                             R8 1 1
-       50 GETIMPORT                        R9 K9 [require]
-       52 GETTABLEKS                       R10 R6 K19 ["SetSnapMode"]
-       54 CALL                             R9 1 1
-       55 GETIMPORT                        R10 K9 [require]
-       57 GETTABLEKS                       R11 R6 K20 ["SetTimelineUnit"]
-       59 CALL                             R10 1 1
-       60 GETIMPORT                        R11 K9 [require]
-       62 GETTABLEKS                       R12 R6 K21 ["SetTool"]
-       64 CALL                             R11 1 1
-       65 GETTABLEKS                       R12 R1 K15 ["Src"]
-       67 GETTABLEKS                       R12 R12 K22 ["Components"]
-       69 GETIMPORT                        R13 K9 [require]
-       71 GETTABLEKS                       R14 R12 K6 ["AnimationClipEditor"]
-       73 CALL                             R13 1 1
-       74 GETIMPORT                        R14 K9 [require]
-       76 GETTABLEKS                       R15 R12 K23 ["PluginWidget"]
-       78 GETTABLEKS                       R15 R15 K24 ["DockWidget"]
-       80 CALL                             R14 1 1
-       81 GETIMPORT                        R15 K9 [require]
-       83 GETTABLEKS                       R16 R12 K25 ["Draggers"]
-       85 GETTABLEKS                       R16 R16 K26 ["DraggerWrapper"]
-       87 CALL                             R15 1 1
-       88 GETIMPORT                        R16 K9 [require]
-       90 GETTABLEKS                       R17 R12 K27 ["BlockingDialog"]
-       92 GETTABLEKS                       R17 R17 K28 ["ErrorList"]
-       94 CALL                             R16 1 1
-       95 GETTABLEKS                       R17 R1 K15 ["Src"]
-       97 GETTABLEKS                       R17 R17 K29 ["Context"]
-       99 GETIMPORT                        R18 K9 [require]
-      101 GETTABLEKS                       R19 R17 K30 ["MainProvider"]
-      103 CALL                             R18 1 1
-      104 GETIMPORT                        R19 K9 [require]
-      106 GETTABLEKS                       R20 R17 K31 ["Signals"]
-      108 CALL                             R19 1 1
-      109 GETIMPORT                        R20 K9 [require]
-      111 GETTABLEKS                       R21 R1 K15 ["Src"]
-      113 GETTABLEKS                       R21 R21 K32 ["Reducers"]
-      115 GETTABLEKS                       R21 R21 K33 ["MainReducer"]
-      117 CALL                             R20 1 1
-      118 GETTABLEKS                       R21 R5 K34 ["Localization"]
-      120 GETTABLEKS                       R22 R1 K15 ["Src"]
-      122 GETTABLEKS                       R22 R22 K35 ["Resources"]
-      124 GETTABLEKS                       R22 R22 K36 ["SourceStrings"]
-      126 GETTABLEKS                       R23 R1 K15 ["Src"]
-      128 GETTABLEKS                       R23 R23 K35 ["Resources"]
-      130 GETTABLEKS                       R23 R23 K37 ["LocalizedStrings"]
-      132 GETTABLEKS                       R24 R1 K15 ["Src"]
-      134 GETTABLEKS                       R24 R24 K38 ["Thunks"]
-      136 GETIMPORT                        R25 K9 [require]
-      138 GETTABLEKS                       R26 R24 K39 ["ReleaseEditor"]
-      140 CALL                             R25 1 1
-      141 GETTABLEKS                       R26 R1 K15 ["Src"]
-      143 GETTABLEKS                       R26 R26 K40 ["Util"]
-      145 GETIMPORT                        R27 K9 [require]
-      147 GETTABLEKS                       R28 R26 K41 ["CalloutController"]
-      149 CALL                             R27 1 1
-      150 GETIMPORT                        R28 K9 [require]
-      152 GETTABLEKS                       R29 R26 K42 ["Constants"]
-      154 CALL                             R28 1 1
-      155 GETIMPORT                        R29 K9 [require]
-      157 GETTABLEKS                       R30 R26 K43 ["DebugFlags"]
-      159 CALL                             R29 1 1
-      160 GETIMPORT                        R30 K9 [require]
-      162 GETTABLEKS                       R31 R26 K44 ["MakePluginActions"]
-      164 CALL                             R30 1 1
-      165 GETIMPORT                        R31 K9 [require]
-      167 GETTABLEKS                       R32 R26 K45 ["RigVisualization"]
-      169 CALL                             R31 1 1
-      170 GETIMPORT                        R32 K9 [require]
-      172 GETTABLEKS                       R33 R26 K46 ["showBlockingDialog"]
-      174 CALL                             R32 1 1
-      175 GETIMPORT                        R33 K9 [require]
-      177 GETTABLEKS                       R34 R26 K47 ["Theme"]
-      179 CALL                             R33 1 1
-      180 GETIMPORT                        R34 K9 [require]
-      182 GETTABLEKS                       R35 R1 K15 ["Src"]
-      184 GETTABLEKS                       R35 R35 K35 ["Resources"]
-      186 GETTABLEKS                       R35 R35 K48 ["AnalyticsHandlers"]
+       13 GETIMPORT                        R2 K1 [game]
+       15 LOADK                            R4 K5 ["MemStorageService"]
+       16 NAMECALL                         R2 R2 K3 ["GetService"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R3 K1 [game]
+       21 LOADK                            R5 K6 ["RunService"]
+       22 NAMECALL                         R3 R3 K3 ["GetService"]
+       24 CALL                             R3 2 1
+       25 GETIMPORT                        R4 K1 [game]
+       27 LOADK                            R6 K7 ["UniqueIdLookupService"]
+       28 NAMECALL                         R4 R4 K3 ["GetService"]
+       30 CALL                             R4 2 1
+       31 GETIMPORT                        R5 K9 [script]
+       33 LOADK                            R7 K10 ["AnimationClipEditor"]
+       34 NAMECALL                         R5 R5 K11 ["FindFirstAncestor"]
+       36 CALL                             R5 2 1
+       37 GETIMPORT                        R6 K13 [require]
+       39 GETTABLEKS                       R7 R5 K14 ["Packages"]
+       41 GETTABLEKS                       R7 R7 K15 ["Roact"]
+       43 CALL                             R6 1 1
+       44 GETIMPORT                        R7 K13 [require]
+       46 GETTABLEKS                       R8 R5 K14 ["Packages"]
+       48 GETTABLEKS                       R8 R8 K16 ["Rodux"]
+       50 CALL                             R7 1 1
+       51 GETIMPORT                        R8 K13 [require]
+       53 GETTABLEKS                       R9 R5 K14 ["Packages"]
+       55 GETTABLEKS                       R9 R9 K17 ["Framework"]
+       57 CALL                             R8 1 1
+       58 GETTABLEKS                       R9 R8 K18 ["ContextServices"]
+       60 GETTABLEKS                       R10 R5 K19 ["Src"]
+       62 GETTABLEKS                       R10 R10 K20 ["Actions"]
+       64 GETIMPORT                        R11 K13 [require]
+       66 GETTABLEKS                       R12 R10 K21 ["SetDefaultEulerAnglesOrder"]
+       68 CALL                             R11 1 1
+       69 GETIMPORT                        R12 K13 [require]
+       71 GETTABLEKS                       R13 R10 K22 ["SetDefaultRotationType"]
+       73 CALL                             R12 1 1
+       74 GETIMPORT                        R13 K13 [require]
+       76 GETTABLEKS                       R14 R10 K23 ["SetSnapMode"]
+       78 CALL                             R13 1 1
+       79 GETIMPORT                        R14 K13 [require]
+       81 GETTABLEKS                       R15 R10 K24 ["SetTimelineUnit"]
+       83 CALL                             R14 1 1
+       84 GETIMPORT                        R15 K13 [require]
+       86 GETTABLEKS                       R16 R10 K25 ["SetTool"]
+       88 CALL                             R15 1 1
+       89 GETTABLEKS                       R16 R5 K19 ["Src"]
+       91 GETTABLEKS                       R16 R16 K26 ["Components"]
+       93 GETIMPORT                        R17 K13 [require]
+       95 GETTABLEKS                       R18 R16 K10 ["AnimationClipEditor"]
+       97 CALL                             R17 1 1
+       98 GETIMPORT                        R18 K13 [require]
+      100 GETTABLEKS                       R19 R16 K27 ["PluginWidget"]
+      102 GETTABLEKS                       R19 R19 K28 ["DockWidget"]
+      104 CALL                             R18 1 1
+      105 GETIMPORT                        R19 K13 [require]
+      107 GETTABLEKS                       R20 R16 K29 ["Draggers"]
+      109 GETTABLEKS                       R20 R20 K30 ["DraggerWrapper"]
+      111 CALL                             R19 1 1
+      112 GETIMPORT                        R20 K13 [require]
+      114 GETTABLEKS                       R21 R16 K31 ["BlockingDialog"]
+      116 GETTABLEKS                       R21 R21 K32 ["ErrorList"]
+      118 CALL                             R20 1 1
+      119 GETTABLEKS                       R21 R5 K19 ["Src"]
+      121 GETTABLEKS                       R21 R21 K33 ["Context"]
+      123 GETIMPORT                        R22 K13 [require]
+      125 GETTABLEKS                       R23 R21 K34 ["MainProvider"]
+      127 CALL                             R22 1 1
+      128 GETIMPORT                        R23 K13 [require]
+      130 GETTABLEKS                       R24 R21 K35 ["Signals"]
+      132 CALL                             R23 1 1
+      133 GETIMPORT                        R24 K13 [require]
+      135 GETTABLEKS                       R25 R5 K19 ["Src"]
+      137 GETTABLEKS                       R25 R25 K36 ["Reducers"]
+      139 GETTABLEKS                       R25 R25 K37 ["MainReducer"]
+      141 CALL                             R24 1 1
+      142 GETTABLEKS                       R25 R9 K38 ["Localization"]
+      144 GETTABLEKS                       R26 R5 K19 ["Src"]
+      146 GETTABLEKS                       R26 R26 K39 ["Resources"]
+      148 GETTABLEKS                       R26 R26 K40 ["SourceStrings"]
+      150 GETTABLEKS                       R27 R5 K19 ["Src"]
+      152 GETTABLEKS                       R27 R27 K39 ["Resources"]
+      154 GETTABLEKS                       R27 R27 K41 ["LocalizedStrings"]
+      156 GETIMPORT                        R28 K13 [require]
+      158 GETTABLEKS                       R29 R10 K42 ["SetActive"]
+      160 CALL                             R28 1 1
+      161 GETTABLEKS                       R29 R5 K19 ["Src"]
+      163 GETTABLEKS                       R29 R29 K43 ["Thunks"]
+      165 GETIMPORT                        R30 K13 [require]
+      167 GETTABLEKS                       R31 R29 K44 ["ReleaseEditor"]
+      169 CALL                             R30 1 1
+      170 GETIMPORT                        R31 K13 [require]
+      172 GETTABLEKS                       R32 R29 K45 ["UpdateRootInstance"]
+      174 CALL                             R31 1 1
+      175 GETTABLEKS                       R32 R5 K19 ["Src"]
+      177 GETTABLEKS                       R32 R32 K46 ["Util"]
+      179 GETIMPORT                        R33 K13 [require]
+      181 GETTABLEKS                       R34 R32 K47 ["CalloutController"]
+      183 CALL                             R33 1 1
+      184 GETIMPORT                        R34 K13 [require]
+      186 GETTABLEKS                       R35 R32 K48 ["Constants"]
       188 CALL                             R34 1 1
-      189 GETTABLEKS                       R35 R2 K49 ["PureComponent"]
-      191 LOADK                            R37 K50 ["AnimationClipEditorPlugin"]
-      192 NAMECALL                         R35 R35 K51 ["extend"]
-      194 CALL                             R35 2 1
-      195 GETIMPORT                        R36 K1 [game]
-      197 LOADK                            R38 K52 ["FaceControlsEditorLink"]
-      198 NAMECALL                         R36 R36 K53 ["GetFastString"]
-      200 CALL                             R36 2 1
-      201 GETIMPORT                        R37 K1 [game]
-      203 LOADK                            R39 K54 ["ACEFaceRecorderLink"]
-      204 LOADK                            R40 K55 ["https://create.roblox.com/docs/building-and-visuals/animation/face-recorder"]
-      205 NAMECALL                         R37 R37 K56 ["DefineFastString"]
-      207 CALL                             R37 3 1
-      208 GETIMPORT                        R38 K1 [game]
-      210 LOADK                            R40 K57 ["ACETemporaryToolHack"]
-      211 LOADB                            R41 0
-      212 NAMECALL                         R38 R38 K58 ["DefineFastFlag"]
-      214 CALL                             R38 3 1
-      215 GETIMPORT                        R39 K9 [require]
-      217 GETTABLEKS                       R40 R1 K59 ["LuaFlags"]
-      219 GETTABLEKS                       R40 R40 K60 ["GetFFlagFacialAnimationRecordingInStudio"]
-      221 CALL                             R39 1 1
-      222 DUPCLOSURE                       R40 K61 [PROTO_1]
-      223 CAPTURE                          VAL R0
-      224 CAPTURE                          VAL R32
-      225 CAPTURE                          VAL R2
-      226 CAPTURE                          VAL R16
-      227 CAPTURE                          VAL R28
-      228 SETTABLEKS                       R40 R35 K62 ["handleButtonClick"]
-      230 DUPCLOSURE                       R40 K63 [PROTO_2]
-      231 SETTABLEKS                       R40 R35 K64 ["createPluginButton"]
-      233 DUPCLOSURE                       R40 K65 [PROTO_13]
-      234 CAPTURE                          VAL R3
-      235 CAPTURE                          VAL R29
-      236 CAPTURE                          VAL R20
-      237 CAPTURE                          VAL R21
-      238 CAPTURE                          VAL R28
-      239 CAPTURE                          VAL R22
-      240 CAPTURE                          VAL R23
-      241 CAPTURE                          VAL R27
-      242 CAPTURE                          VAL R36
-      243 CAPTURE                          VAL R39
-      244 CAPTURE                          VAL R37
-      245 CAPTURE                          VAL R5
-      246 CAPTURE                          VAL R30
-      247 CAPTURE                          VAL R19
-      248 CAPTURE                          VAL R34
-      249 CAPTURE                          VAL R0
-      250 CAPTURE                          VAL R11
-      251 CAPTURE                          VAL R31
-      252 CAPTURE                          VAL R25
-      253 CAPTURE                          VAL R38
-      254 CAPTURE                          VAL R33
-      255 SETTABLEKS                       R40 R35 K66 ["init"]
-      257 DUPCLOSURE                       R40 K67 [PROTO_14]
-      258 CAPTURE                          VAL R28
-      259 CAPTURE                          VAL R9
-      260 CAPTURE                          VAL R10
-      261 CAPTURE                          VAL R8
-      262 CAPTURE                          VAL R7
-      263 SETTABLEKS                       R40 R35 K68 ["getPluginSettings"]
-      265 DUPCLOSURE                       R40 K69 [PROTO_15]
-      266 CAPTURE                          VAL R28
-      267 SETTABLEKS                       R40 R35 K70 ["setPluginSettings"]
-      269 DUPCLOSURE                       R40 K71 [PROTO_16]
-      270 CAPTURE                          VAL R28
-      271 DUPCLOSURE                       R41 K72 [PROTO_17]
-      272 CAPTURE                          VAL R28
-      273 DUPCLOSURE                       R42 K73 [PROTO_18]
-      274 CAPTURE                          VAL R28
-      275 DUPCLOSURE                       R43 K74 [PROTO_19]
-      276 CAPTURE                          VAL R28
-      277 SETTABLEKS                       R43 R35 K75 ["didMount"]
-      279 DUPCLOSURE                       R43 K76 [PROTO_20]
-      280 CAPTURE                          VAL R38
-      281 CAPTURE                          VAL R28
-      282 SETTABLEKS                       R43 R35 K77 ["willUnmount"]
-      284 DUPCLOSURE                       R43 K78 [PROTO_21]
-      285 CAPTURE                          VAL R2
-      286 CAPTURE                          VAL R14
-      287 CAPTURE                          VAL R18
-      288 CAPTURE                          VAL R13
-      289 CAPTURE                          VAL R15
-      290 SETTABLEKS                       R43 R35 K79 ["render"]
-      292 RETURN                           R35 1
+      189 GETIMPORT                        R35 K13 [require]
+      191 GETTABLEKS                       R36 R32 K49 ["DebugFlags"]
+      193 CALL                             R35 1 1
+      194 GETIMPORT                        R36 K13 [require]
+      196 GETTABLEKS                       R37 R32 K50 ["MakePluginActions"]
+      198 CALL                             R36 1 1
+      199 GETIMPORT                        R37 K13 [require]
+      201 GETTABLEKS                       R38 R32 K51 ["RigVisualization"]
+      203 CALL                             R37 1 1
+      204 GETIMPORT                        R38 K13 [require]
+      206 GETTABLEKS                       R39 R32 K52 ["showBlockingDialog"]
+      208 CALL                             R38 1 1
+      209 GETIMPORT                        R39 K13 [require]
+      211 GETTABLEKS                       R40 R32 K53 ["Theme"]
+      213 CALL                             R39 1 1
+      214 GETIMPORT                        R40 K13 [require]
+      216 GETTABLEKS                       R41 R5 K19 ["Src"]
+      218 GETTABLEKS                       R41 R41 K39 ["Resources"]
+      220 GETTABLEKS                       R41 R41 K54 ["AnalyticsHandlers"]
+      222 CALL                             R40 1 1
+      223 GETTABLEKS                       R41 R6 K55 ["PureComponent"]
+      225 LOADK                            R43 K56 ["AnimationClipEditorPlugin"]
+      226 NAMECALL                         R41 R41 K57 ["extend"]
+      228 CALL                             R41 2 1
+      229 GETIMPORT                        R42 K1 [game]
+      231 LOADK                            R44 K58 ["FaceControlsEditorLink"]
+      232 NAMECALL                         R42 R42 K59 ["GetFastString"]
+      234 CALL                             R42 2 1
+      235 GETIMPORT                        R43 K1 [game]
+      237 LOADK                            R45 K60 ["ACEFaceRecorderLink"]
+      238 LOADK                            R46 K61 ["https://create.roblox.com/docs/building-and-visuals/animation/face-recorder"]
+      239 NAMECALL                         R43 R43 K62 ["DefineFastString"]
+      241 CALL                             R43 3 1
+      242 GETIMPORT                        R44 K1 [game]
+      244 LOADK                            R46 K63 ["ACETemporaryToolHack"]
+      245 LOADB                            R47 0
+      246 NAMECALL                         R44 R44 K64 ["DefineFastFlag"]
+      248 CALL                             R44 3 1
+      249 GETIMPORT                        R45 K13 [require]
+      251 GETTABLEKS                       R46 R5 K19 ["Src"]
+      253 GETTABLEKS                       R46 R46 K65 ["Flags"]
+      255 GETTABLEKS                       R46 R46 K66 ["getFFlagAnimationGenOpenACE"]
+      257 CALL                             R45 1 1
+      258 GETIMPORT                        R46 K13 [require]
+      260 GETTABLEKS                       R47 R5 K67 ["LuaFlags"]
+      262 GETTABLEKS                       R47 R47 K68 ["GetFFlagFacialAnimationRecordingInStudio"]
+      264 CALL                             R46 1 1
+      265 DUPCLOSURE                       R47 K69 [PROTO_1]
+      266 CAPTURE                          VAL R3
+      267 CAPTURE                          VAL R38
+      268 CAPTURE                          VAL R6
+      269 CAPTURE                          VAL R20
+      270 CAPTURE                          VAL R34
+      271 SETTABLEKS                       R47 R41 K70 ["handleButtonClick"]
+      273 DUPCLOSURE                       R47 K71 [PROTO_2]
+      274 SETTABLEKS                       R47 R41 K72 ["createPluginButton"]
+      276 DUPCLOSURE                       R47 K73 [PROTO_16]
+      277 CAPTURE                          VAL R7
+      278 CAPTURE                          VAL R35
+      279 CAPTURE                          VAL R24
+      280 CAPTURE                          VAL R25
+      281 CAPTURE                          VAL R34
+      282 CAPTURE                          VAL R26
+      283 CAPTURE                          VAL R27
+      284 CAPTURE                          VAL R33
+      285 CAPTURE                          VAL R42
+      286 CAPTURE                          VAL R46
+      287 CAPTURE                          VAL R43
+      288 CAPTURE                          VAL R9
+      289 CAPTURE                          VAL R36
+      290 CAPTURE                          VAL R23
+      291 CAPTURE                          VAL R40
+      292 CAPTURE                          VAL R3
+      293 CAPTURE                          VAL R15
+      294 CAPTURE                          VAL R37
+      295 CAPTURE                          VAL R30
+      296 CAPTURE                          VAL R44
+      297 CAPTURE                          VAL R39
+      298 CAPTURE                          VAL R45
+      299 CAPTURE                          VAL R2
+      300 CAPTURE                          VAL R1
+      301 CAPTURE                          VAL R4
+      302 CAPTURE                          VAL R28
+      303 SETTABLEKS                       R47 R41 K74 ["init"]
+      305 DUPCLOSURE                       R47 K75 [PROTO_17]
+      306 CAPTURE                          VAL R34
+      307 CAPTURE                          VAL R13
+      308 CAPTURE                          VAL R14
+      309 CAPTURE                          VAL R12
+      310 CAPTURE                          VAL R11
+      311 SETTABLEKS                       R47 R41 K76 ["getPluginSettings"]
+      313 DUPCLOSURE                       R47 K77 [PROTO_18]
+      314 CAPTURE                          VAL R34
+      315 SETTABLEKS                       R47 R41 K78 ["setPluginSettings"]
+      317 DUPCLOSURE                       R47 K79 [PROTO_19]
+      318 CAPTURE                          VAL R34
+      319 DUPCLOSURE                       R48 K80 [PROTO_20]
+      320 CAPTURE                          VAL R34
+      321 DUPCLOSURE                       R49 K81 [PROTO_21]
+      322 CAPTURE                          VAL R34
+      323 DUPCLOSURE                       R50 K82 [PROTO_22]
+      324 CAPTURE                          VAL R34
+      325 CAPTURE                          VAL R45
+      326 CAPTURE                          VAL R2
+      327 SETTABLEKS                       R50 R41 K83 ["didMount"]
+      329 DUPCLOSURE                       R50 K84 [PROTO_23]
+      330 CAPTURE                          VAL R4
+      331 CAPTURE                          VAL R0
+      332 CAPTURE                          VAL R31
+      333 SETTABLEKS                       R50 R41 K85 ["openAnimationGenAnimation"]
+      335 DUPCLOSURE                       R50 K86 [PROTO_24]
+      336 CAPTURE                          VAL R44
+      337 CAPTURE                          VAL R45
+      338 CAPTURE                          VAL R2
+      339 CAPTURE                          VAL R34
+      340 SETTABLEKS                       R50 R41 K87 ["willUnmount"]
+      342 DUPCLOSURE                       R50 K88 [PROTO_25]
+      343 CAPTURE                          VAL R6
+      344 CAPTURE                          VAL R18
+      345 CAPTURE                          VAL R22
+      346 CAPTURE                          VAL R17
+      347 CAPTURE                          VAL R19
+      348 SETTABLEKS                       R50 R41 K89 ["render"]
+      350 RETURN                           R41 1

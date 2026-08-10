@@ -30,40 +30,55 @@ MAIN:
        39 LOADN                            R3 200
        40 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
        42 CALL                             R0 3 0
-       43 DUPTABLE                         R0 K16 [{"FIntPVHMaxTitleChars", "FIntPVHMaxDescriptionChars", "FIntPVHMaxDescriptionLines", "FIntPVHMaxContributors", "FIntPVHMaxPlaces", "FIntPVHFirstPageDelayMs", "FFlagPluginQWidgetModalFocusKeyboard"}]
-       44 GETIMPORT                        R1 K1 [game]
-       46 LOADK                            R3 K2 ["PVHMaxTitleChars"]
-       47 NAMECALL                         R1 R1 K17 ["GetFastInt"]
-       49 CALL                             R1 2 1
-       50 SETTABLEKS                       R1 R0 K9 ["FIntPVHMaxTitleChars"]
-       52 GETIMPORT                        R1 K1 [game]
-       54 LOADK                            R3 K4 ["PVHMaxDescriptionChars"]
-       55 NAMECALL                         R1 R1 K17 ["GetFastInt"]
-       57 CALL                             R1 2 1
-       58 SETTABLEKS                       R1 R0 K10 ["FIntPVHMaxDescriptionChars"]
-       60 GETIMPORT                        R1 K1 [game]
-       62 LOADK                            R3 K5 ["PVHMaxDescriptionLines"]
-       63 NAMECALL                         R1 R1 K17 ["GetFastInt"]
-       65 CALL                             R1 2 1
-       66 SETTABLEKS                       R1 R0 K11 ["FIntPVHMaxDescriptionLines"]
-       68 GETIMPORT                        R1 K1 [game]
-       70 LOADK                            R3 K6 ["PVHMaxContributors"]
-       71 NAMECALL                         R1 R1 K17 ["GetFastInt"]
-       73 CALL                             R1 2 1
-       74 SETTABLEKS                       R1 R0 K12 ["FIntPVHMaxContributors"]
-       76 GETIMPORT                        R1 K1 [game]
-       78 LOADK                            R3 K7 ["PVHMaxPlaces"]
-       79 NAMECALL                         R1 R1 K17 ["GetFastInt"]
-       81 CALL                             R1 2 1
-       82 SETTABLEKS                       R1 R0 K13 ["FIntPVHMaxPlaces"]
-       84 GETIMPORT                        R1 K1 [game]
-       86 LOADK                            R3 K8 ["PVHFirstPageDelayMs"]
-       87 NAMECALL                         R1 R1 K17 ["GetFastInt"]
-       89 CALL                             R1 2 1
-       90 SETTABLEKS                       R1 R0 K14 ["FIntPVHFirstPageDelayMs"]
-       92 GETIMPORT                        R1 K1 [game]
-       94 LOADK                            R3 K18 ["PluginQWidgetModalFocusKeyboard"]
-       95 NAMECALL                         R1 R1 K19 ["GetEngineFeature"]
-       97 CALL                             R1 2 1
-       98 SETTABLEKS                       R1 R0 K15 ["FFlagPluginQWidgetModalFocusKeyboard"]
-      100 RETURN                           R0 1
+       43 GETIMPORT                        R0 K1 [game]
+       45 LOADK                            R2 K9 ["PVHGenerateNotesTimeoutSeconds"]
+       46 LOADN                            R3 20
+       47 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
+       49 CALL                             R0 3 0
+       50 DUPTABLE                         R0 K19 [{"FIntPVHMaxTitleChars", "FIntPVHMaxDescriptionChars", "FIntPVHMaxDescriptionLines", "FIntPVHMaxContributors", "FIntPVHMaxPlaces", "FIntPVHFirstPageDelayMs", "FIntPVHGenerateNotesTimeoutSeconds", "EngineFeaturePVHGenerateNotes", "FFlagPluginQWidgetModalFocusKeyboard"}]
+       51 GETIMPORT                        R1 K1 [game]
+       53 LOADK                            R3 K2 ["PVHMaxTitleChars"]
+       54 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+       56 CALL                             R1 2 1
+       57 SETTABLEKS                       R1 R0 K10 ["FIntPVHMaxTitleChars"]
+       59 GETIMPORT                        R1 K1 [game]
+       61 LOADK                            R3 K4 ["PVHMaxDescriptionChars"]
+       62 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+       64 CALL                             R1 2 1
+       65 SETTABLEKS                       R1 R0 K11 ["FIntPVHMaxDescriptionChars"]
+       67 GETIMPORT                        R1 K1 [game]
+       69 LOADK                            R3 K5 ["PVHMaxDescriptionLines"]
+       70 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+       72 CALL                             R1 2 1
+       73 SETTABLEKS                       R1 R0 K12 ["FIntPVHMaxDescriptionLines"]
+       75 GETIMPORT                        R1 K1 [game]
+       77 LOADK                            R3 K6 ["PVHMaxContributors"]
+       78 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+       80 CALL                             R1 2 1
+       81 SETTABLEKS                       R1 R0 K13 ["FIntPVHMaxContributors"]
+       83 GETIMPORT                        R1 K1 [game]
+       85 LOADK                            R3 K7 ["PVHMaxPlaces"]
+       86 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+       88 CALL                             R1 2 1
+       89 SETTABLEKS                       R1 R0 K14 ["FIntPVHMaxPlaces"]
+       91 GETIMPORT                        R1 K1 [game]
+       93 LOADK                            R3 K8 ["PVHFirstPageDelayMs"]
+       94 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+       96 CALL                             R1 2 1
+       97 SETTABLEKS                       R1 R0 K15 ["FIntPVHFirstPageDelayMs"]
+       99 GETIMPORT                        R1 K1 [game]
+      101 LOADK                            R3 K9 ["PVHGenerateNotesTimeoutSeconds"]
+      102 NAMECALL                         R1 R1 K20 ["GetFastInt"]
+      104 CALL                             R1 2 1
+      105 SETTABLEKS                       R1 R0 K16 ["FIntPVHGenerateNotesTimeoutSeconds"]
+      107 GETIMPORT                        R1 K1 [game]
+      109 LOADK                            R3 K21 ["PVHGenerateNotes"]
+      110 NAMECALL                         R1 R1 K22 ["GetEngineFeature"]
+      112 CALL                             R1 2 1
+      113 SETTABLEKS                       R1 R0 K17 ["EngineFeaturePVHGenerateNotes"]
+      115 GETIMPORT                        R1 K1 [game]
+      117 LOADK                            R3 K23 ["PluginQWidgetModalFocusKeyboard"]
+      118 NAMECALL                         R1 R1 K22 ["GetEngineFeature"]
+      120 CALL                             R1 2 1
+      121 SETTABLEKS                       R1 R0 K18 ["FFlagPluginQWidgetModalFocusKeyboard"]
+      123 RETURN                           R0 1

@@ -126,7 +126,7 @@ MAIN:
       173 SETTABLEKS                       R11 R10 K40 ["Scripts"]
       175 SETTABLEKS                       R10 R9 K18 ["metaData"]
       177 SETLIST                          R3 R4 6 [1]
-      179 NEWTABLE                         R4 0 147
+      179 NEWTABLE                         R4 0 152
       181 DUPTABLE                         R5 K79 [{["id"], ["eventType"] = 0, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 2533309}]
       182 LOADN                            R7 1
       183 FASTCALL1                        TOSTRING R7 ; [+2]
@@ -1314,15 +1314,55 @@ MAIN:
      1850 SETTABLEKS                       R8 R7 K40 ["Scripts"]
      1852 SETTABLEKS                       R7 R6 K18 ["metaData"]
      1854 DUPTABLE                         R7 K690 [{["id"], ["eventType"] = 146, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 190825857}]
-     1855 LOADN                            R22 147
-     1856 FASTCALL1                        TOSTRING R22 ; [+2]
-     1857 GETIMPORT                        R21 K23 [tostring]
-     1859 CALL                             R21 1 1
-     1860 SETTABLEKS                       R21 R7 K8 ["id"]
-     1862 DUPTABLE                         R21 K694 [{["RoleName"] = "owl", ["UniverseName"] = "cat", ["GroupName"] = "hippo", ["Permissions"] = "[\"Universe.GranularPlayer\",\"Universe.GranularEditor\",\"Universe.GranularPublisher\"]"}]
-     1863 SETTABLEKS                       R21 R7 K18 ["metaData"]
-     1865 SETLIST                          R4 R5 3 [145]
-     1867 DUPTABLE                         R5 K697 [{"MockActivityHistoryEvents", "MockDraftEvents"}]
-     1868 SETTABLEKS                       R4 R5 K695 ["MockActivityHistoryEvents"]
-     1870 SETTABLEKS                       R3 R5 K696 ["MockDraftEvents"]
-     1872 RETURN                           R5 1
+     1855 LOADN                            R9 147
+     1856 FASTCALL1                        TOSTRING R9 ; [+2]
+     1857 GETIMPORT                        R8 K23 [tostring]
+     1859 CALL                             R8 1 1
+     1860 SETTABLEKS                       R8 R7 K8 ["id"]
+     1862 DUPTABLE                         R8 K694 [{["RoleName"] = "owl", ["UniverseName"] = "cat", ["GroupName"] = "hippo", ["Permissions"] = "[\"Universe.GranularPlayer\",\"Universe.GranularEditor\",\"Universe.GranularPublisher\"]"}]
+     1863 SETTABLEKS                       R8 R7 K18 ["metaData"]
+     1865 DUPTABLE                         R8 K697 [{["id"], ["eventType"] = 147, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 190825861}]
+     1866 LOADN                            R10 148
+     1867 FASTCALL1                        TOSTRING R10 ; [+2]
+     1868 GETIMPORT                        R9 K23 [tostring]
+     1870 CALL                             R9 1 1
+     1871 SETTABLEKS                       R9 R8 K8 ["id"]
+     1873 DUPTABLE                         R9 K699 [{["experienceName"] = "penguin"}]
+     1874 SETTABLEKS                       R9 R8 K18 ["metaData"]
+     1876 DUPTABLE                         R9 K702 [{["id"], ["eventType"] = 148, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 190825862}]
+     1877 LOADN                            R11 149
+     1878 FASTCALL1                        TOSTRING R11 ; [+2]
+     1879 GETIMPORT                        R10 K23 [tostring]
+     1881 CALL                             R10 1 1
+     1882 SETTABLEKS                       R10 R9 K8 ["id"]
+     1884 DUPTABLE                         R10 K704 [{["experienceName"] = "otter"}]
+     1885 SETTABLEKS                       R10 R9 K18 ["metaData"]
+     1887 DUPTABLE                         R10 K707 [{["id"], ["eventType"] = 149, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 190825863}]
+     1888 LOADN                            R12 150
+     1889 FASTCALL1                        TOSTRING R12 ; [+2]
+     1890 GETIMPORT                        R11 K23 [tostring]
+     1892 CALL                             R11 1 1
+     1893 SETTABLEKS                       R11 R10 K8 ["id"]
+     1895 DUPTABLE                         R11 K711 [{["placeName"] = "seal", ["experienceName"] = "walrus"}]
+     1896 SETTABLEKS                       R11 R10 K18 ["metaData"]
+     1898 DUPTABLE                         R11 K714 [{["id"], ["eventType"] = 150, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 190825864}]
+     1899 LOADN                            R13 151
+     1900 FASTCALL1                        TOSTRING R13 ; [+2]
+     1901 GETIMPORT                        R12 K23 [tostring]
+     1903 CALL                             R12 1 1
+     1904 SETTABLEKS                       R12 R11 K8 ["id"]
+     1906 DUPTABLE                         R12 K718 [{["assetName"] = "narwhal", ["infractionType"] = "eagle"}]
+     1907 SETTABLEKS                       R12 R11 K18 ["metaData"]
+     1909 DUPTABLE                         R12 K721 [{["id"], ["eventType"] = 151, ["userId"] = 1511969967, ["universeId"] = 1849021714, ["placeId"] = 5279580942, ["resourceId"] = 12345678, ["metaData"], ["createdUnixTimeMs"] = 190825865}]
+     1910 LOADN                            R22 152
+     1911 FASTCALL1                        TOSTRING R22 ; [+2]
+     1912 GETIMPORT                        R21 K23 [tostring]
+     1914 CALL                             R21 1 1
+     1915 SETTABLEKS                       R21 R12 K8 ["id"]
+     1917 DUPTABLE                         R21 K724 [{["OldName"] = "kangaroo", ["NewName"] = "rabbit", ["SourceUniverseId"] = "tiger", ["NewUniverseId"] = "bear"}]
+     1918 SETTABLEKS                       R21 R12 K18 ["metaData"]
+     1920 SETLIST                          R4 R5 8 [145]
+     1922 DUPTABLE                         R5 K727 [{"MockActivityHistoryEvents", "MockDraftEvents"}]
+     1923 SETTABLEKS                       R4 R5 K725 ["MockActivityHistoryEvents"]
+     1925 SETTABLEKS                       R3 R5 K726 ["MockDraftEvents"]
+     1927 RETURN                           R5 1

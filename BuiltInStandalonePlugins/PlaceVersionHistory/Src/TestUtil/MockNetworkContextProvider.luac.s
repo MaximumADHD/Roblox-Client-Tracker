@@ -421,6 +421,36 @@ PROTO_15:
         7 RETURN                           R1 -1
 
 PROTO_16:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["networkDelay"]
+        3 CALL                             R2 0 0
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["networkFailure"]
+        7 CALL                             R2 0 1
+        8 JUMPIFNOT                        R2 ; [+3]
+        9 MOVE                             R2 R1
+       10 CALL                             R2 0 -1
+       11 RETURN                           R2 -1
+       12 GETUPVAL                         R3 1
+       13 JUMPIFNOT                        R3 ; [+2]
+       14 DUPTABLE                         R2 K6 [{["title"] = "Generated range title", ["description"] = "Generated range description"}]
+       15 JUMP                             ; [+1]
+       16 DUPTABLE                         R2 K9 [{["title"] = "Generated title", ["description"] = "Generated description"}]
+       17 MOVE                             R3 R0
+       18 MOVE                             R4 R2
+       19 CALL                             R3 1 -1
+       20 RETURN                           R3 -1
+
+PROTO_17:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["defer"]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R1
+        6 CALL                             R2 1 -1
+        7 RETURN                           R2 -1
+
+PROTO_18:
         0 GETUPVAL                         R0 1
         1 GETUPVAL                         R1 2
         2 GETTABLEKS                       R1 R1 K0 ["mockNetworkConfig"]
@@ -428,7 +458,7 @@ PROTO_16:
         5 SETUPVAL                         R0 0
         6 RETURN                           R0 0
 
-PROTO_17:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useEffect"]
         3 NEWCLOSURE                       R2 P0
@@ -442,7 +472,7 @@ PROTO_17:
        13 GETUPVAL                         R2 3
        14 GETTABLEKS                       R2 R2 K2 ["Provider"]
        16 DUPTABLE                         R3 K4 [{"value"}]
-       17 DUPTABLE                         R4 K12 [{"getPlaces", "getContributors", "getVersionHistory", "saveVersionNotes", "getUserName", "getPlaceName", "getNotesValidation"}]
+       17 DUPTABLE                         R4 K13 [{"getPlaces", "getContributors", "getVersionHistory", "saveVersionNotes", "getUserName", "getPlaceName", "getNotesValidation", "getGeneratedNotes"}]
        18 GETUPVAL                         R5 4
        19 SETTABLEKS                       R5 R4 K5 ["getPlaces"]
        21 GETUPVAL                         R5 5
@@ -457,10 +487,12 @@ PROTO_17:
        34 SETTABLEKS                       R5 R4 K10 ["getPlaceName"]
        36 GETUPVAL                         R5 10
        37 SETTABLEKS                       R5 R4 K11 ["getNotesValidation"]
-       39 SETTABLEKS                       R4 R3 K3 ["value"]
-       41 GETTABLEKS                       R4 R0 K13 ["children"]
-       43 CALL                             R1 3 -1
-       44 RETURN                           R1 -1
+       39 GETUPVAL                         R5 11
+       40 SETTABLEKS                       R5 R4 K12 ["getGeneratedNotes"]
+       42 SETTABLEKS                       R4 R3 K3 ["value"]
+       44 GETTABLEKS                       R4 R0 K14 ["children"]
+       46 CALL                             R1 3 -1
+       47 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -516,16 +548,20 @@ MAIN:
        69 CAPTURE                          VAL R2
        70 CAPTURE                          REF R7
        71 NEWCLOSURE                       R17 P9
-       72 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R2
        73 CAPTURE                          REF R7
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          VAL R10
-       77 CAPTURE                          VAL R11
-       78 CAPTURE                          VAL R12
-       79 CAPTURE                          VAL R13
-       80 CAPTURE                          VAL R14
-       81 CAPTURE                          VAL R15
-       82 CAPTURE                          VAL R16
-       83 CLOSEUPVALS                      R7
-       84 RETURN                           R17 1
+       74 NEWCLOSURE                       R18 P10
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          REF R7
+       77 CAPTURE                          VAL R5
+       78 CAPTURE                          VAL R3
+       79 CAPTURE                          VAL R10
+       80 CAPTURE                          VAL R11
+       81 CAPTURE                          VAL R12
+       82 CAPTURE                          VAL R13
+       83 CAPTURE                          VAL R14
+       84 CAPTURE                          VAL R15
+       85 CAPTURE                          VAL R16
+       86 CAPTURE                          VAL R17
+       87 CLOSEUPVALS                      R7
+       88 RETURN                           R18 1

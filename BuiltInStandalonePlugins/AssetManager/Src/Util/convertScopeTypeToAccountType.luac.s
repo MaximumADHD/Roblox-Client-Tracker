@@ -14,19 +14,15 @@ PROTO_0:
        18 GETUPVAL                         R1 0
        19 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
        21 GETTABLEKS                       R1 R1 K5 ["Universe"]
-       23 JUMPIFEQ                         R0 R1 ; [+15]
+       23 JUMPIFEQ                         R0 R1 ; [+8]
        25 GETUPVAL                         R1 0
        26 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
-       28 GETTABLEKS                       R1 R1 K6 ["ProjectShared"]
-       30 JUMPIFEQ                         R0 R1 ; [+8]
-       32 GETUPVAL                         R1 0
-       33 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
-       35 GETTABLEKS                       R1 R1 K7 ["ProjectPlaces"]
-       37 JUMPIFNOTEQ                      R0 R1 ; [+3]
-       39 LOADK                            R1 K8 ["universe"]
-       40 RETURN                           R1 1
-       41 LOADK                            R1 K9 [""]
-       42 RETURN                           R1 1
+       28 GETTABLEKS                       R1 R1 K6 ["ProjectPlaces"]
+       30 JUMPIFNOTEQ                      R0 R1 ; [+3]
+       32 LOADK                            R1 K7 ["universe"]
+       33 RETURN                           R1 1
+       34 LOADK                            R1 K8 [""]
+       35 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

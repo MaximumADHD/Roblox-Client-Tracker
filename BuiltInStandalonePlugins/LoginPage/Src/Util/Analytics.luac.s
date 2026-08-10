@@ -80,7 +80,7 @@ PROTO_4:
         8 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R5 K7 [{"studioSid", "clientId", "traceId", "flow", "event", "os", "timestamp"}]
+        0 DUPTABLE                         R5 K7 [{"studioSid", "clientId", "TraceId", "flow", "Event", "os", "timestamp"}]
         1 GETUPVAL                         R6 0
         2 NAMECALL                         R6 R6 K8 ["GetSessionId"]
         4 CALL                             R6 1 1
@@ -89,9 +89,9 @@ PROTO_5:
         8 NAMECALL                         R6 R6 K9 ["GetClientId"]
        10 CALL                             R6 1 1
        11 SETTABLEKS                       R6 R5 K1 ["clientId"]
-       13 SETTABLEKS                       R3 R5 K2 ["traceId"]
+       13 SETTABLEKS                       R3 R5 K2 ["TraceId"]
        15 SETTABLEKS                       R0 R5 K3 ["flow"]
-       17 SETTABLEKS                       R1 R5 K4 ["event"]
+       17 SETTABLEKS                       R1 R5 K4 ["Event"]
        19 GETUPVAL                         R7 1
        20 NAMECALL                         R7 R7 K10 ["GetPlatform"]
        22 CALL                             R7 1 1
@@ -247,10 +247,19 @@ PROTO_17:
         9 RETURN                           R0 0
 
 PROTO_18:
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R1 K0 ["AutoLogin"]
+        2 LOADK                            R2 K1 ["show_login_page_timeout"]
+        3 LOADK                            R3 K2 ["LoginPage_AutoLogin_ShowLoginPageTimeout"]
+        4 LOADK                            R4 K3 [""]
+        5 CALL                             R0 4 0
+        6 RETURN                           R0 0
+
+PROTO_19:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R0 1
         1 SETUPVAL                         R0 0
         2 RETURN                           R0 0
@@ -329,12 +338,15 @@ MAIN:
        94 DUPCLOSURE                       R11 K38 [PROTO_17]
        95 CAPTURE                          VAL R10
        96 SETTABLEKS                       R11 R5 K39 ["reportSignUpBrowserOpenedFailed"]
-       98 NEWCLOSURE                       R11 P16
-       99 CAPTURE                          REF R2
-      100 SETTABLEKS                       R11 R5 K40 ["mockTelemetryService"]
+       98 DUPCLOSURE                       R11 K40 [PROTO_18]
+       99 CAPTURE                          VAL R10
+      100 SETTABLEKS                       R11 R5 K41 ["reportLoginPageRequestTimeout"]
       102 NEWCLOSURE                       R11 P17
       103 CAPTURE                          REF R2
-      104 CAPTURE                          VAL R6
-      105 SETTABLEKS                       R11 R5 K41 ["resetTelemetryService"]
-      107 CLOSEUPVALS                      R2
-      108 RETURN                           R5 1
+      104 SETTABLEKS                       R11 R5 K42 ["mockTelemetryService"]
+      106 NEWCLOSURE                       R11 P18
+      107 CAPTURE                          REF R2
+      108 CAPTURE                          VAL R6
+      109 SETTABLEKS                       R11 R5 K43 ["resetTelemetryService"]
+      111 CLOSEUPVALS                      R2
+      112 RETURN                           R5 1

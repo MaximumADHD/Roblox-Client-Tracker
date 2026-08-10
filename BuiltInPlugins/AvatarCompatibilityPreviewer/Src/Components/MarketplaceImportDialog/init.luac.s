@@ -92,44 +92,71 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 LOADB                            R2 1
         2 CALL                             R1 1 0
-        3 GETIMPORT                        R1 K2 [string.split]
-        5 MOVE                             R2 R0
-        6 LOADK                            R3 K3 [","]
-        7 CALL                             R1 2 1
-        8 NEWTABLE                         R2 0 0
-       10 MOVE                             R3 R1
-       11 LOADNIL                          R4
-       12 LOADNIL                          R5
-       13 FORGPREP                         R3
-       14 FASTCALL1                        TONUMBER R7 ; [+3]
-       15 MOVE                             R9 R7
-       16 GETIMPORT                        R8 K5 [tonumber]
-       18 CALL                             R8 1 1
-       19 JUMPIFNOT                        R8 ; [+7]
-       20 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
-       22 MOVE                             R10 R2
-       23 MOVE                             R11 R8
-       24 GETIMPORT                        R9 K8 [table.insert]
-       26 CALL                             R9 2 0
-       27 FORGLOOP                         R3 2 ; [-14]
-       29 GETUPVAL                         R3 1
-       30 MOVE                             R4 R2
-       31 CALL                             R3 1 1
-       32 GETUPVAL                         R4 2
-       33 NEWCLOSURE                       R5 P0
-       34 CAPTURE                          VAL R3
-       35 CALL                             R4 1 0
-       36 GETUPVAL                         R4 3
-       37 NEWCLOSURE                       R5 P1
-       38 CAPTURE                          VAL R3
-       39 CALL                             R4 1 0
-       40 GETUPVAL                         R4 4
-       41 GETTABLEKS                       R5 R3 K9 ["errors"]
-       43 CALL                             R4 1 0
-       44 GETUPVAL                         R4 0
-       45 LOADB                            R5 0
-       46 CALL                             R4 1 0
-       47 RETURN                           R0 0
+        3 NEWTABLE                         R1 0 0
+        5 GETUPVAL                         R2 1
+        6 CALL                             R2 0 1
+        7 JUMPIFNOT                        R2 ; [+30]
+        8 GETIMPORT                        R2 K2 [string.gmatch]
+       10 MOVE                             R3 R0
+       11 LOADK                            R4 K3 ["[^,%s]+"]
+       12 CALL                             R2 2 3
+       13 FORGPREP                         R2
+       14 GETIMPORT                        R8 K5 [string.match]
+       16 MOVE                             R9 R5
+       17 LOADK                            R10 K6 ["^%d+$"]
+       18 CALL                             R8 2 1
+       19 JUMPIFNOT                        R8 ; [+6]
+       20 FASTCALL1                        TONUMBER R5 ; [+3]
+       21 MOVE                             R8 R5
+       22 GETIMPORT                        R7 K8 [tonumber]
+       24 CALL                             R7 1 1
+       25 JUMP                             ; [+1]
+       26 LOADNIL                          R7
+       27 JUMPIFNOT                        R7 ; [+7]
+       28 FASTCALL2                        TABLE_INSERT R1 R7 ; [+5]
+       30 MOVE                             R9 R1
+       31 MOVE                             R10 R7
+       32 GETIMPORT                        R8 K11 [table.insert]
+       34 CALL                             R8 2 0
+       35 FORGLOOP                         R2 1 ; [-22]
+       37 JUMP                             ; [+24]
+       38 GETIMPORT                        R2 K13 [string.split]
+       40 MOVE                             R3 R0
+       41 LOADK                            R4 K14 [","]
+       42 CALL                             R2 2 1
+       43 MOVE                             R3 R2
+       44 LOADNIL                          R4
+       45 LOADNIL                          R5
+       46 FORGPREP                         R3
+       47 FASTCALL1                        TONUMBER R7 ; [+3]
+       48 MOVE                             R9 R7
+       49 GETIMPORT                        R8 K8 [tonumber]
+       51 CALL                             R8 1 1
+       52 JUMPIFNOT                        R8 ; [+7]
+       53 FASTCALL2                        TABLE_INSERT R1 R8 ; [+5]
+       55 MOVE                             R10 R1
+       56 MOVE                             R11 R8
+       57 GETIMPORT                        R9 K11 [table.insert]
+       59 CALL                             R9 2 0
+       60 FORGLOOP                         R3 2 ; [-14]
+       62 GETUPVAL                         R2 2
+       63 MOVE                             R3 R1
+       64 CALL                             R2 1 1
+       65 GETUPVAL                         R3 3
+       66 NEWCLOSURE                       R4 P0
+       67 CAPTURE                          VAL R2
+       68 CALL                             R3 1 0
+       69 GETUPVAL                         R3 4
+       70 NEWCLOSURE                       R4 P1
+       71 CAPTURE                          VAL R2
+       72 CALL                             R3 1 0
+       73 GETUPVAL                         R3 5
+       74 GETTABLEKS                       R4 R2 K15 ["errors"]
+       76 CALL                             R3 1 0
+       77 GETUPVAL                         R3 0
+       78 LOADB                            R4 0
+       79 CALL                             R3 1 0
+       80 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -206,48 +233,49 @@ PROTO_8:
        42 GETTABLEKS                       R11 R11 K1 ["useCallback"]
        44 NEWCLOSURE                       R12 P1
        45 CAPTURE                          VAL R7
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          VAL R3
-       48 CAPTURE                          VAL R9
-       49 CAPTURE                          VAL R5
-       50 NEWTABLE                         R13 0 1
-       52 MOVE                             R14 R1
-       53 SETLIST                          R13 R14 1 [1]
-       55 CALL                             R11 2 1
-       56 GETUPVAL                         R12 1
-       57 GETTABLEKS                       R12 R12 K1 ["useCallback"]
-       59 NEWCLOSURE                       R13 P2
-       60 CAPTURE                          UPVAL U2
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R8
-       63 CAPTURE                          VAL R0
-       64 CAPTURE                          VAL R10
-       65 NEWTABLE                         R14 0 4
-       67 MOVE                             R15 R2
-       68 MOVE                             R16 R8
-       69 GETTABLEKS                       R17 R0 K3 ["onAddItems"]
-       71 MOVE                             R18 R10
-       72 SETLIST                          R14 R15 4 [1]
-       74 CALL                             R12 2 1
-       75 GETUPVAL                         R13 1
-       76 GETTABLEKS                       R13 R13 K1 ["useCallback"]
-       78 NEWCLOSURE                       R14 P3
-       79 CAPTURE                          VAL R3
-       80 NEWTABLE                         R15 0 0
-       82 CALL                             R13 2 1
-       83 GETUPVAL                         R14 1
-       84 GETTABLEKS                       R14 R14 K4 ["createElement"]
-       86 GETUPVAL                         R15 3
-       87 DUPTABLE                         R16 K10 [{"itemRows", "errors", "isFetching", "onRemoveItem", "onAddItems", "onTextEntered", "onClose"}]
-       88 SETTABLEKS                       R2 R16 K5 ["itemRows"]
-       90 SETTABLEKS                       R4 R16 K6 ["errors"]
-       92 SETTABLEKS                       R6 R16 K7 ["isFetching"]
-       94 SETTABLEKS                       R13 R16 K8 ["onRemoveItem"]
-       96 SETTABLEKS                       R12 R16 K3 ["onAddItems"]
-       98 SETTABLEKS                       R11 R16 K9 ["onTextEntered"]
-      100 SETTABLEKS                       R10 R16 K2 ["onClose"]
-      102 CALL                             R14 2 -1
-      103 RETURN                           R14 -1
+       46 CAPTURE                          UPVAL U2
+       47 CAPTURE                          VAL R1
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R9
+       50 CAPTURE                          VAL R5
+       51 NEWTABLE                         R13 0 1
+       53 MOVE                             R14 R1
+       54 SETLIST                          R13 R14 1 [1]
+       56 CALL                             R11 2 1
+       57 GETUPVAL                         R12 1
+       58 GETTABLEKS                       R12 R12 K1 ["useCallback"]
+       60 NEWCLOSURE                       R13 P2
+       61 CAPTURE                          UPVAL U3
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R0
+       65 CAPTURE                          VAL R10
+       66 NEWTABLE                         R14 0 4
+       68 MOVE                             R15 R2
+       69 MOVE                             R16 R8
+       70 GETTABLEKS                       R17 R0 K3 ["onAddItems"]
+       72 MOVE                             R18 R10
+       73 SETLIST                          R14 R15 4 [1]
+       75 CALL                             R12 2 1
+       76 GETUPVAL                         R13 1
+       77 GETTABLEKS                       R13 R13 K1 ["useCallback"]
+       79 NEWCLOSURE                       R14 P3
+       80 CAPTURE                          VAL R3
+       81 NEWTABLE                         R15 0 0
+       83 CALL                             R13 2 1
+       84 GETUPVAL                         R14 1
+       85 GETTABLEKS                       R14 R14 K4 ["createElement"]
+       87 GETUPVAL                         R15 4
+       88 DUPTABLE                         R16 K10 [{"itemRows", "errors", "isFetching", "onRemoveItem", "onAddItems", "onTextEntered", "onClose"}]
+       89 SETTABLEKS                       R2 R16 K5 ["itemRows"]
+       91 SETTABLEKS                       R4 R16 K6 ["errors"]
+       93 SETTABLEKS                       R6 R16 K7 ["isFetching"]
+       95 SETTABLEKS                       R13 R16 K8 ["onRemoveItem"]
+       97 SETTABLEKS                       R12 R16 K3 ["onAddItems"]
+       99 SETTABLEKS                       R11 R16 K9 ["onTextEntered"]
+      101 SETTABLEKS                       R10 R16 K2 ["onClose"]
+      103 CALL                             R14 2 -1
+      104 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -271,10 +299,16 @@ MAIN:
        30 GETIMPORT                        R5 K1 [script]
        32 GETTABLEKS                       R5 R5 K11 ["useGetMarketplaceItems"]
        34 CALL                             R4 1 1
-       35 DUPCLOSURE                       R5 K12 [PROTO_0]
-       36 DUPCLOSURE                       R6 K13 [PROTO_8]
-       37 CAPTURE                          VAL R4
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R5
-       40 CAPTURE                          VAL R3
-       41 RETURN                           R6 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K8 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       41 GETTABLEKS                       R6 R6 K13 ["getFFlagAvatarPreviewerMarketplaceImportFlexibleIds"]
+       43 CALL                             R5 1 1
+       44 DUPCLOSURE                       R6 K14 [PROTO_0]
+       45 DUPCLOSURE                       R7 K15 [PROTO_8]
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R1
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R6
+       50 CAPTURE                          VAL R3
+       51 RETURN                           R7 1

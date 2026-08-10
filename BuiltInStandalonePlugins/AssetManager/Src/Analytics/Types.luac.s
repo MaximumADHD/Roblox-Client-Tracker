@@ -8,11 +8,15 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 4 0
+       14 NEWTABLE                         R2 8 0
        16 DUPTABLE                         R3 K14 [{["Grid"] = "grid", ["List"] = "list", ["Unknown"] = "unknown"}]
        17 SETTABLEKS                       R3 R2 K15 ["ViewMode"]
        19 DUPTABLE                         R4 K24 [{["Drag"] = "drag", ["RightClickCamera"] = "right_click_camera", ["RightClickPosition"] = "right_click_position", ["DoubleClick"] = "double_click"}]
        20 SETTABLEKS                       R4 R2 K25 ["InsertType"]
        22 DUPTABLE                         R5 K30 [{["Browse"] = "browse", ["Search"] = "search"}]
        23 SETTABLEKS                       R5 R2 K31 ["InsertSource"]
-       25 RETURN                           R2 1
+       25 DUPTABLE                         R6 K36 [{["RibbonClick"] = "ribbon_click", ["GuiFocus"] = "gui_focus"}]
+       26 SETTABLEKS                       R6 R2 K37 ["ActionType"]
+       28 DUPTABLE                         R7 K42 [{["OpenUse"] = "openUse", ["Collaborator"] = "collaborator"}]
+       29 SETTABLEKS                       R7 R2 K43 ["ShareType"]
+       31 RETURN                           R2 1

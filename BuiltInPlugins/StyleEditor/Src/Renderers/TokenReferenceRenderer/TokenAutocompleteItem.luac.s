@@ -12,102 +12,86 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 GETTABLEKS                       R2 R1 K0 ["Localization"]
-        4 GETUPVAL                         R4 1
-        5 JUMPIFNOT                        R4 ; [+11]
-        6 GETUPVAL                         R3 2
-        7 NEWCLOSURE                       R4 P0
-        8 CAPTURE                          VAL R0
-        9 NEWTABLE                         R5 0 1
-       11 GETTABLEKS                       R6 R0 K1 ["OnSizeChanged"]
-       13 SETLIST                          R5 R6 1 [1]
-       15 CALL                             R3 2 1
-       16 JUMP                             ; [+1]
-       17 LOADNIL                          R3
-       18 GETUPVAL                         R4 3
-       19 GETTABLEKS                       R4 R4 K2 ["createElement"]
-       21 GETUPVAL                         R5 4
-       22 NEWTABLE                         R6 4 0
-       24 GETTABLEKS                       R7 R0 K3 ["LayoutOrder"]
-       26 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       28 GETTABLEKS                       R7 R0 K4 ["OnActivated"]
-       30 SETTABLEKS                       R7 R6 K5 ["OnPress"]
-       32 GETUPVAL                         R7 3
-       33 GETTABLEKS                       R7 R7 K6 ["Tag"]
-       35 GETUPVAL                         R9 1
-       36 JUMPIFNOT                        R9 ; [+2]
-       37 LOADK                            R8 K7 ["DropdownItem data-testid=TokenAutocompleteItem"]
-       38 JUMP                             ; [+1]
-       39 LOADK                            R8 K8 ["X-Pad DropdownItem"]
-       40 SETTABLE                         R8 R6 R7
-       41 DUPTABLE                         R7 K11 [{"Tooltip", "Content"}]
-       42 GETUPVAL                         R8 3
-       43 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       45 GETUPVAL                         R9 5
-       46 DUPTABLE                         R10 K14 [{"TokenInfo", "ErrorStyle"}]
-       47 GETTABLEKS                       R11 R0 K12 ["TokenInfo"]
-       49 SETTABLEKS                       R11 R10 K12 ["TokenInfo"]
-       51 GETTABLEKS                       R11 R0 K13 ["ErrorStyle"]
-       53 SETTABLEKS                       R11 R10 K13 ["ErrorStyle"]
-       55 CALL                             R8 2 1
-       56 SETTABLEKS                       R8 R7 K9 ["Tooltip"]
-       58 GETUPVAL                         R8 3
-       59 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       61 GETUPVAL                         R9 4
-       62 NEWTABLE                         R10 2 0
-       64 GETUPVAL                         R11 3
-       65 GETTABLEKS                       R11 R11 K6 ["Tag"]
-       67 GETUPVAL                         R13 1
-       68 JUMPIFNOT                        R13 ; [+2]
-       69 LOADK                            R12 K15 ["X-FitX X-Pad X-RowS X-Middle"]
-       70 JUMP                             ; [+1]
-       71 LOADK                            R12 K16 ["X-Fill X-RowS X-Middle"]
-       72 SETTABLE                         R12 R10 R11
-       73 GETUPVAL                         R11 3
-       74 GETTABLEKS                       R11 R11 K17 ["Change"]
-       76 GETTABLEKS                       R11 R11 K18 ["AbsoluteSize"]
-       78 SETTABLE                         R3 R10 R11
-       79 DUPTABLE                         R11 K21 [{"NameText", "SourceLink"}]
-       80 GETUPVAL                         R12 3
-       81 GETTABLEKS                       R12 R12 K2 ["createElement"]
-       83 GETUPVAL                         R13 6
-       84 NEWTABLE                         R14 4 0
-       86 LOADN                            R15 1
-       87 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
-       89 LOADK                            R17 K22 ["Label"]
-       90 LOADK                            R18 K23 ["TokenIn"]
-       91 DUPTABLE                         R19 K25 [{"token"}]
-       92 GETTABLEKS                       R20 R0 K12 ["TokenInfo"]
-       94 GETTABLEKS                       R20 R20 K26 ["Name"]
-       96 SETTABLEKS                       R20 R19 K24 ["token"]
-       98 NAMECALL                         R15 R2 K27 ["getText"]
-      100 CALL                             R15 4 1
-      101 SETTABLEKS                       R15 R14 K28 ["Text"]
-      103 GETUPVAL                         R15 3
-      104 GETTABLEKS                       R15 R15 K6 ["Tag"]
-      106 GETUPVAL                         R17 1
-      107 JUMPIFNOT                        R17 ; [+2]
-      108 LOADK                            R16 K29 ["TextXAlignLeft X-FitX TokenNameText"]
-      109 JUMP                             ; [+1]
-      110 LOADK                            R16 K30 ["TextXAlignLeft X-FitX"]
-      111 SETTABLE                         R16 R14 R15
-      112 CALL                             R12 2 1
-      113 SETTABLEKS                       R12 R11 K19 ["NameText"]
-      115 GETTABLEKS                       R12 R0 K12 ["TokenInfo"]
-      117 GETTABLEKS                       R12 R12 K31 ["Source"]
-      119 JUMPIFNOT                        R12 ; [+12]
-      120 GETUPVAL                         R12 3
-      121 GETTABLEKS                       R12 R12 K2 ["createElement"]
-      123 GETUPVAL                         R13 7
-      124 DUPTABLE                         R14 K33 [{["Source"], ["LayoutOrder"] = 2}]
-      125 GETTABLEKS                       R15 R0 K12 ["TokenInfo"]
-      127 GETTABLEKS                       R15 R15 K31 ["Source"]
-      129 SETTABLEKS                       R15 R14 K31 ["Source"]
-      131 CALL                             R12 2 1
-      132 SETTABLEKS                       R12 R11 K20 ["SourceLink"]
-      134 CALL                             R8 3 1
-      135 SETTABLEKS                       R8 R7 K10 ["Content"]
-      137 CALL                             R4 3 -1
-      138 RETURN                           R4 -1
+        4 GETUPVAL                         R3 1
+        5 NEWCLOSURE                       R4 P0
+        6 CAPTURE                          VAL R0
+        7 NEWTABLE                         R5 0 1
+        9 GETTABLEKS                       R6 R0 K1 ["OnSizeChanged"]
+       11 SETLIST                          R5 R6 1 [1]
+       13 CALL                             R3 2 1
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R4 R4 K2 ["createElement"]
+       17 GETUPVAL                         R5 3
+       18 NEWTABLE                         R6 4 0
+       20 GETTABLEKS                       R7 R0 K3 ["LayoutOrder"]
+       22 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
+       24 GETTABLEKS                       R7 R0 K4 ["OnActivated"]
+       26 SETTABLEKS                       R7 R6 K5 ["OnPress"]
+       28 GETUPVAL                         R7 2
+       29 GETTABLEKS                       R7 R7 K6 ["Tag"]
+       31 LOADK                            R8 K7 ["DropdownItem data-testid=TokenAutocompleteItem"]
+       32 SETTABLE                         R8 R6 R7
+       33 DUPTABLE                         R7 K10 [{"Tooltip", "Content"}]
+       34 GETUPVAL                         R8 2
+       35 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       37 GETUPVAL                         R9 4
+       38 DUPTABLE                         R10 K13 [{"TokenInfo", "ErrorStyle"}]
+       39 GETTABLEKS                       R11 R0 K11 ["TokenInfo"]
+       41 SETTABLEKS                       R11 R10 K11 ["TokenInfo"]
+       43 GETTABLEKS                       R11 R0 K12 ["ErrorStyle"]
+       45 SETTABLEKS                       R11 R10 K12 ["ErrorStyle"]
+       47 CALL                             R8 2 1
+       48 SETTABLEKS                       R8 R7 K8 ["Tooltip"]
+       50 GETUPVAL                         R8 2
+       51 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       53 GETUPVAL                         R9 3
+       54 NEWTABLE                         R10 2 0
+       56 GETUPVAL                         R11 2
+       57 GETTABLEKS                       R11 R11 K6 ["Tag"]
+       59 LOADK                            R12 K14 ["X-FitX X-Pad X-RowS X-Middle"]
+       60 SETTABLE                         R12 R10 R11
+       61 GETUPVAL                         R11 2
+       62 GETTABLEKS                       R11 R11 K15 ["Change"]
+       64 GETTABLEKS                       R11 R11 K16 ["AbsoluteSize"]
+       66 SETTABLE                         R3 R10 R11
+       67 DUPTABLE                         R11 K19 [{"NameText", "SourceLink"}]
+       68 GETUPVAL                         R12 2
+       69 GETTABLEKS                       R12 R12 K2 ["createElement"]
+       71 GETUPVAL                         R13 5
+       72 NEWTABLE                         R14 4 0
+       74 LOADN                            R15 1
+       75 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
+       77 LOADK                            R17 K20 ["Label"]
+       78 LOADK                            R18 K21 ["TokenIn"]
+       79 DUPTABLE                         R19 K23 [{"token"}]
+       80 GETTABLEKS                       R20 R0 K11 ["TokenInfo"]
+       82 GETTABLEKS                       R20 R20 K24 ["Name"]
+       84 SETTABLEKS                       R20 R19 K22 ["token"]
+       86 NAMECALL                         R15 R2 K25 ["getText"]
+       88 CALL                             R15 4 1
+       89 SETTABLEKS                       R15 R14 K26 ["Text"]
+       91 GETUPVAL                         R15 2
+       92 GETTABLEKS                       R15 R15 K6 ["Tag"]
+       94 LOADK                            R16 K27 ["TextXAlignLeft X-FitX TokenNameText"]
+       95 SETTABLE                         R16 R14 R15
+       96 CALL                             R12 2 1
+       97 SETTABLEKS                       R12 R11 K17 ["NameText"]
+       99 GETTABLEKS                       R12 R0 K11 ["TokenInfo"]
+      101 GETTABLEKS                       R12 R12 K28 ["Source"]
+      103 JUMPIFNOT                        R12 ; [+12]
+      104 GETUPVAL                         R12 2
+      105 GETTABLEKS                       R12 R12 K2 ["createElement"]
+      107 GETUPVAL                         R13 6
+      108 DUPTABLE                         R14 K30 [{["Source"], ["LayoutOrder"] = 2}]
+      109 GETTABLEKS                       R15 R0 K11 ["TokenInfo"]
+      111 GETTABLEKS                       R15 R15 K28 ["Source"]
+      113 SETTABLEKS                       R15 R14 K28 ["Source"]
+      115 CALL                             R12 2 1
+      116 SETTABLEKS                       R12 R11 K18 ["SourceLink"]
+      118 CALL                             R8 3 1
+      119 SETTABLEKS                       R8 R7 K9 ["Content"]
+      121 CALL                             R4 3 -1
+      122 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -149,19 +133,12 @@ MAIN:
        66 GETTABLEKS                       R10 R10 K2 ["Parent"]
        68 GETTABLEKS                       R10 R10 K17 ["Types"]
        70 CALL                             R9 1 1
-       71 GETIMPORT                        R10 K4 [require]
-       73 GETTABLEKS                       R11 R0 K12 ["Src"]
-       75 GETTABLEKS                       R11 R11 K18 ["Flags"]
-       77 GETTABLEKS                       R11 R11 K19 ["getFFlagStyleEditorFixTokenMenuGrow"]
-       79 CALL                             R10 1 1
-       80 CALL                             R10 0 1
-       81 DUPCLOSURE                       R11 K20 [PROTO_1]
-       82 CAPTURE                          VAL R6
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R2
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R8
-       90 RETURN                           R11 1
+       71 DUPCLOSURE                       R10 K18 [PROTO_1]
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R7
+       77 CAPTURE                          VAL R5
+       78 CAPTURE                          VAL R8
+       79 RETURN                           R10 1

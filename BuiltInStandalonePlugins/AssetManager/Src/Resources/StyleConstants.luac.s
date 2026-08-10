@@ -112,27 +112,29 @@ MAIN:
       160 SETTABLEKS                       R1 R0 K52 ["ContextMenuWidth"]
       162 LOADN                            R1 180
       163 SETTABLEKS                       R1 R0 K53 ["CompactOptionsMenuWidth"]
-      165 LOADN                            R1 220
-      166 SETTABLEKS                       R1 R0 K54 ["CompactScopeListWidth"]
-      168 LOADN                            R1 32
-      169 SETTABLEKS                       R1 R0 K55 ["CompactScopeListMinHeight"]
-      171 LOADN                            R1 320
-      172 SETTABLEKS                       R1 R0 K56 ["CompactScopeListMaxHeight"]
-      174 LOADN                            R1 27
-      175 SETTABLEKS                       R1 R0 K57 ["CompactScopeListItemHeight"]
-      177 GETIMPORT                        R1 K33 [UDim2.fromOffset]
-      179 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
-      181 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
-      183 CALL                             R1 2 1
-      184 SETTABLEKS                       R1 R0 K58 ["IconSizeXSmall"]
-      186 GETIMPORT                        R1 K33 [UDim2.fromOffset]
-      188 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
-      190 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
-      192 CALL                             R1 2 1
-      193 SETTABLEKS                       R1 R0 K59 ["IconSize"]
-      195 GETIMPORT                        R1 K33 [UDim2.fromOffset]
-      197 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
-      199 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
-      201 CALL                             R1 2 1
-      202 SETTABLEKS                       R1 R0 K60 ["IconSizeXLarge"]
-      204 RETURN                           R0 1
+      165 LOADN                            R1 350
+      166 SETTABLEKS                       R1 R0 K54 ["CompactOptionsMenuMaxHeight"]
+      168 LOADN                            R1 220
+      169 SETTABLEKS                       R1 R0 K55 ["CompactScopeListWidth"]
+      171 LOADN                            R1 32
+      172 SETTABLEKS                       R1 R0 K56 ["CompactScopeListMinHeight"]
+      174 LOADN                            R1 320
+      175 SETTABLEKS                       R1 R0 K57 ["CompactScopeListMaxHeight"]
+      177 LOADN                            R1 27
+      178 SETTABLEKS                       R1 R0 K58 ["CompactScopeListItemHeight"]
+      180 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      182 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
+      184 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
+      186 CALL                             R1 2 1
+      187 SETTABLEKS                       R1 R0 K59 ["IconSizeXSmall"]
+      189 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      191 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
+      193 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
+      195 CALL                             R1 2 1
+      196 SETTABLEKS                       R1 R0 K60 ["IconSize"]
+      198 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      200 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
+      202 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
+      204 CALL                             R1 2 1
+      205 SETTABLEKS                       R1 R0 K61 ["IconSizeXLarge"]
+      207 RETURN                           R0 1

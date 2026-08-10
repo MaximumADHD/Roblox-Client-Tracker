@@ -26,6 +26,13 @@ PROTO_3:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
+PROTO_4:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["SceneManagerRemoveActive"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -48,13 +55,20 @@ MAIN:
        25 LOADB                            R3 0
        26 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        28 CALL                             R0 3 0
-       29 DUPTABLE                         R0 K11 [{"getFFlagEnableRIDE11651", "getFFlagSceneAnalysisRenderAttribution", "getFFlagSceneAnalysisBugfixesMay2026", "getFFlagRIDE12959"}]
-       30 DUPCLOSURE                       R1 K12 [PROTO_0]
-       31 SETTABLEKS                       R1 R0 K7 ["getFFlagEnableRIDE11651"]
-       33 DUPCLOSURE                       R1 K13 [PROTO_1]
-       34 SETTABLEKS                       R1 R0 K8 ["getFFlagSceneAnalysisRenderAttribution"]
-       36 DUPCLOSURE                       R1 K14 [PROTO_2]
-       37 SETTABLEKS                       R1 R0 K9 ["getFFlagSceneAnalysisBugfixesMay2026"]
-       39 DUPCLOSURE                       R1 K15 [PROTO_3]
-       40 SETTABLEKS                       R1 R0 K10 ["getFFlagRIDE12959"]
-       42 RETURN                           R0 1
+       29 GETIMPORT                        R0 K1 [game]
+       31 LOADK                            R2 K7 ["SceneManagerRemoveActive"]
+       32 LOADB                            R3 0
+       33 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       35 CALL                             R0 3 0
+       36 DUPTABLE                         R0 K13 [{"getFFlagEnableRIDE11651", "getFFlagSceneAnalysisRenderAttribution", "getFFlagSceneAnalysisBugfixesMay2026", "getFFlagRIDE12959", "getFFlagSceneManagerRemoveActive"}]
+       37 DUPCLOSURE                       R1 K14 [PROTO_0]
+       38 SETTABLEKS                       R1 R0 K8 ["getFFlagEnableRIDE11651"]
+       40 DUPCLOSURE                       R1 K15 [PROTO_1]
+       41 SETTABLEKS                       R1 R0 K9 ["getFFlagSceneAnalysisRenderAttribution"]
+       43 DUPCLOSURE                       R1 K16 [PROTO_2]
+       44 SETTABLEKS                       R1 R0 K10 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       46 DUPCLOSURE                       R1 K17 [PROTO_3]
+       47 SETTABLEKS                       R1 R0 K11 ["getFFlagRIDE12959"]
+       49 DUPCLOSURE                       R1 K18 [PROTO_4]
+       50 SETTABLEKS                       R1 R0 K12 ["getFFlagSceneManagerRemoveActive"]
+       52 RETURN                           R0 1

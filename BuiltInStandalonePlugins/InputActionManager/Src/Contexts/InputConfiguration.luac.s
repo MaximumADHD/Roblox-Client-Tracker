@@ -129,12 +129,36 @@ PROTO_11:
        10 RETURN                           R0 0
 
 PROTO_12:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+8]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["DuplicateContext"]
+        6 LOADNIL                          R2
+        7 DUPTABLE                         R3 K2 [{"uuid"}]
+        8 SETTABLEKS                       R0 R3 K1 ["uuid"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
+
+PROTO_13:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+8]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["DuplicateAction"]
+        6 LOADNIL                          R2
+        7 DUPTABLE                         R3 K2 [{"uuid"}]
+        8 SETTABLEKS                       R0 R3 K1 ["uuid"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
+
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["current"]
         3 GETTABLE                         R2 R3 R0
@@ -153,22 +177,6 @@ PROTO_13:
        19 CAPTURE                          VAL R3
        20 RETURN                           R4 1
 
-PROTO_14:
-        0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
-
-PROTO_15:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["current"]
-        3 MOVE                             R3 R0
-        4 NAMECALL                         R1 R1 K1 ["Connect"]
-        6 CALL                             R1 2 1
-        7 NEWCLOSURE                       R2 P0
-        8 CAPTURE                          VAL R1
-        9 RETURN                           R2 1
-
 PROTO_16:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
@@ -186,7 +194,23 @@ PROTO_17:
         9 RETURN                           R2 1
 
 PROTO_18:
-        0 DUPTABLE                         R0 K10 [{"getContextOrder", "getContext", "getAction", "getBinding", "updateContext", "updateAction", "updateBinding", "subscribe", "onContextOrderChanged", "onSelectionChanged"}]
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_19:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["current"]
+        3 MOVE                             R3 R0
+        4 NAMECALL                         R1 R1 K1 ["Connect"]
+        6 CALL                             R1 2 1
+        7 NEWCLOSURE                       R2 P0
+        8 CAPTURE                          VAL R1
+        9 RETURN                           R2 1
+
+PROTO_20:
+        0 DUPTABLE                         R0 K12 [{"getContextOrder", "getContext", "getAction", "getBinding", "updateContext", "updateAction", "updateBinding", "duplicateContext", "duplicateAction", "subscribe", "onContextOrderChanged", "onSelectionChanged"}]
         1 NEWCLOSURE                       R1 P0
         2 CAPTURE                          UPVAL U0
         3 SETTABLEKS                       R1 R0 K0 ["getContextOrder"]
@@ -210,17 +234,25 @@ PROTO_18:
        27 SETTABLEKS                       R1 R0 K6 ["updateBinding"]
        29 NEWCLOSURE                       R1 P7
        30 CAPTURE                          UPVAL U5
-       31 CAPTURE                          UPVAL U6
-       32 SETTABLEKS                       R1 R0 K7 ["subscribe"]
+       31 CAPTURE                          UPVAL U4
+       32 SETTABLEKS                       R1 R0 K7 ["duplicateContext"]
        34 NEWCLOSURE                       R1 P8
-       35 CAPTURE                          UPVAL U7
-       36 SETTABLEKS                       R1 R0 K8 ["onContextOrderChanged"]
-       38 NEWCLOSURE                       R1 P9
-       39 CAPTURE                          UPVAL U8
-       40 SETTABLEKS                       R1 R0 K9 ["onSelectionChanged"]
-       42 RETURN                           R0 1
+       35 CAPTURE                          UPVAL U5
+       36 CAPTURE                          UPVAL U4
+       37 SETTABLEKS                       R1 R0 K8 ["duplicateAction"]
+       39 NEWCLOSURE                       R1 P9
+       40 CAPTURE                          UPVAL U6
+       41 CAPTURE                          UPVAL U7
+       42 SETTABLEKS                       R1 R0 K9 ["subscribe"]
+       44 NEWCLOSURE                       R1 P10
+       45 CAPTURE                          UPVAL U8
+       46 SETTABLEKS                       R1 R0 K10 ["onContextOrderChanged"]
+       48 NEWCLOSURE                       R1 P11
+       49 CAPTURE                          UPVAL U9
+       50 SETTABLEKS                       R1 R0 K11 ["onSelectionChanged"]
+       52 RETURN                           R0 1
 
-PROTO_19:
+PROTO_21:
         0 GETUPVAL                         R5 0
         1 SETTABLEKS                       R1 R5 K0 ["current"]
         3 GETUPVAL                         R5 1
@@ -255,7 +287,7 @@ PROTO_19:
        42 CALL                             R5 -1 0
        43 RETURN                           R0 0
 
-PROTO_20:
+PROTO_22:
         0 JUMPIFNOT                        R2 ; [+43]
         1 GETUPVAL                         R4 0
         2 GETTABLEKS                       R4 R4 K0 ["current"]
@@ -308,7 +340,7 @@ PROTO_20:
        67 SETTABLE                         R4 R3 R1
        68 RETURN                           R0 0
 
-PROTO_21:
+PROTO_23:
         0 JUMPIFNOT                        R2 ; [+39]
         1 GETUPVAL                         R4 0
         2 GETTABLEKS                       R4 R4 K0 ["current"]
@@ -364,7 +396,7 @@ PROTO_21:
        68 SETTABLE                         R5 R4 R1
        69 RETURN                           R0 0
 
-PROTO_22:
+PROTO_24:
         0 JUMPIFNOT                        R2 ; [+39]
         1 GETUPVAL                         R4 0
         2 GETTABLEKS                       R4 R4 K0 ["current"]
@@ -420,7 +452,7 @@ PROTO_22:
        68 SETTABLE                         R5 R4 R1
        69 RETURN                           R0 0
 
-PROTO_23:
+PROTO_25:
         0 GETTABLEKS                       R2 R1 K0 ["button"]
         2 GETUPVAL                         R3 0
         3 SETTABLEKS                       R2 R3 K1 ["current"]
@@ -431,7 +463,7 @@ PROTO_23:
        11 CALL                             R3 2 0
        12 RETURN                           R0 0
 
-PROTO_24:
+PROTO_26:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+2]
         2 GETUPVAL                         R0 0
@@ -454,7 +486,7 @@ PROTO_24:
        19 CALL                             R0 0 0
        20 RETURN                           R0 0
 
-PROTO_25:
+PROTO_27:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["Initialized"]
         2 NEWCLOSURE                       R3 P0
@@ -512,7 +544,7 @@ PROTO_25:
        60 CAPTURE                          VAL R9
        61 RETURN                           R10 1
 
-PROTO_26:
+PROTO_28:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["pluginEnabled"]
         3 JUMPIFNOT                        R0 ; [+4]
@@ -528,7 +560,7 @@ PROTO_26:
        16 CALL                             R0 0 0
        17 RETURN                           R0 0
 
-PROTO_27:
+PROTO_29:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIF                           R0 ; [+1]
@@ -555,13 +587,13 @@ PROTO_27:
        30 CALL                             R2 1 0
        31 RETURN                           R0 0
 
-PROTO_28:
+PROTO_30:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_29:
+PROTO_31:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["plugin"]
         3 JUMPIF                           R0 ; [+1]
@@ -581,7 +613,7 @@ PROTO_29:
        20 CAPTURE                          VAL R0
        21 RETURN                           R1 1
 
-PROTO_30:
+PROTO_32:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+8]
@@ -699,74 +731,75 @@ PROTO_30:
       146 CAPTURE                          VAL R7
       147 CAPTURE                          VAL R8
       148 CAPTURE                          VAL R3
-      149 CAPTURE                          VAL R12
-      150 CAPTURE                          UPVAL U7
-      151 CAPTURE                          VAL R13
-      152 CAPTURE                          VAL R14
-      153 NEWTABLE                         R21 0 1
-      155 MOVE                             R22 R3
-      156 SETLIST                          R21 R22 1 [1]
-      158 CALL                             R19 2 1
-      159 GETUPVAL                         R20 1
-      160 GETTABLEKS                       R20 R20 K5 ["useEffect"]
-      162 NEWCLOSURE                       R21 P6
-      163 CAPTURE                          VAL R2
-      164 CAPTURE                          VAL R6
-      165 CAPTURE                          VAL R7
-      166 CAPTURE                          VAL R8
-      167 CAPTURE                          VAL R5
-      168 CAPTURE                          UPVAL U5
-      169 CAPTURE                          VAL R10
-      170 CAPTURE                          UPVAL U8
-      171 CAPTURE                          VAL R4
-      172 CAPTURE                          VAL R13
-      173 CAPTURE                          VAL R12
-      174 CAPTURE                          VAL R3
-      175 CAPTURE                          VAL R9
-      176 CAPTURE                          VAL R14
-      177 NEWTABLE                         R22 0 3
-      179 MOVE                             R23 R3
-      180 MOVE                             R24 R2
-      181 MOVE                             R25 R4
-      182 SETLIST                          R22 R23 3 [1]
-      184 CALL                             R20 2 0
-      185 GETUPVAL                         R20 5
-      186 CALL                             R20 0 1
-      187 JUMPIFNOT                        R20 ; [+33]
-      188 GETUPVAL                         R20 1
-      189 GETTABLEKS                       R20 R20 K5 ["useEffect"]
-      191 NEWCLOSURE                       R21 P7
-      192 CAPTURE                          VAL R0
-      193 CAPTURE                          VAL R11
-      194 CAPTURE                          VAL R4
-      195 NEWTABLE                         R22 0 2
-      197 GETTABLEKS                       R23 R0 K7 ["pluginEnabled"]
-      199 MOVE                             R24 R4
-      200 SETLIST                          R22 R23 2 [1]
-      202 CALL                             R20 2 0
-      203 GETUPVAL                         R20 1
-      204 GETTABLEKS                       R20 R20 K5 ["useEffect"]
-      206 NEWCLOSURE                       R21 P8
-      207 CAPTURE                          VAL R0
-      208 CAPTURE                          VAL R10
-      209 CAPTURE                          UPVAL U8
-      210 CAPTURE                          VAL R7
-      211 CAPTURE                          VAL R8
-      212 CAPTURE                          VAL R4
-      213 NEWTABLE                         R22 0 2
-      215 GETTABLEKS                       R23 R0 K8 ["plugin"]
-      217 MOVE                             R24 R4
-      218 SETLIST                          R22 R23 2 [1]
-      220 CALL                             R20 2 0
-      221 GETUPVAL                         R20 1
-      222 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      224 GETUPVAL                         R21 9
-      225 GETTABLEKS                       R21 R21 K10 ["Provider"]
-      227 DUPTABLE                         R22 K12 [{"value"}]
-      228 SETTABLEKS                       R19 R22 K11 ["value"]
-      230 GETTABLEKS                       R23 R0 K13 ["children"]
-      232 CALL                             R20 3 -1
-      233 RETURN                           R20 -1
+      149 CAPTURE                          UPVAL U8
+      150 CAPTURE                          VAL R12
+      151 CAPTURE                          UPVAL U7
+      152 CAPTURE                          VAL R13
+      153 CAPTURE                          VAL R14
+      154 NEWTABLE                         R21 0 1
+      156 MOVE                             R22 R3
+      157 SETLIST                          R21 R22 1 [1]
+      159 CALL                             R19 2 1
+      160 GETUPVAL                         R20 1
+      161 GETTABLEKS                       R20 R20 K5 ["useEffect"]
+      163 NEWCLOSURE                       R21 P6
+      164 CAPTURE                          VAL R2
+      165 CAPTURE                          VAL R6
+      166 CAPTURE                          VAL R7
+      167 CAPTURE                          VAL R8
+      168 CAPTURE                          VAL R5
+      169 CAPTURE                          UPVAL U5
+      170 CAPTURE                          VAL R10
+      171 CAPTURE                          UPVAL U9
+      172 CAPTURE                          VAL R4
+      173 CAPTURE                          VAL R13
+      174 CAPTURE                          VAL R12
+      175 CAPTURE                          VAL R3
+      176 CAPTURE                          VAL R9
+      177 CAPTURE                          VAL R14
+      178 NEWTABLE                         R22 0 3
+      180 MOVE                             R23 R3
+      181 MOVE                             R24 R2
+      182 MOVE                             R25 R4
+      183 SETLIST                          R22 R23 3 [1]
+      185 CALL                             R20 2 0
+      186 GETUPVAL                         R20 5
+      187 CALL                             R20 0 1
+      188 JUMPIFNOT                        R20 ; [+33]
+      189 GETUPVAL                         R20 1
+      190 GETTABLEKS                       R20 R20 K5 ["useEffect"]
+      192 NEWCLOSURE                       R21 P7
+      193 CAPTURE                          VAL R0
+      194 CAPTURE                          VAL R11
+      195 CAPTURE                          VAL R4
+      196 NEWTABLE                         R22 0 2
+      198 GETTABLEKS                       R23 R0 K7 ["pluginEnabled"]
+      200 MOVE                             R24 R4
+      201 SETLIST                          R22 R23 2 [1]
+      203 CALL                             R20 2 0
+      204 GETUPVAL                         R20 1
+      205 GETTABLEKS                       R20 R20 K5 ["useEffect"]
+      207 NEWCLOSURE                       R21 P8
+      208 CAPTURE                          VAL R0
+      209 CAPTURE                          VAL R10
+      210 CAPTURE                          UPVAL U9
+      211 CAPTURE                          VAL R7
+      212 CAPTURE                          VAL R8
+      213 CAPTURE                          VAL R4
+      214 NEWTABLE                         R22 0 2
+      216 GETTABLEKS                       R23 R0 K8 ["plugin"]
+      218 MOVE                             R24 R4
+      219 SETLIST                          R22 R23 2 [1]
+      221 CALL                             R20 2 0
+      222 GETUPVAL                         R20 1
+      223 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      225 GETUPVAL                         R21 10
+      226 GETTABLEKS                       R21 R21 K10 ["Provider"]
+      228 DUPTABLE                         R22 K12 [{"value"}]
+      229 SETTABLEKS                       R19 R22 K11 ["value"]
+      231 GETTABLEKS                       R23 R0 K13 ["children"]
+      233 CALL                             R20 3 -1
+      234 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -824,65 +857,77 @@ MAIN:
        91 GETIMPORT                        R12 K5 [require]
        93 GETTABLEKS                       R13 R10 K22 ["getFFlagIAMFocusedDatamodelChanged"]
        95 CALL                             R12 1 1
-       96 GETTABLEKS                       R13 R1 K23 ["createContext"]
-       98 DUPTABLE                         R14 K35 [{"getContextOrder", "getContext", "getAction", "getBinding", "getSelection", "updateContext", "updateAction", "updateBinding", "subscribe", "onContextOrderChanged", "onSelectionChanged"}]
-       99 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      101 LOADK                            R16 K24 ["getContextOrder"]
-      102 CALL                             R15 1 1
-      103 SETTABLEKS                       R15 R14 K24 ["getContextOrder"]
-      105 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      107 LOADK                            R16 K25 ["getContext"]
-      108 CALL                             R15 1 1
-      109 SETTABLEKS                       R15 R14 K25 ["getContext"]
-      111 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      113 LOADK                            R16 K26 ["getAction"]
-      114 CALL                             R15 1 1
-      115 SETTABLEKS                       R15 R14 K26 ["getAction"]
-      117 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      119 LOADK                            R16 K27 ["getBinding"]
-      120 CALL                             R15 1 1
-      121 SETTABLEKS                       R15 R14 K27 ["getBinding"]
-      123 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      125 LOADK                            R16 K28 ["getSelection"]
-      126 CALL                             R15 1 1
-      127 SETTABLEKS                       R15 R14 K28 ["getSelection"]
-      129 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      131 LOADK                            R16 K29 ["updateContext"]
-      132 CALL                             R15 1 1
-      133 SETTABLEKS                       R15 R14 K29 ["updateContext"]
-      135 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      137 LOADK                            R16 K30 ["updateAction"]
-      138 CALL                             R15 1 1
-      139 SETTABLEKS                       R15 R14 K30 ["updateAction"]
-      141 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      143 LOADK                            R16 K31 ["updateBinding"]
-      144 CALL                             R15 1 1
-      145 SETTABLEKS                       R15 R14 K31 ["updateBinding"]
-      147 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      149 LOADK                            R16 K32 ["subscribe"]
-      150 CALL                             R15 1 1
-      151 SETTABLEKS                       R15 R14 K32 ["subscribe"]
-      153 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      155 LOADK                            R16 K33 ["onContextOrderChanged"]
-      156 CALL                             R15 1 1
-      157 SETTABLEKS                       R15 R14 K33 ["onContextOrderChanged"]
-      159 GETTABLEKS                       R15 R2 K36 ["createUnimplemented"]
-      161 LOADK                            R16 K34 ["onSelectionChanged"]
-      162 CALL                             R15 1 1
-      163 SETTABLEKS                       R15 R14 K34 ["onSelectionChanged"]
-      165 CALL                             R13 1 1
-      166 DUPCLOSURE                       R14 K37 [PROTO_30]
-      167 CAPTURE                          VAL R12
-      168 CAPTURE                          VAL R1
-      169 CAPTURE                          VAL R5
-      170 CAPTURE                          VAL R7
-      171 CAPTURE                          VAL R6
-      172 CAPTURE                          VAL R11
-      173 CAPTURE                          VAL R8
-      174 CAPTURE                          VAL R3
-      175 CAPTURE                          VAL R9
-      176 CAPTURE                          VAL R13
-      177 DUPTABLE                         R15 K40 [{"Context", "Provider"}]
-      178 SETTABLEKS                       R13 R15 K38 ["Context"]
-      180 SETTABLEKS                       R14 R15 K39 ["Provider"]
-      182 RETURN                           R15 1
+       96 GETIMPORT                        R13 K5 [require]
+       98 GETTABLEKS                       R14 R10 K23 ["getFFlagIAMDuplicate"]
+      100 CALL                             R13 1 1
+      101 GETTABLEKS                       R14 R1 K24 ["createContext"]
+      103 DUPTABLE                         R15 K38 [{"getContextOrder", "getContext", "getAction", "getBinding", "getSelection", "updateContext", "updateAction", "updateBinding", "duplicateContext", "duplicateAction", "subscribe", "onContextOrderChanged", "onSelectionChanged"}]
+      104 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      106 LOADK                            R17 K25 ["getContextOrder"]
+      107 CALL                             R16 1 1
+      108 SETTABLEKS                       R16 R15 K25 ["getContextOrder"]
+      110 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      112 LOADK                            R17 K26 ["getContext"]
+      113 CALL                             R16 1 1
+      114 SETTABLEKS                       R16 R15 K26 ["getContext"]
+      116 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      118 LOADK                            R17 K27 ["getAction"]
+      119 CALL                             R16 1 1
+      120 SETTABLEKS                       R16 R15 K27 ["getAction"]
+      122 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      124 LOADK                            R17 K28 ["getBinding"]
+      125 CALL                             R16 1 1
+      126 SETTABLEKS                       R16 R15 K28 ["getBinding"]
+      128 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      130 LOADK                            R17 K29 ["getSelection"]
+      131 CALL                             R16 1 1
+      132 SETTABLEKS                       R16 R15 K29 ["getSelection"]
+      134 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      136 LOADK                            R17 K30 ["updateContext"]
+      137 CALL                             R16 1 1
+      138 SETTABLEKS                       R16 R15 K30 ["updateContext"]
+      140 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      142 LOADK                            R17 K31 ["updateAction"]
+      143 CALL                             R16 1 1
+      144 SETTABLEKS                       R16 R15 K31 ["updateAction"]
+      146 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      148 LOADK                            R17 K32 ["updateBinding"]
+      149 CALL                             R16 1 1
+      150 SETTABLEKS                       R16 R15 K32 ["updateBinding"]
+      152 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      154 LOADK                            R17 K33 ["duplicateContext"]
+      155 CALL                             R16 1 1
+      156 SETTABLEKS                       R16 R15 K33 ["duplicateContext"]
+      158 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      160 LOADK                            R17 K34 ["duplicateAction"]
+      161 CALL                             R16 1 1
+      162 SETTABLEKS                       R16 R15 K34 ["duplicateAction"]
+      164 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      166 LOADK                            R17 K35 ["subscribe"]
+      167 CALL                             R16 1 1
+      168 SETTABLEKS                       R16 R15 K35 ["subscribe"]
+      170 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      172 LOADK                            R17 K36 ["onContextOrderChanged"]
+      173 CALL                             R16 1 1
+      174 SETTABLEKS                       R16 R15 K36 ["onContextOrderChanged"]
+      176 GETTABLEKS                       R16 R2 K39 ["createUnimplemented"]
+      178 LOADK                            R17 K37 ["onSelectionChanged"]
+      179 CALL                             R16 1 1
+      180 SETTABLEKS                       R16 R15 K37 ["onSelectionChanged"]
+      182 CALL                             R14 1 1
+      183 DUPCLOSURE                       R15 K40 [PROTO_32]
+      184 CAPTURE                          VAL R12
+      185 CAPTURE                          VAL R1
+      186 CAPTURE                          VAL R5
+      187 CAPTURE                          VAL R7
+      188 CAPTURE                          VAL R6
+      189 CAPTURE                          VAL R11
+      190 CAPTURE                          VAL R8
+      191 CAPTURE                          VAL R3
+      192 CAPTURE                          VAL R13
+      193 CAPTURE                          VAL R9
+      194 CAPTURE                          VAL R14
+      195 DUPTABLE                         R16 K43 [{"Context", "Provider"}]
+      196 SETTABLEKS                       R14 R16 K41 ["Context"]
+      198 SETTABLEKS                       R15 R16 K42 ["Provider"]
+      200 RETURN                           R16 1

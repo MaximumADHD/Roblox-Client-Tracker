@@ -1,34 +1,26 @@
 PROTO_0:
-        0 JUMPIFNOT                        R1 ; [+3]
-        1 GETUPVAL                         R3 0
-        2 CALL                             R3 0 1
-        3 JUMPIFNOT                        R3 ; [+10]
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R6 R0 K0 ["Type"]
-        7 GETTABLE                         R4 R5 R6
-        8 NOT                              R3 R4
-        9 JUMPIFNOT                        R3 ; [+4]
-       10 MOVE                             R5 R0
-       11 NAMECALL                         R3 R2 K1 ["isFolderReadyForScope"]
-       13 CALL                             R3 2 1
-       14 RETURN                           R3 1
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R6 R0 K0 ["Type"]
+        3 GETTABLE                         R4 R5 R6
+        4 NOT                              R3 R4
+        5 JUMPIFNOT                        R3 ; [+4]
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R3 R2 K1 ["isFolderReadyForScope"]
+        9 CALL                             R3 2 1
+       10 RETURN                           R3 1
 
 PROTO_1:
         0 NOT                              R3 R1
-        1 JUMPIFNOT                        R3 ; [+14]
-        2 JUMPIFNOT                        R1 ; [+3]
-        3 GETUPVAL                         R3 0
-        4 CALL                             R3 0 1
-        5 JUMPIFNOT                        R3 ; [+10]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R6 R0 K0 ["Type"]
-        9 GETTABLE                         R4 R5 R6
-       10 NOT                              R3 R4
-       11 JUMPIFNOT                        R3 ; [+4]
-       12 MOVE                             R5 R0
-       13 NAMECALL                         R3 R2 K1 ["isFolderReadyForScope"]
-       15 CALL                             R3 2 1
-       16 RETURN                           R3 1
+        1 JUMPIFNOT                        R3 ; [+10]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R6 R0 K0 ["Type"]
+        5 GETTABLE                         R4 R5 R6
+        6 NOT                              R3 R4
+        7 JUMPIFNOT                        R3 ; [+4]
+        8 MOVE                             R5 R0
+        9 NAMECALL                         R3 R2 K1 ["isFolderReadyForScope"]
+       11 CALL                             R3 2 1
+       12 RETURN                           R3 1
 
 PROTO_2:
         0 JUMPIFNOT                        R1 ; [+3]
@@ -221,104 +213,73 @@ PROTO_7:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K2 ["MenuContext"]
         8 GETTABLEKS                       R4 R4 K3 ["Sidebar"]
-       10 JUMPIFNOTEQ                      R0 R4 ; [+44]
+       10 JUMPIFNOTEQ                      R0 R4 ; [+39]
        12 LOADB                            R4 0
-       13 JUMPIFEQKNIL                     R2 ; [+40]
+       13 JUMPIFEQKNIL                     R2 ; [+35]
        15 LOADB                            R4 0
        16 GETTABLEKS                       R5 R2 K4 ["Scope"]
-       18 JUMPIFEQKNIL                     R5 ; [+35]
+       18 JUMPIFEQKNIL                     R5 ; [+30]
        20 LOADB                            R4 0
        21 GETTABLEKS                       R5 R2 K4 ["Scope"]
        23 GETTABLEKS                       R5 R5 K5 ["Type"]
        25 GETUPVAL                         R6 0
        26 GETTABLEKS                       R6 R6 K6 ["ScopeType"]
        28 GETTABLEKS                       R6 R6 K7 ["Folder"]
-       30 JUMPIFNOTEQ                      R5 R6 ; [+23]
+       30 JUMPIFNOTEQ                      R5 R6 ; [+18]
        32 GETTABLEKS                       R5 R2 K4 ["Scope"]
        34 GETTABLEKS                       R6 R1 K8 ["ExplorerController"]
        36 NOT                              R4 R3
-       37 JUMPIFNOT                        R4 ; [+16]
-       38 JUMPIFNOT                        R3 ; [+4]
-       39 GETUPVAL                         R7 1
-       40 CALL                             R7 0 1
-       41 MOVE                             R4 R7
-       42 JUMPIFNOT                        R4 ; [+11]
-       43 GETUPVAL                         R8 2
-       44 GETTABLEKS                       R9 R5 K5 ["Type"]
-       46 GETTABLE                         R7 R8 R9
-       47 NOT                              R4 R7
-       48 JUMPIFNOT                        R4 ; [+5]
-       49 MOVE                             R9 R5
-       50 NAMECALL                         R7 R6 K9 ["isFolderReadyForScope"]
-       52 CALL                             R7 2 1
-       53 MOVE                             R4 R7
-       54 RETURN                           R4 1
-       55 GETUPVAL                         R4 0
-       56 GETTABLEKS                       R4 R4 K2 ["MenuContext"]
-       58 GETTABLEKS                       R4 R4 K10 ["Asset"]
-       60 JUMPIFNOTEQ                      R0 R4 ; [+73]
-       62 GETUPVAL                         R5 3
-       63 GETTABLEKS                       R5 R5 K11 ["count"]
-       65 GETTABLEKS                       R6 R1 K12 ["ItemsController"]
-       67 NAMECALL                         R6 R6 K13 ["getSelection"]
-       69 CALL                             R6 1 -1
-       70 CALL                             R5 -1 1
-       71 LOADN                            R6 0
-       72 JUMPIFLT                         R6 R5 ; [+2]
-       74 LOADB                            R4 0 +1
-       75 LOADB                            R4 1
-       76 JUMPIF                           R4 ; [+2]
-       77 LOADB                            R5 0
-       78 RETURN                           R5 1
-       79 GETTABLEKS                       R5 R1 K12 ["ItemsController"]
-       81 NAMECALL                         R5 R5 K14 ["getCurrentShownScope"]
-       83 CALL                             R5 1 1
-       84 GETUPVAL                         R6 1
-       85 CALL                             R6 0 1
-       86 JUMPIFNOT                        R6 ; [+26]
-       87 GETTABLEKS                       R7 R1 K8 ["ExplorerController"]
-       89 JUMPIFNOT                        R3 ; [+4]
-       90 GETUPVAL                         R8 1
-       91 CALL                             R8 0 1
-       92 MOVE                             R6 R8
-       93 JUMPIFNOT                        R6 ; [+11]
-       94 GETUPVAL                         R9 2
-       95 GETTABLEKS                       R10 R5 K5 ["Type"]
-       97 GETTABLE                         R8 R9 R10
-       98 NOT                              R6 R8
-       99 JUMPIFNOT                        R6 ; [+5]
-      100 MOVE                             R10 R5
-      101 NAMECALL                         R8 R7 K9 ["isFolderReadyForScope"]
-      103 CALL                             R8 2 1
-      104 MOVE                             R6 R8
-      105 JUMPIFNOT                        R6 ; [+6]
-      106 NOT                              R6 R3
-      107 JUMPIF                           R6 ; [+4]
-      108 GETUPVAL                         R7 4
-      109 MOVE                             R8 R1
-      110 CALL                             R7 1 1
-      111 NOT                              R6 R7
-      112 RETURN                           R6 1
-      113 GETTABLEKS                       R7 R1 K8 ["ExplorerController"]
-      115 NOT                              R6 R3
-      116 JUMPIFNOT                        R6 ; [+16]
-      117 JUMPIFNOT                        R3 ; [+4]
-      118 GETUPVAL                         R8 1
-      119 CALL                             R8 0 1
-      120 MOVE                             R6 R8
-      121 JUMPIFNOT                        R6 ; [+11]
-      122 GETUPVAL                         R9 2
-      123 GETTABLEKS                       R10 R5 K5 ["Type"]
-      125 GETTABLE                         R8 R9 R10
-      126 NOT                              R6 R8
-      127 JUMPIFNOT                        R6 ; [+5]
-      128 MOVE                             R10 R5
-      129 NAMECALL                         R8 R7 K9 ["isFolderReadyForScope"]
-      131 CALL                             R8 2 1
-      132 MOVE                             R6 R8
-      133 RETURN                           R6 1
-      134 LOADB                            R4 0
-      135 RETURN                           R4 1
+       37 JUMPIFNOT                        R4 ; [+11]
+       38 GETUPVAL                         R8 1
+       39 GETTABLEKS                       R9 R5 K5 ["Type"]
+       41 GETTABLE                         R7 R8 R9
+       42 NOT                              R4 R7
+       43 JUMPIFNOT                        R4 ; [+5]
+       44 MOVE                             R9 R5
+       45 NAMECALL                         R7 R6 K9 ["isFolderReadyForScope"]
+       47 CALL                             R7 2 1
+       48 MOVE                             R4 R7
+       49 RETURN                           R4 1
+       50 GETUPVAL                         R4 0
+       51 GETTABLEKS                       R4 R4 K2 ["MenuContext"]
+       53 GETTABLEKS                       R4 R4 K10 ["Asset"]
+       55 JUMPIFNOTEQ                      R0 R4 ; [+44]
+       57 GETUPVAL                         R5 2
+       58 GETTABLEKS                       R5 R5 K11 ["count"]
+       60 GETTABLEKS                       R6 R1 K12 ["ItemsController"]
+       62 NAMECALL                         R6 R6 K13 ["getSelection"]
+       64 CALL                             R6 1 -1
+       65 CALL                             R5 -1 1
+       66 LOADN                            R6 0
+       67 JUMPIFLT                         R6 R5 ; [+2]
+       69 LOADB                            R4 0 +1
+       70 LOADB                            R4 1
+       71 JUMPIF                           R4 ; [+2]
+       72 LOADB                            R5 0
+       73 RETURN                           R5 1
+       74 GETTABLEKS                       R5 R1 K12 ["ItemsController"]
+       76 NAMECALL                         R5 R5 K14 ["getCurrentShownScope"]
+       78 CALL                             R5 1 1
+       79 GETTABLEKS                       R7 R1 K8 ["ExplorerController"]
+       81 GETUPVAL                         R9 1
+       82 GETTABLEKS                       R10 R5 K5 ["Type"]
+       84 GETTABLE                         R8 R9 R10
+       85 NOT                              R6 R8
+       86 JUMPIFNOT                        R6 ; [+5]
+       87 MOVE                             R10 R5
+       88 NAMECALL                         R8 R7 K9 ["isFolderReadyForScope"]
+       90 CALL                             R8 2 1
+       91 MOVE                             R6 R8
+       92 JUMPIFNOT                        R6 ; [+6]
+       93 NOT                              R6 R3
+       94 JUMPIF                           R6 ; [+4]
+       95 GETUPVAL                         R7 3
+       96 MOVE                             R8 R1
+       97 CALL                             R7 1 1
+       98 NOT                              R6 R7
+       99 RETURN                           R6 1
+      100 LOADB                            R4 0
+      101 RETURN                           R4 1
 
 PROTO_8:
         0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
@@ -363,7 +324,7 @@ PROTO_10:
        35 LOADB                            R3 0 +1
        36 LOADB                            R3 1
        37 MOVE                             R4 R3
-       38 JUMPIFNOT                        R4 ; [+30]
+       38 JUMPIFNOT                        R4 ; [+25]
        39 GETTABLEKS                       R5 R1 K2 ["ItemsController"]
        41 NAMECALL                         R5 R5 K6 ["getCurrentShownScope"]
        43 CALL                             R5 1 1
@@ -372,22 +333,17 @@ PROTO_10:
        48 CALL                             R6 1 1
        49 GETTABLEKS                       R7 R1 K9 ["ExplorerController"]
        51 NOT                              R4 R6
-       52 JUMPIFNOT                        R4 ; [+16]
-       53 JUMPIFNOT                        R6 ; [+4]
-       54 GETUPVAL                         R8 3
-       55 CALL                             R8 0 1
-       56 MOVE                             R4 R8
-       57 JUMPIFNOT                        R4 ; [+11]
-       58 GETUPVAL                         R9 4
-       59 GETTABLEKS                       R10 R5 K10 ["Type"]
-       61 GETTABLE                         R8 R9 R10
-       62 NOT                              R4 R8
-       63 JUMPIFNOT                        R4 ; [+5]
-       64 MOVE                             R10 R5
-       65 NAMECALL                         R8 R7 K11 ["isFolderReadyForScope"]
-       67 CALL                             R8 2 1
-       68 MOVE                             R4 R8
-       69 RETURN                           R4 1
+       52 JUMPIFNOT                        R4 ; [+11]
+       53 GETUPVAL                         R9 3
+       54 GETTABLEKS                       R10 R5 K10 ["Type"]
+       56 GETTABLE                         R8 R9 R10
+       57 NOT                              R4 R8
+       58 JUMPIFNOT                        R4 ; [+5]
+       59 MOVE                             R10 R5
+       60 NAMECALL                         R8 R7 K11 ["isFolderReadyForScope"]
+       62 CALL                             R8 2 1
+       63 MOVE                             R4 R8
+       64 RETURN                           R4 1
 
 PROTO_11:
         0 JUMPIFNOT                        R2 ; [+25]
@@ -451,58 +407,48 @@ PROTO_12:
        21 GETUPVAL                         R4 0
        22 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
        24 GETTABLEKS                       R4 R4 K1 ["Sidebar"]
-       26 JUMPIFNOTEQ                      R0 R4 ; [+32]
+       26 JUMPIFNOTEQ                      R0 R4 ; [+27]
        28 LOADB                            R4 0
-       29 JUMPIFEQKNIL                     R2 ; [+28]
+       29 JUMPIFEQKNIL                     R2 ; [+23]
        31 LOADB                            R4 0
        32 GETTABLEKS                       R5 R2 K5 ["Scope"]
-       34 JUMPIFEQKNIL                     R5 ; [+23]
+       34 JUMPIFEQKNIL                     R5 ; [+18]
        36 GETTABLEKS                       R5 R2 K5 ["Scope"]
        38 GETTABLEKS                       R6 R1 K6 ["ExplorerController"]
        40 NOT                              R4 R3
-       41 JUMPIFNOT                        R4 ; [+16]
-       42 JUMPIFNOT                        R3 ; [+4]
-       43 GETUPVAL                         R7 1
-       44 CALL                             R7 0 1
-       45 MOVE                             R4 R7
-       46 JUMPIFNOT                        R4 ; [+11]
-       47 GETUPVAL                         R8 2
-       48 GETTABLEKS                       R9 R5 K7 ["Type"]
-       50 GETTABLE                         R7 R8 R9
-       51 NOT                              R4 R7
-       52 JUMPIFNOT                        R4 ; [+5]
-       53 MOVE                             R9 R5
-       54 NAMECALL                         R7 R6 K8 ["isFolderReadyForScope"]
-       56 CALL                             R7 2 1
-       57 MOVE                             R4 R7
-       58 RETURN                           R4 1
-       59 GETUPVAL                         R4 0
-       60 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
-       62 GETTABLEKS                       R4 R4 K2 ["Asset"]
-       64 JUMPIFNOTEQ                      R0 R4 ; [+27]
-       66 GETTABLEKS                       R5 R1 K9 ["ItemsController"]
-       68 NAMECALL                         R5 R5 K10 ["getCurrentShownScope"]
-       70 CALL                             R5 1 1
-       71 GETTABLEKS                       R6 R1 K6 ["ExplorerController"]
-       73 NOT                              R4 R3
-       74 JUMPIFNOT                        R4 ; [+16]
-       75 JUMPIFNOT                        R3 ; [+4]
-       76 GETUPVAL                         R7 1
-       77 CALL                             R7 0 1
-       78 MOVE                             R4 R7
-       79 JUMPIFNOT                        R4 ; [+11]
-       80 GETUPVAL                         R8 2
-       81 GETTABLEKS                       R9 R5 K7 ["Type"]
-       83 GETTABLE                         R7 R8 R9
-       84 NOT                              R4 R7
-       85 JUMPIFNOT                        R4 ; [+5]
-       86 MOVE                             R9 R5
-       87 NAMECALL                         R7 R6 K8 ["isFolderReadyForScope"]
-       89 CALL                             R7 2 1
-       90 MOVE                             R4 R7
-       91 RETURN                           R4 1
-       92 LOADB                            R4 0
-       93 RETURN                           R4 1
+       41 JUMPIFNOT                        R4 ; [+11]
+       42 GETUPVAL                         R8 1
+       43 GETTABLEKS                       R9 R5 K7 ["Type"]
+       45 GETTABLE                         R7 R8 R9
+       46 NOT                              R4 R7
+       47 JUMPIFNOT                        R4 ; [+5]
+       48 MOVE                             R9 R5
+       49 NAMECALL                         R7 R6 K8 ["isFolderReadyForScope"]
+       51 CALL                             R7 2 1
+       52 MOVE                             R4 R7
+       53 RETURN                           R4 1
+       54 GETUPVAL                         R4 0
+       55 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
+       57 GETTABLEKS                       R4 R4 K2 ["Asset"]
+       59 JUMPIFNOTEQ                      R0 R4 ; [+22]
+       61 GETTABLEKS                       R5 R1 K9 ["ItemsController"]
+       63 NAMECALL                         R5 R5 K10 ["getCurrentShownScope"]
+       65 CALL                             R5 1 1
+       66 GETTABLEKS                       R6 R1 K6 ["ExplorerController"]
+       68 NOT                              R4 R3
+       69 JUMPIFNOT                        R4 ; [+11]
+       70 GETUPVAL                         R8 1
+       71 GETTABLEKS                       R9 R5 K7 ["Type"]
+       73 GETTABLE                         R7 R8 R9
+       74 NOT                              R4 R7
+       75 JUMPIFNOT                        R4 ; [+5]
+       76 MOVE                             R9 R5
+       77 NAMECALL                         R7 R6 K8 ["isFolderReadyForScope"]
+       79 CALL                             R7 2 1
+       80 MOVE                             R4 R7
+       81 RETURN                           R4 1
+       82 LOADB                            R4 0
+       83 RETURN                           R4 1
 
 PROTO_13:
         0 GETUPVAL                         R3 0
@@ -542,28 +488,23 @@ PROTO_14:
        26 LOADB                            R4 0 +1
        27 LOADB                            R4 1
        28 MOVE                             R5 R4
-       29 JUMPIFNOT                        R5 ; [+25]
+       29 JUMPIFNOT                        R5 ; [+20]
        30 GETTABLEKS                       R6 R1 K5 ["ItemsController"]
        32 NAMECALL                         R6 R6 K7 ["getCurrentShownScope"]
        34 CALL                             R6 1 1
        35 GETTABLEKS                       R7 R1 K8 ["ExplorerController"]
        37 NOT                              R5 R3
-       38 JUMPIFNOT                        R5 ; [+16]
-       39 JUMPIFNOT                        R3 ; [+4]
-       40 GETUPVAL                         R8 2
-       41 CALL                             R8 0 1
-       42 MOVE                             R5 R8
-       43 JUMPIFNOT                        R5 ; [+11]
-       44 GETUPVAL                         R9 3
-       45 GETTABLEKS                       R10 R6 K9 ["Type"]
-       47 GETTABLE                         R8 R9 R10
-       48 NOT                              R5 R8
-       49 JUMPIFNOT                        R5 ; [+5]
-       50 MOVE                             R10 R6
-       51 NAMECALL                         R8 R7 K10 ["isFolderReadyForScope"]
-       53 CALL                             R8 2 1
-       54 MOVE                             R5 R8
-       55 RETURN                           R5 1
+       38 JUMPIFNOT                        R5 ; [+11]
+       39 GETUPVAL                         R9 2
+       40 GETTABLEKS                       R10 R6 K9 ["Type"]
+       42 GETTABLE                         R8 R9 R10
+       43 NOT                              R5 R8
+       44 JUMPIFNOT                        R5 ; [+5]
+       45 MOVE                             R10 R6
+       46 NAMECALL                         R8 R7 K10 ["isFolderReadyForScope"]
+       48 CALL                             R8 2 1
+       49 MOVE                             R5 R8
+       50 RETURN                           R5 1
 
 PROTO_15:
         0 GETUPVAL                         R3 0
@@ -801,110 +742,99 @@ MAIN:
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K8 ["Src"]
        45 GETTABLEKS                       R6 R6 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAmrMoveFromSearch"]
+       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAmrMoveToLastFolder"]
        49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K8 ["Src"]
-       54 GETTABLEKS                       R7 R7 K15 ["Flags"]
-       56 GETTABLEKS                       R7 R7 K17 ["getFFlagAmrMoveToLastFolder"]
-       58 CALL                             R6 1 1
-       59 NEWTABLE                         R7 2 0
-       61 GETTABLEKS                       R8 R3 K18 ["ScopeType"]
-       63 GETTABLEKS                       R8 R8 K19 ["ProjectPlaces"]
-       65 LOADB                            R9 1
-       66 SETTABLE                         R9 R7 R8
-       67 GETTABLEKS                       R8 R3 K18 ["ScopeType"]
-       69 GETTABLEKS                       R8 R8 K20 ["RecentUploads"]
-       71 LOADB                            R9 1
-       72 SETTABLE                         R9 R7 R8
-       73 DUPCLOSURE                       R8 K21 [PROTO_0]
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R7
-       76 DUPCLOSURE                       R9 K22 [PROTO_1]
-       77 CAPTURE                          VAL R5
-       78 CAPTURE                          VAL R7
-       79 DUPCLOSURE                       R10 K23 [PROTO_2]
-       80 DUPCLOSURE                       R11 K24 [PROTO_3]
-       81 CAPTURE                          VAL R3
-       82 DUPCLOSURE                       R12 K25 [PROTO_4]
-       83 CAPTURE                          VAL R1
+       50 NEWTABLE                         R6 2 0
+       52 GETTABLEKS                       R7 R3 K17 ["ScopeType"]
+       54 GETTABLEKS                       R7 R7 K18 ["ProjectPlaces"]
+       56 LOADB                            R8 1
+       57 SETTABLE                         R8 R6 R7
+       58 GETTABLEKS                       R7 R3 K17 ["ScopeType"]
+       60 GETTABLEKS                       R7 R7 K19 ["RecentUploads"]
+       62 LOADB                            R8 1
+       63 SETTABLE                         R8 R6 R7
+       64 DUPCLOSURE                       R7 K20 [PROTO_0]
+       65 CAPTURE                          VAL R6
+       66 DUPCLOSURE                       R8 K21 [PROTO_1]
+       67 CAPTURE                          VAL R6
+       68 DUPCLOSURE                       R9 K22 [PROTO_2]
+       69 DUPCLOSURE                       R10 K23 [PROTO_3]
+       70 CAPTURE                          VAL R3
+       71 DUPCLOSURE                       R11 K24 [PROTO_4]
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          VAL R3
+       74 DUPCLOSURE                       R12 K25 [PROTO_5]
+       75 CAPTURE                          VAL R3
+       76 DUPTABLE                         R13 K32 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Move", ["OnItemClicked"], ["ShouldRender"]}]
+       77 DUPCLOSURE                       R14 K33 [PROTO_6]
+       78 CAPTURE                          VAL R3
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R4
+       81 SETTABLEKS                       R14 R13 K30 ["OnItemClicked"]
+       83 DUPCLOSURE                       R14 K34 [PROTO_7]
        84 CAPTURE                          VAL R3
-       85 DUPCLOSURE                       R13 K26 [PROTO_5]
-       86 CAPTURE                          VAL R3
-       87 DUPTABLE                         R14 K33 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Move", ["OnItemClicked"], ["ShouldRender"]}]
-       88 DUPCLOSURE                       R15 K34 [PROTO_6]
-       89 CAPTURE                          VAL R3
-       90 CAPTURE                          VAL R1
-       91 CAPTURE                          VAL R4
-       92 SETTABLEKS                       R15 R14 K31 ["OnItemClicked"]
-       94 DUPCLOSURE                       R15 K35 [PROTO_7]
-       95 CAPTURE                          VAL R3
-       96 CAPTURE                          VAL R5
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R13
-      100 SETTABLEKS                       R15 R14 K32 ["ShouldRender"]
-      102 DUPTABLE                         R15 K38 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "MoveToLastFolder", ["GetSubkeyArgs"], ["OnItemClicked"], ["ShouldRender"]}]
-      103 DUPCLOSURE                       R16 K39 [PROTO_8]
-      104 SETTABLEKS                       R16 R15 K37 ["GetSubkeyArgs"]
-      106 DUPCLOSURE                       R16 K40 [PROTO_9]
-      107 SETTABLEKS                       R16 R15 K31 ["OnItemClicked"]
-      109 DUPCLOSURE                       R16 K41 [PROTO_10]
-      110 CAPTURE                          VAL R6
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R1
+       87 CAPTURE                          VAL R12
+       88 SETTABLEKS                       R14 R13 K31 ["ShouldRender"]
+       90 DUPTABLE                         R14 K37 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "MoveToLastFolder", ["GetSubkeyArgs"], ["OnItemClicked"], ["ShouldRender"]}]
+       91 DUPCLOSURE                       R15 K38 [PROTO_8]
+       92 SETTABLEKS                       R15 R14 K36 ["GetSubkeyArgs"]
+       94 DUPCLOSURE                       R15 K39 [PROTO_9]
+       95 SETTABLEKS                       R15 R14 K30 ["OnItemClicked"]
+       97 DUPCLOSURE                       R15 K40 [PROTO_10]
+       98 CAPTURE                          VAL R5
+       99 CAPTURE                          VAL R3
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          VAL R6
+      102 SETTABLEKS                       R15 R14 K31 ["ShouldRender"]
+      104 DUPTABLE                         R15 K42 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "CreateFolder", ["OnItemClicked"], ["ShouldRender"]}]
+      105 DUPCLOSURE                       R16 K43 [PROTO_11]
+      106 CAPTURE                          VAL R2
+      107 CAPTURE                          VAL R3
+      108 SETTABLEKS                       R16 R15 K30 ["OnItemClicked"]
+      110 DUPCLOSURE                       R16 K44 [PROTO_12]
       111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R7
-      115 SETTABLEKS                       R16 R15 K32 ["ShouldRender"]
-      117 DUPTABLE                         R16 K43 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "CreateFolder", ["OnItemClicked"], ["ShouldRender"]}]
-      118 DUPCLOSURE                       R17 K44 [PROTO_11]
-      119 CAPTURE                          VAL R2
-      120 CAPTURE                          VAL R3
-      121 SETTABLEKS                       R17 R16 K31 ["OnItemClicked"]
-      123 DUPCLOSURE                       R17 K45 [PROTO_12]
-      124 CAPTURE                          VAL R3
-      125 CAPTURE                          VAL R5
-      126 CAPTURE                          VAL R7
-      127 SETTABLEKS                       R17 R16 K32 ["ShouldRender"]
-      129 DUPTABLE                         R17 K47 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "GroupSelectionAsFolder", ["OnItemClicked"], ["ShouldRender"]}]
-      130 DUPCLOSURE                       R18 K48 [PROTO_13]
-      131 CAPTURE                          VAL R3
-      132 SETTABLEKS                       R18 R17 K31 ["OnItemClicked"]
-      134 DUPCLOSURE                       R18 K49 [PROTO_14]
-      135 CAPTURE                          VAL R3
-      136 CAPTURE                          VAL R1
-      137 CAPTURE                          VAL R5
-      138 CAPTURE                          VAL R7
-      139 SETTABLEKS                       R18 R17 K32 ["ShouldRender"]
-      141 DUPTABLE                         R18 K51 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Rename", ["OnItemClicked"], ["ShouldRender"]}]
-      142 DUPCLOSURE                       R19 K52 [PROTO_15]
-      143 CAPTURE                          VAL R3
-      144 SETTABLEKS                       R19 R18 K31 ["OnItemClicked"]
-      146 DUPCLOSURE                       R19 K53 [PROTO_16]
-      147 CAPTURE                          VAL R3
-      148 SETTABLEKS                       R19 R18 K32 ["ShouldRender"]
-      150 DUPTABLE                         R19 K55 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "DeleteFolder", ["OnItemClicked"], ["ShouldRender"]}]
-      151 DUPCLOSURE                       R20 K56 [PROTO_17]
-      152 CAPTURE                          VAL R3
-      153 SETTABLEKS                       R20 R19 K31 ["OnItemClicked"]
-      155 DUPCLOSURE                       R20 K57 [PROTO_18]
-      156 CAPTURE                          VAL R3
-      157 SETTABLEKS                       R20 R19 K32 ["ShouldRender"]
-      159 DUPTABLE                         R20 K59 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "DeleteFolders", ["OnItemClicked"], ["ShouldRender"]}]
-      160 DUPCLOSURE                       R21 K60 [PROTO_19]
-      161 CAPTURE                          VAL R3
-      162 SETTABLEKS                       R21 R20 K31 ["OnItemClicked"]
-      164 DUPCLOSURE                       R21 K61 [PROTO_20]
-      165 CAPTURE                          VAL R3
-      166 CAPTURE                          VAL R12
-      167 SETTABLEKS                       R21 R20 K32 ["ShouldRender"]
-      169 NEWTABLE                         R21 0 7
-      171 MOVE                             R22 R14
-      172 MOVE                             R23 R15
-      173 MOVE                             R24 R16
-      174 MOVE                             R25 R17
-      175 MOVE                             R26 R18
-      176 MOVE                             R27 R19
-      177 MOVE                             R28 R20
-      178 SETLIST                          R21 R22 7 [1]
-      180 RETURN                           R21 1
+      112 CAPTURE                          VAL R6
+      113 SETTABLEKS                       R16 R15 K31 ["ShouldRender"]
+      115 DUPTABLE                         R16 K46 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "GroupSelectionAsFolder", ["OnItemClicked"], ["ShouldRender"]}]
+      116 DUPCLOSURE                       R17 K47 [PROTO_13]
+      117 CAPTURE                          VAL R3
+      118 SETTABLEKS                       R17 R16 K30 ["OnItemClicked"]
+      120 DUPCLOSURE                       R17 K48 [PROTO_14]
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R6
+      124 SETTABLEKS                       R17 R16 K31 ["ShouldRender"]
+      126 DUPTABLE                         R17 K50 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Rename", ["OnItemClicked"], ["ShouldRender"]}]
+      127 DUPCLOSURE                       R18 K51 [PROTO_15]
+      128 CAPTURE                          VAL R3
+      129 SETTABLEKS                       R18 R17 K30 ["OnItemClicked"]
+      131 DUPCLOSURE                       R18 K52 [PROTO_16]
+      132 CAPTURE                          VAL R3
+      133 SETTABLEKS                       R18 R17 K31 ["ShouldRender"]
+      135 DUPTABLE                         R18 K54 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "DeleteFolder", ["OnItemClicked"], ["ShouldRender"]}]
+      136 DUPCLOSURE                       R19 K55 [PROTO_17]
+      137 CAPTURE                          VAL R3
+      138 SETTABLEKS                       R19 R18 K30 ["OnItemClicked"]
+      140 DUPCLOSURE                       R19 K56 [PROTO_18]
+      141 CAPTURE                          VAL R3
+      142 SETTABLEKS                       R19 R18 K31 ["ShouldRender"]
+      144 DUPTABLE                         R19 K58 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "DeleteFolders", ["OnItemClicked"], ["ShouldRender"]}]
+      145 DUPCLOSURE                       R20 K59 [PROTO_19]
+      146 CAPTURE                          VAL R3
+      147 SETTABLEKS                       R20 R19 K30 ["OnItemClicked"]
+      149 DUPCLOSURE                       R20 K60 [PROTO_20]
+      150 CAPTURE                          VAL R3
+      151 CAPTURE                          VAL R11
+      152 SETTABLEKS                       R20 R19 K31 ["ShouldRender"]
+      154 NEWTABLE                         R20 0 7
+      156 MOVE                             R21 R13
+      157 MOVE                             R22 R14
+      158 MOVE                             R23 R15
+      159 MOVE                             R24 R16
+      160 MOVE                             R25 R17
+      161 MOVE                             R26 R18
+      162 MOVE                             R27 R19
+      163 SETLIST                          R20 R21 7 [1]
+      165 RETURN                           R20 1

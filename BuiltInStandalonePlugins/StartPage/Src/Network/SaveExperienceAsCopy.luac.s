@@ -204,39 +204,96 @@ PROTO_11:
        36 RETURN                           R3 -1
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+27]
-        3 GETTABLEKS                       R1 R0 K0 ["copyResults"]
-        5 JUMPIFNOT                        R1 ; [+3]
-        6 GETTABLEKS                       R2 R0 K0 ["copyResults"]
-        8 GETTABLEN                        R1 R2 1
-        9 MOVE                             R2 R1
-       10 JUMPIFNOT                        R2 ; [+2]
-       11 GETTABLEKS                       R2 R1 K1 ["responseBody"]
-       13 MOVE                             R3 R2
-       14 JUMPIFNOT                        R3 ; [+5]
-       15 GETTABLEKS                       R3 R2 K2 ["placeId"]
-       17 JUMPIF                           R3 ; [+2]
-       18 GETTABLEKS                       R3 R2 K3 ["PlaceId"]
-       20 JUMPIFNOT                        R3 ; [+9]
-       21 GETUPVAL                         R4 1
-       22 MOVE                             R6 R3
-       23 GETTABLEKS                       R7 R0 K4 ["targetUniverseId"]
-       25 LOADB                            R8 0
-       26 NAMECALL                         R4 R4 K5 ["openPlace"]
-       28 CALL                             R4 4 0
-       29 RETURN                           R0 0
-       30 GETUPVAL                         R1 2
-       31 GETTABLEKS                       R1 R1 K6 ["new"]
-       33 LOADK                            R2 K7 ["StartPageSaveAsCopy"]
-       34 CALL                             R1 1 1
-       35 LOADK                            R4 K8 ["SaveAsCopySuccess"]
-       36 NAMECALL                         R2 R1 K9 ["Fire"]
-       38 CALL                             R2 2 0
-       39 RETURN                           R0 0
+        0 FASTCALL1                        TYPE R0 ; [+3]
+        1 MOVE                             R3 R0
+        2 GETIMPORT                        R2 K1 [type]
+        4 CALL                             R2 1 1
+        5 JUMPIFNOTEQKS                    R2 K2 ["table"] ; [+4]
+        7 GETTABLEKS                       R1 R0 K3 ["responseCode"]
+        9 JUMP                             ; [+1]
+       10 LOADNIL                          R1
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K4 ["default"]
+       14 GETUPVAL                         R4 1
+       15 LOADNIL                          R5
+       16 DUPTABLE                         R6 K10 [{["failureStep"] = "WriteActivityHistory", ["universeId"], ["statusCode"], ["details"]}]
+       17 GETUPVAL                         R7 2
+       18 SETTABLEKS                       R7 R6 K7 ["universeId"]
+       20 SETTABLEKS                       R1 R6 K8 ["statusCode"]
+       22 GETUPVAL                         R7 3
+       23 MOVE                             R8 R0
+       24 CALL                             R7 1 1
+       25 SETTABLEKS                       R7 R6 K9 ["details"]
+       27 NAMECALL                         R2 R2 K11 ["logRobloxTelemetryEvent"]
+       29 CALL                             R2 4 0
+       30 RETURN                           R0 0
 
 PROTO_13:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+38]
+        3 GETUPVAL                         R1 1
+        4 LOADN                            R2 151
+        5 GETUPVAL                         R3 2
+        6 GETUPVAL                         R4 3
+        7 NAMECALL                         R4 R4 K0 ["GetUserId"]
+        9 CALL                             R4 1 1
+       10 DUPTABLE                         R5 K5 [{"OldName", "NewName", "SourceUniverseId", "NewUniverseId"}]
+       11 GETUPVAL                         R6 4
+       12 SETTABLEKS                       R6 R5 K1 ["OldName"]
+       14 GETUPVAL                         R6 5
+       15 SETTABLEKS                       R6 R5 K2 ["NewName"]
+       17 GETUPVAL                         R7 2
+       18 FASTCALL1                        TOSTRING R7 ; [+2]
+       19 GETIMPORT                        R6 K7 [tostring]
+       21 CALL                             R6 1 1
+       22 SETTABLEKS                       R6 R5 K3 ["SourceUniverseId"]
+       24 GETTABLEKS                       R7 R0 K8 ["targetUniverseId"]
+       26 FASTCALL1                        TOSTRING R7 ; [+2]
+       27 GETIMPORT                        R6 K7 [tostring]
+       29 CALL                             R6 1 1
+       30 SETTABLEKS                       R6 R5 K4 ["NewUniverseId"]
+       32 CALL                             R1 4 1
+       33 NEWCLOSURE                       R3 P0
+       34 CAPTURE                          UPVAL U6
+       35 CAPTURE                          UPVAL U7
+       36 CAPTURE                          UPVAL U2
+       37 CAPTURE                          UPVAL U8
+       38 NAMECALL                         R1 R1 K9 ["catch"]
+       40 CALL                             R1 2 0
+       41 GETUPVAL                         R1 9
+       42 CALL                             R1 0 1
+       43 JUMPIFNOT                        R1 ; [+27]
+       44 GETTABLEKS                       R1 R0 K10 ["copyResults"]
+       46 JUMPIFNOT                        R1 ; [+3]
+       47 GETTABLEKS                       R2 R0 K10 ["copyResults"]
+       49 GETTABLEN                        R1 R2 1
+       50 MOVE                             R2 R1
+       51 JUMPIFNOT                        R2 ; [+2]
+       52 GETTABLEKS                       R2 R1 K11 ["responseBody"]
+       54 MOVE                             R3 R2
+       55 JUMPIFNOT                        R3 ; [+5]
+       56 GETTABLEKS                       R3 R2 K12 ["placeId"]
+       58 JUMPIF                           R3 ; [+2]
+       59 GETTABLEKS                       R3 R2 K13 ["PlaceId"]
+       61 JUMPIFNOT                        R3 ; [+9]
+       62 GETUPVAL                         R4 10
+       63 MOVE                             R6 R3
+       64 GETTABLEKS                       R7 R0 K8 ["targetUniverseId"]
+       66 LOADB                            R8 0
+       67 NAMECALL                         R4 R4 K14 ["openPlace"]
+       69 CALL                             R4 4 0
+       70 RETURN                           R0 0
+       71 GETUPVAL                         R1 11
+       72 GETTABLEKS                       R1 R1 K15 ["new"]
+       74 LOADK                            R2 K16 ["StartPageSaveAsCopy"]
+       75 CALL                             R1 1 1
+       76 LOADK                            R4 K17 ["SaveAsCopySuccess"]
+       77 NAMECALL                         R2 R1 K18 ["Fire"]
+       79 CALL                             R2 2 0
+       80 RETURN                           R0 0
+
+PROTO_14:
         0 LOADB                            R1 0
         1 FASTCALL1                        TYPE R0 ; [+3]
         2 MOVE                             R3 R0
@@ -300,7 +357,7 @@ PROTO_13:
        80 CALL                             R7 1 -1
        81 RETURN                           R7 -1
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R3 R0 K0 ["IsPlaceholder"]
         2 NOT                              R2 R3
         3 FASTCALL2K                       ASSERT R2 K1 ; [+4]
@@ -362,22 +419,31 @@ PROTO_14:
        73 CAPTURE                          UPVAL U6
        74 NAMECALL                         R4 R4 K17 ["andThen"]
        76 CALL                             R4 2 1
-       77 DUPCLOSURE                       R6 K22 [PROTO_12]
+       77 NEWCLOSURE                       R6 P4
        78 CAPTURE                          UPVAL U7
        79 CAPTURE                          UPVAL U8
-       80 CAPTURE                          UPVAL U0
-       81 NAMECALL                         R4 R4 K17 ["andThen"]
-       83 CALL                             R4 2 1
-       84 NEWCLOSURE                       R6 P5
-       85 CAPTURE                          UPVAL U9
-       86 CAPTURE                          UPVAL U10
-       87 CAPTURE                          UPVAL U11
-       88 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          UPVAL U9
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          UPVAL U10
+       85 CAPTURE                          UPVAL U11
+       86 CAPTURE                          UPVAL U12
+       87 CAPTURE                          UPVAL U13
+       88 CAPTURE                          UPVAL U14
        89 CAPTURE                          UPVAL U0
-       90 CAPTURE                          UPVAL U1
-       91 NAMECALL                         R4 R4 K19 ["catch"]
-       93 CALL                             R4 2 -1
-       94 RETURN                           R4 -1
+       90 NAMECALL                         R4 R4 K17 ["andThen"]
+       92 CALL                             R4 2 1
+       93 NEWCLOSURE                       R6 P5
+       94 CAPTURE                          UPVAL U12
+       95 CAPTURE                          UPVAL U10
+       96 CAPTURE                          UPVAL U11
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          UPVAL U0
+       99 CAPTURE                          UPVAL U1
+      100 NAMECALL                         R4 R4 K19 ["catch"]
+      102 CALL                             R4 2 -1
+      103 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -405,66 +471,80 @@ MAIN:
        37 GETTABLEKS                       R6 R6 K13 ["Util"]
        39 GETTABLEKS                       R6 R6 K16 ["Services"]
        41 CALL                             R5 1 1
-       42 GETTABLEKS                       R5 R5 K17 ["StartPageManager"]
-       44 GETIMPORT                        R6 K9 [require]
-       46 GETTABLEKS                       R7 R0 K12 ["Src"]
-       48 GETTABLEKS                       R7 R7 K18 ["SharedFlags"]
-       50 GETTABLEKS                       R7 R7 K19 ["getFFlagStartPageSaveAsCopyOpenPlace"]
-       52 CALL                             R6 1 1
-       53 GETIMPORT                        R7 K9 [require]
-       55 GETTABLEKS                       R8 R0 K12 ["Src"]
-       57 GETTABLEKS                       R8 R8 K20 ["Network"]
-       59 GETTABLEKS                       R8 R8 K21 ["GetUniversePlaces"]
-       61 CALL                             R7 1 1
-       62 GETIMPORT                        R8 K9 [require]
-       64 GETTABLEKS                       R9 R0 K12 ["Src"]
-       66 GETTABLEKS                       R9 R9 K20 ["Network"]
-       68 GETTABLEKS                       R9 R9 K22 ["CreateUniverse"]
-       70 CALL                             R8 1 1
-       71 GETIMPORT                        R9 K9 [require]
-       73 GETTABLEKS                       R10 R0 K12 ["Src"]
-       75 GETTABLEKS                       R10 R10 K20 ["Network"]
-       77 GETTABLEKS                       R10 R10 K23 ["RenameUniverse"]
-       79 CALL                             R9 1 1
-       80 GETIMPORT                        R10 K9 [require]
-       82 GETTABLEKS                       R11 R0 K12 ["Src"]
-       84 GETTABLEKS                       R11 R11 K20 ["Network"]
-       86 GETTABLEKS                       R11 R11 K24 ["CopyPlaceToUniverse"]
-       88 CALL                             R10 1 1
-       89 GETIMPORT                        R11 K9 [require]
-       91 GETTABLEKS                       R12 R0 K12 ["Src"]
-       93 GETTABLEKS                       R12 R12 K13 ["Util"]
-       95 GETTABLEKS                       R12 R12 K25 ["Telemetry"]
-       97 GETTABLEKS                       R12 R12 K26 ["TelemetryProtocol"]
-       99 CALL                             R11 1 1
-      100 GETIMPORT                        R12 K9 [require]
-      102 GETTABLEKS                       R13 R0 K12 ["Src"]
-      104 GETTABLEKS                       R13 R13 K13 ["Util"]
-      106 GETTABLEKS                       R13 R13 K25 ["Telemetry"]
-      108 GETTABLEKS                       R13 R13 K27 ["SaveExperienceAsCopyErrorEvent"]
-      110 CALL                             R12 1 1
-      111 GETIMPORT                        R13 K9 [require]
-      113 GETTABLEKS                       R14 R0 K12 ["Src"]
-      115 GETTABLEKS                       R14 R14 K28 ["Types"]
-      117 CALL                             R13 1 1
-      118 DUPTABLE                         R14 K30 [{["GetUniversePlaces"] = "GetUniversePlaces", ["CreateUniverse"] = "CreateUniverse", ["RenameUniverse"] = "RenameUniverse", ["CopyPlaceToUniverse"] = "CopyPlaceToUniverse", ["Unknown"] = "Unknown"}]
-      119 DUPCLOSURE                       R15 K31 [PROTO_1]
-      120 CAPTURE                          VAL R1
-      121 DUPCLOSURE                       R16 K32 [PROTO_2]
-      122 CAPTURE                          VAL R4
-      123 DUPCLOSURE                       R17 K33 [PROTO_4]
-      124 CAPTURE                          VAL R3
-      125 DUPCLOSURE                       R18 K34 [PROTO_14]
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R3
-      128 CAPTURE                          VAL R7
-      129 CAPTURE                          VAL R17
-      130 CAPTURE                          VAL R8
-      131 CAPTURE                          VAL R9
-      132 CAPTURE                          VAL R10
-      133 CAPTURE                          VAL R6
-      134 CAPTURE                          VAL R5
-      135 CAPTURE                          VAL R15
-      136 CAPTURE                          VAL R11
-      137 CAPTURE                          VAL R12
-      138 RETURN                           R18 1
+       42 GETTABLEKS                       R6 R5 K17 ["StartPageManager"]
+       44 GETTABLEKS                       R7 R5 K18 ["StudioService"]
+       46 GETIMPORT                        R8 K9 [require]
+       48 GETTABLEKS                       R9 R0 K12 ["Src"]
+       50 GETTABLEKS                       R9 R9 K19 ["SharedFlags"]
+       52 GETTABLEKS                       R9 R9 K20 ["getFFlagStartPageSaveAsCopyOpenPlace"]
+       54 CALL                             R8 1 1
+       55 GETIMPORT                        R9 K9 [require]
+       57 GETTABLEKS                       R10 R0 K12 ["Src"]
+       59 GETTABLEKS                       R10 R10 K19 ["SharedFlags"]
+       61 GETTABLEKS                       R10 R10 K21 ["getFFlagStartPageEscapeHatchActivityHistory"]
+       63 CALL                             R9 1 1
+       64 GETIMPORT                        R10 K9 [require]
+       66 GETTABLEKS                       R11 R0 K12 ["Src"]
+       68 GETTABLEKS                       R11 R11 K22 ["Network"]
+       70 GETTABLEKS                       R11 R11 K23 ["GetUniversePlaces"]
+       72 CALL                             R10 1 1
+       73 GETIMPORT                        R11 K9 [require]
+       75 GETTABLEKS                       R12 R0 K12 ["Src"]
+       77 GETTABLEKS                       R12 R12 K22 ["Network"]
+       79 GETTABLEKS                       R12 R12 K24 ["CreateUniverse"]
+       81 CALL                             R11 1 1
+       82 GETIMPORT                        R12 K9 [require]
+       84 GETTABLEKS                       R13 R0 K12 ["Src"]
+       86 GETTABLEKS                       R13 R13 K22 ["Network"]
+       88 GETTABLEKS                       R13 R13 K25 ["RenameUniverse"]
+       90 CALL                             R12 1 1
+       91 GETIMPORT                        R13 K9 [require]
+       93 GETTABLEKS                       R14 R0 K12 ["Src"]
+       95 GETTABLEKS                       R14 R14 K22 ["Network"]
+       97 GETTABLEKS                       R14 R14 K26 ["CopyPlaceToUniverse"]
+       99 CALL                             R13 1 1
+      100 GETIMPORT                        R14 K9 [require]
+      102 GETTABLEKS                       R15 R0 K12 ["Src"]
+      104 GETTABLEKS                       R15 R15 K22 ["Network"]
+      106 GETTABLEKS                       R15 R15 K27 ["WriteActivityHistory"]
+      108 CALL                             R14 1 1
+      109 GETIMPORT                        R15 K9 [require]
+      111 GETTABLEKS                       R16 R0 K12 ["Src"]
+      113 GETTABLEKS                       R16 R16 K13 ["Util"]
+      115 GETTABLEKS                       R16 R16 K28 ["Telemetry"]
+      117 GETTABLEKS                       R16 R16 K29 ["TelemetryProtocol"]
+      119 CALL                             R15 1 1
+      120 GETIMPORT                        R16 K9 [require]
+      122 GETTABLEKS                       R17 R0 K12 ["Src"]
+      124 GETTABLEKS                       R17 R17 K13 ["Util"]
+      126 GETTABLEKS                       R17 R17 K28 ["Telemetry"]
+      128 GETTABLEKS                       R17 R17 K30 ["SaveExperienceAsCopyErrorEvent"]
+      130 CALL                             R16 1 1
+      131 GETIMPORT                        R17 K9 [require]
+      133 GETTABLEKS                       R18 R0 K12 ["Src"]
+      135 GETTABLEKS                       R18 R18 K31 ["Types"]
+      137 CALL                             R17 1 1
+      138 DUPTABLE                         R18 K33 [{["GetUniversePlaces"] = "GetUniversePlaces", ["CreateUniverse"] = "CreateUniverse", ["RenameUniverse"] = "RenameUniverse", ["CopyPlaceToUniverse"] = "CopyPlaceToUniverse", ["WriteActivityHistory"] = "WriteActivityHistory", ["Unknown"] = "Unknown"}]
+      139 DUPCLOSURE                       R19 K34 [PROTO_1]
+      140 CAPTURE                          VAL R1
+      141 DUPCLOSURE                       R20 K35 [PROTO_2]
+      142 CAPTURE                          VAL R4
+      143 DUPCLOSURE                       R21 K36 [PROTO_4]
+      144 CAPTURE                          VAL R3
+      145 DUPCLOSURE                       R22 K37 [PROTO_15]
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R3
+      148 CAPTURE                          VAL R10
+      149 CAPTURE                          VAL R21
+      150 CAPTURE                          VAL R11
+      151 CAPTURE                          VAL R12
+      152 CAPTURE                          VAL R13
+      153 CAPTURE                          VAL R9
+      154 CAPTURE                          VAL R14
+      155 CAPTURE                          VAL R7
+      156 CAPTURE                          VAL R15
+      157 CAPTURE                          VAL R16
+      158 CAPTURE                          VAL R19
+      159 CAPTURE                          VAL R8
+      160 CAPTURE                          VAL R6
+      161 RETURN                           R22 1

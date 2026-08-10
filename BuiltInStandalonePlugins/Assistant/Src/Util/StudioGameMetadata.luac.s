@@ -37,9 +37,11 @@ PROTO_3:
         4 GETIMPORT                        R0 K2 [assert]
         6 CALL                             R0 2 0
         7 GETUPVAL                         R0 0
-        8 LOADNIL                          R1
-        9 CALL                             R0 1 -1
-       10 RETURN                           R0 -1
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K3 ["Types"]
+       11 GETTABLEKS                       R1 R1 K4 ["Edit"]
+       13 CALL                             R0 1 -1
+       14 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -48,18 +50,25 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Util"]
-       13 GETTABLEKS                       R2 R2 K8 ["StudioNetworking"]
-       15 CALL                             R1 1 1
-       16 NEWTABLE                         R2 2 0
-       18 LOADNIL                          R3
-       19 DUPCLOSURE                       R4 K9 [PROTO_0]
-       20 NEWCLOSURE                       R5 P1
-       21 CAPTURE                          REF R3
-       22 SETTABLEKS                       R5 R2 K10 ["initialize"]
-       24 NEWCLOSURE                       R5 P2
-       25 CAPTURE                          REF R3
-       26 SETTABLEKS                       R5 R2 K11 ["getGameMetadata"]
-       28 CLOSEUPVALS                      R3
-       29 RETURN                           R2 1
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["StudioNetworking"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R1 K11 ["Utils"]
+       25 GETTABLEKS                       R3 R3 K12 ["DataModelType"]
+       27 NEWTABLE                         R4 2 0
+       29 LOADNIL                          R5
+       30 DUPCLOSURE                       R6 K13 [PROTO_0]
+       31 NEWCLOSURE                       R7 P1
+       32 CAPTURE                          REF R5
+       33 SETTABLEKS                       R7 R4 K14 ["initialize"]
+       35 NEWCLOSURE                       R7 P2
+       36 CAPTURE                          REF R5
+       37 CAPTURE                          VAL R3
+       38 SETTABLEKS                       R7 R4 K15 ["getGameMetadata"]
+       40 CLOSEUPVALS                      R5
+       41 RETURN                           R4 1

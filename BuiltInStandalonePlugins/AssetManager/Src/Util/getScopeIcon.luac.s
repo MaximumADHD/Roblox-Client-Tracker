@@ -13,28 +13,24 @@ PROTO_0:
        17 RETURN                           R1 1
        18 GETUPVAL                         R1 0
        19 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
-       21 GETTABLEKS                       R1 R1 K5 ["ProjectShared"]
-       23 JUMPIFEQ                         R0 R1 ; [+8]
-       25 GETUPVAL                         R1 0
-       26 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
-       28 GETTABLEKS                       R1 R1 K6 ["Universe"]
-       30 JUMPIFNOTEQ                      R0 R1 ; [+3]
-       32 LOADK                            R1 K7 ["icon-game-folder"]
-       33 RETURN                           R1 1
-       34 GETUPVAL                         R1 0
-       35 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
-       37 GETTABLEKS                       R1 R1 K8 ["ProjectPlaces"]
-       39 JUMPIFNOTEQ                      R0 R1 ; [+3]
-       41 LOADK                            R1 K9 ["icon-places-folder"]
-       42 RETURN                           R1 1
-       43 GETUPVAL                         R1 0
-       44 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
-       46 GETTABLEKS                       R1 R1 K10 ["Folder"]
-       48 JUMPIFNOTEQ                      R0 R1 ; [+3]
-       50 LOADK                            R1 K11 ["icon-folder"]
-       51 RETURN                           R1 1
-       52 LOADK                            R1 K12 ["icon-placeholder"]
-       53 RETURN                           R1 1
+       21 GETTABLEKS                       R1 R1 K5 ["Universe"]
+       23 JUMPIFNOTEQ                      R0 R1 ; [+3]
+       25 LOADK                            R1 K6 ["icon-game-folder"]
+       26 RETURN                           R1 1
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
+       30 GETTABLEKS                       R1 R1 K7 ["ProjectPlaces"]
+       32 JUMPIFNOTEQ                      R0 R1 ; [+3]
+       34 LOADK                            R1 K8 ["icon-places-folder"]
+       35 RETURN                           R1 1
+       36 GETUPVAL                         R1 0
+       37 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
+       39 GETTABLEKS                       R1 R1 K9 ["Folder"]
+       41 JUMPIFNOTEQ                      R0 R1 ; [+3]
+       43 LOADK                            R1 K10 ["icon-folder"]
+       44 RETURN                           R1 1
+       45 LOADK                            R1 K11 ["icon-placeholder"]
+       46 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

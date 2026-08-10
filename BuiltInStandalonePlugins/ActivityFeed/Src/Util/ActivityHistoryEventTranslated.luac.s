@@ -11082,14 +11082,317 @@ PROTO_22:
     14954 GETTABLEKS                       R19 R2 K31 ["footerText"]
     14956 SETTABLEKS                       R19 R18 K31 ["footerText"]
     14958 RETURN                           R18 1
-    14959 DUPTABLE                         R18 K833 [{["id"], ["universeId"] = 0, ["eventType"] = "Unknown", ["date"] = "", ["translation"] = "unknown event", ["actorId"] = 0, ["actorName"] = "unknown", ["iconId"] = 0, ["iconType"] = "Unknown", ["eventCategory"] = ""}]
-    14960 GETIMPORT                        R20 K836 [math.random]
-    14962 CALL                             R20 0 -1
-    14963 FASTCALL                         TOSTRING ; [+2]
-    14964 GETIMPORT                        R19 K4 [tostring]
-    14966 CALL                             R19 -1 1
-    14967 SETTABLEKS                       R19 R18 K19 ["id"]
-    14969 RETURN                           R18 1
+    14959 GETTABLEKS                       R18 R2 K17 ["eventType"]
+    14961 JUMPIFNOTEQKN                    R18 K831 [147] ; [+73]
+    14963 DUPTABLE                         R18 K834 [{["id"], ["eventType"] = "ExperienceCreated", ["eventCategory"] = "Content", ["date"], ["translation"], ["actorId"], ["actorName"], ["iconType"] = "Universe", ["iconId"], ["universeId"], ["headerText"], ["footerText"]}]
+    14964 GETTABLEKS                       R19 R2 K19 ["id"]
+    14966 SETTABLEKS                       R19 R18 K19 ["id"]
+    14968 GETTABLEKS                       R20 R2 K33 ["createdUnixTimeMs"]
+    14970 GETIMPORT                        R21 K35 [pcall]
+    14972 NEWCLOSURE                       R22 P6
+    14973 CAPTURE                          VAL R20
+    14974 CAPTURE                          VAL R3
+    14975 CALL                             R21 1 2
+    14976 JUMPIFNOT                        R21 ; [+2]
+    14977 MOVE                             R19 R22
+    14978 JUMP                             ; [+1]
+    14979 LOADK                            R19 K36 ["🤷🏻‍♀️"]
+    14980 SETTABLEKS                       R19 R18 K23 ["date"]
+    14982 MOVE                             R19 R12
+    14983 LOADK                            R20 K835 ["Description.ExperienceCreated"]
+    14984 DUPTABLE                         R21 K837 [{"experienceName"}]
+    14985 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    14987 JUMPIFNOT                        R24 ; [+5]
+    14988 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    14990 GETTABLEKS                       R23 R24 K836 ["experienceName"]
+    14992 JUMPIF                           R23 ; [+1]
+    14993 LOADK                            R23 K44 [""]
+    14994 LOADK                            R24 K44 [""]
+    14995 FASTCALL1                        TOSTRING R23 ; [+3]
+    14996 MOVE                             R28 R23
+    14997 GETIMPORT                        R27 K4 [tostring]
+    14999 CALL                             R27 1 1
+    15000 MOVE                             R25 R27
+    15001 LOADK                            R26 K44 [""]
+    15002 CONCAT                           R22 R24 R26
+    15003 SETTABLEKS                       R22 R21 K836 ["experienceName"]
+    15005 CALL                             R19 2 1
+    15006 SETTABLEKS                       R19 R18 K24 ["translation"]
+    15008 GETTABLEKS                       R19 R2 K14 ["userId"]
+    15010 SETTABLEKS                       R19 R18 K25 ["actorId"]
+    15012 MOVE                             R19 R0
+    15013 GETTABLEKS                       R20 R2 K14 ["userId"]
+    15015 CALL                             R19 1 1
+    15016 SETTABLEKS                       R19 R18 K26 ["actorName"]
+    15018 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15020 SETTABLEKS                       R19 R18 K29 ["iconId"]
+    15022 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15024 SETTABLEKS                       R19 R18 K2 ["universeId"]
+    15026 GETTABLEKS                       R19 R2 K30 ["headerText"]
+    15028 SETTABLEKS                       R19 R18 K30 ["headerText"]
+    15030 GETTABLEKS                       R19 R2 K31 ["footerText"]
+    15032 SETTABLEKS                       R19 R18 K31 ["footerText"]
+    15034 RETURN                           R18 1
+    15035 GETTABLEKS                       R18 R2 K17 ["eventType"]
+    15037 JUMPIFNOTEQKN                    R18 K838 [148] ; [+74]
+    15039 DUPTABLE                         R18 K841 [{["id"], ["eventType"] = "AdCreated", ["eventCategory"] = "Monetization", ["date"], ["translation"], ["actorId"], ["actorName"], ["iconType"] = "Robux", ["iconId"], ["universeId"], ["headerText"], ["footerText"]}]
+    15040 GETTABLEKS                       R19 R2 K19 ["id"]
+    15042 SETTABLEKS                       R19 R18 K19 ["id"]
+    15044 GETTABLEKS                       R20 R2 K33 ["createdUnixTimeMs"]
+    15046 GETIMPORT                        R21 K35 [pcall]
+    15048 NEWCLOSURE                       R22 P6
+    15049 CAPTURE                          VAL R20
+    15050 CAPTURE                          VAL R3
+    15051 CALL                             R21 1 2
+    15052 JUMPIFNOT                        R21 ; [+2]
+    15053 MOVE                             R19 R22
+    15054 JUMP                             ; [+1]
+    15055 LOADK                            R19 K36 ["🤷🏻‍♀️"]
+    15056 SETTABLEKS                       R19 R18 K23 ["date"]
+    15058 MOVE                             R19 R12
+    15059 LOADK                            R20 K842 ["Description.AdCreated"]
+    15060 DUPTABLE                         R21 K837 [{"experienceName"}]
+    15061 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15063 JUMPIFNOT                        R24 ; [+5]
+    15064 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15066 GETTABLEKS                       R23 R24 K836 ["experienceName"]
+    15068 JUMPIF                           R23 ; [+1]
+    15069 LOADK                            R23 K44 [""]
+    15070 LOADK                            R24 K44 [""]
+    15071 FASTCALL1                        TOSTRING R23 ; [+3]
+    15072 MOVE                             R28 R23
+    15073 GETIMPORT                        R27 K4 [tostring]
+    15075 CALL                             R27 1 1
+    15076 MOVE                             R25 R27
+    15077 LOADK                            R26 K44 [""]
+    15078 CONCAT                           R22 R24 R26
+    15079 SETTABLEKS                       R22 R21 K836 ["experienceName"]
+    15081 CALL                             R19 2 1
+    15082 SETTABLEKS                       R19 R18 K24 ["translation"]
+    15084 GETTABLEKS                       R19 R2 K14 ["userId"]
+    15086 SETTABLEKS                       R19 R18 K25 ["actorId"]
+    15088 MOVE                             R19 R0
+    15089 GETTABLEKS                       R20 R2 K14 ["userId"]
+    15091 CALL                             R19 1 1
+    15092 SETTABLEKS                       R19 R18 K26 ["actorName"]
+    15094 GETTABLEKS                       R20 R2 K8 ["resourceId"]
+    15096 ORK                              R19 R20 K18 [0]
+    15097 SETTABLEKS                       R19 R18 K29 ["iconId"]
+    15099 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15101 SETTABLEKS                       R19 R18 K2 ["universeId"]
+    15103 GETTABLEKS                       R19 R2 K30 ["headerText"]
+    15105 SETTABLEKS                       R19 R18 K30 ["headerText"]
+    15107 GETTABLEKS                       R19 R2 K31 ["footerText"]
+    15109 SETTABLEKS                       R19 R18 K31 ["footerText"]
+    15111 RETURN                           R18 1
+    15112 GETTABLEKS                       R18 R2 K17 ["eventType"]
+    15114 JUMPIFNOTEQKN                    R18 K843 [149] ; [+94]
+    15116 DUPTABLE                         R18 K845 [{["id"], ["eventType"] = "PlaceModerated", ["eventCategory"] = "Content", ["date"], ["translation"], ["actorId"], ["actorName"], ["iconType"] = "Place", ["iconId"], ["universeId"], ["headerText"], ["footerText"]}]
+    15117 GETTABLEKS                       R19 R2 K19 ["id"]
+    15119 SETTABLEKS                       R19 R18 K19 ["id"]
+    15121 GETTABLEKS                       R20 R2 K33 ["createdUnixTimeMs"]
+    15123 GETIMPORT                        R21 K35 [pcall]
+    15125 NEWCLOSURE                       R22 P6
+    15126 CAPTURE                          VAL R20
+    15127 CAPTURE                          VAL R3
+    15128 CALL                             R21 1 2
+    15129 JUMPIFNOT                        R21 ; [+2]
+    15130 MOVE                             R19 R22
+    15131 JUMP                             ; [+1]
+    15132 LOADK                            R19 K36 ["🤷🏻‍♀️"]
+    15133 SETTABLEKS                       R19 R18 K23 ["date"]
+    15135 MOVE                             R19 R12
+    15136 LOADK                            R20 K846 ["Description.PlaceModerated"]
+    15137 DUPTABLE                         R21 K847 [{"placeName", "experienceName"}]
+    15138 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15140 JUMPIFNOT                        R24 ; [+5]
+    15141 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15143 GETTABLEKS                       R23 R24 K586 ["placeName"]
+    15145 JUMPIF                           R23 ; [+1]
+    15146 LOADK                            R23 K44 [""]
+    15147 LOADK                            R24 K44 [""]
+    15148 FASTCALL1                        TOSTRING R23 ; [+3]
+    15149 MOVE                             R28 R23
+    15150 GETIMPORT                        R27 K4 [tostring]
+    15152 CALL                             R27 1 1
+    15153 MOVE                             R25 R27
+    15154 LOADK                            R26 K44 [""]
+    15155 CONCAT                           R22 R24 R26
+    15156 SETTABLEKS                       R22 R21 K586 ["placeName"]
+    15158 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15160 JUMPIFNOT                        R24 ; [+5]
+    15161 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15163 GETTABLEKS                       R23 R24 K836 ["experienceName"]
+    15165 JUMPIF                           R23 ; [+1]
+    15166 LOADK                            R23 K44 [""]
+    15167 LOADK                            R24 K44 [""]
+    15168 FASTCALL1                        TOSTRING R23 ; [+3]
+    15169 MOVE                             R28 R23
+    15170 GETIMPORT                        R27 K4 [tostring]
+    15172 CALL                             R27 1 1
+    15173 MOVE                             R25 R27
+    15174 LOADK                            R26 K44 [""]
+    15175 CONCAT                           R22 R24 R26
+    15176 SETTABLEKS                       R22 R21 K836 ["experienceName"]
+    15178 CALL                             R19 2 1
+    15179 SETTABLEKS                       R19 R18 K24 ["translation"]
+    15181 GETTABLEKS                       R19 R2 K14 ["userId"]
+    15183 SETTABLEKS                       R19 R18 K25 ["actorId"]
+    15185 MOVE                             R19 R0
+    15186 GETTABLEKS                       R20 R2 K14 ["userId"]
+    15188 CALL                             R19 1 1
+    15189 SETTABLEKS                       R19 R18 K26 ["actorName"]
+    15191 GETTABLEKS                       R20 R2 K6 ["placeId"]
+    15193 ORK                              R19 R20 K18 [0]
+    15194 SETTABLEKS                       R19 R18 K29 ["iconId"]
+    15196 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15198 SETTABLEKS                       R19 R18 K2 ["universeId"]
+    15200 GETTABLEKS                       R19 R2 K30 ["headerText"]
+    15202 SETTABLEKS                       R19 R18 K30 ["headerText"]
+    15204 GETTABLEKS                       R19 R2 K31 ["footerText"]
+    15206 SETTABLEKS                       R19 R18 K31 ["footerText"]
+    15208 RETURN                           R18 1
+    15209 GETTABLEKS                       R18 R2 K17 ["eventType"]
+    15211 JUMPIFNOTEQKN                    R18 K848 [150] ; [+94]
+    15213 DUPTABLE                         R18 K851 [{["id"], ["eventType"] = "AssetModerated", ["eventCategory"] = "Content", ["date"], ["translation"], ["actorId"], ["actorName"], ["iconType"] = "Asset", ["iconId"], ["universeId"], ["headerText"], ["footerText"]}]
+    15214 GETTABLEKS                       R19 R2 K19 ["id"]
+    15216 SETTABLEKS                       R19 R18 K19 ["id"]
+    15218 GETTABLEKS                       R20 R2 K33 ["createdUnixTimeMs"]
+    15220 GETIMPORT                        R21 K35 [pcall]
+    15222 NEWCLOSURE                       R22 P6
+    15223 CAPTURE                          VAL R20
+    15224 CAPTURE                          VAL R3
+    15225 CALL                             R21 1 2
+    15226 JUMPIFNOT                        R21 ; [+2]
+    15227 MOVE                             R19 R22
+    15228 JUMP                             ; [+1]
+    15229 LOADK                            R19 K36 ["🤷🏻‍♀️"]
+    15230 SETTABLEKS                       R19 R18 K23 ["date"]
+    15232 MOVE                             R19 R12
+    15233 LOADK                            R20 K852 ["Description.AssetModerated"]
+    15234 DUPTABLE                         R21 K855 [{"assetName", "infractionType"}]
+    15235 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15237 JUMPIFNOT                        R24 ; [+5]
+    15238 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15240 GETTABLEKS                       R23 R24 K853 ["assetName"]
+    15242 JUMPIF                           R23 ; [+1]
+    15243 LOADK                            R23 K44 [""]
+    15244 LOADK                            R24 K44 [""]
+    15245 FASTCALL1                        TOSTRING R23 ; [+3]
+    15246 MOVE                             R28 R23
+    15247 GETIMPORT                        R27 K4 [tostring]
+    15249 CALL                             R27 1 1
+    15250 MOVE                             R25 R27
+    15251 LOADK                            R26 K44 [""]
+    15252 CONCAT                           R22 R24 R26
+    15253 SETTABLEKS                       R22 R21 K853 ["assetName"]
+    15255 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15257 JUMPIFNOT                        R24 ; [+5]
+    15258 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15260 GETTABLEKS                       R23 R24 K854 ["infractionType"]
+    15262 JUMPIF                           R23 ; [+1]
+    15263 LOADK                            R23 K44 [""]
+    15264 LOADK                            R24 K44 [""]
+    15265 FASTCALL1                        TOSTRING R23 ; [+3]
+    15266 MOVE                             R28 R23
+    15267 GETIMPORT                        R27 K4 [tostring]
+    15269 CALL                             R27 1 1
+    15270 MOVE                             R25 R27
+    15271 LOADK                            R26 K44 [""]
+    15272 CONCAT                           R22 R24 R26
+    15273 SETTABLEKS                       R22 R21 K854 ["infractionType"]
+    15275 CALL                             R19 2 1
+    15276 SETTABLEKS                       R19 R18 K24 ["translation"]
+    15278 GETTABLEKS                       R19 R2 K14 ["userId"]
+    15280 SETTABLEKS                       R19 R18 K25 ["actorId"]
+    15282 MOVE                             R19 R0
+    15283 GETTABLEKS                       R20 R2 K14 ["userId"]
+    15285 CALL                             R19 1 1
+    15286 SETTABLEKS                       R19 R18 K26 ["actorName"]
+    15288 GETTABLEKS                       R20 R2 K8 ["resourceId"]
+    15290 ORK                              R19 R20 K18 [0]
+    15291 SETTABLEKS                       R19 R18 K29 ["iconId"]
+    15293 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15295 SETTABLEKS                       R19 R18 K2 ["universeId"]
+    15297 GETTABLEKS                       R19 R2 K30 ["headerText"]
+    15299 SETTABLEKS                       R19 R18 K30 ["headerText"]
+    15301 GETTABLEKS                       R19 R2 K31 ["footerText"]
+    15303 SETTABLEKS                       R19 R18 K31 ["footerText"]
+    15305 RETURN                           R18 1
+    15306 GETTABLEKS                       R18 R2 K17 ["eventType"]
+    15308 JUMPIFNOTEQKN                    R18 K856 [151] ; [+93]
+    15310 DUPTABLE                         R18 K858 [{["id"], ["eventType"] = "EscapeHatchSaveCopyToCloud", ["eventCategory"] = "Publish", ["date"], ["translation"], ["actorId"], ["actorName"], ["iconType"] = "Universe", ["iconId"], ["universeId"], ["headerText"], ["footerText"]}]
+    15311 GETTABLEKS                       R19 R2 K19 ["id"]
+    15313 SETTABLEKS                       R19 R18 K19 ["id"]
+    15315 GETTABLEKS                       R20 R2 K33 ["createdUnixTimeMs"]
+    15317 GETIMPORT                        R21 K35 [pcall]
+    15319 NEWCLOSURE                       R22 P6
+    15320 CAPTURE                          VAL R20
+    15321 CAPTURE                          VAL R3
+    15322 CALL                             R21 1 2
+    15323 JUMPIFNOT                        R21 ; [+2]
+    15324 MOVE                             R19 R22
+    15325 JUMP                             ; [+1]
+    15326 LOADK                            R19 K36 ["🤷🏻‍♀️"]
+    15327 SETTABLEKS                       R19 R18 K23 ["date"]
+    15329 MOVE                             R19 R12
+    15330 LOADK                            R20 K859 ["Description.EscapeHatchSaveCopyToCloud"]
+    15331 DUPTABLE                         R21 K860 [{"oldName", "newName"}]
+    15332 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15334 JUMPIFNOT                        R24 ; [+5]
+    15335 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15337 GETTABLEKS                       R23 R24 K140 ["OldName"]
+    15339 JUMPIF                           R23 ; [+1]
+    15340 LOADK                            R23 K44 [""]
+    15341 LOADK                            R24 K44 [""]
+    15342 FASTCALL1                        TOSTRING R23 ; [+3]
+    15343 MOVE                             R28 R23
+    15344 GETIMPORT                        R27 K4 [tostring]
+    15346 CALL                             R27 1 1
+    15347 MOVE                             R25 R27
+    15348 LOADK                            R26 K44 [""]
+    15349 CONCAT                           R22 R24 R26
+    15350 SETTABLEKS                       R22 R21 K137 ["oldName"]
+    15352 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15354 JUMPIFNOT                        R24 ; [+5]
+    15355 GETTABLEKS                       R24 R2 K42 ["metaData"]
+    15357 GETTABLEKS                       R23 R24 K139 ["NewName"]
+    15359 JUMPIF                           R23 ; [+1]
+    15360 LOADK                            R23 K44 [""]
+    15361 LOADK                            R24 K44 [""]
+    15362 FASTCALL1                        TOSTRING R23 ; [+3]
+    15363 MOVE                             R28 R23
+    15364 GETIMPORT                        R27 K4 [tostring]
+    15366 CALL                             R27 1 1
+    15367 MOVE                             R25 R27
+    15368 LOADK                            R26 K44 [""]
+    15369 CONCAT                           R22 R24 R26
+    15370 SETTABLEKS                       R22 R21 K136 ["newName"]
+    15372 CALL                             R19 2 1
+    15373 SETTABLEKS                       R19 R18 K24 ["translation"]
+    15375 GETTABLEKS                       R19 R2 K14 ["userId"]
+    15377 SETTABLEKS                       R19 R18 K25 ["actorId"]
+    15379 MOVE                             R19 R0
+    15380 GETTABLEKS                       R20 R2 K14 ["userId"]
+    15382 CALL                             R19 1 1
+    15383 SETTABLEKS                       R19 R18 K26 ["actorName"]
+    15385 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15387 SETTABLEKS                       R19 R18 K29 ["iconId"]
+    15389 GETTABLEKS                       R19 R2 K2 ["universeId"]
+    15391 SETTABLEKS                       R19 R18 K2 ["universeId"]
+    15393 GETTABLEKS                       R19 R2 K30 ["headerText"]
+    15395 SETTABLEKS                       R19 R18 K30 ["headerText"]
+    15397 GETTABLEKS                       R19 R2 K31 ["footerText"]
+    15399 SETTABLEKS                       R19 R18 K31 ["footerText"]
+    15401 RETURN                           R18 1
+    15402 DUPTABLE                         R18 K863 [{["id"], ["universeId"] = 0, ["eventType"] = "Unknown", ["date"] = "", ["translation"] = "unknown event", ["actorId"] = 0, ["actorName"] = "unknown", ["iconId"] = 0, ["iconType"] = "Unknown", ["eventCategory"] = ""}]
+    15403 GETIMPORT                        R20 K866 [math.random]
+    15405 CALL                             R20 0 -1
+    15406 FASTCALL                         TOSTRING ; [+2]
+    15407 GETIMPORT                        R19 K4 [tostring]
+    15409 CALL                             R19 -1 1
+    15410 SETTABLEKS                       R19 R18 K19 ["id"]
+    15412 RETURN                           R18 1
 
 PROTO_23:
         0 JUMPIFNOTEQKN                    R0 K0 [0] ; [+3]
@@ -11533,8 +11836,23 @@ PROTO_23:
       584 JUMPIFNOTEQKN                    R0 K154 [146] ; [+3]
       586 LOADK                            R1 K92 ["Permissions"]
       587 RETURN                           R1 1
-      588 LOADK                            R1 K1 ["Unknown"]
-      589 RETURN                           R1 1
+      588 JUMPIFNOTEQKN                    R0 K155 [147] ; [+3]
+      590 LOADK                            R1 K156 ["Content"]
+      591 RETURN                           R1 1
+      592 JUMPIFNOTEQKN                    R0 K157 [148] ; [+3]
+      594 LOADK                            R1 K69 ["Monetization"]
+      595 RETURN                           R1 1
+      596 JUMPIFNOTEQKN                    R0 K158 [149] ; [+3]
+      598 LOADK                            R1 K156 ["Content"]
+      599 RETURN                           R1 1
+      600 JUMPIFNOTEQKN                    R0 K159 [150] ; [+3]
+      602 LOADK                            R1 K156 ["Content"]
+      603 RETURN                           R1 1
+      604 JUMPIFNOTEQKN                    R0 K160 [151] ; [+3]
+      606 LOADK                            R1 K124 ["Publish"]
+      607 RETURN                           R1 1
+      608 LOADK                            R1 K1 ["Unknown"]
+      609 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

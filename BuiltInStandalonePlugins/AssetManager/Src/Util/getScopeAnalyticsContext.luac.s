@@ -39,44 +39,41 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["DEPRECATED_Analytics"]
-       20 CALL                             R2 1 1
-       21 NEWTABLE                         R3 8 0
-       23 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
-       25 GETTABLEKS                       R4 R4 K10 ["User"]
-       27 LOADK                            R5 K11 ["user"]
-       28 SETTABLE                         R5 R3 R4
-       29 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
-       31 GETTABLEKS                       R4 R4 K12 ["Group"]
-       33 LOADK                            R5 K13 ["group"]
-       34 SETTABLE                         R5 R3 R4
-       35 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
-       37 GETTABLEKS                       R4 R4 K14 ["Universe"]
-       39 LOADK                            R5 K15 ["experience"]
-       40 SETTABLE                         R5 R3 R4
-       41 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
-       43 GETTABLEKS                       R4 R4 K16 ["ProjectShared"]
-       45 LOADK                            R5 K15 ["experience"]
-       46 SETTABLE                         R5 R3 R4
-       47 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
-       49 GETTABLEKS                       R4 R4 K17 ["ProjectPlaces"]
-       51 LOADK                            R5 K18 ["places"]
-       52 SETTABLE                         R5 R3 R4
-       53 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
-       55 GETTABLEKS                       R4 R4 K19 ["RecentUploads"]
-       57 LOADK                            R5 K20 ["recentUploads"]
-       58 SETTABLE                         R5 R3 R4
-       59 NEWTABLE                         R4 2 0
-       61 GETTABLEKS                       R5 R1 K9 ["ScopeType"]
-       63 GETTABLEKS                       R5 R5 K17 ["ProjectPlaces"]
-       65 LOADB                            R6 1
-       66 SETTABLE                         R6 R4 R5
-       67 GETTABLEKS                       R5 R1 K9 ["ScopeType"]
-       69 GETTABLEKS                       R5 R5 K19 ["RecentUploads"]
-       71 LOADB                            R6 1
-       72 SETTABLE                         R6 R4 R5
-       73 DUPCLOSURE                       R5 K21 [PROTO_0]
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R1
-       77 RETURN                           R5 1
+       18 GETTABLEKS                       R3 R3 K8 ["Analytics"]
+       20 GETTABLEKS                       R3 R3 K7 ["Types"]
+       22 CALL                             R2 1 1
+       23 NEWTABLE                         R3 8 0
+       25 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
+       27 GETTABLEKS                       R4 R4 K10 ["User"]
+       29 LOADK                            R5 K11 ["user"]
+       30 SETTABLE                         R5 R3 R4
+       31 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
+       33 GETTABLEKS                       R4 R4 K12 ["Group"]
+       35 LOADK                            R5 K13 ["group"]
+       36 SETTABLE                         R5 R3 R4
+       37 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
+       39 GETTABLEKS                       R4 R4 K14 ["Universe"]
+       41 LOADK                            R5 K15 ["experience"]
+       42 SETTABLE                         R5 R3 R4
+       43 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
+       45 GETTABLEKS                       R4 R4 K16 ["ProjectPlaces"]
+       47 LOADK                            R5 K17 ["places"]
+       48 SETTABLE                         R5 R3 R4
+       49 GETTABLEKS                       R4 R1 K9 ["ScopeType"]
+       51 GETTABLEKS                       R4 R4 K18 ["RecentUploads"]
+       53 LOADK                            R5 K19 ["recentUploads"]
+       54 SETTABLE                         R5 R3 R4
+       55 NEWTABLE                         R4 2 0
+       57 GETTABLEKS                       R5 R1 K9 ["ScopeType"]
+       59 GETTABLEKS                       R5 R5 K16 ["ProjectPlaces"]
+       61 LOADB                            R6 1
+       62 SETTABLE                         R6 R4 R5
+       63 GETTABLEKS                       R5 R1 K9 ["ScopeType"]
+       65 GETTABLEKS                       R5 R5 K18 ["RecentUploads"]
+       67 LOADB                            R6 1
+       68 SETTABLE                         R6 R4 R5
+       69 DUPCLOSURE                       R5 K20 [PROTO_0]
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R1
+       73 RETURN                           R5 1

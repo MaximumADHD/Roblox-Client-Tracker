@@ -29,19 +29,19 @@ MAIN:
         3 LOADN                            R1 85
         4 LOADN                            R2 34
         5 CALL                             R0 2 1
-        6 DUPTABLE                         R1 K21 [{["CursorGroupName"] = "StudioSelectable", ["GroupCountMax"] = 32, ["GroupRowHeight"] = 35, ["GroupRowWidth"] = 120, ["ControlsHeaderButtonWidth"] = 106, ["GroupLabelFixedSize"], ["GroupListRowHeight"] = 24, ["GridCellWidth"] = 85, ["GridHeaderLabelSize"], ["GridCellSize"], ["CalculateTableSize"]}]
+        6 DUPTABLE                         R1 K23 [{["CursorGroupName"] = "StudioSelectable", ["GroupCountMax"] = 32, ["GroupRowHeight"] = 35, ["GroupRowWidth"] = 120, ["ControlsHeaderButtonWidth"] = 106, ["ControlsHeaderRowPadding"] = 6, ["GroupLabelFixedSize"], ["GroupListRowHeight"] = 24, ["GridCellWidth"] = 85, ["GridHeaderLabelSize"], ["GridCellSize"], ["CalculateTableSize"]}]
         7 GETIMPORT                        R2 K2 [UDim2.fromOffset]
         9 LOADN                            R3 120
        10 LOADN                            R4 35
        11 CALL                             R2 2 1
-       12 SETTABLEKS                       R2 R1 K13 ["GroupLabelFixedSize"]
+       12 SETTABLEKS                       R2 R1 K15 ["GroupLabelFixedSize"]
        14 GETIMPORT                        R2 K2 [UDim2.fromOffset]
        16 LOADN                            R3 86
        17 LOADN                            R4 35
        18 CALL                             R2 2 1
-       19 SETTABLEKS                       R2 R1 K18 ["GridHeaderLabelSize"]
-       21 SETTABLEKS                       R0 R1 K19 ["GridCellSize"]
-       23 DUPCLOSURE                       R2 K22 [PROTO_0]
+       19 SETTABLEKS                       R2 R1 K20 ["GridHeaderLabelSize"]
+       21 SETTABLEKS                       R0 R1 K21 ["GridCellSize"]
+       23 DUPCLOSURE                       R2 K24 [PROTO_0]
        24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R2 R1 K20 ["CalculateTableSize"]
+       25 SETTABLEKS                       R2 R1 K22 ["CalculateTableSize"]
        27 RETURN                           R1 1

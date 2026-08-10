@@ -326,29 +326,32 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+22]
-        2 LOADB                            R1 1
-        3 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
-        5 JUMPIFEQ                         R0 R2 ; [+17]
-        7 LOADB                            R1 1
-        8 GETIMPORT                        R2 K5 [Enum.KeyCode.RightAlt]
-       10 JUMPIFEQ                         R0 R2 ; [+12]
-       12 LOADB                            R1 1
-       13 GETIMPORT                        R2 K7 [Enum.KeyCode.LeftControl]
-       15 JUMPIFEQ                         R0 R2 ; [+7]
-       17 GETIMPORT                        R2 K9 [Enum.KeyCode.RightControl]
-       19 JUMPIFEQ                         R0 R2 ; [+2]
-       21 LOADB                            R1 0 +1
-       22 LOADB                            R1 1
-       23 RETURN                           R1 1
-       24 LOADB                            R1 1
-       25 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
-       27 JUMPIFEQ                         R0 R2 ; [+7]
-       29 GETIMPORT                        R2 K5 [Enum.KeyCode.RightAlt]
-       31 JUMPIFEQ                         R0 R2 ; [+2]
-       33 LOADB                            R1 0 +1
-       34 LOADB                            R1 1
-       35 RETURN                           R1 1
+        1 JUMPIFNOT                        R1 ; [+25]
+        2 GETUPVAL                         R1 1
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+22]
+        5 LOADB                            R1 1
+        6 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
+        8 JUMPIFEQ                         R0 R2 ; [+17]
+       10 LOADB                            R1 1
+       11 GETIMPORT                        R2 K5 [Enum.KeyCode.RightAlt]
+       13 JUMPIFEQ                         R0 R2 ; [+12]
+       15 LOADB                            R1 1
+       16 GETIMPORT                        R2 K7 [Enum.KeyCode.LeftControl]
+       18 JUMPIFEQ                         R0 R2 ; [+7]
+       20 GETIMPORT                        R2 K9 [Enum.KeyCode.RightControl]
+       22 JUMPIFEQ                         R0 R2 ; [+2]
+       24 LOADB                            R1 0 +1
+       25 LOADB                            R1 1
+       26 RETURN                           R1 1
+       27 LOADB                            R1 1
+       28 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
+       30 JUMPIFEQ                         R0 R2 ; [+7]
+       32 GETIMPORT                        R2 K5 [Enum.KeyCode.RightAlt]
+       34 JUMPIFEQ                         R0 R2 ; [+2]
+       36 LOADB                            R1 0 +1
+       37 LOADB                            R1 1
+       38 RETURN                           R1 1
 
 PROTO_13:
         0 GETUPVAL                         R2 0
@@ -666,58 +669,63 @@ MAIN:
        67 GETTABLEKS                       R11 R0 K15 ["Flags"]
        69 GETTABLEKS                       R11 R11 K17 ["getFFlagNextGenDraggers"]
        71 CALL                             R10 1 1
-       72 GETIMPORT                        R11 K19 [game]
-       74 LOADK                            R13 K20 ["NewCameraControls_BetaUpdate"]
-       75 NAMECALL                         R11 R11 K21 ["GetEngineFeature"]
-       77 CALL                             R11 2 1
-       78 NEWTABLE                         R12 16 0
-       80 SETTABLEKS                       R12 R12 K22 ["__index"]
-       82 DUPCLOSURE                       R13 K23 [PROTO_0]
-       83 CAPTURE                          VAL R12
-       84 SETTABLEKS                       R13 R12 K24 ["new"]
-       86 DUPCLOSURE                       R13 K25 [PROTO_2]
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R10
-       89 SETTABLEKS                       R13 R12 K26 ["enter"]
-       91 DUPCLOSURE                       R13 K27 [PROTO_3]
-       92 SETTABLEKS                       R13 R12 K28 ["leave"]
-       94 DUPCLOSURE                       R13 K29 [PROTO_4]
-       95 CAPTURE                          VAL R2
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R5
-       99 CAPTURE                          VAL R10
-      100 SETTABLEKS                       R13 R12 K30 ["render"]
-      102 DUPCLOSURE                       R13 K31 [PROTO_5]
-      103 SETTABLEKS                       R13 R12 K32 ["processSelectionChanged"]
-      105 DUPCLOSURE                       R13 K33 [PROTO_6]
+       72 GETIMPORT                        R11 K4 [require]
+       74 GETTABLEKS                       R12 R0 K15 ["Flags"]
+       76 GETTABLEKS                       R12 R12 K18 ["getFFlagDraggerReenableCtrlSelect"]
+       78 CALL                             R11 1 1
+       79 GETIMPORT                        R12 K20 [game]
+       81 LOADK                            R14 K21 ["NewCameraControls_BetaUpdate"]
+       82 NAMECALL                         R12 R12 K22 ["GetEngineFeature"]
+       84 CALL                             R12 2 1
+       85 NEWTABLE                         R13 16 0
+       87 SETTABLEKS                       R13 R13 K23 ["__index"]
+       89 DUPCLOSURE                       R14 K24 [PROTO_0]
+       90 CAPTURE                          VAL R13
+       91 SETTABLEKS                       R14 R13 K25 ["new"]
+       93 DUPCLOSURE                       R14 K26 [PROTO_2]
+       94 CAPTURE                          VAL R7
+       95 CAPTURE                          VAL R10
+       96 SETTABLEKS                       R14 R13 K27 ["enter"]
+       98 DUPCLOSURE                       R14 K28 [PROTO_3]
+       99 SETTABLEKS                       R14 R13 K29 ["leave"]
+      101 DUPCLOSURE                       R14 K30 [PROTO_4]
+      102 CAPTURE                          VAL R2
+      103 CAPTURE                          VAL R4
+      104 CAPTURE                          VAL R8
+      105 CAPTURE                          VAL R5
       106 CAPTURE                          VAL R10
-      107 CAPTURE                          VAL R3
-      108 SETTABLEKS                       R13 R12 K34 ["processMouseDown"]
-      110 DUPCLOSURE                       R13 K35 [PROTO_7]
-      111 SETTABLEKS                       R13 R12 K36 ["processViewChanged"]
-      113 DUPCLOSURE                       R13 K37 [PROTO_8]
-      114 SETTABLEKS                       R13 R12 K38 ["processMouseUp"]
-      116 DUPCLOSURE                       R13 K39 [PROTO_9]
-      117 SETTABLEKS                       R13 R12 K40 ["processMouseEnter"]
-      119 DUPCLOSURE                       R13 K41 [PROTO_10]
-      120 SETTABLEKS                       R13 R12 K42 ["processMouseLeave"]
-      122 DUPCLOSURE                       R13 K43 [PROTO_11]
-      123 SETTABLEKS                       R13 R12 K44 ["_scopeSelectChanged"]
-      125 DUPCLOSURE                       R13 K45 [PROTO_12]
-      126 CAPTURE                          VAL R11
-      127 DUPCLOSURE                       R14 K46 [PROTO_13]
-      128 CAPTURE                          VAL R13
-      129 SETTABLEKS                       R14 R12 K47 ["processKeyDown"]
-      131 DUPCLOSURE                       R14 K48 [PROTO_14]
-      132 CAPTURE                          VAL R13
-      133 SETTABLEKS                       R14 R12 K49 ["processKeyUp"]
-      135 DUPCLOSURE                       R14 K50 [PROTO_15]
-      136 CAPTURE                          VAL R9
-      137 SETTABLEKS                       R14 R12 K51 ["_updateHoverTracker"]
-      139 DUPCLOSURE                       R14 K52 [PROTO_16]
-      140 DUPCLOSURE                       R15 K53 [PROTO_17]
-      141 CAPTURE                          VAL R6
-      142 CAPTURE                          VAL R3
-      143 SETTABLEKS                       R15 R12 K54 ["_clickInWorld"]
-      145 RETURN                           R12 1
+      107 SETTABLEKS                       R14 R13 K31 ["render"]
+      109 DUPCLOSURE                       R14 K32 [PROTO_5]
+      110 SETTABLEKS                       R14 R13 K33 ["processSelectionChanged"]
+      112 DUPCLOSURE                       R14 K34 [PROTO_6]
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R3
+      115 SETTABLEKS                       R14 R13 K35 ["processMouseDown"]
+      117 DUPCLOSURE                       R14 K36 [PROTO_7]
+      118 SETTABLEKS                       R14 R13 K37 ["processViewChanged"]
+      120 DUPCLOSURE                       R14 K38 [PROTO_8]
+      121 SETTABLEKS                       R14 R13 K39 ["processMouseUp"]
+      123 DUPCLOSURE                       R14 K40 [PROTO_9]
+      124 SETTABLEKS                       R14 R13 K41 ["processMouseEnter"]
+      126 DUPCLOSURE                       R14 K42 [PROTO_10]
+      127 SETTABLEKS                       R14 R13 K43 ["processMouseLeave"]
+      129 DUPCLOSURE                       R14 K44 [PROTO_11]
+      130 SETTABLEKS                       R14 R13 K45 ["_scopeSelectChanged"]
+      132 DUPCLOSURE                       R14 K46 [PROTO_12]
+      133 CAPTURE                          VAL R12
+      134 CAPTURE                          VAL R11
+      135 DUPCLOSURE                       R15 K47 [PROTO_13]
+      136 CAPTURE                          VAL R14
+      137 SETTABLEKS                       R15 R13 K48 ["processKeyDown"]
+      139 DUPCLOSURE                       R15 K49 [PROTO_14]
+      140 CAPTURE                          VAL R14
+      141 SETTABLEKS                       R15 R13 K50 ["processKeyUp"]
+      143 DUPCLOSURE                       R15 K51 [PROTO_15]
+      144 CAPTURE                          VAL R9
+      145 SETTABLEKS                       R15 R13 K52 ["_updateHoverTracker"]
+      147 DUPCLOSURE                       R15 K53 [PROTO_16]
+      148 DUPCLOSURE                       R16 K54 [PROTO_17]
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R3
+      151 SETTABLEKS                       R16 R13 K55 ["_clickInWorld"]
+      153 RETURN                           R13 1

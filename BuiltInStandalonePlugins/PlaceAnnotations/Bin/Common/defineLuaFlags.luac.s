@@ -40,51 +40,61 @@ MAIN:
        53 LOADB                            R3 0
        54 NAMECALL                         R0 R0 K7 ["DefineFastFlag"]
        56 CALL                             R0 3 0
-       57 DUPTABLE                         R0 K21 [{"fflagAnnotationsMaxTextLength", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagAnnotationsOpenPanelOnCreate", "fflagAnnotationCreationLocksCamera", "fflagCOLLAB8964DoubleClickZoomTo", "fintAnnotationsPluginActionThrottleHundredthsPercent", "fflagAnnotationsCancelDeleteDialogDesignLink"}]
-       58 GETIMPORT                        R1 K1 [game]
-       60 LOADK                            R3 K2 ["AnnotationsMaxTextLength"]
-       61 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       63 CALL                             R1 2 1
-       64 SETTABLEKS                       R1 R0 K12 ["fflagAnnotationsMaxTextLength"]
-       66 GETIMPORT                        R1 K1 [game]
-       68 LOADK                            R3 K23 ["AnnotationsReleaseCallout"]
-       69 LOADB                            R4 0
-       70 NAMECALL                         R1 R1 K7 ["DefineFastFlag"]
-       72 CALL                             R1 3 1
-       73 SETTABLEKS                       R1 R0 K13 ["fflagAnnotationsReleaseCallout"]
-       75 GETIMPORT                        R1 K1 [game]
-       77 LOADK                            R3 K4 ["AnnotationsPointerMaxSize"]
-       78 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       80 CALL                             R1 2 1
-       81 SETTABLEKS                       R1 R0 K14 ["fintAnnotationsPointerMaxSize"]
-       83 GETIMPORT                        R1 K1 [game]
-       85 LOADK                            R3 K5 ["AnnotationsPointerMinSize"]
-       86 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       88 CALL                             R1 2 1
-       89 SETTABLEKS                       R1 R0 K15 ["fintAnnotationsPointerMinSize"]
-       91 GETIMPORT                        R1 K1 [game]
-       93 LOADK                            R3 K6 ["AnnotationsOpenPanelOnCreate"]
-       94 NAMECALL                         R1 R1 K24 ["GetFastFlag"]
-       96 CALL                             R1 2 1
-       97 SETTABLEKS                       R1 R0 K16 ["fflagAnnotationsOpenPanelOnCreate"]
-       99 GETIMPORT                        R1 K1 [game]
-      101 LOADK                            R3 K8 ["AnnotationCreationLocksCamera"]
-      102 NAMECALL                         R1 R1 K24 ["GetFastFlag"]
-      104 CALL                             R1 2 1
-      105 SETTABLEKS                       R1 R0 K17 ["fflagAnnotationCreationLocksCamera"]
-      107 GETIMPORT                        R1 K1 [game]
-      109 LOADK                            R3 K9 ["COLLAB8964DoubleClickZoomTo"]
-      110 NAMECALL                         R1 R1 K24 ["GetFastFlag"]
-      112 CALL                             R1 2 1
-      113 SETTABLEKS                       R1 R0 K18 ["fflagCOLLAB8964DoubleClickZoomTo"]
-      115 GETIMPORT                        R1 K1 [game]
-      117 LOADK                            R3 K10 ["AnnotationsPluginActionThrottleHundredthsPercent"]
-      118 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-      120 CALL                             R1 2 1
-      121 SETTABLEKS                       R1 R0 K19 ["fintAnnotationsPluginActionThrottleHundredthsPercent"]
-      123 GETIMPORT                        R1 K1 [game]
-      125 LOADK                            R3 K11 ["AnnotationsCancelDeleteDialogDesignLink"]
-      126 NAMECALL                         R1 R1 K24 ["GetFastFlag"]
-      128 CALL                             R1 2 1
-      129 SETTABLEKS                       R1 R0 K20 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
-      131 RETURN                           R0 1
+       57 GETIMPORT                        R0 K1 [game]
+       59 LOADK                            R2 K12 ["StudioUserReportingComments"]
+       60 LOADB                            R3 0
+       61 NAMECALL                         R0 R0 K7 ["DefineFastFlag"]
+       63 CALL                             R0 3 0
+       64 DUPTABLE                         R0 K23 [{"fflagAnnotationsMaxTextLength", "fflagAnnotationsReleaseCallout", "fintAnnotationsPointerMaxSize", "fintAnnotationsPointerMinSize", "fflagAnnotationsOpenPanelOnCreate", "fflagAnnotationCreationLocksCamera", "fflagCOLLAB8964DoubleClickZoomTo", "fintAnnotationsPluginActionThrottleHundredthsPercent", "fflagAnnotationsCancelDeleteDialogDesignLink", "fflagStudioUserReportingComments"}]
+       65 GETIMPORT                        R1 K1 [game]
+       67 LOADK                            R3 K2 ["AnnotationsMaxTextLength"]
+       68 NAMECALL                         R1 R1 K24 ["GetFastInt"]
+       70 CALL                             R1 2 1
+       71 SETTABLEKS                       R1 R0 K13 ["fflagAnnotationsMaxTextLength"]
+       73 GETIMPORT                        R1 K1 [game]
+       75 LOADK                            R3 K25 ["AnnotationsReleaseCallout"]
+       76 LOADB                            R4 0
+       77 NAMECALL                         R1 R1 K7 ["DefineFastFlag"]
+       79 CALL                             R1 3 1
+       80 SETTABLEKS                       R1 R0 K14 ["fflagAnnotationsReleaseCallout"]
+       82 GETIMPORT                        R1 K1 [game]
+       84 LOADK                            R3 K4 ["AnnotationsPointerMaxSize"]
+       85 NAMECALL                         R1 R1 K24 ["GetFastInt"]
+       87 CALL                             R1 2 1
+       88 SETTABLEKS                       R1 R0 K15 ["fintAnnotationsPointerMaxSize"]
+       90 GETIMPORT                        R1 K1 [game]
+       92 LOADK                            R3 K5 ["AnnotationsPointerMinSize"]
+       93 NAMECALL                         R1 R1 K24 ["GetFastInt"]
+       95 CALL                             R1 2 1
+       96 SETTABLEKS                       R1 R0 K16 ["fintAnnotationsPointerMinSize"]
+       98 GETIMPORT                        R1 K1 [game]
+      100 LOADK                            R3 K6 ["AnnotationsOpenPanelOnCreate"]
+      101 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
+      103 CALL                             R1 2 1
+      104 SETTABLEKS                       R1 R0 K17 ["fflagAnnotationsOpenPanelOnCreate"]
+      106 GETIMPORT                        R1 K1 [game]
+      108 LOADK                            R3 K8 ["AnnotationCreationLocksCamera"]
+      109 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
+      111 CALL                             R1 2 1
+      112 SETTABLEKS                       R1 R0 K18 ["fflagAnnotationCreationLocksCamera"]
+      114 GETIMPORT                        R1 K1 [game]
+      116 LOADK                            R3 K9 ["COLLAB8964DoubleClickZoomTo"]
+      117 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
+      119 CALL                             R1 2 1
+      120 SETTABLEKS                       R1 R0 K19 ["fflagCOLLAB8964DoubleClickZoomTo"]
+      122 GETIMPORT                        R1 K1 [game]
+      124 LOADK                            R3 K10 ["AnnotationsPluginActionThrottleHundredthsPercent"]
+      125 NAMECALL                         R1 R1 K24 ["GetFastInt"]
+      127 CALL                             R1 2 1
+      128 SETTABLEKS                       R1 R0 K20 ["fintAnnotationsPluginActionThrottleHundredthsPercent"]
+      130 GETIMPORT                        R1 K1 [game]
+      132 LOADK                            R3 K11 ["AnnotationsCancelDeleteDialogDesignLink"]
+      133 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
+      135 CALL                             R1 2 1
+      136 SETTABLEKS                       R1 R0 K21 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
+      138 GETIMPORT                        R1 K1 [game]
+      140 LOADK                            R3 K12 ["StudioUserReportingComments"]
+      141 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
+      143 CALL                             R1 2 1
+      144 SETTABLEKS                       R1 R0 K22 ["fflagStudioUserReportingComments"]
+      146 RETURN                           R0 1

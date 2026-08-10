@@ -41,24 +41,31 @@ PROTO_2:
        13 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R0 0
-        1 NEWTABLE                         R1 0 1
-        3 GETUPVAL                         R2 1
-        4 SETLIST                          R1 R2 1 [1]
-        6 GETUPVAL                         R2 2
-        7 DUPTABLE                         R3 K2 [{"SubjectAnchorPoint", "TargetAnchorPoint"}]
-        8 GETIMPORT                        R4 K5 [Vector2.new]
-       10 LOADN                            R5 0
-       11 LOADN                            R6 0
-       12 CALL                             R4 2 1
-       13 SETTABLEKS                       R4 R3 K0 ["SubjectAnchorPoint"]
-       15 GETIMPORT                        R4 K5 [Vector2.new]
-       17 LOADN                            R5 0
-       18 LOADN                            R6 1
-       19 CALL                             R4 2 1
-       20 SETTABLEKS                       R4 R3 K1 ["TargetAnchorPoint"]
-       22 CALL                             R0 3 0
-       23 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 NEWTABLE                         R3 0 1
+        3 GETUPVAL                         R4 1
+        4 SETLIST                          R3 R4 1 [1]
+        6 GETUPVAL                         R4 2
+        7 DUPTABLE                         R5 K2 [{"SubjectAnchorPoint", "TargetAnchorPoint"}]
+        8 GETIMPORT                        R6 K5 [Vector2.new]
+       10 LOADN                            R7 0
+       11 LOADN                            R8 0
+       12 CALL                             R6 2 1
+       13 SETTABLEKS                       R6 R5 K0 ["SubjectAnchorPoint"]
+       15 GETIMPORT                        R6 K5 [Vector2.new]
+       17 LOADN                            R7 0
+       18 LOADN                            R8 1
+       19 CALL                             R6 2 1
+       20 SETTABLEKS                       R6 R5 K1 ["TargetAnchorPoint"]
+       22 LOADNIL                          R6
+       23 GETUPVAL                         R8 3
+       24 CALL                             R8 0 1
+       25 JUMPIFNOT                        R8 ; [+2]
+       26 MOVE                             R7 R1
+       27 JUMP                             ; [+1]
+       28 LOADNIL                          R7
+       29 CALL                             R2 5 0
+       30 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R4 0
@@ -82,15 +89,16 @@ PROTO_4:
        20 CAPTURE                          VAL R4
        21 CAPTURE                          VAL R7
        22 CAPTURE                          VAL R0
-       23 NEWTABLE                         R10 0 3
-       25 MOVE                             R11 R4
-       26 MOVE                             R12 R7
-       27 MOVE                             R13 R0
-       28 SETLIST                          R10 R11 3 [1]
-       30 CALL                             R8 2 1
-       31 MOVE                             R9 R8
-       32 MOVE                             R10 R6
-       33 RETURN                           R9 2
+       23 CAPTURE                          UPVAL U6
+       24 NEWTABLE                         R10 0 3
+       26 MOVE                             R11 R4
+       27 MOVE                             R12 R7
+       28 MOVE                             R13 R0
+       29 SETLIST                          R10 R11 3 [1]
+       31 CALL                             R8 2 1
+       32 MOVE                             R9 R8
+       33 MOVE                             R10 R6
+       34 RETURN                           R9 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -124,11 +132,17 @@ MAIN:
        49 CALL                             R7 1 1
        50 GETTABLEKS                       R8 R7 K17 ["join"]
        52 GETTABLEKS                       R9 R7 K18 ["map"]
-       54 DUPCLOSURE                       R10 K19 [PROTO_4]
-       55 CAPTURE                          VAL R4
-       56 CAPTURE                          VAL R5
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          VAL R9
-       59 CAPTURE                          VAL R8
-       60 CAPTURE                          VAL R2
-       61 RETURN                           R10 1
+       54 GETIMPORT                        R10 K5 [require]
+       56 GETTABLEKS                       R11 R0 K10 ["Src"]
+       58 GETTABLEKS                       R11 R11 K19 ["SharedFlags"]
+       60 GETTABLEKS                       R11 R11 K20 ["getFFlagRibbonDropdownMinWidth"]
+       62 CALL                             R10 1 1
+       63 DUPCLOSURE                       R11 K21 [PROTO_4]
+       64 CAPTURE                          VAL R4
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R9
+       68 CAPTURE                          VAL R8
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R10
+       71 RETURN                           R11 1

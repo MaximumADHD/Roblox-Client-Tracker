@@ -70,22 +70,108 @@ PROTO_0:
       101 CALL                             R12 2 0
       102 GETUPVAL                         R12 8
       103 GETUPVAL                         R14 9
-      104 DUPTABLE                         R15 K37 [{["customFields"], ["eventContext"] = "AssetManager", ["standardizedFields"]}]
-      105 SETTABLEKS                       R11 R15 K33 ["customFields"]
-      107 NEWTABLE                         R16 0 4
-      109 GETIMPORT                        R17 K41 [Enum.TelemetryStandardizedField.AddPlaceId]
-      111 GETIMPORT                        R18 K43 [Enum.TelemetryStandardizedField.AddUniverseId]
-      113 GETIMPORT                        R19 K45 [Enum.TelemetryStandardizedField.AddSessionInfo]
-      115 GETIMPORT                        R20 K47 [Enum.TelemetryStandardizedField.AddPlaySessionId]
-      117 SETLIST                          R16 R17 4 [1]
-      119 SETTABLEKS                       R16 R15 K36 ["standardizedFields"]
-      121 NAMECALL                         R12 R12 K48 ["LogEvent"]
-      123 CALL                             R12 3 0
-      124 RETURN                           R0 0
+      104 GETTABLEKS                       R14 R14 K33 ["ASSETMANAGER_UNIFIED_EVENT_CONFIG"]
+      106 DUPTABLE                         R15 K38 [{["customFields"], ["eventContext"] = "AssetManager", ["standardizedFields"]}]
+      107 SETTABLEKS                       R11 R15 K34 ["customFields"]
+      109 NEWTABLE                         R16 0 4
+      111 GETIMPORT                        R17 K42 [Enum.TelemetryStandardizedField.AddPlaceId]
+      113 GETIMPORT                        R18 K44 [Enum.TelemetryStandardizedField.AddUniverseId]
+      115 GETIMPORT                        R19 K46 [Enum.TelemetryStandardizedField.AddSessionInfo]
+      117 GETIMPORT                        R20 K48 [Enum.TelemetryStandardizedField.AddPlaySessionId]
+      119 SETLIST                          R16 R17 4 [1]
+      121 SETTABLEKS                       R16 R15 K37 ["standardizedFields"]
+      123 NAMECALL                         R12 R12 K49 ["LogEvent"]
+      125 CALL                             R12 3 0
+      126 GETUPVAL                         R12 10
+      127 CALL                             R12 0 1
+      128 JUMPIFNOT                        R12 ; [+24]
+      129 GETUPVAL                         R12 5
+      130 GETTABLEKS                       R12 R12 K23 ["join"]
+      132 GETUPVAL                         R13 9
+      133 GETTABLEKS                       R13 R13 K50 ["ASSETMANAGER_COUNTER_CONFIG"]
+      135 DUPTABLE                         R14 K51 [{"eventName"}]
+      136 LOADK                            R16 K52 ["%*%*"]
+      137 GETUPVAL                         R18 9
+      138 GETTABLEKS                       R18 R18 K53 ["ASSETMANAGER_PREFIX"]
+      140 MOVE                             R19 R0
+      141 NAMECALL                         R16 R16 K30 ["format"]
+      143 CALL                             R16 3 1
+      144 MOVE                             R15 R16
+      145 SETTABLEKS                       R15 R14 K12 ["eventName"]
+      147 CALL                             R12 2 1
+      148 GETUPVAL                         R13 8
+      149 MOVE                             R15 R12
+      150 NAMECALL                         R13 R13 K54 ["LogCounter"]
+      152 CALL                             R13 2 0
+      153 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["Insert"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["Search"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["Enabled"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["Upload"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["Share"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_6:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["CreateFolder"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["UpdateFolder"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_8:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["DeleteFolder"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["MoveFolder"]
         2 MOVE                             R4 R0
         3 MOVE                             R5 R1
         4 CALL                             R2 3 0
@@ -123,55 +209,77 @@ MAIN:
        48 GETIMPORT                        R7 K1 [script]
        50 GETTABLEKS                       R7 R7 K9 ["Types"]
        52 CALL                             R6 1 1
-       53 GETIMPORT                        R7 K15 [game]
-       55 LOADK                            R9 K16 ["TelemetryService"]
-       56 NAMECALL                         R7 R7 K17 ["GetService"]
-       58 CALL                             R7 2 1
-       59 GETIMPORT                        R8 K15 [game]
-       61 LOADK                            R10 K18 ["RbxAnalyticsService"]
-       62 NAMECALL                         R8 R8 K17 ["GetService"]
-       64 CALL                             R8 2 1
-       65 GETIMPORT                        R9 K15 [game]
-       67 LOADK                            R11 K19 ["HttpService"]
-       68 NAMECALL                         R9 R9 K17 ["GetService"]
-       70 CALL                             R9 2 1
-       71 GETTABLEKS                       R10 R3 K17 ["GetService"]
-       73 LOADK                            R11 K20 ["PluginManagementService"]
-       74 CALL                             R10 1 1
-       75 GETIMPORT                        R11 K5 [require]
-       77 GETTABLEKS                       R12 R0 K8 ["Src"]
-       79 GETTABLEKS                       R12 R12 K21 ["Flags"]
-       81 GETTABLEKS                       R12 R12 K22 ["getFFlagDebugAmrPrintAnalytics"]
-       83 CALL                             R11 1 1
-       84 NEWTABLE                         R12 2 0
-       86 SETTABLEKS                       R6 R12 K9 ["Types"]
-       88 DUPTABLE                         R13 K32 [{["eventName"] = "UnifiedEvent", ["eventContext"] = "AssetManager", ["backends"], ["lastUpdated"], ["description"] = "Asset Manager plugin events", ["throttlingPercentage"] = 10000}]
-       89 NEWTABLE                         R14 0 2
-       91 LOADK                            R15 K33 ["EventIngest"]
-       92 LOADK                            R16 K34 ["Points"]
-       93 SETLIST                          R14 R15 2 [1]
-       95 SETTABLEKS                       R14 R13 K26 ["backends"]
-       97 NEWTABLE                         R14 0 3
-       99 LOADN                            R15 2026
-      100 LOADN                            R16 7
-      101 LOADN                            R17 6
-      102 SETLIST                          R14 R15 3 [1]
-      104 SETTABLEKS                       R14 R13 K27 ["lastUpdated"]
-      106 LOADK                            R16 K2 ["AssetManager"]
-      107 NAMECALL                         R14 R10 K35 ["GetOTAPluginVersion"]
-      109 CALL                             R14 2 1
-      110 DUPCLOSURE                       R15 K36 [PROTO_0]
-      111 CAPTURE                          VAL R5
-      112 CAPTURE                          VAL R2
-      113 CAPTURE                          VAL R4
-      114 CAPTURE                          VAL R14
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          VAL R13
-      121 DUPCLOSURE                       R16 K37 [PROTO_1]
-      122 CAPTURE                          VAL R15
-      123 SETTABLEKS                       R16 R12 K38 ["sendInsertEvent"]
-      125 RETURN                           R12 1
+       53 GETIMPORT                        R7 K5 [require]
+       55 GETIMPORT                        R8 K1 [script]
+       57 GETTABLEKS                       R8 R8 K14 ["Constants"]
+       59 CALL                             R7 1 1
+       60 GETIMPORT                        R8 K16 [game]
+       62 LOADK                            R10 K17 ["TelemetryService"]
+       63 NAMECALL                         R8 R8 K18 ["GetService"]
+       65 CALL                             R8 2 1
+       66 GETIMPORT                        R9 K16 [game]
+       68 LOADK                            R11 K19 ["RbxAnalyticsService"]
+       69 NAMECALL                         R9 R9 K18 ["GetService"]
+       71 CALL                             R9 2 1
+       72 GETIMPORT                        R10 K16 [game]
+       74 LOADK                            R12 K20 ["HttpService"]
+       75 NAMECALL                         R10 R10 K18 ["GetService"]
+       77 CALL                             R10 2 1
+       78 GETTABLEKS                       R11 R3 K18 ["GetService"]
+       80 LOADK                            R12 K21 ["PluginManagementService"]
+       81 CALL                             R11 1 1
+       82 GETIMPORT                        R12 K5 [require]
+       84 GETTABLEKS                       R13 R0 K8 ["Src"]
+       86 GETTABLEKS                       R13 R13 K22 ["Flags"]
+       88 GETTABLEKS                       R13 R13 K23 ["getFFlagDebugAmrPrintAnalytics"]
+       90 CALL                             R12 1 1
+       91 GETIMPORT                        R13 K5 [require]
+       93 GETTABLEKS                       R14 R0 K8 ["Src"]
+       95 GETTABLEKS                       R14 R14 K22 ["Flags"]
+       97 GETTABLEKS                       R14 R14 K24 ["getFFlagAmrAddHealthlineMetrics"]
+       99 CALL                             R13 1 1
+      100 NEWTABLE                         R14 16 0
+      102 SETTABLEKS                       R6 R14 K9 ["Types"]
+      104 LOADK                            R17 K2 ["AssetManager"]
+      105 NAMECALL                         R15 R11 K25 ["GetOTAPluginVersion"]
+      107 CALL                             R15 2 1
+      108 DUPCLOSURE                       R16 K26 [PROTO_0]
+      109 CAPTURE                          VAL R5
+      110 CAPTURE                          VAL R2
+      111 CAPTURE                          VAL R4
+      112 CAPTURE                          VAL R15
+      113 CAPTURE                          VAL R9
+      114 CAPTURE                          VAL R1
+      115 CAPTURE                          VAL R10
+      116 CAPTURE                          VAL R12
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R7
+      119 CAPTURE                          VAL R13
+      120 DUPCLOSURE                       R17 K27 [PROTO_1]
+      121 CAPTURE                          VAL R16
+      122 SETTABLEKS                       R17 R14 K28 ["sendInsertEvent"]
+      124 DUPCLOSURE                       R17 K29 [PROTO_2]
+      125 CAPTURE                          VAL R16
+      126 SETTABLEKS                       R17 R14 K30 ["sendSearchEvent"]
+      128 DUPCLOSURE                       R17 K31 [PROTO_3]
+      129 CAPTURE                          VAL R16
+      130 SETTABLEKS                       R17 R14 K32 ["sendEnabledEvent"]
+      132 DUPCLOSURE                       R17 K33 [PROTO_4]
+      133 CAPTURE                          VAL R16
+      134 SETTABLEKS                       R17 R14 K34 ["sendUploadEvent"]
+      136 DUPCLOSURE                       R17 K35 [PROTO_5]
+      137 CAPTURE                          VAL R16
+      138 SETTABLEKS                       R17 R14 K36 ["sendShareEvent"]
+      140 DUPCLOSURE                       R17 K37 [PROTO_6]
+      141 CAPTURE                          VAL R16
+      142 SETTABLEKS                       R17 R14 K38 ["sendCreateFolderEvent"]
+      144 DUPCLOSURE                       R17 K39 [PROTO_7]
+      145 CAPTURE                          VAL R16
+      146 SETTABLEKS                       R17 R14 K40 ["sendUpdateFolderEvent"]
+      148 DUPCLOSURE                       R17 K41 [PROTO_8]
+      149 CAPTURE                          VAL R16
+      150 SETTABLEKS                       R17 R14 K42 ["sendDeleteFolderEvent"]
+      152 DUPCLOSURE                       R17 K43 [PROTO_9]
+      153 CAPTURE                          VAL R16
+      154 SETTABLEKS                       R17 R14 K44 ["sendMoveFolderEvent"]
+      156 RETURN                           R14 1

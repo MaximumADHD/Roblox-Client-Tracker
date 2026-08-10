@@ -145,48 +145,53 @@ MAIN:
        88 GETTABLEKS                       R16 R16 K25 ["MockPlugin"]
        90 DUPTABLE                         R17 K28 [{"dialogContextProps", "networkContextProps"}]
        91 DUPTABLE                         R18 K30 [{"bridge"}]
-       92 DUPTABLE                         R19 K36 [{"OnVersionNotesRequest", "RespondVersionNotesAsync", "OnHeartbeatRequest", "RespondHeartbeatAsync", "OnEditNotes"}]
-       93 GETIMPORT                        R20 K39 [Instance.new]
-       95 LOADK                            R21 K40 ["BindableEvent"]
+       92 DUPTABLE                         R19 K37 [{"OnVersionNotesRequest", "RespondVersionNotesAsync", "OnHeartbeatRequest", "RespondHeartbeatAsync", "OnEditNotes", "OpenVersionNotesDialog"}]
+       93 GETIMPORT                        R20 K40 [Instance.new]
+       95 LOADK                            R21 K41 ["BindableEvent"]
        96 CALL                             R20 1 1
-       97 GETTABLEKS                       R20 R20 K41 ["Event"]
+       97 GETTABLEKS                       R20 R20 K42 ["Event"]
        99 SETTABLEKS                       R20 R19 K31 ["OnVersionNotesRequest"]
-      101 DUPCLOSURE                       R20 K42 [PROTO_0]
+      101 DUPCLOSURE                       R20 K43 [PROTO_0]
       102 SETTABLEKS                       R20 R19 K32 ["RespondVersionNotesAsync"]
-      104 GETIMPORT                        R20 K39 [Instance.new]
-      106 LOADK                            R21 K40 ["BindableEvent"]
+      104 GETIMPORT                        R20 K40 [Instance.new]
+      106 LOADK                            R21 K41 ["BindableEvent"]
       107 CALL                             R20 1 1
-      108 GETTABLEKS                       R20 R20 K41 ["Event"]
+      108 GETTABLEKS                       R20 R20 K42 ["Event"]
       110 SETTABLEKS                       R20 R19 K33 ["OnHeartbeatRequest"]
-      112 DUPCLOSURE                       R20 K43 [PROTO_1]
+      112 DUPCLOSURE                       R20 K44 [PROTO_1]
       113 SETTABLEKS                       R20 R19 K34 ["RespondHeartbeatAsync"]
-      115 GETIMPORT                        R20 K39 [Instance.new]
-      117 LOADK                            R21 K40 ["BindableEvent"]
+      115 GETIMPORT                        R20 K40 [Instance.new]
+      117 LOADK                            R21 K41 ["BindableEvent"]
       118 CALL                             R20 1 1
-      119 GETTABLEKS                       R20 R20 K41 ["Event"]
+      119 GETTABLEKS                       R20 R20 K42 ["Event"]
       121 SETTABLEKS                       R20 R19 K35 ["OnEditNotes"]
-      123 SETTABLEKS                       R19 R18 K29 ["bridge"]
-      125 SETTABLEKS                       R18 R17 K26 ["dialogContextProps"]
-      127 DUPTABLE                         R18 K45 [{"mockNetworkConfig"}]
-      128 DUPTABLE                         R19 K52 [{["numVersions"] = 999, ["latencySec"] = 1, ["failureRate"] = 0}]
-      129 SETTABLEKS                       R19 R18 K44 ["mockNetworkConfig"]
-      131 SETTABLEKS                       R18 R17 K27 ["networkContextProps"]
-      133 DUPCLOSURE                       R18 K53 [PROTO_2]
-      134 CAPTURE                          VAL R5
-      135 CAPTURE                          VAL R15
-      136 CAPTURE                          VAL R16
-      137 CAPTURE                          VAL R0
-      138 CAPTURE                          VAL R1
-      139 CAPTURE                          VAL R2
-      140 CAPTURE                          VAL R3
-      141 CAPTURE                          VAL R8
-      142 CAPTURE                          VAL R9
-      143 CAPTURE                          VAL R10
-      144 CAPTURE                          VAL R17
-      145 CAPTURE                          VAL R11
-      146 CAPTURE                          VAL R13
-      147 CAPTURE                          VAL R12
-      148 CAPTURE                          VAL R14
-      149 SETGLOBAL                        R18 K54 ["MockWrapper"]
-      151 GETGLOBAL                        R18 K54 ["MockWrapper"]
-      153 RETURN                           R18 1
+      123 GETIMPORT                        R20 K40 [Instance.new]
+      125 LOADK                            R21 K41 ["BindableEvent"]
+      126 CALL                             R20 1 1
+      127 GETTABLEKS                       R20 R20 K42 ["Event"]
+      129 SETTABLEKS                       R20 R19 K36 ["OpenVersionNotesDialog"]
+      131 SETTABLEKS                       R19 R18 K29 ["bridge"]
+      133 SETTABLEKS                       R18 R17 K26 ["dialogContextProps"]
+      135 DUPTABLE                         R18 K46 [{"mockNetworkConfig"}]
+      136 DUPTABLE                         R19 K53 [{["numVersions"] = 999, ["latencySec"] = 1, ["failureRate"] = 0}]
+      137 SETTABLEKS                       R19 R18 K45 ["mockNetworkConfig"]
+      139 SETTABLEKS                       R18 R17 K27 ["networkContextProps"]
+      141 DUPCLOSURE                       R18 K54 [PROTO_2]
+      142 CAPTURE                          VAL R5
+      143 CAPTURE                          VAL R15
+      144 CAPTURE                          VAL R16
+      145 CAPTURE                          VAL R0
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R2
+      148 CAPTURE                          VAL R3
+      149 CAPTURE                          VAL R8
+      150 CAPTURE                          VAL R9
+      151 CAPTURE                          VAL R10
+      152 CAPTURE                          VAL R17
+      153 CAPTURE                          VAL R11
+      154 CAPTURE                          VAL R13
+      155 CAPTURE                          VAL R12
+      156 CAPTURE                          VAL R14
+      157 SETGLOBAL                        R18 K55 ["MockWrapper"]
+      159 GETGLOBAL                        R18 K55 ["MockWrapper"]
+      161 RETURN                           R18 1

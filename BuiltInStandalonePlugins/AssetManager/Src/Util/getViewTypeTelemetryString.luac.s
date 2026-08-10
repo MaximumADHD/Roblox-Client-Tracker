@@ -22,12 +22,13 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["DEPRECATED_Analytics"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Types"]
-       20 CALL                             R2 1 1
-       21 DUPCLOSURE                       R3 K9 [PROTO_0]
-       22 CAPTURE                          VAL R2
-       23 RETURN                           R3 1
+       11 GETTABLEKS                       R2 R2 K7 ["Analytics"]
+       13 GETTABLEKS                       R2 R2 K8 ["Types"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Types"]
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R3 K9 [PROTO_0]
+       24 CAPTURE                          VAL R2
+       25 RETURN                           R3 1

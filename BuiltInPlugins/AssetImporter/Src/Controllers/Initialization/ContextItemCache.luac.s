@@ -5,118 +5,129 @@ PROTO_0:
         6 LOADB                            R2 0 +1
         7 LOADB                            R2 1
         8 GETTABLEKS                       R3 R0 K3 ["plugin"]
-       10 JUMPIFNOT                        R2 ; [+4]
-       11 GETUPVAL                         R4 0
-       12 MOVE                             R5 R3
-       13 CALL                             R4 1 1
-       14 JUMP                             ; [+4]
-       15 GETIMPORT                        R4 K6 [Instance.new]
-       17 LOADK                            R5 K7 ["StyleSheet"]
-       18 CALL                             R4 1 1
-       19 JUMPIFNOT                        R2 ; [+12]
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R5 R5 K5 ["new"]
-       23 DUPTABLE                         R6 K12 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetImporter"}]
-       24 GETUPVAL                         R7 2
-       25 SETTABLEKS                       R7 R6 K8 ["stringResourceTable"]
-       27 GETUPVAL                         R7 3
-       28 SETTABLEKS                       R7 R6 K9 ["translationResourceTable"]
-       30 CALL                             R5 1 1
-       31 JUMP                             ; [+4]
-       32 GETUPVAL                         R5 1
-       33 GETTABLEKS                       R5 R5 K13 ["mock"]
-       35 CALL                             R5 0 1
-       36 GETUPVAL                         R6 4
-       37 GETTABLEKS                       R6 R6 K5 ["new"]
-       39 MOVE                             R7 R3
-       40 MOVE                             R8 R1
-       41 MOVE                             R9 R5
-       42 CALL                             R6 3 1
-       43 GETUPVAL                         R7 5
-       44 GETTABLEKS                       R7 R7 K5 ["new"]
-       46 CALL                             R7 0 1
-       47 GETUPVAL                         R8 6
-       48 GETTABLEKS                       R8 R8 K5 ["new"]
-       50 MOVE                             R9 R7
-       51 CALL                             R8 1 1
-       52 DUPTABLE                         R9 K26 [{"Plugin", "PluginLoaderContextItem", "Design", "Focus", "Localization", "Mouse", "Store", "Theme", "FileController", "UploadController", "PresetController", "Networking"}]
-       53 GETUPVAL                         R10 7
-       54 GETTABLEKS                       R10 R10 K14 ["Plugin"]
-       56 GETTABLEKS                       R10 R10 K5 ["new"]
-       58 MOVE                             R11 R3
-       59 CALL                             R10 1 1
-       60 SETTABLEKS                       R10 R9 K14 ["Plugin"]
-       62 GETTABLEKS                       R10 R0 K27 ["loader"]
-       64 SETTABLEKS                       R10 R9 K15 ["PluginLoaderContextItem"]
-       66 JUMPIFNOT                        R2 ; [+6]
-       67 GETUPVAL                         R10 8
-       68 GETTABLEKS                       R10 R10 K5 ["new"]
-       70 MOVE                             R11 R4
-       71 CALL                             R10 1 1
-       72 JUMP                             ; [+5]
-       73 GETUPVAL                         R10 8
-       74 GETTABLEKS                       R10 R10 K13 ["mock"]
-       76 MOVE                             R11 R4
-       77 CALL                             R10 1 1
-       78 SETTABLEKS                       R10 R9 K16 ["Design"]
-       80 GETUPVAL                         R10 9
-       81 GETTABLEKS                       R10 R10 K5 ["new"]
-       83 GETIMPORT                        R11 K6 [Instance.new]
-       85 LOADK                            R12 K28 ["ScreenGui"]
-       86 CALL                             R11 1 -1
-       87 CALL                             R10 -1 1
-       88 SETTABLEKS                       R10 R9 K17 ["Focus"]
-       90 SETTABLEKS                       R5 R9 K18 ["Localization"]
-       92 GETUPVAL                         R10 10
-       93 GETTABLEKS                       R10 R10 K5 ["new"]
-       95 NAMECALL                         R11 R3 K29 ["GetMouse"]
+       10 LOADNIL                          R4
+       11 JUMPIF                           R2 ; [+6]
+       12 GETIMPORT                        R5 K6 [Instance.new]
+       14 LOADK                            R6 K7 ["StyleSheet"]
+       15 CALL                             R5 1 1
+       16 MOVE                             R4 R5
+       17 JUMP                             ; [+12]
+       18 GETUPVAL                         R5 0
+       19 CALL                             R5 0 1
+       20 JUMPIFNOT                        R5 ; [+5]
+       21 GETUPVAL                         R5 1
+       22 MOVE                             R6 R3
+       23 CALL                             R5 1 1
+       24 MOVE                             R4 R5
+       25 JUMP                             ; [+4]
+       26 GETUPVAL                         R5 2
+       27 MOVE                             R6 R3
+       28 CALL                             R5 1 1
+       29 MOVE                             R4 R5
+       30 JUMPIFNOT                        R2 ; [+12]
+       31 GETUPVAL                         R5 3
+       32 GETTABLEKS                       R5 R5 K5 ["new"]
+       34 DUPTABLE                         R6 K12 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetImporter"}]
+       35 GETUPVAL                         R7 4
+       36 SETTABLEKS                       R7 R6 K8 ["stringResourceTable"]
+       38 GETUPVAL                         R7 5
+       39 SETTABLEKS                       R7 R6 K9 ["translationResourceTable"]
+       41 CALL                             R5 1 1
+       42 JUMP                             ; [+4]
+       43 GETUPVAL                         R5 3
+       44 GETTABLEKS                       R5 R5 K13 ["mock"]
+       46 CALL                             R5 0 1
+       47 GETUPVAL                         R6 6
+       48 GETTABLEKS                       R6 R6 K5 ["new"]
+       50 MOVE                             R7 R3
+       51 MOVE                             R8 R1
+       52 MOVE                             R9 R5
+       53 CALL                             R6 3 1
+       54 GETUPVAL                         R7 7
+       55 GETTABLEKS                       R7 R7 K5 ["new"]
+       57 CALL                             R7 0 1
+       58 GETUPVAL                         R8 8
+       59 GETTABLEKS                       R8 R8 K5 ["new"]
+       61 MOVE                             R9 R7
+       62 CALL                             R8 1 1
+       63 DUPTABLE                         R9 K26 [{"Plugin", "PluginLoaderContextItem", "Design", "Focus", "Localization", "Mouse", "Store", "Theme", "FileController", "UploadController", "PresetController", "Networking"}]
+       64 GETUPVAL                         R10 9
+       65 GETTABLEKS                       R10 R10 K14 ["Plugin"]
+       67 GETTABLEKS                       R10 R10 K5 ["new"]
+       69 MOVE                             R11 R3
+       70 CALL                             R10 1 1
+       71 SETTABLEKS                       R10 R9 K14 ["Plugin"]
+       73 GETTABLEKS                       R10 R0 K27 ["loader"]
+       75 SETTABLEKS                       R10 R9 K15 ["PluginLoaderContextItem"]
+       77 JUMPIFNOT                        R2 ; [+6]
+       78 GETUPVAL                         R10 10
+       79 GETTABLEKS                       R10 R10 K5 ["new"]
+       81 MOVE                             R11 R4
+       82 CALL                             R10 1 1
+       83 JUMP                             ; [+5]
+       84 GETUPVAL                         R10 10
+       85 GETTABLEKS                       R10 R10 K13 ["mock"]
+       87 MOVE                             R11 R4
+       88 CALL                             R10 1 1
+       89 SETTABLEKS                       R10 R9 K16 ["Design"]
+       91 GETUPVAL                         R10 11
+       92 GETTABLEKS                       R10 R10 K5 ["new"]
+       94 GETIMPORT                        R11 K6 [Instance.new]
+       96 LOADK                            R12 K28 ["ScreenGui"]
        97 CALL                             R11 1 -1
        98 CALL                             R10 -1 1
-       99 SETTABLEKS                       R10 R9 K19 ["Mouse"]
-      101 GETUPVAL                         R10 11
-      102 GETTABLEKS                       R10 R10 K5 ["new"]
-      104 MOVE                             R11 R1
-      105 CALL                             R10 1 1
-      106 SETTABLEKS                       R10 R9 K20 ["Store"]
-      108 GETUPVAL                         R10 12
-      109 NOT                              R11 R2
-      110 CALL                             R10 1 1
-      111 SETTABLEKS                       R10 R9 K21 ["Theme"]
-      113 GETUPVAL                         R10 13
-      114 GETTABLEKS                       R10 R10 K5 ["new"]
-      116 MOVE                             R11 R1
-      117 MOVE                             R12 R6
-      118 MOVE                             R13 R8
-      119 MOVE                             R14 R2
-      120 CALL                             R10 4 1
-      121 SETTABLEKS                       R10 R9 K22 ["FileController"]
-      123 GETUPVAL                         R10 14
-      124 GETTABLEKS                       R10 R10 K5 ["new"]
-      126 MOVE                             R11 R1
-      127 MOVE                             R12 R5
-      128 MOVE                             R13 R8
-      129 MOVE                             R14 R6
-      130 CALL                             R10 4 1
-      131 SETTABLEKS                       R10 R9 K23 ["UploadController"]
-      133 SETTABLEKS                       R6 R9 K24 ["PresetController"]
-      135 GETUPVAL                         R10 15
-      136 GETTABLEKS                       R10 R10 K5 ["new"]
-      138 MOVE                             R11 R1
-      139 NOT                              R12 R2
-      140 CALL                             R10 2 1
-      141 SETTABLEKS                       R10 R9 K25 ["Networking"]
-      143 GETUPVAL                         R10 16
-      144 GETTABLEKS                       R10 R10 K5 ["new"]
-      146 MOVE                             R11 R1
-      147 MOVE                             R12 R6
-      148 CALL                             R10 2 1
-      149 SETTABLEKS                       R10 R9 K30 ["QueueController"]
-      151 GETUPVAL                         R12 17
-      152 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
-      154 MOVE                             R11 R9
-      155 GETIMPORT                        R10 K32 [setmetatable]
-      157 CALL                             R10 2 1
-      158 RETURN                           R10 1
+       99 SETTABLEKS                       R10 R9 K17 ["Focus"]
+      101 SETTABLEKS                       R5 R9 K18 ["Localization"]
+      103 GETUPVAL                         R10 12
+      104 GETTABLEKS                       R10 R10 K5 ["new"]
+      106 NAMECALL                         R11 R3 K29 ["GetMouse"]
+      108 CALL                             R11 1 -1
+      109 CALL                             R10 -1 1
+      110 SETTABLEKS                       R10 R9 K19 ["Mouse"]
+      112 GETUPVAL                         R10 13
+      113 GETTABLEKS                       R10 R10 K5 ["new"]
+      115 MOVE                             R11 R1
+      116 CALL                             R10 1 1
+      117 SETTABLEKS                       R10 R9 K20 ["Store"]
+      119 GETUPVAL                         R10 14
+      120 NOT                              R11 R2
+      121 CALL                             R10 1 1
+      122 SETTABLEKS                       R10 R9 K21 ["Theme"]
+      124 GETUPVAL                         R10 15
+      125 GETTABLEKS                       R10 R10 K5 ["new"]
+      127 MOVE                             R11 R1
+      128 MOVE                             R12 R6
+      129 MOVE                             R13 R8
+      130 MOVE                             R14 R2
+      131 CALL                             R10 4 1
+      132 SETTABLEKS                       R10 R9 K22 ["FileController"]
+      134 GETUPVAL                         R10 16
+      135 GETTABLEKS                       R10 R10 K5 ["new"]
+      137 MOVE                             R11 R1
+      138 MOVE                             R12 R5
+      139 MOVE                             R13 R8
+      140 MOVE                             R14 R6
+      141 CALL                             R10 4 1
+      142 SETTABLEKS                       R10 R9 K23 ["UploadController"]
+      144 SETTABLEKS                       R6 R9 K24 ["PresetController"]
+      146 GETUPVAL                         R10 17
+      147 GETTABLEKS                       R10 R10 K5 ["new"]
+      149 MOVE                             R11 R1
+      150 NOT                              R12 R2
+      151 CALL                             R10 2 1
+      152 SETTABLEKS                       R10 R9 K25 ["Networking"]
+      154 GETUPVAL                         R10 18
+      155 GETTABLEKS                       R10 R10 K5 ["new"]
+      157 MOVE                             R11 R1
+      158 MOVE                             R12 R6
+      159 CALL                             R10 2 1
+      160 SETTABLEKS                       R10 R9 K30 ["QueueController"]
+      162 GETUPVAL                         R12 19
+      163 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
+      165 MOVE                             R11 R9
+      166 GETIMPORT                        R10 K32 [setmetatable]
+      168 CALL                             R10 2 1
+      169 RETURN                           R10 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 13
@@ -208,67 +219,79 @@ MAIN:
        45 GETTABLEKS                       R10 R5 K16 ["Mouse"]
        47 GETTABLEKS                       R11 R2 K17 ["Styling"]
        49 GETTABLEKS                       R11 R11 K18 ["registerPluginStyles"]
-       51 GETTABLEKS                       R12 R0 K19 ["Src"]
-       53 GETTABLEKS                       R12 R12 K20 ["Controllers"]
-       55 GETIMPORT                        R13 K5 [require]
-       57 GETTABLEKS                       R14 R12 K21 ["PresetController"]
-       59 CALL                             R13 1 1
-       60 GETIMPORT                        R14 K5 [require]
-       62 GETTABLEKS                       R15 R12 K22 ["FileController"]
-       64 CALL                             R14 1 1
-       65 GETIMPORT                        R15 K5 [require]
-       67 GETTABLEKS                       R16 R12 K23 ["QueueController"]
-       69 CALL                             R15 1 1
-       70 GETIMPORT                        R16 K5 [require]
-       72 GETTABLEKS                       R17 R12 K24 ["UploadController"]
-       74 CALL                             R16 1 1
-       75 GETIMPORT                        R17 K5 [require]
-       77 GETTABLEKS                       R18 R12 K25 ["Networking"]
-       79 CALL                             R17 1 1
-       80 GETIMPORT                        R18 K5 [require]
-       82 GETTABLEKS                       R19 R0 K19 ["Src"]
-       84 GETTABLEKS                       R19 R19 K26 ["Resources"]
-       86 GETTABLEKS                       R19 R19 K27 ["MakeTheme"]
-       88 CALL                             R18 1 1
-       89 GETTABLEKS                       R19 R0 K19 ["Src"]
-       91 GETTABLEKS                       R19 R19 K26 ["Resources"]
-       93 GETTABLEKS                       R19 R19 K13 ["Localization"]
-       95 GETTABLEKS                       R19 R19 K28 ["SourceStrings"]
-       97 GETTABLEKS                       R20 R0 K19 ["Src"]
-       99 GETTABLEKS                       R20 R20 K26 ["Resources"]
-      101 GETTABLEKS                       R20 R20 K13 ["Localization"]
-      103 GETTABLEKS                       R20 R20 K29 ["LocalizedStrings"]
-      105 GETIMPORT                        R21 K5 [require]
-      107 GETTABLEKS                       R22 R0 K19 ["Src"]
-      109 GETTABLEKS                       R22 R22 K30 ["Utility"]
-      111 GETTABLEKS                       R22 R22 K31 ["Telemetry"]
-      113 GETTABLEKS                       R22 R22 K32 ["TelemetryContext"]
-      115 CALL                             R21 1 1
-      116 NEWTABLE                         R22 0 0
-      118 SETTABLEKS                       R22 R22 K33 ["__index"]
-      120 DUPCLOSURE                       R23 K34 [PROTO_0]
-      121 CAPTURE                          VAL R11
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R19
-      124 CAPTURE                          VAL R20
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R21
-      128 CAPTURE                          VAL R5
-      129 CAPTURE                          VAL R6
-      130 CAPTURE                          VAL R9
-      131 CAPTURE                          VAL R10
-      132 CAPTURE                          VAL R8
-      133 CAPTURE                          VAL R18
-      134 CAPTURE                          VAL R14
-      135 CAPTURE                          VAL R16
-      136 CAPTURE                          VAL R17
-      137 CAPTURE                          VAL R15
-      138 CAPTURE                          VAL R22
-      139 SETTABLEKS                       R23 R22 K35 ["new"]
-      141 DUPCLOSURE                       R23 K36 [PROTO_1]
-      142 CAPTURE                          VAL R1
-      143 SETTABLEKS                       R23 R22 K37 ["getItemsAsList"]
-      145 DUPCLOSURE                       R23 K38 [PROTO_2]
-      146 SETTABLEKS                       R23 R22 K39 ["destroy"]
-      148 RETURN                           R22 1
+       51 GETIMPORT                        R12 K5 [require]
+       53 GETTABLEKS                       R13 R0 K19 ["Src"]
+       55 GETTABLEKS                       R13 R13 K20 ["Utility"]
+       57 GETTABLEKS                       R13 R13 K21 ["getSharedStyleSheet"]
+       59 CALL                             R12 1 1
+       60 GETIMPORT                        R13 K5 [require]
+       62 GETTABLEKS                       R14 R0 K19 ["Src"]
+       64 GETTABLEKS                       R14 R14 K22 ["Flags"]
+       66 GETTABLEKS                       R14 R14 K23 ["getFFlagAssetImporterShareStyleSheet"]
+       68 CALL                             R13 1 1
+       69 GETTABLEKS                       R14 R0 K19 ["Src"]
+       71 GETTABLEKS                       R14 R14 K24 ["Controllers"]
+       73 GETIMPORT                        R15 K5 [require]
+       75 GETTABLEKS                       R16 R14 K25 ["PresetController"]
+       77 CALL                             R15 1 1
+       78 GETIMPORT                        R16 K5 [require]
+       80 GETTABLEKS                       R17 R14 K26 ["FileController"]
+       82 CALL                             R16 1 1
+       83 GETIMPORT                        R17 K5 [require]
+       85 GETTABLEKS                       R18 R14 K27 ["QueueController"]
+       87 CALL                             R17 1 1
+       88 GETIMPORT                        R18 K5 [require]
+       90 GETTABLEKS                       R19 R14 K28 ["UploadController"]
+       92 CALL                             R18 1 1
+       93 GETIMPORT                        R19 K5 [require]
+       95 GETTABLEKS                       R20 R14 K29 ["Networking"]
+       97 CALL                             R19 1 1
+       98 GETIMPORT                        R20 K5 [require]
+      100 GETTABLEKS                       R21 R0 K19 ["Src"]
+      102 GETTABLEKS                       R21 R21 K30 ["Resources"]
+      104 GETTABLEKS                       R21 R21 K31 ["MakeTheme"]
+      106 CALL                             R20 1 1
+      107 GETTABLEKS                       R21 R0 K19 ["Src"]
+      109 GETTABLEKS                       R21 R21 K30 ["Resources"]
+      111 GETTABLEKS                       R21 R21 K13 ["Localization"]
+      113 GETTABLEKS                       R21 R21 K32 ["SourceStrings"]
+      115 GETTABLEKS                       R22 R0 K19 ["Src"]
+      117 GETTABLEKS                       R22 R22 K30 ["Resources"]
+      119 GETTABLEKS                       R22 R22 K13 ["Localization"]
+      121 GETTABLEKS                       R22 R22 K33 ["LocalizedStrings"]
+      123 GETIMPORT                        R23 K5 [require]
+      125 GETTABLEKS                       R24 R0 K19 ["Src"]
+      127 GETTABLEKS                       R24 R24 K20 ["Utility"]
+      129 GETTABLEKS                       R24 R24 K34 ["Telemetry"]
+      131 GETTABLEKS                       R24 R24 K35 ["TelemetryContext"]
+      133 CALL                             R23 1 1
+      134 NEWTABLE                         R24 0 0
+      136 SETTABLEKS                       R24 R24 K36 ["__index"]
+      138 DUPCLOSURE                       R25 K37 [PROTO_0]
+      139 CAPTURE                          VAL R13
+      140 CAPTURE                          VAL R12
+      141 CAPTURE                          VAL R11
+      142 CAPTURE                          VAL R7
+      143 CAPTURE                          VAL R21
+      144 CAPTURE                          VAL R22
+      145 CAPTURE                          VAL R15
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R23
+      148 CAPTURE                          VAL R5
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R9
+      151 CAPTURE                          VAL R10
+      152 CAPTURE                          VAL R8
+      153 CAPTURE                          VAL R20
+      154 CAPTURE                          VAL R16
+      155 CAPTURE                          VAL R18
+      156 CAPTURE                          VAL R19
+      157 CAPTURE                          VAL R17
+      158 CAPTURE                          VAL R24
+      159 SETTABLEKS                       R25 R24 K38 ["new"]
+      161 DUPCLOSURE                       R25 K39 [PROTO_1]
+      162 CAPTURE                          VAL R1
+      163 SETTABLEKS                       R25 R24 K40 ["getItemsAsList"]
+      165 DUPCLOSURE                       R25 K41 [PROTO_2]
+      166 SETTABLEKS                       R25 R24 K42 ["destroy"]
+      168 RETURN                           R24 1

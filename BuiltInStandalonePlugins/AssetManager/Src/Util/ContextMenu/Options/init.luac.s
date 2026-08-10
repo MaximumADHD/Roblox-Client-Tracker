@@ -110,35 +110,22 @@ PROTO_3:
        32 MOVE                             R6 R3
        33 NAMECALL                         R4 R4 K9 ["getScopeRoot"]
        35 CALL                             R4 2 1
-       36 JUMPIFNOT                        R4 ; [+34]
+       36 JUMPIFNOT                        R4 ; [+18]
        37 GETTABLEKS                       R5 R4 K10 ["Type"]
-       39 GETUPVAL                         R7 2
-       40 CALL                             R7 0 1
-       41 JUMPIFNOT                        R7 ; [+10]
-       42 GETUPVAL                         R7 1
-       43 GETTABLEKS                       R7 R7 K11 ["ScopeType"]
-       45 GETTABLEKS                       R7 R7 K12 ["Universe"]
-       47 JUMPIFEQ                         R5 R7 ; [+2]
-       49 LOADB                            R6 0 +1
-       50 LOADB                            R6 1
-       51 JUMP                             ; [+9]
-       52 GETUPVAL                         R7 1
-       53 GETTABLEKS                       R7 R7 K11 ["ScopeType"]
-       55 GETTABLEKS                       R7 R7 K13 ["ProjectShared"]
-       57 JUMPIFEQ                         R5 R7 ; [+2]
-       59 LOADB                            R6 0 +1
-       60 LOADB                            R6 1
-       61 JUMPIF                           R6 ; [+7]
-       62 GETUPVAL                         R7 1
-       63 GETTABLEKS                       R7 R7 K11 ["ScopeType"]
-       65 GETTABLEKS                       R7 R7 K14 ["ProjectPlaces"]
-       67 JUMPIFNOTEQ                      R5 R7 ; [+3]
-       69 LOADB                            R7 0
-       70 RETURN                           R7 1
-       71 GETTABLEKS                       R5 R1 K6 ["ItemsController"]
-       73 NAMECALL                         R5 R5 K15 ["selectionHasInsertableAssets"]
-       75 CALL                             R5 1 -1
-       76 RETURN                           R5 -1
+       39 GETUPVAL                         R6 1
+       40 GETTABLEKS                       R6 R6 K11 ["ScopeType"]
+       42 GETTABLEKS                       R6 R6 K12 ["Universe"]
+       44 JUMPIFEQ                         R5 R6 ; [+8]
+       46 GETUPVAL                         R6 1
+       47 GETTABLEKS                       R6 R6 K11 ["ScopeType"]
+       49 GETTABLEKS                       R6 R6 K13 ["ProjectPlaces"]
+       51 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       53 LOADB                            R6 0
+       54 RETURN                           R6 1
+       55 GETTABLEKS                       R5 R1 K6 ["ItemsController"]
+       57 NAMECALL                         R5 R5 K14 ["selectionHasInsertableAssets"]
+       59 CALL                             R5 1 -1
+       60 RETURN                           R5 -1
 
 PROTO_4:
         0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
@@ -217,7 +204,25 @@ PROTO_7:
        26 JUMPIFEQ                         R5 R6 ; [+2]
        28 LOADB                            R4 0 +1
        29 LOADB                            R4 1
-       30 RETURN                           R4 1
+       30 GETUPVAL                         R5 2
+       31 CALL                             R5 0 1
+       32 JUMPIFNOT                        R5 ; [+22]
+       33 LOADB                            R5 0
+       34 GETUPVAL                         R6 1
+       35 GETTABLEKS                       R6 R6 K2 ["MenuContext"]
+       37 GETTABLEKS                       R6 R6 K3 ["Asset"]
+       39 JUMPIFNOTEQ                      R0 R6 ; [+15]
+       41 LOADB                            R5 0
+       42 JUMPIFEQKNIL                     R3 ; [+12]
+       44 GETTABLEKS                       R6 R3 K4 ["AssetType"]
+       46 GETUPVAL                         R7 1
+       47 GETTABLEKS                       R7 R7 K4 ["AssetType"]
+       49 GETTABLEKS                       R7 R7 K6 ["Image"]
+       51 JUMPIFEQ                         R6 R7 ; [+2]
+       53 LOADB                            R5 0 +1
+       54 LOADB                            R5 1
+       55 OR                               R6 R4 R5
+       56 RETURN                           R6 1
 
 PROTO_8:
         0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
@@ -343,12 +348,12 @@ MAIN:
       116 GETIMPORT                        R16 K10 [require]
       118 GETTABLEKS                       R17 R2 K13 ["Src"]
       120 GETTABLEKS                       R17 R17 K27 ["Flags"]
-      122 GETTABLEKS                       R17 R17 K29 ["getFFlagAmrAddToExperience"]
+      122 GETTABLEKS                       R17 R17 K29 ["getFFlagAmrImageVersioning"]
       124 CALL                             R16 1 1
       125 GETIMPORT                        R17 K10 [require]
       127 GETTABLEKS                       R18 R2 K13 ["Src"]
       129 GETTABLEKS                       R18 R18 K27 ["Flags"]
-      131 GETTABLEKS                       R18 R18 K30 ["getFFlagAmrUnifyGameScopeType"]
+      131 GETTABLEKS                       R18 R18 K30 ["getFFlagAmrAddToExperience"]
       133 CALL                             R17 1 1
       134 DUPCLOSURE                       R18 K31 [PROTO_0]
       135 CAPTURE                          VAL R1
@@ -363,26 +368,26 @@ MAIN:
       145 CAPTURE                          VAL R14
       146 SETTABLEKS                       R20 R19 K37 ["OnItemClicked"]
       148 DUPCLOSURE                       R20 K42 [PROTO_3]
-      149 CAPTURE                          VAL R16
+      149 CAPTURE                          VAL R17
       150 CAPTURE                          VAL R4
-      151 CAPTURE                          VAL R17
-      152 SETTABLEKS                       R20 R19 K38 ["ShouldRender"]
-      154 DUPTABLE                         R20 K44 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Edit", ["OnItemClicked"], ["ShouldRender"]}]
-      155 DUPCLOSURE                       R21 K45 [PROTO_4]
-      156 CAPTURE                          VAL R1
-      157 CAPTURE                          VAL R5
-      158 CAPTURE                          VAL R0
-      159 SETTABLEKS                       R21 R20 K37 ["OnItemClicked"]
-      161 DUPCLOSURE                       R21 K46 [PROTO_5]
-      162 CAPTURE                          VAL R4
-      163 CAPTURE                          VAL R14
-      164 SETTABLEKS                       R21 R20 K38 ["ShouldRender"]
-      166 DUPTABLE                         R21 K48 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "ImportAssetVersion", ["OnItemClicked"], ["ShouldRender"]}]
-      167 DUPCLOSURE                       R22 K49 [PROTO_6]
-      168 SETTABLEKS                       R22 R21 K37 ["OnItemClicked"]
-      170 DUPCLOSURE                       R22 K50 [PROTO_7]
-      171 CAPTURE                          VAL R15
-      172 CAPTURE                          VAL R4
+      151 SETTABLEKS                       R20 R19 K38 ["ShouldRender"]
+      153 DUPTABLE                         R20 K44 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Edit", ["OnItemClicked"], ["ShouldRender"]}]
+      154 DUPCLOSURE                       R21 K45 [PROTO_4]
+      155 CAPTURE                          VAL R1
+      156 CAPTURE                          VAL R5
+      157 CAPTURE                          VAL R0
+      158 SETTABLEKS                       R21 R20 K37 ["OnItemClicked"]
+      160 DUPCLOSURE                       R21 K46 [PROTO_5]
+      161 CAPTURE                          VAL R4
+      162 CAPTURE                          VAL R14
+      163 SETTABLEKS                       R21 R20 K38 ["ShouldRender"]
+      165 DUPTABLE                         R21 K48 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "ImportAssetVersion", ["OnItemClicked"], ["ShouldRender"]}]
+      166 DUPCLOSURE                       R22 K49 [PROTO_6]
+      167 SETTABLEKS                       R22 R21 K37 ["OnItemClicked"]
+      169 DUPCLOSURE                       R22 K50 [PROTO_7]
+      170 CAPTURE                          VAL R15
+      171 CAPTURE                          VAL R4
+      172 CAPTURE                          VAL R16
       173 SETTABLEKS                       R22 R21 K38 ["ShouldRender"]
       175 DUPTABLE                         R22 K52 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "FindInExplorer", ["OnItemClicked"], ["ShouldRender"]}]
       176 DUPCLOSURE                       R23 K53 [PROTO_8]

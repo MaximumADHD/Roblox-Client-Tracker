@@ -222,35 +222,24 @@ MAIN:
        77 CALL                             R11 0 1
        78 GETIMPORT                        R12 K4 [require]
        80 GETTABLEKS                       R13 R0 K15 ["Src"]
-       82 GETTABLEKS                       R13 R13 K21 ["Flags"]
-       84 GETTABLEKS                       R13 R13 K23 ["getFFlagStyleEditorFixSequenceNumPrecision"]
-       86 CALL                             R12 1 1
-       87 CALL                             R12 0 1
-       88 GETIMPORT                        R13 K4 [require]
-       90 GETTABLEKS                       R14 R0 K15 ["Src"]
-       92 GETTABLEKS                       R14 R14 K24 ["Types"]
-       94 CALL                             R13 1 1
-       95 GETIMPORT                        R14 K4 [require]
-       97 GETTABLEKS                       R15 R0 K15 ["Src"]
-       99 GETTABLEKS                       R15 R15 K18 ["Renderers"]
-      101 GETTABLEKS                       R15 R15 K19 ["SequenceRenderers"]
-      103 GETTABLEKS                       R15 R15 K24 ["Types"]
-      105 CALL                             R14 1 1
-      106 DUPTABLE                         R15 K32 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1, ["Precision"]}]
-      107 JUMPIFNOT                        R12 ; [+2]
-      108 LOADN                            R16 3
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R16
-      111 SETTABLEKS                       R16 R15 K31 ["Precision"]
-      113 DUPCLOSURE                       R16 K33 [PROTO_2]
-      114 CAPTURE                          VAL R2
-      115 CAPTURE                          VAL R11
-      116 CAPTURE                          VAL R6
-      117 CAPTURE                          VAL R4
-      118 CAPTURE                          VAL R1
-      119 CAPTURE                          VAL R8
-      120 CAPTURE                          VAL R10
-      121 CAPTURE                          VAL R15
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R9
-      124 RETURN                           R16 1
+       82 GETTABLEKS                       R13 R13 K23 ["Types"]
+       84 CALL                             R12 1 1
+       85 GETIMPORT                        R13 K4 [require]
+       87 GETTABLEKS                       R14 R0 K15 ["Src"]
+       89 GETTABLEKS                       R14 R14 K18 ["Renderers"]
+       91 GETTABLEKS                       R14 R14 K19 ["SequenceRenderers"]
+       93 GETTABLEKS                       R14 R14 K23 ["Types"]
+       95 CALL                             R13 1 1
+       96 DUPTABLE                         R14 K32 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1, ["Precision"] = 3}]
+       97 DUPCLOSURE                       R15 K33 [PROTO_2]
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R11
+      100 CAPTURE                          VAL R6
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R1
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R14
+      106 CAPTURE                          VAL R7
+      107 CAPTURE                          VAL R9
+      108 RETURN                           R15 1

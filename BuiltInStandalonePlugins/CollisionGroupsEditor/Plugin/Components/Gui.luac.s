@@ -1,11 +1,23 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K7 [{[1] = "", ["GroupRenameDialogOpen"] = False, ["Theme"] = "", ["UISelectedGroupId"] = "", ["InPlayMode"] = False}]
-        1 SETTABLEKS                       R1 R0 K8 ["state"]
-        3 GETTABLEKS                       R1 R0 K8 ["state"]
-        5 NAMECALL                         R2 R0 K9 ["GetGroups"]
-        7 CALL                             R2 1 1
-        8 SETTABLEKS                       R2 R1 K10 ["Groups"]
-       10 RETURN                           R0 0
+        0 NEWTABLE                         R1 0 0
+        2 GETUPVAL                         R2 0
+        3 CALL                             R2 0 1
+        4 JUMPIFNOT                        R2 ; [+10]
+        5 GETTABLEKS                       R2 R0 K0 ["props"]
+        7 GETTABLEKS                       R2 R2 K1 ["plugin"]
+        9 LOADK                            R4 K2 ["Worlds"]
+       10 NAMECALL                         R2 R2 K3 ["GetItem"]
+       12 CALL                             R2 2 1
+       13 JUMPIFNOT                        R2 ; [+1]
+       14 MOVE                             R1 R2
+       15 DUPTABLE                         R2 K13 [{["GroupRenaming"] = "", ["GroupRenameDialogOpen"] = False, ["Theme"] = "", ["UISelectedGroupId"] = "", ["InPlayMode"] = False, ["Worlds"], ["ActiveWorldIndex"] = 1}]
+       16 SETTABLEKS                       R1 R2 K2 ["Worlds"]
+       18 SETTABLEKS                       R2 R0 K14 ["state"]
+       20 GETTABLEKS                       R2 R0 K14 ["state"]
+       22 NAMECALL                         R3 R0 K15 ["GetGroups"]
+       24 CALL                             R3 1 1
+       25 SETTABLEKS                       R3 R2 K16 ["Groups"]
+       27 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -13,17 +25,47 @@ PROTO_1:
         3 GETTABLEKS                       R3 R0 K1 ["state"]
         5 MOVE                             R4 R1
         6 CALL                             R2 2 1
-        7 GETUPVAL                         R5 0
-        8 GETTABLEKS                       R5 R5 K2 ["Set"]
-       10 MOVE                             R6 R1
-       11 LOADK                            R7 K3 ["Groups"]
-       12 MOVE                             R10 R2
-       13 NAMECALL                         R8 R0 K4 ["GetGroups"]
-       15 CALL                             R8 2 -1
-       16 CALL                             R5 -1 -1
-       17 NAMECALL                         R3 R0 K5 ["setState"]
-       19 CALL                             R3 -1 0
-       20 RETURN                           R0 0
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K2 ["Set"]
+       10 MOVE                             R4 R1
+       11 LOADK                            R5 K3 ["Groups"]
+       12 MOVE                             R8 R2
+       13 NAMECALL                         R6 R0 K4 ["GetGroups"]
+       15 CALL                             R6 2 -1
+       16 CALL                             R3 -1 1
+       17 GETUPVAL                         R4 1
+       18 CALL                             R4 0 1
+       19 JUMPIFNOT                        R4 ; [+34]
+       20 GETTABLEKS                       R4 R0 K5 ["props"]
+       22 GETTABLEKS                       R4 R4 K6 ["plugin"]
+       24 LOADK                            R6 K7 ["Worlds"]
+       25 NAMECALL                         R4 R4 K8 ["GetItem"]
+       27 CALL                             R4 2 1
+       28 JUMPIFNOT                        R4 ; [+8]
+       29 GETUPVAL                         R5 0
+       30 GETTABLEKS                       R5 R5 K2 ["Set"]
+       32 MOVE                             R6 R3
+       33 LOADK                            R7 K7 ["Worlds"]
+       34 MOVE                             R8 R4
+       35 CALL                             R5 3 1
+       36 MOVE                             R3 R5
+       37 GETTABLEKS                       R5 R0 K5 ["props"]
+       39 GETTABLEKS                       R5 R5 K6 ["plugin"]
+       41 LOADK                            R7 K9 ["ActiveWorldIndex"]
+       42 NAMECALL                         R5 R5 K8 ["GetItem"]
+       44 CALL                             R5 2 1
+       45 JUMPIFNOT                        R5 ; [+8]
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K2 ["Set"]
+       49 MOVE                             R7 R3
+       50 LOADK                            R8 K9 ["ActiveWorldIndex"]
+       51 MOVE                             R9 R5
+       52 CALL                             R6 3 1
+       53 MOVE                             R3 R6
+       54 MOVE                             R6 R3
+       55 NAMECALL                         R4 R0 K10 ["setState"]
+       57 CALL                             R4 2 0
+       58 RETURN                           R0 0
 
 PROTO_2:
         0 LOADN                            R1 0
@@ -392,6 +434,27 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R1 0
+        1 DUPTABLE                         R3 K1 [{"ActiveWorldIndex"}]
+        2 SETTABLEKS                       R0 R3 K0 ["ActiveWorldIndex"]
+        4 NAMECALL                         R1 R1 K2 ["setState"]
+        6 CALL                             R1 2 0
+        7 GETUPVAL                         R1 1
+        8 LOADK                            R3 K3 ["SetActiveWorld"]
+        9 MOVE                             R4 R0
+       10 NAMECALL                         R1 R1 K4 ["Invoke"]
+       12 CALL                             R1 3 0
+       13 RETURN                           R0 0
+
+PROTO_14:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["SetUseWorkspaceCollisionGroups"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["Invoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
+
+PROTO_15:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["state"]
         3 GETTABLEKS                       R1 R1 K1 ["InPlayMode"]
         5 JUMPIFNOT                        R1 ; [+7]
@@ -407,7 +470,7 @@ PROTO_13:
        18 CALL                             R1 3 0
        19 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 GETIMPORT                        R0 K1 [pairs]
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K2 ["state"]
@@ -425,7 +488,7 @@ PROTO_14:
        22 FORGLOOP                         R0 2 ; [-14]
        24 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETIMPORT                        R0 K1 [pairs]
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K2 ["state"]
@@ -443,7 +506,7 @@ PROTO_15:
        22 FORGLOOP                         R0 2 ; [-14]
        24 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 NAMECALL                         R2 R2 K2 ["get"]
@@ -451,30 +514,43 @@ PROTO_16:
         7 GETUPVAL                         R3 0
         8 GETTABLEKS                       R3 R3 K3 ["createElement"]
        10 GETUPVAL                         R4 1
-       11 DUPTABLE                         R5 K10 [{"Groups", "GroupRenameDialogOpen", "OnGroupRenameDialogClosed", "OnGroupAdded", "OnGroupDeleted", "OnGroupRenamed"}]
-       12 GETTABLEKS                       R6 R0 K11 ["state"]
+       11 DUPTABLE                         R5 K14 [{"Groups", "GroupRenameDialogOpen", "Worlds", "ActiveWorldIndex", "OnGroupRenameDialogClosed", "OnWorldChanged", "OnUseWorkspaceCollisionGroupsChanged", "OnGroupAdded", "OnGroupDeleted", "OnGroupRenamed"}]
+       12 GETTABLEKS                       R6 R0 K15 ["state"]
        14 GETTABLEKS                       R6 R6 K4 ["Groups"]
        16 SETTABLEKS                       R6 R5 K4 ["Groups"]
-       18 GETTABLEKS                       R6 R0 K11 ["state"]
+       18 GETTABLEKS                       R6 R0 K15 ["state"]
        20 GETTABLEKS                       R6 R6 K5 ["GroupRenameDialogOpen"]
        22 SETTABLEKS                       R6 R5 K5 ["GroupRenameDialogOpen"]
-       24 NEWCLOSURE                       R6 P0
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R6 R5 K6 ["OnGroupRenameDialogClosed"]
-       28 NEWCLOSURE                       R6 P1
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R2
-       31 SETTABLEKS                       R6 R5 K7 ["OnGroupAdded"]
-       33 NEWCLOSURE                       R6 P2
-       34 CAPTURE                          VAL R0
-       35 SETTABLEKS                       R6 R5 K8 ["OnGroupDeleted"]
-       37 NEWCLOSURE                       R6 P3
-       38 CAPTURE                          VAL R0
-       39 SETTABLEKS                       R6 R5 K9 ["OnGroupRenamed"]
-       41 CALL                             R3 2 -1
-       42 RETURN                           R3 -1
+       24 GETTABLEKS                       R6 R0 K15 ["state"]
+       26 GETTABLEKS                       R6 R6 K6 ["Worlds"]
+       28 SETTABLEKS                       R6 R5 K6 ["Worlds"]
+       30 GETTABLEKS                       R6 R0 K15 ["state"]
+       32 GETTABLEKS                       R6 R6 K7 ["ActiveWorldIndex"]
+       34 SETTABLEKS                       R6 R5 K7 ["ActiveWorldIndex"]
+       36 NEWCLOSURE                       R6 P0
+       37 CAPTURE                          VAL R0
+       38 SETTABLEKS                       R6 R5 K8 ["OnGroupRenameDialogClosed"]
+       40 NEWCLOSURE                       R6 P1
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          VAL R2
+       43 SETTABLEKS                       R6 R5 K9 ["OnWorldChanged"]
+       45 NEWCLOSURE                       R6 P2
+       46 CAPTURE                          VAL R2
+       47 SETTABLEKS                       R6 R5 K10 ["OnUseWorkspaceCollisionGroupsChanged"]
+       49 NEWCLOSURE                       R6 P3
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          VAL R2
+       52 SETTABLEKS                       R6 R5 K11 ["OnGroupAdded"]
+       54 NEWCLOSURE                       R6 P4
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R6 R5 K12 ["OnGroupDeleted"]
+       58 NEWCLOSURE                       R6 P5
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R6 R5 K13 ["OnGroupRenamed"]
+       62 CALL                             R3 2 -1
+       63 RETURN                           R3 -1
 
-PROTO_17:
+PROTO_19:
         0 JUMPIFNOTEQKNIL                  R0 ; [+3]
         2 NEWTABLE                         R0 0 0
         4 GETUPVAL                         R1 0
@@ -483,7 +559,7 @@ PROTO_17:
         8 CALL                             R1 2 0
         9 RETURN                           R0 0
 
-PROTO_18:
+PROTO_20:
         0 DUPTABLE                         R3 K1 [{"plugin"}]
         1 GETTABLEKS                       R4 R0 K2 ["props"]
         3 GETTABLEKS                       R4 R4 K3 ["Plugin"]
@@ -505,7 +581,7 @@ PROTO_18:
        28 SETTABLEKS                       R2 R1 K10 ["Name"]
        30 RETURN                           R0 0
 
-PROTO_19:
+PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["setStateAndRefreshConnection"]
         2 NAMECALL                         R1 R1 K1 ["Disconnect"]
         4 CALL                             R1 1 0
@@ -550,42 +626,50 @@ MAIN:
        64 GETTABLEKS                       R8 R8 K2 ["Parent"]
        66 GETTABLEKS                       R8 R8 K13 ["Constants"]
        68 CALL                             R7 1 1
-       69 GETTABLEKS                       R8 R1 K14 ["Component"]
-       71 LOADK                            R10 K15 ["Gui"]
-       72 NAMECALL                         R8 R8 K16 ["extend"]
-       74 CALL                             R8 2 1
-       75 DUPCLOSURE                       R9 K17 [PROTO_0]
-       76 SETTABLEKS                       R9 R8 K18 ["init"]
-       78 DUPCLOSURE                       R9 K19 [PROTO_1]
-       79 CAPTURE                          VAL R5
-       80 SETTABLEKS                       R9 R8 K20 ["setStateAndRefresh"]
-       82 DUPCLOSURE                       R9 K21 [PROTO_2]
-       83 DUPCLOSURE                       R10 K22 [PROTO_9]
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R7
-       86 SETTABLEKS                       R10 R8 K23 ["GetGroups"]
-       88 DUPCLOSURE                       R10 K24 [PROTO_11]
-       89 SETTABLEKS                       R10 R8 K25 ["shouldUpdate"]
-       91 DUPCLOSURE                       R10 K26 [PROTO_16]
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          VAL R6
-       94 SETTABLEKS                       R10 R8 K27 ["render"]
-       96 DUPCLOSURE                       R10 K28 [PROTO_18]
-       97 SETTABLEKS                       R10 R8 K29 ["didMount"]
-       99 DUPCLOSURE                       R10 K30 [PROTO_19]
-      100 SETTABLEKS                       R10 R8 K31 ["willUnmount"]
-      102 GETTABLEKS                       R10 R3 K32 ["withContext"]
-      104 DUPTABLE                         R11 K37 [{"Plugin", "Stylizer", "Localization", "Mouse"}]
-      105 GETTABLEKS                       R12 R3 K33 ["Plugin"]
-      107 SETTABLEKS                       R12 R11 K33 ["Plugin"]
-      109 GETTABLEKS                       R12 R3 K34 ["Stylizer"]
-      111 SETTABLEKS                       R12 R11 K34 ["Stylizer"]
-      113 GETTABLEKS                       R12 R3 K35 ["Localization"]
-      115 SETTABLEKS                       R12 R11 K35 ["Localization"]
-      117 GETTABLEKS                       R12 R3 K36 ["Mouse"]
-      119 SETTABLEKS                       R12 R11 K36 ["Mouse"]
-      121 CALL                             R10 1 1
-      122 MOVE                             R11 R8
-      123 CALL                             R10 1 1
-      124 MOVE                             R8 R10
-      125 RETURN                           R8 1
+       69 GETIMPORT                        R8 K4 [require]
+       71 GETIMPORT                        R9 K1 [script]
+       73 GETTABLEKS                       R9 R9 K2 ["Parent"]
+       75 GETTABLEKS                       R9 R9 K2 ["Parent"]
+       77 GETTABLEKS                       R9 R9 K14 ["getEngineFeatureMultiworldCollisionGroups"]
+       79 CALL                             R8 1 1
+       80 GETTABLEKS                       R9 R1 K15 ["Component"]
+       82 LOADK                            R11 K16 ["Gui"]
+       83 NAMECALL                         R9 R9 K17 ["extend"]
+       85 CALL                             R9 2 1
+       86 DUPCLOSURE                       R10 K18 [PROTO_0]
+       87 CAPTURE                          VAL R8
+       88 SETTABLEKS                       R10 R9 K19 ["init"]
+       90 DUPCLOSURE                       R10 K20 [PROTO_1]
+       91 CAPTURE                          VAL R5
+       92 CAPTURE                          VAL R8
+       93 SETTABLEKS                       R10 R9 K21 ["setStateAndRefresh"]
+       95 DUPCLOSURE                       R10 K22 [PROTO_2]
+       96 DUPCLOSURE                       R11 K23 [PROTO_9]
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R7
+       99 SETTABLEKS                       R11 R9 K24 ["GetGroups"]
+      101 DUPCLOSURE                       R11 K25 [PROTO_11]
+      102 SETTABLEKS                       R11 R9 K26 ["shouldUpdate"]
+      104 DUPCLOSURE                       R11 K27 [PROTO_18]
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          VAL R6
+      107 SETTABLEKS                       R11 R9 K28 ["render"]
+      109 DUPCLOSURE                       R11 K29 [PROTO_20]
+      110 SETTABLEKS                       R11 R9 K30 ["didMount"]
+      112 DUPCLOSURE                       R11 K31 [PROTO_21]
+      113 SETTABLEKS                       R11 R9 K32 ["willUnmount"]
+      115 GETTABLEKS                       R11 R3 K33 ["withContext"]
+      117 DUPTABLE                         R12 K38 [{"Plugin", "Stylizer", "Localization", "Mouse"}]
+      118 GETTABLEKS                       R13 R3 K34 ["Plugin"]
+      120 SETTABLEKS                       R13 R12 K34 ["Plugin"]
+      122 GETTABLEKS                       R13 R3 K35 ["Stylizer"]
+      124 SETTABLEKS                       R13 R12 K35 ["Stylizer"]
+      126 GETTABLEKS                       R13 R3 K36 ["Localization"]
+      128 SETTABLEKS                       R13 R12 K36 ["Localization"]
+      130 GETTABLEKS                       R13 R3 K37 ["Mouse"]
+      132 SETTABLEKS                       R13 R12 K37 ["Mouse"]
+      134 CALL                             R11 1 1
+      135 MOVE                             R12 R9
+      136 CALL                             R11 1 1
+      137 MOVE                             R9 R11
+      138 RETURN                           R9 1

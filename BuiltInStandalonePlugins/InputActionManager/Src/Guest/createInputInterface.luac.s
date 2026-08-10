@@ -1517,6 +1517,32 @@ PROTO_45:
       170 RETURN                           R0 0
 
 PROTO_46:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["inputContextInstances"]
+        3 GETTABLEKS                       R4 R1 K1 ["uuid"]
+        5 GETTABLE                         R2 R3 R4
+        6 JUMPIFNOT                        R2 ; [+7]
+        7 NAMECALL                         R3 R2 K2 ["Clone"]
+        9 CALL                             R3 1 1
+       10 GETTABLEKS                       R4 R2 K3 ["Parent"]
+       12 SETTABLEKS                       R4 R3 K3 ["Parent"]
+       14 RETURN                           R0 0
+
+PROTO_47:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["inputActionInstances"]
+        3 GETTABLEKS                       R4 R1 K1 ["uuid"]
+        5 GETTABLE                         R2 R3 R4
+        6 JUMPIFNOT                        R2 ; [+10]
+        7 GETTABLEKS                       R3 R2 K2 ["Parent"]
+        9 JUMPIFNOT                        R3 ; [+7]
+       10 NAMECALL                         R3 R2 K3 ["Clone"]
+       12 CALL                             R3 1 1
+       13 GETTABLEKS                       R4 R2 K2 ["Parent"]
+       15 SETTABLEKS                       R4 R3 K2 ["Parent"]
+       17 RETURN                           R0 0
+
+PROTO_48:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["connectionsByUuid"]
         3 LOADNIL                          R1
@@ -1544,12 +1570,12 @@ PROTO_46:
        32 CALL                             R0 1 0
        33 RETURN                           R0 0
 
-PROTO_47:
+PROTO_49:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 0
         2 RETURN                           R0 0
 
-PROTO_48:
+PROTO_50:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 0
         2 SETTABLEKS                       R1 R0 K0 ["initialized"]
@@ -1585,7 +1611,7 @@ PROTO_48:
        41 SETTABLEKS                       R1 R2 K8 ["ContextsChanged"]
        43 RETURN                           R0 0
 
-PROTO_49:
+PROTO_51:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["connectionsByUuid"]
         3 LOADNIL                          R2
@@ -1646,136 +1672,101 @@ PROTO_49:
        81 CALL                             R1 0 0
        82 RETURN                           R0 0
 
-PROTO_50:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["connectionsByUuid"]
-        3 LOADNIL                          R1
-        4 LOADNIL                          R2
-        5 FORGPREP                         R0
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R6 R6 K0 ["connectionsByUuid"]
-        9 GETTABLE                         R5 R6 R3
-       10 JUMPIFNOT                        R5 ; [+14]
-       11 MOVE                             R6 R5
-       12 LOADNIL                          R7
-       13 LOADNIL                          R8
-       14 FORGPREP                         R6
-       15 NAMECALL                         R11 R10 K1 ["Disconnect"]
-       17 CALL                             R11 1 0
-       18 FORGLOOP                         R6 2 ; [-4]
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R6 R6 K0 ["connectionsByUuid"]
-       23 LOADNIL                          R7
-       24 SETTABLE                         R7 R6 R3
-       25 FORGLOOP                         R0 2 ; [-20]
-       27 GETIMPORT                        R0 K4 [table.clear]
-       29 GETUPVAL                         R1 0
-       30 GETTABLEKS                       R1 R1 K0 ["connectionsByUuid"]
-       32 CALL                             R0 1 0
-       33 GETUPVAL                         R0 1
-       34 CALL                             R0 0 0
-       35 GETUPVAL                         R0 2
-       36 JUMPIFNOT                        R0 ; [+2]
-       37 GETUPVAL                         R0 2
-       38 CALL                             R0 0 0
-       39 GETUPVAL                         R0 3
-       40 JUMPIFNOT                        R0 ; [+2]
-       41 GETUPVAL                         R0 3
-       42 CALL                             R0 0 0
-       43 GETUPVAL                         R0 4
-       44 JUMPIFNOT                        R0 ; [+2]
-       45 GETUPVAL                         R0 4
-       46 CALL                             R0 0 0
-       47 GETUPVAL                         R0 5
-       48 JUMPIFNOT                        R0 ; [+2]
-       49 GETUPVAL                         R0 5
-       50 CALL                             R0 0 0
-       51 GETUPVAL                         R0 6
-       52 JUMPIFNOT                        R0 ; [+4]
-       53 GETUPVAL                         R0 6
-       54 NAMECALL                         R0 R0 K1 ["Disconnect"]
-       56 CALL                             R0 1 0
-       57 RETURN                           R0 0
-
-PROTO_51:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["connectionsByUuid"]
-        3 LOADNIL                          R1
-        4 LOADNIL                          R2
-        5 FORGPREP                         R0
-        6 GETUPVAL                         R6 0
-        7 GETTABLEKS                       R6 R6 K0 ["connectionsByUuid"]
-        9 GETTABLE                         R5 R6 R3
-       10 JUMPIFNOT                        R5 ; [+14]
-       11 MOVE                             R6 R5
-       12 LOADNIL                          R7
-       13 LOADNIL                          R8
-       14 FORGPREP                         R6
-       15 NAMECALL                         R11 R10 K1 ["Disconnect"]
-       17 CALL                             R11 1 0
-       18 FORGLOOP                         R6 2 ; [-4]
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R6 R6 K0 ["connectionsByUuid"]
-       23 LOADNIL                          R7
-       24 SETTABLE                         R7 R6 R3
-       25 FORGLOOP                         R0 2 ; [-20]
-       27 GETIMPORT                        R0 K4 [table.clear]
-       29 GETUPVAL                         R1 0
-       30 GETTABLEKS                       R1 R1 K0 ["connectionsByUuid"]
-       32 CALL                             R0 1 0
-       33 GETUPVAL                         R0 1
-       34 CALL                             R0 0 0
-       35 GETUPVAL                         R0 2
-       36 JUMPIFNOT                        R0 ; [+2]
-       37 GETUPVAL                         R0 2
-       38 CALL                             R0 0 0
-       39 GETUPVAL                         R0 3
-       40 JUMPIFNOT                        R0 ; [+2]
-       41 GETUPVAL                         R0 3
-       42 CALL                             R0 0 0
-       43 GETUPVAL                         R0 4
-       44 JUMPIFNOT                        R0 ; [+2]
-       45 GETUPVAL                         R0 4
-       46 CALL                             R0 0 0
-       47 GETUPVAL                         R0 5
-       48 JUMPIFNOT                        R0 ; [+2]
-       49 GETUPVAL                         R0 5
-       50 CALL                             R0 0 0
-       51 GETUPVAL                         R0 6
-       52 JUMPIFNOT                        R0 ; [+4]
-       53 GETUPVAL                         R0 6
-       54 NAMECALL                         R0 R0 K1 ["Disconnect"]
-       56 CALL                             R0 1 0
-       57 GETIMPORT                        R0 K4 [table.clear]
-       59 GETUPVAL                         R1 0
-       60 GETTABLEKS                       R1 R1 K5 ["inputContexts"]
-       62 CALL                             R0 1 0
-       63 GETIMPORT                        R0 K4 [table.clear]
-       65 GETUPVAL                         R1 0
-       66 GETTABLEKS                       R1 R1 K6 ["inputActions"]
-       68 CALL                             R0 1 0
-       69 GETIMPORT                        R0 K4 [table.clear]
-       71 GETUPVAL                         R1 0
-       72 GETTABLEKS                       R1 R1 K7 ["inputBindings"]
-       74 CALL                             R0 1 0
-       75 GETIMPORT                        R0 K4 [table.clear]
-       77 GETUPVAL                         R1 0
-       78 GETTABLEKS                       R1 R1 K8 ["inputContextInstances"]
-       80 CALL                             R0 1 0
-       81 GETIMPORT                        R0 K4 [table.clear]
-       83 GETUPVAL                         R1 0
-       84 GETTABLEKS                       R1 R1 K9 ["inputActionInstances"]
-       86 CALL                             R0 1 0
-       87 GETIMPORT                        R0 K4 [table.clear]
-       89 GETUPVAL                         R1 0
-       90 GETTABLEKS                       R1 R1 K10 ["inputBindingInstances"]
-       92 CALL                             R0 1 0
-       93 GETUPVAL                         R0 0
-       94 NEWTABLE                         R1 0 0
-       96 SETTABLEKS                       R1 R0 K11 ["contextOrder"]
-       98 RETURN                           R0 0
-
 PROTO_52:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["connectionsByUuid"]
+        3 LOADNIL                          R1
+        4 LOADNIL                          R2
+        5 FORGPREP                         R0
+        6 GETUPVAL                         R6 0
+        7 GETTABLEKS                       R6 R6 K0 ["connectionsByUuid"]
+        9 GETTABLE                         R5 R6 R3
+       10 JUMPIFNOT                        R5 ; [+14]
+       11 MOVE                             R6 R5
+       12 LOADNIL                          R7
+       13 LOADNIL                          R8
+       14 FORGPREP                         R6
+       15 NAMECALL                         R11 R10 K1 ["Disconnect"]
+       17 CALL                             R11 1 0
+       18 FORGLOOP                         R6 2 ; [-4]
+       20 GETUPVAL                         R6 0
+       21 GETTABLEKS                       R6 R6 K0 ["connectionsByUuid"]
+       23 LOADNIL                          R7
+       24 SETTABLE                         R7 R6 R3
+       25 FORGLOOP                         R0 2 ; [-20]
+       27 GETIMPORT                        R0 K4 [table.clear]
+       29 GETUPVAL                         R1 0
+       30 GETTABLEKS                       R1 R1 K0 ["connectionsByUuid"]
+       32 CALL                             R0 1 0
+       33 GETUPVAL                         R0 1
+       34 CALL                             R0 0 0
+       35 GETUPVAL                         R0 2
+       36 JUMPIFNOT                        R0 ; [+2]
+       37 GETUPVAL                         R0 2
+       38 CALL                             R0 0 0
+       39 GETUPVAL                         R0 3
+       40 JUMPIFNOT                        R0 ; [+2]
+       41 GETUPVAL                         R0 3
+       42 CALL                             R0 0 0
+       43 GETUPVAL                         R0 4
+       44 JUMPIFNOT                        R0 ; [+2]
+       45 GETUPVAL                         R0 4
+       46 CALL                             R0 0 0
+       47 GETUPVAL                         R0 5
+       48 JUMPIFNOT                        R0 ; [+2]
+       49 GETUPVAL                         R0 5
+       50 CALL                             R0 0 0
+       51 GETUPVAL                         R0 6
+       52 CALL                             R0 0 1
+       53 JUMPIFNOT                        R0 ; [+8]
+       54 GETUPVAL                         R0 7
+       55 JUMPIFNOT                        R0 ; [+2]
+       56 GETUPVAL                         R0 7
+       57 CALL                             R0 0 0
+       58 GETUPVAL                         R0 8
+       59 JUMPIFNOT                        R0 ; [+2]
+       60 GETUPVAL                         R0 8
+       61 CALL                             R0 0 0
+       62 GETUPVAL                         R0 9
+       63 JUMPIFNOT                        R0 ; [+4]
+       64 GETUPVAL                         R0 9
+       65 NAMECALL                         R0 R0 K1 ["Disconnect"]
+       67 CALL                             R0 1 0
+       68 RETURN                           R0 0
+
+PROTO_53:
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 0
+        2 GETIMPORT                        R0 K2 [table.clear]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K3 ["inputContexts"]
+        7 CALL                             R0 1 0
+        8 GETIMPORT                        R0 K2 [table.clear]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K4 ["inputActions"]
+       13 CALL                             R0 1 0
+       14 GETIMPORT                        R0 K2 [table.clear]
+       16 GETUPVAL                         R1 1
+       17 GETTABLEKS                       R1 R1 K5 ["inputBindings"]
+       19 CALL                             R0 1 0
+       20 GETIMPORT                        R0 K2 [table.clear]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K6 ["inputContextInstances"]
+       25 CALL                             R0 1 0
+       26 GETIMPORT                        R0 K2 [table.clear]
+       28 GETUPVAL                         R1 1
+       29 GETTABLEKS                       R1 R1 K7 ["inputActionInstances"]
+       31 CALL                             R0 1 0
+       32 GETIMPORT                        R0 K2 [table.clear]
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K8 ["inputBindingInstances"]
+       37 CALL                             R0 1 0
+       38 GETUPVAL                         R0 1
+       39 NEWTABLE                         R1 0 0
+       41 SETTABLEKS                       R1 R0 K9 ["contextOrder"]
+       43 RETURN                           R0 0
+
+PROTO_54:
         0 DUPTABLE                         R1 K12 [{[1] = , ["inputContexts"], ["inputActions"], ["inputBindings"], ["inputContextInstances"], ["inputActionInstances"], ["inputBindingInstances"], ["contextOrder"], ["connectionsByUuid"], ["initialized"] = False}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K2 ["inputContexts"]
@@ -1919,49 +1910,71 @@ PROTO_52:
       161 CAPTURE                          UPVAL U2
       162 NAMECALL                         R30 R0 K18 ["OnHostEvent"]
       164 CALL                             R30 3 2
-      165 NEWCLOSURE                       R32 P25
-      166 CAPTURE                          VAL R1
-      167 NEWCLOSURE                       R33 P26
-      168 CAPTURE                          VAL R1
-      169 CAPTURE                          VAL R23
-      170 CAPTURE                          VAL R0
-      171 CAPTURE                          UPVAL U2
-      172 CAPTURE                          UPVAL U4
-      173 LOADK                            R36 K21 ["RequestAsync"]
-      174 NEWCLOSURE                       R37 P27
-      175 CAPTURE                          VAL R1
-      176 CAPTURE                          VAL R33
-      177 NAMECALL                         R34 R0 K18 ["OnHostEvent"]
-      179 CALL                             R34 3 2
-      180 NEWCLOSURE                       R36 P28
-      181 CAPTURE                          VAL R1
-      182 CAPTURE                          VAL R25
-      183 CAPTURE                          VAL R35
-      184 CAPTURE                          VAL R27
-      185 CAPTURE                          VAL R29
-      186 CAPTURE                          VAL R31
-      187 CAPTURE                          VAL R11
-      188 NAMECALL                         R37 R0 K22 ["IsHost"]
-      190 CALL                             R37 1 1
-      191 JUMPIFNOT                        R37 ; [+2]
-      192 MOVE                             R37 R33
-      193 CALL                             R37 0 0
-      194 NEWCLOSURE                       R37 P29
-      195 CAPTURE                          VAL R1
-      196 CAPTURE                          VAL R25
-      197 CAPTURE                          VAL R35
-      198 CAPTURE                          VAL R27
-      199 CAPTURE                          VAL R29
-      200 CAPTURE                          VAL R31
-      201 CAPTURE                          VAL R11
-      202 DUPTABLE                         R38 K26 [{"destroy", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding"}]
-      203 SETTABLEKS                       R37 R38 K23 ["destroy"]
-      205 SETTABLEKS                       R34 R38 K24 ["Request"]
-      207 SETTABLEKS                       R24 R38 K25 ["GetContextsAsync"]
-      209 SETTABLEKS                       R26 R38 K17 ["UpdateContext"]
-      211 SETTABLEKS                       R28 R38 K19 ["UpdateAction"]
-      213 SETTABLEKS                       R30 R38 K20 ["UpdateBinding"]
-      215 RETURN                           R38 1
+      165 LOADNIL                          R32
+      166 LOADNIL                          R33
+      167 LOADNIL                          R34
+      168 LOADNIL                          R35
+      169 GETUPVAL                         R36 6
+      170 CALL                             R36 0 1
+      171 JUMPIFNOT                        R36 ; [+16]
+      172 LOADK                            R38 K21 ["DuplicateContext"]
+      173 NEWCLOSURE                       R39 P25
+      174 CAPTURE                          VAL R1
+      175 NAMECALL                         R36 R0 K18 ["OnHostEvent"]
+      177 CALL                             R36 3 2
+      178 MOVE                             R32 R36
+      179 MOVE                             R33 R37
+      180 LOADK                            R38 K22 ["DuplicateAction"]
+      181 NEWCLOSURE                       R39 P26
+      182 CAPTURE                          VAL R1
+      183 NAMECALL                         R36 R0 K18 ["OnHostEvent"]
+      185 CALL                             R36 3 2
+      186 MOVE                             R34 R36
+      187 MOVE                             R35 R37
+      188 NEWCLOSURE                       R36 P27
+      189 CAPTURE                          VAL R1
+      190 NEWCLOSURE                       R37 P28
+      191 CAPTURE                          VAL R1
+      192 CAPTURE                          VAL R23
+      193 CAPTURE                          VAL R0
+      194 CAPTURE                          UPVAL U2
+      195 CAPTURE                          UPVAL U4
+      196 LOADK                            R40 K23 ["RequestAsync"]
+      197 NEWCLOSURE                       R41 P29
+      198 CAPTURE                          VAL R1
+      199 CAPTURE                          VAL R37
+      200 NAMECALL                         R38 R0 K18 ["OnHostEvent"]
+      202 CALL                             R38 3 2
+      203 NEWCLOSURE                       R40 P30
+      204 CAPTURE                          VAL R1
+      205 CAPTURE                          VAL R25
+      206 CAPTURE                          VAL R39
+      207 CAPTURE                          VAL R27
+      208 CAPTURE                          VAL R29
+      209 CAPTURE                          VAL R31
+      210 CAPTURE                          UPVAL U6
+      211 CAPTURE                          REF R33
+      212 CAPTURE                          REF R35
+      213 CAPTURE                          VAL R11
+      214 NAMECALL                         R41 R0 K24 ["IsHost"]
+      216 CALL                             R41 1 1
+      217 JUMPIFNOT                        R41 ; [+2]
+      218 MOVE                             R41 R37
+      219 CALL                             R41 0 0
+      220 NEWCLOSURE                       R41 P31
+      221 CAPTURE                          VAL R40
+      222 CAPTURE                          VAL R1
+      223 DUPTABLE                         R42 K28 [{"destroy", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+      224 SETTABLEKS                       R41 R42 K25 ["destroy"]
+      226 SETTABLEKS                       R38 R42 K26 ["Request"]
+      228 SETTABLEKS                       R24 R42 K27 ["GetContextsAsync"]
+      230 SETTABLEKS                       R26 R42 K17 ["UpdateContext"]
+      232 SETTABLEKS                       R28 R42 K19 ["UpdateAction"]
+      234 SETTABLEKS                       R30 R42 K20 ["UpdateBinding"]
+      236 SETTABLEKS                       R32 R42 K21 ["DuplicateContext"]
+      238 SETTABLEKS                       R34 R42 K22 ["DuplicateAction"]
+      240 CLOSEUPVALS                      R33
+      241 RETURN                           R42 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -2003,11 +2016,15 @@ MAIN:
        58 GETIMPORT                        R9 K12 [require]
        60 GETTABLEKS                       R10 R8 K20 ["getFFlagIAMDisableRenamingDefaultContext"]
        62 CALL                             R9 1 1
-       63 DUPCLOSURE                       R10 K21 [PROTO_52]
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R9
-       68 CAPTURE                          VAL R0
-       69 CAPTURE                          VAL R1
-       70 RETURN                           R10 1
+       63 GETIMPORT                        R10 K12 [require]
+       65 GETTABLEKS                       R11 R8 K21 ["getFFlagIAMDuplicate"]
+       67 CALL                             R10 1 1
+       68 DUPCLOSURE                       R11 K22 [PROTO_54]
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R9
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          VAL R10
+       76 RETURN                           R11 1

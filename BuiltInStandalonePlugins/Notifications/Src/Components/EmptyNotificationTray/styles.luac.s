@@ -187,7 +187,7 @@ MAIN:
       261 CALL                             R12 2 1
       262 MOVE                             R13 R2
       263 LOADK                            R14 K92 [">> .Component-EmptyNotificationTray-SubText"]
-      264 DUPTABLE                         R15 K94 [{["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextColor3"] = "$TextSecondary", ["TextSize"] = 18, ["TextWrapped"] = True, ["Font"]}]
+      264 DUPTABLE                         R15 K91 [{["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextColor3"] = "$TextPrimary", ["TextSize"] = 18, ["TextWrapped"] = True, ["Font"]}]
       265 GETIMPORT                        R16 K11 [UDim2.new]
       267 LOADN                            R17 1
       268 LOADN                            R18 0

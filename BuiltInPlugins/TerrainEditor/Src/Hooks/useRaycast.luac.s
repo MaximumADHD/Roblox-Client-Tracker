@@ -614,29 +614,26 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+8]
-        3 GETUPVAL                         R0 1
-        4 GETUPVAL                         R1 2
-        5 GETUPVAL                         R2 3
-        6 NAMECALL                         R2 R2 K0 ["IsMouseDown"]
-        8 CALL                             R2 1 -1
-        9 CALL                             R1 -1 -1
-       10 CALL                             R0 -1 0
-       11 GETUPVAL                         R0 4
-       12 LOADK                            R2 K1 ["TerrainRaycast"]
-       13 LOADN                            R3 1
-       14 NEWCLOSURE                       R4 P0
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U1
-       17 CAPTURE                          UPVAL U2
-       18 CAPTURE                          UPVAL U5
-       19 CAPTURE                          UPVAL U6
-       20 NAMECALL                         R0 R0 K2 ["BindToRenderStep"]
-       22 CALL                             R0 4 0
-       23 DUPCLOSURE                       R0 K3 [PROTO_12]
-       24 CAPTURE                          UPVAL U4
-       25 RETURN                           R0 1
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 NAMECALL                         R2 R2 K0 ["IsMouseDown"]
+        5 CALL                             R2 1 -1
+        6 CALL                             R1 -1 -1
+        7 CALL                             R0 -1 0
+        8 GETUPVAL                         R0 3
+        9 LOADK                            R2 K1 ["TerrainRaycast"]
+       10 LOADN                            R3 1
+       11 NEWCLOSURE                       R4 P0
+       12 CAPTURE                          UPVAL U2
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          UPVAL U4
+       16 CAPTURE                          UPVAL U5
+       17 NAMECALL                         R0 R0 K2 ["BindToRenderStep"]
+       19 CALL                             R0 4 0
+       20 DUPCLOSURE                       R0 K3 [PROTO_12]
+       21 CAPTURE                          UPVAL U3
+       22 RETURN                           R0 1
 
 PROTO_14:
         0 GETUPVAL                         R3 0
@@ -890,21 +887,20 @@ PROTO_14:
       306 CALL                             R24 3 0
       307 GETUPVAL                         R24 2
       308 NEWCLOSURE                       R25 P9
-      309 CAPTURE                          UPVAL U26
-      310 CAPTURE                          VAL R22
-      311 CAPTURE                          VAL R23
-      312 CAPTURE                          VAL R3
-      313 CAPTURE                          UPVAL U27
-      314 CAPTURE                          VAL R13
-      315 CAPTURE                          VAL R14
-      316 NEWTABLE                         R26 0 1
-      318 MOVE                             R27 R22
-      319 SETLIST                          R26 R27 1 [1]
-      321 CALL                             R24 2 0
-      322 MOVE                             R24 R5
-      323 MOVE                             R25 R7
-      324 GETTABLEKS                       R26 R16 K34 ["current"]
-      326 RETURN                           R24 3
+      309 CAPTURE                          VAL R22
+      310 CAPTURE                          VAL R23
+      311 CAPTURE                          VAL R3
+      312 CAPTURE                          UPVAL U26
+      313 CAPTURE                          VAL R13
+      314 CAPTURE                          VAL R14
+      315 NEWTABLE                         R26 0 1
+      317 MOVE                             R27 R22
+      318 SETLIST                          R26 R27 1 [1]
+      320 CALL                             R24 2 0
+      321 MOVE                             R24 R5
+      322 MOVE                             R25 R7
+      323 GETTABLEKS                       R26 R16 K34 ["current"]
+      325 RETURN                           R24 3
 
 MAIN:
         0 PREPVARARGS                      0
@@ -969,71 +965,65 @@ MAIN:
       105 GETTABLEKS                       R16 R16 K21 ["Util"]
       107 GETTABLEKS                       R16 R16 K26 ["getSnappedToVoxel"]
       109 CALL                             R15 1 1
-      110 GETIMPORT                        R16 K5 [require]
-      112 GETTABLEKS                       R17 R0 K13 ["Src"]
-      114 GETTABLEKS                       R17 R17 K27 ["Flags"]
-      116 GETTABLEKS                       R17 R17 K28 ["getFFlagTerrainEditorSaveInitialRaycast"]
-      118 CALL                             R16 1 1
-      119 GETIMPORT                        R17 K30 [game]
-      121 LOADK                            R19 K31 ["CoreGui"]
-      122 NAMECALL                         R17 R17 K32 ["GetService"]
-      124 CALL                             R17 2 1
-      125 GETIMPORT                        R18 K30 [game]
-      127 LOADK                            R20 K33 ["Players"]
-      128 NAMECALL                         R18 R18 K32 ["GetService"]
-      130 CALL                             R18 2 1
-      131 GETIMPORT                        R19 K30 [game]
-      133 LOADK                            R21 K34 ["RunService"]
-      134 NAMECALL                         R19 R19 K32 ["GetService"]
-      136 CALL                             R19 2 1
-      137 GETIMPORT                        R20 K30 [game]
-      139 LOADK                            R22 K35 ["Workspace"]
-      140 NAMECALL                         R20 R20 K32 ["GetService"]
-      142 CALL                             R20 2 1
-      143 GETIMPORT                        R21 K5 [require]
-      145 GETTABLEKS                       R22 R0 K13 ["Src"]
-      147 GETTABLEKS                       R22 R22 K36 ["Types"]
-      149 CALL                             R21 1 1
-      150 GETTABLEKS                       R22 R21 K37 ["BrushSettings"]
-      152 GETTABLEKS                       R23 R21 K38 ["BrushShape"]
-      154 GETTABLEKS                       R24 R21 K39 ["Category"]
-      156 GETTABLEKS                       R25 R21 K40 ["MaterialSettings"]
-      158 GETTABLEKS                       R26 R21 K41 ["PlaneLock"]
-      160 GETTABLEKS                       R27 R21 K42 ["RaycastType"]
-      162 GETTABLEKS                       R28 R21 K43 ["Snapping"]
-      164 GETTABLEKS                       R29 R21 K44 ["Tool"]
-      166 GETIMPORT                        R30 K5 [require]
-      168 GETTABLEKS                       R31 R0 K13 ["Src"]
-      170 GETTABLEKS                       R31 R31 K27 ["Flags"]
-      172 GETTABLEKS                       R31 R31 K45 ["getFFlagTerrainEditorRaycastCachedTerrain"]
-      174 CALL                             R30 1 1
-      175 DUPCLOSURE                       R31 K46 [PROTO_14]
-      176 CAPTURE                          VAL R7
-      177 CAPTURE                          VAL R6
-      178 CAPTURE                          VAL R4
-      179 CAPTURE                          VAL R13
-      180 CAPTURE                          VAL R5
-      181 CAPTURE                          VAL R9
-      182 CAPTURE                          VAL R24
-      183 CAPTURE                          VAL R3
-      184 CAPTURE                          VAL R22
-      185 CAPTURE                          VAL R10
-      186 CAPTURE                          VAL R29
-      187 CAPTURE                          VAL R25
-      188 CAPTURE                          VAL R26
-      189 CAPTURE                          VAL R23
-      190 CAPTURE                          VAL R12
-      191 CAPTURE                          VAL R17
-      192 CAPTURE                          VAL R20
-      193 CAPTURE                          VAL R30
-      194 CAPTURE                          VAL R18
-      195 CAPTURE                          VAL R1
-      196 CAPTURE                          VAL R27
-      197 CAPTURE                          VAL R14
-      198 CAPTURE                          VAL R11
-      199 CAPTURE                          VAL R28
-      200 CAPTURE                          VAL R15
-      201 CAPTURE                          VAL R8
-      202 CAPTURE                          VAL R16
-      203 CAPTURE                          VAL R19
-      204 RETURN                           R31 1
+      110 GETIMPORT                        R16 K28 [game]
+      112 LOADK                            R18 K29 ["CoreGui"]
+      113 NAMECALL                         R16 R16 K30 ["GetService"]
+      115 CALL                             R16 2 1
+      116 GETIMPORT                        R17 K28 [game]
+      118 LOADK                            R19 K31 ["Players"]
+      119 NAMECALL                         R17 R17 K30 ["GetService"]
+      121 CALL                             R17 2 1
+      122 GETIMPORT                        R18 K28 [game]
+      124 LOADK                            R20 K32 ["RunService"]
+      125 NAMECALL                         R18 R18 K30 ["GetService"]
+      127 CALL                             R18 2 1
+      128 GETIMPORT                        R19 K28 [game]
+      130 LOADK                            R21 K33 ["Workspace"]
+      131 NAMECALL                         R19 R19 K30 ["GetService"]
+      133 CALL                             R19 2 1
+      134 GETIMPORT                        R20 K5 [require]
+      136 GETTABLEKS                       R21 R0 K13 ["Src"]
+      138 GETTABLEKS                       R21 R21 K34 ["Types"]
+      140 CALL                             R20 1 1
+      141 GETTABLEKS                       R21 R20 K35 ["BrushSettings"]
+      143 GETTABLEKS                       R22 R20 K36 ["BrushShape"]
+      145 GETTABLEKS                       R23 R20 K37 ["Category"]
+      147 GETTABLEKS                       R24 R20 K38 ["MaterialSettings"]
+      149 GETTABLEKS                       R25 R20 K39 ["PlaneLock"]
+      151 GETTABLEKS                       R26 R20 K40 ["RaycastType"]
+      153 GETTABLEKS                       R27 R20 K41 ["Snapping"]
+      155 GETTABLEKS                       R28 R20 K42 ["Tool"]
+      157 GETIMPORT                        R29 K5 [require]
+      159 GETTABLEKS                       R30 R0 K13 ["Src"]
+      161 GETTABLEKS                       R30 R30 K43 ["Flags"]
+      163 GETTABLEKS                       R30 R30 K44 ["getFFlagTerrainEditorRaycastCachedTerrain"]
+      165 CALL                             R29 1 1
+      166 DUPCLOSURE                       R30 K45 [PROTO_14]
+      167 CAPTURE                          VAL R7
+      168 CAPTURE                          VAL R6
+      169 CAPTURE                          VAL R4
+      170 CAPTURE                          VAL R13
+      171 CAPTURE                          VAL R5
+      172 CAPTURE                          VAL R9
+      173 CAPTURE                          VAL R23
+      174 CAPTURE                          VAL R3
+      175 CAPTURE                          VAL R21
+      176 CAPTURE                          VAL R10
+      177 CAPTURE                          VAL R28
+      178 CAPTURE                          VAL R24
+      179 CAPTURE                          VAL R25
+      180 CAPTURE                          VAL R22
+      181 CAPTURE                          VAL R12
+      182 CAPTURE                          VAL R16
+      183 CAPTURE                          VAL R19
+      184 CAPTURE                          VAL R29
+      185 CAPTURE                          VAL R17
+      186 CAPTURE                          VAL R1
+      187 CAPTURE                          VAL R26
+      188 CAPTURE                          VAL R14
+      189 CAPTURE                          VAL R11
+      190 CAPTURE                          VAL R27
+      191 CAPTURE                          VAL R15
+      192 CAPTURE                          VAL R8
+      193 CAPTURE                          VAL R18
+      194 RETURN                           R30 1

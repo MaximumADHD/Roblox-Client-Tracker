@@ -85,11 +85,11 @@ MAIN:
       122 NEWTABLE                         R17 0 3
       124 MOVE                             R18 R2
       125 LOADK                            R19 K72 [":hover"]
-      126 DUPTABLE                         R20 K74 [{["BackgroundColor3"] = "$ActionHover"}]
+      126 DUPTABLE                         R20 K74 [{["BackgroundColor3"] = "$ActionHover", ["BackgroundTransparency"] = 0}]
       127 CALL                             R18 2 1
       128 MOVE                             R19 R2
       129 LOADK                            R20 K75 [":press"]
-      130 DUPTABLE                         R21 K77 [{["BackgroundColor3"] = "$ActionActivated"}]
+      130 DUPTABLE                         R21 K77 [{["BackgroundColor3"] = "$ActionActivated", ["BackgroundTransparency"] = 0}]
       131 CALL                             R19 2 1
       132 MOVE                             R20 R2
       133 LOADK                            R21 K78 ["::UICorner"]
@@ -114,11 +114,11 @@ MAIN:
       159 NEWTABLE                         R18 0 3
       161 MOVE                             R19 R2
       162 LOADK                            R20 K72 [":hover"]
-      163 DUPTABLE                         R21 K74 [{["BackgroundColor3"] = "$ActionHover"}]
+      163 DUPTABLE                         R21 K74 [{["BackgroundColor3"] = "$ActionHover", ["BackgroundTransparency"] = 0}]
       164 CALL                             R19 2 1
       165 MOVE                             R20 R2
       166 LOADK                            R21 K75 [":press"]
-      167 DUPTABLE                         R22 K77 [{["BackgroundColor3"] = "$ActionActivated"}]
+      167 DUPTABLE                         R22 K77 [{["BackgroundColor3"] = "$ActionActivated", ["BackgroundTransparency"] = 0}]
       168 CALL                             R20 2 1
       169 MOVE                             R21 R2
       170 LOADK                            R22 K78 ["::UICorner"]

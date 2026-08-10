@@ -466,22 +466,20 @@ PROTO_12:
         5 GETTABLEKS                       R0 R0 K0 ["styleRulePropertyChangedConnection"]
         7 NAMECALL                         R0 R0 K1 ["Disconnect"]
         9 CALL                             R0 1 0
-       10 GETUPVAL                         R0 1
-       11 JUMPIFNOT                        R0 ; [+14]
-       12 GETUPVAL                         R0 0
-       13 GETTABLEKS                       R0 R0 K2 ["styleRuleChangedConnection"]
-       15 JUMPIFNOT                        R0 ; [+6]
-       16 GETUPVAL                         R0 0
-       17 GETTABLEKS                       R0 R0 K2 ["styleRuleChangedConnection"]
-       19 NAMECALL                         R0 R0 K1 ["Disconnect"]
-       21 CALL                             R0 1 0
-       22 GETUPVAL                         R0 0
-       23 LOADNIL                          R1
-       24 SETTABLEKS                       R1 R0 K2 ["styleRuleChangedConnection"]
-       26 GETUPVAL                         R0 0
-       27 LOADNIL                          R1
-       28 SETTABLEKS                       R1 R0 K0 ["styleRulePropertyChangedConnection"]
-       30 RETURN                           R0 0
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K2 ["styleRuleChangedConnection"]
+       13 JUMPIFNOT                        R0 ; [+6]
+       14 GETUPVAL                         R0 0
+       15 GETTABLEKS                       R0 R0 K2 ["styleRuleChangedConnection"]
+       17 NAMECALL                         R0 R0 K1 ["Disconnect"]
+       19 CALL                             R0 1 0
+       20 GETUPVAL                         R0 0
+       21 LOADNIL                          R1
+       22 SETTABLEKS                       R1 R0 K2 ["styleRuleChangedConnection"]
+       24 GETUPVAL                         R0 0
+       25 LOADNIL                          R1
+       26 SETTABLEKS                       R1 R0 K0 ["styleRulePropertyChangedConnection"]
+       28 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -554,22 +552,20 @@ PROTO_16:
        21 NAMECALL                         R1 R1 K4 ["Connect"]
        23 CALL                             R1 2 1
        24 SETTABLEKS                       R1 R0 K5 ["styleRulePropertyChangedConnection"]
-       26 GETUPVAL                         R0 1
-       27 JUMPIFNOT                        R0 ; [+18]
-       28 GETUPVAL                         R0 0
-       29 GETUPVAL                         R1 0
-       30 GETTABLEKS                       R1 R1 K1 ["props"]
-       32 GETTABLEKS                       R1 R1 K2 ["StyleRule"]
-       34 GETTABLEKS                       R1 R1 K6 ["Changed"]
-       36 NEWCLOSURE                       R3 P1
-       37 CAPTURE                          UPVAL U0
-       38 CAPTURE                          UPVAL U2
-       39 CAPTURE                          UPVAL U3
-       40 CAPTURE                          UPVAL U4
-       41 NAMECALL                         R1 R1 K4 ["Connect"]
-       43 CALL                             R1 2 1
-       44 SETTABLEKS                       R1 R0 K7 ["styleRuleChangedConnection"]
-       46 RETURN                           R0 0
+       26 GETUPVAL                         R0 0
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K1 ["props"]
+       30 GETTABLEKS                       R1 R1 K2 ["StyleRule"]
+       32 GETTABLEKS                       R1 R1 K6 ["Changed"]
+       34 NEWCLOSURE                       R3 P1
+       35 CAPTURE                          UPVAL U0
+       36 CAPTURE                          UPVAL U1
+       37 CAPTURE                          UPVAL U2
+       38 CAPTURE                          UPVAL U3
+       39 NAMECALL                         R1 R1 K4 ["Connect"]
+       41 CALL                             R1 2 1
+       42 SETTABLEKS                       R1 R0 K7 ["styleRuleChangedConnection"]
+       44 RETURN                           R0 0
 
 PROTO_17:
         0 DUPTABLE                         R1 K5 [{[1] = True, ["instance"] = , ["selection"]}]
@@ -618,16 +614,14 @@ PROTO_17:
        53 SETTABLEKS                       R1 R0 K14 ["updatePreviewSize"]
        55 NEWCLOSURE                       R1 P6
        56 CAPTURE                          VAL R0
-       57 CAPTURE                          UPVAL U16
-       58 SETTABLEKS                       R1 R0 K15 ["removeStyleRuleConnection"]
-       60 NEWCLOSURE                       R1 P7
-       61 CAPTURE                          VAL R0
-       62 CAPTURE                          UPVAL U16
-       63 CAPTURE                          UPVAL U3
-       64 CAPTURE                          UPVAL U1
-       65 CAPTURE                          UPVAL U0
-       66 SETTABLEKS                       R1 R0 K16 ["createStyleRuleConnection"]
-       68 RETURN                           R0 0
+       57 SETTABLEKS                       R1 R0 K15 ["removeStyleRuleConnection"]
+       59 NEWCLOSURE                       R1 P7
+       60 CAPTURE                          VAL R0
+       61 CAPTURE                          UPVAL U3
+       62 CAPTURE                          UPVAL U1
+       63 CAPTURE                          UPVAL U0
+       64 SETTABLEKS                       R1 R0 K16 ["createStyleRuleConnection"]
+       66 RETURN                           R0 0
 
 PROTO_18:
         0 GETIMPORT                        R0 K2 [Instance.new]
@@ -813,48 +807,35 @@ PROTO_22:
       163 RETURN                           R8 1
 
 PROTO_23:
-        0 GETUPVAL                         R3 0
-        1 JUMPIFNOT                        R3 ; [+2]
-        2 LOADB                            R2 0
-        3 JUMP                             ; [+7]
-        4 GETTABLEKS                       R3 R0 K0 ["IsDirty"]
-        6 LOADN                            R4 0
-        7 JUMPIFLT                         R4 R3 ; [+2]
-        9 LOADB                            R2 0 +1
-       10 LOADB                            R2 1
-       11 GETTABLEKS                       R3 R0 K1 ["StyleRule"]
-       13 GETTABLEKS                       R4 R1 K1 ["StyleRule"]
-       15 JUMPIFNOTEQ                      R3 R4 ; [+2]
-       17 JUMPIFNOT                        R2 ; [+38]
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R3 R3 K2 ["getPreview"]
-       21 GETTABLEKS                       R4 R0 K1 ["StyleRule"]
-       23 CALL                             R3 1 1
-       24 JUMPIF                           R3 ; [+3]
-       25 GETUPVAL                         R3 2
-       26 GETTABLEKS                       R3 R3 K3 ["None"]
-       28 DUPTABLE                         R4 K7 [{"StyleRule", "hasVariant", "canApplyVariant", "instance"}]
-       29 GETTABLEKS                       R5 R0 K1 ["StyleRule"]
-       31 SETTABLEKS                       R5 R4 K1 ["StyleRule"]
-       33 GETUPVAL                         R5 3
-       34 GETTABLEKS                       R5 R5 K8 ["instancesHaveVariant"]
-       36 GETTABLEKS                       R6 R1 K9 ["selection"]
-       38 GETTABLEKS                       R7 R0 K1 ["StyleRule"]
-       40 CALL                             R5 2 1
-       41 SETTABLEKS                       R5 R4 K4 ["hasVariant"]
-       43 GETUPVAL                         R5 3
-       44 GETTABLEKS                       R5 R5 K5 ["canApplyVariant"]
-       46 GETTABLEKS                       R6 R0 K1 ["StyleRule"]
-       48 GETTABLEKS                       R7 R1 K9 ["selection"]
-       50 CALL                             R5 2 1
-       51 SETTABLEKS                       R5 R4 K5 ["canApplyVariant"]
-       53 SETTABLEKS                       R3 R4 K6 ["instance"]
-       55 RETURN                           R4 1
-       56 GETUPVAL                         R3 0
-       57 JUMPIFNOT                        R3 ; [+2]
-       58 LOADNIL                          R3
-       59 RETURN                           R3 1
-       60 RETURN                           R1 1
+        0 GETTABLEKS                       R2 R0 K0 ["StyleRule"]
+        2 GETTABLEKS                       R3 R1 K0 ["StyleRule"]
+        4 JUMPIFEQ                         R2 R3 ; [+39]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K1 ["getPreview"]
+        9 GETTABLEKS                       R3 R0 K0 ["StyleRule"]
+       11 CALL                             R2 1 1
+       12 JUMPIF                           R2 ; [+3]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K2 ["None"]
+       16 DUPTABLE                         R3 K6 [{"StyleRule", "hasVariant", "canApplyVariant", "instance"}]
+       17 GETTABLEKS                       R4 R0 K0 ["StyleRule"]
+       19 SETTABLEKS                       R4 R3 K0 ["StyleRule"]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K7 ["instancesHaveVariant"]
+       24 GETTABLEKS                       R5 R1 K8 ["selection"]
+       26 GETTABLEKS                       R6 R0 K0 ["StyleRule"]
+       28 CALL                             R4 2 1
+       29 SETTABLEKS                       R4 R3 K3 ["hasVariant"]
+       31 GETUPVAL                         R4 2
+       32 GETTABLEKS                       R4 R4 K4 ["canApplyVariant"]
+       34 GETTABLEKS                       R5 R0 K0 ["StyleRule"]
+       36 GETTABLEKS                       R6 R1 K8 ["selection"]
+       38 CALL                             R4 2 1
+       39 SETTABLEKS                       R4 R3 K4 ["canApplyVariant"]
+       41 SETTABLEKS                       R2 R3 K5 ["instance"]
+       43 RETURN                           R3 1
+       44 LOADNIL                          R2
+       45 RETURN                           R2 1
 
 PROTO_24:
         0 GETTABLEKS                       R3 R1 K0 ["StyleRule"]
@@ -1038,15 +1019,8 @@ PROTO_27:
       196 RETURN                           R8 -1
 
 PROTO_28:
-        0 DUPTABLE                         R1 K1 [{"IsDirty"}]
-        1 GETUPVAL                         R3 0
-        2 JUMPIFNOT                        R3 ; [+2]
-        3 LOADNIL                          R2
-        4 JUMP                             ; [+4]
-        5 GETTABLEKS                       R2 R0 K2 ["Window"]
-        7 GETTABLEKS                       R2 R2 K0 ["IsDirty"]
-        9 SETTABLEKS                       R2 R1 K0 ["IsDirty"]
-       11 RETURN                           R1 1
+        0 NEWTABLE                         R1 0 0
+        2 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1124,136 +1098,127 @@ MAIN:
       124 GETIMPORT                        R21 K12 [require]
       126 GETTABLEKS                       R22 R5 K25 ["Src"]
       128 GETTABLEKS                       R22 R22 K34 ["Flags"]
-      130 GETTABLEKS                       R22 R22 K36 ["getFFlagStyleEditorNewRuleRenameFix"]
+      130 GETTABLEKS                       R22 R22 K36 ["getFFlagStyleQuery"]
       132 CALL                             R21 1 1
       133 CALL                             R21 0 1
       134 GETIMPORT                        R22 K12 [require]
       136 GETTABLEKS                       R23 R5 K25 ["Src"]
-      138 GETTABLEKS                       R23 R23 K34 ["Flags"]
-      140 GETTABLEKS                       R23 R23 K37 ["getFFlagStyleQuery"]
+      138 GETTABLEKS                       R23 R23 K37 ["Enums"]
+      140 GETTABLEKS                       R23 R23 K38 ["ActionClickedEventType"]
       142 CALL                             R22 1 1
-      143 CALL                             R22 0 1
-      144 GETIMPORT                        R23 K12 [require]
-      146 GETTABLEKS                       R24 R5 K25 ["Src"]
-      148 GETTABLEKS                       R24 R24 K38 ["Enums"]
-      150 GETTABLEKS                       R24 R24 K39 ["ActionClickedEventType"]
-      152 CALL                             R23 1 1
-      153 GETIMPORT                        R24 K12 [require]
-      155 GETTABLEKS                       R25 R5 K25 ["Src"]
-      157 GETTABLEKS                       R25 R25 K38 ["Enums"]
-      159 GETTABLEKS                       R25 R25 K40 ["InstancesHaveVariant"]
-      161 CALL                             R24 1 1
-      162 GETIMPORT                        R25 K12 [require]
-      164 GETTABLEKS                       R26 R5 K25 ["Src"]
-      166 GETTABLEKS                       R26 R26 K41 ["Util"]
-      168 GETTABLEKS                       R26 R26 K42 ["mapDispatchToProps"]
-      170 CALL                             R25 1 1
-      171 GETIMPORT                        R26 K12 [require]
-      173 GETTABLEKS                       R27 R5 K25 ["Src"]
-      175 GETTABLEKS                       R27 R27 K29 ["Resources"]
-      177 GETTABLEKS                       R27 R27 K43 ["PluginStyles"]
-      179 CALL                             R26 1 1
-      180 GETIMPORT                        R27 K12 [require]
-      182 GETTABLEKS                       R28 R5 K25 ["Src"]
-      184 GETTABLEKS                       R28 R28 K41 ["Util"]
-      186 GETTABLEKS                       R28 R28 K44 ["recordChange"]
-      188 CALL                             R27 1 1
-      189 MOVE                             R28 R0
-      190 CALL                             R27 1 1
-      191 GETIMPORT                        R28 K12 [require]
-      193 GETTABLEKS                       R29 R5 K25 ["Src"]
-      195 GETTABLEKS                       R29 R29 K41 ["Util"]
-      197 GETTABLEKS                       R29 R29 K45 ["SelectorHelpers"]
-      199 CALL                             R28 1 1
-      200 GETIMPORT                        R29 K12 [require]
-      202 GETTABLEKS                       R30 R5 K25 ["Src"]
-      204 GETTABLEKS                       R30 R30 K41 ["Util"]
-      206 GETTABLEKS                       R30 R30 K23 ["Styling"]
-      208 CALL                             R29 1 1
-      209 GETIMPORT                        R30 K12 [require]
-      211 GETTABLEKS                       R31 R5 K25 ["Src"]
-      213 GETTABLEKS                       R31 R31 K46 ["Components"]
-      215 GETTABLEKS                       R31 R31 K47 ["SelectorPropertyTable"]
-      217 CALL                             R30 1 1
-      218 GETIMPORT                        R31 K12 [require]
-      220 GETTABLEKS                       R32 R5 K25 ["Src"]
-      222 GETTABLEKS                       R32 R32 K46 ["Components"]
-      224 GETTABLEKS                       R32 R32 K48 ["StyleRulePreview"]
-      226 CALL                             R31 1 1
-      227 GETIMPORT                        R32 K51 [UDim2.fromOffset]
-      229 LOADN                            R33 200
-      230 LOADN                            R34 100
-      231 CALL                             R32 2 1
-      232 LOADK                            R35 K52 ["Padding"]
-      233 NAMECALL                         R33 R26 K53 ["GetAttribute"]
-      235 CALL                             R33 2 1
-      236 GETTABLEKS                       R34 R6 K54 ["PureComponent"]
-      238 LOADK                            R36 K55 ["StyleRuleView"]
-      239 NAMECALL                         R34 R34 K56 ["extend"]
-      241 CALL                             R34 2 1
-      242 NEWCLOSURE                       R35 P0
-      243 CAPTURE                          VAL R6
-      244 CAPTURE                          REF R34
-      245 CAPTURE                          VAL R3
-      246 CAPTURE                          VAL R28
-      247 CAPTURE                          VAL R2
-      248 CAPTURE                          VAL R1
-      249 CAPTURE                          VAL R24
-      250 CAPTURE                          VAL R19
-      251 CAPTURE                          VAL R18
-      252 CAPTURE                          VAL R23
-      253 CAPTURE                          VAL R27
-      254 CAPTURE                          VAL R20
-      255 CAPTURE                          VAL R4
-      256 CAPTURE                          VAL R33
-      257 CAPTURE                          VAL R29
-      258 CAPTURE                          VAL R32
-      259 CAPTURE                          VAL R21
-      260 SETTABLEKS                       R35 R34 K57 ["init"]
-      262 DUPCLOSURE                       R35 K58 [PROTO_19]
-      263 SETTABLEKS                       R35 R34 K59 ["createPreviewInstanceFromSelectorLink"]
-      265 NEWCLOSURE                       R35 P2
-      266 CAPTURE                          VAL R6
-      267 CAPTURE                          VAL R4
-      268 CAPTURE                          VAL R22
-      269 CAPTURE                          REF R34
-      270 SETTABLEKS                       R35 R34 K60 ["getPreview"]
-      272 NEWCLOSURE                       R35 P3
-      273 CAPTURE                          VAL R21
-      274 CAPTURE                          REF R34
-      275 CAPTURE                          VAL R6
-      276 CAPTURE                          VAL R28
-      277 SETTABLEKS                       R35 R34 K61 ["getDerivedStateFromProps"]
-      279 DUPCLOSURE                       R35 K62 [PROTO_24]
-      280 SETTABLEKS                       R35 R34 K63 ["didUpdate"]
-      282 DUPCLOSURE                       R35 K64 [PROTO_25]
-      283 CAPTURE                          VAL R3
-      284 SETTABLEKS                       R35 R34 K65 ["didMount"]
-      286 DUPCLOSURE                       R35 K66 [PROTO_26]
-      287 SETTABLEKS                       R35 R34 K67 ["willUnmount"]
-      289 DUPCLOSURE                       R35 K68 [PROTO_27]
-      290 CAPTURE                          VAL R24
-      291 CAPTURE                          VAL R6
-      292 CAPTURE                          VAL R14
-      293 CAPTURE                          VAL R28
-      294 CAPTURE                          VAL R13
-      295 CAPTURE                          VAL R15
-      296 CAPTURE                          VAL R31
-      297 CAPTURE                          VAL R30
-      298 SETTABLEKS                       R35 R34 K69 ["render"]
-      300 MOVE                             R35 R10
-      301 DUPTABLE                         R36 K70 [{"Localization"}]
-      302 SETTABLEKS                       R11 R36 K19 ["Localization"]
-      304 CALL                             R35 1 1
-      305 MOVE                             R36 R34
-      306 CALL                             R35 1 1
-      307 MOVE                             R34 R35
-      308 GETTABLEKS                       R35 R7 K71 ["connect"]
-      310 DUPCLOSURE                       R36 K72 [PROTO_28]
-      311 CAPTURE                          VAL R21
-      312 MOVE                             R37 R25
-      313 CALL                             R35 2 1
-      314 MOVE                             R36 R34
-      315 CALL                             R35 1 -1
-      316 CLOSEUPVALS                      R34
-      317 RETURN                           R35 -1
+      143 GETIMPORT                        R23 K12 [require]
+      145 GETTABLEKS                       R24 R5 K25 ["Src"]
+      147 GETTABLEKS                       R24 R24 K37 ["Enums"]
+      149 GETTABLEKS                       R24 R24 K39 ["InstancesHaveVariant"]
+      151 CALL                             R23 1 1
+      152 GETIMPORT                        R24 K12 [require]
+      154 GETTABLEKS                       R25 R5 K25 ["Src"]
+      156 GETTABLEKS                       R25 R25 K40 ["Util"]
+      158 GETTABLEKS                       R25 R25 K41 ["mapDispatchToProps"]
+      160 CALL                             R24 1 1
+      161 GETIMPORT                        R25 K12 [require]
+      163 GETTABLEKS                       R26 R5 K25 ["Src"]
+      165 GETTABLEKS                       R26 R26 K29 ["Resources"]
+      167 GETTABLEKS                       R26 R26 K42 ["PluginStyles"]
+      169 CALL                             R25 1 1
+      170 GETIMPORT                        R26 K12 [require]
+      172 GETTABLEKS                       R27 R5 K25 ["Src"]
+      174 GETTABLEKS                       R27 R27 K40 ["Util"]
+      176 GETTABLEKS                       R27 R27 K43 ["recordChange"]
+      178 CALL                             R26 1 1
+      179 MOVE                             R27 R0
+      180 CALL                             R26 1 1
+      181 GETIMPORT                        R27 K12 [require]
+      183 GETTABLEKS                       R28 R5 K25 ["Src"]
+      185 GETTABLEKS                       R28 R28 K40 ["Util"]
+      187 GETTABLEKS                       R28 R28 K44 ["SelectorHelpers"]
+      189 CALL                             R27 1 1
+      190 GETIMPORT                        R28 K12 [require]
+      192 GETTABLEKS                       R29 R5 K25 ["Src"]
+      194 GETTABLEKS                       R29 R29 K40 ["Util"]
+      196 GETTABLEKS                       R29 R29 K23 ["Styling"]
+      198 CALL                             R28 1 1
+      199 GETIMPORT                        R29 K12 [require]
+      201 GETTABLEKS                       R30 R5 K25 ["Src"]
+      203 GETTABLEKS                       R30 R30 K45 ["Components"]
+      205 GETTABLEKS                       R30 R30 K46 ["SelectorPropertyTable"]
+      207 CALL                             R29 1 1
+      208 GETIMPORT                        R30 K12 [require]
+      210 GETTABLEKS                       R31 R5 K25 ["Src"]
+      212 GETTABLEKS                       R31 R31 K45 ["Components"]
+      214 GETTABLEKS                       R31 R31 K47 ["StyleRulePreview"]
+      216 CALL                             R30 1 1
+      217 GETIMPORT                        R31 K50 [UDim2.fromOffset]
+      219 LOADN                            R32 200
+      220 LOADN                            R33 100
+      221 CALL                             R31 2 1
+      222 LOADK                            R34 K51 ["Padding"]
+      223 NAMECALL                         R32 R25 K52 ["GetAttribute"]
+      225 CALL                             R32 2 1
+      226 GETTABLEKS                       R33 R6 K53 ["PureComponent"]
+      228 LOADK                            R35 K54 ["StyleRuleView"]
+      229 NAMECALL                         R33 R33 K55 ["extend"]
+      231 CALL                             R33 2 1
+      232 NEWCLOSURE                       R34 P0
+      233 CAPTURE                          VAL R6
+      234 CAPTURE                          REF R33
+      235 CAPTURE                          VAL R3
+      236 CAPTURE                          VAL R27
+      237 CAPTURE                          VAL R2
+      238 CAPTURE                          VAL R1
+      239 CAPTURE                          VAL R23
+      240 CAPTURE                          VAL R19
+      241 CAPTURE                          VAL R18
+      242 CAPTURE                          VAL R22
+      243 CAPTURE                          VAL R26
+      244 CAPTURE                          VAL R20
+      245 CAPTURE                          VAL R4
+      246 CAPTURE                          VAL R32
+      247 CAPTURE                          VAL R28
+      248 CAPTURE                          VAL R31
+      249 SETTABLEKS                       R34 R33 K56 ["init"]
+      251 DUPCLOSURE                       R34 K57 [PROTO_19]
+      252 SETTABLEKS                       R34 R33 K58 ["createPreviewInstanceFromSelectorLink"]
+      254 NEWCLOSURE                       R34 P2
+      255 CAPTURE                          VAL R6
+      256 CAPTURE                          VAL R4
+      257 CAPTURE                          VAL R21
+      258 CAPTURE                          REF R33
+      259 SETTABLEKS                       R34 R33 K59 ["getPreview"]
+      261 NEWCLOSURE                       R34 P3
+      262 CAPTURE                          REF R33
+      263 CAPTURE                          VAL R6
+      264 CAPTURE                          VAL R27
+      265 SETTABLEKS                       R34 R33 K60 ["getDerivedStateFromProps"]
+      267 DUPCLOSURE                       R34 K61 [PROTO_24]
+      268 SETTABLEKS                       R34 R33 K62 ["didUpdate"]
+      270 DUPCLOSURE                       R34 K63 [PROTO_25]
+      271 CAPTURE                          VAL R3
+      272 SETTABLEKS                       R34 R33 K64 ["didMount"]
+      274 DUPCLOSURE                       R34 K65 [PROTO_26]
+      275 SETTABLEKS                       R34 R33 K66 ["willUnmount"]
+      277 DUPCLOSURE                       R34 K67 [PROTO_27]
+      278 CAPTURE                          VAL R23
+      279 CAPTURE                          VAL R6
+      280 CAPTURE                          VAL R14
+      281 CAPTURE                          VAL R27
+      282 CAPTURE                          VAL R13
+      283 CAPTURE                          VAL R15
+      284 CAPTURE                          VAL R30
+      285 CAPTURE                          VAL R29
+      286 SETTABLEKS                       R34 R33 K68 ["render"]
+      288 MOVE                             R34 R10
+      289 DUPTABLE                         R35 K69 [{"Localization"}]
+      290 SETTABLEKS                       R11 R35 K19 ["Localization"]
+      292 CALL                             R34 1 1
+      293 MOVE                             R35 R33
+      294 CALL                             R34 1 1
+      295 MOVE                             R33 R34
+      296 GETTABLEKS                       R34 R7 K70 ["connect"]
+      298 DUPCLOSURE                       R35 K71 [PROTO_28]
+      299 MOVE                             R36 R24
+      300 CALL                             R34 2 1
+      301 MOVE                             R35 R33
+      302 CALL                             R34 1 -1
+      303 CLOSEUPVALS                      R33
+      304 RETURN                           R34 -1

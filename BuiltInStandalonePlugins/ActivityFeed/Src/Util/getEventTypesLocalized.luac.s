@@ -49,7 +49,14 @@ PROTO_0:
        61 NAMECALL                         R3 R0 K3 ["getText"]
        63 CALL                             R3 3 1
        64 SETTABLE                         R3 R1 R2
-       65 RETURN                           R1 1
+       65 GETUPVAL                         R2 0
+       66 GETTABLEKS                       R2 R2 K16 ["Content"]
+       68 LOADK                            R5 K1 ["FilterMenu"]
+       69 LOADK                            R6 K17 ["FilterForContent"]
+       70 NAMECALL                         R3 R0 K3 ["getText"]
+       72 CALL                             R3 3 1
+       73 SETTABLE                         R3 R1 R2
+       74 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

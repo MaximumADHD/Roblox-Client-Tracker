@@ -196,10 +196,14 @@ PROTO_34:
         6 RETURN                           R1 1
 
 PROTO_35:
-        0 LOADK                            R0 K0 ["studio-user-data-api/pinned-experiences"]
+        0 LOADK                            R0 K0 ["activity-feed-api/v1/history"]
         1 RETURN                           R0 1
 
 PROTO_36:
+        0 LOADK                            R0 K0 ["studio-user-data-api/pinned-experiences"]
+        1 RETURN                           R0 1
+
+PROTO_37:
         0 LOADK                            R2 K0 ["studio-user-data-api/pinned-experiences/%*"]
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K1 ["format"]
@@ -437,11 +441,17 @@ MAIN:
       376 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       378 DUPCLOSURE                       R6 K88 [PROTO_35]
       379 SETTABLEKS                       R6 R5 K9 ["Url"]
-      381 SETTABLEKS                       R5 R4 K89 ["PINNED_EXPERIENCES"]
+      381 SETTABLEKS                       R5 R4 K89 ["WRITE_ACTIVITY_HISTORY"]
       383 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       384 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       386 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       388 DUPCLOSURE                       R6 K90 [PROTO_36]
       389 SETTABLEKS                       R6 R5 K9 ["Url"]
-      391 SETTABLEKS                       R5 R4 K91 ["PINNED_EXPERIENCE"]
-      393 RETURN                           R4 1
+      391 SETTABLEKS                       R5 R4 K91 ["PINNED_EXPERIENCES"]
+      393 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
+      394 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      396 SETTABLEKS                       R6 R5 K11 ["Prefix"]
+      398 DUPCLOSURE                       R6 K92 [PROTO_37]
+      399 SETTABLEKS                       R6 R5 K9 ["Url"]
+      401 SETTABLEKS                       R5 R4 K93 ["PINNED_EXPERIENCE"]
+      403 RETURN                           R4 1

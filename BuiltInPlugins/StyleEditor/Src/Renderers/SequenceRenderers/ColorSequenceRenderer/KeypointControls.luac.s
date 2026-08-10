@@ -229,30 +229,19 @@ MAIN:
       101 GETTABLEKS                       R15 R15 K24 ["getFFlagStyleEditorFixWarnings"]
       103 CALL                             R14 1 1
       104 CALL                             R14 0 1
-      105 GETIMPORT                        R15 K4 [require]
-      107 GETTABLEKS                       R16 R0 K15 ["Src"]
-      109 GETTABLEKS                       R16 R16 K23 ["Flags"]
-      111 GETTABLEKS                       R16 R16 K25 ["getFFlagStyleEditorFixSequenceNumPrecision"]
-      113 CALL                             R15 1 1
-      114 CALL                             R15 0 1
-      115 DUPTABLE                         R16 K28 [{["Type"] = "Color"}]
-      116 DUPTABLE                         R17 K35 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1, ["Precision"]}]
-      117 JUMPIFNOT                        R15 ; [+2]
-      118 LOADN                            R18 3
-      119 JUMP                             ; [+1]
-      120 LOADNIL                          R18
-      121 SETTABLEKS                       R18 R17 K34 ["Precision"]
-      123 DUPCLOSURE                       R18 K36 [PROTO_2]
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R14
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R8
-      128 CAPTURE                          VAL R1
-      129 CAPTURE                          VAL R6
-      130 CAPTURE                          VAL R10
-      131 CAPTURE                          VAL R17
-      132 CAPTURE                          VAL R16
-      133 CAPTURE                          VAL R11
-      134 CAPTURE                          VAL R5
-      135 CAPTURE                          VAL R9
-      136 RETURN                           R18 1
+      105 DUPTABLE                         R15 K27 [{["Type"] = "Color"}]
+      106 DUPTABLE                         R16 K35 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1, ["Precision"] = 3}]
+      107 DUPCLOSURE                       R17 K36 [PROTO_2]
+      108 CAPTURE                          VAL R2
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R8
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R10
+      115 CAPTURE                          VAL R16
+      116 CAPTURE                          VAL R15
+      117 CAPTURE                          VAL R11
+      118 CAPTURE                          VAL R5
+      119 CAPTURE                          VAL R9
+      120 RETURN                           R17 1

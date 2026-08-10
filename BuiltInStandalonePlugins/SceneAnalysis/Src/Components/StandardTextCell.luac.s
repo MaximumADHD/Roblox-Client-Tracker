@@ -274,113 +274,117 @@ PROTO_10:
       156 NEWCLOSURE                       R24 P8
       157 CAPTURE                          VAL R11
       158 SETTABLE                         R24 R22 R23
-      159 LOADB                            R23 1
-      160 SETTABLEKS                       R23 R22 K46 ["Active"]
-      162 DUPTABLE                         R23 K48 [{"TooltipPortal"}]
-      163 GETUPVAL                         R24 0
-      164 GETTABLEKS                       R24 R24 K27 ["createElement"]
-      166 GETUPVAL                         R25 3
-      167 GETTABLEKS                       R25 R25 K49 ["UI"]
-      169 GETTABLEKS                       R25 R25 K50 ["ShowOnTop"]
-      171 NEWTABLE                         R26 0 0
-      173 DUPTABLE                         R27 K52 [{"TooltipFrame"}]
-      174 GETUPVAL                         R28 0
-      175 GETTABLEKS                       R28 R28 K27 ["createElement"]
-      177 LOADK                            R29 K53 ["Frame"]
-      178 NEWTABLE                         R30 8 0
-      180 GETIMPORT                        R31 K56 [Enum.AutomaticSize.XY]
-      182 SETTABLEKS                       R31 R30 K54 ["AutomaticSize"]
-      184 SETTABLEKS                       R18 R30 K57 ["Position"]
-      186 LOADN                            R31 0
-      187 SETTABLEKS                       R31 R30 K58 ["BorderSizePixel"]
-      189 LOADN                            R31 100
-      190 SETTABLEKS                       R31 R30 K59 ["ZIndex"]
-      192 SETTABLEKS                       R19 R30 K60 ["Visible"]
-      194 GETUPVAL                         R31 0
-      195 GETTABLEKS                       R31 R31 K40 ["Change"]
-      197 GETTABLEKS                       R31 R31 K41 ["AbsoluteSize"]
-      199 NEWCLOSURE                       R32 P9
-      200 CAPTURE                          VAL R15
-      201 SETTABLE                         R32 R30 R31
-      202 GETUPVAL                         R31 0
-      203 GETTABLEKS                       R31 R31 K38 ["Tag"]
-      205 LOADK                            R32 K61 ["SceneAnalysis-TooltipFill"]
-      206 SETTABLE                         R32 R30 R31
-      207 DUPTABLE                         R31 K65 [{"UIStroke", "UICorner", "UIPadding", "TextLabel"}]
-      208 GETUPVAL                         R32 0
-      209 GETTABLEKS                       R32 R32 K27 ["createElement"]
-      211 LOADK                            R33 K62 ["UIStroke"]
-      212 DUPTABLE                         R34 K69 [{["Color"], ["Thickness"] = 1.5}]
-      213 GETUPVAL                         R35 4
-      214 GETTABLEKS                       R35 R35 K70 ["getTooltipStrokeColor"]
-      216 CALL                             R35 0 1
-      217 SETTABLEKS                       R35 R34 K66 ["Color"]
-      219 CALL                             R32 2 1
-      220 SETTABLEKS                       R32 R31 K62 ["UIStroke"]
-      222 GETUPVAL                         R32 0
-      223 GETTABLEKS                       R32 R32 K27 ["createElement"]
-      225 LOADK                            R33 K63 ["UICorner"]
-      226 DUPTABLE                         R34 K72 [{"CornerRadius"}]
-      227 GETIMPORT                        R35 K74 [UDim.new]
-      229 LOADN                            R36 0
-      230 LOADN                            R37 4
-      231 CALL                             R35 2 1
-      232 SETTABLEKS                       R35 R34 K71 ["CornerRadius"]
-      234 CALL                             R32 2 1
-      235 SETTABLEKS                       R32 R31 K63 ["UICorner"]
-      237 GETUPVAL                         R32 0
-      238 GETTABLEKS                       R32 R32 K27 ["createElement"]
-      240 LOADK                            R33 K64 ["UIPadding"]
-      241 DUPTABLE                         R34 K79 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      242 GETIMPORT                        R35 K74 [UDim.new]
-      244 LOADN                            R36 0
-      245 LOADN                            R37 10
-      246 CALL                             R35 2 1
-      247 SETTABLEKS                       R35 R34 K75 ["PaddingLeft"]
-      249 GETIMPORT                        R35 K74 [UDim.new]
-      251 LOADN                            R36 0
-      252 LOADN                            R37 10
-      253 CALL                             R35 2 1
-      254 SETTABLEKS                       R35 R34 K76 ["PaddingRight"]
-      256 GETIMPORT                        R35 K74 [UDim.new]
-      258 LOADN                            R36 0
-      259 LOADN                            R37 8
-      260 CALL                             R35 2 1
-      261 SETTABLEKS                       R35 R34 K77 ["PaddingTop"]
-      263 GETIMPORT                        R35 K74 [UDim.new]
-      265 LOADN                            R36 0
-      266 LOADN                            R37 8
-      267 CALL                             R35 2 1
-      268 SETTABLEKS                       R35 R34 K78 ["PaddingBottom"]
-      270 CALL                             R32 2 1
-      271 SETTABLEKS                       R32 R31 K64 ["UIPadding"]
-      273 GETUPVAL                         R32 0
-      274 GETTABLEKS                       R32 R32 K27 ["createElement"]
-      276 LOADK                            R33 K28 ["TextLabel"]
-      277 NEWTABLE                         R34 8 0
-      279 GETIMPORT                        R35 K56 [Enum.AutomaticSize.XY]
-      281 SETTABLEKS                       R35 R34 K54 ["AutomaticSize"]
-      283 SETTABLEKS                       R8 R34 K29 ["Text"]
-      285 LOADK                            R35 K80 [19.598]
-      286 SETTABLEKS                       R35 R34 K81 ["TextSize"]
-      288 GETIMPORT                        R35 K37 [Enum.TextXAlignment.Left]
-      290 SETTABLEKS                       R35 R34 K35 ["TextXAlignment"]
-      292 GETIMPORT                        R35 K84 [Enum.TextYAlignment.Top]
-      294 SETTABLEKS                       R35 R34 K82 ["TextYAlignment"]
-      296 LOADN                            R35 1
-      297 SETTABLEKS                       R35 R34 K34 ["BackgroundTransparency"]
-      299 GETUPVAL                         R35 0
-      300 GETTABLEKS                       R35 R35 K38 ["Tag"]
-      302 LOADK                            R36 K85 ["SceneAnalysis-TooltipText"]
-      303 SETTABLE                         R36 R34 R35
-      304 CALL                             R32 2 1
-      305 SETTABLEKS                       R32 R31 K28 ["TextLabel"]
-      307 CALL                             R28 3 1
-      308 SETTABLEKS                       R28 R27 K51 ["TooltipFrame"]
-      310 CALL                             R24 3 1
-      311 SETTABLEKS                       R24 R23 K47 ["TooltipPortal"]
-      313 CALL                             R20 3 -1
-      314 RETURN                           R20 -1
+      159 GETUPVAL                         R24 3
+      160 JUMPIFNOT                        R24 ; [+2]
+      161 LOADNIL                          R23
+      162 JUMP                             ; [+1]
+      163 LOADB                            R23 1
+      164 SETTABLEKS                       R23 R22 K46 ["Active"]
+      166 DUPTABLE                         R23 K48 [{"TooltipPortal"}]
+      167 GETUPVAL                         R24 0
+      168 GETTABLEKS                       R24 R24 K27 ["createElement"]
+      170 GETUPVAL                         R25 4
+      171 GETTABLEKS                       R25 R25 K49 ["UI"]
+      173 GETTABLEKS                       R25 R25 K50 ["ShowOnTop"]
+      175 NEWTABLE                         R26 0 0
+      177 DUPTABLE                         R27 K52 [{"TooltipFrame"}]
+      178 GETUPVAL                         R28 0
+      179 GETTABLEKS                       R28 R28 K27 ["createElement"]
+      181 LOADK                            R29 K53 ["Frame"]
+      182 NEWTABLE                         R30 8 0
+      184 GETIMPORT                        R31 K56 [Enum.AutomaticSize.XY]
+      186 SETTABLEKS                       R31 R30 K54 ["AutomaticSize"]
+      188 SETTABLEKS                       R18 R30 K57 ["Position"]
+      190 LOADN                            R31 0
+      191 SETTABLEKS                       R31 R30 K58 ["BorderSizePixel"]
+      193 LOADN                            R31 100
+      194 SETTABLEKS                       R31 R30 K59 ["ZIndex"]
+      196 SETTABLEKS                       R19 R30 K60 ["Visible"]
+      198 GETUPVAL                         R31 0
+      199 GETTABLEKS                       R31 R31 K40 ["Change"]
+      201 GETTABLEKS                       R31 R31 K41 ["AbsoluteSize"]
+      203 NEWCLOSURE                       R32 P9
+      204 CAPTURE                          VAL R15
+      205 SETTABLE                         R32 R30 R31
+      206 GETUPVAL                         R31 0
+      207 GETTABLEKS                       R31 R31 K38 ["Tag"]
+      209 LOADK                            R32 K61 ["SceneAnalysis-TooltipFill"]
+      210 SETTABLE                         R32 R30 R31
+      211 DUPTABLE                         R31 K65 [{"UIStroke", "UICorner", "UIPadding", "TextLabel"}]
+      212 GETUPVAL                         R32 0
+      213 GETTABLEKS                       R32 R32 K27 ["createElement"]
+      215 LOADK                            R33 K62 ["UIStroke"]
+      216 DUPTABLE                         R34 K69 [{["Color"], ["Thickness"] = 1.5}]
+      217 GETUPVAL                         R35 5
+      218 GETTABLEKS                       R35 R35 K70 ["getTooltipStrokeColor"]
+      220 CALL                             R35 0 1
+      221 SETTABLEKS                       R35 R34 K66 ["Color"]
+      223 CALL                             R32 2 1
+      224 SETTABLEKS                       R32 R31 K62 ["UIStroke"]
+      226 GETUPVAL                         R32 0
+      227 GETTABLEKS                       R32 R32 K27 ["createElement"]
+      229 LOADK                            R33 K63 ["UICorner"]
+      230 DUPTABLE                         R34 K72 [{"CornerRadius"}]
+      231 GETIMPORT                        R35 K74 [UDim.new]
+      233 LOADN                            R36 0
+      234 LOADN                            R37 4
+      235 CALL                             R35 2 1
+      236 SETTABLEKS                       R35 R34 K71 ["CornerRadius"]
+      238 CALL                             R32 2 1
+      239 SETTABLEKS                       R32 R31 K63 ["UICorner"]
+      241 GETUPVAL                         R32 0
+      242 GETTABLEKS                       R32 R32 K27 ["createElement"]
+      244 LOADK                            R33 K64 ["UIPadding"]
+      245 DUPTABLE                         R34 K79 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      246 GETIMPORT                        R35 K74 [UDim.new]
+      248 LOADN                            R36 0
+      249 LOADN                            R37 10
+      250 CALL                             R35 2 1
+      251 SETTABLEKS                       R35 R34 K75 ["PaddingLeft"]
+      253 GETIMPORT                        R35 K74 [UDim.new]
+      255 LOADN                            R36 0
+      256 LOADN                            R37 10
+      257 CALL                             R35 2 1
+      258 SETTABLEKS                       R35 R34 K76 ["PaddingRight"]
+      260 GETIMPORT                        R35 K74 [UDim.new]
+      262 LOADN                            R36 0
+      263 LOADN                            R37 8
+      264 CALL                             R35 2 1
+      265 SETTABLEKS                       R35 R34 K77 ["PaddingTop"]
+      267 GETIMPORT                        R35 K74 [UDim.new]
+      269 LOADN                            R36 0
+      270 LOADN                            R37 8
+      271 CALL                             R35 2 1
+      272 SETTABLEKS                       R35 R34 K78 ["PaddingBottom"]
+      274 CALL                             R32 2 1
+      275 SETTABLEKS                       R32 R31 K64 ["UIPadding"]
+      277 GETUPVAL                         R32 0
+      278 GETTABLEKS                       R32 R32 K27 ["createElement"]
+      280 LOADK                            R33 K28 ["TextLabel"]
+      281 NEWTABLE                         R34 8 0
+      283 GETIMPORT                        R35 K56 [Enum.AutomaticSize.XY]
+      285 SETTABLEKS                       R35 R34 K54 ["AutomaticSize"]
+      287 SETTABLEKS                       R8 R34 K29 ["Text"]
+      289 LOADK                            R35 K80 [19.598]
+      290 SETTABLEKS                       R35 R34 K81 ["TextSize"]
+      292 GETIMPORT                        R35 K37 [Enum.TextXAlignment.Left]
+      294 SETTABLEKS                       R35 R34 K35 ["TextXAlignment"]
+      296 GETIMPORT                        R35 K84 [Enum.TextYAlignment.Top]
+      298 SETTABLEKS                       R35 R34 K82 ["TextYAlignment"]
+      300 LOADN                            R35 1
+      301 SETTABLEKS                       R35 R34 K34 ["BackgroundTransparency"]
+      303 GETUPVAL                         R35 0
+      304 GETTABLEKS                       R35 R35 K38 ["Tag"]
+      306 LOADK                            R36 K85 ["SceneAnalysis-TooltipText"]
+      307 SETTABLE                         R36 R34 R35
+      308 CALL                             R32 2 1
+      309 SETTABLEKS                       R32 R31 K28 ["TextLabel"]
+      311 CALL                             R28 3 1
+      312 SETTABLEKS                       R28 R27 K51 ["TooltipFrame"]
+      314 CALL                             R24 3 1
+      315 SETTABLEKS                       R24 R23 K47 ["TooltipPortal"]
+      317 CALL                             R20 3 -1
+      318 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -405,11 +409,19 @@ MAIN:
        31 GETTABLEKS                       R5 R5 K14 ["Resources"]
        33 GETTABLEKS                       R5 R5 K15 ["StyleConstants"]
        35 CALL                             R4 1 1
-       36 GETTABLEKS                       R5 R4 K16 ["defaultFont"]
-       38 DUPCLOSURE                       R6 K17 [PROTO_10]
-       39 CAPTURE                          VAL R1
-       40 CAPTURE                          VAL R3
-       41 CAPTURE                          VAL R5
-       42 CAPTURE                          VAL R2
-       43 CAPTURE                          VAL R4
-       44 RETURN                           R6 1
+       36 GETIMPORT                        R5 K5 [require]
+       38 GETTABLEKS                       R6 R0 K16 ["Bin"]
+       40 GETTABLEKS                       R6 R6 K17 ["Common"]
+       42 GETTABLEKS                       R6 R6 K18 ["defineLuaFlags"]
+       44 CALL                             R5 1 1
+       45 GETTABLEKS                       R6 R5 K19 ["getFFlagSceneManagerRemoveActive"]
+       47 CALL                             R6 0 1
+       48 GETTABLEKS                       R7 R4 K20 ["defaultFont"]
+       50 DUPCLOSURE                       R8 K21 [PROTO_10]
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R7
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R4
+       57 RETURN                           R8 1
