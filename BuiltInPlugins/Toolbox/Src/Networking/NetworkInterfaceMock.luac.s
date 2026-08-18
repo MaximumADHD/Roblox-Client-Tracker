@@ -718,6 +718,17 @@ PROTO_51:
         8 RETURN                           R2 -1
 
 PROTO_52:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["resolve"]
+        3 DUPTABLE                         R4 K2 [{"responseBody"}]
+        4 DUPTABLE                         R5 K4 [{"metadataPermissions"}]
+        5 NEWTABLE                         R6 0 0
+        7 SETTABLEKS                       R6 R5 K3 ["metadataPermissions"]
+        9 SETTABLEKS                       R5 R4 K1 ["responseBody"]
+       11 CALL                             R3 1 -1
+       12 RETURN                           R3 -1
+
+PROTO_53:
         0 DUPTABLE                         R2 K1 [{"data"}]
         1 NEWTABLE                         R3 0 1
         3 DUPTABLE                         R4 K13 [{["assetId"], ["name"] = "Test Asset", ["description"] = "Test Description", ["assetType"] = "Models", ["created"] = "2019-08-09T21:41:51.97Z", ["updated"] = "2021-05-06T19:56:54.437Z"}]
@@ -735,7 +746,7 @@ PROTO_52:
        21 CALL                             R3 1 -1
        22 RETURN                           R3 -1
 
-PROTO_53:
+PROTO_54:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
@@ -751,7 +762,7 @@ PROTO_53:
        18 CALL                             R3 1 -1
        19 RETURN                           R3 -1
 
-PROTO_54:
+PROTO_55:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
@@ -958,12 +969,15 @@ MAIN:
       261 SETTABLEKS                       R15 R8 K117 ["getItemUploadFee"]
       263 DUPCLOSURE                       R15 K118 [PROTO_52]
       264 CAPTURE                          VAL R3
-      265 CAPTURE                          VAL R1
-      266 SETTABLEKS                       R15 R8 K119 ["getDevelopAssetMetadata"]
-      268 DUPCLOSURE                       R15 K120 [PROTO_53]
-      269 CAPTURE                          VAL R3
-      270 SETTABLEKS                       R15 R8 K121 ["getItem"]
+      265 SETTABLEKS                       R15 R8 K119 ["getMetadataPermissions"]
+      267 DUPCLOSURE                       R15 K120 [PROTO_53]
+      268 CAPTURE                          VAL R3
+      269 CAPTURE                          VAL R1
+      270 SETTABLEKS                       R15 R8 K121 ["getDevelopAssetMetadata"]
       272 DUPCLOSURE                       R15 K122 [PROTO_54]
       273 CAPTURE                          VAL R3
-      274 SETTABLEKS                       R15 R8 K123 ["getAssetPermissions"]
-      276 RETURN                           R8 1
+      274 SETTABLEKS                       R15 R8 K123 ["getItem"]
+      276 DUPCLOSURE                       R15 K124 [PROTO_55]
+      277 CAPTURE                          VAL R3
+      278 SETTABLEKS                       R15 R8 K125 ["getAssetPermissions"]
+      280 RETURN                           R8 1

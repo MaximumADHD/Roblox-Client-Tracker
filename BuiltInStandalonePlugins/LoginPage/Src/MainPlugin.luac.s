@@ -1,53 +1,50 @@
 PROTO_0:
-        0 GETTABLEKS                       R2 R1 K0 ["Plugin"]
-        2 LOADK                            R4 K1 ["LoginPluginBridge"]
-        3 NAMECALL                         R2 R2 K2 ["GetPluginComponent"]
-        5 CALL                             R2 2 1
-        6 SETTABLEKS                       R2 R0 K3 ["loginPluginBridgeComponent"]
-        8 GETIMPORT                        R2 K5 [game]
-       10 LOADK                            R4 K6 ["StudioUserService"]
-       11 NAMECALL                         R2 R2 K7 ["GetService"]
-       13 CALL                             R2 2 1
-       14 GETTABLEKS                       R2 R2 K8 ["IsLoggedIn"]
-       16 DUPTABLE                         R5 K11 [{["enabled"] = True, ["IsLoggedIn"]}]
-       17 SETTABLEKS                       R2 R5 K8 ["IsLoggedIn"]
-       19 NAMECALL                         R3 R0 K12 ["setState"]
-       21 CALL                             R3 2 0
-       22 GETUPVAL                         R3 0
-       23 GETTABLEKS                       R3 R3 K13 ["Localization"]
-       25 GETTABLEKS                       R3 R3 K14 ["new"]
-       27 DUPTABLE                         R4 K19 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
-       28 GETUPVAL                         R5 1
-       29 SETTABLEKS                       R5 R4 K15 ["stringResourceTable"]
-       31 GETUPVAL                         R5 2
-       32 SETTABLEKS                       R5 R4 K16 ["translationResourceTable"]
-       34 CALL                             R3 1 1
-       35 SETTABLEKS                       R3 R0 K20 ["localization"]
-       37 GETUPVAL                         R3 3
-       38 GETTABLEKS                       R3 R3 K13 ["Localization"]
-       40 GETTABLEKS                       R3 R3 K14 ["new"]
-       42 DUPTABLE                         R4 K19 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
-       43 GETUPVAL                         R5 1
-       44 SETTABLEKS                       R5 R4 K15 ["stringResourceTable"]
-       46 GETUPVAL                         R5 2
-       47 SETTABLEKS                       R5 R4 K16 ["translationResourceTable"]
-       49 CALL                             R3 1 1
-       50 SETTABLEKS                       R3 R0 K21 ["localizationLEGACY"]
-       52 GETUPVAL                         R3 4
-       53 GETTABLEKS                       R3 R3 K22 ["Util"]
-       55 GETTABLEKS                       R3 R3 K23 ["createFoundationDesignBinding"]
-       57 CALL                             R3 0 2
-       58 SETTABLEKS                       R4 R0 K24 ["onFoundationStyleSheetChange"]
-       60 GETUPVAL                         R5 5
-       61 GETTABLEKS                       R6 R1 K0 ["Plugin"]
-       63 LOADNIL                          R7
-       64 LOADNIL                          R8
-       65 NEWTABLE                         R9 0 1
-       67 MOVE                             R10 R3
-       68 SETLIST                          R9 R10 1 [1]
-       70 CALL                             R5 4 1
-       71 SETTABLEKS                       R5 R0 K25 ["design"]
-       73 RETURN                           R0 0
+        0 GETTABLEKS                       R2 R1 K0 ["LoginPluginBridge"]
+        2 SETTABLEKS                       R2 R0 K1 ["loginPluginBridgeComponent"]
+        4 GETIMPORT                        R2 K3 [game]
+        6 LOADK                            R4 K4 ["StudioUserService"]
+        7 NAMECALL                         R2 R2 K5 ["GetService"]
+        9 CALL                             R2 2 1
+       10 GETTABLEKS                       R2 R2 K6 ["IsLoggedIn"]
+       12 DUPTABLE                         R5 K9 [{["enabled"] = True, ["IsLoggedIn"]}]
+       13 SETTABLEKS                       R2 R5 K6 ["IsLoggedIn"]
+       15 NAMECALL                         R3 R0 K10 ["setState"]
+       17 CALL                             R3 2 0
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K11 ["Localization"]
+       21 GETTABLEKS                       R3 R3 K12 ["new"]
+       23 DUPTABLE                         R4 K17 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
+       24 GETUPVAL                         R5 1
+       25 SETTABLEKS                       R5 R4 K13 ["stringResourceTable"]
+       27 GETUPVAL                         R5 2
+       28 SETTABLEKS                       R5 R4 K14 ["translationResourceTable"]
+       30 CALL                             R3 1 1
+       31 SETTABLEKS                       R3 R0 K18 ["localization"]
+       33 GETUPVAL                         R3 3
+       34 GETTABLEKS                       R3 R3 K11 ["Localization"]
+       36 GETTABLEKS                       R3 R3 K12 ["new"]
+       38 DUPTABLE                         R4 K17 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LoginPage"}]
+       39 GETUPVAL                         R5 1
+       40 SETTABLEKS                       R5 R4 K13 ["stringResourceTable"]
+       42 GETUPVAL                         R5 2
+       43 SETTABLEKS                       R5 R4 K14 ["translationResourceTable"]
+       45 CALL                             R3 1 1
+       46 SETTABLEKS                       R3 R0 K19 ["localizationLEGACY"]
+       48 GETUPVAL                         R3 4
+       49 GETTABLEKS                       R3 R3 K20 ["Util"]
+       51 GETTABLEKS                       R3 R3 K21 ["createFoundationDesignBinding"]
+       53 CALL                             R3 0 2
+       54 SETTABLEKS                       R4 R0 K22 ["onFoundationStyleSheetChange"]
+       56 GETUPVAL                         R5 5
+       57 GETTABLEKS                       R6 R1 K23 ["Plugin"]
+       59 LOADNIL                          R7
+       60 LOADNIL                          R8
+       61 NEWTABLE                         R9 0 1
+       63 MOVE                             R10 R3
+       64 SETLIST                          R9 R10 1 [1]
+       66 CALL                             R5 4 1
+       67 SETTABLEKS                       R5 R0 K24 ["design"]
+       69 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0

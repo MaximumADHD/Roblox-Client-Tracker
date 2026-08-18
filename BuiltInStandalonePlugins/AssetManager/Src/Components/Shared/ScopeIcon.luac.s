@@ -10,91 +10,50 @@ PROTO_0:
        10 RETURN                           R1 -1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 GETTABLEKS                       R3 R0 K0 ["ScopeType"]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R4 R4 K0 ["ScopeType"]
-        7 GETTABLEKS                       R4 R4 K1 ["RecentUploads"]
-        9 JUMPIFNOTEQ                      R3 R4 ; [+3]
-       11 LOADNIL                          R2
-       12 JUMP                             ; [+13]
-       13 GETTABLEKS                       R3 R0 K0 ["ScopeType"]
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R4 R4 K2 ["get"]
-       18 GETUPVAL                         R6 3
-       19 GETTABLE                         R5 R6 R3
-       20 JUMPIF                           R5 ; [+3]
-       21 GETUPVAL                         R5 4
-       22 GETTABLEKS                       R5 R5 K3 ["Placeholder"]
-       24 CALL                             R4 1 1
-       25 MOVE                             R2 R4
-       26 GETTABLEKS                       R3 R0 K0 ["ScopeType"]
-       28 GETUPVAL                         R4 1
-       29 GETTABLEKS                       R4 R4 K0 ["ScopeType"]
-       31 GETTABLEKS                       R4 R4 K1 ["RecentUploads"]
-       33 JUMPIFNOTEQ                      R3 R4 ; [+53]
-       35 GETUPVAL                         R3 5
-       36 GETTABLEKS                       R3 R3 K4 ["createElement"]
-       38 GETUPVAL                         R4 6
-       39 GETTABLEKS                       R4 R4 K5 ["Icon"]
-       41 DUPTABLE                         R5 K10 [{"LayoutOrder", "name", "variant", "size"}]
-       42 GETTABLEKS                       R6 R0 K6 ["LayoutOrder"]
-       44 SETTABLEKS                       R6 R5 K6 ["LayoutOrder"]
-       46 GETUPVAL                         R6 6
-       47 GETTABLEKS                       R6 R6 K11 ["Enums"]
-       49 GETTABLEKS                       R6 R6 K12 ["IconName"]
-       51 GETTABLEKS                       R6 R6 K13 ["ClockSpinReverse"]
-       53 SETTABLEKS                       R6 R5 K7 ["name"]
-       55 JUMPIFNOT                        R1 ; [+2]
-       56 LOADNIL                          R6
-       57 JUMP                             ; [+7]
-       58 GETUPVAL                         R6 6
-       59 GETTABLEKS                       R6 R6 K11 ["Enums"]
-       61 GETTABLEKS                       R6 R6 K14 ["IconVariant"]
-       63 GETTABLEKS                       R6 R6 K15 ["Filled"]
-       65 SETTABLEKS                       R6 R5 K8 ["variant"]
-       67 JUMPIFNOT                        R1 ; [+8]
-       68 GETUPVAL                         R6 6
-       69 GETTABLEKS                       R6 R6 K11 ["Enums"]
-       71 GETTABLEKS                       R6 R6 K16 ["IconSize"]
-       73 GETTABLEKS                       R6 R6 K17 ["Small"]
-       75 JUMP                             ; [+7]
-       76 GETUPVAL                         R6 6
-       77 GETTABLEKS                       R6 R6 K11 ["Enums"]
-       79 GETTABLEKS                       R6 R6 K18 ["InputSize"]
-       81 GETTABLEKS                       R6 R6 K17 ["Small"]
-       83 SETTABLEKS                       R6 R5 K9 ["size"]
-       85 CALL                             R3 2 -1
-       86 RETURN                           R3 -1
-       87 JUMPIFNOT                        R1 ; [+15]
-       88 GETUPVAL                         R3 5
-       89 GETTABLEKS                       R3 R3 K4 ["createElement"]
-       91 GETUPVAL                         R4 6
-       92 GETTABLEKS                       R4 R4 K19 ["Image"]
-       94 DUPTABLE                         R5 K22 [{["LayoutOrder"], ["Image"], ["tag"] = "size-400"}]
-       95 GETTABLEKS                       R6 R0 K6 ["LayoutOrder"]
-       97 SETTABLEKS                       R6 R5 K6 ["LayoutOrder"]
-       99 SETTABLEKS                       R2 R5 K19 ["Image"]
-      101 CALL                             R3 2 -1
-      102 RETURN                           R3 -1
-      103 GETUPVAL                         R3 5
-      104 GETTABLEKS                       R3 R3 K4 ["createElement"]
-      106 GETUPVAL                         R4 6
-      107 GETTABLEKS                       R4 R4 K19 ["Image"]
-      109 DUPTABLE                         R5 K23 [{"LayoutOrder", "tag"}]
-      110 GETTABLEKS                       R6 R0 K6 ["LayoutOrder"]
-      112 SETTABLEKS                       R6 R5 K6 ["LayoutOrder"]
-      114 LOADK                            R7 K24 ["size-400 %*"]
-      115 GETUPVAL                         R9 7
-      116 GETTABLEKS                       R10 R0 K0 ["ScopeType"]
-      118 CALL                             R9 1 1
-      119 NAMECALL                         R7 R7 K25 ["format"]
-      121 CALL                             R7 2 1
-      122 MOVE                             R6 R7
-      123 SETTABLEKS                       R6 R5 K20 ["tag"]
-      125 CALL                             R3 2 -1
-      126 RETURN                           R3 -1
+        0 GETTABLEKS                       R1 R0 K0 ["ScopeType"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["ScopeType"]
+        5 GETTABLEKS                       R2 R2 K1 ["RecentUploads"]
+        7 JUMPIFNOTEQ                      R1 R2 ; [+32]
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K2 ["createElement"]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K3 ["Icon"]
+       15 DUPTABLE                         R3 K7 [{"LayoutOrder", "name", "size"}]
+       16 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
+       18 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
+       20 GETUPVAL                         R4 2
+       21 GETTABLEKS                       R4 R4 K8 ["Enums"]
+       23 GETTABLEKS                       R4 R4 K9 ["IconName"]
+       25 GETTABLEKS                       R4 R4 K10 ["ClockSpinReverse"]
+       27 SETTABLEKS                       R4 R3 K5 ["name"]
+       29 GETUPVAL                         R4 2
+       30 GETTABLEKS                       R4 R4 K8 ["Enums"]
+       32 GETTABLEKS                       R4 R4 K11 ["IconSize"]
+       34 GETTABLEKS                       R4 R4 K12 ["Small"]
+       36 SETTABLEKS                       R4 R3 K6 ["size"]
+       38 CALL                             R1 2 -1
+       39 RETURN                           R1 -1
+       40 GETUPVAL                         R1 1
+       41 GETTABLEKS                       R1 R1 K2 ["createElement"]
+       43 GETUPVAL                         R2 2
+       44 GETTABLEKS                       R2 R2 K13 ["Image"]
+       46 DUPTABLE                         R3 K16 [{["LayoutOrder"], ["Image"], ["tag"] = "size-400"}]
+       47 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
+       49 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
+       51 GETTABLEKS                       R5 R0 K0 ["ScopeType"]
+       53 GETUPVAL                         R6 3
+       54 GETTABLEKS                       R6 R6 K17 ["get"]
+       56 GETUPVAL                         R8 4
+       57 GETTABLE                         R7 R8 R5
+       58 JUMPIF                           R7 ; [+3]
+       59 GETUPVAL                         R7 5
+       60 GETTABLEKS                       R7 R7 K18 ["Placeholder"]
+       62 CALL                             R6 1 1
+       63 MOVE                             R4 R6
+       64 SETTABLEKS                       R4 R3 K13 ["Image"]
+       66 CALL                             R1 2 -1
+       67 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -120,48 +79,36 @@ MAIN:
        34 GETTABLEKS                       R5 R5 K12 ["Images"]
        36 CALL                             R4 1 1
        37 GETTABLEKS                       R5 R4 K13 ["AvailableImages"]
-       39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R7 R0 K6 ["Src"]
-       43 GETTABLEKS                       R7 R7 K14 ["Flags"]
-       45 GETTABLEKS                       R7 R7 K15 ["getFFlagAmrFixScopeSelectorIcons"]
-       47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R8 R0 K6 ["Src"]
-       52 GETTABLEKS                       R8 R8 K11 ["Util"]
-       54 GETTABLEKS                       R8 R8 K16 ["getScopeIcon"]
-       56 CALL                             R7 1 1
-       57 NEWTABLE                         R8 8 0
-       59 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       61 GETTABLEKS                       R9 R9 K18 ["Group"]
-       63 GETTABLEKS                       R10 R5 K19 ["GroupFolder"]
-       65 SETTABLE                         R10 R8 R9
-       66 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       68 GETTABLEKS                       R9 R9 K20 ["User"]
-       70 GETTABLEKS                       R10 R5 K21 ["UserFolder"]
-       72 SETTABLE                         R10 R8 R9
-       73 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       75 GETTABLEKS                       R9 R9 K22 ["Universe"]
-       77 GETTABLEKS                       R10 R5 K23 ["GameFolder"]
-       79 SETTABLE                         R10 R8 R9
-       80 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       82 GETTABLEKS                       R9 R9 K24 ["ProjectPlaces"]
-       84 GETTABLEKS                       R10 R5 K25 ["PlacesFolder"]
-       86 SETTABLE                         R10 R8 R9
-       87 GETTABLEKS                       R9 R1 K17 ["ScopeType"]
-       89 GETTABLEKS                       R9 R9 K26 ["Folder"]
-       91 GETTABLEKS                       R10 R5 K26 ["Folder"]
-       93 SETTABLE                         R10 R8 R9
-       94 DUPCLOSURE                       R9 K27 [PROTO_0]
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R8
-       97 CAPTURE                          VAL R5
-       98 DUPCLOSURE                       R10 K28 [PROTO_1]
-       99 CAPTURE                          VAL R6
-      100 CAPTURE                          VAL R1
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R8
-      103 CAPTURE                          VAL R5
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          VAL R3
-      106 CAPTURE                          VAL R7
-      107 RETURN                           R10 1
+       39 NEWTABLE                         R6 8 0
+       41 GETTABLEKS                       R7 R1 K14 ["ScopeType"]
+       43 GETTABLEKS                       R7 R7 K15 ["Group"]
+       45 GETTABLEKS                       R8 R5 K16 ["GroupFolder"]
+       47 SETTABLE                         R8 R6 R7
+       48 GETTABLEKS                       R7 R1 K14 ["ScopeType"]
+       50 GETTABLEKS                       R7 R7 K17 ["User"]
+       52 GETTABLEKS                       R8 R5 K18 ["UserFolder"]
+       54 SETTABLE                         R8 R6 R7
+       55 GETTABLEKS                       R7 R1 K14 ["ScopeType"]
+       57 GETTABLEKS                       R7 R7 K19 ["Universe"]
+       59 GETTABLEKS                       R8 R5 K20 ["GameFolder"]
+       61 SETTABLE                         R8 R6 R7
+       62 GETTABLEKS                       R7 R1 K14 ["ScopeType"]
+       64 GETTABLEKS                       R7 R7 K21 ["ProjectPlaces"]
+       66 GETTABLEKS                       R8 R5 K22 ["PlacesFolder"]
+       68 SETTABLE                         R8 R6 R7
+       69 GETTABLEKS                       R7 R1 K14 ["ScopeType"]
+       71 GETTABLEKS                       R7 R7 K23 ["Folder"]
+       73 GETTABLEKS                       R8 R5 K23 ["Folder"]
+       75 SETTABLE                         R8 R6 R7
+       76 DUPCLOSURE                       R7 K24 [PROTO_0]
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R6
+       79 CAPTURE                          VAL R5
+       80 DUPCLOSURE                       R8 K25 [PROTO_1]
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R5
+       87 RETURN                           R8 1

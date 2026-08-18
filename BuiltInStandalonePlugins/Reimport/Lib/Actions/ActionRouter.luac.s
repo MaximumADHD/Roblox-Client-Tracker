@@ -142,17 +142,31 @@ PROTO_4:
        30 GETTABLEKS                       R5 R5 K8 ["isWatching"]
        32 MOVE                             R6 R0
        33 CALL                             R5 1 1
-       34 JUMPIFNOT                        R5 ; [+6]
+       34 JUMPIFNOT                        R5 ; [+14]
        35 GETUPVAL                         R5 2
        36 GETTABLEKS                       R5 R5 K9 ["stop"]
        38 MOVE                             R6 R0
        39 CALL                             R5 1 0
-       40 RETURN                           R0 0
-       41 GETUPVAL                         R5 2
-       42 GETTABLEKS                       R5 R5 K10 ["start"]
-       44 MOVE                             R6 R0
-       45 CALL                             R5 1 0
-       46 RETURN                           R0 0
+       40 GETUPVAL                         R5 3
+       41 CALL                             R5 0 1
+       42 JUMPIFNOT                        R5 ; [+19]
+       43 GETUPVAL                         R5 4
+       44 GETTABLEKS                       R5 R5 K10 ["logClick"]
+       46 DUPTABLE                         R6 K14 [{["clickTarget"] = "auto-reimport", ["clickValue"] = "stop"}]
+       47 CALL                             R5 1 0
+       48 RETURN                           R0 0
+       49 GETUPVAL                         R5 2
+       50 GETTABLEKS                       R5 R5 K15 ["start"]
+       52 MOVE                             R6 R0
+       53 CALL                             R5 1 0
+       54 GETUPVAL                         R5 3
+       55 CALL                             R5 0 1
+       56 JUMPIFNOT                        R5 ; [+5]
+       57 GETUPVAL                         R5 4
+       58 GETTABLEKS                       R5 R5 K10 ["logClick"]
+       60 DUPTABLE                         R6 K16 [{["clickTarget"] = "auto-reimport", ["clickValue"] = "start"}]
+       61 CALL                             R5 1 0
+       62 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -180,41 +194,52 @@ MAIN:
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
        41 GETTABLEKS                       R6 R0 K6 ["Lib"]
-       43 GETTABLEKS                       R6 R6 K11 ["DialogRegistry"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K6 ["Lib"]
-       50 GETTABLEKS                       R7 R7 K11 ["DialogRegistry"]
-       52 GETTABLEKS                       R7 R7 K12 ["ShowErrorDialog"]
-       54 CALL                             R6 1 0
-       55 GETIMPORT                        R6 K5 [require]
-       57 GETTABLEKS                       R7 R0 K6 ["Lib"]
-       59 GETTABLEKS                       R7 R7 K11 ["DialogRegistry"]
-       61 GETTABLEKS                       R7 R7 K13 ["ShowConfigureDialog"]
-       63 CALL                             R6 1 0
-       64 NEWTABLE                         R6 8 0
-       66 DUPCLOSURE                       R7 K14 [PROTO_0]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R1
-       71 SETTABLEKS                       R7 R6 K15 ["reimport"]
-       73 DUPCLOSURE                       R7 K16 [PROTO_1]
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R2
-       76 CAPTURE                          VAL R1
-       77 SETTABLEKS                       R7 R6 K17 ["reimportRelative"]
-       79 DUPCLOSURE                       R7 K18 [PROTO_2]
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          VAL R5
-       82 SETTABLEKS                       R7 R6 K19 ["configure"]
-       84 DUPCLOSURE                       R7 K20 [PROTO_3]
-       85 CAPTURE                          VAL R3
-       86 CAPTURE                          VAL R2
-       87 SETTABLEKS                       R7 R6 K21 ["clearConfig"]
-       89 DUPCLOSURE                       R7 K22 [PROTO_4]
+       43 GETTABLEKS                       R6 R6 K11 ["Util"]
+       45 GETTABLEKS                       R6 R6 K12 ["Telemetry"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R7 R0 K13 ["Flags"]
+       52 GETTABLEKS                       R7 R7 K14 ["GetFFlagReimportClickTelemetry"]
+       54 CALL                             R6 1 1
+       55 GETIMPORT                        R7 K5 [require]
+       57 GETTABLEKS                       R8 R0 K6 ["Lib"]
+       59 GETTABLEKS                       R8 R8 K15 ["DialogRegistry"]
+       61 CALL                             R7 1 1
+       62 GETIMPORT                        R8 K5 [require]
+       64 GETTABLEKS                       R9 R0 K6 ["Lib"]
+       66 GETTABLEKS                       R9 R9 K15 ["DialogRegistry"]
+       68 GETTABLEKS                       R9 R9 K16 ["ShowErrorDialog"]
+       70 CALL                             R8 1 0
+       71 GETIMPORT                        R8 K5 [require]
+       73 GETTABLEKS                       R9 R0 K6 ["Lib"]
+       75 GETTABLEKS                       R9 R9 K15 ["DialogRegistry"]
+       77 GETTABLEKS                       R9 R9 K17 ["ShowConfigureDialog"]
+       79 CALL                             R8 1 0
+       80 NEWTABLE                         R8 8 0
+       82 DUPCLOSURE                       R9 K18 [PROTO_0]
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R8
+       86 CAPTURE                          VAL R1
+       87 SETTABLEKS                       R9 R8 K19 ["reimport"]
+       89 DUPCLOSURE                       R9 K20 [PROTO_1]
        90 CAPTURE                          VAL R3
        91 CAPTURE                          VAL R2
-       92 CAPTURE                          VAL R4
-       93 SETTABLEKS                       R7 R6 K23 ["watchInstanceFile"]
-       95 RETURN                           R6 1
+       92 CAPTURE                          VAL R1
+       93 SETTABLEKS                       R9 R8 K21 ["reimportRelative"]
+       95 DUPCLOSURE                       R9 K22 [PROTO_2]
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          VAL R7
+       98 SETTABLEKS                       R9 R8 K23 ["configure"]
+      100 DUPCLOSURE                       R9 K24 [PROTO_3]
+      101 CAPTURE                          VAL R3
+      102 CAPTURE                          VAL R2
+      103 SETTABLEKS                       R9 R8 K25 ["clearConfig"]
+      105 DUPCLOSURE                       R9 K26 [PROTO_4]
+      106 CAPTURE                          VAL R3
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R4
+      109 CAPTURE                          VAL R6
+      110 CAPTURE                          VAL R5
+      111 SETTABLEKS                       R9 R8 K27 ["watchInstanceFile"]
+      113 RETURN                           R8 1

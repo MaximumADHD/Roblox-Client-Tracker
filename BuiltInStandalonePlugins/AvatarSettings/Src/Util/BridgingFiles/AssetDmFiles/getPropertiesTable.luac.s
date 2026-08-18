@@ -126,8 +126,8 @@ PROTO_4:
        10 CALL                             R1 2 0
        11 GETUPVAL                         R1 1
        12 CALL                             R1 0 1
-       13 JUMPIFNOT                        R1 ; [+54]
-       14 DUPTABLE                         R1 K17 [{"CharacterControllerMode", "EnableClimbing", "EnableCrouching", "EnableFallingDown", "EnableGettingUp", "EnableHolding", "EnableJumping", "EnableReaching", "EnableRunning", "EnableSitting", "EnableSprinting", "EnableStrafing", "EnableSwimming"}]
+       13 JUMPIFNOT                        R1 ; [+50]
+       14 DUPTABLE                         R1 K16 [{"CharacterControllerMode", "EnableClimbing", "EnableCrouching", "EnableFallingDown", "EnableGettingUp", "EnableHolding", "EnableJumping", "EnableReaching", "EnableRunning", "EnableSitting", "EnableSprinting", "EnableSwimming"}]
        15 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
        17 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
        19 GETTABLEKS                       R2 R0 K5 ["EnableClimbing"]
@@ -150,29 +150,27 @@ PROTO_4:
        53 SETTABLEKS                       R2 R1 K13 ["EnableSitting"]
        55 GETTABLEKS                       R2 R0 K14 ["EnableSprinting"]
        57 SETTABLEKS                       R2 R1 K14 ["EnableSprinting"]
-       59 GETTABLEKS                       R2 R0 K15 ["EnableStrafing"]
-       61 SETTABLEKS                       R2 R1 K15 ["EnableStrafing"]
-       63 GETTABLEKS                       R2 R0 K16 ["EnableSwimming"]
-       65 SETTABLEKS                       R2 R1 K16 ["EnableSwimming"]
-       67 RETURN                           R1 1
-       68 DUPTABLE                         R1 K18 [{"CharacterControllerMode", "EnableRunning", "EnableJumping", "EnableSitting", "EnableFallingDown", "EnableGettingUp", "EnableClimbing", "EnableSwimming"}]
-       69 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
-       71 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
-       73 GETTABLEKS                       R2 R0 K12 ["EnableRunning"]
-       75 SETTABLEKS                       R2 R1 K12 ["EnableRunning"]
-       77 GETTABLEKS                       R2 R0 K10 ["EnableJumping"]
-       79 SETTABLEKS                       R2 R1 K10 ["EnableJumping"]
-       81 GETTABLEKS                       R2 R0 K13 ["EnableSitting"]
-       83 SETTABLEKS                       R2 R1 K13 ["EnableSitting"]
-       85 GETTABLEKS                       R2 R0 K7 ["EnableFallingDown"]
-       87 SETTABLEKS                       R2 R1 K7 ["EnableFallingDown"]
-       89 GETTABLEKS                       R2 R0 K8 ["EnableGettingUp"]
-       91 SETTABLEKS                       R2 R1 K8 ["EnableGettingUp"]
-       93 GETTABLEKS                       R2 R0 K5 ["EnableClimbing"]
-       95 SETTABLEKS                       R2 R1 K5 ["EnableClimbing"]
-       97 GETTABLEKS                       R2 R0 K16 ["EnableSwimming"]
-       99 SETTABLEKS                       R2 R1 K16 ["EnableSwimming"]
-      101 RETURN                           R1 1
+       59 GETTABLEKS                       R2 R0 K15 ["EnableSwimming"]
+       61 SETTABLEKS                       R2 R1 K15 ["EnableSwimming"]
+       63 RETURN                           R1 1
+       64 DUPTABLE                         R1 K17 [{"CharacterControllerMode", "EnableRunning", "EnableJumping", "EnableSitting", "EnableFallingDown", "EnableGettingUp", "EnableClimbing", "EnableSwimming"}]
+       65 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
+       67 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
+       69 GETTABLEKS                       R2 R0 K12 ["EnableRunning"]
+       71 SETTABLEKS                       R2 R1 K12 ["EnableRunning"]
+       73 GETTABLEKS                       R2 R0 K10 ["EnableJumping"]
+       75 SETTABLEKS                       R2 R1 K10 ["EnableJumping"]
+       77 GETTABLEKS                       R2 R0 K13 ["EnableSitting"]
+       79 SETTABLEKS                       R2 R1 K13 ["EnableSitting"]
+       81 GETTABLEKS                       R2 R0 K7 ["EnableFallingDown"]
+       83 SETTABLEKS                       R2 R1 K7 ["EnableFallingDown"]
+       85 GETTABLEKS                       R2 R0 K8 ["EnableGettingUp"]
+       87 SETTABLEKS                       R2 R1 K8 ["EnableGettingUp"]
+       89 GETTABLEKS                       R2 R0 K5 ["EnableClimbing"]
+       91 SETTABLEKS                       R2 R1 K5 ["EnableClimbing"]
+       93 GETTABLEKS                       R2 R0 K15 ["EnableSwimming"]
+       95 SETTABLEKS                       R2 R1 K15 ["EnableSwimming"]
+       97 RETURN                           R1 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0

@@ -886,61 +886,92 @@ PROTO_27:
        10 GETTABLEKS                       R3 R0 K4 ["state"]
        12 GETTABLEKS                       R4 R1 K5 ["Size"]
        14 GETTABLEKS                       R5 R1 K6 ["TopTrackIndex"]
-       16 GETTABLEKS                       R6 R3 K7 ["AbsoluteSize"]
-       18 GETTABLEKS                       R6 R6 K8 ["Y"]
-       20 GETTABLEKS                       R7 R3 K7 ["AbsoluteSize"]
-       22 GETTABLEKS                       R7 R7 K9 ["X"]
-       24 GETTABLEKS                       R8 R1 K10 ["LayoutOrder"]
-       26 LOADNIL                          R9
-       27 JUMPIFNOTEQKN                    R5 K11 [0] ; [+15]
-       29 GETUPVAL                         R13 0
-       30 GETTABLEKS                       R13 R13 K13 ["SUMMARY_TRACK_HEIGHT"]
-       32 SUB                              R12 R6 R13
-       33 GETUPVAL                         R13 0
-       34 GETTABLEKS                       R13 R13 K14 ["TRACK_HEIGHT"]
-       36 DIV                              R11 R12 R13
-       37 FASTCALL1                        MATH_CEIL R11 ; [+2]
-       38 GETIMPORT                        R10 K17 [math.ceil]
-       40 CALL                             R10 1 1
-       41 ADDK                             R9 R10 K12 [1]
-       42 JUMP                             ; [+10]
-       43 GETUPVAL                         R13 0
-       44 GETTABLEKS                       R13 R13 K14 ["TRACK_HEIGHT"]
-       46 DIV                              R12 R6 R13
-       47 FASTCALL1                        MATH_CEIL R12 ; [+2]
-       48 GETIMPORT                        R11 K17 [math.ceil]
-       50 CALL                             R11 1 1
-       51 ADD                              R10 R5 R11
-       52 SUBK                             R9 R10 K12 [1]
-       53 MOVE                             R12 R5
-       54 MOVE                             R13 R9
-       55 MOVE                             R14 R2
-       56 NAMECALL                         R10 R0 K18 ["renderTracks"]
-       58 CALL                             R10 4 1
-       59 GETUPVAL                         R11 1
-       60 GETTABLEKS                       R11 R11 K19 ["createElement"]
-       62 GETUPVAL                         R12 2
-       63 DUPTABLE                         R13 K27 [{["Size"], ["Width"], ["LayoutOrder"], ["BackgroundTransparency"] = 1, ["CanvasSize"], ["ZIndex"] = 2, ["OnWheelTick"], ["OnSizeChanged"]}]
-       64 SETTABLEKS                       R4 R13 K5 ["Size"]
-       66 SETTABLEKS                       R7 R13 K20 ["Width"]
-       68 SETTABLEKS                       R8 R13 K10 ["LayoutOrder"]
-       70 GETIMPORT                        R14 K30 [UDim2.new]
-       72 LOADN                            R15 0
-       73 GETTABLEKS                       R17 R0 K1 ["maxTrackWidth"]
-       75 GETUPVAL                         R18 0
-       76 GETTABLEKS                       R18 R18 K31 ["TRACKLIST_RIGHT_PADDING"]
-       78 ADD                              R16 R17 R18
-       79 LOADN                            R17 0
-       80 LOADN                            R18 0
-       81 CALL                             R14 4 1
-       82 SETTABLEKS                       R14 R13 K22 ["CanvasSize"]
-       84 GETTABLEKS                       R14 R0 K32 ["wheelTick"]
-       86 SETTABLEKS                       R14 R13 K25 ["OnWheelTick"]
-       88 GETTABLEKS                       R14 R0 K33 ["sizeChanged"]
-       90 SETTABLEKS                       R14 R13 K26 ["OnSizeChanged"]
-       92 MOVE                             R14 R10
-       93 CALL                             R11 3 -1
-       94 RETURN                           R11 -1
+       16 LOADNIL                          R6
+       17 LOADNIL                          R7
+       18 GETUPVAL                         R8 0
+       19 CALL                             R8 0 1
+       20 JUMPIFNOT                        R8 ; [+33]
+       21 GETTABLEKS                       R8 R3 K7 ["AbsoluteSize"]
+       23 GETTABLEKS                       R8 R8 K8 ["Y"]
+       25 LOADN                            R9 0
+       26 JUMPIFNOTLT                      R9 R8 ; [+6]
+       28 GETTABLEKS                       R8 R3 K7 ["AbsoluteSize"]
+       30 GETTABLEKS                       R6 R8 K8 ["Y"]
+       32 JUMP                             ; [+4]
+       33 GETTABLEKS                       R8 R4 K8 ["Y"]
+       35 GETTABLEKS                       R6 R8 K9 ["Offset"]
+       37 GETTABLEKS                       R8 R3 K7 ["AbsoluteSize"]
+       39 GETTABLEKS                       R8 R8 K10 ["X"]
+       41 LOADN                            R9 0
+       42 JUMPIFNOTLT                      R9 R8 ; [+6]
+       44 GETTABLEKS                       R8 R3 K7 ["AbsoluteSize"]
+       46 GETTABLEKS                       R7 R8 K10 ["X"]
+       48 JUMP                             ; [+13]
+       49 GETTABLEKS                       R8 R4 K10 ["X"]
+       51 GETTABLEKS                       R7 R8 K9 ["Offset"]
+       53 JUMP                             ; [+8]
+       54 GETTABLEKS                       R8 R3 K7 ["AbsoluteSize"]
+       56 GETTABLEKS                       R6 R8 K8 ["Y"]
+       58 GETTABLEKS                       R8 R3 K7 ["AbsoluteSize"]
+       60 GETTABLEKS                       R7 R8 K10 ["X"]
+       62 GETTABLEKS                       R8 R1 K11 ["LayoutOrder"]
+       64 LOADNIL                          R9
+       65 GETUPVAL                         R10 0
+       66 CALL                             R10 0 1
+       67 JUMPIFNOT                        R10 ; [+5]
+       68 LOADN                            R10 0
+       69 JUMPIFNOTLE                      R6 R10 ; [+3]
+       71 LOADK                            R9 K12 [∞]
+       72 JUMP                             ; [+26]
+       73 JUMPIFNOTEQKN                    R5 K13 [0] ; [+15]
+       75 GETUPVAL                         R13 1
+       76 GETTABLEKS                       R13 R13 K15 ["SUMMARY_TRACK_HEIGHT"]
+       78 SUB                              R12 R6 R13
+       79 GETUPVAL                         R13 1
+       80 GETTABLEKS                       R13 R13 K16 ["TRACK_HEIGHT"]
+       82 DIV                              R11 R12 R13
+       83 FASTCALL1                        MATH_CEIL R11 ; [+2]
+       84 GETIMPORT                        R10 K19 [math.ceil]
+       86 CALL                             R10 1 1
+       87 ADDK                             R9 R10 K14 [1]
+       88 JUMP                             ; [+10]
+       89 GETUPVAL                         R13 1
+       90 GETTABLEKS                       R13 R13 K16 ["TRACK_HEIGHT"]
+       92 DIV                              R12 R6 R13
+       93 FASTCALL1                        MATH_CEIL R12 ; [+2]
+       94 GETIMPORT                        R11 K19 [math.ceil]
+       96 CALL                             R11 1 1
+       97 ADD                              R10 R5 R11
+       98 SUBK                             R9 R10 K14 [1]
+       99 MOVE                             R12 R5
+      100 MOVE                             R13 R9
+      101 MOVE                             R14 R2
+      102 NAMECALL                         R10 R0 K20 ["renderTracks"]
+      104 CALL                             R10 4 1
+      105 GETUPVAL                         R11 2
+      106 GETTABLEKS                       R11 R11 K21 ["createElement"]
+      108 GETUPVAL                         R12 3
+      109 DUPTABLE                         R13 K29 [{["Size"], ["Width"], ["LayoutOrder"], ["BackgroundTransparency"] = 1, ["CanvasSize"], ["ZIndex"] = 2, ["OnWheelTick"], ["OnSizeChanged"]}]
+      110 SETTABLEKS                       R4 R13 K5 ["Size"]
+      112 SETTABLEKS                       R7 R13 K22 ["Width"]
+      114 SETTABLEKS                       R8 R13 K11 ["LayoutOrder"]
+      116 GETIMPORT                        R14 K32 [UDim2.new]
+      118 LOADN                            R15 0
+      119 GETTABLEKS                       R17 R0 K1 ["maxTrackWidth"]
+      121 GETUPVAL                         R18 1
+      122 GETTABLEKS                       R18 R18 K33 ["TRACKLIST_RIGHT_PADDING"]
+      124 ADD                              R16 R17 R18
+      125 LOADN                            R17 0
+      126 LOADN                            R18 0
+      127 CALL                             R14 4 1
+      128 SETTABLEKS                       R14 R13 K24 ["CanvasSize"]
+      130 GETTABLEKS                       R14 R0 K34 ["wheelTick"]
+      132 SETTABLEKS                       R14 R13 K27 ["OnWheelTick"]
+      134 GETTABLEKS                       R14 R0 K35 ["sizeChanged"]
+      136 SETTABLEKS                       R14 R13 K28 ["OnSizeChanged"]
+      138 MOVE                             R14 R10
+      139 CALL                             R11 3 -1
+      140 RETURN                           R11 -1
 
 PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["Status"]
@@ -1046,73 +1077,78 @@ MAIN:
       148 GETTABLEKS                       R19 R0 K29 ["LuaFlags"]
       150 GETTABLEKS                       R19 R19 K30 ["GetFFlagControlRig"]
       152 CALL                             R18 1 1
-      153 GETTABLEKS                       R19 R1 K31 ["PureComponent"]
-      155 LOADK                            R21 K24 ["TrackList"]
-      156 NAMECALL                         R19 R19 K32 ["extend"]
-      158 CALL                             R19 2 1
-      159 DUPCLOSURE                       R20 K33 [PROTO_13]
-      160 CAPTURE                          VAL R5
-      161 CAPTURE                          VAL R11
-      162 SETTABLEKS                       R20 R19 K34 ["init"]
-      164 DUPCLOSURE                       R20 K35 [PROTO_14]
-      165 CAPTURE                          VAL R11
-      166 CAPTURE                          VAL R1
-      167 CAPTURE                          VAL R14
-      168 SETTABLEKS                       R20 R19 K36 ["renderSummaryTrack"]
-      170 DUPCLOSURE                       R20 K37 [PROTO_17]
-      171 CAPTURE                          VAL R11
-      172 CAPTURE                          VAL R4
+      153 GETIMPORT                        R19 K5 [require]
+      155 GETTABLEKS                       R20 R0 K29 ["LuaFlags"]
+      157 GETTABLEKS                       R20 R20 K31 ["GetFFlagACETrackListUnknownHeightFix"]
+      159 CALL                             R19 1 1
+      160 GETTABLEKS                       R20 R1 K32 ["PureComponent"]
+      162 LOADK                            R22 K24 ["TrackList"]
+      163 NAMECALL                         R20 R20 K33 ["extend"]
+      165 CALL                             R20 2 1
+      166 DUPCLOSURE                       R21 K34 [PROTO_13]
+      167 CAPTURE                          VAL R5
+      168 CAPTURE                          VAL R11
+      169 SETTABLEKS                       R21 R20 K35 ["init"]
+      171 DUPCLOSURE                       R21 K36 [PROTO_14]
+      172 CAPTURE                          VAL R11
       173 CAPTURE                          VAL R1
-      174 CAPTURE                          VAL R16
-      175 SETTABLEKS                       R20 R19 K38 ["renderExpandedCFrameTrack"]
-      177 DUPCLOSURE                       R20 K39 [PROTO_18]
-      178 CAPTURE                          VAL R1
-      179 CAPTURE                          VAL R15
-      180 CAPTURE                          VAL R11
-      181 SETTABLEKS                       R20 R19 K40 ["renderExpandedGenericTrack"]
-      183 DUPCLOSURE                       R20 K41 [PROTO_19]
-      184 CAPTURE                          VAL R11
-      185 SETTABLEKS                       R20 R19 K42 ["renderExpandedTracks"]
-      187 DUPCLOSURE                       R20 K43 [PROTO_20]
-      188 SETTABLEKS                       R20 R19 K44 ["isSelected"]
-      190 DUPCLOSURE                       R20 K45 [PROTO_25]
-      191 CAPTURE                          VAL R18
-      192 CAPTURE                          VAL R11
-      193 CAPTURE                          VAL R4
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R2
-      196 CAPTURE                          VAL R10
-      197 CAPTURE                          VAL R13
-      198 CAPTURE                          VAL R1
-      199 CAPTURE                          VAL R16
-      200 SETTABLEKS                       R20 R19 K46 ["renderTrack"]
-      202 DUPCLOSURE                       R20 K47 [PROTO_26]
-      203 CAPTURE                          VAL R1
-      204 SETTABLEKS                       R20 R19 K48 ["renderTracks"]
-      206 DUPCLOSURE                       R20 K49 [PROTO_27]
-      207 CAPTURE                          VAL R11
-      208 CAPTURE                          VAL R1
-      209 CAPTURE                          VAL R17
-      210 SETTABLEKS                       R20 R19 K50 ["render"]
-      212 MOVE                             R20 R9
-      213 DUPTABLE                         R21 K54 [{"Stylizer", "Analytics", "Localization", "Signals"}]
-      214 GETTABLEKS                       R22 R8 K51 ["Stylizer"]
-      216 SETTABLEKS                       R22 R21 K51 ["Stylizer"]
-      218 GETTABLEKS                       R22 R8 K52 ["Analytics"]
-      220 SETTABLEKS                       R22 R21 K52 ["Analytics"]
-      222 GETTABLEKS                       R22 R8 K53 ["Localization"]
-      224 SETTABLEKS                       R22 R21 K53 ["Localization"]
-      226 SETTABLEKS                       R6 R21 K15 ["Signals"]
-      228 CALL                             R20 1 1
-      229 MOVE                             R21 R19
-      230 CALL                             R20 1 1
-      231 MOVE                             R19 R20
-      232 DUPCLOSURE                       R20 K55 [PROTO_28]
-      233 DUPCLOSURE                       R21 K56 [PROTO_29]
-      234 GETTABLEKS                       R22 R3 K57 ["connect"]
-      236 MOVE                             R23 R20
-      237 MOVE                             R24 R21
-      238 CALL                             R22 2 1
-      239 MOVE                             R23 R19
-      240 CALL                             R22 1 -1
-      241 RETURN                           R22 -1
+      174 CAPTURE                          VAL R14
+      175 SETTABLEKS                       R21 R20 K37 ["renderSummaryTrack"]
+      177 DUPCLOSURE                       R21 K38 [PROTO_17]
+      178 CAPTURE                          VAL R11
+      179 CAPTURE                          VAL R4
+      180 CAPTURE                          VAL R1
+      181 CAPTURE                          VAL R16
+      182 SETTABLEKS                       R21 R20 K39 ["renderExpandedCFrameTrack"]
+      184 DUPCLOSURE                       R21 K40 [PROTO_18]
+      185 CAPTURE                          VAL R1
+      186 CAPTURE                          VAL R15
+      187 CAPTURE                          VAL R11
+      188 SETTABLEKS                       R21 R20 K41 ["renderExpandedGenericTrack"]
+      190 DUPCLOSURE                       R21 K42 [PROTO_19]
+      191 CAPTURE                          VAL R11
+      192 SETTABLEKS                       R21 R20 K43 ["renderExpandedTracks"]
+      194 DUPCLOSURE                       R21 K44 [PROTO_20]
+      195 SETTABLEKS                       R21 R20 K45 ["isSelected"]
+      197 DUPCLOSURE                       R21 K46 [PROTO_25]
+      198 CAPTURE                          VAL R18
+      199 CAPTURE                          VAL R11
+      200 CAPTURE                          VAL R4
+      201 CAPTURE                          VAL R12
+      202 CAPTURE                          VAL R2
+      203 CAPTURE                          VAL R10
+      204 CAPTURE                          VAL R13
+      205 CAPTURE                          VAL R1
+      206 CAPTURE                          VAL R16
+      207 SETTABLEKS                       R21 R20 K47 ["renderTrack"]
+      209 DUPCLOSURE                       R21 K48 [PROTO_26]
+      210 CAPTURE                          VAL R1
+      211 SETTABLEKS                       R21 R20 K49 ["renderTracks"]
+      213 DUPCLOSURE                       R21 K50 [PROTO_27]
+      214 CAPTURE                          VAL R19
+      215 CAPTURE                          VAL R11
+      216 CAPTURE                          VAL R1
+      217 CAPTURE                          VAL R17
+      218 SETTABLEKS                       R21 R20 K51 ["render"]
+      220 MOVE                             R21 R9
+      221 DUPTABLE                         R22 K55 [{"Stylizer", "Analytics", "Localization", "Signals"}]
+      222 GETTABLEKS                       R23 R8 K52 ["Stylizer"]
+      224 SETTABLEKS                       R23 R22 K52 ["Stylizer"]
+      226 GETTABLEKS                       R23 R8 K53 ["Analytics"]
+      228 SETTABLEKS                       R23 R22 K53 ["Analytics"]
+      230 GETTABLEKS                       R23 R8 K54 ["Localization"]
+      232 SETTABLEKS                       R23 R22 K54 ["Localization"]
+      234 SETTABLEKS                       R6 R22 K15 ["Signals"]
+      236 CALL                             R21 1 1
+      237 MOVE                             R22 R20
+      238 CALL                             R21 1 1
+      239 MOVE                             R20 R21
+      240 DUPCLOSURE                       R21 K56 [PROTO_28]
+      241 DUPCLOSURE                       R22 K57 [PROTO_29]
+      242 GETTABLEKS                       R23 R3 K58 ["connect"]
+      244 MOVE                             R24 R21
+      245 MOVE                             R25 R22
+      246 CALL                             R23 2 1
+      247 MOVE                             R24 R20
+      248 CALL                             R23 1 -1
+      249 RETURN                           R23 -1

@@ -160,16 +160,19 @@ PROTO_8:
        28 NEWCLOSURE                       R1 P4
        29 CAPTURE                          VAL R0
        30 SETTABLEKS                       R1 R0 K13 ["hideFaceControlsEditor"]
-       32 NEWCLOSURE                       R1 P5
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R1 R0 K14 ["onDockWidgetLoaded"]
-       36 NEWCLOSURE                       R1 P6
-       37 CAPTURE                          VAL R0
-       38 SETTABLEKS                       R1 R0 K15 ["onTreeUpdated"]
-       40 NEWCLOSURE                       R1 P7
-       41 CAPTURE                          VAL R0
-       42 SETTABLEKS                       R1 R0 K16 ["changeSelectedTrack"]
-       44 RETURN                           R0 0
+       32 GETUPVAL                         R1 1
+       33 CALL                             R1 0 1
+       34 JUMPIF                           R1 ; [+4]
+       35 NEWCLOSURE                       R1 P5
+       36 CAPTURE                          VAL R0
+       37 SETTABLEKS                       R1 R0 K14 ["onDockWidgetLoaded"]
+       39 NEWCLOSURE                       R1 P6
+       40 CAPTURE                          VAL R0
+       41 SETTABLEKS                       R1 R0 K15 ["onTreeUpdated"]
+       43 NEWCLOSURE                       R1 P7
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R1 R0 K16 ["changeSelectedTrack"]
+       47 RETURN                           R0 0
 
 PROTO_9:
         0 JUMPIFNOT                        R1 ; [+23]
@@ -348,14 +351,22 @@ PROTO_16:
        63 MOVE                             R9 R4
        64 GETIMPORT                        R7 K3 [table.insert]
        66 CALL                             R7 2 0
-       67 GETTABLEKS                       R7 R0 K7 ["state"]
-       69 SETTABLEKS                       R6 R7 K8 ["currentlyEditedFacsProperties"]
-       71 GETTABLEKS                       R7 R0 K7 ["state"]
-       73 LOADB                            R8 1
-       74 SETTABLEKS                       R8 R7 K9 ["showContextMenu"]
-       76 NAMECALL                         R7 R0 K9 ["showContextMenu"]
-       78 CALL                             R7 1 0
-       79 RETURN                           R0 0
+       67 GETUPVAL                         R7 1
+       68 CALL                             R7 0 1
+       69 JUMPIFNOT                        R7 ; [+7]
+       70 DUPTABLE                         R9 K10 [{["currentlyEditedFacsProperties"], ["showContextMenu"] = True}]
+       71 SETTABLEKS                       R6 R9 K7 ["currentlyEditedFacsProperties"]
+       73 NAMECALL                         R7 R0 K11 ["setState"]
+       75 CALL                             R7 2 0
+       76 RETURN                           R0 0
+       77 GETTABLEKS                       R7 R0 K12 ["state"]
+       79 SETTABLEKS                       R6 R7 K7 ["currentlyEditedFacsProperties"]
+       81 GETTABLEKS                       R7 R0 K12 ["state"]
+       83 LOADB                            R8 1
+       84 SETTABLEKS                       R8 R7 K8 ["showContextMenu"]
+       86 NAMECALL                         R7 R0 K8 ["showContextMenu"]
+       88 CALL                             R7 1 0
+       89 RETURN                           R0 0
 
 PROTO_17:
         0 GETTABLEKS                       R2 R0 K0 ["Name"]
@@ -803,16 +814,25 @@ PROTO_24:
        43 GETIMPORT                        R1 K4 [table.insert]
        45 CALL                             R1 2 0
        46 GETUPVAL                         R1 1
-       47 GETTABLEKS                       R1 R1 K8 ["state"]
-       49 SETTABLEKS                       R0 R1 K9 ["currentlyEditedFacsProperties"]
-       51 GETUPVAL                         R1 1
-       52 GETTABLEKS                       R1 R1 K8 ["state"]
-       54 LOADB                            R2 1
-       55 SETTABLEKS                       R2 R1 K10 ["showContextMenu"]
-       57 GETUPVAL                         R1 1
-       58 NAMECALL                         R1 R1 K10 ["showContextMenu"]
-       60 CALL                             R1 1 0
-       61 RETURN                           R0 0
+       47 CALL                             R1 0 1
+       48 JUMPIFNOT                        R1 ; [+8]
+       49 GETUPVAL                         R1 2
+       50 DUPTABLE                         R3 K11 [{["currentlyEditedFacsProperties"], ["showContextMenu"] = True}]
+       51 SETTABLEKS                       R0 R3 K8 ["currentlyEditedFacsProperties"]
+       53 NAMECALL                         R1 R1 K12 ["setState"]
+       55 CALL                             R1 2 0
+       56 RETURN                           R0 0
+       57 GETUPVAL                         R1 2
+       58 GETTABLEKS                       R1 R1 K13 ["state"]
+       60 SETTABLEKS                       R0 R1 K8 ["currentlyEditedFacsProperties"]
+       62 GETUPVAL                         R1 2
+       63 GETTABLEKS                       R1 R1 K13 ["state"]
+       65 LOADB                            R2 1
+       66 SETTABLEKS                       R2 R1 K9 ["showContextMenu"]
+       68 GETUPVAL                         R1 2
+       69 NAMECALL                         R1 R1 K9 ["showContextMenu"]
+       71 CALL                             R1 1 0
+       72 RETURN                           R0 0
 
 PROTO_25:
         0 GETUPVAL                         R0 0
@@ -985,63 +1005,64 @@ PROTO_27:
        78 SETTABLEKS                       R6 R10 K27 ["Value"]
        80 NEWCLOSURE                       R11 P0
        81 CAPTURE                          UPVAL U3
-       82 CAPTURE                          VAL R0
-       83 SETTABLEKS                       R11 R10 K28 ["OnRightClick"]
-       85 NEWCLOSURE                       R11 P1
-       86 CAPTURE                          VAL R0
-       87 CAPTURE                          UPVAL U3
-       88 SETTABLEKS                       R11 R10 K29 ["OnChangeBegan"]
-       90 NEWCLOSURE                       R11 P2
-       91 CAPTURE                          VAL R5
-       92 CAPTURE                          VAL R0
-       93 CAPTURE                          UPVAL U3
-       94 SETTABLEKS                       R11 R10 K30 ["OnValueChanged"]
-       96 GETIMPORT                        R11 K38 [UDim2.new]
-       98 GETTABLEKS                       R12 R5 K39 ["position"]
-      100 GETTABLEKS                       R12 R12 K8 ["X"]
-      102 GETTABLEKS                       R12 R12 K40 ["Scale"]
-      104 GETTABLEKS                       R14 R5 K39 ["position"]
-      106 GETTABLEKS                       R14 R14 K8 ["X"]
-      108 GETTABLEKS                       R14 R14 K41 ["Offset"]
-      110 GETTABLEKS                       R15 R0 K42 ["state"]
-      112 GETTABLEKS                       R15 R15 K43 ["scaleFactor"]
-      114 MUL                              R13 R14 R15
-      115 GETTABLEKS                       R14 R5 K39 ["position"]
-      117 GETTABLEKS                       R14 R14 K12 ["Y"]
-      119 GETTABLEKS                       R14 R14 K40 ["Scale"]
-      121 GETTABLEKS                       R16 R5 K39 ["position"]
-      123 GETTABLEKS                       R16 R16 K12 ["Y"]
-      125 GETTABLEKS                       R16 R16 K41 ["Offset"]
-      127 GETTABLEKS                       R17 R0 K42 ["state"]
-      129 GETTABLEKS                       R17 R17 K43 ["scaleFactor"]
-      131 MUL                              R15 R16 R17
-      132 CALL                             R11 4 1
-      133 SETTABLEKS                       R11 R10 K31 ["Position"]
-      135 GETIMPORT                        R11 K38 [UDim2.new]
-      137 LOADN                            R12 0
-      138 LOADN                            R14 36
-      139 GETTABLEKS                       R15 R0 K42 ["state"]
-      141 GETTABLEKS                       R15 R15 K43 ["scaleFactor"]
-      143 MUL                              R13 R14 R15
-      144 LOADN                            R14 0
-      145 LOADN                            R16 28
-      146 GETTABLEKS                       R17 R0 K42 ["state"]
-      148 GETTABLEKS                       R17 R17 K43 ["scaleFactor"]
-      150 MUL                              R15 R16 R17
-      151 CALL                             R11 4 1
-      152 SETTABLEKS                       R11 R10 K32 ["Size"]
-      154 GETIMPORT                        R11 K6 [Vector2.new]
-      156 LOADK                            R12 K44 [0.5]
-      157 LOADK                            R13 K44 [0.5]
-      158 CALL                             R11 2 1
-      159 SETTABLEKS                       R11 R10 K33 ["AnchorPoint"]
-      161 CALL                             R8 2 1
-      162 SETTABLEKS                       R8 R3 K2 ["EyesDragBox"]
-      164 GETUPVAL                         R8 1
-      165 GETTABLEKS                       R8 R8 K45 ["createFragment"]
-      167 MOVE                             R9 R3
-      168 CALL                             R8 1 -1
-      169 RETURN                           R8 -1
+       82 CAPTURE                          UPVAL U4
+       83 CAPTURE                          VAL R0
+       84 SETTABLEKS                       R11 R10 K28 ["OnRightClick"]
+       86 NEWCLOSURE                       R11 P1
+       87 CAPTURE                          VAL R0
+       88 CAPTURE                          UPVAL U3
+       89 SETTABLEKS                       R11 R10 K29 ["OnChangeBegan"]
+       91 NEWCLOSURE                       R11 P2
+       92 CAPTURE                          VAL R5
+       93 CAPTURE                          VAL R0
+       94 CAPTURE                          UPVAL U3
+       95 SETTABLEKS                       R11 R10 K30 ["OnValueChanged"]
+       97 GETIMPORT                        R11 K38 [UDim2.new]
+       99 GETTABLEKS                       R12 R5 K39 ["position"]
+      101 GETTABLEKS                       R12 R12 K8 ["X"]
+      103 GETTABLEKS                       R12 R12 K40 ["Scale"]
+      105 GETTABLEKS                       R14 R5 K39 ["position"]
+      107 GETTABLEKS                       R14 R14 K8 ["X"]
+      109 GETTABLEKS                       R14 R14 K41 ["Offset"]
+      111 GETTABLEKS                       R15 R0 K42 ["state"]
+      113 GETTABLEKS                       R15 R15 K43 ["scaleFactor"]
+      115 MUL                              R13 R14 R15
+      116 GETTABLEKS                       R14 R5 K39 ["position"]
+      118 GETTABLEKS                       R14 R14 K12 ["Y"]
+      120 GETTABLEKS                       R14 R14 K40 ["Scale"]
+      122 GETTABLEKS                       R16 R5 K39 ["position"]
+      124 GETTABLEKS                       R16 R16 K12 ["Y"]
+      126 GETTABLEKS                       R16 R16 K41 ["Offset"]
+      128 GETTABLEKS                       R17 R0 K42 ["state"]
+      130 GETTABLEKS                       R17 R17 K43 ["scaleFactor"]
+      132 MUL                              R15 R16 R17
+      133 CALL                             R11 4 1
+      134 SETTABLEKS                       R11 R10 K31 ["Position"]
+      136 GETIMPORT                        R11 K38 [UDim2.new]
+      138 LOADN                            R12 0
+      139 LOADN                            R14 36
+      140 GETTABLEKS                       R15 R0 K42 ["state"]
+      142 GETTABLEKS                       R15 R15 K43 ["scaleFactor"]
+      144 MUL                              R13 R14 R15
+      145 LOADN                            R14 0
+      146 LOADN                            R16 28
+      147 GETTABLEKS                       R17 R0 K42 ["state"]
+      149 GETTABLEKS                       R17 R17 K43 ["scaleFactor"]
+      151 MUL                              R15 R16 R17
+      152 CALL                             R11 4 1
+      153 SETTABLEKS                       R11 R10 K32 ["Size"]
+      155 GETIMPORT                        R11 K6 [Vector2.new]
+      157 LOADK                            R12 K44 [0.5]
+      158 LOADK                            R13 K44 [0.5]
+      159 CALL                             R11 2 1
+      160 SETTABLEKS                       R11 R10 K33 ["AnchorPoint"]
+      162 CALL                             R8 2 1
+      163 SETTABLEKS                       R8 R3 K2 ["EyesDragBox"]
+      165 GETUPVAL                         R8 1
+      166 GETTABLEKS                       R8 R8 K45 ["createFragment"]
+      168 MOVE                             R9 R3
+      169 CALL                             R8 1 -1
+      170 RETURN                           R8 -1
 
 PROTO_28:
         0 JUMPIF                           R0 ; [+1]
@@ -1418,41 +1439,76 @@ PROTO_36:
 
 PROTO_37:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["props"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K0 ["props"]
-        6 GETTABLEKS                       R3 R3 K1 ["SymmetryEnabled"]
-        8 NOT                              R2 R3
-        9 SETTABLEKS                       R2 R1 K1 ["SymmetryEnabled"]
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R1 R1 K0 ["props"]
-       14 GETTABLEKS                       R1 R1 K2 ["SetSymmetryEnabled"]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R2 R2 K0 ["props"]
-       19 GETTABLEKS                       R2 R2 K1 ["SymmetryEnabled"]
-       21 CALL                             R1 1 0
-       22 RETURN                           R0 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+13]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["props"]
+        6 GETTABLEKS                       R1 R1 K1 ["SetSymmetryEnabled"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R3 R3 K0 ["props"]
+       11 GETTABLEKS                       R3 R3 K2 ["SymmetryEnabled"]
+       13 NOT                              R2 R3
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R1 1
+       17 GETTABLEKS                       R1 R1 K0 ["props"]
+       19 GETUPVAL                         R3 1
+       20 GETTABLEKS                       R3 R3 K0 ["props"]
+       22 GETTABLEKS                       R3 R3 K2 ["SymmetryEnabled"]
+       24 NOT                              R2 R3
+       25 SETTABLEKS                       R2 R1 K2 ["SymmetryEnabled"]
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R1 R1 K0 ["props"]
+       30 GETTABLEKS                       R1 R1 K1 ["SetSymmetryEnabled"]
+       32 GETUPVAL                         R2 1
+       33 GETTABLEKS                       R2 R2 K0 ["props"]
+       35 GETTABLEKS                       R2 R2 K2 ["SymmetryEnabled"]
+       37 CALL                             R1 1 0
+       38 RETURN                           R0 0
 
 PROTO_38:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["props"]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K0 ["props"]
-        6 GETTABLEKS                       R3 R3 K1 ["AutoFocusFaceEnabled"]
-        8 NOT                              R2 R3
-        9 SETTABLEKS                       R2 R1 K1 ["AutoFocusFaceEnabled"]
-       11 GETUPVAL                         R1 0
-       12 GETTABLEKS                       R1 R1 K0 ["props"]
-       14 GETTABLEKS                       R1 R1 K2 ["SetAutoFocusFaceEnabled"]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R2 R2 K0 ["props"]
-       19 GETTABLEKS                       R2 R2 K1 ["AutoFocusFaceEnabled"]
-       21 CALL                             R1 1 0
-       22 GETGLOBAL                        R1 K3 ["handleFocusFace"]
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R2 R2 K0 ["props"]
-       27 CALL                             R1 1 0
-       28 RETURN                           R0 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+29]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["props"]
+        6 GETTABLEKS                       R2 R2 K1 ["AutoFocusFaceEnabled"]
+        8 NOT                              R1 R2
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K0 ["props"]
+       12 GETTABLEKS                       R2 R2 K2 ["SetAutoFocusFaceEnabled"]
+       14 MOVE                             R3 R1
+       15 CALL                             R2 1 0
+       16 GETGLOBAL                        R2 K3 ["handleFocusFace"]
+       18 GETUPVAL                         R3 2
+       19 GETTABLEKS                       R3 R3 K4 ["Dictionary"]
+       21 GETTABLEKS                       R3 R3 K5 ["join"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K0 ["props"]
+       26 DUPTABLE                         R5 K6 [{"AutoFocusFaceEnabled"}]
+       27 SETTABLEKS                       R1 R5 K1 ["AutoFocusFaceEnabled"]
+       29 CALL                             R3 2 -1
+       30 CALL                             R2 -1 0
+       31 RETURN                           R0 0
+       32 GETUPVAL                         R1 1
+       33 GETTABLEKS                       R1 R1 K0 ["props"]
+       35 GETUPVAL                         R3 1
+       36 GETTABLEKS                       R3 R3 K0 ["props"]
+       38 GETTABLEKS                       R3 R3 K1 ["AutoFocusFaceEnabled"]
+       40 NOT                              R2 R3
+       41 SETTABLEKS                       R2 R1 K1 ["AutoFocusFaceEnabled"]
+       43 GETUPVAL                         R1 1
+       44 GETTABLEKS                       R1 R1 K0 ["props"]
+       46 GETTABLEKS                       R1 R1 K2 ["SetAutoFocusFaceEnabled"]
+       48 GETUPVAL                         R2 1
+       49 GETTABLEKS                       R2 R2 K0 ["props"]
+       51 GETTABLEKS                       R2 R2 K1 ["AutoFocusFaceEnabled"]
+       53 CALL                             R1 1 0
+       54 GETGLOBAL                        R1 K3 ["handleFocusFace"]
+       56 GETUPVAL                         R2 1
+       57 GETTABLEKS                       R2 R2 K0 ["props"]
+       59 CALL                             R1 1 0
+       60 RETURN                           R0 0
 
 PROTO_39:
         0 GETUPVAL                         R0 0
@@ -1558,332 +1614,340 @@ PROTO_40:
       100 SETTABLEKS                       R16 R15 K13 ["Enabled"]
       102 GETUPVAL                         R16 2
       103 GETTABLEKS                       R16 R16 K36 ["Ref"]
-      105 GETTABLEKS                       R17 R0 K37 ["onDockWidgetLoaded"]
-      107 SETTABLE                         R17 R15 R16
-      108 DUPTABLE                         R16 K39 [{"Container"}]
-      109 GETUPVAL                         R17 2
-      110 GETTABLEKS                       R17 R17 K18 ["createElement"]
-      112 GETUPVAL                         R18 6
-      113 NEWTABLE                         R19 8 0
-      115 LOADN                            R20 0
-      116 SETTABLEKS                       R20 R19 K40 ["BorderSizePixel"]
-      118 GETTABLEKS                       R20 R6 K41 ["backgroundColor"]
-      120 SETTABLEKS                       R20 R19 K42 ["BackgroundColor3"]
-      122 GETIMPORT                        R20 K45 [UDim2.new]
-      124 LOADN                            R21 1
-      125 LOADN                            R22 0
-      126 LOADN                            R23 1
-      127 LOADN                            R24 0
-      128 CALL                             R20 4 1
-      129 SETTABLEKS                       R20 R19 K33 ["Size"]
-      131 LOADN                            R20 -2
-      132 SETTABLEKS                       R20 R19 K46 ["ZIndex"]
-      134 GETUPVAL                         R20 2
-      135 GETTABLEKS                       R20 R20 K47 ["Change"]
-      137 GETTABLEKS                       R20 R20 K48 ["AbsoluteSize"]
-      139 GETTABLEKS                       R21 R0 K49 ["onAbsoluteSizeChange"]
-      141 SETTABLE                         R21 R19 R20
-      142 DUPTABLE                         R20 K55 [{"FaceFrontContainer", "FaceSideContainer", "ContextMenu", "AdditionalControlsContainer", "BottomFrame"}]
-      143 GETUPVAL                         R21 2
-      144 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      146 LOADK                            R22 K56 ["Frame"]
-      147 DUPTABLE                         R23 K59 [{["BorderSizePixel"] = 0, ["BackgroundColor3"], ["Size"], ["Position"], ["ZIndex"] = -1}]
-      148 GETTABLEKS                       R24 R6 K41 ["backgroundColor"]
-      150 SETTABLEKS                       R24 R23 K42 ["BackgroundColor3"]
-      152 GETIMPORT                        R24 K45 [UDim2.new]
-      154 LOADN                            R25 1
-      155 LOADN                            R26 0
-      156 LOADN                            R27 0
-      157 LOADN                            R28 213
-      158 CALL                             R24 4 1
-      159 SETTABLEKS                       R24 R23 K33 ["Size"]
-      161 GETIMPORT                        R24 K45 [UDim2.new]
-      163 LOADN                            R25 0
-      164 GETUPVAL                         R26 7
-      165 GETTABLEKS                       R26 R26 K60 ["faceControlsEditorDiagramPadding"]
-      167 LOADN                            R27 0
-      168 GETUPVAL                         R28 7
-      169 GETTABLEKS                       R28 R28 K60 ["faceControlsEditorDiagramPadding"]
-      171 CALL                             R24 4 1
-      172 SETTABLEKS                       R24 R23 K57 ["Position"]
-      174 NEWTABLE                         R24 1 2
-      176 GETUPVAL                         R27 2
-      177 GETTABLEKS                       R27 R27 K18 ["createElement"]
-      179 LOADK                            R28 K61 ["ImageLabel"]
-      180 DUPTABLE                         R29 K68 [{["AnchorPoint"], ["Size"], ["Position"], ["Image"] = "rbxasset://textures/FaceControlsEditor/face_frontView.png", ["BackgroundTransparency"] = 1, ["ImageTransparency"] = 0, ["ZIndex"] = 0}]
-      181 GETIMPORT                        R30 K70 [Vector2.new]
-      183 LOADN                            R31 0
-      184 LOADN                            R32 0
-      185 CALL                             R30 2 1
-      186 SETTABLEKS                       R30 R29 K62 ["AnchorPoint"]
-      188 GETIMPORT                        R30 K45 [UDim2.new]
-      190 LOADN                            R31 0
-      191 GETUPVAL                         R33 7
-      192 GETTABLEKS                       R33 R33 K71 ["faceControlsEditorFaceFrontDiagramWidth"]
-      194 GETTABLEKS                       R34 R0 K5 ["state"]
-      196 GETTABLEKS                       R34 R34 K72 ["scaleFactor"]
-      198 MUL                              R32 R33 R34
-      199 LOADN                            R33 0
-      200 GETUPVAL                         R35 7
-      201 GETTABLEKS                       R35 R35 K73 ["faceControlsEditorFaceFrontDiagramHeight"]
-      203 GETTABLEKS                       R36 R0 K5 ["state"]
-      205 GETTABLEKS                       R36 R36 K72 ["scaleFactor"]
-      207 MUL                              R34 R35 R36
-      208 CALL                             R30 4 1
-      209 SETTABLEKS                       R30 R29 K33 ["Size"]
-      211 GETIMPORT                        R30 K45 [UDim2.new]
-      213 LOADN                            R31 0
-      214 LOADN                            R32 0
-      215 LOADN                            R33 0
-      216 LOADN                            R34 6
-      217 CALL                             R30 4 1
-      218 SETTABLEKS                       R30 R29 K57 ["Position"]
-      220 CALL                             R27 2 1
-      221 SETTABLEKS                       R27 R24 K74 ["FaceFrontViewImage"]
-      223 GETGLOBAL                        R25 K75 ["makeFacsOnFaceDiagramSliderUIItems"]
-      225 MOVE                             R26 R0
-      226 MOVE                             R27 R7
-      227 MOVE                             R28 R1
-      228 CALL                             R25 3 1
-      229 GETGLOBAL                        R26 K76 ["makeEyesControlDragBox"]
-      231 MOVE                             R27 R0
-      232 MOVE                             R28 R7
-      233 MOVE                             R29 R1
-      234 CALL                             R26 3 -1
-      235 SETLIST                          R24 R25 -1 [1]
-      237 CALL                             R21 3 1
-      238 SETTABLEKS                       R21 R20 K50 ["FaceFrontContainer"]
-      240 GETUPVAL                         R21 2
-      241 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      243 LOADK                            R22 K56 ["Frame"]
-      244 DUPTABLE                         R23 K77 [{["BorderSizePixel"] = 0, ["BackgroundColor3"], ["Size"], ["Position"], ["BackgroundTransparency"] = 1}]
-      245 GETTABLEKS                       R24 R6 K41 ["backgroundColor"]
-      247 SETTABLEKS                       R24 R23 K42 ["BackgroundColor3"]
-      249 GETIMPORT                        R24 K45 [UDim2.new]
-      251 LOADN                            R25 1
-      252 LOADN                            R26 0
-      253 LOADN                            R27 0
-      254 LOADN                            R28 213
-      255 CALL                             R24 4 1
-      256 SETTABLEKS                       R24 R23 K33 ["Size"]
-      258 GETIMPORT                        R24 K45 [UDim2.new]
-      260 LOADN                            R25 0
-      261 GETUPVAL                         R26 7
-      262 GETTABLEKS                       R26 R26 K60 ["faceControlsEditorDiagramPadding"]
-      264 LOADN                            R27 0
-      265 GETUPVAL                         R30 7
-      266 GETTABLEKS                       R30 R30 K78 ["faceControlsEditoSpacingBetweenDiagrams"]
-      268 GETUPVAL                         R31 7
-      269 GETTABLEKS                       R31 R31 K73 ["faceControlsEditorFaceFrontDiagramHeight"]
-      271 ADD                              R29 R30 R31
-      272 GETTABLEKS                       R30 R0 K5 ["state"]
-      274 GETTABLEKS                       R30 R30 K72 ["scaleFactor"]
-      276 MUL                              R28 R29 R30
-      277 CALL                             R24 4 1
-      278 SETTABLEKS                       R24 R23 K57 ["Position"]
-      280 DUPTABLE                         R24 K80 [{"SideviewImage"}]
-      281 GETUPVAL                         R25 2
-      282 GETTABLEKS                       R25 R25 K18 ["createElement"]
-      284 LOADK                            R26 K61 ["ImageLabel"]
-      285 DUPTABLE                         R27 K83 [{["AnchorPoint"], ["Size"], ["Position"], ["Image"] = "rbxasset://textures/FaceControlsEditor/face_sideView.png", ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1}]
-      286 GETIMPORT                        R28 K70 [Vector2.new]
-      288 LOADN                            R29 0
-      289 LOADN                            R30 0
-      290 CALL                             R28 2 1
-      291 SETTABLEKS                       R28 R27 K62 ["AnchorPoint"]
-      293 GETIMPORT                        R28 K45 [UDim2.new]
-      295 LOADN                            R29 0
-      296 GETUPVAL                         R31 7
-      297 GETTABLEKS                       R31 R31 K84 ["faceControlsEditorFaceSideDiagramWidth"]
-      299 GETTABLEKS                       R32 R0 K5 ["state"]
-      301 GETTABLEKS                       R32 R32 K72 ["scaleFactor"]
-      303 MUL                              R30 R31 R32
-      304 LOADN                            R31 0
-      305 GETUPVAL                         R33 7
-      306 GETTABLEKS                       R33 R33 K85 ["faceControlsEditorFaceSideDiagramHeight"]
-      308 GETTABLEKS                       R34 R0 K5 ["state"]
-      310 GETTABLEKS                       R34 R34 K72 ["scaleFactor"]
-      312 MUL                              R32 R33 R34
-      313 CALL                             R28 4 1
-      314 SETTABLEKS                       R28 R27 K33 ["Size"]
-      316 GETIMPORT                        R28 K45 [UDim2.new]
-      318 LOADN                            R29 0
-      319 LOADN                            R30 0
-      320 LOADN                            R31 0
-      321 LOADN                            R32 0
-      322 CALL                             R28 4 1
-      323 SETTABLEKS                       R28 R27 K57 ["Position"]
-      325 CALL                             R25 2 1
-      326 SETTABLEKS                       R25 R24 K79 ["SideviewImage"]
-      328 CALL                             R21 3 1
-      329 SETTABLEKS                       R21 R20 K51 ["FaceSideContainer"]
-      331 MOVE                             R21 R5
-      332 JUMPIFNOT                        R21 ; [+16]
-      333 GETUPVAL                         R21 2
-      334 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      336 GETUPVAL                         R22 8
-      337 DUPTABLE                         R23 K88 [{"Actions", "OnMenuOpened"}]
-      338 MOVE                             R26 R1
-      339 NAMECALL                         R24 R0 K89 ["makeContextMenuActions"]
-      341 CALL                             R24 2 1
-      342 SETTABLEKS                       R24 R23 K86 ["Actions"]
-      344 GETTABLEKS                       R24 R0 K90 ["hideContextMenu"]
-      346 SETTABLEKS                       R24 R23 K87 ["OnMenuOpened"]
-      348 CALL                             R21 2 1
-      349 SETTABLEKS                       R21 R20 K52 ["ContextMenu"]
-      351 GETUPVAL                         R21 2
-      352 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      354 LOADK                            R22 K56 ["Frame"]
-      355 DUPTABLE                         R23 K92 [{["AnchorPoint"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["ZIndex"] = 400}]
-      356 GETIMPORT                        R24 K70 [Vector2.new]
-      358 LOADN                            R25 0
-      359 LOADN                            R26 0
-      360 CALL                             R24 2 1
-      361 SETTABLEKS                       R24 R23 K62 ["AnchorPoint"]
-      363 GETIMPORT                        R24 K45 [UDim2.new]
-      365 LOADN                            R25 0
-      366 LOADN                            R26 10
-      367 LOADN                            R27 1
-      368 GETUPVAL                         R29 7
-      369 GETTABLEKS                       R29 R29 K93 ["faceControlsEditorTogglesContainerHeight"]
-      371 MINUS                            R28 R29
-      372 CALL                             R24 4 1
-      373 SETTABLEKS                       R24 R23 K57 ["Position"]
-      375 GETIMPORT                        R24 K45 [UDim2.new]
-      377 LOADN                            R25 0
-      378 LOADN                            R26 200
-      379 LOADN                            R27 0
-      380 GETUPVAL                         R28 7
-      381 GETTABLEKS                       R28 R28 K93 ["faceControlsEditorTogglesContainerHeight"]
-      383 CALL                             R24 4 1
-      384 SETTABLEKS                       R24 R23 K33 ["Size"]
-      386 DUPTABLE                         R24 K97 [{"CheckboxesList", "CheckboxSymmetry", "CheckboxAutoFocusFace"}]
-      387 GETUPVAL                         R25 2
-      388 GETTABLEKS                       R25 R25 K18 ["createElement"]
-      390 LOADK                            R26 K98 ["UIListLayout"]
-      391 DUPTABLE                         R27 K101 [{"SortOrder", "Padding"}]
-      392 GETIMPORT                        R28 K102 [Enum.SortOrder.LayoutOrder]
-      394 SETTABLEKS                       R28 R27 K99 ["SortOrder"]
-      396 GETIMPORT                        R28 K104 [UDim.new]
-      398 LOADN                            R29 0
-      399 LOADN                            R30 5
-      400 CALL                             R28 2 1
-      401 SETTABLEKS                       R28 R27 K100 ["Padding"]
-      403 CALL                             R25 2 1
-      404 SETTABLEKS                       R25 R24 K94 ["CheckboxesList"]
-      406 GETUPVAL                         R25 2
-      407 GETTABLEKS                       R25 R25 K18 ["createElement"]
-      409 GETUPVAL                         R26 9
-      410 DUPTABLE                         R27 K110 [{["Text"], ["Checked"], ["size"], ["OnClick"], ["LayoutOrder"] = 1, ["ZIndex"] = 401}]
-      411 LOADK                            R30 K21 ["Title"]
-      412 LOADK                            R31 K111 ["Symmetry"]
-      413 NAMECALL                         R28 R1 K22 ["getText"]
-      415 CALL                             R28 3 1
-      416 SETTABLEKS                       R28 R27 K105 ["Text"]
-      418 GETTABLEKS                       R28 R0 K0 ["props"]
-      420 GETTABLEKS                       R28 R28 K112 ["SymmetryEnabled"]
-      422 SETTABLEKS                       R28 R27 K106 ["Checked"]
-      424 GETTABLEKS                       R28 R0 K0 ["props"]
-      426 GETTABLEKS                       R28 R28 K113 ["elementSize"]
-      428 SETTABLEKS                       R28 R27 K107 ["size"]
-      430 NEWCLOSURE                       R28 P0
-      431 CAPTURE                          VAL R0
-      432 SETTABLEKS                       R28 R27 K108 ["OnClick"]
-      434 CALL                             R25 2 1
-      435 SETTABLEKS                       R25 R24 K95 ["CheckboxSymmetry"]
-      437 GETUPVAL                         R25 2
-      438 GETTABLEKS                       R25 R25 K18 ["createElement"]
-      440 GETUPVAL                         R26 9
-      441 DUPTABLE                         R27 K115 [{["Text"], ["Checked"], ["size"], ["LayoutOrder"] = 2, ["OnClick"]}]
-      442 LOADK                            R30 K21 ["Title"]
-      443 LOADK                            R31 K116 ["AutoFocusFace"]
-      444 NAMECALL                         R28 R1 K22 ["getText"]
-      446 CALL                             R28 3 1
-      447 SETTABLEKS                       R28 R27 K105 ["Text"]
-      449 GETTABLEKS                       R28 R0 K0 ["props"]
-      451 GETTABLEKS                       R28 R28 K117 ["AutoFocusFaceEnabled"]
-      453 SETTABLEKS                       R28 R27 K106 ["Checked"]
+      105 GETUPVAL                         R18 6
+      106 CALL                             R18 0 1
+      107 JUMPIF                           R18 ; [+3]
+      108 GETTABLEKS                       R17 R0 K37 ["onDockWidgetLoaded"]
+      110 JUMP                             ; [+1]
+      111 LOADNIL                          R17
+      112 SETTABLE                         R17 R15 R16
+      113 DUPTABLE                         R16 K39 [{"Container"}]
+      114 GETUPVAL                         R17 2
+      115 GETTABLEKS                       R17 R17 K18 ["createElement"]
+      117 GETUPVAL                         R18 7
+      118 NEWTABLE                         R19 8 0
+      120 LOADN                            R20 0
+      121 SETTABLEKS                       R20 R19 K40 ["BorderSizePixel"]
+      123 GETTABLEKS                       R20 R6 K41 ["backgroundColor"]
+      125 SETTABLEKS                       R20 R19 K42 ["BackgroundColor3"]
+      127 GETIMPORT                        R20 K45 [UDim2.new]
+      129 LOADN                            R21 1
+      130 LOADN                            R22 0
+      131 LOADN                            R23 1
+      132 LOADN                            R24 0
+      133 CALL                             R20 4 1
+      134 SETTABLEKS                       R20 R19 K33 ["Size"]
+      136 LOADN                            R20 -2
+      137 SETTABLEKS                       R20 R19 K46 ["ZIndex"]
+      139 GETUPVAL                         R20 2
+      140 GETTABLEKS                       R20 R20 K47 ["Change"]
+      142 GETTABLEKS                       R20 R20 K48 ["AbsoluteSize"]
+      144 GETTABLEKS                       R21 R0 K49 ["onAbsoluteSizeChange"]
+      146 SETTABLE                         R21 R19 R20
+      147 DUPTABLE                         R20 K55 [{"FaceFrontContainer", "FaceSideContainer", "ContextMenu", "AdditionalControlsContainer", "BottomFrame"}]
+      148 GETUPVAL                         R21 2
+      149 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      151 LOADK                            R22 K56 ["Frame"]
+      152 DUPTABLE                         R23 K59 [{["BorderSizePixel"] = 0, ["BackgroundColor3"], ["Size"], ["Position"], ["ZIndex"] = -1}]
+      153 GETTABLEKS                       R24 R6 K41 ["backgroundColor"]
+      155 SETTABLEKS                       R24 R23 K42 ["BackgroundColor3"]
+      157 GETIMPORT                        R24 K45 [UDim2.new]
+      159 LOADN                            R25 1
+      160 LOADN                            R26 0
+      161 LOADN                            R27 0
+      162 LOADN                            R28 213
+      163 CALL                             R24 4 1
+      164 SETTABLEKS                       R24 R23 K33 ["Size"]
+      166 GETIMPORT                        R24 K45 [UDim2.new]
+      168 LOADN                            R25 0
+      169 GETUPVAL                         R26 8
+      170 GETTABLEKS                       R26 R26 K60 ["faceControlsEditorDiagramPadding"]
+      172 LOADN                            R27 0
+      173 GETUPVAL                         R28 8
+      174 GETTABLEKS                       R28 R28 K60 ["faceControlsEditorDiagramPadding"]
+      176 CALL                             R24 4 1
+      177 SETTABLEKS                       R24 R23 K57 ["Position"]
+      179 NEWTABLE                         R24 1 2
+      181 GETUPVAL                         R27 2
+      182 GETTABLEKS                       R27 R27 K18 ["createElement"]
+      184 LOADK                            R28 K61 ["ImageLabel"]
+      185 DUPTABLE                         R29 K68 [{["AnchorPoint"], ["Size"], ["Position"], ["Image"] = "rbxasset://textures/FaceControlsEditor/face_frontView.png", ["BackgroundTransparency"] = 1, ["ImageTransparency"] = 0, ["ZIndex"] = 0}]
+      186 GETIMPORT                        R30 K70 [Vector2.new]
+      188 LOADN                            R31 0
+      189 LOADN                            R32 0
+      190 CALL                             R30 2 1
+      191 SETTABLEKS                       R30 R29 K62 ["AnchorPoint"]
+      193 GETIMPORT                        R30 K45 [UDim2.new]
+      195 LOADN                            R31 0
+      196 GETUPVAL                         R33 8
+      197 GETTABLEKS                       R33 R33 K71 ["faceControlsEditorFaceFrontDiagramWidth"]
+      199 GETTABLEKS                       R34 R0 K5 ["state"]
+      201 GETTABLEKS                       R34 R34 K72 ["scaleFactor"]
+      203 MUL                              R32 R33 R34
+      204 LOADN                            R33 0
+      205 GETUPVAL                         R35 8
+      206 GETTABLEKS                       R35 R35 K73 ["faceControlsEditorFaceFrontDiagramHeight"]
+      208 GETTABLEKS                       R36 R0 K5 ["state"]
+      210 GETTABLEKS                       R36 R36 K72 ["scaleFactor"]
+      212 MUL                              R34 R35 R36
+      213 CALL                             R30 4 1
+      214 SETTABLEKS                       R30 R29 K33 ["Size"]
+      216 GETIMPORT                        R30 K45 [UDim2.new]
+      218 LOADN                            R31 0
+      219 LOADN                            R32 0
+      220 LOADN                            R33 0
+      221 LOADN                            R34 6
+      222 CALL                             R30 4 1
+      223 SETTABLEKS                       R30 R29 K57 ["Position"]
+      225 CALL                             R27 2 1
+      226 SETTABLEKS                       R27 R24 K74 ["FaceFrontViewImage"]
+      228 GETGLOBAL                        R25 K75 ["makeFacsOnFaceDiagramSliderUIItems"]
+      230 MOVE                             R26 R0
+      231 MOVE                             R27 R7
+      232 MOVE                             R28 R1
+      233 CALL                             R25 3 1
+      234 GETGLOBAL                        R26 K76 ["makeEyesControlDragBox"]
+      236 MOVE                             R27 R0
+      237 MOVE                             R28 R7
+      238 MOVE                             R29 R1
+      239 CALL                             R26 3 -1
+      240 SETLIST                          R24 R25 -1 [1]
+      242 CALL                             R21 3 1
+      243 SETTABLEKS                       R21 R20 K50 ["FaceFrontContainer"]
+      245 GETUPVAL                         R21 2
+      246 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      248 LOADK                            R22 K56 ["Frame"]
+      249 DUPTABLE                         R23 K77 [{["BorderSizePixel"] = 0, ["BackgroundColor3"], ["Size"], ["Position"], ["BackgroundTransparency"] = 1}]
+      250 GETTABLEKS                       R24 R6 K41 ["backgroundColor"]
+      252 SETTABLEKS                       R24 R23 K42 ["BackgroundColor3"]
+      254 GETIMPORT                        R24 K45 [UDim2.new]
+      256 LOADN                            R25 1
+      257 LOADN                            R26 0
+      258 LOADN                            R27 0
+      259 LOADN                            R28 213
+      260 CALL                             R24 4 1
+      261 SETTABLEKS                       R24 R23 K33 ["Size"]
+      263 GETIMPORT                        R24 K45 [UDim2.new]
+      265 LOADN                            R25 0
+      266 GETUPVAL                         R26 8
+      267 GETTABLEKS                       R26 R26 K60 ["faceControlsEditorDiagramPadding"]
+      269 LOADN                            R27 0
+      270 GETUPVAL                         R30 8
+      271 GETTABLEKS                       R30 R30 K78 ["faceControlsEditoSpacingBetweenDiagrams"]
+      273 GETUPVAL                         R31 8
+      274 GETTABLEKS                       R31 R31 K73 ["faceControlsEditorFaceFrontDiagramHeight"]
+      276 ADD                              R29 R30 R31
+      277 GETTABLEKS                       R30 R0 K5 ["state"]
+      279 GETTABLEKS                       R30 R30 K72 ["scaleFactor"]
+      281 MUL                              R28 R29 R30
+      282 CALL                             R24 4 1
+      283 SETTABLEKS                       R24 R23 K57 ["Position"]
+      285 DUPTABLE                         R24 K80 [{"SideviewImage"}]
+      286 GETUPVAL                         R25 2
+      287 GETTABLEKS                       R25 R25 K18 ["createElement"]
+      289 LOADK                            R26 K61 ["ImageLabel"]
+      290 DUPTABLE                         R27 K83 [{["AnchorPoint"], ["Size"], ["Position"], ["Image"] = "rbxasset://textures/FaceControlsEditor/face_sideView.png", ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1}]
+      291 GETIMPORT                        R28 K70 [Vector2.new]
+      293 LOADN                            R29 0
+      294 LOADN                            R30 0
+      295 CALL                             R28 2 1
+      296 SETTABLEKS                       R28 R27 K62 ["AnchorPoint"]
+      298 GETIMPORT                        R28 K45 [UDim2.new]
+      300 LOADN                            R29 0
+      301 GETUPVAL                         R31 8
+      302 GETTABLEKS                       R31 R31 K84 ["faceControlsEditorFaceSideDiagramWidth"]
+      304 GETTABLEKS                       R32 R0 K5 ["state"]
+      306 GETTABLEKS                       R32 R32 K72 ["scaleFactor"]
+      308 MUL                              R30 R31 R32
+      309 LOADN                            R31 0
+      310 GETUPVAL                         R33 8
+      311 GETTABLEKS                       R33 R33 K85 ["faceControlsEditorFaceSideDiagramHeight"]
+      313 GETTABLEKS                       R34 R0 K5 ["state"]
+      315 GETTABLEKS                       R34 R34 K72 ["scaleFactor"]
+      317 MUL                              R32 R33 R34
+      318 CALL                             R28 4 1
+      319 SETTABLEKS                       R28 R27 K33 ["Size"]
+      321 GETIMPORT                        R28 K45 [UDim2.new]
+      323 LOADN                            R29 0
+      324 LOADN                            R30 0
+      325 LOADN                            R31 0
+      326 LOADN                            R32 0
+      327 CALL                             R28 4 1
+      328 SETTABLEKS                       R28 R27 K57 ["Position"]
+      330 CALL                             R25 2 1
+      331 SETTABLEKS                       R25 R24 K79 ["SideviewImage"]
+      333 CALL                             R21 3 1
+      334 SETTABLEKS                       R21 R20 K51 ["FaceSideContainer"]
+      336 MOVE                             R21 R5
+      337 JUMPIFNOT                        R21 ; [+16]
+      338 GETUPVAL                         R21 2
+      339 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      341 GETUPVAL                         R22 9
+      342 DUPTABLE                         R23 K88 [{"Actions", "OnMenuOpened"}]
+      343 MOVE                             R26 R1
+      344 NAMECALL                         R24 R0 K89 ["makeContextMenuActions"]
+      346 CALL                             R24 2 1
+      347 SETTABLEKS                       R24 R23 K86 ["Actions"]
+      349 GETTABLEKS                       R24 R0 K90 ["hideContextMenu"]
+      351 SETTABLEKS                       R24 R23 K87 ["OnMenuOpened"]
+      353 CALL                             R21 2 1
+      354 SETTABLEKS                       R21 R20 K52 ["ContextMenu"]
+      356 GETUPVAL                         R21 2
+      357 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      359 LOADK                            R22 K56 ["Frame"]
+      360 DUPTABLE                         R23 K92 [{["AnchorPoint"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["ZIndex"] = 400}]
+      361 GETIMPORT                        R24 K70 [Vector2.new]
+      363 LOADN                            R25 0
+      364 LOADN                            R26 0
+      365 CALL                             R24 2 1
+      366 SETTABLEKS                       R24 R23 K62 ["AnchorPoint"]
+      368 GETIMPORT                        R24 K45 [UDim2.new]
+      370 LOADN                            R25 0
+      371 LOADN                            R26 10
+      372 LOADN                            R27 1
+      373 GETUPVAL                         R29 8
+      374 GETTABLEKS                       R29 R29 K93 ["faceControlsEditorTogglesContainerHeight"]
+      376 MINUS                            R28 R29
+      377 CALL                             R24 4 1
+      378 SETTABLEKS                       R24 R23 K57 ["Position"]
+      380 GETIMPORT                        R24 K45 [UDim2.new]
+      382 LOADN                            R25 0
+      383 LOADN                            R26 200
+      384 LOADN                            R27 0
+      385 GETUPVAL                         R28 8
+      386 GETTABLEKS                       R28 R28 K93 ["faceControlsEditorTogglesContainerHeight"]
+      388 CALL                             R24 4 1
+      389 SETTABLEKS                       R24 R23 K33 ["Size"]
+      391 DUPTABLE                         R24 K97 [{"CheckboxesList", "CheckboxSymmetry", "CheckboxAutoFocusFace"}]
+      392 GETUPVAL                         R25 2
+      393 GETTABLEKS                       R25 R25 K18 ["createElement"]
+      395 LOADK                            R26 K98 ["UIListLayout"]
+      396 DUPTABLE                         R27 K101 [{"SortOrder", "Padding"}]
+      397 GETIMPORT                        R28 K102 [Enum.SortOrder.LayoutOrder]
+      399 SETTABLEKS                       R28 R27 K99 ["SortOrder"]
+      401 GETIMPORT                        R28 K104 [UDim.new]
+      403 LOADN                            R29 0
+      404 LOADN                            R30 5
+      405 CALL                             R28 2 1
+      406 SETTABLEKS                       R28 R27 K100 ["Padding"]
+      408 CALL                             R25 2 1
+      409 SETTABLEKS                       R25 R24 K94 ["CheckboxesList"]
+      411 GETUPVAL                         R25 2
+      412 GETTABLEKS                       R25 R25 K18 ["createElement"]
+      414 GETUPVAL                         R26 10
+      415 DUPTABLE                         R27 K110 [{["Text"], ["Checked"], ["size"], ["OnClick"], ["LayoutOrder"] = 1, ["ZIndex"] = 401}]
+      416 LOADK                            R30 K21 ["Title"]
+      417 LOADK                            R31 K111 ["Symmetry"]
+      418 NAMECALL                         R28 R1 K22 ["getText"]
+      420 CALL                             R28 3 1
+      421 SETTABLEKS                       R28 R27 K105 ["Text"]
+      423 GETTABLEKS                       R28 R0 K0 ["props"]
+      425 GETTABLEKS                       R28 R28 K112 ["SymmetryEnabled"]
+      427 SETTABLEKS                       R28 R27 K106 ["Checked"]
+      429 GETTABLEKS                       R28 R0 K0 ["props"]
+      431 GETTABLEKS                       R28 R28 K113 ["elementSize"]
+      433 SETTABLEKS                       R28 R27 K107 ["size"]
+      435 NEWCLOSURE                       R28 P0
+      436 CAPTURE                          UPVAL U6
+      437 CAPTURE                          VAL R0
+      438 SETTABLEKS                       R28 R27 K108 ["OnClick"]
+      440 CALL                             R25 2 1
+      441 SETTABLEKS                       R25 R24 K95 ["CheckboxSymmetry"]
+      443 GETUPVAL                         R25 2
+      444 GETTABLEKS                       R25 R25 K18 ["createElement"]
+      446 GETUPVAL                         R26 10
+      447 DUPTABLE                         R27 K115 [{["Text"], ["Checked"], ["size"], ["LayoutOrder"] = 2, ["OnClick"]}]
+      448 LOADK                            R30 K21 ["Title"]
+      449 LOADK                            R31 K116 ["AutoFocusFace"]
+      450 NAMECALL                         R28 R1 K22 ["getText"]
+      452 CALL                             R28 3 1
+      453 SETTABLEKS                       R28 R27 K105 ["Text"]
       455 GETTABLEKS                       R28 R0 K0 ["props"]
-      457 GETTABLEKS                       R28 R28 K113 ["elementSize"]
-      459 SETTABLEKS                       R28 R27 K107 ["size"]
-      461 NEWCLOSURE                       R28 P1
-      462 CAPTURE                          VAL R0
-      463 SETTABLEKS                       R28 R27 K108 ["OnClick"]
-      465 CALL                             R25 2 1
-      466 SETTABLEKS                       R25 R24 K96 ["CheckboxAutoFocusFace"]
-      468 CALL                             R21 3 1
-      469 SETTABLEKS                       R21 R20 K53 ["AdditionalControlsContainer"]
-      471 GETUPVAL                         R21 2
-      472 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      474 LOADK                            R22 K56 ["Frame"]
-      475 DUPTABLE                         R23 K118 [{["Size"], ["Position"], ["AnchorPoint"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
-      476 GETIMPORT                        R24 K45 [UDim2.new]
-      478 LOADN                            R25 1
-      479 LOADN                            R26 0
-      480 LOADN                            R27 0
-      481 LOADN                            R28 52
-      482 CALL                             R24 4 1
-      483 SETTABLEKS                       R24 R23 K33 ["Size"]
-      485 GETIMPORT                        R24 K45 [UDim2.new]
-      487 LOADN                            R25 0
-      488 LOADN                            R26 0
-      489 LOADN                            R27 1
-      490 LOADN                            R28 0
-      491 CALL                             R24 4 1
-      492 SETTABLEKS                       R24 R23 K57 ["Position"]
-      494 GETIMPORT                        R24 K70 [Vector2.new]
-      496 LOADN                            R25 0
-      497 LOADN                            R26 1
-      498 CALL                             R24 2 1
-      499 SETTABLEKS                       R24 R23 K62 ["AnchorPoint"]
-      501 GETTABLEKS                       R24 R6 K119 ["ikTheme"]
-      503 GETTABLEKS                       R24 R24 K120 ["headerColor"]
-      505 SETTABLEKS                       R24 R23 K42 ["BackgroundColor3"]
-      507 DUPTABLE                         R24 K122 [{"WideResetAllButton"}]
-      508 GETUPVAL                         R25 2
-      509 GETTABLEKS                       R25 R25 K18 ["createElement"]
-      511 GETUPVAL                         R26 10
-      512 DUPTABLE                         R27 K127 [{["Text"], ["AnchorPoint"], ["Position"], ["IsRound"] = True, ["Size"], ["StyleModifier"], ["LayoutOrder"] = 3, ["OnClick"]}]
-      513 LOADK                            R30 K21 ["Title"]
-      514 LOADK                            R31 K128 ["ResetAll"]
-      515 NAMECALL                         R28 R1 K22 ["getText"]
-      517 CALL                             R28 3 1
-      518 SETTABLEKS                       R28 R27 K105 ["Text"]
-      520 GETIMPORT                        R28 K70 [Vector2.new]
-      522 LOADK                            R29 K129 [0.5]
-      523 LOADN                            R30 1
-      524 CALL                             R28 2 1
-      525 SETTABLEKS                       R28 R27 K62 ["AnchorPoint"]
-      527 GETIMPORT                        R28 K45 [UDim2.new]
-      529 LOADK                            R29 K129 [0.5]
-      530 LOADN                            R30 0
-      531 LOADN                            R31 1
-      532 LOADN                            R32 -10
-      533 CALL                             R28 4 1
-      534 SETTABLEKS                       R28 R27 K57 ["Position"]
-      536 GETIMPORT                        R28 K45 [UDim2.new]
-      538 LOADN                            R29 1
-      539 LOADN                            R30 -10
-      540 LOADN                            R31 0
-      541 LOADN                            R32 32
-      542 CALL                             R28 4 1
-      543 SETTABLEKS                       R28 R27 K33 ["Size"]
-      545 SETTABLEKS                       R12 R27 K125 ["StyleModifier"]
-      547 NEWCLOSURE                       R28 P2
-      548 CAPTURE                          VAL R2
-      549 CAPTURE                          UPVAL U0
-      550 CAPTURE                          VAL R8
-      551 CAPTURE                          UPVAL U7
-      552 CAPTURE                          UPVAL U11
-      553 SETTABLEKS                       R28 R27 K108 ["OnClick"]
-      555 CALL                             R25 2 1
-      556 SETTABLEKS                       R25 R24 K121 ["WideResetAllButton"]
-      558 CALL                             R21 3 1
-      559 SETTABLEKS                       R21 R20 K54 ["BottomFrame"]
-      561 CALL                             R17 3 1
-      562 SETTABLEKS                       R17 R16 K38 ["Container"]
-      564 CALL                             R13 3 -1
-      565 RETURN                           R13 -1
+      457 GETTABLEKS                       R28 R28 K117 ["AutoFocusFaceEnabled"]
+      459 SETTABLEKS                       R28 R27 K106 ["Checked"]
+      461 GETTABLEKS                       R28 R0 K0 ["props"]
+      463 GETTABLEKS                       R28 R28 K113 ["elementSize"]
+      465 SETTABLEKS                       R28 R27 K107 ["size"]
+      467 NEWCLOSURE                       R28 P1
+      468 CAPTURE                          UPVAL U6
+      469 CAPTURE                          VAL R0
+      470 CAPTURE                          UPVAL U11
+      471 SETTABLEKS                       R28 R27 K108 ["OnClick"]
+      473 CALL                             R25 2 1
+      474 SETTABLEKS                       R25 R24 K96 ["CheckboxAutoFocusFace"]
+      476 CALL                             R21 3 1
+      477 SETTABLEKS                       R21 R20 K53 ["AdditionalControlsContainer"]
+      479 GETUPVAL                         R21 2
+      480 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      482 LOADK                            R22 K56 ["Frame"]
+      483 DUPTABLE                         R23 K118 [{["Size"], ["Position"], ["AnchorPoint"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+      484 GETIMPORT                        R24 K45 [UDim2.new]
+      486 LOADN                            R25 1
+      487 LOADN                            R26 0
+      488 LOADN                            R27 0
+      489 LOADN                            R28 52
+      490 CALL                             R24 4 1
+      491 SETTABLEKS                       R24 R23 K33 ["Size"]
+      493 GETIMPORT                        R24 K45 [UDim2.new]
+      495 LOADN                            R25 0
+      496 LOADN                            R26 0
+      497 LOADN                            R27 1
+      498 LOADN                            R28 0
+      499 CALL                             R24 4 1
+      500 SETTABLEKS                       R24 R23 K57 ["Position"]
+      502 GETIMPORT                        R24 K70 [Vector2.new]
+      504 LOADN                            R25 0
+      505 LOADN                            R26 1
+      506 CALL                             R24 2 1
+      507 SETTABLEKS                       R24 R23 K62 ["AnchorPoint"]
+      509 GETTABLEKS                       R24 R6 K119 ["ikTheme"]
+      511 GETTABLEKS                       R24 R24 K120 ["headerColor"]
+      513 SETTABLEKS                       R24 R23 K42 ["BackgroundColor3"]
+      515 DUPTABLE                         R24 K122 [{"WideResetAllButton"}]
+      516 GETUPVAL                         R25 2
+      517 GETTABLEKS                       R25 R25 K18 ["createElement"]
+      519 GETUPVAL                         R26 12
+      520 DUPTABLE                         R27 K127 [{["Text"], ["AnchorPoint"], ["Position"], ["IsRound"] = True, ["Size"], ["StyleModifier"], ["LayoutOrder"] = 3, ["OnClick"]}]
+      521 LOADK                            R30 K21 ["Title"]
+      522 LOADK                            R31 K128 ["ResetAll"]
+      523 NAMECALL                         R28 R1 K22 ["getText"]
+      525 CALL                             R28 3 1
+      526 SETTABLEKS                       R28 R27 K105 ["Text"]
+      528 GETIMPORT                        R28 K70 [Vector2.new]
+      530 LOADK                            R29 K129 [0.5]
+      531 LOADN                            R30 1
+      532 CALL                             R28 2 1
+      533 SETTABLEKS                       R28 R27 K62 ["AnchorPoint"]
+      535 GETIMPORT                        R28 K45 [UDim2.new]
+      537 LOADK                            R29 K129 [0.5]
+      538 LOADN                            R30 0
+      539 LOADN                            R31 1
+      540 LOADN                            R32 -10
+      541 CALL                             R28 4 1
+      542 SETTABLEKS                       R28 R27 K57 ["Position"]
+      544 GETIMPORT                        R28 K45 [UDim2.new]
+      546 LOADN                            R29 1
+      547 LOADN                            R30 -10
+      548 LOADN                            R31 0
+      549 LOADN                            R32 32
+      550 CALL                             R28 4 1
+      551 SETTABLEKS                       R28 R27 K33 ["Size"]
+      553 SETTABLEKS                       R12 R27 K125 ["StyleModifier"]
+      555 NEWCLOSURE                       R28 P2
+      556 CAPTURE                          VAL R2
+      557 CAPTURE                          UPVAL U0
+      558 CAPTURE                          VAL R8
+      559 CAPTURE                          UPVAL U8
+      560 CAPTURE                          UPVAL U13
+      561 SETTABLEKS                       R28 R27 K108 ["OnClick"]
+      563 CALL                             R25 2 1
+      564 SETTABLEKS                       R25 R24 K121 ["WideResetAllButton"]
+      566 CALL                             R21 3 1
+      567 SETTABLEKS                       R21 R20 K54 ["BottomFrame"]
+      569 CALL                             R17 3 1
+      570 SETTABLEKS                       R17 R16 K38 ["Container"]
+      572 CALL                             R13 3 -1
+      573 RETURN                           R13 -1
 
 PROTO_41:
         0 GETTABLEKS                       R2 R0 K0 ["Status"]
@@ -2083,117 +2147,126 @@ MAIN:
       178 GETTABLEKS                       R30 R0 K45 ["LuaFlags"]
       180 GETTABLEKS                       R30 R30 K46 ["GetFFlagFacialAnimationRecordingInStudio"]
       182 CALL                             R29 1 1
-      183 DUPCLOSURE                       R30 K47 [PROTO_8]
-      184 CAPTURE                          VAL R8
-      185 SETTABLEKS                       R30 R11 K48 ["init"]
-      187 DUPCLOSURE                       R30 K49 [PROTO_9]
-      188 SETTABLEKS                       R30 R11 K50 ["addAction"]
-      190 DUPCLOSURE                       R30 K51 [PROTO_11]
-      191 CAPTURE                          VAL R29
-      192 CAPTURE                          VAL R9
-      193 SETTABLEKS                       R30 R11 K52 ["didMount"]
-      195 DUPCLOSURE                       R30 K53 [PROTO_12]
-      196 SETTABLEKS                       R30 R11 K54 ["willUnmount"]
-      198 DUPCLOSURE                       R30 K55 [PROTO_14]
-      199 CAPTURE                          VAL R8
-      200 CAPTURE                          VAL R25
-      201 SETGLOBAL                        R30 K56 ["getFacsListData"]
-      203 DUPCLOSURE                       R30 K57 [PROTO_15]
-      204 CAPTURE                          VAL R8
-      205 SETGLOBAL                        R30 K58 ["formatNumber"]
-      207 DUPCLOSURE                       R30 K59 [PROTO_16]
-      208 CAPTURE                          VAL R8
-      209 SETGLOBAL                        R30 K60 ["prepAndTriggerSliderContextMenu"]
-      211 DUPCLOSURE                       R30 K61 [PROTO_17]
+      183 GETIMPORT                        R30 K5 [require]
+      185 GETTABLEKS                       R31 R0 K45 ["LuaFlags"]
+      187 GETTABLEKS                       R31 R31 K47 ["GetFFlagACERoactCompatPrepFixes"]
+      189 CALL                             R30 1 1
+      190 DUPCLOSURE                       R31 K48 [PROTO_8]
+      191 CAPTURE                          VAL R8
+      192 CAPTURE                          VAL R30
+      193 SETTABLEKS                       R31 R11 K49 ["init"]
+      195 DUPCLOSURE                       R31 K50 [PROTO_9]
+      196 SETTABLEKS                       R31 R11 K51 ["addAction"]
+      198 DUPCLOSURE                       R31 K52 [PROTO_11]
+      199 CAPTURE                          VAL R29
+      200 CAPTURE                          VAL R9
+      201 SETTABLEKS                       R31 R11 K53 ["didMount"]
+      203 DUPCLOSURE                       R31 K54 [PROTO_12]
+      204 SETTABLEKS                       R31 R11 K55 ["willUnmount"]
+      206 DUPCLOSURE                       R31 K56 [PROTO_14]
+      207 CAPTURE                          VAL R8
+      208 CAPTURE                          VAL R25
+      209 SETGLOBAL                        R31 K57 ["getFacsListData"]
+      211 DUPCLOSURE                       R31 K58 [PROTO_15]
       212 CAPTURE                          VAL R8
-      213 SETGLOBAL                        R30 K62 ["getSliderTooltipText"]
-      215 DUPCLOSURE                       R30 K63 [PROTO_18]
-      216 CAPTURE                          VAL R26
-      217 CAPTURE                          VAL R8
-      218 SETGLOBAL                        R30 K64 ["handleSliderOnValueChanged"]
-      220 DUPCLOSURE                       R30 K65 [PROTO_22]
+      213 SETGLOBAL                        R31 K59 ["formatNumber"]
+      215 DUPCLOSURE                       R31 K60 [PROTO_16]
+      216 CAPTURE                          VAL R8
+      217 CAPTURE                          VAL R30
+      218 SETGLOBAL                        R31 K61 ["prepAndTriggerSliderContextMenu"]
+      220 DUPCLOSURE                       R31 K62 [PROTO_17]
       221 CAPTURE                          VAL R8
-      222 CAPTURE                          VAL R26
-      223 CAPTURE                          VAL R1
-      224 CAPTURE                          VAL R14
-      225 SETGLOBAL                        R30 K66 ["makeFacsOnFaceDiagramSliderUIItems"]
-      227 DUPCLOSURE                       R30 K67 [PROTO_23]
-      228 CAPTURE                          VAL R8
-      229 SETGLOBAL                        R30 K68 ["triggerValueChanged"]
-      231 DUPCLOSURE                       R30 K69 [PROTO_27]
-      232 CAPTURE                          VAL R26
-      233 CAPTURE                          VAL R1
-      234 CAPTURE                          VAL R15
-      235 CAPTURE                          VAL R8
-      236 SETGLOBAL                        R30 K70 ["makeEyesControlDragBox"]
-      238 DUPCLOSURE                       R30 K71 [PROTO_28]
-      239 CAPTURE                          VAL R8
-      240 CAPTURE                          VAL R26
-      241 CAPTURE                          VAL R23
-      242 SETGLOBAL                        R30 K72 ["getTrackValuesForEyeDragBox"]
-      244 DUPCLOSURE                       R30 K73 [PROTO_30]
-      245 SETTABLEKS                       R30 R11 K74 ["makeContextMenuActions"]
-      247 DUPCLOSURE                       R30 K75 [PROTO_31]
-      248 CAPTURE                          VAL R10
+      222 SETGLOBAL                        R31 K63 ["getSliderTooltipText"]
+      224 DUPCLOSURE                       R31 K64 [PROTO_18]
+      225 CAPTURE                          VAL R26
+      226 CAPTURE                          VAL R8
+      227 SETGLOBAL                        R31 K65 ["handleSliderOnValueChanged"]
+      229 DUPCLOSURE                       R31 K66 [PROTO_22]
+      230 CAPTURE                          VAL R8
+      231 CAPTURE                          VAL R26
+      232 CAPTURE                          VAL R1
+      233 CAPTURE                          VAL R14
+      234 SETGLOBAL                        R31 K67 ["makeFacsOnFaceDiagramSliderUIItems"]
+      236 DUPCLOSURE                       R31 K68 [PROTO_23]
+      237 CAPTURE                          VAL R8
+      238 SETGLOBAL                        R31 K69 ["triggerValueChanged"]
+      240 DUPCLOSURE                       R31 K70 [PROTO_27]
+      241 CAPTURE                          VAL R26
+      242 CAPTURE                          VAL R1
+      243 CAPTURE                          VAL R15
+      244 CAPTURE                          VAL R8
+      245 CAPTURE                          VAL R30
+      246 SETGLOBAL                        R31 K71 ["makeEyesControlDragBox"]
+      248 DUPCLOSURE                       R31 K72 [PROTO_28]
       249 CAPTURE                          VAL R8
       250 CAPTURE                          VAL R26
       251 CAPTURE                          VAL R23
-      252 SETTABLEKS                       R30 R11 K76 ["getCurrentValues"]
-      254 DUPCLOSURE                       R30 K77 [PROTO_32]
-      255 CAPTURE                          VAL R26
-      256 SETGLOBAL                        R30 K78 ["resetAllValuesInMapping"]
-      258 DUPCLOSURE                       R30 K79 [PROTO_33]
-      259 CAPTURE                          VAL R9
-      260 SETTABLEKS                       R30 R11 K80 ["willUpdate"]
-      262 DUPCLOSURE                       R30 K81 [PROTO_34]
-      263 CAPTURE                          VAL R8
-      264 CAPTURE                          VAL R23
-      265 SETGLOBAL                        R30 K82 ["getFacsKeysWithNonZerovalueCount"]
-      267 DUPCLOSURE                       R30 K83 [PROTO_35]
-      268 CAPTURE                          VAL R29
+      252 SETGLOBAL                        R31 K73 ["getTrackValuesForEyeDragBox"]
+      254 DUPCLOSURE                       R31 K74 [PROTO_30]
+      255 SETTABLEKS                       R31 R11 K75 ["makeContextMenuActions"]
+      257 DUPCLOSURE                       R31 K76 [PROTO_31]
+      258 CAPTURE                          VAL R10
+      259 CAPTURE                          VAL R8
+      260 CAPTURE                          VAL R26
+      261 CAPTURE                          VAL R23
+      262 SETTABLEKS                       R31 R11 K77 ["getCurrentValues"]
+      264 DUPCLOSURE                       R31 K78 [PROTO_32]
+      265 CAPTURE                          VAL R26
+      266 SETGLOBAL                        R31 K79 ["resetAllValuesInMapping"]
+      268 DUPCLOSURE                       R31 K80 [PROTO_33]
       269 CAPTURE                          VAL R9
-      270 SETGLOBAL                        R30 K84 ["handleFocusFace"]
-      272 DUPCLOSURE                       R30 K85 [PROTO_36]
-      273 CAPTURE                          VAL R10
-      274 SETGLOBAL                        R30 K86 ["focusFace"]
-      276 DUPCLOSURE                       R30 K87 [PROTO_40]
-      277 CAPTURE                          VAL R9
-      278 CAPTURE                          VAL R28
-      279 CAPTURE                          VAL R1
-      280 CAPTURE                          VAL R5
-      281 CAPTURE                          VAL R12
-      282 CAPTURE                          VAL R13
-      283 CAPTURE                          VAL R17
-      284 CAPTURE                          VAL R8
-      285 CAPTURE                          VAL R24
-      286 CAPTURE                          VAL R16
-      287 CAPTURE                          VAL R18
-      288 CAPTURE                          VAL R23
-      289 SETTABLEKS                       R30 R11 K88 ["render"]
-      291 DUPCLOSURE                       R30 K89 [PROTO_41]
-      292 DUPCLOSURE                       R31 K90 [PROTO_46]
-      293 CAPTURE                          VAL R19
-      294 CAPTURE                          VAL R20
-      295 CAPTURE                          VAL R21
-      296 CAPTURE                          VAL R22
-      297 MOVE                             R32 R7
-      298 DUPTABLE                         R33 K95 [{"Stylizer", "Localization", "Plugin", "PluginActions"}]
-      299 GETTABLEKS                       R34 R6 K91 ["Stylizer"]
-      301 SETTABLEKS                       R34 R33 K91 ["Stylizer"]
-      303 GETTABLEKS                       R34 R6 K92 ["Localization"]
-      305 SETTABLEKS                       R34 R33 K92 ["Localization"]
-      307 GETTABLEKS                       R34 R6 K93 ["Plugin"]
-      309 SETTABLEKS                       R34 R33 K93 ["Plugin"]
-      311 GETTABLEKS                       R34 R6 K94 ["PluginActions"]
-      313 SETTABLEKS                       R34 R33 K94 ["PluginActions"]
-      315 CALL                             R32 1 1
-      316 MOVE                             R33 R11
-      317 CALL                             R32 1 1
-      318 MOVE                             R11 R32
-      319 GETTABLEKS                       R32 R2 K96 ["connect"]
-      321 MOVE                             R33 R30
-      322 MOVE                             R34 R31
-      323 CALL                             R32 2 1
-      324 MOVE                             R33 R11
-      325 CALL                             R32 1 -1
-      326 RETURN                           R32 -1
+      270 SETTABLEKS                       R31 R11 K81 ["willUpdate"]
+      272 DUPCLOSURE                       R31 K82 [PROTO_34]
+      273 CAPTURE                          VAL R8
+      274 CAPTURE                          VAL R23
+      275 SETGLOBAL                        R31 K83 ["getFacsKeysWithNonZerovalueCount"]
+      277 DUPCLOSURE                       R31 K84 [PROTO_35]
+      278 CAPTURE                          VAL R29
+      279 CAPTURE                          VAL R9
+      280 SETGLOBAL                        R31 K85 ["handleFocusFace"]
+      282 DUPCLOSURE                       R31 K86 [PROTO_36]
+      283 CAPTURE                          VAL R10
+      284 SETGLOBAL                        R31 K87 ["focusFace"]
+      286 DUPCLOSURE                       R31 K88 [PROTO_40]
+      287 CAPTURE                          VAL R9
+      288 CAPTURE                          VAL R28
+      289 CAPTURE                          VAL R1
+      290 CAPTURE                          VAL R5
+      291 CAPTURE                          VAL R12
+      292 CAPTURE                          VAL R13
+      293 CAPTURE                          VAL R30
+      294 CAPTURE                          VAL R17
+      295 CAPTURE                          VAL R8
+      296 CAPTURE                          VAL R24
+      297 CAPTURE                          VAL R16
+      298 CAPTURE                          VAL R25
+      299 CAPTURE                          VAL R18
+      300 CAPTURE                          VAL R23
+      301 SETTABLEKS                       R31 R11 K89 ["render"]
+      303 DUPCLOSURE                       R31 K90 [PROTO_41]
+      304 DUPCLOSURE                       R32 K91 [PROTO_46]
+      305 CAPTURE                          VAL R19
+      306 CAPTURE                          VAL R20
+      307 CAPTURE                          VAL R21
+      308 CAPTURE                          VAL R22
+      309 MOVE                             R33 R7
+      310 DUPTABLE                         R34 K96 [{"Stylizer", "Localization", "Plugin", "PluginActions"}]
+      311 GETTABLEKS                       R35 R6 K92 ["Stylizer"]
+      313 SETTABLEKS                       R35 R34 K92 ["Stylizer"]
+      315 GETTABLEKS                       R35 R6 K93 ["Localization"]
+      317 SETTABLEKS                       R35 R34 K93 ["Localization"]
+      319 GETTABLEKS                       R35 R6 K94 ["Plugin"]
+      321 SETTABLEKS                       R35 R34 K94 ["Plugin"]
+      323 GETTABLEKS                       R35 R6 K95 ["PluginActions"]
+      325 SETTABLEKS                       R35 R34 K95 ["PluginActions"]
+      327 CALL                             R33 1 1
+      328 MOVE                             R34 R11
+      329 CALL                             R33 1 1
+      330 MOVE                             R11 R33
+      331 GETTABLEKS                       R33 R2 K97 ["connect"]
+      333 MOVE                             R34 R31
+      334 MOVE                             R35 R32
+      335 CALL                             R33 2 1
+      336 MOVE                             R34 R11
+      337 CALL                             R33 1 -1
+      338 RETURN                           R33 -1

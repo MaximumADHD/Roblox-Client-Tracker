@@ -20,6 +20,37 @@ PROTO_0:
        22 RETURN                           R3 -1
 
 PROTO_1:
+        0 FASTCALL1                        TYPE R0 ; [+3]
+        1 MOVE                             R2 R0
+        2 GETIMPORT                        R1 K1 [type]
+        4 CALL                             R1 1 1
+        5 JUMPIFNOTEQKS                    R1 K2 ["string"] ; [+24]
+        7 GETIMPORT                        R1 K4 [string.match]
+        9 MOVE                             R2 R0
+       10 LOADK                            R3 K5 ["^Http (%d+):"]
+       11 CALL                             R1 2 1
+       12 JUMPIFNOTEQKS                    R1 K6 ["404"] ; [+17]
+       14 GETIMPORT                        R1 K8 [string.find]
+       16 MOVE                             R2 R0
+       17 LOADK                            R3 K9 ["No version notes were found to summarize."]
+       18 LOADN                            R4 1
+       19 LOADB                            R5 1
+       20 CALL                             R1 4 1
+       21 JUMPIFNOT                        R1 ; [+8]
+       22 GETUPVAL                         R1 0
+       23 GETTABLEKS                       R1 R1 K10 ["reject"]
+       25 GETUPVAL                         R2 1
+       26 GETTABLEKS                       R2 R2 K11 ["NoSaveNotes"]
+       28 CALL                             R1 1 -1
+       29 RETURN                           R1 -1
+       30 GETUPVAL                         R1 0
+       31 GETTABLEKS                       R1 R1 K10 ["reject"]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R2 R2 K12 ["Unavailable"]
+       36 CALL                             R1 1 -1
+       37 RETURN                           R1 -1
+
+PROTO_2:
         0 DUPTABLE                         R2 K5 [{[1] = "POST", ["Url"], ["Body"], ["Headers"]}]
         1 GETUPVAL                         R3 0
         2 GETTABLEKS                       R3 R3 K6 ["composeUrl"]
@@ -57,8 +88,13 @@ PROTO_1:
        46 CAPTURE                          UPVAL U5
        47 CAPTURE                          VAL R0
        48 NAMECALL                         R3 R3 K18 ["andThen"]
-       50 CALL                             R3 2 -1
-       51 RETURN                           R3 -1
+       50 CALL                             R3 2 1
+       51 DUPCLOSURE                       R5 K19 [PROTO_1]
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          UPVAL U6
+       54 NAMECALL                         R3 R3 K20 ["catch"]
+       56 CALL                             R3 2 -1
+       57 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -94,14 +130,18 @@ MAIN:
        50 GETTABLEKS                       R10 R6 K20 ["WaitAndFetchSummary"]
        52 CALL                             R9 1 1
        53 GETIMPORT                        R10 K5 [require]
-       55 GETTABLEKS                       R11 R0 K16 ["Src"]
-       57 GETTABLEKS                       R11 R11 K21 ["Types"]
-       59 CALL                             R10 1 1
-       60 DUPCLOSURE                       R11 K22 [PROTO_1]
-       61 CAPTURE                          VAL R5
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R7
-       64 CAPTURE                          VAL R8
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R9
-       67 RETURN                           R11 1
+       55 GETTABLEKS                       R11 R6 K21 ["GetGeneratedNotesError"]
+       57 CALL                             R10 1 1
+       58 GETIMPORT                        R11 K5 [require]
+       60 GETTABLEKS                       R12 R0 K16 ["Src"]
+       62 GETTABLEKS                       R12 R12 K22 ["Types"]
+       64 CALL                             R11 1 1
+       65 DUPCLOSURE                       R12 K23 [PROTO_2]
+       66 CAPTURE                          VAL R5
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R8
+       70 CAPTURE                          VAL R2
+       71 CAPTURE                          VAL R9
+       72 CAPTURE                          VAL R10
+       73 RETURN                           R12 1

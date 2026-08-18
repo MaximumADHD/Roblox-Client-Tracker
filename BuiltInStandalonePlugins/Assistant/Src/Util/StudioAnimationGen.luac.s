@@ -150,12 +150,41 @@ PROTO_3:
        21 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R0 K2 [{"generateAnimationAsync", "publishAnimationAsync"}]
-        1 GETUPVAL                         R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["generateAnimationAsync"]
-        4 GETUPVAL                         R1 1
-        5 SETTABLEKS                       R1 R0 K1 ["publishAnimationAsync"]
-        7 RETURN                           R0 1
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 ["Actions"]
+        2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
+        4 CALL                             R0 2 1
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K2 ["Util"]
+        8 GETTABLEKS                       R1 R1 K3 ["StudioUri"]
+       10 GETTABLEKS                       R1 R1 K4 ["fromAction"]
+       12 LOADK                            R2 K5 ["AnimationEditor"]
+       13 LOADK                            R3 K6 ["Toggle"]
+       14 CALL                             R1 2 1
+       15 NEWTABLE                         R4 0 1
+       17 MOVE                             R5 R1
+       18 SETLIST                          R4 R5 1 [1]
+       20 NAMECALL                         R2 R0 K7 ["GetAsync"]
+       22 CALL                             R2 2 1
+       23 GETTABLEN                        R3 R2 1
+       24 GETTABLEKS                       R3 R3 K8 ["Checked"]
+       26 JUMPIF                           R3 ; [+4]
+       27 MOVE                             R6 R1
+       28 NAMECALL                         R4 R0 K9 ["ActivateAsync"]
+       30 CALL                             R4 2 0
+       31 RETURN                           R3 1
+
+PROTO_5:
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          VAL R0
+        2 CAPTURE                          UPVAL U0
+        3 DUPTABLE                         R2 K3 [{"generateAnimationAsync", "publishAnimationAsync", "openAnimationClipEditorAsync"}]
+        4 GETUPVAL                         R3 1
+        5 SETTABLEKS                       R3 R2 K0 ["generateAnimationAsync"]
+        7 GETUPVAL                         R3 2
+        8 SETTABLEKS                       R3 R2 K1 ["publishAnimationAsync"]
+       10 SETTABLEKS                       R1 R2 K2 ["openAnimationClipEditorAsync"]
+       12 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -185,15 +214,20 @@ MAIN:
        39 GETTABLEKS                       R8 R6 K14 ["Src"]
        41 GETTABLEKS                       R8 R8 K15 ["Flags"]
        43 CALL                             R7 1 1
-       44 DUPCLOSURE                       R8 K16 [PROTO_1]
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          VAL R7
-       48 DUPCLOSURE                       R9 K17 [PROTO_3]
-       49 CAPTURE                          VAL R5
-       50 DUPCLOSURE                       R10 K18 [PROTO_4]
-       51 CAPTURE                          VAL R8
-       52 CAPTURE                          VAL R9
-       53 DUPTABLE                         R11 K20 [{"create"}]
-       54 SETTABLEKS                       R10 R11 K19 ["create"]
-       56 RETURN                           R11 1
+       44 GETIMPORT                        R8 K13 [require]
+       46 GETTABLEKS                       R9 R6 K16 ["Packages"]
+       48 GETTABLEKS                       R9 R9 K17 ["StudioFoundation"]
+       50 CALL                             R8 1 1
+       51 DUPCLOSURE                       R9 K18 [PROTO_1]
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R7
+       55 DUPCLOSURE                       R10 K19 [PROTO_3]
+       56 CAPTURE                          VAL R5
+       57 DUPCLOSURE                       R11 K20 [PROTO_5]
+       58 CAPTURE                          VAL R8
+       59 CAPTURE                          VAL R9
+       60 CAPTURE                          VAL R10
+       61 DUPTABLE                         R12 K22 [{"create"}]
+       62 SETTABLEKS                       R11 R12 K21 ["create"]
+       64 RETURN                           R12 1

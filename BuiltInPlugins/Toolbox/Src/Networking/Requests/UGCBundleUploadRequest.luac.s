@@ -1029,16 +1029,17 @@ PROTO_13:
       174 MOVE                             R14 R3
       175 MOVE                             R15 R4
       176 GETUPVAL                         R16 19
-      177 NAMECALL                         R8 R8 K25 ["postBundleCreationContext"]
-      179 CALL                             R8 8 1
-      180 MOVE                             R10 R5
-      181 MOVE                             R11 R6
-      182 NAMECALL                         R8 R8 K26 ["andThen"]
-      184 CALL                             R8 3 -1
-      185 RETURN                           R8 -1
+      177 GETUPVAL                         R17 34
+      178 NAMECALL                         R8 R8 K25 ["postBundleCreationContext"]
+      180 CALL                             R8 9 1
+      181 MOVE                             R10 R5
+      182 MOVE                             R11 R6
+      183 NAMECALL                         R8 R8 K26 ["andThen"]
+      185 CALL                             R8 3 -1
+      186 RETURN                           R8 -1
 
 PROTO_14:
-        0 NEWCLOSURE                       R11 P0
+        0 NEWCLOSURE                       R12 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R2
         3 CAPTURE                          VAL R1
@@ -1073,8 +1074,9 @@ PROTO_14:
        32 CAPTURE                          UPVAL U20
        33 CAPTURE                          UPVAL U21
        34 CAPTURE                          UPVAL U22
-       35 CLOSEUPVALS                      R3
-       36 RETURN                           R11 1
+       35 CAPTURE                          VAL R11
+       36 CLOSEUPVALS                      R3
+       37 RETURN                           R12 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1159,60 +1161,65 @@ MAIN:
       136 GETTABLEKS                       R24 R24 K37 ["getFFlagEnableUploadingAvatarAnimations"]
       138 CALL                             R23 1 1
       139 GETIMPORT                        R24 K11 [require]
-      141 GETTABLEKS                       R25 R10 K38 ["getRobuxMessageToAppend"]
-      143 CALL                             R24 1 1
-      144 DUPTABLE                         R25 K41 [{"bundlePartsUploadError", "bundleUploadAssetsStep"}]
-      145 DUPTABLE                         R26 K47 [{["Body"] = "BundlePartsUploadError", ["DynamicHead"] = "BundlePartsUploadError", ["Shoes"] = "ShoesBundlePartsUploadError"}]
-      146 SETTABLEKS                       R26 R25 K39 ["bundlePartsUploadError"]
-      148 DUPTABLE                         R26 K50 [{["Body"] = "BundleUploadAssetsStep", ["DynamicHead"] = "BundleUploadAssetsStep", ["Shoes"] = "ShoesBundleUploadAssetsStep"}]
-      149 SETTABLEKS                       R26 R25 K40 ["bundleUploadAssetsStep"]
-      151 MOVE                             R26 R23
-      152 CALL                             R26 0 1
-      153 JUMPIFNOT                        R26 ; [+10]
-      154 GETTABLEKS                       R26 R25 K39 ["bundlePartsUploadError"]
-      156 LOADK                            R27 K51 ["AvatarAnimationsBundlePartsUploadError"]
-      157 SETTABLEKS                       R27 R26 K52 ["AvatarAnimations"]
-      159 GETTABLEKS                       R26 R25 K40 ["bundleUploadAssetsStep"]
-      161 LOADK                            R27 K53 ["AvatarAnimationsBundleUploadAssetsStep"]
-      162 SETTABLEKS                       R27 R26 K52 ["AvatarAnimations"]
-      164 DUPCLOSURE                       R26 K54 [PROTO_0]
-      165 DUPCLOSURE                       R27 K55 [PROTO_1]
-      166 DUPCLOSURE                       R28 K56 [PROTO_2]
-      167 DUPCLOSURE                       R29 K57 [PROTO_3]
-      168 DUPCLOSURE                       R30 K58 [PROTO_4]
-      169 DUPCLOSURE                       R31 K59 [PROTO_5]
-      170 CAPTURE                          VAL R21
-      171 CAPTURE                          VAL R22
-      172 CAPTURE                          VAL R23
-      173 CAPTURE                          VAL R24
-      174 CAPTURE                          VAL R20
-      175 CAPTURE                          VAL R11
-      176 CAPTURE                          VAL R26
-      177 CAPTURE                          VAL R15
-      178 CAPTURE                          VAL R3
-      179 CAPTURE                          VAL R5
-      180 DUPCLOSURE                       R32 K60 [PROTO_14]
-      181 CAPTURE                          VAL R13
-      182 CAPTURE                          VAL R21
-      183 CAPTURE                          VAL R22
-      184 CAPTURE                          VAL R12
-      185 CAPTURE                          VAL R16
+      141 GETTABLEKS                       R25 R1 K8 ["Src"]
+      143 GETTABLEKS                       R25 R25 K36 ["Flags"]
+      145 GETTABLEKS                       R25 R25 K38 ["getFFlagToolboxDynamicUploadFee"]
+      147 CALL                             R24 1 1
+      148 GETIMPORT                        R25 K11 [require]
+      150 GETTABLEKS                       R26 R10 K39 ["getRobuxMessageToAppend"]
+      152 CALL                             R25 1 1
+      153 DUPTABLE                         R26 K42 [{"bundlePartsUploadError", "bundleUploadAssetsStep"}]
+      154 DUPTABLE                         R27 K48 [{["Body"] = "BundlePartsUploadError", ["DynamicHead"] = "BundlePartsUploadError", ["Shoes"] = "ShoesBundlePartsUploadError"}]
+      155 SETTABLEKS                       R27 R26 K40 ["bundlePartsUploadError"]
+      157 DUPTABLE                         R27 K51 [{["Body"] = "BundleUploadAssetsStep", ["DynamicHead"] = "BundleUploadAssetsStep", ["Shoes"] = "ShoesBundleUploadAssetsStep"}]
+      158 SETTABLEKS                       R27 R26 K41 ["bundleUploadAssetsStep"]
+      160 MOVE                             R27 R23
+      161 CALL                             R27 0 1
+      162 JUMPIFNOT                        R27 ; [+10]
+      163 GETTABLEKS                       R27 R26 K40 ["bundlePartsUploadError"]
+      165 LOADK                            R28 K52 ["AvatarAnimationsBundlePartsUploadError"]
+      166 SETTABLEKS                       R28 R27 K53 ["AvatarAnimations"]
+      168 GETTABLEKS                       R27 R26 K41 ["bundleUploadAssetsStep"]
+      170 LOADK                            R28 K54 ["AvatarAnimationsBundleUploadAssetsStep"]
+      171 SETTABLEKS                       R28 R27 K53 ["AvatarAnimations"]
+      173 DUPCLOSURE                       R27 K55 [PROTO_0]
+      174 DUPCLOSURE                       R28 K56 [PROTO_1]
+      175 DUPCLOSURE                       R29 K57 [PROTO_2]
+      176 DUPCLOSURE                       R30 K58 [PROTO_3]
+      177 DUPCLOSURE                       R31 K59 [PROTO_4]
+      178 DUPCLOSURE                       R32 K60 [PROTO_5]
+      179 CAPTURE                          VAL R21
+      180 CAPTURE                          VAL R22
+      181 CAPTURE                          VAL R23
+      182 CAPTURE                          VAL R25
+      183 CAPTURE                          VAL R20
+      184 CAPTURE                          VAL R11
+      185 CAPTURE                          VAL R27
       186 CAPTURE                          VAL R15
-      187 CAPTURE                          VAL R20
-      188 CAPTURE                          VAL R11
-      189 CAPTURE                          VAL R19
-      190 CAPTURE                          VAL R23
-      191 CAPTURE                          VAL R14
-      192 CAPTURE                          VAL R6
-      193 CAPTURE                          VAL R25
-      194 CAPTURE                          VAL R7
-      195 CAPTURE                          VAL R18
-      196 CAPTURE                          VAL R30
-      197 CAPTURE                          VAL R9
-      198 CAPTURE                          VAL R3
-      199 CAPTURE                          VAL R24
-      200 CAPTURE                          VAL R5
-      201 CAPTURE                          VAL R26
-      202 CAPTURE                          VAL R31
-      203 CAPTURE                          VAL R4
-      204 RETURN                           R32 1
+      187 CAPTURE                          VAL R3
+      188 CAPTURE                          VAL R5
+      189 DUPCLOSURE                       R33 K61 [PROTO_14]
+      190 CAPTURE                          VAL R13
+      191 CAPTURE                          VAL R21
+      192 CAPTURE                          VAL R22
+      193 CAPTURE                          VAL R12
+      194 CAPTURE                          VAL R16
+      195 CAPTURE                          VAL R15
+      196 CAPTURE                          VAL R20
+      197 CAPTURE                          VAL R11
+      198 CAPTURE                          VAL R19
+      199 CAPTURE                          VAL R23
+      200 CAPTURE                          VAL R14
+      201 CAPTURE                          VAL R6
+      202 CAPTURE                          VAL R26
+      203 CAPTURE                          VAL R7
+      204 CAPTURE                          VAL R18
+      205 CAPTURE                          VAL R31
+      206 CAPTURE                          VAL R9
+      207 CAPTURE                          VAL R3
+      208 CAPTURE                          VAL R25
+      209 CAPTURE                          VAL R5
+      210 CAPTURE                          VAL R27
+      211 CAPTURE                          VAL R32
+      212 CAPTURE                          VAL R4
+      213 RETURN                           R33 1

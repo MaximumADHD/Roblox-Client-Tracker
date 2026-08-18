@@ -135,12 +135,16 @@ PROTO_6:
 
 PROTO_7:
         0 MOVE                             R4 R1
-        1 NAMECALL                         R2 R0 K0 ["_getScopeItemCount"]
+        1 NAMECALL                         R2 R0 K0 ["getScopeItemCount"]
         3 CALL                             R2 2 1
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R4 R4 K1 ["ItemFetchMax"]
-        7 DIV                              R3 R2 R4
-        8 RETURN                           R3 1
+        4 GETTABLEKS                       R5 R0 K1 ["_maxItems"]
+        6 GETUPVAL                         R6 0
+        7 GETTABLEKS                       R6 R6 K2 ["InitialScopeFetchLimit"]
+        9 FASTCALL2                        MATH_MIN R5 R6 ; [+3]
+       11 GETIMPORT                        R4 K5 [math.min]
+       13 CALL                             R4 2 1
+       14 DIV                              R3 R2 R4
+       15 RETURN                           R3 1
 
 PROTO_8:
         0 GETTABLEKS                       R5 R0 K0 ["_indexMap"]
@@ -552,7 +556,7 @@ PROTO_21:
        15 GETUPVAL                         R4 0
        16 GETTABLEKS                       R4 R4 K1 ["RecentUploads"]
        18 GETTABLEKS                       R4 R4 K2 ["Uid"]
-       20 NAMECALL                         R2 R0 K5 ["_getScopeItemCount"]
+       20 NAMECALL                         R2 R0 K5 ["getScopeItemCount"]
        22 CALL                             R2 2 1
        23 GETUPVAL                         R3 0
        24 GETTABLEKS                       R3 R3 K6 ["RecentMax"]
@@ -560,7 +564,7 @@ PROTO_21:
        28 GETUPVAL                         R4 0
        29 GETTABLEKS                       R4 R4 K1 ["RecentUploads"]
        31 GETTABLEKS                       R4 R4 K2 ["Uid"]
-       33 NAMECALL                         R2 R0 K5 ["_getScopeItemCount"]
+       33 NAMECALL                         R2 R0 K5 ["getScopeItemCount"]
        35 CALL                             R2 2 1
        36 GETUPVAL                         R3 0
        37 GETTABLEKS                       R3 R3 K6 ["RecentMax"]
@@ -1062,7 +1066,7 @@ MAIN:
       101 SETTABLEKS                       R13 R11 K30 ["getMaxItems"]
       103 DUPCLOSURE                       R13 K31 [PROTO_6]
       104 CAPTURE                          VAL R3
-      105 SETTABLEKS                       R13 R11 K32 ["_getScopeItemCount"]
+      105 SETTABLEKS                       R13 R11 K32 ["getScopeItemCount"]
       107 DUPCLOSURE                       R13 K33 [PROTO_7]
       108 CAPTURE                          VAL R10
       109 SETTABLEKS                       R13 R11 K34 ["getScopeCacheFetchProgress"]

@@ -82,8 +82,26 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R1 0
-        1 SETTABLEKS                       R0 R1 K0 ["text"]
-        3 RETURN                           R0 0
+        1 JUMPIFNOT                        R1 ; [+23]
+        2 GETUPVAL                         R1 1
+        3 GETTABLEKS                       R1 R1 K0 ["textBoxRef"]
+        5 NAMECALL                         R1 R1 K1 ["getValue"]
+        7 CALL                             R1 1 1
+        8 JUMPIFEQKNIL                     R1 ; [+16]
+       10 GETIMPORT                        R2 K4 [string.match]
+       12 GETTABLEKS                       R3 R1 K5 ["Text"]
+       14 LOADK                            R4 K6 ["^[\n\r]+$"]
+       15 CALL                             R2 2 1
+       16 JUMPIFNOT                        R2 ; [+8]
+       17 LOADK                            R2 K7 [""]
+       18 SETTABLEKS                       R2 R1 K5 ["Text"]
+       20 GETUPVAL                         R2 1
+       21 LOADK                            R3 K7 [""]
+       22 SETTABLEKS                       R3 R2 K8 ["text"]
+       24 RETURN                           R0 0
+       25 GETUPVAL                         R1 1
+       26 SETTABLEKS                       R0 R1 K8 ["text"]
+       28 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -220,10 +238,10 @@ PROTO_8:
        78 SETTABLEKS                       R10 R9 K27 ["OnFocusLost"]
        80 CALL                             R7 2 1
        81 MOVE                             R6 R7
-       82 JUMP                             ; [+40]
+       82 JUMP                             ; [+41]
        83 GETTABLEKS                       R7 R0 K4 ["state"]
        85 GETTABLEKS                       R7 R7 K5 ["editing"]
-       87 JUMPIFNOT                        R7 ; [+34]
+       87 JUMPIFNOT                        R7 ; [+35]
        88 GETUPVAL                         R7 1
        89 GETTABLEKS                       R7 R7 K19 ["createElement"]
        91 GETUPVAL                         R8 3
@@ -241,113 +259,114 @@ PROTO_8:
       108 GETTABLEKS                       R10 R0 K32 ["textBoxRef"]
       110 SETTABLEKS                       R10 R9 K22 ["ForwardRef"]
       112 NEWCLOSURE                       R10 P3
-      113 CAPTURE                          VAL R0
-      114 SETTABLEKS                       R10 R9 K25 ["OnTextChanged"]
-      116 NEWCLOSURE                       R10 P4
-      117 CAPTURE                          VAL R0
-      118 CAPTURE                          VAL R1
-      119 SETTABLEKS                       R10 R9 K27 ["OnFocusLost"]
-      121 CALL                             R7 2 1
-      122 MOVE                             R6 R7
-      123 LOADNIL                          R7
-      124 GETUPVAL                         R8 4
-      125 JUMPIFNOT                        R8 ; [+7]
-      126 GETIMPORT                        R8 K39 [UDim2.fromScale]
-      128 LOADN                            R9 1
-      129 LOADN                            R10 1
-      130 CALL                             R8 2 1
-      131 MOVE                             R7 R8
-      132 JUMP                             ; [+62]
-      133 GETTABLEKS                       R8 R1 K40 ["Stylizer"]
-      135 GETTABLEKS                       R9 R8 K41 ["Font"]
-      137 GETTABLEKS                       R10 R8 K42 ["TextSize"]
-      139 GETUPVAL                         R11 5
-      140 MOVE                             R13 R4
-      141 MOVE                             R14 R10
-      142 MOVE                             R15 R9
-      143 GETIMPORT                        R16 K44 [Vector2.new]
-      145 LOADN                            R17 0
-      146 LOADN                            R18 0
-      147 CALL                             R16 2 -1
-      148 NAMECALL                         R11 R11 K45 ["GetTextSize"]
-      150 CALL                             R11 -1 1
-      151 GETUPVAL                         R12 5
-      152 MOVE                             R14 R5
-      153 MOVE                             R15 R10
-      154 MOVE                             R16 R9
-      155 GETIMPORT                        R17 K44 [Vector2.new]
-      157 LOADN                            R18 0
-      158 LOADN                            R19 0
-      159 CALL                             R17 2 -1
-      160 NAMECALL                         R12 R12 K45 ["GetTextSize"]
-      162 CALL                             R12 -1 1
-      163 GETTABLEKS                       R15 R11 K47 ["X"]
-      165 ADDK                             R14 R15 K46 [2]
-      166 FASTCALL1                        MATH_CEIL R14 ; [+2]
-      167 GETIMPORT                        R13 K50 [math.ceil]
-      169 CALL                             R13 1 1
-      170 GETTABLEKS                       R16 R12 K47 ["X"]
-      172 ADDK                             R15 R16 K46 [2]
-      173 FASTCALL1                        MATH_CEIL R15 ; [+2]
-      174 GETIMPORT                        R14 K50 [math.ceil]
-      176 CALL                             R14 1 1
-      177 GETUPVAL                         R15 0
-      178 GETTABLEKS                       R15 R15 K51 ["ControlsHeaderButtonWidth"]
-      180 GETIMPORT                        R16 K37 [UDim2.new]
-      182 LOADN                            R17 0
-      183 FASTCALL3                        MATH_MAX R15 R13 R14
-      185 MOVE                             R19 R15
-      186 MOVE                             R20 R13
-      187 MOVE                             R21 R14
-      188 GETIMPORT                        R18 K53 [math.max]
-      190 CALL                             R18 3 1
-      191 LOADN                            R19 1
-      192 LOADN                            R20 0
-      193 CALL                             R16 4 1
-      194 MOVE                             R7 R16
-      195 GETUPVAL                         R8 1
-      196 GETTABLEKS                       R8 R8 K19 ["createElement"]
-      198 GETUPVAL                         R9 6
-      199 DUPTABLE                         R10 K57 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-      200 SETTABLEKS                       R7 R10 K33 ["Size"]
-      202 GETTABLEKS                       R11 R1 K54 ["LayoutOrder"]
-      204 SETTABLEKS                       R11 R10 K54 ["LayoutOrder"]
-      206 GETIMPORT                        R11 K60 [Enum.FillDirection.Horizontal]
-      208 SETTABLEKS                       R11 R10 K55 ["Layout"]
-      210 GETIMPORT                        R11 K61 [Enum.HorizontalAlignment.Center]
-      212 SETTABLEKS                       R11 R10 K56 ["HorizontalAlignment"]
-      214 DUPTABLE                         R11 K64 [{"AddButton", "TextInput"}]
-      215 GETTABLEKS                       R13 R0 K4 ["state"]
-      217 GETTABLEKS                       R13 R13 K5 ["editing"]
-      219 NOT                              R12 R13
-      220 JUMPIFNOT                        R12 ; [+30]
-      221 GETUPVAL                         R12 1
-      222 GETTABLEKS                       R12 R12 K19 ["createElement"]
-      224 GETUPVAL                         R13 7
-      225 DUPTABLE                         R14 K71 [{["Style"] = "Round", ["Text"], ["StyleModifier"], ["Size"], ["TextWrapped"] = True, ["OnClick"]}]
-      226 SETTABLEKS                       R4 R14 K67 ["Text"]
-      228 JUMPIFNOT                        R3 ; [+4]
-      229 GETUPVAL                         R15 8
-      230 GETTABLEKS                       R15 R15 K72 ["Disabled"]
-      232 JUMP                             ; [+1]
-      233 LOADNIL                          R15
-      234 SETTABLEKS                       R15 R14 K68 ["StyleModifier"]
-      236 GETIMPORT                        R15 K37 [UDim2.new]
-      238 LOADN                            R16 1
-      239 LOADN                            R17 0
-      240 LOADN                            R18 1
-      241 LOADN                            R19 -1
-      242 CALL                             R15 4 1
-      243 SETTABLEKS                       R15 R14 K33 ["Size"]
-      245 NEWCLOSURE                       R15 P5
-      246 CAPTURE                          VAL R0
-      247 CAPTURE                          VAL R1
-      248 SETTABLEKS                       R15 R14 K70 ["OnClick"]
-      250 CALL                             R12 2 1
-      251 SETTABLEKS                       R12 R11 K62 ["AddButton"]
-      253 SETTABLEKS                       R6 R11 K63 ["TextInput"]
-      255 CALL                             R8 3 -1
-      256 RETURN                           R8 -1
+      113 CAPTURE                          UPVAL U4
+      114 CAPTURE                          VAL R0
+      115 SETTABLEKS                       R10 R9 K25 ["OnTextChanged"]
+      117 NEWCLOSURE                       R10 P4
+      118 CAPTURE                          VAL R0
+      119 CAPTURE                          VAL R1
+      120 SETTABLEKS                       R10 R9 K27 ["OnFocusLost"]
+      122 CALL                             R7 2 1
+      123 MOVE                             R6 R7
+      124 LOADNIL                          R7
+      125 GETUPVAL                         R8 5
+      126 JUMPIFNOT                        R8 ; [+7]
+      127 GETIMPORT                        R8 K39 [UDim2.fromScale]
+      129 LOADN                            R9 1
+      130 LOADN                            R10 1
+      131 CALL                             R8 2 1
+      132 MOVE                             R7 R8
+      133 JUMP                             ; [+62]
+      134 GETTABLEKS                       R8 R1 K40 ["Stylizer"]
+      136 GETTABLEKS                       R9 R8 K41 ["Font"]
+      138 GETTABLEKS                       R10 R8 K42 ["TextSize"]
+      140 GETUPVAL                         R11 6
+      141 MOVE                             R13 R4
+      142 MOVE                             R14 R10
+      143 MOVE                             R15 R9
+      144 GETIMPORT                        R16 K44 [Vector2.new]
+      146 LOADN                            R17 0
+      147 LOADN                            R18 0
+      148 CALL                             R16 2 -1
+      149 NAMECALL                         R11 R11 K45 ["GetTextSize"]
+      151 CALL                             R11 -1 1
+      152 GETUPVAL                         R12 6
+      153 MOVE                             R14 R5
+      154 MOVE                             R15 R10
+      155 MOVE                             R16 R9
+      156 GETIMPORT                        R17 K44 [Vector2.new]
+      158 LOADN                            R18 0
+      159 LOADN                            R19 0
+      160 CALL                             R17 2 -1
+      161 NAMECALL                         R12 R12 K45 ["GetTextSize"]
+      163 CALL                             R12 -1 1
+      164 GETTABLEKS                       R15 R11 K47 ["X"]
+      166 ADDK                             R14 R15 K46 [2]
+      167 FASTCALL1                        MATH_CEIL R14 ; [+2]
+      168 GETIMPORT                        R13 K50 [math.ceil]
+      170 CALL                             R13 1 1
+      171 GETTABLEKS                       R16 R12 K47 ["X"]
+      173 ADDK                             R15 R16 K46 [2]
+      174 FASTCALL1                        MATH_CEIL R15 ; [+2]
+      175 GETIMPORT                        R14 K50 [math.ceil]
+      177 CALL                             R14 1 1
+      178 GETUPVAL                         R15 0
+      179 GETTABLEKS                       R15 R15 K51 ["ControlsHeaderButtonWidth"]
+      181 GETIMPORT                        R16 K37 [UDim2.new]
+      183 LOADN                            R17 0
+      184 FASTCALL3                        MATH_MAX R15 R13 R14
+      186 MOVE                             R19 R15
+      187 MOVE                             R20 R13
+      188 MOVE                             R21 R14
+      189 GETIMPORT                        R18 K53 [math.max]
+      191 CALL                             R18 3 1
+      192 LOADN                            R19 1
+      193 LOADN                            R20 0
+      194 CALL                             R16 4 1
+      195 MOVE                             R7 R16
+      196 GETUPVAL                         R8 1
+      197 GETTABLEKS                       R8 R8 K19 ["createElement"]
+      199 GETUPVAL                         R9 7
+      200 DUPTABLE                         R10 K57 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+      201 SETTABLEKS                       R7 R10 K33 ["Size"]
+      203 GETTABLEKS                       R11 R1 K54 ["LayoutOrder"]
+      205 SETTABLEKS                       R11 R10 K54 ["LayoutOrder"]
+      207 GETIMPORT                        R11 K60 [Enum.FillDirection.Horizontal]
+      209 SETTABLEKS                       R11 R10 K55 ["Layout"]
+      211 GETIMPORT                        R11 K61 [Enum.HorizontalAlignment.Center]
+      213 SETTABLEKS                       R11 R10 K56 ["HorizontalAlignment"]
+      215 DUPTABLE                         R11 K64 [{"AddButton", "TextInput"}]
+      216 GETTABLEKS                       R13 R0 K4 ["state"]
+      218 GETTABLEKS                       R13 R13 K5 ["editing"]
+      220 NOT                              R12 R13
+      221 JUMPIFNOT                        R12 ; [+30]
+      222 GETUPVAL                         R12 1
+      223 GETTABLEKS                       R12 R12 K19 ["createElement"]
+      225 GETUPVAL                         R13 8
+      226 DUPTABLE                         R14 K71 [{["Style"] = "Round", ["Text"], ["StyleModifier"], ["Size"], ["TextWrapped"] = True, ["OnClick"]}]
+      227 SETTABLEKS                       R4 R14 K67 ["Text"]
+      229 JUMPIFNOT                        R3 ; [+4]
+      230 GETUPVAL                         R15 9
+      231 GETTABLEKS                       R15 R15 K72 ["Disabled"]
+      233 JUMP                             ; [+1]
+      234 LOADNIL                          R15
+      235 SETTABLEKS                       R15 R14 K68 ["StyleModifier"]
+      237 GETIMPORT                        R15 K37 [UDim2.new]
+      239 LOADN                            R16 1
+      240 LOADN                            R17 0
+      241 LOADN                            R18 1
+      242 LOADN                            R19 -1
+      243 CALL                             R15 4 1
+      244 SETTABLEKS                       R15 R14 K33 ["Size"]
+      246 NEWCLOSURE                       R15 P5
+      247 CAPTURE                          VAL R0
+      248 CAPTURE                          VAL R1
+      249 SETTABLEKS                       R15 R14 K70 ["OnClick"]
+      251 CALL                             R12 2 1
+      252 SETTABLEKS                       R12 R11 K62 ["AddButton"]
+      254 SETTABLEKS                       R6 R11 K63 ["TextInput"]
+      256 CALL                             R8 3 -1
+      257 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -385,35 +404,40 @@ MAIN:
        58 LOADK                            R14 K21 ["CGEControlsRowPolish"]
        59 NAMECALL                         R12 R12 K22 ["GetFastFlag"]
        61 CALL                             R12 2 1
-       62 GETTABLEKS                       R13 R2 K23 ["PureComponent"]
-       64 LOADK                            R15 K24 ["AddGroup"]
-       65 NAMECALL                         R13 R13 K25 ["extend"]
+       62 GETIMPORT                        R13 K1 [game]
+       64 LOADK                            R15 K23 ["CGENewGroupNamePlaceholderFix"]
+       65 NAMECALL                         R13 R13 K22 ["GetFastFlag"]
        67 CALL                             R13 2 1
-       68 DUPCLOSURE                       R14 K26 [PROTO_0]
-       69 CAPTURE                          VAL R2
-       70 SETTABLEKS                       R14 R13 K27 ["init"]
-       72 DUPCLOSURE                       R14 K28 [PROTO_1]
-       73 CAPTURE                          VAL R12
-       74 SETTABLEKS                       R14 R13 K29 ["didUpdate"]
-       76 DUPCLOSURE                       R14 K30 [PROTO_8]
-       77 CAPTURE                          VAL R11
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          VAL R9
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R0
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R10
-       86 SETTABLEKS                       R14 R13 K31 ["render"]
-       88 GETTABLEKS                       R14 R4 K32 ["withContext"]
-       90 DUPTABLE                         R15 K35 [{"Stylizer", "Localization"}]
-       91 GETTABLEKS                       R16 R4 K33 ["Stylizer"]
-       93 SETTABLEKS                       R16 R15 K33 ["Stylizer"]
-       95 GETTABLEKS                       R16 R4 K34 ["Localization"]
-       97 SETTABLEKS                       R16 R15 K34 ["Localization"]
-       99 CALL                             R14 1 1
-      100 MOVE                             R15 R13
-      101 CALL                             R14 1 1
-      102 MOVE                             R13 R14
-      103 RETURN                           R13 1
+       68 GETTABLEKS                       R14 R2 K24 ["PureComponent"]
+       70 LOADK                            R16 K25 ["AddGroup"]
+       71 NAMECALL                         R14 R14 K26 ["extend"]
+       73 CALL                             R14 2 1
+       74 DUPCLOSURE                       R15 K27 [PROTO_0]
+       75 CAPTURE                          VAL R2
+       76 SETTABLEKS                       R15 R14 K28 ["init"]
+       78 DUPCLOSURE                       R15 K29 [PROTO_1]
+       79 CAPTURE                          VAL R12
+       80 SETTABLEKS                       R15 R14 K30 ["didUpdate"]
+       82 DUPCLOSURE                       R15 K31 [PROTO_8]
+       83 CAPTURE                          VAL R11
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R9
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R13
+       88 CAPTURE                          VAL R12
+       89 CAPTURE                          VAL R0
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R6
+       92 CAPTURE                          VAL R10
+       93 SETTABLEKS                       R15 R14 K32 ["render"]
+       95 GETTABLEKS                       R15 R4 K33 ["withContext"]
+       97 DUPTABLE                         R16 K36 [{"Stylizer", "Localization"}]
+       98 GETTABLEKS                       R17 R4 K34 ["Stylizer"]
+      100 SETTABLEKS                       R17 R16 K34 ["Stylizer"]
+      102 GETTABLEKS                       R17 R4 K35 ["Localization"]
+      104 SETTABLEKS                       R17 R16 K35 ["Localization"]
+      106 CALL                             R15 1 1
+      107 MOVE                             R16 R14
+      108 CALL                             R15 1 1
+      109 MOVE                             R14 R15
+      110 RETURN                           R14 1

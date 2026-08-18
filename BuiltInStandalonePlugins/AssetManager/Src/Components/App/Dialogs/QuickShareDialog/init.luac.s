@@ -63,75 +63,29 @@ PROTO_1:
        42 RETURN                           R0 0
 
 PROTO_2:
-        0 NEWTABLE                         R2 0 0
-        2 NEWTABLE                         R3 0 0
-        4 MOVE                             R4 R1
-        5 LOADNIL                          R5
-        6 LOADNIL                          R6
-        7 FORGPREP                         R4
-        8 GETTABLEKS                       R9 R8 K0 ["value"]
-       10 GETTABLEKS                       R9 R9 K1 ["status"]
-       12 GETUPVAL                         R10 0
-       13 GETTABLEKS                       R10 R10 K2 ["ApiPermissionStatus"]
-       15 GETTABLEKS                       R10 R10 K3 ["HasPermission"]
-       17 JUMPIFEQ                         R9 R10 ; [+19]
-       19 GETUPVAL                         R12 1
-       20 GETTABLE                         R11 R12 R7
-       21 FASTCALL2                        TABLE_INSERT R2 R11 ; [+4]
-       23 MOVE                             R10 R2
-       24 GETIMPORT                        R9 K6 [table.insert]
-       26 CALL                             R9 2 0
-       27 GETUPVAL                         R12 2
-       28 GETUPVAL                         R14 1
-       29 GETTABLE                         R13 R14 R7
-       30 GETTABLE                         R11 R12 R13
-       31 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       33 MOVE                             R10 R3
-       34 GETIMPORT                        R9 K6 [table.insert]
-       36 CALL                             R9 2 0
-       37 FORGLOOP                         R4 2 ; [-30]
-       39 GETUPVAL                         R4 3
-       40 MOVE                             R5 R2
-       41 CALL                             R4 1 0
-       42 GETUPVAL                         R4 4
-       43 MOVE                             R5 R3
-       44 CALL                             R4 1 0
-       45 RETURN                           R0 0
-
-PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R2 2
-        3 GETUPVAL                         R4 3
-        4 CALL                             R4 0 1
-        5 JUMPIFNOT                        R4 ; [+6]
-        6 NEWCLOSURE                       R3 P0
-        7 CAPTURE                          UPVAL U4
-        8 CAPTURE                          UPVAL U5
-        9 CAPTURE                          UPVAL U6
-       10 CAPTURE                          UPVAL U7
-       11 JUMP                             ; [+6]
-       12 NEWCLOSURE                       R3 P1
-       13 CAPTURE                          UPVAL U4
-       14 CAPTURE                          UPVAL U2
-       15 CAPTURE                          UPVAL U5
-       16 CAPTURE                          UPVAL U6
-       17 CAPTURE                          UPVAL U7
-       18 CALL                             R0 3 0
-       19 RETURN                           R0 0
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          UPVAL U3
+        5 CAPTURE                          UPVAL U4
+        6 CAPTURE                          UPVAL U5
+        7 CAPTURE                          UPVAL U6
+        8 CALL                             R0 3 0
+        9 RETURN                           R0 0
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["closeDialog"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
         2 RETURN                           R2 1
 
-PROTO_6:
+PROTO_5:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["count"]
         3 MOVE                             R3 R1
@@ -183,19 +137,19 @@ PROTO_6:
        60 CALL                             R3 1 0
        61 RETURN                           R0 0
 
-PROTO_7:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 LOADN                            R1 2
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_8:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 LOADN                            R1 1
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
@@ -237,73 +191,72 @@ PROTO_9:
        52 CAPTURE                          UPVAL U6
        53 CAPTURE                          VAL R3
        54 CAPTURE                          VAL R6
-       55 CAPTURE                          UPVAL U7
-       56 CAPTURE                          UPVAL U5
-       57 CAPTURE                          VAL R7
-       58 CAPTURE                          VAL R9
-       59 CAPTURE                          VAL R11
-       60 NEWTABLE                         R14 0 0
-       62 CALL                             R12 2 0
-       63 NEWCLOSURE                       R12 P2
-       64 CAPTURE                          VAL R1
-       65 NEWCLOSURE                       R13 P3
-       66 CAPTURE                          UPVAL U8
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R9
-       69 CAPTURE                          VAL R7
-       70 CAPTURE                          VAL R11
-       71 CAPTURE                          VAL R5
-       72 GETUPVAL                         R14 3
-       73 GETTABLEKS                       R14 R14 K6 ["createElement"]
-       75 GETUPVAL                         R15 9
-       76 GETTABLEKS                       R15 R15 K7 ["View"]
-       78 DUPTABLE                         R16 K10 [{["tag"] = "size-full"}]
-       79 JUMPIFNOTEQKN                    R4 K11 [1] ; [+30]
-       81 GETUPVAL                         R17 3
-       82 GETTABLEKS                       R17 R17 K6 ["createElement"]
-       84 GETUPVAL                         R18 10
-       85 DUPTABLE                         R19 K19 [{"AssetIds", "AssetIdPaths", "ErrorAssetIds", "OnViewErrors", "OnDone", "OnClose", "TestExperiences"}]
-       86 MOVE                             R20 R6
-       87 JUMPIF                           R20 ; [+2]
-       88 NEWTABLE                         R20 0 0
-       90 SETTABLEKS                       R20 R19 K12 ["AssetIds"]
-       92 SETTABLEKS                       R7 R19 K13 ["AssetIdPaths"]
-       94 SETTABLEKS                       R8 R19 K14 ["ErrorAssetIds"]
-       96 NEWCLOSURE                       R20 P4
-       97 CAPTURE                          VAL R5
-       98 SETTABLEKS                       R20 R19 K15 ["OnViewErrors"]
-      100 SETTABLEKS                       R13 R19 K16 ["OnDone"]
-      102 SETTABLEKS                       R12 R19 K17 ["OnClose"]
-      104 GETTABLEKS                       R20 R0 K18 ["TestExperiences"]
-      106 SETTABLEKS                       R20 R19 K18 ["TestExperiences"]
-      108 CALL                             R17 2 1
-      109 JUMP                             ; [+34]
-      110 GETUPVAL                         R17 3
-      111 GETTABLEKS                       R17 R17 K6 ["createElement"]
-      113 GETUPVAL                         R18 11
-      114 DUPTABLE                         R19 K24 [{"Title", "Description", "AssetPaths", "CanClose", "OnClose", "OnBack"}]
-      115 LOADK                            R22 K25 ["QuickShare"]
-      116 LOADK                            R23 K26 ["PermissionErrorTitle"]
-      117 NAMECALL                         R20 R2 K27 ["getText"]
-      119 CALL                             R20 3 1
-      120 SETTABLEKS                       R20 R19 K20 ["Title"]
-      122 LOADK                            R22 K25 ["QuickShare"]
-      123 LOADK                            R23 K28 ["PermissionErrorDescription"]
-      124 NAMECALL                         R20 R2 K27 ["getText"]
-      126 CALL                             R20 3 1
-      127 SETTABLEKS                       R20 R19 K21 ["Description"]
-      129 SETTABLEKS                       R10 R19 K4 ["AssetPaths"]
-      131 JUMPIFEQKN                       R4 K29 [3] ; [+2]
-      133 LOADB                            R20 0 +1
-      134 LOADB                            R20 1
-      135 SETTABLEKS                       R20 R19 K22 ["CanClose"]
-      137 SETTABLEKS                       R12 R19 K17 ["OnClose"]
-      139 NEWCLOSURE                       R20 P5
-      140 CAPTURE                          VAL R5
-      141 SETTABLEKS                       R20 R19 K23 ["OnBack"]
-      143 CALL                             R17 2 1
-      144 CALL                             R14 3 -1
-      145 RETURN                           R14 -1
+       55 CAPTURE                          UPVAL U5
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R9
+       58 CAPTURE                          VAL R11
+       59 NEWTABLE                         R14 0 0
+       61 CALL                             R12 2 0
+       62 NEWCLOSURE                       R12 P2
+       63 CAPTURE                          VAL R1
+       64 NEWCLOSURE                       R13 P3
+       65 CAPTURE                          UPVAL U7
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R9
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R11
+       70 CAPTURE                          VAL R5
+       71 GETUPVAL                         R14 3
+       72 GETTABLEKS                       R14 R14 K6 ["createElement"]
+       74 GETUPVAL                         R15 8
+       75 GETTABLEKS                       R15 R15 K7 ["View"]
+       77 DUPTABLE                         R16 K10 [{["tag"] = "size-full"}]
+       78 JUMPIFNOTEQKN                    R4 K11 [1] ; [+30]
+       80 GETUPVAL                         R17 3
+       81 GETTABLEKS                       R17 R17 K6 ["createElement"]
+       83 GETUPVAL                         R18 9
+       84 DUPTABLE                         R19 K19 [{"AssetIds", "AssetIdPaths", "ErrorAssetIds", "OnViewErrors", "OnDone", "OnClose", "TestExperiences"}]
+       85 MOVE                             R20 R6
+       86 JUMPIF                           R20 ; [+2]
+       87 NEWTABLE                         R20 0 0
+       89 SETTABLEKS                       R20 R19 K12 ["AssetIds"]
+       91 SETTABLEKS                       R7 R19 K13 ["AssetIdPaths"]
+       93 SETTABLEKS                       R8 R19 K14 ["ErrorAssetIds"]
+       95 NEWCLOSURE                       R20 P4
+       96 CAPTURE                          VAL R5
+       97 SETTABLEKS                       R20 R19 K15 ["OnViewErrors"]
+       99 SETTABLEKS                       R13 R19 K16 ["OnDone"]
+      101 SETTABLEKS                       R12 R19 K17 ["OnClose"]
+      103 GETTABLEKS                       R20 R0 K18 ["TestExperiences"]
+      105 SETTABLEKS                       R20 R19 K18 ["TestExperiences"]
+      107 CALL                             R17 2 1
+      108 JUMP                             ; [+34]
+      109 GETUPVAL                         R17 3
+      110 GETTABLEKS                       R17 R17 K6 ["createElement"]
+      112 GETUPVAL                         R18 10
+      113 DUPTABLE                         R19 K24 [{"Title", "Description", "AssetPaths", "CanClose", "OnClose", "OnBack"}]
+      114 LOADK                            R22 K25 ["QuickShare"]
+      115 LOADK                            R23 K26 ["PermissionErrorTitle"]
+      116 NAMECALL                         R20 R2 K27 ["getText"]
+      118 CALL                             R20 3 1
+      119 SETTABLEKS                       R20 R19 K20 ["Title"]
+      121 LOADK                            R22 K25 ["QuickShare"]
+      122 LOADK                            R23 K28 ["PermissionErrorDescription"]
+      123 NAMECALL                         R20 R2 K27 ["getText"]
+      125 CALL                             R20 3 1
+      126 SETTABLEKS                       R20 R19 K21 ["Description"]
+      128 SETTABLEKS                       R10 R19 K4 ["AssetPaths"]
+      130 JUMPIFEQKN                       R4 K29 [3] ; [+2]
+      132 LOADB                            R20 0 +1
+      133 LOADB                            R20 1
+      134 SETTABLEKS                       R20 R19 K22 ["CanClose"]
+      136 SETTABLEKS                       R12 R19 K17 ["OnClose"]
+      138 NEWCLOSURE                       R20 P5
+      139 CAPTURE                          VAL R5
+      140 SETTABLEKS                       R20 R19 K23 ["OnBack"]
+      142 CALL                             R17 2 1
+      143 CALL                             R14 3 -1
+      144 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -363,23 +316,17 @@ MAIN:
        95 GETTABLEKS                       R14 R14 K24 ["Util"]
        97 GETTABLEKS                       R14 R14 K25 ["checkPermissionsAsync"]
        99 CALL                             R13 1 1
-      100 GETIMPORT                        R14 K5 [require]
-      102 GETTABLEKS                       R15 R0 K13 ["Src"]
-      104 GETTABLEKS                       R15 R15 K26 ["Flags"]
-      106 GETTABLEKS                       R15 R15 K27 ["getFFlagAmrRaiseShareLimits"]
-      108 CALL                             R14 1 1
-      109 DUPTABLE                         R15 K34 [{["Main"] = 1, ["Errors"] = 2, ["ErrorsGranting"] = 3}]
-      110 DUPCLOSURE                       R16 K35 [PROTO_9]
-      111 CAPTURE                          VAL R9
-      112 CAPTURE                          VAL R6
-      113 CAPTURE                          VAL R8
-      114 CAPTURE                          VAL R1
-      115 CAPTURE                          VAL R10
-      116 CAPTURE                          VAL R7
-      117 CAPTURE                          VAL R13
-      118 CAPTURE                          VAL R14
-      119 CAPTURE                          VAL R2
-      120 CAPTURE                          VAL R4
-      121 CAPTURE                          VAL R11
-      122 CAPTURE                          VAL R12
-      123 RETURN                           R16 1
+      100 DUPTABLE                         R14 K32 [{["Main"] = 1, ["Errors"] = 2, ["ErrorsGranting"] = 3}]
+      101 DUPCLOSURE                       R15 K33 [PROTO_8]
+      102 CAPTURE                          VAL R9
+      103 CAPTURE                          VAL R6
+      104 CAPTURE                          VAL R8
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          VAL R10
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R13
+      109 CAPTURE                          VAL R2
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R11
+      112 CAPTURE                          VAL R12
+      113 RETURN                           R15 1

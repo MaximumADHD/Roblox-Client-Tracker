@@ -9,38 +9,35 @@ PROTO_0:
        11 GETTABLEKS                       R5 R5 K2 ["uuid"]
        13 MOVE                             R6 R3
        14 CALL                             R4 2 0
-       15 JUMP                             ; [+42]
-       16 GETUPVAL                         R3 0
-       17 CALL                             R3 0 1
-       18 JUMPIFNOT                        R3 ; [+6]
-       19 GETIMPORT                        R3 K6 [Enum.KeyCode.Unknown]
-       21 JUMPIFNOTEQ                      R2 R3 ; [+3]
-       23 LOADB                            R3 0
-       24 RETURN                           R3 1
-       25 DUPTABLE                         R3 K9 [{"name", "parentUuid"}]
-       26 LOADK                            R5 K10 ["%*%*"]
-       27 GETTABLEKS                       R7 R1 K11 ["action"]
-       29 GETTABLEKS                       R7 R7 K7 ["name"]
-       31 GETTABLEKS                       R8 R1 K12 ["schema"]
-       33 NAMECALL                         R5 R5 K13 ["format"]
-       35 CALL                             R5 3 1
-       36 MOVE                             R4 R5
-       37 SETTABLEKS                       R4 R3 K7 ["name"]
-       39 GETTABLEKS                       R4 R1 K11 ["action"]
-       41 GETTABLEKS                       R4 R4 K2 ["uuid"]
-       43 SETTABLEKS                       R4 R3 K8 ["parentUuid"]
-       45 GETTABLEKS                       R4 R1 K1 ["property"]
-       47 SETTABLE                         R2 R3 R4
-       48 MOVE                             R4 R0
-       49 LOADNIL                          R5
-       50 MOVE                             R6 R3
-       51 CALL                             R4 2 0
+       15 JUMP                             ; [+39]
+       16 GETIMPORT                        R3 K6 [Enum.KeyCode.Unknown]
+       18 JUMPIFNOTEQ                      R2 R3 ; [+3]
+       20 LOADB                            R3 0
+       21 RETURN                           R3 1
+       22 DUPTABLE                         R3 K9 [{"name", "parentUuid"}]
+       23 LOADK                            R5 K10 ["%*%*"]
+       24 GETTABLEKS                       R7 R1 K11 ["action"]
+       26 GETTABLEKS                       R7 R7 K7 ["name"]
+       28 GETTABLEKS                       R8 R1 K12 ["schema"]
+       30 NAMECALL                         R5 R5 K13 ["format"]
+       32 CALL                             R5 3 1
+       33 MOVE                             R4 R5
+       34 SETTABLEKS                       R4 R3 K7 ["name"]
+       36 GETTABLEKS                       R4 R1 K11 ["action"]
+       38 GETTABLEKS                       R4 R4 K2 ["uuid"]
+       40 SETTABLEKS                       R4 R3 K8 ["parentUuid"]
+       42 GETTABLEKS                       R4 R1 K1 ["property"]
+       44 SETTABLE                         R2 R3 R4
+       45 MOVE                             R4 R0
+       46 LOADNIL                          R5
+       47 MOVE                             R6 R3
+       48 CALL                             R4 2 0
+       49 GETTABLEKS                       R4 R1 K14 ["onCreated"]
+       51 JUMPIFNOT                        R4 ; [+3]
        52 GETTABLEKS                       R4 R1 K14 ["onCreated"]
-       54 JUMPIFNOT                        R4 ; [+3]
-       55 GETTABLEKS                       R4 R1 K14 ["onCreated"]
-       57 CALL                             R4 0 0
-       58 LOADB                            R3 1
-       59 RETURN                           R3 1
+       54 CALL                             R4 0 0
+       55 LOADB                            R3 1
+       56 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -52,11 +49,5 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R0 K6 ["Src"]
-       16 GETTABLEKS                       R2 R2 K8 ["Flags"]
-       18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R4 R2 K9 ["getFFlagIAMDropdownStabilityImprovements"]
-       22 CALL                             R3 1 1
-       23 DUPCLOSURE                       R4 K10 [PROTO_0]
-       24 CAPTURE                          VAL R3
-       25 RETURN                           R4 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 RETURN                           R2 1

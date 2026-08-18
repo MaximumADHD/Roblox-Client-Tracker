@@ -26,6 +26,18 @@ MAIN:
        37 SETLIST                          R2 R3 3 [1]
        39 SETTABLEKS                       R2 R1 K5 ["lastUpdated"]
        41 SETTABLEKS                       R1 R0 K20 ["ASSETMANAGER_COUNTER_CONFIG"]
-       43 LOADK                            R1 K21 ["AssetManager_"]
-       44 SETTABLEKS                       R1 R0 K22 ["ASSETMANAGER_PREFIX"]
-       46 RETURN                           R0 1
+       43 DUPTABLE                         R1 K22 [{["backends"], ["lastUpdated"], ["description"] = "AssetManager benchmarking"}]
+       44 NEWTABLE                         R2 0 1
+       46 GETIMPORT                        R3 K24 [Enum.TelemetryBackend.Stat]
+       48 SETLIST                          R2 R3 1 [1]
+       50 SETTABLEKS                       R2 R1 K4 ["backends"]
+       52 NEWTABLE                         R2 0 3
+       54 LOADN                            R3 2026
+       55 LOADN                            R4 8
+       56 LOADN                            R5 5
+       57 SETLIST                          R2 R3 3 [1]
+       59 SETTABLEKS                       R2 R1 K5 ["lastUpdated"]
+       61 SETTABLEKS                       R1 R0 K25 ["ASSETMANAGER_STAT_CONFIG"]
+       63 LOADK                            R1 K26 ["AssetManager_"]
+       64 SETTABLEKS                       R1 R0 K27 ["ASSETMANAGER_PREFIX"]
+       66 RETURN                           R0 1

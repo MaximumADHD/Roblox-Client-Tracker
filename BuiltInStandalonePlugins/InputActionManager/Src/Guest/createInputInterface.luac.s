@@ -1033,66 +1033,63 @@ PROTO_39:
        14 GETTABLEKS                       R5 R0 K2 ["Parent"]
        16 NAMECALL                         R3 R3 K0 ["GetOrCreateUniqueId"]
        18 CALL                             R3 2 1
-       19 JUMP                             ; [+14]
-       20 GETUPVAL                         R4 2
-       21 CALL                             R4 0 1
-       22 JUMPIFNOT                        R4 ; [+6]
-       23 GETTABLEKS                       R4 R0 K3 ["Name"]
-       25 JUMPIFNOTEQKS                    R4 K4 ["Default"] ; [+3]
-       27 LOADK                            R3 K5 ["DefaultContext"]
-       28 JUMP                             ; [+5]
-       29 GETUPVAL                         R3 0
-       30 GETUPVAL                         R5 3
-       31 NAMECALL                         R3 R3 K0 ["GetOrCreateUniqueId"]
-       33 CALL                             R3 2 1
-       34 SETTABLEKS                       R3 R2 K6 ["parentUuid"]
-       36 GETUPVAL                         R3 4
-       37 GETTABLEKS                       R3 R3 K7 ["inputContexts"]
-       39 SETTABLE                         R2 R3 R1
-       40 GETUPVAL                         R3 4
-       41 GETTABLEKS                       R3 R3 K8 ["inputContextInstances"]
-       43 SETTABLE                         R0 R3 R1
-       44 NAMECALL                         R3 R0 K9 ["GetInputActions"]
-       46 CALL                             R3 1 3
-       47 FORGPREP                         R3
-       48 LOADK                            R11 K10 ["InputAction"]
-       49 NAMECALL                         R9 R7 K11 ["IsA"]
-       51 CALL                             R9 2 1
-       52 FASTCALL2K                       ASSERT R9 K12 ; [+4]
-       54 LOADK                            R10 K12 ["Action is not a InputAction"]
-       55 GETIMPORT                        R8 K14 [assert]
-       57 CALL                             R8 2 0
-       58 GETUPVAL                         R8 5
-       59 MOVE                             R9 R7
-       60 MOVE                             R10 R1
-       61 CALL                             R8 2 1
-       62 GETTABLEKS                       R10 R2 K15 ["actions"]
-       64 FASTCALL2                        TABLE_INSERT R10 R8 ; [+4]
-       66 MOVE                             R11 R8
-       67 GETIMPORT                        R9 K18 [table.insert]
-       69 CALL                             R9 2 0
-       70 GETUPVAL                         R10 4
-       71 GETTABLEKS                       R10 R10 K19 ["inputActions"]
-       73 GETTABLE                         R9 R10 R8
-       74 GETIMPORT                        R10 K21 [xpcall]
-       76 NEWCLOSURE                       R11 P0
-       77 CAPTURE                          UPVAL U4
-       78 CAPTURE                          UPVAL U6
-       79 CAPTURE                          VAL R8
-       80 CAPTURE                          VAL R9
-       81 DUPCLOSURE                       R12 K22 [PROTO_10]
-       82 CALL                             R10 2 0
-       83 FORGLOOP                         R3 2 ; [-36]
-       85 GETUPVAL                         R3 7
-       86 MOVE                             R4 R0
-       87 CALL                             R3 1 0
-       88 GETUPVAL                         R4 4
-       89 GETTABLEKS                       R4 R4 K23 ["contextOrder"]
-       91 FASTCALL2                        TABLE_INSERT R4 R1 ; [+4]
-       93 MOVE                             R5 R1
-       94 GETIMPORT                        R3 K18 [table.insert]
-       96 CALL                             R3 2 0
-       97 RETURN                           R1 1
+       19 JUMP                             ; [+11]
+       20 GETTABLEKS                       R4 R0 K3 ["Name"]
+       22 JUMPIFNOTEQKS                    R4 K4 ["Default"] ; [+3]
+       24 LOADK                            R3 K5 ["DefaultContext"]
+       25 JUMP                             ; [+5]
+       26 GETUPVAL                         R3 0
+       27 GETUPVAL                         R5 2
+       28 NAMECALL                         R3 R3 K0 ["GetOrCreateUniqueId"]
+       30 CALL                             R3 2 1
+       31 SETTABLEKS                       R3 R2 K6 ["parentUuid"]
+       33 GETUPVAL                         R3 3
+       34 GETTABLEKS                       R3 R3 K7 ["inputContexts"]
+       36 SETTABLE                         R2 R3 R1
+       37 GETUPVAL                         R3 3
+       38 GETTABLEKS                       R3 R3 K8 ["inputContextInstances"]
+       40 SETTABLE                         R0 R3 R1
+       41 NAMECALL                         R3 R0 K9 ["GetInputActions"]
+       43 CALL                             R3 1 3
+       44 FORGPREP                         R3
+       45 LOADK                            R11 K10 ["InputAction"]
+       46 NAMECALL                         R9 R7 K11 ["IsA"]
+       48 CALL                             R9 2 1
+       49 FASTCALL2K                       ASSERT R9 K12 ; [+4]
+       51 LOADK                            R10 K12 ["Action is not a InputAction"]
+       52 GETIMPORT                        R8 K14 [assert]
+       54 CALL                             R8 2 0
+       55 GETUPVAL                         R8 4
+       56 MOVE                             R9 R7
+       57 MOVE                             R10 R1
+       58 CALL                             R8 2 1
+       59 GETTABLEKS                       R10 R2 K15 ["actions"]
+       61 FASTCALL2                        TABLE_INSERT R10 R8 ; [+4]
+       63 MOVE                             R11 R8
+       64 GETIMPORT                        R9 K18 [table.insert]
+       66 CALL                             R9 2 0
+       67 GETUPVAL                         R10 3
+       68 GETTABLEKS                       R10 R10 K19 ["inputActions"]
+       70 GETTABLE                         R9 R10 R8
+       71 GETIMPORT                        R10 K21 [xpcall]
+       73 NEWCLOSURE                       R11 P0
+       74 CAPTURE                          UPVAL U3
+       75 CAPTURE                          UPVAL U5
+       76 CAPTURE                          VAL R8
+       77 CAPTURE                          VAL R9
+       78 DUPCLOSURE                       R12 K22 [PROTO_10]
+       79 CALL                             R10 2 0
+       80 FORGLOOP                         R3 2 ; [-36]
+       82 GETUPVAL                         R3 6
+       83 MOVE                             R4 R0
+       84 CALL                             R3 1 0
+       85 GETUPVAL                         R4 3
+       86 GETTABLEKS                       R4 R4 K23 ["contextOrder"]
+       88 FASTCALL2                        TABLE_INSERT R4 R1 ; [+4]
+       90 MOVE                             R5 R1
+       91 GETIMPORT                        R3 K18 [table.insert]
+       93 CALL                             R3 2 0
+       94 RETURN                           R1 1
 
 PROTO_40:
         0 GETUPVAL                         R2 0
@@ -1261,7 +1258,7 @@ PROTO_43:
        29 GETTABLEKS                       R3 R3 K2 ["inputContextInstances"]
        31 GETTABLEKS                       R4 R1 K1 ["uuid"]
        33 GETTABLE                         R2 R3 R4
-       34 JUMPIFNOT                        R2 ; [+62]
+       34 JUMPIFNOT                        R2 ; [+55]
        35 GETUPVAL                         R3 1
        36 GETTABLEKS                       R3 R3 K7 ["deserializeContext"]
        38 GETTABLEKS                       R4 R1 K0 ["context"]
@@ -1278,36 +1275,30 @@ PROTO_43:
        55 LOADK                            R3 K13 ["InputContext"]
        56 CALL                             R2 1 1
        57 GETUPVAL                         R3 2
-       58 CALL                             R3 0 1
-       59 JUMPIFNOT                        R3 ; [+27]
-       60 GETUPVAL                         R3 3
-       61 LOADK                            R5 K14 ["Inputs"]
-       62 NAMECALL                         R3 R3 K15 ["FindFirstChild"]
-       64 CALL                             R3 2 1
-       65 JUMPIF                           R3 ; [+18]
-       66 GETIMPORT                        R4 K12 [Instance.new]
-       68 LOADK                            R5 K16 ["Folder"]
-       69 CALL                             R4 1 1
-       70 MOVE                             R3 R4
-       71 FASTCALL2K                       ASSERT R3 K17 ; [+5]
-       73 MOVE                             R5 R3
-       74 LOADK                            R6 K17 ["Inputs folder not found"]
-       75 GETIMPORT                        R4 K6 [assert]
-       77 CALL                             R4 2 0
-       78 LOADK                            R4 K14 ["Inputs"]
-       79 SETTABLEKS                       R4 R3 K18 ["Name"]
-       81 GETUPVAL                         R4 3
-       82 SETTABLEKS                       R4 R3 K19 ["Parent"]
-       84 SETTABLEKS                       R3 R2 K19 ["Parent"]
-       86 JUMP                             ; [+3]
-       87 GETUPVAL                         R3 3
-       88 SETTABLEKS                       R3 R2 K19 ["Parent"]
-       90 GETUPVAL                         R3 1
-       91 GETTABLEKS                       R3 R3 K7 ["deserializeContext"]
-       93 GETTABLEKS                       R4 R1 K0 ["context"]
-       95 MOVE                             R5 R2
-       96 CALL                             R3 2 0
-       97 RETURN                           R0 0
+       58 LOADK                            R5 K14 ["Inputs"]
+       59 NAMECALL                         R3 R3 K15 ["FindFirstChild"]
+       61 CALL                             R3 2 1
+       62 JUMPIF                           R3 ; [+18]
+       63 GETIMPORT                        R4 K12 [Instance.new]
+       65 LOADK                            R5 K16 ["Folder"]
+       66 CALL                             R4 1 1
+       67 MOVE                             R3 R4
+       68 FASTCALL2K                       ASSERT R3 K17 ; [+5]
+       70 MOVE                             R5 R3
+       71 LOADK                            R6 K17 ["Inputs folder not found"]
+       72 GETIMPORT                        R4 K6 [assert]
+       74 CALL                             R4 2 0
+       75 LOADK                            R4 K14 ["Inputs"]
+       76 SETTABLEKS                       R4 R3 K18 ["Name"]
+       78 GETUPVAL                         R4 2
+       79 SETTABLEKS                       R4 R3 K19 ["Parent"]
+       81 SETTABLEKS                       R3 R2 K19 ["Parent"]
+       83 GETUPVAL                         R4 1
+       84 GETTABLEKS                       R4 R4 K7 ["deserializeContext"]
+       86 GETTABLEKS                       R5 R1 K0 ["context"]
+       88 MOVE                             R6 R2
+       89 CALL                             R4 2 0
+       90 RETURN                           R0 0
 
 PROTO_44:
         0 GETTABLEKS                       R2 R1 K0 ["action"]
@@ -1333,7 +1324,7 @@ PROTO_44:
        29 GETTABLEKS                       R3 R3 K2 ["inputActionInstances"]
        31 GETTABLEKS                       R4 R1 K1 ["uuid"]
        33 GETTABLE                         R2 R3 R4
-       34 JUMPIFNOT                        R2 ; [+91]
+       34 JUMPIFNOT                        R2 ; [+85]
        35 GETUPVAL                         R3 1
        36 GETTABLEKS                       R3 R3 K7 ["deserializeAction"]
        38 GETTABLEKS                       R4 R1 K0 ["action"]
@@ -1362,42 +1353,37 @@ PROTO_44:
        73 GETIMPORT                        R4 K15 [Instance.new]
        75 LOADK                            R5 K16 ["InputAction"]
        76 CALL                             R4 1 1
-       77 GETUPVAL                         R5 2
-       78 CALL                             R5 0 1
-       79 JUMPIFNOT                        R5 ; [+37]
-       80 GETTABLEKS                       R5 R3 K17 ["Parent"]
-       82 JUMPIF                           R5 ; [+31]
-       83 GETTABLEKS                       R5 R3 K18 ["Name"]
-       85 JUMPIFNOTEQKS                    R5 K19 ["Default"] ; [+28]
-       87 GETUPVAL                         R5 3
-       88 LOADK                            R7 K20 ["Inputs"]
-       89 NAMECALL                         R5 R5 K21 ["FindFirstChild"]
-       91 CALL                             R5 2 1
-       92 JUMPIF                           R5 ; [+18]
-       93 GETIMPORT                        R6 K15 [Instance.new]
-       95 LOADK                            R7 K22 ["Folder"]
-       96 CALL                             R6 1 1
-       97 MOVE                             R5 R6
-       98 FASTCALL2K                       ASSERT R5 K23 ; [+5]
-      100 MOVE                             R7 R5
-      101 LOADK                            R8 K23 ["Inputs folder not found"]
-      102 GETIMPORT                        R6 K6 [assert]
-      104 CALL                             R6 2 0
-      105 LOADK                            R6 K20 ["Inputs"]
-      106 SETTABLEKS                       R6 R5 K18 ["Name"]
-      108 GETUPVAL                         R6 3
-      109 SETTABLEKS                       R6 R5 K17 ["Parent"]
-      111 SETTABLEKS                       R5 R4 K17 ["Parent"]
-      113 JUMP                             ; [+5]
-      114 SETTABLEKS                       R3 R4 K17 ["Parent"]
-      116 JUMP                             ; [+2]
-      117 SETTABLEKS                       R3 R4 K17 ["Parent"]
-      119 GETUPVAL                         R5 1
-      120 GETTABLEKS                       R5 R5 K7 ["deserializeAction"]
-      122 GETTABLEKS                       R6 R1 K0 ["action"]
-      124 MOVE                             R7 R4
-      125 CALL                             R5 2 0
-      126 RETURN                           R0 0
+       77 GETTABLEKS                       R5 R3 K17 ["Parent"]
+       79 JUMPIF                           R5 ; [+31]
+       80 GETTABLEKS                       R5 R3 K18 ["Name"]
+       82 JUMPIFNOTEQKS                    R5 K19 ["Default"] ; [+28]
+       84 GETUPVAL                         R5 2
+       85 LOADK                            R7 K20 ["Inputs"]
+       86 NAMECALL                         R5 R5 K21 ["FindFirstChild"]
+       88 CALL                             R5 2 1
+       89 JUMPIF                           R5 ; [+18]
+       90 GETIMPORT                        R6 K15 [Instance.new]
+       92 LOADK                            R7 K22 ["Folder"]
+       93 CALL                             R6 1 1
+       94 MOVE                             R5 R6
+       95 FASTCALL2K                       ASSERT R5 K23 ; [+5]
+       97 MOVE                             R7 R5
+       98 LOADK                            R8 K23 ["Inputs folder not found"]
+       99 GETIMPORT                        R6 K6 [assert]
+      101 CALL                             R6 2 0
+      102 LOADK                            R6 K20 ["Inputs"]
+      103 SETTABLEKS                       R6 R5 K18 ["Name"]
+      105 GETUPVAL                         R6 2
+      106 SETTABLEKS                       R6 R5 K17 ["Parent"]
+      108 SETTABLEKS                       R5 R4 K17 ["Parent"]
+      110 JUMP                             ; [+2]
+      111 SETTABLEKS                       R3 R4 K17 ["Parent"]
+      113 GETUPVAL                         R5 1
+      114 GETTABLEKS                       R5 R5 K7 ["deserializeAction"]
+      116 GETTABLEKS                       R6 R1 K0 ["action"]
+      118 MOVE                             R7 R4
+      119 CALL                             R5 2 0
+      120 RETURN                           R0 0
 
 PROTO_45:
         0 GETTABLEKS                       R2 R1 K0 ["binding"]
@@ -1866,115 +1852,112 @@ PROTO_54:
       114 CAPTURE                          UPVAL U2
       115 CAPTURE                          UPVAL U1
       116 CAPTURE                          UPVAL U3
-      117 CAPTURE                          UPVAL U4
-      118 CAPTURE                          VAL R1
-      119 CAPTURE                          VAL R17
-      120 CAPTURE                          VAL R0
-      121 CAPTURE                          VAL R20
-      122 NEWCLOSURE                       R22 P19
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R18
-      125 CAPTURE                          VAL R0
-      126 NEWCLOSURE                       R23 P20
-      127 CAPTURE                          VAL R1
-      128 CAPTURE                          UPVAL U4
-      129 CAPTURE                          UPVAL U2
-      130 CAPTURE                          VAL R21
-      131 CAPTURE                          VAL R0
-      132 CAPTURE                          VAL R22
-      133 LOADK                            R26 K15 ["GetContexts"]
-      134 NEWCLOSURE                       R27 P21
-      135 CAPTURE                          VAL R1
-      136 NAMECALL                         R24 R0 K16 ["OnHostInvokeAsync"]
-      138 CALL                             R24 3 2
-      139 LOADK                            R28 K17 ["UpdateContext"]
-      140 NEWCLOSURE                       R29 P22
-      141 CAPTURE                          VAL R1
-      142 CAPTURE                          UPVAL U1
-      143 CAPTURE                          UPVAL U3
-      144 CAPTURE                          UPVAL U5
-      145 NAMECALL                         R26 R0 K18 ["OnHostEvent"]
-      147 CALL                             R26 3 2
-      148 LOADK                            R30 K19 ["UpdateAction"]
-      149 NEWCLOSURE                       R31 P23
-      150 CAPTURE                          VAL R1
-      151 CAPTURE                          UPVAL U1
-      152 CAPTURE                          UPVAL U3
-      153 CAPTURE                          UPVAL U5
-      154 NAMECALL                         R28 R0 K18 ["OnHostEvent"]
-      156 CALL                             R28 3 2
-      157 LOADK                            R32 K20 ["UpdateBinding"]
-      158 NEWCLOSURE                       R33 P24
-      159 CAPTURE                          VAL R1
-      160 CAPTURE                          UPVAL U1
-      161 CAPTURE                          UPVAL U2
-      162 NAMECALL                         R30 R0 K18 ["OnHostEvent"]
-      164 CALL                             R30 3 2
-      165 LOADNIL                          R32
-      166 LOADNIL                          R33
-      167 LOADNIL                          R34
-      168 LOADNIL                          R35
-      169 GETUPVAL                         R36 6
-      170 CALL                             R36 0 1
-      171 JUMPIFNOT                        R36 ; [+16]
-      172 LOADK                            R38 K21 ["DuplicateContext"]
-      173 NEWCLOSURE                       R39 P25
-      174 CAPTURE                          VAL R1
-      175 NAMECALL                         R36 R0 K18 ["OnHostEvent"]
-      177 CALL                             R36 3 2
-      178 MOVE                             R32 R36
-      179 MOVE                             R33 R37
-      180 LOADK                            R38 K22 ["DuplicateAction"]
-      181 NEWCLOSURE                       R39 P26
-      182 CAPTURE                          VAL R1
-      183 NAMECALL                         R36 R0 K18 ["OnHostEvent"]
-      185 CALL                             R36 3 2
-      186 MOVE                             R34 R36
-      187 MOVE                             R35 R37
-      188 NEWCLOSURE                       R36 P27
-      189 CAPTURE                          VAL R1
-      190 NEWCLOSURE                       R37 P28
-      191 CAPTURE                          VAL R1
-      192 CAPTURE                          VAL R23
-      193 CAPTURE                          VAL R0
-      194 CAPTURE                          UPVAL U2
-      195 CAPTURE                          UPVAL U4
-      196 LOADK                            R40 K23 ["RequestAsync"]
-      197 NEWCLOSURE                       R41 P29
-      198 CAPTURE                          VAL R1
-      199 CAPTURE                          VAL R37
-      200 NAMECALL                         R38 R0 K18 ["OnHostEvent"]
-      202 CALL                             R38 3 2
-      203 NEWCLOSURE                       R40 P30
-      204 CAPTURE                          VAL R1
-      205 CAPTURE                          VAL R25
-      206 CAPTURE                          VAL R39
-      207 CAPTURE                          VAL R27
-      208 CAPTURE                          VAL R29
-      209 CAPTURE                          VAL R31
-      210 CAPTURE                          UPVAL U6
-      211 CAPTURE                          REF R33
-      212 CAPTURE                          REF R35
-      213 CAPTURE                          VAL R11
-      214 NAMECALL                         R41 R0 K24 ["IsHost"]
-      216 CALL                             R41 1 1
-      217 JUMPIFNOT                        R41 ; [+2]
-      218 MOVE                             R41 R37
-      219 CALL                             R41 0 0
-      220 NEWCLOSURE                       R41 P31
-      221 CAPTURE                          VAL R40
-      222 CAPTURE                          VAL R1
-      223 DUPTABLE                         R42 K28 [{"destroy", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
-      224 SETTABLEKS                       R41 R42 K25 ["destroy"]
-      226 SETTABLEKS                       R38 R42 K26 ["Request"]
-      228 SETTABLEKS                       R24 R42 K27 ["GetContextsAsync"]
-      230 SETTABLEKS                       R26 R42 K17 ["UpdateContext"]
-      232 SETTABLEKS                       R28 R42 K19 ["UpdateAction"]
-      234 SETTABLEKS                       R30 R42 K20 ["UpdateBinding"]
-      236 SETTABLEKS                       R32 R42 K21 ["DuplicateContext"]
-      238 SETTABLEKS                       R34 R42 K22 ["DuplicateAction"]
-      240 CLOSEUPVALS                      R33
-      241 RETURN                           R42 1
+      117 CAPTURE                          VAL R1
+      118 CAPTURE                          VAL R17
+      119 CAPTURE                          VAL R0
+      120 CAPTURE                          VAL R20
+      121 NEWCLOSURE                       R22 P19
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R18
+      124 CAPTURE                          VAL R0
+      125 NEWCLOSURE                       R23 P20
+      126 CAPTURE                          VAL R1
+      127 CAPTURE                          UPVAL U3
+      128 CAPTURE                          UPVAL U2
+      129 CAPTURE                          VAL R21
+      130 CAPTURE                          VAL R0
+      131 CAPTURE                          VAL R22
+      132 LOADK                            R26 K15 ["GetContexts"]
+      133 NEWCLOSURE                       R27 P21
+      134 CAPTURE                          VAL R1
+      135 NAMECALL                         R24 R0 K16 ["OnHostInvokeAsync"]
+      137 CALL                             R24 3 2
+      138 LOADK                            R28 K17 ["UpdateContext"]
+      139 NEWCLOSURE                       R29 P22
+      140 CAPTURE                          VAL R1
+      141 CAPTURE                          UPVAL U1
+      142 CAPTURE                          UPVAL U4
+      143 NAMECALL                         R26 R0 K18 ["OnHostEvent"]
+      145 CALL                             R26 3 2
+      146 LOADK                            R30 K19 ["UpdateAction"]
+      147 NEWCLOSURE                       R31 P23
+      148 CAPTURE                          VAL R1
+      149 CAPTURE                          UPVAL U1
+      150 CAPTURE                          UPVAL U4
+      151 NAMECALL                         R28 R0 K18 ["OnHostEvent"]
+      153 CALL                             R28 3 2
+      154 LOADK                            R32 K20 ["UpdateBinding"]
+      155 NEWCLOSURE                       R33 P24
+      156 CAPTURE                          VAL R1
+      157 CAPTURE                          UPVAL U1
+      158 CAPTURE                          UPVAL U2
+      159 NAMECALL                         R30 R0 K18 ["OnHostEvent"]
+      161 CALL                             R30 3 2
+      162 LOADNIL                          R32
+      163 LOADNIL                          R33
+      164 LOADNIL                          R34
+      165 LOADNIL                          R35
+      166 GETUPVAL                         R36 5
+      167 CALL                             R36 0 1
+      168 JUMPIFNOT                        R36 ; [+16]
+      169 LOADK                            R38 K21 ["DuplicateContext"]
+      170 NEWCLOSURE                       R39 P25
+      171 CAPTURE                          VAL R1
+      172 NAMECALL                         R36 R0 K18 ["OnHostEvent"]
+      174 CALL                             R36 3 2
+      175 MOVE                             R32 R36
+      176 MOVE                             R33 R37
+      177 LOADK                            R38 K22 ["DuplicateAction"]
+      178 NEWCLOSURE                       R39 P26
+      179 CAPTURE                          VAL R1
+      180 NAMECALL                         R36 R0 K18 ["OnHostEvent"]
+      182 CALL                             R36 3 2
+      183 MOVE                             R34 R36
+      184 MOVE                             R35 R37
+      185 NEWCLOSURE                       R36 P27
+      186 CAPTURE                          VAL R1
+      187 NEWCLOSURE                       R37 P28
+      188 CAPTURE                          VAL R1
+      189 CAPTURE                          VAL R23
+      190 CAPTURE                          VAL R0
+      191 CAPTURE                          UPVAL U2
+      192 CAPTURE                          UPVAL U3
+      193 LOADK                            R40 K23 ["RequestAsync"]
+      194 NEWCLOSURE                       R41 P29
+      195 CAPTURE                          VAL R1
+      196 CAPTURE                          VAL R37
+      197 NAMECALL                         R38 R0 K18 ["OnHostEvent"]
+      199 CALL                             R38 3 2
+      200 NEWCLOSURE                       R40 P30
+      201 CAPTURE                          VAL R1
+      202 CAPTURE                          VAL R25
+      203 CAPTURE                          VAL R39
+      204 CAPTURE                          VAL R27
+      205 CAPTURE                          VAL R29
+      206 CAPTURE                          VAL R31
+      207 CAPTURE                          UPVAL U5
+      208 CAPTURE                          REF R33
+      209 CAPTURE                          REF R35
+      210 CAPTURE                          VAL R11
+      211 NAMECALL                         R41 R0 K24 ["IsHost"]
+      213 CALL                             R41 1 1
+      214 JUMPIFNOT                        R41 ; [+2]
+      215 MOVE                             R41 R37
+      216 CALL                             R41 0 0
+      217 NEWCLOSURE                       R41 P31
+      218 CAPTURE                          VAL R40
+      219 CAPTURE                          VAL R1
+      220 DUPTABLE                         R42 K28 [{"destroy", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+      221 SETTABLEKS                       R41 R42 K25 ["destroy"]
+      223 SETTABLEKS                       R38 R42 K26 ["Request"]
+      225 SETTABLEKS                       R24 R42 K27 ["GetContextsAsync"]
+      227 SETTABLEKS                       R26 R42 K17 ["UpdateContext"]
+      229 SETTABLEKS                       R28 R42 K19 ["UpdateAction"]
+      231 SETTABLEKS                       R30 R42 K20 ["UpdateBinding"]
+      233 SETTABLEKS                       R32 R42 K21 ["DuplicateContext"]
+      235 SETTABLEKS                       R34 R42 K22 ["DuplicateAction"]
+      237 CLOSEUPVALS                      R33
+      238 RETURN                           R42 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -2014,17 +1997,13 @@ MAIN:
        54 GETTABLEKS                       R8 R4 K15 ["Src"]
        56 GETTABLEKS                       R8 R8 K19 ["Flags"]
        58 GETIMPORT                        R9 K12 [require]
-       60 GETTABLEKS                       R10 R8 K20 ["getFFlagIAMDisableRenamingDefaultContext"]
+       60 GETTABLEKS                       R10 R8 K20 ["getFFlagIAMDuplicate"]
        62 CALL                             R9 1 1
-       63 GETIMPORT                        R10 K12 [require]
-       65 GETTABLEKS                       R11 R8 K21 ["getFFlagIAMDuplicate"]
-       67 CALL                             R10 1 1
-       68 DUPCLOSURE                       R11 K22 [PROTO_54]
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          VAL R9
-       73 CAPTURE                          VAL R0
-       74 CAPTURE                          VAL R1
-       75 CAPTURE                          VAL R10
-       76 RETURN                           R11 1
+       63 DUPCLOSURE                       R10 K21 [PROTO_54]
+       64 CAPTURE                          VAL R2
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R9
+       70 RETURN                           R10 1

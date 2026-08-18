@@ -38,7 +38,7 @@ PROTO_3:
        27 LOADNIL                          R9
        28 FORGPREP                         R7
        29 GETTABLEKS                       R12 R1 K11 ["Name"]
-       31 JUMPIFNOTEQ                      R10 R12 ; [+57]
+       31 JUMPIFNOTEQ                      R10 R12 ; [+52]
        33 MOVE                             R12 R11
        34 LOADNIL                          R13
        35 LOADNIL                          R14
@@ -49,48 +49,41 @@ PROTO_3:
        41 CAPTURE                          VAL R16
        42 DUPCLOSURE                       R19 K14 [PROTO_1]
        43 CALL                             R17 2 2
-       44 GETTABLEKS                       R19 R16 K11 ["Name"]
-       46 GETUPVAL                         R20 1
-       47 CALL                             R20 0 1
-       48 JUMPIFNOT                        R20 ; [+5]
-       49 GETUPVAL                         R20 2
-       50 GETTABLE                         R19 R20 R16
-       51 JUMPIF                           R19 ; [+2]
-       52 GETTABLEKS                       R19 R16 K11 ["Name"]
-       54 DUPTABLE                         R22 K16 [{"icon", "id", "isChecked", "text"}]
-       55 JUMPIFNOT                        R17 ; [+2]
-       56 MOVE                             R23 R18
-       57 JUMP                             ; [+1]
-       58 LOADNIL                          R23
-       59 SETTABLEKS                       R23 R22 K3 ["icon"]
-       61 GETTABLEKS                       R23 R16 K10 ["Value"]
-       63 SETTABLEKS                       R23 R22 K0 ["id"]
-       65 GETTABLEKS                       R24 R16 K10 ["Value"]
-       67 JUMPIFEQ                         R24 R2 ; [+2]
-       69 LOADB                            R23 0 +1
-       70 LOADB                            R23 1
-       71 SETTABLEKS                       R23 R22 K15 ["isChecked"]
-       73 SETTABLEKS                       R19 R22 K1 ["text"]
-       75 FASTCALL2                        TABLE_INSERT R4 R22 ; [+4]
-       77 MOVE                             R21 R4
-       78 GETIMPORT                        R20 K19 [table.insert]
-       80 CALL                             R20 2 0
-       81 GETTABLEKS                       R20 R16 K10 ["Value"]
-       83 JUMPIFNOTEQ                      R20 R2 ; [+3]
-       85 JUMPIFNOT                        R17 ; [+1]
-       86 MOVE                             R6 R18
-       87 FORGLOOP                         R12 2 ; [-51]
-       89 FORGLOOP                         R7 2 ; [-61]
-       91 GETUPVAL                         R7 1
-       92 CALL                             R7 0 1
-       93 JUMPIFNOT                        R7 ; [+5]
-       94 GETIMPORT                        R7 K21 [table.sort]
-       96 MOVE                             R8 R4
-       97 DUPCLOSURE                       R9 K22 [PROTO_2]
-       98 CALL                             R7 2 0
-       99 MOVE                             R7 R4
-      100 MOVE                             R8 R6
-      101 RETURN                           R7 2
+       44 GETUPVAL                         R20 1
+       45 GETTABLE                         R19 R20 R16
+       46 JUMPIF                           R19 ; [+2]
+       47 GETTABLEKS                       R19 R16 K11 ["Name"]
+       49 DUPTABLE                         R22 K16 [{"icon", "id", "isChecked", "text"}]
+       50 JUMPIFNOT                        R17 ; [+2]
+       51 MOVE                             R23 R18
+       52 JUMP                             ; [+1]
+       53 LOADNIL                          R23
+       54 SETTABLEKS                       R23 R22 K3 ["icon"]
+       56 GETTABLEKS                       R23 R16 K10 ["Value"]
+       58 SETTABLEKS                       R23 R22 K0 ["id"]
+       60 GETTABLEKS                       R24 R16 K10 ["Value"]
+       62 JUMPIFEQ                         R24 R2 ; [+2]
+       64 LOADB                            R23 0 +1
+       65 LOADB                            R23 1
+       66 SETTABLEKS                       R23 R22 K15 ["isChecked"]
+       68 SETTABLEKS                       R19 R22 K1 ["text"]
+       70 FASTCALL2                        TABLE_INSERT R4 R22 ; [+4]
+       72 MOVE                             R21 R4
+       73 GETIMPORT                        R20 K19 [table.insert]
+       75 CALL                             R20 2 0
+       76 GETTABLEKS                       R20 R16 K10 ["Value"]
+       78 JUMPIFNOTEQ                      R20 R2 ; [+3]
+       80 JUMPIFNOT                        R17 ; [+1]
+       81 MOVE                             R6 R18
+       82 FORGLOOP                         R12 2 ; [-46]
+       84 FORGLOOP                         R7 2 ; [-56]
+       86 GETIMPORT                        R7 K21 [table.sort]
+       88 MOVE                             R8 R4
+       89 DUPCLOSURE                       R9 K22 [PROTO_2]
+       90 CALL                             R7 2 0
+       91 MOVE                             R7 R4
+       92 MOVE                             R8 R6
+       93 RETURN                           R7 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -114,13 +107,7 @@ MAIN:
        31 GETTABLEKS                       R5 R0 K8 ["Src"]
        33 GETTABLEKS                       R5 R5 K14 ["Types"]
        35 CALL                             R4 1 1
-       36 GETTABLEKS                       R5 R0 K8 ["Src"]
-       38 GETTABLEKS                       R5 R5 K15 ["Flags"]
-       40 GETIMPORT                        R6 K5 [require]
-       42 GETTABLEKS                       R7 R5 K16 ["getFFlagIAMDropdownStabilityImprovements"]
-       44 CALL                             R6 1 1
-       45 DUPCLOSURE                       R7 K17 [PROTO_3]
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R6
-       48 CAPTURE                          VAL R2
-       49 RETURN                           R7 1
+       36 DUPCLOSURE                       R5 K15 [PROTO_3]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R2
+       39 RETURN                           R5 1

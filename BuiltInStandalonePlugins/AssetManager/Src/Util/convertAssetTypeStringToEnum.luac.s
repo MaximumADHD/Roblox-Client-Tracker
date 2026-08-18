@@ -47,28 +47,18 @@ PROTO_0:
        69 GETTABLEKS                       R1 R1 K0 ["AssetType"]
        71 GETTABLEKS                       R1 R1 K16 ["FontFamily"]
        73 RETURN                           R1 1
-       74 JUMPIFNOTEQKS                    R0 K17 ["ASSET_TYPE_IMAGE"] ; [+12]
-       76 GETUPVAL                         R1 1
-       77 CALL                             R1 0 1
-       78 JUMPIFNOT                        R1 ; [+6]
-       79 GETUPVAL                         R1 0
-       80 GETTABLEKS                       R1 R1 K0 ["AssetType"]
-       82 GETTABLEKS                       R1 R1 K18 ["Image"]
-       84 RETURN                           R1 1
-       85 LOADNIL                          R1
-       86 RETURN                           R1 1
-       87 JUMPIFNOTEQKS                    R0 K19 ["ASSET_TYPE_MESH"] ; [+12]
-       89 GETUPVAL                         R1 1
-       90 CALL                             R1 0 1
-       91 JUMPIFNOT                        R1 ; [+6]
-       92 GETUPVAL                         R1 0
-       93 GETTABLEKS                       R1 R1 K0 ["AssetType"]
-       95 GETTABLEKS                       R1 R1 K20 ["Mesh"]
-       97 RETURN                           R1 1
-       98 LOADNIL                          R1
-       99 RETURN                           R1 1
-      100 LOADNIL                          R1
-      101 RETURN                           R1 1
+       74 JUMPIFNOTEQKS                    R0 K17 ["ASSET_TYPE_IMAGE"] ; [+7]
+       76 GETUPVAL                         R1 0
+       77 GETTABLEKS                       R1 R1 K0 ["AssetType"]
+       79 GETTABLEKS                       R1 R1 K18 ["Image"]
+       81 RETURN                           R1 1
+       82 JUMPIFNOTEQKS                    R0 K19 ["ASSET_TYPE_MESH"] ; [+7]
+       84 GETUPVAL                         R1 0
+       85 GETTABLEKS                       R1 R1 K0 ["AssetType"]
+       87 GETTABLEKS                       R1 R1 K20 ["Mesh"]
+       89 RETURN                           R1 1
+       90 LOADNIL                          R1
+       91 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -80,14 +70,8 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Flags"]
-       20 GETTABLEKS                       R3 R3 K9 ["getFFlagDebugAmrFetchLeafAssets"]
-       22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K10 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          VAL R2
-       26 SETGLOBAL                        R3 K11 ["convertAssetTypeStringToEnum"]
-       28 GETGLOBAL                        R3 K11 ["convertAssetTypeStringToEnum"]
-       30 RETURN                           R3 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 CAPTURE                          VAL R1
+       16 SETGLOBAL                        R2 K9 ["convertAssetTypeStringToEnum"]
+       18 GETGLOBAL                        R2 K9 ["convertAssetTypeStringToEnum"]
+       20 RETURN                           R2 1

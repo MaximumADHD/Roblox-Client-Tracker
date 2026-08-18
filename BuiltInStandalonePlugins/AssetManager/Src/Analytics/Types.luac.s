@@ -19,4 +19,6 @@ MAIN:
        26 SETTABLEKS                       R6 R2 K37 ["ActionType"]
        28 DUPTABLE                         R7 K42 [{["OpenUse"] = "openUse", ["Collaborator"] = "collaborator"}]
        29 SETTABLEKS                       R7 R2 K43 ["ShareType"]
-       31 RETURN                           R2 1
+       31 DUPTABLE                         R8 K48 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope"}]
+       32 SETTABLEKS                       R8 R2 K49 ["BenchmarkingEvent"]
+       34 RETURN                           R2 1

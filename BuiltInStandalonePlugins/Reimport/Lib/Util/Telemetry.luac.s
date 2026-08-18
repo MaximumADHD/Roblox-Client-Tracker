@@ -43,10 +43,25 @@ PROTO_1:
        14 RETURN                           R0 0
 
 PROTO_2:
+        0 DUPTABLE                         R1 K1 [{"customFields"}]
+        1 DUPTABLE                         R2 K4 [{"clickTarget", "clickValue"}]
+        2 GETTABLEKS                       R3 R0 K2 ["clickTarget"]
+        4 SETTABLEKS                       R3 R2 K2 ["clickTarget"]
+        6 GETTABLEKS                       R3 R0 K3 ["clickValue"]
+        8 SETTABLEKS                       R3 R2 K3 ["clickValue"]
+       10 SETTABLEKS                       R2 R1 K0 ["customFields"]
+       12 GETUPVAL                         R2 0
+       13 GETUPVAL                         R4 1
+       14 MOVE                             R5 R1
+       15 NAMECALL                         R2 R2 K5 ["LogEvent"]
+       17 CALL                             R2 3 0
+       18 RETURN                           R0 0
+
+PROTO_3:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 1
         1 SETUPVAL                         R0 0
         2 RETURN                           R0 0
@@ -101,21 +116,39 @@ MAIN:
        75 LOADN                            R10 8
        76 SETLIST                          R7 R8 3 [1]
        78 SETTABLEKS                       R7 R6 K17 ["lastUpdated"]
-       80 NEWCLOSURE                       R7 P0
-       81 CAPTURE                          REF R1
-       82 CAPTURE                          VAL R5
-       83 CAPTURE                          VAL R4
-       84 SETTABLEKS                       R7 R3 K29 ["logReimportAttempt"]
-       86 NEWCLOSURE                       R7 P1
-       87 CAPTURE                          REF R1
-       88 CAPTURE                          VAL R6
-       89 SETTABLEKS                       R7 R3 K30 ["logInitEvent"]
-       91 NEWCLOSURE                       R7 P2
-       92 CAPTURE                          REF R1
-       93 SETTABLEKS                       R7 R3 K31 ["mock"]
-       95 NEWCLOSURE                       R7 P3
-       96 CAPTURE                          REF R1
-       97 CAPTURE                          VAL R0
-       98 SETTABLEKS                       R7 R3 K32 ["reset"]
-      100 CLOSEUPVALS                      R1
-      101 RETURN                           R3 1
+       80 DUPTABLE                         R7 K31 [{["eventName"] = "ReimportClick", ["backends"], ["lastUpdated"], ["description"] = "Logs clicks on controls in the Reimport UI.", ["throttlingPercentage"] = 10000}]
+       81 NEWTABLE                         R8 0 2
+       83 GETTABLEKS                       R9 R3 K11 ["Backends"]
+       85 GETTABLEKS                       R9 R9 K8 ["EventIngest"]
+       87 GETTABLEKS                       R10 R3 K11 ["Backends"]
+       89 GETTABLEKS                       R10 R10 K9 ["Points"]
+       91 SETLIST                          R8 R9 2 [1]
+       93 SETTABLEKS                       R8 R7 K16 ["backends"]
+       95 NEWTABLE                         R8 0 3
+       97 LOADN                            R9 2026
+       98 LOADN                            R10 7
+       99 LOADN                            R11 30
+      100 SETLIST                          R8 R9 3 [1]
+      102 SETTABLEKS                       R8 R7 K17 ["lastUpdated"]
+      104 NEWCLOSURE                       R8 P0
+      105 CAPTURE                          REF R1
+      106 CAPTURE                          VAL R5
+      107 CAPTURE                          VAL R4
+      108 SETTABLEKS                       R8 R3 K32 ["logReimportAttempt"]
+      110 NEWCLOSURE                       R8 P1
+      111 CAPTURE                          REF R1
+      112 CAPTURE                          VAL R6
+      113 SETTABLEKS                       R8 R3 K33 ["logInitEvent"]
+      115 NEWCLOSURE                       R8 P2
+      116 CAPTURE                          REF R1
+      117 CAPTURE                          VAL R7
+      118 SETTABLEKS                       R8 R3 K34 ["logClick"]
+      120 NEWCLOSURE                       R8 P3
+      121 CAPTURE                          REF R1
+      122 SETTABLEKS                       R8 R3 K35 ["mock"]
+      124 NEWCLOSURE                       R8 P4
+      125 CAPTURE                          REF R1
+      126 CAPTURE                          VAL R0
+      127 SETTABLEKS                       R8 R3 K36 ["reset"]
+      129 CLOSEUPVALS                      R1
+      130 RETURN                           R3 1

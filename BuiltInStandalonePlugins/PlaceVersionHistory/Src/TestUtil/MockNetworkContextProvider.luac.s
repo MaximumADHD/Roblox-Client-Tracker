@@ -424,31 +424,43 @@ PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["networkDelay"]
         3 CALL                             R2 0 0
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K1 ["networkFailure"]
-        7 CALL                             R2 0 1
-        8 JUMPIFNOT                        R2 ; [+3]
-        9 MOVE                             R2 R1
-       10 CALL                             R2 0 -1
-       11 RETURN                           R2 -1
-       12 GETUPVAL                         R3 1
-       13 JUMPIFNOT                        R3 ; [+2]
-       14 DUPTABLE                         R2 K6 [{["title"] = "Generated range title", ["description"] = "Generated range description"}]
-       15 JUMP                             ; [+1]
-       16 DUPTABLE                         R2 K9 [{["title"] = "Generated title", ["description"] = "Generated description"}]
-       17 MOVE                             R3 R0
-       18 MOVE                             R4 R2
-       19 CALL                             R3 1 -1
-       20 RETURN                           R3 -1
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["versionHistory"]
+        7 LENGTH                           R2 R3
+        8 JUMPIFNOTEQKN                    R2 K2 [0] ; [+7]
+       10 MOVE                             R2 R1
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["NoSaveNotes"]
+       14 CALL                             R2 1 -1
+       15 RETURN                           R2 -1
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K4 ["networkFailure"]
+       19 CALL                             R2 0 1
+       20 JUMPIFNOT                        R2 ; [+6]
+       21 MOVE                             R2 R1
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K5 ["Unavailable"]
+       25 CALL                             R2 1 -1
+       26 RETURN                           R2 -1
+       27 GETUPVAL                         R3 2
+       28 JUMPIFNOT                        R3 ; [+2]
+       29 DUPTABLE                         R2 K10 [{["title"] = "Generated range title", ["description"] = "Generated range description"}]
+       30 JUMP                             ; [+1]
+       31 DUPTABLE                         R2 K13 [{["title"] = "Generated title", ["description"] = "Generated description"}]
+       32 MOVE                             R3 R0
+       33 MOVE                             R4 R2
+       34 CALL                             R3 1 -1
+       35 RETURN                           R3 -1
 
 PROTO_17:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["defer"]
         3 NEWCLOSURE                       R3 P0
         4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          VAL R1
-        6 CALL                             R2 1 -1
-        7 RETURN                           R2 -1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          VAL R1
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_18:
         0 GETUPVAL                         R0 1
@@ -520,48 +532,54 @@ MAIN:
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K5 [require]
        41 GETTABLEKS                       R7 R0 K9 ["Src"]
-       43 GETTABLEKS                       R7 R7 K14 ["Types"]
-       45 CALL                             R6 1 1
-       46 LOADNIL                          R7
-       47 DUPCLOSURE                       R8 K15 [PROTO_0]
-       48 DUPCLOSURE                       R9 K16 [PROTO_1]
-       49 NEWCLOSURE                       R10 P2
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          REF R7
-       52 NEWCLOSURE                       R11 P3
-       53 CAPTURE                          VAL R2
-       54 CAPTURE                          REF R7
-       55 NEWCLOSURE                       R12 P4
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          REF R7
-       58 CAPTURE                          VAL R9
-       59 NEWCLOSURE                       R13 P5
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          REF R7
-       62 NEWCLOSURE                       R14 P6
-       63 CAPTURE                          VAL R2
-       64 CAPTURE                          REF R7
-       65 NEWCLOSURE                       R15 P7
-       66 CAPTURE                          VAL R2
-       67 CAPTURE                          REF R7
-       68 NEWCLOSURE                       R16 P8
+       43 GETTABLEKS                       R7 R7 K14 ["Network"]
+       45 GETTABLEKS                       R7 R7 K15 ["GetGeneratedNotesError"]
+       47 CALL                             R6 1 1
+       48 GETIMPORT                        R7 K5 [require]
+       50 GETTABLEKS                       R8 R0 K9 ["Src"]
+       52 GETTABLEKS                       R8 R8 K16 ["Types"]
+       54 CALL                             R7 1 1
+       55 LOADNIL                          R8
+       56 DUPCLOSURE                       R9 K17 [PROTO_0]
+       57 DUPCLOSURE                       R10 K18 [PROTO_1]
+       58 NEWCLOSURE                       R11 P2
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          REF R8
+       61 NEWCLOSURE                       R12 P3
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          REF R8
+       64 NEWCLOSURE                       R13 P4
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          REF R8
+       67 CAPTURE                          VAL R10
+       68 NEWCLOSURE                       R14 P5
        69 CAPTURE                          VAL R2
-       70 CAPTURE                          REF R7
-       71 NEWCLOSURE                       R17 P9
+       70 CAPTURE                          REF R8
+       71 NEWCLOSURE                       R15 P6
        72 CAPTURE                          VAL R2
-       73 CAPTURE                          REF R7
-       74 NEWCLOSURE                       R18 P10
-       75 CAPTURE                          VAL R1
-       76 CAPTURE                          REF R7
-       77 CAPTURE                          VAL R5
-       78 CAPTURE                          VAL R3
-       79 CAPTURE                          VAL R10
-       80 CAPTURE                          VAL R11
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R13
-       83 CAPTURE                          VAL R14
-       84 CAPTURE                          VAL R15
-       85 CAPTURE                          VAL R16
-       86 CAPTURE                          VAL R17
-       87 CLOSEUPVALS                      R7
-       88 RETURN                           R18 1
+       73 CAPTURE                          REF R8
+       74 NEWCLOSURE                       R16 P7
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          REF R8
+       77 NEWCLOSURE                       R17 P8
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          REF R8
+       80 NEWCLOSURE                       R18 P9
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          REF R8
+       83 CAPTURE                          VAL R6
+       84 NEWCLOSURE                       R19 P10
+       85 CAPTURE                          VAL R1
+       86 CAPTURE                          REF R8
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R3
+       89 CAPTURE                          VAL R11
+       90 CAPTURE                          VAL R12
+       91 CAPTURE                          VAL R13
+       92 CAPTURE                          VAL R14
+       93 CAPTURE                          VAL R15
+       94 CAPTURE                          VAL R16
+       95 CAPTURE                          VAL R17
+       96 CAPTURE                          VAL R18
+       97 CLOSEUPVALS                      R8
+       98 RETURN                           R19 1

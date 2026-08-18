@@ -1,310 +1,300 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+125]
-        3 DUPTABLE                         R0 K17 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableCrouchingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableHoldingSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableReachingSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableSprintingSetting", "defaultAbilitiesEnableStrafingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
+        2 JUMPIFNOT                        R0 ; [+118]
+        3 DUPTABLE                         R0 K16 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableCrouchingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableHoldingSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableReachingSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableSprintingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
         4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-        7 GETIMPORT                        R2 K22 [Enum.AvatarSettingsCollisionMode.Default]
+        5 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+        7 GETIMPORT                        R2 K21 [Enum.AvatarSettingsCollisionMode.Default]
         9 CALL                             R1 1 1
        10 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
        12 GETUPVAL                         R1 1
-       13 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       15 GETIMPORT                        R2 K25 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
+       13 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       15 GETIMPORT                        R2 K24 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
        17 CALL                             R1 1 1
        18 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
        20 GETUPVAL                         R1 1
-       21 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       23 GETIMPORT                        R2 K28 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+       21 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       23 GETIMPORT                        R2 K27 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
        25 CALL                             R1 1 1
        26 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
        28 GETUPVAL                         R1 1
-       29 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       31 LOADK                            R2 K29 [{0, 0, 0}]
+       29 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       31 LOADK                            R2 K28 [{0, 0, 0}]
        32 CALL                             R1 1 1
        33 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
        35 GETUPVAL                         R1 1
-       36 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       38 GETIMPORT                        R2 K32 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+       36 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       38 GETIMPORT                        R2 K31 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
        40 CALL                             R1 1 1
        41 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
        43 GETUPVAL                         R1 1
-       44 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       44 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        46 LOADB                            R2 1
        47 CALL                             R1 1 1
        48 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
        50 GETUPVAL                         R1 1
-       51 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       51 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        53 LOADB                            R2 1
        54 CALL                             R1 1 1
        55 SETTABLEKS                       R1 R0 K6 ["defaultAbilitiesEnableCrouchingSetting"]
        57 GETUPVAL                         R1 1
-       58 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       58 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        60 LOADB                            R2 1
        61 CALL                             R1 1 1
        62 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
        64 GETUPVAL                         R1 1
-       65 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       65 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        67 LOADB                            R2 1
        68 CALL                             R1 1 1
        69 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
        71 GETUPVAL                         R1 1
-       72 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       72 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        74 LOADB                            R2 1
        75 CALL                             R1 1 1
        76 SETTABLEKS                       R1 R0 K9 ["defaultAbilitiesEnableHoldingSetting"]
        78 GETUPVAL                         R1 1
-       79 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       79 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        81 LOADB                            R2 1
        82 CALL                             R1 1 1
        83 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
        85 GETUPVAL                         R1 1
-       86 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       86 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        88 LOADB                            R2 1
        89 CALL                             R1 1 1
        90 SETTABLEKS                       R1 R0 K11 ["defaultAbilitiesEnableReachingSetting"]
        92 GETUPVAL                         R1 1
-       93 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       93 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        95 LOADB                            R2 1
        96 CALL                             R1 1 1
        97 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
        99 GETUPVAL                         R1 1
-      100 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      100 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       102 LOADB                            R2 1
       103 CALL                             R1 1 1
       104 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
       106 GETUPVAL                         R1 1
-      107 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      107 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       109 LOADB                            R2 1
       110 CALL                             R1 1 1
       111 SETTABLEKS                       R1 R0 K14 ["defaultAbilitiesEnableSprintingSetting"]
       113 GETUPVAL                         R1 1
-      114 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      114 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       116 LOADB                            R2 1
       117 CALL                             R1 1 1
-      118 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableStrafingSetting"]
-      120 GETUPVAL                         R1 1
-      121 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      123 LOADB                            R2 1
-      124 CALL                             R1 1 1
-      125 SETTABLEKS                       R1 R0 K16 ["defaultAbilitiesEnableSwimmingSetting"]
-      127 RETURN                           R0 1
-      128 DUPTABLE                         R0 K33 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
-      129 GETUPVAL                         R1 1
-      130 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      132 GETIMPORT                        R2 K22 [Enum.AvatarSettingsCollisionMode.Default]
-      134 CALL                             R1 1 1
-      135 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
-      137 GETUPVAL                         R1 1
-      138 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      140 GETIMPORT                        R2 K25 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
-      142 CALL                             R1 1 1
-      143 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
-      145 GETUPVAL                         R1 1
-      146 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      148 GETIMPORT                        R2 K28 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+      118 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableSwimmingSetting"]
+      120 RETURN                           R0 1
+      121 DUPTABLE                         R0 K32 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
+      122 GETUPVAL                         R1 1
+      123 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      125 GETIMPORT                        R2 K21 [Enum.AvatarSettingsCollisionMode.Default]
+      127 CALL                             R1 1 1
+      128 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
+      130 GETUPVAL                         R1 1
+      131 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      133 GETIMPORT                        R2 K24 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
+      135 CALL                             R1 1 1
+      136 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
+      138 GETUPVAL                         R1 1
+      139 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      141 GETIMPORT                        R2 K27 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+      143 CALL                             R1 1 1
+      144 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
+      146 GETUPVAL                         R1 1
+      147 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      149 LOADK                            R2 K28 [{0, 0, 0}]
       150 CALL                             R1 1 1
-      151 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
+      151 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
       153 GETUPVAL                         R1 1
-      154 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      156 LOADK                            R2 K29 [{0, 0, 0}]
-      157 CALL                             R1 1 1
-      158 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
-      160 GETUPVAL                         R1 1
-      161 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      163 GETIMPORT                        R2 K32 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+      154 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      156 GETIMPORT                        R2 K31 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+      158 CALL                             R1 1 1
+      159 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
+      161 GETUPVAL                         R1 1
+      162 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      164 LOADB                            R2 1
       165 CALL                             R1 1 1
-      166 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
+      166 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
       168 GETUPVAL                         R1 1
-      169 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      169 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       171 LOADB                            R2 1
       172 CALL                             R1 1 1
-      173 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
+      173 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
       175 GETUPVAL                         R1 1
-      176 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      176 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       178 LOADB                            R2 1
       179 CALL                             R1 1 1
-      180 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
+      180 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
       182 GETUPVAL                         R1 1
-      183 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      183 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       185 LOADB                            R2 1
       186 CALL                             R1 1 1
-      187 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
+      187 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
       189 GETUPVAL                         R1 1
-      190 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      190 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       192 LOADB                            R2 1
       193 CALL                             R1 1 1
-      194 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
+      194 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
       196 GETUPVAL                         R1 1
-      197 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      197 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       199 LOADB                            R2 1
       200 CALL                             R1 1 1
-      201 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
+      201 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
       203 GETUPVAL                         R1 1
-      204 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      204 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       206 LOADB                            R2 1
       207 CALL                             R1 1 1
-      208 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
-      210 GETUPVAL                         R1 1
-      211 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      213 LOADB                            R2 1
-      214 CALL                             R1 1 1
-      215 SETTABLEKS                       R1 R0 K16 ["defaultAbilitiesEnableSwimmingSetting"]
-      217 RETURN                           R0 1
+      208 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableSwimmingSetting"]
+      210 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+125]
-        3 DUPTABLE                         R0 K17 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableCrouchingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableHoldingSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableReachingSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableSprintingSetting", "defaultAbilitiesEnableStrafingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
+        2 JUMPIFNOT                        R0 ; [+118]
+        3 DUPTABLE                         R0 K16 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableCrouchingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableHoldingSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableReachingSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableSprintingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
         4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-        7 GETIMPORT                        R2 K22 [Enum.AvatarSettingsCollisionMode.SingleCollider]
+        5 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+        7 GETIMPORT                        R2 K21 [Enum.AvatarSettingsCollisionMode.SingleCollider]
         9 CALL                             R1 1 1
        10 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
        12 GETUPVAL                         R1 1
-       13 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       15 GETIMPORT                        R2 K25 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
+       13 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       15 GETIMPORT                        R2 K24 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
        17 CALL                             R1 1 1
        18 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
        20 GETUPVAL                         R1 1
-       21 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       23 GETIMPORT                        R2 K28 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+       21 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       23 GETIMPORT                        R2 K27 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
        25 CALL                             R1 1 1
        26 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
        28 GETUPVAL                         R1 1
-       29 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       31 LOADK                            R2 K29 [{2, 2, 2}]
+       29 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       31 LOADK                            R2 K28 [{2, 2, 2}]
        32 CALL                             R1 1 1
        33 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
        35 GETUPVAL                         R1 1
-       36 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-       38 GETIMPORT                        R2 K32 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
+       36 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+       38 GETIMPORT                        R2 K31 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
        40 CALL                             R1 1 1
        41 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
        43 GETUPVAL                         R1 1
-       44 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       44 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        46 LOADB                            R2 0
        47 CALL                             R1 1 1
        48 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
        50 GETUPVAL                         R1 1
-       51 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       51 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        53 LOADB                            R2 0
        54 CALL                             R1 1 1
        55 SETTABLEKS                       R1 R0 K6 ["defaultAbilitiesEnableCrouchingSetting"]
        57 GETUPVAL                         R1 1
-       58 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       58 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        60 LOADB                            R2 0
        61 CALL                             R1 1 1
        62 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
        64 GETUPVAL                         R1 1
-       65 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       65 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        67 LOADB                            R2 0
        68 CALL                             R1 1 1
        69 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
        71 GETUPVAL                         R1 1
-       72 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       72 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        74 LOADB                            R2 0
        75 CALL                             R1 1 1
        76 SETTABLEKS                       R1 R0 K9 ["defaultAbilitiesEnableHoldingSetting"]
        78 GETUPVAL                         R1 1
-       79 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       79 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        81 LOADB                            R2 0
        82 CALL                             R1 1 1
        83 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
        85 GETUPVAL                         R1 1
-       86 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       86 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        88 LOADB                            R2 0
        89 CALL                             R1 1 1
        90 SETTABLEKS                       R1 R0 K11 ["defaultAbilitiesEnableReachingSetting"]
        92 GETUPVAL                         R1 1
-       93 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+       93 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
        95 LOADB                            R2 0
        96 CALL                             R1 1 1
        97 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
        99 GETUPVAL                         R1 1
-      100 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      100 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       102 LOADB                            R2 0
       103 CALL                             R1 1 1
       104 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
       106 GETUPVAL                         R1 1
-      107 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      107 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       109 LOADB                            R2 0
       110 CALL                             R1 1 1
       111 SETTABLEKS                       R1 R0 K14 ["defaultAbilitiesEnableSprintingSetting"]
       113 GETUPVAL                         R1 1
-      114 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      114 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       116 LOADB                            R2 0
       117 CALL                             R1 1 1
-      118 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableStrafingSetting"]
-      120 GETUPVAL                         R1 1
-      121 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      123 LOADB                            R2 0
-      124 CALL                             R1 1 1
-      125 SETTABLEKS                       R1 R0 K16 ["defaultAbilitiesEnableSwimmingSetting"]
-      127 RETURN                           R0 1
-      128 DUPTABLE                         R0 K33 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
-      129 GETUPVAL                         R1 1
-      130 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      132 GETIMPORT                        R2 K22 [Enum.AvatarSettingsCollisionMode.SingleCollider]
-      134 CALL                             R1 1 1
-      135 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
-      137 GETUPVAL                         R1 1
-      138 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      140 GETIMPORT                        R2 K25 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
-      142 CALL                             R1 1 1
-      143 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
-      145 GETUPVAL                         R1 1
-      146 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      148 GETIMPORT                        R2 K28 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+      118 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableSwimmingSetting"]
+      120 RETURN                           R0 1
+      121 DUPTABLE                         R0 K32 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
+      122 GETUPVAL                         R1 1
+      123 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      125 GETIMPORT                        R2 K21 [Enum.AvatarSettingsCollisionMode.SingleCollider]
+      127 CALL                             R1 1 1
+      128 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
+      130 GETUPVAL                         R1 1
+      131 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      133 GETIMPORT                        R2 K24 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
+      135 CALL                             R1 1 1
+      136 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
+      138 GETUPVAL                         R1 1
+      139 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      141 GETIMPORT                        R2 K27 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+      143 CALL                             R1 1 1
+      144 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
+      146 GETUPVAL                         R1 1
+      147 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      149 LOADK                            R2 K28 [{2, 2, 2}]
       150 CALL                             R1 1 1
-      151 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
+      151 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
       153 GETUPVAL                         R1 1
-      154 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      156 LOADK                            R2 K29 [{2, 2, 2}]
-      157 CALL                             R1 1 1
-      158 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
-      160 GETUPVAL                         R1 1
-      161 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      163 GETIMPORT                        R2 K32 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
+      154 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      156 GETIMPORT                        R2 K31 [Enum.AvatarSettingsCharacterControllerMode.LuaCharacterController]
+      158 CALL                             R1 1 1
+      159 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
+      161 GETUPVAL                         R1 1
+      162 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
+      164 LOADB                            R2 0
       165 CALL                             R1 1 1
-      166 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
+      166 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
       168 GETUPVAL                         R1 1
-      169 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      169 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       171 LOADB                            R2 0
       172 CALL                             R1 1 1
-      173 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
+      173 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
       175 GETUPVAL                         R1 1
-      176 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      176 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       178 LOADB                            R2 0
       179 CALL                             R1 1 1
-      180 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
+      180 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
       182 GETUPVAL                         R1 1
-      183 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      183 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       185 LOADB                            R2 0
       186 CALL                             R1 1 1
-      187 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
+      187 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
       189 GETUPVAL                         R1 1
-      190 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      190 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       192 LOADB                            R2 0
       193 CALL                             R1 1 1
-      194 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
+      194 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
       196 GETUPVAL                         R1 1
-      197 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      197 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       199 LOADB                            R2 0
       200 CALL                             R1 1 1
-      201 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
+      201 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
       203 GETUPVAL                         R1 1
-      204 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
+      204 GETTABLEKS                       R1 R1 K17 ["mockUseSetting"]
       206 LOADB                            R2 0
       207 CALL                             R1 1 1
-      208 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
-      210 GETUPVAL                         R1 1
-      211 GETTABLEKS                       R1 R1 K18 ["mockUseSetting"]
-      213 LOADB                            R2 0
-      214 CALL                             R1 1 1
-      215 SETTABLEKS                       R1 R0 K16 ["defaultAbilitiesEnableSwimmingSetting"]
-      217 RETURN                           R0 1
+      208 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableSwimmingSetting"]
+      210 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

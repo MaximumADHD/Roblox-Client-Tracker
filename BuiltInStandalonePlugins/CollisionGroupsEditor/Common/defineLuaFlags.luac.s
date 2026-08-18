@@ -15,5 +15,20 @@ MAIN:
        18 LOADB                            R3 0
        19 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        21 CALL                             R0 3 0
-       22 LOADNIL                          R0
-       23 RETURN                           R0 1
+       22 GETIMPORT                        R0 K1 [game]
+       24 LOADK                            R2 K6 ["CGEAlertTitleWrapFix"]
+       25 LOADB                            R3 0
+       26 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       28 CALL                             R0 3 0
+       29 GETIMPORT                        R0 K1 [game]
+       31 LOADK                            R2 K7 ["CGERenameGroupOverflowFix"]
+       32 LOADB                            R3 0
+       33 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       35 CALL                             R0 3 0
+       36 GETIMPORT                        R0 K1 [game]
+       38 LOADK                            R2 K8 ["CGENewGroupNamePlaceholderFix"]
+       39 LOADB                            R3 0
+       40 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       42 CALL                             R0 3 0
+       43 LOADNIL                          R0
+       44 RETURN                           R0 1

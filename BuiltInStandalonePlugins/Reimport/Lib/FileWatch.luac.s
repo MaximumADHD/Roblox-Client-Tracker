@@ -594,100 +594,102 @@ MAIN:
       106 GETTABLEKS                       R13 R6 K23 ["REIMPORT"]
       108 GETTABLEKS                       R13 R13 K24 ["CPC_ID"]
       110 CALL                             R12 1 1
-      111 GETTABLEKS                       R13 R6 K23 ["REIMPORT"]
-      113 GETTABLEKS                       R13 R13 K25 ["getFFlagReimportFileWatchIcon"]
-      115 NEWTABLE                         R14 0 0
-      117 NEWTABLE                         R15 4 0
-      119 NEWCLOSURE                       R16 P0
-      120 CAPTURE                          VAL R9
-      121 CAPTURE                          REF R14
-      122 CAPTURE                          VAL R5
-      123 NEWCLOSURE                       R17 P1
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          REF R14
-      127 DUPCLOSURE                       R18 K26 [PROTO_3]
-      128 CAPTURE                          VAL R12
-      129 CAPTURE                          VAL R6
-      130 DUPCLOSURE                       R19 K27 [PROTO_4]
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R17
-      133 CAPTURE                          VAL R7
-      134 CAPTURE                          VAL R6
-      135 NEWCLOSURE                       R20 P4
-      136 CAPTURE                          REF R14
-      137 CAPTURE                          VAL R2
-      138 DUPCLOSURE                       R21 K28 [PROTO_6]
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R9
-      141 CAPTURE                          VAL R20
-      142 CAPTURE                          VAL R2
-      143 CAPTURE                          VAL R1
-      144 CAPTURE                          VAL R19
-      145 CAPTURE                          VAL R13
-      146 CAPTURE                          VAL R12
-      147 CAPTURE                          VAL R6
-      148 CAPTURE                          VAL R5
-      149 NEWCLOSURE                       R22 P6
-      150 CAPTURE                          REF R14
-      151 CAPTURE                          VAL R2
-      152 NEWCLOSURE                       R23 P7
+      111 GETIMPORT                        R13 K5 [require]
+      113 GETTABLEKS                       R14 R0 K25 ["Flags"]
+      115 GETTABLEKS                       R14 R14 K26 ["GetFFlagReimportFileWatcher"]
+      117 CALL                             R13 1 1
+      118 NEWTABLE                         R14 0 0
+      120 NEWTABLE                         R15 4 0
+      122 NEWCLOSURE                       R16 P0
+      123 CAPTURE                          VAL R9
+      124 CAPTURE                          REF R14
+      125 CAPTURE                          VAL R5
+      126 NEWCLOSURE                       R17 P1
+      127 CAPTURE                          VAL R8
+      128 CAPTURE                          VAL R9
+      129 CAPTURE                          REF R14
+      130 DUPCLOSURE                       R18 K27 [PROTO_3]
+      131 CAPTURE                          VAL R12
+      132 CAPTURE                          VAL R6
+      133 DUPCLOSURE                       R19 K28 [PROTO_4]
+      134 CAPTURE                          VAL R4
+      135 CAPTURE                          VAL R17
+      136 CAPTURE                          VAL R7
+      137 CAPTURE                          VAL R6
+      138 NEWCLOSURE                       R20 P4
+      139 CAPTURE                          REF R14
+      140 CAPTURE                          VAL R2
+      141 DUPCLOSURE                       R21 K29 [PROTO_6]
+      142 CAPTURE                          VAL R8
+      143 CAPTURE                          VAL R9
+      144 CAPTURE                          VAL R20
+      145 CAPTURE                          VAL R2
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R19
+      148 CAPTURE                          VAL R13
+      149 CAPTURE                          VAL R12
+      150 CAPTURE                          VAL R6
+      151 CAPTURE                          VAL R5
+      152 NEWCLOSURE                       R22 P6
       153 CAPTURE                          REF R14
       154 CAPTURE                          VAL R2
-      155 CAPTURE                          VAL R1
-      156 CAPTURE                          VAL R9
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R12
-      159 CAPTURE                          VAL R6
-      160 CAPTURE                          VAL R19
-      161 NEWCLOSURE                       R24 P8
-      162 CAPTURE                          VAL R9
-      163 CAPTURE                          REF R14
-      164 CAPTURE                          VAL R19
-      165 CAPTURE                          VAL R8
-      166 CAPTURE                          VAL R23
-      167 CAPTURE                          VAL R21
-      168 NEWCLOSURE                       R25 P9
-      169 CAPTURE                          VAL R9
-      170 CAPTURE                          REF R14
-      171 CAPTURE                          VAL R23
-      172 CAPTURE                          VAL R19
-      173 NEWCLOSURE                       R26 P10
-      174 CAPTURE                          REF R14
-      175 CAPTURE                          VAL R2
-      176 DUPCLOSURE                       R27 K29 [PROTO_13]
-      177 CAPTURE                          VAL R7
-      178 CAPTURE                          VAL R6
-      179 CAPTURE                          VAL R19
-      180 NEWCLOSURE                       R28 P12
-      181 CAPTURE                          VAL R2
-      182 CAPTURE                          VAL R16
-      183 CAPTURE                          REF R14
-      184 CAPTURE                          VAL R3
-      185 CAPTURE                          VAL R19
-      186 CAPTURE                          VAL R8
-      187 CAPTURE                          VAL R24
-      188 CAPTURE                          VAL R25
-      189 CAPTURE                          VAL R7
-      190 CAPTURE                          VAL R6
-      191 CAPTURE                          VAL R26
-      192 SETTABLEKS                       R28 R15 K30 ["init"]
-      194 DUPCLOSURE                       R28 K31 [PROTO_15]
-      195 CAPTURE                          VAL R17
-      196 SETTABLEKS                       R28 R15 K32 ["isWatching"]
-      198 GETTABLEKS                       R30 R6 K23 ["REIMPORT"]
-      200 GETTABLEKS                       R30 R30 K33 ["CPC_CALLBACKS"]
-      202 GETTABLEKS                       R30 R30 K34 ["GET_WATCH_STATUS"]
-      204 DUPCLOSURE                       R31 K35 [PROTO_16]
-      205 CAPTURE                          VAL R15
-      206 NAMECALL                         R28 R12 K36 ["OnInvoke"]
-      208 CALL                             R28 3 0
-      209 DUPCLOSURE                       R28 K37 [PROTO_17]
-      210 CAPTURE                          VAL R21
-      211 SETTABLEKS                       R28 R15 K38 ["start"]
-      213 DUPCLOSURE                       R28 K39 [PROTO_18]
-      214 CAPTURE                          VAL R17
-      215 CAPTURE                          VAL R23
-      216 SETTABLEKS                       R28 R15 K40 ["stop"]
-      218 CLOSEUPVALS                      R14
-      219 RETURN                           R15 1
+      155 NEWCLOSURE                       R23 P7
+      156 CAPTURE                          REF R14
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R1
+      159 CAPTURE                          VAL R9
+      160 CAPTURE                          VAL R13
+      161 CAPTURE                          VAL R12
+      162 CAPTURE                          VAL R6
+      163 CAPTURE                          VAL R19
+      164 NEWCLOSURE                       R24 P8
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          REF R14
+      167 CAPTURE                          VAL R19
+      168 CAPTURE                          VAL R8
+      169 CAPTURE                          VAL R23
+      170 CAPTURE                          VAL R21
+      171 NEWCLOSURE                       R25 P9
+      172 CAPTURE                          VAL R9
+      173 CAPTURE                          REF R14
+      174 CAPTURE                          VAL R23
+      175 CAPTURE                          VAL R19
+      176 NEWCLOSURE                       R26 P10
+      177 CAPTURE                          REF R14
+      178 CAPTURE                          VAL R2
+      179 DUPCLOSURE                       R27 K30 [PROTO_13]
+      180 CAPTURE                          VAL R7
+      181 CAPTURE                          VAL R6
+      182 CAPTURE                          VAL R19
+      183 NEWCLOSURE                       R28 P12
+      184 CAPTURE                          VAL R2
+      185 CAPTURE                          VAL R16
+      186 CAPTURE                          REF R14
+      187 CAPTURE                          VAL R3
+      188 CAPTURE                          VAL R19
+      189 CAPTURE                          VAL R8
+      190 CAPTURE                          VAL R24
+      191 CAPTURE                          VAL R25
+      192 CAPTURE                          VAL R7
+      193 CAPTURE                          VAL R6
+      194 CAPTURE                          VAL R26
+      195 SETTABLEKS                       R28 R15 K31 ["init"]
+      197 DUPCLOSURE                       R28 K32 [PROTO_15]
+      198 CAPTURE                          VAL R17
+      199 SETTABLEKS                       R28 R15 K33 ["isWatching"]
+      201 GETTABLEKS                       R30 R6 K23 ["REIMPORT"]
+      203 GETTABLEKS                       R30 R30 K34 ["CPC_CALLBACKS"]
+      205 GETTABLEKS                       R30 R30 K35 ["GET_WATCH_STATUS"]
+      207 DUPCLOSURE                       R31 K36 [PROTO_16]
+      208 CAPTURE                          VAL R15
+      209 NAMECALL                         R28 R12 K37 ["OnInvoke"]
+      211 CALL                             R28 3 0
+      212 DUPCLOSURE                       R28 K38 [PROTO_17]
+      213 CAPTURE                          VAL R21
+      214 SETTABLEKS                       R28 R15 K39 ["start"]
+      216 DUPCLOSURE                       R28 K40 [PROTO_18]
+      217 CAPTURE                          VAL R17
+      218 CAPTURE                          VAL R23
+      219 SETTABLEKS                       R28 R15 K41 ["stop"]
+      221 CLOSEUPVALS                      R14
+      222 RETURN                           R15 1

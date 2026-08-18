@@ -11,20 +11,17 @@ PROTO_0:
        10 NAMECALL                         R0 R0 K1 ["launchBulkImport"]
        12 CALL                             R0 2 0
        13 GETUPVAL                         R0 3
-       14 CALL                             R0 0 1
-       15 JUMPIFNOT                        R0 ; [+16]
-       16 GETUPVAL                         R0 4
-       17 GETTABLEKS                       R0 R0 K2 ["sendUploadEvent"]
-       19 NEWTABLE                         R1 0 0
-       21 DUPTABLE                         R2 K6 [{"ExplorerController", "LayoutController", "ItemsController"}]
+       14 GETTABLEKS                       R0 R0 K2 ["sendUploadEvent"]
+       16 NEWTABLE                         R1 0 0
+       18 DUPTABLE                         R2 K6 [{"ExplorerController", "LayoutController", "ItemsController"}]
+       19 GETUPVAL                         R3 4
+       20 SETTABLEKS                       R3 R2 K3 ["ExplorerController"]
        22 GETUPVAL                         R3 5
-       23 SETTABLEKS                       R3 R2 K3 ["ExplorerController"]
-       25 GETUPVAL                         R3 6
-       26 SETTABLEKS                       R3 R2 K4 ["LayoutController"]
-       28 GETUPVAL                         R3 2
-       29 SETTABLEKS                       R3 R2 K5 ["ItemsController"]
-       31 CALL                             R0 2 0
-       32 RETURN                           R0 0
+       23 SETTABLEKS                       R3 R2 K4 ["LayoutController"]
+       25 GETUPVAL                         R3 2
+       26 SETTABLEKS                       R3 R2 K5 ["ItemsController"]
+       28 CALL                             R0 2 0
+       29 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -49,41 +46,40 @@ PROTO_1:
        25 CAPTURE                          UPVAL U6
        26 CAPTURE                          VAL R3
        27 CAPTURE                          UPVAL U7
-       28 CAPTURE                          UPVAL U8
-       29 CAPTURE                          VAL R4
-       30 CAPTURE                          VAL R5
-       31 NEWTABLE                         R8 0 4
-       33 MOVE                             R9 R2
-       34 MOVE                             R10 R3
-       35 MOVE                             R11 R4
-       36 MOVE                             R12 R5
-       37 SETLIST                          R8 R9 4 [1]
-       39 CALL                             R6 2 1
-       40 GETUPVAL                         R7 5
-       41 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       43 GETUPVAL                         R8 9
-       44 GETTABLEKS                       R8 R8 K3 ["Button"]
-       46 DUPTABLE                         R9 K9 [{"LayoutOrder", "text", "onActivated", "variant", "size"}]
-       47 GETTABLEKS                       R10 R0 K4 ["LayoutOrder"]
-       49 SETTABLEKS                       R10 R9 K4 ["LayoutOrder"]
-       51 LOADK                            R12 K10 ["Tooltip"]
-       52 LOADK                            R13 K11 ["BulkImport"]
-       53 NAMECALL                         R10 R1 K12 ["getText"]
-       55 CALL                             R10 3 1
-       56 SETTABLEKS                       R10 R9 K5 ["text"]
-       58 SETTABLEKS                       R6 R9 K6 ["onActivated"]
-       60 GETUPVAL                         R10 9
-       61 GETTABLEKS                       R10 R10 K13 ["Enums"]
-       63 GETTABLEKS                       R10 R10 K14 ["ButtonVariant"]
-       65 GETTABLEKS                       R10 R10 K15 ["Standard"]
-       67 SETTABLEKS                       R10 R9 K7 ["variant"]
-       69 GETUPVAL                         R10 9
-       70 GETTABLEKS                       R10 R10 K13 ["Enums"]
-       72 GETTABLEKS                       R10 R10 K16 ["InputSize"]
-       74 GETTABLEKS                       R10 R10 K17 ["XSmall"]
-       76 SETTABLEKS                       R10 R9 K8 ["size"]
-       78 CALL                             R7 2 -1
-       79 RETURN                           R7 -1
+       28 CAPTURE                          VAL R4
+       29 CAPTURE                          VAL R5
+       30 NEWTABLE                         R8 0 4
+       32 MOVE                             R9 R2
+       33 MOVE                             R10 R3
+       34 MOVE                             R11 R4
+       35 MOVE                             R12 R5
+       36 SETLIST                          R8 R9 4 [1]
+       38 CALL                             R6 2 1
+       39 GETUPVAL                         R7 5
+       40 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       42 GETUPVAL                         R8 8
+       43 GETTABLEKS                       R8 R8 K3 ["Button"]
+       45 DUPTABLE                         R9 K9 [{"LayoutOrder", "text", "onActivated", "variant", "size"}]
+       46 GETTABLEKS                       R10 R0 K4 ["LayoutOrder"]
+       48 SETTABLEKS                       R10 R9 K4 ["LayoutOrder"]
+       50 LOADK                            R12 K10 ["Tooltip"]
+       51 LOADK                            R13 K11 ["BulkImport"]
+       52 NAMECALL                         R10 R1 K12 ["getText"]
+       54 CALL                             R10 3 1
+       55 SETTABLEKS                       R10 R9 K5 ["text"]
+       57 SETTABLEKS                       R6 R9 K6 ["onActivated"]
+       59 GETUPVAL                         R10 8
+       60 GETTABLEKS                       R10 R10 K13 ["Enums"]
+       62 GETTABLEKS                       R10 R10 K14 ["ButtonVariant"]
+       64 GETTABLEKS                       R10 R10 K15 ["Standard"]
+       66 SETTABLEKS                       R10 R9 K7 ["variant"]
+       68 GETUPVAL                         R10 8
+       69 GETTABLEKS                       R10 R10 K13 ["Enums"]
+       71 GETTABLEKS                       R10 R10 K16 ["InputSize"]
+       73 GETTABLEKS                       R10 R10 K17 ["XSmall"]
+       75 SETTABLEKS                       R10 R9 K8 ["size"]
+       77 CALL                             R7 2 -1
+       78 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -132,22 +128,16 @@ MAIN:
        75 GETIMPORT                        R11 K5 [require]
        77 GETTABLEKS                       R12 R0 K12 ["Src"]
        79 GETTABLEKS                       R12 R12 K19 ["Flags"]
-       81 GETTABLEKS                       R12 R12 K20 ["getFFlagAmrEnableUnifiedEvent"]
+       81 GETTABLEKS                       R12 R12 K20 ["getFFlagAmrDisableShardedEvent"]
        83 CALL                             R11 1 1
-       84 GETIMPORT                        R12 K5 [require]
-       86 GETTABLEKS                       R13 R0 K12 ["Src"]
-       88 GETTABLEKS                       R13 R13 K19 ["Flags"]
-       90 GETTABLEKS                       R13 R13 K21 ["getFFlagAmrDisableShardedEvent"]
-       92 CALL                             R12 1 1
-       93 DUPCLOSURE                       R13 K22 [PROTO_1]
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R9
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R12
-      101 CAPTURE                          VAL R11
-      102 CAPTURE                          VAL R6
-      103 CAPTURE                          VAL R2
-      104 RETURN                           R13 1
+       84 DUPCLOSURE                       R12 K21 [PROTO_1]
+       85 CAPTURE                          VAL R5
+       86 CAPTURE                          VAL R10
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          VAL R9
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R11
+       92 CAPTURE                          VAL R6
+       93 CAPTURE                          VAL R2
+       94 RETURN                           R12 1

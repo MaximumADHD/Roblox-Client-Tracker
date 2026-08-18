@@ -104,11 +104,13 @@ PROTO_5:
        56 GETTABLEKS                       R7 R1 K15 ["server"]
        58 NAMECALL                         R5 R5 K14 ["set"]
        60 CALL                             R5 2 0
-       61 DUPTABLE                         R5 K18 [{"disconnect", "connectionCountObservable"}]
+       61 DUPTABLE                         R5 K19 [{"disconnect", "connectionCountObservable", "activeConnectionsObservable"}]
        62 SETTABLEKS                       R4 R5 K16 ["disconnect"]
        64 GETTABLEKS                       R6 R1 K17 ["connectionCountObservable"]
        66 SETTABLEKS                       R6 R5 K17 ["connectionCountObservable"]
-       68 RETURN                           R5 1
+       68 GETTABLEKS                       R6 R1 K18 ["activeConnectionsObservable"]
+       70 SETTABLEKS                       R6 R5 K18 ["activeConnectionsObservable"]
+       72 RETURN                           R5 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

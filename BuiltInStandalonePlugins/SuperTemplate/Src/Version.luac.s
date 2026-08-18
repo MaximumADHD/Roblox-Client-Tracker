@@ -1,4 +1,4 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 LOADK                            R0 K0 ["e4e609f"]
+        1 LOADK                            R0 K0 ["1234f3d"]
         2 RETURN                           R0 1

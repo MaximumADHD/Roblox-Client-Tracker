@@ -150,66 +150,80 @@ PROTO_5:
       102 GETTABLEKS                       R13 R0 K37 ["onMouseLeave"]
       104 SETTABLE                         R13 R11 R12
       105 DUPTABLE                         R12 K41 [{"SetMembershipButton", "GroupRenameTextBox", "Text"}]
-      106 JUMPIF                           R7 ; [+28]
+      106 JUMPIF                           R7 ; [+36]
       107 GETIMPORT                        R14 K43 [game]
       109 LOADK                            R16 K44 ["CGELargeGroupNameEntryFix"]
       110 NAMECALL                         R14 R14 K45 ["GetFastFlag"]
       112 CALL                             R14 2 1
       113 JUMPIFNOT                        R14 ; [+1]
-      114 JUMPIF                           R4 ; [+20]
-      115 GETUPVAL                         R13 2
-      116 GETTABLEKS                       R13 R13 K17 ["createElement"]
-      118 GETUPVAL                         R14 4
-      119 DUPTABLE                         R15 K49 [{["Style"] = "SetMembership", ["TooltipMessage"], ["OnClick"], ["LayoutOrder"] = 1}]
-      120 LOADK                            R18 K50 ["Tooltip"]
-      121 LOADK                            R19 K51 ["Add"]
-      122 NAMECALL                         R16 R3 K52 ["getText"]
-      124 CALL                             R16 3 1
-      125 SETTABLEKS                       R16 R15 K47 ["TooltipMessage"]
-      127 GETTABLEKS                       R16 R1 K3 ["Group"]
-      129 GETTABLEKS                       R16 R16 K53 ["OnMembershipSet"]
-      131 SETTABLEKS                       R16 R15 K30 ["OnClick"]
-      133 CALL                             R13 2 1
-      134 JUMP                             ; [+1]
-      135 LOADNIL                          R13
-      136 SETTABLEKS                       R13 R12 K38 ["SetMembershipButton"]
-      138 MOVE                             R13 R4
-      139 JUMPIFNOT                        R13 ; [+16]
-      140 GETUPVAL                         R13 2
-      141 GETTABLEKS                       R13 R13 K17 ["createElement"]
-      143 GETUPVAL                         R14 5
-      144 DUPTABLE                         R15 K55 [{["Size"], ["Group"], ["LayoutOrder"] = 2}]
-      145 GETTABLEKS                       R16 R2 K14 ["GroupLabelStyle"]
-      147 GETTABLEKS                       R16 R16 K16 ["GroupNameLabelSize"]
-      149 SETTABLEKS                       R16 R15 K22 ["Size"]
-      151 GETTABLEKS                       R16 R1 K3 ["Group"]
-      153 SETTABLEKS                       R16 R15 K3 ["Group"]
-      155 CALL                             R13 2 1
-      156 SETTABLEKS                       R13 R12 K39 ["GroupRenameTextBox"]
-      158 NOT                              R13 R4
-      159 JUMPIFNOT                        R13 ; [+29]
-      160 GETUPVAL                         R13 2
-      161 GETTABLEKS                       R13 R13 K17 ["createElement"]
-      163 GETUPVAL                         R14 6
-      164 DUPTABLE                         R15 K61 [{["Size"], ["Style"] = "GroupLabel", ["LayoutOrder"] = 3, ["Text"], ["TextWrapped"] = True, ["TextTruncate"], ["TextXAlignment"], ["StyleModifier"]}]
-      165 SETTABLEKS                       R8 R15 K22 ["Size"]
-      167 SETTABLEKS                       R6 R15 K40 ["Text"]
-      169 GETIMPORT                        R16 K63 [Enum.TextTruncate.AtEnd]
-      171 SETTABLEKS                       R16 R15 K59 ["TextTruncate"]
-      173 GETIMPORT                        R16 K65 [Enum.TextXAlignment.Right]
-      175 SETTABLEKS                       R16 R15 K60 ["TextXAlignment"]
-      177 SETTABLEKS                       R5 R15 K20 ["StyleModifier"]
-      179 DUPTABLE                         R16 K67 [{"HoverArea"}]
-      180 GETUPVAL                         R17 2
-      181 GETTABLEKS                       R17 R17 K17 ["createElement"]
-      183 GETUPVAL                         R18 7
-      184 DUPTABLE                         R19 K70 [{["Cursor"] = "PointingHand"}]
-      185 CALL                             R17 2 1
-      186 SETTABLEKS                       R17 R16 K66 ["HoverArea"]
-      188 CALL                             R13 3 1
-      189 SETTABLEKS                       R13 R12 K40 ["Text"]
-      191 CALL                             R9 3 -1
-      192 RETURN                           R9 -1
+      114 JUMPIF                           R4 ; [+28]
+      115 GETIMPORT                        R14 K43 [game]
+      117 LOADK                            R16 K46 ["CGERenameGroupOverflowFix"]
+      118 NAMECALL                         R14 R14 K45 ["GetFastFlag"]
+      120 CALL                             R14 2 1
+      121 JUMPIFNOT                        R14 ; [+1]
+      122 JUMPIF                           R4 ; [+20]
+      123 GETUPVAL                         R13 2
+      124 GETTABLEKS                       R13 R13 K17 ["createElement"]
+      126 GETUPVAL                         R14 4
+      127 DUPTABLE                         R15 K50 [{["Style"] = "SetMembership", ["TooltipMessage"], ["OnClick"], ["LayoutOrder"] = 1}]
+      128 LOADK                            R18 K51 ["Tooltip"]
+      129 LOADK                            R19 K52 ["Add"]
+      130 NAMECALL                         R16 R3 K53 ["getText"]
+      132 CALL                             R16 3 1
+      133 SETTABLEKS                       R16 R15 K48 ["TooltipMessage"]
+      135 GETTABLEKS                       R16 R1 K3 ["Group"]
+      137 GETTABLEKS                       R16 R16 K54 ["OnMembershipSet"]
+      139 SETTABLEKS                       R16 R15 K30 ["OnClick"]
+      141 CALL                             R13 2 1
+      142 JUMP                             ; [+1]
+      143 LOADNIL                          R13
+      144 SETTABLEKS                       R13 R12 K38 ["SetMembershipButton"]
+      146 MOVE                             R13 R4
+      147 JUMPIFNOT                        R13 ; [+28]
+      148 GETUPVAL                         R13 2
+      149 GETTABLEKS                       R13 R13 K17 ["createElement"]
+      151 GETUPVAL                         R14 5
+      152 DUPTABLE                         R15 K56 [{["Size"], ["Group"], ["LayoutOrder"] = 2}]
+      153 GETIMPORT                        R17 K43 [game]
+      155 LOADK                            R19 K46 ["CGERenameGroupOverflowFix"]
+      156 NAMECALL                         R17 R17 K45 ["GetFastFlag"]
+      158 CALL                             R17 2 1
+      159 JUMPIFNOT                        R17 ; [+5]
+      160 GETTABLEKS                       R16 R2 K14 ["GroupLabelStyle"]
+      162 GETTABLEKS                       R16 R16 K15 ["CursorGroupNameLabelSize"]
+      164 JUMP                             ; [+4]
+      165 GETTABLEKS                       R16 R2 K14 ["GroupLabelStyle"]
+      167 GETTABLEKS                       R16 R16 K16 ["GroupNameLabelSize"]
+      169 SETTABLEKS                       R16 R15 K22 ["Size"]
+      171 GETTABLEKS                       R16 R1 K3 ["Group"]
+      173 SETTABLEKS                       R16 R15 K3 ["Group"]
+      175 CALL                             R13 2 1
+      176 SETTABLEKS                       R13 R12 K39 ["GroupRenameTextBox"]
+      178 NOT                              R13 R4
+      179 JUMPIFNOT                        R13 ; [+29]
+      180 GETUPVAL                         R13 2
+      181 GETTABLEKS                       R13 R13 K17 ["createElement"]
+      183 GETUPVAL                         R14 6
+      184 DUPTABLE                         R15 K62 [{["Size"], ["Style"] = "GroupLabel", ["LayoutOrder"] = 3, ["Text"], ["TextWrapped"] = True, ["TextTruncate"], ["TextXAlignment"], ["StyleModifier"]}]
+      185 SETTABLEKS                       R8 R15 K22 ["Size"]
+      187 SETTABLEKS                       R6 R15 K40 ["Text"]
+      189 GETIMPORT                        R16 K64 [Enum.TextTruncate.AtEnd]
+      191 SETTABLEKS                       R16 R15 K60 ["TextTruncate"]
+      193 GETIMPORT                        R16 K66 [Enum.TextXAlignment.Right]
+      195 SETTABLEKS                       R16 R15 K61 ["TextXAlignment"]
+      197 SETTABLEKS                       R5 R15 K20 ["StyleModifier"]
+      199 DUPTABLE                         R16 K68 [{"HoverArea"}]
+      200 GETUPVAL                         R17 2
+      201 GETTABLEKS                       R17 R17 K17 ["createElement"]
+      203 GETUPVAL                         R18 7
+      204 DUPTABLE                         R19 K71 [{["Cursor"] = "PointingHand"}]
+      205 CALL                             R17 2 1
+      206 SETTABLEKS                       R17 R16 K67 ["HoverArea"]
+      208 CALL                             R13 3 1
+      209 SETTABLEKS                       R13 R12 K40 ["Text"]
+      211 CALL                             R9 3 -1
+      212 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

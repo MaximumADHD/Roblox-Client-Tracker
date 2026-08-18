@@ -57,16 +57,17 @@ PROTO_2:
         9 GETUPVAL                         R5 5
        10 GETTABLEKS                       R5 R5 K0 ["Name"]
        12 GETUPVAL                         R6 6
-       13 NAMECALL                         R3 R3 K1 ["getItemUploadFee"]
-       15 CALL                             R3 3 1
-       16 MOVE                             R5 R1
-       17 MOVE                             R6 R2
-       18 NAMECALL                         R3 R3 K2 ["andThen"]
-       20 CALL                             R3 3 0
-       21 RETURN                           R0 0
+       13 GETUPVAL                         R7 7
+       14 NAMECALL                         R3 R3 K1 ["getItemUploadFee"]
+       16 CALL                             R3 4 1
+       17 MOVE                             R5 R1
+       18 MOVE                             R6 R2
+       19 NAMECALL                         R3 R3 K2 ["andThen"]
+       21 CALL                             R3 3 0
+       22 RETURN                           R0 0
 
 PROTO_3:
-        0 NEWCLOSURE                       R3 P0
+        0 NEWCLOSURE                       R4 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
@@ -74,7 +75,8 @@ PROTO_3:
         5 CAPTURE                          VAL R0
         6 CAPTURE                          VAL R1
         7 CAPTURE                          VAL R2
-        8 RETURN                           R3 1
+        8 CAPTURE                          VAL R3
+        9 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,21 +1,4 @@
 PROTO_0:
-        0 GETUPVAL                         R3 0
-        1 NAMECALL                         R3 R3 K0 ["GetUserId"]
-        3 CALL                             R3 1 1
-        4 MOVE                             R6 R1
-        5 GETUPVAL                         R7 1
-        6 GETTABLEKS                       R7 R7 K1 ["PermissionsSubject"]
-        8 GETTABLEKS                       R7 R7 K2 ["User"]
-       10 MOVE                             R8 R3
-       11 GETUPVAL                         R9 1
-       12 GETTABLEKS                       R9 R9 K3 ["PermissionsAction"]
-       14 GETTABLEKS                       R9 R9 K4 ["GrantAssetPermissions"]
-       16 MOVE                             R10 R2
-       17 NAMECALL                         R4 R0 K5 ["checkAssetsPermissionsAsync"]
-       19 CALL                             R4 6 0
-       20 RETURN                           R0 0
-
-PROTO_1:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 NOT                              R2 R0
@@ -45,7 +28,7 @@ PROTO_1:
        27 CALL                             R2 2 0
        28 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R4 0
         1 LENGTH                           R3 R4
         2 GETUPVAL                         R4 1
@@ -82,7 +65,7 @@ PROTO_2:
        42 CALL                             R2 6 0
        43 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 GETUPVAL                         R3 0
         1 NAMECALL                         R3 R3 K0 ["GetUserId"]
         3 CALL                             R3 1 1
@@ -149,23 +132,9 @@ MAIN:
        39 GETTABLEKS                       R5 R4 K14 ["GetService"]
        41 LOADK                            R6 K15 ["StudioService"]
        42 CALL                             R5 1 1
-       43 GETIMPORT                        R6 K5 [require]
-       45 GETTABLEKS                       R7 R0 K8 ["Src"]
-       47 GETTABLEKS                       R7 R7 K16 ["Flags"]
-       49 GETTABLEKS                       R7 R7 K17 ["getFFlagAmrRaiseShareLimits"]
-       51 CALL                             R6 1 1
-       52 DUPCLOSURE                       R7 K18 [PROTO_0]
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R2
-       55 DUPCLOSURE                       R8 K19 [PROTO_3]
-       56 CAPTURE                          VAL R5
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          VAL R1
-       59 CAPTURE                          VAL R2
-       60 MOVE                             R10 R6
-       61 CALL                             R10 0 1
-       62 JUMPIFNOT                        R10 ; [+2]
-       63 MOVE                             R9 R8
-       64 RETURN                           R9 1
-       65 MOVE                             R9 R7
-       66 RETURN                           R9 1
+       43 DUPCLOSURE                       R6 K16 [PROTO_2]
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R2
+       48 RETURN                           R6 1

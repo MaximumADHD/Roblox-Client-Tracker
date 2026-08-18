@@ -206,19 +206,30 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 LOADB                            R2 1
-        3 SETTABLEKS                       R2 R1 K1 ["Primary"]
-        5 NEWTABLE                         R2 0 0
-        7 MOVE                             R5 R2
-        8 NAMECALL                         R3 R0 K2 ["renderKeyframes"]
-       10 CALL                             R3 2 0
-       11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R3 R3 K3 ["createElement"]
-       14 GETUPVAL                         R4 1
-       15 MOVE                             R5 R1
-       16 MOVE                             R6 R2
-       17 CALL                             R3 3 -1
-       18 RETURN                           R3 -1
+        2 GETUPVAL                         R2 0
+        3 CALL                             R2 0 1
+        4 JUMPIFNOT                        R2 ; [+10]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["Dictionary"]
+        8 GETTABLEKS                       R2 R2 K2 ["join"]
+       10 MOVE                             R3 R1
+       11 DUPTABLE                         R4 K5 [{["Primary"] = True}]
+       12 CALL                             R2 2 1
+       13 MOVE                             R1 R2
+       14 JUMP                             ; [+3]
+       15 LOADB                            R2 1
+       16 SETTABLEKS                       R2 R1 K3 ["Primary"]
+       18 NEWTABLE                         R2 0 0
+       20 MOVE                             R5 R2
+       21 NAMECALL                         R3 R0 K6 ["renderKeyframes"]
+       23 CALL                             R3 2 0
+       24 GETUPVAL                         R3 2
+       25 GETTABLEKS                       R3 R3 K7 ["createElement"]
+       27 GETUPVAL                         R4 3
+       28 MOVE                             R5 R1
+       29 MOVE                             R6 R2
+       30 CALL                             R3 3 -1
+       31 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -231,64 +242,74 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Roact"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Components"]
-       20 GETTABLEKS                       R3 R3 K10 ["BaseTrack"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K11 ["Util"]
-       29 GETTABLEKS                       R4 R4 K12 ["Constants"]
-       31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R5 K11 ["Util"]
-       38 GETTABLEKS                       R5 R5 K13 ["TrackUtils"]
-       40 CALL                             R4 1 1
-       41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R6 R0 K8 ["Src"]
-       45 GETTABLEKS                       R6 R6 K9 ["Components"]
-       47 GETTABLEKS                       R6 R6 K14 ["Timeline"]
-       49 GETTABLEKS                       R6 R6 K15 ["Keyframe"]
-       51 CALL                             R5 1 1
-       52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R7 R0 K8 ["Src"]
-       56 GETTABLEKS                       R7 R7 K9 ["Components"]
-       58 GETTABLEKS                       R7 R7 K16 ["KeyframeCluster"]
-       60 CALL                             R6 1 1
-       61 GETIMPORT                        R7 K5 [require]
-       63 GETTABLEKS                       R8 R0 K8 ["Src"]
-       65 GETTABLEKS                       R8 R8 K9 ["Components"]
-       67 GETTABLEKS                       R8 R8 K17 ["Tooltip"]
-       69 CALL                             R7 1 1
-       70 GETIMPORT                        R8 K5 [require]
-       72 GETTABLEKS                       R9 R0 K18 ["LuaFlags"]
-       74 GETTABLEKS                       R9 R9 K19 ["GetFFlagControlRig"]
-       76 CALL                             R8 1 1
-       77 GETTABLEKS                       R9 R1 K20 ["PureComponent"]
-       79 LOADK                            R11 K21 ["SummaryTrack"]
-       80 NAMECALL                         R9 R9 K22 ["extend"]
-       82 CALL                             R9 2 1
-       83 DUPCLOSURE                       R10 K23 [PROTO_0]
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R8
-       86 SETTABLEKS                       R10 R9 K24 ["getSummaryKeyframes"]
-       88 DUPCLOSURE                       R10 K25 [PROTO_4]
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R7
-       93 SETTABLEKS                       R10 R9 K26 ["renderKeyframe"]
-       95 DUPCLOSURE                       R10 K27 [PROTO_5]
-       96 CAPTURE                          VAL R1
-       97 CAPTURE                          VAL R6
-       98 SETTABLEKS                       R10 R9 K28 ["renderKeyframeCluster"]
-      100 DUPCLOSURE                       R10 K29 [PROTO_6]
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R3
-      103 SETTABLEKS                       R10 R9 K30 ["renderKeyframes"]
-      105 DUPCLOSURE                       R10 K31 [PROTO_7]
-      106 CAPTURE                          VAL R1
-      107 CAPTURE                          VAL R2
-      108 SETTABLEKS                       R10 R9 K32 ["render"]
-      110 RETURN                           R9 1
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Components"]
+       27 GETTABLEKS                       R4 R4 K11 ["BaseTrack"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R5 R0 K12 ["LuaFlags"]
+       34 GETTABLEKS                       R5 R5 K13 ["GetFFlagACERoactCompatPrepFixes"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K9 ["Src"]
+       41 GETTABLEKS                       R6 R6 K14 ["Util"]
+       43 GETTABLEKS                       R6 R6 K15 ["Constants"]
+       45 CALL                             R5 1 1
+       46 GETIMPORT                        R6 K5 [require]
+       48 GETTABLEKS                       R7 R0 K9 ["Src"]
+       50 GETTABLEKS                       R7 R7 K14 ["Util"]
+       52 GETTABLEKS                       R7 R7 K16 ["TrackUtils"]
+       54 CALL                             R6 1 1
+       55 GETIMPORT                        R7 K5 [require]
+       57 GETTABLEKS                       R8 R0 K9 ["Src"]
+       59 GETTABLEKS                       R8 R8 K10 ["Components"]
+       61 GETTABLEKS                       R8 R8 K17 ["Timeline"]
+       63 GETTABLEKS                       R8 R8 K18 ["Keyframe"]
+       65 CALL                             R7 1 1
+       66 GETIMPORT                        R8 K5 [require]
+       68 GETTABLEKS                       R9 R0 K9 ["Src"]
+       70 GETTABLEKS                       R9 R9 K10 ["Components"]
+       72 GETTABLEKS                       R9 R9 K19 ["KeyframeCluster"]
+       74 CALL                             R8 1 1
+       75 GETIMPORT                        R9 K5 [require]
+       77 GETTABLEKS                       R10 R0 K9 ["Src"]
+       79 GETTABLEKS                       R10 R10 K10 ["Components"]
+       81 GETTABLEKS                       R10 R10 K20 ["Tooltip"]
+       83 CALL                             R9 1 1
+       84 GETIMPORT                        R10 K5 [require]
+       86 GETTABLEKS                       R11 R0 K12 ["LuaFlags"]
+       88 GETTABLEKS                       R11 R11 K21 ["GetFFlagControlRig"]
+       90 CALL                             R10 1 1
+       91 GETTABLEKS                       R11 R1 K22 ["PureComponent"]
+       93 LOADK                            R13 K23 ["SummaryTrack"]
+       94 NAMECALL                         R11 R11 K24 ["extend"]
+       96 CALL                             R11 2 1
+       97 DUPCLOSURE                       R12 K25 [PROTO_0]
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R10
+      100 SETTABLEKS                       R12 R11 K26 ["getSummaryKeyframes"]
+      102 DUPCLOSURE                       R12 K27 [PROTO_4]
+      103 CAPTURE                          VAL R1
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R5
+      106 CAPTURE                          VAL R9
+      107 SETTABLEKS                       R12 R11 K28 ["renderKeyframe"]
+      109 DUPCLOSURE                       R12 K29 [PROTO_5]
+      110 CAPTURE                          VAL R1
+      111 CAPTURE                          VAL R8
+      112 SETTABLEKS                       R12 R11 K30 ["renderKeyframeCluster"]
+      114 DUPCLOSURE                       R12 K31 [PROTO_6]
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R5
+      117 SETTABLEKS                       R12 R11 K32 ["renderKeyframes"]
+      119 DUPCLOSURE                       R12 K33 [PROTO_7]
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R2
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R3
+      124 SETTABLEKS                       R12 R11 K34 ["render"]
+      126 RETURN                           R11 1

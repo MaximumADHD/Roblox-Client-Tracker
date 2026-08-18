@@ -1,11 +1,8 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+3]
-        3 GETUPVAL                         R0 1
-        4 LOADK                            R1 K0 ["AmrDisableShardedEvent2"]
-        5 CALL                             R0 1 1
-        6 RETURN                           R0 1
+        1 LOADK                            R1 K0 ["AmrDisableShardedEvent2"]
+        2 CALL                             R0 1 -1
+        3 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -23,12 +20,6 @@ MAIN:
        18 GETTABLEKS                       R2 R2 K11 ["Common"]
        20 GETTABLEKS                       R2 R2 K12 ["safeGetFastFlag"]
        22 CALL                             R1 1 1
-       23 GETIMPORT                        R2 K9 [require]
-       25 GETTABLEKS                       R3 R0 K13 ["Src"]
-       27 GETTABLEKS                       R3 R3 K14 ["Flags"]
-       29 GETTABLEKS                       R3 R3 K15 ["getFFlagAmrEnableUnifiedEvent"]
-       31 CALL                             R2 1 1
-       32 DUPCLOSURE                       R3 K16 [PROTO_0]
-       33 CAPTURE                          VAL R2
-       34 CAPTURE                          VAL R1
-       35 RETURN                           R3 1
+       23 DUPCLOSURE                       R2 K13 [PROTO_0]
+       24 CAPTURE                          VAL R1
+       25 RETURN                           R2 1
