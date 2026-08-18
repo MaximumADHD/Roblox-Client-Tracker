@@ -1,8 +1,8 @@
 local StyleTypes = require(script.Parent.StyleTypes)
-type RbxDesignFoundationsV2Tokens = StyleTypes.RbxDesignFoundationsV2Tokens
+type RbxDesignFoundationsV4Tokens = StyleTypes.RbxDesignFoundationsV4Tokens
 
 -- True if any Color.Surface Surface_0/100/200/300 Color3 differs (static getFoundationTokens vs useTokens).
-return function(staticTokens: RbxDesignFoundationsV2Tokens?, contextTokens: RbxDesignFoundationsV2Tokens?): boolean
+return function(staticTokens: RbxDesignFoundationsV4Tokens?, contextTokens: RbxDesignFoundationsV4Tokens?): boolean
 	if staticTokens == nil or contextTokens == nil then
 		return false
 	end

@@ -11,13 +11,13 @@ local StyleTypes = require(Style.StyleTypes)
 
 type BaseTokens = Types.BaseTokens
 type Tokens = Types.Tokens
-type RbxDesignFoundationsV2Tokens = Types.RbxDesignFoundationsV2Tokens
+type RbxDesignFoundationsV4Tokens = Types.RbxDesignFoundationsV4Tokens
 type ColorToken = Types.ColorToken
 type Theme = StyleTypes.Theme
 
 local function mapColorTokensToFoundation(
 	uibloxTokens: BaseTokens,
-	foundationTokens: RbxDesignFoundationsV2Tokens
+	foundationTokens: RbxDesignFoundationsV4Tokens
 ): BaseTokens
 	uibloxTokens.Semantic.Color = Cryo.Dictionary.join(uibloxTokens.Semantic.Color, foundationTokens.Semantic.Color)
 	uibloxTokens.Global.Color = Cryo.Dictionary.join(uibloxTokens.Global.Color, foundationTokens.Global.Color)
@@ -26,7 +26,7 @@ local function mapColorTokensToFoundation(
 	return uibloxTokens
 end
 
-local function getOnHoverColor(bgColor: ColorToken, foundationTokens: RbxDesignFoundationsV2Tokens): ColorToken
+local function getOnHoverColor(bgColor: ColorToken, foundationTokens: RbxDesignFoundationsV4Tokens): ColorToken
 	local stateLayer = foundationTokens.Color.State.Hover
 
 	if stateLayer.Transparency == 1 then
@@ -47,7 +47,7 @@ local function getOnHoverColor(bgColor: ColorToken, foundationTokens: RbxDesignF
 	end
 end
 
-local function mapThemeToFoundation(theme: Theme, foundationTokens: RbxDesignFoundationsV2Tokens): Theme
+local function mapThemeToFoundation(theme: Theme, foundationTokens: RbxDesignFoundationsV4Tokens): Theme
 	local mapping = {
 		BackgroundDefault = foundationTokens.Color.Surface.Surface_0,
 		BackgroundContrast = foundationTokens.Color.Surface.Surface_100,
@@ -120,7 +120,7 @@ local FOUNDATION_FLAT_KEYS = {
 	"Typography",
 }
 
-local function addFoundationFlatKeys(uibloxTokens: BaseTokens, foundationTokens: RbxDesignFoundationsV2Tokens): Tokens
+local function addFoundationFlatKeys(uibloxTokens: BaseTokens, foundationTokens: RbxDesignFoundationsV4Tokens): Tokens
 	for _, key in FOUNDATION_FLAT_KEYS do
 		uibloxTokens[key] = foundationTokens[key]
 	end

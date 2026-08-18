@@ -11,6 +11,7 @@ local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbili
 local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(Players.LocalPlayer)
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
+local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
 
 local InputSlots = {}
 InputSlots.__index = InputSlots
@@ -28,10 +29,12 @@ local function shallow_equal(t1, t2)
 	return true
 end
 
-function InputSlots.setupSlotActions(player)
+function InputSlots.setupSlotActions(player, isServerAuthority)
 	local function getAbilityAction(abilityName)
 		if not abilityName then return nil end
-		local inputContexts = player:FindFirstChild("InputContexts")
+		local inputContexts = if not FFlagUserPlayerScriptsPlayerControlState or isServerAuthority then
+			player:FindFirstChild("InputContexts") else
+			script.Parent.Parent:FindFirstChild("InputContexts")
 		if not inputContexts then return nil end
 		local characterContext = inputContexts:FindFirstChild("CharacterContext")
 		if not characterContext then return nil end
@@ -40,12 +43,14 @@ function InputSlots.setupSlotActions(player)
 		return action
 	end
 
-	RunService:BindToSimulation(function(dt)
-		if avatarAbilitiesInterface:isEnabled() then
-			InputReplication.FireCustomInputs(player)
-			InputReplication.SendInputToCCLCharacter(player)
-		end
-	end, Enum.StepFrequency.Hz60)
+	if not FFlagUserPlayerScriptsPlayerControlState then
+		RunService:BindToSimulation(function(dt)
+			if avatarAbilitiesInterface:isEnabled() then
+				InputReplication.FireCustomInputs(player)
+				InputReplication.SendInputToCCLCharacter(player)
+			end
+		end, Enum.StepFrequency.Hz60)
+	end
 
 	local previousSelectedSlotForAbility = {}
 
@@ -123,34 +128,51 @@ function InputSlots.setupSlotActions(player)
 	updateSlotMap()
 
 	task.spawn(function()
-		local inputContexts = player:WaitForChild("InputContexts", math.huge)
+		local function UpdateAbilityInPCS(player, abilityName, state)
+			local character = player.Character
+			if not character then return end
+			local pcs = character:FindFirstChild("PlayerControlState")
+			if not pcs then return end
+			pcs:UpdateFields({
+				[abilityName] = state
+			})
+		end
+		local inputContexts = if not FFlagUserPlayerScriptsPlayerControlState or isServerAuthority then
+			player:WaitForChild("InputContexts", math.huge) else
+			script.Parent.Parent:FindFirstChild("InputContexts")
 		local characterContext = inputContexts:WaitForChild("CharacterContext")
 		for slot = 1, NUM_ABILITY_SLOTS do
 			local abilityAction = characterContext:WaitForChild("AbilityAction" .. tostring(slot))
 			actionsPerSlot[slot] = abilityAction
 			abilityAction.StateChanged:Connect(function(value)
-				local actionInSlot = getAbilityAction(slotMap[slot])
-				if actionInSlot then
-					if FFlagUserPlayerScriptsSAuthDirectAPIs then
-						local binding = actionInSlot:FindFirstChild("ScriptableBinding")
-						if binding then
-							binding:Fire(value)
-						end
-					elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-						local binding = actionInSlot:FindFirstChild("ScriptableBinding")
-						if binding then
-							local success, result = pcall(function()
-								binding.Type = Enum.InputBindingType.Scriptable
+				if FFlagUserPlayerScriptsPlayerControlState then
+					if slotMap[slot] ~= nil and slotMap[slot] ~= "" then
+						UpdateAbilityInPCS(player, slotMap[slot], value)
+					end
+				else
+					local actionInSlot = getAbilityAction(slotMap[slot])
+					if actionInSlot then
+						if FFlagUserPlayerScriptsSAuthDirectAPIs then
+							local binding = actionInSlot:FindFirstChild("ScriptableBinding")
+							if binding then
 								binding:Fire(value)
-							end)
-							if not success then
+							end
+						elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
+							local binding = actionInSlot:FindFirstChild("ScriptableBinding")
+							if binding then
+								local success, result = pcall(function()
+									binding.Type = Enum.InputBindingType.Scriptable
+									binding:Fire(value)
+								end)
+								if not success then
+									actionInSlot:Fire(value)
+								end
+							else
 								actionInSlot:Fire(value)
 							end
 						else
 							actionInSlot:Fire(value)
 						end
-					else
-						actionInSlot:Fire(value)
 					end
 				end
 			end)

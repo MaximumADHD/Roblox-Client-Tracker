@@ -79,7 +79,7 @@ local function TestProviders(props: any)
 			}, {
 		ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, {
 			FoundationProvider = Roact.createElement(Foundation.FoundationProvider, {
-				theme = Foundation.Enums.Theme.Dark,
+				colorMode = Foundation.Enums.ColorMode.Dark,
 			}, {
 				LayoutValuesProvider = Roact.createElement(LayoutValuesContext.Provider, {
 					value = props.layoutValues or CreateLayoutValues(false),

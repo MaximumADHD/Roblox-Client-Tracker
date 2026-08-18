@@ -3,25 +3,17 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local Wrappers = require(Foundation.Utility.Wrappers)
 local LocalizationService = Wrappers.Services.LocalizationService
-local GuiService = Wrappers.Services.GuiService
 
 local Constants = require(Localization.Constants)
-local Flags = require(Foundation.Utility.Flags)
 local GeneratedTranslations = require(Foundation.Generated.Translations.GeneratedTranslations)
 
-local localizationTableParent = if Flags.FoundationTranslatorUseScript then Foundation else GuiService
-
+local localizationTableParent = Foundation
 local function createFoundationLocalizationTable(parent: Instance): LocalizationTable | nil
 	local existingLocalizationTable = parent:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME)
 	if existingLocalizationTable ~= nil and existingLocalizationTable:IsA("LocalizationTable") then
 		-- Overwrites the existing translations with this set
 		existingLocalizationTable:SetEntries(GeneratedTranslations)
-
-		if Flags.FoundationTranslatorLocalizationRecovery then
-			return existingLocalizationTable
-		end
-
-		return nil
+		return existingLocalizationTable
 	end
 
 	local FoundationLocalizationTable = Instance.new("LocalizationTable")
@@ -30,28 +22,17 @@ local function createFoundationLocalizationTable(parent: Instance): Localization
 	FoundationLocalizationTable.SourceLocaleId = "en-us"
 	FoundationLocalizationTable:SetEntries(GeneratedTranslations)
 	FoundationLocalizationTable.Parent = parent
-
-	if Flags.FoundationTranslatorLocalizationRecovery then
-		return FoundationLocalizationTable
-	end
-
-	return nil
+	return FoundationLocalizationTable
 end
 
 local localizationTable = createFoundationLocalizationTable(localizationTableParent)
 
-local FALLBACK_ENGLISH_TRANSLATOR = (
-	localizationTableParent:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME) :: LocalizationTable
-):GetTranslator("en-us") :: Translator
-
 local translatorsCache = {}
 
 local function getTranslatorForLocale(locale)
-	if Flags.FoundationTranslatorLocalizationRecovery then
-		if localizationTable == nil or localizationTable.Parent == nil then
-			localizationTable = createFoundationLocalizationTable(localizationTableParent)
-			translatorsCache = {}
-		end
+	if localizationTable == nil or localizationTable.Parent == nil then
+		localizationTable = createFoundationLocalizationTable(localizationTableParent)
+		translatorsCache = {}
 	end
 
 	local translator = translatorsCache[locale]
@@ -81,11 +62,7 @@ local function formatByKeyWithFallback(key, args, translator)
 	elseif translator.LocaleId == "zh-cjv" then
 		return ""
 	else
-		if Flags.FoundationTranslatorLocalizationRecovery then
-			return getTranslatorForLocale("en-us"):FormatByKey(key, args)
-		end
-
-		return FALLBACK_ENGLISH_TRANSLATOR:FormatByKey(key, args)
+		return getTranslatorForLocale("en-us"):FormatByKey(key, args)
 	end
 end
 

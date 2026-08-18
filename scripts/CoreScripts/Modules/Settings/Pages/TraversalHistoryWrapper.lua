@@ -41,7 +41,7 @@ local function createTraversalHistoryWrapper()
 	local tree = ReactRoblox.createRoot(this.Page)
 	tree:render(
 		React.createElement(FoundationProvider, {
-			theme = Foundation.Enums.Theme.Dark,
+			colorMode = Foundation.Enums.ColorMode.Dark,
 			device = Utils.getDeviceType(),
 		}, {
 			Localization = React.createElement(LocalizationProvider, {

@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 local ContextStack = require(Packages.ReactUtils).ContextStack
+local Flags = require(Foundation.Utility.Flags)
 
 local CursorProvider = require(Providers.Cursor)
 local OverlayProvider = require(Providers.Overlay)
@@ -43,7 +44,9 @@ local function FoundationProvider(props: FoundationProviderProps)
 		React.createElement(ElevationProvider, nil),
 		React.createElement(PreferencesProvider, preferences),
 		React.createElement(StyleProvider, {
+			themeName = if Flags.FoundationThemeName then props.themeName else nil,
 			colorMode = props.colorMode,
+			-- **Deprecated**. Use `colorMode` instead. Kept for backward compatibility.
 			theme = props.theme,
 			device = props.device,
 			derives = props.derives,

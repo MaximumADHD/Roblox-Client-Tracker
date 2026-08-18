@@ -7,7 +7,6 @@ local Dash = require(Packages.Dash)
 
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 local Dropdown = require(Foundation.Components.Dropdown)
-local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 local InputVariant = require(Foundation.Enums.InputVariant)
 local Text = require(Foundation.Components.Text)
@@ -134,7 +133,7 @@ local function DemoDropdown(props: DemoDropdownProps): React.ReactNode
 		isDisabled = props.isDisabled,
 		items = if props.items then props.items else getItems(props.hasIcon),
 		size = props.size,
-		variant = if Flags.FoundationDropdownVariant then props.variant else nil :: never,
+		variant = props.variant,
 		label = props.label,
 		hint = props.hint,
 		width = props.width,
@@ -172,22 +171,20 @@ end
 local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
 	local controls = props.controls
 	local items: { DropdownItem }? = nil
-	if Flags.FoundationBaseMenuBeta then
-		local leadingMode = controls.leading
-		local trailingMode = controls.trailing
-		local baseTexts = { "Action one", "Action two", "Action three", "Other one", "Other two", "Other three" }
-		local built: { DropdownItem } = {}
-		for index, text in baseTexts do
-			table.insert(built, {
-				id = `item-{index}`,
-				text = text,
-				leading = leadingFor(leadingMode, index),
-				trailing = trailingFor(trailingMode, index),
-				isDisabled = index == 5,
-			})
-		end
-		items = built
+	local leadingMode = controls.leading
+	local trailingMode = controls.trailing
+	local baseTexts = { "Action one", "Action two", "Action three", "Other one", "Other two", "Other three" }
+	local built: { DropdownItem } = {}
+	for index, text in baseTexts do
+		table.insert(built, {
+			id = `item-{index}`,
+			text = text,
+			leading = leadingFor(leadingMode, index),
+			trailing = trailingFor(trailingMode, index),
+			isDisabled = index == 5,
+		})
 	end
+	items = built
 	return React.createElement(DemoDropdown, {
 		label = controls.label,
 		size = controls.size,
@@ -244,12 +241,6 @@ local function SizesStory(_props: { controls: Controls }): React.ReactNode
 end
 
 local function VariantsStory(_props: { controls: Controls }): React.ReactNode
-	if not Flags.FoundationDropdownVariant then
-		return React.createElement(Text, {
-			Text = "Enable FoundationDropdownVariant to preview Dropdown variants.",
-			tag = "auto-xy text-body-medium content-muted",
-		})
-	end
 	return React.createElement(View, {
 		tag = "col gap-xlarge size-full-0 auto-y",
 	}, {
@@ -499,13 +490,6 @@ local function ScrollToSelectionStory(_props: { controls: Controls }): React.Rea
 end
 
 local function LeadingAccessoriesStory(_props: { controls: Controls }): React.ReactNode
-	if not Flags.FoundationBaseMenuBeta then
-		return React.createElement(Text, {
-			Text = "Enable FoundationBaseMenuBeta to preview leading accessories.",
-			tag = "auto-xy text-body-medium content-muted",
-		})
-	end
-
 	local iconItems: { DropdownItem } = {
 		{ id = "edit", text = "Edit", leading = BuilderIcons.Icon.Pencil },
 		{ id = "share", text = "Share", leading = BuilderIcons.Icon.PaperAirplane },
@@ -555,13 +539,6 @@ local function LeadingAccessoriesStory(_props: { controls: Controls }): React.Re
 end
 
 local function TrailingAccessoriesStory(_props: { controls: Controls }): React.ReactNode
-	if not Flags.FoundationBaseMenuBeta then
-		return React.createElement(Text, {
-			Text = "Enable FoundationBaseMenuBeta to preview trailing accessories.",
-			tag = "auto-xy text-body-medium content-muted",
-		})
-	end
-
 	local hintItems: { DropdownItem } = {
 		{ id = "b", text = "Bold", trailing = { type = "Hint", text = "\u{2318}B" } :: any },
 		{ id = "i", text = "Italic", trailing = { type = "Hint", text = "\u{2318}I" } :: any },
@@ -625,13 +602,6 @@ local function TrailingAccessoriesStory(_props: { controls: Controls }): React.R
 end
 
 local function CheckColumnStory(_props: { controls: Controls }): React.ReactNode
-	if not Flags.FoundationBaseMenuBeta then
-		return React.createElement(Text, {
-			Text = "Enable FoundationBaseMenuBeta to preview the Apple-style check column.",
-			tag = "auto-xy text-body-medium content-muted",
-		})
-	end
-
 	-- The selected item gets a checkmark, and every other row reserves the
 	-- check column slot so titles stay aligned — same behavior Apple's menus
 	-- use. The two dropdowns below differ only in their selected value to
@@ -683,17 +653,17 @@ return {
 	},
 	controls = {
 		size = Dash.values(InputSize),
-		variant = if Flags.FoundationDropdownVariant then Dash.values(InputVariant) else nil :: never,
+		variant = Dash.values(InputVariant),
 		isDisabled = false,
 		hasError = false,
-		hasIcon = if Flags.FoundationBaseMenuBeta then nil :: never else true,
+		hasIcon = nil :: never,
 		hasPlaceholder = false,
 		hasHint = false,
 		label = "Dropdown Label",
 		placeholder = "Choose an option",
 		hint = "Optional hint text",
 		width = 400,
-		leading = if Flags.FoundationBaseMenuBeta then { "Icon", "Avatar", "Mixed", "None" } else nil,
-		trailing = if Flags.FoundationBaseMenuBeta then { "Hint", "Badge", "Mixed", "None" } else nil,
+		leading = { "Icon", "Avatar", "Mixed", "None" },
+		trailing = { "Hint", "Badge", "Mixed", "None" },
 	},
 }

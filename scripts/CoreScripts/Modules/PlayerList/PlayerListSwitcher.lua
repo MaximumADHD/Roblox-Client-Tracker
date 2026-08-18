@@ -22,6 +22,8 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 local PlayerListInitialVisibleState = require(PlayerList.PlayerListInitialVisibleState)
 
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagPlayerListTwoTabsOnLegacy = PlayerListPackage.Flags.FFlagPlayerListTwoTabsOnLegacy
+local PlatformLeaderboardContainer = PlayerListPackage.Container.PlatformLeaderboardContainer
 
 local PlayerListSwitcher = Roact.PureComponent:extend("PlayerListSwitcher")
 
@@ -41,10 +43,12 @@ function PlayerListSwitcher:wrapWithUiModeStyleProvider(children)
 end
 
 function PlayerListSwitcher:render()
-	return Roact.createElement(
+	local innerTree = Roact.createElement(
 		LayoutValuesProvider,
 		{
-			layoutValues = CreateLayoutValues(if FFlagEnableMobilePlayerListOnConsole then false else TenFootInterface:IsEnabled()),
+			layoutValues = CreateLayoutValues(
+				if FFlagEnableMobilePlayerListOnConsole then false else TenFootInterface:IsEnabled()
+			),
 		},
 		self:wrapWithUiModeStyleProvider({
 			PlayerListApp = self.props.isSmallTouchDevice and Roact.createElement(PlayerListAppMobile, {
@@ -54,6 +58,10 @@ function PlayerListSwitcher:render()
 			}),
 		})
 	)
+	if FFlagPlayerListTwoTabsOnLegacy then
+		return Roact.createElement(PlatformLeaderboardContainer, {}, innerTree)
+	end
+	return innerTree
 end
 
 function PlayerListSwitcher:didUpdate()

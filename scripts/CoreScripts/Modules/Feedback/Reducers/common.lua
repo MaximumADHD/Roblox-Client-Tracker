@@ -11,11 +11,13 @@ local FeedbackModule = script.Parent.Parent
 local IncrementFeedbackSubmissionAttempts = require(FeedbackModule.Actions.IncrementFeedbackSubmissionAttempts)
 local ShowHelpModal = require(FeedbackModule.Actions.ShowHelpModal)
 local ShowOnboardingModal = require(FeedbackModule.Actions.ShowOnboardingModal)
+local SetSourceLanguageName = require(FeedbackModule.Actions.SetSourceLanguageName)
 
 return Rodux.createReducer({
 	numFeedbackSubmissionAttempts = nil,
 	showHelpModal = false,
 	showOnboardingModal = true,
+	sourceLanguageName = "",
 }, {
 	[IncrementFeedbackSubmissionAttempts.name] = function(state, action: { [string]: any })
 		return Cryo.Dictionary.join(state, {
@@ -30,6 +32,11 @@ return Rodux.createReducer({
 	[ShowOnboardingModal.name] = function(state, action: { [string]: any })
 		return Cryo.Dictionary.join(state, {
 			showOnboardingModal = action.onboardingModalVisible,
+		})
+	end,
+	[SetSourceLanguageName.name] = function(state, action: { [string]: any })
+		return Cryo.Dictionary.join(state, {
+			sourceLanguageName = action.sourceLanguageName,
 		})
 	end,
 })

@@ -88,10 +88,42 @@ function MakeupPreviewUtils.stripToHead(character: Model)
 	end
 end
 
--- Shared helper: creates a character from a description with an asset applied,
--- reduces it to a head-only preview, and returns the character Model.
-local function createHeadWithAsset(desc: HumanoidDescription, asset: Instance, assetType: Enum.AvatarAssetType?): Model?
-	addAssetToDescription(desc, asset, assetType)
+export type AccessoryEntry = { asset: Instance, assetType: Enum.AvatarAssetType? }
+
+--[[
+	Collects the Accessory children of a makeup-look folder (eyebrows, eyelashes)
+	paired with their AvatarAssetType. The asset type comes from makeupEntries,
+	which is indexed to match the folder's children (see MakeupPartGrid).
+]]
+function MakeupPreviewUtils.getFolderAccessories(folder: Folder, makeupEntries: { any }?): { AccessoryEntry }
+	local accessories: { AccessoryEntry } = {}
+	for i, child in ipairs(folder:GetChildren()) do
+		if child:IsA("Accessory") then
+			local assetType = if makeupEntries and makeupEntries[i] then makeupEntries[i].assetType else nil
+			table.insert(accessories, { asset = child :: Instance, assetType = assetType })
+		end
+	end
+	return accessories
+end
+
+-- Shared helper: creates a character from a description with an asset (and any
+-- additional accessories) applied, reduces it to a head-only preview, and
+-- returns the character Model.
+local function createHeadWithAsset(
+	desc: HumanoidDescription,
+	asset: Instance?,
+	assetType: Enum.AvatarAssetType?,
+	accessories: { AccessoryEntry }?
+): Model?
+	if asset then
+		addAssetToDescription(desc, asset, assetType)
+	end
+
+	if accessories then
+		for _, entry in ipairs(accessories) do
+			addAssetToDescription(desc, entry.asset, entry.assetType)
+		end
+	end
 
 	local character
 	local ok = pcall(function()
@@ -110,8 +142,16 @@ end
 --[[
 	Creates a head Model with the given asset applied using the LocalPlayer's appearance.
 	Used for the main preview viewport in the publish prompt.
+
+	For a makeup look, `asset` is the composited makeup Decal (may be nil when the
+	look contains no decals) and `accessories` carries the eyebrow/eyelash
+	accessories so they render on the head alongside the makeup.
 ]]
-function MakeupPreviewUtils.createMakeupHeadPreview(asset: Instance, assetType: Enum.AvatarAssetType?): Model?
+function MakeupPreviewUtils.createMakeupHeadPreview(
+	asset: Instance?,
+	assetType: Enum.AvatarAssetType?,
+	accessories: { AccessoryEntry }?
+): Model?
 	local desc
 	local localPlayer = Players.LocalPlayer
 	if localPlayer then
@@ -126,7 +166,7 @@ function MakeupPreviewUtils.createMakeupHeadPreview(asset: Instance, assetType: 
 		desc = Instance.new("HumanoidDescription")
 	end
 
-	return createHeadWithAsset(desc, asset, assetType)
+	return createHeadWithAsset(desc, asset, assetType, accessories)
 end
 
 --[[

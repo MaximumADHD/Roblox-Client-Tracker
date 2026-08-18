@@ -13,7 +13,6 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
-local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 local IconVariant = BuilderIcons.IconVariant
@@ -64,9 +63,7 @@ local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref
 	local composedRef = ReactUtils.useComposedRef(ref, setContainer)
 
 	local breakpoint = useBreakpoint(container)
-	local shouldWrapActions = if Flags.FoundationSystemBannerWrapActionsOnXSmall
-		then breakpoint == Breakpoint.XSmall
-		else breakpoint == Breakpoint.XSmall or breakpoint == Breakpoint.Small
+	local shouldWrapActions = breakpoint == Breakpoint.XSmall
 
 	local actions = React.useMemo(function()
 		return React.createElement(AlertActions, {

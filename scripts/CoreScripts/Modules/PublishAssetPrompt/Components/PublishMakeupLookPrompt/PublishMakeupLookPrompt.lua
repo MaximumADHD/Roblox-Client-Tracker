@@ -136,13 +136,17 @@ function PublishMakeupLookPrompt:updatePreviewModel()
 		return
 	end
 
+	local makeupEntries = self.props.makeupEntries
+
 	task.spawn(function()
 		local compositedDecal = MakeupPreviewUtils.compositeMakeupFolder(accessoryInstance)
-		if not compositedDecal or not self.isMounted then
+		local accessories = MakeupPreviewUtils.getFolderAccessories(accessoryInstance, makeupEntries)
+		if (not compositedDecal and #accessories == 0) or not self.isMounted then
 			return
 		end
 
-		local headModel = MakeupPreviewUtils.createMakeupHeadPreview(compositedDecal, Enum.AvatarAssetType.FaceMakeup)
+		local headModel =
+			MakeupPreviewUtils.createMakeupHeadPreview(compositedDecal, Enum.AvatarAssetType.FaceMakeup, accessories)
 		if headModel and self.isMounted then
 			local oldModel = self.state.previewModel
 			self:setState({ previewModel = headModel }, function()

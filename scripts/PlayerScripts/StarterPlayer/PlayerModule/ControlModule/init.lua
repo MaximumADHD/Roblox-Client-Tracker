@@ -33,6 +33,7 @@ local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag
 local FFlagUserPlayerScriptsUseReplicatedCameraAPI = FlagUtil.getUserFlag("UserPlayerScriptsUseReplicatedCameraAPI")
 local FFlagUserPlayerScriptsStopFireCameraAction = FlagUtil.getUserFlag("UserPlayerScriptsStopFireCameraAction")
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
+local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
 local FFlagUserPlayerScriptsFixSAuthRenderStepMove = FlagUtil.getUserFlag("UserPlayerScriptsFixSAuthRenderStepMove")
 local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlayerScriptsSupportMicroGamepad")
 local CONNECTIONS = {
@@ -40,7 +41,7 @@ local CONNECTIONS = {
 }
 
 local ActionController = require(script:WaitForChild("ActionController"))
-local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationC then require(script:WaitForChild("InputReplication")) else nil
+local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationC or FFlagUserPlayerScriptsPlayerControlState then require(script:WaitForChild("InputReplication")) else nil
 local InputSlots = if FFlagUserPlayerScriptsCCLIntegrationC then require(script:WaitForChild("InputSlots")) else nil
 local DynamicThumbstick
 if RunService:IsClient() then
@@ -287,6 +288,12 @@ function ControlModule:InitializeServerAuthority()
 			end
 			Players.PlayerAdded:Connect(_cloneInputs)
 		end
+		if FFlagUserPlayerScriptsPlayerControlState then
+			for _, player in Players:GetPlayers() do
+				InputReplication.createPlayerControlState(player)
+			end
+			Players.PlayerAdded:Connect(InputReplication.createPlayerControlState)
+		end
 		-- Server processes all input
 		if (FFlagUserPSSpecifySimulationFrequency) then
 			RunService:BindToSimulation(function(dt)
@@ -302,9 +309,14 @@ function ControlModule:InitializeServerAuthority()
 			end)		
 		end
 	else
+		if FFlagUserPlayerScriptsPlayerControlState then
+			InputReplication.watchForPlayerControlState(Players.LocalPlayer)
+		end
 		-- Fire Custom Inputs
 		RunService:BindToRenderStep("CameraInput", Enum.RenderPriority.Last.Value, function()
-			if FFlagUserPlayerScriptsCCLIntegrationC then
+			if FFlagUserPlayerScriptsPlayerControlState then
+				InputReplication.writeInputToPCS(Players.LocalPlayer, self, true)
+			elseif FFlagUserPlayerScriptsCCLIntegrationC then
 				InputReplication.FireCustomInputs(Players.LocalPlayer)
 			else
 				_fireCustomInputs(Players.LocalPlayer)
@@ -658,7 +670,7 @@ function ControlModule:initialize(data, playerData)
 
 	ActionController.initializeActions(self.data, self.playerData)
 	if FFlagUserPlayerScriptsCCLIntegrationC then
-		InputSlots.setupSlotActions(self.playerData.player)
+		InputSlots.setupSlotActions(self.playerData.player, self.data.isServerAuthority)
 	end
 end
 
@@ -698,11 +710,22 @@ function ControlModule:Update(data, playerData, dt)
 			moveVector = self:updateVRMoveVector(moveVector)
 		end
 
-		if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
-			and (not FFlagUserPlayerScriptsCCLIntegrationC or not avatarAbilitiesInterface:isEnabled()) then
-			self.moveFunction(Players.LocalPlayer, moveVector, false)
-			-- And make them jump if needed
-			self.humanoid.Jump = playerData.isJumping
+		if FFlagUserPlayerScriptsPlayerControlState then
+			if not data.isServerAuthority then
+				if FFlagUserPlayerScriptsCCLIntegrationC and avatarAbilitiesInterface:isEnabled() then
+					InputReplication.writeInputToPCS(Players.LocalPlayer, self, false)
+				else
+					self.moveFunction(Players.LocalPlayer, moveVector, false)
+					self.humanoid.Jump = playerData.isJumping
+				end
+			end
+		else
+			if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
+				and (not FFlagUserPlayerScriptsCCLIntegrationC or not avatarAbilitiesInterface:isEnabled()) then
+				self.moveFunction(Players.LocalPlayer, moveVector, false)
+				-- And make them jump if needed
+				self.humanoid.Jump = playerData.isJumping
+			end
 		end
 	end
 end
@@ -877,13 +900,19 @@ function ControlModule:GetClickToMoveController()
 end
 
 function ControlModule:ProcessInputs(player:Player, dt:number)
-
 	if FFlagUserPlayerScriptsCCLIntegrationC then
 		local thisAvatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
-		-- when CCL is enabled, server inputs are instead sent to the character through SendInputToCCLCharacter
+		
+		-- when CCL is enabled, server inputs are instead handled within CCL code
 		if not thisAvatarAbilitiesInterface:isEnabled() then
-			InputReplication.SendInputToHumanoidForServerAuth(player)
+			if FFlagUserPlayerScriptsPlayerControlState then
+				InputReplication.processPCSInputs(player)
+			else
+				InputReplication.SendInputToHumanoidForServerAuth(player)
+			end
 		end
+	elseif FFlagUserPlayerScriptsPlayerControlState then
+		InputReplication.processPCSInputs(player)
 	else
 		local character = player.Character
 		if character == nil then

@@ -15,6 +15,7 @@ local Button = require(AppRoot.Button.Button)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 
 local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local ToastFrame = Roact.PureComponent:extend("ToastFrame")
 
@@ -76,6 +77,9 @@ function ToastFrame:render()
 	local onActivated = buttonProps and buttonProps.onActivated
 	local padding = self.props.padding
 	local subtitleTextProps = self.props.subtitleTextProps
+	-- Matches the gap ToastContainer reserves next to the button, so the message frame
+	-- gives up exactly the space the layout spends.
+	local buttonGap = if UIBloxConfig.useFoundationToastButtonSizing then padding else 0
 
 	local contentVerticalAlignment: Enum.VerticalAlignment?
 	if not subtitleTextProps then
@@ -117,8 +121,8 @@ function ToastFrame:render()
 			Position = self.props.position,
 			Size = if not buttonProps
 				then self.props.size
-				elseif isCompact then UDim2.new(1, 0, 1, -buttonHeight)
-				else UDim2.new(1, -buttonWidth, 1, 0),
+				elseif isCompact then UDim2.new(1, 0, 1, -buttonHeight - buttonGap)
+				else UDim2.new(1, -buttonWidth - buttonGap, 1, 0),
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,

@@ -1123,7 +1123,7 @@ local function rulesGenerator(
 		PaddingRules(paddings, margins)
 	)
 
-	local theme: { StyleRule } = Dash.joinArrays(
+	local colorMode: { StyleRule } = Dash.joinArrays(
 		DefaultColorRules(tokens),
 		DeprecatedColorRules(colors),
 		BackgroundRules(colors, variants),
@@ -1131,7 +1131,7 @@ local function rulesGenerator(
 		ContentRules(colors, variants)
 	)
 
-	return common, size, theme
+	return common, size, colorMode
 end
 
 return {

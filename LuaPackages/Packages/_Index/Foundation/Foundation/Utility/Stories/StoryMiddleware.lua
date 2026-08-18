@@ -92,7 +92,7 @@ local function StoryMiddleware(story)
 	-- A component wrapping each story in the StyleProvider
 	return function(storyProps: StoryProps)
 		local overlay = useCreateOverlay(storyProps)
-		local theme = ColorMode[storyProps.theme]
+		local colorMode = ColorMode[storyProps.theme]
 		local tokenOverrides = useTokenOverrides()
 
 		local devStorybookStoryProps = Types.toDeveloperStorybookStoryProps(storyProps)
@@ -116,7 +116,7 @@ local function StoryMiddleware(story)
 				PaddingRight = UDim.new(0, 10),
 			}),
 			FoundationContext = React.createElement(FoundationProvider, {
-				theme = theme,
+				colorMode = colorMode,
 				device = device,
 				preferences = preferences,
 				scale = preferences and preferences.scale,

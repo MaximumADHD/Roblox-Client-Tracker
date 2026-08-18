@@ -7,6 +7,7 @@ local React = require(Packages.React)
 local Components = Foundation.Components
 local Checkbox = require(Components.Checkbox)
 local Divider = require(Components.Divider)
+local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Components.Icon)
 local InputSize = require(Foundation.Enums.InputSize)
 local ListItemInputType = require(Foundation.Enums.ListItemInputType)
@@ -15,6 +16,7 @@ local Text = require(Components.Text)
 local Toggle = require(Components.Toggle)
 local Types = require(Foundation.Components.Types)
 local View = require(Components.View)
+local devAssert = require(Foundation.Utility.devAssert)
 local escapeRichText = require(Foundation.Utility.escapeRichText)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -32,29 +34,68 @@ type ListItemInputType = ListItemInputType.ListItemInputType
 
 local RADIO_VALUE = "radio"
 
+-- The trailing input accessory. Use the `"Chevron"`/`"None"` string shorthands for the static accessories,
+-- or a config object to select an interactive control (Checkbox / Toggle / Radio) with its checked state
+-- and an `onActivated(checked)` handler that activates only the input (see `ListItemProps.input`).
+--
+-- `Chevron`/`None` are not valid config-object `type`s: a chevron is a static icon and `None` renders
+-- nothing, so `isChecked`/`onActivated` would be dead. Pass them as the string shorthands instead.
+export type ListItemInput = "Chevron" | "None" | {
+	type: "Checkbox" | "Toggle" | "Radio",
+	isChecked: boolean?,
+	onActivated: ((boolean) -> ())?,
+}
+
 export type ListItemProps = {
-	-- The leading accessory, can be a string for an icon name or a ListAccessory config object.
+	-- Leading accessory: an icon-name string, or a `ListAccessory` config (Avatar / Media / Icon).
 	leading: string? | ListAccessory,
-	-- The trailing accessory, which allows for any custom component.
+	-- Custom trailing content rendered in the trailing slot (alongside or instead of an input accessory).
 	trailing: React.ReactNode?,
+	-- Row title: a plain string, or `{ title, metadata }` to render secondary metadata next to the title.
 	title: string? | {
 		title: string?,
 		metadata: string?,
 	},
+	-- Secondary description line shown under the title.
 	description: string?,
-	-- onActivated will render an activated state for the ListItem. It can be a function or an object to specify inputType and isChecked for controlled Checkbox, Toggle, or Radio inputs.
+	-- Activates the WHOLE item: runs when the row is tapped. As a plain function the trailing accessory
+	-- defaults to a chevron.
+	--
+	-- Activation belongs in exactly one place — either here (whole item) OR on `input.onActivated` (the
+	-- trailing input), never both. Passing both throws in dev. Priority: when the trailing input is
+	-- tapped, its own `input.onActivated` runs if set; otherwise it falls back to this item-level handler.
+	--
+	-- **DEPRECATED** The config-object form `{ onActivated, inputType, isChecked }` is the legacy coupled
+	-- API that also selected the input. Prefer a plain function together with the `input` prop.
 	onActivated: (() -> () | {
 		onActivated: () -> (),
-		-- The type of input for the ListItem, can be Checkbox, Toggle, or Radio, or Chevron if not provided.
 		inputType: ListItemInputType?,
 		isChecked: boolean?,
 	})?,
+	-- Trailing input accessory, chosen independently of whether the row is tappable. Either the `"Chevron"`/
+	-- `"None"` string shorthands, or `{ type, isChecked, onActivated }` for an interactive control (Checkbox
+	-- / Toggle / Radio) where `onActivated(checked)` activates ONLY the input and takes priority over the
+	-- item-level `onActivated`. Set one owner of activation, not both.
+	input: ListItemInput?,
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {}
 
 local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(listItemProps, defaultProps)
+
+	-- A ListItem can be activated in exactly one place: either the whole item is tappable via a
+	-- top-level `onActivated`, or the trailing input handles its own activation via `input.onActivated`.
+	-- Allowing both is ambiguous, so it is disallowed.
+	if Flags.FoundationListItemDecoupledInput then
+		local hasItemOnActivated = props.onActivated ~= nil
+		local hasInputOnActivated = typeof(props.input) == "table" and (props.input :: any).onActivated ~= nil
+		devAssert(
+			not (hasItemOnActivated and hasInputOnActivated),
+			"ListItem: set `onActivated` on the item or on `input`, not both."
+		)
+	end
+
 	local listContext = useList()
 	local size: InputSize = listContext.size or InputSize.Medium
 
@@ -74,14 +115,38 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 		return nil :: any
 	end, { props.onActivated, isConfigTable } :: { any })
 
-	local inputType: ListItemInputType? = React.useMemo(function()
+	-- The trailing accessory, resolved independently of row tappability. `input` wins when provided;
+	-- otherwise it falls back to the deprecated `onActivated` config object, and finally to a plain
+	-- `onActivated` function (which implies a chevron for backward compatibility). Pass
+	-- `input = ListItemInputType.None` for a tappable row with no trailing accessory.
+	type ResolvedInput = { type: ListItemInputType, isChecked: boolean?, onActivated: ((boolean) -> ())? }?
+	local resolvedInput: ResolvedInput = React.useMemo(function(): ResolvedInput
+		if not Flags.FoundationListItemDecoupledInput then
+			return nil
+		end
+		if props.input ~= nil then
+			if typeof(props.input) == "table" then
+				local config = props.input :: any
+				return { type = config.type, isChecked = config.isChecked, onActivated = config.onActivated }
+			end
+			return { type = props.input :: any }
+		elseif isConfigTable then
+			local config = props.onActivated :: any
+			return { type = config.inputType or ListItemInputType.Chevron, isChecked = config.isChecked :: boolean? }
+		elseif props.onActivated ~= nil then
+			return { type = ListItemInputType.Chevron }
+		end
+		return nil
+	end, { props.onActivated, props.input, isConfigTable } :: { any })
+
+	local legacyInputType: ListItemInputType? = React.useMemo(function()
 		if isConfigTable then
 			return (props.onActivated :: any).inputType :: any
 		end
 		return nil
 	end, { props.onActivated, isConfigTable } :: { any })
 
-	local isChecked: boolean? = React.useMemo(function()
+	local legacyIsChecked: boolean? = React.useMemo(function()
 		if isConfigTable then
 			return (props.onActivated :: any).isChecked :: any
 		end
@@ -110,11 +175,29 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 	end, { title })
 	props.testId = if props.testId then props.testId else `{listContext.testId}--item-{sanitizedTitle}`
 
-	local onInputTypeActivated = React.useCallback(function()
-		if onActivated then
+	local showInput = if Flags.FoundationListItemDecoupledInput
+		then resolvedInput ~= nil and resolvedInput.type ~= ListItemInputType.None
+		else props.onActivated ~= nil
+	local inputType: ListItemInputType? = if Flags.FoundationListItemDecoupledInput
+		then (if resolvedInput then resolvedInput.type else nil)
+		else legacyInputType
+	local isChecked: boolean? = if Flags.FoundationListItemDecoupledInput
+		then (if resolvedInput then resolvedInput.isChecked else nil)
+		else legacyIsChecked
+
+	-- The accessory's change handler takes priority; a plain row `onActivated` is the fallback so a
+	-- Checkbox/Toggle/Radio still activates a tappable row that didn't wire its own handler.
+	local onInputActivated = React.useCallback(function(checked: boolean)
+		if Flags.FoundationListItemDecoupledInput and resolvedInput and resolvedInput.onActivated then
+			resolvedInput.onActivated(checked)
+		elseif onActivated then
 			onActivated()
 		end
-	end, { onActivated })
+	end, { resolvedInput, onActivated } :: { unknown })
+
+	local onRadioValueChanged = React.useCallback(function(value: string)
+		onInputActivated(value == RADIO_VALUE)
+	end, { onInputActivated })
 
 	return React.createElement(View, {
 		tag = "col size-full-0 auto-y",
@@ -195,12 +278,16 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 								LayoutOrder = 2,
 							}, props.trailing)
 							else nil,
-						ActivatedIconContainer = if props.onActivated
+						ActivatedIconContainer = if showInput
 							then React.createElement(View, {
 								tag = "align-x-center align-y-center auto-xy",
 								LayoutOrder = 3,
 							}, {
 								ActivatedIcon = if inputType == nil
+										or (
+											Flags.FoundationListItemDecoupledInput
+											and inputType == ListItemInputType.Chevron
+										)
 									then React.createElement(Icon, {
 										name = BuilderIcons.Icon.ChevronLargeRight,
 										size = variantProps.icon.size,
@@ -210,7 +297,7 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 										RadioGroup.Root,
 										{
 											value = if isChecked then RADIO_VALUE else "",
-											onValueChanged = onInputTypeActivated,
+											onValueChanged = onRadioValueChanged,
 											Selectable = false,
 										},
 										React.createElement(RadioGroup.Item, {
@@ -223,7 +310,7 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 										if inputType == ListItemInputType.Checkbox then Checkbox else Toggle,
 										{
 											label = "",
-											onActivated = onInputTypeActivated,
+											onActivated = onInputActivated,
 											isChecked = isChecked,
 											size = size,
 											Selectable = false,

@@ -58,7 +58,7 @@ export type BadgeProps = {
 local defaultProps = {
 	variant = BadgeVariant.Contrast,
 	shape = BadgeShape.Pill,
-	size = BadgeSize.XSmall,
+	size = BadgeSize.Small,
 	testId = "--foundation-badge",
 }
 

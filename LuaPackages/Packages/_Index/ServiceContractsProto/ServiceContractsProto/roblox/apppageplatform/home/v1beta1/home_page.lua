@@ -129,6 +129,7 @@ type _HomePageResponseFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry },
 	localized_literals: { [string]: string },
+	request_id: string,
 }
 
 type _HomePageResponsePartialFields = {
@@ -136,6 +137,7 @@ type _HomePageResponsePartialFields = {
 	hydration_data: _roblox_apppageplatform_shared_v1beta1_hydration_content.HydrationContent?,
 	templates: { [string]: _roblox_apppageplatform_shared_v1beta1_template_entry.TemplateEntry }?,
 	localized_literals: { [string]: string }?,
+	request_id: string?,
 }
 
 export type HomePageResponse = typeof(setmetatable({} :: _HomePageResponseFields, {} :: _HomePageResponseImpl))
@@ -749,6 +751,7 @@ do
 			hydration_data = if data == nil or data.hydration_data == nil then nil else data.hydration_data,
 			templates = if data == nil or data.templates == nil then {} else data.templates,
 			localized_literals = if data == nil or data.localized_literals == nil then {} else data.localized_literals,
+			request_id = if data == nil or data.request_id == nil then "" else data.request_id,
 		}, _HomePageResponseImpl :: _HomePageResponseImpl)
 	end
 
@@ -795,6 +798,11 @@ do
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
+		end
+
+		if self.request_id ~= nil and self.request_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.request_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -854,6 +862,11 @@ do
 					self.localized_literals[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.request_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -907,6 +920,10 @@ do
 				newOutput[key] = value
 			end
 			output.localizedLiterals = newOutput
+		end
+
+		if self.request_id ~= nil and self.request_id ~= "" then
+			output.requestId = self.request_id
 		end
 
 		return output
@@ -976,6 +993,14 @@ do
 			end
 
 			self.localized_literals = newOutput
+		end
+
+		if input.request_id ~= nil then
+			self.request_id = input.request_id
+		end
+
+		if input.requestId ~= nil then
+			self.request_id = input.requestId
 		end
 
 		return self

@@ -74,7 +74,7 @@ end
 
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
+local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -101,7 +101,7 @@ if not GetFFlagChromeCentralizedConfiguration() then
 				and not (
 					FFlagRemoveFriendsChatUnibarEntrypoints
 					and ArgoPartyExperimentation.getIsRenameEnabled()
-					and FFlagExpChatEnableFriendsTab
+					and FFlagExpChatCanShowFriendsTab
 				)
 			then
 				table.insert(nineDot, 1, "connect_dropdown")

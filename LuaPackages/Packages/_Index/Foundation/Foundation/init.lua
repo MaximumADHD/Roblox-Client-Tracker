@@ -96,6 +96,7 @@ local StatusIndicatorSize = require(script.Enums.StatusIndicatorSize)
 local StatusIndicatorVariant = require(script.Enums.StatusIndicatorVariant)
 -- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 local Theme = require(script.Enums.Theme)
+local ThemeName = require(script.Enums.ThemeName)
 local ThumbnailSize = require(script.Enums.ThumbnailSize)
 local ThumbnailType = require(script.Enums.ThumbnailType)
 local UserPresence = require(script.Enums.UserPresence)
@@ -159,6 +160,7 @@ export type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 export type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 -- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 export type Theme = Theme.Theme
+export type ThemeName = ThemeName.ThemeName
 export type ThumbnailSize = ThumbnailSize.ThumbnailSize
 export type ThumbnailType = ThumbnailType.ThumbnailType
 export type UserPresence = UserPresence.UserPresence
@@ -264,6 +266,9 @@ export type IconButtonProps = IconButton.IconButtonProps
 
 local Image = require(script.Components.Image)
 export type ImageProps = Image.ImageProps
+
+local InputChip = require(script.Components.InputChip)
+export type InputChipProps = InputChip.InputChipProps
 
 local InputLabel = require(script.Components.InputLabel)
 export type InputLabelProps = InputLabel.InputLabelProps
@@ -405,6 +410,7 @@ local Foundation = strict({
 	Icon = Icon,
 	IconButton = IconButton,
 	Image = Image,
+	InputChip = InputChip,
 	InputLabel = InputLabel,
 	KeyLabel = KeyLabel,
 	Knob = Knob,
@@ -538,6 +544,7 @@ local Foundation = strict({
 		StatusIndicatorVariant = StatusIndicatorVariant,
 		-- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 		Theme = Theme,
+		ThemeName = ThemeName,
 		ThumbnailType = ThumbnailType,
 		ThumbnailSize = ThumbnailSize,
 		-- **DEPRECATED**: ToggleSize is deprecated. Use InputSize instead.
@@ -550,6 +557,7 @@ local Foundation = strict({
 	Utility = {
 		getStyleSheet = StyleSheetRegistry.getStyleSheet,
 		addStyleTags = StyleSheetRegistry.addStyleTags,
+		releaseStyleSheet = StyleSheetRegistry.releaseStyleSheet,
 		getTokens = Tokens.getTokens,
 		blendColors = require(script.Utility.blendColors),
 		composeStyleVariant = require(script.Utility.composeStyleVariant),

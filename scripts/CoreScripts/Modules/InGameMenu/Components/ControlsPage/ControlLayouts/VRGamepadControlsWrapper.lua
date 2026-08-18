@@ -35,7 +35,7 @@ if FFlagHelpPageMountVR then
                 localization = locales,
             }, {
                 FoundationProvider = React.createElement(FoundationProvider, {
-                    theme = Foundation.Enums.Theme.Dark,
+                    colorMode = Foundation.Enums.ColorMode.Dark,
                     device = Utils.getDeviceType(),
                 }, {
                     HelpReactView = React.createElement(HelpReactView)

@@ -9,14 +9,11 @@ local React = require(CorePackages.Packages.React)
 local Foundation = require(CorePackages.Packages.Foundation)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
-local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
-
 local useTokens = Foundation.Hooks.useTokens
 local View = Foundation.View
 local Text = Foundation.Text
 local Image = Foundation.Image
 local PopoverSide = Foundation.Enums.PopoverSide
-local Traversal = CoreScriptsRoactCommon.Traversal
 
 local TraversalHistoryMenu = require(RobloxGui.Modules.Settings.Components.Traversal.TraversalHistoryMenu)
 
@@ -24,7 +21,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsIncreaseIconSize = game:DefineFastFlag("MenuButtonsIncreaseIconSize", false)
-local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 local FFlagIEMFocusNavSupportNewButtons = require(RobloxGui.Modules.Settings.Flags.FFlagIEMFocusNavSupportNewButtons)
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
 
@@ -269,9 +265,7 @@ local function MenuButton(props: Props)
 				idleButtonStateIsDown = true ,
 				currentPageChangeSignal = props.currentPageChangeSignal,
 				isDarkOnDarkMode = true,
-				menuSide = if FFlagFixTraversalHistoryMenuFixesV3
-					then (if props.isSmall then PopoverSide.Bottom else PopoverSide.Top)
-					else nil,
+				menuSide = if props.isSmall then PopoverSide.Bottom else PopoverSide.Top,
 			})
 		else nil,
 	})

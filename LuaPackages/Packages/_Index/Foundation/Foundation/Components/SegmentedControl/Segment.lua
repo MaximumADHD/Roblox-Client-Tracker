@@ -22,6 +22,7 @@ type InputSize = InputSize.InputSize
 type ColorStyleValue = Types.ColorStyleValue
 type SegmentedControlVariant = SegmentedControlVariant.SegmentedControlVariant
 
+local devAssert = require(Foundation.Utility.devAssert)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -62,12 +63,10 @@ local function Segment(props: SegmentProps, ref: React.Ref<GuiObject>?)
 		if Flags.FoundationSegmentedControlBeta then props.isActive else nil
 	)
 
-	if _G.__DEV__ == true then
-		assert(
-			props.text == nil or props.icon == nil,
-			"Segment: `text` and `icon` are mutually exclusive. Only one can be provided."
-		)
-	end
+	devAssert(
+		props.text == nil or props.icon == nil,
+		"Segment: `text` and `icon` are mutually exclusive. Only one can be provided."
+	)
 
 	local isIcon = props.icon ~= nil
 	local iconName: string?

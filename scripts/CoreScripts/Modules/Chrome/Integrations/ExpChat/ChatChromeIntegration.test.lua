@@ -4,6 +4,11 @@
 -- the registered integration, that `activated` behaves identically in both flag
 -- states, and how `ensureOpenChat` sequences the handoff.
 --
+-- Also covers the `sideSheetPlacement` entrypoint-reorg gate, which moves with the
+-- Friends-tab *visibility* flag (`FFlagExpChatCanShowFriendsTab`), not `F`: the
+-- chat button is only relocated to the Unibar once the tab is actually shown, so
+-- the holdout (F on, CanShow off) keeps the legacy hidden-button (`None`) layout.
+--
 -- Strategy mirrors `ShopEntrypoint.test.lua`: the integration does all of its
 -- work at require time, so each scenario re-requires it under
 -- `jest.isolateModules` with a mocked `SharedFlags` table. Mocks are pinned at
@@ -32,6 +37,10 @@ local afterEach = JestGlobals.afterEach
 
 local GameSettings = UserSettings().GameSettings
 local originalChatVisible = GameSettings.ChatVisible
+
+-- Real enum (unmocked, same one the integration reads) so placement assertions
+-- track the source of truth rather than hard-coded strings.
+local SideSheetPlacement = require(CorePackages.Workspace.Packages.Chrome).Enums.SideSheetPlacement
 
 local lastRegisterProps: any = nil
 local lastIntegration: any = nil
@@ -304,11 +313,14 @@ jest.mock(CorePackages.Workspace.Packages.SharedExperimentDefinition, function()
 	return mockExperiments
 end)
 
+-- Mutable so the entrypoint-reorg (`sideSheetPlacement`) branch can be driven;
+-- the integration calls `getIsRenameEnabled` at require time.
+local mockRenameEnabled = false
 jest.mock(CorePackages.Workspace.Packages.SocialExperiments, function()
 	return {
 		ArgoPartyExperimentation = {
 			getIsRenameEnabled = function()
-				return false
+				return mockRenameEnabled
 			end,
 		},
 	}
@@ -341,6 +353,7 @@ local mockSharedFlags = {
 	FFlagChromeActivatedMappedSignal = false,
 	FFlagRemoveFriendsChatUnibarEntrypoints = false,
 	FFlagExpChatEnableFriendsTab = false,
+	FFlagExpChatCanShowFriendsTab = false,
 	FFlagExpChatPerfTracking = false,
 }
 jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
@@ -393,8 +406,11 @@ describe("ChatChromeIntegration chat-open capability", function()
 		chatWindowVisible = false
 		isSpatialValue = false
 		mockExperiments.isInExperienceUIVREnabled = false
+		mockRenameEnabled = false
 		mockSharedFlags.FFlagEnableConsoleExpControls = false
 		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
+		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
+		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
 	end)
 
 	afterEach(function()
@@ -529,6 +545,30 @@ describe("ChatChromeIntegration chat-open capability", function()
 			closeRobloxMenu()
 
 			expect(callOrder).toEqual({})
+		end)
+	end)
+
+	describe("side sheet placement", function()
+		-- The reorg gate follows CanShow, not F: the chat button is only relocated
+		-- to the Unibar once the Friends tab is actually shown. RemoveEntrypoints +
+		-- rename are the arm-constant preconditions; CanShow is what flips placement,
+		-- so the holdout (F on, CanShow off) keeps the legacy hidden-button layout.
+		it("SHOULD keep the chat button hidden (None) for the holdout WHEN CanShow is off", function()
+			mockRenameEnabled = true
+			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
+			mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
+			loadIntegration(true)
+
+			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.None)
+		end)
+
+		it("SHOULD relocate the chat button to the Unibar WHEN CanShow is on", function()
+			mockRenameEnabled = true
+			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
+			mockSharedFlags.FFlagExpChatCanShowFriendsTab = true
+			loadIntegration(true)
+
+			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.Unibar)
 		end)
 	end)
 end)

@@ -11,8 +11,6 @@ local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local View = require(Foundation.Components.View)
 
-local Flags = require(Foundation.Utility.Flags)
-
 export type SheetHeaderProps = {
 	hasCloseAffordance: boolean?,
 	children: React.ReactNode,
@@ -24,7 +22,7 @@ local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 
 	local innerScrollY = sheet.innerScrollY
 	local setHasHeader = sheet.setHasHeader
-	local hasFullBleed = if Flags.FoundationSheetFullBleed then sheet.hasFullBleed else nil
+	local hasFullBleed = sheet.hasFullBleed
 	local sheetType = sheet.sheetType
 	local closeSheet = sheet.closeSheet
 	local testId = sheet.testId
@@ -62,9 +60,7 @@ local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 					onActivated = closeSheet,
 					ref = closeAffordanceRef,
 					NextSelectionDown = contentStartRef,
-					variant = if Flags.FoundationSheetFullBleed and hasFullBleed
-						then CloseAffordanceVariant.OverMedia
-						else CloseAffordanceVariant.Utility,
+					variant = if hasFullBleed then CloseAffordanceVariant.OverMedia else CloseAffordanceVariant.Utility,
 					LayoutOrder = 2,
 					testId = `{testId}--header--close-affordance`,
 				})

@@ -72,7 +72,7 @@ export type DropdownProps = {
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
-	variant = if Flags.FoundationDropdownVariant then InputVariant.Standard else nil :: never,
+	variant = InputVariant.Standard,
 	width = UDim.new(0, 400),
 	size = InputSize.Medium,
 	testId = "--foundation-dropdown",
@@ -82,10 +82,6 @@ local sideConfig = { position = PopoverSide.Bottom, offset = 5 }
 
 local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(dropdownProps, defaultProps)
-	-- TODO: clean up with FFlagFoundationDropdownVariant
-	if Flags.FoundationDropdownVariant and props.variant == nil then
-		props.variant = InputVariant.Standard
-	end
 	local isMenuOpen, setIsMenuOpen = React.useState(false)
 	local inputRef = React.useRef(nil :: GuiObject?)
 	local inputInstance, setInputInstance = React.useState(nil :: GuiObject?)
@@ -137,7 +133,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 		DropdownControl = React.createElement(
 			DropdownControl,
 			withCommonProps(props, {
-				variant = if Flags.FoundationDropdownVariant then props.variant else nil :: never,
+				variant = props.variant,
 				onActivated = toggleIsMenuOpen,
 				hasError = props.hasError,
 				isDisabled = props.isDisabled,

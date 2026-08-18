@@ -26,7 +26,6 @@ local usePresentationContext = require(Foundation.Providers.Style.PresentationCo
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
-local Flags = require(Foundation.Utility.Flags)
 
 export type KnobProps = {
 	-- The size variant of the knob
@@ -88,10 +87,10 @@ local function Knob(knobProps: KnobProps)
 		View,
 		withCommonProps(props, {
 			Size = variantProps.knob.size,
-			isDisabled = if Flags.FoundationToggleVisualUpdate then props.isDisabled else nil,
+			isDisabled = props.isDisabled,
 		}),
 		{
-			Icon = if Flags.FoundationToggleVisualUpdate and props.icon
+			Icon = if props.icon
 				then React.createElement(
 					View,
 					{
@@ -148,7 +147,7 @@ local function Knob(knobProps: KnobProps)
 					ZIndex = 4,
 					testId = `{props.testId}--circle`,
 				}),
-			Shadow = if props.hasShadow and not (Flags.FoundationToggleVisualUpdate and props.isDisabled)
+			Shadow = if props.hasShadow and not props.isDisabled
 				then React.createElement(Image, {
 					tag = variantProps.knobShadow.tag,
 					imageStyle = if ReactIs.isBinding(knobStyle)

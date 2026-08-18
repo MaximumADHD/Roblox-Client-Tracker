@@ -18,6 +18,7 @@ local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("Use
 local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
 local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
+local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationC
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
@@ -148,69 +149,71 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	end
 end
 
-local function attemptCreateActionsIfAbsent(player: Player)
-	local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
+if not FFlagUserPlayerScriptsPlayerControlState then
+	local function attemptCreateActionsIfAbsent(player: Player)
+		local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
 
-	local function createAction(abilityName: string)
-		local inputContexts = player:FindFirstChild("InputContexts")
-		if not inputContexts then return end
-		local characterContext = inputContexts:FindFirstChild("CharacterContext")
-		if not characterContext then return end
-
-		local action = Instance.new("InputAction")
-		action.Name = abilityName .. "Action"
-		if FFlagUserPlayerScriptsUseScriptableBindings then
-			local scriptableBinding = Instance.new("InputBinding")
-			scriptableBinding.Name = "ScriptableBinding"
-			if FFlagUserPlayerScriptsSAuthDirectAPIs then scriptableBinding.Type = Enum.InputBindingType.Scriptable end
-			scriptableBinding.Parent = action
-		end
-		action.Parent = characterContext
-	end
-
-	if avatarAbilitiesInterface:isEnabled() then
-		local inputContexts = player:FindFirstChild("InputContexts")
-		if not inputContexts then
-			-- We aren't able to create new instances or wait while in a BindToSimulation update
-			-- Creating these objects will be done asynchronously. It will take two calls of attemptCreateActionsIfAbsent() to create the hierarchy
-			task.spawn(function()
-				InputReplication.CloneInputsIfAbsent(player)
-			end)
-		else
+		local function createAction(abilityName: string)
+			local inputContexts = player:FindFirstChild("InputContexts")
+			if not inputContexts then return end
 			local characterContext = inputContexts:FindFirstChild("CharacterContext")
-			if characterContext then
-				for _, abilityName in avatarAbilitiesInterface:GetAbilities() do
-					local action = characterContext:FindFirstChild(abilityName .. "Action")
-					if not action then
-						task.spawn(function()
-							createAction(abilityName)
-						end)
+			if not characterContext then return end
+
+			local action = Instance.new("InputAction")
+			action.Name = abilityName .. "Action"
+			if FFlagUserPlayerScriptsUseScriptableBindings then
+				local scriptableBinding = Instance.new("InputBinding")
+				scriptableBinding.Name = "ScriptableBinding"
+				if FFlagUserPlayerScriptsSAuthDirectAPIs then scriptableBinding.Type = Enum.InputBindingType.Scriptable end
+				scriptableBinding.Parent = action
+			end
+			action.Parent = characterContext
+		end
+
+		if avatarAbilitiesInterface:isEnabled() then
+			local inputContexts = player:FindFirstChild("InputContexts")
+			if not inputContexts then
+				-- We aren't able to create new instances or wait while in a BindToSimulation update
+				-- Creating these objects will be done asynchronously. It will take two calls of attemptCreateActionsIfAbsent() to create the hierarchy
+				task.spawn(function()
+					InputReplication.CloneInputsIfAbsent(player)
+				end)
+			else
+				local characterContext = inputContexts:FindFirstChild("CharacterContext")
+				if characterContext then
+					for _, abilityName in avatarAbilitiesInterface:GetAbilities() do
+						local action = characterContext:FindFirstChild(abilityName .. "Action")
+						if not action then
+							task.spawn(function()
+								createAction(abilityName)
+							end)
+						end
 					end
 				end
 			end
 		end
 	end
-end
 
-local function updatePlayer(player: Player)
-	attemptCreateActionsIfAbsent(player)
-	local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
-	if avatarAbilitiesInterface:isEnabled() then
-		InputReplication.SendInputToCCLCharacter(player)
-	end
-end
-
-if FFlagUserPlayerScriptsCCLIntegrationC then
-	Players.PlayerAdded:Connect(attemptCreateActionsIfAbsent)
-	for _, player in Players:GetPlayers() do
+	local function updatePlayer(player: Player)
 		attemptCreateActionsIfAbsent(player)
+		local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
+		if avatarAbilitiesInterface:isEnabled() then
+			InputReplication.SendInputToCCLCharacter(player)
+		end
 	end
 
-	RunService:BindToSimulation(function(dt)
+	if FFlagUserPlayerScriptsCCLIntegrationC then
+		Players.PlayerAdded:Connect(attemptCreateActionsIfAbsent)
 		for _, player in Players:GetPlayers() do
-			updatePlayer(player)
+			attemptCreateActionsIfAbsent(player)
 		end
-	end, Enum.StepFrequency.Hz60)
+
+		RunService:BindToSimulation(function(dt)
+			for _, player in Players:GetPlayers() do
+				updatePlayer(player)
+			end
+		end, Enum.StepFrequency.Hz60)
+	end
 end
 
 -- [[ End Input Setup ]]

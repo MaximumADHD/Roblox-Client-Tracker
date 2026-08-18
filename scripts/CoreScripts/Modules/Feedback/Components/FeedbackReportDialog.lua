@@ -14,6 +14,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 
 local FeedbackModule = script.Parent.Parent
 
@@ -22,6 +23,7 @@ local Constants = require(FeedbackModule.Resources.Constants)
 
 -- Thunks
 local SendFeedbackThunk = require(FeedbackModule.Thunks.SendFeedbackThunk)
+local GetSourceLanguageThunk = require(FeedbackModule.Thunks.GetSourceLanguageThunk)
 
 -- Actions
 local SetFeedbackFlowState = require(FeedbackModule.Actions.SetFeedbackFlowState)
@@ -46,6 +48,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableSendImageFeedbackToBackend =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSendImageFeedbackToBackend)
+local GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements =
+	require(RobloxGui.Modules.Flags.GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements)
 local FFlagEnableFeedbackSelectionUpdate = game:DefineFastFlag("EnableFeedbackSelectionUpdate", false)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
@@ -267,12 +271,60 @@ function FeedbackReportDialog:renderContents(localized)
 		local theme = style.Theme
 		local font = style.Font
 
+		-- The source string only exists for real translated text selections, so it is
+		-- hidden for images and generic object (ClassName) selections.
+		local showOriginalText = not self.state.shouldDisplayFeedbackImage
+			and not self.state.isGenericSelection
+			and self.state.feedbackOriginalText ~= nil
+			and self.state.feedbackOriginalText ~= ""
+
 		local feedbackReasonOptions = {
 			localized.untranslated,
 			localized.accuracyIssue,
 			localized.spellingOrGrammarIssue,
 			localized.inappropriateOrDerogatory,
 		}
+
+		-- OriginalText fields are only populated (and rendered) in the flagged path.
+		local layoutOrders: {
+			SelectedTextHeader: number,
+			SelectedTextLabel: number,
+			OriginalTextHeader: number?,
+			OriginalTextLabel: number?,
+			CorrectTranslationHeader: number,
+			CorrectTranslationTextEntryField: number,
+			TranslationProblemsHeader: number,
+			TranslationProblemsListFrame: number,
+			AdditionalCommentsHeader: number,
+			AdditionalCommentsTextEntryField: number,
+		}
+		if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements() then
+			-- Sequential ordering so inserting a new section later is one added call, not a renumber.
+			local nextOrder = ReactUtils.createNextOrder()
+			layoutOrders = {
+				SelectedTextHeader = nextOrder(),
+				SelectedTextLabel = nextOrder(),
+				OriginalTextHeader = nextOrder(),
+				OriginalTextLabel = nextOrder(),
+				CorrectTranslationHeader = nextOrder(),
+				CorrectTranslationTextEntryField = nextOrder(),
+				TranslationProblemsHeader = nextOrder(),
+				TranslationProblemsListFrame = nextOrder(),
+				AdditionalCommentsHeader = nextOrder(),
+				AdditionalCommentsTextEntryField = nextOrder(),
+			}
+		else
+			layoutOrders = {
+				SelectedTextHeader = 1,
+				SelectedTextLabel = 2,
+				TranslationProblemsHeader = 3,
+				TranslationProblemsListFrame = 4,
+				CorrectTranslationHeader = 5,
+				CorrectTranslationTextEntryField = 6,
+				AdditionalCommentsHeader = 7,
+				AdditionalCommentsTextEntryField = 8,
+			}
+		end
 		return Roact.createFragment({
 			Layout = Roact.createElement("UIListLayout", {
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
@@ -290,13 +342,13 @@ function FeedbackReportDialog:renderContents(localized)
 				fontStyle = font.Header2,
 				colorStyle = theme.TextEmphasis,
 				richText = true,
-				layoutOrder = 1,
+				layoutOrder = layoutOrders.SelectedTextHeader,
 				fluidSizing = true,
 				automaticSize = Enum.AutomaticSize.X,
 			}),
 			SelectedTextLabel = if self.state.shouldDisplayFeedbackImage
 				then Roact.createElement("ImageLabel", {
-					LayoutOrder = 2,
+					LayoutOrder = layoutOrders.SelectedTextLabel,
 					Size = UDim2.new(1, 0, 0, 72),
 					Image = self.state.feedbackImageUri,
 					ScaleType = Enum.ScaleType.Fit,
@@ -304,7 +356,7 @@ function FeedbackReportDialog:renderContents(localized)
 					BorderSizePixel = 0,
 				})
 				else Roact.createElement(ThemedTextLabel, {
-					LayoutOrder = 2,
+					LayoutOrder = layoutOrders.SelectedTextLabel,
 					fontKey = "Body",
 					themeKey = "TextDefault",
 					Size = UDim2.new(
@@ -321,33 +373,39 @@ function FeedbackReportDialog:renderContents(localized)
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
-			TranslationProblemsHeader = Roact.createElement(StyledTextLabel, {
-				text = localized.problemDropdownSelectionHeader,
-				size = UDim2.new(1, 0, 0, 72),
-				textTruncate = Enum.TextTruncate.AtEnd,
-				textXAlignment = Enum.TextXAlignment.Left,
-				textYAlignment = Enum.TextYAlignment.Center,
-				fontStyle = font.Header2,
-				colorStyle = theme.TextEmphasis,
-				richText = true,
-				layoutOrder = 3,
-				fluidSizing = true,
-				automaticSize = Enum.AutomaticSize.X,
-			}),
-			TranslationProblemsListFrame = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 160),
-				BackgroundTransparency = 1,
-				LayoutOrder = 4,
-			}, {
-				RadioButtonList = Roact.createElement(RadioButtonList, {
-					radioButtons = feedbackReasonOptions,
-					onActivated = function(value)
-						self.props.setFeedbackReason(value)
-					end,
-					currentValue = self.props.feedbackReason,
-					elementSize = UDim2.new(1, 0, 0, 40),
-				}),
-			}),
+			OriginalTextHeader = if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements()
+					and showOriginalText
+				then Roact.createElement(StyledTextLabel, {
+					text = localized.originalTextHeader,
+					size = UDim2.new(1, 0, 0, 72),
+					textTruncate = Enum.TextTruncate.AtEnd,
+					textXAlignment = Enum.TextXAlignment.Left,
+					textYAlignment = Enum.TextYAlignment.Center,
+					fontStyle = font.Header2,
+					colorStyle = theme.TextEmphasis,
+					richText = true,
+					layoutOrder = layoutOrders.OriginalTextHeader,
+					fluidSizing = true,
+					automaticSize = Enum.AutomaticSize.X,
+				})
+				else nil,
+			OriginalTextLabel = if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements()
+					and showOriginalText
+				then Roact.createElement(ThemedTextLabel, {
+					LayoutOrder = layoutOrders.OriginalTextLabel,
+					fontKey = "Body",
+					themeKey = "TextDefault",
+					Size = UDim2.new(
+						1,
+						0,
+						0,
+						self.calculateFieldHeight(string.len(self.state.feedbackOriginalText), 14, false)
+					),
+					Text = self.state.feedbackOriginalText or "",
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				})
+				else nil,
 			CorrectTranslationHeader = Roact.createElement(StyledTextLabel, {
 				text = localized.correctTranslationHeader,
 				size = UDim2.new(1, 0, 0, 72),
@@ -357,12 +415,12 @@ function FeedbackReportDialog:renderContents(localized)
 				fontStyle = font.Header2,
 				colorStyle = theme.TextEmphasis,
 				richText = true,
-				layoutOrder = 5,
+				layoutOrder = layoutOrders.CorrectTranslationHeader,
 				fluidSizing = true,
 				automaticSize = Enum.AutomaticSize.X,
 			}),
 			CorrectTranslationTextEntryField = Roact.createElement(TextEntryField, {
-				LayoutOrder = 6,
+				LayoutOrder = layoutOrders.CorrectTranslationTextEntryField,
 				enabled = true,
 				text = self.state.correctTranslationText,
 				textChanged = self.onCorrectTranslationTextChanged,
@@ -376,6 +434,33 @@ function FeedbackReportDialog:renderContents(localized)
 					self.calculateFieldHeight(string.len(self.state.correctTranslationText), 14, true)
 				),
 			}),
+			TranslationProblemsHeader = Roact.createElement(StyledTextLabel, {
+				text = localized.problemDropdownSelectionHeader,
+				size = UDim2.new(1, 0, 0, 72),
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+				fontStyle = font.Header2,
+				colorStyle = theme.TextEmphasis,
+				richText = true,
+				layoutOrder = layoutOrders.TranslationProblemsHeader,
+				fluidSizing = true,
+				automaticSize = Enum.AutomaticSize.X,
+			}),
+			TranslationProblemsListFrame = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 160),
+				BackgroundTransparency = 1,
+				LayoutOrder = layoutOrders.TranslationProblemsListFrame,
+			}, {
+				RadioButtonList = Roact.createElement(RadioButtonList, {
+					radioButtons = feedbackReasonOptions,
+					onActivated = function(value)
+						self.props.setFeedbackReason(value)
+					end,
+					currentValue = self.props.feedbackReason,
+					elementSize = UDim2.new(1, 0, 0, 40),
+				}),
+			}),
 			AdditionalCommentsHeader = Roact.createElement(StyledTextLabel, {
 				text = localized.additionalCommentsHeader,
 				size = UDim2.new(1, 0, 0, 72),
@@ -385,13 +470,13 @@ function FeedbackReportDialog:renderContents(localized)
 				fontStyle = font.Header2,
 				colorStyle = theme.TextEmphasis,
 				richText = true,
-				layoutOrder = 7,
+				layoutOrder = layoutOrders.AdditionalCommentsHeader,
 				fluidSizing = true,
 
 				automaticSize = Enum.AutomaticSize.X,
 			}),
 			AdditionalCommentsTextEntryField = Roact.createElement(TextEntryField, {
-				LayoutOrder = 8,
+				LayoutOrder = layoutOrders.AdditionalCommentsTextEntryField,
 				enabled = true,
 				text = self.state.additionalCommentsText,
 				textChanged = self.onAdditionalCommentsTextChanged,
@@ -405,7 +490,7 @@ function FeedbackReportDialog:renderContents(localized)
 end
 
 function FeedbackReportDialog:render()
-	return withLocalization({
+	local localizationKeys = {
 		mainHeader = "CoreScripts.Feedback.FeedbackReportDialog.MainHeader",
 		cancel = "CoreScripts.Feedback.FeedbackReportDialog.Cancel",
 		submitFeedback = "CoreScripts.Feedback.FeedbackReportDialog.SubmitFeedback",
@@ -424,7 +509,16 @@ function FeedbackReportDialog:render()
 			ObjectType = self.state.feedbackText,
 		},
 		imageSelectionHeader = "CoreScripts.Feedback.FeedbackReportDialog.ImageSelectionHeader",
-	})(function(localized)
+	}
+
+	if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements() then
+		localizationKeys.originalTextHeader = {
+			"CoreScripts.Feedback.FeedbackReportDialog.OriginalTextHeader",
+			SourceLanguage = self.props.sourceLanguageName,
+		}
+	end
+
+	return withLocalization(localizationKeys)(function(localized)
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.feedbackFlowState == Constants.State.CurrentlyLeavingFeedback,
 			screenSize = if FFlagTopBarSignalizeScreenSize then self.state.screenSize else self.props.screenSize,
@@ -435,10 +529,19 @@ function FeedbackReportDialog:render()
 				{
 					useAutomaticCanvasSize = false,
 					-- Do not use auto canvas size as it allows the scroll view to go way further down than the amount of content present. Instead, use a heuristic based on the contents of the scroll view for the report dialog such that overscrolling doesn't happen as much
-					canvasSizeY = UDim.new(
-						0,
-						600 + self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false) * 2
-					),
+					canvasSizeY = if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements()
+						then UDim.new(
+							0,
+							600
+								+ self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false) * 2
+								-- Room for the added "Original Text" header (72) and its body
+								+ 72
+								+ self.calculateFieldHeight(string.len(self.state.feedbackOriginalText), 14, false)
+						)
+						else UDim.new(
+							0,
+							600 + self.calculateFieldHeight(string.len(self.state.feedbackText), 14, false) * 2
+						),
 				},
 				Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
@@ -466,7 +569,10 @@ function FeedbackReportDialog:render()
 					{
 						buttonType = ButtonType.PrimarySystem,
 						props = {
-							isDisabled = false,
+							-- Correct translation is a required field: block submit until it has non-whitespace text.
+							isDisabled = if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements()
+								then self.state.correctTranslationText:match("%S") == nil
+								else false,
 							onActivated = self.onSubmitFeedback,
 							text = localized.submitFeedback,
 						},
@@ -477,6 +583,13 @@ function FeedbackReportDialog:render()
 			onBackButtonActivated = if self.props.canNavigateBack then self.navigateBack else nil,
 		})
 	end)
+end
+
+function FeedbackReportDialog:didMount()
+	-- The source language is constant per experience, so fetch it once.
+	if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements() and self.props.sourceLanguageName == "" then
+		self.props.getSourceLanguageName()
+	end
 end
 
 function FeedbackReportDialog:willUnmount()
@@ -491,6 +604,9 @@ return RoactRodux.connect(function(state)
 		screenSize = if FFlagTopBarSignalizeScreenSize then nil else state.displayOptions.screenSize,
 		feedbackFlowState = state.feedbackFlowState.feedbackFlowState,
 		feedbackReason = state.feedbackFlowState.feedbackReason,
+		sourceLanguageName = if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements()
+			then state.common.sourceLanguageName
+			else nil,
 	}
 end, function(dispatch)
 	return {
@@ -526,6 +642,11 @@ end, function(dispatch)
 			dispatch(function(store)
 				store:dispatch(SetFeedbackReason(newFeedbackReason))
 			end)
+		end,
+		getSourceLanguageName = function()
+			if GetFFlagEnableFeedbackShowSourceTextAndOtherUXImprovements() then
+				dispatch(GetSourceLanguageThunk())
+			end
 		end,
 	}
 end)(FeedbackReportDialog)

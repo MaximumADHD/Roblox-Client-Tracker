@@ -69,7 +69,6 @@ local GetFIntDebounceAIRephraseSettingDelay = require(RobloxGui.Modules.Flags.Ge
 local GetFIntDebounceChatSummariesSettingDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceChatSummariesSettingDelay)
 local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
-local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
@@ -432,9 +431,6 @@ local FFlagIGMEnableGFXReset = game:DefineFastFlag("IGMEnableGFXReset", false)
 ----------- CLASS DECLARATION --------------
 
 local function getLastValueChangerFrame(this)
-	if not FFlagIEMFocusNavToButtons then
-		return
-	end
 
 	local maxLayoutOrder = nil
 	local LastValueChangerFrame = nil
@@ -4755,11 +4751,7 @@ local function Initialize()
 				this.toggleFeedbackModeText.Text = UNAVAILABLE_TEXT
 			end
 		end
-
-		-- Set the last selectable object to the last ValueChangerFrame for focus navigation
-		if FFlagIEMFocusNavToButtons then
-			table.insert(this.LastSelectableObjects, getLastValueChangerFrame(this))
-		end
+		table.insert(this.LastSelectableObjects, getLastValueChangerFrame(this))
 		if FFlagIEMTabFocusNav then
 			table.insert(this.FirstSelectableObjects, getFirstValueChangerFrame(this))
 			this.FirstSelectableObjectsUpdated:fire()

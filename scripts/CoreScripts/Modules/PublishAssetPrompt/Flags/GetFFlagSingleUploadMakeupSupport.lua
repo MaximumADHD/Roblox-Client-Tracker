@@ -1,5 +1,5 @@
-game:DefineFastFlag("SingleUploadMakeupSupport2", false)
+game:DefineFastFlag("SingleUploadMakeupSupport3", false)
 
 return function()
-	return game:GetFastFlag("SingleUploadMakeupSupport2")
+	return game:GetFastFlag("SingleUploadMakeupSupport3")
 end

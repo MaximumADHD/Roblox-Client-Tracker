@@ -31,12 +31,8 @@ local function OverlayProvider(overlayProps: Props)
 	local props = withDefaults(overlayProps, defaultProps)
 	local overlay: GuiBase2d?, setOverlay = React.useState(props.gui)
 	local shouldMountOverlay, setShouldMountOverlay = React.useState(false)
-	local screen = if Flags.FoundationOverlayKeyboardAwarenessHardened and not props.gui
-		then overlay and overlay.Parent :: GuiBase2d?
-		else nil
-	local safeAreaSize = if Flags.FoundationOverlayKeyboardAwareness
-		then useKeyboardAwareSize(if Flags.FoundationOverlayKeyboardAwarenessHardened then screen else overlay)
-		else nil
+	local screen = if not props.gui then overlay and overlay.Parent :: GuiBase2d? else nil
+	local safeAreaSize = useKeyboardAwareSize(screen)
 	local styleSheet = useStyleSheet()
 
 	local requestOverlay = React.useCallback(function()
@@ -51,10 +47,7 @@ local function OverlayProvider(overlayProps: Props)
 
 	local shouldRender = props.gui == nil and mainGui ~= nil and shouldMountOverlay
 	local overlayInstance = if props.gui ~= nil then props.gui else overlay
-	local screenInstance
-	if Flags.FoundationOverlayKeyboardAwarenessHardened then
-		screenInstance = if props.gui ~= nil then props.gui else screen
-	end
+	local screenInstance = if props.gui ~= nil then props.gui else screen
 
 	return React.createElement(OverlayContext.Provider, {
 		value = {
@@ -73,16 +66,13 @@ local function OverlayProvider(overlayProps: Props)
 					ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets,
 					SafeAreaCompatibility = Enum.SafeAreaCompatibility.None,
 					ClipToDeviceSafeArea = false,
-					ref = if not Flags.FoundationOverlayKeyboardAwareness then setOverlay else nil,
 				}, {
-					SafeAreaFrame = if Flags.FoundationOverlayKeyboardAwareness
-						then React.createElement("Frame", {
-							Size = safeAreaSize,
-							BackgroundTransparency = 1,
-							BorderSizePixel = 0,
-							ref = setOverlay,
-						})
-						else nil,
+					SafeAreaFrame = React.createElement("Frame", {
+						Size = safeAreaSize,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+						ref = setOverlay,
+					}),
 					FoundationStyleLink = React.createElement("StyleLink", {
 						StyleSheet = styleSheet,
 					}),

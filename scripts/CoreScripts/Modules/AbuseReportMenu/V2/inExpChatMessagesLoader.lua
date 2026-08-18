@@ -1,19 +1,34 @@
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
+local Players = game:GetService("Players")
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local Promise = require(CorePackages.Packages.Promise)
-
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local helpers = require(script.Parent.ExpChatMessageHelpers)
 local enrichMissingUsernames = require(script.Parent.inExpChatMessagesLoaderUsernameEnrichment).enrichMissingUsernames
+
+local ChannelTabDisplayLabel = ExpChatShared.ChannelTabDisplayLabel
 local getChannelTabsStore = ExpChat.Stores.GetChannelTabsStore
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagExpChatUseChannelTabsStore = SharedFlags.FFlagExpChatUseChannelTabsStore
 local FFlagExpChatUseMessagesStore = SharedFlags.FFlagExpChatUseMessagesStore
+local FFlagExpChatUseSharedChannelTabDisplayLabel = SharedFlags.FFlagExpChatUseSharedChannelTabDisplayLabel
 
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
+
+local function getLocalizedChannelTabLabels()
+	local localizationKeys = ChannelTabDisplayLabel.LocalizationKeys
+	return {
+		yourServer = locales:Format(localizationKeys.yourServer),
+		moreServers = locales:Format(localizationKeys.moreServers),
+		friends = locales:Format(localizationKeys.friends),
+		system = locales:Format(localizationKeys.system),
+		team = locales:Format(localizationKeys.team),
+	}
+end
 
 -- Loader descriptor for the abuse-report chat-selection dialog. Reads live
 -- message state from exp-chat and groups messages by channel tab (when enabled)
@@ -104,17 +119,45 @@ return {
 		-- when the store is empty.
 		local allChannelTabs = getChannelTabsStore(false).getChannelTabsState(false).allChannelTabs
 
+		local localizedChannelTabLabels = if FFlagExpChatUseSharedChannelTabDisplayLabel
+			then getLocalizedChannelTabLabels()
+			else nil
 		local groups = {}
 		local groupOrder = {}
 		for channelName, messageIds in pairs(tabIds) do
 			local items = helpers.collectItems(byMessageId, messageIds)
 			if #items > 0 then
-				local label = helpers.formatChannelLabel(channelName, allTextChannels[channelName])
+				local label
+				if FFlagExpChatUseSharedChannelTabDisplayLabel then
+					local tabType
+					if FFlagExpChatUseChannelTabsStore then
+						local channelTab = allChannelTabs[channelName]
+						tabType = if channelTab then channelTab.type else nil
+					else
+						local roduxChannelTabs = state.ChannelTabs and state.ChannelTabs.allChannelTabs
+						local channelTab = roduxChannelTabs and roduxChannelTabs[channelName]
+						tabType = if channelTab then channelTab.Type else nil
+					end
+
+					label = if tabType
+						then ChannelTabDisplayLabel.getDisplayLabel(
+							tabType,
+							channelName,
+							allTextChannels[channelName],
+							Players.LocalPlayer,
+							localizedChannelTabLabels :: any
+						)
+						else channelName
+				else
+					label = helpers.localizeString(
+						translator,
+						helpers.formatChannelLabel(channelName, allTextChannels[channelName])
+					)
+				end
 				table.insert(groupOrder, channelName)
 				groups[channelName] = {
 					id = channelName,
-					-- TODO: [future] verify that this works as expected (abech)
-					label = helpers.localizeString(translator, label),
+					label = label,
 					items = items,
 				}
 			end

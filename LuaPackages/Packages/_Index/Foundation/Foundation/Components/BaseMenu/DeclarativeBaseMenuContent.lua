@@ -6,8 +6,6 @@ local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
 
@@ -56,20 +54,17 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 
 	local groupHasLeading: { boolean } = {}
 	local menuHasCheck = false
-
-	if Flags.FoundationBaseMenuBeta then
-		for groupIndex, group in items do
-			local groupLeading = false
-			for _, item in group.items do
-				if not groupLeading and (item.leading ~= nil or item.icon ~= nil) then
-					groupLeading = true
-				end
-				if not menuHasCheck and item.isChecked == true then
-					menuHasCheck = true
-				end
+	for groupIndex, group in items do
+		local groupLeading = false
+		for _, item in group.items do
+			if not groupLeading and (item.leading ~= nil or item.icon ~= nil) then
+				groupLeading = true
 			end
-			groupHasLeading[groupIndex] = groupLeading
+			if not menuHasCheck and item.isChecked == true then
+				menuHasCheck = true
+			end
 		end
+		groupHasLeading[groupIndex] = groupLeading
 	end
 
 	return React.createElement(
@@ -83,8 +78,8 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 					key = groupIndex,
 					LayoutOrder = groupIndex,
 					title = group.title,
-					menuHasLeading = if Flags.FoundationBaseMenuBeta then hasLeadingForGroup else nil,
-					menuHasCheck = if Flags.FoundationBaseMenuBeta then menuHasCheck else nil,
+					menuHasLeading = hasLeadingForGroup,
+					menuHasCheck = menuHasCheck,
 				},
 				Dash.map(group.items, function(item, index)
 					return React.createElement(
@@ -93,8 +88,8 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 							LayoutOrder = index,
 							key = item.id,
 							icon = item.icon,
-							leading = if Flags.FoundationBaseMenuBeta then item.leading else nil,
-							trailing = if Flags.FoundationBaseMenuBeta then item.trailing else nil,
+							leading = item.leading,
+							trailing = item.trailing,
 							isChecked = item.isChecked,
 							isDisabled = item.isDisabled,
 							text = item.text,
@@ -102,8 +97,8 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 							id = item.id,
 							testId = if item.items then "--foundation-menu-submenu-item" else "--foundation-menu-item",
 							ref = item.ref,
-							menuHasLeading = if Flags.FoundationBaseMenuBeta then hasLeadingForGroup else nil,
-							menuHasCheck = if Flags.FoundationBaseMenuBeta then menuHasCheck else nil,
+							menuHasLeading = hasLeadingForGroup,
+							menuHasCheck = menuHasCheck,
 						},
 						if item.items
 							then React.createElement(DeclarativeBaseMenuContent, {

@@ -56,13 +56,13 @@ return {
 		deviceType: DeviceType,
 		themeName: ThemeName | string,
 		scaleFactor: number?
-	): Types.RbxDesignFoundationsV2Tokens
+	): Types.RbxDesignFoundationsV4Tokens
 		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
 		local scale = getPlatformScale(deviceType, scaleFactor)
 
 		return foundationTokens(scale)
 	end,
-	getFoundationTokensDefaultScale = function(themeName: ThemeName | string): Types.RbxDesignFoundationsV2Tokens
+	getFoundationTokensDefaultScale = function(themeName: ThemeName | string): Types.RbxDesignFoundationsV4Tokens
 		local foundationTokens = GetFoundationTokens(themeName) or GetFoundationTokens(Constants.DefaultThemeName)
 		return foundationTokens(1)
 	end,

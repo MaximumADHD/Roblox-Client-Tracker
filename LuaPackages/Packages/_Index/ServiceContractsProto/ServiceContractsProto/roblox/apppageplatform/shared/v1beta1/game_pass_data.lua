@@ -57,6 +57,7 @@ type _GamePassDataFields = {
 	display_description: string,
 	price_discount_details: { PriceDiscountDetail },
 	user_base_price_in_robux: number,
+	is_discounted: boolean,
 }
 
 type _GamePassDataPartialFields = {
@@ -69,6 +70,7 @@ type _GamePassDataPartialFields = {
 	display_description: string?,
 	price_discount_details: { PriceDiscountDetail }?,
 	user_base_price_in_robux: number?,
+	is_discounted: boolean?,
 }
 
 export type GamePassData = typeof(setmetatable({} :: _GamePassDataFields, {} :: _GamePassDataImpl))
@@ -236,6 +238,7 @@ do
 			user_base_price_in_robux = if data == nil or data.user_base_price_in_robux == nil
 				then 0
 				else data.user_base_price_in_robux,
+			is_discounted = if data == nil or data.is_discounted == nil then false else data.is_discounted,
 		}, _GamePassDataImpl :: _GamePassDataImpl)
 	end
 
@@ -291,6 +294,11 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.user_base_price_in_robux)
 		end
 
+		if self.is_discounted then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_discounted then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -329,6 +337,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.user_base_price_in_robux = value
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_discounted = value ~= 0
 					continue
 				end
 
@@ -422,6 +435,10 @@ do
 			output.userBasePriceInRobux = self.user_base_price_in_robux
 		end
 
+		if self.is_discounted then
+			output.isDiscounted = self.is_discounted
+		end
+
 		return output
 	end
 
@@ -500,6 +517,14 @@ do
 
 		if input.userBasePriceInRobux ~= nil then
 			self.user_base_price_in_robux = input.userBasePriceInRobux
+		end
+
+		if input.is_discounted ~= nil then
+			self.is_discounted = input.is_discounted
+		end
+
+		if input.isDiscounted ~= nil then
+			self.is_discounted = input.isDiscounted
 		end
 
 		return self

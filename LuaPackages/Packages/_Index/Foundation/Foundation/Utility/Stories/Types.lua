@@ -12,6 +12,7 @@ local Types = {}
 
 export type DeveloperStorybookStoryProps = {
 	focus: LayerCollector,
+	-- Storybook control name; mapped to `colorMode` internally by StoryMiddleware.
 	theme: ColorMode,
 	platform: Platform,
 	settings: Preferences,
@@ -27,6 +28,7 @@ function Types.toDeveloperStorybookStoryProps(storyProps: StoryProps): Developer
 end
 
 export type FlipbookStoryProps = {
+	-- Storybook control name; mapped to `colorMode` internally by StoryMiddleware.
 	theme: string,
 	plugin: Plugin,
 	locale: string,

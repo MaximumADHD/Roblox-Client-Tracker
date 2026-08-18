@@ -29,6 +29,8 @@ type _GameDeveloperProductDataFields = {
 	price_in_robux: number,
 	pending_receipt_count: number,
 	status_tooltip: string,
+	base_price_in_robux: number,
+	is_discounted: boolean,
 }
 
 type _GameDeveloperProductDataPartialFields = {
@@ -39,6 +41,8 @@ type _GameDeveloperProductDataPartialFields = {
 	price_in_robux: number?,
 	pending_receipt_count: number?,
 	status_tooltip: string?,
+	base_price_in_robux: number?,
+	is_discounted: boolean?,
 }
 
 export type GameDeveloperProductData = typeof(setmetatable(
@@ -62,6 +66,10 @@ do
 				then 0
 				else data.pending_receipt_count,
 			status_tooltip = if data == nil or data.status_tooltip == nil then "" else data.status_tooltip,
+			base_price_in_robux = if data == nil or data.base_price_in_robux == nil
+				then 0
+				else data.base_price_in_robux,
+			is_discounted = if data == nil or data.is_discounted == nil then false else data.is_discounted,
 		}, _GameDeveloperProductDataImpl :: _GameDeveloperProductDataImpl)
 	end
 
@@ -104,6 +112,16 @@ do
 			output, cursor = proto.writeString(output, cursor, self.status_tooltip)
 		end
 
+		if self.base_price_in_robux ~= nil and self.base_price_in_robux ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.base_price_in_robux)
+		end
+
+		if self.is_discounted then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_discounted then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -132,6 +150,16 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.pending_receipt_count = value
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.base_price_in_robux = value
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_discounted = value ~= 0
 					continue
 				end
 
@@ -213,6 +241,14 @@ do
 			output.statusTooltip = self.status_tooltip
 		end
 
+		if self.base_price_in_robux ~= nil and self.base_price_in_robux ~= 0 then
+			output.basePriceInRobux = self.base_price_in_robux
+		end
+
+		if self.is_discounted then
+			output.isDiscounted = self.is_discounted
+		end
+
 		return output
 	end
 
@@ -261,6 +297,22 @@ do
 
 		if input.statusTooltip ~= nil then
 			self.status_tooltip = input.statusTooltip
+		end
+
+		if input.base_price_in_robux ~= nil then
+			self.base_price_in_robux = input.base_price_in_robux
+		end
+
+		if input.basePriceInRobux ~= nil then
+			self.base_price_in_robux = input.basePriceInRobux
+		end
+
+		if input.is_discounted ~= nil then
+			self.is_discounted = input.is_discounted
+		end
+
+		if input.isDiscounted ~= nil then
+			self.is_discounted = input.isDiscounted
 		end
 
 		return self

@@ -69,6 +69,7 @@ local function StoryGuiState(props)
 end
 
 return {
+	engineeringOnly = true,
 	summary = "View",
 	stories = {
 		{

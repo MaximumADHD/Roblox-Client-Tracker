@@ -9,13 +9,14 @@ local Button = require(Foundation.Components.Button)
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
-local MatrixGrid = require(Foundation.Utility.Stories.MatrixGrid)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
-local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
-local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+
+local MatrixGrid = MatrixGridShared.MatrixGrid
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
@@ -49,56 +50,6 @@ local LONG_TEXT_CONTAINER_WIDTH = 200
 local LONG_BUTTON_TEXT =
 	"This is a very long button label that should truncate with an ellipsis when it exceeds the container width"
 local INPUT_DELAY_SECONDS = 3
-
-local CONTROL_ICON_EXAMPLES: { { label: string, name: string } } = {
-	{ label = "PlaySmall", name = IconName.PlaySmall },
-	{ label = "CirclePlus", name = IconName.CirclePlus },
-	{ label = "House", name = IconName.House },
-	{ label = "Legacy placeholder icon", name = "icons/placeholder/placeholderOn_small" },
-	{ label = "Legacy limited item icon", name = "icons/menu/clothing/limited_on" },
-}
-
-local function getIconInputType(iconName: string): string
-	if isBuilderIcon(iconName) then
-		return "builder"
-	elseif iconMigrationUtils.isMigrated(iconName) then
-		return "migrated"
-	else
-		return "non-migrated"
-	end
-end
-
-local function getIconPathNote(iconName: string): string
-	if isBuilderIcon(iconName) then
-		return "Builder icon · Icon component"
-	elseif iconMigrationUtils.isMigrated(iconName) then
-		return "Migrated legacy string · Icon component"
-	else
-		return "Non-migrated legacy string · Image component"
-	end
-end
-
-local ICON_TYPE_EXAMPLES: { { title: string, subtitle: string, name: string } } = {}
-do
-	local seenInputTypes: { [string]: boolean } = {}
-	for _, example in CONTROL_ICON_EXAMPLES do
-		local inputType = getIconInputType(example.name)
-		if not seenInputTypes[inputType] then
-			seenInputTypes[inputType] = true
-			table.insert(ICON_TYPE_EXAMPLES, {
-				title = getIconPathNote(example.name),
-				subtitle = example.name,
-				name = example.name,
-			})
-		end
-	end
-end
-
-local controlIconOptions: { string } = Dash.map(ICON_TYPE_EXAMPLES, function(example)
-	return example.name
-end)
-table.insert(controlIconOptions, 1, "")
-table.insert(controlIconOptions, IconName.ArrowUpRightFromSquare)
 
 local defaultButtonProps: {
 	text: string,
@@ -283,7 +234,7 @@ local function PlaygroundStory(props: {
 		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium",
 	}, {
 		Button = React.createElement(Button, {
-			icon = if controls.icon == "" then nil else controls.icon,
+			icon = StoryIcons.parseIconControl(controls.icon),
 			text = controls.text,
 			variant = controls.variant,
 			isLoading = controls.isLoading,
@@ -518,23 +469,6 @@ local function LongTextExample(props: {
 	})
 end
 
-local function matrixInfoLabel(title: string, subtitle: string): React.ReactNode
-	return React.createElement(View, {
-		tag = "col gap-xsmall size-full-0 auto-y",
-	}, {
-		Title = React.createElement(Text, {
-			Text = title,
-			tag = "size-full-0 auto-y text-caption-small text-wrap text-align-x-left content-default",
-			LayoutOrder = 1,
-		}),
-		Subtitle = React.createElement(Text, {
-			Text = subtitle,
-			tag = "size-full-0 auto-y text-caption-small text-wrap text-align-x-left content-muted",
-			LayoutOrder = 2,
-		}),
-	})
-end
-
 local function ContentStory(): React.ReactNode
 	return React.createElement(View, {
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
@@ -572,18 +506,15 @@ local function ContentStory(): React.ReactNode
 				headerTextAlign = "left",
 				cellAlign = "left",
 				rowGap = "xxlarge",
-				rows = Dash.map(ICON_TYPE_EXAMPLES, function(iconExample)
+				rows = StoryIcons.buildIconTypeMatrixRows(function(iconExample)
 					return {
-						label = matrixInfoLabel(iconExample.title, iconExample.subtitle),
-						cells = {
-							React.createElement(StoryButton, {
-								text = defaultButtonProps.text,
-								icon = iconExample.name,
-								variant = defaultButtonProps.variant,
-								size = defaultButtonProps.size,
-								hug = true,
-							}),
-						},
+						React.createElement(StoryButton, {
+							text = defaultButtonProps.text,
+							icon = iconExample.name,
+							variant = defaultButtonProps.variant,
+							size = defaultButtonProps.size,
+							hug = true,
+						}),
 					}
 				end),
 			}),
@@ -733,7 +664,7 @@ return {
 		},
 	},
 	controls = {
-		icon = controlIconOptions,
+		icon = StoryIcons.buildIconControlOptions({ additional = { IconName.ArrowUpRightFromSquare } }),
 		text = defaultButtonProps.text,
 		variant = PLAYGROUND_VARIANT_OPTIONS,
 		size = PLAYGROUND_SIZE_OPTIONS,

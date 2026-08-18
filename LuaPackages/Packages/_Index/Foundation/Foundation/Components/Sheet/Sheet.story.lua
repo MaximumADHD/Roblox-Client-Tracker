@@ -25,8 +25,6 @@ local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useSheetNavigation = require(Foundation.Components.Sheet.useSheetNavigation)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type DialogSize = DialogSize.DialogSize
 
 local function Story(props)
@@ -841,12 +839,10 @@ return {
 			name = "Sheet (with TextInput)",
 			story = StoryTextInput,
 		},
-		if Flags.FoundationSheetFullBleed
-			then {
-				name = "Sheet (FullBleed)",
-				story = StoryFullBleed,
-			}
-			else nil :: never,
+		{
+			name = "Sheet (FullBleed)",
+			story = StoryFullBleed,
+		},
 	},
 	controls = {
 		centerSheetHeight = 1,

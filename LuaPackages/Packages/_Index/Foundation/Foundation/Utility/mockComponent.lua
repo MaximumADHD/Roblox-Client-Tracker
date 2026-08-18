@@ -9,9 +9,9 @@ local PreferencesProvider = require(Foundation.Providers.Preferences.Preferences
 local View = require(Foundation.Components.View)
 type Preferences = PreferencesProvider.PreferencesProps
 
-return function(elements, preferences: Preferences?, theme: ColorMode?)
+return function(elements, preferences: Preferences?, colorMode: ColorMode?)
 	return React.createElement(FoundationProvider, {
-		theme = theme or ColorMode.Dark,
+		colorMode = colorMode or ColorMode.Dark,
 		preferences = preferences,
 	}, {
 		Content = React.createElement(View, {

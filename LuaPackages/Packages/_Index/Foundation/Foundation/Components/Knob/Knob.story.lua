@@ -4,7 +4,6 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local BuilderIcons = require(Packages.BuilderIcons)
-local Flags = require(Foundation.Utility.Flags)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -45,10 +44,12 @@ local function Story(props: StoryProps)
 	)
 end
 
+type ControlsProps = { controls: any }
+
 local stories = {
 	{
 		name = "Playground",
-		story = (function(props)
+		story = function(props: ControlsProps): React.ReactNode
 			local controls = props.controls
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
@@ -58,122 +59,77 @@ local stories = {
 				hasShadow = controls.hasShadow,
 				isDisabled = controls.isDisabled,
 			})
-
-			if Flags.FoundationToggleVisualUpdate then
-				return React.createElement(View, {
-					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-					backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-				}, React.createElement(PresentationContext.Provider, { value = { isInverse = isInverse } }, knob))
-			else
-				return React.createElement(View, {
-					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-				}, knob)
-			end
-		end) :: unknown,
+			return React.createElement(View, {
+				tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+				backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+			}, React.createElement(PresentationContext.Provider, { value = { isInverse = isInverse } }, knob))
+		end,
 	},
 	{
 		name = "Sizes",
 		summary = "Default knob across sizes.",
-		story = function(props)
+		story = function(props: ControlsProps): React.ReactNode
 			local controls = props.controls
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
-
-			if Flags.FoundationToggleVisualUpdate then
-				return React.createElement(
-					View,
-					{
-						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-						backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-					},
-					React.createElement(
-						PresentationContext.Provider,
-						{ value = { isInverse = isInverse } },
-						React.createElement(
-							Story,
-							Dash.join(props, {
-								hasShadow = controls.hasShadow,
-								isDisabled = controls.isDisabled,
-							})
-						)
-					)
-				)
-			else
-				return React.createElement(
-					View,
-					{
-						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-					},
+			return React.createElement(
+				View,
+				{
+					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+					backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+				},
+				React.createElement(
+					PresentationContext.Provider,
+					{ value = { isInverse = isInverse } },
 					React.createElement(
 						Story,
 						Dash.join(props, {
-							hasShadow = controls.hasShadow,
-						})
-					)
-				)
-			end
-		end,
-	},
-	{
-		name = "With Stroke",
-		summary = "Knob with transparent fill and emphasis stroke across sizes.",
-		story = function(props)
-			local controls = props.controls
-			local isInverse = controls.isInverse or false
-			local tokens = useTokens()
-
-			if Flags.FoundationToggleVisualUpdate then
-				return React.createElement(
-					View,
-					{
-						backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-					},
-					React.createElement(
-						PresentationContext.Provider,
-						{ value = { isInverse = isInverse } },
-						React.createElement(Story, {
-							style = tokens.Color.None,
-							stroke = {
-								Color = if isInverse
-									then tokens.Inverse.Content.Emphasis.Color3
-									else tokens.Color.Content.Emphasis.Color3,
-								Thickness = tokens.Stroke.Thicker,
-								Transparency = if isInverse
-									then tokens.Inverse.Content.Emphasis.Transparency
-									else tokens.Color.Content.Emphasis.Transparency,
-							},
 							hasShadow = controls.hasShadow,
 							isDisabled = controls.isDisabled,
 						})
 					)
 				)
-			else
-				return React.createElement(
-					View,
-					{
-						tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-					},
+			)
+		end,
+	},
+	{
+		name = "With Stroke",
+		summary = "Knob with transparent fill and emphasis stroke across sizes.",
+		story = function(props: ControlsProps): React.ReactNode
+			local controls = props.controls
+			local isInverse = controls.isInverse or false
+			local tokens = useTokens()
+			return React.createElement(
+				View,
+				{
+					backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+				},
+				React.createElement(
+					PresentationContext.Provider,
+					{ value = { isInverse = isInverse } },
 					React.createElement(Story, {
 						style = tokens.Color.None,
 						stroke = {
-							Color = tokens.Color.Content.Emphasis.Color3,
+							Color = if isInverse
+								then tokens.Inverse.Content.Emphasis.Color3
+								else tokens.Color.Content.Emphasis.Color3,
 							Thickness = tokens.Stroke.Thicker,
-							Transparency = tokens.Color.Content.Emphasis.Transparency,
+							Transparency = if isInverse
+								then tokens.Inverse.Content.Emphasis.Transparency
+								else tokens.Color.Content.Emphasis.Transparency,
 						},
 						hasShadow = controls.hasShadow,
+						isDisabled = controls.isDisabled,
 					})
 				)
-			end
+			)
 		end,
 	},
-}
-
-if Flags.FoundationToggleVisualUpdate then
-	table.insert(stories, {
+	{
 		name = "With Icon",
 		summary = "Knob rendering a BuilderIcons check icon instead of the circle.",
-		story = function(props)
+		story = function(props: ControlsProps): React.ReactNode
 			local controls = props.controls
 			local isInverse = controls.isInverse or false
 			local tokens = useTokens()
@@ -198,23 +154,16 @@ if Flags.FoundationToggleVisualUpdate then
 				)
 			)
 		end,
-	})
-end
+	},
+}
 
 return {
-	controls = if Flags.FoundationToggleVisualUpdate
-		then {
-			isInverse = false,
-			hasShadow = true,
-			isDisabled = false,
-			size = Dash.values(InputSize),
-		}
-		else {
-			hasShadow = true,
-			size = Dash.values(InputSize),
-		},
-	summary = if Flags.FoundationToggleVisualUpdate
-		then "Interactive circular handle used by higher-level inputs (e.g., Slider and Toggle). Typically composed by parent controls rather than used directly. Uses PresentationContext for inverse styling."
-		else "Interactive circular handle used by higher-level inputs (e.g., Slider and Toggle). Typically composed by parent controls rather than used directly.",
+	controls = {
+		isInverse = false,
+		hasShadow = true,
+		isDisabled = false,
+		size = Dash.values(InputSize),
+	},
+	summary = "Interactive circular handle used by higher-level inputs (e.g., Slider and Toggle). Typically composed by parent controls rather than used directly. Uses PresentationContext for inverse styling.",
 	stories = stories,
 }

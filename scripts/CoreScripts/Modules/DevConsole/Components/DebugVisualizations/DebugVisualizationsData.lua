@@ -6,18 +6,19 @@ local HEADER_NAMES = Constants.DebugVisualizationsFormatting.ChartHeaderNames
 
 local DebugVisualizationsContent = require(script.Parent.DebugVisualizationsStaticContent)
 local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole2", false)
+local FFlagSlimTintContextFilter = game:DefineFastFlag("SlimTintContextFilter", false)
 
 local SORT_COMPARATOR = {
 	[HEADER_NAMES[1]] = function(a, b) -- "Name"
 		return a.name < b.name
 	end,
 	[HEADER_NAMES[2]] = function(a, b) -- "Value"
-		return if (a.settingInfo.Value ~= b.settingInfo.Value) then a.settingInfo.Value else
-			a.name < b.name
+		return if a.settingInfo.Value ~= b.settingInfo.Value then a.settingInfo.Value else a.name < b.name
 	end,
 	[HEADER_NAMES[3]] = function(a, b) -- "Type"
-		return if (a.settingInfo.Type ~= b.settingInfo.Type) then a.settingInfo.Type < b.settingInfo.Type else
-			a.name < b.name
+		return if (a.settingInfo.Type ~= b.settingInfo.Type)
+			then a.settingInfo.Type < b.settingInfo.Type
+			else a.name < b.name
 	end,
 	[HEADER_NAMES[4]] = function(a, b) -- "Tags"
 		return a.name < b.name
@@ -74,7 +75,6 @@ function DebugVisualizationsData:updateDebugVisualizationDataEntry(name, info)
 				return
 			end
 		end
-
 	elseif not self._visualizationsData[name] then
 		self._visualizationCounter = self._visualizationCounter + 1
 		self._visualizationsData[name] = info
@@ -140,10 +140,20 @@ function _constructInfo(name, info)
 		end)
 		if ok and svc then
 			value = svc[info.getter](svc)
-			enumItems = value.EnumType:GetEnumItems()
-			dropDownList = {}
-			for i, item in ipairs(enumItems) do
-				dropDownList[i] = item.Name
+			if FFlagSlimTintContextFilter then
+				local modeNames = svc:GetAvailableTintModes(Enum.SlimViewContext.Player, true)
+				enumItems = {}
+				dropDownList = {}
+				for i, modeName in ipairs(modeNames) do
+					enumItems[i] = Enum.SlimTintMode[modeName]
+					dropDownList[i] = modeName
+				end
+			else
+				enumItems = value.EnumType:GetEnumItems()
+				dropDownList = {}
+				for i, item in ipairs(enumItems) do
+					dropDownList[i] = item.Name
+				end
 			end
 		end
 	else

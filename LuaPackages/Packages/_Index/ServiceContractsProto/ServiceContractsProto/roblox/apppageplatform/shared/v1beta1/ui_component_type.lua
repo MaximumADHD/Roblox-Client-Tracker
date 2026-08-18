@@ -86,6 +86,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_GAME_SORT_DROP_DOWN"
 	| "UI_COMPONENT_TYPE_LAYERED_CONTAINER"
 	| "UI_COMPONENT_TYPE_BACKGROUND_BLUR"
+	| "UI_COMPONENT_TYPE_VIRTUAL_GAME_ITEM_TEXT"
+	| "UI_COMPONENT_TYPE_VIDEO_PLAYER"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -250,6 +252,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_LAYERED_CONTAINER"
 		elseif value == 257 then
 			return "UI_COMPONENT_TYPE_BACKGROUND_BLUR"
+		elseif value == 258 then
+			return "UI_COMPONENT_TYPE_VIRTUAL_GAME_ITEM_TEXT"
+		elseif value == 259 then
+			return "UI_COMPONENT_TYPE_VIDEO_PLAYER"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -430,6 +436,10 @@ messages.UiComponentType = {
 			return 256
 		elseif self == "UI_COMPONENT_TYPE_BACKGROUND_BLUR" then
 			return 257
+		elseif self == "UI_COMPONENT_TYPE_VIRTUAL_GAME_ITEM_TEXT" then
+			return 258
+		elseif self == "UI_COMPONENT_TYPE_VIDEO_PLAYER" then
+			return 259
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -610,6 +620,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_LAYERED_CONTAINER"
 		elseif name == "UI_COMPONENT_TYPE_BACKGROUND_BLUR" then
 			return "UI_COMPONENT_TYPE_BACKGROUND_BLUR"
+		elseif name == "UI_COMPONENT_TYPE_VIRTUAL_GAME_ITEM_TEXT" then
+			return "UI_COMPONENT_TYPE_VIRTUAL_GAME_ITEM_TEXT"
+		elseif name == "UI_COMPONENT_TYPE_VIDEO_PLAYER" then
+			return "UI_COMPONENT_TYPE_VIDEO_PLAYER"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

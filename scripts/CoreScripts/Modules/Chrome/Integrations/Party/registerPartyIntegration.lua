@@ -22,9 +22,6 @@ local Symbol = require(CorePackages.Workspace.Packages.AppCommonLib).Symbol
 
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
-local FFlagConnectIntegrationCheckForDirectionalInput =
-	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
-
 local partyVisibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
 	return InExperienceAppChatModal:getVisible()
 end)
@@ -39,17 +36,11 @@ return function(id: string, initialAvailability: number)
 				InExperienceAppChatModal.default:setVisible(false)
 			else
 				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-					if FFlagConnectIntegrationCheckForDirectionalInput then
-						local inputModeStore = Responsive.GetInputModeStore(false)
-						if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
-							ChromeFocusUtils.FocusOffChrome()
-						end
-						InExperienceAppChatModal.default:setVisible(true)
-					else
-						ChromeFocusUtils.FocusOffChrome(function()
-							InExperienceAppChatModal.default:setVisible(true)
-						end)
+					local inputModeStore = Responsive.GetInputModeStore(false)
+					if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
+						ChromeFocusUtils.FocusOffChrome()
 					end
+					InExperienceAppChatModal.default:setVisible(true)
 				end)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)

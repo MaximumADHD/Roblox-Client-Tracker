@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 
 local Text = require(Foundation.Components.Text)
 
+local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 local Translator = require(Foundation.Utility.Localization.Translator)
 
@@ -82,14 +83,24 @@ local function InputLabel(inputLabelProps: InputLabelProps, ref: React.Ref<GuiOb
 			onStateChanged = if not props.isDisabled then onStateChanged else nil,
 			stateLayer = { affordance = StateLayerAffordance.None },
 			textStyle = props.textStyle,
-			tag = {
-				["size-0 auto-xy text-wrap text-align-x-left text-align-y-top"] = true,
-				["content-muted"] = props.isDisabled,
-				["content-default"] = not props.isDisabled,
-				["text-title-small"] = props.size == InputLabelSize.Small,
-				["text-title-medium"] = props.size == InputLabelSize.Medium,
-				["text-title-large"] = props.size == InputLabelSize.Large,
-			},
+			tag = if Flags.FoundationInternalInputBeta
+				then {
+					["size-0 auto-xy text-wrap text-align-x-left text-align-y-top"] = true,
+					["padding-top-xxsmall"] = props.size ~= InputLabelSize.XSmall,
+					["content-muted"] = props.isDisabled,
+					["content-emphasis"] = not props.isDisabled,
+					["text-body-small"] = props.size == InputLabelSize.Small or props.size == InputLabelSize.XSmall,
+					["text-body-medium"] = props.size == InputLabelSize.Medium,
+					["text-body-large"] = props.size == InputLabelSize.Large,
+				} :: { [string]: boolean }
+				else {
+					["size-0 auto-xy text-wrap text-align-x-left text-align-y-top"] = true,
+					["content-muted"] = props.isDisabled,
+					["content-default"] = not props.isDisabled,
+					["text-title-small"] = props.size == InputLabelSize.Small or props.size == InputLabelSize.XSmall,
+					["text-title-medium"] = props.size == InputLabelSize.Medium,
+					["text-title-large"] = props.size == InputLabelSize.Large,
+				} :: { [string]: boolean },
 			ref = ref,
 		})
 	)

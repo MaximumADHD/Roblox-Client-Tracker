@@ -31,7 +31,7 @@ local function Container(props: Props)
 		localization = localization,
 	}, {
 		FoundationProvider = React.createElement(FoundationProvider, {
-			theme = Foundation.Enums.Theme.Dark,
+			colorMode = Foundation.Enums.ColorMode.Dark,
 		}, {
 			MenuButtons = React.createElement(MenuButtons, props),
 		}),

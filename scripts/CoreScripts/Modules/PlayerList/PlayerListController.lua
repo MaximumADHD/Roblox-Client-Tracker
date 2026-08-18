@@ -349,7 +349,7 @@ function PlayerListController:_setupReskin()
 	local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 	local Foundation = require(CorePackages.Packages.Foundation)
 	local FoundationProvider = Foundation.FoundationProvider
-	local Theme = Foundation.Enums.Theme
+	local ColorMode = Foundation.Enums.ColorMode
 	local Device = Foundation.Enums.Device
 	local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -497,7 +497,7 @@ function PlayerListController:_setupReskin()
 
 	local function buildReskinElement()
 		return React.createElement(FoundationProvider, {
-			theme = Theme.Dark,
+			colorMode = ColorMode.Dark,
 			device = foundationDevice,
 			preferences = {
 				preferredTransparency = UserGameSettings.PreferredTransparency,

@@ -10,11 +10,13 @@ local BadgeSize = require(Foundation.Enums.BadgeSize)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 local IconPosition = require(Foundation.Enums.IconPosition)
 local Icons = BuilderIcons.Icon
-local MatrixGrid = require(Foundation.Utility.Stories.MatrixGrid)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
-local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
-local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
+
+local MatrixGrid = MatrixGridShared.MatrixGrid
+local matrixLabel = MatrixGridShared.matrixLabel
 type BadgeVariant = BadgeVariant.BadgeVariant
 type BadgeShape = BadgeShape.BadgeShape
 type BadgeSize = BadgeSize.BadgeSize
@@ -89,87 +91,6 @@ local controlSizeOptions: { BadgeSize } = {
 	BadgeSize.XSmall,
 	BadgeSize.Small,
 }
-
-local CONTROL_ICON_EXAMPLES: { { label: string, name: string } } = {
-	{ label = "DiamondSimplified", name = Icons.DiamondSimplified },
-	{ label = "CirclePlus", name = Icons.CirclePlus },
-	{ label = "Diamond", name = Icons.Diamond },
-	{ label = "House", name = Icons.House },
-	{ label = "Legacy placeholder icon", name = "icons/placeholder/placeholderOn_small" },
-	{ label = "Legacy limited item icon", name = "icons/menu/clothing/limited_on" },
-}
-
-local function getIconInputType(iconName: string): string
-	if isBuilderIcon(iconName) then
-		return "builder"
-	elseif iconMigrationUtils.isMigrated(iconName) then
-		return "migrated"
-	else
-		return "non-migrated"
-	end
-end
-
-local function getAccessoryPathNote(iconName: string): string
-	if isBuilderIcon(iconName) then
-		return "Builder icon · Icon component"
-	elseif iconMigrationUtils.isMigrated(iconName) then
-		return "Migrated legacy string · Icon component"
-	else
-		return "Non-migrated legacy string · Image component"
-	end
-end
-
-local ACCESSORY_ICON_EXAMPLES: { { label: string, name: string } } = {}
-do
-	local seenInputTypes: { [string]: boolean } = {}
-	for _, example in CONTROL_ICON_EXAMPLES do
-		local inputType = getIconInputType(example.name)
-		if not seenInputTypes[inputType] then
-			seenInputTypes[inputType] = true
-			table.insert(ACCESSORY_ICON_EXAMPLES, example)
-		end
-	end
-end
-
-local ACCESSORY_ICONS: { { title: string, subtitle: string, name: string } } = Dash.map(
-	ACCESSORY_ICON_EXAMPLES,
-	function(example)
-		return {
-			title = getAccessoryPathNote(example.name),
-			subtitle = example.name,
-			name = example.name,
-		}
-	end
-)
-
-local controlIconOptions: { string } = Dash.map(CONTROL_ICON_EXAMPLES, function(example)
-	return example.name
-end)
-table.insert(controlIconOptions, "")
-
-local function matrixLabel(text: string): React.ReactNode
-	return React.createElement(Text, {
-		Text = text,
-		tag = "auto-xy text-caption-small text-align-x-left content-default",
-	})
-end
-
-local function matrixInfoLabel(title: string, subtitle: string): React.ReactNode
-	return React.createElement(View, {
-		tag = "col gap-xsmall size-full-0 auto-y",
-	}, {
-		Title = React.createElement(Text, {
-			Text = title,
-			tag = "size-full-0 auto-y text-caption-small text-wrap text-align-x-left content-default",
-			LayoutOrder = 1,
-		}),
-		Subtitle = React.createElement(Text, {
-			Text = subtitle,
-			tag = "size-full-0 auto-y text-caption-small text-wrap text-align-x-left content-muted",
-			LayoutOrder = 2,
-		}),
-	})
-end
 
 local function Section(props: {
 	layoutOrder: number,
@@ -271,11 +192,11 @@ local function PlaygroundStory(props: {
 		shape: BadgeShape,
 	},
 }): React.ReactNode
+	local icon = StoryIcons.parseIconControl(props.controls.icon)
+
 	return React.createElement(Badge, {
 		text = props.controls.text,
-		icon = if props.controls.icon ~= ""
-			then { name = props.controls.icon, position = props.controls.iconPosition }
-			else nil,
+		icon = if icon then { name = icon, position = props.controls.iconPosition } else nil,
 		size = props.controls.size,
 		variant = props.controls.variant,
 		shape = props.controls.shape,
@@ -384,31 +305,28 @@ local function ContentStory(): React.ReactNode
 				columnHeaders = { "Left", "Right" },
 				cellColumnWidth = CELL_COLUMN_WIDTH,
 				rowGap = "xxlarge",
-				rows = Dash.map(ACCESSORY_ICONS, function(accessoryIcon)
+				rows = StoryIcons.buildIconTypeMatrixRows(function(accessoryIcon)
 					return {
-						label = matrixInfoLabel(accessoryIcon.title, accessoryIcon.subtitle),
-						cells = {
-							React.createElement(Badge, {
-								text = defaultBadgeProps.text,
-								icon = {
-									name = accessoryIcon.name,
-									position = IconPosition.Left,
-								},
-								variant = defaultBadgeProps.variant,
-								shape = defaultBadgeProps.shape,
-								size = defaultBadgeProps.size,
-							}),
-							React.createElement(Badge, {
-								text = defaultBadgeProps.text,
-								icon = {
-									name = accessoryIcon.name,
-									position = IconPosition.Right,
-								},
-								variant = defaultBadgeProps.variant,
-								shape = defaultBadgeProps.shape,
-								size = defaultBadgeProps.size,
-							}),
-						},
+						React.createElement(Badge, {
+							text = defaultBadgeProps.text,
+							icon = {
+								name = accessoryIcon.name,
+								position = IconPosition.Left,
+							},
+							variant = defaultBadgeProps.variant,
+							shape = defaultBadgeProps.shape,
+							size = defaultBadgeProps.size,
+						}),
+						React.createElement(Badge, {
+							text = defaultBadgeProps.text,
+							icon = {
+								name = accessoryIcon.name,
+								position = IconPosition.Right,
+							},
+							variant = defaultBadgeProps.variant,
+							shape = defaultBadgeProps.shape,
+							size = defaultBadgeProps.size,
+						}),
 					}
 				end),
 			}),
@@ -554,7 +472,7 @@ return {
 	},
 	controls = {
 		text = "Label",
-		icon = controlIconOptions,
+		icon = StoryIcons.buildIconControlOptions(),
 		variant = nonDeprecatedVariants,
 		shape = Dash.values(BadgeShape),
 		iconPosition = Dash.values(IconPosition),

@@ -11,7 +11,7 @@ local function getLayoutTags(): { [string]: boolean }
 	local tokens = Tokens.defaultTokens
 	local formattedTokens = formatTokens(tokens)
 	-- Only the `size` bucket contains UIListLayout pseudo rules (from
-	-- ListLayoutRules and ListLayoutSpacingRules); `common` and `theme` never do.
+	-- ListLayoutRules and ListLayoutSpacingRules); `common` and `colorMode` never do.
 	local _common, size = attributeRules.rulesGenerator(tokens, formattedTokens)
 
 	for _, rule in size do

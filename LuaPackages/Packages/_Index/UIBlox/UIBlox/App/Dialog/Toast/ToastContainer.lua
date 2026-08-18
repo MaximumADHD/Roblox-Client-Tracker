@@ -14,13 +14,29 @@ local memoize = require(UIBloxRoot.Utility.memoize)
 local withStyle = require(UIBloxRoot.Core.Style.withStyle)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
+local FoundationButtonUtils = require(AppRoot.Button.FoundationButtonUtils)
+local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local DEFAULT_PADDING = 12
 local DEFAULT_ICON_SIZE = Vector2.new(36, 36)
 
 local BUTTON_MAX_WIDTH = 200
-local BUTTON_PADDING = 30
-local BUTTON_OFFSET = 10
+-- Only used for GenericButton, which labels at Font.Header2 and so can be measured
+-- from this component's own text styles: 8px of UIPadding per side plus the 16px its
+-- label reserves beyond TextBounds horizontally, and 16px to reach its fixed 36px
+-- height. Undershooting the width silently truncates the label, which carries
+-- text-truncate-end. Foundation's button is measured through FoundationButtonUtils
+-- instead, since it labels at its own typography.
+local BUTTON_PADDING_X = 32
+local BUTTON_PADDING_Y = 16
+
+-- The reservation before useFoundationToastButtonSizing, kept so switching the config
+-- off restores the geometry consumers ship today.
+local LEGACY_BUTTON_PADDING = 40
+
+-- Kept in sync with the size ToastFrame renders the button at.
+local BUTTON_SIZE = StandardButtonSize.Small
 
 local MAX_WIDTH = 400
 local MIN_WIDTH = 24
@@ -126,6 +142,7 @@ function ToastContainer:init()
 		local iconImage = self.props.iconImage
 		local iconSize = self.getIconSize()
 		local buttonText = self.props.buttonText
+		local onActivated = self.props.onActivated
 		local padding = self.props.padding
 		local toastSubtitle = self.props.toastSubtitle
 		local toastTitle = self.props.toastTitle
@@ -139,8 +156,8 @@ function ToastContainer:init()
 			textFrameWidth = textFrameWidth - iconSize.X - padding
 		end
 
-		if buttonText and not self.showCompactToast() then
-			textFrameWidth = textFrameWidth - self.getButtonDimensions(stylePalette).X
+		if buttonText and onActivated and not self.showCompactToast() then
+			textFrameWidth = textFrameWidth - self.getButtonDimensions(stylePalette).X - self.getButtonGap()
 		end
 
 		local titleFont = titleStyle.Font
@@ -161,6 +178,13 @@ function ToastContainer:init()
 		return self.state.containerWidth < MAX_WIDTH
 	end
 
+	-- The UIListLayout gap ToastFrame puts between the message and the button. It went
+	-- unreserved before useFoundationToastButtonSizing, so it stays unreserved while the
+	-- config is off.
+	self.getButtonGap = function()
+		return if UIBloxConfig.useFoundationToastButtonSizing then self.props.padding else 0
+	end
+
 	self.showPressed = function()
 		if not self.props.buttonText and self.props.onActivated then
 			return self.state.pressed
@@ -176,11 +200,20 @@ function ToastContainer:init()
 			return Vector2.new(0, 0)
 		end
 
-		local primarySystemButtonFont = stylePalette.Font.Header2.Font
-		local primarySystemButtonFontSize = stylePalette.Font.Header2.RelativeSize * stylePalette.Font.BaseSize
-		local dimensions = Vector2.new(BUTTON_PADDING, BUTTON_PADDING)
-			+ Vector2.new(BUTTON_OFFSET, BUTTON_OFFSET)
-			+ GetTextSize(buttonText, primarySystemButtonFontSize, primarySystemButtonFont, Vector2.new(1000, 1000))
+		local measureFoundationButton = UIBloxConfig.useFoundationToastButtonSizing and UIBloxConfig.useFoundationButton
+		local dimensions = if measureFoundationButton
+			then FoundationButtonUtils.getFitContentSize(buttonText, BUTTON_SIZE, stylePalette.Tokens)
+			else nil
+
+		if not dimensions then
+			local primarySystemButtonFont = stylePalette.Font.Header2.Font
+			local primarySystemButtonFontSize = stylePalette.Font.Header2.RelativeSize * stylePalette.Font.BaseSize
+			local reservation = if UIBloxConfig.useFoundationToastButtonSizing
+				then Vector2.new(BUTTON_PADDING_X, BUTTON_PADDING_Y)
+				else Vector2.new(LEGACY_BUTTON_PADDING, LEGACY_BUTTON_PADDING)
+			dimensions = reservation
+				+ GetTextSize(buttonText, primarySystemButtonFontSize, primarySystemButtonFont, Vector2.new(1000, 1000))
+		end
 
 		if not self.showCompactToast() then
 			return dimensions
@@ -206,7 +239,13 @@ function ToastContainer:render()
 		if self.props.fitHeight then
 			local containerHeight = math.max(iconSize.Y, textFrameHeight)
 				+ padding * 2
-				+ (if self.showCompactToast() and self.props.buttonText then buttonHeight else 0)
+				+ (
+					if self.showCompactToast()
+							and self.props.buttonText
+							and self.props.onActivated
+						then buttonHeight + self.getButtonGap()
+						else 0
+				)
 			size = UDim2.new(size.X.Scale, size.X.Offset, 0, containerHeight)
 		end
 

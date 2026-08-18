@@ -246,9 +246,7 @@ if FFlagAppNavMyStatsTab then
 	end
 	if BuildExperience and isBuildModeActive then
 		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-		BuildExperience.mountBuildControls()
 		BuildExperience.mountChatSheet()
-		BuildExperience.mountPublishGameSheet()
 	end
 end
 

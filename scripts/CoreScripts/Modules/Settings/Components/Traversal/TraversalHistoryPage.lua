@@ -29,7 +29,6 @@ local HistoryPage = Traversal.HistoryPage
 local useHistoryItems = Traversal.useHistoryItems
 local FIntMaximumTraversalHistoryItemsFetch = Traversal.Flags.FIntMaximumTraversalHistoryItemsFetch
 local FFlagTraversalExpPagePaddingFixes = Traversal.Flags.FFlagTraversalExpPagePaddingFixes
-local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 
 export type TraversalHistoryPageProps = {}
@@ -43,17 +42,14 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 	local historyItems = useHistoryItems(numItems)
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraversalConstants.NO_UNIVERSE_ID)
 	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
-
-	if FFlagFixTraversalHistoryMenuFixesV3 then
-		React.useEffect(function()
-			local lastInputType = UserInputService:GetLastInputType()
-			local inputMode = GetInputModeStore().getLastInputType()
-			local isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
-			if isUsingFocus and pageRef.current then
-				GuiService.SelectedCoreObject = pageRef.current
-			end
-		end, {})
-	end
+	React.useEffect(function()
+		local lastInputType = UserInputService:GetLastInputType()
+		local inputMode = GetInputModeStore().getLastInputType()
+		local isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
+		if isUsingFocus and pageRef.current then
+			GuiService.SelectedCoreObject = pageRef.current
+		end
+	end, {})
 
 	local openDialog = React.useCallback(function(universeId: number)
 		setSelectedUniverseId(universeId)

@@ -5,11 +5,14 @@ local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local Flags = require(Foundation.Utility.Flags)
+local ThemeName = require(Foundation.Enums.ThemeName)
 local TokenProcessingUtilities = require(script.TokenProcessingUtilities)
 local Types = require(Foundation.Components.Types)
+local themeGenerators = require(script.themeGenerators)
 
 type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
+type ThemeName = ThemeName.ThemeName
 type ColorStyleValue = Types.ColorStyleValue
 
 export type TokenPath = RbxDesignFoundations.TokenPath
@@ -47,20 +50,8 @@ local function applyTokenOverrides(tokens: any, overrides: TokenOverrides): any
 	return tokens
 end
 
-local function getTokens(
-	colorMode: ColorMode,
-	deviceInput: Device?,
-	scaleFactor: number?,
-	tokenOverrides: TokenOverrides?
-)
-	local generators = RbxDesignFoundations.Tokens
-	local device: Device = deviceInput or Device.Desktop
-	local scale = getPlatformScale(device, scaleFactor)
-	local colorModeTokens: typeof(generators.Dark) = if colorMode == ColorMode.Dark
-		then generators.Dark
-		else generators.Light
-
-	local tokens = colorModeTokens(scale)
+local function buildTokens(generator: (number) -> Tokens, scale: number, tokenOverrides: TokenOverrides?)
+	local tokens = generator(scale)
 
 	local filteredTokens = {
 		Color = tokens.Color,
@@ -91,10 +82,55 @@ local function getTokens(
 	return filteredTokens
 end
 
+local function getTokens(
+	colorMode: ColorMode,
+	deviceInput: Device?,
+	scaleFactor: number?,
+	tokenOverrides: TokenOverrides?,
+	themeName: ThemeName?
+)
+	local device: Device = deviceInput or Device.Desktop
+	local scale = getPlatformScale(device, scaleFactor)
+	local generator: (number) -> Tokens = if Flags.FoundationThemeName
+		then themeGenerators.getGenerator(themeName or ThemeName.Default, colorMode)
+		else themeGenerators.getLegacyGenerator(colorMode)
+
+	return buildTokens(generator, scale, tokenOverrides)
+end
+
+-- Flag-independent token resolvers used ONLY by offline rule generation
+-- (`scripts/generate-rules.lua`), never on the runtime render path.
+--
+-- `getThemedTokens` always resolves the v4 themed token set so baked per-theme
+-- color rules reflect each theme even while `FoundationThemeName` is still off at
+-- runtime. `getLegacyTokens` always resolves the v3 flat token set so the legacy
+-- (flag-off) generated rules stay byte-identical regardless of flag state.
+local function getThemedTokens(
+	themeName: ThemeName?,
+	colorMode: ColorMode,
+	deviceInput: Device?,
+	scaleFactor: number?,
+	tokenOverrides: TokenOverrides?
+)
+	local device: Device = deviceInput or Device.Desktop
+	local scale = getPlatformScale(device, scaleFactor)
+	local generator: (number) -> Tokens = themeGenerators.getGenerator(themeName or ThemeName.Default, colorMode)
+	return buildTokens(generator, scale, tokenOverrides)
+end
+
+local function getLegacyTokens(colorMode: ColorMode, deviceInput: Device?, scaleFactor: number?)
+	local device: Device = deviceInput or Device.Desktop
+	local scale = getPlatformScale(device, scaleFactor)
+	local generator: (number) -> Tokens = themeGenerators.getLegacyGenerator(colorMode)
+	return buildTokens(generator, scale, nil)
+end
+
 local defaultTokens = getTokens(ColorMode.Dark, Device.Desktop)
 export type Tokens = typeof(defaultTokens)
 
 return {
 	getTokens = getTokens,
+	getThemedTokens = getThemedTokens,
+	getLegacyTokens = getLegacyTokens,
 	defaultTokens = defaultTokens,
 }

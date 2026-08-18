@@ -151,7 +151,7 @@ local function ResetCharacterContainer(props: Props)
 		localization = localization,
 	}, {
 		FoundationProvider = React.createElement(FoundationProvider, {
-			theme = Foundation.Enums.Theme.Dark,
+			colorMode = Foundation.Enums.ColorMode.Dark,
 		}, {
 			FocusNavigationProvider = React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
 				value = focusNavigationService,

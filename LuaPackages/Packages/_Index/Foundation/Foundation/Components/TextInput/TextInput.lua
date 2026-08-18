@@ -11,7 +11,6 @@ local InternalTextInput = require(Components.InternalTextInput)
 local Types = require(Foundation.Components.Types)
 local View = require(Components.View)
 
-local Flags = require(Foundation.Utility.Flags)
 local useTextInputVariants = require(Foundation.Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -78,11 +77,11 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					focusBehavior = props.focusBehavior,
 					size = props.size,
 					variant = props.variant,
-					Selectable = if Flags.FoundationInputSelectionProps then props.Selectable else nil,
-					NextSelectionUp = if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil,
-					NextSelectionDown = if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil,
-					NextSelectionLeft = if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil,
-					NextSelectionRight = if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil,
+					Selectable = props.Selectable,
+					NextSelectionUp = props.NextSelectionUp,
+					NextSelectionDown = props.NextSelectionDown,
+					NextSelectionLeft = props.NextSelectionLeft,
+					NextSelectionRight = props.NextSelectionRight,
 					horizontalPadding = {
 						left = variantProps.container.horizontalPadding,
 						right = variantProps.container.horizontalPadding,

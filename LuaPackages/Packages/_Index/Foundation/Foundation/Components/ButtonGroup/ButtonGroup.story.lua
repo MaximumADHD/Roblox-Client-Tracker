@@ -8,10 +8,13 @@ local ButtonGroup = require(Foundation.Components.ButtonGroup)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local InputSize = require(Foundation.Enums.InputSize)
-local MatrixGrid = require(Foundation.Utility.Stories.MatrixGrid)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local Orientation = require(Foundation.Enums.Orientation)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
+
+local MatrixGrid = MatrixGridShared.MatrixGrid
+local matrixLabel = MatrixGridShared.matrixLabel
 
 type FillBehavior = FillBehavior.FillBehavior
 type ButtonGroupSize = ButtonGroup.ButtonGroupSize
@@ -198,13 +201,6 @@ local function ButtonsMatrixCell(props: {
 			size = InputSize.Medium,
 			buttonCount = props.buttonCount,
 		}),
-	})
-end
-
-local function matrixLabel(text: string): React.ReactNode
-	return React.createElement(Text, {
-		Text = text,
-		tag = "auto-xy text-caption-small text-align-x-left content-default",
 	})
 end
 

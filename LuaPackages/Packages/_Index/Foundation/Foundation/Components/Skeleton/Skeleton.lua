@@ -6,6 +6,7 @@ local ReactUtils = require(Packages.ReactUtils)
 local useClock = ReactUtils.useClock
 
 local Components = Foundation.Components
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Components.Types)
 local View = require(Components.View)
 type Bindable<T> = Types.Bindable<T>
@@ -44,6 +45,9 @@ local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?
 	local preferences = usePreferences()
 
 	local cornerRadius = if props.radius ~= Radius.None then UDim.new(0, tokens.Radius[props.radius]) else nil
+	local shimmer = if Flags.FoundationSkeletonCommonShimmerToken
+		then tokens.Color.Common.Shimmer
+		else tokens.Color.Shift.Shift_300
 
 	return React.createElement(
 		View,
@@ -51,13 +55,12 @@ local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?
 			cornerRadius = cornerRadius,
 			backgroundStyle = if preferences.reducedMotion
 				then pulseBinding:map(function(alpha: number)
+					local pulseTransparency = if Flags.FoundationSkeletonCommonShimmerToken
+						then shimmer.Transparency
+						else tokens.Color.Extended.White.White_10.Transparency
 					return {
-						Color3 = tokens.Color.Shift.Shift_300.Color3,
-						Transparency = lerp(
-							tokens.Color.Extended.White.White_10.Transparency,
-							tokens.Color.Extended.White.White_10.Transparency - TRANSPARENCY_DELTA,
-							alpha
-						),
+						Color3 = shimmer.Color3,
+						Transparency = lerp(pulseTransparency, pulseTransparency - TRANSPARENCY_DELTA, alpha),
 					}
 				end)
 				-- Full opacity background lets the gradients transparency take accurate effect
@@ -69,14 +72,14 @@ local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?
 			Gradient = if not preferences.reducedMotion
 				then React.createElement("UIGradient", {
 					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, tokens.Color.Shift.Shift_300.Color3),
+						ColorSequenceKeypoint.new(0, shimmer.Color3),
 						ColorSequenceKeypoint.new(0.5, tokens.Color.Extended.White.White_30.Color3),
-						ColorSequenceKeypoint.new(1, tokens.Color.Shift.Shift_300.Color3),
+						ColorSequenceKeypoint.new(1, shimmer.Color3),
 					}),
 					Transparency = NumberSequence.new({
-						NumberSequenceKeypoint.new(0, tokens.Color.Shift.Shift_300.Transparency),
+						NumberSequenceKeypoint.new(0, shimmer.Transparency),
 						NumberSequenceKeypoint.new(0.5, tokens.Color.Extended.White.White_30.Transparency),
-						NumberSequenceKeypoint.new(1, tokens.Color.Shift.Shift_300.Transparency),
+						NumberSequenceKeypoint.new(1, shimmer.Transparency),
 					}),
 					Offset = clockBinding:map(function(value: number)
 						return Vector2.new(value * ANIMATION_SPEED % GRADIENT_OFFSET - (GRADIENT_OFFSET / 2), 0)

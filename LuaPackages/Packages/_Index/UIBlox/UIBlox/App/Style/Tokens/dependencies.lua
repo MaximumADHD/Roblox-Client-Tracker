@@ -38,8 +38,8 @@ return {
 		end
 	end,
 	GetFoundationTokens = function(themeName: ThemeName | string)
-		local RbxDesignFoundationsV2 = require(Packages.RbxDesignFoundationsV2)
-		local foundationTokens = RbxDesignFoundationsV2.Tokens
+		local RbxDesignFoundationsV4 = require(Packages.RbxDesignFoundationsV4)
+		local foundationTokens = RbxDesignFoundationsV4.themes[RbxDesignFoundationsV4.Theme.Default]()
 		local theme = themeName:lower()
 
 		if theme == Constants.ThemeName.Dark:lower() then

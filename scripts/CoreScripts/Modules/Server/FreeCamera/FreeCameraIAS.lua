@@ -299,6 +299,22 @@ do
 	FFlagUserShowGuiHideToggles = success and result
 end
 
+local FFlagUserPlayerScriptsRefactor4
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsRefactor4")
+	end)
+	FFlagUserPlayerScriptsRefactor4 = success and result
+end
+
+local FFlagUserPlayerScriptsRefactor5
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsRefactor5")
+	end)
+	FFlagUserPlayerScriptsRefactor5 = success and result
+end
+
 -----------------------------------------------------------------------
 
 local function makeEffectOverride(className, excludeFn)
@@ -353,12 +369,12 @@ local function doToggleMasterEffects()
 	end
 end
 
-local function doToggleDoF()            local e = FreecamDepthOfField;    if e then e.Enabled = not e.Enabled end end
-local function doToggleBloom()          local e = FreecamBloom;           if e then e.Enabled = not e.Enabled end end
-local function doToggleBlur()           local e = FreecamBlur;            if e then e.Enabled = not e.Enabled end end
-local function doToggleColorCorrection()local e = FreecamColorCorrection; if e then e.Enabled = not e.Enabled end end
-local function doToggleSunRays()        local e = FreecamSunRays;         if e then e.Enabled = not e.Enabled end end
-local function doToggleColorGrading()   local e = FreecamColorGrading;    if e then e.Enabled = not e.Enabled end end
+local function doToggleDoF()            if FFlagUserPlayerScriptsRefactor4 and not masterEffectsEnabled then return end; local e = FreecamDepthOfField;    if e then e.Enabled = not e.Enabled end end
+local function doToggleBloom()          if FFlagUserPlayerScriptsRefactor4 and not masterEffectsEnabled then return end; local e = FreecamBloom;           if e then e.Enabled = not e.Enabled end end
+local function doToggleBlur()           if FFlagUserPlayerScriptsRefactor4 and not masterEffectsEnabled then return end; local e = FreecamBlur;            if e then e.Enabled = not e.Enabled end end
+local function doToggleColorCorrection()if FFlagUserPlayerScriptsRefactor4 and not masterEffectsEnabled then return end; local e = FreecamColorCorrection; if e then e.Enabled = not e.Enabled end end
+local function doToggleSunRays()        if FFlagUserPlayerScriptsRefactor4 and not masterEffectsEnabled then return end; local e = FreecamSunRays;         if e then e.Enabled = not e.Enabled end end
+local function doToggleColorGrading()   if FFlagUserPlayerScriptsRefactor4 and not masterEffectsEnabled then return end; local e = FreecamColorGrading;    if e then e.Enabled = not e.Enabled end end
 
 effectDefs = {
 	{ key = "DepthOfField",    class = "DepthOfFieldEffect",
@@ -381,7 +397,7 @@ effectDefs = {
 	  get = function() return FreecamSunRays         end,
 	  set = function(v) FreecamSunRays         = v end,
 	  props = {"Intensity","Spread"} },
-	{ key = "ColorGrading",    class = "ColorGradingEffect",
+	{ key = "ColorGrading",    class = "ColorGradingEffect", parent = FFlagUserPlayerScriptsRefactor5 and Lighting or nil,
 	  get = function() return FreecamColorGrading    end,
 	  set = function(v) FreecamColorGrading    = v end,
 	  props = {"TonemapperPreset"} },
@@ -478,6 +494,7 @@ local Input = {} do
 	local modeIndex  = 1
 	local navigationStack = {}
 	local leafSelected = false
+	local monitorItemSelected = false
 
 	------------------------------------------------------------------------
 	local function findPlayerLockRootPart(switchDirection)
@@ -567,7 +584,7 @@ local Input = {} do
 	end
 
 	local function buildCustomEffectsGroup()
-		return {
+		local group = {
 			type = "group", name = "Custom Post Processing",
 			modes = {
 				{ type = "toggle", name = "Enable",
@@ -659,6 +676,12 @@ local Input = {} do
 				),
 			},
 		}
+		if FFlagUserPlayerScriptsRefactor4 then
+			for i = 2, #group.modes do
+				group.modes[i].disabled = function() return not masterEffectsEnabled end
+			end
+		end
+		return group
 	end
 
 	local function makeSpeedStiffnessGroup(name, constTable, speedKey, stiffKey, spring)
@@ -713,6 +736,23 @@ local Input = {} do
 		makeSpeedStiffnessGroup("Tilt",          Constants.Roll,     "roll",     "roll",     rollSpring),
 		makeSpeedStiffnessGroup("Pan",           Constants.Pan,      "pan",      "pan",      panSpring),
 	}
+	local isDisabled
+	local nextEnabledIndex
+	if FFlagUserPlayerScriptsRefactor4 then
+		function isDisabled(mode)
+			return mode.disabled and mode.disabled()
+		end
+
+		function nextEnabledIndex(list, current, direction)
+			local count = #list
+			for _ = 1, count do
+				current = ((current - 1) + direction) % count + 1
+				if not isDisabled(list[current]) then return current end
+			end
+			return current
+		end
+	end
+
 	local function currentMode()
 		if #navigationStack > 0 then
 			local frame = navigationStack[#navigationStack]
@@ -821,40 +861,79 @@ local Input = {} do
 		local modeToggleAction = createAction(freecamContext, cfg.ModeToggle)
 		modeToggleAction.StateChanged:Connect(function(pressed: boolean)
 			if not pressed then return end
-			if modeActive then
-				if leafSelected then
-					leafSelected = false
-				elseif #navigationStack > 0 then
-					navigationStack[#navigationStack] = nil
+			if FFlagUserPlayerScriptsRefactor4 then
+				if modeActive then
+					if monitorItemSelected then
+						monitorItemSelected = false
+					elseif #navigationStack > 0 then
+						local frame = navigationStack[#navigationStack]
+						local prev = nextEnabledIndex(frame.modes, frame.index, -1)
+						if prev < frame.index then
+							frame.index = prev
+						else
+							navigationStack[#navigationStack] = nil
+						end
+					else
+						local prev = nextEnabledIndex(modes, modeIndex, -1)
+						if prev < modeIndex then
+							modeIndex = prev
+						else
+							modeActive = false
+						end
+					end
 				else
-					modeActive = false
+					modeActive = true
 				end
 			else
-				modeActive = true
+				if modeActive then
+					if leafSelected then
+						leafSelected = false
+					elseif #navigationStack > 0 then
+						navigationStack[#navigationStack] = nil
+					else
+						modeActive = false
+					end
+				else
+					modeActive = true
+				end
 			end
 		end)
 
 		local modeNextAction = createAction(freecamContext, cfg.ModeNext)
 		modeNextAction.StateChanged:Connect(function(pressed: boolean)
-			if not pressed or not modeActive then return end
-			if leafSelected then
-				-- no-op
-			elseif #navigationStack > 0 then
-				local frame = navigationStack[#navigationStack]
-				frame.index = frame.index % #frame.modes + 1
+			if not pressed then return end
+			if FFlagUserPlayerScriptsRefactor4 then
+				if not modeActive then
+					modeActive = true
+				elseif monitorItemSelected then
+					monitorItemSelected = false
+				elseif #navigationStack > 0 then
+					local frame = navigationStack[#navigationStack]
+					frame.index = nextEnabledIndex(frame.modes, frame.index, 1)
+				else
+					modeIndex = nextEnabledIndex(modes, modeIndex, 1)
+				end
 			else
-				local top = modes[modeIndex]
-				if top.type == "group" then
-					table.insert(navigationStack, {modes = top.modes, index = 1, groupName = top.name})
-				elseif top.type == "toggle" then
-					top.toggle()
-				elseif top.type == "cycle" then
-					local items = top.items()
-					if #items > 0 then top.setIndex(top.getIndex() % #items + 1) end
-				elseif top.type == "action" then
-					top.action()
-				elseif top.type == "axis" then
-					leafSelected = true
+				if not modeActive then return end
+				if leafSelected then
+					-- no-op
+				elseif #navigationStack > 0 then
+					local frame = navigationStack[#navigationStack]
+					frame.index = frame.index % #frame.modes + 1
+				else
+					local top = modes[modeIndex]
+					if top.type == "group" then
+						table.insert(navigationStack, {modes = top.modes, index = 1, groupName = top.name})
+					elseif top.type == "toggle" then
+						top.toggle()
+					elseif top.type == "cycle" then
+						local items = top.items()
+						if #items > 0 then top.setIndex(top.getIndex() % #items + 1) end
+					elseif top.type == "action" then
+						top.action()
+					elseif top.type == "axis" then
+						leafSelected = true
+					end
 				end
 			end
 		end)
@@ -862,30 +941,69 @@ local Input = {} do
 		local modeAxisAction = createAction(freecamContext, cfg.ModeAxis)
 		modeAxisAction.StateChanged:Connect(function(val: number)
 			if not modeActive or val == 0 then return end
-			if leafSelected then
-				-- no-op
-			elseif #navigationStack > 0 then
+			if FFlagUserPlayerScriptsRefactor4 then
 				local mode = currentMode()
-				if mode.type == "group" then
-					table.insert(navigationStack, {modes = mode.modes, index = 1, groupName = mode.name})
-				elseif mode.type == "toggle" then
-					mode.toggle()
-				elseif mode.type == "cycle" then
-					local items = mode.items()
-					if #items == 0 then return end
-					if val > 0 then
-						mode.setIndex(mode.getIndex() % #items + 1)
-					elseif val < 0 then
-						mode.setIndex((mode.getIndex() - 2) % #items + 1)
+				if monitorItemSelected then
+					if mode.type == "toggle" then
+						mode.toggle()
+					elseif mode.type == "cycle" then
+						local items = mode.items()
+						if #items > 0 then
+							if val > 0 then
+								mode.setIndex(mode.getIndex() % #items + 1)
+							else
+								mode.setIndex((mode.getIndex() - 2) % #items + 1)
+							end
+						end
+					elseif mode.type == "action" then
+						mode.action()
+					elseif mode.type == "axis" then
+						-- axis continuous adjustment handled by ModeControl
 					end
-				elseif mode.type == "action" then
-					mode.action()
+				elseif val > 0 then
+					if isDisabled(mode) then
+						-- no-op
+					elseif mode.type == "group" then
+						table.insert(navigationStack, {modes = mode.modes, index = 1, groupName = mode.name})
+					elseif mode.type == "action" then
+						mode.action()
+					else
+						monitorItemSelected = true
+					end
+				elseif val < 0 then
+					monitorItemSelected = false
+					if #navigationStack > 0 then
+						navigationStack[#navigationStack] = nil
+					else
+						modeActive = false
+					end
 				end
 			else
-				if val > 0 then
-					modeIndex = modeIndex % #modes + 1
-				elseif val < 0 then
-					modeIndex = (modeIndex - 2) % #modes + 1
+				if leafSelected then
+					-- no-op
+				elseif #navigationStack > 0 then
+					local mode = currentMode()
+					if mode.type == "group" then
+						table.insert(navigationStack, {modes = mode.modes, index = 1, groupName = mode.name})
+					elseif mode.type == "toggle" then
+						mode.toggle()
+					elseif mode.type == "cycle" then
+						local items = mode.items()
+						if #items == 0 then return end
+						if val > 0 then
+							mode.setIndex(mode.getIndex() % #items + 1)
+						elseif val < 0 then
+							mode.setIndex((mode.getIndex() - 2) % #items + 1)
+						end
+					elseif mode.type == "action" then
+						mode.action()
+					end
+				else
+					if val > 0 then
+						modeIndex = modeIndex % #modes + 1
+					elseif val < 0 then
+						modeIndex = (modeIndex - 2) % #modes + 1
+					end
 				end
 			end
 		end)
@@ -917,7 +1035,11 @@ local Input = {} do
 
 	function Input.ModeControl(dt)
 		if not modeActive then return end
-		if #navigationStack == 0 and not leafSelected then return end
+		if FFlagUserPlayerScriptsRefactor4 then
+			if not monitorItemSelected then return end
+		else
+			if #navigationStack == 0 and not leafSelected then return end
+		end
 		local mode = currentMode()
 		if mode.type ~= "axis" then return end
 		local delta = actions.ModeAxis:GetState() * mode.adj * dt
@@ -934,9 +1056,14 @@ local Input = {} do
 		Input._sinkContext.Enabled = false
 		tiltSuppressed = false
 		if tiltReset then tiltReset() end
-		modeActive      = false
-		navigationStack = {}
-		leafSelected    = false
+		modeActive = false
+		if FFlagUserPlayerScriptsRefactor4 then
+			table.clear(navigationStack)
+			monitorItemSelected = false
+		else
+			navigationStack = {}
+		end
+		leafSelected = false
 	end
 
 	function Input.getModeActive() return modeActive end
@@ -1024,6 +1151,13 @@ local Input = {} do
 		if not modeActive or #navigationStack == 0 then return nil end
 		return navigationStack[1].groupName
 	end
+
+	if FFlagUserPlayerScriptsRefactor4 then
+		Input._navigationStack = navigationStack
+		Input._modes = modes
+		function Input._getModeIndex() return modeIndex end
+		function Input._isMonitorItemSelected() return monitorItemSelected end
+	end
 end
 
 ------------------------------------------------------------------------
@@ -1051,6 +1185,218 @@ local function setBubble(info, text)
 	info.bubble.Visible = text ~= ""
 	if text ~= "" then info.label.Text = text end
 end
+
+local monitorGui, monitorRows, MAX_MONITOR_ROWS, buildMonitorGui, getMonitorModeValue, getMonitorModeValueColor, updateMonitorGui
+if FFlagUserPlayerScriptsRefactor4 then
+monitorRows = {}
+MAX_MONITOR_ROWS = 12
+
+buildMonitorGui = function(parent)
+	local panel = Instance.new("Frame")
+	panel.Name = "FreecamMonitorPanel"
+	panel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	panel.BackgroundTransparency = 0.2
+	panel.BorderSizePixel = 0
+	panel.Size = UDim2.new(0, 240, 0, 0)
+	panel.AutomaticSize = Enum.AutomaticSize.Y
+	panel.AnchorPoint = Vector2.new(1, 1)
+	panel.Position = UDim2.new(1, -16, 1, -16)
+	panel.Visible = false
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 8)
+	corner.Parent = panel
+
+	local padding = Instance.new("UIPadding")
+	padding.PaddingTop    = UDim.new(0, 8)
+	padding.PaddingBottom = UDim.new(0, 8)
+	padding.PaddingLeft   = UDim.new(0, 12)
+	padding.PaddingRight  = UDim.new(0, 12)
+	padding.Parent = panel
+
+	local layout = Instance.new("UIListLayout")
+	layout.SortOrder = Enum.SortOrder.LayoutOrder
+	layout.FillDirection = Enum.FillDirection.Vertical
+	layout.Padding = UDim.new(0, 1)
+	layout.Parent = panel
+
+	-- breadcrumb header
+	local breadcrumb = Instance.new("TextLabel")
+	breadcrumb.Name = "Breadcrumb"
+	breadcrumb.BackgroundTransparency = 1
+	breadcrumb.TextColor3 = Color3.fromRGB(150, 150, 150)
+	breadcrumb.Font = Enum.Font.GothamMedium
+	breadcrumb.TextSize = 11
+	breadcrumb.TextXAlignment = Enum.TextXAlignment.Left
+	breadcrumb.Size = UDim2.new(1, 0, 0, 16)
+	breadcrumb.LayoutOrder = 0
+	breadcrumb.Visible = false
+	breadcrumb.Parent = panel
+
+	-- item rows
+	monitorRows = {}
+	for i = 1, MAX_MONITOR_ROWS do
+		local row = Instance.new("Frame")
+		row.Name = "Row" .. i
+		row.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		row.BackgroundTransparency = 1
+		row.BorderSizePixel = 0
+		row.Size = UDim2.new(1, 0, 0, 22)
+		row.LayoutOrder = i
+		row.Visible = false
+
+		local rowCorner = Instance.new("UICorner")
+		rowCorner.CornerRadius = UDim.new(0, 4)
+		rowCorner.Parent = row
+
+		local rowPadding = Instance.new("UIPadding")
+		rowPadding.PaddingLeft  = UDim.new(0, 6)
+		rowPadding.PaddingRight = UDim.new(0, 6)
+		rowPadding.Parent = row
+
+		local nameLabel = Instance.new("TextLabel")
+		nameLabel.Name = "Name"
+		nameLabel.BackgroundTransparency = 1
+		nameLabel.TextColor3 = Color3.new(1, 1, 1)
+		nameLabel.Font = Enum.Font.GothamMedium
+		nameLabel.TextSize = 14
+		nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+		nameLabel.Size = UDim2.new(0.55, 0, 1, 0)
+		nameLabel.Position = UDim2.new(0, 0, 0, 0)
+		nameLabel.Parent = row
+
+		local valueLabel = Instance.new("TextLabel")
+		valueLabel.Name = "Value"
+		valueLabel.BackgroundTransparency = 1
+		valueLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+		valueLabel.Font = Enum.Font.GothamMedium
+		valueLabel.TextSize = 14
+		valueLabel.TextXAlignment = Enum.TextXAlignment.Right
+		valueLabel.Size = UDim2.new(0.45, 0, 1, 0)
+		valueLabel.Position = UDim2.new(0.55, 0, 0, 0)
+		valueLabel.Parent = row
+
+		row.Parent = panel
+		monitorRows[i] = { frame = row, nameLabel = nameLabel, valueLabel = valueLabel }
+	end
+
+	-- hint footer
+	local hint = Instance.new("TextLabel")
+	hint.Name = "Hint"
+	hint.BackgroundTransparency = 1
+	hint.TextColor3 = Color3.fromRGB(120, 120, 120)
+	hint.Font = Enum.Font.Gotham
+	hint.TextSize = 12
+	hint.TextXAlignment = Enum.TextXAlignment.Left
+	hint.Size = UDim2.new(1, 0, 0, 20)
+	hint.LayoutOrder = MAX_MONITOR_ROWS + 1
+	hint.Parent = panel
+
+	panel.Parent = parent
+	monitorGui = { panel = panel, breadcrumb = breadcrumb, hint = hint }
+end
+
+getMonitorModeValue = function(mode)
+	if mode.type == "group" then
+		return "\xE2\x80\xBA"  -- ›
+	elseif mode.type == "toggle" then
+		return mode.isEnabled() and "On" or "Off"
+	elseif mode.type == "axis" then
+		return string.format("%.2f", mode.get())
+	elseif mode.type == "cycle" then
+		local items = mode.items()
+		if #items == 0 then return "--" end
+		local item = items[mode.getIndex()]
+		return item and mode.displayItem(item) or "--"
+	elseif mode.type == "action" then
+		return ""
+	end
+	return ""
+end
+
+getMonitorModeValueColor = function(mode, isCursor, isEditing)
+	if mode.type == "toggle" then
+		if mode.isEnabled() then
+			return Color3.fromRGB(0, 176, 111)
+		else
+			return Color3.fromRGB(150, 150, 150)
+		end
+	end
+	if isCursor and isEditing then
+		return Color3.new(1, 1, 1)
+	end
+	return Color3.fromRGB(180, 180, 180)
+end
+
+updateMonitorGui = function()
+	if not monitorGui then return end
+	local panel = monitorGui.panel
+	if not Input.getModeActive() then
+		panel.Visible = false
+		return
+	end
+	panel.Visible = true
+
+	-- determine current list and selected index
+	local modeList, selectedIndex
+	if #Input._navigationStack > 0 then
+		local frame = Input._navigationStack[#Input._navigationStack]
+		modeList = frame.modes
+		selectedIndex = frame.index
+	else
+		modeList = Input._modes
+		selectedIndex = Input._getModeIndex()
+	end
+
+	-- breadcrumb
+	local bc = Input.getModeBreadcrumb()
+	monitorGui.breadcrumb.Text = bc
+	monitorGui.breadcrumb.Visible = bc ~= ""
+
+	-- update rows
+	local isEditing = Input._isMonitorItemSelected()
+	local count = math.min(#modeList, MAX_MONITOR_ROWS)
+	for i = 1, MAX_MONITOR_ROWS do
+		local row = monitorRows[i]
+		if i <= count then
+			local mode = modeList[i]
+			local isCursor = (i == selectedIndex)
+			local dim = mode.disabled and mode.disabled()
+			row.frame.Visible = true
+
+			if isCursor and not dim then
+				row.nameLabel.Text = "> " .. mode.name
+				row.nameLabel.TextColor3 = Color3.new(1, 1, 1)
+				row.nameLabel.Font = Enum.Font.GothamMedium
+				row.frame.BackgroundTransparency = isEditing and 0.88 or 1
+			elseif dim then
+				row.nameLabel.Text = "  " .. mode.name
+				row.nameLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
+				row.nameLabel.Font = Enum.Font.GothamMedium
+				row.frame.BackgroundTransparency = 1
+			else
+				row.nameLabel.Text = "  " .. mode.name
+				row.nameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+				row.nameLabel.Font = Enum.Font.GothamMedium
+				row.frame.BackgroundTransparency = 1
+			end
+
+			row.valueLabel.Text = getMonitorModeValue(mode)
+			row.valueLabel.TextColor3 = dim and Color3.fromRGB(60, 60, 60) or getMonitorModeValueColor(mode, isCursor, isEditing)
+		else
+			row.frame.Visible = false
+		end
+	end
+
+	-- hint
+	if isEditing then
+		monitorGui.hint.Text = "\xE2\x86\x90\xE2\x86\x92 Adjust   \xE2\x86\x91\xE2\x86\x93 Exit selection"
+	else
+		monitorGui.hint.Text = "\xE2\x86\x91\xE2\x86\x93 Navigate   \xE2\x86\x92 Select   \xE2\x86\x90 Back"
+	end
+end
+
+end -- FFlagUserPlayerScriptsRefactor4
 
 local function StepFreecam(dt)
 	Input.ModeControl(dt)
@@ -1093,7 +1439,9 @@ local function StepFreecam(dt)
 		cameraCFrame = targetCFrame * rotationCFrame * CFrame.new(0, 0, playerLockZoom)
 	end
 
-	if customGui and customGui.Parent and customGuiBubbles and freecamGui and freecamGui.Parent then
+	if FFlagUserPlayerScriptsRefactor4 then
+		updateMonitorGui()
+	elseif customGui and customGui.Parent and customGuiBubbles and freecamGui and freecamGui.Parent then
 		local modeInfo = customGuiBubbles.mode
 		if Input.getModeActive() then
 			-- camera movement / rotation bubble
@@ -1290,7 +1638,11 @@ local function StartFreecam()
 	rollSpring:Reset(0)
 
 	freecamGui = LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("Freecam")
-	if not customGui or not customGui.Parent then
+	if FFlagUserPlayerScriptsRefactor4 then
+		if not monitorGui then
+			buildMonitorGui(freecamGui)
+		end
+	elseif not customGui or not customGui.Parent then
 		local container = Instance.new("Frame")
 		container.Name = "FreecamCustomGui"
 		container.BackgroundTransparency = 1
@@ -1421,6 +1773,9 @@ local function StartFreecam()
 	for _, def in ipairs(effectDefs) do
 		local s = savedEffects[def.key]
 		local e = makeEffect(def.class, "Freecam" .. def.key)
+		if FFlagUserPlayerScriptsRefactor5 and def.parent then
+			e.Parent = def.parent
+		end
 		for _, p in ipairs(def.props) do e[p] = s[p] end
 		e.Enabled = s.Enabled
 		def.set(e)
@@ -1450,6 +1805,7 @@ local function StopFreecam()
 		end
 	end
 
+	if FFlagUserPlayerScriptsRefactor4 and monitorGui then monitorGui.panel.Visible = false end
 	if freecamGui and freecamGui.Parent then freecamGui.Enabled = false end
 	screenGuisEnabled = false
 	leaderboardEnabled = false

@@ -33,6 +33,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
 -- Components
@@ -69,7 +70,7 @@ local shouldDisableBottomBarInteraction = function()
     end
 end
 
-local lightTokens = if FFlagEnablePlaytestModeUnibar then Foundation.Utility.getTokens(Foundation.Enums.Theme.Light) else nil
+local lightTokens = if FFlagEnablePlaytestModeUnibar then Foundation.Utility.getTokens(Foundation.Enums.ColorMode.Light) else nil
 
 local BADGE_INDENT = 1
 
@@ -302,9 +303,11 @@ local function MenuIcon(props: MenuIconProps)
 				else nil,
             Size = UDim2.fromScale(1, 1),
             NextSelectionRight = nextSelectionRight,
-            selection = {
+            selection = if not (FFlagEnableSideSheet and FFlagSideSheetFocusNav) then {
                 Selectable = true,
                 SelectionImageObject = menuIconCursor
+            } else {
+                Selectable = false,
             },
             selectionGroup = {
                 SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,

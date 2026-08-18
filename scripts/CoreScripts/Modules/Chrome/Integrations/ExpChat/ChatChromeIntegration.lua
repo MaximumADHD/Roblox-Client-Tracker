@@ -50,6 +50,7 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
+local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -63,7 +64,6 @@ local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUniba
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
-local FFlagExpChatPerfTracking = SharedFlags.FFlagExpChatPerfTracking
 local ExpChatPerfTracker = ExpChat.ExpChatPerfTracker
 
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
@@ -220,16 +220,14 @@ chatChromeIntegration = ChromeService:register({
 	label = "CoreScripts.TopBar.Chat",
 	-- Hide ExpChat "Chat" button until Friends chat in experience is launched: https://roblox.atlassian.net/browse/EXPR-3846
 	sideSheetPlacement = if ArgoPartyExperimentation.getIsRenameEnabled()
-			and not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatEnableFriendsTab)
+			and not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab)
 		then SideSheetPlacement.None
 		else SideSheetPlacement.Unibar,
 	activated = function(self)
 		if chatVisibility then
 			ChatSelector:SetVisible(false)
 		else
-			if FFlagExpChatPerfTracking then
-				ExpChatPerfTracker.start(ExpChatPerfTracker.Events.ChatWindowMountTTI, {})
-			end
+			ExpChatPerfTracker.start(ExpChatPerfTracker.Events.ChatWindowMountTTI, {})
 			if isSpatialDirectOpen() then
 				ChatSelector:SetVisible(true)
 			else

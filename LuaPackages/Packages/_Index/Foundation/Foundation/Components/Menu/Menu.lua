@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local BaseMenu = require(Foundation.Components.BaseMenu)
-local Flags = require(Foundation.Utility.Flags)
 local Popover = require(Foundation.Components.Popover)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -88,9 +87,7 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 				align = props.align,
 				hasArrow = false,
 				onPressedOutside = props.onPressedOutside,
-				backgroundStyle = if Flags.FoundationBaseMenuBeta
-					then tokens.Color.Surface.Surface_200
-					else tokens.Color.Surface.Surface_100,
+				backgroundStyle = tokens.Color.Surface.Surface_200,
 				radius = Radius.Medium,
 				ref = ref,
 				selection = props.selection,

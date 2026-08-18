@@ -3,8 +3,10 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
 local StudioUri = require(Foundation.Utility.Plugin.StudioUri)
 local usePlugin = require(Foundation.Providers.Plugin.usePlugin)
+local useWidgetsContext = require(Foundation.Providers.StudioWidgets.useWidgetsContext)
 
 local PanelsContext = require(script.Parent.PanelsContext)
 local PopoverManager = require(script.Parent.Managers.PopoverManager)
@@ -28,6 +30,7 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 	if plugin == nil then
 		error("PanelsProvider must be used within a plugin context")
 	end
+	local widgets = if Flags.FoundationPopoverPluginAnchorRefresh then useWidgetsContext() else nil :: never
 
 	local popoverManager = React.useMemo(function()
 		return PopoverManager.new(plugin, props.uriScope)
@@ -55,6 +58,9 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 			depth: number?,
 			parentPopoverId: string?
 		)
+			if Flags.FoundationPopoverPluginAnchorRefresh then
+				widgets.refreshAsync(anchorUri)
+			end
 			local handle = popoverManager:openAtAsync({
 				targetWidgetUri = anchorUri,
 				targetAnchorPoint = position.targetAnchorPoint,
@@ -66,7 +72,7 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 				handle.close()
 			end
 		end,
-		{ popoverManager }
+		{ popoverManager, widgets } :: { unknown }
 	)
 
 	local value: PanelsContext = {

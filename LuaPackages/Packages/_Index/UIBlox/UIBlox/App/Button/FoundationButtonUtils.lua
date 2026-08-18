@@ -7,6 +7,9 @@ local Core = UIBlox.Core
 local Foundation = require(Packages.Foundation)
 local ButtonVariant = Foundation.Enums.ButtonVariant
 local InputSize = Foundation.Enums.InputSize
+local FoundationFlags = Foundation.Utility.Flags
+
+local GetTextSize = require(Core.Text.GetTextSize)
 
 local BuilderIcons = require(Packages.BuilderIcons)
 local migrations = BuilderIcons.Migration["uiblox"]
@@ -33,6 +36,27 @@ local fitContentDefaultMapping = {
 	[StandardButtonSize.Regular] = false,
 	[StandardButtonSize.Small] = false,
 	[StandardButtonSize.XSmall] = true,
+}
+
+-- Mirrors the container padding, label typography and fixed height that
+-- useButtonVariants applies per size. Callers that have to reserve layout space for
+-- a button before it renders need the size Foundation will actually draw, which is
+-- unrelated to the caller's own text styles.
+local fitContentMetrics = {
+	[InputSize.XSmall] = { padding = "Small", typography = "Small", height = "Size_600" },
+	[InputSize.Small] = { padding = "Small", typography = "Small", height = "Size_800" },
+	[InputSize.Medium] = { padding = "Medium", typography = "Medium", height = "Size_1000" },
+	[InputSize.Large] = { padding = "Medium", typography = "Large", height = "Size_1200" },
+}
+
+local TEXT_MEASURE_BOUNDS = Vector2.new(10000, 10000)
+
+-- Only the token groups getFitContentSize reads, so both Foundation's tokens and the
+-- app style's tokens satisfy it.
+type FitContentTokens = {
+	Padding: { [string]: number },
+	Size: { [string]: number },
+	Typography: { [string]: { Font: Enum.Font, FontSize: number } },
 }
 
 local function findIcon(searchData: any)
@@ -97,6 +121,23 @@ local function getMaxWidth(standardSize: string?, maxWidth: number?): number?
 	return if maxWidth == nil then 640 else maxWidth
 end
 
+-- Size a fitContent button draws for `text`, or nil when the size is unsupported.
+local function getFitContentSize(text: string, standardSize: string?, tokens: FitContentTokens): Vector2?
+	local inputSize = if standardSize then sizeMapping[standardSize] else nil
+	local metrics = if inputSize then fitContentMetrics[inputSize] else nil
+	if not metrics then
+		return nil
+	end
+
+	local typographyPrefix = if FoundationFlags.FoundationButtonLabelTypography then "Label" else "Title"
+	local typography = tokens.Typography[typographyPrefix .. metrics.typography]
+	local textWidth = GetTextSize(text, typography.FontSize, typography.Font, TEXT_MEASURE_BOUNDS).X
+
+	-- Round up, because the label carries text-truncate-end and clips as soon as its
+	-- container is a fraction narrower than the text, and these sizes are fractional.
+	return Vector2.new(math.ceil(textWidth) + tokens.Padding[metrics.padding] * 2, tokens.Size[metrics.height])
+end
+
 local function getTestId(tag: string?): string?
 	if not tag or #tag == 0 then
 		return nil
@@ -112,5 +153,6 @@ return {
 	getSizeMapping = getSizeMapping,
 	getWidth = getWidth,
 	getMaxWidth = getMaxWidth,
+	getFitContentSize = getFitContentSize,
 	getTestId = getTestId,
 }

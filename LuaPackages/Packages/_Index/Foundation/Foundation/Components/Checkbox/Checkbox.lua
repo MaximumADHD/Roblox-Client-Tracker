@@ -24,6 +24,8 @@ type InputSize = InputSize.InputSize
 local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
+local Flags = require(Foundation.Utility.Flags)
+
 export type CheckboxProps = {
 	-- Whether the checkbox is currently checked. If it is left `nil`,
 	-- the checkbox will be considered uncontrolled.
@@ -39,6 +41,8 @@ export type CheckboxProps = {
 	onActivated: (boolean) -> (),
 	-- A label for the checkbox. To omit, set it to an empty string.
 	label: string,
+	-- A secondary description displayed below the label.
+	hint: string?,
 	size: InputSize?,
 	placement: InputPlacement?,
 } & Types.SelectionProps & Types.CommonProps
@@ -68,6 +72,7 @@ local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?
 			label = {
 				text = props.label,
 				position = Constants.INPUT_PLACEMENT_TO_LABEL_ALIGNMENT[props.placement],
+				hint = if Flags.FoundationCheckboxBeta then props.hint else nil,
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,

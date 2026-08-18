@@ -100,10 +100,14 @@ type _Messages = {
 	ArrayOfAvatarProp_ConditionalOptions: _ArrayOfAvatarProp_ConditionalOptionsMessage,
 	ArrayOfAvatarProp_ArrayOfAvatars: _ArrayOfAvatarProp_ArrayOfAvatarsMessage,
 	ArrayOfAvatarProp_ArrayMap: _ArrayOfAvatarProp_ArrayMapMessage,
+	ScaleBasisProp: _ScaleBasisPropMessage,
+	ScaleBasisProp_ConditionalOption: _ScaleBasisProp_ConditionalOptionMessage,
+	ScaleBasisProp_ConditionalOptions: _ScaleBasisProp_ConditionalOptionsMessage,
 	StringArrayProp: _StringArrayPropMessage,
 	StringArrayProp_LiteralValue: _StringArrayProp_LiteralValueMessage,
 	StringArrayProp_ConditionalOption: _StringArrayProp_ConditionalOptionMessage,
 	StringArrayProp_ConditionalOptions: _StringArrayProp_ConditionalOptionsMessage,
+	ScaleBasis: _ScaleBasisMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -2810,6 +2814,91 @@ type _ArrayOfAvatarProp_ArrayMapMessage = proto.Message<
 	_ArrayOfAvatarProp_ArrayMapPartialFields
 >
 
+type _ScaleBasisPropImpl = {
+	__index: _ScaleBasisPropImpl,
+	new: (fields: _ScaleBasisPropPartialFields?) -> ScaleBasisProp,
+	encode: (self: ScaleBasisProp) -> buffer,
+	decode: (input: buffer) -> ScaleBasisProp,
+	jsonEncode: (self: ScaleBasisProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ScaleBasisProp,
+	descriptor: proto.Descriptor,
+}
+
+type _ScaleBasisPropFields = {
+	kind: (
+		{ type: "literal", value: ScaleBasis }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ScaleBasisProp_ConditionalOptions }
+	)?,
+}
+
+type _ScaleBasisPropPartialFields = {
+	kind: (
+		{ type: "literal", value: ScaleBasis }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ScaleBasisProp_ConditionalOptions }
+	)?,
+}
+
+export type ScaleBasisProp = typeof(setmetatable({} :: _ScaleBasisPropFields, {} :: _ScaleBasisPropImpl))
+type _ScaleBasisPropMessage = proto.Message<ScaleBasisProp, _ScaleBasisPropPartialFields>
+
+type _ScaleBasisProp_ConditionalOptionImpl = {
+	__index: _ScaleBasisProp_ConditionalOptionImpl,
+	new: (fields: _ScaleBasisProp_ConditionalOptionPartialFields?) -> ScaleBasisProp_ConditionalOption,
+	encode: (self: ScaleBasisProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> ScaleBasisProp_ConditionalOption,
+	jsonEncode: (self: ScaleBasisProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ScaleBasisProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _ScaleBasisProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ScaleBasis } | { type: "binding_path", value: string })?,
+}
+
+type _ScaleBasisProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ScaleBasis } | { type: "binding_path", value: string })?,
+}
+
+export type ScaleBasisProp_ConditionalOption = typeof(setmetatable(
+	{} :: _ScaleBasisProp_ConditionalOptionFields,
+	{} :: _ScaleBasisProp_ConditionalOptionImpl
+))
+type _ScaleBasisProp_ConditionalOptionMessage = proto.Message<
+	ScaleBasisProp_ConditionalOption,
+	_ScaleBasisProp_ConditionalOptionPartialFields
+>
+
+type _ScaleBasisProp_ConditionalOptionsImpl = {
+	__index: _ScaleBasisProp_ConditionalOptionsImpl,
+	new: (fields: _ScaleBasisProp_ConditionalOptionsPartialFields?) -> ScaleBasisProp_ConditionalOptions,
+	encode: (self: ScaleBasisProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> ScaleBasisProp_ConditionalOptions,
+	jsonEncode: (self: ScaleBasisProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ScaleBasisProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _ScaleBasisProp_ConditionalOptionsFields = {
+	options: { ScaleBasisProp_ConditionalOption },
+}
+
+type _ScaleBasisProp_ConditionalOptionsPartialFields = {
+	options: { ScaleBasisProp_ConditionalOption }?,
+}
+
+export type ScaleBasisProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _ScaleBasisProp_ConditionalOptionsFields,
+	{} :: _ScaleBasisProp_ConditionalOptionsImpl
+))
+type _ScaleBasisProp_ConditionalOptionsMessage = proto.Message<
+	ScaleBasisProp_ConditionalOptions,
+	_ScaleBasisProp_ConditionalOptionsPartialFields
+>
+
 type _StringArrayPropImpl = {
 	__index: _StringArrayPropImpl,
 	new: (fields: _StringArrayPropPartialFields?) -> StringArrayProp,
@@ -2929,6 +3018,9 @@ type _StringArrayProp_ConditionalOptionsMessage = proto.Message<
 	StringArrayProp_ConditionalOptions,
 	_StringArrayProp_ConditionalOptionsPartialFields
 >
+
+type _ScaleBasisMessage = proto.Enum<ScaleBasis>
+export type ScaleBasis = "SCALE_BASIS_INVALID" | "SCALE_BASIS_PARENT" | "SCALE_BASIS_VIEWPORT" | number -- Unknown
 
 do
 	local _TranslationRefImpl = {}
@@ -15547,6 +15639,421 @@ do
 end
 
 do
+	local _ScaleBasisPropImpl = {}
+	_ScaleBasisPropImpl.__index = _ScaleBasisPropImpl
+
+	function _ScaleBasisPropImpl.new(data: _ScaleBasisPropPartialFields?): ScaleBasisProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ScaleBasisPropImpl :: _ScaleBasisPropImpl)
+	end
+
+	function _ScaleBasisPropImpl.encode(self: ScaleBasisProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(output, cursor, messages.ScaleBasis.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ScaleBasisPropImpl.decode(input: buffer): ScaleBasisProp
+		local self = _ScaleBasisPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.ScaleBasis.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.ScaleBasisProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ScaleBasisPropImpl.jsonEncode(self: ScaleBasisProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.ScaleBasis.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ScaleBasisPropImpl.jsonDecode(input: { [string]: any }): ScaleBasisProp
+		local self = _ScaleBasisPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.ScaleBasis.fromNumber(input.literal) or input.literal)
+					else (messages.ScaleBasis.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.ScaleBasisProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_ScaleBasisPropImpl.descriptor = {
+		name = "ScaleBasisProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ScaleBasisProp",
+	}
+
+	messages.ScaleBasisProp = _ScaleBasisPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ScaleBasisProp)
+end
+
+do
+	local _ScaleBasisProp_ConditionalOptionImpl = {}
+	_ScaleBasisProp_ConditionalOptionImpl.__index = _ScaleBasisProp_ConditionalOptionImpl
+
+	function _ScaleBasisProp_ConditionalOptionImpl.new(
+		data: _ScaleBasisProp_ConditionalOptionPartialFields?
+	): ScaleBasisProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ScaleBasisProp_ConditionalOptionImpl :: _ScaleBasisProp_ConditionalOptionImpl)
+	end
+
+	function _ScaleBasisProp_ConditionalOptionImpl.encode(self: ScaleBasisProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(output, cursor, messages.ScaleBasis.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ScaleBasisProp_ConditionalOptionImpl.decode(input: buffer): ScaleBasisProp_ConditionalOption
+		local self = _ScaleBasisProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.ScaleBasis.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ScaleBasisProp_ConditionalOptionImpl.jsonEncode(self: ScaleBasisProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.ScaleBasis.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _ScaleBasisProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): ScaleBasisProp_ConditionalOption
+		local self = _ScaleBasisProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.ScaleBasis.fromNumber(input.literal) or input.literal)
+					else (messages.ScaleBasis.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_ScaleBasisProp_ConditionalOptionImpl.descriptor = {
+		name = "ScaleBasisProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.ScaleBasisProp_ConditionalOption = _ScaleBasisProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ScaleBasisProp_ConditionalOption)
+end
+
+do
+	local _ScaleBasisProp_ConditionalOptionsImpl = {}
+	_ScaleBasisProp_ConditionalOptionsImpl.__index = _ScaleBasisProp_ConditionalOptionsImpl
+
+	function _ScaleBasisProp_ConditionalOptionsImpl.new(
+		data: _ScaleBasisProp_ConditionalOptionsPartialFields?
+	): ScaleBasisProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _ScaleBasisProp_ConditionalOptionsImpl :: _ScaleBasisProp_ConditionalOptionsImpl)
+	end
+
+	function _ScaleBasisProp_ConditionalOptionsImpl.encode(self: ScaleBasisProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ScaleBasisProp_ConditionalOptionsImpl.decode(input: buffer): ScaleBasisProp_ConditionalOptions
+		local self = _ScaleBasisProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.ScaleBasisProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ScaleBasisProp_ConditionalOptionsImpl.jsonEncode(self: ScaleBasisProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _ScaleBasisProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): ScaleBasisProp_ConditionalOptions
+		local self = _ScaleBasisProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { ScaleBasisProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.ScaleBasisProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_ScaleBasisProp_ConditionalOptionsImpl.descriptor = {
+		name = "ScaleBasisProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.ScaleBasisProp_ConditionalOptions = _ScaleBasisProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ScaleBasisProp_ConditionalOptions)
+end
+
+do
 	local _StringArrayPropImpl = {}
 	_StringArrayPropImpl.__index = _StringArrayPropImpl
 
@@ -16072,6 +16579,44 @@ do
 	typeRegistry.default:register(messages.StringArrayProp_ConditionalOptions)
 end
 
+messages.ScaleBasis = {
+	fromNumber = function(value: number): ScaleBasis?
+		if value == 0 then
+			return "SCALE_BASIS_INVALID"
+		elseif value == 1 then
+			return "SCALE_BASIS_PARENT"
+		elseif value == 2 then
+			return "SCALE_BASIS_VIEWPORT"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: ScaleBasis): number
+		if self == "SCALE_BASIS_INVALID" then
+			return 0
+		elseif self == "SCALE_BASIS_PARENT" then
+			return 1
+		elseif self == "SCALE_BASIS_VIEWPORT" then
+			return 2
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): ScaleBasis?
+		if name == "SCALE_BASIS_INVALID" then
+			return "SCALE_BASIS_INVALID"
+		elseif name == "SCALE_BASIS_PARENT" then
+			return "SCALE_BASIS_PARENT"
+		elseif name == "SCALE_BASIS_VIEWPORT" then
+			return "SCALE_BASIS_VIEWPORT"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	TranslationRef = messages.TranslationRef,
 	StringFormat = messages.StringFormat,
@@ -16165,8 +16710,12 @@ return {
 	ArrayOfAvatarProp_ConditionalOptions = messages.ArrayOfAvatarProp_ConditionalOptions,
 	ArrayOfAvatarProp_ArrayOfAvatars = messages.ArrayOfAvatarProp_ArrayOfAvatars,
 	ArrayOfAvatarProp_ArrayMap = messages.ArrayOfAvatarProp_ArrayMap,
+	ScaleBasisProp = messages.ScaleBasisProp,
+	ScaleBasisProp_ConditionalOption = messages.ScaleBasisProp_ConditionalOption,
+	ScaleBasisProp_ConditionalOptions = messages.ScaleBasisProp_ConditionalOptions,
 	StringArrayProp = messages.StringArrayProp,
 	StringArrayProp_LiteralValue = messages.StringArrayProp_LiteralValue,
 	StringArrayProp_ConditionalOption = messages.StringArrayProp_ConditionalOption,
 	StringArrayProp_ConditionalOptions = messages.StringArrayProp_ConditionalOptions,
+	ScaleBasis = messages.ScaleBasis,
 }

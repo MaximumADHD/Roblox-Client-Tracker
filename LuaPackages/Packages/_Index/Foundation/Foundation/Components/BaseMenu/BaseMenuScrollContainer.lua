@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local ScrollView = require(Foundation.Components.ScrollView)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -93,7 +92,7 @@ local function BaseMenuScrollContainer(props: BaseMenuScrollContainerProps): Rea
 			scrollingFrameRef = props.scrollViewProps.scrollingFrameRef,
 			scroll = {
 				-- Setting XY works almost everywhere except the scroll itself, making the scroll container to be full content height.
-				AutomaticCanvasSize = if Flags.FoundationBaseMenuAutoYCanvasSizing then Enum.AutomaticSize.Y else nil,
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				AutomaticSize = automaticSize,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				CanvasSize = canvasSize,
@@ -107,7 +106,7 @@ local function BaseMenuScrollContainer(props: BaseMenuScrollContainerProps): Rea
 			}):map(computeSize),
 		}),
 		React.createElement(View, {
-			tag = if Flags.FoundationBaseMenuAutoYCanvasSizing then "col size-full-0 auto-y" else "col size-full",
+			tag = "col size-full-0 auto-y",
 			onAbsoluteSizeChanged = onContentAbsoluteSizeChanged,
 		}, props.children)
 	)

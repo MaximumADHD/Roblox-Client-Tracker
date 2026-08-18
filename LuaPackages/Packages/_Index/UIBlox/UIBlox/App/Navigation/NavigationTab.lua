@@ -16,11 +16,20 @@ local NavigationTabLayout = require(UIBlox.App.Navigation.Enum.NavigationTabLayo
 local ImagesTypes = require(UIBlox.App.ImageSet.ImagesTypes)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 
+local isBuilderIcon = Foundation.Utility.isBuilderIcon
+local InputSize = Foundation.Enums.InputSize
+local Icon = Foundation.Icon
 local StatusIndicator = Foundation.StatusIndicator
+
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
 
 local HUGE_VECTOR = Vector2.new(math.huge, math.huge)
 local LABEL_PADDING = 2
+
+type Icon = {
+	name: string,
+	variant: Foundation.IconVariant?,
+}
 
 export type NavigationTabLayoutType = NavigationTabLayout.Type
 export type ImageSetImage = ImagesTypes.ImageSetImage
@@ -28,9 +37,9 @@ export type TypographyItem = StyleTypes.TypographyItem
 export type ControlStateChangedCallback = StateLayer.ControlStateChangedCallback
 export type Props = {
 	-- Image of the icon in default state
-	iconImage: (string | ImageSetImage)?,
+	iconImage: (string | ImageSetImage | Icon)?,
 	-- Image of the icon in checked state
-	iconCheckedImage: (string | ImageSetImage)?,
+	iconCheckedImage: (string | ImageSetImage | Icon)?,
 	-- The icon element to be rendered manually, this will override iconImage and iconCheckedImage
 	renderIcon: ((isChecked: boolean) -> React.ElementType)?,
 	-- Whether to render the text label
@@ -101,14 +110,38 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 		local iconColor = if props.isChecked
 			then tokens.Semantic.Color.Icon.Emphasis
 			else tokens.Semantic.Color.Icon.Default
-		iconComponent = React.createElement(ImageSetLabel, {
-			BackgroundTransparency = 1,
-			Size = iconSize,
-			Image = iconImage,
-			ScaleType = Enum.ScaleType.Fit,
-			ImageColor3 = iconColor.Color3,
-			ImageTransparency = iconColor.Transparency,
-		})
+		local iconName
+		local iconVariant
+		if UIBloxConfig.addFoundationNavigationTabIcon then
+			if typeof(iconImage) == "string" then
+				if isBuilderIcon(iconImage) then
+					iconName = iconImage
+				end
+			elseif typeof(iconImage) == "table" then
+				if iconImage.name ~= nil and isBuilderIcon(iconImage.name) then
+					iconName = iconImage.name
+					iconVariant = iconImage.variant
+				end
+			end
+		end
+
+		if UIBloxConfig.addFoundationNavigationTabIcon and iconName ~= nil then
+			iconComponent = React.createElement(Icon, {
+				name = iconName,
+				size = InputSize.Large,
+				variant = iconVariant,
+				style = iconColor,
+			})
+		else
+			iconComponent = React.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Size = iconSize,
+				Image = iconImage,
+				ScaleType = Enum.ScaleType.Fit,
+				ImageColor3 = iconColor.Color3,
+				ImageTransparency = iconColor.Transparency,
+			})
+		end
 	end
 	if props.layout == NavigationTabLayout.Stacked and props.badgeValue ~= nil then
 		iconComponent = React.createElement("Frame", {

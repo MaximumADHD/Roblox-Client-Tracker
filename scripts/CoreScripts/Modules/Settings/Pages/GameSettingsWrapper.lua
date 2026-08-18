@@ -46,7 +46,7 @@ local function createGameSettings()
 	end
 
 	local Settings = React.createElement(FoundationProvider, {
-		theme = Foundation.Enums.Theme.Dark,
+		colorMode = Foundation.Enums.ColorMode.Dark,
 		device = Utils.getDeviceType(),
 	}, {
 		-- In-Dev: add settings page

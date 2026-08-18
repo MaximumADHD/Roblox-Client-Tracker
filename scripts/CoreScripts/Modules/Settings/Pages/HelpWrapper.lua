@@ -65,7 +65,7 @@ local function createHelpPage()
             local displayed = SignalsReact.useSignalState(getDisplayed)
 
             local Child = if displayed then React.createElement(FoundationProvider, {
-                theme = Foundation.Enums.Theme.Dark,
+                colorMode = Foundation.Enums.ColorMode.Dark,
                 device = Utils.getDeviceType(),
             }, {
                 Child = React.createElement(LocalizationProvider, {

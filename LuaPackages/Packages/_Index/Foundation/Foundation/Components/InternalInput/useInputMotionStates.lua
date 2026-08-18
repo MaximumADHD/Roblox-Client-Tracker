@@ -48,26 +48,19 @@ local function useInputMotionStates(
 	local labelStyle: ColorStyleValue
 	local labelHoverStyle: ColorStyleValue
 	local colors: InputColors? = colorsOrCheckedStyle :: InputColors?
+	defaultStyle = if colors and colors.backgroundStyle then colors.backgroundStyle else tokens.Color.Content.Default
+	checkedStyle = if colors and colors.checkedStyle
+		then colors.checkedStyle
+		else tokens.Color.ActionSubEmphasis.Background
 
-	if Flags.FoundationToggleVisualUpdate then
-		defaultStyle = if colors and colors.backgroundStyle
-			then colors.backgroundStyle
-			else tokens.Color.Content.Default
+	if Flags.FoundationInternalInputBeta then
+		labelStyle = tokens.Color.Content.Emphasis
+	else
 		hoverStyle = if colors and colors.hoverStyle then colors.hoverStyle else tokens.Color.Content.Emphasis
-		checkedStyle = if colors and colors.checkedStyle
-			then colors.checkedStyle
-			else tokens.Color.ActionSubEmphasis.Background
 		labelStyle = if colors and colors.labelStyle then colors.labelStyle else tokens.Color.Content.Default
 		labelHoverStyle = if colors and colors.labelHoverStyle
 			then colors.labelHoverStyle
 			else tokens.Color.Content.Emphasis
-	else
-		local colorStyle: ColorStyleValue? = colorsOrCheckedStyle :: ColorStyleValue
-		defaultStyle = tokens.Color.Content.Default
-		hoverStyle = tokens.Color.Content.Emphasis
-		labelStyle = tokens.Color.Content.Default
-		labelHoverStyle = tokens.Color.Content.Emphasis
-		checkedStyle = if colorStyle then colorStyle else tokens.Color.ActionSubEmphasis.Background
 	end
 
 	return {
@@ -82,22 +75,24 @@ local function useInputMotionStates(
 			default = Motion.transition(TransitionPreset.Default, { duration = 0.2 }),
 			transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0.2 }),
 		}),
-		Hover = Motion.createState({
-			backgroundStyle = {
-				Color3 = hoverStyle.Color3,
-				Transparency = if colors and colors.hoverStyle then colors.hoverStyle.Transparency else 1,
-			},
-			strokeStyle = hoverStyle,
-			labelStyle = labelHoverStyle,
-		}, {
-			default = Motion.transition(TransitionPreset.Default, { duration = 0 }),
-			transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0 }),
-		}),
+		Hover = if Flags.FoundationInternalInputBeta
+			then nil :: never
+			else Motion.createState({
+				backgroundStyle = {
+					Color3 = hoverStyle.Color3,
+					Transparency = if colors and colors.hoverStyle then colors.hoverStyle.Transparency else 1,
+				},
+				strokeStyle = hoverStyle,
+				labelStyle = labelHoverStyle,
+			}, {
+				default = Motion.transition(TransitionPreset.Default, { duration = 0 }),
+				transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0 }),
+			}),
 		Checked = Motion.createState({
 			-- Stroke and background color are the same for checked state
 			backgroundStyle = checkedStyle,
 			strokeStyle = checkedStyle,
-			labelStyle = labelHoverStyle,
+			labelStyle = if Flags.FoundationInternalInputBeta then labelStyle else labelHoverStyle,
 		}, {
 			default = Motion.transition(TransitionPreset.Default, { duration = 0.2 }),
 			transparency = Motion.transition({ easingStyle = Enum.EasingStyle.Linear, duration = 0.2 }),

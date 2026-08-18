@@ -441,19 +441,8 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 							Visible = isKnobVisible,
 							testId = `{props.testId}--custom-knob`,
 						}, props.knob)
-						else if Flags.FoundationToggleVisualUpdate
-							then React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
-								Knob = React.createElement(Knob, {
-									AnchorPoint = knobAnchorPoint,
-									Position = knobPosition,
-									size = props.size,
-									style = currentMotionState.knobStyle,
-									stroke = variant.knob.stroke,
-									hasShadow = variant.knob.hasShadow,
-									testId = `{props.testId}--knob`,
-								}),
-							})
-							else React.createElement(Knob, {
+						else React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
+							Knob = React.createElement(Knob, {
 								AnchorPoint = knobAnchorPoint,
 								Position = knobPosition,
 								size = props.size,
@@ -462,6 +451,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 								hasShadow = variant.knob.hasShadow,
 								testId = `{props.testId}--knob`,
 							}),
+						}),
 				}),
 			}),
 		}

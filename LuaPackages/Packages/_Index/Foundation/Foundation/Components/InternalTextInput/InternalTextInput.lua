@@ -178,7 +178,7 @@ end))
 -- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationInternalTextInputScrolling is cleaned up
 local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<InternalTextInputRef>?)
 	-- for flag changes while storybook is open, remove with Flags.FoundationInputSelectionProps
-	if Flags.FoundationInputSelectionProps and textInputProps.Selectable == nil then
+	if textInputProps.Selectable == nil then
 		textInputProps.Selectable = true
 	end
 
@@ -593,15 +593,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		if mobileTextBox then
 			mobileTextBox.Text = mobileTextBoxTextRef.current
 			mobileTextBoxTextRef.current = ""
-			if Flags.FoundationTextAreaDelayMobileFocus then
-				task.delay(0, function()
-					if mobileTextBox.Parent ~= nil then
-						mobileTextBox:CaptureFocus()
-					end
-				end)
-			else
-				mobileTextBox:CaptureFocus()
-			end
+			task.delay(0, function()
+				if mobileTextBox.Parent ~= nil then
+					mobileTextBox:CaptureFocus()
+				end
+			end)
 		end
 	end, {})
 
@@ -646,13 +642,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			ref = props.inputRef,
 			Size = UDim2.new(1, 0, 0, borderFrameHeight),
 			selection = {
-				Selectable = if Flags.FoundationInputSelectionProps
-					then (props.Selectable and not props.isDisabled)
-					else not props.isDisabled,
-				NextSelectionUp = if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil,
-				NextSelectionDown = if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil,
-				NextSelectionLeft = if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil,
-				NextSelectionRight = if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil,
+				Selectable = (props.Selectable and not props.isDisabled),
+				NextSelectionUp = props.NextSelectionUp,
+				NextSelectionDown = props.NextSelectionDown,
+				NextSelectionLeft = props.NextSelectionLeft,
+				NextSelectionRight = props.NextSelectionRight,
 			},
 			cursor = cursor,
 			stroke = if containerProps.strokeStyle and containerProps.strokeThickness

@@ -5166,6 +5166,7 @@ type _ActionFields = {
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
 	skip_unified_logging: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	action_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _ActionPartialFields = {
@@ -5255,6 +5256,7 @@ type _ActionPartialFields = {
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
 	skip_unified_logging: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	action_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type Action = typeof(setmetatable({} :: _ActionFields, {} :: _ActionImpl))
@@ -30768,6 +30770,7 @@ do
 			skip_unified_logging = if data == nil or data.skip_unified_logging == nil
 				then nil
 				else data.skip_unified_logging,
+			action_event_name = if data == nil or data.action_event_name == nil then nil else data.action_event_name,
 		}, _ActionImpl :: _ActionImpl)
 	end
 
@@ -31106,6 +31109,12 @@ do
 		if self.skip_unified_logging ~= nil then
 			local encoded = self.skip_unified_logging:encode()
 			output, cursor = proto.writeTag(output, cursor, 1002, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.action_event_name ~= nil then
+			local encoded = self.action_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1003, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -31683,6 +31692,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.skip_unified_logging = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 1003 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -31880,6 +31894,10 @@ do
 
 		if self.skip_unified_logging ~= nil then
 			output.skipUnifiedLogging = self.skip_unified_logging:jsonEncode()
+		end
+
+		if self.action_event_name ~= nil then
+			output.actionEventName = self.action_event_name:jsonEncode()
 		end
 
 		return output
@@ -33028,6 +33046,16 @@ do
 		if input.skipUnifiedLogging ~= nil then
 			self.skip_unified_logging =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipUnifiedLogging)
+		end
+
+		if input.action_event_name ~= nil then
+			self.action_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.action_event_name)
+		end
+
+		if input.actionEventName ~= nil then
+			self.action_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.actionEventName)
 		end
 
 		return self

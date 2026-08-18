@@ -10,7 +10,7 @@ local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
+local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
@@ -25,7 +25,7 @@ return {
 		then nil
 		else require(script.Connect.ConnectIconUnibar),
 	ConnectDropdown = if FFlagRemoveFriendsChatUnibarEntrypoints
-			and FFlagExpChatEnableFriendsTab
+			and FFlagExpChatCanShowFriendsTab
 			and ArgoPartyExperimentation.getIsRenameEnabled()
 		then nil
 		else require(script.Connect.ConnectIconDropdown),

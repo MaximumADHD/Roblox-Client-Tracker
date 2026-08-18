@@ -3,12 +3,9 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local BottomSheet = require(script.Parent.BottomSheet)
 local CenterSheet = require(script.Parent.CenterSheet)
 local SideSheet = require(script.Parent.SideSheet)
-local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useScreen = require(Foundation.Providers.Overlay.useScreen)
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 local DialogSize = require(Foundation.Enums.DialogSize)
@@ -27,8 +24,7 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 	local props = withDefaults(sheetProps, defaultProps)
 	local isOpen, setIsOpen = React.useState(if props.isOpen == nil then true else props.isOpen)
 	local sheetRef = React.useRef(nil :: SheetRef?)
-	local screen = if Flags.FoundationOverlayKeyboardAwarenessHardened then useScreen() else useOverlay()
-
+	local screen = useScreen()
 	local isLandscape, setIsLandscape =
 		React.useState(if screen then screen.AbsoluteSize.X > screen.AbsoluteSize.Y else true)
 	local displaySize, setDisplaySize = React.useState(GuiService.ViewportDisplaySize)

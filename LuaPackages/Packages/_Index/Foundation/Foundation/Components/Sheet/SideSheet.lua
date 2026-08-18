@@ -31,7 +31,6 @@ local useHardwareInsets = require(script.Parent.useHardwareInsets)
 local useScreenSize = require(script.Parent.useScreenSize)
 
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
-local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 
@@ -97,17 +96,15 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local hasHeader, setHasHeader = React.useBinding(false)
 	local hasFullBleed
 	local fullBleedHeight, setFullBleedHeight
-	if Flags.FoundationSheetFullBleed then
-		hasFullBleed = childrenHasFullBleed(props.children)
-		fullBleedHeight, setFullBleedHeight = React.useBinding(0)
-	end
+	hasFullBleed = childrenHasFullBleed(props.children)
+	fullBleedHeight, setFullBleedHeight = React.useBinding(0)
 
 	local innerScrollY, setInnerScrollY = React.useBinding(0)
 
 	local closeAffordanceRef = React.useRef(nil) :: React.Ref<GuiObject>
 	local contentStartRef, setContentStartRef = React.useState(nil :: React.Ref<GuiObject>?)
 
-	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between themes
+	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between colorModes
 	React.useEffect(function()
 		if reducedMotion then
 			setRightPositionGoal(Otter.instant(width) :: Otter.Goal<any>)
@@ -123,7 +120,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 		end
 	end, { width, reducedMotion } :: { unknown })
 
-	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between themes
+	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between colorModes
 	local closeSheet = React.useCallback(function()
 		if closing.current then
 			return
@@ -182,11 +179,11 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 				setInnerScrollY = setInnerScrollY,
 				hasHeader = hasHeader,
 				setHasHeader = setHasHeader,
-				hasFullBleed = if Flags.FoundationSheetFullBleed then hasFullBleed else nil,
-				fullBleedHeight = if Flags.FoundationSheetFullBleed then fullBleedHeight else nil,
-				setFullBleedHeight = if Flags.FoundationSheetFullBleed then setFullBleedHeight else nil,
+				hasFullBleed = hasFullBleed,
+				fullBleedHeight = fullBleedHeight,
+				setFullBleedHeight = setFullBleedHeight,
 				closeSheet = closeSheet,
-				hasRadius = if Flags.FoundationSheetFullBleed then not isSmallDisplay else nil,
+				hasRadius = not isSmallDisplay,
 				sheetType = SheetType.Side,
 				testId = props.testId,
 				closeAffordanceRef = closeAffordanceRef,
@@ -200,7 +197,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 			contentStartRef,
 			closeAffordanceRef,
 			hasFullBleed,
-			if Flags.FoundationSheetFullBleed then isSmallDisplay else nil,
+			isSmallDisplay,
 		} :: { unknown }
 	)
 
@@ -248,7 +245,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 						onActivated = closeSheet,
 						ref = closeAffordanceRef,
 						NextSelectionDown = contentStartRef,
-						variant = if Flags.FoundationSheetFullBleed and hasFullBleed
+						variant = if hasFullBleed
 							then CloseAffordanceVariant.OverMedia
 							else CloseAffordanceVariant.Utility,
 						Position = UDim2.new(1, -tokens.Margin.Small, 0, tokens.Margin.Small),

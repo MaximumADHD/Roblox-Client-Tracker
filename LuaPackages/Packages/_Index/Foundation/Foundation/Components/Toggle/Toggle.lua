@@ -14,7 +14,6 @@ local Types = require(Components.Types)
 local useUncontrolledState = require(Components.InternalInput.useUncontrolledState)
 
 local BuilderIcons = require(Packages.BuilderIcons)
-local Flags = require(Foundation.Utility.Flags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -34,6 +33,8 @@ type InputLabelSize = InputLabelSize.InputLabelSize
 local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
+local Flags = require(Foundation.Utility.Flags)
+
 local SPRING_PARAMETERS = {
 	frequency = 4,
 }
@@ -50,6 +51,8 @@ export type ToggleProps = {
 	onActivated: (boolean) -> (),
 	-- A label for the toggle. To omit, set it to an empty string.
 	label: string,
+	-- A secondary description displayed below the label.
+	hint: string?,
 	size: InputSize?,
 	placement: InputPlacement?,
 } & Types.SelectionProps & Types.CommonProps
@@ -69,12 +72,9 @@ local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 	local variantProps = useToggleVariants(tokens, props.size)
 	local isChecked, onActivated = useUncontrolledState(props.isChecked, props.onActivated)
 
-	local knobSize: InputSize = if Flags.FoundationToggleVisualUpdate
-		then if toggleProps.size == InputSize.Large then InputSize.Medium else props.size
-		else props.size
+	local knobSize: InputSize = if toggleProps.size == InputSize.Large then InputSize.Medium else props.size
 
-	local hasShadow = if Flags.FoundationToggleVisualUpdate then false else true
-
+	local hasShadow = false
 	local initialProgress = isChecked and 1 or 0
 	local progress, setProgress = React.useBinding(initialProgress)
 	local progressMotorRef = React.useRef(nil :: Otter.SingleMotor?)
@@ -113,6 +113,7 @@ local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 			label = {
 				text = props.label,
 				position = Constants.INPUT_PLACEMENT_TO_LABEL_ALIGNMENT[props.placement],
+				hint = if Flags.FoundationToggleBetaUpdate then props.hint else nil,
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,
@@ -124,26 +125,19 @@ local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 			ref = ref,
 		}),
 		React.createElement(PresentationContext.Provider, { value = IS_INVERSE }, {
-			Knob = if Flags.FoundationToggleVisualUpdate
-				then React.createElement(Knob, {
-					size = knobSize,
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = knobPosition,
-					hasShadow = hasShadow,
-					icon = if isChecked
-						then {
-							name = BuilderIcons.Icon.Check,
-							variant = BuilderIcons.IconVariant.Regular,
-						}
-						else nil,
-					testId = `{props.testId}--knob`,
-				})
-				else React.createElement(Knob, {
-					size = knobSize,
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = knobPosition,
-					testId = `{props.testId}--knob`,
-				}),
+			Knob = React.createElement(Knob, {
+				size = knobSize,
+				AnchorPoint = Vector2.new(0, 0.5),
+				Position = knobPosition,
+				hasShadow = hasShadow,
+				icon = if isChecked
+					then {
+						name = BuilderIcons.Icon.Check,
+						variant = BuilderIcons.IconVariant.Regular,
+					}
+					else nil,
+				testId = `{props.testId}--knob`,
+			}),
 		})
 	)
 end

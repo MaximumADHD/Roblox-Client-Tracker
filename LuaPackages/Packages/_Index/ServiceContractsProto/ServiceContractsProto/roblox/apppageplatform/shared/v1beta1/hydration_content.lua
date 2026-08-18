@@ -34,6 +34,8 @@ type _Messages = {
 	HydrationContent_MomentEntry: _HydrationContent_MomentEntryMessage,
 	HydrationContent_CommunityEntry: _HydrationContent_CommunityEntryMessage,
 	HydrationContent_CommunityUserMembershipEntry: _HydrationContent_CommunityUserMembershipEntryMessage,
+	HydrationContent_UserRecommendationEntry: _HydrationContent_UserRecommendationEntryMessage,
+	HydrationContent_ContactEntry: _HydrationContent_ContactEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -70,6 +72,8 @@ local _roblox_apppageplatform_shared_v1beta1_moment_data = require(script.Parent
 local _roblox_apppageplatform_shared_v1beta1_community_data = require(script.Parent.community_data)
 local _roblox_apppageplatform_shared_v1beta1_community_user_membership_data =
 	require(script.Parent.community_user_membership_data)
+local _roblox_apppageplatform_shared_v1beta1_user_recommendation_data = require(script.Parent.user_recommendation_data)
+local _roblox_apppageplatform_shared_v1beta1_contact_data = require(script.Parent.contact_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -133,6 +137,10 @@ type _HydrationContentFields =
 		community_user_membership: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
 		},
+		user_recommendation: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData,
+		},
+		contact: { [string]: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData },
 	}
 
 type _HydrationContentPartialFields =
@@ -187,6 +195,10 @@ type _HydrationContentPartialFields =
 		community_user_membership: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_community_user_membership_data.CommunityUserMembershipData,
 		}?,
+		user_recommendation: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData,
+		}?,
+		contact: { [string]: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData }?,
 	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -960,6 +972,64 @@ type _HydrationContent_CommunityUserMembershipEntryMessage = proto.Message<
 	_HydrationContent_CommunityUserMembershipEntryPartialFields
 >
 
+type _HydrationContent_UserRecommendationEntryImpl = {
+	__index: _HydrationContent_UserRecommendationEntryImpl,
+	new: (fields: _HydrationContent_UserRecommendationEntryPartialFields?) -> HydrationContent_UserRecommendationEntry,
+	encode: (self: HydrationContent_UserRecommendationEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UserRecommendationEntry,
+	jsonEncode: (self: HydrationContent_UserRecommendationEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UserRecommendationEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UserRecommendationEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData?,
+}
+
+type _HydrationContent_UserRecommendationEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData?,
+}
+
+export type HydrationContent_UserRecommendationEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UserRecommendationEntryFields,
+	{} :: _HydrationContent_UserRecommendationEntryImpl
+))
+type _HydrationContent_UserRecommendationEntryMessage = proto.Message<
+	HydrationContent_UserRecommendationEntry,
+	_HydrationContent_UserRecommendationEntryPartialFields
+>
+
+type _HydrationContent_ContactEntryImpl = {
+	__index: _HydrationContent_ContactEntryImpl,
+	new: (fields: _HydrationContent_ContactEntryPartialFields?) -> HydrationContent_ContactEntry,
+	encode: (self: HydrationContent_ContactEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_ContactEntry,
+	jsonEncode: (self: HydrationContent_ContactEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_ContactEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_ContactEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData?,
+}
+
+type _HydrationContent_ContactEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData?,
+}
+
+export type HydrationContent_ContactEntry = typeof(setmetatable(
+	{} :: _HydrationContent_ContactEntryFields,
+	{} :: _HydrationContent_ContactEntryImpl
+))
+type _HydrationContent_ContactEntryMessage = proto.Message<
+	HydrationContent_ContactEntry,
+	_HydrationContent_ContactEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -1007,6 +1077,10 @@ do
 			community_user_membership = if data == nil or data.community_user_membership == nil
 				then {}
 				else data.community_user_membership,
+			user_recommendation = if data == nil or data.user_recommendation == nil
+				then {}
+				else data.user_recommendation,
+			contact = if data == nil or data.contact == nil then {} else data.contact,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1381,6 +1455,34 @@ do
 			end
 		end
 
+		if self.user_recommendation ~= nil and next(self.user_recommendation) ~= nil then
+			for key, value in self.user_recommendation do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.contact ~= nil and next(self.contact) ~= nil then
+			for key, value in self.contact do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1726,6 +1828,31 @@ do
 					self.community_user_membership[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UserRecommendationEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.new()
+
+					self.user_recommendation[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_ContactEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.new()
+
+					self.contact[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -1962,6 +2089,22 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.communityUserMembership = newOutput
+		end
+
+		if self.user_recommendation ~= nil and next(self.user_recommendation) ~= nil then
+			local newOutput = {}
+			for key, value in self.user_recommendation do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.userRecommendation = newOutput
+		end
+
+		if self.contact ~= nil and next(self.contact) ~= nil then
+			local newOutput = {}
+			for key, value in self.contact do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.contact = newOutput
 		end
 
 		return output
@@ -2481,6 +2624,41 @@ do
 			end
 
 			self.community_user_membership = newOutput
+		end
+
+		if input.user_recommendation ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData } =
+				{}
+			for key, value in input.user_recommendation do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.jsonDecode(
+						value
+					)
+			end
+
+			self.user_recommendation = newOutput
+		end
+
+		if input.userRecommendation ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData } =
+				{}
+			for key, value in input.userRecommendation do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.jsonDecode(
+						value
+					)
+			end
+
+			self.user_recommendation = newOutput
+		end
+
+		if input.contact ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData } = {}
+			for key, value in input.contact do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.jsonDecode(value)
+			end
+
+			self.contact = newOutput
 		end
 
 		return self
@@ -5745,6 +5923,258 @@ do
 	messages.HydrationContent_CommunityUserMembershipEntry = _HydrationContent_CommunityUserMembershipEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_CommunityUserMembershipEntry)
+end
+
+do
+	local _HydrationContent_UserRecommendationEntryImpl = {}
+	_HydrationContent_UserRecommendationEntryImpl.__index = _HydrationContent_UserRecommendationEntryImpl
+
+	function _HydrationContent_UserRecommendationEntryImpl.new(
+		data: _HydrationContent_UserRecommendationEntryPartialFields?
+	): HydrationContent_UserRecommendationEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_UserRecommendationEntryImpl :: _HydrationContent_UserRecommendationEntryImpl)
+	end
+
+	function _HydrationContent_UserRecommendationEntryImpl.encode(
+		self: HydrationContent_UserRecommendationEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UserRecommendationEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UserRecommendationEntry
+		local self = _HydrationContent_UserRecommendationEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UserRecommendationEntryImpl.jsonEncode(
+		self: HydrationContent_UserRecommendationEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UserRecommendationEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UserRecommendationEntry
+		local self = _HydrationContent_UserRecommendationEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_user_recommendation_data.UserRecommendationData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UserRecommendationEntryImpl.descriptor = {
+		name = "HydrationContent_UserRecommendationEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserRecommendationEntry",
+	}
+
+	messages.HydrationContent_UserRecommendationEntry = _HydrationContent_UserRecommendationEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UserRecommendationEntry)
+end
+
+do
+	local _HydrationContent_ContactEntryImpl = {}
+	_HydrationContent_ContactEntryImpl.__index = _HydrationContent_ContactEntryImpl
+
+	function _HydrationContent_ContactEntryImpl.new(
+		data: _HydrationContent_ContactEntryPartialFields?
+	): HydrationContent_ContactEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_ContactEntryImpl :: _HydrationContent_ContactEntryImpl)
+	end
+
+	function _HydrationContent_ContactEntryImpl.encode(self: HydrationContent_ContactEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_ContactEntryImpl.decode(input: buffer): HydrationContent_ContactEntry
+		local self = _HydrationContent_ContactEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_ContactEntryImpl.jsonEncode(self: HydrationContent_ContactEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_ContactEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_ContactEntry
+		local self = _HydrationContent_ContactEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_contact_data.ContactData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_ContactEntryImpl.descriptor = {
+		name = "HydrationContent_ContactEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ContactEntry",
+	}
+
+	messages.HydrationContent_ContactEntry = _HydrationContent_ContactEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_ContactEntry)
 end
 
 return {

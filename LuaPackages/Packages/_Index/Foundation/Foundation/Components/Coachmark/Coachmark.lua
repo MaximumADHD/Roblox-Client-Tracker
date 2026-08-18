@@ -48,6 +48,8 @@ export type CoachmarkProps = {
 	isOpen: boolean?,
 	-- Close callback (optional) - if provided, displays a close affordance in the header
 	onClose: (() -> ())?,
+	-- Callback invoked when the backdrop (outside the tooltip) is pressed.
+	onPressedOutside: (() -> ())?,
 	-- Step indicator (optional) - shows "X of Y" above the header
 	steps: {
 		current: number,
@@ -128,7 +130,8 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 			{
 				hasArrow = true,
 				align = props.align,
-				DO_NOT_USE_hasContentInputSink = Flags.FoundationCoachmarkInteractionFixes,
+				DO_NOT_USE_hasContentInputSink = true,
+				onPressedOutside = if Flags.FoundationCoachmarkPressedOutside then props.onPressedOutside else nil,
 				side = {
 					position = props.side,
 					offset = tokens.Size.Size_200,
@@ -156,7 +159,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 								variant = CloseAffordanceVariant.Utility,
 								Position = UDim2.new(1, -tokens.Padding.Small, 0, tokens.Padding.Small),
 								AnchorPoint = Vector2.new(1, 0), -- Top-right anchor
-								ZIndex = if Flags.FoundationCoachmarkInteractionFixes then 2 else nil,
+								ZIndex = 2,
 								testId = `{props.testId}--close-affordance`,
 							}),
 						})

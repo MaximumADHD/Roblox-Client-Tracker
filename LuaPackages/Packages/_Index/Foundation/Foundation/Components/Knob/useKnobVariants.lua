@@ -12,12 +12,13 @@ type ColorStyleValue = Types.ColorStyleValue
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local Flags = require(Foundation.Utility.Flags)
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local getKnobSize = require(script.Parent.getKnobSize)
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
+
+local Flags = require(Foundation.Utility.Flags)
 
 type KnobVariantProps = {
 	knob: {
@@ -58,9 +59,9 @@ end
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		knob = {
-			tag = if Flags.FoundationToggleVisualUpdate
-				then "position-center-center anchor-center-center auto-xy radius-circle"
-				else "position-center-center anchor-center-center radius-circle",
+			tag = if Flags.FoundationToggleBetaUpdate
+				then "align-x-center align-y-center position-center-center anchor-center-center auto-xy radius-circle"
+				else "position-center-center anchor-center-center auto-xy radius-circle",
 		},
 		knobShadow = {
 			tag = "position-center-center anchor-center-center",
@@ -79,55 +80,35 @@ local function variantsFactory(tokens: Tokens)
 			shadowPadding = tokens.Padding.XSmall,
 		}),
 		[InputSize.Medium] = computeProps({
-			iconSize = IconSize.Medium,
+			iconSize = if Flags.FoundationToggleBetaUpdate then IconSize.Small else IconSize.Medium,
 			size = getKnobSize(tokens, InputSize.Medium),
 			shadowPadding = tokens.Padding.Small,
 		}),
 		[InputSize.Large] = computeProps({
-			iconSize = IconSize.Large,
+			iconSize = if Flags.FoundationToggleBetaUpdate then IconSize.Small else IconSize.Large,
 			size = getKnobSize(tokens, InputSize.Large),
 			shadowPadding = tokens.Padding.Small,
 		}),
 	}
 
-	local isInverse: { [boolean]: VariantProps } = if Flags.FoundationToggleVisualUpdate
-		then {
-			[false] = {
-				knob = {
-					style = tokens.Color.Content.Emphasis,
-				},
-				iconContainer = {
-					backgroundStyle = tokens.Inverse.Content.Emphasis,
-				},
+	local isInverse: { [boolean]: VariantProps } = {
+		[false] = {
+			knob = {
+				style = tokens.Color.Content.Emphasis,
 			},
-			[true] = {
-				knob = {
-					style = tokens.Inverse.Content.Emphasis,
-				},
-				iconContainer = {
-					backgroundStyle = tokens.Color.Content.Emphasis,
-				},
+			iconContainer = {
+				backgroundStyle = tokens.Inverse.Content.Emphasis,
 			},
-		}
-		-- Had to add this else block to support the old knob component
-		else {
-			[false] = {
-				knob = {
-					style = tokens.Color.Extended.White.White_100,
-				},
-				iconContainer = {
-					backgroundStyle = tokens.Inverse.Content.Emphasis,
-				},
+		},
+		[true] = {
+			knob = {
+				style = tokens.Inverse.Content.Emphasis,
 			},
-			[true] = {
-				knob = {
-					style = tokens.Color.Extended.White.White_100,
-				},
-				iconContainer = {
-					backgroundStyle = tokens.Color.Content.Emphasis,
-				},
+			iconContainer = {
+				backgroundStyle = tokens.Color.Content.Emphasis,
 			},
-		}
+		},
+	}
 
 	return { common = common, sizes = sizes, isInverse = isInverse }
 end

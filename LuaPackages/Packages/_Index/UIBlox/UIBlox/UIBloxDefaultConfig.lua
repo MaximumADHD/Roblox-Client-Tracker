@@ -46,4 +46,10 @@ return {
 
 	-- Remove the spacing between the icon and label in a Stacked NavigationTab
 	removeStackedNavigationTabIconLabelSpacing = false,
+
+	-- Add Foundation Icon support for NavigationTab
+	addFoundationNavigationTabIcon = false,
+
+	-- Reserve toast button space from Foundation's button metrics instead of the toast's own text styles
+	useFoundationToastButtonSizing = false,
 }

@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
+local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
 
 if FFlagUserPlayerScriptsCCLIntegrationC then
     local AvatarAbilitiesInterface = {}
@@ -34,9 +35,17 @@ if FFlagUserPlayerScriptsCCLIntegrationC then
         self._abilityChangedEvents = {} -- key = attribute name, value = another dictionary.  key = ability name  value = BindableEvent
         self._abilityChangedConnections = {} -- key = attribute name, value = another dictionary.  key = ability name  value = connection
 
-        self._characterAddedConnection = player.CharacterAdded:Connect(function(character)
-            self:_onCharacterAdded(character)
-        end)
+        if FFlagUserPlayerScriptsPlayerControlState then
+            task.spawn(function()
+                self._characterAddedConnection = player.CharacterAdded:Connect(function(character)
+                    self:_onCharacterAdded(character)
+                end)
+            end)
+        else
+            self._characterAddedConnection = player.CharacterAdded:Connect(function(character)
+                self:_onCharacterAdded(character)
+            end)
+        end
 
         if player.Character then
             self:_onCharacterAdded(player.Character)

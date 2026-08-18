@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local InputFocusBehavior = require(Foundation.Enums.InputFocusBehavior)
 type InputFocusBehavior = InputFocusBehavior.InputFocusBehavior
@@ -18,14 +17,15 @@ local OnChangeCallbackReason = require(Foundation.Enums.OnChangeCallbackReason)
 type OnChangeCallbackReason = OnChangeCallbackReason.OnChangeCallbackReason
 local ScrubBehavior = require(Foundation.Enums.ScrubBehavior)
 type ScrubBehavior = ScrubBehavior.ScrubBehavior
-local MatrixGrid = require(Foundation.Utility.Stories.MatrixGrid)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
+local MatrixGrid = MatrixGridShared.MatrixGrid
+
 local Flags = require(Foundation.Utility.Flags)
 local NumberInput = require(Foundation.Components.NumberInput)
-
-local IconName = BuilderIcons.Icon
 
 -- Shared ordered constants: reuse the same enum order in every matrix and control.
 local SIZE_ORDER: { InputSize } = {
@@ -56,23 +56,11 @@ local WIDTH_EXAMPLES: { { label: string, width: UDim? } } = {
 	{ label = "320", width = UDim.new(0, 320) },
 }
 
--- The three accepted icon input types (builder, migrated legacy string, non-migrated
--- legacy string). The legacy strings match the classification used in Button.
-local ICON_TYPES: { { caption: string, icon: string } } = {
-	{ caption = "Builder", icon = IconName.House },
-	{ caption = "Migrated legacy", icon = "icons/placeholder/placeholderOn_small" },
-	{ caption = "Non-migrated legacy", icon = "icons/menu/clothing/limited_on" },
-}
+local ICON_TYPE_EXAMPLES = StoryIcons.ICON_TYPE_EXAMPLES
+local ICON_CONTROL_OPTIONS = StoryIcons.buildIconControlOptions()
 
 local ICON_INFO_COLUMN_WIDTH = 140
 local ICON_CELL_COLUMN_WIDTH = 220
-
-local ICON_CONTROL_OPTIONS = {
-	React.None,
-	IconName.House,
-	"icons/placeholder/placeholderOn_small",
-	"icons/menu/clothing/limited_on",
-}
 
 type FormatAsStringEntry = {
 	name: string,
@@ -194,13 +182,6 @@ local function IconMatrixCell(props: { layoutOrder: number, leadingIcon: string?
 	})
 end
 
-local function matrixLabel(text: string): React.ReactNode
-	return React.createElement(Text, {
-		Text = text,
-		tag = "auto-xy text-caption-small text-align-x-left content-default",
-	})
-end
-
 local function PlaygroundStory(props): React.ReactNode
 	local controls = props.controls
 	local formatAsString = (Dash.find(FORMAT_AS_STRING_CALLBACKS, function(entry)
@@ -235,9 +216,9 @@ local function PlaygroundStory(props): React.ReactNode
 		step = controls.step,
 		hint = controls.hint,
 		precision = controls.precision,
-		leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
+		leadingIcon = StoryIcons.parseIconControl(controls.leadingIcon),
 		trailingIcon = if Flags.FoundationNumberInputBeta
-			then if controls.trailingIcon == React.None then nil else controls.trailingIcon
+			then StoryIcons.parseIconControl(controls.trailingIcon)
 			else nil,
 		scrubBehavior = controls.scrubBehavior,
 		prefix = if controls.prefix == "" then nil else controls.prefix,
@@ -387,6 +368,8 @@ local function ControlledStory()
 end
 
 local function ScrubbingStory()
+	local isScrubbing, setIsScrubbing = React.useState(false)
+
 	return React.createElement(
 		View,
 		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
@@ -399,8 +382,16 @@ local function ScrubbingStory()
 				Input = React.createElement(StatefulNumberInput, {
 					defaultValue = 0,
 					label = "Drag to change",
-					hint = if behavior == ScrubBehavior.On then "Scrub enabled" else "Scrub disabled",
+					hint = if behavior == ScrubBehavior.On
+						then `Scrub enabled — Scrubbing: {isScrubbing}`
+						else "Scrub disabled",
 					scrubBehavior = behavior,
+					onScrubStarted = function()
+						setIsScrubbing(true)
+					end,
+					onScrubEnded = function()
+						setIsScrubbing(false)
+					end,
 					hasControls = false,
 					controlsVariant = NumberInputControlsVariant.None,
 					minimum = 0,
@@ -588,7 +579,7 @@ local function ContentStory()
 	local prefixSuffixExamples: { { caption: string, prefix: string?, suffix: string?, leadingIcon: string? } } = {
 		{ caption = "Prefix ($)", prefix = "$" },
 		{ caption = "Suffix (%)", suffix = "%" },
-		{ caption = "Suffix (px) + icon", suffix = "px", leadingIcon = IconName.House },
+		{ caption = "Suffix (px) + icon", suffix = "px", leadingIcon = ICON_TYPE_EXAMPLES[1].name },
 	}
 
 	-- The field constrains its displayed value to [minimum, maximum] on render, so
@@ -686,19 +677,16 @@ local function ContentStory()
 				cellColumnWidth = ICON_CELL_COLUMN_WIDTH,
 				headerTextAlign = "left",
 				cellAlign = "left",
-				rows = Dash.map(ICON_TYPES, function(iconType)
+				rows = StoryIcons.buildIconTypeMatrixRows(function(iconType)
 					return {
-						label = matrixLabel(iconType.caption),
-						cells = {
-							React.createElement(IconMatrixCell, {
-								layoutOrder = 1,
-								leadingIcon = iconType.icon,
-							}),
-							React.createElement(IconMatrixCell, {
-								layoutOrder = 1,
-								trailingIcon = if Flags.FoundationNumberInputBeta then iconType.icon else nil,
-							}),
-						},
+						React.createElement(IconMatrixCell, {
+							layoutOrder = 1,
+							leadingIcon = iconType.name,
+						}),
+						React.createElement(IconMatrixCell, {
+							layoutOrder = 1,
+							trailingIcon = if Flags.FoundationNumberInputBeta then iconType.name else nil,
+						}),
 					}
 				end),
 			}),
@@ -716,7 +704,7 @@ local function ContentStory()
 						defaultValue = 0,
 						size = size,
 						label = "Value",
-						leadingIcon = IconName.House,
+						leadingIcon = ICON_TYPE_EXAMPLES[1].name,
 						minimum = 0,
 						maximum = 100,
 						step = 1,

@@ -7,7 +7,6 @@ local AspectRatio = require(Foundation.Components.AspectRatio)
 local CornerRadius = require(Foundation.Components.CornerRadius)
 local Padding = require(Foundation.Components.Padding)
 
-local Flags = require(Foundation.Utility.Flags)
 local getTestIdTag = require(Foundation.Utility.getTestIdTag)
 
 local Types = require(Foundation.Components.Types)
@@ -25,15 +24,10 @@ local function GuiObjectChildren(props: GuiObjectProps & CommonProps): React.Rea
 			})
 			else nil,
 		CornerRadius = if props.cornerRadius ~= nil
-			then (if Flags.FoundationCornerRadiusPerCorner
-				then React.createElement(CornerRadius, {
-					value = props.cornerRadius,
-					testId = if testId then `{testId}--corner-radius` else nil,
-				})
-				else React.createElement("UICorner", {
-					CornerRadius = props.cornerRadius :: Types.Bindable<UDim>,
-					[React.Tag] = getTestIdTag(testId, "corner-radius"),
-				}))
+			then (React.createElement(CornerRadius, {
+				value = props.cornerRadius,
+				testId = if testId then `{testId}--corner-radius` else nil,
+			}))
 			else nil,
 		FlexItem = if props.flexItem ~= nil
 			then React.createElement("UIFlexItem", {

@@ -59,6 +59,7 @@ type _AgeRecommendationDataFields = {
 	igrs_rating: string,
 	igrs_rating_display_message: string,
 	descriptors: { AgeRecommendationDescriptor },
+	minimum_age_display: string?,
 }
 
 type _AgeRecommendationDataPartialFields = {
@@ -67,6 +68,7 @@ type _AgeRecommendationDataPartialFields = {
 	igrs_rating: string?,
 	igrs_rating_display_message: string?,
 	descriptors: { AgeRecommendationDescriptor }?,
+	minimum_age_display: string?,
 }
 
 export type AgeRecommendationData = typeof(setmetatable(
@@ -231,6 +233,9 @@ do
 				then ""
 				else data.igrs_rating_display_message,
 			descriptors = if data == nil or data.descriptors == nil then {} else data.descriptors,
+			minimum_age_display = if data == nil or data.minimum_age_display == nil
+				then nil
+				else data.minimum_age_display,
 		}, _AgeRecommendationDataImpl :: _AgeRecommendationDataImpl)
 	end
 
@@ -264,6 +269,11 @@ do
 				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.minimum_age_display ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.minimum_age_display)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -309,6 +319,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.descriptors, messages.AgeRecommendationDescriptor.decode(value))
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.minimum_age_display = buffer.tostring(value)
 					continue
 				end
 
@@ -361,6 +376,10 @@ do
 			output.descriptors = newOutput
 		end
 
+		if self.minimum_age_display ~= nil then
+			output.minimumAgeDisplay = self.minimum_age_display
+		end
+
 		return output
 	end
 
@@ -406,6 +425,14 @@ do
 			end
 
 			self.descriptors = newOutput
+		end
+
+		if input.minimum_age_display ~= nil then
+			self.minimum_age_display = input.minimum_age_display
+		end
+
+		if input.minimumAgeDisplay ~= nil then
+			self.minimum_age_display = input.minimumAgeDisplay
 		end
 
 		return self

@@ -5,7 +5,7 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 
 local TokenDefaults = require(script.Parent.TokenDefaults)
-local RbxDesignFoundationsV2 = require(Packages.RbxDesignFoundationsV2)
+local RbxDesignFoundationsV4 = require(Packages.RbxDesignFoundationsV4)
 
 export type ColorToken = {
 	Color3: Color3?,
@@ -19,13 +19,13 @@ export type TypographyToken = {
 	LetterSpacing: number,
 }
 
-local themeTokens = RbxDesignFoundationsV2.Tokens.Dark(1)
+local themeTokens = RbxDesignFoundationsV4.themes[RbxDesignFoundationsV4.Theme.Default]().Dark(1)
 
 export type GlobalTokens = typeof(TokenDefaults.Global)
 export type SemanticTokens = typeof(TokenDefaults.Semantic)
 export type ComponentTokens = typeof(TokenDefaults.Component)
 
-export type RbxDesignFoundationsV2Tokens = typeof(themeTokens)
+export type RbxDesignFoundationsV4Tokens = typeof(themeTokens)
 
 local filteredTokens = {
 	Color = themeTokens.Color,

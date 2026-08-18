@@ -75,6 +75,7 @@ local function ChildCell(props: ChildCellProps)
 end
 
 return {
+	engineeringOnly = true,
 	summary = "Grid",
 	stories = {
 		{

@@ -145,10 +145,8 @@ local Flags = {
 	FFlagSettingsHubIndependentBackgroundVisibility = SharedFlags.getFFlagSettingsHubIndependentBackgroundVisibility(),
 	GetFFlagPackagifySettingsShowSignal = SharedFlags.GetFFlagPackagifySettingsShowSignal,
 	FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls,
-	FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons,
 	FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav,
 	FFlagIEMFocusNavSupportNewButtons = SettingsFlags.FFlagIEMFocusNavSupportNewButtons,
-	FFlagIEMResumeButtonPressBugfix = SharedFlags.FFlagIEMResumeButtonPressBugfix,
 	FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode,
 	FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant,
 	FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix,
@@ -159,8 +157,6 @@ local Flags = {
 
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
-
-	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
 	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
 
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
@@ -450,9 +446,7 @@ local function CreateSettingsHub()
 
 	-- create early so ReactPages can mount to it
 	this.ReactPage = nil :: GuiObject?
-	if Flags.FFlagCreateInExperienceMenuReact then
 		this.ReactPage = createReactPage()
-	end
 
 	local function shouldShowHubBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
@@ -495,8 +489,7 @@ local function CreateSettingsHub()
 	end
 
 	local function setBottomBarSelection(pageToSwitchTo)
-		if not this.BottomButtonFrame and Flags.FFlagIEMFocusNavToButtons
-			and not pageToSwitchTo and (not Flags.FFlagRelocateMobileMenuButtons
+		if not this.BottomButtonFrame and not pageToSwitchTo and (not Flags.FFlagRelocateMobileMenuButtons
 			or Flags.FIntRelocateMobileMenuButtonsVariant == 0
 			or Flags.FIntRelocateMobileMenuButtonsVariant == 2) then
 			return
@@ -1499,13 +1492,7 @@ local function CreateSettingsHub()
 			AutomaticSize = menuPos.AutomaticSize,
 			Parent = this.Shield
 		}
-
-		-- Root container for React pages
-		if Flags.FFlagCreateInExperienceMenuReact then
 			this.ReactPage.Parent = this.MenuContainer
-		else
-			this.ReactPage = createReactPage(this.MenuContainer)
-		end
 
 		-- Container for non-React pages
 		this.Page = Create'Frame'
@@ -1930,11 +1917,11 @@ local function CreateSettingsHub()
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
 			Parent = menuParent,
-			Selectable = if Flags.FFlagIEMFocusNavToButtons then false else nil,
-			SelectionGroup = if Flags.FFlagIEMFocusNavToButtons then true else nil,
-			SelectionBehaviorLeft = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorRight = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorDown = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
+			Selectable = false ,
+			SelectionGroup = true ,
+			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop ,
+			SelectionBehaviorRight = Enum.SelectionBehavior.Stop ,
+			SelectionBehaviorDown = Enum.SelectionBehavior.Stop ,
 		};
 		this.BottomButtonFrame:GetPropertyChangedSignal("Visible"):Connect(function()
 			this.setShowBottomBarSignal(this.BottomButtonFrame.Visible)
@@ -1961,9 +1948,7 @@ local function CreateSettingsHub()
 					universeid = tostring(game.GameId) ,
 				}
 			)
-			if Flags.FFlagIEMResumeButtonPressBugfix then
 				GuiService.SelectedCoreObject = nil
-			end
 		end
 
 		if Flags.FFlagEnableSideSheet then
@@ -2130,7 +2115,7 @@ local function CreateSettingsHub()
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
 					React.createElement(FoundationProvider, {
-						theme = Foundation.Enums.Theme.Dark,
+						colorMode = Foundation.Enums.ColorMode.Dark,
 						device = SettingsUtils.getDeviceType(),
 					}, {
 						["SwitchTabHint" .. props.keycode.Name] = React.createElement(SwitchTabHint, {
@@ -2348,9 +2333,7 @@ local function CreateSettingsHub()
 
 		if shouldShowBottomBar() then
 			setBottomBarBindings()
-			if Flags.FFlagIEMFocusNavToButtons then
-				setBottomBarSelection(this.Pages.CurrentPage)
-			end
+			setBottomBarSelection(this.Pages.CurrentPage)
 		else
 			removeBottomBarBindings()
 		end
@@ -2696,11 +2679,9 @@ local function CreateSettingsHub()
 		this.Pages.PageTable[pageToAdd] = true
 		AddHeader(pageToAdd:GetTabHeader(), pageToAdd)
 		pageToAdd.Page.Position = UDim2.new(pageToAdd.TabPosition - 1,0,0,0)
-		if Flags.FFlagIEMFocusNavToButtons then
-			pageToAdd.LastSelectableObjectsUpdated:connect(function()
-				setBottomBarSelection(pageToAdd)
-			end)
-		end
+		pageToAdd.LastSelectableObjectsUpdated:connect(function()
+			setBottomBarSelection(pageToAdd)
+		end)
 		if Flags.FFlagIEMTabFocusNav then
 			setTabHeaderSelection(pageToAdd)
 			updateTabHeaderWrapping()
@@ -2713,9 +2694,7 @@ local function CreateSettingsHub()
 	function this:RemovePage(pageToRemove)
 		this.Pages.PageTable[pageToRemove] = nil
 		RemoveHeader(pageToRemove:GetTabHeader())
-		if Flags.FFlagIEMFocusNavToButtons then
-			pageToRemove.LastSelectableObjectsUpdated:disconnect()
-		end
+		pageToRemove.LastSelectableObjectsUpdated:disconnect()
 		if Flags.FFlagIEMTabFocusNav then
 			pageToRemove.FirstSelectableObjectsUpdated:disconnect()
 			updateTabHeaderWrapping()
@@ -2735,9 +2714,7 @@ local function CreateSettingsHub()
 		this.PageViewClipper.Visible = true
 		if this.BottomButtonFrame and shouldShowBottomBar() then
 			setBottomBarBindings()
-			if Flags.FFlagIEMFocusNavToButtons then
-				setBottomBarSelection(this.Pages.CurrentPage)
-			end
+			setBottomBarSelection(this.Pages.CurrentPage)
 		end
 	end
 
@@ -2797,9 +2774,7 @@ local function CreateSettingsHub()
 			if this.BottomButtonFrame then
 				if shouldShowBottomBar(pageToSwitchTo) then
 					setBottomBarBindings()
-					if Flags.FFlagIEMFocusNavToButtons then
-						setBottomBarSelection(pageToSwitchTo)
-					end
+					setBottomBarSelection(pageToSwitchTo)
 				else
 					this.BottomButtonFrame.Visible = false
 				end
@@ -2910,9 +2885,7 @@ local function CreateSettingsHub()
 		if this.BottomButtonFrame then
 			if shouldShowBottomBar(pageToSwitchTo) then
 				setBottomBarBindings()
-				if Flags.FFlagIEMFocusNavToButtons then
-					setBottomBarSelection(pageToSwitchTo)
-				end
+				setBottomBarSelection(pageToSwitchTo)
 			else
 				this.BottomButtonFrame.Visible = false
 			end
@@ -3338,9 +3311,7 @@ local function CreateSettingsHub()
 			ContextActionService:BindCoreAction("RbxSettingsScrollHotkey", scrollHotkeyFunc, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
 			if shouldShowBottomBar() then
 				setBottomBarBindings()
-				if Flags.FFlagIEMFocusNavToButtons then
-					setBottomBarSelection(this.Pages.CurrentPage)
-				end
+				setBottomBarSelection(this.Pages.CurrentPage)
 			end
 
 			if Flags.ChromeEnabled and Flags.FFlagEnableConsoleExpControls then
@@ -3736,7 +3707,7 @@ local function CreateSettingsHub()
 		local reactPageVisible = this.ReactPage.Visible
 		this.ReactPage.Visible = false
 		this.Page.Visible = true
-		if Flags.FFlagCreateInExperienceMenuReact and Flags.FFlagIEMFocusNavToButtons and this.Pages.CurrentPage then
+		if this.Pages.CurrentPage then
 			if reactPageVisible and this.Visible then
 				this.Pages.CurrentPage:SelectARow(true)
 			end
@@ -3744,9 +3715,7 @@ local function CreateSettingsHub()
 	end
 
 	function this:MountReactPage()
-		if Flags.FFlagCreateInExperienceMenuReact then
 			ReactPageSignal(false).setCurrentReactPage(nil) -- clear any portalled pages
-		end
 		if this.reactPageRoot then
 			this:UnmountReactPage()
 		end
@@ -3766,7 +3735,7 @@ local function CreateSettingsHub()
 	end
 
 	function this:SwitchToReactPage(page: ReactPage?, props: any, willPortal: boolean?)
-		if Flags.FFlagCreateInExperienceMenuReact and willPortal then
+		if willPortal then
 			this:UnmountReactPage()
 		elseif page then
 			this.reactPage = page
@@ -4200,8 +4169,6 @@ local function CreateSettingsHub()
 			end
 		end)
 	end
-
-	if Flags.FFlagCreateInExperienceMenuReact then
 		this.InExperienceMenuReact = Create "Folder" {
 			Name = "InExperienceMenuReact",
 			Parent = this.ClippingShield
@@ -4268,7 +4235,6 @@ local function CreateSettingsHub()
 				currentPageChangeSignal = this.CurrentPageSignal,
 			}) ,
 		}))
-	end
 
 	return this
 end

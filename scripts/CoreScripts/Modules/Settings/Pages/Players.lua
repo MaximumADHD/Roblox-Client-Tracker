@@ -59,7 +59,6 @@ end
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
-local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
@@ -1516,10 +1515,8 @@ local function Initialize()
 		local frame = createRow("ImageLabel", showDisplayName)
 		frame.TextLabel.Name = "DisplayNameLabel"
 		frame.SecondRow.Name = "NameLabel"
-		if FFlagIEMFocusNavToButtons then
-			frame.Selectable = false
-			frame.SelectionGroup = true
-		end
+		frame.Selectable = false
+		frame.SelectionGroup = true
 		if GetFFlagLuaAppEnableOpenTypeSupport() then
 			frame.NameLabel.OpenTypeFeatures = OpenTypeSupport:getUserNameStylisticAlternative()
 		end
@@ -1855,9 +1852,7 @@ local function Initialize()
 	end
 
 	local rebuildPlayerList = function(switchedFromGamepadInput)
-		if FFlagIEMFocusNavToButtons then
-			this.LastSelectableObjects = {}
-		end
+		this.LastSelectableObjects = {}
 		if FFlagIEMTabFocusNav and not this.ButtonsContainer.Visible then
 			this.FirstSelectableObjects = {}
 		end
@@ -2104,7 +2099,7 @@ local function Initialize()
 				reportAbuseButtonCreate(frame, player)
 
 
-				if FFlagIEMFocusNavToButtons and index == #sortedPlayers  then
+				if index == #sortedPlayers  then
 					local rightSideButtons = frame:FindFirstChild("RightSideButtons")
 					if rightSideButtons then
 						for _, button in rightSideButtons:GetChildren() do

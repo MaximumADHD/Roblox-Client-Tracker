@@ -151,6 +151,10 @@ type _Messages =
 		BackgroundBlurSchema_WebProps: _BackgroundBlurSchema_WebPropsMessage,
 		LogoSchema: _LogoSchemaMessage,
 		LogoSchema_Props: _LogoSchema_PropsMessage,
+		VirtualGameItemTextSchema: _VirtualGameItemTextSchemaMessage,
+		VirtualGameItemTextSchema_Props: _VirtualGameItemTextSchema_PropsMessage,
+		VideoPlayerSchema: _VideoPlayerSchemaMessage,
+		VideoPlayerSchema_Props: _VideoPlayerSchema_PropsMessage,
 		PageHeaderSchema: _PageHeaderSchemaMessage,
 		PageHeaderSchema_Props: _PageHeaderSchema_PropsMessage,
 		PageHeaderSchema_WebProps: _PageHeaderSchema_WebPropsMessage,
@@ -2020,7 +2024,7 @@ type _ImageSchema_PropsFields = {
 	clips_descendants: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
-	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
@@ -2043,7 +2047,7 @@ type _ImageSchema_PropsPartialFields = {
 	clips_descendants: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
-	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
@@ -2453,10 +2457,14 @@ type _ViewSchema_WebPropsImpl = {
 
 type _ViewSchema_WebPropsFields = {
 	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	y_scale_basis: _roblox_apppageplatform_shared_v1beta1_prop_types.ScaleBasisProp?,
 }
 
 type _ViewSchema_WebPropsPartialFields = {
 	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	y_scale_basis: _roblox_apppageplatform_shared_v1beta1_prop_types.ScaleBasisProp?,
 }
 
 export type ViewSchema_WebProps = typeof(setmetatable({} :: _ViewSchema_WebPropsFields, {} :: _ViewSchema_WebPropsImpl))
@@ -3466,7 +3474,7 @@ type _PlayButtonSchema_PropsImpl = {
 }
 
 type _PlayButtonSchema_PropsFields = {
-	width: _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp?,
+	width: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDimProp?,
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
@@ -3492,7 +3500,7 @@ type _PlayButtonSchema_PropsFields = {
 }
 
 type _PlayButtonSchema_PropsPartialFields = {
-	width: _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp?,
+	width: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDimProp?,
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
@@ -4554,6 +4562,7 @@ type _ChipSchema_PropsFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _ChipSchema_PropsPartialFields = {
@@ -4570,6 +4579,7 @@ type _ChipSchema_PropsPartialFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type ChipSchema_Props = typeof(setmetatable({} :: _ChipSchema_PropsFields, {} :: _ChipSchema_PropsImpl))
@@ -5221,11 +5231,13 @@ type _LayeredContainerSchema_PropsImpl = {
 type _LayeredContainerSchema_PropsFields = {
 	background_component: NestedComponentProp?,
 	foreground_component: NestedComponentProp?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 }
 
 type _LayeredContainerSchema_PropsPartialFields = {
 	background_component: NestedComponentProp?,
 	foreground_component: NestedComponentProp?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 }
 
 export type LayeredContainerSchema_Props = typeof(setmetatable(
@@ -5249,10 +5261,18 @@ type _LayeredContainerSchema_WebPropsImpl = {
 
 type _LayeredContainerSchema_WebPropsFields = {
 	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	foreground_max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_top_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_bottom_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 type _LayeredContainerSchema_WebPropsPartialFields = {
 	class_names: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	foreground_max_width: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_top_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	foreground_bottom_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 export type LayeredContainerSchema_WebProps = typeof(setmetatable(
@@ -5402,6 +5422,173 @@ type _LogoSchema_PropsPartialFields = {
 export type LogoSchema_Props = typeof(setmetatable({} :: _LogoSchema_PropsFields, {} :: _LogoSchema_PropsImpl))
 type _LogoSchema_PropsMessage = proto.Message<LogoSchema_Props, _LogoSchema_PropsPartialFields>
 
+type _VirtualGameItemTextSchemaImpl = {
+	__index: _VirtualGameItemTextSchemaImpl,
+	new: (fields: _VirtualGameItemTextSchemaPartialFields?) -> VirtualGameItemTextSchema,
+	encode: (self: VirtualGameItemTextSchema) -> buffer,
+	decode: (input: buffer) -> VirtualGameItemTextSchema,
+	jsonEncode: (self: VirtualGameItemTextSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VirtualGameItemTextSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _VirtualGameItemTextSchemaFields = {
+	props: VirtualGameItemTextSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _VirtualGameItemTextSchemaPartialFields = {
+	props: VirtualGameItemTextSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type VirtualGameItemTextSchema = typeof(setmetatable(
+	{} :: _VirtualGameItemTextSchemaFields,
+	{} :: _VirtualGameItemTextSchemaImpl
+))
+type _VirtualGameItemTextSchemaMessage = proto.Message<
+	VirtualGameItemTextSchema,
+	_VirtualGameItemTextSchemaPartialFields
+>
+
+type _VirtualGameItemTextSchema_PropsImpl = {
+	__index: _VirtualGameItemTextSchema_PropsImpl,
+	new: (fields: _VirtualGameItemTextSchema_PropsPartialFields?) -> VirtualGameItemTextSchema_Props,
+	encode: (self: VirtualGameItemTextSchema_Props) -> buffer,
+	decode: (input: buffer) -> VirtualGameItemTextSchema_Props,
+	jsonEncode: (self: VirtualGameItemTextSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VirtualGameItemTextSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _VirtualGameItemTextSchema_PropsFields = {
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	price_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	show_base_price_crossed: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	hide_robux_icon_in_price: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	pending_receipts_count_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	pending_receipts_tooltip_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	title_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_row_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	current_price_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_text_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_text_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	strikethrough_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_separator_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_separator_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_text_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_robux_icon_size: _roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp?,
+	price_robux_icon_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	base_price_robux_icon_size: _roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp?,
+	base_price_robux_icon_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+}
+
+type _VirtualGameItemTextSchema_PropsPartialFields = {
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	price_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	show_base_price_crossed: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	hide_robux_icon_in_price: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	pending_receipts_count_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	pending_receipts_tooltip_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	title_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_row_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	current_price_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_text_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_text_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	strikethrough_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_separator_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_separator_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	owned_count_text_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_robux_icon_size: _roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp?,
+	price_robux_icon_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	base_price_robux_icon_size: _roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp?,
+	base_price_robux_icon_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	title_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+}
+
+export type VirtualGameItemTextSchema_Props = typeof(setmetatable(
+	{} :: _VirtualGameItemTextSchema_PropsFields,
+	{} :: _VirtualGameItemTextSchema_PropsImpl
+))
+type _VirtualGameItemTextSchema_PropsMessage = proto.Message<
+	VirtualGameItemTextSchema_Props,
+	_VirtualGameItemTextSchema_PropsPartialFields
+>
+
+type _VideoPlayerSchemaImpl = {
+	__index: _VideoPlayerSchemaImpl,
+	new: (fields: _VideoPlayerSchemaPartialFields?) -> VideoPlayerSchema,
+	encode: (self: VideoPlayerSchema) -> buffer,
+	decode: (input: buffer) -> VideoPlayerSchema,
+	jsonEncode: (self: VideoPlayerSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VideoPlayerSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _VideoPlayerSchemaFields = {
+	props: VideoPlayerSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _VideoPlayerSchemaPartialFields = {
+	props: VideoPlayerSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type VideoPlayerSchema = typeof(setmetatable({} :: _VideoPlayerSchemaFields, {} :: _VideoPlayerSchemaImpl))
+type _VideoPlayerSchemaMessage = proto.Message<VideoPlayerSchema, _VideoPlayerSchemaPartialFields>
+
+type _VideoPlayerSchema_PropsImpl = {
+	__index: _VideoPlayerSchema_PropsImpl,
+	new: (fields: _VideoPlayerSchema_PropsPartialFields?) -> VideoPlayerSchema_Props,
+	encode: (self: VideoPlayerSchema_Props) -> buffer,
+	decode: (input: buffer) -> VideoPlayerSchema_Props,
+	jsonEncode: (self: VideoPlayerSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VideoPlayerSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _VideoPlayerSchema_PropsFields = {
+	video_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	loop: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	muted: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	playback_behavior: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	disable_controls: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	loading_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
+}
+
+type _VideoPlayerSchema_PropsPartialFields = {
+	video_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	loop: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	muted: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	playback_behavior: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	disable_controls: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	loading_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
+}
+
+export type VideoPlayerSchema_Props = typeof(setmetatable(
+	{} :: _VideoPlayerSchema_PropsFields,
+	{} :: _VideoPlayerSchema_PropsImpl
+))
+type _VideoPlayerSchema_PropsMessage = proto.Message<VideoPlayerSchema_Props, _VideoPlayerSchema_PropsPartialFields>
+
 type _PageHeaderSchemaImpl = {
 	__index: _PageHeaderSchemaImpl,
 	new: (fields: _PageHeaderSchemaPartialFields?) -> PageHeaderSchema,
@@ -5544,6 +5731,7 @@ type _CardSchema_PropsFields = {
 	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	cta_button_component: NestedComponentProp?,
 	image_component: NestedComponentProp?,
+	description_max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _CardSchema_PropsPartialFields = {
@@ -5561,6 +5749,7 @@ type _CardSchema_PropsPartialFields = {
 	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 	cta_button_component: NestedComponentProp?,
 	image_component: NestedComponentProp?,
+	description_max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type CardSchema_Props = typeof(setmetatable({} :: _CardSchema_PropsFields, {} :: _CardSchema_PropsImpl))
@@ -10548,6 +10737,8 @@ type _UiComponentSchemaFields = {
 		| { type: "game_sort_drop_down", value: GameSortDropDownSchema }
 		| { type: "layered_container", value: LayeredContainerSchema }
 		| { type: "background_blur", value: BackgroundBlurSchema }
+		| { type: "virtual_game_item_text", value: VirtualGameItemTextSchema }
+		| { type: "video_player", value: VideoPlayerSchema }
 	)?,
 }
 
@@ -10637,6 +10828,8 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "game_sort_drop_down", value: GameSortDropDownSchema }
 		| { type: "layered_container", value: LayeredContainerSchema }
 		| { type: "background_blur", value: BackgroundBlurSchema }
+		| { type: "virtual_game_item_text", value: VirtualGameItemTextSchema }
+		| { type: "video_player", value: VideoPlayerSchema }
 	)?,
 }
 
@@ -20836,7 +21029,7 @@ do
 				elseif field == 5 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
 					continue
 				elseif field == 6 then
 					local value
@@ -21065,7 +21258,7 @@ do
 		end
 
 		if input.size ~= nil then
-			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.size)
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.size)
 		end
 
 		if input.on_activated ~= nil then
@@ -24344,6 +24537,8 @@ do
 	function _ViewSchema_WebPropsImpl.new(data: _ViewSchema_WebPropsPartialFields?): ViewSchema_WebProps
 		return setmetatable({
 			class_names = if data == nil or data.class_names == nil then nil else data.class_names,
+			max_width = if data == nil or data.max_width == nil then nil else data.max_width,
+			y_scale_basis = if data == nil or data.y_scale_basis == nil then nil else data.y_scale_basis,
 		}, _ViewSchema_WebPropsImpl :: _ViewSchema_WebPropsImpl)
 	end
 
@@ -24354,6 +24549,18 @@ do
 		if self.class_names ~= nil then
 			local encoded = self.class_names:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.max_width ~= nil then
+			local encoded = self.max_width:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.y_scale_basis ~= nil then
+			local encoded = self.y_scale_basis:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -24380,6 +24587,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.max_width = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.y_scale_basis = _roblox_apppageplatform_shared_v1beta1_prop_types.ScaleBasisProp.decode(value)
 					continue
 				end
 
@@ -24412,6 +24629,14 @@ do
 			output.classNames = self.class_names:jsonEncode()
 		end
 
+		if self.max_width ~= nil then
+			output.maxWidth = self.max_width:jsonEncode()
+		end
+
+		if self.y_scale_basis ~= nil then
+			output.yScaleBasis = self.y_scale_basis:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -24425,6 +24650,24 @@ do
 
 		if input.classNames ~= nil then
 			self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.classNames)
+		end
+
+		if input.max_width ~= nil then
+			self.max_width = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.max_width)
+		end
+
+		if input.maxWidth ~= nil then
+			self.max_width = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.maxWidth)
+		end
+
+		if input.y_scale_basis ~= nil then
+			self.y_scale_basis =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ScaleBasisProp.jsonDecode(input.y_scale_basis)
+		end
+
+		if input.yScaleBasis ~= nil then
+			self.y_scale_basis =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ScaleBasisProp.jsonDecode(input.yScaleBasis)
 		end
 
 		return self
@@ -31892,7 +32135,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.decode(value)
+					self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDimProp.decode(value)
 					continue
 				elseif field == 2 then
 					local value
@@ -32138,7 +32381,7 @@ do
 		local self = _PlayButtonSchema_PropsImpl.new()
 
 		if input.width ~= nil then
-			self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.UDimProp.jsonDecode(input.width)
+			self.width = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDimProp.jsonDecode(input.width)
 		end
 
 		if input.anchor_point ~= nil then
@@ -39179,6 +39422,7 @@ do
 			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
+			is_disabled = if data == nil or data.is_disabled == nil then nil else data.is_disabled,
 		}, _ChipSchema_PropsImpl :: _ChipSchema_PropsImpl)
 	end
 
@@ -39261,6 +39505,12 @@ do
 		if self.size ~= nil then
 			local encoded = self.size:encode()
 			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_disabled ~= nil then
+			local encoded = self.is_disabled:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -39350,6 +39600,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
 					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -39427,6 +39682,10 @@ do
 
 		if self.size ~= nil then
 			output.size = self.size:jsonEncode()
+		end
+
+		if self.is_disabled ~= nil then
+			output.isDisabled = self.is_disabled:jsonEncode()
 		end
 
 		return output
@@ -39541,6 +39800,14 @@ do
 
 		if input.size ~= nil then
 			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.size)
+		end
+
+		if input.is_disabled ~= nil then
+			self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_disabled)
+		end
+
+		if input.isDisabled ~= nil then
+			self.is_disabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isDisabled)
 		end
 
 		return self
@@ -43349,6 +43616,7 @@ do
 			foreground_component = if data == nil or data.foreground_component == nil
 				then nil
 				else data.foreground_component,
+			size = if data == nil or data.size == nil then nil else data.size,
 		}, _LayeredContainerSchema_PropsImpl :: _LayeredContainerSchema_PropsImpl)
 	end
 
@@ -43365,6 +43633,12 @@ do
 		if self.foreground_component ~= nil then
 			local encoded = self.foreground_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size ~= nil then
+			local encoded = self.size:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -43396,6 +43670,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.foreground_component = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
 					continue
 				end
 
@@ -43432,6 +43711,10 @@ do
 			output.foregroundComponent = self.foreground_component:jsonEncode()
 		end
 
+		if self.size ~= nil then
+			output.size = self.size:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -43452,6 +43735,10 @@ do
 
 		if input.foregroundComponent ~= nil then
 			self.foreground_component = messages.NestedComponentProp.jsonDecode(input.foregroundComponent)
+		end
+
+		if input.size ~= nil then
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.size)
 		end
 
 		return self
@@ -43476,6 +43763,18 @@ do
 	): LayeredContainerSchema_WebProps
 		return setmetatable({
 			class_names = if data == nil or data.class_names == nil then nil else data.class_names,
+			foreground_max_width = if data == nil or data.foreground_max_width == nil
+				then nil
+				else data.foreground_max_width,
+			foreground_horizontal_padding = if data == nil or data.foreground_horizontal_padding == nil
+				then nil
+				else data.foreground_horizontal_padding,
+			foreground_top_padding = if data == nil or data.foreground_top_padding == nil
+				then nil
+				else data.foreground_top_padding,
+			foreground_bottom_padding = if data == nil or data.foreground_bottom_padding == nil
+				then nil
+				else data.foreground_bottom_padding,
 		}, _LayeredContainerSchema_WebPropsImpl :: _LayeredContainerSchema_WebPropsImpl)
 	end
 
@@ -43486,6 +43785,30 @@ do
 		if self.class_names ~= nil then
 			local encoded = self.class_names:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_max_width ~= nil then
+			local encoded = self.foreground_max_width:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_horizontal_padding ~= nil then
+			local encoded = self.foreground_horizontal_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_top_padding ~= nil then
+			local encoded = self.foreground_top_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_bottom_padding ~= nil then
+			local encoded = self.foreground_bottom_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -43512,6 +43835,30 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_max_width =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_horizontal_padding =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_top_padding =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_bottom_padding =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
 					continue
 				end
 
@@ -43544,6 +43891,22 @@ do
 			output.classNames = self.class_names:jsonEncode()
 		end
 
+		if self.foreground_max_width ~= nil then
+			output.foregroundMaxWidth = self.foreground_max_width:jsonEncode()
+		end
+
+		if self.foreground_horizontal_padding ~= nil then
+			output.foregroundHorizontalPadding = self.foreground_horizontal_padding:jsonEncode()
+		end
+
+		if self.foreground_top_padding ~= nil then
+			output.foregroundTopPadding = self.foreground_top_padding:jsonEncode()
+		end
+
+		if self.foreground_bottom_padding ~= nil then
+			output.foregroundBottomPadding = self.foreground_bottom_padding:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -43557,6 +43920,48 @@ do
 
 		if input.classNames ~= nil then
 			self.class_names = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.classNames)
+		end
+
+		if input.foreground_max_width ~= nil then
+			self.foreground_max_width =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foreground_max_width)
+		end
+
+		if input.foregroundMaxWidth ~= nil then
+			self.foreground_max_width =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foregroundMaxWidth)
+		end
+
+		if input.foreground_horizontal_padding ~= nil then
+			self.foreground_horizontal_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+				input.foreground_horizontal_padding
+			)
+		end
+
+		if input.foregroundHorizontalPadding ~= nil then
+			self.foreground_horizontal_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+				input.foregroundHorizontalPadding
+			)
+		end
+
+		if input.foreground_top_padding ~= nil then
+			self.foreground_top_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foreground_top_padding)
+		end
+
+		if input.foregroundTopPadding ~= nil then
+			self.foreground_top_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foregroundTopPadding)
+		end
+
+		if input.foreground_bottom_padding ~= nil then
+			self.foreground_bottom_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foreground_bottom_padding)
+		end
+
+		if input.foregroundBottomPadding ~= nil then
+			self.foreground_bottom_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foregroundBottomPadding)
 		end
 
 		return self
@@ -44288,6 +44693,1313 @@ do
 	messages.LogoSchema_Props = _LogoSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.LogoSchema_Props)
+end
+
+do
+	local _VirtualGameItemTextSchemaImpl = {}
+	_VirtualGameItemTextSchemaImpl.__index = _VirtualGameItemTextSchemaImpl
+
+	function _VirtualGameItemTextSchemaImpl.new(
+		data: _VirtualGameItemTextSchemaPartialFields?
+	): VirtualGameItemTextSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _VirtualGameItemTextSchemaImpl :: _VirtualGameItemTextSchemaImpl)
+	end
+
+	function _VirtualGameItemTextSchemaImpl.encode(self: VirtualGameItemTextSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VirtualGameItemTextSchemaImpl.decode(input: buffer): VirtualGameItemTextSchema
+		local self = _VirtualGameItemTextSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.VirtualGameItemTextSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VirtualGameItemTextSchemaImpl.jsonEncode(self: VirtualGameItemTextSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VirtualGameItemTextSchemaImpl.jsonDecode(input: { [string]: any }): VirtualGameItemTextSchema
+		local self = _VirtualGameItemTextSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.VirtualGameItemTextSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_VirtualGameItemTextSchemaImpl.descriptor = {
+		name = "VirtualGameItemTextSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VirtualGameItemTextSchema",
+	}
+
+	messages.VirtualGameItemTextSchema = _VirtualGameItemTextSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VirtualGameItemTextSchema)
+end
+
+do
+	local _VirtualGameItemTextSchema_PropsImpl = {}
+	_VirtualGameItemTextSchema_PropsImpl.__index = _VirtualGameItemTextSchema_PropsImpl
+
+	function _VirtualGameItemTextSchema_PropsImpl.new(
+		data: _VirtualGameItemTextSchema_PropsPartialFields?
+	): VirtualGameItemTextSchema_Props
+		return setmetatable({
+			title = if data == nil or data.title == nil then nil else data.title,
+			title_max_lines = if data == nil or data.title_max_lines == nil then nil else data.title_max_lines,
+			price_text = if data == nil or data.price_text == nil then nil else data.price_text,
+			base_price_text = if data == nil or data.base_price_text == nil then nil else data.base_price_text,
+			show_base_price_crossed = if data == nil or data.show_base_price_crossed == nil
+				then nil
+				else data.show_base_price_crossed,
+			hide_robux_icon_in_price = if data == nil or data.hide_robux_icon_in_price == nil
+				then nil
+				else data.hide_robux_icon_in_price,
+			pending_receipts_count_text = if data == nil or data.pending_receipts_count_text == nil
+				then nil
+				else data.pending_receipts_count_text,
+			pending_receipts_tooltip_text = if data == nil or data.pending_receipts_tooltip_text == nil
+				then nil
+				else data.pending_receipts_tooltip_text,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
+			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			title_tag = if data == nil or data.title_tag == nil then nil else data.title_tag,
+			price_row_tag = if data == nil or data.price_row_tag == nil then nil else data.price_row_tag,
+			current_price_tag = if data == nil or data.current_price_tag == nil then nil else data.current_price_tag,
+			price_text_tag = if data == nil or data.price_text_tag == nil then nil else data.price_text_tag,
+			base_price_tag = if data == nil or data.base_price_tag == nil then nil else data.base_price_tag,
+			base_price_content_tag = if data == nil or data.base_price_content_tag == nil
+				then nil
+				else data.base_price_content_tag,
+			base_price_text_tag = if data == nil or data.base_price_text_tag == nil
+				then nil
+				else data.base_price_text_tag,
+			strikethrough_tag = if data == nil or data.strikethrough_tag == nil then nil else data.strikethrough_tag,
+			owned_count_tag = if data == nil or data.owned_count_tag == nil then nil else data.owned_count_tag,
+			owned_count_separator_tag = if data == nil or data.owned_count_separator_tag == nil
+				then nil
+				else data.owned_count_separator_tag,
+			owned_count_separator_text = if data == nil or data.owned_count_separator_text == nil
+				then nil
+				else data.owned_count_separator_text,
+			owned_count_text_tag = if data == nil or data.owned_count_text_tag == nil
+				then nil
+				else data.owned_count_text_tag,
+			price_robux_icon_size = if data == nil or data.price_robux_icon_size == nil
+				then nil
+				else data.price_robux_icon_size,
+			price_robux_icon_style = if data == nil or data.price_robux_icon_style == nil
+				then nil
+				else data.price_robux_icon_style,
+			base_price_robux_icon_size = if data == nil or data.base_price_robux_icon_size == nil
+				then nil
+				else data.base_price_robux_icon_size,
+			base_price_robux_icon_style = if data == nil or data.base_price_robux_icon_style == nil
+				then nil
+				else data.base_price_robux_icon_style,
+			title_font_style = if data == nil or data.title_font_style == nil then nil else data.title_font_style,
+		}, _VirtualGameItemTextSchema_PropsImpl :: _VirtualGameItemTextSchema_PropsImpl)
+	end
+
+	function _VirtualGameItemTextSchema_PropsImpl.encode(self: VirtualGameItemTextSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil then
+			local encoded = self.title:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_max_lines ~= nil then
+			local encoded = self.title_max_lines:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_text ~= nil then
+			local encoded = self.price_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_text ~= nil then
+			local encoded = self.base_price_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.show_base_price_crossed ~= nil then
+			local encoded = self.show_base_price_crossed:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.hide_robux_icon_in_price ~= nil then
+			local encoded = self.hide_robux_icon_in_price:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.pending_receipts_count_text ~= nil then
+			local encoded = self.pending_receipts_count_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.pending_receipts_tooltip_text ~= nil then
+			local encoded = self.pending_receipts_tooltip_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.layout_order ~= nil then
+			local encoded = self.layout_order:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_tag ~= nil then
+			local encoded = self.title_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_row_tag ~= nil then
+			local encoded = self.price_row_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.current_price_tag ~= nil then
+			local encoded = self.current_price_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_text_tag ~= nil then
+			local encoded = self.price_text_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_tag ~= nil then
+			local encoded = self.base_price_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_content_tag ~= nil then
+			local encoded = self.base_price_content_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_text_tag ~= nil then
+			local encoded = self.base_price_text_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.strikethrough_tag ~= nil then
+			local encoded = self.strikethrough_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.owned_count_tag ~= nil then
+			local encoded = self.owned_count_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.owned_count_separator_tag ~= nil then
+			local encoded = self.owned_count_separator_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.owned_count_separator_text ~= nil then
+			local encoded = self.owned_count_separator_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.owned_count_text_tag ~= nil then
+			local encoded = self.owned_count_text_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_robux_icon_size ~= nil then
+			local encoded = self.price_robux_icon_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_robux_icon_style ~= nil then
+			local encoded = self.price_robux_icon_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_robux_icon_size ~= nil then
+			local encoded = self.base_price_robux_icon_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_robux_icon_style ~= nil then
+			local encoded = self.base_price_robux_icon_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_font_style ~= nil then
+			local encoded = self.title_font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VirtualGameItemTextSchema_PropsImpl.decode(input: buffer): VirtualGameItemTextSchema_Props
+		local self = _VirtualGameItemTextSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_max_lines = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.show_base_price_crossed =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.hide_robux_icon_in_price =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pending_receipts_count_text =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pending_receipts_tooltip_text =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_row_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.current_price_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_text_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_content_tag =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_text_tag =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.strikethrough_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.owned_count_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.owned_count_separator_tag =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.owned_count_separator_text =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.owned_count_text_tag =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_robux_icon_size =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp.decode(value)
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_robux_icon_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_robux_icon_size =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp.decode(value)
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_robux_icon_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_font_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VirtualGameItemTextSchema_PropsImpl.jsonEncode(self: VirtualGameItemTextSchema_Props): any
+		local output = {}
+
+		if self.title ~= nil then
+			output.title = self.title:jsonEncode()
+		end
+
+		if self.title_max_lines ~= nil then
+			output.titleMaxLines = self.title_max_lines:jsonEncode()
+		end
+
+		if self.price_text ~= nil then
+			output.priceText = self.price_text:jsonEncode()
+		end
+
+		if self.base_price_text ~= nil then
+			output.basePriceText = self.base_price_text:jsonEncode()
+		end
+
+		if self.show_base_price_crossed ~= nil then
+			output.showBasePriceCrossed = self.show_base_price_crossed:jsonEncode()
+		end
+
+		if self.hide_robux_icon_in_price ~= nil then
+			output.hideRobuxIconInPrice = self.hide_robux_icon_in_price:jsonEncode()
+		end
+
+		if self.pending_receipts_count_text ~= nil then
+			output.pendingReceiptsCountText = self.pending_receipts_count_text:jsonEncode()
+		end
+
+		if self.pending_receipts_tooltip_text ~= nil then
+			output.pendingReceiptsTooltipText = self.pending_receipts_tooltip_text:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.layout_order ~= nil then
+			output.layoutOrder = self.layout_order:jsonEncode()
+		end
+
+		if self.title_tag ~= nil then
+			output.titleTag = self.title_tag:jsonEncode()
+		end
+
+		if self.price_row_tag ~= nil then
+			output.priceRowTag = self.price_row_tag:jsonEncode()
+		end
+
+		if self.current_price_tag ~= nil then
+			output.currentPriceTag = self.current_price_tag:jsonEncode()
+		end
+
+		if self.price_text_tag ~= nil then
+			output.priceTextTag = self.price_text_tag:jsonEncode()
+		end
+
+		if self.base_price_tag ~= nil then
+			output.basePriceTag = self.base_price_tag:jsonEncode()
+		end
+
+		if self.base_price_content_tag ~= nil then
+			output.basePriceContentTag = self.base_price_content_tag:jsonEncode()
+		end
+
+		if self.base_price_text_tag ~= nil then
+			output.basePriceTextTag = self.base_price_text_tag:jsonEncode()
+		end
+
+		if self.strikethrough_tag ~= nil then
+			output.strikethroughTag = self.strikethrough_tag:jsonEncode()
+		end
+
+		if self.owned_count_tag ~= nil then
+			output.ownedCountTag = self.owned_count_tag:jsonEncode()
+		end
+
+		if self.owned_count_separator_tag ~= nil then
+			output.ownedCountSeparatorTag = self.owned_count_separator_tag:jsonEncode()
+		end
+
+		if self.owned_count_separator_text ~= nil then
+			output.ownedCountSeparatorText = self.owned_count_separator_text:jsonEncode()
+		end
+
+		if self.owned_count_text_tag ~= nil then
+			output.ownedCountTextTag = self.owned_count_text_tag:jsonEncode()
+		end
+
+		if self.price_robux_icon_size ~= nil then
+			output.priceRobuxIconSize = self.price_robux_icon_size:jsonEncode()
+		end
+
+		if self.price_robux_icon_style ~= nil then
+			output.priceRobuxIconStyle = self.price_robux_icon_style:jsonEncode()
+		end
+
+		if self.base_price_robux_icon_size ~= nil then
+			output.basePriceRobuxIconSize = self.base_price_robux_icon_size:jsonEncode()
+		end
+
+		if self.base_price_robux_icon_style ~= nil then
+			output.basePriceRobuxIconStyle = self.base_price_robux_icon_style:jsonEncode()
+		end
+
+		if self.title_font_style ~= nil then
+			output.titleFontStyle = self.title_font_style:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VirtualGameItemTextSchema_PropsImpl.jsonDecode(input: { [string]: any }): VirtualGameItemTextSchema_Props
+		local self = _VirtualGameItemTextSchema_PropsImpl.new()
+
+		if input.title ~= nil then
+			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.title_max_lines ~= nil then
+			self.title_max_lines =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.title_max_lines)
+		end
+
+		if input.titleMaxLines ~= nil then
+			self.title_max_lines =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.titleMaxLines)
+		end
+
+		if input.price_text ~= nil then
+			self.price_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.price_text)
+		end
+
+		if input.priceText ~= nil then
+			self.price_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.priceText)
+		end
+
+		if input.base_price_text ~= nil then
+			self.base_price_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.base_price_text)
+		end
+
+		if input.basePriceText ~= nil then
+			self.base_price_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.basePriceText)
+		end
+
+		if input.show_base_price_crossed ~= nil then
+			self.show_base_price_crossed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.show_base_price_crossed)
+		end
+
+		if input.showBasePriceCrossed ~= nil then
+			self.show_base_price_crossed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.showBasePriceCrossed)
+		end
+
+		if input.hide_robux_icon_in_price ~= nil then
+			self.hide_robux_icon_in_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.hide_robux_icon_in_price)
+		end
+
+		if input.hideRobuxIconInPrice ~= nil then
+			self.hide_robux_icon_in_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.hideRobuxIconInPrice)
+		end
+
+		if input.pending_receipts_count_text ~= nil then
+			self.pending_receipts_count_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+				input.pending_receipts_count_text
+			)
+		end
+
+		if input.pendingReceiptsCountText ~= nil then
+			self.pending_receipts_count_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.pendingReceiptsCountText)
+		end
+
+		if input.pending_receipts_tooltip_text ~= nil then
+			self.pending_receipts_tooltip_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+					input.pending_receipts_tooltip_text
+				)
+		end
+
+		if input.pendingReceiptsTooltipText ~= nil then
+			self.pending_receipts_tooltip_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+					input.pendingReceiptsTooltipText
+				)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.layout_order ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layout_order)
+		end
+
+		if input.layoutOrder ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		if input.title_tag ~= nil then
+			self.title_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title_tag)
+		end
+
+		if input.titleTag ~= nil then
+			self.title_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.titleTag)
+		end
+
+		if input.price_row_tag ~= nil then
+			self.price_row_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.price_row_tag)
+		end
+
+		if input.priceRowTag ~= nil then
+			self.price_row_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.priceRowTag)
+		end
+
+		if input.current_price_tag ~= nil then
+			self.current_price_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.current_price_tag)
+		end
+
+		if input.currentPriceTag ~= nil then
+			self.current_price_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.currentPriceTag)
+		end
+
+		if input.price_text_tag ~= nil then
+			self.price_text_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.price_text_tag)
+		end
+
+		if input.priceTextTag ~= nil then
+			self.price_text_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.priceTextTag)
+		end
+
+		if input.base_price_tag ~= nil then
+			self.base_price_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.base_price_tag)
+		end
+
+		if input.basePriceTag ~= nil then
+			self.base_price_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.basePriceTag)
+		end
+
+		if input.base_price_content_tag ~= nil then
+			self.base_price_content_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.base_price_content_tag)
+		end
+
+		if input.basePriceContentTag ~= nil then
+			self.base_price_content_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.basePriceContentTag)
+		end
+
+		if input.base_price_text_tag ~= nil then
+			self.base_price_text_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.base_price_text_tag)
+		end
+
+		if input.basePriceTextTag ~= nil then
+			self.base_price_text_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.basePriceTextTag)
+		end
+
+		if input.strikethrough_tag ~= nil then
+			self.strikethrough_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.strikethrough_tag)
+		end
+
+		if input.strikethroughTag ~= nil then
+			self.strikethrough_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.strikethroughTag)
+		end
+
+		if input.owned_count_tag ~= nil then
+			self.owned_count_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.owned_count_tag)
+		end
+
+		if input.ownedCountTag ~= nil then
+			self.owned_count_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ownedCountTag)
+		end
+
+		if input.owned_count_separator_tag ~= nil then
+			self.owned_count_separator_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.owned_count_separator_tag)
+		end
+
+		if input.ownedCountSeparatorTag ~= nil then
+			self.owned_count_separator_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ownedCountSeparatorTag)
+		end
+
+		if input.owned_count_separator_text ~= nil then
+			self.owned_count_separator_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+				input.owned_count_separator_text
+			)
+		end
+
+		if input.ownedCountSeparatorText ~= nil then
+			self.owned_count_separator_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ownedCountSeparatorText)
+		end
+
+		if input.owned_count_text_tag ~= nil then
+			self.owned_count_text_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.owned_count_text_tag)
+		end
+
+		if input.ownedCountTextTag ~= nil then
+			self.owned_count_text_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ownedCountTextTag)
+		end
+
+		if input.price_robux_icon_size ~= nil then
+			self.price_robux_icon_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp.jsonDecode(input.price_robux_icon_size)
+		end
+
+		if input.priceRobuxIconSize ~= nil then
+			self.price_robux_icon_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp.jsonDecode(input.priceRobuxIconSize)
+		end
+
+		if input.price_robux_icon_style ~= nil then
+			self.price_robux_icon_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(
+				input.price_robux_icon_style
+			)
+		end
+
+		if input.priceRobuxIconStyle ~= nil then
+			self.price_robux_icon_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.priceRobuxIconStyle)
+		end
+
+		if input.base_price_robux_icon_size ~= nil then
+			self.base_price_robux_icon_size = _roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp.jsonDecode(
+				input.base_price_robux_icon_size
+			)
+		end
+
+		if input.basePriceRobuxIconSize ~= nil then
+			self.base_price_robux_icon_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.IconSizeProp.jsonDecode(input.basePriceRobuxIconSize)
+		end
+
+		if input.base_price_robux_icon_style ~= nil then
+			self.base_price_robux_icon_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(
+					input.base_price_robux_icon_style
+				)
+		end
+
+		if input.basePriceRobuxIconStyle ~= nil then
+			self.base_price_robux_icon_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(
+					input.basePriceRobuxIconStyle
+				)
+		end
+
+		if input.title_font_style ~= nil then
+			self.title_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.title_font_style)
+		end
+
+		if input.titleFontStyle ~= nil then
+			self.title_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.titleFontStyle)
+		end
+
+		return self
+	end
+
+	_VirtualGameItemTextSchema_PropsImpl.descriptor = {
+		name = "VirtualGameItemTextSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.VirtualGameItemTextSchema_Props = _VirtualGameItemTextSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VirtualGameItemTextSchema_Props)
+end
+
+do
+	local _VideoPlayerSchemaImpl = {}
+	_VideoPlayerSchemaImpl.__index = _VideoPlayerSchemaImpl
+
+	function _VideoPlayerSchemaImpl.new(data: _VideoPlayerSchemaPartialFields?): VideoPlayerSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _VideoPlayerSchemaImpl :: _VideoPlayerSchemaImpl)
+	end
+
+	function _VideoPlayerSchemaImpl.encode(self: VideoPlayerSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VideoPlayerSchemaImpl.decode(input: buffer): VideoPlayerSchema
+		local self = _VideoPlayerSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.VideoPlayerSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VideoPlayerSchemaImpl.jsonEncode(self: VideoPlayerSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VideoPlayerSchemaImpl.jsonDecode(input: { [string]: any }): VideoPlayerSchema
+		local self = _VideoPlayerSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.VideoPlayerSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_VideoPlayerSchemaImpl.descriptor = {
+		name = "VideoPlayerSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VideoPlayerSchema",
+	}
+
+	messages.VideoPlayerSchema = _VideoPlayerSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VideoPlayerSchema)
+end
+
+do
+	local _VideoPlayerSchema_PropsImpl = {}
+	_VideoPlayerSchema_PropsImpl.__index = _VideoPlayerSchema_PropsImpl
+
+	function _VideoPlayerSchema_PropsImpl.new(data: _VideoPlayerSchema_PropsPartialFields?): VideoPlayerSchema_Props
+		return setmetatable({
+			video_asset_id = if data == nil or data.video_asset_id == nil then nil else data.video_asset_id,
+			loop = if data == nil or data.loop == nil then nil else data.loop,
+			muted = if data == nil or data.muted == nil then nil else data.muted,
+			playback_behavior = if data == nil or data.playback_behavior == nil then nil else data.playback_behavior,
+			disable_controls = if data == nil or data.disable_controls == nil then nil else data.disable_controls,
+			loading_image = if data == nil or data.loading_image == nil then nil else data.loading_image,
+			scale_type = if data == nil or data.scale_type == nil then nil else data.scale_type,
+		}, _VideoPlayerSchema_PropsImpl :: _VideoPlayerSchema_PropsImpl)
+	end
+
+	function _VideoPlayerSchema_PropsImpl.encode(self: VideoPlayerSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.video_asset_id ~= nil then
+			local encoded = self.video_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.loop ~= nil then
+			local encoded = self.loop:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.muted ~= nil then
+			local encoded = self.muted:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.playback_behavior ~= nil then
+			local encoded = self.playback_behavior:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.disable_controls ~= nil then
+			local encoded = self.disable_controls:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.loading_image ~= nil then
+			local encoded = self.loading_image:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scale_type ~= nil then
+			local encoded = self.scale_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VideoPlayerSchema_PropsImpl.decode(input: buffer): VideoPlayerSchema_Props
+		local self = _VideoPlayerSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.loop = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.muted = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.playback_behavior = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.disable_controls = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.loading_image = _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scale_type =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VideoPlayerSchema_PropsImpl.jsonEncode(self: VideoPlayerSchema_Props): any
+		local output = {}
+
+		if self.video_asset_id ~= nil then
+			output.videoAssetId = self.video_asset_id:jsonEncode()
+		end
+
+		if self.loop ~= nil then
+			output.loop = self.loop:jsonEncode()
+		end
+
+		if self.muted ~= nil then
+			output.muted = self.muted:jsonEncode()
+		end
+
+		if self.playback_behavior ~= nil then
+			output.playbackBehavior = self.playback_behavior:jsonEncode()
+		end
+
+		if self.disable_controls ~= nil then
+			output.disableControls = self.disable_controls:jsonEncode()
+		end
+
+		if self.loading_image ~= nil then
+			output.loadingImage = self.loading_image:jsonEncode()
+		end
+
+		if self.scale_type ~= nil then
+			output.scaleType = self.scale_type:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VideoPlayerSchema_PropsImpl.jsonDecode(input: { [string]: any }): VideoPlayerSchema_Props
+		local self = _VideoPlayerSchema_PropsImpl.new()
+
+		if input.video_asset_id ~= nil then
+			self.video_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.video_asset_id)
+		end
+
+		if input.videoAssetId ~= nil then
+			self.video_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.videoAssetId)
+		end
+
+		if input.loop ~= nil then
+			self.loop = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.loop)
+		end
+
+		if input.muted ~= nil then
+			self.muted = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.muted)
+		end
+
+		if input.playback_behavior ~= nil then
+			self.playback_behavior =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.playback_behavior)
+		end
+
+		if input.playbackBehavior ~= nil then
+			self.playback_behavior =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.playbackBehavior)
+		end
+
+		if input.disable_controls ~= nil then
+			self.disable_controls =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.disable_controls)
+		end
+
+		if input.disableControls ~= nil then
+			self.disable_controls =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.disableControls)
+		end
+
+		if input.loading_image ~= nil then
+			self.loading_image =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.jsonDecode(input.loading_image)
+		end
+
+		if input.loadingImage ~= nil then
+			self.loading_image =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.jsonDecode(input.loadingImage)
+		end
+
+		if input.scale_type ~= nil then
+			self.scale_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.jsonDecode(input.scale_type)
+		end
+
+		if input.scaleType ~= nil then
+			self.scale_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.jsonDecode(input.scaleType)
+		end
+
+		return self
+	end
+
+	_VideoPlayerSchema_PropsImpl.descriptor = {
+		name = "VideoPlayerSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.VideoPlayerSchema_Props = _VideoPlayerSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VideoPlayerSchema_Props)
 end
 
 do
@@ -45038,6 +46750,9 @@ do
 				then nil
 				else data.cta_button_component,
 			image_component = if data == nil or data.image_component == nil then nil else data.image_component,
+			description_max_lines = if data == nil or data.description_max_lines == nil
+				then nil
+				else data.description_max_lines,
 		}, _CardSchema_PropsImpl :: _CardSchema_PropsImpl)
 	end
 
@@ -45126,6 +46841,12 @@ do
 		if self.image_component ~= nil then
 			local encoded = self.image_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.description_max_lines ~= nil then
+			local encoded = self.description_max_lines:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -45219,6 +46940,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.image_component = messages.NestedComponentProp.decode(value)
 					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description_max_lines =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -45300,6 +47027,10 @@ do
 
 		if self.image_component ~= nil then
 			output.imageComponent = self.image_component:jsonEncode()
+		end
+
+		if self.description_max_lines ~= nil then
+			output.descriptionMaxLines = self.description_max_lines:jsonEncode()
 		end
 
 		return output
@@ -45429,6 +47160,16 @@ do
 
 		if input.imageComponent ~= nil then
 			self.image_component = messages.NestedComponentProp.jsonDecode(input.imageComponent)
+		end
+
+		if input.description_max_lines ~= nil then
+			self.description_max_lines =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.description_max_lines)
+		end
+
+		if input.descriptionMaxLines ~= nil then
+			self.description_max_lines =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.descriptionMaxLines)
 		end
 
 		return self
@@ -73232,6 +74973,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 84, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "virtual_game_item_text" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 85, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "video_player" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 86, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -73709,6 +75458,17 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "background_blur", value = messages.BackgroundBlurSchema.decode(value) }
 					continue
+				elseif field == 85 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "virtual_game_item_text", value = messages.VirtualGameItemTextSchema.decode(value) }
+					continue
+				elseif field == 86 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "video_player", value = messages.VideoPlayerSchema.decode(value) }
+					continue
 				end
 
 				local length
@@ -73905,6 +75665,10 @@ do
 				output.layeredContainer = self.kind.value:jsonEncode()
 			elseif self.kind.type == "background_blur" then
 				output.backgroundBlur = self.kind.value:jsonEncode()
+			elseif self.kind.type == "virtual_game_item_text" then
+				output.virtualGameItemText = self.kind.value:jsonEncode()
+			elseif self.kind.type == "video_player" then
+				output.videoPlayer = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -74696,6 +76460,28 @@ do
 				{ type = "background_blur", value = messages.BackgroundBlurSchema.jsonDecode(input.backgroundBlur) }
 		end
 
+		if input.virtual_game_item_text ~= nil then
+			self.kind = {
+				type = "virtual_game_item_text",
+				value = messages.VirtualGameItemTextSchema.jsonDecode(input.virtual_game_item_text),
+			}
+		end
+
+		if input.virtualGameItemText ~= nil then
+			self.kind = {
+				type = "virtual_game_item_text",
+				value = messages.VirtualGameItemTextSchema.jsonDecode(input.virtualGameItemText),
+			}
+		end
+
+		if input.video_player ~= nil then
+			self.kind = { type = "video_player", value = messages.VideoPlayerSchema.jsonDecode(input.video_player) }
+		end
+
+		if input.videoPlayer ~= nil then
+			self.kind = { type = "video_player", value = messages.VideoPlayerSchema.jsonDecode(input.videoPlayer) }
+		end
+
 		return self
 	end
 
@@ -74846,6 +76632,10 @@ return {
 	BackgroundBlurSchema_WebProps = messages.BackgroundBlurSchema_WebProps,
 	LogoSchema = messages.LogoSchema,
 	LogoSchema_Props = messages.LogoSchema_Props,
+	VirtualGameItemTextSchema = messages.VirtualGameItemTextSchema,
+	VirtualGameItemTextSchema_Props = messages.VirtualGameItemTextSchema_Props,
+	VideoPlayerSchema = messages.VideoPlayerSchema,
+	VideoPlayerSchema_Props = messages.VideoPlayerSchema_Props,
 	PageHeaderSchema = messages.PageHeaderSchema,
 	PageHeaderSchema_Props = messages.PageHeaderSchema_Props,
 	PageHeaderSchema_WebProps = messages.PageHeaderSchema_WebProps,

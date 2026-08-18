@@ -13,7 +13,6 @@ local usePointerPosition = require(Foundation.Utility.usePointerPosition)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local Radius = require(Foundation.Enums.Radius)
@@ -216,10 +215,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				},
 				ZIndex = 4,
 				-- Prevent content presses from propagating to the backdrop or underlying UI
-				onActivated = if props.onPressedOutside
-						or (Flags.FoundationCoachmarkInteractionFixes and props.DO_NOT_USE_hasContentInputSink)
-					then Dash.noop
-					else nil,
+				onActivated = if props.onPressedOutside or props.DO_NOT_USE_hasContentInputSink then Dash.noop else nil,
 				backgroundStyle = backgroundStyle,
 				tag = `auto-xy {radiusToTag[props.radius]}`,
 				ref = setContentInstance,

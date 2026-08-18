@@ -6,8 +6,6 @@ local Wrappers = require(Foundation.Utility.Wrappers)
 local GuiService = Wrappers.Services.GuiService
 local UserInputService = Wrappers.Services.UserInputService
 
-local Flags = require(Foundation.Utility.Flags)
-
 local React = require(Packages.React)
 
 local function useKeyboardAwareSize(screen: GuiBase2d?)
@@ -32,15 +30,10 @@ local function useKeyboardAwareSize(screen: GuiBase2d?)
 
 			local bottomY = screenPosition.Y + screenSize.Y
 			local yAdjustment = bottomY - keyboardPositionY
-
-			if Flags.FoundationOverlayKeyboardAwarenessHardened then
-				local newSafeAreaSize = UDim2.new(1, 0, 1, -yAdjustment)
-				-- Bindings do not check for equality, so we should check the value explicitly
-				if safeAreaSize:getValue() ~= newSafeAreaSize then
-					setSafeAreaSize(newSafeAreaSize)
-				end
-			else
-				setSafeAreaSize(safeAreaSize:getValue() - UDim2.fromOffset(0, yAdjustment))
+			local newSafeAreaSize = UDim2.new(1, 0, 1, -yAdjustment)
+			-- Bindings do not check for equality, so we should check the value explicitly
+			if safeAreaSize:getValue() ~= newSafeAreaSize then
+				setSafeAreaSize(newSafeAreaSize)
 			end
 		end
 
@@ -50,17 +43,12 @@ local function useKeyboardAwareSize(screen: GuiBase2d?)
 			:Connect(updateSafeAreaSize)
 		local onScreenKeyboardPosition = UserInputService:GetPropertyChangedSignal("OnScreenKeyboardPosition")
 			:Connect(updateSafeAreaSize)
-		local onScreenAbsoluteSize
-		if Flags.FoundationOverlayKeyboardAwarenessHardened then
-			onScreenAbsoluteSize = screen:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateSafeAreaSize)
-		end
+		local onScreenAbsoluteSize = screen:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateSafeAreaSize)
 
 		return function()
 			onScreenKeyboardVisible:Disconnect()
 			onScreenKeyboardPosition:Disconnect()
-			if Flags.FoundationOverlayKeyboardAwarenessHardened then
-				onScreenAbsoluteSize:Disconnect()
-			end
+			onScreenAbsoluteSize:Disconnect()
 		end
 	end, { screen })
 

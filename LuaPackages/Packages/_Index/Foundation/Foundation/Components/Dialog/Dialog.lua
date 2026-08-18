@@ -24,7 +24,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 
 local DialogTypes = require(script.Parent.Types)
@@ -33,7 +32,6 @@ local useDialogVariants = require(script.Parent.useDialogVariants).useDialogVari
 local DialogProvider = require(script.Parent.DialogProvider)
 local useDialog = require(script.Parent.useDialog)
 local useDialogResponsiveSize = require(script.Parent.useDialogResponsiveSize)
-local useDialogSize = require(script.Parent.useDialogSize)
 
 local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
@@ -72,13 +70,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 	local variants = useDialogVariants()
 	local maxWidth = useScaledValue(variants.inner.maxWidth)
 
-	local dialogBodyRef = if not Flags.FoundationDialogAnimation then React.useRef(nil) else nil :: never
-	local dialogSizeBinding, setDialogSize
-	if Flags.FoundationDialogAnimation then
-		dialogSizeBinding, setDialogSize = React.useBinding(Vector2.new(0, 0))
-	else
-		dialogSizeBinding = useDialogSize(dialogBodyRef)
-	end
+	local dialogSizeBinding, setDialogSize = React.useBinding(Vector2.new(0, 0))
 
 	local overlay = useOverlay()
 	local elevation = useElevation(ElevationLayer.Dialog, { stackAboveOwner = false })
@@ -86,121 +78,89 @@ local function Dialog(dialogProps: DialogInternalProps)
 
 	useDialogResponsiveSize(props.size)
 
-	local tokens = if Flags.FoundationDialogAnimation then useTokens() else nil :: never
+	local tokens = useTokens()
+	local preferences = usePreferences()
+	local reducedMotion = preferences.reducedMotion
 
-	local reducedMotion = false
-	if Flags.FoundationDialogAnimation then
-		local preferences = usePreferences()
-		reducedMotion = preferences.reducedMotion
-	end
+	local animationOffset = tokens.Size.Size_800
+	local animating, setAnimating = React.useState(true)
 
-	local animationOffset = if Flags.FoundationDialogAnimation then tokens.Size.Size_800 else 0
+	local closing = React.useRef(false)
+	local closeReason = React.useRef(nil :: OnCloseCallbackReason?)
 
-	local animating, setAnimating
-	if Flags.FoundationDialogAnimation then
-		animating, setAnimating = React.useState(true)
-	end
+	local backdropTransparency, setBackdropTransparencyGoal = useAnimatedBinding(1)
 
-	local closing = if Flags.FoundationDialogAnimation then React.useRef(false) else nil :: never
-	local closeReason = if Flags.FoundationDialogAnimation
-		then React.useRef(nil :: OnCloseCallbackReason?)
-		else nil :: never
-
-	local backdropTransparency, setBackdropTransparencyGoal
-	if Flags.FoundationDialogAnimation then
-		backdropTransparency, setBackdropTransparencyGoal = useAnimatedBinding(1)
-	end
-
-	local bottomPosition, setBottomPositionGoal
-	if Flags.FoundationDialogAnimation then
-		bottomPosition, setBottomPositionGoal = useAnimatedBinding(animationOffset, function()
-			if closing.current then
-				-- Keep `animating` true through unmount so GroupTransparency stays bound to the
-				-- fully-faded value, avoiding a one-frame opaque flash before `onClose` tears the dialog down.
-				if props.onClose then
-					props.onClose(closeReason.current)
-				end
-			else
-				setAnimating(false)
+	local bottomPosition, setBottomPositionGoal = useAnimatedBinding(animationOffset, function()
+		if closing.current then
+			-- Keep `animating` true through unmount so GroupTransparency stays bound to the
+			-- fully-faded value, avoiding a one-frame opaque flash before `onClose` tears the dialog down.
+			if props.onClose then
+				props.onClose(closeReason.current)
 			end
-		end)
-	end
+		else
+			setAnimating(false)
+		end
+	end)
 
-	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between themes
-	if Flags.FoundationDialogAnimation then
-		React.useEffect(function()
-			if reducedMotion then
-				setBottomPositionGoal(Otter.instant(0) :: Otter.Goal<any>)
-				setBackdropTransparencyGoal(Otter.instant(0) :: Otter.Goal<any>)
-			else
-				setBottomPositionGoal(Otter.ease(0, {
-					easingStyle = tokens.Ease.StandardOut,
-					duration = tokens.Time.Time_300,
-				}))
-				setBackdropTransparencyGoal(Otter.ease(0, {
-					duration = tokens.Time.Time_100,
-				}))
-			end
-		end, {})
-	end
+	React.useEffect(function()
+		if reducedMotion then
+			setBottomPositionGoal(Otter.instant(0) :: Otter.Goal<any>)
+			setBackdropTransparencyGoal(Otter.instant(0) :: Otter.Goal<any>)
+		else
+			setBottomPositionGoal(Otter.ease(0, {
+				easingStyle = tokens.Ease.StandardOut,
+				duration = tokens.Time.Time_300,
+			}))
+			setBackdropTransparencyGoal(Otter.ease(0, {
+				duration = tokens.Time.Time_100,
+			}))
+		end
+	end, {})
 
-	local closeDialog
-	if Flags.FoundationDialogAnimation then
-		-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between themes
-		closeDialog = React.useCallback(function(reason: OnCloseCallbackReason?)
-			if closing.current then
-				return
-			end
-			closeReason.current = reason
-			if reducedMotion then
-				closing.current = true
-				setBottomPositionGoal(Otter.instant(animationOffset))
-				setBackdropTransparencyGoal(Otter.instant(1))
-			else
-				setBottomPositionGoal(Otter.ease(animationOffset, {
-					easingStyle = tokens.Ease.StandardIn,
-					duration = tokens.Time.Time_200,
-				}))
-				setBackdropTransparencyGoal(Otter.ease(1, {
-					duration = tokens.Time.Time_100,
-				}))
-				setAnimating(true)
-				closing.current = true
-			end
-		end, { animationOffset, reducedMotion } :: { unknown })
-	end
+	local closeDialog = React.useCallback(function(reason: OnCloseCallbackReason?)
+		if closing.current then
+			return
+		end
+		closeReason.current = reason
+		if reducedMotion then
+			closing.current = true
+			setBottomPositionGoal(Otter.instant(animationOffset))
+			setBackdropTransparencyGoal(Otter.instant(1))
+		else
+			setBottomPositionGoal(Otter.ease(animationOffset, {
+				easingStyle = tokens.Ease.StandardIn,
+				duration = tokens.Time.Time_200,
+			}))
+			setBackdropTransparencyGoal(Otter.ease(1, {
+				duration = tokens.Time.Time_100,
+			}))
+			setAnimating(true)
+			closing.current = true
+		end
+	end, { animationOffset, reducedMotion } :: { unknown })
 
-	local stableContainer = if Flags.FoundationDialogAnimation
-		then React.useMemo(function()
-			return Instance.new("Folder")
-		end, {})
-		else nil :: never
+	local stableContainer = React.useMemo(function()
+		return Instance.new("Folder")
+	end, {})
 
-	if Flags.FoundationDialogAnimation then
-		React.useEffect(function()
-			return function()
-				stableContainer:Destroy()
-			end
-		end, { stableContainer })
-	end
+	React.useEffect(function()
+		return function()
+			stableContainer:Destroy()
+		end
+	end, { stableContainer })
 
 	-- TODO: remove this when https://github.com/Roblox/roact-alignment/pull/496 is merged
-	local wrapperReady, setWrapperReady
-	if Flags.FoundationDialogAnimation then
-		wrapperReady, setWrapperReady = React.useState(false)
-	end
+	local wrapperReady, setWrapperReady = React.useState(false)
 
-	local dialogContentWrapperRef = if Flags.FoundationDialogAnimation
-		then React.useCallback(function(rbx: GuiObject?)
-			if rbx then
-				stableContainer.Parent = rbx
-				setWrapperReady(true)
-			else
-				stableContainer.Parent = nil
-				setWrapperReady(false)
-			end
-		end, { stableContainer })
-		else nil
+	local dialogContentWrapperRef = React.useCallback(function(rbx: GuiObject?)
+		if rbx then
+			stableContainer.Parent = rbx
+			setWrapperReady(true)
+		else
+			stableContainer.Parent = nil
+			setWrapperReady(false)
+		end
+	end, { stableContainer })
 
 	local DialogShadowWrapperNode = React.createElement(View, {
 		tag = variants.container.tag,
@@ -224,12 +184,6 @@ local function Dialog(dialogProps: DialogInternalProps)
 		tag = variants.container.tag,
 		ZIndex = 3,
 	}, {
-		DialogFlexStart = if Flags.FoundationDialogAnimation
-			then nil
-			else React.createElement(View, {
-				tag = "fill",
-				LayoutOrder = 0,
-			}),
 		DialogInner = React.createElement(
 			View,
 			withCommonProps(props, {
@@ -249,11 +203,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 			{
 				CloseAffordance = if props.onClose
 					then React.createElement(CloseAffordance, {
-						onActivated = if Flags.FoundationDialogAnimation
-								and closeDialog
-								and not reducedMotion
-							then closeDialog
-							else props.onClose,
+						onActivated = if closeDialog and not reducedMotion then closeDialog else props.onClose,
 						ref = dialogContext.closeAffordanceRef,
 						NextSelectionDown = dialogContext.contentStartRef,
 						Position = UDim2.new(1, -variants.closeAffordance.offset, 0, variants.closeAffordance.offset),
@@ -264,25 +214,16 @@ local function Dialog(dialogProps: DialogInternalProps)
 					else nil,
 				DialogBody = React.createElement(View, {
 					tag = variants.body.tag,
-					ref = if not Flags.FoundationDialogAnimation then dialogBodyRef else nil,
-					onAbsoluteSizeChanged = if Flags.FoundationDialogAnimation
-						then function(rbx: GuiObject)
-							local size = rbx.AbsoluteSize
-							if size.X > 0 and size.Y > 0 then
-								setDialogSize(size)
-							end
+					onAbsoluteSizeChanged = function(rbx: GuiObject)
+						local size = rbx.AbsoluteSize
+						if size.X > 0 and size.Y > 0 then
+							setDialogSize(size)
 						end
-						else nil,
+					end,
 					testId = `{props.testId}--body`,
 				}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 			}
 		),
-		DialogFlexEnd = if Flags.FoundationDialogAnimation
-			then nil
-			else React.createElement(View, {
-				tag = "fill",
-				LayoutOrder = 2,
-			}),
 	})
 
 	local content = React.createElement(View, {
@@ -299,16 +240,14 @@ local function Dialog(dialogProps: DialogInternalProps)
 				},
 				onActivated = function()
 					if props.onClose then
-						if Flags.FoundationDialogAnimation and closeDialog and not reducedMotion then
+						if closeDialog and not reducedMotion then
 							closeDialog(OnCloseCallbackReason.BackdropClick :: OnCloseCallbackReason)
 						else
 							props.onClose(OnCloseCallbackReason.BackdropClick)
 						end
 					end
 				end,
-				backgroundStyle = if Flags.FoundationDialogAnimation
-						and not reducedMotion
-						and backdropTransparency
+				backgroundStyle = if not reducedMotion and backdropTransparency
 					then backdropTransparency:map(function(value: number)
 						return {
 							Color3 = variants.backdrop.backgroundStyle.Color3,
@@ -327,24 +266,21 @@ local function Dialog(dialogProps: DialogInternalProps)
 		DialogContentWrapper = React.createElement(
 			View,
 			{
-				ref = if Flags.FoundationDialogAnimation and not reducedMotion then dialogContentWrapperRef else nil,
-				Position = if Flags.FoundationDialogAnimation
-						and not reducedMotion
-						and bottomPosition
+				ref = if not reducedMotion then dialogContentWrapperRef else nil,
+				Position = if not reducedMotion and bottomPosition
 					then bottomPosition:map(function(value: number)
 						return UDim2.new(0.5, 0, 0.5, value)
 					end)
 					else nil,
-				sizeConstraint = if Flags.FoundationDialogAnimation and not reducedMotion
+				sizeConstraint = if not reducedMotion
 					then { MaxSize = Vector2.new(maxWidth + SHADOW_SIZE * 2, math.huge) }
 					else nil,
 				tag = {
-					["anchor-center-center size-full"] = Flags.FoundationDialogAnimation and not reducedMotion,
-					["size-full"] = not Flags.FoundationDialogAnimation or reducedMotion,
+					["anchor-center-center size-full"] = not reducedMotion,
+					["size-full"] = reducedMotion,
 				},
 				ZIndex = 2,
-				GroupTransparency = if Flags.FoundationDialogAnimation
-						and not reducedMotion
+				GroupTransparency = if not reducedMotion
 						and animating
 						and bottomPosition
 					then bottomPosition:map(function(value: number)
@@ -352,7 +288,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 					end)
 					else nil,
 			},
-			if not Flags.FoundationDialogAnimation or reducedMotion
+			if reducedMotion
 				then {
 					DialogShadowWrapper = DialogShadowWrapperNode,
 					Dialog = DialogNode,
@@ -361,7 +297,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 		),
 	})
 
-	if Flags.FoundationDialogAnimation and not reducedMotion then
+	if not reducedMotion then
 		local mainContent = if props.disablePortal or overlay == nil
 			then content
 			else ReactRoblox.createPortal(content, overlay)

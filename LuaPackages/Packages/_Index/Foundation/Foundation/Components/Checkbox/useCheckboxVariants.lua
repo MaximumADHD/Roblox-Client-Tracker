@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type Padding = Types.Padding
@@ -22,35 +21,30 @@ type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
+local Flags = require(Foundation.Utility.Flags)
+
 type CheckboxVariantProps = {
 	input: InputVariantProps,
 	checkmark: { tag: string },
 }
 
 local function variantsFactory(tokens: Tokens)
-	local common = if Flags.FoundationToggleVisualUpdate
-		then {
-			input = {
-				tag = "radius-small",
-				colors = {
-					checkedStyle = tokens.Color.ActionSubEmphasis.Background,
-				},
-				cursorRadius = UDim.new(0, tokens.Radius.Small),
-			},
-			checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
-		}
-		else {
-			input = {
-				tag = "radius-small",
+	local common = {
+		input = {
+			tag = "radius-small",
+			colors = {
 				checkedStyle = tokens.Color.ActionSubEmphasis.Background,
-				cursorRadius = UDim.new(0, tokens.Radius.Small),
 			},
-			checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
-		}
+			cursorRadius = UDim.new(0, tokens.Radius.Small),
+		},
+		checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
+	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			input = { size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400) },
+			input = {
+				size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400),
+			},
 			checkmark = { tag = "size-400" },
 		},
 		[InputSize.Small] = {
@@ -62,8 +56,12 @@ local function variantsFactory(tokens: Tokens)
 			checkmark = { tag = "size-600" },
 		},
 		[InputSize.Large] = {
-			input = { size = UDim2.fromOffset(tokens.Size.Size_700, tokens.Size.Size_700) },
-			checkmark = { tag = "size-700" },
+			input = {
+				size = if Flags.FoundationCheckboxBeta
+					then UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600)
+					else UDim2.fromOffset(tokens.Size.Size_700, tokens.Size.Size_700),
+			},
+			checkmark = { tag = if Flags.FoundationCheckboxBeta then "size-600" else "size-700" },
 		},
 	}
 

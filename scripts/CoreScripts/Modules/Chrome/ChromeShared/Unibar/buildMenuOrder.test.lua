@@ -34,6 +34,18 @@ local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
+local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
+local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
+local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
+
+-- The legacy Connect entrypoint is only removed once the Friends tab is actually
+-- shown (RemoveEntrypoints + party rename + CanShow). Because the reorg gate now
+-- follows CanShow rather than F, a holdout (CanShow off) keeps connect_dropdown.
+local function isConnectDropdownRemovalActive(): boolean
+	return FFlagRemoveFriendsChatUnibarEntrypoints
+		and ArgoPartyExperimentation.getIsRenameEnabled()
+		and FFlagExpChatCanShowFriendsTab
+end
 
 local function buildOrder(): { string }
 	return (require(script.Parent.buildMenuOrder))()
@@ -107,4 +119,27 @@ describe("buildMenuOrder", function()
 			end)
 		end)
 	end
+
+	describe("connect_dropdown entrypoint", function()
+		-- isConnectDropdownEnabled is mocked to true, so presence is decided by the
+		-- reorg gate (and, in the side-sheet layout, pioneer). The holdout keeps the
+		-- entrypoint; only the fully-shown arm removes it.
+		local pioneerHidesConnectDropdown = FFlagEnableSideSheet and FFlagDebugEnablePioneerUX
+
+		it("SHOULD retain connect_dropdown for the holdout (Friends tab hidden)", function()
+			if isConnectDropdownRemovalActive() or pioneerHidesConnectDropdown then
+				return
+			end
+
+			expect(contains(buildOrder(), "connect_dropdown")).toBe(true)
+		end)
+
+		it("SHOULD remove connect_dropdown WHEN the Friends tab is fully shown", function()
+			if not isConnectDropdownRemovalActive() then
+				return
+			end
+
+			expect(contains(buildOrder(), "connect_dropdown")).toBe(false)
+		end)
+	end)
 end)

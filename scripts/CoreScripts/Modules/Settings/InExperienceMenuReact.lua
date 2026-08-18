@@ -32,7 +32,7 @@ type InExperienceMenuReactProps = {
 } 
 
 local defaultProps = {
-	theme = Foundation.Enums.Theme.Dark :: Foundation.Theme,
+	colorMode = Foundation.Enums.ColorMode.Dark :: Foundation.Theme,
 }
 
 local function InExperienceMenuReact(props: InExperienceMenuReactProps)
@@ -50,7 +50,7 @@ local function InExperienceMenuReact(props: InExperienceMenuReactProps)
 			localization = localization,
 		}, {
 			FoundationProvider = React.createElement(FoundationProvider, {
-				theme = props.theme or defaultProps.theme,
+				colorMode = props.theme or defaultProps.colorMode,
 				device = Utils.getDeviceType(),
 			}, props.children)
 		})

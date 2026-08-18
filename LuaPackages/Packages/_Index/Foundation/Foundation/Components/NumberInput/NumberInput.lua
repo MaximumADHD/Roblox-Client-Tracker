@@ -118,6 +118,10 @@ export type NumberInputProps = {
 	isScrubbable: boolean?,
 	-- Controls scrub (drag-to-change) behavior
 	scrubBehavior: ScrubBehavior?,
+	-- The callback that fires when scrubbing starts
+	onScrubStarted: () -> ()?,
+	-- The callback that fires when scrubbing ends
+	onScrubEnded: () -> ()?,
 	-- Behavior of the text input when focused. Mobile does not yet support Highlight behavior.
 	focusBehavior: InputFocusBehavior?,
 	-- Ref to the outermost container element of the internal text input
@@ -173,6 +177,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		suffix: string?,
 		isScrubbable: boolean,
 		scrubBehavior: ScrubBehavior,
+		onScrubStarted: () -> ()?,
+		onScrubEnded: () -> ()?,
 		testId: string,
 		-- Partial TextBox ref exposed via imperative handle
 		textBoxRef: React.Ref<NumberInputRef>?,
@@ -201,6 +207,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		ReactUtils.useComposedRef(internalTextBoxRef, (props.textBoxRef :: unknown) :: React.Ref<Instance>) :: unknown
 	) :: React.Ref<NumberInputRef>
 	local dragStartTable = React.useRef(nil :: { position: number, value: number }?)
+	local hasScrubStarted = React.useRef(false)
 
 	local isFocused = React.useCallback(function()
 		return if internalTextBoxRef.current then internalTextBoxRef.current.getIsFocused() else false
@@ -480,6 +487,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local onDragStarted = React.useCallback(function(_rbx, position: Vector2)
 		local value = props.value
+		hasScrubStarted.current = false
 		if value then
 			dragStartTable.current = {
 				position = position.X,
@@ -499,12 +507,22 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					if Flags.FoundationNumberInputBeta then scrubSensitivity else nil :: never
 				)
 				valueChanged(newValue, OnChangeCallbackReason.Drag)
+
+				if
+					Flags.FoundationNumberInputScrubCallbackProps
+					and props.onScrubStarted
+					and not hasScrubStarted.current
+				then
+					props.onScrubStarted()
+					hasScrubStarted.current = true
+				end
 			end
 		end,
 		{
 			valueChanged,
 			props.step,
 			constrainValue,
+			if Flags.FoundationNumberInputScrubCallbackProps then props.onScrubStarted else nil,
 			if Flags.FoundationNumberInputBeta then scrubSensitivity else nil,
 		} :: { unknown }
 	)
@@ -512,8 +530,12 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local onDragEnded = React.useCallback(function()
 		if dragStartTable.current then
 			dragStartTable.current = nil
+			if Flags.FoundationNumberInputScrubCallbackProps and props.onScrubEnded and hasScrubStarted.current then
+				props.onScrubEnded()
+			end
 		end
-	end, {})
+		hasScrubStarted.current = false
+	end, { if Flags.FoundationNumberInputScrubCallbackProps then props.onScrubEnded else nil })
 
 	local filledStyleTransparency = tokens.Color.Shift.Shift_300.Transparency
 	local unfilledStyleTransparency = tokens.Color.Shift.Shift_100.Transparency
@@ -601,19 +623,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					hasError = hasError,
 					variant = props.variant,
 					size = props.size,
-					Selectable = (if Flags.FoundationInputSelectionProps then props.Selectable else nil) :: any,
-					NextSelectionUp = (
-							if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil
-						) :: any,
-					NextSelectionDown = (
-							if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil
-						) :: any,
-					NextSelectionLeft = (
-							if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil
-						) :: any,
-					NextSelectionRight = (
-							if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil
-						) :: any,
+					Selectable = (props.Selectable) :: any,
+					NextSelectionUp = (props.NextSelectionUp) :: any,
+					NextSelectionDown = (props.NextSelectionDown) :: any,
+					NextSelectionLeft = (props.NextSelectionLeft) :: any,
+					NextSelectionRight = (props.NextSelectionRight) :: any,
 					horizontalPadding = {
 						left = variantProps.container.horizontalPadding,
 						right = if Flags.FoundationNumberInputBeta

@@ -57,6 +57,7 @@ type StoryProps = {
 		hasActions: boolean,
 		isOpen: boolean,
 		showSteps: boolean,
+		onPressedOutside: boolean,
 	},
 }
 
@@ -66,6 +67,11 @@ return {
 		{
 			name = "Playground",
 			story = function(props: StoryProps)
+				local isOpen, setIsOpen = React.useState(props.controls.isOpen)
+				React.useEffect(function()
+					setIsOpen(props.controls.isOpen)
+				end, { props.controls.isOpen })
+
 				return React.createElement(
 					View,
 					{
@@ -79,7 +85,12 @@ return {
 							side = props.controls.side,
 							align = props.controls.align,
 							text = props.controls.text,
-							isOpen = props.controls.isOpen,
+							isOpen = isOpen,
+							onPressedOutside = if props.controls.onPressedOutside
+								then function()
+									setIsOpen(false)
+								end
+								else nil,
 							onClose = if props.controls.hasCloseAffordance
 								then function()
 									print("Close affordance clicked")
@@ -99,7 +110,9 @@ return {
 							icon = "reactions/heart",
 							size = InputSize.Medium,
 							onActivated = function()
-								print("Icon button clicked")
+								setIsOpen(function(prev)
+									return not prev
+								end)
 							end,
 						})
 					)
@@ -248,5 +261,6 @@ return {
 		hasActions = true,
 		isOpen = true,
 		showSteps = true,
+		onPressedOutside = true,
 	},
 }

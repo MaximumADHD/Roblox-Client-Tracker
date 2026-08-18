@@ -3,11 +3,14 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local StyleSheetContext = require(Style.StyleSheetContext)
 local TagsContext = require(Style.TagsContext)
 local TextSizeOffsetContext = require(Style.TextSizeOffsetContext)
+local ThemeName = require(Foundation.Enums.ThemeName)
 local Tokens = require(Style.Tokens)
 local TokensContext = require(Style.TokensContext)
 local VariantsContext = require(Style.VariantsContext)
@@ -18,6 +21,8 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local getTokens = Tokens.getTokens
 
 export type StyleProviderProps = {
+	-- The app-level theme (e.g. Default, Kids) to resolve tokens and styles for.
+	themeName: ThemeName?,
 	-- The color mode (Light/Dark) to resolve tokens and styles for.
 	-- Takes precedence over `theme` when both are provided.
 	colorMode: ColorMode?,
@@ -38,6 +43,7 @@ export type StyleProviderProps = {
 
 type ColorMode = ColorMode.ColorMode
 type Device = Device.Device
+type ThemeName = ThemeName.ThemeName
 type Tokens = Tokens.Tokens
 type TokenOverrides = Tokens.TokenOverrides
 
@@ -45,6 +51,7 @@ local useRegistryStyleSheet = require(Style.useRegistryStyleSheet)
 
 -- After join, there are no optional values
 local defaultStyle = {
+	themeName = if Flags.FoundationThemeName then ThemeName.Default else nil,
 	colorMode = ColorMode.Dark :: ColorMode,
 	device = Device.Desktop :: Device,
 	scale = 1,
@@ -52,6 +59,7 @@ local defaultStyle = {
 
 local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local props = withDefaults({
+		themeName = if Flags.FoundationThemeName then styleProviderProps.themeName else nil,
 		colorMode = styleProviderProps.colorMode or styleProviderProps.theme,
 		device = styleProviderProps.device,
 		scale = styleProviderProps.scale,
@@ -59,9 +67,24 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 
 	local useVariants = VariantsContext.useVariantsState()
 
-	local tokens: Tokens = React.useMemo(function()
-		return getTokens(props.colorMode, props.device, props.scale, styleProviderProps.tokenOverrides)
-	end, { props.device, props.colorMode, props.scale, styleProviderProps.tokenOverrides } :: { unknown })
+	local tokens: Tokens = React.useMemo(
+		function()
+			return getTokens(
+				props.colorMode,
+				props.device,
+				props.scale,
+				styleProviderProps.tokenOverrides,
+				if Flags.FoundationThemeName then props.themeName else nil
+			)
+		end,
+		{
+			props.colorMode,
+			props.device,
+			props.scale,
+			styleProviderProps.tokenOverrides,
+			if Flags.FoundationThemeName then props.themeName else nil,
+		} :: { unknown }
+	)
 
 	local preferences = usePreferences()
 	local preferredTextSize = preferences.preferredTextSize
@@ -70,8 +93,13 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 		return getTextSizeOffset() or 0
 	end, { preferredTextSize })
 
-	local registryStyleSheet, addStyleTags =
-		useRegistryStyleSheet(props.colorMode, props.device, props.scale, styleProviderProps.tokenOverrides)
+	local registryStyleSheet, addStyleTags = useRegistryStyleSheet(
+		if Flags.FoundationThemeName then props.themeName else nil,
+		props.colorMode,
+		props.device,
+		props.scale,
+		styleProviderProps.tokenOverrides
+	)
 
 	return React.createElement(TokensContext.Provider, {
 		value = tokens,

@@ -19,7 +19,7 @@ local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegr
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
+local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
 
@@ -43,7 +43,7 @@ local function buildMenuOrder(): Array<string>
 		and not (
 			FFlagRemoveFriendsChatUnibarEntrypoints
 			and ArgoPartyExperimentation.getIsRenameEnabled()
-			and FFlagExpChatEnableFriendsTab
+			and FFlagExpChatCanShowFriendsTab
 		)
 
 	-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged

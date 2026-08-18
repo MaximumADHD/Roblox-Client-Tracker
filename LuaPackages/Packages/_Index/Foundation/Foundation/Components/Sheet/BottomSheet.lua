@@ -33,10 +33,8 @@ local View = require(Foundation.Components.View)
 
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 
-local SPRING_FREQUENCY = 18
 local SPRING_FREQUENCY_HZ = 4
 local SPRING_OMEGA = 2 * math.pi * SPRING_FREQUENCY_HZ
-local SPRING_DAMPING = 0.9
 local VELOCITY_THRESHOLD = 1
 local POSITION_THRESHOLD = 0.5
 local SCROLL_AT_MAX_TOLERANCE = 1e-2
@@ -86,11 +84,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local reducedMotion = preferences.reducedMotion
 
 	local screenHeight = useScreenHeight()
-	local overlayAvailableHeight, setOverlayAvailableHeight
-	if Flags.FoundationBottomSheetCapToOverlayHeight then
-		overlayAvailableHeight, setOverlayAvailableHeight =
-			React.useState(if overlay then overlay.AbsoluteSize.Y else 0)
-	end
+	local overlayAvailableHeight, setOverlayAvailableHeight =
+		React.useState(if overlay then overlay.AbsoluteSize.Y else 0)
 	local sheetHeight, setSheetHeight = React.useState(0)
 	local backupSnapPoints = React.useMemo(function()
 		return { sheetHeight }
@@ -114,7 +109,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end
 	end
 	maxSheetHeight = math.min(maxSheetHeight, screenHeight)
-	if Flags.FoundationBottomSheetCapToOverlayHeight and overlayAvailableHeight > 0 then
+	if overlayAvailableHeight > 0 then
 		maxSheetHeight = math.min(maxSheetHeight, overlayAvailableHeight)
 	end
 
@@ -145,10 +140,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local hasHeader, setHasHeader = React.useBinding(false)
 	local hasFullBleed
 	local fullBleedHeight, setFullBleedHeight
-	if Flags.FoundationSheetFullBleed then
-		hasFullBleed = childrenHasFullBleed(props.children)
-		fullBleedHeight, setFullBleedHeight = React.useBinding(0)
-	end
+	hasFullBleed = childrenHasFullBleed(props.children)
+	fullBleedHeight, setFullBleedHeight = React.useBinding(0)
 
 	local outerScrollY = React.useRef(0)
 	local outerScrollingRef = React.useRef(nil :: ScrollingFrame?)
@@ -192,12 +185,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		springActive.current = true
 
 		local springTarget = targetPosition
-		if Flags.FoundationBottomSheetImproveSpring then
-			if outerScrollingRef.current then
-				outerScrollingRef.current:ResetScrollVelocity()
-			end
+		if outerScrollingRef.current then
+			outerScrollingRef.current:ResetScrollVelocity()
 		end
-		local lastPosition = if outerScrollingRef.current then outerScrollingRef.current.CanvasPosition.Y else 0
 
 		springConnection.current = game:GetService("RunService").Heartbeat:Connect(function(delta)
 			if not outerScrollingRef.current or not springActive.current then
@@ -207,34 +197,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 			local currentPos = outerScrollingRef.current.CanvasPosition.Y
 			local displacement
-			if Flags.FoundationBottomSheetImproveSpring then
-				local newCanvasY, newVelocity =
-					advanceCriticalDampedSpring(currentPos, springVelocity.current, springTarget, delta)
+			local newCanvasY, newVelocity =
+				advanceCriticalDampedSpring(currentPos, springVelocity.current, springTarget, delta)
 
-				springVelocity.current = newVelocity
-				outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
-				lastPosition = outerScrollingRef.current.CanvasPosition.Y
-				displacement = springTarget - outerScrollingRef.current.CanvasPosition.Y
-			else
-				displacement = springTarget - currentPos
-				local springForce = displacement * SPRING_FREQUENCY * SPRING_FREQUENCY
-
-				-- Engine has inertia, we can estimate it based off the delta from our expected last position
-				-- then we remove that inertia from our spring to compensate and make the spring smooth
-				local scrollingInertia = (currentPos - lastPosition) / delta
-				springVelocity.current -= scrollingInertia
-
-				local dampingForce = -springVelocity.current * 2 * SPRING_DAMPING * SPRING_FREQUENCY
-				local totalForce = springForce + dampingForce
-				local dt = math.min(delta, 1 / 30) -- cap delta to avoid large jumps
-
-				springVelocity.current = springVelocity.current + totalForce * dt
-
-				-- Apply the velocity to move the canvas position
-				local newCanvasY = currentPos + springVelocity.current * dt
-				outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
-				lastPosition = outerScrollingRef.current.CanvasPosition.Y
-			end
+			springVelocity.current = newVelocity
+			outerScrollingRef.current.CanvasPosition = Vector2.new(0, newCanvasY)
+			displacement = springTarget - outerScrollingRef.current.CanvasPosition.Y
 
 			local hasSettled = math.abs(displacement) < POSITION_THRESHOLD
 				and math.abs(springVelocity.current) < VELOCITY_THRESHOLD
@@ -248,16 +216,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 	local snapValueToPosition = React.useCallback(
 		function(value: number)
-			if Flags.FoundationBottomSheetCapToOverlayHeight then
-				return math.min(snapValueToPixels(value), maxSheetHeight) + safeAreaPadding
-			else
-				return snapValueToPixels(value) + safeAreaPadding
-			end
+			return math.min(snapValueToPixels(value), maxSheetHeight) + safeAreaPadding
 		end,
 		{
 			safeAreaPadding,
 			snapValueToPixels,
-			if Flags.FoundationBottomSheetCapToOverlayHeight then maxSheetHeight else nil,
+			maxSheetHeight,
 		} :: { unknown }
 	)
 
@@ -313,19 +277,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			local isAtTopOfInnerScroll = innerScrollY:getValue() <= 0
 			local isAtMaxOfOuterScroll = if Flags.FoundationBottomSheetScrollAtMaxTolerance
 				then isOuterScrollAtMax()
-				else outerScrollY.current >= if Flags.FoundationBottomSheetImproveSpring
-					then math.floor(maxSheetHeight + safeAreaPadding)
-					else math.round(maxSheetHeight + safeAreaPadding)
+				else outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
 			local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
 
 			if isCollapsing or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current) then
 				setInnerScrollingEnabled(false)
-			elseif
-				(
-					scrollVelocity.current < 0
-					or (Flags.FoundationBottomSheetImproveSpring and scrollVelocity.current == 0)
-				) and isAtMaxOfOuterScroll
-			then
+			elseif (scrollVelocity.current < 0 or (scrollVelocity.current == 0)) and isAtMaxOfOuterScroll then
 				setInnerScrollingEnabled(true)
 			end
 		end,
@@ -381,9 +338,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				end
 
 				-- Enable inner scrolling if starting at max snap point
-				local isAtMaxSnapPoint = if Flags.FoundationBottomSheetCapToOverlayHeight
-					then snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) >= maxSheetHeight
-					else snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) == maxSheetHeight
+				local isAtMaxSnapPoint = snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) >= maxSheetHeight
 				setInnerScrollingEnabled(isAtMaxSnapPoint)
 			end
 			return function()
@@ -452,44 +407,22 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				if Flags.FoundationBottomSheetGestureInteractionSink then
 					setIsVerticalSheetGestureValue(false)
 				end
+				local outerScrollVelocityY = if outerScrollingRef.current
+					then outerScrollingRef.current:GetScrollVelocity().Y
+					else 0
 
-				if Flags.FoundationBottomSheetImproveSpring then
-					local outerScrollVelocityY = if outerScrollingRef.current
-						then outerScrollingRef.current:GetScrollVelocity().Y
-						else 0
+				scrollVelocity.current = outerScrollVelocityY
 
-					scrollVelocity.current = outerScrollVelocityY
+				-- Don't handle snapping if outer scrolling is at maximum or sheet is closing
+				local shouldSkipSnapping = (
+					if Flags.FoundationBottomSheetScrollAtMaxTolerance
+						then isOuterScrollAtMax()
+						else outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
+				) or isClosing.current
 
-					-- Don't handle snapping if outer scrolling is at maximum or sheet is closing
-					local shouldSkipSnapping = (
-						if Flags.FoundationBottomSheetScrollAtMaxTolerance
-							then isOuterScrollAtMax()
-							else outerScrollY.current >= math.floor(maxSheetHeight + safeAreaPadding)
-					) or isClosing.current
-
-					if shouldSkipSnapping then
-						setInnerScrollingEnabled(true)
-						return
-					end
-				else
-					local outerScrollingNotMoving
-					if outerScrollingRef.current then
-						local success, value = pcall(function()
-							return outerScrollingRef.current:GetScrollVelocity().Y == 0
-						end)
-
-						if success then
-							outerScrollingNotMoving = value
-						end
-					end
-
-					-- Don't handle snapping if outer scrolling is not moving or sheet is closing
-					local shouldSkipSnapping = outerScrollingNotMoving or isClosing.current
-
-					if shouldSkipSnapping then
-						setInnerScrollingEnabled(true)
-						return
-					end
+				if shouldSkipSnapping then
+					setInnerScrollingEnabled(true)
+					return
 				end
 
 				snapToClosestSwipeSnapPoint()
@@ -554,11 +487,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				end,
 				hasHeader = hasHeader,
 				setHasHeader = setHasHeader,
-				hasFullBleed = if Flags.FoundationSheetFullBleed then hasFullBleed else nil,
-				fullBleedHeight = if Flags.FoundationSheetFullBleed then fullBleedHeight else nil,
-				setFullBleedHeight = if Flags.FoundationSheetFullBleed then setFullBleedHeight else nil,
+				hasFullBleed = hasFullBleed,
+				fullBleedHeight = fullBleedHeight,
+				setFullBleedHeight = setFullBleedHeight,
 				closeSheet = closeSheet,
-				hasRadius = if Flags.FoundationSheetFullBleed then true else nil,
+				hasRadius = true,
 				sheetType = SheetType.Bottom,
 				innerSurface = innerSurface,
 				testId = props.testId,
@@ -586,10 +519,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local gripperElement = React.createElement(View, {
 		ZIndex = 5,
 		backgroundStyle = tokens.Color.Content.Muted,
-		Position = if Flags.FoundationSheetFullBleed
-			then UDim2.new(0.5, 0, 0, if hasFullBleed then tokens.Padding.Small else -tokens.Padding.XSmall)
-			else nil,
-		AnchorPoint = if Flags.FoundationSheetFullBleed then Vector2.new(0.5, 0) else nil,
+		Position = UDim2.new(0.5, 0, 0, if hasFullBleed then tokens.Padding.Small else -tokens.Padding.XSmall),
+		AnchorPoint = Vector2.new(0.5, 0),
 		tag = "align-y-center size-1000-100 padding-y-small radius-small",
 		testId = `{props.testId}--gripper`,
 	}, {
@@ -613,9 +544,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					else
 						springToSnapIndex(nextIndex)
 					end
-					local isAtMaxSnapPoint = if Flags.FoundationBottomSheetCapToOverlayHeight
-						then snapValueToPixels(snapPoints[nextIndex]) >= maxSheetHeight
-						else snapValueToPixels(snapPoints[nextIndex]) == maxSheetHeight
+					local isAtMaxSnapPoint = snapValueToPixels(snapPoints[nextIndex]) >= maxSheetHeight
 					setInnerScrollingEnabled(isAtMaxSnapPoint)
 				else
 					closeSheet()
@@ -636,7 +565,6 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					tag = "size-full",
 					testId = `{props.testId}--surface`,
 					onAbsoluteSizeChanged = if not Flags.FoundationBottomSheetFixHeightCap
-							and Flags.FoundationBottomSheetCapToOverlayHeight
 						then function(rbx: GuiObject)
 							setOverlayAvailableHeight(rbx.AbsoluteSize.Y)
 						end
@@ -644,9 +572,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				},
 				React.createElement("ScrollingFrame", {
 					Size = UDim2.fromScale(1, 1),
-					CanvasSize = if Flags.FoundationSheetPreventCloseOnResize
-						then UDim2.new(1, 0, 1, maxSheetHeight + safeAreaPadding)
-						else UDim2.new(1, 0, 0, screenHeight + maxSheetHeight + safeAreaPadding),
+					CanvasSize = UDim2.new(1, 0, 1, maxSheetHeight + safeAreaPadding),
 					ClipsDescendants = false,
 					BackgroundTransparency = 1,
 					ScrollingDirection = Enum.ScrollingDirection.Y,
@@ -662,12 +588,8 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					end :: unknown,
 				}, {
 					SheetContainer = React.createElement(View, {
-						Size = if Flags.FoundationSheetPreventCloseOnResize
-							then UDim2.new(1, 0, 1, BOTTOM_PADDING - maxSheetHeight - safeAreaPadding)
-							else UDim2.new(1, 0, 0, screenHeight + BOTTOM_PADDING),
-						Position = if Flags.FoundationSheetPreventCloseOnResize
-							then UDim2.new(0, 0, 1, -maxSheetHeight)
-							else UDim2.fromOffset(0, screenHeight + safeAreaPadding),
+						Size = UDim2.new(1, 0, 1, BOTTOM_PADDING - maxSheetHeight - safeAreaPadding),
+						Position = UDim2.new(0, 0, 1, -maxSheetHeight),
 						ZIndex = 3,
 					}, {
 						Sheet = React.createElement(View, {
@@ -686,20 +608,14 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 							-- Needed to sink the onActivated event to the backdrop
 							onActivated = Dash.noop,
 							testId = props.testId,
-							tag = if Flags.FoundationSheetFullBleed
-								then {
-									["col items-center radius-large clip bg-surface-100"] = true,
-									["padding-top-medium"] = not hasFullBleed,
-								}
-								else "col items-center padding-top-small radius-large clip bg-surface-100",
+							tag = {
+								["col items-center radius-large clip bg-surface-100"] = true,
+								["padding-top-medium"] = not hasFullBleed,
+							},
 						}, {
-							GripperContainer = if Flags.FoundationSheetFullBleed
-								-- Wrap the gripper in a Folder so it stays out of the sheet's vertical layout
-								-- and can overlay without reserving extra space above content.
-								then React.createElement("Folder", nil, {
-									Gripper = gripperElement,
-								})
-								else gripperElement,
+							GripperContainer = React.createElement("Folder", nil, {
+								Gripper = gripperElement,
+							}),
 							Content = React.createElement(SheetContext.Provider, {
 								value = contextValue,
 							}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
@@ -708,9 +624,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					Shadow = React.createElement(Image, {
 						Image = SHADOW_IMAGE,
 						Size = UDim2.new(1, SHADOW_SIZE * 2, 0, maxSheetHeight + BOTTOM_PADDING + SHADOW_SIZE * 2),
-						Position = if Flags.FoundationSheetPreventCloseOnResize
-							then UDim2.new(-SHADOW_SIZE, 0, 1, -maxSheetHeight - SHADOW_SIZE)
-							else UDim2.fromOffset(-SHADOW_SIZE, screenHeight + safeAreaPadding - SHADOW_SIZE),
+						Position = UDim2.new(-SHADOW_SIZE, 0, 1, -maxSheetHeight - SHADOW_SIZE),
 						ZIndex = 2,
 						slice = {
 							center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),

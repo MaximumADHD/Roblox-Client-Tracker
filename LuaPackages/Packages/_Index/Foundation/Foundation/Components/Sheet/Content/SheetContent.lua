@@ -39,8 +39,8 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 	local setHasActionsDivider = sheet.setHasActionsDivider
 	local bottomPadding = sheet.bottomPadding
 	local hasHeader = sheet.hasHeader
-	local hasFullBleed = if Flags.FoundationSheetFullBleed then sheet.hasFullBleed else false
-	local fullBleedHeight = if Flags.FoundationSheetFullBleed then sheet.fullBleedHeight else nil
+	local hasFullBleed = sheet.hasFullBleed
+	local fullBleedHeight = sheet.fullBleedHeight
 	local sheetType = sheet.sheetType
 	local testId = sheet.testId
 	assert(
@@ -72,9 +72,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 
-	local horizontalPadding = if Flags.FoundationFullBleedSheetContent and props.isContentFullBleed
-		then nil
-		else UDim.new(0, tokens.Padding.Small)
+	local horizontalPadding = if props.isContentFullBleed then nil else UDim.new(0, tokens.Padding.Small)
 
 	local isSelectableEnabled = if props.Selectable == nil then true else props.Selectable
 	local selectable = if hasOverflowY
@@ -158,40 +156,27 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 			tag = "fill size-full-0 auto-y",
 			ref = ref,
 		},
-		React.createElement(
-			View,
-			{
-				onAbsoluteSizeChanged = updateScrollViewCanvasSize,
-				tag = if Flags.FoundationFullBleedSheetContent
-					then {
-						["col align-x-center gap-medium size-full-0 auto-y"] = true,
-						["padding-x-medium"] = not props.isContentFullBleed,
-					}
-					else "col align-x-center gap-medium size-full-0 auto-y padding-x-medium",
+		React.createElement(View, {
+			onAbsoluteSizeChanged = updateScrollViewCanvasSize,
+			tag = {
+				["col align-x-center gap-medium size-full-0 auto-y"] = true,
+				["padding-x-medium"] = not props.isContentFullBleed,
 			},
-			if Flags.FoundationSheetFullBleed
-				then {
-					FullBleedSpacer = if hasFullBleed and fullBleedHeight
-						then React.createElement(View, {
-							Size = fullBleedHeight:map(function(value: number)
-								return UDim2.new(1, 0, 0, math.max(0, value))
-							end),
-							LayoutOrder = Constants.MIN_LAYOUT_ORDER,
-							testId = `{testId}--content--full-bleed-spacer`,
-						})
-						else nil,
-					Children = React.createElement(React.Fragment, nil, props.children),
-					ContentInteractionSinkContainer = if Flags.FoundationBottomSheetGestureInteractionSink
-						then interactionSinkElement
-						else nil,
-				}
-				else if Flags.FoundationBottomSheetGestureInteractionSink
-					then {
-						Children = React.createElement(React.Fragment, nil, props.children),
-						ContentInteractionSinkContainer = interactionSinkElement,
-					}
-					else props.children
-		)
+		}, {
+			FullBleedSpacer = if hasFullBleed and fullBleedHeight
+				then React.createElement(View, {
+					Size = fullBleedHeight:map(function(value: number)
+						return UDim2.new(1, 0, 0, math.max(0, value))
+					end),
+					LayoutOrder = Constants.MIN_LAYOUT_ORDER,
+					testId = `{testId}--content--full-bleed-spacer`,
+				})
+				else nil,
+			Children = React.createElement(React.Fragment, nil, props.children),
+			ContentInteractionSinkContainer = if Flags.FoundationBottomSheetGestureInteractionSink
+				then interactionSinkElement
+				else nil,
+		})
 	)
 end
 

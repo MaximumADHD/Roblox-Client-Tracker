@@ -67,6 +67,25 @@ end
 
 export type WidgetManager = typeof(WidgetManager.new(...))
 
+local function getWidgetHost(gui: GuiBase2d): Instance?
+	local pluginGui = gui:FindFirstAncestorWhichIsA("PluginGui")
+	if pluginGui then
+		return pluginGui
+	end
+	return gui:FindFirstAncestorWhichIsA("ScreenGui")
+end
+
+local function makeRegistration(widgetUri: StudioUri, gui: GuiBase2d, host: Instance): WidgetRegistration
+	return {
+		Uri = widgetUri,
+		Widget = gui,
+		DEPRECATED_PluginGui = host,
+		Position = gui.AbsolutePosition,
+		Size = gui.AbsoluteSize,
+		Visible = gui:GetStyled("Visible"),
+	}
+end
+
 function WidgetManager.nextId(_self: WidgetManager): string
 	return HttpService:GenerateGUID(false)
 end
@@ -208,11 +227,8 @@ function WidgetManager._run(self: WidgetManager)
 end
 
 function WidgetManager.register(self: WidgetManager, widgetUri: StudioUri, gui: GuiBase2d)
-	local pluginGui = gui:FindFirstAncestorWhichIsA("PluginGui")
-	if not pluginGui then
-		pluginGui = gui:FindFirstAncestorWhichIsA("ScreenGui") :: any
-	end
-	if pluginGui then
+	local host = getWidgetHost(gui)
+	if host then
 		local uriString = StudioUri.toString(widgetUri)
 		if Flags.FoundationWidgetManagerSnapshotFlush then
 			local deferredConn = self._deferredAncestrySignals[uriString]
@@ -222,10 +238,29 @@ function WidgetManager.register(self: WidgetManager, widgetUri: StudioUri, gui: 
 			end
 		end
 		self._registeredWidgets[uriString] = gui
-		self._pendingRegisters[uriString] = { Uri = widgetUri, Widget = gui, DEPRECATED_PluginGui = pluginGui }
+		self._pendingRegisters[uriString] = { Uri = widgetUri, Widget = gui, DEPRECATED_PluginGui = host }
 		self._pendingDeregisters[uriString] = nil
 		self:_run()
 	end
+end
+
+-- A PluginGui's native QWidget host can change without changing the Lua
+-- instance or a descendant's local geometry. Consumers resolving a widget URI
+-- can use this to ensure the engine has the widget's current host and bounds.
+function WidgetManager.refreshAsync(self: WidgetManager, widgetUri: StudioUri): boolean
+	local uriString = StudioUri.toString(widgetUri)
+	local gui = self._registeredWidgets[uriString]
+	if not gui then
+		return false
+	end
+
+	local host = getWidgetHost(gui)
+	if not host then
+		return false
+	end
+
+	self._widgetsApi:RegisterAsync({ makeRegistration(widgetUri, gui, host) })
+	return true
 end
 
 function WidgetManager.deregister(self: WidgetManager, widgetUri: StudioUri, gui: GuiBase2d?)

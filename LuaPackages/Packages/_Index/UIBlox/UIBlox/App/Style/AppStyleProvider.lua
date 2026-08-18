@@ -43,7 +43,7 @@ local foundationSurfaceTokensDiffer = require(script.Parent.foundationSurfaceTok
 type AppStyle = StyleTypes.AppStyle
 type BaseTokens = StyleTypes.BaseTokens
 type Tokens = StyleTypes.Tokens
-type RbxDesignFoundationsV2Tokens = StyleTypes.RbxDesignFoundationsV2Tokens
+type RbxDesignFoundationsV4Tokens = StyleTypes.RbxDesignFoundationsV4Tokens
 type ThemeName = Constants.ThemeName
 type FontName = Constants.FontName
 type DeviceType = Constants.DeviceType
@@ -91,7 +91,7 @@ local function AppStyleProvider(props: Props)
 	local contextTokens = useTokens()
 	local foundationProviderPresent = contextTokens.Config ~= nil
 
-	local foundationTokens: RbxDesignFoundationsV2Tokens = getFoundationTokens(style.deviceType, themeName)
+	local foundationTokens: RbxDesignFoundationsV4Tokens = getFoundationTokens(style.deviceType, themeName)
 
 	-- Merge foundationTokens with contextTokens: contextTokens has Color/Config with overrides,
 	-- foundationTokens has Semantic/Global/Component that mapColorTokensToFoundation needs

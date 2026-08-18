@@ -64,7 +64,7 @@ local openFriendsChatConversation = if chatOpenCapability
 	then ParentContainer.createOpenFriendsChatConversation({
 		isChatAvailable = chatOpenCapability.isAvailable,
 		openConversation = openConversation,
-		requestSelectTab = ExpChat.requestSelectTab,
+		requestSelectFriendsTab = ExpChat.requestSelectFriendsTab,
 		ensureOpenChat = chatOpenCapability.ensureOpenChat,
 	})
 	else function(_conversationId: string)

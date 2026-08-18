@@ -6,6 +6,7 @@ local AlertSeverity = require(Foundation.Enums.AlertSeverity)
 local SystemBanner = require(Foundation.Components.SystemBanner)
 
 return {
+	deprecated = true,
 	summary = "Coachmark is deprecated — use EducationalTooltip instead",
 	stories = {
 		{

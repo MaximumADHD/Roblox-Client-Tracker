@@ -27,7 +27,7 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
+local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -59,7 +59,7 @@ local function configureUnibar()
 			isConnectDropdownEnabled()
 			and not (
 				FFlagRemoveFriendsChatUnibarEntrypoints
-				and FFlagExpChatEnableFriendsTab
+				and FFlagExpChatCanShowFriendsTab
 				and ArgoPartyExperimentation.getIsRenameEnabled()
 			)
 		then

@@ -9,12 +9,38 @@ local AccessoryType = require(Foundation.Enums.AccessoryType)
 local Badge = require(Foundation.Components.Badge)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 local Dropdown = require(Foundation.Components.Dropdown)
+local Icon = require(Foundation.Components.Icon)
+local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
 local List = require(Foundation.Components.List)
 local ListItemInputType = require(Foundation.Enums.ListItemInputType)
-local StatusIndicator = require(Foundation.Components.StatusIndicator)
-local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
+local Loading = require(Foundation.Components.Loading)
+local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
+
+type InputSize = InputSize.InputSize
+type IconSize = IconSize.IconSize
+type ListItemInputType = ListItemInputType.ListItemInputType
+
+local IconName = BuilderIcons.Icon
+
+local INPUT_SIZE_TO_ICON_SIZE: { [InputSize]: IconSize } = {
+	[InputSize.XSmall] = IconSize.XSmall,
+	[InputSize.Small] = IconSize.Small,
+	[InputSize.Medium] = IconSize.Medium,
+	[InputSize.Large] = IconSize.Large,
+}
+
+-- Returns an onActivated handler that logs so it's obvious in the output when a row is activated.
+local function logActivated(label: string?)
+	return function()
+		print(if label then `List.Item activated: {label}` else "List.Item activated")
+	end
+end
+
+-- List container capabilities. These stories are about `List.Root` — dividers, containment, and
+-- composing rows. Per-row capabilities (leading accessories, input types, activation, selection)
+-- live in the ListItem story; here the rows are intentionally simple, representative content.
 
 local DIVIDER_OPTIONS = {
 	None = false :: boolean | { isInset: boolean },
@@ -29,41 +55,159 @@ local CONTAINED_OPTIONS = {
 	["Has Margin"] = { isContained = false :: false, hasMargin = true } :: ContainedOption,
 }
 
-local function StoryInParentContainer(props)
+-- A small, fixed set of plain chevron rows so container props (dividers, containment) are the focus.
+local function sampleItems(): { [string]: React.ReactNode }
+	return {
+		Phone = React.createElement(List.Item, {
+			title = "Phone number",
+			description = "***-***-883",
+			onActivated = logActivated("Phone number"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 1,
+		}),
+		Language = React.createElement(List.Item, {
+			title = "Language",
+			description = "English",
+			onActivated = logActivated("Language"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 2,
+		}),
+		Email = React.createElement(List.Item, {
+			title = "Email address",
+			description = "rob*******@gmail.com",
+			onActivated = logActivated("Email address"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 3,
+		}),
+	}
+end
+
+local function LabeledList(props: {
+	layoutOrder: number,
+	label: string,
+	hasDivider: (boolean | { isInset: boolean })?,
+	isContained: ContainedOption?,
+}): React.ReactNode
 	return React.createElement(View, {
-		tag = "col size-full-0 auto-y bg-surface-100",
+		tag = "col gap-small size-full-0 auto-y",
+		LayoutOrder = props.layoutOrder,
 	}, {
+		Label = React.createElement(Text, {
+			Text = props.label,
+			tag = "text-label-medium content-default auto-xy",
+			LayoutOrder = 1,
+		}),
 		List = React.createElement(List.Root, {
-			hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
-			isContained = CONTAINED_OPTIONS[props.controls.isContained],
-			size = props.controls.size,
-		}, {
-			ItemA = React.createElement(List.Item, {
-				title = "Phone number",
-				description = "***-***-883",
-				onActivated = function() end,
-				LayoutOrder = 1,
-			}),
-			ItemB = React.createElement(List.Item, {
-				title = "Language",
-				description = "English",
-				onActivated = function() end,
-				LayoutOrder = 2,
-			}),
-			ItemC = React.createElement(List.Item, {
-				title = "Email address",
-				description = "rob*******@gmail.com",
-				onActivated = function() end,
-				LayoutOrder = 3,
-			}),
+			hasDivider = props.hasDivider :: any,
+			isContained = props.isContained :: any,
+			LayoutOrder = 2,
+		}, sampleItems()),
+	})
+end
+
+local function PlaygroundStory(props: {
+	controls: {
+		hasDivider: string,
+		isContained: string,
+		size: InputSize,
+	},
+}): React.ReactNode
+	local controls = props.controls
+
+	return React.createElement(List.Root, {
+		hasDivider = DIVIDER_OPTIONS[controls.hasDivider],
+		isContained = CONTAINED_OPTIONS[controls.isContained],
+		size = controls.size,
+	}, {
+		Media = React.createElement(List.Item, {
+			leading = { iconName = "rbxthumb://type=GameIcon&id=1818&w=150&h=150" },
+			title = { title = "Media", metadata = "Metadata" },
+			description = "Leading media thumbnail",
+			onActivated = logActivated("Media"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 1,
+		}),
+		Avatar = React.createElement(List.Item, {
+			leading = { type = AccessoryType.Avatar, userId = 24813339 },
+			title = { title = "Avatar", metadata = "Metadata" },
+			description = "Leading avatar",
+			onActivated = logActivated("Avatar"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 2,
+		}),
+		Icon = React.createElement(List.Item, {
+			leading = IconName.Robux,
+			title = { title = "Icon", metadata = "Metadata" },
+			description = "Leading icon",
+			onActivated = logActivated("Icon"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 3,
+		}),
+		NoLeading = React.createElement(List.Item, {
+			title = { title = "No Leading", metadata = "Metadata" },
+			description = "No leading accessory",
+			onActivated = logActivated("No Leading"),
+			input = ListItemInputType.Chevron,
+			LayoutOrder = 4,
 		}),
 	})
 end
 
-local function StorySettings(props)
+local function DividersStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-large size-full-0 auto-y",
+	}, {
+		None = React.createElement(LabeledList, {
+			layoutOrder = 1,
+			label = "None",
+			hasDivider = DIVIDER_OPTIONS.None,
+		}),
+		Inset = React.createElement(LabeledList, {
+			layoutOrder = 2,
+			label = "Inset (default)",
+			hasDivider = DIVIDER_OPTIONS.Inset,
+		}),
+		Full = React.createElement(LabeledList, {
+			layoutOrder = 3,
+			label = "Full",
+			hasDivider = DIVIDER_OPTIONS.Full,
+		}),
+	})
+end
+
+local function ContainmentStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-large size-full-0 auto-y",
+	}, {
+		Contained = React.createElement(LabeledList, {
+			layoutOrder = 1,
+			label = "Contained (border)",
+			isContained = CONTAINED_OPTIONS.Contained,
+		}),
+		FullWidth = React.createElement(LabeledList, {
+			layoutOrder = 2,
+			label = "Full width",
+			isContained = CONTAINED_OPTIONS["Full Width"],
+		}),
+		HasMargin = React.createElement(LabeledList, {
+			layoutOrder = 3,
+			label = "Has margin",
+			isContained = CONTAINED_OPTIONS["Has Margin"],
+		}),
+	})
+end
+
+-- A realistic composition: the list holds rows with varied trailing content (badge, dropdown, toggle).
+local function SettingsStory(props): React.ReactNode
 	local chatEnabled, setChatEnabled = React.useState(false)
-	local locationEnabled, setLocationEnabled = React.useState(false)
 	local languageId, setLanguageId = React.useState("en")
+
+	local function toggleChat()
+		print("List.Item toggled: Automatic chat translation")
+		setChatEnabled(function(prev)
+			return not prev
+		end)
+	end
 
 	return React.createElement(List.Root, {
 		hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
@@ -75,16 +219,15 @@ local function StorySettings(props)
 			description = "***-***-883",
 			trailing = React.createElement(
 				View,
-				{
-					tag = "auto-xy",
-				},
+				{ tag = "auto-xy" },
 				React.createElement(Badge, {
 					text = "Verified",
-					icon = BuilderIcons.Icon.CircleCheck,
+					icon = IconName.CircleCheck,
 					variant = BadgeVariant.Primary,
 				})
 			) :: React.ReactNode,
-			onActivated = function() end,
+			onActivated = logActivated("Phone number"),
+			input = ListItemInputType.Chevron,
 			LayoutOrder = 1,
 		}),
 		Language = React.createElement(List.Item, {
@@ -98,6 +241,7 @@ local function StorySettings(props)
 					{ id = "fr", text = "French" },
 				},
 				onItemChanged = function(id: string | number)
+					print(`Language changed: {id}`)
 					setLanguageId(id :: string)
 				end,
 				width = UDim.new(0, 140),
@@ -107,240 +251,127 @@ local function StorySettings(props)
 		EmailAddress = React.createElement(List.Item, {
 			title = "Email address",
 			description = "rob*******@gmail.com",
-			onActivated = function() end,
+			onActivated = logActivated("Email address"),
+			input = ListItemInputType.Chevron,
 			LayoutOrder = 3,
 		}),
 		Birthday = React.createElement(List.Item, {
 			title = "Birthday",
 			description = "Sep 27, 2000",
-			onActivated = function() end,
+			onActivated = logActivated("Birthday"),
+			input = ListItemInputType.Chevron,
 			LayoutOrder = 4,
-		}),
-		AgeGroup = React.createElement(List.Item, {
-			title = "Age Group",
-			description = "18+",
-			onActivated = function() end,
-			LayoutOrder = 5,
-		}),
-		Gender = React.createElement(List.Item, {
-			title = "Gender",
-			description = "Male",
-			onActivated = function() end,
-			LayoutOrder = 6,
 		}),
 		AutoChatTranslation = React.createElement(List.Item, {
 			leading = "speech-bubble-align-left",
 			title = "Automatic chat translation",
 			description = "Translate chat messages from others",
-			onActivated = {
-				onActivated = function()
-					setChatEnabled(function(prev)
-						return not prev
-					end)
-				end,
-				inputType = ListItemInputType.Toggle,
-				isChecked = chatEnabled,
-			},
-			LayoutOrder = 7,
-		}),
-		TrackLocation = React.createElement(List.Item, {
-			leading = "location-pin",
-			title = "Track Location",
-			description = "California, United States",
-			onActivated = {
-				onActivated = function()
-					setLocationEnabled(function(prev)
-						return not prev
-					end)
-				end,
-				inputType = ListItemInputType.Toggle,
-				isChecked = locationEnabled,
-			},
-			LayoutOrder = 8,
+			onActivated = toggleChat,
+			input = { type = ListItemInputType.Toggle, isChecked = chatEnabled },
+			LayoutOrder = 5,
 		}),
 	})
 end
 
-local function StoryGames(props)
-	local chatEnabled1, setChatEnabled1 = React.useState(false)
-	local chatEnabled2, setChatEnabled2 = React.useState(false)
-	local languageId, setLanguageId = React.useState("en")
+type GameState = "attention" | "loading" | "done"
+
+local BUILD_GAMES: { { id: string, title: string, status: string, badge: string, state: GameState } } = {
+	{ id = "1818", title = "Miami Run", status = "Input needed", badge = "Draft", state = "attention" },
+	{ id = "2788229376", title = "Magic Quest", status = "Building...", badge = "Public", state = "loading" },
+	{ id = "1281960580", title = "Surf's Up Adventure", status = "Building...", badge = "Private", state = "loading" },
+	{ id = "606849621", title = "Epic Battle", status = "v03 built · 10m ago", badge = "Friends", state = "done" },
+}
+
+local function GameTrailing(props: { badge: string, state: GameState, size: InputSize }): React.ReactNode
+	local stateIcon: React.ReactNode = if props.state == "loading"
+		then React.createElement(Loading, { size = INPUT_SIZE_TO_ICON_SIZE[props.size], LayoutOrder = 2 })
+		else React.createElement(Icon, {
+			name = if props.state == "done" then IconName.CircleCheck else IconName.TriangleExclamation,
+			size = INPUT_SIZE_TO_ICON_SIZE[props.size],
+			LayoutOrder = 2,
+		})
 
 	return React.createElement(View, {
-		tag = "col gap-medium size-full-0 auto-y",
+		tag = "row items-center gap-small auto-xy",
 	}, {
-		SettingsSection = React.createElement(List.Root, {
-			hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
-			isContained = CONTAINED_OPTIONS[props.controls.isContained],
-			size = props.controls.size,
-		}, {
-			AutoChatTranslation = React.createElement(List.Item, {
-				title = "Automatic chat translation",
-				description = "Translate chat messages from others",
-				onActivated = {
-					onActivated = function()
-						setChatEnabled1(function(prev)
-							return not prev
-						end)
-					end,
-					inputType = ListItemInputType.Toggle,
-					isChecked = chatEnabled1,
-				},
-				LayoutOrder = 1,
-			}),
-			AutoChatTranslation2 = React.createElement(List.Item, {
-				title = "Automatic chat translation",
-				description = "Translate chat messages from others",
-				onActivated = {
-					onActivated = function()
-						setChatEnabled2(function(prev)
-							return not prev
-						end)
-					end,
-					inputType = ListItemInputType.Toggle,
-					isChecked = chatEnabled2,
-				},
-				LayoutOrder = 2,
-			}),
-			Birthday = React.createElement(List.Item, {
-				title = "Birthday",
-				description = "Sep 27, 2000",
-				trailing = React.createElement(
-					View,
-					{
-						tag = "auto-xy",
-					},
-					React.createElement(Badge, {
-						text = "Verified",
-						icon = BuilderIcons.Icon.CircleCheck,
-						variant = BadgeVariant.Primary,
-					})
-				) :: React.ReactNode,
-				onActivated = function() end,
-				LayoutOrder = 3,
-			}),
-			Language = React.createElement(List.Item, {
-				title = "Language",
-				trailing = React.createElement(Dropdown.Root, {
-					value = languageId,
-					items = {
-						{ id = "en", text = "English" },
-						{ id = "es", text = "Spanish" },
-						{ id = "fr", text = "French" },
-					},
-					onItemChanged = function(id: string | number)
-						setLanguageId(id :: string)
-					end,
-					label = "",
-					width = UDim.new(0, 140),
-				}) :: React.ReactNode,
-				LayoutOrder = 4,
-			}),
-			GameItem = React.createElement(List.Item, {
-				leading = { iconName = "rbxthumb://type=GameIcon&id=1818&w=150&h=150" },
-				title = { title = "Item Name", metadata = "Metadata" },
-				trailing = React.createElement(StatusIndicator, {
-					variant = StatusIndicatorVariant.Emphasis,
-				}) :: React.ReactNode,
-				onActivated = function() end,
-				LayoutOrder = 5,
-			}),
-			GameItem2 = React.createElement(List.Item, {
-				leading = { iconName = "rbxthumb://type=GameIcon&id=2788229376&w=150&h=150" },
-				title = { title = "Item Name", metadata = "Metadata" },
-				onActivated = function() end,
-				LayoutOrder = 6,
-			}),
-			GameItem3 = React.createElement(List.Item, {
-				leading = { iconName = "rbxthumb://type=GameIcon&id=1281960580&w=150&h=150" },
-				title = { title = "Item Name", metadata = "Metadata" },
-				trailing = React.createElement(View, {
-					tag = "row items-center gap-large auto-xy",
-				}, {
-					Dot = React.createElement(StatusIndicator, {
-						variant = StatusIndicatorVariant.Emphasis,
-					}),
-					UpdateBadge = React.createElement(Badge, {
-						text = "Update",
-						variant = BadgeVariant.Neutral,
-						LayoutOrder = 2,
-					}),
-				}) :: React.ReactNode,
-				onActivated = function() end,
-				LayoutOrder = 7,
-			}),
-			GameItem4 = React.createElement(List.Item, {
-				leading = { iconName = "rbxthumb://type=GameIcon&id=606849621&w=150&h=150" },
-				title = { title = "Item Name", metadata = "Metadata" },
-				onActivated = function() end,
-				LayoutOrder = 8,
-			}),
+		Badge = React.createElement(Badge, {
+			text = props.badge,
+			variant = BadgeVariant.Neutral,
+			LayoutOrder = 1,
 		}),
+		State = stateIcon,
 	})
 end
 
-return {
-	summary = "List",
-	stories = {
-		{
-			name = "Playground",
-			story = function(props)
-				return React.createElement(List.Root, {
-					hasDivider = DIVIDER_OPTIONS[props.controls.hasDivider],
-					isContained = CONTAINED_OPTIONS[props.controls.isContained],
-					size = props.controls.size,
-				}, {
-					MediaItem = React.createElement(List.Item, {
-						leading = { iconName = "rbxthumb://type=GameIcon&id=1818&w=150&h=150" },
-						title = {
-							title = "Media",
-							metadata = "Metadata",
-						},
-						description = "Leading media thumbnail",
-						LayoutOrder = 1,
-					}),
-					AvatarItem = React.createElement(List.Item, {
-						leading = { type = AccessoryType.Avatar, userId = 24813339 },
-						title = {
-							title = "Avatar",
-							metadata = "Metadata",
-						},
-						description = "Leading avatar",
-						LayoutOrder = 2,
-					}),
-					IconItem = React.createElement(List.Item, {
-						leading = BuilderIcons.Icon.Robux,
-						title = {
-							title = "Icon",
-							metadata = "Metadata",
-						},
-						description = "Leading icon",
-						LayoutOrder = 3,
-					}),
-					NoLeadingItem = React.createElement(List.Item, {
-						title = {
-							title = "No Leading",
-							metadata = "Metadata",
-						},
-						description = "No leading accessory",
-						LayoutOrder = 4,
-					}),
-				})
-			end :: unknown,
-		},
-		{
-			name = "In Parent Container",
-			story = StoryInParentContainer,
-		},
-		{
-			name = "Settings",
-			story = StorySettings,
-		},
-		{
-			name = "Games List",
-			story = StoryGames,
-		},
+-- Another realistic composition: tappable game rows with rich trailing content and no chevron.
+local function BuildGamesStory(props): React.ReactNode
+	local size = props.controls.size
+
+	local rows: { [string]: React.ReactNode } = {
+		NewGame = React.createElement(List.Item, {
+			leading = IconName.PlusLarge,
+			title = "New Game",
+			description = "Build a game with AI",
+			onActivated = function()
+				print("create new game")
+			end,
+			input = ListItemInputType.None,
+			LayoutOrder = 1,
+		}),
+	}
+
+	for index, game in BUILD_GAMES do
+		rows[game.title] = React.createElement(List.Item, {
+			leading = { iconName = `rbxthumb://type=GameIcon&id={game.id}&w=150&h=150` },
+			title = game.title,
+			description = game.status,
+			trailing = React.createElement(GameTrailing, { badge = game.badge, state = game.state, size = size }) :: React.ReactNode,
+			onActivated = function()
+				print(`open {game.title}`)
+			end,
+			input = ListItemInputType.None,
+			LayoutOrder = index + 1,
+		})
+	end
+
+	return React.createElement(List.Root, {
+		size = size,
+		hasDivider = false,
+	}, rows)
+end
+
+local stories: { { name: string, summary: string?, story: any } } = {
+	{
+		name = "Playground",
+		story = PlaygroundStory :: unknown,
 	},
+	{
+		name = "Dividers",
+		summary = "`hasDivider` controls the divider between rows: none, inset (default), or full width.",
+		story = DividersStory,
+	},
+	{
+		name = "Containment",
+		summary = "`isContained` wraps the list in a border; when not contained, `hasMargin` toggles horizontal padding.",
+		story = ContainmentStory,
+	},
+	{
+		name = "Settings",
+		summary = "A realistic settings list — the container composes rows with varied trailing content (badge, dropdown, toggle).",
+		story = SettingsStory,
+	},
+}
+
+table.insert(stories, {
+	name = "Build games",
+	summary = "Tappable game rows with rich trailing content (status badge + state icon) and no chevron, mirroring the Build game list.",
+	story = BuildGamesStory,
+})
+
+return {
+	summary = "A vertical list container. It renders dividers between rows (`hasDivider`), an optional border "
+		.. "(`isContained`), and propagates `size` to its rows.",
+	stories = stories,
 	controls = {
 		hasDivider = Dash.keys(DIVIDER_OPTIONS),
 		isContained = Dash.keys(CONTAINED_OPTIONS),

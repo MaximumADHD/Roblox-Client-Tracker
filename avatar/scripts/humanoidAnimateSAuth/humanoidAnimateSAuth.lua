@@ -220,6 +220,14 @@ function module.setupAnimation(character)
 		DEFAULT_EMOTE_LOOPING_OVERRIDES["dance1"] = { looping = true }
 	end
 
+	local FFlagUserCCLNoSwimAnimationsFix
+	do
+		local success, result = pcall(function()
+			return UserSettings():IsUserFeatureEnabled("UserCCLNoSwimAnimationsFix")
+		end)
+		FFlagUserCCLNoSwimAnimationsFix = success and result
+	end
+
 	-- R15-only: run/walk blend toggle
 	local disableRunWalkBlend = false
 
@@ -276,6 +284,113 @@ function module.setupAnimation(character)
 			end
 		end
 		return false
+	end
+
+	---------------------------------------------------------------
+	-- CONTROLLERMANAGER FIX FOR IDLE WHILE ON A MOVING PLATFORM --
+	---------------------------------------------------------------
+	--  Variables and support methods to ensure that an idle character on a
+	-- moving platform is not animated as walking, when a ControllerManager is
+	-- active.
+
+	-- Variables for tracking if the character is using a ControllerManager.
+	-- This implementation assumes the common case of the ControllerManager
+	-- being a child of the character, and that only one ControllerManager
+	-- exists under a given character. If a ControllerManager is not placed
+	-- under its associated character, then it will not be detected by this
+	-- script.
+	-- The basis for this decision is performance: A ChildAdded listener on the
+	-- character is less of a performance hit than a ChildAdded listener on the
+	-- Workspace. And a FindFirstChild is more performant than checking for
+	-- multiple controllers via GetChildren.
+	local managerRootChangedListener: RBXScriptConnection? = nil
+	local managerParentChangedListener: RBXScriptConnection? = nil
+	local charControllerManager: ControllerManager? = nil
+
+	-- Forward declaration of function
+	local lookForControllerManager
+
+	-- Clean up listeners associated with the character's ControllerManager
+	local function resetManagerListeners()
+		if managerRootChangedListener then
+			managerRootChangedListener:Disconnect()
+			managerRootChangedListener = nil
+		end
+		if managerParentChangedListener then
+			managerParentChangedListener:Disconnect()
+			managerParentChangedListener = nil
+		end
+	end
+
+	-- Clean up all listeners and reset state.
+	local function teardownManager()
+		resetManagerListeners()
+		charControllerManager = nil
+	end
+
+	-- Attach to a confirmed-valid manager: record it,
+	-- and watch for RootPart changes, and removal.
+	local function setupManager(manager: ControllerManager)
+		charControllerManager = manager
+
+		managerRootChangedListener = manager:GetPropertyChangedSignal("RootPart"):Connect(function()
+			if manager.RootPart ~= character.PrimaryPart then
+				teardownManager()
+				lookForControllerManager()
+			end
+		end)
+		managerParentChangedListener = manager.AncestryChanged:Connect(function(_, parent)
+			if parent == nil then
+				teardownManager()
+				lookForControllerManager()
+			end
+		end)
+	end
+
+	-- Looks for the first ControllerManager directly childed to the character. If such
+	-- a controller does not exist or if it does not control that character, then a listener
+	-- is set up to check if a controller is ever added.
+	lookForControllerManager = function()
+		local child: ControllerManager? = character:FindFirstChildOfClass("ControllerManager")
+		if child then
+			if child.RootPart == character.PrimaryPart then
+				setupManager(child)
+			else
+				-- Manager exists but RootPart not yet assigned; wait for it.
+				local rootPartListener: RBXScriptConnection
+				rootPartListener = child:GetPropertyChangedSignal("RootPart"):Connect(function()
+					if child.RootPart == character.PrimaryPart then
+						rootPartListener:Disconnect()
+						setupManager(child)
+					end
+				end)
+			end
+		else
+			local managerAddedListener: RBXScriptConnection
+			managerAddedListener = character.ChildAdded:Connect(function(newChild)
+				if newChild:IsA("ControllerManager") then
+					managerAddedListener:Disconnect()
+					lookForControllerManager()
+				end
+			end)
+		end
+	end
+	lookForControllerManager()
+
+	-- Returns true if a ControllerManager is being used by the character
+	isUsingControllerManager = function()
+		return humanoid.EvaluateStateMachine == false and charControllerManager
+	end
+
+	-- Return a character's animation speed based off of their world speed
+	getCharacterAnimSpeed = function(characterWorldSpeed: number)
+		if isUsingControllerManager() and charControllerManager.ActiveController then
+			-- Animation speed is determined by the movement intent expressed by the ControllerManager
+			return charControllerManager.MovingDirection.Magnitude
+				* charControllerManager.ActiveController.MoveSpeedFactor
+				* charControllerManager.BaseMoveSpeed
+		end
+		return characterWorldSpeed
 	end
 
 	--------------------------------------------------------------------------------
@@ -914,6 +1029,11 @@ function module.setupAnimation(character)
 	local function onRunning(animState: AnimationStateAttributesType, speed)
 		debugPrint("onRunning, speed: " .. tostring(speed))
 
+		-- Replace speed with that dictated by the ControllerManager.
+		-- IE, do not animate a walk if the character is stationary atop
+		-- a moving platform.
+		speed = getCharacterAnimSpeed(speed)
+
 		if isR6 then
 			local scale = character:GetScale()
 			speed = speed / scale
@@ -943,6 +1063,11 @@ function module.setupAnimation(character)
 	end
 
 	local function onClimbing(animState: AnimationStateAttributesType, speed)
+		-- Replace speed with that dictated by the ControllerManager.
+		-- IE, do not animate a climb if the character is stationary atop
+		-- a moving ladder.
+		speed = getCharacterAnimSpeed(speed)
+
 		if isR6 then
 			local scale = character:GetScale()
 			speed = speed / scale
@@ -966,29 +1091,41 @@ function module.setupAnimation(character)
 
 	local function onSwimming(animState: AnimationStateAttributesType, speed)
 		debugPrint("onSwimming, speed: " .. tostring(speed))
+		
+		local SWIMMING_SCALE = 10.0
+
+		local swimThreshold = if animState.pose == "Swimming" then SWIM_STOP_THRESHOLD else SWIM_START_THRESHOLD
+		local heightScale = getHeightScale()
 
 		if isR6 then
-			-- R6 doesn't have swim animations; map to Running/Standing instead
-			if speed > 0 then
-				queueAnimation(animState, "Running", DEFAULT_TRANSITION_TIME)
+			-- This flag fixes having a frozen swim animation with CCL
+			if FFlagUserCCLNoSwimAnimationsFix then
+				speed /= heightScale
+
+				-- We remove the standing case and just play a slower swim animation speed to mirror an "idle"
+				queueAnimation(animState, "Running", DEFAULT_TRANSITION_TIME, math.clamp(speed / SWIMMING_SCALE, 0.2, math.huge))
 			else
-				queueAnimation(animState, "Standing", DEFAULT_TRANSITION_TIME)
+				-- R6 doesn't have swim animations; map to Running/Standing instead
+				if speed > 0 then
+					queueAnimation(animState, "Running", DEFAULT_TRANSITION_TIME)
+				else
+					queueAnimation(animState, "Standing", DEFAULT_TRANSITION_TIME)
+				end
 			end
 		else
-			-- This early-out prevents a feedback loop where the swim animation
-			-- generates root motion that keeps the character stuck in the Swimming pose
-			if humanoid.MoveDirection == Vector3.zero then
-				queueAnimation(animState, "SwimIdle", SWIM_TRANSITION_TIME)
-				return
+			if not isUsingControllerManager() then
+				-- This early-out prevents a feedback loop where the swim animation
+				-- generates root motion that keeps the character stuck in the Swimming pose
+				if humanoid.MoveDirection == Vector3.zero then
+					queueAnimation(animState, "SwimIdle", SWIM_TRANSITION_TIME)
+					return
+				end
 			end
 
 			-- R15: proper swim/swimidle
-			local heightScale = getHeightScale()
 			speed /= heightScale
 
-			local swimThreshold = if animState.pose == "Swimming" then SWIM_STOP_THRESHOLD else SWIM_START_THRESHOLD
 			if speed > swimThreshold then
-				local SWIMMING_SCALE = 10.0
 				queueAnimation(animState, "Swimming", SWIM_TRANSITION_TIME, speed / SWIMMING_SCALE)
 			else
 				queueAnimation(animState, "SwimIdle", SWIM_TRANSITION_TIME)

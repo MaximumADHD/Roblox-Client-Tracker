@@ -55,7 +55,7 @@ type Props = {
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
-	variant = if Flags.FoundationDropdownVariant then InputVariant.Standard else nil :: never,
+	variant = InputVariant.Standard,
 	isMenuOpen = false,
 	placeholder = "",
 	-- Default the button to selectable when the new flag is on so that consumers don't have to opt in explicitly.
@@ -68,19 +68,15 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 	local tokens = useTokens()
 	local controlState, updateControlState = React.useState(ControlState.Initialize :: ControlState)
 	local showPlaceholder = props.item == nil
-	-- TODO: clean up with FFlagFoundationDropdownVariant
-	if Flags.FoundationDropdownVariant and props.variant == nil then
-		props.variant = InputVariant.Standard
-	end
 	local variantProps = useDropdownVariants(
 		tokens,
 		props.size,
-		if Flags.FoundationDropdownVariant then props.variant else nil :: never,
+		props.variant,
 		controlState :: ControlState,
 		showPlaceholder,
 		props.hasError or false,
-		if Flags.FoundationDropdownVariant then props.isMenuOpen else nil :: never,
-		if Flags.FoundationDropdownVariant then controlState == ControlState.Hover else nil :: never
+		props.isMenuOpen,
+		controlState == ControlState.Hover
 	)
 
 	local cursor = React.useMemo(function()
@@ -125,7 +121,7 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 					},
 					cursor = cursor,
 					stateLayer = { affordance = StateLayerAffordance.None },
-					backgroundStyle = if Flags.FoundationDropdownVariant and variantProps.container.bgStyle
+					backgroundStyle = if variantProps.container.bgStyle
 						then {
 							Color3 = variantProps.container.bgStyle.Color3,
 							Transparency = if props.isDisabled
@@ -136,7 +132,7 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 								else variantProps.container.bgStyle.Transparency,
 						}
 						else nil,
-					stroke = if Flags.FoundationDropdownVariant and variantProps.container.strokeStyle
+					stroke = if variantProps.container.strokeStyle
 						then {
 							Color = variantProps.container.strokeStyle.Color3,
 							Transparency = if props.isDisabled

@@ -40,6 +40,8 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_MOMENT"
 	| "HYDRATION_CONTENT_TYPE_COMMUNITY"
 	| "HYDRATION_CONTENT_TYPE_COMMUNITY_USER_MEMBERSHIP"
+	| "HYDRATION_CONTENT_TYPE_USER_RECOMMENDATION"
+	| "HYDRATION_CONTENT_TYPE_CONTACT"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -98,6 +100,10 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_COMMUNITY"
 		elseif value == 26 then
 			return "HYDRATION_CONTENT_TYPE_COMMUNITY_USER_MEMBERSHIP"
+		elseif value == 27 then
+			return "HYDRATION_CONTENT_TYPE_USER_RECOMMENDATION"
+		elseif value == 28 then
+			return "HYDRATION_CONTENT_TYPE_CONTACT"
 		else
 			return nil
 		end
@@ -158,6 +164,10 @@ messages.HydrationContentType = {
 			return 25
 		elseif self == "HYDRATION_CONTENT_TYPE_COMMUNITY_USER_MEMBERSHIP" then
 			return 26
+		elseif self == "HYDRATION_CONTENT_TYPE_USER_RECOMMENDATION" then
+			return 27
+		elseif self == "HYDRATION_CONTENT_TYPE_CONTACT" then
+			return 28
 		else
 			return self
 		end
@@ -218,6 +228,10 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_COMMUNITY"
 		elseif name == "HYDRATION_CONTENT_TYPE_COMMUNITY_USER_MEMBERSHIP" then
 			return "HYDRATION_CONTENT_TYPE_COMMUNITY_USER_MEMBERSHIP"
+		elseif name == "HYDRATION_CONTENT_TYPE_USER_RECOMMENDATION" then
+			return "HYDRATION_CONTENT_TYPE_USER_RECOMMENDATION"
+		elseif name == "HYDRATION_CONTENT_TYPE_CONTACT" then
+			return "HYDRATION_CONTENT_TYPE_CONTACT"
 		else
 			return nil
 		end

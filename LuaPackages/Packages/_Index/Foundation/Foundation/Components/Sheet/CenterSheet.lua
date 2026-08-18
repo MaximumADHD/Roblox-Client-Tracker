@@ -21,8 +21,6 @@ type ElevationLayer = ElevationLayer.ElevationLayer
 local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
 
-local Flags = require(Foundation.Utility.Flags)
-
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 
 local SheetContext = require(script.Parent.SheetContext)
@@ -95,10 +93,8 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 	local hasHeader, setHasHeader = React.useBinding(false)
 	local hasFullBleed
 	local fullBleedHeight, setFullBleedHeight
-	if Flags.FoundationSheetFullBleed then
-		hasFullBleed = childrenHasFullBleed(props.children)
-		fullBleedHeight, setFullBleedHeight = React.useBinding(0)
-	end
+	hasFullBleed = childrenHasFullBleed(props.children)
+	fullBleedHeight, setFullBleedHeight = React.useBinding(0)
 
 	local innerScrollY, setInnerScrollY = React.useBinding(0)
 	local sheetHeight, setSheetHeight = React.useBinding(0)
@@ -108,38 +104,31 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 
 	-- Stable container for sheet content prevents children from remounting when
 	-- GroupTransparency toggles and the host swaps (CanvasGroup <-> Frame).
-	local stableContainer = if Flags.FoundationCenterSheetUseStableContainer
-		then React.useMemo(function()
-			local frame = Instance.new("Frame")
-			frame.BackgroundTransparency = 1
-			frame.BorderSizePixel = 0
-			frame.AutomaticSize = Enum.AutomaticSize.XY
-			return frame
-		end, {})
-		else nil :: never
-
-	if Flags.FoundationCenterSheetUseStableContainer then
-		React.useEffect(function()
-			return function()
-				stableContainer:Destroy()
-			end
-		end, {})
-	end
+	local stableContainer = React.useMemo(function()
+		local frame = Instance.new("Frame")
+		frame.BackgroundTransparency = 1
+		frame.BorderSizePixel = 0
+		frame.AutomaticSize = Enum.AutomaticSize.XY
+		return frame
+	end, {})
+	React.useEffect(function()
+		return function()
+			stableContainer:Destroy()
+		end
+	end, {})
 
 	-- Imperatively reparent the stable container under whichever host the View creates.
-	local sheetContainerRef = if Flags.FoundationCenterSheetUseStableContainer
-		then React.useCallback(function(rbx: GuiObject?)
-			if rbx then
-				stableContainer.Parent = rbx
-			else
-				-- Rescue the stable container before React destroys the old host,
-				-- which would otherwise cascade-destroy all descendants.
-				stableContainer.Parent = nil
-			end
-		end, {})
-		else nil
+	local sheetContainerRef = React.useCallback(function(rbx: GuiObject?)
+		if rbx then
+			stableContainer.Parent = rbx
+		else
+			-- Rescue the stable container before React destroys the old host,
+			-- which would otherwise cascade-destroy all descendants.
+			stableContainer.Parent = nil
+		end
+	end, {})
 
-	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between themes
+	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between colorModes
 	React.useEffect(function()
 		if reducedMotion then
 			setBottomPositionGoal(Otter.instant(0) :: Otter.Goal<any>)
@@ -155,7 +144,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 		end
 	end, {})
 
-	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between themes
+	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between colorModes
 	local closeSheet = React.useCallback(function()
 		if closing.current then
 			return
@@ -201,11 +190,11 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 				setInnerScrollY = setInnerScrollY,
 				hasHeader = hasHeader,
 				setHasHeader = setHasHeader,
-				hasFullBleed = if Flags.FoundationSheetFullBleed then hasFullBleed else nil,
-				fullBleedHeight = if Flags.FoundationSheetFullBleed then fullBleedHeight else nil,
-				setFullBleedHeight = if Flags.FoundationSheetFullBleed then setFullBleedHeight else nil,
+				hasFullBleed = hasFullBleed,
+				fullBleedHeight = fullBleedHeight,
+				setFullBleedHeight = setFullBleedHeight,
 				closeSheet = closeSheet,
-				hasRadius = if Flags.FoundationSheetFullBleed then true else nil,
+				hasRadius = true,
 				sheetType = SheetType.Center,
 				testId = props.testId,
 				closeAffordanceRef = closeAffordanceRef,
@@ -266,9 +255,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 			onActivated = closeSheet,
 			ref = closeAffordanceRef,
 			NextSelectionDown = contentStartRef,
-			variant = if Flags.FoundationSheetFullBleed and hasFullBleed
-				then CloseAffordanceVariant.OverMedia
-				else CloseAffordanceVariant.Utility,
+			variant = if hasFullBleed then CloseAffordanceVariant.OverMedia else CloseAffordanceVariant.Utility,
 			Position = UDim2.new(1, -tokens.Margin.Small, 0, tokens.Margin.Small),
 			AnchorPoint = Vector2.new(1, 0),
 			Visible = hasHeader:map(function(value: boolean)
@@ -301,38 +288,29 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 					tag = "size-full",
 					testId = `{props.testId}--surface`,
 				}, {
-					SheetContainer = React.createElement(
-						View,
-						{
-							ref = sheetContainerRef,
-							ZIndex = 2,
-							sizeConstraint = {
-								MaxSize = Vector2.new(width, maxHeight),
-							},
-							Position = bottomPosition:map(function(value: number)
-								return UDim2.new(0.5, 0, 0.5, value)
-							end),
-							tag = "col align-y-center anchor-center-center size-full padding-medium",
-							testId = `{props.testId}--center-sheet-container`,
-							GroupTransparency = if animating
-								then bottomPosition:map(function(value: number)
-									return value / animationOffset
-								end)
-								else nil,
-							onAbsoluteSizeChanged = if props.centerSheetHeight and setMaxAvailableHeight
-								then function(rbx: GuiObject)
-									local padding = tokens.Margin.Medium * 2
-									setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
-								end
-								else nil,
+					SheetContainer = React.createElement(View, {
+						ref = sheetContainerRef,
+						ZIndex = 2,
+						sizeConstraint = {
+							MaxSize = Vector2.new(width, maxHeight),
 						},
-						if not Flags.FoundationCenterSheetUseStableContainer
-							then {
-								Sheet = SheetNode,
-								Shadow = React.createElement("Folder", nil, ShadowNode),
-							}
-							else nil
-					),
+						Position = bottomPosition:map(function(value: number)
+							return UDim2.new(0.5, 0, 0.5, value)
+						end),
+						tag = "col align-y-center anchor-center-center size-full padding-medium",
+						testId = `{props.testId}--center-sheet-container`,
+						GroupTransparency = if animating
+							then bottomPosition:map(function(value: number)
+								return value / animationOffset
+							end)
+							else nil,
+						onAbsoluteSizeChanged = if props.centerSheetHeight and setMaxAvailableHeight
+							then function(rbx: GuiObject)
+								local padding = tokens.Margin.Medium * 2
+								setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
+							end
+							else nil,
+					}, nil),
 					Backdrop = React.createElement(View, {
 						Size = UDim2.fromScale(2, 2),
 						Position = UDim2.fromScale(-0.5, -0.5),
@@ -352,12 +330,10 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 				}),
 				overlay
 			),
-			SheetContent = if Flags.FoundationCenterSheetUseStableContainer
-				then ReactRoblox.createPortal({
-					Sheet = SheetNode,
-					Shadow = ShadowNode,
-				}, stableContainer)
-				else nil,
+			SheetContent = ReactRoblox.createPortal({
+				Sheet = SheetNode,
+				Shadow = ShadowNode,
+			}, stableContainer),
 		})
 end
 

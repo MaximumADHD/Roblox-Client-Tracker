@@ -7,7 +7,6 @@ local React = require(Packages.React)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 local Button = require(Foundation.Components.Button)
 local Coachmark = require(Foundation.Components.Coachmark)
-local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -928,7 +927,7 @@ return {
 		numMenuItems = 6,
 		maxHeight = { 0, 180, 240, 360 },
 		firstItemText = "Action one",
-		leading = if Flags.FoundationBaseMenuBeta then { "Icon", "Avatar", "Mixed", "None" } else nil,
-		trailing = if Flags.FoundationBaseMenuBeta then { "Hint", "Badge", "Mixed", "None" } else nil,
+		leading = { "Icon", "Avatar", "Mixed", "None" },
+		trailing = { "Hint", "Badge", "Mixed", "None" },
 	},
 }

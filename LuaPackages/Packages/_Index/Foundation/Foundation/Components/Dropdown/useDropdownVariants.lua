@@ -43,22 +43,13 @@ type DropdownVariantProps = {
 	arrow: { size: IconSize },
 }
 
--- TODO: clean up with FFlagFoundationDropdownVariant
-type State = ControlState | "Error"
-
 local function variantsFactory()
 	local common = {
 		container = {
-			tag = {
-				["row flex-x-between align-y-center stroke-standard stroke-position-inner"] = not Flags.FoundationDropdownVariant,
-				["row flex-x-between align-y-center"] = Flags.FoundationDropdownVariant,
-			},
+			tag = "row flex-x-between align-y-center",
 		},
 		text = {
-			tag = {
-				["shrink auto-xy text-truncate-split content-emphasis"] = Flags.FoundationDropdownVariant,
-				["shrink auto-xy text-truncate-split"] = not Flags.FoundationDropdownVariant,
-			},
+			tag = "shrink auto-xy text-truncate-split content-emphasis",
 		},
 	}
 
@@ -106,40 +97,18 @@ local function variantsFactory()
 		},
 	}
 
-	local states: { [State]: VariantProps } = {
+	local states: { [ControlState]: VariantProps } = {
 		[ControlState.Disabled] = {
-			container = if Flags.FoundationDropdownVariant then nil :: never else { tag = "stroke-muted" },
+			container = nil :: never,
 			text = { tag = "content-muted" },
 		},
 		[ControlState.Initialize] = {
-			container = if Flags.FoundationDropdownVariant then nil :: never else { tag = "stroke-default" },
+			container = nil :: never,
 			text = { tag = "content-default" },
 		},
-		[ControlState.Default] = if Flags.FoundationDropdownVariant
-			then nil :: never
-			else {
-				container = { tag = "stroke-default" },
-				text = { tag = "content-default" },
-			},
-		[ControlState.Hover] = if Flags.FoundationDropdownVariant
-			then nil :: never
-			else {
-				container = { tag = "stroke-emphasis" },
-				text = { tag = "content-emphasis" },
-			},
-		[ControlState.Pressed] = if Flags.FoundationDropdownVariant
-			then nil :: never
-			else {
-				container = { tag = "stroke-emphasis" },
-				text = { tag = "content-emphasis" },
-			},
-		Error = if not Flags.FoundationDropdownVariant
-			-- TODO: Error states do not currently have hover / etc effects
-			then nil :: never
-			else {
-				container = { tag = "stroke-alert" },
-				text = { tag = "content-default" },
-			},
+		[ControlState.Default] = nil :: never,
+		[ControlState.Hover] = nil :: never,
+		[ControlState.Pressed] = nil :: never,
 	}
 
 	-- Placeholder existence should take precendent of content styling in any case.
@@ -169,25 +138,19 @@ return function(
 	hover: boolean
 ): DropdownVariantProps
 	local props = VariantsContext.useVariants("Dropdown", variantsFactory, tokens)
-	-- TODO: clean up with FFlagFoundationDropdownVariant
-	local inputProps = if Flags.FoundationDropdownVariant
-		then VariantsContext.useVariants("InputField", getInputVariantsFactory, tokens)
-		else nil :: never
-	local variantAttributes = if Flags.FoundationDropdownVariant
-		then inputProps.variants[variant or InputVariant.Standard]
-		else nil :: never
-	local state = if not Flags.FoundationDropdownVariant and hasError then "Error" else controlState
+	local inputProps = VariantsContext.useVariants("InputField", getInputVariantsFactory, tokens)
+	local variantAttributes = inputProps.variants[variant or InputVariant.Standard]
 
 	return composeStyleVariant(
-		if Flags.FoundationDropdownVariant then inputProps.common else {},
+		inputProps.common,
 		props.common,
-		if Flags.FoundationDropdownVariant then inputProps.sizes[size] else {},
+		inputProps.sizes[size],
 		props.sizes[size],
-		if Flags.FoundationDropdownVariant and variant ~= InputVariant.Utility then variantAttributes else {},
-		if Flags.FoundationDropdownVariant then inputProps.hoverState[hover] else {},
-		if Flags.FoundationDropdownVariant then inputProps.focusedState[focused] else {},
-		if Flags.FoundationDropdownVariant then inputProps.errorState[hasError] else {},
-		if isPlaceholderShown then props.placeholderStates[state] else props.states[state :: State],
-		if Flags.FoundationDropdownVariant and variant == InputVariant.Utility then variantAttributes else {}
+		if variant ~= InputVariant.Utility then variantAttributes else {},
+		inputProps.hoverState[hover],
+		inputProps.focusedState[focused],
+		inputProps.errorState[hasError],
+		if isPlaceholderShown then props.placeholderStates[controlState] else props.states[controlState],
+		if variant == InputVariant.Utility then variantAttributes else {}
 	)
 end
