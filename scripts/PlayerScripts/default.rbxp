@@ -63,6 +63,12 @@
                         "VRCamera": {
                             "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRCamera.lua"
                         },
+                        "VRCameraTeleportDetector": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRCameraTeleportDetector.lua"
+                        },
+                        "VRCameraTeleportDetector.spec": {
+                            "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRCameraTeleportDetector.spec.lua"
+                        },
                         "VRVehicleCamera": {
                             "$path": "StarterPlayerScripts/PlayerModule.module/CameraModule/VRVehicleCamera.lua"
                         },

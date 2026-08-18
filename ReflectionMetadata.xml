@@ -4691,6 +4691,16 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">PlayerControlState</string>
+        <string name="ExplorerOrder">31</string>
+        <string name="ClassCategory">Input</string>
+        <string name="PreferredParent">Player</string>
+        <string name="FFlag">PlayerControlStateEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">PointsService</string>
         <bool name="Deprecated">true</bool>
       </Properties>

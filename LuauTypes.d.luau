@@ -453,7 +453,7 @@ type VideoSamplerOptions = {
     Size: Enum.VideoSampleSize,
 }
 
-type ProfileConfiguration = { BackgroundAssetId: number }
+type ProfileConfiguration = { BackgroundAssetId: number?, FrameAssetId: number? }
 
 type StudioScreenshotOptions = {
     Position: Vector2?,
