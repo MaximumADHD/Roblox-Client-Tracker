@@ -39,7 +39,8 @@ void main()
         break;
     } while(false);
     uint f6 = floatBitsToUint(CB1[16].w);
-    _entryPointOutput = vec4(clamp(f1 + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f2 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f6 & 255u, (f6 >> 8u) & 255u, (f6 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f1 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f1)))), vec3(0.0), vec3(1.0)), 1.0);
+    vec3 f7 = clamp(f1, vec3(0.0), vec3(1.0));
+    _entryPointOutput = vec4(clamp(f1 + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f2 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f6 & 255u, (f6 >> 8u) & 255u, (f6 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f7 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f7)))), vec3(0.0), vec3(1.0)), 1.0);
 }
 
 //$$Texture6Texture=s6

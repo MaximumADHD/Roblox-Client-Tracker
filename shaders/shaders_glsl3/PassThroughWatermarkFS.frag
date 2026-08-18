@@ -39,14 +39,15 @@ void main()
         break;
     } while(false);
     uint f6 = floatBitsToUint(CB1[16].w);
-    vec3 f7 = clamp(f1 + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f2 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f6 & 255u, (f6 >> 8u) & 255u, (f6 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f1 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f1)))), vec3(0.0), vec3(1.0));
-    vec4 f8 = f0;
-    f8.x = f7.x;
-    vec4 f9 = f8;
-    f9.y = f7.y;
+    vec3 f7 = clamp(f1, vec3(0.0), vec3(1.0));
+    vec3 f8 = clamp(f1 + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f2 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f6 & 255u, (f6 >> 8u) & 255u, (f6 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f7 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f7)))), vec3(0.0), vec3(1.0));
+    vec4 f9 = f0;
+    f9.x = f8.x;
     vec4 f10 = f9;
-    f10.z = f7.z;
-    _entryPointOutput = f10;
+    f10.y = f8.y;
+    vec4 f11 = f10;
+    f11.z = f8.z;
+    _entryPointOutput = f11;
 }
 
 //$$Texture6Texture=s6

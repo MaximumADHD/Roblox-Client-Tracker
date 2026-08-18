@@ -99,14 +99,15 @@ void main()
         break;
     } while(false);
     uint f21 = floatBitsToUint(CB1[16].w);
-    vec3 f22 = clamp(f4.xyz + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f17 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f21 & 255u, (f21 >> 8u) & 255u, (f21 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f4.xyz * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f4.xyz)))), vec3(0.0), vec3(1.0));
-    vec4 f23 = f4;
-    f23.x = f22.x;
-    vec4 f24 = f23;
-    f24.y = f22.y;
+    vec3 f22 = clamp(f4.xyz, vec3(0.0), vec3(1.0));
+    vec3 f23 = clamp(f4.xyz + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f17 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f21 & 255u, (f21 >> 8u) & 255u, (f21 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f22 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f22)))), vec3(0.0), vec3(1.0));
+    vec4 f24 = f4;
+    f24.x = f23.x;
     vec4 f25 = f24;
-    f25.z = f22.z;
-    _entryPointOutput = f25;
+    f25.y = f23.y;
+    vec4 f26 = f25;
+    f26.z = f23.z;
+    _entryPointOutput = f26;
 }
 
 //$$Texture6Texture=s6
