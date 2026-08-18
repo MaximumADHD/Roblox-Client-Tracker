@@ -5961,6 +5961,8 @@ Studio.BetaFeatures.AudioWiringApiDescription,,"Enables new instances for custom
 Studio.BetaFeatures.AudioWiringApiTitle,,New Audio API,New Audio API
 Studio.BetaFeatures.AutoEnrollmentToggleLabel,,Auto-Enable Upcoming Features,Auto-Enable Upcoming Features
 Studio.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
+Studio.BetaFeatures.AutoReimportDescription,description for the Auto Reimport beta feature,Enables the toggle to automatically reimport an instance when a local file is updated,Enables the toggle to automatically reimport an instance when a local file is updated
+Studio.BetaFeatures.AutoReimportTitle,Title for Auto-Reimport beta feature,Auto-Reimport,Auto-Reimport
 Studio.BetaFeatures.AutoSetupDescription,,Enables automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Marketplace submission of auto-setup created avatars is enabled in this version.,Enables automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Marketplace submission of auto-setup created avatars is enabled in this version.
 Studio.BetaFeatures.AutoSetupTermsAndConditions,Terms and conditions for being able to use Avatar Auto-Setup,"Please view the Terms and Conditions at the link below:
 
@@ -6275,6 +6277,8 @@ Studio.BetaFeatures.UnifiedMeshMassDescription,,Enable calculating masses for Me
 Studio.BetaFeatures.UnifiedMeshMassTitle,,Improved Mass Properties,Improved Mass Properties
 Studio.BetaFeatures.UniversalImporterDescription,Description for the Universal Importer beta feature allowing more asset type uploads.,"Add support for images, audio and video and replace bulk importer in the revamped Asset Manager.","Add support for images, audio and video and replace bulk importer in the revamped Asset Manager."
 Studio.BetaFeatures.UniversalImporterTitle,Title for the Universal Importer feature allowing more import types in the Import Queue,Universal Importer,Universal Importer
+Studio.BetaFeatures.UpgradedUIGradientsDescription,The description of the Studio beta covering upgraded UIGradient capabilities.,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
+Studio.BetaFeatures.UpgradedUIGradientsTitle,The title of the Studio beta covering upgraded UIGradient capabilities.,Upgraded UIGradients,Upgraded UIGradients
 Studio.BetaFeatures.VREmulatorDescription,,"Enable this feature to simulate a VR runtime environment, including headset and inputs, without needing a physical VR setup.","Enable this feature to simulate a VR runtime environment, including headset and inputs, without needing a physical VR setup."
 Studio.BetaFeatures.VREmulatorTitle,,VR Emulator,VR Emulator
 Studio.BetaFeatures.VideoApiDescription,,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.
@@ -7908,7 +7912,11 @@ Studio.SceneAnalysis.Tooltip.MemoryLabel,Label for a tooltip that shows memory s
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,No declaration/definition was found for the given parameter,No declaration found for '%1',No declaration found for '%1'
 Studio.ScriptEditor.NoDeclarationFoundTooltip,Tooltip string indicating that no declaration/definition was found,No declaration found,No declaration found
 Studio.ScriptEditor.ReviewableChange.Accept,Button that keeps a proposed script edit,Keep,Keep
+Studio.ScriptEditor.ReviewableChange.KeepAll,Button that keeps all proposed script edits in the active script,Keep All,Keep All
+Studio.ScriptEditor.ReviewableChange.NavigationCounter,Counter showing the current proposed script edit and total number of proposed edits,%1 of %2,%1 of %2
 Studio.ScriptEditor.ReviewableChange.Reject,Button that undoes a proposed script edit,Undo,Undo
+Studio.ScriptEditor.ReviewableChange.ToolbarTitle,Title displayed on the Script Editor toolbar while reviewing proposed script edits,Reviewing proposed changes,Reviewing proposed changes
+Studio.ScriptEditor.ReviewableChange.UndoAll,Button that undoes all proposed script edits in the active script,Undo All,Undo All
 Studio.ScriptEditor.TypeColor,The color of Luau Types in the Studio Script Editor Syntax highlighter,Type Color,Type Color
 Studio.SettingsDialog.Property.IconOverrideDir,User can specify a folder on their machine containing custom icons to use instead of default Roblox Studio icons,Custom Icon Dir,Custom Icon Dir
 Studio.Settings.BetaFeature.HighDpiAndIconsDescription,Studio will look better on monitors with higher resolution.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.
@@ -7969,6 +7977,7 @@ Studio.SystemMenu.Title.PlayerEmulator,"A plugin that allows users to simulate p
 Studio.SystemMenu.Title.Plugins,Menu that contains actions to take on Studio Plugins,Plugins,Plugins
 Studio.SystemMenu.Title.PublishAsPlugin,Publish the selection to Roblox as a plugin,Publish as Plugin,Publish as Plugin
 Studio.SystemMenu.Title.PublishToRobloxAs,Publish active document to Roblox as,Publish to Roblox As,Publish to Roblox As
+Studio.SystemMenu.Title.PublishToRobloxWithNotes,Publish active document to Roblox with notes,Publish to Roblox with Notes,Publish to Roblox with Notes
 Studio.SystemMenu.Title.Recent,The most recent files a user has opened in Roblox Studio,Recent,Recent
 Studio.SystemMenu.Title.ReportIllegalContent,System menu action that opens a web page to report illegal content,Report Illegal Content,Report Illegal Content
 Studio.SystemMenu.Title.ResetLayout,Reset Widget and Toolbar position,Reset Layout,Reset Layout
@@ -8000,6 +8009,7 @@ Studio.SystemMenu.Title.UserInputPlayback,Name of the action to display the User
 Studio.SystemMenu.Title.View,"Menu in Roblox Studio offers tools and settings to control the display and presentation of the 3D workspace. It allows developers to customize how they view and interact with their game world, providing options for zoom, grid settings, rendering modes, UI visibility, and debugging aids",View,View
 Studio.SystemMenu.Title.Window,"The Window menu in Roblox Studio system menu, which provides access to various tools and panels that allow developers to manage the Studio interface, inspect game objects and performance, and access specialized editors for specific content types",Window,Window
 Studio.SystemMenu.Tooltip.Performance,A basic performance overlay,A basic performance overlay,A basic performance overlay
+Studio.SystemMenu.Tooltip.PublishToRobloxWithNotes,tooltip for publishing with version notes,Publish active document to Roblox with version notes,Publish active document to Roblox with version notes
 Studio.SystemMenu.Tooltip.ReportIllegalContent,Tooltip shown on a system menu action that opens a report form web page,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
 Studio.SystemMenu.Tooltip.SaveToRobloxWithNotes,tooltip for saving with version notes,Save active document to Roblox with version notes,Save active document to Roblox with version notes
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingMessage,Urgent messsage to be shown when place upload is failing continuously for Team Create to show that there is a recovery file being generated,Auto recovery backup has started.,Auto recovery backup has started.
@@ -8037,6 +8047,7 @@ Studio.TeamCreate.SafetyEvictDialog.VerifyYourAge,title for dialog that appears 
 Studio.TeamCreate.SafetyEvictDialog.VerifyYourAgeDescription,description for dialog that appears when user disconnects from Team Create session because they need to verify their age,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
 Studio.TeamCreate.TCJoinFailedToStartServer,This message is displayed when the user tries to open a Team Create place and the server does not start successfully.,We were unable to start up the Team Create server.,We were unable to start up the Team Create server.
 Studio.TeamCreate.TCJoinReceivedError,This message is displayed when the user attempts to open a Team Create place and the open fails for any reason.,Failed to join Team Create place.,Failed to join Team Create place.
+Studio.TerrainPaletteEditor.Plugin.MenuItem,The menu item to open the Terrain Palette plugin. It's under Window -> 3D,Terrain Material Manager,Terrain Material Manager
 Studio.TerrainToolsV2.Action.Apply,,Apply,Apply
 Studio.TerrainToolsV2.Action.Back,,Back,Back
 Studio.TerrainToolsV2.Action.Cancel,,Cancel,Cancel

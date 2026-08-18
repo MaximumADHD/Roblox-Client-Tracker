@@ -8351,6 +8351,9 @@ Studio.Toolbox.AAC.AssetDependencyGrantEventTimeoutWarning,,,Dependency grants t
 Studio.Toolbox.AssetConfigUpload.AdditionalDependentAssetIds,,,and {assetIdsCount} more.,and {assetIdsCount} more.
 Studio.Toolbox.AssetConfigUpload.ModelVersionDependentAssetsNotOpenUse,,,All dependent assets must be open use for this asset: {assetIds},All dependent assets must be open use for this asset: {assetIds}
 Studio.Toolbox.AssetConfigUpload.NoPermissionForAllDependentAssets,,,User does not have permission to include all dependent assets when creating this asset: {assetIds},User does not have permission to include all dependent assets when creating this asset: {assetIds}
+Studio.Toolbox.AssetConfig.SpecialAttributeHeader,,,Special Attribute,Special Attribute
+Studio.Toolbox.AssetConfig.SpecialAttributeDescription,,,There is a higher upload fee as this item contains special attributes: {attributesList}.,There is a higher upload fee as this item contains special attributes: {attributesList}.
+Studio.Toolbox.AssetConfig.Emissive,,,Emissive,Emissive
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -8832,7 +8835,7 @@ Studio.CGE.Info.SelectAGroup,,,Select a group from the left side.,Select a group
 Studio.CGE.Info.Groups,,,Groups,Groups
 Studio.CGE.Info.CanCollideWith,,,"""{1}"" can collide with:","""{1}"" can collide with:"
 Studio.CGE.Info.NewGroupName,,,New Group Name,New Group Name
-Studio.CGE.RenameWarningDialog.WarningMessage,,,Renaming this group won't change the collison group name for parts in the Toolbox or Asset Manager. Only the collision group for parts in the Datamodel will be renamed.,Renaming this group won't change the collison group name for parts in the Toolbox or Asset Manager. Only the collision group for parts in the Datamodel will be renamed.
+Studio.CGE.RenameWarningDialog.WarningMessage,,,Renaming this group won't change the collision group name for parts in the Toolbox or Asset Manager. Only the collision group for parts in the DataModel will be renamed.,Renaming this group won't change the collision group name for parts in the Toolbox or Asset Manager. Only the collision group for parts in the DataModel will be renamed.
 Studio.CGE.RenameWarningDialog.DontShowThisWarningAgain,,,Don't show this warning again,Don't show this warning again
 Studio.CGE.RenameWarningDialog.DialogWindowTitle,,,Renaming Groups Has Changed,Renaming Groups Has Changed
 Studio.CGE.RenameWarningDialog.Ok,,,Ok,Ok
@@ -12886,6 +12889,7 @@ Studio.AvatarCompatibilityPreviewer.ToggleBar.ConfigureParts,,,Configure Parts,C
 Studio.AvatarCompatibilityPreviewer.SortClothingTable.EyeLayered,,,Eye Layered,Eye Layered
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddMultipleIdsHint,,,Add multiple IDs by separating with commas or spaces.,Add multiple IDs by separating with commas or spaces.
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.OffSale,,,Off Sale,Off Sale
+Studio.AvatarCompatibilityPreviewer.ProgressBar.OrientationCorrection,,,Correcting orientation,Correcting orientation
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -14175,6 +14179,9 @@ Studio.PlaceAnnotations.Report.Done,,,Done,Done
 Studio.PlaceAnnotations.Report.Search,,,Search,Search
 Studio.PlaceAnnotations.Report.SelectCategory,,,What was the issue?,What was the issue?
 Studio.PlaceAnnotations.Report.SubmittedSuccessfully,,,Report submitted successfully.,Report submitted successfully.
+Studio.PlaceAnnotations.Report.CommentDeleted,,,This comment was deleted before the report could be submitted.,This comment was deleted before the report could be submitted.
+Studio.PlaceAnnotations.Report.CommentEdited,,,This comment was edited before the report could be submitted.,This comment was edited before the report could be submitted.
+Studio.PlaceAnnotations.Report.SubmissionFailed,,,We couldn't submit your report. Please try again.,We couldn't submit your report. Please try again.
 Studio.ModerationDialog.CounterExample.Button,,,Push me!,Push me!
 Studio.ModerationDialog.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!
 Studio.ModerationDialog.Plugin.Name,,,ModerationDialog,ModerationDialog
@@ -15958,6 +15965,10 @@ Studio.BetaFeatures.ThirdPartyMCPTitle,,,Third-Party MCP Servers,Third-Party MCP
 Studio.BetaFeatures.ViewportDisplaySizeAPITitle,,,New Display Size API,New Display Size API
 Studio.BetaFeatures.InputActionLabelTitle,,,InputActionLabel,InputActionLabel
 Studio.BetaFeatures.InputActionLabelDescription,,,New UI instance that displays an InputAction's preferred active keybinding.,New UI instance that displays an InputAction's preferred active keybinding.
+Studio.BetaFeatures.AutoReimportTitle,,,Auto-Reimport,Auto-Reimport
+Studio.BetaFeatures.AutoReimportDescription,,,Enables the toggle to automatically reimport an instance when a local file is updated,Enables the toggle to automatically reimport an instance when a local file is updated
+Studio.BetaFeatures.UpgradedUIGradientsDescription,,,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
+Studio.BetaFeatures.UpgradedUIGradientsTitle,,,Upgraded UIGradients,Upgraded UIGradients
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -16057,6 +16068,10 @@ Studio.ScriptEditor.NoDeclarationFoundTooltip,,,No declaration found,No declarat
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,,,No declaration found for '%1',No declaration found for '%1'
 Studio.ScriptEditor.ReviewableChange.Accept,,,Keep,Keep
 Studio.ScriptEditor.ReviewableChange.Reject,,,Undo,Undo
+Studio.ScriptEditor.ReviewableChange.NavigationCounter,,,%1 of %2,%1 of %2
+Studio.ScriptEditor.ReviewableChange.KeepAll,,,Keep All,Keep All
+Studio.ScriptEditor.ReviewableChange.UndoAll,,,Undo All,Undo All
+Studio.ScriptEditor.ReviewableChange.ToolbarTitle,,,Reviewing proposed changes,Reviewing proposed changes
 Studio.AudioActions.Action.FindPlaying,,,Find Playing,Find Playing
 Studio.AudioActions.Action.InsertBefore,,,Insert Before...,Insert Before...
 Studio.AudioActions.Action.Insert,,,%s,%s
@@ -17083,3 +17098,5 @@ Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Ma
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
 Studio.AdPlacementManager.Plugin.Button,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Name,,,Ad Placement Manager,Ad Placement Manager
+Studio.UpradedUIGradientBeta.Studio.BetaFeatures.UpgradedUIGradientsDescription,,,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
+Studio.UpradedUIGradientBeta.Studio.BetaFeatures.UpgradedUIGradientsTitle,,,Upgraded UIGradients,Upgraded UIGradients
