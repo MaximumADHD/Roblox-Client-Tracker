@@ -69068,6 +69068,28 @@
                         "UI"
                     ],
                     "MemberType": "Function",
+                    "Name": "OverrideStudioAction",
+                    "Parameters": [
+                        {
+                            "Name": "studioAction",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioAction"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "StudioActionOverride"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
                     "Name": "BindToClose",
                     "Parameters": [
                         {
@@ -69099,28 +69121,6 @@
                         "Name": "Vector2"
                     },
                     "Security": "PluginSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "UI"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "OverrideStudioAction",
-                    "Parameters": [
-                        {
-                            "Name": "studioAction",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "StudioAction"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "StudioActionOverride"
-                    },
-                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -138789,51 +138789,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "lighting",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "RunService",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "RunService"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "Workspace",
                     "Security": {
                         "Read": "None",
@@ -138877,6 +138832,51 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "lighting",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RunService",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "RunService"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "getGameTime",
                     "Parameters": [
@@ -138886,44 +138886,6 @@
                         "Name": "double"
                     },
                     "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetPlaceId",
-                    "Parameters": [
-                        {
-                            "Name": "placeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "PluginSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetUniverseId",
-                    "Parameters": [
-                        {
-                            "Name": "universeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -139463,6 +139425,44 @@
                         "Name": "Array"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetPlaceId",
+                    "Parameters": [
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetUniverseId",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
