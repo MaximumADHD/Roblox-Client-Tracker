@@ -407,6 +407,7 @@
 [C++] DFFlagD3D11TextureNoThrowForVideoCapture2
 [C++] DFFlagDataModelAsyncContentInit
 [C++] DFFlagDataModelAsyncContentInitDisableForSound
+[C++] DFFlagDataModelExtractorPreserveUserId
 [C++] DFFlagDataModelGenericJobBlockingRemoveOnTeardown
 [C++] DFFlagDataModelJobDefensiveEngineContextCheck
 [C++] DFFlagDataModelPatchDeserializeHandleExceptions
@@ -1503,6 +1504,8 @@
 [C++] DFFlagImporterSkipAnimationHipHeightScaling
 [C++] DFFlagImprovedProximityPromptCheatDetection
 [C++] DFFlagInactiveGuiObjectNoLongerForcesArrowCursor
+[C++] DFFlagIncludePhysicsInVerbosePlaybackJobLogOutput
+[C++] DFFlagIncludeReverseInPlaybackJobOutput
 [C++] DFFlagIncludeThermalStatusTimes
 [C++] DFFlagInferredCrashReportSynchronous
 [C++] DFFlagInferredCrashReportToBacktrace2
@@ -3174,6 +3177,7 @@
 [C++] DFIntPowerTraceModule
 [C++] DFIntPowerTraceSessionObserver
 [C++] DFIntPPJProgressHalt
+[C++] DFIntPreloadedRbxmSerializer
 [C++] DFIntPreloadLinkedScriptsTiming
 [C++] DFIntPresetChatManager
 [C++] DFIntProductInfoBatching
@@ -3298,6 +3302,7 @@
 [C++] DFIntStreamJobLimits
 [C++] DFIntStreamMRF
 [C++] DFIntStreamPrefetch
+[C++] DFIntStudioDomInspector
 [C++] DFIntStudioHangingScriptLogs
 [C++] DFIntStudioPerformanceMeasurementsSummary
 [C++] DFIntStudioPluginImageCapture
@@ -3634,7 +3639,6 @@
 [C++] DFLogReportSoundAssetsAssetList
 [C++] DFLogRewardedAdFlowStateToLogPerfData
 [C++] DFLogRobloxAnalyticsSubDomain
-[C++] DFLogRobloxAnalyticsURL
 [C++] DFLogRobloxTelemetryAdapterPointV2Prefix
 [C++] DFLogRobloxTelemetryCheckSumSalt
 [C++] DFLogRobloxTelemetryProdAdapterPointV2Prefix
@@ -4424,7 +4428,11 @@
 [C++] FFlagDebugAudioSpeechToTextDisableSpeechToTextVAD
 [C++] FFlagDebugAudioStoreAllocationCallstack
 [C++] FFlagDebugAudioToggleVolumetricPanningOverride
+[C++] FFlagDebugAUMigrateBodyCFrame
 [C++] FFlagDebugAUMigrateBodyPV
+[C++] FFlagDebugAUMigrateCFrameLocalTransform
+[C++] FFlagDebugAUMigrateCFrameWorldTransform
+[C++] FFlagDebugAUMigrateTransform
 [C++] FFlagDebugAuroraScriptDeepInstanceDiff
 [C++] FFlagDebugAvatarAutosetupJobIdToConsole
 [C++] FFlagDebugAvatarAutosetupMetadataInput
@@ -4817,6 +4825,7 @@
 [C++] FFlagDebugStudioCreateGameWindowThrows
 [C++] FFlagDebugStudioDisableWebBrowserSecurity
 [C++] FFlagDebugStudioDisableWebBrowserWidgetMenu
+[C++] FFlagDebugStudioDomInspectorEnabled
 [C++] FFlagDebugStudioDoNotInitializeBuiltinActions
 [C++] FFlagDebugStudioEnableQSGInfo
 [C++] FFlagDebugStudioEnableWebBrowserDevTools
@@ -4825,7 +4834,6 @@
 [C++] FFlagDebugStudioFlagState
 [C++] FFlagDebugStudioIgnoreFetchTestArgsEvent
 [C++] FFlagDebugStudioLogSessionsOnTimer
-[C++] FFlagDebugStudioMeshSplitMockSpecificIssue
 [C++] FFlagDebugStudioMockTranslation
 [C++] FFlagDebugStudioNonTestingPathForOpenPlace
 [C++] FFlagDebugStudioNoSaveBeforeStartServer
@@ -5224,6 +5232,7 @@
 [C++] FFlagEnableDiscountParsingForGamePasses2
 [C++] FFlagEnableDisplayWakeLock2
 [C++] FFlagEnableDMNotificationMonitor
+[C++] FFlagEnableDMRAnchorWithContraintsPlayback
 [C++] FFlagEnableDMRecorderBatchFiles
 [C++] FFlagEnableDMRTelemetry2
 [C++] FFlagEnableDomainUserIdMapping
@@ -5487,7 +5496,6 @@
 [C++] FFlagEnableWebViewParamsType
 [C++] FFlagEnableWebViewService2
 [C++] FFlagEnableWindowsFixPermissionsProtocol
-[C++] FFlagEnableWindowsMicPermissionAccess
 [C++] FFlagEnableWriteRequestingThreadHistory2
 [C++] FFlagEnableZoomExtentsRigSupport
 [C++] FFlagEnableZstdDictionaryForClientSettings
@@ -5746,7 +5754,7 @@
 [C++] FFlagFixSoundFailedLoadRetry
 [C++] FFlagFixSpaceConsistency
 [C++] FFlagFixSpanningTreeBulkDestroyHang
-[C++] FFlagFixSplitHashBitmapCorruption
+[C++] FFlagFixSplitHashBitmapCorruption2
 [C++] FFlagFixStartPageOpenedInEditMode
 [C++] FFlagFixStreamingFocusAutoComputedPrimaryPart
 [C++] FFlagFixStyleInputActionLabel
@@ -7441,6 +7449,7 @@
 [C++] FFlagStudioAutoUpdateWithNoEmergencyDialog
 [C++] FFlagStudioAvatarAutoSetupAllowRequestCompression
 [C++] FFlagStudioBackgroundUpdatesObserveApplicationStatesChange
+[C++] FFlagStudioBadgeCreateUrlUsesCreatorHub
 [C++] FFlagStudioBetterErrorForACCb
 [C++] FFlagStudioBreakpointManagerUniquePtrToSharedPtr
 [C++] FFlagStudioBypassFailingCollaborationSafetyChecks
@@ -7536,7 +7545,6 @@
 [C++] FFlagStudioMemoryProfileOnPlaceOpen
 [C++] FFlagStudioMeshStreamingExtendedLod
 [C++] FFlagStudioMeshStreamingGreyOutRenderFidelity
-[C++] FFlagStudioMeshStreamingLodSyncUX
 [C++] FFlagStudioModerationUXNewDeactivatedBackend
 [C++] FFlagStudioMovePageVisibilityToMainWindow
 [C++] FFlagStudioMoveStandaloneShutdownFiber
@@ -8391,6 +8399,7 @@
 [C++] FFlagVideoWinHwEncoderFixFirstFrameMissing
 [C++] FFlagVideoWinHwEncoderScopedMFStartup
 [C++] FFlagVideoWinHwEncoderTrackTexureAllocs
+[C++] FFlagVideoWinUseMarkerEvent
 [C++] FFlagViewInstanceLaunchTaskHandler
 [C++] FFlagViewportDisplaySizeAPI2BetaFeature
 [C++] FFlagViewportDragEventPropagation
@@ -8550,6 +8559,7 @@
 [C++] FIntAdornableLifetime
 [C++] FIntAdornRenderStats
 [C++] FIntAdornVB
+[C++] FIntAdsCache
 [C++] FIntAdService
 [C++] FIntAdsLifecycleManager
 [C++] FIntAdsTelemetryLogs
@@ -8734,6 +8744,8 @@
 [C++] FIntDialogTelemetry
 [C++] FIntDisableInvalidateOnUnbind
 [C++] FIntDistanceMetricP1
+[C++] FIntDMRecordingDeserialization
+[C++] FIntDMRecordingPlaybackJob
 [C++] FIntDownloadPlaceCopyAction
 [C++] FIntDragDetectorLog
 [C++] FIntDragDropDataModelController
@@ -8960,7 +8972,6 @@
 [C++] FIntPathfindingDetail
 [C++] FIntPathfindingPerf
 [C++] FIntPaymentsProtocol
-[C++] FIntPaymentsProtocolInternal
 [C++] FIntPerformanceControlIXP
 [C++] FIntPerformanceControlPlanner
 [C++] FIntPerformanceControlService
@@ -9317,6 +9328,7 @@
 [C++] FIntTaskSchedulerInit
 [C++] FIntTaskSchedulerRun
 [C++] FIntTDigest
+[C++] FIntTeamCreateConnectionIndicatorNew
 [C++] FIntTeamCreateConnectionMonitorComponent
 [C++] FIntTeamCreateDataModelWorker
 [C++] FIntTeamCreateEvictionManager
@@ -9491,7 +9503,6 @@
 [C++] FIntWebBrowserWidget
 [C++] FIntWebLoginProtocol
 [C++] FIntWebView
-[C++] FIntWebViewService
 [C++] FIntWidgets
 [C++] FIntWidgetsManager
 [C++] FIntWildMeshSimplifierLog
@@ -9718,7 +9729,6 @@
 [C++] FLogErrorUploadToBacktraceLuaAppToken
 [C++] FLogExperienceStateCaptureHighlightColor
 [C++] FLogExperienceStateCaptureOutlineColor
-[C++] FLogExplorerFilterHelpUrl
 [C++] FLogExplorerPackageIconIxpLayer
 [C++] FLogExplorerPackageIconIxpVariable
 [C++] FLogExternalUserPluginLoadDenyList
