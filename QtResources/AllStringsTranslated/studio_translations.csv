@@ -5838,6 +5838,15 @@ Studio.App.Property.CameraMovementSmoothing,,,Smooth Keyboard Camera Movement,Sm
 Studio.App.Property.CameraMovementSmoothingTooltip,,,"When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?","When pressing a key to move the camera, should the motion ease in and out or start immediately at full speed as soon as the key is pressed?"
 Studio.App.Property.CameraRotateShiftFactor,,,Rotational Shift Key Multiplier,Rotational Shift Key Multiplier
 Studio.App.Property.CameraRotateShiftFactorTooltip,,,Optionally change the speed at which the camera rotates by a custom scale factor. Applies to rotation thanks to mouse input.,Optionally change the speed at which the camera rotates by a custom scale factor. Applies to rotation thanks to mouse input.
+Studio.App.PropertyEnum.BothModes,,,In Both Modes,In Both Modes
+Studio.App.Property.CameraFocusFillPercent,,,'Zoom To' - Viewport Fill Percentage,'Zoom To' - Viewport Fill Percentage
+Studio.App.Property.CameraFocusFillPercentTooltip,,,"How much of the viewport 'Zoom To' fills with the selection, as a percentage. 100 puts the selection against the edges of the viewport; smaller values leave a margin around it.","How much of the viewport 'Zoom To' fills with the selection, as a percentage. 100 puts the selection against the edges of the viewport; smaller values leave a margin around it."
+Studio.App.Property.CameraRotateCursorLock,,,Lock Cursor While Rotating,Lock Cursor While Rotating
+Studio.App.Property.CameraRotateCursorLockTooltip,,,"Should the cursor be locked in position while holding the right mouse button to rotate the camera? ""In First Person Only"" locks the cursor while flying with the arrow keys but leaves it free while focused on an object.","Should the cursor be locked in position while holding the right mouse button to rotate the camera? ""In First Person Only"" locks the cursor while flying with the arrow keys but leaves it free while focused on an object."
+Studio.App.PropertyEnum.FpsOnly,,,In First Person Only,In First Person Only
+Studio.App.PropertyEnum.Never,,,Never,Never
+Studio.App.Action.PluginScreenshot.Text,,,Plugin Screenshot,Plugin Screenshot
+Studio.App.Action.PluginScreenshot.Tooltip,,,Capture a plugin window,Capture a plugin window
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -9422,6 +9431,10 @@ Studio.PublishPlaceAs.PublishSuccess.PostPublishInfoUnrated,,,Your experience is
 Studio.PublishPlaceAs.PublishSuccess.Private,,,Private,Private
 Studio.PublishPlaceAs.PublishSuccess.ViewQuestionnaire,,,View questionnaire,View questionnaire
 Studio.PublishPlaceAs.PublishSuccess.Public,,,Public,Public
+Studio.PublishPlaceAs.PublishStatus.Title,,,Publish Status,Publish Status
+Studio.PublishPlaceAs.PublishStatus.LoadFailed,,,Publish status could not be loaded.,Publish status could not be loaded.
+Studio.PublishPlaceAs.PublishStatus.Retry,,,Retry,Retry
+Studio.PublishPlaceAs.PublishSuccess.ViewPublishStatus,,,View publish status,View publish status
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9765,6 +9778,9 @@ Studio.AssetManager.FolderMove.Success,,,Moved items successfully.,Moved items s
 Studio.AssetManager.AssetPermission.Edit,,,Edit,Edit
 Studio.AssetManager.Toast.FindInExplorerNotFound,,,No instances found,No instances found
 Studio.AssetManager.AssetPermission.Use,,,Use,Use
+Studio.AssetManager.CompactOptions.ViewSizeSmall,,,Compact,Compact
+Studio.AssetManager.CompactOptions.ViewSizeMedium,,,Standard,Standard
+Studio.AssetManager.CompactOptions.ViewSizeLarge,,,Large,Large
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10675,6 +10691,7 @@ Studio.AssetImporter.Buttons.No,,,No,No
 Studio.AssetImporter.Buttons.LearnMore,,,Learn More,Learn More
 Studio.AssetImporter.Buttons.Yes,,,Yes,Yes
 Studio.AssetImporter.Buttons.Ok,,,Ok,Ok
+Studio.AssetImporter.ImportQueue.SafeToClose,,,It's safe to close this window while your files import.,It's safe to close this window while your files import.
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -11242,6 +11259,7 @@ Studio.ManageCollaborators.FeedbackAlert.OwnerCountryBlockedTitle,,,Live collabo
 Studio.ManageCollaborators.SearchBar.CountryBlockedError,,,Unable to add user because they are in an unsupported location.,Unable to add user because they are in an unsupported location.
 Studio.ManageCollaborators.SearchBar.LengthExceeded,,,Search input is too long. Shorten to under {maxLength} characters.,Search input is too long. Shorten to under {maxLength} characters.
 Studio.ManageCollaborators.PermissionDescriptions.InheritedPermission,,,This permission has been granted at a higher level.,This permission has been granted at a higher level.
+Studio.ManageCollaborators.Buttons.ViewAllPermissionsInCreatorHub,,,View all permissions in Creator Hub,View all permissions in Creator Hub
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11962,6 +11980,8 @@ Studio.RobloxPropertiesWidget.Category.Haptic,,,Haptic,Haptic
 Studio.RobloxPropertiesWidget.Category.Updates,,,Updates,Updates
 Studio.RobloxPropertiesWidget.Category.Behaviors,,,Behaviors,Behaviors
 Studio.RobloxPropertiesWidget.Category.Skin,,,Skin,Skin
+Studio.RobloxPropertiesWidget.SelectCurrent,,,Select current,Select current
+Studio.RobloxPropertiesWidget.SelectIncoming,,,Select incoming,Select incoming
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -12890,6 +12910,7 @@ Studio.AvatarCompatibilityPreviewer.SortClothingTable.EyeLayered,,,Eye Layered,E
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddMultipleIdsHint,,,Add multiple IDs by separating with commas or spaces.,Add multiple IDs by separating with commas or spaces.
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.OffSale,,,Off Sale,Off Sale
 Studio.AvatarCompatibilityPreviewer.ProgressBar.OrientationCorrection,,,Correcting orientation,Correcting orientation
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ContinueButtonLabel,,,Continue,Continue
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -14182,6 +14203,12 @@ Studio.PlaceAnnotations.Report.SubmittedSuccessfully,,,Report submitted successf
 Studio.PlaceAnnotations.Report.CommentDeleted,,,This comment was deleted before the report could be submitted.,This comment was deleted before the report could be submitted.
 Studio.PlaceAnnotations.Report.CommentEdited,,,This comment was edited before the report could be submitted.,This comment was edited before the report could be submitted.
 Studio.PlaceAnnotations.Report.SubmissionFailed,,,We couldn't submit your report. Please try again.,We couldn't submit your report. Please try again.
+Studio.PlaceAnnotations.Report.StepDetails,,,Details,Details
+Studio.PlaceAnnotations.Report.Back,,,Back,Back
+Studio.PlaceAnnotations.Report.StepCategory,,,Category,Category
+Studio.PlaceAnnotations.Report.StepComment,,,Comment,Comment
+Studio.PlaceAnnotations.Report.Close,,,Close,Close
+Studio.PlaceAnnotations.Report.CharacterCount,,,{characterCount}/{maxLength} characters,{characterCount}/{maxLength} characters
 Studio.ModerationDialog.CounterExample.Button,,,Push me!,Push me!
 Studio.ModerationDialog.CounterExample.CounterLabel,,,You pressed me {counter} times!,You pressed me {counter} times!
 Studio.ModerationDialog.Plugin.Name,,,ModerationDialog,ModerationDialog
@@ -14341,6 +14368,8 @@ Studio.ExplorerPlugin.ContextMenu.CopyAs,,,Copy As,Copy As
 Studio.ExplorerPlugin.ContextMenu.wiring,,,Wiring,Wiring
 Studio.ExplorerPlugin.ContextMenu.scriptSync,,,Script Sync,Script Sync
 Studio.ExplorerPlugin.ContextMenu.hierarchySpec,,,Hierarchy Spec,Hierarchy Spec
+Studio.ExplorerPlugin.ContextMenu.selectCurrent,,,Select current,Select current
+Studio.ExplorerPlugin.ContextMenu.selectIncoming,,,Select incoming,Select incoming
 Studio.StartPage.Plugin.Name,,,StartPage,StartPage
 Studio.StartPage.Plugin.AgeRestrictionDialog.Body,,,This experience is not accessible due to age restrictions.,This experience is not accessible due to age restrictions.
 Studio.StartPage.Plugin.LastModified,,,Modified {lastModified},Modified {lastModified}
@@ -15231,6 +15260,21 @@ Studio.Assistant.JobWait.Completed,,,{tool} job finished,{tool} job finished
 Studio.Assistant.JobWait.Preparing,,,Preparing job...,Preparing job...
 Studio.Assistant.JobWait.Waiting,,,Waiting for {tool} job...,Waiting for {tool} job...
 Studio.Assistant.JobRun.RunningAfterResult,,,({jobId}) Running {tool} job...,({jobId}) Running {tool} job...
+Studio.Assistant.McpSetup.ConnectedClientCount,,,{name} ×{count},{name} ×{count}
+Studio.Assistant.AvatarAutoSetup.InputModel,,,Input Model,Input Model
+Studio.Assistant.AvatarAutoSetup.InputSetUpAvatar,,,Set up avatar,Set up avatar
+Studio.Assistant.AvatarAutoSetup.ModelRequired,,,Pick a Model,Pick a Model
+Studio.Assistant.SlashCommandDescriptions.AvatarAutoSetup,,,Rig a Model into an animatable avatar,Rig a Model into an animatable avatar
+Studio.Assistant.AskInput.Requirement,,,"Cannot submit: a ""{kind}"" requirement is not yet met","Cannot submit: a ""{kind}"" requirement is not yet met"
+Studio.Assistant.AskInput.RequirementPresent,,,"""{field}"" is required","""{field}"" is required"
+Studio.Assistant.AskInput.RequirementAnyPresent,,,Fill in at least one of: {fields},Fill in at least one of: {fields}
+Studio.Assistant.AskInput.RequirementAllPresent,,,Fill in all of: {fields},Fill in all of: {fields}
+Studio.Assistant.AskInput.RequirementEquals,,,"""{field}"" must be ""{value}""","""{field}"" must be ""{value}"""
+Studio.Assistant.AskInput.RequirementAny,,,Satisfy at least one of these: {reasons},Satisfy at least one of these: {reasons}
+Studio.Assistant.AskInput.RequirementNot,,,Must not be the case that: {reason},Must not be the case that: {reason}
+Studio.Assistant.AskInput.RequirementRange,,,"""{field}"" must be between {min:int} and {max:int}","""{field}"" must be between {min:int} and {max:int}"
+Studio.Assistant.AskInput.RequirementRangeMin,,,"""{field}"" must be at least {min:int}","""{field}"" must be at least {min:int}"
+Studio.Assistant.AskInput.RequirementRangeMax,,,"""{field}"" must be at most {max:int}","""{field}"" must be at most {max:int}"
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15542,6 +15586,7 @@ Studio.AvatarSettings.PreviewToolbar.TestAsAvatarDisabled,,,Make a selection in 
 Studio.AvatarSettings.PreviewToolbar.TestAsAvatar,,,Test as selected avatar,Test as selected avatar
 Studio.AvatarSettings.PreviewToolbar.SettingsVisibility,,,Toggle Settings Visibility,Toggle Settings Visibility
 Studio.AvatarSettings.PreviewToolbar.ResetAvatarsToCamera,,,Reset avatars to camera,Reset avatars to camera
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableTurning,,,Turning,Turning
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -15920,7 +15965,7 @@ Studio.BetaFeatures.PackageOverridesTitle,,,Package Overrides,Package Overrides
 Studio.BetaFeatures.PackageOverridesDescription,,,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.
 Studio.BetaFeatures.CreateAnimationFromTextTitle,,,Create animation from text,Create animation from text
 Studio.BetaFeatures.CreateAnimationFromTextDescription,,,Create animations using Assistant,Create animations using Assistant
-Studio.BetaFeatures.SegmentByPartsTitle,,,Segment by Parts,Segment by Parts
+Studio.BetaFeatures.SegmentByPartsTitle,,,Segment Generated Mesh,Segment Generated Mesh
 Studio.BetaFeatures.SegmentByPartsDescription,,,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
 Studio.BetaFeatures.SecondAttemptCameraControlsTitle,,,Studio Camera Controls (V2),Studio Camera Controls (V2)
 Studio.BetaFeatures.SecondAttemptCameraControlsDescription,,,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
@@ -17093,6 +17138,7 @@ Studio.InputActionManager.Status.DuplicateUIButtonDescription,,,{uibutton} is us
 Studio.InputActionManager.Status.CompositeKeycodeTitle,,,Duplicate Composite Keycode,Duplicate Composite Keycode
 Studio.InputActionManager.Status.CompositeKeycodeDescription,,,Keycode already in use for another direction.,Keycode already in use for another direction.
 Studio.InputActionManager.Menu.Duplicate,,,Duplicate,Duplicate
+Studio.InputActionManager.Header.State,,,State,State
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
@@ -17100,3 +17146,72 @@ Studio.AdPlacementManager.Plugin.Button,,,Ad Placement Manager,Ad Placement Mana
 Studio.AdPlacementManager.Plugin.Name,,,Ad Placement Manager,Ad Placement Manager
 Studio.UpradedUIGradientBeta.Studio.BetaFeatures.UpgradedUIGradientsDescription,,,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
 Studio.UpradedUIGradientBeta.Studio.BetaFeatures.UpgradedUIGradientsTitle,,,Upgraded UIGradients,Upgraded UIGradients
+Studio.DeviceSimulatorToolbar.Toolbar.VirtualController,,,Virtual controller,Virtual controller
+Studio.DeviceSimulatorToolbar.Toolbar.Rotate,,,Rotate,Rotate
+Studio.DeviceSimulatorToolbar.Plugin.Name,,,Device Simulator Toolbar,Device Simulator Toolbar
+Studio.DeviceSimulatorToolbar.Toolbar.ServerLabel,,,Server,Server
+Studio.DeviceSimulatorToolbar.CategoryTooltips.SwitchToServer,,,Switch to Server,Switch to Server
+Studio.DeviceSimulatorToolbar.CategoryTooltips.SwitchToPhone,,,Switch to Phone,Switch to Phone
+Studio.DeviceSimulatorToolbar.CategoryTooltips.SwitchToDesktop,,,Switch to Desktop,Switch to Desktop
+Studio.DeviceSimulatorToolbar.CategoryTooltips.SwitchToConsole,,,Switch to Console,Switch to Console
+Studio.DeviceSimulatorToolbar.Validation.NameTooLong,,,Name must be {maxLength} characters or fewer,Name must be {maxLength} characters or fewer
+Studio.DeviceSimulatorToolbar.CategoryTooltips.SwitchToHeadset,,,Switch to Headset,Switch to Headset
+Studio.DeviceSimulatorToolbar.TouchControls.Tooltip,,,Touch controls,Touch controls
+Studio.DeviceSimulatorToolbar.DeviceManager.Mobile,,,Mobile,Mobile
+Studio.DeviceSimulatorToolbar.DeviceManager.Desktop,,,Desktop,Desktop
+Studio.DeviceSimulatorToolbar.DeviceManager.Console,,,Console,Console
+Studio.DeviceSimulatorToolbar.DeviceManager.Headset,,,Headset,Headset
+Studio.DeviceSimulatorToolbar.DeviceMenu.DesktopComputer,,,Desktop computer,Desktop computer
+Studio.DeviceSimulatorToolbar.DeviceMenu.Console,,,Console,Console
+Studio.DeviceSimulatorToolbar.DeviceMenu.Headset,,,Headset,Headset
+Studio.DeviceSimulatorToolbar.DeviceMenu.Flagship,,,Flagship,Flagship
+Studio.DeviceSimulatorToolbar.DeviceMenu.MidRange,,,Mid-range,Mid-range
+Studio.DeviceSimulatorToolbar.DeviceMenu.EntryLevel,,,Entry level,Entry level
+Studio.DeviceSimulatorToolbar.DeviceMenu.CurrentDevice,,,Current device,Current device
+Studio.DeviceSimulatorToolbar.DeviceMenu.Other,,,Other,Other
+Studio.DeviceSimulatorToolbar.DeviceMenu.Custom,,,Custom,Custom
+Studio.DeviceSimulatorToolbar.DeviceMenu.ManageDevices,,,Manage devices,Manage devices
+Studio.DeviceSimulatorToolbar.Toolbar.Back,,,Mock Android back button,Mock Android back button
+Studio.DeviceSimulatorToolbar.TouchControls.Header,,,While playtesting:,While playtesting:
+Studio.DeviceSimulatorToolbar.TouchControls.PinchRotate,,,Pinch + rotate: {shortcut},Pinch + rotate: {shortcut}
+Studio.DeviceSimulatorToolbar.TouchControls.TwoFingerPan,,,Two-finger pan: {shortcut},Two-finger pan: {shortcut}
+Studio.DeviceSimulatorToolbar.Scaling.PhysicalSize,,,Physical size,Physical size
+Studio.DeviceSimulatorToolbar.Scaling.ActualResolution,,,Actual resolution,Actual resolution
+Studio.DeviceSimulatorToolbar.Scaling.FitToWindow,,,Fit to window,Fit to window
+Studio.DeviceSimulatorToolbar.Scaling.CalibratePhysicalScaling,,,Calibrate physical scaling,Calibrate physical scaling
+Studio.DeviceSimulatorToolbar.Scaling.Tooltip,,,Display scaling,Display scaling
+Studio.DeviceSimulatorToolbar.Calibration.Description,,,"To accurately scale to physical size, we need to estimate your screen size. Adjust the slider until the image below is about the size of a student ID or library card ({metricWidth} or {imperialWidth} wide).","To accurately scale to physical size, we need to estimate your screen size. Adjust the slider until the image below is about the size of a student ID or library card ({metricWidth} or {imperialWidth} wide)."
+Studio.DeviceSimulatorToolbar.Calibration.Accept,,,Accept,Accept
+Studio.DeviceSimulatorToolbar.Common.Cancel,,,Cancel,Cancel
+Studio.DeviceSimulatorToolbar.DeviceManager.Standard,,,Standard,Standard
+Studio.DeviceSimulatorToolbar.DeviceManager.EmptyState,,,Add a custom device or select a standard device.,Add a custom device or select a standard device.
+Studio.DeviceSimulatorToolbar.DeviceManager.NameLabel,,,Name,Name
+Studio.DeviceSimulatorToolbar.DeviceManager.NamePlaceholder,,,Device name,Device name
+Studio.DeviceSimulatorToolbar.DeviceManager.Platform,,,Platform,Platform
+Studio.DeviceSimulatorToolbar.DeviceManager.Display,,,Display,Display
+Studio.DeviceSimulatorToolbar.DeviceManager.Dimensions,,,Dimensions,Dimensions
+Studio.DeviceSimulatorToolbar.DeviceManager.PixelDensity,,,Pixel density,Pixel density
+Studio.DeviceSimulatorToolbar.DeviceManager.Performance,,,Performance,Performance
+Studio.DeviceSimulatorToolbar.DeviceManager.Memory,,,Memory,Memory
+Studio.DeviceSimulatorToolbar.DeviceManager.KeyboardSettings,,,Keyboard settings,Keyboard settings
+Studio.DeviceSimulatorToolbar.DeviceManager.KeyboardHeight,,,Keyboard height,Keyboard height
+Studio.DeviceSimulatorToolbar.Validation.NameRequired,,,Name is required,Name is required
+Studio.DeviceSimulatorToolbar.DeviceManager.Portrait,,,Portrait,Portrait
+Studio.DeviceSimulatorToolbar.DeviceManager.Landscape,,,Landscape,Landscape
+Studio.DeviceSimulatorToolbar.DeviceManager.Apply,,,Apply,Apply
+Studio.DeviceSimulatorToolbar.DeviceManager.Duplicate,,,Duplicate,Duplicate
+Studio.DeviceSimulatorToolbar.DeviceNames.NewDevice,,,New device,New device
+Studio.DeviceSimulatorToolbar.DeviceNames.NewDeviceWithNumber,,,New device {index},New device {index}
+Studio.DeviceSimulatorToolbar.DeviceNames.Copy,,,{deviceName} copy,{deviceName} copy
+Studio.DeviceSimulatorToolbar.DeviceNames.CopyWithNumber,,,{deviceName} copy {index},{deviceName} copy {index}
+Studio.DeviceSimulatorToolbar.Validation.NameReserved,,,This name is reserved,This name is reserved
+Studio.DeviceSimulatorToolbar.Validation.NameNotUnique,,,Device names must be unique,Device names must be unique
+Studio.DeviceSimulatorToolbar.Validation.WidthRange,,,Width must be between {minWidth} and {maxWidth},Width must be between {minWidth} and {maxWidth}
+Studio.DeviceSimulatorToolbar.Validation.HeightRange,,,Height must be between {minHeight} and {maxHeight},Height must be between {minHeight} and {maxHeight}
+Studio.DeviceSimulatorToolbar.Validation.PixelDensityRange,,,Pixel density must be between {minDensity} and {maxDensity},Pixel density must be between {minDensity} and {maxDensity}
+Studio.DeviceSimulatorToolbar.Validation.PortraitKeyboardHeightRange,,,Portrait keyboard height must be between {minHeight} and {maxHeight},Portrait keyboard height must be between {minHeight} and {maxHeight}
+Studio.DeviceSimulatorToolbar.Validation.LandscapeKeyboardHeightRange,,,Landscape keyboard height must be between {minHeight} and {maxHeight},Landscape keyboard height must be between {minHeight} and {maxHeight}
+Studio.DeviceSimulatorToolbar.Validation.MemoryMinimum,,,Memory must be {minMemory} or greater,Memory must be {minMemory} or greater
+Studio.DeviceSimulatorToolbar.Calibration.AutoDetectScaling,,,Auto-detect scaling,Auto-detect scaling
+Studio.DeviceSimulatorToolbar.DeviceManager.AddDevices,,,Add devices,Add devices
+Studio.DeviceSimulatorToolbar.DeviceManager.SelectDevices,,,Select which devices appear in the Standard list.,Select which devices appear in the Standard list.

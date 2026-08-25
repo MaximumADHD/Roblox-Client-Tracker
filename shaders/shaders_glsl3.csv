@@ -61,13 +61,9 @@ DefaultUnifiedGlassTintVS,Vertex
 DefaultUnifiedGlassTintVS_00000002,Vertex
 DefaultUnifiedGlassTintVS_00000006,Vertex
 DefaultUnifiedGlassTintVS_00000400,Vertex
-DefaultUnifiedGlassTintVS_00000402,Vertex
-DefaultUnifiedGlassTintVS_00000406,Vertex
 DefaultUnifiedGlassTintVS_00001000,Vertex
 DefaultUnifiedGlassTintVS_00001002,Vertex
 DefaultUnifiedGlassTintVS_00001006,Vertex
-DefaultUnifiedGlassTintVS_00001400,Vertex
-DefaultUnifiedGlassTintVS_00001402,Vertex
 DefaultUnifiedGlassTintVS_00100001,Vertex
 DefaultUnifiedGlassTintVS_00100007,Vertex
 DefaultUnifiedGlassTintVS_00100401,Vertex
@@ -380,7 +376,9 @@ TrailVSLight,Vertex
 TrailVSQuad,Vertex
 TrailVSQuadLight,Vertex
 UIFogVS,Vertex
-UIVS,Vertex
+UITransformedLitFogVS,Vertex
+UITransformedLitFogVSShadowed,Vertex
+UITransformedRRectClipVS,Vertex
 UpSampleTentFS,Fragment
 WatermarkBlendBrightenFS,Fragment
 WatermarkBlendDarkenFS,Fragment
