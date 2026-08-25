@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.267"
+version = "0.2.270"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -30,10 +30,6 @@ version = "^1.87.0"
 
 [dependencies.FoundationImages]
 version = "^2.0.0"
-
-[dependencies.LazyRequire]
-target = "https://github.com/roblox/lua-lazy-require"
-version = "^0.1"
 
 [dependencies.LuauPolyfill]
 target = "https://github.com/roblox/luau-polyfill"

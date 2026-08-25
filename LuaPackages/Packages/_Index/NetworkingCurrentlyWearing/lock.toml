@@ -4,5 +4,5 @@ version = "1.15.0"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Util Util 1.16.6 registry",
+    "Util <patched> Util 1.17.5 registry",
 ]

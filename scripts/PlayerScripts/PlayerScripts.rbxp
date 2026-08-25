@@ -136,7 +136,7 @@
                                 "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "ButtonL3"
+                                        "KeyCode": "ButtonL1"
                                     }
                                 },
                                 "TouchBinding": {
@@ -256,7 +256,7 @@
                                 "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "ButtonL1"
+                                        "KeyCode": "ButtonL2"
                                     }
                                 },
                                 "TouchBinding": {
@@ -303,7 +303,7 @@
                                     "$className": "InputBinding",
                                     "$properties": {}
                                 }
-                            },                            
+                            },
                             "AbilityAction11": {
                                 "$className": "InputAction",
                                 "$properties": {},
@@ -319,6 +319,30 @@
                                         "KeyCode": "DPadDown"
                                     }
                                 },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {}
+                                }
+                            },                            
+                            "OverflowAction1": {
+                                "$className": "InputAction",
+                                "$properties": {},
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {}
+                                }
+                            },                            
+                            "OverflowAction2": {
+                                "$className": "InputAction",
+                                "$properties": {},
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {}
+                                }
+                            },                            
+                            "OverflowAction3": {
+                                "$className": "InputAction",
+                                "$properties": {},
                                 "TouchBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {}

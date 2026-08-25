@@ -6,6 +6,8 @@ category: Inputs
 
 A `RadioGroup` is a way to have a list of options that only allows one choice checked at a time. Any of these may optionally be disabled. The `RadioGroup` component is composed of a list of [RadioGroup.Item](#item)s.
 
+`RadioGroup` provides cascaded `size` and `placement` to it's children items. Items may override those props individually.
+
 The `Selectable` prop can be set on the `RadioGroup.Root` to control whether the entire group is selectable, and all `RadioGroup.Item`s will inherit this setting.
 
 ---
@@ -15,23 +17,29 @@ The `Selectable` prop can be set on the `RadioGroup.Root` to control whether the
 ```luau
 local Foundation = require(Packages.Foundation)
 local RadioGroup = Foundation.RadioGroup
+local InputSize = Foundation.Enums.InputSize
+local InputPlacement = Foundation.Enums.InputPlacement
 
 return React.createElement(RadioGroup.Root, {
-    onValueChanged = function() end,
-    Selectable = true, -- Controls selection for the entire group
+	legend = "Choose one",
+	size = InputSize.Medium,
+	placement = InputPlacement.Start,
+	value = "A",
+	onValueChanged = function() end,
+	Selectable = true,
 }, {
-    React.createElement(RadioGroup.Item, {
-        value = "A",
-        label = "Label A",
-    }),
-    React.createElement(RadioGroup.Item, {
-        value = "B",
-        label = "Label B",
-    }),
-    React.createElement(RadioGroup.Item, {
-        value = "C",
-        label = "Label C",
-        isDisabled = true, -- Disabled items are automatically non-selectable
-    }),
+	React.createElement(RadioGroup.Item, {
+		value = "A",
+		label = "Label A",
+	}),
+	React.createElement(RadioGroup.Item, {
+		value = "B",
+		label = "Label B",
+	}),
+	React.createElement(RadioGroup.Item, {
+		value = "C",
+		label = "Label C",
+		isDisabled = true,
+	}),
 })
 ```

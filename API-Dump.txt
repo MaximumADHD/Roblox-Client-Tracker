@@ -31,6 +31,7 @@ Class DataModelDiff : Object {🔒RobloxScript} [NotCreatable]
 Class EditableImage : Object [NotCreatable]
 	Property EditableImage.Size: Vector2 [ReadOnly] {🚧DynamicGeneration}
 	Property EditableImage.ImageData: BinaryString [Hidden] [NotReplicated] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
+	Property EditableImage.ImageHolder: NetAssetRef [Hidden] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
 	Property EditableImage.IsReplicatedCopy: boolean [Hidden] [NotReplicated] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
 	Function EditableImage:Destroy() -> () {🚧DynamicGeneration}
 	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType, antiAliasing: Enum.AntiAliasing? = "Enabled") -> () {🚧DynamicGeneration}
@@ -45,6 +46,7 @@ Class EditableImage : Object [NotCreatable]
 	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {🚧DynamicGeneration} {🔒RobloxScript}
 Class EditableMesh : Object [NotCreatable]
 	Property EditableMesh.FixedSize: boolean [ReadOnly] {🚧DynamicGeneration} {✏️RobloxEngine}
+	Property EditableMesh.EditableMeshDataHolder: NetAssetRef [Hidden] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
 	Property EditableMesh.IsReplicatedCopy: boolean [Hidden] [NotReplicated] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
 	Property EditableMesh.MeshData: SharedString [Hidden] [NotScriptable] {🚧DynamicGeneration} {🔒RobloxEngine}
 	Function EditableMesh:AddBone(boneProperties: { [string]: any }) -> number {🚧DynamicGeneration}
@@ -263,6 +265,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:GetCampaignEligibilityAsync(campaignId: string, player: Player? = nil) -> { [string]: any } [Yields] {🚧Monetization}
 	Function AdService:RegisterAdOpportunityAsync(instance: Instance, placementId: number?) -> () [Yields] {🚧Monetization}
 	Function AdService:RegisterDisclosureButton(disclosureButton: GuiButton, adIntegrationPlacementId: string) -> () {🚧Monetization}
+	Function AdService:RegisterImpressionSource(instance: Instance, adIntegrationPlacementId: string) -> () {🚧Monetization}
 	Function AdService:ShowRewardedVideoAdAsync(player: Player, reward: AdReward, placementId: number?) -> Enum.ShowAdResult [Yields] {🚧Monetization + UI}
 	Function AdService:UnregisterAdOpportunity(instance: Instance) -> () {🚧Monetization}
 	Function AdService:GetAdAvailabilityNowForUniverseAsync(adFormat: Enum.AdFormat, universeId: number, isUniversalAppDM: boolean) -> { [string]: any } [Yields] {🚧Monetization} {🔒RobloxScript}
@@ -665,6 +668,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any [Yields] {🚧AssetCreateUpdate}
 	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any [Yields] {🚧AssetCreateUpdate}
 	Function AssetService:CreateDataModelContentAsync(content: Content, options: { [string]: any }?) -> ...any [Yields] {🚧DynamicGeneration}
+	Function AssetService:CreateDecalAsync(content: { [string]: any }) -> Decal [Yields] {🚧Basic}
 	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage {🚧DynamicGeneration}
 	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> EditableImage [Yields] {🚧AssetRead}
 	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> EditableMesh {🚧DynamicGeneration}
@@ -673,6 +677,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields] {🚧AssetCreateUpdate}
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields] {🚧AssetCreateUpdate}
 	Function AssetService:CreateSurfaceAppearanceAsync(content: { [string]: any }) -> SurfaceAppearance [Yields] {🚧Basic}
+	Function AssetService:CreateTextureAsync(content: { [string]: any }) -> Texture [Yields] {🚧Basic}
 	Function AssetService:GetAssetIdsForPackageAsync(packageAssetId: number) -> { any } [Yields] {🚧AssetRead}
 	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields] {🚧AssetRead}
 	Function AssetService:GetBundleDetailsAsync(bundleId: number) -> { [string]: any } [Yields] {🚧AssetRead}
@@ -1116,6 +1121,7 @@ Class AvatarAbilityRules : Instance {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSitting: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSprinting: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSwimming: boolean {🔒RobloxScript}
+	Property AvatarAbilityRules.EnableTurning: boolean {🔒RobloxScript}
 Class AvatarAccessoryRules : Instance {🔒RobloxScript}
 	Property AvatarAccessoryRules.AccessoryMode: Enum.AvatarSettingsAccessoryMode {🔒RobloxScript}
 	Property AvatarAccessoryRules.CustomAccessoryMode: Enum.AvatarSettingsCustomAccessoryMode {🔒RobloxScript}
@@ -1722,6 +1728,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:UploadCaptureAsync(capture: Capture) -> ...any [Yields] {🚧Capture}
 	Function CaptureService:CanCaptureVideo() -> boolean {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:CheckMomentTextStatusAsync(token: string) -> ...any [Yields] {🚧Capture} {🔒RobloxScript}
+	Function CaptureService:CheckUploadCaptureStatusForSupportTicketAsync(operationId: string) -> ...any [Yields] {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } [Yields] {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {🚧Capture} {🔒RobloxScript}
 	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number [Yields] {🚧Capture} {🔒RobloxScript}
@@ -2044,7 +2051,7 @@ Class AnimationConstraint : Constraint
 	Property AnimationConstraint.MaxTorque: number {🚧Animation + Physics} {🚀SimAccess}
 	Property AnimationConstraint.IsKinematic: boolean {🚧Animation + Physics} {🚀SimAccess}
 	Property AnimationConstraint.Transform: CFrame {🚧Animation + Physics} {🚀SimAccess}
-	Property AnimationConstraint.EnableSkinning: boolean {🚧Animation + Physics} {🔒RobloxScript}
+	Property AnimationConstraint.EnableSkinning: boolean [Hidden] {🚧Animation + Physics} {🔒RobloxScript}
 	Property AnimationConstraint.C0: CFrame [Hidden] [ReadOnly] [Deprecated] {🚧Animation + Physics} {🚀SimAccess}
 	Property AnimationConstraint.C1: CFrame [Hidden] [ReadOnly] [Deprecated] {🚧Animation + Physics} {🚀SimAccess}
 	Property AnimationConstraint.Part0: BasePart? [Hidden] [ReadOnly] [Deprecated] {🚧Animation + Physics} {🚀SimAccess}
@@ -2058,7 +2065,7 @@ Class BallSocketConstraint : Constraint
 	Property BallSocketConstraint.UpperAngle: number {🚧Physics} {🚀SimAccess}
 	Property BallSocketConstraint.TwistLowerAngle: number {🚧Physics} {🚀SimAccess}
 	Property BallSocketConstraint.TwistUpperAngle: number {🚧Physics} {🚀SimAccess}
-	Property BallSocketConstraint.EnableSkinning: boolean {🚧Physics} {🔒RobloxScript}
+	Property BallSocketConstraint.EnableSkinning: boolean [Hidden] {🚧Physics} {🔒RobloxScript}
 	Property BallSocketConstraint.MaxFrictionTorqueXml: number [Hidden] [NotReplicated] [NotScriptable] {🚧Physics} {🚀SimAccess}
 Class HingeConstraint : Constraint
 	Property HingeConstraint.Radius: number {🚧Physics} {🚀SimAccess}
@@ -2100,7 +2107,7 @@ Class LinearVelocity : Constraint
 Class PlaneConstraint : Constraint
 Class Plane : PlaneConstraint [Deprecated]
 Class RigidConstraint : Constraint {🔒RobloxScript}
-	Property RigidConstraint.EnableSkinning: boolean {🚧Physics} {🔒RobloxScript}
+	Property RigidConstraint.EnableSkinning: boolean [Hidden] {🚧Physics} {🔒RobloxScript}
 Class RodConstraint : Constraint
 	Property RodConstraint.Thickness: number {🚧Physics} {🚀SimAccess}
 	Property RodConstraint.CurrentDistance: number [ReadOnly] {🚧Physics} {🚀SimAccess}
@@ -2810,6 +2817,9 @@ Class Decal : FaceInstance
 	Property Decal.Color3: Color3 {🚧Basic}
 	Property Decal.ColorMap: string [NotReplicated] {🚧Basic}
 	Property Decal.ColorMapContent: Content [NotReplicated] {🚧Basic}
+	Property Decal.EmissiveMaskContent: Content {🚧Basic} {✏️Plugin}
+	Property Decal.EmissiveStrength: number {🚧Basic}
+	Property Decal.EmissiveTint: Color3 {🚧Basic}
 	Property Decal.MetalnessMapContent: Content {🚧Basic} {✏️Plugin}
 	Property Decal.NormalMapContent: Content {🚧Basic} {✏️Plugin}
 	Property Decal.Rotation: number {🚧Basic}
@@ -4315,7 +4325,7 @@ Class Motor : JointInstance
 Class Motor6D : Motor
 	Property Motor6D.ChildName: string [ReadOnly] [NotScriptable] {🚧Physics}
 	Property Motor6D.ParentName: string [ReadOnly] [NotScriptable] {🚧Physics}
-	Property Motor6D.EnableSkinning: boolean {🚧Physics} {🔒RobloxScript}
+	Property Motor6D.EnableSkinning: boolean [Hidden] {🚧Physics} {🔒RobloxScript}
 	Property Motor6D.Transform: CFrame [Hidden] [NotReplicated] {🚧Physics} {🚀SimAccess}
 	Property Motor6D.ReplicateCurrentAngle6D: Vector3 [Hidden] [NotScriptable] {🚧Physics} {🔒RobloxEngine}
 	Property Motor6D.ReplicateCurrentOffset6D: Vector3 [Hidden] [NotScriptable] {🚧Physics} {🔒RobloxEngine}
@@ -4327,7 +4337,7 @@ Class VelocityMotor : JointInstance
 	Property VelocityMotor.Hole: Hole? {🚧Physics}
 	Property VelocityMotor.MaxVelocity: number {🚧Physics}
 Class Weld : JointInstance {🔒RobloxScript}
-	Property Weld.EnableSkinning: boolean {🚧Physics} {🔒RobloxScript}
+	Property Weld.EnableSkinning: boolean [Hidden] {🚧Physics} {🔒RobloxScript}
 Class JointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function JointsService:ClearJoinAfterMoveJoints() -> () [Deprecated] {🚧Physics}
 	Function JointsService:CreateJoinAfterMoveJoints() -> () [Deprecated] {🚧Physics}
@@ -5103,6 +5113,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.TopSurfaceInput: Enum.InputType [Hidden] [Deprecated]
 	Property BasePart.Orientation: Vector3 [Hidden] [NotReplicated] {🚀SimAccess}
 	Property BasePart.PhysicsRepRootPart: BasePart? [Hidden] [NotScriptable] {🔒RobloxEngine}
+	Property BasePart.PhysicsRepRootRef: InstanceRef [Hidden] [NotScriptable] {🔒RobloxEngine}
 	Property BasePart.Position: Vector3 [Hidden] [NotReplicated] {🚀SimAccess}
 	Property BasePart.ReplicationPV: ReplicationPV [Hidden] [NotScriptable] {🔒RobloxEngine}
 	Property BasePart.brickColor: BrickColor [NotReplicated] [Deprecated] [📁LoadOnly]
@@ -5202,6 +5213,7 @@ Class Terrain : BasePart [NotCreatable]
 	Property Terrain.MaxExtents: Region3int16 [ReadOnly] {🚧Environment}
 	Property Terrain.Materials: SharedString [Hidden] [NotScriptable] {🚧Environment}
 	Property Terrain.SmoothVoxelsUpgraded: boolean [Hidden] {🚧Environment} {🔒RobloxScript}
+	Property Terrain.ExpandedTerrainResolved: boolean [Hidden] [NotScriptable] {🚧Environment} {🔒RobloxEngine}
 	Property Terrain.AcquisitionMethod: Enum.TerrainAcquisitionMethod [Hidden] [NotScriptable] {🚧Environment} {🔒RobloxScript}
 	Property Terrain.ClusterGrid: string [Hidden] [WriteOnly] [NotReplicated] [NotScriptable] {🚧Environment} [📁LoadOnly]
 	Property Terrain.ClusterGridV2: string [Hidden] [WriteOnly] [NotReplicated] [NotScriptable] {🚧Environment} [📁LoadOnly]
@@ -5210,7 +5222,6 @@ Class Terrain : BasePart [NotCreatable]
 	Property Terrain.LastUsedModificationMethod: Enum.TerrainAcquisitionMethod [Hidden] [NotReplicated] {🚧Environment} {🔒RobloxScript}
 	Property Terrain.PhysicsGrid: BinaryString [Hidden] [NotReplicated] [NotScriptable] {🚧Environment}
 	Property Terrain.SmoothGrid: BinaryString [Hidden] [NotReplicated] [NotScriptable] {🚧Environment}
-	Property Terrain.ValidationAssetContentMap: AssetContentMap [Hidden] [NotReplicated] [NotScriptable] {🚧Environment} {🔒RobloxEngine}
 	Property Terrain.VoxelGridAssetContentMap: AssetContentMap [Hidden] [NotReplicated] [NotScriptable] {🚧Environment} {🔒RobloxScript}
 	Function Terrain:CellCenterToWorld(x: number, y: number, z: number) -> Vector3 {🚧Environment}
 	Function Terrain:CellCornerToWorld(x: number, y: number, z: number) -> Vector3 {🚧Environment}
@@ -5266,9 +5277,10 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:SetMaterialInTransformSubregion(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🚧Environment} {🔒RobloxScript}
 	Function Terrain:SetWaterCell(x: number, y: number, z: number, force: Enum.WaterForce, direction: Enum.WaterDirection) -> () [Deprecated] {🚧Environment}
 	Function Terrain:SmoothRegion(region: Region3, resolution: number, strength: number) -> ...any [CustomLuaState] {🚧Environment} {🔒RobloxScript} {🧬Safe}
-Class TriangleMeshPart : BasePart [NotCreatable]
+Class TriangleMeshPart : BasePart [NotCreatable] [NotBrowsable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity [NotReplicated] {🚧Basic} {✏️Plugin} [📁LoadOnly]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity [NotReplicated] {🚧Basic} {✏️Plugin} [📁LoadOnly]
+	Property TriangleMeshPart.CollisionPrecision: number [NotReplicated] {🚧Basic} {✏️Plugin} [📁LoadOnly]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly] {🚧Basic}
 	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity [Hidden] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
 	Property TriangleMeshPart.InertiaMigrated: boolean [Hidden] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
@@ -5276,6 +5288,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.UnscaledVolInertiaDiags: Vector3 [Hidden] {🚧Basic} {🔒RobloxEngine}
 	Property TriangleMeshPart.UnscaledVolInertiaOffDiags: Vector3 [Hidden] {🚧Basic} {🔒RobloxEngine}
 	Property TriangleMeshPart.UnscaledVolume: number [Hidden] {🚧Basic} {🔒RobloxEngine}
+	Property TriangleMeshPart.PCDRequestId: number [Hidden] [NotReplicated] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
 	Property TriangleMeshPart.AeroMeshData: SharedString [Hidden] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
 	Property TriangleMeshPart.ConvexDecompHolder: NetAssetRef [Hidden] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
 	Property TriangleMeshPart.PhysicalConfigData: SharedString [Hidden] [NotScriptable] {🚧Basic} {🔒RobloxEngine}
@@ -6037,6 +6050,7 @@ Class Player : Instance
 	Event Player.NotifyStreamingUnpinned(instance: Instance, depth: number) [Hidden] {🚧Players} {🔒RobloxEngine}
 	Event Player.OnTeleportInternal(teleportState: Enum.TeleportState, teleportInfo: { [string]: any }, customLoadingScreen: Instance) [Hidden] {🚧Players} {🔒RobloxEngine}
 	Event Player.OverrideStreamRadii(minRadius: number, targetRadius: number) [Hidden] {🚧Players} {🔒RobloxEngine}
+	Event Player.PauseTeleports() [Hidden] {🚧Players} {🔒RobloxEngine}
 	Event Player.PlayerCharacterLoaded(metrics: { [string]: any }) [Hidden] {🚧Players} {🔒RobloxEngine}
 	Event Player.PlayerChatTranslationSettingsLocaleSetFromLua(newLocaleId: string) [Hidden] {🚧Players} {🔒RobloxEngine}
 	Event Player.PlayerExperienceSettingsLocaleSetFromLua(newLocaleId: string) [Hidden] {🚧Players} {🔒RobloxEngine}
@@ -6301,6 +6315,7 @@ Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 Class PluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PluginManagementService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function PluginManagementService:GetOTAPluginVersion(pluginName: string? = "") -> number [Yields] {🔒RobloxScript}
+	Function PluginManagementService:ListPluginGuisAsync() -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function PluginManagementService:SetAutoUpdate(pluginId: number, state: boolean) -> () {🔒RobloxScript}
 Class PluginManager : Instance [NotCreatable]
 	Function PluginManager:ExportPlace(filePath: string? = "") -> () {🔒Plugin}
@@ -6437,6 +6452,7 @@ Class PublishService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Not
 	Function PublishService:PublishCageMeshAsync(wrap: Instance, cageType: Enum.CageType) -> string [Yields] {🔒RobloxScript}
 	Function PublishService:PublishDescendantAssets(instance: Instance) -> boolean {🔒RobloxScript}
 	Function PublishService:PublishDescendantAssetsAsync(instance: Instance) -> boolean [Yields] {🔒RobloxScript}
+	Function PublishService:TagEmoteAnimation(instance: Instance) -> () {🔒RobloxScript}
 Class RTAnimationTracker : Instance [NotReplicated]
 	Property RTAnimationTracker.Active: boolean [Hidden] [NotReplicated]
 	Property RTAnimationTracker.EnableFallbackAudioInput: boolean [Hidden] [NotReplicated]
@@ -6695,6 +6711,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:GetRobloxGuiFocused() -> boolean {🚧Basic} {🔒RobloxScript}
 	Function RunService:GetRobloxVersion() -> string {🚧Basic} {🔒RobloxScript}
 	Function RunService:GetTotalScriptPlusExecutionTime() -> number {🚧Basic} {🔒RobloxScript}
+	Function RunService:IsTeamTest() -> boolean {🚧Basic} {🔒RobloxScript} {🧬Safe}
 	Function RunService:Reset() -> () [Deprecated] {🚧Basic} {🔒Plugin}
 	Function RunService:Set3dRenderingEnabled(enable: boolean) -> () {🚧Basic} {🔒RobloxScript}
 	Function RunService:SetRobloxGuiFocused(focus: boolean) -> () {🚧Basic} {🔒RobloxScript}
@@ -6855,6 +6872,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptEditorService:ForceReloadSource(uri: string, newsrc: string) -> () {🔒RobloxScript}
 	Function ScriptEditorService:IsAutocompleteCallbackRegistered(name: string) -> boolean {🔒RobloxScript}
 	Function ScriptEditorService:IsScriptAnalysisCallbackRegistered(name: string) -> boolean {🔒RobloxScript}
+	Function ScriptEditorService:OpenTemporaryDocumentAsync(scriptId: string, initialContent: string) -> ...any [Yields] {🔒RobloxScript}
 	Function ScriptEditorService:SetUriScript(uri: string, source: string) -> () {🔒RobloxScript}
 	Function ScriptEditorService:StripComments(code: string) -> string {🔒RobloxScript}
 	Event ScriptEditorService.TextDocumentDidChange(document: ScriptDocument, changesArray: any) {🔒Plugin}
@@ -7003,6 +7021,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Event DataModel.GraphicsQualityChangeRequest(betterQuality: boolean)
 	Event DataModel.Loaded()
 	Event DataModel.ServerLifecycleChanged(serverLifecycleChangedEvent: { [string]: any }) {🚧ServerCommunication}
+	Event DataModel.ServerLowMemoryWarning()
 	Event DataModel.ServerRestartScheduled(restartTime: DateTime, source: Enum.CloseReason, attributes: { [string]: any }) {🚧ServerCommunication}
 	Event DataModel.AllowedGearTypeChanged() [Deprecated]
 	Event DataModel.ItemChanged(object: Instance, descriptor: string) [Deprecated]
@@ -7395,6 +7414,9 @@ Class StarterCharacterScripts : StarterPlayerScripts [NotCreatable]
 Class StartupMessageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function StartupMessageService:ExecuteActionButton() -> () {🔒RobloxScript}
 	Function StartupMessageService:GetStartupMessage() -> any {🔒RobloxScript}
+Class StateMachineDefinition : Instance {🔒RobloxScript} [NotReplicated]
+	Property StateMachineDefinition.NodeId: string {🔒RobloxScript}
+Class StateMachineTransitionDefinition : Instance [NotReplicated]
 Class Stats : Instance [NotCreatable] [Service]
 	Property Stats.ContactsCount: number [ReadOnly]
 	Property Stats.DataReceiveKbps: number [ReadOnly]
@@ -7735,6 +7757,7 @@ Class StudioObjectBase : Instance [NotCreatable] [NotReplicated]
 Class StudioWidget : StudioObjectBase {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function StudioWidget:Resize(width: number, height: number) -> () {🔒RobloxScript}
 	Function StudioWidget:SetFixedSize(width: number, height: number) -> () {🔒RobloxScript}
+	Function StudioWidget:SetMinSize(width: number, height: number) -> () {🔒RobloxScript}
 Class StudioPublishService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Property StudioPublishService.PublishLocked: boolean {🔒RobloxScript}
 	Function StudioPublishService:ClearUploadNames() -> () {🔒RobloxScript}
@@ -8061,10 +8084,13 @@ Class TestService : Instance [Service]
 	Function TestService:GetTestControls(providerName: string) -> { [string]: any } {🚧InternalTest}
 	Function TestService:RegisterTest(testOptions: { [string]: any }) -> TestCase {🚧InternalTest}
 	Function TestService:RegisterTestLegacy(testOptions: { [string]: any }) -> TestCase {🚧InternalTest}
-	Function TestService:RequestValidationAsync(artifactType: string, artifactName: string, timeoutSeconds: number? = 60) -> ...any [Yields] {🚧InternalTest}
+	Function TestService:RequestValidationAsync(module: string, artifactName: string, options: any) -> ...any [Yields] {🚧InternalTest}
 	Function TestService:ResetTestControl(providerName: string, controlName: string) -> () {🚧InternalTest}
 	Function TestService:Run() -> () [Yields] [Deprecated] {🔒Plugin}
 	Function TestService:SetTestControl(providerName: string, controlName: string, value: any) -> () {🚧InternalTest}
+	Function TestService:SignalProfilingCapture(target: string? = "", options: { [string]: any }? = nil) -> () {🚧InternalTest}
+	Function TestService:SignalProfilingStart(target: string? = "", options: { [string]: any }? = nil) -> () {🚧InternalTest}
+	Function TestService:SignalProfilingStop(target: string? = "") -> () {🚧InternalTest}
 	Function TestService:StartTestSession() -> () {🚧InternalTest}
 	Function TestService:StartVideoCaptureAsync(artifactName: string? = "", options: { [string]: any }? = nil) -> ...any [Yields] {🚧InternalTest}
 	Function TestService:StopTestSession() -> () {🚧InternalTest}
@@ -8403,6 +8429,7 @@ Class TweenService : Instance [NotCreatable] [Service]
 	Function TweenService:SmoothDamp(current: any, target: any, velocity: any, smoothTime: number, maxSpeed: number?, dt: number?) -> (any, any) {🚧Basic} {🧬Safe} {🚀SimAccess}
 Class UGCAvatarService : Instance [NotCreatable] [Service]
 Class UGCValidationService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
+	Function UGCValidationService:AreInstanceTreesEquivalent(expectedTree: Instance, candidateTree: Instance) -> boolean {🔒RobloxScript}
 	Function UGCValidationService:CalculateAverageEditableCageMeshDistance(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh, innerTransform: CFrame, outerTransform: CFrame) -> number {🔒RobloxScript}
 	Function UGCValidationService:CalculateBodyMaxCageDistance(inputBodyParts: { any }) -> ...any [Yields] {🔒RobloxScript}
 	Function UGCValidationService:CalculateEditableMeshInsideMeshPercentage(editableMeshRoot: EditableMesh, editableMeshQuery: EditableMesh, meshQueryTransform: CFrame, meshQueryScale: Vector3) -> number {🔒RobloxScript}
@@ -9189,6 +9216,7 @@ Class Logger : Object [NotCreatable] [NotReplicated]
 	Event Logger.MessageOut(message: string, messageType: Enum.MessageType, context: { [string]: any }) {🚧Logging}
 Class LuauExpression : Object {🔒RobloxScript} [NotCreatable]
 	Function LuauExpression:Evaluate(args: { [string]: any }) -> { [string]: any } {🔒RobloxScript}
+	Function LuauExpression:References(variableName: string) -> boolean {🔒RobloxScript}
 Class MLSession : Object [NotCreatable] [NotReplicated]
 	Function MLSession:ForwardAsync(data: { [string]: any }) -> { [string]: any } [Yields] {🚧Basic}
 Class OutputLink : Object {🔒RobloxScript} [NotCreatable] [NotReplicated]
@@ -9431,6 +9459,9 @@ Enum AnimationNodeTransitionType
 	EnumItem AnimationNodeTransitionType.CrossFade : 0
 	EnumItem AnimationNodeTransitionType.InertialBlend : 1
 	EnumItem AnimationNodeTransitionType.DeadBlend : 2
+Enum AnimationNodeTransitionWhen
+	EnumItem AnimationNodeTransitionWhen.Finished : 0
+	EnumItem AnimationNodeTransitionWhen.BeforeFinished : 1
 Enum AnimationNodeType
 	EnumItem AnimationNodeType.InvalidNode : 0
 	EnumItem AnimationNodeType.AddNode : 1
@@ -10032,7 +10063,7 @@ Enum CollisionFidelity
 	EnumItem CollisionFidelity.Hull : 1
 	EnumItem CollisionFidelity.Box : 2
 	EnumItem CollisionFidelity.PreciseConvexDecomposition : 3
-	EnumItem CollisionFidelity.Scalable : 4
+	EnumItem CollisionFidelity.Tunable : 4
 Enum CommandPermission
 	EnumItem CommandPermission.Plugin : 0
 	EnumItem CommandPermission.LocalUser : 1
@@ -10840,6 +10871,7 @@ Enum GenerateMomentTextResult
 	EnumItem GenerateMomentTextResult.Success : 0
 	EnumItem GenerateMomentTextResult.Pending : 1
 	EnumItem GenerateMomentTextResult.Failed : 2
+	EnumItem GenerateMomentTextResult.Filtered : 3
 Enum Genre [Deprecated]
 	EnumItem Genre.All : 0 [Deprecated]
 	EnumItem Genre.TownAndCity : 1 [Deprecated]

@@ -2,4 +2,4 @@
 name = "NetworkingBlocking"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]

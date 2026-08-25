@@ -103,7 +103,7 @@ dependencies = [
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.1 registry",
     "FocusBehaviors FocusBehaviors 2.0.0 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.5.0 registry",
     "FoundationImages FoundationImages 2.0.1 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.5 registry",
@@ -118,7 +118,7 @@ dependencies = [
     "JestBenchmark JestBenchmark 3.19.0 registry",
     "JestGlobals JestGlobals 2.4.1 registry",
     "JestGlobals3 JestGlobals 3.19.0 registry",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 2.0.0 registry",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 2.0.2 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauUIEcosystemLints LuauUIEcosystemLints 0.8.1 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -128,6 +128,7 @@ dependencies = [
     "Motion Motion 0.0.7 registry",
     "NetworkingFriends NetworkingFriends 2.12.1 registry",
     "NetworkingGames NetworkingGames 1.2.0 registry",
+    "NetworkingUserSettings <patched> NetworkingUserSettings 1.17.5 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
     "Otter Otter 1.3.7 registry",
     "PolicyProvider LuaRoactPolicyProvider 0.1.5 registry",
@@ -152,7 +153,6 @@ dependencies = [
     "RecordPlayback RecordPlayback 0.1.1 registry",
     "RegExp RegExp 0.2.2 registry",
     "Resources Resources 0.6.0 registry",
-    "ResourcesReact ResourcesReact 0.6.0 registry",
     "Result lua-result 0.1.0 registry",
     "Rhodium Rhodium 0.5.0 registry",
     "Roact RoactCompat 17.3.8 registry",
@@ -168,20 +168,20 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.10 registry",
-    "ServiceContractsProto ServiceContractsProto 1.0.2238+20260813 registry",
+    "ServiceContractsProto ServiceContractsProto 1.0.2314+20260819 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
     "SignalsReact SignalsReact 0.6.0 registry",
-    "SignalsRoblox SignalsRoblox 0.6.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.6.2 registry",
     "UGCValidation UGCValidation 1.18.11 registry",
-    "UIBlox UIBlox 0.2.267 registry",
+    "UIBlox UIBlox 0.2.270 registry",
     "UltimateList ultimate-list 0.3.1 registry",
     "UrlBuilder UrlBuilder 1.2.21 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
+    "Util <patched> Util 1.17.5 registry",
     "VirtualizedList VirtualizedList 1.5.1 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
@@ -310,7 +310,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.100.0"
+version = "1.101.0"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.39 registry",
@@ -360,7 +360,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.39 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "FoundationImages FoundationImages 2.0.1 registry",
     "JestGlobals JestGlobals 3.19.0 registry",
     "React React 17.3.8 registry",
@@ -437,7 +437,7 @@ dependencies = [
     "Roact RoactCompat 17.3.8 registry",
     "RoactRodux RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.267 registry",
+    "UIBlox UIBlox 0.2.270 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -447,7 +447,7 @@ version = "0.0.5"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "MarkdownCore MarkdownCore 0.0.5 registry",
     "React React 17.3.8 registry",
     "ReactIs ReactIs 17.3.8 registry",
@@ -973,15 +973,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "LazyRequire"
-version = "0.1.4"
-source = "registry"
-dependencies = [
-    "Cryo Cryo 1.1.0 registry",
-    "React React 17.3.8 registry",
-]
-
-[[package]]
 name = "LuaRoactPolicyProvider"
 version = "0.1.5"
 source = "registry"
@@ -997,12 +988,11 @@ dependencies = [
 
 [[package]]
 name = "LuaSocialLibrariesDeps"
-version = "2.0.0"
+version = "2.0.2"
 source = "registry"
 dependencies = [
     "CollisionMatchers CollisionMatchers2D 1.1.0 registry",
     "GenericPagination GenericPagination 0.1.1 registry",
-    "LazyRequire LazyRequire 0.1.4 registry",
     "Mock mock 1.1.0 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
     "NetworkingAccountSettings NetworkingAccountSettings 1.15.0 registry",
@@ -1017,7 +1007,7 @@ dependencies = [
     "NetworkingPremiumFeatures NetworkingPremiumFeatures 1.15.0 registry",
     "NetworkingPresence NetworkingPresence 1.15.0 registry",
     "NetworkingShareLinks NetworkingShareLinks 1.4.2 registry",
-    "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
+    "NetworkingUserSettings <patched> NetworkingUserSettings 1.17.5 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
     "RoactFitComponents RoactFitComponents 2.0.1 registry",
     "RoduxAliases RoduxAliases 2.2.1 registry",
@@ -1029,7 +1019,7 @@ dependencies = [
     "RoduxShareLinks RoduxShareLinks 1.5.1 registry",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
-    "SocialLibraries SocialLibraries 4.3.0 registry",
+    "SocialLibraries SocialLibraries 4.3.1 registry",
     "httpRequest HttpRequest 1.1.1 registry",
     "llama llama 1.0.0 registry",
 ]
@@ -1072,7 +1062,7 @@ version = "1.0.0-alpha-4"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "InlineLayout InlineLayout 0.0.5 registry",
     "MarkdownCore MarkdownCore 0.0.5 registry",
     "React React 17.3.8 registry",
@@ -1085,7 +1075,7 @@ version = "0.0.5"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "React React 17.3.8 registry",
     "ReactIs ReactIs 17.3.8 registry",
     "ReactRoblox ReactRoblox 17.3.8 registry",
@@ -1114,7 +1104,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.39 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -1131,7 +1121,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.39 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "MomentsCommon MomentsCommon 0.1.5 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
@@ -1168,37 +1158,37 @@ dependencies = [
 name = "NetworkingAccountInformation"
 version = "0.6.3"
 source = "registry"
-dependencies = ["Util Util 0.6.3 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingAccountSettings"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingAliases"
 version = "0.6.3"
 source = "registry"
-dependencies = ["Util Util 0.6.3 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingAliases"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingBlocking"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingCall"
 version = "1.16.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingChat"
@@ -1209,7 +1199,7 @@ source = "registry"
 name = "NetworkingContacts"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingCurrentlyWearing"
@@ -1217,7 +1207,7 @@ version = "1.15.0"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Util Util 1.16.6 registry",
+    "Util <patched> Util 1.17.5 registry",
 ]
 
 [[package]]
@@ -1235,13 +1225,13 @@ source = "registry"
 name = "NetworkingPremiumFeatures"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingPresence"
 version = "1.15.0"
 source = "registry"
-dependencies = ["Util Util 1.16.6 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingShareLinks"
@@ -1251,9 +1241,9 @@ dependencies = ["tutils tutils 0.1.2 registry"]
 
 [[package]]
 name = "NetworkingUserSettings"
-version = "0.7.0"
+version = "1.17.5"
 source = "registry"
-dependencies = ["Util Util 0.7.0 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]
 
 [[package]]
 name = "NetworkingUsers"
@@ -1596,15 +1586,6 @@ version = "0.6.0"
 source = "registry"
 
 [[package]]
-name = "ResourcesReact"
-version = "0.6.0"
-source = "registry"
-dependencies = [
-    "React React 17.3.8 registry",
-    "Resources Resources 0.6.0 registry",
-]
-
-[[package]]
 name = "Rhodium"
 version = "0.5.0"
 source = "registry"
@@ -1806,7 +1787,7 @@ source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
-    "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
+    "NetworkingUserSettings <patched> NetworkingUserSettings 1.17.5 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
 ]
@@ -1847,7 +1828,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "1.0.2238+20260813"
+version = "1.0.2314+20260819"
 source = "registry"
 
 [[package]]
@@ -1896,25 +1877,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "SignalsRoblox"
-version = "0.6.0"
-source = "registry"
-dependencies = ["Signals Signals 0.6.0 registry"]
-
-[[package]]
 name = "SignalsScheduler"
 version = "0.6.0"
 source = "registry"
 
 [[package]]
 name = "SocialLibraries"
-version = "4.3.0"
+version = "4.3.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "GenericPagination GenericPagination 0.1.1 registry",
-    "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 0.1.4 registry",
@@ -1927,7 +1901,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.267 registry",
+    "UIBlox UIBlox 0.2.270 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -2024,15 +1998,14 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.267"
+version = "0.2.270"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.39 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.1 registry",
-    "Foundation Foundation 1.100.0 registry",
+    "Foundation Foundation 1.101.0 registry",
     "FoundationImages FoundationImages 2.0.1 registry",
-    "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.3.7 registry",
@@ -2072,17 +2045,7 @@ dependencies = [
 
 [[package]]
 name = "Util"
-version = "0.6.3"
-source = "registry"
-
-[[package]]
-name = "Util"
-version = "0.7.0"
-source = "registry"
-
-[[package]]
-name = "Util"
-version = "1.16.6"
+version = "1.17.5"
 source = "registry"
 
 [[package]]

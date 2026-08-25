@@ -5,7 +5,7 @@ source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 registry",
-    "NetworkingUserSettings NetworkingUserSettings 0.7.0 registry",
+    "NetworkingUserSettings <patched> NetworkingUserSettings 1.17.5 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxNetworking RoduxNetworking 3.4.1 registry",
 ]

@@ -1,0 +1,15 @@
+[package]
+name = "Util"
+version = "1.17.5"
+readme = "README.md"
+content_root = "src"
+files = [
+    "!*.storybook.lua",
+    "!*.story.lua",
+    "!*.spec.lua",
+]
+publish = true
+authors = ["Roblox"]
+[dev_dependencies.JestGlobals]
+target = "https://github.com/roblox/jest-roblox"
+version = "^2.3.1"

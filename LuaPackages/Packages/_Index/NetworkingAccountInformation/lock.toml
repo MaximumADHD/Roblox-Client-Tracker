@@ -2,4 +2,4 @@
 name = "NetworkingAccountInformation"
 version = "0.6.3"
 source = "registry"
-dependencies = ["Util Util 0.6.3 registry"]
+dependencies = ["Util <patched> Util 1.17.5 registry"]

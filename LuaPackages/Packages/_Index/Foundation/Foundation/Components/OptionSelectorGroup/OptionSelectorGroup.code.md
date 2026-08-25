@@ -13,12 +13,14 @@ An `OptionSelectorGroup` is a way to have a list of options that only allows one
 ```luau
 local Foundation = require(Packages.Foundation)
 local OptionSelectorGroup = Foundation.OptionSelectorGroup
+local OptionSelectorGroupSize = Foundation.Enums.OptionSelectorGroupSize
 local Orientation = Foundation.Enums.Orientation
 
 return React.createElement(OptionSelectorGroup.Root, {
     onValueChanged = function() end,
     orientation = Orientation.Horizontal,
-    Selectable = true, -- Controls selection for the entire group
+    size = OptionSelectorGroupSize.Medium,
+    legend = "Choose an option",
 }, {
     React.createElement(OptionSelectorGroup.Item, {
         value = "A",
@@ -31,7 +33,13 @@ return React.createElement(OptionSelectorGroup.Root, {
     React.createElement(OptionSelectorGroup.Item, {
         value = "C",
         label = "Label C",
-        isDisabled = true, -- Disabled items are automatically non-selectable
+        isDisabled = true,
     }),
 })
 ```
+
+---
+
+## Sizing
+
+Prefer `size` and `fillBehavior` on Root; both cascade to items. Item props are deprecated. `fillBehavior` applies in horizontal groups only.
