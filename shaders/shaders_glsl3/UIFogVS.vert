@@ -11,6 +11,7 @@ in vec4 COLOR0;
 out vec2 VARYING0;
 out vec4 VARYING1;
 out vec3 VARYING2;
+out vec2 VARYING3;
 
 void main()
 {
@@ -21,5 +22,6 @@ void main()
     VARYING0 = TEXCOORD0;
     VARYING1 = COLOR0;
     VARYING2 = CB0[11].xyz - POSITION.xyz;
+    VARYING3 = POSITION.xy;
 }
 
