@@ -38616,13 +38616,9 @@
       "Camera Speed": "@roblox/globaltype/Studio.Camera Speed",
       "Camera Speed Adjust Binding": "@roblox/globaltype/Studio.Camera Speed Adjust Binding",
       "Camera Zoom to Mouse Position": "@roblox/globaltype/Studio.Camera Zoom to Mouse Position",
-      "CameraAdaptiveSpeed": "@roblox/globaltype/Studio.CameraAdaptiveSpeed",
       "CameraNavigationModel": "@roblox/globaltype/Studio.CameraNavigationModel",
-      "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
-      "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
-      "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
       "CommandBarEnterExec": "@roblox/globaltype/Studio.CommandBarEnterExec",
       "CommandBarFont": "@roblox/globaltype/Studio.CommandBarFont",
@@ -38940,58 +38936,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "Điều khiển tốc độ di chuyển của camera có thích ứng dựa trên khoảng cách đến các đối tượng gần.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
-    "documentation": "Thiết lập mô hình điều hướng được sử dụng cho di chuyển camera trong Studio.",
+    "documentation": "Đặt mô hình điều hướng được sử dụng cho chuyển động camera trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "Thiết lập độ nhạy chuột cho quay camera trong Studio.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "Thiết lập độ nhạy chuột cho di chuyển camera trong Studio.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
-    "documentation": "Thiết lập hệ số tốc độ áp dụng cho di chuyển camera khi giữ phím Shift.",
+    "documentation": "Đặt hệ số tốc độ áp dụng cho chuyển động camera khi giữ phím Shift.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
-    "documentation": "Điều khiển xem camera có chuyển động mượt mà khi lấy nét lại vào một đối tượng được chọn hay không.",
+    "documentation": "Kiểm soát xem camera có chuyển động mượt mà khi lấy nét lại vào một đối tượng đã chọn hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "Thiết lập tốc độ zoom của camera trong Studio.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.Clear Output On Start": {
-    "documentation": "Nếu được thiết lập là true, đầu ra sẽ tự động được xóa khi chuyển đổi giữa các phiên game.",
+    "documentation": "Nếu được đặt thành true, đầu ra sẽ tự động được xóa khi chuyển đổi phiên game.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Clear Output On Start",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarEnterExec": {
-    "documentation": "Điều khiển xem việc nhấn Enter có ngay lập tức thực thi đầu vào của thanh lệnh hay không.",
+    "documentation": "Kiểm soát xem việc nhấn Enter có ngay lập tức thực thi đầu vào của thanh lệnh hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarEnterExec",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarFont": {
-    "documentation": "Thiết lập phông chữ được sử dụng trong thanh lệnh của Studio.",
+    "documentation": "Đặt phông chữ được sử dụng trong thanh lệnh của Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarFont",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarLocalState": {
-    "documentation": "Điều khiển xem thanh lệnh có giữ trạng thái đầu vào của nó giữa các phiên hay không.",
+    "documentation": "Kiểm soát xem thanh lệnh có giữ trạng thái đầu vào của nó giữa các phiên hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarLocalState",
     "code_sample": ""
   },
@@ -39001,212 +38977,212 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Current Line Highlight Color": {
-    "documentation": "Thiết lập màu của dòng hiện tại được làm nổi bật trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của dòng hiện tại được làm nổi bật trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Current Line Highlight Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Debugger Current Line Color": {
-    "documentation": "Thiết lập màu của dòng gỡ lỗi hiện tại trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của dòng gỡ lỗi hiện tại trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Debugger Current Line Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Debugger Error Line Color": {
-    "documentation": "Thiết lập màu của các dòng lỗi gỡ lỗi trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của các dòng lỗi gỡ lỗi trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Debugger Error Line Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DefaultInstancesDir": {
-    "documentation": "Thiết lập thư mục mặc định nơi Studio lưu các tệp instance.",
+    "documentation": "Đặt thư mục mặc định nơi Studio lưu các tệp thể hiện.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DefaultInstancesDir",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DefaultScriptSyncFileType": {
-    "documentation": "Thiết lập loại tệp mặc định được sử dụng khi đồng bộ hóa các kịch bản với hệ thống tệp.",
+    "documentation": "Đặt loại tệp mặc định được sử dụng khi đồng bộ hóa kịch bản với hệ thống tệp.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DefaultScriptSyncFileType",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DeprecatedObjectsShown": {
-    "documentation": "Nếu được thiết lập là true, các đối tượng đã lỗi thời sẽ được hiển thị trong cửa sổ Đối tượng Nâng cao, cũng như trong Trình duyệt Đối tượng.",
+    "documentation": "Nếu được đặt thành true, các đối tượng đã lỗi thời sẽ được hiển thị trong cửa sổ Đối tượng Nâng cao, cũng như trong Trình duyệt Đối tượng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DeprecatedObjectsShown",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DisplayLanguage": {
-    "documentation": "Thiết lập ngôn ngữ hiển thị được sử dụng bởi giao diện Studio.",
+    "documentation": "Đặt ngôn ngữ hiển thị được sử dụng bởi giao diện Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DisplayLanguage",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerActiveColor": {
-    "documentation": "Thiết lập màu của tay kéo hoạt động trong Studio.",
+    "documentation": "Đặt màu của tay cầm kéo hoạt động trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerActiveColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerLengthFactor": {
-    "documentation": "Thiết lập hệ số tỷ lệ chiều dài của tay kéo trong Studio.",
+    "documentation": "Đặt hệ số tỷ lệ chiều dài của tay cầm kéo trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerLengthFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMajorGridIncrement": {
-    "documentation": "Thiết lập khoảng tăng lưới chính được sử dụng khi kéo với tay kéo.",
+    "documentation": "Đặt khoảng cách lưới chính được sử dụng khi kéo với tay cầm.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMajorGridIncrement",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMaxSoftSnaps": {
-    "documentation": "Thiết lập số lượng điểm snap mềm tối đa được hiển thị bởi tay kéo.",
+    "documentation": "Đặt số lượng điểm snap mềm tối đa được hiển thị bởi tay cầm kéo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMaxSoftSnaps",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerPassiveColor": {
-    "documentation": "Thiết lập màu của tay kéo không hoạt động trong Studio.",
+    "documentation": "Đặt màu của tay cầm kéo không hoạt động trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerPassiveColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerScaleFactor": {
-    "documentation": "Thiết lập hệ số tỷ lệ điều khiển kích thước tổng thể của tay kéo.",
+    "documentation": "Đặt hệ số tỷ lệ điều khiển kích thước tổng thể của tay cầm kéo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerScaleFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowAxisTicks": {
-    "documentation": "Điều khiển xem các dấu tick có được hiển thị trên các đường trục tay kéo hay không.",
+    "documentation": "Kiểm soát xem các dấu tick có được hiển thị trên các đường trục kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowAxisTicks",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowHoverRuler": {
-    "documentation": "Điều khiển xem thước kẻ có được hiển thị khi di chuột gần tay kéo hay không.",
+    "documentation": "Kiểm soát xem thước kẻ có được hiển thị khi di chuột gần tay cầm kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowHoverRuler",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowMeasurement": {
-    "documentation": "Điều khiển xem các phép đo khoảng cách có được hiển thị trong khi kéo hay không.",
+    "documentation": "Kiểm soát xem các phép đo khoảng cách có được hiển thị trong khi kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowMeasurement",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowNegativeAxes": {
-    "documentation": "Điều khiển xem các tay cầm trục âm có được hiển thị trên tay kéo hay không.",
+    "documentation": "Kiểm soát xem các tay cầm trục âm có được hiển thị trên tay cầm kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowNegativeAxes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowPlanes": {
-    "documentation": "Điều khiển xem các tay cầm dịch chuyển mặt phẳng có được hiển thị trên tay kéo hay không.",
+    "documentation": "Kiểm soát xem các tay cầm dịch chuyển mặt phẳng có được hiển thị trên tay cầm kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowPlanes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTargetSnap": {
-    "documentation": "Điều khiển xem chỉ báo snap mục tiêu có được hiển thị trên tay kéo hay không.",
+    "documentation": "Kiểm soát xem chỉ báo snap mục tiêu có được hiển thị trên tay cầm kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTargetSnap",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTrackball": {
-    "documentation": "Điều khiển xem tay kéo quay có được hiển thị trên tay kéo quay hay không.",
+    "documentation": "Kiểm soát xem tay cầm trackball có được hiển thị trên tay cầm xoay hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTrackball",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowWhileDragging": {
-    "documentation": "Điều khiển xem các tay kéo có giữ được hiển thị trong khi đang kéo hay không.",
+    "documentation": "Kiểm soát xem các tay cầm kéo có giữ được hiển thị trong khi kéo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowWhileDragging",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSoftSnapMarginFactor": {
-    "documentation": "Thiết lập hệ số khoảng cách được sử dụng để xác định sự gần gũi cho snap mềm.",
+    "documentation": "Đặt hệ số khoảng cách được sử dụng để xác định sự gần gũi cho việc snap mềm.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSoftSnapMarginFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSummonMarginFactor": {
-    "documentation": "Thiết lập hệ số khoảng cách được sử dụng để triệu hồi tay kéo gần một bề mặt.",
+    "documentation": "Đặt hệ số khoảng cách được sử dụng để triệu hồi tay cầm kéo gần một bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSummonMarginFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerTiltRotateDuration": {
-    "documentation": "Thiết lập thời gian (tính bằng giây) của hoạt ảnh xoay nghiêng trong tay kéo.",
+    "documentation": "Đặt thời gian (tính bằng giây) của hoạt ảnh xoay nghiêng trong tay cầm kéo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerTiltRotateDuration",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Autocomplete": {
-    "documentation": "Khi được thiết lập là true, trình soạn thảo kịch bản và thanh lệnh sẽ hiển thị một menu tự động hoàn thành trong khi viết.",
+    "documentation": "Khi được đặt thành true, trình soạn thảo kịch bản và thanh lệnh sẽ hiển thị một menu tự động hoàn thành trong khi viết.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Autocomplete",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Autocomplete Doc View": {
-    "documentation": "Điều khiển xem tài liệu có được hiển thị cùng với các gợi ý tự động hoàn thành hay không.",
+    "documentation": "Kiểm soát xem tài liệu có được hiển thị cùng với các gợi ý tự động hoàn thành hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Autocomplete Doc View",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable CoreScript Debugger": {
-    "documentation": "Điều khiển xem gỡ lỗi CoreScript có sẵn trong Studio hay không.",
+    "documentation": "Kiểm soát xem gỡ lỗi CoreScript có khả dụng trong Studio hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable CoreScript Debugger",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Http Sandboxing": {
-    "documentation": "Điều khiển xem các yêu cầu HTTP từ các plugin có được cách ly hay không.",
+    "documentation": "Kiểm soát xem các yêu cầu HTTP từ các plugin có được sandbox hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Http Sandboxing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Internal Beta Features": {
-    "documentation": "Điều khiển xem các tính năng beta nội bộ có thể truy cập trong Studio hay không.",
+    "documentation": "Kiểm soát xem các tính năng beta nội bộ có thể truy cập trong Studio hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Internal Beta Features",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Internal Features": {
-    "documentation": "Điều khiển xem các tính năng phát triển nội bộ có thể truy cập trong Studio hay không.",
+    "documentation": "Kiểm soát xem các tính năng phát triển nội bộ có thể truy cập trong Studio hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Internal Features",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Script Analysis": {
-    "documentation": "Điều khiển xem trình soạn thảo kịch bản có thực hiện phân tích kịch bản Luau theo thời gian thực hay không.",
+    "documentation": "Kiểm soát xem trình soạn thảo kịch bản có thực hiện phân tích kịch bản Luau theo thời gian thực hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Script Analysis",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Scrollbar Markers": {
-    "documentation": "Điều khiển xem các dấu hiệu lỗi và cảnh báo có được hiển thị trên thanh cuộn của trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem các dấu hiệu lỗi và cảnh báo có được hiển thị trên thanh cuộn của trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Scrollbar Markers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help": {
-    "documentation": "Điều khiển xem các popup trợ giúp chữ ký hàm có được hiển thị trong khi gõ hay không.",
+    "documentation": "Kiểm soát xem các popup trợ giúp chữ ký hàm có được hiển thị trong khi gõ hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help Doc View": {
-    "documentation": "Điều khiển xem tài liệu có được hiển thị cùng với các popup trợ giúp chữ ký hay không.",
+    "documentation": "Kiểm soát xem tài liệu có được hiển thị cùng với các popup trợ giúp chữ ký hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help Doc View",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Temporary Tabs": {
-    "documentation": "Điều khiển xem việc mở một kịch bản có tạo ra một tab tạm thời mà sẽ được thay thế trong lần mở tiếp theo hay không.",
+    "documentation": "Kiểm soát xem việc mở một kịch bản có tạo ra một tab tạm thời được thay thế trong lần mở tiếp theo hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Temporary Tabs",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Temporary Tabs In Explorer": {
-    "documentation": "Điều khiển xem việc nhấp vào một kịch bản trong Explorer có mở nó trong một tab tạm thời hay không.",
+    "documentation": "Kiểm soát xem việc nhấp vào một kịch bản trong Explorer có mở nó trong một tab tạm thời hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Temporary Tabs In Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Type Hover": {
-    "documentation": "Điều khiển xem việc di chuột qua một định danh có hiển thị kiểu suy diễn của nó hay không.",
+    "documentation": "Kiểm soát xem việc di chuột qua một định danh có hiển thị kiểu suy diễn của nó hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Type Hover",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableCodeAssist": {
-    "documentation": "Điều khiển xem các tính năng hỗ trợ mã do AI cung cấp có được kích hoạt trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem các tính năng hỗ trợ mã được cung cấp bởi AI có được kích hoạt trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableCodeAssist",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableFindOnType": {
-    "documentation": "Điều khiển xem thanh Tìm kiếm có được kích hoạt khi gõ trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem thanh Tìm kiếm có được kích hoạt khi gõ trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableFindOnType",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableIndentationRulers": {
-    "documentation": "Điều khiển xem các đường kẻ thước chỉ lề có được hiển thị trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem các đường thước kẻ lề có được hiển thị trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableIndentationRulers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableSelectionTooltips": {
-    "documentation": "Điều khiển xem các tooltip có được hiển thị khi di chuột qua các đối tượng đã chọn hay không.",
+    "documentation": "Kiểm soát xem các tooltip có được hiển thị khi di chuột qua các đối tượng đã chọn hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableSelectionTooltips",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableStudioStreaming": {
-    "documentation": "Điều khiển xem chế độ phát trực tiếp của Studio có được kích hoạt hay không.",
+    "documentation": "Kiểm soát xem chế độ phát trực tuyến của Studio có được kích hoạt hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableStudioStreaming",
     "code_sample": ""
   },
@@ -39216,17 +39192,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorMode": {
-    "documentation": "Thiết lập chế độ được sử dụng khi mở các kịch bản trong trình soạn thảo bên ngoài.",
+    "documentation": "Đặt chế độ được sử dụng khi mở các kịch bản trong trình soạn thảo bên ngoài.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorSelection": {
-    "documentation": "Thiết lập trình soạn thảo bên ngoài mà Studio mở các kịch bản với.",
+    "documentation": "Đặt trình soạn thảo bên ngoài mà Studio mở các kịch bản với.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorSelection",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Find Selection Background Color": {
-    "documentation": "Thiết lập màu làm nổi bật của các kết quả trong thao tác Tìm Kiếm Chọn trong trình soạn thảo kịch bản (Ctrl+F).",
+    "documentation": "Đặt màu nổi bật của các kết quả trong thao tác Tìm Kiếm Chọn trong trình soạn thảo kịch bản (Ctrl+F).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Find Selection Background Color",
     "code_sample": ""
   },
@@ -39236,47 +39212,47 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Format On Paste": {
-    "documentation": "Điều khiển xem mã dán có được tự động định dạng trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem mã dán có được tự động định dạng trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Paste",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Format On Type": {
-    "documentation": "Điều khiển xem mã có được tự động định dạng khi bạn gõ trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem mã có được tự động định dạng khi bạn gõ trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Type",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Function Name Color": {
-    "documentation": "Thiết lập màu của tên hàm trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của tên hàm trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Function Name Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Highlight Current Line": {
-    "documentation": "Điều khiển xem dòng hiện tại có được làm nổi bật trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem dòng hiện tại có được làm nổi bật trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Highlight Current Line",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Highlight Occurances": {
-    "documentation": "Điều khiển xem các trường hợp khác của từ dưới con trỏ có được làm nổi bật hay không.",
+    "documentation": "Kiểm soát xem các trường hợp khác của từ dưới con trỏ có được làm nổi bật hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Highlight Occurances",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.HintColor": {
-    "documentation": "Thiết lập màu của các chẩn đoán gợi ý trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của các chẩn đoán gợi ý trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#HintColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "Chỉ định tần suất hoạt ảnh hover nhấp nháy khi chuột di chuyển qua một đối tượng có thể chọn trong <code>Workspace</code>.",
+    "documentation": "Chỉ định tần suất nhấp nháy của hoạt ảnh hover khi chuột đang di chuyển qua một đối tượng có thể chọn trong <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Box Thickness": {
-    "documentation": "Thiết lập độ dày của hộp chọn hiển thị khi di chuột qua các đối tượng.",
+    "documentation": "Đặt độ dày của hộp chọn hiển thị khi di chuột qua các đối tượng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Box Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Line Thickness": {
-    "documentation": "Thiết lập độ dày đường của hộp chọn hover.",
+    "documentation": "Đặt độ dày đường của hộp chọn hover.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Line Thickness",
     "code_sample": ""
   },
@@ -39286,62 +39262,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.IconOverrideDir": {
-    "documentation": "Thiết lập thư mục mà Studio sử dụng để tải các ghi đè biểu tượng.",
+    "documentation": "Đặt thư mục mà Studio sử dụng để tải các ghi đè biểu tượng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#IconOverrideDir",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Indent Using Spaces": {
-    "documentation": "Điều khiển xem trình soạn thảo kịch bản có sử dụng khoảng trắng thay vì tab cho lề hay không.",
+    "documentation": "Kiểm soát xem trình soạn thảo kịch bản có sử dụng khoảng trắng thay vì tab cho việc thụt lề hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Indent Using Spaces",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.IndentationRulerColor": {
-    "documentation": "Thiết lập màu của các thước chỉ lề trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của các thước kẻ thụt lề trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#IndentationRulerColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.InformationColor": {
-    "documentation": "Thiết lập màu của các chẩn đoán thông tin trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của các chẩn đoán thông tin trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#InformationColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Keyword Color": {
-    "documentation": "Thiết lập màu văn bản của các từ khóa Luau tích hợp.",
+    "documentation": "Đặt màu văn bản của các từ khóa Luau tích hợp.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Keyword Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LargeFileLineCountThreshold": {
-    "documentation": "Thiết lập số dòng mà một kịch bản được coi là tệp lớn bởi trình soạn thảo kịch bản.",
+    "documentation": "Đặt số dòng mà một kịch bản được coi là tệp lớn bởi trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LargeFileLineCountThreshold",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LargeFileThreshold": {
-    "documentation": "Thiết lập kích thước byte mà một kịch bản được coi là tệp lớn bởi trình soạn thảo kịch bản.",
+    "documentation": "Đặt kích thước byte mà một kịch bản được coi là tệp lớn bởi trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LargeFileThreshold",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "Thiết lập độ dày của <code>Model.PrimaryPart</code> adornee chọn. Giá trị này bị giới hạn giữa 0 và 0.05.",
+    "documentation": "Đặt độ dày của <code>Model.PrimaryPart</code> adornee chọn. Giá trị này bị giới hạn giữa 0 và 0.05.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadAllBuiltinPluginsInRunModes": {
-    "documentation": "Điều khiển xem tất cả các plugin tích hợp có được tải khi sử dụng chế độ chạy hay không.",
+    "documentation": "Kiểm soát xem tất cả các plugin tích hợp có được tải khi sử dụng chế độ chạy hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadAllBuiltinPluginsInRunModes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadInternalPlugins": {
-    "documentation": "Điều khiển xem các plugin Roblox nội bộ có được tải trong Studio hay không.",
+    "documentation": "Kiểm soát xem các plugin Roblox nội bộ có được tải trong Studio hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadInternalPlugins",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadUserPluginsInRunModes": {
-    "documentation": "Điều khiển xem các plugin do người dùng cài đặt có được tải khi sử dụng chế độ chạy hay không.",
+    "documentation": "Kiểm soát xem các plugin do người dùng cài đặt có được tải khi sử dụng chế độ chạy hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadUserPluginsInRunModes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LocalAssetsFolder": {
-    "documentation": "Thiết lập thư mục cục bộ mà Studio sử dụng để lưu trữ tài sản cục bộ.",
+    "documentation": "Đặt thư mục cục bộ mà Studio sử dụng để lưu trữ tài sản cục bộ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LocalAssetsFolder",
     "code_sample": ""
   },
@@ -39351,27 +39327,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LuaDebuggerEnabledAtStartup": {
-    "documentation": "Điều khiển xem gỡ lỗi Lua có được kích hoạt khi Studio khởi động hay không.",
+    "documentation": "Kiểm soát xem gỡ lỗi Lua có được kích hoạt khi Studio khởi động hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LuaDebuggerEnabledAtStartup",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Luau Keyword Color": {
-    "documentation": "Thiết lập màu của các từ khóa đặc biệt của Luau trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của các từ khóa cụ thể của Luau trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Luau Keyword Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Main Volume": {
-    "documentation": "Thiết lập âm lượng phát lại âm thanh chính trong Studio.",
+    "documentation": "Đặt âm lượng phát lại âm thanh chính trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Main Volume",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Matching Word Background Color": {
-    "documentation": "Thiết lập màu làm nổi bật của các biến được nhấp đúp trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu nổi bật của các biến được nhấp đúp trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Matching Word Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.MaxFindReplaceAllResults": {
-    "documentation": "Thiết lập số lượng kết quả tối đa được trả về bởi thao tác Tìm Tất cả.",
+    "documentation": "Đặt số lượng kết quả tối đa được trả về bởi thao tác Tìm Tất cả.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#MaxFindReplaceAllResults",
     "code_sample": ""
   },
@@ -39381,12 +39357,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Menu Item Background Color": {
-    "documentation": "Thiết lập màu nền của các mục menu trong Studio.",
+    "documentation": "Đặt màu nền của các mục menu trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Menu Item Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Method Color": {
-    "documentation": "Thiết lập màu của tên phương thức trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của tên phương thức trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Method Color",
     "code_sample": ""
   },
@@ -39396,12 +39372,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Only Play Audio from Window in Focus": {
-    "documentation": "Nếu được thiết lập là true, âm thanh đang phát sẽ chỉ được nghe nếu cửa sổ game đang được tập trung.",
+    "documentation": "Nếu được đặt thành true, âm thanh đang phát sẽ chỉ được nghe nếu cửa sổ game đang được tập trung.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Only Play Audio from Window in Focus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Operator Color": {
-    "documentation": "Thiết lập màu văn bản của các ký tự toán tử trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu văn bản của các ký tự toán tử trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Operator Color",
     "code_sample": ""
   },
@@ -39411,27 +39387,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Output Layout Mode": {
-    "documentation": "Thiết lập chế độ bố trí của đầu ra.",
+    "documentation": "Đặt chế độ bố trí của đầu ra.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Output Layout Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PermissionLevelShown": {
-    "documentation": "Thiết lập mức độ quyền cao nhất mà các API phải có để được hiển thị trong Trình duyệt Đối tượng. Xem <code>PermissionLevelShown</code> để biết thêm thông tin.",
+    "documentation": "Đặt mức độ quyền cao nhất mà các API phải có để được hiển thị trong Trình duyệt Đối tượng. Xem <code>PermissionLevelShown</code> để biết thêm thông tin.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PermissionLevelShown",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Physical Draggers Select Scope By Default": {
-    "documentation": "Điều khiển xem các tay kéo vật lý mặc định có chọn trong phạm vi hiện tại hay không.",
+    "documentation": "Kiểm soát xem các tay cầm vật lý có mặc định chọn trong phạm vi hiện tại hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Physical Draggers Select Scope By Default",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Pivot Snap To Geometry Color": {
-    "documentation": "Thiết lập màu của chỉ báo snap đến hình học pivot trong Studio.",
+    "documentation": "Đặt màu của chỉ báo snap đến hình học pivot trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Pivot Snap To Geometry Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PluginDebuggingEnabled": {
-    "documentation": "Điều khiển xem gỡ lỗi kịch bản plugin có được kích hoạt trong Studio hay không.",
+    "documentation": "Kiểm soát xem gỡ lỗi kịch bản plugin có được kích hoạt trong Studio hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PluginDebuggingEnabled",
     "code_sample": ""
   },
@@ -39441,62 +39417,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PreferredTextSize": {
-    "documentation": "Thiết lập kích thước phông chữ ưa thích trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt kích thước phông chữ ưa thích trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PreferredTextSize",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Primary Text Color": {
-    "documentation": "Thiết lập màu văn bản chính trong Studio.",
+    "documentation": "Đặt màu văn bản chính trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Primary Text Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Property Color": {
-    "documentation": "Thiết lập màu của tên thuộc tính trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của tên thuộc tính trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Property Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ReloadBuiltinPluginsOnChange": {
-    "documentation": "Điều khiển xem các plugin tích hợp có được tự động tải lại khi tệp của chúng thay đổi hay không.",
+    "documentation": "Kiểm soát xem các plugin tích hợp có được tự động tải lại khi tệp của chúng thay đổi hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ReloadBuiltinPluginsOnChange",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ReloadLocalPluginsOnChange": {
-    "documentation": "Điều khiển xem các plugin cục bộ có được tự động tải lại khi tệp của chúng thay đổi hay không.",
+    "documentation": "Kiểm soát xem các plugin cục bộ có được tự động tải lại khi tệp của chúng thay đổi hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ReloadLocalPluginsOnChange",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "Khi được thiết lập là true, các phím tắt của Roblox Studio sẽ ưu tiên hơn các đầu vào được ghi lại trong cửa sổ game.",
+    "documentation": "Khi được đặt thành true, các phím tắt của Roblox Studio sẽ ưu tiên hơn các đầu vào đang được ghi lại trong cửa sổ game.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Ruler Color": {
-    "documentation": "Thiết lập màu của thước chỉ cột trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu của thước kẻ cột trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Ruler Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Rulers": {
-    "documentation": "Thiết lập các vị trí cột mà các đường thước chỉ dọc được vẽ trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt vị trí cột mà các đường thước kẻ dọc được vẽ trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Rulers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.RuntimeUndoBehavior": {
-    "documentation": "Thiết lập cách Studio xử lý các thao tác hoàn tác trong quá trình phát lại thời gian thực.",
+    "documentation": "Đặt cách mà Studio xử lý các thao tác hoàn tác trong quá trình phát lại thời gian thực.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#RuntimeUndoBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Color Preset": {
-    "documentation": "Thiết lập bộ màu được áp dụng cho trình soạn thảo kịch bản.",
+    "documentation": "Đặt bộ màu được áp dụng cho trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Color Preset",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Background Color": {
-    "documentation": "Thiết lập màu nền của thanh cuộn trình soạn thảo kịch bản trong Studio.",
+    "documentation": "Đặt màu nền của thanh cuộn trình soạn thảo kịch bản trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Handle Color": {
-    "documentation": "Thiết lập màu tay cầm của thanh cuộn trình soạn thảo kịch bản trong Studio.",
+    "documentation": "Đặt màu tay cầm của thanh cuộn trình soạn thảo kịch bản trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Handle Color",
     "code_sample": ""
   },
@@ -39506,12 +39482,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Scroll Past Last Line": {
-    "documentation": "Điều khiển xem trình soạn thảo kịch bản có cho phép cuộn xuống dưới dòng cuối cùng hay không.",
+    "documentation": "Kiểm soát xem trình soạn thảo kịch bản có cho phép cuộn xuống dưới dòng cuối cùng hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Scroll Past Last Line",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Secondary Text Color": {
-    "documentation": "Thiết lập màu văn bản phụ trong Studio.",
+    "documentation": "Đặt màu văn bản phụ trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Secondary Text Color",
     "code_sample": ""
   },
@@ -39521,117 +39497,117 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select": {
-    "documentation": "Thiết lập màu của hộp chọn <code>Model.PrimaryPart</code>.",
+    "documentation": "Đặt màu của hộp chọn <code>Model.PrimaryPart</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selected Menu Item Background Color": {
-    "documentation": "Thiết lập màu nền của các mục menu đã chọn trong Studio.",
+    "documentation": "Đặt màu nền của các mục menu đã chọn trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selected Menu Item Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selected Text Color": {
-    "documentation": "Thiết lập màu của văn bản đã chọn trong Studio.",
+    "documentation": "Đặt màu của văn bản đã chọn trong Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selected Text Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Background Color": {
-    "documentation": "Thiết lập màu nền của văn bản đã chọn trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu nền của văn bản đã chọn trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Box Thickness": {
-    "documentation": "Thiết lập độ dày của hộp chọn xung quanh các đối tượng đã chọn.",
+    "documentation": "Đặt độ dày của hộp chọn xung quanh các đối tượng đã chọn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Box Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Color": {
-    "documentation": "Thiết lập màu văn bản của văn bản đã chọn trong trình soạn thảo kịch bản.",
+    "documentation": "Đặt màu văn bản của văn bản đã chọn trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Line Thickness": {
-    "documentation": "Thiết lập độ dày đường của hộp chọn xung quanh các đối tượng đã chọn.",
+    "documentation": "Đặt độ dày đường của hộp chọn xung quanh các đối tượng đã chọn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Line Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Set Pivot of Imported Parts": {
-    "documentation": "Thiết lập xem điểm pivot có được định vị lại khi các phần được nhập hay không.",
+    "documentation": "Đặt xem điểm pivot có được định vị lại khi các phần được nhập hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Set Pivot of Imported Parts",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Core GUI in Explorer while Playing": {
-    "documentation": "Nếu được thiết lập là true, <code>CoreGui</code> sẽ hiển thị trong Explorer trong khi trò chơi đang chạy.",
+    "documentation": "Nếu được đặt thành true, <code>CoreGui</code> sẽ hiển thị trong Explorer trong khi game đang chạy.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Core GUI in Explorer while Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Diagnostics Bar": {
-    "documentation": "Nếu được thiết lập là true, thông tin chẩn đoán cơ bản sẽ được hiển thị ở góc dưới bên phải.",
+    "documentation": "Nếu được đặt thành true, thông tin chẩn đoán cơ bản sẽ được hiển thị ở góc dưới bên phải.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Diagnostics Bar",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show FileSyncService": {
-    "documentation": "Điều khiển xem FileSyncService có được hiển thị trong bảng Explorer hay không.",
+    "documentation": "Kiểm soát xem FileSyncService có được hiển thị trong bảng Explorer hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show FileSyncService",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hidden Objects in Explorer": {
-    "documentation": "Điều khiển xem các đối tượng ẩn có được hiển thị trong bảng Explorer hay không.",
+    "documentation": "Kiểm soát xem các đối tượng ẩn có được hiển thị trong bảng Explorer hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hidden Objects in Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hover Over": {
-    "documentation": "Nếu được thiết lập là true, việc di chuột qua một đối tượng trong <code>Workspace</code> sẽ hiển thị hộp chọn.",
+    "documentation": "Nếu được đặt thành true, việc di chuột qua một đối tượng trong <code>Workspace</code> sẽ hiển thị một hộp chọn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hover Over",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Light Guides": {
-    "documentation": "Điều khiển xem các hình ảnh hướng dẫn ánh sáng có được hiển thị trong viewport hay không.",
+    "documentation": "Kiểm soát xem các hình ảnh hướng dẫn ánh sáng có được hiển thị trong viewport hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Light Guides",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Labels": {
-    "documentation": "Điều khiển xem các nhãn vùng lưới điều hướng có được hiển thị trong viewport hay không.",
+    "documentation": "Kiểm soát xem các nhãn vùng lưới điều hướng có được hiển thị trong viewport hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Labels",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Mesh": {
-    "documentation": "Khi được thiết lập là true, lưới điều hướng được sử dụng bởi <code>PathfindingService</code> sẽ được hiển thị.",
+    "documentation": "Khi được đặt thành true, lưới điều hướng được sử dụng bởi <code>PathfindingService</code> sẽ được hiển thị.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Mesh",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Pathfinding Links": {
-    "documentation": "Điều khiển xem các hình ảnh PathfindingLink có được hiển thị trong viewport hay không.",
+    "documentation": "Kiểm soát xem các hình ảnh PathfindingLink có được hiển thị trong viewport hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Pathfinding Links",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Plugin GUI Service in Explorer": {
-    "documentation": "Khi được thiết lập là true, <code>PluginGuiService</code> sẽ được hiển thị trong trình duyệt của Roblox Studio.",
+    "documentation": "Khi được đặt thành true, <code>PluginGuiService</code> sẽ được hiển thị trong trình duyệt của Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Plugin GUI Service in Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show plus button on hover in Explorer": {
-    "documentation": "Điều khiển xem nút cộng có xuất hiện khi di chuột qua các mục trong Explorer hay không.",
+    "documentation": "Kiểm soát xem nút cộng có xuất hiện khi di chuột qua các mục trong Explorer hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show plus button on hover in Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Singly Selected Attachment Parent Frame": {
-    "documentation": "Điều khiển xem khung phần cha có được hiển thị khi một gắn kết đơn lẻ được chọn hay không.",
+    "documentation": "Kiểm soát xem khung phần cha có được hiển thị khi một gắn kết đơn lẻ được chọn hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Singly Selected Attachment Parent Frame",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Whitespace": {
-    "documentation": "Điều khiển xem các ký tự khoảng trắng có được hiển thị dưới dạng glyphs có thể nhìn thấy trong trình soạn thảo kịch bản hay không.",
+    "documentation": "Kiểm soát xem các ký tự khoảng trắng có được hiển thị dưới dạng glyphs có thể nhìn thấy trong trình soạn thảo kịch bản hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Whitespace",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ShowCorePackagesInExplorer": {
-    "documentation": "Điều khiển xem các gói lõi có được hiển thị trong bảng Explorer hay không.",
+    "documentation": "Kiểm soát xem các gói lõi có được hiển thị trong bảng Explorer hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ShowCorePackagesInExplorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Skip Closing Brackets and Quotes": {
-    "documentation": "Điều khiển xem con trỏ có bỏ qua một dấu ngoặc đóng hoặc dấu nháy đã được gõ nếu một cái đã tồn tại hay không.",
+    "documentation": "Kiểm soát xem con trỏ có bỏ qua một dấu ngoặc đóng hoặc dấu nháy đã được gõ nếu một cái đã tồn tại hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Skip Closing Brackets and Quotes",
     "code_sample": ""
   },
@@ -39651,22 +39627,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Wrapping": {
-    "documentation": "Nếu được thiết lập là true, văn bản trong trình soạn thảo kịch bản sẽ được bọc.",
+    "documentation": "Nếu được đặt thành true, văn bản trong trình soạn thảo kịch bản sẽ được bọc.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Wrapping",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Theme": {
-    "documentation": "Kiểm soát xem Studio có sử dụng ứng dụng mặc định của hệ thống để mở các kịch bản bên ngoài hay không.",
+    "documentation": "Được sử dụng để lấy/đặt <code>theme</code> hiện tại được sử dụng bởi Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Theme",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.TypeColor": {
-    "documentation": "Đặt màu của tay kéo trục V trong tay kéo của Studio.",
+    "documentation": "Đặt màu của các chú thích kiểu trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#TypeColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.UI Theme": {
-    "documentation": "<strong>Deprecated:</strong> <br>Chỉ định màu của đường gạch chân sóng khi trình phân tích kịch bản phát hiện một vấn đề cần được giải quyết trong trình soạn thảo kịch bản.",
+    "documentation": "<strong>Deprecated:</strong> <br>Chỉ định sơ đồ màu của Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#UI Theme",
     "code_sample": ""
   },
@@ -39681,32 +39657,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.VAxisColor": {
-    "documentation": "Đặt màu cho tay cầm trục V trong các tay cầm kéo của Studio.",
+    "documentation": "Đặt màu của tay cầm trục V trong các tay cầm kéo của Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#VAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "Xác định màu của đường gạch dưới lượn sóng hiển thị khi trình phân tích kịch bản nhận thấy có vấn đề cần được giải quyết trong trình biên tập kịch bản.",
+    "documentation": "Chỉ định màu của đường gạch chân sóng khi trình phân tích kịch bản phát hiện một vấn đề cần được giải quyết trong trình soạn thảo kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Whitespace Color": {
-    "documentation": "Sets the color of visible whitespace characters in the script editor.",
+    "documentation": "Kiểm soát xem các tay cầm di chuyển có được đặt ở các cạnh của hộp bao hay không thay vì ở điểm pivot.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Whitespace Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.XAxisColor": {
-    "documentation": "Sets the color of the X axis handle in Studio's draggers.",
+    "documentation": "Kiểm soát xem Studio có sử dụng ứng dụng mặc định của hệ thống để mở các kịch bản bên ngoài hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#XAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.YAxisColor": {
-    "documentation": "Sets the color of the Y axis handle in Studio's draggers.",
+    "documentation": "Đặt màu cho tay cầm trục V trong các tay cầm kéo của Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#YAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ZAxisColor": {
-    "documentation": "Đặt màu của tay cầm trục Z trong các công cụ kéo của Studio.",
+    "documentation": "Xác định màu của đường gạch dưới lượn sóng hiển thị khi trình phân tích kịch bản nhận thấy có vấn đề cần được giải quyết trong trình biên tập kịch bản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ZAxisColor",
     "code_sample": ""
   },
@@ -46167,8 +46143,39 @@
   },
   "@roblox/globaltype/UIGradient": {
     "documentation": "Áp dụng một gradient màu sắc và độ trong suốt cho các phần tử UI được hiển thị bởi <code>GuiObject</code> cha.",
-    "keys": {},
+    "keys": {
+      "Color": "@roblox/globaltype/UIGradient.Color",
+      "Enabled": "@roblox/globaltype/UIGradient.Enabled",
+      "Offset": "@roblox/globaltype/UIGradient.Offset",
+      "Rotation": "@roblox/globaltype/UIGradient.Rotation",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Color": {
+    "documentation": "Xác định màu sắc được pha trộn với GuiObject cha dọc theo chiều dài của the gradient.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Enabled": {
+    "documentation": "Liệu gradient có được kích hoạt hay không.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Offset": {
+    "documentation": "Xác định phép dịch tỉ lệ của gradient từ trung tâm của GuiObject cha.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Rotation": {
+    "documentation": "Xác định độ xoay theo chiều kim đồng hồ tính bằng độ của gradient bắt đầu từ trái sang phải.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Transparency": {
+    "documentation": "Xác định mức độ mà GuiObject cha có thể nhìn thấy qua dọc theo chiều dài của gradient.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -91623,7 +91630,9 @@
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
-      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState"
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
+      "Fire": "@roblox/globaltype/InputAction.Fire",
+      "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
     "code_sample": ""
@@ -91666,6 +91675,312 @@
   "@roblox/globaltype/InputAction.ViewportPositionState": {
     "documentation": "Thuộc tính chỉ đọc không thể lập trình hữu ích cho việc gỡ lỗi các hành động đầu vào <code>ViewportPosition</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Fire/param/0": {
+    "documentation": "Định nghĩa một cơ chế hành động trong trò chơi. Những hành động này sau đó được ánh xạ đến các đầu vào phần cứng sử dụng <code>InputBinding</code>."
+  },
+  "@roblox/globaltype/InputAction.Fire/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InputAction.Fire": {
+    "documentation": "<strong>Deprecated:</strong> Sử dụng <code>InputBinding:Fire()</code> với một <code>Scriptable</code> để thay thế.<br>Cập nhật <code>InputAction</code> đến trạng thái đã cho và kích hoạt các tín hiệu thích hợp.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
+      },
+      {
+        "name": "state",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Fire",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.GetState/param/0": {
+    "documentation": "Định nghĩa một cơ chế hành động trong trò chơi. Những hành động này sau đó được ánh xạ đến các đầu vào phần cứng sử dụng <code>InputBinding</code>."
+  },
+  "@roblox/globaltype/InputAction.GetState/return/0": {
+    "documentation": "Trạng thái hiện tại của <code>InputAction</code>."
+  },
+  "@roblox/globaltype/InputAction.GetState": {
+    "documentation": "Trả về trạng thái hiện tại của <code>InputAction</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.GetState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InputAction.GetState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#GetState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/1": {
+    "documentation": "Hàm callback được gọi mỗi khi sự kiện xảy ra."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1": {
+    "documentation": "Hàm callback được gọi khi sự kiện xảy ra trong một ngữ cảnh thực thi song song."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/1": {
+    "documentation": "Hàm callback được gọi lần tiếp theo khi sự kiện xảy ra, sau đó nó sẽ tự động ngắt kết nối."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed": {
+    "documentation": "Kích hoạt chỉ khi <code>InputAction.Type</code> được đặt thành <code>Bool</code> trong một chuyển tiếp trạng thái từ <code>false</code> sang <code>true</code>.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Pressed.Once",
+      "Wait": "@roblox/globaltype/InputAction.Pressed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Pressed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/1": {
+    "documentation": "Hàm callback được gọi mỗi khi sự kiện xảy ra."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1": {
+    "documentation": "Hàm callback được gọi khi sự kiện xảy ra trong một ngữ cảnh thực thi song song."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/1": {
+    "documentation": "Hàm callback được gọi lần tiếp theo khi sự kiện xảy ra, sau đó nó sẽ tự động ngắt kết nối."
+  },
+  "@roblox/globaltype/InputAction.Released.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.Released.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released": {
+    "documentation": "Kích hoạt chỉ khi <code>InputAction.Type</code> được đặt thành <code>Bool</code> trong một chuyển tiếp trạng thái từ <code>true</code> sang <code>false</code>.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Released.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Released.Once",
+      "Wait": "@roblox/globaltype/InputAction.Released.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Released",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/1": {
+    "documentation": "Hàm callback được gọi mỗi khi sự kiện xảy ra."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1": {
+    "documentation": "Hàm callback được gọi khi sự kiện xảy ra trong một ngữ cảnh thực thi song song."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/1": {
+    "documentation": "Hàm callback được gọi lần tiếp theo khi sự kiện xảy ra, sau đó nó sẽ tự động ngắt kết nối."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged": {
+    "documentation": "Kích hoạt cho tất cả các loại <code>InputActionType</code> bất cứ khi nào trạng thái thay đổi, trừ khi trạng thái cố gắng chuyển tiếp đến cùng một trạng thái.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.StateChanged.Once",
+      "Wait": "@roblox/globaltype/InputAction.StateChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#StateChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
@@ -95755,6 +96070,182 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": "Hàm callback được gọi mỗi khi sự kiện xảy ra."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Hàm callback được gọi khi sự kiện xảy ra trong một ngữ cảnh thực thi song song."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": "Hàm callback được gọi lần tiếp theo khi sự kiện xảy ra, sau đó nó sẽ tự động ngắt kết nối."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "Kích hoạt khi trạng thái kiểm duyệt của tài sản avatar được tạo trong trải nghiệm đã được cập nhật từ trạng thái đang chờ.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1": {
+    "documentation": "Hàm callback được gọi mỗi khi sự kiện xảy ra."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Hàm callback được gọi khi sự kiện xảy ra trong một ngữ cảnh thực thi song song."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1": {
+    "documentation": "Hàm callback được gọi lần tiếp theo khi sự kiện xảy ra, sau đó nó sẽ tự động ngắt kết nối."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
+    "documentation": "Kích hoạt khi trạng thái kiểm duyệt của avatar được tạo trong trải nghiệm đã được cập nhật từ trạng thái đang chờ.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarModerationCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HeightmapImporterService": {
     "documentation": "",
     "keys": {},
@@ -99390,7 +99881,7 @@
     "documentation": "Kết quả của việc trình bày quảng cáo của khách hàng từ <code>ShowAdResult</code>. Bạn không nên sử dụng kết quả này để cấp thưởng. Thay vào đó, bạn nên cấp thưởng từ thực hiện của bạn <code>ProcessReceipt</code>. Đối với <a href=\"../../../production/monetization/developer-products.md\">sản phẩm phát triển</a> hưởng được thông qua quảng cáo video được thưởng, <code>ProductPurchaseChannel</code> sẽ là <code>ProductPurchaseChannel.AdReward</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "Phát quảng cáo video cho người dùng hiện tại trong trải nghiệm.",
+    "documentation": "Phát video quảng cáo cho người dùng hiện tại trong trải nghiệm. <pre><code>**Cảnh báo**: Quảng cáo Video có thưởng phải được người dùng đồng ý và được công khai rõ ràng. Để biết thêm chi tiết, hãy xem [các yêu cầu đủ điều kiện](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements) và [tiêu chuẩn quảng cáo](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards). </code></pre>",
     "params": [
       {
         "name": "self",
@@ -100376,22 +100867,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.BanningEnabled": {
-    "documentation": "Bật hoặc tắt ba phương thức <code>Players</code> (<code>BanAsync()</code>, <code>UnbanAsync()</code>, và <code>GetBanHistoryAsync()</code>) cấu thành API cấm. Thuộc tính này không thể được thiết lập qua Luau hướng tới nhà phát triển và phải được thiết lập trong Studio thông qua cửa sổ thuộc tính của Players.",
+    "documentation": "Bật hoặc tắt ba phương thức <code>Players</code> (<code>BanAsync()</code>, <code>UnbanAsync()</code>, và <code>GetBanHistoryAsync()</code>) cấu thành API cấm. Thuộc tính này không thể được thiết lập thông qua Luau dành cho nhà phát triển và phải được thiết lập trong Studio thông qua cửa sổ thuộc tính Players.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#BanningEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.BubbleChat": {
-    "documentation": "Cho biết liệu trò chuyện bong bóng có được kích hoạt hay không. Nó được thiết lập bằng phương thức <code>Players:SetChatStyle()</code>.",
+    "documentation": "Chỉ ra liệu trò chuyện bong bóng có được bật hay không. Nó được thiết lập bằng phương thức <code>Players:SetChatStyle()</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#BubbleChat",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.CharacterAutoLoads": {
-    "documentation": "Cho biết liệu <code>characters</code> sẽ tự động tái sinh hay không.",
+    "documentation": "Chỉ ra liệu <code>characters</code> có tự động hồi sinh hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CharacterAutoLoads",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.ClassicChat": {
-    "documentation": "Cho biết liệu trò chuyện cổ điển có được kích hoạt hay không; được thiết lập bởi phương thức <code>Players:SetChatStyle()</code>.",
+    "documentation": "Chỉ ra liệu trò chuyện cổ điển có được bật hay không; được thiết lập bởi phương thức <code>Players:SetChatStyle()</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#ClassicChat",
     "code_sample": ""
   },
@@ -100401,22 +100892,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.localPlayer": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này là một biến thể đã bị loại bỏ của <code>Players.LocalPlayer</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này là một biến thể đã lỗi thời của <code>Players.LocalPlayer</code> mà nên được sử dụng thay thế.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#localPlayer",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.MaxPlayers": {
-    "documentation": "Số lượng tối đa người chơi có thể có trên một máy chủ.",
+    "documentation": "Số lượng tối đa người chơi có thể có trong một máy chủ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#MaxPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.NumPlayers": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã bị loại bỏ. Thay vào đó, bạn nên đếm số lượng người chơi được trả về bởi <code>Players:GetPlayers()</code>.<br>Trả về số người trong máy chủ tại thời điểm hiện tại.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã lỗi thời. Thay vì sử dụng mục này, bạn nên đếm số lượng người chơi được trả về bởi <code>Players:GetPlayers()</code>.<br>Trả về số lượng người trong máy chủ tại thời điểm hiện tại.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#NumPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.numPlayers": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này là một biến thể đã bị loại bỏ của <code>Players.NumPlayers</code> cũng đã bị loại bỏ. Cả hai thuộc tính này không nên được sử dụng trong công việc mới. Thay vào đó, bạn nên đếm số lượng người chơi được trả về bởi <code>Players:GetPlayers()</code>.<br>Trả về số người trong máy chủ tại thời điểm hiện tại.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này là một biến thể đã lỗi thời của <code>Players.NumPlayers</code> mà cũng đã bị lỗi thời. Không thuộc tính nào nên được sử dụng trong công việc mới. Thay vào đó, bạn nên đếm số lượng người chơi được trả về bởi <code>Players:GetPlayers()</code>.<br>Trả về số lượng người trong máy chủ tại thời điểm hiện tại.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#numPlayers",
     "code_sample": ""
   },
@@ -100426,7 +100917,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.RespawnTime": {
-    "documentation": "Điều khiển thời gian cần thiết để nhân vật của người chơi tái sinh.",
+    "documentation": "Điều khiển thời gian cần thiết để nhân vật của người chơi hồi sinh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#RespawnTime",
     "code_sample": ""
   },
@@ -100439,10 +100930,10 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.BanAsync/param/1": {
-    "documentation": "<ul> <li> <code>UserIds</code> (bắt buộc; mảng) — Mảng các <code>UserIds</code>   của người chơi sẽ bị cấm. Kích thước tối đa là <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (tùy chọn; boolean) — Liệu lệnh cấm có lan truyền đến   tất cả các nơi trong vũ trụ trải nghiệm hay không. Mặc định là <code>true</code>. </li> <li> <code>Duration</code> (bắt buộc; số nguyên) — Thời gian của lệnh cấm, tính bằng giây.   Các lệnh cấm vĩnh viễn nên có giá trị là <code>-1</code>. <code>0</code> và tất cả các giá trị âm khác   đều không hợp lệ. </li> <li> <code>DisplayReason</code> (bắt buộc; chuỗi) — Thông điệp sẽ được   hiển thị cho người dùng khi họ cố gắng và không thành công để tham gia vào   một trải nghiệm. Độ dài chuỗi tối đa là <code>400</code>. </li> <li> <code>PrivateReason</code> (bắt buộc; chuỗi) — Tin nhắn nội bộ sẽ được   trả về khi truy vấn lịch sử cấm của người dùng. Độ dài chuỗi tối đa   là <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (tùy chọn; boolean) — Khi <code>true</code>, Roblox không   cố gắng cấm các tài khoản thay thế. Mặc định là <code>false</code>. </li> <li> <code>ApplyDeviceBlock</code> (tùy chọn; boolean) — Khi <code>true</code>, Roblox sẽ   chặn thiết bị của người dùng bị cấm khỏi việc tham gia lại trải nghiệm trong 24   giờ sau khi lệnh cấm được áp dụng. Mặc định là <code>false</code>. Việc chặn có thể được   ghi đè bằng cách gỡ bỏ lệnh cấm cho một người dùng thông qua cuộc gọi đến   <code>Players:UnbanAsync()</code>. Lưu ý rằng việc gỡ bỏ lệnh cấm cho một người dùng thông qua bất kỳ   phương thức nào khác sẽ không gỡ bỏ việc chặn thiết bị. </li> </ul>"
+    "documentation": "<ul> <li> <code>UserIds</code> (bắt buộc; mảng) — Mảng các <code>UserIds</code>   của người chơi sẽ bị cấm. Kích thước tối đa là <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (tùy chọn; boolean) — Liệu lệnh cấm có lan truyền đến   tất cả các địa điểm trong vũ trụ trải nghiệm hay không. Mặc định là <code>true</code>. </li> <li> <code>Duration</code> (bắt buộc; số nguyên) — Thời gian của lệnh cấm, tính bằng giây.   Các lệnh cấm vĩnh viễn nên có giá trị là <code>-1</code>. <code>0</code> và tất cả các giá trị âm khác   đều không hợp lệ. </li> <li> <code>DisplayReason</code> (bắt buộc; chuỗi) — Thông điệp sẽ được   hiển thị cho người dùng khi họ cố gắng và không thành công để tham gia vào   trải nghiệm. Độ dài chuỗi tối đa là <code>400</code>. </li> <li> <code>PrivateReason</code> (bắt buộc; chuỗi) — Tin nhắn nội bộ sẽ được   trả về khi truy vấn lịch sử lệnh cấm của người dùng. Độ dài chuỗi tối đa   là <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (tùy chọn; boolean) — Khi <code>true</code>, Roblox không   cố gắng cấm các tài khoản thay thế. Mặc định là <code>false</code>. </li> <li> <code>ApplyDeviceBlock</code> (tùy chọn; boolean) — Khi <code>true</code>, Roblox sẽ   chặn thiết bị của người dùng bị cấm khỏi việc tham gia lại trải nghiệm trong 24   giờ sau khi lệnh cấm được áp dụng. Mặc định là <code>false</code>. Việc chặn có thể   bị ghi đè bằng cách gỡ bỏ lệnh cấm cho một người dùng thông qua cuộc gọi đến   <code>Players:UnbanAsync()</code>. Lưu ý rằng việc gỡ bỏ lệnh cấm cho một người dùng thông qua bất kỳ   phương thức nào khác sẽ không dỡ bỏ việc chặn thiết bị. </li> </ul>"
   },
   "@roblox/globaltype/Players.BanAsync": {
-    "documentation": "Cấm người dùng khỏi trải nghiệm của bạn, với các tùy chọn để chỉ định thời gian, lý do, liệu lệnh cấm áp dụng cho toàn bộ vũ trụ hay chỉ cho nơi hiện tại, và nhiều hơn nữa. Phương thức này được bật và tắt bởi thuộc tính <code>Players.BanningEnabled</code>, mà bạn có thể chuyển đổi trong Studio.",
+    "documentation": "Cấm người dùng khỏi trải nghiệm của bạn, với tùy chọn chỉ định thời gian, lý do, liệu lệnh cấm áp dụng cho toàn bộ vũ trụ hay chỉ cho địa điểm hiện tại, và nhiều hơn nữa. Phương thức này được bật và tắt bởi thuộc tính <code>Players.BanningEnabled</code>, mà bạn có thể chuyển đổi trong Studio.",
     "params": [
       {
         "name": "self",
@@ -100461,10 +100952,10 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.Chat/param/1": {
-    "documentation": "Thông điệp đang được trò chuyện."
+    "documentation": "Thông điệp đã được trò chuyện."
   },
   "@roblox/globaltype/Players.Chat": {
-    "documentation": "Giúp người chơi địa phương trò chuyện thông điệp đã cho.",
+    "documentation": "Khiến người chơi địa phương trò chuyện với thông điệp đã cho.",
     "params": [
       {
         "name": "self",
@@ -100492,10 +100983,10 @@
     "documentation": "Chế độ xác minh loại tài sản."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/return/0": {
-    "documentation": "Một <code>Humanoid</code> nhân vật <code>Model</code>."
+    "documentation": "Một nhân vật <code>Humanoid</code> <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị vượt qua bởi <code>CreateHumanoidModelFromDescriptionAsync()</code>.<br>Trả về một <code>Model</code> nhân vật được trang bị tất cả mọi thứ được chỉ định trong <code>HumanoidDescription</code> được truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>CreateHumanoidModelFromDescriptionAsync()</code>.<br>Trả về một nhân vật <code>Model</code> được trang bị mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -100533,10 +101024,10 @@
     "documentation": "Chế độ xác minh loại tài sản."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/return/0": {
-    "documentation": "Một <code>Humanoid</code> nhân vật <code>Model</code>."
+    "documentation": "Một nhân vật <code>Humanoid</code> <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
-    "documentation": "Trả về một nhân vật <code>Model</code> được trang bị mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã được truyền vào. Nếu <code>UseAvatarSettings</code> được đặt thành true, Cài đặt Avatar trong trải nghiệm sẽ được áp dụng cho mô hình được trả về.",
+    "documentation": "Trả về một nhân vật <code>Model</code> được trang bị mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã truyền vào. Nếu <code>UseAvatarSettings</code> được đặt thành true, Cài đặt Avatar trong trải nghiệm sẽ được áp dụng cho mô hình được trả về.",
     "params": [
       {
         "name": "self",
@@ -100565,13 +101056,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/1": {
-    "documentation": "ID người dùng cho một người dùng Roblox. (UserId là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
+    "documentation": "ID người dùng cho một người dùng Roblox. (ID người dùng là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0": {
     "documentation": "Một mô hình nhân vật Humanoid."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị vượt qua bởi <code>CreateHumanoidModelFromUserIdAsync()</code>.<br>Trả về một mô hình nhân vật được thiết lập với mọi thứ trang bị để phù hợp với avatar của người dùng được chỉ định bởi <code>userId</code> được truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>CreateHumanoidModelFromUserIdAsync()</code>.<br>Trả về một mô hình nhân vật được thiết lập với mọi thứ được trang bị để phù hợp với avatar của người dùng được chỉ định bởi <code>userId</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -100592,13 +101083,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/param/1": {
-    "documentation": "ID người dùng cho một người dùng Roblox. (UserId là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
+    "documentation": "ID người dùng cho một người dùng Roblox. (ID người dùng là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0": {
     "documentation": "Một mô hình nhân vật Humanoid."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync": {
-    "documentation": "Trả về một mô hình nhân vật được thiết lập với mọi thứ trang bị để phù hợp với avatar của người dùng được chỉ định bởi <code>userId</code> được truyền vào.",
+    "documentation": "Trả về một mô hình nhân vật được thiết lập với mọi thứ được trang bị để phù hợp với avatar của người dùng được chỉ định bởi <code>userId</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -100619,10 +101110,10 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/1": {
-    "documentation": "<code>Player.UserId</code> của người chơi mà bạn muốn lấy lịch sử cấm."
+    "documentation": "ID <code>Player.UserId</code> của người chơi mà bạn muốn lấy lịch sử cấm."
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/return/0": {
-    "documentation": "Xem <code>BanHistoryPages</code> để biết tham chiếu trả về."
+    "documentation": "Xem <code>BanHistoryPages</code> để tham khảo trả về."
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync": {
     "documentation": "Lấy lịch sử cấm và gỡ bỏ cấm của bất kỳ người dùng nào trong vũ trụ của trải nghiệm. Phương thức này được bật và tắt bởi thuộc tính <code>Players.BanningEnabled</code>, mà bạn có thể chuyển đổi trong Studio.",
@@ -100652,7 +101143,7 @@
     "documentation": "Một <code>Model</code> chứa các tài sản mà người chơi đang mặc, không bao gồm thiết bị."
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceAsync": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị ngừng hỗ trợ. Không sử dụng nó cho công việc mới.<br>Trả về một <code>Model</code> chứa các tài sản mà người chơi đang mặc, không bao gồm thiết bị.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã lỗi thời. Không sử dụng nó cho công việc mới.<br>Trả về một <code>Model</code> chứa các tài sản mà người chơi đang mặc, không bao gồm thiết bị.",
     "params": [
       {
         "name": "self",
@@ -100673,7 +101164,7 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceInfoAsync/param/1": {
-    "documentation": "ID_USER của người chơi được chỉ định."
+    "documentation": "ID <em>userId</em> của người chơi được chỉ định."
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceInfoAsync/return/0": {
     "documentation": "Một từ điển chứa thông tin về ngoại hình nhân vật của một người dùng nhất định."
@@ -100700,13 +101191,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetFriendsAsync/param/1": {
-    "documentation": "ID người dùng của người chơi đang được chỉ định."
+    "documentation": "ID người dùng của người chơi được chỉ định."
   },
   "@roblox/globaltype/Players.GetFriendsAsync/return/0": {
-    "documentation": "Một đối tượng <code>FriendPages</code> chứa thông tin cho tất cả bạn bè của người dùng đã cho."
+    "documentation": "Một đối tượng <code>FriendPages</code> chứa thông tin cho tất cả các bạn bè của người dùng đã cho."
   },
   "@roblox/globaltype/Players.GetFriendsAsync": {
-    "documentation": "Trả về một đối tượng <code>FriendPages</code> chứa thông tin cho tất cả bạn bè của người chơi đã cho.",
+    "documentation": "Trả về một đối tượng <code>FriendPages</code> chứa thông tin cho tất cả các bạn bè của người chơi đã cho.",
     "params": [
       {
         "name": "self",
@@ -100730,10 +101221,10 @@
     "documentation": "ID của trang phục mà HumanoidDescription đang được tìm kiếm."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId/return/0": {
-    "documentation": "HumanoidDescription được khởi tạo với thông số cho <code>outfitId</code> đã truyền."
+    "documentation": "HumanoidDescription được khởi tạo với thông số cho <code>outfitId</code> đã truyền vào."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị vượt qua bởi <code>GetHumanoidDescriptionFromOutfitIdAsync()</code>.<br>Trả về HumanoidDescription cho một trang phục được chỉ định, sẽ được thiết lập với các phần/màu sắc/Hoạt hình v.v. của trang phục.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetHumanoidDescriptionFromOutfitIdAsync()</code>.<br>Trả về HumanoidDescription cho một trang phục được chỉ định, sẽ được thiết lập với các bộ phận/màu sắc/hoạt ảnh v.v. của trang phục.",
     "params": [
       {
         "name": "self",
@@ -100757,10 +101248,10 @@
     "documentation": "ID của trang phục mà HumanoidDescription đang được tìm kiếm."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/return/0": {
-    "documentation": "HumanoidDescription được khởi tạo với thông số cho <code>outfitId</code> đã truyền."
+    "documentation": "HumanoidDescription được khởi tạo với thông số cho <code>outfitId</code> đã truyền vào."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync": {
-    "documentation": "Trả về HumanoidDescription cho một trang phục được chỉ định, sẽ được thiết lập với các phần/màu sắc/Hoạt hình v.v. của trang phục.",
+    "documentation": "Trả về HumanoidDescription cho một trang phục được chỉ định, sẽ được thiết lập với các bộ phận/màu sắc/hoạt ảnh v.v. của trang phục.",
     "params": [
       {
         "name": "self",
@@ -100781,13 +101272,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/1": {
-    "documentation": "ID người dùng cho một người dùng Roblox. (UserId là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
+    "documentation": "ID người dùng cho một người dùng Roblox. (ID người dùng là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0": {
-    "documentation": "HumanoidDescription được khởi tạo với thông số cho avatar của người dùng đã truyền."
+    "documentation": "HumanoidDescription được khởi tạo với thông số cho avatar của người dùng đã truyền vào."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị vượt qua bởi <code>GetHumanoidDescriptionFromUserIdAsync()</code>.<br>Trả về một HumanoidDescription chỉ định mọi thứ đã trang bị cho avatar của người dùng được chỉ định bởi <code>userId</code> đã truyền.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetHumanoidDescriptionFromUserIdAsync()</code>.<br>Trả về một HumanoidDescription chỉ định mọi thứ được trang bị cho avatar của người dùng được chỉ định bởi <code>userId</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -100808,13 +101299,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/param/1": {
-    "documentation": "ID người dùng cho một người dùng Roblox. (UserId là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
+    "documentation": "ID người dùng cho một người dùng Roblox. (ID người dùng là số trong hồ sơ của người dùng ví dụ www.roblox.com/users/1/profile)."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0": {
-    "documentation": "HumanoidDescription được khởi tạo với thông số cho avatar của người dùng đã truyền."
+    "documentation": "HumanoidDescription được khởi tạo với thông số cho avatar của người dùng đã truyền vào."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync": {
-    "documentation": "Trả về một HumanoidDescription chỉ định mọi thứ đã trang bị cho avatar của người dùng được chỉ định bởi <code>userId</code> đã truyền.",
+    "documentation": "Trả về một HumanoidDescription chỉ định mọi thứ được trang bị cho avatar của người dùng được chỉ định bởi <code>userId</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -100835,10 +101326,10 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/1": {
-    "documentation": "ID <code>Player.UserId</code> của người chơi đang được chỉ định."
+    "documentation": "ID <code>Player.UserId</code> của người chơi được chỉ định."
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/return/0": {
-    "documentation": "Tên của một người dùng với <code>Player.UserId</code> được chỉ định."
+    "documentation": "Tên của một người dùng với <code>Player.UserId</code> đã chỉ định."
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync": {
     "documentation": "Gửi một truy vấn đến trang web Roblox để lấy tên người dùng của một tài khoản với <code>UserId</code> đã cho.",
@@ -100862,7 +101353,7 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetPlayerByUserId/param/1": {
-    "documentation": "ID <code>Player.UserId</code> của người chơi đang được chỉ định."
+    "documentation": "ID <code>Player.UserId</code> của người chơi được chỉ định."
   },
   "@roblox/globaltype/Players.GetPlayerByUserId/return/0": {
     "documentation": "Người chơi <code>Player</code> với <code>Player.UserId</code> đã cho, hoặc <code>nil</code> nếu không có người chơi kết nối nào có UserId đó."
@@ -100889,13 +101380,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetPlayerFromCharacter/param/1": {
-    "documentation": "Một instance nhân vật mà bạn muốn lấy người chơi từ đó."
+    "documentation": "Một thể hiện nhân vật mà bạn muốn lấy người chơi từ đó."
   },
   "@roblox/globaltype/Players.GetPlayerFromCharacter/return/0": {
-    "documentation": "Người chơi <code>Player</code> mà <code>Player.Character</code> của họ khớp với mô hình đã cho, hoặc <code>nil</code> nếu không thể tìm thấy."
+    "documentation": "Người chơi <code>Player</code> mà <code>Player.Character</code> khớp với mô hình đã cho, hoặc <code>nil</code> nếu không thể tìm thấy."
   },
   "@roblox/globaltype/Players.GetPlayerFromCharacter": {
-    "documentation": "Trả về <code>Player</code> có <code>Player.Character</code> khớp với instance đã cho, hoặc <code>nil</code> nếu không tìm thấy.",
+    "documentation": "Trả về <code>Player</code> mà <code>Player.Character</code> khớp với thể hiện đã cho, hoặc <code>nil</code> nếu không thể tìm thấy.",
     "params": [
       {
         "name": "self",
@@ -100916,7 +101407,7 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetPlayers/return/0": {
-    "documentation": "Một bảng chứa tất cả các người chơi trong máy chủ."
+    "documentation": "Một bảng chứa tất cả người chơi trong máy chủ."
   },
   "@roblox/globaltype/Players.GetPlayers": {
     "documentation": "Trả về một bảng chứa tất cả các đối tượng <code>Player</code> hiện đang kết nối.",
@@ -100939,7 +101430,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.getPlayers": {
-    "documentation": "<strong>Deprecated:</strong> Chức năng này là một biến thể đã bị loại bỏ của <code>Players:GetPlayers()</code> được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Hàm này là một biến thể đã lỗi thời của <code>Players:GetPlayers()</code> được sử dụng thay thế.",
     "params": [
       {
         "name": "self",
@@ -100956,13 +101447,13 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetProfileConfigurationFromUserIdAsync/param/1": {
-    "documentation": "<code>Player.UserId</code> của người dùng mà bạn muốn lấy cấu hình hồ sơ."
+    "documentation": "ID <code>Player.UserId</code> của người dùng mà bạn muốn lấy cấu hình hồ sơ."
   },
   "@roblox/globaltype/Players.GetProfileConfigurationFromUserIdAsync/return/0": {
     "documentation": "Một từ điển chứa cấu hình hồ sơ của người dùng, chẳng hạn như ID tài sản nền."
   },
   "@roblox/globaltype/Players.GetProfileConfigurationFromUserIdAsync": {
-    "documentation": "Trả về cấu hình hồ sơ của một người dùng dưới dạng từ điển.",
+    "documentation": "Trả về cấu hình hồ sơ của một người dùng dưới dạng một từ điển.",
     "params": [
       {
         "name": "self",
@@ -100986,7 +101477,7 @@
     "documentation": "Tên người dùng của người chơi được chỉ định."
   },
   "@roblox/globaltype/Players.GetUserIdFromNameAsync/return/0": {
-    "documentation": "<code>Player.UserId</code> của một người dùng có tên đã chỉ định."
+    "documentation": "ID <code>Player.UserId</code> của một người dùng có tên đã chỉ định."
   },
   "@roblox/globaltype/Players.GetUserIdFromNameAsync": {
     "documentation": "Gửi một truy vấn đến trang web Roblox để lấy <code>userId</code> của một tài khoản với tên người dùng đã cho.",
@@ -101010,7 +101501,7 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.GetUserThumbnailAsync/param/1": {
-    "documentation": "<code>Player.UserId</code> của người chơi được chỉ định."
+    "documentation": "ID <code>Player.UserId</code> của người chơi được chỉ định."
   },
   "@roblox/globaltype/Players.GetUserThumbnailAsync/param/2": {
     "documentation": "Một <code>ThumbnailType</code> mô tả loại hình thu nhỏ."
@@ -101101,7 +101592,7 @@
     "documentation": "Phong cách trò chuyện được chỉ định đang được thiết lập."
   },
   "@roblox/globaltype/Players.SetChatStyle": {
-    "documentation": "Thiết lập liệu BubbleChat và ClassicChat đang được sử dụng hay không, và cho TeamChat và <code>Chat</code> biết phải làm gì.",
+    "documentation": "Thiết lập liệu BubbleChat và ClassicChat đang được sử dụng, và cho TeamChat và <code>Chat</code> biết phải làm gì.",
     "params": [
       {
         "name": "self",
@@ -101142,7 +101633,7 @@
     "documentation": "Một dịch vụ chứa các đối tượng <code>Player</code> hiện đang kết nối."
   },
   "@roblox/globaltype/Players.UnbanAsync/param/1": {
-    "documentation": "<table><thead> <tr>   <th>Tên</th>   <th>Loại</th>   <th>Mô tả</th> </tr></thead> <tbody>   <tr>     <td><code>UserIds</code></td>     <td>mảng</td>     <td>UserIDs sẽ được phép vào trải nghiệm(s). <br /> <br />Kích thước tối đa là <code>50</code>.</td>   </tr>   <tr>     <td><code>ApplyToUniverse</code></td>     <td>boolean</td>     <td>Lan truyền việc gỡ bỏ lệnh cấm đến tất cả các nơi trong vũ trụ này.<br /></td>   </tr> </tbody> </table>"
+    "documentation": "<table><thead> <tr>   <th>Tên</th>   <th>Loại</th>   <th>Mô tả</th> </tr></thead> <tbody>   <tr>     <td><code>UserIds</code></td>     <td>mảng</td>     <td>ID người dùng sẽ được cho phép vào trải nghiệm(s). <br /> <br />Kích thước tối đa là <code>50</code>.</td>   </tr>   <tr>     <td><code>ApplyToUniverse</code></td>     <td>boolean</td>     <td>Lan truyền việc gỡ bỏ lệnh cấm đến tất cả các địa điểm trong vũ trụ này.<br /></td>   </tr> </tbody> </table>"
   },
   "@roblox/globaltype/Players.UnbanAsync": {
     "documentation": "Gỡ bỏ lệnh cấm cho người chơi bị cấm từ <code>Players:BanAsync()</code> hoặc API User Restrictions Open Cloud. Phương thức này được bật và tắt bởi thuộc tính <code>Players.BanningEnabled</code>, mà bạn có thể chuyển đổi trong Studio.",
@@ -101238,7 +101729,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerAdded": {
-    "documentation": "Kích hoạt khi một người chơi tham gia trải nghiệm.",
+    "documentation": "Kích hoạt khi một người chơi vào trải nghiệm.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerAdded.ConnectParallel",
@@ -101326,7 +101817,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerMembershipChanged": {
-    "documentation": "Kích hoạt khi server trải nghiệm nhận ra rằng tư cách thành viên của một người chơi đã thay đổi.",
+    "documentation": "Kích hoạt khi máy chủ trải nghiệm nhận ra rằng tư cách thành viên của một người chơi đã thay đổi.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerMembershipChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerMembershipChanged.ConnectParallel",
@@ -101502,7 +101993,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "Kích hoạt khi server trải nghiệm nhận ra rằng trạng thái của người dùng cho một đăng ký nhất định đã thay đổi.",
+    "documentation": "Kích hoạt khi máy chủ trải nghiệm nhận ra rằng trạng thái của người dùng cho một đăng ký nhất định đã thay đổi.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",

@@ -5909,7 +5909,7 @@
     "code_sample": ""
   },
   "@roblox/global/SecurityCapabilities.new/param/0": {
-    "documentation": ""
+    "documentation": "Zero or more <code>SecurityCapability</code> values to include in the new set."
   },
   "@roblox/global/SecurityCapabilities.new": {
     "documentation": "Returns a new set of capabilities from zero or more <code>SecurityCapability</code> items.",
@@ -5950,10 +5950,10 @@
     "documentation": "A set of <code>SecurityCapability</code> items. See <a href=\"../../../scripting/capabilities.md\">script capabilities</a>."
   },
   "@roblox/globaltype/SecurityCapabilities.Add/overload/(SecurityCapabilities, SecurityCapability) -> SecurityCapabilities/param/1": {
-    "documentation": ""
+    "documentation": "Zero or more <code>SecurityCapability</code> values to add to the set."
   },
   "@roblox/globaltype/SecurityCapabilities.Add/overload/(SecurityCapabilities, SecurityCapability) -> SecurityCapabilities/return/0": {
-    "documentation": ""
+    "documentation": "A new set containing the union of the original capabilities and the specified additions."
   },
   "@roblox/globaltype/SecurityCapabilities.Add/overload/(SecurityCapabilities, SecurityCapability) -> SecurityCapabilities": {
     "documentation": "Returns a new set of capabilities with zero or more additions.",
@@ -5977,10 +5977,10 @@
     "documentation": "A set of <code>SecurityCapability</code> items. See <a href=\"../../../scripting/capabilities.md\">script capabilities</a>."
   },
   "@roblox/globaltype/SecurityCapabilities.Add/overload/(SecurityCapabilities, SecurityCapabilities) -> SecurityCapabilities/param/1": {
-    "documentation": ""
+    "documentation": "A <code>SecurityCapabilities</code> set whose items are added to the original."
   },
   "@roblox/globaltype/SecurityCapabilities.Add/overload/(SecurityCapabilities, SecurityCapabilities) -> SecurityCapabilities/return/0": {
-    "documentation": ""
+    "documentation": "A new set containing the union of both sets."
   },
   "@roblox/globaltype/SecurityCapabilities.Add/overload/(SecurityCapabilities, SecurityCapabilities) -> SecurityCapabilities": {
     "documentation": "Returns a new set of capabilities with the provided set added.",
@@ -6010,10 +6010,10 @@
     "documentation": "A set of <code>SecurityCapability</code> items. See <a href=\"../../../scripting/capabilities.md\">script capabilities</a>."
   },
   "@roblox/globaltype/SecurityCapabilities.Remove/overload/(SecurityCapabilities, SecurityCapability) -> SecurityCapabilities/param/1": {
-    "documentation": ""
+    "documentation": "Zero or more <code>SecurityCapability</code> values to remove from the set."
   },
   "@roblox/globaltype/SecurityCapabilities.Remove/overload/(SecurityCapabilities, SecurityCapability) -> SecurityCapabilities/return/0": {
-    "documentation": ""
+    "documentation": "A new set with the specified capabilities removed."
   },
   "@roblox/globaltype/SecurityCapabilities.Remove/overload/(SecurityCapabilities, SecurityCapability) -> SecurityCapabilities": {
     "documentation": "Returns a new set of capabilities with zero or more deletions.",
@@ -6037,7 +6037,7 @@
     "documentation": "A set of <code>SecurityCapability</code> items. See <a href=\"../../../scripting/capabilities.md\">script capabilities</a>."
   },
   "@roblox/globaltype/SecurityCapabilities.Remove/overload/(SecurityCapabilities, SecurityCapabilities) -> SecurityCapabilities/param/1": {
-    "documentation": ""
+    "documentation": "A <code>SecurityCapabilities</code> set whose items are removed from the original."
   },
   "@roblox/globaltype/SecurityCapabilities.Remove/overload/(SecurityCapabilities, SecurityCapabilities) -> SecurityCapabilities/return/0": {
     "documentation": ""
@@ -6070,7 +6070,7 @@
     "documentation": "A set of <code>SecurityCapability</code> items. See <a href=\"../../../scripting/capabilities.md\">script capabilities</a>."
   },
   "@roblox/globaltype/SecurityCapabilities.Contains/overload/(SecurityCapabilities, SecurityCapability) -> boolean/param/1": {
-    "documentation": ""
+    "documentation": "Zero or more <code>SecurityCapability</code> values to check for membership in the set."
   },
   "@roblox/globaltype/SecurityCapabilities.Contains/overload/(SecurityCapabilities, SecurityCapability) -> boolean/return/0": {
     "documentation": ""
@@ -6097,7 +6097,7 @@
     "documentation": "A set of <code>SecurityCapability</code> items. See <a href=\"../../../scripting/capabilities.md\">script capabilities</a>."
   },
   "@roblox/globaltype/SecurityCapabilities.Contains/overload/(SecurityCapabilities, SecurityCapabilities) -> boolean/param/1": {
-    "documentation": ""
+    "documentation": "A <code>SecurityCapabilities</code> set to check for membership in the original set."
   },
   "@roblox/globaltype/SecurityCapabilities.Contains/overload/(SecurityCapabilities, SecurityCapabilities) -> boolean/return/0": {
     "documentation": ""
@@ -17182,6 +17182,7 @@
       "AwardBadgeAsync": "@roblox/globaltype/BadgeService.AwardBadgeAsync",
       "CheckUserBadgesAsync": "@roblox/globaltype/BadgeService.CheckUserBadgesAsync",
       "GetBadgeInfoAsync": "@roblox/globaltype/BadgeService.GetBadgeInfoAsync",
+      "GetUserBadgesAsync": "@roblox/globaltype/BadgeService.GetUserBadgesAsync",
       "IsDisabled": "@roblox/globaltype/BadgeService.IsDisabled",
       "IsLegal": "@roblox/globaltype/BadgeService.IsLegal",
       "UserHasBadge": "@roblox/globaltype/BadgeService.UserHasBadge",
@@ -17317,6 +17318,40 @@
       "@roblox/globaltype/BadgeService.GetBadgeInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#GetBadgeInfoAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/BadgeService.GetUserBadgesAsync/param/0": {
+    "documentation": "Provides information on badges and awards them."
+  },
+  "@roblox/globaltype/BadgeService.GetUserBadgesAsync/param/1": {
+    "documentation": "The <code>User</code> of the player to check for ownership of the specified badges."
+  },
+  "@roblox/globaltype/BadgeService.GetUserBadgesAsync/param/2": {
+    "documentation": "The list of IDs of the badges to check ownership of. Maximum length of 100."
+  },
+  "@roblox/globaltype/BadgeService.GetUserBadgesAsync/return/0": {
+    "documentation": "A list of dictionaries, one for each badge the given user owns out of the provided badge IDs. Each dictionary contains a <code>BadgeId</code> and an <code>AwardedDate</code>. Empty if none of the provided badges are owned by the given user. Not guaranteed to be in the same order as the input list. Some badge IDs may be omitted if the user with the target <code>User</code> has not recently been in the server and the badge IDs are not associated with the requesting experience."
+  },
+  "@roblox/globaltype/BadgeService.GetUserBadgesAsync": {
+    "documentation": "Checks a list of badge IDs against a <code>User</code> and returns, for each badge the player owns, its ID and the date it was awarded.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/BadgeService.GetUserBadgesAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/BadgeService.GetUserBadgesAsync/param/1"
+      },
+      {
+        "name": "badgeIds",
+        "documentation": "@roblox/globaltype/BadgeService.GetUserBadgesAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/BadgeService.GetUserBadgesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#GetUserBadgesAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.IsDisabled/param/0": {
@@ -19288,7 +19323,7 @@
   "@roblox/globaltype/Humanoid.NameOcclusion": {
     "documentation": "Controls whether a humanoid's name and health bar can be seen behind walls or other objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#NameOcclusion",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\thumanoid.NamOcclusion = Enum.NameOcclusion.OccludeAll\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onCharacterAdded(character)\n\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\thumanoid.NameOcclusion = Enum.NameOcclusion.OccludeAll\nend\n\nlocal function onPlayerAdded(player)\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Humanoid.PlatformStand": {
     "documentation": "Determines whether the <code>Humanoid</code> is currently in the <code>HumanoidStateType.PlatformStanding</code> state.",
@@ -24178,10 +24213,10 @@
     "documentation": "Supports real-world purchases that you can bundle with digital benefits."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/param/1": {
-    "documentation": ""
+    "documentation": "The identifier of the commerce product to look up, either the numeric ID or the full <code>COM-</code>-prefixed form."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync/return/0": {
-    "documentation": ""
+    "documentation": "A dictionary of information about the commerce product, including whether it <code>IsForSale</code>, an <code>Item</code> sub-table of display details (<code>Name</code>, <code>Description</code>, <code>IconImageAssetId</code>, <code>DisplayPrice</code>, and <code>IsPurchasable</code>), and the <code>Benefits</code> granted by purchasing it."
   },
   "@roblox/globaltype/CommerceService.GetCommerceProductInfoAsync": {
     "documentation": "Retrieves information about the commerce products you are selling in experience.",
@@ -24205,10 +24240,10 @@
     "documentation": "Supports real-world purchases that you can bundle with digital benefits."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/1": {
-    "documentation": ""
+    "documentation": "The <code>Player</code> to prompt with the purchase flow. When called from a <code>LocalScript</code>, this must be the local player."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase/param/2": {
-    "documentation": ""
+    "documentation": "The identifier of the commerce product to purchase, either the numeric ID or the full <code>COM-</code>-prefixed form."
   },
   "@roblox/globaltype/CommerceService.PromptCommerceProductPurchase": {
     "documentation": "Prompts a user to purchase a commerce product using the provided <code>commerceProductId</code>. Opens a webview that guides the user through the purchasing flow.",
@@ -24234,13 +24269,13 @@
     "documentation": "Supports real-world purchases that you can bundle with digital benefits."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/1": {
-    "documentation": ""
+    "documentation": "The <code>Player</code> for whom the browser opens. When called from a <code>LocalScript</code>, this must be the local player."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser/param/2": {
-    "documentation": ""
+    "documentation": "The real-world commerce URL to open. The URL must be on the commerce allowlist, or the request is ignored."
   },
   "@roblox/globaltype/CommerceService.PromptRealWorldCommerceBrowser": {
-    "documentation": "",
+    "documentation": "Legacy endpoint that opens an in-experience browser to a real-world commerce URL for the specified player; superseded by <code>CommerceService:PromptCommerceProductPurchase()</code>.",
     "params": [
       {
         "name": "self",
@@ -24263,10 +24298,10 @@
     "documentation": "Supports real-world purchases that you can bundle with digital benefits."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>true</code> if the current user is eligible for real-world commerce."
   },
   "@roblox/globaltype/CommerceService.UserEligibleForRealWorldCommerceAsync": {
-    "documentation": "",
+    "documentation": "Legacy endpoint that returns whether the current user is eligible for real-world commerce; superseded by <code>PolicyService</code>.",
     "params": [
       {
         "name": "self",
@@ -44870,7 +44905,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VisibilityCheckDispatcher": {
-    "documentation": "",
+    "documentation": "Service that schedules and runs viewability checks for immersive ad instances in a place.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VisibilityCheckDispatcher",
     "code_sample": ""
@@ -45905,7 +45940,11 @@
     "documentation": "",
     "keys": {
       "NodeId": "@roblox/globaltype/AnimationNodeDefinition.NodeId",
-      "NodeType": "@roblox/globaltype/AnimationNodeDefinition.NodeType"
+      "NodeType": "@roblox/globaltype/AnimationNodeDefinition.NodeType",
+      "AddInputPin": "@roblox/globaltype/AnimationNodeDefinition.AddInputPin",
+      "GetOrderedInputPinNames": "@roblox/globaltype/AnimationNodeDefinition.GetOrderedInputPinNames",
+      "RemoveInputPin": "@roblox/globaltype/AnimationNodeDefinition.RemoveInputPin",
+      "SetOrderedInputPinNames": "@roblox/globaltype/AnimationNodeDefinition.SetOrderedInputPinNames"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition",
     "code_sample": ""
@@ -45918,6 +45957,180 @@
   "@roblox/globaltype/AnimationNodeDefinition.NodeType": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition#NodeType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.AddInputPin/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.AddInputPin/param/1": {
+    "documentation": "Name of the input pin to append. Should match the <code>Name</code> of the corresponding <code>ObjectValue</code> wiring child."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.AddInputPin": {
+    "documentation": "Appends a named input pin to the end of the ordered input pin list.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.AddInputPin/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.AddInputPin/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition#AddInputPin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.GetOrderedInputPinNames/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.GetOrderedInputPinNames/return/0": {
+    "documentation": "The ordered list of input pin names."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.GetOrderedInputPinNames": {
+    "documentation": "Returns the current ordered list of input pin names.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.GetOrderedInputPinNames/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnimationNodeDefinition.GetOrderedInputPinNames/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition#GetOrderedInputPinNames",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.RemoveInputPin/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.RemoveInputPin/param/1": {
+    "documentation": "Name of the input pin to remove. Only the first pin matching this name is removed."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.RemoveInputPin": {
+    "documentation": "Removes the first input pin matching the given name from the ordered pin list.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.RemoveInputPin/param/0"
+      },
+      {
+        "name": "pin",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.RemoveInputPin/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition#RemoveInputPin",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.SetOrderedInputPinNames/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.SetOrderedInputPinNames/param/1": {
+    "documentation": "The new ordered list of input pin names, replacing the existing list."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.SetOrderedInputPinNames": {
+    "documentation": "Bulk-replaces the entire ordered input pin list.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.SetOrderedInputPinNames/param/0"
+      },
+      {
+        "name": "pins",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.SetOrderedInputPinNames/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition#SetOrderedInputPinNames",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Connect/param/1": {
+    "documentation": "The callback function to invoke each time the event fires."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.ConnectParallel/param/1": {
+    "documentation": "The callback function to invoke when the event fires in a parallel execution context."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Once/param/1": {
+    "documentation": "The callback function to invoke the next time the event fires, after which it is automatically disconnected."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged": {
+    "documentation": "Fires whenever the ordered input pin list is modified.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Once",
+      "Wait": "@roblox/globaltype/AnimationNodeDefinition.InputPinsChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationNodeDefinition#InputPinsChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginDebugService": {
@@ -67054,6 +67267,7 @@
       "BatchSetFaceAttributes": "@roblox/globaltype/EditableMesh.BatchSetFaceAttributes",
       "BatchSetValues": "@roblox/globaltype/EditableMesh.BatchSetValues",
       "BatchSetVertexFaceAttributes": "@roblox/globaltype/EditableMesh.BatchSetVertexFaceAttributes",
+      "Clear": "@roblox/globaltype/EditableMesh.Clear",
       "Destroy": "@roblox/globaltype/EditableMesh.Destroy",
       "FindClosestPointOnSurface": "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface",
       "FindClosestVertex": "@roblox/globaltype/EditableMesh.FindClosestVertex",
@@ -67608,6 +67822,21 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#BatchSetVertexFaceAttributes",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/EditableMesh.Clear/param/0": {
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
+  },
+  "@roblox/globaltype/EditableMesh.Clear": {
+    "documentation": "Clears all of an EditableMesh's geometry.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/EditableMesh.Clear/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#Clear",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Destroy/param/0": {
@@ -69720,11 +69949,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui": {
-    "documentation": "",
+    "documentation": "A surface-based GUI that displays immersive ads on a face of a <code>Part</code> in the 3D world.",
     "keys": {
       "AdShape": "@roblox/globaltype/AdGui.AdShape",
       "EnableVideoAds": "@roblox/globaltype/AdGui.EnableVideoAds",
       "FallbackImage": "@roblox/globaltype/AdGui.FallbackImage",
+      "FallbackImageContent": "@roblox/globaltype/AdGui.FallbackImageContent",
       "Status": "@roblox/globaltype/AdGui.Status",
       "OnAdEvent": "@roblox/globaltype/AdGui.OnAdEvent"
     },
@@ -69732,7 +69962,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.AdShape": {
-    "documentation": "",
+    "documentation": "Determines the shape of the ad displayed by the <code>AdGui</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#AdShape",
     "code_sample": ""
   },
@@ -69742,12 +69972,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdGui.FallbackImage": {
-    "documentation": "",
+    "documentation": "The image the <code>AdGui</code> displays when no ad is available to serve.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImage",
     "code_sample": ""
   },
+  "@roblox/globaltype/AdGui.FallbackImageContent": {
+    "documentation": "The <code>Content</code> equivalent of <code>AdGui.FallbackImage</code> that supports asset URIs and <code>EditableImage</code> objects.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#FallbackImageContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AdGui.Status": {
-    "documentation": "",
+    "documentation": "Indicates whether the <code>AdGui</code> is currently displaying a served ad.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdGui#Status",
     "code_sample": ""
   },
@@ -70471,7 +70706,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal": {
-    "documentation": "",
+    "documentation": "A portal that teleports players to a sponsored experience as part of immersive ads.",
     "keys": {
       "PortalInvalidReason": "@roblox/globaltype/AdPortal.PortalInvalidReason",
       "Status": "@roblox/globaltype/AdPortal.Status"
@@ -70480,12 +70715,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.PortalInvalidReason": {
-    "documentation": "",
+    "documentation": "A developer-facing message explaining why the portal is currently invalid, if it is.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#PortalInvalidReason",
     "code_sample": ""
   },
   "@roblox/globaltype/AdPortal.Status": {
-    "documentation": "",
+    "documentation": "Indicates whether the portal is currently active and able to teleport players.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AdPortal#Status",
     "code_sample": ""
   },
@@ -95181,7 +95416,7 @@
     "documentation": "The <code>DataModel.JobId</code> of the server instance the <code>Players</code> were teleported to."
   },
   "@roblox/globaltype/TeleportService.TeleportPartyAsync": {
-    "documentation": "Teleports a group of <code>Players</code> to the same server of the place with the given <code>PlaceId</code>, returning the <code>JobId</code> of the server instance they were teleported to.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>TeleportAsync()</code> instead. For a migration guide, see <a href=\"../../../projects/teleport.md#migrate-to-secure-teleports\">Teleport between places</a>.<br>Teleports a group of <code>Players</code> to the same server of the place with the given <code>PlaceId</code>, returning the <code>JobId</code> of the server instance they were teleported to.",
     "params": [
       {
         "name": "self",
@@ -95232,7 +95467,7 @@
     "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPlaceInstance": {
-    "documentation": "Teleports a <code>Player</code> to the server instance associated with the given <em>placeId</em> and <em>instanceId</em>.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>TeleportAsync()</code> instead. For a migration guide, see <a href=\"../../../projects/teleport.md#migrate-to-secure-teleports\">Teleport between places</a>.<br>Teleports a <code>Player</code> to the server instance associated with the given <em>placeId</em> and <em>instanceId</em>.",
     "params": [
       {
         "name": "self",
@@ -95289,7 +95524,7 @@
     "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "Teleport a group of <code>Players</code> to a reserved server created using <code>TeleportService:ReserveServerAsync()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>TeleportAsync()</code> instead. For a migration guide, see <a href=\"../../../projects/teleport.md#migrate-to-secure-teleports\">Teleport between places</a>.<br>Teleport a group of <code>Players</code> to a reserved server created using <code>TeleportService:ReserveServerAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -95343,7 +95578,7 @@
     "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName": {
-    "documentation": "A variant of <code>TeleportService:Teleport()</code> that causes the <code>Player</code> to spawn at a <code>SpawnLocation</code> of the given name at the destination place.",
+    "documentation": "<strong>Deprecated:</strong> Use <code>TeleportAsync()</code> instead. For a migration guide, see <a href=\"../../../projects/teleport.md#migrate-to-secure-teleports\">Teleport between places</a>.<br>A variant of <code>TeleportService:Teleport()</code> that causes the <code>Player</code> to spawn at a <code>SpawnLocation</code> of the given name at the destination place.",
     "params": [
       {
         "name": "self",
@@ -99726,7 +99961,7 @@
     "documentation": "The ID of the developer product you want to grant as a reward."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId/return/0": {
-    "documentation": ""
+    "documentation": "An <code>AdReward</code> configured as a developer-product reward for the specified product."
   },
   "@roblox/globaltype/AdService.CreateAdRewardFromDevProductId": {
     "documentation": "Creates an <code>AdReward</code> to give users who watch a video ad.",
@@ -99811,7 +100046,7 @@
     "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/1": {
-    "documentation": ""
+    "documentation": "The <code>GuiButton</code> to track as a rewarded video ad opportunity. Must be a descendant of a <code>ScreenGui</code>."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
     "documentation": "The ID of the placement of the rewarded video ad inside the experience. Allows for reporting on the performance of individual ad placements."
@@ -99881,7 +100116,7 @@
     "documentation": "The <code>ShowAdResult</code> of the client's ad presentation. You should not use this result to grant the reward. Instead, you should grant the reward from your <code>ProcessReceipt</code> implementation. For <a href=\"../../../production/monetization/developer-products.md\">developer products</a> earned through rewarded video ads, the <code>ProductPurchaseChannel</code> will be <code>ProductPurchaseChannel.AdReward</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "Plays the video ad to the current user inside the experience. <pre><code>**Warning**: Rewarded Video ads must be user opt-in and clearly disclosed. For details, review our [eligibility requirements](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements) and [advertising standards](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards). </code></pre>",
+    "documentation": "Plays the video ad to the current user inside the experience.",
     "params": [
       {
         "name": "self",
@@ -99925,10 +100160,10 @@
     "documentation": "The service responsible for in-experience advertising."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity/param/1": {
-    "documentation": ""
+    "documentation": "The instance to stop tracking. This should be an instance that you previously passed to <code>RegisterAdOpportunityAsync</code>."
   },
   "@roblox/globaltype/AdService.UnregisterAdOpportunity": {
-    "documentation": "",
+    "documentation": "Stops tracking an instance that was previously registered with <code>RegisterAdOpportunityAsync</code>.",
     "params": [
       {
         "name": "self",
@@ -107489,7 +107724,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.AdLabelClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the \"Sponsored\" label on the ad overlay, which opens the ad disclosure prompt showing advertiser and payer information.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107499,7 +107734,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.VolumeButtonClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the volume toggle button on the ad overlay, which mutes or unmutes the video ad audio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107509,7 +107744,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.FullscreenButtonClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the fullscreen toggle button, which smoothly zooms the camera to a centered view of the ad surface and enables audio.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107519,7 +107754,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayButtonClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the play button on the ad overlay. If the ad is already in fullscreen, playback resumes; otherwise it enters fullscreen mode which also starts (or resumes) the video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107529,7 +107764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseButtonClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the pause button while a video ad is playing in fullscreen mode, which pauses video playback.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107539,7 +107774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.CloseButtonClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the close button on the fullscreen video ad view, which exits fullscreen mode and returns to the normal camera position.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107549,7 +107784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.WhyThisAdClicked": {
-    "documentation": "",
+    "documentation": "The player clicked the \"Why this ad?\" link, which displays the EUDSA (European Digital Services Act) disclosure prompt showing the advertiser and payer names for the current ad creative.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107559,7 +107794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PlayEventTriggered": {
-    "documentation": "",
+    "documentation": "A system-initiated play/resume event that clears the force-pause state set by <code>PauseEventTriggered</code> and resumes video playback if the stream is open.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107569,7 +107804,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIEventType.PauseEventTriggered": {
-    "documentation": "",
+    "documentation": "A system-initiated pause event, used when the engine needs to force-pause the video (for example, when a dropdown menu opens over the ad). Prevents viewability-based auto-play from resuming playback until a corresponding <code>PlayEventTriggered</code> clears that pause.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107579,7 +107814,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIEventType": {
-    "documentation": "",
+    "documentation": "Describes the type of user-interaction or system event that occurred on the immersive ad UI overlay of an <code>AdGui</code>.",
     "keys": {
       "AdLabelClicked": "@roblox/enum/AdUIEventType.AdLabelClicked",
       "VolumeButtonClicked": "@roblox/enum/AdUIEventType.VolumeButtonClicked",
@@ -111239,7 +111474,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ShowAdResult.InsufficientMemory": {
-    "documentation": "",
+    "documentation": "The device does not have sufficient video memory available to display the ad.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111249,7 +111484,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ShowAdResult": {
-    "documentation": "",
+    "documentation": "Result codes returned by <code>AdService:ShowRewardedVideoAdAsync()</code> indicating whether a rewarded video ad completed successfully or why it did not.",
     "keys": {
       "ShowCompleted": "@roblox/enum/ShowAdResult.ShowCompleted",
       "AdNotReady": "@roblox/enum/ShowAdResult.AdNotReady",
@@ -117482,7 +117717,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.RunClientScript": {
-    "documentation": "",
+    "documentation": "Indicates that a script container is permitted to execute scripts on the client (<code>LocalScript</code>).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117492,7 +117727,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.RunServerScript": {
-    "documentation": "",
+    "documentation": "Indicates that a script container is permitted to execute scripts on the server (<code>Script</code>).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117502,7 +117737,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AccessOutsideWrite": {
-    "documentation": "",
+    "documentation": "Grants a script read-write access to instances that live outside its sandboxed container.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117512,7 +117747,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AssetRequire": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> Use <code>SecurityCapability.LoadUnownedAsset</code> instead.<br>Deprecated. Use <code>SecurityCapability.LoadUnownedAsset</code> instead.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117522,7 +117757,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.LoadString": {
-    "documentation": "",
+    "documentation": "Allows a script to use the <code>loadstring()</code> Luau built-in to compile and execute a string as code.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117532,7 +117767,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.ScriptGlobals": {
-    "documentation": "",
+    "documentation": "Allows a script to access the <code>shared</code> and <code>_G</code> shared global variable tables.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117542,7 +117777,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.CreateInstances": {
-    "documentation": "",
+    "documentation": "Allows a script to create new <code>Instance</code> objects using <code>new()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117552,7 +117787,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Basic": {
-    "documentation": "",
+    "documentation": "Guards access to a broad set of general-purpose engine APIs that do not belong to a more specific capability category.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117562,7 +117797,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Audio": {
-    "documentation": "",
+    "documentation": "Guards access to audio engine APIs such as <code>Sound</code>, <code>AudioPlayer</code>, and related classes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117572,7 +117807,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.DataStore": {
-    "documentation": "",
+    "documentation": "Guards access to data store APIs such as <code>DataStoreService</code> and its associated objects.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117582,7 +117817,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Network": {
-    "documentation": "",
+    "documentation": "Guards access to low-level networking APIs such as <code>HttpService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117592,7 +117827,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Physics": {
-    "documentation": "",
+    "documentation": "Guards access to physics engine APIs such as <code>Constraint</code> classes and <code>BasePart</code> physics properties.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117602,7 +117837,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.UI": {
-    "documentation": "",
+    "documentation": "Guards access to UI engine APIs such as <code>ScreenGui</code>, <code>Frame</code>, and other <code>GuiObject</code> classes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117612,7 +117847,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.CSG": {
-    "documentation": "",
+    "documentation": "Guards access to Constructive Solid Geometry (CSG) APIs such as <code>UnionOperation</code> and <code>NegateOperation</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117622,7 +117857,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Chat": {
-    "documentation": "",
+    "documentation": "Guards access to chat engine APIs such as <code>TextChatService</code> and related chat classes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117632,7 +117867,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Animation": {
-    "documentation": "",
+    "documentation": "Guards access to animation engine APIs such as <code>AnimationController</code> and related classes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117642,7 +117877,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Avatar": {
-    "documentation": "<strong>Deprecated:</strong> ",
+    "documentation": "<strong>Deprecated:</strong> Use <code>SecurityCapability.AvatarAppearance</code> instead.<br>Deprecated. Use <code>SecurityCapability.AvatarAppearance</code> instead.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117652,7 +117887,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Input": {
-    "documentation": "",
+    "documentation": "Guards access to user input APIs such as <code>UserInputService</code> and <code>ContextActionService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117662,7 +117897,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Environment": {
-    "documentation": "",
+    "documentation": "Guards access to environment and world-setting APIs such as <code>Lighting</code> and <code>Atmosphere</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117672,7 +117907,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.RemoteEvent": {
-    "documentation": "",
+    "documentation": "Guards access to remote event and function APIs such as <code>RemoteEvent</code> and <code>RemoteFunction</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117682,7 +117917,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.LegacySound": {
-    "documentation": "",
+    "documentation": "Guards access to the legacy <code>Sound</code> and pre-<code>VoiceChatService.UseAudioApi</code> sound stack APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117692,7 +117927,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Players": {
-    "documentation": "",
+    "documentation": "Guards access to <code>Players</code> service APIs that query or manage connected players.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117702,7 +117937,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.CapabilityControl": {
-    "documentation": "",
+    "documentation": "Guards access to the <code>Capabilities</code> and <code>Sandboxed</code> properties that configure script sandboxing.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117712,7 +117947,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Plugin": {
-    "documentation": "",
+    "documentation": "Mirrors the legacy <code>Plugin</code> permission level, granting access to Studio plugin APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117722,7 +117957,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.LocalUser": {
-    "documentation": "",
+    "documentation": "Mirrors the legacy <code>LocalUser</code> permission level, granting access to IDE-only and Studio-level APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117732,7 +117967,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.WritePlayer": {
-    "documentation": "",
+    "documentation": "Mirrors the legacy <code>WritePlayer</code> permission level, granting the ability to modify player identity properties such as name and <code>UserId</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117742,7 +117977,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.RobloxScript": {
-    "documentation": "",
+    "documentation": "Mirrors the legacy <code>RobloxScript</code> permission level, granting access to <code>CoreScript</code> APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117752,7 +117987,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.RobloxEngine": {
-    "documentation": "",
+    "documentation": "Mirrors the legacy <code>RobloxEngine</code> permission level, granting access to internal engine-level APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117762,7 +117997,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Unassigned": {
-    "documentation": "",
+    "documentation": "The default capability assigned to API members that have not been explicitly assigned to any other capability category.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117772,7 +118007,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.InternalTest": {
-    "documentation": "",
+    "documentation": "Restricts access to non-sensitive APIs that are intentionally kept internal.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117782,7 +118017,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.PluginOrOpenCloud": {
-    "documentation": "",
+    "documentation": "Restricts access to APIs callable only from Studio plugin or Open Cloud Luau execution sessions.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117792,7 +118027,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Assistant": {
-    "documentation": "",
+    "documentation": "Restricts access to APIs that may only be called from Studio Assistant execution contexts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117802,7 +118037,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.RemoteCommand": {
-    "documentation": "",
+    "documentation": "Restricts access to APIs that are executable only from Studio's <code>RemoteCommandService</code> in Team Create sessions.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117812,7 +118047,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AssetRead": {
-    "documentation": "",
+    "documentation": "Guards access to APIs that read or query asset metadata from the Roblox catalog.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117822,7 +118057,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AssetManagement": {
-    "documentation": "",
+    "documentation": "Guards access to asset management APIs such as <code>ContentProvider:PreloadAsync()</code> and encryption-key registration.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117832,7 +118067,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.DynamicGeneration": {
-    "documentation": "",
+    "documentation": "Guards access to procedural and AI-driven content generation APIs such as <code>EditableMesh</code> and <code>AvatarCreationService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117842,7 +118077,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.PlatformAvatarEditing": {
-    "documentation": "",
+    "documentation": "Guards access to platform-level avatar editing APIs provided by <code>AvatarEditorService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117852,7 +118087,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AssetCreateUpdate": {
-    "documentation": "",
+    "documentation": "Guards access to APIs that create or update published Roblox assets.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117862,7 +118097,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Capture": {
-    "documentation": "",
+    "documentation": "Guards access to <code>CaptureService</code> APIs that take screenshots and record video.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117872,7 +118107,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.SensitiveInput": {
-    "documentation": "",
+    "documentation": "Guards access to sensitive user input APIs such as those that can read raw keyboard or mouse data beyond normal game input.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117882,7 +118117,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Monetization": {
-    "documentation": "",
+    "documentation": "Guards access to in-experience purchase and monetization APIs such as <code>MarketplaceService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117892,7 +118127,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.LoadOwnedAsset": {
-    "documentation": "",
+    "documentation": "Allows a script to load assets that are owned by the experience's creator using <code>InsertService</code> or <code>require()</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117902,7 +118137,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Social": {
-    "documentation": "",
+    "documentation": "Guards access to social APIs such as <code>SocialService</code>, <code>FriendPages</code>, and <code>ExperienceInviteOptions</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117912,7 +118147,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.ServerCommunication": {
-    "documentation": "",
+    "documentation": "Guards access to server-to-server messaging APIs such as <code>MessagingService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117922,7 +118157,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Logging": {
-    "documentation": "",
+    "documentation": "Guards access to <code>LogService</code> and logging-related APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117932,7 +118167,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.PromptExternalPurchase": {
-    "documentation": "",
+    "documentation": "Guards access to APIs that initiate external (non-Roblox) purchase prompts.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117942,7 +118177,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Groups": {
-    "documentation": "",
+    "documentation": "Guards access to group-related APIs such as <code>GroupService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117952,7 +118187,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Teleport": {
-    "documentation": "",
+    "documentation": "Guards access to teleportation APIs such as <code>TeleportService</code>, <code>TeleportOptions</code>, and <code>TeleportAsyncResult</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117962,7 +118197,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Consequences": {
-    "documentation": "",
+    "documentation": "Guards access to moderation and player-consequence APIs such as <code>Players:BanAsync()</code> and <code>ModerationService</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117972,7 +118207,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.Material": {
-    "documentation": "",
+    "documentation": "Guards access to <code>MaterialService</code>, <code>MaterialVariant</code>, and custom material APIs.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117982,7 +118217,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AvatarBehavior": {
-    "documentation": "",
+    "documentation": "Guards access to APIs that control avatar locomotion and behavior at runtime.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117992,7 +118227,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.AvatarAppearance": {
-    "documentation": "",
+    "documentation": "Guards access to APIs that read or modify avatar appearance, such as <code>HumanoidDescription</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118002,7 +118237,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SecurityCapability.LoadUnownedAsset": {
-    "documentation": "",
+    "documentation": "Allows a script to <code>require()</code> asset IDs or call <code>InsertService:LoadAsset()</code> for assets not owned by the creator.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -118012,7 +118247,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.SecurityCapability": {
-    "documentation": "",
+    "documentation": "Identifies a specific permission capability that a sandboxed script container may grant or restrict.",
     "keys": {
       "RunClientScript": "@roblox/enum/SecurityCapability.RunClientScript",
       "RunServerScript": "@roblox/enum/SecurityCapability.RunServerScript",
@@ -120723,7 +120958,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.None": {
-    "documentation": "",
+    "documentation": "The <code>AdGui</code> has no ad creative loaded and is not rendering ad content.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120733,7 +120968,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Image": {
-    "documentation": "",
+    "documentation": "The <code>AdGui</code> is rendering a static image ad creative.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120743,7 +120978,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdUIType.Video": {
-    "documentation": "",
+    "documentation": "The <code>AdGui</code> is rendering a video ad creative.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120753,7 +120988,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdUIType": {
-    "documentation": "",
+    "documentation": "Describes the type of ad creative currently rendered by an <code>AdGui</code>.",
     "keys": {
       "None": "@roblox/enum/AdUIType.None",
       "Image": "@roblox/enum/AdUIType.Image",
@@ -131905,7 +132140,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdAvailabilityResult": {
-    "documentation": "",
+    "documentation": "Indicates whether an ad is available or the reason it cannot be shown.",
     "keys": {
       "IsAvailable": "@roblox/enum/AdAvailabilityResult.IsAvailable",
       "DeviceIneligible": "@roblox/enum/AdAvailabilityResult.DeviceIneligible",
@@ -136299,7 +136534,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdFormat.RewardedVideo": {
-    "documentation": "The format of the rewarded video ad.",
+    "documentation": "A full-screen video ad that plays to completion and rewards the viewer, used as the <code>adFormat</code> argument for <code>AdService</code> methods.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136309,7 +136544,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdFormat": {
-    "documentation": "",
+    "documentation": "Specifies the format of an ad used with <code>AdService</code> methods.",
     "keys": {
       "RewardedVideo": "@roblox/enum/AdFormat.RewardedVideo"
     },
@@ -136439,7 +136674,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.NotUploaded": {
-    "documentation": "The model's property set has not been uploaded to the content-delivery network. Shown as orange in the debug tint overlay.",
+    "documentation": "The model has not been uploaded to the content-delivery network. Shown as orange in the debug tint overlay.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136449,7 +136684,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SlimTranscoderStatus.Uploaded": {
-    "documentation": "The property set has been uploaded to the content-delivery network but has not yet been transcoded into SLIM assets. Shown as yellow in the debug tint overlay.",
+    "documentation": "The model has been uploaded to the content-delivery network but has not yet been transcoded into SLIM assets. Shown as yellow in the debug tint overlay.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140758,7 +140993,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.Undefined": {
-    "documentation": "",
+    "documentation": "Default uninitialized sentinel value indicating that no teleport method has been determined yet.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140768,7 +141003,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.PortalForward": {
-    "documentation": "",
+    "documentation": "The player teleported forward to the advertiser's destination experience by walking into an <code>AdPortal</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140778,7 +141013,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.InGameMenuBackButton": {
-    "documentation": "",
+    "documentation": "The player initiated a return teleport to the publisher's experience by pressing the back button in the in-game menu.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140788,7 +141023,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdTeleportMethod.UIBackButton": {
-    "documentation": "",
+    "documentation": "The player initiated a return teleport to the publisher's experience by pressing a back button rendered in the ad destination's UI overlay.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140798,7 +141033,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdTeleportMethod": {
-    "documentation": "",
+    "documentation": "Describes the method by which a player teleports during an immersive ad portal flow.",
     "keys": {
       "Undefined": "@roblox/enum/AdTeleportMethod.Undefined",
       "PortalForward": "@roblox/enum/AdTeleportMethod.PortalForward",

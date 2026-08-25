@@ -38616,13 +38616,9 @@
       "Camera Speed": "@roblox/globaltype/Studio.Camera Speed",
       "Camera Speed Adjust Binding": "@roblox/globaltype/Studio.Camera Speed Adjust Binding",
       "Camera Zoom to Mouse Position": "@roblox/globaltype/Studio.Camera Zoom to Mouse Position",
-      "CameraAdaptiveSpeed": "@roblox/globaltype/Studio.CameraAdaptiveSpeed",
       "CameraNavigationModel": "@roblox/globaltype/Studio.CameraNavigationModel",
-      "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
-      "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
-      "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
       "CommandBarEnterExec": "@roblox/globaltype/Studio.CommandBarEnterExec",
       "CommandBarFont": "@roblox/globaltype/Studio.CommandBarFont",
@@ -38940,39 +38936,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "Steuert, ob die Kamerabewegungsgeschwindigkeit sich basierend auf der Entfernung zu nahegelegenen Objekten anpasst.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
     "documentation": "Legt das Navigationsmodell fest, das für die Kamerabewegung im Studio verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "Legt die Mausempfindlichkeit für die Kameradrehung im Studio fest.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "Legt die Mausempfindlichkeit für das Kamerapan im Studio fest.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
-    "documentation": "Legt den Geschwindigkeitsmultiplikator fest, der auf die Kamerabewegung angewendet wird, wenn die Umschalttaste gedrückt wird.",
+    "documentation": "Legt den Geschwindigkeitsmultiplikator fest, der auf die Kamerabewegung angewendet wird, wenn die Umschalttaste gedrückt gehalten wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
     "documentation": "Steuert, ob die Kamera sanft überblendet, wenn sie sich auf ein ausgewähltes Objekt fokussiert.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "Legt die Geschwindigkeit des Kamerazooms im Studio fest.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Clear Output On Start": {
@@ -39011,7 +38987,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Debugger Error Line Color": {
-    "documentation": "Legt die Farbe der Debuggerfehlerzeilen im Skripteditor fest.",
+    "documentation": "Legt die Farbe der Debugger-Fehlerzeilen im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Debugger Error Line Color",
     "code_sample": ""
   },
@@ -39031,32 +39007,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DisplayLanguage": {
-    "documentation": "Legt die Anzeigesprache fest, die von der Studiooberfläche verwendet wird.",
+    "documentation": "Legt die Anzeigesprache fest, die von der Studio-Oberfläche verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DisplayLanguage",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerActiveColor": {
-    "documentation": "Legt die Farbe des aktiven Ziehgriffes im Studio fest.",
+    "documentation": "Legt die Farbe des aktiven Ziehgriffs in Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerActiveColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerLengthFactor": {
-    "documentation": "Legt den Längenskalenfaktor der Ziehgriffe im Studio fest.",
+    "documentation": "Legt den Längenskalenfaktor der Ziehgriffe in Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerLengthFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMajorGridIncrement": {
-    "documentation": "Legt den Hauptgitterinkrement fest, das beim Snappen mit dem Zieher verwendet wird.",
+    "documentation": "Legt den Hauptgitterinkrement fest, das beim Snappen mit dem Ziehgriff verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMajorGridIncrement",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMaxSoftSnaps": {
-    "documentation": "Legt die maximale Anzahl von weichen Snappunkten fest, die vom Zieher angezeigt werden.",
+    "documentation": "Legt die maximale Anzahl von weichen Snappunkten fest, die vom Ziehgriff angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMaxSoftSnaps",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerPassiveColor": {
-    "documentation": "Legt die Farbe der inaktiven Ziehgriffe im Studio fest.",
+    "documentation": "Legt die Farbe der inaktiven Ziehgriffe in Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerPassiveColor",
     "code_sample": ""
   },
@@ -39066,12 +39042,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowAxisTicks": {
-    "documentation": "Steuert, ob Tickmarken auf den Ziehachsenlinien angezeigt werden.",
+    "documentation": "Steuert, ob Tickmarken auf den Achsenlinien des Ziehgriffs angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowAxisTicks",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowHoverRuler": {
-    "documentation": "Steuert, ob ein Lineal angezeigt wird, wenn man sich in der Nähe des Ziehers befindet.",
+    "documentation": "Steuert, ob ein Lineal angezeigt wird, wenn man sich in der Nähe des Ziehgriffs befindet.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowHoverRuler",
     "code_sample": ""
   },
@@ -39081,42 +39057,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowNegativeAxes": {
-    "documentation": "Steuert, ob negative Achsenhandgriffe am Zieher angezeigt werden.",
+    "documentation": "Steuert, ob negative Achsenhandgriffe am Ziehgriff angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowNegativeAxes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowPlanes": {
-    "documentation": "Steuert, ob planare Übersetzungsgriffe am Zieher angezeigt werden.",
+    "documentation": "Steuert, ob planare Übersetzungsgriffe am Ziehgriff angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowPlanes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTargetSnap": {
-    "documentation": "Steuert, ob der Ziel-Snap-Indikator am Zieher angezeigt wird.",
+    "documentation": "Steuert, ob der Ziel-Snap-Indikator am Ziehgriff angezeigt wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTargetSnap",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTrackball": {
-    "documentation": "Steuert, ob der Trackballgriff am Rotationszieher angezeigt wird.",
+    "documentation": "Steuert, ob der Trackballgriff am Rotationsziehgriff angezeigt wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTrackball",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowWhileDragging": {
-    "documentation": "Steuert, ob die Ziehgriffe sichtbar bleiben, während aktiv gezogen wird.",
+    "documentation": "Steuert, ob die Ziehgriffe während des aktiven Ziehens sichtbar bleiben.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowWhileDragging",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSoftSnapMarginFactor": {
-    "documentation": "Legt den Margenfaktor fest, der die Nähe für weiches Snapping bestimmt.",
+    "documentation": "Legt den Margenfaktor fest, der zur Bestimmung der Nähe für weiches Snapping verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSoftSnapMarginFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSummonMarginFactor": {
-    "documentation": "Legt den Margenfaktor fest, der den Zieher in der Nähe einer Oberfläche herbeiruft.",
+    "documentation": "Legt den Margenfaktor fest, der verwendet wird, um den Ziehgriff in der Nähe einer Oberfläche zu beschwören.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSummonMarginFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerTiltRotateDuration": {
-    "documentation": "Legt die Dauer in Sekunden der Neigungsanimationsdrehung im Zieher fest.",
+    "documentation": "Legt die Dauer in Sekunden der Neigungsanimationsdrehung im Ziehgriff fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerTiltRotateDuration",
     "code_sample": ""
   },
@@ -39136,7 +39112,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Http Sandboxing": {
-    "documentation": "Steuert, ob HTTP-Anfragen von Plugins sandboxed sind.",
+    "documentation": "Steuert, ob HTTP-Anfragen von Plugins in einer Sandbox ausgeführt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Http Sandboxing",
     "code_sample": ""
   },
@@ -39156,12 +39132,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Scrollbar Markers": {
-    "documentation": "Steuert, ob Fehler- und Warnmarkierungen auf der Scrollleiste des Skripteditors angezeigt werden.",
+    "documentation": "Steuert, ob Fehler- und Warnmarkierungen auf der Bildlaufleiste des Skripteditors angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Scrollbar Markers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help": {
-    "documentation": "Steuert, ob Hilfepopups zur Funktionssignatur beim Tippen angezeigt werden.",
+    "documentation": "Steuert, ob Hilfepopups zur Funktionssignatur während des Tippens angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help",
     "code_sample": ""
   },
@@ -39181,7 +39157,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Type Hover": {
-    "documentation": "Steuert, ob das Überfahren eines Identifikators seinen abgeleiteten Typ anzeigt.",
+    "documentation": "Steuert, ob beim Überfahren eines Identifikators dessen abgeleiteten Typ angezeigt wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Type Hover",
     "code_sample": ""
   },
@@ -39196,7 +39172,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableIndentationRulers": {
-    "documentation": "Steuert, ob Einrückungsrasterlinien im Skripteditor angezeigt werden.",
+    "documentation": "Steuert, ob Einrückungslineale im Skripteditor angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableIndentationRulers",
     "code_sample": ""
   },
@@ -39211,7 +39187,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Error Color": {
-    "documentation": "Legt die Farbe der gewellten Unterlinie fest, die angezeigt wird, wenn im Skripteditor fehlerhafter Code erkannt wird.",
+    "documentation": "Legt die Farbe der gewellten Unterstreichung fest, die angezeigt wird, wenn fehlerhafter Code im Skripteditor erkannt wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Error Color",
     "code_sample": ""
   },
@@ -39226,7 +39202,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Find Selection Background Color": {
-    "documentation": "Legt die Hervorhebungsfarbe von Übereinstimmungen in der Suchauswahloperation des Skripteditors (Strg+F) fest.",
+    "documentation": "Legt die Hervorhebungsfarbe von Übereinstimmungen in der Find Selection-Operation des Skripteditors (Strg+F) fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Find Selection Background Color",
     "code_sample": ""
   },
@@ -39241,7 +39217,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Format On Type": {
-    "documentation": "Steuert, ob Code im Skripteditor automatisch formatiert wird, während Sie tippen.",
+    "documentation": "Steuert, ob Code beim Tippen im Skripteditor automatisch formatiert wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Type",
     "code_sample": ""
   },
@@ -39266,7 +39242,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "Legt fest, wie häufig die Hover-Animation blinkt, wenn die Maus über ein auswählbares Objekt in der <code>Workspace</code> schwebt.",
+    "documentation": "Legt fest, wie häufig die Hover-Animation blinkt, wenn die Maus über ein auswählbares Objekt im <code>Workspace</code> schwebt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
@@ -39296,7 +39272,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.IndentationRulerColor": {
-    "documentation": "Legt die Farbe der Einrückungsraster im Skripteditor fest.",
+    "documentation": "Legt die Farbe der Einrückungslineale im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#IndentationRulerColor",
     "code_sample": ""
   },
@@ -39321,7 +39297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "Legt die Dicke des Auswahlrahmens für <code>Model.PrimaryPart</code> fest. Dieser Wert ist zwischen 0 und 0,05 eingeschränkt.",
+    "documentation": "Legt die Dicke des Auswahlrahmens des <code>Model.PrimaryPart</code> fest. Dieser Wert ist zwischen 0 und 0,05 eingeschränkt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
@@ -39361,7 +39337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Main Volume": {
-    "documentation": "Legt die Hauptlautstärke für die Audio-Wiedergabe im Studio fest.",
+    "documentation": "Legt die Hauptlautstärke für die Audiowiedergabe im Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Main Volume",
     "code_sample": ""
   },
@@ -39391,22 +39367,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Number Color": {
-    "documentation": "Gibt die Farbe von Zahlen im Skripteditor von Roblox Studio an.",
+    "documentation": "Legt die Farbe von Zahlen im Skripteditor von Roblox Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Number Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Only Play Audio from Window in Focus": {
-    "documentation": "Wenn auf true gesetzt, wird Audio nur gehört, wenn das Spielfenster fokussiert ist.",
+    "documentation": "Wenn auf true gesetzt, wird Audio, das abgespielt wird, nur gehört, wenn das Spielfenster fokussiert ist.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Only Play Audio from Window in Focus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Operator Color": {
-    "documentation": "Legt die Textfarbe von Operatorzeichen im Skripteditor fest.",
+    "documentation": "Legt die Textfarbe der Operatorzeichen im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Operator Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Output Font": {
-    "documentation": "Gibt die Schriftart an, die von der Ausgabe verwendet wird.",
+    "documentation": "Legt die Schriftart fest, die von der Ausgabe verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Output Font",
     "code_sample": ""
   },
@@ -39421,7 +39397,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Physical Draggers Select Scope By Default": {
-    "documentation": "Steuert, ob physische Zieher standardmäßig innerhalb des aktuellen Geltungsbereichs auswählen.",
+    "documentation": "Steuert, ob physische Ziehgriffe standardmäßig innerhalb des aktuellen Bereichs auswählen.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Physical Draggers Select Scope By Default",
     "code_sample": ""
   },
@@ -39451,7 +39427,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Property Color": {
-    "documentation": "Legt die Farbe von Eigenschaftsnamen im Skripteditor fest.",
+    "documentation": "Legt die Farbe der Eigenschaftsnamen im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Property Color",
     "code_sample": ""
   },
@@ -39466,22 +39442,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "Wenn auf true gesetzt, haben die Roblox Studio-Shortcuts Vorrang vor Eingaben,  die im Spielfenster erfasst werden.",
+    "documentation": "Wenn auf true gesetzt, haben Roblox Studio-Shortcuts Vorrang vor Eingaben, die im Spielfenster erfasst werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Ruler Color": {
-    "documentation": "Legt die Farbe des Spaltenrulers im Skripteditor fest.",
+    "documentation": "Legt die Farbe des Spaltenlineals im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Ruler Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Rulers": {
-    "documentation": "Legt die Spaltenpositionen fest, an denen vertikale Rulerlinien im Skripteditor gezeichnet werden.",
+    "documentation": "Legt die Spaltenpositionen fest, an denen vertikale Linien im Skripteditor gezeichnet werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Rulers",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.RuntimeUndoBehavior": {
-    "documentation": "Legt fest, wie Studio Rückgängig-Operationen während der Laufzeitwiedergabe behandelt.",
+    "documentation": "Legt fest, wie Studio Rückgängig-Operationen während der Laufzeit behandelt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#RuntimeUndoBehavior",
     "code_sample": ""
   },
@@ -39491,12 +39467,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Background Color": {
-    "documentation": "Legt die Hintergrundfarbe der Scrollleiste des Skripteditors im Studio fest.",
+    "documentation": "Legt die Hintergrundfarbe der Bildlaufleiste des Skripteditors im Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Handle Color": {
-    "documentation": "Legt die Griff-Farbe der Scrollleiste des Skripteditors im Studio fest.",
+    "documentation": "Legt die Griff-Farbe der Bildlaufleiste des Skripteditors im Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Handle Color",
     "code_sample": ""
   },
@@ -39516,12 +39492,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select Color": {
-    "documentation": "Die Farbe des Auswahlrahmens, der mit Objektselektionen in der <code>Workspace</code> verwendet wird.",
+    "documentation": "Die Farbe des Auswahlrahmens, der bei Objektselektionen im <code>Workspace</code> verwendet wird.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select": {
-    "documentation": "Legt die Farbe des Auswahlrahmens von <code>Model.PrimaryPart</code> fest.",
+    "documentation": "Legt die Farbe des Auswahlrahmens des <code>Model.PrimaryPart</code> fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select",
     "code_sample": ""
   },
@@ -39561,7 +39537,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Core GUI in Explorer while Playing": {
-    "documentation": "Wenn auf true gesetzt, wird die <code>CoreGui</code> im Explorer sichtbar, während das Spiel läuft.",
+    "documentation": "Wenn auf true gesetzt, wird die <code>CoreGui</code> im Explorer sichtbar sein, während das Spiel läuft.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Core GUI in Explorer while Playing",
     "code_sample": ""
   },
@@ -39581,7 +39557,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hover Over": {
-    "documentation": "Wenn auf true gesetzt, wird beim Überfahren eines Objekts in der <code>Workspace</code> ein Auswahlrahmen angezeigt.",
+    "documentation": "Wenn auf true gesetzt, wird beim Überfahren eines Objekts im <code>Workspace</code> ein Auswahlrahmen angezeigt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hover Over",
     "code_sample": ""
   },
@@ -39591,12 +39567,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Labels": {
-    "documentation": "Steuert, ob die Beschriftungen der Navigationsmeshregionen im Ansichtsfenster angezeigt werden.",
+    "documentation": "Steuert, ob die Bezeichnungen der Navigationsmeshregionen im Ansichtsfenster angezeigt werden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Labels",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Mesh": {
-    "documentation": "Wenn auf true gesetzt, wird das Navigationsmesh, das von der <code>PathfindingService</code> verwendet wird, visualisiert.",
+    "documentation": "Wenn auf true gesetzt, wird das Navigationsmesh, das vom <code>PathfindingService</code> verwendet wird, visualisiert.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Mesh",
     "code_sample": ""
   },
@@ -39616,7 +39592,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Singly Selected Attachment Parent Frame": {
-    "documentation": "Steuert, ob der Rahmen des übergeordneten Teils angezeigt wird, wenn eine einzelne Befestigung ausgewählt ist.",
+    "documentation": "Steuert, ob der Rahmen des übergeordneten Teils angezeigt wird, wenn eine einzelne Anbringung ausgewählt ist.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Singly Selected Attachment Parent Frame",
     "code_sample": ""
   },
@@ -39631,22 +39607,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Skip Closing Brackets and Quotes": {
-    "documentation": "Steuert, ob der Cursor über eine eingegebene schließende Klammer oder Anführungszeichen springt, wenn bereits eine vorhanden ist.",
+    "documentation": "Steuert, ob der Cursor über eine eingegebene schließende Klammer oder ein Anführungszeichen springt, wenn bereits eines vorhanden ist.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Skip Closing Brackets and Quotes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.String Color": {
-    "documentation": "Gibt die Farbe von Zeichenfolgen im Skripteditor an.",
+    "documentation": "Legt die Farbe von Zeichenfolgen im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#String Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Tab Width": {
-    "documentation": "Gibt an, wie viele Leerzeichen verwendet werden, um einen Tab im Skripteditor darzustellen.",
+    "documentation": "Legt fest, wie viele Leerzeichen verwendet werden, um einen Tab im Skripteditor darzustellen.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Tab Width",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Color": {
-    "documentation": "Gibt die Farbe von normalem Text im Skripteditor an.",
+    "documentation": "Legt die Farbe des normalen Textes im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Color",
     "code_sample": ""
   },
@@ -39666,7 +39642,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.UI Theme": {
-    "documentation": "<strong>Deprecated:</strong> <br>Gibt das Farbschema von Roblox Studio an.",
+    "documentation": "<strong>Deprecated:</strong> <br>Legt das Farbschema von Roblox Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#UI Theme",
     "code_sample": ""
   },
@@ -39681,32 +39657,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.VAxisColor": {
-    "documentation": "Legt die Farbe des V-Achsenhandgriffs in den Ziehern von Studio fest.",
+    "documentation": "Legt die Farbe des V-Achsenhandgriffs in den Ziehgriffen von Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#VAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "Gibt die Farbe der gewellten Unterlinie an, die angezeigt wird, wenn der Skriptanalysator ein Problem erkennt, das im Skripteditor behoben werden sollte.",
+    "documentation": "Legt die Farbe der gewellten Unterstreichung fest, die angezeigt wird, wenn der Skriptanalysator ein Problem erkennt, das im Skripteditor behoben werden sollte.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Whitespace Color": {
-    "documentation": "Sets the color of visible whitespace characters in the script editor.",
+    "documentation": "Legt die Farbe der sichtbaren Leerzeichen im Skripteditor fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Whitespace Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.XAxisColor": {
-    "documentation": "Sets the color of the X axis handle in Studio's draggers.",
+    "documentation": "Legt die Farbe des X-Achsenhandgriffs in den Ziehgriffen von Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#XAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.YAxisColor": {
-    "documentation": "Sets the color of the Y axis handle in Studio's draggers.",
+    "documentation": "Legt die Farbe des Y-Achsenhandgriffs in den Ziehgriffen von Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#YAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ZAxisColor": {
-    "documentation": "Sets the color of the Z axis handle in Studio's draggers.",
+    "documentation": "Legt die Farbe des Z-Achsenhandgriffs in den Ziehgriffen von Studio fest.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ZAxisColor",
     "code_sample": ""
   },
@@ -46167,8 +46143,39 @@
   },
   "@roblox/globaltype/UIGradient": {
     "documentation": "Wendet einen Farb- und Transparenzverlauf auf die von der Eltern-<code>GuiObject</code> gerenderten UI-Elemente an.",
-    "keys": {},
+    "keys": {
+      "Color": "@roblox/globaltype/UIGradient.Color",
+      "Enabled": "@roblox/globaltype/UIGradient.Enabled",
+      "Offset": "@roblox/globaltype/UIGradient.Offset",
+      "Rotation": "@roblox/globaltype/UIGradient.Rotation",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Color": {
+    "documentation": "Bestimmt die Farbe, die mit dem übergeordneten GuiObject entlang der Länge des Verlaufs gemischt wird.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Enabled": {
+    "documentation": "Ob der Verlauf aktiviert ist oder nicht.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Offset": {
+    "documentation": "Bestimmt die skalare Verschiebung des Verlaufs vom Zentrum des übergeordneten GuiObject.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Rotation": {
+    "documentation": "Bestimmt die im Uhrzeigersinn gerichtete Drehung in Grad des Verlaufs, beginnend von links nach rechts.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Transparency": {
+    "documentation": "Bestimmt, wie viel vom übergeordneten GuiObject entlang der Länge des Verlaufs sichtbar sein kann.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -91623,7 +91630,9 @@
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
-      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState"
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
+      "Fire": "@roblox/globaltype/InputAction.Fire",
+      "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
     "code_sample": ""
@@ -91666,6 +91675,312 @@
   "@roblox/globaltype/InputAction.ViewportPositionState": {
     "documentation": "Nicht-scriptbare, schreibgeschützte Eigenschaft, die nützlich für das Debuggen ist <code>ViewportPosition</code> Eingabaktionen.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Fire/param/0": {
+    "documentation": "Definiert eine Gameplay-Aktionsmechanik. Diese Aktionen werden dann auf Hardware Eingaben mit <code>InputBinding</code> abgebildet."
+  },
+  "@roblox/globaltype/InputAction.Fire/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InputAction.Fire": {
+    "documentation": "<strong>Deprecated:</strong> Verwenden Sie stattdessen <code>InputBinding:Fire()</code> mit einem <code>Scriptable</code> Binding.<br>Aktualisiert die <code>InputAction</code> auf den angegebenen Zustand und löst die entsprechenden Signale aus.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
+      },
+      {
+        "name": "state",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Fire",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.GetState/param/0": {
+    "documentation": "Definiert eine Gameplay-Aktionsmechanik. Diese Aktionen werden dann auf Hardware Eingaben mit <code>InputBinding</code> abgebildet."
+  },
+  "@roblox/globaltype/InputAction.GetState/return/0": {
+    "documentation": "Der aktuelle Zustand der <code>InputAction</code>."
+  },
+  "@roblox/globaltype/InputAction.GetState": {
+    "documentation": "Gibt den aktuellen Zustand der <code>InputAction</code> zurück.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.GetState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InputAction.GetState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#GetState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/1": {
+    "documentation": "Die Rückruffunktion, die jedes Mal aufgerufen wird, wenn das Ereignis ausgelöst wird."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1": {
+    "documentation": "Die Rückruffunktion, die aufgerufen wird, wenn das Ereignis in einem parallelen Ausführungskontext ausgelöst wird."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/1": {
+    "documentation": "Die Rückruffunktion, die beim nächsten Mal aufgerufen wird, wenn das Ereignis ausgelöst wird, nach dem es automatisch getrennt wird."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis (für eine einmalige Ausführung) und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait": {
+    "documentation": "Hält den aktuellen Thread an, bis das Signal ausgelöst wird, und gibt die Argumente zurück, die durch das Signal bereitgestellt werden.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed": {
+    "documentation": "Wird nur ausgelöst, wenn der <code>InputAction.Type</code> auf <code>Bool</code> bei einem Zustandsübergang von <code>false</code> nach <code>true</code> gesetzt ist.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Pressed.Once",
+      "Wait": "@roblox/globaltype/InputAction.Pressed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Pressed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/1": {
+    "documentation": "Die Rückruffunktion, die jedes Mal aufgerufen wird, wenn das Ereignis ausgelöst wird."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1": {
+    "documentation": "Die Rückruffunktion, die aufgerufen wird, wenn das Ereignis in einem parallelen Ausführungskontext ausgelöst wird."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/1": {
+    "documentation": "Die Rückruffunktion, die beim nächsten Mal aufgerufen wird, wenn das Ereignis ausgelöst wird, nach dem es automatisch getrennt wird."
+  },
+  "@roblox/globaltype/InputAction.Released.Once": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis (für eine einmalige Ausführung) und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Wait/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.Released.Wait": {
+    "documentation": "Hält den aktuellen Thread an, bis das Signal ausgelöst wird, und gibt die Argumente zurück, die durch das Signal bereitgestellt werden.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released": {
+    "documentation": "Wird nur ausgelöst, wenn der <code>InputAction.Type</code> auf <code>Bool</code> bei einem Zustandsübergang von <code>true</code> nach <code>false</code> gesetzt ist.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Released.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Released.Once",
+      "Wait": "@roblox/globaltype/InputAction.Released.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Released",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/1": {
+    "documentation": "Die Rückruffunktion, die jedes Mal aufgerufen wird, wenn das Ereignis ausgelöst wird."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1": {
+    "documentation": "Die Rückruffunktion, die aufgerufen wird, wenn das Ereignis in einem parallelen Ausführungskontext ausgelöst wird."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/1": {
+    "documentation": "Die Rückruffunktion, die beim nächsten Mal aufgerufen wird, wenn das Ereignis ausgelöst wird, nach dem es automatisch getrennt wird."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis (für eine einmalige Ausführung) und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait": {
+    "documentation": "Hält den aktuellen Thread an, bis das Signal ausgelöst wird, und gibt die Argumente zurück, die durch das Signal bereitgestellt werden.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged": {
+    "documentation": "Wird für alle <code>InputActionType</code>-Typen ausgelöst, wann immer sich der Zustand ändert, außer wenn der Zustand versucht, in denselben Zustand zu wechseln.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.StateChanged.Once",
+      "Wait": "@roblox/globaltype/InputAction.StateChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#StateChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
@@ -95755,6 +96070,182 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": "Die Rückruffunktion, die jedes Mal aufgerufen wird, wenn das Ereignis ausgelöst wird."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Die Rückruffunktion, die aufgerufen wird, wenn das Ereignis in einem parallelen Ausführungskontext ausgelöst wird."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": "Die Rückruffunktion, die beim nächsten Mal aufgerufen wird, wenn das Ereignis ausgelöst wird, nach dem es automatisch getrennt wird."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis (für eine einmalige Ausführung) und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "Hält den aktuellen Thread an, bis das Signal ausgelöst wird, und gibt die Argumente zurück, die durch das Signal bereitgestellt werden.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "Wird ausgelöst, wenn der Moderationsstatus eines im Erlebnis erstellten Avatar-Assets von ausstehend aktualisiert wurde.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1": {
+    "documentation": "Die Rückruffunktion, die jedes Mal aufgerufen wird, wenn das Ereignis ausgelöst wird."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Die Rückruffunktion, die aufgerufen wird, wenn das Ereignis in einem parallelen Ausführungskontext ausgelöst wird."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1": {
+    "documentation": "Die Rückruffunktion, die beim nächsten Mal aufgerufen wird, wenn das Ereignis ausgelöst wird, nach dem es automatisch getrennt wird."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once": {
+    "documentation": "Verbindet die gegebene Funktion mit dem Ereignis (für eine einmalige Ausführung) und gibt ein <code>RBXScriptConnection</code> zurück, das es darstellt.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0": {
+    "documentation": "Ein Objekt, das verbundene Funktionen bei einem bestimmten Ereignis ausführt."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait": {
+    "documentation": "Hält den aktuellen Thread an, bis das Signal ausgelöst wird, und gibt die Argumente zurück, die durch das Signal bereitgestellt werden.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
+    "documentation": "Wird ausgelöst, wenn der Moderationsstatus eines im Erlebnis erstellten Avatars von ausstehend aktualisiert wurde.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarModerationCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HeightmapImporterService": {
     "documentation": "",
     "keys": {},
@@ -99390,7 +99881,7 @@
     "documentation": "Das <code>ShowAdResult</code> der Werbung, die dem Client präsentiert wurde. Du solltest dieses Ergebnis nicht verwenden, um die Belohnung zu gewähren. Stattdessen solltest du die Belohnung von deiner <code>ProcessReceipt</code> Implementierung gewähren. Für <a href=\"../../../production/monetization/developer-products.md\">Entwicklerprodukte</a>, die durch belohnte Video-Werbung verdient werden, wird <code>ProductPurchaseChannel</code> auf <code>ProductPurchaseChannel.AdReward</code> gesetzt."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "Spielt die Videoanzeige für den aktuellen Benutzer innerhalb der Erfahrung.",
+    "documentation": "Spielt die Videoanzeige für den aktuellen Benutzer innerhalb der Erfahrung ab. <pre><code>**Warnung**: Belohnte Videoanzeigen müssen vom Benutzer akzeptiert werden und klar offengelegt sein. Für Details überprüfen Sie unsere [Eignungsvoraussetzungen](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements) und [Werbestandards](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards). </code></pre>",
     "params": [
       {
         "name": "self",

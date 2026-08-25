@@ -38616,13 +38616,9 @@
       "Camera Speed": "@roblox/globaltype/Studio.Camera Speed",
       "Camera Speed Adjust Binding": "@roblox/globaltype/Studio.Camera Speed Adjust Binding",
       "Camera Zoom to Mouse Position": "@roblox/globaltype/Studio.Camera Zoom to Mouse Position",
-      "CameraAdaptiveSpeed": "@roblox/globaltype/Studio.CameraAdaptiveSpeed",
       "CameraNavigationModel": "@roblox/globaltype/Studio.CameraNavigationModel",
-      "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
-      "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
-      "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
       "CommandBarEnterExec": "@roblox/globaltype/Studio.CommandBarEnterExec",
       "CommandBarFont": "@roblox/globaltype/Studio.CommandBarFont",
@@ -38940,24 +38936,9 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "控制相机移动速度是否根据与附近物体的距离进行调整。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
-    "documentation": "设置在 Studio 中用于相机移动的导航模型。",
+    "documentation": "设置用于 Studio 中相机移动的导航模型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "设置在 Studio 中相机轨道的鼠标灵敏度。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "设置在 Studio 中相机平移的鼠标灵敏度。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
@@ -38966,17 +38947,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
-    "documentation": "控制相机在重新聚焦于选定物体时是否平滑过渡。",
+    "documentation": "控制相机在重新聚焦于选定对象时是否平滑过渡。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "设置在 Studio 中相机缩放的速度。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.Clear Output On Start": {
-    "documentation": "如果设置为 true，则在切换游戏会话时输出将自动清除。",
+    "documentation": "如果设置为 true，当游戏会话切换时，输出将自动清除。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Clear Output On Start",
     "code_sample": ""
   },
@@ -38986,7 +38962,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarFont": {
-    "documentation": "设置在 Studio 命令栏中使用的字体。",
+    "documentation": "设置 Studio 命令栏中使用的字体。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarFont",
     "code_sample": ""
   },
@@ -39026,7 +39002,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DeprecatedObjectsShown": {
-    "documentation": "如果设置为 true，则在高级对象窗口和对象浏览器中将显示已弃用的对象。",
+    "documentation": "如果设置为 true，已弃用的对象将在高级对象窗口和对象浏览器中显示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DeprecatedObjectsShown",
     "code_sample": ""
   },
@@ -39096,7 +39072,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTrackball": {
-    "documentation": "控制是否在旋转拖动器上显示轨迹球手柄。",
+    "documentation": "控制在旋转拖动器上是否显示轨迹球手柄。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTrackball",
     "code_sample": ""
   },
@@ -39131,12 +39107,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable CoreScript Debugger": {
-    "documentation": "控制 CoreScript 调试器在 Studio 中是否可用。",
+    "documentation": "控制 Studio 中是否可用 CoreScript 调试器。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable CoreScript Debugger",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Http Sandboxing": {
-    "documentation": "控制来自插件的 HTTP 请求是否被沙盒化。",
+    "documentation": "控制插件的 HTTP 请求是否被沙盒化。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Http Sandboxing",
     "code_sample": ""
   },
@@ -39206,7 +39182,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableStudioStreaming": {
-    "documentation": "控制是否启用 Studio 流模式。",
+    "documentation": "控制是否启用 Studio 流媒体模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableStudioStreaming",
     "code_sample": ""
   },
@@ -39221,7 +39197,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorSelection": {
-    "documentation": "设置 Studio 打开脚本时使用的外部编辑器。",
+    "documentation": "设置 Studio 用于打开脚本的外部编辑器。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorSelection",
     "code_sample": ""
   },
@@ -39266,7 +39242,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "指定鼠标悬停在 <code>Workspace</code> 中可选择对象上时，悬停动画闪烁的频率。",
+    "documentation": "指定鼠标悬停在可选择对象上时，悬停动画闪烁的频率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
@@ -39331,7 +39307,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadInternalPlugins": {
-    "documentation": "控制是否在 Studio 中加载内部 Roblox 插件。",
+    "documentation": "控制在 Studio 中是否加载内部 Roblox 插件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadInternalPlugins",
     "code_sample": ""
   },
@@ -39361,7 +39337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Main Volume": {
-    "documentation": "设置 Studio 中的主音频播放音量。",
+    "documentation": "设置 Studio 中的主要音频播放音量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Main Volume",
     "code_sample": ""
   },
@@ -39371,7 +39347,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.MaxFindReplaceAllResults": {
-    "documentation": "设置查找所有操作返回的最大结果数。",
+    "documentation": "设置 Find All 操作返回的最大结果数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#MaxFindReplaceAllResults",
     "code_sample": ""
   },
@@ -39396,7 +39372,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Only Play Audio from Window in Focus": {
-    "documentation": "如果设置为 true，则播放的音频仅在游戏窗口获得焦点时可听到。",
+    "documentation": "如果设置为 true，播放的音频仅在游戏窗口获得焦点时可听到。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Only Play Audio from Window in Focus",
     "code_sample": ""
   },
@@ -39416,7 +39392,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PermissionLevelShown": {
-    "documentation": "设置 API 必须具有的最高权限级别，以便在对象浏览器中显示。有关更多信息，请参见 <code>PermissionLevelShown</code>。",
+    "documentation": "设置 API 在对象浏览器中显示所需的最高权限级别。有关更多信息，请参见 <code>PermissionLevelShown</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PermissionLevelShown",
     "code_sample": ""
   },
@@ -39431,7 +39407,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PluginDebuggingEnabled": {
-    "documentation": "控制是否在 Studio 中启用插件脚本调试。",
+    "documentation": "控制在 Studio 中是否启用插件脚本调试。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PluginDebuggingEnabled",
     "code_sample": ""
   },
@@ -39466,7 +39442,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "设置为 true 时，Roblox Studio 快捷键将优先于在游戏窗口中捕获的输入。",
+    "documentation": "设置为 true 时，Roblox Studio 快捷键将优先于游戏窗口中捕获的输入。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
@@ -39516,7 +39492,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select Color": {
-    "documentation": "在 <code>Workspace</code> 中使用的对象选择的选择框的颜色。",
+    "documentation": "在 <code>Workspace</code> 中与对象选择一起使用的选择框的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select Color",
     "code_sample": ""
   },
@@ -39561,12 +39537,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Core GUI in Explorer while Playing": {
-    "documentation": "如果设置为 true，则在游戏运行时 <code>CoreGui</code> 将在资源管理器中可见。",
+    "documentation": "如果设置为 true，<code>CoreGui</code> 在游戏运行时将在资源管理器中可见。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Core GUI in Explorer while Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Diagnostics Bar": {
-    "documentation": "如果设置为 true，则在右下角显示基本诊断信息。",
+    "documentation": "如果设置为 true，基本诊断信息将在右下角显示。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Diagnostics Bar",
     "code_sample": ""
   },
@@ -39581,17 +39557,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hover Over": {
-    "documentation": "如果设置为 true，则在 <code>Workspace</code> 中悬停对象时将显示选择框。",
+    "documentation": "如果设置为 true，悬停在 <code>Workspace</code> 中的对象上将显示选择框。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hover Over",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Light Guides": {
-    "documentation": "控制是否在视口中显示光导引可视化。",
+    "documentation": "控制视口中是否显示光导引可视化。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Light Guides",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Labels": {
-    "documentation": "控制是否在视口中显示导航网格区域标签。",
+    "documentation": "控制视口中是否显示导航网格区域标签。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Labels",
     "code_sample": ""
   },
@@ -39601,7 +39577,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Pathfinding Links": {
-    "documentation": "控制是否在视口中显示 PathfindingLink 可视化。",
+    "documentation": "控制视口中是否显示 PathfindingLink 可视化。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Pathfinding Links",
     "code_sample": ""
   },
@@ -39611,7 +39587,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show plus button on hover in Explorer": {
-    "documentation": "控制在资源管理器中悬停项目时是否出现加号按钮。",
+    "documentation": "控制在资源管理器中悬停在项目上时是否显示加号按钮。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show plus button on hover in Explorer",
     "code_sample": ""
   },
@@ -39621,7 +39597,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Whitespace": {
-    "documentation": "控制空格字符是否作为可见字形显示在脚本编辑器中。",
+    "documentation": "控制空格字符是否在脚本编辑器中显示为可见字形。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Whitespace",
     "code_sample": ""
   },
@@ -39646,12 +39622,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Color": {
-    "documentation": "指定脚本编辑器中普通文本的颜色。",
+    "documentation": "指定脚本编辑器中正常文本的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Wrapping": {
-    "documentation": "如果设置为 true，则脚本编辑器中的文本将换行。",
+    "documentation": "如果设置为 true，脚本编辑器中的文本将换行。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Wrapping",
     "code_sample": ""
   },
@@ -39681,12 +39657,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.VAxisColor": {
-    "documentation": "设置 Studio 的拖动器中的 V 轴手柄的颜色。",
+    "documentation": "设置 Studio 拖动器中的 V 轴手柄的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#VAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "指定当脚本分析器发现需要在脚本编辑器中解决的问题时显示的波浪下划线的颜色。",
+    "documentation": "指定脚本分析器在脚本编辑器中发现需要解决的问题时显示的波浪下划线的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
@@ -39696,17 +39672,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.XAxisColor": {
-    "documentation": "设置 Studio 的拖动器中的 X 轴手柄的颜色。",
+    "documentation": "设置 Studio 拖动器中的 X 轴手柄的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#XAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.YAxisColor": {
-    "documentation": "设置 Studio 的拖动器中的 Y 轴手柄的颜色。",
+    "documentation": "设置 Studio 拖动器中的 Y 轴手柄的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#YAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ZAxisColor": {
-    "documentation": "设置 Studio 的拖动器中的 Z 轴手柄的颜色。",
+    "documentation": "设置 Studio 拖动器中的 Z 轴手柄的颜色。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ZAxisColor",
     "code_sample": ""
   },
@@ -46167,8 +46143,39 @@
   },
   "@roblox/globaltype/UIGradient": {
     "documentation": "将颜色和透明度渐变应用于由父 <code>GuiObject</code> 渲染的 UI 元素。",
-    "keys": {},
+    "keys": {
+      "Color": "@roblox/globaltype/UIGradient.Color",
+      "Enabled": "@roblox/globaltype/UIGradient.Enabled",
+      "Offset": "@roblox/globaltype/UIGradient.Offset",
+      "Rotation": "@roblox/globaltype/UIGradient.Rotation",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Color": {
+    "documentation": "确定与父级 GuiObject 沿渐变长度混合的颜色。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Enabled": {
+    "documentation": "渐变是否启用。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Offset": {
+    "documentation": "确定渐变从父级 GuiObject 中心的标量平移。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Rotation": {
+    "documentation": "确定渐变从左到右的顺时针旋转角度。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Transparency": {
+    "documentation": "确定沿渐变长度可以看到多少父级 GuiObject。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -91623,7 +91630,9 @@
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
-      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState"
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
+      "Fire": "@roblox/globaltype/InputAction.Fire",
+      "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
     "code_sample": ""
@@ -91666,6 +91675,312 @@
   "@roblox/globaltype/InputAction.ViewportPositionState": {
     "documentation": "不可脚本化的只读属性，适用于调试 <code>ViewportPosition</code> 输入动作。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Fire/param/0": {
+    "documentation": "定义了一种游戏玩法动作机制。这些动作随后通过 <code>InputBinding</code> 映射到硬件输入。"
+  },
+  "@roblox/globaltype/InputAction.Fire/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InputAction.Fire": {
+    "documentation": "<strong>Deprecated:</strong> 请改用 <code>InputBinding:Fire()</code> 和 <code>Scriptable</code> 绑定。<br>将 <code>InputAction</code> 更新为给定状态并触发相应的信号。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
+      },
+      {
+        "name": "state",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Fire",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.GetState/param/0": {
+    "documentation": "定义了一种游戏玩法动作机制。这些动作随后通过 <code>InputBinding</code> 映射到硬件输入。"
+  },
+  "@roblox/globaltype/InputAction.GetState/return/0": {
+    "documentation": "当前的 <code>InputAction</code> 状态。"
+  },
+  "@roblox/globaltype/InputAction.GetState": {
+    "documentation": "返回当前的 <code>InputAction</code> 状态。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.GetState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InputAction.GetState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#GetState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/1": {
+    "documentation": "每次事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1": {
+    "documentation": "在并行执行上下文中事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/1": {
+    "documentation": "在事件下次触发时调用的回调函数，之后它会自动断开连接。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once": {
+    "documentation": "将给定的函数连接到事件（用于单次调用），并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait": {
+    "documentation": "直到信号触发才让当前线程挂起，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed": {
+    "documentation": "仅在 <code>InputAction.Type</code> 设置为 <code>Bool</code> 时，在状态从 <code>false</code> 过渡到 <code>true</code> 时触发。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Pressed.Once",
+      "Wait": "@roblox/globaltype/InputAction.Pressed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Pressed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/1": {
+    "documentation": "每次事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/InputAction.Released.Connect": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1": {
+    "documentation": "在并行执行上下文中事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/1": {
+    "documentation": "在事件下次触发时调用的回调函数，之后它会自动断开连接。"
+  },
+  "@roblox/globaltype/InputAction.Released.Once": {
+    "documentation": "将给定的函数连接到事件（用于单次调用），并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Wait/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.Released.Wait": {
+    "documentation": "直到信号触发才让当前线程挂起，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released": {
+    "documentation": "仅在 <code>InputAction.Type</code> 设置为 <code>Bool</code> 时，在状态从 <code>true</code> 过渡到 <code>false</code> 时触发。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Released.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Released.Once",
+      "Wait": "@roblox/globaltype/InputAction.Released.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Released",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/1": {
+    "documentation": "每次事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1": {
+    "documentation": "在并行执行上下文中事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/1": {
+    "documentation": "在事件下次触发时调用的回调函数，之后它会自动断开连接。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once": {
+    "documentation": "将给定的函数连接到事件（用于单次调用），并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait": {
+    "documentation": "直到信号触发才让当前线程挂起，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged": {
+    "documentation": "在状态变化时，对于所有 <code>InputActionType</code> 类型触发，除非状态尝试过渡到相同状态。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.StateChanged.Once",
+      "Wait": "@roblox/globaltype/InputAction.StateChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#StateChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
@@ -95755,6 +96070,182 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": "每次事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "在并行执行上下文中事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": "在事件下次触发时调用的回调函数，之后它会自动断开连接。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "将给定的函数连接到事件（用于单次调用），并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "直到信号触发才让当前线程挂起，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "当体验内创建的头像资产的审核状态从待审核更新时触发。",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1": {
+    "documentation": "每次事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "在并行执行上下文中事件触发时调用的回调函数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1": {
+    "documentation": "在事件下次触发时调用的回调函数，之后它会自动断开连接。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once": {
+    "documentation": "将给定的函数连接到事件（用于单次调用），并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait": {
+    "documentation": "直到信号触发才让当前线程挂起，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
+    "documentation": "当体验内创建的头像的审核状态从待审核更新时触发。",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarModerationCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HeightmapImporterService": {
     "documentation": "",
     "keys": {},
@@ -99390,7 +99881,7 @@
     "documentation": "客户端广告展示的 <code>ShowAdResult</code>。您不应该用这个结果来授予奖励。相反，您应该从您的 <code>ProcessReceipt</code> 实现中授予奖励。对于通过奖励视频广告获得的 <a href=\"../../../production/monetization/developer-products.md\">开发者产品</a>， <code>ProductPurchaseChannel</code> 将是 <code>ProductPurchaseChannel.AdReward</code>。"
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "在体验中向当前用户播放视频广告。",
+    "documentation": "在体验中向当前用户播放视频广告。 <pre><code>**警告**：奖励视频广告必须由用户选择加入并明确披露。 有关详细信息，请查看我们的 [资格要求](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements)和 [广告标准](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards)。 </code></pre>",
     "params": [
       {
         "name": "self",
@@ -100376,12 +100867,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.BanningEnabled": {
-    "documentation": "启用或禁用三个 <code>Players</code> 方法 (<code>BanAsync()</code>, <code>UnbanAsync()</code>, 和 <code>GetBanHistoryAsync()</code>)，构成 禁止 API。此属性不能通过开发者可见的 Luau 设置， 必须通过 Studio 中的 Players 属性窗口进行设置。",
+    "documentation": "启用或禁用三个 <code>Players</code> 方法 (<code>BanAsync()</code>， <code>UnbanAsync()</code>，以及 <code>GetBanHistoryAsync()</code>)，这些方法构成了禁令 API。此属性不能通过开发者面向的 Luau 设置， 必须在 Studio 的 Players 属性窗口中设置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#BanningEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.BubbleChat": {
-    "documentation": "指示气泡聊天是否启用。通过 <code>Players:SetChatStyle()</code> 方法设置。",
+    "documentation": "指示气泡聊天是否启用。它通过 <code>Players:SetChatStyle()</code> 方法设置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#BubbleChat",
     "code_sample": ""
   },
@@ -100396,32 +100887,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.LocalPlayer": {
-    "documentation": "当前 <code>LocalScript</code> 所针对的 <code>Player</code>。",
+    "documentation": "为 <code>LocalScript</code> 运行的 <code>Player</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#LocalPlayer",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.localPlayer": {
-    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Players.LocalPlayer</code> 的一个过时变体，应继续使用该属性。",
+    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Players.LocalPlayer</code> 的已弃用变体，应该使用该属性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#localPlayer",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.MaxPlayers": {
-    "documentation": "服务器中最大可以有的玩家数量。",
+    "documentation": "服务器中可以容纳的最大玩家数量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#MaxPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.NumPlayers": {
-    "documentation": "<strong>Deprecated:</strong> 该项已被弃用。您应使用 <code>Players:GetPlayers()</code> 返回的玩家数量。<br>返回当前服务器中的人数。",
+    "documentation": "<strong>Deprecated:</strong> 此项已弃用。相反，您应该计算 <code>Players:GetPlayers()</code> 返回的玩家数量。<br>返回当前服务器中的人数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#NumPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.numPlayers": {
-    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Players.NumPlayers</code> 的一个过时变体，也已经被弃用。两个属性都不应该在新工作中使用。相反，您应该使用 <code>Players:GetPlayers()</code> 返回的玩家数量。<br>返回当前服务器中的人数。",
+    "documentation": "<strong>Deprecated:</strong> 此属性是 <code>Players.NumPlayers</code> 的已弃用变体，该属性也已被弃用。两个属性都不应在新工作中使用。相反，您应该计算 <code>Players:GetPlayers()</code> 返回的玩家数量。<br>返回当前服务器中的人数。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#numPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/Players.PreferredPlayers": {
-    "documentation": "服务器的首选玩家人数。",
+    "documentation": "服务器的首选玩家数量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#PreferredPlayers",
     "code_sample": ""
   },
@@ -100431,7 +100922,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Players.UseStrafingAnimations": {
-    "documentation": "确定 R15 角色模型是否播放方向侧移和后退动画，而不是始终转向面朝其移动方向。",
+    "documentation": "确定 R15 角色模型是否播放方向侧移和后退动画，而不是总是转身面对其移动方向。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#UseStrafingAnimations",
     "code_sample": ""
   },
@@ -100439,10 +100930,10 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.BanAsync/param/1": {
-    "documentation": "<ul> <li> <code>UserIds</code>（必需；数组）— 要被禁止的玩家的 <code>UserIds</code> 数组。最大大小为 <code>50</code>。 </li> <li> <code>ApplyToUniverse</code>（可选；布尔值）— 禁令是否传播到体验宇宙内的所有地点。默认值为 <code>true</code>。 </li> <li> <code>Duration</code>（必需；整数）— 禁令的持续时间（以秒为单位）。永久禁令应具有值 <code>-1</code>。<code>0</code> 和所有其他负值都是无效的。 </li> <li> <code>DisplayReason</code>（必需；字符串）— 当用户尝试加入体验并失败时显示给用户的消息。最大字符串长度为 <code>400</code>。 </li> <li> <code>PrivateReason</code>（必需；字符串）— 查询用户的禁令历史时返回的内部消息。最大字符串长度为 <code>1000</code>。 </li> <li> <code>ExcludeAltAccounts</code>（可选；布尔值）— 当为 <code>true</code> 时，Roblox 不会尝试禁止替代账户。默认值为 <code>false</code>。 </li> <li> <code>ApplyDeviceBlock</code>（可选；布尔值）— 当为 <code>true</code> 时，Roblox 将阻止被禁用户的设备在禁令生效后 24 小时内重新加入体验。默认值为 <code>false</code>。可以通过调用 <code>Players:UnbanAsync()</code> 取消阻止。请注意，通过任何其他方法取消阻止用户将不会解除设备阻止。 </li> </ul>"
+    "documentation": "<ul> <li> <code>UserIds</code>（必需；数组）— 要禁止的玩家的 <code>UserIds</code> 数组。最大大小为 <code>50</code>。 </li> <li> <code>ApplyToUniverse</code>（可选；布尔值）— 禁令是否传播到体验宇宙中的所有地点。默认值为 <code>true</code>。 </li> <li> <code>Duration</code>（必需；整数）— 禁令的持续时间（以秒为单位）。永久禁令应具有值 <code>-1</code>。<code>0</code> 和所有其他负值都是无效的。 </li> <li> <code>DisplayReason</code>（必需；字符串）— 当用户尝试加入体验并失败时，将显示给用户的消息。最大字符串长度为 <code>400</code>。 </li> <li> <code>PrivateReason</code>（必需；字符串）— 查询用户的禁令历史时返回的内部消息。最大字符串长度为 <code>1000</code>。 </li> <li> <code>ExcludeAltAccounts</code>（可选；布尔值）— 当为 <code>true</code> 时，Roblox 不会尝试禁止替代账户。默认值为 <code>false</code>。 </li> <li> <code>ApplyDeviceBlock</code>（可选；布尔值）— 当为 <code>true</code> 时，Roblox 将阻止被禁用户的设备在禁令生效后 24 小时内重新加入体验。默认值为 <code>false</code>。可以通过调用 <code>Players:UnbanAsync()</code> 取消阻止。请注意，通过任何其他方法取消阻止用户将不会解除设备阻止。 </li> </ul>"
   },
   "@roblox/globaltype/Players.BanAsync": {
-    "documentation": "禁止用户进入您的体验，选项包括指定持续时间、原因、禁令是否适用于整个宇宙或仅适用于当前地点等。此方法由 <code>Players.BanningEnabled</code> 属性启用和禁用，您可以在 Studio 中切换。",
+    "documentation": "禁止用户进入您的体验，提供选项以指定持续时间、原因、禁令是否适用于整个宇宙或仅适用于当前地点等。此方法由 <code>Players.BanningEnabled</code> 属性启用和禁用，您可以在 Studio 中切换。",
     "params": [
       {
         "name": "self",
@@ -100464,7 +100955,7 @@
     "documentation": "聊天的消息。"
   },
   "@roblox/globaltype/Players.Chat": {
-    "documentation": "使本地玩家聊天获取的消息。",
+    "documentation": "使本地玩家聊天给定的消息。",
     "params": [
       {
         "name": "self",
@@ -100483,10 +100974,10 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/1": {
-    "documentation": "指定返回的角色的外观。"
+    "documentation": "指定返回角色的外观。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/2": {
-    "documentation": "指定返回的角色是 R6 还是 R15。"
+    "documentation": "指定返回的角色将是 R6 还是 R15。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/3": {
     "documentation": "资产类型验证模式。"
@@ -100495,7 +100986,7 @@
     "documentation": "一个 <code>Humanoid</code> 角色 <code>Model</code>。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>CreateHumanoidModelFromDescriptionAsync()</code> 取代。<br>返回一个角色 <code>Model</code>，配备了在传入的 <code>HumanoidDescription</code> 中指定的所有内容。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>CreateHumanoidModelFromDescriptionAsync()</code> 取代。<br>返回一个角色 <code>Model</code>，装备了传入的 <code>HumanoidDescription</code> 中指定的所有内容。",
     "params": [
       {
         "name": "self",
@@ -100524,10 +101015,10 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/1": {
-    "documentation": "指定返回的角色的外观。"
+    "documentation": "指定返回角色的外观。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/2": {
-    "documentation": "指定返回的角色是 R6 还是 R15。"
+    "documentation": "指定返回的角色将是 R6 还是 R15。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/3": {
     "documentation": "资产类型验证模式。"
@@ -100571,7 +101062,7 @@
     "documentation": "一个 Humanoid 角色模型。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>CreateHumanoidModelFromUserIdAsync()</code> 取代。<br>返回一个角色模型，设置为匹配通过传入的 userId 指定的用户的头像，配备所有内容。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>CreateHumanoidModelFromUserIdAsync()</code> 取代。<br>返回一个角色模型，设置为与传入的 userId 指定的用户的头像匹配的所有装备。",
     "params": [
       {
         "name": "self",
@@ -100598,7 +101089,7 @@
     "documentation": "一个 Humanoid 角色模型。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync": {
-    "documentation": "返回一个角色模型，设置为匹配通过传入的 userId 指定的用户的头像，配备所有内容。",
+    "documentation": "返回一个角色模型，设置为与传入的 userId 指定的用户的头像匹配的所有装备。",
     "params": [
       {
         "name": "self",
@@ -100622,7 +101113,7 @@
     "documentation": "要检索其禁令历史的玩家的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/return/0": {
-    "documentation": "有关返回参考的信息，请参见 <code>BanHistoryPages</code>。"
+    "documentation": "请参见 <code>BanHistoryPages</code> 以获取返回参考。"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync": {
     "documentation": "检索体验宇宙中任何用户的禁令和解禁历史。此方法由 <code>Players.BanningEnabled</code> 属性启用和禁用，您可以在 Studio 中切换。",
@@ -100649,7 +101140,7 @@
     "documentation": "指定玩家的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceAsync/return/0": {
-    "documentation": "一个包含玩家所穿资产的 <code>Model</code>，不包括装备。"
+    "documentation": "一个 <code>Model</code>，包含玩家穿戴的资产，排除装备。"
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceAsync": {
     "documentation": "<strong>Deprecated:</strong> 此方法已弃用。请勿在新工作中使用。<br>返回一个 <code>Model</code>，包含玩家穿戴的资产，排除装备。",
@@ -100676,7 +101167,7 @@
     "documentation": "指定玩家的 \\*<em>userId</em>。"
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceInfoAsync/return/0": {
-    "documentation": "包含有关给定用户角色外观的信息的字典。"
+    "documentation": "一个字典，包含有关给定用户角色外观的信息。"
   },
   "@roblox/globaltype/Players.GetCharacterAppearanceInfoAsync": {
     "documentation": "返回有关给定用户角色外观的信息。",
@@ -100703,10 +101194,10 @@
     "documentation": "指定的玩家的用户 ID。"
   },
   "@roblox/globaltype/Players.GetFriendsAsync/return/0": {
-    "documentation": "一个包含所有给定用户朋友信息的 <code>FriendPages</code> 对象。"
+    "documentation": "一个 <code>FriendPages</code> 对象，包含所有给定用户的朋友的信息。"
   },
   "@roblox/globaltype/Players.GetFriendsAsync": {
-    "documentation": "返回一个 <code>FriendPages</code> 对象，其中包含所有给定玩家朋友的信息。",
+    "documentation": "返回一个 <code>FriendPages</code> 对象，其中包含所有给定玩家的朋友的信息。",
     "params": [
       {
         "name": "self",
@@ -100727,13 +101218,13 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId/param/1": {
-    "documentation": "要寻找的服装的 ID。"
+    "documentation": "要查找 HumanoidDescription 的服装 ID。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId/return/0": {
-    "documentation": "根据传入的 outfitId 初始化的 HumanoidDescription。"
+    "documentation": "使用传入的 outfitId 初始化的 HumanoidDescription。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetHumanoidDescriptionFromOutfitIdAsync()</code> 取代。<br>返回指定服装的 HumanoidDescription，其中将设置服装的部件/颜色/动画等。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetHumanoidDescriptionFromOutfitIdAsync()</code> 取代。<br>返回指定服装的 HumanoidDescription，该描述将设置为服装的部件/颜色/动画等。",
     "params": [
       {
         "name": "self",
@@ -100754,13 +101245,13 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/param/1": {
-    "documentation": "要寻找的服装的 ID。"
+    "documentation": "要查找 HumanoidDescription 的服装 ID。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/return/0": {
-    "documentation": "根据传入的 outfitId 初始化的 HumanoidDescription。"
+    "documentation": "使用传入的 outfitId 初始化的 HumanoidDescription。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync": {
-    "documentation": "返回指定服装的 HumanoidDescription，其中将设置服装的部件/颜色/动画等。",
+    "documentation": "返回指定服装的 HumanoidDescription，该描述将设置为服装的部件/颜色/动画等。",
     "params": [
       {
         "name": "self",
@@ -100784,10 +101275,10 @@
     "documentation": "Roblox 用户的 userId。（UserId 是用户个人资料中的数字，例如 www.roblox.com/users/1/profile）。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0": {
-    "documentation": "根据传入用户的头像规格初始化的 HumanoidDescription。"
+    "documentation": "使用传入用户的头像规格初始化的 HumanoidDescription。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetHumanoidDescriptionFromUserIdAsync()</code> 取代。<br>返回一个 HumanoidDescription，指定通过传入的 userId 指定的用户的所有装备。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetHumanoidDescriptionFromUserIdAsync()</code> 取代。<br>返回一个 HumanoidDescription，指定传入的 userId 用户的头像所装备的所有内容。",
     "params": [
       {
         "name": "self",
@@ -100811,10 +101302,10 @@
     "documentation": "Roblox 用户的 userId。（UserId 是用户个人资料中的数字，例如 www.roblox.com/users/1/profile）。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0": {
-    "documentation": "根据传入用户的头像规格初始化的 HumanoidDescription。"
+    "documentation": "使用传入用户的头像规格初始化的 HumanoidDescription。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync": {
-    "documentation": "返回一个 HumanoidDescription，指定通过传入的 userId 指定的用户的所有装备。",
+    "documentation": "返回一个 HumanoidDescription，指定传入的 userId 用户的头像所装备的所有内容。",
     "params": [
       {
         "name": "self",
@@ -100841,7 +101332,7 @@
     "documentation": "具有指定 <code>Player.UserId</code> 的用户的名称。"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync": {
-    "documentation": "向 Roblox 网站发送查询，以获取具有给定 <code>UserId</code> 的帐户的用户名。",
+    "documentation": "向 Roblox 网站发送查询，以获取具有给定 <code>UserId</code> 的账户的用户名。",
     "params": [
       {
         "name": "self",
@@ -100892,10 +101383,10 @@
     "documentation": "您想要获取玩家的角色实例。"
   },
   "@roblox/globaltype/Players.GetPlayerFromCharacter/return/0": {
-    "documentation": "具有给定模型的 <code>Player</code>，如果找不到则为 <code>nil</code>。"
+    "documentation": "与给定模型匹配的 <code>Player</code> 的 <code>Player.Character</code>，如果找不到则返回 <code>nil</code>。"
   },
   "@roblox/globaltype/Players.GetPlayerFromCharacter": {
-    "documentation": "返回 <code>Player</code>，其 <code>Player.Character</code> 与给定实例匹配，或者如果找不到，则返回 <code>nil</code>。",
+    "documentation": "返回与给定实例匹配的 <code>Player</code> 的 <code>Player.Character</code>，如果找不到则返回 <code>nil</code>。",
     "params": [
       {
         "name": "self",
@@ -100916,7 +101407,7 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.GetPlayers/return/0": {
-    "documentation": "包含服务器中所有玩家的表。"
+    "documentation": "一个包含服务器中所有玩家的表。"
   },
   "@roblox/globaltype/Players.GetPlayers": {
     "documentation": "返回所有当前连接的 <code>Player</code> 对象的表。",
@@ -100939,7 +101430,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.getPlayers": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Players:GetPlayers()</code> 的已弃用变体，应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Players:GetPlayers()</code> 的已弃用变体，应该使用该方法。",
     "params": [
       {
         "name": "self",
@@ -100956,13 +101447,13 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.GetProfileConfigurationFromUserIdAsync/param/1": {
-    "documentation": "要检索其配置文件配置的用户的 <code>Player.UserId</code>。"
+    "documentation": "要检索其个人资料配置的用户的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Players.GetProfileConfigurationFromUserIdAsync/return/0": {
-    "documentation": "一个字典，包含用户的配置文件配置，例如背景资产 ID。"
+    "documentation": "一个字典，包含用户的个人资料配置，例如背景资产 ID。"
   },
   "@roblox/globaltype/Players.GetProfileConfigurationFromUserIdAsync": {
-    "documentation": "返回用户的配置文件配置，作为字典。",
+    "documentation": "返回用户的个人资料配置，格式为字典。",
     "params": [
       {
         "name": "self",
@@ -100986,7 +101477,7 @@
     "documentation": "指定的玩家的用户名。"
   },
   "@roblox/globaltype/Players.GetUserIdFromNameAsync/return/0": {
-    "documentation": "指定名称的用户的 <code>Player.UserId</code>。"
+    "documentation": "具有指定名称的用户的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Players.GetUserIdFromNameAsync": {
     "documentation": "向 Roblox 网站发送查询，以获取具有给定用户名的账户的 <code>userId</code>。",
@@ -101013,10 +101504,10 @@
     "documentation": "指定的玩家的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/Players.GetUserThumbnailAsync/param/2": {
-    "documentation": "描述缩略图类型的 <code>ThumbnailType</code>。"
+    "documentation": "一个描述缩略图类型的 <code>ThumbnailType</code>。"
   },
   "@roblox/globaltype/Players.GetUserThumbnailAsync/param/3": {
-    "documentation": "指定缩略图大小的 <code>ThumbnailSize</code>。"
+    "documentation": "一个指定缩略图大小的 <code>ThumbnailSize</code>。"
   },
   "@roblox/globaltype/Players.GetUserThumbnailAsync/return/0": {
     "documentation": "一个元组，包含基于指定参数的用户缩略图的内容 URL，以及一个布尔值，描述图像是否准备好使用。"
@@ -101057,7 +101548,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.playerFromCharacter": {
-    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Players:GetPlayerFromCharacter()</code> 的已弃用变体，应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此函数是 <code>Players:GetPlayerFromCharacter()</code> 的已弃用变体，应该在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -101081,7 +101572,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.players": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>Players:GetPlayers()</code> 取代，应在所有新工作中使用。<br>返回体验中的玩家列表。",
+    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>Players:GetPlayers()</code> 取代，应该在所有新工作中使用。<br>返回体验中的玩家列表。",
     "params": [
       {
         "name": "self",
@@ -101098,7 +101589,7 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.SetChatStyle/param/1": {
-    "documentation": "正在设置的指定聊天样式。"
+    "documentation": "指定的聊天样式。"
   },
   "@roblox/globaltype/Players.SetChatStyle": {
     "documentation": "设置是否使用 BubbleChat 和 ClassicChat，并告诉 TeamChat 和 <code>Chat</code> 应该怎么做。",
@@ -101120,10 +101611,10 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.TeamChat/param/1": {
-    "documentation": "正在聊天的消息。"
+    "documentation": "聊天的消息。"
   },
   "@roblox/globaltype/Players.TeamChat": {
-    "documentation": "使本地玩家聊天给定消息，该消息仅对同一团队的用户可见。",
+    "documentation": "使本地玩家聊天给定的消息，只有同队的用户可以查看。",
     "params": [
       {
         "name": "self",
@@ -101142,10 +101633,10 @@
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
   },
   "@roblox/globaltype/Players.UnbanAsync/param/1": {
-    "documentation": "<table><thead> <tr>   <th>名称</th>   <th>类型</th>   <th>描述</th> </tr></thead> <tbody>   <tr>     <td><code>UserIds</code></td>     <td>数组</td>     <td>要强制允许进入体验的用户 ID。<br /> <br />最大大小为 <code>50</code>。</td>   </tr>   <tr>     <td><code>ApplyToUniverse</code></td>     <td>布尔值</td>     <td>将解禁传播到该宇宙内的所有地点。<br /></td>   </tr> </tbody> </table>"
+    "documentation": "<table><thead> <tr>   <th>名称</th>   <th>类型</th>   <th>描述</th> </tr></thead> <tbody>   <tr>     <td><code>UserIds</code></td>     <td>数组</td>     <td>要强制允许进入体验的用户 ID。<br /> <br />最大大小为 <code>50</code>。</td>   </tr>   <tr>     <td><code>ApplyToUniverse</code></td>     <td>布尔值</td>     <td>将解禁传播到此宇宙中的所有地点。<br /></td>   </tr> </tbody> </table>"
   },
   "@roblox/globaltype/Players.UnbanAsync": {
-    "documentation": "解禁通过 <code>Players:BanAsync()</code> 或用户限制开放云 API 被禁止的玩家。此方法由 <code>Players.BanningEnabled</code> 属性启用和禁用，您可以在 Studio 中切换。",
+    "documentation": "解禁通过 <code>Players:BanAsync()</code> 或用户限制开放云 API 被禁的玩家。此方法由 <code>Players.BanningEnabled</code> 属性启用和禁用，您可以在 Studio 中切换。",
     "params": [
       {
         "name": "self",

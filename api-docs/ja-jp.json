@@ -38616,13 +38616,9 @@
       "Camera Speed": "@roblox/globaltype/Studio.Camera Speed",
       "Camera Speed Adjust Binding": "@roblox/globaltype/Studio.Camera Speed Adjust Binding",
       "Camera Zoom to Mouse Position": "@roblox/globaltype/Studio.Camera Zoom to Mouse Position",
-      "CameraAdaptiveSpeed": "@roblox/globaltype/Studio.CameraAdaptiveSpeed",
       "CameraNavigationModel": "@roblox/globaltype/Studio.CameraNavigationModel",
-      "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
-      "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
-      "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
       "CommandBarEnterExec": "@roblox/globaltype/Studio.CommandBarEnterExec",
       "CommandBarFont": "@roblox/globaltype/Studio.CommandBarFont",
@@ -38940,24 +38936,9 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "カメラの移動速度が近くのオブジェクトとの距離に基づいて適応するかどうかを制御します。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
-    "documentation": "Studioでのカメラ移動に使用されるナビゲーションモデルを設定します。",
+    "documentation": "スタジオでのカメラ移動に使用されるナビゲーションモデルを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "Studioでのカメラのオービットに対するマウス感度を設定します。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "Studioでのカメラのパンに対するマウス感度を設定します。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
@@ -38968,11 +38949,6 @@
   "@roblox/globaltype/Studio.CameraTweenFocus": {
     "documentation": "選択したオブジェクトに再フォーカスするときにカメラがスムーズにツイーンするかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "Studioでのカメラのズーム速度を設定します。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Clear Output On Start": {
@@ -38986,7 +38962,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarFont": {
-    "documentation": "Studioのコマンドバーで使用されるフォントを設定します。",
+    "documentation": "スタジオのコマンドバーで使用されるフォントを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarFont",
     "code_sample": ""
   },
@@ -39016,37 +38992,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DefaultInstancesDir": {
-    "documentation": "Studioがインスタンスファイルを保存するデフォルトのディレクトリを設定します。",
+    "documentation": "スタジオがインスタンスファイルを保存するデフォルトディレクトリを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DefaultInstancesDir",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DefaultScriptSyncFileType": {
-    "documentation": "スクリプトをファイルシステムに同期するときに使用されるデフォルトのファイルタイプを設定します。",
+    "documentation": "スクリプトをファイルシステムに同期するときに使用されるデフォルトファイルタイプを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DefaultScriptSyncFileType",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DeprecatedObjectsShown": {
-    "documentation": "trueに設定すると、非推奨のオブジェクトがAdvanced ObjectsウィンドウおよびObject Browserに表示されます。",
+    "documentation": "trueに設定すると、非推奨のオブジェクトが高度なオブジェクトウィンドウおよびオブジェクトブラウザに表示されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DeprecatedObjectsShown",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DisplayLanguage": {
-    "documentation": "Studioインターフェースで使用される表示言語を設定します。",
+    "documentation": "スタジオインターフェースで使用される表示言語を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DisplayLanguage",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerActiveColor": {
-    "documentation": "Studioでのアクティブなドラッガーハンドルの色を設定します。",
+    "documentation": "スタジオのアクティブドラッガーハンドルの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerActiveColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerLengthFactor": {
-    "documentation": "Studioでのドラッガーハンドルの長さスケールファクターを設定します。",
+    "documentation": "スタジオのドラッガーハンドルの長さスケールファクターを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerLengthFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMajorGridIncrement": {
-    "documentation": "ドラッガーでスナッピングするときに使用される主要なグリッドの増分を設定します。",
+    "documentation": "ドラッガーでスナッピングするときに使用される主要なグリッドインクリメントを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMajorGridIncrement",
     "code_sample": ""
   },
@@ -39056,7 +39032,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerPassiveColor": {
-    "documentation": "Studioでの非アクティブなドラッガーハンドルの色を設定します。",
+    "documentation": "スタジオの非アクティブドラッガーハンドルの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerPassiveColor",
     "code_sample": ""
   },
@@ -39086,7 +39062,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowPlanes": {
-    "documentation": "ドラッガーに平面変換ハンドルが表示されるかどうかを制御します。",
+    "documentation": "ドラッガーに平面移動ハンドルが表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowPlanes",
     "code_sample": ""
   },
@@ -39111,7 +39087,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerSummonMarginFactor": {
-    "documentation": "表面近くにドラッガーを召喚するために使用されるマージンファクターを設定します。",
+    "documentation": "サーフェスの近くにドラッガーを召喚するために使用されるマージンファクターを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerSummonMarginFactor",
     "code_sample": ""
   },
@@ -39131,7 +39107,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable CoreScript Debugger": {
-    "documentation": "StudioでCoreScriptデバッガーが利用可能かどうかを制御します。",
+    "documentation": "スタジオでCoreScriptデバッガーが利用可能かどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable CoreScript Debugger",
     "code_sample": ""
   },
@@ -39141,12 +39117,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Internal Beta Features": {
-    "documentation": "Studioで内部ベータ機能にアクセスできるかどうかを制御します。",
+    "documentation": "スタジオで内部ベータ機能にアクセスできるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Internal Beta Features",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Internal Features": {
-    "documentation": "Studioで内部開発者機能にアクセスできるかどうかを制御します。",
+    "documentation": "スタジオで内部開発者機能にアクセスできるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Internal Features",
     "code_sample": ""
   },
@@ -39161,12 +39137,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help": {
-    "documentation": "入力中に関数シグネチャヘルプのポップアップが表示されるかどうかを制御します。",
+    "documentation": "入力中に関数シグネチャヘルプポップアップが表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help Doc View": {
-    "documentation": "シグネチャヘルプのポップアップとともにドキュメントが表示されるかどうかを制御します。",
+    "documentation": "シグネチャヘルプポップアップとともにドキュメントが表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help Doc View",
     "code_sample": ""
   },
@@ -39176,22 +39152,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Temporary Tabs In Explorer": {
-    "documentation": "Explorerでスクリプトをクリックすると一時的なタブで開くかどうかを制御します。",
+    "documentation": "エクスプローラーでスクリプトをクリックすると一時的なタブで開くかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Temporary Tabs In Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Type Hover": {
-    "documentation": "識別子にホバーするとその推測される型が表示されるかどうかを制御します。",
+    "documentation": "識別子にホバーするとその推測された型が表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Type Hover",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableCodeAssist": {
-    "documentation": "スクリプトエディタでAI駆動のコードアシスト機能が有効かどうかを制御します。",
+    "documentation": "スクリプトエディタでAI駆動のコードアシスト機能が有効になるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableCodeAssist",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableFindOnType": {
-    "documentation": "スクリプトエディタで入力中にFindバーがアクティブになるかどうかを制御します。",
+    "documentation": "スクリプトエディタで入力中に検索バーがアクティブになるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableFindOnType",
     "code_sample": ""
   },
@@ -39206,7 +39182,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableStudioStreaming": {
-    "documentation": "Studioのストリーミングモードが有効かどうかを制御します。",
+    "documentation": "スタジオのストリーミングモードが有効になるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableStudioStreaming",
     "code_sample": ""
   },
@@ -39221,12 +39197,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorSelection": {
-    "documentation": "Studioがスクリプトを開く外部エディタを設定します。",
+    "documentation": "スタジオがスクリプトを開く外部エディタを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorSelection",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Find Selection Background Color": {
-    "documentation": "スクリプトエディタのFind Selection操作（Ctrl+F）での一致のハイライト色を設定します。",
+    "documentation": "スクリプトエディタの検索選択操作（Ctrl+F）での一致のハイライト色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Find Selection Background Color",
     "code_sample": ""
   },
@@ -39286,12 +39262,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.IconOverrideDir": {
-    "documentation": "アイコンオーバーライドを読み込むためにStudioが使用するディレクトリを設定します。",
+    "documentation": "スタジオがアイコンオーバーライドを読み込むために使用するディレクトリを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#IconOverrideDir",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Indent Using Spaces": {
-    "documentation": "スクリプトエディタでインデントにタブの代わりにスペースを使用するかどうかを制御します。",
+    "documentation": "スクリプトエディタがインデントにタブの代わりにスペースを使用するかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Indent Using Spaces",
     "code_sample": ""
   },
@@ -39321,7 +39297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "<code>Model.PrimaryPart</code>選択アドーニーの厚さを設定します。この値は0から0.05の間に制約されます。",
+    "documentation": "選択された<code>Model.PrimaryPart</code>の選択アドーニーの厚さを設定します。この値は0と0.05の間に制約されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
@@ -39331,17 +39307,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadInternalPlugins": {
-    "documentation": "Studioで内部Robloxプラグインが読み込まれるかどうかを制御します。",
+    "documentation": "スタジオで内部Robloxプラグインが読み込まれるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadInternalPlugins",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadUserPluginsInRunModes": {
-    "documentation": "実行モードを使用する際にユーザーがインストールしたプラグインが読み込まれるかどうかを制御します。",
+    "documentation": "実行モードを使用する際にユーザーインストールのプラグインが読み込まれるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadUserPluginsInRunModes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LocalAssetsFolder": {
-    "documentation": "Studioがローカルアセットストレージに使用するローカルフォルダを設定します。",
+    "documentation": "スタジオがローカルアセットストレージに使用するローカルフォルダを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LocalAssetsFolder",
     "code_sample": ""
   },
@@ -39351,7 +39327,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LuaDebuggerEnabledAtStartup": {
-    "documentation": "Studioが起動するときにLuaデバッガーが有効かどうかを制御します。",
+    "documentation": "スタジオが起動するときにLuaデバッガーが有効になるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LuaDebuggerEnabledAtStartup",
     "code_sample": ""
   },
@@ -39361,7 +39337,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Main Volume": {
-    "documentation": "Studioでの音声再生のメインボリュームを設定します。",
+    "documentation": "スタジオでの音声再生のメインボリュームを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Main Volume",
     "code_sample": ""
   },
@@ -39371,7 +39347,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.MaxFindReplaceAllResults": {
-    "documentation": "Find All操作によって返される結果の最大数を設定します。",
+    "documentation": "Find All操作によって返される最大結果数を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#MaxFindReplaceAllResults",
     "code_sample": ""
   },
@@ -39381,7 +39357,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Menu Item Background Color": {
-    "documentation": "Studioのメニュー項目の背景色を設定します。",
+    "documentation": "スタジオのメニュー項目の背景色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Menu Item Background Color",
     "code_sample": ""
   },
@@ -39396,7 +39372,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Only Play Audio from Window in Focus": {
-    "documentation": "trueに設定すると、再生中の音声はゲームウィンドウがフォーカスされている場合にのみ聞こえます。",
+    "documentation": "trueに設定すると、再生中の音声はゲームウィンドウにフォーカスがある場合にのみ聞こえます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Only Play Audio from Window in Focus",
     "code_sample": ""
   },
@@ -39416,7 +39392,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PermissionLevelShown": {
-    "documentation": "APIがObject Browserに表示されるために必要な最高の権限レベルを設定します。詳細については<code>PermissionLevelShown</code>を参照してください。",
+    "documentation": "APIがオブジェクトブラウザに表示されるために必要な最高の権限レベルを設定します。詳細については<code>PermissionLevelShown</code>を参照してください。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PermissionLevelShown",
     "code_sample": ""
   },
@@ -39426,12 +39402,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Pivot Snap To Geometry Color": {
-    "documentation": "Studioでのピボットスナップ-to-ジオメトリインジケーターの色を設定します。",
+    "documentation": "スタジオのピボットスナップ・ジオメトリインジケーターの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Pivot Snap To Geometry Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PluginDebuggingEnabled": {
-    "documentation": "Studioでプラグインスクリプトデバッグが有効かどうかを制御します。",
+    "documentation": "スタジオでプラグインスクリプトデバッグが有効かどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PluginDebuggingEnabled",
     "code_sample": ""
   },
@@ -39446,7 +39422,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Primary Text Color": {
-    "documentation": "Studioでの主要なテキスト色を設定します。",
+    "documentation": "スタジオでの主要なテキスト色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Primary Text Color",
     "code_sample": ""
   },
@@ -39481,7 +39457,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.RuntimeUndoBehavior": {
-    "documentation": "ランタイム再生中の元に戻す操作をStudioがどのように処理するかを設定します。",
+    "documentation": "ランタイム再生中の元に戻す操作をスタジオがどのように処理するかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#RuntimeUndoBehavior",
     "code_sample": ""
   },
@@ -39491,12 +39467,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Background Color": {
-    "documentation": "Studioのスクリプトエディタのスクロールバーの背景色を設定します。",
+    "documentation": "スタジオのスクリプトエディタのスクロールバーの背景色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Script Editor Scrollbar Handle Color": {
-    "documentation": "Studioのスクリプトエディタのスクロールバーのハンドル色を設定します。",
+    "documentation": "スタジオのスクリプトエディタのスクロールバーのハンドルの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Script Editor Scrollbar Handle Color",
     "code_sample": ""
   },
@@ -39511,7 +39487,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Secondary Text Color": {
-    "documentation": "Studioでの二次テキスト色を設定します。",
+    "documentation": "スタジオでの二次テキスト色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Secondary Text Color",
     "code_sample": ""
   },
@@ -39521,17 +39497,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select": {
-    "documentation": "<code>Model.PrimaryPart</code>選択ボックスの色を設定します。",
+    "documentation": "<code>Model.PrimaryPart</code>の選択ボックスの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selected Menu Item Background Color": {
-    "documentation": "Studioで選択されたメニュー項目の背景色を設定します。",
+    "documentation": "スタジオで選択されたメニュー項目の背景色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selected Menu Item Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selected Text Color": {
-    "documentation": "Studioで選択されたテキストの色を設定します。",
+    "documentation": "スタジオで選択されたテキストの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selected Text Color",
     "code_sample": ""
   },
@@ -39546,7 +39522,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Color": {
-    "documentation": "スクリプトエディタで選択されたテキストの色を設定します。",
+    "documentation": "スクリプトエディタで選択されたテキストのテキスト色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Color",
     "code_sample": ""
   },
@@ -39561,22 +39537,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Core GUI in Explorer while Playing": {
-    "documentation": "trueに設定すると、<code>CoreGui</code>はゲームが実行中にExplorerに表示されます。",
+    "documentation": "trueに設定すると、ゲームが実行中に<code>CoreGui</code>がエクスプローラーに表示されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Core GUI in Explorer while Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Diagnostics Bar": {
-    "documentation": "trueに設定すると、基本的な診断情報が右下に表示されます。",
+    "documentation": "trueに設定すると、右下に基本的な診断情報が表示されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Diagnostics Bar",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show FileSyncService": {
-    "documentation": "FileSyncServiceがExplorerパネルに表示されるかどうかを制御します。",
+    "documentation": "FileSyncServiceがエクスプローラーパネルに表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show FileSyncService",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hidden Objects in Explorer": {
-    "documentation": "隠しオブジェクトがExplorerパネルに表示されるかどうかを制御します。",
+    "documentation": "隠しオブジェクトがエクスプローラーパネルに表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hidden Objects in Explorer",
     "code_sample": ""
   },
@@ -39606,12 +39582,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Plugin GUI Service in Explorer": {
-    "documentation": "trueに設定すると、<code>PluginGuiService</code>がRoblox StudioのExplorerに表示されます。",
+    "documentation": "trueに設定すると、<code>PluginGuiService</code>がRoblox Studioのエクスプローラーに表示されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Plugin GUI Service in Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show plus button on hover in Explorer": {
-    "documentation": "Explorer内のアイテムにホバーするとプラスボタンが表示されるかどうかを制御します。",
+    "documentation": "エクスプローラー内のアイテムにホバーするとプラスボタンが表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show plus button on hover in Explorer",
     "code_sample": ""
   },
@@ -39626,7 +39602,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ShowCorePackagesInExplorer": {
-    "documentation": "コアパッケージがExplorerパネルに表示されるかどうかを制御します。",
+    "documentation": "コアパッケージがエクスプローラーパネルに表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ShowCorePackagesInExplorer",
     "code_sample": ""
   },
@@ -39636,77 +39612,77 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.String Color": {
-    "documentation": "スクリプトエディタでの文字列の色を指定します。",
+    "documentation": "単一のアタッチメントが選択されているときに親パーツフレームが表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#String Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Tab Width": {
-    "documentation": "スクリプトエディタ内のタブを表すために使用されるスペースの数を指定します。",
+    "documentation": "スクリプトエディタで空白文字が可視グリフとして表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Tab Width",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Color": {
-    "documentation": "スクリプトエディタ内の通常のテキストの色を指定します。",
+    "documentation": "コアパッケージがExplorerパネルに表示されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Wrapping": {
-    "documentation": "trueに設定すると、スクリプトエディタ内のテキストが折り返されます。",
+    "documentation": "カーソルがすでに存在する閉じ括弧や引用符をスキップするかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Wrapping",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Theme": {
-    "documentation": "現在Studioで使用されている<code>theme</code>を取得/設定するために使用されます。",
+    "documentation": "スクリプトエディタでの文字列の色を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Theme",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.TypeColor": {
-    "documentation": "スクリプトエディタでの型注釈の色を設定します。",
+    "documentation": "スクリプトエディタ内のタブを表すために使用されるスペースの数を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#TypeColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.UI Theme": {
-    "documentation": "<strong>Deprecated:</strong> <br>Roblox Studioのカラースキームを指定します。",
+    "documentation": "<strong>Deprecated:</strong> <br>スクリプトエディタ内の通常のテキストの色を指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#UI Theme",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Use Bounding Box Move Handles": {
-    "documentation": "移動ハンドルがピボットの代わりにバウンディングボックスのエッジに配置されるかどうかを制御します。",
+    "documentation": "trueに設定すると、スクリプトエディタ内のテキストが折り返されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Use Bounding Box Move Handles",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.UseDefaultExternalEditor": {
-    "documentation": "スタジオがシステムのデフォルトアプリケーションを使用してスクリプトを外部で開くかどうかを制御します。",
+    "documentation": "現在Studioで使用されている<code>theme</code>を取得/設定するために使用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#UseDefaultExternalEditor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.VAxisColor": {
-    "documentation": "スタジオのドラッガーにおけるV軸ハンドルの色を設定します。",
+    "documentation": "スクリプトエディタでの型注釈の色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#VAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "スクリプトアナライザーがスクリプトエディタで対処すべき問題を検出したときに表示される波状の下線の色を指定します。",
+    "documentation": "Roblox Studioのカラースキームを指定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Whitespace Color": {
-    "documentation": "スクリプトエディタにおける可視の空白文字の色を設定します。",
+    "documentation": "移動ハンドルがピボットの代わりにバウンディングボックスのエッジに配置されるかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Whitespace Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.XAxisColor": {
-    "documentation": "スタジオのドラッガーにおけるX軸ハンドルの色を設定します。",
+    "documentation": "StudioのドラッガーにおけるX軸ハンドルの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#XAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.YAxisColor": {
-    "documentation": "スタジオのドラッガーにおけるY軸ハンドルの色を設定します。",
+    "documentation": "StudioのドラッガーにおけるY軸ハンドルの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#YAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ZAxisColor": {
-    "documentation": "スタジオのドラッガーにおけるZ軸ハンドルの色を設定します。",
+    "documentation": "StudioのドラッガーにおけるZ軸ハンドルの色を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ZAxisColor",
     "code_sample": ""
   },
@@ -46167,8 +46143,39 @@
   },
   "@roblox/globaltype/UIGradient": {
     "documentation": "親の <code>GuiObject</code> によってレンダリングされる UI 要素に色と透明度のグラデーションを適用します。",
-    "keys": {},
+    "keys": {
+      "Color": "@roblox/globaltype/UIGradient.Color",
+      "Enabled": "@roblox/globaltype/UIGradient.Enabled",
+      "Offset": "@roblox/globaltype/UIGradient.Offset",
+      "Rotation": "@roblox/globaltype/UIGradient.Rotation",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Color": {
+    "documentation": "親のGuiObjectとグラデーションの長さに沿ってブレンドされる色を決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Enabled": {
+    "documentation": "グラデーションが有効かどうか。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Offset": {
+    "documentation": "親のGuiObjectの中心からのグラデーションのスカラー変換を決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Rotation": {
+    "documentation": "左から右に向かってグラデーションの時計回りの回転を度で決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Transparency": {
+    "documentation": "グラデーションの長さに沿って親のGuiObjectがどれだけ見えるかを決定します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -91623,7 +91630,9 @@
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
-      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState"
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
+      "Fire": "@roblox/globaltype/InputAction.Fire",
+      "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
     "code_sample": ""
@@ -91666,6 +91675,312 @@
   "@roblox/globaltype/InputAction.ViewportPositionState": {
     "documentation": "デバッグに役立つ非スクリプト可能な読み取り専用プロパティで、<code>ViewportPosition</code> の入力アクションに使用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Fire/param/0": {
+    "documentation": "ゲームプレイアクションメカニクスを定義します。これらのアクションは、<code>InputBinding</code>を使用してハードウェア入力にマッピングされます。"
+  },
+  "@roblox/globaltype/InputAction.Fire/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InputAction.Fire": {
+    "documentation": "<strong>Deprecated:</strong> <code>Scriptable</code>バインディングを使用して<code>InputBinding:Fire()</code>を代わりに使用してください。<br>指定された状態に<code>InputAction</code>を更新し、適切な信号を発火します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
+      },
+      {
+        "name": "state",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Fire",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.GetState/param/0": {
+    "documentation": "ゲームプレイアクションメカニクスを定義します。これらのアクションは、<code>InputBinding</code>を使用してハードウェア入力にマッピングされます。"
+  },
+  "@roblox/globaltype/InputAction.GetState/return/0": {
+    "documentation": "<code>InputAction</code>の現在の状態。"
+  },
+  "@roblox/globaltype/InputAction.GetState": {
+    "documentation": "<code>InputAction</code>の現在の状態を返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.GetState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InputAction.GetState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#GetState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/1": {
+    "documentation": "イベントが発生するたびに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1": {
+    "documentation": "並列実行コンテキストでイベントが発生したときに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/1": {
+    "documentation": "次回イベントが発生したときに呼び出されるコールバック関数で、その後自動的に切断される。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed": {
+    "documentation": "<code>InputAction.Type</code>が<code>Bool</code>に設定されているとき、<code>false</code>から<code>true</code>への状態遷移時にのみ発火します。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Pressed.Once",
+      "Wait": "@roblox/globaltype/InputAction.Pressed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Pressed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/1": {
+    "documentation": "イベントが発生するたびに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/InputAction.Released.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1": {
+    "documentation": "並列実行コンテキストでイベントが発生したときに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/1": {
+    "documentation": "次回イベントが発生したときに呼び出されるコールバック関数で、その後自動的に切断される。"
+  },
+  "@roblox/globaltype/InputAction.Released.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.Released.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released": {
+    "documentation": "<code>InputAction.Type</code>が<code>Bool</code>に設定されているとき、<code>true</code>から<code>false</code>への状態遷移時にのみ発火します。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Released.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Released.Once",
+      "Wait": "@roblox/globaltype/InputAction.Released.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Released",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/1": {
+    "documentation": "イベントが発生するたびに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1": {
+    "documentation": "並列実行コンテキストでイベントが発生したときに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/1": {
+    "documentation": "次回イベントが発生したときに呼び出されるコールバック関数で、その後自動的に切断される。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged": {
+    "documentation": "状態が変化するたびに、すべての<code>InputActionType</code>タイプに対して発火します。ただし、状態が同じ状態に遷移しようとする場合は除きます。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.StateChanged.Once",
+      "Wait": "@roblox/globaltype/InputAction.StateChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#StateChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
@@ -95755,6 +96070,182 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": "イベントが発生するたびに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "並列実行コンテキストでイベントが発生したときに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": "次回イベントが発生したときに呼び出されるコールバック関数で、その後自動的に切断される。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "体験内で作成されたアバターアセットのモデレーションステータスが保留から更新されたときに発火します。",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1": {
+    "documentation": "イベントが発生するたびに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "並列実行コンテキストでイベントが発生したときに呼び出されるコールバック関数。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1": {
+    "documentation": "次回イベントが発生したときに呼び出されるコールバック関数で、その後自動的に切断される。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
+    "documentation": "体験内で作成されたアバターのモデレーションステータスが保留から更新されたときに発火します。",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarModerationCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HeightmapImporterService": {
     "documentation": "",
     "keys": {},
@@ -99390,7 +99881,7 @@
     "documentation": "クライアントの広告表示の<code>ShowAdResult</code>です。この結果を使用して報酬を与えてはいけません。代わりに、 <code>ProcessReceipt</code> の実装から報酬を与えるべきです。 報酬付き動画広告で得られた <a href=\"../../../production/monetization/developer-products.md\">開発者製品</a>の場合、 <code>ProductPurchaseChannel</code>は <code>ProductPurchaseChannel.AdReward</code>になります。"
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "体験内で現在のユーザーにビデオ広告を再生します。",
+    "documentation": "現在のユーザーに体験内でビデオ広告を再生します。 <pre><code>**警告**: 報酬付きビデオ広告はユーザーのオプトインが必要であり、明確に開示される必要があります。 詳細については、私たちの [適格要件](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements)と [広告基準](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards)を確認してください。 </code></pre>",
     "params": [
       {
         "name": "self",

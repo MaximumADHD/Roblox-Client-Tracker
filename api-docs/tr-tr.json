@@ -38616,13 +38616,9 @@
       "Camera Speed": "@roblox/globaltype/Studio.Camera Speed",
       "Camera Speed Adjust Binding": "@roblox/globaltype/Studio.Camera Speed Adjust Binding",
       "Camera Zoom to Mouse Position": "@roblox/globaltype/Studio.Camera Zoom to Mouse Position",
-      "CameraAdaptiveSpeed": "@roblox/globaltype/Studio.CameraAdaptiveSpeed",
       "CameraNavigationModel": "@roblox/globaltype/Studio.CameraNavigationModel",
-      "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
-      "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
-      "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
       "CommandBarEnterExec": "@roblox/globaltype/Studio.CommandBarEnterExec",
       "CommandBarFont": "@roblox/globaltype/Studio.CommandBarFont",
@@ -38940,43 +38936,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "Kameranın hareket hızının, yakınlardaki nesnelere olan mesafeye göre uyum sağlayıp sağlamayacağını kontrol eder.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
     "documentation": "Studio'da kamera hareketi için kullanılan navigasyon modelini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "Studio'da kamera yörüngesi için fare hassasiyetini ayarlar.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "Studio'da kamera panlama için fare hassasiyetini ayarlar.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
-    "documentation": "Shift tuşuna basılıyken kameranın hareketine uygulanan hız çarpanını ayarlar.",
+    "documentation": "Shift tuşuna basıldığında kamera hareketine uygulanan hız çarpanını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
-    "documentation": "Kameranın seçilen bir nesneye yeniden odaklanırken pürüzsüz bir şekilde geçiş yapıp yapmayacağını kontrol eder.",
+    "documentation": "Seçilen bir nesneye yeniden odaklanırken kameranın pürüzsüz bir şekilde geçiş yapıp yapmayacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "Studio'da kameranın yakınlaştırma hızını ayarlar.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.Clear Output On Start": {
-    "documentation": "Doğru olarak ayarlandığında, oyun oturumları değiştiğinde çıktı otomatik olarak temizlenecektir.",
+    "documentation": "Doğru olarak ayarlandığında, oyun oturumları değiştirildiğinde çıktı otomatik olarak temizlenecektir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Clear Output On Start",
     "code_sample": ""
   },
@@ -39046,7 +39022,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerMajorGridIncrement": {
-    "documentation": "Sürükleyici ile yakalama sırasında kullanılan ana ızgara artışını ayarlar.",
+    "documentation": "Sürükleyici ile yakalarken kullanılan ana ızgara artışını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerMajorGridIncrement",
     "code_sample": ""
   },
@@ -39066,7 +39042,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowAxisTicks": {
-    "documentation": "Sürükleyici eksen çizgilerinde işaretlerin gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Sürükleyici eksen çizgilerinde işaretleme işaretlerinin gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowAxisTicks",
     "code_sample": ""
   },
@@ -39076,7 +39052,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowMeasurement": {
-    "documentation": "Sürükleme sırasında mesafe ölçümlerinin gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Sürüklerken mesafe ölçümlerinin gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowMeasurement",
     "code_sample": ""
   },
@@ -39096,7 +39072,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerShowTrackball": {
-    "documentation": "Dönme sürükleyicisinde trackball tutamağının gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Dönme sürükleyicisinde trackball tutamaçlarının gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerShowTrackball",
     "code_sample": ""
   },
@@ -39136,7 +39112,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Http Sandboxing": {
-    "documentation": "Eklentilerden gelen HTTP isteklerinin sandbox'lanıp sandbox'lanmayacağını kontrol eder.",
+    "documentation": "Eklentilerden gelen HTTP isteklerinin sandboxlandığını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Http Sandboxing",
     "code_sample": ""
   },
@@ -39151,12 +39127,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Script Analysis": {
-    "documentation": "Script editörünün gerçek zamanlı Luau script analizi yapıp yapmayacağını kontrol eder.",
+    "documentation": "Script editörünün gerçek zamanlı Luau script analizini yapıp yapmayacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Script Analysis",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Scrollbar Markers": {
-    "documentation": "Script editöründeki kaydırma çubuğunda hata ve uyarı işaretlerinin gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Script editörünün kaydırma çubuğunda hata ve uyarı işaretlerinin gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Scrollbar Markers",
     "code_sample": ""
   },
@@ -39176,12 +39152,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Temporary Tabs In Explorer": {
-    "documentation": "Explorer'da bir script'e tıklandığında geçici bir sekme açılıp açılmayacağını kontrol eder.",
+    "documentation": "Explorer'da bir script'e tıkladığında geçici bir sekme açılıp açılmayacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Temporary Tabs In Explorer",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Type Hover": {
-    "documentation": "Bir tanımlayıcı üzerine gelindiğinde çıkarılan türün gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Bir tanımlayıcı üzerine gelindiğinde onun çıkarılan türünü gösterip göstermeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Type Hover",
     "code_sample": ""
   },
@@ -39201,7 +39177,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.EnableSelectionTooltips": {
-    "documentation": "Seçilen nesnelerin üzerine gelindiğinde araç ipuçlarının gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Seçilen nesnelerin üzerine gelindiğinde ipuçlarının gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#EnableSelectionTooltips",
     "code_sample": ""
   },
@@ -39226,7 +39202,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Find Selection Background Color": {
-    "documentation": "Script editöründeki Bul Seçimi işleminin (Ctrl+F) eşleşmelerinin vurgulama rengini ayarlar.",
+    "documentation": "Script editöründeki Bul Seçimi işlemi (Ctrl+F) için eşleşmelerin vurgulama rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Find Selection Background Color",
     "code_sample": ""
   },
@@ -39266,7 +39242,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "Fare bir seçilebilir nesne üzerinde dururken hover animasyonunun ne sıklıkla yanıp söneceğini belirtir.",
+    "documentation": "Fare bir seçilebilir nesne üzerinde dururken dalgalı animasyonun ne sıklıkla yanıp söneceğini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
@@ -39276,12 +39252,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Line Thickness": {
-    "documentation": "Hover seçim kutusunun çizgi kalınlığını ayarlar.",
+    "documentation": "Üzerine gelindiğinde gösterilen seçim kutusunun çizgi kalınlığını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Line Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Over Color": {
-    "documentation": "Hover seçim kutusunun kullandığı rengi belirtir.",
+    "documentation": "Üzerine gelindiğinde seçim kutusunun kullandığı rengi belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Over Color",
     "code_sample": ""
   },
@@ -39321,7 +39297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "Class.Model.PrimaryPart seçim süsünün kalınlığını ayarlar. Bu değer 0 ile 0.05 arasında kısıtlanmıştır.",
+    "documentation": "<code>Model.PrimaryPart</code> seçim süsünün kalınlığını ayarlar. Bu değer 0 ile 0.05 arasında kısıtlanmıştır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
@@ -39426,7 +39402,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Pivot Snap To Geometry Color": {
-    "documentation": "Studio'daki pivot yakalama geometrisi göstergesinin rengini ayarlar.",
+    "documentation": "Studio'daki pivot snap-to-geometry göstergesinin rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Pivot Snap To Geometry Color",
     "code_sample": ""
   },
@@ -39436,7 +39412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PluginsDir": {
-    "documentation": "Yerel eklentilerin depolandığı dizini ayarlar.",
+    "documentation": "Yerel eklentilerin depolandığı dizin.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PluginsDir",
     "code_sample": ""
   },
@@ -39466,7 +39442,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "Doğru olarak ayarlandığında, Roblox Studio kısayolları, oyun penceresinde yakalanan girişlerden öncelikli olacaktır.",
+    "documentation": "Doğru olarak ayarlandığında, Roblox Studio kısayolları oyun penceresinde yakalanan girişlerden önce gelir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
@@ -39476,7 +39452,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Rulers": {
-    "documentation": "Script editöründe dikey cetvel çizgilerinin çizileceği sütun pozisyonlarını ayarlar.",
+    "documentation": "Script editöründe dikey cetvel çizgilerinin çizildiği sütun pozisyonlarını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Rulers",
     "code_sample": ""
   },
@@ -39501,12 +39477,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ScriptTimeoutLength": {
-    "documentation": "Bir script'in yeniden devam etmeden önce bekleyebileceği süreyi (saniye cinsinden) ayarlar.",
+    "documentation": "Bir script'in zaman aşımına uğramadan önce bekleyebileceği süreyi (saniye cinsinden) ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ScriptTimeoutLength",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Scroll Past Last Line": {
-    "documentation": "Script editörünün son satırın altına kaydırma yapıp yapmayacağını kontrol eder.",
+    "documentation": "Script editörünün son satırın altında kaydırmaya izin verip vermeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Scroll Past Last Line",
     "code_sample": ""
   },
@@ -39516,12 +39492,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select Color": {
-    "documentation": "Class.Workspace'deki nesne seçimlerinde kullanılan seçim kutusunun rengini ayarlar.",
+    "documentation": "<code>Workspace</code> içindeki nesne seçimlerinde kullanılan seçim kutusunun rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select": {
-    "documentation": "Class.Model.PrimaryPart seçim kutusunun rengini ayarlar.",
+    "documentation": "<code>Model.PrimaryPart</code> seçim kutusunun rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select",
     "code_sample": ""
   },
@@ -39581,17 +39557,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hover Over": {
-    "documentation": "Doğru olarak ayarlandığında, <code>Workspace</code>'de bir nesne üzerine gelindiğinde bir seçim kutusu gösterilecektir.",
+    "documentation": "Doğru olarak ayarlandığında, <code>Workspace</code> içindeki bir nesne üzerine gelindiğinde bir seçim kutusu gösterilecektir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hover Over",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Light Guides": {
-    "documentation": "Viewport'ta ışık kılavuzu görselleştirmelerinin gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Işık kılavuzu görselleştirmelerinin görüntüleme alanında gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Light Guides",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Labels": {
-    "documentation": "Viewport'ta navigasyon ağı bölge etiketlerinin gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Navigasyon ağ bölge etiketlerinin görüntüleme alanında gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Labels",
     "code_sample": ""
   },
@@ -39601,7 +39577,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Pathfinding Links": {
-    "documentation": "Viewport'ta PathfindingLink görselleştirmelerinin gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "PathfindingLink görselleştirmelerinin görüntüleme alanında gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Pathfinding Links",
     "code_sample": ""
   },
@@ -39621,7 +39597,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Whitespace": {
-    "documentation": "Script editöründe boşluk karakterlerinin görünür glifler olarak gösterilip gösterilmeyeceğini kontrol eder.",
+    "documentation": "Boşluk karakterlerinin script editöründe görünür glifler olarak gösterilip gösterilmeyeceğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Whitespace",
     "code_sample": ""
   },
@@ -39631,7 +39607,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Skip Closing Brackets and Quotes": {
-    "documentation": "İmlecin, zaten mevcutsa yazılan bir kapanış parantezini veya alıntıyı atlayıp atlamayacağını kontrol eder.",
+    "documentation": "Yazılmış bir kapanış parantezinin veya alıntısının zaten mevcut olup olmadığını kontrol ederken imlecin atlanıp atlanmayacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Skip Closing Brackets and Quotes",
     "code_sample": ""
   },
@@ -39656,7 +39632,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Theme": {
-    "documentation": "Studio tarafından kullanılan mevcut <code>theme</code>'i almak/ayarlamak için kullanılır.",
+    "documentation": "Studio tarafından kullanılan mevcut <code>tema</code>yı almak/ayarlamak için kullanılır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Theme",
     "code_sample": ""
   },
@@ -39686,27 +39662,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "Script editöründe bir sorun tespit edildiğinde gösterilen dalgalı alt çizginin rengini belirtir.",
+    "documentation": "Script editöründe hata ayıklayıcı analizör bir sorun tespit ettiğinde gösterilen dalgalı alt çizginin rengini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Whitespace Color": {
-    "documentation": "Sets the color of visible whitespace characters in the script editor.",
+    "documentation": "Script editöründeki görünür boşluk karakterlerinin rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Whitespace Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.XAxisColor": {
-    "documentation": "Sets the color of the X axis handle in Studio's draggers.",
+    "documentation": "Studio'nun script'leri dışarıda açmak için sistemin varsayılan uygulamasını kullanıp kullanmayacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#XAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.YAxisColor": {
-    "documentation": "Sets the color of the Y axis handle in Studio's draggers.",
+    "documentation": "Studio'daki V ekseni tutamaçlarının rengini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#YAxisColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ZAxisColor": {
-    "documentation": "Studio'nun sürükleyicilerindeki Z ekseni tutamacının rengini ayarlar.",
+    "documentation": "Script editöründe bir sorun tespit edildiğinde gösterilen dalgalı alt çizginin rengini belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ZAxisColor",
     "code_sample": ""
   },
@@ -46167,8 +46143,39 @@
   },
   "@roblox/globaltype/UIGradient": {
     "documentation": "Üst düzey <code>GuiObject</code> tarafından render edilen UI öğelerine bir renk ve şeffaflık gradyanı uygular.",
-    "keys": {},
+    "keys": {
+      "Color": "@roblox/globaltype/UIGradient.Color",
+      "Enabled": "@roblox/globaltype/UIGradient.Enabled",
+      "Offset": "@roblox/globaltype/UIGradient.Offset",
+      "Rotation": "@roblox/globaltype/UIGradient.Rotation",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Color": {
+    "documentation": "Ebeveyn GuiObject ile gradient boyunca karıştırılan rengi belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Enabled": {
+    "documentation": "Gradient'in etkin olup olmadığını belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Offset": {
+    "documentation": "Gradient'in ebeveyn GuiObject'un merkezinden olan ölçekli çevirisini belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Rotation": {
+    "documentation": "Gradient'in soldan sağa doğru saat yönünde derece cinsinden döndürülmesini belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Transparency": {
+    "documentation": "Gradient boyunca ebeveyn GuiObject'un ne kadar görülebileceğini belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -91623,7 +91630,9 @@
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
-      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState"
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
+      "Fire": "@roblox/globaltype/InputAction.Fire",
+      "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
     "code_sample": ""
@@ -91666,6 +91675,312 @@
   "@roblox/globaltype/InputAction.ViewportPositionState": {
     "documentation": "<code>ViewportPosition</code> giriş eylemlerini hata ayıklama için faydalı olan yazılamaz yalnızca okuma için bir mülk.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Fire/param/0": {
+    "documentation": "Bir oyun oynama eylemi mekaniğini tanımlar. Bu eylemler, donanım girdilerine <code>InputBinding</code> kullanılarak eşlenir."
+  },
+  "@roblox/globaltype/InputAction.Fire/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InputAction.Fire": {
+    "documentation": "<strong>Deprecated:</strong> <code>InputBinding:Fire()</code>'ı <code>Scriptable</code> bağlaması ile kullanın.<br>Verilen duruma <code>InputAction</code>'ı günceller ve uygun sinyalleri tetikler.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
+      },
+      {
+        "name": "state",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Fire",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.GetState/param/0": {
+    "documentation": "Bir oyun oynama eylemi mekaniğini tanımlar. Bu eylemler, donanım girdilerine <code>InputBinding</code> kullanılarak eşlenir."
+  },
+  "@roblox/globaltype/InputAction.GetState/return/0": {
+    "documentation": "<code>InputAction</code>'ın mevcut durumu."
+  },
+  "@roblox/globaltype/InputAction.GetState": {
+    "documentation": "<code>InputAction</code>'ın mevcut durumunu döndürür.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.GetState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InputAction.GetState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#GetState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/1": {
+    "documentation": "Olay tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1": {
+    "documentation": "Olay paralel bir yürütme bağlamında tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/1": {
+    "documentation": "Olay bir sonraki kez tetiklendiğinde çağrılacak geri çağırma fonksiyonu; bu işlemden sonra otomatik olarak bağlantısı kesilecektir."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once": {
+    "documentation": "Verilen işlevi olaya (tek bir çağrı için) bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait": {
+    "documentation": "Sinyal tetiklenene kadar mevcut iş parçacığını duraklatır ve sinyal tarafından sağlanan argümanları döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed": {
+    "documentation": "<code>InputAction.Type</code> <code>Bool</code> olarak ayarlandığında ve durum <code>false</code>'dan <code>true</code>'ya geçiş yaptığında yalnızca tetiklenir.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Pressed.Once",
+      "Wait": "@roblox/globaltype/InputAction.Pressed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Pressed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/1": {
+    "documentation": "Olay tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1": {
+    "documentation": "Olay paralel bir yürütme bağlamında tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/1": {
+    "documentation": "Olay bir sonraki kez tetiklendiğinde çağrılacak geri çağırma fonksiyonu; bu işlemden sonra otomatik olarak bağlantısı kesilecektir."
+  },
+  "@roblox/globaltype/InputAction.Released.Once": {
+    "documentation": "Verilen işlevi olaya (tek bir çağrı için) bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Wait/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.Released.Wait": {
+    "documentation": "Sinyal tetiklenene kadar mevcut iş parçacığını duraklatır ve sinyal tarafından sağlanan argümanları döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released": {
+    "documentation": "<code>InputAction.Type</code> <code>Bool</code> olarak ayarlandığında ve durum <code>true</code>'dan <code>false</code>'ya geçiş yaptığında yalnızca tetiklenir.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Released.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Released.Once",
+      "Wait": "@roblox/globaltype/InputAction.Released.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Released",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/1": {
+    "documentation": "Olay tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1": {
+    "documentation": "Olay paralel bir yürütme bağlamında tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/1": {
+    "documentation": "Olay bir sonraki kez tetiklendiğinde çağrılacak geri çağırma fonksiyonu; bu işlemden sonra otomatik olarak bağlantısı kesilecektir."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once": {
+    "documentation": "Verilen işlevi olaya (tek bir çağrı için) bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait": {
+    "documentation": "Sinyal tetiklenene kadar mevcut iş parçacığını duraklatır ve sinyal tarafından sağlanan argümanları döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged": {
+    "documentation": "Durum değiştiğinde, aynı duruma geçiş yapmaya çalışmadığı sürece tüm <code>InputActionType</code> türleri için tetiklenir.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.StateChanged.Once",
+      "Wait": "@roblox/globaltype/InputAction.StateChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#StateChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
@@ -95755,6 +96070,182 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": "Olay tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Olay paralel bir yürütme bağlamında tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": "Olay bir sonraki kez tetiklendiğinde çağrılacak geri çağırma fonksiyonu; bu işlemden sonra otomatik olarak bağlantısı kesilecektir."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "Verilen işlevi olaya (tek bir çağrı için) bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "Sinyal tetiklenene kadar mevcut iş parçacığını duraklatır ve sinyal tarafından sağlanan argümanları döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "Bir deneyim içinde oluşturulmuş bir avatar varlığının moderasyon durumu beklemeden güncellendiğinde tetiklenir.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1": {
+    "documentation": "Olay tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Olay paralel bir yürütme bağlamında tetiklendiğinde çağrılacak geri çağırma fonksiyonu."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1": {
+    "documentation": "Olay bir sonraki kez tetiklendiğinde çağrılacak geri çağırma fonksiyonu; bu işlemden sonra otomatik olarak bağlantısı kesilecektir."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once": {
+    "documentation": "Verilen işlevi olaya (tek bir çağrı için) bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait": {
+    "documentation": "Sinyal tetiklenene kadar mevcut iş parçacığını duraklatır ve sinyal tarafından sağlanan argümanları döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
+    "documentation": "Bir deneyim içinde oluşturulmuş bir avatarın moderasyon durumu beklemeden güncellendiğinde tetiklenir.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarModerationCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HeightmapImporterService": {
     "documentation": "",
     "keys": {},
@@ -99390,7 +99881,7 @@
     "documentation": "İstemcinin reklam sunumunun <code>ShowAdResult</code>'u. Bu sonucu ödül vermek için kullanmamalısınız. Bunun yerine, yardımcı olduğunuzdan emin olmalısınız ki ödülü <code>ProcessReceipt</code> uygulamanızdan verin. Ödüllü video reklamlarıyla kazanılan <a href=\"../../../production/monetization/developer-products.md\">çatı ürünleri</a>,  <code>ProductPurchaseChannel</code>'ı <code>ProductPurchaseChannel.AdReward</code> olacaktır."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "Deneyim içerisindeki mevcut kullanıcıya video reklamı oynatır.",
+    "documentation": "Deneyim içindeki mevcut kullanıcıya video reklamını oynatır. <pre><code>**Uyarı**: Ödüllü Video reklamları kullanıcı onayına tabi olmalı ve açıkça belirtilmelidir. Ayrıntılar için, lütfen [uygunluk gereksinimlerimizi](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements) ve [reklam standartlarımızı](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards) gözden geçirin. </code></pre>",
     "params": [
       {
         "name": "self",

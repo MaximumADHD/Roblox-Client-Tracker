@@ -38616,13 +38616,9 @@
       "Camera Speed": "@roblox/globaltype/Studio.Camera Speed",
       "Camera Speed Adjust Binding": "@roblox/globaltype/Studio.Camera Speed Adjust Binding",
       "Camera Zoom to Mouse Position": "@roblox/globaltype/Studio.Camera Zoom to Mouse Position",
-      "CameraAdaptiveSpeed": "@roblox/globaltype/Studio.CameraAdaptiveSpeed",
       "CameraNavigationModel": "@roblox/globaltype/Studio.CameraNavigationModel",
-      "CameraOrbitSensitivity": "@roblox/globaltype/Studio.CameraOrbitSensitivity",
-      "CameraPanSensitivity": "@roblox/globaltype/Studio.CameraPanSensitivity",
       "CameraShiftFactor": "@roblox/globaltype/Studio.CameraShiftFactor",
       "CameraTweenFocus": "@roblox/globaltype/Studio.CameraTweenFocus",
-      "CameraZoomSpeed": "@roblox/globaltype/Studio.CameraZoomSpeed",
       "Clear Output On Start": "@roblox/globaltype/Studio.Clear Output On Start",
       "CommandBarEnterExec": "@roblox/globaltype/Studio.CommandBarEnterExec",
       "CommandBarFont": "@roblox/globaltype/Studio.CommandBarFont",
@@ -38940,58 +38936,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Zoom to Mouse Position",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraAdaptiveSpeed": {
-    "documentation": "Mengontrol apakah kecepatan gerakan kamera beradaptasi berdasarkan jarak ke objek terdekat.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraAdaptiveSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraNavigationModel": {
-    "documentation": "Mengatur model navigasi yang digunakan untuk gerakan kamera di Studio.",
+    "documentation": "Mengatur model navigasi yang digunakan untuk pergerakan kamera di Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraNavigationModel",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraOrbitSensitivity": {
-    "documentation": "Mengatur sensitivitas mouse untuk orbit kamera di Studio.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraOrbitSensitivity",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/Studio.CameraPanSensitivity": {
-    "documentation": "Mengatur sensitivitas mouse untuk panning kamera di Studio.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraPanSensitivity",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.CameraShiftFactor": {
-    "documentation": "Mengatur pengali kecepatan yang diterapkan pada gerakan kamera saat Shift ditekan.",
+    "documentation": "Mengatur pengali kecepatan yang diterapkan pada pergerakan kamera saat Shift ditekan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraShiftFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CameraTweenFocus": {
-    "documentation": "Mengontrol apakah kamera melakukan tween dengan halus saat memfokuskan kembali pada objek yang dipilih.",
+    "documentation": "Mengontrol apakah kamera bergerak halus saat memfokuskan kembali pada objek yang dipilih.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraTweenFocus",
     "code_sample": ""
   },
-  "@roblox/globaltype/Studio.CameraZoomSpeed": {
-    "documentation": "Mengatur kecepatan zoom kamera di Studio.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CameraZoomSpeed",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Studio.Clear Output On Start": {
-    "documentation": "Jika diatur ke true, output akan secara otomatis dibersihkan saat sesi permainan berpindah.",
+    "documentation": "Jika diatur ke true, output akan secara otomatis dibersihkan saat sesi permainan beralih.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Clear Output On Start",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarEnterExec": {
-    "documentation": "Mengontrol apakah menekan Enter langsung mengeksekusi input bar perintah.",
+    "documentation": "Mengontrol apakah menekan Enter langsung mengeksekusi input bilah perintah.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarEnterExec",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarFont": {
-    "documentation": "Mengatur font yang digunakan di bar perintah Studio.",
+    "documentation": "Mengatur font yang digunakan di bilah perintah Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarFont",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.CommandBarLocalState": {
-    "documentation": "Mengontrol apakah bar perintah mempertahankan status inputnya antara sesi.",
+    "documentation": "Mengontrol apakah bilah perintah mempertahankan status inputnya antara sesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#CommandBarLocalState",
     "code_sample": ""
   },
@@ -39056,7 +39032,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DraggerPassiveColor": {
-    "documentation": "Mengatur warna pegangan dragger tidak aktif di Studio.",
+    "documentation": "Mengatur warna pegangan dragger yang tidak aktif di Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DraggerPassiveColor",
     "code_sample": ""
   },
@@ -39121,7 +39097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Autocomplete": {
-    "documentation": "Saat diatur ke true, editor skrip dan bar perintah akan menampilkan menu autocompletion saat menulis.",
+    "documentation": "Saat diatur ke true, editor skrip dan bilah perintah akan menampilkan menu autocompletion saat menulis.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Autocomplete",
     "code_sample": ""
   },
@@ -39161,12 +39137,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help": {
-    "documentation": "Mengontrol apakah pop-up bantuan tanda tangan fungsi ditampilkan saat mengetik.",
+    "documentation": "Mengontrol apakah popup bantuan tanda tangan fungsi ditampilkan saat mengetik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Signature Help Doc View": {
-    "documentation": "Mengontrol apakah dokumentasi ditampilkan bersamaan dengan pop-up bantuan tanda tangan.",
+    "documentation": "Mengontrol apakah dokumentasi ditampilkan bersamaan dengan popup bantuan tanda tangan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Signature Help Doc View",
     "code_sample": ""
   },
@@ -39181,7 +39157,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Type Hover": {
-    "documentation": "Mengontrol apakah melayang di atas pengenal menunjukkan tipe yang diinfersikan.",
+    "documentation": "Mengontrol apakah melayang di atas pengenal menunjukkan tipe yang diinfers.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Type Hover",
     "code_sample": ""
   },
@@ -39211,7 +39187,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Error Color": {
-    "documentation": "Menentukan warna garis bergelombang yang ditampilkan saat kode yang salah terdeteksi di editor skrip.",
+    "documentation": "Menentukan warna garis bawah bergelombang yang ditampilkan saat kode yang salah terdeteksi di editor skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Error Color",
     "code_sample": ""
   },
@@ -39221,7 +39197,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ExternalEditorSelection": {
-    "documentation": "Mengatur editor eksternal yang digunakan Studio untuk membuka skrip.",
+    "documentation": "Mengatur editor eksternal mana yang digunakan Studio untuk membuka skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ExternalEditorSelection",
     "code_sample": ""
   },
@@ -39236,7 +39212,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Format On Paste": {
-    "documentation": "Mengontrol apakah kode yang ditempel secara otomatis diformat di editor skrip.",
+    "documentation": "Mengontrol apakah kode yang ditempelkan secara otomatis diformat di editor skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Format On Paste",
     "code_sample": ""
   },
@@ -39261,12 +39237,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.HintColor": {
-    "documentation": "Mengatur warna diagnosis petunjuk di editor skrip.",
+    "documentation": "Mengatur warna diagnostik petunjuk di editor skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#HintColor",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "Menentukan seberapa sering animasi hover berkedip saat mouse melayang di atas objek  yang dapat dipilih di <code>Workspace</code>.",
+    "documentation": "Menentukan seberapa sering animasi hover berkedip saat mouse melayang di atas objek yang dapat dipilih di <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
@@ -39301,7 +39277,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.InformationColor": {
-    "documentation": "Mengatur warna diagnosis informasi di editor skrip.",
+    "documentation": "Mengatur warna diagnostik informasi di editor skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#InformationColor",
     "code_sample": ""
   },
@@ -39321,12 +39297,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "Mengatur ketebalan dari <code>Model.PrimaryPart</code> selection adornee. Nilai ini dibatasi antara 0 dan 0.05.",
+    "documentation": "Mengatur ketebalan dari <code>Model.PrimaryPart</code> pemilihan adornee. Nilai ini dibatasi antara 0 dan 0.05.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadAllBuiltinPluginsInRunModes": {
-    "documentation": "Mengontrol apakah semua plugin bawaan dimuat saat menggunakan mode run.",
+    "documentation": "Mengontrol apakah semua plugin bawaan dimuat saat menggunakan mode jalankan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadAllBuiltinPluginsInRunModes",
     "code_sample": ""
   },
@@ -39336,7 +39312,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LoadUserPluginsInRunModes": {
-    "documentation": "Mengontrol apakah plugin yang diinstal pengguna dimuat saat menggunakan mode run.",
+    "documentation": "Mengontrol apakah plugin yang diinstal pengguna dimuat saat menggunakan mode jalankan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LoadUserPluginsInRunModes",
     "code_sample": ""
   },
@@ -39411,12 +39387,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Output Layout Mode": {
-    "documentation": "Mengatur mode tata letak output.",
+    "documentation": "Mengatur mode tata letak dari output.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Output Layout Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PermissionLevelShown": {
-    "documentation": "Mengatur tingkat izin tertinggi yang harus dimiliki API agar ditampilkan di Penjelajah Objek. Lihat <code>PermissionLevelShown</code> untuk info lebih lanjut.",
+    "documentation": "Mengatur tingkat izin tertinggi yang harus dimiliki API agar dapat ditampilkan di Penjelajah Objek. Lihat <code>PermissionLevelShown</code> untuk informasi lebih lanjut.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PermissionLevelShown",
     "code_sample": ""
   },
@@ -39466,7 +39442,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "Saat diatur ke true, pintasan Roblox Studio akan memiliki prioritas lebih tinggi atas input yang ditangkap di jendela permainan.",
+    "documentation": "Saat diatur ke true, pintasan Roblox Studio akan memiliki prioritas lebih tinggi daripada input yang ditangkap di jendela permainan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
@@ -39506,7 +39482,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Scroll Past Last Line": {
-    "documentation": "Mengontrol apakah editor skrip memungkinkan menggulir di bawah baris terakhir.",
+    "documentation": "Mengontrol apakah editor skrip mengizinkan pengguliran di bawah baris terakhir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Scroll Past Last Line",
     "code_sample": ""
   },
@@ -39546,12 +39522,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Color": {
-    "documentation": "Mengatur warna teks yang dipilih di editor skrip.",
+    "documentation": "Mengatur warna teks dari teks yang dipilih di editor skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Line Thickness": {
-    "documentation": "Mengatur ketebalan garis kotak pemilihan di sekitar objek yang dipilih.",
+    "documentation": "Mengatur ketebalan garis dari kotak pemilihan di sekitar objek yang dipilih.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Line Thickness",
     "code_sample": ""
   },
@@ -39686,7 +39662,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "Menentukan warna garis bergelombang yang ditampilkan saat analis skrip menemukan masalah yang harus ditangani di editor skrip.",
+    "documentation": "Menentukan warna garis bawah bergelombang yang ditampilkan saat analis skrip menemukan masalah yang harus ditangani di editor skrip.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
@@ -46167,8 +46143,39 @@
   },
   "@roblox/globaltype/UIGradient": {
     "documentation": "Menerapkan gradien warna dan transparansi pada elemen UI yang dirender oleh induk <code>GuiObject</code>.",
-    "keys": {},
+    "keys": {
+      "Color": "@roblox/globaltype/UIGradient.Color",
+      "Enabled": "@roblox/globaltype/UIGradient.Enabled",
+      "Offset": "@roblox/globaltype/UIGradient.Offset",
+      "Rotation": "@roblox/globaltype/UIGradient.Rotation",
+      "Transparency": "@roblox/globaltype/UIGradient.Transparency"
+    },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Color": {
+    "documentation": "Menentukan warna yang dicampur dengan GuiObject induk sepanjang panjang gradien.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Color",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Enabled": {
+    "documentation": "Apakah gradien diaktifkan atau tidak.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Enabled",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Offset": {
+    "documentation": "Menentukan translasi skalar dari gradien dari pusat GuiObject induk.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Offset",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Rotation": {
+    "documentation": "Menentukan rotasi searah jarum jam dalam derajat dari gradien yang dimulai dari kiri ke kanan.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Rotation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIGradient.Transparency": {
+    "documentation": "Menentukan seberapa banyak GuiObject induk dapat terlihat melalui sepanjang panjang gradien.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIGradient#Transparency",
     "code_sample": ""
   },
   "@roblox/globaltype/AlignOrientation": {
@@ -91623,7 +91630,9 @@
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "PreferredBinding": "@roblox/globaltype/InputAction.PreferredBinding",
       "Type": "@roblox/globaltype/InputAction.Type",
-      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState"
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
+      "Fire": "@roblox/globaltype/InputAction.Fire",
+      "GetState": "@roblox/globaltype/InputAction.GetState"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction",
     "code_sample": ""
@@ -91666,6 +91675,312 @@
   "@roblox/globaltype/InputAction.ViewportPositionState": {
     "documentation": "Properti baca-saja yang tidak dapat diprogram dan berguna untuk debugging <code>ViewportPosition</code> aksi input.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Fire/param/0": {
+    "documentation": "Mendefinisikan mekanik aksi permainan. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>."
+  },
+  "@roblox/globaltype/InputAction.Fire/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InputAction.Fire": {
+    "documentation": "<strong>Deprecated:</strong> Gunakan <code>InputBinding:Fire()</code> dengan binding <code>Scriptable</code> sebagai gantinya.<br>Memperbarui <code>InputAction</code> ke keadaan yang diberikan dan memicu sinyal yang sesuai.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/0"
+      },
+      {
+        "name": "state",
+        "documentation": "@roblox/globaltype/InputAction.Fire/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Fire",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.GetState/param/0": {
+    "documentation": "Mendefinisikan mekanik aksi permainan. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>."
+  },
+  "@roblox/globaltype/InputAction.GetState/return/0": {
+    "documentation": "Keadaan saat ini dari <code>InputAction</code>."
+  },
+  "@roblox/globaltype/InputAction.GetState": {
+    "documentation": "Mengembalikan keadaan saat ini dari <code>InputAction</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.GetState/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InputAction.GetState/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#GetState",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect/param/1": {
+    "documentation": "Fungsi callback yang dipanggil setiap kali peristiwa terjadi."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Connect": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1": {
+    "documentation": "Fungsi callback yang dipanggil ketika peristiwa terjadi dalam konteks eksekusi paralel."
+  },
+  "@roblox/globaltype/InputAction.Pressed.ConnectParallel": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once/param/1": {
+    "documentation": "Fungsi callback yang dipanggil pada saat peristiwa terjadi berikutnya, setelah itu secara otomatis terputus."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Once": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event (untuk satu pemanggilan tunggal) dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Pressed.Wait": {
+    "documentation": "Menghentikan thread saat ini hingga sinyal dinyalakan dan mengembalikan argumen-argumen yang diberikan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Pressed.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Pressed": {
+    "documentation": "Dipicu hanya ketika <code>InputAction.Type</code> diatur ke <code>Bool</code> pada transisi state dari <code>false</code> ke <code>true</code>.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Pressed.Once",
+      "Wait": "@roblox/globaltype/InputAction.Pressed.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Pressed",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect/param/1": {
+    "documentation": "Fungsi callback yang dipanggil setiap kali peristiwa terjadi."
+  },
+  "@roblox/globaltype/InputAction.Released.Connect": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1": {
+    "documentation": "Fungsi callback yang dipanggil ketika peristiwa terjadi dalam konteks eksekusi paralel."
+  },
+  "@roblox/globaltype/InputAction.Released.ConnectParallel": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Released.Once/param/1": {
+    "documentation": "Fungsi callback yang dipanggil pada saat peristiwa terjadi berikutnya, setelah itu secara otomatis terputus."
+  },
+  "@roblox/globaltype/InputAction.Released.Once": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event (untuk satu pemanggilan tunggal) dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.Released.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.Released.Wait": {
+    "documentation": "Menghentikan thread saat ini hingga sinyal dinyalakan dan mengembalikan argumen-argumen yang diberikan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.Released.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.Released": {
+    "documentation": "Dipicu hanya ketika <code>InputAction.Type</code> diatur ke <code>Bool</code> pada transisi state dari <code>true</code> ke <code>false</code>.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.Released.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.Released.Once",
+      "Wait": "@roblox/globaltype/InputAction.Released.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Released",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect/param/1": {
+    "documentation": "Fungsi callback yang dipanggil setiap kali peristiwa terjadi."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Connect": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1": {
+    "documentation": "Fungsi callback yang dipanggil ketika peristiwa terjadi dalam konteks eksekusi paralel."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.ConnectParallel": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once/param/1": {
+    "documentation": "Fungsi callback yang dipanggil pada saat peristiwa terjadi berikutnya, setelah itu secara otomatis terputus."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Once": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event (untuk satu pemanggilan tunggal) dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/InputAction.StateChanged.Wait": {
+    "documentation": "Menghentikan thread saat ini hingga sinyal dinyalakan dan mengembalikan argumen-argumen yang diberikan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InputAction.StateChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InputAction.StateChanged": {
+    "documentation": "Dipicu untuk semua tipe <code>InputActionType</code> setiap kali state berubah, kecuali jika state mencoba bertransisi ke state yang sama.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InputAction.StateChanged.Once",
+      "Wait": "@roblox/globaltype/InputAction.StateChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#StateChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/CanvasGroup": {
@@ -95755,6 +96070,182 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#ValidateUGCFullBodyAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1": {
+    "documentation": "Fungsi callback yang dipanggil setiap kali peristiwa terjadi."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Fungsi callback yang dipanggil ketika peristiwa terjadi dalam konteks eksekusi paralel."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1": {
+    "documentation": "Fungsi callback yang dipanggil pada saat peristiwa terjadi berikutnya, setelah itu secara otomatis terputus."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event (untuk satu pemanggilan tunggal) dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait": {
+    "documentation": "Menghentikan thread saat ini hingga sinyal dinyalakan dan mengembalikan argumen-argumen yang diberikan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
+    "documentation": "Ditembak ketika status moderasi aset avatar yang dibuat dalam pengalaman telah diperbarui dari pending.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarAssetModerationCompleted",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1": {
+    "documentation": "Fungsi callback yang dipanggil setiap kali peristiwa terjadi."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1": {
+    "documentation": "Fungsi callback yang dipanggil ketika peristiwa terjadi dalam konteks eksekusi paralel."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1": {
+    "documentation": "Fungsi callback yang dipanggil pada saat peristiwa terjadi berikutnya, setelah itu secara otomatis terputus."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once": {
+    "documentation": "Menghubungkan fungsi yang diberikan ke event (untuk satu pemanggilan tunggal) dan mengembalikan <code>RBXScriptConnection</code> yang mewakilinya.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0": {
+    "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait": {
+    "documentation": "Menghentikan thread saat ini hingga sinyal dinyalakan dan mengembalikan argumen-argumen yang diberikan oleh sinyal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
+    "documentation": "Ditembak ketika status moderasi avatar yang dibuat dalam pengalaman telah diperbarui dari pending.",
+    "keys": {
+      "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
+      "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
+      "Once": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Once",
+      "Wait": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarCreationService#AvatarModerationCompleted",
+    "code_sample": ""
+  },
   "@roblox/globaltype/HeightmapImporterService": {
     "documentation": "",
     "keys": {},
@@ -99390,7 +99881,7 @@
     "documentation": "Hasil <code>ShowAdResult</code> dari presentasi iklan klien. Anda seharusnya tidak menggunakan hasil ini untuk memberikan hadiah. Sebagai gantinya, Anda harus memberikan hadiah dari implementasi <code>ProcessReceipt</code>. Untuk <a href=\"../../../production/monetization/developer-products.md\">produk pengembang</a> yang diperoleh melalui iklan video yang diberi hadiah, <code>ProductPurchaseChannel</code> akan berupa <code>ProductPurchaseChannel.AdReward</code>."
   },
   "@roblox/globaltype/AdService.ShowRewardedVideoAdAsync": {
-    "documentation": "Memutar iklan video kepada pengguna saat ini dalam pengalaman.",
+    "documentation": "Memutar iklan video kepada pengguna saat ini di dalam pengalaman. <pre><code>**Peringatan**: Iklan Video yang diberi imbalan harus berdasarkan opt-in pengguna dan diungkapkan dengan jelas. Untuk detail lebih lanjut, tinjau [persyaratan kelayakan](../../../production/promotion/rewarded-video-ads.md#eligibility-requirements) dan [standar periklanan](https://en.help.roblox.com/hc/en-us/articles/13722260778260-Advertising-Standards). </code></pre>",
     "params": [
       {
         "name": "self",
