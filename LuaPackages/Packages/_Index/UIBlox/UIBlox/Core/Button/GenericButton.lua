@@ -8,6 +8,8 @@ local Core = Button.Parent
 local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
@@ -346,7 +348,19 @@ function GenericButton:renderButton(loadingProgress)
 				isLoadingShimmer = Roact.createElement(Skeleton, {
 					Size = if standardSize then UDim2.new(1, 2 * sidePadding, 1, 0) else UDim2.new(1, 0, 1, 0),
 					Position = if standardSize then UDim2.new(0, -sidePadding, 0, 0) else nil,
-					radius = getClosestRadius(style.Tokens.Semantic.Radius, UDim.new(0, BUTTON_IMAGE_CORNER_RADIUS)),
+					radius = getClosestRadius(
+						if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+							then {
+								None = style.Tokens.Radius.None,
+								Small = style.Tokens.Radius.Small,
+								Medium = style.Tokens.Radius.Medium,
+								Large = style.Tokens.Size.Size_300,
+								XLarge = style.Tokens.Radius.Large,
+								Circle = style.Tokens.Radius.Circle,
+							}
+							else style.Tokens.Semantic.Radius,
+						UDim.new(0, BUTTON_IMAGE_CORNER_RADIUS)
+					),
 				}),
 			}
 		else

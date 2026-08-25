@@ -81,7 +81,7 @@ local function resolveLeading(leading: any): any
 end
 
 local function InputTypeItem(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	title: string,
 	description: string?,
 	inputType: ListItemInputType?,
@@ -98,7 +98,7 @@ local function InputTypeItem(props: {
 	local itemProps: any = {
 		title = props.title,
 		description = props.description,
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}
 
 	itemProps.onActivated = handler
@@ -162,7 +162,7 @@ local function InputTypesStory(props: { controls: { size: InputSize } }): React.
 	local items: { [string]: React.ReactNode } = {}
 	for index, example in INPUT_TYPE_EXAMPLES do
 		items[example.title] = React.createElement(InputTypeItem, {
-			layoutOrder = index,
+			LayoutOrder = index,
 			title = example.title,
 			description = example.description,
 			inputType = example.inputType,
@@ -205,47 +205,47 @@ end
 
 local function LeadingAccessoriesStory(props: { controls: { size: InputSize } }): React.ReactNode
 	local items: { [string]: React.ReactNode } = {}
-	local layoutOrder = 0
+	local LayoutOrder = 0
 
 	for _, iconExample in StoryIcons.ICON_TYPE_EXAMPLES do
-		layoutOrder += 1
+		LayoutOrder += 1
 		items[iconExample.subtitle] = React.createElement(List.Item, {
 			leading = iconExample.name,
 			title = iconExample.title,
 			description = iconExample.subtitle,
 			onActivated = logActivated(iconExample.title),
 			input = ListItemInputType.Chevron,
-			LayoutOrder = layoutOrder,
+			LayoutOrder = LayoutOrder,
 		})
 	end
 
-	layoutOrder += 1
+	LayoutOrder += 1
 	items.Avatar = React.createElement(List.Item, {
 		leading = { type = AccessoryType.Avatar, userId = 24813339 },
 		title = "Avatar accessory",
 		description = "leading = { type = Avatar, userId }",
 		onActivated = logActivated("Avatar accessory"),
 		input = ListItemInputType.Chevron,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	})
 
-	layoutOrder += 1
+	LayoutOrder += 1
 	items.Media = React.createElement(List.Item, {
 		leading = { iconName = "rbxthumb://type=GameIcon&id=1818&w=150&h=150" },
 		title = "Media accessory",
 		description = "leading = { iconName = rbxthumb://... }",
 		onActivated = logActivated("Media accessory"),
 		input = ListItemInputType.Chevron,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	})
 
-	layoutOrder += 1
+	LayoutOrder += 1
 	items.None = React.createElement(List.Item, {
 		title = "No leading",
 		description = "leading = nil",
 		onActivated = logActivated("No leading"),
 		input = ListItemInputType.Chevron,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	})
 
 	return React.createElement(List.Root, {
@@ -253,10 +253,10 @@ local function LeadingAccessoriesStory(props: { controls: { size: InputSize } })
 	}, items)
 end
 
-local function SizeSection(props: { layoutOrder: number, size: InputSize }): React.ReactNode
+local function SizeSection(props: { LayoutOrder: number, size: InputSize }): React.ReactNode
 	return React.createElement(View, {
 		tag = "col gap-small size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.size :: string,
@@ -282,7 +282,7 @@ local function SizesStory(): React.ReactNode
 	local sections: { [string]: React.ReactNode } = {}
 	for index, size in SIZE_ORDER do
 		sections[size] = React.createElement(SizeSection, {
-			layoutOrder = index,
+			LayoutOrder = index,
 			size = size :: InputSize,
 		})
 	end

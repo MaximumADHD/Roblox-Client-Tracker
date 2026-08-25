@@ -87,6 +87,8 @@ local function buildMenuOrder(): Array<string>
 			menuMap[Constants.AVATAR_SWITCHER_ID] = nil
 			menuMap.emotes = nil
 			menuMap.traversal_history = nil
+			menuMap.camera_entrypoint = nil
+			menuMap.gallery = nil
 		end
 	else
 		reorder(menuMap, "connect_dropdown", 10)

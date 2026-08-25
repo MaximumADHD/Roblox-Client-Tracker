@@ -144,7 +144,9 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 
 	-- don't render anything if no items
 	if #items > 0 then
-		local backgroundToken = style.Tokens.Semantic.Color.BackgroundUi.Contrast
+		local backgroundToken = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then style.Tokens.Color.OverMedia.OverMedia_0
+			else style.Tokens.Semantic.Color.BackgroundUi.Contrast
 		return React.createElement("CanvasGroup", {
 			Position = props.position,
 			AnchorPoint = props.anchorPoint,

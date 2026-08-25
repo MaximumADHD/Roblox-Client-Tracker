@@ -5,9 +5,11 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
+local ButtonGroup = require(Foundation.Components.ButtonGroup)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local DialogSize = require(Foundation.Enums.DialogSize)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local Flags = require(Foundation.Utility.Flags)
 local Orientation = require(Foundation.Enums.Orientation)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -20,7 +22,9 @@ local useDialog = require(script.Parent.Parent.useDialog)
 type Bindable<T> = Types.Bindable<T>
 type ButtonVariant = ButtonVariant.ButtonVariant
 type Orientation = Orientation.Orientation
+type ButtonGroupItem = ButtonGroup.ButtonGroupItem
 
+-- TODO: replace with ButtonGroupItem in Foundation v2
 export type DialogAction = {
 	variant: ButtonVariant?,
 	icon: string?,
@@ -76,17 +80,25 @@ local function DialogActions(dialogActionsProps: DialogActionsProps)
 		LayoutOrder = props.LayoutOrder,
 		testId = `{dialogContext.testId}--actions`,
 	}, {
-		ActionsContainer = React.createElement(View, {
-			tag = {
-				["gap-small size-full-0 auto-y"] = true,
-				["row wrap"] = horizontalOrientation,
-				["col flex-x-fill"] = verticalOrientation,
-			},
-			LayoutOrder = 1,
-			testId = `{dialogContext.testId}--actions-container`,
-		}, {
-			Actions = actions,
-		}),
+		ActionsContainer = if Flags.FoundationDialogBetaUpdate
+			then React.createElement(ButtonGroup, {
+				buttons = props.actions or {} :: any,
+				orientation = if verticalOrientation then Orientation.Vertical else Orientation.Horizontal,
+				fillBehavior = FillBehavior.Fill,
+				LayoutOrder = 1,
+				testId = `{dialogContext.testId}--actions-container`,
+			})
+			else React.createElement(View, {
+				tag = {
+					["gap-small size-full-0 auto-y"] = true,
+					["row wrap"] = horizontalOrientation,
+					["col flex-x-fill"] = verticalOrientation,
+				},
+				LayoutOrder = 1,
+				testId = `{dialogContext.testId}--actions-container`,
+			}, {
+				Actions = actions,
+			}),
 		ActionsLabel = if props.label
 			then React.createElement(Text, {
 				Text = props.label,

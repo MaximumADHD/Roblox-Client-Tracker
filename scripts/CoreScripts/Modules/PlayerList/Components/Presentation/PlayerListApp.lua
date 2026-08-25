@@ -36,6 +36,7 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
+local FFlagPlayerListRemoveTopStat = require(PlayerList.Flags.FFlagPlayerListRemoveTopStat)
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -187,7 +188,9 @@ function PlayerListApp:render()
 		})
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
-		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
+		if not FFlagPlayerListRemoveTopStat then
+			childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
+		end
 
 		if self.props.displayOptions.isTenFootInterface then
 			childElements["TenFootSideBar"] = Roact.createElement(TenFootSideBar)

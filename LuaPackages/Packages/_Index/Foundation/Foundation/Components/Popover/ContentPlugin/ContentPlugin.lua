@@ -33,6 +33,8 @@ local usePluginAnchor = require(script.Parent.usePluginAnchor)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
+local isPointInGuiObjectBounds = require(Foundation.Utility.isPointInGuiObjectBounds)
+
 local ElevationOwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
 
 local Types = require(Foundation.Providers.StudioPanels.Types)
@@ -156,8 +158,7 @@ local function PopoverContentPlugin(
 		alignValue = 1
 	end
 
-	local uriAnchor: StudioUri? = if Flags.FoundationPopoverPluginUriAnchor then popoverContext.anchorUri else nil
-
+	local uriAnchor: StudioUri? = popoverContext.anchorUri
 	local pluginAnchor = usePluginAnchor(popoverContext.anchor, uriAnchor)
 	local hasArrow = if pluginAnchor.isVirtual then false else props.hasArrow
 
@@ -178,14 +179,14 @@ local function PopoverContentPlugin(
 
 	local onContentSizeChanged = if Flags.FoundationPopoverPluginOverlayMeasurement
 		then React.useCallback(function(frame: GuiObject)
-			if not isMeasuring then
+			if not Flags.FoundationPopoverRecomputeContentSize and not isMeasuring then
 				return
 			end
 			local size = frame.AbsoluteSize
 			if size.X > 0 and size.Y > 0 then
 				setMeasuredContentSize(size)
 			end
-		end, { isMeasuring })
+		end, { if Flags.FoundationPopoverRecomputeContentSize then nil else isMeasuring })
 		else nil :: never
 
 	local position = React.useMemo(
@@ -228,9 +229,16 @@ local function PopoverContentPlugin(
 
 	local onPanelClose = React.useCallback(function()
 		if props.onPressedOutside then
+			-- Suppress the dismiss when the user clicks on the anchor button to dismiss — the anchor's toggle should handle.
+			if Flags.FoundationPopoverClickOutsideInGuiShadow and typeof(popoverContext.anchor) == "Instance" then
+				local anchor = popoverContext.anchor :: GuiObject
+				if anchor.GuiState ~= Enum.GuiState.Idle then
+					return
+				end
+			end
 			props.onPressedOutside()
 		end
-	end, { props.onPressedOutside })
+	end, { props.onPressedOutside, popoverContext.anchor } :: { any })
 
 	local panelDepth = if depth ~= nil then depth else 0
 	local panel = usePanel({
@@ -253,6 +261,36 @@ local function PopoverContentPlugin(
 		popoverSize, contentSize =
 			usePanelSizing(props.side, props.align, contentInstance, if hasArrow then arrowHeight else 0, panel)
 	end
+
+	-- Dismiss when clicking in the QWidget's shadow padding area (outside actual
+	-- content bounds). The QWidget extends SHADOW_SIZE beyond the content on all
+	-- sides for the drop shadow, which can overlap the trigger button and block
+	-- input. Clicks in that region should behave like outside clicks.
+	React.useEffect(function()
+		if not Flags.FoundationPopoverClickOutsideInGuiShadow then
+			return
+		end
+
+		if not panel or not panel.container or not props.onPressedOutside then
+			return
+		end
+		local container = panel.container
+		local connection = container.InputBegan:Connect(function(input: InputObject)
+			if input.UserInputType ~= Enum.UserInputType.MouseButton1 then
+				return
+			end
+			if not contentInstance then
+				return
+			end
+			local clickPos = Vector2.new(input.Position.X, input.Position.Y)
+			if not isPointInGuiObjectBounds(contentInstance, clickPos) then
+				props.onPressedOutside()
+			end
+		end)
+		return function()
+			connection:Disconnect()
+		end
+	end, { panel, contentInstance, props.onPressedOutside } :: { unknown })
 
 	-- First measurement pass: read the overlay-mounted content size.
 	if Flags.FoundationPopoverPluginOverlayMeasurement then

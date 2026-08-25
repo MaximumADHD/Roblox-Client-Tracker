@@ -63,6 +63,10 @@ local GetUiSelectorSignalStore = if FFlagEnableUISelector
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
+local getSideSheetVisibility = require(CorePackages.Workspace.Packages.InExperienceSideSheet).getSideSheetVisibility
+
 local ToastRoot = nil
 local ToastGui = nil
 local Toast = nil
@@ -341,6 +345,9 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 		
 		if FFlagEnableConsoleExpControls then
 			if ChromeService:integrations().nine_dot == nil then
+				return Enum.ContextActionResult.Pass
+			end
+			if FFlagEnableSideSheet and FFlagSideSheetFocusNav and getSideSheetVisibility() then
 				return Enum.ContextActionResult.Pass
 			end
 			local isTopBarFocused = self:_isTopBarFocused()

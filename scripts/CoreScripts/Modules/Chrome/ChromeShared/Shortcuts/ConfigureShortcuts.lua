@@ -24,6 +24,8 @@ local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShort
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
 local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
 
 local ChromeFlags = Chrome.Flags
 local FFlagRespawnChromeShortcutTelemetry = require(ChromeFlags.FFlagRespawnChromeShortcutTelemetry)
@@ -37,6 +39,10 @@ local FFlagRemoveRespawnShortcutFromRespawnConfirmation =
 
 local ChatSelector = if FFlagEnableConsoleExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
+
+local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
+local toggleSideSheet = InExperienceSideSheet.toggleSideSheet
 
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
@@ -252,7 +258,13 @@ function registerShortcuts()
 				then
 					ExpChatFocusNavigationStore.unfocusChatInputBar()
 				end
-				SettingsHub:SetVisibility(true)
+				if FFlagEnableSideSheet and FFlagSideSheetFocusNav then
+					if not getSideSheetVisibility() then
+						toggleSideSheet(true)
+					end
+				else
+					SettingsHub:SetVisibility(true)
+				end
 			end
 			return
 		end,

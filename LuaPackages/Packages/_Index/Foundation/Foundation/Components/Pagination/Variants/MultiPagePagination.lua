@@ -99,7 +99,7 @@ local function MultiPagePagination(multiPageProps: MultiPagePaginationProps, ref
 					children[if index == 2 then "ellipsis-leading" else "ellipsis-trailing"] =
 						React.createElement(Ellipsis, {
 							slotSize = slotSize,
-							layoutOrder = index,
+							LayoutOrder = index,
 							testId = `{props.testId}--ellipsis-{index}`,
 						})
 				else
@@ -109,7 +109,7 @@ local function MultiPagePagination(multiPageProps: MultiPagePaginationProps, ref
 					children[`Page-{pageNumber}`] = React.createElement(PageNumberSlot, {
 						slotSize = slotSize,
 						isChecked = pageNumber == props.page,
-						layoutOrder = index,
+						LayoutOrder = index,
 						onPageActivated = props.onActivated,
 						page = pageNumber,
 						testId = `{props.testId}--page-{pageNumber}`,

@@ -1,6 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Dash = require(Packages.Dash)
 local Otter = require(Packages.Otter)
 local React = require(Packages.React)
@@ -228,7 +230,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 
 	local content = React.createElement(View, {
 		ZIndex = elevation.zIndex,
-		tag = "size-full",
+		tag = if Flags.FoundationDialogBetaUpdate then "size-full padding-y-xlarge" else "size-full",
 		testId = `{props.testId}--container`,
 	}, {
 		Backdrop = if props.hasBackdrop

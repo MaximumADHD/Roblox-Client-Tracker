@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local PreferencesContext = require(Preferences.PreferencesContext)
 
+local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 type PreferencesFull = PreferencesContext.Preferences
@@ -28,11 +29,26 @@ local defaultPreferences = {
 }
 
 local function PreferencesProvider(preferencesProviderProps: PreferencesProviderProps)
-	local props = withDefaults({
-		preferredTextSize = preferencesProviderProps.preferredTextSize,
-		preferredTransparency = preferencesProviderProps.preferredTransparency,
-		reducedMotion = preferencesProviderProps.reducedMotion,
-	}, defaultPreferences)
+	local props = if Flags.FoundationStableContextValues
+		then React.useMemo(
+			function()
+				return withDefaults({
+					preferredTextSize = preferencesProviderProps.preferredTextSize,
+					preferredTransparency = preferencesProviderProps.preferredTransparency,
+					reducedMotion = preferencesProviderProps.reducedMotion,
+				}, defaultPreferences)
+			end,
+			{
+				preferencesProviderProps.preferredTextSize,
+				preferencesProviderProps.preferredTransparency,
+				preferencesProviderProps.reducedMotion,
+			} :: { unknown }
+		)
+		else withDefaults({
+			preferredTextSize = preferencesProviderProps.preferredTextSize,
+			preferredTransparency = preferencesProviderProps.preferredTransparency,
+			reducedMotion = preferencesProviderProps.reducedMotion,
+		}, defaultPreferences)
 
 	return React.createElement(PreferencesContext.Provider, {
 		value = props,

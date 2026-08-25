@@ -75,9 +75,15 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 		{ popoverManager, widgets } :: { unknown }
 	)
 
-	local value: PanelsContext = {
-		registerPopoverAsync = registerPopoverAsync,
-	}
+	local value: PanelsContext = if Flags.FoundationStableContextValues
+		then React.useMemo(function()
+			return {
+				registerPopoverAsync = registerPopoverAsync,
+			}
+		end, { registerPopoverAsync } :: { unknown })
+		else {
+			registerPopoverAsync = registerPopoverAsync,
+		}
 
 	return React.createElement(PanelsContext.Provider, {
 		value = value,

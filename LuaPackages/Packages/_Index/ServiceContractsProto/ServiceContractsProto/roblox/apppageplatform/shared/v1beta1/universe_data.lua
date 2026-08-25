@@ -51,6 +51,7 @@ type _UniverseDataFields = {
 	refund_policy_text: string?,
 	refund_article_id: string?,
 	preview_video_id: number?,
+	creation_source: string?,
 }
 
 type _UniverseDataPartialFields = {
@@ -81,6 +82,7 @@ type _UniverseDataPartialFields = {
 	refund_policy_text: string?,
 	refund_article_id: string?,
 	preview_video_id: number?,
+	creation_source: string?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -129,6 +131,7 @@ do
 			refund_policy_text = if data == nil or data.refund_policy_text == nil then nil else data.refund_policy_text,
 			refund_article_id = if data == nil or data.refund_article_id == nil then nil else data.refund_article_id,
 			preview_video_id = if data == nil or data.preview_video_id == nil then nil else data.preview_video_id,
+			creation_source = if data == nil or data.creation_source == nil then nil else data.creation_source,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -269,6 +272,11 @@ do
 		if self.preview_video_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.preview_video_id)
+		end
+
+		if self.creation_source ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creation_source)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -425,6 +433,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.refund_article_id = buffer.tostring(value)
 					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creation_source = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -558,6 +571,10 @@ do
 
 		if self.preview_video_id ~= nil then
 			output.previewVideoId = self.preview_video_id
+		end
+
+		if self.creation_source ~= nil then
+			output.creationSource = self.creation_source
 		end
 
 		return output
@@ -768,6 +785,14 @@ do
 
 		if input.previewVideoId ~= nil then
 			self.preview_video_id = input.previewVideoId
+		end
+
+		if input.creation_source ~= nil then
+			self.creation_source = input.creation_source
+		end
+
+		if input.creationSource ~= nil then
+			self.creation_source = input.creationSource
 		end
 
 		return self

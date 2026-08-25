@@ -6,6 +6,7 @@ local React = require(Packages.React)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
+local OverflowScrollContainer = require(Foundation.Components.OverflowScrollContainer)
 local TabItem = require(script.Parent.TabItem)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -15,7 +16,7 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useAnimatedHighlight = require(Foundation.Utility.useAnimatedHighlight)
 
-local OverflowScrollContainer = require(script.Parent.OverflowScrollContainer)
+local DEPRECATED_OverflowScrollContainer = require(script.Parent.OverflowScrollContainer)
 
 type InputSize = InputSize.InputSize
 type FillBehavior = FillBehavior.FillBehavior
@@ -41,7 +42,6 @@ local defaultProps = {
 	ZIndex = 1,
 }
 
--- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationFixTabsFitBorderWidth is cleaned up
 local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local props = withDefaults(tabsProps, defaultProps)
@@ -65,7 +65,7 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 
 	local tabListWidth, setTabListWidth
 	local updateTabListsWidth
-	if Flags.FoundationFixTabsFitBorderWidth then
+	if Flags.FoundationUnifiedScrimScrolling then
 		tabListWidth, setTabListWidth = React.useBinding(0)
 		updateTabListsWidth = React.useCallback(function(tabList: GuiObject)
 			setTabListWidth(tabList.AbsoluteSize.X)
@@ -98,108 +98,89 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	local borderPosition, borderWidth, activeTabHeight =
 		animatedBorder.highlightPosition, animatedBorder.highlightWidth, animatedBorder.activeItemHeight
 
-	local containerTags = if Flags.FoundationFixTabsFitBorderWidth
-		then React.useMemo(function()
-			return {
-				outer = {
-					["clip"] = true,
-					["auto-xy"] = not isFill,
-					["auto-y"] = isFill,
-				},
-				tabs = {
-					["col"] = true,
-					["auto-xy"] = not isFill,
-					["auto-y"] = isFill,
-				},
-				wrapper = {
-					["auto-xy"] = not isFill,
-					["auto-y"] = isFill,
-				},
-			}
-		end, { isFill })
-		else nil :: never
-
 	local tabsSize: InputSize = if Flags.FoundationFixTabsFitBorderWidth then props.size else nil :: never
 
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.outer else "auto-y clip",
-			Size = if Flags.FoundationFixTabsFitBorderWidth
-				then if isFill then UDim2.fromScale(1, 0) else nil
-				else UDim2.fromScale(1, 0),
+			tag = if Flags.FoundationUnifiedScrimScrolling then "auto-y no-clip" else "auto-y clip",
+			Size = UDim2.fromScale(1, 0),
+			sizeConstraint = if Flags.FoundationUnifiedScrimScrolling and not isFill
+				then {
+					MaxSize = tabListWidth:map(function(width: number)
+						return Vector2.new(width, math.huge)
+					end),
+				}
+				else nil,
 		}),
 		{
 			Tabs = React.createElement(View, {
 				ref = ref or containerRef,
-				tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.tabs else "col auto-y",
-				Size = if Flags.FoundationFixTabsFitBorderWidth
-					then if isFill then UDim2.fromScale(1, 0) else nil
-					else UDim2.fromScale(1, 0),
+				tag = "col auto-y",
+				Size = UDim2.fromScale(1, 0),
 			}, {
 				Wrapper = React.createElement(View, {
 					LayoutOrder = 1,
-					tag = if Flags.FoundationFixTabsFitBorderWidth then containerTags.wrapper else "auto-y",
-					Size = if Flags.FoundationFixTabsFitBorderWidth
-						then if isFill then UDim2.fromScale(1, 0) else nil
-						else UDim2.fromScale(1, 0),
+					tag = "auto-y",
+					Size = UDim2.fromScale(1, 0),
 					testId = `{props.testId}--wrapper`,
 				}, {
-					ScrollContainer = React.createElement(OverflowScrollContainer, {
-						LayoutOrder = 1,
-						size = props.size,
-						fillBehavior = if Flags.FoundationFixTabsFitBorderWidth
-							then if isFill then nil else props.fillBehavior
-							else nil,
-						fitWidth = if Flags.FoundationFixTabsFitBorderWidth
-							then if isFill then nil else tabListWidth
-							else nil,
-						testId = `{props.testId}--scroll-container`,
-					}, {
-						TabList = React.createElement(
-							View,
-							{
-								onAbsoluteSizeChanged = if Flags.FoundationFixTabsFitBorderWidth
-									then updateTabListsWidth
-									else nil,
-								tag = {
-									["row flex-y-fill auto-xy"] = true,
-									["gap-large"] = if Flags.FoundationFixTabsFitBorderWidth
-										then not isFill and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall)
-										else not isFill,
-								},
-								Size = if isFill then UDim2.fromScale(1, 0) else nil,
-								testId = `{props.testId}--list`,
+					ScrollContainer = React.createElement(
+						if Flags.FoundationUnifiedScrimScrolling
+							then OverflowScrollContainer
+							else DEPRECATED_OverflowScrollContainer,
+						if Flags.FoundationUnifiedScrimScrolling
+							then {
+								LayoutOrder = 1,
+								size = props.size,
+								scrimBottomInset = tokens.Stroke.Thick,
+								testId = `{props.testId}--scroll-container`,
+							}
+							else {
+								LayoutOrder = 1,
+								size = props.size,
+								testId = `{props.testId}--scroll-container`,
 							},
-							Dash.map(props.tabs, function(tab, index)
-								return React.createElement(TabItem, {
-									id = tab.id,
-									text = tab.text,
-									indicator = tab.indicator,
-									key = tostring(tab.id),
-									icon = tab.icon,
-									isActive = tab.id == activeTabId,
-									onActivated = onActivated,
-									LayoutOrder = index,
-									fillBehavior = props.fillBehavior,
-									size = props.size,
-									isDisabled = tab.isDisabled,
-									testId = `{props.testId}--item-{tab.id}`,
-									ref = tabRefs[tab.id],
-								})
-							end)
-						),
-					}),
+						{
+							TabList = React.createElement(
+								View,
+								{
+									onAbsoluteSizeChanged = if Flags.FoundationUnifiedScrimScrolling
+										then updateTabListsWidth
+										else nil,
+									tag = {
+										["row flex-y-fill auto-xy"] = true,
+										["gap-large"] = if Flags.FoundationFixTabsFitBorderWidth
+											then not isFill and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall)
+											else not isFill,
+									},
+									Size = if isFill then UDim2.fromScale(1, 0) else nil,
+									testId = `{props.testId}--list`,
+								},
+								Dash.map(props.tabs, function(tab, index)
+									return React.createElement(TabItem, {
+										id = tab.id,
+										text = tab.text,
+										indicator = tab.indicator,
+										key = tostring(tab.id),
+										icon = tab.icon,
+										isActive = tab.id == activeTabId,
+										onActivated = onActivated,
+										LayoutOrder = index,
+										fillBehavior = props.fillBehavior,
+										size = props.size,
+										isDisabled = tab.isDisabled,
+										testId = `{props.testId}--item-{tab.id}`,
+										ref = tabRefs[tab.id],
+									})
+								end)
+							),
+						}
+					),
 					Border = React.createElement(View, {
 						LayoutOrder = 2,
 						AnchorPoint = Vector2.new(0, 1),
-						Size = if Flags.FoundationFixTabsFitBorderWidth
-							then if isFill
-								then UDim2.new(1, 0, 0, tokens.Stroke.Thick)
-								else tabListWidth:map(function(width)
-									return UDim2.fromOffset(width, tokens.Stroke.Thick)
-								end)
-							else UDim2.new(1, 0, 0, tokens.Stroke.Thick),
+						Size = UDim2.new(1, 0, 0, tokens.Stroke.Thick),
 						Position = UDim2.fromScale(0, 1),
 						backgroundStyle = tokens.Color.Stroke.Default,
 						testId = `{props.testId}--border`,

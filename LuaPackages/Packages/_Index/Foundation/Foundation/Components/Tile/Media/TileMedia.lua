@@ -14,16 +14,12 @@ type ThumbnailSize = ThumbnailSize.ThumbnailSize
 local MediaShape = require(Foundation.Enums.MediaShape)
 type MediaShape = MediaShape.MediaShape
 
-local Gradient = require(Foundation.Components.Gradient)
 local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 local useTile = require(Foundation.Components.Tile.useTile)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Types = require(Foundation.Components.Types)
 type ColorStyle = Types.ColorStyle
@@ -59,7 +55,6 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 	local props = withDefaults(tileMediaProps, defaultProps)
 
 	local tileContext = useTile()
-	local tokens = useTokens()
 
 	local backgroundStyle: ColorStyle? = if props.background then props.background.style :: any else nil
 	local backgroundImage: string? = if props.background then props.background.image else nil
@@ -71,16 +66,6 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 
 		return getRbxThumb(props.type :: any, props.id)
 	end, { props.type, props.id } :: { any })
-
-	local cornerRadius = if not Flags.FoundationMediaRoundedCornerTags
-		then if props.shape :: MediaShape == MediaShape.Circle
-			then UDim.new(0, tokens.Radius.Circle)
-			else UDim.new(0, tokens.Radius.Medium)
-		else nil
-
-	local hasMiddleCorners = if not Flags.FoundationMediaRoundedCornerTags
-		then tileContext.isContained and cornerRadius
-		else nil
 
 	return React.createElement(if backgroundImage then Image else View, {
 		Image = backgroundImage,
@@ -98,62 +83,30 @@ local function TileMedia(tileMediaProps: TileMediaProps)
 				then Enum.DominantAxis.Width
 				else Enum.DominantAxis.Height,
 		},
-		cornerRadius = cornerRadius,
-		tag = if Flags.FoundationMediaRoundedCornerTags
-			then {
+		tag = {
+			["radius-top-medium"] = tileContext.fillDirection == Enum.FillDirection.Vertical
+				and tileContext.isContained,
+			["radius-left-medium"] = tileContext.fillDirection == Enum.FillDirection.Horizontal
+				and tileContext.isContained,
+			["radius-medium"] = props.shape :: MediaShape ~= MediaShape.Circle and not tileContext.isContained,
+			["radius-circle"] = props.shape :: MediaShape == MediaShape.Circle and not tileContext.isContained,
+		},
+		onStateChanged = props.onStateChanged,
+		testId = `{tileContext.testId}--media`,
+	}, {
+		Image = React.createElement(Image, {
+			Image = image,
+			imageStyle = props.style,
+			tag = {
+				["size-full"] = true,
+				["padding-medium"] = props.children ~= nil,
 				["radius-top-medium"] = tileContext.fillDirection == Enum.FillDirection.Vertical
 					and tileContext.isContained,
 				["radius-left-medium"] = tileContext.fillDirection == Enum.FillDirection.Horizontal
 					and tileContext.isContained,
 				["radius-medium"] = props.shape :: MediaShape ~= MediaShape.Circle and not tileContext.isContained,
-				["radius-circle"] = props.shape :: MediaShape == MediaShape.Circle and not tileContext.isContained,
-			}
-			else nil,
-		onStateChanged = props.onStateChanged,
-		testId = `{tileContext.testId}--media`,
-	}, {
-		-- If the tile is contained, we only round the top two corners.
-		-- This is achieved by duplicating the background and images, and only
-		-- showing half of each (rounding all four on the first set, and none on the second)
-		TransparencyGradient = if hasMiddleCorners
-			then React.createElement(Gradient, {
-				fillDirection = tileContext.fillDirection,
-				top = true,
-			})
-			else nil,
-		MiddleCorners = if hasMiddleCorners
-			then React.createElement(Image, {
-				Image = backgroundImage,
-				imageStyle = if backgroundImage then backgroundStyle else nil,
-				backgroundStyle = if backgroundImage then nil else backgroundStyle,
-				ZIndex = 0,
-				tag = "size-full",
-			}, {
-				TransparencyGradient = React.createElement(Gradient, {
-					fillDirection = tileContext.fillDirection,
-					top = false,
-				}),
-			})
-			else nil,
-		Image = React.createElement(Image, {
-			Image = image,
-			cornerRadius = cornerRadius,
-			imageStyle = props.style,
-			tag = if Flags.FoundationMediaRoundedCornerTags
-				then {
-					["size-full"] = true,
-					["padding-medium"] = props.children ~= nil,
-					["radius-top-medium"] = tileContext.fillDirection == Enum.FillDirection.Vertical
-						and tileContext.isContained,
-					["radius-left-medium"] = tileContext.fillDirection == Enum.FillDirection.Horizontal
-						and tileContext.isContained,
-					["radius-medium"] = props.shape :: MediaShape ~= MediaShape.Circle and not tileContext.isContained,
-					["radius-circle"] = props.shape :: MediaShape == MediaShape.Circle,
-				}
-				else {
-					["size-full"] = true,
-					["padding-medium"] = props.children ~= nil,
-				},
+				["radius-circle"] = props.shape :: MediaShape == MediaShape.Circle,
+			},
 			testId = `{tileContext.testId}--media-image`,
 		}, props.children),
 	})

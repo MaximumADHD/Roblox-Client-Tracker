@@ -6,7 +6,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 
-
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local FFlagAddTopBarScrim = require(script.Flags.FFlagAddTopBarScrim)
@@ -23,6 +22,9 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
+
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local RoactAppPolicy = UniversalAppPolicy.RoactAppPolicy
 local AppFeaturePolicies = UniversalAppPolicy.AppFeaturePolicies
@@ -30,7 +32,6 @@ local AppFeaturePolicies = UniversalAppPolicy.AppFeaturePolicies
 local StyleConstants = UIBlox.App.Style.Constants
 local Display = require(CorePackages.Workspace.Packages.Display)
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
-local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
 
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
@@ -51,7 +52,8 @@ local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceT
 local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 local FFlagTopBarDeprecateGameInfoRodux = require(script.Flags.FFlagTopBarDeprecateGameInfoRodux)
-local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux)
+local FFlagTopBarDeprecateGamepadNavigationDialogRodux =
+	require(script.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux)
 
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
@@ -72,13 +74,15 @@ if ChromeEnabled then
 			left = guiInsetTopLeft.X,
 			top = Constants.ApplyDisplayScale(Constants.TopBarHeight),
 			right = guiInsetBottomRight.X,
-			bottom = guiInsetBottomRight.Y
+			bottom = guiInsetBottomRight.Y,
 		})
 	end
 	SetGlobalGuiInset()
 end
 
-local TopBarApp = if FFlagTopBarRefactor then require(script.ComponentsV2.TopBarApp) else require(script.Components.TopBarApp)
+local TopBarApp = if FFlagTopBarRefactor
+	then require(script.ComponentsV2.TopBarApp)
+	else require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
 local TopBarAppPolicy = require(script.TopBarAppPolicy)
 
@@ -142,10 +146,10 @@ function TopBar.new()
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
 	})
-	if not FFlagTopBarSignalizeSetCores	then
+	if not FFlagTopBarSignalizeSetCores then
 		registerSetCores(self.store)
 	end
-	
+
 	if not FFlagTopBarDeprecateChatRodux then
 		self.store:dispatch(GetCanChat)
 	end
@@ -179,7 +183,7 @@ function TopBar.new()
 	end
 
 	local appStyleForAppStyleProvider = {
-		themeName = StyleConstants.ThemeName.Dark,
+		themeName = ColorMode.Dark,
 		fontName = StyleConstants.FontName.Gotham,
 	}
 
@@ -205,15 +209,16 @@ function TopBar.new()
 			TopBarApp = TopBarWithProviders,
 		})
 	end
-	
 
-	local TopBarScrimScreenGui = ChromeService and FFlagAddTopBarScrim and React.createElement("ScreenGui", {
-		IgnoreGuiInset = true,
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		DisplayOrder = -2,
-	}, {
-		TopBarScrim = React.createElement(TopBarScrim),
-	})
+	local TopBarScrimScreenGui = ChromeService
+		and FFlagAddTopBarScrim
+		and React.createElement("ScreenGui", {
+			IgnoreGuiInset = true,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			DisplayOrder = -2,
+		}, {
+			TopBarScrim = React.createElement(TopBarScrim),
+		})
 
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
@@ -221,7 +226,9 @@ function TopBar.new()
 		PolicyProvider = Roact.createElement(
 			if FFlagTopBarRefactor or FFlagShowGameAgeRating then RoactAppPolicy.Provider else TopBarAppPolicy.Provider,
 			{
-				policy = if FFlagTopBarRefactor or FFlagShowGameAgeRating then { AppFeaturePolicies } else { TopBarAppPolicy.Mapper },
+				policy = if FFlagTopBarRefactor or FFlagShowGameAgeRating
+					then { AppFeaturePolicies }
+					else { TopBarAppPolicy.Mapper },
 			},
 			wrapWithUiModeStyleProvider({
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
@@ -231,7 +238,7 @@ function TopBar.new()
 						RoactAppExperimentProvider = Roact.createElement(
 							RoactAppExperiment.Provider,
 							{ value = IXPService },
-							{ 
+							{
 								TopBarApp = TopBarWithProviders,
 								TopBarScrim = TopBarScrimScreenGui,
 							}
@@ -247,7 +254,6 @@ function TopBar.new()
 
 	self.root = Roact.createElement(ReactSceneUnderstanding.SceneAnalysisProvider, nil, self.root)
 
-	self.root = Roact.createElement(Songbird.ReportAudioPopupContext.Provider, nil, self.root)
 	self.root = Roact.createElement(VoiceStateContext.Provider, nil, self.root)
 
 	-- Root should be a Folder so that style provider stylesheet elements can be portaled properly; otherwise, they will attach to CoreGui
@@ -290,8 +296,8 @@ function TopBar.new()
 end
 
 function TopBar:setInspectMenuOpen(open)
-	if FFlagTopBarSignalizeMenuOpen then 
-		return 
+	if FFlagTopBarSignalizeMenuOpen then
+		return
 	end
 	self.store:dispatch(SetInspectMenuOpen(open))
 end

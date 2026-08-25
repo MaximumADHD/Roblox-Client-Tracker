@@ -5,6 +5,7 @@ local Container = script.Parent
 local App = script.Parent.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Cryo = require(Packages.Cryo)
 local Otter = require(Packages.Otter)
@@ -208,33 +209,59 @@ function VerticalScrollView:getScrollBarStyleProps(style, scrollBarType)
 	if scrollBarType == ScrollBarType.Wide then
 		return {
 			userInteractionEnabled = true,
-			width = tokens.Global.Size_200,
-			handleWidth = tokens.Global.Size_100,
-			paddingStartEnd = tokens.Global.Space_50,
+			width = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_400
+				else tokens.Global.Size_200,
+			handleWidth = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_200
+				else tokens.Global.Size_100,
+			paddingStartEnd = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_100
+				else tokens.Global.Space_50,
 			marginRight = 0,
 		}
 	elseif scrollBarType == ScrollBarType.Gamepad then
 		return {
 			userInteractionEnabled = false,
-			width = tokens.Global.Space_200,
-			handleWidth = tokens.Global.Space_100,
+			width = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_400
+				else tokens.Global.Space_200,
+			handleWidth = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_200
+				else tokens.Global.Space_100,
 			handleIcon = Images[ICON_XBOX_RS_VERTICAL],
-			handleIconSize = tokens.Semantic.Icon.Size.Medium,
+			handleIconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_900
+				else tokens.Semantic.Icon.Size.Medium,
 			handleIconColor = {
-				Color = tokens.Semantic.Color.Icon.Emphasis.Color3,
-				Transparency = tokens.Semantic.Color.Icon.Emphasis.Transparency,
+				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Color.Content.Emphasis.Color3
+					else tokens.Semantic.Color.Icon.Emphasis.Color3,
+				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Color.Content.Emphasis.Transparency
+					else tokens.Semantic.Color.Icon.Emphasis.Transparency,
 			},
-			paddingStartEnd = tokens.Global.Space_300,
-			marginRight = tokens.Global.Space_300,
+			paddingStartEnd = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_600
+				else tokens.Global.Space_300,
+			marginRight = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_600
+				else tokens.Global.Space_300,
 		}
 	end
 
 	-- fallback to ScrollBarType.Compact
 	return {
 		userInteractionEnabled = false,
-		width = tokens.Global.Space_150,
-		handleWidth = tokens.Global.Size_25,
-		paddingStartEnd = tokens.Global.Space_50,
+		width = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_300
+			else tokens.Global.Space_150,
+		handleWidth = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_50
+			else tokens.Global.Size_25,
+		paddingStartEnd = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_100
+			else tokens.Global.Space_50,
 		marginRight = 0,
 	}
 end
@@ -256,10 +283,16 @@ function VerticalScrollView:renderScrollBar(style)
 		paddingStartEnd = styleProps.paddingStartEnd,
 		handleWidth = styleProps.handleWidth,
 		handleColor = {
-			Color = tokens.Semantic.Color.Ui.Emphasis.Color3,
-			Transparency = tokens.Semantic.Color.Ui.Emphasis.Transparency,
+			Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.Shift.Shift_400.Color3
+				else tokens.Semantic.Color.Ui.Emphasis.Color3,
+			Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.Shift.Shift_400.Transparency
+				else tokens.Semantic.Color.Ui.Emphasis.Transparency,
 		},
-		handleCornerRadius = tokens.Semantic.Radius.Circle,
+		handleCornerRadius = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Radius.Circle
+			else tokens.Semantic.Radius.Circle,
 		handleIcon = styleProps.handleIcon,
 		handleIconColor = styleProps.handleIconColor,
 		handleIconSize = styleProps.handleIconSize,

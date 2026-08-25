@@ -47,7 +47,9 @@ local function labelText(text: string, isRequired: boolean?): string
 	end
 
 	return if isRequired
-		then text .. REQUIRED_INDICATOR
+		then if Flags.FoundationIncludeSpaceRequiredLabel
+			then text .. ` {REQUIRED_INDICATOR}`
+			else text .. REQUIRED_INDICATOR
 		else Translator:FormatByKey("CommonUI.Controls.Input.Optional", { inputLabel = text })
 end
 

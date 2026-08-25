@@ -6,7 +6,7 @@ return function(config: networkRequestsTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
 	return roduxNetworking.POST(
-		script,
+		script.Name,
 		function(requestBuilder, queryArgs: networkRequestsTypes.UpdateUserSettingsQueryArgs)
 			return requestBuilder(API_URL):path("user-settings-api"):path("v1"):path("user-settings"):body(queryArgs)
 		end

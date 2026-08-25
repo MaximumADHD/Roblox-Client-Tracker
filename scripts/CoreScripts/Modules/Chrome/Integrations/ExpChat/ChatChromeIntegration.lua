@@ -23,7 +23,7 @@ local GuiService = game:GetService("GuiService")
 local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals).default
-local SignalsRoblox = require(CorePackages.Packages.SignalsRoblox)
+local SignalsUtils = require(CorePackages.Workspace.Packages.SignalsUtils)
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
@@ -303,7 +303,7 @@ if FFlagExpChatUnibarAvailabilityRefactor then
 	-- We are using a detached effect here because we don't have a great
 	-- place to keep our weak reference alive. This is because chrome registration
 	-- doesn't have a end-lifecycle well defined.
-	SignalsRoblox.createDetachedEffect(function(scope)
+	SignalsUtils.createDetachedEffect(function(scope)
 		local isAvailable = ChatIconVisibleSignals.getIsChatIconVisible(scope)
 
 		-- addresses the unibar button
@@ -326,7 +326,7 @@ if FFlagExpChatUnibarAvailabilityRefactor then
 end
 
 if FFlagChatIntegrationFixShortcut and FFlagEnableConsoleExpControls then
-	SignalsRoblox.createDetachedEffect(function(scope)
+	SignalsUtils.createDetachedEffect(function(scope)
 		local isChatInputBarFocused = ExpChatFocusNavigationStore.getChatInputBarFocused(scope)
 		if isChatInputBarFocused then
 			ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
@@ -338,7 +338,7 @@ end
 
 if FFlagExpChatEnableFriendsTab then
 	-- Refresh the badge whenever the friends display count changes.
-	SignalsRoblox.createDetachedEffect(function(scope)
+	SignalsUtils.createDetachedEffect(function(scope)
 		GetFriendsChatIconUnreadStore(scope).getUnreadCountToDisplay(scope)
 		updateUnreadNotification()
 	end)

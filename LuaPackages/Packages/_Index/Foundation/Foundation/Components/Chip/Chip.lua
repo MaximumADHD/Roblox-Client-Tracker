@@ -7,6 +7,7 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local IconVariant = BuilderIcons.IconVariant
 
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -108,6 +109,15 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 		useChipVariants(tokens, props.size, props.variant, props.isChecked, leading ~= nil, trailing ~= nil)
 	local cursorBorderWidth = math.floor(tokens.Stroke.Thicker)
 
+	local presentationValue = if Flags.FoundationStableContextValues
+		then React.useMemo(function()
+			return {
+				colorNamespace = if props.isChecked then ColorNamespace.Inverse else ColorNamespace.Color,
+				isIconSize = true,
+			}
+		end, { props.isChecked } :: { unknown })
+		else nil
+
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -137,10 +147,12 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else 0,
 		}),
 		React.createElement(PresentationContext.Provider, {
-			value = {
-				colorNamespace = if props.isChecked then ColorNamespace.Inverse else ColorNamespace.Color,
-				isIconSize = true,
-			},
+			value = if Flags.FoundationStableContextValues
+				then presentationValue
+				else {
+					colorNamespace = if props.isChecked then ColorNamespace.Inverse else ColorNamespace.Color,
+					isIconSize = true,
+				},
 		}, {
 			Leading = if leading
 				then React.createElement(Accessory, {

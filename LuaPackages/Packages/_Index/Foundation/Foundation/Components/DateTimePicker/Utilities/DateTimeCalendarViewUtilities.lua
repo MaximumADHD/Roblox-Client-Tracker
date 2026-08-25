@@ -4,17 +4,17 @@
 
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local DateTimePickerRangeBandRoleEnum = require(Foundation.Enums.DateTimePickerRangeBandRole)
 local DateTimeUtilities = require(script.Parent.Parent.DateTimeUtilities)
 local LocalizationService = require(Foundation.Utility.Wrappers).Services.LocalizationService
 
 type DateRange = DateTimeUtilities.DateRange
+type RangeBandRole = DateTimePickerRangeBandRoleEnum.DateTimePickerRangeBandRole
 
 type TimeSlot = {
 	id: number,
 	text: string,
 }
-
-export type RangeBandRole = "full" | "start" | "end"
 
 export type ViewDate = {
 	month: number,
@@ -134,8 +134,12 @@ local function getRangeBandRadiusTag(dateTime: DateTime, range: DateRange, bandR
 	local nextInRange = day < hi
 	local dayOfWeek = getDayOfWeek(dateTime)
 
-	local roundLeft = if bandRole == "start" then false else dayOfWeek == 0 or not prevInRange
-	local roundRight = if bandRole == "end" then false else dayOfWeek == 6 or not nextInRange
+	local roundLeft = if bandRole == DateTimePickerRangeBandRoleEnum.Start
+		then false
+		else dayOfWeek == 0 or not prevInRange
+	local roundRight = if bandRole == DateTimePickerRangeBandRoleEnum.End
+		then false
+		else dayOfWeek == 6 or not nextInRange
 
 	if roundLeft and roundRight then
 		return "radius-circle"

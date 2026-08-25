@@ -2,11 +2,8 @@ local dependencies = require(script.dependencies)
 local Style = script.Parent
 local Core = Style.Parent
 local UIBlox = Core.Parent
-local Packages = UIBlox.Parent
-local t = require(Packages.t)
 
 local GetTokenGenerators = dependencies.GetTokenGenerators
-local Validators = dependencies.SchemaPackage.Validators
 local GetFoundationTokens = dependencies.GetFoundationTokens
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
@@ -46,11 +43,6 @@ return {
 			Component = require(tokenGenerators.Component)(scale),
 		} :: Types.BaseTokens
 	end,
-	validateTokens = t.interface({
-		Global = t.strictInterface(Validators.Global),
-		Semantic = t.strictInterface(Validators.Semantic),
-		Component = t.strictInterface(Validators.Component),
-	}),
 	Types = Types,
 	getFoundationTokens = function(
 		deviceType: DeviceType,

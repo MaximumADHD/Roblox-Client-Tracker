@@ -21,6 +21,7 @@ local TIME_LIST_WIDTH = 132
 export type SingleWithTimeLayout = {
 	bodyHeight: number,
 	calendarColumnWidth: number,
+	contentWidth: number,
 	gridHeight: number,
 	timeListColumnWidth: number,
 	timeListHeight: number,
@@ -39,11 +40,15 @@ local function computeSingleWithTimeLayout(
 	local headerHeight = tokens.Size.Size_800 + 2 * tokens.Padding.Small
 	local bodyHeight = 2 * paddingLarge + headerHeight + tokens.Gap.Small + gridHeight
 
+	local calendarColumnWidth = scaledCalendarWidth + 2 * paddingLarge
+	local timeListColumnWidth = scaledTimeListWidth + 2 * paddingLarge
+
 	return {
 		bodyHeight = bodyHeight,
-		calendarColumnWidth = scaledCalendarWidth + 2 * paddingLarge,
+		calendarColumnWidth = calendarColumnWidth,
+		contentWidth = calendarColumnWidth + tokens.Stroke.Standard + timeListColumnWidth,
 		gridHeight = gridHeight,
-		timeListColumnWidth = scaledTimeListWidth + 2 * paddingLarge,
+		timeListColumnWidth = timeListColumnWidth,
 		timeListHeight = bodyHeight - 2 * paddingLarge,
 	}
 end

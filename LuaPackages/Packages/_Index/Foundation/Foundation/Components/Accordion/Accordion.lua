@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -35,6 +36,16 @@ local defaultProps = {
 local function Accordion(accordionProps: AccordionProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(accordionProps, defaultProps)
 
+	local contextValue = if Flags.FoundationStableContextValues
+		then React.useMemo(function()
+			return {
+				onAccordionItemActivated = props.onActivated,
+				itemSize = props.size,
+				testId = props.testId,
+			}
+		end, { props.onActivated, props.size, props.testId } :: { unknown })
+		else nil
+
 	return React.createElement(
 		View,
 		withCommonProps(props, {
@@ -44,11 +55,13 @@ local function Accordion(accordionProps: AccordionProps, ref: React.Ref<GuiObjec
 		}),
 		{
 			AccordionContext = React.createElement(AccordionContext.Provider, {
-				value = {
-					onAccordionItemActivated = props.onActivated,
-					itemSize = props.size,
-					testId = props.testId,
-				},
+				value = if Flags.FoundationStableContextValues
+					then contextValue
+					else {
+						onAccordionItemActivated = props.onActivated,
+						itemSize = props.size,
+						testId = props.testId,
+					},
 			}, props.children),
 		}
 	)

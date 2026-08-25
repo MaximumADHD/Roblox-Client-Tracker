@@ -34,6 +34,13 @@ type ListItemInputType = ListItemInputType.ListItemInputType
 
 local RADIO_VALUE = "radio"
 
+local DESCRIPTION_GAP_TAG: { [InputSize]: string } = {
+	[InputSize.XSmall] = "gap-xxsmall",
+	[InputSize.Small] = "gap-xxsmall",
+	[InputSize.Medium] = "gap-xsmall",
+	[InputSize.Large] = "gap-xsmall",
+}
+
 -- The trailing input accessory. Use the `"Chevron"`/`"None"` string shorthands for the static accessories,
 -- or a config object to select an interactive control (Checkbox / Toggle / Radio) with its checked state
 -- and an `onActivated(checked)` handler that activates only the input (see `ListItemProps.input`).
@@ -103,6 +110,8 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 
 	local variantProps = useListItemVariants(tokens, size)
 	local accessoryVariants = useListAccessoryVariants(tokens, size, "Icon")
+
+	local textGapTag = if Flags.FoundationListItemTypographySpacing then DESCRIPTION_GAP_TAG[size] else "gap-small"
 
 	local isConfigTable = typeof(props.onActivated) == "table" and (props.onActivated :: any).onActivated ~= nil
 
@@ -239,12 +248,18 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 						LayoutOrder = 1,
 					}, {
 						TextContainer = React.createElement(View, {
-							tag = "col fill gap-small auto-y padding-y-xsmall",
+							tag = {
+								["col fill auto-y padding-y-xsmall"] = true,
+								[textGapTag] = true,
+							},
 							LayoutOrder = 1,
 						}, {
 							TitleContainer = if title
 								then React.createElement(View, {
-									tag = "col gap-xsmall auto-xy",
+									tag = {
+										["col auto-xy"] = true,
+										["gap-xsmall"] = not Flags.FoundationListItemTypographySpacing,
+									},
 									LayoutOrder = 0,
 								}, {
 									Title = if title

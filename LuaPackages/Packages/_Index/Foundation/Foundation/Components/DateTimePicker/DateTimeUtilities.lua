@@ -252,8 +252,6 @@ local function formatLocalTime(dateTime: DateTime, includeTime: boolean?)
 end
 
 return {
-	DATE_COMPOSITE_TOKEN = DATE_COMPOSITE_TOKEN,
-	TIME_COMPOSITE_TOKEN = TIME_COMPOSITE_TOKEN,
 	formatLocalTime = formatLocalTime,
 	getDateTimeFromText = getDateTimeFromText,
 	getDaysInMonth = getDaysInMonth,

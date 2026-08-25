@@ -106,14 +106,14 @@ local function typographyLabel(size: string, tag: string): React.ReactNode
 end
 
 local function TypographyRow(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	size: string,
 	tag: string,
 	specs: string,
 })
 	return React.createElement(View, {
 		tag = "row align-y-start gap-large size-full-0 auto-y padding-y-small",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(View, {
 			tag = "col align-y-start size-full-0 auto-y",
@@ -137,7 +137,7 @@ local function TypographyRow(props: {
 end
 
 type SectionProps = {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	children: React.ReactNode,
 }
@@ -145,7 +145,7 @@ type SectionProps = {
 local function Section(props: SectionProps)
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -230,7 +230,7 @@ local function TypographyStory(): React.ReactNode
 
 					return React.createElement(TypographyRow, {
 						key = entry.tokenName,
-						layoutOrder = rowIndex,
+						LayoutOrder = rowIndex,
 						size = size,
 						tag = entry.tag,
 						specs = formatTypographySpecs(typography),
@@ -239,7 +239,7 @@ local function TypographyStory(): React.ReactNode
 
 				return React.createElement(Section, {
 					key = section.name,
-					layoutOrder = sectionIndex,
+					LayoutOrder = sectionIndex,
 					name = section.name,
 				}, rows)
 			end)

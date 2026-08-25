@@ -494,7 +494,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 				value = getBindableValue(value),
 			}
 		end
-	end, { props.value } :: { unknown })
+	end, { props.value })
 
 	local onDrag = React.useCallback(
 		function(_rbx, position: Vector2)

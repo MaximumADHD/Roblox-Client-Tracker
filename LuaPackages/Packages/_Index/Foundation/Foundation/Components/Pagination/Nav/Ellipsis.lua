@@ -14,13 +14,13 @@ local paginationUtils = require(Pagination.paginationUtils)
 
 type EllipsisProps = {
 	slotSize: PaginationSize,
-	layoutOrder: number,
+	LayoutOrder: number,
 	testId: string,
 }
 
 local function Ellipsis(props: EllipsisProps)
 	return React.createElement(View, {
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 		tag = paginationUtils.getCircularSlotTag(props.slotSize),
 		testId = props.testId,
 	}, {

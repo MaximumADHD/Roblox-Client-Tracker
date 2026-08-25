@@ -187,7 +187,7 @@ local function TokenRow(props: {
 			end)
 			setSelectedCategory(nil :: any)
 		end
-	end, { props.currentOverride } :: { unknown })
+	end, { props.currentOverride })
 
 	React.useEffect(function()
 		if kind ~= OverrideKind.Custom then
@@ -529,7 +529,7 @@ local function createCategoryStory(category: string)
 
 		React.useEffect(function()
 			store.setTokenOverrides(if next(overrides) then overrides else nil)
-		end, { overrides } :: { unknown })
+		end, { overrides })
 
 		return React.createElement(
 			View,

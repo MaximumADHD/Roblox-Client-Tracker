@@ -6,6 +6,7 @@ local Packages = UIBlox.Parent
 local React = require(Packages.React)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 type HelperTextProps = {
 	-- Determines the string rendered by the UI element
@@ -18,9 +19,16 @@ type HelperTextProps = {
 local function HelperText(props: HelperTextProps)
 	local style = useStyle()
 
-	local helperTextStyle = style.Tokens.Component.HelperText
-	local typography = helperTextStyle.Base.Typography
-	local textColor = if props.error then helperTextStyle.Error.ContentColor else helperTextStyle.Base.ContentColor
+	local typography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+		then style.Tokens.Typography.CaptionSmall
+		else style.Tokens.Component.HelperText.Base.Typography
+	local textColor = if props.error
+		then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then style.Tokens.Color.ActionAlert.Foreground
+			else style.Tokens.Component.HelperText.Error.ContentColor)
+		else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then style.Tokens.Color.Content.Default
+			else style.Tokens.Component.HelperText.Base.ContentColor)
 
 	return React.createElement("TextLabel", {
 		Text = props.text,

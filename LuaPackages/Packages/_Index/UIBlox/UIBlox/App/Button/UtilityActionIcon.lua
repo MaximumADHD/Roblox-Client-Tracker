@@ -4,6 +4,7 @@ local Button = script.Parent
 local App = Button.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
@@ -74,23 +75,58 @@ local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 	local style = useStyle()
 	local tokens = style.Tokens
 
-	local innerSize = tokens.Global.Size_500
-	local iconSize = tokens.Semantic.Icon.Size.Medium
-	local defaultIconColor = if onMedia then tokens.Global.Color.White else tokens.Semantic.Color.Icon.Emphasis
+	local innerSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+		then tokens.Size.Size_1000
+		else tokens.Global.Size_500
+	local iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+		then tokens.Size.Size_900
+		else tokens.Semantic.Icon.Size.Medium
+	local defaultIconColor = if onMedia
+		then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Extended.White.White_100
+			else tokens.Global.Color.White)
+		else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Content.Emphasis
+			else tokens.Semantic.Color.Icon.Emphasis)
 	local iconColor = if props.iconColor then props.iconColor else defaultIconColor
 
 	local stateStyle: StateLayer.StateStyle = if onMedia then "Darken" else "Standard"
 	local badgeAnchor = Vector2.new(0, 1)
-	local badgePosition = UDim2.new(0.5, tokens.Global.Size_25, 0.5, -tokens.Global.Size_25)
+	local badgePosition = UDim2.new(
+		0.5,
+		(if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse then tokens.Size.Size_50 else tokens.Global.Size_25),
+		0.5,
+		-(if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse then tokens.Size.Size_50 else tokens.Global.Size_25)
+	)
 
 	local outset = React.useMemo(function()
 		return if disableOutset
 			then nil
 			else {
-				top = UDim.new(0, tokens.Global.Size_50),
-				right = UDim.new(0, tokens.Global.Size_50),
-				bottom = UDim.new(0, tokens.Global.Size_50),
-				left = UDim.new(0, tokens.Global.Size_50),
+				top = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_100
+						else tokens.Global.Size_50
+				),
+				right = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_100
+						else tokens.Global.Size_50
+				),
+				bottom = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_100
+						else tokens.Global.Size_50
+				),
+				left = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_100
+						else tokens.Global.Size_50
+				),
 			}
 	end, { disableOutset, tokens } :: { any })
 
@@ -129,12 +165,19 @@ local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.fromScale(0.5, 0.5),
 					BorderSizePixel = 0,
-					BackgroundColor3 = tokens.Global.Color.Black.Color3,
+					BackgroundColor3 = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Color.Extended.Black.Black_100.Color3
+						else tokens.Global.Color.Black.Color3,
 					BackgroundTransparency = 0.5,
 					ZIndex = 1,
 				}, {
 					UICorner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(0, tokens.Semantic.Radius.Circle),
+						CornerRadius = UDim.new(
+							0,
+							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Radius.Circle
+								else tokens.Semantic.Radius.Circle
+						),
 					}),
 				})
 				else nil,
@@ -142,7 +185,12 @@ local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 				size = UDim2.fromOffset(innerSize, innerSize),
 				anchorPoint = Vector2.new(0.5, 0.5),
 				position = UDim2.fromScale(0.5, 0.5),
-				cornerRadius = UDim.new(0, tokens.Semantic.Radius.Circle),
+				cornerRadius = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Radius.Circle
+						else tokens.Semantic.Radius.Circle
+				),
 				zIndex = 2,
 				stateStyle = stateStyle,
 				outset = outset,
@@ -161,7 +209,12 @@ local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 				ZIndex = 3,
 			}, {
 				UICorner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(0, tokens.Semantic.Radius.Circle),
+					CornerRadius = UDim.new(
+						0,
+						if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+							then tokens.Radius.Circle
+							else tokens.Semantic.Radius.Circle
+					),
 				}),
 				Badge = if badgeValue
 					then React.createElement(StatusIndicator, {

@@ -63,7 +63,7 @@ return {
 						wasPlaying.current = true
 					end
 					setIsPlaying(false)
-				end, { isPlaying } :: { unknown })
+				end, { isPlaying })
 
 				local onDragEnded = React.useCallback(function()
 					if wasPlaying.current then

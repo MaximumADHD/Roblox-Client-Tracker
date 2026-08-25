@@ -22,6 +22,7 @@ local DebugProps = require(Loading.Enum.DebugProps)
 local LoadingStrategy = require(Loading.Enum.LoadingStrategy)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local getClosestRadius = require(App.Loading.getClosestRadius)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -134,7 +135,19 @@ function LoadableImage:renderShimmer(theme, sizeConstraint, tokens)
 	}, {
 		Shimmer = Roact.createElement(Skeleton, {
 			Size = UDim2.fromScale(1, 1),
-			radius = getClosestRadius(tokens.Semantic.Radius, self.props.cornerRadius),
+			radius = getClosestRadius(
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then {
+						None = tokens.Radius.None,
+						Small = tokens.Radius.Small,
+						Medium = tokens.Radius.Medium,
+						Large = tokens.Size.Size_300,
+						XLarge = tokens.Radius.Large,
+						Circle = tokens.Radius.Circle,
+					}
+					else tokens.Semantic.Radius,
+				self.props.cornerRadius
+			),
 		}),
 		UISizeConstraint = sizeConstraint,
 		UICorner = Roact.createElement("UICorner", {

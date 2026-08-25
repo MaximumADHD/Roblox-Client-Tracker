@@ -4,14 +4,11 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Constants = require(Foundation.Constants)
-local Gradient = require(Foundation.Components.Gradient)
 local Image = require(Foundation.Components.Image)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 
 local withDefaults = require(Foundation.Utility.withDefaults)
-
-local Flags = require(Foundation.Utility.Flags)
 
 local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
@@ -86,48 +83,17 @@ local function SheetFullBleed(fullBleedProps: SheetFullBleedProps, ref: React.Re
 	end
 
 	local fullBleedContent = {
-		-- When the sheet has rounded corners, use dual-image gradient mask
-		-- to simulate rounded top corners (UICorner doesn't clip children).
-		RoundedCorners = if not Flags.FoundationMediaRoundedCornerTags
-			then if hasRadius
-				then React.createElement(Image, {
-					Image = props.media,
-					imageStyle = props.mediaStyle,
-					backgroundStyle = props.backgroundStyle,
-					aspectRatio = props.aspectRatio,
-					tag = "radius-large",
-					Size = imageSize,
-					testId = `{testId}--full-bleed--rounded-corners`,
-					ZIndex = 1,
-				})
-				else nil
-			else nil,
-		Image = React.createElement(
-			Image,
-			{
-				Image = props.media,
-				imageStyle = props.mediaStyle,
-				backgroundStyle = props.backgroundStyle,
-				aspectRatio = props.aspectRatio,
-				tag = if Flags.FoundationMediaRoundedCornerTags
-					then if hasRadius then "radius-top-large" else nil
-					else nil,
-				-- We don't need to track the size of the image if it's sticky,
-				onAbsoluteSizeChanged = if not props.sticky then onAbsoluteSizeChanged else nil,
-				Size = imageSize,
-				ZIndex = 0,
-			},
-			if not Flags.FoundationMediaRoundedCornerTags
-				then if hasRadius
-					then {
-						TransparencyGradient = React.createElement(Gradient, {
-							fillDirection = Enum.FillDirection.Vertical,
-							top = false,
-						}),
-					}
-					else nil
-				else nil
-		),
+		Image = React.createElement(Image, {
+			Image = props.media,
+			imageStyle = props.mediaStyle,
+			backgroundStyle = props.backgroundStyle,
+			aspectRatio = props.aspectRatio,
+			tag = if hasRadius then "radius-top-large" else nil,
+			-- We don't need to track the size of the image if it's sticky,
+			onAbsoluteSizeChanged = if not props.sticky then onAbsoluteSizeChanged else nil,
+			Size = imageSize,
+			ZIndex = 0,
+		}),
 		Content = if props.children
 			then React.createElement(View, {
 				aspectRatio = props.aspectRatio,

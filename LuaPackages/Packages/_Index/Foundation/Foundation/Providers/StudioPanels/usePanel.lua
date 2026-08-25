@@ -82,7 +82,7 @@ local function usePanel(props: {
 			if not props.isOpen then
 				setForceClosed(false)
 			end
-		end, { props.isOpen } :: { unknown })
+		end, { props.isOpen })
 	else
 		local registeredPanelAsyncState = ReactUtils.useAsync(function(): PanelHandle?
 			if props.isOpen then

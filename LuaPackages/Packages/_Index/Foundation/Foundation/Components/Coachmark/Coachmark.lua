@@ -74,6 +74,8 @@ local defaultProps = {
 
 local MAX_BUTTON_COUNT = 2
 
+local INVERSE_PRESENTATION = { colorNamespace = ColorNamespace.Inverse }
+
 local function stepsText(current: number, total: number)
 	return Translator:FormatByKey("CommonUI.Controls.Label.PageCount", { current = current, total = total })
 end
@@ -144,7 +146,11 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 			},
 			React.createElement(
 				PresentationContext.Provider,
-				{ value = { colorNamespace = ColorNamespace.Inverse } },
+				{
+					value = if Flags.FoundationStableContextValues
+						then INVERSE_PRESENTATION
+						else { colorNamespace = ColorNamespace.Inverse },
+				},
 				React.createElement(View, {
 					tag = "col gap-medium auto-xy padding-bottom-medium",
 					sizeConstraint = {

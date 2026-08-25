@@ -24,7 +24,11 @@ local builderIcon = {
 	variant = IconVariant.Filled,
 }
 
-local function NestedControlledTabs()
+type NestedControlledTabsProps = {
+	size: InputSize.InputSize?,
+}
+
+local function NestedControlledTabs(props: NestedControlledTabsProps)
 	local activeTabId, setActiveTabId = React.useState("1" :: Types.ItemId)
 	return React.createElement(
 		View,
@@ -45,7 +49,7 @@ local function NestedControlledTabs()
 					text = "Nested tab 2",
 				},
 			},
-			size = InputSize.Medium,
+			size = props.size,
 			fillBehavior = FillBehavior.Fill,
 		}),
 		React.createElement(
@@ -189,7 +193,9 @@ return {
 							{
 								id = "1",
 								text = "With nested tabs",
-								content = React.createElement(NestedControlledTabs),
+								content = React.createElement(NestedControlledTabs, {
+									size = props.controls.size,
+								}),
 							} :: Tabs.TabItem,
 							{
 								id = "2",

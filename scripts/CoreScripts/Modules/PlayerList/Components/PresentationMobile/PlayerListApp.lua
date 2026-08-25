@@ -46,6 +46,7 @@ local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerLi
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
+local FFlagPlayerListRemoveTopStat = require(PlayerList.Flags.FFlagPlayerListRemoveTopStat)
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -274,7 +275,9 @@ function PlayerListApp:render()
 		end
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
-		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
+		if not FFlagPlayerListRemoveTopStat then
+			childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
+		end
 
 		return Roact.createElement("ImageButton", {
 			Active = self.props.displayOptions.isVisible,

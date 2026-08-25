@@ -12,13 +12,13 @@ local View = require(Foundation.Components.View)
 
 local function LabeledDivider(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	variant: DividerVariant?,
 	orientation: Orientation?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -58,7 +58,7 @@ local function VariantsStory()
 	for index, variant in VARIANT_ORDER do
 		children["Divider-" .. tostring(variant)] = React.createElement(LabeledDivider, {
 			label = variant,
-			layoutOrder = index,
+			LayoutOrder = index,
 			variant = variant :: DividerVariant,
 			orientation = Orientation.Horizontal,
 		})
@@ -75,7 +75,7 @@ local function OrientationStory()
 	}, {
 		Horizontal = React.createElement(LabeledDivider, {
 			label = "Horizontal",
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			orientation = Orientation.Horizontal,
 		}),
 		Vertical = React.createElement(View, {

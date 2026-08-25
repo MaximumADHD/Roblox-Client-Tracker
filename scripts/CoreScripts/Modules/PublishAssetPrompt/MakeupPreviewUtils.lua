@@ -38,23 +38,31 @@ local HEAD_ACCESSORY_TYPES = {
 	[Enum.AccessoryType.Eyelash] = true,
 }
 
+local function removeMatchingChildren(desc: HumanoidDescription, predicate: (Instance) -> boolean)
+	for _, child in ipairs(desc:GetChildren()) do
+		if predicate(child) then
+			child:Destroy()
+		end
+	end
+end
+
 -- Adds the asset to a HumanoidDescription based on its type (Decal → MakeupDescription, Accessory → AccessoryDescription)
 local function addAssetToDescription(desc: HumanoidDescription, asset: Instance, assetType: Enum.AvatarAssetType?)
 	local makeupType = assetType and ASSET_TYPE_TO_MAKEUP_TYPE[assetType]
 	local accessoryType = assetType and ASSET_TYPE_TO_ACCESSORY_TYPE[assetType]
 
 	if makeupType then
-		-- Remove existing makeup
-		for _, child in ipairs(desc:GetChildren()) do
-			if child:IsA("MakeupDescription") then
-				child:Destroy()
-			end
-		end
+		removeMatchingChildren(desc, function(child)
+			return child:IsA("MakeupDescription")
+		end)
 		local makeupDesc = Instance.new("MakeupDescription")
 		makeupDesc.MakeupType = makeupType
 		makeupDesc.Instance = asset
 		makeupDesc.Parent = desc
 	elseif accessoryType then
+		removeMatchingChildren(desc, function(child)
+			return child:IsA("AccessoryDescription") and child.AccessoryType == accessoryType
+		end)
 		local accDesc = Instance.new("AccessoryDescription")
 		accDesc.AccessoryType = accessoryType
 		accDesc.Instance = asset
@@ -89,6 +97,19 @@ function MakeupPreviewUtils.stripToHead(character: Model)
 end
 
 export type AccessoryEntry = { asset: Instance, assetType: Enum.AvatarAssetType? }
+
+function MakeupPreviewUtils.anchorRigidPreviewParts(character: Model)
+	for _, child in ipairs(character:GetDescendants()) do
+		if child:IsA("BasePart") then
+			local accessory = child:FindFirstAncestorWhichIsA("Accessory")
+			local isLayeredAccessoryPart = accessory and accessory:FindFirstChildWhichIsA("WrapLayer", true) ~= nil
+
+			if not isLayeredAccessoryPart then
+				child.Anchored = true
+			end
+		end
+	end
+end
 
 --[[
 	Collects the Accessory children of a makeup-look folder (eyebrows, eyelashes)
@@ -135,6 +156,10 @@ local function createHeadWithAsset(
 	end
 
 	MakeupPreviewUtils.stripToHead(character)
+
+	-- Preserve baked rigid-accessory positions without preventing layered accessories
+	-- from resolving their wrap deformation in the viewport's WorldModel.
+	MakeupPreviewUtils.anchorRigidPreviewParts(character)
 
 	return character
 end

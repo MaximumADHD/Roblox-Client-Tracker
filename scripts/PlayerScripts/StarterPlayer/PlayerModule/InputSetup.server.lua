@@ -10,7 +10,7 @@ local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 
-local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
+local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayerScriptsTapToMoveUsesIAS2")
 local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
@@ -20,10 +20,10 @@ local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
 
-local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationC
+local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
 	else nil
-local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationC
+local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationD
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("InputReplication"))
 	else nil
 
@@ -202,7 +202,7 @@ if not FFlagUserPlayerScriptsPlayerControlState then
 		end
 	end
 
-	if FFlagUserPlayerScriptsCCLIntegrationC then
+	if FFlagUserPlayerScriptsCCLIntegrationD then
 		Players.PlayerAdded:Connect(attemptCreateActionsIfAbsent)
 		for _, player in Players:GetPlayers() do
 			attemptCreateActionsIfAbsent(player)

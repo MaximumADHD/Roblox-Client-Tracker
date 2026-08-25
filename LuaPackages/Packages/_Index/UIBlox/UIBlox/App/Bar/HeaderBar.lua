@@ -2,6 +2,7 @@ local Bar = script.Parent
 local App = Bar.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
@@ -122,10 +123,30 @@ local function useHeaderBarStyle(props: Props, style: StyleTypes.AppStyle)
 	local margin = props.margin
 	local padding = React.useMemo(function()
 		local values = {
-			Top = paddingTop or UDim.new(0, tokens.Global.Space_100),
-			Right = paddingRight or UDim.new(0, tokens.Global.Space_250),
-			Bottom = paddingBottom or UDim.new(0, tokens.Global.Space_100),
-			Left = paddingLeft or UDim.new(0, tokens.Global.Space_250),
+			Top = paddingTop or UDim.new(
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_200
+					else tokens.Global.Space_100
+			),
+			Right = paddingRight or UDim.new(
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_500
+					else tokens.Global.Space_250
+			),
+			Bottom = paddingBottom or UDim.new(
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_200
+					else tokens.Global.Space_100
+			),
+			Left = paddingLeft or UDim.new(
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_500
+					else tokens.Global.Space_250
+			),
 		}
 		if margin then
 			values.Left = UDim.new(0, margin)
@@ -156,8 +177,18 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 			renderFun = function(threeSectionBarProps)
 				local textChildren = Cryo.Dictionary.join(threeSectionBarProps.children, {
 					TextPadding = React.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, tokens.Global.Space_25),
-						PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+						PaddingTop = UDim.new(
+							0,
+							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Size.Size_50
+								else tokens.Global.Space_25
+						),
+						PaddingBottom = UDim.new(
+							0,
+							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Size.Size_50
+								else tokens.Global.Space_25
+						),
 					}),
 				})
 				return React.createElement(React.Fragment, nil, {
@@ -165,8 +196,12 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 						fluidSizing = true,
 						Text = title,
 						TextXAlignment = Enum.TextXAlignment.Left,
-						fontStyle = tokens.Semantic.Typography.Title,
-						colorStyle = tokens.Semantic.Color.Text.Emphasis,
+						fontStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+							then tokens.Typography.HeadingLarge
+							else tokens.Semantic.Typography.Title,
+						colorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+							then tokens.Color.Content.Emphasis
+							else tokens.Semantic.Color.Text.Emphasis,
 					}, textChildren),
 				})
 			end
@@ -224,7 +259,9 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 				})
 			end
 		elseif not isSecondary and not isTitleCentered then
-			local textFontStyle = tokens.Semantic.Typography.Header
+			local textFontStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Typography.HeadingSmall
+				else tokens.Semantic.Typography.Header
 			local textSize = textFontStyle.FontSize
 
 			renderFun = function()
@@ -239,7 +276,12 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							FillDirection = Enum.FillDirection.Horizontal,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
-							Padding = UDim.new(0, tokens.Global.Space_150),
+							Padding = UDim.new(
+								0,
+								if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+									then tokens.Size.Size_300
+									else tokens.Global.Space_150
+							),
 						}),
 						Left = React.createElement("Frame", {
 							LayoutOrder = 1,
@@ -260,11 +302,23 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 							TextWrapped = false,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							fontStyle = textFontStyle,
-							colorStyle = tokens.Semantic.Color.Text.Emphasis,
+							colorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Color.Content.Emphasis
+								else tokens.Semantic.Color.Text.Emphasis,
 						}, {
 							TextPadding = React.createElement("UIPadding", {
-								PaddingTop = UDim.new(0, tokens.Global.Space_25),
-								PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+								PaddingTop = UDim.new(
+									0,
+									if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+										then tokens.Size.Size_50
+										else tokens.Global.Space_25
+								),
+								PaddingBottom = UDim.new(
+									0,
+									if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+										then tokens.Size.Size_50
+										else tokens.Global.Space_25
+								),
 							}),
 						}),
 					}),
@@ -308,7 +362,9 @@ local function HeaderBar(providedProps: Props)
 		-- Render title in the center section if center renderer is empty and
 		-- title is centered
 		if not renderFun and not isRoot and not isSecondary and isTitleCentered then
-			local centerTextFontStyle = tokens.Semantic.Typography.Header
+			local centerTextFontStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Typography.HeadingSmall
+				else tokens.Semantic.Typography.Header
 			local centerTextSize = centerTextFontStyle.FontSize
 			renderFun = function()
 				return React.createElement(GenericTextLabel, {
@@ -319,11 +375,23 @@ local function HeaderBar(providedProps: Props)
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextWrapped = false,
 					fontStyle = centerTextFontStyle,
-					colorStyle = tokens.Semantic.Color.Text.Emphasis,
+					colorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Color.Content.Emphasis
+						else tokens.Semantic.Color.Text.Emphasis,
 				}, {
 					TextPadding = React.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, tokens.Global.Space_25),
-						PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+						PaddingTop = UDim.new(
+							0,
+							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Size.Size_50
+								else tokens.Global.Space_25
+						),
+						PaddingBottom = UDim.new(
+							0,
+							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Size.Size_50
+								else tokens.Global.Space_25
+						),
 					}),
 				})
 			end
@@ -340,7 +408,9 @@ local function HeaderBar(providedProps: Props)
 		-- Title is in center section. Get text width as estimatedCenterWidth
 		-- to position it in the center
 		if not renderCenter and not isRoot and not isSecondary and isTitleCentered then
-			local centerTextFontStyle = tokens.Semantic.Typography.Header
+			local centerTextFontStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Typography.HeadingSmall
+				else tokens.Semantic.Typography.Header
 			local centerTextSize = centerTextFontStyle.FontSize
 			return GetTextSize(title, centerTextSize, centerTextFontStyle.Font, Vector2.new(math.huge, math.huge)).X
 		end
@@ -357,14 +427,21 @@ local function HeaderBar(providedProps: Props)
 			return UDim.new(0, 0)
 		end
 
-		return UDim.new(0, tokens.Global.Space_300)
+		return UDim.new(
+			0,
+			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_600
+				else tokens.Global.Space_300
+		)
 	end, { contentPaddingRight, isRoot, tokens } :: { any })
 
 	local headerBarStyle = useHeaderBarStyle(props, style)
 	local backgroundStyle = headerBarStyle.BackgroundStyle
 	local padding = headerBarStyle.Padding
 	local barHeight = if isOnMedia
-		then props.barHeight :: number + tokens.Global.Size_500
+		then props.barHeight :: number + (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_1000
+			else tokens.Global.Size_500)
 		else props.barHeight :: number
 	local threeSectionBarHeight = if automaticHeight
 		then 0
@@ -394,7 +471,12 @@ local function HeaderBar(providedProps: Props)
 			else nil,
 		OnMediaExtendedHeight = if isOnMedia
 			then React.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, tokens.Global.Size_500),
+				PaddingBottom = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_1000
+						else tokens.Global.Size_500
+				),
 			})
 			else nil,
 		Bar = React.createElement("Frame", {
@@ -418,7 +500,9 @@ local function HeaderBar(providedProps: Props)
 				renderCenter = barRenderCenter,
 				renderRight = renderRight,
 				estimatedCenterWidth = estimatedCenterWidth,
-				sectionSpacing = tokens.Global.Space_150,
+				sectionSpacing = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_300
+					else tokens.Global.Space_150,
 				contentPaddingRight = barContentPaddingRight,
 			}),
 		}),
@@ -437,10 +521,30 @@ local function HeaderBar(providedProps: Props)
 		BottomDivider = if hasDivider
 			then React.createElement("Frame", {
 				Selectable = false,
-				Size = UDim2.new(1, 0, 0, tokens.Global.Stroke_100),
-				Position = UDim2.new(0, 0, 1, -tokens.Global.Stroke_100),
-				BackgroundColor3 = tokens.Semantic.Color.Common.Divider.Color3,
-				BackgroundTransparency = tokens.Semantic.Color.Common.Divider.Transparency,
+				Size = UDim2.new(
+					1,
+					0,
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Stroke.Standard
+						else tokens.Global.Stroke_100
+				),
+				Position = UDim2.new(
+					0,
+					0,
+					1,
+					-(
+							if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+								then tokens.Stroke.Standard
+								else tokens.Global.Stroke_100
+						)
+				),
+				BackgroundColor3 = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Color.Stroke.Emphasis.Color3
+					else tokens.Semantic.Color.Common.Divider.Color3,
+				BackgroundTransparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Color.Stroke.Emphasis.Transparency
+					else tokens.Semantic.Color.Common.Divider.Transparency,
 				BorderSizePixel = 0,
 				ZIndex = 1,
 			})

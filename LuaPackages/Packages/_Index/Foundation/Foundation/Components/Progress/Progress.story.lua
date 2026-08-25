@@ -4,7 +4,11 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
+local Flags = require(Foundation.Utility.Flags)
+local PreferencesProvider = require(Foundation.Providers.Preferences)
 local Progress = require(Foundation.Components.Progress)
+local ProgressBar = require(script.Parent.ProgressBar)
+local ProgressCircle = require(script.Parent.ProgressCircle)
 local ProgressShape = require(Foundation.Enums.ProgressShape)
 local ProgressSize = require(Foundation.Enums.ProgressSize)
 local Text = require(Foundation.Components.Text)
@@ -12,6 +16,8 @@ local View = require(Foundation.Components.View)
 
 type ProgressShape = ProgressShape.ProgressShape
 type ProgressSize = ProgressSize.ProgressSize
+type ProgressBarProps = ProgressBar.ProgressBarProps
+type ProgressCircleProps = ProgressCircle.ProgressCircleProps
 
 local SIZE_ORDER: { ProgressSize } = {
 	ProgressSize.Small,
@@ -54,15 +60,28 @@ local CLAMPING_VALUES: { { label: string, value: number } } = {
 	{ label = "150", value = 150 },
 }
 
+local REDUCED_MOTION_EXAMPLES: { { label: string, note: string, reducedMotion: boolean } } = {
+	{
+		label = "Default",
+		note = "Circle sweeps a spinning arc, bar scrolls a shimmer.",
+		reducedMotion = false,
+	},
+	{
+		label = "Reduced motion",
+		note = "Both pulse in place, with no movement.",
+		reducedMotion = true,
+	},
+}
+
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -77,7 +96,7 @@ local function Section(props: {
 end
 
 local function Subsection(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	note: string?,
 	contentTag: string?,
@@ -85,7 +104,7 @@ local function Subsection(props: {
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = if props.note
 			then React.createElement(View, {
@@ -143,20 +162,47 @@ local function WidthExampleContainer(props: {
 	}, props.children)
 end
 
+local function buildBarProgressProps(props: {
+	size: ProgressSize?,
+	value: (number | React.Binding<number>)?,
+	width: UDim?,
+	showLabel: boolean?,
+	minValueLabel: string?,
+	maxValueLabel: string?,
+}): ProgressBarProps
+	local barProps = {
+		shape = ProgressShape.Bar,
+		size = props.size,
+		value = props.value,
+		width = props.width,
+		showLabel = props.showLabel,
+	} :: ProgressBarProps
+	if props.minValueLabel ~= nil and props.minValueLabel ~= "" then
+		barProps.minValueLabel = props.minValueLabel
+	end
+	if props.maxValueLabel ~= nil and props.maxValueLabel ~= "" then
+		barProps.maxValueLabel = props.maxValueLabel
+	end
+	return barProps
+end
+
 local function LabeledProgress(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	shape: ProgressShape?,
 	size: ProgressSize?,
 	value: (number | React.Binding<number>)?,
 	width: UDim?,
 	containerWidth: number?,
+	showLabel: boolean?,
+	minValueLabel: string?,
+	maxValueLabel: string?,
 })
 	local shape: ProgressShape = props.shape or ProgressShape.Bar
 
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -172,15 +218,26 @@ local function LabeledProgress(props: {
 				width = props.width,
 				containerWidth = props.containerWidth,
 			}, {
-				Indicator = React.createElement(
-					Progress,
-					{
-						shape = shape,
-						size = props.size,
-						value = props.value,
-						width = if shape == ProgressShape.Bar then props.width else nil,
-					} :: any
-				),
+				Indicator = if shape == ProgressShape.Bar
+					then React.createElement(
+						Progress,
+						buildBarProgressProps({
+							size = props.size,
+							value = props.value,
+							width = props.width,
+							showLabel = props.showLabel,
+							minValueLabel = props.minValueLabel,
+							maxValueLabel = props.maxValueLabel,
+						})
+					)
+					else React.createElement(
+						Progress,
+						{
+							shape = ProgressShape.Circle,
+							size = props.size,
+							value = props.value,
+						} :: ProgressCircleProps
+					),
 			}),
 		}),
 	})
@@ -190,18 +247,28 @@ local function PlaygroundStory(props)
 	local controls = props.controls
 	local value = if controls.isIndeterminate then nil else controls.value
 
+	local barProps = buildBarProgressProps({
+		size = controls.size,
+		value = value,
+		showLabel = if Flags.FoundationProgressBarBetaUpdate then controls.showLabel else nil,
+		minValueLabel = if Flags.FoundationProgressBarBetaUpdate then controls.minValueLabel else nil,
+		maxValueLabel = if Flags.FoundationProgressBarBetaUpdate then controls.maxValueLabel else nil,
+	})
+
 	return React.createElement(ProgressContainer, {
 		shape = controls.shape,
 		containerWidth = BAR_CONTAINER_WIDTH,
 	}, {
-		Progress = React.createElement(
-			Progress,
-			{
-				shape = controls.shape,
-				size = controls.size,
-				value = value,
-			} :: any
-		),
+		Progress = if controls.shape == ProgressShape.Bar
+			then React.createElement(Progress, barProps)
+			else React.createElement(
+				Progress,
+				{
+					shape = ProgressShape.Circle,
+					size = controls.size,
+					value = value,
+				} :: ProgressCircleProps
+			),
 	})
 end
 
@@ -214,7 +281,7 @@ local function VariantsStory(): React.ReactNode
 		Dash.map(SHAPE_ORDER, function(shape, index)
 			return React.createElement(LabeledProgress, {
 				label = shape,
-				layoutOrder = index,
+				LayoutOrder = index,
 				shape = shape,
 				value = DEFAULT_VALUE,
 			})
@@ -227,21 +294,21 @@ local function SizingStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Size = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Size",
 			contentTag = "col gap-xlarge size-full-0 auto-y",
 		}, {
 			Circle = React.createElement(
 				Subsection,
 				{
-					layoutOrder = 1,
+					LayoutOrder = 1,
 					name = "Circle",
 					contentTag = "row gap-large align-y-start auto-xy wrap",
 				},
 				Dash.map(SIZE_ORDER, function(size, index)
 					return React.createElement(LabeledProgress, {
 						label = size,
-						layoutOrder = index,
+						LayoutOrder = index,
 						shape = ProgressShape.Circle,
 						size = size,
 						value = DEFAULT_VALUE,
@@ -249,7 +316,7 @@ local function SizingStory(): React.ReactNode
 				end)
 			),
 			Bar = React.createElement(Subsection, {
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				name = "Bar (Medium only)",
 				contentTag = "auto-xy",
 			}, {
@@ -264,12 +331,12 @@ local function SizingStory(): React.ReactNode
 			}),
 		}),
 		Width = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Width",
 			contentTag = "col gap-xlarge size-full-0 auto-y",
 		}, {
 			Fixed = React.createElement(Subsection, {
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = `Fixed width (200px in {BAR_CONTAINER_WIDTH}px parent)`,
 				contentTag = "auto-xy",
 			}, {
@@ -284,7 +351,7 @@ local function SizingStory(): React.ReactNode
 				}),
 			}),
 			Fill = React.createElement(Subsection, {
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				name = `Fill ({WIDTH_FILL_CONTAINER}px parent)`,
 				contentTag = "auto-xy",
 			}, {
@@ -307,18 +374,18 @@ local function StatesStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Indeterminate = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Indeterminate",
 			contentTag = "row gap-large align-y-start auto-xy wrap",
 		}, {
 			Circle = React.createElement(LabeledProgress, {
 				label = ProgressShape.Circle :: string,
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				shape = ProgressShape.Circle,
 			}),
 			Bar = React.createElement(LabeledProgress, {
 				label = ProgressShape.Bar :: string,
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				shape = ProgressShape.Bar,
 			}),
 		}),
@@ -352,7 +419,7 @@ local function ControlledProgressExample(): React.ReactNode
 				connection:Disconnect()
 			end
 		end
-	end, { isAnimating } :: { unknown })
+	end, { isAnimating })
 
 	local function startAnimation()
 		updateProgress(0)
@@ -369,15 +436,28 @@ local function ControlledProgressExample(): React.ReactNode
 			tag = "size-0-0 auto-xy text-title-small content-emphasis",
 			LayoutOrder = 1,
 		}),
-		Circle = React.createElement(LabeledProgress, {
-			label = ProgressShape.Circle :: string,
-			layoutOrder = 2,
-			shape = ProgressShape.Circle,
-			value = progressBinding,
+		Circles = React.createElement(View, {
+			tag = "row gap-large align-y-center auto-xy",
+			LayoutOrder = 2,
+		}, {
+			Medium = React.createElement(LabeledProgress, {
+				label = ProgressSize.Medium :: string,
+				LayoutOrder = 1,
+				shape = ProgressShape.Circle,
+				size = ProgressSize.Medium,
+				value = progressBinding,
+			}),
+			Large = React.createElement(LabeledProgress, {
+				label = ProgressSize.Large :: string,
+				LayoutOrder = 2,
+				shape = ProgressShape.Circle,
+				size = ProgressSize.Large,
+				value = progressBinding,
+			}),
 		}),
 		Bar = React.createElement(LabeledProgress, {
 			label = ProgressShape.Bar :: string,
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			shape = ProgressShape.Bar,
 			value = progressBinding,
 		}),
@@ -398,26 +478,78 @@ local function ControlledStory(): React.ReactNode
 	})
 end
 
+local function MotionExample(props: {
+	LayoutOrder: number,
+	label: string,
+	note: string,
+	reducedMotion: boolean,
+})
+	return React.createElement(Subsection, {
+		LayoutOrder = props.LayoutOrder,
+		name = props.label,
+		note = props.note,
+		contentTag = "row gap-xlarge align-y-center auto-xy wrap",
+	}, {
+		Preferences = React.createElement(PreferencesProvider, {
+			reducedMotion = props.reducedMotion,
+		}, {
+			Circle = React.createElement(LabeledProgress, {
+				label = ProgressShape.Circle :: string,
+				LayoutOrder = 1,
+				shape = ProgressShape.Circle,
+			}),
+			Bar = React.createElement(LabeledProgress, {
+				label = ProgressShape.Bar :: string,
+				LayoutOrder = 2,
+				shape = ProgressShape.Bar,
+			}),
+		}),
+	})
+end
+
+local function ReducedMotionStory(): React.ReactNode
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		Indeterminate = React.createElement(
+			Section,
+			{
+				LayoutOrder = 1,
+				name = "Indeterminate",
+				contentTag = "col gap-xlarge size-full-0 auto-y",
+			},
+			Dash.map(REDUCED_MOTION_EXAMPLES, function(example, index)
+				return React.createElement(MotionExample, {
+					LayoutOrder = index,
+					label = example.label,
+					note = example.note,
+					reducedMotion = example.reducedMotion,
+				})
+			end)
+		),
+	})
+end
+
 local function ContentStory(): React.ReactNode
 	return React.createElement(View, {
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Value = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Value",
 			contentTag = "col gap-xlarge size-full-0 auto-y",
 		}, {
 			Circle = React.createElement(
 				Subsection,
 				{
-					layoutOrder = 1,
+					LayoutOrder = 1,
 					name = "Circle",
 					contentTag = "row gap-large align-y-start auto-xy wrap",
 				},
 				Dash.map(VALUE_INCREMENTS, function(value, index)
 					return React.createElement(LabeledProgress, {
 						label = `{value}`,
-						layoutOrder = index,
+						LayoutOrder = index,
 						shape = ProgressShape.Circle,
 						value = value,
 					})
@@ -426,14 +558,14 @@ local function ContentStory(): React.ReactNode
 			Bar = React.createElement(
 				Subsection,
 				{
-					layoutOrder = 2,
+					LayoutOrder = 2,
 					name = "Bar",
 					contentTag = "row gap-large align-y-start auto-xy wrap",
 				},
 				Dash.map(VALUE_INCREMENTS, function(value, index)
 					return React.createElement(LabeledProgress, {
 						label = `{value}`,
-						layoutOrder = index,
+						LayoutOrder = index,
 						shape = ProgressShape.Bar,
 						value = value,
 					})
@@ -441,21 +573,21 @@ local function ContentStory(): React.ReactNode
 			),
 		}),
 		Clamping = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Clamping values",
 			contentTag = "col gap-xlarge size-full-0 auto-y",
 		}, {
 			Circle = React.createElement(
 				Subsection,
 				{
-					layoutOrder = 1,
+					LayoutOrder = 1,
 					name = "Circle",
 					contentTag = "row gap-large align-y-start auto-xy wrap",
 				},
 				Dash.map(CLAMPING_VALUES, function(example, index)
 					return React.createElement(LabeledProgress, {
 						label = example.label,
-						layoutOrder = index,
+						LayoutOrder = index,
 						shape = ProgressShape.Circle,
 						value = example.value,
 					})
@@ -464,14 +596,14 @@ local function ContentStory(): React.ReactNode
 			Bar = React.createElement(
 				Subsection,
 				{
-					layoutOrder = 2,
+					LayoutOrder = 2,
 					name = "Bar",
 					contentTag = "row gap-large align-y-start auto-xy wrap",
 				},
 				Dash.map(CLAMPING_VALUES, function(example, index)
 					return React.createElement(LabeledProgress, {
 						label = example.label,
-						layoutOrder = index,
+						LayoutOrder = index,
 						shape = ProgressShape.Bar,
 						value = example.value,
 					})
@@ -479,12 +611,12 @@ local function ContentStory(): React.ReactNode
 			),
 		}),
 		Label = React.createElement(Section, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			name = "Label",
 			contentTag = "col gap-xlarge size-full-0 auto-y",
 		}, {
 			Circle = React.createElement(Subsection, {
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Circle",
 				note = "Label is only available in Large.",
 				contentTag = "auto-xy",
@@ -496,19 +628,31 @@ local function ContentStory(): React.ReactNode
 				}),
 			}),
 			Bar = React.createElement(Subsection, {
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				name = "Bar",
-				note = "Labels are not available.",
-				contentTag = "auto-xy",
+				note = if Flags.FoundationProgressBarBetaUpdate then nil else "Labels are not available.",
+				contentTag = "row gap-xlarge align-y-start auto-xy wrap",
 			}, {
-				Example = React.createElement(ProgressContainer, {
+				Default = React.createElement(LabeledProgress, {
+					label = "Default labels",
+					LayoutOrder = 1,
 					shape = ProgressShape.Bar,
-				}, {
-					Progress = React.createElement(Progress, {
+					value = DEFAULT_VALUE,
+					containerWidth = BAR_CONTAINER_WIDTH,
+					showLabel = if Flags.FoundationProgressBarBetaUpdate then true else nil,
+				}),
+				Custom = if Flags.FoundationProgressBarBetaUpdate
+					then React.createElement(LabeledProgress, {
+						label = "Custom labels",
+						LayoutOrder = 2,
 						shape = ProgressShape.Bar,
 						value = DEFAULT_VALUE,
-					}),
-				}),
+						containerWidth = BAR_CONTAINER_WIDTH,
+						showLabel = true,
+						minValueLabel = "0",
+						maxValueLabel = "1000",
+					})
+					else nil,
 			}),
 		}),
 	})
@@ -522,6 +666,11 @@ return {
 		{ name = "Sizing", story = SizingStory },
 		{ name = "States", story = StatesStory },
 		{ name = "Controlled component", story = ControlledStory },
+		{
+			name = "Reduced motion",
+			summary = "Read from PreferencesProvider, not from props. Only the indeterminate state animates, so determinate progress is unaffected.",
+			story = ReducedMotionStory,
+		},
 		{ name = "Content", story = ContentStory },
 	},
 	controls = {
@@ -529,5 +678,8 @@ return {
 		size = PLAYGROUND_SIZE_OPTIONS,
 		value = DEFAULT_VALUE,
 		isIndeterminate = false,
+		showLabel = false,
+		minValueLabel = "",
+		maxValueLabel = "",
 	},
 }

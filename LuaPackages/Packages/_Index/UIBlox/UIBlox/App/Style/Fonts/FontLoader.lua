@@ -5,6 +5,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
 local StyleTypes = require(Style.StyleTypes)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FONT_CONFIG = {
 	BASE_SIZE = 16,
@@ -31,44 +32,72 @@ function FontLoader:loadFont()
 		HeadingLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
-			RelativeSize = tokens.Global.Size_350 / baseSize,
-			RelativeMinSize = tokens.Global.Size_300 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_700
+				else tokens.Global.Size_350) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_600
+				else tokens.Global.Size_300) / baseSize,
 		},
 		HeadingSmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
-			RelativeSize = tokens.Global.Size_250 / baseSize,
-			RelativeMinSize = tokens.Global.Size_200 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_500
+				else tokens.Global.Size_250) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_400
+				else tokens.Global.Size_200) / baseSize,
 		},
 		TitleLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
-			RelativeSize = tokens.Global.Size_200 / baseSize,
-			RelativeMinSize = tokens.Global.Size_150 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_400
+				else tokens.Global.Size_200) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_300
+				else tokens.Global.Size_150) / baseSize,
 		},
 		BodyLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSans,
-			RelativeSize = tokens.Global.Size_200 / baseSize,
-			RelativeMinSize = tokens.Global.Size_150 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_400
+				else tokens.Global.Size_200) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_300
+				else tokens.Global.Size_150) / baseSize,
 		},
 		CaptionLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansMedium,
-			RelativeSize = tokens.Global.Size_150 / baseSize,
-			RelativeMinSize = tokens.Global.Size_100 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_300
+				else tokens.Global.Size_150) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_200
+				else tokens.Global.Size_100) / baseSize,
 		},
 		BodySmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSans,
-			RelativeSize = tokens.Global.Size_150 / baseSize,
-			RelativeMinSize = tokens.Global.Size_100 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_300
+				else tokens.Global.Size_150) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_200
+				else tokens.Global.Size_100) / baseSize,
 		},
 		CaptionSmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansMedium,
-			RelativeSize = tokens.Global.Size_125 / baseSize,
-			RelativeMinSize = tokens.Global.Size_100 / baseSize,
+			RelativeSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_250
+				else tokens.Global.Size_125) / baseSize,
+			RelativeMinSize = (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_200
+				else tokens.Global.Size_100) / baseSize,
 		},
 	}
 	local fontWithLegacyName = self:mapLegacyFont(fontWithToken, baseSize)

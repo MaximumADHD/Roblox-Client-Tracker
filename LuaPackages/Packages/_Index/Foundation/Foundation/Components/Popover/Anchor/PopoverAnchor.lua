@@ -1,7 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Flags = require(Foundation.Utility.Flags)
 local PopoverContext = require(script.Parent.Parent.PopoverContext)
 local StudioUri = require(Foundation.Utility.Plugin.StudioUri)
 local Types = require(Foundation.Components.Types)
@@ -29,7 +28,7 @@ local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<
 	end, {})
 
 	React.useLayoutEffect(function()
-		if Flags.FoundationPopoverPluginUriAnchor and StudioUri.isStudioUri(props.anchorRef) then
+		if StudioUri.isStudioUri(props.anchorRef) then
 			popoverContext.setAnchorUri(props.anchorRef :: StudioUri)
 		elseif typeof(props.anchorRef) == "table" and (props.anchorRef :: any).current then
 			popoverContext.setAnchor((props.anchorRef :: any).current)

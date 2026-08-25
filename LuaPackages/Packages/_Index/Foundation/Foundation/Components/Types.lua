@@ -29,6 +29,11 @@ type InputFocusBehavior = InputFocusBehavior.InputFocusBehavior
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
+local InputPlacement = require(Foundation.Enums.InputPlacement)
+type InputPlacement = InputPlacement.InputPlacement
+
+export type InputGroupSize = typeof(InputSize.XSmall) | typeof(InputSize.Small) | typeof(InputSize.Medium)
+
 local InputVariant = require(Foundation.Enums.InputVariant)
 type InputVariant = InputVariant.InputVariant
 
@@ -255,6 +260,16 @@ export type TextInputCommonProps = {
 	-- Ref to the outermost container element of the internal text input
 	inputRef: React.Ref<GuiObject>?,
 }
+
+export type InternalInputGroupProps = {
+	-- Optional label rendered above the grouped inputs
+	legend: string?,
+	-- Size applied to the group and inherited by its inputs
+	size: InputGroupSize?,
+	-- Where the input sits relative to its label
+	placement: InputPlacement?,
+	children: React.ReactNode?,
+} & CommonProps
 
 export type AspectRatioTable = {
 	AspectRatio: Bindable<number>,

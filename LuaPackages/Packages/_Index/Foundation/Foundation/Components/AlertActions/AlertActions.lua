@@ -36,7 +36,7 @@ local function AlertActions(alertActionsProps: AlertActionsProps): React.Node
 		if props.actions and #props.actions > MAX_ACTION_COUNT then
 			Logger:warning(`Alert components only support up to {MAX_ACTION_COUNT} actions`)
 		end
-	end, { props.actions } :: { unknown })
+	end, { props.actions })
 
 	local buttons = React.useMemo(function(): { [string]: React.Node }?
 		if props.actions and #props.actions > 0 then

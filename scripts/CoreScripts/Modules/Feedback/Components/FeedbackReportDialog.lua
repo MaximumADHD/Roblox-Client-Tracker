@@ -230,7 +230,7 @@ function FeedbackReportDialog:init()
 			end
 
 			feedbackOriginalText = assetId -- feedbackOriginalText is set to the assetId of the source image
-			feedbackIdentifier = game.GameId .. ":" .. assetId -- feedbackIdentifier is set to the gameId and the assetId of the source image
+			feedbackIdentifier = game.GameId .. "#" .. assetId -- feedbackIdentifier is set to the gameId and the assetId of the source image
 			contentType = Constants.ContentType.Image
 		end
 

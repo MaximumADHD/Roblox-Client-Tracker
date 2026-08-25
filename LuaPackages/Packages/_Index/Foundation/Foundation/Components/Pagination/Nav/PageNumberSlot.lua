@@ -12,6 +12,7 @@ local ChipSize = require(Foundation.Enums.ChipSize)
 type ChipSize = ChipSize.ChipSize
 local ChipVariant = require(Foundation.Enums.ChipVariant)
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+local Flags = require(Foundation.Utility.Flags)
 local PaginationSize = require(Foundation.Enums.PaginationSize)
 type PaginationSize = PaginationSize.PaginationSize
 
@@ -26,7 +27,7 @@ local paginationUtils = require(Pagination.paginationUtils)
 type PageNumberSlotProps = {
 	slotSize: PaginationSize,
 	isChecked: boolean,
-	layoutOrder: number,
+	LayoutOrder: number,
 	onPageActivated: (page: number) -> (),
 	page: number,
 	testId: string,
@@ -57,6 +58,8 @@ end
 	2. Current page + page > 999 — display-only View styled like a checked utility chip.
 	3. page ≤ 999 — circular slot; checked background comes from the parent overlay.
 ]]
+local ICON_PRESENTATION = { colorNamespace = ColorNamespace.Color, isIconSize = true }
+
 local WIDE_SLOT_SIZE_TAG: { [PaginationSize]: string } = {
 	[PaginationSize.Small] = "size-0-600",
 	[PaginationSize.Medium] = "size-0-800",
@@ -90,7 +93,7 @@ local function PageNumberSlot(props: PageNumberSlotProps, ref: React.Ref<GuiObje
 			return React.createElement(
 				View,
 				withCommonProps({
-					LayoutOrder = props.layoutOrder,
+					LayoutOrder = props.LayoutOrder,
 					testId = props.testId,
 				}, {
 					backgroundStyle = utilityVariantProps.chip.backgroundStyle,
@@ -103,10 +106,12 @@ local function PageNumberSlot(props: PageNumberSlotProps, ref: React.Ref<GuiObje
 				}),
 				{
 					Label = React.createElement(PresentationContext.Provider, {
-						value = {
-							colorNamespace = ColorNamespace.Color,
-							isIconSize = true,
-						},
+						value = if Flags.FoundationStableContextValues
+							then ICON_PRESENTATION
+							else {
+								colorNamespace = ColorNamespace.Color,
+								isIconSize = true,
+							},
 					}, {
 						Text = React.createElement(PageNumberText, {
 							page = props.page,
@@ -123,7 +128,7 @@ local function PageNumberSlot(props: PageNumberSlotProps, ref: React.Ref<GuiObje
 		return React.createElement(
 			View,
 			withCommonProps({
-				LayoutOrder = props.layoutOrder,
+				LayoutOrder = props.LayoutOrder,
 				testId = props.testId,
 			}, {
 				backgroundStyle = checkedVariantProps.chip.backgroundStyle,
@@ -149,7 +154,7 @@ local function PageNumberSlot(props: PageNumberSlotProps, ref: React.Ref<GuiObje
 	return React.createElement(
 		View,
 		withCommonProps({
-			LayoutOrder = props.layoutOrder,
+			LayoutOrder = props.LayoutOrder,
 			testId = props.testId,
 		}, {
 			backgroundStyle = {

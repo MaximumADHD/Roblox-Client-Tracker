@@ -49,8 +49,8 @@ Constants.AvatarAssetTypeLocalized = {
 	[Enum.AvatarAssetType.EyeMakeup] = "Feature.Avatar.Label.EyeMakeup",
 	[Enum.AvatarAssetType.FaceMakeup] = "Feature.Avatar.Label.FaceMakeup",
 	[Enum.AvatarAssetType.LipMakeup] = "Feature.Avatar.Label.LipMakeup",
-	[Enum.AvatarAssetType.EyebrowAccessory] = "Feature.Avatar.Label.Eyebrow",
-	[Enum.AvatarAssetType.EyelashAccessory] = "Feature.Avatar.Label.Eyelash",
+	[Enum.AvatarAssetType.EyebrowAccessory] = "Feature.Avatar.Label.Eyebrows",
+	[Enum.AvatarAssetType.EyelashAccessory] = "Feature.Avatar.Label.Eyelashes",
 }
 
 Constants.MakeupAssetTypes = {

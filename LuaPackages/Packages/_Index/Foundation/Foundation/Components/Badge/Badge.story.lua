@@ -93,14 +93,14 @@ local controlSizeOptions: { BadgeSize } = {
 }
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -116,7 +116,7 @@ end
 
 local function LabeledBadge(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	variant: BadgeVariant?,
 	shape: BadgeShape?,
 	size: BadgeSize?,
@@ -124,7 +124,7 @@ local function LabeledBadge(props: {
 })
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -148,14 +148,14 @@ end
 
 local function OnMediaVariant(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	variant: BadgeVariant,
 })
 	local tokens = useTokens()
 
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -212,7 +212,7 @@ local function VariantsStory(): React.ReactNode
 		Dash.map(nonDeprecatedVariants, function(variant, index)
 			return React.createElement(LabeledBadge, {
 				label = variant,
-				layoutOrder = index,
+				LayoutOrder = index,
 				variant = variant,
 				size = BadgeSize.Small,
 				icon = {
@@ -231,14 +231,14 @@ local function SizingStory(): React.ReactNode
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledBadge, {
 					label = size,
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 				})
 			end)
@@ -284,7 +284,7 @@ local function ContentStory(): React.ReactNode
 		Truncation = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Truncation",
 				contentTag = "auto-xy",
 			},
@@ -296,7 +296,7 @@ local function ContentStory(): React.ReactNode
 			})
 		),
 		Accessories = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Icon by type",
 			contentTag = "auto-xy",
 		}, {
@@ -332,7 +332,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		IconPlacementBySize = React.createElement(Section, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			name = "Icon placement by size",
 			contentTag = "auto-xy",
 		}, {
@@ -370,7 +370,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		IconOnly = React.createElement(Section, {
-			layoutOrder = 4,
+			LayoutOrder = 4,
 			name = "Icon only",
 			contentTag = "auto-xy",
 		}, {
@@ -411,14 +411,14 @@ local function InContextStory(): React.ReactNode
 		SemiTransparent = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Semi-transparent on media",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(getOnMediaSemiTransparentVariants(), function(variant, index)
 				return React.createElement(OnMediaVariant, {
 					label = variant,
-					layoutOrder = index,
+					LayoutOrder = index,
 					variant = variant,
 				})
 			end)
@@ -426,14 +426,14 @@ local function InContextStory(): React.ReactNode
 		Solid = React.createElement(
 			Section,
 			{
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				name = "Solid on media",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(ON_MEDIA_SOLID_VARIANTS, function(variant, index)
 				return React.createElement(OnMediaVariant, {
 					label = variant,
-					layoutOrder = index,
+					LayoutOrder = index,
 					variant = variant,
 				})
 			end)

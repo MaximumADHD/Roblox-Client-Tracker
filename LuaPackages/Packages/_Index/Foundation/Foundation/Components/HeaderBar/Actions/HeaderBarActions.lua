@@ -29,7 +29,7 @@ local function HeaderBarActions(props: HeaderBarActionsProps)
 	local headerBarContext = useHeaderBarContext()
 	local tokens = useTokens()
 
-	local layoutOrder, padding = React.useMemo(function(): (number?, Types.Padding?)
+	local LayoutOrder, padding = React.useMemo(function(): (number?, Types.Padding?)
 		if headerBarContext.slot == HeaderBarSlot.Leading then
 			return constants.LEADING_ACTIONS_LAYOUT_ORDER, { left = UDim.new(0, -tokens.Size.Size_200) }
 		elseif headerBarContext.slot == HeaderBarSlot.Trailing then
@@ -51,7 +51,7 @@ local function HeaderBarActions(props: HeaderBarActionsProps)
 	return React.createElement(View, {
 		tag = "row align-y-center shrink gap-small auto-xy",
 		padding = padding,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 		testId = `{headerBarContext.testId}--actions`,
 	}, children)
 end

@@ -37,7 +37,7 @@ local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
+local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
@@ -64,7 +64,7 @@ if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 end
 
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationC
+local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
 	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
 	else nil
 
@@ -142,7 +142,7 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 		-- Enable
 		if not self.thumbstickFrame then
 			self:Create(uiParentFrame)
-			if FFlagUserPlayerScriptsCCLIntegrationC and not self.avatarAbilitiesEnabledChangedConn then
+			if FFlagUserPlayerScriptsCCLIntegrationD and not self.avatarAbilitiesEnabledChangedConn then
 				self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(function()
 					if self.enabled then
 						-- When CCL is enabled at runtime, we need to recreate the thumbstick UI since it differs from the legacy UI
@@ -225,7 +225,7 @@ function DynamicThumbstick:FadeThumbstick(visible: boolean?)
 	if self.endImageFadeTween then
 		self.endImageFadeTween:Cancel()
 	end
-	if FFlagUserPlayerScriptsCCLIntegrationC then
+	if FFlagUserPlayerScriptsCCLIntegrationD then
 		if self.endImageCenterFadeTween then
 			self.endImageCenterFadeTween:Cancel()
 		end
@@ -237,7 +237,7 @@ function DynamicThumbstick:FadeThumbstick(visible: boolean?)
 	end
 
 	if visible then
-		if FFlagUserPlayerScriptsCCLIntegrationC and self.newStyle then
+		if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
 			self.startImageFadeTween = TweenService:Create(self.startImage, ThumbstickFadeTweenInfo, { BackgroundTransparency = 0.4 })
 			self.startImageFadeTween:Play()
 
@@ -254,7 +254,7 @@ function DynamicThumbstick:FadeThumbstick(visible: boolean?)
 		end
 
 		for i = 1, #self.middleImages do
-			if FFlagUserPlayerScriptsCCLIntegrationC and self.newStyle then
+			if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
 				self.middleImageFadeTweens[i] = TweenService:Create(self.middleImages[i], ThumbstickFadeTweenInfo, { BackgroundTransparency = MIDDLE_TRANSPARENCIES_NEW_STYLE[i] })
 			else
 				self.middleImageFadeTweens[i] = TweenService:Create(self.middleImages[i], ThumbstickFadeTweenInfo, { ImageTransparency = MIDDLE_TRANSPARENCIES[i] })
@@ -262,7 +262,7 @@ function DynamicThumbstick:FadeThumbstick(visible: boolean?)
 			self.middleImageFadeTweens[i]:Play()
 		end
 	else
-		if FFlagUserPlayerScriptsCCLIntegrationC and self.newStyle then
+		if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
 			self.startImageFadeTween = TweenService:Create(self.startImage, ThumbstickFadeTweenInfo, { BackgroundTransparency = 1 })
 			self.startImageFadeTween:Play()
 
@@ -279,7 +279,7 @@ function DynamicThumbstick:FadeThumbstick(visible: boolean?)
 		end		
 
 		for i = 1, #self.middleImages do
-			if FFlagUserPlayerScriptsCCLIntegrationC and self.newStyle then
+			if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
 				self.middleImageFadeTweens[i] = TweenService:Create(self.middleImages[i], ThumbstickFadeTweenInfo, { BackgroundTransparency = 1 })
 			else
 				self.middleImageFadeTweens[i] = TweenService:Create(self.middleImages[i], ThumbstickFadeTweenInfo, { ImageTransparency = 1 })
@@ -424,7 +424,7 @@ if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 			self.isFirstTouch = false
 			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out,0,false,0)
 			TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
-			if not FFlagUserPlayerScriptsCCLIntegrationC or not self.newStyle then
+			if not FFlagUserPlayerScriptsCCLIntegrationD or not self.newStyle then
 				TweenService:Create(
 					self.endImage,
 					tweenInfo,
@@ -555,13 +555,13 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
-		if not FFlagUserPlayerScriptsCCLIntegrationC then
+		if not FFlagUserPlayerScriptsCCLIntegrationD then
 			if self.avatarAbilitiesEnabledChangedConn then
 				self.avatarAbilitiesEnabledChangedConn:Disconnect()
 				self.avatarAbilitiesEnabledChangedConn = nil
 			end
 		end
-		if FFlagUserPlayerScriptsCCLIntegrationC then
+		if FFlagUserPlayerScriptsCCLIntegrationD then
 			if self.cameraChangedConn then
 				self.cameraChangedConn:Disconnect()
 				self.cameraChangedConn = nil
@@ -592,7 +592,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		end
 	end
 
-	self.newStyle = FFlagUserPlayerScriptsCCLIntegrationC and avatarAbilitiesInterface:isEnabled()
+	self.newStyle = FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled()
 
 	self.thumbstickFrame = Instance.new("Frame")
 	self.thumbstickFrame.BorderSizePixel = 0
@@ -624,7 +624,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		touchBinding.Parent = thumbstickAction
 	end
 
-	if FFlagUserPlayerScriptsCCLIntegrationC and self.newStyle then
+	if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
 		self.startImage = Instance.new("Frame")
 		self.startImage.Name = "ThumbstickStart"
 		self.startImage.BackgroundColor3 = Color3.fromRGB(18, 18, 21)
@@ -733,7 +733,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		local RADIUS_OF_MAX_SPEED = 20
 
 		local scaleFactor = isBigScreen and 2 or 1
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationC then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationD then
 			self.newStyle else
 			AvatarAbilitiesInterface.isEnabled()
 		if FFlagUserAllowAbilityControlsBonus and isCCLEnabled and isBigScreen then
@@ -749,7 +749,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * scaleFactor
 		local outerRingSize = DEFAULT_OUTER_RING_SIZE * scaleFactor
 
-		if not FFlagUserPlayerScriptsCCLIntegrationC or self.isFirstTouch then
+		if not FFlagUserPlayerScriptsCCLIntegrationD or self.isFirstTouch then
 			if isCCLEnabled then
 				local thumbstickInsetX = isBigScreen and 100 or 64
 				local thumbstickInsetY = isBigScreen and 112 or 64
@@ -762,7 +762,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		end
 
 		self.endImage.Position = self.startImage.Position
-		if FFlagUserPlayerScriptsCCLIntegrationC and self.newStyle then
+		if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
 			self.endImage.Size = UDim2.new(0, self.thumbstickSize * 0.6, 0, self.thumbstickSize * 0.6)
 		else
 			self.endImage.Size = UDim2.new(0, self.thumbstickSize * 0.8, 0, self.thumbstickSize * 0.8)
@@ -771,7 +771,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if not FFlagUserPlayerScriptsCCLIntegrationC then
+	if not FFlagUserPlayerScriptsCCLIntegrationD then
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	end
 
@@ -792,7 +792,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		end
 	end
 	self.currentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
-	if workspace.CurrentCamera or FFlagUserPlayerScriptsCCLIntegrationC then
+	if workspace.CurrentCamera or FFlagUserPlayerScriptsCCLIntegrationD then
 		onCurrentCameraChanged()
 	end
 
@@ -836,7 +836,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 						local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
 						TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
 						
-						if not FFlagUserPlayerScriptsCCLIntegrationC or not self.newStyle then
+						if not FFlagUserPlayerScriptsCCLIntegrationD or not self.newStyle then
 							TweenService:Create(
 								self.endImage,
 								tweenInfo,

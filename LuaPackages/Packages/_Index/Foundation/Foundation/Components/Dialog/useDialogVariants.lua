@@ -9,12 +9,13 @@ type DialogSize = DialogSize.DialogSize
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local Flags = require(Foundation.Utility.Flags)
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 local useDialog = require(script.Parent.useDialog)
@@ -55,13 +56,17 @@ local function variantsFactory(tokens: Tokens)
 			tag = "col align-x-center align-y-center size-full-full",
 		},
 		inner = {
-			tag = "shrink-1 size-full-0 auto-y clip bg-surface-100",
+			tag = if Flags.FoundationDialogBetaUpdate
+				then "shrink-1 size-full-0 auto-y clip bg-surface-100 stroke-default"
+				else "shrink-1 size-full-0 auto-y clip bg-surface-100",
 		},
 		body = {
 			tag = "col size-full auto-y padding-bottom-xlarge",
 		},
 		heroMediaWrapper = {
-			tag = "shrink position-top-center size-full-full auto-y",
+			tag = if Flags.FoundationDialogBetaUpdate
+				then "position-top-center size-full-full auto-y"
+				else "shrink position-top-center size-full-full auto-y",
 		},
 		title = {
 			tag = "size-full-0 auto-y",
@@ -87,7 +92,7 @@ local function variantsFactory(tokens: Tokens)
 			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Small],
-				tag = "radius-medium",
+				tag = if Flags.FoundationDialogBetaUpdate then "radius-large" else "radius-medium",
 			},
 			body = {
 				tag = "gap-large padding-x-large",
@@ -96,7 +101,7 @@ local function variantsFactory(tokens: Tokens)
 				offset = tokens.Size.Size_300,
 			},
 			heroMedia = {
-				tag = if Flags.FoundationMediaRoundedCornerTags then "radius-top-medium" else "radius-medium",
+				tag = if Flags.FoundationDialogBetaUpdate then "radius-top-large" else "radius-top-medium",
 				offsetX = tokens.Padding.Large,
 			},
 			titleText = {
@@ -124,7 +129,7 @@ local function variantsFactory(tokens: Tokens)
 				offset = tokens.Size.Size_400,
 			},
 			heroMedia = {
-				tag = if Flags.FoundationMediaRoundedCornerTags then "radius-top-large" else "radius-large",
+				tag = "radius-top-large",
 				offsetX = tokens.Padding.XLarge,
 			},
 			titleText = {
@@ -152,7 +157,7 @@ local function variantsFactory(tokens: Tokens)
 				offset = tokens.Size.Size_400,
 			},
 			heroMedia = {
-				tag = if Flags.FoundationMediaRoundedCornerTags then "radius-top-large" else "radius-large",
+				tag = "radius-top-large",
 				offsetX = tokens.Padding.XLarge,
 			},
 			titleText = {

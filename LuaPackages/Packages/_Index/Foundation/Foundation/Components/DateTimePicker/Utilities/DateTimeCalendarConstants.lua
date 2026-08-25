@@ -1,12 +1,17 @@
 local DAYS_PER_WEEK = 7
+local NUM_WEEKS_IN_GRID = 6
 local NUM_ELEMENTS_IN_DATES_GRID = 50
 local NUM_WEEKDAY_HEADERS = 7
+-- Weekday header row plus six week rows in the fixed-height calendar grid.
+local NUM_CALENDAR_GRID_ROWS = 1 + NUM_WEEKS_IN_GRID
 -- UIGridLayout is inserted before headers/days but does not occupy a grid cell.
 local NUM_NON_DAY_ELEMENTS = 1 + NUM_WEEKDAY_HEADERS
 
 return {
 	DAYS_PER_WEEK = DAYS_PER_WEEK,
+	NUM_CALENDAR_GRID_ROWS = NUM_CALENDAR_GRID_ROWS,
 	NUM_ELEMENTS_IN_DATES_GRID = NUM_ELEMENTS_IN_DATES_GRID,
 	NUM_NON_DAY_ELEMENTS = NUM_NON_DAY_ELEMENTS,
 	NUM_WEEKDAY_HEADERS = NUM_WEEKDAY_HEADERS,
+	NUM_WEEKS_IN_GRID = NUM_WEEKS_IN_GRID,
 }

@@ -287,7 +287,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			end
 		end,
 		if Flags.FoundationBottomSheetScrollAtMaxTolerance
-			then { isOuterScrollAtMax } :: { unknown }
+			then { isOuterScrollAtMax }
 			else { maxSheetHeight, safeAreaPadding } :: { unknown }
 	)
 

@@ -163,11 +163,11 @@ local function StatefulNumberInput(props)
 	)
 end
 
-local function IconMatrixCell(props: { layoutOrder: number, leadingIcon: string?, trailingIcon: string? })
+local function IconMatrixCell(props: { LayoutOrder: number, leadingIcon: string?, trailingIcon: string? })
 	return React.createElement(View, {
 		tag = "col align-x-left auto-y",
 		Size = UDim2.fromOffset(ICON_CELL_COLUMN_WIDTH, 0),
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Input = React.createElement(StatefulNumberInput, {
 			defaultValue = 0,
@@ -482,7 +482,7 @@ local function ExpressionInputStory(_props: any): React.ReactNode
 			setValue(nil)
 			setErrorMessage(INVALID_EXPRESSION_HINT)
 		end
-	end, { expression } :: { unknown })
+	end, { expression })
 
 	return React.createElement(View, {
 		tag = "col gap-large auto-xy padding-large",
@@ -680,11 +680,11 @@ local function ContentStory()
 				rows = StoryIcons.buildIconTypeMatrixRows(function(iconType)
 					return {
 						React.createElement(IconMatrixCell, {
-							layoutOrder = 1,
+							LayoutOrder = 1,
 							leadingIcon = iconType.name,
 						}),
 						React.createElement(IconMatrixCell, {
-							layoutOrder = 1,
+							LayoutOrder = 1,
 							trailingIcon = if Flags.FoundationNumberInputBeta then iconType.name else nil,
 						}),
 					}

@@ -50,6 +50,9 @@ return {
 	-- Add Foundation Icon support for NavigationTab
 	addFoundationNavigationTabIcon = false,
 
+	-- Deprecate the use of Component | Global | Semantic tokens
+	deprecateComponentGlobalSemanticTokenUse = false,
+
 	-- Reserve toast button space from Foundation's button metrics instead of the toast's own text styles
 	useFoundationToastButtonSizing = false,
 }

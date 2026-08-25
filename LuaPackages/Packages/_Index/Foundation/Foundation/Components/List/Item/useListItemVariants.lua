@@ -1,5 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
+
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
@@ -36,7 +38,9 @@ local function variantsFactory(_tokens: Tokens)
 			icon = { size = IconSize.XSmall },
 		},
 		[InputSize.Small] = {
-			title = { tag = "text-title-small" },
+			title = {
+				tag = if Flags.FoundationListItemTypographySpacing then "text-title-medium" else "text-title-small",
+			},
 			metadata = { tag = "text-body-small" },
 			description = { tag = "text-body-small" },
 			icon = { size = IconSize.Small },

@@ -34,6 +34,7 @@ local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
 local Flags = require(Foundation.Utility.Flags)
+local useInputGroupDefaults = require(Components.InternalInputGroup.useInputGroupDefaults)
 
 local SPRING_PARAMETERS = {
 	frequency = 4,
@@ -67,12 +68,14 @@ local defaultProps = {
 local IS_INVERSE = { colorNamespace = ColorNamespace.Color }
 
 local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(toggleProps, defaultProps)
+	local props = if Flags.FoundationInputGroup
+		then useInputGroupDefaults(toggleProps, defaultProps)
+		else withDefaults(toggleProps, defaultProps)
 	local tokens = useTokens()
 	local variantProps = useToggleVariants(tokens, props.size)
 	local isChecked, onActivated = useUncontrolledState(props.isChecked, props.onActivated)
 
-	local knobSize: InputSize = if toggleProps.size == InputSize.Large then InputSize.Medium else props.size
+	local knobSize: InputSize = if (props.size :: InputSize) == InputSize.Large then InputSize.Medium else props.size
 
 	local hasShadow = false
 	local initialProgress = isChecked and 1 or 0

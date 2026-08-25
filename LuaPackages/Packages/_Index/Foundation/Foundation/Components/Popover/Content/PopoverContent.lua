@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 
 local Constants = require(Foundation.Constants)
 local Dash = require(Packages.Dash)
+local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local PopoverContext = require(script.Parent.Parent.PopoverContext)
 local View = require(Foundation.Components.View)
@@ -146,6 +147,23 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 		end
 	end, {})
 
+	-- An AutomaticSize frame with a non-zero AnchorPoint hits the quantum-GUI "jello" behavior, so
+	-- align = End (AnchorPoint.X = 1) can render at a different size than Start/Center. Bake the anchor
+	-- offset into the position instead, keeping the content frame anchored at (0, 0) for every alignment.
+	local contentPosition
+	if Flags.FoundationPopoverContentAnchorFix then
+		contentPosition = React.joinBindings({ position, anchorPoint, contentSize })
+			:map(function(values: { any }): UDim2
+				local positionValue = values[1] :: Vector2
+				local anchorPointValue = values[2] :: Vector2
+				local sizeValue = values[3] :: UDim2
+				return UDim2.fromOffset(
+					positionValue.X - anchorPointValue.X * sizeValue.X.Offset,
+					positionValue.Y - anchorPointValue.Y * sizeValue.Y.Offset
+				)
+			end)
+	end
+
 	local shouldRenderPopover = popoverContext.isOpen
 	local content = if shouldRenderPopover
 		then React.createElement(View, {
@@ -201,10 +219,12 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 				})
 				else nil,
 			Content = React.createElement(View, {
-				AnchorPoint = anchorPoint,
-				Position = position:map(function(value: Vector2)
-					return UDim2.fromOffset(value.X, value.Y)
-				end),
+				AnchorPoint = if Flags.FoundationPopoverContentAnchorFix then Vector2.zero else anchorPoint,
+				Position = if Flags.FoundationPopoverContentAnchorFix
+					then contentPosition
+					else position:map(function(value: Vector2)
+						return UDim2.fromOffset(value.X, value.Y)
+					end),
 				selection = props.selection,
 				selectionGroup = props.selectionGroup,
 				sizeConstraint = {

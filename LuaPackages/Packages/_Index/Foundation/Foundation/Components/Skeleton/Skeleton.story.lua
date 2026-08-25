@@ -157,14 +157,14 @@ local DEFAULT_CONTROLS: StoryControls = {
 }
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -180,13 +180,13 @@ end
 
 local function LabeledSkeleton(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	radius: Radius?,
 	size: UDim2?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -203,14 +203,14 @@ end
 
 local function InContextPair(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	content: React.ReactNode,
 	skeletonRadius: Radius,
 	skeletonSize: UDim2,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -237,12 +237,12 @@ end
 local function MotionExample(props: {
 	label: string,
 	description: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	reducedMotion: boolean,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -286,14 +286,14 @@ local function SizingStory(): React.ReactNode
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size (these are example sizes)",
 				contentTag = "row gap-xlarge align-y-start auto-xy wrap",
 			},
 			Dash.map(SKELETON_SIZE_EXAMPLES, function(entry: StorySize, index)
 				return React.createElement(LabeledSkeleton, {
 					label = formatDisplayLabel(entry),
-					layoutOrder = index,
+					LayoutOrder = index,
 					radius = Radius.Small,
 					size = entry.size,
 				})
@@ -311,7 +311,7 @@ local function RoundingStory(): React.ReactNode
 		Dash.map(RADIUS_OPTIONS, function(radius, index)
 			return React.createElement(LabeledSkeleton, {
 				label = radius,
-				layoutOrder = index,
+				LayoutOrder = index,
 				radius = radius,
 				size = UDim2.fromOffset(80, 80),
 			})
@@ -327,13 +327,13 @@ local function InContextStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-large bg-surface-0",
 	}, {
 		InContext = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "In context",
 			contentTag = "col gap-xlarge align-x-left auto-xy",
 		}, {
 			Avatar = React.createElement(InContextPair, {
 				label = "Avatar",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				skeletonRadius = Radius.Circle,
 				skeletonSize = avatarExample.size,
 				content = React.createElement(Avatar, {
@@ -343,7 +343,7 @@ local function InContextStory(): React.ReactNode
 			}),
 			Text = React.createElement(InContextPair, {
 				label = "Text",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				skeletonRadius = Radius.Small,
 				skeletonSize = textExample.size,
 				content = React.createElement(Text, {
@@ -353,7 +353,7 @@ local function InContextStory(): React.ReactNode
 			}),
 			Button = React.createElement(InContextPair, {
 				label = "Button",
-				layoutOrder = 3,
+				LayoutOrder = 3,
 				skeletonRadius = Radius.Small,
 				skeletonSize = IN_CONTEXT_BUTTON_SIZE,
 				content = React.createElement(Button, {
@@ -372,20 +372,20 @@ local function ReducedMotionStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-large bg-surface-0",
 	}, {
 		ReducedMotion = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Reduced motion",
 			contentTag = "row gap-xlarge align-y-start auto-xy wrap",
 		}, {
 			Shimmer = React.createElement(MotionExample, {
 				label = "Default",
 				description = "Scrolling shimmer gradient",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				reducedMotion = false,
 			}),
 			Pulse = React.createElement(MotionExample, {
 				label = "Reduced motion",
 				description = "Pulsating opacity, no gradient",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				reducedMotion = true,
 			}),
 		}),

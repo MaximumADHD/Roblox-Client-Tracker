@@ -54,7 +54,7 @@ end
 
 local function getFriendLabelAndIcon(friendStatus: Enum.FriendStatus): (string, any)
 	if friendStatus == Enum.FriendStatus.Friend then
-		return translate("InGame.PlayerDropDown.UnFriend", "Unfriend"), ICON_FRIEND_REMOVE
+		return translate("InGame.PlayerDropDown.Unfriend", "Unfriend"), ICON_FRIEND_REMOVE
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 		return translate("InGame.PlayerDropDown.CancelRequest", "Cancel request"), ICON_FRIEND_ADD
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
@@ -64,7 +64,7 @@ local function getFriendLabelAndIcon(friendStatus: Enum.FriendStatus): (string, 
 end
 
 -- Telemetry `action` value for the friend item, mirroring the branches in buildFriendAction so the
--- new TelemetryV2 events (FFlagPlayerListContextMenuTelemetry, emitted from the store) distinguish
+-- new TelemetryV2 events (emitted from the store) distinguish
 -- sending / accepting / cancelling / unfriending.
 local function getFriendTelemetryAction(friendStatus: Enum.FriendStatus): ContextMenuTelemetryAction
 	if friendStatus == Enum.FriendStatus.Friend then
@@ -116,7 +116,7 @@ local function assembleMenuItems(params: {
 			telemetryAction = getFriendTelemetryAction(params.friendStatus),
 			requiresConfirm = if isUnfriend then true else nil,
 			confirmLabel = if isUnfriend
-				then translate("InGame.PlayerDropDown.ConfirmUnFriend", "Tap to confirm unfriend")
+				then translate("InGame.PlayerDropDown.ConfirmUnfriend", "Tap to confirm unfriend")
 				else nil,
 		})
 

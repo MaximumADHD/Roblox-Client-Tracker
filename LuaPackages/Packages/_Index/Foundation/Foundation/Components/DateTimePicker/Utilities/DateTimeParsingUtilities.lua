@@ -121,7 +121,7 @@ local function parseDateTimeFromText(dateTimeStr: string): DateTime?
 	return nil
 end
 
-local function trimEndpointText(text: string): string
+local function trimInputText(text: string): string
 	return (text:gsub("^%s*(.-)%s*$", "%1"))
 end
 
@@ -131,8 +131,8 @@ end
 ]]
 local function parseDualInputEndpoints(text: string): (DateTime?, DateTime?)
 	local parts = text:split(" - ")
-	local startDateTime = if parts[1] then parseDateTimeFromText(trimEndpointText(parts[1])) else nil
-	local endDateTime = if parts[2] then parseDateTimeFromText(trimEndpointText(parts[2])) else nil
+	local startDateTime = if parts[1] then parseDateTimeFromText(trimInputText(parts[1])) else nil
+	local endDateTime = if parts[2] then parseDateTimeFromText(trimInputText(parts[2])) else nil
 	return startDateTime, endDateTime
 end
 
@@ -201,4 +201,5 @@ return {
 	parseDateTimeFromText = parseDateTimeFromText,
 	parseDualInputEndpoints = parseDualInputEndpoints,
 	parseInputToDraftDates = parseInputToDraftDates,
+	trimInputText = trimInputText,
 }

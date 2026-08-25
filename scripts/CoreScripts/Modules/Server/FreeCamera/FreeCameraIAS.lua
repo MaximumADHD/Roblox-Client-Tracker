@@ -42,6 +42,14 @@ local Lighting = game:GetService("Lighting")
 
 ------------------------------------------------------------------------
 
+local FFlagUserFreecamIASRefactor1
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamIASRefactor1")
+	end)
+	FFlagUserFreecamIASRefactor1 = success and result
+end
+
 local Constants = {
 	AttributeName = "FreecamEnabled",
 
@@ -107,7 +115,7 @@ local Constants = {
 	Bloom = {
 		Intensity = { Adj = 0.05, Min = 0.0, Max = 1.0  },
 		Size      = { Adj = 2.0,  Min = 0.0, Max = 56.0 },
-		Threshold = { Adj = 0.05, Min = 0.0, Max = 1.0  },
+		Threshold = { Adj = 0.05, Min = FFlagUserFreecamIASRefactor1 and 0.8 or 0.0, Max = FFlagUserFreecamIASRefactor1 and 4.0 or 1.0 },
 	},
 
 	Blur = {
@@ -313,6 +321,22 @@ do
 		return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsRefactor5")
 	end)
 	FFlagUserPlayerScriptsRefactor5 = success and result
+end
+
+local FFlagUserFreecamIASRefactor2
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamIASRefactor2")
+	end)
+	FFlagUserFreecamIASRefactor2 = success and result
+end
+
+local FFlagUserFreecamIASRefactor3
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamIASRefactor3")
+	end)
+	FFlagUserFreecamIASRefactor3 = success and result
 end
 
 -----------------------------------------------------------------------
@@ -583,6 +607,34 @@ local Input = {} do
 		return { type = "group", name = name, modes = groupModes }
 	end
 
+	local function makeTintChannel(chan)
+		if FFlagUserFreecamIASRefactor2 then
+			return { type="axis", name="Tint "..chan, adj=64, min=0.0, max=255.0, format="%.0f",
+			  get=function()
+				  local c = FreecamColorCorrection and FreecamColorCorrection.TintColor or customTintColor
+				  return c[chan] * 255
+			  end,
+			  set=function(v)
+				  local c = FreecamColorCorrection and FreecamColorCorrection.TintColor or customTintColor
+				  local r, g, b = c.R, c.G, c.B
+				  if chan == "R" then r = v / 255 elseif chan == "G" then g = v / 255 else b = v / 255 end
+				  customTintColor = Color3.new(r, g, b)
+				  tintColorIndex = CUSTOM_TINT_INDEX
+				  if FreecamColorCorrection then FreecamColorCorrection.TintColor = customTintColor end
+			  end }
+		else
+			return { type="axis", name="Tint "..chan, adj=0.02, min=0.0, max=1.0,
+			  get=function() return customTintColor[chan] end,
+			  set=function(v)
+				  local r, g, b = customTintColor.R, customTintColor.G, customTintColor.B
+				  if chan == "R" then r = v elseif chan == "G" then g = v else b = v end
+				  customTintColor = Color3.new(r, g, b)
+				  tintColorIndex = CUSTOM_TINT_INDEX
+				  if FreecamColorCorrection then FreecamColorCorrection.TintColor = customTintColor end
+			  end }
+		end
+	end
+
 	local function buildCustomEffectsGroup()
 		local group = {
 			type = "group", name = "Custom Post Processing",
@@ -622,32 +674,16 @@ local Input = {} do
 								  else
 									  local col = TINT_COLORS[i].color
 									  FreecamColorCorrection.TintColor = col
-									  customTintColor = col
+									  if not FFlagUserFreecamIASRefactor2 then
+										  customTintColor = col
+									  end
 								  end
 							  end
 						  end,
 						  displayItem=function(entry) return entry.name end },
-						{ type="axis", name="Tint R", adj=0.02, min=0.0, max=1.0,
-						  get=function() return customTintColor.R end,
-						  set=function(v)
-							  customTintColor = Color3.new(v, customTintColor.G, customTintColor.B)
-							  tintColorIndex = CUSTOM_TINT_INDEX
-							  if FreecamColorCorrection then FreecamColorCorrection.TintColor = customTintColor end
-						  end },
-						{ type="axis", name="Tint G", adj=0.02, min=0.0, max=1.0,
-						  get=function() return customTintColor.G end,
-						  set=function(v)
-							  customTintColor = Color3.new(customTintColor.R, v, customTintColor.B)
-							  tintColorIndex = CUSTOM_TINT_INDEX
-							  if FreecamColorCorrection then FreecamColorCorrection.TintColor = customTintColor end
-						  end },
-						{ type="axis", name="Tint B", adj=0.02, min=0.0, max=1.0,
-						  get=function() return customTintColor.B end,
-						  set=function(v)
-							  customTintColor = Color3.new(customTintColor.R, customTintColor.G, v)
-							  tintColorIndex = CUSTOM_TINT_INDEX
-							  if FreecamColorCorrection then FreecamColorCorrection.TintColor = customTintColor end
-						  end },
+						makeTintChannel("R"),
+						makeTintChannel("G"),
+						makeTintChannel("B"),
 					}
 				),
 				makeEffectGroup("Sun Rays", doToggleSunRays, function() return FreecamSunRays end, {
@@ -722,7 +758,7 @@ local Input = {} do
 			  displayItem=function(p) return p.Name end },
 		}},
 		-- UI visibility group
-		{ type="group", name="UI", modes={
+		{ type="group", name=(FFlagUserFreecamIASRefactor3 and "UI Visibility" or "UI"), modes={
 			{ type="toggle", name="Screen GUIs",
 			  toggle=doToggleScreenGuis,
 			  isEnabled=function() return screenGuisEnabled end },
@@ -733,9 +769,12 @@ local Input = {} do
 		-- basic speed + stiffness groups
 		makeSpeedStiffnessGroup("Movement",      Constants.Movement, "movement", "movement", movementSpring),
 		makeSpeedStiffnessGroup("Field of View", Constants.Fov,      "fov",      "fov",      fovSpring),
-		makeSpeedStiffnessGroup("Tilt",          Constants.Roll,     "roll",     "roll",     rollSpring),
-		makeSpeedStiffnessGroup("Pan",           Constants.Pan,      "pan",      "pan",      panSpring),
+		makeSpeedStiffnessGroup(FFlagUserFreecamIASRefactor3 and "Roll" or "Tilt",     Constants.Roll, "roll", "roll", rollSpring),
+		makeSpeedStiffnessGroup(FFlagUserFreecamIASRefactor3 and "Rotation" or "Pan",  Constants.Pan,  "pan",  "pan",  panSpring),
 	}
+	if FFlagUserFreecamIASRefactor3 then
+		modes = { modes[4], modes[7], modes[6], modes[5], modes[1], modes[2], modes[3] }
+	end
 	local isDisabled
 	local nextEnabledIndex
 	if FFlagUserPlayerScriptsRefactor4 then
@@ -1085,7 +1124,7 @@ local Input = {} do
 		if mode.type == "group" then
 			return ""
 		elseif mode.type == "axis" then
-			return string.format("%.2f", mode.get())
+			return string.format((FFlagUserFreecamIASRefactor2 and mode.format) or "%.2f", mode.get())
 		elseif mode.type == "toggle" then
 			return mode.isEnabled() and "ON" or "OFF"
 		elseif mode.type == "cycle" then
@@ -1302,7 +1341,7 @@ getMonitorModeValue = function(mode)
 	elseif mode.type == "toggle" then
 		return mode.isEnabled() and "On" or "Off"
 	elseif mode.type == "axis" then
-		return string.format("%.2f", mode.get())
+		return string.format((FFlagUserFreecamIASRefactor2 and mode.format) or "%.2f", mode.get())
 	elseif mode.type == "cycle" then
 		local items = mode.items()
 		if #items == 0 then return "--" end
@@ -1390,7 +1429,11 @@ updateMonitorGui = function()
 
 	-- hint
 	if isEditing then
-		monitorGui.hint.Text = "\xE2\x86\x90\xE2\x86\x92 Adjust   \xE2\x86\x91\xE2\x86\x93 Exit selection"
+		if FFlagUserFreecamIASRefactor3 then
+			monitorGui.hint.Text = "\xE2\x86\x91\xE2\x86\x93 Exit selection   \xE2\x86\x90\xE2\x86\x92 Adjust"
+		else
+			monitorGui.hint.Text = "\xE2\x86\x90\xE2\x86\x92 Adjust   \xE2\x86\x91\xE2\x86\x93 Exit selection"
+		end
 	else
 		monitorGui.hint.Text = "\xE2\x86\x91\xE2\x86\x93 Navigate   \xE2\x86\x92 Select   \xE2\x86\x90 Back"
 	end

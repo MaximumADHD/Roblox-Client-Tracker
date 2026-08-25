@@ -83,14 +83,14 @@ local function sampleItems(): { [string]: React.ReactNode }
 end
 
 local function LabeledList(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	label: string,
 	hasDivider: (boolean | { isInset: boolean })?,
 	isContained: ContainedOption?,
 }): React.ReactNode
 	return React.createElement(View, {
 		tag = "col gap-small size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -158,17 +158,17 @@ local function DividersStory(): React.ReactNode
 		tag = "col gap-large size-full-0 auto-y",
 	}, {
 		None = React.createElement(LabeledList, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			label = "None",
 			hasDivider = DIVIDER_OPTIONS.None,
 		}),
 		Inset = React.createElement(LabeledList, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			label = "Inset (default)",
 			hasDivider = DIVIDER_OPTIONS.Inset,
 		}),
 		Full = React.createElement(LabeledList, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			label = "Full",
 			hasDivider = DIVIDER_OPTIONS.Full,
 		}),
@@ -180,17 +180,17 @@ local function ContainmentStory(): React.ReactNode
 		tag = "col gap-large size-full-0 auto-y",
 	}, {
 		Contained = React.createElement(LabeledList, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			label = "Contained (border)",
 			isContained = CONTAINED_OPTIONS.Contained,
 		}),
 		FullWidth = React.createElement(LabeledList, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			label = "Full width",
 			isContained = CONTAINED_OPTIONS["Full Width"],
 		}),
 		HasMargin = React.createElement(LabeledList, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			label = "Has margin",
 			isContained = CONTAINED_OPTIONS["Has Margin"],
 		}),

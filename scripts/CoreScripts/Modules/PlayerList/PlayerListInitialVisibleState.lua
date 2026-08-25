@@ -16,7 +16,6 @@ local FStringPlayerListOverrideType = require(PlayerList.Flags.FStringPlayerList
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
-local FFlagPlayerListReskinConsoleMobileRouting = PlayerListPackage.Flags.FFlagPlayerListReskinConsoleMobileRouting
 
 local function isTouchOrGamepad(): boolean
 	return UserInputService.PreferredInput == Enum.PreferredInput.Touch
@@ -28,10 +27,11 @@ end
 -- misclassify a desktop on a very large monitor (APPEXP-3482 established this on the
 -- Small side; the Large side needs the symmetric check). Uses ViewportDisplaySize
 -- rather than TenFootInterface — the latter is being retired across PlayerList (see
--- APPEXP-3354). Sub-flag lets us disable the routing independently of the reskin gate.
+-- APPEXP-3354). Also requires FFlagEnableMobilePlayerListOnConsole so a PC user
+-- with a gamepad is not treated as console.
 local function isReskinConsoleMobileRoute(): boolean
 	return FFlagPlayerListReskin
-		and FFlagPlayerListReskinConsoleMobileRouting
+		and FFlagEnableMobilePlayerListOnConsole
 		and GuiService.ViewportDisplaySize == Enum.DisplaySize.Large
 		and isTouchOrGamepad()
 end

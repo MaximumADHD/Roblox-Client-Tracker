@@ -6,6 +6,8 @@ local React = require(Packages.React)
 local ChipGroupVariant = require(Foundation.Enums.ChipGroupVariant)
 type ChipGroupVariant = ChipGroupVariant.ChipGroupVariant
 
+local Flags = require(Foundation.Utility.Flags)
+
 local ChipSize = require(Foundation.Enums.ChipSize)
 type ChipSize = ChipSize.ChipSize
 
@@ -30,6 +32,7 @@ local BackgroundStyleContext = require(Foundation.Providers.Style.BackgroundStyl
 local useBackgroundStyle = BackgroundStyleContext.useBackgroundStyle
 
 local Chip = require(Foundation.Components.Chip)
+local OverflowScrollContainer = require(Foundation.Components.OverflowScrollContainer)
 local ScrollView = require(Foundation.Components.ScrollView)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -103,108 +106,156 @@ local function ChipGroup(chipGroupProps: ChipGroupProps, ref: React.Ref<GuiObjec
 	local tokens = useTokens()
 
 	local variant = useChipGroupVariants(tokens, props.variant, props.size)
-	local isStartVisible, setIsStartVisible = React.useBinding(false)
-	local isEndVisible, setIsEndVisible = React.useBinding(false)
-	local scrollingFrameRef = React.useRef<<ScrollingFrame?>>(nil)
-	local viewportRect = useClippingRect(scrollingFrameRef)
 
-	local updateScrimGeometry = React.useCallback(function(scrollingFrame: ScrollingFrame)
-		if not variant.hasScrim or scrollingFrame.AbsoluteWindowSize.X == 0 then
-			return
+	if Flags.FoundationUnifiedScrimScrolling then
+		local size: ChipSize = props.size
+		local chips: { [string]: React.ReactNode } = {}
+		for i, chipItem in props.chips do
+			chips[`Chip{i}`] = React.createElement(Chip, {
+				text = chipItem.text,
+				leading = chipItem.leading,
+				trailing = chipItem.trailing,
+				onActivated = chipItem.onActivated,
+				isChecked = chipItem.isChecked,
+				variant = chipItem.variant,
+				size = size,
+				LayoutOrder = i,
+				testId = `{props.testId}--chip-{i}`,
+			})
 		end
 
-		setIsStartVisible(scrollingFrame.CanvasPosition.X ~= 0)
-		setIsEndVisible(
-			(scrollingFrame.AbsoluteWindowSize.X + scrollingFrame.CanvasPosition.X)
-				< (scrollingFrame.AbsoluteCanvasSize.X - 1)
-		)
-	end, { variant.hasScrim })
-
-	local onRootAbsoluteSizeChanged = React.useCallback(function()
-		if scrollingFrameRef.current then
-			updateScrimGeometry(scrollingFrameRef.current)
-		end
-	end, { props.onAbsoluteSizeChanged, updateScrimGeometry } :: { unknown })
-
-	local onRootAbsolutePositionChanged = React.useCallback(function()
-		if scrollingFrameRef.current then
-			updateScrimGeometry(scrollingFrameRef.current)
-		end
-	end, { props.onAbsolutePositionChanged, updateScrimGeometry } :: { unknown })
-
-	local size: ChipSize = props.size
-	local scrimWidth = variant.scrimWidth
-	local chips: { [string]: React.ReactNode } = {}
-	for i, chipItem in props.chips do
-		chips[`Chip{i}`] = React.createElement(Chip, {
-			text = chipItem.text,
-			leading = chipItem.leading,
-			trailing = chipItem.trailing,
-			onActivated = chipItem.onActivated,
-			isChecked = chipItem.isChecked,
-			variant = chipItem.variant,
-			size = size,
-			LayoutOrder = i,
-			testId = `{props.testId}--chip-{i}`,
-		})
-	end
-
-	local rootProps = withCommonProps(props, {
-		ref = ref,
-		tag = "size-full-0 auto-y",
-	})
-	rootProps.onAbsoluteSizeChanged = onRootAbsoluteSizeChanged
-	rootProps.onAbsolutePositionChanged = onRootAbsolutePositionChanged
-
-	return React.createElement(View, rootProps, {
-		ScrollView = React.createElement(ScrollView, {
-			tag = "size-full-0 auto-y",
-			scroll = {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				AutomaticCanvasSize = Enum.AutomaticSize.X,
-				CanvasSize = UDim2.fromScale(0, 1),
-				ScrollingDirection = Enum.ScrollingDirection.X,
-				ScrollingEnabled = not variant.isWrapped,
-				scrollBarVisibility = Visibility.None,
-			},
+		local chipContainer = React.createElement(View, {
+			tag = "auto-xy",
 			layout = {
 				FillDirection = Enum.FillDirection.Horizontal,
 				Padding = UDim.new(0, variant.gap),
 				Wraps = variant.isWrapped,
 			},
-			ClipsDescendants = variant.isWrapped,
-			scrollingFrameRef = scrollingFrameRef,
-			onCanvasPositionChanged = if variant.hasScrim then updateScrimGeometry else nil,
-			onAbsoluteCanvasSizeChanged = if variant.hasScrim then updateScrimGeometry else nil,
-			onAbsoluteWindowSizeChanged = if variant.hasScrim then updateScrimGeometry else nil,
-		}, chips),
+		}, chips)
 
-		ScrimWrapper = if variant.hasScrim
-			then React.createElement(View, {
-				tag = "row flex-between",
-				Size = viewportRect:map(function(rect: Rect)
-					return UDim2.fromOffset(rect.Max.X - rect.Min.X, scrimWidth)
-				end),
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.fromScale(0.5, 0),
-				ZIndex = 2,
-			}, {
-				ScrimStart = isStartVisible and React.createElement(Scrim, {
-					LayoutOrder = 1,
-					gradient = START_GRADIENT,
-					width = scrimWidth,
-					testId = `{props.testId}--scrim-start`,
+		if variant.isWrapped then
+			return React.createElement(
+				View,
+				withCommonProps(props, {
+					tag = "size-full-0 auto-y",
+					ref = ref,
 				}),
+				{ ChipContainer = chipContainer }
+			)
+		end
 
-				ScrimEnd = isEndVisible and React.createElement(Scrim, {
-					LayoutOrder = 2,
-					gradient = END_GRADIENT,
-					width = scrimWidth,
-					testId = `{props.testId}--scrim-end`,
-				}),
+		return React.createElement(
+			OverflowScrollContainer,
+			withCommonProps(props, {
+				size = props.size,
+				ref = ref,
+			}),
+			{ ChipContainer = chipContainer }
+		)
+	else
+		local isStartVisible, setIsStartVisible = React.useBinding(false)
+		local isEndVisible, setIsEndVisible = React.useBinding(false)
+		local scrollingFrameRef = React.useRef<<ScrollingFrame?>>(nil)
+		local viewportRect = useClippingRect(scrollingFrameRef)
+
+		local updateScrimGeometry = React.useCallback(function(scrollingFrame: ScrollingFrame)
+			if not variant.hasScrim or scrollingFrame.AbsoluteWindowSize.X == 0 then
+				return
+			end
+
+			setIsStartVisible(scrollingFrame.CanvasPosition.X ~= 0)
+			setIsEndVisible(
+				(scrollingFrame.AbsoluteWindowSize.X + scrollingFrame.CanvasPosition.X)
+					< (scrollingFrame.AbsoluteCanvasSize.X - 1)
+			)
+		end, { variant.hasScrim })
+
+		local onRootAbsoluteSizeChanged = React.useCallback(function()
+			if scrollingFrameRef.current then
+				updateScrimGeometry(scrollingFrameRef.current)
+			end
+		end, { props.onAbsoluteSizeChanged, updateScrimGeometry } :: { unknown })
+
+		local onRootAbsolutePositionChanged = React.useCallback(function()
+			if scrollingFrameRef.current then
+				updateScrimGeometry(scrollingFrameRef.current)
+			end
+		end, { props.onAbsolutePositionChanged, updateScrimGeometry } :: { unknown })
+
+		local size: ChipSize = props.size
+		local scrimWidth = variant.scrimWidth
+		local chips: { [string]: React.ReactNode } = {}
+		for i, chipItem in props.chips do
+			chips[`Chip{i}`] = React.createElement(Chip, {
+				text = chipItem.text,
+				leading = chipItem.leading,
+				trailing = chipItem.trailing,
+				onActivated = chipItem.onActivated,
+				isChecked = chipItem.isChecked,
+				variant = chipItem.variant,
+				size = size,
+				LayoutOrder = i,
+				testId = `{props.testId}--chip-{i}`,
 			})
-			else nil,
-	})
+		end
+
+		local rootProps = withCommonProps(props, {
+			ref = ref,
+			tag = "size-full-0 auto-y",
+		})
+		rootProps.onAbsoluteSizeChanged = onRootAbsoluteSizeChanged
+		rootProps.onAbsolutePositionChanged = onRootAbsolutePositionChanged
+
+		return React.createElement(View, rootProps, {
+			ScrollView = React.createElement(ScrollView, {
+				tag = "size-full-0 auto-y",
+				scroll = {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					AutomaticCanvasSize = Enum.AutomaticSize.X,
+					CanvasSize = UDim2.fromScale(0, 1),
+					ScrollingDirection = Enum.ScrollingDirection.X,
+					ScrollingEnabled = not variant.isWrapped,
+					scrollBarVisibility = Visibility.None,
+				},
+				layout = {
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, variant.gap),
+					Wraps = variant.isWrapped,
+				},
+				ClipsDescendants = variant.isWrapped,
+				scrollingFrameRef = scrollingFrameRef,
+				onCanvasPositionChanged = if variant.hasScrim then updateScrimGeometry else nil,
+				onAbsoluteCanvasSizeChanged = if variant.hasScrim then updateScrimGeometry else nil,
+				onAbsoluteWindowSizeChanged = if variant.hasScrim then updateScrimGeometry else nil,
+			}, chips),
+
+			ScrimWrapper = if variant.hasScrim
+				then React.createElement(View, {
+					tag = "row flex-between",
+					Size = viewportRect:map(function(rect: Rect)
+						return UDim2.fromOffset(rect.Max.X - rect.Min.X, scrimWidth)
+					end),
+					AnchorPoint = Vector2.new(0.5, 0),
+					Position = UDim2.fromScale(0.5, 0),
+					ZIndex = 2,
+				}, {
+					ScrimStart = isStartVisible and React.createElement(Scrim, {
+						LayoutOrder = 1,
+						gradient = START_GRADIENT,
+						width = scrimWidth,
+						testId = `{props.testId}--scrim-start`,
+					}),
+
+					ScrimEnd = isEndVisible and React.createElement(Scrim, {
+						LayoutOrder = 2,
+						gradient = END_GRADIENT,
+						width = scrimWidth,
+						testId = `{props.testId}--scrim-end`,
+					}),
+				})
+				else nil,
+		})
+	end
 end
 
 return React.memo(React.forwardRef(ChipGroup))

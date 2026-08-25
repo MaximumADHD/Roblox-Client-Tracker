@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
+local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickRenameUI = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
@@ -29,7 +29,7 @@ local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 local INACTIVE_VIEWPORT_POSITION = Vector2.new(-1, -1)
 
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationC
+local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
 	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
 	else nil
 
@@ -187,7 +187,7 @@ function ClassicThumbstick:Create(parentFrame)
 		local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
 		local isSmallScreen = minAxis <= 500
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationC then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationD then
 			avatarAbilitiesInterface:isEnabled() else
 			AvatarAbilitiesInterface.isEnabled()
 		if isCCLEnabled then
@@ -210,7 +210,7 @@ function ClassicThumbstick:Create(parentFrame)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if FFlagUserPlayerScriptsCCLIntegrationC then
+	if FFlagUserPlayerScriptsCCLIntegrationD then
 		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	else
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)

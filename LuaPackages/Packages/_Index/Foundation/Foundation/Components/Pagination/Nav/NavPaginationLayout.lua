@@ -44,7 +44,7 @@ local function NavPaginationLayout(props: NavPaginationLayoutProps, ref: React.R
 			LeftNav = React.createElement(NavControls, {
 				side = "start",
 				size = props.size,
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				isFirstDisabled = props.isFirstDisabled,
 				isBackDisabled = props.isBackDisabled,
 				isForwardDisabled = props.isForwardDisabled,
@@ -58,7 +58,7 @@ local function NavPaginationLayout(props: NavPaginationLayoutProps, ref: React.R
 			RightNav = React.createElement(NavControls, {
 				side = "end",
 				size = props.size,
-				layoutOrder = if props.pageContent then 3 else 2,
+				LayoutOrder = if props.pageContent then 3 else 2,
 				isFirstDisabled = props.isFirstDisabled,
 				isBackDisabled = props.isBackDisabled,
 				isForwardDisabled = props.isForwardDisabled,

@@ -20,6 +20,8 @@ type ColorStyleValue = Types.ColorStyleValue
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
+local Flags = require(Foundation.Utility.Flags)
+
 type RadioItemVariantProps = {
 	input: InputVariantProps,
 	checkmark: { tag: string, style: ColorStyleValue },
@@ -48,8 +50,12 @@ local function variantsFactory(tokens: Tokens)
 			checkmark = { tag = "size-250" },
 		},
 		[InputSize.Large] = {
-			input = { size = UDim2.fromOffset(tokens.Size.Size_700, tokens.Size.Size_700) },
-			checkmark = { tag = "size-300" },
+			input = {
+				size = if Flags.FoundationRadioBeta
+					then UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600)
+					else UDim2.fromOffset(tokens.Size.Size_700, tokens.Size.Size_700),
+			},
+			checkmark = { tag = if Flags.FoundationRadioBeta then "size-250" else "size-300" },
 		},
 	}
 

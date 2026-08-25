@@ -34,7 +34,7 @@ export type DayCellConfig = {
 	applyEmphasis: boolean?,
 	day: number,
 	keyPrefix: CalendarDayKeyPrefix,
-	layoutOrder: number,
+	LayoutOrder: number,
 	month: number,
 	year: number,
 }
@@ -43,7 +43,7 @@ export type PaneCellConfig = {
 	-- nil day means an empty spacer cell (leading/trailing padding).
 	day: number?,
 	key: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	month: number?,
 	year: number?,
 }
@@ -71,7 +71,7 @@ local function buildCalendarDayConfigs(viewDate: ViewDate): { DayCellConfig }
 		table.insert(configs, {
 			day = day,
 			keyPrefix = DateTimePickerCalendarDayKeyPrefix.PrevMonth,
-			layoutOrder = index,
+			LayoutOrder = index,
 			month = prevMonth,
 			year = prevYear,
 		})
@@ -83,7 +83,7 @@ local function buildCalendarDayConfigs(viewDate: ViewDate): { DayCellConfig }
 			applyEmphasis = true,
 			day = day,
 			keyPrefix = DateTimePickerCalendarDayKeyPrefix.CurrentMonth,
-			layoutOrder = index,
+			LayoutOrder = index,
 			month = viewDate.month,
 			year = viewDate.year,
 		})
@@ -103,7 +103,7 @@ local function buildCalendarDayConfigs(viewDate: ViewDate): { DayCellConfig }
 		table.insert(configs, {
 			day = day,
 			keyPrefix = DateTimePickerCalendarDayKeyPrefix.NextMonth,
-			layoutOrder = index,
+			LayoutOrder = index,
 			month = nextMonth,
 			year = nextYear,
 		})
@@ -115,16 +115,16 @@ end
 
 local function buildTwoMonthPaneCellConfigs(month: number, year: number): { PaneCellConfig }
 	local configs = {} :: { PaneCellConfig }
-	local layoutOrder = NUM_WEEKDAY_HEADERS + 1
+	local LayoutOrder = NUM_WEEKDAY_HEADERS + 1
 
 	-- Column alignment only: Sunday (0) needs zero spacers, not a blank week.
 	local leadingEmptyDays = DateTimeUtilities.getFirstDayOfWeek(month, year)
 	for i = 1, leadingEmptyDays do
 		table.insert(configs, {
 			key = `lead-{i}`,
-			layoutOrder = layoutOrder,
+			LayoutOrder = LayoutOrder,
 		})
-		layoutOrder += 1
+		LayoutOrder += 1
 	end
 
 	local daysInMonth = DateTimeUtilities.getDaysInMonth(month, year)
@@ -132,19 +132,19 @@ local function buildTwoMonthPaneCellConfigs(month: number, year: number): { Pane
 		table.insert(configs, {
 			day = day,
 			key = `day-{day}`,
-			layoutOrder = layoutOrder,
+			LayoutOrder = LayoutOrder,
 			month = month,
 			year = year,
 		})
-		layoutOrder += 1
+		LayoutOrder += 1
 	end
 
 	for i = 1, countTrailingEmptyDays(leadingEmptyDays, daysInMonth) do
 		table.insert(configs, {
 			key = `trail-{i}`,
-			layoutOrder = layoutOrder,
+			LayoutOrder = LayoutOrder,
 		})
-		layoutOrder += 1
+		LayoutOrder += 1
 	end
 
 	return configs

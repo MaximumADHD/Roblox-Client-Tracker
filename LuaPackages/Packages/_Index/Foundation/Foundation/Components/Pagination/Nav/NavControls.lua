@@ -22,7 +22,7 @@ type NavControlsSide = "start" | "end"
 type NavControlsProps = {
 	side: NavControlsSide,
 	size: PaginationSize,
-	layoutOrder: number,
+	LayoutOrder: number,
 	isFirstDisabled: boolean,
 	isBackDisabled: boolean,
 	isForwardDisabled: boolean,
@@ -77,12 +77,12 @@ local function NavControls(props: NavControlsProps)
 	local directions = SIDE_DIRECTIONS[props.side]
 
 	local children: { [string]: React.ReactNode } = {}
-	local layoutOrder = 0
+	local LayoutOrder = 0
 
 	for index = 1, #directions do
 		local paginationDirection: PaginationDirection = directions[index]
 		if shouldShowNavButton(paginationDirection, props) then
-			layoutOrder += 1
+			LayoutOrder += 1
 			local slotId = paginationSlotsUtils.NAV_SLOT_IDS[paginationDirection]
 			local slotBindings = props.selection.getSlotBindings(slotId)
 			children[paginationDirection] = React.createElement(NavButton, {
@@ -90,7 +90,7 @@ local function NavControls(props: NavControlsProps)
 				slotSize = props.size,
 				direction = paginationDirection,
 				isDisabled = getIsDisabled(paginationDirection, props),
-				layoutOrder = layoutOrder,
+				LayoutOrder = LayoutOrder,
 				onDirectionActivated = props.onDirectionActivated,
 				ref = props.selection.getSlotRef(slotId),
 				Selectable = slotBindings.Selectable,
@@ -103,7 +103,7 @@ local function NavControls(props: NavControlsProps)
 	end
 
 	return React.createElement(View, {
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 		tag = "row gap-xsmall auto-xy",
 		testId = `{props.testId}--{SIDE_TEST_ID[props.side]}`,
 	}, children)

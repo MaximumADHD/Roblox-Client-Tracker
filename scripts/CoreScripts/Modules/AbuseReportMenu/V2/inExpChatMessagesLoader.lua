@@ -94,7 +94,11 @@ return {
 			if #generalItems > 0 then
 				table.insert(result, {
 					id = helpers.CHANNEL_GENERAL,
-					label = locales:Format("CoreScripts.TextChat.ChannelTabs.Here"), -- TODO: ExpChatShared should probably export this
+					label = locales:Format(
+						if FFlagExpChatUseSharedChannelTabDisplayLabel
+							then ChannelTabDisplayLabel.LocalizationKeys.yourServer
+							else "CoreScripts.TextChat.ChannelTabs.Here"
+					),
 					items = generalItems,
 				})
 			end

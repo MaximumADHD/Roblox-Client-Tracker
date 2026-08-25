@@ -76,6 +76,8 @@ describe("buildMenuOrder", function()
 					expect(contains(order, "avatar_switcher")).toBe(false)
 					expect(contains(order, "emotes")).toBe(false)
 					expect(contains(order, "traversal_history")).toBe(false)
+					expect(contains(order, "camera_entrypoint")).toBe(false)
+					expect(contains(order, "gallery")).toBe(false)
 				end)
 			end
 

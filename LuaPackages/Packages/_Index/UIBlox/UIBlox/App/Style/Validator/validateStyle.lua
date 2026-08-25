@@ -10,11 +10,10 @@ local validateFont = require(Validator.validateFont)
 local validateSettings = require(Validator.validateSettings)
 local validateTheme = require(Validator.validateTheme)
 
-local validateTokens = require(Validator.validateTokens)
 local StylePalette = t.strictInterface({
 	Theme = t.optional(validateTheme),
 	Font = t.optional(validateFont),
-	Tokens = t.optional(validateTokens),
+	Tokens = t.optional(t.any),
 	Settings = t.optional(validateSettings),
 })
 return StylePalette

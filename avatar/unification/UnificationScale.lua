@@ -86,14 +86,6 @@ local function JoinArrays(...)
 	return result
 end
 
-local FFlagUserLCRigidConstraintSupport
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserLCRigidConstraintSupport")
-	end)
-	FFlagUserLCRigidConstraintSupport = success and result
-end
-
 local UnificationScale = {}
 
 UnificationScale.UnificationModes = {
@@ -319,7 +311,7 @@ function UnificationScale:MoveAndScaleAccessories()
 		local accessoryAttachment = accessoryHandle:FindFirstChildOfClass("Attachment") :: Attachment
 		local accessoryWeld = accessoryHandle:FindFirstChildOfClass("Weld") :: Weld
 		local accessoryRigidConstraint = nil
-		if FFlagUserLCRigidConstraintSupport and not accessoryWeld then
+		if not accessoryWeld then
 			accessoryRigidConstraint = accessoryHandle:FindFirstChildWhichIsA("RigidConstraint")
 		end
 		if not accessoryAttachment or (not accessoryWeld and not accessoryRigidConstraint) then
@@ -339,7 +331,7 @@ function UnificationScale:MoveAndScaleAccessories()
 			+ (accessoryAttachment.CFrame.Position * (partScaling - Vector3.one))
 		if accessoryWeld then
 			accessoryWeld.C1 = accessoryWeld.C1 + (accessoryWeld.C1.Position * (partScaling - Vector3.one))
-		elseif FFlagUserLCRigidConstraintSupport and accessoryRigidConstraint then
+		elseif accessoryRigidConstraint then
 			local att1 = accessoryRigidConstraint.Attachment1
 			if att1 then
 				att1.CFrame = att1.CFrame + (att1.CFrame.Position * (partScaling - Vector3.one))

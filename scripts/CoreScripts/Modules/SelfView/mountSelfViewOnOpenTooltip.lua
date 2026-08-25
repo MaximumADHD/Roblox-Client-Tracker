@@ -2,8 +2,10 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 local CoreGui = game:GetService("CoreGui")
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
-local DarkTheme = UIBlox.App.Style.Constants.ThemeName.Dark
+local DarkColorMode = ColorMode.Dark
 
 local Promise = require(CorePackages.Packages.Promise)
 
@@ -19,7 +21,7 @@ return function(props)
 
 	local root = Roact.createElement(AppStyleProvider, {
 		style = {
-			themeName = DarkTheme,
+			themeName = DarkColorMode,
 		},
 	}, {
 		frame = Roact.createElement("Frame", {

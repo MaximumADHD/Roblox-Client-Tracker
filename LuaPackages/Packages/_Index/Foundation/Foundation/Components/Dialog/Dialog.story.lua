@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
@@ -8,7 +9,6 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Checkbox = require(Foundation.Components.Checkbox)
 local Dialog = require(Foundation.Components.Dialog)
 local DialogSize = require(Foundation.Enums.DialogSize)
-local Image = require(Foundation.Components.Image)
 local InputSize = require(Foundation.Enums.InputSize)
 local List = require(Foundation.Components.List)
 local Orientation = require(Foundation.Enums.Orientation)
@@ -19,37 +19,22 @@ local View = require(Foundation.Components.View)
 local useDialogNavigation = require(Foundation.Components.Dialog.useDialogNavigation)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-type ButtonVariant = ButtonVariant.ButtonVariant
 type DialogSize = DialogSize.DialogSize
+type Orientation = Orientation.Orientation
 
-type StoryProps = {
-	controls: {
-		title: string,
-		hasActions: boolean,
-		hasBackdrop: boolean,
-		disablePortal: boolean,
-		actionsLabel: string,
-		actionsOrientation: Orientation.Orientation?,
-		content: string?,
-		media: string?,
-		mediaSizeScaleX: number?,
-		mediaSizeOffsetX: number?,
-		mediaSizeScaleY: number?,
-		mediaSizeOffsetY: number?,
-		mediaAspectRatio: number?,
-		heroMediaBackgroundStyle: boolean?,
-		heroMediaHeightScale: number?,
-		heroMediaHeightOffset: number?,
-		heroMediaAspectRatio: number?,
-		size: DialogSize?,
-		selectableContent: boolean?,
-	},
-	children: {
-		DialogMedia: React.ReactNode?,
-		DialogTitle: React.ReactNode?,
-		DialogContent: React.ReactNode?,
-	}?,
+type Controls = {
+	size: DialogSize,
+	title: string,
+	content: string,
+	hasActions: boolean,
+	actionsOrientation: Orientation,
+	hasHeroMedia: boolean,
+	media: string,
+	selectableContent: boolean,
 }
+
+local SAMPLE_CONTENT =
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum elit ac nisi ornare, quis blandit est efficitur. Vivamus fringilla sagittis risus at dignissim. Duis hendrerit."
 
 local MEDIA_OPTIONS = {
 	"rbxassetid://103403748802347",
@@ -66,86 +51,47 @@ local MEDIA_OPTIONS = {
 	"pictograms/protection_shield",
 }
 
+local function noop() end
+
 local function isPictogram(media: string?): boolean
 	return media ~= nil and string.match(media, "^pictograms/") ~= nil
 end
 
--- Each story might render the dialog inline (disablePortal), so give it a fixed-height viewport to
--- center within. Without it the dialog overflows the auto-sized story slot and gets clipped.
-local STORY_VIEWPORT_HEIGHT = 700
-
-local function Story(props: StoryProps)
-	local children = props.children or { DialogMedia = nil, DialogContent = nil, DialogTitle = nil }
-	local controls = props.controls
-	local isOpen, setIsOpen = React.useState(false)
-	local toggleDialog = function()
-		setIsOpen(not isOpen)
-	end
-
-	return React.createElement(View, {
-		Size = UDim2.new(1, 0, 0, STORY_VIEWPORT_HEIGHT),
-	}, {
-		ToggleButton = React.createElement(Button, {
-			text = if isOpen then "Close Dialog" else "Open Dialog",
-			onActivated = toggleDialog,
-			variant = ButtonVariant.Emphasis,
-		}),
-		DialogRoot = if isOpen
-			then React.createElement(Dialog.Root, {
-				size = controls.size,
-				onClose = toggleDialog,
-				hasBackdrop = controls.hasBackdrop,
-				disablePortal = controls.disablePortal,
-			}, {
-				DialogMedia = children.DialogMedia,
-				DialogTitle = children.DialogTitle,
-				DialogContent = children.DialogContent,
-				DialogActions = if controls.hasActions
-					then React.createElement(Dialog.Actions, {
-						LayoutOrder = 3,
-						orientation = controls.actionsOrientation,
-						actions = {
-							{
-								text = "Join",
-								variant = ButtonVariant.Emphasis,
-								icon = "icons/common/robux",
-								onActivated = function()
-									print("Join clicked!")
-								end,
-								inputDelay = 3,
-							} :: any,
-							{
-								text = "Share",
-								variant = ButtonVariant.Standard,
-								onActivated = function()
-									print("Share clicked!")
-								end,
-							} :: any,
-						},
-						label = controls.actionsLabel,
-					})
-					else nil,
-			})
-			else nil,
-	})
+local function confirmDismissActions(): { any }
+	return {
+		{ text = "Confirm", variant = ButtonVariant.Emphasis, onActivated = noop } :: any,
+		{ text = "Dismiss", variant = ButtonVariant.Standard, onActivated = noop } :: any,
+	}
 end
 
-function CustomMedia(props: {
-	media: string,
-	Size: UDim2,
-	aspectRatio: number?,
+-- The Dialog is modal and always renders through the overlay portal, so a story only needs a
+-- trigger button. Opening portals the dialog above everything with a backdrop.
+local function DialogTrigger(props: {
+	size: DialogSize?,
+	children: React.ReactNode,
 })
+	local isOpen, setIsOpen = React.useState(false)
+
 	return React.createElement(View, {
-		tag = "row align-x-center size-full-0 auto-y",
+		tag = "auto-xy",
 	}, {
-		Image = React.createElement(Image, {
-			tag = {
-				["content-emphasis"] = isPictogram(props.media),
-			},
-			aspectRatio = props.aspectRatio,
-			Image = props.media,
-			Size = props.Size,
+		Trigger = React.createElement(Button, {
+			text = if isOpen then "Close Dialog" else "Open Dialog",
+			variant = ButtonVariant.Emphasis,
+			onActivated = function()
+				setIsOpen(not isOpen)
+			end,
 		}),
+		Dialog = if isOpen
+			then React.createElement(Dialog.Root, {
+				size = props.size,
+				hasBackdrop = true,
+				disablePortal = false,
+				onClose = function()
+					setIsOpen(false)
+				end,
+			}, props.children)
+			else nil,
 	})
 end
 
@@ -192,294 +138,243 @@ local function CheckboxContentWithNavigation(props: {
 	})
 end
 
+local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
+	local controls = props.controls
+	local tokens = useTokens()
+
+	return React.createElement(DialogTrigger, {
+		size = controls.size,
+	}, {
+		DialogMedia = if controls.hasHeroMedia
+			then React.createElement(Dialog.HeroMedia, {
+				media = controls.media,
+				mediaStyle = if isPictogram(controls.media) then tokens.Color.Content.Emphasis else nil,
+				backgroundStyle = if isPictogram(controls.media)
+					then tokens.Color.ActionSoftEmphasis.Background
+					else nil,
+				aspectRatio = 2.5,
+			})
+			else nil,
+		DialogTitle = React.createElement(Dialog.Title, {
+			text = controls.title,
+		}),
+		DialogContent = React.createElement(Dialog.Content, {
+			LayoutOrder = 2,
+			Selectable = controls.selectableContent,
+		}, {
+			DialogText = React.createElement(Dialog.Text, {
+				Text = controls.content,
+			}),
+		}),
+		DialogActions = if controls.hasActions
+			then React.createElement(Dialog.Actions, {
+				LayoutOrder = 3,
+				orientation = controls.actionsOrientation,
+				actions = confirmDismissActions(),
+			})
+			else nil,
+	})
+end
+
+local function TitleAndContentStory(): React.ReactNode
+	return React.createElement(DialogTrigger, {
+		size = DialogSize.Small,
+	}, {
+		DialogTitle = React.createElement(Dialog.Title, {
+			text = "Dialog Heading",
+		}),
+		DialogContent = React.createElement(Dialog.Content, {
+			LayoutOrder = 2,
+		}, {
+			DialogText = React.createElement(Dialog.Text, {
+				Text = SAMPLE_CONTENT,
+			}),
+		}),
+		DialogActions = React.createElement(Dialog.Actions, {
+			LayoutOrder = 3,
+			actions = confirmDismissActions(),
+		}),
+	})
+end
+
+local function HeroMediaStory(): React.ReactNode
+	local tokens = useTokens()
+
+	return React.createElement(DialogTrigger, {
+		size = DialogSize.Medium,
+	}, {
+		DialogMedia = React.createElement(Dialog.HeroMedia, {
+			media = "pictograms/celebrate",
+			mediaStyle = tokens.Color.Content.Emphasis,
+			backgroundStyle = tokens.Color.ActionSoftEmphasis.Background,
+			aspectRatio = 2.5,
+		}),
+		DialogTitle = React.createElement(Dialog.Title, {
+			text = "You're all set",
+		}),
+		DialogContent = React.createElement(Dialog.Content, {
+			LayoutOrder = 2,
+		}, {
+			DialogText = React.createElement(Dialog.Text, {
+				Text = SAMPLE_CONTENT,
+			}),
+		}),
+		DialogActions = React.createElement(Dialog.Actions, {
+			LayoutOrder = 3,
+			actions = confirmDismissActions(),
+		}),
+	})
+end
+
+local function ScrollableContentStory(): React.ReactNode
+	local ITEM_COUNT = 15
+	local listItems = Dash.map(table.create(ITEM_COUNT, true), function(_: boolean, i: number)
+		return React.createElement(List.Item, {
+			key = tostring(i),
+			title = `Option {i}`,
+			description = "Description for this option",
+			onActivated = noop,
+			LayoutOrder = i,
+		})
+	end)
+
+	return React.createElement(DialogTrigger, {
+		size = DialogSize.Small,
+	}, {
+		DialogTitle = React.createElement(Dialog.Title, {
+			text = "Choose an option",
+		}),
+		DialogContent = React.createElement(Dialog.Content, {
+			LayoutOrder = 2,
+		}, {
+			ItemList = React.createElement(List.Root, nil, listItems),
+		}),
+		DialogActions = React.createElement(Dialog.Actions, {
+			LayoutOrder = 3,
+			actions = confirmDismissActions(),
+		}),
+	})
+end
+
+local function CustomContentStory(): React.ReactNode
+	local contentValues = { "A", "B", "C", "D", "E" }
+	local contentItems = Dash.map(contentValues, function(value)
+		return React.createElement(RadioGroup.Item, {
+			value = value,
+			label = "Dialog Option " .. value,
+			size = InputSize.Medium,
+		})
+	end)
+
+	local CustomContent = React.createElement(View, {
+		tag = "col gap-large size-full-0 auto-y",
+	}, {
+		Text = React.createElement(Text, {
+			tag = "size-full-0 auto-y text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
+			Text = "Pick one of the options below.",
+			LayoutOrder = 1,
+		}),
+		RadioGroup = React.createElement(RadioGroup.Root, {
+			onValueChanged = noop,
+			LayoutOrder = 2,
+		}, contentItems),
+	})
+
+	return React.createElement(DialogTrigger, {
+		size = DialogSize.Small,
+	}, {
+		DialogTitle = React.createElement(Dialog.Title, {
+			text = "Custom content",
+		}),
+		DialogContent = React.createElement(Dialog.Content, {
+			LayoutOrder = 2,
+		}, {
+			CustomContent = CustomContent,
+		}),
+		DialogActions = React.createElement(Dialog.Actions, {
+			LayoutOrder = 3,
+			actions = confirmDismissActions(),
+		}),
+	})
+end
+
+local function FocusNavigationStory(): React.ReactNode
+	local checkboxStates, setCheckboxStates = React.useState({
+		notifications = false,
+		analytics = false,
+		marketing = false,
+		thirdParty = false,
+	})
+
+	local function toggleCheckbox(key: string)
+		return function(checked: boolean)
+			setCheckboxStates(function(prev)
+				local next = Dash.assign({}, prev)
+				next[key] = checked
+				return next
+			end)
+		end
+	end
+
+	return React.createElement(DialogTrigger, {
+		size = DialogSize.Small,
+	}, {
+		DialogTitle = React.createElement(Dialog.Title, {
+			text = "Preferences",
+		}),
+		DialogContent = React.createElement(Dialog.Content, {
+			LayoutOrder = 2,
+		}, {
+			CheckboxContent = React.createElement(CheckboxContentWithNavigation, {
+				checkboxStates = checkboxStates,
+				toggleCheckbox = toggleCheckbox,
+			}),
+		}),
+		DialogActions = React.createElement(Dialog.Actions, {
+			LayoutOrder = 3,
+			actions = confirmDismissActions(),
+		}),
+	})
+end
+
 return {
-	summary = "Dialog",
+	summary = "Dialogs create a temporary, purposeful exchange between a user and our platform, helping surface important information or require user input without disrupting the larger experience.",
 	stories = {
 		{
 			name = "Playground",
-			story = function(props: StoryProps)
-				local tokens = useTokens()
-				return React.createElement(Story, props, {
-					DialogTitle = React.createElement(Dialog.Title, {
-						text = props.controls.title,
-					}),
-					DialogMedia = React.createElement(Dialog.HeroMedia, {
-						media = props.controls.media :: string,
-						mediaStyle = if isPictogram(props.controls.media) then tokens.Color.Content.Emphasis else nil,
-						backgroundStyle = if props.controls.heroMediaBackgroundStyle
-							then tokens.Color.ActionSoftEmphasis.Background
-							else nil,
-						height = UDim.new(
-							props.controls.heroMediaHeightScale or 0,
-							props.controls.heroMediaHeightOffset or 0
-						),
-						aspectRatio = if props.controls.heroMediaAspectRatio > 0
-							then props.controls.heroMediaAspectRatio :: number
-							else nil,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						DialogText = React.createElement(Dialog.Text, {
-							Text = props.controls.content :: string,
-						}),
-					}),
-				})
-			end,
+			story = PlaygroundStory :: unknown,
 		},
 		{
-			name = "Title & Content",
-			story = function(props: StoryProps)
-				return React.createElement(Story, props, {
-					DialogTitle = React.createElement(Dialog.Title, {
-						text = props.controls.title,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						DialogText = React.createElement(Dialog.Text, {
-							Text = props.controls.content :: string,
-						}),
-					}),
-				})
-			end,
+			name = "Title & content",
+			story = TitleAndContentStory,
 		},
 		{
-			name = "Hero Image & Content",
-			story = function(props: StoryProps)
-				local tokens = useTokens()
-				return React.createElement(Story, props, {
-					DialogMedia = React.createElement(Dialog.HeroMedia, {
-						media = props.controls.media :: string,
-						mediaStyle = if isPictogram(props.controls.media) then tokens.Color.Content.Emphasis else nil,
-						backgroundStyle = if props.controls.heroMediaBackgroundStyle
-							then tokens.Color.ActionSoftEmphasis.Background
-							else nil,
-						height = UDim.new(
-							props.controls.heroMediaHeightScale or 0,
-							props.controls.heroMediaHeightOffset or 0
-						),
-						aspectRatio = if props.controls.heroMediaAspectRatio > 0
-							then props.controls.heroMediaAspectRatio :: number
-							else nil,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						DialogText = React.createElement(Dialog.Text, {
-							Text = props.controls.content :: string,
-						}),
-					}),
-				})
-			end,
+			name = "Hero media",
+			story = HeroMediaStory,
 		},
 		{
-			name = "Hero Image only",
-			story = function(props: StoryProps)
-				local tokens = useTokens()
-				return React.createElement(Story, props, {
-					DialogMedia = React.createElement(Dialog.HeroMedia, {
-						media = props.controls.media :: string,
-						mediaStyle = if isPictogram(props.controls.media) then tokens.Color.Content.Emphasis else nil,
-						backgroundStyle = if props.controls.heroMediaBackgroundStyle
-							then tokens.Color.ActionSoftEmphasis.Background
-							else nil,
-						height = UDim.new(
-							props.controls.heroMediaHeightScale or 0,
-							props.controls.heroMediaHeightOffset or 0
-						),
-						aspectRatio = if props.controls.heroMediaAspectRatio > 0
-							then props.controls.heroMediaAspectRatio :: number
-							else nil,
-					}),
-				})
-			end,
+			name = "Scrollable content",
+			summary = "Content scrolls within the dialog once it overflows the max height.",
+			story = ScrollableContentStory,
 		},
 		{
-			name = "Custom Content",
-			story = function(props: StoryProps)
-				local mediaSize = UDim2.new(
-					props.controls.mediaSizeScaleX or 0,
-					props.controls.mediaSizeOffsetX or 0,
-					props.controls.mediaSizeScaleY or 0,
-					props.controls.mediaSizeOffsetY or 0
-				)
-				local contentValues = { "A", "B", "C", "D", "E" }
-				local contentItems = Dash.map(contentValues, function(value)
-					return React.createElement(RadioGroup.Item, {
-						value = value,
-						label = "Dialog Option " .. value,
-						size = InputSize.Medium,
-					})
-				end)
-
-				local CustomContent = React.createElement(View, {
-					tag = "col gap-xxlarge size-full-0 auto-y",
-				}, {
-					Text = React.createElement(Text, {
-						tag = "size-full-0 auto-y text-body-large text-wrap text-align-x-left text-align-y-top",
-						Text = "Some text",
-						LayoutOrder = 2,
-					}),
-					RadioGroup = React.createElement(RadioGroup.Root, {
-						onValueChanged = function() end,
-						LayoutOrder = 3,
-					}, contentItems),
-					DialogText = React.createElement(Dialog.Text, {
-						Text = props.controls.content :: string,
-						LayoutOrder = 4,
-					}),
-				})
-
-				return React.createElement(Story, props, {
-					DialogTitle = React.createElement(Dialog.Title, {
-						text = props.controls.title,
-					}),
-					DialogMedia = React.createElement(CustomMedia, {
-						media = props.controls.media :: string,
-						Size = mediaSize,
-						aspectRatio = if props.controls.mediaAspectRatio > 0
-							then props.controls.mediaAspectRatio :: number
-							else nil,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						CustomContent = CustomContent,
-					}),
-				})
-			end,
+			name = "Custom content",
+			story = CustomContentStory,
 		},
 		{
-			name = "Scrollable List Content",
-			story = function(props: StoryProps)
-				local ITEM_COUNT = 15
-
-				local listItems = Dash.map(table.create(ITEM_COUNT, true), function(_: boolean, i: number)
-					return React.createElement(List.Item, {
-						key = tostring(i),
-						title = `Option {i}`,
-						description = "Description for this option",
-						onActivated = function()
-							print(`Option {i} activated`)
-						end,
-						LayoutOrder = i,
-					})
-				end)
-
-				return React.createElement(Story, props, {
-					DialogTitle = React.createElement(Dialog.Title, {
-						text = props.controls.title,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						ItemList = React.createElement(List.Root, nil, listItems),
-					}),
-				})
-			end,
-		},
-		{
-			name = "Embedded Media",
-			story = function(props: StoryProps)
-				local mediaSize = UDim2.new(
-					props.controls.mediaSizeScaleX or 0,
-					props.controls.mediaSizeOffsetX or 0,
-					props.controls.mediaSizeScaleY or 0,
-					props.controls.mediaSizeOffsetY or 0
-				)
-
-				local CustomContent = React.createElement(View, {
-					tag = "col gap-xlarge size-full-0 auto-y",
-				}, {
-					DialogMedia = React.createElement(CustomMedia, {
-						media = props.controls.media :: string,
-						Size = mediaSize,
-						aspectRatio = if props.controls.mediaAspectRatio > 0
-							then props.controls.mediaAspectRatio :: number
-							else nil,
-						LayoutOrder = 1,
-					}),
-					DialogText = React.createElement(Dialog.Text, {
-						Text = props.controls.content :: string,
-						LayoutOrder = 4,
-					}),
-				})
-
-				return React.createElement(Story, props, {
-					DialogTitle = React.createElement(Dialog.Title, {
-						text = props.controls.title,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						CustomContent = CustomContent,
-					}),
-				})
-			end,
-		},
-		{
-			name = "Checkbox Content with Focus Navigation",
-			story = function(props: StoryProps)
-				local checkboxStates, setCheckboxStates = React.useState({
-					notifications = false,
-					analytics = false,
-					marketing = false,
-					thirdParty = false,
-				})
-
-				local function toggleCheckbox(key: string)
-					return function(checked: boolean)
-						setCheckboxStates(function(prev)
-							local next = Dash.assign({}, prev)
-							next[key] = checked
-							return next
-						end)
-					end
-				end
-
-				return React.createElement(Story, props, {
-					DialogTitle = React.createElement(Dialog.Title, {
-						text = props.controls.title,
-					}),
-					DialogContent = React.createElement(Dialog.Content, {
-						LayoutOrder = 2,
-						Selectable = props.controls.selectableContent,
-					}, {
-						CheckboxContent = React.createElement(CheckboxContentWithNavigation, {
-							checkboxStates = checkboxStates,
-							toggleCheckbox = toggleCheckbox,
-						}),
-					}),
-				})
-			end,
+			name = "Focus navigation",
+			summary = "Content wires its first focusable element to the close affordance via useDialogNavigation.",
+			story = FocusNavigationStory,
 		},
 	},
 	controls = {
-		title = "Welcome Dialog",
-		content = "This is a dialog with a very, very long description that spans multiple lines. Now, I'm not joking when I say that it has a lot to say. Really, a lot of things have a lot to say if you're willing to listen.",
-		actionsLabel = "By selecting Primary, I consent to Roblox's collection, use, and storage of my data to enable services and for moderation, safety, and improvement of our services and tools.",
-		actionsOrientation = Dash.values(Orientation),
-		hasActions = true,
-		disablePortal = false,
-		hasBackdrop = true,
-		media = MEDIA_OPTIONS,
-		mediaSizeScaleX = 1,
-		mediaSizeScaleY = 0,
-		mediaSizeOffsetX = 0,
-		mediaSizeOffsetY = 100,
-		mediaAspectRatio = 0,
-		heroMediaBackgroundStyle = false,
-		heroMediaAspectRatio = 2.5,
-		heroMediaHeightScale = 1,
-		heroMediaHeightOffset = 0,
-		selectableContent = true,
 		size = Dash.values(DialogSize),
+		title = "Welcome Dialog",
+		content = SAMPLE_CONTENT,
+		hasActions = true,
+		actionsOrientation = Dash.values(Orientation),
+		hasHeroMedia = false,
+		media = MEDIA_OPTIONS,
+		selectableContent = true,
 	},
 }

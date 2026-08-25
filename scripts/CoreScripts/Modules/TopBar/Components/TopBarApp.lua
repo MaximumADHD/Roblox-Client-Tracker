@@ -70,7 +70,6 @@ local TraversalBackButton = require(script.Parent.TraversalBackButton)
 local Chrome = script.Parent.Parent.Parent.Chrome
 
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
-local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 local PlaytestModeThemeProvider = require(Chrome.ChromeShared.Unibar.PlaytestModeThemeProvider)
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
 
@@ -876,15 +875,6 @@ function TopBarApp:renderWithStyle(style)
 		}),
 
 		SongbirdDebugAudio = Roact.createElement(Songbird.DebugAudioEmitters),
-
-		SongbirdReportAudioFrame = ChromeEnabled() and Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			BackgroundTransparency = 1,
-			Position = UDim2.fromScale(0.5, 0.5),
-			Size = UDim2.new(1, 0, 0, MusicConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
-		}, {
-			ReportAudioPopup = Roact.createElement(Songbird.ReportAudioPopup),
-		}),
 
 		UnibarLeftFrame = Unibar and unibarAlignment == Enum.HorizontalAlignment.Left and Roact.createElement(
 			"Frame",

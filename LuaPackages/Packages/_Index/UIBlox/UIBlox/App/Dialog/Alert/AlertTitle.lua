@@ -18,6 +18,7 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(AppRoot.ImageSet.Images)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
 local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local MARGIN = 24
 local X_IMAGE = "icons/navigation/close"
@@ -65,7 +66,9 @@ function AlertTitle:render()
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 
-		local headerToken = stylePalette.Tokens.Semantic.Typography.Header
+		local headerToken = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then stylePalette.Tokens.Typography.HeadingSmall
+			else stylePalette.Tokens.Semantic.Typography.Header
 		local headerSize = headerToken.FontSize
 
 		return Roact.createElement(FitFrameOnAxis, {

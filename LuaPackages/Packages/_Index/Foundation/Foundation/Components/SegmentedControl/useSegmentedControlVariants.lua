@@ -48,14 +48,10 @@ end
 local function variantsFactory_DEPRECATED(tokens: Tokens)
 	local common = {
 		container = {
-			tag = if Flags.FoundationSegmentedControlAutoXFix
-				then "row align-y-center auto-x bg-surface-300"
-				else "row align-y-center auto-xy bg-surface-300",
+			tag = "row align-y-center auto-x bg-surface-300",
 		},
 		segment = {
-			tag = if Flags.FoundationSegmentedControlAutoXFix
-				then "row align-y-center size-0-full auto-x"
-				else "row align-y-center size-0-full auto-xy",
+			tag = "row align-y-center size-0-full auto-x",
 		},
 		text = { tag = "auto-x text-truncate-end content-emphasis" },
 		icon = { style = tokens.Color.Content.Emphasis },

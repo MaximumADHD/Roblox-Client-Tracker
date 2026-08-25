@@ -8,6 +8,8 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
+local BuildModeLaunch = require(CorePackages.Workspace.Packages.BuildExperience.BuildModeLaunch)
+
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 
 local ObservableValue = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ChromeUtils).ObservableValue
@@ -27,6 +29,8 @@ local ChromeEnabled = if FFlagPlaytestModeDismissTooltip then require(CorePackag
 local GamepadConnector = if FFlagPlaytestModeDismissTooltip and FFlagEnableConsoleExpControls and ChromeEnabled
 		then require(script.Parent.Parent.GamepadConnector)
 		else nil
+	
+local FFlagPlaytestModeTooltipExcludeBuildMode = game:DefineFastFlag("PlaytestModeTooltipExcludeBuildMode", false)
 
 local FStringPlaytestModeTooltipLearnMoreUrl = game:DefineFastString("PlaytestModeTooltipLearnMoreUrl", "https://about.roblox.com/community-standards")
 local FIntPlaytestModeTooltipDisplayOrder = game:DefineFastInt("PlaytestModeTooltipDisplayOrder", -1)
@@ -43,6 +47,10 @@ local defaultShowTopBar = if FFlagPlaytestModeDismissTooltip
 	else nil :: never
 
 local function getCanShow(anchorRef: React.RefObject<GuiObject?>?, showTopBar: boolean?): boolean
+	if FFlagPlaytestModeTooltipExcludeBuildMode and BuildModeLaunch:hasBuildMode() then
+		return false
+	end
+
 	return not sawTooltip and anchorRef ~= nil and anchorRef.current ~= nil and (not FFlagPlaytestModeDismissTooltip or showTopBar ~= false)
 end
 

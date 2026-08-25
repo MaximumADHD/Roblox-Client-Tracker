@@ -39,14 +39,14 @@ local IN_CONTEXT_NOTE =
 local function noop() end
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -65,27 +65,27 @@ local function StoryInputChip(props: {
 	size: InputSize?,
 	isDisabled: boolean?,
 	onClose: (() -> ())?,
-	layoutOrder: number?,
+	LayoutOrder: number?,
 })
 	return React.createElement(InputChip, {
 		text = props.text,
 		size = props.size,
 		isDisabled = props.isDisabled,
 		onClose = props.onClose or noop,
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	})
 end
 
 local function LabeledInputChip(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	text: string,
 	size: InputSize?,
 	isDisabled: boolean?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -133,14 +133,14 @@ local function SizingStory(): React.ReactNode
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-xlarge align-y-start auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledInputChip, {
 					label = size,
-					layoutOrder = index,
+					LayoutOrder = index,
 					text = DEFAULT_TEXT,
 					size = size,
 				})
@@ -154,7 +154,7 @@ local function StatesStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Disabled = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Disabled",
 			contentTag = "auto-xy",
 		}, {
@@ -209,7 +209,7 @@ local function ControlledStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Dismiss = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Dismiss",
 			contentTag = "auto-xy",
 		}, {
@@ -218,10 +218,10 @@ local function ControlledStory(): React.ReactNode
 	})
 end
 
-local function TruncatedInputChip(props: { layoutOrder: number, size: InputSize })
+local function TruncatedInputChip(props: { LayoutOrder: number, size: InputSize })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.size :: string,
@@ -251,13 +251,13 @@ local function ContentStory(): React.ReactNode
 		Truncation = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Truncation",
 				contentTag = "row gap-xlarge align-y-start auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(TruncatedInputChip, {
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 				})
 			end)

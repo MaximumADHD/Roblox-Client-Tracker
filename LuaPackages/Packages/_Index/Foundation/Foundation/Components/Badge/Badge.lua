@@ -103,7 +103,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 
 	local BadgeIcon: React.ReactElement
 	if icon ~= nil then
-		local layoutOrder = if icon.position == IconPosition.Left then 1 else 3
+		local LayoutOrder = if icon.position == IconPosition.Left then 1 else 3
 		if isBuilderIconOrMigrated(icon.name) then
 			BadgeIcon = React.createElement(Icon, {
 				name = if isMigrated(icon.name) then migrationLookup[icon.name].name else icon.name,
@@ -114,7 +114,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 						else icon.variant,
 				size = iconSize,
 				style = if Flags.FoundationBadgeBetaUpdate then variantProps.icon.style else variantProps.content.style,
-				LayoutOrder = layoutOrder,
+				LayoutOrder = LayoutOrder,
 				testId = `{props.testId}--icon`,
 			})
 		else
@@ -133,7 +133,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 						scale = scale,
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.fromScale(0.5, 0.5),
-						LayoutOrder = layoutOrder,
+						LayoutOrder = LayoutOrder,
 						testId = `{props.testId}--icon`,
 					})
 				)

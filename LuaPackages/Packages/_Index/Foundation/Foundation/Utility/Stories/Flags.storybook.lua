@@ -11,7 +11,7 @@ local StoryMiddleware = require(Stories.StoryMiddleware)
 
 return {
 	-- Leading space pins this book above Components in Storybook's alpha sort.
-	name = " Flags",
+	name = "Flags",
 	group = "Foundation",
 	roact = Roact,
 	storyRoots = GetStories("flags"),

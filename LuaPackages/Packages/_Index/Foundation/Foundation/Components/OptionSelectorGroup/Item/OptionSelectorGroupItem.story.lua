@@ -6,9 +6,10 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local FillBehavior = require(Foundation.Enums.FillBehavior)
-local InputSize = require(Foundation.Enums.InputSize)
+local Flags = require(Foundation.Utility.Flags)
 local OptionSelectorGroup = require(Foundation.Components.OptionSelectorGroup)
 local OptionSelectorGroupContext = require(script.Parent.Parent.OptionSelectorGroupContext)
+local OptionSelectorGroupSize = require(Foundation.Enums.OptionSelectorGroupSize)
 local Orientation = require(Foundation.Enums.Orientation)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
@@ -16,14 +17,20 @@ local View = require(Foundation.Components.View)
 local IconName = BuilderIcons.Icon
 
 type FillBehavior = FillBehavior.FillBehavior
-type InputSize = InputSize.InputSize
+type OptionSelectorGroupSize = OptionSelectorGroupSize.OptionSelectorGroupSize
 type Orientation = Orientation.Orientation
 
-local SIZE_ORDER: { InputSize } = {
-	InputSize.XSmall,
-	InputSize.Small,
-	InputSize.Medium,
-	InputSize.Large,
+local SIZE_ORDER: { OptionSelectorGroupSize } = {
+	OptionSelectorGroupSize.XSmall,
+	OptionSelectorGroupSize.Small,
+	OptionSelectorGroupSize.Medium,
+}
+
+local PLAYGROUND_GROUP_SIZE_OPTIONS = {
+	React.None,
+	OptionSelectorGroupSize.XSmall,
+	OptionSelectorGroupSize.Small,
+	OptionSelectorGroupSize.Medium,
 }
 
 local GROUP_ORIENTATION_ORDER: { Orientation } = {
@@ -46,7 +53,7 @@ local PLAYGROUND_ICON_OPTIONS = {
 	"icons/menu/clothing/limited_on",
 }
 
-local PLAYGROUND_FILL_BEHAVIOR_OPTIONS = {
+local PLAYGROUND_GROUP_FILL_BEHAVIOR_OPTIONS = {
 	React.None,
 	FillBehavior.Fit,
 	FillBehavior.Fill,
@@ -55,24 +62,20 @@ local PLAYGROUND_FILL_BEHAVIOR_OPTIONS = {
 local LONG_TEXT =
 	"With a lot of extra text to see how it behaves when it might need to wrap to multiple lines because it simply cannot fit on one line"
 
-local LONG_TEXT_SIZE_ORDER: { InputSize } = {
-	InputSize.XSmall,
-	InputSize.Medium,
-}
-local LONG_TEXT_LABEL_WIDTH = 80
-
 local ITEM_COLUMN_WIDTH = 280
+-- Icon matrix cells need extra width at Medium (xxlarge padding + icon + checkmark chrome).
+local ICON_MATRIX_COLUMN_WIDTH = 240
 local ITEM_VALUE = "A"
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -88,8 +91,10 @@ end
 
 local function ItemExample(
 	props: {
-		layoutOrder: number?,
+		LayoutOrder: number?,
 		groupOrientation: Orientation?,
+		groupSize: OptionSelectorGroupSize?,
+		groupFillBehavior: FillBehavior?,
 		selectedValue: string?,
 		onValueChanged: ((string?) -> ())?,
 		value: string?,
@@ -99,37 +104,41 @@ local function ItemExample(
 		metadata: string?,
 		description: string?,
 		isDisabled: boolean?,
-		size: InputSize?,
-		fillBehavior: FillBehavior?,
 		containerWidth: number?,
+		-- When true, the wrapper spans the parent width (e.g. playground gray surface).
+		fillParent: boolean?,
 		-- Draws a surface behind the bounded parent so Fill vs Fit sizing is easier to see.
 		parentSurface: boolean?,
 	}
 )
 	local groupOrientation = props.groupOrientation or Orientation.Vertical
-	-- Bound the wrapper when an explicit width is set, or when Fill needs a parent to expand into.
-	local needsBoundedWidth = props.containerWidth ~= nil or props.fillBehavior == FillBehavior.Fill
+	-- Match Item fillBehavior resolution: vertical groups always Fill; horizontal groups honor Root fillBehavior.
+	local needsBoundedWidth = groupOrientation == Orientation.Vertical
+		or props.containerWidth ~= nil
+		or props.groupFillBehavior == FillBehavior.Fill
 	local label = if props.label ~= nil then props.label else "Option"
 	local value = props.value or ITEM_VALUE
 
-	local wrapperTag = if needsBoundedWidth then "size-full-0 auto-y" else "auto-xy"
+	local wrapperTag = if props.fillParent or needsBoundedWidth then "size-full-0 auto-y" else "auto-xy"
 	if props.parentSurface then
 		wrapperTag = `{wrapperTag} bg-surface-100 radius-medium padding-large`
 	end
 
 	return React.createElement(View, {
 		tag = wrapperTag,
-		Size = if props.containerWidth ~= nil
-			then UDim2.fromOffset(props.containerWidth, 0)
-			elseif props.fillBehavior == FillBehavior.Fill then UDim2.fromOffset(ITEM_COLUMN_WIDTH, 0)
+		Size = if props.fillParent
+			then UDim2.fromScale(1, 0)
+			elseif needsBoundedWidth then UDim2.fromOffset(props.containerWidth or ITEM_COLUMN_WIDTH, 0)
 			else nil,
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Provider = React.createElement(OptionSelectorGroupContext.Provider, {
 			value = {
 				value = props.selectedValue,
 				onValueChanged = props.onValueChanged or Dash.noop,
 				orientation = groupOrientation,
+				size = props.groupSize,
+				fillBehavior = props.groupFillBehavior,
 				Selectable = true,
 				testId = "--foundation-option-selector-group",
 			},
@@ -141,8 +150,6 @@ local function ItemExample(
 				metadata = props.metadata,
 				description = props.description,
 				isDisabled = props.isDisabled,
-				size = props.size or InputSize.Medium,
-				fillBehavior = props.fillBehavior,
 			}),
 		}),
 	})
@@ -150,17 +157,17 @@ end
 
 local function LabeledItem(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	groupOrientation: Orientation?,
+	groupSize: OptionSelectorGroupSize?,
+	groupFillBehavior: FillBehavior?,
 	selectedValue: string?,
-	size: InputSize?,
-	fillBehavior: FillBehavior?,
 	containerWidth: number?,
 	parentSurface: boolean?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -168,11 +175,11 @@ local function LabeledItem(props: {
 			LayoutOrder = 1,
 		}),
 		Item = React.createElement(ItemExample, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			groupOrientation = props.groupOrientation,
+			groupSize = props.groupSize,
+			groupFillBehavior = props.groupFillBehavior,
 			selectedValue = props.selectedValue,
-			size = props.size,
-			fillBehavior = props.fillBehavior,
 			containerWidth = props.containerWidth,
 			parentSurface = props.parentSurface,
 		}),
@@ -182,27 +189,31 @@ end
 local function PlaygroundStory(props: {
 	controls: {
 		groupOrientation: Orientation,
+		groupSize: OptionSelectorGroupSize?,
+		groupFillBehavior: FillBehavior?,
 		icon: string?,
 		isDisabled: boolean,
 		isSelected: boolean,
 		label: string,
 		metadata: string,
 		description: string,
-		size: InputSize,
-		fillBehavior: FillBehavior?,
 	},
 })
 	local controls = props.controls
-	local fillBehavior: FillBehavior? = if controls.fillBehavior == React.None
+	local groupFillBehavior: FillBehavior? = if controls.groupFillBehavior == React.None
 		then nil
-		else controls.fillBehavior :: FillBehavior?
+		else controls.groupFillBehavior :: FillBehavior?
 	local icon: string? = if controls.icon == React.None then nil else controls.icon :: string?
 
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y bg-surface-100 radius-medium padding-large",
+		tag = "size-full-0 auto-y",
 	}, {
 		Example = React.createElement(ItemExample, {
 			groupOrientation = controls.groupOrientation,
+			groupSize = if controls.groupSize == React.None
+				then nil
+				else controls.groupSize :: OptionSelectorGroupSize?,
+			groupFillBehavior = groupFillBehavior,
 			selectedValue = if controls.isSelected then ITEM_VALUE else nil,
 			onValueChanged = function(newValue: string?)
 				print("OptionSelectorGroupItem value changed", newValue)
@@ -213,8 +224,8 @@ local function PlaygroundStory(props: {
 			metadata = if #controls.metadata > 0 then controls.metadata else nil,
 			description = if #controls.description > 0 then controls.description else nil,
 			isDisabled = controls.isDisabled,
-			size = controls.size,
-			fillBehavior = fillBehavior,
+			parentSurface = true,
+			fillParent = true,
 		}),
 	})
 end
@@ -226,37 +237,37 @@ local function SizingStory()
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-large align-y-end auto-xy",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledItem, {
 					label = size :: string,
-					layoutOrder = index,
-					size = size,
+					LayoutOrder = index,
+					groupSize = size,
 					containerWidth = 160,
 				})
 			end)
 		),
 		FillBehavior = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Fill behavior",
 			contentTag = "col gap-large align-x-left size-full-0 auto-y",
 		}, {
 			Fit = React.createElement(LabeledItem, {
 				label = "Fit",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				groupOrientation = Orientation.Horizontal,
-				fillBehavior = FillBehavior.Fit,
+				groupFillBehavior = FillBehavior.Fit,
 				containerWidth = 200,
 				parentSurface = true,
 			}),
 			Fill = React.createElement(LabeledItem, {
 				label = "Fill",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				groupOrientation = Orientation.Horizontal,
-				fillBehavior = FillBehavior.Fill,
+				groupFillBehavior = FillBehavior.Fill,
 				containerWidth = 200,
 				parentSurface = true,
 			}),
@@ -271,22 +282,22 @@ local function StatesStory()
 		Selection = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Selected",
 				contentTag = "row gap-large align-y-end auto-xy",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledItem, {
 					label = size :: string,
-					layoutOrder = index,
-					size = size,
+					LayoutOrder = index,
+					groupSize = size,
 					selectedValue = ITEM_VALUE,
 					containerWidth = 160,
 				})
 			end)
 		),
 		Disabled = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Disabled",
 			contentTag = "auto-xy",
 		}, {
@@ -299,39 +310,40 @@ local function StatesStory()
 	})
 end
 
-local SELECTION_ORDER = {
-	{ label = "Unselected", selectedValue = nil :: string? },
-	{ label = "Selected", selectedValue = ITEM_VALUE },
-}
-
 local ORIENTATION_MATRIX_ROWS: {
 	{
 		label: string,
 		groupOrientation: Orientation,
-		fillBehavior: FillBehavior?,
+		groupFillBehavior: FillBehavior?,
 	}
 } =
 	{
 		{
 			label = "Vertical",
 			groupOrientation = Orientation.Vertical,
-			fillBehavior = nil,
+			groupFillBehavior = nil,
 		},
 		{
 			label = "Horizontal Fit",
 			groupOrientation = Orientation.Horizontal,
-			fillBehavior = FillBehavior.Fit,
+			groupFillBehavior = FillBehavior.Fit,
 		},
 		{
 			label = "Horizontal Fill",
 			groupOrientation = Orientation.Horizontal,
-			fillBehavior = FillBehavior.Fill,
+			groupFillBehavior = FillBehavior.Fill,
 		},
 	}
 
-local function OrientationSelectionMatrix(props: {
-	layoutOrder: number,
+type OrientationMatrixColumn = {
+	label: string,
+	selectedValue: string?,
 	icon: string?,
+}
+
+local function OrientationSelectionMatrix(props: {
+	LayoutOrder: number,
+	columns: { OrientationMatrixColumn },
 })
 	local headerCells: { [string]: React.ReactNode } = {
 		Corner = React.createElement(View, {
@@ -339,9 +351,9 @@ local function OrientationSelectionMatrix(props: {
 			LayoutOrder = 1,
 		}),
 	}
-	for columnIndex, selection in SELECTION_ORDER do
-		headerCells[`Header-{selection.label}`] = React.createElement(Text, {
-			Text = selection.label,
+	for columnIndex, column in props.columns do
+		headerCells[`Header-{column.label}`] = React.createElement(Text, {
+			Text = column.label,
 			tag = "auto-xy text-caption-small text-align-x-left content-muted",
 			Size = UDim2.fromOffset(ITEM_COLUMN_WIDTH, 0),
 			LayoutOrder = columnIndex + 1,
@@ -357,13 +369,13 @@ local function OrientationSelectionMatrix(props: {
 				LayoutOrder = 1,
 			}),
 		}
-		for columnIndex, selection in SELECTION_ORDER do
-			cells[`Cell-{selection.label}`] = React.createElement(ItemExample, {
-				layoutOrder = columnIndex + 1,
+		for columnIndex, column in props.columns do
+			cells[`Cell-{column.label}`] = React.createElement(ItemExample, {
+				LayoutOrder = columnIndex + 1,
 				groupOrientation = row.groupOrientation,
-				fillBehavior = row.fillBehavior,
-				selectedValue = selection.selectedValue,
-				icon = props.icon,
+				groupFillBehavior = row.groupFillBehavior,
+				selectedValue = column.selectedValue,
+				icon = column.icon,
 				description = "Description",
 				containerWidth = ITEM_COLUMN_WIDTH,
 			})
@@ -376,7 +388,7 @@ local function OrientationSelectionMatrix(props: {
 
 	return React.createElement(View, {
 		tag = "col gap-large auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Header = React.createElement(View, {
 			tag = "row gap-large align-y-center auto-xy",
@@ -389,27 +401,55 @@ local function OrientationSelectionMatrix(props: {
 	})
 end
 
+local SELECTION_COLUMNS: { OrientationMatrixColumn } = {
+	{ label = "Unselected", selectedValue = nil },
+	{ label = "Selected", selectedValue = ITEM_VALUE },
+}
+
+local ICON_COLUMNS: { OrientationMatrixColumn } = {
+	{ label = "Without icon", selectedValue = nil },
+	{ label = "With icon", selectedValue = nil, icon = IconName.House },
+}
+
 local function OrientationStory()
+	if Flags.FoundationOptionSelectorGroupBeta then
+		return React.createElement(View, {
+			tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+		}, {
+			Matrix = React.createElement(OrientationSelectionMatrix, {
+				LayoutOrder = 1,
+				columns = ICON_COLUMNS,
+			}),
+		})
+	end
+
 	return React.createElement(View, {
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		WithoutIcon = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Without icon",
 			contentTag = "auto-xy",
 		}, {
 			Matrix = React.createElement(OrientationSelectionMatrix, {
-				layoutOrder = 1,
+				LayoutOrder = 1,
+				columns = SELECTION_COLUMNS,
 			}),
 		}),
 		WithIcon = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "With icon",
 			contentTag = "auto-xy",
 		}, {
 			Matrix = React.createElement(OrientationSelectionMatrix, {
-				layoutOrder = 1,
-				icon = IconName.House,
+				LayoutOrder = 1,
+				columns = Dash.map(SELECTION_COLUMNS, function(column)
+					return {
+						label = column.label,
+						selectedValue = column.selectedValue,
+						icon = IconName.House,
+					}
+				end),
 			}),
 		}),
 	})
@@ -422,7 +462,7 @@ local function ControlledExample()
 		tag = "col gap-medium auto-xy",
 	}, {
 		Item = React.createElement(ItemExample, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			selectedValue = selectedValue,
 			onValueChanged = setSelectedValue,
 			description = "Click to select or clear",
@@ -441,7 +481,7 @@ local function ControlledStory()
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Controlled = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Selection updates value",
 			contentTag = "auto-xy",
 		}, {
@@ -461,7 +501,7 @@ local function ContentStory()
 		iconHeaderCells[`Header-{iconType.caption}`] = React.createElement(Text, {
 			Text = iconType.caption,
 			tag = "auto-xy text-caption-small text-align-x-left content-muted",
-			Size = UDim2.fromOffset(160, 0),
+			Size = UDim2.fromOffset(ICON_MATRIX_COLUMN_WIDTH, 0),
 			LayoutOrder = columnIndex + 1,
 		})
 	end
@@ -477,10 +517,10 @@ local function ContentStory()
 		}
 		for columnIndex, iconType in ICON_TYPES do
 			cells[`Cell-{iconType.caption}`] = React.createElement(ItemExample, {
-				layoutOrder = columnIndex + 1,
-				size = size,
+				LayoutOrder = columnIndex + 1,
+				groupSize = size,
 				icon = iconType.icon,
-				containerWidth = 160,
+				containerWidth = ICON_MATRIX_COLUMN_WIDTH,
 			})
 		end
 		return React.createElement(View, {
@@ -555,14 +595,14 @@ local function ContentStory()
 				LayoutOrder = 1,
 			}),
 			NoIcon = React.createElement(ItemExample, {
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				label = combination.label,
 				metadata = combination.metadata,
 				description = combination.description,
 				containerWidth = ITEM_COLUMN_WIDTH,
 			}),
 			WithIcon = React.createElement(ItemExample, {
-				layoutOrder = 3,
+				LayoutOrder = 3,
 				icon = IconName.House,
 				label = combination.label,
 				metadata = combination.metadata,
@@ -576,7 +616,7 @@ local function ContentStory()
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		IconByTypeAndSize = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Icon by type and size",
 			contentTag = "auto-xy",
 		}, {
@@ -595,7 +635,7 @@ local function ContentStory()
 			}),
 		}),
 		TextCombinations = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Label, metadata & description",
 			contentTag = "auto-xy",
 		}, {
@@ -614,7 +654,7 @@ local function ContentStory()
 			}),
 		}),
 		LongText = React.createElement(Section, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			name = "Long text",
 			contentTag = "auto-xy",
 		}, {
@@ -626,68 +666,47 @@ local function ContentStory()
 					tag = "row gap-large align-y-center auto-xy",
 					LayoutOrder = 1,
 				}, {
-					Corner = React.createElement(View, {
-						Size = UDim2.fromOffset(LONG_TEXT_LABEL_WIDTH, 0),
-						LayoutOrder = 1,
-					}),
 					Default = React.createElement(Text, {
 						Text = "Default",
 						tag = "auto-xy text-caption-small text-align-x-left content-muted",
 						Size = UDim2.fromOffset(ITEM_COLUMN_WIDTH, 0),
-						LayoutOrder = 2,
+						LayoutOrder = 1,
 					}),
-					WithIconSelected = React.createElement(Text, {
-						Text = "With icon + selected",
+					WithIcon = React.createElement(Text, {
+						Text = if Flags.FoundationOptionSelectorGroupBeta then "With icon" else "With icon + selected",
 						tag = "auto-xy text-caption-small text-align-x-left content-muted",
 						Size = UDim2.fromOffset(ITEM_COLUMN_WIDTH, 0),
-						LayoutOrder = 3,
+						LayoutOrder = 2,
 					}),
 				}),
-				Rows = React.createElement(
-					View,
-					{
-						tag = "col gap-large auto-xy",
+				Row = React.createElement(View, {
+					tag = "row gap-large align-y-start auto-xy",
+					LayoutOrder = 2,
+				}, {
+					Default = React.createElement(ItemExample, {
+						LayoutOrder = 1,
+						label = LONG_TEXT,
+						metadata = LONG_TEXT,
+						description = LONG_TEXT,
+						containerWidth = ITEM_COLUMN_WIDTH,
+					}),
+					WithIcon = React.createElement(ItemExample, {
 						LayoutOrder = 2,
-					},
-					Dash.map(LONG_TEXT_SIZE_ORDER, function(size, rowIndex)
-						return React.createElement(View, {
-							tag = "row gap-large align-y-start auto-xy",
-							LayoutOrder = rowIndex,
-						}, {
-							Label = React.createElement(Text, {
-								Text = size :: string,
-								tag = "auto-xy text-caption-small text-align-x-left content-default",
-								Size = UDim2.fromOffset(LONG_TEXT_LABEL_WIDTH, 0),
-								LayoutOrder = 1,
-							}),
-							Default = React.createElement(ItemExample, {
-								layoutOrder = 2,
-								size = size,
-								label = LONG_TEXT,
-								metadata = LONG_TEXT,
-								description = LONG_TEXT,
-								containerWidth = ITEM_COLUMN_WIDTH,
-							}),
-							WithIconSelected = React.createElement(ItemExample, {
-								layoutOrder = 3,
-								size = size,
-								icon = IconName.House,
-								selectedValue = ITEM_VALUE,
-								label = LONG_TEXT,
-								metadata = LONG_TEXT,
-								description = LONG_TEXT,
-								containerWidth = ITEM_COLUMN_WIDTH,
-							}),
-						})
-					end)
-				),
+						icon = IconName.House,
+						selectedValue = if Flags.FoundationOptionSelectorGroupBeta then nil else ITEM_VALUE,
+						label = LONG_TEXT,
+						metadata = LONG_TEXT,
+						description = LONG_TEXT,
+						containerWidth = ITEM_COLUMN_WIDTH,
+					}),
+				}),
 			}),
 		}),
 	})
 end
 
 return {
-	summary = "A single selectable option inside an OptionSelectorGroup. Renders label, optional icon/metadata/description, and a checkmark when selected.",
+	summary = "A single selectable option inside an OptionSelectorGroup. Renders label, optional icon/metadata/description. Behind FoundationOptionSelectorGroupBeta, selection uses a Checked contrast stroke (no trailing checkmark) with Hover/Press state layers.",
 	stories = {
 		{
 			name = "Playground",
@@ -695,16 +714,19 @@ return {
 		},
 		{
 			name = "Sizing",
-			summary = "fillBehavior applies when the group is horizontal (item stacks content vertically); default is Fit. Vertical groups force Fill. Fit hugs content; Fill spans the parent width.",
+			summary = "Prefer Root `size` and `fillBehavior` (Item props deprecated). fillBehavior applies in horizontal groups; default Fit. Vertical groups always Fill.",
 			story = SizingStory,
 		},
 		{
 			name = "States",
+			summary = "Selected uses a contrast stroke (checkmark when FoundationOptionSelectorGroupBeta is off).",
 			story = StatesStory,
 		},
 		{
 			name = "Orientation",
-			summary = "Rows: Vertical group, Horizontal Fit, Horizontal Fill. Columns: Unselected / Selected. Each Item lays out opposite the group (vertical group → horizontal item content; horizontal group → vertical item content).",
+			summary = if Flags.FoundationOptionSelectorGroupBeta
+				then "Rows: Vertical group, Horizontal Fit, Horizontal Fill. Columns: Without icon / With icon. Each Item lays out opposite the group (vertical group → horizontal item content; horizontal group → vertical item content)."
+				else "Rows: Vertical group, Horizontal Fit, Horizontal Fill. Columns: Unselected / Selected. Each Item lays out opposite the group (vertical group → horizontal item content; horizontal group → vertical item content).",
 			story = OrientationStory,
 		},
 		{
@@ -719,13 +741,13 @@ return {
 	},
 	controls = {
 		groupOrientation = GROUP_ORIENTATION_ORDER,
+		groupSize = PLAYGROUND_GROUP_SIZE_OPTIONS,
+		groupFillBehavior = PLAYGROUND_GROUP_FILL_BEHAVIOR_OPTIONS,
 		icon = PLAYGROUND_ICON_OPTIONS,
 		isDisabled = false,
 		isSelected = false,
 		label = "Label",
 		metadata = "",
 		description = "",
-		size = SIZE_ORDER,
-		fillBehavior = PLAYGROUND_FILL_BEHAVIOR_OPTIONS,
 	},
 }

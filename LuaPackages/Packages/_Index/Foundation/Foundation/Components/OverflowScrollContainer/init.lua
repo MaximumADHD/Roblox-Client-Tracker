@@ -1,0 +1,5 @@
+local OverflowScrollContainer = require(script.OverflowScrollContainer)
+
+export type OverflowScrollContainerProps = OverflowScrollContainer.OverflowScrollContainerProps
+
+return OverflowScrollContainer

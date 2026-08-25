@@ -10,6 +10,7 @@ local InputSize = require(Foundation.Enums.InputSize)
 local Orientation = require(Foundation.Enums.Orientation)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+local devAssert = require(Foundation.Utility.devAssert)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -29,6 +30,7 @@ export type ButtonGroupItem = {
 	icon: string?,
 	inputDelay: number?,
 	ref: React.Ref<GuiObject>?,
+	testId: string?,
 }
 
 export type ButtonGroupProps = {
@@ -52,7 +54,7 @@ local defaultProps = {
 local function ButtonGroup(buttonGroupProps: ButtonGroupProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(buttonGroupProps, defaultProps)
 
-	assert(#props.buttons <= 3, `ButtonGroup: a maximum of 3 buttons is supported, got {#props.buttons}.`)
+	devAssert(#props.buttons <= 3, `ButtonGroup: a maximum of 3 buttons is supported, got {#props.buttons}.`)
 
 	local isVertical = props.orientation :: Orientation == Orientation.Vertical
 	local isFill = isVertical or props.fillBehavior == FillBehavior.Fill
@@ -64,7 +66,7 @@ local function ButtonGroup(buttonGroupProps: ButtonGroupProps, ref: React.Ref<Gu
 	local buttons: { [string]: React.ReactNode } = {}
 
 	for i, buttonItem in props.buttons do
-		buttons["Button" .. i] = React.createElement(Button, {
+		buttons[`{i}-{buttonItem.text}`] = React.createElement(Button, {
 			text = buttonItem.text,
 			onActivated = buttonItem.onActivated,
 			variant = buttonItem.variant,
@@ -77,7 +79,7 @@ local function ButtonGroup(buttonGroupProps: ButtonGroupProps, ref: React.Ref<Gu
 			size = props.size,
 			fillBehavior = buttonFillBehavior,
 			LayoutOrder = i,
-			testId = `{props.testId}--button-{i}`,
+			testId = buttonItem.testId or `{props.testId}--button-{i}`,
 		})
 	end
 

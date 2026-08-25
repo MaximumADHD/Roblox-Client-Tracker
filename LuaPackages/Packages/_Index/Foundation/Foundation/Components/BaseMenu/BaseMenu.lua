@@ -137,20 +137,53 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 
 	local radiusTag = if props.radius ~= nil then radiusToTag[props.radius] else ""
 
+	local contextValue = if Flags.FoundationStableContextValues
+		then React.useMemo(
+			function()
+				return {
+					onActivated = props.onActivated,
+					onNestedLeafActivated = props.onNestedLeafActivated,
+					size = props.size,
+					hasLeading = hasLeading,
+					setHasLeading = setHasLeading,
+					hoverOpenPath = submenuHover.openPath,
+					hoverOpenAtDepth = submenuHover.openAtDepth,
+					hoverCloseAtDepth = submenuHover.closeAtDepth,
+					hoverReset = submenuHover.reset,
+					depth = 1,
+					maxHeight = props.maxHeight,
+				}
+			end,
+			{
+				props.onActivated,
+				props.onNestedLeafActivated,
+				props.size,
+				hasLeading,
+				submenuHover.openPath,
+				submenuHover.openAtDepth,
+				submenuHover.closeAtDepth,
+				submenuHover.reset,
+				props.maxHeight,
+			} :: { unknown }
+		)
+		else nil
+
 	local menuContent = React.createElement(BaseMenuContext.Provider, {
-		value = {
-			onActivated = props.onActivated,
-			onNestedLeafActivated = props.onNestedLeafActivated,
-			size = props.size,
-			hasLeading = hasLeading,
-			setHasLeading = setHasLeading,
-			hoverOpenPath = submenuHover.openPath,
-			hoverOpenAtDepth = submenuHover.openAtDepth,
-			hoverCloseAtDepth = submenuHover.closeAtDepth,
-			hoverReset = submenuHover.reset,
-			depth = 1,
-			maxHeight = props.maxHeight,
-		},
+		value = if Flags.FoundationStableContextValues
+			then contextValue
+			else {
+				onActivated = props.onActivated,
+				onNestedLeafActivated = props.onNestedLeafActivated,
+				size = props.size,
+				hasLeading = hasLeading,
+				setHasLeading = setHasLeading,
+				hoverOpenPath = submenuHover.openPath,
+				hoverOpenAtDepth = submenuHover.openAtDepth,
+				hoverCloseAtDepth = submenuHover.closeAtDepth,
+				hoverReset = submenuHover.reset,
+				depth = 1,
+				maxHeight = props.maxHeight,
+			},
 	}, children)
 
 	if props.maxHeight then

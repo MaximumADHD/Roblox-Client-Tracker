@@ -227,7 +227,7 @@ jest.mock(CorePackages.Workspace.Packages.AppChat.ChatSessionRefCount, function(
 	}
 end)
 
-jest.mock(CorePackages.Packages.SignalsRoblox, function()
+jest.mock(CorePackages.Workspace.Packages.SignalsUtils, function()
 	return {
 		createDetachedEffect = function() end,
 	}

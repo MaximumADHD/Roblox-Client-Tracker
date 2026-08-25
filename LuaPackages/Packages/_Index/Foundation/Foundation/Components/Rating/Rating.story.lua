@@ -45,14 +45,14 @@ local function PlaygroundStory(props: {
 end
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -68,14 +68,14 @@ end
 
 local function LabeledRating(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	size: ChipSize?,
 	value: RatingValue,
 	text: string?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -99,10 +99,10 @@ local function ChipGroup(props: { children: React.ReactNode })
 	}, props.children)
 end
 
-local function SiblingRow(props: { layoutOrder: number, size: ChipSize })
+local function SiblingRow(props: { LayoutOrder: number, size: ChipSize })
 	return React.createElement(View, {
 		tag = "col gap-small size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.size :: string,
@@ -146,14 +146,14 @@ local function SizingStory(): React.ReactNode
 		Sizes = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(ChipSize, function(size, index)
 				return React.createElement(LabeledRating, {
 					label = size,
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 					value = RatingValue.None,
 				})
@@ -185,21 +185,21 @@ local function ControlledStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		ControlledImplementation = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Controlled implementation",
 			contentTag = "auto-xy",
 		}, React.createElement(ControlledImplementationExample)),
 		Values = React.createElement(
 			Section,
 			{
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				name = "Value",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(VALUE_ORDER, function(value, index)
 				return React.createElement(LabeledRating, {
 					label = value,
-					layoutOrder = index,
+					LayoutOrder = index,
 					value = value,
 				})
 			end)
@@ -207,10 +207,10 @@ local function ControlledStory(): React.ReactNode
 	})
 end
 
-local function TruncatedRating(props: { layoutOrder: number, size: ChipSize })
+local function TruncatedRating(props: { LayoutOrder: number, size: ChipSize })
 	return React.createElement(View, {
 		tag = "col gap-small size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.size :: string,
@@ -242,13 +242,13 @@ local function ContentStory(): React.ReactNode
 		Truncation = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Truncation",
 				contentTag = "col gap-large size-full-0 auto-y",
 			},
 			Dash.map(ChipSize, function(size, index)
 				return React.createElement(TruncatedRating, {
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 				})
 			end)
@@ -261,20 +261,20 @@ local function InContextStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Chips = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Chips",
 			contentTag = "col gap-medium size-full-0 auto-y",
 		}, {
 			Small = React.createElement(SiblingRow, {
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				size = ChipSize.Small,
 			}),
 			Medium = React.createElement(SiblingRow, {
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				size = ChipSize.Medium,
 			}),
 			Large = React.createElement(SiblingRow, {
-				layoutOrder = 3,
+				LayoutOrder = 3,
 				size = ChipSize.Large,
 			}),
 		}),

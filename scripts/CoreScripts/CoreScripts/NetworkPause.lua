@@ -29,7 +29,6 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 -- FLAGS
 -- Gates the anti-flicker state machine - show-delay on pause and dismissal debounce on rapid unpause.
-local FFlagGameplayPauseFlickerMitigation = game:DefineFastFlag("GameplayPauseFlickerMitigation", false)
 local FIntRapidGameplayPauseIntervalMs = game:DefineFastInt("RapidGameplayPauseIntervalMs", 1000) -- If we repause within this time since the last unpause, debounce the next dismissal to prevent oscillation.
 local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("RapidGameplayPauseMinNotificationDurationMs", 500) -- Min time to keep notification visible after a rapid unpause.
 local FIntGameplayPauseShowDelayMs = game:DefineFastInt("GameplayPauseShowDelayMs", 300) -- Min time in pause state before pause UI is shown
@@ -197,38 +196,19 @@ local function onGameplayPausedChanged()
 	end
 end
 
--- Remove with FFlagGameplayPauseFlickerMitigation
-local function togglePauseState()
-	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
-	isFirstPauseChange = false
-	if paused then
-		Notification:Show()
-	else
-		Notification:Hide()
-	end
-	RunService:SetRobloxGuiFocused(paused)
-end
-
-if FFlagGameplayPauseFlickerMitigation then
-	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(onGameplayPausedChanged)
-else
-	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(togglePauseState)
-end
+Player:GetPropertyChangedSignal("GameplayPaused"):Connect(onGameplayPausedChanged)
 
 local function enableNotification(enabled)
 	assert(type(enabled) == "boolean", "Specified argument 'enabled' must be of type boolean")
 	if enabled == NetworkPauseGui.Enabled then return end
 	NetworkPauseGui.Enabled = enabled
-	if FFlagGameplayPauseFlickerMitigation then
-		if enabled then
-			-- Re-evaluate from the current GameplayPaused state so the UI can show if we are paused.
-			onGameplayPausedChanged()
-		else
-			-- Force immediate reset; any pending show or dismiss debounce is moot when the GUI is off.
-			enterStage(STAGE.UNPAUSED)
-		end
+
+	if enabled then
+		-- Re-evaluate from the current GameplayPaused state so the UI can show if we are paused.
+		onGameplayPausedChanged()
 	else
-		togglePauseState()
+		-- Force immediate reset; any pending show or dismiss debounce is moot when the GUI is off.
+		enterStage(STAGE.UNPAUSED)
 	end
 end
 
@@ -236,6 +216,6 @@ Notification:SetParent(NetworkPauseGui)
 
 GuiService.NetworkPausedEnabledChanged:Connect(enableNotification)
 
-if FFlagGameplayPauseFlickerMitigation and FFlagStreamingPauseUIAnalyticsEnabled then
+if FFlagStreamingPauseUIAnalyticsEnabled then
 	game.Close:Connect(reportPauseSessionAnalytics)
 end

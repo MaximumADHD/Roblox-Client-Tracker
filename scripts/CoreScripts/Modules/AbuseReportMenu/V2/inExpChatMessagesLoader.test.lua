@@ -21,6 +21,7 @@ local originalMessagesStore = ExpChatShared.context.messagesStore
 local originalAreChannelTabsEnabled = helpers.areChannelTabsEnabled
 local originalGetDisplayLabel = ExpChatShared.ChannelTabDisplayLabel.getDisplayLabel
 local originalFormatChannelLabel = helpers.formatChannelLabel
+local originalYourServerLocalizationKey = ExpChatShared.ChannelTabDisplayLabel.LocalizationKeys.yourServer
 
 local FFlagExpChatUseChannelTabsStore = SharedFlags.FFlagExpChatUseChannelTabsStore
 local FFlagExpChatUseMessagesStore = SharedFlags.FFlagExpChatUseMessagesStore
@@ -173,6 +174,36 @@ local function fetchWithChannelTabsEnabled(messageData: MessageData?)
 	return loader.fetch({})
 end
 
+local function fetchWithChannelTabsDisabled()
+	helpers.areChannelTabsEnabled = function()
+		return false
+	end
+
+	if FFlagExpChatUseMessagesStore then
+		ExpChatShared.context.store = makeRoduxStore(nil)
+		ExpChatShared.context.messagesStore = {
+			getByMessageId = function()
+				return byMessageId
+			end,
+			getWindowMessagesInOrder = function()
+				return windowMessagesInOrder
+			end,
+			getWindowMessagesInOrderByTabId = function()
+				return windowMessagesInOrderByTabId
+			end,
+		}
+	else
+		ExpChatShared.context.store = makeRoduxStore({
+			byMessageId = byMessageId,
+			windowMessagesInOrder = windowMessagesInOrder,
+			windowMessagesInOrderByTabId = windowMessagesInOrderByTabId,
+		})
+		ExpChatShared.context.messagesStore = nil
+	end
+
+	return loader.fetch({})
+end
+
 local function findGroup(groups, groupId)
 	for _, group in ipairs(groups) do
 		if group.id == groupId then
@@ -203,6 +234,7 @@ describe("inExpChatMessagesLoader", function()
 		ExpChatShared.context.messagesStore = originalMessagesStore
 		helpers.areChannelTabsEnabled = originalAreChannelTabsEnabled
 		ExpChatShared.ChannelTabDisplayLabel.getDisplayLabel = originalGetDisplayLabel
+		ExpChatShared.ChannelTabDisplayLabel.LocalizationKeys.yourServer = originalYourServerLocalizationKey
 		helpers.formatChannelLabel = originalFormatChannelLabel
 		for channelName in pairs(addedSignalTabs) do
 			channelTabsStore.removeChannelTab(channelName)
@@ -269,6 +301,26 @@ describe("inExpChatMessagesLoader", function()
 
 			return loader.fetch({}):andThen(function(groups)
 				expect(groups).toEqual({})
+			end)
+		end)
+	end
+
+	if FFlagExpChatUseSharedChannelTabDisplayLabel then
+		it("uses the shared localization key when channel tabs are disabled", function()
+			ExpChatShared.ChannelTabDisplayLabel.LocalizationKeys.yourServer =
+				ExpChatShared.ChannelTabDisplayLabel.LocalizationKeys.moreServers
+
+			return fetchWithChannelTabsDisabled():andThen(function(groups)
+				expect(groups[1].label).toEqual("Global")
+			end)
+		end)
+	else
+		it("preserves the legacy localization key when channel tabs are disabled", function()
+			ExpChatShared.ChannelTabDisplayLabel.LocalizationKeys.yourServer =
+				ExpChatShared.ChannelTabDisplayLabel.LocalizationKeys.moreServers
+
+			return fetchWithChannelTabsDisabled():andThen(function(groups)
+				expect(groups[1].label).toEqual("Here")
 			end)
 		end)
 	end
@@ -398,7 +450,7 @@ describe("inExpChatMessagesLoader", function()
 				beforeEach(function()
 					previousChannelTabsStoreFlag =
 						game:SetFastFlagForTesting("ExpChatUseChannelTabsStore3", useChannelTabsStore)
-					previousLabelFlag = game:SetFastFlagForTesting("ExpChatUseSharedChannelTabDisplayLabel", true)
+					previousLabelFlag = game:SetFastFlagForTesting("ExpChatUseSharedChannelTabDisplayLabel2", true)
 					previousMessagesStoreFlag = game:SetFastFlagForTesting("ExpChatUseMessagesStore9", useMessagesStore)
 					jest.resetModules()
 
@@ -456,7 +508,7 @@ describe("inExpChatMessagesLoader", function()
 				afterEach(function()
 					dynamicChannelTabsStore.removeChannelTab("RBXGeneral")
 					game:SetFastFlagForTesting("ExpChatUseChannelTabsStore3", previousChannelTabsStoreFlag)
-					game:SetFastFlagForTesting("ExpChatUseSharedChannelTabDisplayLabel", previousLabelFlag)
+					game:SetFastFlagForTesting("ExpChatUseSharedChannelTabDisplayLabel2", previousLabelFlag)
 					game:SetFastFlagForTesting("ExpChatUseMessagesStore9", previousMessagesStoreFlag)
 					jest.resetModules()
 				end)

@@ -73,7 +73,24 @@ local function Tooltip(tooltipProps: TooltipProps)
 	local props = withDefaults(tooltipProps, defaultProps)
 	local isOpen, setIsOpen = React.useState(false)
 	local tokens = useTokens()
-	local maxXSize = useScaledValue(320)
+	local hasText = props.text ~= nil and props.text ~= ""
+	local maxXSize = useScaledValue(if Flags.FoundationTooltipBeta then 280 else 320)
+
+	local containerPadding = if Flags.FoundationTooltipBeta
+		then if hasText
+			then {
+				top = UDim.new(0, tokens.Size.Size_150),
+				bottom = UDim.new(0, tokens.Size.Size_200),
+				left = UDim.new(0, tokens.Size.Size_200),
+				right = UDim.new(0, tokens.Size.Size_200),
+			}
+			else {
+				top = UDim.new(0, tokens.Size.Size_100),
+				bottom = UDim.new(0, tokens.Size.Size_150),
+				left = UDim.new(0, tokens.Size.Size_150),
+				right = UDim.new(0, tokens.Size.Size_150),
+			}
+		else nil
 
 	local shortcutText = React.useMemo(function()
 		if props.shortcut == nil then
@@ -108,7 +125,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 		Content = React.createElement(
 			Popover.Content,
 			{
-				hasArrow = false,
+				hasArrow = if Flags.FoundationTooltipBeta then true else false,
 				align = props.align,
 				side = {
 					position = props.side,
@@ -126,9 +143,10 @@ local function Tooltip(tooltipProps: TooltipProps)
 			React.createElement(View, {
 				tag = {
 					["col gap-xsmall auto-xy"] = true,
-					["padding-x-medium padding-y-small"] = props.text ~= nil,
-					["padding-x-small padding-y-xsmall"] = props.text == nil,
+					["padding-x-medium padding-y-small"] = not Flags.FoundationTooltipBeta and props.text ~= nil,
+					["padding-x-small padding-y-xsmall"] = not Flags.FoundationTooltipBeta and props.text == nil,
 				},
+				padding = containerPadding,
 				sizeConstraint = {
 					MaxSize = Vector2.new(maxXSize, math.huge),
 				},
@@ -142,7 +160,12 @@ local function Tooltip(tooltipProps: TooltipProps)
 								then React.createElement(Text, {
 									LayoutOrder = 1,
 									Text = props.title,
-									tag = "shrink auto-xy text-title-small text-truncate-end content-inverse-emphasis",
+									tag = {
+										["shrink auto-xy text-truncate-end content-inverse-emphasis"] = true,
+										["text-title-small"] = not Flags.FoundationTooltipBeta,
+										["text-caption-medium"] = Flags.FoundationTooltipBeta and hasText,
+										["text-body-small"] = Flags.FoundationTooltipBeta and not hasText,
+									},
 									testId = `{props.testId}--title`,
 								})
 								else nil,

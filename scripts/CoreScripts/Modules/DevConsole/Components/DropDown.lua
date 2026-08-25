@@ -4,6 +4,7 @@ local RobloxGui = game:GetService("CoreGui").RobloxGui
 local Roact = require(CorePackages.Packages.Roact)
 
 local FFlagDevConsoleDropdownFlipFix = game:DefineFastFlag("DevConsoleDropdownFlipFix", false)
+local FFlagDevConsoleDropdownMultiSelect = game:DefineFastFlag("DevConsoleDropdownMultiSelect", false)
 
 local Constants = require(script.Parent.Parent.Constants)
 local FONT = Constants.Font.UtilBar
@@ -52,6 +53,11 @@ function DropDown:render()
 	local onSelection = self.props.onSelection
 	local layoutOrder = self.props.layoutOrder
 
+	-- Opt-in multi-select: onToggle + caller-owned selectedSet; list stays open.
+	local selectedSet = self.props.selectedSet
+	local onToggle = self.props.onToggle
+	local multiSelect = FFlagDevConsoleDropdownMultiSelect and onToggle ~= nil
+
 	local dropDownTargetParent = self.props.dropDownTargetParent
 
 	local showDropDown = self.ref.current and self.state.showDropDown
@@ -75,7 +81,13 @@ function DropDown:render()
 		})
 
 		for ind, name in pairs(dropDownList) do
-			local color = (ind == selectedIndex) and Constants.Color.SelectedGray or Constants.Color.UnselectedGray
+			local isSelected
+			if multiSelect then
+				isSelected = selectedSet ~= nil and selectedSet[ind] == true
+			else
+				isSelected = ind == selectedIndex
+			end
+			local color = isSelected and Constants.Color.SelectedGray or Constants.Color.UnselectedGray
 
 			children[name] = Roact.createElement("TextButton", {
 				Size = buttonSize,
@@ -92,10 +104,14 @@ function DropDown:render()
 				LayoutOrder = ind,
 
 				[Roact.Event.Activated] = function()
-					onSelection(ind)
-					self:setState({
-						showDropDown = false,
-					})
+					if multiSelect then
+						onToggle(ind)
+					else
+						onSelection(ind)
+						self:setState({
+							showDropDown = false,
+						})
+					end
 				end,
 			})
 			frameHeight = frameHeight + absoluteSize.Y
@@ -125,7 +141,7 @@ function DropDown:render()
 	return Roact.createElement("TextButton", {
 		Size = buttonSize,
 		Position = FFlagDevConsoleDropdownFlipFix and (self.props.position or UDim2.new()) or nil,
-		Text = dropDownList[selectedIndex],
+		Text = multiSelect and (self.props.summaryText or "") or dropDownList[selectedIndex],
 		TextColor3 = Constants.Color.Text,
 		TextSize = FONT_SIZE,
 		Font = FONT,

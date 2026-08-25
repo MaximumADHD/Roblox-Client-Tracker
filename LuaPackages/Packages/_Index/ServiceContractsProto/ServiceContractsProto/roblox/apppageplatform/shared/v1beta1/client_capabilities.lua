@@ -8,6 +8,7 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 
 type _Messages = {
 	ClientCapabilities: _ClientCapabilitiesMessage,
+	Platform: _PlatformMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -26,15 +27,20 @@ type _ClientCapabilitiesImpl = {
 type _ClientCapabilitiesFields = {
 	enabled_capabilities: { _roblox_apppageplatform_shared_v1beta1_capability.Capability },
 	proto_version: string,
+	platform: Platform,
 }
 
 type _ClientCapabilitiesPartialFields = {
 	enabled_capabilities: { _roblox_apppageplatform_shared_v1beta1_capability.Capability }?,
 	proto_version: string?,
+	platform: Platform?,
 }
 
 export type ClientCapabilities = typeof(setmetatable({} :: _ClientCapabilitiesFields, {} :: _ClientCapabilitiesImpl))
 type _ClientCapabilitiesMessage = proto.Message<ClientCapabilities, _ClientCapabilitiesPartialFields>
+
+type _PlatformMessage = proto.Enum<Platform>
+export type Platform = "PLATFORM_INVALID" | "PLATFORM_WEB" | "PLATFORM_APP" | number -- Unknown
 
 do
 	local _ClientCapabilitiesImpl = {}
@@ -46,6 +52,9 @@ do
 				then {}
 				else data.enabled_capabilities,
 			proto_version = if data == nil or data.proto_version == nil then "" else data.proto_version,
+			platform = if data == nil or data.platform == nil
+				then assert(messages.Platform.fromNumber(0), "Enum has no 0 default")
+				else data.platform,
 		}, _ClientCapabilitiesImpl :: _ClientCapabilitiesImpl)
 	end
 
@@ -69,6 +78,14 @@ do
 			output, cursor = proto.writeString(output, cursor, self.proto_version)
 		end
 
+		if
+			self.platform ~= nil
+			and (self.platform ~= nil and self.platform ~= 0 or self.platform ~= messages.Platform.fromNumber(0))
+		then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.Platform.toNumber(self.platform :: any))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -90,6 +107,11 @@ do
 						self.enabled_capabilities,
 						(_roblox_apppageplatform_shared_v1beta1_capability.Capability.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
 					)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.platform = (messages.Platform.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
 					continue
 				end
 
@@ -145,6 +167,15 @@ do
 			output.protoVersion = self.proto_version
 		end
 
+		if
+			self.platform ~= nil
+			and (self.platform ~= nil and self.platform ~= 0 or self.platform ~= messages.Platform.fromNumber(0))
+		then
+			output.platform = if typeof(self.platform) == "number"
+				then self.platform
+				else messages.Platform.toNumber(self.platform :: any)
+		end
+
 		return output
 	end
 
@@ -187,6 +218,12 @@ do
 			self.proto_version = input.protoVersion
 		end
 
+		if input.platform ~= nil then
+			self.platform = if typeof(input.platform) == "number"
+				then (messages.Platform.fromNumber(input.platform) or input.platform)
+				else (messages.Platform.fromName(input.platform) or input.platform)
+		end
+
 		return self
 	end
 
@@ -200,6 +237,45 @@ do
 	typeRegistry.default:register(messages.ClientCapabilities)
 end
 
+messages.Platform = {
+	fromNumber = function(value: number): Platform?
+		if value == 0 then
+			return "PLATFORM_INVALID"
+		elseif value == 1 then
+			return "PLATFORM_WEB"
+		elseif value == 2 then
+			return "PLATFORM_APP"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: Platform): number
+		if self == "PLATFORM_INVALID" then
+			return 0
+		elseif self == "PLATFORM_WEB" then
+			return 1
+		elseif self == "PLATFORM_APP" then
+			return 2
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): Platform?
+		if name == "PLATFORM_INVALID" then
+			return "PLATFORM_INVALID"
+		elseif name == "PLATFORM_WEB" then
+			return "PLATFORM_WEB"
+		elseif name == "PLATFORM_APP" then
+			return "PLATFORM_APP"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	ClientCapabilities = messages.ClientCapabilities,
+	Platform = messages.Platform,
 }

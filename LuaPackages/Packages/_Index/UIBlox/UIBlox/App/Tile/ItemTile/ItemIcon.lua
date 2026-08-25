@@ -4,6 +4,7 @@ local Tile = ItemTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -50,7 +51,16 @@ function ItemIcon:render()
 			Image = icon,
 			ImageColor3 = theme.IconEmphasis.Color,
 			ImageTransparency = theme.IconEmphasis.Transparency,
-			Position = UDim2.new(1, -tokens.Global.Size_100, 1, -tokens.Global.Size_100),
+			Position = UDim2.new(
+				1,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then -tokens.Size.Size_200
+					else -tokens.Global.Size_100,
+				1,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then -tokens.Size.Size_200
+					else -tokens.Global.Size_100
+			),
 			Size = UDim2.new(0, imageSize.X, 0, imageSize.Y),
 		})
 	end)

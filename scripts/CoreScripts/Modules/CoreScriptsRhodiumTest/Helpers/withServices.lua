@@ -11,6 +11,9 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local StyleConstants = UIBlox.App.Style.Constants
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
+
 local function dumpInstanceTree(instance, indent)
 	indent = indent or ""
 	if instance == nil then
@@ -49,7 +52,7 @@ return function(test, component, reducer, initialStoreState, props)
 	}, {
 		AppStyleProvider = Roact.createElement(AppStyleProvider, {
 			style = {
-				themeName = StyleConstants.ThemeName.Dark,
+				themeName = ColorMode.Dark,
 				fontName = StyleConstants.FontName.Gotham,
 			},
 		}, {

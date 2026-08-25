@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
@@ -70,7 +71,7 @@ PlayerTile.validateProps = t.strictInterface({
 	isCircular = t.optional(t.boolean),
 	-- Alignment of the title and subtitle to the tile
 	horizontalAlignment = t.optional(t.EnumItem),
-	-- The vertical padding above the footer, defaults to tokens.Global.Space_50
+	-- The vertical padding above the footer, defaults to tokens.Size.Size_100
 	footerTopPadding = t.optional(t.integer),
 	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
@@ -114,12 +115,27 @@ local function footer(props)
 		-- for minimal extraneous impact. If the same logic is added to PlayerContext, this should be removed.
 		local playerContextProps = Object.assign({}, {
 			fontStyle = if props.playerContext.onActivated
-				then tokens.Semantic.Typography.CaptionHeader
-				else tokens.Semantic.Typography.CaptionBody,
-			iconTextSpacing = tokens.Global.Space_50,
+				then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Typography.CaptionMedium
+					else tokens.Semantic.Typography.CaptionHeader)
+				else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Typography.BodySmall
+					else tokens.Semantic.Typography.CaptionBody),
+			iconTextSpacing = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_100
+				else tokens.Global.Space_50,
 			iconPadding = 0,
-			iconSize = UDim2.fromOffset(tokens.Global.Size_150, tokens.Global.Size_150),
-			textHeight = tokens.Global.Size_350,
+			iconSize = UDim2.fromOffset(
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_300
+					else tokens.Global.Size_150,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_300
+					else tokens.Global.Size_150
+			),
+			textHeight = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_700
+				else tokens.Global.Size_350,
 			horizontalAlignment = props.horizontalAlignment,
 			textXAlignment = props.textXAlignment,
 		}, props.playerContext)
@@ -138,9 +154,15 @@ local function thumbnailOverlayComponents(props)
 	return withStyle(function(style)
 		local tokens = style.Tokens
 
-		local outerButtonPadding = tokens.Global.Space_100
-		local buttonGap = tokens.Global.Space_100
-		local buttonHeight = tokens.Global.Size_450
+		local outerButtonPadding = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_200
+			else tokens.Global.Space_100
+		local buttonGap = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_200
+			else tokens.Global.Space_100
+		local buttonHeight = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_900
+			else tokens.Global.Size_450
 
 		local primaryContentStyle = getContentStyle(CONTENT_STATE_COLOR, props.controlState, style)
 		return Roact.createElement("Frame", {
@@ -283,8 +305,18 @@ function PlayerTile:render()
 
 	return withStyle(function(style)
 		local tokens = style.Tokens
-		local subtitleFontStyle = self.props.subtitleFontStyle or tokens.Semantic.Typography.CaptionHeader
-		local footerTopPadding = self.props.footerTopPadding or tokens.Global.Space_50
+		local subtitleFontStyle = self.props.subtitleFontStyle
+			or (
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Typography.CaptionMedium
+					else tokens.Semantic.Typography.CaptionHeader
+			)
+		local footerTopPadding = self.props.footerTopPadding
+			or (
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_100
+					else tokens.Global.Space_50
+			)
 
 		return Roact.createElement("Frame", {
 			Size = tileSize,
@@ -305,13 +337,21 @@ function PlayerTile:render()
 				Selectable = self.props.Selectable,
 				hasRoundedCorners = true,
 				innerPadding = INNER_PADDING,
-				titleTopPadding = tokens.Global.Space_100,
-				subtitleTopPadding = tokens.Global.Space_25,
+				titleTopPadding = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_200
+					else tokens.Global.Space_100,
+				subtitleTopPadding = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_50
+					else tokens.Global.Space_25,
 				footerTopPadding = footerTopPadding,
 				name = title,
-				nameTextColor = tokens.Semantic.Color.Text.Emphasis.Color3,
+				nameTextColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Color.Content.Emphasis.Color3
+					else tokens.Semantic.Color.Text.Emphasis.Color3,
 				titleRichText = true,
-				titleFontStyle = tokens.Semantic.Typography.Subheader,
+				titleFontStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Typography.TitleLarge
+					else tokens.Semantic.Typography.Subheader,
 				hasVerifiedBadge = self.props.hasVerifiedBadge,
 				titleTextLineCount = 1,
 				subtitle = self.props.subtitle,

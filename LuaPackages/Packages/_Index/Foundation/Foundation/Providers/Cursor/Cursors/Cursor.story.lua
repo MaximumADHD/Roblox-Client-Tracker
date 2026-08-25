@@ -13,11 +13,11 @@ local View = require(Foundation.Components.View)
 local cursorTypes: { CursorType } = Dash.values(CursorType)
 table.sort(cursorTypes)
 
-local function CursorPreview(cursorType, colorNamespace, layoutOrder: number?)
+local function CursorPreview(cursorType, colorNamespace, LayoutOrder: number?)
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromOffset(100, 50),
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	}, {
 		Frame = React.createElement("Frame", {
 			BackgroundTransparency = 1,

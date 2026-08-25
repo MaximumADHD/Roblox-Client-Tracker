@@ -49,12 +49,24 @@ local function OverlayProvider(overlayProps: Props)
 	local overlayInstance = if props.gui ~= nil then props.gui else overlay
 	local screenInstance = if props.gui ~= nil then props.gui else screen
 
+	local contextValue = if Flags.FoundationStableContextValues
+		then React.useMemo(function()
+			return {
+				requestOverlay = requestOverlay,
+				instance = overlayInstance,
+				screen = screenInstance,
+			}
+		end, { requestOverlay, overlayInstance, screenInstance } :: { unknown })
+		else nil
+
 	return React.createElement(OverlayContext.Provider, {
-		value = {
-			requestOverlay = requestOverlay,
-			instance = overlayInstance,
-			screen = screenInstance,
-		},
+		value = if Flags.FoundationStableContextValues
+			then contextValue
+			else {
+				requestOverlay = requestOverlay,
+				instance = overlayInstance,
+				screen = screenInstance,
+			},
 	}, {
 		FoundationOverlay = if shouldRender
 			then ReactRoblox.createPortal(

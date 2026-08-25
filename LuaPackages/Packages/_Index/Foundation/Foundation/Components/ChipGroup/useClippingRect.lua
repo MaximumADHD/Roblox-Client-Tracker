@@ -1,3 +1,4 @@
+-- TODO: Clean up with FFlagFoundationUnifiedScrimScrolling (replaced by Components/OverflowScrollContainer/useClippingRect)
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 

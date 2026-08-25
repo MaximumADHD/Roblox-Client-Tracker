@@ -22,7 +22,10 @@ type InputSize = InputSize.InputSize
 local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
+local useInputGroupDefaults = require(Foundation.Components.InternalInputGroup.useInputGroupDefaults)
 local useRadioGroup = require(script.Parent.Parent.useRadioGroup)
+
+local Flags = require(Foundation.Utility.Flags)
 
 export type RadioGroupItemProps = {
 	-- A unique value for the radio item.
@@ -33,6 +36,8 @@ export type RadioGroupItemProps = {
 	-- A label for the radio item. To omit, set it to an empty string.
 	-- When nil, defaults to `value`.
 	label: string | React.ReactNode?,
+	-- A secondary description displayed below the label.
+	hint: string?,
 	-- Size of the radio item
 	size: InputSize?,
 	placement: InputPlacement?,
@@ -45,7 +50,9 @@ local defaultProps = {
 }
 
 local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(radioGroupItemProps, defaultProps)
+	local props: RadioGroupItemProps & typeof(defaultProps) = if Flags.FoundationInputGroup
+		then useInputGroupDefaults(radioGroupItemProps, defaultProps)
+		else withDefaults(radioGroupItemProps, defaultProps)
 	local isDisabled = props.isDisabled
 	local radioGroupContext = useRadioGroup()
 
@@ -72,6 +79,7 @@ local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: Rea
 			label = {
 				text = label,
 				position = Constants.INPUT_PLACEMENT_TO_LABEL_ALIGNMENT[props.placement],
+				hint = if Flags.FoundationRadioBeta then props.hint else nil,
 			},
 			customVariantProps = variantProps.input,
 			size = props.size,

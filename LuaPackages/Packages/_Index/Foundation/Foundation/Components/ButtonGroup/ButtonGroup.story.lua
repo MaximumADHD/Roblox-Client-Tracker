@@ -112,14 +112,14 @@ local function needsBoundedContainer(orientation: Orientation, fillBehavior: Fil
 end
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -134,7 +134,7 @@ local function Section(props: {
 end
 
 local function GroupContainer(props: {
-	layoutOrder: number?,
+	LayoutOrder: number?,
 	orientation: Orientation,
 	fillBehavior: FillBehavior?,
 	size: ButtonGroupSize,
@@ -147,7 +147,7 @@ local function GroupContainer(props: {
 	return React.createElement(View, {
 		tag = if bounded then "size-full-0 auto-y" else "auto-xy",
 		Size = if bounded then UDim2.fromOffset(width, 0) else nil,
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Group = React.createElement(ButtonGroup, {
 			orientation = props.orientation,
@@ -160,7 +160,7 @@ end
 
 local function LabeledGroup(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	size: ButtonGroupSize?,
 	orientation: Orientation?,
 	fillBehavior: FillBehavior?,
@@ -168,7 +168,7 @@ local function LabeledGroup(props: {
 })
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -176,7 +176,7 @@ local function LabeledGroup(props: {
 			LayoutOrder = 1,
 		}),
 		Group = React.createElement(GroupContainer, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			orientation = props.orientation or Orientation.Horizontal,
 			fillBehavior = props.fillBehavior,
 			size = props.size or InputSize.Medium,
@@ -186,14 +186,14 @@ local function LabeledGroup(props: {
 end
 
 local function ButtonsMatrixCell(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	orientation: Orientation,
 	buttonCount: number,
 })
 	return React.createElement(View, {
 		tag = "col align-x-left auto-xy",
 		Size = UDim2.fromOffset(LAYOUT_COLUMN_WIDTH, 0),
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Content = React.createElement(GroupContainer, {
 			orientation = props.orientation,
@@ -205,7 +205,7 @@ local function ButtonsMatrixCell(props: {
 end
 
 local function OverflowExampleCell(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	column: FillBehaviorColumn,
 })
 	local isFill = props.column.fillBehavior == FillBehavior.Fill
@@ -216,7 +216,7 @@ local function OverflowExampleCell(props: {
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
 		Size = UDim2.fromOffset(containerWidth, 0),
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		FillBehaviorLabel = React.createElement(Text, {
 			Text = fillBehaviorLabel,
@@ -246,14 +246,14 @@ local function OverflowExampleCell(props: {
 end
 
 local function FillBehaviorMatrixCell(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	orientation: Orientation,
 	fillBehavior: FillBehavior?,
 })
 	return React.createElement(View, {
 		tag = "col align-x-left auto-xy",
 		Size = UDim2.fromOffset(LAYOUT_COLUMN_WIDTH, 0),
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Content = React.createElement(GroupContainer, {
 			orientation = props.orientation,
@@ -293,7 +293,7 @@ local function ContentStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Buttons = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Buttons",
 			contentTag = "auto-xy",
 		}, {
@@ -310,7 +310,7 @@ local function ContentStory(): React.ReactNode
 						label = matrixLabel(orientation :: string),
 						cells = Dash.map(BUTTON_COUNTS, function(buttonCount)
 							return React.createElement(ButtonsMatrixCell, {
-								layoutOrder = 1,
+								LayoutOrder = 1,
 								orientation = orientation,
 								buttonCount = buttonCount,
 							})
@@ -320,7 +320,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		Overflow = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Overflow",
 			contentTag = "col gap-large align-x-left auto-xy",
 		}, {
@@ -332,7 +332,7 @@ local function ContentStory(): React.ReactNode
 				},
 				Dash.map(FILL_BEHAVIOR_COLUMNS, function(column, index)
 					return React.createElement(OverflowExampleCell, {
-						layoutOrder = index,
+						LayoutOrder = index,
 						column = column,
 					})
 				end)
@@ -348,14 +348,14 @@ local function SizingStory(): React.ReactNode
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledGroup, {
 					label = size :: string,
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 					orientation = Orientation.Horizontal,
 					fillBehavior = nil,
@@ -366,7 +366,7 @@ local function SizingStory(): React.ReactNode
 		FillBehavior = React.createElement(
 			Section,
 			{
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				name = "Fill behavior",
 				contentTag = "row gap-xxlarge align-y-start auto-xy",
 			},
@@ -381,7 +381,7 @@ local function SizingStory(): React.ReactNode
 						LayoutOrder = 1,
 					}),
 					Content = React.createElement(FillBehaviorMatrixCell, {
-						layoutOrder = 2,
+						LayoutOrder = 2,
 						orientation = Orientation.Horizontal,
 						fillBehavior = column.fillBehavior,
 					}),
@@ -400,7 +400,7 @@ local function OrientationStory(): React.ReactNode
 		Dash.map(ORIENTATION_ORDER, function(orientation, index)
 			return React.createElement(LabeledGroup, {
 				label = orientation :: string,
-				layoutOrder = index,
+				LayoutOrder = index,
 				orientation = orientation,
 				fillBehavior = nil,
 				size = InputSize.Medium,

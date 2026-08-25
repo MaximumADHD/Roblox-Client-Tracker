@@ -134,13 +134,11 @@ local function addRegisteredStyleSheetTags(sheet: FoundationStyleSheet, tags: { 
 			continue
 		end
 
-		local styleRule = createStyleRule(rule, tag)
-		styleRule.Parent = sheet.instance
+		(createStyleRule(rule, tag)).Parent = sheet.instance
 		applyAttributes(sheet, rule.attributes)
 		if rule.children then
 			for _, child in rule.children do
-				local childRule = createStyleRule(child, child.tag)
-				childRule.Parent = sheet.instance
+				(createStyleRule(child, child.tag)).Parent = sheet.instance
 				applyAttributes(sheet, child.attributes)
 			end
 		end

@@ -1,3 +1,4 @@
+-- TODO: Clean up with FFlagFoundationUnifiedScrimScrolling (replaced by Components/OverflowScrollContainer)
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)

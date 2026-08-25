@@ -80,30 +80,58 @@ type InnerItemProps = {
 
 local function getStyleDefaults(tokens: StyleTypes.Tokens): ItemStyleProps
 	return {
-		iconLabelSpacing = tokens.Global.Space_25,
-		iconSize = tokens.Semantic.Icon.Size.Small,
-		iconColorStyle = tokens.Semantic.Color.Icon.Default,
-		labelTypography = tokens.Semantic.Typography.CaptionHeader,
-		labelColorStyle = tokens.Semantic.Color.Text.Default,
+		iconLabelSpacing = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_50
+			else tokens.Global.Space_25,
+		iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_400
+			else tokens.Semantic.Icon.Size.Small,
+		iconColorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Content.Default
+			else tokens.Semantic.Color.Icon.Default,
+		labelTypography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Typography.CaptionMedium
+			else tokens.Semantic.Typography.CaptionHeader,
+		labelColorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Content.Default
+			else tokens.Semantic.Color.Text.Default,
 	}
 end
 
 local function getDisplayNameStyleDefaults(tokens: StyleTypes.Tokens): ItemStyleProps
 	return {
-		iconLabelSpacing = tokens.Global.Space_25,
-		iconSize = tokens.Semantic.Icon.Size.Small,
-		labelTypography = tokens.Semantic.Typography.Subheader,
-		labelColorStyle = tokens.Semantic.Color.Text.Emphasis,
+		iconLabelSpacing = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_50
+			else tokens.Global.Space_25,
+		iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_400
+			else tokens.Semantic.Icon.Size.Small,
+		labelTypography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Typography.TitleLarge
+			else tokens.Semantic.Typography.Subheader,
+		labelColorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Content.Emphasis
+			else tokens.Semantic.Color.Text.Emphasis,
 	}
 end
 
 local function getUserNameStyleDefaults(tokens: StyleTypes.Tokens): ItemStyleProps
 	return {
-		iconLabelSpacing = tokens.Global.Space_25,
-		iconSize = tokens.Global.Size_150,
-		iconColorStyle = tokens.Semantic.Color.Icon.Default,
-		labelTypography = tokens.Semantic.Typography.CaptionHeader,
-		labelColorStyle = tokens.Semantic.Color.Text.Default,
+		iconLabelSpacing = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_50
+			else tokens.Global.Space_25,
+		iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Size.Size_300
+			else tokens.Global.Size_150,
+		iconColorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Content.Default
+			else tokens.Semantic.Color.Icon.Default,
+		labelTypography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Typography.CaptionMedium
+			else tokens.Semantic.Typography.CaptionHeader,
+		labelColorStyle = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then tokens.Color.Content.Default
+			else tokens.Semantic.Color.Text.Default,
 	}
 end
 
@@ -220,7 +248,12 @@ local function PlayerName(props: Props)
 	local automaticSize = props.automaticSize or Enum.AutomaticSize.Y
 	local layoutOrder = props.layoutOrder
 
-	local namesSpacing = props.namesSpacing or style.Tokens.Global.Space_50
+	local namesSpacing = props.namesSpacing
+		or (
+			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Size.Size_100
+				else style.Tokens.Global.Space_50
+		)
 	local displayNameItem = props.displayNameItem
 	local userNameItem = props.userNameItem
 	local vendorNameItem = props.vendorNameItem

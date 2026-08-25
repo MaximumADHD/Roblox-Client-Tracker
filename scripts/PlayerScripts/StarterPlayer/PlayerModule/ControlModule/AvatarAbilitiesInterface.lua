@@ -1,10 +1,10 @@
 local Players = game:GetService("Players")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationC = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationC")
+local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
 
-if FFlagUserPlayerScriptsCCLIntegrationC then
+if FFlagUserPlayerScriptsCCLIntegrationD then
     local AvatarAbilitiesInterface = {}
     AvatarAbilitiesInterface.__index = AvatarAbilitiesInterface
 
@@ -290,7 +290,7 @@ if FFlagUserPlayerScriptsCCLIntegrationC then
 
     return AvatarAbilitiesInterface
 
-else -- FFlagUserPlayerScriptsCCLIntegrationC
+else -- FFlagUserPlayerScriptsCCLIntegrationD
 
     local Players = game:GetService("Players")
 
@@ -351,4 +351,4 @@ else -- FFlagUserPlayerScriptsCCLIntegrationC
 
     return AvatarAbilitiesInterface
 
-end -- FFlagUserPlayerScriptsCCLIntegrationC
+end -- FFlagUserPlayerScriptsCCLIntegrationD

@@ -73,6 +73,7 @@ local ListItemInputType = require(script.Enums.ListItemInputType)
 local NumberInputControlsVariant = require(script.Enums.NumberInputControlsVariant)
 local OnChangeCallbackReason = require(script.Enums.OnChangeCallbackReason)
 local OnCloseCallbackReason = require(script.Enums.OnCloseCallbackReason)
+local OptionSelectorGroupSize = require(script.Enums.OptionSelectorGroupSize)
 local Orientation = require(script.Enums.Orientation)
 local PaginationSize = require(script.Enums.PaginationSize)
 local PaginationVariant = require(script.Enums.PaginationVariant)
@@ -138,6 +139,7 @@ export type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputC
 export type ScrubBehavior = ScrubBehavior.ScrubBehavior
 export type OnChangeCallbackReason = OnChangeCallbackReason.OnChangeCallbackReason
 export type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
+export type OptionSelectorGroupSize = OptionSelectorGroupSize.OptionSelectorGroupSize
 export type Orientation = Orientation.Orientation
 export type PaginationSize = PaginationSize.PaginationSize
 export type PaginationVariant = PaginationVariant.PaginationVariant
@@ -203,6 +205,9 @@ export type ButtonGroupItem = ButtonGroup.ButtonGroupItem
 
 local Checkbox = require(script.Components.Checkbox)
 export type CheckboxProps = Checkbox.CheckboxProps
+
+local CheckboxGroup = require(script.Components.CheckboxGroup)
+export type CheckboxGroupProps = CheckboxGroup.CheckboxGroupProps
 
 local Coachmark = require(script.Components.Coachmark)
 export type CoachmarkProps = Coachmark.CoachmarkProps
@@ -373,6 +378,9 @@ export type TextInputRef = Types.TextInputRef
 local Toggle = require(script.Components.Toggle)
 export type ToggleProps = Toggle.ToggleProps
 
+local ToggleGroup = require(script.Components.ToggleGroup)
+export type ToggleGroupProps = ToggleGroup.ToggleGroupProps
+
 local Tooltip = require(script.Components.Tooltip)
 export type TooltipProps = Tooltip.TooltipProps
 
@@ -394,6 +402,7 @@ local Foundation = strict({
 	Button = Button,
 	ButtonGroup = ButtonGroup,
 	Checkbox = Checkbox,
+	CheckboxGroup = CheckboxGroup,
 	Chip = Chip,
 	ChipGroup = ChipGroup,
 	Coachmark = Coachmark,
@@ -440,6 +449,7 @@ local Foundation = strict({
 	TextArea = TextArea,
 	TextInput = TextInput,
 	Toggle = Toggle,
+	ToggleGroup = ToggleGroup,
 	Tooltip = Tooltip,
 	Toast = Toast,
 	View = View,
@@ -520,6 +530,7 @@ local Foundation = strict({
 		ScrubBehavior = ScrubBehavior,
 		OnChangeCallbackReason = OnChangeCallbackReason,
 		OnCloseCallbackReason = OnCloseCallbackReason,
+		OptionSelectorGroupSize = OptionSelectorGroupSize,
 		Orientation = Orientation,
 		PaginationSize = PaginationSize,
 		PaginationVariant = PaginationVariant,

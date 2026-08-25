@@ -23,6 +23,9 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local Signals = require(CorePackages.Packages.Signals)
 local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceTopBar)
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
+
 local EmotesModules = script.Parent
 local CoreScriptModules = EmotesModules.Parent
 
@@ -314,7 +317,7 @@ function EmotesMenuMaster:_connectListeners()
 		end
 	end)
 
-	if FFlagTopBarSignalizeSetCores then 
+	if FFlagTopBarSignalizeSetCores then
 		self.disposeEffect = Signals.createEffect(function(scope)
 			local getTopBarStore = InExperienceTopBar.Stores.GetTopBarStore
 			if getTopBarStore then
@@ -334,7 +337,7 @@ end
 
 function EmotesMenuMaster:_mount()
 	local appStyleForUiModeStyleProvider = {
-		themeName = StyleConstants.ThemeName.Dark,
+		themeName = ColorMode.Dark,
 		fontName = StyleConstants.FontName.Gotham,
 	}
 

@@ -4,6 +4,7 @@ local Tile = BaseTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -46,7 +47,16 @@ function TileSelectionOverlay:render()
 				BackgroundTransparency = 1,
 				Image = selectionIcon,
 				-- Use reduced padding here because selected icon includes empty border space
-				Position = UDim2.new(1, -tokens.Global.Size_25, 0, tokens.Global.Size_25),
+				Position = UDim2.new(
+					1,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then -tokens.Size.Size_50
+						else -tokens.Global.Size_25,
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_50
+						else tokens.Global.Size_25
+				),
 				Size = UDim2.new(0, imageSize.X, 0, imageSize.Y),
 			}),
 			UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {

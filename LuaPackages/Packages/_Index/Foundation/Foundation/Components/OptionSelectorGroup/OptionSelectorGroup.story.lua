@@ -5,21 +5,33 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local FillBehavior = require(Foundation.Enums.FillBehavior)
-local InputSize = require(Foundation.Enums.InputSize)
 local OptionSelectorGroup = require(Foundation.Components.OptionSelectorGroup)
+local OptionSelectorGroupSize = require(Foundation.Enums.OptionSelectorGroupSize)
 local Orientation = require(Foundation.Enums.Orientation)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
 type FillBehavior = FillBehavior.FillBehavior
-type InputSize = InputSize.InputSize
+type OptionSelectorGroupSize = OptionSelectorGroupSize.OptionSelectorGroupSize
 type Orientation = Orientation.Orientation
 
-local SIZE_ORDER: { InputSize } = {
-	InputSize.XSmall,
-	InputSize.Small,
-	InputSize.Medium,
-	InputSize.Large,
+local SIZE_ORDER: { OptionSelectorGroupSize } = {
+	OptionSelectorGroupSize.XSmall,
+	OptionSelectorGroupSize.Small,
+	OptionSelectorGroupSize.Medium,
+}
+
+local PLAYGROUND_SIZE_OPTIONS = {
+	React.None,
+	OptionSelectorGroupSize.XSmall,
+	OptionSelectorGroupSize.Small,
+	OptionSelectorGroupSize.Medium,
+}
+
+local PLAYGROUND_FILL_BEHAVIOR_OPTIONS = {
+	React.None,
+	FillBehavior.Fit,
+	FillBehavior.Fill,
 }
 
 local ORIENTATION_ORDER: { Orientation } = {
@@ -28,24 +40,23 @@ local ORIENTATION_ORDER: { Orientation } = {
 }
 
 local ITEM_VALUES = { "Option A", "Option B", "Option C" }
--- Varied lengths so wrapping / taller items show up in Content and Sizing stories.
+-- Varied lengths so wrapping / taller items show up in Orientation and Sizing stories.
 local ITEM_DESCRIPTIONS = {
 	"Description",
 	"A little bit longer description",
 }
-local PLAYGROUND_VALUE_OPTIONS = { React.None, "Option A", "Option B" }
 
 local GROUP_COLUMN_WIDTH = 280
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -61,8 +72,6 @@ end
 
 local function makeItems(props: {
 	count: number?,
-	size: InputSize?,
-	fillBehavior: FillBehavior?,
 	withDescriptions: boolean?,
 })
 	local count = props.count or #ITEM_VALUES
@@ -75,8 +84,6 @@ local function makeItems(props: {
 			value = value,
 			label = value,
 			description = if props.withDescriptions then ITEM_DESCRIPTIONS[index] else nil,
-			size = props.size or InputSize.Medium,
-			fillBehavior = props.fillBehavior,
 			LayoutOrder = index,
 		})
 	end
@@ -86,11 +93,12 @@ end
 
 local function GroupExample(
 	props: {
-		layoutOrder: number?,
+		LayoutOrder: number?,
 		orientation: Orientation?,
 		value: string?,
 		onValueChanged: ((string) -> ())?,
-		size: InputSize?,
+		size: OptionSelectorGroupSize?,
+		legend: string?,
 		itemCount: number?,
 		fillBehavior: FillBehavior?,
 		containerWidth: number?,
@@ -112,7 +120,7 @@ local function GroupExample(
 	return React.createElement(View, {
 		tag = wrapperTag,
 		Size = if needsBoundedWidth then UDim2.fromOffset(props.containerWidth or GROUP_COLUMN_WIDTH, 0) else nil,
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Group = React.createElement(
 			OptionSelectorGroup.Root,
@@ -120,12 +128,13 @@ local function GroupExample(
 				value = props.value,
 				onValueChanged = props.onValueChanged or Dash.noop,
 				orientation = orientation,
+				size = props.size,
+				fillBehavior = props.fillBehavior,
+				legend = props.legend,
 				Selectable = true,
 			},
 			makeItems({
 				count = props.itemCount,
-				size = props.size,
-				fillBehavior = props.fillBehavior,
 				withDescriptions = props.withDescriptions,
 			})
 		),
@@ -134,10 +143,11 @@ end
 
 local function LabeledGroup(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	orientation: Orientation?,
 	value: string?,
-	size: InputSize?,
+	size: OptionSelectorGroupSize?,
+	legend: string?,
 	itemCount: number?,
 	fillBehavior: FillBehavior?,
 	containerWidth: number?,
@@ -147,7 +157,7 @@ local function LabeledGroup(props: {
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -163,10 +173,11 @@ local function LabeledGroup(props: {
 			})
 			else nil,
 		Group = React.createElement(GroupExample, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			orientation = props.orientation,
 			value = props.value,
 			size = props.size,
+			legend = props.legend,
 			itemCount = props.itemCount,
 			fillBehavior = props.fillBehavior,
 			containerWidth = props.containerWidth,
@@ -179,18 +190,23 @@ end
 local function PlaygroundStory(props: {
 	controls: {
 		orientation: Orientation,
-		value: string | typeof(React.None),
+		size: OptionSelectorGroupSize?,
+		fillBehavior: FillBehavior?,
+		legend: string,
 	},
 })
 	local controls = props.controls
+	local isHorizontal = controls.orientation == Orientation.Horizontal
 
 	return React.createElement(GroupExample, {
 		orientation = controls.orientation,
-		value = if controls.value == React.None then nil else controls.value,
-		onValueChanged = function(newValue: string)
-			print("OptionSelectorGroup value changed", newValue)
-		end,
+		size = if controls.size == React.None then nil else controls.size :: OptionSelectorGroupSize?,
+		fillBehavior = if controls.fillBehavior == React.None then nil else controls.fillBehavior :: FillBehavior?,
+		legend = if #controls.legend > 0 then controls.legend else nil,
+		onValueChanged = Dash.noop,
 		itemCount = 2,
+		containerWidth = if isHorizontal then GROUP_COLUMN_WIDTH * 2 else nil,
+		parentSurface = isHorizontal,
 	})
 end
 
@@ -201,14 +217,14 @@ local function SizingStory()
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledGroup, {
 					label = size :: string,
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 					orientation = Orientation.Vertical,
 					itemCount = 2,
@@ -216,13 +232,13 @@ local function SizingStory()
 			end)
 		),
 		FillBehavior = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Fill behavior",
 			contentTag = "col gap-large align-x-left size-full-0 auto-y",
 		}, {
 			Fit = React.createElement(LabeledGroup, {
 				label = "Fit",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				orientation = Orientation.Horizontal,
 				itemCount = 2,
 				fillBehavior = FillBehavior.Fit,
@@ -231,7 +247,7 @@ local function SizingStory()
 			}),
 			Fill = React.createElement(LabeledGroup, {
 				label = "Fill",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				orientation = Orientation.Horizontal,
 				itemCount = 2,
 				fillBehavior = FillBehavior.Fill,
@@ -277,9 +293,9 @@ local function OrientationStory()
 		}
 		for columnIndex, fill in FILL_BEHAVIOR_ORDER do
 			cells[`Cell-{fill.label}`] = React.createElement(GroupExample, {
-				layoutOrder = columnIndex + 1,
+				LayoutOrder = columnIndex + 1,
 				orientation = orientation,
-				value = ITEM_VALUES[1],
+				onValueChanged = Dash.noop,
 				itemCount = 2,
 				fillBehavior = fill.value,
 				containerWidth = ORIENTATION_MATRIX_CELL_WIDTH,
@@ -311,15 +327,39 @@ local function OrientationStory()
 		}, rows),
 		NoWrap = React.createElement(LabeledGroup, {
 			label = "No wrap (horizontal)",
-			layoutOrder = 4,
+			LayoutOrder = 4,
 			orientation = Orientation.Horizontal,
-			value = ITEM_VALUES[1],
 			itemCount = 3,
 			fillBehavior = FillBehavior.Fit,
 			containerWidth = 240,
 			parentSurface = true,
 			note = "The parent (gray) is too narrow for all three items, so the row overflows to the right instead of wrapping onto a new line.",
 		}),
+	})
+end
+
+local function ContentStory()
+	return React.createElement(View, {
+		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
+	}, {
+		Legend = React.createElement(
+			Section,
+			{
+				LayoutOrder = 1,
+				name = "Legend",
+				contentTag = "row gap-large align-y-start auto-xy wrap",
+			},
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(LabeledGroup, {
+					label = size :: string,
+					LayoutOrder = index,
+					size = size,
+					legend = "Legend",
+					orientation = Orientation.Vertical,
+					itemCount = 2,
+				})
+			end)
+		),
 	})
 end
 
@@ -330,7 +370,7 @@ local function ControlledExample()
 		tag = "col gap-medium auto-xy",
 	}, {
 		Group = React.createElement(GroupExample, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			value = value,
 			onValueChanged = function(newValue: string)
 				setValue(newValue)
@@ -350,7 +390,7 @@ local function ControlledStory()
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Controlled = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Selection updates value",
 			contentTag = "auto-xy",
 		}, {
@@ -378,9 +418,15 @@ return {
 			name = "Controlled component",
 			story = ControlledStory,
 		},
+		{
+			name = "Content",
+			story = ContentStory,
+		},
 	},
 	controls = {
 		orientation = ORIENTATION_ORDER,
-		value = PLAYGROUND_VALUE_OPTIONS,
+		size = PLAYGROUND_SIZE_OPTIONS,
+		fillBehavior = PLAYGROUND_FILL_BEHAVIOR_OPTIONS,
+		legend = "",
 	},
 }

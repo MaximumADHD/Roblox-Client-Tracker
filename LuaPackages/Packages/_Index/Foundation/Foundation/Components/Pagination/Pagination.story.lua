@@ -45,12 +45,12 @@ end
 
 local function LabeledPagination(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -66,12 +66,12 @@ end
 
 local function Subsection(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Heading = React.createElement(Text, {
 			Text = props.label,
@@ -151,13 +151,13 @@ end
 local function MultiPageExample(props: {
 	count: number,
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	page: number,
 	size: PaginationSize?,
 })
 	return React.createElement(LabeledPagination, {
 		label = props.label,
-		layoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Pagination = createPagination({
 			variant = PaginationVariant.MultiPage,
@@ -299,7 +299,7 @@ local function SizeStory(): React.ReactNode
 		Dash.map(SIZES, function(size, index)
 			return React.createElement(LabeledPagination, {
 				label = size,
-				layoutOrder = index,
+				LayoutOrder = index,
 			}, {
 				Pagination = createPagination({
 					variant = PaginationVariant.MultiPage,
@@ -322,7 +322,7 @@ local function VariantsStory(): React.ReactNode
 		Dash.map(VARIANT_ORDER, function(variant, index)
 			return React.createElement(LabeledPagination, {
 				label = variant,
-				layoutOrder = index,
+				LayoutOrder = index,
 			}, {
 				Pagination = createPagination(variantProps(variant)),
 			})
@@ -336,45 +336,45 @@ local function ControlledStory(): React.ReactNode
 	}, {
 		MultiPage = React.createElement(Subsection, {
 			label = "MultiPage",
-			layoutOrder = 1,
+			LayoutOrder = 1,
 		}, {
 			Default = React.createElement(LabeledPagination, {
 				label = "With count",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 			}, {
 				Pagination = React.createElement(ControlledMultiPageExample),
 			}),
 		}),
 		SinglePage = React.createElement(Subsection, {
 			label = "SinglePage",
-			layoutOrder = 2,
+			LayoutOrder = 2,
 		}, {
 			WithCount = React.createElement(LabeledPagination, {
 				label = "With count",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 			}, {
 				Pagination = React.createElement(ControlledSinglePageWithCountExample),
 			}),
 			WithoutCount = React.createElement(LabeledPagination, {
 				label = "Without count (hasNextPage / hasPreviousPage)",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 			}, {
 				Pagination = React.createElement(ControlledSinglePageWithoutCountExample),
 			}),
 		}),
 		NoPage = React.createElement(Subsection, {
 			label = "NoPage",
-			layoutOrder = 3,
+			LayoutOrder = 3,
 		}, {
 			WithCount = React.createElement(LabeledPagination, {
 				label = "With count",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 			}, {
 				Pagination = React.createElement(ControlledNoPageWithCountExample),
 			}),
 			WithoutCount = React.createElement(LabeledPagination, {
 				label = "Without count (hasNextPage / hasPreviousPage)",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 			}, {
 				Pagination = React.createElement(ControlledNoPageWithoutCountExample),
 			}),
@@ -388,41 +388,41 @@ local function ContentStory(): React.ReactNode
 	}, {
 		NoTruncation = React.createElement(Subsection, {
 			label = "No truncation (≤7 pages)",
-			layoutOrder = 1,
+			LayoutOrder = 1,
 		}, {
 			TwoPages = React.createElement(MultiPageExample, {
 				count = 2,
 				label = "2 pages",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				page = 1,
 			}),
 			SevenPages = React.createElement(MultiPageExample, {
 				count = 7,
 				label = "7 pages (all slots visible)",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				page = 4,
 			}),
 		}),
 		Truncation = React.createElement(Subsection, {
 			label = "Truncation (>7 pages)",
-			layoutOrder = 2,
+			LayoutOrder = 2,
 		}, {
 			Start = React.createElement(MultiPageExample, {
 				count = 9,
 				label = "Page 1 (trailing ellipsis)",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				page = 1,
 			}),
 			Middle = React.createElement(MultiPageExample, {
 				count = 9,
 				label = "Page 5 (leading and trailing ellipsis)",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				page = 5,
 			}),
 			End = React.createElement(MultiPageExample, {
 				count = 9,
 				label = "Page 9 (leading ellipsis)",
-				layoutOrder = 3,
+				LayoutOrder = 3,
 				page = 9,
 			}),
 		}),
@@ -430,13 +430,13 @@ local function ContentStory(): React.ReactNode
 			Subsection,
 			{
 				label = "Long page numbers (>999)",
-				layoutOrder = 3,
+				LayoutOrder = 3,
 			},
 			Dash.map(SIZES, function(size, index)
 				return React.createElement(MultiPageExample, {
 					count = 1002,
 					label = size,
-					layoutOrder = index,
+					LayoutOrder = index,
 					page = 1000,
 					size = size,
 				})
@@ -446,12 +446,12 @@ local function ContentStory(): React.ReactNode
 			Subsection,
 			{
 				label = "First and last buttons",
-				layoutOrder = 4,
+				LayoutOrder = 4,
 			},
 			Dash.map(SIZES, function(size, index)
 				return React.createElement(LabeledPagination, {
 					label = size,
-					layoutOrder = index,
+					LayoutOrder = index,
 				}, {
 					Pagination = createPagination({
 						variant = PaginationVariant.MultiPage,
@@ -470,7 +470,7 @@ end
 type KeyboardNavigationWiring = "explicit" | "typical"
 
 local function KeyboardNavigationDemo(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	wiring: KeyboardNavigationWiring,
 })
 	local page, setPage = React.useState(2)
@@ -483,7 +483,7 @@ local function KeyboardNavigationDemo(props: {
 
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		ContentAbove = React.createElement(View, {
 			LayoutOrder = 1,
@@ -539,14 +539,14 @@ end
 
 local function ExplicitKeyboardNavigationExample(): React.ReactNode
 	return React.createElement(KeyboardNavigationDemo, {
-		layoutOrder = 1,
+		LayoutOrder = 1,
 		wiring = "explicit",
 	})
 end
 
 local function TypicalKeyboardNavigationExample(): React.ReactNode
 	return React.createElement(KeyboardNavigationDemo, {
-		layoutOrder = 1,
+		LayoutOrder = 1,
 		wiring = "typical",
 	})
 end
@@ -564,13 +564,13 @@ local function KeyboardNavigationStory(): React.ReactNode
 		}),
 		Explicit = React.createElement(Subsection, {
 			label = "Explicit wiring",
-			layoutOrder = 2,
+			LayoutOrder = 2,
 		}, {
 			Example = React.createElement(ExplicitKeyboardNavigationExample),
 		}),
 		Typical = React.createElement(Subsection, {
 			label = "Unwired (typical)",
-			layoutOrder = 3,
+			LayoutOrder = 3,
 		}, {
 			Example = React.createElement(TypicalKeyboardNavigationExample),
 		}),

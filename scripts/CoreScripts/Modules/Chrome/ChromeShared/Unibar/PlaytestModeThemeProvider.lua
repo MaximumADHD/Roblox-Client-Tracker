@@ -5,7 +5,9 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local StyleConstants = UIBlox.App.Style.Constants
 local Style = require(CorePackages.Workspace.Packages.Style)
 local UiModeStyleProvider = Style.UiModeStyleProvider
-local ThemeContext = Style.ThemeContext
+local AppearanceContext = Style.AppearanceContext
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
 
 local useIsPlaytestMode = require(script.Parent.Parent.Hooks.useIsPlaytestMode)
 
@@ -19,18 +21,18 @@ type ThemeSwitcherProps = {
 }
 
 local function ThemeSwitcher(props: ThemeSwitcherProps)
-	local themeContext = React.useContext(ThemeContext)
+	local appearanceContext = React.useContext(AppearanceContext)
 
 	React.useLayoutEffect(function()
-		themeContext.setTheme(props.themeName)
-	end, { props.themeName, themeContext } :: { unknown })
+		appearanceContext.setTheme(props.themeName)
+	end, { props.themeName, appearanceContext } :: { unknown })
 
 	return React.createElement(React.Fragment, nil, props.children)
 end
 
 local function PlaytestModeThemeProvider(props: PlaytestModeThemeProviderProps)
 	local isPlaytestMode = useIsPlaytestMode()
-	local themeName = if isPlaytestMode then StyleConstants.ThemeName.Light else StyleConstants.ThemeName.Dark
+	local themeName = if isPlaytestMode then ColorMode.Light else ColorMode.Dark
 
 	return React.createElement(UiModeStyleProvider, {
 		style = {

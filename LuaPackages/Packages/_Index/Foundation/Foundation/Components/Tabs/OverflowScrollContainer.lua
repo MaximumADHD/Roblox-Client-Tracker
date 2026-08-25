@@ -1,3 +1,4 @@
+-- TODO: Clean up with FFlagFoundationUnifiedScrimScrolling (replaced by Components/OverflowScrollContainer)
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
@@ -6,8 +7,6 @@ local Otter = require(Packages.Otter)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 
-local FillBehavior = require(Foundation.Enums.FillBehavior)
-local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
 local ScrollView = require(Foundation.Components.ScrollView)
@@ -65,8 +64,6 @@ end
 
 type OverflowScrollContainerProps = {
 	size: InputSize,
-	fillBehavior: FillBehavior.FillBehavior?,
-	fitWidth: React.Binding<number>?,
 	children: React.ReactNode,
 } & Types.CommonProps
 
@@ -124,25 +121,16 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 		moveScrollByPixels(SCROLL_STEP)
 	end, { moveScrollByPixels })
 
-	local fitSize = if Flags.FoundationFixTabsFitBorderWidth and props.fitWidth
-		then props.fitWidth:map(function(width)
-			return UDim2.fromOffset(width, 0)
-		end)
-		else nil
-
 	return React.createElement(
 		View,
 		withCommonProps(props, {
 			tag = "auto-y",
-			Size = if Flags.FoundationFixTabsFitBorderWidth and fitSize then fitSize else UDim2.fromScale(1, 0),
+			Size = UDim2.fromScale(1, 0),
 		}),
 		{
 			Scroll = React.createElement(ScrollView, {
 				LayoutOrder = 1,
-				tag = if Flags.FoundationFixTabsFitBorderWidth then "auto-y" else nil,
-				Size = if Flags.FoundationFixTabsFitBorderWidth and fitSize
-					then fitSize :: any
-					else UDim2.fromScale(1, 1),
+				Size = UDim2.fromScale(1, 1),
 				onCanvasPositionChanged = updateVisibility,
 				onAbsoluteWindowSizeChanged = updateVisibility,
 				scrollingFrameRef = scrollingFrameRef,

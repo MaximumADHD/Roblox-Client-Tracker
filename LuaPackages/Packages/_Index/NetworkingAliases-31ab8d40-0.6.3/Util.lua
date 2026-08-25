@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Util-31ab8d40-0.6.3"]["Util"])
+local Package = require(PackageIndex["Util"]["Util"])
 
 return Package

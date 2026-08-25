@@ -11,7 +11,6 @@ local Presentation = Components.Presentation
 local Chrome = TopBar.Parent.Chrome
 
 local Constants = require(TopBar.Constants)
-local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 -- Modules
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
@@ -216,12 +215,6 @@ local function TopBarApp(props: TopBarProps)
 		Popups = React.createElement(View, {
 			tag = "size-full",
 		}, {
-			SongbirdReportAudioFrame = React.createElement(View, {
-				tag = "anchor-center-center position-center-center",
-				Size = UDim2.new(1, 0, 0, MusicConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
-			}, {
-				ReportAudioPopup = React.createElement(Songbird.ReportAudioPopup),
-			}),
 			MenuNavigationToggleDialog = if FFlagAddMenuNavigationToggleDialog
 				then React.createElement(MenuNavigationToggleDialog, {
 					Position = UDim2.fromScale(0.5, 0.1),

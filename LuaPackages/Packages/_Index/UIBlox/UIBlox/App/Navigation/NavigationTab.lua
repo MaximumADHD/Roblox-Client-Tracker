@@ -102,14 +102,21 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 
 	-- iconComponent
 	local iconComponent
-	local iconSize = UDim2.fromOffset(tokens.Global.Size_350, tokens.Global.Size_350)
+	local iconSize = UDim2.fromOffset(
+		if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse then tokens.Size.Size_700 else tokens.Global.Size_350,
+		if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse then tokens.Size.Size_700 else tokens.Global.Size_350
+	)
 	if props.renderIcon then
 		iconComponent = props.renderIcon(props.isChecked)
 	else
 		local iconImage = if props.isChecked and props.iconCheckedImage then props.iconCheckedImage else props.iconImage
 		local iconColor = if props.isChecked
-			then tokens.Semantic.Color.Icon.Emphasis
-			else tokens.Semantic.Color.Icon.Default
+			then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.Content.Emphasis
+				else tokens.Semantic.Color.Icon.Emphasis)
+			else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.Content.Default
+				else tokens.Semantic.Color.Icon.Default)
 		local iconName
 		local iconVariant
 		if UIBloxConfig.addFoundationNavigationTabIcon then
@@ -164,8 +171,12 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 	local labelComponent
 	if props.hasLabel and props.labelText then
 		local textColor = if props.isChecked
-			then tokens.Semantic.Color.Text.Emphasis
-			else tokens.Semantic.Color.Text.Default
+			then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.Content.Emphasis
+				else tokens.Semantic.Color.Text.Emphasis)
+			else (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.Content.Default
+				else tokens.Semantic.Color.Text.Default)
 		labelComponent = React.createElement("TextLabel", {
 			AutomaticSize = if labelSize then nil else Enum.AutomaticSize.XY,
 			Size = labelSize,
@@ -186,16 +197,38 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 	local contents: React.ReactElement?
 	local cornerRadius
 	if props.layout == NavigationTabLayout.Stacked then
-		cornerRadius = UDim.new(0, tokens.Semantic.Radius.Medium)
+		cornerRadius = UDim.new(
+			0,
+			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Radius.Medium
+				else tokens.Semantic.Radius.Medium
+		)
 		contents = React.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
-			Size = UDim2.fromOffset(tokens.Global.Space_600, tokens.Global.Space_600),
+			Size = UDim2.fromOffset(
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_1200
+					else tokens.Global.Space_600,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_1200
+					else tokens.Global.Space_600
+			),
 			[React.Change.AbsoluteSize] = onAbsSizeChanged,
 		}, {
 			UIPadding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, tokens.Global.Space_100),
-				PaddingBottom = UDim.new(0, tokens.Global.Space_100),
+				PaddingTop = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_200
+						else tokens.Global.Space_100
+				),
+				PaddingBottom = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_200
+						else tokens.Global.Space_100
+				),
 			}),
 			UIListLayout = React.createElement("UIListLayout", {
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -204,15 +237,27 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = if UIBloxConfig.removeStackedNavigationTabIconLabelSpacing
 					then nil
-					else UDim.new(0, tokens.Global.Space_50),
+					else UDim.new(
+						0,
+						if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+							then tokens.Size.Size_100
+							else tokens.Global.Space_50
+					),
 			}),
 			Icon = iconComponent,
 			Label = labelComponent,
 		})
 	elseif props.layout == NavigationTabLayout.Inline then
-		cornerRadius = UDim.new(0, tokens.Semantic.Radius.Large)
+		cornerRadius = UDim.new(
+			0,
+			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Size.Size_300
+				else tokens.Semantic.Radius.Large
+		)
 		local bgColor = if props.isChecked
-			then tokens.Semantic.Color.State.Standard.Pressed
+			then (if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Color.State.Press
+				else tokens.Semantic.Color.State.Standard.Pressed)
 			else {
 				Transparency = 1,
 				Color3 = nil,
@@ -221,21 +266,53 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = bgColor.Transparency,
 			BackgroundColor3 = bgColor.Color3,
-			Size = UDim2.fromOffset(tokens.Global.Space_600, tokens.Global.Space_500),
+			Size = UDim2.fromOffset(
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_1200
+					else tokens.Global.Space_600,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_1000
+					else tokens.Global.Space_500
+			),
 			[React.Change.AbsoluteSize] = onAbsSizeChanged,
 		}, {
 			UIPadding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, tokens.Global.Space_50),
-				PaddingBottom = UDim.new(0, tokens.Global.Space_50),
-				PaddingLeft = UDim.new(0, tokens.Global.Space_150),
-				PaddingRight = UDim.new(0, tokens.Global.Space_150),
+				PaddingTop = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_100
+						else tokens.Global.Space_50
+				),
+				PaddingBottom = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_100
+						else tokens.Global.Space_50
+				),
+				PaddingLeft = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_300
+						else tokens.Global.Space_150
+				),
+				PaddingRight = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_300
+						else tokens.Global.Space_150
+				),
 			}),
 			UIListLayout = React.createElement("UIListLayout", {
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				FillDirection = Enum.FillDirection.Horizontal,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, tokens.Global.Space_150),
+				Padding = UDim.new(
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_300
+						else tokens.Global.Space_150
+				),
 			}),
 			UICorner = React.createElement("UICorner", {
 				CornerRadius = cornerRadius,

@@ -34,7 +34,7 @@ local function getTypographyComponent(
 	colorStyle: ColorStyle,
 	textXAlignment: Enum.TextXAlignment?,
 	numLines: number,
-	layoutOrder: number,
+	LayoutOrder: number,
 	testId: string
 ): React.ReactNode
 	local text = nil :: string?
@@ -50,8 +50,8 @@ local function getTypographyComponent(
 		if props.isLoading then
 			-- Only one line of shimmer on each element
 			return React.createElement(Skeleton, {
-				Size = UDim2.new(1 / layoutOrder, 0, 0, fontStyle.FontSize),
-				LayoutOrder = layoutOrder,
+				Size = UDim2.new(1 / LayoutOrder, 0, 0, fontStyle.FontSize),
+				LayoutOrder = LayoutOrder,
 			})
 		end
 
@@ -80,7 +80,7 @@ local function getTypographyComponent(
 		TextTruncate = Enum.TextTruncate.AtEnd,
 		TextWrapped = if lines > 1 then true else false,
 		Size = UDim2.new(1, 0, 0, scaledHeight),
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 		testId = testId,
 	})
 end

@@ -42,6 +42,7 @@ local MENU_LONG_PRESS_DURATION_IN_SECOND = 1
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
 local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
 local FFlagFixVRActionBinding = game:DefineFastFlag("FixVRActionBinding", false)
+local FFlagFixUserGuiRenderingAfterVRDisabled = game:DefineFastFlag("FixUserGuiRenderingAfterVRDisabled", false)
 
 if not VRService.VREnabled then
 	warn("UserGui should not be required while not in VR")
@@ -145,6 +146,12 @@ end
 
 -- this function picks the target UI panel based on the setup/controls
 local function onGuiSelection()
+	-- When VR is disabled there is no VR panel to manage. Without this, the UserCFrameEnabled signal that
+	-- fires during VR teardown would re-enable UserGui 3D rendering after it was turned off.
+	if FFlagFixUserGuiRenderingAfterVRDisabled and not VRService.VREnabled then
+		return
+	end
+
 	-- we are using a expanding/collapsing panel that is following the camera orientation
 	-- make sure the right laser pointer hand is set
 	VRHub.LaserPointer:updateInputUserCFrame()

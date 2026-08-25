@@ -1,8 +1,20 @@
+local Foundation = script:FindFirstAncestor("Foundation")
+
 local DateTimeCalendarViewUtilities = require(script.Parent.DateTimeCalendarViewUtilities)
+local DateTimePickerRangeBandRoleEnum = require(Foundation.Enums.DateTimePickerRangeBandRole)
 local DateTimeRangeSelectionUtilities = require(script.Parent.DateTimeRangeSelectionUtilities)
 local DateTimeUtilities = require(script.Parent.Parent.DateTimeUtilities)
 type DateRange = DateTimeUtilities.DateRange
 type DateTimeLocalTime = DateTimeUtilities.DateTimeLocalTime
+
+export type DayCellAppearance = {
+	bandPosition: UDim2?,
+	bandRadiusTag: string?,
+	bandSize: UDim2?,
+	isHighlighted: boolean,
+	isSelectable: boolean,
+	isSelected: boolean,
+}
 
 local function isDaySelected(
 	dateTime: DateTime,
@@ -75,21 +87,31 @@ local function getRangeBand(
 	local useConnectorBand = isSelected ~= false
 
 	local function fullCellBand(): (UDim2?, UDim2?, string?)
-		return nil, nil, DateTimeCalendarViewUtilities.getRangeBandRadiusTag(dateTime, range, "full")
+		return nil,
+			nil,
+			DateTimeCalendarViewUtilities.getRangeBandRadiusTag(dateTime, range, DateTimePickerRangeBandRoleEnum.Full)
 	end
 
 	if day == lo then
 		if useConnectorBand then
 			return UDim2.fromScale(0.5, 0),
 				UDim2.fromScale(0.5, 1),
-				DateTimeCalendarViewUtilities.getRangeBandRadiusTag(dateTime, range, "start")
+				DateTimeCalendarViewUtilities.getRangeBandRadiusTag(
+					dateTime,
+					range,
+					DateTimePickerRangeBandRoleEnum.Start
+				)
 		end
 		return fullCellBand()
 	elseif day == hi then
 		if useConnectorBand then
 			return UDim2.fromScale(0, 0),
 				UDim2.fromScale(0.5, 1),
-				DateTimeCalendarViewUtilities.getRangeBandRadiusTag(dateTime, range, "end")
+				DateTimeCalendarViewUtilities.getRangeBandRadiusTag(
+					dateTime,
+					range,
+					DateTimePickerRangeBandRoleEnum.End
+				)
 		end
 		return fullCellBand()
 	elseif isDayHighlighted(dateTime, highlightDates, isDateRange) then
@@ -105,7 +127,27 @@ local function isDaySelectable(dateTime: DateTime, selectableDateRange: DateRang
 	return true
 end
 
+local function getDayCellAppearance(
+	dateTime: DateTime,
+	localSelectedDateTimes: { DateTimeLocalTime },
+	highlightDates: { DateTime },
+	isDateRange: boolean,
+	selectableDateRange: DateRange?
+): DayCellAppearance
+	local dayIsSelected = isDaySelected(dateTime, localSelectedDateTimes, isDateRange)
+	local bandPosition, bandSize, bandRadiusTag = getRangeBand(dateTime, highlightDates, isDateRange, dayIsSelected)
+	return {
+		bandPosition = bandPosition,
+		bandRadiusTag = bandRadiusTag,
+		bandSize = bandSize,
+		isHighlighted = isDayHighlighted(dateTime, highlightDates, isDateRange),
+		isSelectable = isDaySelectable(dateTime, selectableDateRange),
+		isSelected = dayIsSelected,
+	}
+end
+
 return {
+	getDayCellAppearance = getDayCellAppearance,
 	getRangeBand = getRangeBand,
 	isDayHighlighted = isDayHighlighted,
 	isDaySelectable = isDaySelectable,

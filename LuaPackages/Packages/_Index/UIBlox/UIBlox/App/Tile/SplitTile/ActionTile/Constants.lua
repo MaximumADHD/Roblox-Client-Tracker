@@ -2,7 +2,9 @@ local ActionTile = script.Parent
 local SplitTileRoot = ActionTile.Parent
 local TileRoot = SplitTileRoot.Parent
 local App = TileRoot.Parent
+local UIBlox = App.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StyleTypes = require(App.Style.StyleTypes)
 local Fonts = require(App.Style.Fonts)
 
@@ -35,22 +37,45 @@ local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
 	assert(style.Tokens ~= nil, "Design token support is not enabled!")
 	return {
 		backgroundColor = {
-			Color = style.Tokens.Component.VerticalTile.Base.Container.Background.Color3,
-			Transparency = style.Tokens.Component.VerticalTile.Base.Container.Background.Transparency,
+			Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Color.Surface.Surface_300.Color3
+				else style.Tokens.Component.VerticalTile.Base.Container.Background.Color3,
+			Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Color.Surface.Surface_300.Transparency
+				else style.Tokens.Component.VerticalTile.Base.Container.Background.Transparency,
 		},
 		border = {
 			BorderColor = {
-				Color = style.Tokens.Component.VerticalTile.Base.Container.BorderColor.Color3,
-				Transparency = style.Tokens.Component.VerticalTile.Base.Container.BorderColor.Transparency,
+				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then style.Tokens.Color.Stroke.Emphasis.Color3
+					else style.Tokens.Component.VerticalTile.Base.Container.BorderColor.Color3,
+				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then style.Tokens.Color.Stroke.Emphasis.Transparency
+					else style.Tokens.Component.VerticalTile.Base.Container.BorderColor.Transparency,
 			},
-			CornerRadius = UDim.new(0, style.Tokens.Component.VerticalTile.Base.Container.BorderRadius.LeadingTop),
-			Width = style.Tokens.Component.VerticalTile.Base.Container.BorderWidth,
+			CornerRadius = UDim.new(
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then style.Tokens.Radius.Medium
+					else style.Tokens.Component.VerticalTile.Base.Container.BorderRadius.LeadingTop
+			),
+			Width = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Stroke.Standard
+				else style.Tokens.Component.VerticalTile.Base.Container.BorderWidth,
 		},
 		topContentPadding = {
-			Left = style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Leading,
-			Right = style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Trailing,
-			Top = style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Top,
-			Bottom = style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Bottom,
+			Left = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Padding.None
+				else style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Leading,
+			Right = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Padding.None
+				else style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Trailing,
+			Top = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Padding.None
+				else style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Top,
+			Bottom = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Padding.None
+				else style.Tokens.Component.VerticalTile.Base.ContentTop.Spacing.Bottom,
 		},
 		overlayColors = {},
 		selectionCursorPadding = {
@@ -59,16 +84,28 @@ local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
 			Top = 0,
 			Bottom = 0,
 		},
-		contentGap = style.Tokens.Global.Space_50,
+		contentGap = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then style.Tokens.Size.Size_100
+			else style.Tokens.Global.Space_50,
 		titleFont = style.Font.Header2,
 		titleTextColor = {
-			Color = style.Tokens.Semantic.Color.Text.Emphasis.Color3,
-			Transparency = style.Tokens.Semantic.Color.Text.Emphasis.Transparency,
+			Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Color.Content.Emphasis.Color3
+				else style.Tokens.Semantic.Color.Text.Emphasis.Color3,
+			Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Color.Content.Emphasis.Transparency
+				else style.Tokens.Semantic.Color.Text.Emphasis.Transparency,
 		},
-		iconSize = style.Tokens.Semantic.Icon.Size.Medium,
+		iconSize = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+			then style.Tokens.Size.Size_900
+			else style.Tokens.Semantic.Icon.Size.Medium,
 		iconImageColor = {
-			Color = style.Tokens.Semantic.Color.Icon.Emphasis.Color3,
-			Transparency = style.Tokens.Semantic.Color.Icon.Emphasis.Transparency,
+			Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Color.Content.Emphasis.Color3
+				else style.Tokens.Semantic.Color.Icon.Emphasis.Color3,
+			Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then style.Tokens.Color.Content.Emphasis.Transparency
+				else style.Tokens.Semantic.Color.Icon.Emphasis.Transparency,
 		},
 		-- TODO: We don't have the drop shadow token yet
 		dropShadow = {
@@ -76,8 +113,12 @@ local function getDefaultStyleProps(style: StyleTypes.AppStyle): StyleProps
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = UDim2.new(1, 10, 1, 12),
 			ImageColor = {
-				Color = style.Tokens.Semantic.Color.Common.DropShadow.Color3,
-				Transparency = style.Tokens.Semantic.Color.Common.DropShadow.Transparency,
+				Color = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then style.Tokens.Color.Common.Shadow.Color3
+					else style.Tokens.Semantic.Color.Common.DropShadow.Color3,
+				Transparency = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then style.Tokens.Color.Common.Shadow.Transparency
+					else style.Tokens.Semantic.Color.Common.DropShadow.Transparency,
 			},
 			ImageAssetName = "component_assets/dropshadow_24_6",
 			SliceCenter = Rect.new(18, 18, 18, 18),

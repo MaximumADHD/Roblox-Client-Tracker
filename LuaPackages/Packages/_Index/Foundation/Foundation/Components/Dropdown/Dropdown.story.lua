@@ -142,23 +142,23 @@ local function DemoDropdown(props: DemoDropdownProps): React.ReactNode
 	})
 end
 
-local function Label(text: string, layoutOrder: number)
+local function Label(text: string, LayoutOrder: number)
 	return React.createElement(Text, {
 		Text = text,
 		tag = "auto-xy text-label-medium content-muted",
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	})
 end
 
 local function Section(
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	containerTag: string,
 	children: { [string]: React.ReactNode }
 )
 	return React.createElement(View, {
 		tag = "col gap-xsmall " .. containerTag,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = LayoutOrder,
 	}, {
 		Label = Label(label, 1),
 		Content = React.createElement(View, {
@@ -457,7 +457,7 @@ local function useScrollToSelectedRef(items: { DropdownItem }, selectedId: ItemI
 
 	React.useEffect(function()
 		return disconnect
-	end, { disconnect } :: { unknown })
+	end, { disconnect })
 
 	return refCallback
 end

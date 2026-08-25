@@ -9,13 +9,15 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
 local t = require(CorePackages.Packages.t)
 
 local FeedbackModule = script.Parent.Parent
 
 local withStyle = UIBlox.Core.Style.withStyle
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
-local DarkTheme = UIBlox.App.Style.Constants.ThemeName.Dark
+local DarkColorMode = ColorMode.Dark
 
 -- Actions
 local SetFeedbackFlowState = require(FeedbackModule.Actions.SetFeedbackFlowState)
@@ -49,7 +51,7 @@ function FeedbackApp:render()
 		if FFlagInExperienceUseAppStyleProvider
 			then {
 				style = {
-					themeName = DarkTheme,
+					themeName = DarkColorMode,
 				},
 			}
 			else {},

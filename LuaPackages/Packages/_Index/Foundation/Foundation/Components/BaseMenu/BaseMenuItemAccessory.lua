@@ -15,6 +15,7 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 
 local AccessoryType = require(Foundation.Enums.AccessoryType)
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 
 type Tokens = Tokens.Tokens
@@ -31,6 +32,8 @@ export type TrailingAccessory = HintAccessoryConfig | BadgeAccessoryConfig
 export type IconVariantTag = { tag: string, style: any, size: number }
 
 local SLOT_ALIGN = "align-x-center align-y-center"
+
+local ICON_PRESENTATION = { colorNamespace = ColorNamespace.Color, isIconSize = true }
 local HINT_TAG = "row align-y-center auto-xy padding-x-xsmall radius-small bg-shift-200"
 local HINT_TEXT_TAG = "auto-xy text-caption-medium content-muted"
 
@@ -58,10 +61,12 @@ local function Accessory(props: AccessoryProps): React.ReactNode
 			testId = props.testId,
 		}, {
 			Avatar = React.createElement(PresentationContext.Provider, {
-				value = {
-					colorNamespace = ColorNamespace.Color,
-					isIconSize = true,
-				},
+				value = if Flags.FoundationStableContextValues
+					then ICON_PRESENTATION
+					else {
+						colorNamespace = ColorNamespace.Color,
+						isIconSize = true,
+					},
 			}, {
 				Avatar = React.createElement(Avatar, {
 					userId = accessory.userId,

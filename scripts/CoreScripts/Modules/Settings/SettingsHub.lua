@@ -66,7 +66,7 @@ local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommo
 local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
 local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyleProvider
-local DarkTheme = require(CorePackages.Packages.UIBlox).App.Style.Constants.ThemeName.Dark
+local DarkColorMode = require(CorePackages.Packages.Foundation).Enums.ColorMode.Dark
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local HelpPage = require(CorePackages.Workspace.Packages.HelpPage)
@@ -1681,7 +1681,7 @@ local function CreateSettingsHub()
 					{
 						AppStyleProvider = Roact.createElement(AppStyleProvider, {
 							style = {
-								themeName = DarkTheme,
+								themeName = DarkColorMode,
 							} ,
 						}, {
 							ButtonsFrame = Roact.createElement("Frame", {
@@ -1711,7 +1711,7 @@ local function CreateSettingsHub()
 					}, {
 						AppStyleProvider = Roact.createElement(AppStyleProvider, {
 							style = {
-								themeName = DarkTheme,
+								themeName = DarkColorMode,
 							} ,
 						}, {
 							BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),

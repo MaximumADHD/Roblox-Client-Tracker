@@ -146,14 +146,14 @@ local function StoryButton(props: {
 end
 
 local function Section(props: {
-	layoutOrder: number,
+	LayoutOrder: number,
 	name: string,
 	contentTag: string?,
 	children: React.ReactNode,
 })
 	return React.createElement(View, {
 		tag = "col gap-medium size-full-0 auto-y",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
@@ -169,7 +169,7 @@ end
 
 local function LabeledButton(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	text: string?,
 	icon: string?,
 	variant: SupportedButtonVariant?,
@@ -183,7 +183,7 @@ local function LabeledButton(props: {
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -259,7 +259,7 @@ local function VariantsStory(): React.ReactNode
 		Dash.map(BUTTON_VARIANTS, function(variant, index)
 			return React.createElement(LabeledButton, {
 				label = variant,
-				layoutOrder = index,
+				LayoutOrder = index,
 				variant = variant,
 				text = defaultButtonProps.text,
 				icon = defaultButtonProps.icon,
@@ -275,7 +275,7 @@ local function StatesStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Disabled = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Disabled",
 			contentTag = "auto-xy",
 		}, {
@@ -287,7 +287,7 @@ local function StatesStory(): React.ReactNode
 			}),
 		}),
 		Loading = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Loading",
 		}, {
 			Examples = React.createElement(
@@ -299,7 +299,7 @@ local function StatesStory(): React.ReactNode
 				Dash.map(SIZE_ORDER, function(size, index)
 					return React.createElement(LabeledButton, {
 						label = size,
-						layoutOrder = index,
+						LayoutOrder = index,
 						size = size,
 						text = defaultButtonProps.text,
 						icon = nil,
@@ -346,14 +346,14 @@ local function ControlledStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		RegularButton = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Regular button",
 			contentTag = "auto-xy",
 		}, {
 			Button = React.createElement(ControlledRegularButtonExample),
 		}),
 		InputDelay = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Input delay",
 			contentTag = "auto-xy",
 		}, {
@@ -364,13 +364,13 @@ end
 
 local function FillBehaviorExample(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	fillBehavior: FillBehavior?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
 		Size = UDim2.fromOffset(LAYOUT_COLUMN_WIDTH, 0),
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -401,14 +401,14 @@ local function SizingStory(): React.ReactNode
 		Size = React.createElement(
 			Section,
 			{
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				name = "Size",
 				contentTag = "row gap-large align-y-start auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledButton, {
 					label = size,
-					layoutOrder = index,
+					LayoutOrder = index,
 					size = size,
 					text = defaultButtonProps.text,
 					icon = nil,
@@ -418,18 +418,18 @@ local function SizingStory(): React.ReactNode
 			end)
 		),
 		FillBehavior = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Fill behavior",
 			contentTag = "row gap-xxlarge align-y-start auto-xy wrap",
 		}, {
 			Fit = React.createElement(FillBehaviorExample, {
 				label = "fillBehavior = Fit",
-				layoutOrder = 1,
+				LayoutOrder = 1,
 				fillBehavior = FillBehavior.Fit,
 			}),
 			Fill = React.createElement(FillBehaviorExample, {
 				label = "fillBehavior = Fill",
-				layoutOrder = 2,
+				LayoutOrder = 2,
 				fillBehavior = FillBehavior.Fill,
 			}),
 		}),
@@ -438,13 +438,13 @@ end
 
 local function LongTextExample(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	variant: SupportedButtonVariant,
 	icon: string?,
 })
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -474,7 +474,7 @@ local function ContentStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		Icon = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "Icon",
 		}, {
 			Examples = React.createElement(
@@ -486,7 +486,7 @@ local function ContentStory(): React.ReactNode
 				Dash.map(SIZE_ORDER, function(size, index)
 					return React.createElement(LabeledButton, {
 						label = size,
-						layoutOrder = index,
+						LayoutOrder = index,
 						size = size,
 						text = defaultButtonProps.text,
 						icon = defaultButtonProps.icon,
@@ -495,7 +495,7 @@ local function ContentStory(): React.ReactNode
 			),
 		}),
 		IconByType = React.createElement(Section, {
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			name = "Icon by type",
 			contentTag = "auto-xy",
 		}, {
@@ -520,7 +520,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		EndAlignedIcon = React.createElement(Section, {
-			layoutOrder = 3,
+			LayoutOrder = 3,
 			name = "End-aligned icon",
 			contentTag = "col gap-medium align-x-left auto-xy",
 		}, {
@@ -543,7 +543,7 @@ local function ContentStory(): React.ReactNode
 			}),
 		}),
 		LongText = React.createElement(Section, {
-			layoutOrder = 4,
+			LayoutOrder = 4,
 			name = "Long text",
 		}, {
 			Examples = React.createElement(View, {
@@ -552,13 +552,13 @@ local function ContentStory(): React.ReactNode
 			}, {
 				Emphasis = React.createElement(LongTextExample, {
 					label = ButtonVariant.Emphasis :: string,
-					layoutOrder = 1,
+					LayoutOrder = 1,
 					variant = ButtonVariant.Emphasis,
 					icon = defaultButtonProps.icon,
 				}),
 				Link = React.createElement(LongTextExample, {
 					label = ButtonVariant.Link :: string,
-					layoutOrder = 2,
+					LayoutOrder = 2,
 					variant = ButtonVariant.Link,
 					icon = IconName.ArrowUpRightFromSquare,
 				}),
@@ -569,14 +569,14 @@ end
 
 local function InverseSurfaceButtonExample(props: {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	variant: SupportedButtonVariant,
 })
 	local tokens = useTokens()
 
 	return React.createElement(View, {
 		tag = "col gap-small align-x-left auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label :: string,
@@ -607,7 +607,7 @@ local function InContextStory(): React.ReactNode
 		tag = "col gap-xxlarge size-full-0 auto-y padding-y-large bg-surface-0",
 	}, {
 		InverseSurface = React.createElement(Section, {
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			name = "On inverse surface",
 			contentTag = "col gap-medium align-x-left auto-xy",
 		}, {
@@ -621,7 +621,7 @@ local function InContextStory(): React.ReactNode
 				Dash.map(BUTTON_VARIANTS, function(variant, index)
 					return React.createElement(InverseSurfaceButtonExample, {
 						label = variant,
-						layoutOrder = index,
+						LayoutOrder = index,
 						variant = variant,
 					})
 				end)

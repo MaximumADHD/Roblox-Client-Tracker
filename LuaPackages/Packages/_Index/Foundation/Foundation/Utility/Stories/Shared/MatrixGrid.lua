@@ -4,11 +4,21 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Text = require(Foundation.Components.Text)
+local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+
+type ColorStyleValue = Types.ColorStyleValue
 
 export type MatrixGridRow = {
 	label: React.ReactNode?,
 	cells: { React.ReactNode },
+	rowTag: string?,
+	backgroundStyle: ColorStyleValue?,
+	stroke: {
+		Color: Color3?,
+		Transparency: number?,
+		Thickness: number?,
+	}?,
 }
 
 export type MatrixGridProps = {
@@ -17,6 +27,7 @@ export type MatrixGridProps = {
 	showHeader: boolean?,
 	columnHeaders: { string },
 	cellColumnWidth: number?,
+	cellColumnWidths: { number }?,
 	rows: { MatrixGridRow },
 	headerTextAlign: ("left" | "center")?,
 	cellAlign: ("left" | "center")?,
@@ -56,16 +67,24 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 	local rowGap = props.rowGap or "large"
 	local headerAlignTag = if headerTextAlign == "left" then "text-align-x-left" else "text-align-x-center"
 	local cellAlignTag = if cellAlign == "left" then "align-x-left" else "align-x-center"
-	local rowTag = `row align-y-center gap-{rowGap} auto-xy`
-	local cellRowTag = `row align-y-center gap-{rowGap} auto-x`
+	local rowTag: string = "row align-y-center gap-" .. rowGap .. " auto-xy"
+	local cellRowTag: string = "row align-y-center gap-" .. rowGap .. " auto-x"
 
-	local layoutOrder = 1
+	local function getCellColumnWidth(cellIndex: number): number?
+		if props.cellColumnWidths then
+			return props.cellColumnWidths[cellIndex]
+		end
+		return props.cellColumnWidth
+	end
+
+	local LayoutOrder = 1
 	local children: { [string]: React.ReactNode } = {}
 
 	local function renderCells(cells: { React.ReactNode }): { [string]: React.ReactNode }
 		local cellChildren: { [string]: React.ReactNode } = {}
 		for index, cell in cells do
-			local cellSize = if props.cellColumnWidth then UDim2.fromOffset(props.cellColumnWidth, 0) else nil
+			local cellColumnWidth = getCellColumnWidth(index)
+			local cellSize = if cellColumnWidth then UDim2.fromOffset(cellColumnWidth, 0) else nil
 			cellChildren[`Cell-{index}`] = React.createElement(View, {
 				tag = `col auto-xy {cellAlignTag}`,
 				Size = cellSize,
@@ -79,7 +98,8 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 
 	if showHeader then
 		local headerCells = Dash.map(props.columnHeaders, function(header, index)
-			local headerSize = if props.cellColumnWidth then UDim2.fromOffset(props.cellColumnWidth, 0) else nil
+			local cellColumnWidth = getCellColumnWidth(index)
+			local headerSize = if cellColumnWidth then UDim2.fromOffset(cellColumnWidth, 0) else nil
 			return React.createElement(Text, {
 				Text = header,
 				tag = `auto-xy text-caption-small content-muted {headerAlignTag}`,
@@ -91,7 +111,7 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 		if showLabelColumn then
 			children.HeaderRow = React.createElement(View, {
 				tag = `padding-y-small {rowTag}`,
-				LayoutOrder = layoutOrder,
+				LayoutOrder = LayoutOrder,
 			}, {
 				Corner = React.createElement(View, {
 					Size = UDim2.fromOffset(labelColumnWidth, 0),
@@ -105,10 +125,10 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 		else
 			children.HeaderRow = React.createElement(View, {
 				tag = `padding-y-small {rowTag}`,
-				LayoutOrder = layoutOrder,
+				LayoutOrder = LayoutOrder,
 			}, headerCells)
 		end
-		layoutOrder += 1
+		LayoutOrder += 1
 	end
 
 	for rowIndex, row in props.rows do
@@ -132,11 +152,49 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 			end
 		end
 
-		children[`Row-{rowIndex}`] = React.createElement(View, {
-			tag = `padding-y-small {rowTag}`,
-			LayoutOrder = layoutOrder,
-		}, rowChildren)
-		layoutOrder += 1
+		local rowViewTag: string
+		if row.rowTag then
+			rowViewTag = rowTag .. " " .. row.rowTag
+		else
+			rowViewTag = rowTag
+		end
+
+		local paddedRowViewTag = "padding-y-small " .. rowViewTag
+
+		if row.backgroundStyle and row.stroke then
+			children[`Row-{rowIndex}`] = React.createElement(View, {
+				tag = paddedRowViewTag,
+				backgroundStyle = row.backgroundStyle,
+				stroke = {
+					Color = row.stroke.Color,
+					Transparency = row.stroke.Transparency,
+					Thickness = row.stroke.Thickness,
+				},
+				LayoutOrder = LayoutOrder,
+			}, rowChildren)
+		elseif row.backgroundStyle then
+			children[`Row-{rowIndex}`] = React.createElement(View, {
+				tag = paddedRowViewTag,
+				backgroundStyle = row.backgroundStyle,
+				LayoutOrder = LayoutOrder,
+			}, rowChildren)
+		elseif row.stroke then
+			children[`Row-{rowIndex}`] = React.createElement(View, {
+				tag = paddedRowViewTag,
+				stroke = {
+					Color = row.stroke.Color,
+					Transparency = row.stroke.Transparency,
+					Thickness = row.stroke.Thickness,
+				},
+				LayoutOrder = LayoutOrder,
+			}, rowChildren)
+		else
+			children[`Row-{rowIndex}`] = React.createElement(View, {
+				tag = paddedRowViewTag,
+				LayoutOrder = LayoutOrder,
+			}, rowChildren)
+		end
+		LayoutOrder += 1
 	end
 
 	return React.createElement(View, {

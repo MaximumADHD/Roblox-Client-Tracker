@@ -7,6 +7,7 @@ local Tile = BaseTile.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -41,7 +42,16 @@ function TileUnselectedOverlay:render()
 				AnchorPoint = Vector2.new(1, 0),
 				BackgroundTransparency = 1,
 				Image = UNSELECTED_IMAGE,
-				Position = UDim2.new(1, -tokens.Global.Size_100, 0, tokens.Global.Size_100),
+				Position = UDim2.new(
+					1,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then -tokens.Size.Size_200
+						else -tokens.Global.Size_100,
+					0,
+					if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+						then tokens.Size.Size_200
+						else tokens.Global.Size_100
+				),
 				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 			}),
 		})

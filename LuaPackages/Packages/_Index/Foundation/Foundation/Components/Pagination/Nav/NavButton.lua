@@ -53,7 +53,7 @@ type NavButtonProps = {
 	slotSize: PaginationSize,
 	direction: PaginationDirection,
 	isDisabled: boolean,
-	layoutOrder: number,
+	LayoutOrder: number,
 	onDirectionActivated: (direction: PaginationDirection) -> (),
 } & Types.SelectionProps
 
@@ -66,7 +66,7 @@ local function NavButton(props: NavButtonProps, ref: React.Ref<GuiObject>?): Rea
 	end, { props.onDirectionActivated, props.direction } :: { unknown })
 
 	return React.createElement(IconButton, {
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 		testId = testId,
 		ref = ref,
 		icon = directionConfig.icon,

@@ -5,7 +5,7 @@ local networkRequestsTypes = require(NetworkingUserSettings.Types.networkRequest
 return function(config: networkRequestsTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
-	return roduxNetworking.GET(script, function(requestBuilder)
+	return roduxNetworking.GET(script.Name, function(requestBuilder)
 		return requestBuilder(API_URL):path("user-settings-api"):path("v1"):path("user-settings"):path("metadata")
 	end)
 end

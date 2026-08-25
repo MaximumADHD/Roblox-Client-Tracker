@@ -53,12 +53,21 @@ local function WidgetsProvider(props: WidgetsProviderProps): React.ReactNode
 		return manager:nextId()
 	end, { manager })
 
-	local value: WidgetsContext = {
-		register = register,
-		deregister = deregister,
-		refreshAsync = if Flags.FoundationPopoverPluginAnchorRefresh then refreshAsync else nil :: never,
-		nextId = nextId,
-	}
+	local value: WidgetsContext = if Flags.FoundationStableContextValues
+		then React.useMemo(function()
+			return {
+				register = register,
+				deregister = deregister,
+				refreshAsync = if Flags.FoundationPopoverPluginAnchorRefresh then refreshAsync else nil :: never,
+				nextId = nextId,
+			}
+		end, { register, deregister, refreshAsync, nextId } :: { unknown })
+		else {
+			register = register,
+			deregister = deregister,
+			refreshAsync = if Flags.FoundationPopoverPluginAnchorRefresh then refreshAsync else nil :: never,
+			nextId = nextId,
+		}
 
 	return React.createElement(WidgetsContext.Provider, {
 		value = value,

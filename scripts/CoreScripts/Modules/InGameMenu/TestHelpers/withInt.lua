@@ -7,7 +7,9 @@ local function withInt(fintName, value, callback)
 
 	game:SetFastIntForTesting(fintName, oldValue)
 
-	assert(success, message)
+	if not success then
+		error(message)
+	end
 end
 
 return withInt

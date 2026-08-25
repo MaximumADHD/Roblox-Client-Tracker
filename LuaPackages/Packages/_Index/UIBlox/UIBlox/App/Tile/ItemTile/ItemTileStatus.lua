@@ -4,6 +4,7 @@ local TileRoot = ItemTileRoot.Parent
 local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -68,7 +69,16 @@ function ItemTileStatus:render()
 			ImageTransparency = styleInfo.Background.Transparency,
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(8, 8, 9, 9),
-			Position = UDim2.new(0, tokens.Global.Size_100, 0, tokens.Global.Size_100),
+			Position = UDim2.new(
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_200
+					else tokens.Global.Size_100,
+				0,
+				if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+					then tokens.Size.Size_200
+					else tokens.Global.Size_100
+			),
 			Size = UDim2.new(0, textSize.X + TEXT_PADDING.X, 0, textSize.Y + TEXT_PADDING.Y),
 		}, {
 			Text = Roact.createElement("TextLabel", {

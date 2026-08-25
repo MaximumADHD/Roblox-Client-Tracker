@@ -127,7 +127,7 @@ local function useScrollToSelectedRef(items: { BaseMenuItem }, selectedId: ItemI
 
 	React.useEffect(function()
 		return disconnect
-	end, { disconnect } :: { unknown })
+	end, { disconnect })
 
 	return refCallback
 end

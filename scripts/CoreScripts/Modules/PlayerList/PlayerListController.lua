@@ -19,6 +19,8 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local ColorMode = Foundation.Enums.ColorMode
 local StyleConstants = UIBlox.App.Style.Constants
 local ApolloClientInstance = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
@@ -68,8 +70,7 @@ local FFlagPlatformLeaderboardPersistStoreOnRemount =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardPersistStoreOnRemount
 
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
-local FFlagPlayerListReskinConsoleMobileRouting = PlayerListPackage.Flags.FFlagPlayerListReskinConsoleMobileRouting
-local FFlagPlayerListReskinMobileLayoutFix = PlayerListPackage.Flags.FFlagPlayerListReskinMobileLayoutFix
+local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
@@ -94,11 +95,12 @@ end
 -- Reskin console-mobile routing kicks in only when the device would otherwise be a
 -- TenFoot user — Large display AND touch/gamepad input. Display size alone can
 -- misclassify a desktop on a very large monitor (APPEXP-3482 established this on the
--- Small side; the Large side needs the symmetric check). Sub-flag lets us disable the
--- reskin console→mobile routing independently of the master reskin gate.
+-- Small side; the Large side needs the symmetric check). Also requires
+-- FFlagEnableMobilePlayerListOnConsole so a PC user with a gamepad is not treated
+-- as console.
 local function isReskinConsoleMobileRoute(): boolean
 	return FFlagPlayerListReskin
-		and FFlagPlayerListReskinConsoleMobileRouting
+		and FFlagEnableMobilePlayerListOnConsole
 		and GuiService.ViewportDisplaySize == Enum.DisplaySize.Large
 		and isTouchOrGamepadInput()
 end
@@ -112,13 +114,14 @@ local function resolveIsTenFoot(): boolean
 end
 
 -- Uses ViewportDisplaySize rather than TenFootInterface — the latter is being retired
--- across PlayerList (see APPEXP-3354). Both the reskin and master paths require Large
--- display + touch/gamepad input (see isReskinConsoleMobileRoute for rationale).
+-- across PlayerList (see APPEXP-3354). Requires Large + touch/gamepad and
+-- FFlagEnableMobilePlayerListOnConsole so a PC gamepad user is not treated as console
+-- (see isReskinConsoleMobileRoute for rationale).
 local function isLargeConsoleLayout(): boolean
 	if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Large or not isTouchOrGamepadInput() then
 		return false
 	end
-	return (FFlagPlayerListReskin and FFlagPlayerListReskinConsoleMobileRouting) or FFlagEnableMobilePlayerListOnConsole
+	return FFlagEnableMobilePlayerListOnConsole
 end
 
 local function isSmallTouchScreen()
@@ -197,7 +200,7 @@ function PlayerListController.new()
 	self:_trackEnabled()
 
 	local appStyleForUiModeStyleProvider = {
-		themeName = StyleConstants.ThemeName.Dark,
+		themeName = ColorMode.Dark,
 		fontName = StyleConstants.FontName.Gotham,
 	}
 
@@ -415,6 +418,12 @@ function PlayerListController:_setupReskin()
 	if FFlagPlatformLeaderboardPersistStoreOnRemount then
 		PlatformLeaderboardsClient.reset()
 	end
+	local function setStorePersistVisibility()
+		PlayerListVisibilityStore.setShouldPersistVisibility(
+			FFlagPlayerListPersistVisibility and not isSmallTouchDevice and not isTenFoot
+		)
+	end
+	setStorePersistVisibility()
 	PlayerListVisibilityStore.setVisible(PlayerListInitialVisibleState())
 
 	self.SetVisibleChangedEvent = Instance.new("BindableEvent")
@@ -446,47 +455,23 @@ function PlayerListController:_setupReskin()
 	-- ApplyDisplayScale can return 0 before the Display store primes; floor the mobile
 	-- gap at 8px so the panel visibly clears Unibar shadow/safe-area padding even at low DPR.
 	local function computeMobileTopInset()
-		return math.max(8, TopBarConstants.ApplyDisplayScale(8))
+		local edgeGap = PlayerListConstants.MOBILE_EDGE_GAP
+		return math.max(edgeGap, TopBarConstants.ApplyDisplayScale(edgeGap))
 	end
 	local function computeMobilePosition()
 		return UDim2.new(0.5, 0, 0, topBarOffset + computeMobileTopInset())
 	end
-	local mobilePositionBinding, setMobilePosition
-	if FFlagPlayerListReskinMobileLayoutFix then
-		mobilePositionBinding, setMobilePosition = React.createBinding(computeMobilePosition())
-	end
+	local mobilePositionBinding, setMobilePosition = React.createBinding(computeMobilePosition())
 	local function resolveContainerProps()
 		if isSmallTouchDevice then
-			if FFlagPlayerListReskinMobileLayoutFix then
-				return {
-					AnchorPoint = Vector2.new(0.5, 0),
-					Position = mobilePositionBinding,
-					Size = UDim2.fromOffset(0, 0),
-					tag = "auto-xy",
-				}
-			end
-			local camera = workspace.CurrentCamera
-			local viewport = if camera then camera.ViewportSize else Vector2.new(0, 0)
-			local isPortrait = viewport.Y > viewport.X
-			if isPortrait then
-				local sideOffset = TopBarConstants.ApplyDisplayScale(TopBarConstants.ScreenSideOffset)
-				return {
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(0, sideOffset, 0.5, topBarOffset / 2),
-					Size = UDim2.fromOffset(0, 0),
-					tag = "auto-xy",
-				}
-			end
 			return {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0.5, 0, 0.5, topBarOffset / 2),
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = mobilePositionBinding,
 				Size = UDim2.fromOffset(0, 0),
 				tag = "auto-xy",
 			}
 		end
-		local edgeInset = if FFlagPlayerListReskinMobileLayoutFix
-			then math.max(4, TopBarConstants.ApplyDisplayScale(4))
-			else 4
+		local edgeInset = math.max(4, TopBarConstants.ApplyDisplayScale(4))
 		return {
 			AnchorPoint = Vector2.new(1, 0),
 			Position = UDim2.new(1, -edgeInset, 0, edgeInset + topBarOffset),
@@ -612,6 +597,7 @@ function PlayerListController:_setupReskin()
 	end
 
 	local function mountReskin()
+		setStorePersistVisibility()
 		local screenGui = Instance.new("ScreenGui")
 		screenGui.Name = "PlayerListReskin"
 		screenGui.AutoLocalize = false
@@ -627,7 +613,7 @@ function PlayerListController:_setupReskin()
 		root:render(buildReskinElement())
 		self._reskinRoot = root
 		self._reskinScreenGui = screenGui
-		if FFlagPlayerListReskinMobileLayoutFix and isSmallTouchDevice then
+		if isSmallTouchDevice then
 			local function connectViewport(cam)
 				if self._reskinViewportConn then
 					self._reskinViewportConn:Disconnect()
@@ -649,6 +635,7 @@ function PlayerListController:_setupReskin()
 	end
 
 	local function unmountReskin()
+		PlayerListVisibilityStore.setShouldPersistVisibility(false)
 		teardownPlayerInfoRequests()
 		if self._reskinCameraConn then
 			self._reskinCameraConn:Disconnect()

@@ -45,10 +45,12 @@ local VoiceChatServiceManager = if FFlagVoiceVolumeControlsEnableVoiceVolumeImpr
 export type LeaveGameProps = {
 	telemetryFields: { [string] : any},
     shouldNativeExit: boolean?,
+    inhibitAppRating: boolean?,
+    telemetryContext: string?,
 }
 
 local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?)
-    if FFlagEnableGameLeftMessage then
+    if FFlagEnableGameLeftMessage and not (props and props.inhibitAppRating) then
         MessageBus.publish(Constants.OnAppRatingPromptEventDescriptor, {gameTime = game:getGameTime()})
     end
 
@@ -80,7 +82,7 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
 	end
     AnalyticsService:SetRBXEventStream(
         Constants.AnalyticsTargetName,
-        Constants.AnalyticsInGameMenuName,
+        if props and props.telemetryContext then props.telemetryContext else Constants.AnalyticsInGameMenuName,
         Constants.AnalyticsLeaveGameName,
 		customTelemetryFields
     )

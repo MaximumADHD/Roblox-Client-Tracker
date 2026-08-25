@@ -7,6 +7,7 @@ local Translator = require(UIBlox.Translations.Translator)
 local React = require(Packages.React)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local REQUIRED_INDICATOR = "*"
 
@@ -31,9 +32,12 @@ end
 local function InputLabel(props: InputLabelProps)
 	local style = useStyle()
 
-	local inputLabelStyle = style.Tokens.Component.InputLabel
-	local typography = inputLabelStyle.Base.Typography
-	local textColor = inputLabelStyle.Base.ContentColor
+	local typography = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+		then style.Tokens.Typography.BodySmall
+		else style.Tokens.Component.InputLabel.Base.Typography
+	local textColor = if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+		then style.Tokens.Color.Content.Default
+		else style.Tokens.Component.InputLabel.Base.ContentColor
 
 	return React.createElement("TextLabel", {
 		Text = labelText(props.text, props.required),

@@ -123,6 +123,9 @@ type _Messages =
 		PageHeaderInputData: _PageHeaderInputDataMessage,
 		PreAuthLandingStickyHeaderInputData: _PreAuthLandingStickyHeaderInputDataMessage,
 		ImageCtaSectionInputData: _ImageCtaSectionInputDataMessage,
+		HeroUnitInputData: _HeroUnitInputDataMessage,
+		HeroUnitInputData_VisualAsset: _HeroUnitInputData_VisualAssetMessage,
+		HeroUnitInputData_Gradient: _HeroUnitInputData_GradientMessage,
 		FriendRecommendationCarouselInputData: _FriendRecommendationCarouselInputDataMessage,
 		FriendRecommendationCarouselInputData_UserRecommendation: _FriendRecommendationCarouselInputData_UserRecommendationMessage,
 		FriendRecommendationCarouselInputData_ContactRecommendation: _FriendRecommendationCarouselInputData_ContactRecommendationMessage,
@@ -132,6 +135,7 @@ type _Messages =
 		GameItemsCarouselInputData: _GameItemsCarouselInputDataMessage,
 		GameItemsCardInputData: _GameItemsCardInputDataMessage,
 		GameItemInputData: _GameItemInputDataMessage,
+		AdLinkItem: _AdLinkItemMessage,
 		ItemWithLayout: _ItemWithLayoutMessage,
 		ContentPool: _ContentPoolMessage,
 		ItemLayout: _ItemLayoutMessage,
@@ -319,6 +323,7 @@ type _PageEntryInputDataFields = {
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 		| { type: "game_items_carousel", value: GameItemsCarouselInputData }
+		| { type: "hero_unit", value: HeroUnitInputData }
 		| { type: "friend_recommendation_carousel", value: FriendRecommendationCarouselInputData }
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
@@ -392,6 +397,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 		| { type: "game_items_carousel", value: GameItemsCarouselInputData }
+		| { type: "hero_unit", value: HeroUnitInputData }
 		| { type: "friend_recommendation_carousel", value: FriendRecommendationCarouselInputData }
 		| { type: "party_chat_conversation_upsell", value: PartyChatConversationUpsellInputData }
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
@@ -1272,6 +1278,7 @@ type _ExperienceCarouselInputDataFields = {
 	pool_id: string?,
 	has_emphasized_tile: boolean,
 	tile_activation_mode: string,
+	sponsored_user_cohort: string?,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1290,6 +1297,7 @@ type _ExperienceCarouselInputDataPartialFields = {
 	pool_id: string?,
 	has_emphasized_tile: boolean?,
 	tile_activation_mode: string?,
+	sponsored_user_cohort: string?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -1325,6 +1333,13 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	player_count: number?,
 	creator_key: string,
 	rank: number?,
+	payer_name: string?,
+	logo_asset_id: string?,
+	logo_aspect_ratio: number?,
+	place_id: string?,
+	launch_data: string?,
+	cta_text: string?,
+	badge_analytics_id: string?,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1341,6 +1356,13 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	player_count: number?,
 	creator_key: string?,
 	rank: number?,
+	payer_name: string?,
+	logo_asset_id: string?,
+	logo_aspect_ratio: number?,
+	place_id: string?,
+	launch_data: string?,
+	cta_text: string?,
+	badge_analytics_id: string?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -3706,6 +3728,113 @@ export type ImageCtaSectionInputData = typeof(setmetatable(
 ))
 type _ImageCtaSectionInputDataMessage = proto.Message<ImageCtaSectionInputData, _ImageCtaSectionInputDataPartialFields>
 
+type _HeroUnitInputDataImpl = {
+	__index: _HeroUnitInputDataImpl,
+	new: (fields: _HeroUnitInputDataPartialFields?) -> HeroUnitInputData,
+	encode: (self: HeroUnitInputData) -> buffer,
+	decode: (input: buffer) -> HeroUnitInputData,
+	jsonEncode: (self: HeroUnitInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HeroUnitInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _HeroUnitInputDataFields = {
+	universe_id: string?,
+	title: string?,
+	subtitle: string?,
+	badge_text: string?,
+	foreground: HeroUnitInputData_VisualAsset?,
+	background: HeroUnitInputData_VisualAsset?,
+	title_image: HeroUnitInputData_VisualAsset?,
+	asset_title: string?,
+	asset_subtitle: string?,
+	gradient: HeroUnitInputData_Gradient?,
+	playable_text: string?,
+}
+
+type _HeroUnitInputDataPartialFields = {
+	universe_id: string?,
+	title: string?,
+	subtitle: string?,
+	badge_text: string?,
+	foreground: HeroUnitInputData_VisualAsset?,
+	background: HeroUnitInputData_VisualAsset?,
+	title_image: HeroUnitInputData_VisualAsset?,
+	asset_title: string?,
+	asset_subtitle: string?,
+	gradient: HeroUnitInputData_Gradient?,
+	playable_text: string?,
+}
+
+export type HeroUnitInputData = typeof(setmetatable({} :: _HeroUnitInputDataFields, {} :: _HeroUnitInputDataImpl))
+type _HeroUnitInputDataMessage = proto.Message<HeroUnitInputData, _HeroUnitInputDataPartialFields>
+
+type _HeroUnitInputData_VisualAssetImpl = {
+	__index: _HeroUnitInputData_VisualAssetImpl,
+	new: (fields: _HeroUnitInputData_VisualAssetPartialFields?) -> HeroUnitInputData_VisualAsset,
+	encode: (self: HeroUnitInputData_VisualAsset) -> buffer,
+	decode: (input: buffer) -> HeroUnitInputData_VisualAsset,
+	jsonEncode: (self: HeroUnitInputData_VisualAsset) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HeroUnitInputData_VisualAsset,
+	descriptor: proto.Descriptor,
+}
+
+type _HeroUnitInputData_VisualAssetFields = {
+	asset_id: string,
+	aspect_ratio: number?,
+	enable_animation: boolean?,
+}
+
+type _HeroUnitInputData_VisualAssetPartialFields = {
+	asset_id: string?,
+	aspect_ratio: number?,
+	enable_animation: boolean?,
+}
+
+export type HeroUnitInputData_VisualAsset = typeof(setmetatable(
+	{} :: _HeroUnitInputData_VisualAssetFields,
+	{} :: _HeroUnitInputData_VisualAssetImpl
+))
+type _HeroUnitInputData_VisualAssetMessage = proto.Message<
+	HeroUnitInputData_VisualAsset,
+	_HeroUnitInputData_VisualAssetPartialFields
+>
+
+type _HeroUnitInputData_GradientImpl = {
+	__index: _HeroUnitInputData_GradientImpl,
+	new: (fields: _HeroUnitInputData_GradientPartialFields?) -> HeroUnitInputData_Gradient,
+	encode: (self: HeroUnitInputData_Gradient) -> buffer,
+	decode: (input: buffer) -> HeroUnitInputData_Gradient,
+	jsonEncode: (self: HeroUnitInputData_Gradient) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HeroUnitInputData_Gradient,
+	descriptor: proto.Descriptor,
+}
+
+type _HeroUnitInputData_GradientFields = {
+	start_color: string?,
+	end_color: string?,
+	start_opacity: number?,
+	end_opacity: number?,
+	degree: number?,
+}
+
+type _HeroUnitInputData_GradientPartialFields = {
+	start_color: string?,
+	end_color: string?,
+	start_opacity: number?,
+	end_opacity: number?,
+	degree: number?,
+}
+
+export type HeroUnitInputData_Gradient = typeof(setmetatable(
+	{} :: _HeroUnitInputData_GradientFields,
+	{} :: _HeroUnitInputData_GradientImpl
+))
+type _HeroUnitInputData_GradientMessage = proto.Message<
+	HeroUnitInputData_Gradient,
+	_HeroUnitInputData_GradientPartialFields
+>
+
 type _FriendRecommendationCarouselInputDataImpl = {
 	__index: _FriendRecommendationCarouselInputDataImpl,
 	new: (fields: _FriendRecommendationCarouselInputDataPartialFields?) -> FriendRecommendationCarouselInputData,
@@ -3970,6 +4099,51 @@ type _GameItemInputDataPartialFields = {
 export type GameItemInputData = typeof(setmetatable({} :: _GameItemInputDataFields, {} :: _GameItemInputDataImpl))
 type _GameItemInputDataMessage = proto.Message<GameItemInputData, _GameItemInputDataPartialFields>
 
+type _AdLinkItemImpl = {
+	__index: _AdLinkItemImpl,
+	new: (fields: _AdLinkItemPartialFields?) -> AdLinkItem,
+	encode: (self: AdLinkItem) -> buffer,
+	decode: (input: buffer) -> AdLinkItem,
+	jsonEncode: (self: AdLinkItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AdLinkItem,
+	descriptor: proto.Descriptor,
+}
+
+type _AdLinkItemFields = {
+	clickout_url: string,
+	native_ad_data: string,
+	payer_name: string?,
+	logo_asset_id: string?,
+	logo_aspect_ratio: number?,
+	cta_text: string?,
+	title: string?,
+	subtitle: string?,
+	image_asset_id: string?,
+	video_asset_id: string?,
+	badge_text: string?,
+	badge_analytics_id: string?,
+	roblox_component: string?,
+}
+
+type _AdLinkItemPartialFields = {
+	clickout_url: string?,
+	native_ad_data: string?,
+	payer_name: string?,
+	logo_asset_id: string?,
+	logo_aspect_ratio: number?,
+	cta_text: string?,
+	title: string?,
+	subtitle: string?,
+	image_asset_id: string?,
+	video_asset_id: string?,
+	badge_text: string?,
+	badge_analytics_id: string?,
+	roblox_component: string?,
+}
+
+export type AdLinkItem = typeof(setmetatable({} :: _AdLinkItemFields, {} :: _AdLinkItemImpl))
+type _AdLinkItemMessage = proto.Message<AdLinkItem, _AdLinkItemPartialFields>
+
 type _ItemWithLayoutImpl = {
 	__index: _ItemWithLayoutImpl,
 	new: (fields: _ItemWithLayoutPartialFields?) -> ItemWithLayout,
@@ -3982,12 +4156,16 @@ type _ItemWithLayoutImpl = {
 
 type _ItemWithLayoutFields = {
 	layout: ItemLayout?,
-	kind: { type: "universe", value: ExperienceCarouselInputData_UniverseItem }?,
+	kind: (
+		{ type: "universe", value: ExperienceCarouselInputData_UniverseItem } | { type: "ad_link", value: AdLinkItem }
+	)?,
 }
 
 type _ItemWithLayoutPartialFields = {
 	layout: ItemLayout?,
-	kind: { type: "universe", value: ExperienceCarouselInputData_UniverseItem }?,
+	kind: (
+		{ type: "universe", value: ExperienceCarouselInputData_UniverseItem } | { type: "ad_link", value: AdLinkItem }
+	)?,
 }
 
 export type ItemWithLayout = typeof(setmetatable({} :: _ItemWithLayoutFields, {} :: _ItemWithLayoutImpl))
@@ -4868,6 +5046,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1101, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "hero_unit" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1102, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "friend_recommendation_carousel" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1103, proto.wireTypes.lengthDelimited)
@@ -5316,6 +5498,11 @@ do
 					self.kind =
 						{ type = "game_items_carousel", value = messages.GameItemsCarouselInputData.decode(value) }
 					continue
+				elseif field == 1102 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "hero_unit", value = messages.HeroUnitInputData.decode(value) }
+					continue
 				elseif field == 1103 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -5498,6 +5685,8 @@ do
 				output.optionSelectorCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "game_items_carousel" then
 				output.gameItemsCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "hero_unit" then
+				output.heroUnit = self.kind.value:jsonEncode()
 			elseif self.kind.type == "friend_recommendation_carousel" then
 				output.friendRecommendationCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "party_chat_conversation_upsell" then
@@ -6305,6 +6494,14 @@ do
 				type = "game_items_carousel",
 				value = messages.GameItemsCarouselInputData.jsonDecode(input.gameItemsCarousel),
 			}
+		end
+
+		if input.hero_unit ~= nil then
+			self.kind = { type = "hero_unit", value = messages.HeroUnitInputData.jsonDecode(input.hero_unit) }
+		end
+
+		if input.heroUnit ~= nil then
+			self.kind = { type = "hero_unit", value = messages.HeroUnitInputData.jsonDecode(input.heroUnit) }
 		end
 
 		if input.friend_recommendation_carousel ~= nil then
@@ -10456,6 +10653,9 @@ do
 			tile_activation_mode = if data == nil or data.tile_activation_mode == nil
 				then ""
 				else data.tile_activation_mode,
+			sponsored_user_cohort = if data == nil or data.sponsored_user_cohort == nil
+				then nil
+				else data.sponsored_user_cohort,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -10539,6 +10739,11 @@ do
 		if self.tile_activation_mode ~= nil and self.tile_activation_mode ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.tile_activation_mode)
+		end
+
+		if self.sponsored_user_cohort ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sponsored_user_cohort)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -10635,6 +10840,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.tile_activation_mode = buffer.tostring(value)
 					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sponsored_user_cohort = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -10724,6 +10934,10 @@ do
 
 		if self.tile_activation_mode ~= nil and self.tile_activation_mode ~= "" then
 			output.tileActivationMode = self.tile_activation_mode
+		end
+
+		if self.sponsored_user_cohort ~= nil then
+			output.sponsoredUserCohort = self.sponsored_user_cohort
 		end
 
 		return output
@@ -10854,6 +11068,14 @@ do
 			self.tile_activation_mode = input.tileActivationMode
 		end
 
+		if input.sponsored_user_cohort ~= nil then
+			self.sponsored_user_cohort = input.sponsored_user_cohort
+		end
+
+		if input.sponsoredUserCohort ~= nil then
+			self.sponsored_user_cohort = input.sponsoredUserCohort
+		end
+
 		return self
 	end
 
@@ -10888,6 +11110,13 @@ do
 			player_count = if data == nil or data.player_count == nil then nil else data.player_count,
 			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
 			rank = if data == nil or data.rank == nil then nil else data.rank,
+			payer_name = if data == nil or data.payer_name == nil then nil else data.payer_name,
+			logo_asset_id = if data == nil or data.logo_asset_id == nil then nil else data.logo_asset_id,
+			logo_aspect_ratio = if data == nil or data.logo_aspect_ratio == nil then nil else data.logo_aspect_ratio,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			launch_data = if data == nil or data.launch_data == nil then nil else data.launch_data,
+			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
+			badge_analytics_id = if data == nil or data.badge_analytics_id == nil then nil else data.badge_analytics_id,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -10960,6 +11189,41 @@ do
 		if self.rank ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.rank)
+		end
+
+		if self.payer_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.payer_name)
+		end
+
+		if self.logo_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.logo_asset_id)
+		end
+
+		if self.logo_aspect_ratio ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.logo_aspect_ratio)
+		end
+
+		if self.place_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.place_id)
+		end
+
+		if self.launch_data ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.launch_data)
+		end
+
+		if self.cta_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cta_text)
+		end
+
+		if self.badge_analytics_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_analytics_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11048,6 +11312,36 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.creator_key = buffer.tostring(value)
 					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.payer_name = buffer.tostring(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.logo_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = buffer.tostring(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_data = buffer.tostring(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_text = buffer.tostring(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_analytics_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -11060,7 +11354,12 @@ do
 				local _
 				_, cursor = proto.readFixed32(input, cursor)
 			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
+				if field == 16 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.logo_aspect_ratio = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readFixed64(input, cursor)
@@ -11127,6 +11426,34 @@ do
 
 		if self.rank ~= nil then
 			output.rank = self.rank
+		end
+
+		if self.payer_name ~= nil then
+			output.payerName = self.payer_name
+		end
+
+		if self.logo_asset_id ~= nil then
+			output.logoAssetId = self.logo_asset_id
+		end
+
+		if self.logo_aspect_ratio ~= nil then
+			output.logoAspectRatio = proto.json.serializeNumber(self.logo_aspect_ratio)
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id
+		end
+
+		if self.launch_data ~= nil then
+			output.launchData = self.launch_data
+		end
+
+		if self.cta_text ~= nil then
+			output.ctaText = self.cta_text
+		end
+
+		if self.badge_analytics_id ~= nil then
+			output.badgeAnalyticsId = self.badge_analytics_id
 		end
 
 		return output
@@ -11227,6 +11554,62 @@ do
 
 		if input.rank ~= nil then
 			self.rank = input.rank
+		end
+
+		if input.payer_name ~= nil then
+			self.payer_name = input.payer_name
+		end
+
+		if input.payerName ~= nil then
+			self.payer_name = input.payerName
+		end
+
+		if input.logo_asset_id ~= nil then
+			self.logo_asset_id = input.logo_asset_id
+		end
+
+		if input.logoAssetId ~= nil then
+			self.logo_asset_id = input.logoAssetId
+		end
+
+		if input.logo_aspect_ratio ~= nil then
+			self.logo_aspect_ratio = proto.json.deserializeNumber(input.logo_aspect_ratio)
+		end
+
+		if input.logoAspectRatio ~= nil then
+			self.logo_aspect_ratio = proto.json.deserializeNumber(input.logoAspectRatio)
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = input.place_id
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = input.placeId
+		end
+
+		if input.launch_data ~= nil then
+			self.launch_data = input.launch_data
+		end
+
+		if input.launchData ~= nil then
+			self.launch_data = input.launchData
+		end
+
+		if input.cta_text ~= nil then
+			self.cta_text = input.cta_text
+		end
+
+		if input.ctaText ~= nil then
+			self.cta_text = input.ctaText
+		end
+
+		if input.badge_analytics_id ~= nil then
+			self.badge_analytics_id = input.badge_analytics_id
+		end
+
+		if input.badgeAnalyticsId ~= nil then
+			self.badge_analytics_id = input.badgeAnalyticsId
 		end
 
 		return self
@@ -24024,6 +24407,661 @@ do
 end
 
 do
+	local _HeroUnitInputDataImpl = {}
+	_HeroUnitInputDataImpl.__index = _HeroUnitInputDataImpl
+
+	function _HeroUnitInputDataImpl.new(data: _HeroUnitInputDataPartialFields?): HeroUnitInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			title = if data == nil or data.title == nil then nil else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			badge_text = if data == nil or data.badge_text == nil then nil else data.badge_text,
+			foreground = if data == nil or data.foreground == nil then nil else data.foreground,
+			background = if data == nil or data.background == nil then nil else data.background,
+			title_image = if data == nil or data.title_image == nil then nil else data.title_image,
+			asset_title = if data == nil or data.asset_title == nil then nil else data.asset_title,
+			asset_subtitle = if data == nil or data.asset_subtitle == nil then nil else data.asset_subtitle,
+			gradient = if data == nil or data.gradient == nil then nil else data.gradient,
+			playable_text = if data == nil or data.playable_text == nil then nil else data.playable_text,
+		}, _HeroUnitInputDataImpl :: _HeroUnitInputDataImpl)
+	end
+
+	function _HeroUnitInputDataImpl.encode(self: HeroUnitInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.subtitle ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.badge_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_text)
+		end
+
+		if self.foreground ~= nil then
+			local encoded = self.foreground:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background ~= nil then
+			local encoded = self.background:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_image ~= nil then
+			local encoded = self.title_image:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.asset_title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.asset_title)
+		end
+
+		if self.asset_subtitle ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.asset_subtitle)
+		end
+
+		if self.gradient ~= nil then
+			local encoded = self.gradient:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.playable_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.playable_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HeroUnitInputDataImpl.decode(input: buffer): HeroUnitInputData
+		local self = _HeroUnitInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_text = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground = messages.HeroUnitInputData_VisualAsset.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background = messages.HeroUnitInputData_VisualAsset.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_image = messages.HeroUnitInputData_VisualAsset.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_title = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_subtitle = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gradient = messages.HeroUnitInputData_Gradient.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.playable_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HeroUnitInputDataImpl.jsonEncode(self: HeroUnitInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id
+		end
+
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle
+		end
+
+		if self.badge_text ~= nil then
+			output.badgeText = self.badge_text
+		end
+
+		if self.foreground ~= nil then
+			output.foreground = self.foreground:jsonEncode()
+		end
+
+		if self.background ~= nil then
+			output.background = self.background:jsonEncode()
+		end
+
+		if self.title_image ~= nil then
+			output.titleImage = self.title_image:jsonEncode()
+		end
+
+		if self.asset_title ~= nil then
+			output.assetTitle = self.asset_title
+		end
+
+		if self.asset_subtitle ~= nil then
+			output.assetSubtitle = self.asset_subtitle
+		end
+
+		if self.gradient ~= nil then
+			output.gradient = self.gradient:jsonEncode()
+		end
+
+		if self.playable_text ~= nil then
+			output.playableText = self.playable_text
+		end
+
+		return output
+	end
+
+	function _HeroUnitInputDataImpl.jsonDecode(input: { [string]: any }): HeroUnitInputData
+		local self = _HeroUnitInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.badge_text ~= nil then
+			self.badge_text = input.badge_text
+		end
+
+		if input.badgeText ~= nil then
+			self.badge_text = input.badgeText
+		end
+
+		if input.foreground ~= nil then
+			self.foreground = messages.HeroUnitInputData_VisualAsset.jsonDecode(input.foreground)
+		end
+
+		if input.background ~= nil then
+			self.background = messages.HeroUnitInputData_VisualAsset.jsonDecode(input.background)
+		end
+
+		if input.title_image ~= nil then
+			self.title_image = messages.HeroUnitInputData_VisualAsset.jsonDecode(input.title_image)
+		end
+
+		if input.titleImage ~= nil then
+			self.title_image = messages.HeroUnitInputData_VisualAsset.jsonDecode(input.titleImage)
+		end
+
+		if input.asset_title ~= nil then
+			self.asset_title = input.asset_title
+		end
+
+		if input.assetTitle ~= nil then
+			self.asset_title = input.assetTitle
+		end
+
+		if input.asset_subtitle ~= nil then
+			self.asset_subtitle = input.asset_subtitle
+		end
+
+		if input.assetSubtitle ~= nil then
+			self.asset_subtitle = input.assetSubtitle
+		end
+
+		if input.gradient ~= nil then
+			self.gradient = messages.HeroUnitInputData_Gradient.jsonDecode(input.gradient)
+		end
+
+		if input.playable_text ~= nil then
+			self.playable_text = input.playable_text
+		end
+
+		if input.playableText ~= nil then
+			self.playable_text = input.playableText
+		end
+
+		return self
+	end
+
+	_HeroUnitInputDataImpl.descriptor = {
+		name = "HeroUnitInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.HeroUnitInputData",
+	}
+
+	messages.HeroUnitInputData = _HeroUnitInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HeroUnitInputData)
+end
+
+do
+	local _HeroUnitInputData_VisualAssetImpl = {}
+	_HeroUnitInputData_VisualAssetImpl.__index = _HeroUnitInputData_VisualAssetImpl
+
+	function _HeroUnitInputData_VisualAssetImpl.new(
+		data: _HeroUnitInputData_VisualAssetPartialFields?
+	): HeroUnitInputData_VisualAsset
+		return setmetatable({
+			asset_id = if data == nil or data.asset_id == nil then "" else data.asset_id,
+			aspect_ratio = if data == nil or data.aspect_ratio == nil then nil else data.aspect_ratio,
+			enable_animation = if data == nil or data.enable_animation == nil then nil else data.enable_animation,
+		}, _HeroUnitInputData_VisualAssetImpl :: _HeroUnitInputData_VisualAssetImpl)
+	end
+
+	function _HeroUnitInputData_VisualAssetImpl.encode(self: HeroUnitInputData_VisualAsset): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.asset_id ~= nil and self.asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.asset_id)
+		end
+
+		if self.aspect_ratio ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.aspect_ratio)
+		end
+
+		if self.enable_animation ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.enable_animation then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HeroUnitInputData_VisualAssetImpl.decode(input: buffer): HeroUnitInputData_VisualAsset
+		local self = _HeroUnitInputData_VisualAssetImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.enable_animation = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				if field == 2 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.aspect_ratio = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HeroUnitInputData_VisualAssetImpl.jsonEncode(self: HeroUnitInputData_VisualAsset): any
+		local output = {}
+
+		if self.asset_id ~= nil and self.asset_id ~= "" then
+			output.assetId = self.asset_id
+		end
+
+		if self.aspect_ratio ~= nil then
+			output.aspectRatio = proto.json.serializeNumber(self.aspect_ratio)
+		end
+
+		if self.enable_animation ~= nil then
+			output.enableAnimation = self.enable_animation
+		end
+
+		return output
+	end
+
+	function _HeroUnitInputData_VisualAssetImpl.jsonDecode(input: { [string]: any }): HeroUnitInputData_VisualAsset
+		local self = _HeroUnitInputData_VisualAssetImpl.new()
+
+		if input.asset_id ~= nil then
+			self.asset_id = input.asset_id
+		end
+
+		if input.assetId ~= nil then
+			self.asset_id = input.assetId
+		end
+
+		if input.aspect_ratio ~= nil then
+			self.aspect_ratio = proto.json.deserializeNumber(input.aspect_ratio)
+		end
+
+		if input.aspectRatio ~= nil then
+			self.aspect_ratio = proto.json.deserializeNumber(input.aspectRatio)
+		end
+
+		if input.enable_animation ~= nil then
+			self.enable_animation = input.enable_animation
+		end
+
+		if input.enableAnimation ~= nil then
+			self.enable_animation = input.enableAnimation
+		end
+
+		return self
+	end
+
+	_HeroUnitInputData_VisualAssetImpl.descriptor = {
+		name = "HeroUnitInputData_VisualAsset",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VisualAsset",
+	}
+
+	messages.HeroUnitInputData_VisualAsset = _HeroUnitInputData_VisualAssetImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HeroUnitInputData_VisualAsset)
+end
+
+do
+	local _HeroUnitInputData_GradientImpl = {}
+	_HeroUnitInputData_GradientImpl.__index = _HeroUnitInputData_GradientImpl
+
+	function _HeroUnitInputData_GradientImpl.new(
+		data: _HeroUnitInputData_GradientPartialFields?
+	): HeroUnitInputData_Gradient
+		return setmetatable({
+			start_color = if data == nil or data.start_color == nil then nil else data.start_color,
+			end_color = if data == nil or data.end_color == nil then nil else data.end_color,
+			start_opacity = if data == nil or data.start_opacity == nil then nil else data.start_opacity,
+			end_opacity = if data == nil or data.end_opacity == nil then nil else data.end_opacity,
+			degree = if data == nil or data.degree == nil then nil else data.degree,
+		}, _HeroUnitInputData_GradientImpl :: _HeroUnitInputData_GradientImpl)
+	end
+
+	function _HeroUnitInputData_GradientImpl.encode(self: HeroUnitInputData_Gradient): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.start_color ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.start_color)
+		end
+
+		if self.end_color ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.end_color)
+		end
+
+		if self.start_opacity ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.start_opacity)
+		end
+
+		if self.end_opacity ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.end_opacity)
+		end
+
+		if self.degree ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.degree)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HeroUnitInputData_GradientImpl.decode(input: buffer): HeroUnitInputData_Gradient
+		local self = _HeroUnitInputData_GradientImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.start_color = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.end_color = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				if field == 3 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.start_opacity = value
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.end_opacity = value
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.degree = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HeroUnitInputData_GradientImpl.jsonEncode(self: HeroUnitInputData_Gradient): any
+		local output = {}
+
+		if self.start_color ~= nil then
+			output.startColor = self.start_color
+		end
+
+		if self.end_color ~= nil then
+			output.endColor = self.end_color
+		end
+
+		if self.start_opacity ~= nil then
+			output.startOpacity = proto.json.serializeNumber(self.start_opacity)
+		end
+
+		if self.end_opacity ~= nil then
+			output.endOpacity = proto.json.serializeNumber(self.end_opacity)
+		end
+
+		if self.degree ~= nil then
+			output.degree = proto.json.serializeNumber(self.degree)
+		end
+
+		return output
+	end
+
+	function _HeroUnitInputData_GradientImpl.jsonDecode(input: { [string]: any }): HeroUnitInputData_Gradient
+		local self = _HeroUnitInputData_GradientImpl.new()
+
+		if input.start_color ~= nil then
+			self.start_color = input.start_color
+		end
+
+		if input.startColor ~= nil then
+			self.start_color = input.startColor
+		end
+
+		if input.end_color ~= nil then
+			self.end_color = input.end_color
+		end
+
+		if input.endColor ~= nil then
+			self.end_color = input.endColor
+		end
+
+		if input.start_opacity ~= nil then
+			self.start_opacity = proto.json.deserializeNumber(input.start_opacity)
+		end
+
+		if input.startOpacity ~= nil then
+			self.start_opacity = proto.json.deserializeNumber(input.startOpacity)
+		end
+
+		if input.end_opacity ~= nil then
+			self.end_opacity = proto.json.deserializeNumber(input.end_opacity)
+		end
+
+		if input.endOpacity ~= nil then
+			self.end_opacity = proto.json.deserializeNumber(input.endOpacity)
+		end
+
+		if input.degree ~= nil then
+			self.degree = proto.json.deserializeNumber(input.degree)
+		end
+
+		return self
+	end
+
+	_HeroUnitInputData_GradientImpl.descriptor = {
+		name = "HeroUnitInputData_Gradient",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Gradient",
+	}
+
+	messages.HeroUnitInputData_Gradient = _HeroUnitInputData_GradientImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HeroUnitInputData_Gradient)
+end
+
+do
 	local _FriendRecommendationCarouselInputDataImpl = {}
 	_FriendRecommendationCarouselInputDataImpl.__index = _FriendRecommendationCarouselInputDataImpl
 
@@ -25327,6 +26365,375 @@ do
 end
 
 do
+	local _AdLinkItemImpl = {}
+	_AdLinkItemImpl.__index = _AdLinkItemImpl
+
+	function _AdLinkItemImpl.new(data: _AdLinkItemPartialFields?): AdLinkItem
+		return setmetatable({
+			clickout_url = if data == nil or data.clickout_url == nil then "" else data.clickout_url,
+			native_ad_data = if data == nil or data.native_ad_data == nil then "" else data.native_ad_data,
+			payer_name = if data == nil or data.payer_name == nil then nil else data.payer_name,
+			logo_asset_id = if data == nil or data.logo_asset_id == nil then nil else data.logo_asset_id,
+			logo_aspect_ratio = if data == nil or data.logo_aspect_ratio == nil then nil else data.logo_aspect_ratio,
+			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
+			title = if data == nil or data.title == nil then nil else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			image_asset_id = if data == nil or data.image_asset_id == nil then nil else data.image_asset_id,
+			video_asset_id = if data == nil or data.video_asset_id == nil then nil else data.video_asset_id,
+			badge_text = if data == nil or data.badge_text == nil then nil else data.badge_text,
+			badge_analytics_id = if data == nil or data.badge_analytics_id == nil then nil else data.badge_analytics_id,
+			roblox_component = if data == nil or data.roblox_component == nil then nil else data.roblox_component,
+		}, _AdLinkItemImpl :: _AdLinkItemImpl)
+	end
+
+	function _AdLinkItemImpl.encode(self: AdLinkItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.clickout_url ~= nil and self.clickout_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.clickout_url)
+		end
+
+		if self.native_ad_data ~= nil and self.native_ad_data ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.native_ad_data)
+		end
+
+		if self.payer_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.payer_name)
+		end
+
+		if self.logo_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.logo_asset_id)
+		end
+
+		if self.logo_aspect_ratio ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.logo_aspect_ratio)
+		end
+
+		if self.cta_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cta_text)
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.subtitle ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.image_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.image_asset_id)
+		end
+
+		if self.video_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.video_asset_id)
+		end
+
+		if self.badge_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_text)
+		end
+
+		if self.badge_analytics_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_analytics_id)
+		end
+
+		if self.roblox_component ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AdLinkItemImpl.decode(input: buffer): AdLinkItem
+		local self = _AdLinkItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.clickout_url = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.native_ad_data = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.payer_name = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.logo_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_text = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_text = buffer.tostring(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_analytics_id = buffer.tostring(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				if field == 5 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.logo_aspect_ratio = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AdLinkItemImpl.jsonEncode(self: AdLinkItem): any
+		local output = {}
+
+		if self.clickout_url ~= nil and self.clickout_url ~= "" then
+			output.clickoutUrl = self.clickout_url
+		end
+
+		if self.native_ad_data ~= nil and self.native_ad_data ~= "" then
+			output.nativeAdData = self.native_ad_data
+		end
+
+		if self.payer_name ~= nil then
+			output.payerName = self.payer_name
+		end
+
+		if self.logo_asset_id ~= nil then
+			output.logoAssetId = self.logo_asset_id
+		end
+
+		if self.logo_aspect_ratio ~= nil then
+			output.logoAspectRatio = proto.json.serializeNumber(self.logo_aspect_ratio)
+		end
+
+		if self.cta_text ~= nil then
+			output.ctaText = self.cta_text
+		end
+
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle
+		end
+
+		if self.image_asset_id ~= nil then
+			output.imageAssetId = self.image_asset_id
+		end
+
+		if self.video_asset_id ~= nil then
+			output.videoAssetId = self.video_asset_id
+		end
+
+		if self.badge_text ~= nil then
+			output.badgeText = self.badge_text
+		end
+
+		if self.badge_analytics_id ~= nil then
+			output.badgeAnalyticsId = self.badge_analytics_id
+		end
+
+		if self.roblox_component ~= nil then
+			output.robloxComponent = self.roblox_component
+		end
+
+		return output
+	end
+
+	function _AdLinkItemImpl.jsonDecode(input: { [string]: any }): AdLinkItem
+		local self = _AdLinkItemImpl.new()
+
+		if input.clickout_url ~= nil then
+			self.clickout_url = input.clickout_url
+		end
+
+		if input.clickoutUrl ~= nil then
+			self.clickout_url = input.clickoutUrl
+		end
+
+		if input.native_ad_data ~= nil then
+			self.native_ad_data = input.native_ad_data
+		end
+
+		if input.nativeAdData ~= nil then
+			self.native_ad_data = input.nativeAdData
+		end
+
+		if input.payer_name ~= nil then
+			self.payer_name = input.payer_name
+		end
+
+		if input.payerName ~= nil then
+			self.payer_name = input.payerName
+		end
+
+		if input.logo_asset_id ~= nil then
+			self.logo_asset_id = input.logo_asset_id
+		end
+
+		if input.logoAssetId ~= nil then
+			self.logo_asset_id = input.logoAssetId
+		end
+
+		if input.logo_aspect_ratio ~= nil then
+			self.logo_aspect_ratio = proto.json.deserializeNumber(input.logo_aspect_ratio)
+		end
+
+		if input.logoAspectRatio ~= nil then
+			self.logo_aspect_ratio = proto.json.deserializeNumber(input.logoAspectRatio)
+		end
+
+		if input.cta_text ~= nil then
+			self.cta_text = input.cta_text
+		end
+
+		if input.ctaText ~= nil then
+			self.cta_text = input.ctaText
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.image_asset_id ~= nil then
+			self.image_asset_id = input.image_asset_id
+		end
+
+		if input.imageAssetId ~= nil then
+			self.image_asset_id = input.imageAssetId
+		end
+
+		if input.video_asset_id ~= nil then
+			self.video_asset_id = input.video_asset_id
+		end
+
+		if input.videoAssetId ~= nil then
+			self.video_asset_id = input.videoAssetId
+		end
+
+		if input.badge_text ~= nil then
+			self.badge_text = input.badge_text
+		end
+
+		if input.badgeText ~= nil then
+			self.badge_text = input.badgeText
+		end
+
+		if input.badge_analytics_id ~= nil then
+			self.badge_analytics_id = input.badge_analytics_id
+		end
+
+		if input.badgeAnalyticsId ~= nil then
+			self.badge_analytics_id = input.badgeAnalyticsId
+		end
+
+		if input.roblox_component ~= nil then
+			self.roblox_component = input.roblox_component
+		end
+
+		if input.robloxComponent ~= nil then
+			self.roblox_component = input.robloxComponent
+		end
+
+		return self
+	end
+
+	_AdLinkItemImpl.descriptor = {
+		name = "AdLinkItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AdLinkItem",
+	}
+
+	messages.AdLinkItem = _AdLinkItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AdLinkItem)
+end
+
+do
 	local _ItemWithLayoutImpl = {}
 	_ItemWithLayoutImpl.__index = _ItemWithLayoutImpl
 
@@ -25351,6 +26758,10 @@ do
 			if self.kind.type == "universe" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "ad_link" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -25384,6 +26795,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind =
 						{ type = "universe", value = messages.ExperienceCarouselInputData_UniverseItem.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "ad_link", value = messages.AdLinkItem.decode(value) }
 					continue
 				end
 
@@ -25419,6 +26835,8 @@ do
 		if self.kind ~= nil then
 			if self.kind.type == "universe" then
 				output.universe = self.kind.value:jsonEncode()
+			elseif self.kind.type == "ad_link" then
+				output.adLink = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -25437,6 +26855,14 @@ do
 				type = "universe",
 				value = messages.ExperienceCarouselInputData_UniverseItem.jsonDecode(input.universe),
 			}
+		end
+
+		if input.ad_link ~= nil then
+			self.kind = { type = "ad_link", value = messages.AdLinkItem.jsonDecode(input.ad_link) }
+		end
+
+		if input.adLink ~= nil then
+			self.kind = { type = "ad_link", value = messages.AdLinkItem.jsonDecode(input.adLink) }
 		end
 
 		return self
@@ -25893,6 +27319,9 @@ return {
 	PageHeaderInputData = messages.PageHeaderInputData,
 	PreAuthLandingStickyHeaderInputData = messages.PreAuthLandingStickyHeaderInputData,
 	ImageCtaSectionInputData = messages.ImageCtaSectionInputData,
+	HeroUnitInputData = messages.HeroUnitInputData,
+	HeroUnitInputData_VisualAsset = messages.HeroUnitInputData_VisualAsset,
+	HeroUnitInputData_Gradient = messages.HeroUnitInputData_Gradient,
 	FriendRecommendationCarouselInputData = messages.FriendRecommendationCarouselInputData,
 	FriendRecommendationCarouselInputData_UserRecommendation = messages.FriendRecommendationCarouselInputData_UserRecommendation,
 	FriendRecommendationCarouselInputData_ContactRecommendation = messages.FriendRecommendationCarouselInputData_ContactRecommendation,
@@ -25902,6 +27331,7 @@ return {
 	GameItemsCarouselInputData = messages.GameItemsCarouselInputData,
 	GameItemsCardInputData = messages.GameItemsCardInputData,
 	GameItemInputData = messages.GameItemInputData,
+	AdLinkItem = messages.AdLinkItem,
 	ItemWithLayout = messages.ItemWithLayout,
 	ContentPool = messages.ContentPool,
 	ItemLayout = messages.ItemLayout,

@@ -59,8 +59,6 @@ end
 
 local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection")
 
-local LEAVE_GAME_FRAME_WAITS = 2
-
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
@@ -144,6 +142,13 @@ local FFlagConnectionUpsellAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
 local FFlagUniversalFeatureRestrictionReceivers =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagUniversalFeatureRestrictionReceivers
+local FFlagDebugEnablePioneerUX = require(CorePackages.Workspace.Packages.SharedFlags).FFlagDebugEnablePioneerUX
+local FFlagErrorPromptUseLeaveGameHelper =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagErrorPromptUseLeaveGameHelper
+
+local LEAVE_GAME_FRAME_WAITS = 2
+
+local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
 local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError2", false)
 local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
@@ -404,11 +409,19 @@ end
 
 local leaveFunction = function()
 	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "LeaveInitiated"}}, 1.0)
-	GuiService.SelectedCoreObject = nil
-	for i = 1, LEAVE_GAME_FRAME_WAITS do
-		RunService.RenderStepped:wait()
+	if FFlagErrorPromptUseLeaveGameHelper then
+		leaveGame(false, {
+			shouldNativeExit = FFlagDebugEnablePioneerUX,
+			inhibitAppRating = true,
+			telemetryContext = "ErrorPrompt",
+		})
+	else
+		GuiService.SelectedCoreObject = nil
+		for i = 1, LEAVE_GAME_FRAME_WAITS do
+			RunService.RenderStepped:wait()
+		end
+		game:Shutdown()
 	end
-	game:Shutdown()
 end
 
 local closePrompt = function()
@@ -870,6 +883,17 @@ if FFlagConnectionEnableAutoReconnect then
 			Callback = autoReconnectLeaveFunction,
 		},
 	}
+end
+
+if FFlagDebugEnablePioneerUX then
+	for _, buttons in pairs(ButtonList) do
+		for _, buttonData in ipairs(buttons) do
+			if buttonData.Callback == leaveFunction or buttonData.Callback == autoReconnectLeaveFunction then
+				buttonData.Text = "Quit"
+				buttonData.LocalizationKey = "Feature.SettingsHub.Label.QuitButton"
+			end
+		end
+	end
 end
 
 local updateFullScreenEffect = {

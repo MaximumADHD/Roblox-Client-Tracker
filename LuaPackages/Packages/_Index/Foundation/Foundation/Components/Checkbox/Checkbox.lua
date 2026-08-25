@@ -25,6 +25,7 @@ local InputPlacement = require(Foundation.Enums.InputPlacement)
 type InputPlacement = InputPlacement.InputPlacement
 
 local Flags = require(Foundation.Utility.Flags)
+local useInputGroupDefaults = require(Components.InternalInputGroup.useInputGroupDefaults)
 
 export type CheckboxProps = {
 	-- Whether the checkbox is currently checked. If it is left `nil`,
@@ -55,7 +56,10 @@ local defaultProps = {
 }
 
 local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?)
-	local props = withDefaults(checkboxProps, defaultProps)
+	local props = if Flags.FoundationInputGroup
+		then useInputGroupDefaults(checkboxProps, defaultProps)
+		else withDefaults(checkboxProps, defaultProps)
+
 	local tokens = useTokens()
 	local variantProps = useCheckboxVariants(tokens, props.size)
 

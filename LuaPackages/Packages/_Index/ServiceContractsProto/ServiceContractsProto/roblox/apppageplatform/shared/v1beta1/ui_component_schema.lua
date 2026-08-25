@@ -54,6 +54,7 @@ type _Messages =
 		ButtonSchema_Props: _ButtonSchema_PropsMessage,
 		AppDownloadButtonSchema: _AppDownloadButtonSchemaMessage,
 		AppDownloadButtonSchema_Props: _AppDownloadButtonSchema_PropsMessage,
+		AppDownloadButtonSchema_WebProps: _AppDownloadButtonSchema_WebPropsMessage,
 		IconButtonSchema: _IconButtonSchemaMessage,
 		IconButtonSchema_Props: _IconButtonSchema_PropsMessage,
 		ImageSchema: _ImageSchemaMessage,
@@ -68,6 +69,8 @@ type _Messages =
 		ViewSchema: _ViewSchemaMessage,
 		ViewSchema_Props: _ViewSchema_PropsMessage,
 		ViewSchema_WebProps: _ViewSchema_WebPropsMessage,
+		VerticalListWithImpressionsSchema: _VerticalListWithImpressionsSchemaMessage,
+		VerticalListWithImpressionsSchema_Props: _VerticalListWithImpressionsSchema_PropsMessage,
 		DividerSchema: _DividerSchemaMessage,
 		DividerSchema_Props: _DividerSchema_PropsMessage,
 		DialogSchema: _DialogSchemaMessage,
@@ -1700,6 +1703,7 @@ type _GameTileSchema_PropsFields = {
 	open_game_details_on_purchase_required: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	video_player: NestedComponentProp?,
 }
 
 type _GameTileSchema_PropsPartialFields = {
@@ -1738,6 +1742,7 @@ type _GameTileSchema_PropsPartialFields = {
 	open_game_details_on_purchase_required: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	video_player: NestedComponentProp?,
 }
 
 export type GameTileSchema_Props = typeof(setmetatable(
@@ -1861,11 +1866,13 @@ type _AppDownloadButtonSchemaImpl = {
 type _AppDownloadButtonSchemaFields = {
 	props: AppDownloadButtonSchema_Props?,
 	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+	web_props: AppDownloadButtonSchema_WebProps?,
 }
 
 type _AppDownloadButtonSchemaPartialFields = {
 	props: AppDownloadButtonSchema_Props?,
 	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+	web_props: AppDownloadButtonSchema_WebProps?,
 }
 
 export type AppDownloadButtonSchema = typeof(setmetatable(
@@ -1913,6 +1920,33 @@ export type AppDownloadButtonSchema_Props = typeof(setmetatable(
 type _AppDownloadButtonSchema_PropsMessage = proto.Message<
 	AppDownloadButtonSchema_Props,
 	_AppDownloadButtonSchema_PropsPartialFields
+>
+
+type _AppDownloadButtonSchema_WebPropsImpl = {
+	__index: _AppDownloadButtonSchema_WebPropsImpl,
+	new: (fields: _AppDownloadButtonSchema_WebPropsPartialFields?) -> AppDownloadButtonSchema_WebProps,
+	encode: (self: AppDownloadButtonSchema_WebProps) -> buffer,
+	decode: (input: buffer) -> AppDownloadButtonSchema_WebProps,
+	jsonEncode: (self: AppDownloadButtonSchema_WebProps) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AppDownloadButtonSchema_WebProps,
+	descriptor: proto.Descriptor,
+}
+
+type _AppDownloadButtonSchema_WebPropsFields = {
+	use_foundation_size: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+type _AppDownloadButtonSchema_WebPropsPartialFields = {
+	use_foundation_size: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+export type AppDownloadButtonSchema_WebProps = typeof(setmetatable(
+	{} :: _AppDownloadButtonSchema_WebPropsFields,
+	{} :: _AppDownloadButtonSchema_WebPropsImpl
+))
+type _AppDownloadButtonSchema_WebPropsMessage = proto.Message<
+	AppDownloadButtonSchema_WebProps,
+	_AppDownloadButtonSchema_WebPropsPartialFields
 >
 
 type _IconButtonSchemaImpl = {
@@ -2169,6 +2203,7 @@ type _TextSchema_WebPropsFields = {
 	heading_level: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	font_family: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	font_weight: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _TextSchema_WebPropsPartialFields = {
@@ -2176,6 +2211,7 @@ type _TextSchema_WebPropsPartialFields = {
 	heading_level: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	max_lines: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	font_family: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	font_weight: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type TextSchema_WebProps = typeof(setmetatable({} :: _TextSchema_WebPropsFields, {} :: _TextSchema_WebPropsImpl))
@@ -2469,6 +2505,70 @@ type _ViewSchema_WebPropsPartialFields = {
 
 export type ViewSchema_WebProps = typeof(setmetatable({} :: _ViewSchema_WebPropsFields, {} :: _ViewSchema_WebPropsImpl))
 type _ViewSchema_WebPropsMessage = proto.Message<ViewSchema_WebProps, _ViewSchema_WebPropsPartialFields>
+
+type _VerticalListWithImpressionsSchemaImpl = {
+	__index: _VerticalListWithImpressionsSchemaImpl,
+	new: (fields: _VerticalListWithImpressionsSchemaPartialFields?) -> VerticalListWithImpressionsSchema,
+	encode: (self: VerticalListWithImpressionsSchema) -> buffer,
+	decode: (input: buffer) -> VerticalListWithImpressionsSchema,
+	jsonEncode: (self: VerticalListWithImpressionsSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalListWithImpressionsSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalListWithImpressionsSchemaFields = {
+	props: VerticalListWithImpressionsSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _VerticalListWithImpressionsSchemaPartialFields = {
+	props: VerticalListWithImpressionsSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type VerticalListWithImpressionsSchema = typeof(setmetatable(
+	{} :: _VerticalListWithImpressionsSchemaFields,
+	{} :: _VerticalListWithImpressionsSchemaImpl
+))
+type _VerticalListWithImpressionsSchemaMessage = proto.Message<
+	VerticalListWithImpressionsSchema,
+	_VerticalListWithImpressionsSchemaPartialFields
+>
+
+type _VerticalListWithImpressionsSchema_PropsImpl = {
+	__index: _VerticalListWithImpressionsSchema_PropsImpl,
+	new: (fields: _VerticalListWithImpressionsSchema_PropsPartialFields?) -> VerticalListWithImpressionsSchema_Props,
+	encode: (self: VerticalListWithImpressionsSchema_Props) -> buffer,
+	decode: (input: buffer) -> VerticalListWithImpressionsSchema_Props,
+	jsonEncode: (self: VerticalListWithImpressionsSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalListWithImpressionsSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalListWithImpressionsSchema_PropsFields = {
+	view: LazyNestedComponentProp?,
+	items: LazyNestedComponentListProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	respect_clip_ancestors: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+type _VerticalListWithImpressionsSchema_PropsPartialFields = {
+	view: LazyNestedComponentProp?,
+	items: LazyNestedComponentListProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	respect_clip_ancestors: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+export type VerticalListWithImpressionsSchema_Props = typeof(setmetatable(
+	{} :: _VerticalListWithImpressionsSchema_PropsFields,
+	{} :: _VerticalListWithImpressionsSchema_PropsImpl
+))
+type _VerticalListWithImpressionsSchema_PropsMessage = proto.Message<
+	VerticalListWithImpressionsSchema_Props,
+	_VerticalListWithImpressionsSchema_PropsPartialFields
+>
 
 type _DividerSchemaImpl = {
 	__index: _DividerSchemaImpl,
@@ -3940,6 +4040,7 @@ type _OptionSelectorCollectionSchema_PropsFields = {
 	padding_between_option_selector_and_collection: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	option_impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_option_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OptionSelectorCollectionSchema_PropsPartialFields = {
@@ -3957,6 +4058,7 @@ type _OptionSelectorCollectionSchema_PropsPartialFields = {
 	padding_between_option_selector_and_collection: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	option_impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_option_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OptionSelectorCollectionSchema_Props = typeof(setmetatable(
@@ -10739,6 +10841,7 @@ type _UiComponentSchemaFields = {
 		| { type: "background_blur", value: BackgroundBlurSchema }
 		| { type: "virtual_game_item_text", value: VirtualGameItemTextSchema }
 		| { type: "video_player", value: VideoPlayerSchema }
+		| { type: "vertical_list_with_impressions", value: VerticalListWithImpressionsSchema }
 	)?,
 }
 
@@ -10830,6 +10933,7 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "background_blur", value: BackgroundBlurSchema }
 		| { type: "virtual_game_item_text", value: VirtualGameItemTextSchema }
 		| { type: "video_player", value: VideoPlayerSchema }
+		| { type: "vertical_list_with_impressions", value: VerticalListWithImpressionsSchema }
 	)?,
 }
 
@@ -18202,6 +18306,7 @@ do
 			disable_default_footer_logic = if data == nil or data.disable_default_footer_logic == nil
 				then nil
 				else data.disable_default_footer_logic,
+			video_player = if data == nil or data.video_player == nil then nil else data.video_player,
 		}, _GameTileSchema_PropsImpl :: _GameTileSchema_PropsImpl)
 	end
 
@@ -18419,6 +18524,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.video_player ~= nil then
+			local encoded = self.video_player:encode()
+			output, cursor = proto.writeTag(output, cursor, 109, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -18620,6 +18731,11 @@ do
 					self.disable_default_footer_logic =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 109 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_player = messages.NestedComponentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -18785,6 +18901,10 @@ do
 
 		if self.disable_default_footer_logic ~= nil then
 			output.disableDefaultFooterLogic = self.disable_default_footer_logic:jsonEncode()
+		end
+
+		if self.video_player ~= nil then
+			output.videoPlayer = self.video_player:jsonEncode()
 		end
 
 		return output
@@ -19118,6 +19238,14 @@ do
 		if input.disableDefaultFooterLogic ~= nil then
 			self.disable_default_footer_logic =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.disableDefaultFooterLogic)
+		end
+
+		if input.video_player ~= nil then
+			self.video_player = messages.NestedComponentProp.jsonDecode(input.video_player)
+		end
+
+		if input.videoPlayer ~= nil then
+			self.video_player = messages.NestedComponentProp.jsonDecode(input.videoPlayer)
 		end
 
 		return self
@@ -19849,6 +19977,7 @@ do
 		return setmetatable({
 			props = if data == nil or data.props == nil then nil else data.props,
 			shared = if data == nil or data.shared == nil then nil else data.shared,
+			web_props = if data == nil or data.web_props == nil then nil else data.web_props,
 		}, _AppDownloadButtonSchemaImpl :: _AppDownloadButtonSchemaImpl)
 	end
 
@@ -19865,6 +19994,12 @@ do
 		if self.shared ~= nil then
 			local encoded = self.shared:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.web_props ~= nil then
+			local encoded = self.web_props:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -19896,6 +20031,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.web_props = messages.AppDownloadButtonSchema_WebProps.decode(value)
 					continue
 				end
 
@@ -19932,6 +20072,10 @@ do
 			output.shared = self.shared:jsonEncode()
 		end
 
+		if self.web_props ~= nil then
+			output.webProps = self.web_props:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -19945,6 +20089,14 @@ do
 		if input.shared ~= nil then
 			self.shared =
 				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		if input.web_props ~= nil then
+			self.web_props = messages.AppDownloadButtonSchema_WebProps.jsonDecode(input.web_props)
+		end
+
+		if input.webProps ~= nil then
+			self.web_props = messages.AppDownloadButtonSchema_WebProps.jsonDecode(input.webProps)
 		end
 
 		return self
@@ -20223,6 +20375,116 @@ do
 	messages.AppDownloadButtonSchema_Props = _AppDownloadButtonSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.AppDownloadButtonSchema_Props)
+end
+
+do
+	local _AppDownloadButtonSchema_WebPropsImpl = {}
+	_AppDownloadButtonSchema_WebPropsImpl.__index = _AppDownloadButtonSchema_WebPropsImpl
+
+	function _AppDownloadButtonSchema_WebPropsImpl.new(
+		data: _AppDownloadButtonSchema_WebPropsPartialFields?
+	): AppDownloadButtonSchema_WebProps
+		return setmetatable({
+			use_foundation_size = if data == nil or data.use_foundation_size == nil
+				then nil
+				else data.use_foundation_size,
+		}, _AppDownloadButtonSchema_WebPropsImpl :: _AppDownloadButtonSchema_WebPropsImpl)
+	end
+
+	function _AppDownloadButtonSchema_WebPropsImpl.encode(self: AppDownloadButtonSchema_WebProps): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.use_foundation_size ~= nil then
+			local encoded = self.use_foundation_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AppDownloadButtonSchema_WebPropsImpl.decode(input: buffer): AppDownloadButtonSchema_WebProps
+		local self = _AppDownloadButtonSchema_WebPropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.use_foundation_size = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AppDownloadButtonSchema_WebPropsImpl.jsonEncode(self: AppDownloadButtonSchema_WebProps): any
+		local output = {}
+
+		if self.use_foundation_size ~= nil then
+			output.useFoundationSize = self.use_foundation_size:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AppDownloadButtonSchema_WebPropsImpl.jsonDecode(
+		input: { [string]: any }
+	): AppDownloadButtonSchema_WebProps
+		local self = _AppDownloadButtonSchema_WebPropsImpl.new()
+
+		if input.use_foundation_size ~= nil then
+			self.use_foundation_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.use_foundation_size)
+		end
+
+		if input.useFoundationSize ~= nil then
+			self.use_foundation_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.useFoundationSize)
+		end
+
+		return self
+	end
+
+	_AppDownloadButtonSchema_WebPropsImpl.descriptor = {
+		name = "AppDownloadButtonSchema_WebProps",
+		fullName = "roblox.apppageplatform.shared.v1beta1.WebProps",
+	}
+
+	messages.AppDownloadButtonSchema_WebProps = _AppDownloadButtonSchema_WebPropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AppDownloadButtonSchema_WebProps)
 end
 
 do
@@ -22141,6 +22403,7 @@ do
 			heading_level = if data == nil or data.heading_level == nil then nil else data.heading_level,
 			max_lines = if data == nil or data.max_lines == nil then nil else data.max_lines,
 			font_family = if data == nil or data.font_family == nil then nil else data.font_family,
+			font_weight = if data == nil or data.font_weight == nil then nil else data.font_weight,
 		}, _TextSchema_WebPropsImpl :: _TextSchema_WebPropsImpl)
 	end
 
@@ -22169,6 +22432,12 @@ do
 		if self.font_family ~= nil then
 			local encoded = self.font_family:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.font_weight ~= nil then
+			local encoded = self.font_weight:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -22210,6 +22479,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.font_family = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.font_weight = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
 				end
 
@@ -22254,6 +22528,10 @@ do
 			output.fontFamily = self.font_family:jsonEncode()
 		end
 
+		if self.font_weight ~= nil then
+			output.fontWeight = self.font_weight:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -22295,6 +22573,14 @@ do
 
 		if input.fontFamily ~= nil then
 			self.font_family = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.fontFamily)
+		end
+
+		if input.font_weight ~= nil then
+			self.font_weight = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.font_weight)
+		end
+
+		if input.fontWeight ~= nil then
+			self.font_weight = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.fontWeight)
 		end
 
 		return self
@@ -24681,6 +24967,338 @@ do
 	messages.ViewSchema_WebProps = _ViewSchema_WebPropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ViewSchema_WebProps)
+end
+
+do
+	local _VerticalListWithImpressionsSchemaImpl = {}
+	_VerticalListWithImpressionsSchemaImpl.__index = _VerticalListWithImpressionsSchemaImpl
+
+	function _VerticalListWithImpressionsSchemaImpl.new(
+		data: _VerticalListWithImpressionsSchemaPartialFields?
+	): VerticalListWithImpressionsSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _VerticalListWithImpressionsSchemaImpl :: _VerticalListWithImpressionsSchemaImpl)
+	end
+
+	function _VerticalListWithImpressionsSchemaImpl.encode(self: VerticalListWithImpressionsSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalListWithImpressionsSchemaImpl.decode(input: buffer): VerticalListWithImpressionsSchema
+		local self = _VerticalListWithImpressionsSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.VerticalListWithImpressionsSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalListWithImpressionsSchemaImpl.jsonEncode(self: VerticalListWithImpressionsSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VerticalListWithImpressionsSchemaImpl.jsonDecode(
+		input: { [string]: any }
+	): VerticalListWithImpressionsSchema
+		local self = _VerticalListWithImpressionsSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.VerticalListWithImpressionsSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_VerticalListWithImpressionsSchemaImpl.descriptor = {
+		name = "VerticalListWithImpressionsSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VerticalListWithImpressionsSchema",
+	}
+
+	messages.VerticalListWithImpressionsSchema = _VerticalListWithImpressionsSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalListWithImpressionsSchema)
+end
+
+do
+	local _VerticalListWithImpressionsSchema_PropsImpl = {}
+	_VerticalListWithImpressionsSchema_PropsImpl.__index = _VerticalListWithImpressionsSchema_PropsImpl
+
+	function _VerticalListWithImpressionsSchema_PropsImpl.new(
+		data: _VerticalListWithImpressionsSchema_PropsPartialFields?
+	): VerticalListWithImpressionsSchema_Props
+		return setmetatable({
+			view = if data == nil or data.view == nil then nil else data.view,
+			items = if data == nil or data.items == nil then nil else data.items,
+			impression_event_name = if data == nil or data.impression_event_name == nil
+				then nil
+				else data.impression_event_name,
+			skip_item_impressions_log = if data == nil or data.skip_item_impressions_log == nil
+				then nil
+				else data.skip_item_impressions_log,
+			respect_clip_ancestors = if data == nil or data.respect_clip_ancestors == nil
+				then nil
+				else data.respect_clip_ancestors,
+		}, _VerticalListWithImpressionsSchema_PropsImpl :: _VerticalListWithImpressionsSchema_PropsImpl)
+	end
+
+	function _VerticalListWithImpressionsSchema_PropsImpl.encode(self: VerticalListWithImpressionsSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.view ~= nil then
+			local encoded = self.view:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.items ~= nil then
+			local encoded = self.items:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.impression_event_name ~= nil then
+			local encoded = self.impression_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			local encoded = self.skip_item_impressions_log:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.respect_clip_ancestors ~= nil then
+			local encoded = self.respect_clip_ancestors:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalListWithImpressionsSchema_PropsImpl.decode(input: buffer): VerticalListWithImpressionsSchema_Props
+		local self = _VerticalListWithImpressionsSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.view = messages.LazyNestedComponentProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.items = messages.LazyNestedComponentListProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impression_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_item_impressions_log =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.respect_clip_ancestors =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalListWithImpressionsSchema_PropsImpl.jsonEncode(self: VerticalListWithImpressionsSchema_Props): any
+		local output = {}
+
+		if self.view ~= nil then
+			output.view = self.view:jsonEncode()
+		end
+
+		if self.items ~= nil then
+			output.items = self.items:jsonEncode()
+		end
+
+		if self.impression_event_name ~= nil then
+			output.impressionEventName = self.impression_event_name:jsonEncode()
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			output.skipItemImpressionsLog = self.skip_item_impressions_log:jsonEncode()
+		end
+
+		if self.respect_clip_ancestors ~= nil then
+			output.respectClipAncestors = self.respect_clip_ancestors:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VerticalListWithImpressionsSchema_PropsImpl.jsonDecode(
+		input: { [string]: any }
+	): VerticalListWithImpressionsSchema_Props
+		local self = _VerticalListWithImpressionsSchema_PropsImpl.new()
+
+		if input.view ~= nil then
+			self.view = messages.LazyNestedComponentProp.jsonDecode(input.view)
+		end
+
+		if input.items ~= nil then
+			self.items = messages.LazyNestedComponentListProp.jsonDecode(input.items)
+		end
+
+		if input.impression_event_name ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impression_event_name)
+		end
+
+		if input.impressionEventName ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressionEventName)
+		end
+
+		if input.skip_item_impressions_log ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_item_impressions_log)
+		end
+
+		if input.skipItemImpressionsLog ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipItemImpressionsLog)
+		end
+
+		if input.respect_clip_ancestors ~= nil then
+			self.respect_clip_ancestors =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.respect_clip_ancestors)
+		end
+
+		if input.respectClipAncestors ~= nil then
+			self.respect_clip_ancestors =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.respectClipAncestors)
+		end
+
+		return self
+	end
+
+	_VerticalListWithImpressionsSchema_PropsImpl.descriptor = {
+		name = "VerticalListWithImpressionsSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.VerticalListWithImpressionsSchema_Props = _VerticalListWithImpressionsSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalListWithImpressionsSchema_Props)
 end
 
 do
@@ -35381,6 +35999,7 @@ do
 			skip_option_item_impressions_log = if data == nil or data.skip_option_item_impressions_log == nil
 				then nil
 				else data.skip_option_item_impressions_log,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
 		}, _OptionSelectorCollectionSchema_PropsImpl :: _OptionSelectorCollectionSchema_PropsImpl)
 	end
 
@@ -35469,6 +36088,12 @@ do
 		if self.skip_option_item_impressions_log ~= nil then
 			local encoded = self.skip_option_item_impressions_log:encode()
 			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle ~= nil then
+			local encoded = self.subtitle:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -35567,6 +36192,11 @@ do
 					self.skip_option_item_impressions_log =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -35649,6 +36279,10 @@ do
 
 		if self.skip_option_item_impressions_log ~= nil then
 			output.skipOptionItemImpressionsLog = self.skip_option_item_impressions_log:jsonEncode()
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle:jsonEncode()
 		end
 
 		return output
@@ -35798,6 +36432,10 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
 					input.skipOptionItemImpressionsLog
 				)
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle)
 		end
 
 		return self
@@ -74981,6 +75619,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 86, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "vertical_list_with_impressions" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 87, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -75469,6 +76111,14 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "video_player", value = messages.VideoPlayerSchema.decode(value) }
 					continue
+				elseif field == 87 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "vertical_list_with_impressions",
+						value = messages.VerticalListWithImpressionsSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -75669,6 +76319,8 @@ do
 				output.virtualGameItemText = self.kind.value:jsonEncode()
 			elseif self.kind.type == "video_player" then
 				output.videoPlayer = self.kind.value:jsonEncode()
+			elseif self.kind.type == "vertical_list_with_impressions" then
+				output.verticalListWithImpressions = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -76482,6 +77134,20 @@ do
 			self.kind = { type = "video_player", value = messages.VideoPlayerSchema.jsonDecode(input.videoPlayer) }
 		end
 
+		if input.vertical_list_with_impressions ~= nil then
+			self.kind = {
+				type = "vertical_list_with_impressions",
+				value = messages.VerticalListWithImpressionsSchema.jsonDecode(input.vertical_list_with_impressions),
+			}
+		end
+
+		if input.verticalListWithImpressions ~= nil then
+			self.kind = {
+				type = "vertical_list_with_impressions",
+				value = messages.VerticalListWithImpressionsSchema.jsonDecode(input.verticalListWithImpressions),
+			}
+		end
+
 		return self
 	end
 
@@ -76535,6 +77201,7 @@ return {
 	ButtonSchema_Props = messages.ButtonSchema_Props,
 	AppDownloadButtonSchema = messages.AppDownloadButtonSchema,
 	AppDownloadButtonSchema_Props = messages.AppDownloadButtonSchema_Props,
+	AppDownloadButtonSchema_WebProps = messages.AppDownloadButtonSchema_WebProps,
 	IconButtonSchema = messages.IconButtonSchema,
 	IconButtonSchema_Props = messages.IconButtonSchema_Props,
 	ImageSchema = messages.ImageSchema,
@@ -76549,6 +77216,8 @@ return {
 	ViewSchema = messages.ViewSchema,
 	ViewSchema_Props = messages.ViewSchema_Props,
 	ViewSchema_WebProps = messages.ViewSchema_WebProps,
+	VerticalListWithImpressionsSchema = messages.VerticalListWithImpressionsSchema,
+	VerticalListWithImpressionsSchema_Props = messages.VerticalListWithImpressionsSchema_Props,
 	DividerSchema = messages.DividerSchema,
 	DividerSchema_Props = messages.DividerSchema_Props,
 	DialogSchema = messages.DialogSchema,

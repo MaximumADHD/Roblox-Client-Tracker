@@ -16,7 +16,7 @@ type StatusBadgeSize = StatusBadgeSize.StatusBadgeSize
 type StatusBadgeVariant = StatusBadgeVariant.StatusBadgeVariant
 
 type ExampleProps = {
-	layoutOrder: number,
+	LayoutOrder: number,
 	shape: StatusBadgeShape,
 	size: StatusBadgeSize,
 	variant: StatusBadgeVariant,
@@ -25,7 +25,7 @@ type ExampleProps = {
 local function Example(props: ExampleProps)
 	return React.createElement(View, {
 		tag = "col align-x-center gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.variant :: string,
@@ -44,7 +44,7 @@ end
 
 type VariantRowProps = {
 	label: string,
-	layoutOrder: number,
+	LayoutOrder: number,
 	shape: StatusBadgeShape,
 	size: StatusBadgeSize,
 }
@@ -54,7 +54,7 @@ local function VariantRow(props: VariantRowProps)
 
 	for index, variant in Dash.values(StatusBadgeVariant) do
 		examples[variant] = React.createElement(Example, {
-			layoutOrder = index,
+			LayoutOrder = index,
 			shape = props.shape,
 			size = props.size,
 			variant = variant :: StatusBadgeVariant,
@@ -63,7 +63,7 @@ local function VariantRow(props: VariantRowProps)
 
 	return React.createElement(View, {
 		tag = "col gap-small auto-xy",
-		LayoutOrder = props.layoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
 			Text = props.label,
@@ -97,13 +97,13 @@ local function SizesStory()
 	}, {
 		Small = React.createElement(VariantRow, {
 			label = "Small",
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			shape = StatusBadgeShape.Utility,
 			size = StatusBadgeSize.Small,
 		}),
 		XSmall = React.createElement(VariantRow, {
 			label = "XSmall",
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			shape = StatusBadgeShape.Utility,
 			size = StatusBadgeSize.XSmall,
 		}),
@@ -116,13 +116,13 @@ local function ShapesStory()
 	}, {
 		Utility = React.createElement(VariantRow, {
 			label = "Utility",
-			layoutOrder = 1,
+			LayoutOrder = 1,
 			shape = StatusBadgeShape.Utility,
 			size = StatusBadgeSize.Small,
 		}),
 		Box = React.createElement(VariantRow, {
 			label = "Box",
-			layoutOrder = 2,
+			LayoutOrder = 2,
 			shape = StatusBadgeShape.Box,
 			size = StatusBadgeSize.Small,
 		}),

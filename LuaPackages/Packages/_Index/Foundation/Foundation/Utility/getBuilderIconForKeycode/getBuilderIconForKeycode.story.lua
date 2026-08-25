@@ -1,109 +1,24 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
-local IconName = BuilderIcons.Icon
 
 local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
-local MatrixGrid = require(Foundation.Utility.Stories.Shared.MatrixGrid).MatrixGrid
+local BuilderIconKeycodeMappings = require(Foundation.Utility.Stories.Shared.BuilderIconKeycodeMappings)
+local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local MatrixGrid = MatrixGridShared.MatrixGrid
+type MatrixGridRow = MatrixGridShared.MatrixGridRow
 
--- Mirrors BuilderIcons KeycodeMappings (internal module, not exposed via the public package).
-local psMappings: { [string]: string } = {
-	ButtonA = IconName.PsX,
-	ButtonB = IconName.PsCircle,
-	ButtonX = IconName.PsSquare,
-	ButtonY = IconName.PsTriagle,
-	ButtonL1 = IconName.PsL1,
-	ButtonL2 = IconName.PsL2,
-	ButtonL3 = IconName.PsL3,
-	ButtonR1 = IconName.PsR1,
-	ButtonR2 = IconName.PsR2,
-	ButtonR3 = IconName.PsR3,
-	Thumbstick1 = IconName.PsStickLeft,
-	Thumbstick2 = IconName.PsStickRight,
-	DPadDown = IconName.PsDpadDown,
-	DPadUp = IconName.PsDpadUp,
-	DPadLeft = IconName.PsDpadLeft,
-	DPadRight = IconName.PsDpadRight,
-}
-
-local KeycodeMappings: { [string]: { [string]: string } } = {
-	PS4 = Dash.join(psMappings, {
-		ButtonStart = IconName.Ps4Options,
-		ButtonSelect = IconName.Ps4Share,
-	}),
-	PS5 = Dash.join(psMappings, {
-		ButtonStart = IconName.Ps5Options,
-		ButtonSelect = IconName.Ps5Share,
-	}),
-	Xbox = {
-		ButtonA = IconName.XboxA,
-		ButtonB = IconName.XboxB,
-		ButtonX = IconName.XboxX,
-		ButtonY = IconName.XboxY,
-		ButtonL1 = IconName.XboxLb,
-		ButtonL2 = IconName.XboxLt,
-		ButtonL3 = IconName.XboxStickLeft,
-		ButtonR1 = IconName.XboxRb,
-		ButtonR2 = IconName.XboxRt,
-		ButtonR3 = IconName.XboxStickRight,
-		ButtonStart = IconName.XboxMenu,
-		ButtonSelect = IconName.XboxView,
-		Thumbstick1 = IconName.XboxStickLeftDirectional,
-		Thumbstick2 = IconName.XboxStickRightDirectional,
-		DPadDown = IconName.XboxDpadDown,
-		DPadUp = IconName.XboxDpadUp,
-		DPadLeft = IconName.XboxDpadLeft,
-		DPadRight = IconName.XboxDpadRight,
-	},
-	Default = {
-		LeftAlt = IconName.KeyAlt,
-		RightAlt = IconName.KeyAlt,
-		Down = IconName.KeyArrowDown,
-		Up = IconName.KeyArrowUp,
-		Left = IconName.KeyArrowLeft,
-		Right = IconName.KeyArrowRight,
-		Asterisk = IconName.KeyAsterisk,
-		Backspace = IconName.KeyBackspace,
-		CapsLock = IconName.KeyCapsLock,
-		Caret = IconName.KeyCaret,
-		Comma = IconName.KeyComma,
-		LeftControl = IconName.KeyControl,
-		RightControl = IconName.KeyControl,
-		Backquote = IconName.KeyGraveAccent,
-		Period = IconName.KeyPeriod,
-		Return = IconName.KeyReturn,
-		LeftShift = IconName.KeyShift,
-		RightShift = IconName.KeyShift,
-		Space = IconName.KeySpace,
-		Tab = IconName.KeyTab,
-	},
-}
-
-local INPUT_PLATFORM_ORDER = { "PS4", "PS5", "Xbox", "Default" }
+local INPUT_PLATFORM_ORDER = BuilderIconKeycodeMappings.INPUT_PLATFORM_ORDER
+local INPUT_PLATFORM_COLUMN_HEADERS = BuilderIconKeycodeMappings.getInputPlatformColumnHeaders()
+local KEY_NAME_ORDER = BuilderIconKeycodeMappings.getMappedKeyNames()
 
 local LABEL_COLUMN_WIDTH = 120
 local CELL_COLUMN_WIDTH = 72
-
-local function mergeKeyNames(): { string }
-	local keyNames: { [string]: boolean } = {}
-	for _, platform in INPUT_PLATFORM_ORDER do
-		for keyName in KeycodeMappings[platform] do
-			keyNames[keyName] = true
-		end
-	end
-
-	local sortedKeyNames = Dash.keys(keyNames) :: { string }
-	table.sort(sortedKeyNames)
-	return sortedKeyNames
-end
-
-local KEY_NAME_ORDER = mergeKeyNames()
 
 local function KeycodeIconCell(props: { icon: string? }): React.ReactNode
 	if props.icon then
@@ -135,11 +50,11 @@ return {
 			}, {
 				Grid = React.createElement(MatrixGrid, {
 					labelColumnWidth = LABEL_COLUMN_WIDTH,
-					columnHeaders = INPUT_PLATFORM_ORDER,
+					columnHeaders = INPUT_PLATFORM_COLUMN_HEADERS,
 					cellColumnWidth = CELL_COLUMN_WIDTH,
 					headerTextAlign = "left",
 					cellAlign = "left",
-					rows = Dash.map(KEY_NAME_ORDER, function(keyName)
+					rows = Dash.map(KEY_NAME_ORDER, function(keyName): MatrixGridRow
 						return {
 							label = React.createElement(Text, {
 								Text = keyName,
@@ -147,7 +62,7 @@ return {
 							}),
 							cells = Dash.map(INPUT_PLATFORM_ORDER, function(platform)
 								return React.createElement(KeycodeIconCell, {
-									icon = KeycodeMappings[platform][keyName],
+									icon = BuilderIconKeycodeMappings.getIconForKeyName(keyName, platform),
 								})
 							end),
 						}

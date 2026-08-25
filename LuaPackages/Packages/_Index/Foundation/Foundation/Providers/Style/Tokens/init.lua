@@ -15,6 +15,7 @@ type Device = Device.Device
 type ThemeName = ThemeName.ThemeName
 type ColorStyleValue = Types.ColorStyleValue
 
+export type Tokens = RbxDesignFoundations.Tokens
 export type TokenPath = RbxDesignFoundations.TokenPath
 -- Non-string values are literals. With FoundationTokenOverrides, literals and path remaps must match the target (typeof or table keys/values).
 export type TokenOverrideValue = TokenPath | Color3 | ColorStyleValue | number | UDim | UDim2
@@ -93,7 +94,7 @@ local function getTokens(
 	local scale = getPlatformScale(device, scaleFactor)
 	local generator: (number) -> Tokens = if Flags.FoundationThemeName
 		then themeGenerators.getGenerator(themeName or ThemeName.Default, colorMode)
-		else themeGenerators.getLegacyGenerator(colorMode)
+		else themeGenerators.getLegacyGenerator(colorMode) :: never
 
 	return buildTokens(generator, scale, tokenOverrides)
 end
@@ -121,12 +122,11 @@ end
 local function getLegacyTokens(colorMode: ColorMode, deviceInput: Device?, scaleFactor: number?)
 	local device: Device = deviceInput or Device.Desktop
 	local scale = getPlatformScale(device, scaleFactor)
-	local generator: (number) -> Tokens = themeGenerators.getLegacyGenerator(colorMode)
+	local generator: (number) -> Tokens = themeGenerators.getLegacyGenerator(colorMode) :: never
 	return buildTokens(generator, scale, nil)
 end
 
 local defaultTokens = getTokens(ColorMode.Dark, Device.Desktop)
-export type Tokens = typeof(defaultTokens)
 
 return {
 	getTokens = getTokens,

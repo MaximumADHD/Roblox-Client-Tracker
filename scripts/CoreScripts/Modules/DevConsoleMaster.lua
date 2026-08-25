@@ -47,7 +47,7 @@ local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissi
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
 
-local FFlagDevConsoleRequestOrchestratorTab = game:DefineFastFlag("DevConsoleRequestOrchestratorTab", false)
+local FFlagDevConsoleRequestOrchestratorTab = game:DefineFastFlag("DevConsoleRequestOrchestratorTab2", false)
 local FFlagDevConsoleAdminSeesDevTabs = game:DefineFastFlag("DevConsoleAdminSeesDevTabs", false)
 
 local VoiceChatServiceManager = require(CoreGui.RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default

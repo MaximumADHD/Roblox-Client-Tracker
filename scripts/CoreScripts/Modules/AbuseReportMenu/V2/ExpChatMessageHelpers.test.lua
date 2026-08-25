@@ -7,6 +7,9 @@ local describe = JestGlobals.describe
 local expect = JestGlobals.expect
 local it = JestGlobals.it
 
+local FFlagAbuseReportAttributedRBXSystemMessages =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAbuseReportAttributedRBXSystemMessages
+
 local ExpChatMessageHelpers = require(script.Parent.ExpChatMessageHelpers)
 
 local function makeMessage(overrides: { [string]: any }): { [string]: any }
@@ -103,7 +106,7 @@ describe("ExpChatMessageHelpers.collectItems", function()
 		expect(items[1].meta.username).toBeNil()
 	end)
 
-	it("should skip system messages", function()
+	it("should skip messages with zero sender attribution", function()
 		local message = makeMessage({
 			messageId = "system-msg",
 			userId = "0",
@@ -117,4 +120,68 @@ describe("ExpChatMessageHelpers.collectItems", function()
 
 		expect(#items).toEqual(0)
 	end)
+
+	it("should skip RBXSystem messages with missing sender attribution", function()
+		local message = makeMessage({
+			messageId = "unattributed-system-msg",
+			textChannel = { Name = "RBXSystem" },
+		})
+		message.userId = nil
+		local byMessageId = {
+			[message.messageId] = message,
+		}
+
+		local items = ExpChatMessageHelpers.collectItems(byMessageId, { message.messageId })
+
+		expect(#items).toEqual(0)
+	end)
+
+	it("should skip RBXSystem messages with zero sender attribution", function()
+		local message = makeMessage({
+			messageId = "zero-attributed-system-msg",
+			userId = "0",
+			textChannel = { Name = "RBXSystem" },
+		})
+		local byMessageId = {
+			[message.messageId] = message,
+		}
+
+		local items = ExpChatMessageHelpers.collectItems(byMessageId, { message.messageId })
+
+		expect(#items).toEqual(0)
+	end)
+
+	if FFlagAbuseReportAttributedRBXSystemMessages then
+		it("should include attributed RBXSystem messages", function()
+			local message = makeMessage({
+				messageId = "attributed-system-msg",
+				userId = "12345",
+				textChannel = { Name = "RBXSystem" },
+			})
+			local byMessageId = {
+				[message.messageId] = message,
+			}
+
+			local items = ExpChatMessageHelpers.collectItems(byMessageId, { message.messageId })
+
+			expect(#items).toEqual(1)
+			expect(items[1].id).toEqual(message.messageId)
+			expect(items[1].meta.userId).toEqual("12345")
+		end)
+	else
+		it("should preserve the RBXSystem channel exclusion", function()
+			local message = makeMessage({
+				messageId = "attributed-system-msg",
+				userId = "12345",
+				textChannel = { Name = "RBXSystem" },
+			})
+			local byMessageId = {
+				[message.messageId] = message,
+			}
+
+			local items = ExpChatMessageHelpers.collectItems(byMessageId, { message.messageId })
+
+			expect(#items).toEqual(0)
+		end)
+	end
 end)

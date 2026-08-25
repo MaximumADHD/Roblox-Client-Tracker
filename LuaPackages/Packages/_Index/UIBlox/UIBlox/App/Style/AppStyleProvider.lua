@@ -33,9 +33,9 @@ local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
 local Logger = require(UIBlox.Logger)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local getTokens = TokenPackage.getTokens
-local validateTokens = TokenPackage.validateTokens
 local getFoundationTokens = TokenPackage.getFoundationTokens
 local TokensMappers = TokenPackage.Mappers
 local foundationSurfaceTokensDiffer = require(script.Parent.foundationSurfaceTokensDiffer)
@@ -102,7 +102,6 @@ local function AppStyleProvider(props: Props)
 
 	theme =
 		TokensMappers.mapThemeToFoundation(theme, if foundationProviderPresent then contextTokens else foundationTokens)
-	assert(validateTokens(baseTokens), "Invalid tokens!")
 	-- Use contextTokens (reactive with tokenOverrides) when FoundationProvider is present,
 	-- otherwise fall back to static foundationTokens
 	local tokens: Tokens = TokensMappers.addFoundationFlatKeys(
@@ -134,7 +133,11 @@ local function AppStyleProvider(props: Props)
 	end, { isMountedRef, style.themeName, setThemeName } :: { any })
 
 	React.useEffect(function()
-		local success, newTextSizeOffset = getTextSizeOffset(tokens.Semantic.Typography.Body.Font)
+		local success, newTextSizeOffset = getTextSizeOffset(
+			if UIBloxConfig.deprecateComponentGlobalSemanticTokenUse
+				then tokens.Typography.BodyLarge.Font
+				else tokens.Semantic.Typography.Body.Font
+		)
 		if success then
 			setTextSizeOffset(newTextSizeOffset)
 		end

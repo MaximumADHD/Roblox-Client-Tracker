@@ -1,9 +1,6 @@
 --[[
-	Reusable helpers for working with exp-chat message and channel data.
-	Mirrors logic from exp-chat's ChannelTab.lua and message reducers.
-
-	Designed to be portable: when ready, move this file to exp-chat-shared and
-	update the require path.
+	Abuse-reporting helpers for filtering exp-chat messages and shaping report
+	picker items. Shared channel-tab behavior belongs in exp-chat-shared.
 ]]
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
@@ -18,6 +15,7 @@ local CHANNEL_GLOBAL = "RBXGlobal"
 local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableGlobalChatAbuseReporting = SharedFlags.FFlagEnableGlobalChatAbuseReporting
+local FFlagAbuseReportAttributedRBXSystemMessages = SharedFlags.FFlagAbuseReportAttributedRBXSystemMessages
 
 local ExpChatMessageHelpers = {}
 
@@ -47,19 +45,21 @@ function ExpChatMessageHelpers.localizeString(translator: any?, text: string): s
 	return if ok and type(result) == "string" then result else text
 end
 
--- TODO: [future] re-use existing helpers from exp-chat? (abech)
--- TODO: [future] do any experience (ab)use system messages when having alternate chat
---       interfaces? (abech)
+-- Experiences can allow users to send on RBXSystem, so sender attribution determines
+-- reportability instead of the channel name.
 function ExpChatMessageHelpers.isSystemMessage(message): boolean
-	if message.textChannel and message.textChannel.Name == CHANNEL_SYSTEM then
+	if
+		not FFlagAbuseReportAttributedRBXSystemMessages
+		and message.textChannel
+		and message.textChannel.Name == CHANNEL_SYSTEM
+	then
 		return true
 	end
 	return if not message.userId or message.userId == "0" then true else false
 end
 
--- Mirrors the naming logic in exp-chat ChannelTab.lua's GameLocalization.connect.
--- Duplication is intentional to avoid modifying exp-chat; a follow-up can
--- extract a shared utility.
+-- Legacy rollback path while the shared channel-tab display-label flag is off.
+-- The active shared behavior lives in ExpChatShared.ChannelTabDisplayLabel.
 -- Note: the Messages reducer remaps RBXSystem -> RBXGeneral before storing into
 -- windowMessagesInOrderByTabId, so the RBXSystem branch is omitted here.
 function ExpChatMessageHelpers.formatChannelLabel(channelName: string, textChannel: TextChannel?): string
@@ -85,7 +85,7 @@ function ExpChatMessageHelpers.formatChannelLabel(channelName: string, textChann
 	return channelName
 end
 
--- TODO: [future] reuse implementation from exp-chat? (abech)
+-- Formats report-picker rows; exp-chat's rendered-message pipeline has a different contract.
 function ExpChatMessageHelpers.formatMessageLabel(message): string
 	local prefix = message.prefixText or ""
 	local text = message.text or ""

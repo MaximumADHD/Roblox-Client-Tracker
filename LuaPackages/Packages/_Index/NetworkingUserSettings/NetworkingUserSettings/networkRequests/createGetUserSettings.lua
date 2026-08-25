@@ -6,7 +6,7 @@ return function(config: networkRequestsTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
 	return roduxNetworking.GET(
-		script,
+		script.Name,
 		function(requestBuilder, queryArgs: networkRequestsTypes.GetUserSettingsQueryArgs)
 			return requestBuilder(API_URL)
 				:path("user-settings-api")
