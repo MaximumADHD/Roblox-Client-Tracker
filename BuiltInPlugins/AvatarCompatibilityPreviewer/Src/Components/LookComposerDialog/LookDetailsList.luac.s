@@ -52,9 +52,9 @@ PROTO_3:
        37 SETTABLEKS                       R10 R9 K10 ["onRowStateChanged"]
        39 CALL                             R7 2 1
        40 SETTABLE                         R7 R0 R6
-       41 JUMP                             ; [+101]
+       41 JUMP                             ; [+109]
        42 GETTABLEKS                       R6 R5 K1 ["itemRowType"]
-       44 JUMPIFNOTEQKS                    R6 K12 ["Asset"] ; [+48]
+       44 JUMPIFNOTEQKS                    R6 K12 ["Asset"] ; [+52]
        46 LOADK                            R7 K13 ["Asset_"]
        47 GETTABLEKS                       R9 R5 K14 ["id"]
        49 FASTCALL1                        TOSTRING R9 ; [+2]
@@ -64,7 +64,7 @@ PROTO_3:
        54 GETUPVAL                         R7 1
        55 GETTABLEKS                       R7 R7 K6 ["createElement"]
        57 GETUPVAL                         R8 3
-       58 DUPTABLE                         R9 K20 [{"LayoutOrder", "assetId", "name", "creator", "creatorHasVerifiedBadge", "price", "rowState", "onRowStateChanged"}]
+       58 DUPTABLE                         R9 K21 [{"LayoutOrder", "assetId", "name", "creator", "creatorHasVerifiedBadge", "price", "priceInfo", "rowState", "onRowStateChanged"}]
        59 SETTABLEKS                       R4 R9 K7 ["LayoutOrder"]
        61 GETTABLEKS                       R10 R5 K14 ["id"]
        63 SETTABLEKS                       R10 R9 K15 ["assetId"]
@@ -76,48 +76,52 @@ PROTO_3:
        75 SETTABLEKS                       R10 R9 K18 ["creatorHasVerifiedBadge"]
        77 GETTABLEKS                       R10 R5 K19 ["price"]
        79 SETTABLEKS                       R10 R9 K19 ["price"]
-       81 GETTABLEKS                       R10 R5 K9 ["rowState"]
-       83 SETTABLEKS                       R10 R9 K9 ["rowState"]
-       85 NEWCLOSURE                       R10 P1
-       86 CAPTURE                          UPVAL U0
-       87 CAPTURE                          VAL R4
-       88 SETTABLEKS                       R10 R9 K10 ["onRowStateChanged"]
-       90 CALL                             R7 2 1
-       91 SETTABLE                         R7 R0 R6
-       92 JUMP                             ; [+50]
-       93 GETTABLEKS                       R6 R5 K1 ["itemRowType"]
-       95 JUMPIFNOTEQKS                    R6 K21 ["Bundle"] ; [+47]
-       97 LOADK                            R7 K22 ["Bundle_"]
-       98 GETTABLEKS                       R9 R5 K14 ["id"]
-      100 FASTCALL1                        TOSTRING R9 ; [+2]
-      101 GETIMPORT                        R8 K5 [tostring]
-      103 CALL                             R8 1 1
-      104 CONCAT                           R6 R7 R8
-      105 GETUPVAL                         R7 1
-      106 GETTABLEKS                       R7 R7 K6 ["createElement"]
-      108 GETUPVAL                         R8 4
-      109 DUPTABLE                         R9 K24 [{"LayoutOrder", "bundleId", "name", "creator", "creatorHasVerifiedBadge", "price", "rowState", "onRowStateChanged"}]
-      110 SETTABLEKS                       R4 R9 K7 ["LayoutOrder"]
-      112 GETTABLEKS                       R10 R5 K14 ["id"]
-      114 SETTABLEKS                       R10 R9 K23 ["bundleId"]
-      116 GETTABLEKS                       R10 R5 K16 ["name"]
-      118 SETTABLEKS                       R10 R9 K16 ["name"]
-      120 GETTABLEKS                       R10 R5 K17 ["creator"]
-      122 SETTABLEKS                       R10 R9 K17 ["creator"]
-      124 GETTABLEKS                       R10 R5 K18 ["creatorHasVerifiedBadge"]
-      126 SETTABLEKS                       R10 R9 K18 ["creatorHasVerifiedBadge"]
-      128 GETTABLEKS                       R10 R5 K19 ["price"]
-      130 SETTABLEKS                       R10 R9 K19 ["price"]
-      132 GETTABLEKS                       R10 R5 K9 ["rowState"]
-      134 SETTABLEKS                       R10 R9 K9 ["rowState"]
-      136 NEWCLOSURE                       R10 P2
-      137 CAPTURE                          UPVAL U0
-      138 CAPTURE                          VAL R4
-      139 SETTABLEKS                       R10 R9 K10 ["onRowStateChanged"]
-      141 CALL                             R7 2 1
-      142 SETTABLE                         R7 R0 R6
-      143 FORGLOOP                         R1 2 ; [-136]
-      145 RETURN                           R0 1
+       81 GETTABLEKS                       R10 R5 K20 ["priceInfo"]
+       83 SETTABLEKS                       R10 R9 K20 ["priceInfo"]
+       85 GETTABLEKS                       R10 R5 K9 ["rowState"]
+       87 SETTABLEKS                       R10 R9 K9 ["rowState"]
+       89 NEWCLOSURE                       R10 P1
+       90 CAPTURE                          UPVAL U0
+       91 CAPTURE                          VAL R4
+       92 SETTABLEKS                       R10 R9 K10 ["onRowStateChanged"]
+       94 CALL                             R7 2 1
+       95 SETTABLE                         R7 R0 R6
+       96 JUMP                             ; [+54]
+       97 GETTABLEKS                       R6 R5 K1 ["itemRowType"]
+       99 JUMPIFNOTEQKS                    R6 K22 ["Bundle"] ; [+51]
+      101 LOADK                            R7 K23 ["Bundle_"]
+      102 GETTABLEKS                       R9 R5 K14 ["id"]
+      104 FASTCALL1                        TOSTRING R9 ; [+2]
+      105 GETIMPORT                        R8 K5 [tostring]
+      107 CALL                             R8 1 1
+      108 CONCAT                           R6 R7 R8
+      109 GETUPVAL                         R7 1
+      110 GETTABLEKS                       R7 R7 K6 ["createElement"]
+      112 GETUPVAL                         R8 4
+      113 DUPTABLE                         R9 K25 [{"LayoutOrder", "bundleId", "name", "creator", "creatorHasVerifiedBadge", "price", "priceInfo", "rowState", "onRowStateChanged"}]
+      114 SETTABLEKS                       R4 R9 K7 ["LayoutOrder"]
+      116 GETTABLEKS                       R10 R5 K14 ["id"]
+      118 SETTABLEKS                       R10 R9 K24 ["bundleId"]
+      120 GETTABLEKS                       R10 R5 K16 ["name"]
+      122 SETTABLEKS                       R10 R9 K16 ["name"]
+      124 GETTABLEKS                       R10 R5 K17 ["creator"]
+      126 SETTABLEKS                       R10 R9 K17 ["creator"]
+      128 GETTABLEKS                       R10 R5 K18 ["creatorHasVerifiedBadge"]
+      130 SETTABLEKS                       R10 R9 K18 ["creatorHasVerifiedBadge"]
+      132 GETTABLEKS                       R10 R5 K19 ["price"]
+      134 SETTABLEKS                       R10 R9 K19 ["price"]
+      136 GETTABLEKS                       R10 R5 K20 ["priceInfo"]
+      138 SETTABLEKS                       R10 R9 K20 ["priceInfo"]
+      140 GETTABLEKS                       R10 R5 K9 ["rowState"]
+      142 SETTABLEKS                       R10 R9 K9 ["rowState"]
+      144 NEWCLOSURE                       R10 P2
+      145 CAPTURE                          UPVAL U0
+      146 CAPTURE                          VAL R4
+      147 SETTABLEKS                       R10 R9 K10 ["onRowStateChanged"]
+      149 CALL                             R7 2 1
+      150 SETTABLE                         R7 R0 R6
+      151 FORGLOOP                         R1 2 ; [-144]
+      153 RETURN                           R0 1
 
 PROTO_4:
         0 LOADN                            R0 0

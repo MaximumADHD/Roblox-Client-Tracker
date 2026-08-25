@@ -166,9 +166,9 @@ PROTO_0:
       262 SETTABLEKS                       R18 R17 K41 ["StageContent"]
       264 CALL                             R14 3 1
       265 MOVE                             R12 R14
-      266 JUMP                             ; [+92]
+      266 JUMP                             ; [+101]
       267 GETTABLEKS                       R13 R11 K27 ["dialogStage"]
-      269 JUMPIFNOTEQKS                    R13 K61 ["EditInfo"] ; [+58]
+      269 JUMPIFNOTEQKS                    R13 K61 ["EditInfo"] ; [+67]
       271 LOADNIL                          R13
       272 GETTABLEKS                       R14 R0 K0 ["dialogLookType"]
       274 JUMPIFNOTEQKS                    R14 K1 ["AvatarLook"] ; [+6]
@@ -189,243 +189,250 @@ PROTO_0:
       295 GETUPVAL                         R18 12
       296 GETTABLEKS                       R18 R18 K30 ["createElement"]
       298 GETUPVAL                         R19 17
-      299 DUPTABLE                         R20 K69 [{"name", "description", "onNameChanged", "onDescriptionChanged", "lookPreviewInfo", "lookPreview"}]
+      299 DUPTABLE                         R20 K70 [{"name", "description", "onNameChanged", "onDescriptionChanged", "lookPreviewInfo", "lookPreview", "eligibilityChecks"}]
       300 GETTABLEKS                       R21 R3 K14 ["name"]
       302 SETTABLEKS                       R21 R20 K14 ["name"]
       304 GETTABLEKS                       R21 R3 K15 ["description"]
       306 SETTABLEKS                       R21 R20 K15 ["description"]
-      308 GETTABLEKS                       R21 R3 K70 ["setName"]
+      308 GETTABLEKS                       R21 R3 K71 ["setName"]
       310 SETTABLEKS                       R21 R20 K66 ["onNameChanged"]
-      312 GETTABLEKS                       R21 R3 K71 ["setDescription"]
+      312 GETTABLEKS                       R21 R3 K72 ["setDescription"]
       314 SETTABLEKS                       R21 R20 K67 ["onDescriptionChanged"]
       316 SETTABLEKS                       R13 R20 K68 ["lookPreviewInfo"]
       318 GETTABLEKS                       R21 R8 K54 ["lookPreview"]
       320 SETTABLEKS                       R21 R20 K54 ["lookPreview"]
-      322 CALL                             R18 2 1
-      323 SETTABLEKS                       R18 R17 K41 ["StageContent"]
-      325 CALL                             R14 3 1
-      326 MOVE                             R12 R14
-      327 JUMP                             ; [+31]
-      328 GETTABLEKS                       R13 R11 K27 ["dialogStage"]
-      330 JUMPIFNOTEQKS                    R13 K72 ["Success"] ; [+13]
-      332 GETUPVAL                         R13 12
-      333 GETTABLEKS                       R13 R13 K30 ["createElement"]
-      335 GETUPVAL                         R14 18
-      336 DUPTABLE                         R15 K73 [{"lookPreview"}]
-      337 GETTABLEKS                       R16 R8 K54 ["lookPreview"]
-      339 SETTABLEKS                       R16 R15 K54 ["lookPreview"]
-      341 CALL                             R13 2 1
-      342 MOVE                             R12 R13
-      343 JUMP                             ; [+15]
-      344 GETTABLEKS                       R13 R11 K27 ["dialogStage"]
-      346 JUMPIFNOTEQKS                    R13 K74 ["Failure"] ; [+12]
-      348 GETUPVAL                         R13 12
-      349 GETTABLEKS                       R13 R13 K30 ["createElement"]
-      351 GETUPVAL                         R14 19
-      352 DUPTABLE                         R15 K76 [{"errorMessage"}]
-      353 GETTABLEKS                       R16 R9 K77 ["lookCreationErrorMessage"]
-      355 SETTABLEKS                       R16 R15 K75 ["errorMessage"]
-      357 CALL                             R13 2 1
-      358 MOVE                             R12 R13
-      359 GETUPVAL                         R13 11
-      360 GETTABLEKS                       R13 R13 K29 ["new"]
-      362 CALL                             R13 0 1
-      363 GETUPVAL                         R14 11
-      364 GETTABLEKS                       R14 R14 K29 ["new"]
-      366 CALL                             R14 0 1
-      367 GETUPVAL                         R15 12
-      368 GETTABLEKS                       R15 R15 K30 ["createElement"]
-      370 GETUPVAL                         R16 14
-      371 DUPTABLE                         R17 K79 [{["tag"] = "col size-full"}]
-      372 DUPTABLE                         R18 K83 [{"Header", "StageContentWrapper", "BottomBar"}]
-      373 GETUPVAL                         R19 12
-      374 GETTABLEKS                       R19 R19 K30 ["createElement"]
-      376 GETUPVAL                         R20 14
-      377 DUPTABLE                         R21 K85 [{["tag"] = "col align-x-left align-y-top gap-medium size-full-0 auto-y padding-large", ["LayoutOrder"]}]
-      378 NAMECALL                         R22 R13 K56 ["getNextOrder"]
-      380 CALL                             R22 1 1
-      381 SETTABLEKS                       R22 R21 K48 ["LayoutOrder"]
-      383 DUPTABLE                         R22 K90 [{"Title", "Description", "StageInfoBarWrapper", "ErrorBannerWrapper"}]
-      384 GETUPVAL                         R23 12
-      385 GETTABLEKS                       R23 R23 K30 ["createElement"]
-      387 GETUPVAL                         R24 20
-      388 DUPTABLE                         R25 K93 [{["Text"], ["tag"] = "auto-xy text-heading-small content-default", ["LayoutOrder"]}]
-      389 LOADK                            R28 K94 ["LookComposerDialog"]
-      390 GETUPVAL                         R30 21
-      391 GETTABLEKS                       R31 R0 K0 ["dialogLookType"]
-      393 GETTABLE                         R29 R30 R31
-      394 GETTABLEKS                       R29 R29 K95 ["title"]
-      396 NAMECALL                         R26 R2 K96 ["getText"]
-      398 CALL                             R26 3 1
-      399 SETTABLEKS                       R26 R25 K91 ["Text"]
-      401 NAMECALL                         R26 R14 K56 ["getNextOrder"]
-      403 CALL                             R26 1 1
-      404 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
-      406 CALL                             R23 2 1
-      407 SETTABLEKS                       R23 R22 K86 ["Title"]
-      409 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
-      411 JUMPIFEQKS                       R24 K28 ["ConfirmItems"] ; [+5]
-      413 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
-      415 JUMPIFNOTEQKS                    R24 K61 ["EditInfo"] ; [+25]
-      417 GETUPVAL                         R23 12
-      418 GETTABLEKS                       R23 R23 K30 ["createElement"]
-      420 GETUPVAL                         R24 20
-      421 DUPTABLE                         R25 K98 [{["Text"], ["tag"] = "auto-xy text-body-medium content-default", ["LayoutOrder"]}]
-      422 LOADK                            R28 K94 ["LookComposerDialog"]
-      423 GETUPVAL                         R30 21
-      424 GETTABLEKS                       R31 R0 K0 ["dialogLookType"]
-      426 GETTABLE                         R29 R30 R31
-      427 GETTABLEKS                       R29 R29 K15 ["description"]
-      429 NAMECALL                         R26 R2 K96 ["getText"]
-      431 CALL                             R26 3 1
-      432 SETTABLEKS                       R26 R25 K91 ["Text"]
-      434 NAMECALL                         R26 R14 K56 ["getNextOrder"]
-      436 CALL                             R26 1 1
-      437 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
-      439 CALL                             R23 2 1
-      440 JUMP                             ; [+1]
-      441 LOADNIL                          R23
-      442 SETTABLEKS                       R23 R22 K87 ["Description"]
-      444 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
-      446 JUMPIFEQKS                       R24 K28 ["ConfirmItems"] ; [+5]
-      448 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
-      450 JUMPIFNOTEQKS                    R24 K61 ["EditInfo"] ; [+26]
-      452 GETUPVAL                         R23 12
-      453 GETTABLEKS                       R23 R23 K30 ["createElement"]
-      455 GETUPVAL                         R24 14
-      456 DUPTABLE                         R25 K100 [{["tag"] = "size-full-0 auto-y padding-top-xlarge", ["LayoutOrder"]}]
-      457 NAMECALL                         R26 R14 K56 ["getNextOrder"]
-      459 CALL                             R26 1 1
-      460 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
-      462 DUPTABLE                         R26 K102 [{"StageInfoBar"}]
-      463 GETUPVAL                         R27 12
-      464 GETTABLEKS                       R27 R27 K30 ["createElement"]
-      466 GETUPVAL                         R28 22
-      467 DUPTABLE                         R29 K103 [{"dialogStage"}]
-      468 GETTABLEKS                       R30 R11 K27 ["dialogStage"]
-      470 SETTABLEKS                       R30 R29 K27 ["dialogStage"]
-      472 CALL                             R27 2 1
-      473 SETTABLEKS                       R27 R26 K101 ["StageInfoBar"]
-      475 CALL                             R23 3 1
-      476 JUMP                             ; [+1]
-      477 LOADNIL                          R23
-      478 SETTABLEKS                       R23 R22 K88 ["StageInfoBarWrapper"]
-      480 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
-      482 JUMPIFNOTEQKS                    R24 K28 ["ConfirmItems"] ; [+34]
-      484 GETUPVAL                         R23 12
-      485 GETTABLEKS                       R23 R23 K30 ["createElement"]
-      487 GETUPVAL                         R24 14
-      488 DUPTABLE                         R25 K105 [{["tag"] = "size-full-0 auto-y padding-top-medium", ["LayoutOrder"]}]
-      489 NAMECALL                         R26 R14 K56 ["getNextOrder"]
-      491 CALL                             R26 1 1
-      492 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
-      494 DUPTABLE                         R26 K107 [{"ErrorBanner"}]
-      495 GETUPVAL                         R27 12
-      496 GETTABLEKS                       R27 R27 K30 ["createElement"]
-      498 GETUPVAL                         R28 23
-      499 DUPTABLE                         R29 K110 [{"errors", "hasBlockingError", "dismissMessage"}]
-      500 GETTABLEKS                       R30 R10 K111 ["errorBannerMessages"]
-      502 SETTABLEKS                       R30 R29 K108 ["errors"]
-      504 GETTABLEKS                       R30 R10 K23 ["hasBlockingError"]
-      506 SETTABLEKS                       R30 R29 K23 ["hasBlockingError"]
-      508 GETTABLEKS                       R30 R10 K109 ["dismissMessage"]
-      510 SETTABLEKS                       R30 R29 K109 ["dismissMessage"]
-      512 CALL                             R27 2 1
-      513 SETTABLEKS                       R27 R26 K106 ["ErrorBanner"]
-      515 CALL                             R23 3 1
-      516 JUMP                             ; [+1]
-      517 LOADNIL                          R23
-      518 SETTABLEKS                       R23 R22 K89 ["ErrorBannerWrapper"]
-      520 CALL                             R19 3 1
-      521 SETTABLEKS                       R19 R18 K80 ["Header"]
-      523 GETUPVAL                         R19 12
-      524 GETTABLEKS                       R19 R19 K30 ["createElement"]
-      526 GETUPVAL                         R20 14
-      527 DUPTABLE                         R21 K113 [{["tag"] = "grow size-full-0", ["LayoutOrder"]}]
-      528 NAMECALL                         R22 R13 K56 ["getNextOrder"]
-      530 CALL                             R22 1 1
-      531 SETTABLEKS                       R22 R21 K48 ["LayoutOrder"]
-      533 DUPTABLE                         R22 K42 [{"StageContent"}]
-      534 SETTABLEKS                       R12 R22 K41 ["StageContent"]
-      536 CALL                             R19 3 1
-      537 SETTABLEKS                       R19 R18 K81 ["StageContentWrapper"]
-      539 GETUPVAL                         R19 12
-      540 GETTABLEKS                       R19 R19 K30 ["createElement"]
-      542 GETUPVAL                         R20 24
-      543 DUPTABLE                         R21 K118 [{"LayoutOrder", "onForward", "onBack", "dialogStage", "isForwardDisabled", "isBackDisabled"}]
-      544 NAMECALL                         R22 R13 K56 ["getNextOrder"]
-      546 CALL                             R22 1 1
-      547 SETTABLEKS                       R22 R21 K48 ["LayoutOrder"]
-      549 GETTABLEKS                       R22 R11 K114 ["onForward"]
-      551 SETTABLEKS                       R22 R21 K114 ["onForward"]
-      553 GETTABLEKS                       R22 R11 K115 ["onBack"]
-      555 SETTABLEKS                       R22 R21 K115 ["onBack"]
-      557 GETTABLEKS                       R22 R11 K27 ["dialogStage"]
-      559 SETTABLEKS                       R22 R21 K27 ["dialogStage"]
-      561 GETTABLEKS                       R22 R11 K116 ["isForwardDisabled"]
-      563 SETTABLEKS                       R22 R21 K116 ["isForwardDisabled"]
-      565 GETTABLEKS                       R22 R11 K117 ["isBackDisabled"]
-      567 SETTABLEKS                       R22 R21 K117 ["isBackDisabled"]
-      569 CALL                             R19 2 1
-      570 SETTABLEKS                       R19 R18 K82 ["BottomBar"]
-      572 CALL                             R15 3 1
-      573 GETUPVAL                         R16 12
-      574 GETTABLEKS                       R16 R16 K119 ["useState"]
-      576 LOADNIL                          R17
-      577 CALL                             R16 1 2
-      578 GETUPVAL                         R18 12
-      579 GETTABLEKS                       R18 R18 K30 ["createElement"]
-      581 GETUPVAL                         R19 25
-      582 GETTABLEKS                       R19 R19 K120 ["Dialog"]
-      584 DUPTABLE                         R20 K130 [{["Title"] = "", ["MinContentSize"], ["Size"], ["MinSize"], ["Modal"] = True, ["OnClose"], ["Enabled"] = True, ["Resizable"] = True}]
-      585 GETIMPORT                        R21 K132 [Vector2.new]
-      587 LOADN                            R22 800
-      588 LOADN                            R23 600
-      589 CALL                             R21 2 1
-      590 SETTABLEKS                       R21 R20 K122 ["MinContentSize"]
-      592 GETIMPORT                        R21 K132 [Vector2.new]
-      594 LOADN                            R22 800
-      595 GETUPVAL                         R24 26
-      596 CALL                             R24 0 1
-      597 JUMPIFNOT                        R24 ; [+2]
-      598 LOADN                            R23 750
-      599 JUMP                             ; [+1]
-      600 LOADN                            R23 600
-      601 CALL                             R21 2 1
-      602 SETTABLEKS                       R21 R20 K123 ["Size"]
-      604 GETIMPORT                        R21 K132 [Vector2.new]
-      606 LOADN                            R22 800
-      607 LOADN                            R23 600
-      608 CALL                             R21 2 1
-      609 SETTABLEKS                       R21 R20 K124 ["MinSize"]
-      611 GETTABLEKS                       R21 R0 K25 ["onClose"]
-      613 SETTABLEKS                       R21 R20 K127 ["OnClose"]
-      615 DUPTABLE                         R21 K134 [{"OverlayProviderWrapper"}]
-      616 GETUPVAL                         R22 12
-      617 GETTABLEKS                       R22 R22 K30 ["createElement"]
-      619 GETUPVAL                         R23 27
-      620 DUPTABLE                         R24 K136 [{"gui"}]
-      621 SETTABLEKS                       R16 R24 K135 ["gui"]
-      623 DUPTABLE                         R25 K140 [{"StyleLink", "MainContainer", "Overlay"}]
-      624 GETUPVAL                         R26 12
-      625 GETTABLEKS                       R26 R26 K30 ["createElement"]
-      627 LOADK                            R27 K137 ["StyleLink"]
-      628 DUPTABLE                         R28 K142 [{"StyleSheet"}]
-      629 SETTABLEKS                       R1 R28 K141 ["StyleSheet"]
-      631 CALL                             R26 2 1
-      632 SETTABLEKS                       R26 R25 K137 ["StyleLink"]
-      634 SETTABLEKS                       R15 R25 K138 ["MainContainer"]
-      636 GETUPVAL                         R26 12
-      637 GETTABLEKS                       R26 R26 K30 ["createElement"]
-      639 GETUPVAL                         R27 14
-      640 DUPTABLE                         R28 K146 [{["tag"] = "size-full", ["ref"], ["ZIndex"] = 100}]
-      641 SETTABLEKS                       R17 R28 K143 ["ref"]
-      643 CALL                             R26 2 1
-      644 SETTABLEKS                       R26 R25 K139 ["Overlay"]
-      646 CALL                             R22 3 1
-      647 SETTABLEKS                       R22 R21 K133 ["OverlayProviderWrapper"]
-      649 CALL                             R18 3 -1
-      650 RETURN                           R18 -1
+      322 GETUPVAL                         R22 18
+      323 CALL                             R22 0 1
+      324 JUMPIFNOT                        R22 ; [+3]
+      325 GETTABLEKS                       R21 R9 K69 ["eligibilityChecks"]
+      327 JUMP                             ; [+1]
+      328 LOADNIL                          R21
+      329 SETTABLEKS                       R21 R20 K69 ["eligibilityChecks"]
+      331 CALL                             R18 2 1
+      332 SETTABLEKS                       R18 R17 K41 ["StageContent"]
+      334 CALL                             R14 3 1
+      335 MOVE                             R12 R14
+      336 JUMP                             ; [+31]
+      337 GETTABLEKS                       R13 R11 K27 ["dialogStage"]
+      339 JUMPIFNOTEQKS                    R13 K73 ["Success"] ; [+13]
+      341 GETUPVAL                         R13 12
+      342 GETTABLEKS                       R13 R13 K30 ["createElement"]
+      344 GETUPVAL                         R14 19
+      345 DUPTABLE                         R15 K74 [{"lookPreview"}]
+      346 GETTABLEKS                       R16 R8 K54 ["lookPreview"]
+      348 SETTABLEKS                       R16 R15 K54 ["lookPreview"]
+      350 CALL                             R13 2 1
+      351 MOVE                             R12 R13
+      352 JUMP                             ; [+15]
+      353 GETTABLEKS                       R13 R11 K27 ["dialogStage"]
+      355 JUMPIFNOTEQKS                    R13 K75 ["Failure"] ; [+12]
+      357 GETUPVAL                         R13 12
+      358 GETTABLEKS                       R13 R13 K30 ["createElement"]
+      360 GETUPVAL                         R14 20
+      361 DUPTABLE                         R15 K77 [{"errorMessage"}]
+      362 GETTABLEKS                       R16 R9 K78 ["lookCreationErrorMessage"]
+      364 SETTABLEKS                       R16 R15 K76 ["errorMessage"]
+      366 CALL                             R13 2 1
+      367 MOVE                             R12 R13
+      368 GETUPVAL                         R13 11
+      369 GETTABLEKS                       R13 R13 K29 ["new"]
+      371 CALL                             R13 0 1
+      372 GETUPVAL                         R14 11
+      373 GETTABLEKS                       R14 R14 K29 ["new"]
+      375 CALL                             R14 0 1
+      376 GETUPVAL                         R15 12
+      377 GETTABLEKS                       R15 R15 K30 ["createElement"]
+      379 GETUPVAL                         R16 14
+      380 DUPTABLE                         R17 K80 [{["tag"] = "col size-full"}]
+      381 DUPTABLE                         R18 K84 [{"Header", "StageContentWrapper", "BottomBar"}]
+      382 GETUPVAL                         R19 12
+      383 GETTABLEKS                       R19 R19 K30 ["createElement"]
+      385 GETUPVAL                         R20 14
+      386 DUPTABLE                         R21 K86 [{["tag"] = "col align-x-left align-y-top gap-medium size-full-0 auto-y padding-large", ["LayoutOrder"]}]
+      387 NAMECALL                         R22 R13 K56 ["getNextOrder"]
+      389 CALL                             R22 1 1
+      390 SETTABLEKS                       R22 R21 K48 ["LayoutOrder"]
+      392 DUPTABLE                         R22 K91 [{"Title", "Description", "StageInfoBarWrapper", "ErrorBannerWrapper"}]
+      393 GETUPVAL                         R23 12
+      394 GETTABLEKS                       R23 R23 K30 ["createElement"]
+      396 GETUPVAL                         R24 21
+      397 DUPTABLE                         R25 K94 [{["Text"], ["tag"] = "auto-xy text-heading-small content-default", ["LayoutOrder"]}]
+      398 LOADK                            R28 K95 ["LookComposerDialog"]
+      399 GETUPVAL                         R30 22
+      400 GETTABLEKS                       R31 R0 K0 ["dialogLookType"]
+      402 GETTABLE                         R29 R30 R31
+      403 GETTABLEKS                       R29 R29 K96 ["title"]
+      405 NAMECALL                         R26 R2 K97 ["getText"]
+      407 CALL                             R26 3 1
+      408 SETTABLEKS                       R26 R25 K92 ["Text"]
+      410 NAMECALL                         R26 R14 K56 ["getNextOrder"]
+      412 CALL                             R26 1 1
+      413 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
+      415 CALL                             R23 2 1
+      416 SETTABLEKS                       R23 R22 K87 ["Title"]
+      418 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
+      420 JUMPIFEQKS                       R24 K28 ["ConfirmItems"] ; [+5]
+      422 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
+      424 JUMPIFNOTEQKS                    R24 K61 ["EditInfo"] ; [+25]
+      426 GETUPVAL                         R23 12
+      427 GETTABLEKS                       R23 R23 K30 ["createElement"]
+      429 GETUPVAL                         R24 21
+      430 DUPTABLE                         R25 K99 [{["Text"], ["tag"] = "auto-xy text-body-medium content-default", ["LayoutOrder"]}]
+      431 LOADK                            R28 K95 ["LookComposerDialog"]
+      432 GETUPVAL                         R30 22
+      433 GETTABLEKS                       R31 R0 K0 ["dialogLookType"]
+      435 GETTABLE                         R29 R30 R31
+      436 GETTABLEKS                       R29 R29 K15 ["description"]
+      438 NAMECALL                         R26 R2 K97 ["getText"]
+      440 CALL                             R26 3 1
+      441 SETTABLEKS                       R26 R25 K92 ["Text"]
+      443 NAMECALL                         R26 R14 K56 ["getNextOrder"]
+      445 CALL                             R26 1 1
+      446 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
+      448 CALL                             R23 2 1
+      449 JUMP                             ; [+1]
+      450 LOADNIL                          R23
+      451 SETTABLEKS                       R23 R22 K88 ["Description"]
+      453 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
+      455 JUMPIFEQKS                       R24 K28 ["ConfirmItems"] ; [+5]
+      457 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
+      459 JUMPIFNOTEQKS                    R24 K61 ["EditInfo"] ; [+26]
+      461 GETUPVAL                         R23 12
+      462 GETTABLEKS                       R23 R23 K30 ["createElement"]
+      464 GETUPVAL                         R24 14
+      465 DUPTABLE                         R25 K101 [{["tag"] = "size-full-0 auto-y padding-top-xlarge", ["LayoutOrder"]}]
+      466 NAMECALL                         R26 R14 K56 ["getNextOrder"]
+      468 CALL                             R26 1 1
+      469 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
+      471 DUPTABLE                         R26 K103 [{"StageInfoBar"}]
+      472 GETUPVAL                         R27 12
+      473 GETTABLEKS                       R27 R27 K30 ["createElement"]
+      475 GETUPVAL                         R28 23
+      476 DUPTABLE                         R29 K104 [{"dialogStage"}]
+      477 GETTABLEKS                       R30 R11 K27 ["dialogStage"]
+      479 SETTABLEKS                       R30 R29 K27 ["dialogStage"]
+      481 CALL                             R27 2 1
+      482 SETTABLEKS                       R27 R26 K102 ["StageInfoBar"]
+      484 CALL                             R23 3 1
+      485 JUMP                             ; [+1]
+      486 LOADNIL                          R23
+      487 SETTABLEKS                       R23 R22 K89 ["StageInfoBarWrapper"]
+      489 GETTABLEKS                       R24 R11 K27 ["dialogStage"]
+      491 JUMPIFNOTEQKS                    R24 K28 ["ConfirmItems"] ; [+34]
+      493 GETUPVAL                         R23 12
+      494 GETTABLEKS                       R23 R23 K30 ["createElement"]
+      496 GETUPVAL                         R24 14
+      497 DUPTABLE                         R25 K106 [{["tag"] = "size-full-0 auto-y padding-top-medium", ["LayoutOrder"]}]
+      498 NAMECALL                         R26 R14 K56 ["getNextOrder"]
+      500 CALL                             R26 1 1
+      501 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
+      503 DUPTABLE                         R26 K108 [{"ErrorBanner"}]
+      504 GETUPVAL                         R27 12
+      505 GETTABLEKS                       R27 R27 K30 ["createElement"]
+      507 GETUPVAL                         R28 24
+      508 DUPTABLE                         R29 K111 [{"errors", "hasBlockingError", "dismissMessage"}]
+      509 GETTABLEKS                       R30 R10 K112 ["errorBannerMessages"]
+      511 SETTABLEKS                       R30 R29 K109 ["errors"]
+      513 GETTABLEKS                       R30 R10 K23 ["hasBlockingError"]
+      515 SETTABLEKS                       R30 R29 K23 ["hasBlockingError"]
+      517 GETTABLEKS                       R30 R10 K110 ["dismissMessage"]
+      519 SETTABLEKS                       R30 R29 K110 ["dismissMessage"]
+      521 CALL                             R27 2 1
+      522 SETTABLEKS                       R27 R26 K107 ["ErrorBanner"]
+      524 CALL                             R23 3 1
+      525 JUMP                             ; [+1]
+      526 LOADNIL                          R23
+      527 SETTABLEKS                       R23 R22 K90 ["ErrorBannerWrapper"]
+      529 CALL                             R19 3 1
+      530 SETTABLEKS                       R19 R18 K81 ["Header"]
+      532 GETUPVAL                         R19 12
+      533 GETTABLEKS                       R19 R19 K30 ["createElement"]
+      535 GETUPVAL                         R20 14
+      536 DUPTABLE                         R21 K114 [{["tag"] = "grow size-full-0", ["LayoutOrder"]}]
+      537 NAMECALL                         R22 R13 K56 ["getNextOrder"]
+      539 CALL                             R22 1 1
+      540 SETTABLEKS                       R22 R21 K48 ["LayoutOrder"]
+      542 DUPTABLE                         R22 K42 [{"StageContent"}]
+      543 SETTABLEKS                       R12 R22 K41 ["StageContent"]
+      545 CALL                             R19 3 1
+      546 SETTABLEKS                       R19 R18 K82 ["StageContentWrapper"]
+      548 GETUPVAL                         R19 12
+      549 GETTABLEKS                       R19 R19 K30 ["createElement"]
+      551 GETUPVAL                         R20 25
+      552 DUPTABLE                         R21 K119 [{"LayoutOrder", "onForward", "onBack", "dialogStage", "isForwardDisabled", "isBackDisabled"}]
+      553 NAMECALL                         R22 R13 K56 ["getNextOrder"]
+      555 CALL                             R22 1 1
+      556 SETTABLEKS                       R22 R21 K48 ["LayoutOrder"]
+      558 GETTABLEKS                       R22 R11 K115 ["onForward"]
+      560 SETTABLEKS                       R22 R21 K115 ["onForward"]
+      562 GETTABLEKS                       R22 R11 K116 ["onBack"]
+      564 SETTABLEKS                       R22 R21 K116 ["onBack"]
+      566 GETTABLEKS                       R22 R11 K27 ["dialogStage"]
+      568 SETTABLEKS                       R22 R21 K27 ["dialogStage"]
+      570 GETTABLEKS                       R22 R11 K117 ["isForwardDisabled"]
+      572 SETTABLEKS                       R22 R21 K117 ["isForwardDisabled"]
+      574 GETTABLEKS                       R22 R11 K118 ["isBackDisabled"]
+      576 SETTABLEKS                       R22 R21 K118 ["isBackDisabled"]
+      578 CALL                             R19 2 1
+      579 SETTABLEKS                       R19 R18 K83 ["BottomBar"]
+      581 CALL                             R15 3 1
+      582 GETUPVAL                         R16 12
+      583 GETTABLEKS                       R16 R16 K120 ["useState"]
+      585 LOADNIL                          R17
+      586 CALL                             R16 1 2
+      587 GETUPVAL                         R18 12
+      588 GETTABLEKS                       R18 R18 K30 ["createElement"]
+      590 GETUPVAL                         R19 26
+      591 GETTABLEKS                       R19 R19 K121 ["Dialog"]
+      593 DUPTABLE                         R20 K131 [{["Title"] = "", ["MinContentSize"], ["Size"], ["MinSize"], ["Modal"] = True, ["OnClose"], ["Enabled"] = True, ["Resizable"] = True}]
+      594 GETIMPORT                        R21 K133 [Vector2.new]
+      596 LOADN                            R22 800
+      597 LOADN                            R23 600
+      598 CALL                             R21 2 1
+      599 SETTABLEKS                       R21 R20 K123 ["MinContentSize"]
+      601 GETIMPORT                        R21 K133 [Vector2.new]
+      603 LOADN                            R22 800
+      604 GETUPVAL                         R24 27
+      605 CALL                             R24 0 1
+      606 JUMPIFNOT                        R24 ; [+2]
+      607 LOADN                            R23 750
+      608 JUMP                             ; [+1]
+      609 LOADN                            R23 600
+      610 CALL                             R21 2 1
+      611 SETTABLEKS                       R21 R20 K124 ["Size"]
+      613 GETIMPORT                        R21 K133 [Vector2.new]
+      615 LOADN                            R22 800
+      616 LOADN                            R23 600
+      617 CALL                             R21 2 1
+      618 SETTABLEKS                       R21 R20 K125 ["MinSize"]
+      620 GETTABLEKS                       R21 R0 K25 ["onClose"]
+      622 SETTABLEKS                       R21 R20 K128 ["OnClose"]
+      624 DUPTABLE                         R21 K135 [{"OverlayProviderWrapper"}]
+      625 GETUPVAL                         R22 12
+      626 GETTABLEKS                       R22 R22 K30 ["createElement"]
+      628 GETUPVAL                         R23 28
+      629 DUPTABLE                         R24 K137 [{"gui"}]
+      630 SETTABLEKS                       R16 R24 K136 ["gui"]
+      632 DUPTABLE                         R25 K141 [{"StyleLink", "MainContainer", "Overlay"}]
+      633 GETUPVAL                         R26 12
+      634 GETTABLEKS                       R26 R26 K30 ["createElement"]
+      636 LOADK                            R27 K138 ["StyleLink"]
+      637 DUPTABLE                         R28 K143 [{"StyleSheet"}]
+      638 SETTABLEKS                       R1 R28 K142 ["StyleSheet"]
+      640 CALL                             R26 2 1
+      641 SETTABLEKS                       R26 R25 K138 ["StyleLink"]
+      643 SETTABLEKS                       R15 R25 K139 ["MainContainer"]
+      645 GETUPVAL                         R26 12
+      646 GETTABLEKS                       R26 R26 K30 ["createElement"]
+      648 GETUPVAL                         R27 14
+      649 DUPTABLE                         R28 K147 [{["tag"] = "size-full", ["ref"], ["ZIndex"] = 100}]
+      650 SETTABLEKS                       R17 R28 K144 ["ref"]
+      652 CALL                             R26 2 1
+      653 SETTABLEKS                       R26 R25 K140 ["Overlay"]
+      655 CALL                             R22 3 1
+      656 SETTABLEKS                       R22 R21 K134 ["OverlayProviderWrapper"]
+      658 CALL                             R18 3 -1
+      659 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -550,38 +557,44 @@ MAIN:
       214 GETTABLEKS                       R31 R31 K40 ["Flags"]
       216 GETTABLEKS                       R31 R31 K42 ["getFFlagAvatarPreviewerLookComposerLargerDefaultSize"]
       218 CALL                             R30 1 1
-      219 DUPTABLE                         R31 K45 [{"AvatarLook", "MakeupLook"}]
-      220 DUPTABLE                         R32 K50 [{["title"] = "CreateAnAvatarLook", ["description"] = "CreateAnAvatarLookDescription"}]
-      221 SETTABLEKS                       R32 R31 K43 ["AvatarLook"]
-      223 DUPTABLE                         R32 K53 [{["title"] = "CreateAMakeupLook", ["description"] = "CreateAMakeupLookDescription"}]
-      224 SETTABLEKS                       R32 R31 K44 ["MakeupLook"]
-      226 DUPCLOSURE                       R32 K54 [PROTO_0]
-      227 CAPTURE                          VAL R29
-      228 CAPTURE                          VAL R10
-      229 CAPTURE                          VAL R9
-      230 CAPTURE                          VAL R22
-      231 CAPTURE                          VAL R23
-      232 CAPTURE                          VAL R24
-      233 CAPTURE                          VAL R21
-      234 CAPTURE                          VAL R25
-      235 CAPTURE                          VAL R27
-      236 CAPTURE                          VAL R26
-      237 CAPTURE                          VAL R28
-      238 CAPTURE                          VAL R11
-      239 CAPTURE                          VAL R1
-      240 CAPTURE                          VAL R5
-      241 CAPTURE                          VAL R3
-      242 CAPTURE                          VAL R15
-      243 CAPTURE                          VAL R16
-      244 CAPTURE                          VAL R20
-      245 CAPTURE                          VAL R18
-      246 CAPTURE                          VAL R19
-      247 CAPTURE                          VAL R4
-      248 CAPTURE                          VAL R31
-      249 CAPTURE                          VAL R13
-      250 CAPTURE                          VAL R14
-      251 CAPTURE                          VAL R17
-      252 CAPTURE                          VAL R8
-      253 CAPTURE                          VAL R30
-      254 CAPTURE                          VAL R6
-      255 RETURN                           R32 1
+      219 GETIMPORT                        R31 K5 [require]
+      221 GETTABLEKS                       R32 R0 K20 ["Src"]
+      223 GETTABLEKS                       R32 R32 K40 ["Flags"]
+      225 GETTABLEKS                       R32 R32 K43 ["getFFlagAvatarPreviewerEligibilityChecks"]
+      227 CALL                             R31 1 1
+      228 DUPTABLE                         R32 K46 [{"AvatarLook", "MakeupLook"}]
+      229 DUPTABLE                         R33 K51 [{["title"] = "CreateAnAvatarLook", ["description"] = "CreateAnAvatarLookDescription"}]
+      230 SETTABLEKS                       R33 R32 K44 ["AvatarLook"]
+      232 DUPTABLE                         R33 K54 [{["title"] = "CreateAMakeupLook", ["description"] = "CreateAMakeupLookDescription"}]
+      233 SETTABLEKS                       R33 R32 K45 ["MakeupLook"]
+      235 DUPCLOSURE                       R33 K55 [PROTO_0]
+      236 CAPTURE                          VAL R29
+      237 CAPTURE                          VAL R10
+      238 CAPTURE                          VAL R9
+      239 CAPTURE                          VAL R22
+      240 CAPTURE                          VAL R23
+      241 CAPTURE                          VAL R24
+      242 CAPTURE                          VAL R21
+      243 CAPTURE                          VAL R25
+      244 CAPTURE                          VAL R27
+      245 CAPTURE                          VAL R26
+      246 CAPTURE                          VAL R28
+      247 CAPTURE                          VAL R11
+      248 CAPTURE                          VAL R1
+      249 CAPTURE                          VAL R5
+      250 CAPTURE                          VAL R3
+      251 CAPTURE                          VAL R15
+      252 CAPTURE                          VAL R16
+      253 CAPTURE                          VAL R20
+      254 CAPTURE                          VAL R31
+      255 CAPTURE                          VAL R18
+      256 CAPTURE                          VAL R19
+      257 CAPTURE                          VAL R4
+      258 CAPTURE                          VAL R32
+      259 CAPTURE                          VAL R13
+      260 CAPTURE                          VAL R14
+      261 CAPTURE                          VAL R17
+      262 CAPTURE                          VAL R8
+      263 CAPTURE                          VAL R30
+      264 CAPTURE                          VAL R6
+      265 RETURN                           R33 1

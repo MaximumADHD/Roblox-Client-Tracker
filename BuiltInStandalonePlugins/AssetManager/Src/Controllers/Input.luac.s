@@ -261,21 +261,23 @@ PROTO_9:
        16 CALL                             R1 1 1
        17 GETUPVAL                         R2 2
        18 LOADK                            R4 K6 ["StartDragInsertManager"]
-       19 DUPTABLE                         R5 K11 [{"Ids", "Types", "Names", "Scope"}]
+       19 DUPTABLE                         R5 K12 [{"Ids", "Types", "Names", "IsPackage", "Scope"}]
        20 GETTABLEKS                       R6 R1 K7 ["Ids"]
        22 SETTABLEKS                       R6 R5 K7 ["Ids"]
        24 GETTABLEKS                       R6 R1 K8 ["Types"]
        26 SETTABLEKS                       R6 R5 K8 ["Types"]
        28 GETTABLEKS                       R6 R1 K9 ["Names"]
        30 SETTABLEKS                       R6 R5 K9 ["Names"]
-       32 GETUPVAL                         R6 1
-       33 GETTABLEKS                       R6 R6 K4 ["_itemsController"]
-       35 NAMECALL                         R6 R6 K12 ["getCurrentShownScope"]
-       37 CALL                             R6 1 1
-       38 SETTABLEKS                       R6 R5 K10 ["Scope"]
-       40 NAMECALL                         R2 R2 K13 ["Invoke"]
-       42 CALL                             R2 3 0
-       43 RETURN                           R0 0
+       32 GETTABLEKS                       R6 R1 K10 ["IsPackage"]
+       34 SETTABLEKS                       R6 R5 K10 ["IsPackage"]
+       36 GETUPVAL                         R6 1
+       37 GETTABLEKS                       R6 R6 K4 ["_itemsController"]
+       39 NAMECALL                         R6 R6 K13 ["getCurrentShownScope"]
+       41 CALL                             R6 1 1
+       42 SETTABLEKS                       R6 R5 K11 ["Scope"]
+       44 NAMECALL                         R2 R2 K14 ["Invoke"]
+       46 CALL                             R2 3 0
+       47 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0

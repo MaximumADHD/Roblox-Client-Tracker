@@ -2277,34 +2277,38 @@ PROTO_122:
        10 GETTABLEKS                       R1 R1 K0 ["within"]
        12 MOVE                             R2 R0
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R1 R1 K1 ["getByTestId"]
-       16 LOADK                            R2 K3 ["--foundation-button"]
-       17 CALL                             R1 1 1
-       18 GETUPVAL                         R2 2
-       19 MOVE                             R3 R1
-       20 DUPTABLE                         R4 K7 [{["resizeAncestors"] = True, ["forceResize"] = True}]
-       21 CALL                             R2 2 0
-       22 GETIMPORT                        R2 K10 [os.clock]
-       24 CALL                             R2 0 1
-       25 GETUPVAL                         R3 3
-       26 GETTABLEKS                       R3 R3 K11 ["AvatarChatScreen"]
-       28 GETTABLEKS                       R3 R3 K12 ["isImageDialogOpen"]
-       30 CALL                             R3 0 1
-       31 JUMPIFNOT                        R3 ; [+18]
-       32 GETIMPORT                        R4 K10 [os.clock]
-       34 CALL                             R4 0 1
-       35 SUB                              R3 R4 R2
-       36 LOADN                            R4 1
-       37 JUMPIFNOTLE                      R4 R3 ; [+5]
-       39 GETIMPORT                        R3 K14 [error]
-       41 LOADK                            R4 K15 ["Image dialog didn't close within timeout"]
-       42 CALL                             R3 1 0
-       43 GETUPVAL                         R3 4
-       44 GETTABLEKS                       R3 R3 K16 ["act"]
-       46 GETIMPORT                        R4 K19 [task.wait]
-       48 CALL                             R3 1 0
-       49 JUMPBACK                         ; [-25]
-       50 RETURN                           R0 0
+       14 GETTABLEKS                       R2 R1 K3 ["queryByTestId"]
+       16 LOADK                            R3 K4 ["avatar-chat-image-dialog--actions-container--button-1"]
+       17 CALL                             R2 1 1
+       18 JUMPIF                           R2 ; [+4]
+       19 GETTABLEKS                       R2 R1 K1 ["getByTestId"]
+       21 LOADK                            R3 K5 ["--foundation-button"]
+       22 CALL                             R2 1 1
+       23 GETUPVAL                         R3 2
+       24 MOVE                             R4 R2
+       25 DUPTABLE                         R5 K9 [{["resizeAncestors"] = True, ["forceResize"] = True}]
+       26 CALL                             R3 2 0
+       27 GETIMPORT                        R3 K12 [os.clock]
+       29 CALL                             R3 0 1
+       30 GETUPVAL                         R4 3
+       31 GETTABLEKS                       R4 R4 K13 ["AvatarChatScreen"]
+       33 GETTABLEKS                       R4 R4 K14 ["isImageDialogOpen"]
+       35 CALL                             R4 0 1
+       36 JUMPIFNOT                        R4 ; [+18]
+       37 GETIMPORT                        R5 K12 [os.clock]
+       39 CALL                             R5 0 1
+       40 SUB                              R4 R5 R3
+       41 LOADN                            R5 1
+       42 JUMPIFNOTLE                      R5 R4 ; [+5]
+       44 GETIMPORT                        R4 K16 [error]
+       46 LOADK                            R5 K17 ["Image dialog didn't close within timeout"]
+       47 CALL                             R4 1 0
+       48 GETUPVAL                         R4 4
+       49 GETTABLEKS                       R4 R4 K18 ["act"]
+       51 GETIMPORT                        R5 K21 [task.wait]
+       53 CALL                             R4 1 0
+       54 JUMPBACK                         ; [-25]
+       55 RETURN                           R0 0
 
 PROTO_123:
         0 GETUPVAL                         R1 0

@@ -54,14 +54,14 @@ PROTO_2:
        59 SETTABLEKS                       R4 R3 K17 ["_isPluginFrameLoaded"]
        61 DUPTABLE                         R4 K21 [{"GridSize", "ViewType", "ListRowHeight"}]
        62 GETUPVAL                         R5 0
-       63 GETTABLEKS                       R5 R5 K22 ["ItemCellSizeDefault"]
+       63 GETTABLEKS                       R5 R5 K22 ["GridCellSizeDefault"]
        65 SETTABLEKS                       R5 R4 K18 ["GridSize"]
        67 GETUPVAL                         R5 1
        68 GETTABLEKS                       R5 R5 K19 ["ViewType"]
        70 GETTABLEKS                       R5 R5 K23 ["List"]
        72 SETTABLEKS                       R5 R4 K19 ["ViewType"]
        74 GETUPVAL                         R5 0
-       75 GETTABLEKS                       R5 R5 K24 ["ItemRowHeightDefault"]
+       75 GETTABLEKS                       R5 R5 K24 ["ListRowHeightDefault"]
        77 SETTABLEKS                       R5 R4 K20 ["ListRowHeight"]
        79 SETTABLEKS                       R4 R3 K25 ["_browserLayout"]
        81 LOADN                            R4 0

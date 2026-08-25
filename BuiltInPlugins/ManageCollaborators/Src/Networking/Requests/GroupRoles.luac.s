@@ -37,27 +37,33 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
-        2 DUPTABLE                         R2 K3 [{[1], ["Method"] = "GET"}]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K4 ["BuildRobloxUrl"]
-        6 LOADK                            R4 K5 ["groups"]
-        7 LOADK                            R5 K6 ["v1/groups/%d/roles"]
-        8 MOVE                             R6 R0
-        9 CALL                             R3 3 1
-       10 SETTABLEKS                       R3 R2 K0 ["Url"]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R3 R3 K7 ["Request"]
-       15 MOVE                             R4 R2
-       16 CALL                             R3 1 1
-       17 NEWCLOSURE                       R5 P0
-       18 CAPTURE                          UPVAL U1
-       19 CAPTURE                          UPVAL U2
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          VAL R1
-       22 CAPTURE                          UPVAL U4
-       23 NAMECALL                         R3 R3 K8 ["andThen"]
-       25 CALL                             R3 2 -1
-       26 RETURN                           R3 -1
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K0 ["fflagIncludePrivateRoles"]
+        5 JUMPIFNOT                        R3 ; [+2]
+        6 LOADK                            R2 K1 ["v1/groups/%d/roles?includePrivate=true"]
+        7 JUMP                             ; [+1]
+        8 LOADK                            R2 K2 ["v1/groups/%d/roles"]
+        9 DUPTABLE                         R3 K6 [{["Url"], ["Method"] = "GET"}]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R4 R4 K7 ["BuildRobloxUrl"]
+       13 LOADK                            R5 K8 ["groups"]
+       14 MOVE                             R6 R2
+       15 MOVE                             R7 R0
+       16 CALL                             R4 3 1
+       17 SETTABLEKS                       R4 R3 K3 ["Url"]
+       19 GETUPVAL                         R4 1
+       20 GETTABLEKS                       R4 R4 K9 ["Request"]
+       22 MOVE                             R5 R3
+       23 CALL                             R4 1 1
+       24 NEWCLOSURE                       R6 P0
+       25 CAPTURE                          UPVAL U2
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          UPVAL U4
+       30 NAMECALL                         R4 R4 K10 ["andThen"]
+       32 CALL                             R4 2 -1
+       33 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -92,9 +98,9 @@ MAIN:
        52 CALL                             R6 1 1
        53 NEWTABLE                         R7 1 0
        55 DUPCLOSURE                       R8 K18 [PROTO_1]
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R0
        59 CAPTURE                          VAL R6
        60 CAPTURE                          VAL R5
        61 SETTABLEKS                       R8 R7 K19 ["Get"]

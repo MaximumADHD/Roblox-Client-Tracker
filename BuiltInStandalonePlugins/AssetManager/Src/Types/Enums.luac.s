@@ -39,7 +39,7 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["enumerate"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 16 0
+       14 NEWTABLE                         R2 32 0
        16 DUPCLOSURE                       R3 K8 [PROTO_0]
        17 SETTABLEKS                       R3 R2 K9 ["asList"]
        19 DUPCLOSURE                       R3 K10 [PROTO_2]
@@ -76,4 +76,8 @@ MAIN:
        63 SETTABLEKS                       R15 R2 K109 ["ApiPermissionStatus"]
        65 DUPTABLE                         R16 K115 [{["Test"] = "Test", ["QuickShare"] = "QuickShare", ["Confirm"] = "Confirm", ["AssetError"] = "AssetError", ["Move"] = "Move"}]
        66 SETTABLEKS                       R16 R2 K116 ["DialogType"]
-       68 RETURN                           R2 1
+       68 DUPTABLE                         R17 K118 [{["TestExperiment"] = "TestExperiment"}]
+       69 SETTABLEKS                       R17 R2 K119 ["IxpVariable"]
+       71 DUPTABLE                         R18 K124 [{["Control"] = "control", ["Experiment"] = "experiment"}]
+       72 SETTABLEKS                       R18 R2 K125 ["IxpValue"]
+       74 RETURN                           R2 1

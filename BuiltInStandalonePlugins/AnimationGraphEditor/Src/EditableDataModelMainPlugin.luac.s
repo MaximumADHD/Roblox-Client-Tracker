@@ -168,7 +168,7 @@ PROTO_10:
        97 GETUPVAL                         R9 4
        98 GETTABLEKS                       R9 R9 K11 ["ContextStack"]
       100 DUPTABLE                         R10 K15 [{"providers"}]
-      101 NEWTABLE                         R11 0 22
+      101 NEWTABLE                         R11 0 23
       103 GETUPVAL                         R12 0
       104 GETTABLEKS                       R12 R12 K13 ["createElement"]
       106 GETUPVAL                         R13 3
@@ -370,13 +370,19 @@ PROTO_10:
       385 GETTABLEKS                       R18 R18 K30 ["EditableDataModelProvider"]
       387 DUPTABLE                         R19 K57 [{"startPickingInstanceAsync"}]
       388 SETTABLEKS                       R3 R19 K56 ["startPickingInstanceAsync"]
-      390 CALL                             R17 2 -1
-      391 SETLIST                          R11 R12 -1 [17]
-      393 SETTABLEKS                       R11 R10 K14 ["providers"]
-      395 CALL                             R8 2 1
-      396 SETTABLEKS                       R8 R7 K11 ["ContextStack"]
-      398 CALL                             R5 2 -1
-      399 RETURN                           R5 -1
+      390 CALL                             R17 2 1
+      391 GETUPVAL                         R18 0
+      392 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      394 GETUPVAL                         R19 6
+      395 GETTABLEKS                       R19 R19 K58 ["StateMachineEditorContext"]
+      397 GETTABLEKS                       R19 R19 K30 ["EditableDataModelProvider"]
+      399 CALL                             R18 1 -1
+      400 SETLIST                          R11 R12 -1 [17]
+      402 SETTABLEKS                       R11 R10 K14 ["providers"]
+      404 CALL                             R8 2 1
+      405 SETTABLEKS                       R8 R7 K11 ["ContextStack"]
+      407 CALL                             R5 2 -1
+      408 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

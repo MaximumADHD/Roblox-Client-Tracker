@@ -212,7 +212,7 @@ PROTO_5:
       139 MOVE                             R18 R17
       140 JUMPIFNOT                        R18 ; [+1]
       141 NOT                              R18 R15
-      142 NEWTABLE                         R19 8 0
+      142 NEWTABLE                         R19 16 0
       144 GETTABLEKS                       R20 R6 K20 ["SubjectNameKey"]
       146 GETTABLEKS                       R21 R1 K21 ["name"]
       148 SETTABLE                         R21 R19 R20
@@ -226,21 +226,27 @@ PROTO_5:
       161 GETTABLE                         R22 R8 R23
       162 OR                               R21 R22 R9
       163 SETTABLE                         R21 R19 R20
-      164 GETTABLEKS                       R20 R6 K27 ["ActionKey"]
-      166 SETTABLE                         R11 R19 R20
-      167 GETTABLEKS                       R20 R6 K28 ["IsEditableKey"]
-      169 SETTABLE                         R18 R19 R20
-      170 GETTABLEKS                       R20 R6 K29 ["AvailableActionsKey"]
-      172 SETTABLE                         R16 R19 R20
-      173 GETTABLEKS                       R20 R6 K30 ["InheritedActionKey"]
-      175 LOADN                            R22 0
-      176 JUMPIFNOTLT                      R22 R12 ; [+4]
-      178 GETUPVAL                         R22 5
-      179 GETTABLE                         R21 R22 R12
-      180 JUMP                             ; [+1]
-      181 LOADNIL                          R21
-      182 SETTABLE                         R21 R19 R20
-      183 RETURN                           R19 1
+      164 GETTABLEKS                       R20 R6 K27 ["IsPrivateKey"]
+      166 GETTABLEKS                       R22 R1 K28 ["isPrivate"]
+      168 JUMPIFEQKB                       R22 TRUE ; [+2]
+      170 LOADB                            R21 0 +1
+      171 LOADB                            R21 1
+      172 SETTABLE                         R21 R19 R20
+      173 GETTABLEKS                       R20 R6 K29 ["ActionKey"]
+      175 SETTABLE                         R11 R19 R20
+      176 GETTABLEKS                       R20 R6 K30 ["IsEditableKey"]
+      178 SETTABLE                         R18 R19 R20
+      179 GETTABLEKS                       R20 R6 K31 ["AvailableActionsKey"]
+      181 SETTABLE                         R16 R19 R20
+      182 GETTABLEKS                       R20 R6 K32 ["InheritedActionKey"]
+      184 LOADN                            R22 0
+      185 JUMPIFNOTLT                      R22 R12 ; [+4]
+      187 GETUPVAL                         R22 5
+      188 GETTABLE                         R21 R22 R12
+      189 JUMP                             ; [+1]
+      190 LOADNIL                          R21
+      191 SETTABLE                         R21 R19 R20
+      192 RETURN                           R19 1
 
 MAIN:
         0 PREPVARARGS                      0

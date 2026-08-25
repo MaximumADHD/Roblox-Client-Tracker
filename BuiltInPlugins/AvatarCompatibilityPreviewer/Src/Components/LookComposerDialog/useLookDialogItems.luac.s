@@ -5,8 +5,9 @@ PROTO_0:
         4 GETTABLEKS                       R1 R1 K1 ["dialogLookType"]
         6 GETUPVAL                         R2 1
         7 GETTABLEKS                       R2 R2 K2 ["equippedItems"]
-        9 CALL                             R0 2 -1
-       10 RETURN                           R0 -1
+        9 GETUPVAL                         R3 2
+       10 CALL                             R0 3 -1
+       11 RETURN                           R0 -1
 
 PROTO_1:
         0 GETIMPORT                        R1 K2 [table.clone]
@@ -188,47 +189,54 @@ PROTO_5:
        15 GETTABLEKS                       R5 R5 K1 ["useState"]
        17 NEWTABLE                         R6 0 0
        19 CALL                             R5 1 2
-       20 GETUPVAL                         R7 3
-       21 NEWCLOSURE                       R8 P0
-       22 CAPTURE                          UPVAL U4
-       23 CAPTURE                          VAL R0
-       24 NEWTABLE                         R9 0 2
-       26 GETTABLEKS                       R10 R0 K2 ["dialogLookType"]
-       28 GETTABLEKS                       R11 R0 K3 ["equippedItems"]
-       30 SETLIST                          R9 R10 2 [1]
-       32 CALL                             R7 2 1
-       33 GETUPVAL                         R8 2
-       34 GETTABLEKS                       R8 R8 K4 ["useCallback"]
-       36 NEWCLOSURE                       R9 P1
-       37 CAPTURE                          VAL R4
-       38 NEWTABLE                         R10 0 0
-       40 CALL                             R8 2 1
-       41 GETUPVAL                         R9 2
-       42 GETTABLEKS                       R9 R9 K5 ["useEffect"]
-       44 NEWCLOSURE                       R10 P2
-       45 CAPTURE                          VAL R7
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          VAL R6
-       48 CAPTURE                          VAL R2
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          VAL R4
-       51 CAPTURE                          UPVAL U5
-       52 CAPTURE                          UPVAL U6
-       53 NEWTABLE                         R11 0 2
-       55 GETTABLEKS                       R12 R7 K6 ["state"]
-       57 GETTABLEKS                       R13 R0 K7 ["selectedCreatorId"]
-       59 SETLIST                          R11 R12 2 [1]
-       61 CALL                             R9 2 0
-       62 DUPTABLE                         R9 K12 [{"dialogItems", "setDialogItemRowState", "previewErrorMessages", "isDialogItemsInitialized"}]
-       63 SETTABLEKS                       R3 R9 K8 ["dialogItems"]
-       65 SETTABLEKS                       R8 R9 K9 ["setDialogItemRowState"]
-       67 SETTABLEKS                       R5 R9 K10 ["previewErrorMessages"]
-       69 GETTABLEKS                       R11 R7 K6 ["state"]
-       71 JUMPIFEQKS                       R11 K13 ["ok"] ; [+2]
-       73 LOADB                            R10 0 +1
-       74 LOADB                            R10 1
-       75 SETTABLEKS                       R10 R9 K11 ["isDialogItemsInitialized"]
-       77 RETURN                           R9 1
+       20 GETUPVAL                         R7 2
+       21 GETTABLEKS                       R7 R7 K2 ["useContext"]
+       23 GETUPVAL                         R8 3
+       24 CALL                             R7 1 1
+       25 GETUPVAL                         R8 4
+       26 NEWCLOSURE                       R9 P0
+       27 CAPTURE                          UPVAL U5
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          VAL R7
+       30 NEWTABLE                         R10 0 4
+       32 GETTABLEKS                       R11 R0 K3 ["dialogLookType"]
+       34 GETTABLEKS                       R12 R0 K4 ["equippedItems"]
+       36 GETTABLEKS                       R13 R7 K5 ["getBatchAssetDetailsAsync"]
+       38 GETTABLEKS                       R14 R7 K6 ["getBatchBundleDetailsAsync"]
+       40 SETLIST                          R10 R11 4 [1]
+       42 CALL                             R8 2 1
+       43 GETUPVAL                         R9 2
+       44 GETTABLEKS                       R9 R9 K7 ["useCallback"]
+       46 NEWCLOSURE                       R10 P1
+       47 CAPTURE                          VAL R4
+       48 NEWTABLE                         R11 0 0
+       50 CALL                             R9 2 1
+       51 GETUPVAL                         R10 2
+       52 GETTABLEKS                       R10 R10 K8 ["useEffect"]
+       54 NEWCLOSURE                       R11 P2
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R0
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          UPVAL U6
+       62 CAPTURE                          UPVAL U7
+       63 NEWTABLE                         R12 0 2
+       65 GETTABLEKS                       R13 R8 K9 ["state"]
+       67 GETTABLEKS                       R14 R0 K10 ["selectedCreatorId"]
+       69 SETLIST                          R12 R13 2 [1]
+       71 CALL                             R10 2 0
+       72 DUPTABLE                         R10 K15 [{"dialogItems", "setDialogItemRowState", "previewErrorMessages", "isDialogItemsInitialized"}]
+       73 SETTABLEKS                       R3 R10 K11 ["dialogItems"]
+       75 SETTABLEKS                       R9 R10 K12 ["setDialogItemRowState"]
+       77 SETTABLEKS                       R5 R10 K13 ["previewErrorMessages"]
+       79 GETTABLEKS                       R12 R8 K9 ["state"]
+       81 JUMPIFEQKS                       R12 K16 ["ok"] ; [+2]
+       83 LOADB                            R11 0 +1
+       84 LOADB                            R11 1
+       85 SETTABLEKS                       R11 R10 K14 ["isDialogItemsInitialized"]
+       87 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -254,30 +262,36 @@ MAIN:
        35 CALL                             R5 1 1
        36 GETIMPORT                        R6 K5 [require]
        38 GETTABLEKS                       R7 R0 K12 ["Src"]
-       40 GETTABLEKS                       R7 R7 K14 ["Util"]
-       42 GETTABLEKS                       R7 R7 K15 ["Constants"]
+       40 GETTABLEKS                       R7 R7 K14 ["Components"]
+       42 GETTABLEKS                       R7 R7 K15 ["AvatarEditorServiceContext"]
        44 CALL                             R6 1 1
        45 GETIMPORT                        R7 K5 [require]
        47 GETTABLEKS                       R8 R0 K12 ["Src"]
-       49 GETTABLEKS                       R8 R8 K14 ["Util"]
-       51 GETTABLEKS                       R8 R8 K16 ["LookComposerUtils"]
+       49 GETTABLEKS                       R8 R8 K16 ["Util"]
+       51 GETTABLEKS                       R8 R8 K17 ["Constants"]
        53 CALL                             R7 1 1
        54 GETIMPORT                        R8 K5 [require]
        56 GETTABLEKS                       R9 R0 K12 ["Src"]
-       58 GETTABLEKS                       R9 R9 K17 ["Flags"]
-       60 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+       58 GETTABLEKS                       R9 R9 K16 ["Util"]
+       60 GETTABLEKS                       R9 R9 K18 ["LookComposerUtils"]
        62 CALL                             R8 1 1
        63 GETIMPORT                        R9 K5 [require]
        65 GETTABLEKS                       R10 R0 K12 ["Src"]
-       67 GETTABLEKS                       R10 R10 K19 ["Hooks"]
-       69 GETTABLEKS                       R10 R10 K20 ["useAsync"]
+       67 GETTABLEKS                       R10 R10 K19 ["Flags"]
+       69 GETTABLEKS                       R10 R10 K20 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
        71 CALL                             R9 1 1
-       72 DUPCLOSURE                       R10 K21 [PROTO_5]
-       73 CAPTURE                          VAL R3
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R9
-       77 CAPTURE                          VAL R7
-       78 CAPTURE                          VAL R8
-       79 CAPTURE                          VAL R6
-       80 RETURN                           R10 1
+       72 GETIMPORT                        R10 K5 [require]
+       74 GETTABLEKS                       R11 R0 K12 ["Src"]
+       76 GETTABLEKS                       R11 R11 K21 ["Hooks"]
+       78 GETTABLEKS                       R11 R11 K22 ["useAsync"]
+       80 CALL                             R10 1 1
+       81 DUPCLOSURE                       R11 K23 [PROTO_5]
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R10
+       87 CAPTURE                          VAL R8
+       88 CAPTURE                          VAL R9
+       89 CAPTURE                          VAL R7
+       90 RETURN                           R11 1

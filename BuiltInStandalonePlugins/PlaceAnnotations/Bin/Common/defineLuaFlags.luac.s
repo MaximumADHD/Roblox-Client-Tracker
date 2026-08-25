@@ -41,7 +41,7 @@ MAIN:
        54 NAMECALL                         R0 R0 K7 ["DefineFastFlag"]
        56 CALL                             R0 3 0
        57 GETIMPORT                        R0 K1 [game]
-       59 LOADK                            R2 K12 ["StudioUserReportingComments2"]
+       59 LOADK                            R2 K12 ["StudioUserReportingComments3"]
        60 LOADB                            R3 0
        61 NAMECALL                         R0 R0 K7 ["DefineFastFlag"]
        63 CALL                             R0 3 0
@@ -93,7 +93,7 @@ MAIN:
       135 CALL                             R1 2 1
       136 SETTABLEKS                       R1 R0 K21 ["fflagAnnotationsCancelDeleteDialogDesignLink"]
       138 GETIMPORT                        R1 K1 [game]
-      140 LOADK                            R3 K12 ["StudioUserReportingComments2"]
+      140 LOADK                            R3 K12 ["StudioUserReportingComments3"]
       141 NAMECALL                         R1 R1 K26 ["GetFastFlag"]
       143 CALL                             R1 2 1
       144 SETTABLEKS                       R1 R0 K22 ["fflagStudioUserReportingComments"]

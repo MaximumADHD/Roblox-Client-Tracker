@@ -156,6 +156,12 @@ PROTO_6:
        65 RETURN                           R5 -1
 
 PROTO_7:
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R1 0
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
+
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["openReport"]
         3 GETUPVAL                         R2 1
@@ -166,7 +172,7 @@ PROTO_7:
        10 CALL                             R1 3 0
        11 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["openReport"]
         3 GETUPVAL                         R1 1
@@ -178,7 +184,42 @@ PROTO_8:
        12 CALL                             R0 3 0
        13 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Step"]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["Details"]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+15]
+        8 GETUPVAL                         R0 2
+        9 GETTABLEKS                       R0 R0 K2 ["openReport"]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K3 ["Category"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K4 ["Thread"]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K5 ["TargetComment"]
+       20 CALL                             R0 3 0
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R0 0
+       23 GETTABLEKS                       R0 R0 K0 ["Step"]
+       25 GETUPVAL                         R1 1
+       26 GETTABLEKS                       R1 R1 K3 ["Category"]
+       28 JUMPIFNOTEQ                      R0 R1 ; [+18]
+       30 GETUPVAL                         R0 0
+       31 GETTABLEKS                       R0 R0 K4 ["Thread"]
+       33 JUMPIFNOT                        R0 ; [+13]
+       34 GETUPVAL                         R0 2
+       35 GETTABLEKS                       R0 R0 K2 ["openReport"]
+       37 GETUPVAL                         R1 1
+       38 GETTABLEKS                       R1 R1 K6 ["CommentPicker"]
+       40 GETUPVAL                         R2 0
+       41 GETTABLEKS                       R2 R2 K4 ["Thread"]
+       43 GETUPVAL                         R3 0
+       44 GETTABLEKS                       R3 R3 K5 ["TargetComment"]
+       46 CALL                             R0 3 0
+       47 RETURN                           R0 0
+
+PROTO_11:
         0 GETIMPORT                        R0 K1 [pcall]
         2 GETUPVAL                         R1 0
         3 GETUPVAL                         R2 1
@@ -201,95 +242,135 @@ PROTO_9:
        24 GETUPVAL                         R5 1
        25 CALL                             R2 3 0
        26 RETURN                           R0 0
-       27 GETIMPORT                        R2 K7 [warn]
-       29 LOADK                            R3 K8 ["Failed to submit abuse report"]
-       30 MOVE                             R4 R1
-       31 CALL                             R2 2 0
-       32 RETURN                           R0 0
+       27 GETUPVAL                         R2 8
+       28 LOADB                            R3 1
+       29 CALL                             R2 1 0
+       30 RETURN                           R0 0
 
-PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+1]
+PROTO_12:
+        0 GETUPVAL                         R3 0
+        1 JUMPIFNOT                        R3 ; [+1]
         2 RETURN                           R0 0
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R2 R2 K0 ["TargetComment"]
-        6 JUMPIFNOT                        R2 ; [+4]
-        7 GETTABLEKS                       R3 R2 K1 ["Parent"]
-        9 JUMPIFNOTEQKNIL                  R3 ; [+6]
-       11 GETIMPORT                        R3 K3 [warn]
-       13 LOADK                            R4 K4 ["Cannot submit abuse report because the comment no longer exists"]
-       14 CALL                             R3 1 0
-       15 RETURN                           R0 0
-       16 GETUPVAL                         R3 2
-       17 LOADB                            R4 1
-       18 CALL                             R3 1 0
-       19 GETIMPORT                        R3 K7 [task.spawn]
-       21 NEWCLOSURE                       R4 P0
-       22 CAPTURE                          UPVAL U3
-       23 CAPTURE                          VAL R2
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          VAL R1
-       26 CAPTURE                          UPVAL U2
-       27 CAPTURE                          UPVAL U4
-       28 CAPTURE                          UPVAL U5
-       29 CAPTURE                          UPVAL U1
-       30 CALL                             R3 1 0
-       31 RETURN                           R0 0
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K0 ["TargetComment"]
+        6 JUMPIFNOT                        R3 ; [+6]
+        7 GETUPVAL                         R6 2
+        8 NAMECALL                         R4 R3 K1 ["IsDescendantOf"]
+       10 CALL                             R4 2 1
+       11 JUMPIFNOT                        R4 ; [+1]
+       12 JUMPIF                           R2 ; [+2]
+       13 LOADK                            R4 K2 ["CommentDeleted"]
+       14 RETURN                           R4 1
+       15 GETTABLEKS                       R4 R3 K3 ["AuthorId"]
+       17 GETTABLEKS                       R5 R2 K3 ["AuthorId"]
+       19 JUMPIFNOTEQ                      R4 R5 ; [+19]
+       21 GETTABLEKS                       R4 R3 K4 ["Contents"]
+       23 GETTABLEKS                       R5 R2 K4 ["Contents"]
+       25 JUMPIFNOTEQ                      R4 R5 ; [+13]
+       27 GETTABLEKS                       R4 R3 K5 ["CreationTimeUnix"]
+       29 GETTABLEKS                       R5 R2 K5 ["CreationTimeUnix"]
+       31 JUMPIFNOTEQ                      R4 R5 ; [+7]
+       33 GETTABLEKS                       R4 R3 K6 ["TaggedUsers"]
+       35 GETTABLEKS                       R5 R2 K6 ["TaggedUsers"]
+       37 JUMPIFEQ                         R4 R5 ; [+3]
+       39 LOADK                            R4 K7 ["CommentEdited"]
+       40 RETURN                           R4 1
+       41 GETUPVAL                         R4 3
+       42 LOADB                            R5 0
+       43 CALL                             R4 1 0
+       44 GETUPVAL                         R4 4
+       45 LOADB                            R5 1
+       46 CALL                             R4 1 0
+       47 GETIMPORT                        R4 K10 [task.spawn]
+       49 NEWCLOSURE                       R5 P0
+       50 CAPTURE                          UPVAL U5
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          UPVAL U4
+       55 CAPTURE                          UPVAL U6
+       56 CAPTURE                          UPVAL U7
+       57 CAPTURE                          UPVAL U1
+       58 CAPTURE                          UPVAL U3
+       59 CALL                             R4 1 0
+       60 LOADNIL                          R4
+       61 RETURN                           R4 1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["useContext"]
-        3 GETUPVAL                         R1 1
-        4 CALL                             R0 1 1
-        5 GETTABLEKS                       R1 R0 K1 ["report"]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K2 ["useState"]
-       10 LOADB                            R3 0
-       11 CALL                             R2 1 2
-       12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R4 R4 K3 ["fflagStudioUserReportingComments"]
-       15 JUMPIFNOT                        R4 ; [+7]
-       16 GETTABLEKS                       R4 R1 K4 ["Step"]
-       18 GETUPVAL                         R5 3
-       19 GETTABLEKS                       R5 R5 K5 ["Closed"]
-       21 JUMPIFNOTEQ                      R4 R5 ; [+3]
-       23 LOADNIL                          R4
-       24 RETURN                           R4 1
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R4 R4 K6 ["createElement"]
-       28 GETUPVAL                         R5 4
-       29 DUPTABLE                         R6 K15 [{"Step", "Thread", "TargetComment", "OnSelectComment", "OnContinueCategory", "OnSubmit", "OnCancel", "OnDone", "IsSubmitting"}]
-       30 GETTABLEKS                       R7 R1 K4 ["Step"]
-       32 SETTABLEKS                       R7 R6 K4 ["Step"]
-       34 GETTABLEKS                       R7 R1 K7 ["Thread"]
-       36 SETTABLEKS                       R7 R6 K7 ["Thread"]
-       38 GETTABLEKS                       R7 R1 K8 ["TargetComment"]
-       40 SETTABLEKS                       R7 R6 K8 ["TargetComment"]
-       42 NEWCLOSURE                       R7 P0
-       43 CAPTURE                          VAL R0
-       44 CAPTURE                          UPVAL U3
-       45 CAPTURE                          VAL R1
-       46 SETTABLEKS                       R7 R6 K9 ["OnSelectComment"]
-       48 NEWCLOSURE                       R7 P1
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          UPVAL U3
-       51 CAPTURE                          VAL R1
-       52 SETTABLEKS                       R7 R6 K10 ["OnContinueCategory"]
-       54 NEWCLOSURE                       R7 P2
-       55 CAPTURE                          VAL R2
-       56 CAPTURE                          VAL R1
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          UPVAL U5
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          UPVAL U3
-       61 SETTABLEKS                       R7 R6 K11 ["OnSubmit"]
-       63 GETTABLEKS                       R7 R0 K16 ["closeReport"]
-       65 SETTABLEKS                       R7 R6 K12 ["OnCancel"]
-       67 GETTABLEKS                       R7 R0 K16 ["closeReport"]
-       69 SETTABLEKS                       R7 R6 K13 ["OnDone"]
-       71 SETTABLEKS                       R2 R6 K14 ["IsSubmitting"]
-       73 CALL                             R4 2 -1
-       74 RETURN                           R4 -1
+        1 GETTABLEKS                       R0 R0 K0 ["fflagStudioUserReportingComments"]
+        3 JUMPIF                           R0 ; [+2]
+        4 LOADNIL                          R0
+        5 RETURN                           R0 1
+        6 GETUPVAL                         R0 1
+        7 GETTABLEKS                       R0 R0 K1 ["useContext"]
+        9 GETUPVAL                         R1 2
+       10 CALL                             R0 1 1
+       11 GETTABLEKS                       R1 R0 K2 ["report"]
+       13 GETUPVAL                         R2 1
+       14 GETTABLEKS                       R2 R2 K3 ["useState"]
+       16 LOADB                            R3 0
+       17 CALL                             R2 1 2
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K3 ["useState"]
+       21 LOADB                            R5 0
+       22 CALL                             R4 1 2
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K4 ["useEffect"]
+       26 NEWCLOSURE                       R7 P0
+       27 CAPTURE                          VAL R5
+       28 NEWTABLE                         R8 0 2
+       30 GETTABLEKS                       R9 R1 K5 ["Step"]
+       32 GETTABLEKS                       R10 R1 K6 ["TargetComment"]
+       34 SETLIST                          R8 R9 2 [1]
+       36 CALL                             R6 2 0
+       37 GETTABLEKS                       R6 R1 K5 ["Step"]
+       39 GETUPVAL                         R7 3
+       40 GETTABLEKS                       R7 R7 K7 ["Closed"]
+       42 JUMPIFNOTEQ                      R6 R7 ; [+3]
+       44 LOADNIL                          R6
+       45 RETURN                           R6 1
+       46 GETUPVAL                         R6 1
+       47 GETTABLEKS                       R6 R6 K8 ["createElement"]
+       49 GETUPVAL                         R7 4
+       50 DUPTABLE                         R8 K17 [{"Step", "Thread", "TargetComment", "OnSelectComment", "OnContinueCategory", "OnBack", "OnSubmit", "OnCancel", "IsSubmitting", "SubmissionFailed"}]
+       51 GETTABLEKS                       R9 R1 K5 ["Step"]
+       53 SETTABLEKS                       R9 R8 K5 ["Step"]
+       55 GETTABLEKS                       R9 R1 K9 ["Thread"]
+       57 SETTABLEKS                       R9 R8 K9 ["Thread"]
+       59 GETTABLEKS                       R9 R1 K6 ["TargetComment"]
+       61 SETTABLEKS                       R9 R8 K6 ["TargetComment"]
+       63 NEWCLOSURE                       R9 P1
+       64 CAPTURE                          VAL R0
+       65 CAPTURE                          UPVAL U3
+       66 CAPTURE                          VAL R1
+       67 SETTABLEKS                       R9 R8 K10 ["OnSelectComment"]
+       69 NEWCLOSURE                       R9 P2
+       70 CAPTURE                          VAL R0
+       71 CAPTURE                          UPVAL U3
+       72 CAPTURE                          VAL R1
+       73 SETTABLEKS                       R9 R8 K11 ["OnContinueCategory"]
+       75 NEWCLOSURE                       R9 P3
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          UPVAL U3
+       78 CAPTURE                          VAL R0
+       79 SETTABLEKS                       R9 R8 K12 ["OnBack"]
+       81 NEWCLOSURE                       R9 P4
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          VAL R1
+       84 CAPTURE                          UPVAL U5
+       85 CAPTURE                          VAL R5
+       86 CAPTURE                          VAL R3
+       87 CAPTURE                          UPVAL U6
+       88 CAPTURE                          VAL R0
+       89 CAPTURE                          UPVAL U3
+       90 SETTABLEKS                       R9 R8 K13 ["OnSubmit"]
+       92 GETTABLEKS                       R9 R0 K18 ["closeReport"]
+       94 SETTABLEKS                       R9 R8 K14 ["OnCancel"]
+       96 SETTABLEKS                       R2 R8 K15 ["IsSubmitting"]
+       98 SETTABLEKS                       R4 R8 K16 ["SubmissionFailed"]
+      100 CALL                             R6 2 -1
+      101 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -339,15 +420,16 @@ MAIN:
        73 CAPTURE                          VAL R2
        74 CAPTURE                          VAL R7
        75 CAPTURE                          VAL R8
-       76 DUPCLOSURE                       R10 K26 [PROTO_11]
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R8
-       79 CAPTURE                          VAL R2
+       76 DUPCLOSURE                       R10 K26 [PROTO_13]
+       77 CAPTURE                          VAL R2
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R8
        80 CAPTURE                          VAL R4
        81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R5
-       83 DUPTABLE                         R11 K30 [{"ReportContext", "ReportProvider", "ReportDialogHost"}]
-       84 SETTABLEKS                       R8 R11 K27 ["ReportContext"]
-       86 SETTABLEKS                       R9 R11 K28 ["ReportProvider"]
-       88 SETTABLEKS                       R10 R11 K29 ["ReportDialogHost"]
-       90 RETURN                           R11 1
+       82 CAPTURE                          VAL R7
+       83 CAPTURE                          VAL R5
+       84 DUPTABLE                         R11 K30 [{"ReportContext", "ReportProvider", "ReportDialogHost"}]
+       85 SETTABLEKS                       R8 R11 K27 ["ReportContext"]
+       87 SETTABLEKS                       R9 R11 K28 ["ReportProvider"]
+       89 SETTABLEKS                       R10 R11 K29 ["ReportDialogHost"]
+       91 RETURN                           R11 1

@@ -123,7 +123,7 @@ PROTO_6:
        10 LOADK                            R5 K3 ["FloatCurve"]
        11 NAMECALL                         R3 R0 K4 ["IsA"]
        13 CALL                             R3 2 1
-       14 JUMPIFNOT                        R3 ; [+25]
+       14 JUMPIFNOT                        R3 ; [+27]
        15 FASTCALL1                        TYPEOF R1 ; [+3]
        16 MOVE                             R6 R1
        17 GETIMPORT                        R5 K6 [typeof]
@@ -131,141 +131,146 @@ PROTO_6:
        20 JUMPIFEQKS                       R5 K7 ["number"] ; [+2]
        22 LOADB                            R4 0 +1
        23 LOADB                            R4 1
-       24 FASTCALL1                        ASSERT R4 ; [+2]
-       25 GETIMPORT                        R3 K2 [assert]
-       27 CALL                             R3 1 0
-       28 GETIMPORT                        R3 K10 [FloatCurveKey.new]
-       30 MOVE                             R4 R2
-       31 MOVE                             R5 R1
-       32 GETIMPORT                        R6 K14 [Enum.KeyInterpolationMode.Linear]
-       34 CALL                             R3 3 1
-       35 MOVE                             R6 R3
-       36 NAMECALL                         R4 R0 K15 ["InsertKey"]
-       38 CALL                             R4 2 0
-       39 RETURN                           R0 0
-       40 LOADK                            R5 K16 ["Vector3Curve"]
-       41 NAMECALL                         R3 R0 K4 ["IsA"]
-       43 CALL                             R3 2 1
-       44 JUMPIFNOT                        R3 ; [+38]
-       45 FASTCALL1                        TYPEOF R1 ; [+3]
-       46 MOVE                             R6 R1
-       47 GETIMPORT                        R5 K6 [typeof]
-       49 CALL                             R5 1 1
-       50 JUMPIFEQKS                       R5 K17 ["Vector3"] ; [+2]
-       52 LOADB                            R4 0 +1
-       53 LOADB                            R4 1
-       54 FASTCALL1                        ASSERT R4 ; [+2]
-       55 GETIMPORT                        R3 K2 [assert]
-       57 CALL                             R3 1 0
-       58 GETUPVAL                         R3 0
-       59 NAMECALL                         R4 R0 K18 ["X"]
-       61 CALL                             R4 1 1
-       62 GETTABLEKS                       R5 R1 K18 ["X"]
-       64 MOVE                             R6 R2
-       65 CALL                             R3 3 0
-       66 GETUPVAL                         R3 0
-       67 NAMECALL                         R4 R0 K19 ["Y"]
-       69 CALL                             R4 1 1
-       70 GETTABLEKS                       R5 R1 K19 ["Y"]
-       72 MOVE                             R6 R2
-       73 CALL                             R3 3 0
-       74 GETUPVAL                         R3 0
-       75 NAMECALL                         R4 R0 K20 ["Z"]
-       77 CALL                             R4 1 1
-       78 GETTABLEKS                       R5 R1 K20 ["Z"]
-       80 MOVE                             R6 R2
-       81 CALL                             R3 3 0
-       82 RETURN                           R0 0
-       83 LOADK                            R5 K21 ["EulerRotationCurve"]
-       84 NAMECALL                         R3 R0 K4 ["IsA"]
-       86 CALL                             R3 2 1
-       87 JUMPIFNOT                        R3 ; [+42]
-       88 FASTCALL1                        TYPEOF R1 ; [+3]
-       89 MOVE                             R6 R1
-       90 GETIMPORT                        R5 K6 [typeof]
-       92 CALL                             R5 1 1
-       93 JUMPIFEQKS                       R5 K22 ["CFrame"] ; [+2]
-       95 LOADB                            R4 0 +1
-       96 LOADB                            R4 1
-       97 FASTCALL1                        ASSERT R4 ; [+2]
-       98 GETIMPORT                        R3 K2 [assert]
-      100 CALL                             R3 1 0
-      101 NAMECALL                         R3 R1 K23 ["ToOrientation"]
-      103 CALL                             R3 1 3
-      104 GETIMPORT                        R6 K26 [Enum.RotationOrder.YXZ]
-      106 SETTABLEKS                       R6 R0 K24 ["RotationOrder"]
-      108 GETUPVAL                         R6 0
-      109 NAMECALL                         R7 R0 K18 ["X"]
-      111 CALL                             R7 1 1
-      112 MOVE                             R8 R3
-      113 MOVE                             R9 R2
-      114 CALL                             R6 3 0
-      115 GETUPVAL                         R6 0
-      116 NAMECALL                         R7 R0 K19 ["Y"]
-      118 CALL                             R7 1 1
-      119 MOVE                             R8 R4
-      120 MOVE                             R9 R2
-      121 CALL                             R6 3 0
-      122 GETUPVAL                         R6 0
-      123 NAMECALL                         R7 R0 K20 ["Z"]
-      125 CALL                             R7 1 1
-      126 MOVE                             R8 R5
-      127 MOVE                             R9 R2
-      128 CALL                             R6 3 0
-      129 RETURN                           R0 0
-      130 LOADK                            R5 K27 ["RotationCurve"]
-      131 NAMECALL                         R3 R0 K4 ["IsA"]
-      133 CALL                             R3 2 1
-      134 JUMPIFNOT                        R3 ; [+25]
-      135 FASTCALL1                        TYPEOF R1 ; [+3]
-      136 MOVE                             R6 R1
-      137 GETIMPORT                        R5 K6 [typeof]
-      139 CALL                             R5 1 1
-      140 JUMPIFEQKS                       R5 K22 ["CFrame"] ; [+2]
-      142 LOADB                            R4 0 +1
-      143 LOADB                            R4 1
-      144 FASTCALL1                        ASSERT R4 ; [+2]
-      145 GETIMPORT                        R3 K2 [assert]
-      147 CALL                             R3 1 0
-      148 GETIMPORT                        R3 K29 [RotationCurveKey.new]
-      150 MOVE                             R4 R2
-      151 MOVE                             R5 R1
-      152 GETIMPORT                        R6 K14 [Enum.KeyInterpolationMode.Linear]
-      154 CALL                             R3 3 1
-      155 MOVE                             R6 R3
-      156 NAMECALL                         R4 R0 K15 ["InsertKey"]
-      158 CALL                             R4 2 0
-      159 RETURN                           R0 0
-      160 LOADK                            R5 K30 ["MarkerCurve"]
-      161 NAMECALL                         R3 R0 K4 ["IsA"]
-      163 CALL                             R3 2 1
-      164 JUMPIFNOT                        R3 ; [+32]
-      165 FASTCALL1                        TYPEOF R1 ; [+3]
-      166 MOVE                             R6 R1
-      167 GETIMPORT                        R5 K6 [typeof]
-      169 CALL                             R5 1 1
-      170 JUMPIFEQKS                       R5 K31 ["string"] ; [+2]
-      172 LOADB                            R4 0 +1
-      173 LOADB                            R4 1
-      174 FASTCALL1                        ASSERT R4 ; [+2]
-      175 GETIMPORT                        R3 K2 [assert]
-      177 CALL                             R3 1 0
-      178 GETTABLEKS                       R3 R0 K32 ["Length"]
-      180 JUMPIFEQKN                       R3 K33 [0] ; [+10]
-      182 GETTABLEKS                       R5 R0 K32 ["Length"]
-      184 NAMECALL                         R3 R0 K34 ["GetMarkerAtIndex"]
-      186 CALL                             R3 2 1
-      187 GETTABLEKS                       R3 R3 K35 ["Value"]
-      189 JUMPIFEQ                         R3 R1 ; [+11]
-      191 MOVE                             R5 R2
-      192 MOVE                             R6 R1
-      193 NAMECALL                         R3 R0 K36 ["InsertMarkerAtTime"]
-      195 CALL                             R3 3 0
-      196 RETURN                           R0 0
-      197 GETIMPORT                        R3 K38 [warn]
-      199 LOADK                            R4 K39 ["Unrecognized curve type"]
-      200 CALL                             R3 1 0
-      201 RETURN                           R0 0
+       24 FASTCALL2K                       ASSERT R4 K8 ; [+4]
+       26 LOADK                            R5 K8 ["Bad value for FloatCurve, expected number"]
+       27 GETIMPORT                        R3 K2 [assert]
+       29 CALL                             R3 2 0
+       30 GETIMPORT                        R3 K11 [FloatCurveKey.new]
+       32 MOVE                             R4 R2
+       33 MOVE                             R5 R1
+       34 GETIMPORT                        R6 K15 [Enum.KeyInterpolationMode.Linear]
+       36 CALL                             R3 3 1
+       37 MOVE                             R6 R3
+       38 NAMECALL                         R4 R0 K16 ["InsertKey"]
+       40 CALL                             R4 2 0
+       41 RETURN                           R0 0
+       42 LOADK                            R5 K17 ["Vector3Curve"]
+       43 NAMECALL                         R3 R0 K4 ["IsA"]
+       45 CALL                             R3 2 1
+       46 JUMPIFNOT                        R3 ; [+40]
+       47 FASTCALL1                        TYPEOF R1 ; [+3]
+       48 MOVE                             R6 R1
+       49 GETIMPORT                        R5 K6 [typeof]
+       51 CALL                             R5 1 1
+       52 JUMPIFEQKS                       R5 K18 ["Vector3"] ; [+2]
+       54 LOADB                            R4 0 +1
+       55 LOADB                            R4 1
+       56 FASTCALL2K                       ASSERT R4 K19 ; [+4]
+       58 LOADK                            R5 K19 ["Bad value for Vector3Curve, expected Vector3"]
+       59 GETIMPORT                        R3 K2 [assert]
+       61 CALL                             R3 2 0
+       62 GETUPVAL                         R3 0
+       63 NAMECALL                         R4 R0 K20 ["X"]
+       65 CALL                             R4 1 1
+       66 GETTABLEKS                       R5 R1 K20 ["X"]
+       68 MOVE                             R6 R2
+       69 CALL                             R3 3 0
+       70 GETUPVAL                         R3 0
+       71 NAMECALL                         R4 R0 K21 ["Y"]
+       73 CALL                             R4 1 1
+       74 GETTABLEKS                       R5 R1 K21 ["Y"]
+       76 MOVE                             R6 R2
+       77 CALL                             R3 3 0
+       78 GETUPVAL                         R3 0
+       79 NAMECALL                         R4 R0 K22 ["Z"]
+       81 CALL                             R4 1 1
+       82 GETTABLEKS                       R5 R1 K22 ["Z"]
+       84 MOVE                             R6 R2
+       85 CALL                             R3 3 0
+       86 RETURN                           R0 0
+       87 LOADK                            R5 K23 ["EulerRotationCurve"]
+       88 NAMECALL                         R3 R0 K4 ["IsA"]
+       90 CALL                             R3 2 1
+       91 JUMPIFNOT                        R3 ; [+44]
+       92 FASTCALL1                        TYPEOF R1 ; [+3]
+       93 MOVE                             R6 R1
+       94 GETIMPORT                        R5 K6 [typeof]
+       96 CALL                             R5 1 1
+       97 JUMPIFEQKS                       R5 K24 ["CFrame"] ; [+2]
+       99 LOADB                            R4 0 +1
+      100 LOADB                            R4 1
+      101 FASTCALL2K                       ASSERT R4 K25 ; [+4]
+      103 LOADK                            R5 K25 ["Bad value for EulerRotationCurve, expected CFrame"]
+      104 GETIMPORT                        R3 K2 [assert]
+      106 CALL                             R3 2 0
+      107 NAMECALL                         R3 R1 K26 ["ToOrientation"]
+      109 CALL                             R3 1 3
+      110 GETIMPORT                        R6 K29 [Enum.RotationOrder.YXZ]
+      112 SETTABLEKS                       R6 R0 K27 ["RotationOrder"]
+      114 GETUPVAL                         R6 0
+      115 NAMECALL                         R7 R0 K20 ["X"]
+      117 CALL                             R7 1 1
+      118 MOVE                             R8 R3
+      119 MOVE                             R9 R2
+      120 CALL                             R6 3 0
+      121 GETUPVAL                         R6 0
+      122 NAMECALL                         R7 R0 K21 ["Y"]
+      124 CALL                             R7 1 1
+      125 MOVE                             R8 R4
+      126 MOVE                             R9 R2
+      127 CALL                             R6 3 0
+      128 GETUPVAL                         R6 0
+      129 NAMECALL                         R7 R0 K22 ["Z"]
+      131 CALL                             R7 1 1
+      132 MOVE                             R8 R5
+      133 MOVE                             R9 R2
+      134 CALL                             R6 3 0
+      135 RETURN                           R0 0
+      136 LOADK                            R5 K30 ["RotationCurve"]
+      137 NAMECALL                         R3 R0 K4 ["IsA"]
+      139 CALL                             R3 2 1
+      140 JUMPIFNOT                        R3 ; [+27]
+      141 FASTCALL1                        TYPEOF R1 ; [+3]
+      142 MOVE                             R6 R1
+      143 GETIMPORT                        R5 K6 [typeof]
+      145 CALL                             R5 1 1
+      146 JUMPIFEQKS                       R5 K24 ["CFrame"] ; [+2]
+      148 LOADB                            R4 0 +1
+      149 LOADB                            R4 1
+      150 FASTCALL2K                       ASSERT R4 K31 ; [+4]
+      152 LOADK                            R5 K31 ["Bad value for RotationCurve, expected CFrame"]
+      153 GETIMPORT                        R3 K2 [assert]
+      155 CALL                             R3 2 0
+      156 GETIMPORT                        R3 K33 [RotationCurveKey.new]
+      158 MOVE                             R4 R2
+      159 MOVE                             R5 R1
+      160 GETIMPORT                        R6 K15 [Enum.KeyInterpolationMode.Linear]
+      162 CALL                             R3 3 1
+      163 MOVE                             R6 R3
+      164 NAMECALL                         R4 R0 K16 ["InsertKey"]
+      166 CALL                             R4 2 0
+      167 RETURN                           R0 0
+      168 LOADK                            R5 K34 ["MarkerCurve"]
+      169 NAMECALL                         R3 R0 K4 ["IsA"]
+      171 CALL                             R3 2 1
+      172 JUMPIFNOT                        R3 ; [+34]
+      173 FASTCALL1                        TYPEOF R1 ; [+3]
+      174 MOVE                             R6 R1
+      175 GETIMPORT                        R5 K6 [typeof]
+      177 CALL                             R5 1 1
+      178 JUMPIFEQKS                       R5 K35 ["string"] ; [+2]
+      180 LOADB                            R4 0 +1
+      181 LOADB                            R4 1
+      182 FASTCALL2K                       ASSERT R4 K36 ; [+4]
+      184 LOADK                            R5 K36 ["Bad value for MarkerCurve, expected string"]
+      185 GETIMPORT                        R3 K2 [assert]
+      187 CALL                             R3 2 0
+      188 GETTABLEKS                       R3 R0 K37 ["Length"]
+      190 JUMPIFEQKN                       R3 K38 [0] ; [+10]
+      192 GETTABLEKS                       R5 R0 K37 ["Length"]
+      194 NAMECALL                         R3 R0 K39 ["GetMarkerAtIndex"]
+      196 CALL                             R3 2 1
+      197 GETTABLEKS                       R3 R3 K40 ["Value"]
+      199 JUMPIFEQ                         R3 R1 ; [+11]
+      201 MOVE                             R5 R2
+      202 MOVE                             R6 R1
+      203 NAMECALL                         R3 R0 K41 ["InsertMarkerAtTime"]
+      205 CALL                             R3 3 0
+      206 RETURN                           R0 0
+      207 GETIMPORT                        R3 K43 [warn]
+      209 LOADK                            R4 K44 ["Unrecognized curve type"]
+      210 CALL                             R3 1 0
+      211 RETURN                           R0 0
 
 PROTO_7:
         0 FASTCALL1                        TYPEOF R0 ; [+3]

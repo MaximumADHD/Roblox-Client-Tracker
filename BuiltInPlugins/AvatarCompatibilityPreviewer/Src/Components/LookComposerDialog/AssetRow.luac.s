@@ -2,10 +2,10 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K10 [{"LayoutOrder", "id", "name", "creator", "creatorHasVerifiedBadge", "price", "rowState", "onRowStateChanged", "rowType"}]
+        4 DUPTABLE                         R3 K11 [{"LayoutOrder", "id", "name", "creator", "creatorHasVerifiedBadge", "price", "priceInfo", "rowState", "onRowStateChanged", "rowType"}]
         5 GETTABLEKS                       R4 R0 K1 ["LayoutOrder"]
         7 SETTABLEKS                       R4 R3 K1 ["LayoutOrder"]
-        9 GETTABLEKS                       R4 R0 K11 ["assetId"]
+        9 GETTABLEKS                       R4 R0 K12 ["assetId"]
        11 SETTABLEKS                       R4 R3 K2 ["id"]
        13 GETTABLEKS                       R4 R0 K3 ["name"]
        15 SETTABLEKS                       R4 R3 K3 ["name"]
@@ -15,19 +15,21 @@ PROTO_0:
        23 SETTABLEKS                       R4 R3 K5 ["creatorHasVerifiedBadge"]
        25 GETTABLEKS                       R4 R0 K6 ["price"]
        27 SETTABLEKS                       R4 R3 K6 ["price"]
-       29 GETTABLEKS                       R4 R0 K7 ["rowState"]
-       31 SETTABLEKS                       R4 R3 K7 ["rowState"]
-       33 GETTABLEKS                       R4 R0 K8 ["onRowStateChanged"]
-       35 SETTABLEKS                       R4 R3 K8 ["onRowStateChanged"]
-       37 GETUPVAL                         R5 2
-       38 CALL                             R5 0 1
-       39 JUMPIFNOT                        R5 ; [+2]
-       40 LOADK                            R4 K12 ["Asset"]
-       41 JUMP                             ; [+1]
-       42 LOADNIL                          R4
-       43 SETTABLEKS                       R4 R3 K9 ["rowType"]
-       45 CALL                             R1 2 -1
-       46 RETURN                           R1 -1
+       29 GETTABLEKS                       R4 R0 K7 ["priceInfo"]
+       31 SETTABLEKS                       R4 R3 K7 ["priceInfo"]
+       33 GETTABLEKS                       R4 R0 K8 ["rowState"]
+       35 SETTABLEKS                       R4 R3 K8 ["rowState"]
+       37 GETTABLEKS                       R4 R0 K9 ["onRowStateChanged"]
+       39 SETTABLEKS                       R4 R3 K9 ["onRowStateChanged"]
+       41 GETUPVAL                         R5 2
+       42 CALL                             R5 0 1
+       43 JUMPIFNOT                        R5 ; [+2]
+       44 LOADK                            R4 K13 ["Asset"]
+       45 JUMP                             ; [+1]
+       46 LOADNIL                          R4
+       47 SETTABLEKS                       R4 R3 K10 ["rowType"]
+       49 CALL                             R1 2 -1
+       50 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

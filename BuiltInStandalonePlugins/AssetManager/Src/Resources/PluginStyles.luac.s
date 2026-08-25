@@ -619,7 +619,7 @@ MAIN:
       826 SETTABLEKS                       R7 R6 K231 ["ColumnMinSize"]
       828 GETTABLEKS                       R7 R2 K75 ["Padding"]
       830 SETTABLEKS                       R7 R6 K232 ["CellContentPadding"]
-      832 GETTABLEKS                       R8 R2 K243 ["ItemRowHeightDefault"]
+      832 GETTABLEKS                       R8 R2 K243 ["ListRowHeightDefault"]
       834 LOADN                            R10 2
       835 GETTABLEKS                       R11 R2 K75 ["Padding"]
       837 MUL                              R9 R10 R11

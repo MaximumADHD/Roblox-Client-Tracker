@@ -33,6 +33,12 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["IsPlaceDocumentOpen"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
+
+PROTO_6:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 1
@@ -40,7 +46,7 @@ PROTO_5:
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -61,12 +67,21 @@ PROTO_6:
        21 CAPTURE                          UPVAL U1
        22 NAMECALL                         R3 R3 K3 ["Connect"]
        24 CALL                             R3 2 1
-       25 NEWCLOSURE                       R4 P3
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R3
-       28 RETURN                           R4 1
+       25 GETIMPORT                        R4 K1 [pcall]
+       27 NEWCLOSURE                       R5 P3
+       28 CAPTURE                          VAL R1
+       29 CALL                             R4 1 2
+       30 JUMPIFNOT                        R4 ; [+4]
+       31 JUMPIFNOT                        R5 ; [+3]
+       32 GETUPVAL                         R6 1
+       33 LOADB                            R7 1
+       34 CALL                             R6 1 0
+       35 NEWCLOSURE                       R6 P4
+       36 CAPTURE                          VAL R2
+       37 CAPTURE                          VAL R3
+       38 RETURN                           R6 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
         3 NEWCLOSURE                       R2 P0
@@ -178,7 +193,7 @@ MAIN:
        69 GETTABLEKS                       R10 R10 K20 ["provide"]
        71 GETTABLEKS                       R11 R1 K21 ["Styling"]
        73 GETTABLEKS                       R11 R11 K22 ["registerPluginStyles"]
-       75 DUPCLOSURE                       R12 K23 [PROTO_7]
+       75 DUPCLOSURE                       R12 K23 [PROTO_8]
        76 CAPTURE                          VAL R3
        77 CAPTURE                          VAL R11
        78 CAPTURE                          VAL R0

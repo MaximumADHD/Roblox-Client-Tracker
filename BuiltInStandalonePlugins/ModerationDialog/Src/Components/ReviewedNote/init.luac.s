@@ -8,7 +8,7 @@ PROTO_0:
         8 GETTABLEKS                       R3 R3 K2 ["new"]
        10 CALL                             R3 0 1
        11 GETIMPORT                        R4 K5 [DateTime.fromIsoDate]
-       13 GETTABLEKS                       R5 R0 K6 ["ReviewDateTime"]
+       13 GETTABLEKS                       R5 R0 K6 ["ModerationStartDateTime"]
        15 CALL                             R4 1 1
        16 MOVE                             R5 R4
        17 JUMPIFNOT                        R5 ; [+5]

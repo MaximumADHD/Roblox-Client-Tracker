@@ -2,10 +2,10 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K11 [{["LayoutOrder"], ["id"], ["name"], ["creator"], ["creatorHasVerifiedBadge"], ["price"], ["rowState"], ["onRowStateChanged"], ["rowType"] = "Bundle"}]
+        4 DUPTABLE                         R3 K12 [{["LayoutOrder"], ["id"], ["name"], ["creator"], ["creatorHasVerifiedBadge"], ["price"], ["priceInfo"], ["rowState"], ["onRowStateChanged"], ["rowType"] = "Bundle"}]
         5 GETTABLEKS                       R4 R0 K1 ["LayoutOrder"]
         7 SETTABLEKS                       R4 R3 K1 ["LayoutOrder"]
-        9 GETTABLEKS                       R4 R0 K12 ["bundleId"]
+        9 GETTABLEKS                       R4 R0 K13 ["bundleId"]
        11 SETTABLEKS                       R4 R3 K2 ["id"]
        13 GETTABLEKS                       R4 R0 K3 ["name"]
        15 SETTABLEKS                       R4 R3 K3 ["name"]
@@ -15,12 +15,14 @@ PROTO_0:
        23 SETTABLEKS                       R4 R3 K5 ["creatorHasVerifiedBadge"]
        25 GETTABLEKS                       R4 R0 K6 ["price"]
        27 SETTABLEKS                       R4 R3 K6 ["price"]
-       29 GETTABLEKS                       R4 R0 K7 ["rowState"]
-       31 SETTABLEKS                       R4 R3 K7 ["rowState"]
-       33 GETTABLEKS                       R4 R0 K8 ["onRowStateChanged"]
-       35 SETTABLEKS                       R4 R3 K8 ["onRowStateChanged"]
-       37 CALL                             R1 2 -1
-       38 RETURN                           R1 -1
+       29 GETTABLEKS                       R4 R0 K7 ["priceInfo"]
+       31 SETTABLEKS                       R4 R3 K7 ["priceInfo"]
+       33 GETTABLEKS                       R4 R0 K8 ["rowState"]
+       35 SETTABLEKS                       R4 R3 K8 ["rowState"]
+       37 GETTABLEKS                       R4 R0 K9 ["onRowStateChanged"]
+       39 SETTABLEKS                       R4 R3 K9 ["onRowStateChanged"]
+       41 CALL                             R1 2 -1
+       42 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

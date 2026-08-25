@@ -56,33 +56,46 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["provideAgentSaveData"]
-        3 DUPTABLE                         R3 K4 [{"scope", "sessions", "metadata"}]
-        4 GETUPVAL                         R4 1
-        5 GETTABLEKS                       R4 R4 K5 ["Types"]
-        7 GETTABLEKS                       R4 R4 K6 ["ScopeTypes"]
-        9 GETTABLEKS                       R4 R4 K7 ["Threads"]
-       11 SETTABLEKS                       R4 R3 K1 ["scope"]
-       13 SETTABLEKS                       R0 R3 K2 ["sessions"]
-       15 SETTABLEKS                       R1 R3 K3 ["metadata"]
-       17 CALL                             R2 1 0
-       18 MOVE                             R2 R0
-       19 LOADNIL                          R3
-       20 LOADNIL                          R4
-       21 FORGPREP                         R2
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R7 R7 K0 ["provideAgentSaveData"]
-       25 DUPTABLE                         R8 K9 [{"scope", "session", "metadata"}]
-       26 GETUPVAL                         R9 1
-       27 GETTABLEKS                       R9 R9 K5 ["Types"]
-       29 GETTABLEKS                       R9 R9 K6 ["ScopeTypes"]
-       31 GETTABLEKS                       R9 R9 K10 ["Messages"]
-       33 SETTABLEKS                       R9 R8 K1 ["scope"]
-       35 SETTABLEKS                       R6 R8 K8 ["session"]
-       37 SETTABLEKS                       R1 R8 K3 ["metadata"]
-       39 CALL                             R7 1 0
-       40 FORGLOOP                         R2 2 ; [-19]
-       42 RETURN                           R0 0
+        1 GETTABLEKS                       R2 R2 K0 ["FFlagAssistantPersistOnlyForDirtySession"]
+        3 JUMPIFNOT                        R2 ; [+4]
+        4 LENGTH                           R2 R0
+        5 JUMPIFNOTEQKN                    R2 K1 [0] ; [+2]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K2 ["provideAgentSaveData"]
+       11 DUPTABLE                         R3 K6 [{"scope", "sessions", "metadata"}]
+       12 GETUPVAL                         R4 2
+       13 GETTABLEKS                       R4 R4 K7 ["Types"]
+       15 GETTABLEKS                       R4 R4 K8 ["ScopeTypes"]
+       17 GETTABLEKS                       R4 R4 K9 ["Threads"]
+       19 SETTABLEKS                       R4 R3 K3 ["scope"]
+       21 SETTABLEKS                       R0 R3 K4 ["sessions"]
+       23 SETTABLEKS                       R1 R3 K5 ["metadata"]
+       25 CALL                             R2 1 0
+       26 MOVE                             R2 R0
+       27 LOADNIL                          R3
+       28 LOADNIL                          R4
+       29 FORGPREP                         R2
+       30 GETUPVAL                         R7 0
+       31 GETTABLEKS                       R7 R7 K0 ["FFlagAssistantPersistOnlyForDirtySession"]
+       33 JUMPIFNOT                        R7 ; [+6]
+       34 GETTABLEKS                       R8 R6 K10 ["messages"]
+       36 LENGTH                           R7 R8
+       37 LOADN                            R8 0
+       38 JUMPIFNOTLT                      R8 R7 ; [+19]
+       40 GETUPVAL                         R7 1
+       41 GETTABLEKS                       R7 R7 K2 ["provideAgentSaveData"]
+       43 DUPTABLE                         R8 K12 [{"scope", "session", "metadata"}]
+       44 GETUPVAL                         R9 2
+       45 GETTABLEKS                       R9 R9 K7 ["Types"]
+       47 GETTABLEKS                       R9 R9 K8 ["ScopeTypes"]
+       49 GETTABLEKS                       R9 R9 K13 ["Messages"]
+       51 SETTABLEKS                       R9 R8 K3 ["scope"]
+       53 SETTABLEKS                       R6 R8 K11 ["session"]
+       55 SETTABLEKS                       R1 R8 K5 ["metadata"]
+       57 CALL                             R7 1 0
+       58 FORGLOOP                         R2 2 ; [-29]
+       60 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -123,14 +136,15 @@ PROTO_7:
        27 CAPTURE                          VAL R0
        28 SETTABLEKS                       R3 R2 K6 ["onSaveRequested"]
        30 NEWCLOSURE                       R3 P4
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          UPVAL U2
-       33 SETTABLEKS                       R3 R2 K7 ["saveSessions"]
-       35 NEWCLOSURE                       R3 P5
-       36 CAPTURE                          VAL R0
-       37 CAPTURE                          UPVAL U2
-       38 SETTABLEKS                       R3 R2 K8 ["deleteSession"]
-       40 RETURN                           R2 1
+       31 CAPTURE                          UPVAL U1
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          UPVAL U2
+       34 SETTABLEKS                       R3 R2 K7 ["saveSessions"]
+       36 NEWCLOSURE                       R3 P5
+       37 CAPTURE                          VAL R0
+       38 CAPTURE                          UPVAL U2
+       39 SETTABLEKS                       R3 R2 K8 ["deleteSession"]
+       41 RETURN                           R2 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0

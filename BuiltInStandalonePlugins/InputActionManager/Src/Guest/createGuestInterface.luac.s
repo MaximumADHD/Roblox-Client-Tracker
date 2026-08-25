@@ -14,15 +14,15 @@ PROTO_1:
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R2 1 1
-        6 DUPTABLE                         R3 K10 [{"Destroy", "GetContextsAsync", "getIconAsync", "Request", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+        6 DUPTABLE                         R3 K10 [{"Destroy", "GetContextsAsync", "DEPRECATED_getIconAsync", "Request", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
         7 NEWCLOSURE                       R4 P0
         8 CAPTURE                          VAL R1
         9 CAPTURE                          VAL R2
        10 SETTABLEKS                       R4 R3 K0 ["Destroy"]
        12 GETTABLEKS                       R4 R2 K1 ["GetContextsAsync"]
        14 SETTABLEKS                       R4 R3 K1 ["GetContextsAsync"]
-       16 GETTABLEKS                       R4 R1 K2 ["getIconAsync"]
-       18 SETTABLEKS                       R4 R3 K2 ["getIconAsync"]
+       16 GETTABLEKS                       R4 R1 K2 ["DEPRECATED_getIconAsync"]
+       18 SETTABLEKS                       R4 R3 K2 ["DEPRECATED_getIconAsync"]
        20 GETTABLEKS                       R4 R2 K3 ["Request"]
        22 SETTABLEKS                       R4 R3 K3 ["Request"]
        24 GETTABLEKS                       R4 R1 K4 ["ResetSelection"]

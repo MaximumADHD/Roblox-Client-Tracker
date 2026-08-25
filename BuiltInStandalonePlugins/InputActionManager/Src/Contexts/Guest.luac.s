@@ -29,15 +29,15 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K11 ["createUnimplemented"]
-       30 DUPTABLE                         R5 K22 [{"Destroy", "getIconAsync", "Request", "GetContextsAsync", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+       30 DUPTABLE                         R5 K22 [{"Destroy", "DEPRECATED_getIconAsync", "Request", "GetContextsAsync", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
        31 MOVE                             R6 R4
        32 LOADK                            R7 K12 ["Destroy"]
        33 CALL                             R6 1 1
        34 SETTABLEKS                       R6 R5 K12 ["Destroy"]
        36 MOVE                             R6 R4
-       37 LOADK                            R7 K13 ["getIconAsync"]
+       37 LOADK                            R7 K13 ["DEPRECATED_getIconAsync"]
        38 CALL                             R6 1 1
-       39 SETTABLEKS                       R6 R5 K13 ["getIconAsync"]
+       39 SETTABLEKS                       R6 R5 K13 ["DEPRECATED_getIconAsync"]
        41 MOVE                             R6 R4
        42 LOADK                            R7 K14 ["Request"]
        43 CALL                             R6 1 1

@@ -21,106 +21,86 @@ PROTO_1:
         9 GETTABLEKS                       R2 R1 K3 ["outputPath"]
        11 JUMPIF                           R2 ; [+1]
        12 LOADK                            R2 K4 ["/tmp"]
-       13 DUPTABLE                         R3 K15 [{"NumFrames", "OutputPath", "GuidanceParameter", "Loop", "PriorJobId", "EditStartFrame", "EditEndFrame", "Style", "StyleConstraint", "StyleConstraintKeyframes"}]
+       13 DUPTABLE                         R3 K10 [{"NumFrames", "OutputPath", "GuidanceParameter", "Loop", "PriorJobId"}]
        14 MOVE                             R4 R1
        15 JUMPIFNOT                        R4 ; [+2]
-       16 GETTABLEKS                       R4 R1 K16 ["numFrames"]
+       16 GETTABLEKS                       R4 R1 K11 ["numFrames"]
        18 SETTABLEKS                       R4 R3 K5 ["NumFrames"]
        20 SETTABLEKS                       R2 R3 K6 ["OutputPath"]
        22 MOVE                             R4 R1
        23 JUMPIFNOT                        R4 ; [+2]
-       24 GETTABLEKS                       R4 R1 K17 ["guidanceParameter"]
+       24 GETTABLEKS                       R4 R1 K12 ["guidanceParameter"]
        26 SETTABLEKS                       R4 R3 K7 ["GuidanceParameter"]
        28 MOVE                             R4 R1
        29 JUMPIFNOT                        R4 ; [+2]
-       30 GETTABLEKS                       R4 R1 K18 ["loop"]
+       30 GETTABLEKS                       R4 R1 K13 ["loop"]
        32 SETTABLEKS                       R4 R3 K8 ["Loop"]
        34 MOVE                             R4 R1
        35 JUMPIFNOT                        R4 ; [+2]
-       36 GETTABLEKS                       R4 R1 K19 ["priorJobId"]
+       36 GETTABLEKS                       R4 R1 K14 ["priorJobId"]
        38 SETTABLEKS                       R4 R3 K9 ["PriorJobId"]
-       40 MOVE                             R4 R1
-       41 JUMPIFNOT                        R4 ; [+2]
-       42 GETTABLEKS                       R4 R1 K20 ["startFrame"]
-       44 SETTABLEKS                       R4 R3 K10 ["EditStartFrame"]
-       46 MOVE                             R4 R1
-       47 JUMPIFNOT                        R4 ; [+2]
-       48 GETTABLEKS                       R4 R1 K21 ["endFrame"]
-       50 SETTABLEKS                       R4 R3 K11 ["EditEndFrame"]
-       52 MOVE                             R4 R1
-       53 JUMPIFNOT                        R4 ; [+2]
-       54 GETTABLEKS                       R4 R1 K22 ["style"]
-       56 SETTABLEKS                       R4 R3 K12 ["Style"]
-       58 MOVE                             R4 R1
-       59 JUMPIFNOT                        R4 ; [+2]
-       60 GETTABLEKS                       R4 R1 K23 ["styleConstraint"]
-       62 SETTABLEKS                       R4 R3 K13 ["StyleConstraint"]
-       64 MOVE                             R4 R1
-       65 JUMPIFNOT                        R4 ; [+2]
-       66 GETTABLEKS                       R4 R1 K24 ["styleConstraintKeyframes"]
-       68 SETTABLEKS                       R4 R3 K14 ["StyleConstraintKeyframes"]
-       70 GETIMPORT                        R4 K26 [pcall]
-       72 NEWCLOSURE                       R5 P0
-       73 CAPTURE                          UPVAL U0
-       74 CAPTURE                          VAL R0
-       75 CAPTURE                          VAL R3
-       76 CALL                             R4 1 3
-       77 JUMPIF                           R4 ; [+10]
-       78 GETIMPORT                        R7 K1 [error]
-       80 LOADK                            R9 K27 ["GenerateAnimationAsync failed: "]
-       81 FASTCALL1                        TOSTRING R5 ; [+3]
-       82 MOVE                             R11 R5
-       83 GETIMPORT                        R10 K29 [tostring]
-       85 CALL                             R10 1 1
-       86 CONCAT                           R8 R9 R10
-       87 CALL                             R7 1 0
-       88 JUMPIFEQKNIL                     R5 ; [+3]
-       90 JUMPIFNOTEQKS                    R5 K30 [""] ; [+5]
-       92 GETIMPORT                        R7 K1 [error]
-       94 LOADK                            R8 K31 ["Animation generation failed: no FBX file returned"]
-       95 CALL                             R7 1 0
-       96 GETUPVAL                         R7 1
-       97 MOVE                             R9 R5
-       98 NAMECALL                         R7 R7 K32 ["StartSessionWithPathAsync"]
-      100 CALL                             R7 2 1
-      101 NAMECALL                         R8 R7 K33 ["GetKeyframeSequences"]
-      103 CALL                             R8 1 1
-      104 NAMECALL                         R9 R7 K34 ["Destroy"]
-      106 CALL                             R9 1 0
-      107 LENGTH                           R9 R8
-      108 JUMPIFNOTEQKN                    R9 K35 [0] ; [+5]
-      110 GETIMPORT                        R9 K1 [error]
-      112 LOADK                            R10 K36 ["Animation generation failed: no KeyframeSequence extracted from FBX"]
-      113 CALL                             R9 1 0
-      114 JUMPIFEQKNIL                     R5 ; [+11]
-      116 LOADK                            R11 K37 ["([^/\\]+)%.fbx$"]
-      117 NAMECALL                         R9 R5 K38 ["match"]
-      119 CALL                             R9 2 1
-      120 JUMPIF                           R9 ; [+6]
-      121 LOADK                            R11 K39 ["([^/\\]+)$"]
-      122 NAMECALL                         R9 R5 K38 ["match"]
-      124 CALL                             R9 2 1
-      125 JUMP                             ; [+1]
-      126 LOADK                            R9 K40 ["GeneratedAnim"]
-      127 GETTABLEN                        R10 R8 1
-      128 SETTABLEKS                       R9 R10 K41 ["Name"]
-      130 GETUPVAL                         R10 2
-      131 GETTABLEKS                       R10 R10 K42 ["FFlagDebugLogAssistantUI"]
-      133 JUMPIFNOT                        R10 ; [+10]
-      134 GETIMPORT                        R10 K44 [print]
-      136 LOADK                            R12 K45 ["[AnimationGen] FBX saved: "]
-      137 FASTCALL1                        TOSTRING R5 ; [+3]
-      138 MOVE                             R14 R5
-      139 GETIMPORT                        R13 K29 [tostring]
-      141 CALL                             R13 1 1
-      142 CONCAT                           R11 R12 R13
-      143 CALL                             R10 1 0
-      144 DUPTABLE                         R10 K49 [{"animationClip", "contextId", "fbxFilePath"}]
-      145 GETTABLEN                        R11 R8 1
-      146 SETTABLEKS                       R11 R10 K46 ["animationClip"]
-      148 SETTABLEKS                       R6 R10 K47 ["contextId"]
-      150 SETTABLEKS                       R5 R10 K48 ["fbxFilePath"]
-      152 RETURN                           R10 1
+       40 GETIMPORT                        R4 K16 [pcall]
+       42 NEWCLOSURE                       R5 P0
+       43 CAPTURE                          UPVAL U0
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          VAL R3
+       46 CALL                             R4 1 3
+       47 JUMPIF                           R4 ; [+10]
+       48 GETIMPORT                        R7 K1 [error]
+       50 LOADK                            R9 K17 ["GenerateAnimationAsync failed: "]
+       51 FASTCALL1                        TOSTRING R5 ; [+3]
+       52 MOVE                             R11 R5
+       53 GETIMPORT                        R10 K19 [tostring]
+       55 CALL                             R10 1 1
+       56 CONCAT                           R8 R9 R10
+       57 CALL                             R7 1 0
+       58 JUMPIFEQKNIL                     R5 ; [+3]
+       60 JUMPIFNOTEQKS                    R5 K20 [""] ; [+5]
+       62 GETIMPORT                        R7 K1 [error]
+       64 LOADK                            R8 K21 ["Animation generation failed: no FBX file returned"]
+       65 CALL                             R7 1 0
+       66 GETUPVAL                         R7 1
+       67 MOVE                             R9 R5
+       68 NAMECALL                         R7 R7 K22 ["StartSessionWithPathAsync"]
+       70 CALL                             R7 2 1
+       71 NAMECALL                         R8 R7 K23 ["GetKeyframeSequences"]
+       73 CALL                             R8 1 1
+       74 NAMECALL                         R9 R7 K24 ["Destroy"]
+       76 CALL                             R9 1 0
+       77 LENGTH                           R9 R8
+       78 JUMPIFNOTEQKN                    R9 K25 [0] ; [+5]
+       80 GETIMPORT                        R9 K1 [error]
+       82 LOADK                            R10 K26 ["Animation generation failed: no KeyframeSequence extracted from FBX"]
+       83 CALL                             R9 1 0
+       84 JUMPIFEQKNIL                     R5 ; [+11]
+       86 LOADK                            R11 K27 ["([^/\\]+)%.fbx$"]
+       87 NAMECALL                         R9 R5 K28 ["match"]
+       89 CALL                             R9 2 1
+       90 JUMPIF                           R9 ; [+6]
+       91 LOADK                            R11 K29 ["([^/\\]+)$"]
+       92 NAMECALL                         R9 R5 K28 ["match"]
+       94 CALL                             R9 2 1
+       95 JUMP                             ; [+1]
+       96 LOADK                            R9 K30 ["GeneratedAnim"]
+       97 GETTABLEN                        R10 R8 1
+       98 SETTABLEKS                       R9 R10 K31 ["Name"]
+      100 GETUPVAL                         R10 2
+      101 GETTABLEKS                       R10 R10 K32 ["FFlagDebugLogAssistantUI"]
+      103 JUMPIFNOT                        R10 ; [+10]
+      104 GETIMPORT                        R10 K34 [print]
+      106 LOADK                            R12 K35 ["[AnimationGen] FBX saved: "]
+      107 FASTCALL1                        TOSTRING R5 ; [+3]
+      108 MOVE                             R14 R5
+      109 GETIMPORT                        R13 K19 [tostring]
+      111 CALL                             R13 1 1
+      112 CONCAT                           R11 R12 R13
+      113 CALL                             R10 1 0
+      114 DUPTABLE                         R10 K39 [{"animationClip", "contextId", "fbxFilePath"}]
+      115 GETTABLEN                        R11 R8 1
+      116 SETTABLEKS                       R11 R10 K36 ["animationClip"]
+      118 SETTABLEKS                       R6 R10 K37 ["contextId"]
+      120 SETTABLEKS                       R5 R10 K38 ["fbxFilePath"]
+      122 RETURN                           R10 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

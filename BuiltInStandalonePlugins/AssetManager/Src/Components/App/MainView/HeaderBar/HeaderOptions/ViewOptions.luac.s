@@ -289,9 +289,9 @@ PROTO_7:
       261 SETTABLEKS                       R25 R24 K70 ["value"]
       263 GETIMPORT                        R25 K78 [NumberRange.new]
       265 GETUPVAL                         R26 8
-      266 GETTABLEKS                       R26 R26 K79 ["GridCellHeightMin"]
+      266 GETTABLEKS                       R26 R26 K79 ["GridCellSizeMin"]
       268 GETUPVAL                         R27 8
-      269 GETTABLEKS                       R27 R27 K80 ["GridCellHeightMax"]
+      269 GETTABLEKS                       R27 R27 K80 ["GridCellSizeMax"]
       271 CALL                             R25 2 1
       272 SETTABLEKS                       R25 R24 K72 ["range"]
       274 NEWCLOSURE                       R25 P3

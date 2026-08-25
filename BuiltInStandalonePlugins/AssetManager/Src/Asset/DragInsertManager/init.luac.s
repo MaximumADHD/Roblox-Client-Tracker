@@ -147,122 +147,135 @@ PROTO_5:
        22 GETUPVAL                         R1 0
        23 GETTABLEKS                       R2 R0 K1 ["Instances"]
        25 SETTABLEKS                       R2 R1 K5 ["_loadedInstances"]
-       27 GETUPVAL                         R1 0
-       28 GETTABLEKS                       R1 R1 K5 ["_loadedInstances"]
-       30 LOADNIL                          R2
-       31 LOADNIL                          R3
-       32 FORGPREP                         R1
-       33 GETUPVAL                         R6 0
-       34 MOVE                             R8 R5
-       35 NAMECALL                         R6 R6 K6 ["_registerTransparencyChanged"]
-       37 CALL                             R6 2 0
-       38 FORGLOOP                         R1 2 ; [-6]
-       40 GETUPVAL                         R1 0
-       41 GETTABLEKS                       R1 R1 K7 ["_raycastParams"]
-       43 GETUPVAL                         R2 0
-       44 GETTABLEKS                       R2 R2 K5 ["_loadedInstances"]
-       46 SETTABLEKS                       R2 R1 K8 ["FilterDescendantsInstances"]
-       48 GETUPVAL                         R1 0
-       49 GETTABLEKS                       R1 R1 K9 ["_placer3D"]
-       51 NAMECALL                         R1 R1 K10 ["hideIndicator"]
-       53 CALL                             R1 1 0
-       54 GETUPVAL                         R1 0
-       55 GETTABLEKS                       R1 R1 K11 ["_placer2D"]
-       57 NAMECALL                         R1 R1 K10 ["hideIndicator"]
-       59 CALL                             R1 1 0
-       60 GETUPVAL                         R1 0
-       61 NAMECALL                         R1 R1 K12 ["_updateLoadedInstances"]
-       63 CALL                             R1 1 0
-       64 GETUPVAL                         R1 0
-       65 GETTABLEKS                       R1 R1 K13 ["_dropped"]
-       67 JUMPIFNOT                        R1 ; [+5]
-       68 GETUPVAL                         R1 0
-       69 LOADB                            R3 0
-       70 NAMECALL                         R1 R1 K14 ["_stopImpl"]
-       72 CALL                             R1 2 0
-       73 RETURN                           R0 0
+       27 GETUPVAL                         R1 2
+       28 JUMPIF                           R1 ; [+13]
+       29 GETUPVAL                         R1 0
+       30 GETTABLEKS                       R1 R1 K5 ["_loadedInstances"]
+       32 LOADNIL                          R2
+       33 LOADNIL                          R3
+       34 FORGPREP                         R1
+       35 GETUPVAL                         R6 0
+       36 MOVE                             R8 R5
+       37 NAMECALL                         R6 R6 K6 ["_registerTransparencyChanged"]
+       39 CALL                             R6 2 0
+       40 FORGLOOP                         R1 2 ; [-6]
+       42 GETUPVAL                         R1 0
+       43 GETTABLEKS                       R1 R1 K7 ["_raycastParams"]
+       45 GETUPVAL                         R2 0
+       46 GETTABLEKS                       R2 R2 K5 ["_loadedInstances"]
+       48 SETTABLEKS                       R2 R1 K8 ["FilterDescendantsInstances"]
+       50 GETUPVAL                         R1 0
+       51 GETTABLEKS                       R1 R1 K9 ["_placer3D"]
+       53 NAMECALL                         R1 R1 K10 ["hideIndicator"]
+       55 CALL                             R1 1 0
+       56 GETUPVAL                         R1 0
+       57 GETTABLEKS                       R1 R1 K11 ["_placer2D"]
+       59 NAMECALL                         R1 R1 K10 ["hideIndicator"]
+       61 CALL                             R1 1 0
+       62 GETUPVAL                         R1 0
+       63 NAMECALL                         R1 R1 K12 ["_updateLoadedInstances"]
+       65 CALL                             R1 1 0
+       66 GETUPVAL                         R1 0
+       67 GETTABLEKS                       R1 R1 K13 ["_dropped"]
+       69 JUMPIFNOT                        R1 ; [+5]
+       70 GETUPVAL                         R1 0
+       71 LOADB                            R3 0
+       72 NAMECALL                         R1 R1 K14 ["_stopImpl"]
+       74 CALL                             R1 2 0
+       75 RETURN                           R0 0
 
 PROTO_6:
-        0 GETTABLEKS                       R4 R0 K0 ["_active"]
-        2 JUMPIFNOT                        R4 ; [+1]
+        0 GETTABLEKS                       R5 R0 K0 ["_active"]
+        2 JUMPIFNOT                        R5 ; [+1]
         3 RETURN                           R0 0
-        4 LOADB                            R4 1
-        5 SETTABLEKS                       R4 R0 K0 ["_active"]
-        7 LOADB                            R4 0
-        8 SETTABLEKS                       R4 R0 K1 ["_dropped"]
-       10 NEWTABLE                         R4 0 0
-       12 SETTABLEKS                       R4 R0 K2 ["_loadedInstances"]
-       14 GETIMPORT                        R4 K5 [Vector2.new]
-       16 CALL                             R4 0 1
-       17 SETTABLEKS                       R4 R0 K6 ["_lastMousePos"]
-       19 LOADB                            R4 0
-       20 LOADB                            R5 0
-       21 MOVE                             R6 R2
-       22 LOADNIL                          R7
-       23 LOADNIL                          R8
-       24 FORGPREP                         R6
-       25 GETUPVAL                         R12 0
-       26 GETTABLE                         R11 R12 R10
-       27 JUMPIFNOT                        R11 ; [+1]
-       28 LOADB                            R4 1
-       29 GETUPVAL                         R12 1
-       30 GETTABLE                         R11 R12 R10
-       31 JUMPIFNOT                        R11 ; [+1]
-       32 LOADB                            R5 1
-       33 FORGLOOP                         R6 2 ; [-9]
-       35 GETTABLEKS                       R6 R0 K7 ["_plugin"]
-       37 JUMPIFNOT                        R4 ; [+5]
-       38 GETTABLEKS                       R7 R0 K8 ["_placer3D"]
-       40 NAMECALL                         R7 R7 K9 ["start"]
-       42 CALL                             R7 1 0
-       43 JUMPIFNOT                        R5 ; [+5]
-       44 GETTABLEKS                       R7 R0 K10 ["_placer2D"]
-       46 NAMECALL                         R7 R7 K9 ["start"]
-       48 CALL                             R7 1 0
-       49 GETUPVAL                         R7 2
-       50 GETTABLEKS                       R7 R7 K11 ["Heartbeat"]
-       52 NEWCLOSURE                       R9 P0
-       53 CAPTURE                          VAL R0
-       54 NAMECALL                         R7 R7 K12 ["Connect"]
-       56 CALL                             R7 2 1
-       57 SETTABLEKS                       R7 R0 K13 ["_heartbeatConnection"]
-       59 GETUPVAL                         R7 3
-       60 GETTABLEKS                       R7 R7 K14 ["Utils"]
-       62 GETTABLEKS                       R7 R7 K15 ["createInsertAssetsPromise"]
-       64 MOVE                             R8 R1
-       65 MOVE                             R9 R2
-       66 MOVE                             R10 R3
-       67 NEWTABLE                         R11 0 0
-       69 DUPTABLE                         R12 K22 [{["GameId"], ["PositionMode"], ["Position"], ["SkipCameraMove"] = True, ["StudioComponents"]}]
-       70 GETIMPORT                        R13 K24 [game]
-       72 GETTABLEKS                       R13 R13 K16 ["GameId"]
-       74 SETTABLEKS                       R13 R12 K16 ["GameId"]
-       76 GETUPVAL                         R13 3
-       77 GETTABLEKS                       R13 R13 K25 ["Types"]
-       79 GETTABLEKS                       R13 R13 K26 ["InsertPositionMode"]
-       81 GETTABLEKS                       R13 R13 K27 ["Custom"]
-       83 SETTABLEKS                       R13 R12 K17 ["PositionMode"]
-       85 FASTCALL                         VECTOR ; [+2]
-       86 GETIMPORT                        R13 K29 [Vector3.new]
-       88 CALL                             R13 0 1
-       89 SETTABLEKS                       R13 R12 K18 ["Position"]
-       91 JUMPIFNOT                        R6 ; [+8]
-       92 DUPTABLE                         R13 K31 [{"AssetAccessController"}]
-       93 LOADK                            R16 K30 ["AssetAccessController"]
-       94 NAMECALL                         R14 R6 K32 ["GetPluginComponent"]
-       96 CALL                             R14 2 1
-       97 SETTABLEKS                       R14 R13 K30 ["AssetAccessController"]
-       99 JUMP                             ; [+2]
-      100 NEWTABLE                         R13 0 0
-      102 SETTABLEKS                       R13 R12 K21 ["StudioComponents"]
-      104 CALL                             R7 5 1
-      105 NEWCLOSURE                       R9 P1
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          UPVAL U4
-      108 NAMECALL                         R7 R7 K33 ["andThen"]
-      110 CALL                             R7 2 1
-      111 SETTABLEKS                       R7 R0 K34 ["_insertPromise"]
-      113 RETURN                           R0 0
+        4 LOADB                            R5 1
+        5 SETTABLEKS                       R5 R0 K0 ["_active"]
+        7 LOADB                            R5 0
+        8 SETTABLEKS                       R5 R0 K1 ["_dropped"]
+       10 NEWTABLE                         R5 0 0
+       12 SETTABLEKS                       R5 R0 K2 ["_loadedInstances"]
+       14 GETIMPORT                        R5 K5 [Vector2.new]
+       16 CALL                             R5 0 1
+       17 SETTABLEKS                       R5 R0 K6 ["_lastMousePos"]
+       19 LOADB                            R5 0
+       20 MOVE                             R6 R4
+       21 LOADNIL                          R7
+       22 LOADNIL                          R8
+       23 FORGPREP                         R6
+       24 JUMPIFNOT                        R10 ; [+2]
+       25 LOADB                            R5 1
+       26 JUMP                             ; [+2]
+       27 FORGLOOP                         R6 2 ; [-4]
+       29 LOADB                            R6 0
+       30 LOADB                            R7 0
+       31 MOVE                             R8 R2
+       32 LOADNIL                          R9
+       33 LOADNIL                          R10
+       34 FORGPREP                         R8
+       35 GETUPVAL                         R14 0
+       36 GETTABLE                         R13 R14 R12
+       37 JUMPIFNOT                        R13 ; [+1]
+       38 LOADB                            R6 1
+       39 GETUPVAL                         R14 1
+       40 GETTABLE                         R13 R14 R12
+       41 JUMPIFNOT                        R13 ; [+1]
+       42 LOADB                            R7 1
+       43 FORGLOOP                         R8 2 ; [-9]
+       45 GETTABLEKS                       R8 R0 K7 ["_plugin"]
+       47 JUMPIFNOT                        R6 ; [+5]
+       48 GETTABLEKS                       R9 R0 K8 ["_placer3D"]
+       50 NAMECALL                         R9 R9 K9 ["start"]
+       52 CALL                             R9 1 0
+       53 JUMPIFNOT                        R7 ; [+5]
+       54 GETTABLEKS                       R9 R0 K10 ["_placer2D"]
+       56 NAMECALL                         R9 R9 K9 ["start"]
+       58 CALL                             R9 1 0
+       59 GETUPVAL                         R9 2
+       60 GETTABLEKS                       R9 R9 K11 ["Heartbeat"]
+       62 NEWCLOSURE                       R11 P0
+       63 CAPTURE                          VAL R0
+       64 NAMECALL                         R9 R9 K12 ["Connect"]
+       66 CALL                             R9 2 1
+       67 SETTABLEKS                       R9 R0 K13 ["_heartbeatConnection"]
+       69 GETUPVAL                         R9 3
+       70 GETTABLEKS                       R9 R9 K14 ["Utils"]
+       72 GETTABLEKS                       R9 R9 K15 ["createInsertAssetsPromise"]
+       74 MOVE                             R10 R1
+       75 MOVE                             R11 R2
+       76 MOVE                             R12 R3
+       77 MOVE                             R13 R4
+       78 DUPTABLE                         R14 K22 [{["GameId"], ["PositionMode"], ["Position"], ["SkipCameraMove"] = True, ["StudioComponents"]}]
+       79 GETIMPORT                        R15 K24 [game]
+       81 GETTABLEKS                       R15 R15 K16 ["GameId"]
+       83 SETTABLEKS                       R15 R14 K16 ["GameId"]
+       85 GETUPVAL                         R15 3
+       86 GETTABLEKS                       R15 R15 K25 ["Types"]
+       88 GETTABLEKS                       R15 R15 K26 ["InsertPositionMode"]
+       90 GETTABLEKS                       R15 R15 K27 ["Custom"]
+       92 SETTABLEKS                       R15 R14 K17 ["PositionMode"]
+       94 FASTCALL                         VECTOR ; [+2]
+       95 GETIMPORT                        R15 K29 [Vector3.new]
+       97 CALL                             R15 0 1
+       98 SETTABLEKS                       R15 R14 K18 ["Position"]
+      100 JUMPIFNOT                        R8 ; [+8]
+      101 DUPTABLE                         R15 K31 [{"AssetAccessController"}]
+      102 LOADK                            R18 K30 ["AssetAccessController"]
+      103 NAMECALL                         R16 R8 K32 ["GetPluginComponent"]
+      105 CALL                             R16 2 1
+      106 SETTABLEKS                       R16 R15 K30 ["AssetAccessController"]
+      108 JUMP                             ; [+2]
+      109 NEWTABLE                         R15 0 0
+      111 SETTABLEKS                       R15 R14 K21 ["StudioComponents"]
+      113 CALL                             R9 5 1
+      114 NEWCLOSURE                       R11 P1
+      115 CAPTURE                          VAL R0
+      116 CAPTURE                          UPVAL U4
+      117 CAPTURE                          REF R5
+      118 NAMECALL                         R9 R9 K33 ["andThen"]
+      120 CALL                             R9 2 1
+      121 SETTABLEKS                       R9 R0 K34 ["_insertPromise"]
+      123 CLOSEUPVALS                      R5
+      124 RETURN                           R0 0
 
 PROTO_7:
         0 JUMPIFNOT                        R1 ; [+8]

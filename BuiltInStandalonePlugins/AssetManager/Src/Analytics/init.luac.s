@@ -15,96 +15,104 @@ PROTO_0:
        21 MOVE                             R8 R5
        22 NAMECALL                         R6 R6 K7 ["getScopeRoot"]
        24 CALL                             R6 2 1
-       25 LOADN                            R7 -1
-       26 LOADK                            R8 K8 ["Unknown"]
-       27 LOADN                            R9 -1
-       28 JUMPIFNOT                        R6 ; [+17]
-       29 GETTABLEKS                       R7 R6 K9 ["Id"]
-       31 GETTABLEKS                       R8 R6 K10 ["Type"]
-       33 GETTABLEKS                       R10 R5 K10 ["Type"]
-       35 GETUPVAL                         R11 1
-       36 GETTABLEKS                       R11 R11 K11 ["ScopeType"]
-       38 GETTABLEKS                       R11 R11 K12 ["Folder"]
-       40 JUMPIFNOTEQ                      R10 R11 ; [+4]
-       42 GETTABLEKS                       R9 R5 K9 ["Id"]
-       44 JUMP                             ; [+1]
-       45 LOADN                            R9 0
-       46 DUPTABLE                         R10 K22 [{"eventName", "pluginOtaVersionHash", "pluginOtaVersionNumber", "clientId", "isCompact", "viewMode", "currentRootId", "currentRootType", "currentFolderId"}]
-       47 SETTABLEKS                       R0 R10 K13 ["eventName"]
-       49 GETUPVAL                         R11 2
-       50 SETTABLEKS                       R11 R10 K14 ["pluginOtaVersionHash"]
-       52 GETUPVAL                         R11 3
-       53 SETTABLEKS                       R11 R10 K15 ["pluginOtaVersionNumber"]
-       55 GETUPVAL                         R11 4
-       56 NAMECALL                         R11 R11 K23 ["GetClientId"]
-       58 CALL                             R11 1 1
-       59 SETTABLEKS                       R11 R10 K16 ["clientId"]
-       61 SETTABLEKS                       R3 R10 K17 ["isCompact"]
-       63 SETTABLEKS                       R4 R10 K18 ["viewMode"]
-       65 SETTABLEKS                       R7 R10 K19 ["currentRootId"]
-       67 SETTABLEKS                       R8 R10 K20 ["currentRootType"]
-       69 SETTABLEKS                       R9 R10 K21 ["currentFolderId"]
-       71 GETUPVAL                         R11 5
-       72 GETTABLEKS                       R11 R11 K24 ["join"]
-       74 MOVE                             R12 R10
-       75 DUPTABLE                         R13 K26 [{"eventMetadataSerialized"}]
-       76 GETUPVAL                         R14 6
-       77 MOVE                             R16 R1
-       78 NAMECALL                         R14 R14 K27 ["JSONEncode"]
-       80 CALL                             R14 2 1
-       81 SETTABLEKS                       R14 R13 K25 ["eventMetadataSerialized"]
-       83 CALL                             R11 2 1
-       84 GETUPVAL                         R12 7
-       85 CALL                             R12 0 1
-       86 JUMPIFNOT                        R12 ; [+19]
-       87 GETIMPORT                        R12 K29 [print]
-       89 LOADK                            R14 K30 ["Sending AssetManager UnifiedEvent: %*"]
-       90 MOVE                             R16 R0
-       91 NAMECALL                         R14 R14 K31 ["format"]
-       93 CALL                             R14 2 1
-       94 MOVE                             R13 R14
-       95 CALL                             R12 1 0
-       96 GETIMPORT                        R12 K29 [print]
-       98 LOADK                            R13 K32 ["Context Fields: "]
-       99 MOVE                             R14 R10
-      100 CALL                             R12 2 0
-      101 GETIMPORT                        R12 K29 [print]
-      103 LOADK                            R13 K33 ["Event Metadata: "]
-      104 MOVE                             R14 R1
-      105 CALL                             R12 2 0
-      106 GETUPVAL                         R12 8
-      107 GETUPVAL                         R14 9
-      108 GETTABLEKS                       R14 R14 K34 ["ASSETMANAGER_UNIFIED_EVENT_CONFIG"]
-      110 DUPTABLE                         R15 K39 [{["customFields"], ["eventContext"] = "AssetManager", ["standardizedFields"]}]
-      111 SETTABLEKS                       R11 R15 K35 ["customFields"]
-      113 NEWTABLE                         R16 0 4
-      115 GETIMPORT                        R17 K43 [Enum.TelemetryStandardizedField.AddPlaceId]
-      117 GETIMPORT                        R18 K45 [Enum.TelemetryStandardizedField.AddUniverseId]
-      119 GETIMPORT                        R19 K47 [Enum.TelemetryStandardizedField.AddSessionInfo]
-      121 GETIMPORT                        R20 K49 [Enum.TelemetryStandardizedField.AddPlaySessionId]
-      123 SETLIST                          R16 R17 4 [1]
-      125 SETTABLEKS                       R16 R15 K38 ["standardizedFields"]
-      127 NAMECALL                         R12 R12 K50 ["LogEvent"]
-      129 CALL                             R12 3 0
-      130 GETUPVAL                         R12 5
-      131 GETTABLEKS                       R12 R12 K24 ["join"]
-      133 GETUPVAL                         R13 9
-      134 GETTABLEKS                       R13 R13 K51 ["ASSETMANAGER_COUNTER_CONFIG"]
-      136 DUPTABLE                         R14 K52 [{"eventName"}]
-      137 LOADK                            R16 K53 ["%*%*"]
-      138 GETUPVAL                         R18 9
-      139 GETTABLEKS                       R18 R18 K54 ["ASSETMANAGER_PREFIX"]
-      141 MOVE                             R19 R0
-      142 NAMECALL                         R16 R16 K31 ["format"]
-      144 CALL                             R16 3 1
-      145 MOVE                             R15 R16
-      146 SETTABLEKS                       R15 R14 K13 ["eventName"]
-      148 CALL                             R12 2 1
-      149 GETUPVAL                         R13 8
-      150 MOVE                             R15 R12
-      151 NAMECALL                         R13 R13 K55 ["LogCounter"]
-      153 CALL                             R13 2 0
-      154 RETURN                           R0 0
+       25 GETTABLEKS                       R7 R2 K8 ["SearchController"]
+       27 NAMECALL                         R7 R7 K9 ["getSearchId"]
+       29 CALL                             R7 1 1
+       30 LOADN                            R8 -1
+       31 LOADK                            R9 K10 ["Unknown"]
+       32 LOADN                            R10 -1
+       33 JUMPIFNOT                        R6 ; [+17]
+       34 GETTABLEKS                       R8 R6 K11 ["Id"]
+       36 GETTABLEKS                       R9 R6 K12 ["Type"]
+       38 GETTABLEKS                       R11 R5 K12 ["Type"]
+       40 GETUPVAL                         R12 1
+       41 GETTABLEKS                       R12 R12 K13 ["ScopeType"]
+       43 GETTABLEKS                       R12 R12 K14 ["Folder"]
+       45 JUMPIFNOTEQ                      R11 R12 ; [+4]
+       47 GETTABLEKS                       R10 R5 K11 ["Id"]
+       49 JUMP                             ; [+1]
+       50 LOADN                            R10 0
+       51 DUPTABLE                         R11 K25 [{"eventName", "pluginOtaVersionHash", "pluginOtaVersionNumber", "clientId", "isCompact", "viewMode", "currentRootId", "currentRootType", "currentFolderId", "searchId"}]
+       52 SETTABLEKS                       R0 R11 K15 ["eventName"]
+       54 GETUPVAL                         R12 2
+       55 SETTABLEKS                       R12 R11 K16 ["pluginOtaVersionHash"]
+       57 GETUPVAL                         R12 3
+       58 SETTABLEKS                       R12 R11 K17 ["pluginOtaVersionNumber"]
+       60 GETUPVAL                         R12 4
+       61 NAMECALL                         R12 R12 K26 ["GetClientId"]
+       63 CALL                             R12 1 1
+       64 SETTABLEKS                       R12 R11 K18 ["clientId"]
+       66 SETTABLEKS                       R3 R11 K19 ["isCompact"]
+       68 SETTABLEKS                       R4 R11 K20 ["viewMode"]
+       70 SETTABLEKS                       R8 R11 K21 ["currentRootId"]
+       72 SETTABLEKS                       R9 R11 K22 ["currentRootType"]
+       74 SETTABLEKS                       R10 R11 K23 ["currentFolderId"]
+       76 JUMPIFEQKS                       R7 K27 [""] ; [+3]
+       78 MOVE                             R12 R7
+       79 JUMP                             ; [+1]
+       80 LOADNIL                          R12
+       81 SETTABLEKS                       R12 R11 K24 ["searchId"]
+       83 GETUPVAL                         R12 5
+       84 GETTABLEKS                       R12 R12 K28 ["join"]
+       86 MOVE                             R13 R11
+       87 DUPTABLE                         R14 K30 [{"eventMetadataSerialized"}]
+       88 GETUPVAL                         R15 6
+       89 MOVE                             R17 R1
+       90 NAMECALL                         R15 R15 K31 ["JSONEncode"]
+       92 CALL                             R15 2 1
+       93 SETTABLEKS                       R15 R14 K29 ["eventMetadataSerialized"]
+       95 CALL                             R12 2 1
+       96 GETUPVAL                         R13 7
+       97 CALL                             R13 0 1
+       98 JUMPIFNOT                        R13 ; [+19]
+       99 GETIMPORT                        R13 K33 [print]
+      101 LOADK                            R15 K34 ["Sending AssetManager UnifiedEvent: %*"]
+      102 MOVE                             R17 R0
+      103 NAMECALL                         R15 R15 K35 ["format"]
+      105 CALL                             R15 2 1
+      106 MOVE                             R14 R15
+      107 CALL                             R13 1 0
+      108 GETIMPORT                        R13 K33 [print]
+      110 LOADK                            R14 K36 ["Context Fields: "]
+      111 MOVE                             R15 R11
+      112 CALL                             R13 2 0
+      113 GETIMPORT                        R13 K33 [print]
+      115 LOADK                            R14 K37 ["Event Metadata: "]
+      116 MOVE                             R15 R1
+      117 CALL                             R13 2 0
+      118 GETUPVAL                         R13 8
+      119 GETUPVAL                         R15 9
+      120 GETTABLEKS                       R15 R15 K38 ["ASSETMANAGER_UNIFIED_EVENT_CONFIG"]
+      122 DUPTABLE                         R16 K43 [{["customFields"], ["eventContext"] = "AssetManager", ["standardizedFields"]}]
+      123 SETTABLEKS                       R12 R16 K39 ["customFields"]
+      125 NEWTABLE                         R17 0 4
+      127 GETIMPORT                        R18 K47 [Enum.TelemetryStandardizedField.AddPlaceId]
+      129 GETIMPORT                        R19 K49 [Enum.TelemetryStandardizedField.AddUniverseId]
+      131 GETIMPORT                        R20 K51 [Enum.TelemetryStandardizedField.AddSessionInfo]
+      133 GETIMPORT                        R21 K53 [Enum.TelemetryStandardizedField.AddPlaySessionId]
+      135 SETLIST                          R17 R18 4 [1]
+      137 SETTABLEKS                       R17 R16 K42 ["standardizedFields"]
+      139 NAMECALL                         R13 R13 K54 ["LogEvent"]
+      141 CALL                             R13 3 0
+      142 GETUPVAL                         R13 5
+      143 GETTABLEKS                       R13 R13 K28 ["join"]
+      145 GETUPVAL                         R14 9
+      146 GETTABLEKS                       R14 R14 K55 ["ASSETMANAGER_COUNTER_CONFIG"]
+      148 DUPTABLE                         R15 K56 [{"eventName"}]
+      149 LOADK                            R17 K57 ["%*%*"]
+      150 GETUPVAL                         R19 9
+      151 GETTABLEKS                       R19 R19 K58 ["ASSETMANAGER_PREFIX"]
+      153 MOVE                             R20 R0
+      154 NAMECALL                         R17 R17 K35 ["format"]
+      156 CALL                             R17 3 1
+      157 MOVE                             R16 R17
+      158 SETTABLEKS                       R16 R15 K15 ["eventName"]
+      160 CALL                             R13 2 1
+      161 GETUPVAL                         R14 8
+      162 MOVE                             R16 R13
+      163 NAMECALL                         R14 R14 K59 ["LogCounter"]
+      165 CALL                             R14 2 0
+      166 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0

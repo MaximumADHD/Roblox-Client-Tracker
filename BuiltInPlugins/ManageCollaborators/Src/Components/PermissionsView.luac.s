@@ -189,10 +189,47 @@ PROTO_8:
        51 RETURN                           R0 0
 
 PROTO_9:
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+12]
+        2 GETUPVAL                         R0 1
+        3 GETUPVAL                         R2 2
+        4 DUPTABLE                         R3 K5 [{[1], ["action"] = "view_all_permissions", ["upsellEntrySurface"] = "manage_collaborators"}]
+        5 GETUPVAL                         R4 3
+        6 NAMECALL                         R4 R4 K6 ["GetUserId"]
+        8 CALL                             R4 1 1
+        9 SETTABLEKS                       R4 R3 K0 ["userid"]
+       11 NAMECALL                         R0 R0 K7 ["logRobloxTelemetryEvent"]
+       13 CALL                             R0 3 0
+       14 GETIMPORT                        R0 K10 [string.format]
+       16 GETUPVAL                         R1 4
+       17 GETTABLEKS                       R1 R1 K11 ["fstringCreatorHubExperiencePermissionsLinkFormatStr"]
+       19 GETIMPORT                        R3 K13 [game]
+       21 GETTABLEKS                       R3 R3 K14 ["GameId"]
+       23 FASTCALL1                        TOSTRING R3 ; [+2]
+       24 GETIMPORT                        R2 K16 [tostring]
+       26 CALL                             R2 1 1
+       27 CALL                             R0 2 1
+       28 GETIMPORT                        R1 K18 [pcall]
+       30 NEWCLOSURE                       R2 P0
+       31 CAPTURE                          UPVAL U5
+       32 CAPTURE                          VAL R0
+       33 CALL                             R1 1 2
+       34 JUMPIF                           R1 ; [+10]
+       35 GETIMPORT                        R3 K20 [warn]
+       37 LOADK                            R5 K21 ["OpenUrl failed: "]
+       38 FASTCALL1                        TOSTRING R2 ; [+3]
+       39 MOVE                             R7 R2
+       40 GETIMPORT                        R6 K16 [tostring]
+       42 CALL                             R6 1 1
+       43 CONCAT                           R4 R5 R6
+       44 CALL                             R3 1 0
+       45 RETURN                           R0 0
+
+PROTO_10:
         0 DUPTABLE                         R1 K2 [{[1] = True}]
         1 RETURN                           R1 1
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 DUPTABLE                         R3 K5 [{[1], ["telemetryType"] = "load", ["upsellEntrySurface"] = "manage_collaborators_tc_dialog"}]
@@ -203,12 +240,12 @@ PROTO_10:
         9 NAMECALL                         R0 R0 K7 ["logRobloxTelemetryEvent"]
        11 CALL                             R0 3 0
        12 GETUPVAL                         R0 3
-       13 DUPCLOSURE                       R2 K8 [PROTO_9]
+       13 DUPCLOSURE                       R2 K8 [PROTO_10]
        14 NAMECALL                         R0 R0 K9 ["setState"]
        16 CALL                             R0 2 0
        17 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 DUPTABLE                         R1 K2 [{[1] = False}]
         1 SETTABLEKS                       R1 R0 K3 ["state"]
         3 GETUPVAL                         R1 0
@@ -242,15 +279,23 @@ PROTO_11:
        36 CAPTURE                          UPVAL U4
        37 CAPTURE                          UPVAL U6
        38 SETTABLEKS                       R1 R0 K12 ["launchCreatorHubUniverseSafetyView"]
-       40 NEWCLOSURE                       R1 P4
-       41 CAPTURE                          UPVAL U2
-       42 CAPTURE                          UPVAL U8
-       43 CAPTURE                          UPVAL U4
-       44 CAPTURE                          VAL R0
-       45 SETTABLEKS                       R1 R0 K13 ["launchModal"]
-       47 RETURN                           R0 0
+       40 DUPCLOSURE                       R1 K13 [PROTO_9]
+       41 CAPTURE                          UPVAL U1
+       42 CAPTURE                          UPVAL U2
+       43 CAPTURE                          UPVAL U3
+       44 CAPTURE                          UPVAL U4
+       45 CAPTURE                          UPVAL U7
+       46 CAPTURE                          UPVAL U6
+       47 SETTABLEKS                       R1 R0 K14 ["launchCreatorHubExperiencePermissionsView"]
+       49 NEWCLOSURE                       R1 P5
+       50 CAPTURE                          UPVAL U2
+       51 CAPTURE                          UPVAL U8
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          VAL R0
+       54 SETTABLEKS                       R1 R0 K15 ["launchModal"]
+       56 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 JUMPIFNOT                        R0 ; [+18]
         1 GETUPVAL                         R1 0
         2 GETUPVAL                         R3 1
@@ -272,18 +317,18 @@ PROTO_12:
        23 CALL                             R1 2 0
        24 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 DUPTABLE                         R1 K2 [{[1] = False}]
         1 RETURN                           R1 1
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R0 0
-        1 DUPCLOSURE                       R2 K0 [PROTO_13]
+        1 DUPCLOSURE                       R2 K0 [PROTO_14]
         2 NAMECALL                         R0 R0 K1 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 JUMPIFNOT                        R0 ; [+18]
         1 GETUPVAL                         R1 0
         2 GETUPVAL                         R3 1
@@ -305,18 +350,18 @@ PROTO_15:
        23 CALL                             R1 2 0
        24 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 DUPTABLE                         R1 K2 [{[1] = False}]
         1 RETURN                           R1 1
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R0 0
-        1 DUPCLOSURE                       R2 K0 [PROTO_16]
+        1 DUPCLOSURE                       R2 K0 [PROTO_17]
         2 NAMECALL                         R0 R0 K1 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 DUPTABLE                         R3 K1 [{"ShowTrustedConnectionsOption"}]
         2 SETTABLEKS                       R0 R3 K0 ["ShowTrustedConnectionsOption"]
@@ -324,18 +369,18 @@ PROTO_18:
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 DUPTABLE                         R1 K2 [{[1] = False}]
         1 RETURN                           R1 1
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R0 0
-        1 DUPCLOSURE                       R2 K0 [PROTO_19]
+        1 DUPCLOSURE                       R2 K0 [PROTO_20]
         2 NAMECALL                         R0 R0 K1 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 JUMPIFNOT                        R0 ; [+18]
         1 GETUPVAL                         R1 0
         2 GETUPVAL                         R3 1
@@ -357,18 +402,18 @@ PROTO_21:
        23 CALL                             R1 2 0
        24 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 DUPTABLE                         R1 K2 [{[1] = False}]
         1 RETURN                           R1 1
 
-PROTO_23:
+PROTO_24:
         0 GETUPVAL                         R0 0
-        1 DUPCLOSURE                       R2 K0 [PROTO_22]
+        1 DUPCLOSURE                       R2 K0 [PROTO_23]
         2 NAMECALL                         R0 R0 K1 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETTABLEKS                       R2 R1 K0 ["Enabled"]
         2 JUMPIF                           R2 ; [+80]
         3 GETTABLEKS                       R2 R0 K1 ["props"]
@@ -583,7 +628,7 @@ PROTO_24:
       310 CALL                             R2 2 0
       311 RETURN                           R0 0
 
-PROTO_25:
+PROTO_26:
         0 GETTABLEKS                       R1 R0 K0 ["Plugin"]
         2 NAMECALL                         R1 R1 K1 ["get"]
         4 CALL                             R1 1 1
@@ -665,7 +710,7 @@ PROTO_25:
       109 LOADB                            R9 1
       110 RETURN                           R9 1
 
-PROTO_26:
+PROTO_27:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["fflagManageCollaboratorsVerifyAgeDialog"]
@@ -699,7 +744,7 @@ PROTO_26:
        38 CALL                             R4 1 0
        39 RETURN                           R0 0
 
-PROTO_27:
+PROTO_28:
         0 JUMPIFNOTEQKS                    R0 K0 ["YES"] ; [+8]
         2 GETUPVAL                         R1 0
         3 JUMPIFNOT                        R1 ; [+3]
@@ -710,10 +755,10 @@ PROTO_27:
         8 CALL                             R1 0 0
         9 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 RETURN                           R0 0
 
-PROTO_29:
+PROTO_30:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R2 K1 ["Plugin"]
         4 GETTABLEKS                       R4 R2 K2 ["Localization"]
@@ -761,7 +806,7 @@ PROTO_29:
        62 CAPTURE                          VAL R7
        63 CAPTURE                          VAL R6
        64 SETTABLEKS                       R14 R13 K22 ["OnButtonPressed"]
-       66 DUPCLOSURE                       R14 K30 [PROTO_28]
+       66 DUPCLOSURE                       R14 K30 [PROTO_29]
        67 SETTABLEKS                       R14 R13 K23 ["OnClose"]
        69 LOADK                            R16 K24 ["Title"]
        70 LOADK                            R17 K31 ["DiscardChanges"]
@@ -808,13 +853,13 @@ PROTO_29:
       136 CALL                             R9 5 0
       137 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["onSavePressed"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+3]
         2 GETUPVAL                         R0 1
@@ -825,14 +870,14 @@ PROTO_31:
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K2 [{[1] = False}]
         2 NAMECALL                         R0 R0 K3 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+12]
         2 GETUPVAL                         R0 1
@@ -861,14 +906,14 @@ PROTO_33:
        31 CALL                             R3 1 0
        32 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K2 [{[1] = False}]
         2 NAMECALL                         R0 R0 K3 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["fflagManageCollaboratorsAgeGatingTelemetry"]
         3 JUMPIFNOT                        R0 ; [+10]
@@ -886,14 +931,14 @@ PROTO_35:
        21 CALL                             R0 1 0
        22 RETURN                           R0 0
 
-PROTO_36:
+PROTO_37:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K2 [{[1] = False}]
         2 NAMECALL                         R0 R0 K3 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_37:
+PROTO_38:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["fflagManageCollaboratorsAgeGatingTelemetry"]
         3 JUMPIFNOT                        R0 ; [+10]
@@ -911,14 +956,14 @@ PROTO_37:
        21 CALL                             R0 1 0
        22 RETURN                           R0 0
 
-PROTO_38:
+PROTO_39:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K2 [{[1] = False}]
         2 NAMECALL                         R0 R0 K3 ["setState"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_39:
+PROTO_40:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["fflagManageCollaboratorsAgeGatingTelemetry"]
         3 JUMPIFNOT                        R0 ; [+14]
@@ -950,13 +995,6 @@ PROTO_39:
        35 CALL                             R3 1 0
        36 RETURN                           R0 0
 
-PROTO_40:
-        0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{[1] = False}]
-        2 NAMECALL                         R0 R0 K3 ["setState"]
-        4 CALL                             R0 2 0
-        5 RETURN                           R0 0
-
 PROTO_41:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K2 [{[1] = False}]
@@ -973,18 +1011,31 @@ PROTO_42:
 
 PROTO_43:
         0 GETUPVAL                         R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
+
+PROTO_44:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["onSavePressed"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_44:
+PROTO_45:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["onCancelPressed"]
         4 CALL                             R1 2 0
         5 RETURN                           R0 0
 
-PROTO_45:
+PROTO_46:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["launchCreatorHubExperiencePermissionsView"]
+        3 CALL                             R0 0 0
+        4 RETURN                           R0 0
+
+PROTO_47:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Enabled"]
         4 JUMPIF                           R2 ; [+1]
@@ -1477,7 +1528,7 @@ PROTO_45:
       692 LOADN                            R52 50
       693 CALL                             R48 4 1
       694 SETTABLEKS                       R48 R47 K58 ["Size"]
-      696 DUPCLOSURE                       R48 K163 [PROTO_33]
+      696 DUPCLOSURE                       R48 K163 [PROTO_34]
       697 CAPTURE                          UPVAL U11
       698 CAPTURE                          UPVAL U26
       699 CAPTURE                          UPVAL U27
@@ -1710,7 +1761,7 @@ PROTO_45:
      1014 NAMECALL                         R53 R3 K35 ["getText"]
      1016 CALL                             R53 3 1
      1017 SETTABLEKS                       R53 R52 K157 ["text"]
-     1019 DUPCLOSURE                       R53 K208 [PROTO_39]
+     1019 DUPCLOSURE                       R53 K208 [PROTO_40]
      1020 CAPTURE                          UPVAL U1
      1021 CAPTURE                          UPVAL U11
      1022 CAPTURE                          UPVAL U26
@@ -2042,7 +2093,7 @@ PROTO_45:
      1488 CALL                             R45 2 1
      1489 SETTABLEKS                       R45 R44 K77 ["upsellDialog"]
      1491 MOVE                             R45 R27
-     1492 JUMPIFNOT                        R45 ; [+42]
+     1492 JUMPIFNOT                        R45 ; [+56]
      1493 GETUPVAL                         R45 12
      1494 GETTABLEKS                       R45 R45 K56 ["createElement"]
      1496 GETUPVAL                         R46 13
@@ -2062,7 +2113,7 @@ PROTO_45:
      1516 GETUPVAL                         R49 12
      1517 GETTABLEKS                       R49 R49 K56 ["createElement"]
      1519 GETUPVAL                         R50 44
-     1520 DUPTABLE                         R51 K283 [{"IsTeamCreateEnabled", "OnSavePressed", "OnCancelPressed"}]
+     1520 DUPTABLE                         R51 K284 [{"IsTeamCreateEnabled", "OnSavePressed", "OnCancelPressed", "OnViewAllPermissionsPressed"}]
      1521 SETTABLEKS                       R28 R51 K103 ["IsTeamCreateEnabled"]
      1523 NEWCLOSURE                       R52 P13
      1524 CAPTURE                          VAL R0
@@ -2070,65 +2121,76 @@ PROTO_45:
      1527 NEWCLOSURE                       R52 P14
      1528 CAPTURE                          VAL R0
      1529 SETTABLEKS                       R52 R51 K282 ["OnCancelPressed"]
-     1531 CALL                             R49 2 1
-     1532 SETTABLEKS                       R49 R48 K279 ["Footer"]
-     1534 CALL                             R45 3 1
-     1535 SETTABLEKS                       R45 R44 K78 ["FooterContent"]
-     1537 NOT                              R45 R17
-     1538 JUMPIFNOT                        R45 ; [+22]
-     1539 NOT                              R45 R18
-     1540 JUMPIFNOT                        R45 ; [+20]
-     1541 GETUPVAL                         R45 12
-     1542 GETTABLEKS                       R45 R45 K56 ["createElement"]
-     1544 GETUPVAL                         R46 45
-     1545 DUPTABLE                         R47 K284 [{"AnchorPoint", "Position"}]
-     1546 GETIMPORT                        R48 K272 [Vector2.new]
-     1548 LOADK                            R49 K273 [0.5]
-     1549 LOADK                            R50 K273 [0.5]
-     1550 CALL                             R48 2 1
-     1551 SETTABLEKS                       R48 R47 K266 ["AnchorPoint"]
-     1553 GETIMPORT                        R48 K286 [UDim2.fromScale]
-     1555 LOADK                            R49 K273 [0.5]
-     1556 LOADK                            R50 K273 [0.5]
-     1557 CALL                             R48 2 1
-     1558 SETTABLEKS                       R48 R47 K267 ["Position"]
-     1560 CALL                             R45 2 1
-     1561 SETTABLEKS                       R45 R44 K79 ["LoadingIndicator"]
-     1563 MOVE                             R45 R18
-     1564 JUMPIFNOT                        R45 ; [+46]
-     1565 GETUPVAL                         R45 12
-     1566 GETTABLEKS                       R45 R45 K56 ["createElement"]
-     1568 LOADK                            R46 K262 ["TextLabel"]
-     1569 DUPTABLE                         R47 K290 [{"Text", "AnchorPoint", "Position", "TextColor3", "TextSize", "Font"}]
-     1570 SETTABLEKS                       R19 R47 K139 ["Text"]
-     1572 GETIMPORT                        R48 K272 [Vector2.new]
-     1574 LOADK                            R49 K273 [0.5]
-     1575 LOADK                            R50 K273 [0.5]
-     1576 CALL                             R48 2 1
-     1577 SETTABLEKS                       R48 R47 K266 ["AnchorPoint"]
-     1579 GETIMPORT                        R48 K286 [UDim2.fromScale]
-     1581 LOADK                            R49 K273 [0.5]
-     1582 LOADK                            R50 K291 [0.25]
-     1583 CALL                             R48 2 1
-     1584 SETTABLEKS                       R48 R47 K267 ["Position"]
-     1586 GETTABLEKS                       R48 R2 K292 ["fontStyle"]
-     1588 GETTABLEKS                       R48 R48 K293 ["Normal"]
-     1590 GETTABLEKS                       R48 R48 K287 ["TextColor3"]
-     1592 SETTABLEKS                       R48 R47 K287 ["TextColor3"]
-     1594 GETTABLEKS                       R48 R2 K292 ["fontStyle"]
-     1596 GETTABLEKS                       R48 R48 K293 ["Normal"]
-     1598 GETTABLEKS                       R48 R48 K288 ["TextSize"]
-     1600 SETTABLEKS                       R48 R47 K288 ["TextSize"]
-     1602 GETTABLEKS                       R48 R2 K292 ["fontStyle"]
-     1604 GETTABLEKS                       R48 R48 K293 ["Normal"]
-     1606 GETTABLEKS                       R48 R48 K289 ["Font"]
-     1608 SETTABLEKS                       R48 R47 K289 ["Font"]
-     1610 CALL                             R45 2 1
-     1611 SETTABLEKS                       R45 R44 K80 ["FailureText"]
-     1613 CALL                             R41 3 -1
-     1614 RETURN                           R41 -1
+     1531 GETUPVAL                         R53 1
+     1532 GETTABLEKS                       R53 R53 K285 ["fflagViewAllPermissionsInCreatorHub"]
+     1534 JUMPIFNOT                        R53 ; [+7]
+     1535 NAMECALL                         R53 R0 K204 ["isGroupGame"]
+     1537 CALL                             R53 1 1
+     1538 JUMPIFNOT                        R53 ; [+3]
+     1539 NEWCLOSURE                       R52 P15
+     1540 CAPTURE                          VAL R0
+     1541 JUMP                             ; [+1]
+     1542 LOADNIL                          R52
+     1543 SETTABLEKS                       R52 R51 K283 ["OnViewAllPermissionsPressed"]
+     1545 CALL                             R49 2 1
+     1546 SETTABLEKS                       R49 R48 K279 ["Footer"]
+     1548 CALL                             R45 3 1
+     1549 SETTABLEKS                       R45 R44 K78 ["FooterContent"]
+     1551 NOT                              R45 R17
+     1552 JUMPIFNOT                        R45 ; [+22]
+     1553 NOT                              R45 R18
+     1554 JUMPIFNOT                        R45 ; [+20]
+     1555 GETUPVAL                         R45 12
+     1556 GETTABLEKS                       R45 R45 K56 ["createElement"]
+     1558 GETUPVAL                         R46 45
+     1559 DUPTABLE                         R47 K286 [{"AnchorPoint", "Position"}]
+     1560 GETIMPORT                        R48 K272 [Vector2.new]
+     1562 LOADK                            R49 K273 [0.5]
+     1563 LOADK                            R50 K273 [0.5]
+     1564 CALL                             R48 2 1
+     1565 SETTABLEKS                       R48 R47 K266 ["AnchorPoint"]
+     1567 GETIMPORT                        R48 K288 [UDim2.fromScale]
+     1569 LOADK                            R49 K273 [0.5]
+     1570 LOADK                            R50 K273 [0.5]
+     1571 CALL                             R48 2 1
+     1572 SETTABLEKS                       R48 R47 K267 ["Position"]
+     1574 CALL                             R45 2 1
+     1575 SETTABLEKS                       R45 R44 K79 ["LoadingIndicator"]
+     1577 MOVE                             R45 R18
+     1578 JUMPIFNOT                        R45 ; [+46]
+     1579 GETUPVAL                         R45 12
+     1580 GETTABLEKS                       R45 R45 K56 ["createElement"]
+     1582 LOADK                            R46 K262 ["TextLabel"]
+     1583 DUPTABLE                         R47 K292 [{"Text", "AnchorPoint", "Position", "TextColor3", "TextSize", "Font"}]
+     1584 SETTABLEKS                       R19 R47 K139 ["Text"]
+     1586 GETIMPORT                        R48 K272 [Vector2.new]
+     1588 LOADK                            R49 K273 [0.5]
+     1589 LOADK                            R50 K273 [0.5]
+     1590 CALL                             R48 2 1
+     1591 SETTABLEKS                       R48 R47 K266 ["AnchorPoint"]
+     1593 GETIMPORT                        R48 K288 [UDim2.fromScale]
+     1595 LOADK                            R49 K273 [0.5]
+     1596 LOADK                            R50 K293 [0.25]
+     1597 CALL                             R48 2 1
+     1598 SETTABLEKS                       R48 R47 K267 ["Position"]
+     1600 GETTABLEKS                       R48 R2 K294 ["fontStyle"]
+     1602 GETTABLEKS                       R48 R48 K295 ["Normal"]
+     1604 GETTABLEKS                       R48 R48 K289 ["TextColor3"]
+     1606 SETTABLEKS                       R48 R47 K289 ["TextColor3"]
+     1608 GETTABLEKS                       R48 R2 K294 ["fontStyle"]
+     1610 GETTABLEKS                       R48 R48 K295 ["Normal"]
+     1612 GETTABLEKS                       R48 R48 K290 ["TextSize"]
+     1614 SETTABLEKS                       R48 R47 K290 ["TextSize"]
+     1616 GETTABLEKS                       R48 R2 K294 ["fontStyle"]
+     1618 GETTABLEKS                       R48 R48 K295 ["Normal"]
+     1620 GETTABLEKS                       R48 R48 K291 ["Font"]
+     1622 SETTABLEKS                       R48 R47 K291 ["Font"]
+     1624 CALL                             R45 2 1
+     1625 SETTABLEKS                       R45 R44 K80 ["FailureText"]
+     1627 CALL                             R41 3 -1
+     1628 RETURN                           R41 -1
 
-PROTO_46:
+PROTO_48:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
@@ -2229,29 +2291,11 @@ PROTO_46:
       131 SETTABLEKS                       R4 R3 K15 ["MigrationStatus"]
       133 RETURN                           R3 1
 
-PROTO_47:
+PROTO_49:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 NAMECALL                         R1 R1 K0 ["LoadPermissions"]
         4 CALL                             R1 1 -1
-        5 CALL                             R0 -1 0
-        6 RETURN                           R0 0
-
-PROTO_48:
-        0 PREPVARARGS                      0
-        1 GETUPVAL                         R0 0
-        2 GETUPVAL                         R1 1
-        3 GETVARARGS                       R2 -1
-        4 CALL                             R1 -1 -1
-        5 CALL                             R0 -1 0
-        6 RETURN                           R0 0
-
-PROTO_49:
-        0 PREPVARARGS                      0
-        1 GETUPVAL                         R0 0
-        2 GETUPVAL                         R1 1
-        3 GETVARARGS                       R2 -1
-        4 CALL                             R1 -1 -1
         5 CALL                             R0 -1 0
         6 RETURN                           R0 0
 
@@ -2265,6 +2309,24 @@ PROTO_50:
         6 RETURN                           R0 0
 
 PROTO_51:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETUPVAL                         R1 1
+        3 GETVARARGS                       R2 -1
+        4 CALL                             R1 -1 -1
+        5 CALL                             R0 -1 0
+        6 RETURN                           R0 0
+
+PROTO_52:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETUPVAL                         R1 1
+        3 GETVARARGS                       R2 -1
+        4 CALL                             R1 -1 -1
+        5 CALL                             R0 -1 0
+        6 RETURN                           R0 0
+
+PROTO_53:
         0 DUPTABLE                         R1 K4 [{"LoadPermissions", "SavePermissions", "SendAllSearchItemLogs", "PrefetchLikelyCollaborators"}]
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          VAL R0
@@ -2598,7 +2660,7 @@ MAIN:
       518 DUPCLOSURE                       R82 K104 [PROTO_4]
       519 CAPTURE                          VAL R5
       520 SETTABLEKS                       R82 R73 K105 ["isLoggedInUserGameOwner"]
-      522 DUPCLOSURE                       R82 K106 [PROTO_11]
+      522 DUPCLOSURE                       R82 K106 [PROTO_12]
       523 CAPTURE                          VAL R9
       524 CAPTURE                          VAL R45
       525 CAPTURE                          VAL R77
@@ -2609,7 +2671,7 @@ MAIN:
       530 CAPTURE                          VAL R12
       531 CAPTURE                          VAL R75
       532 SETTABLEKS                       R82 R73 K107 ["init"]
-      534 DUPCLOSURE                       R82 K108 [PROTO_24]
+      534 DUPCLOSURE                       R82 K108 [PROTO_25]
       535 CAPTURE                          VAL R46
       536 CAPTURE                          VAL R47
       537 CAPTURE                          VAL R77
@@ -2617,26 +2679,26 @@ MAIN:
       539 CAPTURE                          VAL R5
       540 CAPTURE                          VAL R12
       541 SETTABLEKS                       R82 R73 K109 ["didUpdate"]
-      543 DUPCLOSURE                       R82 K110 [PROTO_25]
+      543 DUPCLOSURE                       R82 K110 [PROTO_26]
       544 CAPTURE                          VAL R48
       545 CAPTURE                          VAL R79
       546 CAPTURE                          VAL R7
       547 CAPTURE                          VAL R6
       548 SETGLOBAL                        R82 K111 ["checkAndMaybeShowVerifyAgeDialog"]
-      550 DUPCLOSURE                       R82 K112 [PROTO_26]
+      550 DUPCLOSURE                       R82 K112 [PROTO_27]
       551 CAPTURE                          VAL R12
       552 CAPTURE                          VAL R44
       553 CAPTURE                          VAL R65
       554 CAPTURE                          VAL R4
       555 SETTABLEKS                       R82 R73 K113 ["onSavePressed"]
-      557 DUPCLOSURE                       R82 K114 [PROTO_29]
+      557 DUPCLOSURE                       R82 K114 [PROTO_30]
       558 CAPTURE                          VAL R44
       559 CAPTURE                          VAL R68
       560 CAPTURE                          VAL R36
       561 CAPTURE                          VAL R22
       562 CAPTURE                          VAL R9
       563 SETTABLEKS                       R82 R73 K115 ["onCancelPressed"]
-      565 DUPCLOSURE                       R82 K116 [PROTO_45]
+      565 DUPCLOSURE                       R82 K116 [PROTO_47]
       566 CAPTURE                          VAL R46
       567 CAPTURE                          VAL R12
       568 CAPTURE                          VAL R44

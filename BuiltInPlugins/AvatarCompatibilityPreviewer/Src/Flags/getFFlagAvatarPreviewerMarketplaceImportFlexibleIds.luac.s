@@ -1,16 +1,15 @@
 PROTO_0:
-        0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["AvatarPreviewerMarketplaceImportFlexibleIds"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 -1
-        6 RETURN                           R0 -1
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 -1
+        2 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["AvatarPreviewerMarketplaceImportFlexibleIds"]
-        4 LOADB                            R3 0
-        5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
-        7 CALL                             R0 3 0
-        8 DUPCLOSURE                       R0 K4 [PROTO_0]
-        9 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R1 K5 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+        9 CALL                             R0 1 1
+       10 DUPCLOSURE                       R1 K6 [PROTO_0]
+       11 CAPTURE                          VAL R0
+       12 RETURN                           R1 1

@@ -167,97 +167,112 @@ PROTO_5:
        82 NAMECALL                         R15 R3 K15 ["getText"]
        84 CALL                             R15 3 1
        85 MOVE                             R14 R15
-       86 GETUPVAL                         R16 0
-       87 JUMPIFNOT                        R16 ; [+11]
-       88 MOVE                             R15 R5
-       89 JUMPIFNOT                        R15 ; [+12]
-       90 NOT                              R15 R7
-       91 JUMPIFNOT                        R15 ; [+10]
-       92 LENGTH                           R16 R13
-       93 LOADN                            R17 1
-       94 JUMPIFLT                         R17 R16 ; [+2]
+       86 GETUPVAL                         R15 3
+       87 GETTABLEKS                       R15 R15 K20 ["fflagCollabPreventSelfRemoval"]
+       89 JUMPIFNOT                        R15 ; [+8]
+       90 GETUPVAL                         R16 4
+       91 NAMECALL                         R16 R16 K21 ["GetUserId"]
+       93 CALL                             R16 1 1
+       94 JUMPIFEQ                         R16 R4 ; [+2]
        96 LOADB                            R15 0 +1
        97 LOADB                            R15 1
-       98 JUMP                             ; [+3]
-       99 MOVE                             R15 R5
-      100 JUMPIFNOT                        R15 ; [+1]
-      101 NOT                              R15 R7
-      102 GETUPVAL                         R17 0
-      103 JUMPIFNOT                        R17 ; [+4]
-      104 MOVE                             R16 R5
-      105 JUMPIFNOT                        R16 ; [+3]
-      106 NOT                              R16 R7
-      107 JUMP                             ; [+1]
-      108 NOT                              R16 R7
-      109 GETUPVAL                         R17 3
-      110 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      112 GETUPVAL                         R18 4
-      113 DUPTABLE                         R19 K34 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["IsOwner"], ["CanCollaborateResponse"], ["CanCollaborateErrorEnum"], ["DisableEditPermission"], ["HideSeparator"], ["Removable"], ["OnRemoved"], ["TooltipText"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"]}]
-      114 SETTABLEKS                       R2 R19 K1 ["LayoutOrder"]
-      116 SETTABLEKS                       R6 R19 K21 ["Name"]
-      118 GETUPVAL                         R20 3
-      119 GETTABLEKS                       R20 R20 K20 ["createElement"]
-      121 GETUPVAL                         R21 5
-      122 DUPTABLE                         R22 K36 [{"Id", "Size"}]
-      123 SETTABLEKS                       R4 R22 K3 ["Id"]
-      125 GETIMPORT                        R23 K39 [UDim2.fromScale]
-      127 LOADN                            R24 1
-      128 LOADN                            R25 1
-      129 CALL                             R23 2 1
-      130 SETTABLEKS                       R23 R22 K35 ["Size"]
-      132 CALL                             R20 2 1
-      133 SETTABLEKS                       R20 R19 K22 ["Icon"]
-      135 SETTABLEKS                       R15 R19 K4 ["Writable"]
-      137 GETUPVAL                         R21 0
-      138 JUMPIFNOT                        R21 ; [+2]
-      139 MOVE                             R20 R7
-      140 JUMP                             ; [+1]
-      141 LOADNIL                          R20
-      142 SETTABLEKS                       R20 R19 K6 ["IsOwner"]
-      144 GETUPVAL                         R21 6
-      145 GETTABLEKS                       R21 R21 K40 ["fflagManageCollaboratorsActionNeededLabel"]
-      147 JUMPIFNOT                        R21 ; [+3]
-      148 GETTABLEKS                       R20 R1 K25 ["CanCollaborateResponse"]
-      150 JUMP                             ; [+1]
-      151 LOADNIL                          R20
-      152 SETTABLEKS                       R20 R19 K25 ["CanCollaborateResponse"]
-      154 GETUPVAL                         R21 6
-      155 GETTABLEKS                       R21 R21 K41 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      157 JUMPIFNOT                        R21 ; [+3]
-      158 GETTABLEKS                       R20 R1 K26 ["CanCollaborateErrorEnum"]
-      160 JUMP                             ; [+1]
-      161 LOADNIL                          R20
-      162 SETTABLEKS                       R20 R19 K26 ["CanCollaborateErrorEnum"]
-      164 GETUPVAL                         R21 6
-      165 GETTABLEKS                       R21 R21 K41 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      167 JUMPIF                           R21 ; [+4]
-      168 GETUPVAL                         R21 6
-      169 GETTABLEKS                       R21 R21 K42 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      171 JUMPIFNOT                        R21 ; [+3]
-      172 GETTABLEKS                       R20 R1 K27 ["DisableEditPermission"]
-      174 JUMP                             ; [+1]
-      175 LOADNIL                          R20
-      176 SETTABLEKS                       R20 R19 K27 ["DisableEditPermission"]
-      178 SETTABLEKS                       R8 R19 K7 ["HideSeparator"]
-      180 SETTABLEKS                       R16 R19 K28 ["Removable"]
-      182 NEWCLOSURE                       R20 P0
-      183 CAPTURE                          VAL R10
-      184 CAPTURE                          VAL R4
-      185 CAPTURE                          UPVAL U1
-      186 CAPTURE                          VAL R11
-      187 CAPTURE                          UPVAL U7
-      188 SETTABLEKS                       R20 R19 K29 ["OnRemoved"]
-      190 SETTABLEKS                       R14 R19 K30 ["TooltipText"]
-      192 NAMECALL                         R20 R0 K43 ["getCurrentPermission"]
-      194 CALL                             R20 1 1
-      195 SETTABLEKS                       R20 R19 K31 ["CurrentPermission"]
-      197 SETTABLEKS                       R13 R19 K32 ["AvailablePermissions"]
-      199 NEWCLOSURE                       R20 P1
-      200 CAPTURE                          VAL R9
-      201 CAPTURE                          VAL R4
-      202 SETTABLEKS                       R20 R19 K33 ["OnPermissionChanged"]
-      204 CALL                             R17 2 -1
-      205 RETURN                           R17 -1
+       98 GETUPVAL                         R17 0
+       99 JUMPIFNOT                        R17 ; [+13]
+      100 MOVE                             R16 R5
+      101 JUMPIFNOT                        R16 ; [+16]
+      102 NOT                              R16 R7
+      103 JUMPIFNOT                        R16 ; [+14]
+      104 NOT                              R16 R15
+      105 JUMPIFNOT                        R16 ; [+12]
+      106 LENGTH                           R17 R13
+      107 LOADN                            R18 1
+      108 JUMPIFLT                         R18 R17 ; [+2]
+      110 LOADB                            R16 0 +1
+      111 LOADB                            R16 1
+      112 JUMP                             ; [+5]
+      113 MOVE                             R16 R5
+      114 JUMPIFNOT                        R16 ; [+3]
+      115 NOT                              R16 R7
+      116 JUMPIFNOT                        R16 ; [+1]
+      117 NOT                              R16 R15
+      118 GETUPVAL                         R18 0
+      119 JUMPIFNOT                        R18 ; [+6]
+      120 MOVE                             R17 R5
+      121 JUMPIFNOT                        R17 ; [+5]
+      122 NOT                              R17 R7
+      123 JUMPIFNOT                        R17 ; [+3]
+      124 NOT                              R17 R15
+      125 JUMP                             ; [+1]
+      126 NOT                              R17 R7
+      127 GETUPVAL                         R18 5
+      128 GETTABLEKS                       R18 R18 K22 ["createElement"]
+      130 GETUPVAL                         R19 6
+      131 DUPTABLE                         R20 K36 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["IsOwner"], ["CanCollaborateResponse"], ["CanCollaborateErrorEnum"], ["DisableEditPermission"], ["HideSeparator"], ["Removable"], ["OnRemoved"], ["TooltipText"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"]}]
+      132 SETTABLEKS                       R2 R20 K1 ["LayoutOrder"]
+      134 SETTABLEKS                       R6 R20 K23 ["Name"]
+      136 GETUPVAL                         R21 5
+      137 GETTABLEKS                       R21 R21 K22 ["createElement"]
+      139 GETUPVAL                         R22 7
+      140 DUPTABLE                         R23 K38 [{"Id", "Size"}]
+      141 SETTABLEKS                       R4 R23 K3 ["Id"]
+      143 GETIMPORT                        R24 K41 [UDim2.fromScale]
+      145 LOADN                            R25 1
+      146 LOADN                            R26 1
+      147 CALL                             R24 2 1
+      148 SETTABLEKS                       R24 R23 K37 ["Size"]
+      150 CALL                             R21 2 1
+      151 SETTABLEKS                       R21 R20 K24 ["Icon"]
+      153 SETTABLEKS                       R16 R20 K4 ["Writable"]
+      155 GETUPVAL                         R22 0
+      156 JUMPIFNOT                        R22 ; [+2]
+      157 MOVE                             R21 R7
+      158 JUMP                             ; [+1]
+      159 LOADNIL                          R21
+      160 SETTABLEKS                       R21 R20 K6 ["IsOwner"]
+      162 GETUPVAL                         R22 3
+      163 GETTABLEKS                       R22 R22 K42 ["fflagManageCollaboratorsActionNeededLabel"]
+      165 JUMPIFNOT                        R22 ; [+3]
+      166 GETTABLEKS                       R21 R1 K27 ["CanCollaborateResponse"]
+      168 JUMP                             ; [+1]
+      169 LOADNIL                          R21
+      170 SETTABLEKS                       R21 R20 K27 ["CanCollaborateResponse"]
+      172 GETUPVAL                         R22 3
+      173 GETTABLEKS                       R22 R22 K43 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      175 JUMPIFNOT                        R22 ; [+3]
+      176 GETTABLEKS                       R21 R1 K28 ["CanCollaborateErrorEnum"]
+      178 JUMP                             ; [+1]
+      179 LOADNIL                          R21
+      180 SETTABLEKS                       R21 R20 K28 ["CanCollaborateErrorEnum"]
+      182 GETUPVAL                         R22 3
+      183 GETTABLEKS                       R22 R22 K43 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      185 JUMPIF                           R22 ; [+4]
+      186 GETUPVAL                         R22 3
+      187 GETTABLEKS                       R22 R22 K44 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      189 JUMPIFNOT                        R22 ; [+3]
+      190 GETTABLEKS                       R21 R1 K29 ["DisableEditPermission"]
+      192 JUMP                             ; [+1]
+      193 LOADNIL                          R21
+      194 SETTABLEKS                       R21 R20 K29 ["DisableEditPermission"]
+      196 SETTABLEKS                       R8 R20 K7 ["HideSeparator"]
+      198 SETTABLEKS                       R17 R20 K30 ["Removable"]
+      200 NEWCLOSURE                       R21 P0
+      201 CAPTURE                          VAL R10
+      202 CAPTURE                          VAL R4
+      203 CAPTURE                          UPVAL U1
+      204 CAPTURE                          VAL R11
+      205 CAPTURE                          UPVAL U8
+      206 SETTABLEKS                       R21 R20 K31 ["OnRemoved"]
+      208 SETTABLEKS                       R14 R20 K32 ["TooltipText"]
+      210 NAMECALL                         R21 R0 K45 ["getCurrentPermission"]
+      212 CALL                             R21 1 1
+      213 SETTABLEKS                       R21 R20 K33 ["CurrentPermission"]
+      215 SETTABLEKS                       R13 R20 K34 ["AvailablePermissions"]
+      217 NEWCLOSURE                       R21 P1
+      218 CAPTURE                          VAL R9
+      219 CAPTURE                          VAL R4
+      220 SETTABLEKS                       R21 R20 K35 ["OnPermissionChanged"]
+      222 CALL                             R18 2 -1
+      223 RETURN                           R18 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K5 [{"OwnerType", "IsOwner", "IsOwnerFriend", "UserName", "CurrentPermission"}]
@@ -436,63 +451,68 @@ MAIN:
       170 LOADK                            R23 K39 ["StudioFriendToConnection"]
       171 NAMECALL                         R21 R21 K3 ["GetFastFlag"]
       173 CALL                             R21 2 1
-      174 NEWTABLE                         R22 8 0
-      176 GETTABLEKS                       R23 R7 K40 ["OwnerKey"]
-      178 LOADK                            R24 K41 ["Owner"]
-      179 SETTABLE                         R24 R22 R23
-      180 GETTABLEKS                       R23 R7 K42 ["PlayKey"]
-      182 LOADK                            R24 K43 ["Play"]
-      183 SETTABLE                         R24 R22 R23
-      184 GETTABLEKS                       R23 R7 K44 ["EditKey"]
-      186 LOADK                            R24 K45 ["Edit"]
-      187 SETTABLE                         R24 R22 R23
-      188 GETTABLEKS                       R23 R7 K46 ["NoAccessKey"]
-      190 LOADK                            R24 K47 ["NoAccess"]
-      191 SETTABLE                         R24 R22 R23
-      192 GETTABLEKS                       R23 R7 K48 ["AdminKey"]
-      194 LOADK                            R24 K49 ["Admin"]
-      195 SETTABLE                         R24 R22 R23
-      196 DUPCLOSURE                       R23 K50 [PROTO_0]
-      197 CAPTURE                          VAL R22
-      198 SETTABLEKS                       R23 R16 K51 ["DEPRECATED_getPermissionForKey"]
-      200 DUPCLOSURE                       R23 K52 [PROTO_1]
-      201 CAPTURE                          VAL R7
-      202 SETTABLEKS                       R23 R16 K53 ["getAvailablePermissions"]
-      204 DUPCLOSURE                       R23 K54 [PROTO_2]
-      205 CAPTURE                          VAL R7
-      206 SETTABLEKS                       R23 R16 K55 ["getCurrentPermission"]
-      208 NEWCLOSURE                       R23 P3
-      209 CAPTURE                          VAL R0
-      210 CAPTURE                          VAL R20
-      211 CAPTURE                          VAL R21
-      212 CAPTURE                          VAL R2
-      213 CAPTURE                          VAL R9
-      214 CAPTURE                          VAL R8
-      215 CAPTURE                          VAL R4
-      216 CAPTURE                          REF R19
-      217 SETTABLEKS                       R23 R16 K56 ["render"]
-      219 MOVE                             R23 R6
-      220 DUPTABLE                         R24 K58 [{"Localization"}]
-      221 GETTABLEKS                       R25 R5 K57 ["Localization"]
-      223 SETTABLEKS                       R25 R24 K57 ["Localization"]
-      225 CALL                             R23 1 1
-      226 MOVE                             R24 R16
-      227 CALL                             R23 1 1
-      228 MOVE                             R16 R23
-      229 GETTABLEKS                       R23 R3 K59 ["connect"]
-      231 DUPCLOSURE                       R24 K60 [PROTO_6]
-      232 CAPTURE                          VAL R10
-      233 CAPTURE                          VAL R11
-      234 CAPTURE                          VAL R12
-      235 CAPTURE                          VAL R13
-      236 NEWCLOSURE                       R25 P5
-      237 CAPTURE                          VAL R14
-      238 CAPTURE                          VAL R15
-      239 CAPTURE                          VAL R20
-      240 CAPTURE                          REF R17
-      241 CALL                             R23 2 1
-      242 MOVE                             R24 R16
-      243 CALL                             R23 1 1
-      244 MOVE                             R16 R23
-      245 CLOSEUPVALS                      R17
-      246 RETURN                           R16 1
+      174 GETIMPORT                        R22 K1 [game]
+      176 LOADK                            R24 K40 ["StudioService"]
+      177 NAMECALL                         R22 R22 K41 ["GetService"]
+      179 CALL                             R22 2 1
+      180 NEWTABLE                         R23 8 0
+      182 GETTABLEKS                       R24 R7 K42 ["OwnerKey"]
+      184 LOADK                            R25 K43 ["Owner"]
+      185 SETTABLE                         R25 R23 R24
+      186 GETTABLEKS                       R24 R7 K44 ["PlayKey"]
+      188 LOADK                            R25 K45 ["Play"]
+      189 SETTABLE                         R25 R23 R24
+      190 GETTABLEKS                       R24 R7 K46 ["EditKey"]
+      192 LOADK                            R25 K47 ["Edit"]
+      193 SETTABLE                         R25 R23 R24
+      194 GETTABLEKS                       R24 R7 K48 ["NoAccessKey"]
+      196 LOADK                            R25 K49 ["NoAccess"]
+      197 SETTABLE                         R25 R23 R24
+      198 GETTABLEKS                       R24 R7 K50 ["AdminKey"]
+      200 LOADK                            R25 K51 ["Admin"]
+      201 SETTABLE                         R25 R23 R24
+      202 DUPCLOSURE                       R24 K52 [PROTO_0]
+      203 CAPTURE                          VAL R23
+      204 SETTABLEKS                       R24 R16 K53 ["DEPRECATED_getPermissionForKey"]
+      206 DUPCLOSURE                       R24 K54 [PROTO_1]
+      207 CAPTURE                          VAL R7
+      208 SETTABLEKS                       R24 R16 K55 ["getAvailablePermissions"]
+      210 DUPCLOSURE                       R24 K56 [PROTO_2]
+      211 CAPTURE                          VAL R7
+      212 SETTABLEKS                       R24 R16 K57 ["getCurrentPermission"]
+      214 NEWCLOSURE                       R24 P3
+      215 CAPTURE                          VAL R0
+      216 CAPTURE                          VAL R20
+      217 CAPTURE                          VAL R21
+      218 CAPTURE                          VAL R4
+      219 CAPTURE                          VAL R22
+      220 CAPTURE                          VAL R2
+      221 CAPTURE                          VAL R9
+      222 CAPTURE                          VAL R8
+      223 CAPTURE                          REF R19
+      224 SETTABLEKS                       R24 R16 K58 ["render"]
+      226 MOVE                             R24 R6
+      227 DUPTABLE                         R25 K60 [{"Localization"}]
+      228 GETTABLEKS                       R26 R5 K59 ["Localization"]
+      230 SETTABLEKS                       R26 R25 K59 ["Localization"]
+      232 CALL                             R24 1 1
+      233 MOVE                             R25 R16
+      234 CALL                             R24 1 1
+      235 MOVE                             R16 R24
+      236 GETTABLEKS                       R24 R3 K61 ["connect"]
+      238 DUPCLOSURE                       R25 K62 [PROTO_6]
+      239 CAPTURE                          VAL R10
+      240 CAPTURE                          VAL R11
+      241 CAPTURE                          VAL R12
+      242 CAPTURE                          VAL R13
+      243 NEWCLOSURE                       R26 P5
+      244 CAPTURE                          VAL R14
+      245 CAPTURE                          VAL R15
+      246 CAPTURE                          VAL R20
+      247 CAPTURE                          REF R17
+      248 CALL                             R24 2 1
+      249 MOVE                             R25 R16
+      250 CALL                             R24 1 1
+      251 MOVE                             R16 R24
+      252 CLOSEUPVALS                      R17
+      253 RETURN                           R16 1

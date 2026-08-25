@@ -1,162 +1,212 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K10 [{"DeviceImage", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowsMappings", "ButtonCenter", "ButtonCenterLabel", "ButtonBack", "ButtonBackLabel"}]
-        2 DUPTABLE                         R1 K17 [{["type"] = "Background", ["srcDark"] = "rbxasset://textures/ControlsEmulator/TVRemote_Dark.png", ["srcLight"] = "rbxasset://textures/ControlsEmulator/TVRemote_Light.png"}]
-        3 SETTABLEKS                       R1 R0 K0 ["DeviceImage"]
-        5 DUPTABLE                         R1 K22 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
-        6 GETIMPORT                        R2 K26 [Enum.KeyCode.DPadUp]
-        8 SETTABLEKS                       R2 R1 K18 ["keyCode"]
-       10 GETIMPORT                        R2 K29 [UDim2.new]
-       12 LOADK                            R3 K30 [0.5]
-       13 LOADN                            R4 0
-       14 LOADK                            R5 K31 [0.18]
-       15 LOADN                            R6 0
-       16 CALL                             R2 4 1
-       17 SETTABLEKS                       R2 R1 K20 ["Position"]
-       19 GETIMPORT                        R2 K29 [UDim2.new]
-       21 LOADK                            R3 K32 [0.049]
-       22 LOADN                            R4 0
-       23 LOADK                            R5 K33 [0.062]
-       24 LOADN                            R6 0
-       25 CALL                             R2 4 1
-       26 SETTABLEKS                       R2 R1 K21 ["Size"]
-       28 SETTABLEKS                       R1 R0 K1 ["ArrowUp"]
-       30 DUPTABLE                         R1 K22 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
-       31 GETIMPORT                        R2 K35 [Enum.KeyCode.DPadDown]
-       33 SETTABLEKS                       R2 R1 K18 ["keyCode"]
-       35 GETIMPORT                        R2 K29 [UDim2.new]
-       37 LOADK                            R3 K30 [0.5]
-       38 LOADN                            R4 0
-       39 LOADK                            R5 K36 [0.36]
-       40 LOADN                            R6 0
-       41 CALL                             R2 4 1
-       42 SETTABLEKS                       R2 R1 K20 ["Position"]
-       44 GETIMPORT                        R2 K29 [UDim2.new]
-       46 LOADK                            R3 K32 [0.049]
-       47 LOADN                            R4 0
-       48 LOADK                            R5 K33 [0.062]
-       49 LOADN                            R6 0
-       50 CALL                             R2 4 1
-       51 SETTABLEKS                       R2 R1 K21 ["Size"]
-       53 SETTABLEKS                       R1 R0 K2 ["ArrowDown"]
-       55 DUPTABLE                         R1 K22 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
-       56 GETIMPORT                        R2 K38 [Enum.KeyCode.DPadLeft]
-       58 SETTABLEKS                       R2 R1 K18 ["keyCode"]
-       60 GETIMPORT                        R2 K29 [UDim2.new]
-       62 LOADK                            R3 K39 [0.4]
-       63 LOADN                            R4 0
-       64 LOADK                            R5 K40 [0.29]
-       65 LOADN                            R6 0
-       66 CALL                             R2 4 1
-       67 SETTABLEKS                       R2 R1 K20 ["Position"]
-       69 GETIMPORT                        R2 K29 [UDim2.new]
-       71 LOADK                            R3 K32 [0.049]
-       72 LOADN                            R4 0
-       73 LOADK                            R5 K33 [0.062]
-       74 LOADN                            R6 0
-       75 CALL                             R2 4 1
-       76 SETTABLEKS                       R2 R1 K21 ["Size"]
-       78 SETTABLEKS                       R1 R0 K3 ["ArrowLeft"]
-       80 DUPTABLE                         R1 K22 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
-       81 GETIMPORT                        R2 K42 [Enum.KeyCode.DPadRight]
-       83 SETTABLEKS                       R2 R1 K18 ["keyCode"]
-       85 GETIMPORT                        R2 K29 [UDim2.new]
-       87 LOADK                            R3 K43 [0.6]
-       88 LOADN                            R4 0
-       89 LOADK                            R5 K40 [0.29]
-       90 LOADN                            R6 0
-       91 CALL                             R2 4 1
-       92 SETTABLEKS                       R2 R1 K20 ["Position"]
-       94 GETIMPORT                        R2 K29 [UDim2.new]
-       96 LOADK                            R3 K32 [0.049]
-       97 LOADN                            R4 0
-       98 LOADK                            R5 K33 [0.062]
-       99 LOADN                            R6 0
-      100 CALL                             R2 4 1
-      101 SETTABLEKS                       R2 R1 K21 ["Size"]
-      103 SETTABLEKS                       R1 R0 K4 ["ArrowRight"]
-      105 DUPTABLE                         R1 K57 [{["upKeyName"] = "DPad Up", ["downKeyName"] = "DPad Down", ["leftKeyName"] = "DPad Left", ["rightKeyName"] = "DPad Right", ["type"] = "CrossLayoutMappings", ["side"] = "Left", ["Position"], ["arrowDestination"], ["arrowBendPoint"] = 0.6}]
-      106 GETIMPORT                        R2 K29 [UDim2.new]
-      108 LOADK                            R3 K58 [0.1]
-      109 LOADN                            R4 0
-      110 LOADK                            R5 K59 [0.346]
-      111 LOADN                            R6 0
-      112 CALL                             R2 4 1
-      113 SETTABLEKS                       R2 R1 K20 ["Position"]
-      115 GETIMPORT                        R2 K29 [UDim2.new]
-      117 LOADK                            R3 K39 [0.4]
-      118 LOADN                            R4 0
-      119 LOADK                            R5 K40 [0.29]
-      120 LOADN                            R6 0
-      121 CALL                             R2 4 1
-      122 SETTABLEKS                       R2 R1 K55 ["arrowDestination"]
-      124 SETTABLEKS                       R1 R0 K5 ["ArrowsMappings"]
-      126 DUPTABLE                         R1 K22 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
-      127 GETIMPORT                        R2 K61 [Enum.KeyCode.Return]
-      129 SETTABLEKS                       R2 R1 K18 ["keyCode"]
-      131 GETIMPORT                        R2 K29 [UDim2.new]
-      133 LOADK                            R3 K30 [0.5]
-      134 LOADN                            R4 0
-      135 LOADK                            R5 K62 [0.28]
-      136 LOADN                            R6 0
-      137 CALL                             R2 4 1
-      138 SETTABLEKS                       R2 R1 K20 ["Position"]
-      140 GETIMPORT                        R2 K29 [UDim2.new]
-      142 LOADN                            R3 0
-      143 LOADN                            R4 0
-      144 LOADN                            R5 0
-      145 LOADN                            R6 0
-      146 CALL                             R2 4 1
-      147 SETTABLEKS                       R2 R1 K21 ["Size"]
-      149 SETTABLEKS                       R1 R0 K6 ["ButtonCenter"]
-      151 DUPTABLE                         R1 K68 [{["keyName"] = "TV Center", ["type"] = "ButtonMapping", ["side"] = "Right", ["Position"], ["arrowDestination"], ["arrowBendPoint"] = 0.55}]
-      152 GETIMPORT                        R2 K29 [UDim2.new]
-      154 LOADK                            R3 K69 [0.92]
-      155 LOADN                            R4 0
-      156 LOADK                            R5 K59 [0.346]
-      157 LOADN                            R6 0
-      158 CALL                             R2 4 1
-      159 SETTABLEKS                       R2 R1 K20 ["Position"]
-      161 GETIMPORT                        R2 K29 [UDim2.new]
-      163 LOADK                            R3 K30 [0.5]
-      164 LOADN                            R4 0
-      165 LOADK                            R5 K62 [0.28]
-      166 LOADN                            R6 0
-      167 CALL                             R2 4 1
-      168 SETTABLEKS                       R2 R1 K55 ["arrowDestination"]
-      170 SETTABLEKS                       R1 R0 K7 ["ButtonCenterLabel"]
-      172 DUPTABLE                         R1 K22 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
-      173 GETIMPORT                        R2 K71 [Enum.KeyCode.Escape]
-      175 SETTABLEKS                       R2 R1 K18 ["keyCode"]
-      177 GETIMPORT                        R2 K29 [UDim2.new]
-      179 LOADK                            R3 K72 [0.42]
-      180 LOADN                            R4 0
-      181 LOADK                            R5 K73 [0.49]
-      182 LOADN                            R6 0
-      183 CALL                             R2 4 1
-      184 SETTABLEKS                       R2 R1 K20 ["Position"]
-      186 GETIMPORT                        R2 K29 [UDim2.new]
-      188 LOADK                            R3 K32 [0.049]
-      189 LOADN                            R4 0
-      190 LOADK                            R5 K33 [0.062]
-      191 LOADN                            R6 0
-      192 CALL                             R2 4 1
-      193 SETTABLEKS                       R2 R1 K21 ["Size"]
-      195 SETTABLEKS                       R1 R0 K8 ["ButtonBack"]
-      197 DUPTABLE                         R1 K75 [{["keyName"] = "TV Back", ["type"] = "ButtonMapping", ["side"] = "Left", ["Position"], ["arrowDestination"], ["arrowBendPoint"] = 0.6}]
-      198 GETIMPORT                        R2 K29 [UDim2.new]
-      200 LOADK                            R3 K58 [0.1]
-      201 LOADN                            R4 0
-      202 LOADK                            R5 K76 [0.595]
-      203 LOADN                            R6 0
-      204 CALL                             R2 4 1
-      205 SETTABLEKS                       R2 R1 K20 ["Position"]
-      207 GETIMPORT                        R2 K29 [UDim2.new]
-      209 LOADK                            R3 K72 [0.42]
-      210 LOADN                            R4 0
-      211 LOADK                            R5 K73 [0.49]
-      212 LOADN                            R6 0
-      213 CALL                             R2 4 1
-      214 SETTABLEKS                       R2 R1 K55 ["arrowDestination"]
-      216 SETTABLEKS                       R1 R0 K9 ["ButtonBackLabel"]
-      218 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ControlsEmulator"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R1 R1 K9 ["getEngineFeatureEnableMicroGamepadKeycodes"]
+       18 MOVE                             R2 R1
+       19 CALL                             R2 0 1
+       20 DUPTABLE                         R3 K20 [{"DeviceImage", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowsMappings", "ButtonCenter", "ButtonCenterLabel", "ButtonBack", "ButtonBackLabel"}]
+       21 DUPTABLE                         R4 K27 [{["type"] = "Background", ["srcDark"] = "rbxasset://textures/ControlsEmulator/TVRemote_Dark.png", ["srcLight"] = "rbxasset://textures/ControlsEmulator/TVRemote_Light.png"}]
+       22 SETTABLEKS                       R4 R3 K10 ["DeviceImage"]
+       24 DUPTABLE                         R4 K32 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
+       25 JUMPIFNOT                        R2 ; [+3]
+       26 GETIMPORT                        R5 K36 [Enum.KeyCode.ButtonUp]
+       28 JUMP                             ; [+2]
+       29 GETIMPORT                        R5 K38 [Enum.KeyCode.DPadUp]
+       31 SETTABLEKS                       R5 R4 K28 ["keyCode"]
+       33 GETIMPORT                        R5 K41 [UDim2.new]
+       35 LOADK                            R6 K42 [0.5]
+       36 LOADN                            R7 0
+       37 LOADK                            R8 K43 [0.18]
+       38 LOADN                            R9 0
+       39 CALL                             R5 4 1
+       40 SETTABLEKS                       R5 R4 K30 ["Position"]
+       42 GETIMPORT                        R5 K41 [UDim2.new]
+       44 LOADK                            R6 K44 [0.049]
+       45 LOADN                            R7 0
+       46 LOADK                            R8 K45 [0.062]
+       47 LOADN                            R9 0
+       48 CALL                             R5 4 1
+       49 SETTABLEKS                       R5 R4 K31 ["Size"]
+       51 SETTABLEKS                       R4 R3 K11 ["ArrowUp"]
+       53 DUPTABLE                         R4 K32 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
+       54 JUMPIFNOT                        R2 ; [+3]
+       55 GETIMPORT                        R5 K47 [Enum.KeyCode.ButtonDown]
+       57 JUMP                             ; [+2]
+       58 GETIMPORT                        R5 K49 [Enum.KeyCode.DPadDown]
+       60 SETTABLEKS                       R5 R4 K28 ["keyCode"]
+       62 GETIMPORT                        R5 K41 [UDim2.new]
+       64 LOADK                            R6 K42 [0.5]
+       65 LOADN                            R7 0
+       66 LOADK                            R8 K50 [0.36]
+       67 LOADN                            R9 0
+       68 CALL                             R5 4 1
+       69 SETTABLEKS                       R5 R4 K30 ["Position"]
+       71 GETIMPORT                        R5 K41 [UDim2.new]
+       73 LOADK                            R6 K44 [0.049]
+       74 LOADN                            R7 0
+       75 LOADK                            R8 K45 [0.062]
+       76 LOADN                            R9 0
+       77 CALL                             R5 4 1
+       78 SETTABLEKS                       R5 R4 K31 ["Size"]
+       80 SETTABLEKS                       R4 R3 K12 ["ArrowDown"]
+       82 DUPTABLE                         R4 K32 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
+       83 JUMPIFNOT                        R2 ; [+3]
+       84 GETIMPORT                        R5 K52 [Enum.KeyCode.ButtonLeft]
+       86 JUMP                             ; [+2]
+       87 GETIMPORT                        R5 K54 [Enum.KeyCode.DPadLeft]
+       89 SETTABLEKS                       R5 R4 K28 ["keyCode"]
+       91 GETIMPORT                        R5 K41 [UDim2.new]
+       93 LOADK                            R6 K55 [0.4]
+       94 LOADN                            R7 0
+       95 LOADK                            R8 K56 [0.29]
+       96 LOADN                            R9 0
+       97 CALL                             R5 4 1
+       98 SETTABLEKS                       R5 R4 K30 ["Position"]
+      100 GETIMPORT                        R5 K41 [UDim2.new]
+      102 LOADK                            R6 K44 [0.049]
+      103 LOADN                            R7 0
+      104 LOADK                            R8 K45 [0.062]
+      105 LOADN                            R9 0
+      106 CALL                             R5 4 1
+      107 SETTABLEKS                       R5 R4 K31 ["Size"]
+      109 SETTABLEKS                       R4 R3 K13 ["ArrowLeft"]
+      111 DUPTABLE                         R4 K32 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
+      112 JUMPIFNOT                        R2 ; [+3]
+      113 GETIMPORT                        R5 K58 [Enum.KeyCode.ButtonRight]
+      115 JUMP                             ; [+2]
+      116 GETIMPORT                        R5 K60 [Enum.KeyCode.DPadRight]
+      118 SETTABLEKS                       R5 R4 K28 ["keyCode"]
+      120 GETIMPORT                        R5 K41 [UDim2.new]
+      122 LOADK                            R6 K61 [0.6]
+      123 LOADN                            R7 0
+      124 LOADK                            R8 K56 [0.29]
+      125 LOADN                            R9 0
+      126 CALL                             R5 4 1
+      127 SETTABLEKS                       R5 R4 K30 ["Position"]
+      129 GETIMPORT                        R5 K41 [UDim2.new]
+      131 LOADK                            R6 K44 [0.049]
+      132 LOADN                            R7 0
+      133 LOADK                            R8 K45 [0.062]
+      134 LOADN                            R9 0
+      135 CALL                             R5 4 1
+      136 SETTABLEKS                       R5 R4 K31 ["Size"]
+      138 SETTABLEKS                       R4 R3 K14 ["ArrowRight"]
+      140 DUPTABLE                         R4 K71 [{["upKeyName"], ["downKeyName"], ["leftKeyName"], ["rightKeyName"], ["type"] = "CrossLayoutMappings", ["side"] = "Left", ["Position"], ["arrowDestination"], ["arrowBendPoint"] = 0.6}]
+      141 JUMPIFNOT                        R2 ; [+2]
+      142 LOADK                            R5 K72 ["TV Up"]
+      143 JUMP                             ; [+1]
+      144 LOADK                            R5 K73 ["DPad Up"]
+      145 SETTABLEKS                       R5 R4 K62 ["upKeyName"]
+      147 JUMPIFNOT                        R2 ; [+2]
+      148 LOADK                            R5 K74 ["TV Down"]
+      149 JUMP                             ; [+1]
+      150 LOADK                            R5 K75 ["DPad Down"]
+      151 SETTABLEKS                       R5 R4 K63 ["downKeyName"]
+      153 JUMPIFNOT                        R2 ; [+2]
+      154 LOADK                            R5 K76 ["TV Left"]
+      155 JUMP                             ; [+1]
+      156 LOADK                            R5 K77 ["DPad Left"]
+      157 SETTABLEKS                       R5 R4 K64 ["leftKeyName"]
+      159 JUMPIFNOT                        R2 ; [+2]
+      160 LOADK                            R5 K78 ["TV Right"]
+      161 JUMP                             ; [+1]
+      162 LOADK                            R5 K79 ["DPad Right"]
+      163 SETTABLEKS                       R5 R4 K65 ["rightKeyName"]
+      165 GETIMPORT                        R5 K41 [UDim2.new]
+      167 LOADK                            R6 K80 [0.1]
+      168 LOADN                            R7 0
+      169 LOADK                            R8 K81 [0.346]
+      170 LOADN                            R9 0
+      171 CALL                             R5 4 1
+      172 SETTABLEKS                       R5 R4 K30 ["Position"]
+      174 GETIMPORT                        R5 K41 [UDim2.new]
+      176 LOADK                            R6 K55 [0.4]
+      177 LOADN                            R7 0
+      178 LOADK                            R8 K56 [0.29]
+      179 LOADN                            R9 0
+      180 CALL                             R5 4 1
+      181 SETTABLEKS                       R5 R4 K69 ["arrowDestination"]
+      183 SETTABLEKS                       R4 R3 K15 ["ArrowsMappings"]
+      185 DUPTABLE                         R4 K32 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
+      186 JUMPIFNOT                        R2 ; [+3]
+      187 GETIMPORT                        R5 K82 [Enum.KeyCode.ButtonCenter]
+      189 JUMP                             ; [+2]
+      190 GETIMPORT                        R5 K84 [Enum.KeyCode.Return]
+      192 SETTABLEKS                       R5 R4 K28 ["keyCode"]
+      194 GETIMPORT                        R5 K41 [UDim2.new]
+      196 LOADK                            R6 K42 [0.5]
+      197 LOADN                            R7 0
+      198 LOADK                            R8 K85 [0.28]
+      199 LOADN                            R9 0
+      200 CALL                             R5 4 1
+      201 SETTABLEKS                       R5 R4 K30 ["Position"]
+      203 GETIMPORT                        R5 K41 [UDim2.new]
+      205 LOADK                            R6 K44 [0.049]
+      206 LOADN                            R7 0
+      207 LOADK                            R8 K45 [0.062]
+      208 LOADN                            R9 0
+      209 CALL                             R5 4 1
+      210 SETTABLEKS                       R5 R4 K31 ["Size"]
+      212 SETTABLEKS                       R4 R3 K16 ["ButtonCenter"]
+      214 DUPTABLE                         R4 K91 [{["keyName"] = "TV Center", ["type"] = "ButtonMapping", ["side"] = "Right", ["Position"], ["arrowDestination"], ["arrowBendPoint"] = 0.55}]
+      215 GETIMPORT                        R5 K41 [UDim2.new]
+      217 LOADK                            R6 K92 [0.92]
+      218 LOADN                            R7 0
+      219 LOADK                            R8 K81 [0.346]
+      220 LOADN                            R9 0
+      221 CALL                             R5 4 1
+      222 SETTABLEKS                       R5 R4 K30 ["Position"]
+      224 GETIMPORT                        R5 K41 [UDim2.new]
+      226 LOADK                            R6 K42 [0.5]
+      227 LOADN                            R7 0
+      228 LOADK                            R8 K85 [0.28]
+      229 LOADN                            R9 0
+      230 CALL                             R5 4 1
+      231 SETTABLEKS                       R5 R4 K69 ["arrowDestination"]
+      233 SETTABLEKS                       R4 R3 K17 ["ButtonCenterLabel"]
+      235 DUPTABLE                         R4 K32 [{["keyCode"], ["type"] = "Button", ["Position"], ["Size"]}]
+      236 JUMPIFNOT                        R2 ; [+3]
+      237 GETIMPORT                        R5 K93 [Enum.KeyCode.ButtonBack]
+      239 JUMP                             ; [+2]
+      240 GETIMPORT                        R5 K95 [Enum.KeyCode.Escape]
+      242 SETTABLEKS                       R5 R4 K28 ["keyCode"]
+      244 GETIMPORT                        R5 K41 [UDim2.new]
+      246 LOADK                            R6 K96 [0.42]
+      247 LOADN                            R7 0
+      248 LOADK                            R8 K97 [0.49]
+      249 LOADN                            R9 0
+      250 CALL                             R5 4 1
+      251 SETTABLEKS                       R5 R4 K30 ["Position"]
+      253 GETIMPORT                        R5 K41 [UDim2.new]
+      255 LOADK                            R6 K44 [0.049]
+      256 LOADN                            R7 0
+      257 LOADK                            R8 K45 [0.062]
+      258 LOADN                            R9 0
+      259 CALL                             R5 4 1
+      260 SETTABLEKS                       R5 R4 K31 ["Size"]
+      262 SETTABLEKS                       R4 R3 K18 ["ButtonBack"]
+      264 DUPTABLE                         R4 K99 [{["keyName"] = "TV Back", ["type"] = "ButtonMapping", ["side"] = "Left", ["Position"], ["arrowDestination"], ["arrowBendPoint"] = 0.6}]
+      265 GETIMPORT                        R5 K41 [UDim2.new]
+      267 LOADK                            R6 K80 [0.1]
+      268 LOADN                            R7 0
+      269 LOADK                            R8 K100 [0.595]
+      270 LOADN                            R9 0
+      271 CALL                             R5 4 1
+      272 SETTABLEKS                       R5 R4 K30 ["Position"]
+      274 GETIMPORT                        R5 K41 [UDim2.new]
+      276 LOADK                            R6 K96 [0.42]
+      277 LOADN                            R7 0
+      278 LOADK                            R8 K97 [0.49]
+      279 LOADN                            R9 0
+      280 CALL                             R5 4 1
+      281 SETTABLEKS                       R5 R4 K69 ["arrowDestination"]
+      283 SETTABLEKS                       R4 R3 K19 ["ButtonBackLabel"]
+      285 RETURN                           R3 1

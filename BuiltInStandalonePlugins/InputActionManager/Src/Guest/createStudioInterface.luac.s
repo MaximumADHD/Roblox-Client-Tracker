@@ -32,12 +32,12 @@ PROTO_3:
         8 CAPTURE                          UPVAL U1
         9 NAMECALL                         R3 R0 K5 ["OnHostEvent"]
        11 CALL                             R3 3 2
-       12 DUPTABLE                         R5 K8 [{"destroy", "getIconAsync", "ResetSelection"}]
+       12 DUPTABLE                         R5 K8 [{"destroy", "DEPRECATED_getIconAsync", "ResetSelection"}]
        13 NEWCLOSURE                       R6 P2
        14 CAPTURE                          VAL R2
        15 CAPTURE                          VAL R4
        16 SETTABLEKS                       R6 R5 K6 ["destroy"]
-       18 SETTABLEKS                       R1 R5 K7 ["getIconAsync"]
+       18 SETTABLEKS                       R1 R5 K7 ["DEPRECATED_getIconAsync"]
        20 SETTABLEKS                       R3 R5 K3 ["ResetSelection"]
        22 RETURN                           R5 1
 

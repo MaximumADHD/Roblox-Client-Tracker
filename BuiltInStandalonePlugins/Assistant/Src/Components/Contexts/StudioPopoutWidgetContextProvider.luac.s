@@ -12,7 +12,7 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R2 K5 [{"Contents", "Size", "Title", "Modal", "onHide"}]
+        1 DUPTABLE                         R2 K7 [{"Contents", "Size", "Title", "Modal", "onHide", "onWidgetActivity", "onWidgetInteraction"}]
         2 GETTABLEKS                       R3 R0 K0 ["Contents"]
         4 SETTABLEKS                       R3 R2 K0 ["Contents"]
         6 GETTABLEKS                       R3 R0 K1 ["Size"]
@@ -23,8 +23,12 @@ PROTO_1:
        16 SETTABLEKS                       R3 R2 K3 ["Modal"]
        18 GETTABLEKS                       R3 R0 K4 ["onHide"]
        20 SETTABLEKS                       R3 R2 K4 ["onHide"]
-       22 CALL                             R1 1 -1
-       23 RETURN                           R1 -1
+       22 GETTABLEKS                       R3 R0 K5 ["onWidgetActivity"]
+       24 SETTABLEKS                       R3 R2 K5 ["onWidgetActivity"]
+       26 GETTABLEKS                       R3 R0 K6 ["onWidgetInteraction"]
+       28 SETTABLEKS                       R3 R2 K6 ["onWidgetInteraction"]
+       30 CALL                             R1 1 -1
+       31 RETURN                           R1 -1
 
 PROTO_2:
         0 DUPTABLE                         R0 K2 [{"getDialogWidget", "getPopoutMenu"}]

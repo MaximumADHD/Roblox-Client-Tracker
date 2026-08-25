@@ -73,8 +73,9 @@ PROTO_4:
        18 MOVE                             R9 R3
        19 GETTABLEKS                       R10 R1 K6 ["LayoutController"]
        21 GETTABLEKS                       R11 R1 K7 ["ExplorerController"]
-       23 CALL                             R4 7 0
-       24 RETURN                           R0 0
+       23 GETTABLEKS                       R12 R1 K8 ["SearchController"]
+       25 CALL                             R4 8 0
+       26 RETURN                           R0 0
 
 PROTO_5:
         0 LOADB                            R3 1
