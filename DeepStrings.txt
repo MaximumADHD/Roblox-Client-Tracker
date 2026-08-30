@@ -7155,7 +7155,6 @@ AVCodeAssistAppService
 AVCodeAssistExperimentFetcher
 AVCodeAssistExperimentManager
 AVCodecLookupHelper
-AVCodecLookupHelperForPeerConnec
 AVCodecLookupHelperForPeerConnection
 AVcodecvt_base
 AVcodecvt_error_cat
@@ -36353,7 +36352,6 @@ GrpcXdsTransport
 GrpcXdsTransportFactory
 GSDL_JOYSTICK_HIDAPI_ZUIKI
 GSSolverActive
-GStudio.Common.Action.Close
 GTInfluxDB
 GUACBehaviorFetchAttempted
 GUACBehaviorFetchFailed
@@ -46030,6 +46028,7 @@ MovementRelative
 MoveNeckAttachmentToChest
 MovePercent
 MovePrerender
+MovePrerenderV2
 MovePublishMediatorSignalsToSM
 MoveRemaingAssetRequestsToAssetProvider
 MoveScriptsCompleted
@@ -65500,6 +65499,7 @@ SQLiteCacheNoLifetime
 SQLiteCachePreloadedCacheTTLSeconds
 SQLiteCacheReplacementPolicy
 SQLiteCacheReplacementPolicyATimeScalar
+SQLiteCacheReplacementPolicyHi
 SQLiteCacheReplacementPolicyHitsScalar
 SQLiteCacheReplacementPolicyPriorityScalar
 SQLiteCacheReportSizeMismatch
@@ -72612,7 +72612,6 @@ TerrainAcquisitionMethodEnum
 TerrainArraySliceSize
 TerrainAtlasBorderSize
 TerrainAtlasTileSize
-TerrainBackCompatFragmentDropped
 TerrainCachedBytes
 TerrainCachedCount
 TerrainCellListener

@@ -2798,7 +2798,7 @@
 [C++] DFFlagVoiceVolumeControlsEnablePerUserFaderTelemetry
 [C++] DFFlagVoiceVolumeControlsEnableVoiceVolumeFaderTelemetry
 [C++] DFFlagVoiceWebrtcEnableGcmCryptoSuites
-[C++] DFFlagVoxelGridLeanDMOldGridBackCompat2
+[C++] DFFlagVoxelGridLeanDMOldGridBackCompat
 [C++] DFFlagVoxelizerDisableTerrainSIMD
 [C++] DFFlagWaitForSeatWeld
 [C++] DFFlagWebParserCheckStackDepth
@@ -3852,7 +3852,7 @@
 [C++] FFlagAssetProviderRedirectCacheUseRBXStorageImpl3
 [C++] FFlagAssetProviderReturnFullAcrString
 [C++] FFlagAssetProviderScheduleRbxStorageOnFibers3
-[C++] FFlagAssetProviderSubsystem2
+[C++] FFlagAssetProviderSubsystem
 [C++] FFlagAssetProviderSupportAssetDeliveryUsageContext
 [C++] FFlagAssetProviderUseBackgroundFibersForFiberFactory
 [C++] FFlagAssetProviderUseRegularRequestForADRefresh
@@ -6313,6 +6313,7 @@
 [C++] FFlagMoveMacWinTelemetryShutdownToAppBridge
 [C++] FFlagMoveNeckAttachmentToChest
 [C++] FFlagMovePrerender
+[C++] FFlagMovePrerenderV2
 [C++] FFlagMovePublishMediatorSignalsToSM
 [C++] FFlagMoveRemaingAssetRequestsToAssetProvider
 [C++] FFlagMoveSpeedFactorUpdatesConstraints
