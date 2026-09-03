@@ -562,7 +562,7 @@
         },
         {
             "DiffTextAdditionBackground": {
-                "Default": "#353741"
+                "Default": "#01381F"
             }
         },
         {
@@ -961,6 +961,18 @@
         {
             "OnboardingHighlight": {
                 "Default": "#528BFF"
+            }
+        },
+        {
+            "ReviewableChangeButtonBackground": {
+                "Default": "#1FD0D9FB",
+                "Hover": "#14D0D9FB",
+                "Pressed": "#1FD0D9FB"
+            }
+        },
+        {
+            "ReviewableChangeSubtleBackground": {
+                "Default": "#14D0D9FB"
             }
         },
         {

@@ -968,6 +968,18 @@
             }
         },
         {
+            "ReviewableChangeButtonBackground": {
+                "Default": "#1F1B254B",
+                "Hover": "#141B254B",
+                "Pressed": "#1F1B254B"
+            }
+        },
+        {
+            "ReviewableChangeSubtleBackground": {
+                "Default": "#141B254B"
+            }
+        },
+        {
             "RdlSemanticColorSurface0": {
                 "Default": "#EEEFF1"
             }
