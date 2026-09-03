@@ -4,7 +4,7 @@ PROTO_0:
         3 RETURN                           R0 0
 
 PROTO_1:
-        0 JUMPIFEQKNIL                     R0 ; [+18]
+        0 JUMPIFEQKNIL                     R0 ; [+27]
         2 GETIMPORT                        R1 K2 [string.match]
         4 MOVE                             R2 R0
         5 LOADK                            R3 K3 ["^rbxassetid://[0-9]+$"]
@@ -20,8 +20,16 @@ PROTO_1:
        16 MOVE                             R3 R0
        17 CONCAT                           R1 R2 R3
        18 RETURN                           R1 1
-       19 LOADB                            R1 0
-       20 RETURN                           R1 1
+       19 GETUPVAL                         R1 0
+       20 JUMPIFNOT                        R1 ; [+7]
+       21 GETIMPORT                        R1 K2 [string.match]
+       23 MOVE                             R2 R0
+       24 LOADK                            R3 K6 ["^rbxassetid://[0-9]+&version=[0-9]+$"]
+       25 CALL                             R1 2 1
+       26 JUMPIFNOT                        R1 ; [+1]
+       27 RETURN                           R0 1
+       28 LOADB                            R1 0
+       29 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -29,104 +37,57 @@ PROTO_2:
         2 SETTABLEKS                       R0 R4 K0 ["text"]
         4 NAMECALL                         R2 R2 K2 ["setState"]
         6 CALL                             R2 2 0
-        7 JUMPIFEQKNIL                     R0 ; [+19]
-        9 GETIMPORT                        R3 K5 [string.match]
-       11 MOVE                             R4 R0
-       12 LOADK                            R5 K6 ["^rbxassetid://[0-9]+$"]
-       13 CALL                             R3 2 1
-       14 JUMPIFNOT                        R3 ; [+2]
-       15 MOVE                             R2 R0
-       16 JUMP                             ; [+11]
-       17 GETIMPORT                        R3 K5 [string.match]
-       19 MOVE                             R4 R0
-       20 LOADK                            R5 K7 ["^[0-9]+$"]
-       21 CALL                             R3 2 1
-       22 JUMPIFNOT                        R3 ; [+4]
-       23 LOADK                            R3 K8 ["rbxassetid://"]
-       24 MOVE                             R4 R0
-       25 CONCAT                           R2 R3 R4
-       26 JUMP                             ; [+1]
-       27 LOADB                            R2 0
-       28 JUMPIFNOT                        R2 ; [+7]
-       29 GETUPVAL                         R3 0
-       30 GETTABLEKS                       R3 R3 K9 ["props"]
-       32 GETTABLEKS                       R3 R3 K10 ["onHoverFunc"]
-       34 MOVE                             R4 R2
-       35 CALL                             R3 1 0
-       36 RETURN                           R0 0
+        7 GETUPVAL                         R2 1
+        8 MOVE                             R3 R0
+        9 CALL                             R2 1 1
+       10 JUMPIFNOT                        R2 ; [+7]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K3 ["props"]
+       14 GETTABLEKS                       R3 R3 K4 ["onHoverFunc"]
+       16 MOVE                             R4 R2
+       17 CALL                             R3 1 0
+       18 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["state"]
-        3 GETTABLEKS                       R3 R3 K1 ["text"]
-        5 JUMPIFEQKNIL                     R3 ; [+19]
-        7 GETIMPORT                        R4 K4 [string.match]
-        9 MOVE                             R5 R3
-       10 LOADK                            R6 K5 ["^rbxassetid://[0-9]+$"]
-       11 CALL                             R4 2 1
-       12 JUMPIFNOT                        R4 ; [+2]
-       13 MOVE                             R2 R3
-       14 JUMP                             ; [+11]
-       15 GETIMPORT                        R4 K4 [string.match]
-       17 MOVE                             R5 R3
-       18 LOADK                            R6 K6 ["^[0-9]+$"]
-       19 CALL                             R4 2 1
-       20 JUMPIFNOT                        R4 ; [+4]
-       21 LOADK                            R4 K7 ["rbxassetid://"]
-       22 MOVE                             R5 R3
-       23 CONCAT                           R2 R4 R5
-       24 JUMP                             ; [+1]
-       25 LOADB                            R2 0
-       26 JUMPIFNOT                        R2 ; [+14]
-       27 GETUPVAL                         R3 0
-       28 DUPTABLE                         R5 K8 [{"text"}]
-       29 SETTABLEKS                       R2 R5 K1 ["text"]
-       31 NAMECALL                         R3 R3 K9 ["setState"]
-       33 CALL                             R3 2 0
-       34 GETUPVAL                         R3 0
-       35 GETTABLEKS                       R3 R3 K10 ["props"]
-       37 GETTABLEKS                       R3 R3 K11 ["onHoverFunc"]
-       39 MOVE                             R4 R2
-       40 CALL                             R3 1 0
-       41 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["state"]
+        4 GETTABLEKS                       R3 R3 K1 ["text"]
+        6 CALL                             R2 1 1
+        7 JUMPIFNOT                        R2 ; [+14]
+        8 GETUPVAL                         R3 1
+        9 DUPTABLE                         R5 K2 [{"text"}]
+       10 SETTABLEKS                       R2 R5 K1 ["text"]
+       12 NAMECALL                         R3 R3 K3 ["setState"]
+       14 CALL                             R3 2 0
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K4 ["props"]
+       18 GETTABLEKS                       R3 R3 K5 ["onHoverFunc"]
+       20 MOVE                             R4 R2
+       21 CALL                             R3 1 0
+       22 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["state"]
-        3 GETTABLEKS                       R1 R1 K1 ["text"]
-        5 JUMPIFEQKNIL                     R1 ; [+19]
-        7 GETIMPORT                        R2 K4 [string.match]
-        9 MOVE                             R3 R1
-       10 LOADK                            R4 K5 ["^rbxassetid://[0-9]+$"]
-       11 CALL                             R2 2 1
-       12 JUMPIFNOT                        R2 ; [+2]
-       13 MOVE                             R0 R1
-       14 JUMP                             ; [+11]
-       15 GETIMPORT                        R2 K4 [string.match]
-       17 MOVE                             R3 R1
-       18 LOADK                            R4 K6 ["^[0-9]+$"]
-       19 CALL                             R2 2 1
-       20 JUMPIFNOT                        R2 ; [+4]
-       21 LOADK                            R2 K7 ["rbxassetid://"]
-       22 MOVE                             R3 R1
-       23 CONCAT                           R0 R2 R3
-       24 JUMP                             ; [+1]
-       25 LOADB                            R0 0
-       26 JUMPIFNOT                        R0 ; [+19]
-       27 GETUPVAL                         R1 1
-       28 GETTABLEKS                       R1 R1 K8 ["Get"]
-       30 CALL                             R1 0 1
-       31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R3 R3 K9 ["props"]
-       34 GETTABLEKS                       R3 R3 K10 ["tagName"]
-       36 MOVE                             R4 R0
-       37 NAMECALL                         R1 R1 K11 ["SetIcon"]
-       39 CALL                             R1 3 0
-       40 GETUPVAL                         R1 0
-       41 GETTABLEKS                       R1 R1 K9 ["props"]
-       43 GETTABLEKS                       R1 R1 K12 ["closeFunc"]
-       45 CALL                             R1 0 0
-       46 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["state"]
+        4 GETTABLEKS                       R1 R1 K1 ["text"]
+        6 CALL                             R0 1 1
+        7 JUMPIFNOT                        R0 ; [+19]
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K2 ["Get"]
+       11 CALL                             R1 0 1
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K3 ["props"]
+       15 GETTABLEKS                       R3 R3 K4 ["tagName"]
+       17 MOVE                             R4 R0
+       18 NAMECALL                         R1 R1 K5 ["SetIcon"]
+       20 CALL                             R1 3 0
+       21 GETUPVAL                         R1 1
+       22 GETTABLEKS                       R1 R1 K3 ["props"]
+       24 GETTABLEKS                       R1 R1 K6 ["closeFunc"]
+       26 CALL                             R1 0 0
+       27 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -161,41 +122,44 @@ PROTO_5:
        43 SETTABLEKS                       R10 R9 K10 ["PlaceholderText"]
        45 NEWCLOSURE                       R10 P0
        46 CAPTURE                          VAL R0
-       47 SETTABLEKS                       R10 R9 K11 ["OnTextChanged"]
-       49 GETUPVAL                         R10 3
-       50 SETTABLEKS                       R10 R9 K12 ["OnValidateText"]
-       52 NEWCLOSURE                       R10 P1
-       53 CAPTURE                          VAL R0
-       54 SETTABLEKS                       R10 R9 K13 ["OnFocusLost"]
-       56 CALL                             R7 2 1
-       57 SETTABLEKS                       R7 R6 K6 ["Input"]
-       59 GETUPVAL                         R7 0
-       60 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       62 GETUPVAL                         R8 4
-       63 DUPTABLE                         R9 K27 [{["Size"], ["Position"], ["Text"], ["Style"] = "RoundPrimary", ["OnClick"]}]
-       64 GETIMPORT                        R10 K29 [UDim2.fromOffset]
-       66 LOADN                            R11 100
-       67 LOADN                            R12 24
-       68 CALL                             R10 2 1
-       69 SETTABLEKS                       R10 R9 K3 ["Size"]
-       71 GETIMPORT                        R10 K29 [UDim2.fromOffset]
-       73 LOADN                            R11 8
-       74 LOADN                            R12 50
-       75 CALL                             R10 2 1
-       76 SETTABLEKS                       R10 R9 K23 ["Position"]
-       78 LOADK                            R12 K30 ["General"]
-       79 LOADK                            R13 K31 ["Save"]
-       80 NAMECALL                         R10 R2 K22 ["getText"]
-       82 CALL                             R10 3 1
-       83 SETTABLEKS                       R10 R9 K9 ["Text"]
-       85 NEWCLOSURE                       R10 P2
-       86 CAPTURE                          VAL R0
-       87 CAPTURE                          UPVAL U5
-       88 SETTABLEKS                       R10 R9 K26 ["OnClick"]
-       90 CALL                             R7 2 1
-       91 SETTABLEKS                       R7 R6 K7 ["Submit"]
-       93 CALL                             R3 3 -1
-       94 RETURN                           R3 -1
+       47 CAPTURE                          UPVAL U3
+       48 SETTABLEKS                       R10 R9 K11 ["OnTextChanged"]
+       50 GETUPVAL                         R10 3
+       51 SETTABLEKS                       R10 R9 K12 ["OnValidateText"]
+       53 NEWCLOSURE                       R10 P1
+       54 CAPTURE                          UPVAL U3
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R10 R9 K13 ["OnFocusLost"]
+       58 CALL                             R7 2 1
+       59 SETTABLEKS                       R7 R6 K6 ["Input"]
+       61 GETUPVAL                         R7 0
+       62 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       64 GETUPVAL                         R8 4
+       65 DUPTABLE                         R9 K27 [{["Size"], ["Position"], ["Text"], ["Style"] = "RoundPrimary", ["OnClick"]}]
+       66 GETIMPORT                        R10 K29 [UDim2.fromOffset]
+       68 LOADN                            R11 100
+       69 LOADN                            R12 24
+       70 CALL                             R10 2 1
+       71 SETTABLEKS                       R10 R9 K3 ["Size"]
+       73 GETIMPORT                        R10 K29 [UDim2.fromOffset]
+       75 LOADN                            R11 8
+       76 LOADN                            R12 50
+       77 CALL                             R10 2 1
+       78 SETTABLEKS                       R10 R9 K23 ["Position"]
+       80 LOADK                            R12 K30 ["General"]
+       81 LOADK                            R13 K31 ["Save"]
+       82 NAMECALL                         R10 R2 K22 ["getText"]
+       84 CALL                             R10 3 1
+       85 SETTABLEKS                       R10 R9 K9 ["Text"]
+       87 NEWCLOSURE                       R10 P2
+       88 CAPTURE                          UPVAL U3
+       89 CAPTURE                          VAL R0
+       90 CAPTURE                          UPVAL U5
+       91 SETTABLEKS                       R10 R9 K26 ["OnClick"]
+       93 CALL                             R7 2 1
+       94 SETTABLEKS                       R7 R6 K7 ["Submit"]
+       96 CALL                             R3 3 -1
+       97 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -227,22 +191,28 @@ MAIN:
        48 LOADK                            R13 K18 ["CustomPage"]
        49 NAMECALL                         R11 R11 K19 ["extend"]
        51 CALL                             R11 2 1
-       52 DUPCLOSURE                       R12 K20 [PROTO_0]
-       53 SETTABLEKS                       R12 R11 K21 ["init"]
-       55 DUPCLOSURE                       R12 K22 [PROTO_1]
-       56 DUPCLOSURE                       R13 K23 [PROTO_5]
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R8
-       59 CAPTURE                          VAL R9
-       60 CAPTURE                          VAL R12
-       61 CAPTURE                          VAL R7
-       62 CAPTURE                          VAL R10
-       63 SETTABLEKS                       R13 R11 K24 ["render"]
-       65 MOVE                             R13 R4
-       66 DUPTABLE                         R14 K25 [{"Localization"}]
-       67 SETTABLEKS                       R5 R14 K10 ["Localization"]
-       69 CALL                             R13 1 1
-       70 MOVE                             R14 R11
-       71 CALL                             R13 1 1
-       72 MOVE                             R11 R13
-       73 RETURN                           R11 1
+       52 GETIMPORT                        R12 K21 [game]
+       54 LOADK                            R14 K22 ["TagEditorVersionedUris"]
+       55 NAMECALL                         R12 R12 K23 ["GetFastFlag"]
+       57 CALL                             R12 2 1
+       58 DUPCLOSURE                       R13 K24 [PROTO_0]
+       59 SETTABLEKS                       R13 R11 K25 ["init"]
+       61 DUPCLOSURE                       R13 K26 [PROTO_1]
+       62 CAPTURE                          VAL R12
+       63 DUPCLOSURE                       R14 K27 [PROTO_5]
+       64 CAPTURE                          VAL R1
+       65 CAPTURE                          VAL R8
+       66 CAPTURE                          VAL R9
+       67 CAPTURE                          VAL R13
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R10
+       70 SETTABLEKS                       R14 R11 K28 ["render"]
+       72 MOVE                             R14 R4
+       73 DUPTABLE                         R15 K29 [{"Localization"}]
+       74 SETTABLEKS                       R5 R15 K10 ["Localization"]
+       76 CALL                             R14 1 1
+       77 MOVE                             R15 R11
+       78 CALL                             R14 1 1
+       79 MOVE                             R11 R14
+       80 SETTABLEKS                       R13 R11 K30 ["validate"]
+       82 RETURN                           R11 1

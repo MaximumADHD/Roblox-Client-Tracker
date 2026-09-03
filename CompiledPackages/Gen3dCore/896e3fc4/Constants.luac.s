@@ -1,4 +1,0 @@
-MAIN:
-        0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K12 [{[1] = 3, ["MAX_POLL_ATTEMPTS"] = 120, ["ATTRIBUTE_AI_GENERATED"] = "RBX_AI_GENERATED", ["ATTRIBUTE_AI_GENERATION_TYPE"] = "RBX_AI_GENERATION_TYPE", ["ATTRIBUTE_AI_GENERATION_ID"] = "RBX_AI_GENERATION_ID", ["TAG_AI_GENERATED_ASSET"] = "RBXAIGeneratedAsset"}]
-        2 RETURN                           R0 1

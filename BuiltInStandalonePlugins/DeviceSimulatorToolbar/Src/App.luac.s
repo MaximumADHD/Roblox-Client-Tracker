@@ -79,24 +79,26 @@ PROTO_2:
        79 GETUPVAL                         R16 1
        80 GETTABLEKS                       R16 R16 K6 ["createElement"]
        82 GETUPVAL                         R17 11
-       83 DUPTABLE                         R18 K24 [{"simulatorService", "actions", "placeSessionBridge", "hiddenDeviceStore", "registryEnabled"}]
+       83 DUPTABLE                         R18 K24 [{"simulatorService", "plugin", "actions", "placeSessionBridge", "hiddenDeviceStore", "registryEnabled"}]
        84 GETTABLEKS                       R19 R0 K19 ["simulatorService"]
        86 SETTABLEKS                       R19 R18 K19 ["simulatorService"]
-       88 GETTABLEKS                       R19 R0 K20 ["actions"]
-       90 SETTABLEKS                       R19 R18 K20 ["actions"]
-       92 GETTABLEKS                       R19 R0 K21 ["placeSessionBridge"]
-       94 SETTABLEKS                       R19 R18 K21 ["placeSessionBridge"]
-       96 SETTABLEKS                       R2 R18 K22 ["hiddenDeviceStore"]
-       98 GETTABLEKS                       R19 R0 K23 ["registryEnabled"]
-      100 SETTABLEKS                       R19 R18 K23 ["registryEnabled"]
-      102 CALL                             R16 2 1
-      103 SETTABLEKS                       R16 R15 K17 ["Toolbar"]
-      105 CALL                             R12 3 1
-      106 SETTABLEKS                       R12 R11 K10 ["FoundationProvider"]
-      108 CALL                             R8 3 1
-      109 SETTABLEKS                       R8 R7 K4 ["LocalizationProvider"]
-      111 CALL                             R5 2 -1
-      112 RETURN                           R5 -1
+       88 GETTABLEKS                       R19 R0 K1 ["plugin"]
+       90 SETTABLEKS                       R19 R18 K1 ["plugin"]
+       92 GETTABLEKS                       R19 R0 K20 ["actions"]
+       94 SETTABLEKS                       R19 R18 K20 ["actions"]
+       96 GETTABLEKS                       R19 R0 K21 ["placeSessionBridge"]
+       98 SETTABLEKS                       R19 R18 K21 ["placeSessionBridge"]
+      100 SETTABLEKS                       R2 R18 K22 ["hiddenDeviceStore"]
+      102 GETTABLEKS                       R19 R0 K23 ["registryEnabled"]
+      104 SETTABLEKS                       R19 R18 K23 ["registryEnabled"]
+      106 CALL                             R16 2 1
+      107 SETTABLEKS                       R16 R15 K17 ["Toolbar"]
+      109 CALL                             R12 3 1
+      110 SETTABLEKS                       R12 R11 K10 ["FoundationProvider"]
+      112 CALL                             R8 3 1
+      113 SETTABLEKS                       R8 R7 K4 ["LocalizationProvider"]
+      115 CALL                             R5 2 -1
+      116 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

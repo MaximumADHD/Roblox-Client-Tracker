@@ -754,6 +754,18 @@ PROTO_31:
        38 RETURN                           R0 0
 
 PROTO_32:
+        0 GETTABLEKS                       R3 R0 K0 ["lists"]
+        2 GETTABLE                         R2 R3 R1
+        3 JUMPIF                           R2 ; [+1]
+        4 RETURN                           R0 0
+        5 LOADB                            R3 1
+        6 SETTABLEKS                       R3 R2 K1 ["needsRefetch"]
+        8 MOVE                             R5 R2
+        9 NAMECALL                         R3 R0 K2 ["dirtyList"]
+       11 CALL                             R3 2 0
+       12 RETURN                           R0 0
+
+PROTO_33:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["dirty"]
         3 NEWTABLE                         R1 0 0
@@ -870,5 +882,7 @@ MAIN:
       159 CAPTURE                          VAL R11
       160 SETTABLEKS                       R18 R16 K72 ["invalidateList"]
       162 DUPCLOSURE                       R18 K73 [PROTO_32]
-      163 SETTABLEKS                       R18 R16 K74 ["reset"]
-      165 RETURN                           R16 1
+      163 SETTABLEKS                       R18 R16 K74 ["refreshList"]
+      165 DUPCLOSURE                       R18 K75 [PROTO_33]
+      166 SETTABLEKS                       R18 R16 K76 ["reset"]
+      168 RETURN                           R16 1

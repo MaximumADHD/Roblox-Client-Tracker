@@ -3,28 +3,38 @@ PROTO_0:
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["ModelQuality"]
         4 GETTABLEKS                       R2 R2 K1 ["High"]
-        6 JUMPIFNOTEQ                      R1 R2 ; [+8]
+        6 JUMPIFNOTEQ                      R1 R2 ; [+14]
         8 GETUPVAL                         R0 2
         9 LOADK                            R2 K2 ["Plugin"]
-       10 LOADK                            R3 K3 ["NameAdvanced"]
-       11 NAMECALL                         R0 R0 K4 ["getText"]
-       13 CALL                             R0 3 1
-       14 JUMP                             ; [+6]
-       15 GETUPVAL                         R0 2
-       16 LOADK                            R2 K2 ["Plugin"]
-       17 LOADK                            R3 K5 ["Name"]
-       18 NAMECALL                         R0 R0 K4 ["getText"]
-       20 CALL                             R0 3 1
-       21 GETUPVAL                         R1 3
-       22 GETTABLEKS                       R1 R1 K6 ["setDockWidgetTitle"]
-       24 MOVE                             R2 R0
-       25 CALL                             R1 1 0
-       26 RETURN                           R0 0
+       10 GETUPVAL                         R4 3
+       11 GETTABLEKS                       R4 R4 K3 ["FFlagAssistantBuildName"]
+       13 JUMPIFNOT                        R4 ; [+2]
+       14 LOADK                            R3 K4 ["NameBuildAdvanced"]
+       15 JUMP                             ; [+1]
+       16 LOADK                            R3 K5 ["NameAdvanced"]
+       17 NAMECALL                         R0 R0 K6 ["getText"]
+       19 CALL                             R0 3 1
+       20 JUMP                             ; [+12]
+       21 GETUPVAL                         R0 2
+       22 LOADK                            R2 K2 ["Plugin"]
+       23 GETUPVAL                         R4 3
+       24 GETTABLEKS                       R4 R4 K3 ["FFlagAssistantBuildName"]
+       26 JUMPIFNOT                        R4 ; [+2]
+       27 LOADK                            R3 K7 ["NameBuild"]
+       28 JUMP                             ; [+1]
+       29 LOADK                            R3 K8 ["Name"]
+       30 NAMECALL                         R0 R0 K6 ["getText"]
+       32 CALL                             R0 3 1
+       33 GETUPVAL                         R1 4
+       34 GETTABLEKS                       R1 R1 K9 ["setDockWidgetTitle"]
+       36 MOVE                             R2 R0
+       37 CALL                             R1 1 0
+       38 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantQualityChangeWidgetTitle"]
-        3 JUMPIFNOT                        R1 ; [+23]
+        3 JUMPIFNOT                        R1 ; [+24]
         4 GETUPVAL                         R1 1
         5 GETTABLEKS                       R1 R1 K1 ["useContext"]
         7 GETUPVAL                         R2 2
@@ -37,21 +47,22 @@ PROTO_1:
        17 CAPTURE                          VAL R2
        18 CAPTURE                          UPVAL U2
        19 CAPTURE                          UPVAL U3
-       20 CAPTURE                          VAL R0
-       21 NEWTABLE                         R5 0 1
-       23 MOVE                             R6 R2
-       24 SETLIST                          R5 R6 1 [1]
-       26 CALL                             R3 2 0
-       27 DUPTABLE                         R1 K6 [{"MainView"}]
-       28 GETUPVAL                         R2 4
-       29 GETUPVAL                         R3 5
-       30 GETTABLEKS                       R3 R3 K7 ["WidgetTrackingMainView"]
-       32 DUPTABLE                         R4 K9 [{"textBoxRef"}]
-       33 GETTABLEKS                       R5 R0 K8 ["textBoxRef"]
-       35 SETTABLEKS                       R5 R4 K8 ["textBoxRef"]
-       37 CALL                             R2 2 1
-       38 SETTABLEKS                       R2 R1 K5 ["MainView"]
-       40 RETURN                           R1 1
+       20 CAPTURE                          UPVAL U0
+       21 CAPTURE                          VAL R0
+       22 NEWTABLE                         R5 0 1
+       24 MOVE                             R6 R2
+       25 SETLIST                          R5 R6 1 [1]
+       27 CALL                             R3 2 0
+       28 DUPTABLE                         R1 K6 [{"MainView"}]
+       29 GETUPVAL                         R2 4
+       30 GETUPVAL                         R3 5
+       31 GETTABLEKS                       R3 R3 K7 ["WidgetTrackingMainView"]
+       33 DUPTABLE                         R4 K9 [{"textBoxRef"}]
+       34 GETTABLEKS                       R5 R0 K8 ["textBoxRef"]
+       36 SETTABLEKS                       R5 R4 K8 ["textBoxRef"]
+       38 CALL                             R2 2 1
+       39 SETTABLEKS                       R2 R1 K5 ["MainView"]
+       41 RETURN                           R1 1
 
 PROTO_2:
         0 NEWTABLE                         R1 0 5
@@ -266,36 +277,33 @@ PROTO_2:
       272 FASTCALL                         TABLE_INSERT ; [+2]
       273 GETIMPORT                        R2 K7 [table.insert]
       275 CALL                             R2 -1 0
-      276 GETUPVAL                         R2 8
-      277 GETTABLEKS                       R2 R2 K26 ["FFlagAssistantSplitToolsAndWidgets"]
-      279 JUMPIFNOT                        R2 ; [+12]
-      280 GETUPVAL                         R2 20
-      281 GETTABLEKS                       R3 R0 K27 ["args"]
-      283 GETTABLEKS                       R3 R3 K28 ["bridges"]
-      285 CALL                             R2 1 1
-      286 GETUPVAL                         R3 21
-      287 GETTABLEKS                       R3 R3 K29 ["append"]
-      289 MOVE                             R4 R1
-      290 MOVE                             R5 R2
-      291 CALL                             R3 2 0
-      292 GETUPVAL                         R2 0
-      293 GETUPVAL                         R3 22
-      294 DUPTABLE                         R4 K31 [{"onStyleSheetChange"}]
-      295 GETTABLEKS                       R5 R0 K32 ["onFoundationStyleSheetChange"]
-      297 SETTABLEKS                       R5 R4 K30 ["onStyleSheetChange"]
-      299 DUPTABLE                         R5 K34 [{"ContextStack"}]
-      300 GETUPVAL                         R6 0
-      301 GETUPVAL                         R7 23
-      302 GETTABLEKS                       R7 R7 K33 ["ContextStack"]
-      304 DUPTABLE                         R8 K36 [{"providers"}]
-      305 SETTABLEKS                       R1 R8 K35 ["providers"]
-      307 GETUPVAL                         R9 24
-      308 MOVE                             R10 R0
-      309 CALL                             R9 1 1
-      310 CALL                             R6 3 1
-      311 SETTABLEKS                       R6 R5 K33 ["ContextStack"]
-      313 CALL                             R2 3 -1
-      314 RETURN                           R2 -1
+      276 GETUPVAL                         R2 20
+      277 GETTABLEKS                       R3 R0 K26 ["args"]
+      279 GETTABLEKS                       R3 R3 K27 ["bridges"]
+      281 CALL                             R2 1 1
+      282 GETUPVAL                         R3 21
+      283 GETTABLEKS                       R3 R3 K28 ["append"]
+      285 MOVE                             R4 R1
+      286 MOVE                             R5 R2
+      287 CALL                             R3 2 0
+      288 GETUPVAL                         R3 0
+      289 GETUPVAL                         R4 22
+      290 DUPTABLE                         R5 K30 [{"onStyleSheetChange"}]
+      291 GETTABLEKS                       R6 R0 K31 ["onFoundationStyleSheetChange"]
+      293 SETTABLEKS                       R6 R5 K29 ["onStyleSheetChange"]
+      295 DUPTABLE                         R6 K33 [{"ContextStack"}]
+      296 GETUPVAL                         R7 0
+      297 GETUPVAL                         R8 23
+      298 GETTABLEKS                       R8 R8 K32 ["ContextStack"]
+      300 DUPTABLE                         R9 K35 [{"providers"}]
+      301 SETTABLEKS                       R1 R9 K34 ["providers"]
+      303 GETUPVAL                         R10 24
+      304 MOVE                             R11 R0
+      305 CALL                             R10 1 1
+      306 CALL                             R7 3 1
+      307 SETTABLEKS                       R7 R6 K32 ["ContextStack"]
+      309 CALL                             R3 3 -1
+      310 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

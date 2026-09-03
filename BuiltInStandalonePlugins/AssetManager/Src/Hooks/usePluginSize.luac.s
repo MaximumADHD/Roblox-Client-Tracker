@@ -32,22 +32,6 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
-
-PROTO_5:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["OnIsCompactChanged"]
-        3 GETUPVAL                         R2 1
-        4 NAMECALL                         R0 R0 K1 ["Connect"]
-        6 CALL                             R0 2 1
-        7 NEWCLOSURE                       R1 P0
-        8 CAPTURE                          VAL R0
-        9 RETURN                           R1 1
-
-PROTO_6:
-        0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
         4 GETUPVAL                         R1 1
@@ -58,32 +42,21 @@ PROTO_6:
        10 NAMECALL                         R4 R0 K2 ["getPluginHeight"]
        12 CALL                             R4 1 -1
        13 CALL                             R3 -1 2
-       14 GETUPVAL                         R5 1
-       15 NAMECALL                         R6 R0 K3 ["getIsCompact"]
-       17 CALL                             R6 1 -1
-       18 CALL                             R5 -1 2
-       19 GETUPVAL                         R7 2
-       20 NEWCLOSURE                       R8 P0
-       21 CAPTURE                          VAL R0
-       22 CAPTURE                          VAL R2
-       23 NEWTABLE                         R9 0 0
-       25 CALL                             R7 2 0
-       26 GETUPVAL                         R7 2
-       27 NEWCLOSURE                       R8 P1
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          VAL R4
-       30 NEWTABLE                         R9 0 0
-       32 CALL                             R7 2 0
-       33 GETUPVAL                         R7 2
-       34 NEWCLOSURE                       R8 P2
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          VAL R6
-       37 NEWTABLE                         R9 0 0
-       39 CALL                             R7 2 0
-       40 MOVE                             R7 R1
-       41 MOVE                             R8 R3
-       42 MOVE                             R9 R5
-       43 RETURN                           R7 3
+       14 GETUPVAL                         R5 2
+       15 NEWCLOSURE                       R6 P0
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          VAL R2
+       18 NEWTABLE                         R7 0 0
+       20 CALL                             R5 2 0
+       21 GETUPVAL                         R5 2
+       22 NEWCLOSURE                       R6 P1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R4
+       25 NEWTABLE                         R7 0 0
+       27 CALL                             R5 2 0
+       28 MOVE                             R5 R1
+       29 MOVE                             R6 R3
+       30 RETURN                           R5 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -102,7 +75,7 @@ MAIN:
        22 GETTABLEKS                       R5 R5 K11 ["Controllers"]
        24 GETTABLEKS                       R5 R5 K12 ["LayoutController"]
        26 CALL                             R4 1 1
-       27 DUPCLOSURE                       R5 K13 [PROTO_6]
+       27 DUPCLOSURE                       R5 K13 [PROTO_4]
        28 CAPTURE                          VAL R4
        29 CAPTURE                          VAL R2
        30 CAPTURE                          VAL R3

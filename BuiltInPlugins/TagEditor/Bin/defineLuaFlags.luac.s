@@ -15,5 +15,10 @@ MAIN:
        18 LOADB                            R3 0
        19 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
        21 CALL                             R0 3 0
-       22 LOADNIL                          R0
-       23 RETURN                           R0 1
+       22 GETIMPORT                        R0 K1 [game]
+       24 LOADK                            R2 K7 ["TagEditorVersionedUris"]
+       25 LOADB                            R3 0
+       26 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
+       28 CALL                             R0 3 0
+       29 LOADNIL                          R0
+       30 RETURN                           R0 1

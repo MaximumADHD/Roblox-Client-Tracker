@@ -22,23 +22,36 @@ PROTO_0:
        29 LOADB                            R6 1
        30 CALL                             R5 1 1
        31 MOVE                             R4 R5
-       32 GETUPVAL                         R5 5
-       33 GETTABLEKS                       R5 R5 K7 ["createElement"]
-       35 GETUPVAL                         R6 6
-       36 DUPTABLE                         R7 K11 [{"localization", "plugin", "focusGui", "store", "theme"}]
-       37 SETTABLEKS                       R1 R7 K1 ["localization"]
-       39 NEWTABLE                         R8 0 0
-       41 SETTABLEKS                       R8 R7 K8 ["plugin"]
-       43 NEWTABLE                         R8 0 0
-       45 SETTABLEKS                       R8 R7 K9 ["focusGui"]
-       47 SETTABLEKS                       R3 R7 K10 ["store"]
-       49 SETTABLEKS                       R4 R7 K6 ["theme"]
-       51 GETTABLEKS                       R9 R0 K0 ["props"]
-       53 GETUPVAL                         R10 5
-       54 GETTABLEKS                       R10 R10 K12 ["Children"]
-       56 GETTABLE                         R8 R9 R10
-       57 CALL                             R5 3 -1
-       58 RETURN                           R5 -1
+       32 GETUPVAL                         R6 5
+       33 JUMPIFNOT                        R6 ; [+14]
+       34 GETUPVAL                         R5 5
+       35 GETTABLEKS                       R5 R5 K5 ["new"]
+       37 DUPTABLE                         R6 K9 [{"plugin", "localization", "store"}]
+       38 NEWTABLE                         R7 0 0
+       40 SETTABLEKS                       R7 R6 K7 ["plugin"]
+       42 SETTABLEKS                       R1 R6 K1 ["localization"]
+       44 SETTABLEKS                       R3 R6 K8 ["store"]
+       46 CALL                             R5 1 1
+       47 JUMP                             ; [+1]
+       48 LOADNIL                          R5
+       49 GETUPVAL                         R6 6
+       50 GETTABLEKS                       R6 R6 K10 ["createElement"]
+       52 GETUPVAL                         R7 7
+       53 DUPTABLE                         R8 K13 [{"localization", "plugin", "focusGui", "store", "theme", "publishStatusPanel"}]
+       54 SETTABLEKS                       R1 R8 K1 ["localization"]
+       56 NEWTABLE                         R9 0 0
+       58 SETTABLEKS                       R9 R8 K7 ["plugin"]
+       60 NEWTABLE                         R9 0 0
+       62 SETTABLEKS                       R9 R8 K11 ["focusGui"]
+       64 SETTABLEKS                       R3 R8 K8 ["store"]
+       66 SETTABLEKS                       R4 R8 K6 ["theme"]
+       68 SETTABLEKS                       R5 R8 K12 ["publishStatusPanel"]
+       70 GETTABLEKS                       R10 R0 K0 ["props"]
+       72 GETUPVAL                         R11 6
+       73 GETTABLEKS                       R11 R11 K14 ["Children"]
+       75 GETTABLE                         R9 R10 R11
+       76 CALL                             R6 3 -1
+       77 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -78,19 +91,35 @@ MAIN:
        61 GETTABLEKS                       R8 R8 K16 ["Middleware"]
        63 GETTABLEKS                       R8 R8 K17 ["MainMiddleware"]
        65 CALL                             R7 1 1
-       66 GETTABLEKS                       R8 R3 K18 ["ContextServices"]
-       68 GETTABLEKS                       R9 R8 K19 ["Localization"]
-       70 GETTABLEKS                       R10 R1 K20 ["Component"]
-       72 LOADK                            R12 K21 ["MockServiceWrapper"]
-       73 NAMECALL                         R10 R10 K22 ["extend"]
-       75 CALL                             R10 2 1
-       76 DUPCLOSURE                       R11 K23 [PROTO_0]
-       77 CAPTURE                          VAL R9
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R5
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R4
-       84 SETTABLEKS                       R11 R10 K24 ["render"]
-       86 RETURN                           R10 1
+       66 GETIMPORT                        R8 K4 [require]
+       68 GETTABLEKS                       R9 R0 K9 ["Src"]
+       70 GETTABLEKS                       R9 R9 K18 ["Flags"]
+       72 GETTABLEKS                       R9 R9 K19 ["getEngineFeatureStudioUnifiedPublishAction"]
+       74 CALL                             R8 1 1
+       75 MOVE                             R10 R8
+       76 CALL                             R10 0 1
+       77 JUMPIFNOT                        R10 ; [+10]
+       78 GETIMPORT                        R9 K4 [require]
+       80 GETTABLEKS                       R10 R0 K9 ["Src"]
+       82 GETTABLEKS                       R10 R10 K20 ["Util"]
+       84 GETTABLEKS                       R10 R10 K21 ["PublishStatusPanel"]
+       86 CALL                             R9 1 1
+       87 JUMP                             ; [+1]
+       88 LOADNIL                          R9
+       89 GETTABLEKS                       R10 R3 K22 ["ContextServices"]
+       91 GETTABLEKS                       R11 R10 K23 ["Localization"]
+       93 GETTABLEKS                       R12 R1 K24 ["Component"]
+       95 LOADK                            R14 K25 ["MockServiceWrapper"]
+       96 NAMECALL                         R12 R12 K26 ["extend"]
+       98 CALL                             R12 2 1
+       99 DUPCLOSURE                       R13 K27 [PROTO_0]
+      100 CAPTURE                          VAL R11
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          VAL R7
+      104 CAPTURE                          VAL R5
+      105 CAPTURE                          VAL R9
+      106 CAPTURE                          VAL R1
+      107 CAPTURE                          VAL R4
+      108 SETTABLEKS                       R13 R12 K28 ["render"]
+      110 RETURN                           R12 1

@@ -15,18 +15,28 @@ PROTO_0:
        17 CALL                             R4 1 -1
        18 NAMECALL                         R2 R0 K6 ["dispatch"]
        20 CALL                             R2 -1 0
-       21 GETUPVAL                         R4 2
-       22 CALL                             R4 0 -1
-       23 NAMECALL                         R2 R0 K6 ["dispatch"]
-       25 CALL                             R2 -1 0
-       26 RETURN                           R0 0
+       21 GETUPVAL                         R2 2
+       22 CALL                             R2 0 1
+       23 JUMPIFNOT                        R2 ; [+6]
+       24 GETUPVAL                         R4 3
+       25 LOADB                            R5 0
+       26 CALL                             R4 1 -1
+       27 NAMECALL                         R2 R0 K6 ["dispatch"]
+       29 CALL                             R2 -1 0
+       30 GETUPVAL                         R4 4
+       31 CALL                             R4 0 -1
+       32 NAMECALL                         R2 R0 K6 ["dispatch"]
+       34 CALL                             R2 -1 0
+       35 RETURN                           R0 0
 
 PROTO_1:
         0 DUPCLOSURE                       R0 K0 [PROTO_0]
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
-        4 RETURN                           R0 1
+        4 CAPTURE                          UPVAL U3
+        5 CAPTURE                          UPVAL U4
+        6 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -40,15 +50,25 @@ MAIN:
        13 GETTABLEKS                       R3 R1 K8 ["ResetState"]
        15 CALL                             R2 1 1
        16 GETIMPORT                        R3 K7 [require]
-       18 GETTABLEKS                       R4 R1 K9 ["SetShowPreview"]
+       18 GETTABLEKS                       R4 R1 K9 ["SetPreviewLoading"]
        20 CALL                             R3 1 1
        21 GETIMPORT                        R4 K7 [require]
-       23 GETTABLEKS                       R5 R0 K4 ["Src"]
-       25 GETTABLEKS                       R5 R5 K10 ["Thunks"]
-       27 GETTABLEKS                       R5 R5 K11 ["UpdateQueueItem"]
-       29 CALL                             R4 1 1
-       30 DUPCLOSURE                       R5 K12 [PROTO_1]
-       31 CAPTURE                          VAL R4
-       32 CAPTURE                          VAL R3
-       33 CAPTURE                          VAL R2
-       34 RETURN                           R5 1
+       23 GETTABLEKS                       R5 R1 K10 ["SetShowPreview"]
+       25 CALL                             R4 1 1
+       26 GETIMPORT                        R5 K7 [require]
+       28 GETTABLEKS                       R6 R0 K4 ["Src"]
+       30 GETTABLEKS                       R6 R6 K11 ["Thunks"]
+       32 GETTABLEKS                       R6 R6 K12 ["UpdateQueueItem"]
+       34 CALL                             R5 1 1
+       35 GETIMPORT                        R6 K7 [require]
+       37 GETTABLEKS                       R7 R0 K4 ["Src"]
+       39 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       41 GETTABLEKS                       R7 R7 K14 ["getFFlagAssetImporterShowPreviewLoading"]
+       43 CALL                             R6 1 1
+       44 DUPCLOSURE                       R7 K15 [PROTO_1]
+       45 CAPTURE                          VAL R5
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R2
+       50 RETURN                           R7 1

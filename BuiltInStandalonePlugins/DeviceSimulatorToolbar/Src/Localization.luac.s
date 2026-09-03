@@ -4,25 +4,31 @@ PROTO_0:
         2 NEWTABLE                         R1 0 0
         4 MOVE                             R0 R1
         5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R1 R1 K0 ["Localization"]
-        8 GETTABLEKS                       R1 R1 K1 ["new"]
-       10 DUPTABLE                         R2 K7 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DeviceSimulatorToolbar", ["overrideLocaleId"]}]
-       11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R3 R3 K8 ["Src"]
-       14 GETTABLEKS                       R3 R3 K9 ["Resources"]
-       16 GETTABLEKS                       R3 R3 K0 ["Localization"]
-       18 GETTABLEKS                       R3 R3 K10 ["SourceStrings"]
-       20 SETTABLEKS                       R3 R2 K2 ["stringResourceTable"]
-       22 GETUPVAL                         R3 1
-       23 GETTABLEKS                       R3 R3 K8 ["Src"]
-       25 GETTABLEKS                       R3 R3 K9 ["Resources"]
-       27 GETTABLEKS                       R3 R3 K0 ["Localization"]
-       29 GETTABLEKS                       R3 R3 K11 ["LocalizedStrings"]
-       31 SETTABLEKS                       R3 R2 K3 ["translationResourceTable"]
-       33 GETTABLEKS                       R3 R0 K6 ["overrideLocaleId"]
-       35 SETTABLEKS                       R3 R2 K6 ["overrideLocaleId"]
-       37 CALL                             R1 1 -1
-       38 RETURN                           R1 -1
+        6 GETTABLEKS                       R1 R1 K0 ["Src"]
+        8 GETTABLEKS                       R1 R1 K1 ["Resources"]
+       10 GETTABLEKS                       R1 R1 K2 ["Localization"]
+       12 GETTABLEKS                       R1 R1 K3 ["SourceStrings"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K0 ["Src"]
+       17 GETTABLEKS                       R2 R2 K1 ["Resources"]
+       19 GETTABLEKS                       R2 R2 K2 ["Localization"]
+       21 GETTABLEKS                       R2 R2 K4 ["LocalizedStrings"]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K2 ["Localization"]
+       26 GETTABLEKS                       R3 R3 K5 ["new"]
+       28 DUPTABLE                         R4 K12 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DeviceSimulatorToolbar", ["libraries"], ["overrideLocaleId"]}]
+       29 SETTABLEKS                       R1 R4 K6 ["stringResourceTable"]
+       31 SETTABLEKS                       R2 R4 K7 ["translationResourceTable"]
+       33 DUPTABLE                         R5 K14 [{"DeviceSimulator"}]
+       34 DUPTABLE                         R6 K15 [{"stringResourceTable", "translationResourceTable"}]
+       35 SETTABLEKS                       R1 R6 K6 ["stringResourceTable"]
+       37 SETTABLEKS                       R2 R6 K7 ["translationResourceTable"]
+       39 SETTABLEKS                       R6 R5 K13 ["DeviceSimulator"]
+       41 SETTABLEKS                       R5 R4 K10 ["libraries"]
+       43 GETTABLEKS                       R5 R0 K11 ["overrideLocaleId"]
+       45 SETTABLEKS                       R5 R4 K11 ["overrideLocaleId"]
+       47 CALL                             R3 1 -1
+       48 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -42,7 +48,7 @@ MAIN:
        23 GETTABLEKS                       R4 R2 K11 ["Provider"]
        25 SETTABLEKS                       R4 R3 K11 ["Provider"]
        27 DUPCLOSURE                       R4 K13 [PROTO_0]
-       28 CAPTURE                          VAL R2
-       29 CAPTURE                          VAL R0
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          VAL R2
        30 SETTABLEKS                       R4 R3 K14 ["new"]
        32 RETURN                           R3 1

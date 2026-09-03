@@ -49,7 +49,7 @@ MAIN:
        49 JUMPIFEQ                         R7 R8 ; [+2]
        51 LOADB                            R6 0 +1
        52 LOADB                            R6 1
-       53 JUMPIFNOT                        R6 ; [+183]
+       53 JUMPIFNOT                        R6 ; [+177]
        54 GETIMPORT                        R7 K6 [require]
        56 GETTABLEKS                       R8 R1 K20 ["ReactDeveloperTools"]
        58 CALL                             R7 1 1
@@ -108,59 +108,55 @@ MAIN:
       146 CAPTURE                          VAL R13
       147 NAMECALL                         R14 R14 K51 ["Connect"]
       149 CALL                             R14 2 0
-      150 GETTABLEKS                       R13 R10 K52 ["FFlagAssistantStudioStateSystemReminder"]
-      152 JUMPIF                           R13 ; [+3]
-      153 GETTABLEKS                       R13 R10 K53 ["FFlagPrimGenRetryInPlayTest"]
-      155 JUMPIFNOT                        R13 ; [+15]
-      156 GETIMPORT                        R13 K6 [require]
-      158 GETTABLEKS                       R14 R0 K27 ["Src"]
-      160 GETTABLEKS                       R14 R14 K28 ["Util"]
-      162 GETTABLEKS                       R14 R14 K54 ["StudioState"]
-      164 CALL                             R13 1 1
-      165 GETTABLEKS                       R14 R13 K46 ["init"]
-      167 GETIMPORT                        R15 K43 [plugin]
-      169 MOVE                             R16 R12
-      170 CALL                             R14 2 0
-      171 GETIMPORT                        R13 K6 [require]
-      173 GETTABLEKS                       R14 R0 K27 ["Src"]
-      175 GETTABLEKS                       R14 R14 K55 ["toolInit"]
-      177 CALL                             R13 1 1
-      178 MOVE                             R14 R13
-      179 GETIMPORT                        R15 K43 [plugin]
-      181 MOVE                             R16 R12
-      182 CALL                             R14 2 1
-      183 GETTABLEKS                       R15 R10 K56 ["FFlagAssistantEval"]
-      185 JUMPIFNOT                        R15 ; [+25]
-      186 GETTABLEKS                       R15 R8 K57 ["Guest"]
-      188 GETTABLEKS                       R15 R15 K58 ["Environment"]
-      190 GETIMPORT                        R16 K6 [require]
-      192 GETTABLEKS                       R17 R0 K27 ["Src"]
-      194 GETTABLEKS                       R17 R17 K59 ["EvalDriver"]
-      196 GETTABLEKS                       R17 R17 K60 ["ExternalEvalDriver"]
-      198 CALL                             R16 1 1
-      199 GETTABLEKS                       R17 R16 K46 ["init"]
-      201 GETIMPORT                        R18 K43 [plugin]
-      203 MOVE                             R19 R12
-      204 GETTABLEKS                       R20 R15 K18 ["get"]
-      206 CALL                             R20 0 1
-      207 GETTABLEKS                       R20 R20 K61 ["getStudioSessionId"]
-      209 CALL                             R20 0 -1
-      210 CALL                             R17 -1 0
-      211 GETIMPORT                        R15 K6 [require]
-      213 GETTABLEKS                       R16 R0 K15 ["Bin"]
-      215 GETTABLEKS                       R16 R16 K16 ["Common"]
-      217 GETTABLEKS                       R16 R16 K62 ["setup"]
-      219 CALL                             R15 1 1
-      220 GETIMPORT                        R16 K6 [require]
-      222 GETTABLEKS                       R17 R0 K15 ["Bin"]
-      224 GETTABLEKS                       R17 R17 K16 ["Common"]
-      226 GETTABLEKS                       R17 R17 K63 ["setupMain"]
-      228 CALL                             R16 1 1
-      229 MOVE                             R17 R15
-      230 GETIMPORT                        R18 K43 [plugin]
-      232 DUPCLOSURE                       R19 K64 [PROTO_1]
-      233 CAPTURE                          VAL R16
-      234 CAPTURE                          VAL R14
-      235 LOADB                            R20 1
-      236 CALL                             R17 3 0
-      237 RETURN                           R0 0
+      150 GETIMPORT                        R13 K6 [require]
+      152 GETTABLEKS                       R14 R0 K27 ["Src"]
+      154 GETTABLEKS                       R14 R14 K28 ["Util"]
+      156 GETTABLEKS                       R14 R14 K52 ["StudioState"]
+      158 CALL                             R13 1 1
+      159 GETTABLEKS                       R14 R13 K46 ["init"]
+      161 GETIMPORT                        R15 K43 [plugin]
+      163 MOVE                             R16 R12
+      164 CALL                             R14 2 0
+      165 GETIMPORT                        R14 K6 [require]
+      167 GETTABLEKS                       R15 R0 K27 ["Src"]
+      169 GETTABLEKS                       R15 R15 K53 ["toolInit"]
+      171 CALL                             R14 1 1
+      172 MOVE                             R15 R14
+      173 GETIMPORT                        R16 K43 [plugin]
+      175 MOVE                             R17 R12
+      176 CALL                             R15 2 1
+      177 GETTABLEKS                       R16 R10 K54 ["FFlagAssistantEval"]
+      179 JUMPIFNOT                        R16 ; [+25]
+      180 GETTABLEKS                       R16 R8 K55 ["Guest"]
+      182 GETTABLEKS                       R16 R16 K56 ["Environment"]
+      184 GETIMPORT                        R17 K6 [require]
+      186 GETTABLEKS                       R18 R0 K27 ["Src"]
+      188 GETTABLEKS                       R18 R18 K57 ["EvalDriver"]
+      190 GETTABLEKS                       R18 R18 K58 ["ExternalEvalDriver"]
+      192 CALL                             R17 1 1
+      193 GETTABLEKS                       R18 R17 K46 ["init"]
+      195 GETIMPORT                        R19 K43 [plugin]
+      197 MOVE                             R20 R12
+      198 GETTABLEKS                       R21 R16 K18 ["get"]
+      200 CALL                             R21 0 1
+      201 GETTABLEKS                       R21 R21 K59 ["getStudioSessionId"]
+      203 CALL                             R21 0 -1
+      204 CALL                             R18 -1 0
+      205 GETIMPORT                        R16 K6 [require]
+      207 GETTABLEKS                       R17 R0 K15 ["Bin"]
+      209 GETTABLEKS                       R17 R17 K16 ["Common"]
+      211 GETTABLEKS                       R17 R17 K60 ["setup"]
+      213 CALL                             R16 1 1
+      214 GETIMPORT                        R17 K6 [require]
+      216 GETTABLEKS                       R18 R0 K15 ["Bin"]
+      218 GETTABLEKS                       R18 R18 K16 ["Common"]
+      220 GETTABLEKS                       R18 R18 K61 ["setupMain"]
+      222 CALL                             R17 1 1
+      223 MOVE                             R18 R16
+      224 GETIMPORT                        R19 K43 [plugin]
+      226 DUPCLOSURE                       R20 K62 [PROTO_1]
+      227 CAPTURE                          VAL R17
+      228 CAPTURE                          VAL R15
+      229 LOADB                            R21 1
+      230 CALL                             R18 3 0
+      231 RETURN                           R0 0

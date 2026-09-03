@@ -272,30 +272,32 @@ PROTO_11:
       119 SETTABLEKS                       R6 R10 K6 ["placeId"]
       121 LOADK                            R11 K25 ["studio"]
       122 SETTABLEKS                       R11 R10 K26 ["createdApp"]
-      124 GETUPVAL                         R11 0
-      125 GETTABLEKS                       R11 R11 K27 ["FStringDebugRemoteACPExperimentSpecVersion"]
-      127 FASTCALL1                        TYPEOF R11 ; [+3]
-      128 MOVE                             R13 R11
-      129 GETIMPORT                        R12 K23 [typeof]
-      131 CALL                             R12 1 1
-      132 JUMPIFNOTEQKS                    R12 K28 ["string"] ; [+21]
-      134 JUMPIFEQKS                       R11 K29 [""] ; [+19]
-      136 DUPTABLE                         R12 K31 [{"specVersion"}]
-      137 SETTABLEKS                       R11 R12 K30 ["specVersion"]
-      139 SETTABLEKS                       R12 R10 K32 ["experiment"]
-      141 GETUPVAL                         R12 0
-      142 GETTABLEKS                       R12 R12 K17 ["FFlagDebugLogAssistantUI"]
-      144 JUMPIFNOT                        R12 ; [+9]
-      145 GETIMPORT                        R12 K19 [print]
-      147 LOADK                            R14 K33 ["[Remote ACP] debug experiment specVersion=%*"]
-      148 MOVE                             R16 R11
-      149 NAMECALL                         R14 R14 K15 ["format"]
-      151 CALL                             R14 2 1
-      152 MOVE                             R13 R14
-      153 CALL                             R12 1 0
-      154 SETTABLEKS                       R10 R9 K24 ["_roblox"]
-      156 SETTABLEKS                       R9 R2 K21 ["_meta"]
-      158 RETURN                           R2 1
+      124 LOADK                            R11 K25 ["studio"]
+      125 SETTABLEKS                       R11 R10 K27 ["application"]
+      127 GETUPVAL                         R11 0
+      128 GETTABLEKS                       R11 R11 K28 ["FStringDebugRemoteACPExperimentSpecVersion"]
+      130 FASTCALL1                        TYPEOF R11 ; [+3]
+      131 MOVE                             R13 R11
+      132 GETIMPORT                        R12 K23 [typeof]
+      134 CALL                             R12 1 1
+      135 JUMPIFNOTEQKS                    R12 K29 ["string"] ; [+21]
+      137 JUMPIFEQKS                       R11 K30 [""] ; [+19]
+      139 DUPTABLE                         R12 K32 [{"specVersion"}]
+      140 SETTABLEKS                       R11 R12 K31 ["specVersion"]
+      142 SETTABLEKS                       R12 R10 K33 ["experiment"]
+      144 GETUPVAL                         R12 0
+      145 GETTABLEKS                       R12 R12 K17 ["FFlagDebugLogAssistantUI"]
+      147 JUMPIFNOT                        R12 ; [+9]
+      148 GETIMPORT                        R12 K19 [print]
+      150 LOADK                            R14 K34 ["[Remote ACP] debug experiment specVersion=%*"]
+      151 MOVE                             R16 R11
+      152 NAMECALL                         R14 R14 K15 ["format"]
+      154 CALL                             R14 2 1
+      155 MOVE                             R13 R14
+      156 CALL                             R12 1 0
+      157 SETTABLEKS                       R10 R9 K24 ["_roblox"]
+      159 SETTABLEKS                       R9 R2 K21 ["_meta"]
+      161 RETURN                           R2 1
 
 PROTO_12:
         0 GETIMPORT                        R1 K2 [table.clone]
@@ -431,10 +433,15 @@ PROTO_14:
        57 JUMP                             ; [+2]
        58 NEWTABLE                         R7 0 0
        60 SETTABLEKS                       R4 R7 K2 ["universeId"]
-       62 LOADK                            R8 K18 ["_roblox/session/find_by_universe"]
-       63 SETTABLEKS                       R8 R6 K19 ["method"]
-       65 SETTABLEKS                       R7 R6 K15 ["params"]
-       67 RETURN                           R6 1
+       62 GETUPVAL                         R8 0
+       63 GETTABLEKS                       R8 R8 K18 ["FFlagSendApplicationFieldFromAssistant"]
+       65 JUMPIFNOT                        R8 ; [+3]
+       66 LOADK                            R8 K19 ["studio"]
+       67 SETTABLEKS                       R8 R7 K20 ["application"]
+       69 LOADK                            R8 K21 ["_roblox/session/find_by_universe"]
+       70 SETTABLEKS                       R8 R6 K22 ["method"]
+       72 SETTABLEKS                       R7 R6 K15 ["params"]
+       74 RETURN                           R6 1
 
 PROTO_15:
         0 FASTCALL1                        TYPEOF R0 ; [+3]

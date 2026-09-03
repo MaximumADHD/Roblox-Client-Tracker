@@ -252,22 +252,25 @@ PROTO_7:
       176 SETTABLEKS                       R4 R0 K37 ["button"]
       178 GETUPVAL                         R4 12
       179 CALL                             R4 0 1
-      180 JUMPIFNOT                        R4 ; [+21]
+      180 JUMPIF                           R4 ; [+3]
       181 GETUPVAL                         R4 13
-      182 GETTABLEKS                       R4 R4 K38 ["Util"]
-      184 GETTABLEKS                       R4 R4 K39 ["createFoundationDesignBinding"]
-      186 CALL                             R4 0 2
-      187 SETTABLEKS                       R5 R0 K40 ["onFoundationStyleSheetChange"]
-      189 GETUPVAL                         R6 14
-      190 GETTABLEKS                       R7 R1 K0 ["Plugin"]
-      192 LOADNIL                          R8
-      193 LOADNIL                          R9
-      194 NEWTABLE                         R10 0 1
-      196 MOVE                             R11 R4
-      197 SETLIST                          R10 R11 1 [1]
-      199 CALL                             R6 4 1
-      200 SETTABLEKS                       R6 R0 K41 ["design"]
-      202 RETURN                           R0 0
+      182 CALL                             R4 0 1
+      183 JUMPIFNOT                        R4 ; [+21]
+      184 GETUPVAL                         R4 14
+      185 GETTABLEKS                       R4 R4 K38 ["Util"]
+      187 GETTABLEKS                       R4 R4 K39 ["createFoundationDesignBinding"]
+      189 CALL                             R4 0 2
+      190 SETTABLEKS                       R5 R0 K40 ["onFoundationStyleSheetChange"]
+      192 GETUPVAL                         R6 15
+      193 GETTABLEKS                       R7 R1 K0 ["Plugin"]
+      195 LOADNIL                          R8
+      196 LOADNIL                          R9
+      197 NEWTABLE                         R10 0 1
+      199 MOVE                             R11 R4
+      200 SETLIST                          R10 R11 1 [1]
+      202 CALL                             R6 4 1
+      203 SETTABLEKS                       R6 R0 K41 ["design"]
+      205 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["button"]
@@ -311,102 +314,108 @@ PROTO_10:
        36 SETLIST                          R5 R6 9 [1]
        38 GETUPVAL                         R6 2
        39 CALL                             R6 0 1
-       40 JUMPIFNOT                        R6 ; [+11]
-       41 MOVE                             R7 R5
-       42 GETUPVAL                         R8 3
-       43 GETTABLEKS                       R8 R8 K4 ["new"]
-       45 GETTABLEKS                       R9 R0 K13 ["design"]
-       47 CALL                             R8 1 -1
-       48 FASTCALL                         TABLE_INSERT ; [+2]
-       49 GETIMPORT                        R6 K16 [table.insert]
-       51 CALL                             R6 -1 0
-       52 GETUPVAL                         R6 4
-       53 GETTABLEKS                       R6 R6 K17 ["provide"]
-       55 MOVE                             R7 R5
-       56 DUPTABLE                         R8 K19 [{"MainWidget"}]
-       57 GETUPVAL                         R9 5
-       58 GETTABLEKS                       R9 R9 K20 ["createElement"]
-       60 GETUPVAL                         R10 6
-       61 NEWTABLE                         R11 16 0
-       63 LOADK                            R12 K21 ["TerrainEditor"]
-       64 SETTABLEKS                       R12 R11 K22 ["Id"]
-       66 SETTABLEKS                       R4 R11 K23 ["Enabled"]
-       68 GETTABLEKS                       R12 R0 K7 ["localization"]
-       70 LOADK                            R14 K2 ["Plugin"]
-       71 LOADK                            R15 K24 ["Name"]
-       72 NAMECALL                         R12 R12 K25 ["getText"]
-       74 CALL                             R12 3 1
-       75 SETTABLEKS                       R12 R11 K26 ["Title"]
-       77 GETIMPORT                        R12 K30 [Enum.ZIndexBehavior.Sibling]
-       79 SETTABLEKS                       R12 R11 K28 ["ZIndexBehavior"]
-       81 GETIMPORT                        R12 K33 [Enum.InitialDockState.Left]
-       83 SETTABLEKS                       R12 R11 K31 ["InitialDockState"]
-       85 GETIMPORT                        R12 K35 [Vector2.new]
-       87 LOADN                            R13 640
-       88 LOADN                            R14 480
-       89 CALL                             R12 2 1
-       90 SETTABLEKS                       R12 R11 K36 ["Size"]
-       92 GETIMPORT                        R12 K35 [Vector2.new]
-       94 LOADN                            R13 350
-       95 LOADN                            R14 200
-       96 CALL                             R12 2 1
-       97 SETTABLEKS                       R12 R11 K37 ["MinSize"]
-       99 GETTABLEKS                       R12 R0 K38 ["onClose"]
-      101 SETTABLEKS                       R12 R11 K39 ["OnClose"]
-      103 LOADB                            R12 1
-      104 SETTABLEKS                       R12 R11 K40 ["ShouldRestore"]
-      106 GETTABLEKS                       R12 R0 K41 ["onCreated"]
-      108 SETTABLEKS                       R12 R11 K42 ["OnWidgetCreated"]
-      110 GETTABLEKS                       R12 R0 K43 ["onFocused"]
-      112 SETTABLEKS                       R12 R11 K44 ["OnWidgetFocused"]
-      114 GETTABLEKS                       R12 R0 K45 ["onUnfocused"]
-      116 SETTABLEKS                       R12 R11 K46 ["OnWidgetFocusReleased"]
-      118 GETTABLEKS                       R12 R0 K47 ["onRestore"]
-      120 SETTABLEKS                       R12 R11 K48 ["OnWidgetRestored"]
-      122 GETTABLEKS                       R13 R0 K0 ["props"]
-      124 GETTABLEKS                       R13 R13 K49 ["PluginLoaderContext"]
-      126 JUMPIFNOT                        R13 ; [+7]
-      127 GETTABLEKS                       R12 R0 K0 ["props"]
-      129 GETTABLEKS                       R12 R12 K49 ["PluginLoaderContext"]
-      131 GETTABLEKS                       R12 R12 K50 ["mainDockWidget"]
-      133 JUMP                             ; [+1]
-      134 LOADNIL                          R12
-      135 SETTABLEKS                       R12 R11 K51 ["Widget"]
-      137 GETUPVAL                         R12 7
-      138 GETTABLEKS                       R12 R12 K52 ["Change"]
-      140 GETTABLEKS                       R12 R12 K23 ["Enabled"]
-      142 GETTABLEKS                       R13 R0 K53 ["onWidgetEnabledChanged"]
-      144 SETTABLE                         R13 R11 R12
-      145 GETUPVAL                         R13 2
-      146 CALL                             R13 0 1
-      147 JUMPIFNOT                        R13 ; [+22]
-      148 DUPTABLE                         R12 K55 [{"Provider"}]
-      149 GETUPVAL                         R13 5
-      150 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      152 GETUPVAL                         R14 8
-      153 DUPTABLE                         R15 K57 [{"onStyleSheetChange"}]
-      154 GETTABLEKS                       R16 R0 K58 ["onFoundationStyleSheetChange"]
-      156 SETTABLEKS                       R16 R15 K56 ["onStyleSheetChange"]
-      158 DUPTABLE                         R16 K60 [{"App"}]
-      159 GETUPVAL                         R17 5
-      160 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      162 GETUPVAL                         R18 9
-      163 CALL                             R17 1 1
-      164 SETTABLEKS                       R17 R16 K59 ["App"]
-      166 CALL                             R13 3 1
-      167 SETTABLEKS                       R13 R12 K54 ["Provider"]
-      169 JUMP                             ; [+8]
-      170 DUPTABLE                         R12 K60 [{"App"}]
-      171 GETUPVAL                         R13 5
-      172 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      174 GETUPVAL                         R14 9
-      175 CALL                             R13 1 1
-      176 SETTABLEKS                       R13 R12 K59 ["App"]
-      178 CALL                             R9 3 1
-      179 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
-      181 LOADB                            R9 1
-      182 CALL                             R6 3 -1
-      183 RETURN                           R6 -1
+       40 JUMPIF                           R6 ; [+3]
+       41 GETUPVAL                         R6 3
+       42 CALL                             R6 0 1
+       43 JUMPIFNOT                        R6 ; [+11]
+       44 MOVE                             R7 R5
+       45 GETUPVAL                         R8 4
+       46 GETTABLEKS                       R8 R8 K4 ["new"]
+       48 GETTABLEKS                       R9 R0 K13 ["design"]
+       50 CALL                             R8 1 -1
+       51 FASTCALL                         TABLE_INSERT ; [+2]
+       52 GETIMPORT                        R6 K16 [table.insert]
+       54 CALL                             R6 -1 0
+       55 GETUPVAL                         R6 5
+       56 GETTABLEKS                       R6 R6 K17 ["provide"]
+       58 MOVE                             R7 R5
+       59 DUPTABLE                         R8 K19 [{"MainWidget"}]
+       60 GETUPVAL                         R9 6
+       61 GETTABLEKS                       R9 R9 K20 ["createElement"]
+       63 GETUPVAL                         R10 7
+       64 NEWTABLE                         R11 16 0
+       66 LOADK                            R12 K21 ["TerrainEditor"]
+       67 SETTABLEKS                       R12 R11 K22 ["Id"]
+       69 SETTABLEKS                       R4 R11 K23 ["Enabled"]
+       71 GETTABLEKS                       R12 R0 K7 ["localization"]
+       73 LOADK                            R14 K2 ["Plugin"]
+       74 LOADK                            R15 K24 ["Name"]
+       75 NAMECALL                         R12 R12 K25 ["getText"]
+       77 CALL                             R12 3 1
+       78 SETTABLEKS                       R12 R11 K26 ["Title"]
+       80 GETIMPORT                        R12 K30 [Enum.ZIndexBehavior.Sibling]
+       82 SETTABLEKS                       R12 R11 K28 ["ZIndexBehavior"]
+       84 GETIMPORT                        R12 K33 [Enum.InitialDockState.Left]
+       86 SETTABLEKS                       R12 R11 K31 ["InitialDockState"]
+       88 GETIMPORT                        R12 K35 [Vector2.new]
+       90 LOADN                            R13 640
+       91 LOADN                            R14 480
+       92 CALL                             R12 2 1
+       93 SETTABLEKS                       R12 R11 K36 ["Size"]
+       95 GETIMPORT                        R12 K35 [Vector2.new]
+       97 LOADN                            R13 350
+       98 LOADN                            R14 200
+       99 CALL                             R12 2 1
+      100 SETTABLEKS                       R12 R11 K37 ["MinSize"]
+      102 GETTABLEKS                       R12 R0 K38 ["onClose"]
+      104 SETTABLEKS                       R12 R11 K39 ["OnClose"]
+      106 LOADB                            R12 1
+      107 SETTABLEKS                       R12 R11 K40 ["ShouldRestore"]
+      109 GETTABLEKS                       R12 R0 K41 ["onCreated"]
+      111 SETTABLEKS                       R12 R11 K42 ["OnWidgetCreated"]
+      113 GETTABLEKS                       R12 R0 K43 ["onFocused"]
+      115 SETTABLEKS                       R12 R11 K44 ["OnWidgetFocused"]
+      117 GETTABLEKS                       R12 R0 K45 ["onUnfocused"]
+      119 SETTABLEKS                       R12 R11 K46 ["OnWidgetFocusReleased"]
+      121 GETTABLEKS                       R12 R0 K47 ["onRestore"]
+      123 SETTABLEKS                       R12 R11 K48 ["OnWidgetRestored"]
+      125 GETTABLEKS                       R13 R0 K0 ["props"]
+      127 GETTABLEKS                       R13 R13 K49 ["PluginLoaderContext"]
+      129 JUMPIFNOT                        R13 ; [+7]
+      130 GETTABLEKS                       R12 R0 K0 ["props"]
+      132 GETTABLEKS                       R12 R12 K49 ["PluginLoaderContext"]
+      134 GETTABLEKS                       R12 R12 K50 ["mainDockWidget"]
+      136 JUMP                             ; [+1]
+      137 LOADNIL                          R12
+      138 SETTABLEKS                       R12 R11 K51 ["Widget"]
+      140 GETUPVAL                         R12 8
+      141 GETTABLEKS                       R12 R12 K52 ["Change"]
+      143 GETTABLEKS                       R12 R12 K23 ["Enabled"]
+      145 GETTABLEKS                       R13 R0 K53 ["onWidgetEnabledChanged"]
+      147 SETTABLE                         R13 R11 R12
+      148 GETUPVAL                         R13 2
+      149 CALL                             R13 0 1
+      150 JUMPIF                           R13 ; [+3]
+      151 GETUPVAL                         R13 3
+      152 CALL                             R13 0 1
+      153 JUMPIFNOT                        R13 ; [+22]
+      154 DUPTABLE                         R12 K55 [{"Provider"}]
+      155 GETUPVAL                         R13 6
+      156 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      158 GETUPVAL                         R14 9
+      159 DUPTABLE                         R15 K57 [{"onStyleSheetChange"}]
+      160 GETTABLEKS                       R16 R0 K58 ["onFoundationStyleSheetChange"]
+      162 SETTABLEKS                       R16 R15 K56 ["onStyleSheetChange"]
+      164 DUPTABLE                         R16 K60 [{"App"}]
+      165 GETUPVAL                         R17 6
+      166 GETTABLEKS                       R17 R17 K20 ["createElement"]
+      168 GETUPVAL                         R18 10
+      169 CALL                             R17 1 1
+      170 SETTABLEKS                       R17 R16 K59 ["App"]
+      172 CALL                             R13 3 1
+      173 SETTABLEKS                       R13 R12 K54 ["Provider"]
+      175 JUMP                             ; [+8]
+      176 DUPTABLE                         R12 K60 [{"App"}]
+      177 GETUPVAL                         R13 6
+      178 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      180 GETUPVAL                         R14 10
+      181 CALL                             R13 1 1
+      182 SETTABLEKS                       R13 R12 K59 ["App"]
+      184 CALL                             R9 3 1
+      185 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
+      187 LOADB                            R9 1
+      188 CALL                             R6 3 -1
+      189 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -487,43 +496,50 @@ MAIN:
       137 GETIMPORT                        R27 K4 [require]
       139 GETTABLEKS                       R28 R0 K23 ["Src"]
       141 GETTABLEKS                       R28 R28 K37 ["Flags"]
-      143 GETTABLEKS                       R28 R28 K38 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+      143 GETTABLEKS                       R28 R28 K38 ["getFFlagEnableTerrainPalette"]
       145 CALL                             R27 1 1
-      146 GETTABLEKS                       R28 R1 K39 ["PureComponent"]
-      148 LOADK                            R30 K40 ["MainPlugin"]
-      149 NAMECALL                         R28 R28 K41 ["extend"]
-      151 CALL                             R28 2 1
-      152 DUPCLOSURE                       R29 K42 [PROTO_7]
-      153 CAPTURE                          VAL R26
-      154 CAPTURE                          VAL R9
-      155 CAPTURE                          VAL R6
-      156 CAPTURE                          VAL R5
-      157 CAPTURE                          VAL R16
-      158 CAPTURE                          VAL R17
-      159 CAPTURE                          VAL R24
-      160 CAPTURE                          VAL R21
-      161 CAPTURE                          VAL R22
-      162 CAPTURE                          VAL R14
-      163 CAPTURE                          VAL R15
-      164 CAPTURE                          VAL R23
-      165 CAPTURE                          VAL R27
-      166 CAPTURE                          VAL R3
-      167 CAPTURE                          VAL R13
-      168 SETTABLEKS                       R29 R28 K43 ["init"]
-      170 DUPCLOSURE                       R29 K44 [PROTO_8]
-      171 SETTABLEKS                       R29 R28 K45 ["didUpdate"]
-      173 DUPCLOSURE                       R29 K46 [PROTO_9]
-      174 SETTABLEKS                       R29 R28 K47 ["willUnmount"]
-      176 DUPCLOSURE                       R29 K48 [PROTO_10]
-      177 CAPTURE                          VAL R10
-      178 CAPTURE                          VAL R11
-      179 CAPTURE                          VAL R27
-      180 CAPTURE                          VAL R12
-      181 CAPTURE                          VAL R9
-      182 CAPTURE                          VAL R1
-      183 CAPTURE                          VAL R8
-      184 CAPTURE                          VAL R2
-      185 CAPTURE                          VAL R4
-      186 CAPTURE                          VAL R19
-      187 SETTABLEKS                       R29 R28 K49 ["render"]
-      189 RETURN                           R28 1
+      146 GETIMPORT                        R28 K4 [require]
+      148 GETTABLEKS                       R29 R0 K23 ["Src"]
+      150 GETTABLEKS                       R29 R29 K37 ["Flags"]
+      152 GETTABLEKS                       R29 R29 K39 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+      154 CALL                             R28 1 1
+      155 GETTABLEKS                       R29 R1 K40 ["PureComponent"]
+      157 LOADK                            R31 K41 ["MainPlugin"]
+      158 NAMECALL                         R29 R29 K42 ["extend"]
+      160 CALL                             R29 2 1
+      161 DUPCLOSURE                       R30 K43 [PROTO_7]
+      162 CAPTURE                          VAL R26
+      163 CAPTURE                          VAL R9
+      164 CAPTURE                          VAL R6
+      165 CAPTURE                          VAL R5
+      166 CAPTURE                          VAL R16
+      167 CAPTURE                          VAL R17
+      168 CAPTURE                          VAL R24
+      169 CAPTURE                          VAL R21
+      170 CAPTURE                          VAL R22
+      171 CAPTURE                          VAL R14
+      172 CAPTURE                          VAL R15
+      173 CAPTURE                          VAL R23
+      174 CAPTURE                          VAL R27
+      175 CAPTURE                          VAL R28
+      176 CAPTURE                          VAL R3
+      177 CAPTURE                          VAL R13
+      178 SETTABLEKS                       R30 R29 K44 ["init"]
+      180 DUPCLOSURE                       R30 K45 [PROTO_8]
+      181 SETTABLEKS                       R30 R29 K46 ["didUpdate"]
+      183 DUPCLOSURE                       R30 K47 [PROTO_9]
+      184 SETTABLEKS                       R30 R29 K48 ["willUnmount"]
+      186 DUPCLOSURE                       R30 K49 [PROTO_10]
+      187 CAPTURE                          VAL R10
+      188 CAPTURE                          VAL R11
+      189 CAPTURE                          VAL R27
+      190 CAPTURE                          VAL R28
+      191 CAPTURE                          VAL R12
+      192 CAPTURE                          VAL R9
+      193 CAPTURE                          VAL R1
+      194 CAPTURE                          VAL R8
+      195 CAPTURE                          VAL R2
+      196 CAPTURE                          VAL R4
+      197 CAPTURE                          VAL R19
+      198 SETTABLEKS                       R30 R29 K50 ["render"]
+      200 RETURN                           R29 1

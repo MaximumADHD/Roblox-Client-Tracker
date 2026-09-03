@@ -108,23 +108,23 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["PluginLoader"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["PluginLoaderBuilder"]
-       16 GETTABLEKS                       R3 R0 K9 ["Src"]
-       18 GETTABLEKS                       R3 R3 K10 ["Resources"]
-       20 GETTABLEKS                       R3 R3 K11 ["Localization"]
-       22 GETTABLEKS                       R3 R3 K12 ["SourceStrings"]
-       24 GETTABLEKS                       R4 R0 K9 ["Src"]
-       26 GETTABLEKS                       R4 R4 K10 ["Resources"]
-       28 GETTABLEKS                       R4 R4 K11 ["Localization"]
-       30 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R6 R0 K14 ["Bin"]
-       36 GETTABLEKS                       R6 R6 K15 ["Common"]
-       38 GETTABLEKS                       R6 R6 K16 ["pluginType"]
-       40 CALL                             R5 1 1
-       41 DUPCLOSURE                       R6 K17 [PROTO_3]
-       42 CAPTURE                          VAL R0
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       20 GETTABLEKS                       R4 R4 K9 ["TerrainPalette"]
+       22 CALL                             R3 1 1
+       23 GETTABLEKS                       R4 R3 K10 ["Localization"]
+       25 GETTABLEKS                       R4 R4 K11 ["SourceStrings"]
+       27 GETTABLEKS                       R5 R3 K10 ["Localization"]
+       29 GETTABLEKS                       R5 R5 K12 ["LocalizedStrings"]
+       31 GETIMPORT                        R6 K5 [require]
+       33 GETTABLEKS                       R7 R0 K13 ["Bin"]
+       35 GETTABLEKS                       R7 R7 K14 ["Common"]
+       37 GETTABLEKS                       R7 R7 K15 ["pluginType"]
+       39 CALL                             R6 1 1
+       40 DUPCLOSURE                       R7 K16 [PROTO_3]
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          VAL R5
        43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R2
-       47 RETURN                           R6 1
+       44 CAPTURE                          VAL R6
+       45 CAPTURE                          VAL R2
+       46 RETURN                           R7 1

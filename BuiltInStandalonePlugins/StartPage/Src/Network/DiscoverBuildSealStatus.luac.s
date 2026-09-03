@@ -23,35 +23,50 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["new"]
-        3 CALL                             R1 0 1
-        4 GETTABLEKS                       R2 R1 K1 ["composeUrl"]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R3 R3 K2 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
-        9 GETTABLEKS                       R3 R3 K3 ["Prefix"]
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R4 R4 K2 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
-       14 GETTABLEKS                       R4 R4 K4 ["Url"]
-       16 MOVE                             R5 R0
-       17 CALL                             R4 1 -1
-       18 CALL                             R2 -1 1
-       19 GETUPVAL                         R3 2
-       20 GETUPVAL                         R5 2
-       21 MOVE                             R7 R2
-       22 NAMECALL                         R5 R5 K5 ["get"]
-       24 CALL                             R5 2 -1
-       25 NAMECALL                         R3 R3 K6 ["parseJson"]
-       27 CALL                             R3 -1 1
-       28 NEWCLOSURE                       R5 P0
-       29 CAPTURE                          UPVAL U3
-       30 CAPTURE                          VAL R0
-       31 NAMECALL                         R3 R3 K7 ["andThen"]
-       33 CALL                             R3 2 1
-       34 NEWCLOSURE                       R5 P1
-       35 CAPTURE                          VAL R0
-       36 NAMECALL                         R3 R3 K8 ["catch"]
-       38 CALL                             R3 2 -1
-       39 RETURN                           R3 -1
+        1 JUMPIFNOT                        R1 ; [+18]
+        2 GETUPVAL                         R1 1
+        3 MOVE                             R3 R0
+        4 NAMECALL                         R1 R1 K0 ["getItem"]
+        6 CALL                             R1 2 1
+        7 JUMPIFNOT                        R1 ; [+12]
+        8 GETTABLEKS                       R2 R1 K1 ["IsBuildSealed"]
+       10 JUMPIFNOTEQKB                    R2 FALSE ; [+9]
+       12 GETUPVAL                         R2 2
+       13 GETTABLEKS                       R2 R2 K2 ["resolve"]
+       15 DUPTABLE                         R3 K5 [{["Id"], ["IsBuildSealed"] = False}]
+       16 SETTABLEKS                       R0 R3 K3 ["Id"]
+       18 CALL                             R2 1 -1
+       19 RETURN                           R2 -1
+       20 GETUPVAL                         R1 3
+       21 GETTABLEKS                       R1 R1 K6 ["new"]
+       23 CALL                             R1 0 1
+       24 GETTABLEKS                       R2 R1 K7 ["composeUrl"]
+       26 GETUPVAL                         R3 4
+       27 GETTABLEKS                       R3 R3 K8 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
+       29 GETTABLEKS                       R3 R3 K9 ["Prefix"]
+       31 GETUPVAL                         R4 4
+       32 GETTABLEKS                       R4 R4 K8 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
+       34 GETTABLEKS                       R4 R4 K10 ["Url"]
+       36 MOVE                             R5 R0
+       37 CALL                             R4 1 -1
+       38 CALL                             R2 -1 1
+       39 GETUPVAL                         R3 5
+       40 GETUPVAL                         R5 5
+       41 MOVE                             R7 R2
+       42 NAMECALL                         R5 R5 K11 ["get"]
+       44 CALL                             R5 2 -1
+       45 NAMECALL                         R3 R3 K12 ["parseJson"]
+       47 CALL                             R3 -1 1
+       48 NEWCLOSURE                       R5 P0
+       49 CAPTURE                          UPVAL U6
+       50 CAPTURE                          VAL R0
+       51 NAMECALL                         R3 R3 K13 ["andThen"]
+       53 CALL                             R3 2 1
+       54 NEWCLOSURE                       R5 P1
+       55 CAPTURE                          VAL R0
+       56 NAMECALL                         R3 R3 K14 ["catch"]
+       58 CALL                             R3 2 -1
+       59 RETURN                           R3 -1
 
 PROTO_3:
         0 NEWTABLE                         R1 0 0
@@ -125,54 +140,63 @@ MAIN:
        25 CALL                             R2 1 1
        26 CALL                             R2 0 1
        27 GETIMPORT                        R3 K5 [require]
-       29 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R4 R4 K11 ["Framework"]
-       33 CALL                             R3 1 1
-       34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R5 R0 K6 ["Src"]
-       38 GETTABLEKS                       R5 R5 K12 ["Models"]
-       40 GETTABLEKS                       R5 R5 K13 ["UniverseActivationEligibilityResponse"]
-       42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K5 [require]
-       45 GETTABLEKS                       R6 R0 K6 ["Src"]
-       47 GETTABLEKS                       R6 R6 K14 ["Network"]
-       49 GETTABLEKS                       R6 R6 K15 ["Urls"]
-       51 CALL                             R5 1 1
-       52 GETIMPORT                        R6 K5 [require]
-       54 GETTABLEKS                       R7 R0 K6 ["Src"]
-       56 GETTABLEKS                       R7 R7 K16 ["Util"]
-       58 GETTABLEKS                       R7 R7 K17 ["Services"]
-       60 CALL                             R6 1 1
-       61 GETTABLEKS                       R6 R6 K18 ["Networking"]
-       63 GETIMPORT                        R7 K5 [require]
-       65 GETTABLEKS                       R8 R0 K6 ["Src"]
-       67 GETTABLEKS                       R8 R8 K16 ["Util"]
-       69 GETTABLEKS                       R8 R8 K19 ["createResponseValidator"]
-       71 CALL                             R7 1 1
-       72 GETTABLEKS                       R8 R3 K20 ["RobloxAPI"]
-       74 GETTABLEKS                       R8 R8 K21 ["Url"]
-       76 GETTABLEKS                       R9 R3 K16 ["Util"]
-       78 GETTABLEKS                       R9 R9 K22 ["Promise"]
-       80 GETTABLEKS                       R10 R6 K23 ["new"]
-       82 DUPTABLE                         R11 K29 [{["isInternal"] = True, ["loggingLevel"], ["retryAmount"] = 3}]
-       83 SETTABLEKS                       R1 R11 K26 ["loggingLevel"]
-       85 CALL                             R10 1 1
-       86 GETIMPORT                        R11 K5 [require]
-       88 GETTABLEKS                       R12 R0 K6 ["Src"]
-       90 GETTABLEKS                       R12 R12 K14 ["Network"]
-       92 GETTABLEKS                       R12 R12 K30 ["GameCache"]
-       94 CALL                             R11 1 1
-       95 MOVE                             R12 R7
-       96 GETTABLEKS                       R13 R4 K31 ["validate"]
-       98 CALL                             R12 1 1
-       99 DUPCLOSURE                       R13 K32 [PROTO_2]
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R10
-      103 CAPTURE                          VAL R12
-      104 DUPCLOSURE                       R14 K33 [PROTO_4]
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R13
-      107 CAPTURE                          VAL R9
-      108 CAPTURE                          VAL R11
-      109 RETURN                           R14 1
+       29 GETTABLEKS                       R4 R0 K6 ["Src"]
+       31 GETTABLEKS                       R4 R4 K7 ["SharedFlags"]
+       33 GETTABLEKS                       R4 R4 K10 ["getFFlagStartPageBackfillRecentsFromCloud"]
+       35 CALL                             R3 1 1
+       36 CALL                             R3 0 1
+       37 GETIMPORT                        R4 K5 [require]
+       39 GETTABLEKS                       R5 R0 K11 ["Packages"]
+       41 GETTABLEKS                       R5 R5 K12 ["Framework"]
+       43 CALL                             R4 1 1
+       44 GETIMPORT                        R5 K5 [require]
+       46 GETTABLEKS                       R6 R0 K6 ["Src"]
+       48 GETTABLEKS                       R6 R6 K13 ["Models"]
+       50 GETTABLEKS                       R6 R6 K14 ["UniverseActivationEligibilityResponse"]
+       52 CALL                             R5 1 1
+       53 GETIMPORT                        R6 K5 [require]
+       55 GETTABLEKS                       R7 R0 K6 ["Src"]
+       57 GETTABLEKS                       R7 R7 K15 ["Network"]
+       59 GETTABLEKS                       R7 R7 K16 ["Urls"]
+       61 CALL                             R6 1 1
+       62 GETIMPORT                        R7 K5 [require]
+       64 GETTABLEKS                       R8 R0 K6 ["Src"]
+       66 GETTABLEKS                       R8 R8 K17 ["Util"]
+       68 GETTABLEKS                       R8 R8 K18 ["Services"]
+       70 CALL                             R7 1 1
+       71 GETTABLEKS                       R7 R7 K19 ["Networking"]
+       73 GETIMPORT                        R8 K5 [require]
+       75 GETTABLEKS                       R9 R0 K6 ["Src"]
+       77 GETTABLEKS                       R9 R9 K17 ["Util"]
+       79 GETTABLEKS                       R9 R9 K20 ["createResponseValidator"]
+       81 CALL                             R8 1 1
+       82 GETTABLEKS                       R9 R4 K21 ["RobloxAPI"]
+       84 GETTABLEKS                       R9 R9 K22 ["Url"]
+       86 GETTABLEKS                       R10 R4 K17 ["Util"]
+       88 GETTABLEKS                       R10 R10 K23 ["Promise"]
+       90 GETTABLEKS                       R11 R7 K24 ["new"]
+       92 DUPTABLE                         R12 K30 [{["isInternal"] = True, ["loggingLevel"], ["retryAmount"] = 3}]
+       93 SETTABLEKS                       R1 R12 K27 ["loggingLevel"]
+       95 CALL                             R11 1 1
+       96 GETIMPORT                        R12 K5 [require]
+       98 GETTABLEKS                       R13 R0 K6 ["Src"]
+      100 GETTABLEKS                       R13 R13 K15 ["Network"]
+      102 GETTABLEKS                       R13 R13 K31 ["GameCache"]
+      104 CALL                             R12 1 1
+      105 MOVE                             R13 R8
+      106 GETTABLEKS                       R14 R5 K32 ["validate"]
+      108 CALL                             R13 1 1
+      109 DUPCLOSURE                       R14 K33 [PROTO_2]
+      110 CAPTURE                          VAL R3
+      111 CAPTURE                          VAL R12
+      112 CAPTURE                          VAL R10
+      113 CAPTURE                          VAL R9
+      114 CAPTURE                          VAL R6
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R13
+      117 DUPCLOSURE                       R15 K34 [PROTO_4]
+      118 CAPTURE                          VAL R2
+      119 CAPTURE                          VAL R14
+      120 CAPTURE                          VAL R10
+      121 CAPTURE                          VAL R12
+      122 RETURN                           R15 1

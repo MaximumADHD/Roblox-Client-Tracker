@@ -84,7 +84,31 @@ PROTO_0:
       130 MOVE                             R3 R1
       131 GETIMPORT                        R2 K14 [table.insert]
       133 CALL                             R2 2 0
-      134 RETURN                           R1 1
+      134 GETUPVAL                         R2 1
+      135 CALL                             R2 0 1
+      136 JUMPIFNOT                        R2 ; [+33]
+      137 DUPTABLE                         R4 K3 [{"icon", "id", "text"}]
+      138 GETIMPORT                        R6 K28 [Enum.InputActionType.ViewportPosition]
+      140 JUMPIFNOTEQ                      R0 R6 ; [+3]
+      142 LOADK                            R5 K8 ["circle-check"]
+      143 JUMP                             ; [+1]
+      144 LOADNIL                          R5
+      145 SETTABLEKS                       R5 R4 K0 ["icon"]
+      147 JUMPIFNOTEQKNIL                  R0 ; [+5]
+      149 GETUPVAL                         R5 0
+      150 GETTABLEKS                       R5 R5 K29 ["CREATE_ACTION_VIEWPORT_POSITION"]
+      152 JUMP                             ; [+3]
+      153 GETUPVAL                         R5 0
+      154 GETTABLEKS                       R5 R5 K30 ["EDIT_ACTION_VIEWPORT_POSITION"]
+      156 SETTABLEKS                       R5 R4 K1 ["id"]
+      158 GETIMPORT                        R5 K28 [Enum.InputActionType.ViewportPosition]
+      160 GETTABLEKS                       R5 R5 K11 ["Name"]
+      162 SETTABLEKS                       R5 R4 K2 ["text"]
+      164 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
+      166 MOVE                             R3 R1
+      167 GETIMPORT                        R2 K14 [table.insert]
+      169 CALL                             R2 2 0
+      170 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -102,6 +126,12 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K10 ["Constants"]
        22 GETTABLEKS                       R3 R3 K11 ["MenuIdentifiers"]
        24 CALL                             R2 1 1
-       25 DUPCLOSURE                       R3 K12 [PROTO_0]
-       26 CAPTURE                          VAL R2
-       27 RETURN                           R3 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R4 R0 K8 ["Src"]
+       29 GETTABLEKS                       R4 R4 K12 ["Flags"]
+       31 GETTABLEKS                       R4 R4 K13 ["getFFlagIAMViewportPositionType"]
+       33 CALL                             R3 1 1
+       34 DUPCLOSURE                       R4 K14 [PROTO_0]
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R3
+       37 RETURN                           R4 1

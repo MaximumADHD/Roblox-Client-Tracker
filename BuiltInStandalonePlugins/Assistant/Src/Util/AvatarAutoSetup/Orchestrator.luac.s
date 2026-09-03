@@ -370,6 +370,13 @@ PROTO_12:
       290 CLOSEUPVALS                      R10
       291 RETURN                           R21 1
 
+PROTO_13:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["cancelAutoSetup"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -425,7 +432,7 @@ MAIN:
        82 DUPCLOSURE                       R12 K34 [PROTO_6]
        83 SETTABLEKS                       R12 R11 K28 ["onFailure"]
        85 CALL                             R10 1 1
-       86 NEWTABLE                         R11 1 0
+       86 NEWTABLE                         R11 2 0
        88 GETIMPORT                        R12 K23 [table.freeze]
        90 DUPTABLE                         R13 K45 [{["SetupType"] = "Platform", ["AlignFrontAngle"] = False, ["R15Plus"] = False, ["ClothingOnly"] = False, ["EnableAdditionalHeadProcessing"] = True, ["DecalToDynamicHead"] = False, ["shouldCreateTemplateBody"] = False}]
        91 CALL                             R12 1 1
@@ -441,4 +448,7 @@ MAIN:
       101 CAPTURE                          VAL R1
       102 CAPTURE                          VAL R3
       103 SETTABLEKS                       R13 R11 K47 ["autoSetupAsync"]
-      105 RETURN                           R11 1
+      105 DUPCLOSURE                       R13 K48 [PROTO_13]
+      106 CAPTURE                          VAL R4
+      107 SETTABLEKS                       R13 R11 K49 ["cancelAutoSetup"]
+      109 RETURN                           R11 1

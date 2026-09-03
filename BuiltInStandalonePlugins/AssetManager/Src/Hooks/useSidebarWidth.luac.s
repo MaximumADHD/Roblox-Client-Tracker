@@ -1,79 +1,46 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R2 R2 K0 ["getAppSizes"]
-        4 CALL                             R2 1 1
-        5 GETTABLEN                        R1 R2 1
-        6 GETTABLEKS                       R1 R1 K1 ["Offset"]
-        8 CALL                             R0 1 0
-        9 RETURN                           R0 0
+        1 GETUPVAL                         R1 1
+        2 NAMECALL                         R1 R1 K0 ["getSidebarWidth"]
+        4 CALL                             R1 1 -1
+        5 CALL                             R0 -1 0
+        6 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R2 R2 K0 ["getAppSizes"]
-        4 CALL                             R2 1 1
-        5 GETTABLEN                        R1 R2 1
-        6 GETTABLEKS                       R1 R1 K1 ["Offset"]
-        8 CALL                             R0 1 0
-        9 RETURN                           R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 CALL                             R0 1 0
-        3 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnAppSizesChanged"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U0
+        6 NAMECALL                         R0 R0 K1 ["Connect"]
+        8 CALL                             R0 2 1
+        9 NEWCLOSURE                       R1 P1
+       10 CAPTURE                          VAL R0
+       11 RETURN                           R1 1
 
 PROTO_3:
-        0 NEWTABLE                         R0 0 0
-        2 MOVE                             R2 R0
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K0 ["OnAppSizesChanged"]
-        6 NEWCLOSURE                       R5 P0
-        7 CAPTURE                          UPVAL U1
-        8 CAPTURE                          UPVAL U0
-        9 NAMECALL                         R3 R3 K1 ["Connect"]
-       11 CALL                             R3 2 -1
-       12 FASTCALL                         TABLE_INSERT ; [+2]
-       13 GETIMPORT                        R1 K4 [table.insert]
-       15 CALL                             R1 -1 0
-       16 MOVE                             R2 R0
-       17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R3 R3 K5 ["OnPluginWidthChanged"]
-       20 NEWCLOSURE                       R5 P1
-       21 CAPTURE                          UPVAL U1
-       22 CAPTURE                          UPVAL U0
-       23 NAMECALL                         R3 R3 K1 ["Connect"]
-       25 CALL                             R3 2 -1
-       26 FASTCALL                         TABLE_INSERT ; [+2]
-       27 GETIMPORT                        R1 K4 [table.insert]
-       29 CALL                             R1 -1 0
-       30 NEWCLOSURE                       R1 P2
-       31 CAPTURE                          UPVAL U2
-       32 CAPTURE                          VAL R0
-       33 RETURN                           R1 1
-
-PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
-        4 NAMECALL                         R2 R0 K1 ["getAppSizes"]
-        6 CALL                             R2 1 1
-        7 GETTABLEN                        R1 R2 1
-        8 GETTABLEKS                       R1 R1 K2 ["Offset"]
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R2 R2 K3 ["useState"]
-       13 MOVE                             R3 R1
-       14 CALL                             R2 1 2
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R4 R4 K4 ["useEffect"]
-       18 NEWCLOSURE                       R5 P0
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          VAL R3
-       21 CAPTURE                          UPVAL U2
-       22 NEWTABLE                         R6 0 0
-       24 CALL                             R4 2 0
-       25 RETURN                           R2 1
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["useState"]
+        7 NAMECALL                         R2 R0 K2 ["getSidebarWidth"]
+        9 CALL                             R2 1 -1
+       10 CALL                             R1 -1 2
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["useEffect"]
+       14 NEWCLOSURE                       R4 P0
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          VAL R2
+       17 NEWTABLE                         R5 0 0
+       19 CALL                             R3 2 0
+       20 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -87,16 +54,10 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Util"]
-       20 GETTABLEKS                       R3 R3 K10 ["cleanConnections"]
+       18 GETTABLEKS                       R3 R3 K9 ["Controllers"]
+       20 GETTABLEKS                       R3 R3 K10 ["LayoutController"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K11 ["Controllers"]
-       29 GETTABLEKS                       R4 R4 K12 ["LayoutController"]
-       31 CALL                             R3 1 1
-       32 DUPCLOSURE                       R4 K13 [PROTO_4]
-       33 CAPTURE                          VAL R3
-       34 CAPTURE                          VAL R1
-       35 CAPTURE                          VAL R2
-       36 RETURN                           R4 1
+       23 DUPCLOSURE                       R3 K11 [PROTO_3]
+       24 CAPTURE                          VAL R2
+       25 CAPTURE                          VAL R1
+       26 RETURN                           R3 1

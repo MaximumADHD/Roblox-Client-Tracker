@@ -3,16 +3,18 @@ PROTO_0:
         1 RETURN                           R0 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["createElement"]
-        3 GETUPVAL                         R2 1
-        4 GETTABLEKS                       R2 R2 K1 ["Provider"]
-        6 DUPTABLE                         R3 K3 [{"localization"}]
-        7 GETUPVAL                         R4 2
-        8 SETTABLEKS                       R4 R3 K2 ["localization"]
-       10 MOVE                             R4 R0
-       11 CALL                             R1 3 -1
-       12 RETURN                           R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["Provider"]
+        6 DUPTABLE                         R4 K3 [{"localization"}]
+        7 MOVE                             R5 R1
+        8 JUMPIF                           R5 ; [+1]
+        9 GETUPVAL                         R5 2
+       10 SETTABLEKS                       R5 R4 K2 ["localization"]
+       12 MOVE                             R5 R0
+       13 CALL                             R2 3 -1
+       14 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

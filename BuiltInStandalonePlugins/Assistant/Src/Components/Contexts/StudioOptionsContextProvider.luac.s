@@ -237,58 +237,61 @@ PROTO_10:
        74 GETUPVAL                         R13 7
        75 GETTABLEKS                       R13 R13 K9 ["Context"]
        77 CALL                             R12 1 1
-       78 MOVE                             R13 R12
-       79 JUMPIFNOT                        R13 ; [+11]
-       80 GETTABLEKS                       R14 R12 K10 ["selectedProvider"]
-       82 GETUPVAL                         R15 8
-       83 GETTABLEKS                       R15 R15 K11 ["LLMProviderTypes"]
-       85 GETTABLEKS                       R15 R15 K12 ["Studio"]
-       87 JUMPIFEQ                         R14 R15 ; [+2]
-       89 LOADB                            R13 0 +1
-       90 LOADB                            R13 1
-       91 MOVE                             R11 R13
-       92 GETUPVAL                         R13 1
-       93 GETTABLEKS                       R13 R13 K7 ["useEffect"]
-       95 NEWCLOSURE                       R14 P3
-       96 CAPTURE                          VAL R1
-       97 CAPTURE                          REF R11
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          UPVAL U4
-      100 CAPTURE                          REF R9
-      101 CAPTURE                          REF R10
-      102 CAPTURE                          VAL R3
-      103 NEWTABLE                         R15 0 5
-      105 MOVE                             R16 R1
-      106 MOVE                             R17 R11
-      107 MOVE                             R18 R6
-      108 MOVE                             R19 R9
-      109 MOVE                             R20 R10
-      110 SETLIST                          R15 R16 5 [1]
-      112 CALL                             R13 2 0
-      113 GETUPVAL                         R13 1
-      114 GETTABLEKS                       R13 R13 K1 ["useMemo"]
-      116 NEWCLOSURE                       R14 P4
-      117 CAPTURE                          UPVAL U9
-      118 CAPTURE                          VAL R2
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          VAL R8
-      121 NEWTABLE                         R15 0 3
-      123 MOVE                             R16 R2
-      124 MOVE                             R17 R7
-      125 MOVE                             R18 R8
-      126 SETLIST                          R15 R16 3 [1]
-      128 CALL                             R13 2 1
-      129 GETUPVAL                         R14 10
-      130 GETUPVAL                         R15 11
-      131 GETTABLEKS                       R15 R15 K13 ["Components"]
-      133 GETTABLEKS                       R15 R15 K14 ["Contexts"]
-      135 GETTABLEKS                       R15 R15 K15 ["OptionsContextProvider"]
-      137 DUPTABLE                         R16 K17 [{"options"}]
-      138 SETTABLEKS                       R13 R16 K16 ["options"]
-      140 GETTABLEKS                       R17 R0 K18 ["children"]
-      142 CALL                             R14 3 -1
-      143 CLOSEUPVALS                      R9
-      144 RETURN                           R14 -1
+       78 GETUPVAL                         R13 4
+       79 GETTABLEKS                       R13 R13 K10 ["FFlagAssistantUseRemoteService"]
+       81 JUMPIF                           R13 ; [+13]
+       82 MOVE                             R13 R12
+       83 JUMPIFNOT                        R13 ; [+11]
+       84 GETTABLEKS                       R14 R12 K11 ["selectedProvider"]
+       86 GETUPVAL                         R15 8
+       87 GETTABLEKS                       R15 R15 K12 ["LLMProviderTypes"]
+       89 GETTABLEKS                       R15 R15 K13 ["Studio"]
+       91 JUMPIFEQ                         R14 R15 ; [+2]
+       93 LOADB                            R13 0 +1
+       94 LOADB                            R13 1
+       95 MOVE                             R11 R13
+       96 GETUPVAL                         R13 1
+       97 GETTABLEKS                       R13 R13 K7 ["useEffect"]
+       99 NEWCLOSURE                       R14 P3
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          REF R11
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          UPVAL U4
+      104 CAPTURE                          REF R9
+      105 CAPTURE                          REF R10
+      106 CAPTURE                          VAL R3
+      107 NEWTABLE                         R15 0 5
+      109 MOVE                             R16 R1
+      110 MOVE                             R17 R11
+      111 MOVE                             R18 R6
+      112 MOVE                             R19 R9
+      113 MOVE                             R20 R10
+      114 SETLIST                          R15 R16 5 [1]
+      116 CALL                             R13 2 0
+      117 GETUPVAL                         R13 1
+      118 GETTABLEKS                       R13 R13 K1 ["useMemo"]
+      120 NEWCLOSURE                       R14 P4
+      121 CAPTURE                          UPVAL U9
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R7
+      124 CAPTURE                          VAL R8
+      125 NEWTABLE                         R15 0 3
+      127 MOVE                             R16 R2
+      128 MOVE                             R17 R7
+      129 MOVE                             R18 R8
+      130 SETLIST                          R15 R16 3 [1]
+      132 CALL                             R13 2 1
+      133 GETUPVAL                         R14 10
+      134 GETUPVAL                         R15 11
+      135 GETTABLEKS                       R15 R15 K14 ["Components"]
+      137 GETTABLEKS                       R15 R15 K15 ["Contexts"]
+      139 GETTABLEKS                       R15 R15 K16 ["OptionsContextProvider"]
+      141 DUPTABLE                         R16 K18 [{"options"}]
+      142 SETTABLEKS                       R13 R16 K17 ["options"]
+      144 GETTABLEKS                       R17 R0 K19 ["children"]
+      146 CALL                             R14 3 -1
+      147 CLOSEUPVALS                      R9
+      148 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -416,41 +419,39 @@ MAIN:
       188 GETTABLEKS                       R17 R14 K54 ["CharacterNavigation"]
       190 LOADK                            R18 K54 ["CharacterNavigation"]
       191 SETTABLE                         R18 R16 R17
-      192 GETTABLEKS                       R17 R10 K55 ["FFlagAssistantGetStudioState"]
-      194 JUMPIFNOT                        R17 ; [+4]
-      195 GETTABLEKS                       R17 R14 K56 ["GetStudioState"]
-      197 LOADK                            R18 K56 ["GetStudioState"]
-      198 SETTABLE                         R18 R16 R17
-      199 GETTABLEKS                       R17 R10 K57 ["FFlagAssistantMultiPlayerAgents"]
-      201 JUMPIFNOT                        R17 ; [+16]
-      202 GETTABLEKS                       R17 R14 K58 ["StartMultiPlayerAgents"]
-      204 LOADK                            R18 K58 ["StartMultiPlayerAgents"]
-      205 SETTABLE                         R18 R16 R17
-      206 GETTABLEKS                       R17 R14 K59 ["StopMultiPlayerAgents"]
-      208 LOADK                            R18 K59 ["StopMultiPlayerAgents"]
-      209 SETTABLE                         R18 R16 R17
-      210 GETTABLEKS                       R17 R14 K60 ["MultiPlayerAgentsCommunication"]
-      212 LOADK                            R18 K60 ["MultiPlayerAgentsCommunication"]
-      213 SETTABLE                         R18 R16 R17
-      214 GETTABLEKS                       R17 R14 K61 ["WaitForMultiPlayerAgentsCommunication"]
-      216 LOADK                            R18 K61 ["WaitForMultiPlayerAgentsCommunication"]
-      217 SETTABLE                         R18 R16 R17
-      218 DUPCLOSURE                       R17 K62 [PROTO_2]
-      219 CAPTURE                          VAL R16
-      220 CAPTURE                          VAL R13
-      221 CAPTURE                          VAL R10
-      222 CAPTURE                          VAL R12
-      223 DUPCLOSURE                       R18 K63 [PROTO_10]
-      224 CAPTURE                          VAL R11
-      225 CAPTURE                          VAL R3
-      226 CAPTURE                          VAL R8
-      227 CAPTURE                          VAL R6
-      228 CAPTURE                          VAL R10
-      229 CAPTURE                          VAL R7
-      230 CAPTURE                          VAL R4
-      231 CAPTURE                          VAL R9
-      232 CAPTURE                          VAL R5
-      233 CAPTURE                          VAL R17
-      234 CAPTURE                          VAL R15
-      235 CAPTURE                          VAL R1
-      236 RETURN                           R18 1
+      192 GETTABLEKS                       R17 R14 K55 ["GetStudioState"]
+      194 LOADK                            R18 K55 ["GetStudioState"]
+      195 SETTABLE                         R18 R16 R17
+      196 GETTABLEKS                       R17 R10 K56 ["FFlagAssistantMultiPlayerAgents"]
+      198 JUMPIFNOT                        R17 ; [+16]
+      199 GETTABLEKS                       R17 R14 K57 ["StartMultiPlayerAgents"]
+      201 LOADK                            R18 K57 ["StartMultiPlayerAgents"]
+      202 SETTABLE                         R18 R16 R17
+      203 GETTABLEKS                       R17 R14 K58 ["StopMultiPlayerAgents"]
+      205 LOADK                            R18 K58 ["StopMultiPlayerAgents"]
+      206 SETTABLE                         R18 R16 R17
+      207 GETTABLEKS                       R17 R14 K59 ["MultiPlayerAgentsCommunication"]
+      209 LOADK                            R18 K59 ["MultiPlayerAgentsCommunication"]
+      210 SETTABLE                         R18 R16 R17
+      211 GETTABLEKS                       R17 R14 K60 ["WaitForMultiPlayerAgentsCommunication"]
+      213 LOADK                            R18 K60 ["WaitForMultiPlayerAgentsCommunication"]
+      214 SETTABLE                         R18 R16 R17
+      215 DUPCLOSURE                       R17 K61 [PROTO_2]
+      216 CAPTURE                          VAL R16
+      217 CAPTURE                          VAL R13
+      218 CAPTURE                          VAL R10
+      219 CAPTURE                          VAL R12
+      220 DUPCLOSURE                       R18 K62 [PROTO_10]
+      221 CAPTURE                          VAL R11
+      222 CAPTURE                          VAL R3
+      223 CAPTURE                          VAL R8
+      224 CAPTURE                          VAL R6
+      225 CAPTURE                          VAL R10
+      226 CAPTURE                          VAL R7
+      227 CAPTURE                          VAL R4
+      228 CAPTURE                          VAL R9
+      229 CAPTURE                          VAL R5
+      230 CAPTURE                          VAL R17
+      231 CAPTURE                          VAL R15
+      232 CAPTURE                          VAL R1
+      233 RETURN                           R18 1

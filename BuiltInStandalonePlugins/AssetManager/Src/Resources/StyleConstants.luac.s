@@ -134,19 +134,21 @@ MAIN:
       193 SETTABLEKS                       R1 R0 K63 ["CompactScopeListMaxHeight"]
       195 LOADK                            R1 K64 [26.5]
       196 SETTABLEKS                       R1 R0 K65 ["CompactScopeListItemHeight"]
-      198 GETIMPORT                        R1 K39 [UDim2.fromOffset]
-      200 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
-      202 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
-      204 CALL                             R1 2 1
-      205 SETTABLEKS                       R1 R0 K66 ["IconSizeXSmall"]
-      207 GETIMPORT                        R1 K39 [UDim2.fromOffset]
-      209 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
-      211 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
-      213 CALL                             R1 2 1
-      214 SETTABLEKS                       R1 R0 K67 ["IconSize"]
-      216 GETIMPORT                        R1 K39 [UDim2.fromOffset]
-      218 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
-      220 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
-      222 CALL                             R1 2 1
-      223 SETTABLEKS                       R1 R0 K68 ["IconSizeXLarge"]
-      225 RETURN                           R0 1
+      198 LOADN                            R1 330
+      199 SETTABLEKS                       R1 R0 K66 ["AssetStatePopoverWidth"]
+      201 GETIMPORT                        R1 K39 [UDim2.fromOffset]
+      203 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
+      205 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
+      207 CALL                             R1 2 1
+      208 SETTABLEKS                       R1 R0 K67 ["IconSizeXSmall"]
+      210 GETIMPORT                        R1 K39 [UDim2.fromOffset]
+      212 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
+      214 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
+      216 CALL                             R1 2 1
+      217 SETTABLEKS                       R1 R0 K68 ["IconSize"]
+      219 GETIMPORT                        R1 K39 [UDim2.fromOffset]
+      221 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
+      223 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
+      225 CALL                             R1 2 1
+      226 SETTABLEKS                       R1 R0 K69 ["IconSizeXLarge"]
+      228 RETURN                           R0 1

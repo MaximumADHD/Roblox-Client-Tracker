@@ -3583,61 +3583,57 @@ PROTO_67:
        63 RETURN                           R0 0
 
 PROTO_68:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantLogThinkingTokens"]
-        3 JUMPIF                           R1 ; [+1]
-        4 RETURN                           R0 0
-        5 GETTABLEKS                       R1 R0 K1 ["thinkingText"]
-        7 GETUPVAL                         R2 1
-        8 GETTABLEKS                       R2 R2 K2 ["logEvent"]
-       10 GETUPVAL                         R3 2
-       11 DUPTABLE                         R4 K5 [{"customFields", "standardizedFields"}]
-       12 DUPTABLE                         R6 K13 [{"requestId", "conversationId", "thinkingText", "thinkingTextCharacters", "isSubagent", "currentSubagent", "parentMessageGuid", "parentToolId"}]
-       13 GETTABLEKS                       R7 R0 K14 ["messageGuid"]
-       15 SETTABLEKS                       R7 R6 K6 ["requestId"]
-       17 GETTABLEKS                       R7 R0 K15 ["sessionId"]
-       19 SETTABLEKS                       R7 R6 K7 ["conversationId"]
-       21 SETTABLEKS                       R1 R6 K1 ["thinkingText"]
-       23 JUMPIFNOT                        R1 ; [+2]
-       24 LENGTH                           R7 R1
-       25 JUMP                             ; [+1]
-       26 LOADNIL                          R7
-       27 SETTABLEKS                       R7 R6 K8 ["thinkingTextCharacters"]
-       29 GETTABLEKS                       R7 R0 K9 ["isSubagent"]
-       31 SETTABLEKS                       R7 R6 K9 ["isSubagent"]
-       33 GETTABLEKS                       R7 R0 K10 ["currentSubagent"]
-       35 SETTABLEKS                       R7 R6 K10 ["currentSubagent"]
-       37 GETTABLEKS                       R7 R0 K11 ["parentMessageGuid"]
-       39 SETTABLEKS                       R7 R6 K11 ["parentMessageGuid"]
-       41 GETTABLEKS                       R7 R0 K12 ["parentToolId"]
-       43 SETTABLEKS                       R7 R6 K12 ["parentToolId"]
-       45 GETUPVAL                         R7 3
-       46 GETTABLEKS                       R7 R7 K16 ["assign"]
-       48 MOVE                             R8 R6
-       49 DUPTABLE                         R9 K18 [{"timestampMilliseconds"}]
-       50 GETUPVAL                         R10 4
-       51 GETTABLEKS                       R10 R10 K19 ["getTimestampMilliseconds"]
-       53 CALL                             R10 0 1
-       54 SETTABLEKS                       R10 R9 K17 ["timestampMilliseconds"]
-       56 CALL                             R7 2 1
-       57 MOVE                             R5 R7
-       58 SETTABLEKS                       R5 R4 K3 ["customFields"]
-       60 NEWTABLE                         R6 0 0
-       62 GETUPVAL                         R7 5
-       63 GETTABLEKS                       R7 R7 K20 ["StandardizedFields"]
-       65 LOADNIL                          R8
-       66 LOADNIL                          R9
-       67 FORGPREP                         R7
-       68 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
-       70 MOVE                             R13 R6
-       71 MOVE                             R14 R11
-       72 GETIMPORT                        R12 K23 [table.insert]
-       74 CALL                             R12 2 0
-       75 FORGLOOP                         R7 2 ; [-8]
-       77 MOVE                             R5 R6
-       78 SETTABLEKS                       R5 R4 K4 ["standardizedFields"]
-       80 CALL                             R2 2 0
-       81 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["thinkingText"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["logEvent"]
+        5 GETUPVAL                         R3 1
+        6 DUPTABLE                         R4 K4 [{"customFields", "standardizedFields"}]
+        7 DUPTABLE                         R6 K12 [{"requestId", "conversationId", "thinkingText", "thinkingTextCharacters", "isSubagent", "currentSubagent", "parentMessageGuid", "parentToolId"}]
+        8 GETTABLEKS                       R7 R0 K13 ["messageGuid"]
+       10 SETTABLEKS                       R7 R6 K5 ["requestId"]
+       12 GETTABLEKS                       R7 R0 K14 ["sessionId"]
+       14 SETTABLEKS                       R7 R6 K6 ["conversationId"]
+       16 SETTABLEKS                       R1 R6 K0 ["thinkingText"]
+       18 JUMPIFNOT                        R1 ; [+2]
+       19 LENGTH                           R7 R1
+       20 JUMP                             ; [+1]
+       21 LOADNIL                          R7
+       22 SETTABLEKS                       R7 R6 K7 ["thinkingTextCharacters"]
+       24 GETTABLEKS                       R7 R0 K8 ["isSubagent"]
+       26 SETTABLEKS                       R7 R6 K8 ["isSubagent"]
+       28 GETTABLEKS                       R7 R0 K9 ["currentSubagent"]
+       30 SETTABLEKS                       R7 R6 K9 ["currentSubagent"]
+       32 GETTABLEKS                       R7 R0 K10 ["parentMessageGuid"]
+       34 SETTABLEKS                       R7 R6 K10 ["parentMessageGuid"]
+       36 GETTABLEKS                       R7 R0 K11 ["parentToolId"]
+       38 SETTABLEKS                       R7 R6 K11 ["parentToolId"]
+       40 GETUPVAL                         R7 2
+       41 GETTABLEKS                       R7 R7 K15 ["assign"]
+       43 MOVE                             R8 R6
+       44 DUPTABLE                         R9 K17 [{"timestampMilliseconds"}]
+       45 GETUPVAL                         R10 3
+       46 GETTABLEKS                       R10 R10 K18 ["getTimestampMilliseconds"]
+       48 CALL                             R10 0 1
+       49 SETTABLEKS                       R10 R9 K16 ["timestampMilliseconds"]
+       51 CALL                             R7 2 1
+       52 MOVE                             R5 R7
+       53 SETTABLEKS                       R5 R4 K2 ["customFields"]
+       55 NEWTABLE                         R6 0 0
+       57 GETUPVAL                         R7 4
+       58 GETTABLEKS                       R7 R7 K19 ["StandardizedFields"]
+       60 LOADNIL                          R8
+       61 LOADNIL                          R9
+       62 FORGPREP                         R7
+       63 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
+       65 MOVE                             R13 R6
+       66 MOVE                             R14 R11
+       67 GETIMPORT                        R12 K22 [table.insert]
+       69 CALL                             R12 2 0
+       70 FORGLOOP                         R7 2 ; [-8]
+       72 MOVE                             R5 R6
+       73 SETTABLEKS                       R5 R4 K3 ["standardizedFields"]
+       75 CALL                             R2 2 0
+       76 RETURN                           R0 0
 
 PROTO_69:
         0 GETUPVAL                         R1 0
@@ -4084,71 +4080,70 @@ PROTO_70:
       357 CAPTURE                          UPVAL U6
       358 CAPTURE                          UPVAL U8
       359 DUPCLOSURE                       R48 K43 [PROTO_68]
-      360 CAPTURE                          UPVAL U0
-      361 CAPTURE                          UPVAL U1
-      362 CAPTURE                          UPVAL U81
-      363 CAPTURE                          UPVAL U3
-      364 CAPTURE                          UPVAL U6
-      365 CAPTURE                          UPVAL U8
-      366 DUPCLOSURE                       R49 K44 [PROTO_69]
-      367 CAPTURE                          UPVAL U1
-      368 CAPTURE                          UPVAL U82
-      369 CAPTURE                          UPVAL U3
-      370 CAPTURE                          UPVAL U4
-      371 CAPTURE                          UPVAL U5
-      372 CAPTURE                          UPVAL U83
-      373 CAPTURE                          UPVAL U84
-      374 NEWTABLE                         R50 64 0
-      376 SETTABLEKS                       R1 R50 K45 ["logUserMessageSent"]
-      378 SETTABLEKS                       R2 R50 K46 ["logAssistantMessageSent"]
-      380 SETTABLEKS                       R3 R50 K47 ["logApiKeyAdded"]
-      382 SETTABLEKS                       R4 R50 K48 ["logErrorEvent"]
-      384 SETTABLEKS                       R17 R50 K49 ["logExternalAPIError"]
-      386 SETTABLEKS                       R5 R50 K50 ["logThumbsUp"]
-      388 SETTABLEKS                       R6 R50 K51 ["logThumbsDown"]
-      390 SETTABLEKS                       R7 R50 K52 ["logInitialResponseLatency"]
-      392 SETTABLEKS                       R8 R50 K53 ["logMarkdownError"]
-      394 SETTABLEKS                       R9 R50 K54 ["logRetry"]
-      396 SETTABLEKS                       R10 R50 K55 ["logStopGeneration"]
-      398 SETTABLEKS                       R11 R50 K56 ["logToolStarted"]
-      400 SETTABLEKS                       R12 R50 K57 ["logToolEnded"]
-      402 SETTABLEKS                       R13 R50 K58 ["logFailedToolInvocation"]
-      404 SETTABLEKS                       R14 R50 K59 ["logToolConfirmationShown"]
-      406 SETTABLEKS                       R15 R50 K60 ["logToolConfirmationResult"]
-      408 SETTABLEKS                       R16 R50 K61 ["logRequestJourney"]
-      410 SETTABLEKS                       R18 R50 K62 ["logMeshGenActivated"]
-      412 SETTABLEKS                       R19 R50 K63 ["logMeshGenCompleted"]
-      414 SETTABLEKS                       R20 R50 K64 ["logMeshGenPublishedAssets"]
-      416 SETTABLEKS                       R21 R50 K65 ["logMeshGenMeshInserted"]
-      418 SETTABLEKS                       R22 R50 K66 ["logPrimitiveGen"]
-      420 SETTABLEKS                       R23 R50 K67 ["logAvatarAutoSetupRequested"]
-      422 SETTABLEKS                       R24 R50 K68 ["logAvatarAutoSetupOptions"]
-      424 SETTABLEKS                       R25 R50 K69 ["logAvatarAutoSetupJobInitialized"]
-      426 SETTABLEKS                       R26 R50 K70 ["logAvatarAutoSetupFinish"]
-      428 SETTABLEKS                       R27 R50 K71 ["logAvatarAutoSetupFailure"]
-      430 SETTABLEKS                       R28 R50 K72 ["logGen3DSegmentationRefresh"]
-      432 SETTABLEKS                       R29 R50 K73 ["logGen3DInstanceDeleted"]
-      434 SETTABLEKS                       R30 R50 K74 ["logGen3DImageImpression"]
-      436 SETTABLEKS                       R31 R50 K75 ["logGen3DImageAction"]
-      438 SETTABLEKS                       R32 R50 K76 ["logGen3DAssetPublished"]
-      440 SETTABLEKS                       R33 R50 K77 ["logIntegrationEvent"]
-      442 SETTABLEKS                       R34 R50 K78 ["logExternalServerConnected"]
-      444 SETTABLEKS                       R35 R50 K79 ["logQuestionAnswerCompleted"]
-      446 SETTABLEKS                       R36 R50 K80 ["logPlanDecision"]
-      448 SETTABLEKS                       R43 R50 K81 ["logQuickSetupToggled"]
-      450 SETTABLEKS                       R37 R50 K82 ["logMaterialGeneratorSavedMaterial"]
-      452 SETTABLEKS                       R45 R50 K83 ["logCompactionSuccess"]
-      454 SETTABLEKS                       R46 R50 K84 ["logCompactionFallback"]
-      456 SETTABLEKS                       R47 R50 K85 ["logUserSkillEvent"]
-      458 SETTABLEKS                       R48 R50 K86 ["logThinkingBlock"]
-      460 SETTABLEKS                       R38 R50 K87 ["logThreadCreated"]
-      462 SETTABLEKS                       R39 R50 K88 ["logThreadRenamed"]
-      464 SETTABLEKS                       R40 R50 K89 ["logThreadPinnedChanged"]
-      466 SETTABLEKS                       R41 R50 K90 ["logThreadDeleted"]
-      468 SETTABLEKS                       R42 R50 K91 ["logThreadDuplicated"]
-      470 SETTABLEKS                       R44 R50 K92 ["logThreadSwitched"]
-      472 SETTABLEKS                       R49 R50 K93 ["logPersistenceOperation"]
-      474 RETURN                           R50 1
+      360 CAPTURE                          UPVAL U1
+      361 CAPTURE                          UPVAL U81
+      362 CAPTURE                          UPVAL U3
+      363 CAPTURE                          UPVAL U6
+      364 CAPTURE                          UPVAL U8
+      365 DUPCLOSURE                       R49 K44 [PROTO_69]
+      366 CAPTURE                          UPVAL U1
+      367 CAPTURE                          UPVAL U82
+      368 CAPTURE                          UPVAL U3
+      369 CAPTURE                          UPVAL U4
+      370 CAPTURE                          UPVAL U5
+      371 CAPTURE                          UPVAL U83
+      372 CAPTURE                          UPVAL U84
+      373 NEWTABLE                         R50 64 0
+      375 SETTABLEKS                       R1 R50 K45 ["logUserMessageSent"]
+      377 SETTABLEKS                       R2 R50 K46 ["logAssistantMessageSent"]
+      379 SETTABLEKS                       R3 R50 K47 ["logApiKeyAdded"]
+      381 SETTABLEKS                       R4 R50 K48 ["logErrorEvent"]
+      383 SETTABLEKS                       R17 R50 K49 ["logExternalAPIError"]
+      385 SETTABLEKS                       R5 R50 K50 ["logThumbsUp"]
+      387 SETTABLEKS                       R6 R50 K51 ["logThumbsDown"]
+      389 SETTABLEKS                       R7 R50 K52 ["logInitialResponseLatency"]
+      391 SETTABLEKS                       R8 R50 K53 ["logMarkdownError"]
+      393 SETTABLEKS                       R9 R50 K54 ["logRetry"]
+      395 SETTABLEKS                       R10 R50 K55 ["logStopGeneration"]
+      397 SETTABLEKS                       R11 R50 K56 ["logToolStarted"]
+      399 SETTABLEKS                       R12 R50 K57 ["logToolEnded"]
+      401 SETTABLEKS                       R13 R50 K58 ["logFailedToolInvocation"]
+      403 SETTABLEKS                       R14 R50 K59 ["logToolConfirmationShown"]
+      405 SETTABLEKS                       R15 R50 K60 ["logToolConfirmationResult"]
+      407 SETTABLEKS                       R16 R50 K61 ["logRequestJourney"]
+      409 SETTABLEKS                       R18 R50 K62 ["logMeshGenActivated"]
+      411 SETTABLEKS                       R19 R50 K63 ["logMeshGenCompleted"]
+      413 SETTABLEKS                       R20 R50 K64 ["logMeshGenPublishedAssets"]
+      415 SETTABLEKS                       R21 R50 K65 ["logMeshGenMeshInserted"]
+      417 SETTABLEKS                       R22 R50 K66 ["logPrimitiveGen"]
+      419 SETTABLEKS                       R23 R50 K67 ["logAvatarAutoSetupRequested"]
+      421 SETTABLEKS                       R24 R50 K68 ["logAvatarAutoSetupOptions"]
+      423 SETTABLEKS                       R25 R50 K69 ["logAvatarAutoSetupJobInitialized"]
+      425 SETTABLEKS                       R26 R50 K70 ["logAvatarAutoSetupFinish"]
+      427 SETTABLEKS                       R27 R50 K71 ["logAvatarAutoSetupFailure"]
+      429 SETTABLEKS                       R28 R50 K72 ["logGen3DSegmentationRefresh"]
+      431 SETTABLEKS                       R29 R50 K73 ["logGen3DInstanceDeleted"]
+      433 SETTABLEKS                       R30 R50 K74 ["logGen3DImageImpression"]
+      435 SETTABLEKS                       R31 R50 K75 ["logGen3DImageAction"]
+      437 SETTABLEKS                       R32 R50 K76 ["logGen3DAssetPublished"]
+      439 SETTABLEKS                       R33 R50 K77 ["logIntegrationEvent"]
+      441 SETTABLEKS                       R34 R50 K78 ["logExternalServerConnected"]
+      443 SETTABLEKS                       R35 R50 K79 ["logQuestionAnswerCompleted"]
+      445 SETTABLEKS                       R36 R50 K80 ["logPlanDecision"]
+      447 SETTABLEKS                       R43 R50 K81 ["logQuickSetupToggled"]
+      449 SETTABLEKS                       R37 R50 K82 ["logMaterialGeneratorSavedMaterial"]
+      451 SETTABLEKS                       R45 R50 K83 ["logCompactionSuccess"]
+      453 SETTABLEKS                       R46 R50 K84 ["logCompactionFallback"]
+      455 SETTABLEKS                       R47 R50 K85 ["logUserSkillEvent"]
+      457 SETTABLEKS                       R48 R50 K86 ["logThinkingBlock"]
+      459 SETTABLEKS                       R38 R50 K87 ["logThreadCreated"]
+      461 SETTABLEKS                       R39 R50 K88 ["logThreadRenamed"]
+      463 SETTABLEKS                       R40 R50 K89 ["logThreadPinnedChanged"]
+      465 SETTABLEKS                       R41 R50 K90 ["logThreadDeleted"]
+      467 SETTABLEKS                       R42 R50 K91 ["logThreadDuplicated"]
+      469 SETTABLEKS                       R44 R50 K92 ["logThreadSwitched"]
+      471 SETTABLEKS                       R49 R50 K93 ["logPersistenceOperation"]
+      473 RETURN                           R50 1
 
 PROTO_71:
         0 GETUPVAL                         R1 0

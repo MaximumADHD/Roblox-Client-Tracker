@@ -11,24 +11,16 @@ PROTO_0:
        16 RETURN                           R2 1
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+15]
-        2 GETTABLEKS                       R3 R0 K0 ["DropdownLabel"]
-        4 NAMECALL                         R3 R3 K1 ["lower"]
-        6 CALL                             R3 1 1
-        7 GETTABLEKS                       R4 R1 K0 ["DropdownLabel"]
-        9 NAMECALL                         R4 R4 K1 ["lower"]
-       11 CALL                             R4 1 1
-       12 JUMPIFLT                         R3 R4 ; [+2]
-       14 LOADB                            R2 0 +1
-       15 LOADB                            R2 1
-       16 RETURN                           R2 1
-       17 GETTABLEKS                       R3 R0 K0 ["DropdownLabel"]
-       19 GETTABLEKS                       R4 R1 K0 ["DropdownLabel"]
-       21 JUMPIFLT                         R3 R4 ; [+2]
-       23 LOADB                            R2 0 +1
-       24 LOADB                            R2 1
-       25 RETURN                           R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["DropdownLabel"]
+        2 NAMECALL                         R3 R3 K1 ["lower"]
+        4 CALL                             R3 1 1
+        5 GETTABLEKS                       R4 R1 K0 ["DropdownLabel"]
+        7 NAMECALL                         R4 R4 K1 ["lower"]
+        9 CALL                             R4 1 1
+       10 JUMPIFLT                         R3 R4 ; [+2]
+       12 LOADB                            R2 0 +1
+       13 LOADB                            R2 1
+       14 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -44,12 +36,11 @@ PROTO_2:
        12 GETIMPORT                        R3 K4 [table.sort]
        14 MOVE                             R4 R2
        15 DUPCLOSURE                       R5 K5 [PROTO_1]
-       16 CAPTURE                          UPVAL U2
-       17 CALL                             R3 2 0
-       18 GETUPVAL                         R3 3
-       19 MOVE                             R4 R2
-       20 CALL                             R3 1 0
-       21 RETURN                           R0 0
+       16 CALL                             R3 2 0
+       17 GETUPVAL                         R3 2
+       18 MOVE                             R4 R2
+       19 CALL                             R3 1 0
+       20 RETURN                           R0 0
 
 PROTO_3:
         0 GETIMPORT                        R1 K1 [warn]
@@ -83,14 +74,13 @@ PROTO_4:
        25 NEWCLOSURE                       R5 P0
        26 CAPTURE                          UPVAL U3
        27 CAPTURE                          UPVAL U4
-       28 CAPTURE                          UPVAL U5
-       29 CAPTURE                          VAL R0
-       30 NAMECALL                         R3 R2 K7 ["andThen"]
-       32 CALL                             R3 2 1
-       33 DUPCLOSURE                       R5 K8 [PROTO_3]
-       34 NAMECALL                         R3 R3 K9 ["catch"]
-       36 CALL                             R3 2 0
-       37 RETURN                           R0 0
+       28 CAPTURE                          VAL R0
+       29 NAMECALL                         R3 R2 K7 ["andThen"]
+       31 CALL                             R3 2 1
+       32 DUPCLOSURE                       R5 K8 [PROTO_3]
+       33 NAMECALL                         R3 R3 K9 ["catch"]
+       35 CALL                             R3 2 0
+       36 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -133,33 +123,26 @@ MAIN:
        64 GETTABLEKS                       R8 R8 K16 ["Util"]
        66 GETTABLEKS                       R8 R8 K19 ["createResponseValidator"]
        68 CALL                             R7 1 1
-       69 GETIMPORT                        R8 K5 [require]
-       71 GETTABLEKS                       R9 R0 K6 ["Src"]
-       73 GETTABLEKS                       R9 R9 K7 ["SharedFlags"]
-       75 GETTABLEKS                       R9 R9 K20 ["getFFlagStartPageGroupSortingCaseInsensitive"]
-       77 CALL                             R8 1 1
-       78 CALL                             R8 0 1
-       79 GETTABLEKS                       R9 R2 K21 ["RobloxAPI"]
-       81 GETTABLEKS                       R9 R9 K22 ["Url"]
-       83 GETTABLEKS                       R10 R6 K23 ["new"]
-       85 DUPTABLE                         R11 K27 [{["isInternal"] = True, ["loggingLevel"]}]
-       86 SETTABLEKS                       R1 R11 K26 ["loggingLevel"]
-       88 CALL                             R10 1 1
-       89 GETIMPORT                        R11 K5 [require]
-       91 GETTABLEKS                       R12 R0 K9 ["Packages"]
-       93 GETTABLEKS                       R12 R12 K28 ["Dash"]
-       95 CALL                             R11 1 1
-       96 GETTABLEKS                       R12 R11 K29 ["collectArray"]
-       98 MOVE                             R13 R7
-       99 GETTABLEKS                       R14 R4 K30 ["validate"]
-      101 CALL                             R13 1 1
-      102 GETTABLEKS                       R14 R9 K23 ["new"]
-      104 CALL                             R14 0 1
-      105 DUPCLOSURE                       R15 K31 [PROTO_4]
-      106 CAPTURE                          VAL R14
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R13
-      110 CAPTURE                          VAL R12
-      111 CAPTURE                          VAL R8
-      112 RETURN                           R15 1
+       69 GETTABLEKS                       R8 R2 K20 ["RobloxAPI"]
+       71 GETTABLEKS                       R8 R8 K21 ["Url"]
+       73 GETTABLEKS                       R9 R6 K22 ["new"]
+       75 DUPTABLE                         R10 K26 [{["isInternal"] = True, ["loggingLevel"]}]
+       76 SETTABLEKS                       R1 R10 K25 ["loggingLevel"]
+       78 CALL                             R9 1 1
+       79 GETIMPORT                        R10 K5 [require]
+       81 GETTABLEKS                       R11 R0 K9 ["Packages"]
+       83 GETTABLEKS                       R11 R11 K27 ["Dash"]
+       85 CALL                             R10 1 1
+       86 GETTABLEKS                       R11 R10 K28 ["collectArray"]
+       88 MOVE                             R12 R7
+       89 GETTABLEKS                       R13 R4 K29 ["validate"]
+       91 CALL                             R12 1 1
+       92 GETTABLEKS                       R13 R8 K22 ["new"]
+       94 CALL                             R13 0 1
+       95 DUPCLOSURE                       R14 K30 [PROTO_4]
+       96 CAPTURE                          VAL R13
+       97 CAPTURE                          VAL R5
+       98 CAPTURE                          VAL R9
+       99 CAPTURE                          VAL R12
+      100 CAPTURE                          VAL R11
+      101 RETURN                           R14 1

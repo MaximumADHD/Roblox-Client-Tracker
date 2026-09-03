@@ -142,6 +142,6 @@ MAIN:
        37 CAPTURE                          VAL R2
        38 CAPTURE                          VAL R4
        39 CAPTURE                          VAL R3
-       40 SETGLOBAL                        R5 K14 ["parseErrorMessage"]
-       42 GETGLOBAL                        R5 K14 ["parseErrorMessage"]
+       40 SETGLOBAL                        R5 K14 ["parseErrorTable"]
+       42 GETGLOBAL                        R5 K14 ["parseErrorTable"]
        44 RETURN                           R5 1

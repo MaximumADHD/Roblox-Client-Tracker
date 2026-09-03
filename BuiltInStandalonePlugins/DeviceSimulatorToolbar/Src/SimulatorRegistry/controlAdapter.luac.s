@@ -123,76 +123,87 @@ PROTO_6:
        20 RETURN                           R1 2
 
 PROTO_7:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
-        3 CALL                             R3 0 1
-        4 JUMPIF                           R3 ; [+10]
-        5 DUPTABLE                         R3 K7 [{["items"], ["value"] = "", ["hasValue"] = False, ["itemIdToValue"]}]
-        6 NEWTABLE                         R4 0 0
-        8 SETTABLEKS                       R4 R3 K1 ["items"]
-       10 NEWTABLE                         R4 0 0
-       12 SETTABLEKS                       R4 R3 K6 ["itemIdToValue"]
-       14 RETURN                           R3 1
-       15 GETIMPORT                        R3 K10 [table.create]
-       17 GETTABLEKS                       R5 R0 K11 ["Options"]
-       19 LENGTH                           R4 R5
-       20 CALL                             R3 1 1
-       21 NEWTABLE                         R4 0 0
-       23 NEWTABLE                         R5 0 0
-       25 GETTABLEKS                       R6 R0 K11 ["Options"]
-       27 LOADNIL                          R7
-       28 LOADNIL                          R8
-       29 FORGPREP                         R6
-       30 GETUPVAL                         R12 0
-       31 GETTABLEKS                       R12 R12 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
-       33 CALL                             R12 0 1
-       34 JUMPIF                           R12 ; [+2]
-       35 LOADK                            R11 K3 [""]
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
+        3 CALL                             R4 0 1
+        4 JUMPIF                           R4 ; [+10]
+        5 DUPTABLE                         R4 K7 [{["items"], ["value"] = "", ["hasValue"] = False, ["itemIdToValue"]}]
+        6 NEWTABLE                         R5 0 0
+        8 SETTABLEKS                       R5 R4 K1 ["items"]
+       10 NEWTABLE                         R5 0 0
+       12 SETTABLEKS                       R5 R4 K6 ["itemIdToValue"]
+       14 RETURN                           R4 1
+       15 GETIMPORT                        R4 K10 [table.create]
+       17 GETTABLEKS                       R6 R0 K11 ["Options"]
+       19 LENGTH                           R5 R6
+       20 CALL                             R4 1 1
+       21 NEWTABLE                         R5 0 0
+       23 NEWTABLE                         R6 0 0
+       25 GETTABLEKS                       R7 R0 K11 ["Options"]
+       27 LOADNIL                          R8
+       28 LOADNIL                          R9
+       29 FORGPREP                         R7
+       30 GETUPVAL                         R13 0
+       31 GETTABLEKS                       R13 R13 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
+       33 CALL                             R13 0 1
+       34 JUMPIF                           R13 ; [+2]
+       35 LOADK                            R12 K3 [""]
        36 JUMP                             ; [+7]
-       37 LOADK                            R12 K12 ["%*/option/%*"]
-       38 MOVE                             R14 R1
-       39 MOVE                             R15 R9
-       40 NAMECALL                         R12 R12 K13 ["format"]
-       42 CALL                             R12 3 1
-       43 MOVE                             R11 R12
-       44 DUPTABLE                         R14 K16 [{"id", "text"}]
-       45 SETTABLEKS                       R11 R14 K14 ["id"]
-       47 SETTABLEKS                       R10 R14 K15 ["text"]
-       49 FASTCALL2                        TABLE_INSERT R3 R14 ; [+4]
-       51 MOVE                             R13 R3
-       52 GETIMPORT                        R12 K18 [table.insert]
-       54 CALL                             R12 2 0
-       55 SETTABLE                         R10 R5 R11
-       56 GETTABLE                         R12 R4 R10
-       57 JUMPIFNOTEQKNIL                  R12 ; [+2]
-       59 SETTABLE                         R11 R4 R10
-       60 FORGLOOP                         R6 2 ; [-31]
-       62 FASTCALL1                        TYPE R2 ; [+3]
-       63 MOVE                             R8 R2
-       64 GETIMPORT                        R7 K20 [type]
-       66 CALL                             R7 1 1
-       67 JUMPIFNOTEQKS                    R7 K21 ["string"] ; [+3]
-       69 MOVE                             R6 R2
-       70 JUMP                             ; [+1]
-       71 LOADNIL                          R6
-       72 JUMPIFEQKNIL                     R6 ; [+3]
-       74 GETTABLE                         R7 R4 R6
-       75 JUMP                             ; [+1]
-       76 LOADNIL                          R7
-       77 DUPTABLE                         R8 K23 [{"items", "value", "hasValue", "placeholder", "itemIdToValue"}]
-       78 SETTABLEKS                       R3 R8 K1 ["items"]
-       80 SETTABLEKS                       R7 R8 K2 ["value"]
-       82 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       84 LOADB                            R9 0 +1
-       85 LOADB                            R9 1
-       86 SETTABLEKS                       R9 R8 K4 ["hasValue"]
-       88 JUMPIFNOTEQKNIL                  R7 ; [+3]
-       90 MOVE                             R9 R6
-       91 JUMP                             ; [+1]
-       92 LOADNIL                          R9
-       93 SETTABLEKS                       R9 R8 K22 ["placeholder"]
-       95 SETTABLEKS                       R5 R8 K6 ["itemIdToValue"]
-       97 RETURN                           R8 1
+       37 LOADK                            R13 K12 ["%*/option/%*"]
+       38 MOVE                             R15 R1
+       39 MOVE                             R16 R10
+       40 NAMECALL                         R13 R13 K13 ["format"]
+       42 CALL                             R13 3 1
+       43 MOVE                             R12 R13
+       44 DUPTABLE                         R15 K16 [{"id", "text"}]
+       45 SETTABLEKS                       R12 R15 K14 ["id"]
+       47 JUMPIFEQKNIL                     R3 ; [+4]
+       49 GETTABLE                         R17 R3 R11
+       50 OR                               R16 R17 R11
+       51 JUMP                             ; [+1]
+       52 MOVE                             R16 R11
+       53 SETTABLEKS                       R16 R15 K15 ["text"]
+       55 FASTCALL2                        TABLE_INSERT R4 R15 ; [+4]
+       57 MOVE                             R14 R4
+       58 GETIMPORT                        R13 K18 [table.insert]
+       60 CALL                             R13 2 0
+       61 SETTABLE                         R11 R6 R12
+       62 GETTABLE                         R13 R5 R11
+       63 JUMPIFNOTEQKNIL                  R13 ; [+2]
+       65 SETTABLE                         R12 R5 R11
+       66 FORGLOOP                         R7 2 ; [-37]
+       68 FASTCALL1                        TYPE R2 ; [+3]
+       69 MOVE                             R9 R2
+       70 GETIMPORT                        R8 K20 [type]
+       72 CALL                             R8 1 1
+       73 JUMPIFNOTEQKS                    R8 K21 ["string"] ; [+3]
+       75 MOVE                             R7 R2
+       76 JUMP                             ; [+1]
+       77 LOADNIL                          R7
+       78 JUMPIFEQKNIL                     R7 ; [+3]
+       80 GETTABLE                         R8 R5 R7
+       81 JUMP                             ; [+1]
+       82 LOADNIL                          R8
+       83 DUPTABLE                         R9 K23 [{"items", "value", "hasValue", "placeholder", "itemIdToValue"}]
+       84 SETTABLEKS                       R4 R9 K1 ["items"]
+       86 SETTABLEKS                       R8 R9 K2 ["value"]
+       88 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       90 LOADB                            R10 0 +1
+       91 LOADB                            R10 1
+       92 SETTABLEKS                       R10 R9 K4 ["hasValue"]
+       94 JUMPIFNOTEQKNIL                  R8 ; [+8]
+       96 JUMPIFEQKNIL                     R7 ; [+6]
+       98 JUMPIFEQKNIL                     R3 ; [+4]
+      100 GETTABLE                         R11 R3 R7
+      101 OR                               R10 R11 R7
+      102 JUMP                             ; [+5]
+      103 JUMPIFNOTEQKNIL                  R8 ; [+3]
+      105 MOVE                             R10 R7
+      106 JUMP                             ; [+1]
+      107 LOADNIL                          R10
+      108 SETTABLEKS                       R10 R9 K22 ["placeholder"]
+      110 SETTABLEKS                       R6 R9 K6 ["itemIdToValue"]
+      112 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0

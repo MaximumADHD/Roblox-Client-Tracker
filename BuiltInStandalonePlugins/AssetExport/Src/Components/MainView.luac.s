@@ -301,7 +301,7 @@ PROTO_3:
       369 SETTABLEKS                       R22 R21 K97 ["Cancel"]
       371 GETUPVAL                         R23 6
       372 CALL                             R23 0 1
-      373 JUMPIFNOT                        R23 ; [+159]
+      373 JUMPIFNOT                        R23 ; [+146]
       374 GETUPVAL                         R22 13
       375 GETTABLEKS                       R22 R22 K16 ["createElement"]
       377 GETUPVAL                         R23 2
@@ -347,7 +347,7 @@ PROTO_3:
       433 SETTABLEKS                       R29 R28 K115 ["width"]
       435 CALL                             R26 2 1
       436 SETTABLEKS                       R26 R25 K99 ["Button"]
-      438 JUMPIFNOT                        R11 ; [+89]
+      438 JUMPIFNOT                        R11 ; [+76]
       439 GETUPVAL                         R26 13
       440 GETTABLEKS                       R26 R26 K16 ["createElement"]
       442 GETUPVAL                         R27 2
@@ -376,66 +376,57 @@ PROTO_3:
       478 GETTABLEKS                       R30 R30 K16 ["createElement"]
       480 GETUPVAL                         R31 2
       481 GETTABLEKS                       R31 R31 K46 ["Text"]
-      483 DUPTABLE                         R32 K137 [{["Text"], ["tag"], ["textStyle"], ["LayoutOrder"] = 2}]
+      483 DUPTABLE                         R32 K138 [{["Text"], ["tag"] = "text-label-small auto-xy", ["textStyle"], ["LayoutOrder"] = 2}]
       484 SETTABLEKS                       R12 R32 K46 ["Text"]
-      486 GETUPVAL                         R34 2
-      487 GETTABLEKS                       R34 R34 K138 ["Utility"]
-      489 GETTABLEKS                       R34 R34 K139 ["Flags"]
-      491 GETTABLEKS                       R34 R34 K140 ["FoundationButtonLabelTypography"]
-      493 JUMPIFNOT                        R34 ; [+2]
-      494 LOADK                            R33 K141 ["text-label-small auto-xy"]
-      495 JUMP                             ; [+1]
-      496 LOADK                            R33 K142 ["text-title-small auto-xy"]
-      497 SETTABLEKS                       R33 R32 K18 ["tag"]
-      499 DUPTABLE                         R33 K145 [{"Color3", "Transparency"}]
-      500 GETTABLEKS                       R34 R3 K146 ["Color"]
-      502 GETTABLEKS                       R34 R34 K147 ["ActionEmphasis"]
-      504 GETTABLEKS                       R34 R34 K148 ["Foreground"]
-      506 GETTABLEKS                       R34 R34 K143 ["Color3"]
-      508 SETTABLEKS                       R34 R33 K143 ["Color3"]
-      510 GETTABLEKS                       R35 R3 K146 ["Color"]
-      512 GETTABLEKS                       R35 R35 K147 ["ActionEmphasis"]
-      514 GETTABLEKS                       R35 R35 K148 ["Foreground"]
-      516 GETTABLEKS                       R35 R35 K144 ["Transparency"]
-      518 ADDK                             R34 R35 K149 [0.5]
-      519 SETTABLEKS                       R34 R33 K144 ["Transparency"]
-      521 SETTABLEKS                       R33 R32 K136 ["textStyle"]
-      523 CALL                             R30 2 1
-      524 SETTABLEKS                       R30 R29 K128 ["Label"]
-      526 CALL                             R26 3 1
-      527 JUMP                             ; [+1]
-      528 LOADNIL                          R26
-      529 SETTABLEKS                       R26 R25 K113 ["ProcessingContent"]
-      531 CALL                             R22 3 1
-      532 JUMP                             ; [+36]
-      533 GETUPVAL                         R22 13
-      534 GETTABLEKS                       R22 R22 K16 ["createElement"]
-      536 GETUPVAL                         R23 2
-      537 GETTABLEKS                       R23 R23 K99 ["Button"]
-      539 DUPTABLE                         R24 K150 [{["text"], ["variant"], ["onActivated"], ["isDisabled"], ["size"], ["LayoutOrder"] = 2}]
-      540 SETTABLEKS                       R12 R24 K100 ["text"]
-      542 GETUPVAL                         R25 2
-      543 GETTABLEKS                       R25 R25 K75 ["Enums"]
-      545 GETTABLEKS                       R25 R25 K107 ["ButtonVariant"]
-      547 GETTABLEKS                       R25 R25 K120 ["Emphasis"]
-      549 SETTABLEKS                       R25 R24 K101 ["variant"]
-      551 NEWCLOSURE                       R25 P2
-      552 CAPTURE                          VAL R10
-      553 CAPTURE                          VAL R2
-      554 SETTABLEKS                       R25 R24 K102 ["onActivated"]
-      556 NOT                              R25 R10
-      557 SETTABLEKS                       R25 R24 K103 ["isDisabled"]
-      559 GETUPVAL                         R25 2
-      560 GETTABLEKS                       R25 R25 K75 ["Enums"]
-      562 GETTABLEKS                       R25 R25 K109 ["InputSize"]
-      564 GETTABLEKS                       R25 R25 K110 ["Small"]
-      566 SETTABLEKS                       R25 R24 K105 ["size"]
-      568 CALL                             R22 2 1
-      569 SETTABLEKS                       R22 R21 K6 ["Export"]
-      571 CALL                             R18 3 1
-      572 SETTABLEKS                       R18 R17 K25 ["ButtonPanel"]
-      574 CALL                             R14 3 -1
-      575 RETURN                           R14 -1
+      486 DUPTABLE                         R33 K141 [{"Color3", "Transparency"}]
+      487 GETTABLEKS                       R34 R3 K142 ["Color"]
+      489 GETTABLEKS                       R34 R34 K143 ["ActionEmphasis"]
+      491 GETTABLEKS                       R34 R34 K144 ["Foreground"]
+      493 GETTABLEKS                       R34 R34 K139 ["Color3"]
+      495 SETTABLEKS                       R34 R33 K139 ["Color3"]
+      497 GETTABLEKS                       R35 R3 K142 ["Color"]
+      499 GETTABLEKS                       R35 R35 K143 ["ActionEmphasis"]
+      501 GETTABLEKS                       R35 R35 K144 ["Foreground"]
+      503 GETTABLEKS                       R35 R35 K140 ["Transparency"]
+      505 ADDK                             R34 R35 K145 [0.5]
+      506 SETTABLEKS                       R34 R33 K140 ["Transparency"]
+      508 SETTABLEKS                       R33 R32 K137 ["textStyle"]
+      510 CALL                             R30 2 1
+      511 SETTABLEKS                       R30 R29 K128 ["Label"]
+      513 CALL                             R26 3 1
+      514 JUMP                             ; [+1]
+      515 LOADNIL                          R26
+      516 SETTABLEKS                       R26 R25 K113 ["ProcessingContent"]
+      518 CALL                             R22 3 1
+      519 JUMP                             ; [+36]
+      520 GETUPVAL                         R22 13
+      521 GETTABLEKS                       R22 R22 K16 ["createElement"]
+      523 GETUPVAL                         R23 2
+      524 GETTABLEKS                       R23 R23 K99 ["Button"]
+      526 DUPTABLE                         R24 K146 [{["text"], ["variant"], ["onActivated"], ["isDisabled"], ["size"], ["LayoutOrder"] = 2}]
+      527 SETTABLEKS                       R12 R24 K100 ["text"]
+      529 GETUPVAL                         R25 2
+      530 GETTABLEKS                       R25 R25 K75 ["Enums"]
+      532 GETTABLEKS                       R25 R25 K107 ["ButtonVariant"]
+      534 GETTABLEKS                       R25 R25 K120 ["Emphasis"]
+      536 SETTABLEKS                       R25 R24 K101 ["variant"]
+      538 NEWCLOSURE                       R25 P2
+      539 CAPTURE                          VAL R10
+      540 CAPTURE                          VAL R2
+      541 SETTABLEKS                       R25 R24 K102 ["onActivated"]
+      543 NOT                              R25 R10
+      544 SETTABLEKS                       R25 R24 K103 ["isDisabled"]
+      546 GETUPVAL                         R25 2
+      547 GETTABLEKS                       R25 R25 K75 ["Enums"]
+      549 GETTABLEKS                       R25 R25 K109 ["InputSize"]
+      551 GETTABLEKS                       R25 R25 K110 ["Small"]
+      553 SETTABLEKS                       R25 R24 K105 ["size"]
+      555 CALL                             R22 2 1
+      556 SETTABLEKS                       R22 R21 K6 ["Export"]
+      558 CALL                             R18 3 1
+      559 SETTABLEKS                       R18 R17 K25 ["ButtonPanel"]
+      561 CALL                             R14 3 -1
+      562 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

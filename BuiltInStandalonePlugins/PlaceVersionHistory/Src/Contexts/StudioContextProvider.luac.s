@@ -7,21 +7,23 @@ PROTO_0:
         6 MOVE                             R3 R1
         7 CALL                             R3 0 -1
         8 RETURN                           R3 -1
-        9 DUPTABLE                         R3 K5 [{"PlaceId", "UniverseId", "Version"}]
-       10 GETUPVAL                         R4 1
-       11 GETTABLEKS                       R4 R4 K6 ["placeId"]
-       13 SETTABLEKS                       R4 R3 K2 ["PlaceId"]
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R4 R4 K7 ["universeId"]
-       18 SETTABLEKS                       R4 R3 K3 ["UniverseId"]
-       20 GETUPVAL                         R4 2
-       21 SETTABLEKS                       R4 R3 K4 ["Version"]
-       23 MOVE                             R4 R0
-       24 MOVE                             R7 R3
-       25 NAMECALL                         R5 R2 K8 ["OpenPlaceAsync"]
-       27 CALL                             R5 2 -1
-       28 CALL                             R4 -1 -1
-       29 RETURN                           R4 -1
+        9 DUPTABLE                         R3 K3 [{"PlaceLaunchInfo"}]
+       10 DUPTABLE                         R4 K7 [{"PlaceId", "UniverseId", "Version"}]
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K8 ["placeId"]
+       14 SETTABLEKS                       R5 R4 K4 ["PlaceId"]
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K9 ["universeId"]
+       19 SETTABLEKS                       R5 R4 K5 ["UniverseId"]
+       21 GETUPVAL                         R5 2
+       22 SETTABLEKS                       R5 R4 K6 ["Version"]
+       24 SETTABLEKS                       R4 R3 K2 ["PlaceLaunchInfo"]
+       26 MOVE                             R4 R0
+       27 MOVE                             R7 R3
+       28 NAMECALL                         R5 R2 K10 ["OpenPlaceAsync"]
+       30 CALL                             R5 2 -1
+       31 CALL                             R4 -1 -1
+       32 RETURN                           R4 -1
 
 PROTO_1:
         0 GETUPVAL                         R3 0

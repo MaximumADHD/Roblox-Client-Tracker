@@ -32,13 +32,6 @@ PROTO_1:
        20 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"enabled"}]
-        1 GETTABLEKS                       R3 R0 K0 ["enabled"]
-        3 NOT                              R2 R3
-        4 SETTABLEKS                       R2 R1 K0 ["enabled"]
-        6 RETURN                           R1 1
-
-PROTO_3:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["IsEdit"]
         3 CALL                             R0 1 1
@@ -47,42 +40,41 @@ PROTO_3:
         6 NAMECALL                         R0 R0 K1 ["showEditorInPlayModeError"]
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
-       10 GETUPVAL                         R0 1
-       11 GETTABLEKS                       R0 R0 K2 ["state"]
-       13 GETTABLEKS                       R0 R0 K3 ["enabled"]
-       15 JUMPIF                           R0 ; [+13]
-       16 GETUPVAL                         R0 2
-       17 LOADB                            R2 1
-       18 NAMECALL                         R0 R0 K4 ["Activate"]
-       20 CALL                             R0 2 0
-       21 GETUPVAL                         R0 1
-       22 GETTABLEKS                       R0 R0 K5 ["analytics"]
-       24 LOADK                            R2 K6 ["PluginOpened"]
-       25 NAMECALL                         R0 R0 K7 ["getHandler"]
-       27 CALL                             R0 2 1
-       28 CALL                             R0 0 0
-       29 GETUPVAL                         R0 1
-       30 DUPCLOSURE                       R2 K8 [PROTO_2]
-       31 NAMECALL                         R0 R0 K9 ["setState"]
-       33 CALL                             R0 2 0
-       34 GETUPVAL                         R0 1
-       35 GETTABLEKS                       R0 R0 K2 ["state"]
-       37 GETTABLEKS                       R0 R0 K3 ["enabled"]
-       39 JUMPIF                           R0 ; [+15]
-       40 GETUPVAL                         R0 1
-       41 GETTABLEKS                       R0 R0 K10 ["store"]
-       43 GETUPVAL                         R2 3
-       44 GETUPVAL                         R3 2
-       45 GETUPVAL                         R4 1
-       46 GETTABLEKS                       R4 R4 K5 ["analytics"]
-       48 GETUPVAL                         R5 1
-       49 GETTABLEKS                       R5 R5 K11 ["meshEditingContext"]
-       51 CALL                             R2 3 -1
-       52 NAMECALL                         R0 R0 K12 ["dispatch"]
-       54 CALL                             R0 -1 0
-       55 RETURN                           R0 0
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K2 ["state"]
+       13 GETTABLEKS                       R1 R1 K3 ["enabled"]
+       15 NOT                              R0 R1
+       16 JUMPIFNOT                        R0 ; [+13]
+       17 GETUPVAL                         R1 2
+       18 LOADB                            R3 1
+       19 NAMECALL                         R1 R1 K4 ["Activate"]
+       21 CALL                             R1 2 0
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K5 ["analytics"]
+       25 LOADK                            R3 K6 ["PluginOpened"]
+       26 NAMECALL                         R1 R1 K7 ["getHandler"]
+       28 CALL                             R1 2 1
+       29 CALL                             R1 0 0
+       30 GETUPVAL                         R1 1
+       31 DUPTABLE                         R3 K8 [{"enabled"}]
+       32 SETTABLEKS                       R0 R3 K3 ["enabled"]
+       34 NAMECALL                         R1 R1 K9 ["setState"]
+       36 CALL                             R1 2 0
+       37 JUMPIF                           R0 ; [+15]
+       38 GETUPVAL                         R1 1
+       39 GETTABLEKS                       R1 R1 K10 ["store"]
+       41 GETUPVAL                         R3 3
+       42 GETUPVAL                         R4 2
+       43 GETUPVAL                         R5 1
+       44 GETTABLEKS                       R5 R5 K5 ["analytics"]
+       46 GETUPVAL                         R6 1
+       47 GETTABLEKS                       R6 R6 K11 ["meshEditingContext"]
+       49 CALL                             R3 3 -1
+       50 NAMECALL                         R1 R1 K12 ["dispatch"]
+       52 CALL                             R1 -1 0
+       53 RETURN                           R0 0
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["toolbarButton"]
         3 LOADB                            R2 1
@@ -99,7 +91,7 @@ PROTO_4:
        20 CALL                             R0 1 0
        21 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["Selection"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
@@ -123,7 +115,7 @@ PROTO_5:
        27 CALL                             R1 2 0
        28 RETURN                           R0 0
 
-PROTO_6:
+PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["Enabled"]
         2 JUMPIFNOT                        R1 ; [+15]
         3 GETUPVAL                         R1 0
@@ -146,7 +138,7 @@ PROTO_6:
        26 CALL                             R1 2 0
        27 RETURN                           R0 0
 
-PROTO_7:
+PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["plugin"]
         4 LOADK                            R2 K2 ["LayeredClothingEditor"]
@@ -290,10 +282,10 @@ PROTO_7:
       206 SETTABLEKS                       R4 R0 K54 ["onWidgetEnabledChanged"]
       208 RETURN                           R0 0
 
-PROTO_8:
+PROTO_7:
         0 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["toolbarButton"]
         2 GETTABLEKS                       R3 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R3 K2 ["enabled"]
@@ -364,7 +356,7 @@ PROTO_9:
       115 SETTABLEKS                       R8 R7 K37 ["Plugin"]
       117 GETTABLEKS                       R8 R0 K38 ["onClose"]
       119 SETTABLEKS                       R8 R7 K39 ["OnClose"]
-      121 DUPCLOSURE                       R8 K40 [PROTO_8]
+      121 DUPCLOSURE                       R8 K40 [PROTO_7]
       122 SETTABLEKS                       R8 R7 K41 ["OnWidgetRestored"]
       124 GETTABLEKS                       R8 R0 K42 ["onFocus"]
       126 SETTABLEKS                       R8 R7 K43 ["OnWidgetFocused"]
@@ -507,7 +499,7 @@ MAIN:
       206 CAPTURE                          VAL R27
       207 CAPTURE                          VAL R8
       208 SETTABLEKS                       R32 R30 K54 ["showEditorInPlayModeError"]
-      210 DUPCLOSURE                       R32 K55 [PROTO_7]
+      210 DUPCLOSURE                       R32 K55 [PROTO_6]
       211 CAPTURE                          VAL R15
       212 CAPTURE                          VAL R2
       213 CAPTURE                          VAL R17
@@ -527,7 +519,7 @@ MAIN:
       227 CAPTURE                          VAL R6
       228 CAPTURE                          VAL R9
       229 SETTABLEKS                       R32 R30 K56 ["init"]
-      231 DUPCLOSURE                       R32 K57 [PROTO_9]
+      231 DUPCLOSURE                       R32 K57 [PROTO_8]
       232 CAPTURE                          VAL R29
       233 CAPTURE                          VAL R1
       234 CAPTURE                          VAL R16

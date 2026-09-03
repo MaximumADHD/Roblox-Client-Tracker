@@ -9,6 +9,51 @@ PROTO_0:
        10 RETURN                           R1 1
 
 PROTO_1:
+        0 NEWTABLE                         R1 0 0
+        2 LOADN                            R3 1
+        3 FASTCALL1                        MATH_FLOOR R0 ; [+3]
+        4 MOVE                             R5 R0
+        5 GETIMPORT                        R4 K2 [math.floor]
+        7 CALL                             R4 1 1
+        8 FASTCALL2                        MATH_MAX R3 R4 ; [+3]
+       10 GETIMPORT                        R2 K4 [math.max]
+       12 CALL                             R2 2 1
+       13 FASTCALL2                        TABLE_INSERT R1 R2 ; [+5]
+       15 MOVE                             R4 R1
+       16 MOVE                             R5 R2
+       17 GETIMPORT                        R3 K7 [table.insert]
+       19 CALL                             R3 2 0
+       20 JUMPIFEQKN                       R2 K8 [1] ; [+14]
+       22 LOADN                            R4 1
+       23 DIVK                             R6 R2 K9 [2]
+       24 FASTCALL1                        MATH_FLOOR R6 ; [+2]
+       25 GETIMPORT                        R5 K2 [math.floor]
+       27 CALL                             R5 1 1
+       28 FASTCALL2                        MATH_MAX R4 R5 ; [+3]
+       30 GETIMPORT                        R3 K4 [math.max]
+       32 CALL                             R3 2 1
+       33 MOVE                             R2 R3
+       34 JUMPBACK                         ; [-22]
+       35 RETURN                           R1 1
+
+PROTO_2:
+        0 GETTABLEKS                       R2 R0 K0 ["success"]
+        2 NOT                              R1 R2
+        3 JUMPIFNOT                        R1 ; [+17]
+        4 LOADB                            R1 0
+        5 GETTABLEKS                       R3 R0 K1 ["errorDetails"]
+        7 FASTCALL1                        TYPEOF R3 ; [+2]
+        8 GETIMPORT                        R2 K3 [typeof]
+       10 CALL                             R2 1 1
+       11 JUMPIFNOTEQKS                    R2 K4 ["table"] ; [+9]
+       13 GETTABLEKS                       R2 R0 K1 ["errorDetails"]
+       15 GETTABLEKS                       R2 R2 K5 ["kind"]
+       17 JUMPIFEQKS                       R2 K6 ["Network"] ; [+2]
+       19 LOADB                            R1 0 +1
+       20 LOADB                            R1 1
+       21 RETURN                           R1 1
+
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
@@ -65,7 +110,7 @@ PROTO_1:
        87 RETURN                           R1 1
        88 RETURN                           R0 1
 
-PROTO_2:
+PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_meta"]
         2 JUMPIFNOT                        R1 ; [+4]
         3 GETTABLEKS                       R1 R0 K0 ["_meta"]
@@ -90,7 +135,7 @@ PROTO_2:
        34 RETURN                           R2 1
        35 RETURN                           R0 1
 
-PROTO_3:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantDisableSafeEmptyTableJsonEncode"]
         3 JUMPIFNOT                        R1 ; [+6]
@@ -106,7 +151,7 @@ PROTO_3:
        16 CALL                             R1 1 -1
        17 RETURN                           R1 -1
 
-PROTO_4:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantDisableSafeEmptyTableJsonEncode"]
         3 JUMPIFNOT                        R1 ; [+6]
@@ -122,7 +167,7 @@ PROTO_4:
        16 CALL                             R1 1 -1
        17 RETURN                           R1 -1
 
-PROTO_5:
+PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["type"]
         2 JUMPIFNOTEQKS                    R1 K1 ["tool_use"] ; [+19]
         4 LOADK                            R2 K2 ["tool_use(id=%*, name=%*)"]
@@ -182,7 +227,7 @@ PROTO_5:
        82 CALL                             R1 1 1
        83 RETURN                           R1 1
 
-PROTO_6:
+PROTO_8:
         0 GETIMPORT                        R1 K2 [table.create]
         2 LENGTH                           R2 R0
         3 CALL                             R1 1 1
@@ -257,7 +302,7 @@ PROTO_6:
        95 CALL                             R2 2 -1
        96 RETURN                           R2 -1
 
-PROTO_7:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["getThreadsAsync"]
@@ -274,14 +319,14 @@ PROTO_7:
        21 CALL                             R0 1 -1
        22 RETURN                           R0 -1
 
-PROTO_8:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["JSONDecode"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_9:
+PROTO_11:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["callWithOptions"]
         3 NEWCLOSURE                       R2 P0
@@ -417,14 +462,14 @@ PROTO_9:
       186 SETTABLEKS                       R7 R6 K54 ["cursor"]
       188 RETURN                           R5 2
 
-PROTO_10:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["JSONEncode"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["postUploadThreadsAsync"]
@@ -439,7 +484,7 @@ PROTO_11:
        17 CALL                             R0 1 -1
        18 RETURN                           R0 -1
 
-PROTO_12:
+PROTO_14:
         0 GETIMPORT                        R2 K2 [table.create]
         2 LENGTH                           R3 R0
         3 CALL                             R2 1 1
@@ -528,7 +573,7 @@ PROTO_12:
       125 GETTABLEKS                       R4 R3 K32 ["success"]
       127 RETURN                           R4 1
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["deleteThreadAsync"]
@@ -538,7 +583,7 @@ PROTO_13:
         9 CALL                             R0 1 -1
        10 RETURN                           R0 -1
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["callWithOptions"]
         3 NEWCLOSURE                       R2 P0
@@ -556,7 +601,7 @@ PROTO_14:
        18 LOADB                            R2 1
        19 RETURN                           R2 1
 
-PROTO_15:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["getMessagesAsync"]
@@ -572,14 +617,14 @@ PROTO_15:
        19 CALL                             R0 1 -1
        20 RETURN                           R0 -1
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["JSONDecode"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_17:
+PROTO_19:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["JSONDecode"]
@@ -609,14 +654,14 @@ PROTO_17:
        39 CALL                             R1 2 0
        40 RETURN                           R0 0
 
-PROTO_18:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["deserialize"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 -1
         5 RETURN                           R0 -1
 
-PROTO_19:
+PROTO_21:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["callWithOptions"]
         3 NEWCLOSURE                       R3 P0
@@ -844,20 +889,6 @@ PROTO_19:
       304 SETTABLEKS                       R8 R7 K56 ["cursor"]
       306 RETURN                           R6 2
 
-PROTO_20:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R0 R0 K0 ["JSONEncode"]
-        4 CALL                             R0 2 -1
-        5 RETURN                           R0 -1
-
-PROTO_21:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["serialize"]
-        3 GETUPVAL                         R1 1
-        4 CALL                             R0 1 -1
-        5 RETURN                           R0 -1
-
 PROTO_22:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
@@ -866,6 +897,20 @@ PROTO_22:
         5 RETURN                           R0 -1
 
 PROTO_23:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["serialize"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 -1
+        5 RETURN                           R0 -1
+
+PROTO_24:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["JSONEncode"]
+        4 CALL                             R0 2 -1
+        5 RETURN                           R0 -1
+
+PROTO_25:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["postUploadMessagesAsync"]
@@ -879,7 +924,7 @@ PROTO_23:
        15 CALL                             R0 1 -1
        16 RETURN                           R0 -1
 
-PROTO_24:
+PROTO_26:
         0 GETIMPORT                        R2 K2 [table.create]
         2 LENGTH                           R3 R1
         3 CALL                             R2 1 1
@@ -1037,7 +1082,22 @@ PROTO_24:
       220 GETTABLEKS                       R4 R3 K41 ["success"]
       222 RETURN                           R4 1
 
-PROTO_25:
+PROTO_27:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
+        3 GETTABLEKS                       R0 R0 K1 ["getMessagesAsync"]
+        5 DUPTABLE                         R1 K5 [{"threadId", "cursor", "limit"}]
+        6 GETUPVAL                         R2 1
+        7 SETTABLEKS                       R2 R1 K2 ["threadId"]
+        9 GETUPVAL                         R2 2
+       10 GETTABLEKS                       R2 R2 K3 ["cursor"]
+       12 SETTABLEKS                       R2 R1 K3 ["cursor"]
+       14 GETUPVAL                         R2 3
+       15 SETTABLEKS                       R2 R1 K4 ["limit"]
+       17 CALL                             R0 1 -1
+       18 RETURN                           R0 -1
+
+PROTO_28:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["getMessagesAsync"]
@@ -1053,7 +1113,7 @@ PROTO_25:
        19 CALL                             R0 1 -1
        20 RETURN                           R0 -1
 
-PROTO_26:
+PROTO_29:
         0 GETTABLEKS                       R3 R0 K1 ["createdUtc"]
         2 ORK                              R2 R3 K0 [0]
         3 GETTABLEKS                       R4 R1 K1 ["createdUtc"]
@@ -1081,126 +1141,183 @@ PROTO_26:
        35 LOADB                            R6 1
        36 RETURN                           R6 1
 
-PROTO_27:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["callWithOptions"]
-        3 NEWCLOSURE                       R3 P0
-        4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          VAL R1
-        7 DUPTABLE                         R4 K3 [{["retryCount"] = 2}]
-        8 CALL                             R2 2 1
-        9 GETTABLEKS                       R3 R2 K4 ["success"]
-       11 JUMPIF                           R3 ; [+6]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R3 R3 K5 ["throwError"]
-       15 MOVE                             R4 R2
-       16 CALL                             R3 1 -1
-       17 RETURN                           R3 -1
-       18 NEWTABLE                         R3 0 0
-       20 GETTABLEKS                       R4 R2 K6 ["data"]
-       22 GETTABLEKS                       R4 R4 K7 ["messages"]
-       24 JUMPIF                           R4 ; [+2]
-       25 NEWTABLE                         R4 0 0
-       27 MOVE                             R5 R4
-       28 LOADNIL                          R6
-       29 LOADNIL                          R7
-       30 FORGPREP                         R5
-       31 GETTABLEKS                       R10 R9 K8 ["messageId"]
-       33 JUMPIFNOT                        R10 ; [+123]
-       34 NEWTABLE                         R10 0 0
-       36 NEWTABLE                         R11 0 0
-       38 GETTABLEKS                       R12 R9 K9 ["contents"]
-       40 JUMPIF                           R12 ; [+2]
-       41 NEWTABLE                         R12 0 0
-       43 GETIMPORT                        R13 K12 [table.sort]
-       45 MOVE                             R14 R12
-       46 DUPCLOSURE                       R15 K13 [PROTO_26]
-       47 CALL                             R13 2 0
-       48 MOVE                             R13 R12
-       49 LOADNIL                          R14
-       50 LOADNIL                          R15
-       51 FORGPREP                         R13
-       52 GETTABLEKS                       R18 R17 K14 ["mcpContent"]
-       54 JUMPIFNOT                        R18 ; [+32]
-       55 GETIMPORT                        R18 K16 [pcall]
-       57 GETUPVAL                         R19 2
-       58 GETTABLEKS                       R20 R17 K14 ["mcpContent"]
-       60 CALL                             R18 2 2
-       61 JUMPIFNOT                        R18 ; [+25]
-       62 GETUPVAL                         R20 3
-       63 MOVE                             R21 R19
-       64 CALL                             R20 1 1
-       65 MOVE                             R19 R20
-       66 FASTCALL2                        TABLE_INSERT R10 R19 ; [+5]
-       68 MOVE                             R21 R10
-       69 MOVE                             R22 R19
-       70 GETIMPORT                        R20 K18 [table.insert]
-       72 CALL                             R20 2 0
-       73 GETTABLEKS                       R22 R17 K19 ["contentId"]
-       75 JUMPIF                           R22 ; [+5]
-       76 GETUPVAL                         R22 4
-       77 LOADB                            R24 0
-       78 NAMECALL                         R22 R22 K20 ["GenerateGUID"]
-       80 CALL                             R22 2 1
-       81 FASTCALL2                        TABLE_INSERT R11 R22 ; [+4]
-       83 MOVE                             R21 R11
-       84 GETIMPORT                        R20 K18 [table.insert]
-       86 CALL                             R20 2 0
-       87 FORGLOOP                         R13 2 ; [-36]
-       89 GETTABLEKS                       R14 R9 K21 ["role"]
-       91 JUMPIFEQKNIL                     R14 ; [+10]
-       93 GETUPVAL                         R16 5
-       94 GETTABLEKS                       R16 R16 K22 ["Types"]
-       96 GETTABLEKS                       R16 R16 K23 ["VALID_ROLES"]
-       98 GETTABLE                         R15 R16 R14
-       99 JUMPIFNOT                        R15 ; [+2]
-      100 MOVE                             R13 R14
-      101 JUMP                             ; [+1]
-      102 LOADK                            R13 K24 ["system"]
-      103 GETTABLEKS                       R14 R9 K21 ["role"]
-      105 JUMPIFEQKNIL                     R14 ; [+21]
-      107 GETTABLEKS                       R14 R9 K21 ["role"]
-      109 JUMPIFEQ                         R14 R13 ; [+17]
-      111 GETUPVAL                         R14 6
-      112 GETTABLEKS                       R14 R14 K25 ["FFlagDebugLogAssistantUI"]
-      114 JUMPIFNOT                        R14 ; [+12]
-      115 GETIMPORT                        R14 K27 [warn]
-      117 LOADK                            R16 K28 ["[CloudIO] Invalid role \"%*\" for message with messageId \"%*\". Defaulting to \"system\"."]
-      118 GETTABLEKS                       R18 R9 K21 ["role"]
-      120 GETTABLEKS                       R19 R9 K8 ["messageId"]
-      122 NAMECALL                         R16 R16 K29 ["format"]
-      124 CALL                             R16 3 1
-      125 MOVE                             R15 R16
-      126 CALL                             R14 1 0
-      127 DUPTABLE                         R16 K34 [{"messageId", "contentIds", "createdAt", "updatedAt", "message"}]
-      128 GETTABLEKS                       R17 R9 K8 ["messageId"]
-      130 SETTABLEKS                       R17 R16 K8 ["messageId"]
-      132 SETTABLEKS                       R11 R16 K30 ["contentIds"]
-      134 GETTABLEKS                       R18 R9 K36 ["createdUtc"]
-      136 ORK                              R17 R18 K35 [0]
-      137 SETTABLEKS                       R17 R16 K31 ["createdAt"]
-      139 GETTABLEKS                       R18 R9 K37 ["updatedUtc"]
-      141 ORK                              R17 R18 K35 [0]
-      142 SETTABLEKS                       R17 R16 K32 ["updatedAt"]
-      144 DUPTABLE                         R17 K39 [{"role", "content"}]
-      145 SETTABLEKS                       R13 R17 K21 ["role"]
-      147 SETTABLEKS                       R10 R17 K38 ["content"]
-      149 SETTABLEKS                       R17 R16 K33 ["message"]
-      151 FASTCALL2                        TABLE_INSERT R3 R16 ; [+4]
-      153 MOVE                             R15 R3
-      154 GETIMPORT                        R14 K18 [table.insert]
-      156 CALL                             R14 2 0
-      157 FORGLOOP                         R5 2 ; [-127]
-      159 LOADB                            R5 1
-      160 DUPTABLE                         R6 K41 [{"messages", "cursor"}]
-      161 SETTABLEKS                       R3 R6 K7 ["messages"]
-      163 GETTABLEKS                       R7 R2 K6 ["data"]
-      165 GETTABLEKS                       R7 R7 K40 ["cursor"]
-      167 SETTABLEKS                       R7 R6 K40 ["cursor"]
-      169 RETURN                           R5 2
+PROTO_30:
+        0 LOADNIL                          R2
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K0 ["FFlagAssistantRetryMessageLoadWithSmallerLimit"]
+        4 JUMPIFNOT                        R3 ; [+69]
+        5 GETTABLEKS                       R3 R1 K1 ["limit"]
+        7 JUMPIFEQKNIL                     R3 ; [+66]
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R4 R1 K1 ["limit"]
+       12 CALL                             R3 1 1
+       13 MOVE                             R4 R3
+       14 LOADNIL                          R5
+       15 LOADNIL                          R6
+       16 FORGPREP                         R4
+       17 GETUPVAL                         R9 2
+       18 GETTABLEKS                       R9 R9 K2 ["callWithOptions"]
+       20 NEWCLOSURE                       R10 P0
+       21 CAPTURE                          UPVAL U3
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          VAL R1
+       24 CAPTURE                          VAL R8
+       25 NEWTABLE                         R11 0 0
+       27 CALL                             R9 2 1
+       28 MOVE                             R2 R9
+       29 MOVE                             R10 R2
+       30 GETTABLEKS                       R11 R10 K3 ["success"]
+       32 NOT                              R9 R11
+       33 JUMPIFNOT                        R9 ; [+17]
+       34 LOADB                            R9 0
+       35 GETTABLEKS                       R12 R10 K4 ["errorDetails"]
+       37 FASTCALL1                        TYPEOF R12 ; [+2]
+       38 GETIMPORT                        R11 K6 [typeof]
+       40 CALL                             R11 1 1
+       41 JUMPIFNOTEQKS                    R11 K7 ["table"] ; [+9]
+       43 GETTABLEKS                       R11 R10 K4 ["errorDetails"]
+       45 GETTABLEKS                       R11 R11 K8 ["kind"]
+       47 JUMPIFEQKS                       R11 K9 ["Network"] ; [+2]
+       49 LOADB                            R9 0 +1
+       50 LOADB                            R9 1
+       51 JUMPIFNOT                        R9 ; [+32]
+       52 GETUPVAL                         R9 0
+       53 GETTABLEKS                       R9 R9 K10 ["FFlagDebugLogAssistantUI"]
+       55 JUMPIFNOT                        R9 ; [+15]
+       56 LENGTH                           R9 R3
+       57 JUMPIFNOTLT                      R7 R9 ; [+13]
+       59 GETIMPORT                        R9 K12 [print]
+       61 LOADK                            R11 K13 ["[CloudIO] getAgentMessagesAsync network failure threadId=%* limit=%*; retrying with limit=%*"]
+       62 MOVE                             R13 R0
+       63 MOVE                             R14 R8
+       64 ADDK                             R16 R7 K14 [1]
+       65 GETTABLE                         R15 R3 R16
+       66 NAMECALL                         R11 R11 K15 ["format"]
+       68 CALL                             R11 4 1
+       69 MOVE                             R10 R11
+       70 CALL                             R9 1 0
+       71 FORGLOOP                         R4 2 ; [-55]
+       73 JUMP                             ; [+10]
+       74 GETUPVAL                         R3 2
+       75 GETTABLEKS                       R3 R3 K2 ["callWithOptions"]
+       77 NEWCLOSURE                       R4 P1
+       78 CAPTURE                          UPVAL U3
+       79 CAPTURE                          VAL R0
+       80 CAPTURE                          VAL R1
+       81 DUPTABLE                         R5 K18 [{["retryCount"] = 2}]
+       82 CALL                             R3 2 1
+       83 MOVE                             R2 R3
+       84 GETTABLEKS                       R3 R2 K3 ["success"]
+       86 JUMPIF                           R3 ; [+6]
+       87 GETUPVAL                         R3 2
+       88 GETTABLEKS                       R3 R3 K19 ["throwError"]
+       90 MOVE                             R4 R2
+       91 CALL                             R3 1 -1
+       92 RETURN                           R3 -1
+       93 NEWTABLE                         R3 0 0
+       95 GETTABLEKS                       R4 R2 K20 ["data"]
+       97 GETTABLEKS                       R4 R4 K21 ["messages"]
+       99 JUMPIF                           R4 ; [+2]
+      100 NEWTABLE                         R4 0 0
+      102 MOVE                             R5 R4
+      103 LOADNIL                          R6
+      104 LOADNIL                          R7
+      105 FORGPREP                         R5
+      106 GETTABLEKS                       R10 R9 K22 ["messageId"]
+      108 JUMPIFNOT                        R10 ; [+123]
+      109 NEWTABLE                         R10 0 0
+      111 NEWTABLE                         R11 0 0
+      113 GETTABLEKS                       R12 R9 K23 ["contents"]
+      115 JUMPIF                           R12 ; [+2]
+      116 NEWTABLE                         R12 0 0
+      118 GETIMPORT                        R13 K25 [table.sort]
+      120 MOVE                             R14 R12
+      121 DUPCLOSURE                       R15 K26 [PROTO_29]
+      122 CALL                             R13 2 0
+      123 MOVE                             R13 R12
+      124 LOADNIL                          R14
+      125 LOADNIL                          R15
+      126 FORGPREP                         R13
+      127 GETTABLEKS                       R18 R17 K27 ["mcpContent"]
+      129 JUMPIFNOT                        R18 ; [+32]
+      130 GETIMPORT                        R18 K29 [pcall]
+      132 GETUPVAL                         R19 4
+      133 GETTABLEKS                       R20 R17 K27 ["mcpContent"]
+      135 CALL                             R18 2 2
+      136 JUMPIFNOT                        R18 ; [+25]
+      137 GETUPVAL                         R20 5
+      138 MOVE                             R21 R19
+      139 CALL                             R20 1 1
+      140 MOVE                             R19 R20
+      141 FASTCALL2                        TABLE_INSERT R10 R19 ; [+5]
+      143 MOVE                             R21 R10
+      144 MOVE                             R22 R19
+      145 GETIMPORT                        R20 K31 [table.insert]
+      147 CALL                             R20 2 0
+      148 GETTABLEKS                       R22 R17 K32 ["contentId"]
+      150 JUMPIF                           R22 ; [+5]
+      151 GETUPVAL                         R22 6
+      152 LOADB                            R24 0
+      153 NAMECALL                         R22 R22 K33 ["GenerateGUID"]
+      155 CALL                             R22 2 1
+      156 FASTCALL2                        TABLE_INSERT R11 R22 ; [+4]
+      158 MOVE                             R21 R11
+      159 GETIMPORT                        R20 K31 [table.insert]
+      161 CALL                             R20 2 0
+      162 FORGLOOP                         R13 2 ; [-36]
+      164 GETTABLEKS                       R14 R9 K34 ["role"]
+      166 JUMPIFEQKNIL                     R14 ; [+10]
+      168 GETUPVAL                         R16 7
+      169 GETTABLEKS                       R16 R16 K35 ["Types"]
+      171 GETTABLEKS                       R16 R16 K36 ["VALID_ROLES"]
+      173 GETTABLE                         R15 R16 R14
+      174 JUMPIFNOT                        R15 ; [+2]
+      175 MOVE                             R13 R14
+      176 JUMP                             ; [+1]
+      177 LOADK                            R13 K37 ["system"]
+      178 GETTABLEKS                       R14 R9 K34 ["role"]
+      180 JUMPIFEQKNIL                     R14 ; [+21]
+      182 GETTABLEKS                       R14 R9 K34 ["role"]
+      184 JUMPIFEQ                         R14 R13 ; [+17]
+      186 GETUPVAL                         R14 0
+      187 GETTABLEKS                       R14 R14 K10 ["FFlagDebugLogAssistantUI"]
+      189 JUMPIFNOT                        R14 ; [+12]
+      190 GETIMPORT                        R14 K39 [warn]
+      192 LOADK                            R16 K40 ["[CloudIO] Invalid role \"%*\" for message with messageId \"%*\". Defaulting to \"system\"."]
+      193 GETTABLEKS                       R18 R9 K34 ["role"]
+      195 GETTABLEKS                       R19 R9 K22 ["messageId"]
+      197 NAMECALL                         R16 R16 K15 ["format"]
+      199 CALL                             R16 3 1
+      200 MOVE                             R15 R16
+      201 CALL                             R14 1 0
+      202 DUPTABLE                         R16 K45 [{"messageId", "contentIds", "createdAt", "updatedAt", "message"}]
+      203 GETTABLEKS                       R17 R9 K22 ["messageId"]
+      205 SETTABLEKS                       R17 R16 K22 ["messageId"]
+      207 SETTABLEKS                       R11 R16 K41 ["contentIds"]
+      209 GETTABLEKS                       R18 R9 K47 ["createdUtc"]
+      211 ORK                              R17 R18 K46 [0]
+      212 SETTABLEKS                       R17 R16 K42 ["createdAt"]
+      214 GETTABLEKS                       R18 R9 K48 ["updatedUtc"]
+      216 ORK                              R17 R18 K46 [0]
+      217 SETTABLEKS                       R17 R16 K43 ["updatedAt"]
+      219 DUPTABLE                         R17 K50 [{"role", "content"}]
+      220 SETTABLEKS                       R13 R17 K34 ["role"]
+      222 SETTABLEKS                       R10 R17 K49 ["content"]
+      224 SETTABLEKS                       R17 R16 K44 ["message"]
+      226 FASTCALL2                        TABLE_INSERT R3 R16 ; [+4]
+      228 MOVE                             R15 R3
+      229 GETIMPORT                        R14 K31 [table.insert]
+      231 CALL                             R14 2 0
+      232 FORGLOOP                         R5 2 ; [-127]
+      234 LOADB                            R5 1
+      235 DUPTABLE                         R6 K52 [{"messages", "cursor"}]
+      236 SETTABLEKS                       R3 R6 K21 ["messages"]
+      238 GETTABLEKS                       R7 R2 K20 ["data"]
+      240 GETTABLEKS                       R7 R7 K51 ["cursor"]
+      242 SETTABLEKS                       R7 R6 K51 ["cursor"]
+      244 RETURN                           R5 2
 
-PROTO_28:
+PROTO_31:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["postUploadThreadsAsync"]
@@ -1215,7 +1332,7 @@ PROTO_28:
        17 CALL                             R0 1 -1
        18 RETURN                           R0 -1
 
-PROTO_29:
+PROTO_32:
         0 NEWTABLE                         R2 0 0
         2 MOVE                             R3 R0
         3 LOADNIL                          R4
@@ -1267,7 +1384,7 @@ PROTO_29:
        73 LOADB                            R4 1
        74 RETURN                           R4 1
 
-PROTO_30:
+PROTO_33:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["McpAssistantStorage"]
         3 GETTABLEKS                       R0 R0 K1 ["postUploadMessagesAsync"]
@@ -1282,7 +1399,7 @@ PROTO_30:
        17 CALL                             R0 1 -1
        18 RETURN                           R0 -1
 
-PROTO_31:
+PROTO_34:
         0 NEWTABLE                         R1 0 0
         2 GETTABLEKS                       R2 R0 K0 ["messages"]
         4 LOADNIL                          R3
@@ -1419,25 +1536,25 @@ PROTO_31:
       189 CLOSEUPVALS                      R1
       190 RETURN                           R3 1
 
-PROTO_32:
+PROTO_35:
         0 DUPTABLE                         R0 K8 [{"getThreadsAsync", "uploadThreadsAsync", "deleteThreadAsync", "getMessagesAsync", "uploadMessagesAsync", "getAgentMessagesAsync", "uploadAgentThreadsAsync", "uploadAgentMessagesAsync"}]
-        1 DUPCLOSURE                       R1 K9 [PROTO_9]
+        1 DUPCLOSURE                       R1 K9 [PROTO_11]
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
         6 SETTABLEKS                       R1 R0 K0 ["getThreadsAsync"]
-        8 DUPCLOSURE                       R1 K10 [PROTO_12]
+        8 DUPCLOSURE                       R1 K10 [PROTO_14]
         9 CAPTURE                          UPVAL U3
        10 CAPTURE                          UPVAL U2
        11 CAPTURE                          UPVAL U0
        12 CAPTURE                          UPVAL U1
        13 SETTABLEKS                       R1 R0 K1 ["uploadThreadsAsync"]
-       15 DUPCLOSURE                       R1 K11 [PROTO_14]
+       15 DUPCLOSURE                       R1 K11 [PROTO_16]
        16 CAPTURE                          UPVAL U0
        17 CAPTURE                          UPVAL U1
        18 SETTABLEKS                       R1 R0 K2 ["deleteThreadAsync"]
-       20 DUPCLOSURE                       R1 K12 [PROTO_19]
+       20 DUPCLOSURE                       R1 K12 [PROTO_21]
        21 CAPTURE                          UPVAL U0
        22 CAPTURE                          UPVAL U1
        23 CAPTURE                          UPVAL U2
@@ -1445,7 +1562,7 @@ PROTO_32:
        25 CAPTURE                          UPVAL U4
        26 CAPTURE                          UPVAL U5
        27 SETTABLEKS                       R1 R0 K3 ["getMessagesAsync"]
-       29 DUPCLOSURE                       R1 K13 [PROTO_24]
+       29 DUPCLOSURE                       R1 K13 [PROTO_26]
        30 CAPTURE                          UPVAL U2
        31 CAPTURE                          UPVAL U3
        32 CAPTURE                          UPVAL U4
@@ -1455,44 +1572,45 @@ PROTO_32:
        36 SETTABLEKS                       R1 R0 K4 ["uploadMessagesAsync"]
        38 GETUPVAL                         R2 7
        39 CALL                             R2 0 1
-       40 JUMPIFNOT                        R2 ; [+9]
-       41 DUPCLOSURE                       R1 K14 [PROTO_27]
-       42 CAPTURE                          UPVAL U0
-       43 CAPTURE                          UPVAL U1
-       44 CAPTURE                          UPVAL U8
-       45 CAPTURE                          UPVAL U9
-       46 CAPTURE                          UPVAL U2
-       47 CAPTURE                          UPVAL U5
-       48 CAPTURE                          UPVAL U3
-       49 JUMP                             ; [+1]
-       50 LOADNIL                          R1
-       51 SETTABLEKS                       R1 R0 K5 ["getAgentMessagesAsync"]
-       53 GETUPVAL                         R2 7
-       54 CALL                             R2 0 1
-       55 JUMPIFNOT                        R2 ; [+4]
-       56 DUPCLOSURE                       R1 K15 [PROTO_29]
-       57 CAPTURE                          UPVAL U0
-       58 CAPTURE                          UPVAL U1
-       59 JUMP                             ; [+1]
-       60 LOADNIL                          R1
-       61 SETTABLEKS                       R1 R0 K6 ["uploadAgentThreadsAsync"]
-       63 GETUPVAL                         R2 7
-       64 CALL                             R2 0 1
-       65 JUMPIFNOT                        R2 ; [+11]
-       66 DUPCLOSURE                       R1 K16 [PROTO_31]
-       67 CAPTURE                          UPVAL U10
+       40 JUMPIFNOT                        R2 ; [+10]
+       41 DUPCLOSURE                       R1 K14 [PROTO_30]
+       42 CAPTURE                          UPVAL U3
+       43 CAPTURE                          UPVAL U8
+       44 CAPTURE                          UPVAL U0
+       45 CAPTURE                          UPVAL U1
+       46 CAPTURE                          UPVAL U9
+       47 CAPTURE                          UPVAL U10
+       48 CAPTURE                          UPVAL U2
+       49 CAPTURE                          UPVAL U5
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R1
+       52 SETTABLEKS                       R1 R0 K5 ["getAgentMessagesAsync"]
+       54 GETUPVAL                         R2 7
+       55 CALL                             R2 0 1
+       56 JUMPIFNOT                        R2 ; [+4]
+       57 DUPCLOSURE                       R1 K15 [PROTO_32]
+       58 CAPTURE                          UPVAL U0
+       59 CAPTURE                          UPVAL U1
+       60 JUMP                             ; [+1]
+       61 LOADNIL                          R1
+       62 SETTABLEKS                       R1 R0 K6 ["uploadAgentThreadsAsync"]
+       64 GETUPVAL                         R2 7
+       65 CALL                             R2 0 1
+       66 JUMPIFNOT                        R2 ; [+11]
+       67 DUPCLOSURE                       R1 K16 [PROTO_34]
        68 CAPTURE                          UPVAL U11
-       69 CAPTURE                          UPVAL U6
-       70 CAPTURE                          UPVAL U12
-       71 CAPTURE                          UPVAL U3
-       72 CAPTURE                          UPVAL U13
+       69 CAPTURE                          UPVAL U12
+       70 CAPTURE                          UPVAL U6
+       71 CAPTURE                          UPVAL U13
+       72 CAPTURE                          UPVAL U3
        73 CAPTURE                          UPVAL U14
-       74 CAPTURE                          UPVAL U0
-       75 CAPTURE                          UPVAL U1
-       76 JUMP                             ; [+1]
-       77 LOADNIL                          R1
-       78 SETTABLEKS                       R1 R0 K7 ["uploadAgentMessagesAsync"]
-       80 RETURN                           R0 1
+       74 CAPTURE                          UPVAL U15
+       75 CAPTURE                          UPVAL U0
+       76 CAPTURE                          UPVAL U1
+       77 JUMP                             ; [+1]
+       78 LOADNIL                          R1
+       79 SETTABLEKS                       R1 R0 K7 ["uploadAgentMessagesAsync"]
+       81 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1562,37 +1680,41 @@ MAIN:
       113 DUPCLOSURE                       R14 K32 [PROTO_0]
       114 CAPTURE                          VAL R2
       115 DUPCLOSURE                       R15 K33 [PROTO_1]
-      116 CAPTURE                          VAL R7
-      117 DUPCLOSURE                       R16 K34 [PROTO_2]
-      118 DUPCLOSURE                       R17 K35 [PROTO_3]
-      119 CAPTURE                          VAL R3
-      120 CAPTURE                          VAL R1
-      121 CAPTURE                          VAL R4
-      122 DUPCLOSURE                       R18 K36 [PROTO_4]
-      123 CAPTURE                          VAL R3
-      124 CAPTURE                          VAL R1
-      125 CAPTURE                          VAL R4
-      126 DUPCLOSURE                       R19 K37 [PROTO_5]
-      127 DUPCLOSURE                       R20 K38 [PROTO_6]
-      128 CAPTURE                          VAL R1
-      129 CAPTURE                          VAL R19
-      130 DUPCLOSURE                       R21 K39 [PROTO_32]
-      131 CAPTURE                          VAL R6
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          VAL R1
-      134 CAPTURE                          VAL R3
-      135 CAPTURE                          VAL R11
-      136 CAPTURE                          VAL R2
-      137 CAPTURE                          VAL R4
-      138 CAPTURE                          VAL R7
-      139 CAPTURE                          VAL R18
-      140 CAPTURE                          VAL R16
-      141 CAPTURE                          VAL R17
-      142 CAPTURE                          VAL R15
-      143 CAPTURE                          VAL R13
-      144 CAPTURE                          VAL R20
-      145 CAPTURE                          VAL R12
-      146 DUPTABLE                         R22 K42 [{"createCloudIO", "deserializeAgentContent"}]
-      147 SETTABLEKS                       R21 R22 K40 ["createCloudIO"]
-      149 SETTABLEKS                       R16 R22 K41 ["deserializeAgentContent"]
-      151 RETURN                           R22 1
+      116 DUPCLOSURE                       R16 K34 [PROTO_2]
+      117 DUPCLOSURE                       R17 K35 [PROTO_3]
+      118 CAPTURE                          VAL R7
+      119 DUPCLOSURE                       R18 K36 [PROTO_4]
+      120 DUPCLOSURE                       R19 K37 [PROTO_5]
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R4
+      124 DUPCLOSURE                       R20 K38 [PROTO_6]
+      125 CAPTURE                          VAL R3
+      126 CAPTURE                          VAL R1
+      127 CAPTURE                          VAL R4
+      128 DUPCLOSURE                       R21 K39 [PROTO_7]
+      129 DUPCLOSURE                       R22 K40 [PROTO_8]
+      130 CAPTURE                          VAL R1
+      131 CAPTURE                          VAL R21
+      132 DUPCLOSURE                       R23 K41 [PROTO_35]
+      133 CAPTURE                          VAL R6
+      134 CAPTURE                          VAL R5
+      135 CAPTURE                          VAL R1
+      136 CAPTURE                          VAL R3
+      137 CAPTURE                          VAL R11
+      138 CAPTURE                          VAL R2
+      139 CAPTURE                          VAL R4
+      140 CAPTURE                          VAL R7
+      141 CAPTURE                          VAL R15
+      142 CAPTURE                          VAL R20
+      143 CAPTURE                          VAL R18
+      144 CAPTURE                          VAL R19
+      145 CAPTURE                          VAL R17
+      146 CAPTURE                          VAL R13
+      147 CAPTURE                          VAL R22
+      148 CAPTURE                          VAL R12
+      149 DUPTABLE                         R24 K45 [{"createCloudIO", "deserializeAgentContent", "getMessageLoadLimits"}]
+      150 SETTABLEKS                       R23 R24 K42 ["createCloudIO"]
+      152 SETTABLEKS                       R18 R24 K43 ["deserializeAgentContent"]
+      154 SETTABLEKS                       R15 R24 K44 ["getMessageLoadLimits"]
+      156 RETURN                           R24 1

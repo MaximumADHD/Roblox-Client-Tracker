@@ -150,44 +150,49 @@ MAIN:
        33 CALL                             R5 0 1
        34 GETTABLEKS                       R6 R1 K15 ["RunRhodiumTests"]
        36 CALL                             R6 0 1
-       37 JUMPIFNOT                        R5 ; [+20]
-       38 GETIMPORT                        R7 K17 [print]
-       40 LOADK                            R9 K18 ["----- All "]
-       41 GETIMPORT                        R10 K3 [script]
-       43 GETTABLEKS                       R10 R10 K4 ["Parent"]
-       45 GETTABLEKS                       R10 R10 K4 ["Parent"]
-       47 GETTABLEKS                       R10 R10 K19 ["Name"]
-       49 LOADK                            R11 K20 [" Tests ------"]
-       50 CONCAT                           R8 R9 R11
-       51 CALL                             R7 1 0
-       52 MOVE                             R7 R3
-       53 CALL                             R7 0 0
-       54 GETIMPORT                        R7 K17 [print]
-       56 LOADK                            R8 K21 ["----------------------------------"]
-       57 CALL                             R7 1 0
-       58 JUMPIFNOT                        R6 ; [+34]
-       59 GETIMPORT                        R7 K17 [print]
-       61 LOADK                            R9 K18 ["----- All "]
-       62 GETIMPORT                        R10 K3 [script]
-       64 GETTABLEKS                       R10 R10 K4 ["Parent"]
-       66 GETTABLEKS                       R10 R10 K4 ["Parent"]
-       68 GETTABLEKS                       R10 R10 K19 ["Name"]
-       70 LOADK                            R11 K22 [" Rhodium Tests ------"]
-       71 CONCAT                           R8 R9 R11
-       72 CALL                             R7 1 0
-       73 MOVE                             R7 R4
-       74 CALL                             R7 0 0
-       75 GETIMPORT                        R7 K17 [print]
-       77 LOADK                            R8 K21 ["----------------------------------"]
-       78 CALL                             R7 1 0
-       79 GETTABLEKS                       R7 R1 K23 ["RunningUnderCLI"]
-       81 CALL                             R7 0 1
-       82 JUMPIFNOT                        R7 ; [+10]
-       83 GETIMPORT                        R7 K25 [game]
-       85 LOADK                            R9 K26 ["ProcessService"]
-       86 NAMECALL                         R7 R7 K27 ["GetService"]
-       88 CALL                             R7 2 1
-       89 LOADN                            R9 0
-       90 NAMECALL                         R7 R7 K28 ["ExitAsync"]
-       92 CALL                             R7 2 0
-       93 RETURN                           R0 0
+       37 JUMPIF                           R5 ; [+1]
+       38 JUMPIFNOT                        R6 ; [+5]
+       39 GETIMPORT                        R7 K17 [_G]
+       41 LOADB                            R8 1
+       42 SETTABLEKS                       R8 R7 K18 ["__ROACT_17_COMPAT_LEGACY_ROOT__"]
+       44 JUMPIFNOT                        R5 ; [+20]
+       45 GETIMPORT                        R7 K20 [print]
+       47 LOADK                            R9 K21 ["----- All "]
+       48 GETIMPORT                        R10 K3 [script]
+       50 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       52 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       54 GETTABLEKS                       R10 R10 K22 ["Name"]
+       56 LOADK                            R11 K23 [" Tests ------"]
+       57 CONCAT                           R8 R9 R11
+       58 CALL                             R7 1 0
+       59 MOVE                             R7 R3
+       60 CALL                             R7 0 0
+       61 GETIMPORT                        R7 K20 [print]
+       63 LOADK                            R8 K24 ["----------------------------------"]
+       64 CALL                             R7 1 0
+       65 JUMPIFNOT                        R6 ; [+34]
+       66 GETIMPORT                        R7 K20 [print]
+       68 LOADK                            R9 K21 ["----- All "]
+       69 GETIMPORT                        R10 K3 [script]
+       71 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       73 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       75 GETTABLEKS                       R10 R10 K22 ["Name"]
+       77 LOADK                            R11 K25 [" Rhodium Tests ------"]
+       78 CONCAT                           R8 R9 R11
+       79 CALL                             R7 1 0
+       80 MOVE                             R7 R4
+       81 CALL                             R7 0 0
+       82 GETIMPORT                        R7 K20 [print]
+       84 LOADK                            R8 K24 ["----------------------------------"]
+       85 CALL                             R7 1 0
+       86 GETTABLEKS                       R7 R1 K26 ["RunningUnderCLI"]
+       88 CALL                             R7 0 1
+       89 JUMPIFNOT                        R7 ; [+10]
+       90 GETIMPORT                        R7 K28 [game]
+       92 LOADK                            R9 K29 ["ProcessService"]
+       93 NAMECALL                         R7 R7 K30 ["GetService"]
+       95 CALL                             R7 2 1
+       96 LOADN                            R9 0
+       97 NAMECALL                         R7 R7 K31 ["ExitAsync"]
+       99 CALL                             R7 2 0
+      100 RETURN                           R0 0

@@ -181,91 +181,96 @@ PROTO_11:
        82 SETTABLEKS                       R4 R3 K21 ["showCloseTooltip"]
        84 GETTABLEKS                       R4 R0 K10 ["localization"]
        86 LOADK                            R6 K0 ["Plugin"]
-       87 LOADK                            R7 K24 ["Name"]
-       88 NAMECALL                         R4 R4 K25 ["getText"]
-       90 CALL                             R4 3 1
-       91 SETTABLEKS                       R4 R3 K22 ["dockWidgetTitle"]
-       93 SETTABLEKS                       R3 R0 K26 ["state"]
-       95 NEWCLOSURE                       R3 P0
-       96 CAPTURE                          VAL R0
-       97 SETTABLEKS                       R3 R0 K27 ["toggleEnabled"]
-       99 NEWCLOSURE                       R3 P1
-      100 CAPTURE                          UPVAL U3
-      101 CAPTURE                          VAL R0
-      102 SETTABLEKS                       R3 R0 K28 ["onClose"]
-      104 GETUPVAL                         R4 3
-      105 GETTABLEKS                       R4 R4 K11 ["FFlagStudioAssistantCloseTooltip"]
-      107 JUMPIFNOT                        R4 ; [+4]
-      108 NEWCLOSURE                       R3 P2
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R0
-      111 JUMP                             ; [+1]
-      112 LOADNIL                          R3
-      113 SETTABLEKS                       R3 R0 K29 ["dismissCloseTooltip"]
-      115 NEWCLOSURE                       R3 P3
+       87 GETUPVAL                         R8 3
+       88 GETTABLEKS                       R8 R8 K24 ["FFlagAssistantBuildName"]
+       90 JUMPIFNOT                        R8 ; [+2]
+       91 LOADK                            R7 K25 ["NameBuild"]
+       92 JUMP                             ; [+1]
+       93 LOADK                            R7 K26 ["Name"]
+       94 NAMECALL                         R4 R4 K27 ["getText"]
+       96 CALL                             R4 3 1
+       97 SETTABLEKS                       R4 R3 K22 ["dockWidgetTitle"]
+       99 SETTABLEKS                       R3 R0 K28 ["state"]
+      101 NEWCLOSURE                       R3 P0
+      102 CAPTURE                          VAL R0
+      103 SETTABLEKS                       R3 R0 K29 ["toggleEnabled"]
+      105 NEWCLOSURE                       R3 P1
+      106 CAPTURE                          UPVAL U3
+      107 CAPTURE                          VAL R0
+      108 SETTABLEKS                       R3 R0 K30 ["onClose"]
+      110 GETUPVAL                         R4 3
+      111 GETTABLEKS                       R4 R4 K11 ["FFlagStudioAssistantCloseTooltip"]
+      113 JUMPIFNOT                        R4 ; [+4]
+      114 NEWCLOSURE                       R3 P2
+      115 CAPTURE                          VAL R1
       116 CAPTURE                          VAL R0
-      117 SETTABLEKS                       R3 R0 K30 ["onRestore"]
-      119 NEWCLOSURE                       R3 P4
-      120 CAPTURE                          VAL R0
-      121 SETTABLEKS                       R3 R0 K31 ["onWidgetEnabledChanged"]
-      123 NEWCLOSURE                       R3 P5
-      124 CAPTURE                          UPVAL U4
-      125 CAPTURE                          VAL R0
-      126 SETTABLEKS                       R3 R0 K32 ["onDockWidgetCreated"]
-      128 GETUPVAL                         R3 0
-      129 GETTABLEKS                       R3 R3 K33 ["Analytics"]
-      131 GETTABLEKS                       R3 R3 K4 ["new"]
-      133 DUPCLOSURE                       R4 K34 [PROTO_7]
-      134 NEWTABLE                         R5 0 0
-      136 CALL                             R3 2 1
-      137 SETTABLEKS                       R3 R0 K35 ["analytics"]
-      139 GETUPVAL                         R3 5
-      140 GETTABLEKS                       R3 R3 K4 ["new"]
-      142 CALL                             R3 0 1
-      143 SETTABLEKS                       R3 R0 K36 ["DEPRECATED_stylizer"]
-      145 GETUPVAL                         R3 6
-      146 GETTABLEKS                       R3 R3 K37 ["Util"]
-      148 GETTABLEKS                       R3 R3 K38 ["createFoundationDesignBinding"]
-      150 CALL                             R3 0 2
-      151 SETTABLEKS                       R4 R0 K39 ["onFoundationStyleSheetChange"]
-      153 GETUPVAL                         R5 7
-      154 GETTABLEKS                       R6 R1 K0 ["Plugin"]
-      156 LOADNIL                          R7
-      157 LOADNIL                          R8
-      158 NEWTABLE                         R9 0 1
-      160 MOVE                             R10 R3
-      161 SETLIST                          R9 R10 1 [1]
-      163 CALL                             R5 4 1
-      164 SETTABLEKS                       R5 R0 K40 ["design"]
-      166 GETUPVAL                         R5 8
-      167 GETTABLEKS                       R5 R5 K4 ["new"]
-      169 GETTABLEKS                       R6 R1 K0 ["Plugin"]
-      171 NAMECALL                         R6 R6 K41 ["getMouse"]
-      173 CALL                             R6 1 -1
-      174 CALL                             R5 -1 1
-      175 SETTABLEKS                       R5 R0 K42 ["mouse"]
-      177 GETTABLEKS                       R5 R0 K42 ["mouse"]
-      179 LOADK                            R7 K43 ["Arrow"]
-      180 LOADN                            R8 0
-      181 NAMECALL                         R5 R5 K44 ["__pushCursor"]
-      183 CALL                             R5 3 0
-      184 NEWCLOSURE                       R5 P7
-      185 CAPTURE                          VAL R0
-      186 SETTABLEKS                       R5 R0 K45 ["setDockWidgetTitle"]
-      188 GETUPVAL                         R5 9
-      189 GETTABLEKS                       R5 R5 K46 ["createRef"]
-      191 CALL                             R5 0 1
-      192 SETTABLEKS                       R5 R0 K47 ["textBoxRef"]
-      194 NEWCLOSURE                       R5 P8
-      195 CAPTURE                          VAL R0
-      196 SETTABLEKS                       R5 R0 K48 ["onFocus"]
-      198 NEWCLOSURE                       R5 P9
-      199 CAPTURE                          VAL R1
-      200 CAPTURE                          VAL R0
-      201 SETTABLEKS                       R5 R0 K49 ["openAssistant"]
-      203 NAMECALL                         R5 R0 K50 ["setupActionBindings"]
-      205 CALL                             R5 1 0
-      206 RETURN                           R0 0
+      117 JUMP                             ; [+1]
+      118 LOADNIL                          R3
+      119 SETTABLEKS                       R3 R0 K31 ["dismissCloseTooltip"]
+      121 NEWCLOSURE                       R3 P3
+      122 CAPTURE                          VAL R0
+      123 SETTABLEKS                       R3 R0 K32 ["onRestore"]
+      125 NEWCLOSURE                       R3 P4
+      126 CAPTURE                          VAL R0
+      127 SETTABLEKS                       R3 R0 K33 ["onWidgetEnabledChanged"]
+      129 NEWCLOSURE                       R3 P5
+      130 CAPTURE                          UPVAL U4
+      131 CAPTURE                          VAL R0
+      132 SETTABLEKS                       R3 R0 K34 ["onDockWidgetCreated"]
+      134 GETUPVAL                         R3 0
+      135 GETTABLEKS                       R3 R3 K35 ["Analytics"]
+      137 GETTABLEKS                       R3 R3 K4 ["new"]
+      139 DUPCLOSURE                       R4 K36 [PROTO_7]
+      140 NEWTABLE                         R5 0 0
+      142 CALL                             R3 2 1
+      143 SETTABLEKS                       R3 R0 K37 ["analytics"]
+      145 GETUPVAL                         R3 5
+      146 GETTABLEKS                       R3 R3 K4 ["new"]
+      148 CALL                             R3 0 1
+      149 SETTABLEKS                       R3 R0 K38 ["DEPRECATED_stylizer"]
+      151 GETUPVAL                         R3 6
+      152 GETTABLEKS                       R3 R3 K39 ["Util"]
+      154 GETTABLEKS                       R3 R3 K40 ["createFoundationDesignBinding"]
+      156 CALL                             R3 0 2
+      157 SETTABLEKS                       R4 R0 K41 ["onFoundationStyleSheetChange"]
+      159 GETUPVAL                         R5 7
+      160 GETTABLEKS                       R6 R1 K0 ["Plugin"]
+      162 LOADNIL                          R7
+      163 LOADNIL                          R8
+      164 NEWTABLE                         R9 0 1
+      166 MOVE                             R10 R3
+      167 SETLIST                          R9 R10 1 [1]
+      169 CALL                             R5 4 1
+      170 SETTABLEKS                       R5 R0 K42 ["design"]
+      172 GETUPVAL                         R5 8
+      173 GETTABLEKS                       R5 R5 K4 ["new"]
+      175 GETTABLEKS                       R6 R1 K0 ["Plugin"]
+      177 NAMECALL                         R6 R6 K43 ["getMouse"]
+      179 CALL                             R6 1 -1
+      180 CALL                             R5 -1 1
+      181 SETTABLEKS                       R5 R0 K44 ["mouse"]
+      183 GETTABLEKS                       R5 R0 K44 ["mouse"]
+      185 LOADK                            R7 K45 ["Arrow"]
+      186 LOADN                            R8 0
+      187 NAMECALL                         R5 R5 K46 ["__pushCursor"]
+      189 CALL                             R5 3 0
+      190 NEWCLOSURE                       R5 P7
+      191 CAPTURE                          VAL R0
+      192 SETTABLEKS                       R5 R0 K47 ["setDockWidgetTitle"]
+      194 GETUPVAL                         R5 9
+      195 GETTABLEKS                       R5 R5 K48 ["createRef"]
+      197 CALL                             R5 0 1
+      198 SETTABLEKS                       R5 R0 K49 ["textBoxRef"]
+      200 NEWCLOSURE                       R5 P8
+      201 CAPTURE                          VAL R0
+      202 SETTABLEKS                       R5 R0 K50 ["onFocus"]
+      204 NEWCLOSURE                       R5 P9
+      205 CAPTURE                          VAL R1
+      206 CAPTURE                          VAL R0
+      207 SETTABLEKS                       R5 R0 K51 ["openAssistant"]
+      209 NAMECALL                         R5 R0 K52 ["setupActionBindings"]
+      211 CALL                             R5 1 0
+      212 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0

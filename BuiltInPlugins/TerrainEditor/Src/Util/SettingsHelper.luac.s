@@ -8,31 +8,34 @@ PROTO_0:
         8 FORGPREP                         R5
         9 GETUPVAL                         R10 1
        10 GETTABLEKS                       R10 R10 K1 ["GlobalPersistent"]
-       12 JUMPIFEQ                         R9 R10 ; [+6]
+       12 JUMPIFEQ                         R9 R10 ; [+11]
        14 GETUPVAL                         R10 1
        15 GETTABLEKS                       R10 R10 K2 ["GlobalSession"]
-       17 JUMPIFNOTEQ                      R9 R10 ; [+9]
-       19 MOVE                             R12 R0
-       20 MOVE                             R13 R8
-       21 MOVE                             R14 R9
-       22 NAMECALL                         R10 R1 K3 ["getGlobal"]
-       24 CALL                             R10 4 1
-       25 SETTABLE                         R10 R4 R8
-       26 JUMP                             ; [+16]
-       27 GETUPVAL                         R10 1
-       28 GETTABLEKS                       R10 R10 K4 ["LocalPersistent"]
-       30 JUMPIFNOTEQ                      R9 R10 ; [+4]
-       32 GETTABLE                         R10 R2 R8
-       33 SETTABLE                         R10 R4 R8
-       34 JUMP                             ; [+8]
-       35 GETUPVAL                         R10 1
-       36 GETTABLEKS                       R10 R10 K5 ["LocalSession"]
-       38 JUMPIFNOTEQ                      R9 R10 ; [+4]
-       40 JUMPIFNOT                        R3 ; [+2]
-       41 GETTABLE                         R10 R3 R8
-       42 SETTABLE                         R10 R4 R8
-       43 FORGLOOP                         R5 2 ; [-35]
-       45 RETURN                           R4 1
+       17 JUMPIFEQ                         R9 R10 ; [+6]
+       19 GETUPVAL                         R10 1
+       20 GETTABLEKS                       R10 R10 K3 ["PlacePersistent"]
+       22 JUMPIFNOTEQ                      R9 R10 ; [+9]
+       24 MOVE                             R12 R0
+       25 MOVE                             R13 R8
+       26 MOVE                             R14 R9
+       27 NAMECALL                         R10 R1 K4 ["getGlobal"]
+       29 CALL                             R10 4 1
+       30 SETTABLE                         R10 R4 R8
+       31 JUMP                             ; [+16]
+       32 GETUPVAL                         R10 1
+       33 GETTABLEKS                       R10 R10 K5 ["LocalPersistent"]
+       35 JUMPIFNOTEQ                      R9 R10 ; [+4]
+       37 GETTABLE                         R10 R2 R8
+       38 SETTABLE                         R10 R4 R8
+       39 JUMP                             ; [+8]
+       40 GETUPVAL                         R10 1
+       41 GETTABLEKS                       R10 R10 K6 ["LocalSession"]
+       43 JUMPIFNOTEQ                      R9 R10 ; [+4]
+       45 JUMPIFNOT                        R3 ; [+2]
+       46 GETTABLE                         R10 R3 R8
+       47 SETTABLE                         R10 R4 R8
+       48 FORGLOOP                         R5 2 ; [-40]
+       50 RETURN                           R4 1
 
 PROTO_1:
         0 NEWTABLE                         R3 0 0
@@ -44,33 +47,36 @@ PROTO_1:
         9 LOADNIL                          R7
        10 FORGPREP                         R5
        11 GETTABLE                         R10 R2 R8
-       12 JUMPIFEQKNIL                     R10 ; [+34]
+       12 JUMPIFEQKNIL                     R10 ; [+39]
        14 GETUPVAL                         R10 1
        15 GETTABLEKS                       R10 R10 K1 ["GlobalPersistent"]
-       17 JUMPIFEQ                         R9 R10 ; [+6]
+       17 JUMPIFEQ                         R9 R10 ; [+11]
        19 GETUPVAL                         R10 1
        20 GETTABLEKS                       R10 R10 K2 ["GlobalSession"]
-       22 JUMPIFNOTEQ                      R9 R10 ; [+9]
-       24 MOVE                             R12 R0
-       25 MOVE                             R13 R8
-       26 GETTABLE                         R14 R2 R8
-       27 MOVE                             R15 R9
-       28 NAMECALL                         R10 R1 K3 ["setGlobal"]
-       30 CALL                             R10 5 0
-       31 JUMP                             ; [+15]
-       32 GETUPVAL                         R10 1
-       33 GETTABLEKS                       R10 R10 K4 ["LocalPersistent"]
-       35 JUMPIFNOTEQ                      R9 R10 ; [+4]
-       37 GETTABLE                         R10 R2 R8
-       38 SETTABLE                         R10 R3 R8
-       39 JUMP                             ; [+7]
-       40 GETUPVAL                         R10 1
-       41 GETTABLEKS                       R10 R10 K5 ["LocalSession"]
-       43 JUMPIFNOTEQ                      R9 R10 ; [+3]
-       45 GETTABLE                         R10 R2 R8
-       46 SETTABLE                         R10 R4 R8
-       47 FORGLOOP                         R5 2 ; [-37]
-       49 RETURN                           R3 2
+       22 JUMPIFEQ                         R9 R10 ; [+6]
+       24 GETUPVAL                         R10 1
+       25 GETTABLEKS                       R10 R10 K3 ["PlacePersistent"]
+       27 JUMPIFNOTEQ                      R9 R10 ; [+9]
+       29 MOVE                             R12 R0
+       30 MOVE                             R13 R8
+       31 GETTABLE                         R14 R2 R8
+       32 MOVE                             R15 R9
+       33 NAMECALL                         R10 R1 K4 ["setGlobal"]
+       35 CALL                             R10 5 0
+       36 JUMP                             ; [+15]
+       37 GETUPVAL                         R10 1
+       38 GETTABLEKS                       R10 R10 K5 ["LocalPersistent"]
+       40 JUMPIFNOTEQ                      R9 R10 ; [+4]
+       42 GETTABLE                         R10 R2 R8
+       43 SETTABLE                         R10 R3 R8
+       44 JUMP                             ; [+7]
+       45 GETUPVAL                         R10 1
+       46 GETTABLEKS                       R10 R10 K6 ["LocalSession"]
+       48 JUMPIFNOTEQ                      R9 R10 ; [+3]
+       50 GETTABLE                         R10 R2 R8
+       51 SETTABLE                         R10 R4 R8
+       52 FORGLOOP                         R5 2 ; [-42]
+       54 RETURN                           R3 2
 
 MAIN:
         0 PREPVARARGS                      0

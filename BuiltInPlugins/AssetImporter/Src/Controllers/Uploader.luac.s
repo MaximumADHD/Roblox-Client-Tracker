@@ -62,23 +62,39 @@ PROTO_1:
        77 RETURN                           R8 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R4 1
-        2 GETUPVAL                         R5 2
-        3 NAMECALL                         R2 R2 K0 ["UploadAssetFromPathAsync"]
-        5 CALL                             R2 3 2
-        6 JUMPIFNOT                        R2 ; [+4]
-        7 MOVE                             R4 R0
-        8 MOVE                             R5 R2
-        9 CALL                             R4 1 0
-       10 RETURN                           R0 0
-       11 JUMPIFNOT                        R3 ; [+3]
-       12 MOVE                             R4 R1
-       13 MOVE                             R5 R3
-       14 CALL                             R4 1 0
-       15 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 NAMECALL                         R0 R0 K0 ["UploadAssetFromPathAsync"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_3:
+        0 GETIMPORT                        R2 K1 [pcall]
+        2 NEWCLOSURE                       R3 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CALL                             R2 1 3
+        7 JUMPIF                           R2 ; [+8]
+        8 MOVE                             R5 R1
+        9 FASTCALL1                        TOSTRING R3 ; [+3]
+       10 MOVE                             R7 R3
+       11 GETIMPORT                        R6 K3 [tostring]
+       13 CALL                             R6 1 1
+       14 CALL                             R5 1 0
+       15 RETURN                           R0 0
+       16 JUMPIFNOT                        R3 ; [+4]
+       17 MOVE                             R5 R0
+       18 MOVE                             R6 R3
+       19 CALL                             R5 1 0
+       20 RETURN                           R0 0
+       21 MOVE                             R5 R1
+       22 MOVE                             R6 R4
+       23 CALL                             R5 1 0
+       24 RETURN                           R0 0
+
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 NEWCLOSURE                       R3 P0
@@ -88,24 +104,42 @@ PROTO_3:
         7 CALL                             R2 1 -1
         8 RETURN                           R2 -1
 
-PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R4 1
-        2 GETUPVAL                         R5 2
-        3 GETUPVAL                         R6 3
-        4 NAMECALL                         R2 R2 K0 ["UploadVersionedAssetFromPathAsync"]
-        6 CALL                             R2 4 2
-        7 JUMPIFNOT                        R2 ; [+4]
-        8 MOVE                             R4 R0
-        9 MOVE                             R5 R2
-       10 CALL                             R4 1 0
-       11 RETURN                           R0 0
-       12 MOVE                             R4 R1
-       13 MOVE                             R5 R3
-       14 CALL                             R4 1 0
-       15 RETURN                           R0 0
-
 PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 GETUPVAL                         R4 3
+        4 NAMECALL                         R0 R0 K0 ["UploadVersionedAssetFromPathAsync"]
+        6 CALL                             R0 4 -1
+        7 RETURN                           R0 -1
+
+PROTO_6:
+        0 GETIMPORT                        R2 K1 [pcall]
+        2 NEWCLOSURE                       R3 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          UPVAL U3
+        7 CALL                             R2 1 3
+        8 JUMPIF                           R2 ; [+8]
+        9 MOVE                             R5 R1
+       10 FASTCALL1                        TOSTRING R3 ; [+3]
+       11 MOVE                             R7 R3
+       12 GETIMPORT                        R6 K3 [tostring]
+       14 CALL                             R6 1 1
+       15 CALL                             R5 1 0
+       16 RETURN                           R0 0
+       17 JUMPIFNOT                        R3 ; [+4]
+       18 MOVE                             R5 R0
+       19 MOVE                             R6 R3
+       20 CALL                             R5 1 0
+       21 RETURN                           R0 0
+       22 MOVE                             R5 R1
+       23 MOVE                             R6 R4
+       24 CALL                             R5 1 0
+       25 RETURN                           R0 0
+
+PROTO_7:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["new"]
         3 NEWCLOSURE                       R4 P0
@@ -116,14 +150,14 @@ PROTO_5:
         8 CALL                             R3 1 -1
         9 RETURN                           R3 -1
 
-PROTO_6:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["session"]
         3 NAMECALL                         R0 R0 K1 ["Cancel"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_7:
+PROTO_9:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["session"]
         3 FASTCALL2K                       ASSERT R4 K1 ; [+4]
@@ -147,7 +181,7 @@ PROTO_7:
        28 CALL                             R3 1 0
        29 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 LOADNIL                          R1
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K0 ["new"]
@@ -160,7 +194,7 @@ PROTO_8:
        10 CLOSEUPVALS                      R1
        11 RETURN                           R3 2
 
-PROTO_9:
+PROTO_11:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
         2 GETUPVAL                         R5 0
         3 GETTABLEKS                       R5 R5 K1 ["FileType"]
@@ -174,7 +208,7 @@ PROTO_9:
        17 CALL                             R3 2 -1
        18 RETURN                           R3 -1
 
-PROTO_10:
+PROTO_12:
         0 MOVE                             R7 R2
         1 GETUPVAL                         R8 0
         2 GETTABLEKS                       R8 R8 K0 ["FileType"]
@@ -189,7 +223,7 @@ PROTO_10:
        15 CALL                             R6 3 -1
        16 RETURN                           R6 -1
 
-PROTO_11:
+PROTO_13:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
         2 GETUPVAL                         R5 0
         3 GETTABLEKS                       R5 R5 K1 ["FileType"]
@@ -203,7 +237,7 @@ PROTO_11:
        17 CALL                             R3 2 -1
        18 RETURN                           R3 -1
 
-PROTO_12:
+PROTO_14:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
         2 GETUPVAL                         R5 0
         3 GETTABLEKS                       R5 R5 K1 ["FileType"]
@@ -260,27 +294,27 @@ MAIN:
        63 CAPTURE                          VAL R3
        64 CAPTURE                          VAL R6
        65 SETTABLEKS                       R9 R8 K21 ["_createAssetRequestParams"]
-       67 DUPCLOSURE                       R9 K22 [PROTO_3]
+       67 DUPCLOSURE                       R9 K22 [PROTO_4]
        68 CAPTURE                          VAL R4
        69 CAPTURE                          VAL R2
        70 SETTABLEKS                       R9 R8 K23 ["_createPromiseHelper"]
-       72 DUPCLOSURE                       R9 K24 [PROTO_5]
+       72 DUPCLOSURE                       R9 K24 [PROTO_7]
        73 CAPTURE                          VAL R4
        74 CAPTURE                          VAL R2
        75 SETTABLEKS                       R9 R8 K25 ["_createVersionedPromiseHelper"]
-       77 DUPCLOSURE                       R9 K26 [PROTO_8]
+       77 DUPCLOSURE                       R9 K26 [PROTO_10]
        78 CAPTURE                          VAL R4
        79 SETTABLEKS                       R9 R8 K27 ["createScenePromise"]
-       81 DUPCLOSURE                       R9 K28 [PROTO_9]
+       81 DUPCLOSURE                       R9 K28 [PROTO_11]
        82 CAPTURE                          VAL R6
        83 SETTABLEKS                       R9 R8 K29 ["createImagePromise"]
-       85 DUPCLOSURE                       R9 K30 [PROTO_10]
+       85 DUPCLOSURE                       R9 K30 [PROTO_12]
        86 CAPTURE                          VAL R6
        87 SETTABLEKS                       R9 R8 K31 ["createVersionedImagePromise"]
-       89 DUPCLOSURE                       R9 K32 [PROTO_11]
+       89 DUPCLOSURE                       R9 K32 [PROTO_13]
        90 CAPTURE                          VAL R6
        91 SETTABLEKS                       R9 R8 K33 ["createAudioPromise"]
-       93 DUPCLOSURE                       R9 K34 [PROTO_12]
+       93 DUPCLOSURE                       R9 K34 [PROTO_14]
        94 CAPTURE                          VAL R6
        95 SETTABLEKS                       R9 R8 K35 ["createVideoPromise"]
        97 RETURN                           R8 1

@@ -249,74 +249,79 @@ PROTO_1:
       336 JUMPIFNOTLT                      R19 R15 ; [+3]
       338 SUB                              R20 R15 R19
       339 ADD                              R6 R6 R20
-      340 DUPTABLE                         R20 K20 [{"Size"}]
+      340 DUPTABLE                         R20 K95 [{"Size", "TerrainSize"}]
       341 GETIMPORT                        R21 K92 [Vector2.new]
       343 MOVE                             R22 R6
       344 MOVE                             R23 R12
       345 CALL                             R21 2 1
       346 SETTABLEKS                       R21 R20 K11 ["Size"]
-      348 SETTABLEKS                       R20 R1 K94 ["Popup"]
-      350 GETTABLEKS                       R20 R1 K4 ["Footer"]
-      352 GETTABLEKS                       R20 R20 K60 ["IconButton"]
-      354 GETTABLEKS                       R20 R20 K65 ["MaterialManagerButton"]
-      356 GETIMPORT                        R21 K19 [UDim2.new]
-      358 LOADN                            R22 0
-      359 MOVE                             R23 R15
-      360 LOADN                            R24 1
-      361 LOADN                            R25 0
-      362 CALL                             R21 4 1
-      363 SETTABLEKS                       R21 R20 K11 ["Size"]
-      365 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
-      367 GETIMPORT                        R21 K96 [NumberRange.new]
-      369 LOADN                            R22 0
-      370 GETTABLEKS                       R24 R1 K94 ["Popup"]
-      372 GETTABLEKS                       R24 R24 K11 ["Size"]
-      374 GETTABLEKS                       R24 R24 K77 ["X"]
-      376 GETTABLEKS                       R25 R1 K0 ["MainView"]
-      378 GETTABLEKS                       R25 R25 K8 ["ScrollBarThickness"]
-      380 SUB                              R23 R24 R25
-      381 CALL                             R21 2 1
-      382 SETTABLEKS                       R21 R20 K97 ["ContainerXBounds"]
-      384 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
-      386 GETIMPORT                        R21 K96 [NumberRange.new]
-      388 GETTABLEKS                       R23 R1 K1 ["PrimaryTools"]
-      390 GETTABLEKS                       R23 R23 K11 ["Size"]
-      392 GETTABLEKS                       R23 R23 K75 ["Y"]
-      394 GETTABLEKS                       R23 R23 K76 ["Offset"]
-      396 GETTABLEKS                       R24 R1 K2 ["Filters"]
-      398 GETTABLEKS                       R24 R24 K11 ["Size"]
-      400 GETTABLEKS                       R24 R24 K75 ["Y"]
-      402 GETTABLEKS                       R24 R24 K76 ["Offset"]
-      404 ADD                              R22 R23 R24
-      405 GETTABLEKS                       R24 R1 K94 ["Popup"]
-      407 GETTABLEKS                       R24 R24 K11 ["Size"]
-      409 GETTABLEKS                       R24 R24 K75 ["Y"]
-      411 GETTABLEKS                       R25 R1 K4 ["Footer"]
-      413 GETTABLEKS                       R25 R25 K11 ["Size"]
-      415 GETTABLEKS                       R25 R25 K75 ["Y"]
-      417 GETTABLEKS                       R25 R25 K76 ["Offset"]
-      419 SUB                              R23 R24 R25
-      420 CALL                             R21 2 1
-      421 SETTABLEKS                       R21 R20 K98 ["ContainerYBounds"]
-      423 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
-      425 GETIMPORT                        R21 K19 [UDim2.new]
-      427 LOADN                            R22 1
-      428 LOADN                            R23 0
-      429 LOADN                            R24 0
-      430 MOVE                             R25 R8
-      431 CALL                             R21 4 1
-      432 SETTABLEKS                       R21 R20 K11 ["Size"]
-      434 NEWTABLE                         R20 2 0
-      436 NEWCLOSURE                       R21 P0
-      437 CAPTURE                          VAL R0
-      438 CAPTURE                          UPVAL U6
-      439 CAPTURE                          UPVAL U7
-      440 CAPTURE                          UPVAL U8
-      441 CAPTURE                          VAL R1
-      442 SETTABLEKS                       R21 R20 K99 ["createTheme"]
-      444 GETTABLEKS                       R21 R1 K94 ["Popup"]
-      446 SETTABLEKS                       R21 R20 K94 ["Popup"]
-      448 RETURN                           R20 1
+      348 GETIMPORT                        R21 K92 [Vector2.new]
+      350 LOADN                            R22 272
+      351 LOADN                            R23 340
+      352 CALL                             R21 2 1
+      353 SETTABLEKS                       R21 R20 K94 ["TerrainSize"]
+      355 SETTABLEKS                       R20 R1 K96 ["Popup"]
+      357 GETTABLEKS                       R20 R1 K4 ["Footer"]
+      359 GETTABLEKS                       R20 R20 K60 ["IconButton"]
+      361 GETTABLEKS                       R20 R20 K65 ["MaterialManagerButton"]
+      363 GETIMPORT                        R21 K19 [UDim2.new]
+      365 LOADN                            R22 0
+      366 MOVE                             R23 R15
+      367 LOADN                            R24 1
+      368 LOADN                            R25 0
+      369 CALL                             R21 4 1
+      370 SETTABLEKS                       R21 R20 K11 ["Size"]
+      372 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
+      374 GETIMPORT                        R21 K98 [NumberRange.new]
+      376 LOADN                            R22 0
+      377 GETTABLEKS                       R24 R1 K96 ["Popup"]
+      379 GETTABLEKS                       R24 R24 K11 ["Size"]
+      381 GETTABLEKS                       R24 R24 K77 ["X"]
+      383 GETTABLEKS                       R25 R1 K0 ["MainView"]
+      385 GETTABLEKS                       R25 R25 K8 ["ScrollBarThickness"]
+      387 SUB                              R23 R24 R25
+      388 CALL                             R21 2 1
+      389 SETTABLEKS                       R21 R20 K99 ["ContainerXBounds"]
+      391 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
+      393 GETIMPORT                        R21 K98 [NumberRange.new]
+      395 GETTABLEKS                       R23 R1 K1 ["PrimaryTools"]
+      397 GETTABLEKS                       R23 R23 K11 ["Size"]
+      399 GETTABLEKS                       R23 R23 K75 ["Y"]
+      401 GETTABLEKS                       R23 R23 K76 ["Offset"]
+      403 GETTABLEKS                       R24 R1 K2 ["Filters"]
+      405 GETTABLEKS                       R24 R24 K11 ["Size"]
+      407 GETTABLEKS                       R24 R24 K75 ["Y"]
+      409 GETTABLEKS                       R24 R24 K76 ["Offset"]
+      411 ADD                              R22 R23 R24
+      412 GETTABLEKS                       R24 R1 K96 ["Popup"]
+      414 GETTABLEKS                       R24 R24 K11 ["Size"]
+      416 GETTABLEKS                       R24 R24 K75 ["Y"]
+      418 GETTABLEKS                       R25 R1 K4 ["Footer"]
+      420 GETTABLEKS                       R25 R25 K11 ["Size"]
+      422 GETTABLEKS                       R25 R25 K75 ["Y"]
+      424 GETTABLEKS                       R25 R25 K76 ["Offset"]
+      426 SUB                              R23 R24 R25
+      427 CALL                             R21 2 1
+      428 SETTABLEKS                       R21 R20 K100 ["ContainerYBounds"]
+      430 GETTABLEKS                       R20 R1 K3 ["MaterialGrid"]
+      432 GETIMPORT                        R21 K19 [UDim2.new]
+      434 LOADN                            R22 1
+      435 LOADN                            R23 0
+      436 LOADN                            R24 0
+      437 MOVE                             R25 R8
+      438 CALL                             R21 4 1
+      439 SETTABLEKS                       R21 R20 K11 ["Size"]
+      441 NEWTABLE                         R20 2 0
+      443 NEWCLOSURE                       R21 P0
+      444 CAPTURE                          VAL R0
+      445 CAPTURE                          UPVAL U6
+      446 CAPTURE                          UPVAL U7
+      447 CAPTURE                          UPVAL U8
+      448 CAPTURE                          VAL R1
+      449 SETTABLEKS                       R21 R20 K101 ["createTheme"]
+      451 GETTABLEKS                       R21 R1 K96 ["Popup"]
+      453 SETTABLEKS                       R21 R20 K96 ["Popup"]
+      455 RETURN                           R20 1
 
 MAIN:
         0 PREPVARARGS                      0

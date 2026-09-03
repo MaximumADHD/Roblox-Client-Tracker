@@ -103,10 +103,26 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 MOVE                             R3 R0
-        2 NAMECALL                         R1 R1 K0 ["showToast"]
-        4 CALL                             R1 2 0
-        5 RETURN                           R0 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+21]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K0 ["showSnackbar"]
+        6 DUPTABLE                         R2 K2 [{"LocalizableMessage"}]
+        7 DUPTABLE                         R3 K6 [{"Key", "SubKey", "Args"}]
+        8 GETTABLEKS                       R4 R0 K3 ["Key"]
+       10 SETTABLEKS                       R4 R3 K3 ["Key"]
+       12 GETTABLEKS                       R4 R0 K4 ["SubKey"]
+       14 SETTABLEKS                       R4 R3 K4 ["SubKey"]
+       16 GETTABLEKS                       R4 R0 K5 ["Args"]
+       18 SETTABLEKS                       R4 R3 K5 ["Args"]
+       20 SETTABLEKS                       R3 R2 K1 ["LocalizableMessage"]
+       22 CALL                             R1 1 0
+       23 RETURN                           R0 0
+       24 GETUPVAL                         R1 2
+       25 MOVE                             R3 R0
+       26 NAMECALL                         R1 R1 K7 ["showToast"]
+       28 CALL                             R1 2 0
+       29 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -289,26 +305,28 @@ PROTO_6:
       200 GETTABLEKS                       R14 R9 K20 ["_plugin"]
       202 LOADK                            R16 K54 ["ShowToast"]
       203 NEWCLOSURE                       R17 P4
-      204 CAPTURE                          VAL R9
-      205 NAMECALL                         R14 R14 K55 ["OnInvoke"]
-      207 CALL                             R14 3 -1
-      208 FASTCALL                         TABLE_INSERT ; [+2]
-      209 GETIMPORT                        R12 K50 [table.insert]
-      211 CALL                             R12 -1 0
-      212 GETTABLEKS                       R13 R9 K31 ["_connections"]
-      214 GETUPVAL                         R14 7
-      215 LOADK                            R16 K56 ["AssetsUploaded"]
-      216 NEWCLOSURE                       R17 P5
-      217 CAPTURE                          UPVAL U3
-      218 CAPTURE                          UPVAL U6
-      219 CAPTURE                          UPVAL U8
-      220 CAPTURE                          VAL R9
-      221 NAMECALL                         R14 R14 K57 ["Bind"]
-      223 CALL                             R14 3 -1
-      224 FASTCALL                         TABLE_INSERT ; [+2]
-      225 GETIMPORT                        R12 K50 [table.insert]
-      227 CALL                             R12 -1 0
-      228 RETURN                           R9 1
+      204 CAPTURE                          UPVAL U7
+      205 CAPTURE                          UPVAL U8
+      206 CAPTURE                          VAL R9
+      207 NAMECALL                         R14 R14 K55 ["OnInvoke"]
+      209 CALL                             R14 3 -1
+      210 FASTCALL                         TABLE_INSERT ; [+2]
+      211 GETIMPORT                        R12 K50 [table.insert]
+      213 CALL                             R12 -1 0
+      214 GETTABLEKS                       R13 R9 K31 ["_connections"]
+      216 GETUPVAL                         R14 9
+      217 LOADK                            R16 K56 ["AssetsUploaded"]
+      218 NEWCLOSURE                       R17 P5
+      219 CAPTURE                          UPVAL U3
+      220 CAPTURE                          UPVAL U6
+      221 CAPTURE                          UPVAL U10
+      222 CAPTURE                          VAL R9
+      223 NAMECALL                         R14 R14 K57 ["Bind"]
+      225 CALL                             R14 3 -1
+      226 FASTCALL                         TABLE_INSERT ; [+2]
+      227 GETIMPORT                        R12 K50 [table.insert]
+      229 CALL                             R12 -1 0
+      230 RETURN                           R9 1
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -644,29 +662,36 @@ PROTO_34:
         6 RETURN                           R0 0
 
 PROTO_35:
-        0 GETTABLEKS                       R2 R0 K0 ["_toastCancelToken"]
-        2 JUMPIFNOT                        R2 ; [+6]
-        3 GETTABLEKS                       R2 R0 K0 ["_toastCancelToken"]
-        5 CALL                             R2 0 0
-        6 LOADNIL                          R2
-        7 SETTABLEKS                       R2 R0 K0 ["_toastCancelToken"]
-        9 SETTABLEKS                       R1 R0 K1 ["_toast"]
-       11 GETTABLEKS                       R2 R0 K2 ["OnToastChanged"]
-       13 GETTABLEKS                       R4 R0 K1 ["_toast"]
-       15 NAMECALL                         R2 R2 K3 ["Fire"]
-       17 CALL                             R2 2 0
-       18 LOADB                            R2 0
-       19 NEWCLOSURE                       R3 P0
-       20 CAPTURE                          REF R2
-       21 SETTABLEKS                       R3 R0 K0 ["_toastCancelToken"]
-       23 GETIMPORT                        R3 K6 [task.delay]
-       25 LOADN                            R4 2
-       26 NEWCLOSURE                       R5 P1
-       27 CAPTURE                          REF R2
-       28 CAPTURE                          VAL R0
-       29 CALL                             R3 2 0
-       30 CLOSEUPVALS                      R2
-       31 RETURN                           R0 0
+        0 GETUPVAL                         R4 0
+        1 CALL                             R4 0 1
+        2 NOT                              R3 R4
+        3 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        5 LOADK                            R4 K0 ["PluginController:showToast should not be used with FFlagAmrStudioToastsIntegration enabled. Use Notifications.showToast instead."]
+        6 GETIMPORT                        R2 K2 [assert]
+        8 CALL                             R2 2 0
+        9 GETTABLEKS                       R2 R0 K3 ["_toastCancelToken"]
+       11 JUMPIFNOT                        R2 ; [+6]
+       12 GETTABLEKS                       R2 R0 K3 ["_toastCancelToken"]
+       14 CALL                             R2 0 0
+       15 LOADNIL                          R2
+       16 SETTABLEKS                       R2 R0 K3 ["_toastCancelToken"]
+       18 SETTABLEKS                       R1 R0 K4 ["_toast"]
+       20 GETTABLEKS                       R2 R0 K5 ["OnToastChanged"]
+       22 GETTABLEKS                       R4 R0 K4 ["_toast"]
+       24 NAMECALL                         R2 R2 K6 ["Fire"]
+       26 CALL                             R2 2 0
+       27 LOADB                            R2 0
+       28 NEWCLOSURE                       R3 P0
+       29 CAPTURE                          REF R2
+       30 SETTABLEKS                       R3 R0 K3 ["_toastCancelToken"]
+       32 GETIMPORT                        R3 K9 [task.delay]
+       34 LOADN                            R4 2
+       35 NEWCLOSURE                       R5 P1
+       36 CAPTURE                          REF R2
+       37 CAPTURE                          VAL R0
+       38 CALL                             R3 2 0
+       39 CLOSEUPVALS                      R2
+       40 RETURN                           R0 0
 
 PROTO_36:
         0 LOADNIL                          R1
@@ -708,125 +733,138 @@ MAIN:
        23 GETTABLEKS                       R4 R4 K12 ["Util"]
        25 GETTABLEKS                       R4 R4 K13 ["Services"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R3 K3 ["GetService"]
-       30 LOADK                            R5 K14 ["StudioService"]
-       31 CALL                             R4 1 1
-       32 GETIMPORT                        R5 K10 [require]
-       34 GETTABLEKS                       R6 R2 K15 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K16 ["Framework"]
-       38 CALL                             R5 1 1
-       39 GETTABLEKS                       R6 R5 K17 ["ContextServices"]
-       41 GETTABLEKS                       R7 R6 K18 ["ContextItem"]
-       43 GETIMPORT                        R8 K10 [require]
-       45 GETTABLEKS                       R9 R2 K15 ["Packages"]
-       47 GETTABLEKS                       R9 R9 K19 ["Dash"]
-       49 CALL                             R8 1 1
-       50 GETTABLEKS                       R9 R5 K12 ["Util"]
-       52 GETTABLEKS                       R9 R9 K20 ["Signal"]
-       54 GETIMPORT                        R10 K10 [require]
-       56 GETTABLEKS                       R11 R2 K11 ["Src"]
-       58 GETTABLEKS                       R11 R11 K21 ["Types"]
-       60 CALL                             R10 1 1
-       61 GETIMPORT                        R11 K10 [require]
-       63 GETTABLEKS                       R12 R2 K11 ["Src"]
-       65 GETTABLEKS                       R12 R12 K22 ["DEPRECATED_Analytics"]
-       67 CALL                             R11 1 1
-       68 GETIMPORT                        R12 K10 [require]
-       70 GETTABLEKS                       R13 R2 K11 ["Src"]
-       72 GETTABLEKS                       R13 R13 K12 ["Util"]
-       74 GETTABLEKS                       R13 R13 K23 ["cleanConnections"]
+       28 GETIMPORT                        R4 K10 [require]
+       30 GETTABLEKS                       R5 R2 K11 ["Src"]
+       32 GETTABLEKS                       R5 R5 K12 ["Util"]
+       34 GETTABLEKS                       R5 R5 K14 ["Notifications"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R5 R3 K3 ["GetService"]
+       39 LOADK                            R6 K15 ["StudioService"]
+       40 CALL                             R5 1 1
+       41 GETIMPORT                        R6 K10 [require]
+       43 GETTABLEKS                       R7 R2 K16 ["Packages"]
+       45 GETTABLEKS                       R7 R7 K17 ["Framework"]
+       47 CALL                             R6 1 1
+       48 GETTABLEKS                       R7 R6 K18 ["ContextServices"]
+       50 GETTABLEKS                       R8 R7 K19 ["ContextItem"]
+       52 GETIMPORT                        R9 K10 [require]
+       54 GETTABLEKS                       R10 R2 K16 ["Packages"]
+       56 GETTABLEKS                       R10 R10 K20 ["Dash"]
+       58 CALL                             R9 1 1
+       59 GETTABLEKS                       R10 R6 K12 ["Util"]
+       61 GETTABLEKS                       R10 R10 K21 ["Signal"]
+       63 GETIMPORT                        R11 K10 [require]
+       65 GETTABLEKS                       R12 R2 K11 ["Src"]
+       67 GETTABLEKS                       R12 R12 K22 ["Types"]
+       69 CALL                             R11 1 1
+       70 GETIMPORT                        R12 K10 [require]
+       72 GETTABLEKS                       R13 R2 K11 ["Src"]
+       74 GETTABLEKS                       R13 R13 K23 ["DEPRECATED_Analytics"]
        76 CALL                             R12 1 1
        77 GETIMPORT                        R13 K10 [require]
        79 GETTABLEKS                       R14 R2 K11 ["Src"]
        81 GETTABLEKS                       R14 R14 K12 ["Util"]
-       83 GETTABLEKS                       R14 R14 K24 ["convertToEngineAssetTypeEnum"]
+       83 GETTABLEKS                       R14 R14 K24 ["cleanConnections"]
        85 CALL                             R13 1 1
        86 GETIMPORT                        R14 K10 [require]
        88 GETTABLEKS                       R15 R2 K11 ["Src"]
        90 GETTABLEKS                       R15 R15 K12 ["Util"]
-       92 GETTABLEKS                       R15 R15 K25 ["createScopeUid"]
+       92 GETTABLEKS                       R15 R15 K25 ["convertToEngineAssetTypeEnum"]
        94 CALL                             R14 1 1
        95 GETIMPORT                        R15 K10 [require]
        97 GETTABLEKS                       R16 R2 K11 ["Src"]
        99 GETTABLEKS                       R16 R16 K12 ["Util"]
-      101 GETTABLEKS                       R16 R16 K26 ["logIfDebug"]
+      101 GETTABLEKS                       R16 R16 K26 ["createScopeUid"]
       103 CALL                             R15 1 1
       104 GETIMPORT                        R16 K10 [require]
       106 GETTABLEKS                       R17 R2 K11 ["Src"]
-      108 GETTABLEKS                       R17 R17 K27 ["Flags"]
-      110 GETTABLEKS                       R17 R17 K28 ["getFFlagAmrDisableShardedEvent"]
+      108 GETTABLEKS                       R17 R17 K12 ["Util"]
+      110 GETTABLEKS                       R17 R17 K27 ["logIfDebug"]
       112 CALL                             R16 1 1
-      113 LOADK                            R19 K29 ["PluginController"]
-      114 NAMECALL                         R17 R7 K30 ["extend"]
-      116 CALL                             R17 2 1
-      117 DUPCLOSURE                       R18 K31 [PROTO_6]
-      118 CAPTURE                          VAL R4
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R14
-      121 CAPTURE                          VAL R0
-      122 CAPTURE                          VAL R9
-      123 CAPTURE                          VAL R17
-      124 CAPTURE                          VAL R15
-      125 CAPTURE                          VAL R1
-      126 CAPTURE                          VAL R8
-      127 SETTABLEKS                       R18 R17 K32 ["new"]
-      129 DUPCLOSURE                       R18 K33 [PROTO_7]
-      130 CAPTURE                          VAL R17
-      131 SETTABLEKS                       R18 R17 K34 ["mock"]
-      133 DUPCLOSURE                       R18 K35 [PROTO_8]
-      134 CAPTURE                          VAL R12
-      135 SETTABLEKS                       R18 R17 K36 ["destroy"]
-      137 DUPCLOSURE                       R18 K37 [PROTO_9]
-      138 SETTABLEKS                       R18 R17 K38 ["getPlugin"]
-      140 DUPCLOSURE                       R18 K39 [PROTO_10]
-      141 SETTABLEKS                       R18 R17 K40 ["getUser"]
-      143 DUPCLOSURE                       R18 K41 [PROTO_11]
-      144 SETTABLEKS                       R18 R17 K42 ["getGameInfo"]
-      146 DUPCLOSURE                       R18 K43 [PROTO_12]
-      147 SETTABLEKS                       R18 R17 K44 ["getCurrentScope"]
-      149 DUPCLOSURE                       R18 K45 [PROTO_13]
-      150 SETTABLEKS                       R18 R17 K46 ["setCurrentScope"]
-      152 DUPCLOSURE                       R18 K47 [PROTO_15]
-      153 CAPTURE                          VAL R5
-      154 CAPTURE                          VAL R16
-      155 CAPTURE                          VAL R11
-      156 SETTABLEKS                       R18 R17 K48 ["launchBulkImport"]
-      158 DUPCLOSURE                       R18 K49 [PROTO_16]
-      159 CAPTURE                          VAL R10
-      160 CAPTURE                          VAL R13
-      161 SETTABLEKS                       R18 R17 K50 ["importAssetVersion"]
-      163 DUPCLOSURE                       R18 K51 [PROTO_19]
-      164 CAPTURE                          VAL R15
-      165 SETTABLEKS                       R18 R17 K52 ["processNewAsset"]
-      167 DUPCLOSURE                       R18 K53 [PROTO_22]
-      168 CAPTURE                          VAL R15
-      169 SETTABLEKS                       R18 R17 K54 ["refreshUniverseInfo"]
-      171 DUPCLOSURE                       R18 K55 [PROTO_23]
-      172 SETTABLEKS                       R18 R17 K56 ["setRootPlace"]
-      174 DUPCLOSURE                       R18 K57 [PROTO_24]
-      175 SETTABLEKS                       R18 R17 K58 ["getRootPlace"]
-      177 DUPCLOSURE                       R18 K59 [PROTO_25]
-      178 SETTABLEKS                       R18 R17 K60 ["isRootPlace"]
-      180 DUPCLOSURE                       R18 K61 [PROTO_26]
-      181 SETTABLEKS                       R18 R17 K62 ["setContextMenuItems"]
-      183 DUPCLOSURE                       R18 K63 [PROTO_27]
-      184 SETTABLEKS                       R18 R17 K64 ["getContextMenuItems"]
-      186 DUPCLOSURE                       R18 K65 [PROTO_28]
-      187 SETTABLEKS                       R18 R17 K66 ["setDialog"]
-      189 DUPCLOSURE                       R18 K67 [PROTO_29]
-      190 SETTABLEKS                       R18 R17 K68 ["closeDialog"]
-      192 DUPCLOSURE                       R18 K69 [PROTO_30]
-      193 SETTABLEKS                       R18 R17 K70 ["_dialogUpdated"]
-      195 DUPCLOSURE                       R18 K71 [PROTO_31]
-      196 SETTABLEKS                       R18 R17 K72 ["getDialogs"]
-      198 DUPCLOSURE                       R18 K73 [PROTO_32]
-      199 SETTABLEKS                       R18 R17 K74 ["getDialogController"]
-      201 DUPCLOSURE                       R18 K75 [PROTO_35]
-      202 SETTABLEKS                       R18 R17 K76 ["showToast"]
-      204 DUPCLOSURE                       R18 K77 [PROTO_36]
-      205 SETTABLEKS                       R18 R17 K78 ["_clearToast"]
-      207 DUPCLOSURE                       R18 K79 [PROTO_37]
-      208 SETTABLEKS                       R18 R17 K80 ["getToast"]
-      210 DUPCLOSURE                       R18 K81 [PROTO_38]
-      211 SETTABLEKS                       R18 R17 K82 ["getPluginSessionId"]
-      213 RETURN                           R17 1
+      113 GETIMPORT                        R17 K10 [require]
+      115 GETTABLEKS                       R18 R2 K11 ["Src"]
+      117 GETTABLEKS                       R18 R18 K28 ["Flags"]
+      119 GETTABLEKS                       R18 R18 K29 ["getFFlagAmrDisableShardedEvent"]
+      121 CALL                             R17 1 1
+      122 GETIMPORT                        R18 K10 [require]
+      124 GETTABLEKS                       R19 R2 K11 ["Src"]
+      126 GETTABLEKS                       R19 R19 K28 ["Flags"]
+      128 GETTABLEKS                       R19 R19 K30 ["getFFlagAmrStudioToastsIntegration"]
+      130 CALL                             R18 1 1
+      131 LOADK                            R21 K31 ["PluginController"]
+      132 NAMECALL                         R19 R8 K32 ["extend"]
+      134 CALL                             R19 2 1
+      135 DUPCLOSURE                       R20 K33 [PROTO_6]
+      136 CAPTURE                          VAL R5
+      137 CAPTURE                          VAL R11
+      138 CAPTURE                          VAL R15
+      139 CAPTURE                          VAL R0
+      140 CAPTURE                          VAL R10
+      141 CAPTURE                          VAL R19
+      142 CAPTURE                          VAL R16
+      143 CAPTURE                          VAL R18
+      144 CAPTURE                          VAL R4
+      145 CAPTURE                          VAL R1
+      146 CAPTURE                          VAL R9
+      147 SETTABLEKS                       R20 R19 K34 ["new"]
+      149 DUPCLOSURE                       R20 K35 [PROTO_7]
+      150 CAPTURE                          VAL R19
+      151 SETTABLEKS                       R20 R19 K36 ["mock"]
+      153 DUPCLOSURE                       R20 K37 [PROTO_8]
+      154 CAPTURE                          VAL R13
+      155 SETTABLEKS                       R20 R19 K38 ["destroy"]
+      157 DUPCLOSURE                       R20 K39 [PROTO_9]
+      158 SETTABLEKS                       R20 R19 K40 ["getPlugin"]
+      160 DUPCLOSURE                       R20 K41 [PROTO_10]
+      161 SETTABLEKS                       R20 R19 K42 ["getUser"]
+      163 DUPCLOSURE                       R20 K43 [PROTO_11]
+      164 SETTABLEKS                       R20 R19 K44 ["getGameInfo"]
+      166 DUPCLOSURE                       R20 K45 [PROTO_12]
+      167 SETTABLEKS                       R20 R19 K46 ["getCurrentScope"]
+      169 DUPCLOSURE                       R20 K47 [PROTO_13]
+      170 SETTABLEKS                       R20 R19 K48 ["setCurrentScope"]
+      172 DUPCLOSURE                       R20 K49 [PROTO_15]
+      173 CAPTURE                          VAL R6
+      174 CAPTURE                          VAL R17
+      175 CAPTURE                          VAL R12
+      176 SETTABLEKS                       R20 R19 K50 ["launchBulkImport"]
+      178 DUPCLOSURE                       R20 K51 [PROTO_16]
+      179 CAPTURE                          VAL R11
+      180 CAPTURE                          VAL R14
+      181 SETTABLEKS                       R20 R19 K52 ["importAssetVersion"]
+      183 DUPCLOSURE                       R20 K53 [PROTO_19]
+      184 CAPTURE                          VAL R16
+      185 SETTABLEKS                       R20 R19 K54 ["processNewAsset"]
+      187 DUPCLOSURE                       R20 K55 [PROTO_22]
+      188 CAPTURE                          VAL R16
+      189 SETTABLEKS                       R20 R19 K56 ["refreshUniverseInfo"]
+      191 DUPCLOSURE                       R20 K57 [PROTO_23]
+      192 SETTABLEKS                       R20 R19 K58 ["setRootPlace"]
+      194 DUPCLOSURE                       R20 K59 [PROTO_24]
+      195 SETTABLEKS                       R20 R19 K60 ["getRootPlace"]
+      197 DUPCLOSURE                       R20 K61 [PROTO_25]
+      198 SETTABLEKS                       R20 R19 K62 ["isRootPlace"]
+      200 DUPCLOSURE                       R20 K63 [PROTO_26]
+      201 SETTABLEKS                       R20 R19 K64 ["setContextMenuItems"]
+      203 DUPCLOSURE                       R20 K65 [PROTO_27]
+      204 SETTABLEKS                       R20 R19 K66 ["getContextMenuItems"]
+      206 DUPCLOSURE                       R20 K67 [PROTO_28]
+      207 SETTABLEKS                       R20 R19 K68 ["setDialog"]
+      209 DUPCLOSURE                       R20 K69 [PROTO_29]
+      210 SETTABLEKS                       R20 R19 K70 ["closeDialog"]
+      212 DUPCLOSURE                       R20 K71 [PROTO_30]
+      213 SETTABLEKS                       R20 R19 K72 ["_dialogUpdated"]
+      215 DUPCLOSURE                       R20 K73 [PROTO_31]
+      216 SETTABLEKS                       R20 R19 K74 ["getDialogs"]
+      218 DUPCLOSURE                       R20 K75 [PROTO_32]
+      219 SETTABLEKS                       R20 R19 K76 ["getDialogController"]
+      221 DUPCLOSURE                       R20 K77 [PROTO_35]
+      222 CAPTURE                          VAL R18
+      223 SETTABLEKS                       R20 R19 K78 ["showToast"]
+      225 DUPCLOSURE                       R20 K79 [PROTO_36]
+      226 SETTABLEKS                       R20 R19 K80 ["_clearToast"]
+      228 DUPCLOSURE                       R20 K81 [PROTO_37]
+      229 SETTABLEKS                       R20 R19 K82 ["getToast"]
+      231 DUPCLOSURE                       R20 K83 [PROTO_38]
+      232 SETTABLEKS                       R20 R19 K84 ["getPluginSessionId"]
+      234 RETURN                           R19 1

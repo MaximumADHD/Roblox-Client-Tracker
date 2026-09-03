@@ -85,40 +85,53 @@ PROTO_1:
        28 GETTABLEKS                       R7 R7 K7 ["mouse"]
        30 GETTABLEKS                       R8 R0 K0 ["props"]
        32 GETTABLEKS                       R8 R8 K8 ["calloutController"]
-       34 GETUPVAL                         R9 1
-       35 GETTABLEKS                       R9 R9 K9 ["provide"]
-       37 NEWTABLE                         R10 0 8
-       39 GETUPVAL                         R11 1
-       40 GETTABLEKS                       R11 R11 K10 ["Focus"]
-       42 GETTABLEKS                       R11 R11 K11 ["new"]
-       44 MOVE                             R12 R4
-       45 CALL                             R11 1 1
-       46 GETUPVAL                         R12 1
-       47 GETTABLEKS                       R12 R12 K12 ["Plugin"]
-       49 GETTABLEKS                       R12 R12 K11 ["new"]
-       51 MOVE                             R13 R3
-       52 CALL                             R12 1 1
-       53 MOVE                             R13 R2
-       54 MOVE                             R14 R6
-       55 GETUPVAL                         R15 1
-       56 GETTABLEKS                       R15 R15 K13 ["Store"]
-       58 GETTABLEKS                       R15 R15 K11 ["new"]
-       60 MOVE                             R16 R5
-       61 CALL                             R15 1 1
-       62 GETUPVAL                         R16 1
-       63 GETTABLEKS                       R16 R16 K14 ["API"]
-       65 GETTABLEKS                       R16 R16 K11 ["new"]
-       67 CALL                             R16 0 1
-       68 GETUPVAL                         R17 1
-       69 GETTABLEKS                       R17 R17 K15 ["Mouse"]
-       71 GETTABLEKS                       R17 R17 K11 ["new"]
-       73 MOVE                             R18 R7
-       74 CALL                             R17 1 1
-       75 MOVE                             R18 R8
-       76 SETLIST                          R10 R11 8 [1]
-       78 MOVE                             R11 R1
-       79 CALL                             R9 2 -1
-       80 RETURN                           R9 -1
+       34 NEWTABLE                         R9 0 8
+       36 GETUPVAL                         R10 1
+       37 GETTABLEKS                       R10 R10 K9 ["Focus"]
+       39 GETTABLEKS                       R10 R10 K10 ["new"]
+       41 MOVE                             R11 R4
+       42 CALL                             R10 1 1
+       43 GETUPVAL                         R11 1
+       44 GETTABLEKS                       R11 R11 K11 ["Plugin"]
+       46 GETTABLEKS                       R11 R11 K10 ["new"]
+       48 MOVE                             R12 R3
+       49 CALL                             R11 1 1
+       50 MOVE                             R12 R2
+       51 MOVE                             R13 R6
+       52 GETUPVAL                         R14 1
+       53 GETTABLEKS                       R14 R14 K12 ["Store"]
+       55 GETTABLEKS                       R14 R14 K10 ["new"]
+       57 MOVE                             R15 R5
+       58 CALL                             R14 1 1
+       59 GETUPVAL                         R15 1
+       60 GETTABLEKS                       R15 R15 K13 ["API"]
+       62 GETTABLEKS                       R15 R15 K10 ["new"]
+       64 CALL                             R15 0 1
+       65 GETUPVAL                         R16 1
+       66 GETTABLEKS                       R16 R16 K14 ["Mouse"]
+       68 GETTABLEKS                       R16 R16 K10 ["new"]
+       70 MOVE                             R17 R7
+       71 CALL                             R16 1 1
+       72 MOVE                             R17 R8
+       73 SETLIST                          R9 R10 8 [1]
+       75 GETUPVAL                         R10 2
+       76 CALL                             R10 0 1
+       77 JUMPIFNOT                        R10 ; [+15]
+       78 GETTABLEKS                       R10 R0 K0 ["props"]
+       80 GETTABLEKS                       R10 R10 K15 ["publishStatusPanel"]
+       82 JUMPIFNOT                        R10 ; [+10]
+       83 GETTABLEKS                       R12 R0 K0 ["props"]
+       85 GETTABLEKS                       R12 R12 K15 ["publishStatusPanel"]
+       87 FASTCALL2                        TABLE_INSERT R9 R12 ; [+4]
+       89 MOVE                             R11 R9
+       90 GETIMPORT                        R10 K18 [table.insert]
+       92 CALL                             R10 2 0
+       93 GETUPVAL                         R10 1
+       94 GETTABLEKS                       R10 R10 K19 ["provide"]
+       96 MOVE                             R11 R9
+       97 MOVE                             R12 R1
+       98 CALL                             R10 2 -1
+       99 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -135,15 +148,21 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R2 R2 K8 ["ContextServices"]
-       25 GETTABLEKS                       R3 R1 K9 ["PureComponent"]
-       27 LOADK                            R5 K10 ["ServiceWrapper"]
-       28 NAMECALL                         R3 R3 K11 ["extend"]
-       30 CALL                             R3 2 1
-       31 DUPCLOSURE                       R4 K12 [PROTO_0]
-       32 CAPTURE                          VAL R1
-       33 SETTABLEKS                       R4 R3 K13 ["init"]
-       35 DUPCLOSURE                       R4 K14 [PROTO_1]
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          VAL R2
-       38 SETTABLEKS                       R4 R3 K15 ["render"]
-       40 RETURN                           R3 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETTABLEKS                       R4 R0 K9 ["Src"]
+       29 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       31 GETTABLEKS                       R4 R4 K11 ["getEngineFeatureStudioUnifiedPublishAction"]
+       33 CALL                             R3 1 1
+       34 GETTABLEKS                       R4 R1 K12 ["PureComponent"]
+       36 LOADK                            R6 K13 ["ServiceWrapper"]
+       37 NAMECALL                         R4 R4 K14 ["extend"]
+       39 CALL                             R4 2 1
+       40 DUPCLOSURE                       R5 K15 [PROTO_0]
+       41 CAPTURE                          VAL R1
+       42 SETTABLEKS                       R5 R4 K16 ["init"]
+       44 DUPCLOSURE                       R5 K17 [PROTO_1]
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R3
+       48 SETTABLEKS                       R5 R4 K18 ["render"]
+       50 RETURN                           R4 1

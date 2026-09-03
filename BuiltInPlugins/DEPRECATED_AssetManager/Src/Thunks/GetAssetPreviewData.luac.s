@@ -43,43 +43,6 @@ PROTO_1:
        18 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["creator"]
-        3 GETTABLEKS                       R0 R0 K1 ["type"]
-        5 JUMPIFNOTEQKS                    R0 K2 ["Group"] ; [+18]
-        7 GETUPVAL                         R0 1
-        8 GETUPVAL                         R2 2
-        9 NAMECALL                         R0 R0 K3 ["GetGroupInfoAsync"]
-       11 CALL                             R0 2 1
-       12 GETTABLEKS                       R1 R0 K4 ["Name"]
-       14 JUMPIFNOT                        R1 ; [+30]
-       15 GETUPVAL                         R2 3
-       16 GETUPVAL                         R4 4
-       17 GETUPVAL                         R5 5
-       18 MOVE                             R6 R1
-       19 CALL                             R4 2 -1
-       20 NAMECALL                         R2 R2 K5 ["dispatch"]
-       22 CALL                             R2 -1 0
-       23 RETURN                           R0 0
-       24 GETUPVAL                         R0 0
-       25 GETTABLEKS                       R0 R0 K0 ["creator"]
-       27 GETTABLEKS                       R0 R0 K1 ["type"]
-       29 JUMPIFNOTEQKS                    R0 K6 ["User"] ; [+15]
-       31 GETUPVAL                         R0 6
-       32 GETUPVAL                         R2 2
-       33 NAMECALL                         R0 R0 K7 ["GetNameFromUserIdAsync"]
-       35 CALL                             R0 2 1
-       36 JUMPIFNOT                        R0 ; [+8]
-       37 GETUPVAL                         R1 3
-       38 GETUPVAL                         R3 4
-       39 GETUPVAL                         R4 5
-       40 MOVE                             R5 R0
-       41 CALL                             R3 2 -1
-       42 NAMECALL                         R1 R1 K5 ["dispatch"]
-       44 CALL                             R1 -1 0
-       45 RETURN                           R0 0
-
-PROTO_3:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
@@ -208,46 +171,33 @@ PROTO_3:
       194 SETTABLEKS                       R16 R15 K51 ["TargetId"]
       196 SETTABLEKS                       R15 R14 K38 ["Creator"]
       198 SETTABLE                         R14 R2 R8
-      199 GETUPVAL                         R14 3
-      200 JUMPIFNOT                        R14 ; [+12]
-      201 GETIMPORT                        R14 K55 [task.spawn]
-      203 NEWCLOSURE                       R15 P0
-      204 CAPTURE                          VAL R7
+      199 GETIMPORT                        R14 K55 [task.spawn]
+      201 NEWCLOSURE                       R15 P0
+      202 CAPTURE                          VAL R7
+      203 CAPTURE                          UPVAL U3
+      204 CAPTURE                          VAL R9
       205 CAPTURE                          UPVAL U4
-      206 CAPTURE                          VAL R9
-      207 CAPTURE                          UPVAL U5
-      208 CAPTURE                          UPVAL U6
-      209 CAPTURE                          UPVAL U7
-      210 CAPTURE                          VAL R8
-      211 CALL                             R14 1 0
-      212 JUMP                             ; [+11]
-      213 GETIMPORT                        R14 K56 [spawn]
-      215 NEWCLOSURE                       R15 P1
-      216 CAPTURE                          VAL R7
-      217 CAPTURE                          UPVAL U5
-      218 CAPTURE                          VAL R9
-      219 CAPTURE                          UPVAL U6
-      220 CAPTURE                          UPVAL U7
-      221 CAPTURE                          VAL R8
-      222 CAPTURE                          UPVAL U4
-      223 CALL                             R14 1 0
-      224 GETUPVAL                         R14 6
-      225 GETUPVAL                         R16 8
-      226 MOVE                             R17 R8
-      227 GETTABLEKS                       R18 R7 K9 ["typeId"]
-      229 CALL                             R16 2 -1
-      230 NAMECALL                         R14 R14 K57 ["dispatch"]
-      232 CALL                             R14 -1 0
-      233 FORGLOOP                         R3 2 [inext] ; [-214]
-      235 GETUPVAL                         R3 6
-      236 GETUPVAL                         R5 9
-      237 MOVE                             R6 R2
-      238 CALL                             R5 1 -1
-      239 NAMECALL                         R3 R3 K57 ["dispatch"]
-      241 CALL                             R3 -1 0
-      242 RETURN                           R0 1
+      206 CAPTURE                          UPVAL U5
+      207 CAPTURE                          UPVAL U6
+      208 CAPTURE                          VAL R8
+      209 CALL                             R14 1 0
+      210 GETUPVAL                         R14 5
+      211 GETUPVAL                         R16 7
+      212 MOVE                             R17 R8
+      213 GETTABLEKS                       R18 R7 K9 ["typeId"]
+      215 CALL                             R16 2 -1
+      216 NAMECALL                         R14 R14 K56 ["dispatch"]
+      218 CALL                             R14 -1 0
+      219 FORGLOOP                         R3 2 [inext] ; [-200]
+      221 GETUPVAL                         R3 5
+      222 GETUPVAL                         R5 8
+      223 MOVE                             R6 R2
+      224 CALL                             R5 1 -1
+      225 NAMECALL                         R3 R3 K56 ["dispatch"]
+      227 CALL                             R3 -1 0
+      228 RETURN                           R0 1
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
@@ -256,7 +206,7 @@ PROTO_4:
         6 CALL                             R1 1 0
         7 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 NEWTABLE                         R1 0 0
         2 GETIMPORT                        R2 K1 [ipairs]
         4 GETUPVAL                         R3 0
@@ -285,18 +235,17 @@ PROTO_5:
        34 CAPTURE                          UPVAL U5
        35 CAPTURE                          UPVAL U6
        36 CAPTURE                          UPVAL U7
-       37 CAPTURE                          UPVAL U8
-       38 CAPTURE                          VAL R0
+       37 CAPTURE                          VAL R0
+       38 CAPTURE                          UPVAL U8
        39 CAPTURE                          UPVAL U9
-       40 CAPTURE                          UPVAL U10
-       41 CAPTURE                          UPVAL U1
-       42 DUPCLOSURE                       R5 K8 [PROTO_4]
-       43 CAPTURE                          UPVAL U3
-       44 NAMECALL                         R2 R2 K9 ["andThen"]
-       46 CALL                             R2 3 0
-       47 RETURN                           R0 0
+       40 CAPTURE                          UPVAL U1
+       41 DUPCLOSURE                       R5 K8 [PROTO_3]
+       42 CAPTURE                          UPVAL U3
+       43 NAMECALL                         R2 R2 K9 ["andThen"]
+       45 CALL                             R2 3 0
+       46 RETURN                           R0 0
 
-PROTO_6:
+PROTO_5:
         0 NEWCLOSURE                       R2 P0
         1 CAPTURE                          VAL R1
         2 CAPTURE                          UPVAL U0
@@ -308,8 +257,7 @@ PROTO_6:
         8 CAPTURE                          UPVAL U5
         9 CAPTURE                          UPVAL U6
        10 CAPTURE                          UPVAL U7
-       11 CAPTURE                          UPVAL U8
-       12 RETURN                           R2 1
+       11 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -358,19 +306,13 @@ MAIN:
        76 CALL                             R8 1 1
        77 GETTABLEKS                       R8 R8 K16 ["Util"]
        79 GETTABLEKS                       R8 R8 K22 ["sendResultToKibana"]
-       81 GETIMPORT                        R9 K4 [game]
-       83 LOADK                            R11 K23 ["DeprecatedAssetManagerPCallRequests"]
-       84 LOADB                            R12 0
-       85 NAMECALL                         R9 R9 K24 ["DefineFastFlag"]
-       87 CALL                             R9 3 1
-       88 DUPCLOSURE                       R10 K25 [PROTO_6]
-       89 CAPTURE                          VAL R4
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R6
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          VAL R2
-       96 CAPTURE                          VAL R5
-       97 CAPTURE                          VAL R3
-       98 RETURN                           R10 1
+       81 DUPCLOSURE                       R9 K23 [PROTO_5]
+       82 CAPTURE                          VAL R4
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R6
+       85 CAPTURE                          VAL R7
+       86 CAPTURE                          VAL R1
+       87 CAPTURE                          VAL R2
+       88 CAPTURE                          VAL R5
+       89 CAPTURE                          VAL R3
+       90 RETURN                           R9 1

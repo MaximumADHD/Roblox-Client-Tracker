@@ -11,21 +11,28 @@ PROTO_0:
        13 SETTABLEKS                       R4 R3 K1 ["text"]
        15 SETLIST                          R2 R3 1 [1]
        17 GETIMPORT                        R3 K10 [Enum.InputActionType.Bool]
-       19 JUMPIFEQ                         R1 R3 ; [+20]
-       21 DUPTABLE                         R5 K2 [{"id", "text"}]
-       22 GETUPVAL                         R6 0
-       23 GETTABLEKS                       R6 R6 K11 ["CREATE_BINDING_COMPOSITE"]
-       25 SETTABLEKS                       R6 R5 K0 ["id"]
-       27 LOADK                            R8 K4 ["Binding"]
-       28 LOADK                            R9 K12 ["Composite"]
-       29 NAMECALL                         R6 R0 K6 ["getText"]
-       31 CALL                             R6 3 1
-       32 SETTABLEKS                       R6 R5 K1 ["text"]
-       34 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
-       36 MOVE                             R4 R2
-       37 GETIMPORT                        R3 K15 [table.insert]
-       39 CALL                             R3 2 0
-       40 RETURN                           R2 1
+       19 JUMPIFEQ                         R1 R3 ; [+29]
+       21 GETUPVAL                         R3 1
+       22 CALL                             R3 0 1
+       23 JUMPIFNOT                        R3 ; [+6]
+       24 JUMPIFEQKNIL                     R1 ; [+24]
+       26 GETUPVAL                         R4 2
+       27 GETTABLE                         R3 R4 R1
+       28 JUMPIFEQKNIL                     R3 ; [+20]
+       30 DUPTABLE                         R5 K2 [{"id", "text"}]
+       31 GETUPVAL                         R6 0
+       32 GETTABLEKS                       R6 R6 K11 ["CREATE_BINDING_COMPOSITE"]
+       34 SETTABLEKS                       R6 R5 K0 ["id"]
+       36 LOADK                            R8 K4 ["Binding"]
+       37 LOADK                            R9 K12 ["Composite"]
+       38 NAMECALL                         R6 R0 K6 ["getText"]
+       40 CALL                             R6 3 1
+       41 SETTABLEKS                       R6 R5 K1 ["text"]
+       43 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
+       45 MOVE                             R4 R2
+       46 GETIMPORT                        R3 K15 [table.insert]
+       48 CALL                             R3 2 0
+       49 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -45,8 +52,21 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K8 ["Src"]
        25 GETTABLEKS                       R4 R4 K10 ["Util"]
        27 GETTABLEKS                       R4 R4 K11 ["Constants"]
-       29 GETTABLEKS                       R4 R4 K12 ["MenuIdentifiers"]
+       29 GETTABLEKS                       R4 R4 K12 ["DirectionPropertyNames"]
        31 CALL                             R3 1 1
-       32 DUPCLOSURE                       R4 K13 [PROTO_0]
-       33 CAPTURE                          VAL R3
-       34 RETURN                           R4 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Util"]
+       38 GETTABLEKS                       R5 R5 K11 ["Constants"]
+       40 GETTABLEKS                       R5 R5 K13 ["MenuIdentifiers"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R6 R0 K8 ["Src"]
+       47 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       49 GETTABLEKS                       R6 R6 K15 ["getFFlagIAMViewportPositionType"]
+       51 CALL                             R5 1 1
+       52 DUPCLOSURE                       R6 K16 [PROTO_0]
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R3
+       56 RETURN                           R6 1

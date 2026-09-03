@@ -30,11 +30,21 @@ PROTO_1:
        31 RETURN                           R0 0
        32 GETUPVAL                         R1 0
        33 GETTABLEKS                       R1 R1 K11 ["CREATE_ACTION_DIRECTION3D"]
-       35 JUMPIFNOTEQ                      R0 R1 ; [+5]
+       35 JUMPIFNOTEQ                      R0 R1 ; [+6]
        37 GETUPVAL                         R1 1
        38 GETIMPORT                        R2 K13 [Enum.InputActionType.Direction3D]
        40 CALL                             R1 1 0
        41 RETURN                           R0 0
+       42 GETUPVAL                         R1 2
+       43 CALL                             R1 0 1
+       44 JUMPIFNOT                        R1 ; [+9]
+       45 GETUPVAL                         R1 0
+       46 GETTABLEKS                       R1 R1 K14 ["CREATE_ACTION_VIEWPORT_POSITION"]
+       48 JUMPIFNOTEQ                      R0 R1 ; [+5]
+       50 GETUPVAL                         R1 1
+       51 GETIMPORT                        R2 K16 [Enum.InputActionType.ViewportPosition]
+       53 CALL                             R1 1 0
+       54 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -84,31 +94,32 @@ PROTO_3:
        30 NEWCLOSURE                       R7 P1
        31 CAPTURE                          UPVAL U4
        32 CAPTURE                          VAL R4
-       33 NEWTABLE                         R8 0 1
-       35 MOVE                             R9 R4
-       36 SETLIST                          R8 R9 1 [1]
-       38 CALL                             R6 2 1
-       39 GETUPVAL                         R7 0
-       40 GETTABLEKS                       R7 R7 K5 ["useCallback"]
-       42 NEWCLOSURE                       R8 P2
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R4
-       46 CAPTURE                          VAL R1
-       47 CAPTURE                          VAL R0
-       48 NEWTABLE                         R9 0 5
-       50 MOVE                             R10 R3
-       51 MOVE                             R11 R1
-       52 MOVE                             R12 R4
-       53 MOVE                             R13 R2
-       54 MOVE                             R14 R0
-       55 SETLIST                          R9 R10 5 [1]
-       57 CALL                             R7 2 1
-       58 MOVE                             R8 R5
-       59 MOVE                             R9 R3
-       60 MOVE                             R10 R6
-       61 MOVE                             R11 R7
-       62 RETURN                           R8 4
+       33 CAPTURE                          UPVAL U5
+       34 NEWTABLE                         R8 0 1
+       36 MOVE                             R9 R4
+       37 SETLIST                          R8 R9 1 [1]
+       39 CALL                             R6 2 1
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K5 ["useCallback"]
+       43 NEWCLOSURE                       R8 P2
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R1
+       48 CAPTURE                          VAL R0
+       49 NEWTABLE                         R9 0 5
+       51 MOVE                             R10 R3
+       52 MOVE                             R11 R1
+       53 MOVE                             R12 R4
+       54 MOVE                             R13 R2
+       55 MOVE                             R14 R0
+       56 SETLIST                          R9 R10 5 [1]
+       58 CALL                             R7 2 1
+       59 MOVE                             R8 R5
+       60 MOVE                             R9 R3
+       61 MOVE                             R10 R6
+       62 MOVE                             R11 R7
+       63 RETURN                           R8 4
 
 MAIN:
         0 PREPVARARGS                      0
@@ -146,14 +157,20 @@ MAIN:
        56 CALL                             R6 1 1
        57 GETIMPORT                        R7 K5 [require]
        59 GETTABLEKS                       R8 R0 K9 ["Src"]
-       61 GETTABLEKS                       R8 R8 K14 ["Util"]
-       63 GETTABLEKS                       R8 R8 K17 ["Constants"]
-       65 GETTABLEKS                       R8 R8 K18 ["MenuIdentifiers"]
-       67 CALL                             R7 1 1
-       68 DUPCLOSURE                       R8 K19 [PROTO_3]
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          VAL R4
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R7
-       74 RETURN                           R8 1
+       61 GETTABLEKS                       R8 R8 K17 ["Flags"]
+       63 GETTABLEKS                       R8 R8 K18 ["getFFlagIAMViewportPositionType"]
+       65 CALL                             R7 1 1
+       66 GETIMPORT                        R8 K5 [require]
+       68 GETTABLEKS                       R9 R0 K9 ["Src"]
+       70 GETTABLEKS                       R9 R9 K14 ["Util"]
+       72 GETTABLEKS                       R9 R9 K19 ["Constants"]
+       74 GETTABLEKS                       R9 R9 K20 ["MenuIdentifiers"]
+       76 CALL                             R8 1 1
+       77 DUPCLOSURE                       R9 K21 [PROTO_3]
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R6
+       82 CAPTURE                          VAL R8
+       83 CAPTURE                          VAL R7
+       84 RETURN                           R9 1

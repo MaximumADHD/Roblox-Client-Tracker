@@ -275,132 +275,136 @@ MAIN:
       411 NAMECALL                         R13 R10 K23 ["add"]
       413 CALL                             R13 2 0
       414 GETTABLEKS                       R13 R10 K183 ["MaterialGrid"]
-      416 DUPTABLE                         R14 K199 [{["BackgroundColor"], ["GridItemBackgroundColor"], ["GridItemBackgroundColorHovered"], ["GridItemBorderColor"], ["GridItemBorderColorSelected"], ["GridItemCornerRadius"], ["GridItemPadding"] = 2, ["GridItemSize"] = 128, ["GridItemLabelPadding"], ["ListItemHeight"] = 40, ["ListItemPadding"] = 0, ["ListItemSpacing"] = 4, ["MaterialPreviewStyle"] = "CornerBox", ["Padding"] = 0, ["ShimmerSizeOffset"] = 2, ["TextSize"] = 20}]
+      416 DUPTABLE                         R14 K201 [{["BackgroundColor"], ["GridItemBackgroundColor"], ["GridItemBackgroundColorHovered"], ["GridItemBorderColor"], ["GridItemBorderColorSelected"], ["GridItemCornerRadius"], ["GridItemPadding"] = 2, ["GridItemSize"] = 128, ["GridItemLabelPadding"], ["ItemLabelScrimColor"], ["ItemLabelTextColor"], ["ListItemHeight"] = 40, ["ListItemPadding"] = 0, ["ListItemSpacing"] = 4, ["MaterialPreviewStyle"] = "CornerBox", ["Padding"] = 0, ["ShimmerSizeOffset"] = 2, ["TextSize"] = 20}]
       417 GETTABLEKS                       R15 R4 K43 ["MainBackground"]
       419 SETTABLEKS                       R15 R14 K41 ["BackgroundColor"]
-      421 GETTABLEKS                       R15 R4 K200 ["Button"]
+      421 GETTABLEKS                       R15 R4 K202 ["Button"]
       423 SETTABLEKS                       R15 R14 K184 ["GridItemBackgroundColor"]
-      425 GETTABLEKS                       R15 R4 K201 ["ButtonHover"]
+      425 GETTABLEKS                       R15 R4 K203 ["ButtonHover"]
       427 SETTABLEKS                       R15 R14 K185 ["GridItemBackgroundColorHovered"]
       429 GETTABLEKS                       R15 R4 K155 ["Border"]
       431 SETTABLEKS                       R15 R14 K186 ["GridItemBorderColor"]
-      433 GETTABLEKS                       R15 R4 K202 ["InputFieldBorderSelected"]
+      433 GETTABLEKS                       R15 R4 K204 ["InputFieldBorderSelected"]
       435 SETTABLEKS                       R15 R14 K187 ["GridItemBorderColorSelected"]
       437 GETIMPORT                        R15 K93 [UDim.new]
       439 LOADN                            R16 0
       440 LOADN                            R17 6
       441 CALL                             R15 2 1
       442 SETTABLEKS                       R15 R14 K188 ["GridItemCornerRadius"]
-      444 DUPTABLE                         R15 K206 [{"PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      445 SETTABLEKS                       R12 R15 K203 ["PaddingBottom"]
-      447 SETTABLEKS                       R12 R15 K204 ["PaddingLeft"]
-      449 SETTABLEKS                       R12 R15 K205 ["PaddingRight"]
+      444 DUPTABLE                         R15 K208 [{"PaddingBottom", "PaddingLeft", "PaddingRight"}]
+      445 SETTABLEKS                       R12 R15 K205 ["PaddingBottom"]
+      447 SETTABLEKS                       R12 R15 K206 ["PaddingLeft"]
+      449 SETTABLEKS                       R12 R15 K207 ["PaddingRight"]
       451 SETTABLEKS                       R15 R14 K192 ["GridItemLabelPadding"]
-      453 SETTABLE                         R14 R11 R13
-      454 LOADK                            R15 K207 ["Note"]
-      455 NAMECALL                         R13 R10 K23 ["add"]
-      457 CALL                             R13 2 0
-      458 GETTABLEKS                       R13 R10 K207 ["Note"]
-      460 DUPTABLE                         R14 K213 [{["Background"], ["KeyBackground"], ["EdgePadding"] = 2, ["FramePadding"] = 3, ["TextMargin"] = 2}]
-      461 GETTABLEKS                       R15 R4 K43 ["MainBackground"]
-      463 SETTABLEKS                       R15 R14 K208 ["Background"]
-      465 GETTABLEKS                       R15 R4 K214 ["DimmedText"]
-      467 SETTABLEKS                       R15 R14 K209 ["KeyBackground"]
-      469 SETTABLE                         R14 R11 R13
-      470 LOADK                            R15 K215 ["BrushSizeRenderer"]
-      471 NAMECALL                         R13 R10 K23 ["add"]
-      473 CALL                             R13 2 0
-      474 GETTABLEKS                       R13 R10 K215 ["BrushSizeRenderer"]
-      476 DUPTABLE                         R14 K222 [{["LabelWidth"] = 20, ["LockButtonWidth"] = 26, ["RowHeight"] = 24, ["Locked"], ["Unlocked"]}]
-      477 GETTABLEKS                       R15 R4 K220 ["Locked"]
-      479 SETTABLEKS                       R15 R14 K220 ["Locked"]
-      481 GETTABLEKS                       R15 R4 K221 ["Unlocked"]
-      483 SETTABLEKS                       R15 R14 K221 ["Unlocked"]
-      485 SETTABLE                         R14 R11 R13
-      486 LOADK                            R15 K223 ["MultiSelectionRenderer"]
-      487 NAMECALL                         R13 R10 K23 ["add"]
-      489 CALL                             R13 2 0
-      490 GETTABLEKS                       R13 R10 K223 ["MultiSelectionRenderer"]
-      492 DUPTABLE                         R14 K224 [{["Spacing"] = 4}]
+      453 GETTABLEKS                       R15 R4 K43 ["MainBackground"]
+      455 SETTABLEKS                       R15 R14 K193 ["ItemLabelScrimColor"]
+      457 GETTABLEKS                       R15 R4 K177 ["MainText"]
+      459 SETTABLEKS                       R15 R14 K194 ["ItemLabelTextColor"]
+      461 SETTABLE                         R14 R11 R13
+      462 LOADK                            R15 K209 ["Note"]
+      463 NAMECALL                         R13 R10 K23 ["add"]
+      465 CALL                             R13 2 0
+      466 GETTABLEKS                       R13 R10 K209 ["Note"]
+      468 DUPTABLE                         R14 K215 [{["Background"], ["KeyBackground"], ["EdgePadding"] = 2, ["FramePadding"] = 3, ["TextMargin"] = 2}]
+      469 GETTABLEKS                       R15 R4 K43 ["MainBackground"]
+      471 SETTABLEKS                       R15 R14 K210 ["Background"]
+      473 GETTABLEKS                       R15 R4 K216 ["DimmedText"]
+      475 SETTABLEKS                       R15 R14 K211 ["KeyBackground"]
+      477 SETTABLE                         R14 R11 R13
+      478 LOADK                            R15 K217 ["BrushSizeRenderer"]
+      479 NAMECALL                         R13 R10 K23 ["add"]
+      481 CALL                             R13 2 0
+      482 GETTABLEKS                       R13 R10 K217 ["BrushSizeRenderer"]
+      484 DUPTABLE                         R14 K224 [{["LabelWidth"] = 20, ["LockButtonWidth"] = 26, ["RowHeight"] = 24, ["Locked"], ["Unlocked"]}]
+      485 GETTABLEKS                       R15 R4 K222 ["Locked"]
+      487 SETTABLEKS                       R15 R14 K222 ["Locked"]
+      489 GETTABLEKS                       R15 R4 K223 ["Unlocked"]
+      491 SETTABLEKS                       R15 R14 K223 ["Unlocked"]
       493 SETTABLE                         R14 R11 R13
-      494 LOADK                            R15 K225 ["ElevationRenderer"]
+      494 LOADK                            R15 K225 ["MultiSelectionRenderer"]
       495 NAMECALL                         R13 R10 K23 ["add"]
       497 CALL                             R13 2 0
-      498 GETTABLEKS                       R13 R10 K225 ["ElevationRenderer"]
-      500 DUPTABLE                         R14 K239 [{["AddStyle"], ["ArrowSize"], ["ArrowStyle"], ["ButtonSize"], ["Corner"], ["ImageColor"], ["ImageColorSelected"], ["MaterialPreviewSize"], ["PreviewBorder"], ["RemoveStyle"], ["SliderAreaSize"], ["SliderSize"], ["TextBoxSize"], ["Spacing"] = 10}]
-      501 DUPTABLE                         R15 K240 [{"Image"}]
-      502 GETTABLEKS                       R16 R4 K241 ["Add"]
-      504 SETTABLEKS                       R16 R15 K179 ["Image"]
-      506 SETTABLEKS                       R15 R14 K226 ["AddStyle"]
-      508 GETIMPORT                        R15 K38 [UDim2.fromOffset]
-      510 LOADN                            R16 10
-      511 LOADN                            R17 5
-      512 CALL                             R15 2 1
-      513 SETTABLEKS                       R15 R14 K227 ["ArrowSize"]
-      515 DUPTABLE                         R15 K243 [{["Image"] = "rbxasset://textures/TerrainEditor/trianglesmallinverted.png"}]
-      516 SETTABLEKS                       R15 R14 K228 ["ArrowStyle"]
-      518 GETIMPORT                        R15 K38 [UDim2.fromOffset]
-      520 LOADN                            R16 16
-      521 LOADN                            R17 16
-      522 CALL                             R15 2 1
-      523 SETTABLEKS                       R15 R14 K229 ["ButtonSize"]
-      525 GETIMPORT                        R15 K93 [UDim.new]
-      527 LOADN                            R16 0
-      528 LOADN                            R17 4
-      529 CALL                             R15 2 1
-      530 SETTABLEKS                       R15 R14 K230 ["Corner"]
-      532 GETTABLEKS                       R15 R4 K244 ["TextPrimary"]
-      534 SETTABLEKS                       R15 R14 K231 ["ImageColor"]
-      536 GETTABLEKS                       R15 R4 K146 ["DialogMainButton"]
-      538 SETTABLEKS                       R15 R14 K232 ["ImageColorSelected"]
-      540 GETIMPORT                        R15 K38 [UDim2.fromOffset]
-      542 LOADN                            R16 20
-      543 LOADN                            R17 20
-      544 CALL                             R15 2 1
-      545 SETTABLEKS                       R15 R14 K233 ["MaterialPreviewSize"]
-      547 DUPTABLE                         R15 K247 [{["Color"], ["Image"] = "rbxasset://textures/StudioToolbox/RoundedBorder.png", ["SliceCenter"]}]
-      548 GETTABLEKS                       R16 R4 K146 ["DialogMainButton"]
-      550 SETTABLEKS                       R16 R15 K118 ["Color"]
-      552 GETIMPORT                        R16 K249 [Rect.new]
-      554 LOADN                            R17 3
-      555 LOADN                            R18 3
-      556 LOADN                            R19 13
-      557 LOADN                            R20 13
-      558 CALL                             R16 4 1
-      559 SETTABLEKS                       R16 R15 K246 ["SliceCenter"]
-      561 SETTABLEKS                       R15 R14 K234 ["PreviewBorder"]
-      563 DUPTABLE                         R15 K240 [{"Image"}]
-      564 GETTABLEKS                       R16 R4 K250 ["Remove"]
-      566 SETTABLEKS                       R16 R15 K179 ["Image"]
-      568 SETTABLEKS                       R15 R14 K235 ["RemoveStyle"]
-      570 GETIMPORT                        R15 K38 [UDim2.fromOffset]
-      572 LOADN                            R16 20
-      573 LOADN                            R17 182
-      574 CALL                             R15 2 1
-      575 SETTABLEKS                       R15 R14 K236 ["SliderAreaSize"]
-      577 GETIMPORT                        R15 K38 [UDim2.fromOffset]
-      579 LOADN                            R16 20
-      580 LOADN                            R17 200
-      581 CALL                             R15 2 1
-      582 SETTABLEKS                       R15 R14 K237 ["SliderSize"]
-      584 GETIMPORT                        R15 K38 [UDim2.fromOffset]
-      586 LOADN                            R16 50
-      587 LOADN                            R17 20
-      588 CALL                             R15 2 1
-      589 SETTABLEKS                       R15 R14 K238 ["TextBoxSize"]
-      591 SETTABLE                         R14 R11 R13
-      592 LOADK                            R15 K251 ["SlopeRenderer"]
-      593 NAMECALL                         R13 R10 K23 ["add"]
-      595 CALL                             R13 2 0
-      596 GETTABLEKS                       R13 R10 K251 ["SlopeRenderer"]
-      598 DUPTABLE                         R14 K254 [{["Height"] = 24, ["Spacing"] = 6, ["TextInputWidth"] = 50}]
+      498 GETTABLEKS                       R13 R10 K225 ["MultiSelectionRenderer"]
+      500 DUPTABLE                         R14 K226 [{["Spacing"] = 4}]
+      501 SETTABLE                         R14 R11 R13
+      502 LOADK                            R15 K227 ["ElevationRenderer"]
+      503 NAMECALL                         R13 R10 K23 ["add"]
+      505 CALL                             R13 2 0
+      506 GETTABLEKS                       R13 R10 K227 ["ElevationRenderer"]
+      508 DUPTABLE                         R14 K241 [{["AddStyle"], ["ArrowSize"], ["ArrowStyle"], ["ButtonSize"], ["Corner"], ["ImageColor"], ["ImageColorSelected"], ["MaterialPreviewSize"], ["PreviewBorder"], ["RemoveStyle"], ["SliderAreaSize"], ["SliderSize"], ["TextBoxSize"], ["Spacing"] = 10}]
+      509 DUPTABLE                         R15 K242 [{"Image"}]
+      510 GETTABLEKS                       R16 R4 K243 ["Add"]
+      512 SETTABLEKS                       R16 R15 K179 ["Image"]
+      514 SETTABLEKS                       R15 R14 K228 ["AddStyle"]
+      516 GETIMPORT                        R15 K38 [UDim2.fromOffset]
+      518 LOADN                            R16 10
+      519 LOADN                            R17 5
+      520 CALL                             R15 2 1
+      521 SETTABLEKS                       R15 R14 K229 ["ArrowSize"]
+      523 DUPTABLE                         R15 K245 [{["Image"] = "rbxasset://textures/TerrainEditor/trianglesmallinverted.png"}]
+      524 SETTABLEKS                       R15 R14 K230 ["ArrowStyle"]
+      526 GETIMPORT                        R15 K38 [UDim2.fromOffset]
+      528 LOADN                            R16 16
+      529 LOADN                            R17 16
+      530 CALL                             R15 2 1
+      531 SETTABLEKS                       R15 R14 K231 ["ButtonSize"]
+      533 GETIMPORT                        R15 K93 [UDim.new]
+      535 LOADN                            R16 0
+      536 LOADN                            R17 4
+      537 CALL                             R15 2 1
+      538 SETTABLEKS                       R15 R14 K232 ["Corner"]
+      540 GETTABLEKS                       R15 R4 K246 ["TextPrimary"]
+      542 SETTABLEKS                       R15 R14 K233 ["ImageColor"]
+      544 GETTABLEKS                       R15 R4 K146 ["DialogMainButton"]
+      546 SETTABLEKS                       R15 R14 K234 ["ImageColorSelected"]
+      548 GETIMPORT                        R15 K38 [UDim2.fromOffset]
+      550 LOADN                            R16 20
+      551 LOADN                            R17 20
+      552 CALL                             R15 2 1
+      553 SETTABLEKS                       R15 R14 K235 ["MaterialPreviewSize"]
+      555 DUPTABLE                         R15 K249 [{["Color"], ["Image"] = "rbxasset://textures/StudioToolbox/RoundedBorder.png", ["SliceCenter"]}]
+      556 GETTABLEKS                       R16 R4 K146 ["DialogMainButton"]
+      558 SETTABLEKS                       R16 R15 K118 ["Color"]
+      560 GETIMPORT                        R16 K251 [Rect.new]
+      562 LOADN                            R17 3
+      563 LOADN                            R18 3
+      564 LOADN                            R19 13
+      565 LOADN                            R20 13
+      566 CALL                             R16 4 1
+      567 SETTABLEKS                       R16 R15 K248 ["SliceCenter"]
+      569 SETTABLEKS                       R15 R14 K236 ["PreviewBorder"]
+      571 DUPTABLE                         R15 K242 [{"Image"}]
+      572 GETTABLEKS                       R16 R4 K252 ["Remove"]
+      574 SETTABLEKS                       R16 R15 K179 ["Image"]
+      576 SETTABLEKS                       R15 R14 K237 ["RemoveStyle"]
+      578 GETIMPORT                        R15 K38 [UDim2.fromOffset]
+      580 LOADN                            R16 20
+      581 LOADN                            R17 182
+      582 CALL                             R15 2 1
+      583 SETTABLEKS                       R15 R14 K238 ["SliderAreaSize"]
+      585 GETIMPORT                        R15 K38 [UDim2.fromOffset]
+      587 LOADN                            R16 20
+      588 LOADN                            R17 200
+      589 CALL                             R15 2 1
+      590 SETTABLEKS                       R15 R14 K239 ["SliderSize"]
+      592 GETIMPORT                        R15 K38 [UDim2.fromOffset]
+      594 LOADN                            R16 50
+      595 LOADN                            R17 20
+      596 CALL                             R15 2 1
+      597 SETTABLEKS                       R15 R14 K240 ["TextBoxSize"]
       599 SETTABLE                         R14 R11 R13
-      600 LOADK                            R15 K255 ["SeedRenderer"]
+      600 LOADK                            R15 K253 ["SlopeRenderer"]
       601 NAMECALL                         R13 R10 K23 ["add"]
       603 CALL                             R13 2 0
-      604 GETTABLEKS                       R13 R10 K255 ["SeedRenderer"]
-      606 DUPTABLE                         R14 K256 [{["Height"] = 24, ["Icon"], ["Spacing"] = 6}]
-      607 GETTABLEKS                       R15 R4 K257 ["Randomize"]
-      609 SETTABLEKS                       R15 R14 K107 ["Icon"]
-      611 SETTABLE                         R14 R11 R13
-      612 RETURN                           R11 1
+      604 GETTABLEKS                       R13 R10 K253 ["SlopeRenderer"]
+      606 DUPTABLE                         R14 K256 [{["Height"] = 24, ["Spacing"] = 6, ["TextInputWidth"] = 50}]
+      607 SETTABLE                         R14 R11 R13
+      608 LOADK                            R15 K257 ["SeedRenderer"]
+      609 NAMECALL                         R13 R10 K23 ["add"]
+      611 CALL                             R13 2 0
+      612 GETTABLEKS                       R13 R10 K257 ["SeedRenderer"]
+      614 DUPTABLE                         R14 K258 [{["Height"] = 24, ["Icon"], ["Spacing"] = 6}]
+      615 GETTABLEKS                       R15 R4 K259 ["Randomize"]
+      617 SETTABLEKS                       R15 R14 K107 ["Icon"]
+      619 SETTABLE                         R14 R11 R13
+      620 RETURN                           R11 1

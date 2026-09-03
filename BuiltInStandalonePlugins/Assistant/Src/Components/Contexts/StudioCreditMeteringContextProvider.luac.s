@@ -1047,18 +1047,22 @@ PROTO_43:
 
 PROTO_44:
         0 GETUPVAL                         R0 0
-        1 LOADB                            R1 1
-        2 CALL                             R0 1 0
-        3 GETUPVAL                         R0 1
-        4 JUMPIF                           R0 ; [+5]
-        5 GETUPVAL                         R0 2
-        6 JUMPIFEQKNIL                     R0 ; [+4]
-        8 GETUPVAL                         R0 3
-        9 JUMPIF                           R0 ; [+1]
-       10 RETURN                           R0 0
-       11 GETUPVAL                         R0 4
-       12 CALL                             R0 0 0
-       13 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantCreditMeteringAdditionalUsage"]
+        3 JUMPIF                           R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R0 1
+        6 LOADB                            R1 1
+        7 CALL                             R0 1 0
+        8 GETUPVAL                         R0 2
+        9 JUMPIF                           R0 ; [+5]
+       10 GETUPVAL                         R0 3
+       11 JUMPIFEQKNIL                     R0 ; [+4]
+       13 GETUPVAL                         R0 4
+       14 JUMPIF                           R0 ; [+1]
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R0 5
+       17 CALL                             R0 0 0
+       18 RETURN                           R0 0
 
 PROTO_45:
         0 GETUPVAL                         R0 0
@@ -1068,49 +1072,53 @@ PROTO_45:
 
 PROTO_46:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["GetService"]
-        3 LOADK                            R2 K1 ["GuiService"]
-        4 CALL                             R1 1 1
-        5 LOADK                            R3 K2 ["%*upgrades/paymentmethods?ap=%*"]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R5 R5 K3 ["BASE_URL"]
-        9 MOVE                             R6 R0
-       10 NAMECALL                         R3 R3 K4 ["format"]
-       12 CALL                             R3 3 1
-       13 MOVE                             R2 R3
-       14 MOVE                             R5 R2
-       15 NAMECALL                         R3 R1 K5 ["OpenBrowserWindow"]
-       17 CALL                             R3 2 0
-       18 GETUPVAL                         R3 2
-       19 LOADB                            R4 1
-       20 SETTABLEKS                       R4 R3 K6 ["current"]
-       22 GETUPVAL                         R3 3
-       23 LOADB                            R4 1
-       24 SETTABLEKS                       R4 R3 K6 ["current"]
-       26 GETUPVAL                         R3 4
-       27 GETUPVAL                         R5 5
-       28 JUMPIFNOT                        R5 ; [+5]
-       29 GETUPVAL                         R5 5
-       30 GETTABLEKS                       R5 R5 K8 ["robuxBalance"]
-       32 ORK                              R4 R5 K7 [0]
-       33 JUMP                             ; [+1]
-       34 LOADN                            R4 0
-       35 SETTABLEKS                       R4 R3 K6 ["current"]
-       37 GETUPVAL                         R3 6
-       38 CALL                             R3 0 0
-       39 GETUPVAL                         R3 7
-       40 LOADB                            R4 0
-       41 CALL                             R3 1 0
-       42 GETUPVAL                         R3 8
-       43 LOADK                            R7 K9 ["Opened the payment methods page for product %*; "]
-       44 MOVE                             R9 R0
-       45 NAMECALL                         R7 R7 K4 ["format"]
-       47 CALL                             R7 2 1
-       48 MOVE                             R5 R7
-       49 LOADK                            R6 K10 ["quota will refresh on return to Studio, or after the post-checkout poll delay"]
-       50 CONCAT                           R4 R5 R6
-       51 CALL                             R3 1 0
-       52 RETURN                           R0 0
+        1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantCreditMeteringAdditionalUsage"]
+        3 JUMPIF                           R1 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["GetService"]
+        8 LOADK                            R2 K2 ["GuiService"]
+        9 CALL                             R1 1 1
+       10 LOADK                            R3 K3 ["%*upgrades/paymentmethods?ap=%*"]
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R5 R5 K4 ["BASE_URL"]
+       14 MOVE                             R6 R0
+       15 NAMECALL                         R3 R3 K5 ["format"]
+       17 CALL                             R3 3 1
+       18 MOVE                             R2 R3
+       19 MOVE                             R5 R2
+       20 NAMECALL                         R3 R1 K6 ["OpenBrowserWindow"]
+       22 CALL                             R3 2 0
+       23 GETUPVAL                         R3 3
+       24 LOADB                            R4 1
+       25 SETTABLEKS                       R4 R3 K7 ["current"]
+       27 GETUPVAL                         R3 4
+       28 LOADB                            R4 1
+       29 SETTABLEKS                       R4 R3 K7 ["current"]
+       31 GETUPVAL                         R3 5
+       32 GETUPVAL                         R5 6
+       33 JUMPIFNOT                        R5 ; [+5]
+       34 GETUPVAL                         R5 6
+       35 GETTABLEKS                       R5 R5 K9 ["robuxBalance"]
+       37 ORK                              R4 R5 K8 [0]
+       38 JUMP                             ; [+1]
+       39 LOADN                            R4 0
+       40 SETTABLEKS                       R4 R3 K7 ["current"]
+       42 GETUPVAL                         R3 7
+       43 CALL                             R3 0 0
+       44 GETUPVAL                         R3 8
+       45 LOADB                            R4 0
+       46 CALL                             R3 1 0
+       47 GETUPVAL                         R3 9
+       48 LOADK                            R7 K10 ["Opened the payment methods page for product %*; "]
+       49 MOVE                             R9 R0
+       50 NAMECALL                         R7 R7 K5 ["format"]
+       52 CALL                             R7 2 1
+       53 MOVE                             R5 R7
+       54 LOADK                            R6 K11 ["quota will refresh on return to Studio, or after the post-checkout poll delay"]
+       55 CONCAT                           R4 R5 R6
+       56 CALL                             R3 1 0
+       57 RETURN                           R0 0
 
 PROTO_47:
         0 GETUPVAL                         R0 0
@@ -1382,90 +1390,92 @@ PROTO_49:
       277 GETUPVAL                         R35 1
       278 GETTABLEKS                       R35 R35 K6 ["useCallback"]
       280 NEWCLOSURE                       R36 P16
-      281 CAPTURE                          VAL R6
-      282 CAPTURE                          VAL R29
-      283 CAPTURE                          VAL R27
-      284 CAPTURE                          VAL R31
-      285 CAPTURE                          VAL R34
-      286 NEWTABLE                         R37 0 4
-      288 MOVE                             R38 R29
-      289 MOVE                             R39 R27
-      290 MOVE                             R40 R31
-      291 MOVE                             R41 R34
-      292 SETLIST                          R37 R38 4 [1]
-      294 CALL                             R35 2 1
-      295 GETUPVAL                         R36 1
-      296 GETTABLEKS                       R36 R36 K6 ["useCallback"]
-      298 NEWCLOSURE                       R37 P17
-      299 CAPTURE                          VAL R6
-      300 NEWTABLE                         R38 0 0
-      302 CALL                             R36 2 1
-      303 GETUPVAL                         R37 1
-      304 GETTABLEKS                       R37 R37 K6 ["useCallback"]
-      306 NEWCLOSURE                       R38 P18
-      307 CAPTURE                          UPVAL U5
-      308 CAPTURE                          UPVAL U10
-      309 CAPTURE                          VAL R11
-      310 CAPTURE                          VAL R12
-      311 CAPTURE                          VAL R10
-      312 CAPTURE                          VAL R1
-      313 CAPTURE                          VAL R25
-      314 CAPTURE                          VAL R6
-      315 CAPTURE                          UPVAL U2
-      316 NEWTABLE                         R39 0 2
-      318 MOVE                             R40 R1
-      319 MOVE                             R41 R25
-      320 SETLIST                          R39 R40 2 [1]
-      322 CALL                             R37 2 1
-      323 GETUPVAL                         R38 1
-      324 GETTABLEKS                       R38 R38 K7 ["useMemo"]
-      326 NEWCLOSURE                       R39 P19
-      327 CAPTURE                          VAL R1
-      328 CAPTURE                          UPVAL U0
-      329 NEWTABLE                         R40 0 1
-      331 MOVE                             R41 R1
-      332 SETLIST                          R40 R41 1 [1]
-      334 CALL                             R38 2 1
-      335 GETUPVAL                         R39 1
-      336 GETTABLEKS                       R39 R39 K7 ["useMemo"]
-      338 NEWCLOSURE                       R40 P20
-      339 CAPTURE                          VAL R1
-      340 CAPTURE                          VAL R38
-      341 CAPTURE                          VAL R3
-      342 CAPTURE                          VAL R21
-      343 CAPTURE                          VAL R26
-      344 CAPTURE                          VAL R35
-      345 CAPTURE                          VAL R5
-      346 CAPTURE                          VAL R27
-      347 CAPTURE                          VAL R29
-      348 CAPTURE                          VAL R31
-      349 CAPTURE                          VAL R37
-      350 CAPTURE                          VAL R36
-      351 CAPTURE                          VAL R24
-      352 NEWTABLE                         R41 0 13
-      354 MOVE                             R42 R1
-      355 MOVE                             R43 R38
-      356 MOVE                             R44 R3
-      357 MOVE                             R45 R21
-      358 MOVE                             R46 R26
-      359 MOVE                             R47 R35
-      360 MOVE                             R48 R5
-      361 MOVE                             R49 R27
-      362 MOVE                             R50 R29
-      363 MOVE                             R51 R31
-      364 MOVE                             R52 R37
-      365 MOVE                             R53 R36
-      366 MOVE                             R54 R24
-      367 SETLIST                          R41 R42 13 [1]
-      369 CALL                             R39 2 1
-      370 GETUPVAL                         R40 11
-      371 GETUPVAL                         R41 0
-      372 GETTABLEKS                       R41 R41 K8 ["Provider"]
-      374 DUPTABLE                         R42 K10 [{"value"}]
-      375 SETTABLEKS                       R39 R42 K9 ["value"]
-      377 GETTABLEKS                       R43 R0 K11 ["children"]
-      379 CALL                             R40 3 -1
-      380 RETURN                           R40 -1
+      281 CAPTURE                          UPVAL U3
+      282 CAPTURE                          VAL R6
+      283 CAPTURE                          VAL R29
+      284 CAPTURE                          VAL R27
+      285 CAPTURE                          VAL R31
+      286 CAPTURE                          VAL R34
+      287 NEWTABLE                         R37 0 4
+      289 MOVE                             R38 R29
+      290 MOVE                             R39 R27
+      291 MOVE                             R40 R31
+      292 MOVE                             R41 R34
+      293 SETLIST                          R37 R38 4 [1]
+      295 CALL                             R35 2 1
+      296 GETUPVAL                         R36 1
+      297 GETTABLEKS                       R36 R36 K6 ["useCallback"]
+      299 NEWCLOSURE                       R37 P17
+      300 CAPTURE                          VAL R6
+      301 NEWTABLE                         R38 0 0
+      303 CALL                             R36 2 1
+      304 GETUPVAL                         R37 1
+      305 GETTABLEKS                       R37 R37 K6 ["useCallback"]
+      307 NEWCLOSURE                       R38 P18
+      308 CAPTURE                          UPVAL U3
+      309 CAPTURE                          UPVAL U5
+      310 CAPTURE                          UPVAL U10
+      311 CAPTURE                          VAL R11
+      312 CAPTURE                          VAL R12
+      313 CAPTURE                          VAL R10
+      314 CAPTURE                          VAL R1
+      315 CAPTURE                          VAL R25
+      316 CAPTURE                          VAL R6
+      317 CAPTURE                          UPVAL U2
+      318 NEWTABLE                         R39 0 2
+      320 MOVE                             R40 R1
+      321 MOVE                             R41 R25
+      322 SETLIST                          R39 R40 2 [1]
+      324 CALL                             R37 2 1
+      325 GETUPVAL                         R38 1
+      326 GETTABLEKS                       R38 R38 K7 ["useMemo"]
+      328 NEWCLOSURE                       R39 P19
+      329 CAPTURE                          VAL R1
+      330 CAPTURE                          UPVAL U0
+      331 NEWTABLE                         R40 0 1
+      333 MOVE                             R41 R1
+      334 SETLIST                          R40 R41 1 [1]
+      336 CALL                             R38 2 1
+      337 GETUPVAL                         R39 1
+      338 GETTABLEKS                       R39 R39 K7 ["useMemo"]
+      340 NEWCLOSURE                       R40 P20
+      341 CAPTURE                          VAL R1
+      342 CAPTURE                          VAL R38
+      343 CAPTURE                          VAL R3
+      344 CAPTURE                          VAL R21
+      345 CAPTURE                          VAL R26
+      346 CAPTURE                          VAL R35
+      347 CAPTURE                          VAL R5
+      348 CAPTURE                          VAL R27
+      349 CAPTURE                          VAL R29
+      350 CAPTURE                          VAL R31
+      351 CAPTURE                          VAL R37
+      352 CAPTURE                          VAL R36
+      353 CAPTURE                          VAL R24
+      354 NEWTABLE                         R41 0 13
+      356 MOVE                             R42 R1
+      357 MOVE                             R43 R38
+      358 MOVE                             R44 R3
+      359 MOVE                             R45 R21
+      360 MOVE                             R46 R26
+      361 MOVE                             R47 R35
+      362 MOVE                             R48 R5
+      363 MOVE                             R49 R27
+      364 MOVE                             R50 R29
+      365 MOVE                             R51 R31
+      366 MOVE                             R52 R37
+      367 MOVE                             R53 R36
+      368 MOVE                             R54 R24
+      369 SETLIST                          R41 R42 13 [1]
+      371 CALL                             R39 2 1
+      372 GETUPVAL                         R40 11
+      373 GETUPVAL                         R41 0
+      374 GETTABLEKS                       R41 R41 K8 ["Provider"]
+      376 DUPTABLE                         R42 K10 [{"value"}]
+      377 SETTABLEKS                       R39 R42 K9 ["value"]
+      379 GETTABLEKS                       R43 R0 K11 ["children"]
+      381 CALL                             R40 3 -1
+      382 RETURN                           R40 -1
 
 PROTO_50:
         0 GETUPVAL                         R1 0

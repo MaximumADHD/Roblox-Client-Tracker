@@ -40,6 +40,13 @@ PROTO_2:
        17 RETURN                           R0 0
 
 PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["_onFilePicked"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
+
+PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]
         2 NAMECALL                         R1 R1 K1 ["getState"]
         4 CALL                             R1 1 1
@@ -52,52 +59,132 @@ PROTO_3:
        14 CALL                             R3 -1 0
        15 GETTABLEKS                       R3 R1 K3 ["Dialogs"]
        17 GETTABLEKS                       R3 R3 K4 ["showPreview"]
-       19 JUMPIF                           R3 ; [+13]
-       20 GETTABLEKS                       R3 R1 K5 ["Sessions"]
-       22 GETTABLEKS                       R3 R3 K6 ["uploading"]
-       24 JUMPIF                           R3 ; [+8]
-       25 GETTABLEKS                       R3 R1 K5 ["Sessions"]
-       27 GETTABLEKS                       R3 R3 K7 ["parsing"]
-       29 JUMPIF                           R3 ; [+3]
-       30 GETTABLEKS                       R3 R0 K8 ["_promptRequested"]
-       32 JUMPIFNOT                        R3 ; [+1]
-       33 RETURN                           R0 0
-       34 LOADB                            R3 1
-       35 SETTABLEKS                       R3 R0 K8 ["_promptRequested"]
-       37 GETUPVAL                         R3 1
-       38 NAMECALL                         R3 R3 K9 ["PickMultipleFilesWithPrompt"]
-       40 CALL                             R3 1 1
-       41 MOVE                             R2 R3
-       42 LOADB                            R3 0
-       43 SETTABLEKS                       R3 R0 K8 ["_promptRequested"]
-       45 GETTABLEKS                       R3 R0 K0 ["_store"]
-       47 GETUPVAL                         R5 2
-       48 LOADB                            R6 1
-       49 CALL                             R5 1 -1
-       50 NAMECALL                         R3 R3 K2 ["dispatch"]
-       52 CALL                             R3 -1 0
-       53 MOVE                             R5 R2
-       54 NAMECALL                         R3 R0 K10 ["_onFilePicked"]
-       56 CALL                             R3 2 0
-       57 GETTABLEKS                       R3 R0 K0 ["_store"]
-       59 GETUPVAL                         R5 2
-       60 LOADB                            R6 0
-       61 CALL                             R5 1 -1
-       62 NAMECALL                         R3 R3 K2 ["dispatch"]
-       64 CALL                             R3 -1 0
-       65 LENGTH                           R3 R2
-       66 JUMPIFNOTEQKN                    R3 K11 [1] ; [+6]
-       68 LENGTH                           R6 R2
-       69 GETTABLE                         R5 R2 R6
-       70 NAMECALL                         R3 R0 K12 ["requestPreview"]
-       72 CALL                             R3 2 0
-       73 GETTABLEKS                       R3 R0 K13 ["_telemetry"]
-       75 LENGTH                           R5 R2
-       76 NAMECALL                         R3 R3 K14 ["logFilesAdded"]
-       78 CALL                             R3 2 0
-       79 RETURN                           R0 0
+       19 JUMPIF                           R3 ; [+21]
+       20 GETUPVAL                         R3 1
+       21 CALL                             R3 0 1
+       22 JUMPIFNOT                        R3 ; [+5]
+       23 GETTABLEKS                       R3 R1 K3 ["Dialogs"]
+       25 GETTABLEKS                       R3 R3 K5 ["previewLoading"]
+       27 JUMPIF                           R3 ; [+13]
+       28 GETTABLEKS                       R3 R1 K6 ["Sessions"]
+       30 GETTABLEKS                       R3 R3 K7 ["uploading"]
+       32 JUMPIF                           R3 ; [+8]
+       33 GETTABLEKS                       R3 R1 K6 ["Sessions"]
+       35 GETTABLEKS                       R3 R3 K8 ["parsing"]
+       37 JUMPIF                           R3 ; [+3]
+       38 GETTABLEKS                       R3 R0 K9 ["_promptRequested"]
+       40 JUMPIFNOT                        R3 ; [+2]
+       41 CLOSEUPVALS                      R2
+       42 RETURN                           R0 0
+       43 LOADB                            R3 1
+       44 SETTABLEKS                       R3 R0 K9 ["_promptRequested"]
+       46 GETUPVAL                         R3 2
+       47 NAMECALL                         R3 R3 K10 ["PickMultipleFilesWithPrompt"]
+       49 CALL                             R3 1 1
+       50 MOVE                             R2 R3
+       51 LOADB                            R3 0
+       52 SETTABLEKS                       R3 R0 K9 ["_promptRequested"]
+       54 LOADB                            R3 0
+       55 GETUPVAL                         R4 1
+       56 CALL                             R4 0 1
+       57 JUMPIFNOT                        R4 ; [+15]
+       58 LENGTH                           R4 R2
+       59 JUMPIFNOTEQKN                    R4 K11 [1] ; [+13]
+       61 GETUPVAL                         R4 3
+       62 GETTABLEN                        R5 R2 1
+       63 CALL                             R4 1 2
+       64 GETUPVAL                         R6 4
+       65 GETTABLEKS                       R6 R6 K12 ["FileType"]
+       67 GETTABLEKS                       R6 R6 K13 ["Scene"]
+       69 JUMPIFEQ                         R5 R6 ; [+2]
+       71 LOADB                            R3 0 +1
+       72 LOADB                            R3 1
+       73 GETTABLEKS                       R4 R0 K0 ["_store"]
+       75 GETUPVAL                         R6 5
+       76 LOADB                            R7 1
+       77 CALL                             R6 1 -1
+       78 NAMECALL                         R4 R4 K2 ["dispatch"]
+       80 CALL                             R4 -1 0
+       81 LOADB                            R4 1
+       82 JUMPIFNOT                        R3 ; [+54]
+       83 GETTABLEKS                       R5 R0 K0 ["_store"]
+       85 GETUPVAL                         R7 6
+       86 LOADB                            R8 1
+       87 CALL                             R7 1 -1
+       88 NAMECALL                         R5 R5 K2 ["dispatch"]
+       90 CALL                             R5 -1 0
+       91 GETIMPORT                        R5 K15 [pcall]
+       93 NEWCLOSURE                       R6 P0
+       94 CAPTURE                          VAL R0
+       95 CAPTURE                          REF R2
+       96 CALL                             R5 1 1
+       97 MOVE                             R4 R5
+       98 JUMPIF                           R4 ; [+42]
+       99 GETTABLEKS                       R6 R0 K0 ["_store"]
+      101 NAMECALL                         R6 R6 K1 ["getState"]
+      103 CALL                             R6 1 1
+      104 GETTABLEKS                       R6 R6 K6 ["Sessions"]
+      106 GETTABLEKS                       R6 R6 K16 ["sessionQueue"]
+      108 GETTABLEN                        R7 R2 1
+      109 GETTABLE                         R5 R6 R7
+      110 JUMPIFNOT                        R5 ; [+30]
+      111 GETTABLEKS                       R6 R5 K17 ["state"]
+      113 GETUPVAL                         R7 4
+      114 GETTABLEKS                       R7 R7 K18 ["SessionState"]
+      116 GETTABLEKS                       R7 R7 K19 ["Parsing"]
+      118 JUMPIFNOTEQ                      R6 R7 ; [+22]
+      120 GETTABLEKS                       R6 R0 K0 ["_store"]
+      122 GETUPVAL                         R8 7
+      123 MOVE                             R9 R5
+      124 DUPTABLE                         R10 K20 [{"state"}]
+      125 GETUPVAL                         R11 4
+      126 GETTABLEKS                       R11 R11 K18 ["SessionState"]
+      128 GETTABLEKS                       R11 R11 K21 ["Invalid"]
+      130 SETTABLEKS                       R11 R10 K17 ["state"]
+      132 CALL                             R8 2 -1
+      133 NAMECALL                         R6 R6 K2 ["dispatch"]
+      135 CALL                             R6 -1 0
+      136 JUMP                             ; [+4]
+      137 MOVE                             R7 R2
+      138 NAMECALL                         R5 R0 K22 ["_onFilePicked"]
+      140 CALL                             R5 2 0
+      141 GETTABLEKS                       R5 R0 K0 ["_store"]
+      143 GETUPVAL                         R7 5
+      144 LOADB                            R8 0
+      145 CALL                             R7 1 -1
+      146 NAMECALL                         R5 R5 K2 ["dispatch"]
+      148 CALL                             R5 -1 0
+      149 MOVE                             R5 R3
+      150 JUMPIFNOT                        R5 ; [+10]
+      151 GETTABLEKS                       R6 R0 K0 ["_store"]
+      153 NAMECALL                         R6 R6 K1 ["getState"]
+      155 CALL                             R6 1 1
+      156 GETTABLEKS                       R6 R6 K3 ["Dialogs"]
+      158 GETTABLEKS                       R6 R6 K5 ["previewLoading"]
+      160 NOT                              R5 R6
+      161 JUMPIFNOT                        R4 ; [+9]
+      162 JUMPIF                           R5 ; [+8]
+      163 LENGTH                           R6 R2
+      164 JUMPIFNOTEQKN                    R6 K11 [1] ; [+6]
+      166 LENGTH                           R9 R2
+      167 GETTABLE                         R8 R2 R9
+      168 NAMECALL                         R6 R0 K23 ["requestPreview"]
+      170 CALL                             R6 2 0
+      171 JUMPIFNOT                        R3 ; [+8]
+      172 GETTABLEKS                       R6 R0 K0 ["_store"]
+      174 GETUPVAL                         R8 6
+      175 LOADB                            R9 0
+      176 CALL                             R8 1 -1
+      177 NAMECALL                         R6 R6 K2 ["dispatch"]
+      179 CALL                             R6 -1 0
+      180 GETTABLEKS                       R6 R0 K24 ["_telemetry"]
+      182 LENGTH                           R8 R2
+      183 NAMECALL                         R6 R6 K25 ["logFilesAdded"]
+      185 CALL                             R6 2 0
+      186 CLOSEUPVALS                      R2
+      187 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 LENGTH                           R2 R1
         1 JUMPIFNOTEQKN                    R2 K0 [0] ; [+2]
         3 RETURN                           R0 0
@@ -247,7 +334,7 @@ PROTO_4:
       213 FORGLOOP                         R2 2 ; [-176]
       215 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 NAMECALL                         R2 R0 K0 ["requestFilePicker"]
         2 CALL                             R2 1 1
         3 JUMPIFNOTEQKS                    R2 K1 [""] ; [+2]
@@ -298,7 +385,7 @@ PROTO_5:
        70 CALL                             R5 -1 0
        71 RETURN                           R2 1
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["_isMock"]
         2 JUMPIFNOT                        R1 ; [+4]
         3 GETTABLEKS                       R2 R0 K1 ["mockFiles"]
@@ -317,7 +404,7 @@ PROTO_6:
        21 LOADK                            R1 K4 [""]
        22 RETURN                           R1 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R3 0
         1 NAMECALL                         R3 R3 K0 ["PickImageFileWithPrompt"]
         3 CALL                             R3 1 1
@@ -331,10 +418,10 @@ PROTO_7:
        13 CALL                             R4 -1 0
        14 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["_store"]
         2 NAMECALL                         R2 R2 K1 ["getState"]
         4 CALL                             R2 1 1
@@ -357,7 +444,7 @@ PROTO_9:
        31 GETTABLEKS                       R3 R0 K0 ["_store"]
        33 GETUPVAL                         R5 1
        34 GETTABLE                         R6 R2 R1
-       35 DUPCLOSURE                       R7 K10 [PROTO_8]
+       35 DUPCLOSURE                       R7 K10 [PROTO_9]
        36 CALL                             R5 2 -1
        37 NAMECALL                         R3 R3 K11 ["dispatch"]
        39 CALL                             R3 -1 0
@@ -398,97 +485,115 @@ MAIN:
        52 GETTABLEKS                       R11 R6 K19 ["SetParsing"]
        54 CALL                             R10 1 1
        55 GETIMPORT                        R11 K5 [require]
-       57 GETTABLEKS                       R12 R6 K20 ["SetProgress"]
+       57 GETTABLEKS                       R12 R6 K20 ["SetPreviewLoading"]
        59 CALL                             R11 1 1
        60 GETIMPORT                        R12 K5 [require]
-       62 GETTABLEKS                       R13 R6 K21 ["SetProgressGoal"]
+       62 GETTABLEKS                       R13 R6 K21 ["SetProgress"]
        64 CALL                             R12 1 1
        65 GETIMPORT                        R13 K5 [require]
-       67 GETTABLEKS                       R14 R6 K22 ["SetShowQueue"]
+       67 GETTABLEKS                       R14 R6 K22 ["SetProgressGoal"]
        69 CALL                             R13 1 1
        70 GETIMPORT                        R14 K5 [require]
-       72 GETTABLEKS                       R15 R0 K6 ["Src"]
-       74 GETTABLEKS                       R15 R15 K23 ["Types"]
-       76 CALL                             R14 1 1
-       77 GETIMPORT                        R15 K5 [require]
-       79 GETTABLEKS                       R16 R0 K6 ["Src"]
-       81 GETTABLEKS                       R16 R16 K23 ["Types"]
-       83 GETTABLEKS                       R16 R16 K24 ["QueuedSession"]
-       85 CALL                             R15 1 1
-       86 GETTABLEKS                       R16 R0 K6 ["Src"]
-       88 GETTABLEKS                       R16 R16 K25 ["Thunks"]
-       90 GETIMPORT                        R17 K5 [require]
-       92 GETTABLEKS                       R18 R16 K26 ["CreateQueueItem"]
-       94 CALL                             R17 1 1
-       95 GETIMPORT                        R18 K5 [require]
-       97 GETTABLEKS                       R19 R16 K27 ["PickTextureFileWithPrompt"]
-       99 CALL                             R18 1 1
-      100 GETIMPORT                        R19 K5 [require]
-      102 GETTABLEKS                       R20 R16 K28 ["ShowImportPreview"]
-      104 CALL                             R19 1 1
-      105 GETIMPORT                        R20 K5 [require]
-      107 GETTABLEKS                       R21 R16 K29 ["UpdateQueueItem"]
-      109 CALL                             R20 1 1
-      110 GETIMPORT                        R21 K5 [require]
-      112 GETTABLEKS                       R22 R0 K6 ["Src"]
-      114 GETTABLEKS                       R22 R22 K30 ["Flags"]
-      116 GETTABLEKS                       R22 R22 K31 ["getFFlagImportQueueRibbonDropdown"]
+       72 GETTABLEKS                       R15 R6 K23 ["SetShowQueue"]
+       74 CALL                             R14 1 1
+       75 GETIMPORT                        R15 K5 [require]
+       77 GETTABLEKS                       R16 R0 K6 ["Src"]
+       79 GETTABLEKS                       R16 R16 K24 ["Types"]
+       81 CALL                             R15 1 1
+       82 GETIMPORT                        R16 K5 [require]
+       84 GETTABLEKS                       R17 R0 K6 ["Src"]
+       86 GETTABLEKS                       R17 R17 K24 ["Types"]
+       88 GETTABLEKS                       R17 R17 K25 ["QueuedSession"]
+       90 CALL                             R16 1 1
+       91 GETIMPORT                        R17 K5 [require]
+       93 GETTABLEKS                       R18 R0 K6 ["Src"]
+       95 GETTABLEKS                       R18 R18 K7 ["Utility"]
+       97 GETTABLEKS                       R18 R18 K26 ["parseFilename"]
+       99 CALL                             R17 1 1
+      100 GETTABLEKS                       R18 R0 K6 ["Src"]
+      102 GETTABLEKS                       R18 R18 K27 ["Thunks"]
+      104 GETIMPORT                        R19 K5 [require]
+      106 GETTABLEKS                       R20 R18 K28 ["CreateQueueItem"]
+      108 CALL                             R19 1 1
+      109 GETIMPORT                        R20 K5 [require]
+      111 GETTABLEKS                       R21 R18 K29 ["PickTextureFileWithPrompt"]
+      113 CALL                             R20 1 1
+      114 GETIMPORT                        R21 K5 [require]
+      116 GETTABLEKS                       R22 R18 K30 ["ShowImportPreview"]
       118 CALL                             R21 1 1
       119 GETIMPORT                        R22 K5 [require]
-      121 GETTABLEKS                       R23 R0 K6 ["Src"]
-      123 GETTABLEKS                       R23 R23 K30 ["Flags"]
-      125 GETTABLEKS                       R23 R23 K32 ["getFFlagShowNewReimportCallout"]
-      127 CALL                             R22 1 1
-      128 LOADK                            R25 K33 ["FileController"]
-      129 NAMECALL                         R23 R5 K34 ["extend"]
-      131 CALL                             R23 2 1
-      132 GETIMPORT                        R24 K5 [require]
-      134 GETTABLEKS                       R25 R0 K6 ["Src"]
-      136 GETTABLEKS                       R25 R25 K35 ["Controllers"]
-      138 GETTABLEKS                       R25 R25 K36 ["ReimportCalloutController"]
-      140 CALL                             R24 1 1
-      141 DUPCLOSURE                       R25 K37 [PROTO_0]
-      142 CAPTURE                          VAL R23
-      143 SETTABLEKS                       R25 R23 K38 ["new"]
-      145 DUPCLOSURE                       R25 K39 [PROTO_1]
-      146 CAPTURE                          VAL R8
-      147 CAPTURE                          VAL R9
-      148 SETTABLEKS                       R25 R23 K40 ["destroy"]
-      150 MOVE                             R25 R21
-      151 CALL                             R25 0 1
-      152 JUMPIFNOT                        R25 ; [+4]
-      153 DUPCLOSURE                       R25 K41 [PROTO_2]
-      154 CAPTURE                          VAL R13
-      155 SETTABLEKS                       R25 R23 K42 ["onQueueButtonClicked"]
-      157 DUPCLOSURE                       R25 K43 [PROTO_3]
-      158 CAPTURE                          VAL R13
-      159 CAPTURE                          VAL R2
-      160 CAPTURE                          VAL R10
-      161 SETTABLEKS                       R25 R23 K44 ["onPluginButtonClicked"]
-      163 DUPCLOSURE                       R25 K45 [PROTO_4]
-      164 CAPTURE                          VAL R11
-      165 CAPTURE                          VAL R12
-      166 CAPTURE                          VAL R17
-      167 CAPTURE                          VAL R14
-      168 CAPTURE                          VAL R2
-      169 CAPTURE                          VAL R22
-      170 CAPTURE                          VAL R24
-      171 CAPTURE                          VAL R20
-      172 SETTABLEKS                       R25 R23 K46 ["_onFilePicked"]
-      174 DUPCLOSURE                       R25 K47 [PROTO_5]
-      175 CAPTURE                          VAL R7
-      176 CAPTURE                          VAL R10
-      177 CAPTURE                          VAL R20
-      178 SETTABLEKS                       R25 R23 K48 ["requestFileSwap"]
-      180 DUPCLOSURE                       R25 K49 [PROTO_6]
-      181 CAPTURE                          VAL R2
-      182 SETTABLEKS                       R25 R23 K50 ["requestFilePicker"]
-      184 DUPCLOSURE                       R25 K51 [PROTO_7]
-      185 CAPTURE                          VAL R2
-      186 CAPTURE                          VAL R18
-      187 SETTABLEKS                       R25 R23 K52 ["pickTextureFileWithPrompt"]
-      189 DUPCLOSURE                       R25 K53 [PROTO_9]
-      190 CAPTURE                          VAL R14
-      191 CAPTURE                          VAL R19
-      192 SETTABLEKS                       R25 R23 K54 ["requestPreview"]
-      194 RETURN                           R23 1
+      121 GETTABLEKS                       R23 R18 K31 ["UpdateQueueItem"]
+      123 CALL                             R22 1 1
+      124 GETIMPORT                        R23 K5 [require]
+      126 GETTABLEKS                       R24 R0 K6 ["Src"]
+      128 GETTABLEKS                       R24 R24 K32 ["Flags"]
+      130 GETTABLEKS                       R24 R24 K33 ["getFFlagAssetImporterShowPreviewLoading"]
+      132 CALL                             R23 1 1
+      133 GETIMPORT                        R24 K5 [require]
+      135 GETTABLEKS                       R25 R0 K6 ["Src"]
+      137 GETTABLEKS                       R25 R25 K32 ["Flags"]
+      139 GETTABLEKS                       R25 R25 K34 ["getFFlagImportQueueRibbonDropdown"]
+      141 CALL                             R24 1 1
+      142 GETIMPORT                        R25 K5 [require]
+      144 GETTABLEKS                       R26 R0 K6 ["Src"]
+      146 GETTABLEKS                       R26 R26 K32 ["Flags"]
+      148 GETTABLEKS                       R26 R26 K35 ["getFFlagShowNewReimportCallout"]
+      150 CALL                             R25 1 1
+      151 LOADK                            R28 K36 ["FileController"]
+      152 NAMECALL                         R26 R5 K37 ["extend"]
+      154 CALL                             R26 2 1
+      155 GETIMPORT                        R27 K5 [require]
+      157 GETTABLEKS                       R28 R0 K6 ["Src"]
+      159 GETTABLEKS                       R28 R28 K38 ["Controllers"]
+      161 GETTABLEKS                       R28 R28 K39 ["ReimportCalloutController"]
+      163 CALL                             R27 1 1
+      164 DUPCLOSURE                       R28 K40 [PROTO_0]
+      165 CAPTURE                          VAL R26
+      166 SETTABLEKS                       R28 R26 K41 ["new"]
+      168 DUPCLOSURE                       R28 K42 [PROTO_1]
+      169 CAPTURE                          VAL R8
+      170 CAPTURE                          VAL R9
+      171 SETTABLEKS                       R28 R26 K43 ["destroy"]
+      173 MOVE                             R28 R24
+      174 CALL                             R28 0 1
+      175 JUMPIFNOT                        R28 ; [+4]
+      176 DUPCLOSURE                       R28 K44 [PROTO_2]
+      177 CAPTURE                          VAL R14
+      178 SETTABLEKS                       R28 R26 K45 ["onQueueButtonClicked"]
+      180 DUPCLOSURE                       R28 K46 [PROTO_4]
+      181 CAPTURE                          VAL R14
+      182 CAPTURE                          VAL R23
+      183 CAPTURE                          VAL R2
+      184 CAPTURE                          VAL R17
+      185 CAPTURE                          VAL R15
+      186 CAPTURE                          VAL R10
+      187 CAPTURE                          VAL R11
+      188 CAPTURE                          VAL R22
+      189 SETTABLEKS                       R28 R26 K47 ["onPluginButtonClicked"]
+      191 DUPCLOSURE                       R28 K48 [PROTO_5]
+      192 CAPTURE                          VAL R12
+      193 CAPTURE                          VAL R13
+      194 CAPTURE                          VAL R19
+      195 CAPTURE                          VAL R15
+      196 CAPTURE                          VAL R2
+      197 CAPTURE                          VAL R25
+      198 CAPTURE                          VAL R27
+      199 CAPTURE                          VAL R22
+      200 SETTABLEKS                       R28 R26 K49 ["_onFilePicked"]
+      202 DUPCLOSURE                       R28 K50 [PROTO_6]
+      203 CAPTURE                          VAL R7
+      204 CAPTURE                          VAL R10
+      205 CAPTURE                          VAL R22
+      206 SETTABLEKS                       R28 R26 K51 ["requestFileSwap"]
+      208 DUPCLOSURE                       R28 K52 [PROTO_7]
+      209 CAPTURE                          VAL R2
+      210 SETTABLEKS                       R28 R26 K53 ["requestFilePicker"]
+      212 DUPCLOSURE                       R28 K54 [PROTO_8]
+      213 CAPTURE                          VAL R2
+      214 CAPTURE                          VAL R20
+      215 SETTABLEKS                       R28 R26 K55 ["pickTextureFileWithPrompt"]
+      217 DUPCLOSURE                       R28 K56 [PROTO_10]
+      218 CAPTURE                          VAL R15
+      219 CAPTURE                          VAL R21
+      220 SETTABLEKS                       R28 R26 K57 ["requestPreview"]
+      222 RETURN                           R26 1

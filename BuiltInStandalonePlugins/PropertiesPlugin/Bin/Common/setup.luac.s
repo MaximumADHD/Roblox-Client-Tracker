@@ -74,9 +74,9 @@ PROTO_6:
        24 SETTABLEKS                       R2 R3 K18 ["buttonInfo"]
        26 LOADB                            R4 1
        27 SETTABLEKS                       R4 R2 K5 ["enabled"]
-       29 DUPTABLE                         R4 K25 [{["id"] = "PropertiesPlugin", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
-       30 GETIMPORT                        R5 K28 [DockWidgetPluginGuiInfo.new]
-       32 GETIMPORT                        R6 K32 [Enum.InitialDockState.Right]
+       29 DUPTABLE                         R4 K26 [{["id"] = "PropertiesPlugin", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"], ["keyboardNavigationEnabled"] = True}]
+       30 GETIMPORT                        R5 K29 [DockWidgetPluginGuiInfo.new]
+       32 GETIMPORT                        R6 K33 [Enum.InitialDockState.Right]
        34 LOADB                            R7 1
        35 LOADB                            R8 0
        36 LOADN                            R9 640
@@ -85,11 +85,11 @@ PROTO_6:
        39 LOADN                            R12 200
        40 CALL                             R5 7 1
        41 SETTABLEKS                       R5 R4 K22 ["dockWidgetPluginGuiInfo"]
-       43 DUPCLOSURE                       R5 K33 [PROTO_3]
+       43 DUPCLOSURE                       R5 K34 [PROTO_3]
        44 SETTABLEKS                       R5 R4 K23 ["getDockTitle"]
-       46 GETIMPORT                        R5 K36 [Enum.ZIndexBehavior.Sibling]
+       46 GETIMPORT                        R5 K37 [Enum.ZIndexBehavior.Sibling]
        48 SETTABLEKS                       R5 R4 K24 ["zIndexBehavior"]
-       50 SETTABLEKS                       R4 R3 K37 ["dockWidgetInfo"]
+       50 SETTABLEKS                       R4 R3 K38 ["dockWidgetInfo"]
        52 LOADNIL                          R4
        53 LOADB                            R5 0
        54 NEWCLOSURE                       R6 P4
@@ -99,15 +99,15 @@ PROTO_6:
        58 CAPTURE                          REF R4
        59 CAPTURE                          VAL R1
        60 CAPTURE                          VAL R0
-       61 LOADK                            R9 K38 ["PlaceManager"]
-       62 NAMECALL                         R7 R0 K39 ["GetPluginComponent"]
+       61 LOADK                            R9 K39 ["PlaceManager"]
+       62 NAMECALL                         R7 R0 K40 ["GetPluginComponent"]
        64 CALL                             R7 2 1
-       65 GETTABLEKS                       R8 R7 K40 ["PlaceDocPanelShown"]
+       65 GETTABLEKS                       R8 R7 K41 ["PlaceDocPanelShown"]
        67 MOVE                             R10 R6
-       68 NAMECALL                         R8 R8 K41 ["Connect"]
+       68 NAMECALL                         R8 R8 K42 ["Connect"]
        70 CALL                             R8 2 1
        71 MOVE                             R4 R8
-       72 GETIMPORT                        R8 K43 [pcall]
+       72 GETIMPORT                        R8 K44 [pcall]
        74 NEWCLOSURE                       R9 P5
        75 CAPTURE                          VAL R7
        76 CALL                             R8 1 2
@@ -117,15 +117,15 @@ PROTO_6:
        80 JUMP                             ; [+20]
        81 LOADB                            R5 1
        82 GETUPVAL                         R10 3
-       83 GETTABLEKS                       R10 R10 K44 ["build"]
+       83 GETTABLEKS                       R10 R10 K45 ["build"]
        85 MOVE                             R11 R3
        86 CALL                             R10 1 1
-       87 GETTABLEKS                       R11 R10 K45 ["pluginLoader"]
-       89 NAMECALL                         R11 R11 K46 ["waitForUserInteraction"]
+       87 GETTABLEKS                       R11 R10 K46 ["pluginLoader"]
+       89 NAMECALL                         R11 R11 K47 ["waitForUserInteraction"]
        91 CALL                             R11 1 1
        92 JUMPIF                           R11 ; [+1]
        93 JUMP                             ; [+7]
-       94 NAMECALL                         R12 R4 K47 ["Disconnect"]
+       94 NAMECALL                         R12 R4 K48 ["Disconnect"]
        96 CALL                             R12 1 0
        97 MOVE                             R12 R1
        98 MOVE                             R13 R0

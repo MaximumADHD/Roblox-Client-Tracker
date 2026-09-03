@@ -130,39 +130,33 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K6 ["Src"]
        20 GETTABLEKS                       R3 R3 K9 ["Flags"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K17 [{["TestAutomation"] = "TestAutomation", ["NewAssetToolSet"] = "NewAssetToolSet", ["UnitTestSubagent"] = "UnitTestSubagent", ["ScreenCaptureSubagent"] = "ScreenCaptureSubagent", ["BackgroundDataModelToolCall"] = "BackgroundDataModelToolCall", ["StudioStateSystemReminder"] = "StudioStateSystemReminder", ["AssistantHarnessSplit"] = "AssistantHarnessSplit"}]
-       24 NEWTABLE                         R4 4 0
-       26 GETTABLEKS                       R5 R3 K11 ["NewAssetToolSet"]
-       28 GETTABLEKS                       R6 R2 K18 ["FFlagAssistantAssetSearchInsertTool"]
+       23 DUPTABLE                         R3 K12 [{["NewAssetToolSet"] = "NewAssetToolSet", ["AssistantHarnessSplit"] = "AssistantHarnessSplit"}]
+       24 NEWTABLE                         R4 1 0
+       26 GETTABLEKS                       R5 R3 K10 ["NewAssetToolSet"]
+       28 GETTABLEKS                       R6 R2 K13 ["FFlagAssistantAssetSearchInsertTool"]
        30 SETTABLE                         R6 R4 R5
-       31 GETTABLEKS                       R5 R3 K14 ["BackgroundDataModelToolCall"]
-       33 GETTABLEKS                       R6 R2 K19 ["FFlagForceAssistantBackgroundDataModelToolCall"]
-       35 SETTABLE                         R6 R4 R5
-       36 GETTABLEKS                       R5 R3 K15 ["StudioStateSystemReminder"]
-       38 GETTABLEKS                       R6 R2 K20 ["FFlagForceAssistantStudioStateSystemReminder"]
-       40 SETTABLE                         R6 R4 R5
-       41 LOADNIL                          R5
-       42 LOADNIL                          R6
-       43 NEWCLOSURE                       R7 P0
-       44 CAPTURE                          REF R6
-       45 CAPTURE                          REF R5
-       46 NEWCLOSURE                       R8 P1
-       47 CAPTURE                          VAL R4
-       48 CAPTURE                          REF R6
-       49 CAPTURE                          REF R5
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R2
-       52 NEWCLOSURE                       R9 P2
-       53 CAPTURE                          REF R6
-       54 NEWCLOSURE                       R10 P3
-       55 CAPTURE                          VAL R8
-       56 CAPTURE                          REF R6
-       57 DUPTABLE                         R11 K27 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
-       58 SETTABLEKS                       R3 R11 K21 ["FeatureNames"]
-       60 SETTABLEKS                       R4 R11 K22 ["ForceEnabledFeatureNames"]
-       62 SETTABLEKS                       R7 R11 K23 ["setIxpService"]
-       64 SETTABLEKS                       R8 R11 K24 ["getExperimentFeatureEnabled"]
-       66 SETTABLEKS                       R9 R11 K25 ["getOnExperimentChanged"]
-       68 SETTABLEKS                       R10 R11 K26 ["onceExperimentFeatureEnabled"]
-       70 CLOSEUPVALS                      R5
-       71 RETURN                           R11 1
+       31 LOADNIL                          R5
+       32 LOADNIL                          R6
+       33 NEWCLOSURE                       R7 P0
+       34 CAPTURE                          REF R6
+       35 CAPTURE                          REF R5
+       36 NEWCLOSURE                       R8 P1
+       37 CAPTURE                          VAL R4
+       38 CAPTURE                          REF R6
+       39 CAPTURE                          REF R5
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R2
+       42 NEWCLOSURE                       R9 P2
+       43 CAPTURE                          REF R6
+       44 NEWCLOSURE                       R10 P3
+       45 CAPTURE                          VAL R8
+       46 CAPTURE                          REF R6
+       47 DUPTABLE                         R11 K20 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
+       48 SETTABLEKS                       R3 R11 K14 ["FeatureNames"]
+       50 SETTABLEKS                       R4 R11 K15 ["ForceEnabledFeatureNames"]
+       52 SETTABLEKS                       R7 R11 K16 ["setIxpService"]
+       54 SETTABLEKS                       R8 R11 K17 ["getExperimentFeatureEnabled"]
+       56 SETTABLEKS                       R9 R11 K18 ["getOnExperimentChanged"]
+       58 SETTABLEKS                       R10 R11 K19 ["onceExperimentFeatureEnabled"]
+       60 CLOSEUPVALS                      R5
+       61 RETURN                           R11 1
