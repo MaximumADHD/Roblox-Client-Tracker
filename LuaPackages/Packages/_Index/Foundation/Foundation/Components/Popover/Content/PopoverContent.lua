@@ -43,6 +43,8 @@ export type PopoverContentProps = {
 	align: AlignConfig?,
 	-- Whether the popover should have an arrow.
 	hasArrow: boolean?,
+	-- Whether a plugin popover can receive keyboard focus.
+	isFocusable: boolean?,
 	-- Temporary opt-in for flagged input sinking. This will be removed when the behavior is finalized.
 	DO_NOT_USE_hasContentInputSink: boolean?,
 	-- Callback for when the backdrop is pressed. Does not swallow the press event.

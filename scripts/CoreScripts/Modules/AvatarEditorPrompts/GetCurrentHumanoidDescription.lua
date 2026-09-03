@@ -6,11 +6,7 @@ local Promise = require(CorePackages.Packages.Promise)
 return function()
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return Players:GetHumanoidDescriptionFromUserIdAsync((Players.LocalPlayer :: Player).UserId)
-			else
-				return (Players :: never):GetHumanoidDescriptionFromUserId((Players.LocalPlayer :: Player).UserId)
-			end
+			return Players:GetHumanoidDescriptionFromUserIdAsync((Players.LocalPlayer :: Player).UserId)
 		end)
 
 		if success then

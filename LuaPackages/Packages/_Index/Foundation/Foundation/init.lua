@@ -60,6 +60,7 @@ local Device = require(script.Enums.Device)
 local DialogSize = require(script.Enums.DialogSize)
 local DividerVariant = require(script.Enums.DividerVariant)
 local FillBehavior = require(script.Enums.FillBehavior)
+local FontName = require(script.Enums.FontName)
 local IconName = BuilderIcons.Icon
 local IconPosition = require(script.Enums.IconPosition)
 local IconSize = require(script.Enums.IconSize)
@@ -125,6 +126,7 @@ export type Device = Device.Device
 export type DialogSize = DialogSize.DialogSize
 export type DividerVariant = DividerVariant.DividerVariant
 export type FillBehavior = FillBehavior.FillBehavior
+export type FontName = FontName.FontName
 export type IconName = BuilderIcons.Icon
 export type IconPosition = IconPosition.IconPosition
 export type IconSize = IconSize.IconSize
@@ -173,6 +175,9 @@ export type Visibility = Visibility.Visibility
 local Accordion = require(script.Components.Accordion)
 export type AccordionProps = Accordion.AccordionProps
 export type AccordionItemProps = Accordion.AccordionItemProps
+
+local Alert = require(script.Components.Alert)
+export type AlertProps = Alert.AlertProps
 
 local Avatar = require(script.Components.Avatar)
 export type AvatarProps = Avatar.AvatarProps
@@ -355,6 +360,10 @@ export type StatusBadgeProps = StatusBadge.StatusBadgeProps
 local StatusIndicator = require(script.Components.StatusIndicator)
 export type StatusIndicatorProps = StatusIndicator.StatusIndicatorProps
 
+local Stepper = require(script.Components.Stepper)
+export type StepperProps = Stepper.StepperProps
+export type Step = Stepper.Step
+
 local AlertActions = require(script.Components.AlertActions)
 export type AlertAction = AlertActions.AlertAction
 
@@ -394,6 +403,7 @@ export type ViewProps = View.ViewProps
 local Foundation = strict({
 	-- Components
 	Accordion = Accordion,
+	Alert = Alert,
 	Avatar = Avatar,
 	AvatarGroup = AvatarGroup,
 	AvatarIcon = AvatarIcon,
@@ -443,6 +453,7 @@ local Foundation = strict({
 	Snackbar = Snackbar,
 	StatusBadge = StatusBadge,
 	StatusIndicator = StatusIndicator,
+	Stepper = Stepper,
 	SystemBanner = SystemBanner,
 	Tabs = Tabs,
 	Text = Text,
@@ -516,6 +527,7 @@ local Foundation = strict({
 		DividerOrientation = require(script.Enums.Orientation),
 		DividerVariant = DividerVariant,
 		FillBehavior = FillBehavior,
+		FontName = FontName,
 		IconName = IconName,
 		IconPosition = IconPosition,
 		IconSize = IconSize,

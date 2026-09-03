@@ -16,6 +16,7 @@ local GetFFlagEnablePlayerNamesEnabledSetting = require(Modules.Settings.Flags.G
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
 local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGroups)
+local RUUserScalePreferenceAPI = game:GetEngineFeature("RUUserScalePreferenceAPI")
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagUpdateRephraseSettingUI = game:DefineFastFlag("UpdateRephraseSettingUI", false)
 local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
@@ -106,7 +107,13 @@ SETTINGS_MENU_LAYOUT_ORDER.GraphicsQualityFrame = 72
 SETTINGS_MENU_LAYOUT_ORDER.ReducedMotionFrame = 73
 SETTINGS_MENU_LAYOUT_ORDER.PreferredTransparencyFrame = 74
 SETTINGS_MENU_LAYOUT_ORDER.PreferredTextSizeFrame = 75
-SETTINGS_MENU_LAYOUT_ORDER.UiNavigationKeyBindEnabledFrame = 76
+if RUUserScalePreferenceAPI then
+	SETTINGS_MENU_LAYOUT_ORDER.UIScaleModeFrame = 76
+	SETTINGS_MENU_LAYOUT_ORDER.UIScaleFrame = 77
+	SETTINGS_MENU_LAYOUT_ORDER.UiNavigationKeyBindEnabledFrame = 78
+else
+	SETTINGS_MENU_LAYOUT_ORDER.UiNavigationKeyBindEnabledFrame = 76
+end
 -- Performance
 SETTINGS_MENU_LAYOUT_ORDER.PerformanceStatsFrame = 80
 SETTINGS_MENU_LAYOUT_ORDER.MicroProfilerFrame = 81
@@ -169,6 +176,8 @@ if FFlagIEMSettingsGroups then
 		FullScreenFrame = nextOrder(),
 		PreferredTransparencyFrame = nextOrder(),
 		PreferredTextSizeFrame = nextOrder(),
+		UIScaleModeFrame = if RUUserScalePreferenceAPI then nextOrder() else nil,
+		UIScaleFrame = if RUUserScalePreferenceAPI then nextOrder() else nil,
 		VRComfortSettingFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
 		VRVignetteEnabledFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
 		VRSteppedRotationEnabledFrame = if isInExperienceUIVREnabled then nextOrder() else nil,

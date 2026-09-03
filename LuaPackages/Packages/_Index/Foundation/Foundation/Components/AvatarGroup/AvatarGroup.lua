@@ -1,7 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
+
+local IconName = BuilderIcons.Icon
 
 local Avatar = require(Foundation.Components.Avatar)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -75,7 +78,7 @@ local function AvatarOverflow(props: {
 		}),
 		if isEllipsed
 			then React.createElement(Icon, {
-				name = "three-dots-horizontal",
+				name = IconName.ThreeDotsHorizontal,
 				size = IconSize.XSmall,
 				style = contentStyle,
 			})

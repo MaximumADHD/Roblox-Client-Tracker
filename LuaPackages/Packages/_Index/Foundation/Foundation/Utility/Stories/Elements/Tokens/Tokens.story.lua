@@ -72,7 +72,7 @@ local function TokenItem(props: {
 	local isColorStyleValue = isColorStyle(token.value)
 
 	return React.createElement(View, {
-		tag = "size-full-0 auto-y row gap-small align-center"
+		tag = "row gap-small size-full-0 auto-y"
 			.. (if props.isOdd and props.alternateRowBackgrounds then " bg-surface-100" else ""),
 		LayoutOrder = props.LayoutOrder,
 	}, {

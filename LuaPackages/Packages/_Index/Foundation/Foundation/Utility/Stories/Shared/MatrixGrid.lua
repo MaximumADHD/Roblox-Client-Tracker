@@ -58,6 +58,33 @@ local function matrixInfoLabel(title: string, subtitle: string): React.ReactNode
 	})
 end
 
+local function getCellColumnWidth(props: MatrixGridProps, cellIndex: number): number?
+	if props.cellColumnWidths then
+		return props.cellColumnWidths[cellIndex]
+	end
+	return props.cellColumnWidth
+end
+
+local function renderCells(
+	props: MatrixGridProps,
+	cells: { React.ReactNode },
+	cellAlignTag: string
+): { [string]: React.ReactNode }
+	local cellChildren: { [string]: React.ReactNode } = {}
+	for index, cell in cells do
+		local cellColumnWidth = getCellColumnWidth(props, index)
+		local cellSize = if cellColumnWidth then UDim2.fromOffset(cellColumnWidth, 0) else nil
+		cellChildren[`Cell-{index}`] = React.createElement(View, {
+			tag = `col auto-xy {cellAlignTag}`,
+			Size = cellSize,
+			LayoutOrder = index,
+		}, {
+			Content = cell,
+		})
+	end
+	return cellChildren
+end
+
 local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 	local showLabelColumn = if props.showLabelColumn == nil then true else props.showLabelColumn
 	local showHeader = if props.showHeader == nil then true else props.showHeader
@@ -70,35 +97,12 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 	local rowTag: string = "row align-y-center gap-" .. rowGap .. " auto-xy"
 	local cellRowTag: string = "row align-y-center gap-" .. rowGap .. " auto-x"
 
-	local function getCellColumnWidth(cellIndex: number): number?
-		if props.cellColumnWidths then
-			return props.cellColumnWidths[cellIndex]
-		end
-		return props.cellColumnWidth
-	end
-
 	local LayoutOrder = 1
 	local children: { [string]: React.ReactNode } = {}
 
-	local function renderCells(cells: { React.ReactNode }): { [string]: React.ReactNode }
-		local cellChildren: { [string]: React.ReactNode } = {}
-		for index, cell in cells do
-			local cellColumnWidth = getCellColumnWidth(index)
-			local cellSize = if cellColumnWidth then UDim2.fromOffset(cellColumnWidth, 0) else nil
-			cellChildren[`Cell-{index}`] = React.createElement(View, {
-				tag = `col auto-xy {cellAlignTag}`,
-				Size = cellSize,
-				LayoutOrder = index,
-			}, {
-				Content = cell,
-			})
-		end
-		return cellChildren
-	end
-
 	if showHeader then
 		local headerCells = Dash.map(props.columnHeaders, function(header, index)
-			local cellColumnWidth = getCellColumnWidth(index)
+			local cellColumnWidth = getCellColumnWidth(props, index)
 			local headerSize = if cellColumnWidth then UDim2.fromOffset(cellColumnWidth, 0) else nil
 			return React.createElement(Text, {
 				Text = header,
@@ -145,9 +149,9 @@ local function MatrixGrid(props: MatrixGridProps): React.ReactNode
 			rowChildren.Cells = React.createElement(View, {
 				tag = cellRowTag,
 				LayoutOrder = 2,
-			}, renderCells(row.cells))
+			}, renderCells(props, row.cells, cellAlignTag))
 		else
-			for key, cell in renderCells(row.cells) do
+			for key, cell in renderCells(props, row.cells, cellAlignTag) do
 				rowChildren[key] = cell
 			end
 		end

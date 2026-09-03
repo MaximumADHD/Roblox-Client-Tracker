@@ -1071,6 +1071,7 @@ type _ExperienceInfoTableInputDataFields = {
 	has_store_items: boolean,
 	has_badges: boolean,
 	has_game_passes: boolean,
+	community_id: string,
 }
 
 type _ExperienceInfoTableInputDataPartialFields = {
@@ -1078,6 +1079,7 @@ type _ExperienceInfoTableInputDataPartialFields = {
 	has_store_items: boolean?,
 	has_badges: boolean?,
 	has_game_passes: boolean?,
+	community_id: string?,
 }
 
 export type ExperienceInfoTableInputData = typeof(setmetatable(
@@ -1278,6 +1280,8 @@ type _ExperienceCarouselInputDataFields = {
 	pool_id: string?,
 	has_emphasized_tile: boolean,
 	tile_activation_mode: string,
+	initial_feed_visible_rows: number?,
+	visible_rows_per_reveal: number?,
 	sponsored_user_cohort: string?,
 }
 
@@ -1297,6 +1301,8 @@ type _ExperienceCarouselInputDataPartialFields = {
 	pool_id: string?,
 	has_emphasized_tile: boolean?,
 	tile_activation_mode: string?,
+	initial_feed_visible_rows: number?,
+	visible_rows_per_reveal: number?,
 	sponsored_user_cohort: string?,
 }
 
@@ -9779,6 +9785,7 @@ do
 			has_store_items = if data == nil or data.has_store_items == nil then false else data.has_store_items,
 			has_badges = if data == nil or data.has_badges == nil then false else data.has_badges,
 			has_game_passes = if data == nil or data.has_game_passes == nil then false else data.has_game_passes,
+			community_id = if data == nil or data.community_id == nil then "" else data.community_id,
 		}, _ExperienceInfoTableInputDataImpl :: _ExperienceInfoTableInputDataImpl)
 	end
 
@@ -9804,6 +9811,11 @@ do
 		if self.has_game_passes then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.has_game_passes then 1 else 0)
+		end
+
+		if self.community_id ~= nil and self.community_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.community_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9844,6 +9856,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.community_id = buffer.tostring(value)
 					continue
 				end
 
@@ -9888,6 +9905,10 @@ do
 			output.hasGamePasses = self.has_game_passes
 		end
 
+		if self.community_id ~= nil and self.community_id ~= "" then
+			output.communityId = self.community_id
+		end
+
 		return output
 	end
 
@@ -9924,6 +9945,14 @@ do
 
 		if input.hasGamePasses ~= nil then
 			self.has_game_passes = input.hasGamePasses
+		end
+
+		if input.community_id ~= nil then
+			self.community_id = input.community_id
+		end
+
+		if input.communityId ~= nil then
+			self.community_id = input.communityId
 		end
 
 		return self
@@ -10653,6 +10682,12 @@ do
 			tile_activation_mode = if data == nil or data.tile_activation_mode == nil
 				then ""
 				else data.tile_activation_mode,
+			initial_feed_visible_rows = if data == nil or data.initial_feed_visible_rows == nil
+				then nil
+				else data.initial_feed_visible_rows,
+			visible_rows_per_reveal = if data == nil or data.visible_rows_per_reveal == nil
+				then nil
+				else data.visible_rows_per_reveal,
 			sponsored_user_cohort = if data == nil or data.sponsored_user_cohort == nil
 				then nil
 				else data.sponsored_user_cohort,
@@ -10741,6 +10776,16 @@ do
 			output, cursor = proto.writeString(output, cursor, self.tile_activation_mode)
 		end
 
+		if self.initial_feed_visible_rows ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.initial_feed_visible_rows)
+		end
+
+		if self.visible_rows_per_reveal ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.visible_rows_per_reveal)
+		end
+
 		if self.sponsored_user_cohort ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.sponsored_user_cohort)
@@ -10784,6 +10829,16 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.has_emphasized_tile = value ~= 0
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.initial_feed_visible_rows = value
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.visible_rows_per_reveal = value
 					continue
 				end
 
@@ -10936,6 +10991,14 @@ do
 			output.tileActivationMode = self.tile_activation_mode
 		end
 
+		if self.initial_feed_visible_rows ~= nil then
+			output.initialFeedVisibleRows = self.initial_feed_visible_rows
+		end
+
+		if self.visible_rows_per_reveal ~= nil then
+			output.visibleRowsPerReveal = self.visible_rows_per_reveal
+		end
+
 		if self.sponsored_user_cohort ~= nil then
 			output.sponsoredUserCohort = self.sponsored_user_cohort
 		end
@@ -11066,6 +11129,22 @@ do
 
 		if input.tileActivationMode ~= nil then
 			self.tile_activation_mode = input.tileActivationMode
+		end
+
+		if input.initial_feed_visible_rows ~= nil then
+			self.initial_feed_visible_rows = input.initial_feed_visible_rows
+		end
+
+		if input.initialFeedVisibleRows ~= nil then
+			self.initial_feed_visible_rows = input.initialFeedVisibleRows
+		end
+
+		if input.visible_rows_per_reveal ~= nil then
+			self.visible_rows_per_reveal = input.visible_rows_per_reveal
+		end
+
+		if input.visibleRowsPerReveal ~= nil then
+			self.visible_rows_per_reveal = input.visibleRowsPerReveal
 		end
 
 		if input.sponsored_user_cohort ~= nil then

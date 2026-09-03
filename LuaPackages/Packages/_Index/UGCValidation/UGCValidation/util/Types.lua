@@ -129,6 +129,8 @@ export type SharedData = {
 	uploadEnum: UploadEnum,
 	consumerConfig: PreloadedConsumerConfigs,
 	aqsFetchMetrics: AssetQualityMetrics,
+	r15LegacyDuplicateRoot: Instance, -- R15Fixed duplicate; schema-checked only to catch smuggled payloads (present only when the engine feature populates it)
+
 	aqsSummaryData: { [string]: { [string]: { [string]: number } } },
 	renderMeshesData: { [string]: EditableMeshData },
 	innerCagesData: { [string]: EditableCageData },
@@ -186,6 +188,7 @@ export type ValidationReporter = {
 	warn: ValidationReporterReportMethod,
 	err: (self: ValidationReporter, logMessage: string) -> nil,
 	setReportingInstance: (self: ValidationReporter, instance: Instance?) -> nil,
+	setReportingRoot: (self: ValidationReporter, rootInstance: Instance) -> nil,
 	-- Backend-only: throws past ValidationManager so RCC reschedules the job.
 	forceError: (self: ValidationReporter, message: string) -> never,
 	-- Aborts the current test. Backend re-raises (RCC reschedules); Studio/IEC reports as err.

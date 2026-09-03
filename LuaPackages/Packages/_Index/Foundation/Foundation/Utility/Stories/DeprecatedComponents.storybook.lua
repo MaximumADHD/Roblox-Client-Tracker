@@ -13,7 +13,7 @@ return {
 	name = "Components [Deprecated]",
 	group = "Foundation",
 	roact = Roact,
-	storyRoots = GetStories("deprecated"),
+	storyRoots = GetStories.getStorybookRoots("deprecated"),
 	mapStory = StoryMiddleware,
 	packages = {
 		React = React,

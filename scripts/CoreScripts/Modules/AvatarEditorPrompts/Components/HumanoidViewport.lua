@@ -147,11 +147,7 @@ function HumanoidViewport:loadHumanoidModel()
 	coroutine.wrap(function()
 		local model
 		pcall(function()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				model = Players:CreateHumanoidModelFromDescriptionAsync(humanoidDescription, rigType)
-			else
-				model = (Players :: never):CreateHumanoidModelFromDescription(humanoidDescription, rigType)
-			end
+			model = Players:CreateHumanoidModelFromDescriptionAsync(humanoidDescription, rigType)
 		end)
 
 		if not self.mounted then

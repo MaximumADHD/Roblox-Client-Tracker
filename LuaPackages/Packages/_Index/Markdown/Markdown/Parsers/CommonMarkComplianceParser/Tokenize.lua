@@ -66,7 +66,8 @@ local HEAD_MATCHERS: HeadMatchers = {
 		{ "CODE_BLOCK", "^~~~[ \t]*([^\n]*)[ \t]*\n(.-)~~~" }, -- ~~~foo\n```, ~~~foo\n```
 		{ "CODE_BLOCK", "^~~~[ \t]*([^\n]*)[ \t]*\n(.+)$" }, -- ~~~foo\nEOF, ~~~foo\nEOF
 		{ "QUOTE", "^%s*>" }, -- > Quote
-		{ "ORDERED_LIST_ITEM", "^(%s*)([0-9A-Za-z]+)%." }, -- a. blah
+		{ "ORDERED_LIST_ITEM", "^(%s*)([0-9]+)%.[ \t]+" }, -- 1. blah
+		{ "ORDERED_LIST_ITEM", "^(%s*)([A-Za-z])%.[ \t]+" }, -- a. blah
 		{ "TABLE_ROW", "^|" }, -- |
 	},
 	["\\"] = BACKSLASH_MATCHERS,

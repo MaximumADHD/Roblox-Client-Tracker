@@ -1,6 +1,10 @@
+local Root = script:FindFirstAncestor("ChromeShared")
+
 local ChromeService = require(script.Parent.ChromeService)
 local ChromeUtils = require(script.Parent.ChromeUtils)
 local CorePackages = game:GetService("CorePackages")
+
+local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local expect = JestGlobals.expect
@@ -92,6 +96,96 @@ describe("Unibar Layout Signal", function()
 		expect(layout.Min.Y).toBe(200)
 	end)
 end)
+
+if FFlagChromeNineDotActivityIndicator then
+	describe("nine-dot activity indicator", function()
+		it("SHOULD expose caller-controlled visibility", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(true)
+		end)
+
+		it("SHOULD hide when the caller clears visibility", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+
+			service:setNineDotActivityIndicatorVisible("feature-a", false)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(false)
+		end)
+
+		it("SHOULD stay visible while another feature still requests the dot", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+			service:setNineDotActivityIndicatorVisible("feature-b", true)
+
+			service:setNineDotActivityIndicatorVisible("feature-b", false)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(true)
+		end)
+
+		it("SHOULD hide once every requesting feature has cleared", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+			service:setNineDotActivityIndicatorVisible("feature-b", true)
+
+			service:setNineDotActivityIndicatorVisible("feature-a", false)
+			service:setNineDotActivityIndicatorVisible("feature-b", false)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(false)
+		end)
+
+		it("SHOULD ignore a feature that never requested the dot", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+
+			service:setNineDotActivityIndicatorVisible("feature-b", false)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(true)
+		end)
+
+		it("SHOULD hide while the hamburger menu is open", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+
+			service:currentSubMenu():set("nine_dot")
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(false)
+		end)
+
+		it("SHOULD reappear when the hamburger menu closes", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+			service:currentSubMenu():set("nine_dot")
+
+			service:currentSubMenu():set(nil :: string?)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(true)
+		end)
+
+		it("SHOULD stay hidden when the feature clears while the menu is open", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+			service:currentSubMenu():set("nine_dot")
+
+			service:setNineDotActivityIndicatorVisible("feature-a", false)
+			service:currentSubMenu():set(nil :: string?)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(false)
+		end)
+
+		it("SHOULD stay hidden while the menu is open when a new feature requests the dot", function()
+			local service: ChromeService.ChromeService = ChromeService.new()
+			service:currentSubMenu():set("nine_dot")
+
+			service:setNineDotActivityIndicatorVisible("feature-a", true)
+
+			expect(service:nineDotActivityIndicatorVisible():get()).toBe(false)
+		end)
+	end)
+end
 
 describe("updateMenuList", function()
 	it("SHOULD include open windows from menu config in windowList", function()

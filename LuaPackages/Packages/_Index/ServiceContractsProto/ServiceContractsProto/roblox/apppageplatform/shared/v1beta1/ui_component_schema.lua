@@ -111,6 +111,8 @@ type _Messages =
 		OptionSelectorCollectionSchema_Props: _OptionSelectorCollectionSchema_PropsMessage,
 		CollectionGridSchema: _CollectionGridSchemaMessage,
 		CollectionGridSchema_Props: _CollectionGridSchema_PropsMessage,
+		RevealRowsButtonWithDividerSchema: _RevealRowsButtonWithDividerSchemaMessage,
+		RevealRowsButtonWithDividerSchema_Props: _RevealRowsButtonWithDividerSchema_PropsMessage,
 		SingleItemCollectionSchema: _SingleItemCollectionSchemaMessage,
 		SingleItemCollectionSchema_Props: _SingleItemCollectionSchema_PropsMessage,
 		SeeAllTileSchema: _SeeAllTileSchemaMessage,
@@ -192,6 +194,8 @@ type _Messages =
 		UserListSchema_Props: _UserListSchema_PropsMessage,
 		FriendRequestButtonSchema: _FriendRequestButtonSchemaMessage,
 		FriendRequestButtonSchema_Props: _FriendRequestButtonSchema_PropsMessage,
+		FriendCarouselSchema: _FriendCarouselSchemaMessage,
+		FriendCarouselSchema_Props: _FriendCarouselSchema_PropsMessage,
 		CatalogItemCarouselSchema: _CatalogItemCarouselSchemaMessage,
 		CatalogItemCarouselSchema_Props: _CatalogItemCarouselSchema_PropsMessage,
 		CatalogHeroUnitSchema: _CatalogHeroUnitSchemaMessage,
@@ -1703,7 +1707,8 @@ type _GameTileSchema_PropsFields = {
 	open_game_details_on_purchase_required: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
-	video_player: NestedComponentProp?,
+	video_player: LazyNestedComponentProp?,
+	disable_default_play_button_on_hover: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _GameTileSchema_PropsPartialFields = {
@@ -1742,7 +1747,8 @@ type _GameTileSchema_PropsPartialFields = {
 	open_game_details_on_purchase_required: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
-	video_player: NestedComponentProp?,
+	video_player: LazyNestedComponentProp?,
+	disable_default_play_button_on_hover: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type GameTileSchema_Props = typeof(setmetatable(
@@ -4126,6 +4132,9 @@ type _CollectionGridSchema_PropsFields = {
 	on_reached_threshold_from_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	initial_feed_visible_rows: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	visible_rows_per_reveal: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	reveal_rows_component: LazyNestedComponentProp?,
 }
 
 type _CollectionGridSchema_PropsPartialFields = {
@@ -4148,6 +4157,9 @@ type _CollectionGridSchema_PropsPartialFields = {
 	on_reached_threshold_from_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	initial_feed_visible_rows: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	visible_rows_per_reveal: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	reveal_rows_component: LazyNestedComponentProp?,
 }
 
 export type CollectionGridSchema_Props = typeof(setmetatable(
@@ -4157,6 +4169,62 @@ export type CollectionGridSchema_Props = typeof(setmetatable(
 type _CollectionGridSchema_PropsMessage = proto.Message<
 	CollectionGridSchema_Props,
 	_CollectionGridSchema_PropsPartialFields
+>
+
+type _RevealRowsButtonWithDividerSchemaImpl = {
+	__index: _RevealRowsButtonWithDividerSchemaImpl,
+	new: (fields: _RevealRowsButtonWithDividerSchemaPartialFields?) -> RevealRowsButtonWithDividerSchema,
+	encode: (self: RevealRowsButtonWithDividerSchema) -> buffer,
+	decode: (input: buffer) -> RevealRowsButtonWithDividerSchema,
+	jsonEncode: (self: RevealRowsButtonWithDividerSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RevealRowsButtonWithDividerSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _RevealRowsButtonWithDividerSchemaFields = {
+	props: RevealRowsButtonWithDividerSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _RevealRowsButtonWithDividerSchemaPartialFields = {
+	props: RevealRowsButtonWithDividerSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type RevealRowsButtonWithDividerSchema = typeof(setmetatable(
+	{} :: _RevealRowsButtonWithDividerSchemaFields,
+	{} :: _RevealRowsButtonWithDividerSchemaImpl
+))
+type _RevealRowsButtonWithDividerSchemaMessage = proto.Message<
+	RevealRowsButtonWithDividerSchema,
+	_RevealRowsButtonWithDividerSchemaPartialFields
+>
+
+type _RevealRowsButtonWithDividerSchema_PropsImpl = {
+	__index: _RevealRowsButtonWithDividerSchema_PropsImpl,
+	new: (fields: _RevealRowsButtonWithDividerSchema_PropsPartialFields?) -> RevealRowsButtonWithDividerSchema_Props,
+	encode: (self: RevealRowsButtonWithDividerSchema_Props) -> buffer,
+	decode: (input: buffer) -> RevealRowsButtonWithDividerSchema_Props,
+	jsonEncode: (self: RevealRowsButtonWithDividerSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RevealRowsButtonWithDividerSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _RevealRowsButtonWithDividerSchema_PropsFields = {
+	cta_component: LazyNestedComponentProp?,
+}
+
+type _RevealRowsButtonWithDividerSchema_PropsPartialFields = {
+	cta_component: LazyNestedComponentProp?,
+}
+
+export type RevealRowsButtonWithDividerSchema_Props = typeof(setmetatable(
+	{} :: _RevealRowsButtonWithDividerSchema_PropsFields,
+	{} :: _RevealRowsButtonWithDividerSchema_PropsImpl
+))
+type _RevealRowsButtonWithDividerSchema_PropsMessage = proto.Message<
+	RevealRowsButtonWithDividerSchema_Props,
+	_RevealRowsButtonWithDividerSchema_PropsPartialFields
 >
 
 type _SingleItemCollectionSchemaImpl = {
@@ -6777,6 +6845,59 @@ export type FriendRequestButtonSchema_Props = typeof(setmetatable(
 type _FriendRequestButtonSchema_PropsMessage = proto.Message<
 	FriendRequestButtonSchema_Props,
 	_FriendRequestButtonSchema_PropsPartialFields
+>
+
+type _FriendCarouselSchemaImpl = {
+	__index: _FriendCarouselSchemaImpl,
+	new: (fields: _FriendCarouselSchemaPartialFields?) -> FriendCarouselSchema,
+	encode: (self: FriendCarouselSchema) -> buffer,
+	decode: (input: buffer) -> FriendCarouselSchema,
+	jsonEncode: (self: FriendCarouselSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FriendCarouselSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _FriendCarouselSchemaFields = {
+	props: FriendCarouselSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _FriendCarouselSchemaPartialFields = {
+	props: FriendCarouselSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type FriendCarouselSchema = typeof(setmetatable(
+	{} :: _FriendCarouselSchemaFields,
+	{} :: _FriendCarouselSchemaImpl
+))
+type _FriendCarouselSchemaMessage = proto.Message<FriendCarouselSchema, _FriendCarouselSchemaPartialFields>
+
+type _FriendCarouselSchema_PropsImpl = {
+	__index: _FriendCarouselSchema_PropsImpl,
+	new: (fields: _FriendCarouselSchema_PropsPartialFields?) -> FriendCarouselSchema_Props,
+	encode: (self: FriendCarouselSchema_Props) -> buffer,
+	decode: (input: buffer) -> FriendCarouselSchema_Props,
+	jsonEncode: (self: FriendCarouselSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FriendCarouselSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _FriendCarouselSchema_PropsFields = {
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _FriendCarouselSchema_PropsPartialFields = {
+	sort_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type FriendCarouselSchema_Props = typeof(setmetatable(
+	{} :: _FriendCarouselSchema_PropsFields,
+	{} :: _FriendCarouselSchema_PropsImpl
+))
+type _FriendCarouselSchema_PropsMessage = proto.Message<
+	FriendCarouselSchema_Props,
+	_FriendCarouselSchema_PropsPartialFields
 >
 
 type _CatalogItemCarouselSchemaImpl = {
@@ -10842,6 +10963,8 @@ type _UiComponentSchemaFields = {
 		| { type: "virtual_game_item_text", value: VirtualGameItemTextSchema }
 		| { type: "video_player", value: VideoPlayerSchema }
 		| { type: "vertical_list_with_impressions", value: VerticalListWithImpressionsSchema }
+		| { type: "friend_carousel", value: FriendCarouselSchema }
+		| { type: "reveal_rows_button_with_divider", value: RevealRowsButtonWithDividerSchema }
 	)?,
 }
 
@@ -10934,6 +11057,8 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "virtual_game_item_text", value: VirtualGameItemTextSchema }
 		| { type: "video_player", value: VideoPlayerSchema }
 		| { type: "vertical_list_with_impressions", value: VerticalListWithImpressionsSchema }
+		| { type: "friend_carousel", value: FriendCarouselSchema }
+		| { type: "reveal_rows_button_with_divider", value: RevealRowsButtonWithDividerSchema }
 	)?,
 }
 
@@ -18307,6 +18432,10 @@ do
 				then nil
 				else data.disable_default_footer_logic,
 			video_player = if data == nil or data.video_player == nil then nil else data.video_player,
+			disable_default_play_button_on_hover = if data == nil
+					or data.disable_default_play_button_on_hover == nil
+				then nil
+				else data.disable_default_play_button_on_hover,
 		}, _GameTileSchema_PropsImpl :: _GameTileSchema_PropsImpl)
 	end
 
@@ -18530,6 +18659,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.disable_default_play_button_on_hover ~= nil then
+			local encoded = self.disable_default_play_button_on_hover:encode()
+			output, cursor = proto.writeTag(output, cursor, 110, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -18734,7 +18869,13 @@ do
 				elseif field == 109 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.video_player = messages.NestedComponentProp.decode(value)
+					self.video_player = messages.LazyNestedComponentProp.decode(value)
+					continue
+				elseif field == 110 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.disable_default_play_button_on_hover =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -18905,6 +19046,10 @@ do
 
 		if self.video_player ~= nil then
 			output.videoPlayer = self.video_player:jsonEncode()
+		end
+
+		if self.disable_default_play_button_on_hover ~= nil then
+			output.disableDefaultPlayButtonOnHover = self.disable_default_play_button_on_hover:jsonEncode()
 		end
 
 		return output
@@ -19241,11 +19386,25 @@ do
 		end
 
 		if input.video_player ~= nil then
-			self.video_player = messages.NestedComponentProp.jsonDecode(input.video_player)
+			self.video_player = messages.LazyNestedComponentProp.jsonDecode(input.video_player)
 		end
 
 		if input.videoPlayer ~= nil then
-			self.video_player = messages.NestedComponentProp.jsonDecode(input.videoPlayer)
+			self.video_player = messages.LazyNestedComponentProp.jsonDecode(input.videoPlayer)
+		end
+
+		if input.disable_default_play_button_on_hover ~= nil then
+			self.disable_default_play_button_on_hover =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.disable_default_play_button_on_hover
+				)
+		end
+
+		if input.disableDefaultPlayButtonOnHover ~= nil then
+			self.disable_default_play_button_on_hover =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.disableDefaultPlayButtonOnHover
+				)
 		end
 
 		return self
@@ -36622,6 +36781,15 @@ do
 			skip_item_impressions_log = if data == nil or data.skip_item_impressions_log == nil
 				then nil
 				else data.skip_item_impressions_log,
+			initial_feed_visible_rows = if data == nil or data.initial_feed_visible_rows == nil
+				then nil
+				else data.initial_feed_visible_rows,
+			visible_rows_per_reveal = if data == nil or data.visible_rows_per_reveal == nil
+				then nil
+				else data.visible_rows_per_reveal,
+			reveal_rows_component = if data == nil or data.reveal_rows_component == nil
+				then nil
+				else data.reveal_rows_component,
 		}, _CollectionGridSchema_PropsImpl :: _CollectionGridSchema_PropsImpl)
 	end
 
@@ -36740,6 +36908,24 @@ do
 		if self.skip_item_impressions_log ~= nil then
 			local encoded = self.skip_item_impressions_log:encode()
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.initial_feed_visible_rows ~= nil then
+			local encoded = self.initial_feed_visible_rows:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.visible_rows_per_reveal ~= nil then
+			local encoded = self.visible_rows_per_reveal:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.reveal_rows_component ~= nil then
+			local encoded = self.reveal_rows_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -36867,6 +37053,23 @@ do
 					self.skip_item_impressions_log =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.initial_feed_visible_rows =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visible_rows_per_reveal =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.reveal_rows_component = messages.LazyNestedComponentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -36968,6 +37171,18 @@ do
 
 		if self.skip_item_impressions_log ~= nil then
 			output.skipItemImpressionsLog = self.skip_item_impressions_log:jsonEncode()
+		end
+
+		if self.initial_feed_visible_rows ~= nil then
+			output.initialFeedVisibleRows = self.initial_feed_visible_rows:jsonEncode()
+		end
+
+		if self.visible_rows_per_reveal ~= nil then
+			output.visibleRowsPerReveal = self.visible_rows_per_reveal:jsonEncode()
+		end
+
+		if self.reveal_rows_component ~= nil then
+			output.revealRowsComponent = self.reveal_rows_component:jsonEncode()
 		end
 
 		return output
@@ -37147,6 +37362,34 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipItemImpressionsLog)
 		end
 
+		if input.initial_feed_visible_rows ~= nil then
+			self.initial_feed_visible_rows =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.initial_feed_visible_rows)
+		end
+
+		if input.initialFeedVisibleRows ~= nil then
+			self.initial_feed_visible_rows =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.initialFeedVisibleRows)
+		end
+
+		if input.visible_rows_per_reveal ~= nil then
+			self.visible_rows_per_reveal =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.visible_rows_per_reveal)
+		end
+
+		if input.visibleRowsPerReveal ~= nil then
+			self.visible_rows_per_reveal =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.visibleRowsPerReveal)
+		end
+
+		if input.reveal_rows_component ~= nil then
+			self.reveal_rows_component = messages.LazyNestedComponentProp.jsonDecode(input.reveal_rows_component)
+		end
+
+		if input.revealRowsComponent ~= nil then
+			self.reveal_rows_component = messages.LazyNestedComponentProp.jsonDecode(input.revealRowsComponent)
+		end
+
 		return self
 	end
 
@@ -37158,6 +37401,235 @@ do
 	messages.CollectionGridSchema_Props = _CollectionGridSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.CollectionGridSchema_Props)
+end
+
+do
+	local _RevealRowsButtonWithDividerSchemaImpl = {}
+	_RevealRowsButtonWithDividerSchemaImpl.__index = _RevealRowsButtonWithDividerSchemaImpl
+
+	function _RevealRowsButtonWithDividerSchemaImpl.new(
+		data: _RevealRowsButtonWithDividerSchemaPartialFields?
+	): RevealRowsButtonWithDividerSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _RevealRowsButtonWithDividerSchemaImpl :: _RevealRowsButtonWithDividerSchemaImpl)
+	end
+
+	function _RevealRowsButtonWithDividerSchemaImpl.encode(self: RevealRowsButtonWithDividerSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RevealRowsButtonWithDividerSchemaImpl.decode(input: buffer): RevealRowsButtonWithDividerSchema
+		local self = _RevealRowsButtonWithDividerSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.RevealRowsButtonWithDividerSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RevealRowsButtonWithDividerSchemaImpl.jsonEncode(self: RevealRowsButtonWithDividerSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RevealRowsButtonWithDividerSchemaImpl.jsonDecode(
+		input: { [string]: any }
+	): RevealRowsButtonWithDividerSchema
+		local self = _RevealRowsButtonWithDividerSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.RevealRowsButtonWithDividerSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_RevealRowsButtonWithDividerSchemaImpl.descriptor = {
+		name = "RevealRowsButtonWithDividerSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RevealRowsButtonWithDividerSchema",
+	}
+
+	messages.RevealRowsButtonWithDividerSchema = _RevealRowsButtonWithDividerSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RevealRowsButtonWithDividerSchema)
+end
+
+do
+	local _RevealRowsButtonWithDividerSchema_PropsImpl = {}
+	_RevealRowsButtonWithDividerSchema_PropsImpl.__index = _RevealRowsButtonWithDividerSchema_PropsImpl
+
+	function _RevealRowsButtonWithDividerSchema_PropsImpl.new(
+		data: _RevealRowsButtonWithDividerSchema_PropsPartialFields?
+	): RevealRowsButtonWithDividerSchema_Props
+		return setmetatable({
+			cta_component = if data == nil or data.cta_component == nil then nil else data.cta_component,
+		}, _RevealRowsButtonWithDividerSchema_PropsImpl :: _RevealRowsButtonWithDividerSchema_PropsImpl)
+	end
+
+	function _RevealRowsButtonWithDividerSchema_PropsImpl.encode(self: RevealRowsButtonWithDividerSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.cta_component ~= nil then
+			local encoded = self.cta_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RevealRowsButtonWithDividerSchema_PropsImpl.decode(input: buffer): RevealRowsButtonWithDividerSchema_Props
+		local self = _RevealRowsButtonWithDividerSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_component = messages.LazyNestedComponentProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RevealRowsButtonWithDividerSchema_PropsImpl.jsonEncode(self: RevealRowsButtonWithDividerSchema_Props): any
+		local output = {}
+
+		if self.cta_component ~= nil then
+			output.ctaComponent = self.cta_component:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RevealRowsButtonWithDividerSchema_PropsImpl.jsonDecode(
+		input: { [string]: any }
+	): RevealRowsButtonWithDividerSchema_Props
+		local self = _RevealRowsButtonWithDividerSchema_PropsImpl.new()
+
+		if input.cta_component ~= nil then
+			self.cta_component = messages.LazyNestedComponentProp.jsonDecode(input.cta_component)
+		end
+
+		if input.ctaComponent ~= nil then
+			self.cta_component = messages.LazyNestedComponentProp.jsonDecode(input.ctaComponent)
+		end
+
+		return self
+	end
+
+	_RevealRowsButtonWithDividerSchema_PropsImpl.descriptor = {
+		name = "RevealRowsButtonWithDividerSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.RevealRowsButtonWithDividerSchema_Props = _RevealRowsButtonWithDividerSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RevealRowsButtonWithDividerSchema_Props)
 end
 
 do
@@ -52881,6 +53353,229 @@ do
 	messages.FriendRequestButtonSchema_Props = _FriendRequestButtonSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.FriendRequestButtonSchema_Props)
+end
+
+do
+	local _FriendCarouselSchemaImpl = {}
+	_FriendCarouselSchemaImpl.__index = _FriendCarouselSchemaImpl
+
+	function _FriendCarouselSchemaImpl.new(data: _FriendCarouselSchemaPartialFields?): FriendCarouselSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _FriendCarouselSchemaImpl :: _FriendCarouselSchemaImpl)
+	end
+
+	function _FriendCarouselSchemaImpl.encode(self: FriendCarouselSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FriendCarouselSchemaImpl.decode(input: buffer): FriendCarouselSchema
+		local self = _FriendCarouselSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.FriendCarouselSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FriendCarouselSchemaImpl.jsonEncode(self: FriendCarouselSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _FriendCarouselSchemaImpl.jsonDecode(input: { [string]: any }): FriendCarouselSchema
+		local self = _FriendCarouselSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.FriendCarouselSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_FriendCarouselSchemaImpl.descriptor = {
+		name = "FriendCarouselSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FriendCarouselSchema",
+	}
+
+	messages.FriendCarouselSchema = _FriendCarouselSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FriendCarouselSchema)
+end
+
+do
+	local _FriendCarouselSchema_PropsImpl = {}
+	_FriendCarouselSchema_PropsImpl.__index = _FriendCarouselSchema_PropsImpl
+
+	function _FriendCarouselSchema_PropsImpl.new(
+		data: _FriendCarouselSchema_PropsPartialFields?
+	): FriendCarouselSchema_Props
+		return setmetatable({
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+		}, _FriendCarouselSchema_PropsImpl :: _FriendCarouselSchema_PropsImpl)
+	end
+
+	function _FriendCarouselSchema_PropsImpl.encode(self: FriendCarouselSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.sort_id ~= nil then
+			local encoded = self.sort_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FriendCarouselSchema_PropsImpl.decode(input: buffer): FriendCarouselSchema_Props
+		local self = _FriendCarouselSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FriendCarouselSchema_PropsImpl.jsonEncode(self: FriendCarouselSchema_Props): any
+		local output = {}
+
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _FriendCarouselSchema_PropsImpl.jsonDecode(input: { [string]: any }): FriendCarouselSchema_Props
+		local self = _FriendCarouselSchema_PropsImpl.new()
+
+		if input.sort_id ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sort_id)
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sortId)
+		end
+
+		return self
+	end
+
+	_FriendCarouselSchema_PropsImpl.descriptor = {
+		name = "FriendCarouselSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.FriendCarouselSchema_Props = _FriendCarouselSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FriendCarouselSchema_Props)
 end
 
 do
@@ -75623,6 +76318,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 87, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "friend_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 88, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "reveal_rows_button_with_divider" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 89, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -76119,6 +76822,19 @@ do
 						value = messages.VerticalListWithImpressionsSchema.decode(value),
 					}
 					continue
+				elseif field == 88 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "friend_carousel", value = messages.FriendCarouselSchema.decode(value) }
+					continue
+				elseif field == 89 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "reveal_rows_button_with_divider",
+						value = messages.RevealRowsButtonWithDividerSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -76321,6 +77037,10 @@ do
 				output.videoPlayer = self.kind.value:jsonEncode()
 			elseif self.kind.type == "vertical_list_with_impressions" then
 				output.verticalListWithImpressions = self.kind.value:jsonEncode()
+			elseif self.kind.type == "friend_carousel" then
+				output.friendCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "reveal_rows_button_with_divider" then
+				output.revealRowsButtonWithDivider = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -77148,6 +77868,30 @@ do
 			}
 		end
 
+		if input.friend_carousel ~= nil then
+			self.kind =
+				{ type = "friend_carousel", value = messages.FriendCarouselSchema.jsonDecode(input.friend_carousel) }
+		end
+
+		if input.friendCarousel ~= nil then
+			self.kind =
+				{ type = "friend_carousel", value = messages.FriendCarouselSchema.jsonDecode(input.friendCarousel) }
+		end
+
+		if input.reveal_rows_button_with_divider ~= nil then
+			self.kind = {
+				type = "reveal_rows_button_with_divider",
+				value = messages.RevealRowsButtonWithDividerSchema.jsonDecode(input.reveal_rows_button_with_divider),
+			}
+		end
+
+		if input.revealRowsButtonWithDivider ~= nil then
+			self.kind = {
+				type = "reveal_rows_button_with_divider",
+				value = messages.RevealRowsButtonWithDividerSchema.jsonDecode(input.revealRowsButtonWithDivider),
+			}
+		end
+
 		return self
 	end
 
@@ -77258,6 +78002,8 @@ return {
 	OptionSelectorCollectionSchema_Props = messages.OptionSelectorCollectionSchema_Props,
 	CollectionGridSchema = messages.CollectionGridSchema,
 	CollectionGridSchema_Props = messages.CollectionGridSchema_Props,
+	RevealRowsButtonWithDividerSchema = messages.RevealRowsButtonWithDividerSchema,
+	RevealRowsButtonWithDividerSchema_Props = messages.RevealRowsButtonWithDividerSchema_Props,
 	SingleItemCollectionSchema = messages.SingleItemCollectionSchema,
 	SingleItemCollectionSchema_Props = messages.SingleItemCollectionSchema_Props,
 	SeeAllTileSchema = messages.SeeAllTileSchema,
@@ -77339,6 +78085,8 @@ return {
 	UserListSchema_Props = messages.UserListSchema_Props,
 	FriendRequestButtonSchema = messages.FriendRequestButtonSchema,
 	FriendRequestButtonSchema_Props = messages.FriendRequestButtonSchema_Props,
+	FriendCarouselSchema = messages.FriendCarouselSchema,
+	FriendCarouselSchema_Props = messages.FriendCarouselSchema_Props,
 	CatalogItemCarouselSchema = messages.CatalogItemCarouselSchema,
 	CatalogItemCarouselSchema_Props = messages.CatalogItemCarouselSchema_Props,
 	CatalogHeroUnitSchema = messages.CatalogHeroUnitSchema,

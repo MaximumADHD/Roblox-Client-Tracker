@@ -85,11 +85,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -108,7 +108,7 @@ local function Subsection(props: {
 	}, {
 		Title = if props.note
 			then React.createElement(View, {
-				tag = "col gap-xsmall align-x-left auto-xy",
+				tag = "col align-x-left gap-xsmall auto-xy",
 				LayoutOrder = 1,
 			}, {
 				Name = React.createElement(Text, {
@@ -128,7 +128,7 @@ local function Subsection(props: {
 				LayoutOrder = 1,
 			}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -201,7 +201,7 @@ local function LabeledProgress(props: {
 	local shape: ProgressShape = props.shape or ProgressShape.Bar
 
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -276,7 +276,7 @@ local function VariantsStory(): React.ReactNode
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-large align-y-start auto-xy wrap padding-large bg-surface-0",
+			tag = "row wrap gap-large auto-xy padding-large bg-surface-0",
 		},
 		Dash.map(SHAPE_ORDER, function(shape, index)
 			return React.createElement(LabeledProgress, {
@@ -303,7 +303,7 @@ local function SizingStory(): React.ReactNode
 				{
 					LayoutOrder = 1,
 					name = "Circle",
-					contentTag = "row gap-large align-y-start auto-xy wrap",
+					contentTag = "row gap-large auto-xy wrap",
 				},
 				Dash.map(SIZE_ORDER, function(size, index)
 					return React.createElement(LabeledProgress, {
@@ -376,7 +376,7 @@ local function StatesStory(): React.ReactNode
 		Indeterminate = React.createElement(Section, {
 			LayoutOrder = 1,
 			name = "Indeterminate",
-			contentTag = "row gap-large align-y-start auto-xy wrap",
+			contentTag = "row gap-large auto-xy wrap",
 		}, {
 			Circle = React.createElement(LabeledProgress, {
 				label = ProgressShape.Circle :: string,
@@ -437,7 +437,7 @@ local function ControlledProgressExample(): React.ReactNode
 			LayoutOrder = 1,
 		}),
 		Circles = React.createElement(View, {
-			tag = "row gap-large align-y-center auto-xy",
+			tag = "row align-y-center gap-large auto-xy",
 			LayoutOrder = 2,
 		}, {
 			Medium = React.createElement(LabeledProgress, {
@@ -544,7 +544,7 @@ local function ContentStory(): React.ReactNode
 				{
 					LayoutOrder = 1,
 					name = "Circle",
-					contentTag = "row gap-large align-y-start auto-xy wrap",
+					contentTag = "row gap-large auto-xy wrap",
 				},
 				Dash.map(VALUE_INCREMENTS, function(value, index)
 					return React.createElement(LabeledProgress, {
@@ -560,7 +560,7 @@ local function ContentStory(): React.ReactNode
 				{
 					LayoutOrder = 2,
 					name = "Bar",
-					contentTag = "row gap-large align-y-start auto-xy wrap",
+					contentTag = "row gap-large auto-xy wrap",
 				},
 				Dash.map(VALUE_INCREMENTS, function(value, index)
 					return React.createElement(LabeledProgress, {
@@ -582,7 +582,7 @@ local function ContentStory(): React.ReactNode
 				{
 					LayoutOrder = 1,
 					name = "Circle",
-					contentTag = "row gap-large align-y-start auto-xy wrap",
+					contentTag = "row gap-large auto-xy wrap",
 				},
 				Dash.map(CLAMPING_VALUES, function(example, index)
 					return React.createElement(LabeledProgress, {
@@ -598,7 +598,7 @@ local function ContentStory(): React.ReactNode
 				{
 					LayoutOrder = 2,
 					name = "Bar",
-					contentTag = "row gap-large align-y-start auto-xy wrap",
+					contentTag = "row gap-large auto-xy wrap",
 				},
 				Dash.map(CLAMPING_VALUES, function(example, index)
 					return React.createElement(LabeledProgress, {
@@ -631,7 +631,7 @@ local function ContentStory(): React.ReactNode
 				LayoutOrder = 2,
 				name = "Bar",
 				note = if Flags.FoundationProgressBarBetaUpdate then nil else "Labels are not available.",
-				contentTag = "row gap-xlarge align-y-start auto-xy wrap",
+				contentTag = "row gap-xlarge auto-xy wrap",
 			}, {
 				Default = React.createElement(LabeledProgress, {
 					label = "Default labels",

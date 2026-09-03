@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -16,8 +17,13 @@ local InputVariant = require(Foundation.Enums.InputVariant)
 
 local TextInput = require(Foundation.Components.TextInput)
 
+local ICON_CONTROL_OPTIONS = StoryIcons.buildIconControlOptions()
+
 local function Story(props)
 	local controls = props.controls
+
+	local leadingIcon = StoryIcons.parseIconControl(controls.leadingIcon)
+	local trailingIcon = StoryIcons.parseIconControl(controls.iconTrailing)
 
 	local text, setText = React.useBinding("")
 	local numReturnPressed, setNumReturnPressed = React.useState(0)
@@ -76,15 +82,15 @@ local function Story(props)
 			width = if controls.width == 0 then nil else UDim.new(0, controls.width),
 			hint = if controls.hint == "" then nil else controls.hint,
 			placeholder = controls.placeholder,
-			leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
-			iconTrailing = if controls.iconTrailing == React.None
+			leadingIcon = leadingIcon,
+			iconTrailing = if trailingIcon == nil
 				then nil
 				else if controls.trailingButton
 					then {
-						name = controls.iconTrailing,
+						name = trailingIcon,
 						onActivated = buttonPress,
 					}
-					else controls.iconTrailing,
+					else trailingIcon,
 			textBoxRef = ref,
 		}),
 
@@ -138,20 +144,8 @@ return {
 		label = "Input Label",
 		hint = "Helper text goes here",
 		placeholder = "Placeholder text",
-		leadingIcon = {
-			"icons/placeholder/placeholderOn_small",
-			"icons/status/private_small",
-			"icons/common/search_small",
-			React.None,
-		},
-		iconTrailing = {
-			"icons/placeholder/placeholderOff",
-			"icons/actions/edit/clear_small",
-			"icons/actions/info_small",
-			"icons/actions/viewOn",
-			"icons/actions/viewOff",
-			React.None,
-		},
+		leadingIcon = ICON_CONTROL_OPTIONS,
+		iconTrailing = ICON_CONTROL_OPTIONS,
 		trailingButton = false,
 		width = 0,
 	},

@@ -5,18 +5,18 @@ local React = require(Packages.React)
 
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local CursorComponent = require(Foundation.Providers.Cursor.CursorComponent)
+local View = require(Foundation.Components.View)
 
 return {
 	summary = "Selection cursors for different types of UI elements",
 	story = function(props)
 		local controls = props.controls
 
-		return React.createElement("Frame", {
-			BackgroundTransparency = 1,
+		return React.createElement(View, {
 			Size = UDim2.fromOffset(100, 50),
 		}, {
-			Frame = React.createElement("Frame", {
-				BackgroundTransparency = 1,
+			-- The cursor draws outside its host, so inset the host to keep the stroke visible.
+			CursorHost = React.createElement(View, {
 				Size = UDim2.new(1, -20, 1, -20),
 				Position = UDim2.fromOffset(10, 10),
 			}, {

@@ -167,6 +167,8 @@ type _Messages =
 		SelectMarketplaceFavoritesSubcategory_Params: _SelectMarketplaceFavoritesSubcategory_ParamsMessage,
 		PinExperienceShortcutAction: _PinExperienceShortcutActionMessage,
 		PinExperienceShortcutAction_Params: _PinExperienceShortcutAction_ParamsMessage,
+		NavigateAction: _NavigateActionMessage,
+		NavigateAction_Params: _NavigateAction_ParamsMessage,
 		DownloadAppAction: _DownloadAppActionMessage,
 		DownloadAppAction_Params: _DownloadAppAction_ParamsMessage,
 		ActionSequenceAction: _ActionSequenceActionMessage,
@@ -4847,6 +4849,55 @@ type _PinExperienceShortcutAction_ParamsMessage = proto.Message<
 	_PinExperienceShortcutAction_ParamsPartialFields
 >
 
+type _NavigateActionImpl = {
+	__index: _NavigateActionImpl,
+	new: (fields: _NavigateActionPartialFields?) -> NavigateAction,
+	encode: (self: NavigateAction) -> buffer,
+	decode: (input: buffer) -> NavigateAction,
+	jsonEncode: (self: NavigateAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> NavigateAction,
+	descriptor: proto.Descriptor,
+}
+
+type _NavigateActionFields = {
+	action_type: ActionType,
+	action_params: NavigateAction_Params?,
+}
+
+type _NavigateActionPartialFields = {
+	action_type: ActionType?,
+	action_params: NavigateAction_Params?,
+}
+
+export type NavigateAction = typeof(setmetatable({} :: _NavigateActionFields, {} :: _NavigateActionImpl))
+type _NavigateActionMessage = proto.Message<NavigateAction, _NavigateActionPartialFields>
+
+type _NavigateAction_ParamsImpl = {
+	__index: _NavigateAction_ParamsImpl,
+	new: (fields: _NavigateAction_ParamsPartialFields?) -> NavigateAction_Params,
+	encode: (self: NavigateAction_Params) -> buffer,
+	decode: (input: buffer) -> NavigateAction_Params,
+	jsonEncode: (self: NavigateAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> NavigateAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _NavigateAction_ParamsFields = {
+	destination: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _NavigateAction_ParamsPartialFields = {
+	destination: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type NavigateAction_Params = typeof(setmetatable(
+	{} :: _NavigateAction_ParamsFields,
+	{} :: _NavigateAction_ParamsImpl
+))
+type _NavigateAction_ParamsMessage = proto.Message<NavigateAction_Params, _NavigateAction_ParamsPartialFields>
+
 type _DownloadAppActionImpl = {
 	__index: _DownloadAppActionImpl,
 	new: (fields: _DownloadAppActionPartialFields?) -> DownloadAppAction,
@@ -5162,6 +5213,7 @@ type _ActionFields = {
 		| { type: "action_sequence_action", value: ActionSequenceAction }
 		| { type: "refresh_feed_entry_from_api_action", value: RefreshFeedEntryFromApiAction }
 		| { type: "open_profile_frames_editor_action", value: OpenProfileFramesEditorAction }
+		| { type: "navigate_action", value: NavigateAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5252,6 +5304,7 @@ type _ActionPartialFields = {
 		| { type: "action_sequence_action", value: ActionSequenceAction }
 		| { type: "refresh_feed_entry_from_api_action", value: RefreshFeedEntryFromApiAction }
 		| { type: "open_profile_frames_editor_action", value: OpenProfileFramesEditorAction }
+		| { type: "navigate_action", value: NavigateAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5596,6 +5649,7 @@ export type ActionType =
 	| "ACTION_TYPE_ACTION_SEQUENCE"
 	| "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
 	| "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
+	| "ACTION_TYPE_NAVIGATE"
 	| number -- Unknown
 
 do
@@ -29618,6 +29672,270 @@ do
 end
 
 do
+	local _NavigateActionImpl = {}
+	_NavigateActionImpl.__index = _NavigateActionImpl
+
+	function _NavigateActionImpl.new(data: _NavigateActionPartialFields?): NavigateAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _NavigateActionImpl :: _NavigateActionImpl)
+	end
+
+	function _NavigateActionImpl.encode(self: NavigateAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _NavigateActionImpl.decode(input: buffer): NavigateAction
+		local self = _NavigateActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.NavigateAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _NavigateActionImpl.jsonEncode(self: NavigateAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _NavigateActionImpl.jsonDecode(input: { [string]: any }): NavigateAction
+		local self = _NavigateActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.NavigateAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.NavigateAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_NavigateActionImpl.descriptor = {
+		name = "NavigateAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.NavigateAction",
+	}
+
+	messages.NavigateAction = _NavigateActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.NavigateAction)
+end
+
+do
+	local _NavigateAction_ParamsImpl = {}
+	_NavigateAction_ParamsImpl.__index = _NavigateAction_ParamsImpl
+
+	function _NavigateAction_ParamsImpl.new(data: _NavigateAction_ParamsPartialFields?): NavigateAction_Params
+		return setmetatable({
+			destination = if data == nil or data.destination == nil then nil else data.destination,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _NavigateAction_ParamsImpl :: _NavigateAction_ParamsImpl)
+	end
+
+	function _NavigateAction_ParamsImpl.encode(self: NavigateAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.destination ~= nil then
+			local encoded = self.destination:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _NavigateAction_ParamsImpl.decode(input: buffer): NavigateAction_Params
+		local self = _NavigateAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.destination = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _NavigateAction_ParamsImpl.jsonEncode(self: NavigateAction_Params): any
+		local output = {}
+
+		if self.destination ~= nil then
+			output.destination = self.destination:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _NavigateAction_ParamsImpl.jsonDecode(input: { [string]: any }): NavigateAction_Params
+		local self = _NavigateAction_ParamsImpl.new()
+
+		if input.destination ~= nil then
+			self.destination =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.destination)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_NavigateAction_ParamsImpl.descriptor = {
+		name = "NavigateAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.NavigateAction_Params = _NavigateAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.NavigateAction_Params)
+end
+
+do
 	local _DownloadAppActionImpl = {}
 	_DownloadAppActionImpl.__index = _DownloadAppActionImpl
 
@@ -31091,6 +31409,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 78, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "navigate_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 79, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -31676,6 +31998,11 @@ do
 						value = messages.OpenProfileFramesEditorAction.decode(value),
 					}
 					continue
+				elseif field == 79 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "navigate_action", value = messages.NavigateAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -31881,6 +32208,8 @@ do
 				output.refreshFeedEntryFromApiAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_profile_frames_editor_action" then
 				output.openProfileFramesEditorAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "navigate_action" then
+				output.navigateAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -33016,6 +33345,14 @@ do
 				type = "open_profile_frames_editor_action",
 				value = messages.OpenProfileFramesEditorAction.jsonDecode(input.openProfileFramesEditorAction),
 			}
+		end
+
+		if input.navigate_action ~= nil then
+			self.kind = { type = "navigate_action", value = messages.NavigateAction.jsonDecode(input.navigate_action) }
+		end
+
+		if input.navigateAction ~= nil then
+			self.kind = { type = "navigate_action", value = messages.NavigateAction.jsonDecode(input.navigateAction) }
 		end
 
 		if input.telemetry_handler ~= nil then
@@ -34408,6 +34745,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
 		elseif value == 78 then
 			return "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
+		elseif value == 79 then
+			return "ACTION_TYPE_NAVIGATE"
 		else
 			return nil
 		end
@@ -34572,6 +34911,8 @@ messages.ActionType = {
 			return 77
 		elseif self == "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR" then
 			return 78
+		elseif self == "ACTION_TYPE_NAVIGATE" then
+			return 79
 		else
 			return self
 		end
@@ -34736,6 +35077,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
 		elseif name == "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR" then
 			return "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
+		elseif name == "ACTION_TYPE_NAVIGATE" then
+			return "ACTION_TYPE_NAVIGATE"
 		else
 			return nil
 		end
@@ -34902,6 +35245,8 @@ return {
 	SelectMarketplaceFavoritesSubcategory_Params = messages.SelectMarketplaceFavoritesSubcategory_Params,
 	PinExperienceShortcutAction = messages.PinExperienceShortcutAction,
 	PinExperienceShortcutAction_Params = messages.PinExperienceShortcutAction_Params,
+	NavigateAction = messages.NavigateAction,
+	NavigateAction_Params = messages.NavigateAction_Params,
 	DownloadAppAction = messages.DownloadAppAction,
 	DownloadAppAction_Params = messages.DownloadAppAction_Params,
 	ActionSequenceAction = messages.ActionSequenceAction,

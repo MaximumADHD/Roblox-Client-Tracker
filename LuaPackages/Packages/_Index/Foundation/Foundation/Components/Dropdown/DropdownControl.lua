@@ -14,7 +14,6 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Text = require(Components.Text)
 local Types = require(Foundation.Components.Types)
 
-local Flags = require(Foundation.Utility.Flags)
 local blendTransparencies = require(Foundation.Utility.blendTransparencies)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -58,9 +57,8 @@ local defaultProps = {
 	variant = InputVariant.Standard,
 	isMenuOpen = false,
 	placeholder = "",
-	-- Default the button to selectable when the new flag is on so that consumers don't have to opt in explicitly.
-	-- TODO: clean up with FoundationDropdownSelectionProps
-	Selectable = if Flags.FoundationDropdownSelectionProps then true else nil :: never,
+	-- Default the button to selectable so that consumers don't have to opt in explicitly.
+	Selectable = true,
 }
 
 local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiObject>?)
@@ -103,21 +101,11 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 					isDisabled = props.isDisabled,
 					onActivated = props.onActivated,
 					selection = {
-						Selectable = (if Flags.FoundationDropdownSelectionProps
-							then (if props.isDisabled then false else props.Selectable)
-							else not props.isDisabled),
-						NextSelectionUp = (if Flags.FoundationDropdownSelectionProps
-							then props.NextSelectionUp
-							else nil) :: any,
-						NextSelectionDown = (if Flags.FoundationDropdownSelectionProps
-							then props.NextSelectionDown
-							else nil) :: any,
-						NextSelectionLeft = (if Flags.FoundationDropdownSelectionProps
-							then props.NextSelectionLeft
-							else nil) :: any,
-						NextSelectionRight = (if Flags.FoundationDropdownSelectionProps
-							then props.NextSelectionRight
-							else nil) :: any,
+						Selectable = if props.isDisabled then false else props.Selectable,
+						NextSelectionUp = props.NextSelectionUp,
+						NextSelectionDown = props.NextSelectionDown,
+						NextSelectionLeft = props.NextSelectionLeft,
+						NextSelectionRight = props.NextSelectionRight,
 					},
 					cursor = cursor,
 					stateLayer = { affordance = StateLayerAffordance.None },

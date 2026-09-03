@@ -56,11 +56,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -148,7 +148,7 @@ local function SizingStory(): React.ReactNode
 			{
 				LayoutOrder = 1,
 				name = "Size",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(ChipSize, function(size, index)
 				return React.createElement(LabeledRating, {
@@ -194,7 +194,7 @@ local function ControlledStory(): React.ReactNode
 			{
 				LayoutOrder = 2,
 				name = "Value",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(VALUE_ORDER, function(value, index)
 				return React.createElement(LabeledRating, {

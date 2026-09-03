@@ -85,11 +85,7 @@ end
 local function getProductInfo(id)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return MarketplaceService:GetProductInfoAsync(id)
-			else
-				return (MarketplaceService :: never):GetProductInfo(id)
-			end
+			return MarketplaceService:GetProductInfoAsync(id)
 		end)
 
 		if success then
@@ -106,11 +102,7 @@ end
 local function getBatchItemDetails(itemIds, itemType)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return AvatarEditorService:GetBatchItemDetailsAsync(itemIds, itemType)
-			else
-				return (AvatarEditorService :: never):GetBatchItemDetails(itemIds, itemType)
-			end
+			return AvatarEditorService:GetBatchItemDetailsAsync(itemIds, itemType)
 		end)
 
 		if success then
@@ -147,11 +139,7 @@ end
 local function getItemDetails(itemId, itemType)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return AvatarEditorService:GetItemDetailsAsync(itemId, itemType)
-			else
-				return (AvatarEditorService :: never):GetItemDetails(itemId, itemType)
-			end
+			return AvatarEditorService:GetItemDetailsAsync(itemId, itemType)
 		end)
 
 		if success then
@@ -198,9 +186,7 @@ end
 local function getHumanoidDescriptionFromCostumeId(costumeId)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
-			local humanoidDescription = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps")
-				then Players:GetHumanoidDescriptionFromOutfitIdAsync(costumeId)
-				else (Players :: never):GetHumanoidDescriptionFromOutfitId(costumeId)
+			local humanoidDescription = Players:GetHumanoidDescriptionFromOutfitIdAsync(costumeId)
 
 			if humanoidDescription then
 				resolve(humanoidDescription)
@@ -370,9 +356,7 @@ end
 local function getModelFromUserId(userId)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
-			local model = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps")
-				then Players:CreateHumanoidModelFromUserIdAsync(userId)
-				else (Players :: never):CreateHumanoidModelFromUserId(userId)
+			local model = Players:CreateHumanoidModelFromUserIdAsync(userId)
 
 			if model then
 				resolve(model)

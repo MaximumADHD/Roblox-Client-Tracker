@@ -25,26 +25,26 @@ type PopoverAlign = PopoverAlign.PopoverAlign
 type BadgeVariant = BadgeVariant.BadgeVariant
 
 local SAMPLE_MENU_ITEMS: { MenuItem } = {
-	{ id = "new", icon = "icons/actions/edit/add", text = "New" },
-	{ id = "edit", icon = "icons/actions/edit/edit", text = "Edit" },
-	{ id = "copy", icon = "icons/actions/edit/copy", text = "Copy" },
-	{ id = "delete", icon = "icons/actions/edit/delete", text = "Delete", isDisabled = true },
+	{ id = "new", icon = BuilderIcons.Icon.CirclePlus, text = "New" },
+	{ id = "edit", icon = BuilderIcons.Icon.Pencil, text = "Edit" },
+	{ id = "copy", icon = BuilderIcons.Icon.StackedSquaresPlus, text = "Copy" },
+	{ id = "delete", icon = BuilderIcons.Icon.TrashCan, text = "Delete", isDisabled = true },
 }
 
 -- Pool of sample labels/icons cycled through to build arbitrarily long menus in the Playground.
 local LONG_MENU_ITEMS: { { icon: string, text: string } } = {
-	{ icon = "icons/actions/edit/add", text = "New" },
-	{ icon = "icons/actions/edit/edit", text = "Open" },
-	{ icon = "icons/actions/edit/edit", text = "Save" },
-	{ icon = "icons/actions/edit/edit", text = "Save As..." },
-	{ icon = "icons/actions/edit/edit", text = "Rename" },
-	{ icon = "icons/actions/edit/copy", text = "Duplicate" },
-	{ icon = "icons/actions/edit/copy", text = "Copy" },
-	{ icon = "icons/actions/edit/copy", text = "Cut" },
-	{ icon = "icons/actions/edit/copy", text = "Paste" },
-	{ icon = "icons/actions/edit/edit", text = "Export" },
-	{ icon = "icons/actions/edit/edit", text = "Import" },
-	{ icon = "icons/actions/edit/delete", text = "Delete" },
+	{ icon = BuilderIcons.Icon.CirclePlus, text = "New" },
+	{ icon = BuilderIcons.Icon.Pencil, text = "Open" },
+	{ icon = BuilderIcons.Icon.Pencil, text = "Save" },
+	{ icon = BuilderIcons.Icon.Pencil, text = "Save As..." },
+	{ icon = BuilderIcons.Icon.Pencil, text = "Rename" },
+	{ icon = BuilderIcons.Icon.StackedSquaresPlus, text = "Duplicate" },
+	{ icon = BuilderIcons.Icon.StackedSquaresPlus, text = "Copy" },
+	{ icon = BuilderIcons.Icon.StackedSquaresPlus, text = "Cut" },
+	{ icon = BuilderIcons.Icon.StackedSquaresPlus, text = "Paste" },
+	{ icon = BuilderIcons.Icon.Pencil, text = "Export" },
+	{ icon = BuilderIcons.Icon.Pencil, text = "Import" },
+	{ icon = BuilderIcons.Icon.TrashCan, text = "Delete" },
 }
 
 local SELECTION_MENU_ITEMS: { MenuItem } = {
@@ -261,8 +261,8 @@ return {
 					BuilderIcons.Icon.Pencil,
 					BuilderIcons.Icon.ClipboardPencil,
 					BuilderIcons.Icon.TextBBold,
-					"icons/actions/share",
-					"icons/actions/edit/copy",
+					BuilderIcons.Icon.ArrowUpFromLandscapeRectangle,
+					BuilderIcons.Icon.StackedSquaresPlus,
 					BuilderIcons.Icon.TrashCan,
 				}
 				local function leadingFor(index: number, currentDepth: number): any
@@ -528,7 +528,7 @@ return {
 						end,
 					}, {
 						IconButton = React.createElement(IconButton, {
-							icon = "icons/common/more",
+							icon = BuilderIcons.Icon.CircleThreeDotsHorizontal,
 							size = IconSize.Medium,
 							onActivated = function()
 								setIsOpen1(not isOpen1)
@@ -727,7 +727,7 @@ return {
 						items = {
 							{
 								id = "a1",
-								icon = "icons/common/robux",
+								icon = BuilderIcons.Icon.Robux,
 								text = "Alpha 1",
 								isChecked = selectedItemId == "a1",
 							} :: MenuItem,

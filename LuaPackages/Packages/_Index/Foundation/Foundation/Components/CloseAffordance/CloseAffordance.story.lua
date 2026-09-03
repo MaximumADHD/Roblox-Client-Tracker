@@ -33,7 +33,7 @@ end
 local function Label(props: { text: string, LayoutOrder: number }): React.ReactNode
 	return React.createElement(Text, {
 		Text = props.text,
-		tag = "auto-xy text-label-small content-muted padding-bottom-xsmall",
+		tag = "auto-xy padding-bottom-xsmall text-label-small content-muted",
 		LayoutOrder = props.LayoutOrder,
 	})
 end
@@ -44,13 +44,13 @@ local function Section(props: {
 	children: React.ReactNode?,
 }): React.ReactNode
 	return React.createElement(View, {
-		tag = "col gap-xsmall auto-xy align-y-center",
+		tag = "col align-y-center gap-xsmall auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Label, { text = props.label, LayoutOrder = 1 }),
 		Content = React.createElement(
 			View,
-			{ tag = "row gap-small auto-xy align-y-center", LayoutOrder = 2 },
+			{ tag = "row align-y-center gap-small auto-xy", LayoutOrder = 2 },
 			props.children
 		),
 	})

@@ -53,7 +53,7 @@ local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeatur
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
-local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagConfirmationButtonsUseGreyButtons = require(RobloxGui.Modules.Settings.Flags.FFlagConfirmationButtonsUseGreyButtons)
 
@@ -88,13 +88,13 @@ local function LeaveButtonsContainer(props: Props)
 	local focusGuiObject = useFocusGuiObject()
 
 	local localizedText = useLocalization({
-		ConfirmLeaveGame = if FFlagDebugEnablePioneerUX
+		ConfirmLeaveGame = if isPioneerLaunch()
 			then SideSheetLocalizationKeys.LogoutConfirmation
 			else Constants.ConfirmLeaveGameLocalizedKey,
-		LeaveGame = if FFlagDebugEnablePioneerUX
+		LeaveGame = if isPioneerLaunch()
 			then SideSheetLocalizationKeys.LogoutButton
 			else Constants.LeaveGameLocalizedKey,
-		DontLeaveGame = if FFlagDebugEnablePioneerUX
+		DontLeaveGame = if isPioneerLaunch()
 			then SideSheetLocalizationKeys.Cancel
 			else Constants.DontLeaveGameLocalizedKey,
 	}) 
@@ -108,7 +108,7 @@ local function LeaveButtonsContainer(props: Props)
 	end, { lastInput, focusGuiObject })
 
 	local onLeaveGame = React.useCallback(function()
-		if FFlagDebugEnablePioneerUX then
+		if isPioneerLaunch() then
 			-- TODO APPEXP-5024: Wire up the actual sign out action for Pioneer.
 			leaveGame(false, {
 				shouldNativeExit = true,
@@ -242,7 +242,7 @@ local function Initialize()
 
 		this.Page.Size = UDim2.new(1,0,0,0)
 	else
-		local leaveGameConfirmationText = if FFlagDebugEnablePioneerUX
+		local leaveGameConfirmationText = if isPioneerLaunch()
 			then RobloxTranslator:FormatByKey(SideSheetLocalizationKeys.LogoutConfirmation)
 			else RobloxTranslator:FormatByKey(Constants.ConfirmLeaveGameLocalizedKey)
 
@@ -289,11 +289,11 @@ local function Initialize()
 			leaveGameText.FontSize = Enum.FontSize.Size48
 		end
 
-		local leaveButtonText = if FFlagDebugEnablePioneerUX
+		local leaveButtonText = if isPioneerLaunch()
 			then RobloxTranslator:FormatByKey(SideSheetLocalizationKeys.LogoutButton)
 			else "Leave"
 		this.LeaveGameButton = utility:MakeStyledButton("LeaveGame", leaveButtonText, nil, function()
-			if FFlagDebugEnablePioneerUX then
+			if isPioneerLaunch() then
 				-- TODO APPEXP-5024: Wire up the actual sign out action for Pioneer.
 				leaveGame(false, {
 					shouldNativeExit = true,

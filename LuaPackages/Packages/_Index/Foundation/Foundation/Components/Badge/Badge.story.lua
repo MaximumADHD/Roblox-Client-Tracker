@@ -104,11 +104,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -207,7 +207,7 @@ local function VariantsStory(): React.ReactNode
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-large align-y-start auto-xy wrap padding-y-large bg-surface-0",
+			tag = "row wrap gap-large auto-xy padding-y-large bg-surface-0",
 		},
 		Dash.map(nonDeprecatedVariants, function(variant, index)
 			return React.createElement(LabeledBadge, {
@@ -233,7 +233,7 @@ local function SizingStory(): React.ReactNode
 			{
 				LayoutOrder = 1,
 				name = "Size",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledBadge, {
@@ -413,7 +413,7 @@ local function InContextStory(): React.ReactNode
 			{
 				LayoutOrder = 1,
 				name = "Semi-transparent on media",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(getOnMediaSemiTransparentVariants(), function(variant, index)
 				return React.createElement(OnMediaVariant, {
@@ -428,7 +428,7 @@ local function InContextStory(): React.ReactNode
 			{
 				LayoutOrder = 2,
 				name = "Solid on media",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(ON_MEDIA_SOLID_VARIANTS, function(variant, index)
 				return React.createElement(OnMediaVariant, {

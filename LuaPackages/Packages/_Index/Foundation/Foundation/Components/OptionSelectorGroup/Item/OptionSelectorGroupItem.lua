@@ -1,7 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
+
+local IconName = BuilderIcons.Icon
 
 local Motion = require(Packages.Motion)
 local useMotion = Motion.useMotion
@@ -416,7 +419,7 @@ local function OptionSelectorGroupItem(
 						})
 						else nil,
 					Checkmark = React.createElement(Icon, {
-						name = "check-large",
+						name = IconName.CheckLarge,
 						size = variantProps.icon.size,
 						style = disabledValues.transparency:map(function(transparency)
 							return {

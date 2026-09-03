@@ -26,11 +26,7 @@ function PlayerHelper.Init()
 	PlayerHelper.player = player -- This local player
 	
 	if player.Character == nil and RunService:IsServer() then
-		if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-			player:LoadCharacterAsync()
-		else
-			(player :: any):LoadCharacter()
-		end
+		player:LoadCharacterAsync()
 	end
 
 	-- Wait for player's character

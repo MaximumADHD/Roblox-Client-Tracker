@@ -10,8 +10,70 @@ local Constants = require(root.Constants)
 
 local MAKEUP_THUMBNAIL_HEAD_ASSET_ID = 103273511207307
 local MAKEUP_THUMBNAIL_HEAD_BRICKCOLOR = BrickColor.new(194)
+local MAKEUP_THUMBNAIL_FIELD_OF_VIEW = 5
+local FRONT_CAMERA_LOOK_VECTOR = Vector3.zAxis
+local ANGLED_CAMERA_LOOK_VECTOR = Vector3.new(-0.54678017, -0.019651636, 0.83704555)
+
+local function makeCameraCFrame(position: Vector3, lookVector: Vector3): CFrame
+	return CFrame.lookAt(position, position + lookVector)
+end
+
+local DEFAULT_MAKEUP_THUMBNAIL_CAMERA_CFRAME =
+	makeCameraCFrame(Vector3.new(0, 0.0936213, -15.755899), FRONT_CAMERA_LOOK_VECTOR)
+
+-- Matches the authored cameras in MakeupEnvironment.rbxl.
+local MAKEUP_THUMBNAIL_CAMERA_CFRAMES = {
+	[Enum.AvatarAssetType.FaceMakeup] = DEFAULT_MAKEUP_THUMBNAIL_CAMERA_CFRAME,
+	[Enum.AvatarAssetType.LipMakeup] = makeCameraCFrame(
+		Vector3.new(0, -0.2991416, -6.4134803),
+		FRONT_CAMERA_LOOK_VECTOR
+	),
+	[Enum.AvatarAssetType.EyeMakeup] = makeCameraCFrame(
+		Vector3.new(0, 0.10852961, -9.357428),
+		FRONT_CAMERA_LOOK_VECTOR
+	),
+	[Enum.AvatarAssetType.EyebrowAccessory] = makeCameraCFrame(
+		Vector3.new(4.5928926, 0.37917417, -7.374273),
+		ANGLED_CAMERA_LOOK_VECTOR
+	),
+	[Enum.AvatarAssetType.EyelashAccessory] = makeCameraCFrame(
+		Vector3.new(4.593966, 0.2791934, -7.375918),
+		ANGLED_CAMERA_LOOK_VECTOR
+	),
+}
 
 local MakeupPreviewUtils = {}
+
+-- Returns camera framing data for head-only preview models.
+function MakeupPreviewUtils.getHeadPreviewCameraData(model: Model): (CFrame?, Vector3?)
+	local head = model:FindFirstChild("Head")
+	if head and head:IsA("MeshPart") and not model:FindFirstChild("HumanoidRootPart") then
+		return head.CFrame, head.Size
+	end
+
+	return nil, nil
+end
+
+-- Applies the marketplace camera for a makeup thumbnail.
+function MakeupPreviewUtils.setupMakeupThumbnailCamera(
+	model: Model,
+	camera: Camera,
+	assetType: Enum.AvatarAssetType?
+): boolean
+	local head = model:FindFirstChild("Head")
+	if not head or not head:IsA("MeshPart") then
+		return false
+	end
+
+	local cameraCFrame: CFrame = DEFAULT_MAKEUP_THUMBNAIL_CAMERA_CFRAME
+	if assetType then
+		cameraCFrame = MAKEUP_THUMBNAIL_CAMERA_CFRAMES[assetType] or cameraCFrame
+	end
+	camera.CFrame = head.CFrame * cameraCFrame
+	camera.Focus = head.CFrame
+	camera.FieldOfView = MAKEUP_THUMBNAIL_FIELD_OF_VIEW
+	return true
+end
 
 function MakeupPreviewUtils.isMakeupAssetType(assetType: Enum.AvatarAssetType): boolean
 	return Constants.MakeupAssetTypes[assetType] == true
@@ -154,6 +216,11 @@ local function createHeadWithAsset(
 	if not ok or not character then
 		return nil
 	end
+
+	-- Resolve avatar transforms before stripping and anchoring the model.
+	character.Parent = workspace
+	character:GetBoundingBox()
+	character.Parent = nil
 
 	MakeupPreviewUtils.stripToHead(character)
 

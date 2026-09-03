@@ -114,6 +114,7 @@ local function assembleMenuItems(params: {
 			icon = icon,
 			onActivated = params.actions.onFriend,
 			telemetryAction = getFriendTelemetryAction(params.friendStatus),
+			onceGroup = "friending",
 			requiresConfirm = if isUnfriend then true else nil,
 			confirmLabel = if isUnfriend
 				then translate("InGame.PlayerDropDown.ConfirmUnfriend", "Tap to confirm unfriend")
@@ -127,6 +128,7 @@ local function assembleMenuItems(params: {
 				icon = ICON_FRIEND_REMOVE,
 				onActivated = params.actions.onDecline,
 				telemetryAction = "friend_decline",
+				onceGroup = "friending",
 			})
 		end
 	end
@@ -164,7 +166,12 @@ local function assembleMenuItems(params: {
 	return items
 end
 
-local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevice: boolean?)
+local function buildMenuData(
+	player: Player,
+	onClose: () -> (),
+	isSmallTouchDevice: boolean?,
+	friendStatusOverride: Enum.FriendStatus?
+)
 	local userId = player.UserId
 	local isSelf = LocalPlayer ~= nil and player == LocalPlayer
 
@@ -175,9 +182,14 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 			isBlocked = BlockingUtility:IsPlayerBlockedByUserId(userId)
 		end)
 		if not isBlocked then
-			pcall(function()
-				friendStatus = LocalPlayer:GetFriendStatus(player)
-			end)
+			if friendStatusOverride ~= nil then
+				-- FriendStatusChanged already delivered the status; skip the yielding lookup.
+				friendStatus = friendStatusOverride
+			else
+				pcall(function()
+					friendStatus = LocalPlayer:GetFriendStatus(player)
+				end)
+			end
 		end
 	end
 
@@ -187,6 +199,7 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 		friendStatus = friendStatus,
 		inspectMenuEnabled = GuiService:GetInspectMenuEnabled(),
 		actions = {
+			-- Friending keeps the menu open; FriendStatusChanged rebuilds it so the row flips.
 			onFriend = function()
 				if friendStatus == Enum.FriendStatus.Friend or friendStatus == Enum.FriendStatus.FriendRequestSent then
 					RbxAnalyticsService:TrackEvent("Game", "RevokeFriendship", "PlayerDropDown")
@@ -196,12 +209,10 @@ local function buildMenuData(player: Player, onClose: () -> (), isSmallTouchDevi
 				else
 					RequestFriendship(player)()
 				end
-				onClose()
 			end,
 			onDecline = function()
 				RbxAnalyticsService:TrackEvent("Game", "DeclineFriendship", "PlayerDropDown")
 				LocalPlayer:RevokeFriendship(player)
-				onClose()
 			end,
 			onExamine = function()
 				if isSmallTouchDevice then

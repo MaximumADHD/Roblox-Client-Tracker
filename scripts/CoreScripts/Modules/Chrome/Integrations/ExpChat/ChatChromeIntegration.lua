@@ -37,6 +37,12 @@ type ChatIntegration = ChromePackage.IntegrationProps & {
 	chatOpenCapability: ChatOpenCapability?,
 }
 
+-- Do not render the chat integration when the debug flag turning off experience chat is enabled
+local FFlagDebugDisableExperienceChatMain = require(RobloxGui.Modules.Flags.FFlagDebugDisableExperienceChatMain)
+if FFlagDebugDisableExperienceChatMain then
+	return nil :: ChatIntegration?
+end
+
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 local shouldSuppressUnreadForTabMetadata = ExpChat.shouldSuppressUnreadForTabMetadata

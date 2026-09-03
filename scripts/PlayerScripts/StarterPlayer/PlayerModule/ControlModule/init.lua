@@ -32,10 +32,11 @@ local FFlagUserPlayerScriptsBindActivateOnIAS = FlagUtil.getUserFlag("UserPlayer
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 local FFlagUserPlayerScriptsUseReplicatedCameraAPI = FlagUtil.getUserFlag("UserPlayerScriptsUseReplicatedCameraAPI")
 local FFlagUserPlayerScriptsStopFireCameraAction = FlagUtil.getUserFlag("UserPlayerScriptsStopFireCameraAction")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
-local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
+local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 local FFlagUserPlayerScriptsFixSAuthRenderStepMove = FlagUtil.getUserFlag("UserPlayerScriptsFixSAuthRenderStepMove")
 local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlayerScriptsSupportMicroGamepad")
+local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 }
@@ -487,6 +488,8 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 		if self.activeControlModule == ClickToMove then
 			-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
 			-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only jump.
+
+			-- remove last parameter (self.touchJumpController) with FFlagUserDoubleJumpButtonFix
 			self.activeController:Enable(
 				true,
 				Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice,
@@ -880,7 +883,7 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchGui.Name = "TouchGui"
 	self.touchGui.ResetOnSpawn = false
 	self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	if FFlagUserPlayerScriptsCCLIntegrationD then
+	if FFlagUserPlayerScriptsCCLIntegrationD and FFlagUserAbilitiesUserInterfaceC then
 	    self.touchGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 	end
 

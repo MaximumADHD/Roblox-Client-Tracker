@@ -56,7 +56,8 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 			position: PanelPosition,
 			onClose: () -> (),
 			depth: number?,
-			parentPopoverId: string?
+			parentPopoverId: string?,
+			isFocusable: boolean?
 		)
 			if Flags.FoundationPopoverPluginAnchorRefresh then
 				widgets.refreshAsync(anchorUri)
@@ -66,7 +67,7 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 				targetAnchorPoint = position.targetAnchorPoint,
 				subjectAnchorPoint = position.subjectAnchorPoint,
 				offset = position.offset,
-			}, onClose, depth, parentPopoverId)
+			}, onClose, depth, parentPopoverId, if Flags.FoundationPopoverPluginFocusable then isFocusable else nil)
 
 			return handle, function()
 				handle.close()

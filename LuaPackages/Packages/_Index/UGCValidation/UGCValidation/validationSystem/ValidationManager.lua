@@ -24,6 +24,8 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local R15plusUtils = require(root.util.R15plusUtils)
 local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDebugAllowHRDUploadOnBundleBackend)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
+	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
 local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
@@ -539,6 +541,46 @@ local function getRootInstance(assetsToValidate: { Instance }): Instance?
 	return assetsToValidate[1]
 end
 
+local function findFolderByName(instances: { Instance }, folderName: string, acceptFallback: boolean): Instance?
+	for _, inst in instances do
+		if inst.Name == folderName then
+			return inst
+		end
+	end
+
+	-- acceptFallback mirrors getRootInstance's [1] fallback (used to build the R15ArtistIntent bundle root);
+	-- Fallback = False is specified for the ASSET version of R15Fixed, so we are strictly nil when its not made.
+	if acceptFallback then
+		return instances[1]
+	end
+	return nil
+end
+
+local function synthesizeRootFromFolders(
+	fullBodyData: Types.FullBodyData,
+	folderName: string,
+	acceptFallback: boolean
+): Instance
+	-- Builds one root Folder by cloning each body part's <folderName> folder together. Used for both the
+	-- R15ArtistIntent bundle root (acceptFallback=true, mirroring getRootInstance's [1] fallback) and the
+	-- R15Fixed duplicate (strict). Returns an empty Folder when no matching folder is present in any body part.
+	local rootFolder = Instance.new("Folder")
+	for _, instancesAndType in fullBodyData do
+		local headOrLimbs = findFolderByName(instancesAndType.allSelectedInstances, folderName, acceptFallback)
+		if headOrLimbs ~= nil then
+			if headOrLimbs:IsA("Folder") or headOrLimbs:IsA("Model") then
+				for _, childPart in headOrLimbs:GetChildren() do
+					childPart:Clone().Parent = rootFolder
+				end
+			else
+				headOrLimbs:Clone().Parent = rootFolder
+			end
+		end
+	end
+
+	return rootFolder
+end
+
 -- We expect a single root asset for all validations, but when enforceR15FolderStructure = true, we recieve multiple roots to validate.
 -- We simply run validation on the root, and an additional validation enforces the folder structure is accurate
 function ValidationManager.ValidateAsset(
@@ -550,6 +592,9 @@ function ValidationManager.ValidateAsset(
 		jobId = HttpService:GenerateGUID(),
 		entrypointInput = assetsToValidate,
 		rootInstance = getRootInstance(assetsToValidate),
+		r15LegacyDuplicateRoot = if getEngineFeatureEngineUGCValidateInstanceTreesEquivalent()
+			then findFolderByName(assetsToValidate, Constants.FOLDER_NAMES.R15Fixed, false)
+			else nil,
 		uploadEnum = {
 			assetType = assetTypeEnum,
 		},
@@ -570,6 +615,7 @@ function ValidationManager.ValidateFinalizedBundle(
 	end
 
 	local rootInstance: Instance
+	local r15LegacyDuplicateRoot: Instance? = nil
 	if getFFlagUGCValidationAnimationPackSupport() and bundleTypeEnum == Enum.BundleType.Animations then
 		local rootModel = Instance.new("Model")
 		for _, instancesAndType in fullBodyData do
@@ -579,6 +625,11 @@ function ValidationManager.ValidateFinalizedBundle(
 			end
 		end
 		rootInstance = rootModel
+	elseif getEngineFeatureEngineUGCValidateInstanceTreesEquivalent() then
+		-- Synthesize the R15ArtistIntent bundle root and the R15Fixed duplicate as two parallel trees so the
+		-- discarded R15Fixed copy can be re-validated (see ExpectedRootSchema, HrdBonesFollowSchema).
+		rootInstance = synthesizeRootFromFolders(fullBodyData, Constants.FOLDER_NAMES.R15ArtistIntent, true)
+		r15LegacyDuplicateRoot = synthesizeRootFromFolders(fullBodyData, Constants.FOLDER_NAMES.R15Fixed, true)
 	else
 		-- fullBodyData is a list of the body assets being published together. TODO: Adjust consumers to include accessories too, same format is fine
 		local rootFolder = Instance.new("Folder")
@@ -601,6 +652,7 @@ function ValidationManager.ValidateFinalizedBundle(
 		jobId = HttpService:GenerateGUID(),
 		entrypointInput = fullBodyData,
 		rootInstance = rootInstance,
+		r15LegacyDuplicateRoot = r15LegacyDuplicateRoot,
 		uploadEnum = {
 			bundleType = bundleTypeEnum,
 		},

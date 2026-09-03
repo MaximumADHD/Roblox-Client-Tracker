@@ -12,6 +12,8 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_custom_options = require(script.Parent.custom_options)
+
 type _AgeRecommendationDescriptorImpl = {
 	__index: _AgeRecommendationDescriptorImpl,
 	new: (fields: _AgeRecommendationDescriptorPartialFields?) -> AgeRecommendationDescriptor,

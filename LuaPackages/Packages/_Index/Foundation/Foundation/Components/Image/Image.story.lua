@@ -195,7 +195,7 @@ end
 
 local function PlaygroundStory(props)
 	return React.createElement(View, {
-		tag = "row gap-xlarge auto-xy align-y-top",
+		tag = "row align-y-top gap-xlarge auto-xy",
 	}, {
 		ImageAsset = React.createElement(View, {
 			tag = "col gap-small auto-xy",
@@ -203,7 +203,7 @@ local function PlaygroundStory(props)
 		}, {
 			Label = React.createElement(Text, {
 				Text = "image",
-				tag = "text-body-small text-align-x-center content-emphasis self-center",
+				tag = "self-center text-body-small text-align-x-center content-emphasis",
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
 			}),
@@ -219,7 +219,7 @@ local function PlaygroundStory(props)
 		}, {
 			Label = React.createElement(Text, {
 				Text = "cloudAsset",
-				tag = "text-body-small text-align-x-center content-emphasis self-center",
+				tag = "self-center text-body-small text-align-x-center content-emphasis",
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
 			}),
@@ -277,11 +277,11 @@ local function InteractiveEditableImageStory()
 	end, { editableImage })
 
 	return React.createElement(View, {
-		tag = "col gap-small auto-xy align-x-center",
+		tag = "col align-x-center gap-small auto-xy",
 	}, {
 		Label = React.createElement(Text, {
 			Text = "Click for EditableImage rings",
-			tag = "text-body-small content-emphasis auto-xy",
+			tag = "auto-xy text-body-small content-emphasis",
 			LayoutOrder = 1,
 		}),
 		Image = if editableImage
@@ -295,7 +295,7 @@ local function InteractiveEditableImageStory()
 			})
 			else React.createElement(Text, {
 				Text = "EditableImage unavailable in this environment",
-				tag = "text-caption-small content-default text-wrap size-2800-800 text-align-x-center",
+				tag = "size-2800-800 text-caption-small text-wrap text-align-x-center content-default",
 				LayoutOrder = 2,
 			}),
 	})
@@ -305,7 +305,7 @@ local function ImageContentStory()
 	if not Flags.FoundationImageContentSupport then
 		return React.createElement(Text, {
 			Text = "Enable FoundationImageContentSupport to view this story.",
-			tag = "text-body-medium content-default auto-xy",
+			tag = "auto-xy text-body-medium content-default",
 		})
 	end
 
@@ -313,7 +313,7 @@ local function ImageContentStory()
 end
 
 return {
-	engineeringOnly = true,
+	base = true,
 	summary = "Image",
 	stories = {
 		{
@@ -324,13 +324,13 @@ return {
 			name = "Basic Image",
 			story = function()
 				return React.createElement(View, {
-					tag = "auto-xy row gap-xlarge",
+					tag = "row gap-xlarge auto-xy",
 				}, {
 					NoBinding = React.createElement(View, {
-						tag = "auto-xy col gap-small",
+						tag = "col gap-small auto-xy",
 					}, {
 						Text = React.createElement(Text, {
-							tag = "text-body-small text-align-x-center content-emphasis self-center",
+							tag = "self-center text-body-small text-align-x-center content-emphasis",
 							Text = "No Image binding",
 							AutomaticSize = Enum.AutomaticSize.XY,
 							LayoutOrder = 1,
@@ -342,10 +342,10 @@ return {
 						}),
 					}),
 					WithBinding = React.createElement(View, {
-						tag = "auto-xy col gap-small",
+						tag = "col gap-small auto-xy",
 					}, {
 						Text = React.createElement(Text, {
-							tag = "text-body-small text-align-x-center content-emphasis self-center",
+							tag = "self-center text-body-small text-align-x-center content-emphasis",
 							Text = "With Image binding",
 							AutomaticSize = Enum.AutomaticSize.XY,
 							LayoutOrder = 1,

@@ -13,6 +13,8 @@ local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPa
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFStringUGCValidationAttachmentErrorLink = require(root.flags.getFStringUGCValidationAttachmentErrorLink)
+local getFFlagUGCValidateAttachmentBoundsErrorMessage =
+	require(root.flags.getFFlagUGCValidateAttachmentBoundsErrorMessage)
 
 local AttachmentBoundsValid = {}
 
@@ -36,7 +38,8 @@ local function validateInMeshSpace(
 	part: MeshPart,
 	boundsInfoMeshSpace: any,
 	transformData: any,
-	reporter: Types.ValidationReporter
+	reporter: Types.ValidationReporter,
+	isRigAttachment: boolean
 )
 	local world = transformData.cframe * getAttachmentCFrameInPartSpace(att)
 	local meshCenterOpt = BoundsDataUtils.calculateBoundsCenters(transformData.boundsData)
@@ -73,16 +76,29 @@ local function validateInMeshSpace(
 			local acceptableOrientation =
 				Vector3.new(math.deg(acceptableOriX), math.deg(acceptableOriY), math.deg(acceptableOriZ))
 
-			reporter:fail(ErrorSourceStrings.Keys.AttachmentOutOfBounds, {
-				AttachmentName = att.Name,
-				PartName = part.Name,
-				CurrentPosition = prettyPrintVector3(att.CFrame.Position, 3),
-				ClosestValidPosition = prettyPrintVector3(attachmentClampedCFrame.Position, 3),
-				BoundsPosition = prettyPrintVector3(acceptablePosition, 3),
-				BoundsOrientation = prettyPrintVector3(acceptableOrientation, 3),
-				BoundsSize = prettyPrintVector3(acceptableDimensions, 3),
-				HelpLink = getFStringUGCValidationAttachmentErrorLink(),
-			})
+			if getFFlagUGCValidateAttachmentBoundsErrorMessage() then
+				local errorKey = if isRigAttachment
+					then ErrorSourceStrings.Keys.RigAttachmentOutOfBounds
+					else ErrorSourceStrings.Keys.AccessoryAttachmentOutOfBounds
+				reporter:fail(errorKey, {
+					AttachmentName = att.Name,
+					PartName = part.Name,
+					CurrentPosition = prettyPrintVector3(att.CFrame.Position, 3),
+					ClosestValidPosition = prettyPrintVector3(attachmentClampedCFrame.Position, 3),
+					HelpLink = getFStringUGCValidationAttachmentErrorLink(),
+				})
+			else
+				reporter:fail(ErrorSourceStrings.Keys.AttachmentOutOfBounds, {
+					AttachmentName = att.Name,
+					PartName = part.Name,
+					CurrentPosition = prettyPrintVector3(att.CFrame.Position, 3),
+					ClosestValidPosition = prettyPrintVector3(attachmentClampedCFrame.Position, 3),
+					BoundsPosition = prettyPrintVector3(acceptablePosition, 3),
+					BoundsOrientation = prettyPrintVector3(acceptableOrientation, 3),
+					BoundsSize = prettyPrintVector3(acceptableDimensions, 3),
+					HelpLink = getFStringUGCValidationAttachmentErrorLink(),
+				})
+			end
 			return
 		end
 	end
@@ -102,7 +118,8 @@ local function checkAll(meshHandle: MeshPart, partData: any, transformData: any,
 		meshHandle,
 		partData.rigAttachmentToParent.bounds,
 		transformData,
-		reporter
+		reporter,
+		true
 	)
 
 	for childAttachmentName, childAttachmentInfo in pairs(partData.otherAttachments) do
@@ -117,7 +134,8 @@ local function checkAll(meshHandle: MeshPart, partData: any, transformData: any,
 			meshHandle,
 			childAttachmentInfo.bounds,
 			transformData,
-			reporter
+			reporter,
+			string.find(childAttachmentName, "RigAttachment$") ~= nil
 		)
 	end
 end

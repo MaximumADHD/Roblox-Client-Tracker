@@ -41,8 +41,9 @@ local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerSc
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
+local FFlagUserDoubleJumpButtonFix = FlagUtil.getUserFlag("UserDoubleJumpButtonFix")
 
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
@@ -617,11 +618,17 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		end
 		self.thumbstickButton.Parent = self.thumbstickFrame
 
-		local touchBinding = Instance.new("InputBinding")
-		touchBinding.Name = "DynamicTouchBinding"
-		touchBinding.KeyCode = Enum.KeyCode.TouchPosition
+		local touchBinding
+		if FFlagUserDoubleJumpButtonFix then
+			touchBinding = thumbstickAction:FindFirstChild("DynamicTouchBinding")
+		end
+		if not touchBinding then
+			touchBinding = Instance.new("InputBinding")
+			touchBinding.Name = "DynamicTouchBinding"
+			touchBinding.KeyCode = Enum.KeyCode.TouchPosition
+			touchBinding.Parent = thumbstickAction
+		end
 		touchBinding.UIModifier = self.thumbstickButton
-		touchBinding.Parent = thumbstickAction
 	end
 
 	if FFlagUserPlayerScriptsCCLIntegrationD and self.newStyle then
@@ -649,7 +656,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		endImageCorner.Parent = self.endImage
 
 		self.endImageStroke = Instance.new("UIStroke")
-		self.endImageStroke.Thickness = 2
+		self.endImageStroke.Thickness = if FFlagUserDoubleJumpButtonFix then 1.5 else 2
 		self.endImageStroke.Color = Color3.fromRGB(213, 215, 221)
 		self.endImageStroke.Parent = self.endImage
 		

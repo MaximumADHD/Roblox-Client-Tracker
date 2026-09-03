@@ -15,6 +15,7 @@ local Constants = require(Root.Unibar.Constants)
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local useObservableValue = require(Root.Hooks.useObservableValue)
 local useTokens = Foundation.Hooks.useTokens
+local useDrawerAnimating = require(CorePackages.Workspace.Packages.Drawer).Hooks.useDrawerAnimating
 
 local ChromeService = require(Root.Service)
 
@@ -22,6 +23,11 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
+local FFlagEnableDrawerAnimatingHook = SharedFlags.FFlagEnableDrawerAnimatingHook
+
+local getSideSheetVisibility = require(CorePackages.Workspace.Packages.InExperienceSideSheet).getSideSheetVisibility
 
 type ShortcutProps = ChromePackage.ShortcutProps
 
@@ -94,6 +100,15 @@ function ChromeShortcutBar(props)
 			end
 		end
 	end, {})
+
+	if FFlagEnableSideSheet and FFlagSideSheetFocusNav and FFlagEnableDrawerAnimatingHook then
+		local isSideSheetVisible = getSideSheetVisibility(false)
+		local isDrawerAnimating = useDrawerAnimating()
+
+		React.useEffect(function()
+			ChromeService:setHideShortcutBar("SideSheet", isSideSheetVisible or isDrawerAnimating)
+		end, { isSideSheetVisible, isDrawerAnimating })
+	end
 
 	local shortcutList = (if #trimmedShortcuts > 0 then trimmedShortcuts else shortcuts) :: { ShortcutProps }
 	local shortcutItems = {}

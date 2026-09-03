@@ -114,11 +114,11 @@ local function Section(props: SectionProps)
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.caption,
-			tag = "text-label-medium content-default auto-xy text-align-x-left",
+			tag = "auto-xy text-label-medium text-align-x-left content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-xxlarge auto-xy align-y-start wrap",
+			tag = props.contentTag or "row gap-xxlarge auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -133,12 +133,12 @@ type GroupProps = {
 
 local function Group(props: GroupProps)
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Caption = React.createElement(Text, {
 			Text = props.caption,
-			tag = "text-caption-small content-default auto-xy text-align-x-left",
+			tag = "auto-xy text-caption-small text-align-x-left content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -231,7 +231,7 @@ end
 local function VariantsStory()
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		{ tag = "row wrap gap-xxlarge auto-xy" },
 		Dash.map(VARIANT_ORDER, function(variant, index)
 			return React.createElement(Group, {
 				caption = variant,
@@ -312,7 +312,7 @@ local function StatesStory()
 
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		{ tag = "row wrap gap-xxlarge auto-xy" },
 		Dash.map(states, function(state, index)
 			return React.createElement(Group, {
 				caption = state.caption,
@@ -361,7 +361,7 @@ local function ControlledStory()
 		}),
 		Readout = React.createElement(Text, {
 			Text = `Value: {value} — last change: {lastReason or "none"}`,
-			tag = "auto-xy text-body-medium content-emphasis text-align-x-left",
+			tag = "auto-xy text-body-medium text-align-x-left content-emphasis",
 			LayoutOrder = 2,
 		}),
 	})
@@ -372,7 +372,7 @@ local function ScrubbingStory()
 
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		{ tag = "row wrap gap-xxlarge auto-xy" },
 		Dash.map(SCRUB_ORDER, function(behavior, index)
 			return React.createElement(Group, {
 				caption = behavior,
@@ -416,7 +416,7 @@ local function FocusBehaviorStory(): React.Node
 
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		{ tag = "row wrap gap-xxlarge auto-xy" },
 		Dash.map(options, function(option, index)
 			return React.createElement(Group, {
 				caption = option.caption,
@@ -525,7 +525,7 @@ local function StepIncrementsStory(): React.Node
 
 	return React.createElement(
 		View,
-		{ tag = "row gap-xxlarge auto-xy align-y-start wrap" },
+		{ tag = "row wrap gap-xxlarge auto-xy" },
 		Dash.map(stepExamples, function(example, index)
 			return React.createElement(Group, {
 				caption = example.caption,

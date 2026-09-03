@@ -2,6 +2,8 @@ local root = script.Parent.Parent
 local Constants = require(root.Constants)
 local getFFlagUGCValidationAnimationPackFolderStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
+local getFFlagUGCValidationAnimationAssetDisableModelStructure =
+	require(root.flags.getFFlagUGCValidationAnimationAssetDisableModelStructure)
 
 local function createAnimationEntry(optional: boolean?, includeWeight: boolean?): { [string]: any }
 	local entry: { [string]: any } = {
@@ -61,8 +63,10 @@ local function createAnimationSchema(assetTypeEnum: Enum.AssetType, rootInstance
 		_children = r15AnimChildren,
 	}
 
-	-- Removal condition will be returning this schema regardless of rootInstance
-	if getFFlagUGCValidationAnimationPackFolderStructure() and rootInstance and rootInstance.Name == "R15Anim" then
+	if
+		getFFlagUGCValidationAnimationAssetDisableModelStructure()
+		or (getFFlagUGCValidationAnimationPackFolderStructure() and rootInstance and rootInstance.Name == "R15Anim")
+	then
 		return r15AnimSchema
 	end
 

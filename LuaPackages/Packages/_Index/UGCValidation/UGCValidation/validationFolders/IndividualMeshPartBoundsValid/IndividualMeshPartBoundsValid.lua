@@ -3,14 +3,11 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 
 local getFFlagUGCValidateIndividualMeshPartBounds = require(root.flags.getFFlagUGCValidateIndividualMeshPartBounds)
-
-game:DefineFastInt("UGCValidateMeshPartBoundsMinHundredths", 10)
-game:DefineFastInt("UGCValidateMeshPartBoundsMaxHundredths", 200)
-
-local minThreshold = game:GetFastInt("UGCValidateMeshPartBoundsMinHundredths") / 100
-local maxThreshold = game:GetFastInt("UGCValidateMeshPartBoundsMaxHundredths") / 100
+local getEngineFeatureEngineUGCValidateMeshPartBoundsFromRules =
+	require(root.flags.getEngineFeatureEngineUGCValidateMeshPartBoundsFromRules)
 
 local IndividualMeshPartBoundsValid = {}
 
@@ -31,6 +28,16 @@ IndividualMeshPartBoundsValid.prereqTests = {}
 IndividualMeshPartBoundsValid.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local instance = data.rootInstance
 	local renderMeshesData = data.renderMeshesData
+
+	local minThreshold, maxThreshold
+	if getEngineFeatureEngineUGCValidateMeshPartBoundsFromRules() then
+		local meshRules = ValidationRulesUtil:getRules().MeshRules
+		minThreshold = meshRules.MeshPartBoundsMin
+		maxThreshold = meshRules.MeshPartBoundsMax
+	else
+		minThreshold = 0.05
+		maxThreshold = 4.00
+	end
 
 	for partName: string, meshData in renderMeshesData :: { [string]: any } do
 		local meshSize = meshData.originalSize * meshData.scale

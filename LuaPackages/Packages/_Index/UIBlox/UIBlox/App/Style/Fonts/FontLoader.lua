@@ -23,7 +23,7 @@ function FontLoader.new(tokens: StyleTypes.Tokens)
 	return self
 end
 
-function FontLoader:loadFont()
+function FontLoader:loadFont(fontFaceOverride: Enum.Font?)
 	local tokens: StyleTypes.Tokens = self._tokens
 	local baseSize = FONT_CONFIG.BASE_SIZE
 	local nominalSizeFactor = FONT_CONFIG.FACTOR
@@ -100,6 +100,15 @@ function FontLoader:loadFont()
 				else tokens.Global.Size_100) / baseSize,
 		},
 	}
+
+	if fontFaceOverride ~= nil then
+		for _, entry in fontWithToken do
+			if type(entry) == "table" and (entry :: any).Font ~= nil then
+				(entry :: any).Font = fontFaceOverride
+			end
+		end
+	end
+
 	local fontWithLegacyName = self:mapLegacyFont(fontWithToken, baseSize)
 	return Cryo.Dictionary.join(fontWithLegacyName, fontWithToken)
 end

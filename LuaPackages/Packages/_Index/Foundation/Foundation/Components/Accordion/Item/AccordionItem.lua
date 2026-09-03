@@ -7,6 +7,8 @@ local React = require(Packages.React)
 
 local ReactOtter = require(Packages.ReactOtter)
 
+local IconName = BuilderIcons.Icon
+
 local Divider = require(Foundation.Components.Divider)
 local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
@@ -182,7 +184,7 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 					LayoutOrder = 3,
 				}, {
 					Icon = React.createElement(Icon, {
-						name = "chevron-large-down",
+						name = IconName.ChevronLargeDown,
 						Rotation = chevronRotation,
 						style = variantProps.icon.style,
 						size = variantProps.icon.size,

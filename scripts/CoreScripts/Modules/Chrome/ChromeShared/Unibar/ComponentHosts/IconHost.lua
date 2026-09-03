@@ -18,6 +18,7 @@ local FFlagUnibarMenuOpenHamburger = ChromeFlags.FFlagUnibarMenuOpenHamburger
 local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
+local FFlagChromeNineDotActivityIndicator = ChromeSharedFlags.FFlagChromeNineDotActivityIndicator
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -49,6 +50,8 @@ local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
 local ChatNotificationBadge = require(script.Parent.ChatNotificationBadge)
+local NineDotActivityIndicator = require(script.Parent.NineDotActivityIndicator)
+local NineDotNotificationBadge = require(script.Parent.NineDotNotificationBadge)
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -124,6 +127,7 @@ export type IconHostProps = {
 	visible: React.Binding<boolean> | boolean | nil,
 	disableButtonBehaviors: boolean?,
 	minBadgeCount: number?,
+	showNineDotActivityIndicator: boolean?,
 }
 
 function NotificationBadge(props: IconHostProps): any?
@@ -222,6 +226,13 @@ function NotificationBadge(props: IconHostProps): any?
 					Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
 				} :: any
 			)
+			else nil,
+		ActivityIndicator = if FFlagChromeNineDotActivityIndicator and props.integration.id == "nine_dot"
+			then React.createElement(NineDotActivityIndicator, {
+				hasNotificationBadge = displayBadge,
+				position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
+				visible = props.showNineDotActivityIndicator == true,
+			})
 			else nil,
 	})
 end
@@ -692,7 +703,14 @@ function IconHost(props: IconHostProps)
 				iconHostProps = props,
 				NotificationBadge = NotificationBadge,
 			}) :: any
-			else React.createElement(NotificationBadge, props :: any) :: any,
+			elseif FFlagChromeNineDotActivityIndicator and props.integration.id == "nine_dot" then React.createElement(
+				NineDotNotificationBadge,
+				{
+					iconHostProps = props,
+					NotificationBadge = NotificationBadge,
+				}
+			)
+			else React.createElement(NotificationBadge, props) :: any,
 		if props.disableButtonBehaviors
 			then nil
 			else React.createElement(TooltipButton, {

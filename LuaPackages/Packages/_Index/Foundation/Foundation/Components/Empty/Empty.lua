@@ -1,7 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
+
+local IconName = BuilderIcons.Icon
 
 local Button = require(Foundation.Components.Button)
 local Icon = require(Foundation.Components.Icon)
@@ -36,7 +39,7 @@ local defaultProps = {
 	},
 	text = Translator:FormatByKey("CommonUI.Controls.NoResultsFound"),
 	button = {
-		icon = "icons/common/refresh",
+		icon = IconName.TwoArrowsSpinClockwise,
 		text = Translator:FormatByKey("CommonUI.Controls.Action.Refresh"),
 		onActivated = nil,
 	},

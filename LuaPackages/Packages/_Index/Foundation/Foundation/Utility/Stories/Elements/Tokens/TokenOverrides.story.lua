@@ -237,7 +237,7 @@ local function TokenRow(props: {
 		tag = "col gap-small auto-xy",
 	}, {
 		HeaderRow = React.createElement(View, {
-			tag = "row gap-small auto-xy align-y-center",
+			tag = "row align-y-center gap-small auto-xy",
 			LayoutOrder = 1,
 		}, {
 			Label = React.createElement(View, {
@@ -341,11 +341,11 @@ local function TokenRow(props: {
 									setIsColorPopoverOpen(true)
 								end
 							end,
-							tag = "row align-y-center gap-small size-2500-800 padding-x-small radius-medium bg-shift-200 clip",
+							tag = "row align-y-center gap-small size-2500-800 padding-x-small radius-medium clip bg-shift-200",
 						}, {
 							Swatch = React.createElement(View, {
 								LayoutOrder = 1,
-								tag = "radius-small size-500-500",
+								tag = "size-500-500 radius-small",
 							}, {
 								Checkerboard = React.createElement(Image, {
 									Image = "component_assets/checkerboard_12",
@@ -366,7 +366,7 @@ local function TokenRow(props: {
 							HexLabel = React.createElement(Text, {
 								LayoutOrder = 2,
 								Text = colorHex,
-								tag = "auto-xy size-0-0 text-body-small text-truncate-end content-emphasis",
+								tag = "size-0-0 auto-xy text-body-small text-truncate-end content-emphasis",
 							}),
 						})
 					),
@@ -388,7 +388,7 @@ local function TokenRow(props: {
 							}, {
 								Hint = React.createElement(Text, {
 									Text = "Color + alpha → token Color3 and Transparency.",
-									tag = "auto-xy text-caption-small text-subtle",
+									tag = "auto-xy text-caption-small",
 									LayoutOrder = 0,
 								}),
 								Picker = React.createElement(ColorPicker, {

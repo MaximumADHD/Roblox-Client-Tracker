@@ -70,6 +70,8 @@ local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionSta
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
+local FFlagVoiceChatPermissionPromptUseMicrophoneRoute =
+	game:DefineFastFlag("VoiceChatPermissionPromptUseMicrophoneRoute", false)
 local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
@@ -99,11 +101,15 @@ local FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast =
 local FFlagVoiceRewarmTelemetry =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 local FFlagGuardVoiceInExpUpsellVariant = game:DefineFastFlag("GuardVoiceInExpUpsellVariant", false)
+local FFlagAlwaysSetJoinVoiceButtonContext = game:DefineFastFlag("AlwaysSetJoinVoiceButtonContext", false)
 
 local JOIN_VOICE_BUTTON_CONTEXT = {
 	FAE_UPSELL = "FaeUpsell",
 	VOICE_FTUX = "VoiceFtux",
 	REWARM = "Rewarm",
+	AGE_CHECK_TOAST = "AgeCheckToast",
+	PHONE_UPSELL = "PhoneUpsell",
+	IN_EXP_UPSELL = "InExpUpsell",
 }
 local JOIN_VOICE_BUTTON_CONSEQUENCE = {
 	REJOIN_PREVIOUS_CHANNEL = "RejoinPreviousChannel",
@@ -1367,11 +1373,15 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					and GetFFlagJoinWithoutMicPermissions()
 					and promptType == VoiceChatPromptType.Permission
 				then function()
-					local settingsAppAvailable = LinkingProtocol:supportsSwitchToSettingsApp():await()
+					local settingsRoute = if FFlagVoiceChatPermissionPromptUseMicrophoneRoute
+						then SettingsRoute.Microphone
+						else nil
+					local settingsAppAvailable =
+						LinkingProtocol:supportsSwitchToSettingsApp(settingsRoute):await()
 					log:debug("Settings app available: {}", settingsAppAvailable)
 					if settingsAppAvailable then
 						log:debug("Switching to settings app")
-						LinkingProtocol:switchToSettingsApp()
+						LinkingProtocol:switchToSettingsApp(settingsRoute)
 							:andThen(function()
 								log:debug("Successfully switched to settings app")
 							end)
@@ -1990,6 +2000,9 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 	-- Show join voice button to users who are eligible to see the toast notifying them to age check to unlock voice
 	-- This logic will no longer apply when Phase 2 of Aegis is rolled out
 	if self:EligibleForAgeCheckToast() then
+		if FFlagAlwaysSetJoinVoiceButtonContext then
+			self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.AGE_CHECK_TOAST
+		end
 		return true
 	end
 
@@ -2006,7 +2019,14 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 		and self:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER)
 			== VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 	then
+		if FFlagAlwaysSetJoinVoiceButtonContext then
+			self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.PHONE_UPSELL
+		end
 		return true
+	end
+
+	if FFlagAlwaysSetJoinVoiceButtonContext and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
+		self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.IN_EXP_UPSELL
 	end
 
 	return userInInExperienceUpsellTreatment and userVoiceUpsellEligible

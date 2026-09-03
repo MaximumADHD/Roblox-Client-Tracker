@@ -13,7 +13,7 @@ return {
 	name = "Hooks",
 	group = "Foundation",
 	roact = Roact,
-	storyRoots = GetStories("hooks"),
+	storyRoots = GetStories.getStorybookRoots("hooks"),
 	mapStory = StoryMiddleware,
 	packages = {
 		React = React,

@@ -10,6 +10,7 @@ return function(fontName, tokens: StyleTypes.Tokens)
 	local fontLoader = FontLoader.new(tokens)
 	local fontMap = {
 		[Constants.FontName.Gotham:lower()] = fontLoader:loadFont(),
+		[Constants.FontName.Classic:lower()] = fontLoader:loadFont(Enum.Font.Cartoon),
 	}
 	local mappedFont
 	if fontName ~= nil and #fontName > 0 then

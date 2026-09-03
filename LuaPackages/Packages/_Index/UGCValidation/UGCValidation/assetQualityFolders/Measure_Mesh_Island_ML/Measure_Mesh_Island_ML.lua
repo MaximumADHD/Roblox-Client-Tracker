@@ -3,7 +3,11 @@ local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
-local minScoreThreshold = game:DefineFastInt("UGCValidationMeshIslandMLMinScore", 92)
+-- The AQS score is INVERTED relative to the model: asset-quality emits
+-- `100 - round(islandProbability * 100)`, so 100 is clean and 0 is a certain island. This
+-- threshold is therefore a cleanliness floor, not a confidence percentage. To catch islands
+-- at a confidence of C percent, set it to `101 - C`; 9 catches 92% and above.
+local minScoreThreshold = game:DefineFastInt("UGCValidationMeshIslandMLMinScore", 9)
 
 local Measure_Mesh_Island_ML = {}
 

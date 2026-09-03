@@ -17,7 +17,7 @@ local function LabeledDivider(props: {
 	orientation: Orientation?,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left size-full-0 auto-y",
+		tag = "col align-x-left gap-small size-full-0 auto-y",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -65,7 +65,7 @@ local function VariantsStory()
 	end
 
 	return React.createElement(View, {
-		tag = "col align-y-start gap-xxlarge size-full-0 auto-y padding-large bg-surface-0",
+		tag = "col gap-xxlarge size-full-0 auto-y padding-large bg-surface-0",
 	}, children)
 end
 
@@ -79,7 +79,7 @@ local function OrientationStory()
 			orientation = Orientation.Horizontal,
 		}),
 		Vertical = React.createElement(View, {
-			tag = "col gap-small align-x-left auto-y size-full-0",
+			tag = "col align-x-left gap-small size-full-0 auto-y",
 			LayoutOrder = 2,
 		}, {
 			Label = React.createElement(Text, {

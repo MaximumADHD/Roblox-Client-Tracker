@@ -104,7 +104,7 @@ local function StoryScrollViewWithTags(props)
 end
 
 return {
-	engineeringOnly = true,
+	base = true,
 	summary = "ScrollView",
 	stories = {
 		{

@@ -35,6 +35,7 @@ local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", fals
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
+local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -127,6 +128,9 @@ export type ChromeService = {
 	subMenuNotifications: (ChromeService, subMenuId: IntegrationId) -> utils.NotifySignal,
 	totalNotifications: (ChromeService) -> utils.NotifySignal,
 	notificationIndicator: (ChromeService) -> ObservableIntegration,
+	nineDotActivityIndicatorVisible: (ChromeService) -> utils.ObservableValue<boolean>,
+	setNineDotActivityIndicatorVisible: (ChromeService, featureKey: string, visible: boolean) -> (),
+	updateNineDotActivityIndicatorVisible: (ChromeService) -> (),
 	updateNotificationTotals: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: MenuConfig) -> (),
 	configureSubMenu: (ChromeService, parent: IntegrationId, menuConfig: IntegrationIdList) -> (),
@@ -207,6 +211,8 @@ export type ChromeService = {
 	_totalNotifications: utils.NotifySignal,
 	_mostRecentlyUsedAndPinnedLimit: number,
 	_notificationIndicator: ObservableIntegration,
+	_nineDotActivityIndicatorVisible: utils.ObservableValue<boolean>,
+	_nineDotActivityIndicatorKeys: { [string]: boolean? },
 
 	_onIntegrationRegistered: SignalLib.Signal,
 	_onIntegrationActivated: SignalLib.Signal,
@@ -269,6 +275,10 @@ function ChromeService.new(): ChromeService
 	self._currentShortcutBar = ObservableValue.new(nil)
 
 	self._notificationIndicator = ObservableValue.new(nil)
+	self._nineDotActivityIndicatorVisible = if FFlagChromeNineDotActivityIndicator
+		then ObservableValue.new(false)
+		else nil :: never
+	self._nineDotActivityIndicatorKeys = if FFlagChromeNineDotActivityIndicator then {} else nil :: never
 	self._orderAlignment = ObservableValue.new(Enum.HorizontalAlignment.Left)
 
 	self._onIntegrationRegistered = Signal.new()
@@ -302,6 +312,13 @@ function ChromeService.new(): ChromeService
 			service._currentShortcutBar:set(shortcutBarId)
 		end)
 	end
+
+	if FFlagChromeNineDotActivityIndicator then
+		self._currentSubMenu:connect(function()
+			service:updateNineDotActivityIndicatorVisible()
+		end)
+	end
+
 	FocusOnChromeSignal:connect(function(integrationIdToFocus: IntegrationId?)
 		-- initial focus on submenu integration not supported
 		if integrationIdToFocus and not self._subMenuConfig["nine_dot"][integrationIdToFocus] then
@@ -373,6 +390,29 @@ end
 
 function ChromeService:notificationIndicator()
 	return self._notificationIndicator
+end
+
+function ChromeService:nineDotActivityIndicatorVisible(): utils.ObservableValue<boolean>
+	return self._nineDotActivityIndicatorVisible
+end
+
+function ChromeService:setNineDotActivityIndicatorVisible(featureKey: string, visible: boolean)
+	self._nineDotActivityIndicatorKeys[featureKey] = if visible then true else nil
+	self:updateNineDotActivityIndicatorVisible()
+end
+
+-- The dot is one shared pixel, so visibility is the union of every feature
+-- currently requesting it rather than the most recent caller's value.
+function ChromeService:updateNineDotActivityIndicatorVisible()
+	local visible = next(self._nineDotActivityIndicatorKeys) ~= nil
+
+	-- Requests are kept while the menu is open so the dot reappears on close,
+	-- unless the requesting feature cleared it from inside the menu.
+	if self._currentSubMenu:get() == "nine_dot" then
+		visible = false
+	end
+
+	self._nineDotActivityIndicatorVisible:set(visible)
 end
 
 function ChromeService:toggleSubMenu(subMenuId: IntegrationId)

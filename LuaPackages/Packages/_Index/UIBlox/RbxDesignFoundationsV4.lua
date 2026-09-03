@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RbxDesignFoundations-31ab8d40-4.0.1"]["RbxDesignFoundations"])
+local Package = require(PackageIndex["RbxDesignFoundations-31ab8d40-4.0.7"]["RbxDesignFoundations"])
 
 export type Tokens = Package.Tokens
 export type ColorMode = Package.ColorMode

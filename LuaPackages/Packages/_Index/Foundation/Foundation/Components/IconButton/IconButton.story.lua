@@ -19,8 +19,10 @@ type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
--- Only show the supported variants for IconButton
-local SUPPORTED_VARIANTS: { ButtonVariant } = {
+-- IconButton accepts a subset of the Button variants, and this is that subset.
+type IconButtonVariant = "Standard" | "Emphasis" | "Utility" | "OverMedia" | "Alert"
+
+local SUPPORTED_VARIANTS: { IconButtonVariant } = {
 	ButtonVariant.Utility,
 	ButtonVariant.Standard,
 	ButtonVariant.Emphasis,
@@ -32,6 +34,10 @@ local function PlaygroundStory(props)
 	local controls = props.controls
 	local colorNamespace = controls.colorNamespace
 	local tokens = useTokens()
+
+	local presentationValue = React.useMemo(function()
+		return { colorNamespace = colorNamespace }
+	end, { colorNamespace })
 
 	local iconButton = React.createElement(IconButton, {
 		icon = {
@@ -63,10 +69,46 @@ local function PlaygroundStory(props)
 				}),
 			})
 			else nil,
-		IconButton = React.createElement(
+		IconButton = React.createElement(PresentationContext.Provider, { value = presentationValue }, iconButton),
+	})
+end
+
+local function VariantStory(props: { variant: IconButtonVariant })
+	local variant: IconButtonVariant = props.variant
+	local tokens = useTokens()
+
+	local presentationValue = React.useMemo(function()
+		return { isIconSize = false, colorNamespace = ColorNamespace.Color }
+	end, {})
+
+	return React.createElement(View, {
+		tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
+		backgroundStyle = if variant == ButtonVariant.OverMedia then tokens.Color.Extended.White.White_100 else nil,
+	}, {
+		Gradient = if variant == ButtonVariant.OverMedia
+			then React.createElement("UIGradient", {
+				Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, tokens.Color.Extended.Green.Green_500.Color3),
+					ColorSequenceKeypoint.new(1, tokens.Color.Extended.Blue.Blue_500.Color3),
+				}),
+			})
+			else nil,
+		IconButtons = React.createElement(
 			PresentationContext.Provider,
-			{ value = { colorNamespace = colorNamespace } },
-			iconButton
+			{ value = presentationValue },
+			Dash.map(
+				{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
+				function(size)
+					return React.createElement(IconButton, {
+						icon = BuilderIcons.Icon.PlaySmall,
+						variant = variant,
+						onActivated = function()
+							print(`{variant} IconButton ({size}) activated`)
+						end,
+						size = size,
+					})
+				end
+			)
 		),
 	})
 end
@@ -75,40 +117,7 @@ local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 	return {
 		name = variant,
 		story = function()
-			local tokens = useTokens()
-
-			return React.createElement(View, {
-				tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
-				backgroundStyle = if variant == ButtonVariant.OverMedia
-					then tokens.Color.Extended.White.White_100
-					else nil,
-			}, {
-				Gradient = if variant == ButtonVariant.OverMedia
-					then React.createElement("UIGradient", {
-						Color = ColorSequence.new({
-							ColorSequenceKeypoint.new(0, tokens.Color.Extended.Green.Green_500.Color3),
-							ColorSequenceKeypoint.new(1, tokens.Color.Extended.Blue.Blue_500.Color3),
-						}),
-					})
-					else nil,
-				IconButtons = React.createElement(
-					PresentationContext.Provider,
-					{ value = { isIconSize = false, colorNamespace = ColorNamespace.Color } },
-					Dash.map(
-						{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
-						function(size)
-							return React.createElement(IconButton, {
-								icon = BuilderIcons.Icon.PlaySmall,
-								variant = variant,
-								onActivated = function()
-									print(`{variant} IconButton ({size}) activated`)
-								end,
-								size = size,
-							})
-						end
-					)
-				),
-			})
+			return React.createElement(VariantStory, { variant = variant })
 		end,
 	}
 end)

@@ -36,6 +36,7 @@ local tan   = math.tan
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
+local StarterPlayer = game:GetService("StarterPlayer")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 local Lighting = game:GetService("Lighting")
@@ -338,6 +339,15 @@ do
 	end)
 	FFlagUserFreecamIASRefactor3 = success and result
 end
+
+local FFlagUserFreecamIASRefactor4
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFreecamIASRefactor4")
+	end)
+	FFlagUserFreecamIASRefactor4 = success and result
+end
+
 
 -----------------------------------------------------------------------
 
@@ -853,13 +863,26 @@ local Input = {} do
 	local function createIASContexts()
 		local cfg = Constants.Actions
 
+		local contextParent
+		if FFlagUserFreecamIASRefactor4 then
+			local freecamInputFolder = Instance.new("Folder")
+			freecamInputFolder.Name = "FreecamInput"
+			freecamInputFolder.Parent = StarterPlayer
+			script.Destroying:Connect(function()
+				freecamInputFolder:Destroy()
+			end)
+			contextParent = freecamInputFolder
+		else
+			contextParent = script
+		end
+
 		-- high priority toggle context
 		local freecamToggleContext = Instance.new("InputContext")
 		freecamToggleContext.Name     = "FreecamToggleContext"
 		freecamToggleContext.Priority = FREECAM_TOGGLE_PRIORITY
 		freecamToggleContext.Sink     = false
 		freecamToggleContext.Enabled  = true
-		freecamToggleContext.Parent   = script
+		freecamToggleContext.Parent   = contextParent
 		freecamToggleAction = createAction(freecamToggleContext, cfg.Toggle)
 
 		-- high priority input context to sink inputs before character / camera movement
@@ -868,7 +891,7 @@ local Input = {} do
 		freecamContext.Priority = FREECAM_INPUT_PRIORITY
 		freecamContext.Sink     = true
 		freecamContext.Enabled  = false
-		freecamContext.Parent   = script
+		freecamContext.Parent   = contextParent
 		Input._sinkContext = freecamContext
 
 		actions.Pan             = createAction(freecamContext, cfg.Pan)

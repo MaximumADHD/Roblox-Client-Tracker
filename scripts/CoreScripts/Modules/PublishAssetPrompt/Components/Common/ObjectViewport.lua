@@ -16,6 +16,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local t = require(CorePackages.Packages.t)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local Constants = require(script.Parent.Parent.Parent.Constants)
+local MakeupPreviewUtils = require(script.Parent.Parent.Parent.MakeupPreviewUtils)
 local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUtility
 local CameraUtility = require(CorePackages.Packages.Thumbnailing).CameraUtility
 local CFrameUtility = require(CorePackages.Packages.Thumbnailing).CFrameUtility
@@ -43,6 +44,7 @@ ObjectViewport.validateProps = t.strictInterface({
 	openPreviewView = t.optional(t.callback),
 	LayoutOrder = t.optional(t.number),
 	isHumanoidModel = t.optional(t.boolean),
+	isMakeupPreview = t.optional(t.boolean),
 })
 
 function ObjectViewport:createCamera()
@@ -82,8 +84,13 @@ function ObjectViewport:setupViewportForAsset()
 	if input:IsA("Model") then
 		-- Move model to origin for consistent positioning
 		input:MoveTo(Vector3.new(0, 0, 0))
-		inputCFrame = input:GetModelCFrame()
-		inputSize = input:GetExtentsSize()
+		local headCFrame: CFrame?
+		local headSize: Vector3?
+		if self.props.isMakeupPreview then
+			headCFrame, headSize = MakeupPreviewUtils.getHeadPreviewCameraData(input)
+		end
+		inputCFrame = headCFrame or input:GetModelCFrame()
+		inputSize = headSize or input:GetExtentsSize()
 	else
 		-- Accessory: move first MeshPart
 		local meshPart: MeshPart? = input:FindFirstChildWhichIsA("MeshPart", true)

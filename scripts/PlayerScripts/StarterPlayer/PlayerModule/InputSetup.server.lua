@@ -16,9 +16,9 @@ local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlaye
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
-local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState")
+local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
@@ -111,6 +111,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 		dynamicThumbstickBinding.Name = "DynamicThumbstickScriptableBinding"
 		if FFlagUserPlayerScriptsSAuthDirectAPIs then dynamicThumbstickBinding.Type = Enum.InputBindingType.Scriptable end
 		dynamicThumbstickBinding.Parent = moveAction
+	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and moveAction then
+		local existingBinding = moveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
 
 	if moveAction and not moveAction:FindFirstChild("ClassicThumbstickScriptableBinding") then
@@ -118,6 +121,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 		classicThumbstickBinding.Name = "ClassicThumbstickScriptableBinding"
 		if FFlagUserPlayerScriptsSAuthDirectAPIs then classicThumbstickBinding.Type = Enum.InputBindingType.Scriptable end
 		classicThumbstickBinding.Parent = moveAction
+	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and moveAction then
+		local existingBinding = moveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
 
 	if moveAction and not moveAction:FindFirstChild("ClickToMoveScriptableBinding") then
@@ -125,6 +131,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
 		if FFlagUserPlayerScriptsSAuthDirectAPIs then clickToMoveBinding.Type = Enum.InputBindingType.Scriptable end
 		clickToMoveBinding.Parent = moveAction
+	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and moveAction then
+		local existingBinding = moveAction:FindFirstChild("ClickToMoveScriptableBinding")
+		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
 
 	if jumpAction and not jumpAction:FindFirstChild("ClickToMoveScriptableBinding") then
@@ -132,6 +141,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
 		if FFlagUserPlayerScriptsSAuthDirectAPIs then clickToMoveBinding.Type = Enum.InputBindingType.Scriptable end
 		clickToMoveBinding.Parent = jumpAction
+	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and jumpAction then
+		local existingBinding = jumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
 
 	if cameraAction and not cameraAction:FindFirstChild("CameraScriptableBinding") then
@@ -139,6 +151,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 		cameraScriptableBinding.Name = "CameraScriptableBinding"
 		if FFlagUserPlayerScriptsSAuthDirectAPIs then cameraScriptableBinding.Type = Enum.InputBindingType.Scriptable end
 		cameraScriptableBinding.Parent = cameraAction
+	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and cameraAction then
+		local existingBinding = cameraAction:FindFirstChild("CameraScriptableBinding")
+		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
 
 	if rotationAction and not rotationAction:FindFirstChild("RotationScriptableBinding") then
@@ -146,6 +161,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 		rotationScriptableBinding.Name = "RotationScriptableBinding"
 		if FFlagUserPlayerScriptsSAuthDirectAPIs then rotationScriptableBinding.Type = Enum.InputBindingType.Scriptable end
 		rotationScriptableBinding.Parent = rotationAction
+	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and rotationAction then
+		local existingBinding = rotationAction:FindFirstChild("RotationScriptableBinding")
+		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
 end
 

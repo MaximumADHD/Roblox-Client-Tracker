@@ -246,6 +246,7 @@ local CreateChatTranslationOptionsWithChatLanguageSwitcher = require(
 )
 
 local GameBasicSettingsFramerateCap = game:GetEngineFeature("GameBasicSettingsFramerateCap")
+local RUUserScalePreferenceAPI = game:GetEngineFeature("RUUserScalePreferenceAPI")
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -892,6 +893,154 @@ local function Initialize()
 			end
 			reportSettingsForAnalytics()
 		end)
+	end
+
+	local lastUIScaleMinHundredths = nil
+	local lastUIScaleMaxHundredths = nil
+
+	local function createUIScaleOptionsImpl()
+		local autoHundredths = GuiService:GetAutoUIScaleHundredths()
+		local dpr = GuiService:GetRawScreenScale()
+		local camera = workspace.CurrentCamera
+		if not camera then
+			return
+		end
+		local viewportH = camera.ViewportSize.Y
+		-- physH = viewportH * DPR * appliedScale recovers the physical framebuffer height.
+		-- GetEffectiveUIScaleHundredths returns the actual applied scale, not the stored preference,
+		-- so physH stays correct when the viewport is too small and C++ falls back to auto.
+		local physH = viewportH * dpr * GuiService:GetEffectiveUIScaleHundredths() / 100
+
+		-- Min: 1/DPR equivalent (ensures DPR * finalScale >= 1), ceil to nearest 0.25 step
+		-- Max: physH / (540 * DPR), floor to nearest 0.25 step (keeps logical viewport >= 540px)
+		local minHundredths = math.ceil(100 / dpr / 25) * 25
+		local maxHundredths = math.floor(physH / (540 * dpr) * 4) / 4 * 100
+		local NUM_STEPS = math.round((maxHundredths - minHundredths) / 25)
+
+		if NUM_STEPS <= 0 then
+			-- Viewport too small for any valid manual range; C++ already applies auto scale.
+			-- Do not clear the stored preference so it restores when the viewport grows back.
+			lastUIScaleMinHundredths = nil
+			lastUIScaleMaxHundredths = nil
+			if this.UIScaleModeFrame then
+				this.UIScaleModeFrame:Destroy()
+				this.UIScaleModeFrame = nil
+			end
+			if this.UIScaleFrame then
+				this.UIScaleFrame:Destroy()
+				this.UIScaleFrame = nil
+			end
+			return
+		end
+
+		-- Skip the rebuild if the physical range hasn't actually changed. Dragging the slider
+		-- calls SetUIScaleMultiplier, which changes Camera.ViewportSize and re-fires the viewport
+		-- listener that calls this function; physH is invariant to appliedScale (see the comment
+		-- above), so min/max stay the same during a drag and this avoids destroying the slider the
+		-- user is actively dragging. Keyed on (min, max) rather than step count, since two different
+		-- viewport/DPR combinations can produce the same step count with different endpoints.
+		if this.UIScaleModeFrame
+			and minHundredths == lastUIScaleMinHundredths
+			and maxHundredths == lastUIScaleMaxHundredths
+		then
+			return
+		end
+		lastUIScaleMinHundredths = minHundredths
+		lastUIScaleMaxHundredths = maxHundredths
+
+		if this.UIScaleModeFrame then
+			this.UIScaleModeFrame:Destroy()
+			this.UIScaleModeFrame = nil
+		end
+		if this.UIScaleFrame then
+			this.UIScaleFrame:Destroy()
+			this.UIScaleFrame = nil
+		end
+
+		local function indexToHundredths(i) return minHundredths + i * 25 end
+		local function hundredthsToIndex(h)
+			return math.clamp(math.round((h - minHundredths) / 25), 0, NUM_STEPS)
+		end
+
+		local saved = UserGameSettings.UIScaleMultiplierHundredths
+		local isCustom = saved ~= 0
+		local startMode = if isCustom then 2 else 1
+		local startSlider = if isCustom then hundredthsToIndex(saved) else 0
+
+		local localization = {
+			modeTitle = "CoreScripts.InGameMenu.GameSettings.UIScaleMode",
+			modeAuto = "CoreScripts.InGameMenu.GameSettings.UIScaleModeAuto",
+			modeManual = "CoreScripts.InGameMenu.GameSettings.UIScaleModeManual",
+			sliderTitle = "CoreScripts.InGameMenu.GameSettings.UIScale",
+			smallest = "CoreScripts.InGameMenu.GameSettings.UIScaleSmallest",
+			largest = "CoreScripts.InGameMenu.GameSettings.UIScaleLargest",
+		}
+
+		this.UIScaleModeFrame, this.UIScaleModeLabel, this.UIScaleModeSelector = utility:AddNewRow(
+			this,
+			locales:Format(localization.modeTitle),
+			"Selector",
+			{ locales:Format(localization.modeAuto), locales:Format(localization.modeManual) },
+			startMode
+		)
+		this.UIScaleModeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["UIScaleModeFrame"]
+
+		this.UIScaleFrame, this.UIScaleLabel, this.UIScaleSlider = utility:AddNewRow(
+			this,
+			locales:Format(localization.sliderTitle),
+			"Slider",
+			NUM_STEPS,
+			startSlider,
+			nil,
+			nil,
+			locales:Format(localization.smallest),
+			locales:Format(localization.largest)
+		)
+		this.UIScaleFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["UIScaleFrame"]
+		this.UIScaleFrame.Visible = isCustom
+
+		-- Do not call SetUIScaleMultiplier here: the engine already applies the correct
+		-- effective scale on its own (clamped for the current viewport, without touching
+		-- the stored preference). Calling it here would persist the display-clamped value
+		-- and destroy the user's original preference on the next viewport change.
+
+		this.UIScaleModeSelector.IndexChanged:connect(function(newIndex)
+			local nowManual = newIndex == 2
+			this.UIScaleFrame.Visible = nowManual
+			if nowManual then
+				-- Snap to the nearest 0.25 step from the current auto scale on first switch to Manual
+				local snapped = math.clamp(
+					math.round(autoHundredths / 25) * 25,
+					minHundredths, indexToHundredths(NUM_STEPS))
+				this.UIScaleSlider:SetValue(hundredthsToIndex(snapped))
+				GuiService:SetUIScaleMultiplier(snapped)
+				reportSettingsChangeForAnalytics("ui_scale_mode", "auto", "manual")
+			else
+				GuiService:SetUIScaleMultiplier(0)
+				reportSettingsChangeForAnalytics("ui_scale_mode", "manual", "auto")
+			end
+			reportSettingsForAnalytics()
+		end)
+
+		this.UIScaleSlider.ValueChanged:connect(function(newIndex)
+			local oldValue = UserGameSettings.UIScaleMultiplierHundredths
+			local newHundredths = indexToHundredths(newIndex)
+			GuiService:SetUIScaleMultiplier(newHundredths)
+			reportSettingsChangeForAnalytics("ui_scale_value", oldValue, newHundredths)
+			reportSettingsForAnalytics()
+		end)
+	end
+
+	-- The engine-side GuiService/UserGameSettings APIs used above require a matching game-engine
+	-- build. If FFlagRUUserScalePreference is enabled on a client where lua-apps has landed ahead
+	-- of that engine change, calling these raises "not a valid member" — pcall contains the failure
+	-- to just skipping the UI Scale rows, instead of aborting the rest of Initialize()/
+	-- OpenSettingsPage() (which would also break unrelated rows and device listeners).
+	local function createUIScaleOptions()
+		local ok, err = pcall(createUIScaleOptionsImpl)
+		if not ok then
+			warn("createUIScaleOptions failed: " .. tostring(err))
+		end
 	end
 
 	local function createUiNavigationKeyBindOptions()
@@ -3669,6 +3818,53 @@ local function Initialize()
 		end
 	end
 
+	local uiScaleViewportChangedConnection = nil
+	local uiScaleCurrentCameraChangedConnection = nil
+
+	local function setupUIScaleViewportChangedListener()
+		if not RUUserScalePreferenceAPI then
+			return
+		end
+
+		local function rebindToCurrentCamera()
+			if uiScaleViewportChangedConnection then
+				uiScaleViewportChangedConnection:Disconnect()
+				uiScaleViewportChangedConnection = nil
+			end
+			local camera = workspace.CurrentCamera
+			if not camera then
+				return
+			end
+			uiScaleViewportChangedConnection = camera
+				:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+					if this.PageOpen then
+						createUIScaleOptions()
+					end
+				end)
+		end
+
+		rebindToCurrentCamera()
+		-- workspace.CurrentCamera can be replaced (e.g. camera scripts swapping cameras);
+		-- rebind the ViewportSize listener to whichever camera is current.
+		uiScaleCurrentCameraChangedConnection = workspace
+			:GetPropertyChangedSignal("CurrentCamera"):Connect(rebindToCurrentCamera)
+	end
+
+	local function teardownUIScaleViewportChangedListener()
+		if uiScaleViewportChangedConnection then
+			uiScaleViewportChangedConnection:Disconnect()
+			uiScaleViewportChangedConnection = nil
+		end
+		if uiScaleCurrentCameraChangedConnection then
+			uiScaleCurrentCameraChangedConnection:Disconnect()
+			uiScaleCurrentCameraChangedConnection = nil
+		end
+		-- Force createUIScaleOptions to re-validate the range on next open, since the viewport
+		-- could have changed while the listener was torn down (menu closed).
+		lastUIScaleMinHundredths = nil
+		lastUIScaleMaxHundredths = nil
+	end
+
 	-- Check if voice chat is enabled
 	local function checkVoiceChatOptions()
 		if VoiceChatServiceManager:VoiceChatAvailable() then
@@ -4561,6 +4757,9 @@ local function Initialize()
 		createPreferredTransparencyOptions()
 	end
 	createPreferredTextSizeOptions()
+	if RUUserScalePreferenceAPI then
+		createUIScaleOptions()
+	end
 	createUiNavigationKeyBindOptions()
 
 	local canShowPerfStats = not CachedPolicyService:IsSubjectToChinaPolicies()
@@ -4700,6 +4899,10 @@ local function Initialize()
 			end
 		end
 
+		if RUUserScalePreferenceAPI then
+			createUIScaleOptions()
+		end
+
 		if
 			GetFFlagLazyInitiateExperienceLanguageSwitcher()
 			and not this.LanguageSwitcherInitialized
@@ -4714,6 +4917,9 @@ local function Initialize()
 		-- TODO: This should be simplified by new API
 		updateAudioOptions()
 		setupDeviceChangedListener()
+		if RUUserScalePreferenceAPI then
+			setupUIScaleViewportChangedListener()
+		end
 		this.startVolume = GameSettings.MasterVolume
 		if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast
 			and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider then
@@ -4768,6 +4974,9 @@ local function Initialize()
 		end
 
 		teardownDeviceChangedListener()
+		if RUUserScalePreferenceAPI then
+			teardownUIScaleViewportChangedListener()
+		end
 		if GetFFlagEnableCrossExpVoice() and teardownCrossExperienceVoiceListeners then
 			teardownCrossExperienceVoiceListeners()
 		end

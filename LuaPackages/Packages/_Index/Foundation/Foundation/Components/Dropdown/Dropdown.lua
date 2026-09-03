@@ -7,7 +7,6 @@ local BaseMenu = require(Foundation.Components.BaseMenu)
 local Popover = require(Foundation.Components.Popover)
 local Types = require(Foundation.Components.Types)
 
-local Flags = require(Foundation.Utility.Flags)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
@@ -89,12 +88,9 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 		inputRef.current = instance
 		setInputInstance(instance)
 	end, {})
-
-	if Flags.FoundationDropdownSelectionProps then
-		React.useImperativeHandle(ref, function()
-			return inputInstance
-		end, { inputInstance })
-	end
+	React.useImperativeHandle(ref, function()
+		return inputInstance
+	end, { inputInstance })
 
 	-- This may cause blinking for UDim.new(1, 0) size if the menu is open from the start. Shouldn't be the case?
 	local absoluteWidth, setAbsoluteWidth = React.useBinding(props.width)
@@ -125,10 +121,6 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 
 	return React.createElement(Popover.Root, {
 		isOpen = isMenuOpen,
-		-- TODO: remove with FoundationDropdownSelectionProps. The forwarded ref is now exposed via
-		-- `useImperativeHandle` above so it resolves to the button GuiObject; `Popover.Root` is a context
-		-- provider and ignores `ref` anyway.
-		ref = if Flags.FoundationDropdownSelectionProps then nil else ref,
 	}, {
 		DropdownControl = React.createElement(
 			DropdownControl,
@@ -144,20 +136,12 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				size = props.size,
 				label = props.label,
 				hint = props.hint,
-				inputRef = if Flags.FoundationDropdownSelectionProps then inputRefCallback else inputRef,
-				Selectable = if Flags.FoundationDropdownSelectionProps then props.Selectable else nil :: never,
-				NextSelectionUp = if Flags.FoundationDropdownSelectionProps
-					then props.NextSelectionUp
-					else nil :: never,
-				NextSelectionDown = if Flags.FoundationDropdownSelectionProps
-					then props.NextSelectionDown
-					else nil :: never,
-				NextSelectionLeft = if Flags.FoundationDropdownSelectionProps
-					then props.NextSelectionLeft
-					else nil :: never,
-				NextSelectionRight = if Flags.FoundationDropdownSelectionProps
-					then props.NextSelectionRight
-					else nil :: never,
+				inputRef = inputRefCallback,
+				Selectable = props.Selectable,
+				NextSelectionUp = props.NextSelectionUp,
+				NextSelectionDown = props.NextSelectionDown,
+				NextSelectionLeft = props.NextSelectionLeft,
+				NextSelectionRight = props.NextSelectionRight,
 			})
 		),
 		-- Use anchorRef prop instead of children so we get the correct position

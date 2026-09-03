@@ -20,11 +20,7 @@ return function(itemId, itemType, shouldFavorite)
 			end
 
 			local success, result = pcall(function()
-				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					return MarketplaceService:GetProductInfoAsync(itemId, infoType)
-				else
-					return (MarketplaceService :: never):GetProductInfo(itemId, infoType)
-				end
+				return MarketplaceService:GetProductInfoAsync(itemId, infoType)
 			end)
 
 			if success then

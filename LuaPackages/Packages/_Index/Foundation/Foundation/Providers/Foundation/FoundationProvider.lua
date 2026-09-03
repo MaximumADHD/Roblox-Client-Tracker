@@ -32,10 +32,16 @@ export type FoundationProviderProps = {
 	plugin: Plugin?,
 } & StyleProps
 
+local EMPTY_TABLE = table.freeze({})
+
 local function FoundationProvider(props: FoundationProviderProps)
 	-- TODO: not any, children types acting weird
-	local preferences: any = if props.preferences then props.preferences else {}
-	local responsiveConfig = if props.responsiveConfig then props.responsiveConfig else {} :: ResponsiveConfig
+	local preferences: any = if props.preferences
+		then props.preferences
+		else (if Flags.FoundationProviderStableEmptyTable then EMPTY_TABLE else {})
+	local responsiveConfig = if props.responsiveConfig
+		then props.responsiveConfig
+		else (if Flags.FoundationProviderStableEmptyTable then EMPTY_TABLE else {}) :: ResponsiveConfig
 
 	local providers: { React.ReactElement } = {
 		React.createElement(PluginProvider, {

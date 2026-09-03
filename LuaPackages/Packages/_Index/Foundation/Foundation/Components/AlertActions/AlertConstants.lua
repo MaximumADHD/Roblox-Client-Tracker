@@ -1,4 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
+
+local BuilderIcons = require(Packages.BuilderIcons)
+local IconName = BuilderIcons.Icon
 
 local AlertSeverity = require(Foundation.Enums.AlertSeverity)
 type AlertSeverity = AlertSeverity.AlertSeverity
@@ -8,10 +12,10 @@ type ButtonVariant = ButtonVariant.ButtonVariant
 
 -- Mapping from AlertSeverity to icon names
 local SEVERITY_TO_ICON: { [AlertSeverity]: string } = {
-	[AlertSeverity.Info] = "circle-i",
-	[AlertSeverity.Warning] = "triangle-exclamation",
-	[AlertSeverity.Success] = "circle-check",
-	[AlertSeverity.Error] = "circle-x",
+	[AlertSeverity.Info] = IconName.CircleI,
+	[AlertSeverity.Warning] = IconName.TriangleExclamation,
+	[AlertSeverity.Success] = IconName.CircleCheck,
+	[AlertSeverity.Error] = IconName.CircleX,
 }
 
 -- Maximum number of actions supported by alert components

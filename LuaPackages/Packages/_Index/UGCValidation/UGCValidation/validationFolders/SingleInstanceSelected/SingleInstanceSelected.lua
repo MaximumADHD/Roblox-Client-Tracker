@@ -5,6 +5,10 @@ local SingleInstanceSelected = {}
 
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
+	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
+
+local UGCValidationService = game:GetService("UGCValidationService")
 
 SingleInstanceSelected.categories = Constants.AllAssetUploadCategories
 SingleInstanceSelected.requiredData = {
@@ -13,8 +17,18 @@ SingleInstanceSelected.requiredData = {
 	ValidationEnums.SharedDataMember.uploadEnum,
 }
 
-local function deepEquals(_inst1: Instance, _inst2: Instance)
-	-- TODO: Add deep copy util once reflection API is added to luau. Will be an attack vector if not done before old system is deprecated.
+local function deepEquals(inst1: Instance, inst2: Instance, consumerEnv: Types.ConsumerEnv): boolean
+	-- Only the Backend deserializes the untrusted R15Fixed copy, and only there is the fetched tree free of
+	-- in-experience editables; Studio/IEC stay permissive (editable behavior under the diff is unverified).
+	-- The engine-feature gate keeps older engines (method absent) permissive. No pcall: an engine error
+	-- should surface as validation telemetry.
+	-- todo: delete this wrapper after EngineUGCValidateInstanceTreesEquivalent flag removal (inline the call).
+	if
+		getEngineFeatureEngineUGCValidateInstanceTreesEquivalent()
+		and consumerEnv == ValidationEnums.ConsumerEnv.Backend
+	then
+		return (UGCValidationService :: any):AreInstanceTreesEquivalent(inst1, inst2)
+	end
 	return true
 end
 
@@ -36,7 +50,7 @@ local function getFoldersMapping(providedData: { Instance }): { [string]: Instan
 end
 
 SingleInstanceSelected.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local providedData: { Instance }, configs: Types.UGCValidationConsumerConfigs, assetEnum: Enum.AssetType =
+	local providedData: { Instance }, configs: Types.PreloadedConsumerConfigs, assetEnum: Enum.AssetType =
 		data.entrypointInput, data.consumerConfig, data.uploadEnum.assetType
 
 	if Constants.AssetUploadsWithFolderStructure[assetEnum] and configs.enforceR15FolderStructure then
@@ -51,7 +65,7 @@ SingleInstanceSelected.run = function(reporter: Types.ValidationReporter, data: 
 			or not mapping.R15Fixed
 			or not mapping.R6
 			or #mapping.R6:GetChildren() ~= 0
-			or not deepEquals(mapping.R15ArtistIntent, mapping.R15Fixed)
+			or not deepEquals(mapping.R15ArtistIntent, mapping.R15Fixed, configs.consumerEnv)
 		then
 			reporter:fail(ErrorSourceStrings.Keys.FolderStructureMismatch)
 			return

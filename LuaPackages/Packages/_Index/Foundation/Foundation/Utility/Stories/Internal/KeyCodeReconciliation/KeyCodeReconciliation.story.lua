@@ -119,11 +119,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -163,13 +163,13 @@ local function AllIconsCell(props: { entries: { BuilderIconKeycodeMappings.Keyco
 		layoutOrder += 1
 		children[`Name-{index}`] = React.createElement(Text, {
 			Text = entry.name,
-			tag = "auto-xy text-caption-small content-muted text-align-x-left",
+			tag = "auto-xy text-caption-small text-align-x-left content-muted",
 			LayoutOrder = layoutOrder,
 		})
 	end
 
 	return React.createElement(View, {
-		tag = "row wrap gap-xsmall align-y-center auto-xy",
+		tag = "row wrap align-y-center gap-xsmall auto-xy",
 	}, children)
 end
 
@@ -183,7 +183,7 @@ local function KeyCodeNoteCell(props: { note: string? }): React.ReactNode
 
 	return React.createElement(Text, {
 		Text = props.note,
-		tag = "auto-xy text-caption-small content-muted text-wrap text-align-x-left",
+		tag = "auto-xy text-caption-small text-wrap text-align-x-left content-muted",
 	})
 end
 
@@ -311,14 +311,14 @@ local function UnmappedIconsSection(): React.ReactNode
 		Icons = React.createElement(
 			View,
 			{
-				tag = "row wrap gap-medium align-y-center auto-xy",
+				tag = "row wrap align-y-center gap-medium auto-xy",
 				LayoutOrder = 2,
 			},
 			Dash.map(UNMAPPED_KEYCODE_ICON_ENTRIES, function(entry, index)
 				return React.createElement(View, {
 					tag = if entry.isBrokenLink
-						then "col gap-xsmall align-x-center padding-x-small padding-y-small radius-medium auto-xy"
-						else "col gap-xsmall align-x-center auto-xy",
+						then "col align-x-center gap-xsmall auto-xy padding-x-small padding-y-small radius-medium"
+						else "col align-x-center gap-xsmall auto-xy",
 					backgroundStyle = if entry.isBrokenLink then brokenLinkBackground else nil,
 					stroke = if entry.isBrokenLink then brokenLinkStroke else nil,
 					LayoutOrder = index,
@@ -329,7 +329,7 @@ local function UnmappedIconsSection(): React.ReactNode
 					}),
 					Label = React.createElement(Text, {
 						Text = entry.name,
-						tag = "auto-xy text-caption-small content-muted text-wrap text-align-x-center",
+						tag = "auto-xy text-caption-small text-wrap text-align-x-center content-muted",
 						LayoutOrder = 2,
 					}),
 				})

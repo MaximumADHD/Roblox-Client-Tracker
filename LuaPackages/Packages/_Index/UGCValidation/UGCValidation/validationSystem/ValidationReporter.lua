@@ -53,6 +53,12 @@ function ValidationReporter:setReportingInstance(instance: Instance?)
 	self._currentInstance = instance
 end
 
+-- Retargets the root stripped from instancePath so the R15Fixed duplicate pass reports failures
+-- relative to its own root, whose descendants are not under the primary rootInstance.
+function ValidationReporter:setReportingRoot(rootInstance: Instance)
+	self._rootInstance = rootInstance
+end
+
 function ValidationReporter:fail(key: string, params: { [string]: any }?, instance: Instance?)
 	self._status = ValidationEnums.Status.FAIL
 	table.insert(self._failures, {

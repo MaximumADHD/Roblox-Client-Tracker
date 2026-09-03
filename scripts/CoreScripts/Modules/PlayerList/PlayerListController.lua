@@ -392,12 +392,13 @@ function PlayerListController:_setupReskin()
 		end)
 	end
 
-	PlayerContextualMenuStore.setContextMenuOpener(function(player, anchorPosition, generation)
+	PlayerContextualMenuStore.setContextMenuOpener(function(player, anchorPosition, generation, friendStatusOverride)
 		task.spawn(function()
 			local data = ContextMenuController.buildMenuData(
 				player,
 				PlayerContextualMenuStore.closeContextMenu,
-				isSmallTouchDevice
+				isSmallTouchDevice,
+				friendStatusOverride
 			)
 			-- buildMenuData yields on friend/block-status lookups; bail if the player left
 			-- so we don't resurrect a menu for someone who is gone.
@@ -406,10 +407,7 @@ function PlayerListController:_setupReskin()
 			end
 			-- Desktop anchors the menu to the left of the activated row; ignored on mobile/console.
 			data.anchorPosition = anchorPosition
-			local applied = PlayerContextualMenuStore.setMenuDataIfCurrent(data, generation)
-			if applied and isSmallTouchDevice then
-				PlayerListVisibilityStore.setVisible(false)
-			end
+			PlayerContextualMenuStore.setMenuDataIfCurrent(data, generation)
 		end)
 	end)
 
@@ -546,6 +544,13 @@ function PlayerListController:_setupReskin()
 			PlayerIconInfoStore.removePlayer(player.UserId)
 			PlayerRelationshipStore.removePlayer(player.UserId)
 		end)
+		local function refreshOpenMenuForPlayer(player, friendStatus)
+			local menuData = PlayerContextualMenuStore.getMenuData(false)
+			if menuData ~= nil and menuData.player == player then
+				PlayerContextualMenuStore.openContextMenu(player, menuData.anchorPosition, friendStatus)
+			end
+		end
+
 		self._reskinBlockedStatusConn = BlockingUtility:GetBlockedStatusChangedEvent()
 			:Connect(function(userId, isBlocked)
 				local id = tonumber(userId)
@@ -557,6 +562,7 @@ function PlayerListController:_setupReskin()
 			PlayerRelationshipStore.patchPlayerRelationship(player.UserId, {
 				friendStatus = friendStatus,
 			})
+			refreshOpenMenuForPlayer(player, friendStatus)
 		end)
 		if FFlagBadgeVisibilitySettingEnabled then
 			task.spawn(function()

@@ -34,7 +34,6 @@ local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("Rapi
 local FIntGameplayPauseShowDelayMs = game:DefineFastInt("GameplayPauseShowDelayMs", 300) -- Min time in pause state before pause UI is shown
 
 -- ANALYTICS
-local FFlagStreamingPauseUIAnalyticsEnabled = game:DefineFastFlag("StreamingPauseUIAnalyticsEnabled", false)
 local FIntStreamingPauseUIAnalyticsThrottleHundredthsPercent = game:DefineFastInt("StreamingPauseUIAnalyticsThrottleHP", 0)
 
 local StreamingPauseUISessionEvent = {
@@ -106,17 +105,15 @@ local function setNotificationVisible(visible)
 	RunService:SetRobloxGuiFocused(visible)
 
 	-- Analytics - track pause count and visible duration
-	if FFlagStreamingPauseUIAnalyticsEnabled then
-		if visible then
-			if visibilityStartClock == nil then
-				visibilityStartClock = os.clock()
-				pauseCount += 1
-			end
-		else
-			if visibilityStartClock ~= nil then
-				visibleDurationMs += (os.clock() - visibilityStartClock) * 1000
-				visibilityStartClock = nil
-			end
+	if visible then
+		if visibilityStartClock == nil then
+			visibilityStartClock = os.clock()
+			pauseCount += 1
+		end
+	else
+		if visibilityStartClock ~= nil then
+			visibleDurationMs += (os.clock() - visibilityStartClock) * 1000
+			visibilityStartClock = nil
 		end
 	end
 end
@@ -216,6 +213,4 @@ Notification:SetParent(NetworkPauseGui)
 
 GuiService.NetworkPausedEnabledChanged:Connect(enableNotification)
 
-if FFlagStreamingPauseUIAnalyticsEnabled then
-	game.Close:Connect(reportPauseSessionAnalytics)
-end
+game.Close:Connect(reportPauseSessionAnalytics)

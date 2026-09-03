@@ -32,7 +32,7 @@ local function Group(props: GroupProps)
 	}, {
 		Caption = React.createElement(Text, {
 			Text = props.caption,
-			tag = "text-body-small content-default auto-xy",
+			tag = "auto-xy text-body-small content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {

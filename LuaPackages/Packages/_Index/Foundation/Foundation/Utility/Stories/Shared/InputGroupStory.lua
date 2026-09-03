@@ -70,7 +70,7 @@ local function Section(props: {
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -156,7 +156,7 @@ local function create(options: Options)
 				{
 					LayoutOrder = 1,
 					name = "Size",
-					contentTag = "row gap-xxlarge align-y-start auto-xy wrap",
+					contentTag = "row gap-xxlarge auto-xy wrap",
 				},
 				Dash.map(SIZE_ORDER, function(size, index)
 					return React.createElement(options.Group, {
@@ -192,7 +192,7 @@ local function create(options: Options)
 				{
 					LayoutOrder = 1,
 					name = "Placement",
-					contentTag = "row gap-xxlarge align-y-start auto-xy wrap",
+					contentTag = "row gap-xxlarge auto-xy wrap",
 				},
 				Dash.map(PLACEMENT_ORDER, function(placement, index)
 					return React.createElement(options.Group, {

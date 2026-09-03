@@ -29,13 +29,13 @@ local ChromeEnabled = if FFlagPlaytestModeDismissTooltip then require(CorePackag
 local GamepadConnector = if FFlagPlaytestModeDismissTooltip and FFlagEnableConsoleExpControls and ChromeEnabled
 		then require(script.Parent.Parent.GamepadConnector)
 		else nil
-	
+
 local FFlagPlaytestModeTooltipExcludeBuildMode = game:DefineFastFlag("PlaytestModeTooltipExcludeBuildMode", false)
 
 local FStringPlaytestModeTooltipLearnMoreUrl = game:DefineFastString("PlaytestModeTooltipLearnMoreUrl", "https://about.roblox.com/community-standards")
 local FIntPlaytestModeTooltipDisplayOrder = game:DefineFastInt("PlaytestModeTooltipDisplayOrder", -1)
 
-type ActionProps = Foundation.ActionProps
+type ButtonGroupItem = Foundation.ButtonGroupItem
 
 export type PlaytestModeTooltipProps = {
 	anchorRef: React.RefObject<GuiObject?>?,
@@ -140,7 +140,7 @@ local function PlaytestModeTooltip(props: PlaytestModeTooltipProps): React.React
 					variant = ButtonVariant.Standard,
 					onActivated = onLearnMore,
 				},
-			} :: { ActionProps },
+			} :: { ButtonGroupItem },
 		}),
 	})
 end

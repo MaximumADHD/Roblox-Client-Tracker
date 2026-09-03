@@ -133,7 +133,7 @@ local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled =
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream =
 	game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
-local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
+local FFlagCheckShareGameButtonInMuteAllLayout = game:DefineFastFlag("CheckShareGameButtonInMuteAllLayout", false)
 local FFlagOnlyCaptureFocusIfOnPlayerPage = game:DefineFastFlag("OnlyCaptureFocusIfOnPlayerPage", false)
 local FIntSettingsHubPlayersButtonsResponsiveThreshold =
 	game:DefineFastInt("SettingsHubPlayersButtonsResponsiveThreshold", 200)
@@ -2146,7 +2146,11 @@ local function Initialize()
 			end)
 
 			muteAllButton.LayoutOrder = 1
-			if FFlagCorrectlyPositionMuteButton then
+			-- We need share button to layout mute all
+			local canLayoutMuteAll = if FFlagCheckShareGameButtonInMuteAllLayout
+				then shareGameButton ~= nil
+				else true
+			if canLayoutMuteAll then
 				layoutMuteAll()
 			else
 				muteAllButton.Parent = buttonFrame
@@ -2298,7 +2302,7 @@ local function Initialize()
 					end
 				end)
 
-				if FFlagCorrectlyPositionMuteButton and not GetFFlagCleanupMuteSelfButton() then
+				if not GetFFlagCleanupMuteSelfButton() then
 					rebuildPlayerList()
 				end
 

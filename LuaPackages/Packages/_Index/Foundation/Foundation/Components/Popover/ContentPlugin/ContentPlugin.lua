@@ -208,11 +208,24 @@ local function PopoverContentPlugin(
 	)
 
 	local registerPanelAsync = React.useCallback(
-		function(anchorUri: StudioUri, panelPosition: PanelPosition, onClose: () -> (), panelDepth: number?)
-			local parentId = parentPluginPopoverId
-			return panelsContext.registerPopoverAsync(anchorUri, panelPosition, onClose, panelDepth, parentId)
+		function(
+			anchorUri: StudioUri,
+			panelPosition: PanelPosition,
+			onClose: () -> (),
+			panelDepth: number?,
+			parentId: string?,
+			isFocusable: boolean?
+		)
+			return panelsContext.registerPopoverAsync(
+				anchorUri,
+				panelPosition,
+				onClose,
+				panelDepth,
+				parentId,
+				if Flags.FoundationPopoverPluginFocusable then isFocusable else nil
+			)
 		end,
-		{ panelsContext.registerPopoverAsync, parentPluginPopoverId } :: { unknown }
+		{ panelsContext.registerPopoverAsync } :: { unknown }
 	)
 
 	local warnedMissingOnPressedOutside = React.useRef(false)
@@ -251,6 +264,7 @@ local function PopoverContentPlugin(
 		position = position,
 		depth = panelDepth,
 		parentPopoverId = parentPluginPopoverId,
+		isFocusable = if Flags.FoundationPopoverPluginFocusable then props.isFocusable else nil :: never,
 	})
 
 	local popoverSize, contentSize

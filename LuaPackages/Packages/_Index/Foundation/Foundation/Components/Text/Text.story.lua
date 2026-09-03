@@ -112,11 +112,11 @@ local function TypographyRow(props: {
 	specs: string,
 })
 	return React.createElement(View, {
-		tag = "row align-y-start gap-large size-full-0 auto-y padding-y-small",
+		tag = "row gap-large size-full-0 auto-y padding-y-small",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(View, {
-			tag = "col align-y-start size-full-0 auto-y",
+			tag = "col size-full-0 auto-y",
 			Size = UDim2.fromOffset(140, 0),
 			LayoutOrder = 1,
 		}, {
@@ -149,7 +149,7 @@ local function Section(props: SectionProps)
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -248,7 +248,7 @@ local function TypographyStory(): React.ReactNode
 end
 
 return {
-	engineeringOnly = true,
+	base = true,
 	summary = "Text",
 	stories = {
 		{

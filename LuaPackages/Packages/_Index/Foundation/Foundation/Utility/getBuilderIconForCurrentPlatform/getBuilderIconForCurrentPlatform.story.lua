@@ -85,7 +85,7 @@ local function PlaygroundStory(): React.ReactNode
 		}),
 		Result = if icon
 			then React.createElement(View, {
-				tag = "row gap-medium align-y-center auto-xy",
+				tag = "row align-y-center gap-medium auto-xy",
 				LayoutOrder = 3,
 			}, {
 				Icon = React.createElement(Icon, {

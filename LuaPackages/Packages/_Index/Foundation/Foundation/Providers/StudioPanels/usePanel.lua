@@ -19,12 +19,14 @@ local function usePanel(props: {
 	position: PanelPosition,
 	depth: number?,
 	parentPopoverId: string?,
+	isFocusable: boolean?,
 	registerPanelAsync: (
 		anchorUri: StudioUri,
 		position: PanelPosition,
 		onClose: () -> (),
 		depth: number?,
-		parentPopoverId: string?
+		parentPopoverId: string?,
+		isFocusable: boolean?
 	) -> (PanelHandle, () -> ()),
 })
 	local closePanelRef = React.useRef(nil :: (() -> ())?)
@@ -33,6 +35,7 @@ local function usePanel(props: {
 		position = props.position,
 		depth = props.depth,
 		parentPopoverId = props.parentPopoverId,
+		isFocusable = if Flags.FoundationPopoverPluginFocusable then props.isFocusable else nil :: never,
 	})
 
 	-- These functions MUST be stable, otherwise the popover will be closed
@@ -60,7 +63,8 @@ local function usePanel(props: {
 					registerPropsRef.current.position,
 					handleExternalClose,
 					registerPropsRef.current.depth,
-					registerPropsRef.current.parentPopoverId
+					registerPropsRef.current.parentPopoverId,
+					if Flags.FoundationPopoverPluginFocusable then registerPropsRef.current.isFocusable else nil
 				)
 				closePanelRef.current = onClose
 				return panelHandler
@@ -91,7 +95,8 @@ local function usePanel(props: {
 					registerPropsRef.current.position,
 					stableOnClose.current,
 					registerPropsRef.current.depth,
-					registerPropsRef.current.parentPopoverId
+					registerPropsRef.current.parentPopoverId,
+					if Flags.FoundationPopoverPluginFocusable then registerPropsRef.current.isFocusable else nil
 				)
 				closePanelRef.current = onClose
 				return panelHandler

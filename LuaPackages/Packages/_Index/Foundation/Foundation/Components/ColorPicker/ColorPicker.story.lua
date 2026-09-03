@@ -13,6 +13,8 @@ local View = require(Foundation.Components.View)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+type ColorInputMode = ColorInputMode.ColorInputMode
+
 type ColorPreviewProps = {
 	color: Color3,
 	alpha: number?,
@@ -141,399 +143,413 @@ local function ColorPreview(props: ColorPreviewProps)
 	})
 end
 
+local function PlaygroundStory(props: {
+	controls: {
+		initialMode: ColorInputMode,
+		hasAlpha: boolean,
+	},
+})
+	local controls = props.controls
+	local tokens = useTokens()
+	local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+	local selectedAlpha, setSelectedAlpha = React.useState(1)
+
+	return React.createElement(View, {
+		Size = UDim2.fromOffset(300, 340),
+		tag = "col gap-medium",
+	}, {
+		PreviewContainer = React.createElement(ColorPreview, {
+			color = selectedColor,
+			alpha = if controls.hasAlpha then selectedAlpha else nil,
+			showAlpha = controls.hasAlpha,
+		}),
+
+		Picker = React.createElement(ColorPicker, {
+			-- initialMode/initialAlpha are only read on mount, so remount when
+			-- those controls change to let them take effect in the Playground.
+			key = `{controls.initialMode}-{tostring(controls.hasAlpha)}`,
+			initialColor = selectedColor,
+			initialAlpha = if controls.hasAlpha then selectedAlpha else nil,
+			initialMode = controls.initialMode,
+			onColorChanged = setSelectedColor,
+			onAlphaChanged = if controls.hasAlpha then setSelectedAlpha else nil,
+		}),
+	})
+end
+
+local function WithPreviewStory()
+	local tokens = useTokens()
+	local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+	local selectedAlpha, setSelectedAlpha = React.useState(1)
+
+	return React.createElement(View, {
+		Size = UDim2.fromOffset(300, 300),
+		tag = "col gap-medium",
+	}, {
+		PreviewContainer = React.createElement(ColorPreview, {
+			color = selectedColor,
+			alpha = selectedAlpha,
+			showAlpha = true,
+		}),
+
+		Picker = React.createElement(ColorPicker, {
+			initialColor = selectedColor,
+			initialAlpha = selectedAlpha,
+			onColorChanged = setSelectedColor,
+			onAlphaChanged = setSelectedAlpha,
+			onDragStarted = function()
+				print("Drag started!")
+			end,
+			onDragEnded = function()
+				print("Drag ended!")
+			end,
+		}),
+	})
+end
+
+local function WithoutAlphaStory()
+	local tokens = useTokens()
+	local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+
+	return React.createElement(View, {
+		Size = UDim2.fromOffset(300, 300),
+		tag = "col gap-medium",
+	}, {
+		PreviewContainer = React.createElement(ColorPreview, {
+			color = selectedColor,
+			showAlpha = false,
+		}),
+
+		Picker = React.createElement(ColorPicker, {
+			initialColor = selectedColor,
+			onColorChanged = setSelectedColor,
+		}),
+	})
+end
+
+local function WithPopoverStory()
+	local tokens = useTokens()
+	local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+	local selectedAlpha, setSelectedAlpha = React.useState(1)
+	local isPopoverOpen, setIsPopoverOpen = React.useState(false)
+
+	local originalColor, setOriginalColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+	local originalAlpha, setOriginalAlpha = React.useState(1)
+
+	local colorHex = React.useMemo(function()
+		local r = math.floor(selectedColor.R * 255)
+		local g = math.floor(selectedColor.G * 255)
+		local b = math.floor(selectedColor.B * 255)
+		return string.format("#%02X%02X%02X", r, g, b)
+	end, { selectedColor })
+
+	local Popover = require(Foundation.Components.Popover)
+	local Interactable = require(Foundation.Components.Interactable)
+	local PopoverSide = require(Foundation.Enums.PopoverSide)
+
+	return React.createElement(View, {
+		Size = UDim2.fromOffset(600, 400),
+		tag = "row align-x-center align-y-center",
+	}, {
+		PopoverContainer = React.createElement(Popover.Root, {
+			isOpen = isPopoverOpen,
+		}, {
+			Anchor = React.createElement(
+				Popover.Anchor,
+				nil,
+				React.createElement(View, {
+					tag = "row align-y-center gap-medium auto-xy",
+				}, {
+					ColorSwatchButton = React.createElement(Interactable, {
+						onActivated = function()
+							if not isPopoverOpen then
+								setOriginalColor(selectedColor)
+								setOriginalAlpha(selectedAlpha)
+							end
+							setIsPopoverOpen(not isPopoverOpen)
+						end,
+						Size = UDim2.new(0, 0, 0, 0),
+						AutomaticSize = Enum.AutomaticSize.XY,
+					}, {
+						ButtonContainer = React.createElement(View, {
+							tag = "row align-y-center gap-small auto-xy padding-small stroke-neutral radius-small",
+							backgroundStyle = tokens.Color.Surface.Surface_100,
+						}, {
+							ColorSwatch = React.createElement(View, {
+								Size = UDim2.fromOffset(24, 24),
+								tag = "radius-small",
+								stroke = {
+									Color = tokens.Color.System.Neutral.Color3,
+									Transparency = tokens.Color.System.Neutral.Transparency,
+									Thickness = 1,
+								},
+							}, {
+								Checkerboard = React.createElement(Image, {
+									Image = "component_assets/checkerboard_12",
+									ScaleType = Enum.ScaleType.Tile,
+									TileSize = UDim2.fromOffset(12, 12),
+									tag = "size-full radius-small",
+									ZIndex = 1,
+								}),
+								ColorOverlay = React.createElement(View, {
+									tag = "size-full radius-small",
+									backgroundStyle = {
+										Color3 = selectedColor,
+										Transparency = 1 - selectedAlpha,
+									},
+									ZIndex = 2,
+								}),
+							}),
+
+							ColorLabel = React.createElement(Text, {
+								Text = colorHex,
+								fontStyle = tokens.Typography.BodyMedium,
+								textStyle = tokens.Color.Content.Default,
+								tag = "auto-xy",
+							}),
+						}),
+					}),
+				})
+			),
+
+			Content = React.createElement(
+				Popover.Content,
+				{
+					side = PopoverSide.Right,
+					hasArrow = true,
+					onPressedOutside = function()
+						setIsPopoverOpen(false)
+					end,
+				},
+				React.createElement(View, {
+					tag = "col gap-medium padding-medium",
+					Size = UDim2.fromOffset(300, 300),
+				}, {
+					Picker = React.createElement(ColorPicker, {
+						initialColor = selectedColor,
+						initialAlpha = selectedAlpha,
+						onColorChanged = function(newColor)
+							setSelectedColor(newColor)
+						end,
+						onAlphaChanged = function(newAlpha)
+							setSelectedAlpha(newAlpha)
+						end,
+						LayoutOrder = 1,
+					}),
+
+					Actions = React.createElement(View, {
+						tag = "row align-x-right gap-small size-full-0 auto-y margin-top-medium",
+						LayoutOrder = 2,
+					}, {
+						CancelButton = React.createElement(Interactable, {
+							onActivated = function()
+								setSelectedColor(originalColor)
+								setSelectedAlpha(originalAlpha)
+								setIsPopoverOpen(false)
+							end,
+							Size = UDim2.new(0, 0, 0, 0),
+							AutomaticSize = Enum.AutomaticSize.XY,
+						}, {
+							ButtonContainer = React.createElement(View, {
+								tag = "auto-xy padding-small radius-small",
+								backgroundStyle = tokens.Color.Surface.Surface_100,
+								stroke = {
+									Color = tokens.Color.System.Neutral.Color3,
+									Transparency = tokens.Color.System.Neutral.Transparency,
+									Thickness = 1,
+								},
+							}, {
+								ButtonText = React.createElement(Text, {
+									Text = "Cancel",
+									fontStyle = tokens.Typography.BodyMedium,
+									textStyle = tokens.Color.Content.Default,
+									tag = "auto-xy",
+								}),
+							}),
+						}),
+
+						DoneButton = React.createElement(Interactable, {
+							onActivated = function()
+								setIsPopoverOpen(false)
+							end,
+							Size = UDim2.new(0, 0, 0, 0),
+							AutomaticSize = Enum.AutomaticSize.XY,
+						}, {
+							ButtonContainer = React.createElement(View, {
+								tag = "auto-xy padding-small radius-small",
+								backgroundStyle = tokens.Color.Surface.Surface_100,
+								stroke = {
+									Color = tokens.Color.System.Neutral.Color3,
+									Transparency = tokens.Color.System.Neutral.Transparency,
+									Thickness = 1,
+								},
+							}, {
+								ButtonText = React.createElement(Text, {
+									Text = "Done",
+									fontStyle = tokens.Typography.BodyMedium,
+									textStyle = tokens.Color.Content.Default,
+									tag = "auto-xy",
+								}),
+							}),
+						}),
+					}),
+				})
+			),
+		}),
+	})
+end
+
+local function PropertiesPanelSpecStory()
+	local tokens = useTokens()
+	local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
+	local selectedAlpha, setSelectedAlpha = React.useState(1)
+
+	return React.createElement(View, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		Size = UDim2.fromOffset(208, 0),
+		BackgroundTransparency = 1,
+	}, {
+		Stroke = React.createElement("UIStroke", {
+			Color = tokens.Color.System.Contrast.Color3,
+			Thickness = 1,
+			Transparency = 0,
+		}),
+		Picker = React.createElement(ColorPicker, {
+			initialColor = selectedColor,
+			initialAlpha = selectedAlpha,
+			initialMode = ColorInputMode.Hex,
+			onColorChanged = setSelectedColor,
+			onAlphaChanged = setSelectedAlpha,
+		}),
+	})
+end
+
+local function BrickColorOnlyStory()
+	local tokens = useTokens()
+	local selectedColor, setSelectedColor = React.useState(BrickColor.new("Bright red").Color)
+	local pickerSize, setPickerSize = React.useState(Vector2.new(0, 0))
+
+	local availableModes = { ColorInputMode.Brick }
+
+	local containerRef = React.useRef(nil :: Frame?)
+
+	React.useEffect(function()
+		local frame = containerRef.current
+		if not frame then
+			return
+		end
+		setPickerSize(frame.AbsoluteSize)
+		local conn = frame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+			setPickerSize(frame.AbsoluteSize)
+		end)
+		return function()
+			conn:Disconnect()
+		end
+	end, {})
+
+	return React.createElement(View, {
+		tag = "col gap-small",
+	}, {
+		SizeLabel = React.createElement(Text, {
+			Text = `Actual size: {math.round(pickerSize.X)}×{math.round(pickerSize.Y)}`,
+			tag = "text-caption-small content-muted",
+			LayoutOrder = 1,
+		}),
+
+		PickerContainer = React.createElement(View, {
+			tag = "auto-xy",
+			LayoutOrder = 2,
+			ref = containerRef,
+			stroke = {
+				Color = tokens.Color.System.Contrast.Color3,
+				Thickness = 1,
+				Transparency = 0,
+			},
+		}, {
+			Picker = React.createElement(ColorPicker, {
+				initialColor = selectedColor,
+				availableModes = availableModes,
+				initialMode = ColorInputMode.Brick,
+				onColorChanged = function(newColor: Color3, _brickColor: BrickColor?)
+					setSelectedColor(newColor)
+				end,
+			}),
+		}),
+	})
+end
+
+local function PartialHSVStory()
+	local tokens = useTokens()
+	local fallbackColor = tokens.Color.Extended.Magenta.Magenta_700.Color3
+	local selectedColor, setSelectedColor = React.useState({ H = 15 } :: Color3 | { H: number, S: number?, V: number? })
+	local hasFullColor = not colorUtils.isPartialHSV(selectedColor)
+	local colorForSwatch = if colorUtils.isPartialHSV(selectedColor) then fallbackColor else selectedColor :: Color3
+
+	return React.createElement(View, {
+		Size = UDim2.fromOffset(300, 400),
+		tag = "col gap-medium",
+	}, {
+		Description = React.createElement(Text, {
+			Text = "When only hue is set, S and V show as empty. The submit button stays disabled until a full color is selected.",
+			fontStyle = tokens.Typography.CaptionLarge,
+			textStyle = tokens.Color.Content.Default,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			tag = "size-full-0 auto-y",
+		}),
+
+		PreviewContainer = React.createElement(ColorPreview, {
+			color = colorForSwatch,
+			showAlpha = false,
+		}),
+
+		Picker = React.createElement(ColorPicker, {
+			initialColor = selectedColor,
+			initialMode = ColorInputMode.HSV,
+			onColorChanged = setSelectedColor,
+		}),
+
+		SubmitButton = React.createElement(Button, {
+			text = "Submit",
+			variant = ButtonVariant.Emphasis,
+			isDisabled = not hasFullColor,
+			onActivated = function()
+				print("Submit color:", selectedColor)
+			end,
+		}),
+	})
+end
+
 return {
 	summary = "ColorPicker",
 	stories = {
 		{
 			name = "Playground",
-			story = function(props)
-				local controls = props.controls
-				local tokens = useTokens()
-				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
-				local selectedAlpha, setSelectedAlpha = React.useState(1)
-
-				return React.createElement(View, {
-					Size = UDim2.fromOffset(300, 340),
-					tag = "col gap-medium",
-				}, {
-					PreviewContainer = React.createElement(ColorPreview, {
-						color = selectedColor,
-						alpha = if controls.hasAlpha then selectedAlpha else nil,
-						showAlpha = controls.hasAlpha,
-					}),
-
-					Picker = React.createElement(ColorPicker, {
-						-- initialMode/initialAlpha are only read on mount, so remount when
-						-- those controls change to let them take effect in the Playground.
-						key = `{controls.initialMode}-{tostring(controls.hasAlpha)}`,
-						initialColor = selectedColor,
-						initialAlpha = if controls.hasAlpha then selectedAlpha else nil,
-						initialMode = controls.initialMode,
-						onColorChanged = setSelectedColor,
-						onAlphaChanged = if controls.hasAlpha then setSelectedAlpha else nil,
-					}),
-				})
-			end :: unknown,
+			story = PlaygroundStory :: unknown,
 		},
 		{
 			name = "With Preview",
-			story = function(_props)
-				local tokens = useTokens()
-				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
-				local selectedAlpha, setSelectedAlpha = React.useState(1)
-
-				return React.createElement(View, {
-					Size = UDim2.fromOffset(300, 300),
-					tag = "col gap-medium",
-				}, {
-					PreviewContainer = React.createElement(ColorPreview, {
-						color = selectedColor,
-						alpha = selectedAlpha,
-						showAlpha = true,
-					}),
-
-					Picker = React.createElement(ColorPicker, {
-						initialColor = selectedColor,
-						initialAlpha = selectedAlpha,
-						onColorChanged = setSelectedColor,
-						onAlphaChanged = setSelectedAlpha,
-						onDragStarted = function()
-							print("Drag started!")
-						end,
-						onDragEnded = function()
-							print("Drag ended!")
-						end,
-					}),
-				})
-			end,
+			story = WithPreviewStory,
 		},
 		{
 			name = "Without Alpha",
-			story = function(_props)
-				local tokens = useTokens()
-				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
-
-				return React.createElement(View, {
-					Size = UDim2.fromOffset(300, 300),
-					tag = "col gap-medium",
-				}, {
-					PreviewContainer = React.createElement(ColorPreview, {
-						color = selectedColor,
-						showAlpha = false,
-					}),
-
-					Picker = React.createElement(ColorPicker, {
-						initialColor = selectedColor,
-						onColorChanged = setSelectedColor,
-					}),
-				})
-			end,
+			story = WithoutAlphaStory,
 		},
 		{
 			name = "With Popover",
-			story = function(_props)
-				local tokens = useTokens()
-				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
-				local selectedAlpha, setSelectedAlpha = React.useState(1)
-				local isPopoverOpen, setIsPopoverOpen = React.useState(false)
-
-				local originalColor, setOriginalColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
-				local originalAlpha, setOriginalAlpha = React.useState(1)
-
-				local colorHex = React.useMemo(function()
-					local r = math.floor(selectedColor.R * 255)
-					local g = math.floor(selectedColor.G * 255)
-					local b = math.floor(selectedColor.B * 255)
-					return string.format("#%02X%02X%02X", r, g, b)
-				end, { selectedColor })
-
-				local Popover = require(Foundation.Components.Popover)
-				local Interactable = require(Foundation.Components.Interactable)
-				local PopoverSide = require(Foundation.Enums.PopoverSide)
-
-				return React.createElement(View, {
-					Size = UDim2.fromOffset(600, 400),
-					tag = "row align-x-center align-y-center",
-				}, {
-					PopoverContainer = React.createElement(Popover.Root, {
-						isOpen = isPopoverOpen,
-					}, {
-						Anchor = React.createElement(
-							Popover.Anchor,
-							nil,
-							React.createElement(View, {
-								tag = "row align-y-center gap-medium auto-xy",
-							}, {
-								ColorSwatchButton = React.createElement(Interactable, {
-									onActivated = function()
-										if not isPopoverOpen then
-											setOriginalColor(selectedColor)
-											setOriginalAlpha(selectedAlpha)
-										end
-										setIsPopoverOpen(not isPopoverOpen)
-									end,
-									Size = UDim2.new(0, 0, 0, 0),
-									AutomaticSize = Enum.AutomaticSize.XY,
-								}, {
-									ButtonContainer = React.createElement(View, {
-										tag = "row align-y-center gap-small auto-xy padding-small stroke-neutral radius-small",
-										backgroundStyle = tokens.Color.Surface.Surface_100,
-									}, {
-										ColorSwatch = React.createElement(View, {
-											Size = UDim2.fromOffset(24, 24),
-											tag = "radius-small",
-											stroke = {
-												Color = tokens.Color.System.Neutral.Color3,
-												Transparency = tokens.Color.System.Neutral.Transparency,
-												Thickness = 1,
-											},
-										}, {
-											Checkerboard = React.createElement(Image, {
-												Image = "component_assets/checkerboard_12",
-												ScaleType = Enum.ScaleType.Tile,
-												TileSize = UDim2.fromOffset(12, 12),
-												tag = "size-full radius-small",
-												ZIndex = 1,
-											}),
-											ColorOverlay = React.createElement(View, {
-												tag = "size-full radius-small",
-												backgroundStyle = {
-													Color3 = selectedColor,
-													Transparency = 1 - selectedAlpha,
-												},
-												ZIndex = 2,
-											}),
-										}),
-
-										ColorLabel = React.createElement(Text, {
-											Text = colorHex,
-											fontStyle = tokens.Typography.BodyMedium,
-											textStyle = tokens.Color.Content.Default,
-											tag = "auto-xy",
-										}),
-									}),
-								}),
-							})
-						),
-
-						Content = React.createElement(
-							Popover.Content,
-							{
-								side = PopoverSide.Right,
-								hasArrow = true,
-								onPressedOutside = function()
-									setIsPopoverOpen(false)
-								end,
-							},
-							React.createElement(View, {
-								tag = "col gap-medium padding-medium",
-								Size = UDim2.fromOffset(300, 300),
-							}, {
-								Picker = React.createElement(ColorPicker, {
-									initialColor = selectedColor,
-									initialAlpha = selectedAlpha,
-									onColorChanged = function(newColor)
-										setSelectedColor(newColor)
-									end,
-									onAlphaChanged = function(newAlpha)
-										setSelectedAlpha(newAlpha)
-									end,
-									LayoutOrder = 1,
-								}),
-
-								Actions = React.createElement(View, {
-									tag = "row align-x-right gap-small size-full-0 auto-y margin-top-medium",
-									LayoutOrder = 2,
-								}, {
-									CancelButton = React.createElement(Interactable, {
-										onActivated = function()
-											setSelectedColor(originalColor)
-											setSelectedAlpha(originalAlpha)
-											setIsPopoverOpen(false)
-										end,
-										Size = UDim2.new(0, 0, 0, 0),
-										AutomaticSize = Enum.AutomaticSize.XY,
-									}, {
-										ButtonContainer = React.createElement(View, {
-											tag = "auto-xy padding-small radius-small",
-											backgroundStyle = tokens.Color.Surface.Surface_100,
-											stroke = {
-												Color = tokens.Color.System.Neutral.Color3,
-												Transparency = tokens.Color.System.Neutral.Transparency,
-												Thickness = 1,
-											},
-										}, {
-											ButtonText = React.createElement(Text, {
-												Text = "Cancel",
-												fontStyle = tokens.Typography.BodyMedium,
-												textStyle = tokens.Color.Content.Default,
-												tag = "auto-xy",
-											}),
-										}),
-									}),
-
-									DoneButton = React.createElement(Interactable, {
-										onActivated = function()
-											setIsPopoverOpen(false)
-										end,
-										Size = UDim2.new(0, 0, 0, 0),
-										AutomaticSize = Enum.AutomaticSize.XY,
-									}, {
-										ButtonContainer = React.createElement(View, {
-											tag = "auto-xy padding-small radius-small",
-											backgroundStyle = tokens.Color.Surface.Surface_100,
-											stroke = {
-												Color = tokens.Color.System.Neutral.Color3,
-												Transparency = tokens.Color.System.Neutral.Transparency,
-												Thickness = 1,
-											},
-										}, {
-											ButtonText = React.createElement(Text, {
-												Text = "Done",
-												fontStyle = tokens.Typography.BodyMedium,
-												textStyle = tokens.Color.Content.Default,
-												tag = "auto-xy",
-											}),
-										}),
-									}),
-								}),
-							})
-						),
-					}),
-				})
-			end,
+			story = WithPopoverStory,
 		},
 		{
 			name = "Properties Panel Spec",
-			story = function(_props)
-				local tokens = useTokens()
-				local selectedColor, setSelectedColor = React.useState(tokens.Color.Extended.Blue.Blue_1100.Color3)
-				local selectedAlpha, setSelectedAlpha = React.useState(1)
-
-				return React.createElement(View, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.fromOffset(208, 0),
-					BackgroundTransparency = 1,
-				}, {
-					Stroke = React.createElement("UIStroke", {
-						Color = tokens.Color.System.Contrast.Color3,
-						Thickness = 1,
-						Transparency = 0,
-					}),
-					Picker = React.createElement(ColorPicker, {
-						initialColor = selectedColor,
-						initialAlpha = selectedAlpha,
-						initialMode = ColorInputMode.Hex,
-						onColorChanged = setSelectedColor,
-						onAlphaChanged = setSelectedAlpha,
-					}),
-				})
-			end,
+			story = PropertiesPanelSpecStory,
 		},
 		{
 			name = "BrickColor Only",
-			story = function(_props)
-				local tokens = useTokens()
-				local selectedColor, setSelectedColor = React.useState(BrickColor.new("Bright red").Color)
-				local pickerSize, setPickerSize = React.useState(Vector2.new(0, 0))
-
-				local availableModes = { ColorInputMode.Brick }
-
-				local containerRef = React.useRef(nil :: Frame?)
-
-				React.useEffect(function()
-					local frame = containerRef.current
-					if not frame then
-						return
-					end
-					setPickerSize(frame.AbsoluteSize)
-					local conn = frame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-						setPickerSize(frame.AbsoluteSize)
-					end)
-					return function()
-						conn:Disconnect()
-					end
-				end, {})
-
-				return React.createElement(View, {
-					tag = "col gap-small",
-				}, {
-					SizeLabel = React.createElement(Text, {
-						Text = `Actual size: {math.round(pickerSize.X)}×{math.round(pickerSize.Y)}`,
-						tag = "text-caption-small content-muted",
-						LayoutOrder = 1,
-					}),
-
-					PickerContainer = React.createElement("Frame", {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						Size = UDim2.new(),
-						BackgroundTransparency = 1,
-						LayoutOrder = 2,
-						ref = containerRef,
-					}, {
-						Stroke = React.createElement("UIStroke", {
-							Color = tokens.Color.System.Contrast.Color3,
-							Thickness = 1,
-							Transparency = 0,
-						}),
-						Picker = React.createElement(ColorPicker, {
-							initialColor = selectedColor,
-							availableModes = availableModes,
-							initialMode = ColorInputMode.Brick,
-							onColorChanged = function(newColor: Color3, _brickColor: BrickColor?)
-								setSelectedColor(newColor)
-							end,
-						}),
-					}),
-				})
-			end,
+			story = BrickColorOnlyStory,
 		},
 		{
 			name = "Partial HSV (H only)",
-			story = function(_props)
-				local tokens = useTokens()
-				local fallbackColor = tokens.Color.Extended.Magenta.Magenta_700.Color3
-				local selectedColor, setSelectedColor =
-					React.useState({ H = 15 } :: Color3 | { H: number, S: number?, V: number? })
-				local hasFullColor = not colorUtils.isPartialHSV(selectedColor)
-				local colorForSwatch = if colorUtils.isPartialHSV(selectedColor)
-					then fallbackColor
-					else selectedColor :: Color3
-
-				return React.createElement(View, {
-					Size = UDim2.fromOffset(300, 400),
-					tag = "col gap-medium",
-				}, {
-					Description = React.createElement(Text, {
-						Text = "When only hue is set, S and V show as empty. The submit button stays disabled until a full color is selected.",
-						fontStyle = tokens.Typography.CaptionLarge,
-						textStyle = tokens.Color.Content.Default,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextWrapped = true,
-						tag = "size-full-0 auto-y",
-					}),
-
-					PreviewContainer = React.createElement(ColorPreview, {
-						color = colorForSwatch,
-						showAlpha = false,
-					}),
-
-					Picker = React.createElement(ColorPicker, {
-						initialColor = selectedColor,
-						initialMode = ColorInputMode.HSV,
-						onColorChanged = setSelectedColor,
-					}),
-
-					SubmitButton = React.createElement(Button, {
-						text = "Submit",
-						variant = ButtonVariant.Emphasis,
-						isDisabled = not hasFullColor,
-						onActivated = function()
-							print("Submit color:", selectedColor)
-						end,
-					}),
-				})
-			end,
+			story = PartialHSVStory,
 		},
 	},
 	controls = {

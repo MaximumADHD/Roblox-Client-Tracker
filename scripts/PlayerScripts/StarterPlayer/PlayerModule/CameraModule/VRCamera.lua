@@ -25,6 +25,7 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPSVRCameraInputMoveVector = FlagUtil.getUserFlag("UserPSVRCameraInputMoveVector")
 local FFlagUserVRRemoveLuaEdgeBlur = FlagUtil.getUserFlag("UserVRRemoveLuaEdgeBlur")
 local FFlagUserVRRecenterOnExternalTeleport = FlagUtil.getUserFlag("UserVRRecenterOnExternalTeleport")
+local FFlagUserVRSkipOcclusionInFirstPerson = FlagUtil.getUserFlag("UserVRSkipOcclusionInFirstPerson")
 
 --[[ The Module ]]--
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
@@ -86,6 +87,15 @@ function VRCamera:Update(timeDelta)
 
 	if subjectPosition and player and camera then
 		newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
+
+		if FFlagUserVRSkipOcclusionInFirstPerson then
+			-- Allowing occlusion in first person can cause a runaway that flies the camera behind the avatar at high speed, when combined with VRService.AvatarGestures.
+			-- This is because on every frame, poppercam's reposition is applied to the camera after the VR camera has already moved to its new position, causing a feedback loop.
+			-- Exclude invisicam as skipping occlusion for invisicam doesn't affect the camera, and can cause parts affected by LocalTransparencyModifier to stay faded for the whole first-person session.
+			self.skipOcclusion = self:IsInFirstPerson()
+				and player.DevCameraOcclusionMode ~= Enum.DevCameraOcclusionMode.Invisicam
+		end
+
 		-- update camera cframe based on first/third person
 		if self:IsInFirstPerson() then
 			if VRService.AvatarGestures then

@@ -23,18 +23,9 @@ CharacterModelPool.__index = CharacterModelPool
 	Store these models in RobloxReplicatedStorage until it is decided that one is needed by calling maybeUpdateCharacter
 ]]
 local function setupCharacterModels(cframePos)
-	local r6
-	local r15
-	
-	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-		r6 = Players:CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
-		r15 =
-			Players:CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
-	else
-		r6 = (Players :: never):CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
-		r15 =
-			(Players :: never):CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
-	end
+	local r6 = Players:CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
+	local r15 =
+		Players:CreateHumanoidModelFromDescriptionAsync(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
 
 	r6.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	r15.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
@@ -155,11 +146,7 @@ function CharacterModelPool:_doUpdateR6(newHumanoidDescription)
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r6, newHumanoidDescription)
 		else
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				self.r6.Humanoid:ApplyDescriptionAsync(newHumanoidDescription)
-			else
-				(self.r6.Humanoid :: never):ApplyDescription(newHumanoidDescription)
-			end
+			self.r6.Humanoid:ApplyDescriptionAsync(newHumanoidDescription)
 		end
 		-- Don't return self.r6 directly in case the avatar type has changed while applying this
 		resolve(self:getCurrentCharacter())
@@ -172,11 +159,7 @@ function CharacterModelPool:_doSimpleUpdateR15(newHumanoidDescription)
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r15current, newHumanoidDescription)
 		else
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				self.r15current.Humanoid:ApplyDescriptionAsync(newHumanoidDescription)
-			else
-				(self.r15current.Humanoid :: any):ApplyDescription(newHumanoidDescription)
-			end
+			self.r15current.Humanoid:ApplyDescriptionAsync(newHumanoidDescription)
 		end
 
 		resolve(self.r15current)
@@ -192,11 +175,7 @@ function CharacterModelPool:_updateOffscreenR15(newHumanoidDescription)
 		if self.mockApplyDescription then
 			self.mockApplyDescription(self.r15offScreen, newHumanoidDescription)
 		else
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				self.r15offScreen.Humanoid:ApplyDescriptionAsync(newHumanoidDescription)
-			else
-				(self.r15offScreen.Humanoid :: any):ApplyDescription(newHumanoidDescription)
-			end
+			self.r15offScreen.Humanoid:ApplyDescriptionAsync(newHumanoidDescription)
 		end
 
 		resolve(self.r15offScreen)

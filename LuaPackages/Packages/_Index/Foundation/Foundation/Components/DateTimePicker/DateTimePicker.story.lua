@@ -139,8 +139,7 @@ local function Section(props: {
 	heading: boolean?,
 	children: React.ReactNode,
 })
-	local contentTag = props.contentTag
-		or if props.heading then "row gap-large align-y-start auto-xy wrap" else "auto-xy"
+	local contentTag = props.contentTag or if props.heading then "row gap-large auto-xy wrap" else "auto-xy"
 	local outerTag = if props.heading then "col gap-medium size-full-0 auto-y" else "col gap-medium " .. contentTag
 	local labelTag = if props.heading
 		then "text-label-medium content-default auto-xy"
@@ -418,52 +417,51 @@ local function isDateOutsideSelectableRange(date: DateTime, selectableDateRange:
 	return selectableDateRange ~= nil and not DateTimeUtilities.isDateWithinRange(date, selectableDateRange)
 end
 
-local function ControlledExample(props: {
+type ControlledExampleProps = {
 	variant: DateTimePickerVariant,
 	selectableDateRange: DateTimeUtilities.DateRange?,
-}): React.ReactNode
+}
+
+local function DualRangeControlledExample(props: ControlledExampleProps): React.ReactNode
 	local hostRef = React.useRef(nil :: GuiObject?)
+	local startDate, setStartDate = React.useState(nil :: DateTime?)
+	local endDate, setEndDate = React.useState(nil :: DateTime?)
+	local hasError, setHasError = React.useState(false)
 
-	if
-		props.variant == DateTimePickerVariantEnum.Dual
-		or props.variant == DateTimePickerVariantEnum.DualWithPresets
-	then
-		local startDate, setStartDate = React.useState(nil :: DateTime?)
-		local endDate, setEndDate = React.useState(nil :: DateTime?)
-		local hasError, setHasError = React.useState(false)
+	return React.createElement(View, {
+		ref = hostRef,
+		tag = "col gap-small auto-xy",
+	}, {
+		ValueLabel = React.createElement(Text, {
+			Text = `Selected: {formatDateTimeLabel(startDate)} - {formatDateTimeLabel(endDate)}`,
+			tag = "auto-xy text-caption-small text-align-x-left content-muted",
+			LayoutOrder = 1,
+		}),
+		DateTimePicker = React.createElement(DateTimePicker, {
+			LayoutOrder = 2,
+			hasError = hasError,
+			hint = if hasError then "Invalid date range" else nil,
+			label = "Date",
+			onChanged = function(startDateTime: DateTime?, endDateTime: DateTime?)
+				setStartDate(startDateTime)
+				setEndDate(endDateTime)
+				local inputEmpty = isPickerInputEmpty(hostRef.current)
+				local incomplete = startDateTime == nil or endDateTime == nil
+				local outOfRange = if startDateTime and endDateTime
+					then isDateOutsideSelectableRange(startDateTime, props.selectableDateRange)
+						or isDateOutsideSelectableRange(endDateTime, props.selectableDateRange)
+					else false
+				setHasError(not inputEmpty and (incomplete or outOfRange))
+			end,
+			selectableDateRange = props.selectableDateRange,
+			variant = props.variant,
+			width = DEFAULT_WIDTH,
+		}),
+	})
+end
 
-		return React.createElement(View, {
-			ref = hostRef,
-			tag = "col gap-small auto-xy",
-		}, {
-			ValueLabel = React.createElement(Text, {
-				Text = `Selected: {formatDateTimeLabel(startDate)} - {formatDateTimeLabel(endDate)}`,
-				tag = "auto-xy text-caption-small text-align-x-left content-muted",
-				LayoutOrder = 1,
-			}),
-			DateTimePicker = React.createElement(DateTimePicker, {
-				LayoutOrder = 2,
-				hasError = hasError,
-				hint = if hasError then "Invalid date range" else nil,
-				label = "Date",
-				onChanged = function(startDateTime: DateTime?, endDateTime: DateTime?)
-					setStartDate(startDateTime)
-					setEndDate(endDateTime)
-					local inputEmpty = isPickerInputEmpty(hostRef.current)
-					local incomplete = startDateTime == nil or endDateTime == nil
-					local outOfRange = if startDateTime and endDateTime
-						then isDateOutsideSelectableRange(startDateTime, props.selectableDateRange)
-							or isDateOutsideSelectableRange(endDateTime, props.selectableDateRange)
-						else false
-					setHasError(not inputEmpty and (incomplete or outOfRange))
-				end,
-				selectableDateRange = props.selectableDateRange,
-				variant = props.variant,
-				width = DEFAULT_WIDTH,
-			}),
-		})
-	end
-
+local function SingleControlledExample(props: ControlledExampleProps): React.ReactNode
+	local hostRef = React.useRef(nil :: GuiObject?)
 	local selectedDate, setSelectedDate = React.useState(nil :: DateTime?)
 	local hasError, setHasError = React.useState(false)
 	local includeTime = props.variant == DateTimePickerVariantEnum.SingleWithTime
@@ -496,6 +494,15 @@ local function ControlledExample(props: {
 			width = DEFAULT_WIDTH,
 		}),
 	})
+end
+
+-- Dual and single variants hold different state, so they are separate components rather than
+-- branches inside one: switching variant swaps the element type and resets state cleanly.
+local function ControlledExample(props: ControlledExampleProps): React.ReactNode
+	local isDualRange = props.variant == DateTimePickerVariantEnum.Dual
+		or props.variant == DateTimePickerVariantEnum.DualWithPresets
+
+	return React.createElement(if isDualRange then DualRangeControlledExample else SingleControlledExample, props)
 end
 
 local function ControlledStory(): React.ReactNode

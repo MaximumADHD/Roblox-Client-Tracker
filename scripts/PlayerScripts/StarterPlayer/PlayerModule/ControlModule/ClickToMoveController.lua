@@ -33,7 +33,8 @@ local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayer
 local FFlagUserPSIASClickToMoveRelaxTeleport = FlagUtil.getUserFlag("UserPSIASClickToMoveRelaxTeleport")
 local FFlagUserPlayerScriptsRefactor2 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor2")
 local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs")
+local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
+local FFlagUserDoubleJumpButtonFix = FlagUtil.getUserFlag("UserDoubleJumpButtonFix")
 
 --[[ Input Actions ]]--
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
@@ -744,7 +745,9 @@ function ClickToMove.new(playerData)
 	self.renderSteppedConn = nil
 	self.menuOpenedConnection = nil
 	self.preferredInputChangedConnection = nil
-	self.jumpEnabled = true
+	if not FFlagUserDoubleJumpButtonFix then
+		self.jumpEnabled = true
+	end
 	self.clickPressedConn = nil
 	self.clickReleasedConn = nil
 	self.shouldCleanupPath = false
@@ -1080,6 +1083,7 @@ function ClickToMove:Stop()
 	self:Enable(false)
 end
 
+-- remove last parameter (touchJumpController) with FFlagUserDoubleJumpButtonFix
 function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpController)
 	if enable then
 		if not self.running then
@@ -1091,9 +1095,11 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 			end)
 			self.running = true
 		end
-		self.touchJumpController = touchJumpController
-		if self.touchJumpController then
-			self.touchJumpController:Enable(self.jumpEnabled)
+		if not FFlagUserDoubleJumpButtonFix then
+			self.touchJumpController = touchJumpController
+			if self.touchJumpController then
+				self.touchJumpController:Enable(self.jumpEnabled)
+			end
 		end
 	else
 		if self.running then
@@ -1112,10 +1118,12 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 			end
 			self.running = false
 		end
-		if self.touchJumpController and not self.jumpEnabled then
-			self.touchJumpController:Enable(true)
+		if not FFlagUserDoubleJumpButtonFix then
+			if self.touchJumpController and not self.jumpEnabled then
+				self.touchJumpController:Enable(true)
+			end
+			self.touchJumpController = nil
 		end
-		self.touchJumpController = nil
 	end
 
 	clickToMoveAction.Enabled = enable
@@ -1505,15 +1513,17 @@ function ClickToMove:GetUnreachableWaypointTimeout()
 	return UnreachableWaypointTimeout
 end
 
-function ClickToMove:SetUserJumpEnabled(jumpEnabled)
-	self.jumpEnabled = jumpEnabled
-	if self.touchJumpController then
-		self.touchJumpController:Enable(jumpEnabled)
+if not FFlagUserDoubleJumpButtonFix then
+	function ClickToMove:SetUserJumpEnabled(jumpEnabled)
+		self.jumpEnabled = jumpEnabled
+		if self.touchJumpController then
+			self.touchJumpController:Enable(jumpEnabled)
+		end
 	end
-end
 
-function ClickToMove:GetUserJumpEnabled()
-	return self.jumpEnabled
+	function ClickToMove:GetUserJumpEnabled()
+		return self.jumpEnabled
+	end
 end
 
 function ClickToMove:MoveTo(position, showPath, useDirectPath)

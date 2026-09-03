@@ -35,8 +35,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePageToButtons
-local FFlagIEMSettingsPageDisplaying = SharedFlags.FFlagIEMSettingsPageDisplaying
-
 local TEXT_BUTTON_FONT_SIZE_SMALL_TOUCH_SCREEN = 18
 local TEXT_BUTTON_FONT_SIZE = 24
 local TEXT_BUTTON_FONT_SIZE_TEN_FOOT = 48
@@ -71,7 +69,7 @@ local function Initialize()
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1 / 5, 0, 1, 0),
 		Position = UDim2.new(0, 0, 0, 0),
-		Selectable = if FFlagIEMTabFocusNav then true else false ,
+		Selectable = if FFlagIEMTabFocusNav then true else false,
 	})
 	if utility:IsSmallTouchScreen() then
 		this.TabHeader.Size = UDim2.new(0, 84, 1, 0)
@@ -307,7 +305,8 @@ local function Initialize()
 						valueChangerFrame = this:getValueChangerFrame(rows[1].ValueChanger)
 					end
 					GuiService.SelectedCoreObject = valueChangerFrame
-				elseif this.PageNextSelectionDown
+				elseif
+					this.PageNextSelectionDown
 					and (not FFlagIEMFocusNavSupportNewButtons or this.PageNextSelectionDown:IsDescendantOf(CoreGui))
 				then
 					GuiService.SelectedCoreObject = this.PageNextSelectionDown
@@ -328,9 +327,7 @@ local function Initialize()
 		this.Page.Parent = pageParent
 		this.Page.Visible = true
 
-		if FFlagIEMSettingsPageDisplaying then
-			this.Displaying:Fire()
-		end
+		this.Displaying:Fire()
 
 		local endPos = UDim2.new(0, 0, 0, 0)
 		local animationComplete = function()
@@ -459,7 +456,6 @@ local function Initialize()
 	end
 
 	function this:GetRows()
-
 		return rows
 	end
 

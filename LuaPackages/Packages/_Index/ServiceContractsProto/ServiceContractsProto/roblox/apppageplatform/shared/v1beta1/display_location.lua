@@ -32,6 +32,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_MARKETPLACE_FAVORITES_SAVED"
 	| "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 	| "DISPLAY_LOCATION_SETTINGS"
+	| "DISPLAY_LOCATION_BUILD"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -74,6 +75,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 		elseif value == 18 then
 			return "DISPLAY_LOCATION_SETTINGS"
+		elseif value == 19 then
+			return "DISPLAY_LOCATION_BUILD"
 		else
 			return nil
 		end
@@ -118,6 +121,8 @@ messages.DisplayLocation = {
 			return 17
 		elseif self == "DISPLAY_LOCATION_SETTINGS" then
 			return 18
+		elseif self == "DISPLAY_LOCATION_BUILD" then
+			return 19
 		else
 			return self
 		end
@@ -162,6 +167,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 		elseif name == "DISPLAY_LOCATION_SETTINGS" then
 			return "DISPLAY_LOCATION_SETTINGS"
+		elseif name == "DISPLAY_LOCATION_BUILD" then
+			return "DISPLAY_LOCATION_BUILD"
 		else
 			return nil
 		end

@@ -40,7 +40,9 @@ return function(UrlBuilder)
 		safetyDashboard = {
 			main = UrlBuilder.fromString("www:safety-dashboard?t_source={source|app}"),
 			violation = UrlBuilder.fromString("www:safety-dashboard?vid={id}&t_source={source|app}"),
-			violations = UrlBuilder.fromString("www:safety-dashboard?view=violations&t_source={source|app}"),
+			violations = function(input)
+				return UrlBuilder.fromString("www:safety-dashboard?t_source={source|app}")(input) .. "#/violations"
+			end,
 		},
 		appealsPortal = {
 			-- link the Report & Appeals standalone portal (e.g. not part of settings)

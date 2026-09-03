@@ -21,7 +21,7 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
-local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
 local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
 	then require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
@@ -81,7 +81,7 @@ local function buildMenuOrder(): Array<string>
 			reorder(menuMap, "backpack", 146)
 		end
 
-		if FFlagDebugEnablePioneerUX then
+		if isPioneerLaunch() then
 			menuMap.connect_dropdown = nil
 			menuMap.invite_friends = nil
 			menuMap[Constants.AVATAR_SWITCHER_ID] = nil

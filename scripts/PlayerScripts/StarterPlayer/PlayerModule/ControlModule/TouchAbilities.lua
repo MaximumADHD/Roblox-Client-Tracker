@@ -7,6 +7,7 @@ local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(Players.LocalPlaye
 local InputSlots = require(script.Parent:WaitForChild("InputSlots"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserAbilitiesUserInterfaceA = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceA")
+local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
 
 local ABILITY_BUTTON_POSITIONING = {
 	{
@@ -289,7 +290,7 @@ function TouchAbilities:Create()
 					table.insert(self.managedButtons, self:CreateAbilityButton(abilityName, abilityConfig, action, ABILITY_BUTTON_POSITIONING[slot], false))
 				end
 			end
-			if FFlagUserAbilitiesUserInterfaceA then
+			if FFlagUserAbilitiesUserInterfaceA and FFlagUserAbilitiesUserInterfaceC then
 				local abilitiesInOverflow = InputSlots.GetAbilitiesInOverflow()
 				local extraSpacingForScrollButtonSmall = 0
 				local extraSpacingForScrollButtonLarge = 0

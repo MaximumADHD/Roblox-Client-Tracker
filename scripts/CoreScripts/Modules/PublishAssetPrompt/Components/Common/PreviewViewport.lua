@@ -32,6 +32,7 @@ local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.Ga
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local InteractionFrame = require(script.Parent.InteractionFrame)
 local Constants = require(script.Parent.Parent.Parent.Constants)
+local MakeupPreviewUtils = require(script.Parent.Parent.Parent.MakeupPreviewUtils)
 
 local Images = UIBlox.App.ImageSet.Images
 local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
@@ -65,6 +66,7 @@ local PreviewViewport = Roact.PureComponent:extend("PreviewViewport")
 PreviewViewport.validateProps = t.strictInterface({
 	asset = t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip")),
 	closePreviewView = t.callback,
+	isMakeupPreview = t.optional(t.boolean),
 })
 
 local function isGamepadInput(inputType)
@@ -239,26 +241,14 @@ function PreviewViewport:processAsset()
 		task.spawn(function()
 			local ok, humanoidDescription = pcall(function()
 				-- this is an outfit of Mannequin-Blocky bundle that is used to create emote thumbnails https://www.roblox.com/bundles/515/Mannequin-Blocky
-				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					local mannequinRig = Players:GetHumanoidDescriptionFromOutfitIdAsync(MANNEQUIN_OUTFIT_ID)
-					return mannequinRig
-				else
-					local mannequinRig = (Players :: never):GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
-					return mannequinRig
-				end
+				local mannequinRig = Players:GetHumanoidDescriptionFromOutfitIdAsync(MANNEQUIN_OUTFIT_ID)
+				return mannequinRig
 			end)
 
 			local newModel
 			if ok then
-				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					newModel =
-						Players:CreateHumanoidModelFromDescriptionAsync(humanoidDescription, Enum.HumanoidRigType.R15)
-				else
-					newModel = (Players :: never):CreateHumanoidModelFromDescription(
-						humanoidDescription,
-						Enum.HumanoidRigType.R15
-					)
-				end
+				newModel =
+					Players:CreateHumanoidModelFromDescriptionAsync(humanoidDescription, Enum.HumanoidRigType.R15)
 			end
 
 			-- if asset has changed the new processAsset is driving the loadingState changes
@@ -343,7 +333,12 @@ function PreviewViewport:resetCameraPosition()
 		return
 	end
 
-	self.modelCFrame = self.model:GetModelCFrame()
+	local headCFrame: CFrame?
+	local headSize: Vector3?
+	if self.props.isMakeupPreview then
+		headCFrame, headSize = MakeupPreviewUtils.getHeadPreviewCameraData(self.model)
+	end
+	self.modelCFrame = headCFrame or self.model:GetModelCFrame()
 	self.initialLookVector = self.modelCFrame.lookVector
 
 	local humanoidRootPart = self.model:FindFirstChild("HumanoidRootPart")
@@ -351,7 +346,7 @@ function PreviewViewport:resetCameraPosition()
 		self.initialLookVector = humanoidRootPart.CFrame.lookVector
 	end
 
-	self.modelExtentsSize = self.model:GetExtentsSize()
+	self.modelExtentsSize = headSize or self.model:GetExtentsSize()
 	self.cameraDistance = getCameraDistance(CAMERA_FOV, self.modelExtentsSize)
 
 	if self.props.asset and self.props.asset:IsA("AnimationClip") then

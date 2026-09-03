@@ -87,77 +87,81 @@ local function OverlayConsumer()
 	})
 end
 
+local function UseOverlayStory()
+	local overlay = useOverlay()
+	local name = if overlay ~= nil then overlay:GetFullName() else "N/A"
+	local text = `Overlay Name: {name}`
+
+	return React.createElement(Text, {
+		tag = "align-x-center size-full-0 auto-y text-wrap",
+		Text = text,
+	})
+end
+
+local function LazyOverlayMountingStory()
+	local initialOverlays = React.useRef(getFoundationOverlays()).current
+	local currentOverlays, setCurrentOverlays = React.useState({})
+
+	React.useEffect(function()
+		for _, overlay in initialOverlays do
+			local guid = HttpService:GenerateGUID(false)
+			overlayIdCache[overlay] = guid
+		end
+	end, { initialOverlays })
+
+	local updateCurrentOverlays = React.useCallback(function()
+		setCurrentOverlays(getFoundationOverlays())
+	end, { mainGui })
+
+	React.useEffect(function()
+		local connections = {
+			mainGui.ChildAdded:Connect(updateCurrentOverlays),
+			mainGui.ChildRemoved:Connect(updateCurrentOverlays),
+		}
+
+		updateCurrentOverlays()
+
+		return function()
+			for _, connection in connections do
+				connection:Disconnect()
+			end
+		end
+	end, { mainGui, updateCurrentOverlays } :: { unknown })
+
+	local overlayConsumers: { React.ReactNode } = {
+		React.createElement(Text, {
+			key = "OverlayCount",
+			tag = "size-full-0 auto-y margin-bottom-medium text-wrap text-align-x-left",
+			Text = `Initial FoundationOverlay Count: {#initialOverlays}\nCurrent FoundationOverlay Count: {#currentOverlays}`,
+		}),
+	}
+
+	for i = 1, 10 do
+		table.insert(
+			overlayConsumers,
+			React.createElement(OverlayProvider, {}, {
+				[`OverlayConsumer{i}`] = React.createElement(OverlayConsumer) :: React.ReactNode,
+			})
+		)
+	end
+
+	return React.createElement(View, {
+		tag = "col gap-small auto-xy",
+	}, overlayConsumers)
+end
+
 return {
 	summary = "useOverlay",
 	stories = {
 		{
 			name = "useOverlay",
 			summary = "Provides access to the overlay",
-			story = function()
-				local overlay = useOverlay()
-				local name = if overlay ~= nil then overlay:GetFullName() else "N/A"
-				local text = `Overlay Name: {name}`
-
-				return React.createElement(Text, {
-					tag = "align-x-center size-full-0 auto-y text-wrap",
-					Text = text,
-				})
-			end :: unknown,
+			story = UseOverlayStory :: unknown,
 		},
 		{
 			name = "Lazy Overlay Mounting",
 			summary = "Does not eagerly pollute workspace with FoundationOverlay instances (Flags.FoundationLazyOverlayLoading must be enabled)",
-			story = function()
-				local initialOverlays = React.useRef(getFoundationOverlays()).current
-				local currentOverlays, setCurrentOverlays = React.useState({})
-
-				React.useEffect(function()
-					for _, overlay in initialOverlays do
-						local guid = HttpService:GenerateGUID(false)
-						overlayIdCache[overlay] = guid
-					end
-				end, {})
-
-				local updateCurrentOverlays = React.useCallback(function()
-					setCurrentOverlays(getFoundationOverlays())
-				end, { mainGui })
-
-				React.useEffect(function()
-					local connections = {
-						mainGui.ChildAdded:Connect(updateCurrentOverlays),
-						mainGui.ChildRemoved:Connect(updateCurrentOverlays),
-					}
-
-					updateCurrentOverlays()
-
-					return function()
-						for _, connection in connections do
-							connection:Disconnect()
-						end
-					end
-				end, { mainGui })
-
-				local overlayConsumers: { React.ReactNode } = {
-					React.createElement(Text, {
-						key = "OverlayCount",
-						tag = "size-full-0 auto-y margin-bottom-medium text-wrap text-align-x-left",
-						Text = `Initial FoundationOverlay Count: {#initialOverlays}\nCurrent FoundationOverlay Count: {#currentOverlays}`,
-					}),
-				}
-
-				for i = 1, 10 do
-					table.insert(
-						overlayConsumers,
-						React.createElement(OverlayProvider, {}, {
-							[`OverlayConsumer{i}`] = React.createElement(OverlayConsumer) :: React.ReactNode,
-						})
-					)
-				end
-
-				return React.createElement(View, {
-					tag = "col gap-small auto-xy",
-				}, overlayConsumers)
-			end,
+			story = LazyOverlayMountingStory,
 		},
 	},
 }

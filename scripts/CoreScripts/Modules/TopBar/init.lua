@@ -116,6 +116,25 @@ local PlatformEnum = require(FTUX.Enums.PlatformEnum)
 local IsFTUXExperience = require(FTUX.Utility.IsFTUXExperience)
 local FTUXMenu = require(script.Parent.FTUX)
 local isRunningInStudio = require(CorePackages.Workspace.Packages.AppCommonLib).isRunningInStudio
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
+local connectToIsSpatialChanged = require(CorePackages.Workspace.Packages.AppCommonLib).connectToIsSpatialChanged
+local FFlagStudioDeviceSimVRSwitchFixes = SharedFlags.FFlagStudioDeviceSimVRSwitchFixes
+
+local function SpatialRemountGate()
+	local spatial, setSpatial = React.useState(isSpatial())
+	React.useEffect(function()
+		local conn = connectToIsSpatialChanged(setSpatial, true)
+		return function()
+			conn:Disconnect()
+		end
+	end, {})
+
+	return React.createElement(React.Fragment, {
+		key = if spatial then "spatial" else "flat",
+	}, {
+		TopBarApp = React.createElement(TopBarApp),
+	})
+end
 
 local TopBar: any = {}
 TopBar.__index = TopBar
@@ -196,7 +215,9 @@ function TopBar.new()
 	end
 
 	-- Nest Providers in reverse order of hierarchy
-	local TopBarWithProviders = Roact.createElement(TopBarApp)
+	local TopBarWithProviders = if FFlagStudioDeviceSimVRSwitchFixes
+		then Roact.createElement(SpatialRemountGate)
+		else Roact.createElement(TopBarApp)
 
 	if FFlagAddMenuNavigationToggleDialog or FFlagGamepadNavigationDialogABTest then
 		TopBarWithProviders = Roact.createElement(DesignTokenProvider, {

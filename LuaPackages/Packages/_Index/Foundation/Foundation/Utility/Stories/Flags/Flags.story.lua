@@ -156,7 +156,7 @@ local function FlagsStory()
 				}),
 				Description = React.createElement(Text, {
 					Text = "Excluded from bulk selection. Toggling FoundationViewMemoizationChanges while Views are mounted changes hook counts and crashes React — remount this story after changing it.",
-					tag = "auto-xy text-caption-small content-muted text-wrap text-align-x-left",
+					tag = "auto-xy text-caption-small text-wrap text-align-x-left content-muted",
 					LayoutOrder = 2,
 				}),
 				Flags = React.createElement(

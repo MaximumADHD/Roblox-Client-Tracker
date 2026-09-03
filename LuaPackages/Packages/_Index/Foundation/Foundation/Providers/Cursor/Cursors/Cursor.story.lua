@@ -7,44 +7,62 @@ local Cursor = require(script.Parent.Cursor)
 local CursorType = require(Foundation.Enums.CursorType)
 type CursorType = CursorType.CursorType
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
+type ColorNamespace = ColorNamespace.ColorNamespace
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
 local cursorTypes: { CursorType } = Dash.values(CursorType)
 table.sort(cursorTypes)
 
-local function CursorPreview(cursorType, colorNamespace, LayoutOrder: number?)
-	return React.createElement("Frame", {
-		BackgroundTransparency = 1,
+local function CursorPreview(props: {
+	cursorType: CursorType,
+	colorNamespace: ColorNamespace,
+	LayoutOrder: number?,
+})
+	return React.createElement(View, {
 		Size = UDim2.fromOffset(100, 50),
-		LayoutOrder = LayoutOrder,
+		LayoutOrder = props.LayoutOrder,
 	}, {
-		Frame = React.createElement("Frame", {
-			BackgroundTransparency = 1,
+		-- The cursor draws outside its host, so inset the host to keep the stroke visible.
+		CursorHost = React.createElement(View, {
 			Size = UDim2.new(1, -20, 1, -20),
 			Position = UDim2.fromOffset(10, 10),
 		}, {
 			Cursor = React.createElement(Cursor, {
-				cursorType = cursorType :: CursorType,
+				cursorType = props.cursorType,
 				isVisible = true,
-				colorNamespace = colorNamespace,
+				colorNamespace = props.colorNamespace,
 			}),
 		}),
 	})
 end
 
-local function PlaygroundStory(props)
-	return CursorPreview(props.controls.cursorType, props.controls.colorNamespace)
+type StoryProps = {
+	controls: {
+		cursorType: CursorType,
+		colorNamespace: ColorNamespace,
+	},
+}
+
+local function PlaygroundStory(props: StoryProps)
+	return React.createElement(CursorPreview, {
+		cursorType = props.controls.cursorType,
+		colorNamespace = props.controls.colorNamespace,
+	})
 end
 
-local function AllVariantsStory(props)
+local function AllVariantsStory(props: StoryProps)
 	local children: { [string]: React.ReactNode } = {}
 	for index, cursorType in cursorTypes do
 		children[cursorType] = React.createElement(View, {
 			tag = "col align-x-center gap-xsmall auto-xy",
 			LayoutOrder = index,
 		}, {
-			Preview = CursorPreview(cursorType, props.controls.colorNamespace, 1),
+			Preview = React.createElement(CursorPreview, {
+				cursorType = cursorType :: CursorType,
+				colorNamespace = props.controls.colorNamespace,
+				LayoutOrder = 1,
+			}),
 			Label = React.createElement(Text, {
 				Text = cursorType,
 				tag = "auto-xy text-body-small content-default",

@@ -46,114 +46,140 @@ end
 
 type ControlsProps = { controls: any }
 
-local stories = {
-	{
-		name = "Playground",
-		story = function(props: ControlsProps): React.ReactNode
-			local controls = props.controls
-			local isInverse = controls.isInverse or false
-			local tokens = useTokens()
+local function PlaygroundStory(props: ControlsProps): React.ReactNode
+	local controls = props.controls
+	local isInverse = controls.isInverse or false
+	local tokens = useTokens()
 
-			local knob = React.createElement(Knob, {
-				size = controls.size,
+	local presentationValue = React.useMemo(function()
+		return { isInverse = isInverse }
+	end, { isInverse })
+
+	local knob = React.createElement(Knob, {
+		size = controls.size,
+		hasShadow = controls.hasShadow,
+		isDisabled = controls.isDisabled,
+	})
+	return React.createElement(View, {
+		tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+		backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+	}, React.createElement(PresentationContext.Provider, { value = presentationValue }, knob))
+end
+
+local function SizesStory(props: ControlsProps): React.ReactNode
+	local controls = props.controls
+	local isInverse = controls.isInverse or false
+	local tokens = useTokens()
+
+	local presentationValue = React.useMemo(function()
+		return { isInverse = isInverse }
+	end, { isInverse })
+
+	return React.createElement(
+		View,
+		{
+			tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+			backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+		},
+		React.createElement(
+			PresentationContext.Provider,
+			{ value = presentationValue },
+			React.createElement(
+				Story,
+				Dash.join(props, {
+					hasShadow = controls.hasShadow,
+					isDisabled = controls.isDisabled,
+				})
+			)
+		)
+	)
+end
+
+local function WithStrokeStory(props: ControlsProps): React.ReactNode
+	local controls = props.controls
+	local isInverse = controls.isInverse or false
+	local tokens = useTokens()
+
+	local presentationValue = React.useMemo(function()
+		return { isInverse = isInverse }
+	end, { isInverse })
+
+	return React.createElement(
+		View,
+		{
+			backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
+			tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+		},
+		React.createElement(
+			PresentationContext.Provider,
+			{ value = presentationValue },
+			React.createElement(Story, {
+				style = tokens.Color.None,
+				stroke = {
+					Color = if isInverse
+						then tokens.Inverse.Content.Emphasis.Color3
+						else tokens.Color.Content.Emphasis.Color3,
+					Thickness = tokens.Stroke.Thicker,
+					Transparency = if isInverse
+						then tokens.Inverse.Content.Emphasis.Transparency
+						else tokens.Color.Content.Emphasis.Transparency,
+				},
 				hasShadow = controls.hasShadow,
 				isDisabled = controls.isDisabled,
 			})
-			return React.createElement(View, {
-				tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-				backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-			}, React.createElement(PresentationContext.Provider, { value = { isInverse = isInverse } }, knob))
-		end,
+		)
+	)
+end
+
+local function WithIconStory(props: ControlsProps): React.ReactNode
+	local controls = props.controls
+	local isInverse = controls.isInverse or false
+	local tokens = useTokens()
+
+	local presentationValue = React.useMemo(function()
+		return { isInverse = isInverse }
+	end, { isInverse })
+
+	return React.createElement(
+		View,
+		{
+			backgroundStyle = if isInverse then nil else tokens.Inverse.Surface.Surface_0,
+			tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
+		},
+		React.createElement(
+			PresentationContext.Provider,
+			{ value = presentationValue },
+			React.createElement(Story, {
+				hasShadow = controls.hasShadow,
+				isDisabled = controls.isDisabled,
+				icon = {
+					name = BuilderIcons.Icon.Check,
+					variant = BuilderIcons.IconVariant.Regular,
+				},
+			})
+		)
+	)
+end
+
+local stories = {
+	{
+		name = "Playground",
+		story = PlaygroundStory :: unknown,
 	},
 	{
 		name = "Sizes",
 		summary = "Default knob across sizes.",
-		story = function(props: ControlsProps): React.ReactNode
-			local controls = props.controls
-			local isInverse = controls.isInverse or false
-			local tokens = useTokens()
-			return React.createElement(
-				View,
-				{
-					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-					backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-				},
-				React.createElement(
-					PresentationContext.Provider,
-					{ value = { isInverse = isInverse } },
-					React.createElement(
-						Story,
-						Dash.join(props, {
-							hasShadow = controls.hasShadow,
-							isDisabled = controls.isDisabled,
-						})
-					)
-				)
-			)
-		end,
+		story = SizesStory,
 	},
 	{
 		name = "With Stroke",
 		summary = "Knob with transparent fill and emphasis stroke across sizes.",
-		story = function(props: ControlsProps): React.ReactNode
-			local controls = props.controls
-			local isInverse = controls.isInverse or false
-			local tokens = useTokens()
-			return React.createElement(
-				View,
-				{
-					backgroundStyle = if isInverse then tokens.Inverse.Surface.Surface_0 else nil,
-					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-				},
-				React.createElement(
-					PresentationContext.Provider,
-					{ value = { isInverse = isInverse } },
-					React.createElement(Story, {
-						style = tokens.Color.None,
-						stroke = {
-							Color = if isInverse
-								then tokens.Inverse.Content.Emphasis.Color3
-								else tokens.Color.Content.Emphasis.Color3,
-							Thickness = tokens.Stroke.Thicker,
-							Transparency = if isInverse
-								then tokens.Inverse.Content.Emphasis.Transparency
-								else tokens.Color.Content.Emphasis.Transparency,
-						},
-						hasShadow = controls.hasShadow,
-						isDisabled = controls.isDisabled,
-					})
-				)
-			)
-		end,
+		story = WithStrokeStory,
 	},
 	{
 		name = "With Icon",
 		summary = "Knob rendering a BuilderIcons check icon instead of the circle.",
-		story = function(props: ControlsProps): React.ReactNode
-			local controls = props.controls
-			local isInverse = controls.isInverse or false
-			local tokens = useTokens()
-
-			return React.createElement(
-				View,
-				{
-					backgroundStyle = if isInverse then nil else tokens.Inverse.Surface.Surface_0,
-					tag = "align-y-center gap-medium auto-xy padding-medium radius-medium",
-				},
-				React.createElement(
-					PresentationContext.Provider,
-					{ value = { isInverse = isInverse } },
-					React.createElement(Story, {
-						hasShadow = controls.hasShadow,
-						isDisabled = controls.isDisabled,
-						icon = {
-							name = BuilderIcons.Icon.Check,
-							variant = BuilderIcons.IconVariant.Regular,
-						},
-					})
-				)
-			)
-		end,
+		story = WithIconStory,
 	},
 }
 

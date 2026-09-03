@@ -26,10 +26,10 @@ local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagHideShortcutsOnReportDropdown =
 	require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
-local FFlagIEMSettingsPageDisplaying = SharedFlags.FFlagIEMSettingsPageDisplaying
 local FFlagReportFocusNavIEMButtons = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagReportFocusNavIEMButtons)
 local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
-local FFlagSwitchOverToAbuseReportMenuV2 = game:DefineFastFlag("SwitchOverToAbuseReportMenuV2", false) and FFlagAbuseReportMenuV2
+local FFlagSwitchOverToAbuseReportMenuV2 = game:DefineFastFlag("SwitchOverToAbuseReportMenuV2", false)
+	and FFlagAbuseReportMenuV2
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -115,54 +115,55 @@ local function Initialize()
 	this.ShouldShowHubBar = true
 	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2 and FFlagSwitchOverToAbuseReportMenuV2
 
-	local abuseReportMenu = Roact.createElement(if FFlagSwitchOverToAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
-		hideReportTab = function()
-			this:HideMenu()
-		end,
-		showReportTab = function()
-			this:ShowMenu()
-		end,
-		registerOnReportTabHidden = function(onHiddenCallback)
-			this._onHiddenCallback = onHiddenCallback
-		end,
-		registerOnReportTabDisplayed = function(onDisplayedCallback)
-			this._onDisplayedCallback = onDisplayedCallback
-		end,
-		registerOnReportTabDisplaying = function(onDisplayingCallback)
-			this._onDisplayingCallback = onDisplayingCallback
-		end,
-		registerOnMenuWidthChange = function(callback)
-			this._onMenuWidthChange = callback
-		end,
-		registerSetNextPlayerToReport = function(setNextPlayerToReportCallback)
-			this._setNextPlayerToReportCallback = setNextPlayerToReportCallback
-		end,
-		registerOnSettingsHidden = function(onSettingsHiddenCallback)
-			this._onSettingsHiddenCallback = onSettingsHiddenCallback
-		end,
-		showReportSentPage = function(reportedPlayer)
-			this:showReportSentPage(reportedPlayer)
-		end,
-		onReportComplete = function(text)
-			if FFlagInExperienceReportClosingBugfix and ChromeEnabled then
-				ChromeService:setShortcutBar(nil)
-			end
-			this:showAlert(text, "Ok", function()
-				-- callback function once we click "Ok" in the success screen
+	local abuseReportMenu =
+		Roact.createElement(if FFlagSwitchOverToAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
+			hideReportTab = function()
 				this:HideMenu()
-			end)
-		end,
-		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown and ChromeEnabled
-			then function(isOpen)
-				ChromeService:setHideShortcutBar("InExperienceReportDropdown", isOpen)
-			end
-			else nil,
-		getSettingsHubRef = if FFlagReportFocusNavIEMButtons
-			then function()
-				return this.HubRef
-			end
-			else nil,
-	})
+			end,
+			showReportTab = function()
+				this:ShowMenu()
+			end,
+			registerOnReportTabHidden = function(onHiddenCallback)
+				this._onHiddenCallback = onHiddenCallback
+			end,
+			registerOnReportTabDisplayed = function(onDisplayedCallback)
+				this._onDisplayedCallback = onDisplayedCallback
+			end,
+			registerOnReportTabDisplaying = function(onDisplayingCallback)
+				this._onDisplayingCallback = onDisplayingCallback
+			end,
+			registerOnMenuWidthChange = function(callback)
+				this._onMenuWidthChange = callback
+			end,
+			registerSetNextPlayerToReport = function(setNextPlayerToReportCallback)
+				this._setNextPlayerToReportCallback = setNextPlayerToReportCallback
+			end,
+			registerOnSettingsHidden = function(onSettingsHiddenCallback)
+				this._onSettingsHiddenCallback = onSettingsHiddenCallback
+			end,
+			showReportSentPage = function(reportedPlayer)
+				this:showReportSentPage(reportedPlayer)
+			end,
+			onReportComplete = function(text)
+				if FFlagInExperienceReportClosingBugfix and ChromeEnabled then
+					ChromeService:setShortcutBar(nil)
+				end
+				this:showAlert(text, "Ok", function()
+					-- callback function once we click "Ok" in the success screen
+					this:HideMenu()
+				end)
+			end,
+			onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown and ChromeEnabled
+				then function(isOpen)
+					ChromeService:setHideShortcutBar("InExperienceReportDropdown", isOpen)
+				end
+				else nil,
+			getSettingsHubRef = if FFlagReportFocusNavIEMButtons
+				then function()
+					return this.HubRef
+				end
+				else nil,
+		})
 	Roact.mount(abuseReportMenu, this.Page, "AbuseReportMenu")
 
 	this.Page.Size = UDim2.new(1, 0, 0, 0)
@@ -186,11 +187,9 @@ PageInstance.Displayed.Event:connect(function()
 	PageInstance:onDisplayed()
 end)
 
-if FFlagIEMSettingsPageDisplaying then
-	PageInstance.Displaying.Event:connect(function()
-		PageInstance:onDisplaying()
-	end)
-end
+PageInstance.Displaying.Event:connect(function()
+	PageInstance:onDisplaying()
+end)
 
 PageInstance.Hidden.Event:connect(function()
 	PageInstance:onHidden()

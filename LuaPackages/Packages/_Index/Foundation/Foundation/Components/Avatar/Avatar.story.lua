@@ -42,54 +42,67 @@ local function useSurfaceColors()
 end
 local surfaceColorKeys = { "None", "Surface_0", "Surface_100", "Surface_200", "Surface_300" }
 
+local function PlaygroundStory(props: {
+	controls: {
+		userId: number,
+		size: AvatarSize,
+		userPresence: UserPresence,
+		background: string,
+		backplate: string,
+		includeProfileFrame: boolean,
+	},
+})
+	local surfaceColors = useSurfaceColors()
+	return React.createElement(Avatar, {
+		userId = props.controls.userId,
+		size = props.controls.size,
+		userPresence = props.controls.userPresence,
+		backgroundStyle = surfaceColors[props.controls.background],
+		backplateStyle = surfaceColors[props.controls.backplate],
+		includeProfileFrame = props.controls.includeProfileFrame,
+	})
+end
+
+local function PresenceAndSizesStory()
+	local tokens = useTokens()
+	return React.createElement(
+		View,
+		{ tag = "col gap-medium auto-xy" },
+		Dash.map(UserPresence, function(userPresence: UserPresence)
+			return React.createElement(View, { tag = "col gap-large auto-xy" }, {
+				Header = React.createElement(Text, {
+					Text = tostring(userPresence),
+					tag = "align-x-left size-0-0 auto-xy text-caption-medium content-default",
+				}),
+				Avatars = React.createElement(
+					View,
+					{ tag = "row gap-xxlarge auto-xy" },
+					Dash.map(sizes, function(size: AvatarSize)
+						return React.createElement(Avatar, {
+							userId = 24813339,
+							key = size,
+							userPresence = userPresence,
+							size = size,
+							backgroundStyle = tokens.Color.Shift.Shift_200,
+						})
+					end)
+				),
+			})
+		end)
+	)
+end
+
 return {
 	summary = "Avatar",
 	stories = {
 		{
 			name = "Playground",
-			story = function(props)
-				local surfaceColors = useSurfaceColors()
-				return React.createElement(Avatar, {
-					userId = props.controls.userId,
-					size = props.controls.size,
-					userPresence = props.controls.userPresence,
-					backgroundStyle = surfaceColors[props.controls.background],
-					backplateStyle = surfaceColors[props.controls.backplate],
-					includeProfileFrame = props.controls.includeProfileFrame,
-				})
-			end :: unknown,
+			story = PlaygroundStory :: unknown,
 		},
 		{
 			name = "Presence and sizes",
 			summary = "Every user presence rendered across the supported sizes",
-			story = function()
-				local tokens = useTokens()
-				return React.createElement(
-					View,
-					{ tag = "col gap-medium auto-xy" },
-					Dash.map(UserPresence, function(userPresence: UserPresence)
-						return React.createElement(View, { tag = "col gap-large auto-xy" }, {
-							Header = React.createElement(Text, {
-								Text = tostring(userPresence),
-								tag = "align-x-left size-0-0 auto-xy text-caption-medium content-default",
-							}),
-							Avatars = React.createElement(
-								View,
-								{ tag = "row gap-xxlarge auto-xy" },
-								Dash.map(sizes, function(size: AvatarSize)
-									return React.createElement(Avatar, {
-										userId = 24813339,
-										key = size,
-										userPresence = userPresence,
-										size = size,
-										backgroundStyle = tokens.Color.Shift.Shift_200,
-									})
-								end)
-							),
-						})
-					end)
-				)
-			end,
+			story = PresenceAndSizesStory,
 		},
 	},
 	controls = {

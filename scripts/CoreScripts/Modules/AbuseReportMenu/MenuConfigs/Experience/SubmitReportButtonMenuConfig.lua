@@ -49,19 +49,9 @@ local SubmitReportButtonMenuConfig: Types.ButtonMenuItemType = {
 				spawn(function()
 					local placeId, placeName, placeDescription = tostring(game.PlaceId), "N/A", "N/A"
 					pcall(function()
-						if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-							local productInfo =
-								MarketplaceService:GetProductInfoAsync(game.PlaceId, Enum.InfoType.Asset)
-							placeName = productInfo.Name
-							placeDescription = productInfo.Description
-						else
-							local productInfo = (MarketplaceService :: any):GetProductInfo(
-								game.PlaceId,
-								Enum.InfoType.Asset
-							)
-							placeName = productInfo.Name
-							placeDescription = productInfo.Description
-						end
+						local productInfo = MarketplaceService:GetProductInfoAsync(game.PlaceId, Enum.InfoType.Asset)
+						placeName = productInfo.Name
+						placeDescription = productInfo.Description
 					end)
 					local formattedText = string.format(
 						"User Report: \n    %s \n"

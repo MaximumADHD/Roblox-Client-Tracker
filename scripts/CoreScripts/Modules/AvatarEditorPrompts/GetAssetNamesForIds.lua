@@ -6,11 +6,7 @@ local Promise = require(CorePackages.Packages.Promise)
 return function(assetIdList)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return AvatarEditorService:GetBatchItemDetailsAsync(assetIdList, Enum.AvatarItemType.Asset)
-			else
-				return (AvatarEditorService :: never):GetBatchItemDetails(assetIdList, Enum.AvatarItemType.Asset)
-			end
+			return AvatarEditorService:GetBatchItemDetailsAsync(assetIdList, Enum.AvatarItemType.Asset)
 		end)
 
 		if success then

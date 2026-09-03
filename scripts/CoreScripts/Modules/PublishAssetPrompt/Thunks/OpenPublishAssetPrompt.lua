@@ -1,5 +1,5 @@
 --[[
-	This thunk is triggered by the game-engine function AssetService:PromptPublishAssetAsync
+	This thunk is triggered by the game-engine function AssetService:PromptCreatePlatformContentAsync
 	It causes a "Publish Asset" prompt to appear on-screen. We need to pass an instance and Enum.AssetType to this prompt.
 	See also:
 		PublishAssetPrompt.Actions.OpenPublishAssetPrompt

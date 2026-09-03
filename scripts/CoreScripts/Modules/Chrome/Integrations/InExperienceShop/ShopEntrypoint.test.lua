@@ -221,8 +221,32 @@ jest.mock(InExperienceShopPackage.prefetchShopDataOnGameJoin, function()
 	return prefetchWrapper
 end)
 
+-- ShopEntrypoint only reads `FeatureKeys` and the badge signal factory off this
+-- package, and requiring it for real drags in AvatarExperienceUIKit (which needs
+-- `UIBlox.init`). A stable getter is handed back so the registered config can be
+-- compared by identity; feature keys the factory was asked for are recorded so
+-- the tests can assert the shop names its own surface.
+local OFFER_BADGE_TEXT_SIGNAL = function(): string?
+	return nil
+end
+local offerBadgeSignalKeys: { string } = {}
+jest.mock(CorePackages.Workspace.Packages.InExperienceOffers, function()
+	return {
+		FeatureKeys = { RobloxShop = "ROBLOX_SHOP" },
+		Utils = {
+			createOfferBadgeTextSignal = function(featureKey: string)
+				table.insert(offerBadgeSignalKeys, featureKey)
+				return OFFER_BADGE_TEXT_SIGNAL
+			end,
+		},
+	}
+end)
+
+-- `FFlagShowOfferBadge` is `DefineFastFlag(...) and FFlagEnableMenuTrailingBadge`
+-- in production; these are the already-composed values ShopEntrypoint reads.
 local mockSharedFlags = {
 	FFlagEnableMenuTrailingBadge = false,
+	FFlagShowOfferBadge = false,
 }
 jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
 	return mockSharedFlags
@@ -249,6 +273,7 @@ type LoadOpts = {
 	centerEnabled: boolean?,
 	addIGMToSideSheet: boolean?,
 	menuTrailingBadgeFlag: boolean?,
+	showOfferBadgeFlag: boolean?,
 	newIconographyEnabled: boolean?,
 }
 
@@ -271,6 +296,8 @@ local function loadShopEntrypoint(opts: LoadOpts): any
 	shopChromeWrapperSpy:mockClear()
 
 	mockSharedFlags.FFlagEnableMenuTrailingBadge = opts.menuTrailingBadgeFlag == true
+	mockSharedFlags.FFlagShowOfferBadge = opts.showOfferBadgeFlag == true
+	table.clear(offerBadgeSignalKeys)
 
 	-- Seed the real `StarterGui` state ShopEntrypoint reads at module
 	-- load. `Enum.CoreGuiType.All=false` keeps the OR in `getInitial-
@@ -710,6 +737,54 @@ describe("ShopEntrypoint", function()
 			expect(lastRegisterProps.menuTrailingBadgeConfig).toEqual({
 				localStorageKey = game:GetFastString("InExperienceShopNewBadgeStorageKey"),
 				maxViewCount = game:GetFastInt("NewBadgeDismissalMaxCountInExperienceShop"),
+				customText = nil,
+			})
+		end)
+
+		it("SHOULD NOT register customText when FFlagShowOfferBadge is off", function()
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				menuTrailingBadgeFlag = true,
+				showOfferBadgeFlag = false,
+			})
+
+			if lastRegisterProps.menuTrailingBadgeConfig ~= nil then
+				expect(lastRegisterProps.menuTrailingBadgeConfig.customText).toBeNil()
+			end
+			-- The offers package must not even be asked for a signal at flag-off.
+			expect(offerBadgeSignalKeys).toEqual({})
+		end)
+
+		it("SHOULD register a customText signal for the shop's own surface when FFlagShowOfferBadge is on", function()
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				showOfferBadgeFlag = true,
+			})
+
+			expect(lastRegisterProps.menuTrailingBadgeConfig.customText).toBe(OFFER_BADGE_TEXT_SIGNAL)
+			expect(offerBadgeSignalKeys).toEqual({ "ROBLOX_SHOP" })
+		end)
+
+		it("SHOULD disable the New label via maxViewCount 0 when only the offer badge is on", function()
+			if isNewBadgeInExperienceShopEnabled() then
+				return
+			end
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				menuTrailingBadgeFlag = false,
+				showOfferBadgeFlag = true,
+			})
+
+			expect(lastRegisterProps.menuTrailingBadgeConfig).toEqual({
+				localStorageKey = game:GetFastString("InExperienceShopNewBadgeStorageKey"),
+				maxViewCount = 0,
+				customText = OFFER_BADGE_TEXT_SIGNAL,
 			})
 		end)
 

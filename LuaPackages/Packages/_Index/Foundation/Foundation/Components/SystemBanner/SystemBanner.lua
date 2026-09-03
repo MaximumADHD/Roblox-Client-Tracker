@@ -54,11 +54,18 @@ local defaultProps = {
 	testId = "--foundation-system-banner",
 }
 
+-- SystemBanner renders Standard and Emphasis only; the Alert values collapse onto the default.
+local VARIANT_FALLBACKS: { [AlertVariant]: AlertVariant } = {
+	[AlertVariant.System] = AlertVariant.Standard,
+	[AlertVariant.Feedback] = AlertVariant.Standard,
+}
+
 local function SystemBanner(systemBannerProps: SystemBannerProps, ref: React.Ref<Instance>)
 	local props = withDefaults(systemBannerProps, defaultProps)
 	local tokens = useTokens()
+	local variant: AlertVariant = VARIANT_FALLBACKS[props.variant] or props.variant
 
-	local variantProps = useSystemBannerVariants(tokens, props.variant, props.severity)
+	local variantProps = useSystemBannerVariants(tokens, variant, props.severity)
 
 	local container, setContainer = React.useState(nil :: Frame?)
 	local composedRef = ReactUtils.useComposedRef(ref, setContainer)

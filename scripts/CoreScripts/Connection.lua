@@ -138,11 +138,13 @@ local FFlagConnectionAmpUpsellOnLeave =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpUpsellOnLeave
 local FFlagConnectionAmpParentalApprovalUpsell =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpParentalApprovalUpsell
+local FFlagConnectionParentalApprovalLeaveOnly =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionParentalApprovalLeaveOnly
 local FFlagConnectionUpsellAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
 local FFlagUniversalFeatureRestrictionReceivers =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagUniversalFeatureRestrictionReceivers
-local FFlagDebugEnablePioneerUX = require(CorePackages.Workspace.Packages.SharedFlags).FFlagDebugEnablePioneerUX
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagErrorPromptUseLeaveGameHelper =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagErrorPromptUseLeaveGameHelper
 
@@ -411,7 +413,7 @@ local leaveFunction = function()
 	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "LeaveInitiated"}}, 1.0)
 	if FFlagErrorPromptUseLeaveGameHelper then
 		leaveGame(false, {
-			shouldNativeExit = FFlagDebugEnablePioneerUX,
+			shouldNativeExit = isPioneerLaunch(),
 			inhibitAppRating = true,
 			telemetryContext = "ErrorPrompt",
 		})
@@ -847,6 +849,20 @@ if FFlagConnectionAmpParentalApprovalUpsell then
 	}
 end
 
+-- Asking a parent isn't supported in-experience: Continue opens a VPC dialog that
+-- renders behind this prompt and soft-locks the user, so Leave is the only way out.
+if FFlagConnectionParentalApprovalLeaveOnly then
+	ButtonList[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = {
+		{
+			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+			Primary = true,
+		},
+	}
+end
+
 if FFlagAddCollaborationCoreGatedConnectionError then
 	ButtonList[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = {
 		{
@@ -885,7 +901,7 @@ if FFlagConnectionEnableAutoReconnect then
 	}
 end
 
-if FFlagDebugEnablePioneerUX then
+if isPioneerLaunch() then
 	for _, buttons in pairs(ButtonList) do
 		for _, buttonData in ipairs(buttons) do
 			if buttonData.Callback == leaveFunction or buttonData.Callback == autoReconnectLeaveFunction then

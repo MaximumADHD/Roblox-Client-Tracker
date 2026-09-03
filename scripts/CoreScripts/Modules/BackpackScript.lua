@@ -29,6 +29,7 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local FFlagBackpackResponsiveUnits = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBackpackResponsiveUnits
 local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
+local FFlagStudioDeviceSimVRSwitchFixes = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStudioDeviceSimVRSwitchFixes
 
 local FFlagSAToolEquipLuauFlag = game:DefineFastFlag("SAToolEquipLuauFlag", false)
 -- Workspace.AuthorityMode may change at runtime, in which case we want this feature on
@@ -1356,6 +1357,9 @@ end
 function gamepadConnected()
 	if not VRService.VREnabled then
 		GamepadEnabled = true
+		if FFlagStudioDeviceSimVRSwitchFixes then
+			GuiService:RemoveSelectionGroup("RBXBackpackSelection")
+		end
 		GuiService:AddSelectionParent("RBXBackpackSelection", MainFrame)
 
 		if FullHotbarSlots >= 1 then

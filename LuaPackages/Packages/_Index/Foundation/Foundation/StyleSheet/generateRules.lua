@@ -10,10 +10,10 @@ type RulesGenerator = Types.RulesGenerator
 
 local function generateRules(tokens: Tokens, rulesGenerator: RulesGenerator)
 	local formattedTokens = formatTokens(tokens)
-	local common, size, colorMode = rulesGenerator(tokens, formattedTokens)
+	local common, size, colorMode, typography = rulesGenerator(tokens, formattedTokens)
 	local rules = Dash.joinArrays(common, size, colorMode)
 
-	return rules, common, size, colorMode
+	return rules, common, size, colorMode, typography
 end
 
 return generateRules

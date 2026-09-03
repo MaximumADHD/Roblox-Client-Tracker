@@ -196,21 +196,13 @@ local function getPlayerGroupDetails(player)
 	for groupKey, groupInfo in pairs(SPECIAL_GROUPS) do
 		if groupInfo.GroupRank ~= nil then
 			local isInGroupSuccess, isInGroupValue = pcall(function()
-				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					return player:GetRankInGroupAsync(groupInfo.GroupId) >= groupInfo.GroupRank
-				else
-					return (player :: never):GetRankInGroup(groupInfo.GroupId) >= groupInfo.GroupRank
-				end
+				return player:GetRankInGroupAsync(groupInfo.GroupId) >= groupInfo.GroupRank
 			end)
 
 			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue
 		else
 			local isInGroupSuccess, isInGroupValue = pcall(function()
-				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					return player:IsInGroupAsync(groupInfo.GroupId)
-				else
-					return (player :: never):IsInGroup(groupInfo.GroupId)
-				end
+				return player:IsInGroupAsync(groupInfo.GroupId)
 			end)
 
 			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue

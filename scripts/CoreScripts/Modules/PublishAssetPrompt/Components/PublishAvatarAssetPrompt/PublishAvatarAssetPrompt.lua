@@ -232,6 +232,7 @@ local function PublishAvatarAssetPrompt(props: Props)
 					useFullBodyCameraSettings = if GetFFlagSingleUploadMakeupSupport() then not isMakeup else true,
 					fieldOfView = CAMERA_FOV,
 					LayoutOrder = 1,
+					isMakeupPreview = isMakeup,
 				}),
 				DescriptionInput = React.createElement(LabeledTextBox, {
 					LayoutOrder = 2,
@@ -266,6 +267,7 @@ local function PublishAvatarAssetPrompt(props: Props)
 		screenSize = props.screenSize,
 		showingPreviewView = showingPreviewView,
 		closePreviewView = closePreviewView,
+		isMakeupPreview = isMakeup,
 		asset = previewModel,
 		nameLabel = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Name"),
 		defaultName = name,

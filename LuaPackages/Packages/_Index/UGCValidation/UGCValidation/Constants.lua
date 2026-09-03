@@ -14,6 +14,8 @@ local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidate
 local getFFlagUGCValidationAllowEngineDefaultPartSurfaces =
 	require(root.flags.getFFlagUGCValidationAllowEngineDefaultPartSurfaces)
 local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
+local getFFlagUGCValidateMakeupCategoryParity = require(root.flags.getFFlagUGCValidateMakeupCategoryParity)
+local getFFlagUGCValidateDisallowAeroMeshData = require(root.flags.getFFlagUGCValidateDisallowAeroMeshData)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -409,6 +411,9 @@ Constants.PROPERTIES = {
 	Part = {
 		Shape = Enum.PartType.Block,
 	},
+	MeshPart = {
+		FluidFidelity = if getFFlagUGCValidateDisallowAeroMeshData() then Enum.FluidFidelity.Automatic else nil,
+	},
 	SurfaceAppearance = {
 		AlphaMode = if getFFlagUGCValidationEyebrowEyelashSupport()
 			then {
@@ -540,6 +545,30 @@ Constants.CONTENT_ID_EDITABLE_PROPERTY = {
 	},
 }
 
+-- Every Content-typed property (a value exposing SourceType/Uri/Object) an avatar asset can carry,
+-- keyed by ClassName. A non-nil .Object here is a live unsaved editable. Superset of
+-- CONTENT_ID_EDITABLE_PROPERTY: also covers the Content props those id-keyed maps omit
+-- (EmissiveMaskContent, Decal, WrapTextureTransfer).
+Constants.CONTENT_TYPED_PROPERTIES_BY_CLASS = {
+	MeshPart = { "MeshContent", "TextureContent" },
+	WrapTarget = { "CageMeshContent" },
+	WrapLayer = { "CageMeshContent", "ReferenceMeshContent" },
+	SurfaceAppearance = {
+		"ColorMapContent",
+		"MetalnessMapContent",
+		"NormalMapContent",
+		"RoughnessMapContent",
+		"EmissiveMaskContent",
+	},
+	Decal = {
+		"ColorMapContent",
+		"MetalnessMapContent",
+		"NormalMapContent",
+		"RoughnessMapContent",
+	},
+	WrapTextureTransfer = { "ReferenceCageMeshContent" },
+}
+
 Constants.MESH_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId" },
 	MeshPart = { "MeshId" },
@@ -604,6 +633,9 @@ Constants.ApplicationJson = "application/json"
 -- see validateAttributes for more info
 Constants.GUIDAttributeName = "RBXGUID"
 Constants.GUIDAttributeMaxLength = 100
+-- Keep these in sync with the corresponding HumanoidConstants names in the engine.
+Constants.EmoteIsUGCAttributeName = "RBXisUGCEmote"
+Constants.EmoteMaxPartTranslationAttributeName = "RBXmaxPartTranslation"
 
 Constants.AlternateMeshIdAttributeName = "RBX_ALT_MESH_ID"
 Constants.MESH_CONTENT_TYPE = {
@@ -643,16 +675,15 @@ if getFFlagUGCValidationAnimationPackSupport() then
 	table.insert(Constants.AllAssetUploadCategories, ValidationEnums.UploadCategory.ANIMATION)
 end
 
--- MAKEUP is included here so DescendantIdsAllowed (and other dependency-driven
--- modules) run against makeup assets. Legacy validateMakeupAsset.lua:14 calls
--- validateDependencies, which under the old system covered creator + moderation
--- for makeup. Without MAKEUP in this list, makeup uploads silently lose that
--- coverage under the migration flag.
 Constants.AllAssetUploadCategoriesIncludingMakeup = {}
 for _, category in Constants.AllAssetUploadCategories do
 	table.insert(Constants.AllAssetUploadCategoriesIncludingMakeup, category)
 end
 table.insert(Constants.AllAssetUploadCategoriesIncludingMakeup, ValidationEnums.UploadCategory.MAKEUP)
+
+if getFFlagUGCValidateMakeupCategoryParity() then
+	table.insert(Constants.AllAssetUploadCategories, ValidationEnums.UploadCategory.MAKEUP)
+end
 
 Constants.AllBundleUploadCategories = {
 	-- For tests that run on all bundles

@@ -12,6 +12,9 @@ local getFFlagUGCValidationAnimationPackFolderStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackFolderStructure)
 local getFFlagUGCValidationAnimationPackDisableModelStructure =
 	require(root.flags.getFFlagUGCValidationAnimationPackDisableModelStructure)
+local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
+	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
+local shouldValidateR15LegacyDuplicate = require(root.util.shouldValidateR15LegacyDuplicate)
 local ExpectedRootSchema = {}
 
 ExpectedRootSchema.categories = Constants.AllUploadCategories
@@ -20,6 +23,7 @@ ExpectedRootSchema.requiredData = {
 	ValidationEnums.SharedDataMember.rootInstance,
 	ValidationEnums.SharedDataMember.uploadCategory,
 	ValidationEnums.SharedDataMember.uploadEnum,
+	ValidationEnums.SharedDataMember.consumerConfig,
 }
 
 local function checkName(nameList: any, instanceName: string)
@@ -104,6 +108,26 @@ local function validateNoInstancesOutsideSchema(
 	end
 end
 
+local function validateRootAgainstSchema(rootInstance: Instance, schema: any, reporter: Types.ValidationReporter)
+	local authorizedSet = {}
+	if schema.ClassName ~= rootInstance.ClassName then
+		-- If the root is wrong, they probably just misclicked. Tell them to fix their selection instead of flooding schema errors
+
+		reporter:fail(ErrorSourceStrings.Keys.AssetSchemaWrongRootClass, {
+			RootClass = rootInstance.ClassName,
+			ExpectedClass = schema.ClassName,
+		})
+	elseif schema.Name ~= nil and not checkName(schema.Name, rootInstance.Name) then
+		reporter:fail(ErrorSourceStrings.Keys.AssetSchemaWrongRootName, {
+			RootName = rootInstance.Name,
+			ExpectedName = schema.Name,
+		})
+	else
+		validateInstancesFromSchema(rootInstance, schema, authorizedSet, reporter)
+		validateNoInstancesOutsideSchema(rootInstance, authorizedSet, reporter)
+	end
+end
+
 ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local instance: Instance, category: string, uploadEnum: Types.UploadEnum =
 		data.rootInstance, data.uploadCategory, data.uploadEnum
@@ -136,22 +160,20 @@ ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Type
 		schema = CreateExpectedSchema.generateAssetSchema(category, uploadEnum.assetType, instance)
 	end
 
-	local authorizedSet = {}
-	if schema.ClassName ~= instance.ClassName then
-		-- If the root is wrong, they probably just misclicked. Tell them to fix their selection instead of flooding schema errors
+	validateRootAgainstSchema(instance, schema, reporter)
 
-		reporter:fail(ErrorSourceStrings.Keys.AssetSchemaWrongRootClass, {
-			RootClass = instance.ClassName,
-			ExpectedClass = schema.ClassName,
-		})
-	elseif schema.Name ~= nil and not checkName(schema.Name, instance.Name) then
-		reporter:fail(ErrorSourceStrings.Keys.AssetSchemaWrongRootName, {
-			RootName = instance.Name,
-			ExpectedName = schema.Name,
-		})
-	else
-		validateInstancesFromSchema(instance, schema, authorizedSet, reporter)
-		validateNoInstancesOutsideSchema(instance, authorizedSet, reporter)
+	if getEngineFeatureEngineUGCValidateInstanceTreesEquivalent() and shouldValidateR15LegacyDuplicate(data) then
+		-- On folder-structured body-part uploads the backend deserializes a separate R15Fixed copy, so it must
+		-- exist and match the schema. Enforce presence rather than skipping when absent, so a missing duplicate
+		-- can't slip through. (Redundant with the dmdiff tree-equivalence check, but if that is bypassed a
+		-- smuggled instance still surfaces as AssetSchemaUnexpectedItems.)
+		if data.r15LegacyDuplicateRoot == nil then
+			reporter:fail(ErrorSourceStrings.Keys.FolderStructureMismatch)
+		else
+			reporter:setReportingRoot(data.r15LegacyDuplicateRoot)
+			validateRootAgainstSchema(data.r15LegacyDuplicateRoot, schema, reporter)
+			reporter:setReportingRoot(instance)
+		end
 	end
 end
 

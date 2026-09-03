@@ -1,6 +1,6 @@
 --[[
 	A single-step interactive alert for publishing assets from experience.
-	This prompt appears when AssetService:PromptPublishAssetAsync is called.
+	This prompt appears when AssetService:PromptCreatePlatformContentAsync is called.
 	The appearance of this prompt changes based on what type of asset you're uploading (clothing item, emote, model, etc).
 	At a minimum, this prompt includes:
 		- Some visual depiction of the asset you're uploading (ViewportFrame/Icon and/or DataModel hierarchy view).
@@ -28,6 +28,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local NameTextBox = require(script.Parent.Common.NameTextBox)
 local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
+local ImagePreview = require(script.Parent.ImagePreview)
 local ObjectViewport = require(script.Parent.ObjectViewport)
 local PreviewViewport = require(script.Parent.Common.PreviewViewport)
 local EmoteThumbnailView = require(script.Parent.EmoteThumbnailView)
@@ -42,7 +43,7 @@ local MINIMUM_MIDDLE_SIZE_PIXELS = 200
 local LABEL_HEIGHT = 15
 local LABEL_TEXT_SIZE = 12
 local DISCLAIMER_TEXT_SIZE = 12
-local DELAYED_INPUT_ANIM_SEC = 3
+local DELAYED_INPUT_ANIM_SEC = 6
 
 local NAME_TEXT = "name"
 local DESCRIPTION_TEXT = "description"
@@ -73,6 +74,7 @@ local PublishAssetPrompt = script.Parent.Parent
 local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
 local EngineFeatureEnableEmotePublish = game:GetEngineFeature("EnableEmotePublish")
+local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
 
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
 
@@ -212,6 +214,10 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 			and self.props.assetType == Enum.AssetType.EmoteAnimation
 			and self.props.assetInstance:IsA("AnimationClip")
 
+		local showingImagePreview = EngineFeatureEnableImagePublish
+			and self.props.assetType == Enum.AssetType.Image
+			and self.props.assetInstance:IsA("Decal")
+
 		return Roact.createElement(RoactGamepad.Focusable.Frame, {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 150),
@@ -231,9 +237,19 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 					Size = UDim2.new(VIEWPORT_WIDTH_PERCENT, 0, 1, 0),
 					BackgroundTransparency = 1,
 				}, {
-					ObjectViewport = not showingEmotePublish and Roact.createElement(ObjectViewport, {
-						model = self.props.assetInstance,
-					}) or nil,
+					ImagePreview = if showingImagePreview
+						then Roact.createElement(ImagePreview, {
+							imageContent = self.props.assetInstance.TextureContent,
+							autoRotateSeconds = DELAYED_INPUT_ANIM_SEC,
+						})
+						else nil,
+
+					ObjectViewport = not showingEmotePublish and not showingImagePreview and Roact.createElement(
+						ObjectViewport,
+						{
+							model = self.props.assetInstance,
+						}
+					) or nil,
 
 					EmoteThumbnailParent = showingEmotePublish and Roact.createElement("Frame", {
 						Size = UDim2.fromScale(1, 1),
@@ -316,6 +332,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 			}),
 			Disclaimer = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, DISCLAIMER_HEIGHT_PIXELS),
+				TextYAlignment = Enum.TextYAlignment.Center,
 				Text = localized[DISCLAIMER_TEXT],
 				Font = font.Body.Font,
 				TextSize = DISCLAIMER_TEXT_SIZE,
@@ -424,6 +441,9 @@ local function GetLocalizedStringsForAssetType(assetType)
 	elseif assetType == Enum.AssetType.Package then
 		strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextPackage")
 		strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.DisclaimerModel")
+	elseif assetType == Enum.AssetType.Image then
+		strings[TITLE_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.TitleTextImage")
+		strings[DISCLAIMER_TEXT] = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.DisclaimerImage")
 	end
 
 	return strings

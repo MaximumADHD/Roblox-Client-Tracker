@@ -5,6 +5,7 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
+local Flags = require(Foundation.Utility.Flags)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local Text = require(Foundation.Components.Text)
@@ -18,6 +19,7 @@ type Controls = {
 	title: string,
 	text: string,
 	hasShortcut: boolean,
+	hasArrow: boolean?,
 	side: PopoverSide,
 	align: PopoverAlign,
 }
@@ -49,7 +51,7 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -66,11 +68,12 @@ local function LabeledTarget(props: {
 	title: string,
 	text: string?,
 	shortcut: { Enum.KeyCode }?,
+	hasArrow: boolean?,
 	side: PopoverSide?,
 	align: PopoverAlign?,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-center auto-xy",
+		tag = "col align-x-center gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -85,6 +88,7 @@ local function LabeledTarget(props: {
 				title = props.title,
 				text = props.text,
 				shortcut = props.shortcut,
+				hasArrow = props.hasArrow,
 				side = props.side,
 				align = props.align,
 			},
@@ -109,6 +113,7 @@ local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
 				title = controls.title,
 				text = if controls.text ~= "" then controls.text else nil,
 				shortcut = if controls.hasShortcut then SHORTCUT else nil,
+				hasArrow = controls.hasArrow,
 				side = controls.side,
 				align = controls.align,
 			},
@@ -122,12 +127,12 @@ end
 
 local function PlacementStory(): React.ReactNode
 	return React.createElement(View, {
-		tag = "col gap-xxlarge align-x-center auto-y padding-y-xxlarge",
+		tag = "col align-x-center gap-xxlarge auto-y padding-y-xxlarge",
 		Size = UDim2.fromScale(1, 0),
 	}, {
 		Sides = React.createElement(
 			View,
-			{ tag = "row gap-xxlarge align-x-center align-y-center auto-y", Size = UDim2.fromScale(1, 0) },
+			{ tag = "row align-x-center align-y-center gap-xxlarge auto-y", Size = UDim2.fromScale(1, 0) },
 			Dash.map(SIDE_ORDER, function(side, index)
 				return React.createElement(LabeledTarget, {
 					LayoutOrder = index,
@@ -182,6 +187,17 @@ local function ContentStory(): React.ReactNode
 				text = LONG_TEXT,
 				side = PopoverSide.Top,
 			}),
+			NoArrow = if Flags.FoundationTooltipBeta
+				then React.createElement(LabeledTarget, {
+					LayoutOrder = 5,
+					label = "Without arrow",
+					buttonText = "No arrow",
+					title = "Save changes",
+					text = "Stores your latest edits to this project.",
+					hasArrow = false,
+					side = PopoverSide.Top,
+				})
+				else nil,
 		}),
 	})
 end
@@ -207,6 +223,7 @@ return {
 		title = "Tooltip",
 		text = "Tooltip body text",
 		hasShortcut = false,
+		hasArrow = if Flags.FoundationTooltipBeta then true else nil,
 		side = SIDE_ORDER,
 		align = {
 			PopoverAlign.Center,

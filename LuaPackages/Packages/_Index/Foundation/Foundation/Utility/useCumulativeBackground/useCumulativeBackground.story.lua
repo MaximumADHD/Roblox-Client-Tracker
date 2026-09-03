@@ -13,6 +13,140 @@ local Visibility = require(Foundation.Enums.Visibility)
 local useCumulativeBackground = require(script.Parent.useCumulativeBackground)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+type CumulativeBackgroundPreviewProps = {
+	useCumulative: boolean,
+	transparency: React.Binding<number>,
+	hue: React.Binding<number>,
+	saturation: React.Binding<number>,
+}
+
+local function CumulativeBackgroundPreview(props: CumulativeBackgroundPreviewProps)
+	local tokens = useTokens()
+	local baseBg = tokens.Color.Surface.Surface_100
+	local elementBg = React.joinBindings({ props.transparency, props.hue, props.saturation }):map(function(values)
+		-- selene: allow(roblox_internal_custom_color)
+		return { Color3 = Color3.fromHSV(values[2], values[3], 1), Transparency = values[1] }
+	end)
+	local cumulativeBackground = useCumulativeBackground(baseBg, elementBg)
+
+	return React.createElement(
+		View,
+		{
+			Size = UDim2.fromOffset(200, 200),
+			backgroundStyle = baseBg,
+			tag = "col align-x-center align-y-center padding-large",
+		},
+		React.createElement(
+			View,
+			{
+				backgroundStyle = elementBg,
+				tag = "col align-x-center align-y-center size-2000",
+			},
+			React.createElement(View, {
+				backgroundStyle = if props.useCumulative then cumulativeBackground else elementBg,
+				tag = "size-1000",
+			}, {
+				-- Bleed the element into the parent only on one side, so it's visible where the element is, but you can check that it has the same color
+				Top = React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.fromOffset(0, 0),
+					tag = "bg-system-emphasis",
+				}),
+				Right = React.createElement(View, {
+					Size = UDim2.new(0, 1, 1, 0),
+					Position = UDim2.new(1, -1, 0, 0),
+					tag = "bg-system-emphasis",
+				}),
+				Bottom = React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 1, -1),
+					tag = "bg-system-emphasis",
+				}),
+			})
+		)
+	)
+end
+
+local function PlaygroundStory()
+	local transparency, setTransparency = React.useBinding(0.5)
+	local hue, setHue = React.useBinding(0)
+	local saturation, setSaturation = React.useBinding(0)
+	local useCumulative, setUseCumulative = React.useState(true)
+
+	return React.createElement(
+		View,
+		{ tag = "col gap-large auto-xy" },
+		React.createElement(Checkbox, {
+			label = "Use cumulative background",
+			isChecked = useCumulative,
+			onActivated = function()
+				setUseCumulative(function(old)
+					return not old
+				end)
+			end,
+			size = InputSize.XSmall,
+		}),
+		React.createElement(
+			View,
+			{
+				tag = "col gap-medium auto-xy",
+			},
+			React.createElement(
+				Text,
+				{ LayoutOrder = 1, Text = "Semi-transparent element background", tag = "auto-xy" }
+			),
+			React.createElement(
+				View,
+				{ LayoutOrder = 2, tag = "row gap-large size-2600-0 auto-y" },
+				React.createElement(InputLabel, {
+					Text = "Transparency",
+					size = InputSize.Medium,
+				}),
+				React.createElement(Slider, {
+					value = transparency,
+					onValueChanged = setTransparency,
+					size = InputSize.Medium,
+					knobVisibility = Visibility.Always,
+				})
+			),
+			React.createElement(
+				View,
+				{ LayoutOrder = 3, tag = "row gap-large size-2600-0 auto-y" },
+				React.createElement(InputLabel, {
+					Text = "Hue",
+					size = InputSize.Medium,
+				}),
+				React.createElement(Slider, {
+					value = hue,
+					onValueChanged = setHue,
+					size = InputSize.Medium,
+					knobVisibility = Visibility.Always,
+				})
+			),
+			React.createElement(
+				View,
+				{ LayoutOrder = 4, tag = "row gap-large size-2600-0 auto-y" },
+				React.createElement(InputLabel, {
+					Text = "Saturation",
+					size = InputSize.Medium,
+				}),
+				React.createElement(Slider, {
+					value = saturation,
+					onValueChanged = setSaturation,
+					size = InputSize.Medium,
+					knobVisibility = Visibility.Always,
+				})
+			)
+		),
+		React.createElement(CumulativeBackgroundPreview, {
+			transparency = transparency,
+			hue = hue,
+			saturation = saturation,
+			useCumulative = useCumulative,
+		})
+	)
+end
+
 return {
 	summary = "Sometimes we need to get a color matching that of the semi-transparent element on a solid background. \z
 	useCumulativeBackground uses lerp magic to get it. Without cumulative background the element on top of the \z
@@ -20,137 +154,7 @@ return {
 	stories = {
 		{
 			name = "Playground",
-			story = function()
-				local transparency, setTransparency = React.useBinding(0.5)
-				local hue, setHue = React.useBinding(0)
-				local saturation, setSaturation = React.useBinding(0)
-				local useCumulative, setUseCumulative = React.useState(true)
-
-				return React.createElement(
-					View,
-					{ tag = "col gap-large auto-xy" },
-					React.createElement(Checkbox, {
-						label = "Use cumulative background",
-						isChecked = useCumulative,
-						onActivated = function()
-							setUseCumulative(function(old)
-								return not old
-							end)
-						end,
-						size = InputSize.XSmall,
-					}),
-					React.createElement(
-						View,
-						{
-							tag = "col gap-medium auto-xy",
-						},
-						React.createElement(
-							Text,
-							{ LayoutOrder = 1, Text = "Semi-transparent element background", tag = "auto-xy" }
-						),
-						React.createElement(
-							View,
-							{ LayoutOrder = 2, tag = "row gap-large size-2600-0 auto-y" },
-							React.createElement(InputLabel, {
-								Text = "Transparency",
-								size = InputSize.Medium,
-							}),
-							React.createElement(Slider, {
-								value = transparency,
-								onValueChanged = setTransparency,
-								size = InputSize.Medium,
-								knobVisibility = Visibility.Always,
-							})
-						),
-						React.createElement(
-							View,
-							{ LayoutOrder = 3, tag = "row gap-large size-2600-0 auto-y" },
-							React.createElement(InputLabel, {
-								Text = "Hue",
-								size = InputSize.Medium,
-							}),
-							React.createElement(Slider, {
-								value = hue,
-								onValueChanged = setHue,
-								size = InputSize.Medium,
-								knobVisibility = Visibility.Always,
-							})
-						),
-						React.createElement(
-							View,
-							{ LayoutOrder = 4, tag = "row gap-large size-2600-0 auto-y" },
-							React.createElement(InputLabel, {
-								Text = "Saturation",
-								size = InputSize.Medium,
-							}),
-							React.createElement(Slider, {
-								value = saturation,
-								onValueChanged = setSaturation,
-								size = InputSize.Medium,
-								knobVisibility = Visibility.Always,
-							})
-						)
-					),
-					-- selene: allow(shadowing)
-					React.createElement(function(props: {
-						useCumulative: boolean,
-						transparency: React.Binding<number>,
-						hue: React.Binding<number>,
-						saturation: React.Binding<number>,
-					})
-						local tokens = useTokens()
-						local baseBg = tokens.Color.Surface.Surface_100
-						local elementBg = React.joinBindings({ props.transparency, props.hue, props.saturation })
-							:map(function(values)
-								-- selene: allow(roblox_internal_custom_color)
-								return { Color3 = Color3.fromHSV(values[2], values[3], 1), Transparency = values[1] }
-							end)
-						local cumulativeBacgrkound = useCumulativeBackground(baseBg, elementBg)
-
-						return React.createElement(
-							View,
-							{
-								Size = UDim2.fromOffset(200, 200),
-								backgroundStyle = baseBg,
-								tag = "col align-x-center align-y-center padding-large",
-							},
-							React.createElement(
-								View,
-								{
-									backgroundStyle = elementBg,
-									tag = "col align-x-center align-y-center size-2000",
-								},
-								React.createElement(View, {
-									backgroundStyle = if useCumulative then cumulativeBacgrkound else elementBg,
-									tag = "size-1000",
-								}, {
-									-- Bleed the element into the parent only on one side, so it's visible where the element is, but you can check that it has the same color
-									Top = React.createElement(View, {
-										Size = UDim2.new(1, 0, 0, 1),
-										Position = UDim2.fromOffset(0, 0),
-										tag = "bg-system-emphasis",
-									}),
-									Right = React.createElement(View, {
-										Size = UDim2.new(0, 1, 1, 0),
-										Position = UDim2.new(1, -1, 0, 0),
-										tag = "bg-system-emphasis",
-									}),
-									Bottom = React.createElement(View, {
-										Size = UDim2.new(1, 0, 0, 1),
-										Position = UDim2.new(0, 0, 1, -1),
-										tag = "bg-system-emphasis",
-									}),
-								})
-							)
-						)
-					end, {
-						transparency = transparency,
-						hue = hue,
-						saturation = saturation,
-						useCumulative = useCumulative,
-					})
-				)
-			end,
+			story = PlaygroundStory :: unknown,
 		},
 	},
 }

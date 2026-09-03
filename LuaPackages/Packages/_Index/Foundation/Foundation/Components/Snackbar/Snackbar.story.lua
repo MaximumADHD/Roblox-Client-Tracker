@@ -4,6 +4,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Snackbar = require(Foundation.Components.Snackbar)
 
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
+
 type SnackbarProps = Snackbar.SnackbarProps
 
 type Props = {
@@ -34,7 +36,7 @@ return {
 							end,
 						}
 						else nil,
-					icon = props.controls.icon,
+					icon = StoryIcons.parseIconControl(props.controls.icon),
 					onClose = if props.controls.hasCloseAffordance
 						then function()
 							print("close clicked!")
@@ -48,17 +50,14 @@ return {
 			name = "No Button Snackbar",
 			story = function(props: Props)
 				return React.createElement(Story, {
-					icon = props.controls.icon,
+					icon = StoryIcons.parseIconControl(props.controls.icon),
 					title = props.controls.title,
 				})
 			end,
 		},
 	},
 	controls = {
-		icon = {
-			"diamond-simplified",
-			"",
-		},
+		icon = StoryIcons.buildIconControlOptions(),
 		title = "This is a snackbar!",
 		actionText = "Primary",
 		hasCloseAffordance = true,

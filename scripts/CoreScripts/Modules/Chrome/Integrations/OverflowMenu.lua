@@ -58,16 +58,39 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagShowGameAgeRating = SharedFlags.FFlagShowGameAgeRating
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagSideSheetFocusNav = SharedFlags.FFlagSideSheetFocusNav
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
 local FFlagAvatarSwitcherFtuxTooltip = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false)
 local FFlagInExperienceShopFtuxTooltip = game:DefineFastFlag("InExperienceShopFtuxTooltip", false)
 	and SharedFlags.FFlagEnableInExperienceShop
+local FFlagMenuOfferTooltip = SharedFlags.FFlagMenuOfferTooltip
+-- Composed with the Chrome flag that renders the dot at all, so this can't request a
+-- pixel IconHost never draws.
+local FFlagOfferNineDotActivityIndicator = SharedFlags.FFlagOfferNineDotActivityIndicator
+	and ChromeSharedFlags.FFlagChromeNineDotActivityIndicator
+local useInExperienceOfferExposure = require(Chrome.Integrations.InExperienceShop.useInExperienceOfferExposure)
+
+local useOfferNineDotActivityIndicator: any = nil
+if FFlagOfferNineDotActivityIndicator then
+	useOfferNineDotActivityIndicator = require(Chrome.Integrations.InExperienceShop.useOfferNineDotActivityIndicator)
+end
 
 local InExperienceShopFtuxTooltip: any = nil
 if FFlagInExperienceShopFtuxTooltip then
 	InExperienceShopFtuxTooltip = require(Chrome.Integrations.InExperienceShop.InExperienceShopFtuxTooltip)
+end
+
+local MenuOfferTooltip: any = nil
+if FFlagMenuOfferTooltip then
+	MenuOfferTooltip = require(Chrome.Integrations.InExperienceShop.MenuOfferTooltip)
+end
+
+local usePublishShopAvailability: any = nil
+if FFlagMenuOfferTooltip or FFlagOfferNineDotActivityIndicator then
+	usePublishShopAvailability = require(Chrome.Integrations.InExperienceShop.usePublishShopAvailability)
 end
 
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
@@ -184,6 +207,14 @@ if FFlagEnableNewBackpack then
 else
 	backpackActivatedSignal = backpackVisibility
 end
+
+-- Hide shortcut bar if inventory was opened from side sheet
+if FFlagEnableSideSheet and FFlagSideSheetFocusNav and FFlagEnableConsoleExpControls then
+	backpackActivatedSignal:connect(function(isBackpackOpen)
+		ChromeService:setHideShortcutBar("Backpack", isBackpackOpen)
+	end)
+end
+
 local backpack = ChromeService:register({
 	id = "backpack",
 	label = "CoreScripts.TopBar.Inventory",
@@ -271,6 +302,30 @@ end
 function HamburgerButton(props)
 	local toggleIconTransition = props.toggleTransition
 	local style = useStyle()
+	local hamburgerRef
+
+	if FFlagMenuOfferTooltip then
+		hamburgerRef = React.useRef(nil :: GuiObject?)
+	end
+
+	-- The tooltip and the nine-dot indicator are both judged against offer notifications,
+	-- so either one alone needs these running.
+	-- TODO it'd be preferable to have this logic live in the offers package, unfortunately useInExperienceOfferExposure
+	-- depends on Chrome.ChromeShared.Service.LocalStore which is not avaible from a module. Consider moving this if
+	-- LocalStore gets modularized.
+	if FFlagMenuOfferTooltip or FFlagOfferNineDotActivityIndicator then
+		-- Tells the offers store whether the shop can be opened, which offer notifications are
+		-- gated on. Ordered ahead of the exposure hook so no exposure is recorded for an offer
+		-- whose notification a closed shop is about to suppress.
+		usePublishShopAvailability()
+		-- Handles saving and loading in-experience offer exposure data, used to determine if an offer notification should be shown.
+		useInExperienceOfferExposure()
+	end
+
+	if FFlagOfferNineDotActivityIndicator then
+		useOfferNineDotActivityIndicator()
+	end
+
 	local unibarStyle
 	local iconSize
 	local mediumIconSize
@@ -316,6 +371,7 @@ function HamburgerButton(props)
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 		BorderSizePixel = 0,
+		ref = if FFlagMenuOfferTooltip then hamburgerRef else nil,
 		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
 		BackgroundTransparency = toggleIconTransition:map(function(value): any
 			return 1 - ((1 - style.Theme.BackgroundOnHover.Transparency) * value)
@@ -384,6 +440,12 @@ function HamburgerButton(props)
 			else nil,
 		if FFlagInExperienceShopFtuxTooltip
 			then React.createElement(InExperienceShopFtuxTooltip, {
+				visible = props.visible,
+			})
+			else nil,
+		if FFlagMenuOfferTooltip
+			then React.createElement(MenuOfferTooltip, {
+				anchorRef = hamburgerRef,
 				visible = props.visible,
 			})
 			else nil,

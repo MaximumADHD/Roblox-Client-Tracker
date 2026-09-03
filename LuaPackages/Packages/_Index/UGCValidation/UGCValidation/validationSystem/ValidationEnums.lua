@@ -50,12 +50,14 @@ ValidationEnums.ValidationModule = {
 	-- Basic schema checks
 	ExpectedRootSchema = "ExpectedRootSchema",
 	SingleInstanceSelected = "SingleInstanceSelected",
+	SerializedAssetSizeBounded = "SerializedAssetSizeBounded",
 	NoExtraTags = "NoExtraTags",
 
 	-- Schema, Properties & Structural checks
 	AttributesAllowed = "AttributesAllowed",
 	MaterialsAllowed = "MaterialsAllowed",
 	PropertyRequirementsValid = "PropertyRequirementsValid",
+	ArchivableRequired = "ArchivableRequired",
 	PropertiesSensible = "PropertiesSensible",
 	InstanceTreeMatchesSchema = "InstanceTreeMatchesSchema",
 	DescendantIdsAllowed = "DescendantIdsAllowed",
@@ -67,6 +69,7 @@ ValidationEnums.ValidationModule = {
 	HSRMeshIdsMatch = "HSRMeshIdsMatch",
 	ThumbnailConfigValid = "ThumbnailConfigValid",
 	DescendantIdsNotMissing = "DescendantIdsNotMissing",
+	ContentNotEditable = "ContentNotEditable",
 
 	-- Facs exploits
 	NoFACSOverrideData = "NoFACSOverrideData",
@@ -152,6 +155,7 @@ ValidationEnums.ValidationModule = {
 	CurveAnimAllowedTypes = "CurveAnimAllowedTypes",
 	CurveAnimNumericalDataValid = "CurveAnimNumericalDataValid",
 	CurveAnimTagsValid = "CurveAnimTagsValid",
+	EmoteAnimationAttributesAccurate = "EmoteAnimationAttributesAccurate",
 	CurveAnimJointsManipulated = "CurveAnimJointsManipulated",
 	CurveAnimFrameDataSensible = "CurveAnimFrameDataSensible",
 	CurveAnimJointsAnimated = "CurveAnimJointsAnimated",
@@ -162,6 +166,7 @@ ValidationEnums.ValidationModule = {
 	CurveAnimRotationBounded = "CurveAnimRotationBounded",
 	CurveAnimJointRotationLimited = "CurveAnimJointRotationLimited",
 	AnimationWeightPositive = "AnimationWeightPositive",
+	AnimationPackNoDuplicateIds = "AnimationPackNoDuplicateIds",
 	CurveAnimBonesAllowed = "CurveAnimBonesAllowed",
 	CurveAnimBonesRotationOnly = "CurveAnimBonesRotationOnly",
 	CurveAnimBonesHaveValidNames = "CurveAnimBonesHaveValidNames",
@@ -192,6 +197,7 @@ ValidationEnums.SharedDataMember = {
 	uploadEnum = "uploadEnum",
 	consumerConfig = "consumerConfig",
 	aqsFetchMetrics = "aqsFetchMetrics",
+	r15LegacyDuplicateRoot = "r15LegacyDuplicateRoot",
 
 	-- ==== Data available upon request by any test ====
 	aqsSummaryData = "aqsSummaryData",

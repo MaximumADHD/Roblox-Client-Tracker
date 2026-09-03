@@ -94,7 +94,17 @@ local function createStyleRule(rule: StyleRuleNoTag, tag: string): StyleRule
 	local pseudo = if rule.pseudo ~= nil then " ::" .. rule.pseudo else ""
 	local selector = tagSelector .. modifier .. pseudo
 
-	if rule.pseudo ~= nil then
+	if Flags.FoundationStyleRulePseudoName then
+		if rule.pseudoName ~= nil then
+			selector = selector .. " #" .. rule.pseudoName
+		end
+		-- A named pseudo-instance (e.g. `::UIShadow #layer1`) targets a distinct
+		-- phantom instance, so stacked layers must not fall back to the `>` child
+		-- combinator, which would merge every layer onto the same real child.
+		if rule.pseudo ~= nil and rule.pseudoName == nil then
+			selector = selector .. ", " .. tagSelector .. modifier .. " > " .. rule.pseudo
+		end
+	elseif rule.pseudo ~= nil then
 		selector = selector .. ", " .. tagSelector .. modifier .. " > " .. rule.pseudo
 	end
 
@@ -132,6 +142,12 @@ local function addRegisteredStyleSheetTags(sheet: FoundationStyleSheet, tags: { 
 		local rule = sheet.rules[tag]
 		if not rule then
 			continue
+		end
+		if not Flags.FoundationStyleRulePseudoName then
+			-- Generated tables bake named-pseudo rules unconditionally; skip them until the flag is on.
+			if rule.pseudoName ~= nil then
+				continue
+			end
 		end
 
 		(createStyleRule(rule, tag)).Parent = sheet.instance

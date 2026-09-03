@@ -43,7 +43,7 @@ local function Group(props: GroupProps)
 	}, {
 		Caption = React.createElement(Text, {
 			Text = props.caption,
-			tag = "text-body-small content-default auto-xy",
+			tag = "auto-xy text-body-small content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -58,7 +58,7 @@ local function Story(props)
 	local iconValue, setIconValue = React.useState(iconSegments[1].id)
 
 	return React.createElement(View, {
-		tag = "col size-full-0 auto-y gap-small padding-large",
+		tag = "col gap-small size-full-0 auto-y padding-large",
 	}, {
 		TextSegments = React.createElement(SegmentedControl, {
 			size = props.controls.size,

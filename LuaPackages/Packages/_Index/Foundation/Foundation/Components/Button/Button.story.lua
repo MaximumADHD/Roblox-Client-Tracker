@@ -157,11 +157,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -182,7 +182,7 @@ local function LabeledButton(props: {
 	hug: boolean?,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -254,7 +254,7 @@ local function VariantsStory(): React.ReactNode
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-large align-y-start auto-xy wrap padding-y-large bg-surface-0",
+			tag = "row wrap gap-large auto-xy padding-y-large bg-surface-0",
 		},
 		Dash.map(BUTTON_VARIANTS, function(variant, index)
 			return React.createElement(LabeledButton, {
@@ -293,7 +293,7 @@ local function StatesStory(): React.ReactNode
 			Examples = React.createElement(
 				View,
 				{
-					tag = "row gap-large align-y-start auto-xy wrap",
+					tag = "row wrap gap-large auto-xy",
 					LayoutOrder = 1,
 				},
 				Dash.map(SIZE_ORDER, function(size, index)
@@ -368,7 +368,7 @@ local function FillBehaviorExample(props: {
 	fillBehavior: FillBehavior?,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		Size = UDim2.fromOffset(LAYOUT_COLUMN_WIDTH, 0),
 		LayoutOrder = props.LayoutOrder,
 	}, {
@@ -403,7 +403,7 @@ local function SizingStory(): React.ReactNode
 			{
 				LayoutOrder = 1,
 				name = "Size",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledButton, {
@@ -420,7 +420,7 @@ local function SizingStory(): React.ReactNode
 		FillBehavior = React.createElement(Section, {
 			LayoutOrder = 2,
 			name = "Fill behavior",
-			contentTag = "row gap-xxlarge align-y-start auto-xy wrap",
+			contentTag = "row gap-xxlarge auto-xy wrap",
 		}, {
 			Fit = React.createElement(FillBehaviorExample, {
 				label = "fillBehavior = Fit",
@@ -443,7 +443,7 @@ local function LongTextExample(props: {
 	icon: string?,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -480,7 +480,7 @@ local function ContentStory(): React.ReactNode
 			Examples = React.createElement(
 				View,
 				{
-					tag = "row gap-large align-y-start auto-xy wrap",
+					tag = "row wrap gap-large auto-xy",
 					LayoutOrder = 1,
 				},
 				Dash.map(SIZE_ORDER, function(size, index)
@@ -547,7 +547,7 @@ local function ContentStory(): React.ReactNode
 			name = "Long text",
 		}, {
 			Examples = React.createElement(View, {
-				tag = "row gap-large align-y-start auto-xy wrap",
+				tag = "row wrap gap-large auto-xy",
 				LayoutOrder = 1,
 			}, {
 				Emphasis = React.createElement(LongTextExample, {
@@ -575,7 +575,7 @@ local function InverseSurfaceButtonExample(props: {
 	local tokens = useTokens()
 
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -584,7 +584,7 @@ local function InverseSurfaceButtonExample(props: {
 			LayoutOrder = 1,
 		}),
 		Surface = React.createElement(View, {
-			tag = "row align-y-center padding-medium radius-medium auto-xy",
+			tag = "row align-y-center auto-xy padding-medium radius-medium",
 			backgroundStyle = tokens.Inverse.Surface.Surface_100,
 			LayoutOrder = 2,
 		}, {
@@ -615,7 +615,7 @@ local function InContextStory(): React.ReactNode
 			Examples = React.createElement(
 				View,
 				{
-					tag = "row gap-large align-y-start auto-xy wrap",
+					tag = "row wrap gap-large auto-xy",
 					LayoutOrder = 1,
 				},
 				Dash.map(BUTTON_VARIANTS, function(variant, index)

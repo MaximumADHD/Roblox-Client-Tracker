@@ -34,9 +34,6 @@ local safetyServiceSignals = require(script.Parent.safetyServiceSignals)
 local inExpChatMessagesLoader = require(script.Parent.inExpChatMessagesLoader)
 local inExpVoiceUsersLoader = require(script.Parent.inExpVoiceUsersLoader)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsPageDisplaying = SharedFlags.FFlagIEMSettingsPageDisplaying
-
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local setTimeout = LuauPolyfill.setTimeout
 
@@ -50,7 +47,6 @@ export type Props = {
 	-- shows the whole IGM
 	showReportTab: () -> (),
 	registerOnReportTabHidden: (() -> ()) -> (),
-	registerOnReportTabDisplayed: (() -> ()) -> (),
 	registerOnReportTabDisplaying: (() -> ()) -> (),
 	registerOnSettingsHidden: (() -> ()) -> (), -- IGM closed
 	registerSetNextPlayerToReport: ((player: Player) -> ()) -> (),
@@ -151,11 +147,7 @@ local function AbuseReportMenuContent(props: Props)
 				})
 			end
 
-			if FFlagIEMSettingsPageDisplaying then
-				props.registerOnReportTabDisplaying(onOpen)
-			else
-				props.registerOnReportTabDisplayed(onOpen)
-			end
+			props.registerOnReportTabDisplaying(onOpen)
 
 			props.registerOnReportTabHidden(function()
 				if screenshotCapture.getIsCapturing() then
@@ -196,9 +188,7 @@ local function AbuseReportMenuContent(props: Props)
 			props.registerOnReportTabHidden,
 			props.registerSetNextPlayerToReport,
 			props.registerOnSettingsHidden,
-			if FFlagIEMSettingsPageDisplaying
-				then props.registerOnReportTabDisplaying
-				else props.registerOnReportTabDisplayed,
+			props.registerOnReportTabDisplaying,
 			screenshotCapture.captureIfApplicable, -- stable
 			screenshotCapture.getIsCapturing, -- stable
 			screenshotCapture.reset, -- stable

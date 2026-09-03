@@ -36,6 +36,8 @@ export type ButtonGroupItem = {
 export type ButtonGroupProps = {
 	-- The buttons to render in the group.
 	buttons: { ButtonGroupItem },
+	-- Maximum number of buttons accepted by the group.
+	maxButtonCount: number?,
 	-- Horizontal = side-by-side row (default).
 	-- Vertical   = stacked column, buttons always fill full width.
 	orientation: Orientation?,
@@ -46,6 +48,7 @@ export type ButtonGroupProps = {
 } & Types.CommonProps
 
 local defaultProps = {
+	maxButtonCount = 3,
 	orientation = Orientation.Horizontal,
 	size = InputSize.Medium,
 	testId = "--foundation-button-group",
@@ -54,7 +57,10 @@ local defaultProps = {
 local function ButtonGroup(buttonGroupProps: ButtonGroupProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(buttonGroupProps, defaultProps)
 
-	devAssert(#props.buttons <= 3, `ButtonGroup: a maximum of 3 buttons is supported, got {#props.buttons}.`)
+	devAssert(
+		#props.buttons <= props.maxButtonCount,
+		`ButtonGroup: a maximum of {props.maxButtonCount} buttons is supported, got {#props.buttons}.`
+	)
 
 	local isVertical = props.orientation :: Orientation == Orientation.Vertical
 	local isFill = isVertical or props.fillBehavior == FillBehavior.Fill

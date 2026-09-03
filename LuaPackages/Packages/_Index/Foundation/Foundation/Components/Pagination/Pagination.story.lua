@@ -75,7 +75,7 @@ local function Subsection(props: {
 	}, {
 		Heading = React.createElement(Text, {
 			Text = props.label,
-			tag = "auto-xy text-label-medium content-default text-align-x-left",
+			tag = "auto-xy text-label-medium text-align-x-left content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -187,7 +187,7 @@ local function ControlledPaginationExample(props: {
 	}, {
 		PageLabel = React.createElement(Text, {
 			Text = pageLabel,
-			tag = "auto-xy text-caption-small content-muted text-align-x-left",
+			tag = "auto-xy text-caption-small text-align-x-left content-muted",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {

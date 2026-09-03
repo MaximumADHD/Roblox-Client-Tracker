@@ -56,7 +56,7 @@ type Bindable<T> = Types.Bindable<T>
 local InputFocusBehavior = require(Foundation.Enums.InputFocusBehavior)
 type InputFocusBehavior = InputFocusBehavior.InputFocusBehavior
 
-export type NumberInputRef = Types.TextInputRef
+type TextInputRef = Types.TextInputRef
 
 local function round(num: number, numDecimalPlaces: number?)
 	local mult = 10 ^ (numDecimalPlaces or 0)
@@ -119,13 +119,21 @@ export type NumberInputProps = {
 	-- Controls scrub (drag-to-change) behavior
 	scrubBehavior: ScrubBehavior?,
 	-- The callback that fires when scrubbing starts
-	onScrubStarted: () -> ()?,
+	onScrubStarted: (() -> ())?,
 	-- The callback that fires when scrubbing ends
-	onScrubEnded: () -> ()?,
+	onScrubEnded: (() -> ())?,
 	-- Behavior of the text input when focused. Mobile does not yet support Highlight behavior.
 	focusBehavior: InputFocusBehavior?,
+	-- Called when the input gains focus
+	onFocusGained: (() -> ())?,
+	-- Called when focus is lost. The InputObject that caused focus to be lost is passed if available.
+	onFocusLost: ((inputObject: InputObject?) -> ())?,
+	-- Called when Return is pressed while the input is focused
+	onReturnPressed: (() -> ())?,
 	-- Ref to the outermost container element of the internal text input
 	inputRef: React.Ref<GuiObject>?,
+	-- Partial TextBox ref exposed via imperative handle
+	textBoxRef: React.Ref<TextInputRef>?,
 	-- Whether the input renders increment/decrement controls
 	hasControls: boolean?,
 } & Types.SelectionProps & Types.CommonProps
@@ -177,11 +185,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		suffix: string?,
 		isScrubbable: boolean,
 		scrubBehavior: ScrubBehavior,
-		onScrubStarted: () -> ()?,
-		onScrubEnded: () -> ()?,
+		onScrubStarted: (() -> ())?,
+		onScrubEnded: (() -> ())?,
 		testId: string,
 		-- Partial TextBox ref exposed via imperative handle
-		textBoxRef: React.Ref<NumberInputRef>?,
+		textBoxRef: React.Ref<TextInputRef>?,
 		onFocusGained: (() -> ())?,
 		-- Called when focus is lost. The InputObject that caused focus to be lost is passed if available.
 		onFocusLost: ((inputObject: InputObject?) -> ())?,
@@ -205,7 +213,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local internalTextBoxRef = React.useRef(nil)
 	local numberInputRef = (
 		ReactUtils.useComposedRef(internalTextBoxRef, (props.textBoxRef :: unknown) :: React.Ref<Instance>) :: unknown
-	) :: React.Ref<NumberInputRef>
+	) :: React.Ref<TextInputRef>
 	local dragStartTable = React.useRef(nil :: { position: number, value: number }?)
 	local hasScrubStarted = React.useRef(false)
 
@@ -499,15 +507,6 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local onDrag = React.useCallback(
 		function(_rbx, position: Vector2)
 			if dragStartTable.current then
-				local newValue = calculateNumberInputValueFromPositions(
-					dragStartTable.current.value,
-					dragStartTable.current.position,
-					position.X,
-					props.step,
-					if Flags.FoundationNumberInputBeta then scrubSensitivity else nil :: never
-				)
-				valueChanged(newValue, OnChangeCallbackReason.Drag)
-
 				if
 					Flags.FoundationNumberInputScrubCallbackProps
 					and props.onScrubStarted
@@ -516,6 +515,15 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					props.onScrubStarted()
 					hasScrubStarted.current = true
 				end
+
+				local newValue = calculateNumberInputValueFromPositions(
+					dragStartTable.current.value,
+					dragStartTable.current.position,
+					position.X,
+					props.step,
+					if Flags.FoundationNumberInputBeta then scrubSensitivity else nil :: never
+				)
+				valueChanged(newValue, OnChangeCallbackReason.Drag)
 			end
 		end,
 		{

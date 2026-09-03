@@ -168,11 +168,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -185,7 +185,7 @@ local function LabeledSkeleton(props: {
 	size: UDim2?,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -209,7 +209,7 @@ local function InContextPair(props: {
 	skeletonSize: UDim2,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -218,7 +218,7 @@ local function InContextPair(props: {
 			LayoutOrder = 1,
 		}),
 		Row = React.createElement(View, {
-			tag = "row gap-xlarge align-y-center auto-xy",
+			tag = "row align-y-center gap-xlarge auto-xy",
 			LayoutOrder = 2,
 		}, {
 			Content = React.createElement(View, {
@@ -241,7 +241,7 @@ local function MotionExample(props: {
 	reducedMotion: boolean,
 })
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		Label = React.createElement(Text, {
@@ -288,7 +288,7 @@ local function SizingStory(): React.ReactNode
 			{
 				LayoutOrder = 1,
 				name = "Size (these are example sizes)",
-				contentTag = "row gap-xlarge align-y-start auto-xy wrap",
+				contentTag = "row gap-xlarge auto-xy wrap",
 			},
 			Dash.map(SKELETON_SIZE_EXAMPLES, function(entry: StorySize, index)
 				return React.createElement(LabeledSkeleton, {
@@ -306,7 +306,7 @@ local function RoundingStory(): React.ReactNode
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-large align-y-start auto-xy wrap padding-large bg-surface-0",
+			tag = "row wrap gap-large auto-xy padding-large bg-surface-0",
 		},
 		Dash.map(RADIUS_OPTIONS, function(radius, index)
 			return React.createElement(LabeledSkeleton, {
@@ -374,7 +374,7 @@ local function ReducedMotionStory(): React.ReactNode
 		ReducedMotion = React.createElement(Section, {
 			LayoutOrder = 1,
 			name = "Reduced motion",
-			contentTag = "row gap-xlarge align-y-start auto-xy wrap",
+			contentTag = "row gap-xlarge auto-xy wrap",
 		}, {
 			Shimmer = React.createElement(MotionExample, {
 				label = "Default",

@@ -23,11 +23,7 @@ return function(isStudio, localPlayer, permissionsModule)
 		local inGroup = false
 		local success, err = pcall(function()
 			local group = GetFIntCanHideGuiGroupId()
-			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				inGroup = localPlayer:IsInGroupAsync(group)
-			else
-				inGroup = (localPlayer :: never):IsInGroup(group)
-			end
+			inGroup = localPlayer:IsInGroupAsync(group)
 		end)
 
 		if success then

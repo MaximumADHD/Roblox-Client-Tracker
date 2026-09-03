@@ -53,6 +53,8 @@ local FFlagLuaAppEnableToastNotificationsCoreScripts =
 
 local FFlagDisableLuobuWarningToast = game:DefineFastFlag("DisableLuobuWarningToast", false)
 
+local FFlagDebugDisableExperienceChatMain = require(RobloxGui.Modules.Flags.FFlagDebugDisableExperienceChatMain)
+
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
@@ -439,7 +441,10 @@ coroutine.wrap(function()
 	end
 end)()
 
-ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
+-- Debug flag here can be used to disable experience chat for testing purposes
+if not FFlagDebugDisableExperienceChatMain then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
+end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
 

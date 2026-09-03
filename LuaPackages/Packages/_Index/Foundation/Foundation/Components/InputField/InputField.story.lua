@@ -6,13 +6,48 @@ local React = require(Packages.React)
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 local InputSize = require(Foundation.Enums.InputSize)
 local InternalTextInput = require(Foundation.Components.InternalTextInput)
+local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local useTextInputVariants = require(Foundation.Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputField = require(Foundation.Components.InputField)
 
-local function Story(props)
+type StoryControls = {
+	label: string,
+	hint: string,
+	hasError: boolean,
+	isDisabled: boolean,
+	size: InputSize.InputSize,
+	labelSize: InputLabelSize.InputLabelSize,
+	placeholder: string,
+}
+
+local function createInputRenderer(options: {
+	controls: StoryControls,
+	horizontalPadding: UDim,
+	text: React.Binding<string>,
+	onChanged: (string) -> (),
+})
+	return function(ref: React.Ref<Types.InternalTextInputRef?>)
+		local controls = options.controls
+		return React.createElement(InternalTextInput, {
+			ref = ref,
+			text = options.text,
+			hasError = controls.hasError,
+			isDisabled = controls.isDisabled,
+			size = controls.size,
+			horizontalPadding = {
+				left = options.horizontalPadding,
+				right = options.horizontalPadding,
+			},
+			onChanged = options.onChanged,
+			placeholder = controls.placeholder,
+		})
+	end
+end
+
+local function Story(props: { controls: StoryControls })
 	local controls = props.controls
 
 	local tokens = useTokens()
@@ -32,21 +67,12 @@ local function Story(props)
 			size = controls.labelSize,
 			hint = controls.hint,
 			isDisabled = controls.isDisabled,
-			input = function(ref)
-				return React.createElement(InternalTextInput, {
-					ref = ref,
-					text = text,
-					hasError = controls.hasError,
-					isDisabled = controls.isDisabled,
-					size = controls.size,
-					horizontalPadding = {
-						left = variantProps.container.horizontalPadding,
-						right = variantProps.container.horizontalPadding,
-					},
-					onChanged = handleChange,
-					placeholder = controls.placeholder,
-				})
-			end,
+			input = createInputRenderer({
+				controls = controls,
+				horizontalPadding = variantProps.container.horizontalPadding,
+				text = text,
+				onChanged = handleChange,
+			}),
 		}),
 	})
 end

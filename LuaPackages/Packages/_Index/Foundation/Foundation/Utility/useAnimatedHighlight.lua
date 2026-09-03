@@ -5,6 +5,7 @@ local Otter = require(Packages.Otter)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 
+local Flags = require(Foundation.Utility.Flags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Wrappers = require(Foundation.Utility.Wrappers)
@@ -31,8 +32,18 @@ local function useAnimatedHighlight(
 	end, { tokens })
 
 	local previousItemId = React.useRef(activeItemId)
+	local settledItemId = if Flags.FoundationAnimatedHighlightSettling then React.useRef(activeItemId) else nil :: never
 
-	local highlightPosition, setHighlightPosition = ReactOtter.useAnimatedBinding(0)
+	-- Only the position motor is watched. Position and width are separate motors driven with the
+	-- same config, so either one settling means the highlight has arrived.
+	local onHighlightSettled = if Flags.FoundationAnimatedHighlightSettling
+		then React.useCallback(function()
+			settledItemId.current = previousItemId.current
+		end, {})
+		else nil :: never
+
+	local highlightPosition, setHighlightPosition =
+		ReactOtter.useAnimatedBinding(0, if Flags.FoundationAnimatedHighlightSettling then onHighlightSettled else nil)
 	local highlightWidth, setHighlightWidth = ReactOtter.useAnimatedBinding(0)
 	local activeItemHeight, setActiveItemHeight = React.useBinding(0)
 
@@ -43,7 +54,10 @@ local function useAnimatedHighlight(
 			local positionOffset = activeItemPosition - currentContainerPosition
 			local itemSize = activeItemRef.current.AbsoluteSize.X
 
-			if sameItem then
+			local shouldSnap = if Flags.FoundationAnimatedHighlightSettling
+				then activeItemId == settledItemId.current
+				else sameItem
+			if shouldSnap then
 				setHighlightWidth(ReactOtter.instant(itemSize) :: any)
 				setHighlightPosition(ReactOtter.instant(positionOffset) :: any)
 			else
@@ -62,6 +76,7 @@ local function useAnimatedHighlight(
 			local isSameItem = activeItemId == previousItemId.current
 			local function animateHighlight()
 				if activeItemRef then
+					-- Remove the second argument with Flags.FoundationAnimatedHighlightSettling
 					updateHighlight(activeItemRef, isSameItem)
 				end
 			end
@@ -95,6 +110,7 @@ local function useAnimatedHighlight(
 		if activeItemId then
 			local activeItemRef = itemRefs[activeItemId] :: GuiObjectRef?
 			if activeItemRef and activeItemRef.current and containerRef.current then
+				-- Remove the second argument with Flags.FoundationAnimatedHighlightSettling
 				updateHighlight(activeItemRef, activeItemId == previousItemId.current)
 			end
 			previousItemId.current = activeItemId

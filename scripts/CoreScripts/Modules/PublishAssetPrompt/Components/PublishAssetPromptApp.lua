@@ -1,5 +1,5 @@
 --[[
-	This component displays an on-screen prompt when AssetService:PromptPublishAssetAsync is called,
+	This component displays an on-screen prompt when AssetService:PromptCreatePlatformContentAsync is called,
 	so that a player can publish assets from within an experience. The appearance of this prompt varies depending
 	on the AssetType. In addition to PromptPublishAssetSingleStep, eventually we may add multi-step prompts.
 ]]

@@ -11,10 +11,11 @@ Constants.ThemeName = {
 	Light = "Light" :: "Light",
 }
 
-export type FontName = "Gotham"
+export type FontName = "Gotham" | "Classic"
 
 Constants.FontName = {
 	Gotham = "Gotham",
+	Classic = "Classic",
 }
 
 export type DeviceType = "Desktop" | "Tablet" | "Phone" | "Console" | "VR" | "Unknown"

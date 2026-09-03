@@ -14,6 +14,7 @@ local getFFlagUGCValidateForwardIECRestrictedUserIds =
 	require(root.flags.getFFlagUGCValidateForwardIECRestrictedUserIds)
 local getFFlagUGCValidateBackendInExperienceViaCanPublish =
 	require(root.flags.getFFlagUGCValidateBackendInExperienceViaCanPublish)
+local getFFlagUGCValidateMakeupCategoryParity = require(root.flags.getFFlagUGCValidateMakeupCategoryParity)
 
 -- Accept both proto-enum and legacy camel-case labels.
 local RCC_MODERATION_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true }
@@ -190,8 +191,9 @@ end
 
 local DescendantIdsAllowed = {}
 
--- MAKEUP included for parity with legacy validateMakeupAsset's descendant checks.
-DescendantIdsAllowed.categories = Constants.AllAssetUploadCategoriesIncludingMakeup
+DescendantIdsAllowed.categories = if getFFlagUGCValidateMakeupCategoryParity()
+	then Constants.AllAssetUploadCategories
+	else Constants.AllAssetUploadCategoriesIncludingMakeup
 DescendantIdsAllowed.requiredData = {
 	ValidationEnums.SharedDataMember.rootInstance,
 	ValidationEnums.SharedDataMember.consumerConfig,

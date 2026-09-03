@@ -13,7 +13,7 @@ return {
 	name = "Components [Planned]",
 	group = "Foundation",
 	roact = Roact,
-	storyRoots = GetStories("planned"),
+	storyRoots = GetStories.getStorybookRoots("planned"),
 	mapStory = StoryMiddleware,
 	packages = {
 		React = React,

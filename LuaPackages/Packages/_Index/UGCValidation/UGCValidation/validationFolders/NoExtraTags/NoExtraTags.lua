@@ -6,11 +6,19 @@ local CollectionService = game:GetService("CollectionService")
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidateNoExtraTagsRequireHsrAssets =
+	require(root.flags.getFFlagUGCValidateNoExtraTagsRequireHsrAssets)
 
 local NoExtraTags = {}
 
 NoExtraTags.categories = Constants.AllAssetUploadCategories
-NoExtraTags.requiredData = { ValidationEnums.SharedDataMember.rootInstance }
+NoExtraTags.requiredData = if getFFlagUGCValidateMigrateSchemaProperties()
+		and getFFlagUGCValidateNoExtraTagsRequireHsrAssets()
+	then {
+		ValidationEnums.SharedDataMember.rootInstance,
+		ValidationEnums.SharedDataMember.hsrAssets,
+	}
+	else { ValidationEnums.SharedDataMember.rootInstance }
 NoExtraTags.expectedFailures = { "Asset_EF_TaggedJacket", "Bundle_EF_BodyWithLLLTagged.LeftLeg" }
 
 local function collectTaggedPaths(rootInstance: Instance, taggedPaths: { string })
@@ -28,15 +36,20 @@ NoExtraTags.run = function(reporter: Types.ValidationReporter, data: Types.Share
 	collectTaggedPaths(data.rootInstance, taggedPaths)
 
 	if getFFlagUGCValidateMigrateSchemaProperties() then
-		-- Flag-on only: FetchHSRAssets populates a map of candidate arrays
-		-- keyed by parsed asset id. Walk it so tagged Instances baked into
-		-- hidden HSR assets surface here too.
-		local hsrAssets = data.hsrAssets
-		if type(hsrAssets) == "table" then
-			for _, hsrCandidates in hsrAssets do
-				if type(hsrCandidates) == "table" then
-					for _, hsrAsset in hsrCandidates do
-						collectTaggedPaths(hsrAsset, taggedPaths)
+		if getFFlagUGCValidateNoExtraTagsRequireHsrAssets() then
+			for _, hsrCandidates in data.hsrAssets do
+				for _, hsrAsset in hsrCandidates do
+					collectTaggedPaths(hsrAsset, taggedPaths)
+				end
+			end
+		else
+			local hsrAssets = data.hsrAssets
+			if type(hsrAssets) == "table" then
+				for _, hsrCandidates in hsrAssets do
+					if type(hsrCandidates) == "table" then
+						for _, hsrAsset in hsrCandidates do
+							collectTaggedPaths(hsrAsset, taggedPaths)
+						end
 					end
 				end
 			end

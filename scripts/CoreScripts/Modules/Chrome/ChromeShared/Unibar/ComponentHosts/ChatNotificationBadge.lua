@@ -37,6 +37,7 @@ type IconHostProps = {
 	visible: React.Binding<boolean> | boolean | nil,
 	disableButtonBehaviors: boolean?,
 	minBadgeCount: number?,
+	showNineDotActivityIndicator: boolean?,
 }
 
 export type ChatNotificationBadgeProps = {

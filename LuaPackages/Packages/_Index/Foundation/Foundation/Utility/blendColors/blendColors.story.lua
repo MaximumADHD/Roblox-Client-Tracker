@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local AssetService = game:GetService("AssetService")
 
+local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
@@ -151,6 +152,11 @@ local function BlendingVisualization(props)
 			controls.overlayTransparency,
 			controls.backgroundColor,
 			controls.overlayColor,
+			tokens.Color.Extended,
+			tokens.Size.Size_1400,
+			tokens.Size.Size_2000,
+			tokens.Size.Size_2800,
+			tokens.Size.Size_800,
 		} :: { unknown }
 	)
 
@@ -165,31 +171,25 @@ local function BlendingVisualization(props)
 			}, {
 				-- Background rectangle
 				Background = if not controls.showEditableImage
-					then React.createElement("ImageLabel", {
+					then React.createElement(Image, {
 						Size = UDim2.fromOffset(tokens.Size.Size_1400, tokens.Size.Size_2000),
 						ImageContent = Content.fromObject(imageData.backgroundImage),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
 					})
 					else nil,
 				-- Overlay rectangle - overlapping
 				Overlay = if not controls.showEditableImage
-					then React.createElement("ImageLabel", {
+					then React.createElement(Image, {
 						Size = UDim2.fromOffset(tokens.Size.Size_1400, tokens.Size.Size_2000),
 						ImageContent = Content.fromObject(imageData.overlayImage),
 						Position = UDim2.fromOffset(0, tokens.Size.Size_800),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
 						ZIndex = 2,
 					})
 					else nil,
 				-- Editable image alternative (to compare with overlapping frames, and see other blending methods)
 				EditableImage = if controls.showEditableImage
-					then React.createElement("ImageLabel", {
+					then React.createElement(Image, {
 						Size = UDim2.fromOffset(tokens.Size.Size_1400, tokens.Size.Size_2800),
 						ImageContent = Content.fromObject(imageData.resultImage),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
 					})
 					else nil,
 				-- Result

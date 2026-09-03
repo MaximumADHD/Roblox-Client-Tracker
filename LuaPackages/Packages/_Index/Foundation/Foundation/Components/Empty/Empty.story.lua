@@ -2,6 +2,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local BuilderIcons = require(Packages.BuilderIcons)
+local IconName = BuilderIcons.Icon
+
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
@@ -45,7 +48,7 @@ return {
 					text = "To Party with friends, turn on Party in your privacy settings.",
 					button = {
 						text = "Privacy Settings",
-						icon = "icons/navigation/externallink_medium",
+						icon = IconName.ArrowUpRightFromSquare,
 						onActivated = function() end,
 					},
 				})
@@ -57,8 +60,8 @@ return {
 		showButton = false,
 		buttonText = "Privacy Settings",
 		iconName = {
-			"icons/status/oof_xlarge",
-			"icons/status/noconnection_large",
+			IconName.MagnifyingGlass,
+			IconName.SignalExclamation,
 		},
 		iconSize = {
 			IconSize.XLarge,

@@ -32,7 +32,7 @@ local function Group(props: GroupProps)
 	}, {
 		Caption = React.createElement(Text, {
 			Text = props.caption,
-			tag = "text-body-small content-default auto-xy",
+			tag = "auto-xy text-body-small content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -70,7 +70,7 @@ return {
 			story = function(): React.ReactNode
 				return React.createElement(
 					View,
-					{ tag = "row gap-xlarge auto-xy align-y-center" },
+					{ tag = "row align-y-center gap-xlarge auto-xy" },
 					Dash.map(orderedSizes, function(size)
 						return React.createElement(Group, {
 							caption = size,

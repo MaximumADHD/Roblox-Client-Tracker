@@ -13,9 +13,6 @@ local describe = JestGlobals.describe
 local it = JestGlobals.it
 local jest = JestGlobals.jest
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsPageDisplaying = SharedFlags.FFlagIEMSettingsPageDisplaying
-
 local Constants = require(root.Components.Constants)
 
 local capturedContainerProps: any = nil
@@ -98,7 +95,6 @@ end)
 local AbuseReportMenu = require(script.Parent.AbuseReportMenu)
 
 local onReportTabHidden = function() end
-local onReportTabDisplayed = function() end
 local onReportTabDisplaying = function() end
 
 local defaultProps = {
@@ -107,9 +103,6 @@ local defaultProps = {
 	showReportSentPage = function() end,
 	registerOnReportTabHidden = function(callback)
 		onReportTabHidden = callback
-	end,
-	registerOnReportTabDisplayed = function(callback)
-		onReportTabDisplayed = callback
 	end,
 	registerOnReportTabDisplaying = function(callback)
 		onReportTabDisplaying = callback
@@ -124,11 +117,7 @@ local mountedInstance: any = nil
 
 local function fireOpen()
 	Roact.act(function()
-		if FFlagIEMSettingsPageDisplaying then
-			onReportTabDisplaying()
-		else
-			onReportTabDisplayed()
-		end
+		onReportTabDisplaying()
 	end)
 end
 

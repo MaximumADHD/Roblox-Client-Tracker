@@ -25,12 +25,20 @@ local CloseResultModal = require(PublishAssetPromptFolder.Thunks.CloseResultModa
 local PublishAssetPrompt = script.Parent.Parent
 local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 
+local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
+
+-- PromptPublishAssetResult was renamed to PromptCreatePlatformContentResult by the same engine
+-- change that added EnableImagePublish, so older clients only expose the old name.
+local PromptResult = if EngineFeatureEnableImagePublish
+	then Enum.PromptCreatePlatformContentResult
+	else (Enum :: any).PromptPublishAssetResult
+
 local ResultModal = Roact.PureComponent:extend("ResultModal")
 
 ResultModal.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 	--state
-	resultModalType = t.enum(Enum.PromptPublishAssetResult),
+	resultModalType = t.enum(PromptResult),
 	--dispatch
 	closeResultModal = t.callback,
 })
@@ -47,11 +55,11 @@ function ResultModal:init()
 end
 
 function ResultModal:getLocalizedStringForResultPrompt(resultType)
-	if resultType == Enum.PromptPublishAssetResult.Success then
+	if resultType == PromptResult.Success then
 		return RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.PublishSuccessMessage")
-	elseif resultType == Enum.PromptPublishAssetResult.UploadFailed then
+	elseif resultType == PromptResult.UploadFailed then
 		return RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.PublishFailed")
-	elseif resultType == Enum.PromptPublishAssetResult.NoUserInput then
+	elseif resultType == PromptResult.NoUserInput then
 		return RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.NoUserInput")
 	end
 
@@ -62,7 +70,7 @@ function ResultModal:getLocalizedStringForResultPrompt(resultType)
 end
 
 function ResultModal:getLocalizedTitleForResultPrompt(resultType)
-	if resultType == Enum.PromptPublishAssetResult.Success then
+	if resultType == PromptResult.Success then
 		return RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.PublishSuccessTitle")
 	else
 		return RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.PublishFailedTitle")

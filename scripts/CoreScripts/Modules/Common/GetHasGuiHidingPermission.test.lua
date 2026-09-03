@@ -21,7 +21,7 @@ end
 
 local function createMockPlayerInGroup(playerGroup)
 	return {
-		[if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then "IsInGroupAsync" else "IsInGroup"] = function(self, group)
+		IsInGroupAsync = function(self, group)
 			return playerGroup and group == playerGroup or false
 		end,
 	}

@@ -19,14 +19,17 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidateMigrateWrapAndMakeup = require(root.flags.getFFlagUGCValidateMigrateWrapAndMakeup)
+local getFFlagUGCValidateMakeupCategoryParity = require(root.flags.getFFlagUGCValidateMakeupCategoryParity)
 
 local function validateMakeupAsset(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances :: { Instance }
 
 	local success: boolean, reasons: any
-	success, reasons = validateSingleInstance(instances, validationContext)
-	if not success then
-		return false, reasons
+	if not getFFlagUGCValidateMakeupCategoryParity() then
+		success, reasons = validateSingleInstance(instances, validationContext)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	local instance = instances[1]
@@ -66,7 +69,9 @@ local function validateMakeupAsset(validationContext: Types.ValidationContext): 
 		reasonsAccumulator:updateReasons(validatePropertyRequirements(instance, nil, validationContext))
 	end
 
-	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
+	if not getFFlagUGCValidateMakeupCategoryParity() then
+		reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
+	end
 
 	if not getFFlagUGCValidateMigrateSchemaProperties() then
 		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))

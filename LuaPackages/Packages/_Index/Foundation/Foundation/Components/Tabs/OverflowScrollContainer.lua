@@ -2,10 +2,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local Otter = require(Packages.Otter)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
+
+local IconName = BuilderIcons.Icon
 
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -154,7 +157,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 				onActivated = onOverflowStartActivated,
 				gradient = START_GRADIENT,
 				tag = "padding-right-small",
-				icon = "chevron-large-left",
+				icon = IconName.ChevronLargeLeft,
 				testId = `{props.testId}--overflow-start`,
 			}),
 			OverflowEnd = React.createElement(OverflowButton, {
@@ -166,7 +169,7 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 				onActivated = onOverflowEndActivated,
 				gradient = END_GRADIENT,
 				tag = "anchor-top-right padding-left-small",
-				icon = "chevron-large-right",
+				icon = IconName.ChevronLargeRight,
 				testId = `{props.testId}--overflow-end`,
 			}),
 		}

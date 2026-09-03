@@ -19,6 +19,7 @@ local prompts = require(script.prompts.v1beta1)
 local search = require(script.search.v1beta1)
 local shared = require(script.shared.v1beta1)
 local spotlightcollection = require(script.spotlightcollection.v1beta1)
+local templates = require(script.templates.v1beta1)
 
 -- Re-exported types from subdirectories
 -- From badges.v1beta1
@@ -51,6 +52,7 @@ export type ExperienceDetailsPageResponse = experiencedetails.ExperienceDetailsP
 export type ExperienceEventDetailsPageRequest = experienceevents.ExperienceEventDetailsPageRequest
 export type ExperienceEventDetailsPageResponse = experienceevents.ExperienceEventDetailsPageResponse
 -- From home.v1beta1
+export type HomeCollectionLayoutInfo = home.HomeCollectionLayoutInfo
 export type HomePageRequest = home.HomePageRequest
 export type HomePageResponse = home.HomePageResponse
 -- From marketplacecatalog.v1beta1
@@ -385,6 +387,8 @@ export type FoundationIconConfigProp_ConditionalOptions = shared.FoundationIconC
 export type FoundationIconConfigProp_FoundationIconConfig = shared.FoundationIconConfigProp_FoundationIconConfig
 export type FragmentSchema = shared.FragmentSchema
 export type FragmentSchema_Props = shared.FragmentSchema_Props
+export type FriendCarouselSchema = shared.FriendCarouselSchema
+export type FriendCarouselSchema_Props = shared.FriendCarouselSchema_Props
 export type FriendRecommendationCarouselInputData = shared.FriendRecommendationCarouselInputData
 export type FriendRecommendationCarouselInputData_ContactRecommendation = shared.FriendRecommendationCarouselInputData_ContactRecommendation
 export type FriendRecommendationCarouselInputData_RecommendationItem = shared.FriendRecommendationCarouselInputData_RecommendationItem
@@ -529,6 +533,8 @@ export type MomentData = shared.MomentData
 export type MomentData_MomentMetadata = shared.MomentData_MomentMetadata
 export type MomentsCarouselInputData = shared.MomentsCarouselInputData
 export type MomentsCarouselInputData_MomentItem = shared.MomentsCarouselInputData_MomentItem
+export type NavigateAction = shared.NavigateAction
+export type NavigateAction_Params = shared.NavigateAction_Params
 export type NestedComponentListProp = shared.NestedComponentListProp
 export type NestedComponentProp = shared.NestedComponentProp
 export type NestedComponentProp_ConditionalOption = shared.NestedComponentProp_ConditionalOption
@@ -673,6 +679,8 @@ export type ResamplerModeProp_ConditionalOption = shared.ResamplerModeProp_Condi
 export type ResamplerModeProp_ConditionalOptions = shared.ResamplerModeProp_ConditionalOptions
 export type ResizeMarketplaceCatalog = shared.ResizeMarketplaceCatalog
 export type ResizeMarketplaceCatalog_Params = shared.ResizeMarketplaceCatalog_Params
+export type RevealRowsButtonWithDividerSchema = shared.RevealRowsButtonWithDividerSchema
+export type RevealRowsButtonWithDividerSchema_Props = shared.RevealRowsButtonWithDividerSchema_Props
 export type RevealTextSchema = shared.RevealTextSchema
 export type RevealTextSchema_Props = shared.RevealTextSchema_Props
 export type RsvpToEventAction = shared.RsvpToEventAction
@@ -900,6 +908,10 @@ export type WidgetStyleProp_ConditionalOptions = shared.WidgetStyleProp_Conditio
 -- From spotlightcollection.v1beta1
 export type SpotlightCollectionPageRequest = spotlightcollection.SpotlightCollectionPageRequest
 export type SpotlightCollectionPageResponse = spotlightcollection.SpotlightCollectionPageResponse
+-- From templates.v1beta1
+export type DisplayLocationTemplateMapping = templates.DisplayLocationTemplateMapping
+export type GetTemplatesRequest = templates.GetTemplatesRequest
+export type GetTemplatesResponse = templates.GetTemplatesResponse
 
 return {
 	badges = badges,
@@ -914,4 +926,5 @@ return {
 	search = search,
 	shared = shared,
 	spotlightcollection = spotlightcollection,
+	templates = templates,
 }

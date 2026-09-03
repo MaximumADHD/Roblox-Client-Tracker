@@ -10,6 +10,8 @@ type _Messages = {
 	HomePageRequest: _HomePageRequestMessage,
 	HomePageRequest_ContextualFeaturesEntry: _HomePageRequest_ContextualFeaturesEntryMessage,
 	HomePageRequest_CachedRobloxComponentToTemplateIdEntry: _HomePageRequest_CachedRobloxComponentToTemplateIdEntryMessage,
+	HomeCollectionLayoutInfo: _HomeCollectionLayoutInfoMessage,
+	HomeCollectionLayoutInfo_ItemsPerRowEntry: _HomeCollectionLayoutInfo_ItemsPerRowEntryMessage,
 	HomePageResponse: _HomePageResponseMessage,
 	HomePageResponse_TemplatesEntry: _HomePageResponse_TemplatesEntryMessage,
 	HomePageResponse_LocalizedLiteralsEntry: _HomePageResponse_LocalizedLiteralsEntryMessage,
@@ -41,6 +43,7 @@ type _HomePageRequestFields = {
 	contextual_features: { [string]: string },
 	cached_roblox_component_to_template_id: { [string]: string },
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	collection_layout: HomeCollectionLayoutInfo?,
 }
 
 type _HomePageRequestPartialFields = {
@@ -49,6 +52,7 @@ type _HomePageRequestPartialFields = {
 	contextual_features: { [string]: string }?,
 	cached_roblox_component_to_template_id: { [string]: string }?,
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	collection_layout: HomeCollectionLayoutInfo?,
 }
 
 export type HomePageRequest = typeof(setmetatable({} :: _HomePageRequestFields, {} :: _HomePageRequestImpl))
@@ -112,6 +116,63 @@ export type HomePageRequest_CachedRobloxComponentToTemplateIdEntry = typeof(setm
 type _HomePageRequest_CachedRobloxComponentToTemplateIdEntryMessage = proto.Message<
 	HomePageRequest_CachedRobloxComponentToTemplateIdEntry,
 	_HomePageRequest_CachedRobloxComponentToTemplateIdEntryPartialFields
+>
+
+type _HomeCollectionLayoutInfoImpl = {
+	__index: _HomeCollectionLayoutInfoImpl,
+	new: (fields: _HomeCollectionLayoutInfoPartialFields?) -> HomeCollectionLayoutInfo,
+	encode: (self: HomeCollectionLayoutInfo) -> buffer,
+	decode: (input: buffer) -> HomeCollectionLayoutInfo,
+	jsonEncode: (self: HomeCollectionLayoutInfo) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HomeCollectionLayoutInfo,
+	descriptor: proto.Descriptor,
+}
+
+type _HomeCollectionLayoutInfoFields = {
+	items_per_row: { [string]: number },
+	rows_above_fold: number,
+}
+
+type _HomeCollectionLayoutInfoPartialFields = {
+	items_per_row: { [string]: number }?,
+	rows_above_fold: number?,
+}
+
+export type HomeCollectionLayoutInfo = typeof(setmetatable(
+	{} :: _HomeCollectionLayoutInfoFields,
+	{} :: _HomeCollectionLayoutInfoImpl
+))
+type _HomeCollectionLayoutInfoMessage = proto.Message<HomeCollectionLayoutInfo, _HomeCollectionLayoutInfoPartialFields>
+
+type _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl = {
+	__index: _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl,
+	new: (
+		fields: _HomeCollectionLayoutInfo_ItemsPerRowEntryPartialFields?
+	) -> HomeCollectionLayoutInfo_ItemsPerRowEntry,
+	encode: (self: HomeCollectionLayoutInfo_ItemsPerRowEntry) -> buffer,
+	decode: (input: buffer) -> HomeCollectionLayoutInfo_ItemsPerRowEntry,
+	jsonEncode: (self: HomeCollectionLayoutInfo_ItemsPerRowEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HomeCollectionLayoutInfo_ItemsPerRowEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HomeCollectionLayoutInfo_ItemsPerRowEntryFields = {
+	key: string,
+	value: number,
+}
+
+type _HomeCollectionLayoutInfo_ItemsPerRowEntryPartialFields = {
+	key: string?,
+	value: number?,
+}
+
+export type HomeCollectionLayoutInfo_ItemsPerRowEntry = typeof(setmetatable(
+	{} :: _HomeCollectionLayoutInfo_ItemsPerRowEntryFields,
+	{} :: _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl
+))
+type _HomeCollectionLayoutInfo_ItemsPerRowEntryMessage = proto.Message<
+	HomeCollectionLayoutInfo_ItemsPerRowEntry,
+	_HomeCollectionLayoutInfo_ItemsPerRowEntryPartialFields
 >
 
 type _HomePageResponseImpl = {
@@ -219,6 +280,7 @@ do
 			client_capabilities = if data == nil or data.client_capabilities == nil
 				then nil
 				else data.client_capabilities,
+			collection_layout = if data == nil or data.collection_layout == nil then nil else data.collection_layout,
 		}, _HomePageRequestImpl :: _HomePageRequestImpl)
 	end
 
@@ -270,6 +332,12 @@ do
 		if self.client_capabilities ~= nil then
 			local encoded = self.client_capabilities:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.collection_layout ~= nil then
+			local encoded = self.collection_layout:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -333,6 +401,11 @@ do
 					self.client_capabilities =
 						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_layout = messages.HomeCollectionLayoutInfo.decode(value)
+					continue
 				end
 
 				local length
@@ -393,6 +466,10 @@ do
 
 		if self.client_capabilities ~= nil then
 			output.clientCapabilities = self.client_capabilities:jsonEncode()
+		end
+
+		if self.collection_layout ~= nil then
+			output.collectionLayout = self.collection_layout:jsonEncode()
 		end
 
 		return output
@@ -475,6 +552,14 @@ do
 				_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.jsonDecode(
 					input.clientCapabilities
 				)
+		end
+
+		if input.collection_layout ~= nil then
+			self.collection_layout = messages.HomeCollectionLayoutInfo.jsonDecode(input.collection_layout)
+		end
+
+		if input.collectionLayout ~= nil then
+			self.collection_layout = messages.HomeCollectionLayoutInfo.jsonDecode(input.collectionLayout)
 		end
 
 		return self
@@ -739,6 +824,285 @@ do
 		_HomePageRequest_CachedRobloxComponentToTemplateIdEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HomePageRequest_CachedRobloxComponentToTemplateIdEntry)
+end
+
+do
+	local _HomeCollectionLayoutInfoImpl = {}
+	_HomeCollectionLayoutInfoImpl.__index = _HomeCollectionLayoutInfoImpl
+
+	function _HomeCollectionLayoutInfoImpl.new(data: _HomeCollectionLayoutInfoPartialFields?): HomeCollectionLayoutInfo
+		return setmetatable({
+			items_per_row = if data == nil or data.items_per_row == nil then {} else data.items_per_row,
+			rows_above_fold = if data == nil or data.rows_above_fold == nil then 0 else data.rows_above_fold,
+		}, _HomeCollectionLayoutInfoImpl :: _HomeCollectionLayoutInfoImpl)
+	end
+
+	function _HomeCollectionLayoutInfoImpl.encode(self: HomeCollectionLayoutInfo): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items_per_row ~= nil and next(self.items_per_row) ~= nil then
+			for key, value in self.items_per_row do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.varint)
+				mapBuffer, mapCursor = proto.writeVarInt(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.rows_above_fold ~= nil and self.rows_above_fold ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.rows_above_fold)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HomeCollectionLayoutInfoImpl.decode(input: buffer): HomeCollectionLayoutInfo
+		local self = _HomeCollectionLayoutInfoImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.rows_above_fold = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HomeCollectionLayoutInfo_ItemsPerRowEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = 0
+
+					self.items_per_row[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HomeCollectionLayoutInfoImpl.jsonEncode(self: HomeCollectionLayoutInfo): any
+		local output = {}
+
+		if self.items_per_row ~= nil and next(self.items_per_row) ~= nil then
+			local newOutput = {}
+			for key, value in self.items_per_row do
+				newOutput[key] = value
+			end
+			output.itemsPerRow = newOutput
+		end
+
+		if self.rows_above_fold ~= nil and self.rows_above_fold ~= 0 then
+			output.rowsAboveFold = self.rows_above_fold
+		end
+
+		return output
+	end
+
+	function _HomeCollectionLayoutInfoImpl.jsonDecode(input: { [string]: any }): HomeCollectionLayoutInfo
+		local self = _HomeCollectionLayoutInfoImpl.new()
+
+		if input.items_per_row ~= nil then
+			local newOutput: { [string]: number } = {}
+			for key, value in input.items_per_row do
+				newOutput[key] = value
+			end
+
+			self.items_per_row = newOutput
+		end
+
+		if input.itemsPerRow ~= nil then
+			local newOutput: { [string]: number } = {}
+			for key, value in input.itemsPerRow do
+				newOutput[key] = value
+			end
+
+			self.items_per_row = newOutput
+		end
+
+		if input.rows_above_fold ~= nil then
+			self.rows_above_fold = input.rows_above_fold
+		end
+
+		if input.rowsAboveFold ~= nil then
+			self.rows_above_fold = input.rowsAboveFold
+		end
+
+		return self
+	end
+
+	_HomeCollectionLayoutInfoImpl.descriptor = {
+		name = "HomeCollectionLayoutInfo",
+		fullName = "roblox.apppageplatform.home.v1beta1.HomeCollectionLayoutInfo",
+	}
+
+	messages.HomeCollectionLayoutInfo = _HomeCollectionLayoutInfoImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HomeCollectionLayoutInfo)
+end
+
+do
+	local _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl = {}
+	_HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.__index = _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl
+
+	function _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.new(
+		data: _HomeCollectionLayoutInfo_ItemsPerRowEntryPartialFields?
+	): HomeCollectionLayoutInfo_ItemsPerRowEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then 0 else data.value,
+		}, _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl :: _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl)
+	end
+
+	function _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.encode(
+		self: HomeCollectionLayoutInfo_ItemsPerRowEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.decode(
+		input: buffer
+	): HomeCollectionLayoutInfo_ItemsPerRowEntry
+		local self = _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.value = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.jsonEncode(
+		self: HomeCollectionLayoutInfo_ItemsPerRowEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= 0 then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HomeCollectionLayoutInfo_ItemsPerRowEntry
+		local self = _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_HomeCollectionLayoutInfo_ItemsPerRowEntryImpl.descriptor = {
+		name = "HomeCollectionLayoutInfo_ItemsPerRowEntry",
+		fullName = "roblox.apppageplatform.home.v1beta1.ItemsPerRowEntry",
+	}
+
+	messages.HomeCollectionLayoutInfo_ItemsPerRowEntry = _HomeCollectionLayoutInfo_ItemsPerRowEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HomeCollectionLayoutInfo_ItemsPerRowEntry)
 end
 
 do
@@ -1257,5 +1621,6 @@ end
 
 return {
 	HomePageRequest = messages.HomePageRequest,
+	HomeCollectionLayoutInfo = messages.HomeCollectionLayoutInfo,
 	HomePageResponse = messages.HomePageResponse,
 }

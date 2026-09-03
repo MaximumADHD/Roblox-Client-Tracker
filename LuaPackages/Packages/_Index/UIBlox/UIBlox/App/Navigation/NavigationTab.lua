@@ -20,6 +20,7 @@ local isBuilderIcon = Foundation.Utility.isBuilderIcon
 local InputSize = Foundation.Enums.InputSize
 local Icon = Foundation.Icon
 local StatusIndicator = Foundation.StatusIndicator
+local View = Foundation.View
 
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
 
@@ -133,11 +134,15 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 		end
 
 		if UIBloxConfig.addFoundationNavigationTabIcon and iconName ~= nil then
-			iconComponent = React.createElement(Icon, {
-				name = iconName,
-				size = InputSize.Large,
-				variant = iconVariant,
-				style = iconColor,
+			iconComponent = React.createElement(View, {
+				tag = "size-0-0 auto-xy padding-xxsmall",
+			}, {
+				Icon = React.createElement(Icon, {
+					name = iconName,
+					size = InputSize.Large,
+					variant = iconVariant,
+					style = iconColor,
+				}),
 			})
 		else
 			iconComponent = React.createElement(ImageSetLabel, {

@@ -22,7 +22,7 @@ local function Story(props)
 		size = props.size,
 	}, {
 		Content = React.createElement(View, {
-			tag = "auto-xy row gap-small",
+			tag = "row gap-small auto-xy",
 		}, children),
 	})
 end

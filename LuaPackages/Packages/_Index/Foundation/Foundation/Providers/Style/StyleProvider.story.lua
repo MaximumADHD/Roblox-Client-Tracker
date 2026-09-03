@@ -299,11 +299,8 @@ local function PlaygroundStory(props: {
 			description = "Use colorMode for Light/Dark instead. Theme is reserved for app-level themes (e.g. Circuit Rush). theme still works for backward compatibility and is ignored when colorMode is set.",
 			LayoutOrder = 1,
 		}),
-		DemoHost = React.createElement("Frame", {
-			Size = UDim2.fromScale(1, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
+		DemoHost = React.createElement(View, {
+			tag = "size-full-0 auto-y",
 			LayoutOrder = 2,
 		}, {
 			Provider = React.createElement(StyleProvider, {

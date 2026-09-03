@@ -33,7 +33,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
-local FFlagDebugEnablePioneerUX = SharedFlags.FFlagDebugEnablePioneerUX
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
@@ -68,7 +68,7 @@ describe("buildMenuOrder", function()
 				expect(contains(order, RESPAWN_ACTION)).toBe(true)
 			end)
 
-			if FFlagDebugEnablePioneerUX then
+			if isPioneerLaunch() then
 				it("SHOULD remove integrations for pioneer", function()
 					local order = buildOrder()
 					expect(contains(order, "connect_dropdown")).toBe(false)
@@ -126,7 +126,7 @@ describe("buildMenuOrder", function()
 		-- isConnectDropdownEnabled is mocked to true, so presence is decided by the
 		-- reorg gate (and, in the side-sheet layout, pioneer). The holdout keeps the
 		-- entrypoint; only the fully-shown arm removes it.
-		local pioneerHidesConnectDropdown = FFlagEnableSideSheet and FFlagDebugEnablePioneerUX
+		local pioneerHidesConnectDropdown = FFlagEnableSideSheet and isPioneerLaunch()
 
 		it("SHOULD retain connect_dropdown for the holdout (Friends tab hidden)", function()
 			if isConnectDropdownRemovalActive() or pioneerHidesConnectDropdown then

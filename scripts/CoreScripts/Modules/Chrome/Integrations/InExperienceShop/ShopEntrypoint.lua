@@ -23,6 +23,7 @@ local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
 local FFlagCenterInExperienceShopWindow = Shop.FFlagCenterInExperienceShopWindow
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableMenuTrailingBadge = SharedFlags.FFlagEnableMenuTrailingBadge
+local FFlagShowOfferBadge = SharedFlags.FFlagShowOfferBadge
 local FFlagExperienceShopNewIconography = Shop.FFlagExperienceShopNewIconography
 
 local ShopCoreGuiToggleSupported = game:GetEngineFeature("ShopCoreGuiToggleSupported")
@@ -47,6 +48,20 @@ local FStringInExperienceShopNewBadgeStorageKey =
 local FIntNewBadgeDismissalMaxCountInExperienceShop = game:DefineFastInt("NewBadgeDismissalMaxCountInExperienceShop", 5)
 local FFlagEnableNewBadgeInExperienceShop = game:DefineFastFlag("EnableNewBadgeInExperienceShop", false)
 local showNewBadge = FFlagEnableNewBadgeInExperienceShop and FFlagEnableMenuTrailingBadge
+
+local offerBadgeText: (() -> string?)? = nil
+if FFlagShowOfferBadge then
+	local InExperienceOffers = require(CorePackages.Workspace.Packages.InExperienceOffers)
+	offerBadgeText = InExperienceOffers.Utils.createOfferBadgeTextSignal(InExperienceOffers.FeatureKeys.RobloxShop)
+end
+
+local menuTrailingBadgeConfig: ChromePackage.MenuTrailingBadge? = if showNewBadge or offerBadgeText ~= nil
+	then {
+		localStorageKey = FStringInExperienceShopNewBadgeStorageKey,
+		maxViewCount = if showNewBadge then FIntNewBadgeDismissalMaxCountInExperienceShop else 0,
+		customText = offerBadgeText,
+	}
+	else nil
 
 -- Tracks CoreGui availability for the In-Experience Shop (set via StarterGui:SetCoreGuiEnabled).
 -- If the engine feature ShopCoreGuiToggleSupported is not enabled the Shop entry is unavailable
@@ -93,12 +108,7 @@ local integration = ChromeService:register({
 	activated = function(_self)
 		toggleShopWindow()
 	end,
-	menuTrailingBadgeConfig = if showNewBadge
-		then {
-			localStorageKey = FStringInExperienceShopNewBadgeStorageKey,
-			maxViewCount = FIntNewBadgeDismissalMaxCountInExperienceShop,
-		}
-		else nil,
+	menuTrailingBadgeConfig = menuTrailingBadgeConfig,
 	isActivated = isActive,
 	components = {
 		Icon = function()

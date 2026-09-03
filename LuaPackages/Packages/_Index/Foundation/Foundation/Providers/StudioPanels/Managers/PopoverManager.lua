@@ -29,6 +29,7 @@ type Popover = {
 	panel: PluginGui,
 	open: boolean,
 	depth: number,
+	isFocusable: boolean,
 	generation: number,
 	parentPopoverId: string?, -- nil for root popovers
 	onClose: (() -> ())?,
@@ -95,6 +96,7 @@ export type PopoverManager = typeof(PopoverManager.new(...))
 	@param onClose -- Optional callback invoked when the popover is closed.
 	@param depth -- Nesting depth for QWidget ZIndex ordering. Defaults to 0.
 	@param parentPopoverId -- Immediate parent panel id for tree-scoped child dismissal.
+	@param isFocusable -- Whether the QWidget should accept keyboard focus.
 	@return PanelHandle for the opened popover.
 ]]
 function PopoverManager.openAtAsync(
@@ -102,10 +104,12 @@ function PopoverManager.openAtAsync(
 	config: PanelPosition & { targetWidgetUri: StudioUri },
 	onClose: (() -> ())?,
 	depth: number?,
-	parentPopoverId: string?
+	parentPopoverId: string?,
+	isFocusable: boolean?
 ): PanelHandle
 	local resolvedDepth = if depth == nil then 0 else depth
-	local popover = self:_acquirePanelAsync(onClose, resolvedDepth, parentPopoverId)
+	local resolvedIsFocusable = if Flags.FoundationPopoverPluginFocusable then isFocusable == true else false
+	local popover = self:_acquirePanelAsync(onClose, resolvedDepth, parentPopoverId, resolvedIsFocusable)
 
 	-- Make sure it's hidden before we attach to avoid visual flash.
 	popover.panel.Enabled = false
@@ -182,18 +186,21 @@ function PopoverManager.openAtAsync(
 end
 
 --[[
-	Creates a new QWidget popup panel. Uses the menu-style Popup configuration
-	rather than Tooltip, since visual styling is handled in Luau.
+	Creates a new QWidget popup panel. Tooltip mode preserves transient stacking;
+	the focusable option selects the engine's frameless, keyboard-focusable variant.
 	QWidget ZIndex is BASE_ZINDEX + depth so nested popovers stack correctly.
 ]]
-function PopoverManager._createPanelAsync(self: PopoverManager, id: string, depth: number): (PluginGui, StudioUri)
+function PopoverManager._createPanelAsync(
+	self: PopoverManager,
+	id: string,
+	depth: number,
+	isFocusable: boolean
+): (PluginGui, StudioUri)
 	local panel = self._plugin:CreateQWidgetPluginGui(id, {
 		Id = id,
 		InitialEnabled = true,
-		-- We make the panels a tooltip because it's the only way QT will allow
-		-- more than one to be open simultaneously. This is a bit of a hack, but
-		-- we avoid any visual differences because the panels are transparent.
 		Tooltip = true,
+		Focusable = if Flags.FoundationPopoverPluginFocusable then isFocusable else nil :: never,
 		Transparent = true,
 		Resizable = true,
 		Title = id,
@@ -212,14 +219,20 @@ function PopoverManager._makePopoverId(self: PopoverManager): string
 	return `Popovers{uriScopeSegment}/{HttpService:GenerateGUID(false)}`
 end
 
-function PopoverManager._createPopoverAsync(self: PopoverManager, id: string, depth: number): Popover
-	local panel, uri = self:_createPanelAsync(id, depth)
+function PopoverManager._createPopoverAsync(
+	self: PopoverManager,
+	id: string,
+	depth: number,
+	isFocusable: boolean
+): Popover
+	local panel, uri = self:_createPanelAsync(id, depth, isFocusable)
 	local newPopover: Popover = {
 		id = id,
 		uri = uri,
 		panel = panel,
 		open = false,
 		depth = depth,
+		isFocusable = isFocusable,
 		generation = 0,
 		parentPopoverId = nil,
 		onClose = nil,
@@ -270,10 +283,24 @@ function PopoverManager._tryAcquireFromPool(
 	self: PopoverManager,
 	onClose: (() -> ())?,
 	depth: number,
-	parentPopoverId: string?
+	parentPopoverId: string?,
+	isFocusable: boolean
 ): Popover?
 	local depthPool = self._pool[depth]
-	local popover = if depthPool then table.remove(depthPool) else nil
+	local popover
+	if Flags.FoundationPopoverPluginFocusable then
+		if depthPool then
+			for index = #depthPool, 1, -1 do
+				local candidate = depthPool[index]
+				if candidate.isFocusable == isFocusable then
+					popover = table.remove(depthPool, index)
+					break
+				end
+			end
+		end
+	else
+		popover = if depthPool then table.remove(depthPool) else nil
+	end
 	if not popover then
 		return nil
 	end
@@ -290,15 +317,16 @@ function PopoverManager._acquirePanelAsync(
 	self: PopoverManager,
 	onClose: (() -> ())?,
 	depth: number,
-	parentPopoverId: string?
+	parentPopoverId: string?,
+	isFocusable: boolean
 ): Popover
-	local pooled = self:_tryAcquireFromPool(onClose, depth, parentPopoverId)
+	local pooled = self:_tryAcquireFromPool(onClose, depth, parentPopoverId, isFocusable)
 	if pooled then
 		return pooled
 	end
 
 	local id = self:_makePopoverId()
-	local newPopover = self:_createPopoverAsync(id, depth)
+	local newPopover = self:_createPopoverAsync(id, depth, isFocusable)
 	self:_activatePopover(newPopover, onClose, parentPopoverId)
 	return newPopover
 end
@@ -320,7 +348,8 @@ function PopoverManager.prewarmPoolAsync(self: PopoverManager, maxDepth: number)
 
 		local depthPool = self._pool[depth] -- Guarnateed to exist
 		if #depthPool == 0 then
-			local popover = self:_createPopoverAsync(self:_makePopoverId(), depth)
+			-- Focusable popovers are opt-in and created on demand to avoid doubling the prewarmed QWidgets.
+			local popover = self:_createPopoverAsync(self:_makePopoverId(), depth, false)
 			popover.panel.Enabled = false
 			table.insert(depthPool, popover)
 		end

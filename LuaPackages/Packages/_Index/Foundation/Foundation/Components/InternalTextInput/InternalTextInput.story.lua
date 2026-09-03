@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local Icon = require(Foundation.Components.Icon)
 local IconButton = require(Foundation.Components.IconButton)
+local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -17,9 +18,14 @@ local Radius = require(Foundation.Enums.Radius)
 
 local InternalTextInput = require(Foundation.Components.InternalTextInput)
 
+local ICON_CONTROL_OPTIONS = StoryIcons.buildIconControlOptions()
+
 local function Story(props)
 	local controls = props.controls
 	local tokens = useTokens()
+
+	local leadingIcon = StoryIcons.parseIconControl(controls.leadingComponentIcon)
+	local trailingIcon = StoryIcons.parseIconControl(controls.trailingComponentIcon)
 
 	local text, setText = React.useBinding("")
 	local numReturnPressed, setNumReturnPressed = React.useState(0)
@@ -59,17 +65,17 @@ local function Story(props)
 				onChanged = handleChange,
 				onReturnPressed = onReturnPressed,
 				placeholder = controls.placeholder,
-				leadingElement = if controls.leadingComponentIcon == React.None
-					then nil
-					else React.createElement(Icon, { name = controls.leadingComponentIcon, size = IconSize.Small }),
-				trailingElement = if controls.trailingComponentIcon == React.None
-					then nil
-					else React.createElement(IconButton, {
+				leadingElement = if leadingIcon
+					then React.createElement(Icon, { name = leadingIcon, size = IconSize.Small })
+					else nil,
+				trailingElement = if trailingIcon
+					then React.createElement(IconButton, {
 						onActivated = buttonPress,
 						isDisabled = controls.isDisabled,
 						size = IconSize.Small,
-						icon = controls.trailingComponentIcon,
-					}),
+						icon = trailingIcon,
+					})
+					else nil,
 				textInputType = if controls.textInputType == React.None then nil else controls.textInputType,
 				LayoutOrder = 1,
 			}),
@@ -141,20 +147,8 @@ return {
 		focusBehavior = { React.None, unpack(Dash.values(InputFocusBehavior)) },
 		hasClearButton = true,
 		placeholder = "Placeholder text",
-		leadingComponentIcon = {
-			"icons/placeholder/placeholderOn_small",
-			"icons/status/private_small",
-			"icons/common/search_small",
-			React.None,
-		},
-		trailingComponentIcon = {
-			"icons/placeholder/placeholderOff",
-			"icons/actions/edit/clear_small",
-			"icons/actions/info_small",
-			"icons/actions/viewOn",
-			"icons/actions/viewOff",
-			React.None,
-		},
+		leadingComponentIcon = ICON_CONTROL_OPTIONS,
+		trailingComponentIcon = ICON_CONTROL_OPTIONS,
 		textInputType = {
 			React.None,
 			Enum.TextInputType.Default,

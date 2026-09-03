@@ -92,14 +92,8 @@ function AtFriendLimit(player)
 end
 
 function DoPromptRequestFriendPlayer(playerToFriend)
-	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-		if LocalPlayer:IsFriendsWithAsync(playerToFriend.UserId) then
-			return
-		end
-	else
-		if (LocalPlayer :: any):IsFriendsWith(playerToFriend.UserId) then
-			return
-		end
+	if LocalPlayer:IsFriendsWithAsync(playerToFriend.UserId) then
+		return
 	end
 
 	if FFlagFriendRequestModalIxpEnabled then
@@ -252,14 +246,8 @@ function UnFriendPlayer(playerToUnfriend)
 end
 
 function DoPromptUnfriendPlayer(playerToUnfriend)
-	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-		if not LocalPlayer:IsFriendsWithAsync(playerToUnfriend.UserId) then
-			return
-		end
-	else
-		if not (LocalPlayer :: any):IsFriendsWith(playerToUnfriend.UserId) then
-			return
-		end
+	if not LocalPlayer:IsFriendsWithAsync(playerToUnfriend.UserId) then
+		return
 	end
 
 	local thumbnailUrl = ""

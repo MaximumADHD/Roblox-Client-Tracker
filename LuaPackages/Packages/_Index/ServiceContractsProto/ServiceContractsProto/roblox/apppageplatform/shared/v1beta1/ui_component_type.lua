@@ -89,6 +89,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_VIRTUAL_GAME_ITEM_TEXT"
 	| "UI_COMPONENT_TYPE_VIDEO_PLAYER"
 	| "UI_COMPONENT_TYPE_VERTICAL_LIST_WITH_IMPRESSIONS"
+	| "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -102,6 +103,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
 	| "UI_COMPONENT_TYPE_USER_LIST"
 	| "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
+	| "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -259,6 +261,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_VIDEO_PLAYER"
 		elseif value == 260 then
 			return "UI_COMPONENT_TYPE_VERTICAL_LIST_WITH_IMPRESSIONS"
+		elseif value == 261 then
+			return "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -285,6 +289,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_USER_LIST"
 		elseif value == 801 then
 			return "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
+		elseif value == 802 then
+			return "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -445,6 +451,8 @@ messages.UiComponentType = {
 			return 259
 		elseif self == "UI_COMPONENT_TYPE_VERTICAL_LIST_WITH_IMPRESSIONS" then
 			return 260
+		elseif self == "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER" then
+			return 261
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -471,6 +479,8 @@ messages.UiComponentType = {
 			return 800
 		elseif self == "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON" then
 			return 801
+		elseif self == "UI_COMPONENT_TYPE_FRIEND_CAROUSEL" then
+			return 802
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -631,6 +641,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_VIDEO_PLAYER"
 		elseif name == "UI_COMPONENT_TYPE_VERTICAL_LIST_WITH_IMPRESSIONS" then
 			return "UI_COMPONENT_TYPE_VERTICAL_LIST_WITH_IMPRESSIONS"
+		elseif name == "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER" then
+			return "UI_COMPONENT_TYPE_REVEAL_ROWS_BUTTON_WITH_DIVIDER"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -657,6 +669,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_USER_LIST"
 		elseif name == "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON" then
 			return "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
+		elseif name == "UI_COMPONENT_TYPE_FRIEND_CAROUSEL" then
+			return "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

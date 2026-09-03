@@ -79,6 +79,7 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	titleText = t.string,
 	showingPreviewView = t.boolean,
 	closePreviewView = t.callback,
+	isMakeupPreview = t.optional(t.boolean),
 	-- If we need to fetch the model, the asset may temporarily be nil
 	asset = t.optional(t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip"))),
 	onNameUpdated = t.callback,
@@ -426,6 +427,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 				PreviewViewport = Roact.createElement(PreviewViewport, {
 					asset = self.props.asset,
 					closePreviewView = self.props.closePreviewView,
+					isMakeupPreview = self.props.isMakeupPreview,
 				}),
 			}) or nil,
 

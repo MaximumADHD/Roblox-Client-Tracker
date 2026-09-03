@@ -5,11 +5,18 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
 local R15plusUtils = require(root.util.R15plusUtils)
+local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
+	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
+local shouldValidateR15LegacyDuplicate = require(root.util.shouldValidateR15LegacyDuplicate)
 local HrdBonesFollowSchema = {}
 
 HrdBonesFollowSchema.categories =
 	{ ValidationEnums.UploadCategory.TORSO_AND_LIMBS, ValidationEnums.UploadCategory.DYNAMIC_HEAD }
-HrdBonesFollowSchema.requiredData = { ValidationEnums.SharedDataMember.rootInstance }
+HrdBonesFollowSchema.requiredData = {
+	ValidationEnums.SharedDataMember.rootInstance,
+	ValidationEnums.SharedDataMember.uploadEnum,
+	ValidationEnums.SharedDataMember.consumerConfig,
+}
 HrdBonesFollowSchema.fflag = R15plusUtils.checkFlagEnabledForAllowHrd
 local FFlagUGCValidationRemoveHRDBlocker = game:DefineFastFlag("UGCValidationRemoveHRDBlocker", false)
 
@@ -54,8 +61,7 @@ local function nameIsMappedInRigDescriptions(
 	return false
 end
 
-HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local rootInstance = data.rootInstance
+local function validateBonesForRoot(rootInstance: Instance, reporter: Types.ValidationReporter)
 	for _, bodyMeshPart in getAllInstancesIsA(rootInstance, "MeshPart") do
 		local bodyPartName = bodyMeshPart.Name
 
@@ -146,6 +152,23 @@ HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 					expectedParentName = expectedParentName,
 				})
 			end
+		end
+	end
+end
+
+HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	validateBonesForRoot(data.rootInstance, reporter)
+
+	if getEngineFeatureEngineUGCValidateInstanceTreesEquivalent() and shouldValidateR15LegacyDuplicate(data) then
+		-- Bone descendants are authorized wholesale by the schema's _ignoreDescendants, so deep-check the
+		-- R15Fixed copy's bones too in case the dmdiff tree-equivalence check is bypassed. The copy must exist
+		-- on a folder-structured body-part upload; report a failure rather than skipping when it is absent.
+		if data.r15LegacyDuplicateRoot == nil then
+			reporter:fail(ErrorSourceStrings.Keys.FolderStructureMismatch)
+		else
+			reporter:setReportingRoot(data.r15LegacyDuplicateRoot)
+			validateBonesForRoot(data.r15LegacyDuplicateRoot, reporter)
+			reporter:setReportingRoot(data.rootInstance)
 		end
 	end
 end

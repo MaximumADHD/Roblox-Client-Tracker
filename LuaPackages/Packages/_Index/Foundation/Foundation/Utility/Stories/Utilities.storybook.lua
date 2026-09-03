@@ -13,7 +13,7 @@ return {
 	name = "Utilities",
 	group = "Foundation",
 	roact = Roact,
-	storyRoots = GetStories("utilities"),
+	storyRoots = GetStories.getStorybookRoots("utilities"),
 	mapStory = StoryMiddleware,
 	packages = {
 		React = React,

@@ -116,11 +116,11 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
-			tag = props.contentTag or "row gap-large align-y-start auto-xy wrap",
+			tag = props.contentTag or "row gap-large auto-xy wrap",
 			LayoutOrder = 2,
 		}, props.children),
 	})
@@ -159,7 +159,7 @@ end
 
 local function VisualTypeExample(props: VisualTypeExample & { layoutOrder: number }): React.ReactNode
 	return React.createElement(View, {
-		tag = "col gap-medium align-x-left auto-xy",
+		tag = "col align-x-left gap-medium auto-xy",
 		LayoutOrder = props.layoutOrder,
 	}, {
 		Key = React.createElement(KeyLabel, {
@@ -233,7 +233,7 @@ local function HoldBehaviorExample(props: {
 		else "No callbacks yet — press the key to trigger onBeginHold and onEndHold."
 
 	return React.createElement(View, {
-		tag = "col gap-medium align-x-left auto-xy",
+		tag = "col align-x-left gap-medium auto-xy",
 		LayoutOrder = props.layoutOrder,
 	}, {
 		Caption = React.createElement(Text, {
@@ -242,7 +242,7 @@ local function HoldBehaviorExample(props: {
 			LayoutOrder = 1,
 		}),
 		Row = React.createElement(View, {
-			tag = "row gap-large align-y-center auto-xy",
+			tag = "row align-y-center gap-large auto-xy",
 			LayoutOrder = 2,
 		}, {
 			Key = React.createElement(KeyLabel, {
@@ -263,7 +263,7 @@ local function HoldBehaviorExample(props: {
 		}),
 		CallbackLog = React.createElement(Text, {
 			Text = callbackLogText,
-			tag = "auto-xy text-body-small content-muted text-wrap text-align-x-left",
+			tag = "auto-xy text-body-small text-wrap text-align-x-left content-muted",
 			LayoutOrder = 3,
 		}),
 	})
@@ -306,7 +306,7 @@ local function HoldBehaviorStory(): React.ReactNode
 		ResetTime = React.createElement(Section, {
 			layoutOrder = 3,
 			name = "Reset time",
-			contentTag = "row gap-xlarge align-y-start auto-xy wrap",
+			contentTag = "row gap-xlarge auto-xy wrap",
 		}, {
 			Fast = React.createElement(HoldBehaviorExample, {
 				keyCode = Enum.KeyCode.Space,

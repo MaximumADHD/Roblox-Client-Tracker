@@ -123,7 +123,7 @@ local function Section(props: {
 	}, {
 		Title = React.createElement(Text, {
 			Text = props.name,
-			tag = "text-label-medium content-default auto-xy",
+			tag = "auto-xy text-label-medium content-default",
 			LayoutOrder = 1,
 		}),
 		Content = React.createElement(View, {
@@ -214,7 +214,7 @@ local function OverflowExampleCell(props: {
 	local containerWidth = if isFill then OVERFLOW_FILL_WIDTH else OVERFLOW_HUG_WIDTH
 
 	return React.createElement(View, {
-		tag = "col gap-small align-x-left auto-xy",
+		tag = "col align-x-left gap-small auto-xy",
 		Size = UDim2.fromOffset(containerWidth, 0),
 		LayoutOrder = props.LayoutOrder,
 	}, {
@@ -327,7 +327,7 @@ local function ContentStory(): React.ReactNode
 			Examples = React.createElement(
 				View,
 				{
-					tag = "col gap-xlarge align-x-left auto-xy",
+					tag = "col align-x-left gap-xlarge auto-xy",
 					LayoutOrder = 1,
 				},
 				Dash.map(FILL_BEHAVIOR_COLUMNS, function(column, index)
@@ -350,7 +350,7 @@ local function SizingStory(): React.ReactNode
 			{
 				LayoutOrder = 1,
 				name = "Size",
-				contentTag = "row gap-large align-y-start auto-xy wrap",
+				contentTag = "row gap-large auto-xy wrap",
 			},
 			Dash.map(SIZE_ORDER, function(size, index)
 				return React.createElement(LabeledGroup, {
@@ -368,11 +368,11 @@ local function SizingStory(): React.ReactNode
 			{
 				LayoutOrder = 2,
 				name = "Fill behavior",
-				contentTag = "row gap-xxlarge align-y-start auto-xy",
+				contentTag = "row gap-xxlarge auto-xy",
 			},
 			Dash.map(FILL_BEHAVIOR_COLUMNS, function(column, index)
 				return React.createElement(View, {
-					tag = "col gap-small align-x-left auto-xy",
+					tag = "col align-x-left gap-small auto-xy",
 					LayoutOrder = index,
 				}, {
 					Label = React.createElement(Text, {
@@ -395,7 +395,7 @@ local function OrientationStory(): React.ReactNode
 	return React.createElement(
 		View,
 		{
-			tag = "row gap-large align-y-start auto-xy wrap padding-y-large bg-surface-0",
+			tag = "row wrap gap-large auto-xy padding-y-large bg-surface-0",
 		},
 		Dash.map(ORIENTATION_ORDER, function(orientation, index)
 			return React.createElement(LabeledGroup, {

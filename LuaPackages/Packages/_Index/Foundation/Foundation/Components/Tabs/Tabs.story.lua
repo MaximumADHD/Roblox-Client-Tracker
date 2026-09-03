@@ -17,6 +17,7 @@ local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 
 local BuilderIcons = require(Packages.BuilderIcons)
+local IconName = BuilderIcons.Icon
 local IconVariant = BuilderIcons.IconVariant
 
 local builderIcon = {
@@ -33,7 +34,7 @@ local function NestedControlledTabs(props: NestedControlledTabsProps)
 	return React.createElement(
 		View,
 		{
-			tag = "col auto-y size-full-0",
+			tag = "col size-full-0 auto-y",
 		},
 		React.createElement(Tabs, {
 			LayoutOrder = 1,
@@ -60,7 +61,7 @@ local function NestedControlledTabs(props: NestedControlledTabsProps)
 				Visible = activeTabId == "1",
 			},
 			React.createElement(Text, {
-				tag = "text-align-x-left auto-xy text-wrap",
+				tag = "auto-xy text-wrap text-align-x-left",
 				Text = "Content of nested tab 1",
 			})
 		),
@@ -72,7 +73,7 @@ local function NestedControlledTabs(props: NestedControlledTabsProps)
 				Visible = activeTabId == "2",
 			},
 			React.createElement(Text, {
-				tag = "text-align-x-left auto-xy text-wrap",
+				tag = "auto-xy text-wrap text-align-x-left",
 				Text = "Content of nested tab 2",
 			})
 		)
@@ -88,7 +89,7 @@ return {
 				return React.createElement(
 					View,
 					{
-						tag = "col auto-y size-full-0",
+						tag = "col size-full-0 auto-y",
 					},
 					React.createElement(Tabs, {
 						defaultActiveTabId = "1",
@@ -100,7 +101,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy text-wrap",
+										tag = "auto-xy text-wrap text-align-x-left",
 										Text = "You fully controll how content is rendered. No padding or other styles are applied by default",
 									})
 								),
@@ -112,7 +113,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "The Jurassic ranges from 200 million years to 145 million years ago.",
 									})
 								),
@@ -125,7 +126,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "You are perfect!",
 									})
 								),
@@ -138,7 +139,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "You are still perfect!",
 									})
 								),
@@ -146,7 +147,7 @@ return {
 							{
 								id = "5",
 								text = "With icon",
-								icon = "icons/menu/clothing/limited_on",
+								icon = IconName.Shirt,
 								isDisabled = true,
 							},
 							{
@@ -163,7 +164,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "This tab shows a StatusIndicator.",
 									})
 								),
@@ -181,7 +182,7 @@ return {
 				return React.createElement(
 					View,
 					{
-						tag = "col auto-y size-full-0",
+						tag = "col size-full-0 auto-y",
 					},
 					React.createElement(Tabs, {
 						defaultActiveTabId = "1",
@@ -204,7 +205,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "Regular tab content.",
 									})
 								),
@@ -217,7 +218,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "You are perfect!",
 									})
 								),
@@ -230,7 +231,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "You are still perfect!",
 									})
 								),
@@ -238,14 +239,14 @@ return {
 							{
 								id = "5",
 								text = "With icon",
-								icon = "icons/menu/clothing/limited_on",
+								icon = IconName.Shirt,
 								isDisabled = true,
 								-- Disabled tab still may have content
 								content = React.createElement(
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy",
+										tag = "auto-xy text-align-x-left",
 										Text = "You are still perfect!",
 									})
 								),
@@ -264,7 +265,7 @@ return {
 				local isCoachmarkOpen, setIsCoachmarkOpen = React.useState(true)
 
 				return React.createElement(View, {
-					tag = "col auto-y size-full-0",
+					tag = "col size-full-0 auto-y",
 				}, {
 					TabsComponent = React.createElement(Tabs, {
 						LayoutOrder = 1,
@@ -278,7 +279,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy text-wrap",
+										tag = "auto-xy text-wrap text-align-x-left",
 										Text = "Browse hairstyles for your avatar.",
 									})
 								),
@@ -292,7 +293,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy text-wrap",
+										tag = "auto-xy text-wrap text-align-x-left",
 										Text = "Customize your avatar's body type and proportions.",
 									})
 								),
@@ -305,7 +306,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy text-wrap",
+										tag = "auto-xy text-wrap text-align-x-left",
 										Text = "Pick accessories to complete the look!",
 									})
 								),
@@ -342,7 +343,7 @@ return {
 			name = "As Child",
 			story = function(props)
 				return React.createElement(View, {
-					tag = "col auto-y size-full-0",
+					tag = "col size-full-0 auto-y",
 				}, {
 					First = React.createElement(Text, {
 						LayoutOrder = 1,
@@ -361,7 +362,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy text-wrap",
+										tag = "auto-xy text-wrap text-align-x-left",
 										Text = "Browse hairstyles for your avatar.",
 									})
 								),
@@ -374,7 +375,7 @@ return {
 									View,
 									{ tag = "size-full-0 auto-y padding-xxlarge" },
 									React.createElement(Text, {
-										tag = "text-align-x-left auto-xy text-wrap",
+										tag = "auto-xy text-wrap text-align-x-left",
 										Text = "Customize your avatar's body type and proportions.",
 									})
 								),

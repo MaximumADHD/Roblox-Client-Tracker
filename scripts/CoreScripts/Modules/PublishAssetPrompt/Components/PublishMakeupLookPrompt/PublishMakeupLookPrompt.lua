@@ -17,6 +17,7 @@ local LabeledTextBox = require(Components.Common.LabeledTextBox)
 local PublishInfoList = require(Components.Common.PublishInfoList)
 local MakeupPartGrid = require(Components.Common.MakeupPartGrid)
 local MakeupPreviewUtils = require(script.Parent.Parent.Parent.MakeupPreviewUtils)
+local GetFFlagUploadMakeupSupport = require(script.Parent.Parent.Parent.Flags.GetFFlagUploadMakeupSupport)
 local PurchasePrompt = require(CorePackages.Workspace.Packages.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
@@ -226,6 +227,7 @@ function PublishMakeupLookPrompt:renderPromptBody()
 			useFullBodyCameraSettings = false,
 			fieldOfView = CAMERA_FOV,
 			LayoutOrder = 1,
+			isMakeupPreview = GetFFlagUploadMakeupSupport(),
 		}),
 		DescriptionInput = Roact.createElement(LabeledTextBox, {
 			LayoutOrder = 2,
@@ -257,6 +259,7 @@ function PublishMakeupLookPrompt:render()
 		screenSize = self.props.screenSize,
 		showingPreviewView = self.state.showingPreviewView,
 		closePreviewView = self.closePreviewView,
+		isMakeupPreview = GetFFlagUploadMakeupSupport(),
 		asset = self.state.previewModel,
 		nameLabel = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Name"),
 		defaultName = self.state.name,

@@ -8,6 +8,7 @@ local UserInputService = require(Foundation.Utility.Wrappers).Services.UserInput
 
 local Flags = require(Foundation.Utility.Flags)
 
+local Constants = require(Foundation.Constants)
 local Logger = require(Foundation.Utility.Logger)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverContext = require(Foundation.Components.Popover.PopoverContext)
@@ -16,6 +17,7 @@ local Radius = require(Foundation.Enums.Radius)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -35,12 +37,15 @@ export type TooltipProps = {
 	shortcut: { Enum.KeyCode }?,
 	align: PopoverAlign?,
 	side: PopoverSide?,
+	-- Whether the tooltip should have an arrow. Defaults to true.
+	hasArrow: boolean?,
 	children: ReactNode?,
 } & Types.CommonProps
 
 local defaultProps = {
 	align = PopoverAlign.Start,
 	side = PopoverSide.Right,
+	hasArrow = if Flags.FoundationTooltipBeta then true else nil :: never,
 	testId = "--foundation-tooltip",
 }
 
@@ -74,7 +79,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 	local isOpen, setIsOpen = React.useState(false)
 	local tokens = useTokens()
 	local hasText = props.text ~= nil and props.text ~= ""
-	local maxXSize = useScaledValue(if Flags.FoundationTooltipBeta then 280 else 320)
+	local maxXSize = useScaledValue(if Flags.FoundationTooltipBeta then Constants.TOOLTIP_MAX_WIDTH else 320)
 
 	local containerPadding = if Flags.FoundationTooltipBeta
 		then if hasText
@@ -125,7 +130,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 		Content = React.createElement(
 			Popover.Content,
 			{
-				hasArrow = if Flags.FoundationTooltipBeta then true else false,
+				hasArrow = if Flags.FoundationTooltipBeta then props.hasArrow else false,
 				align = props.align,
 				side = {
 					position = props.side,

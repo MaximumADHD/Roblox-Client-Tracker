@@ -91,8 +91,9 @@ function AvatarPartViewport:addMakeupDecalToViewport()
 
 	character.Parent = self.modelRef:getValue()
 	local camera = self:createViewportCamera()
-	CameraUtility.SetupHeadCamera(character, camera)
-	self.updateCamera(camera)
+	if MakeupPreviewUtils.setupMakeupThumbnailCamera(character, camera, self.props.assetType) then
+		self.updateCamera(camera)
+	end
 end
 
 function AvatarPartViewport:didMount()
