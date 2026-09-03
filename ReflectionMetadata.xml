@@ -3134,6 +3134,24 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">AudioStreamReader</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">RealtimeEditableAudioApi</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AudioStreamWriter</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">11</string>
+        <string name="FFlag">RealtimeEditableAudioApi</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">AudioPitchShifter</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
@@ -4691,7 +4709,7 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
-        <string name="Name">PlayerControlState</string>
+        <string name="Name">ControlState</string>
         <string name="ExplorerOrder">31</string>
         <string name="ClassCategory">Input</string>
         <string name="PreferredParent">Player</string>

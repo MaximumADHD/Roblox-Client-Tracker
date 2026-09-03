@@ -3,10 +3,10 @@ name = "MomentsCommon"
 version = "0.1.5"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.39 registry",
+    "BuilderIcons BuilderIcons 0.1.40 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.101.0 registry",
+    "Foundation Foundation 1.107.0 registry",
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
     "ReactOtter ReactOtter 1.3.7 registry",

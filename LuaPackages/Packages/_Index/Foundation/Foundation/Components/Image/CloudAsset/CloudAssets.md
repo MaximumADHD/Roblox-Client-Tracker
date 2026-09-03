@@ -1,16 +1,14 @@
-# Cloud Assets
+## FoundationCloudAssets
 
-<p class="intro" markdown>Foundation provides a set of assets to use in your components via the <a href="https://github.com/Roblox/foundation-images/blob/main/modules/foundation-cloud-assets/README.md">FoundationCloudAssets</a> package. These images can be loaded using an [[Image]] component.</p>
+Pictograms and other cloud-hosted images come from the [FoundationCloudAssets](https://github.com/Roblox/foundation-images/blob/main/modules/foundation-cloud-assets/README.md) package. Load them with an [[Image]] component.
 
----
+### Usage
 
-## Usage
+To use these, pass the asset's string to the `Image` property of the [[Image]] component.
 
-To use these, you'll pass the assets's string to the `Image` property of the [[Image]] component.
+A `UIAspectRatioConstraint` is applied to all FoundationCloudAssets images so they can be resized without distortion.
 
-A `UIAspectRatioConstraint` is applied to all Images created from CloudAssets to allow for resizing without distorting the image.
-
-You can also preload the asset using the `preloadCloudAssets` API if your usecase can't afford any loading latency.
+You can also preload the asset using the `preloadCloudAssets` API if your use case can't afford loading latency.
 
 ```luau title="Image"
 local preloadCloudAssets = Foundation.Utility.preloadCloudAssets
@@ -28,3 +26,5 @@ local function MyImage()
   })
 end
 ```
+
+---

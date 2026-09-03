@@ -50,6 +50,23 @@ end
 
 See storybook for more examples.
 
+### Focusable Studio plugin popovers
+
+Studio plugin popovers use tooltip QWidgets so nested popovers can remain open. When the popover contains a text input, set `isFocusable` to `true` on `Popover.Content`. This selects Studio's frameless, keyboard-focusable tooltip variant while retaining popover styling and stacking.
+
+```luau
+Content = React.createElement(Popover.Content, {
+	isFocusable = true,
+	onPressedOutside = function()
+		setOpen(false)
+	end,
+}, {
+	SearchInput = React.createElement(SearchInput, {
+		placeholder = "Search",
+	}),
+})
+```
+
 ### Anchoring to a Studio widget (plugin only)
 
 In a Studio plugin context, a popover can be anchored directly to an existing Studio widget by passing its URI to `Popover.Anchor` via `anchorRef` (which accepts either a ref or a Studio widget URI). The popover panel is attached to that widget by the Studio framework, so no anchor element is rendered. This is useful for attaching popovers to widgets owned by other plugins (for example a Ribbon button). A URI only takes effect when the popover renders through the Studio plugin path; in non-plugin contexts it is ignored.

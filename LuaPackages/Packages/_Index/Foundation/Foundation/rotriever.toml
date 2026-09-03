@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.101.0"
+version = "1.107.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -30,7 +30,7 @@ keywords = [
 homepage = "https://foundation.roblox.com"
 documentation = "https://foundation.roblox.com"
 [dependencies.BuilderIcons]
-version = "^0.1.39"
+version = "^0.1.40"
 
 [dependencies.Dash]
 version = "^3.3.0"
@@ -39,7 +39,7 @@ version = "^3.3.0"
 version = "^0.4.4"
 
 [dependencies.FoundationImages]
-version = "^2.0.0"
+version = "^2.3.0"
 
 [dependencies.Lumberyak]
 package = "lumberyak"
@@ -52,7 +52,7 @@ version = "^0.1.0"
 version = "^1.3.7"
 
 [dependencies.RbxDesignFoundations]
-version = "^4.0.1"
+version = "^4.0.7"
 
 [dependencies.RbxDesignFoundationsV3]
 package = "RbxDesignFoundations"

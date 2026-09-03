@@ -11,7 +11,7 @@ Tooltip is a component for displaying a popover with a title, optional text and 
 ## Usage
 
 Wrap the element you want to trigger the tooltip on with the Tooltip component. By default, the tooltip will appear to the
-right of the anchor element.
+right of the anchor element. Pass `hasArrow = false` to hide the arrow.
 
 If possible, a shortcut should be created as a constant outside the render function to avoid useless re-renders.
 

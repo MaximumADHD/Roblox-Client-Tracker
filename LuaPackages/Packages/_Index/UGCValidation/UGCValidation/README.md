@@ -62,6 +62,13 @@ TODO: Update
 
 Rotriever, the version of which is pinned in `foreman.toml`, is the only tool you need.
 
+### Release agent skill
+
+This repository includes the `rotriever-package-release` skill for both Codex and Claude. It automates the version-bump, Jira/PR tagging, publication, verification, and documented downstream-consumer workflow:
+
+- [Codex skill](.codex/skills/rotriever-package-release/SKILL.md)
+- [Claude skill](.claude/skills/rotriever-package-release/SKILL.md)
+
 ### Publishing a new version
 
 1. On a PR, bump `version` in `rotriever.toml`. Merge to `main`.

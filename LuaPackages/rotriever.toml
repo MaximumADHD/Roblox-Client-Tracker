@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.2314+20260819"
+ServiceContractsProto = "1.0.2352+20260825"
 Rodux = "1.0"
 RoactRodux = "0.5.1"
 RoactAppExperiment = "0.4.1"
@@ -18,10 +18,10 @@ Dash = "3.3.1"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "2.0.2"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.270"
-Foundation = "1.101.0"
+UIBlox = "0.2.273"
+Foundation = "1.107.0"
 FoundationCloudAssets = "0.5.0"
-FoundationImages = "2.0.1"
+FoundationImages = "2.3.0"
 Thumbnailing = "0.6.2"
 Otter = "1.3.7"
 ReactOtter = "1.3.7"
@@ -30,7 +30,7 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.5", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.21"
+UrlBuilder = "1.2.24"
 FitFrame = { version = "2.0.1", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 NetworkingUserSettings = "1.17.5"
@@ -52,6 +52,7 @@ ReactSceneUnderstanding = "0.13.1"
 ReactUtils = "1.13.1"
 Promise = "3.5.1"
 UltimateList = { version = "0.3.1", package = "ultimate-list" }
+ViewRecyclerReact = "0.2.6"
 VirtualizedList = "1.5.1"
 LuauPolyfill = "1.2.3"
 RegExp = "0.2.1"
@@ -65,7 +66,7 @@ QRCode = "0.1.0"
 Merge = "0.3.2"
 GraphqlToolsUtils = { version = "0.3.2", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.18.11"
+UGCValidation = "1.19.1"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -76,9 +77,10 @@ SignalsReact = "0.6.0"
 SignalsExperimental = "0.6.0"
 Motion = "0.0.7"
 BuilderIcons = "0.1.39"
-InlineLayout = "0.0.5"
-Markdown = "1.0.0-alpha-4"
+InlineLayout = "0.0.6"
+Markdown = "1.0.0-alpha-5"
 MomentsCreationFlow = "0.1.9"
+Graphing = "0.12.0"
 
 
 # The following packages were ported from AppTempCommon

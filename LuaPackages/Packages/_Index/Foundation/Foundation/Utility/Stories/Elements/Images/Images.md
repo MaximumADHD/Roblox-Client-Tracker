@@ -1,12 +1,14 @@
 # Images
 
-<p class="intro" markdown>Foundation provides a set of images and icons to use in your components. These images can be loaded using either an [[Image]] component or an [[Icon]] component.</p>
+<p class="intro" markdown>Foundation imagery comes from two packages: <a href="https://github.com/Roblox/foundation-images/blob/main/modules/foundation-images/README.md">FoundationImages</a> (image set graphics and icons) and <a href="https://github.com/Roblox/foundation-images/blob/main/modules/foundation-cloud-assets/README.md">FoundationCloudAssets</a> (pictograms and other cloud-hosted images). Load them with an [[Image]] component. Image-set icons can also use [[Icon]].</p>
 
 <!-- ![FPO](../../assets/img/darkmode/fpo.png){ .img-hero } -->
 
 ---
 
-## Usage
+## FoundationImages
+
+### Usage
 
 To use these, you'll pass the image's string to the `Image` property of the [[Image]] component or the `name` property of the [[Icon]] component.
 
