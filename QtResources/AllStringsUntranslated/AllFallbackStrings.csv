@@ -2,9 +2,12 @@ Key,Context,Source,en-us
 Studio.Actions.Action.PluginScreenshot.Text,title for action that allows you to take a screenshot of a plugin window,Plugin Screenshot,Plugin Screenshot
 Studio.Actions.Action.PluginScreenshot.Tooltip,Action for screenshotting a plugin,Capture a plugin window,Capture a plugin window
 Studio.Actions.ConnectionIndicator,,Connection Status,Connection Status
+Studio.Actions.Gen3d.Text,Gen3d retexture action name,Texture,Texture
+Studio.Actions.Gen3d.Tooltip,Tooltip for Gen3d retexture action and context menu,Generate and apply texture,Generate and apply texture
 Studio.Actions.PluginScreenshot.CopiedToClipboard,Success message for plugin screenshot copied to clipboard,Plugin screenshot copied to clipboard,Plugin screenshot copied to clipboard
 Studio.Actions.PluginScreenshot.NoWindows,error message for failing to take screenshot of a plugin because nothing is visible,No visible plugin windows to capture,No visible plugin windows to capture
 Studio.Actions.Submenu.CopyAs,Title of a submenu that contains more ways to copy the current selection,Copy As,Copy As
+Studio.Actions.Submenu.Generate,Submenu for generative AI stuff,Generate,Generate
 Studio.Actions.TBD,,TBD,TBD
 Studio.Actions.Title.Assistant,"Button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",AI Assistant,AI Assistant
 Studio.Actions.Title.AudioPlayerEditor,Name for the action that opens the AudioPlayerEditor plugin,AudioPlayerEditor,AudioPlayerEditor
@@ -3080,6 +3083,8 @@ Studio.App.RBXMainWindow.PublishAsPluginElps,,Publish as Plugin...,Publish as Pl
 Studio.App.RBXMainWindow.PublishChangesToPackage,,Publish Changes to Package,Publish Changes to Package
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
 Studio.App.RBXMainWindow.PublishSelectionToRobloxElps,,Save to Roblox...,Save to Roblox...
+Studio.App.RBXMainWindow.PublishStatus,File menu item that opens the panel showing whether the place is published and who can play it,Publish Status,Publish Status
+Studio.App.RBXMainWindow.PublishStatusTooltip,Tooltip for the File menu item that opens the publish status panel,Show the publish status of the active document,Show the publish status of the active document
 Studio.App.RBXMainWindow.PublishTheSelectionToRoblox,,Publish the Selection to Roblox,Publish the Selection to Roblox
 Studio.App.RBXMainWindow.PublishToPackage,,Publish to Package,Publish to Package
 Studio.App.RBXMainWindow.PublishToRoblox,,Publish to Roblox,Publish to Roblox
@@ -6127,7 +6132,7 @@ Studio.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds
 Studio.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Materials
 Studio.BetaFeatures.NewCameraControlsDescription,,Enables improved camera controls for Studio.,Enables improved camera controls for Studio.
 Studio.BetaFeatures.NewCameraControlsTitle,Name of a camera controls beta.,New Studio Camera Controls (Updated),New Studio Camera Controls (Updated)
-Studio.BetaFeatures.NewDeviceSimulatorDescription,Description for new device simulator beta,"A modernized Device Simulator Toolbar above the viewport for quickly switching devices, orientation, and resolution while building and testing","A modernized Device Simulator Toolbar above the viewport for quickly switching devices, orientation, and resolution while building and testing"
+Studio.BetaFeatures.NewDeviceSimulatorDescription,Description for new device simulator beta,A modernized Device Simulator toolbar for updating device settings and simulated network behavior while building and testing.,A modernized Device Simulator toolbar for updating device settings and simulated network behavior while building and testing.
 Studio.BetaFeatures.NewDeviceSimulatorTitle,Title for improved device simulator beta,New Device Simulator,New Device Simulator
 Studio.BetaFeatures.NewDockingDescription,,"New docking logic that allows undocking of the 3D Viewport and addresses docking corruption glitches and issues. Please note when enabled, this will start with a new layout. Your old layout will be restored if you disable this feature.","New docking logic that allows undocking of the 3D Viewport and addresses docking corruption glitches and issues. Please note when enabled, this will start with a new layout. Your old layout will be restored if you disable this feature."
 Studio.BetaFeatures.NewDockingTitle,,Updated Docking System,Updated Docking System
@@ -6234,6 +6239,8 @@ Studio.BetaFeatures.SimulationPauseAndStepDescription,,"Enables visual pausing, 
 Studio.BetaFeatures.SimulationPauseAndStepTitle,,Simulation Pause and Step,Simulation Pause and Step
 Studio.BetaFeatures.SkyboxOrientationDescription,Enables setting the orientation of a skybox in the properties panel.,Enables setting the orientation of a skybox in the properties panel.,Enables setting the orientation of a skybox in the properties panel.
 Studio.BetaFeatures.SkyboxOrientationTitle,"Refers to a new feature that adds an ""Orientation"" property to the ""Sky"" that will rotate the six textures known as the ""Skybox"".",Skybox Orientation,Skybox Orientation
+Studio.BetaFeatures.SlimDebugTintDescription,Enables a new Visualization Mode that allows users to select a SLIM debug tint mode.,Enables selecting a SLIM debug tint mode in the Visualization Modes options.,Enables selecting a SLIM debug tint mode in the Visualization Modes options.
+Studio.BetaFeatures.SlimDebugTintTitle,Enables a new menu option that allows users to select a SLIM debug tint mode.,SLIM Debug Tints,SLIM Debug Tints
 Studio.BetaFeatures.SmoothVoxelsDescription,1:1 Copy from Studio.App.BetaFeature.SmoothVoxelsDescription,Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!),Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!)
 Studio.BetaFeatures.SmoothVoxelsTitle,1:1 copy from Studio.App.BetaFeature.SmoothVoxelsTitle,Smooth Voxels,Smooth Voxels
 Studio.BetaFeatures.SolidModelingOnMeshes,"Adds MeshPart support for both Studio and in-experience CSG tools, and introduces new APIs for simplified in-experience destruction.",Solid Modeling On Meshes,Solid Modeling On Meshes
@@ -6629,20 +6636,54 @@ Studio.DeviceEmulator.EmulatorMainWidget.SamsungGalaxyTabS11,Samsung Galaxy Tab 
 Studio.DeviceEmulator.EmulatorMainWidget.XiaomiRedmiPadSE,Xiaomi Redmi Pad SE device name,Xiaomi Redmi Pad SE,Xiaomi Redmi Pad SE
 Studio.DeviceEmulator.GraphicsQuality.AutoGraphicsQualityLabel,,Automatic Graphics Quality,Automatic Graphics Quality
 Studio.DeviceEmulator.GraphicsQuality.GraphicsQualityLabel,,Graphics Quality,Graphics Quality
+Studio.DeviceEmulator.ManageSimulationDeviceDialog.SimulationDeviceManager,Title of the device manager dialog,Simulation Device Manager,Simulation Device Manager
 Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneCheckboxLabel,,Enable,Enable
-Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneLabel,,Multi-Touch Emulation,Multi-Touch Emulation
+Studio.DeviceEmulator.MultiTouchPane.MultiTouchPaneLabel,Multi-Touch Emulation,Multi-Touch Emulation,Multi-Touch Emulation
+Studio.DeviceEmulator.MultiTouchPane.SimulatorMultiTouchPaneLabel,Multi-Touch Simulation,Multi-Touch Simulation,Multi-Touch Simulation
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagLabel,,Network Replication Lag (seconds),Network Replication Lag (seconds)
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagNotNumberError,,Must be a number,Must be a number
 Studio.DeviceEmulator.NetworkSettings.NetworkReplicationLagPlaceholder,,0.5,0.5
 Studio.DeviceEmulator.Plugin.Button,,Toggle,Toggle
-Studio.DeviceEmulator.Plugin.Description,,Toggles the Device Emulator plugin window,Toggles the Device Emulator plugin window
-Studio.DeviceEmulator.Plugin.Name,,Device Emulator,Device Emulator
-Studio.DeviceEmulator.Plugin.Toolbar,,Device Emulator,Device Emulator
-Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,"When the 3D viewport is not active (Scripting, Object Browser), Device Emulator is disabled.",Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)
-Studio.DeviceEmulator.Shortcut.EnableMultitouch,Shortcut name for enabling multi-touch gesture simulation in Device Emulator,Enable Multi-touch,Enable Multi-touch
+Studio.DeviceEmulator.Plugin.Description,Toggles the Device Emulator plugin window,Toggles the Device Emulator plugin window,Toggles the Device Emulator plugin window
+Studio.DeviceEmulator.Plugin.Name,Device Emulator,Device Emulator,Device Emulator
+Studio.DeviceEmulator.Plugin.Toolbar,Device Emulator,Device Emulator,Device Emulator
+Studio.DeviceEmulator.Shortcut.EnableMultitouch,Shortcut name for enabling multi-touch gesture simulation in Device Simulator,Enable Multi-touch,Enable Multi-touch
 Studio.DeviceEmulator.Shortcut.EnableMultitouchDescription,Description for the multi-touch shortcut shown in Keyboard Shortcuts settings,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator
-Studio.DeviceEmulator.Shortcut.EnableMultitouchPanning,Shortcut name for enabling multi-touch panning simulation in Device Emulator,Enable Multi-touch Panning,Enable Multi-touch Panning
+Studio.DeviceEmulator.Shortcut.EnableMultitouchPanning,Shortcut name for enabling multi-touch panning simulation in Device Simulator,Enable Multi-touch Panning,Enable Multi-touch Panning
 Studio.DeviceEmulator.Shortcut.EnableMultitouchPanningDescription,Description for the multi-touch panning shortcut shown in Keyboard Shortcuts settings,Hold to simulate two-finger panning in Device Emulator,Hold to simulate two-finger panning in Device Emulator
+Studio.DeviceEmulator.Shortcut.SimulatorEnableMultitouchDescription,Description for the multi-touch shortcut shown in Keyboard Shortcuts settings,Hold to simulate multi-touch gestures (rotate/pinch) in Device Simulator,Hold to simulate multi-touch gestures (rotate/pinch) in Device Simulator
+Studio.DeviceEmulator.Shortcut.SimulatorEnableMultitouchPanningDescription,Description for the multi-touch panning shortcut shown in Keyboard Shortcuts settings,Hold to simulate two-finger panning in Device Simulator,Hold to simulate two-finger panning in Device Simulator
+Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,"When the 3D viewport is not active (Scripting, Object Browser), Device Emulator is disabled.",Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)
+Studio.DeviceEmulator.Tooltip.SimulatorOnlyEnabledIn3D,"When the 3D viewport is not active (Scripting, Object Browser), Device Simulator is disabled.",Device Simulator (Only enabled in 3D viewport),Device Simulator (Only enabled in 3D viewport)
+Studio.DeviceSimulator.Network.Name,Network simulator display name.,Network,Network
+Studio.DeviceSimulator.Network.name,network,Network,Network
+Studio.DeviceSimulator.NetworkControl.BadConnection,bad connection,Bad Connection (3G),Bad Connection (3G)
+Studio.DeviceSimulator.NetworkControl.HomeWifi,home wifi,Home Wi-Fi,Home Wi-Fi
+Studio.DeviceSimulator.NetworkControl.IdealFiber,ideal fiber,Ideal Fiber,Ideal Fiber
+Studio.DeviceSimulator.NetworkControl.Inbound,inbound,Inbound,Inbound
+Studio.DeviceSimulator.NetworkControl.Jitter,jitter,Jitter,Jitter
+Studio.DeviceSimulator.NetworkControl.Latency,latency,Latency,Latency
+Studio.DeviceSimulator.NetworkControl.Outbound,outbound,Outbound,Outbound
+Studio.DeviceSimulator.NetworkControl.PacketLoss,Packet loss control label.,Packet loss,Packet loss
+Studio.DeviceSimulator.NetworkControl.Preset,preset,Preset,Preset
+Studio.DeviceSimulator.NetworkControl.StandardMobile,standard mobile,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.DeviceSimulator.NetworkControl.WiredBroadband,wired broadband,Wired Boradband,Wired Boradband
+Studio.DeviceSimulator.NetworkPreset.BadConnection,Poor 3G connection preset.,Bad Connection (3G),Bad Connection (3G)
+Studio.DeviceSimulator.NetworkPreset.HomeWifi,Home Wi-Fi preset.,Home Wi-Fi,Home Wi-Fi
+Studio.DeviceSimulator.NetworkPreset.IdealFiber,Ideal fiber network preset.,Ideal Fiber,Ideal Fiber
+Studio.DeviceSimulator.NetworkPreset.StandardMobile,Standard mobile preset.,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.DeviceSimulator.NetworkPreset.WiredBroadband,Wired broadband preset.,Wired Broadband,Wired Broadband
+Studio.DeviceSimulator.NetworkType.Cellular3G,3g,3G,3G
+Studio.DeviceSimulator.NetworkType.Cellular4G,4g,4G,4G
+Studio.DeviceSimulator.NetworkType.Lan,lan,LAN,LAN
+Studio.DeviceSimulator.NetworkType.Wifi,wifi,Wifi,Wifi
+Studio.DeviceSimulator.Studio.DeviceSimulator.Network.Name,Network simulator display name.,Network,Network
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkControl.PacketLoss,Packet loss control label.,Packet loss,Packet loss
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.BadConnection,Poor 3G connection preset.,Bad Connection (3G),Bad Connection (3G)
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.HomeWifi,Home Wi-Fi preset.,Home Wi-Fi,Home Wi-Fi
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.IdealFiber,Ideal fiber network preset.,Ideal Fiber,Ideal Fiber
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.StandardMobile,Standard mobile preset.,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.WiredBroadband,Wired broadband preset.,Wired Broadband,Wired Broadband
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,Displayed in the AddBehaviorBindingPopup to label a Behavior that will be newly created and bound to the selected Instances.,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,Text that appears in the text box of the AddBehaviorBindingPopup letting users know how to use it.,Search for a Behavior to bind to,Search for a Behavior to bind to
 Studio.DistributedScripts.AddBehaviorBindingPopup.NoBehaviorBindingsCreated,Displayed in the AddBehaviorBindingPopup when no behaviors have been bound yet.,No Behaviors have been bound yet,No Behaviors have been bound yet
@@ -7960,6 +8001,7 @@ Studio.SystemMenu.Title.DebugError,"Menu that contains the actions for how we wa
 Studio.SystemMenu.Title.DeveloperInspector,Name of the action to display the Inspector plugin,Developer Inspector,Developer Inspector
 Studio.SystemMenu.Title.DeveloperStorybook,Name of the action to display the Storybook plugin,Developer Storybook,Developer Storybook
 Studio.SystemMenu.Title.DeviceEmulator,"Tool that allows developers to preview and test their games as they would appear and function on different devices, primarily mobile phones and tablets",Device Emulator,Device Emulator
+Studio.SystemMenu.Title.DeviceSimulator,"Tool that allows developers to preview and test their games as they would appear and function on different devices, primarily mobile phones and tablets",Device Simulator,Device Simulator
 Studio.SystemMenu.Title.DownloadACopy,Download a copy of the active document,Download a Copy,Download a Copy
 Studio.SystemMenu.Title.Edit,"Menu that provides tools for manipulating objects and code within the game development environment. It includes standard functions for undoing and redoing actions, cutting, copying, and pasting, as well as specialized options for duplicating, deleting, grouping, and anchoring objects",Edit,Edit
 Studio.SystemMenu.Title.ExpandScriptFolds,Expand all collapsed folds in the script,Expand Script Folds,Expand Script Folds
@@ -8036,6 +8078,10 @@ Studio.TeamCreate.JoinErrorRccChannel,Message displayed when the user attempts t
 Studio.TeamCreate.JoinErrorServerFull,Message displayed to the user when the Team Create server they are joining is full.,The server is full,The server is full
 Studio.TeamCreate.JoinErrorServerStartup,Message displayed to the user when the Team Create server they are joining fails to start up.,Server did not start,Server did not start
 Studio.TeamCreate.JoinErrorUnauthorized,Message displayed to the user when they attempt to open a Team Create place without proper permissions.,You do not have permission to join this place,You do not have permission to join this place
+Studio.TeamCreate.NonReplicatingScriptAnalysisSource,The category of error shown in the Script Analysis widget when a non-replicating server script is detected.,Team Create,Team Create
+Studio.TeamCreate.NonReplicatingScriptAnalysisWarning,"Warning that appears in the Script Analysis widget when a non-replicating server script is detected. ""Repair"" is a clickable link that performs the action",Some scripts in this Team Create session are not replicating to Studio. Click Repair to move these scripts to ServerStorage,Some scripts in this Team Create session are not replicating to Studio. Click Repair to move these scripts to ServerStorage
+Studio.TeamCreate.NonReplicatingScriptOutputWarning,Warning message displayed in the output window when a non-replicating server script is detected.,Some scripts in this Team Create session are not replicating to Studio. Click here to reparent these scripts to ServerStorage.,Some scripts in this Team Create session are not replicating to Studio. Click here to reparent these scripts to ServerStorage.
+Studio.TeamCreate.NonReplicatingScriptRepairAction,Clickable action that moves non-replicating server scripts when they have been detected.,Repair,Repair
 Studio.TeamCreate.SafetyEvictDialog.AskForParentPermission,title for dialog when users are disconnected from a Team Create session because they need parent permission,You need parent permission to work with older collaborators,You need parent permission to work with older collaborators
 Studio.TeamCreate.SafetyEvictDialog.AskForParentPermissionDescription,description for dialog when users are disconnected from a Team Create session because they need parent permission,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.
 Studio.TeamCreate.SafetyEvictDialog.BecomeTCButton,button on dialog that links to start trusted connections process (dialog appears when users are disconnected from a Team Create session because they need to get trusted connections),Add,Add

@@ -434,6 +434,7 @@ Studio.TerrainEditor.SmoothVoxels.Description,,,Click Upgrade to improve the coh
 Studio.TerrainEditor.SmoothVoxels.Explanation,,,The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. The upgrade can be reverted right after its completion using the Undo command.,The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. The upgrade can be reverted right after its completion using the Undo command.
 Studio.TerrainEditor.SmoothVoxels.Title,,,Smooth Voxels,Smooth Voxels
 Studio.TerrainEditor.NumberWarning.Minimum,,,Value must be greater than 0.,Value must be greater than 0.
+Studio.TerrainEditor.MaterialSettings.With,,,With,With
 Studio.App.GenerativeAI.CopiedToClipboard,,,Copied to clipboard,Copied to clipboard
 Studio.App.AddImageDialog.ChooseFile,,,Choose File,Choose File
 Studio.App.AddImageDialog.ChooseImageUpload,,,Choose image to upload,Choose image to upload
@@ -5845,8 +5846,12 @@ Studio.App.Property.CameraRotateCursorLock,,,Lock Cursor While Rotating,Lock Cur
 Studio.App.Property.CameraRotateCursorLockTooltip,,,"Should the cursor be locked in position while holding the right mouse button to rotate the camera? ""In First Person Only"" locks the cursor while flying with the arrow keys but leaves it free while focused on an object.","Should the cursor be locked in position while holding the right mouse button to rotate the camera? ""In First Person Only"" locks the cursor while flying with the arrow keys but leaves it free while focused on an object."
 Studio.App.PropertyEnum.FpsOnly,,,In First Person Only,In First Person Only
 Studio.App.PropertyEnum.Never,,,Never,Never
-Studio.App.Action.PluginScreenshot.Text,,,Plugin Screenshot,Plugin Screenshot
-Studio.App.Action.PluginScreenshot.Tooltip,,,Capture a plugin window,Capture a plugin window
+Studio.App.AssetAccess.RequestAccessOutputMessageToolTip,,,Request access to asset(s),Request access to asset(s)
+Studio.App.RBXMainWindow.PublishStatus,,,Publish Status,Publish Status
+Studio.App.RBXMainWindow.PublishStatusTooltip,,,Show the publish status of the current experience,Show the publish status of the current experience
+Studio.App.Property.ReviewableChangeAddedTextColor,,,Reviewable Change Added Text Color,Reviewable Change Added Text Color
+Studio.App.Property.ReviewableChangeRemovedTextColor,,,Reviewable Change Removed Text Color,Reviewable Change Removed Text Color
+Studio.App.AssetAccess.RequestAccessOutputMessageAllAssets,,,You do not have access to use certain assets. Click to request access,You do not have access to use certain assets. Click to request access
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8363,6 +8368,14 @@ Studio.Toolbox.AssetConfigUpload.NoPermissionForAllDependentAssets,,,User does n
 Studio.Toolbox.AssetConfig.SpecialAttributeHeader,,,Special Attribute,Special Attribute
 Studio.Toolbox.AssetConfig.SpecialAttributeDescription,,,There is a higher upload fee as this item contains special attributes: {attributesList}.,There is a higher upload fee as this item contains special attributes: {attributesList}.
 Studio.Toolbox.AssetConfig.Emissive,,,Emissive,Emissive
+Studio.Toolbox.AssetConfig.PublishToMarketplaceHeader,,,Publish to Marketplace,Publish to Marketplace
+Studio.Toolbox.AssetConfig.PublishToMarketplaceFee,,,Publishing fee: {price},Publishing fee: {price}
+Studio.Toolbox.AssetConfig.PublishToMarketplaceDescription,,,Automatically publish to Marketplace once approved. The publishing fee is only charged when your item goes live.,Automatically publish to Marketplace once approved. The publishing fee is only charged when your item goes live.
+Studio.Toolbox.AssetConfig.PublishToMarketplaceManageSettings,,,Manage default publishing settings in [link1].,Manage default publishing settings in [link1].
+Studio.Toolbox.AssetConfig.PublishToMarketplaceCreatorDashboardLink,,,Creator Dashboard,Creator Dashboard
+Studio.Toolbox.AssetConfig.PayAndConfirmUploadFee,,,Upload fee: {amount},Upload fee: {amount}
+Studio.Toolbox.AssetConfig.PayAndConfirmPublishingFee,,,Publishing fee: {amount},Publishing fee: {amount}
+Studio.Toolbox.AssetConfig.PayAndConfirmTotal,,,Total: {amount},Total: {amount}
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9781,6 +9794,11 @@ Studio.AssetManager.AssetPermission.Use,,,Use,Use
 Studio.AssetManager.CompactOptions.ViewSizeSmall,,,Compact,Compact
 Studio.AssetManager.CompactOptions.ViewSizeMedium,,,Standard,Standard
 Studio.AssetManager.CompactOptions.ViewSizeLarge,,,Large,Large
+Studio.AssetManager.AssetState.RestrictedTitle,,,Restricted content,Restricted content
+Studio.AssetManager.AssetState.RestrictedBody,,,This asset has been moderated and can't be used. The author can request an appeal.,This asset has been moderated and can't be used. The author can request an appeal.
+Studio.AssetManager.AssetState.Appeal,,,Appeal Your Content,Appeal Your Content
+Studio.AssetManager.ContextMenu.ViewDetails,,,View Details,View Details
+Studio.AssetManager.ContextMenu.CopyUri,,,Copy URI,Copy URI
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11310,6 +11328,11 @@ Studio.DeviceEmulator.Shortcut.EnableMultitouch,,,Enable Multi-touch,Enable Mult
 Studio.DeviceEmulator.Shortcut.EnableMultitouchDescription,,,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator
 Studio.DeviceEmulator.Shortcut.EnableMultitouchPanningDescription,,,Hold to simulate two-finger panning in Device Emulator,Hold to simulate two-finger panning in Device Emulator
 Studio.DeviceEmulator.Shortcut.EnableMultitouchPanning,,,Enable Multi-touch Panning,Enable Multi-touch Panning
+Studio.DeviceEmulator.Shortcut.SimulatorEnableMultitouchDescription,,,Hold to simulate multi-touch gestures (rotate/pinch) in Device Simulator,Hold to simulate multi-touch gestures (rotate/pinch) in Device Simulator
+Studio.DeviceEmulator.Shortcut.SimulatorEnableMultitouchPanningDescription,,,Hold to simulate two-finger panning in Device Simulator,Hold to simulate two-finger panning in Device Simulator
+Studio.DeviceEmulator.Tooltip.SimulatorOnlyEnabledIn3D,,,Device Simulator (Only enabled in 3D viewport),Device Simulator (Only enabled in 3D viewport)
+Studio.DeviceEmulator.MultiTouchPane.SimulatorMultiTouchPaneLabel,,,Multi-Touch Simulation,Multi-Touch Simulation
+Studio.DeviceEmulator.ManageSimulationDeviceDialog.SimulationDeviceManager,,,Simulation Device Manager,Simulation Device Manager
 Studio.R15Migrator.Plugin.Name,,,R6 to R15 Conversion Tool,R6 to R15 Conversion Tool
 Studio.R15Migrator.Plugin.Toolbar,,,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Button,,,Migrate Avatars,Migrate Avatars
@@ -12911,6 +12934,9 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddMultipleIdsHint,,,Add m
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.OffSale,,,Off Sale,Off Sale
 Studio.AvatarCompatibilityPreviewer.ProgressBar.OrientationCorrection,,,Correcting orientation,Correcting orientation
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ContinueButtonLabel,,,Continue,Continue
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MarketplaceDiscoverabilityTitle,,,Discoverable in Marketplace,Discoverable in Marketplace
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MarketplaceDiscoverabilityDescription,,,"To make this avatar discoverable in the Marketplace, all included items must be on sale.","To make this avatar discoverable in the Marketplace, all included items must be on sale."
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MarketplaceDiscoverabilityTooltip,,,This status may update if the sale status of any included item changes.,This status may update if the sale status of any included item changes.
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13526,6 +13552,10 @@ Studio.Actions.Tooltip.CopyPath,,,Copy the paths of instances in the selection,C
 Studio.Actions.Tooltip.CopyUniqueId,,,Copy the unique IDs of instances in the selection,Copy the unique IDs of instances in the selection
 Studio.Actions.Title.CopyPath,,,Copy Path,Copy Path
 Studio.Actions.Tooltip.AudioPlayerEditor,,,AudioPlayerEditor,AudioPlayerEditor
+Studio.Actions.PluginScreenshot.CopiedToClipboard,,,Plugin screenshot copied to clipboard,Plugin screenshot copied to clipboard
+Studio.Actions.Action.PluginScreenshot.Text,,,Plugin Screenshot,Plugin Screenshot
+Studio.Actions.Action.PluginScreenshot.Tooltip,,,Capture a plugin window,Capture a plugin window
+Studio.Actions.PluginScreenshot.NoWindows,,,No visible plugin windows to capture,No visible plugin windows to capture
 Studio.PathEditor.Plugin.Name,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Toolbar,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Button,,,Toggle,Toggle
@@ -13854,6 +13884,22 @@ Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonAxesToolTip,,,Show ax
 Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonTextToolTip,,,Show text labels in the 3D view,Show text labels in the 3D view
 Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonText,,,Show text,Show text
 Studio.VisualizationModes.VisualizationModeCategories.Animation,,,Animation,Animation
+Studio.VisualizationModes.StudioModes.DeviceSimulation,,,Device simulation,Device simulation
+Studio.VisualizationModes.StudioModes.DeviceSimulationTooltip,,,Simulate different devices to see how your game looks on different screens,Simulate different devices to see how your game looks on different screens
+Studio.VisualizationModes.PhysicsSimulationSection.DrawOriginalParts,,,Draw original parts,Draw original parts
+Studio.VisualizationModes.PhysicsSimulationSection.DrawOriginalPartsToolTip,,,Draws the collision geometry on top of the original mesh,Draws the collision geometry on top of the original mesh
+Studio.VisualizationModes.PhysicsSimulationSection.MatchPartTransparency,,,Match part transparency,Match part transparency
+Studio.VisualizationModes.PhysicsSimulationSection.MatchPartTransparencyToolTip,,,Draws the collision geometry at the same transparency as the original mesh,Draws the collision geometry at the same transparency as the original mesh
+Studio.VisualizationModes.PhysicsSimulationSection.OverlayTransparency,,,Transparency,Transparency
+Studio.VisualizationModes.PhysicsSimulationSection.OverlayTransparencyToolTip,,,Transparency of drawn collision geometries,Transparency of drawn collision geometries
+Studio.VisualizationModes.PhysicsSimulationSection.ShowCollidableParts,,,Show non-collidable parts,Show non-collidable parts
+Studio.VisualizationModes.PhysicsSimulationSection.ShowCollidablePartsToolTip,,,"When disabled, hides all parts with CanCollide = false","When disabled, hides all parts with CanCollide = false"
+Studio.VisualizationModes.PhysicsSimulationSection.ShowCollisionGroup,,,Show collision group,Show collision group
+Studio.VisualizationModes.PhysicsSimulationSection.ShowCollisionGroupToolTip,,,Only show parts in the specified collision group (empty = show all),Only show parts in the specified collision group (empty = show all)
+Studio.VisualizationModes.PhysicsSimulationSection.ShowQueryableParts,,,Show non-queryable parts,Show non-queryable parts
+Studio.VisualizationModes.PhysicsSimulationSection.ShowQueryablePartsToolTip,,,"When disabled, hides all parts with CanQuery = false","When disabled, hides all parts with CanQuery = false"
+Studio.VisualizationModes.PhysicsSimulationSection.ShowTouchableParts,,,Show non-touchable parts,Show non-touchable parts
+Studio.VisualizationModes.PhysicsSimulationSection.ShowTouchablePartsToolTip,,,"When disabled, hides all parts with CanTouch = false","When disabled, hides all parts with CanTouch = false"
 Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...
 Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.
@@ -14334,6 +14380,26 @@ Studio.MaterialPicker.ViewToggle.GridView,,,Grid View,Grid View
 Studio.MaterialPicker.ViewToggle.ListView,,,List View,List View
 Studio.MaterialPicker.MainView.MaterialGeneratorButton,,,Generate,Generate
 Studio.MaterialPicker.MainView.MaterialManagerButton,,,Material Manager,Material Manager
+Studio.MaterialPicker.Plugin.AddIconTooltip,,,Create Terrain Material,Create Terrain Material
+Studio.MaterialPicker.Plugin.NewSlotDefaultName,,,NewTerrainSlot,NewTerrainSlot
+Studio.MaterialPicker.Plugin.NoVariantDefault,,,None,None
+Studio.MaterialPicker.Plugin.NameLabel,,,Name,Name
+Studio.MaterialPicker.Plugin.BaseMaterialLabel,,,Base Material,Base Material
+Studio.MaterialPicker.Plugin.MaterialVariantLabel,,,Material Variant,Material Variant
+Studio.MaterialPicker.Plugin.ColorLabel,,,Color,Color
+Studio.MaterialPicker.Plugin.CreateError,,,Unable to create Terrain material,Unable to create Terrain material
+Studio.MaterialPicker.Plugin.CancelButton,,,Cancel,Cancel
+Studio.MaterialPicker.Plugin.CreateButton,,,Create,Create
+Studio.MaterialPicker.Plugin.SlotLabel,,,Slot,Slot
+Studio.MaterialPicker.Plugin.ViewSortTooltip,,,View and sort options,View and sort options
+Studio.MaterialPicker.Plugin.RecentlyUsedLabel,,,Recently used,Recently used
+Studio.MaterialPicker.Plugin.SlotNumberLabel,,,Slot number,Slot number
+Studio.MaterialPicker.Plugin.ViewGroup,,,View,View
+Studio.MaterialPicker.Plugin.SortGroup,,,Sort,Sort
+Studio.MaterialPicker.Plugin.GridViewLabel,,,Grid view,Grid view
+Studio.MaterialPicker.Plugin.ListViewLabel,,,List view,List view
+Studio.MaterialPicker.Plugin.ShortSearchPlaceholder,,,Search,Search
+Studio.MaterialPicker.Plugin.InvalidMaterialCheckbox,,,Replace invalid materials,Replace invalid materials
 Studio.ExplorerGuest.CounterExample.Button,,,Push me!,Push me!
 Studio.ExplorerGuest.Plugin.Name,,,ExplorerGuest,ExplorerGuest
 Studio.ExplorerGuest.Plugin.Button,,,Explorer Guest,Explorer Guest
@@ -15275,6 +15341,8 @@ Studio.Assistant.AskInput.RequirementNot,,,Must not be the case that: {reason},M
 Studio.Assistant.AskInput.RequirementRange,,,"""{field}"" must be between {min:int} and {max:int}","""{field}"" must be between {min:int} and {max:int}"
 Studio.Assistant.AskInput.RequirementRangeMin,,,"""{field}"" must be at least {min:int}","""{field}"" must be at least {min:int}"
 Studio.Assistant.AskInput.RequirementRangeMax,,,"""{field}"" must be at most {max:int}","""{field}"" must be at most {max:int}"
+Studio.Assistant.ThreadsMenu.Build,,,Synced chat,Synced chat
+Studio.Assistant.ThreadsMenu.Other,,,Chat history,Chat history
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -16014,6 +16082,8 @@ Studio.BetaFeatures.AutoReimportTitle,,,Auto-Reimport,Auto-Reimport
 Studio.BetaFeatures.AutoReimportDescription,,,Enables the toggle to automatically reimport an instance when a local file is updated,Enables the toggle to automatically reimport an instance when a local file is updated
 Studio.BetaFeatures.UpgradedUIGradientsDescription,,,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
 Studio.BetaFeatures.UpgradedUIGradientsTitle,,,Upgraded UIGradients,Upgraded UIGradients
+Studio.BetaFeatures.NewDeviceSimulatorTitle,,,New Device Simulator,New Device Simulator
+Studio.BetaFeatures.NewDeviceSimulatorDescription,,,A modernized Device Simulator toolbar for updating device settings and simulated network behavior while building and testing.,A modernized Device Simulator toolbar for updating device settings and simulated network behavior while building and testing.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -16117,6 +16187,12 @@ Studio.ScriptEditor.ReviewableChange.NavigationCounter,,,%1 of %2,%1 of %2
 Studio.ScriptEditor.ReviewableChange.KeepAll,,,Keep All,Keep All
 Studio.ScriptEditor.ReviewableChange.UndoAll,,,Undo All,Undo All
 Studio.ScriptEditor.ReviewableChange.ToolbarTitle,,,Reviewing proposed changes,Reviewing proposed changes
+Studio.ScriptEditor.ReviewableChange.PreviousCommand,,,Go To Previous Reviewable Change,Go To Previous Reviewable Change
+Studio.ScriptEditor.ReviewableChange.NextCommand,,,Go To Next Reviewable Change,Go To Next Reviewable Change
+Studio.ScriptEditor.ReviewableChange.KeepCommand,,,Keep Current Reviewable Change,Keep Current Reviewable Change
+Studio.ScriptEditor.ReviewableChange.UndoCommand,,,Undo Current Reviewable Change,Undo Current Reviewable Change
+Studio.ScriptEditor.ReviewableChange.AddedTextColor,,,Reviewable Change Added Text Color,Reviewable Change Added Text Color
+Studio.ScriptEditor.ReviewableChange.RemovedTextColor,,,Reviewable Change Removed Text Color,Reviewable Change Removed Text Color
 Studio.AudioActions.Action.FindPlaying,,,Find Playing,Find Playing
 Studio.AudioActions.Action.InsertBefore,,,Insert Before...,Insert Before...
 Studio.AudioActions.Action.Insert,,,%s,%s
@@ -16194,6 +16270,17 @@ Studio.PlaceVersionHistory.Label.PreviouslyPublished,,,Previously Published,Prev
 Studio.PlaceVersionHistory.Title.AddVersionNotes,,,Add version notes,Add version notes
 Studio.PlaceVersionHistory.Label.VersionNamePlaceholder,,,Describe what changed in this version,Describe what changed in this version
 Studio.PlaceVersionHistory.Label.VersionNotesPlaceholder,,,Add more information about the changes,Add more information about the changes
+Studio.PlaceVersionHistory.Description.Draft,,,Generating from recent version notes...,Generating from recent version notes...
+Studio.PlaceVersionHistory.Action.GenerateTitleAndDetails,,,Generate title and details,Generate title and details
+Studio.PlaceVersionHistory.Action.GenerateTitle,,,Generate title,Generate title
+Studio.PlaceVersionHistory.Action.GenerateDetails,,,Generate details,Generate details
+Studio.PlaceVersionHistory.Description.StopGenerating,,,Stop generating,Stop generating
+Studio.PlaceVersionHistory.Action.StopGenerating,,,Stop,Stop
+Studio.PlaceVersionHistory.Action.Generate,,,Generate,Generate
+Studio.PlaceVersionHistory.Description.NothingToSummarize,,,No save notes found since last publish,No save notes found since last publish
+Studio.PlaceVersionHistory.Description.SummaryGenerationFailed,,,AI generation is currently unavailable,AI generation is currently unavailable
+Studio.PlaceVersionHistory.Description.SummaryDisclaimer,,,Content is AI-generated; please verify for accuracy.,Content is AI-generated; please verify for accuracy.
+Studio.PlaceVersionHistory.Description.QuotaExceeded,,,AI generation limit exceeded. Please try again later.,AI generation limit exceeded. Please try again later.
 Studio.MinSpec.DialogClose,,,Close,Close
 Studio.MinSpec.DialogDetailedText,,,Please upgrade or access on a different device.,Please upgrade or access on a different device.
 Studio.MinSpec.DialogCreatorHub,,,Visit Creator Hub,Visit Creator Hub
@@ -16403,7 +16490,7 @@ Studio.SystemMenu.Title.FourStuds,,,4 Studs,4 Studs
 Studio.SystemMenu.Title.SixStuds,,,6 Studs,6 Studs
 Studio.SystemMenu.Title.SixteenStuds,,,16 Studs,16 Studs
 Studio.SystemMenu.Title.DebugError,,,Debug Error,Debug Error
-Studio.SystemMenu.Title.DeviceEmulator,,,Device Emulator,Device Emulator
+Studio.SystemMenu.Title.DeviceEmulator,,,Device Simulator,Device Simulator
 Studio.SystemMenu.Title.PlayerEmulator,,,Player Emulator,Player Emulator
 Studio.SystemMenu.Title.ShowGrid,,,Show Grid,Show Grid
 Studio.SystemMenu.Title.ShowWindControl,,,Show Wind Direction,Show Wind Direction
@@ -16787,6 +16874,8 @@ Studio.PropertiesLibrary.InstanceRef.Selecting,,,Selecting...,Selecting...
 Studio.PropertiesLibrary.TagsAndAttributes.AttributesHeader,,,Attributes,Attributes
 Studio.PropertiesLibrary.TagsAndAttributes.TagsHeader,,,Tags,Tags
 Studio.PropertiesLibrary.InstanceRef.SelectInstanceType,,,"Select ""{typeOfInstance}""...","Select ""{typeOfInstance}""..."
+Studio.PropertiesLibrary.Unit.Studs,,,studs,studs
+Studio.PropertiesLibrary.Unit.Seconds,,,s,s
 Studio.PublishPlace.Error.PublishEligibilityTitle,,,Can't publish place,Can't publish place
 Studio.PublishPlace.Error.PublishEligibilityDescription,,,Check your publishing eligibility in Creator Hub,Check your publishing eligibility in Creator Hub
 Studio.PublishPlace.Button.Manage,,,Check eligibility,Check eligibility
@@ -17215,3 +17304,52 @@ Studio.DeviceSimulatorToolbar.Validation.MemoryMinimum,,,Memory must be {minMemo
 Studio.DeviceSimulatorToolbar.Calibration.AutoDetectScaling,,,Auto-detect scaling,Auto-detect scaling
 Studio.DeviceSimulatorToolbar.DeviceManager.AddDevices,,,Add devices,Add devices
 Studio.DeviceSimulatorToolbar.DeviceManager.SelectDevices,,,Select which devices appear in the Standard list.,Select which devices appear in the Standard list.
+Studio.DeviceSimulatorToolbar.DeviceManager.Update,,,Update,Update
+Studio.DeviceSimulatorToolbar.Simulator.Title,,,{simulatorName} simulation,{simulatorName} simulation
+Studio.DeviceSimulatorToolbar.SimulatorAction.Apply,,,Apply,Apply
+Studio.DeviceSimulatorToolbar.SimulatorAction.Save,,,Save,Save
+Studio.DeviceSimulatorToolbar.SimulatorAction.Reset,,,Reset,Reset
+Studio.DeviceSimulatorToolbar.SimulatorAction.Delete,,,Delete,Delete
+Studio.DeviceSimulatorToolbar.SimulatorPreset.Custom,,,Custom,Custom
+Studio.DeviceSimulatorToolbar.SavePreset.Title,,,Save {simulatorName} preset,Save {simulatorName} preset
+Studio.DeviceSimulatorToolbar.SavePreset.Description,,,The current settings are saved under this name and added to the preset list.,The current settings are saved under this name and added to the preset list.
+Studio.DeviceSimulatorToolbar.SavePreset.ReservedDescription,,,"""{presetName}"" is a reserved preset name. Choose a different name.","""{presetName}"" is a reserved preset name. Choose a different name."
+Studio.DeviceSimulatorToolbar.SavePreset.OverwriteDescription,,,"A preset named ""{presetName}"" already exists and will be replaced.","A preset named ""{presetName}"" already exists and will be replaced."
+Studio.DeviceSimulatorToolbar.SavePreset.Replace,,,Replace,Replace
+Studio.DeviceSimulatorToolbar.SavePreset.NamePlaceholder,,,Preset name,Preset name
+Studio.AutoRecovery.FileFoundDialog.Title,,,Auto Recovery File Found,Auto Recovery File Found
+Studio.AutoRecovery.FileFoundDialog.Body,,,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?
+Studio.AutoRecovery.FileFoundDialog.Review,,,Review,Review
+Studio.AutoRecovery.FileFoundDialog.Ignore,,,Ignore,Ignore
+Studio.AutoRecovery.FileOpenedDialog.Title,,,Auto Recovery File Opened,Auto Recovery File Opened
+Studio.AutoRecovery.FileOpenedDialog.Body,,,"This automatic recovery file may contain more recent work than the last save for this place. If this contains work you would like to keep, then save this session.","This automatic recovery file may contain more recent work than the last save for this place. If this contains work you would like to keep, then save this session."
+Studio.AutoRecovery.FileOpenedDialog.OK,,,OK,OK
+Studio.DeviceSimulator.Network.name,,,Network,Network
+Studio.DeviceSimulator.NetworkControl.Preset,,,Preset,Preset
+Studio.DeviceSimulator.NetworkControl.Latency,,,Latency,Latency
+Studio.DeviceSimulator.NetworkControl.Jitter,,,Jitter,Jitter
+Studio.DeviceSimulator.NetworkControl.Inbound,,,Inbound,Inbound
+Studio.DeviceSimulator.NetworkControl.Outbound,,,Outbound,Outbound
+Studio.DeviceSimulator.NetworkControl.IdealFiber,,,Ideal Fiber,Ideal Fiber
+Studio.DeviceSimulator.NetworkControl.WiredBroadband,,,Wired Boradband,Wired Boradband
+Studio.DeviceSimulator.NetworkControl.HomeWifi,,,Home Wi-Fi,Home Wi-Fi
+Studio.DeviceSimulator.NetworkControl.StandardMobile,,,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.DeviceSimulator.NetworkControl.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
+Studio.DeviceSimulator.NetworkType.Wifi,,,Wifi,Wifi
+Studio.DeviceSimulator.NetworkType.Cellular3G,,,3G,3G
+Studio.DeviceSimulator.NetworkType.Cellular4G,,,4G,4G
+Studio.DeviceSimulator.NetworkType.Lan,,,LAN,LAN
+Studio.DeviceSimulator.Studio.DeviceSimulator.Network.Name,,,Network,Network
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkControl.PacketLoss,,,Packet loss,Packet loss
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.IdealFiber,,,Ideal Fiber,Ideal Fiber
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.WiredBroadband,,,Wired Broadband,Wired Broadband
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.HomeWifi,,,Home Wi-Fi,Home Wi-Fi
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.DeviceSimulator.Studio.DeviceSimulator.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
+Studio.DeviceSimulator.Network.Name,,,Network,Network
+Studio.DeviceSimulator.NetworkControl.PacketLoss,,,Packet loss,Packet loss
+Studio.DeviceSimulator.NetworkPreset.IdealFiber,,,Ideal Fiber,Ideal Fiber
+Studio.DeviceSimulator.NetworkPreset.WiredBroadband,,,Wired Broadband,Wired Broadband
+Studio.DeviceSimulator.NetworkPreset.HomeWifi,,,Home Wi-Fi,Home Wi-Fi
+Studio.DeviceSimulator.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.DeviceSimulator.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
