@@ -41,8 +41,6 @@ CheckerboardDepthFS,Fragment
 CloudsBsmFS,Fragment
 CloudsBsmFSOld,Fragment
 CloudsClearToSkyColorFS,Fragment
-CloudsCompFS,Fragment
-CloudsCompSingleTapFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsReprojectFilterFS,Fragment
@@ -56,6 +54,9 @@ DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
 DefaultShadowFS,Fragment
 DefaultUnifiedGlassTintFS,Fragment
+DefaultUnifiedGlassTransparentVS_00000800,Vertex
+DefaultUnifiedGlassTransparentVS_00100801,Vertex
+DefaultUnifiedGlassTransparentVS_00300800,Vertex
 DefaultUnifiedGridFS_00000800,Fragment
 DefaultUnifiedGridFS_10000000,Fragment
 DefaultUnifiedGridFS_10000400,Fragment
@@ -142,6 +143,13 @@ DefaultUnifiedGridVS_80300206,Vertex
 DefaultUnifiedGridVS_80300226,Vertex
 DefaultUnifiedModelLodFS,Fragment
 DefaultUnifiedModelLodVS,Vertex
+DefaultUnifiedPlasticReflectionFS_00000800,Fragment
+DefaultUnifiedPlasticReflectionFS_10000000,Fragment
+DefaultUnifiedPlasticReflectionFS_10000400,Fragment
+DefaultUnifiedPlasticReflectionFS_20000000,Fragment
+DefaultUnifiedPlasticReflectionFS_40000000,Fragment
+DefaultUnifiedPlasticReflectionFS_80000000,Fragment
+DefaultUnifiedPlasticReflectionFS_80000200,Fragment
 DefaultUnifiedPlasticReflectionVS_00000800,Vertex
 DefaultUnifiedPlasticReflectionVS_00000802,Vertex
 DefaultUnifiedPlasticReflectionVS_00000806,Vertex
@@ -207,6 +215,8 @@ DefaultUnifiedPlasticReflectionVS_80001000,Vertex
 DefaultUnifiedPlasticReflectionVS_80001002,Vertex
 DefaultUnifiedPlasticReflectionVS_80001006,Vertex
 DefaultUnifiedPlasticReflectionVS_80001200,Vertex
+DefaultUnifiedPlasticReflectionVS_80001202,Vertex
+DefaultUnifiedPlasticReflectionVS_80001206,Vertex
 DefaultUnifiedPlasticReflectionVS_80100001,Vertex
 DefaultUnifiedPlasticReflectionVS_80100007,Vertex
 DefaultUnifiedPlasticReflectionVS_80100201,Vertex
@@ -275,7 +285,6 @@ LanczosSubpixelWatermarkFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
-LinearizeDepthFS,Fragment
 ModelLodDepthFS,Fragment
 ModelLodDepthVS,Vertex
 OutputDepthFS,Fragment
@@ -341,15 +350,6 @@ ShadowBlurMarkVS,Vertex
 ShadowEvsmClearFS,Fragment
 ShadowEvsmClearVS,Vertex
 ShadowEvsmCopyFS,Fragment
-ShadowEvsmHBlurDFS_1,Fragment
-ShadowEvsmHBlurDFS_11,Fragment
-ShadowEvsmHBlurDFS_13,Fragment
-ShadowEvsmHBlurDFS_15,Fragment
-ShadowEvsmHBlurDFS_17,Fragment
-ShadowEvsmHBlurDFS_3,Fragment
-ShadowEvsmHBlurDFS_5,Fragment
-ShadowEvsmHBlurDFS_7,Fragment
-ShadowEvsmHBlurDFS_9,Fragment
 ShadowEvsmPassThroughFlippedVS,Vertex
 ShadowEvsmPassThroughVS,Vertex
 ShadowEvsmRemapFS,Fragment

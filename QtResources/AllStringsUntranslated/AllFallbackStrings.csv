@@ -6161,6 +6161,8 @@ Studio.BetaFeatures.PackageOverridesDescription,Description for package override
 Studio.BetaFeatures.PackageOverridesTitle,Title for package overrides beta feature,Package Overrides,Package Overrides
 Studio.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
 Studio.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages Permissions
+Studio.BetaFeatures.PartBaseMaterial4KDescription,Description of the Part Base Materials 4K studio beta feature,Enables high-resolution 4K textures for 2022 part base materials.,Enables high-resolution 4K textures for 2022 part base materials.
+Studio.BetaFeatures.PartBaseMaterial4KTitle,Title for Part Base Materials 4K studio beta feature,Part Base Materials 4K,Part Base Materials 4K
 Studio.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flipbooks
 Studio.BetaFeatures.PartyEmulatorDescription,description text for Party Emulator beta feature,Enables testing Party API dependent game logic during Server & Clients play tests,Enables testing Party API dependent game logic during Server & Clients play tests
@@ -7963,11 +7965,17 @@ Studio.SceneAnalysis.Tooltip.MemoryLabel,Label for a tooltip that shows memory s
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,No declaration/definition was found for the given parameter,No declaration found for '%1',No declaration found for '%1'
 Studio.ScriptEditor.NoDeclarationFoundTooltip,Tooltip string indicating that no declaration/definition was found,No declaration found,No declaration found
 Studio.ScriptEditor.ReviewableChange.Accept,Button that keeps a proposed script edit,Keep,Keep
+Studio.ScriptEditor.ReviewableChange.AddedTextColor,Settings to change the Background color for inserted text,Inserted Text Background,Inserted Text Background
 Studio.ScriptEditor.ReviewableChange.KeepAll,Button that keeps all proposed script edits in the active script,Keep All,Keep All
+Studio.ScriptEditor.ReviewableChange.KeepCommand,Command to keep the current reviewable change in the Script Editor,Keep Current Reviewable Change,Keep Current Reviewable Change
 Studio.ScriptEditor.ReviewableChange.NavigationCounter,Counter showing the current proposed script edit and total number of proposed edits,%1 of %2,%1 of %2
+Studio.ScriptEditor.ReviewableChange.NextCommand,Command to navigate to the next reviewable change in the Script Editor,Go To Next Reviewable Change,Go To Next Reviewable Change
+Studio.ScriptEditor.ReviewableChange.PreviousCommand,Command to navigate to the previous reviewable change in the Script Editor,Go To Previous Reviewable Change,Go To Previous Reviewable Change
 Studio.ScriptEditor.ReviewableChange.Reject,Button that undoes a proposed script edit,Undo,Undo
+Studio.ScriptEditor.ReviewableChange.RemovedTextColor,Settings to change the Background color for removed text,Removed Text Background,Removed Text Background
 Studio.ScriptEditor.ReviewableChange.ToolbarTitle,Title displayed on the Script Editor toolbar while reviewing proposed script edits,Reviewing proposed changes,Reviewing proposed changes
 Studio.ScriptEditor.ReviewableChange.UndoAll,Button that undoes all proposed script edits in the active script,Undo All,Undo All
+Studio.ScriptEditor.ReviewableChange.UndoCommand,Command to undo the current reviewable change in the Script Editor,Undo Current Reviewable Change,Undo Current Reviewable Change
 Studio.ScriptEditor.TypeColor,The color of Luau Types in the Studio Script Editor Syntax highlighter,Type Color,Type Color
 Studio.SettingsDialog.Property.IconOverrideDir,User can specify a folder on their machine containing custom icons to use instead of default Roblox Studio icons,Custom Icon Dir,Custom Icon Dir
 Studio.Settings.BetaFeature.HighDpiAndIconsDescription,Studio will look better on monitors with higher resolution.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.

@@ -5849,8 +5849,6 @@ Studio.App.PropertyEnum.Never,,,Never,Never
 Studio.App.AssetAccess.RequestAccessOutputMessageToolTip,,,Request access to asset(s),Request access to asset(s)
 Studio.App.RBXMainWindow.PublishStatus,,,Publish Status,Publish Status
 Studio.App.RBXMainWindow.PublishStatusTooltip,,,Show the publish status of the current experience,Show the publish status of the current experience
-Studio.App.Property.ReviewableChangeAddedTextColor,,,Reviewable Change Added Text Color,Reviewable Change Added Text Color
-Studio.App.Property.ReviewableChangeRemovedTextColor,,,Reviewable Change Removed Text Color,Reviewable Change Removed Text Color
 Studio.App.AssetAccess.RequestAccessOutputMessageAllAssets,,,You do not have access to use certain assets. Click to request access,You do not have access to use certain assets. Click to request access
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
@@ -8376,6 +8374,9 @@ Studio.Toolbox.AssetConfig.PublishToMarketplaceCreatorDashboardLink,,,Creator Da
 Studio.Toolbox.AssetConfig.PayAndConfirmUploadFee,,,Upload fee: {amount},Upload fee: {amount}
 Studio.Toolbox.AssetConfig.PayAndConfirmPublishingFee,,,Publishing fee: {amount},Publishing fee: {amount}
 Studio.Toolbox.AssetConfig.PayAndConfirmTotal,,,Total: {amount},Total: {amount}
+Studio.Toolbox.AssetUploadResult.UpdateSubmittedMessage,,,"Your asset is being updated. After it passes moderation, you'll see the
+updated version. Please don't submit another update while this update is in review.","Your asset is being updated. After it passes moderation, you'll see the
+updated version. Please don't submit another update while this update is in review."
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9448,6 +9449,7 @@ Studio.PublishPlaceAs.PublishStatus.Title,,,Publish Status,Publish Status
 Studio.PublishPlaceAs.PublishStatus.LoadFailed,,,Publish status could not be loaded.,Publish status could not be loaded.
 Studio.PublishPlaceAs.PublishStatus.Retry,,,Retry,Retry
 Studio.PublishPlaceAs.PublishSuccess.ViewPublishStatus,,,View publish status,View publish status
+Studio.PublishPlaceAs.Notification.PublishRequiresPublishedPlace,,,Save your place to Roblox before Publishing!,Save your place to Roblox before Publishing!
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9795,10 +9797,11 @@ Studio.AssetManager.CompactOptions.ViewSizeSmall,,,Compact,Compact
 Studio.AssetManager.CompactOptions.ViewSizeMedium,,,Standard,Standard
 Studio.AssetManager.CompactOptions.ViewSizeLarge,,,Large,Large
 Studio.AssetManager.AssetState.RestrictedTitle,,,Restricted content,Restricted content
-Studio.AssetManager.AssetState.RestrictedBody,,,This asset has been moderated and can't be used. The author can request an appeal.,This asset has been moderated and can't be used. The author can request an appeal.
+Studio.AssetManager.AssetState.RestrictedBody,,,This asset is against Roblox Community Standards and can't be used. The author can request an appeal.,This asset is against Roblox Community Standards and can't be used. The author can request an appeal.
 Studio.AssetManager.AssetState.Appeal,,,Appeal Your Content,Appeal Your Content
 Studio.AssetManager.ContextMenu.ViewDetails,,,View Details,View Details
 Studio.AssetManager.ContextMenu.CopyUri,,,Copy URI,Copy URI
+Studio.AssetManager.AssetState.LearnMore,,,Learn More,Learn More
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10710,6 +10713,8 @@ Studio.AssetImporter.Buttons.LearnMore,,,Learn More,Learn More
 Studio.AssetImporter.Buttons.Yes,,,Yes,Yes
 Studio.AssetImporter.Buttons.Ok,,,Ok,Ok
 Studio.AssetImporter.ImportQueue.SafeToClose,,,It's safe to close this window while your files import.,It's safe to close this window while your files import.
+Studio.AssetImporter.Snackbar.VersionImportSuccess,,,A new version of your asset has been created,A new version of your asset has been created
+Studio.AssetImporter.Snackbar.VersionImportError,,,Error importing the new version,Error importing the new version
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -12796,10 +12801,10 @@ Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonBackToChat,,,Back to 
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonRegenerate,,,Retry,Retry
 Studio.AvatarCompatibilityPreviewer.SelectScreen.AvatarCreationTitle,,,Avatar Creation & Setup,Avatar Creation & Setup
 Studio.AvatarCompatibilityPreviewer.SelectScreen.AvatarCreationDescription,,,Generate or set up Avatar assets. [LearnMore] about Avatar asset types.,Generate or set up Avatar assets. [LearnMore] about Avatar asset types.
-Studio.AvatarCompatibilityPreviewer.SelectScreen.GenerateAvatarButton,,,Generate Avatar (BETA),Generate Avatar (BETA)
+Studio.AvatarCompatibilityPreviewer.SelectScreen.GenerateAvatarButton,,,Build Avatar (BETA),Build Avatar (BETA)
 Studio.AvatarCompatibilityPreviewer.SelectScreen.Import,,,Import,Import
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.Title,,,Avatar Creation,Avatar Creation
-Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.EmptyHint,,,Describe the avatar you want to create. You can refine the image with follow-up prompts.,Describe the avatar you want to create. You can refine the image with follow-up prompts.
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.EmptyHint,,,Describe the avatar you want to build. You can refine the image with follow-up prompts.,Describe the avatar you want to build. You can refine the image with follow-up prompts.
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.InputPlaceholder,,,Describe the avatar or refinement...,Describe the avatar or refinement...
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.InputPlaceholderGenerating,,,Generating...,Generating...
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ProgressTitle,,,Generating avatar,Generating avatar
@@ -12807,7 +12812,7 @@ Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ProgressFailed,,,Avatar cre
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StatusGenerating,,,Generating,Generating
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StatusCancelled,,,Cancelled generation,Cancelled generation
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StatusFailed,,,Generation failed.,Generation failed.
-Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonUse,,,Generate 3D,Generate 3D
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonUse,,,Build 3D,Build 3D
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonBranch,,,Branch,Branch
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonCancel,,,Cancel,Cancel
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ButtonClose,,,Close,Close
@@ -14001,6 +14006,9 @@ Studio.AssetAccess.ShareDialogView.PromptActionSharing,,,Sharing...,Sharing...
 Studio.AssetAccess.ShareDialogView.PromptHeading,,,Experience needs access to assets,Experience needs access to assets
 Studio.AssetAccess.ShareDialogView.UnexpectedErrorBody,,,An unexpected error occurred. Please try again later.,An unexpected error occurred. Please try again later.
 Studio.AssetAccess.ShareDialogView.UnexpectedErrorHeading,,,Failed attempting to share assets,Failed attempting to share assets
+Studio.AssetAccess.OutputMessage.RequestAccess,,,You do not have access to use certain assets. Click to request access,You do not have access to use certain assets. Click to request access
+Studio.AssetAccess.OutputMessage.RequestAccessToolTip,,,Request access to asset(s),Request access to asset(s)
+Studio.AssetAccess.OutputMessage.RequestAccessUnavailable,,,Asset access requests unavailable,Asset access requests unavailable
 Studio.FileSync.Plugin.Name,,,Script Sync,Script Sync
 Studio.FileSync.Plugin.Toolbar,,,Script Sync,Script Sync
 Studio.FileSync.Plugin.Button,,,Toggle,Toggle
@@ -14400,6 +14408,7 @@ Studio.MaterialPicker.Plugin.GridViewLabel,,,Grid view,Grid view
 Studio.MaterialPicker.Plugin.ListViewLabel,,,List view,List view
 Studio.MaterialPicker.Plugin.ShortSearchPlaceholder,,,Search,Search
 Studio.MaterialPicker.Plugin.InvalidMaterialCheckbox,,,Replace invalid materials,Replace invalid materials
+Studio.MaterialPicker.Plugin.EditInTerrainMaterialManager,,,Edit in Terrain Material Manager,Edit in Terrain Material Manager
 Studio.ExplorerGuest.CounterExample.Button,,,Push me!,Push me!
 Studio.ExplorerGuest.Plugin.Name,,,ExplorerGuest,ExplorerGuest
 Studio.ExplorerGuest.Plugin.Button,,,Explorer Guest,Explorer Guest
@@ -14436,6 +14445,7 @@ Studio.ExplorerPlugin.ContextMenu.scriptSync,,,Script Sync,Script Sync
 Studio.ExplorerPlugin.ContextMenu.hierarchySpec,,,Hierarchy Spec,Hierarchy Spec
 Studio.ExplorerPlugin.ContextMenu.selectCurrent,,,Select current,Select current
 Studio.ExplorerPlugin.ContextMenu.selectIncoming,,,Select incoming,Select incoming
+Studio.ExplorerPlugin.ContextMenu.revertToCurrent,,,Revert to current,Revert to current
 Studio.StartPage.Plugin.Name,,,StartPage,StartPage
 Studio.StartPage.Plugin.AgeRestrictionDialog.Body,,,This experience is not accessible due to age restrictions.,This experience is not accessible due to age restrictions.
 Studio.StartPage.Plugin.LastModified,,,Modified {lastModified},Modified {lastModified}
@@ -15327,6 +15337,7 @@ Studio.Assistant.JobWait.Preparing,,,Preparing job...,Preparing job...
 Studio.Assistant.JobWait.Waiting,,,Waiting for {tool} job...,Waiting for {tool} job...
 Studio.Assistant.JobRun.RunningAfterResult,,,({jobId}) Running {tool} job...,({jobId}) Running {tool} job...
 Studio.Assistant.McpSetup.ConnectedClientCount,,,{name} ×{count},{name} ×{count}
+Studio.Assistant.SettingsDialog.OverflowMenuTitle,,,Settings,Settings
 Studio.Assistant.AvatarAutoSetup.InputModel,,,Input Model,Input Model
 Studio.Assistant.AvatarAutoSetup.InputSetUpAvatar,,,Set up avatar,Set up avatar
 Studio.Assistant.AvatarAutoSetup.ModelRequired,,,Pick a Model,Pick a Model
@@ -15343,6 +15354,8 @@ Studio.Assistant.AskInput.RequirementRangeMin,,,"""{field}"" must be at least {m
 Studio.Assistant.AskInput.RequirementRangeMax,,,"""{field}"" must be at most {max:int}","""{field}"" must be at most {max:int}"
 Studio.Assistant.ThreadsMenu.Build,,,Synced chat,Synced chat
 Studio.Assistant.ThreadsMenu.Other,,,Chat history,Chat history
+Studio.Assistant.MessageActions.TooltipCopy,,,Copy,Copy
+Studio.Assistant.MessageActions.CopyText,,,Copy text,Copy text
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15560,7 +15573,7 @@ Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessor
 Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesShoulder,,,Shoulder,Shoulder
 Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesFront,,,Front,Front
 Studio.AvatarSettings.AccessoriesSettings.CustomAccessoriesSectionCustomAccessoriesBack,,,Back,Back
-Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSection,,,Accessory Behaviors,Accessory Behaviors
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSection,,,Avatar and Accessory Behaviors,Avatar and Accessory Behaviors
 Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderPivotShoulder,,,Shoulder,Shoulder
 Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetection,,,Hit & Touch Detection,Hit & Touch Detection
 Studio.AvatarSettings.MovementSettings.CollisionSectionSingleColliderHitTouchDetectionUseParts,,,Use parts,Use parts
@@ -15655,6 +15668,9 @@ Studio.AvatarSettings.PreviewToolbar.TestAsAvatar,,,Test as selected avatar,Test
 Studio.AvatarSettings.PreviewToolbar.SettingsVisibility,,,Toggle Settings Visibility,Toggle Settings Visibility
 Studio.AvatarSettings.PreviewToolbar.ResetAvatarsToCamera,,,Reset avatars to camera,Reset avatars to camera
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableTurning,,,Turning,Turning
+Studio.AvatarSettings.AnimationSettings.UserEmotesSection,,,Emotes,Emotes
+Studio.AvatarSettings.AnimationSettings.EnableEmotes,,,Enable Emotes,Enable Emotes
+Studio.AvatarSettings.AnimationSettings.EmotesDescription,,,Allow players to use emotes from their avatar.,Allow players to use emotes from their avatar.
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16191,8 +16207,8 @@ Studio.ScriptEditor.ReviewableChange.PreviousCommand,,,Go To Previous Reviewable
 Studio.ScriptEditor.ReviewableChange.NextCommand,,,Go To Next Reviewable Change,Go To Next Reviewable Change
 Studio.ScriptEditor.ReviewableChange.KeepCommand,,,Keep Current Reviewable Change,Keep Current Reviewable Change
 Studio.ScriptEditor.ReviewableChange.UndoCommand,,,Undo Current Reviewable Change,Undo Current Reviewable Change
-Studio.ScriptEditor.ReviewableChange.AddedTextColor,,,Reviewable Change Added Text Color,Reviewable Change Added Text Color
-Studio.ScriptEditor.ReviewableChange.RemovedTextColor,,,Reviewable Change Removed Text Color,Reviewable Change Removed Text Color
+Studio.ScriptEditor.ReviewableChange.AddedTextColor,,,Inserted Text Background,Inserted Text Background
+Studio.ScriptEditor.ReviewableChange.RemovedTextColor,,,Removed Text Background,Removed Text Background
 Studio.AudioActions.Action.FindPlaying,,,Find Playing,Find Playing
 Studio.AudioActions.Action.InsertBefore,,,Insert Before...,Insert Before...
 Studio.AudioActions.Action.Insert,,,%s,%s
@@ -17030,6 +17046,22 @@ Studio.NetworkSettings.SettingsCategory.NetworkSimulation,,,Network Simulation,N
 Studio.NetworkSettings.Property.OutboundNetworkMaxDelay,,,Max Outbound Delay (0-2000ms),Max Outbound Delay (0-2000ms)
 Studio.NetworkSettings.Property.InboundNetworkMaxDelay,,,Max Inbound Delay (0-2000ms),Max Inbound Delay (0-2000ms)
 Studio.NetworkSettings.SettingsCategory.NetworkEmulation,,,Network Emulation,Network Emulation
+Studio.NetworkSettings.NetworkControl.Latency,,,Latency,Latency
+Studio.NetworkSettings.NetworkPreset.WiredBroadband,,,Wired Broadband,Wired Broadband
+Studio.NetworkSettings.NetworkControl.Jitter,,,Jitter,Jitter
+Studio.NetworkSettings.Network.Name,,,Network,Network
+Studio.NetworkSettings.NetworkControl.Preset,,,Preset,Preset
+Studio.NetworkSettings.NetworkControl.PacketLoss,,,Packet loss,Packet loss
+Studio.NetworkSettings.NetworkControl.Inbound,,,Inbound,Inbound
+Studio.NetworkSettings.NetworkControl.Outbound,,,Outbound,Outbound
+Studio.NetworkSettings.NetworkPreset.IdealFiber,,,Ideal Fiber,Ideal Fiber
+Studio.NetworkSettings.NetworkPreset.HomeWifi,,,Home Wi-Fi,Home Wi-Fi
+Studio.NetworkSettings.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
+Studio.NetworkSettings.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
+Studio.NetworkSettings.NetworkType.Wifi,,,Wifi,Wifi
+Studio.NetworkSettings.NetworkType.Cellular3G,,,3G,3G
+Studio.NetworkSettings.NetworkType.Cellular4G,,,4G,4G
+Studio.NetworkSettings.NetworkType.Lan,,,LAN,LAN
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Friends for {age:int} years,Friends for {age:int} years
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneYear,,,Connected for one year,Connected for one year
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age:int} months,Connected for {age:int} months
@@ -17228,11 +17260,17 @@ Studio.InputActionManager.Status.CompositeKeycodeTitle,,,Duplicate Composite Key
 Studio.InputActionManager.Status.CompositeKeycodeDescription,,,Keycode already in use for another direction.,Keycode already in use for another direction.
 Studio.InputActionManager.Menu.Duplicate,,,Duplicate,Duplicate
 Studio.InputActionManager.Header.State,,,State,State
+Studio.InputActionManager.Cell.PickButton,,,Pick Button,Pick Button
+Studio.InputActionManager.Cell.None,,,None,None
+Studio.InputActionManager.Status.ModifierButtonTitle,,,Modifier Button,Modifier Button
+Studio.InputActionManager.Studio.ModifierButtonDescription,,,The primary modifier must be different from the binding's assigned UI button.,The primary modifier must be different from the binding's assigned UI button.
+Studio.InputActionManager.Status.ModifierButtonDescription,,,The primary modifier must be different from the binding's assigned UI button.,The primary modifier must be different from the binding's assigned UI button.
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
 Studio.AdPlacementManager.Plugin.Button,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Name,,,Ad Placement Manager,Ad Placement Manager
+Studio.TerrainPaletteEditor.Plugin.DuplicateMenuItem,,,Duplicate,Duplicate
 Studio.UpradedUIGradientBeta.Studio.BetaFeatures.UpgradedUIGradientsDescription,,,"New gradient types (radial & conic), tile modes, and gradient scale controls.","New gradient types (radial & conic), tile modes, and gradient scale controls."
 Studio.UpradedUIGradientBeta.Studio.BetaFeatures.UpgradedUIGradientsTitle,,,Upgraded UIGradients,Upgraded UIGradients
 Studio.DeviceSimulatorToolbar.Toolbar.VirtualController,,,Virtual controller,Virtual controller
@@ -17317,6 +17355,8 @@ Studio.DeviceSimulatorToolbar.SavePreset.ReservedDescription,,,"""{presetName}""
 Studio.DeviceSimulatorToolbar.SavePreset.OverwriteDescription,,,"A preset named ""{presetName}"" already exists and will be replaced.","A preset named ""{presetName}"" already exists and will be replaced."
 Studio.DeviceSimulatorToolbar.SavePreset.Replace,,,Replace,Replace
 Studio.DeviceSimulatorToolbar.SavePreset.NamePlaceholder,,,Preset name,Preset name
+Studio.DeviceSimulatorToolbar.SavePreset.SaveAndApply,,,Save & Apply,Save & Apply
+Studio.DeviceSimulatorToolbar.SavePreset.ReplaceAndApply,,,Replace & Apply,Replace & Apply
 Studio.AutoRecovery.FileFoundDialog.Title,,,Auto Recovery File Found,Auto Recovery File Found
 Studio.AutoRecovery.FileFoundDialog.Body,,,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?
 Studio.AutoRecovery.FileFoundDialog.Review,,,Review,Review
@@ -17353,3 +17393,5 @@ Studio.DeviceSimulator.NetworkPreset.WiredBroadband,,,Wired Broadband,Wired Broa
 Studio.DeviceSimulator.NetworkPreset.HomeWifi,,,Home Wi-Fi,Home Wi-Fi
 Studio.DeviceSimulator.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
 Studio.DeviceSimulator.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
+Studio.SurfaceAppearancePropertyItem.SurfaceSlot.All,,,All,All
+Studio.SurfaceAppearancePropertyItem.SurfaceSlot.Invalid,,,"This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All.","This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All."
