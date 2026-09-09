@@ -77,15 +77,15 @@ PROTO_4:
         1 GETTABLEKS                       R2 R2 K0 ["saveGizmos"]
         3 MOVE                             R3 R0
         4 MOVE                             R4 R1
-        5 CALL                             R2 2 0
-        6 GETTABLEKS                       R2 R0 K1 ["_operation"]
-        8 JUMPIFNOT                        R2 ; [+8]
-        9 GETTABLEKS                       R2 R0 K1 ["_operation"]
-       11 NAMECALL                         R4 R0 K2 ["getPayload"]
-       13 CALL                             R4 1 -1
-       14 NAMECALL                         R2 R2 K3 ["updatePayload"]
-       16 CALL                             R2 -1 0
-       17 RETURN                           R0 0
+        5 CALL                             R2 2 1
+        6 GETTABLEKS                       R3 R0 K1 ["_operation"]
+        8 JUMPIFNOT                        R3 ; [+8]
+        9 GETTABLEKS                       R3 R0 K1 ["_operation"]
+       11 NAMECALL                         R5 R0 K2 ["getPayload"]
+       13 CALL                             R5 1 -1
+       14 NAMECALL                         R3 R3 K3 ["updatePayload"]
+       16 CALL                             R3 -1 0
+       17 RETURN                           R2 1
 
 PROTO_5:
         0 GETUPVAL                         R2 0

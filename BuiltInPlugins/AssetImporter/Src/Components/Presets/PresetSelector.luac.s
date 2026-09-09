@@ -184,7 +184,21 @@ PROTO_5:
        48 GETIMPORT                        R8 K19 [Enum.TextTruncate.AtEnd]
        50 SETTABLEKS                       R8 R7 K13 ["TextTruncate"]
        52 CALL                             R5 2 1
-       53 RETURN                           R5 1
+       53 GETTABLEKS                       R6 R1 K12 ["Enabled"]
+       55 JUMPIF                           R6 ; [+18]
+       56 GETUPVAL                         R6 1
+       57 GETTABLEKS                       R6 R6 K5 ["createElement"]
+       59 LOADK                            R7 K20 ["CanvasGroup"]
+       60 DUPTABLE                         R8 K25 [{["BackgroundTransparency"] = 1, ["GroupTransparency"] = 0.5, ["LayoutOrder"], ["Size"]}]
+       61 GETTABLEKS                       R9 R1 K7 ["LayoutOrder"]
+       63 SETTABLEKS                       R9 R8 K7 ["LayoutOrder"]
+       65 GETTABLEKS                       R9 R1 K11 ["Size"]
+       67 SETTABLEKS                       R9 R8 K11 ["Size"]
+       69 DUPTABLE                         R9 K27 [{"Dropdown"}]
+       70 SETTABLEKS                       R5 R9 K26 ["Dropdown"]
+       72 CALL                             R6 3 -1
+       73 RETURN                           R6 -1
+       74 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

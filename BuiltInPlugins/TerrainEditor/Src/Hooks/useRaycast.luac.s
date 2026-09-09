@@ -738,145 +738,163 @@ PROTO_14:
       152 CAPTURE                          VAL R6
       153 CAPTURE                          VAL R2
       154 NEWTABLE                         R24 0 4
-      156 MOVE                             R25 R9
-      157 MOVE                             R26 R2
-      158 MOVE                             R27 R0
-      159 MOVE                             R28 R21
-      160 SETLIST                          R24 R25 4 [1]
-      162 CALL                             R22 2 1
-      163 GETUPVAL                         R23 7
-      164 NEWCLOSURE                       R24 P5
-      165 CAPTURE                          VAL R4
-      166 CAPTURE                          VAL R1
-      167 CAPTURE                          UPVAL U6
-      168 CAPTURE                          UPVAL U8
-      169 CAPTURE                          VAL R17
-      170 CAPTURE                          UPVAL U16
-      171 CAPTURE                          UPVAL U17
-      172 CAPTURE                          VAL R20
-      173 CAPTURE                          UPVAL U9
-      174 CAPTURE                          VAL R3
-      175 CAPTURE                          VAL R5
-      176 CAPTURE                          VAL R16
-      177 CAPTURE                          VAL R11
-      178 CAPTURE                          VAL R19
-      179 CAPTURE                          VAL R12
-      180 CAPTURE                          UPVAL U18
-      181 CAPTURE                          VAL R15
-      182 CAPTURE                          UPVAL U19
-      183 CAPTURE                          UPVAL U3
-      184 CAPTURE                          UPVAL U20
-      185 CAPTURE                          UPVAL U21
-      186 CAPTURE                          VAL R9
-      187 CAPTURE                          VAL R0
-      188 CAPTURE                          VAL R8
-      189 CAPTURE                          UPVAL U22
-      190 CAPTURE                          UPVAL U23
-      191 NEWTABLE                         R25 0 12
-      193 NAMECALL                         R27 R3 K24 ["IsMouseDown"]
-      195 CALL                             R27 1 1
-      196 JUMPIFNOT                        R27 ; [+2]
-      197 MOVE                             R26 R9
-      198 JUMP                             ; [+1]
-      199 LOADB                            R26 1
-      200 MOVE                             R27 R11
-      201 MOVE                             R28 R19
-      202 MOVE                             R29 R20
-      203 GETUPVAL                         R32 6
-      204 GETTABLEKS                       R32 R32 K19 ["BrushSettings"]
-      206 GETTABLE                         R31 R1 R32
-      207 GETUPVAL                         R32 8
-      208 GETTABLEKS                       R32 R32 K25 ["IgnoreParts"]
-      210 GETTABLE                         R30 R31 R32
-      211 GETUPVAL                         R33 6
-      212 GETTABLEKS                       R33 R33 K19 ["BrushSettings"]
-      214 GETTABLE                         R32 R1 R33
-      215 GETUPVAL                         R33 8
-      216 GETTABLEKS                       R33 R33 K26 ["IgnoreWater"]
-      218 GETTABLE                         R31 R32 R33
-      219 GETUPVAL                         R34 6
-      220 GETTABLEKS                       R34 R34 K19 ["BrushSettings"]
-      222 GETTABLE                         R33 R1 R34
-      223 GETUPVAL                         R34 8
-      224 GETTABLEKS                       R34 R34 K27 ["Snapping"]
-      226 GETTABLE                         R32 R33 R34
-      227 GETUPVAL                         R35 6
-      228 GETTABLEKS                       R35 R35 K19 ["BrushSettings"]
-      230 GETTABLE                         R34 R1 R35
-      231 GETUPVAL                         R35 8
-      232 GETTABLEKS                       R35 R35 K28 ["FixedYPlane"]
-      234 GETTABLE                         R33 R34 R35
-      235 GETUPVAL                         R36 6
-      236 GETTABLEKS                       R36 R36 K19 ["BrushSettings"]
-      238 GETTABLE                         R35 R1 R36
-      239 GETUPVAL                         R36 8
-      240 GETTABLEKS                       R36 R36 K29 ["FixedYPlanePosition"]
-      242 GETTABLE                         R34 R35 R36
-      243 GETUPVAL                         R37 6
-      244 GETTABLEKS                       R37 R37 K19 ["BrushSettings"]
-      246 GETTABLE                         R36 R1 R37
-      247 GETUPVAL                         R37 8
-      248 GETTABLEKS                       R37 R37 K30 ["PlaneTransform"]
-      250 GETTABLE                         R35 R36 R37
-      251 GETUPVAL                         R38 6
-      252 GETTABLEKS                       R38 R38 K19 ["BrushSettings"]
-      254 GETTABLE                         R37 R1 R38
-      255 GETUPVAL                         R38 8
-      256 GETTABLEKS                       R38 R38 K22 ["PlaneLock"]
-      258 GETTABLE                         R36 R37 R38
-      259 MOVE                             R37 R0
-      260 SETLIST                          R25 R26 12 [1]
-      262 CALL                             R23 2 1
-      263 GETUPVAL                         R24 24
-      264 GETTABLEKS                       R25 R4 K31 ["Button1Down"]
-      266 NEWCLOSURE                       R26 P6
-      267 CAPTURE                          VAL R20
-      268 CAPTURE                          VAL R12
-      269 CAPTURE                          UPVAL U16
-      270 CAPTURE                          VAL R5
-      271 CAPTURE                          VAL R19
-      272 CAPTURE                          VAL R15
-      273 CAPTURE                          UPVAL U19
-      274 NEWTABLE                         R27 0 1
-      276 MOVE                             R28 R5
-      277 SETLIST                          R27 R28 1 [1]
-      279 CALL                             R24 3 0
-      280 GETUPVAL                         R24 24
-      281 GETTABLEKS                       R25 R4 K32 ["Button1Up"]
-      283 NEWCLOSURE                       R26 P7
-      284 CAPTURE                          VAL R11
-      285 CAPTURE                          UPVAL U16
-      286 CAPTURE                          VAL R12
-      287 CAPTURE                          VAL R15
-      288 NEWTABLE                         R27 0 1
-      290 MOVE                             R28 R11
-      291 SETLIST                          R27 R28 1 [1]
-      293 CALL                             R24 3 0
-      294 GETUPVAL                         R24 24
-      295 GETTABLEKS                       R25 R3 K33 ["MouseMoveAction"]
-      297 NEWCLOSURE                       R26 P8
-      298 CAPTURE                          VAL R13
-      299 CAPTURE                          VAL R14
-      300 NEWTABLE                         R27 0 1
-      302 MOVE                             R28 R13
-      303 SETLIST                          R27 R28 1 [1]
-      305 CALL                             R24 3 0
-      306 GETUPVAL                         R24 2
-      307 NEWCLOSURE                       R25 P9
-      308 CAPTURE                          VAL R22
-      309 CAPTURE                          VAL R23
-      310 CAPTURE                          VAL R3
-      311 CAPTURE                          UPVAL U25
-      312 CAPTURE                          VAL R13
-      313 CAPTURE                          VAL R14
-      314 NEWTABLE                         R26 0 1
-      316 MOVE                             R27 R22
-      317 SETLIST                          R26 R27 1 [1]
-      319 CALL                             R24 2 0
-      320 MOVE                             R24 R5
-      321 MOVE                             R25 R7
-      322 GETTABLEKS                       R26 R16 K34 ["current"]
-      324 RETURN                           R24 3
+      156 GETUPVAL                         R26 16
+      157 CALL                             R26 0 1
+      158 JUMPIFNOT                        R26 ; [+2]
+      159 LOADB                            R25 1
+      160 JUMP                             ; [+1]
+      161 MOVE                             R25 R9
+      162 MOVE                             R26 R2
+      163 GETUPVAL                         R28 16
+      164 CALL                             R28 0 1
+      165 JUMPIFNOT                        R28 ; [+2]
+      166 LOADB                            R27 1
+      167 JUMP                             ; [+1]
+      168 MOVE                             R27 R0
+      169 MOVE                             R28 R21
+      170 SETLIST                          R24 R25 4 [1]
+      172 CALL                             R22 2 1
+      173 GETUPVAL                         R23 7
+      174 NEWCLOSURE                       R24 P5
+      175 CAPTURE                          VAL R4
+      176 CAPTURE                          VAL R1
+      177 CAPTURE                          UPVAL U6
+      178 CAPTURE                          UPVAL U8
+      179 CAPTURE                          VAL R17
+      180 CAPTURE                          UPVAL U17
+      181 CAPTURE                          UPVAL U18
+      182 CAPTURE                          VAL R20
+      183 CAPTURE                          UPVAL U9
+      184 CAPTURE                          VAL R3
+      185 CAPTURE                          VAL R5
+      186 CAPTURE                          VAL R16
+      187 CAPTURE                          VAL R11
+      188 CAPTURE                          VAL R19
+      189 CAPTURE                          VAL R12
+      190 CAPTURE                          UPVAL U19
+      191 CAPTURE                          VAL R15
+      192 CAPTURE                          UPVAL U20
+      193 CAPTURE                          UPVAL U3
+      194 CAPTURE                          UPVAL U21
+      195 CAPTURE                          UPVAL U22
+      196 CAPTURE                          VAL R9
+      197 CAPTURE                          VAL R0
+      198 CAPTURE                          VAL R8
+      199 CAPTURE                          UPVAL U23
+      200 CAPTURE                          UPVAL U24
+      201 NEWTABLE                         R25 0 12
+      203 NAMECALL                         R27 R3 K24 ["IsMouseDown"]
+      205 CALL                             R27 1 1
+      206 JUMPIFNOT                        R27 ; [+2]
+      207 MOVE                             R26 R9
+      208 JUMP                             ; [+1]
+      209 LOADB                            R26 1
+      210 MOVE                             R27 R11
+      211 MOVE                             R28 R19
+      212 MOVE                             R29 R20
+      213 GETUPVAL                         R32 6
+      214 GETTABLEKS                       R32 R32 K19 ["BrushSettings"]
+      216 GETTABLE                         R31 R1 R32
+      217 GETUPVAL                         R32 8
+      218 GETTABLEKS                       R32 R32 K25 ["IgnoreParts"]
+      220 GETTABLE                         R30 R31 R32
+      221 GETUPVAL                         R33 6
+      222 GETTABLEKS                       R33 R33 K19 ["BrushSettings"]
+      224 GETTABLE                         R32 R1 R33
+      225 GETUPVAL                         R33 8
+      226 GETTABLEKS                       R33 R33 K26 ["IgnoreWater"]
+      228 GETTABLE                         R31 R32 R33
+      229 GETUPVAL                         R34 6
+      230 GETTABLEKS                       R34 R34 K19 ["BrushSettings"]
+      232 GETTABLE                         R33 R1 R34
+      233 GETUPVAL                         R34 8
+      234 GETTABLEKS                       R34 R34 K27 ["Snapping"]
+      236 GETTABLE                         R32 R33 R34
+      237 GETUPVAL                         R35 6
+      238 GETTABLEKS                       R35 R35 K19 ["BrushSettings"]
+      240 GETTABLE                         R34 R1 R35
+      241 GETUPVAL                         R35 8
+      242 GETTABLEKS                       R35 R35 K28 ["FixedYPlane"]
+      244 GETTABLE                         R33 R34 R35
+      245 GETUPVAL                         R36 6
+      246 GETTABLEKS                       R36 R36 K19 ["BrushSettings"]
+      248 GETTABLE                         R35 R1 R36
+      249 GETUPVAL                         R36 8
+      250 GETTABLEKS                       R36 R36 K29 ["FixedYPlanePosition"]
+      252 GETTABLE                         R34 R35 R36
+      253 GETUPVAL                         R37 6
+      254 GETTABLEKS                       R37 R37 K19 ["BrushSettings"]
+      256 GETTABLE                         R36 R1 R37
+      257 GETUPVAL                         R37 8
+      258 GETTABLEKS                       R37 R37 K30 ["PlaneTransform"]
+      260 GETTABLE                         R35 R36 R37
+      261 GETUPVAL                         R38 6
+      262 GETTABLEKS                       R38 R38 K19 ["BrushSettings"]
+      264 GETTABLE                         R37 R1 R38
+      265 GETUPVAL                         R38 8
+      266 GETTABLEKS                       R38 R38 K22 ["PlaneLock"]
+      268 GETTABLE                         R36 R37 R38
+      269 MOVE                             R37 R0
+      270 SETLIST                          R25 R26 12 [1]
+      272 CALL                             R23 2 1
+      273 GETUPVAL                         R24 25
+      274 GETTABLEKS                       R25 R4 K31 ["Button1Down"]
+      276 NEWCLOSURE                       R26 P6
+      277 CAPTURE                          VAL R20
+      278 CAPTURE                          VAL R12
+      279 CAPTURE                          UPVAL U17
+      280 CAPTURE                          VAL R5
+      281 CAPTURE                          VAL R19
+      282 CAPTURE                          VAL R15
+      283 CAPTURE                          UPVAL U20
+      284 NEWTABLE                         R27 0 1
+      286 MOVE                             R28 R5
+      287 SETLIST                          R27 R28 1 [1]
+      289 CALL                             R24 3 0
+      290 GETUPVAL                         R24 25
+      291 GETTABLEKS                       R25 R4 K32 ["Button1Up"]
+      293 NEWCLOSURE                       R26 P7
+      294 CAPTURE                          VAL R11
+      295 CAPTURE                          UPVAL U17
+      296 CAPTURE                          VAL R12
+      297 CAPTURE                          VAL R15
+      298 NEWTABLE                         R27 0 1
+      300 MOVE                             R28 R11
+      301 SETLIST                          R27 R28 1 [1]
+      303 CALL                             R24 3 0
+      304 GETUPVAL                         R24 25
+      305 GETTABLEKS                       R25 R3 K33 ["MouseMoveAction"]
+      307 NEWCLOSURE                       R26 P8
+      308 CAPTURE                          VAL R13
+      309 CAPTURE                          VAL R14
+      310 NEWTABLE                         R27 0 1
+      312 MOVE                             R28 R13
+      313 SETLIST                          R27 R28 1 [1]
+      315 CALL                             R24 3 0
+      316 GETUPVAL                         R24 2
+      317 NEWCLOSURE                       R25 P9
+      318 CAPTURE                          VAL R22
+      319 CAPTURE                          VAL R23
+      320 CAPTURE                          VAL R3
+      321 CAPTURE                          UPVAL U26
+      322 CAPTURE                          VAL R13
+      323 CAPTURE                          VAL R14
+      324 NEWTABLE                         R26 0 4
+      326 GETUPVAL                         R28 16
+      327 CALL                             R28 0 1
+      328 JUMPIFNOT                        R28 ; [+2]
+      329 MOVE                             R27 R23
+      330 JUMP                             ; [+1]
+      331 LOADB                            R27 1
+      332 MOVE                             R28 R22
+      333 MOVE                             R29 R13
+      334 MOVE                             R30 R3
+      335 SETLIST                          R26 R27 4 [1]
+      337 CALL                             R24 2 0
+      338 MOVE                             R24 R5
+      339 MOVE                             R25 R7
+      340 GETTABLEKS                       R26 R16 K34 ["current"]
+      342 RETURN                           R24 3
 
 MAIN:
         0 PREPVARARGS                      0
@@ -903,97 +921,103 @@ MAIN:
        37 CALL                             R7 1 1
        38 GETIMPORT                        R8 K5 [require]
        40 GETTABLEKS                       R9 R0 K13 ["Src"]
-       42 GETTABLEKS                       R9 R9 K16 ["Hooks"]
-       44 GETTABLEKS                       R9 R9 K17 ["useEventConnection"]
+       42 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       44 GETTABLEKS                       R9 R9 K17 ["getFFlagTerrainEditorOptimizeRaycastUpdates"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
        49 GETTABLEKS                       R10 R0 K13 ["Src"]
-       51 GETTABLEKS                       R10 R10 K16 ["Hooks"]
-       53 GETTABLEKS                       R10 R10 K18 ["useTerrain"]
+       51 GETTABLEKS                       R10 R10 K18 ["Hooks"]
+       53 GETTABLEKS                       R10 R10 K19 ["useEventConnection"]
        55 CALL                             R9 1 1
        56 GETIMPORT                        R10 K5 [require]
        58 GETTABLEKS                       R11 R0 K13 ["Src"]
-       60 GETTABLEKS                       R11 R11 K19 ["Resources"]
-       62 GETTABLEKS                       R11 R11 K20 ["Constants"]
+       60 GETTABLEKS                       R11 R11 K18 ["Hooks"]
+       62 GETTABLEKS                       R11 R11 K20 ["useTerrain"]
        64 CALL                             R10 1 1
        65 GETIMPORT                        R11 K5 [require]
        67 GETTABLEKS                       R12 R0 K13 ["Src"]
-       69 GETTABLEKS                       R12 R12 K21 ["Util"]
-       71 GETTABLEKS                       R12 R12 K22 ["ApplyPlaneLock"]
+       69 GETTABLEKS                       R12 R12 K21 ["Resources"]
+       71 GETTABLEKS                       R12 R12 K22 ["Constants"]
        73 CALL                             R11 1 1
        74 GETIMPORT                        R12 K5 [require]
        76 GETTABLEKS                       R13 R0 K13 ["Src"]
-       78 GETTABLEKS                       R13 R13 K21 ["Util"]
-       80 GETTABLEKS                       R13 R13 K23 ["ConvertForPivot"]
+       78 GETTABLEKS                       R13 R13 K23 ["Util"]
+       80 GETTABLEKS                       R13 R13 K24 ["ApplyPlaneLock"]
        82 CALL                             R12 1 1
        83 GETIMPORT                        R13 K5 [require]
        85 GETTABLEKS                       R14 R0 K13 ["Src"]
-       87 GETTABLEKS                       R14 R14 K21 ["Util"]
-       89 GETTABLEKS                       R14 R14 K24 ["getCameraLookPlane"]
+       87 GETTABLEKS                       R14 R14 K23 ["Util"]
+       89 GETTABLEKS                       R14 R14 K25 ["ConvertForPivot"]
        91 CALL                             R13 1 1
        92 GETIMPORT                        R14 K5 [require]
        94 GETTABLEKS                       R15 R0 K13 ["Src"]
-       96 GETTABLEKS                       R15 R15 K21 ["Util"]
-       98 GETTABLEKS                       R15 R15 K25 ["getPlaneIntersection"]
+       96 GETTABLEKS                       R15 R15 K23 ["Util"]
+       98 GETTABLEKS                       R15 R15 K26 ["getCameraLookPlane"]
       100 CALL                             R14 1 1
       101 GETIMPORT                        R15 K5 [require]
       103 GETTABLEKS                       R16 R0 K13 ["Src"]
-      105 GETTABLEKS                       R16 R16 K21 ["Util"]
-      107 GETTABLEKS                       R16 R16 K26 ["getSnappedToVoxel"]
+      105 GETTABLEKS                       R16 R16 K23 ["Util"]
+      107 GETTABLEKS                       R16 R16 K27 ["getPlaneIntersection"]
       109 CALL                             R15 1 1
-      110 GETIMPORT                        R16 K28 [game]
-      112 LOADK                            R18 K29 ["CoreGui"]
-      113 NAMECALL                         R16 R16 K30 ["GetService"]
-      115 CALL                             R16 2 1
-      116 GETIMPORT                        R17 K28 [game]
-      118 LOADK                            R19 K31 ["Players"]
-      119 NAMECALL                         R17 R17 K30 ["GetService"]
-      121 CALL                             R17 2 1
-      122 GETIMPORT                        R18 K28 [game]
-      124 LOADK                            R20 K32 ["RunService"]
-      125 NAMECALL                         R18 R18 K30 ["GetService"]
-      127 CALL                             R18 2 1
-      128 GETIMPORT                        R19 K28 [game]
-      130 LOADK                            R21 K33 ["Workspace"]
-      131 NAMECALL                         R19 R19 K30 ["GetService"]
-      133 CALL                             R19 2 1
-      134 GETIMPORT                        R20 K5 [require]
-      136 GETTABLEKS                       R21 R0 K13 ["Src"]
-      138 GETTABLEKS                       R21 R21 K34 ["Types"]
-      140 CALL                             R20 1 1
-      141 GETTABLEKS                       R21 R20 K35 ["BrushSettings"]
-      143 GETTABLEKS                       R22 R20 K36 ["BrushShape"]
-      145 GETTABLEKS                       R23 R20 K37 ["Category"]
-      147 GETTABLEKS                       R24 R20 K38 ["MaterialSettings"]
-      149 GETTABLEKS                       R25 R20 K39 ["PlaneLock"]
-      151 GETTABLEKS                       R26 R20 K40 ["RaycastType"]
-      153 GETTABLEKS                       R27 R20 K41 ["Snapping"]
-      155 GETTABLEKS                       R28 R20 K42 ["Tool"]
-      157 DUPCLOSURE                       R29 K43 [PROTO_14]
-      158 CAPTURE                          VAL R7
-      159 CAPTURE                          VAL R6
-      160 CAPTURE                          VAL R4
-      161 CAPTURE                          VAL R13
-      162 CAPTURE                          VAL R5
-      163 CAPTURE                          VAL R9
-      164 CAPTURE                          VAL R23
-      165 CAPTURE                          VAL R3
-      166 CAPTURE                          VAL R21
-      167 CAPTURE                          VAL R10
-      168 CAPTURE                          VAL R28
-      169 CAPTURE                          VAL R24
-      170 CAPTURE                          VAL R25
-      171 CAPTURE                          VAL R22
-      172 CAPTURE                          VAL R12
-      173 CAPTURE                          VAL R16
-      174 CAPTURE                          VAL R19
-      175 CAPTURE                          VAL R17
-      176 CAPTURE                          VAL R1
-      177 CAPTURE                          VAL R26
-      178 CAPTURE                          VAL R14
-      179 CAPTURE                          VAL R11
-      180 CAPTURE                          VAL R27
-      181 CAPTURE                          VAL R15
-      182 CAPTURE                          VAL R8
-      183 CAPTURE                          VAL R18
-      184 RETURN                           R29 1
+      110 GETIMPORT                        R16 K5 [require]
+      112 GETTABLEKS                       R17 R0 K13 ["Src"]
+      114 GETTABLEKS                       R17 R17 K23 ["Util"]
+      116 GETTABLEKS                       R17 R17 K28 ["getSnappedToVoxel"]
+      118 CALL                             R16 1 1
+      119 GETIMPORT                        R17 K30 [game]
+      121 LOADK                            R19 K31 ["CoreGui"]
+      122 NAMECALL                         R17 R17 K32 ["GetService"]
+      124 CALL                             R17 2 1
+      125 GETIMPORT                        R18 K30 [game]
+      127 LOADK                            R20 K33 ["Players"]
+      128 NAMECALL                         R18 R18 K32 ["GetService"]
+      130 CALL                             R18 2 1
+      131 GETIMPORT                        R19 K30 [game]
+      133 LOADK                            R21 K34 ["RunService"]
+      134 NAMECALL                         R19 R19 K32 ["GetService"]
+      136 CALL                             R19 2 1
+      137 GETIMPORT                        R20 K30 [game]
+      139 LOADK                            R22 K35 ["Workspace"]
+      140 NAMECALL                         R20 R20 K32 ["GetService"]
+      142 CALL                             R20 2 1
+      143 GETIMPORT                        R21 K5 [require]
+      145 GETTABLEKS                       R22 R0 K13 ["Src"]
+      147 GETTABLEKS                       R22 R22 K36 ["Types"]
+      149 CALL                             R21 1 1
+      150 GETTABLEKS                       R22 R21 K37 ["BrushSettings"]
+      152 GETTABLEKS                       R23 R21 K38 ["BrushShape"]
+      154 GETTABLEKS                       R24 R21 K39 ["Category"]
+      156 GETTABLEKS                       R25 R21 K40 ["MaterialSettings"]
+      158 GETTABLEKS                       R26 R21 K41 ["PlaneLock"]
+      160 GETTABLEKS                       R27 R21 K42 ["RaycastType"]
+      162 GETTABLEKS                       R28 R21 K43 ["Snapping"]
+      164 GETTABLEKS                       R29 R21 K44 ["Tool"]
+      166 DUPCLOSURE                       R30 K45 [PROTO_14]
+      167 CAPTURE                          VAL R7
+      168 CAPTURE                          VAL R6
+      169 CAPTURE                          VAL R4
+      170 CAPTURE                          VAL R14
+      171 CAPTURE                          VAL R5
+      172 CAPTURE                          VAL R10
+      173 CAPTURE                          VAL R24
+      174 CAPTURE                          VAL R3
+      175 CAPTURE                          VAL R22
+      176 CAPTURE                          VAL R11
+      177 CAPTURE                          VAL R29
+      178 CAPTURE                          VAL R25
+      179 CAPTURE                          VAL R26
+      180 CAPTURE                          VAL R23
+      181 CAPTURE                          VAL R13
+      182 CAPTURE                          VAL R17
+      183 CAPTURE                          VAL R8
+      184 CAPTURE                          VAL R20
+      185 CAPTURE                          VAL R18
+      186 CAPTURE                          VAL R1
+      187 CAPTURE                          VAL R27
+      188 CAPTURE                          VAL R15
+      189 CAPTURE                          VAL R12
+      190 CAPTURE                          VAL R28
+      191 CAPTURE                          VAL R16
+      192 CAPTURE                          VAL R9
+      193 CAPTURE                          VAL R19
+      194 RETURN                           R30 1

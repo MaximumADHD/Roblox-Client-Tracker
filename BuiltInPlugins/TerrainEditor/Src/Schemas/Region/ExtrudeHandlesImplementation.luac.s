@@ -40,29 +40,19 @@ PROTO_2:
         5 RETURN                           R4 -1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+6]
-        3 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
-        5 NAMECALL                         R3 R3 K1 ["isAltKeyDown"]
-        7 CALL                             R3 1 1
-        8 JUMPIF                           R3 ; [+9]
-        9 GETUPVAL                         R3 0
-       10 CALL                             R3 0 1
-       11 JUMPIF                           R3 ; [+8]
-       12 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
-       14 NAMECALL                         R3 R3 K2 ["isShiftKeyDown"]
-       16 CALL                             R3 1 1
-       17 JUMPIFNOT                        R3 ; [+2]
-       18 DUPTABLE                         R3 K7 [{["X"] = True, ["Y"] = True, ["Z"] = True}]
-       19 RETURN                           R3 1
-       20 NEWTABLE                         R3 0 3
-       22 DUPTABLE                         R4 K8 [{["X"] = True}]
-       23 DUPTABLE                         R5 K9 [{["Y"] = True}]
-       24 DUPTABLE                         R6 K10 [{["Z"] = True}]
-       25 SETLIST                          R3 R4 3 [1]
-       27 GETTABLE                         R4 R3 R2
-       28 RETURN                           R4 1
+        0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
+        2 NAMECALL                         R3 R3 K1 ["isShiftKeyDown"]
+        4 CALL                             R3 1 1
+        5 JUMPIFNOT                        R3 ; [+2]
+        6 DUPTABLE                         R3 K6 [{["X"] = True, ["Y"] = True, ["Z"] = True}]
+        7 RETURN                           R3 1
+        8 NEWTABLE                         R3 0 3
+       10 DUPTABLE                         R4 K7 [{["X"] = True}]
+       11 DUPTABLE                         R5 K8 [{["Y"] = True}]
+       12 DUPTABLE                         R6 K9 [{["Z"] = True}]
+       13 SETLIST                          R3 R4 3 [1]
+       15 GETTABLE                         R4 R3 R2
+       16 RETURN                           R4 1
 
 PROTO_4:
         0 GETTABLEKS                       R5 R0 K1 ["_max"]
@@ -246,37 +236,31 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K10 ["Resources"]
        31 GETTABLEKS                       R4 R4 K11 ["Constants"]
        33 CALL                             R3 1 1
-       34 GETIMPORT                        R4 K5 [require]
-       36 GETTABLEKS                       R5 R0 K6 ["Src"]
-       38 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       40 GETTABLEKS                       R5 R5 K13 ["getFFlagTerrainEditorUpdateShortcuts"]
-       42 CALL                             R4 1 1
-       43 NEWTABLE                         R5 16 0
-       45 SETTABLEKS                       R5 R5 K14 ["__index"]
-       47 DUPCLOSURE                       R6 K15 [PROTO_0]
-       48 CAPTURE                          VAL R5
-       49 SETTABLEKS                       R6 R5 K16 ["new"]
-       51 DUPCLOSURE                       R6 K17 [PROTO_1]
-       52 SETTABLEKS                       R6 R5 K18 ["getBoundingBox"]
-       54 DUPCLOSURE                       R6 K19 [PROTO_2]
-       55 SETTABLEKS                       R6 R5 K20 ["shouldScaleFromCenter"]
-       57 DUPCLOSURE                       R6 K21 [PROTO_3]
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R6 R5 K22 ["axesToScale"]
-       61 DUPCLOSURE                       R6 K23 [PROTO_4]
-       62 CAPTURE                          VAL R1
-       63 CAPTURE                          VAL R3
-       64 SETTABLEKS                       R6 R5 K24 ["getMinMaxSizes"]
-       66 DUPCLOSURE                       R6 K25 [PROTO_5]
-       67 SETTABLEKS                       R6 R5 K26 ["beginScale"]
-       69 DUPCLOSURE                       R6 K27 [PROTO_6]
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R3
-       72 SETTABLEKS                       R6 R5 K28 ["updateScale"]
-       74 DUPCLOSURE                       R6 K29 [PROTO_7]
-       75 SETTABLEKS                       R6 R5 K30 ["getPriority"]
-       77 DUPCLOSURE                       R6 K31 [PROTO_8]
-       78 SETTABLEKS                       R6 R5 K32 ["endScale"]
-       80 DUPCLOSURE                       R6 K33 [PROTO_9]
-       81 SETTABLEKS                       R6 R5 K34 ["render"]
-       83 RETURN                           R5 1
+       34 NEWTABLE                         R4 16 0
+       36 SETTABLEKS                       R4 R4 K12 ["__index"]
+       38 DUPCLOSURE                       R5 K13 [PROTO_0]
+       39 CAPTURE                          VAL R4
+       40 SETTABLEKS                       R5 R4 K14 ["new"]
+       42 DUPCLOSURE                       R5 K15 [PROTO_1]
+       43 SETTABLEKS                       R5 R4 K16 ["getBoundingBox"]
+       45 DUPCLOSURE                       R5 K17 [PROTO_2]
+       46 SETTABLEKS                       R5 R4 K18 ["shouldScaleFromCenter"]
+       48 DUPCLOSURE                       R5 K19 [PROTO_3]
+       49 SETTABLEKS                       R5 R4 K20 ["axesToScale"]
+       51 DUPCLOSURE                       R5 K21 [PROTO_4]
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R3
+       54 SETTABLEKS                       R5 R4 K22 ["getMinMaxSizes"]
+       56 DUPCLOSURE                       R5 K23 [PROTO_5]
+       57 SETTABLEKS                       R5 R4 K24 ["beginScale"]
+       59 DUPCLOSURE                       R5 K25 [PROTO_6]
+       60 CAPTURE                          VAL R2
+       61 CAPTURE                          VAL R3
+       62 SETTABLEKS                       R5 R4 K26 ["updateScale"]
+       64 DUPCLOSURE                       R5 K27 [PROTO_7]
+       65 SETTABLEKS                       R5 R4 K28 ["getPriority"]
+       67 DUPCLOSURE                       R5 K29 [PROTO_8]
+       68 SETTABLEKS                       R5 R4 K30 ["endScale"]
+       70 DUPCLOSURE                       R5 K31 [PROTO_9]
+       71 SETTABLEKS                       R5 R4 K32 ["render"]
+       73 RETURN                           R4 1

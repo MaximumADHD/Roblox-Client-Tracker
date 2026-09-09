@@ -2,43 +2,45 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 2
         2 GETUPVAL                         R2 1
-        3 CALL                             R2 0 1
-        4 GETUPVAL                         R3 2
-        5 GETTABLEKS                       R3 R3 K0 ["createElement"]
-        7 GETUPVAL                         R4 3
-        8 GETTABLEKS                       R4 R4 K1 ["View"]
-       10 DUPTABLE                         R5 K7 [{["Size"], ["tag"] = "position-center-center anchor-center-center", ["testId"] = "folder-thumbnail-content"}]
-       11 GETIMPORT                        R6 K10 [UDim2.fromOffset]
-       13 MOVE                             R7 R1
-       14 MOVE                             R8 R1
-       15 CALL                             R6 2 1
-       16 SETTABLEKS                       R6 R5 K2 ["Size"]
-       18 NEWTABLE                         R6 0 1
-       20 GETUPVAL                         R7 2
-       21 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       23 GETUPVAL                         R8 3
-       24 GETTABLEKS                       R8 R8 K11 ["Icon"]
-       26 DUPTABLE                         R9 K16 [{"name", "variant", "style", "size"}]
-       27 GETUPVAL                         R10 3
-       28 GETTABLEKS                       R10 R10 K17 ["Enums"]
-       30 GETTABLEKS                       R10 R10 K18 ["IconName"]
-       32 GETTABLEKS                       R10 R10 K19 ["Folder"]
-       34 SETTABLEKS                       R10 R9 K12 ["name"]
-       36 GETUPVAL                         R10 3
-       37 GETTABLEKS                       R10 R10 K17 ["Enums"]
-       39 GETTABLEKS                       R10 R10 K20 ["IconVariant"]
-       41 GETTABLEKS                       R10 R10 K21 ["Filled"]
-       43 SETTABLEKS                       R10 R9 K13 ["variant"]
-       45 GETTABLEKS                       R10 R2 K22 ["Color"]
-       47 GETTABLEKS                       R10 R10 K23 ["Extended"]
-       49 GETTABLEKS                       R10 R10 K24 ["Yellow"]
-       51 GETTABLEKS                       R10 R10 K25 ["Yellow_300"]
-       53 SETTABLEKS                       R10 R9 K14 ["style"]
-       55 SETTABLEKS                       R1 R9 K15 ["size"]
-       57 CALL                             R7 2 -1
-       58 SETLIST                          R6 R7 -1 [1]
-       60 CALL                             R3 3 -1
-       61 RETURN                           R3 -1
+        3 GETTABLEKS                       R2 R2 K0 ["Hooks"]
+        5 GETTABLEKS                       R2 R2 K1 ["useTokens"]
+        7 CALL                             R2 0 1
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R3 R3 K2 ["createElement"]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K3 ["View"]
+       14 DUPTABLE                         R5 K9 [{["Size"], ["tag"] = "position-center-center anchor-center-center", ["testId"] = "folder-thumbnail-content"}]
+       15 GETIMPORT                        R6 K12 [UDim2.fromOffset]
+       17 MOVE                             R7 R1
+       18 MOVE                             R8 R1
+       19 CALL                             R6 2 1
+       20 SETTABLEKS                       R6 R5 K4 ["Size"]
+       22 NEWTABLE                         R6 0 1
+       24 GETUPVAL                         R7 2
+       25 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       27 GETUPVAL                         R8 1
+       28 GETTABLEKS                       R8 R8 K13 ["Icon"]
+       30 DUPTABLE                         R9 K18 [{"name", "variant", "style", "size"}]
+       31 GETUPVAL                         R10 1
+       32 GETTABLEKS                       R10 R10 K19 ["Enums"]
+       34 GETTABLEKS                       R10 R10 K20 ["IconName"]
+       36 GETTABLEKS                       R10 R10 K21 ["Folder"]
+       38 SETTABLEKS                       R10 R9 K14 ["name"]
+       40 GETUPVAL                         R10 1
+       41 GETTABLEKS                       R10 R10 K19 ["Enums"]
+       43 GETTABLEKS                       R10 R10 K22 ["IconVariant"]
+       45 GETTABLEKS                       R10 R10 K23 ["Filled"]
+       47 SETTABLEKS                       R10 R9 K15 ["variant"]
+       49 GETTABLEKS                       R10 R2 K24 ["Color"]
+       51 GETTABLEKS                       R10 R10 K25 ["Extended"]
+       53 GETTABLEKS                       R10 R10 K26 ["Yellow"]
+       55 GETTABLEKS                       R10 R10 K27 ["Yellow_300"]
+       57 SETTABLEKS                       R10 R9 K16 ["style"]
+       59 SETTABLEKS                       R1 R9 K17 ["size"]
+       61 CALL                             R7 2 -1
+       62 SETLIST                          R6 R7 -1 [1]
+       64 CALL                             R3 3 -1
+       65 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -185,39 +187,36 @@ MAIN:
        30 GETTABLEKS                       R5 R0 K9 ["Src"]
        32 GETTABLEKS                       R5 R5 K11 ["Networking"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R5 R2 K12 ["Hooks"]
-       37 GETTABLEKS                       R5 R5 K13 ["useTokens"]
-       39 GETIMPORT                        R6 K5 [require]
-       41 GETTABLEKS                       R7 R0 K9 ["Src"]
-       43 GETTABLEKS                       R7 R7 K12 ["Hooks"]
-       45 GETTABLEKS                       R7 R7 K14 ["useLayoutInfo"]
-       47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K5 [require]
-       50 GETTABLEKS                       R8 R0 K9 ["Src"]
-       52 GETTABLEKS                       R8 R8 K15 ["Resources"]
-       54 GETTABLEKS                       R8 R8 K16 ["PluginStyles"]
-       56 CALL                             R7 1 1
-       57 GETIMPORT                        R8 K5 [require]
-       59 GETIMPORT                        R9 K1 [script]
-       61 GETTABLEKS                       R9 R9 K17 ["Shimmer"]
-       63 CALL                             R8 1 1
-       64 GETIMPORT                        R9 K5 [require]
-       66 GETTABLEKS                       R10 R0 K9 ["Src"]
-       68 GETTABLEKS                       R10 R10 K18 ["Util"]
-       70 GETTABLEKS                       R10 R10 K19 ["Images"]
-       72 CALL                             R9 1 1
-       73 DUPCLOSURE                       R10 K20 [PROTO_0]
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          VAL R2
-       78 DUPCLOSURE                       R11 K21 [PROTO_3]
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R10
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R9
-       85 CAPTURE                          VAL R8
-       86 CAPTURE                          VAL R7
-       87 RETURN                           R11 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K9 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Hooks"]
+       41 GETTABLEKS                       R6 R6 K13 ["useLayoutInfo"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K9 ["Src"]
+       48 GETTABLEKS                       R7 R7 K14 ["Resources"]
+       50 GETTABLEKS                       R7 R7 K15 ["PluginStyles"]
+       52 CALL                             R6 1 1
+       53 GETIMPORT                        R7 K5 [require]
+       55 GETIMPORT                        R8 K1 [script]
+       57 GETTABLEKS                       R8 R8 K16 ["Shimmer"]
+       59 CALL                             R7 1 1
+       60 GETIMPORT                        R8 K5 [require]
+       62 GETTABLEKS                       R9 R0 K9 ["Src"]
+       64 GETTABLEKS                       R9 R9 K17 ["Util"]
+       66 GETTABLEKS                       R9 R9 K18 ["Images"]
+       68 CALL                             R8 1 1
+       69 DUPCLOSURE                       R9 K19 [PROTO_0]
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R2
+       72 CAPTURE                          VAL R1
+       73 DUPCLOSURE                       R10 K20 [PROTO_3]
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          VAL R9
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          VAL R8
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R6
+       82 RETURN                           R10 1

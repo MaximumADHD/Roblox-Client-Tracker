@@ -17,9 +17,11 @@ PROTO_1:
         8 RETURN                           R0 0
 
 PROTO_2:
-        0 SETTABLEKS                       R9 R0 K0 ["lastAdditionalParameters"]
-        2 GETTABLEKS                       R10 R0 K1 ["mockAssetId"]
-        4 RETURN                           R10 1
+        0 GETUPVAL                         R10 0
+        1 SETTABLEKS                       R2 R10 K0 ["lastOperationId"]
+        3 SETTABLEKS                       R9 R0 K1 ["lastAdditionalParameters"]
+        5 GETTABLEKS                       R10 R0 K2 ["mockAssetId"]
+        7 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -32,6 +34,9 @@ MAIN:
        10 SETTABLEKS                       R1 R0 K3 ["new"]
        12 DUPCLOSURE                       R1 K4 [PROTO_1]
        13 SETTABLEKS                       R1 R0 K5 ["TagEmoteAnimation"]
-       15 DUPCLOSURE                       R1 K6 [PROTO_2]
-       16 SETTABLEKS                       R1 R0 K7 ["CreateAssetAndWaitForAssetId"]
-       18 RETURN                           R0 1
+       15 LOADNIL                          R1
+       16 SETTABLEKS                       R1 R0 K6 ["lastOperationId"]
+       18 DUPCLOSURE                       R1 K7 [PROTO_2]
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R1 R0 K8 ["CreateAssetAndWaitForAssetId"]
+       22 RETURN                           R0 1

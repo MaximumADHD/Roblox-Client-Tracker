@@ -181,7 +181,7 @@ PROTO_5:
       186 SUBK                             R18 R19 K32 [10]
       187 CALL                             R14 4 1
       188 GETTABLEKS                       R15 R0 K33 ["Enabled"]
-      190 JUMPIFNOT                        R15 ; [+189]
+      190 JUMPIFNOT                        R15 ; [+197]
       191 GETUPVAL                         R15 8
       192 GETTABLEKS                       R15 R15 K13 ["createElement"]
       194 GETUPVAL                         R16 14
@@ -292,28 +292,35 @@ PROTO_5:
       343 LOADN                            R26 1
       344 SETTABLEKS                       R26 R25 K65 ["BackgroundTransparency"]
       346 SETTABLEKS                       R5 R25 K66 ["ForwardRef"]
-      348 GETUPVAL                         R26 8
-      349 GETTABLEKS                       R26 R26 K67 ["Change"]
-      351 GETTABLEKS                       R26 R26 K68 ["AbsoluteSize"]
-      353 SETTABLE                         R8 R25 R26
-      354 DUPTABLE                         R26 K72 [{"Analyzer", "Curve", "Handles"}]
-      355 GETUPVAL                         R27 8
-      356 GETTABLEKS                       R27 R27 K13 ["createElement"]
-      358 GETUPVAL                         R28 19
-      359 DUPTABLE                         R29 K73 [{"Enabled", "PlotAbsoluteSize"}]
-      360 GETTABLEKS                       R30 R0 K9 ["AnalysisEnabled"]
-      362 SETTABLEKS                       R30 R29 K33 ["Enabled"]
-      364 SETTABLEKS                       R3 R29 K15 ["PlotAbsoluteSize"]
-      366 CALL                             R27 2 1
-      367 SETTABLEKS                       R27 R26 K69 ["Analyzer"]
-      369 SETTABLEKS                       R12 R26 K70 ["Curve"]
-      371 SETTABLEKS                       R13 R26 K71 ["Handles"]
-      373 CALL                             R23 3 1
-      374 SETTABLEKS                       R23 R22 K62 ["PlotCanvas"]
-      376 CALL                             R19 3 1
-      377 SETTABLEKS                       R19 R18 K41 ["Canvas"]
-      379 CALL                             R15 3 1
-      380 RETURN                           R15 1
+      348 GETUPVAL                         R27 19
+      349 CALL                             R27 0 1
+      350 JUMPIFNOT                        R27 ; [+2]
+      351 LOADN                            R26 1
+      352 JUMP                             ; [+1]
+      353 LOADNIL                          R26
+      354 SETTABLEKS                       R26 R25 K67 ["ZIndex"]
+      356 GETUPVAL                         R26 8
+      357 GETTABLEKS                       R26 R26 K68 ["Change"]
+      359 GETTABLEKS                       R26 R26 K69 ["AbsoluteSize"]
+      361 SETTABLE                         R8 R25 R26
+      362 DUPTABLE                         R26 K73 [{"Analyzer", "Curve", "Handles"}]
+      363 GETUPVAL                         R27 8
+      364 GETTABLEKS                       R27 R27 K13 ["createElement"]
+      366 GETUPVAL                         R28 20
+      367 DUPTABLE                         R29 K74 [{"Enabled", "PlotAbsoluteSize"}]
+      368 GETTABLEKS                       R30 R0 K9 ["AnalysisEnabled"]
+      370 SETTABLEKS                       R30 R29 K33 ["Enabled"]
+      372 SETTABLEKS                       R3 R29 K15 ["PlotAbsoluteSize"]
+      374 CALL                             R27 2 1
+      375 SETTABLEKS                       R27 R26 K70 ["Analyzer"]
+      377 SETTABLEKS                       R12 R26 K71 ["Curve"]
+      379 SETTABLEKS                       R13 R26 K72 ["Handles"]
+      381 CALL                             R23 3 1
+      382 SETTABLEKS                       R23 R22 K62 ["PlotCanvas"]
+      384 CALL                             R19 3 1
+      385 SETTABLEKS                       R19 R18 K41 ["Canvas"]
+      387 CALL                             R15 3 1
+      388 RETURN                           R15 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -368,33 +375,40 @@ MAIN:
        85 GETIMPORT                        R20 K6 [require]
        87 GETTABLEKS                       R21 R0 K28 ["useNodeHook"]
        89 CALL                             R20 1 1
-       90 GETIMPORT                        R21 K31 [Vector2.new]
-       92 LOADN                            R22 540
-       93 LOADN                            R23 300
-       94 CALL                             R21 2 1
-       95 GETIMPORT                        R22 K31 [Vector2.new]
-       97 LOADN                            R23 2000
-       98 LOADN                            R24 2000
-       99 CALL                             R22 2 1
-      100 DUPCLOSURE                       R23 K32 [PROTO_5]
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R9
-      103 CAPTURE                          VAL R7
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R3
-      106 CAPTURE                          VAL R20
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R12
-      109 CAPTURE                          VAL R2
-      110 CAPTURE                          VAL R14
-      111 CAPTURE                          VAL R15
-      112 CAPTURE                          VAL R16
-      113 CAPTURE                          VAL R17
-      114 CAPTURE                          VAL R18
-      115 CAPTURE                          VAL R10
-      116 CAPTURE                          VAL R21
-      117 CAPTURE                          VAL R22
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R19
-      120 CAPTURE                          VAL R13
-      121 RETURN                           R23 1
+       90 GETIMPORT                        R21 K6 [require]
+       92 GETTABLEKS                       R22 R1 K29 ["Bin"]
+       94 GETTABLEKS                       R22 R22 K30 ["Common"]
+       96 GETTABLEKS                       R22 R22 K31 ["defineLuaFlags"]
+       98 CALL                             R21 1 1
+       99 GETTABLEKS                       R22 R21 K32 ["getFFlagAudioEqualizerZIndexFix"]
+      101 GETIMPORT                        R23 K35 [Vector2.new]
+      103 LOADN                            R24 540
+      104 LOADN                            R25 300
+      105 CALL                             R23 2 1
+      106 GETIMPORT                        R24 K35 [Vector2.new]
+      108 LOADN                            R25 2000
+      109 LOADN                            R26 2000
+      110 CALL                             R24 2 1
+      111 DUPCLOSURE                       R25 K36 [PROTO_5]
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          VAL R9
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R3
+      117 CAPTURE                          VAL R20
+      118 CAPTURE                          VAL R5
+      119 CAPTURE                          VAL R12
+      120 CAPTURE                          VAL R2
+      121 CAPTURE                          VAL R14
+      122 CAPTURE                          VAL R15
+      123 CAPTURE                          VAL R16
+      124 CAPTURE                          VAL R17
+      125 CAPTURE                          VAL R18
+      126 CAPTURE                          VAL R10
+      127 CAPTURE                          VAL R23
+      128 CAPTURE                          VAL R24
+      129 CAPTURE                          VAL R11
+      130 CAPTURE                          VAL R19
+      131 CAPTURE                          VAL R22
+      132 CAPTURE                          VAL R13
+      133 RETURN                           R25 1

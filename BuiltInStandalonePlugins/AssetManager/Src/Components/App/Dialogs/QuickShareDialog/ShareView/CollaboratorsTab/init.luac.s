@@ -3,61 +3,63 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
-        5 CALL                             R2 0 1
-        6 GETUPVAL                         R3 2
-        7 GETTABLEKS                       R3 R3 K1 ["createElement"]
-        9 GETUPVAL                         R4 3
-       10 GETTABLEKS                       R4 R4 K2 ["Tooltip"]
-       12 DUPTABLE                         R5 K8 [{"LayoutOrder", "title", "text", "side", "align"}]
-       13 GETTABLEKS                       R6 R0 K3 ["LayoutOrder"]
-       15 SETTABLEKS                       R6 R5 K3 ["LayoutOrder"]
-       17 LOADK                            R8 K9 ["QuickShare"]
-       18 LOADK                            R9 K10 ["NoEditWarningTitle"]
-       19 NAMECALL                         R6 R1 K11 ["getText"]
-       21 CALL                             R6 3 1
-       22 SETTABLEKS                       R6 R5 K4 ["title"]
-       24 LOADK                            R8 K9 ["QuickShare"]
-       25 LOADK                            R9 K12 ["NoEditWarningDescription"]
-       26 NAMECALL                         R6 R1 K11 ["getText"]
-       28 CALL                             R6 3 1
-       29 SETTABLEKS                       R6 R5 K5 ["text"]
-       31 GETUPVAL                         R6 3
-       32 GETTABLEKS                       R6 R6 K13 ["Enums"]
-       34 GETTABLEKS                       R6 R6 K14 ["PopoverSide"]
-       36 GETTABLEKS                       R6 R6 K15 ["Top"]
-       38 SETTABLEKS                       R6 R5 K6 ["side"]
-       40 GETUPVAL                         R6 3
-       41 GETTABLEKS                       R6 R6 K13 ["Enums"]
-       43 GETTABLEKS                       R6 R6 K16 ["PopoverAlign"]
-       45 GETTABLEKS                       R6 R6 K17 ["Center"]
-       47 SETTABLEKS                       R6 R5 K7 ["align"]
-       49 GETUPVAL                         R6 2
-       50 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       52 GETUPVAL                         R7 3
-       53 GETTABLEKS                       R7 R7 K18 ["Icon"]
-       55 DUPTABLE                         R8 K23 [{"name", "size", "style", "variant"}]
-       56 GETUPVAL                         R9 3
-       57 GETTABLEKS                       R9 R9 K13 ["Enums"]
-       59 GETTABLEKS                       R9 R9 K24 ["IconName"]
-       61 GETTABLEKS                       R9 R9 K25 ["TriangleExclamation"]
-       63 SETTABLEKS                       R9 R8 K19 ["name"]
-       65 GETUPVAL                         R9 3
-       66 GETTABLEKS                       R9 R9 K13 ["Enums"]
-       68 GETTABLEKS                       R9 R9 K26 ["IconSize"]
-       70 GETTABLEKS                       R9 R9 K27 ["Small"]
-       72 SETTABLEKS                       R9 R8 K20 ["size"]
-       74 GETTABLEKS                       R9 R2 K28 ["Color"]
-       76 GETTABLEKS                       R9 R9 K29 ["System"]
-       78 GETTABLEKS                       R9 R9 K30 ["Warning"]
-       80 SETTABLEKS                       R9 R8 K21 ["style"]
-       82 GETUPVAL                         R9 3
-       83 GETTABLEKS                       R9 R9 K13 ["Enums"]
-       85 GETTABLEKS                       R9 R9 K31 ["IconVariant"]
-       87 GETTABLEKS                       R9 R9 K32 ["Filled"]
-       89 SETTABLEKS                       R9 R8 K22 ["variant"]
-       91 CALL                             R6 2 -1
-       92 CALL                             R3 -1 -1
-       93 RETURN                           R3 -1
+        5 GETTABLEKS                       R2 R2 K1 ["Hooks"]
+        7 GETTABLEKS                       R2 R2 K2 ["useTokens"]
+        9 CALL                             R2 0 1
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R3 R3 K3 ["createElement"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K4 ["Tooltip"]
+       16 DUPTABLE                         R5 K10 [{"LayoutOrder", "title", "text", "side", "align"}]
+       17 GETTABLEKS                       R6 R0 K5 ["LayoutOrder"]
+       19 SETTABLEKS                       R6 R5 K5 ["LayoutOrder"]
+       21 LOADK                            R8 K11 ["QuickShare"]
+       22 LOADK                            R9 K12 ["NoEditWarningTitle"]
+       23 NAMECALL                         R6 R1 K13 ["getText"]
+       25 CALL                             R6 3 1
+       26 SETTABLEKS                       R6 R5 K6 ["title"]
+       28 LOADK                            R8 K11 ["QuickShare"]
+       29 LOADK                            R9 K14 ["NoEditWarningDescription"]
+       30 NAMECALL                         R6 R1 K13 ["getText"]
+       32 CALL                             R6 3 1
+       33 SETTABLEKS                       R6 R5 K7 ["text"]
+       35 GETUPVAL                         R6 1
+       36 GETTABLEKS                       R6 R6 K15 ["Enums"]
+       38 GETTABLEKS                       R6 R6 K16 ["PopoverSide"]
+       40 GETTABLEKS                       R6 R6 K17 ["Top"]
+       42 SETTABLEKS                       R6 R5 K8 ["side"]
+       44 GETUPVAL                         R6 1
+       45 GETTABLEKS                       R6 R6 K15 ["Enums"]
+       47 GETTABLEKS                       R6 R6 K18 ["PopoverAlign"]
+       49 GETTABLEKS                       R6 R6 K19 ["Center"]
+       51 SETTABLEKS                       R6 R5 K9 ["align"]
+       53 GETUPVAL                         R6 2
+       54 GETTABLEKS                       R6 R6 K3 ["createElement"]
+       56 GETUPVAL                         R7 1
+       57 GETTABLEKS                       R7 R7 K20 ["Icon"]
+       59 DUPTABLE                         R8 K25 [{"name", "size", "style", "variant"}]
+       60 GETUPVAL                         R9 1
+       61 GETTABLEKS                       R9 R9 K15 ["Enums"]
+       63 GETTABLEKS                       R9 R9 K26 ["IconName"]
+       65 GETTABLEKS                       R9 R9 K27 ["TriangleExclamation"]
+       67 SETTABLEKS                       R9 R8 K21 ["name"]
+       69 GETUPVAL                         R9 1
+       70 GETTABLEKS                       R9 R9 K15 ["Enums"]
+       72 GETTABLEKS                       R9 R9 K28 ["IconSize"]
+       74 GETTABLEKS                       R9 R9 K29 ["Small"]
+       76 SETTABLEKS                       R9 R8 K22 ["size"]
+       78 GETTABLEKS                       R9 R2 K30 ["Color"]
+       80 GETTABLEKS                       R9 R9 K31 ["System"]
+       82 GETTABLEKS                       R9 R9 K32 ["Warning"]
+       84 SETTABLEKS                       R9 R8 K23 ["style"]
+       86 GETUPVAL                         R9 1
+       87 GETTABLEKS                       R9 R9 K15 ["Enums"]
+       89 GETTABLEKS                       R9 R9 K33 ["IconVariant"]
+       91 GETTABLEKS                       R9 R9 K34 ["Filled"]
+       93 SETTABLEKS                       R9 R8 K24 ["variant"]
+       95 CALL                             R6 2 -1
+       96 CALL                             R3 -1 -1
+       97 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -356,70 +358,67 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
        25 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R3 K10 ["Hooks"]
-       30 GETTABLEKS                       R4 R4 K11 ["useTokens"]
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K12 ["Framework"]
-       38 CALL                             R5 1 1
-       39 GETTABLEKS                       R6 R5 K13 ["ContextServices"]
-       41 GETTABLEKS                       R7 R6 K14 ["Localization"]
-       43 GETIMPORT                        R8 K5 [require]
-       45 GETTABLEKS                       R9 R0 K15 ["Src"]
-       47 GETTABLEKS                       R9 R9 K16 ["Controllers"]
-       49 GETTABLEKS                       R9 R9 K17 ["PluginController"]
-       51 CALL                             R8 1 1
-       52 GETIMPORT                        R9 K5 [require]
-       54 GETTABLEKS                       R10 R0 K15 ["Src"]
-       56 GETTABLEKS                       R10 R10 K18 ["Util"]
-       58 GETTABLEKS                       R10 R10 K19 ["Dialogs"]
-       60 GETTABLEKS                       R10 R10 K20 ["useQuickShareState"]
-       62 CALL                             R9 1 1
-       63 GETIMPORT                        R10 K5 [require]
-       65 GETIMPORT                        R11 K1 [script]
-       67 GETTABLEKS                       R11 R11 K21 ["CollaboratorsDropdown"]
-       69 CALL                             R10 1 1
-       70 GETIMPORT                        R11 K5 [require]
-       72 GETIMPORT                        R12 K1 [script]
-       74 GETTABLEKS                       R12 R12 K22 ["Parent"]
-       76 GETTABLEKS                       R12 R12 K23 ["SelectedView"]
-       78 CALL                             R11 1 1
-       79 GETIMPORT                        R12 K5 [require]
-       81 GETIMPORT                        R13 K1 [script]
-       83 GETTABLEKS                       R13 R13 K22 ["Parent"]
-       85 GETTABLEKS                       R13 R13 K24 ["SelectedEntry"]
-       87 CALL                             R12 1 1
-       88 GETIMPORT                        R13 K5 [require]
-       90 GETTABLEKS                       R14 R0 K15 ["Src"]
-       92 GETTABLEKS                       R14 R14 K25 ["Types"]
-       94 CALL                             R13 1 1
-       95 GETIMPORT                        R14 K5 [require]
-       97 GETTABLEKS                       R15 R0 K15 ["Src"]
-       99 GETTABLEKS                       R15 R15 K26 ["Resources"]
-      101 GETTABLEKS                       R15 R15 K27 ["StyleConstants"]
-      103 CALL                             R14 1 1
-      104 DUPCLOSURE                       R15 K28 [PROTO_0]
-      105 CAPTURE                          VAL R7
-      106 CAPTURE                          VAL R4
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["Framework"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
+       37 GETTABLEKS                       R6 R5 K12 ["Localization"]
+       39 GETIMPORT                        R7 K5 [require]
+       41 GETTABLEKS                       R8 R0 K13 ["Src"]
+       43 GETTABLEKS                       R8 R8 K14 ["Controllers"]
+       45 GETTABLEKS                       R8 R8 K15 ["PluginController"]
+       47 CALL                             R7 1 1
+       48 GETIMPORT                        R8 K5 [require]
+       50 GETTABLEKS                       R9 R0 K13 ["Src"]
+       52 GETTABLEKS                       R9 R9 K16 ["Util"]
+       54 GETTABLEKS                       R9 R9 K17 ["Dialogs"]
+       56 GETTABLEKS                       R9 R9 K18 ["useQuickShareState"]
+       58 CALL                             R8 1 1
+       59 GETIMPORT                        R9 K5 [require]
+       61 GETIMPORT                        R10 K1 [script]
+       63 GETTABLEKS                       R10 R10 K19 ["CollaboratorsDropdown"]
+       65 CALL                             R9 1 1
+       66 GETIMPORT                        R10 K5 [require]
+       68 GETIMPORT                        R11 K1 [script]
+       70 GETTABLEKS                       R11 R11 K20 ["Parent"]
+       72 GETTABLEKS                       R11 R11 K21 ["SelectedView"]
+       74 CALL                             R10 1 1
+       75 GETIMPORT                        R11 K5 [require]
+       77 GETIMPORT                        R12 K1 [script]
+       79 GETTABLEKS                       R12 R12 K20 ["Parent"]
+       81 GETTABLEKS                       R12 R12 K22 ["SelectedEntry"]
+       83 CALL                             R11 1 1
+       84 GETIMPORT                        R12 K5 [require]
+       86 GETTABLEKS                       R13 R0 K13 ["Src"]
+       88 GETTABLEKS                       R13 R13 K23 ["Types"]
+       90 CALL                             R12 1 1
+       91 GETIMPORT                        R13 K5 [require]
+       93 GETTABLEKS                       R14 R0 K13 ["Src"]
+       95 GETTABLEKS                       R14 R14 K24 ["Resources"]
+       97 GETTABLEKS                       R14 R14 K25 ["StyleConstants"]
+       99 CALL                             R13 1 1
+      100 DUPCLOSURE                       R14 K26 [PROTO_0]
+      101 CAPTURE                          VAL R6
+      102 CAPTURE                          VAL R3
+      103 CAPTURE                          VAL R1
+      104 DUPCLOSURE                       R15 K27 [PROTO_3]
+      105 CAPTURE                          VAL R6
+      106 CAPTURE                          VAL R12
       107 CAPTURE                          VAL R1
       108 CAPTURE                          VAL R3
-      109 DUPCLOSURE                       R16 K29 [PROTO_3]
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R13
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          VAL R3
-      114 CAPTURE                          VAL R14
-      115 DUPCLOSURE                       R17 K30 [PROTO_9]
-      116 CAPTURE                          VAL R8
-      117 CAPTURE                          VAL R13
-      118 CAPTURE                          VAL R7
-      119 CAPTURE                          VAL R9
-      120 CAPTURE                          VAL R1
-      121 CAPTURE                          VAL R3
-      122 CAPTURE                          VAL R10
-      123 CAPTURE                          VAL R11
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R15
-      127 CAPTURE                          VAL R16
-      128 RETURN                           R17 1
+      109 CAPTURE                          VAL R13
+      110 DUPCLOSURE                       R16 K28 [PROTO_9]
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R8
+      115 CAPTURE                          VAL R1
+      116 CAPTURE                          VAL R3
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R10
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          VAL R11
+      121 CAPTURE                          VAL R14
+      122 CAPTURE                          VAL R15
+      123 RETURN                           R16 1

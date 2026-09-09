@@ -109,19 +109,25 @@ PROTO_5:
        29 GETUPVAL                         R4 2
        30 GETTABLEKS                       R4 R4 K3 ["createElement"]
        32 GETUPVAL                         R5 5
-       33 DUPTABLE                         R6 K10 [{"catalog", "onCreateSlot", "onSlotSelected", "onViewTypeChanged", "request", "viewType"}]
+       33 DUPTABLE                         R6 K13 [{"catalog", "onCreateSlot", "onEditSlot", "onSlotSelected", "onSortTypeChanged", "onViewTypeChanged", "request", "sortType", "viewType"}]
        34 SETTABLEKS                       R1 R6 K4 ["catalog"]
        36 SETTABLEKS                       R3 R6 K5 ["onCreateSlot"]
-       38 GETTABLEKS                       R7 R0 K6 ["onSlotSelected"]
-       40 SETTABLEKS                       R7 R6 K6 ["onSlotSelected"]
-       42 GETTABLEKS                       R7 R0 K7 ["onViewTypeChanged"]
-       44 SETTABLEKS                       R7 R6 K7 ["onViewTypeChanged"]
-       46 GETTABLEKS                       R7 R0 K8 ["request"]
-       48 SETTABLEKS                       R7 R6 K8 ["request"]
-       50 GETTABLEKS                       R7 R0 K9 ["viewType"]
-       52 SETTABLEKS                       R7 R6 K9 ["viewType"]
-       54 CALL                             R4 2 -1
-       55 RETURN                           R4 -1
+       38 GETTABLEKS                       R7 R0 K6 ["onEditSlot"]
+       40 SETTABLEKS                       R7 R6 K6 ["onEditSlot"]
+       42 GETTABLEKS                       R7 R0 K7 ["onSlotSelected"]
+       44 SETTABLEKS                       R7 R6 K7 ["onSlotSelected"]
+       46 GETTABLEKS                       R7 R0 K8 ["onSortTypeChanged"]
+       48 SETTABLEKS                       R7 R6 K8 ["onSortTypeChanged"]
+       50 GETTABLEKS                       R7 R0 K9 ["onViewTypeChanged"]
+       52 SETTABLEKS                       R7 R6 K9 ["onViewTypeChanged"]
+       54 GETTABLEKS                       R7 R0 K10 ["request"]
+       56 SETTABLEKS                       R7 R6 K10 ["request"]
+       58 GETTABLEKS                       R7 R0 K11 ["sortType"]
+       60 SETTABLEKS                       R7 R6 K11 ["sortType"]
+       62 GETTABLEKS                       R7 R0 K12 ["viewType"]
+       64 SETTABLEKS                       R7 R6 K12 ["viewType"]
+       66 CALL                             R4 2 -1
+       67 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

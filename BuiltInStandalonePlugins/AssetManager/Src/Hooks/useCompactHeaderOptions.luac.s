@@ -357,37 +357,14 @@ PROTO_11:
        14 GETTABLEKS                       R1 R1 K4 ["use"]
        16 CALL                             R1 0 1
        17 SETTABLEKS                       R1 R0 K2 ["Localization"]
-       19 GETIMPORT                        R1 K7 [table.clone]
-       21 GETUPVAL                         R2 3
-       22 CALL                             R1 1 1
-       23 GETUPVAL                         R2 4
-       24 CALL                             R2 0 1
-       25 JUMPIF                           R2 ; [+23]
-       26 GETTABLEKS                       R2 R0 K2 ["Localization"]
-       28 LOADK                            R4 K8 ["AssetProperty"]
-       29 LOADK                            R5 K9 ["Creator"]
-       30 NAMECALL                         R2 R2 K10 ["getText"]
-       32 CALL                             R2 3 1
-       33 MOVE                             R3 R1
-       34 LOADNIL                          R4
-       35 LOADNIL                          R5
-       36 FORGPREP                         R3
-       37 GETTABLEKS                       R8 R7 K11 ["Text"]
-       39 JUMPIFNOTEQ                      R8 R2 ; [+7]
-       41 GETIMPORT                        R8 K13 [table.remove]
-       43 MOVE                             R9 R1
-       44 MOVE                             R10 R6
-       45 CALL                             R8 2 0
-       46 JUMP                             ; [+2]
-       47 FORGLOOP                         R3 2 ; [-11]
-       49 GETUPVAL                         R2 5
-       50 MOVE                             R3 R0
-       51 GETUPVAL                         R4 6
-       52 GETUPVAL                         R5 7
-       53 MOVE                             R6 R1
-       54 GETUPVAL                         R7 8
-       55 CALL                             R2 5 1
-       56 RETURN                           R2 1
+       19 GETUPVAL                         R1 3
+       20 MOVE                             R2 R0
+       21 GETUPVAL                         R3 4
+       22 GETUPVAL                         R4 5
+       23 GETUPVAL                         R5 6
+       24 GETUPVAL                         R6 7
+       25 CALL                             R1 5 1
+       26 RETURN                           R1 1
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -405,20 +382,19 @@ PROTO_12:
        14 CAPTURE                          UPVAL U5
        15 CAPTURE                          UPVAL U6
        16 CAPTURE                          UPVAL U7
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          UPVAL U8
-       19 CAPTURE                          UPVAL U9
-       20 CAPTURE                          VAL R1
-       21 CAPTURE                          VAL R3
-       22 CAPTURE                          VAL R5
-       23 NEWTABLE                         R8 0 4
-       25 MOVE                             R9 R1
-       26 MOVE                             R10 R3
-       27 MOVE                             R11 R0
-       28 MOVE                             R12 R5
-       29 SETLIST                          R8 R9 4 [1]
-       31 CALL                             R6 2 -1
-       32 RETURN                           R6 -1
+       17 CAPTURE                          UPVAL U8
+       18 CAPTURE                          VAL R1
+       19 CAPTURE                          VAL R3
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          VAL R5
+       22 NEWTABLE                         R8 0 4
+       24 MOVE                             R9 R1
+       25 MOVE                             R10 R3
+       26 MOVE                             R11 R0
+       27 MOVE                             R12 R5
+       28 SETLIST                          R8 R9 4 [1]
+       30 CALL                             R6 2 -1
+       31 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -479,29 +455,23 @@ MAIN:
        97 GETTABLEKS                       R14 R14 K19 ["Hooks"]
        99 GETTABLEKS                       R14 R14 K23 ["useSearchInfo"]
       101 CALL                             R13 1 1
-      102 GETIMPORT                        R14 K5 [require]
-      104 GETTABLEKS                       R15 R0 K6 ["Src"]
-      106 GETTABLEKS                       R15 R15 K24 ["Flags"]
-      108 GETTABLEKS                       R15 R15 K25 ["getFFlagAmrCompactEnableCreator"]
-      110 CALL                             R14 1 1
-      111 DUPCLOSURE                       R15 K26 [PROTO_0]
-      112 DUPCLOSURE                       R16 K27 [PROTO_5]
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R3
-      115 CAPTURE                          VAL R4
-      116 DUPCLOSURE                       R17 K28 [PROTO_6]
-      117 DUPCLOSURE                       R18 K29 [PROTO_10]
-      118 CAPTURE                          VAL R16
-      119 CAPTURE                          VAL R17
-      120 DUPCLOSURE                       R19 K30 [PROTO_12]
-      121 CAPTURE                          VAL R10
-      122 CAPTURE                          VAL R11
-      123 CAPTURE                          VAL R12
-      124 CAPTURE                          VAL R13
-      125 CAPTURE                          VAL R2
-      126 CAPTURE                          VAL R8
-      127 CAPTURE                          VAL R9
-      128 CAPTURE                          VAL R7
-      129 CAPTURE                          VAL R14
-      130 CAPTURE                          VAL R18
-      131 RETURN                           R19 1
+      102 DUPCLOSURE                       R14 K24 [PROTO_0]
+      103 DUPCLOSURE                       R15 K25 [PROTO_5]
+      104 CAPTURE                          VAL R1
+      105 CAPTURE                          VAL R3
+      106 CAPTURE                          VAL R4
+      107 DUPCLOSURE                       R16 K26 [PROTO_6]
+      108 DUPCLOSURE                       R17 K27 [PROTO_10]
+      109 CAPTURE                          VAL R15
+      110 CAPTURE                          VAL R16
+      111 DUPCLOSURE                       R18 K28 [PROTO_12]
+      112 CAPTURE                          VAL R10
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R12
+      115 CAPTURE                          VAL R13
+      116 CAPTURE                          VAL R2
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R17
+      121 RETURN                           R18 1

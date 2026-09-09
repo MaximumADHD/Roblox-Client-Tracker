@@ -37,15 +37,15 @@ MAIN:
        34 CALL                             R4 0 1
        35 SETTABLEKS                       R4 R3 K17 ["FFlagAssistantBuildName"]
        37 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-       39 LOADK                            R5 K18 ["AssistantFixToolDisappear2"]
+       39 LOADK                            R5 K18 ["AssistantDisableSafeEmptyTableJsonEncode"]
        40 CALL                             R4 1 1
        41 CALL                             R4 0 1
-       42 SETTABLEKS                       R4 R3 K19 ["FFlagAssistantFixToolDisappear"]
+       42 SETTABLEKS                       R4 R3 K19 ["FFlagAssistantDisableSafeEmptyTableJsonEncode"]
        44 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-       46 LOADK                            R5 K20 ["AssistantGetPlayStateFromMDI"]
+       46 LOADK                            R5 K20 ["AssistantFixToolDisappear2"]
        47 CALL                             R4 1 1
        48 CALL                             R4 0 1
-       49 SETTABLEKS                       R4 R3 K21 ["FFlagAssistantGetPlayStateFromMDI"]
+       49 SETTABLEKS                       R4 R3 K21 ["FFlagAssistantFixToolDisappear"]
        51 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
        53 LOADK                            R5 K22 ["AssistantLuaMaterialGenerator2"]
        54 CALL                             R4 1 1
@@ -77,65 +77,65 @@ MAIN:
        90 CALL                             R4 0 1
        91 SETTABLEKS                       R4 R3 K33 ["FFlagAssistantUseNewOpenAPIClients"]
        93 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-       95 LOADK                            R5 K34 ["AssistantDisableSafeEmptyTableJsonEncode"]
+       95 LOADK                            R5 K34 ["DebugAssistantCreditMeteringLogging"]
        96 CALL                             R4 1 1
        97 CALL                             R4 0 1
-       98 SETTABLEKS                       R4 R3 K35 ["FFlagAssistantDisableSafeEmptyTableJsonEncode"]
+       98 SETTABLEKS                       R4 R3 K35 ["FFlagDebugAssistantCreditMeteringLogging"]
       100 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      102 LOADK                            R5 K36 ["DebugAssistantCreditMeteringLogging"]
+      102 LOADK                            R5 K36 ["DebugAssistantForceCloseTooltip"]
       103 CALL                             R4 1 1
       104 CALL                             R4 0 1
-      105 SETTABLEKS                       R4 R3 K37 ["FFlagDebugAssistantCreditMeteringLogging"]
+      105 SETTABLEKS                       R4 R3 K37 ["FFlagDebugAssistantForceCloseTooltip"]
       107 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      109 LOADK                            R5 K38 ["DebugAssistantForceCloseTooltip"]
+      109 LOADK                            R5 K38 ["FixTargetIsNotReachable"]
       110 CALL                             R4 1 1
       111 CALL                             R4 0 1
-      112 SETTABLEKS                       R4 R3 K39 ["FFlagDebugAssistantForceCloseTooltip"]
+      112 SETTABLEKS                       R4 R3 K39 ["FFlagFixTargetIsNotReachable"]
       114 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      116 LOADK                            R5 K40 ["FixTargetIsNotReachable"]
+      116 LOADK                            R5 K40 ["GetOrCreateUniqueIdMethod2"]
       117 CALL                             R4 1 1
       118 CALL                             R4 0 1
-      119 SETTABLEKS                       R4 R3 K41 ["FFlagFixTargetIsNotReachable"]
+      119 SETTABLEKS                       R4 R3 K41 ["FFlagGetOrCreateUniqueIdMethod"]
       121 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      123 LOADK                            R5 K42 ["GetOrCreateUniqueIdMethod2"]
+      123 LOADK                            R5 K42 ["IsLuobuBuild"]
       124 CALL                             R4 1 1
       125 CALL                             R4 0 1
-      126 SETTABLEKS                       R4 R3 K43 ["FFlagGetOrCreateUniqueIdMethod"]
+      126 SETTABLEKS                       R4 R3 K43 ["FFlagIsLuobuBuild"]
       128 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      130 LOADK                            R5 K44 ["IsLuobuBuild"]
+      130 LOADK                            R5 K44 ["MaterialGeneratorCounterEnabled"]
       131 CALL                             R4 1 1
       132 CALL                             R4 0 1
-      133 SETTABLEKS                       R4 R3 K45 ["FFlagIsLuobuBuild"]
+      133 SETTABLEKS                       R4 R3 K45 ["FFlagMaterialGeneratorCounterEnabled"]
       135 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      137 LOADK                            R5 K46 ["MaterialGeneratorCounterEnabled"]
+      137 LOADK                            R5 K46 ["MCPAssistantPlaceID"]
       138 CALL                             R4 1 1
       139 CALL                             R4 0 1
-      140 SETTABLEKS                       R4 R3 K47 ["FFlagMaterialGeneratorCounterEnabled"]
+      140 SETTABLEKS                       R4 R3 K47 ["FFlagMCPAssistantPlaceID"]
       142 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      144 LOADK                            R5 K48 ["MCPAssistantPlaceID"]
+      144 LOADK                            R5 K48 ["MCPAssistantTooManyRequestLog"]
       145 CALL                             R4 1 1
       146 CALL                             R4 0 1
-      147 SETTABLEKS                       R4 R3 K49 ["FFlagMCPAssistantPlaceID"]
+      147 SETTABLEKS                       R4 R3 K49 ["FFlagMCPAssistantTooManyRequestLog"]
       149 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      151 LOADK                            R5 K50 ["MCPAssistantTooManyRequestLog"]
+      151 LOADK                            R5 K50 ["SendApplicationFieldFromAssistant"]
       152 CALL                             R4 1 1
       153 CALL                             R4 0 1
-      154 SETTABLEKS                       R4 R3 K51 ["FFlagMCPAssistantTooManyRequestLog"]
+      154 SETTABLEKS                       R4 R3 K51 ["FFlagSendApplicationFieldFromAssistant"]
       156 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      158 LOADK                            R5 K52 ["SendApplicationFieldFromAssistant"]
+      158 LOADK                            R5 K52 ["SkipExternalToolsNoDebugMode"]
       159 CALL                             R4 1 1
       160 CALL                             R4 0 1
-      161 SETTABLEKS                       R4 R3 K53 ["FFlagSendApplicationFieldFromAssistant"]
+      161 SETTABLEKS                       R4 R3 K53 ["FFlagSkipExternalToolsNoDebugMode"]
       163 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      165 LOADK                            R5 K54 ["SkipExternalToolsNoDebugMode"]
+      165 LOADK                            R5 K54 ["StudioAssistantCloseTooltip"]
       166 CALL                             R4 1 1
       167 CALL                             R4 0 1
-      168 SETTABLEKS                       R4 R3 K55 ["FFlagSkipExternalToolsNoDebugMode"]
+      168 SETTABLEKS                       R4 R3 K55 ["FFlagStudioAssistantCloseTooltip"]
       170 GETTABLEKS                       R4 R2 K15 ["createGetFFlag"]
-      172 LOADK                            R5 K56 ["StudioAssistantCloseTooltip"]
+      172 LOADK                            R5 K56 ["StudioDialogManagerSuppression"]
       173 CALL                             R4 1 1
       174 CALL                             R4 0 1
-      175 SETTABLEKS                       R4 R3 K57 ["FFlagStudioAssistantCloseTooltip"]
+      175 SETTABLEKS                       R4 R3 K57 ["FFlagStudioDialogManagerSuppression"]
       177 GETTABLEKS                       R4 R2 K58 ["createGetFInt"]
       179 LOADK                            R5 K59 ["AssistantAvatarAutoSetupIdleTimeoutMs"]
       180 LOADK                            R6 K60 [300000]

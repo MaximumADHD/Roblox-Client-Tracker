@@ -1483,20 +1483,20 @@ PROTO_50:
         2 GETTABLEKS                       R1 R0 K0 ["children"]
         4 RETURN                           R1 1
         5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantCreditMetering"]
-        8 JUMPIF                           R1 ; [+8]
-        9 GETUPVAL                         R1 2
-       10 GETUPVAL                         R2 3
-       11 NEWTABLE                         R3 0 0
-       13 GETTABLEKS                       R4 R0 K0 ["children"]
-       15 CALL                             R1 3 -1
-       16 RETURN                           R1 -1
-       17 GETUPVAL                         R1 2
-       18 GETUPVAL                         R2 4
-       19 NEWTABLE                         R3 0 0
-       21 GETTABLEKS                       R4 R0 K0 ["children"]
-       23 CALL                             R1 3 -1
-       24 RETURN                           R1 -1
+        6 CALL                             R1 0 1
+        7 JUMPIF                           R1 ; [+8]
+        8 GETUPVAL                         R1 2
+        9 GETUPVAL                         R2 3
+       10 NEWTABLE                         R3 0 0
+       12 GETTABLEKS                       R4 R0 K0 ["children"]
+       14 CALL                             R1 3 -1
+       15 RETURN                           R1 -1
+       16 GETUPVAL                         R1 2
+       17 GETUPVAL                         R2 4
+       18 NEWTABLE                         R3 0 0
+       20 GETTABLEKS                       R4 R0 K0 ["children"]
+       22 CALL                             R1 3 -1
+       23 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1543,89 +1543,91 @@ MAIN:
        71 GETTABLEKS                       R9 R9 K19 ["Contexts"]
        73 GETTABLEKS                       R9 R9 K20 ["CreditMeteringContext"]
        75 GETTABLEKS                       R10 R6 K21 ["createElement"]
-       77 GETTABLEKS                       R11 R5 K22 ["CreditMeteringServiceAPI"]
-       79 GETTABLEKS                       R12 R4 K23 ["Url"]
-       81 GETTABLEKS                       R12 R12 K24 ["new"]
-       83 LOADNIL                          R13
-       84 CALL                             R12 1 1
-       85 GETIMPORT                        R13 K27 [DateTime.fromUnixTimestamp]
-       87 GETIMPORT                        R15 K30 [DateTime.now]
-       89 CALL                             R15 0 1
-       90 GETTABLEKS                       R15 R15 K31 ["UnixTimestamp"]
-       92 ADDK                             R14 R15 K28 [18000]
-       93 CALL                             R13 1 1
-       94 NAMECALL                         R13 R13 K32 ["ToIsoDate"]
-       96 CALL                             R13 1 1
-       97 DUPTABLE                         R14 K36 [{"FreeTrialExhausted", "DailyLimitReached", "InsufficientRobuxBalance"}]
-       98 DUPTABLE                         R15 K53 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 0, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_FREE_TRIAL_EXHAUSTED"}]
-       99 SETTABLEKS                       R13 R15 K43 ["nextResetEligibleTime"]
-      101 DUPTABLE                         R16 K57 [{["additionalUsageEnabled"] = False, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
-      102 SETTABLEKS                       R16 R15 K46 ["limitSettings"]
-      104 SETTABLEKS                       R15 R14 K33 ["FreeTrialExhausted"]
-      106 DUPTABLE                         R15 K59 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_DAILY_LIMIT_REACHED"}]
-      107 SETTABLEKS                       R13 R15 K43 ["nextResetEligibleTime"]
-      109 DUPTABLE                         R16 K61 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = True, ["dailyLimit"] = 500}]
-      110 SETTABLEKS                       R16 R15 K46 ["limitSettings"]
-      112 SETTABLEKS                       R15 R14 K34 ["DailyLimitReached"]
-      114 DUPTABLE                         R15 K63 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 0, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_INSUFFICIENT_ROBUX_BALANCE"}]
-      115 SETTABLEKS                       R13 R15 K43 ["nextResetEligibleTime"]
-      117 DUPTABLE                         R16 K64 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
-      118 SETTABLEKS                       R16 R15 K46 ["limitSettings"]
-      120 SETTABLEKS                       R15 R14 K35 ["InsufficientRobuxBalance"]
-      122 DUPCLOSURE                       R15 K65 [PROTO_0]
-      123 NEWTABLE                         R16 0 4
-      125 DUPTABLE                         R17 K71 [{["productId"] = 1, ["robuxAmount"] = 800, ["currencyAmountStr"] = "$9.99"}]
-      126 DUPTABLE                         R18 K75 [{["productId"] = 2, ["robuxAmount"] = 1700, ["currencyAmountStr"] = "$19.99"}]
-      127 DUPTABLE                         R19 K79 [{["productId"] = 3, ["robuxAmount"] = 4500, ["currencyAmountStr"] = "$49.99"}]
-      128 DUPTABLE                         R20 K83 [{["productId"] = 4, ["robuxAmount"] = 10000, ["currencyAmountStr"] = "$99.99"}]
-      129 SETLIST                          R16 R17 4 [1]
-      131 LOADNIL                          R17
-      132 DUPCLOSURE                       R18 K84 [PROTO_1]
-      133 CAPTURE                          VAL R3
-      134 CAPTURE                          VAL R14
-      135 NEWCLOSURE                       R19 P2
-      136 CAPTURE                          REF R17
-      137 DUPCLOSURE                       R20 K85 [PROTO_3]
-      138 CAPTURE                          VAL R3
-      139 NEWCLOSURE                       R21 P4
-      140 CAPTURE                          VAL R3
-      141 CAPTURE                          VAL R14
-      142 CAPTURE                          VAL R20
-      143 CAPTURE                          REF R17
-      144 CAPTURE                          VAL R8
-      145 CAPTURE                          VAL R11
-      146 DUPCLOSURE                       R22 K86 [PROTO_7]
-      147 CAPTURE                          VAL R3
-      148 CAPTURE                          VAL R14
-      149 CAPTURE                          VAL R20
-      150 CAPTURE                          VAL R16
-      151 CAPTURE                          VAL R8
-      152 CAPTURE                          VAL R2
-      153 DUPCLOSURE                       R23 K87 [PROTO_9]
-      154 CAPTURE                          VAL R8
-      155 CAPTURE                          VAL R11
-      156 DUPCLOSURE                       R24 K88 [PROTO_17]
-      157 CAPTURE                          VAL R9
-      158 CAPTURE                          VAL R6
-      159 CAPTURE                          VAL R10
-      160 NEWCLOSURE                       R25 P8
+       77 GETTABLEKS                       R11 R1 K22 ["FlagUtils"]
+       79 GETTABLEKS                       R11 R11 K23 ["getIsCreditMeteringEnabled"]
+       81 GETTABLEKS                       R12 R5 K24 ["CreditMeteringServiceAPI"]
+       83 GETTABLEKS                       R13 R4 K25 ["Url"]
+       85 GETTABLEKS                       R13 R13 K26 ["new"]
+       87 LOADNIL                          R14
+       88 CALL                             R13 1 1
+       89 GETIMPORT                        R14 K29 [DateTime.fromUnixTimestamp]
+       91 GETIMPORT                        R16 K32 [DateTime.now]
+       93 CALL                             R16 0 1
+       94 GETTABLEKS                       R16 R16 K33 ["UnixTimestamp"]
+       96 ADDK                             R15 R16 K30 [18000]
+       97 CALL                             R14 1 1
+       98 NAMECALL                         R14 R14 K34 ["ToIsoDate"]
+      100 CALL                             R14 1 1
+      101 DUPTABLE                         R15 K38 [{"FreeTrialExhausted", "DailyLimitReached", "InsufficientRobuxBalance"}]
+      102 DUPTABLE                         R16 K55 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 0, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_FREE_TRIAL_EXHAUSTED"}]
+      103 SETTABLEKS                       R14 R16 K45 ["nextResetEligibleTime"]
+      105 DUPTABLE                         R17 K59 [{["additionalUsageEnabled"] = False, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
+      106 SETTABLEKS                       R17 R16 K48 ["limitSettings"]
+      108 SETTABLEKS                       R16 R15 K35 ["FreeTrialExhausted"]
+      110 DUPTABLE                         R16 K61 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 500, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_DAILY_LIMIT_REACHED"}]
+      111 SETTABLEKS                       R14 R16 K45 ["nextResetEligibleTime"]
+      113 DUPTABLE                         R17 K63 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = True, ["dailyLimit"] = 500}]
+      114 SETTABLEKS                       R17 R16 K48 ["limitSettings"]
+      116 SETTABLEKS                       R16 R15 K36 ["DailyLimitReached"]
+      118 DUPTABLE                         R16 K65 [{["freeTrialDailyAllowance"] = 25, ["freeTrialRemaining"] = 0, ["freeTrialPctUsed"] = 1, ["nextResetEligibleTime"], ["robuxBalance"] = 0, ["limitSettings"], ["robuxSpentToday"] = 500, ["limitRemaining"] = 0, ["allowed"] = False, ["reason"] = "BLOCK_REASON_INSUFFICIENT_ROBUX_BALANCE"}]
+      119 SETTABLEKS                       R14 R16 K45 ["nextResetEligibleTime"]
+      121 DUPTABLE                         R17 K66 [{["additionalUsageEnabled"] = True, ["dailyLimitSet"] = False, ["dailyLimit"] = 0}]
+      122 SETTABLEKS                       R17 R16 K48 ["limitSettings"]
+      124 SETTABLEKS                       R16 R15 K37 ["InsufficientRobuxBalance"]
+      126 DUPCLOSURE                       R16 K67 [PROTO_0]
+      127 NEWTABLE                         R17 0 4
+      129 DUPTABLE                         R18 K73 [{["productId"] = 1, ["robuxAmount"] = 800, ["currencyAmountStr"] = "$9.99"}]
+      130 DUPTABLE                         R19 K77 [{["productId"] = 2, ["robuxAmount"] = 1700, ["currencyAmountStr"] = "$19.99"}]
+      131 DUPTABLE                         R20 K81 [{["productId"] = 3, ["robuxAmount"] = 4500, ["currencyAmountStr"] = "$49.99"}]
+      132 DUPTABLE                         R21 K85 [{["productId"] = 4, ["robuxAmount"] = 10000, ["currencyAmountStr"] = "$99.99"}]
+      133 SETLIST                          R17 R18 4 [1]
+      135 LOADNIL                          R18
+      136 DUPCLOSURE                       R19 K86 [PROTO_1]
+      137 CAPTURE                          VAL R3
+      138 CAPTURE                          VAL R15
+      139 NEWCLOSURE                       R20 P2
+      140 CAPTURE                          REF R18
+      141 DUPCLOSURE                       R21 K87 [PROTO_3]
+      142 CAPTURE                          VAL R3
+      143 NEWCLOSURE                       R22 P4
+      144 CAPTURE                          VAL R3
+      145 CAPTURE                          VAL R15
+      146 CAPTURE                          VAL R21
+      147 CAPTURE                          REF R18
+      148 CAPTURE                          VAL R8
+      149 CAPTURE                          VAL R12
+      150 DUPCLOSURE                       R23 K88 [PROTO_7]
+      151 CAPTURE                          VAL R3
+      152 CAPTURE                          VAL R15
+      153 CAPTURE                          VAL R21
+      154 CAPTURE                          VAL R17
+      155 CAPTURE                          VAL R8
+      156 CAPTURE                          VAL R2
+      157 DUPCLOSURE                       R24 K89 [PROTO_9]
+      158 CAPTURE                          VAL R8
+      159 CAPTURE                          VAL R12
+      160 DUPCLOSURE                       R25 K90 [PROTO_17]
       161 CAPTURE                          VAL R9
       162 CAPTURE                          VAL R6
-      163 CAPTURE                          VAL R20
-      164 CAPTURE                          VAL R3
-      165 CAPTURE                          VAL R21
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R14
-      168 CAPTURE                          REF R17
-      169 CAPTURE                          VAL R23
-      170 CAPTURE                          VAL R22
-      171 CAPTURE                          VAL R12
-      172 CAPTURE                          VAL R10
-      173 DUPCLOSURE                       R26 K89 [PROTO_50]
-      174 CAPTURE                          VAL R9
-      175 CAPTURE                          VAL R3
+      163 CAPTURE                          VAL R10
+      164 NEWCLOSURE                       R26 P8
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          VAL R6
+      167 CAPTURE                          VAL R21
+      168 CAPTURE                          VAL R3
+      169 CAPTURE                          VAL R22
+      170 CAPTURE                          VAL R7
+      171 CAPTURE                          VAL R15
+      172 CAPTURE                          REF R18
+      173 CAPTURE                          VAL R24
+      174 CAPTURE                          VAL R23
+      175 CAPTURE                          VAL R13
       176 CAPTURE                          VAL R10
-      177 CAPTURE                          VAL R24
-      178 CAPTURE                          VAL R25
-      179 CLOSEUPVALS                      R17
-      180 RETURN                           R26 1
+      177 DUPCLOSURE                       R27 K91 [PROTO_50]
+      178 CAPTURE                          VAL R9
+      179 CAPTURE                          VAL R11
+      180 CAPTURE                          VAL R10
+      181 CAPTURE                          VAL R25
+      182 CAPTURE                          VAL R26
+      183 CLOSEUPVALS                      R18
+      184 RETURN                           R27 1

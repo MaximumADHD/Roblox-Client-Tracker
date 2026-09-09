@@ -14,23 +14,26 @@ PROTO_0:
        18 RETURN                           R1 1
 
 PROTO_1:
-        0 DUPTABLE                         R4 K6 [{"_inFlightPromises", "_localization", "_presetController", "_store", "_telemetry", "uploader"}]
-        1 NEWTABLE                         R5 0 0
-        3 SETTABLEKS                       R5 R4 K0 ["_inFlightPromises"]
-        5 SETTABLEKS                       R1 R4 K1 ["_localization"]
-        7 SETTABLEKS                       R3 R4 K2 ["_presetController"]
-        9 SETTABLEKS                       R0 R4 K3 ["_store"]
-       11 SETTABLEKS                       R2 R4 K4 ["_telemetry"]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K7 ["new"]
-       16 CALL                             R5 0 1
-       17 SETTABLEKS                       R5 R4 K5 ["uploader"]
-       19 GETUPVAL                         R7 1
-       20 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
-       22 MOVE                             R6 R4
-       23 GETIMPORT                        R5 K9 [setmetatable]
-       25 CALL                             R5 2 1
-       26 RETURN                           R5 1
+        0 DUPTABLE                         R5 K10 [{[1], ["_localization"], ["_plugin"], ["_presetController"], ["_store"], ["_telemetry"], ["_versionedAnimationAssetIds"], ["_versionSnackbarCount"] = 0, ["uploader"]}]
+        1 NEWTABLE                         R6 0 0
+        3 SETTABLEKS                       R6 R5 K0 ["_inFlightPromises"]
+        5 SETTABLEKS                       R1 R5 K1 ["_localization"]
+        7 SETTABLEKS                       R4 R5 K2 ["_plugin"]
+        9 SETTABLEKS                       R3 R5 K3 ["_presetController"]
+       11 SETTABLEKS                       R0 R5 K4 ["_store"]
+       13 SETTABLEKS                       R2 R5 K5 ["_telemetry"]
+       15 NEWTABLE                         R6 0 0
+       17 SETTABLEKS                       R6 R5 K6 ["_versionedAnimationAssetIds"]
+       19 GETUPVAL                         R6 0
+       20 GETTABLEKS                       R6 R6 K11 ["new"]
+       22 CALL                             R6 0 1
+       23 SETTABLEKS                       R6 R5 K9 ["uploader"]
+       25 GETUPVAL                         R8 1
+       26 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
+       28 MOVE                             R7 R5
+       29 GETIMPORT                        R6 K13 [setmetatable]
+       31 CALL                             R6 2 1
+       32 RETURN                           R6 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]
@@ -131,6 +134,44 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
+        0 GETTABLEKS                       R3 R0 K0 ["_versionedAnimationAssetIds"]
+        2 SETTABLE                         R2 R3 R1
+        3 RETURN                           R0 0
+
+PROTO_8:
+        0 GETTABLEKS                       R2 R0 K0 ["_versionedAnimationAssetIds"]
+        2 LOADNIL                          R3
+        3 SETTABLE                         R3 R2 R1
+        4 RETURN                           R0 0
+
+PROTO_9:
+        0 GETTABLEKS                       R4 R0 K0 ["_plugin"]
+        2 GETUPVAL                         R5 0
+        3 CALL                             R5 0 1
+        4 JUMPIFNOT                        R5 ; [+1]
+        5 JUMPIF                           R4 ; [+1]
+        6 RETURN                           R0 0
+        7 GETTABLEKS                       R5 R0 K1 ["_versionSnackbarCount"]
+        9 ADDK                             R5 R5 K2 [1]
+       10 SETTABLEKS                       R5 R0 K1 ["_versionSnackbarCount"]
+       12 GETIMPORT                        R5 K5 [string.format]
+       14 LOADK                            R6 K6 ["%s#%d"]
+       15 MOVE                             R7 R1
+       16 GETTABLEKS                       R8 R0 K1 ["_versionSnackbarCount"]
+       18 CALL                             R5 3 1
+       19 GETUPVAL                         R6 1
+       20 MOVE                             R7 R4
+       21 MOVE                             R8 R5
+       22 MOVE                             R9 R2
+       23 GETTABLEKS                       R10 R0 K7 ["_localization"]
+       25 LOADK                            R12 K8 ["Snackbar"]
+       26 MOVE                             R13 R3
+       27 NAMECALL                         R10 R10 K9 ["getText"]
+       29 CALL                             R10 3 -1
+       30 CALL                             R6 -1 0
+       31 RETURN                           R0 0
+
+PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]
         2 GETUPVAL                         R3 0
         3 LOADB                            R4 0
@@ -174,7 +215,7 @@ PROTO_7:
        60 FORGLOOP                         R2 2 ; [-26]
        62 RETURN                           R0 0
 
-PROTO_8:
+PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]
         2 NAMECALL                         R1 R1 K1 ["getState"]
         4 CALL                             R1 1 1
@@ -251,7 +292,7 @@ PROTO_8:
       109 CALL                             R4 2 0
       110 RETURN                           R0 0
 
-PROTO_9:
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["_isUploading"]
         3 CALL                             R1 1 1
@@ -271,7 +312,7 @@ PROTO_9:
        23 CALL                             R2 -1 0
        24 RETURN                           R0 1
 
-PROTO_10:
+PROTO_13:
         0 JUMPIFNOT                        R1 ; [+23]
         1 MOVE                             R2 R1
         2 LOADNIL                          R3
@@ -408,7 +449,7 @@ PROTO_10:
       187 CALL                             R5 3 0
       188 RETURN                           R0 0
 
-PROTO_11:
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["_store"]
         3 GETUPVAL                         R3 1
@@ -436,7 +477,7 @@ PROTO_11:
        35 CALL                             R1 -1 0
        36 RETURN                           R0 0
 
-PROTO_12:
+PROTO_15:
         0 LOADNIL                          R3
         1 GETTABLEKS                       R4 R1 K0 ["fileType"]
         3 GETUPVAL                         R5 0
@@ -506,104 +547,141 @@ PROTO_12:
        93 MOVE                             R3 R4
        94 RETURN                           R3 1
 
-PROTO_13:
+PROTO_16:
         0 FASTCALL2K                       ASSERT R0 K0 ; [+5]
         2 MOVE                             R2 R0
         3 LOADK                            R3 K0 ["Scene import failed to return result"]
         4 GETIMPORT                        R1 K2 [assert]
         6 CALL                             R1 2 0
-        7 GETTABLEKS                       R1 R0 K3 ["Succeeded"]
-        9 JUMPIFNOT                        R1 ; [+66]
-       10 GETTABLEKS                       R2 R0 K4 ["AssetIds"]
-       12 FASTCALL2K                       ASSERT R2 K5 ; [+4]
-       14 LOADK                            R3 K5 ["Successful scene import result must return assetIds"]
-       15 GETIMPORT                        R1 K2 [assert]
-       17 CALL                             R1 2 0
-       18 GETUPVAL                         R1 0
-       19 GETTABLEKS                       R1 R1 K6 ["session"]
-       21 NAMECALL                         R1 R1 K7 ["GetImportTree"]
-       23 CALL                             R1 1 1
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R2 R2 K8 ["_store"]
-       27 GETUPVAL                         R4 2
-       28 MOVE                             R5 R0
-       29 MOVE                             R6 R1
-       30 CALL                             R4 2 -1
-       31 NAMECALL                         R2 R2 K9 ["dispatch"]
-       33 CALL                             R2 -1 0
-       34 GETUPVAL                         R2 3
-       35 GETTABLEKS                       R3 R0 K4 ["AssetIds"]
-       37 CALL                             R2 1 0
-       38 GETUPVAL                         R2 1
-       39 GETTABLEKS                       R2 R2 K10 ["_telemetry"]
-       41 GETUPVAL                         R4 0
-       42 GETTABLEKS                       R4 R4 K11 ["fileType"]
-       44 NAMECALL                         R2 R2 K12 ["logImportSucceeded"]
-       46 CALL                             R2 2 0
-       47 GETUPVAL                         R2 4
-       48 CALL                             R2 0 1
-       49 JUMPIFNOT                        R2 ; [+15]
-       50 GETUPVAL                         R3 5
-       51 LENGTH                           R2 R3
-       52 LOADN                            R3 0
-       53 JUMPIFNOTLT                      R3 R2 ; [+11]
-       55 GETTABLEKS                       R2 R0 K13 ["Instance"]
-       57 JUMPIFNOT                        R2 ; [+7]
-       58 GETUPVAL                         R2 6
-       59 GETTABLEKS                       R2 R2 K14 ["saveToAnimSaves"]
-       61 GETTABLEKS                       R3 R0 K13 ["Instance"]
-       63 GETUPVAL                         R4 5
-       64 CALL                             R2 2 0
-       65 GETUPVAL                         R2 7
-       66 CALL                             R2 0 1
-       67 JUMPIFNOT                        R2 ; [+44]
-       68 GETUPVAL                         R2 1
-       69 GETUPVAL                         R4 0
-       70 GETTABLEKS                       R5 R0 K13 ["Instance"]
-       72 NAMECALL                         R2 R2 K15 ["fireImportSuccessPluginEvent"]
-       74 CALL                             R2 3 0
-       75 JUMP                             ; [+36]
-       76 GETTABLEKS                       R1 R0 K3 ["Succeeded"]
-       78 JUMPIF                           R1 ; [+33]
-       79 GETTABLEKS                       R2 R0 K16 ["ErrorMessages"]
-       81 FASTCALL2K                       ASSERT R2 K17 ; [+4]
-       83 LOADK                            R3 K17 ["Scene import lists no reasons for failure"]
-       84 GETIMPORT                        R1 K2 [assert]
-       86 CALL                             R1 2 0
-       87 GETTABLEKS                       R1 R0 K16 ["ErrorMessages"]
-       89 LOADNIL                          R2
-       90 LOADNIL                          R3
-       91 FORGPREP                         R1
-       92 GETTABLEKS                       R6 R0 K16 ["ErrorMessages"]
-       94 GETUPVAL                         R7 8
-       95 MOVE                             R8 R5
-       96 GETUPVAL                         R9 1
-       97 GETTABLEKS                       R9 R9 K18 ["_localization"]
-       99 CALL                             R7 2 1
-      100 SETTABLE                         R7 R6 R4
-      101 FORGLOOP                         R1 2 ; [-10]
-      103 GETUPVAL                         R1 1
-      104 GETTABLEKS                       R1 R1 K10 ["_telemetry"]
-      106 GETUPVAL                         R3 0
-      107 GETTABLEKS                       R3 R3 K11 ["fileType"]
-      109 NAMECALL                         R1 R1 K19 ["logImportFailed"]
-      111 CALL                             R1 2 0
-      112 GETUPVAL                         R1 1
-      113 GETTABLEKS                       R1 R1 K8 ["_store"]
-      115 GETUPVAL                         R3 9
-      116 GETUPVAL                         R4 0
-      117 DUPTABLE                         R5 K24 [{["uploadResults"], ["state"], ["enabled"] = False}]
-      118 SETTABLEKS                       R0 R5 K20 ["uploadResults"]
-      120 GETUPVAL                         R6 10
-      121 GETTABLEKS                       R6 R6 K25 ["SessionState"]
-      123 GETTABLEKS                       R6 R6 K26 ["Imported"]
-      125 SETTABLEKS                       R6 R5 K21 ["state"]
-      127 CALL                             R3 2 -1
-      128 NAMECALL                         R1 R1 K9 ["dispatch"]
-      130 CALL                             R1 -1 0
-      131 RETURN                           R0 0
+        7 GETUPVAL                         R1 0
+        8 CALL                             R1 0 1
+        9 JUMPIFNOT                        R1 ; [+8]
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K3 ["_versionedAnimationAssetIds"]
+       13 GETUPVAL                         R2 2
+       14 GETTABLEKS                       R2 R2 K4 ["filepath"]
+       16 LOADNIL                          R3
+       17 SETTABLE                         R3 R1 R2
+       18 GETTABLEKS                       R1 R0 K5 ["Succeeded"]
+       20 JUMPIFNOT                        R1 ; [+89]
+       21 GETTABLEKS                       R2 R0 K6 ["AssetIds"]
+       23 FASTCALL2K                       ASSERT R2 K7 ; [+4]
+       25 LOADK                            R3 K7 ["Successful scene import result must return assetIds"]
+       26 GETIMPORT                        R1 K2 [assert]
+       28 CALL                             R1 2 0
+       29 GETUPVAL                         R1 2
+       30 GETTABLEKS                       R1 R1 K8 ["session"]
+       32 NAMECALL                         R1 R1 K9 ["GetImportTree"]
+       34 CALL                             R1 1 1
+       35 GETUPVAL                         R2 1
+       36 GETTABLEKS                       R2 R2 K10 ["_store"]
+       38 GETUPVAL                         R4 3
+       39 MOVE                             R5 R0
+       40 MOVE                             R6 R1
+       41 CALL                             R4 2 -1
+       42 NAMECALL                         R2 R2 K11 ["dispatch"]
+       44 CALL                             R2 -1 0
+       45 GETUPVAL                         R2 4
+       46 GETTABLEKS                       R3 R0 K6 ["AssetIds"]
+       48 CALL                             R2 1 0
+       49 GETUPVAL                         R2 1
+       50 GETTABLEKS                       R2 R2 K12 ["_telemetry"]
+       52 GETUPVAL                         R4 2
+       53 GETTABLEKS                       R4 R4 K13 ["fileType"]
+       55 NAMECALL                         R2 R2 K14 ["logImportSucceeded"]
+       57 CALL                             R2 2 0
+       58 GETUPVAL                         R2 5
+       59 CALL                             R2 0 1
+       60 JUMPIFNOT                        R2 ; [+15]
+       61 GETUPVAL                         R3 6
+       62 LENGTH                           R2 R3
+       63 LOADN                            R3 0
+       64 JUMPIFNOTLT                      R3 R2 ; [+11]
+       66 GETTABLEKS                       R2 R0 K15 ["Instance"]
+       68 JUMPIFNOT                        R2 ; [+7]
+       69 GETUPVAL                         R2 7
+       70 GETTABLEKS                       R2 R2 K16 ["saveToAnimSaves"]
+       72 GETTABLEKS                       R3 R0 K15 ["Instance"]
+       74 GETUPVAL                         R4 6
+       75 CALL                             R2 2 0
+       76 GETUPVAL                         R3 0
+       77 CALL                             R3 0 1
+       78 JUMPIFNOT                        R3 ; [+7]
+       79 GETTABLEKS                       R3 R0 K15 ["Instance"]
+       81 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       83 LOADB                            R2 0 +1
+       84 LOADB                            R2 1
+       85 JUMP                             ; [+1]
+       86 LOADB                            R2 1
+       87 GETUPVAL                         R3 8
+       88 CALL                             R3 0 1
+       89 JUMPIFNOT                        R3 ; [+8]
+       90 JUMPIFNOT                        R2 ; [+7]
+       91 GETUPVAL                         R3 1
+       92 GETUPVAL                         R5 2
+       93 GETTABLEKS                       R6 R0 K15 ["Instance"]
+       95 NAMECALL                         R3 R3 K17 ["fireImportSuccessPluginEvent"]
+       97 CALL                             R3 3 0
+       98 GETUPVAL                         R3 9
+       99 JUMPIFNOT                        R3 ; [+57]
+      100 GETUPVAL                         R3 1
+      101 GETUPVAL                         R5 2
+      102 GETTABLEKS                       R5 R5 K4 ["filepath"]
+      104 LOADB                            R6 1
+      105 LOADK                            R7 K18 ["VersionImportSuccess"]
+      106 NAMECALL                         R3 R3 K19 ["notifyVersionImport"]
+      108 CALL                             R3 4 0
+      109 JUMP                             ; [+47]
+      110 GETTABLEKS                       R1 R0 K5 ["Succeeded"]
+      112 JUMPIF                           R1 ; [+44]
+      113 GETTABLEKS                       R2 R0 K20 ["ErrorMessages"]
+      115 FASTCALL2K                       ASSERT R2 K21 ; [+4]
+      117 LOADK                            R3 K21 ["Scene import lists no reasons for failure"]
+      118 GETIMPORT                        R1 K2 [assert]
+      120 CALL                             R1 2 0
+      121 GETTABLEKS                       R1 R0 K20 ["ErrorMessages"]
+      123 LOADNIL                          R2
+      124 LOADNIL                          R3
+      125 FORGPREP                         R1
+      126 GETTABLEKS                       R6 R0 K20 ["ErrorMessages"]
+      128 GETUPVAL                         R7 10
+      129 MOVE                             R8 R5
+      130 GETUPVAL                         R9 1
+      131 GETTABLEKS                       R9 R9 K22 ["_localization"]
+      133 CALL                             R7 2 1
+      134 SETTABLE                         R7 R6 R4
+      135 FORGLOOP                         R1 2 ; [-10]
+      137 GETUPVAL                         R1 1
+      138 GETTABLEKS                       R1 R1 K12 ["_telemetry"]
+      140 GETUPVAL                         R3 2
+      141 GETTABLEKS                       R3 R3 K13 ["fileType"]
+      143 NAMECALL                         R1 R1 K23 ["logImportFailed"]
+      145 CALL                             R1 2 0
+      146 GETUPVAL                         R1 9
+      147 JUMPIFNOT                        R1 ; [+9]
+      148 GETUPVAL                         R1 1
+      149 GETUPVAL                         R3 2
+      150 GETTABLEKS                       R3 R3 K4 ["filepath"]
+      152 LOADB                            R4 0
+      153 LOADK                            R5 K24 ["VersionImportError"]
+      154 NAMECALL                         R1 R1 K19 ["notifyVersionImport"]
+      156 CALL                             R1 4 0
+      157 GETUPVAL                         R1 1
+      158 GETTABLEKS                       R1 R1 K10 ["_store"]
+      160 GETUPVAL                         R3 11
+      161 GETUPVAL                         R4 2
+      162 DUPTABLE                         R5 K29 [{["uploadResults"], ["state"], ["enabled"] = False}]
+      163 SETTABLEKS                       R0 R5 K25 ["uploadResults"]
+      165 GETUPVAL                         R6 12
+      166 GETTABLEKS                       R6 R6 K30 ["SessionState"]
+      168 GETTABLEKS                       R6 R6 K31 ["Imported"]
+      170 SETTABLEKS                       R6 R5 K26 ["state"]
+      172 CALL                             R3 2 -1
+      173 NAMECALL                         R1 R1 K11 ["dispatch"]
+      175 CALL                             R1 -1 0
+      176 RETURN                           R0 0
 
-PROTO_14:
+PROTO_17:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["_isUploading"]
         3 CALL                             R1 1 1
@@ -633,7 +711,7 @@ PROTO_14:
        36 CALL                             R4 -1 0
        37 RETURN                           R0 0
 
-PROTO_15:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["_isUploading"]
         3 CALL                             R0 1 1
@@ -665,7 +743,7 @@ PROTO_15:
        38 CALL                             R0 1 0
        39 RETURN                           R0 0
 
-PROTO_16:
+PROTO_19:
         0 GETTABLEKS                       R3 R1 K0 ["session"]
         2 JUMPIFNOT                        R3 ; [+6]
         3 GETTABLEKS                       R3 R1 K0 ["session"]
@@ -681,59 +759,93 @@ PROTO_16:
        18 GETTABLEKS                       R6 R1 K0 ["session"]
        20 NAMECALL                         R3 R3 K3 ["createPresetFromLastImport"]
        22 CALL                             R3 3 0
-       23 NEWTABLE                         R3 0 0
-       25 GETUPVAL                         R4 0
-       26 CALL                             R4 0 1
-       27 JUMPIFNOT                        R4 ; [+9]
-       28 GETUPVAL                         R4 1
-       29 GETTABLEKS                       R4 R4 K4 ["extractFromSession"]
-       31 GETTABLEKS                       R5 R1 K0 ["session"]
-       33 GETTABLEKS                       R6 R1 K5 ["assetName"]
-       35 CALL                             R4 2 1
-       36 MOVE                             R3 R4
-       37 NEWCLOSURE                       R4 P0
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          UPVAL U2
-       41 CAPTURE                          UPVAL U3
-       42 CAPTURE                          UPVAL U0
-       43 CAPTURE                          REF R3
-       44 CAPTURE                          UPVAL U1
-       45 CAPTURE                          UPVAL U4
-       46 CAPTURE                          UPVAL U5
-       47 CAPTURE                          UPVAL U6
-       48 CAPTURE                          UPVAL U7
-       49 LOADN                            R5 0
-       50 GETTABLEKS                       R6 R0 K6 ["uploader"]
-       52 GETTABLEKS                       R6 R6 K7 ["createScenePromise"]
-       54 MOVE                             R7 R1
-       55 CALL                             R6 1 2
-       56 GETTABLEKS                       R8 R0 K8 ["_inFlightPromises"]
-       58 GETTABLEKS                       R9 R1 K9 ["filepath"]
-       60 SETTABLE                         R6 R8 R9
-       61 GETTABLEKS                       R8 R1 K0 ["session"]
-       63 GETTABLEKS                       R8 R8 K10 ["UploadProgress"]
-       65 NEWCLOSURE                       R10 P1
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          REF R5
-       68 CAPTURE                          UPVAL U8
-       69 NAMECALL                         R8 R8 K11 ["Connect"]
-       71 CALL                             R8 2 1
-       72 MOVE                             R11 R4
-       73 NAMECALL                         R9 R6 K12 ["andThen"]
-       75 CALL                             R9 2 1
-       76 NEWCLOSURE                       R12 P2
-       77 CAPTURE                          VAL R0
-       78 CAPTURE                          REF R5
-       79 CAPTURE                          UPVAL U8
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R7
-       82 NAMECALL                         R10 R9 K13 ["finally"]
-       84 CALL                             R10 2 0
-       85 CLOSEUPVALS                      R3
-       86 RETURN                           R9 1
+       23 GETUPVAL                         R4 0
+       24 CALL                             R4 0 1
+       25 JUMPIFNOT                        R4 ; [+6]
+       26 GETTABLEKS                       R4 R0 K4 ["_versionedAnimationAssetIds"]
+       28 GETTABLEKS                       R5 R1 K5 ["filepath"]
+       30 GETTABLE                         R3 R4 R5
+       31 JUMP                             ; [+1]
+       32 LOADNIL                          R3
+       33 JUMPIFNOT                        R3 ; [+28]
+       34 LOADB                            R4 0
+       35 GETUPVAL                         R5 1
+       36 GETTABLEKS                       R6 R1 K0 ["session"]
+       38 NAMECALL                         R6 R6 K1 ["GetImportTree"]
+       40 CALL                             R6 1 -1
+       41 CALL                             R5 -1 3
+       42 FORGPREP                         R5
+       43 GETTABLEKS                       R10 R9 K6 ["ShouldImport"]
+       45 JUMPIFNOT                        R10 ; [+8]
+       46 JUMPIF                           R4 ; [+7]
+       47 SETTABLEKS                       R3 R9 K7 ["VersionedAssetId"]
+       49 LOADB                            R10 1
+       50 SETTABLEKS                       R10 R9 K8 ["ForceNewVersion"]
+       52 LOADB                            R4 1
+       53 JUMP                             ; [+6]
+       54 LOADN                            R10 0
+       55 SETTABLEKS                       R10 R9 K7 ["VersionedAssetId"]
+       57 LOADB                            R10 0
+       58 SETTABLEKS                       R10 R9 K8 ["ForceNewVersion"]
+       60 FORGLOOP                         R5 2 ; [-18]
+       62 NEWTABLE                         R4 0 0
+       64 GETUPVAL                         R5 2
+       65 CALL                             R5 0 1
+       66 JUMPIFNOT                        R5 ; [+9]
+       67 GETUPVAL                         R5 3
+       68 GETTABLEKS                       R5 R5 K9 ["extractFromSession"]
+       70 GETTABLEKS                       R6 R1 K0 ["session"]
+       72 GETTABLEKS                       R7 R1 K10 ["assetName"]
+       74 CALL                             R5 2 1
+       75 MOVE                             R4 R5
+       76 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       78 LOADB                            R5 0 +1
+       79 LOADB                            R5 1
+       80 NEWCLOSURE                       R6 P0
+       81 CAPTURE                          UPVAL U0
+       82 CAPTURE                          VAL R0
+       83 CAPTURE                          VAL R1
+       84 CAPTURE                          UPVAL U4
+       85 CAPTURE                          UPVAL U5
+       86 CAPTURE                          UPVAL U2
+       87 CAPTURE                          REF R4
+       88 CAPTURE                          UPVAL U3
+       89 CAPTURE                          UPVAL U6
+       90 CAPTURE                          VAL R5
+       91 CAPTURE                          UPVAL U7
+       92 CAPTURE                          UPVAL U8
+       93 CAPTURE                          UPVAL U9
+       94 LOADN                            R7 0
+       95 GETTABLEKS                       R8 R0 K11 ["uploader"]
+       97 GETTABLEKS                       R8 R8 K12 ["createScenePromise"]
+       99 MOVE                             R9 R1
+      100 CALL                             R8 1 2
+      101 GETTABLEKS                       R10 R0 K13 ["_inFlightPromises"]
+      103 GETTABLEKS                       R11 R1 K5 ["filepath"]
+      105 SETTABLE                         R8 R10 R11
+      106 GETTABLEKS                       R10 R1 K0 ["session"]
+      108 GETTABLEKS                       R10 R10 K14 ["UploadProgress"]
+      110 NEWCLOSURE                       R12 P1
+      111 CAPTURE                          VAL R0
+      112 CAPTURE                          REF R7
+      113 CAPTURE                          UPVAL U10
+      114 NAMECALL                         R10 R10 K15 ["Connect"]
+      116 CALL                             R10 2 1
+      117 MOVE                             R13 R6
+      118 NAMECALL                         R11 R8 K16 ["andThen"]
+      120 CALL                             R11 2 1
+      121 NEWCLOSURE                       R14 P2
+      122 CAPTURE                          VAL R0
+      123 CAPTURE                          REF R7
+      124 CAPTURE                          UPVAL U10
+      125 CAPTURE                          VAL R10
+      126 CAPTURE                          VAL R9
+      127 NAMECALL                         R12 R11 K17 ["finally"]
+      129 CALL                             R12 2 0
+      130 CLOSEUPVALS                      R4
+      131 RETURN                           R11 1
 
-PROTO_17:
+PROTO_20:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 JUMPIFNOT                        R3 ; [+14]
@@ -845,85 +957,110 @@ MAIN:
       128 CALL                             R21 1 1
       129 GETIMPORT                        R22 K5 [require]
       131 GETTABLEKS                       R23 R0 K15 ["Src"]
-      133 GETTABLEKS                       R23 R23 K32 ["Flags"]
-      135 GETTABLEKS                       R23 R23 K33 ["getFFlagAssetImporterSaveAnimsToAnimSaves"]
+      133 GETTABLEKS                       R23 R23 K29 ["Utility"]
+      135 GETTABLEKS                       R23 R23 K32 ["showImportSnackbar"]
       137 CALL                             R22 1 1
       138 GETIMPORT                        R23 K5 [require]
       140 GETTABLEKS                       R24 R0 K15 ["Src"]
-      142 GETTABLEKS                       R24 R24 K32 ["Flags"]
-      144 GETTABLEKS                       R24 R24 K34 ["getFFlagImporterSendReimportConfigOnUpload"]
+      142 GETTABLEKS                       R24 R24 K29 ["Utility"]
+      144 GETTABLEKS                       R24 R24 K33 ["getAnimations"]
       146 CALL                             R23 1 1
       147 GETIMPORT                        R24 K5 [require]
       149 GETTABLEKS                       R25 R0 K15 ["Src"]
-      151 GETTABLEKS                       R25 R25 K32 ["Flags"]
-      153 GETTABLEKS                       R25 R25 K35 ["getFFlagImporterSkipReimportConfigMergeMeshes"]
+      151 GETTABLEKS                       R25 R25 K34 ["Flags"]
+      153 GETTABLEKS                       R25 R25 K35 ["getFFlagAssetImporterSaveAnimsToAnimSaves"]
       155 CALL                             R24 1 1
       156 GETIMPORT                        R25 K5 [require]
       158 GETTABLEKS                       R26 R0 K15 ["Src"]
-      160 GETTABLEKS                       R26 R26 K29 ["Utility"]
-      162 GETTABLEKS                       R26 R26 K36 ["saveImportedAnimations"]
+      160 GETTABLEKS                       R26 R26 K34 ["Flags"]
+      162 GETTABLEKS                       R26 R26 K36 ["getEFImportAnimationVersions"]
       164 CALL                             R25 1 1
-      165 GETTABLEKS                       R26 R4 K37 ["new"]
-      167 GETTABLEKS                       R27 R7 K38 ["REIMPORT"]
-      169 GETTABLEKS                       R27 R27 K39 ["CPC_ID"]
-      171 CALL                             R26 1 1
-      172 DUPCLOSURE                       R27 K40 [PROTO_0]
-      173 CAPTURE                          VAL R18
-      174 LOADK                            R30 K41 ["UploadController"]
-      175 NAMECALL                         R28 R3 K42 ["extend"]
-      177 CALL                             R28 2 1
-      178 SETTABLEKS                       R28 R28 K43 ["__index"]
-      180 DUPCLOSURE                       R29 K44 [PROTO_1]
-      181 CAPTURE                          VAL R14
-      182 CAPTURE                          VAL R28
-      183 SETTABLEKS                       R29 R28 K37 ["new"]
-      185 DUPCLOSURE                       R29 K45 [PROTO_2]
-      186 SETTABLEKS                       R29 R28 K46 ["_isUploading"]
-      188 DUPCLOSURE                       R29 K47 [PROTO_5]
-      189 CAPTURE                          VAL R17
-      190 CAPTURE                          VAL R18
-      191 CAPTURE                          VAL R21
-      192 CAPTURE                          VAL R20
-      193 SETTABLEKS                       R29 R28 K48 ["_promiseHandler"]
-      195 DUPCLOSURE                       R29 K49 [PROTO_6]
-      196 SETTABLEKS                       R29 R28 K50 ["setGroups"]
-      198 DUPCLOSURE                       R29 K51 [PROTO_7]
-      199 CAPTURE                          VAL R13
+      165 GETIMPORT                        R26 K5 [require]
+      167 GETTABLEKS                       R27 R0 K15 ["Src"]
+      169 GETTABLEKS                       R27 R27 K34 ["Flags"]
+      171 GETTABLEKS                       R27 R27 K37 ["getFFlagImporterSendReimportConfigOnUpload"]
+      173 CALL                             R26 1 1
+      174 GETIMPORT                        R27 K5 [require]
+      176 GETTABLEKS                       R28 R0 K15 ["Src"]
+      178 GETTABLEKS                       R28 R28 K34 ["Flags"]
+      180 GETTABLEKS                       R28 R28 K38 ["getFFlagImporterSkipReimportConfigMergeMeshes"]
+      182 CALL                             R27 1 1
+      183 GETIMPORT                        R28 K5 [require]
+      185 GETTABLEKS                       R29 R0 K15 ["Src"]
+      187 GETTABLEKS                       R29 R29 K29 ["Utility"]
+      189 GETTABLEKS                       R29 R29 K39 ["saveImportedAnimations"]
+      191 CALL                             R28 1 1
+      192 GETTABLEKS                       R29 R4 K40 ["new"]
+      194 GETTABLEKS                       R30 R7 K41 ["REIMPORT"]
+      196 GETTABLEKS                       R30 R30 K42 ["CPC_ID"]
+      198 CALL                             R29 1 1
+      199 DUPCLOSURE                       R30 K43 [PROTO_0]
       200 CAPTURE                          VAL R18
-      201 CAPTURE                          VAL R17
-      202 SETTABLEKS                       R29 R28 K52 ["cancelUpload"]
-      204 DUPCLOSURE                       R29 K53 [PROTO_8]
-      205 CAPTURE                          VAL R18
-      206 CAPTURE                          VAL R17
-      207 CAPTURE                          VAL R12
-      208 SETTABLEKS                       R29 R28 K54 ["uploadQueue"]
-      210 DUPCLOSURE                       R29 K55 [PROTO_10]
-      211 CAPTURE                          VAL R17
-      212 CAPTURE                          VAL R18
-      213 CAPTURE                          VAL R13
-      214 CAPTURE                          VAL R11
-      215 CAPTURE                          VAL R9
-      216 CAPTURE                          VAL R10
-      217 CAPTURE                          VAL R6
-      218 SETTABLEKS                       R29 R28 K56 ["uploadItems"]
-      220 DUPCLOSURE                       R29 K57 [PROTO_12]
-      221 CAPTURE                          VAL R18
-      222 CAPTURE                          VAL R17
-      223 SETTABLEKS                       R29 R28 K58 ["uploadItem"]
-      225 DUPCLOSURE                       R29 K59 [PROTO_16]
-      226 CAPTURE                          VAL R22
-      227 CAPTURE                          VAL R25
-      228 CAPTURE                          VAL R16
-      229 CAPTURE                          VAL R21
-      230 CAPTURE                          VAL R23
-      231 CAPTURE                          VAL R20
-      232 CAPTURE                          VAL R17
-      233 CAPTURE                          VAL R18
-      234 CAPTURE                          VAL R9
-      235 SETTABLEKS                       R29 R28 K60 ["uploadScene"]
-      237 DUPCLOSURE                       R29 K61 [PROTO_17]
-      238 CAPTURE                          VAL R24
-      239 CAPTURE                          VAL R26
-      240 CAPTURE                          VAL R7
-      241 SETTABLEKS                       R29 R28 K62 ["fireImportSuccessPluginEvent"]
-      243 RETURN                           R28 1
+      201 LOADK                            R33 K44 ["UploadController"]
+      202 NAMECALL                         R31 R3 K45 ["extend"]
+      204 CALL                             R31 2 1
+      205 SETTABLEKS                       R31 R31 K46 ["__index"]
+      207 DUPCLOSURE                       R32 K47 [PROTO_1]
+      208 CAPTURE                          VAL R14
+      209 CAPTURE                          VAL R31
+      210 SETTABLEKS                       R32 R31 K40 ["new"]
+      212 DUPCLOSURE                       R32 K48 [PROTO_2]
+      213 SETTABLEKS                       R32 R31 K49 ["_isUploading"]
+      215 DUPCLOSURE                       R32 K50 [PROTO_5]
+      216 CAPTURE                          VAL R17
+      217 CAPTURE                          VAL R18
+      218 CAPTURE                          VAL R21
+      219 CAPTURE                          VAL R20
+      220 SETTABLEKS                       R32 R31 K51 ["_promiseHandler"]
+      222 DUPCLOSURE                       R32 K52 [PROTO_6]
+      223 SETTABLEKS                       R32 R31 K53 ["setGroups"]
+      225 DUPCLOSURE                       R32 K54 [PROTO_7]
+      226 SETTABLEKS                       R32 R31 K55 ["setVersionedAnimationAssetId"]
+      228 DUPCLOSURE                       R32 K56 [PROTO_8]
+      229 SETTABLEKS                       R32 R31 K57 ["clearVersionedAnimationAssetId"]
+      231 DUPCLOSURE                       R32 K58 [PROTO_9]
+      232 CAPTURE                          VAL R25
+      233 CAPTURE                          VAL R22
+      234 SETTABLEKS                       R32 R31 K59 ["notifyVersionImport"]
+      236 DUPCLOSURE                       R32 K60 [PROTO_10]
+      237 CAPTURE                          VAL R13
+      238 CAPTURE                          VAL R18
+      239 CAPTURE                          VAL R17
+      240 SETTABLEKS                       R32 R31 K61 ["cancelUpload"]
+      242 DUPCLOSURE                       R32 K62 [PROTO_11]
+      243 CAPTURE                          VAL R18
+      244 CAPTURE                          VAL R17
+      245 CAPTURE                          VAL R12
+      246 SETTABLEKS                       R32 R31 K63 ["uploadQueue"]
+      248 DUPCLOSURE                       R32 K64 [PROTO_13]
+      249 CAPTURE                          VAL R17
+      250 CAPTURE                          VAL R18
+      251 CAPTURE                          VAL R13
+      252 CAPTURE                          VAL R11
+      253 CAPTURE                          VAL R9
+      254 CAPTURE                          VAL R10
+      255 CAPTURE                          VAL R6
+      256 SETTABLEKS                       R32 R31 K65 ["uploadItems"]
+      258 DUPCLOSURE                       R32 K66 [PROTO_15]
+      259 CAPTURE                          VAL R18
+      260 CAPTURE                          VAL R17
+      261 SETTABLEKS                       R32 R31 K67 ["uploadItem"]
+      263 DUPCLOSURE                       R32 K68 [PROTO_19]
+      264 CAPTURE                          VAL R25
+      265 CAPTURE                          VAL R23
+      266 CAPTURE                          VAL R24
+      267 CAPTURE                          VAL R28
+      268 CAPTURE                          VAL R16
+      269 CAPTURE                          VAL R21
+      270 CAPTURE                          VAL R26
+      271 CAPTURE                          VAL R20
+      272 CAPTURE                          VAL R17
+      273 CAPTURE                          VAL R18
+      274 CAPTURE                          VAL R9
+      275 SETTABLEKS                       R32 R31 K69 ["uploadScene"]
+      277 DUPCLOSURE                       R32 K70 [PROTO_20]
+      278 CAPTURE                          VAL R27
+      279 CAPTURE                          VAL R29
+      280 CAPTURE                          VAL R7
+      281 SETTABLEKS                       R32 R31 K71 ["fireImportSuccessPluginEvent"]
+      283 RETURN                           R31 1

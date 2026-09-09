@@ -80,4 +80,8 @@ MAIN:
        69 SETTABLEKS                       R17 R2 K116 ["IxpVariable"]
        71 DUPTABLE                         R18 K121 [{["Control"] = "control", ["Experiment"] = "experiment"}]
        72 SETTABLEKS                       R18 R2 K122 ["IxpValue"]
-       74 RETURN                           R2 1
+       74 NEWTABLE                         R19 0 0
+       76 SETTABLEKS                       R19 R2 K123 ["TutorialId"]
+       78 NEWTABLE                         R20 0 0
+       80 SETTABLEKS                       R20 R2 K124 ["TutorialEvent"]
+       82 RETURN                           R2 1

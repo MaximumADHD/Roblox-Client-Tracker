@@ -152,22 +152,33 @@ PROTO_9:
         1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 JUMPIFNOT                        R2 ; [+1]
         4 RETURN                           R0 0
-        5 GETUPVAL                         R2 1
-        6 NAMECALL                         R2 R2 K1 ["getTool"]
-        8 CALL                             R2 1 1
-        9 MOVE                             R4 R1
-       10 NAMECALL                         R2 R2 K2 ["saveGizmos"]
-       12 CALL                             R2 2 0
-       13 GETUPVAL                         R2 2
-       14 DUPTABLE                         R3 K6 [{["Gizmos"], ["FromSelf"] = True}]
-       15 GETUPVAL                         R4 1
-       16 NAMECALL                         R4 R4 K1 ["getTool"]
-       18 CALL                             R4 1 1
-       19 NAMECALL                         R4 R4 K7 ["gizmos"]
-       21 CALL                             R4 1 1
-       22 SETTABLEKS                       R4 R3 K3 ["Gizmos"]
-       24 CALL                             R2 1 0
-       25 RETURN                           R0 0
+        5 GETUPVAL                         R3 1
+        6 CALL                             R3 0 1
+        7 JUMPIFNOT                        R3 ; [+2]
+        8 MOVE                             R2 R0
+        9 JUMP                             ; [+1]
+       10 MOVE                             R2 R1
+       11 GETUPVAL                         R3 2
+       12 NAMECALL                         R3 R3 K1 ["getTool"]
+       14 CALL                             R3 1 1
+       15 MOVE                             R5 R2
+       16 NAMECALL                         R3 R3 K2 ["saveGizmos"]
+       18 CALL                             R3 2 1
+       19 GETUPVAL                         R4 1
+       20 CALL                             R4 0 1
+       21 JUMPIFNOT                        R4 ; [+3]
+       22 JUMPIFNOTEQKB                    R3 FALSE ; [+2]
+       24 RETURN                           R0 0
+       25 GETUPVAL                         R4 3
+       26 DUPTABLE                         R5 K6 [{["Gizmos"], ["FromSelf"] = True}]
+       27 GETUPVAL                         R6 2
+       28 NAMECALL                         R6 R6 K1 ["getTool"]
+       30 CALL                             R6 1 1
+       31 NAMECALL                         R6 R6 K7 ["gizmos"]
+       33 CALL                             R6 1 1
+       34 SETTABLEKS                       R6 R5 K3 ["Gizmos"]
+       36 CALL                             R4 1 0
+       37 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R2 0
@@ -223,13 +234,14 @@ PROTO_10:
        61 CALL                             R8 2 0
        62 NEWCLOSURE                       R8 P3
        63 CAPTURE                          VAL R7
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          VAL R3
-       66 GETTABLEKS                       R9 R2 K0 ["Gizmos"]
-       68 MOVE                             R10 R8
-       69 MOVE                             R11 R4
-       70 GETTABLEKS                       R12 R2 K1 ["FromSelf"]
-       72 RETURN                           R9 4
+       64 CAPTURE                          UPVAL U4
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          VAL R3
+       67 GETTABLEKS                       R9 R2 K0 ["Gizmos"]
+       69 MOVE                             R10 R8
+       70 MOVE                             R11 R4
+       71 GETTABLEKS                       R12 R2 K1 ["FromSelf"]
+       73 RETURN                           R9 4
 
 MAIN:
         0 PREPVARARGS                      0
@@ -247,11 +259,17 @@ MAIN:
        20 GETTABLEKS                       R5 R1 K11 ["useEffect"]
        22 GETIMPORT                        R6 K5 [require]
        24 GETTABLEKS                       R7 R0 K12 ["Src"]
-       26 GETTABLEKS                       R7 R7 K13 ["Types"]
-       28 CALL                             R6 1 1
-       29 DUPCLOSURE                       R7 K14 [PROTO_10]
-       30 CAPTURE                          VAL R4
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          VAL R3
-       33 CAPTURE                          VAL R5
-       34 RETURN                           R7 1
+       26 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       28 GETTABLEKS                       R7 R7 K14 ["getFFlagTerrainEditorOptimizeRaycastUpdates"]
+       30 CALL                             R6 1 1
+       31 GETIMPORT                        R7 K5 [require]
+       33 GETTABLEKS                       R8 R0 K12 ["Src"]
+       35 GETTABLEKS                       R8 R8 K15 ["Types"]
+       37 CALL                             R7 1 1
+       38 DUPCLOSURE                       R8 K16 [PROTO_10]
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R5
+       43 CAPTURE                          VAL R6
+       44 RETURN                           R8 1

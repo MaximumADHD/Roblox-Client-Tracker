@@ -19,6 +19,10 @@ MAIN:
        26 SETTABLEKS                       R6 R2 K41 ["ActionType"]
        28 DUPTABLE                         R7 K46 [{["OpenUse"] = "openUse", ["Collaborator"] = "collaborator"}]
        29 SETTABLEKS                       R7 R2 K47 ["ShareType"]
-       31 DUPTABLE                         R8 K54 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope", ["Sort"] = "Sort", ["Filter"] = "Filter"}]
-       32 SETTABLEKS                       R8 R2 K55 ["BenchmarkingEvent"]
-       34 RETURN                           R2 1
+       31 DUPTABLE                         R8 K58 [{["Start"] = "start", ["Advance"] = "advance", ["Pause"] = "pause", ["Dismiss"] = "dismiss", ["Finish"] = "finish"}]
+       32 SETTABLEKS                       R8 R2 K59 ["TutorialAction"]
+       34 DUPTABLE                         R9 K64 [{["ManualAdvance"] = "manualAdvance", ["AutoAdvance"] = "autoAdvance"}]
+       35 SETTABLEKS                       R9 R2 K65 ["TutorialAdvanceSource"]
+       37 DUPTABLE                         R10 K72 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope", ["Sort"] = "Sort", ["Filter"] = "Filter"}]
+       38 SETTABLEKS                       R10 R2 K73 ["BenchmarkingEvent"]
+       40 RETURN                           R2 1

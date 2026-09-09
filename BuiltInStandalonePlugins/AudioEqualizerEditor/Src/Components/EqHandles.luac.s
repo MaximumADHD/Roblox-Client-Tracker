@@ -252,28 +252,35 @@ PROTO_7:
        46 SETLIST                          R10 R11 6 [1]
        48 CALL                             R8 2 1
        49 MOVE                             R9 R1
-       50 JUMPIFNOT                        R9 ; [+25]
+       50 JUMPIFNOT                        R9 ; [+33]
        51 GETUPVAL                         R9 3
        52 GETTABLEKS                       R9 R9 K5 ["createElement"]
        54 GETUPVAL                         R10 6
-       55 DUPTABLE                         R11 K13 [{["Active"] = True, ["LayoutOrder"] = 1, ["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
-       56 GETIMPORT                        R12 K16 [UDim2.new]
+       55 DUPTABLE                         R11 K14 [{["Active"] = True, ["LayoutOrder"] = 1, ["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"]}]
+       56 GETIMPORT                        R12 K17 [UDim2.new]
        58 LOADN                            R13 0
        59 LOADN                            R14 0
        60 LOADN                            R15 0
        61 LOADN                            R16 0
        62 CALL                             R12 4 1
        63 SETTABLEKS                       R12 R11 K10 ["Position"]
-       65 GETIMPORT                        R12 K16 [UDim2.new]
+       65 GETIMPORT                        R12 K17 [UDim2.new]
        67 LOADN                            R13 1
        68 LOADN                            R14 0
        69 LOADN                            R15 1
        70 LOADN                            R16 0
        71 CALL                             R12 4 1
        72 SETTABLEKS                       R12 R11 K11 ["Size"]
-       74 MOVE                             R12 R8
-       75 CALL                             R9 3 1
-       76 RETURN                           R9 1
+       74 GETUPVAL                         R13 7
+       75 CALL                             R13 0 1
+       76 JUMPIFNOT                        R13 ; [+2]
+       77 LOADN                            R12 1
+       78 JUMP                             ; [+1]
+       79 LOADNIL                          R12
+       80 SETTABLEKS                       R12 R11 K13 ["ZIndex"]
+       82 MOVE                             R12 R8
+       83 CALL                             R9 3 1
+       84 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -308,12 +315,19 @@ MAIN:
        51 GETTABLEKS                       R11 R11 K18 ["Util"]
        53 GETTABLEKS                       R11 R11 K19 ["PlotUtil"]
        55 CALL                             R10 1 1
-       56 DUPCLOSURE                       R11 K20 [PROTO_7]
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R4
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          VAL R9
-       62 CAPTURE                          VAL R10
-       63 CAPTURE                          VAL R7
-       64 RETURN                           R11 1
+       56 GETIMPORT                        R11 K6 [require]
+       58 GETTABLEKS                       R12 R1 K20 ["Bin"]
+       60 GETTABLEKS                       R12 R12 K21 ["Common"]
+       62 GETTABLEKS                       R12 R12 K22 ["defineLuaFlags"]
+       64 CALL                             R11 1 1
+       65 GETTABLEKS                       R12 R11 K23 ["getFFlagAudioEqualizerZIndexFix"]
+       67 DUPCLOSURE                       R13 K24 [PROTO_7]
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R2
+       72 CAPTURE                          VAL R9
+       73 CAPTURE                          VAL R10
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          VAL R12
+       76 RETURN                           R13 1

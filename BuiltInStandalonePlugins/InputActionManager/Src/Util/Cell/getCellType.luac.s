@@ -1,46 +1,60 @@
 PROTO_0:
-        0 JUMPIFNOTEQKS                    R0 K0 ["keyCode"] ; [+9]
-        2 JUMPIFNOTEQKS                    R1 K1 ["Touch"] ; [+7]
-        4 GETIMPORT                        R4 K5 [Enum.InputActionType.Bool]
-        6 JUMPIFNOTEQ                      R2 R4 ; [+3]
-        8 LOADK                            R4 K6 ["Instance"]
-        9 RETURN                           R4 1
-       10 GETIMPORT                        R4 K5 [Enum.InputActionType.Bool]
-       12 JUMPIFEQ                         R2 R4 ; [+5]
-       14 JUMPIFNOTEQKS                    R1 K1 ["Touch"] ; [+3]
-       16 LOADK                            R4 K7 ["Dropdown"]
+        0 GETUPVAL                         R4 0
+        1 CALL                             R4 0 1
+        2 JUMPIFNOT                        R4 ; [+16]
+        3 GETIMPORT                        R4 K3 [Enum.InputActionType.Bool]
+        5 JUMPIFNOTEQ                      R2 R4 ; [+23]
+        7 JUMPIFNOTEQKS                    R1 K4 ["Touch"] ; [+21]
+        9 JUMPIFEQKS                       R0 K5 ["keyCode"] ; [+4]
+       11 JUMPIFNOT                        R3 ; [+4]
+       12 JUMPIFNOTEQKS                    R0 K6 ["primaryModifier"] ; [+3]
+       14 LOADK                            R4 K7 ["Instance"]
+       15 RETURN                           R4 1
+       16 LOADNIL                          R4
        17 RETURN                           R4 1
-       18 JUMPIFNOTEQKS                    R0 K0 ["keyCode"] ; [+5]
-       20 JUMPIFEQKS                       R1 K1 ["Touch"] ; [+3]
-       22 LOADK                            R4 K7 ["Dropdown"]
-       23 RETURN                           R4 1
-       24 GETIMPORT                        R4 K10 [table.find]
-       26 GETUPVAL                         R5 0
-       27 MOVE                             R6 R0
-       28 CALL                             R4 2 1
-       29 JUMPIFNOT                        R4 ; [+4]
-       30 JUMPIFEQKS                       R1 K1 ["Touch"] ; [+3]
-       32 LOADK                            R4 K7 ["Dropdown"]
-       33 RETURN                           R4 1
-       34 JUMPIFNOT                        R3 ; [+21]
-       35 GETUPVAL                         R4 1
-       36 MOVE                             R5 R3
-       37 CALL                             R4 1 1
-       38 JUMPIFNOTEQKS                    R0 K11 ["primaryModifier"] ; [+4]
-       40 JUMPIF                           R4 ; [+2]
-       41 LOADNIL                          R5
-       42 RETURN                           R5 1
-       43 JUMPIFNOTEQKS                    R0 K12 ["secondaryModifier"] ; [+9]
-       45 GETTABLEKS                       R5 R3 K11 ["primaryModifier"]
-       47 GETIMPORT                        R6 K15 [Enum.KeyCode.Unknown]
-       49 JUMPIFNOTEQ                      R5 R6 ; [+3]
-       51 LOADNIL                          R5
-       52 RETURN                           R5 1
-       53 JUMPIFNOT                        R4 ; [+2]
-       54 LOADK                            R5 K7 ["Dropdown"]
-       55 RETURN                           R5 1
-       56 LOADNIL                          R4
-       57 RETURN                           R4 1
+       18 JUMP                             ; [+10]
+       19 JUMPIFNOTEQKS                    R0 K5 ["keyCode"] ; [+9]
+       21 JUMPIFNOTEQKS                    R1 K4 ["Touch"] ; [+7]
+       23 GETIMPORT                        R4 K3 [Enum.InputActionType.Bool]
+       25 JUMPIFNOTEQ                      R2 R4 ; [+3]
+       27 LOADK                            R4 K7 ["Instance"]
+       28 RETURN                           R4 1
+       29 GETIMPORT                        R4 K3 [Enum.InputActionType.Bool]
+       31 JUMPIFEQ                         R2 R4 ; [+5]
+       33 JUMPIFNOTEQKS                    R1 K4 ["Touch"] ; [+3]
+       35 LOADK                            R4 K8 ["Dropdown"]
+       36 RETURN                           R4 1
+       37 JUMPIFNOTEQKS                    R0 K5 ["keyCode"] ; [+5]
+       39 JUMPIFEQKS                       R1 K4 ["Touch"] ; [+3]
+       41 LOADK                            R4 K8 ["Dropdown"]
+       42 RETURN                           R4 1
+       43 GETIMPORT                        R4 K11 [table.find]
+       45 GETUPVAL                         R5 1
+       46 MOVE                             R6 R0
+       47 CALL                             R4 2 1
+       48 JUMPIFNOT                        R4 ; [+4]
+       49 JUMPIFEQKS                       R1 K4 ["Touch"] ; [+3]
+       51 LOADK                            R4 K8 ["Dropdown"]
+       52 RETURN                           R4 1
+       53 JUMPIFNOT                        R3 ; [+21]
+       54 GETUPVAL                         R4 2
+       55 MOVE                             R5 R3
+       56 CALL                             R4 1 1
+       57 JUMPIFNOTEQKS                    R0 K6 ["primaryModifier"] ; [+4]
+       59 JUMPIF                           R4 ; [+2]
+       60 LOADNIL                          R5
+       61 RETURN                           R5 1
+       62 JUMPIFNOTEQKS                    R0 K12 ["secondaryModifier"] ; [+9]
+       64 GETTABLEKS                       R5 R3 K6 ["primaryModifier"]
+       66 GETIMPORT                        R6 K15 [Enum.KeyCode.None]
+       68 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       70 LOADNIL                          R5
+       71 RETURN                           R5 1
+       72 JUMPIFNOT                        R4 ; [+2]
+       73 LOADK                            R5 K8 ["Dropdown"]
+       74 RETURN                           R5 1
+       75 LOADNIL                          R4
+       76 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -63,7 +77,13 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K11 ["Constants"]
        31 GETTABLEKS                       R4 R4 K12 ["CompositeProperties"]
        33 CALL                             R3 1 1
-       34 DUPCLOSURE                       R4 K13 [PROTO_0]
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          VAL R2
-       37 RETURN                           R4 1
+       34 GETTABLEKS                       R4 R0 K6 ["Src"]
+       36 GETTABLEKS                       R4 R4 K13 ["Flags"]
+       38 GETIMPORT                        R5 K5 [require]
+       40 GETTABLEKS                       R6 R4 K14 ["getFFlagIAMUIModifier"]
+       42 CALL                             R5 1 1
+       43 DUPCLOSURE                       R6 K15 [PROTO_0]
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R2
+       47 RETURN                           R6 1

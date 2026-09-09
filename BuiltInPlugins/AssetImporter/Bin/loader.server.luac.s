@@ -1,12 +1,23 @@
 PROTO_0:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 GETTABLEKS                       R3 R2 K0 ["contextItems"]
+        4 GETTABLEKS                       R3 R3 K1 ["FileController"]
+        6 MOVE                             R5 R0
+        7 MOVE                             R6 R1
+        8 NAMECALL                         R3 R3 K2 ["startVersionedAnimationImport"]
+       10 CALL                             R3 3 0
+       11 RETURN                           R0 0
+
+PROTO_1:
         0 LOADK                            R3 K0 ["Mesh Importer"]
         1 RETURN                           R3 1
 
-PROTO_1:
+PROTO_2:
         0 LOADK                            R3 K0 ["Import"]
         1 RETURN                           R3 1
 
-PROTO_2:
+PROTO_3:
         0 MOVE                             R3 R0
         1 MOVE                             R4 R1
         2 MOVE                             R5 R2
@@ -15,7 +26,7 @@ PROTO_2:
         5 CALL                             R3 4 -1
         6 RETURN                           R3 -1
 
-PROTO_3:
+PROTO_4:
         0 MOVE                             R3 R0
         1 MOVE                             R4 R1
         2 MOVE                             R5 R2
@@ -24,39 +35,42 @@ PROTO_3:
         5 CALL                             R3 4 -1
         6 RETURN                           R3 -1
 
-PROTO_4:
+PROTO_5:
         0 LOADB                            R0 1
         1 RETURN                           R0 1
 
-PROTO_5:
-        0 GETIMPORT                        R0 K1 [plugin]
-        2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R1 R1 K2 ["Name"]
-        5 SETTABLEKS                       R1 R0 K2 ["Name"]
-        7 GETIMPORT                        R0 K4 [require]
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R1 R1 K5 ["Src"]
-       12 GETTABLEKS                       R1 R1 K6 ["Controllers"]
-       14 GETTABLEKS                       R1 R1 K7 ["Initialization"]
-       16 CALL                             R0 1 1
-       17 GETTABLEKS                       R1 R0 K8 ["new"]
-       19 GETIMPORT                        R2 K1 [plugin]
-       21 GETUPVAL                         R3 2
-       22 CALL                             R1 2 1
-       23 SETUPVAL                         R1 1
-       24 GETUPVAL                         R1 1
-       25 NAMECALL                         R1 R1 K9 ["createMainPlugin"]
-       27 CALL                             R1 1 0
-       28 GETUPVAL                         R1 3
-       29 GETTABLEKS                       R1 R1 K10 ["enabled"]
-       31 JUMPIFNOT                        R1 ; [+5]
-       32 GETUPVAL                         R1 3
-       33 GETTABLEKS                       R1 R1 K11 ["debug"]
-       35 GETUPVAL                         R2 1
-       36 CALL                             R1 1 0
-       37 RETURN                           R0 0
-
 PROTO_6:
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+28]
+        2 GETIMPORT                        R0 K1 [plugin]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K2 ["Name"]
+        7 SETTABLEKS                       R1 R0 K2 ["Name"]
+        9 GETIMPORT                        R0 K4 [require]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K5 ["Src"]
+       14 GETTABLEKS                       R1 R1 K6 ["Controllers"]
+       16 GETTABLEKS                       R1 R1 K7 ["Initialization"]
+       18 CALL                             R0 1 1
+       19 GETTABLEKS                       R1 R0 K8 ["new"]
+       21 GETIMPORT                        R2 K1 [plugin]
+       23 GETUPVAL                         R3 2
+       24 CALL                             R1 2 1
+       25 SETUPVAL                         R1 0
+       26 GETUPVAL                         R1 0
+       27 NAMECALL                         R1 R1 K9 ["createMainPlugin"]
+       29 CALL                             R1 1 0
+       30 GETUPVAL                         R0 3
+       31 GETTABLEKS                       R0 R0 K10 ["enabled"]
+       33 JUMPIFNOT                        R0 ; [+5]
+       34 GETUPVAL                         R0 3
+       35 GETTABLEKS                       R0 R0 K11 ["debug"]
+       37 GETUPVAL                         R1 0
+       38 CALL                             R0 1 0
+       39 GETUPVAL                         R0 0
+       40 RETURN                           R0 1
+
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+4]
         2 GETUPVAL                         R0 0
@@ -118,98 +132,113 @@ MAIN:
        61 GETTABLEKS                       R5 R5 K21 ["Flags"]
        63 GETTABLEKS                       R5 R5 K22 ["getFFlagMigratePropertyImporterToLua"]
        65 CALL                             R4 1 1
-       66 LOADNIL                          R5
-       67 MOVE                             R6 R4
-       68 CALL                             R6 0 1
-       69 JUMPIFNOT                        R6 ; [+13]
-       70 GETIMPORT                        R6 K6 [require]
-       72 GETTABLEKS                       R7 R0 K13 ["Src"]
-       74 GETTABLEKS                       R7 R7 K23 ["SingleMeshImporter"]
-       76 CALL                             R6 1 1
-       77 GETTABLEKS                       R7 R6 K19 ["new"]
-       79 GETIMPORT                        R8 K4 [plugin]
-       81 CALL                             R7 1 1
-       82 MOVE                             R5 R7
-       83 GETIMPORT                        R6 K6 [require]
-       85 GETTABLEKS                       R7 R0 K7 ["Packages"]
-       87 GETTABLEKS                       R7 R7 K24 ["PluginLoader"]
-       89 CALL                             R6 1 1
-       90 GETTABLEKS                       R7 R6 K25 ["PluginLoaderBuilder"]
-       92 GETTABLEKS                       R8 R0 K13 ["Src"]
-       94 GETTABLEKS                       R8 R8 K26 ["Resources"]
-       96 GETTABLEKS                       R8 R8 K27 ["Localization"]
-       98 GETTABLEKS                       R8 R8 K28 ["SourceStrings"]
-      100 GETTABLEKS                       R9 R0 K13 ["Src"]
-      102 GETTABLEKS                       R9 R9 K26 ["Resources"]
-      104 GETTABLEKS                       R9 R9 K27 ["Localization"]
-      106 GETTABLEKS                       R9 R9 K29 ["LocalizedStrings"]
-      108 GETIMPORT                        R10 K6 [require]
-      110 GETTABLEKS                       R11 R0 K13 ["Src"]
-      112 GETTABLEKS                       R11 R11 K21 ["Flags"]
-      114 GETTABLEKS                       R11 R11 K30 ["getFFlagImportQueueRibbonDropdown"]
-      116 CALL                             R10 1 1
-      117 DUPTABLE                         R11 K42 [{["plugin"], ["pluginName"] = "AssetImporter", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"] = , ["shouldImmediatelyOpen"], ["actionInfos"]}]
-      118 GETIMPORT                        R12 K4 [plugin]
-      120 SETTABLEKS                       R12 R11 K3 ["plugin"]
-      122 SETTABLEKS                       R9 R11 K32 ["translationResourceTable"]
-      124 SETTABLEKS                       R8 R11 K33 ["fallbackResourceTable"]
-      126 DUPCLOSURE                       R12 K43 [PROTO_0]
-      127 SETTABLEKS                       R12 R11 K37 ["getToolbarName"]
-      129 DUPTABLE                         R12 K51 [{["getName"], ["getDescription"], ["icon"] = "", ["text"], ["clickableWhenViewportHidden"] = True}]
-      130 DUPCLOSURE                       R13 K52 [PROTO_1]
-      131 SETTABLEKS                       R13 R12 K44 ["getName"]
-      133 DUPCLOSURE                       R13 K53 [PROTO_2]
-      134 SETTABLEKS                       R13 R12 K45 ["getDescription"]
-      136 DUPCLOSURE                       R13 K54 [PROTO_3]
-      137 SETTABLEKS                       R13 R12 K48 ["text"]
-      139 SETTABLEKS                       R12 R11 K38 ["buttonInfo"]
-      141 MOVE                             R13 R10
-      142 CALL                             R13 0 1
-      143 JUMPIFNOT                        R13 ; [+2]
-      144 DUPCLOSURE                       R12 K55 [PROTO_4]
-      145 JUMP                             ; [+1]
-      146 LOADNIL                          R12
-      147 SETTABLEKS                       R12 R11 K40 ["shouldImmediatelyOpen"]
-      149 NEWTABLE                         R12 0 1
-      151 DUPTABLE                         R13 K58 [{["uri"], ["isPreexistingAction"] = True}]
-      152 DUPTABLE                         R14 K67 [{["DataModel"] = "Standalone", ["PluginId"] = "MeshImporter", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
-      153 SETTABLEKS                       R14 R13 K56 ["uri"]
-      155 SETLIST                          R12 R13 1 [1]
-      157 SETTABLEKS                       R12 R11 K41 ["actionInfos"]
-      159 GETTABLEKS                       R12 R7 K68 ["build"]
-      161 MOVE                             R13 R11
-      162 CALL                             R12 1 1
-      163 GETIMPORT                        R13 K6 [require]
-      165 GETTABLEKS                       R14 R0 K69 ["Bin"]
-      167 GETTABLEKS                       R14 R14 K70 ["Debug"]
-      169 CALL                             R13 1 1
-      170 GETTABLEKS                       R14 R13 K71 ["enabled"]
-      172 JUMPIF                           R14 ; [+5]
-      173 GETTABLEKS                       R14 R12 K72 ["pluginLoader"]
-      175 NAMECALL                         R14 R14 K73 ["waitForUserInteraction"]
-      177 CALL                             R14 1 1
-      178 JUMPIF                           R14 ; [+2]
-      179 CLOSEUPVALS                      R5
-      180 RETURN                           R0 0
-      181 GETIMPORT                        R15 K1 [script]
-      183 GETTABLEKS                       R15 R15 K2 ["Parent"]
-      185 GETTABLEKS                       R15 R15 K2 ["Parent"]
-      187 LOADNIL                          R16
-      188 NEWCLOSURE                       R17 P5
-      189 CAPTURE                          VAL R15
-      190 CAPTURE                          REF R16
-      191 CAPTURE                          VAL R12
-      192 CAPTURE                          VAL R13
-      193 SETGLOBAL                        R17 K74 ["init"]
-      195 GETIMPORT                        R17 K4 [plugin]
-      197 GETTABLEKS                       R17 R17 K75 ["Unloading"]
-      199 NEWCLOSURE                       R19 P6
-      200 CAPTURE                          VAL R3
-      201 CAPTURE                          REF R5
-      202 CAPTURE                          REF R16
-      203 NAMECALL                         R17 R17 K76 ["Connect"]
-      205 CALL                             R17 2 0
-      206 GETGLOBAL                        R17 K74 ["init"]
-      208 CALL                             R17 0 0
-      209 CLOSEUPVALS                      R5
-      210 RETURN                           R0 0
+       66 GETIMPORT                        R5 K6 [require]
+       68 GETTABLEKS                       R6 R0 K13 ["Src"]
+       70 GETTABLEKS                       R6 R6 K21 ["Flags"]
+       72 GETTABLEKS                       R6 R6 K23 ["getEFImportAnimationVersions"]
+       74 CALL                             R5 1 1
+       75 LOADNIL                          R6
+       76 LOADNIL                          R7
+       77 MOVE                             R8 R4
+       78 CALL                             R8 0 1
+       79 JUMPIF                           R8 ; [+3]
+       80 MOVE                             R8 R5
+       81 CALL                             R8 0 1
+       82 JUMPIFNOT                        R8 ; [+21]
+       83 GETIMPORT                        R8 K6 [require]
+       85 GETTABLEKS                       R9 R0 K13 ["Src"]
+       87 GETTABLEKS                       R9 R9 K24 ["SingleMeshImporter"]
+       89 CALL                             R8 1 1
+       90 GETTABLEKS                       R9 R8 K19 ["new"]
+       92 GETIMPORT                        R10 K4 [plugin]
+       94 CALL                             R9 1 1
+       95 MOVE                             R7 R9
+       96 MOVE                             R9 R5
+       97 CALL                             R9 0 1
+       98 JUMPIFNOT                        R9 ; [+5]
+       99 NEWCLOSURE                       R11 P0
+      100 CAPTURE                          REF R6
+      101 NAMECALL                         R9 R7 K25 ["setImportAnimationVersionHandler"]
+      103 CALL                             R9 2 0
+      104 GETIMPORT                        R8 K6 [require]
+      106 GETTABLEKS                       R9 R0 K7 ["Packages"]
+      108 GETTABLEKS                       R9 R9 K26 ["PluginLoader"]
+      110 CALL                             R8 1 1
+      111 GETTABLEKS                       R9 R8 K27 ["PluginLoaderBuilder"]
+      113 GETTABLEKS                       R10 R0 K13 ["Src"]
+      115 GETTABLEKS                       R10 R10 K28 ["Resources"]
+      117 GETTABLEKS                       R10 R10 K29 ["Localization"]
+      119 GETTABLEKS                       R10 R10 K30 ["SourceStrings"]
+      121 GETTABLEKS                       R11 R0 K13 ["Src"]
+      123 GETTABLEKS                       R11 R11 K28 ["Resources"]
+      125 GETTABLEKS                       R11 R11 K29 ["Localization"]
+      127 GETTABLEKS                       R11 R11 K31 ["LocalizedStrings"]
+      129 GETIMPORT                        R12 K6 [require]
+      131 GETTABLEKS                       R13 R0 K13 ["Src"]
+      133 GETTABLEKS                       R13 R13 K21 ["Flags"]
+      135 GETTABLEKS                       R13 R13 K32 ["getFFlagImportQueueRibbonDropdown"]
+      137 CALL                             R12 1 1
+      138 DUPTABLE                         R13 K44 [{["plugin"], ["pluginName"] = "AssetImporter", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"] = , ["shouldImmediatelyOpen"], ["actionInfos"]}]
+      139 GETIMPORT                        R14 K4 [plugin]
+      141 SETTABLEKS                       R14 R13 K3 ["plugin"]
+      143 SETTABLEKS                       R11 R13 K34 ["translationResourceTable"]
+      145 SETTABLEKS                       R10 R13 K35 ["fallbackResourceTable"]
+      147 DUPCLOSURE                       R14 K45 [PROTO_1]
+      148 SETTABLEKS                       R14 R13 K39 ["getToolbarName"]
+      150 DUPTABLE                         R14 K53 [{["getName"], ["getDescription"], ["icon"] = "", ["text"], ["clickableWhenViewportHidden"] = True}]
+      151 DUPCLOSURE                       R15 K54 [PROTO_2]
+      152 SETTABLEKS                       R15 R14 K46 ["getName"]
+      154 DUPCLOSURE                       R15 K55 [PROTO_3]
+      155 SETTABLEKS                       R15 R14 K47 ["getDescription"]
+      157 DUPCLOSURE                       R15 K56 [PROTO_4]
+      158 SETTABLEKS                       R15 R14 K50 ["text"]
+      160 SETTABLEKS                       R14 R13 K40 ["buttonInfo"]
+      162 MOVE                             R15 R12
+      163 CALL                             R15 0 1
+      164 JUMPIFNOT                        R15 ; [+2]
+      165 DUPCLOSURE                       R14 K57 [PROTO_5]
+      166 JUMP                             ; [+1]
+      167 LOADNIL                          R14
+      168 SETTABLEKS                       R14 R13 K42 ["shouldImmediatelyOpen"]
+      170 NEWTABLE                         R14 0 1
+      172 DUPTABLE                         R15 K60 [{["uri"], ["isPreexistingAction"] = True}]
+      173 DUPTABLE                         R16 K69 [{["DataModel"] = "Standalone", ["PluginId"] = "MeshImporter", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      174 SETTABLEKS                       R16 R15 K58 ["uri"]
+      176 SETLIST                          R14 R15 1 [1]
+      178 SETTABLEKS                       R14 R13 K43 ["actionInfos"]
+      180 GETTABLEKS                       R14 R9 K70 ["build"]
+      182 MOVE                             R15 R13
+      183 CALL                             R14 1 1
+      184 GETIMPORT                        R15 K6 [require]
+      186 GETTABLEKS                       R16 R0 K71 ["Bin"]
+      188 GETTABLEKS                       R16 R16 K72 ["Debug"]
+      190 CALL                             R15 1 1
+      191 GETIMPORT                        R16 K1 [script]
+      193 GETTABLEKS                       R16 R16 K2 ["Parent"]
+      195 GETTABLEKS                       R16 R16 K2 ["Parent"]
+      197 LOADNIL                          R17
+      198 NEWCLOSURE                       R6 P6
+      199 CAPTURE                          REF R17
+      200 CAPTURE                          VAL R16
+      201 CAPTURE                          VAL R14
+      202 CAPTURE                          VAL R15
+      203 GETIMPORT                        R18 K4 [plugin]
+      205 GETTABLEKS                       R18 R18 K73 ["Unloading"]
+      207 NEWCLOSURE                       R20 P7
+      208 CAPTURE                          VAL R3
+      209 CAPTURE                          REF R7
+      210 CAPTURE                          REF R17
+      211 NAMECALL                         R18 R18 K74 ["Connect"]
+      213 CALL                             R18 2 0
+      214 GETTABLEKS                       R18 R15 K75 ["enabled"]
+      216 JUMPIF                           R18 ; [+5]
+      217 GETTABLEKS                       R18 R14 K76 ["pluginLoader"]
+      219 NAMECALL                         R18 R18 K77 ["waitForUserInteraction"]
+      221 CALL                             R18 1 1
+      222 JUMPIF                           R18 ; [+2]
+      223 CLOSEUPVALS                      R6
+      224 RETURN                           R0 0
+      225 MOVE                             R19 R6
+      226 CALL                             R19 0 0
+      227 CLOSEUPVALS                      R6
+      228 RETURN                           R0 0

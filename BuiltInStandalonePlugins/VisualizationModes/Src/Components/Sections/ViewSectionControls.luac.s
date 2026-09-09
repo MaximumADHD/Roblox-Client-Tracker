@@ -562,25 +562,28 @@ PROTO_5:
       717 SETTABLEKS                       R25 R24 K21 ["CameraSpeed"]
       719 GETUPVAL                         R25 27
       720 CALL                             R25 0 1
-      721 JUMPIFNOT                        R25 ; [+19]
-      722 GETIMPORT                        R25 K124 [settings]
-      724 CALL                             R25 0 1
-      725 LOADK                            R27 K125 ["SlimDebug"]
-      726 NAMECALL                         R25 R25 K126 ["FindFirstChild"]
-      728 CALL                             R25 2 1
-      729 JUMPIFNOT                        R25 ; [+11]
-      730 GETUPVAL                         R25 4
-      731 GETTABLEKS                       R25 R25 K13 ["createElement"]
-      733 GETUPVAL                         R26 28
-      734 DUPTABLE                         R27 K127 [{"LayoutOrder"}]
-      735 NAMECALL                         R28 R5 K30 ["getNextOrder"]
-      737 CALL                             R28 1 1
-      738 SETTABLEKS                       R28 R27 K16 ["LayoutOrder"]
-      740 CALL                             R25 2 1
-      741 SETTABLEKS                       R25 R24 K22 ["SlimTintMode"]
-      743 CALL                             R21 3 -1
-      744 CLOSEUPVALS                      R16
-      745 RETURN                           R21 -1
+      721 JUMPIFNOT                        R25 ; [+22]
+      722 GETUPVAL                         R25 28
+      723 CALL                             R25 0 1
+      724 JUMPIFNOT                        R25 ; [+19]
+      725 GETIMPORT                        R25 K124 [settings]
+      727 CALL                             R25 0 1
+      728 LOADK                            R27 K125 ["SlimDebug"]
+      729 NAMECALL                         R25 R25 K126 ["FindFirstChild"]
+      731 CALL                             R25 2 1
+      732 JUMPIFNOT                        R25 ; [+11]
+      733 GETUPVAL                         R25 4
+      734 GETTABLEKS                       R25 R25 K13 ["createElement"]
+      736 GETUPVAL                         R26 29
+      737 DUPTABLE                         R27 K127 [{"LayoutOrder"}]
+      738 NAMECALL                         R28 R5 K30 ["getNextOrder"]
+      740 CALL                             R28 1 1
+      741 SETTABLEKS                       R28 R27 K16 ["LayoutOrder"]
+      743 CALL                             R25 2 1
+      744 SETTABLEKS                       R25 R24 K22 ["SlimTintMode"]
+      746 CALL                             R21 3 -1
+      747 CLOSEUPVALS                      R16
+      748 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -683,91 +686,97 @@ MAIN:
       174 CALL                             R18 1 1
       175 GETIMPORT                        R19 K5 [require]
       177 GETTABLEKS                       R20 R0 K6 ["Src"]
-      179 GETTABLEKS                       R20 R20 K9 ["Components"]
-      181 GETTABLEKS                       R20 R20 K33 ["SlimTintModeDropdown"]
+      179 GETTABLEKS                       R20 R20 K7 ["Flags"]
+      181 GETTABLEKS                       R20 R20 K33 ["getEngineFeatureSlimDebugTint"]
       183 CALL                             R19 1 1
       184 GETIMPORT                        R20 K5 [require]
       186 GETTABLEKS                       R21 R0 K6 ["Src"]
-      188 GETTABLEKS                       R21 R21 K27 ["Hooks"]
-      190 GETTABLEKS                       R21 R21 K34 ["useCameraSpeed"]
+      188 GETTABLEKS                       R21 R21 K9 ["Components"]
+      190 GETTABLEKS                       R21 R21 K34 ["SlimTintModeDropdown"]
       192 CALL                             R20 1 1
       193 GETIMPORT                        R21 K5 [require]
       195 GETTABLEKS                       R22 R0 K6 ["Src"]
       197 GETTABLEKS                       R22 R22 K27 ["Hooks"]
-      199 GETTABLEKS                       R22 R22 K35 ["useCameraSpeedLocked"]
+      199 GETTABLEKS                       R22 R22 K35 ["useCameraSpeed"]
       201 CALL                             R21 1 1
-      202 MOVE                             R22 R1
-      203 CALL                             R22 0 1
-      204 GETTABLEKS                       R23 R4 K36 ["UI"]
-      206 GETTABLEKS                       R24 R4 K37 ["ContextServices"]
-      208 GETTABLEKS                       R25 R23 K38 ["Pane"]
-      210 GETTABLEKS                       R26 R23 K39 ["SegmentedButton"]
-      212 GETTABLEKS                       R27 R23 K40 ["SelectInput"]
-      214 GETTABLEKS                       R28 R23 K41 ["Slider"]
-      216 GETTABLEKS                       R29 R23 K42 ["Checkbox"]
-      218 GETTABLEKS                       R30 R4 K20 ["Util"]
-      220 GETTABLEKS                       R30 R30 K43 ["LayoutOrderIterator"]
-      222 GETTABLEKS                       R31 R23 K44 ["Tooltip"]
-      224 NEWTABLE                         R32 0 3
-      226 MOVE                             R33 R10
-      227 LOADK                            R34 K45 ["SelectionRenderModes"]
-      228 LOADK                            R35 K46 ["ViewOutlines"]
-      229 CALL                             R33 2 1
-      230 SETTABLEN                        R33 R32 1
-      231 MOVE                             R33 R10
-      232 LOADK                            R34 K45 ["SelectionRenderModes"]
-      233 LOADK                            R35 K47 ["ViewBoundingBoxes"]
-      234 CALL                             R33 2 1
-      235 SETTABLEN                        R33 R32 2
-      236 MOVE                             R33 R10
-      237 LOADK                            R34 K45 ["SelectionRenderModes"]
-      238 LOADK                            R35 K48 ["ViewBoth"]
-      239 CALL                             R33 2 1
-      240 SETTABLEN                        R33 R32 3
-      241 NEWTABLE                         R33 4 0
-      243 GETIMPORT                        R34 K52 [Enum.SelectionRenderMode.Outlines]
-      245 LOADN                            R35 1
-      246 SETTABLE                         R35 R33 R34
-      247 GETIMPORT                        R34 K54 [Enum.SelectionRenderMode.BoundingBoxes]
-      249 LOADN                            R35 2
-      250 SETTABLE                         R35 R33 R34
-      251 GETIMPORT                        R34 K56 [Enum.SelectionRenderMode.Both]
-      253 LOADN                            R35 3
-      254 SETTABLE                         R35 R33 R34
-      255 NEWTABLE                         R34 0 4
-      257 GETIMPORT                        R35 K59 [Enum.ViewMode.None]
-      259 GETIMPORT                        R36 K61 [Enum.ViewMode.GeometryComplexity]
-      261 GETIMPORT                        R37 K63 [Enum.ViewMode.Transparent]
-      263 GETIMPORT                        R38 K65 [Enum.ViewMode.Decal]
-      265 SETLIST                          R34 R35 4 [1]
-      267 DUPCLOSURE                       R35 K66 [PROTO_5]
-      268 CAPTURE                          VAL R8
-      269 CAPTURE                          VAL R9
-      270 CAPTURE                          VAL R24
-      271 CAPTURE                          VAL R30
-      272 CAPTURE                          VAL R6
-      273 CAPTURE                          VAL R3
-      274 CAPTURE                          VAL R14
-      275 CAPTURE                          VAL R15
-      276 CAPTURE                          VAL R32
-      277 CAPTURE                          VAL R33
-      278 CAPTURE                          VAL R16
-      279 CAPTURE                          VAL R20
-      280 CAPTURE                          VAL R22
-      281 CAPTURE                          VAL R21
-      282 CAPTURE                          VAL R25
-      283 CAPTURE                          VAL R26
-      284 CAPTURE                          VAL R5
-      285 CAPTURE                          VAL R31
-      286 CAPTURE                          VAL R17
-      287 CAPTURE                          VAL R27
-      288 CAPTURE                          VAL R34
-      289 CAPTURE                          VAL R2
-      290 CAPTURE                          VAL R13
-      291 CAPTURE                          VAL R28
-      292 CAPTURE                          VAL R11
-      293 CAPTURE                          VAL R12
-      294 CAPTURE                          VAL R29
-      295 CAPTURE                          VAL R18
-      296 CAPTURE                          VAL R19
-      297 RETURN                           R35 1
+      202 GETIMPORT                        R22 K5 [require]
+      204 GETTABLEKS                       R23 R0 K6 ["Src"]
+      206 GETTABLEKS                       R23 R23 K27 ["Hooks"]
+      208 GETTABLEKS                       R23 R23 K36 ["useCameraSpeedLocked"]
+      210 CALL                             R22 1 1
+      211 MOVE                             R23 R1
+      212 CALL                             R23 0 1
+      213 GETTABLEKS                       R24 R4 K37 ["UI"]
+      215 GETTABLEKS                       R25 R4 K38 ["ContextServices"]
+      217 GETTABLEKS                       R26 R24 K39 ["Pane"]
+      219 GETTABLEKS                       R27 R24 K40 ["SegmentedButton"]
+      221 GETTABLEKS                       R28 R24 K41 ["SelectInput"]
+      223 GETTABLEKS                       R29 R24 K42 ["Slider"]
+      225 GETTABLEKS                       R30 R24 K43 ["Checkbox"]
+      227 GETTABLEKS                       R31 R4 K20 ["Util"]
+      229 GETTABLEKS                       R31 R31 K44 ["LayoutOrderIterator"]
+      231 GETTABLEKS                       R32 R24 K45 ["Tooltip"]
+      233 NEWTABLE                         R33 0 3
+      235 MOVE                             R34 R10
+      236 LOADK                            R35 K46 ["SelectionRenderModes"]
+      237 LOADK                            R36 K47 ["ViewOutlines"]
+      238 CALL                             R34 2 1
+      239 SETTABLEN                        R34 R33 1
+      240 MOVE                             R34 R10
+      241 LOADK                            R35 K46 ["SelectionRenderModes"]
+      242 LOADK                            R36 K48 ["ViewBoundingBoxes"]
+      243 CALL                             R34 2 1
+      244 SETTABLEN                        R34 R33 2
+      245 MOVE                             R34 R10
+      246 LOADK                            R35 K46 ["SelectionRenderModes"]
+      247 LOADK                            R36 K49 ["ViewBoth"]
+      248 CALL                             R34 2 1
+      249 SETTABLEN                        R34 R33 3
+      250 NEWTABLE                         R34 4 0
+      252 GETIMPORT                        R35 K53 [Enum.SelectionRenderMode.Outlines]
+      254 LOADN                            R36 1
+      255 SETTABLE                         R36 R34 R35
+      256 GETIMPORT                        R35 K55 [Enum.SelectionRenderMode.BoundingBoxes]
+      258 LOADN                            R36 2
+      259 SETTABLE                         R36 R34 R35
+      260 GETIMPORT                        R35 K57 [Enum.SelectionRenderMode.Both]
+      262 LOADN                            R36 3
+      263 SETTABLE                         R36 R34 R35
+      264 NEWTABLE                         R35 0 4
+      266 GETIMPORT                        R36 K60 [Enum.ViewMode.None]
+      268 GETIMPORT                        R37 K62 [Enum.ViewMode.GeometryComplexity]
+      270 GETIMPORT                        R38 K64 [Enum.ViewMode.Transparent]
+      272 GETIMPORT                        R39 K66 [Enum.ViewMode.Decal]
+      274 SETLIST                          R35 R36 4 [1]
+      276 DUPCLOSURE                       R36 K67 [PROTO_5]
+      277 CAPTURE                          VAL R8
+      278 CAPTURE                          VAL R9
+      279 CAPTURE                          VAL R25
+      280 CAPTURE                          VAL R31
+      281 CAPTURE                          VAL R6
+      282 CAPTURE                          VAL R3
+      283 CAPTURE                          VAL R14
+      284 CAPTURE                          VAL R15
+      285 CAPTURE                          VAL R33
+      286 CAPTURE                          VAL R34
+      287 CAPTURE                          VAL R16
+      288 CAPTURE                          VAL R21
+      289 CAPTURE                          VAL R23
+      290 CAPTURE                          VAL R22
+      291 CAPTURE                          VAL R26
+      292 CAPTURE                          VAL R27
+      293 CAPTURE                          VAL R5
+      294 CAPTURE                          VAL R32
+      295 CAPTURE                          VAL R17
+      296 CAPTURE                          VAL R28
+      297 CAPTURE                          VAL R35
+      298 CAPTURE                          VAL R2
+      299 CAPTURE                          VAL R13
+      300 CAPTURE                          VAL R29
+      301 CAPTURE                          VAL R11
+      302 CAPTURE                          VAL R12
+      303 CAPTURE                          VAL R30
+      304 CAPTURE                          VAL R18
+      305 CAPTURE                          VAL R19
+      306 CAPTURE                          VAL R20
+      307 RETURN                           R36 1

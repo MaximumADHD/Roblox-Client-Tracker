@@ -51,13 +51,15 @@ PROTO_2:
        26 SETTABLEKS                       R7 R6 K9 ["UIListLayout"]
        28 GETUPVAL                         R7 2
        29 GETUPVAL                         R8 3
-       30 DUPTABLE                         R9 K18 [{"textBoxRef"}]
+       30 DUPTABLE                         R9 K19 [{"textBoxRef", "externalInterfaceRef"}]
        31 GETTABLEKS                       R10 R0 K17 ["textBoxRef"]
        33 SETTABLEKS                       R10 R9 K17 ["textBoxRef"]
-       35 CALL                             R7 2 1
-       36 SETTABLEKS                       R7 R6 K10 ["MainView"]
-       38 CALL                             R3 3 -1
-       39 RETURN                           R3 -1
+       35 GETTABLEKS                       R10 R0 K18 ["externalInterfaceRef"]
+       37 SETTABLEKS                       R10 R9 K18 ["externalInterfaceRef"]
+       39 CALL                             R7 2 1
+       40 SETTABLEKS                       R7 R6 K10 ["MainView"]
+       42 CALL                             R3 3 -1
+       43 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

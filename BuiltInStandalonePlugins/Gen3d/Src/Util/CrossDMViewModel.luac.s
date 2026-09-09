@@ -39,7 +39,7 @@ PROTO_0:
 
 PROTO_1:
         0 LOADK                            R4 K0 ["Gen3dViewModel"]
-        1 DUPTABLE                         R5 K5 [{"visible", "selection", "generation", "activeGenerationUniqueIds"}]
+        1 DUPTABLE                         R5 K6 [{"visible", "selection", "generation", "activeGenerationUniqueIds", "referenceImage"}]
         2 GETTABLEKS                       R6 R1 K1 ["visible"]
         4 SETTABLEKS                       R6 R5 K1 ["visible"]
         6 GETTABLEKS                       R6 R1 K2 ["selection"]
@@ -52,9 +52,13 @@ PROTO_1:
        18 JUMPIF                           R6 ; [+2]
        19 NEWTABLE                         R6 0 0
        21 SETTABLEKS                       R6 R5 K4 ["activeGenerationUniqueIds"]
-       23 NAMECALL                         R2 R0 K6 ["SetItem"]
-       25 CALL                             R2 3 0
-       26 RETURN                           R0 0
+       23 GETTABLEKS                       R6 R1 K5 ["referenceImage"]
+       25 JUMPIF                           R6 ; [+1]
+       26 GETUPVAL                         R6 1
+       27 SETTABLEKS                       R6 R5 K5 ["referenceImage"]
+       29 NAMECALL                         R2 R0 K7 ["SetItem"]
+       31 CALL                             R2 3 0
+       32 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -115,22 +119,24 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K20 [{["StartGeneration"] = "startGeneration", ["PickSlot"] = "pickSlot", ["Cancel"] = "cancel", ["StartBatch"] = "startBatch", ["Open"] = "open", ["Close"] = "close"}]
-       15 DUPCLOSURE                       R3 K21 [PROTO_0]
-       16 NEWTABLE                         R4 2 0
-       18 DUPCLOSURE                       R5 K22 [PROTO_1]
-       19 CAPTURE                          VAL R3
-       20 SETTABLEKS                       R5 R4 K23 ["publish"]
-       22 DUPCLOSURE                       R5 K24 [PROTO_3]
-       23 SETTABLEKS                       R5 R4 K25 ["onIntent"]
-       25 NEWTABLE                         R5 2 0
-       27 DUPCLOSURE                       R6 K26 [PROTO_5]
-       28 SETTABLEKS                       R6 R5 K27 ["subscribe"]
-       30 DUPCLOSURE                       R6 K28 [PROTO_6]
-       31 SETTABLEKS                       R6 R5 K29 ["sendIntent"]
-       33 DUPTABLE                         R6 K34 [{"Model", "View", "Intents", "sanitizeGeneration"}]
-       34 SETTABLEKS                       R4 R6 K30 ["Model"]
-       36 SETTABLEKS                       R5 R6 K31 ["View"]
-       38 SETTABLEKS                       R2 R6 K32 ["Intents"]
-       40 SETTABLEKS                       R3 R6 K33 ["sanitizeGeneration"]
-       42 RETURN                           R6 1
+       14 DUPTABLE                         R2 K28 [{["StartGeneration"] = "startGeneration", ["PickSlot"] = "pickSlot", ["Cancel"] = "cancel", ["StartBatch"] = "startBatch", ["SetPrompt"] = "setPrompt", ["SetModel"] = "setModel", ["Open"] = "open", ["Close"] = "close", ["PickReferenceImage"] = "pickReferenceImage", ["ClearReferenceImage"] = "clearReferenceImage"}]
+       15 DUPTABLE                         R3 K31 [{["status"] = "None"}]
+       16 DUPCLOSURE                       R4 K32 [PROTO_0]
+       17 NEWTABLE                         R5 2 0
+       19 DUPCLOSURE                       R6 K33 [PROTO_1]
+       20 CAPTURE                          VAL R4
+       21 CAPTURE                          VAL R3
+       22 SETTABLEKS                       R6 R5 K34 ["publish"]
+       24 DUPCLOSURE                       R6 K35 [PROTO_3]
+       25 SETTABLEKS                       R6 R5 K36 ["onIntent"]
+       27 NEWTABLE                         R6 2 0
+       29 DUPCLOSURE                       R7 K37 [PROTO_5]
+       30 SETTABLEKS                       R7 R6 K38 ["subscribe"]
+       32 DUPCLOSURE                       R7 K39 [PROTO_6]
+       33 SETTABLEKS                       R7 R6 K40 ["sendIntent"]
+       35 DUPTABLE                         R7 K45 [{"Model", "View", "Intents", "sanitizeGeneration"}]
+       36 SETTABLEKS                       R5 R7 K41 ["Model"]
+       38 SETTABLEKS                       R6 R7 K42 ["View"]
+       40 SETTABLEKS                       R2 R7 K43 ["Intents"]
+       42 SETTABLEKS                       R4 R7 K44 ["sanitizeGeneration"]
+       44 RETURN                           R7 1

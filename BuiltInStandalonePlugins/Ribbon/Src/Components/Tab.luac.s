@@ -52,49 +52,59 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
-        0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
-        2 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
-        4 JUMPIFNOTEQ                      R2 R3 ; [+23]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K4 ["OnSelected"]
-        9 JUMPIFNOT                        R2 ; [+51]
-       10 GETUPVAL                         R2 1
-       11 JUMPIFNOT                        R2 ; [+4]
-       12 GETUPVAL                         R2 2
-       13 GETTABLEKS                       R2 R2 K5 ["cancelShowTooltip"]
-       15 CALL                             R2 0 0
-       16 GETUPVAL                         R2 0
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+4]
+        3 GETUPVAL                         R2 1
+        4 MOVE                             R3 R1
+        5 CALL                             R2 1 1
+        6 JUMP                             ; [+8]
+        7 GETTABLEKS                       R3 R1 K0 ["UserInputType"]
+        9 GETIMPORT                        R4 K3 [Enum.UserInputType.MouseButton1]
+       11 JUMPIFEQ                         R3 R4 ; [+2]
+       13 LOADB                            R2 0 +1
+       14 LOADB                            R2 1
+       15 JUMPIFNOT                        R2 ; [+22]
+       16 GETUPVAL                         R2 2
        17 GETTABLEKS                       R2 R2 K4 ["OnSelected"]
-       19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R3 R3 K6 ["Uri"]
-       22 GETUPVAL                         R4 3
-       23 NAMECALL                         R4 R4 K7 ["isDoubleClick"]
-       25 CALL                             R4 1 -1
-       26 CALL                             R2 -1 0
-       27 RETURN                           R0 0
-       28 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
-       30 GETIMPORT                        R3 K9 [Enum.UserInputType.MouseButton2]
-       32 JUMPIFNOTEQ                      R2 R3 ; [+28]
-       34 GETUPVAL                         R3 4
-       35 LENGTH                           R2 R3
-       36 LOADN                            R3 0
-       37 JUMPIFNOTLT                      R3 R2 ; [+23]
-       39 GETUPVAL                         R2 1
-       40 JUMPIFNOT                        R2 ; [+4]
-       41 GETUPVAL                         R2 2
-       42 GETTABLEKS                       R2 R2 K5 ["cancelShowTooltip"]
-       44 CALL                             R2 0 0
-       45 GETIMPORT                        R2 K12 [Vector2.new]
-       47 GETTABLEKS                       R3 R1 K13 ["Position"]
-       49 GETTABLEKS                       R3 R3 K14 ["X"]
-       51 GETTABLEKS                       R4 R1 K13 ["Position"]
-       53 GETTABLEKS                       R4 R4 K15 ["Y"]
-       55 CALL                             R2 2 1
-       56 GETUPVAL                         R3 5
-       57 GETTABLEKS                       R5 R0 K16 ["AbsolutePosition"]
-       59 SUB                              R4 R2 R5
-       60 CALL                             R3 1 0
-       61 RETURN                           R0 0
+       19 JUMPIFNOT                        R2 ; [+51]
+       20 GETUPVAL                         R2 3
+       21 JUMPIFNOT                        R2 ; [+4]
+       22 GETUPVAL                         R2 4
+       23 GETTABLEKS                       R2 R2 K5 ["cancelShowTooltip"]
+       25 CALL                             R2 0 0
+       26 GETUPVAL                         R2 2
+       27 GETTABLEKS                       R2 R2 K4 ["OnSelected"]
+       29 GETUPVAL                         R3 2
+       30 GETTABLEKS                       R3 R3 K6 ["Uri"]
+       32 GETUPVAL                         R4 5
+       33 NAMECALL                         R4 R4 K7 ["isDoubleClick"]
+       35 CALL                             R4 1 -1
+       36 CALL                             R2 -1 0
+       37 RETURN                           R0 0
+       38 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
+       40 GETIMPORT                        R3 K9 [Enum.UserInputType.MouseButton2]
+       42 JUMPIFNOTEQ                      R2 R3 ; [+28]
+       44 GETUPVAL                         R3 6
+       45 LENGTH                           R2 R3
+       46 LOADN                            R3 0
+       47 JUMPIFNOTLT                      R3 R2 ; [+23]
+       49 GETUPVAL                         R2 3
+       50 JUMPIFNOT                        R2 ; [+4]
+       51 GETUPVAL                         R2 4
+       52 GETTABLEKS                       R2 R2 K5 ["cancelShowTooltip"]
+       54 CALL                             R2 0 0
+       55 GETIMPORT                        R2 K12 [Vector2.new]
+       57 GETTABLEKS                       R3 R1 K13 ["Position"]
+       59 GETTABLEKS                       R3 R3 K14 ["X"]
+       61 GETTABLEKS                       R4 R1 K13 ["Position"]
+       63 GETTABLEKS                       R4 R4 K15 ["Y"]
+       65 CALL                             R2 2 1
+       66 GETUPVAL                         R3 7
+       67 GETTABLEKS                       R5 R0 K16 ["AbsolutePosition"]
+       69 SUB                              R4 R2 R5
+       70 CALL                             R3 1 0
+       71 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -257,32 +267,34 @@ PROTO_6:
       183 GETTABLEKS                       R12 R12 K18 ["Event"]
       185 GETTABLEKS                       R12 R12 K30 ["InputBegan"]
       187 NEWCLOSURE                       R13 P3
-      188 CAPTURE                          VAL R0
-      189 CAPTURE                          VAL R2
-      190 CAPTURE                          UPVAL U10
-      191 CAPTURE                          VAL R5
-      192 CAPTURE                          VAL R6
-      193 CAPTURE                          VAL R7
-      194 SETTABLE                         R13 R11 R12
-      195 GETUPVAL                         R12 7
-      196 GETTABLEKS                       R12 R12 K18 ["Event"]
-      198 GETTABLEKS                       R12 R12 K31 ["MouseEnter"]
-      200 NEWCLOSURE                       R13 P4
-      201 CAPTURE                          VAL R2
-      202 CAPTURE                          VAL R3
-      203 CAPTURE                          VAL R0
-      204 SETTABLE                         R13 R11 R12
-      205 GETUPVAL                         R12 7
-      206 GETTABLEKS                       R12 R12 K18 ["Event"]
-      208 GETTABLEKS                       R12 R12 K32 ["MouseLeave"]
-      210 NEWCLOSURE                       R13 P5
-      211 CAPTURE                          VAL R2
-      212 CAPTURE                          VAL R4
-      213 CAPTURE                          UPVAL U11
-      214 CAPTURE                          VAL R0
-      215 SETTABLE                         R13 R11 R12
-      216 CALL                             R9 2 -1
-      217 RETURN                           R9 -1
+      188 CAPTURE                          UPVAL U10
+      189 CAPTURE                          UPVAL U11
+      190 CAPTURE                          VAL R0
+      191 CAPTURE                          VAL R2
+      192 CAPTURE                          UPVAL U12
+      193 CAPTURE                          VAL R5
+      194 CAPTURE                          VAL R6
+      195 CAPTURE                          VAL R7
+      196 SETTABLE                         R13 R11 R12
+      197 GETUPVAL                         R12 7
+      198 GETTABLEKS                       R12 R12 K18 ["Event"]
+      200 GETTABLEKS                       R12 R12 K31 ["MouseEnter"]
+      202 NEWCLOSURE                       R13 P4
+      203 CAPTURE                          VAL R2
+      204 CAPTURE                          VAL R3
+      205 CAPTURE                          VAL R0
+      206 SETTABLE                         R13 R11 R12
+      207 GETUPVAL                         R12 7
+      208 GETTABLEKS                       R12 R12 K18 ["Event"]
+      210 GETTABLEKS                       R12 R12 K32 ["MouseLeave"]
+      212 NEWCLOSURE                       R13 P5
+      213 CAPTURE                          VAL R2
+      214 CAPTURE                          VAL R4
+      215 CAPTURE                          UPVAL U13
+      216 CAPTURE                          VAL R0
+      217 SETTABLE                         R13 R11 R12
+      218 CALL                             R9 2 -1
+      219 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -301,52 +313,64 @@ MAIN:
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K9 ["Src"]
        25 GETTABLEKS                       R4 R4 K10 ["Util"]
-       27 GETTABLEKS                       R4 R4 K11 ["uriToTestId"]
+       27 GETTABLEKS                       R4 R4 K11 ["isActivationInput"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
        32 GETTABLEKS                       R5 R0 K9 ["Src"]
-       34 GETTABLEKS                       R5 R5 K12 ["Hooks"]
-       36 GETTABLEKS                       R5 R5 K13 ["useRelativeMenu"]
+       34 GETTABLEKS                       R5 R5 K10 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["uriToTestId"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       43 GETTABLEKS                       R6 R6 K14 ["StudioFoundation"]
-       45 CALL                             R5 1 1
-       46 GETTABLEKS                       R6 R5 K12 ["Hooks"]
-       48 GETTABLEKS                       R6 R6 K15 ["useWidgetRef"]
-       50 GETTABLEKS                       R7 R1 K10 ["Util"]
-       52 GETTABLEKS                       R7 R7 K16 ["DoubleClickDetector"]
-       54 GETTABLEKS                       R8 R2 K17 ["createElement"]
-       56 GETTABLEKS                       R9 R1 K18 ["Styling"]
-       58 GETTABLEKS                       R9 R9 K19 ["joinTags"]
-       60 GETTABLEKS                       R10 R2 K20 ["useState"]
-       62 GETTABLEKS                       R11 R2 K21 ["useEffect"]
-       64 GETIMPORT                        R12 K5 [require]
-       66 GETTABLEKS                       R13 R0 K9 ["Src"]
-       68 GETTABLEKS                       R13 R13 K12 ["Hooks"]
-       70 GETTABLEKS                       R13 R13 K22 ["TooltipSettings"]
-       72 CALL                             R12 1 1
+       41 GETTABLEKS                       R6 R0 K9 ["Src"]
+       43 GETTABLEKS                       R6 R6 K13 ["Hooks"]
+       45 GETTABLEKS                       R6 R6 K14 ["useRelativeMenu"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       52 GETTABLEKS                       R7 R7 K15 ["StudioFoundation"]
+       54 CALL                             R6 1 1
+       55 GETTABLEKS                       R7 R6 K13 ["Hooks"]
+       57 GETTABLEKS                       R7 R7 K16 ["useWidgetRef"]
+       59 GETTABLEKS                       R8 R1 K10 ["Util"]
+       61 GETTABLEKS                       R8 R8 K17 ["DoubleClickDetector"]
+       63 GETTABLEKS                       R9 R2 K18 ["createElement"]
+       65 GETTABLEKS                       R10 R1 K19 ["Styling"]
+       67 GETTABLEKS                       R10 R10 K20 ["joinTags"]
+       69 GETTABLEKS                       R11 R2 K21 ["useState"]
+       71 GETTABLEKS                       R12 R2 K22 ["useEffect"]
        73 GETIMPORT                        R13 K5 [require]
        75 GETTABLEKS                       R14 R0 K9 ["Src"]
-       77 GETTABLEKS                       R14 R14 K12 ["Hooks"]
-       79 GETTABLEKS                       R14 R14 K23 ["useTooltip"]
+       77 GETTABLEKS                       R14 R14 K13 ["Hooks"]
+       79 GETTABLEKS                       R14 R14 K23 ["TooltipSettings"]
        81 CALL                             R13 1 1
        82 GETIMPORT                        R14 K5 [require]
        84 GETTABLEKS                       R15 R0 K9 ["Src"]
-       86 GETTABLEKS                       R15 R15 K24 ["SharedFlags"]
-       88 GETTABLEKS                       R15 R15 K25 ["getFFlagRibbonCancelShowFloatingTask"]
+       86 GETTABLEKS                       R15 R15 K13 ["Hooks"]
+       88 GETTABLEKS                       R15 R15 K24 ["useTooltip"]
        90 CALL                             R14 1 1
-       91 DUPCLOSURE                       R15 K26 [PROTO_6]
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R13
-       94 CAPTURE                          VAL R11
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R4
-       98 CAPTURE                          VAL R8
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R3
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R12
-      103 CAPTURE                          VAL R14
-      104 RETURN                           R15 1
+       91 GETIMPORT                        R15 K5 [require]
+       93 GETTABLEKS                       R16 R0 K9 ["Src"]
+       95 GETTABLEKS                       R16 R16 K25 ["SharedFlags"]
+       97 GETTABLEKS                       R16 R16 K26 ["getFFlagRibbonCancelShowFloatingTask"]
+       99 CALL                             R15 1 1
+      100 GETIMPORT                        R16 K5 [require]
+      102 GETTABLEKS                       R17 R0 K9 ["Src"]
+      104 GETTABLEKS                       R17 R17 K25 ["SharedFlags"]
+      106 GETTABLEKS                       R17 R17 K27 ["getFFlagRibbonEnableKeyboardNavigation"]
+      108 CALL                             R16 1 1
+      109 DUPCLOSURE                       R17 K28 [PROTO_6]
+      110 CAPTURE                          VAL R7
+      111 CAPTURE                          VAL R14
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R8
+      115 CAPTURE                          VAL R5
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R2
+      118 CAPTURE                          VAL R4
+      119 CAPTURE                          VAL R10
+      120 CAPTURE                          VAL R16
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R13
+      123 CAPTURE                          VAL R15
+      124 RETURN                           R17 1

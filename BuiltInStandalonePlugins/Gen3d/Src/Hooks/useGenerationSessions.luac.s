@@ -16,16 +16,18 @@ PROTO_1:
         9 MOVE                             R3 R0
        10 CALL                             R2 1 1
        11 GETTABLEKS                       R3 R1 K3 ["stage"]
-       13 JUMPIFNOTEQKS                    R3 K4 ["Idle"] ; [+9]
+       13 JUMPIFNOTEQKS                    R3 K4 ["Idle"] ; [+13]
        15 GETTABLEKS                       R3 R1 K5 ["prompt"]
-       17 JUMPIFNOTEQKS                    R3 K6 [""] ; [+5]
-       19 GETUPVAL                         R3 1
-       20 LOADNIL                          R4
-       21 SETTABLE                         R4 R2 R3
-       22 RETURN                           R2 1
+       17 JUMPIFNOTEQKS                    R3 K6 [""] ; [+9]
+       19 GETTABLEKS                       R3 R1 K7 ["model"]
+       21 JUMPIFNOTEQKS                    R3 K6 [""] ; [+5]
        23 GETUPVAL                         R3 1
-       24 SETTABLE                         R1 R2 R3
-       25 RETURN                           R2 1
+       24 LOADNIL                          R4
+       25 SETTABLE                         R4 R2 R3
+       26 RETURN                           R2 1
+       27 GETUPVAL                         R3 1
+       28 SETTABLE                         R1 R2 R3
+       29 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

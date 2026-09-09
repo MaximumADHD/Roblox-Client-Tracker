@@ -516,7 +516,7 @@ PROTO_11:
        10 MOVE                             R6 R1
        11 CALL                             R3 3 3
        12 JUMPIFNOT                        R3 ; [+1]
-       13 JUMPIF                           R4 ; [+31]
+       13 JUMPIF                           R4 ; [+53]
        14 GETUPVAL                         R6 2
        15 GETUPVAL                         R7 3
        16 GETTABLEKS                       R7 R7 K4 ["Load"]
@@ -532,32 +532,48 @@ PROTO_11:
        31 SETTABLEKS                       R8 R11 K8 ["scope"]
        33 SETTABLEKS                       R9 R11 K11 ["latencyMs"]
        35 CALL                             R10 1 0
-       36 JUMPIF                           R3 ; [+5]
-       37 GETIMPORT                        R6 K14 [error]
-       39 MOVE                             R7 R4
-       40 LOADN                            R8 0
-       41 CALL                             R6 2 0
-       42 LOADB                            R6 0
-       43 MOVE                             R7 R5
-       44 RETURN                           R6 2
-       45 GETUPVAL                         R6 2
-       46 GETUPVAL                         R7 3
-       47 GETTABLEKS                       R7 R7 K4 ["Load"]
-       49 GETUPVAL                         R8 4
-       50 GETTABLEKS                       R8 R8 K5 ["Messages"]
-       52 GETUPVAL                         R10 0
-       53 GETTABLEKS                       R10 R10 K0 ["getTimestampMilliseconds"]
-       55 CALL                             R10 0 1
-       56 SUB                              R9 R10 R2
-       57 GETTABLEKS                       R10 R6 K6 ["logPersistenceOperation"]
-       59 DUPTABLE                         R11 K16 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
-       60 SETTABLEKS                       R7 R11 K7 ["operation"]
-       62 SETTABLEKS                       R8 R11 K8 ["scope"]
-       64 SETTABLEKS                       R9 R11 K11 ["latencyMs"]
-       66 CALL                             R10 1 0
-       67 LOADB                            R6 1
-       68 MOVE                             R7 R5
-       69 RETURN                           R6 2
+       36 JUMPIF                           R3 ; [+27]
+       37 GETUPVAL                         R6 5
+       38 GETTABLEKS                       R6 R6 K13 ["FFlagDebugLogAssistantUI"]
+       40 JUMPIFNOT                        R6 ; [+18]
+       41 GETIMPORT                        R6 K15 [print]
+       43 LOADK                            R8 K16 ["[Persistence] [IO] getAgentMessagesAsync: failed to load messages for threadId=%* cursor=%* limit=%* with error: %*"]
+       44 MOVE                             R10 R0
+       45 GETTABLEKS                       R11 R1 K17 ["cursor"]
+       47 GETTABLEKS                       R12 R1 K18 ["limit"]
+       49 FASTCALL1                        TOSTRING R4 ; [+3]
+       50 MOVE                             R14 R4
+       51 GETIMPORT                        R13 K20 [tostring]
+       53 CALL                             R13 1 1
+       54 NAMECALL                         R8 R8 K21 ["format"]
+       56 CALL                             R8 5 1
+       57 MOVE                             R7 R8
+       58 CALL                             R6 1 0
+       59 GETIMPORT                        R6 K23 [error]
+       61 MOVE                             R7 R4
+       62 LOADN                            R8 0
+       63 CALL                             R6 2 0
+       64 LOADB                            R6 0
+       65 MOVE                             R7 R5
+       66 RETURN                           R6 2
+       67 GETUPVAL                         R6 2
+       68 GETUPVAL                         R7 3
+       69 GETTABLEKS                       R7 R7 K4 ["Load"]
+       71 GETUPVAL                         R8 4
+       72 GETTABLEKS                       R8 R8 K5 ["Messages"]
+       74 GETUPVAL                         R10 0
+       75 GETTABLEKS                       R10 R10 K0 ["getTimestampMilliseconds"]
+       77 CALL                             R10 0 1
+       78 SUB                              R9 R10 R2
+       79 GETTABLEKS                       R10 R6 K6 ["logPersistenceOperation"]
+       81 DUPTABLE                         R11 K25 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       82 SETTABLEKS                       R7 R11 K7 ["operation"]
+       84 SETTABLEKS                       R8 R11 K8 ["scope"]
+       86 SETTABLEKS                       R9 R11 K11 ["latencyMs"]
+       88 CALL                             R10 1 0
+       89 LOADB                            R6 1
+       90 MOVE                             R7 R5
+       91 RETURN                           R6 2
 
 PROTO_12:
         0 GETUPVAL                         R2 0
@@ -697,49 +713,41 @@ PROTO_14:
        44 CAPTURE                          UPVAL U2
        45 CAPTURE                          UPVAL U3
        46 SETTABLEKS                       R4 R3 K5 ["uploadMessagesAsync"]
-       48 GETUPVAL                         R5 4
-       49 CALL                             R5 0 1
-       50 JUMPIFNOT                        R5 ; [+10]
-       51 GETTABLEKS                       R5 R0 K6 ["getAgentMessagesAsync"]
-       53 JUMPIFNOT                        R5 ; [+7]
-       54 NEWCLOSURE                       R4 P5
-       55 CAPTURE                          UPVAL U0
-       56 CAPTURE                          VAL R0
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          UPVAL U2
-       59 CAPTURE                          UPVAL U3
-       60 JUMP                             ; [+1]
-       61 LOADNIL                          R4
-       62 SETTABLEKS                       R4 R3 K6 ["getAgentMessagesAsync"]
-       64 GETUPVAL                         R5 4
-       65 CALL                             R5 0 1
-       66 JUMPIFNOT                        R5 ; [+10]
-       67 GETTABLEKS                       R5 R0 K7 ["uploadAgentThreadsAsync"]
-       69 JUMPIFNOT                        R5 ; [+7]
-       70 NEWCLOSURE                       R4 P6
-       71 CAPTURE                          UPVAL U0
-       72 CAPTURE                          VAL R0
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          UPVAL U2
-       75 CAPTURE                          UPVAL U3
-       76 JUMP                             ; [+1]
-       77 LOADNIL                          R4
-       78 SETTABLEKS                       R4 R3 K7 ["uploadAgentThreadsAsync"]
-       80 GETUPVAL                         R5 4
-       81 CALL                             R5 0 1
-       82 JUMPIFNOT                        R5 ; [+10]
-       83 GETTABLEKS                       R5 R0 K8 ["uploadAgentMessagesAsync"]
-       85 JUMPIFNOT                        R5 ; [+7]
-       86 NEWCLOSURE                       R4 P7
-       87 CAPTURE                          UPVAL U0
-       88 CAPTURE                          VAL R0
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          UPVAL U2
-       91 CAPTURE                          UPVAL U3
-       92 JUMP                             ; [+1]
-       93 LOADNIL                          R4
-       94 SETTABLEKS                       R4 R3 K8 ["uploadAgentMessagesAsync"]
-       96 RETURN                           R3 1
+       48 GETTABLEKS                       R5 R0 K6 ["getAgentMessagesAsync"]
+       50 JUMPIFNOT                        R5 ; [+8]
+       51 NEWCLOSURE                       R4 P5
+       52 CAPTURE                          UPVAL U0
+       53 CAPTURE                          VAL R0
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          UPVAL U2
+       56 CAPTURE                          UPVAL U3
+       57 CAPTURE                          UPVAL U1
+       58 JUMP                             ; [+1]
+       59 LOADNIL                          R4
+       60 SETTABLEKS                       R4 R3 K6 ["getAgentMessagesAsync"]
+       62 GETTABLEKS                       R5 R0 K7 ["uploadAgentThreadsAsync"]
+       64 JUMPIFNOT                        R5 ; [+7]
+       65 NEWCLOSURE                       R4 P6
+       66 CAPTURE                          UPVAL U0
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          UPVAL U2
+       70 CAPTURE                          UPVAL U3
+       71 JUMP                             ; [+1]
+       72 LOADNIL                          R4
+       73 SETTABLEKS                       R4 R3 K7 ["uploadAgentThreadsAsync"]
+       75 GETTABLEKS                       R5 R0 K8 ["uploadAgentMessagesAsync"]
+       77 JUMPIFNOT                        R5 ; [+7]
+       78 NEWCLOSURE                       R4 P7
+       79 CAPTURE                          UPVAL U0
+       80 CAPTURE                          VAL R0
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          UPVAL U2
+       83 CAPTURE                          UPVAL U3
+       84 JUMP                             ; [+1]
+       85 LOADNIL                          R4
+       86 SETTABLEKS                       R4 R3 K8 ["uploadAgentMessagesAsync"]
+       88 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -759,22 +767,19 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K9 ["Src"]
        25 GETTABLEKS                       R4 R4 K10 ["Flags"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R1 K11 ["FlagUtils"]
-       30 GETTABLEKS                       R4 R4 K12 ["getIsAssistantHarnessSplit"]
-       32 GETTABLEKS                       R5 R1 K13 ["Utils"]
-       34 GETTABLEKS                       R5 R5 K14 ["Time"]
-       36 GETTABLEKS                       R6 R1 K15 ["Types"]
-       38 GETTABLEKS                       R6 R6 K16 ["PersistenceOperation"]
-       40 GETTABLEKS                       R7 R1 K15 ["Types"]
-       42 GETTABLEKS                       R7 R7 K17 ["ScopeTypes"]
-       44 DUPCLOSURE                       R8 K18 [PROTO_0]
+       28 GETTABLEKS                       R4 R1 K11 ["Utils"]
+       30 GETTABLEKS                       R4 R4 K12 ["Time"]
+       32 GETTABLEKS                       R5 R1 K13 ["Types"]
+       34 GETTABLEKS                       R5 R5 K14 ["PersistenceOperation"]
+       36 GETTABLEKS                       R6 R1 K13 ["Types"]
+       38 GETTABLEKS                       R6 R6 K15 ["ScopeTypes"]
+       40 DUPCLOSURE                       R7 K16 [PROTO_0]
+       41 CAPTURE                          VAL R4
+       42 DUPCLOSURE                       R8 K17 [PROTO_14]
+       43 CAPTURE                          VAL R4
+       44 CAPTURE                          VAL R3
        45 CAPTURE                          VAL R5
-       46 DUPCLOSURE                       R9 K19 [PROTO_14]
-       47 CAPTURE                          VAL R5
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R6
-       50 CAPTURE                          VAL R7
-       51 CAPTURE                          VAL R4
-       52 DUPTABLE                         R10 K21 [{"createTelemetryIO"}]
-       53 SETTABLEKS                       R9 R10 K20 ["createTelemetryIO"]
-       55 RETURN                           R10 1
+       46 CAPTURE                          VAL R6
+       47 DUPTABLE                         R9 K19 [{"createTelemetryIO"}]
+       48 SETTABLEKS                       R8 R9 K18 ["createTelemetryIO"]
+       50 RETURN                           R9 1

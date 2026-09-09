@@ -16,17 +16,14 @@ PROTO_0:
 PROTO_1:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["didOpenItemsDetails"]
-        3 GETUPVAL                         R1 0
-        4 CALL                             R1 0 1
-        5 JUMPIFNOT                        R1 ; [+3]
-        6 LOADB                            R1 0
-        7 SETTABLEKS                       R1 R0 K1 ["_isMounted"]
-        9 NEWTABLE                         R1 0 0
-       11 SETTABLEKS                       R1 R0 K2 ["_externalConnections"]
-       13 NAMECALL                         R1 R0 K3 ["createEventHandlers"]
-       15 CALL                             R1 1 1
-       16 SETTABLEKS                       R1 R0 K4 ["eventHandlers"]
-       18 RETURN                           R0 0
+        3 LOADB                            R1 0
+        4 SETTABLEKS                       R1 R0 K1 ["_isMounted"]
+        6 NEWTABLE                         R1 0 0
+        8 SETTABLEKS                       R1 R0 K2 ["_externalConnections"]
+       10 NAMECALL                         R1 R0 K3 ["createEventHandlers"]
+       12 CALL                             R1 1 1
+       13 SETTABLEKS                       R1 R0 K4 ["eventHandlers"]
+       15 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -512,29 +509,26 @@ PROTO_18:
        16 RETURN                           R0 0
 
 PROTO_19:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+3]
-        3 LOADB                            R1 1
-        4 SETTABLEKS                       R1 R0 K0 ["_isMounted"]
-        6 GETTABLEKS                       R1 R0 K1 ["props"]
-        8 GETTABLEKS                       R2 R1 K2 ["categoryName"]
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R3 R3 K3 ["getTabKeyForCategoryName"]
-       13 MOVE                             R4 R2
-       14 CALL                             R3 1 1
-       15 GETUPVAL                         R4 1
-       16 GETTABLEKS                       R4 R4 K4 ["MARKETPLACE_KEY"]
-       18 JUMPIFNOTEQ                      R3 R4 ; [+10]
-       20 GETUPVAL                         R4 2
-       21 GETTABLEKS                       R4 R4 K5 ["setEventTarget"]
-       23 GETUPVAL                         R5 3
-       24 GETTABLEKS                       R5 R5 K6 ["ANALYTICS_TARGET"]
-       26 GETTABLEKS                       R5 R5 K7 ["WebView"]
+        0 LOADB                            R1 1
+        1 SETTABLEKS                       R1 R0 K0 ["_isMounted"]
+        3 GETTABLEKS                       R1 R0 K1 ["props"]
+        5 GETTABLEKS                       R2 R1 K2 ["categoryName"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K3 ["getTabKeyForCategoryName"]
+       10 MOVE                             R4 R2
+       11 CALL                             R3 1 1
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K4 ["MARKETPLACE_KEY"]
+       15 JUMPIFNOTEQ                      R3 R4 ; [+10]
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R4 R4 K5 ["setEventTarget"]
+       20 GETUPVAL                         R5 2
+       21 GETTABLEKS                       R5 R5 K6 ["ANALYTICS_TARGET"]
+       23 GETTABLEKS                       R5 R5 K7 ["WebView"]
+       25 CALL                             R4 1 0
+       26 NAMECALL                         R4 R0 K8 ["setUpExternalSignalConnections"]
        28 CALL                             R4 1 0
-       29 NAMECALL                         R4 R0 K8 ["setUpExternalSignalConnections"]
-       31 CALL                             R4 1 0
-       32 RETURN                           R0 0
+       29 RETURN                           R0 0
 
 PROTO_20:
         0 GETUPVAL                         R0 0
@@ -546,119 +540,77 @@ PROTO_20:
         8 GETTABLEKS                       R0 R0 K2 ["WebViewManagerContext"]
        10 NAMECALL                         R0 R0 K3 ["get"]
        12 CALL                             R0 1 1
-       13 SETUPVAL                         R0 1
-       14 GETUPVAL                         R0 1
-       15 LOADK                            R2 K4 ["updateTutorialConfig"]
-       16 DUPTABLE                         R3 K8 [{"assetIds", "isToolboxTutorialActive", "nextTutorialStep"}]
-       17 GETUPVAL                         R5 0
-       18 GETTABLEKS                       R5 R5 K1 ["props"]
-       20 GETTABLEKS                       R5 R5 K9 ["tutorialAssetIds"]
-       22 JUMPIFNOT                        R5 ; [+6]
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R4 R4 K1 ["props"]
-       26 GETTABLEKS                       R4 R4 K9 ["tutorialAssetIds"]
-       28 JUMP                             ; [+2]
-       29 NEWTABLE                         R4 0 0
-       31 SETTABLEKS                       R4 R3 K5 ["assetIds"]
-       33 GETUPVAL                         R4 2
-       34 SETTABLEKS                       R4 R3 K6 ["isToolboxTutorialActive"]
+       13 LOADK                            R3 K4 ["updateTutorialConfig"]
+       14 DUPTABLE                         R4 K8 [{"assetIds", "isToolboxTutorialActive", "nextTutorialStep"}]
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K1 ["props"]
+       18 GETTABLEKS                       R6 R6 K9 ["tutorialAssetIds"]
+       20 JUMPIFNOT                        R6 ; [+6]
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K1 ["props"]
+       24 GETTABLEKS                       R5 R5 K9 ["tutorialAssetIds"]
+       26 JUMP                             ; [+2]
+       27 NEWTABLE                         R5 0 0
+       29 SETTABLEKS                       R5 R4 K5 ["assetIds"]
+       31 GETUPVAL                         R5 1
+       32 SETTABLEKS                       R5 R4 K6 ["isToolboxTutorialActive"]
+       34 GETUPVAL                         R6 1
+       35 JUMPIFNOT                        R6 ; [+6]
        36 GETUPVAL                         R5 2
-       37 JUMPIFNOT                        R5 ; [+6]
-       38 GETUPVAL                         R4 3
-       39 GETTABLEKS                       R4 R4 K10 ["TutorialStep"]
-       41 GETTABLEKS                       R4 R4 K11 ["SEARCH"]
-       43 JUMP                             ; [+5]
-       44 GETUPVAL                         R4 3
-       45 GETTABLEKS                       R4 R4 K10 ["TutorialStep"]
-       47 GETTABLEKS                       R4 R4 K12 ["NONE"]
-       49 SETTABLEKS                       R4 R3 K7 ["nextTutorialStep"]
-       51 NAMECALL                         R0 R0 K13 ["fire"]
-       53 CALL                             R0 3 0
-       54 RETURN                           R0 0
+       37 GETTABLEKS                       R5 R5 K10 ["TutorialStep"]
+       39 GETTABLEKS                       R5 R5 K11 ["SEARCH"]
+       41 JUMP                             ; [+5]
+       42 GETUPVAL                         R5 2
+       43 GETTABLEKS                       R5 R5 K10 ["TutorialStep"]
+       45 GETTABLEKS                       R5 R5 K12 ["NONE"]
+       47 SETTABLEKS                       R5 R4 K7 ["nextTutorialStep"]
+       49 NAMECALL                         R1 R0 K13 ["fire"]
+       51 CALL                             R1 3 0
+       52 RETURN                           R0 0
 
 PROTO_21:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R2 K1 ["tutorialAssetIds"]
         4 GETTABLEKS                       R3 R1 K1 ["tutorialAssetIds"]
-        6 JUMPIFEQ                         R2 R3 ; [+94]
+        6 JUMPIFEQ                         R2 R3 ; [+41]
         8 GETTABLEKS                       R2 R0 K0 ["props"]
        10 GETTABLEKS                       R2 R2 K2 ["hasWebViewEverLoaded"]
-       12 JUMPIFNOT                        R2 ; [+88]
+       12 JUMPIFNOT                        R2 ; [+35]
        13 GETUPVAL                         R2 0
        14 GETTABLEKS                       R2 R2 K3 ["GetService"]
        16 LOADK                            R3 K4 ["TutorialService"]
        17 CALL                             R2 1 1
        18 NAMECALL                         R2 R2 K5 ["ShouldLaunchTutorial"]
        20 CALL                             R2 1 1
-       21 GETUPVAL                         R4 1
-       22 CALL                             R4 0 1
-       23 JUMPIFNOT                        R4 ; [+2]
-       24 LOADNIL                          R3
-       25 JUMP                             ; [+7]
-       26 GETTABLEKS                       R3 R0 K0 ["props"]
-       28 GETTABLEKS                       R3 R3 K6 ["WebViewManagerContext"]
-       30 NAMECALL                         R3 R3 K7 ["get"]
-       32 CALL                             R3 1 1
-       33 JUMPIFNOT                        R2 ; [+66]
-       34 GETTABLEKS                       R5 R0 K0 ["props"]
-       36 GETTABLEKS                       R5 R5 K1 ["tutorialAssetIds"]
-       38 JUMPIFNOT                        R2 ; [+13]
-       39 FASTCALL1                        TYPE R5 ; [+3]
-       40 MOVE                             R7 R5
-       41 GETIMPORT                        R6 K9 [type]
-       43 CALL                             R6 1 1
-       44 JUMPIFNOTEQKS                    R6 K10 ["table"] ; [+7]
-       46 LENGTH                           R6 R5
-       47 LOADN                            R7 0
-       48 JUMPIFNOTLT                      R7 R6 ; [+3]
-       50 LOADB                            R4 1
-       51 JUMP                             ; [+1]
-       52 LOADB                            R4 0
-       53 GETUPVAL                         R5 1
-       54 CALL                             R5 0 1
-       55 JUMPIFNOT                        R5 ; [+9]
-       56 GETIMPORT                        R5 K13 [task.spawn]
-       58 NEWCLOSURE                       R6 P0
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          REF R3
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          UPVAL U2
-       63 CALL                             R5 1 0
-       64 JUMP                             ; [+35]
-       65 LOADK                            R7 K14 ["updateTutorialConfig"]
-       66 DUPTABLE                         R8 K18 [{"assetIds", "isToolboxTutorialActive", "nextTutorialStep"}]
-       67 GETTABLEKS                       R10 R0 K0 ["props"]
-       69 GETTABLEKS                       R10 R10 K1 ["tutorialAssetIds"]
-       71 JUMPIFNOT                        R10 ; [+5]
-       72 GETTABLEKS                       R9 R0 K0 ["props"]
-       74 GETTABLEKS                       R9 R9 K1 ["tutorialAssetIds"]
-       76 JUMP                             ; [+2]
-       77 NEWTABLE                         R9 0 0
-       79 SETTABLEKS                       R9 R8 K15 ["assetIds"]
-       81 SETTABLEKS                       R4 R8 K16 ["isToolboxTutorialActive"]
-       83 JUMPIFNOT                        R4 ; [+6]
-       84 GETUPVAL                         R9 2
-       85 GETTABLEKS                       R9 R9 K19 ["TutorialStep"]
-       87 GETTABLEKS                       R9 R9 K20 ["SEARCH"]
-       89 JUMP                             ; [+5]
-       90 GETUPVAL                         R9 2
-       91 GETTABLEKS                       R9 R9 K19 ["TutorialStep"]
-       93 GETTABLEKS                       R9 R9 K21 ["NONE"]
-       95 SETTABLEKS                       R9 R8 K17 ["nextTutorialStep"]
-       97 NAMECALL                         R5 R3 K22 ["fire"]
-       99 CALL                             R5 3 0
-      100 CLOSEUPVALS                      R3
-      101 RETURN                           R0 0
+       21 JUMPIFNOT                        R2 ; [+26]
+       22 GETTABLEKS                       R4 R0 K0 ["props"]
+       24 GETTABLEKS                       R4 R4 K1 ["tutorialAssetIds"]
+       26 JUMPIFNOT                        R2 ; [+13]
+       27 FASTCALL1                        TYPE R4 ; [+3]
+       28 MOVE                             R6 R4
+       29 GETIMPORT                        R5 K7 [type]
+       31 CALL                             R5 1 1
+       32 JUMPIFNOTEQKS                    R5 K8 ["table"] ; [+7]
+       34 LENGTH                           R5 R4
+       35 LOADN                            R6 0
+       36 JUMPIFNOTLT                      R6 R5 ; [+3]
+       38 LOADB                            R3 1
+       39 JUMP                             ; [+1]
+       40 LOADB                            R3 0
+       41 GETIMPORT                        R4 K11 [task.spawn]
+       43 NEWCLOSURE                       R5 P0
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          UPVAL U1
+       47 CALL                             R4 1 0
+       48 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+3]
-        3 LOADB                            R1 0
-        4 SETTABLEKS                       R1 R0 K0 ["_isMounted"]
-        6 NAMECALL                         R1 R0 K1 ["disconnectExternalSignals"]
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["_isMounted"]
+        3 NAMECALL                         R1 R0 K1 ["disconnectExternalSignals"]
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
 
 PROTO_23:
         0 GETUPVAL                         R0 0
@@ -900,91 +852,81 @@ MAIN:
       198 GETTABLEKS                       R34 R34 K43 ["SharedFlags"]
       200 GETTABLEKS                       R34 R34 K49 ["getFFlagToolboxInitResponseTrackingAttributes"]
       202 CALL                             R33 1 1
-      203 GETIMPORT                        R34 K6 [require]
-      205 GETTABLEKS                       R35 R0 K11 ["Src"]
-      207 GETTABLEKS                       R35 R35 K12 ["Util"]
-      209 GETTABLEKS                       R35 R35 K43 ["SharedFlags"]
-      211 GETTABLEKS                       R35 R35 K50 ["getFFlagToolboxFixTutorialConfigFireYield"]
-      213 CALL                             R34 1 1
-      214 DUPCLOSURE                       R35 K51 [PROTO_0]
-      215 DUPCLOSURE                       R36 K52 [PROTO_1]
-      216 CAPTURE                          VAL R34
-      217 SETTABLEKS                       R36 R29 K53 ["init"]
-      219 DUPCLOSURE                       R36 K54 [PROTO_2]
-      220 CAPTURE                          VAL R13
-      221 SETTABLEKS                       R36 R29 K55 ["changeToStoreTab"]
-      223 DUPCLOSURE                       R36 K56 [PROTO_4]
-      224 CAPTURE                          VAL R20
-      225 CAPTURE                          VAL R18
-      226 CAPTURE                          VAL R10
-      227 SETTABLEKS                       R36 R29 K57 ["onWebViewInitEvent"]
-      229 DUPCLOSURE                       R36 K58 [PROTO_13]
-      230 CAPTURE                          VAL R28
-      231 CAPTURE                          VAL R7
-      232 CAPTURE                          VAL R21
-      233 CAPTURE                          VAL R23
-      234 CAPTURE                          VAL R22
-      235 CAPTURE                          VAL R32
-      236 CAPTURE                          VAL R24
-      237 SETTABLEKS                       R36 R29 K59 ["createEventHandlers"]
-      239 DUPCLOSURE                       R36 K60 [PROTO_17]
-      240 CAPTURE                          VAL R5
-      241 CAPTURE                          VAL R7
-      242 CAPTURE                          VAL R9
-      243 SETTABLEKS                       R36 R29 K61 ["setUpExternalSignalConnections"]
-      245 DUPCLOSURE                       R36 K62 [PROTO_18]
-      246 SETTABLEKS                       R36 R29 K63 ["disconnectExternalSignals"]
-      248 DUPCLOSURE                       R36 K64 [PROTO_19]
-      249 CAPTURE                          VAL R34
-      250 CAPTURE                          VAL R13
-      251 CAPTURE                          VAL R7
-      252 CAPTURE                          VAL R9
-      253 SETTABLEKS                       R36 R29 K65 ["didMount"]
-      255 DUPCLOSURE                       R36 K66 [PROTO_21]
-      256 CAPTURE                          VAL R20
-      257 CAPTURE                          VAL R34
-      258 CAPTURE                          VAL R18
-      259 SETTABLEKS                       R36 R29 K67 ["didUpdate"]
-      261 DUPCLOSURE                       R36 K68 [PROTO_22]
-      262 CAPTURE                          VAL R34
-      263 SETTABLEKS                       R36 R29 K69 ["willUnmount"]
-      265 DUPCLOSURE                       R36 K70 [PROTO_24]
-      266 CAPTURE                          VAL R31
-      267 CAPTURE                          VAL R11
-      268 CAPTURE                          VAL R3
-      269 CAPTURE                          VAL R26
-      270 CAPTURE                          VAL R30
-      271 CAPTURE                          VAL R33
-      272 CAPTURE                          VAL R7
-      273 SETTABLEKS                       R36 R29 K71 ["render"]
-      275 MOVE                             R36 R15
-      276 DUPTABLE                         R37 K75 [{"AssetAnalytics", "Localization", "Network", "WebViewManagerContext"}]
-      277 SETTABLEKS                       R8 R37 K72 ["AssetAnalytics"]
-      279 GETTABLEKS                       R38 R14 K73 ["Localization"]
-      281 SETTABLEKS                       R38 R37 K73 ["Localization"]
-      283 SETTABLEKS                       R16 R37 K74 ["Network"]
-      285 SETTABLEKS                       R27 R37 K38 ["WebViewManagerContext"]
-      287 CALL                             R36 1 1
-      288 MOVE                             R37 R29
-      289 CALL                             R36 1 1
-      290 MOVE                             R29 R36
-      291 DUPCLOSURE                       R36 K76 [PROTO_25]
-      292 CAPTURE                          VAL R13
-      293 DUPCLOSURE                       R37 K77 [PROTO_27]
-      294 CAPTURE                          VAL R19
-      295 GETTABLEKS                       R38 R4 K78 ["connect"]
-      297 MOVE                             R39 R36
-      298 MOVE                             R40 R37
-      299 CALL                             R38 2 1
-      300 MOVE                             R39 R29
-      301 CALL                             R38 1 1
-      302 MOVE                             R29 R38
-      303 NEWCLOSURE                       R38 P13
-      304 CAPTURE                          VAL R3
-      305 CAPTURE                          REF R29
-      306 SETGLOBAL                        R38 K79 ["TypedComponent"]
-      308 MOVE                             R38 R17
-      309 GETGLOBAL                        R39 K79 ["TypedComponent"]
-      311 CALL                             R38 1 -1
-      312 CLOSEUPVALS                      R29
-      313 RETURN                           R38 -1
+      203 DUPCLOSURE                       R34 K50 [PROTO_0]
+      204 DUPCLOSURE                       R35 K51 [PROTO_1]
+      205 SETTABLEKS                       R35 R29 K52 ["init"]
+      207 DUPCLOSURE                       R35 K53 [PROTO_2]
+      208 CAPTURE                          VAL R13
+      209 SETTABLEKS                       R35 R29 K54 ["changeToStoreTab"]
+      211 DUPCLOSURE                       R35 K55 [PROTO_4]
+      212 CAPTURE                          VAL R20
+      213 CAPTURE                          VAL R18
+      214 CAPTURE                          VAL R10
+      215 SETTABLEKS                       R35 R29 K56 ["onWebViewInitEvent"]
+      217 DUPCLOSURE                       R35 K57 [PROTO_13]
+      218 CAPTURE                          VAL R28
+      219 CAPTURE                          VAL R7
+      220 CAPTURE                          VAL R21
+      221 CAPTURE                          VAL R23
+      222 CAPTURE                          VAL R22
+      223 CAPTURE                          VAL R32
+      224 CAPTURE                          VAL R24
+      225 SETTABLEKS                       R35 R29 K58 ["createEventHandlers"]
+      227 DUPCLOSURE                       R35 K59 [PROTO_17]
+      228 CAPTURE                          VAL R5
+      229 CAPTURE                          VAL R7
+      230 CAPTURE                          VAL R9
+      231 SETTABLEKS                       R35 R29 K60 ["setUpExternalSignalConnections"]
+      233 DUPCLOSURE                       R35 K61 [PROTO_18]
+      234 SETTABLEKS                       R35 R29 K62 ["disconnectExternalSignals"]
+      236 DUPCLOSURE                       R35 K63 [PROTO_19]
+      237 CAPTURE                          VAL R13
+      238 CAPTURE                          VAL R7
+      239 CAPTURE                          VAL R9
+      240 SETTABLEKS                       R35 R29 K64 ["didMount"]
+      242 DUPCLOSURE                       R35 K65 [PROTO_21]
+      243 CAPTURE                          VAL R20
+      244 CAPTURE                          VAL R18
+      245 SETTABLEKS                       R35 R29 K66 ["didUpdate"]
+      247 DUPCLOSURE                       R35 K67 [PROTO_22]
+      248 SETTABLEKS                       R35 R29 K68 ["willUnmount"]
+      250 DUPCLOSURE                       R35 K69 [PROTO_24]
+      251 CAPTURE                          VAL R31
+      252 CAPTURE                          VAL R11
+      253 CAPTURE                          VAL R3
+      254 CAPTURE                          VAL R26
+      255 CAPTURE                          VAL R30
+      256 CAPTURE                          VAL R33
+      257 CAPTURE                          VAL R7
+      258 SETTABLEKS                       R35 R29 K70 ["render"]
+      260 MOVE                             R35 R15
+      261 DUPTABLE                         R36 K74 [{"AssetAnalytics", "Localization", "Network", "WebViewManagerContext"}]
+      262 SETTABLEKS                       R8 R36 K71 ["AssetAnalytics"]
+      264 GETTABLEKS                       R37 R14 K72 ["Localization"]
+      266 SETTABLEKS                       R37 R36 K72 ["Localization"]
+      268 SETTABLEKS                       R16 R36 K73 ["Network"]
+      270 SETTABLEKS                       R27 R36 K38 ["WebViewManagerContext"]
+      272 CALL                             R35 1 1
+      273 MOVE                             R36 R29
+      274 CALL                             R35 1 1
+      275 MOVE                             R29 R35
+      276 DUPCLOSURE                       R35 K75 [PROTO_25]
+      277 CAPTURE                          VAL R13
+      278 DUPCLOSURE                       R36 K76 [PROTO_27]
+      279 CAPTURE                          VAL R19
+      280 GETTABLEKS                       R37 R4 K77 ["connect"]
+      282 MOVE                             R38 R35
+      283 MOVE                             R39 R36
+      284 CALL                             R37 2 1
+      285 MOVE                             R38 R29
+      286 CALL                             R37 1 1
+      287 MOVE                             R29 R37
+      288 NEWCLOSURE                       R37 P13
+      289 CAPTURE                          VAL R3
+      290 CAPTURE                          REF R29
+      291 SETGLOBAL                        R37 K78 ["TypedComponent"]
+      293 MOVE                             R37 R17
+      294 GETGLOBAL                        R38 K78 ["TypedComponent"]
+      296 CALL                             R37 1 -1
+      297 CLOSEUPVALS                      R29
+      298 RETURN                           R37 -1

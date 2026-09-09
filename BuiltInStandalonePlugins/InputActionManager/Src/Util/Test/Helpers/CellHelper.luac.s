@@ -42,26 +42,44 @@ PROTO_0:
        53 RETURN                           R6 1
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 MOVE                             R2 R0
-        2 LOADK                            R3 K0 ["keyCode-Touch-Instance"]
-        3 LOADK                            R4 K1 ["UIButton cell 'keyCode-Touch-Instance' not found from binding root"]
-        4 CALL                             R1 3 1
-        5 LOADK                            R4 K2 ["Text"]
-        6 LOADB                            R5 1
-        7 NAMECALL                         R2 R1 K3 ["FindFirstChild"]
-        9 CALL                             R2 3 1
-       10 MOVE                             R4 R2
-       11 JUMPIFNOT                        R4 ; [+4]
-       12 LOADK                            R6 K4 ["TextLabel"]
-       13 NAMECALL                         R4 R2 K5 ["IsA"]
-       15 CALL                             R4 2 1
-       16 FASTCALL2K                       ASSERT R4 K6 ; [+4]
-       18 LOADK                            R5 K6 ["No label text found under 'keyCode-Touch-Instance'"]
-       19 GETIMPORT                        R3 K8 [assert]
-       21 CALL                             R3 2 0
-       22 GETTABLEKS                       R3 R2 K2 ["Text"]
-       24 RETURN                           R3 1
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+7]
+        3 LOADK                            R3 K0 ["%*-Touch-Instance"]
+        4 ORK                              R5 R1 K1 ["keyCode"]
+        5 NAMECALL                         R3 R3 K2 ["format"]
+        7 CALL                             R3 2 1
+        8 MOVE                             R2 R3
+        9 JUMP                             ; [+1]
+       10 LOADK                            R2 K3 ["keyCode-Touch-Instance"]
+       11 GETUPVAL                         R3 1
+       12 MOVE                             R4 R0
+       13 MOVE                             R5 R2
+       14 LOADK                            R7 K4 ["UIButton cell '%*' not found from binding root"]
+       15 MOVE                             R9 R2
+       16 NAMECALL                         R7 R7 K2 ["format"]
+       18 CALL                             R7 2 1
+       19 MOVE                             R6 R7
+       20 CALL                             R3 3 1
+       21 LOADK                            R6 K5 ["Text"]
+       22 LOADB                            R7 1
+       23 NAMECALL                         R4 R3 K6 ["FindFirstChild"]
+       25 CALL                             R4 3 1
+       26 MOVE                             R6 R4
+       27 JUMPIFNOT                        R6 ; [+4]
+       28 LOADK                            R8 K7 ["TextLabel"]
+       29 NAMECALL                         R6 R4 K8 ["IsA"]
+       31 CALL                             R6 2 1
+       32 LOADK                            R8 K9 ["No label text found under '%*'"]
+       33 MOVE                             R10 R2
+       34 NAMECALL                         R8 R8 K2 ["format"]
+       36 CALL                             R8 2 1
+       37 MOVE                             R7 R8
+       38 FASTCALL2                        ASSERT R6 R7 ; [+3]
+       40 GETIMPORT                        R5 K11 [assert]
+       42 CALL                             R5 2 0
+       43 GETTABLEKS                       R5 R4 K5 ["Text"]
+       45 RETURN                           R5 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -171,19 +189,19 @@ PROTO_4:
        90 MOVE                             R13 R11
        91 GETIMPORT                        R12 K11 [assert]
        93 CALL                             R12 2 0
-       94 GETIMPORT                        R13 K18 [Enum.KeyCode.Unknown]
+       94 GETIMPORT                        R13 K18 [Enum.KeyCode.None]
        96 JUMPIFNOTEQ                      R3 R13 ; [+3]
-       98 LOADK                            R12 K19 ["None"]
+       98 LOADK                            R12 K17 ["None"]
        99 JUMP                             ; [+2]
-      100 GETTABLEKS                       R12 R3 K20 ["Name"]
+      100 GETTABLEKS                       R12 R3 K19 ["Name"]
       102 GETUPVAL                         R13 6
       103 MOVE                             R14 R10
       104 MOVE                             R15 R12
       105 CALL                             R13 2 1
-      106 LOADK                            R16 K21 ["GuiButton"]
-      107 NAMECALL                         R14 R13 K22 ["FindFirstAncestorWhichIsA"]
+      106 LOADK                            R16 K20 ["GuiButton"]
+      107 NAMECALL                         R14 R13 K21 ["FindFirstAncestorWhichIsA"]
       109 CALL                             R14 2 1
-      110 LOADK                            R18 K23 ["Button not found under '%*'"]
+      110 LOADK                            R18 K22 ["Button not found under '%*'"]
       111 MOVE                             R20 R8
       112 NAMECALL                         R18 R18 K1 ["format"]
       114 CALL                             R18 2 1
@@ -195,17 +213,17 @@ PROTO_4:
       122 GETTABLEKS                       R16 R14 K5 ["AbsolutePosition"]
       124 GETTABLEKS                       R17 R11 K5 ["AbsolutePosition"]
       126 SUB                              R15 R16 R17
-      127 GETIMPORT                        R16 K26 [Vector2.new]
+      127 GETIMPORT                        R16 K25 [Vector2.new]
       129 LOADN                            R17 0
       130 GETTABLEKS                       R18 R15 K8 ["Y"]
       132 CALL                             R16 2 1
-      133 SETTABLEKS                       R16 R11 K27 ["CanvasPosition"]
+      133 SETTABLEKS                       R16 R11 K26 ["CanvasPosition"]
       135 GETUPVAL                         R17 7
       136 CALL                             R17 0 0
-      137 SETTABLEKS                       R16 R11 K27 ["CanvasPosition"]
+      137 SETTABLEKS                       R16 R11 K26 ["CanvasPosition"]
       139 GETUPVAL                         R17 7
       140 CALL                             R17 0 0
-      141 SETTABLEKS                       R16 R11 K27 ["CanvasPosition"]
+      141 SETTABLEKS                       R16 R11 K26 ["CanvasPosition"]
       143 GETUPVAL                         R17 7
       144 CALL                             R17 0 0
       145 GETUPVAL                         R17 1
@@ -214,44 +232,76 @@ PROTO_4:
       148 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 MOVE                             R3 R0
-        2 LOADK                            R4 K0 ["keyCode-Touch-Instance"]
-        3 LOADK                            R5 K1 ["Binding cell 'keyCode-Touch-Instance' not found from binding root"]
-        4 CALL                             R2 3 1
-        5 GETUPVAL                         R3 1
-        6 MOVE                             R4 R2
-        7 CALL                             R3 1 0
-        8 GETUPVAL                         R3 2
-        9 NEWTABLE                         R5 0 1
-       11 MOVE                             R6 R1
-       12 SETLIST                          R5 R6 1 [1]
-       14 NAMECALL                         R3 R3 K2 ["Set"]
-       16 CALL                             R3 2 0
-       17 GETUPVAL                         R3 3
-       18 CALL                             R3 0 0
-       19 RETURN                           R0 0
+        0 GETUPVAL                         R4 0
+        1 CALL                             R4 0 1
+        2 JUMPIFNOT                        R4 ; [+7]
+        3 LOADK                            R4 K0 ["%*-Touch-Instance"]
+        4 ORK                              R6 R2 K1 ["keyCode"]
+        5 NAMECALL                         R4 R4 K2 ["format"]
+        7 CALL                             R4 2 1
+        8 MOVE                             R3 R4
+        9 JUMP                             ; [+1]
+       10 LOADK                            R3 K3 ["keyCode-Touch-Instance"]
+       11 GETUPVAL                         R4 1
+       12 MOVE                             R5 R0
+       13 MOVE                             R6 R3
+       14 LOADK                            R8 K4 ["Binding cell '%*' not found from binding root"]
+       15 MOVE                             R10 R3
+       16 NAMECALL                         R8 R8 K2 ["format"]
+       18 CALL                             R8 2 1
+       19 MOVE                             R7 R8
+       20 CALL                             R4 3 1
+       21 GETUPVAL                         R5 2
+       22 MOVE                             R6 R4
+       23 CALL                             R5 1 0
+       24 GETUPVAL                         R5 3
+       25 NEWTABLE                         R7 0 1
+       27 MOVE                             R8 R1
+       28 SETLIST                          R7 R8 1 [1]
+       30 NAMECALL                         R5 R5 K5 ["Set"]
+       32 CALL                             R5 2 0
+       33 GETUPVAL                         R5 4
+       34 CALL                             R5 0 0
+       35 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 MOVE                             R2 R0
-        2 LOADK                            R3 K0 ["keyCode-Touch-Instance"]
-        3 LOADK                            R4 K1 ["UIButton cell 'keyCode-Touch-Instance' not found from binding root"]
-        4 CALL                             R1 3 1
-        5 GETUPVAL                         R2 1
-        6 CALL                             R2 0 0
-        7 GETUPVAL                         R2 2
-        8 MOVE                             R3 R1
-        9 CALL                             R2 1 0
-       10 GETUPVAL                         R2 0
-       11 MOVE                             R3 R0
-       12 LOADK                            R4 K2 ["keyCode-Touch-Instance--remove"]
-       13 LOADK                            R5 K3 ["Remove button not found"]
-       14 CALL                             R2 3 1
-       15 GETUPVAL                         R3 3
-       16 MOVE                             R4 R2
-       17 CALL                             R3 1 0
-       18 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+7]
+        3 LOADK                            R3 K0 ["%*-Touch-Instance"]
+        4 ORK                              R5 R1 K1 ["keyCode"]
+        5 NAMECALL                         R3 R3 K2 ["format"]
+        7 CALL                             R3 2 1
+        8 MOVE                             R2 R3
+        9 JUMP                             ; [+1]
+       10 LOADK                            R2 K3 ["keyCode-Touch-Instance"]
+       11 GETUPVAL                         R3 1
+       12 MOVE                             R4 R0
+       13 MOVE                             R5 R2
+       14 LOADK                            R7 K4 ["UIButton cell '%*' not found from binding root"]
+       15 MOVE                             R9 R2
+       16 NAMECALL                         R7 R7 K2 ["format"]
+       18 CALL                             R7 2 1
+       19 MOVE                             R6 R7
+       20 CALL                             R3 3 1
+       21 GETUPVAL                         R4 2
+       22 CALL                             R4 0 0
+       23 GETUPVAL                         R4 3
+       24 MOVE                             R5 R3
+       25 CALL                             R4 1 0
+       26 GETUPVAL                         R4 1
+       27 MOVE                             R5 R0
+       28 LOADK                            R7 K5 ["%*--remove"]
+       29 MOVE                             R9 R2
+       30 NAMECALL                         R7 R7 K2 ["format"]
+       32 CALL                             R7 2 1
+       33 MOVE                             R6 R7
+       34 LOADK                            R7 K6 ["Remove button not found"]
+       35 CALL                             R4 3 1
+       36 GETUPVAL                         R5 4
+       37 MOVE                             R6 R4
+       38 CALL                             R5 1 0
+       39 RETURN                           R0 0
 
 PROTO_7:
         0 FASTCALL2K                       ASSERT R1 K0 ; [+5]
@@ -360,45 +410,53 @@ MAIN:
       105 SETTABLEKS                       R7 R22 K37 ["stringResourceTable"]
       107 SETTABLEKS                       R8 R22 K38 ["translationResourceTable"]
       109 CALL                             R21 1 1
-      110 NEWTABLE                         R22 8 0
-      112 DUPCLOSURE                       R23 K43 [PROTO_0]
-      113 CAPTURE                          VAL R17
-      114 SETTABLEKS                       R23 R22 K44 ["GetDisplayedKeycode"]
-      116 DUPCLOSURE                       R23 K45 [PROTO_1]
-      117 CAPTURE                          VAL R17
-      118 SETTABLEKS                       R23 R22 K46 ["GetDisplayedButton"]
-      120 DUPCLOSURE                       R23 K47 [PROTO_3]
-      121 CAPTURE                          VAL R17
-      122 CAPTURE                          VAL R11
-      123 CAPTURE                          VAL R15
-      124 DUPCLOSURE                       R24 K48 [PROTO_4]
-      125 CAPTURE                          VAL R17
-      126 CAPTURE                          VAL R14
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R23
-      129 CAPTURE                          VAL R18
-      130 CAPTURE                          VAL R0
-      131 CAPTURE                          VAL R19
-      132 CAPTURE                          VAL R12
-      133 SETTABLEKS                       R24 R22 K49 ["ChangeProperty"]
-      135 DUPCLOSURE                       R24 K50 [PROTO_5]
-      136 CAPTURE                          VAL R17
-      137 CAPTURE                          VAL R14
-      138 CAPTURE                          VAL R1
-      139 CAPTURE                          VAL R12
-      140 SETTABLEKS                       R24 R22 K51 ["ChangeButton"]
-      142 DUPCLOSURE                       R24 K52 [PROTO_6]
-      143 CAPTURE                          VAL R17
-      144 CAPTURE                          VAL R13
-      145 CAPTURE                          VAL R16
-      146 CAPTURE                          VAL R14
-      147 SETTABLEKS                       R24 R22 K53 ["DeleteButton"]
-      149 DUPCLOSURE                       R24 K54 [PROTO_7]
-      150 CAPTURE                          VAL R17
-      151 CAPTURE                          VAL R13
-      152 CAPTURE                          VAL R16
-      153 CAPTURE                          VAL R9
-      154 CAPTURE                          VAL R21
-      155 CAPTURE                          VAL R20
-      156 SETTABLEKS                       R24 R22 K55 ["CheckStatus"]
-      158 RETURN                           R22 1
+      110 GETTABLEKS                       R22 R2 K13 ["Src"]
+      112 GETTABLEKS                       R22 R22 K43 ["Flags"]
+      114 GETIMPORT                        R23 K10 [require]
+      116 GETTABLEKS                       R24 R22 K44 ["getFFlagIAMUIModifier"]
+      118 CALL                             R23 1 1
+      119 NEWTABLE                         R24 8 0
+      121 DUPCLOSURE                       R25 K45 [PROTO_0]
+      122 CAPTURE                          VAL R17
+      123 SETTABLEKS                       R25 R24 K46 ["GetDisplayedKeycode"]
+      125 DUPCLOSURE                       R25 K47 [PROTO_1]
+      126 CAPTURE                          VAL R23
+      127 CAPTURE                          VAL R17
+      128 SETTABLEKS                       R25 R24 K48 ["GetDisplayedButton"]
+      130 DUPCLOSURE                       R25 K49 [PROTO_3]
+      131 CAPTURE                          VAL R17
+      132 CAPTURE                          VAL R11
+      133 CAPTURE                          VAL R15
+      134 DUPCLOSURE                       R26 K50 [PROTO_4]
+      135 CAPTURE                          VAL R17
+      136 CAPTURE                          VAL R14
+      137 CAPTURE                          VAL R13
+      138 CAPTURE                          VAL R25
+      139 CAPTURE                          VAL R18
+      140 CAPTURE                          VAL R0
+      141 CAPTURE                          VAL R19
+      142 CAPTURE                          VAL R12
+      143 SETTABLEKS                       R26 R24 K51 ["ChangeProperty"]
+      145 DUPCLOSURE                       R26 K52 [PROTO_5]
+      146 CAPTURE                          VAL R23
+      147 CAPTURE                          VAL R17
+      148 CAPTURE                          VAL R14
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          VAL R12
+      151 SETTABLEKS                       R26 R24 K53 ["ChangeButton"]
+      153 DUPCLOSURE                       R26 K54 [PROTO_6]
+      154 CAPTURE                          VAL R23
+      155 CAPTURE                          VAL R17
+      156 CAPTURE                          VAL R13
+      157 CAPTURE                          VAL R16
+      158 CAPTURE                          VAL R14
+      159 SETTABLEKS                       R26 R24 K55 ["DeleteButton"]
+      161 DUPCLOSURE                       R26 K56 [PROTO_7]
+      162 CAPTURE                          VAL R17
+      163 CAPTURE                          VAL R13
+      164 CAPTURE                          VAL R16
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          VAL R21
+      167 CAPTURE                          VAL R20
+      168 SETTABLEKS                       R26 R24 K57 ["CheckStatus"]
+      170 RETURN                           R24 1

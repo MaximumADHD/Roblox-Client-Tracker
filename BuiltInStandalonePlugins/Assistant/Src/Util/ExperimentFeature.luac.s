@@ -130,7 +130,7 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K6 ["Src"]
        20 GETTABLEKS                       R3 R3 K9 ["Flags"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K12 [{["NewAssetToolSet"] = "NewAssetToolSet", ["AssistantHarnessSplit"] = "AssistantHarnessSplit"}]
+       23 DUPTABLE                         R3 K12 [{["NewAssetToolSet"] = "NewAssetToolSet", ["AssistantUseRemoteService"] = "AssistantUseRemoteService"}]
        24 NEWTABLE                         R4 1 0
        26 GETTABLEKS                       R5 R3 K10 ["NewAssetToolSet"]
        28 GETTABLEKS                       R6 R2 K13 ["FFlagAssistantAssetSearchInsertTool"]

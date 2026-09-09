@@ -1,9 +1,16 @@
 PROTO_0:
-        0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["EnableTerrainPalette"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 -1
-        6 RETURN                           R0 -1
+        0 GETIMPORT                        R0 K1 [workspace]
+        2 GETTABLEKS                       R0 R0 K2 ["Terrain"]
+        4 JUMPIFNOTEQKNIL                  R0 ; [+3]
+        6 LOADB                            R1 0
+        7 RETURN                           R1 1
+        8 GETIMPORT                        R1 K4 [game]
+       10 LOADK                            R3 K5 ["EnableTerrainPalette"]
+       11 NAMECALL                         R1 R1 K6 ["GetFastFlag"]
+       13 CALL                             R1 2 1
+       14 JUMPIFNOT                        R1 ; [+2]
+       15 GETTABLEKS                       R1 R0 K7 ["ExpandedTerrainResolved"]
+       17 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

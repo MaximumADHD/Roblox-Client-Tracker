@@ -118,38 +118,41 @@ PROTO_1:
       153 GETTABLEKS                       R15 R15 K10 ["Content"]
       155 DUPTABLE                         R16 K59 [{["side"], ["align"], ["hasArrow"] = False}]
       156 DUPTABLE                         R17 K63 [{["position"], ["offset"] = 5}]
-      157 JUMPIF                           R3 ; [+8]
-      158 GETUPVAL                         R18 2
-      159 GETTABLEKS                       R18 R18 K35 ["Enums"]
-      161 GETTABLEKS                       R18 R18 K64 ["PopoverSide"]
-      163 GETTABLEKS                       R18 R18 K65 ["Right"]
-      165 JUMP                             ; [+7]
-      166 GETUPVAL                         R18 2
-      167 GETTABLEKS                       R18 R18 K35 ["Enums"]
-      169 GETTABLEKS                       R18 R18 K64 ["PopoverSide"]
-      171 GETTABLEKS                       R18 R18 K66 ["Bottom"]
-      173 SETTABLEKS                       R18 R17 K60 ["position"]
-      175 SETTABLEKS                       R17 R16 K55 ["side"]
-      177 GETUPVAL                         R17 2
-      178 GETTABLEKS                       R17 R17 K35 ["Enums"]
-      180 GETTABLEKS                       R17 R17 K67 ["PopoverAlign"]
-      182 GETTABLEKS                       R17 R17 K68 ["Center"]
-      184 SETTABLEKS                       R17 R16 K56 ["align"]
-      186 GETUPVAL                         R17 3
-      187 GETTABLEKS                       R17 R17 K4 ["createElement"]
-      189 GETUPVAL                         R18 6
-      190 DUPTABLE                         R19 K73 [{"FrameRef", "AssetId", "AssetPath", "MaxWidth"}]
-      191 SETTABLEKS                       R7 R19 K69 ["FrameRef"]
-      193 GETTABLEKS                       R20 R0 K70 ["AssetId"]
-      195 SETTABLEKS                       R20 R19 K70 ["AssetId"]
-      197 GETTABLEKS                       R20 R0 K71 ["AssetPath"]
-      199 SETTABLEKS                       R20 R19 K71 ["AssetPath"]
-      201 SETTABLEKS                       R1 R19 K72 ["MaxWidth"]
-      203 CALL                             R17 2 -1
-      204 CALL                             R14 -1 1
-      205 SETTABLEKS                       R14 R13 K10 ["Content"]
-      207 CALL                             R10 3 -1
-      208 RETURN                           R10 -1
+      157 GETUPVAL                         R19 6
+      158 CALL                             R19 0 1
+      159 JUMPIF                           R19 ; [+1]
+      160 JUMPIF                           R3 ; [+8]
+      161 GETUPVAL                         R18 2
+      162 GETTABLEKS                       R18 R18 K35 ["Enums"]
+      164 GETTABLEKS                       R18 R18 K64 ["PopoverSide"]
+      166 GETTABLEKS                       R18 R18 K65 ["Right"]
+      168 JUMP                             ; [+7]
+      169 GETUPVAL                         R18 2
+      170 GETTABLEKS                       R18 R18 K35 ["Enums"]
+      172 GETTABLEKS                       R18 R18 K64 ["PopoverSide"]
+      174 GETTABLEKS                       R18 R18 K66 ["Bottom"]
+      176 SETTABLEKS                       R18 R17 K60 ["position"]
+      178 SETTABLEKS                       R17 R16 K55 ["side"]
+      180 GETUPVAL                         R17 2
+      181 GETTABLEKS                       R17 R17 K35 ["Enums"]
+      183 GETTABLEKS                       R17 R17 K67 ["PopoverAlign"]
+      185 GETTABLEKS                       R17 R17 K68 ["Center"]
+      187 SETTABLEKS                       R17 R16 K56 ["align"]
+      189 GETUPVAL                         R17 3
+      190 GETTABLEKS                       R17 R17 K4 ["createElement"]
+      192 GETUPVAL                         R18 7
+      193 DUPTABLE                         R19 K73 [{"FrameRef", "AssetId", "AssetPath", "MaxWidth"}]
+      194 SETTABLEKS                       R7 R19 K69 ["FrameRef"]
+      196 GETTABLEKS                       R20 R0 K70 ["AssetId"]
+      198 SETTABLEKS                       R20 R19 K70 ["AssetId"]
+      200 GETTABLEKS                       R20 R0 K71 ["AssetPath"]
+      202 SETTABLEKS                       R20 R19 K71 ["AssetPath"]
+      204 SETTABLEKS                       R1 R19 K72 ["MaxWidth"]
+      206 CALL                             R17 2 -1
+      207 CALL                             R14 -1 1
+      208 SETTABLEKS                       R14 R13 K10 ["Content"]
+      210 CALL                             R10 3 -1
+      211 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -185,15 +188,21 @@ MAIN:
        52 GETTABLEKS                       R7 R7 K14 ["usePluginSize"]
        54 CALL                             R6 1 1
        55 GETIMPORT                        R7 K5 [require]
-       57 GETIMPORT                        R8 K1 [script]
-       59 GETTABLEKS                       R8 R8 K15 ["Details"]
-       61 CALL                             R7 1 1
-       62 DUPCLOSURE                       R8 K16 [PROTO_1]
-       63 CAPTURE                          VAL R6
-       64 CAPTURE                          VAL R5
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R1
-       67 CAPTURE                          VAL R4
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R7
-       70 RETURN                           R8 1
+       57 GETTABLEKS                       R8 R0 K10 ["Src"]
+       59 GETTABLEKS                       R8 R8 K15 ["Flags"]
+       61 GETTABLEKS                       R8 R8 K16 ["getFFlagAmrUseQWidgetPopovers"]
+       63 CALL                             R7 1 1
+       64 GETIMPORT                        R8 K5 [require]
+       66 GETIMPORT                        R9 K1 [script]
+       68 GETTABLEKS                       R9 R9 K17 ["Details"]
+       70 CALL                             R8 1 1
+       71 DUPCLOSURE                       R9 K18 [PROTO_1]
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R2
+       78 CAPTURE                          VAL R7
+       79 CAPTURE                          VAL R8
+       80 RETURN                           R9 1

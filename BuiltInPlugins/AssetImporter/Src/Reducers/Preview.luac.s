@@ -112,6 +112,15 @@ PROTO_10:
         8 RETURN                           R2 -1
 
 PROTO_11:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"singleAnimationSelection"}]
+        3 GETTABLEKS                       R5 R1 K0 ["singleAnimationSelection"]
+        5 SETTABLEKS                       R5 R4 K0 ["singleAnimationSelection"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
+
+PROTO_12:
         0 GETIMPORT                        R0 K2 [table.clone]
         2 GETUPVAL                         R1 0
         3 CALL                             R0 1 -1
@@ -170,66 +179,73 @@ MAIN:
        83 GETTABLEKS                       R16 R5 K23 ["SetSelectedImportItem"]
        85 CALL                             R15 1 1
        86 GETIMPORT                        R16 K5 [require]
-       88 GETTABLEKS                       R17 R5 K24 ["SetTreeChecked"]
+       88 GETTABLEKS                       R17 R5 K24 ["SetSingleAnimationSelection"]
        90 CALL                             R16 1 1
        91 GETIMPORT                        R17 K5 [require]
-       93 GETTABLEKS                       R18 R5 K25 ["SetTreeExpansion"]
+       93 GETTABLEKS                       R18 R5 K25 ["SetTreeChecked"]
        95 CALL                             R17 1 1
-       96 DUPTABLE                         R18 K41 [{["activeQueueItem"] = , ["assetImportSession"] = , ["errorNodeChecked"] = False, ["filename"] = "", ["hasInvalidPackageId"] = False, ["importDataChecked"], ["importDataCheckedCount"] = -1, ["importDataExpansion"], ["importTree"] = , ["previewInstance"] = , ["selectedImportItem"] = }]
-       97 NEWTABLE                         R19 0 0
-       99 SETTABLEKS                       R19 R18 K34 ["importDataChecked"]
-      101 NEWTABLE                         R19 0 0
-      103 SETTABLEKS                       R19 R18 K37 ["importDataExpansion"]
-      105 GETTABLEKS                       R19 R1 K42 ["createReducer"]
-      107 MOVE                             R20 R18
-      108 NEWTABLE                         R21 16 0
-      110 GETTABLEKS                       R22 R7 K43 ["name"]
-      112 DUPCLOSURE                       R23 K44 [PROTO_0]
-      113 CAPTURE                          VAL R3
-      114 SETTABLE                         R23 R21 R22
-      115 GETTABLEKS                       R22 R8 K43 ["name"]
-      117 DUPCLOSURE                       R23 K45 [PROTO_1]
+       96 GETIMPORT                        R18 K5 [require]
+       98 GETTABLEKS                       R19 R5 K26 ["SetTreeExpansion"]
+      100 CALL                             R18 1 1
+      101 DUPTABLE                         R19 K43 [{["activeQueueItem"] = , ["assetImportSession"] = , ["errorNodeChecked"] = False, ["filename"] = "", ["hasInvalidPackageId"] = False, ["importDataChecked"], ["importDataCheckedCount"] = -1, ["importDataExpansion"], ["importTree"] = , ["previewInstance"] = , ["selectedImportItem"] = , ["singleAnimationSelection"] = False}]
+      102 NEWTABLE                         R20 0 0
+      104 SETTABLEKS                       R20 R19 K35 ["importDataChecked"]
+      106 NEWTABLE                         R20 0 0
+      108 SETTABLEKS                       R20 R19 K38 ["importDataExpansion"]
+      110 GETTABLEKS                       R20 R1 K44 ["createReducer"]
+      112 MOVE                             R21 R19
+      113 NEWTABLE                         R22 16 0
+      115 GETTABLEKS                       R23 R7 K45 ["name"]
+      117 DUPCLOSURE                       R24 K46 [PROTO_0]
       118 CAPTURE                          VAL R3
-      119 SETTABLE                         R23 R21 R22
-      120 GETTABLEKS                       R22 R13 K43 ["name"]
-      122 DUPCLOSURE                       R23 K46 [PROTO_2]
+      119 SETTABLE                         R24 R22 R23
+      120 GETTABLEKS                       R23 R8 K45 ["name"]
+      122 DUPCLOSURE                       R24 K47 [PROTO_1]
       123 CAPTURE                          VAL R3
-      124 SETTABLE                         R23 R21 R22
-      125 GETTABLEKS                       R22 R11 K43 ["name"]
-      127 DUPCLOSURE                       R23 K47 [PROTO_3]
+      124 SETTABLE                         R24 R22 R23
+      125 GETTABLEKS                       R23 R13 K45 ["name"]
+      127 DUPCLOSURE                       R24 K48 [PROTO_2]
       128 CAPTURE                          VAL R3
-      129 SETTABLE                         R23 R21 R22
-      130 GETTABLEKS                       R22 R12 K43 ["name"]
-      132 DUPCLOSURE                       R23 K48 [PROTO_4]
+      129 SETTABLE                         R24 R22 R23
+      130 GETTABLEKS                       R23 R11 K45 ["name"]
+      132 DUPCLOSURE                       R24 K49 [PROTO_3]
       133 CAPTURE                          VAL R3
-      134 SETTABLE                         R23 R21 R22
-      135 GETTABLEKS                       R22 R14 K43 ["name"]
-      137 DUPCLOSURE                       R23 K49 [PROTO_5]
+      134 SETTABLE                         R24 R22 R23
+      135 GETTABLEKS                       R23 R12 K45 ["name"]
+      137 DUPCLOSURE                       R24 K50 [PROTO_4]
       138 CAPTURE                          VAL R3
-      139 SETTABLE                         R23 R21 R22
-      140 GETTABLEKS                       R22 R15 K43 ["name"]
-      142 DUPCLOSURE                       R23 K50 [PROTO_6]
+      139 SETTABLE                         R24 R22 R23
+      140 GETTABLEKS                       R23 R14 K45 ["name"]
+      142 DUPCLOSURE                       R24 K51 [PROTO_5]
       143 CAPTURE                          VAL R3
-      144 SETTABLE                         R23 R21 R22
-      145 GETTABLEKS                       R22 R16 K43 ["name"]
-      147 DUPCLOSURE                       R23 K51 [PROTO_7]
+      144 SETTABLE                         R24 R22 R23
+      145 GETTABLEKS                       R23 R15 K45 ["name"]
+      147 DUPCLOSURE                       R24 K52 [PROTO_6]
       148 CAPTURE                          VAL R3
-      149 SETTABLE                         R23 R21 R22
-      150 GETTABLEKS                       R22 R9 K43 ["name"]
-      152 DUPCLOSURE                       R23 K52 [PROTO_8]
+      149 SETTABLE                         R24 R22 R23
+      150 GETTABLEKS                       R23 R17 K45 ["name"]
+      152 DUPCLOSURE                       R24 K53 [PROTO_7]
       153 CAPTURE                          VAL R3
-      154 SETTABLE                         R23 R21 R22
-      155 GETTABLEKS                       R22 R17 K43 ["name"]
-      157 DUPCLOSURE                       R23 K53 [PROTO_9]
+      154 SETTABLE                         R24 R22 R23
+      155 GETTABLEKS                       R23 R9 K45 ["name"]
+      157 DUPCLOSURE                       R24 K54 [PROTO_8]
       158 CAPTURE                          VAL R3
-      159 SETTABLE                         R23 R21 R22
-      160 GETTABLEKS                       R22 R10 K43 ["name"]
-      162 DUPCLOSURE                       R23 K54 [PROTO_10]
+      159 SETTABLE                         R24 R22 R23
+      160 GETTABLEKS                       R23 R18 K45 ["name"]
+      162 DUPCLOSURE                       R24 K55 [PROTO_9]
       163 CAPTURE                          VAL R3
-      164 SETTABLE                         R23 R21 R22
-      165 GETTABLEKS                       R22 R6 K43 ["name"]
-      167 DUPCLOSURE                       R23 K55 [PROTO_11]
-      168 CAPTURE                          VAL R18
-      169 SETTABLE                         R23 R21 R22
-      170 CALL                             R19 2 -1
-      171 RETURN                           R19 -1
+      164 SETTABLE                         R24 R22 R23
+      165 GETTABLEKS                       R23 R10 K45 ["name"]
+      167 DUPCLOSURE                       R24 K56 [PROTO_10]
+      168 CAPTURE                          VAL R3
+      169 SETTABLE                         R24 R22 R23
+      170 GETTABLEKS                       R23 R16 K45 ["name"]
+      172 DUPCLOSURE                       R24 K57 [PROTO_11]
+      173 CAPTURE                          VAL R3
+      174 SETTABLE                         R24 R22 R23
+      175 GETTABLEKS                       R23 R6 K45 ["name"]
+      177 DUPCLOSURE                       R24 K58 [PROTO_12]
+      178 CAPTURE                          VAL R19
+      179 SETTABLE                         R24 R22 R23
+      180 CALL                             R20 2 -1
+      181 RETURN                           R20 -1

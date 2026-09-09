@@ -35,46 +35,55 @@ PROTO_1:
         4 GETUPVAL                         R4 1
         5 GETTABLEKS                       R4 R4 K1 ["createElement"]
         7 GETUPVAL                         R5 2
-        8 DUPTABLE                         R6 K7 [{["LayoutOrder"], ["Size"], ["tag"] = "radius-xsmall clip", ["testId"]}]
+        8 DUPTABLE                         R6 K7 [{"LayoutOrder", "Position", "Size", "tag", "testId"}]
         9 GETTABLEKS                       R7 R0 K8 ["layoutOrder"]
        11 SETTABLEKS                       R7 R6 K2 ["LayoutOrder"]
-       13 GETIMPORT                        R7 K11 [UDim2.fromOffset]
-       15 GETTABLEKS                       R8 R0 K12 ["size"]
-       17 GETTABLEKS                       R9 R0 K12 ["size"]
-       19 CALL                             R7 2 1
-       20 SETTABLEKS                       R7 R6 K3 ["Size"]
-       22 LOADK                            R8 K13 ["terrain-material-preview-%*"]
-       23 GETTABLEKS                       R10 R0 K0 ["entry"]
-       25 GETTABLEKS                       R10 R10 K14 ["slotIndex"]
-       27 NAMECALL                         R8 R8 K15 ["format"]
-       29 CALL                             R8 2 1
-       30 MOVE                             R7 R8
-       31 SETTABLEKS                       R7 R6 K6 ["testId"]
-       33 DUPTABLE                         R7 K17 [{"Material"}]
-       34 GETUPVAL                         R8 1
-       35 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       37 GETUPVAL                         R9 3
-       38 DUPTABLE                         R10 K27 [{["CornerRadius"], ["InitialDistance"] = 4.12, ["Material"], ["MaterialPreviewGeometryType"], ["OverrideColor"], ["OverrideTransparency"], ["Size"], ["Static"] = True, ["Transparent"] = True}]
-       39 GETIMPORT                        R11 K30 [UDim.new]
-       41 LOADN                            R12 0
-       42 LOADN                            R13 2
-       43 CALL                             R11 2 1
-       44 SETTABLEKS                       R11 R10 K18 ["CornerRadius"]
-       46 SETTABLEKS                       R1 R10 K16 ["Material"]
-       48 GETUPVAL                         R11 4
-       49 GETTABLEKS                       R11 R11 K31 ["CubeCornerOn"]
-       51 SETTABLEKS                       R11 R10 K21 ["MaterialPreviewGeometryType"]
-       53 SETTABLEKS                       R2 R10 K22 ["OverrideColor"]
-       55 SETTABLEKS                       R3 R10 K23 ["OverrideTransparency"]
-       57 GETIMPORT                        R11 K33 [UDim2.fromScale]
-       59 LOADN                            R12 1
-       60 LOADN                            R13 1
-       61 CALL                             R11 2 1
-       62 SETTABLEKS                       R11 R10 K3 ["Size"]
-       64 CALL                             R8 2 1
-       65 SETTABLEKS                       R8 R7 K16 ["Material"]
-       67 CALL                             R4 3 -1
-       68 RETURN                           R4 -1
+       13 GETTABLEKS                       R7 R0 K9 ["position"]
+       15 SETTABLEKS                       R7 R6 K3 ["Position"]
+       17 GETTABLEKS                       R8 R0 K10 ["size"]
+       19 JUMPIFNOT                        R8 ; [+8]
+       20 GETIMPORT                        R7 K13 [UDim2.fromOffset]
+       22 GETTABLEKS                       R8 R0 K10 ["size"]
+       24 GETTABLEKS                       R9 R0 K10 ["size"]
+       26 CALL                             R7 2 1
+       27 JUMP                             ; [+1]
+       28 LOADNIL                          R7
+       29 SETTABLEKS                       R7 R6 K4 ["Size"]
+       31 GETTABLEKS                       R8 R0 K5 ["tag"]
+       33 ORK                              R7 R8 K14 ["radius-xsmall clip"]
+       34 SETTABLEKS                       R7 R6 K5 ["tag"]
+       36 LOADK                            R8 K15 ["terrain-material-preview-%*"]
+       37 GETTABLEKS                       R10 R0 K0 ["entry"]
+       39 GETTABLEKS                       R10 R10 K16 ["slotIndex"]
+       41 NAMECALL                         R8 R8 K17 ["format"]
+       43 CALL                             R8 2 1
+       44 MOVE                             R7 R8
+       45 SETTABLEKS                       R7 R6 K6 ["testId"]
+       47 DUPTABLE                         R7 K19 [{"Material"}]
+       48 GETUPVAL                         R8 1
+       49 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       51 GETUPVAL                         R9 3
+       52 DUPTABLE                         R10 K29 [{["CornerRadius"], ["InitialDistance"] = 4.12, ["Material"], ["MaterialPreviewGeometryType"], ["OverrideColor"], ["OverrideTransparency"], ["Size"], ["Static"] = True, ["Transparent"] = True}]
+       53 GETIMPORT                        R11 K32 [UDim.new]
+       55 LOADN                            R12 0
+       56 LOADN                            R13 2
+       57 CALL                             R11 2 1
+       58 SETTABLEKS                       R11 R10 K20 ["CornerRadius"]
+       60 SETTABLEKS                       R1 R10 K18 ["Material"]
+       62 GETUPVAL                         R11 4
+       63 GETTABLEKS                       R11 R11 K33 ["CubeCornerOn"]
+       65 SETTABLEKS                       R11 R10 K23 ["MaterialPreviewGeometryType"]
+       67 SETTABLEKS                       R2 R10 K24 ["OverrideColor"]
+       69 SETTABLEKS                       R3 R10 K25 ["OverrideTransparency"]
+       71 GETIMPORT                        R11 K35 [UDim2.fromScale]
+       73 LOADN                            R12 1
+       74 LOADN                            R13 1
+       75 CALL                             R11 2 1
+       76 SETTABLEKS                       R11 R10 K4 ["Size"]
+       78 CALL                             R8 2 1
+       79 SETTABLEKS                       R8 R7 K18 ["Material"]
+       81 CALL                             R4 3 -1
+       82 RETURN                           R4 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -119,61 +128,63 @@ PROTO_3:
        44 GETUPVAL                         R6 1
        45 GETTABLEKS                       R6 R6 K11 ["createElement"]
        47 GETUPVAL                         R7 3
-       48 DUPTABLE                         R8 K23 [{"backgroundStyle", "cursor", "LayoutOrder", "Size", "onActivated", "onStateChanged", "selection", "stateLayer", "stroke", "tag", "testId"}]
+       48 DUPTABLE                         R8 K24 [{"backgroundStyle", "cursor", "LayoutOrder", "Size", "onActivated", "onSecondaryActivated", "onStateChanged", "selection", "stateLayer", "stroke", "tag", "testId"}]
        49 GETTABLEKS                       R9 R0 K12 ["backgroundStyle"]
        51 SETTABLEKS                       R9 R8 K12 ["backgroundStyle"]
-       53 DUPTABLE                         R9 K27 [{"radius", "offset", "borderWidth"}]
-       54 GETIMPORT                        R10 K30 [UDim.new]
+       53 DUPTABLE                         R9 K28 [{"radius", "offset", "borderWidth"}]
+       54 GETIMPORT                        R10 K31 [UDim.new]
        56 LOADN                            R11 0
-       57 GETTABLEKS                       R12 R1 K31 ["Radius"]
-       59 GETTABLEKS                       R12 R12 K32 ["Small"]
+       57 GETTABLEKS                       R12 R1 K32 ["Radius"]
+       59 GETTABLEKS                       R12 R12 K33 ["Small"]
        61 CALL                             R10 2 1
-       62 SETTABLEKS                       R10 R9 K24 ["radius"]
+       62 SETTABLEKS                       R10 R9 K25 ["radius"]
        64 GETTABLEKS                       R11 R1 K7 ["Stroke"]
-       66 GETTABLEKS                       R11 R11 K33 ["Thick"]
+       66 GETTABLEKS                       R11 R11 K34 ["Thick"]
        68 MINUS                            R10 R11
-       69 SETTABLEKS                       R10 R9 K25 ["offset"]
+       69 SETTABLEKS                       R10 R9 K26 ["offset"]
        71 GETTABLEKS                       R10 R1 K7 ["Stroke"]
-       73 GETTABLEKS                       R10 R10 K33 ["Thick"]
-       75 SETTABLEKS                       R10 R9 K26 ["borderWidth"]
+       73 GETTABLEKS                       R10 R10 K34 ["Thick"]
+       75 SETTABLEKS                       R10 R9 K27 ["borderWidth"]
        77 SETTABLEKS                       R9 R8 K13 ["cursor"]
-       79 GETTABLEKS                       R9 R0 K34 ["layoutOrder"]
+       79 GETTABLEKS                       R9 R0 K35 ["layoutOrder"]
        81 SETTABLEKS                       R9 R8 K14 ["LayoutOrder"]
        83 GETTABLEKS                       R9 R0 K15 ["Size"]
        85 SETTABLEKS                       R9 R8 K15 ["Size"]
        87 GETTABLEKS                       R9 R0 K16 ["onActivated"]
        89 SETTABLEKS                       R9 R8 K16 ["onActivated"]
-       91 SETTABLEKS                       R5 R8 K17 ["onStateChanged"]
-       93 DUPTABLE                         R9 K37 [{["Selectable"] = True}]
-       94 SETTABLEKS                       R9 R8 K18 ["selection"]
-       96 DUPTABLE                         R9 K39 [{"affordance"}]
-       97 GETUPVAL                         R10 0
-       98 GETTABLEKS                       R10 R10 K40 ["Enums"]
-      100 GETTABLEKS                       R10 R10 K41 ["StateLayerAffordance"]
-      102 GETTABLEKS                       R10 R10 K6 ["Background"]
-      104 SETTABLEKS                       R10 R9 K38 ["affordance"]
-      106 SETTABLEKS                       R9 R8 K19 ["stateLayer"]
-      108 DUPTABLE                         R9 K44 [{"Color", "Transparency", "Thickness"}]
-      109 GETTABLEKS                       R10 R4 K45 ["Color3"]
-      111 SETTABLEKS                       R10 R9 K4 ["Color"]
-      113 GETTABLEKS                       R10 R4 K42 ["Transparency"]
-      115 SETTABLEKS                       R10 R9 K42 ["Transparency"]
-      117 GETTABLEKS                       R10 R1 K7 ["Stroke"]
-      119 GETTABLEKS                       R10 R10 K46 ["Standard"]
-      121 SETTABLEKS                       R10 R9 K43 ["Thickness"]
-      123 SETTABLEKS                       R9 R8 K20 ["stroke"]
-      125 GETTABLEKS                       R9 R0 K21 ["tag"]
-      127 SETTABLEKS                       R9 R8 K21 ["tag"]
-      129 LOADK                            R10 K47 ["terrain-material-tile-%*"]
-      130 GETTABLEKS                       R12 R0 K48 ["entry"]
-      132 GETTABLEKS                       R12 R12 K49 ["slotIndex"]
-      134 NAMECALL                         R10 R10 K50 ["format"]
-      136 CALL                             R10 2 1
-      137 MOVE                             R9 R10
-      138 SETTABLEKS                       R9 R8 K22 ["testId"]
-      140 GETTABLEKS                       R9 R0 K51 ["children"]
-      142 CALL                             R6 3 -1
-      143 RETURN                           R6 -1
+       91 GETTABLEKS                       R9 R0 K17 ["onSecondaryActivated"]
+       93 SETTABLEKS                       R9 R8 K17 ["onSecondaryActivated"]
+       95 SETTABLEKS                       R5 R8 K18 ["onStateChanged"]
+       97 DUPTABLE                         R9 K38 [{["Selectable"] = True}]
+       98 SETTABLEKS                       R9 R8 K19 ["selection"]
+      100 DUPTABLE                         R9 K40 [{"affordance"}]
+      101 GETUPVAL                         R10 0
+      102 GETTABLEKS                       R10 R10 K41 ["Enums"]
+      104 GETTABLEKS                       R10 R10 K42 ["StateLayerAffordance"]
+      106 GETTABLEKS                       R10 R10 K6 ["Background"]
+      108 SETTABLEKS                       R10 R9 K39 ["affordance"]
+      110 SETTABLEKS                       R9 R8 K20 ["stateLayer"]
+      112 DUPTABLE                         R9 K45 [{"Color", "Transparency", "Thickness"}]
+      113 GETTABLEKS                       R10 R4 K46 ["Color3"]
+      115 SETTABLEKS                       R10 R9 K4 ["Color"]
+      117 GETTABLEKS                       R10 R4 K43 ["Transparency"]
+      119 SETTABLEKS                       R10 R9 K43 ["Transparency"]
+      121 GETTABLEKS                       R10 R1 K7 ["Stroke"]
+      123 GETTABLEKS                       R10 R10 K47 ["Standard"]
+      125 SETTABLEKS                       R10 R9 K44 ["Thickness"]
+      127 SETTABLEKS                       R9 R8 K21 ["stroke"]
+      129 GETTABLEKS                       R9 R0 K22 ["tag"]
+      131 SETTABLEKS                       R9 R8 K22 ["tag"]
+      133 LOADK                            R10 K48 ["terrain-material-tile-%*"]
+      134 GETTABLEKS                       R12 R0 K49 ["entry"]
+      136 GETTABLEKS                       R12 R12 K50 ["slotIndex"]
+      138 NAMECALL                         R10 R10 K51 ["format"]
+      140 CALL                             R10 2 1
+      141 MOVE                             R9 R10
+      142 SETTABLEKS                       R9 R8 K23 ["testId"]
+      144 GETTABLEKS                       R9 R0 K52 ["children"]
+      146 CALL                             R6 3 -1
+      147 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,11 +1,82 @@
 PROTO_0:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R1
+        2 CALL                             R2 1 0
+        3 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+2]
+        2 GETUPVAL                         R0 0
+        3 CALL                             R0 0 0
+        4 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOTEQKNIL                  R0 ; [+3]
+        3 LOADNIL                          R0
+        4 RETURN                           R0 1
+        5 GETUPVAL                         R0 0
+        6 LOADK                            R2 K0 ["DataModelTypeChanged"]
+        7 NEWCLOSURE                       R3 P0
+        8 CAPTURE                          UPVAL U1
+        9 NAMECALL                         R0 R0 K1 ["OnGuestEvent"]
+       11 CALL                             R0 3 2
+       12 NEWCLOSURE                       R2 P1
+       13 CAPTURE                          VAL R1
+       14 RETURN                           R2 1
+
+PROTO_3:
+        0 DUPTABLE                         R0 K1 [{"datamodelType"}]
+        1 GETUPVAL                         R1 0
+        2 SETTABLEKS                       R1 R0 K0 ["datamodelType"]
+        4 RETURN                           R0 1
+
+PROTO_4:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["useState"]
+       10 GETIMPORT                        R3 K6 [Enum.StudioDataModelType.None]
+       12 CALL                             R2 1 2
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K7 ["useEffect"]
+       16 NEWCLOSURE                       R5 P0
+       17 CAPTURE                          VAL R1
+       18 CAPTURE                          VAL R3
+       19 NEWTABLE                         R6 0 1
+       21 MOVE                             R7 R1
+       22 SETLIST                          R6 R7 1 [1]
+       24 CALL                             R4 2 0
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K8 ["useMemo"]
+       28 NEWCLOSURE                       R5 P1
+       29 CAPTURE                          VAL R2
+       30 NEWTABLE                         R6 0 1
+       32 MOVE                             R7 R2
+       33 SETLIST                          R6 R7 1 [1]
+       35 CALL                             R4 2 1
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K9 ["createElement"]
+       39 GETUPVAL                         R6 2
+       40 GETTABLEKS                       R6 R6 K10 ["Provider"]
+       42 DUPTABLE                         R7 K12 [{"value"}]
+       43 SETTABLEKS                       R4 R7 K11 ["value"]
+       45 GETTABLEKS                       R8 R0 K13 ["children"]
+       47 CALL                             R5 3 -1
+       48 RETURN                           R5 -1
+
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["CurrentDataModelType"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_1:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+6]
         2 GETUPVAL                         R0 0
@@ -33,7 +104,7 @@ PROTO_1:
        30 SETUPVAL                         R2 0
        31 RETURN                           R0 0
 
-PROTO_2:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -44,7 +115,7 @@ PROTO_2:
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
-PROTO_3:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["plugin"]
         3 GETTABLEKS                       R0 R0 K1 ["MultipleDocumentInterfaceInstance"]
@@ -70,13 +141,13 @@ PROTO_3:
        26 CLOSEUPVALS                      R1
        27 RETURN                           R4 1
 
-PROTO_4:
+PROTO_9:
         0 DUPTABLE                         R0 K1 [{"datamodelType"}]
         1 GETUPVAL                         R1 0
         2 SETTABLEKS                       R1 R0 K0 ["datamodelType"]
         4 RETURN                           R0 1
 
-PROTO_5:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 GETUPVAL                         R2 1
@@ -122,21 +193,41 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Util"]
-       20 GETTABLEKS                       R3 R3 K10 ["Datamodel"]
-       22 GETTABLEKS                       R3 R3 K11 ["getFocusedDatamodelType"]
-       24 CALL                             R2 1 1
-       25 DUPTABLE                         R3 K13 [{"datamodelType"}]
-       26 GETIMPORT                        R4 K17 [Enum.StudioDataModelType.None]
-       28 SETTABLEKS                       R4 R3 K12 ["datamodelType"]
-       30 GETTABLEKS                       R4 R1 K18 ["createContext"]
-       32 MOVE                             R5 R3
-       33 CALL                             R4 1 1
-       34 DUPCLOSURE                       R5 K19 [PROTO_5]
-       35 CAPTURE                          VAL R1
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R4
-       38 DUPTABLE                         R6 K22 [{"Context", "Provider"}]
-       39 SETTABLEKS                       R4 R6 K20 ["Context"]
-       41 SETTABLEKS                       R5 R6 K21 ["Provider"]
-       43 RETURN                           R6 1
+       18 GETTABLEKS                       R3 R3 K9 ["Contexts"]
+       20 GETTABLEKS                       R3 R3 K10 ["Networking"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K11 ["Util"]
+       29 GETTABLEKS                       R4 R4 K12 ["Datamodel"]
+       31 GETTABLEKS                       R4 R4 K13 ["DEPRECATED_getFocusedDatamodelType"]
+       33 CALL                             R3 1 1
+       34 GETTABLEKS                       R4 R0 K8 ["Src"]
+       36 GETTABLEKS                       R4 R4 K14 ["Flags"]
+       38 GETIMPORT                        R5 K5 [require]
+       40 GETTABLEKS                       R6 R4 K15 ["getFFlagIAMLiveDebugging"]
+       42 CALL                             R5 1 1
+       43 DUPTABLE                         R6 K17 [{"datamodelType"}]
+       44 GETIMPORT                        R7 K21 [Enum.StudioDataModelType.None]
+       46 SETTABLEKS                       R7 R6 K16 ["datamodelType"]
+       48 GETTABLEKS                       R7 R1 K22 ["createContext"]
+       50 MOVE                             R8 R6
+       51 CALL                             R7 1 1
+       52 DUPCLOSURE                       R8 K23 [PROTO_4]
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          VAL R7
+       56 DUPCLOSURE                       R9 K24 [PROTO_10]
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R7
+       60 DUPTABLE                         R10 K27 [{"Context", "Provider"}]
+       61 SETTABLEKS                       R7 R10 K25 ["Context"]
+       63 MOVE                             R12 R5
+       64 CALL                             R12 0 1
+       65 JUMPIFNOT                        R12 ; [+2]
+       66 MOVE                             R11 R8
+       67 JUMP                             ; [+1]
+       68 MOVE                             R11 R9
+       69 SETTABLEKS                       R11 R10 K26 ["Provider"]
+       71 RETURN                           R10 1

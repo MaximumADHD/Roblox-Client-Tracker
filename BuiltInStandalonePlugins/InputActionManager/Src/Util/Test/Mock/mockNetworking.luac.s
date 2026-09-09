@@ -7,14 +7,15 @@ PROTO_0:
         8 CALL                             R0 1 1
         9 SETUPVAL                         R0 0
        10 GETUPVAL                         R0 0
-       11 JUMPIFNOT                        R0 ; [+4]
+       11 JUMPIFNOT                        R0 ; [+6]
        12 GETUPVAL                         R0 3
        13 GETUPVAL                         R1 0
-       14 CALL                             R0 1 1
-       15 SETUPVAL                         R0 2
-       16 GETUPVAL                         R0 0
-       17 GETUPVAL                         R1 2
-       18 RETURN                           R0 2
+       14 GETIMPORT                        R2 K6 [plugin]
+       16 CALL                             R0 2 1
+       17 SETUPVAL                         R0 2
+       18 GETUPVAL                         R0 0
+       19 GETUPVAL                         R1 2
+       20 RETURN                           R0 2
 
 PROTO_1:
         0 GETUPVAL                         R0 0

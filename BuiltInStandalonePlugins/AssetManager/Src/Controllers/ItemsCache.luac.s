@@ -1,5 +1,5 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K7 [{[1], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False}]
+        0 DUPTABLE                         R0 K8 [{[1], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False, ["PendingRequestChains"] = 0}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["PathIndexMap"]
         5 RETURN                           R0 1
@@ -25,27 +25,27 @@ PROTO_1:
        28 GETUPVAL                         R4 1
        29 GETTABLEKS                       R4 R4 K8 ["RecentUploads"]
        31 GETTABLEKS                       R4 R4 K9 ["Uid"]
-       33 DUPTABLE                         R5 K17 [{["PathIndexMap"], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False}]
+       33 DUPTABLE                         R5 K18 [{["PathIndexMap"], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False, ["PendingRequestChains"] = 0}]
        34 NEWTABLE                         R6 0 0
        36 SETTABLEKS                       R6 R5 K10 ["PathIndexMap"]
        38 SETTABLE                         R5 R3 R4
        39 NEWTABLE                         R3 0 0
-       41 SETTABLEKS                       R3 R2 K18 ["_recentHistory"]
+       41 SETTABLEKS                       R3 R2 K19 ["_recentHistory"]
        43 NEWTABLE                         R3 0 0
        45 GETUPVAL                         R4 2
-       46 GETTABLEKS                       R4 R4 K19 ["asList"]
+       46 GETTABLEKS                       R4 R4 K20 ["asList"]
        48 GETUPVAL                         R5 2
-       49 GETTABLEKS                       R5 R5 K20 ["AssetInfoField"]
+       49 GETTABLEKS                       R5 R5 K21 ["AssetInfoField"]
        51 CALL                             R4 1 3
        52 FORGPREP                         R4
        53 NEWTABLE                         R9 0 0
        55 SETTABLE                         R9 R3 R8
        56 FORGLOOP                         R4 2 ; [-4]
-       58 SETTABLEKS                       R3 R2 K21 ["_dataArrays"]
+       58 SETTABLEKS                       R3 R2 K22 ["_dataArrays"]
        60 GETUPVAL                         R4 3
-       61 GETTABLEKS                       R4 R4 K22 ["new"]
+       61 GETTABLEKS                       R4 R4 K23 ["new"]
        63 CALL                             R4 0 1
-       64 SETTABLEKS                       R4 R2 K23 ["OnItemChanged"]
+       64 SETTABLEKS                       R4 R2 K24 ["OnItemChanged"]
        66 RETURN                           R2 1
 
 PROTO_2:
@@ -620,25 +620,25 @@ PROTO_23:
        11 MOVE                             R5 R2
        12 CALL                             R3 2 0
        13 GETTABLEKS                       R3 R0 K6 ["_indexMap"]
-       15 DUPTABLE                         R4 K14 [{["PathIndexMap"], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False}]
+       15 DUPTABLE                         R4 K15 [{["PathIndexMap"], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False, ["PendingRequestChains"] = 0}]
        16 NEWTABLE                         R5 0 0
        18 SETTABLEKS                       R5 R4 K7 ["PathIndexMap"]
        20 SETTABLE                         R4 R3 R1
        21 GETTABLEKS                       R4 R0 K3 ["_scopeQueue"]
        23 FASTCALL2                        TABLE_INSERT R4 R1 ; [+4]
        25 MOVE                             R5 R1
-       26 GETIMPORT                        R3 K16 [table.insert]
+       26 GETIMPORT                        R3 K17 [table.insert]
        28 CALL                             R3 2 0
        29 GETTABLEKS                       R4 R0 K3 ["_scopeQueue"]
        31 LENGTH                           R3 R4
-       32 GETTABLEKS                       R4 R0 K17 ["_maxScopesCached"]
+       32 GETTABLEKS                       R4 R0 K18 ["_maxScopesCached"]
        34 JUMPIFNOTLT                      R4 R3 ; [+11]
        36 GETIMPORT                        R3 K5 [table.remove]
        38 GETTABLEKS                       R4 R0 K3 ["_scopeQueue"]
        40 LOADN                            R5 1
        41 CALL                             R3 2 1
        42 MOVE                             R6 R3
-       43 NAMECALL                         R4 R0 K18 ["removeScope"]
+       43 NAMECALL                         R4 R0 K19 ["removeScope"]
        45 CALL                             R4 2 0
        46 GETTABLEKS                       R4 R0 K6 ["_indexMap"]
        48 GETTABLE                         R3 R4 R1
@@ -956,49 +956,78 @@ PROTO_33:
         8 RETURN                           R2 -1
 
 PROTO_34:
-        0 GETIMPORT                        R7 K1 [next]
-        2 MOVE                             R8 R4
-        3 CALL                             R7 1 1
-        4 JUMPIFNOTEQKNIL                  R7 ; [+2]
-        6 LOADB                            R6 0 +1
-        7 LOADB                            R6 1
-        8 NEWTABLE                         R7 0 0
-       10 MOVE                             R8 R2
-       11 LOADNIL                          R9
-       12 LOADNIL                          R10
-       13 FORGPREP                         R8
-       14 LOADB                            R13 1
-       15 SETTABLE                         R13 R7 R12
-       16 FORGLOOP                         R8 2 ; [-3]
-       18 MOVE                             R8 R1
-       19 LOADNIL                          R9
-       20 LOADNIL                          R10
-       21 FORGPREP                         R8
-       22 MOVE                             R15 R3
-       23 MOVE                             R16 R12
-       24 NAMECALL                         R13 R0 K2 ["_getItemIndex"]
-       26 CALL                             R13 3 1
-       27 JUMPIFNOT                        R13 ; [+19]
-       28 JUMPIFNOT                        R6 ; [+6]
-       29 MOVE                             R16 R13
-       30 MOVE                             R17 R4
-       31 NAMECALL                         R14 R0 K3 ["_passesFilters"]
-       33 CALL                             R14 3 1
-       34 JUMPIFNOT                        R14 ; [+12]
-       35 GETTABLE                         R14 R7 R12
-       36 JUMPIF                           R14 ; [+10]
-       37 GETUPVAL                         R14 0
-       38 MOVE                             R15 R2
-       39 MOVE                             R16 R12
-       40 NEWCLOSURE                       R17 P0
+        0 GETIMPORT                        R8 K1 [next]
+        2 MOVE                             R9 R5
+        3 CALL                             R8 1 1
+        4 JUMPIFNOTEQKNIL                  R8 ; [+2]
+        6 LOADB                            R7 0 +1
+        7 LOADB                            R7 1
+        8 NEWTABLE                         R8 0 0
+       10 MOVE                             R9 R3
+       11 LOADNIL                          R10
+       12 LOADNIL                          R11
+       13 FORGPREP                         R9
+       14 LOADB                            R14 1
+       15 SETTABLE                         R14 R8 R13
+       16 FORGLOOP                         R9 2 ; [-3]
+       18 MOVE                             R9 R1
+       19 LOADNIL                          R10
+       20 LOADNIL                          R11
+       21 FORGPREP                         R9
+       22 MOVE                             R16 R4
+       23 MOVE                             R17 R13
+       24 NAMECALL                         R14 R0 K2 ["_getItemIndex"]
+       26 CALL                             R14 3 1
+       27 JUMPIFNOT                        R14 ; [+19]
+       28 JUMPIFNOT                        R7 ; [+6]
+       29 MOVE                             R17 R14
+       30 MOVE                             R18 R5
+       31 NAMECALL                         R15 R0 K3 ["_passesFilters"]
+       33 CALL                             R15 3 1
+       34 JUMPIFNOT                        R15 ; [+12]
+       35 GETTABLE                         R15 R8 R13
+       36 JUMPIF                           R15 ; [+10]
+       37 GETUPVAL                         R15 0
+       38 MOVE                             R16 R3
+       39 MOVE                             R17 R13
+       40 NEWCLOSURE                       R18 P0
        41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R5
-       44 CALL                             R14 3 0
-       45 LOADB                            R14 1
-       46 SETTABLE                         R14 R7 R12
-       47 FORGLOOP                         R8 2 ; [-26]
-       49 RETURN                           R0 0
+       42 CAPTURE                          VAL R4
+       43 CAPTURE                          VAL R6
+       44 CALL                             R15 3 0
+       45 LOADB                            R15 1
+       46 SETTABLE                         R15 R8 R13
+       47 FORGLOOP                         R9 2 ; [-26]
+       49 LENGTH                           R9 R2
+       50 LOADN                            R10 0
+       51 JUMPIFNOTLT                      R10 R9 ; [+29]
+       53 NEWTABLE                         R9 0 0
+       55 MOVE                             R10 R2
+       56 LOADNIL                          R11
+       57 LOADNIL                          R12
+       58 FORGPREP                         R10
+       59 LOADB                            R15 1
+       60 SETTABLE                         R15 R9 R14
+       61 FORGLOOP                         R10 2 ; [-3]
+       63 LOADN                            R10 1
+       64 LOADN                            R13 1
+       65 LENGTH                           R11 R3
+       66 LOADN                            R12 1
+       67 FORNPREP                         R11
+       68 GETTABLE                         R14 R3 R13
+       69 GETTABLE                         R15 R9 R14
+       70 JUMPIF                           R15 ; [+2]
+       71 SETTABLE                         R14 R3 R10
+       72 ADDK                             R10 R10 K4 [1]
+       73 FORNLOOP                         R11
+       74 LENGTH                           R13 R3
+       75 MOVE                             R11 R10
+       76 LOADN                            R12 -1
+       77 FORNPREP                         R11
+       78 LOADNIL                          R14
+       79 SETTABLE                         R14 R3 R13
+       80 FORNLOOP                         R11
+       81 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

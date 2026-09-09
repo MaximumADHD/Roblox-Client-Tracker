@@ -1,6 +1,6 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 4 0
+        1 NEWTABLE                         R0 8 0
         3 DUPTABLE                         R1 K10 [{[1] = "UnifiedEvent", ["eventContext"] = "AssetManager", ["backends"], ["lastUpdated"], ["description"] = "Asset Manager plugin events", ["throttlingPercentage"] = 10000}]
         4 NEWTABLE                         R2 0 2
         6 LOADK                            R3 K11 ["EventIngest"]
@@ -40,4 +40,6 @@ MAIN:
        61 SETTABLEKS                       R1 R0 K25 ["ASSETMANAGER_STAT_CONFIG"]
        63 LOADK                            R1 K26 ["AssetManager_"]
        64 SETTABLEKS                       R1 R0 K27 ["ASSETMANAGER_PREFIX"]
-       66 RETURN                           R0 1
+       66 LOADK                            R1 K28 ["AssetManager_Stat_"]
+       67 SETTABLEKS                       R1 R0 K29 ["ASSETMANAGER_STAT_PREFIX"]
+       69 RETURN                           R0 1

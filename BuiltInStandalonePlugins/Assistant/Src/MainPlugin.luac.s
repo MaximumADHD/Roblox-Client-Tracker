@@ -96,17 +96,27 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["textBoxRef"]
-        3 JUMPIF                           R0 ; [+1]
-        4 RETURN                           R0 0
-        5 GETTABLEKS                       R1 R0 K1 ["current"]
-        7 JUMPIFNOT                        R1 ; [+7]
-        8 NAMECALL                         R2 R1 K2 ["IsFocused"]
-       10 CALL                             R2 1 1
-       11 JUMPIF                           R2 ; [+3]
-       12 NAMECALL                         R2 R1 K3 ["CaptureFocus"]
-       14 CALL                             R2 1 0
-       15 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantExternalInterface"]
+        3 JUMPIFNOT                        R0 ; [+10]
+        4 GETUPVAL                         R0 1
+        5 GETTABLEKS                       R0 R0 K1 ["externalInterfaceRef"]
+        7 GETTABLEKS                       R0 R0 K2 ["current"]
+        9 JUMPIFNOT                        R0 ; [+3]
+       10 GETTABLEKS                       R1 R0 K3 ["focusInput"]
+       12 CALL                             R1 0 0
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R0 1
+       15 GETTABLEKS                       R0 R0 K4 ["textBoxRef"]
+       17 JUMPIF                           R0 ; [+1]
+       18 RETURN                           R0 0
+       19 GETTABLEKS                       R1 R0 K2 ["current"]
+       21 JUMPIFNOT                        R1 ; [+7]
+       22 NAMECALL                         R2 R1 K5 ["IsFocused"]
+       24 CALL                             R2 1 1
+       25 JUMPIF                           R2 ; [+3]
+       26 NAMECALL                         R2 R1 K6 ["CaptureFocus"]
+       28 CALL                             R2 1 0
+       29 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -261,16 +271,24 @@ PROTO_11:
       195 GETTABLEKS                       R5 R5 K48 ["createRef"]
       197 CALL                             R5 0 1
       198 SETTABLEKS                       R5 R0 K49 ["textBoxRef"]
-      200 NEWCLOSURE                       R5 P8
-      201 CAPTURE                          VAL R0
-      202 SETTABLEKS                       R5 R0 K50 ["onFocus"]
-      204 NEWCLOSURE                       R5 P9
-      205 CAPTURE                          VAL R1
-      206 CAPTURE                          VAL R0
-      207 SETTABLEKS                       R5 R0 K51 ["openAssistant"]
-      209 NAMECALL                         R5 R0 K52 ["setupActionBindings"]
-      211 CALL                             R5 1 0
-      212 RETURN                           R0 0
+      200 GETUPVAL                         R5 3
+      201 GETTABLEKS                       R5 R5 K50 ["FFlagAssistantExternalInterface"]
+      203 JUMPIFNOT                        R5 ; [+6]
+      204 GETUPVAL                         R5 9
+      205 GETTABLEKS                       R5 R5 K48 ["createRef"]
+      207 CALL                             R5 0 1
+      208 SETTABLEKS                       R5 R0 K51 ["externalInterfaceRef"]
+      210 NEWCLOSURE                       R5 P8
+      211 CAPTURE                          UPVAL U3
+      212 CAPTURE                          VAL R0
+      213 SETTABLEKS                       R5 R0 K52 ["onFocus"]
+      215 NEWCLOSURE                       R5 P9
+      216 CAPTURE                          VAL R1
+      217 CAPTURE                          VAL R0
+      218 SETTABLEKS                       R5 R0 K53 ["openAssistant"]
+      220 NAMECALL                         R5 R0 K54 ["setupActionBindings"]
+      222 CALL                             R5 1 0
+      223 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -304,29 +322,63 @@ PROTO_13:
        30 GETTABLEKS                       R3 R3 K13 ["generateExplainCodePrompt"]
        32 CALL                             R3 0 1
        33 GETUPVAL                         R4 2
-       34 GETTABLEKS                       R4 R4 K14 ["Components"]
-       36 GETTABLEKS                       R4 R4 K15 ["ExternalHooks"]
-       38 GETTABLEKS                       R5 R4 K16 ["sendMessage"]
-       40 DUPTABLE                         R6 K20 [{["text"], ["retry"] = False}]
-       41 SETTABLEKS                       R3 R6 K17 ["text"]
-       43 CALL                             R5 1 0
-       44 RETURN                           R0 0
+       34 GETTABLEKS                       R4 R4 K14 ["FFlagAssistantExternalInterface"]
+       36 JUMPIFNOT                        R4 ; [+24]
+       37 GETUPVAL                         R4 0
+       38 GETTABLEKS                       R4 R4 K15 ["externalInterfaceRef"]
+       40 GETTABLEKS                       R4 R4 K16 ["current"]
+       42 FASTCALL2K                       ASSERT R4 K17 ; [+5]
+       44 MOVE                             R6 R4
+       45 LOADK                            R7 K17 ["externalInterface not initialized"]
+       46 GETIMPORT                        R5 K19 [assert]
+       48 CALL                             R5 2 0
+       49 GETTABLEKS                       R5 R4 K20 ["isInputDisabled"]
+       51 CALL                             R5 0 1
+       52 JUMPIFNOT                        R5 ; [+1]
+       53 RETURN                           R0 0
+       54 GETTABLEKS                       R5 R4 K21 ["sendMessage"]
+       56 DUPTABLE                         R6 K25 [{["text"], ["retry"] = False}]
+       57 SETTABLEKS                       R3 R6 K22 ["text"]
+       59 CALL                             R5 1 0
+       60 RETURN                           R0 0
+       61 GETUPVAL                         R4 3
+       62 GETTABLEKS                       R4 R4 K26 ["Components"]
+       64 GETTABLEKS                       R4 R4 K27 ["ExternalHooks"]
+       66 GETTABLEKS                       R5 R4 K21 ["sendMessage"]
+       68 DUPTABLE                         R6 K25 [{["text"], ["retry"] = False}]
+       69 SETTABLEKS                       R3 R6 K22 ["text"]
+       71 CALL                             R5 1 0
+       72 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["textBoxRef"]
-        3 GETTABLEKS                       R0 R0 K1 ["current"]
-        5 JUMPIFNOT                        R0 ; [+8]
-        6 GETUPVAL                         R0 0
-        7 GETTABLEKS                       R0 R0 K0 ["textBoxRef"]
-        9 GETTABLEKS                       R0 R0 K1 ["current"]
-       11 NAMECALL                         R0 R0 K2 ["IsFocused"]
-       13 CALL                             R0 1 1
-       14 JUMPIF                           R0 ; [+4]
-       15 GETUPVAL                         R1 0
-       16 GETTABLEKS                       R1 R1 K3 ["openAssistant"]
-       18 CALL                             R1 0 0
-       19 RETURN                           R0 0
+        0 LOADNIL                          R0
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantExternalInterface"]
+        4 JUMPIFNOT                        R1 ; [+13]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["externalInterfaceRef"]
+        8 GETTABLEKS                       R1 R1 K2 ["current"]
+       10 LOADB                            R2 0
+       11 JUMPIFEQKNIL                     R1 ; [+4]
+       13 GETTABLEKS                       R2 R1 K3 ["isInputFocused"]
+       15 CALL                             R2 0 1
+       16 MOVE                             R0 R2
+       17 JUMP                             ; [+15]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K4 ["textBoxRef"]
+       21 GETTABLEKS                       R1 R1 K2 ["current"]
+       23 JUMPIFNOT                        R1 ; [+8]
+       24 GETUPVAL                         R1 1
+       25 GETTABLEKS                       R1 R1 K4 ["textBoxRef"]
+       27 GETTABLEKS                       R1 R1 K2 ["current"]
+       29 NAMECALL                         R1 R1 K5 ["IsFocused"]
+       31 CALL                             R1 1 1
+       32 MOVE                             R0 R1
+       33 JUMPIF                           R0 ; [+4]
+       34 GETUPVAL                         R1 1
+       35 GETTABLEKS                       R1 R1 K6 ["openAssistant"]
+       37 CALL                             R1 0 0
+       38 RETURN                           R0 0
 
 PROTO_15:
         0 DUPTABLE                         R1 K8 [{[1] = "Standalone", ["PluginId"] = "AssistantPlugin", ["Category"] = "Actions", ["ItemId"] = "MCPExplainCode"}]
@@ -335,24 +387,26 @@ PROTO_15:
         4 CAPTURE                          VAL R0
         5 CAPTURE                          VAL R1
         6 CALL                             R2 1 2
-        7 JUMPIFNOT                        R2 ; [+9]
+        7 JUMPIFNOT                        R2 ; [+10]
         8 NEWCLOSURE                       R6 P1
         9 CAPTURE                          VAL R0
        10 CAPTURE                          UPVAL U0
        11 CAPTURE                          UPVAL U1
-       12 NAMECALL                         R4 R3 K11 ["Connect"]
-       14 CALL                             R4 2 1
-       15 SETTABLEKS                       R4 R0 K12 ["mcpExplainCodeConnection"]
-       17 GETTABLEKS                       R4 R0 K5 ["Actions"]
-       19 GETUPVAL                         R6 2
-       20 NAMECALL                         R4 R4 K13 ["BindToActivatedAsync"]
-       22 CALL                             R4 2 1
-       23 NEWCLOSURE                       R6 P2
-       24 CAPTURE                          VAL R0
-       25 NAMECALL                         R4 R4 K11 ["Connect"]
-       27 CALL                             R4 2 1
-       28 SETTABLEKS                       R4 R0 K14 ["askAssistantConnection"]
-       30 RETURN                           R0 0
+       12 CAPTURE                          UPVAL U2
+       13 NAMECALL                         R4 R3 K11 ["Connect"]
+       15 CALL                             R4 2 1
+       16 SETTABLEKS                       R4 R0 K12 ["mcpExplainCodeConnection"]
+       18 GETTABLEKS                       R4 R0 K5 ["Actions"]
+       20 GETUPVAL                         R6 3
+       21 NAMECALL                         R4 R4 K13 ["BindToActivatedAsync"]
+       23 CALL                             R4 2 1
+       24 NEWCLOSURE                       R6 P2
+       25 CAPTURE                          UPVAL U1
+       26 CAPTURE                          VAL R0
+       27 NAMECALL                         R4 R4 K11 ["Connect"]
+       29 CALL                             R4 2 1
+       30 SETTABLEKS                       R4 R0 K14 ["askAssistantConnection"]
+       32 RETURN                           R0 0
 
 PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -451,8 +505,8 @@ PROTO_18:
       112 DUPTABLE                         R12 K51 [{"App"}]
       113 GETUPVAL                         R13 3
       114 GETUPVAL                         R14 6
-      115 DUPTABLE                         R15 K57 [{"args", "dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle", "textBoxRef"}]
-      116 GETTABLEKS                       R16 R1 K58 ["Args"]
+      115 DUPTABLE                         R15 K58 [{"args", "dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle", "textBoxRef", "externalInterfaceRef"}]
+      116 GETTABLEKS                       R16 R1 K59 ["Args"]
       118 SETTABLEKS                       R16 R15 K52 ["args"]
       120 GETTABLEKS                       R16 R1 K38 ["PluginLoaderContext"]
       122 GETTABLEKS                       R16 R16 K39 ["mainDockWidget"]
@@ -463,27 +517,29 @@ PROTO_18:
       132 SETTABLEKS                       R16 R15 K55 ["setDockWidgetTitle"]
       134 GETTABLEKS                       R16 R0 K56 ["textBoxRef"]
       136 SETTABLEKS                       R16 R15 K56 ["textBoxRef"]
-      138 CALL                             R13 2 1
-      139 SETTABLEKS                       R13 R12 K50 ["App"]
-      141 CALL                             R9 3 1
-      142 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
-      144 GETUPVAL                         R10 7
-      145 GETTABLEKS                       R10 R10 K59 ["FFlagStudioAssistantCloseTooltip"]
-      147 JUMPIFNOT                        R10 ; [+14]
-      148 GETTABLEKS                       R10 R2 K60 ["showCloseTooltip"]
-      150 JUMPIFNOT                        R10 ; [+11]
-      151 GETUPVAL                         R9 3
-      152 GETUPVAL                         R10 8
-      153 DUPTABLE                         R11 K63 [{"plugin", "onDismiss"}]
-      154 SETTABLEKS                       R3 R11 K61 ["plugin"]
-      156 GETTABLEKS                       R12 R0 K64 ["dismissCloseTooltip"]
-      158 SETTABLEKS                       R12 R11 K62 ["onDismiss"]
-      160 CALL                             R9 2 1
-      161 JUMP                             ; [+1]
-      162 LOADNIL                          R9
-      163 SETTABLEKS                       R9 R8 K19 ["CloseTooltip"]
-      165 CALL                             R6 2 -1
-      166 RETURN                           R6 -1
+      138 GETTABLEKS                       R16 R0 K57 ["externalInterfaceRef"]
+      140 SETTABLEKS                       R16 R15 K57 ["externalInterfaceRef"]
+      142 CALL                             R13 2 1
+      143 SETTABLEKS                       R13 R12 K50 ["App"]
+      145 CALL                             R9 3 1
+      146 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
+      148 GETUPVAL                         R10 7
+      149 GETTABLEKS                       R10 R10 K60 ["FFlagStudioAssistantCloseTooltip"]
+      151 JUMPIFNOT                        R10 ; [+14]
+      152 GETTABLEKS                       R10 R2 K61 ["showCloseTooltip"]
+      154 JUMPIFNOT                        R10 ; [+11]
+      155 GETUPVAL                         R9 3
+      156 GETUPVAL                         R10 8
+      157 DUPTABLE                         R11 K64 [{"plugin", "onDismiss"}]
+      158 SETTABLEKS                       R3 R11 K62 ["plugin"]
+      160 GETTABLEKS                       R12 R0 K65 ["dismissCloseTooltip"]
+      162 SETTABLEKS                       R12 R11 K63 ["onDismiss"]
+      164 CALL                             R9 2 1
+      165 JUMP                             ; [+1]
+      166 LOADNIL                          R9
+      167 SETTABLEKS                       R9 R8 K19 ["CloseTooltip"]
+      169 CALL                             R6 2 -1
+      170 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -569,22 +625,23 @@ MAIN:
       133 SETTABLEKS                       R22 R20 K48 ["init"]
       135 DUPCLOSURE                       R22 K49 [PROTO_15]
       136 CAPTURE                          VAL R8
-      137 CAPTURE                          VAL R2
-      138 CAPTURE                          VAL R21
-      139 SETTABLEKS                       R22 R20 K50 ["setupActionBindings"]
-      141 DUPCLOSURE                       R22 K51 [PROTO_16]
-      142 SETTABLEKS                       R22 R20 K52 ["didUpdate"]
-      144 DUPCLOSURE                       R22 K53 [PROTO_17]
-      145 SETTABLEKS                       R22 R20 K54 ["willUnmount"]
-      147 DUPCLOSURE                       R22 K55 [PROTO_18]
-      148 CAPTURE                          VAL R11
-      149 CAPTURE                          VAL R13
-      150 CAPTURE                          VAL R12
-      151 CAPTURE                          VAL R19
-      152 CAPTURE                          VAL R10
-      153 CAPTURE                          VAL R6
-      154 CAPTURE                          VAL R1
-      155 CAPTURE                          VAL R4
-      156 CAPTURE                          VAL R3
-      157 SETTABLEKS                       R22 R20 K56 ["render"]
-      159 RETURN                           R20 1
+      137 CAPTURE                          VAL R4
+      138 CAPTURE                          VAL R2
+      139 CAPTURE                          VAL R21
+      140 SETTABLEKS                       R22 R20 K50 ["setupActionBindings"]
+      142 DUPCLOSURE                       R22 K51 [PROTO_16]
+      143 SETTABLEKS                       R22 R20 K52 ["didUpdate"]
+      145 DUPCLOSURE                       R22 K53 [PROTO_17]
+      146 SETTABLEKS                       R22 R20 K54 ["willUnmount"]
+      148 DUPCLOSURE                       R22 K55 [PROTO_18]
+      149 CAPTURE                          VAL R11
+      150 CAPTURE                          VAL R13
+      151 CAPTURE                          VAL R12
+      152 CAPTURE                          VAL R19
+      153 CAPTURE                          VAL R10
+      154 CAPTURE                          VAL R6
+      155 CAPTURE                          VAL R1
+      156 CAPTURE                          VAL R4
+      157 CAPTURE                          VAL R3
+      158 SETTABLEKS                       R22 R20 K56 ["render"]
+      160 RETURN                           R20 1

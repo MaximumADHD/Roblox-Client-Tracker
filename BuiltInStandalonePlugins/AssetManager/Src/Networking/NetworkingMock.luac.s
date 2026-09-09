@@ -239,37 +239,41 @@ PROTO_14:
 
 PROTO_15:
         0 JUMPIFNOT                        R0 ; [+8]
-        1 GETUPVAL                         R1 0
-        2 LOADK                            R2 K0 ["Test searchAssetsAsync error - folders"]
-        3 CALL                             R1 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K1 ["Resolve"]
-        7 CALL                             R1 0 0
+        1 GETUPVAL                         R2 0
+        2 LOADK                            R3 K0 ["Test searchAssetsAsync error - folders"]
+        3 CALL                             R2 1 0
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["Resolve"]
+        7 CALL                             R2 0 0
         8 RETURN                           R0 0
-        9 GETUPVAL                         R2 2
-       10 GETTABLEKS                       R2 R2 K2 ["Folders"]
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R3 R3 K3 ["ScopeInfo"]
-       15 GETTABLEKS                       R3 R3 K4 ["Id"]
-       17 GETTABLE                         R1 R2 R3
-       18 JUMPIF                           R1 ; [+2]
-       19 NEWTABLE                         R1 0 0
-       21 GETUPVAL                         R2 3
-       22 MOVE                             R3 R1
-       23 NEWTABLE                         R4 0 0
-       25 GETUPVAL                         R5 1
-       26 GETTABLEKS                       R5 R5 K5 ["FetchSessionId"]
-       28 LOADNIL                          R6
-       29 GETUPVAL                         R7 2
-       30 GETTABLEKS                       R7 R7 K6 ["PageToken"]
-       32 CALL                             R2 5 0
-       33 GETUPVAL                         R2 1
-       34 GETTABLEKS                       R2 R2 K1 ["Resolve"]
-       36 JUMPIFNOT                        R2 ; [+4]
-       37 GETUPVAL                         R2 1
-       38 GETTABLEKS                       R2 R2 K1 ["Resolve"]
-       40 CALL                             R2 0 0
-       41 RETURN                           R0 0
+        9 GETUPVAL                         R3 2
+       10 GETTABLEKS                       R3 R3 K2 ["Folders"]
+       12 GETUPVAL                         R4 1
+       13 GETTABLEKS                       R4 R4 K3 ["ScopeInfo"]
+       15 GETTABLEKS                       R4 R4 K4 ["Id"]
+       17 GETTABLE                         R2 R3 R4
+       18 JUMPIF                           R2 ; [+2]
+       19 NEWTABLE                         R2 0 0
+       21 JUMPIFNOTEQKNIL                  R1 ; [+5]
+       23 GETUPVAL                         R3 2
+       24 GETTABLEKS                       R3 R3 K5 ["PageToken"]
+       26 JUMP                             ; [+1]
+       27 MOVE                             R3 R1
+       28 GETUPVAL                         R4 3
+       29 MOVE                             R5 R2
+       30 NEWTABLE                         R6 0 0
+       32 GETUPVAL                         R7 1
+       33 GETTABLEKS                       R7 R7 K6 ["FetchSessionId"]
+       35 LOADNIL                          R8
+       36 MOVE                             R9 R3
+       37 CALL                             R4 5 0
+       38 GETUPVAL                         R4 1
+       39 GETTABLEKS                       R4 R4 K1 ["Resolve"]
+       41 JUMPIFNOT                        R4 ; [+4]
+       42 GETUPVAL                         R4 1
+       43 GETTABLEKS                       R4 R4 K1 ["Resolve"]
+       45 CALL                             R4 0 0
+       46 RETURN                           R0 0
 
 PROTO_16:
         0 JUMPIFNOT                        R0 ; [+8]

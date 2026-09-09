@@ -248,7 +248,7 @@ PROTO_5:
       273 SETTABLE                         R22 R20 R21
       274 GETUPVAL                         R21 9
       275 GETTABLEKS                       R21 R21 K63 ["Tag"]
-      277 LOADK                            R22 K64 ["size-full gui-object-defaults row align-x-left align-y-center"]
+      277 LOADK                            R22 K64 ["size-full auto-x gui-object-defaults row align-x-left align-y-center"]
       278 SETTABLE                         R22 R20 R21
       279 MOVE                             R21 R14
       280 CALL                             R18 3 -1

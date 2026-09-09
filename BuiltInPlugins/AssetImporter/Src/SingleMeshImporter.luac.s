@@ -1,4 +1,15 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIF                           R0 ; [+5]
+        3 GETUPVAL                         R0 1
+        4 CALL                             R0 0 1
+        5 JUMPIF                           R0 ; [+2]
+        6 GETUPVAL                         R0 2
+        7 CALL                             R0 0 1
+        8 RETURN                           R0 1
+
+PROTO_1:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+26]
@@ -28,7 +39,7 @@ PROTO_0:
        33 CALL                             R2 2 0
        34 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 MOVE                             R5 R1
@@ -36,7 +47,7 @@ PROTO_1:
         5 CALL                             R2 3 0
         6 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 NEWTABLE                         R3 8 0
         2 GETUPVAL                         R4 0
         3 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
@@ -104,23 +115,30 @@ PROTO_2:
        90 SETTABLEKS                       R3 R2 K21 ["_actionConnection"]
        92 GETUPVAL                         R3 10
        93 CALL                             R3 0 1
-       94 JUMPIF                           R3 ; [+3]
+       94 JUMPIF                           R3 ; [+5]
        95 GETUPVAL                         R3 12
        96 CALL                             R3 0 1
-       97 JUMPIFNOT                        R3 ; [+15]
+       97 JUMPIF                           R3 ; [+2]
        98 GETUPVAL                         R3 13
-       99 GETUPVAL                         R5 14
-      100 GETTABLEKS                       R5 R5 K22 ["ASSET_MANAGER"]
-      102 GETTABLEKS                       R5 R5 K23 ["CPC_EVENTS"]
-      104 GETTABLEKS                       R5 R5 K24 ["IMPORT_ASSET_VERSION"]
-      106 NEWCLOSURE                       R6 P1
-      107 CAPTURE                          VAL R2
-      108 NAMECALL                         R3 R3 K20 ["Connect"]
-      110 CALL                             R3 3 1
-      111 SETTABLEKS                       R3 R2 K25 ["_cpcConnection"]
-      113 RETURN                           R2 1
+       99 CALL                             R3 0 1
+      100 JUMPIFNOT                        R3 ; [+15]
+      101 GETUPVAL                         R3 14
+      102 GETUPVAL                         R5 15
+      103 GETTABLEKS                       R5 R5 K22 ["ASSET_MANAGER"]
+      105 GETTABLEKS                       R5 R5 K23 ["CPC_EVENTS"]
+      107 GETTABLEKS                       R5 R5 K24 ["IMPORT_ASSET_VERSION"]
+      109 NEWCLOSURE                       R6 P1
+      110 CAPTURE                          VAL R2
+      111 NAMECALL                         R3 R3 K20 ["Connect"]
+      113 CALL                             R3 3 1
+      114 SETTABLEKS                       R3 R2 K25 ["_cpcConnection"]
+      116 RETURN                           R2 1
 
-PROTO_3:
+PROTO_4:
+        0 SETTABLEKS                       R1 R0 K0 ["onImportAnimationVersion"]
+        2 RETURN                           R0 0
+
+PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_root"]
         2 JUMPIFNOTEQKNIL                  R1 ; [+12]
         4 GETIMPORT                        R1 K3 [Instance.new]
@@ -134,7 +152,7 @@ PROTO_3:
        15 GETTABLEKS                       R1 R0 K0 ["_root"]
        17 RETURN                           R1 1
 
-PROTO_4:
+PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["design"]
         2 JUMPIFNOTEQKNIL                  R1 ; [+11]
         4 GETUPVAL                         R1 0
@@ -147,7 +165,7 @@ PROTO_4:
        14 GETTABLEKS                       R1 R0 K0 ["design"]
        16 RETURN                           R1 1
 
-PROTO_5:
+PROTO_7:
         0 NAMECALL                         R1 R0 K0 ["_getRoot"]
         2 CALL                             R1 1 1
         3 NEWTABLE                         R2 0 4
@@ -171,7 +189,7 @@ PROTO_5:
        32 CALL                             R3 -1 0
        33 RETURN                           R0 0
 
-PROTO_6:
+PROTO_8:
         0 NAMECALL                         R2 R0 K0 ["_setupUI"]
         2 CALL                             R2 1 0
         3 GETTABLEKS                       R2 R0 K1 ["singleMeshController"]
@@ -180,35 +198,52 @@ PROTO_6:
         8 CALL                             R2 2 0
         9 RETURN                           R0 0
 
-PROTO_7:
-        0 LOADNIL                          R3
-        1 GETIMPORT                        R4 K3 [Enum.AssetType.Mesh]
-        3 JUMPIFNOTEQ                      R2 R4 ; [+7]
-        5 GETUPVAL                         R4 0
-        6 NAMECALL                         R4 R4 K4 ["PickMeshFileWithPrompt"]
-        8 CALL                             R4 1 1
-        9 MOVE                             R3 R4
-       10 JUMP                             ; [+9]
-       11 GETIMPORT                        R4 K6 [Enum.AssetType.Image]
-       13 JUMPIFNOTEQ                      R2 R4 ; [+6]
-       15 GETUPVAL                         R4 0
-       16 NAMECALL                         R4 R4 K7 ["PickImageFileWithPrompt"]
-       18 CALL                             R4 1 1
-       19 MOVE                             R3 R4
-       20 JUMPIFNOT                        R3 ; [+14]
-       21 JUMPIFEQKS                       R3 K8 [""] ; [+13]
-       23 NAMECALL                         R4 R0 K9 ["_setupUI"]
-       25 CALL                             R4 1 0
-       26 GETTABLEKS                       R4 R0 K10 ["singleMeshController"]
-       28 MOVE                             R6 R3
-       29 MOVE                             R7 R1
-       30 LOADNIL                          R8
-       31 MOVE                             R9 R2
-       32 NAMECALL                         R4 R4 K11 ["startVersionedImport"]
-       34 CALL                             R4 5 0
-       35 RETURN                           R0 0
+PROTO_9:
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+6]
+        3 GETIMPORT                        R4 K3 [Enum.AssetType.Animation]
+        5 JUMPIFEQ                         R2 R4 ; [+2]
+        7 LOADB                            R3 0 +1
+        8 LOADB                            R3 1
+        9 LOADNIL                          R4
+       10 GETIMPORT                        R5 K5 [Enum.AssetType.Mesh]
+       12 JUMPIFEQ                         R2 R5 ; [+2]
+       14 JUMPIFNOT                        R3 ; [+6]
+       15 GETUPVAL                         R5 1
+       16 NAMECALL                         R5 R5 K6 ["PickMeshFileWithPrompt"]
+       18 CALL                             R5 1 1
+       19 MOVE                             R4 R5
+       20 JUMP                             ; [+9]
+       21 GETIMPORT                        R5 K8 [Enum.AssetType.Image]
+       23 JUMPIFNOTEQ                      R2 R5 ; [+6]
+       25 GETUPVAL                         R5 1
+       26 NAMECALL                         R5 R5 K9 ["PickImageFileWithPrompt"]
+       28 CALL                             R5 1 1
+       29 MOVE                             R4 R5
+       30 JUMPIFNOT                        R4 ; [+2]
+       31 JUMPIFNOTEQKS                    R4 K10 [""] ; [+2]
+       33 RETURN                           R0 0
+       34 JUMPIFNOT                        R3 ; [+9]
+       35 GETTABLEKS                       R5 R0 K11 ["onImportAnimationVersion"]
+       37 JUMPIFNOT                        R5 ; [+18]
+       38 GETTABLEKS                       R5 R0 K11 ["onImportAnimationVersion"]
+       40 MOVE                             R6 R4
+       41 MOVE                             R7 R1
+       42 CALL                             R5 2 0
+       43 RETURN                           R0 0
+       44 NAMECALL                         R5 R0 K12 ["_setupUI"]
+       46 CALL                             R5 1 0
+       47 GETTABLEKS                       R5 R0 K13 ["singleMeshController"]
+       49 MOVE                             R7 R4
+       50 MOVE                             R8 R1
+       51 LOADNIL                          R9
+       52 MOVE                             R10 R2
+       53 NAMECALL                         R5 R5 K14 ["startVersionedImport"]
+       55 CALL                             R5 5 0
+       56 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["_actionConnection"]
         2 JUMPIFNOT                        R1 ; [+8]
         3 GETTABLEKS                       R1 R0 K0 ["_actionConnection"]
@@ -218,32 +253,35 @@ PROTO_8:
         9 SETTABLEKS                       R1 R0 K0 ["_actionConnection"]
        11 GETUPVAL                         R1 0
        12 CALL                             R1 0 1
-       13 JUMPIF                           R1 ; [+3]
+       13 JUMPIF                           R1 ; [+5]
        14 GETUPVAL                         R1 1
        15 CALL                             R1 0 1
-       16 JUMPIFNOT                        R1 ; [+11]
-       17 GETTABLEKS                       R1 R0 K2 ["_cpcConnection"]
-       19 JUMPIFNOT                        R1 ; [+8]
+       16 JUMPIF                           R1 ; [+2]
+       17 GETUPVAL                         R1 2
+       18 CALL                             R1 0 1
+       19 JUMPIFNOT                        R1 ; [+11]
        20 GETTABLEKS                       R1 R0 K2 ["_cpcConnection"]
-       22 NAMECALL                         R1 R1 K3 ["Disconnect"]
-       24 CALL                             R1 1 0
-       25 LOADNIL                          R1
-       26 SETTABLEKS                       R1 R0 K2 ["_cpcConnection"]
-       28 GETTABLEKS                       R1 R0 K4 ["_root"]
-       30 JUMPIFNOT                        R1 ; [+8]
+       22 JUMPIFNOT                        R1 ; [+8]
+       23 GETTABLEKS                       R1 R0 K2 ["_cpcConnection"]
+       25 NAMECALL                         R1 R1 K3 ["Disconnect"]
+       27 CALL                             R1 1 0
+       28 LOADNIL                          R1
+       29 SETTABLEKS                       R1 R0 K2 ["_cpcConnection"]
        31 GETTABLEKS                       R1 R0 K4 ["_root"]
-       33 NAMECALL                         R1 R1 K5 ["destroy"]
-       35 CALL                             R1 1 0
-       36 LOADNIL                          R1
-       37 SETTABLEKS                       R1 R0 K4 ["_root"]
-       39 GETTABLEKS                       R1 R0 K6 ["singleMeshController"]
-       41 JUMPIFNOT                        R1 ; [+8]
+       33 JUMPIFNOT                        R1 ; [+8]
+       34 GETTABLEKS                       R1 R0 K4 ["_root"]
+       36 NAMECALL                         R1 R1 K5 ["destroy"]
+       38 CALL                             R1 1 0
+       39 LOADNIL                          R1
+       40 SETTABLEKS                       R1 R0 K4 ["_root"]
        42 GETTABLEKS                       R1 R0 K6 ["singleMeshController"]
-       44 NAMECALL                         R1 R1 K5 ["destroy"]
-       46 CALL                             R1 1 0
-       47 LOADNIL                          R1
-       48 SETTABLEKS                       R1 R0 K6 ["singleMeshController"]
-       50 RETURN                           R0 0
+       44 JUMPIFNOT                        R1 ; [+8]
+       45 GETTABLEKS                       R1 R0 K6 ["singleMeshController"]
+       47 NAMECALL                         R1 R1 K5 ["destroy"]
+       49 CALL                             R1 1 0
+       50 LOADNIL                          R1
+       51 SETTABLEKS                       R1 R0 K6 ["singleMeshController"]
+       53 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -301,69 +339,83 @@ MAIN:
        91 GETIMPORT                        R15 K5 [require]
        93 GETTABLEKS                       R16 R0 K6 ["Src"]
        95 GETTABLEKS                       R16 R16 K27 ["Flags"]
-       97 GETTABLEKS                       R16 R16 K29 ["getFFlagAmrImageVersioning"]
+       97 GETTABLEKS                       R16 R16 K29 ["getEFImportAnimationVersions"]
        99 CALL                             R15 1 1
       100 GETIMPORT                        R16 K5 [require]
       102 GETTABLEKS                       R17 R0 K6 ["Src"]
       104 GETTABLEKS                       R17 R17 K27 ["Flags"]
-      106 GETTABLEKS                       R17 R17 K30 ["getFFlagAssetImporterShareStyleSheet"]
+      106 GETTABLEKS                       R17 R17 K30 ["getFFlagAmrImageVersioning"]
       108 CALL                             R16 1 1
-      109 GETTABLEKS                       R17 R3 K31 ["Util"]
-      111 GETTABLEKS                       R17 R17 K32 ["CrossPluginCommunication"]
-      113 GETIMPORT                        R18 K5 [require]
-      115 GETTABLEKS                       R19 R0 K11 ["Packages"]
-      117 GETTABLEKS                       R19 R19 K33 ["SharedPluginConstants"]
-      119 CALL                             R18 1 1
-      120 GETTABLEKS                       R19 R17 K34 ["new"]
-      122 GETTABLEKS                       R20 R18 K35 ["ASSET_MANAGER"]
-      124 GETTABLEKS                       R20 R20 K36 ["CPC_ID"]
-      126 CALL                             R19 1 1
-      127 GETTABLEKS                       R20 R0 K6 ["Src"]
-      129 GETTABLEKS                       R20 R20 K37 ["Resources"]
-      131 GETTABLEKS                       R20 R20 K17 ["Localization"]
-      133 GETTABLEKS                       R20 R20 K38 ["LocalizedStrings"]
-      135 GETTABLEKS                       R21 R0 K6 ["Src"]
-      137 GETTABLEKS                       R21 R21 K37 ["Resources"]
-      139 GETTABLEKS                       R21 R21 K17 ["Localization"]
-      141 GETTABLEKS                       R21 R21 K39 ["SourceStrings"]
-      143 NEWTABLE                         R22 8 0
-      145 SETTABLEKS                       R22 R22 K40 ["__index"]
-      147 DUPCLOSURE                       R23 K41 [PROTO_2]
-      148 CAPTURE                          VAL R22
-      149 CAPTURE                          VAL R9
-      150 CAPTURE                          VAL R16
-      151 CAPTURE                          VAL R7
-      152 CAPTURE                          VAL R10
-      153 CAPTURE                          VAL R8
-      154 CAPTURE                          VAL R21
-      155 CAPTURE                          VAL R20
-      156 CAPTURE                          VAL R13
-      157 CAPTURE                          VAL R2
-      158 CAPTURE                          VAL R14
-      159 CAPTURE                          VAL R1
-      160 CAPTURE                          VAL R15
-      161 CAPTURE                          VAL R19
-      162 CAPTURE                          VAL R18
-      163 SETTABLEKS                       R23 R22 K34 ["new"]
-      165 DUPCLOSURE                       R23 K42 [PROTO_3]
-      166 CAPTURE                          VAL R4
-      167 SETTABLEKS                       R23 R22 K43 ["_getRoot"]
-      169 DUPCLOSURE                       R23 K44 [PROTO_4]
-      170 CAPTURE                          VAL R7
-      171 CAPTURE                          VAL R11
-      172 SETTABLEKS                       R23 R22 K45 ["_getDesign"]
-      174 DUPCLOSURE                       R23 K46 [PROTO_5]
-      175 CAPTURE                          VAL R6
-      176 CAPTURE                          VAL R5
-      177 CAPTURE                          VAL R12
-      178 SETTABLEKS                       R23 R22 K47 ["_setupUI"]
-      180 DUPCLOSURE                       R23 K48 [PROTO_6]
-      181 SETTABLEKS                       R23 R22 K49 ["startImport"]
-      183 DUPCLOSURE                       R23 K50 [PROTO_7]
-      184 CAPTURE                          VAL R2
-      185 SETTABLEKS                       R23 R22 K51 ["_onImportAssetVersion"]
-      187 DUPCLOSURE                       R23 K52 [PROTO_8]
-      188 CAPTURE                          VAL R14
-      189 CAPTURE                          VAL R15
-      190 SETTABLEKS                       R23 R22 K53 ["destroy"]
-      192 RETURN                           R22 1
+      109 GETIMPORT                        R17 K5 [require]
+      111 GETTABLEKS                       R18 R0 K6 ["Src"]
+      113 GETTABLEKS                       R18 R18 K27 ["Flags"]
+      115 GETTABLEKS                       R18 R18 K31 ["getFFlagAssetImporterShareStyleSheet"]
+      117 CALL                             R17 1 1
+      118 DUPCLOSURE                       R18 K32 [PROTO_0]
+      119 CAPTURE                          VAL R14
+      120 CAPTURE                          VAL R16
+      121 CAPTURE                          VAL R15
+      122 GETTABLEKS                       R19 R3 K33 ["Util"]
+      124 GETTABLEKS                       R19 R19 K34 ["CrossPluginCommunication"]
+      126 GETIMPORT                        R20 K5 [require]
+      128 GETTABLEKS                       R21 R0 K11 ["Packages"]
+      130 GETTABLEKS                       R21 R21 K35 ["SharedPluginConstants"]
+      132 CALL                             R20 1 1
+      133 GETTABLEKS                       R21 R19 K36 ["new"]
+      135 GETTABLEKS                       R22 R20 K37 ["ASSET_MANAGER"]
+      137 GETTABLEKS                       R22 R22 K38 ["CPC_ID"]
+      139 CALL                             R21 1 1
+      140 GETTABLEKS                       R22 R0 K6 ["Src"]
+      142 GETTABLEKS                       R22 R22 K39 ["Resources"]
+      144 GETTABLEKS                       R22 R22 K17 ["Localization"]
+      146 GETTABLEKS                       R22 R22 K40 ["LocalizedStrings"]
+      148 GETTABLEKS                       R23 R0 K6 ["Src"]
+      150 GETTABLEKS                       R23 R23 K39 ["Resources"]
+      152 GETTABLEKS                       R23 R23 K17 ["Localization"]
+      154 GETTABLEKS                       R23 R23 K41 ["SourceStrings"]
+      156 NEWTABLE                         R24 16 0
+      158 SETTABLEKS                       R24 R24 K42 ["__index"]
+      160 DUPCLOSURE                       R25 K43 [PROTO_3]
+      161 CAPTURE                          VAL R24
+      162 CAPTURE                          VAL R9
+      163 CAPTURE                          VAL R17
+      164 CAPTURE                          VAL R7
+      165 CAPTURE                          VAL R10
+      166 CAPTURE                          VAL R8
+      167 CAPTURE                          VAL R23
+      168 CAPTURE                          VAL R22
+      169 CAPTURE                          VAL R13
+      170 CAPTURE                          VAL R2
+      171 CAPTURE                          VAL R14
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          VAL R16
+      174 CAPTURE                          VAL R15
+      175 CAPTURE                          VAL R21
+      176 CAPTURE                          VAL R20
+      177 SETTABLEKS                       R25 R24 K36 ["new"]
+      179 DUPCLOSURE                       R25 K44 [PROTO_4]
+      180 SETTABLEKS                       R25 R24 K45 ["setImportAnimationVersionHandler"]
+      182 DUPCLOSURE                       R25 K46 [PROTO_5]
+      183 CAPTURE                          VAL R4
+      184 SETTABLEKS                       R25 R24 K47 ["_getRoot"]
+      186 DUPCLOSURE                       R25 K48 [PROTO_6]
+      187 CAPTURE                          VAL R7
+      188 CAPTURE                          VAL R11
+      189 SETTABLEKS                       R25 R24 K49 ["_getDesign"]
+      191 DUPCLOSURE                       R25 K50 [PROTO_7]
+      192 CAPTURE                          VAL R6
+      193 CAPTURE                          VAL R5
+      194 CAPTURE                          VAL R12
+      195 SETTABLEKS                       R25 R24 K51 ["_setupUI"]
+      197 DUPCLOSURE                       R25 K52 [PROTO_8]
+      198 SETTABLEKS                       R25 R24 K53 ["startImport"]
+      200 DUPCLOSURE                       R25 K54 [PROTO_9]
+      201 CAPTURE                          VAL R15
+      202 CAPTURE                          VAL R2
+      203 SETTABLEKS                       R25 R24 K55 ["_onImportAssetVersion"]
+      205 DUPCLOSURE                       R25 K56 [PROTO_10]
+      206 CAPTURE                          VAL R14
+      207 CAPTURE                          VAL R16
+      208 CAPTURE                          VAL R15
+      209 SETTABLEKS                       R25 R24 K57 ["destroy"]
+      211 RETURN                           R24 1

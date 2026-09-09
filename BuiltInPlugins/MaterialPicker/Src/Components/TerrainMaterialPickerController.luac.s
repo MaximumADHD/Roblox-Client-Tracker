@@ -17,19 +17,37 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["cancel"]
+        3 CALL                             R1 1 0
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K1 ["onEditSlot"]
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 0
+        9 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["selected"]
         2 MOVE                             R4 R0
         3 NAMECALL                         R1 R1 K1 ["completeRequest"]
         5 CALL                             R1 3 0
         6 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["cancel"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 DUPTABLE                         R3 K1 [{"sortType"}]
+        2 SETTABLEKS                       R0 R3 K0 ["sortType"]
+        4 NAMECALL                         R1 R1 K2 ["setState"]
+        6 CALL                             R1 2 0
+        7 RETURN                           R0 0
+
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 DUPTABLE                         R3 K1 [{"viewType"}]
         2 SETTABLEKS                       R0 R3 K0 ["viewType"]
@@ -37,7 +55,7 @@ PROTO_4:
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
-PROTO_5:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["isValidRequest"]
         3 MOVE                             R2 R0
@@ -73,52 +91,59 @@ PROTO_5:
        44 LOADB                            R2 1
        45 RETURN                           R2 1
 
-PROTO_6:
-        0 DUPTABLE                         R4 K6 [{[1] = 0, ["request"] = False, ["viewType"] = "grid"}]
-        1 NAMECALL                         R2 R0 K7 ["setState"]
+PROTO_8:
+        0 DUPTABLE                         R4 K8 [{[1] = 0, ["request"] = False, ["sortType"] = "slotNumber", ["viewType"] = "grid"}]
+        1 NAMECALL                         R2 R0 K9 ["setState"]
         3 CALL                             R2 2 0
         4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K8 ["new"]
+        5 GETTABLEKS                       R2 R2 K10 ["new"]
         7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R3 R3 K9 ["MATERIAL_PICKER_CPC_ID"]
-       10 GETTABLEKS                       R4 R1 K10 ["hostService"]
+        8 GETTABLEKS                       R3 R3 K11 ["MATERIAL_PICKER_CPC_ID"]
+       10 GETTABLEKS                       R4 R1 K12 ["hostService"]
        12 CALL                             R2 2 1
-       13 SETTABLEKS                       R2 R0 K11 ["communication"]
+       13 SETTABLEKS                       R2 R0 K13 ["communication"]
        15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K8 ["new"]
+       16 GETTABLEKS                       R2 R2 K10 ["new"]
        18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R3 R3 K12 ["CPC_ID"]
-       21 GETTABLEKS                       R4 R1 K10 ["hostService"]
+       19 GETTABLEKS                       R3 R3 K14 ["CPC_ID"]
+       21 GETTABLEKS                       R4 R1 K12 ["hostService"]
        23 CALL                             R2 2 1
-       24 SETTABLEKS                       R2 R0 K13 ["catalogCommunication"]
+       24 SETTABLEKS                       R2 R0 K15 ["catalogCommunication"]
        26 NEWCLOSURE                       R2 P0
        27 CAPTURE                          VAL R0
        28 CAPTURE                          UPVAL U1
-       29 SETTABLEKS                       R2 R0 K14 ["onCatalogChanged"]
+       29 SETTABLEKS                       R2 R0 K16 ["onCatalogChanged"]
        31 NEWCLOSURE                       R2 P1
        32 CAPTURE                          VAL R0
-       33 SETTABLEKS                       R2 R0 K15 ["onSlotCreated"]
+       33 SETTABLEKS                       R2 R0 K17 ["onSlotCreated"]
        35 NEWCLOSURE                       R2 P2
        36 CAPTURE                          VAL R0
-       37 SETTABLEKS                       R2 R0 K16 ["onSlotSelected"]
-       39 NEWCLOSURE                       R2 P3
-       40 CAPTURE                          VAL R0
-       41 SETTABLEKS                       R2 R0 K17 ["onPressedOutside"]
-       43 NEWCLOSURE                       R2 P4
-       44 CAPTURE                          VAL R0
-       45 SETTABLEKS                       R2 R0 K18 ["onViewTypeChanged"]
-       47 GETTABLEKS                       R2 R0 K11 ["communication"]
-       49 GETUPVAL                         R4 1
-       50 GETTABLEKS                       R4 R4 K19 ["CPC_CALLBACKS"]
-       52 GETTABLEKS                       R4 R4 K20 ["OPEN_MATERIAL_PICKER"]
-       54 NEWCLOSURE                       R5 P5
-       55 CAPTURE                          UPVAL U2
-       56 CAPTURE                          VAL R0
-       57 NAMECALL                         R2 R2 K21 ["OnInvoke"]
-       59 CALL                             R2 3 0
-       60 RETURN                           R0 0
+       37 CAPTURE                          VAL R1
+       38 SETTABLEKS                       R2 R0 K18 ["onEditSlot"]
+       40 NEWCLOSURE                       R2 P3
+       41 CAPTURE                          VAL R0
+       42 SETTABLEKS                       R2 R0 K19 ["onSlotSelected"]
+       44 NEWCLOSURE                       R2 P4
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R2 R0 K20 ["onPressedOutside"]
+       48 NEWCLOSURE                       R2 P5
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R2 R0 K21 ["onSortTypeChanged"]
+       52 NEWCLOSURE                       R2 P6
+       53 CAPTURE                          VAL R0
+       54 SETTABLEKS                       R2 R0 K22 ["onViewTypeChanged"]
+       56 GETTABLEKS                       R2 R0 K13 ["communication"]
+       58 GETUPVAL                         R4 1
+       59 GETTABLEKS                       R4 R4 K23 ["CPC_CALLBACKS"]
+       61 GETTABLEKS                       R4 R4 K24 ["OPEN_MATERIAL_PICKER"]
+       63 NEWCLOSURE                       R5 P7
+       64 CAPTURE                          UPVAL U2
+       65 CAPTURE                          VAL R0
+       66 NAMECALL                         R2 R2 K25 ["OnInvoke"]
+       68 CALL                             R2 3 0
+       69 RETURN                           R0 0
 
-PROTO_7:
+PROTO_9:
         0 GETTABLEKS                       R4 R0 K0 ["communication"]
         2 GETUPVAL                         R6 0
         3 GETTABLEKS                       R6 R6 K1 ["CPC_EVENTS"]
@@ -132,7 +157,7 @@ PROTO_7:
        18 CALL                             R4 3 0
        19 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 DUPTABLE                         R1 K2 [{"refreshKey", "request"}]
         1 GETTABLEKS                       R3 R0 K0 ["refreshKey"]
         3 ADDK                             R2 R3 K3 [1]
@@ -141,7 +166,7 @@ PROTO_8:
         7 SETTABLEKS                       R2 R1 K1 ["request"]
         9 RETURN                           R1 1
 
-PROTO_9:
+PROTO_11:
         0 GETTABLEKS                       R2 R0 K0 ["activeRequest"]
         2 JUMPIFNOTEQKNIL                  R2 ; [+2]
         4 RETURN                           R0 0
@@ -161,7 +186,7 @@ PROTO_9:
        23 CALL                             R4 4 0
        24 RETURN                           R0 0
 
-PROTO_10:
+PROTO_12:
         0 GETTABLEKS                       R3 R0 K0 ["activeRequest"]
         2 JUMPIFNOTEQKNIL                  R3 ; [+2]
         4 RETURN                           R0 0
@@ -180,35 +205,35 @@ PROTO_10:
        22 CALL                             R4 0 0
        23 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 LOADK                            R3 K0 ["cancelled"]
         1 NAMECALL                         R1 R0 K1 ["completeRequest"]
         3 CALL                             R1 2 0
         4 RETURN                           R0 0
 
-PROTO_12:
+PROTO_14:
         0 GETTABLEKS                       R2 R0 K0 ["activeRequest"]
         2 JUMPIFNOTEQKNIL                  R2 ; [+2]
         4 LOADB                            R1 0 +1
         5 LOADB                            R1 1
         6 RETURN                           R1 1
 
-PROTO_13:
+PROTO_15:
         0 DUPTABLE                         R1 K1 [{"refreshKey"}]
         1 GETTABLEKS                       R3 R0 K0 ["refreshKey"]
         3 ADDK                             R2 R3 K2 [1]
         4 SETTABLEKS                       R2 R1 K0 ["refreshKey"]
         6 RETURN                           R1 1
 
-PROTO_14:
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["activeRequest"]
         2 JUMPIFNOT                        R1 ; [+4]
-        3 DUPCLOSURE                       R3 K1 [PROTO_13]
+        3 DUPCLOSURE                       R3 K1 [PROTO_15]
         4 NAMECALL                         R1 R0 K2 ["setState"]
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["activeRequest"]
         2 JUMPIFNOT                        R1 ; [+10]
         3 GETTABLEKS                       R1 R0 K0 ["activeRequest"]
@@ -226,7 +251,7 @@ PROTO_15:
        22 CALL                             R1 1 0
        23 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R1 R1 K1 ["request"]
         4 JUMPIF                           R1 ; [+13]
@@ -281,33 +306,40 @@ PROTO_16:
        75 GETUPVAL                         R14 0
        76 GETTABLEKS                       R14 R14 K2 ["createElement"]
        78 GETUPVAL                         R15 5
-       79 DUPTABLE                         R16 K40 [{"hostService", "onCatalogChanged", "onSlotCreated", "onSlotSelected", "onViewTypeChanged", "refreshKey", "request", "viewType"}]
+       79 DUPTABLE                         R16 K43 [{"hostService", "onCatalogChanged", "onEditSlot", "onSlotCreated", "onSlotSelected", "onSortTypeChanged", "onViewTypeChanged", "refreshKey", "request", "sortType", "viewType"}]
        80 GETTABLEKS                       R17 R0 K4 ["props"]
        82 GETTABLEKS                       R17 R17 K33 ["hostService"]
        84 SETTABLEKS                       R17 R16 K33 ["hostService"]
        86 GETTABLEKS                       R17 R0 K34 ["onCatalogChanged"]
        88 SETTABLEKS                       R17 R16 K34 ["onCatalogChanged"]
-       90 GETTABLEKS                       R17 R0 K35 ["onSlotCreated"]
-       92 SETTABLEKS                       R17 R16 K35 ["onSlotCreated"]
-       94 GETTABLEKS                       R17 R0 K36 ["onSlotSelected"]
-       96 SETTABLEKS                       R17 R16 K36 ["onSlotSelected"]
-       98 GETTABLEKS                       R17 R0 K37 ["onViewTypeChanged"]
-      100 SETTABLEKS                       R17 R16 K37 ["onViewTypeChanged"]
-      102 GETTABLEKS                       R17 R0 K0 ["state"]
-      104 GETTABLEKS                       R17 R17 K38 ["refreshKey"]
-      106 SETTABLEKS                       R17 R16 K38 ["refreshKey"]
-      108 SETTABLEKS                       R1 R16 K1 ["request"]
+       90 GETTABLEKS                       R17 R0 K35 ["onEditSlot"]
+       92 SETTABLEKS                       R17 R16 K35 ["onEditSlot"]
+       94 GETTABLEKS                       R17 R0 K36 ["onSlotCreated"]
+       96 SETTABLEKS                       R17 R16 K36 ["onSlotCreated"]
+       98 GETTABLEKS                       R17 R0 K37 ["onSlotSelected"]
+      100 SETTABLEKS                       R17 R16 K37 ["onSlotSelected"]
+      102 GETTABLEKS                       R17 R0 K38 ["onSortTypeChanged"]
+      104 SETTABLEKS                       R17 R16 K38 ["onSortTypeChanged"]
+      106 GETTABLEKS                       R17 R0 K39 ["onViewTypeChanged"]
+      108 SETTABLEKS                       R17 R16 K39 ["onViewTypeChanged"]
       110 GETTABLEKS                       R17 R0 K0 ["state"]
-      112 GETTABLEKS                       R17 R17 K39 ["viewType"]
-      114 SETTABLEKS                       R17 R16 K39 ["viewType"]
-      116 CALL                             R14 2 1
-      117 SETTABLEKS                       R14 R13 K11 ["Content"]
-      119 CALL                             R10 3 1
-      120 SETTABLEKS                       R10 R9 K25 ["Picker"]
-      122 CALL                             R6 3 1
-      123 SETTABLEKS                       R6 R5 K11 ["Content"]
-      125 CALL                             R2 3 -1
-      126 RETURN                           R2 -1
+      112 GETTABLEKS                       R17 R17 K40 ["refreshKey"]
+      114 SETTABLEKS                       R17 R16 K40 ["refreshKey"]
+      116 SETTABLEKS                       R1 R16 K1 ["request"]
+      118 GETTABLEKS                       R17 R0 K0 ["state"]
+      120 GETTABLEKS                       R17 R17 K41 ["sortType"]
+      122 SETTABLEKS                       R17 R16 K41 ["sortType"]
+      124 GETTABLEKS                       R17 R0 K0 ["state"]
+      126 GETTABLEKS                       R17 R17 K42 ["viewType"]
+      128 SETTABLEKS                       R17 R16 K42 ["viewType"]
+      130 CALL                             R14 2 1
+      131 SETTABLEKS                       R14 R13 K11 ["Content"]
+      133 CALL                             R10 3 1
+      134 SETTABLEKS                       R10 R9 K25 ["Picker"]
+      136 CALL                             R6 3 1
+      137 SETTABLEKS                       R6 R5 K11 ["Content"]
+      139 CALL                             R2 3 -1
+      140 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -358,27 +390,27 @@ MAIN:
        80 LOADK                            R16 K26 ["TerrainMaterialPickerController"]
        81 NAMECALL                         R14 R14 K27 ["extend"]
        83 CALL                             R14 2 1
-       84 DUPCLOSURE                       R15 K28 [PROTO_6]
+       84 DUPCLOSURE                       R15 K28 [PROTO_8]
        85 CAPTURE                          VAL R12
        86 CAPTURE                          VAL R9
        87 CAPTURE                          VAL R13
        88 SETTABLEKS                       R15 R14 K29 ["init"]
-       90 DUPCLOSURE                       R15 K30 [PROTO_7]
+       90 DUPCLOSURE                       R15 K30 [PROTO_9]
        91 CAPTURE                          VAL R9
        92 SETTABLEKS                       R15 R14 K31 ["fireResponse"]
-       94 DUPCLOSURE                       R15 K32 [PROTO_9]
+       94 DUPCLOSURE                       R15 K32 [PROTO_11]
        95 SETTABLEKS                       R15 R14 K33 ["slotCreated"]
-       97 DUPCLOSURE                       R15 K34 [PROTO_10]
+       97 DUPCLOSURE                       R15 K34 [PROTO_12]
        98 SETTABLEKS                       R15 R14 K35 ["completeRequest"]
-      100 DUPCLOSURE                       R15 K36 [PROTO_11]
+      100 DUPCLOSURE                       R15 K36 [PROTO_13]
       101 SETTABLEKS                       R15 R14 K37 ["cancel"]
-      103 DUPCLOSURE                       R15 K38 [PROTO_12]
+      103 DUPCLOSURE                       R15 K38 [PROTO_14]
       104 SETTABLEKS                       R15 R14 K39 ["hasActiveRequest"]
-      106 DUPCLOSURE                       R15 K40 [PROTO_14]
+      106 DUPCLOSURE                       R15 K40 [PROTO_16]
       107 SETTABLEKS                       R15 R14 K41 ["refresh"]
-      109 DUPCLOSURE                       R15 K42 [PROTO_15]
+      109 DUPCLOSURE                       R15 K42 [PROTO_17]
       110 SETTABLEKS                       R15 R14 K43 ["willUnmount"]
-      112 DUPCLOSURE                       R15 K44 [PROTO_16]
+      112 DUPCLOSURE                       R15 K44 [PROTO_18]
       113 CAPTURE                          VAL R3
       114 CAPTURE                          VAL R5
       115 CAPTURE                          VAL R6

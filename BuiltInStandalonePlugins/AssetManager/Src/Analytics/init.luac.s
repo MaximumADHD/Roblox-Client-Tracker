@@ -186,6 +186,14 @@ PROTO_9:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
+PROTO_10:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["Tutorial"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -285,4 +293,7 @@ MAIN:
       142 DUPCLOSURE                       R16 K42 [PROTO_9]
       143 CAPTURE                          VAL R15
       144 SETTABLEKS                       R16 R13 K43 ["sendMoveFolderEvent"]
-      146 RETURN                           R13 1
+      146 DUPCLOSURE                       R16 K44 [PROTO_10]
+      147 CAPTURE                          VAL R15
+      148 SETTABLEKS                       R16 R13 K45 ["sendTutorialEvent"]
+      150 RETURN                           R13 1

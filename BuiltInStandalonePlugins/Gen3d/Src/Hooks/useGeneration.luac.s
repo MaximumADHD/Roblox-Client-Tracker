@@ -1,10 +1,8 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K11 [{[1] = "Idle", ["requestId"] = "", ["prompt"] = "", ["model"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
-        1 GETUPVAL                         R1 0
-        2 SETTABLEKS                       R1 R0 K5 ["model"]
-        4 NEWTABLE                         R1 0 0
-        6 SETTABLEKS                       R1 R0 K6 ["slots"]
-        8 RETURN                           R0 1
+        0 DUPTABLE                         R0 K11 [{[1] = "Idle", ["requestId"] = "", ["prompt"] = "", ["model"] = "", ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K6 ["slots"]
+        5 RETURN                           R0 1
 
 PROTO_1:
         0 NEWTABLE                         R0 0 0
@@ -108,8 +106,8 @@ PROTO_7:
         3 LOADNIL                          R1
         4 LOADNIL                          R2
         5 FORGPREP                         R0
-        6 NAMECALL                         R5 R4 K1 ["cancel"]
-        8 CALL                             R5 1 0
+        6 GETTABLEKS                       R5 R4 K1 ["cancel"]
+        8 CALL                             R5 0 0
         9 GETUPVAL                         R5 0
        10 GETTABLEKS                       R5 R5 K0 ["current"]
        12 LOADNIL                          R6
@@ -310,27 +308,17 @@ PROTO_14:
        31 RETURN                           R4 1
 
 PROTO_15:
-        0 DUPTABLE                         R0 K9 [{[1], ["requestId"], ["prompt"], ["model"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
-        1 GETUPVAL                         R2 0
-        2 JUMPIFNOT                        R2 ; [+2]
-        3 LOADK                            R1 K10 ["GeneratingTexture"]
-        4 JUMP                             ; [+1]
-        5 LOADK                            R1 K11 ["GeneratingImages"]
-        6 SETTABLEKS                       R1 R0 K0 ["stage"]
-        8 GETUPVAL                         R1 1
-        9 SETTABLEKS                       R1 R0 K1 ["requestId"]
-       11 GETUPVAL                         R1 2
-       12 SETTABLEKS                       R1 R0 K2 ["prompt"]
-       14 GETUPVAL                         R1 3
-       15 SETTABLEKS                       R1 R0 K3 ["model"]
-       17 GETUPVAL                         R2 0
-       18 JUMPIFNOT                        R2 ; [+3]
-       19 NEWTABLE                         R1 0 0
-       21 JUMP                             ; [+2]
-       22 GETUPVAL                         R1 4
-       23 CALL                             R1 0 1
-       24 SETTABLEKS                       R1 R0 K4 ["slots"]
-       26 RETURN                           R0 1
+        0 DUPTABLE                         R0 K10 [{[1] = "GeneratingImages", ["requestId"], ["prompt"], ["model"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
+        1 GETUPVAL                         R1 0
+        2 SETTABLEKS                       R1 R0 K2 ["requestId"]
+        4 GETUPVAL                         R1 1
+        5 SETTABLEKS                       R1 R0 K3 ["prompt"]
+        7 GETUPVAL                         R1 2
+        8 SETTABLEKS                       R1 R0 K4 ["model"]
+       10 GETUPVAL                         R1 3
+       11 CALL                             R1 0 1
+       12 SETTABLEKS                       R1 R0 K5 ["slots"]
+       14 RETURN                           R0 1
 
 PROTO_16:
         0 GETUPVAL                         R0 0
@@ -592,158 +580,141 @@ PROTO_22:
       113 GETUPVAL                         R6 3
       114 SETTABLE                         R3 R5 R6
       115 GETUPVAL                         R4 10
-      116 JUMPIFNOT                        R4 ; [+28]
-      117 GETUPVAL                         R4 0
-      118 GETUPVAL                         R6 1
-      119 GETTABLEKS                       R6 R6 K15 ["PickImageAndGenerateTexture"]
-      121 LOADNIL                          R7
-      122 DUPTABLE                         R8 K23 [{["requestId"], ["slotIndex"] = 0, ["imageBase64"], ["mimeType"], ["prompt"], ["selectedUniqueId"], ["model"]}]
-      123 GETUPVAL                         R9 3
-      124 SETTABLEKS                       R9 R8 K16 ["requestId"]
-      126 SETTABLEKS                       R2 R8 K19 ["imageBase64"]
-      128 GETTABLEKS                       R10 R1 K20 ["mimeType"]
-      130 ORK                              R9 R10 K24 ["image/png"]
-      131 SETTABLEKS                       R9 R8 K20 ["mimeType"]
-      133 GETUPVAL                         R9 2
-      134 SETTABLEKS                       R9 R8 K21 ["prompt"]
-      136 SETTABLEKS                       R3 R8 K12 ["selectedUniqueId"]
-      138 GETUPVAL                         R9 11
-      139 SETTABLEKS                       R9 R8 K22 ["model"]
-      141 NAMECALL                         R4 R4 K25 ["FireHost"]
-      143 CALL                             R4 4 0
-      144 RETURN                           R0 0
-      145 GETUPVAL                         R4 12
-      146 GETIMPORT                        R6 K28 [buffer.fromstring]
-      148 MOVE                             R7 R2
-      149 CALL                             R6 1 -1
-      150 NAMECALL                         R4 R4 K29 ["Base64Decode"]
-      152 CALL                             R4 -1 1
-      153 GETUPVAL                         R6 13
-      154 GETTABLEKS                       R6 R6 K30 ["getFFlagTextureGenImageGenPromptTemplateEnabled"]
-      156 CALL                             R6 0 1
-      157 JUMPIFNOT                        R6 ; [+10]
-      158 GETUPVAL                         R5 14
-      159 GETTABLEKS                       R5 R5 K31 ["apply"]
-      161 GETUPVAL                         R6 13
-      162 GETTABLEKS                       R6 R6 K32 ["getFStringTextureGenImageGenPromptTemplate"]
-      164 CALL                             R6 0 1
-      165 GETUPVAL                         R7 2
-      166 CALL                             R5 2 1
-      167 JUMP                             ; [+1]
-      168 GETUPVAL                         R5 2
-      169 NEWTABLE                         R6 0 0
-      171 LOADK                            R7 K33 ["Pending"]
-      172 SETTABLEN                        R7 R6 1
-      173 LOADK                            R7 K33 ["Pending"]
-      174 SETTABLEN                        R7 R6 2
-      175 LOADK                            R7 K33 ["Pending"]
-      176 SETTABLEN                        R7 R6 3
-      177 LOADK                            R7 K33 ["Pending"]
-      178 SETTABLEN                        R7 R6 4
-      179 LOADB                            R7 0
-      180 LOADNIL                          R8
-      181 GETUPVAL                         R9 15
-      182 GETTABLEKS                       R9 R9 K34 ["new"]
-      184 DUPTABLE                         R10 K44 [{["slotCount"] = 4, ["textPrompt"], ["model"], ["seedImage"], ["pollIntervalSeconds"] = 2, ["timeoutSeconds"] = 180, ["onSlotChanged"]}]
-      185 SETTABLEKS                       R5 R10 K37 ["textPrompt"]
-      187 GETUPVAL                         R11 13
-      188 GETTABLEKS                       R11 R11 K45 ["getFStringAssistantTextureGenImageGenModelOverride"]
-      190 CALL                             R11 0 1
-      191 SETTABLEKS                       R11 R10 K22 ["model"]
-      193 SETTABLEKS                       R4 R10 K38 ["seedImage"]
-      195 NEWCLOSURE                       R11 P5
-      196 CAPTURE                          UPVAL U16
-      197 CAPTURE                          VAL R6
-      198 CAPTURE                          UPVAL U3
-      199 CAPTURE                          UPVAL U5
-      200 CAPTURE                          UPVAL U6
-      201 CAPTURE                          REF R7
-      202 CAPTURE                          UPVAL U9
-      203 CAPTURE                          VAL R3
-      204 CAPTURE                          REF R8
-      205 CAPTURE                          UPVAL U0
-      206 CAPTURE                          UPVAL U1
-      207 SETTABLEKS                       R11 R10 K43 ["onSlotChanged"]
-      209 CALL                             R9 1 1
-      210 MOVE                             R8 R9
-      211 GETUPVAL                         R9 9
-      212 GETTABLEKS                       R9 R9 K10 ["current"]
-      214 SETTABLE                         R8 R9 R3
-      215 NAMECALL                         R9 R8 K46 ["start"]
-      217 CALL                             R9 1 0
-      218 CLOSEUPVALS                      R7
-      219 RETURN                           R0 0
+      116 GETIMPORT                        R6 K17 [buffer.fromstring]
+      118 MOVE                             R7 R2
+      119 CALL                             R6 1 -1
+      120 NAMECALL                         R4 R4 K18 ["Base64Decode"]
+      122 CALL                             R4 -1 1
+      123 GETUPVAL                         R6 11
+      124 GETTABLEKS                       R6 R6 K19 ["getFFlagTextureGenImageGenPromptTemplateEnabled"]
+      126 CALL                             R6 0 1
+      127 JUMPIFNOT                        R6 ; [+10]
+      128 GETUPVAL                         R5 12
+      129 GETTABLEKS                       R5 R5 K20 ["apply"]
+      131 GETUPVAL                         R6 11
+      132 GETTABLEKS                       R6 R6 K21 ["getFStringTextureGenImageGenPromptTemplate"]
+      134 CALL                             R6 0 1
+      135 GETUPVAL                         R7 2
+      136 CALL                             R5 2 1
+      137 JUMP                             ; [+1]
+      138 GETUPVAL                         R5 2
+      139 NEWTABLE                         R6 0 0
+      141 LOADK                            R7 K22 ["Pending"]
+      142 SETTABLEN                        R7 R6 1
+      143 LOADK                            R7 K22 ["Pending"]
+      144 SETTABLEN                        R7 R6 2
+      145 LOADK                            R7 K22 ["Pending"]
+      146 SETTABLEN                        R7 R6 3
+      147 LOADK                            R7 K22 ["Pending"]
+      148 SETTABLEN                        R7 R6 4
+      149 LOADB                            R7 0
+      150 LOADNIL                          R8
+      151 GETUPVAL                         R9 13
+      152 GETTABLEKS                       R9 R9 K23 ["createOrchestrator"]
+      154 GETUPVAL                         R10 14
+      155 CALL                             R10 0 1
+      156 DUPTABLE                         R11 K35 [{["slotCount"] = 4, ["textPrompt"], ["model"], ["seedImage"], ["extraImages"], ["pollIntervalSeconds"] = 2, ["timeoutSeconds"] = 180, ["onSlotChanged"]}]
+      157 SETTABLEKS                       R5 R11 K26 ["textPrompt"]
+      159 GETUPVAL                         R12 11
+      160 GETTABLEKS                       R12 R12 K36 ["getFStringAssistantTextureGenImageGenModelOverride"]
+      162 CALL                             R12 0 1
+      163 SETTABLEKS                       R12 R11 K27 ["model"]
+      165 SETTABLEKS                       R4 R11 K28 ["seedImage"]
+      167 GETUPVAL                         R12 15
+      168 SETTABLEKS                       R12 R11 K29 ["extraImages"]
+      170 NEWCLOSURE                       R12 P5
+      171 CAPTURE                          UPVAL U16
+      172 CAPTURE                          VAL R6
+      173 CAPTURE                          UPVAL U3
+      174 CAPTURE                          UPVAL U5
+      175 CAPTURE                          UPVAL U6
+      176 CAPTURE                          REF R7
+      177 CAPTURE                          UPVAL U9
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          REF R8
+      180 CAPTURE                          UPVAL U0
+      181 CAPTURE                          UPVAL U1
+      182 SETTABLEKS                       R12 R11 K34 ["onSlotChanged"]
+      184 CALL                             R9 2 1
+      185 MOVE                             R8 R9
+      186 GETUPVAL                         R9 9
+      187 GETTABLEKS                       R9 R9 K10 ["current"]
+      189 SETTABLE                         R8 R9 R3
+      190 GETTABLEKS                       R9 R8 K37 ["start"]
+      192 CALL                             R9 0 0
+      193 CLOSEUPVALS                      R7
+      194 RETURN                           R0 0
 
 PROTO_23:
-        0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+2]
-        2 JUMPIFNOTEQKS                    R0 K0 [""] ; [+2]
-        4 RETURN                           R0 0
-        5 GETUPVAL                         R2 1
-        6 LOADB                            R4 0
-        7 NAMECALL                         R2 R2 K1 ["GenerateGUID"]
-        9 CALL                             R2 2 1
-       10 MOVE                             R3 R1
-       11 JUMPIF                           R3 ; [+1]
-       12 GETUPVAL                         R3 2
-       13 GETUPVAL                         R5 3
-       14 GETTABLEKS                       R5 R5 K2 ["Constants"]
-       16 GETTABLEKS                       R5 R5 K3 ["Enums"]
-       18 GETTABLEKS                       R5 R5 K4 ["TextureGenModel"]
-       20 GETTABLEKS                       R5 R5 K5 ["RbxTexture2"]
-       22 JUMPIFEQ                         R3 R5 ; [+2]
-       24 LOADB                            R4 0 +1
-       25 LOADB                            R4 1
-       26 GETUPVAL                         R6 4
-       27 GETTABLEKS                       R6 R6 K6 ["current"]
-       29 JUMPIFEQKS                       R6 K0 [""] ; [+5]
-       31 GETUPVAL                         R5 4
-       32 GETTABLEKS                       R5 R5 K6 ["current"]
-       34 JUMP                             ; [+1]
-       35 MOVE                             R5 R2
-       36 GETUPVAL                         R6 5
-       37 GETTABLEKS                       R6 R6 K6 ["current"]
-       39 SETTABLE                         R5 R6 R2
-       40 GETUPVAL                         R7 6
-       41 GETTABLEKS                       R7 R7 K6 ["current"]
-       43 GETTABLE                         R6 R7 R5
-       44 JUMPIFNOT                        R6 ; [+8]
-       45 NAMECALL                         R7 R6 K7 ["cancel"]
-       47 CALL                             R7 1 0
-       48 GETUPVAL                         R7 6
-       49 GETTABLEKS                       R7 R7 K6 ["current"]
-       51 LOADNIL                          R8
-       52 SETTABLE                         R8 R7 R5
-       53 GETUPVAL                         R7 7
-       54 MOVE                             R8 R5
-       55 NEWCLOSURE                       R9 P0
-       56 CAPTURE                          VAL R4
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          VAL R3
-       60 CAPTURE                          UPVAL U8
-       61 CALL                             R7 2 0
-       62 GETIMPORT                        R7 K10 [task.spawn]
-       64 NEWCLOSURE                       R8 P1
-       65 CAPTURE                          UPVAL U0
-       66 CAPTURE                          UPVAL U9
-       67 CAPTURE                          VAL R0
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          UPVAL U3
-       70 CAPTURE                          UPVAL U5
-       71 CAPTURE                          UPVAL U7
-       72 CAPTURE                          VAL R5
-       73 CAPTURE                          UPVAL U10
-       74 CAPTURE                          UPVAL U6
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R3
-       77 CAPTURE                          UPVAL U11
-       78 CAPTURE                          UPVAL U12
-       79 CAPTURE                          UPVAL U13
-       80 CAPTURE                          UPVAL U14
-       81 CAPTURE                          UPVAL U15
-       82 CALL                             R7 1 0
-       83 RETURN                           R0 0
+        0 MOVE                             R3 R1
+        1 JUMPIF                           R3 ; [+1]
+        2 GETUPVAL                         R3 0
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K0 ["toImageGenEntries"]
+        6 MOVE                             R5 R2
+        7 CALL                             R4 1 1
+        8 GETUPVAL                         R5 2
+        9 JUMPIFNOT                        R5 ; [+4]
+       10 JUMPIFNOTEQKS                    R0 K1 [""] ; [+4]
+       12 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       14 RETURN                           R0 0
+       15 GETUPVAL                         R5 3
+       16 LOADB                            R7 0
+       17 NAMECALL                         R5 R5 K2 ["GenerateGUID"]
+       19 CALL                             R5 2 1
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R6 R6 K3 ["resolveWirePrompt"]
+       23 MOVE                             R7 R0
+       24 CALL                             R6 1 1
+       25 GETUPVAL                         R8 4
+       26 GETTABLEKS                       R8 R8 K4 ["current"]
+       28 JUMPIFEQKS                       R8 K1 [""] ; [+5]
+       30 GETUPVAL                         R7 4
+       31 GETTABLEKS                       R7 R7 K4 ["current"]
+       33 JUMP                             ; [+1]
+       34 MOVE                             R7 R5
+       35 GETUPVAL                         R8 5
+       36 GETTABLEKS                       R8 R8 K4 ["current"]
+       38 SETTABLE                         R7 R8 R5
+       39 GETUPVAL                         R9 6
+       40 GETTABLEKS                       R9 R9 K4 ["current"]
+       42 GETTABLE                         R8 R9 R7
+       43 JUMPIFNOT                        R8 ; [+8]
+       44 GETTABLEKS                       R9 R8 K5 ["cancel"]
+       46 CALL                             R9 0 0
+       47 GETUPVAL                         R9 6
+       48 GETTABLEKS                       R9 R9 K4 ["current"]
+       50 LOADNIL                          R10
+       51 SETTABLE                         R10 R9 R7
+       52 GETUPVAL                         R9 7
+       53 MOVE                             R10 R7
+       54 NEWCLOSURE                       R11 P0
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R0
+       57 CAPTURE                          VAL R3
+       58 CAPTURE                          UPVAL U8
+       59 CALL                             R9 2 0
+       60 GETIMPORT                        R9 K8 [task.spawn]
+       62 NEWCLOSURE                       R10 P1
+       63 CAPTURE                          UPVAL U2
+       64 CAPTURE                          UPVAL U9
+       65 CAPTURE                          VAL R6
+       66 CAPTURE                          VAL R5
+       67 CAPTURE                          UPVAL U10
+       68 CAPTURE                          UPVAL U5
+       69 CAPTURE                          UPVAL U7
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          UPVAL U11
+       72 CAPTURE                          UPVAL U6
+       73 CAPTURE                          UPVAL U12
+       74 CAPTURE                          UPVAL U13
+       75 CAPTURE                          UPVAL U14
+       76 CAPTURE                          UPVAL U15
+       77 CAPTURE                          UPVAL U16
+       78 CAPTURE                          VAL R4
+       79 CAPTURE                          UPVAL U17
+       80 CALL                             R9 1 0
+       81 RETURN                           R0 0
 
 PROTO_24:
         0 DUPTABLE                         R0 K10 [{[1] = "GeneratingTexture", ["requestId"], ["prompt"], ["model"], ["slots"], ["pickedSlotIndex"], ["errorMessage"] = , ["failureReason"] = }]
@@ -796,8 +767,8 @@ PROTO_25:
        42 GETTABLEKS                       R5 R5 K0 ["current"]
        44 GETTABLE                         R4 R5 R1
        45 JUMPIFNOT                        R4 ; [+8]
-       46 NAMECALL                         R5 R4 K11 ["cancel"]
-       48 CALL                             R5 1 0
+       46 GETTABLEKS                       R5 R4 K11 ["cancel"]
+       48 CALL                             R5 0 0
        49 GETUPVAL                         R5 3
        50 GETTABLEKS                       R5 R5 K0 ["current"]
        52 LOADNIL                          R6
@@ -821,14 +792,17 @@ PROTO_25:
        76 GETTABLEKS                       R11 R3 K15 ["mimeType"]
        78 ORK                              R10 R11 K20 ["image/png"]
        79 SETTABLEKS                       R10 R9 K15 ["mimeType"]
-       81 GETTABLEKS                       R10 R2 K16 ["prompt"]
-       83 SETTABLEKS                       R10 R9 K16 ["prompt"]
-       85 SETTABLEKS                       R1 R9 K17 ["selectedUniqueId"]
-       87 GETTABLEKS                       R10 R2 K18 ["model"]
-       89 SETTABLEKS                       R10 R9 K18 ["model"]
-       91 NAMECALL                         R5 R5 K21 ["FireHost"]
-       93 CALL                             R5 4 0
-       94 RETURN                           R0 0
+       81 GETUPVAL                         R10 6
+       82 GETTABLEKS                       R10 R10 K21 ["resolveWirePrompt"]
+       84 GETTABLEKS                       R11 R2 K16 ["prompt"]
+       86 CALL                             R10 1 1
+       87 SETTABLEKS                       R10 R9 K16 ["prompt"]
+       89 SETTABLEKS                       R1 R9 K17 ["selectedUniqueId"]
+       91 GETTABLEKS                       R10 R2 K18 ["model"]
+       93 SETTABLEKS                       R10 R9 K18 ["model"]
+       95 NAMECALL                         R5 R5 K22 ["FireHost"]
+       97 CALL                             R5 4 0
+       98 RETURN                           R0 0
 
 PROTO_26:
         0 GETUPVAL                         R1 0
@@ -848,8 +822,8 @@ PROTO_27:
         7 GETTABLEKS                       R2 R2 K0 ["current"]
         9 GETTABLE                         R1 R2 R0
        10 JUMPIFNOT                        R1 ; [+8]
-       11 NAMECALL                         R2 R1 K2 ["cancel"]
-       13 CALL                             R2 1 0
+       11 GETTABLEKS                       R2 R1 K2 ["cancel"]
+       13 CALL                             R2 0 0
        14 GETUPVAL                         R2 1
        15 GETTABLEKS                       R2 R2 K0 ["current"]
        17 LOADNIL                          R3
@@ -880,6 +854,83 @@ PROTO_27:
        48 RETURN                           R0 0
 
 PROTO_28:
+        0 GETTABLEKS                       R1 R0 K0 ["stage"]
+        2 JUMPIFEQKS                       R1 K1 ["Idle"] ; [+6]
+        4 GETTABLEKS                       R1 R0 K0 ["stage"]
+        6 JUMPIFEQKS                       R1 K2 ["Failed"] ; [+2]
+        8 RETURN                           R0 1
+        9 GETIMPORT                        R1 K5 [table.clone]
+       11 MOVE                             R2 R0
+       12 CALL                             R1 1 1
+       13 GETUPVAL                         R2 0
+       14 SETTABLEKS                       R2 R1 K6 ["prompt"]
+       16 RETURN                           R1 1
+
+PROTO_29:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["current"]
+        4 NEWCLOSURE                       R3 P0
+        5 CAPTURE                          VAL R0
+        6 CALL                             R1 2 0
+        7 RETURN                           R0 0
+
+PROTO_30:
+        0 GETTABLEKS                       R1 R0 K0 ["stage"]
+        2 JUMPIFEQKS                       R1 K1 ["Idle"] ; [+6]
+        4 GETTABLEKS                       R1 R0 K0 ["stage"]
+        6 JUMPIFEQKS                       R1 K2 ["Failed"] ; [+2]
+        8 RETURN                           R0 1
+        9 GETIMPORT                        R1 K5 [table.clone]
+       11 MOVE                             R2 R0
+       12 CALL                             R1 1 1
+       13 GETUPVAL                         R2 0
+       14 SETTABLEKS                       R2 R1 K6 ["model"]
+       16 RETURN                           R1 1
+
+PROTO_31:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["current"]
+        4 NEWCLOSURE                       R3 P0
+        5 CAPTURE                          VAL R0
+        6 CALL                             R1 2 0
+        7 RETURN                           R0 0
+
+PROTO_32:
+        0 NEWTABLE                         R1 0 0
+        2 MOVE                             R2 R0
+        3 LOADNIL                          R3
+        4 LOADNIL                          R4
+        5 FORGPREP                         R2
+        6 GETTABLEKS                       R7 R6 K0 ["stage"]
+        8 JUMPIFEQKS                       R7 K1 ["Idle"] ; [+6]
+       10 GETTABLEKS                       R7 R6 K0 ["stage"]
+       12 JUMPIFEQKS                       R7 K2 ["Failed"] ; [+2]
+       14 SETTABLE                         R6 R1 R5
+       15 FORGLOOP                         R2 2 ; [-10]
+       17 RETURN                           R1 1
+
+PROTO_33:
+        0 NEWTABLE                         R0 0 0
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K0 ["current"]
+        5 LOADNIL                          R2
+        6 LOADNIL                          R3
+        7 FORGPREP                         R1
+        8 GETTABLEKS                       R6 R5 K1 ["stage"]
+       10 JUMPIFEQKS                       R6 K2 ["Idle"] ; [+7]
+       12 GETTABLEKS                       R6 R5 K1 ["stage"]
+       14 JUMPIFEQKS                       R6 K3 ["Failed"] ; [+3]
+       16 LOADB                            R6 1
+       17 SETTABLE                         R6 R0 R4
+       18 FORGLOOP                         R1 2 ; [-11]
+       20 GETUPVAL                         R1 1
+       21 DUPCLOSURE                       R2 K4 [PROTO_32]
+       22 CALL                             R1 1 0
+       23 RETURN                           R0 1
+
+PROTO_34:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["useContext"]
         3 GETUPVAL                         R3 1
@@ -934,69 +985,94 @@ PROTO_28:
        68 MOVE                             R16 R2
        69 SETLIST                          R15 R16 1 [1]
        71 CALL                             R13 2 0
-       72 GETUPVAL                         R13 0
-       73 GETTABLEKS                       R13 R13 K7 ["useCallback"]
-       75 NEWCLOSURE                       R14 P4
-       76 CAPTURE                          VAL R2
-       77 CAPTURE                          UPVAL U6
-       78 CAPTURE                          UPVAL U7
-       79 CAPTURE                          UPVAL U4
-       80 CAPTURE                          VAL R9
-       81 CAPTURE                          VAL R10
-       82 CAPTURE                          VAL R12
-       83 CAPTURE                          VAL R8
-       84 CAPTURE                          UPVAL U8
-       85 CAPTURE                          UPVAL U3
-       86 CAPTURE                          VAL R6
-       87 CAPTURE                          UPVAL U9
-       88 CAPTURE                          UPVAL U10
-       89 CAPTURE                          UPVAL U11
-       90 CAPTURE                          UPVAL U12
-       91 CAPTURE                          UPVAL U13
-       92 NEWTABLE                         R15 0 1
-       94 MOVE                             R16 R2
-       95 SETLIST                          R15 R16 1 [1]
-       97 CALL                             R13 2 1
-       98 GETUPVAL                         R14 0
-       99 GETTABLEKS                       R14 R14 K7 ["useCallback"]
-      101 NEWCLOSURE                       R15 P5
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R9
-      104 CAPTURE                          VAL R7
-      105 CAPTURE                          VAL R12
-      106 CAPTURE                          VAL R8
-      107 CAPTURE                          UPVAL U3
-      108 NEWTABLE                         R16 0 1
-      110 MOVE                             R17 R2
-      111 SETLIST                          R16 R17 1 [1]
-      113 CALL                             R14 2 1
-      114 GETUPVAL                         R15 0
-      115 GETTABLEKS                       R15 R15 K7 ["useCallback"]
-      117 NEWCLOSURE                       R16 P6
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R12
-      120 CAPTURE                          VAL R7
-      121 CAPTURE                          VAL R2
-      122 CAPTURE                          UPVAL U3
-      123 CAPTURE                          VAL R8
-      124 CAPTURE                          UPVAL U5
-      125 NEWTABLE                         R17 0 1
-      127 MOVE                             R18 R2
-      128 SETLIST                          R17 R18 1 [1]
-      130 CALL                             R15 2 1
-      131 JUMPIFEQKS                       R0 K8 [""] ; [+5]
-      133 GETTABLE                         R17 R5 R0
-      134 JUMPIFNOT                        R17 ; [+2]
-      135 GETTABLE                         R16 R5 R0
-      136 JUMP                             ; [+2]
-      137 GETUPVAL                         R16 5
-      138 CALL                             R16 0 1
-      139 DUPTABLE                         R17 K13 [{"state", "startGeneration", "pickSlot", "cancel"}]
-      140 SETTABLEKS                       R16 R17 K9 ["state"]
-      142 SETTABLEKS                       R13 R17 K10 ["startGeneration"]
-      144 SETTABLEKS                       R14 R17 K11 ["pickSlot"]
-      146 SETTABLEKS                       R15 R17 K12 ["cancel"]
-      148 RETURN                           R17 1
+       72 NEWCLOSURE                       R13 P4
+       73 CAPTURE                          UPVAL U6
+       74 CAPTURE                          UPVAL U7
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          UPVAL U8
+       77 CAPTURE                          VAL R9
+       78 CAPTURE                          VAL R10
+       79 CAPTURE                          VAL R12
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          UPVAL U9
+       82 CAPTURE                          UPVAL U3
+       83 CAPTURE                          UPVAL U4
+       84 CAPTURE                          VAL R6
+       85 CAPTURE                          UPVAL U10
+       86 CAPTURE                          UPVAL U11
+       87 CAPTURE                          UPVAL U12
+       88 CAPTURE                          UPVAL U13
+       89 CAPTURE                          UPVAL U14
+       90 CAPTURE                          UPVAL U15
+       91 GETUPVAL                         R14 0
+       92 GETTABLEKS                       R14 R14 K7 ["useCallback"]
+       94 MOVE                             R15 R13
+       95 NEWTABLE                         R16 0 1
+       97 MOVE                             R17 R2
+       98 SETLIST                          R16 R17 1 [1]
+      100 CALL                             R14 2 1
+      101 GETUPVAL                         R15 0
+      102 GETTABLEKS                       R15 R15 K7 ["useCallback"]
+      104 NEWCLOSURE                       R16 P5
+      105 CAPTURE                          VAL R2
+      106 CAPTURE                          VAL R9
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R12
+      109 CAPTURE                          VAL R8
+      110 CAPTURE                          UPVAL U3
+      111 CAPTURE                          UPVAL U7
+      112 NEWTABLE                         R17 0 1
+      114 MOVE                             R18 R2
+      115 SETLIST                          R17 R18 1 [1]
+      117 CALL                             R15 2 1
+      118 GETUPVAL                         R16 0
+      119 GETTABLEKS                       R16 R16 K7 ["useCallback"]
+      121 NEWCLOSURE                       R17 P6
+      122 CAPTURE                          VAL R9
+      123 CAPTURE                          VAL R12
+      124 CAPTURE                          VAL R7
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          UPVAL U3
+      127 CAPTURE                          VAL R8
+      128 CAPTURE                          UPVAL U5
+      129 NEWTABLE                         R18 0 1
+      131 MOVE                             R19 R2
+      132 SETLIST                          R18 R19 1 [1]
+      134 CALL                             R16 2 1
+      135 GETUPVAL                         R17 0
+      136 GETTABLEKS                       R17 R17 K7 ["useCallback"]
+      138 NEWCLOSURE                       R18 P7
+      139 CAPTURE                          VAL R8
+      140 CAPTURE                          VAL R9
+      141 NEWTABLE                         R19 0 0
+      143 CALL                             R17 2 1
+      144 GETUPVAL                         R18 0
+      145 GETTABLEKS                       R18 R18 K7 ["useCallback"]
+      147 NEWCLOSURE                       R19 P8
+      148 CAPTURE                          VAL R8
+      149 CAPTURE                          VAL R9
+      150 NEWTABLE                         R20 0 0
+      152 CALL                             R18 2 1
+      153 GETUPVAL                         R19 0
+      154 GETTABLEKS                       R19 R19 K7 ["useCallback"]
+      156 NEWCLOSURE                       R20 P9
+      157 CAPTURE                          VAL R7
+      158 CAPTURE                          VAL R6
+      159 NEWTABLE                         R21 0 0
+      161 CALL                             R19 2 1
+      162 GETTABLE                         R20 R5 R0
+      163 JUMPIF                           R20 ; [+2]
+      164 GETUPVAL                         R20 5
+      165 CALL                             R20 0 1
+      166 DUPTABLE                         R21 K15 [{"state", "startGeneration", "setPrompt", "setModel", "discardParkedSessions", "pickSlot", "cancel"}]
+      167 SETTABLEKS                       R20 R21 K8 ["state"]
+      169 SETTABLEKS                       R14 R21 K9 ["startGeneration"]
+      171 SETTABLEKS                       R17 R21 K10 ["setPrompt"]
+      173 SETTABLEKS                       R18 R21 K11 ["setModel"]
+      175 SETTABLEKS                       R19 R21 K12 ["discardParkedSessions"]
+      177 SETTABLEKS                       R15 R21 K13 ["pickSlot"]
+      179 SETTABLEKS                       R16 R21 K14 ["cancel"]
+      181 RETURN                           R21 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1032,57 +1108,60 @@ MAIN:
        50 CALL                             R6 1 1
        51 GETIMPORT                        R7 K5 [require]
        53 GETTABLEKS                       R8 R0 K13 ["Src"]
-       55 GETTABLEKS                       R8 R8 K19 ["Hooks"]
-       57 GETTABLEKS                       R8 R8 K20 ["useGenerationSessions"]
+       55 GETTABLEKS                       R8 R8 K19 ["Util"]
+       57 GETTABLEKS                       R8 R8 K20 ["ReferenceImageUtil"]
        59 CALL                             R7 1 1
        60 GETIMPORT                        R8 K5 [require]
-       62 GETTABLEKS                       R9 R0 K21 ["Bin"]
-       64 GETTABLEKS                       R9 R9 K22 ["Common"]
-       66 GETTABLEKS                       R9 R9 K23 ["defineLuaFlags"]
+       62 GETTABLEKS                       R9 R0 K13 ["Src"]
+       64 GETTABLEKS                       R9 R9 K21 ["Hooks"]
+       66 GETTABLEKS                       R9 R9 K22 ["useGenerationSessions"]
        68 CALL                             R8 1 1
        69 GETIMPORT                        R9 K5 [require]
-       71 GETTABLEKS                       R10 R0 K6 ["Packages"]
-       73 GETTABLEKS                       R10 R10 K24 ["Gen3dCore"]
-       75 CALL                             R9 1 1
-       76 GETIMPORT                        R10 K5 [require]
-       78 GETTABLEKS                       R11 R0 K6 ["Packages"]
-       80 GETTABLEKS                       R11 R11 K25 ["_Index"]
-       82 GETTABLEKS                       R11 R11 K26 ["AssistantUI"]
-       84 GETTABLEKS                       R11 R11 K26 ["AssistantUI"]
-       86 GETTABLEKS                       R11 R11 K27 ["Util"]
-       88 GETTABLEKS                       R11 R11 K28 ["Gen3dUtils"]
-       90 GETTABLEKS                       R11 R11 K29 ["PromptTemplate"]
-       92 CALL                             R10 1 1
-       93 GETTABLEKS                       R11 R9 K30 ["Constants"]
-       95 GETTABLEKS                       R11 R11 K31 ["DEFAULT_TEXTURE_GEN_MODEL"]
-       97 GETIMPORT                        R12 K5 [require]
-       99 GETTABLEKS                       R13 R0 K6 ["Packages"]
-      101 GETTABLEKS                       R13 R13 K25 ["_Index"]
-      103 GETTABLEKS                       R13 R13 K26 ["AssistantUI"]
-      105 GETTABLEKS                       R13 R13 K26 ["AssistantUI"]
-      107 GETTABLEKS                       R13 R13 K32 ["Components"]
-      109 GETTABLEKS                       R13 R13 K33 ["ImageSelection"]
-      111 GETTABLEKS                       R13 R13 K34 ["ImageSelectionOrchestrator"]
-      113 CALL                             R12 1 1
-      114 DUPCLOSURE                       R13 K35 [PROTO_0]
-      115 CAPTURE                          VAL R11
-      116 DUPCLOSURE                       R14 K36 [PROTO_1]
-      117 DUPCLOSURE                       R15 K37 [PROTO_2]
-      118 DUPCLOSURE                       R16 K38 [PROTO_3]
-      119 CAPTURE                          VAL R9
-      120 DUPCLOSURE                       R17 K39 [PROTO_28]
-      121 CAPTURE                          VAL R1
-      122 CAPTURE                          VAL R5
-      123 CAPTURE                          VAL R7
-      124 CAPTURE                          VAL R6
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R13
-      127 CAPTURE                          VAL R2
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          VAL R14
-      130 CAPTURE                          VAL R3
-      131 CAPTURE                          VAL R8
-      132 CAPTURE                          VAL R10
-      133 CAPTURE                          VAL R12
-      134 CAPTURE                          VAL R16
-      135 RETURN                           R17 1
+       71 GETTABLEKS                       R10 R0 K23 ["Bin"]
+       73 GETTABLEKS                       R10 R10 K24 ["Common"]
+       75 GETTABLEKS                       R10 R10 K25 ["defineLuaFlags"]
+       77 CALL                             R9 1 1
+       78 GETIMPORT                        R10 K5 [require]
+       80 GETTABLEKS                       R11 R0 K6 ["Packages"]
+       82 GETTABLEKS                       R11 R11 K26 ["Gen3dCore"]
+       84 CALL                             R10 1 1
+       85 GETIMPORT                        R11 K5 [require]
+       87 GETTABLEKS                       R12 R0 K13 ["Src"]
+       89 GETTABLEKS                       R12 R12 K27 ["Guest"]
+       91 GETTABLEKS                       R12 R12 K28 ["buildImageSelectionServices"]
+       93 CALL                             R11 1 1
+       94 GETIMPORT                        R12 K5 [require]
+       96 GETTABLEKS                       R13 R0 K6 ["Packages"]
+       98 GETTABLEKS                       R13 R13 K29 ["_Index"]
+      100 GETTABLEKS                       R13 R13 K30 ["AssistantUI"]
+      102 GETTABLEKS                       R13 R13 K30 ["AssistantUI"]
+      104 GETTABLEKS                       R13 R13 K19 ["Util"]
+      106 GETTABLEKS                       R13 R13 K31 ["Gen3dUtils"]
+      108 GETTABLEKS                       R13 R13 K32 ["PromptTemplate"]
+      110 CALL                             R12 1 1
+      111 GETTABLEKS                       R13 R10 K33 ["Constants"]
+      113 GETTABLEKS                       R13 R13 K34 ["DEFAULT_TEXTURE_GEN_MODEL"]
+      115 GETTABLEKS                       R14 R10 K35 ["ImageSelectionOps"]
+      117 DUPCLOSURE                       R15 K36 [PROTO_0]
+      118 DUPCLOSURE                       R16 K37 [PROTO_1]
+      119 DUPCLOSURE                       R17 K38 [PROTO_2]
+      120 DUPCLOSURE                       R18 K39 [PROTO_3]
+      121 CAPTURE                          VAL R10
+      122 DUPCLOSURE                       R19 K40 [PROTO_34]
+      123 CAPTURE                          VAL R1
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R8
+      126 CAPTURE                          VAL R6
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R15
+      129 CAPTURE                          VAL R13
+      130 CAPTURE                          VAL R7
+      131 CAPTURE                          VAL R2
+      132 CAPTURE                          VAL R16
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R9
+      135 CAPTURE                          VAL R12
+      136 CAPTURE                          VAL R14
+      137 CAPTURE                          VAL R11
+      138 CAPTURE                          VAL R18
+      139 RETURN                           R19 1

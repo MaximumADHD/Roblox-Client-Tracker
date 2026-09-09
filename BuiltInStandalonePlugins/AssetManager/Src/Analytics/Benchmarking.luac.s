@@ -52,7 +52,7 @@ PROTO_3:
        20 DUPTABLE                         R6 K8 [{"eventName"}]
        21 LOADK                            R8 K9 ["%*%*"]
        22 GETUPVAL                         R10 2
-       23 GETTABLEKS                       R10 R10 K10 ["ASSETMANAGER_PREFIX"]
+       23 GETTABLEKS                       R10 R10 K10 ["ASSETMANAGER_STAT_PREFIX"]
        25 MOVE                             R11 R0
        26 NAMECALL                         R8 R8 K4 ["format"]
        28 CALL                             R8 3 1

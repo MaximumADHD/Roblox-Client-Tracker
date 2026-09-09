@@ -113,52 +113,46 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+4]
-        3 GETUPVAL                         R0 1
-        4 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantUseRemoteService"]
-        6 JUMPIFNOT                        R0 ; [+2]
-        7 LOADNIL                          R0
-        8 RETURN                           R0 1
-        9 GETUPVAL                         R0 2
-       10 GETTABLEKS                       R0 R0 K1 ["Persistence"]
-       12 GETTABLEKS                       R0 R0 K2 ["getCoordinator"]
-       14 CALL                             R0 0 1
-       15 DUPCLOSURE                       R1 K3 [PROTO_0]
-       16 CAPTURE                          UPVAL U3
-       17 DUPTABLE                         R2 K9 [{"listSessions", "loadSession", "onSaveRequested", "saveSessions", "deleteSession"}]
-       18 DUPCLOSURE                       R3 K10 [PROTO_1]
-       19 CAPTURE                          UPVAL U3
-       20 SETTABLEKS                       R3 R2 K4 ["listSessions"]
-       22 DUPCLOSURE                       R3 K11 [PROTO_2]
-       23 CAPTURE                          UPVAL U3
-       24 SETTABLEKS                       R3 R2 K5 ["loadSession"]
-       26 NEWCLOSURE                       R3 P3
-       27 CAPTURE                          VAL R0
-       28 SETTABLEKS                       R3 R2 K6 ["onSaveRequested"]
-       30 NEWCLOSURE                       R3 P4
-       31 CAPTURE                          UPVAL U1
-       32 CAPTURE                          VAL R0
-       33 CAPTURE                          UPVAL U2
-       34 SETTABLEKS                       R3 R2 K7 ["saveSessions"]
-       36 NEWCLOSURE                       R3 P5
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          UPVAL U2
-       39 SETTABLEKS                       R3 R2 K8 ["deleteSession"]
-       41 RETURN                           R2 1
+        2 JUMPIFNOT                        R0 ; [+2]
+        3 LOADNIL                          R0
+        4 RETURN                           R0 1
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K0 ["Persistence"]
+        8 GETTABLEKS                       R0 R0 K1 ["getCoordinator"]
+       10 CALL                             R0 0 1
+       11 DUPCLOSURE                       R1 K2 [PROTO_0]
+       12 CAPTURE                          UPVAL U2
+       13 DUPTABLE                         R2 K8 [{"listSessions", "loadSession", "onSaveRequested", "saveSessions", "deleteSession"}]
+       14 DUPCLOSURE                       R3 K9 [PROTO_1]
+       15 CAPTURE                          UPVAL U2
+       16 SETTABLEKS                       R3 R2 K3 ["listSessions"]
+       18 DUPCLOSURE                       R3 K10 [PROTO_2]
+       19 CAPTURE                          UPVAL U2
+       20 SETTABLEKS                       R3 R2 K4 ["loadSession"]
+       22 NEWCLOSURE                       R3 P3
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R3 R2 K5 ["onSaveRequested"]
+       26 NEWCLOSURE                       R3 P4
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          UPVAL U1
+       30 SETTABLEKS                       R3 R2 K6 ["saveSessions"]
+       32 NEWCLOSURE                       R3 P5
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          UPVAL U1
+       35 SETTABLEKS                       R3 R2 K7 ["deleteSession"]
+       37 RETURN                           R2 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+4]
-        3 GETUPVAL                         R0 1
-        4 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantUseRemoteService"]
-        6 JUMPIF                           R0 ; [+2]
-        7 LOADNIL                          R0
-        8 RETURN                           R0 1
-        9 GETUPVAL                         R0 2
-       10 GETIMPORT                        R1 K2 [game]
-       12 CALL                             R0 1 -1
-       13 RETURN                           R0 -1
+        2 JUMPIF                           R0 ; [+2]
+        3 LOADNIL                          R0
+        4 RETURN                           R0 1
+        5 GETUPVAL                         R0 1
+        6 GETIMPORT                        R1 K1 [game]
+        8 CALL                             R0 1 -1
+        9 RETURN                           R0 -1
 
 PROTO_9:
         0 GETUPVAL                         R1 0
@@ -174,18 +168,17 @@ PROTO_9:
        12 GETTABLEKS                       R2 R2 K0 ["useMemo"]
        14 DUPCLOSURE                       R3 K2 [PROTO_8]
        15 CAPTURE                          UPVAL U1
-       16 CAPTURE                          UPVAL U2
-       17 CAPTURE                          UPVAL U5
-       18 NEWTABLE                         R4 0 0
-       20 CALL                             R2 2 1
-       21 GETUPVAL                         R3 6
-       22 GETUPVAL                         R4 7
-       23 DUPTABLE                         R5 K5 [{"persistence", "remoteDeps"}]
-       24 SETTABLEKS                       R1 R5 K3 ["persistence"]
-       26 SETTABLEKS                       R2 R5 K4 ["remoteDeps"]
-       28 GETTABLEKS                       R6 R0 K6 ["children"]
-       30 CALL                             R3 3 -1
-       31 RETURN                           R3 -1
+       16 CAPTURE                          UPVAL U5
+       17 NEWTABLE                         R4 0 0
+       19 CALL                             R2 2 1
+       20 GETUPVAL                         R3 6
+       21 GETUPVAL                         R4 7
+       22 DUPTABLE                         R5 K5 [{"persistence", "remoteDeps"}]
+       23 SETTABLEKS                       R1 R5 K3 ["persistence"]
+       25 SETTABLEKS                       R2 R5 K4 ["remoteDeps"]
+       27 GETTABLEKS                       R6 R0 K6 ["children"]
+       29 CALL                             R3 3 -1
+       30 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -222,15 +215,16 @@ MAIN:
        54 GETTABLEKS                       R6 R6 K17 ["StudioHarnessDepsContextProvider"]
        56 GETTABLEKS                       R7 R4 K14 ["createRemoteACPAgentDeps"]
        58 GETTABLEKS                       R8 R1 K18 ["FlagUtils"]
-       60 GETTABLEKS                       R8 R8 K19 ["getIsAssistantHarnessSplit"]
-       62 GETTABLEKS                       R9 R2 K20 ["createElement"]
-       64 DUPCLOSURE                       R10 K21 [PROTO_9]
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R8
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R1
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R6
-       73 RETURN                           R10 1
+       60 GETTABLEKS                       R8 R8 K19 ["getIsAssistantUseRemoteService"]
+       62 GETTABLEKS                       R8 R8 K20 ["get"]
+       64 GETTABLEKS                       R9 R2 K21 ["createElement"]
+       66 DUPCLOSURE                       R10 K22 [PROTO_9]
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R8
+       69 CAPTURE                          VAL R1
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R9
+       74 CAPTURE                          VAL R6
+       75 RETURN                           R10 1

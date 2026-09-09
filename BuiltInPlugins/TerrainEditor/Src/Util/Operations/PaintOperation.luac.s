@@ -80,256 +80,362 @@ PROTO_1:
        59 GETUPVAL                         R14 3
        60 GETTABLEKS                       R14 R14 K19 ["TargetMaterial"]
        62 GETTABLE                         R13 R10 R14
-       63 GETTABLEKS                       R14 R8 K20 ["Material"]
-       65 GETIMPORT                        R15 K23 [Enum.Material.Air]
-       67 JUMPIFNOTEQ                      R14 R15 ; [+7]
-       69 NAMECALL                         R14 R1 K24 ["skipBudget"]
-       71 CALL                             R14 1 0
-       72 LOADB                            R14 1
-       73 LOADN                            R15 0
-       74 RETURN                           R14 2
-       75 GETUPVAL                         R16 4
-       76 GETTABLEKS                       R16 R16 K25 ["Sphere"]
-       78 JUMPIFNOTEQ                      R7 R16 ; [+3]
-       80 MOVE                             R15 R6
+       63 GETUPVAL                         R15 3
+       64 GETTABLEKS                       R15 R15 K20 ["SourceMaterialSlot"]
+       66 GETTABLE                         R14 R10 R15
+       67 GETUPVAL                         R16 3
+       68 GETTABLEKS                       R16 R16 K21 ["TargetMaterialSlot"]
+       70 GETTABLE                         R15 R10 R16
+       71 GETUPVAL                         R17 4
+       72 CALL                             R17 0 1
+       73 JUMPIFNOT                        R17 ; [+8]
+       74 GETUPVAL                         R16 5
+       75 GETTABLEKS                       R16 R16 K22 ["new"]
+       77 GETUPVAL                         R17 6
+       78 GETTABLEKS                       R17 R17 K23 ["Terrain"]
+       80 CALL                             R16 1 1
        81 JUMP                             ; [+1]
-       82 MOVE                             R15 R5
-       83 GETUPVAL                         R16 5
-       84 MUL                              R14 R15 R16
-       85 GETUPVAL                         R16 5
-       86 MUL                              R15 R6 R16
-       87 MULK                             R16 R15 K26 [0.5]
-       88 GETUPVAL                         R17 6
-       89 GETUPVAL                         R19 2
-       90 GETTABLEKS                       R19 R19 K27 ["PivotPosition"]
-       92 GETTABLE                         R18 R3 R19
-       93 GETTABLEKS                       R19 R8 K28 ["Position"]
-       95 MOVE                             R20 R14
-       96 CALL                             R17 3 1
-       97 GETUPVAL                         R18 7
-       98 GETTABLEKS                       R19 R2 K28 ["Position"]
-      100 MOVE                             R20 R17
-      101 MOVE                             R21 R16
-      102 CALL                             R18 3 1
-      103 LENGTH                           R20 R18
-      104 GETTABLE                         R19 R18 R20
-      105 SETTABLEKS                       R19 R2 K28 ["Position"]
-      107 GETUPVAL                         R20 8
-      108 GETTABLEKS                       R20 R20 K29 ["Paint"]
-      110 JUMPIFEQ                         R11 R20 ; [+2]
-      112 LOADB                            R19 0 +1
-      113 LOADB                            R19 1
-      114 GETUPVAL                         R21 8
-      115 GETTABLEKS                       R21 R21 K30 ["Replace"]
-      117 JUMPIFEQ                         R11 R21 ; [+2]
-      119 LOADB                            R20 0 +1
-      120 LOADB                            R20 1
-      121 MOVE                             R21 R18
-      122 LOADNIL                          R22
-      123 LOADNIL                          R23
-      124 FORGPREP                         R21
-      125 GETTABLEKS                       R26 R2 K31 ["LastPosition"]
-      127 JUMPIFNOTEQ                      R25 R26 ; [+15]
-      129 NAMECALL                         R26 R1 K24 ["skipBudget"]
-      131 CALL                             R26 1 0
-      132 GETUPVAL                         R26 0
-      133 GETTABLEKS                       R26 R26 K4 ["ProfileTools"]
-      135 CALL                             R26 0 1
-      136 JUMPIFNOT                        R26 ; [+3]
-      137 GETIMPORT                        R26 K33 [debug.profileend]
-      139 CALL                             R26 0 0
-      140 LOADB                            R26 1
-      141 LOADN                            R27 0
-      142 RETURN                           R26 2
-      143 SETTABLEKS                       R25 R2 K31 ["LastPosition"]
-      145 GETUPVAL                         R26 9
-      146 MOVE                             R27 R25
-      147 MOVE                             R28 R16
-      148 MOVE                             R29 R14
-      149 CALL                             R26 3 2
-      150 GETIMPORT                        R28 K36 [Region3.new]
-      152 MOVE                             R29 R26
-      153 MOVE                             R30 R27
-      154 CALL                             R28 2 1
-      155 GETUPVAL                         R29 4
-      156 GETTABLEKS                       R29 R29 K37 ["Cube"]
-      158 JUMPIFNOTEQ                      R7 R29 ; [+13]
-      160 JUMPIFNOT                        R20 ; [+11]
-      161 GETUPVAL                         R29 10
-      162 GETTABLEKS                       R29 R29 K38 ["Terrain"]
-      164 MOVE                             R31 R28
-      165 GETUPVAL                         R32 5
-      166 MOVE                             R33 R12
-      167 MOVE                             R34 R13
-      168 NAMECALL                         R29 R29 K39 ["ReplaceMaterial"]
-      170 CALL                             R29 5 0
-      171 JUMP                             ; [+199]
-      172 GETTABLEKS                       R31 R27 K40 ["X"]
-      174 GETTABLEKS                       R32 R26 K40 ["X"]
-      176 SUB                              R30 R31 R32
-      177 MULK                             R29 R30 K26 [0.5]
-      178 GETUPVAL                         R30 10
-      179 GETTABLEKS                       R30 R30 K38 ["Terrain"]
-      181 MOVE                             R32 R28
-      182 GETUPVAL                         R33 5
-      183 NAMECALL                         R30 R30 K41 ["ReadVoxels"]
-      185 CALL                             R30 3 2
-      186 LOADNIL                          R32
-      187 SETTABLEKS                       R32 R30 K13 ["Size"]
-      189 LOADNIL                          R32
-      190 SETTABLEKS                       R32 R31 K13 ["Size"]
-      192 GETUPVAL                         R32 5
-      193 GETIMPORT                        R34 K23 [Enum.Material.Air]
-      195 JUMPIFEQ                         R12 R34 ; [+2]
-      197 LOADB                            R33 0 +1
-      198 LOADB                            R33 1
-      199 LOADB                            R34 0
-      200 GETUPVAL                         R35 4
-      201 GETTABLEKS                       R35 R35 K25 ["Sphere"]
-      203 JUMPIFNOTEQ                      R7 R35 ; [+6]
-      205 LOADN                            R35 2
-      206 JUMPIFLT                         R35 R6 ; [+2]
-      208 LOADB                            R34 0 +1
-      209 LOADB                            R34 1
-      210 GETUPVAL                         R36 4
-      211 GETTABLEKS                       R36 R36 K42 ["Cylinder"]
-      213 JUMPIFNOTEQ                      R7 R36 ; [+5]
-      215 LOADB                            R35 1
-      216 LOADN                            R36 2
-      217 JUMPIFLT                         R36 R6 ; [+2]
-      219 MOVE                             R35 R34
-      220 GETTABLEKS                       R38 R26 K40 ["X"]
-      222 MULK                             R39 R32 K26 [0.5]
-      223 SUB                              R37 R38 R39
-      224 GETTABLEKS                       R38 R25 K40 ["X"]
-      226 SUB                              R36 R37 R38
-      227 GETTABLEKS                       R39 R26 K43 ["Y"]
-      229 MULK                             R40 R32 K26 [0.5]
-      230 SUB                              R38 R39 R40
-      231 GETTABLEKS                       R39 R25 K43 ["Y"]
-      233 SUB                              R37 R38 R39
-      234 GETTABLEKS                       R40 R26 K44 ["Z"]
-      236 MULK                             R41 R32 K26 [0.5]
-      237 SUB                              R39 R40 R41
-      238 GETTABLEKS                       R40 R25 K44 ["Z"]
-      240 SUB                              R38 R39 R40
-      241 LOADNIL                          R39
-      242 LOADNIL                          R40
-      243 GETIMPORT                        R41 K47 [os.clock]
-      245 CALL                             R41 0 1
-      246 MOVE                             R42 R31
-      247 LOADNIL                          R43
-      248 LOADNIL                          R44
-      249 FORGPREP                         R42
-      250 JUMPIFNOT                        R35 ; [+4]
-      251 MUL                              R48 R45 R32
-      252 ADD                              R47 R48 R36
-      253 POWK                             R39 R47 K48 [2]
-      254 JUMP                             ; [+1]
-      255 LOADNIL                          R39
-      256 GETTABLE                         R47 R30 R45
-      257 MOVE                             R48 R46
-      258 LOADNIL                          R49
-      259 LOADNIL                          R50
-      260 FORGPREP                         R48
-      261 JUMPIFNOT                        R34 ; [+5]
-      262 MUL                              R55 R51 R32
-      263 ADD                              R54 R55 R37
-      264 POWK                             R53 R54 K48 [2]
-      265 ADD                              R40 R39 R53
-      266 JUMP                             ; [+1]
-      267 LOADNIL                          R40
-      268 GETTABLE                         R53 R47 R51
-      269 MOVE                             R54 R52
-      270 LOADNIL                          R55
-      271 LOADNIL                          R56
-      272 FORGPREP                         R54
-      273 GETTABLE                         R59 R53 R57
-      274 LOADN                            R60 1
-      275 JUMPIFNOT                        R35 ; [+20]
-      276 MUL                              R63 R57 R32
-      277 ADD                              R62 R63 R38
-      278 POWK                             R61 R62 K48 [2]
-      279 JUMPIFNOT                        R34 ; [+6]
-      280 ADD                              R63 R40 R61
-      281 FASTCALL1                        MATH_SQRT R63 ; [+2]
-      282 GETIMPORT                        R62 K51 [math.sqrt]
-      284 CALL                             R62 1 1
-      285 JUMP                             ; [+5]
-      286 ADD                              R63 R39 R61
-      287 FASTCALL1                        MATH_SQRT R63 ; [+2]
-      288 GETIMPORT                        R62 K51 [math.sqrt]
-      290 CALL                             R62 1 1
-      291 GETUPVAL                         R63 11
-      292 MOVE                             R64 R62
-      293 MOVE                             R65 R29
-      294 CALL                             R63 2 1
-      295 MOVE                             R60 R63
-      296 LOADN                            R61 0
-      297 JUMPIFNOTLT                      R61 R60 ; [+23]
-      299 JUMPIFNOT                        R9 ; [+4]
-      300 GETIMPORT                        R61 K53 [Enum.Material.Water]
-      302 JUMPIFEQ                         R59 R61 ; [+18]
-      304 JUMPIFNOT                        R19 ; [+3]
-      305 SETTABLE                         R58 R52 R57
-      306 SETTABLE                         R12 R53 R57
-      307 JUMP                             ; [+15]
-      308 JUMPIFNOT                        R20 ; [+14]
-      309 JUMPIFNOT                        R33 ; [+2]
-      310 LOADN                            R61 1
-      311 JUMP                             ; [+1]
-      312 MOVE                             R61 R58
-      313 SETTABLE                         R61 R52 R57
-      314 JUMPIFNOTEQ                      R12 R59 ; [+3]
-      316 MOVE                             R61 R13
-      317 JUMP                             ; [+1]
-      318 MOVE                             R61 R59
-      319 SETTABLE                         R61 R53 R57
-      320 JUMP                             ; [+2]
-      321 SETTABLE                         R58 R52 R57
-      322 SETTABLE                         R59 R53 R57
-      323 FORGLOOP                         R54 2 ; [-51]
-      325 FORGLOOP                         R48 2 ; [-65]
-      327 FORGLOOP                         R42 2 ; [-78]
-      329 GETUPVAL                         R44 12
-      330 GETTABLEKS                       R44 R44 K54 ["NormalizeBrushTimer"]
-      332 MOVE                             R45 R41
-      333 MOVE                             R46 R6
-      334 MOVE                             R47 R5
-      335 CALL                             R44 3 -1
-      336 NAMECALL                         R42 R1 K55 ["addTimeStatistic"]
-      338 CALL                             R42 -1 0
-      339 GETIMPORT                        R42 K53 [Enum.Material.Water]
-      341 JUMPIFEQ                         R12 R42 ; [+5]
-      343 GETIMPORT                        R42 K53 [Enum.Material.Water]
-      345 JUMPIFNOTEQ                      R13 R42 ; [+13]
-      347 GETUPVAL                         R42 10
-      348 GETTABLEKS                       R42 R42 K38 ["Terrain"]
-      350 MOVE                             R44 R28
-      351 GETUPVAL                         R45 13
-      352 GETTABLEKS                       R45 R45 K56 ["VoxelResolution"]
-      354 GETIMPORT                        R46 K23 [Enum.Material.Air]
-      356 NAMECALL                         R42 R42 K57 ["FillRegion"]
-      358 CALL                             R42 4 0
-      359 GETUPVAL                         R42 10
-      360 GETTABLEKS                       R42 R42 K38 ["Terrain"]
-      362 MOVE                             R44 R28
-      363 GETUPVAL                         R45 13
-      364 GETTABLEKS                       R45 R45 K56 ["VoxelResolution"]
-      366 MOVE                             R46 R30
-      367 MOVE                             R47 R31
-      368 NAMECALL                         R42 R42 K58 ["WriteVoxels"]
-      370 CALL                             R42 5 0
-      371 FORGLOOP                         R21 2 ; [-247]
-      373 GETUPVAL                         R21 0
-      374 GETTABLEKS                       R21 R21 K4 ["ProfileTools"]
-      376 CALL                             R21 0 1
-      377 JUMPIFNOT                        R21 ; [+3]
-      378 GETIMPORT                        R21 K33 [debug.profileend]
-      380 CALL                             R21 0 0
-      381 LOADB                            R21 1
-      382 LOADN                            R22 0
-      383 RETURN                           R21 2
+       82 LOADNIL                          R16
+       83 JUMPIFNOT                        R16 ; [+29]
+       84 MOVE                             R19 R14
+       85 NAMECALL                         R17 R16 K24 ["isMaterialValid"]
+       87 CALL                             R17 2 1
+       88 JUMPIFNOT                        R17 ; [+10]
+       89 GETUPVAL                         R17 7
+       90 GETTABLEKS                       R17 R17 K25 ["Replace"]
+       92 JUMPIFNOTEQ                      R11 R17 ; [+20]
+       94 MOVE                             R19 R15
+       95 NAMECALL                         R17 R16 K24 ["isMaterialValid"]
+       97 CALL                             R17 2 1
+       98 JUMPIF                           R17 ; [+14]
+       99 NAMECALL                         R17 R1 K26 ["skipBudget"]
+      101 CALL                             R17 1 0
+      102 GETUPVAL                         R17 0
+      103 GETTABLEKS                       R17 R17 K4 ["ProfileTools"]
+      105 CALL                             R17 0 1
+      106 JUMPIFNOT                        R17 ; [+3]
+      107 GETIMPORT                        R17 K28 [debug.profileend]
+      109 CALL                             R17 0 0
+      110 LOADB                            R17 1
+      111 LOADN                            R18 0
+      112 RETURN                           R17 2
+      113 JUMPIFNOT                        R16 ; [+2]
+      114 MOVE                             R17 R14
+      115 JUMP                             ; [+1]
+      116 MOVE                             R17 R12
+      117 JUMPIFNOT                        R16 ; [+2]
+      118 MOVE                             R18 R15
+      119 JUMP                             ; [+1]
+      120 MOVE                             R18 R13
+      121 JUMPIFNOT                        R16 ; [+3]
+      122 GETTABLEKS                       R19 R16 K29 ["water"]
+      124 JUMP                             ; [+2]
+      125 GETIMPORT                        R19 K33 [Enum.Material.Water]
+      127 GETTABLEKS                       R20 R8 K31 ["Material"]
+      129 GETIMPORT                        R21 K35 [Enum.Material.Air]
+      131 JUMPIFNOTEQ                      R20 R21 ; [+7]
+      133 NAMECALL                         R20 R1 K26 ["skipBudget"]
+      135 CALL                             R20 1 0
+      136 LOADB                            R20 1
+      137 LOADN                            R21 0
+      138 RETURN                           R20 2
+      139 GETUPVAL                         R22 8
+      140 GETTABLEKS                       R22 R22 K36 ["Sphere"]
+      142 JUMPIFNOTEQ                      R7 R22 ; [+3]
+      144 MOVE                             R21 R6
+      145 JUMP                             ; [+1]
+      146 MOVE                             R21 R5
+      147 GETUPVAL                         R22 9
+      148 MUL                              R20 R21 R22
+      149 GETUPVAL                         R22 9
+      150 MUL                              R21 R6 R22
+      151 MULK                             R22 R21 K37 [0.5]
+      152 GETUPVAL                         R23 10
+      153 GETUPVAL                         R25 2
+      154 GETTABLEKS                       R25 R25 K38 ["PivotPosition"]
+      156 GETTABLE                         R24 R3 R25
+      157 GETTABLEKS                       R25 R8 K39 ["Position"]
+      159 MOVE                             R26 R20
+      160 CALL                             R23 3 1
+      161 GETUPVAL                         R24 11
+      162 GETTABLEKS                       R25 R2 K39 ["Position"]
+      164 MOVE                             R26 R23
+      165 MOVE                             R27 R22
+      166 CALL                             R24 3 1
+      167 LENGTH                           R26 R24
+      168 GETTABLE                         R25 R24 R26
+      169 SETTABLEKS                       R25 R2 K39 ["Position"]
+      171 GETUPVAL                         R26 7
+      172 GETTABLEKS                       R26 R26 K40 ["Paint"]
+      174 JUMPIFEQ                         R11 R26 ; [+2]
+      176 LOADB                            R25 0 +1
+      177 LOADB                            R25 1
+      178 GETUPVAL                         R27 7
+      179 GETTABLEKS                       R27 R27 K25 ["Replace"]
+      181 JUMPIFEQ                         R11 R27 ; [+2]
+      183 LOADB                            R26 0 +1
+      184 LOADB                            R26 1
+      185 MOVE                             R27 R24
+      186 LOADNIL                          R28
+      187 LOADNIL                          R29
+      188 FORGPREP                         R27
+      189 GETTABLEKS                       R32 R2 K41 ["LastPosition"]
+      191 JUMPIFNOTEQ                      R31 R32 ; [+15]
+      193 NAMECALL                         R32 R1 K26 ["skipBudget"]
+      195 CALL                             R32 1 0
+      196 GETUPVAL                         R32 0
+      197 GETTABLEKS                       R32 R32 K4 ["ProfileTools"]
+      199 CALL                             R32 0 1
+      200 JUMPIFNOT                        R32 ; [+3]
+      201 GETIMPORT                        R32 K28 [debug.profileend]
+      203 CALL                             R32 0 0
+      204 LOADB                            R32 1
+      205 LOADN                            R33 0
+      206 RETURN                           R32 2
+      207 SETTABLEKS                       R31 R2 K41 ["LastPosition"]
+      209 GETUPVAL                         R32 12
+      210 MOVE                             R33 R31
+      211 MOVE                             R34 R22
+      212 MOVE                             R35 R20
+      213 CALL                             R32 3 2
+      214 GETIMPORT                        R34 K43 [Region3.new]
+      216 MOVE                             R35 R32
+      217 MOVE                             R36 R33
+      218 CALL                             R34 2 1
+      219 JUMPIF                           R16 ; [+17]
+      220 GETUPVAL                         R35 8
+      221 GETTABLEKS                       R35 R35 K44 ["Cube"]
+      223 JUMPIFNOTEQ                      R7 R35 ; [+13]
+      225 JUMPIFNOT                        R26 ; [+11]
+      226 GETUPVAL                         R35 6
+      227 GETTABLEKS                       R35 R35 K23 ["Terrain"]
+      229 MOVE                             R37 R34
+      230 GETUPVAL                         R38 9
+      231 MOVE                             R39 R12
+      232 MOVE                             R40 R13
+      233 NAMECALL                         R35 R35 K45 ["ReplaceMaterial"]
+      235 CALL                             R35 5 0
+      236 JUMP                             ; [+263]
+      237 GETTABLEKS                       R37 R33 K46 ["X"]
+      239 GETTABLEKS                       R38 R32 K46 ["X"]
+      241 SUB                              R36 R37 R38
+      242 MULK                             R35 R36 K37 [0.5]
+      243 JUMPIFNOT                        R16 ; [+5]
+      244 MOVE                             R38 R34
+      245 NAMECALL                         R36 R16 K47 ["readRegion"]
+      247 CALL                             R36 2 1
+      248 JUMP                             ; [+1]
+      249 LOADNIL                          R36
+      250 LOADNIL                          R37
+      251 LOADNIL                          R38
+      252 JUMPIFNOT                        R36 ; [+5]
+      253 GETTABLEKS                       R37 R36 K48 ["materials"]
+      255 GETTABLEKS                       R38 R36 K49 ["occupancies"]
+      257 JUMP                             ; [+10]
+      258 GETUPVAL                         R39 6
+      259 GETTABLEKS                       R39 R39 K23 ["Terrain"]
+      261 MOVE                             R41 R34
+      262 GETUPVAL                         R42 9
+      263 NAMECALL                         R39 R39 K50 ["ReadVoxels"]
+      265 CALL                             R39 3 2
+      266 MOVE                             R37 R39
+      267 MOVE                             R38 R40
+      268 LOADNIL                          R39
+      269 SETTABLEKS                       R39 R37 K13 ["Size"]
+      271 LOADNIL                          R39
+      272 SETTABLEKS                       R39 R38 K13 ["Size"]
+      274 GETUPVAL                         R39 9
+      275 JUMPIFNOT                        R16 ; [+3]
+      276 GETTABLEKS                       R41 R16 K51 ["air"]
+      278 JUMP                             ; [+2]
+      279 GETIMPORT                        R41 K35 [Enum.Material.Air]
+      281 JUMPIFEQ                         R17 R41 ; [+2]
+      283 LOADB                            R40 0 +1
+      284 LOADB                            R40 1
+      285 LOADB                            R41 0
+      286 GETUPVAL                         R42 8
+      287 GETTABLEKS                       R42 R42 K36 ["Sphere"]
+      289 JUMPIFNOTEQ                      R7 R42 ; [+6]
+      291 LOADN                            R42 2
+      292 JUMPIFLT                         R42 R6 ; [+2]
+      294 LOADB                            R41 0 +1
+      295 LOADB                            R41 1
+      296 GETUPVAL                         R43 8
+      297 GETTABLEKS                       R43 R43 K52 ["Cylinder"]
+      299 JUMPIFNOTEQ                      R7 R43 ; [+5]
+      301 LOADB                            R42 1
+      302 LOADN                            R43 2
+      303 JUMPIFLT                         R43 R6 ; [+2]
+      305 MOVE                             R42 R41
+      306 JUMPIFNOT                        R36 ; [+3]
+      307 JUMPIFNOT                        R25 ; [+2]
+      308 LOADN                            R43 1
+      309 JUMP                             ; [+11]
+      310 JUMPIFNOT                        R36 ; [+3]
+      311 JUMPIFNOT                        R26 ; [+2]
+      312 LOADN                            R43 2
+      313 JUMP                             ; [+7]
+      314 JUMPIFNOT                        R25 ; [+2]
+      315 LOADN                            R43 3
+      316 JUMP                             ; [+4]
+      317 JUMPIFNOT                        R26 ; [+2]
+      318 LOADN                            R43 4
+      319 JUMP                             ; [+1]
+      320 LOADN                            R43 0
+      321 GETTABLEKS                       R46 R32 K46 ["X"]
+      323 MULK                             R47 R39 K37 [0.5]
+      324 SUB                              R45 R46 R47
+      325 GETTABLEKS                       R46 R31 K46 ["X"]
+      327 SUB                              R44 R45 R46
+      328 GETTABLEKS                       R47 R32 K53 ["Y"]
+      330 MULK                             R48 R39 K37 [0.5]
+      331 SUB                              R46 R47 R48
+      332 GETTABLEKS                       R47 R31 K53 ["Y"]
+      334 SUB                              R45 R46 R47
+      335 GETTABLEKS                       R48 R32 K54 ["Z"]
+      337 MULK                             R49 R39 K37 [0.5]
+      338 SUB                              R47 R48 R49
+      339 GETTABLEKS                       R48 R31 K54 ["Z"]
+      341 SUB                              R46 R47 R48
+      342 LOADNIL                          R47
+      343 LOADNIL                          R48
+      344 GETIMPORT                        R49 K57 [os.clock]
+      346 CALL                             R49 0 1
+      347 MOVE                             R50 R38
+      348 LOADNIL                          R51
+      349 LOADNIL                          R52
+      350 FORGPREP                         R50
+      351 JUMPIFNOT                        R42 ; [+4]
+      352 MUL                              R56 R53 R39
+      353 ADD                              R55 R56 R44
+      354 POWK                             R47 R55 K58 [2]
+      355 JUMP                             ; [+1]
+      356 LOADNIL                          R47
+      357 GETTABLE                         R55 R37 R53
+      358 MOVE                             R56 R54
+      359 LOADNIL                          R57
+      360 LOADNIL                          R58
+      361 FORGPREP                         R56
+      362 JUMPIFNOT                        R41 ; [+5]
+      363 MUL                              R63 R59 R39
+      364 ADD                              R62 R63 R45
+      365 POWK                             R61 R62 K58 [2]
+      366 ADD                              R48 R47 R61
+      367 JUMP                             ; [+1]
+      368 LOADNIL                          R48
+      369 GETTABLE                         R61 R55 R59
+      370 MOVE                             R62 R60
+      371 LOADNIL                          R63
+      372 LOADNIL                          R64
+      373 FORGPREP                         R62
+      374 GETTABLE                         R67 R61 R65
+      375 LOADN                            R68 1
+      376 JUMPIFNOT                        R42 ; [+20]
+      377 MUL                              R71 R65 R39
+      378 ADD                              R70 R71 R46
+      379 POWK                             R69 R70 K58 [2]
+      380 JUMPIFNOT                        R41 ; [+6]
+      381 ADD                              R71 R48 R69
+      382 FASTCALL1                        MATH_SQRT R71 ; [+2]
+      383 GETIMPORT                        R70 K61 [math.sqrt]
+      385 CALL                             R70 1 1
+      386 JUMP                             ; [+5]
+      387 ADD                              R71 R47 R69
+      388 FASTCALL1                        MATH_SQRT R71 ; [+2]
+      389 GETIMPORT                        R70 K61 [math.sqrt]
+      391 CALL                             R70 1 1
+      392 GETUPVAL                         R71 13
+      393 MOVE                             R72 R70
+      394 MOVE                             R73 R35
+      395 CALL                             R71 2 1
+      396 MOVE                             R68 R71
+      397 LOADN                            R69 0
+      398 JUMPIFNOTLT                      R69 R68 ; [+45]
+      400 JUMPIFNOT                        R9 ; [+2]
+      401 JUMPIFEQ                         R67 R19 ; [+42]
+      403 JUMPIFNOTEQKN                    R43 K62 [1] ; [+9]
+      405 MOVE                             R71 R53
+      406 MOVE                             R72 R59
+      407 MOVE                             R73 R65
+      408 MOVE                             R74 R17
+      409 NAMECALL                         R69 R36 K63 ["paint"]
+      411 CALL                             R69 5 0
+      412 JUMP                             ; [+33]
+      413 JUMPIFNOTEQKN                    R43 K58 [2] ; [+11]
+      415 MOVE                             R71 R53
+      416 MOVE                             R72 R59
+      417 MOVE                             R73 R65
+      418 MOVE                             R74 R17
+      419 MOVE                             R75 R18
+      420 MOVE                             R76 R9
+      421 NAMECALL                         R69 R36 K64 ["replace"]
+      423 CALL                             R69 7 0
+      424 JUMP                             ; [+21]
+      425 JUMPIFNOTEQKN                    R43 K65 [3] ; [+4]
+      427 SETTABLE                         R66 R60 R65
+      428 SETTABLE                         R12 R61 R65
+      429 JUMP                             ; [+16]
+      430 JUMPIFNOTEQKN                    R43 K66 [4] ; [+15]
+      432 JUMPIFNOT                        R40 ; [+2]
+      433 LOADN                            R69 1
+      434 JUMP                             ; [+1]
+      435 MOVE                             R69 R66
+      436 SETTABLE                         R69 R60 R65
+      437 JUMPIFNOTEQ                      R12 R67 ; [+3]
+      439 MOVE                             R69 R13
+      440 JUMP                             ; [+1]
+      441 MOVE                             R69 R67
+      442 SETTABLE                         R69 R61 R65
+      443 JUMP                             ; [+2]
+      444 SETTABLE                         R66 R60 R65
+      445 SETTABLE                         R67 R61 R65
+      446 FORGLOOP                         R62 2 ; [-73]
+      448 FORGLOOP                         R56 2 ; [-87]
+      450 FORGLOOP                         R50 2 ; [-100]
+      452 GETUPVAL                         R52 14
+      453 GETTABLEKS                       R52 R52 K67 ["NormalizeBrushTimer"]
+      455 MOVE                             R53 R49
+      456 MOVE                             R54 R6
+      457 MOVE                             R55 R5
+      458 CALL                             R52 3 -1
+      459 NAMECALL                         R50 R1 K68 ["addTimeStatistic"]
+      461 CALL                             R50 -1 0
+      462 JUMPIFNOT                        R36 ; [+5]
+      463 MOVE                             R52 R34
+      464 NAMECALL                         R50 R36 K69 ["write"]
+      466 CALL                             R50 2 0
+      467 JUMP                             ; [+32]
+      468 GETIMPORT                        R50 K33 [Enum.Material.Water]
+      470 JUMPIFEQ                         R12 R50 ; [+5]
+      472 GETIMPORT                        R50 K33 [Enum.Material.Water]
+      474 JUMPIFNOTEQ                      R13 R50 ; [+13]
+      476 GETUPVAL                         R50 6
+      477 GETTABLEKS                       R50 R50 K23 ["Terrain"]
+      479 MOVE                             R52 R34
+      480 GETUPVAL                         R53 15
+      481 GETTABLEKS                       R53 R53 K70 ["VoxelResolution"]
+      483 GETIMPORT                        R54 K35 [Enum.Material.Air]
+      485 NAMECALL                         R50 R50 K71 ["FillRegion"]
+      487 CALL                             R50 4 0
+      488 GETUPVAL                         R50 6
+      489 GETTABLEKS                       R50 R50 K23 ["Terrain"]
+      491 MOVE                             R52 R34
+      492 GETUPVAL                         R53 15
+      493 GETTABLEKS                       R53 R53 K70 ["VoxelResolution"]
+      495 MOVE                             R54 R37
+      496 MOVE                             R55 R38
+      497 NAMECALL                         R50 R50 K72 ["WriteVoxels"]
+      499 CALL                             R50 5 0
+      500 FORGLOOP                         R27 2 ; [-312]
+      502 GETUPVAL                         R27 0
+      503 GETTABLEKS                       R27 R27 K4 ["ProfileTools"]
+      505 CALL                             R27 0 1
+      506 JUMPIFNOT                        R27 ; [+3]
+      507 GETIMPORT                        R27 K28 [debug.profileend]
+      509 CALL                             R27 0 0
+      510 LOADB                            R27 1
+      511 LOADN                            R28 0
+      512 RETURN                           R27 2
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -351,27 +457,29 @@ PROTO_3:
         8 CAPTURE                          UPVAL U0
         9 CAPTURE                          UPVAL U1
        10 CAPTURE                          UPVAL U6
-       11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          UPVAL U7
-       13 CAPTURE                          UPVAL U4
-       14 CAPTURE                          UPVAL U8
-       15 CAPTURE                          UPVAL U9
+       11 CAPTURE                          UPVAL U7
+       12 CAPTURE                          UPVAL U8
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          UPVAL U9
+       15 CAPTURE                          UPVAL U2
        16 CAPTURE                          UPVAL U10
-       17 CAPTURE                          VAL R1
+       17 CAPTURE                          UPVAL U4
        18 CAPTURE                          UPVAL U11
        19 CAPTURE                          UPVAL U12
-       20 CAPTURE                          UPVAL U3
-       21 NEWCLOSURE                       R4 P2
-       22 CAPTURE                          VAL R1
-       23 GETUPVAL                         R5 13
-       24 GETTABLEKS                       R5 R5 K1 ["new"]
-       26 DUPTABLE                         R6 K8 [{["Budget"] = 0.005, ["OnFinish"], ["OnStart"], ["OnStep"], ["Name"]}]
-       27 SETTABLEKS                       R4 R6 K4 ["OnFinish"]
-       29 SETTABLEKS                       R2 R6 K5 ["OnStart"]
-       31 SETTABLEKS                       R3 R6 K6 ["OnStep"]
-       33 SETTABLEKS                       R0 R6 K7 ["Name"]
-       35 CALL                             R5 1 -1
-       36 RETURN                           R5 -1
+       20 CAPTURE                          UPVAL U13
+       21 CAPTURE                          UPVAL U14
+       22 CAPTURE                          UPVAL U3
+       23 NEWCLOSURE                       R4 P2
+       24 CAPTURE                          VAL R1
+       25 GETUPVAL                         R5 15
+       26 GETTABLEKS                       R5 R5 K1 ["new"]
+       28 DUPTABLE                         R6 K8 [{["Budget"] = 0.005, ["OnFinish"], ["OnStart"], ["OnStep"], ["Name"]}]
+       29 SETTABLEKS                       R4 R6 K4 ["OnFinish"]
+       31 SETTABLEKS                       R2 R6 K5 ["OnStart"]
+       33 SETTABLEKS                       R3 R6 K6 ["OnStep"]
+       35 SETTABLEKS                       R0 R6 K7 ["Name"]
+       37 CALL                             R5 1 -1
+       38 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -407,32 +515,43 @@ MAIN:
        51 GETTABLEKS                       R10 R3 K17 ["getDraggedPositions"]
        53 CALL                             R9 1 1
        54 GETIMPORT                        R10 K5 [require]
-       56 GETTABLEKS                       R11 R0 K6 ["Src"]
-       58 GETTABLEKS                       R11 R11 K18 ["Types"]
+       56 GETTABLEKS                       R11 R3 K12 ["Operations"]
+       58 GETTABLEKS                       R11 R11 K18 ["PaintMaterialBackend"]
        60 CALL                             R10 1 1
-       61 GETTABLEKS                       R11 R10 K19 ["BrushShape"]
-       63 GETTABLEKS                       R12 R10 K20 ["BrushSettings"]
-       65 GETTABLEKS                       R13 R10 K21 ["Category"]
-       67 GETTABLEKS                       R14 R10 K22 ["MaterialMode"]
-       69 GETTABLEKS                       R15 R10 K23 ["MaterialSettings"]
-       71 GETIMPORT                        R16 K5 [require]
-       73 GETTABLEKS                       R17 R0 K6 ["Src"]
-       75 GETTABLEKS                       R17 R17 K10 ["Util"]
-       77 GETTABLEKS                       R17 R17 K24 ["DebugFlags"]
-       79 CALL                             R16 1 1
-       80 DUPCLOSURE                       R17 K25 [PROTO_3]
-       81 CAPTURE                          VAL R13
-       82 CAPTURE                          VAL R12
-       83 CAPTURE                          VAL R11
-       84 CAPTURE                          VAL R1
-       85 CAPTURE                          VAL R8
-       86 CAPTURE                          VAL R16
-       87 CAPTURE                          VAL R15
-       88 CAPTURE                          VAL R2
-       89 CAPTURE                          VAL R9
-       90 CAPTURE                          VAL R14
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R4
-       94 CAPTURE                          VAL R5
-       95 RETURN                           R17 1
+       61 GETIMPORT                        R11 K5 [require]
+       63 GETTABLEKS                       R12 R0 K6 ["Src"]
+       65 GETTABLEKS                       R12 R12 K19 ["Flags"]
+       67 GETTABLEKS                       R12 R12 K20 ["getFFlagEnableTerrainPalette"]
+       69 CALL                             R11 1 1
+       70 GETIMPORT                        R12 K5 [require]
+       72 GETTABLEKS                       R13 R0 K6 ["Src"]
+       74 GETTABLEKS                       R13 R13 K21 ["Types"]
+       76 CALL                             R12 1 1
+       77 GETTABLEKS                       R13 R12 K22 ["BrushShape"]
+       79 GETTABLEKS                       R14 R12 K23 ["BrushSettings"]
+       81 GETTABLEKS                       R15 R12 K24 ["Category"]
+       83 GETTABLEKS                       R16 R12 K25 ["MaterialMode"]
+       85 GETTABLEKS                       R17 R12 K26 ["MaterialSettings"]
+       87 GETIMPORT                        R18 K5 [require]
+       89 GETTABLEKS                       R19 R0 K6 ["Src"]
+       91 GETTABLEKS                       R19 R19 K10 ["Util"]
+       93 GETTABLEKS                       R19 R19 K27 ["DebugFlags"]
+       95 CALL                             R18 1 1
+       96 DUPCLOSURE                       R19 K28 [PROTO_3]
+       97 CAPTURE                          VAL R15
+       98 CAPTURE                          VAL R14
+       99 CAPTURE                          VAL R13
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          VAL R8
+      102 CAPTURE                          VAL R18
+      103 CAPTURE                          VAL R17
+      104 CAPTURE                          VAL R11
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R16
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R6
+      111 CAPTURE                          VAL R4
+      112 CAPTURE                          VAL R5
+      113 RETURN                           R19 1

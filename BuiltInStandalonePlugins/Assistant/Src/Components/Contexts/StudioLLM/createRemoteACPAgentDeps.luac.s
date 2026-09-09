@@ -559,113 +559,113 @@ PROTO_17:
       101 RETURN                           R6 2
       102 MOVE                             R4 R5
       103 GETUPVAL                         R5 4
-      104 GETTABLEKS                       R5 R5 K17 ["FFlagAssistantCreditMetering"]
-      106 JUMPIFNOT                        R5 ; [+29]
-      107 GETTABLEKS                       R6 R0 K0 ["method"]
-      109 FASTCALL1                        TYPEOF R6 ; [+2]
-      110 GETIMPORT                        R5 K4 [typeof]
-      112 CALL                             R5 1 1
-      113 JUMPIFNOTEQKS                    R5 K18 ["string"] ; [+22]
-      115 GETIMPORT                        R5 K7 [table.clone]
-      117 MOVE                             R6 R4
-      118 CALL                             R5 1 1
-      119 MOVE                             R4 R5
-      120 GETUPVAL                         R5 5
-      121 GETTABLEKS                       R8 R4 K2 ["params"]
-      123 FASTCALL1                        TYPEOF R8 ; [+2]
-      124 GETIMPORT                        R7 K4 [typeof]
-      126 CALL                             R7 1 1
-      127 JUMPIFNOTEQKS                    R7 K5 ["table"] ; [+4]
-      129 GETTABLEKS                       R6 R4 K2 ["params"]
-      131 JUMP                             ; [+1]
-      132 LOADNIL                          R6
-      133 CALL                             R5 1 1
-      134 SETTABLEKS                       R5 R4 K2 ["params"]
-      136 GETTABLEKS                       R7 R0 K0 ["method"]
-      138 FASTCALL1                        TYPEOF R7 ; [+2]
-      139 GETIMPORT                        R6 K4 [typeof]
-      141 CALL                             R6 1 1
-      142 JUMPIFNOTEQKS                    R6 K18 ["string"] ; [+4]
-      144 GETTABLEKS                       R5 R0 K0 ["method"]
-      146 JUMP                             ; [+1]
-      147 LOADK                            R5 K19 ["tool_result"]
-      148 GETUPVAL                         R6 6
-      149 LOADK                            R8 K20 ["rpc method=%* endpoint=%*"]
-      150 MOVE                             R10 R5
-      151 MOVE                             R11 R3
-      152 NAMECALL                         R8 R8 K21 ["format"]
-      154 CALL                             R8 3 1
-      155 MOVE                             R7 R8
-      156 CALL                             R6 1 0
-      157 MOVE                             R6 R1
-      158 DUPTABLE                         R7 K23 [{"body"}]
-      159 SETTABLEKS                       R4 R7 K22 ["body"]
-      161 CALL                             R6 1 1
-      162 GETTABLEKS                       R7 R6 K24 ["success"]
-      164 JUMPIFNOT                        R7 ; [+4]
-      165 LOADB                            R7 1
-      166 GETTABLEKS                       R8 R6 K25 ["data"]
-      168 RETURN                           R7 2
-      169 GETTABLEKS                       R7 R6 K26 ["errorDetails"]
-      171 GETTABLEKS                       R8 R7 K27 ["kind"]
-      173 JUMPIFNOTEQKS                    R8 K28 ["Validation"] ; [+34]
-      175 GETTABLEKS                       R9 R7 K22 ["body"]
-      177 FASTCALL1                        TYPEOF R9 ; [+2]
-      178 GETIMPORT                        R8 K4 [typeof]
-      180 CALL                             R8 1 1
-      181 JUMPIFNOTEQKS                    R8 K18 ["string"] ; [+5]
-      183 GETTABLEKS                       R8 R7 K22 ["body"]
-      185 JUMPIFNOTEQKS                    R8 K29 [""] ; [+4]
-      187 LOADB                            R8 1
-      188 LOADNIL                          R9
-      189 RETURN                           R8 2
-      190 GETIMPORT                        R8 K31 [pcall]
-      192 NEWCLOSURE                       R9 P0
-      193 CAPTURE                          UPVAL U7
-      194 CAPTURE                          VAL R7
-      195 CALL                             R8 1 2
-      196 JUMPIFNOT                        R8 ; [+50]
-      197 FASTCALL1                        TYPEOF R9 ; [+3]
-      198 MOVE                             R11 R9
-      199 GETIMPORT                        R10 K4 [typeof]
-      201 CALL                             R10 1 1
-      202 JUMPIFNOTEQKS                    R10 K5 ["table"] ; [+44]
-      204 LOADB                            R10 1
-      205 MOVE                             R11 R9
-      206 RETURN                           R10 2
-      207 JUMP                             ; [+39]
-      208 GETTABLEKS                       R8 R7 K27 ["kind"]
-      210 JUMPIFNOTEQKS                    R8 K32 ["HttpStatusCode"] ; [+22]
-      212 GETUPVAL                         R8 8
-      213 LOADK                            R10 K33 ["rpc http error method=%* status=%* body=%*"]
-      214 MOVE                             R12 R5
-      215 GETTABLEKS                       R14 R7 K34 ["statusCode"]
-      217 FASTCALL1                        TOSTRING R14 ; [+2]
-      218 GETIMPORT                        R13 K36 [tostring]
-      220 CALL                             R13 1 1
-      221 GETTABLEKS                       R15 R7 K22 ["body"]
-      223 FASTCALL1                        TOSTRING R15 ; [+2]
-      224 GETIMPORT                        R14 K36 [tostring]
-      226 CALL                             R14 1 1
-      227 NAMECALL                         R10 R10 K21 ["format"]
-      229 CALL                             R10 4 1
-      230 MOVE                             R9 R10
-      231 CALL                             R8 1 0
-      232 JUMP                             ; [+14]
-      233 GETUPVAL                         R8 8
-      234 LOADK                            R10 K37 ["rpc network error method=%* detail=%*"]
-      235 MOVE                             R12 R5
-      236 GETTABLEKS                       R14 R7 K38 ["networkError"]
-      238 FASTCALL1                        TOSTRING R14 ; [+2]
-      239 GETIMPORT                        R13 K36 [tostring]
-      241 CALL                             R13 1 1
-      242 NAMECALL                         R10 R10 K21 ["format"]
-      244 CALL                             R10 3 1
-      245 MOVE                             R9 R10
-      246 CALL                             R8 1 0
-      247 LOADB                            R8 0
-      248 LOADNIL                          R9
-      249 RETURN                           R8 2
+      104 CALL                             R5 0 1
+      105 JUMPIFNOT                        R5 ; [+29]
+      106 GETTABLEKS                       R6 R0 K0 ["method"]
+      108 FASTCALL1                        TYPEOF R6 ; [+2]
+      109 GETIMPORT                        R5 K4 [typeof]
+      111 CALL                             R5 1 1
+      112 JUMPIFNOTEQKS                    R5 K17 ["string"] ; [+22]
+      114 GETIMPORT                        R5 K7 [table.clone]
+      116 MOVE                             R6 R4
+      117 CALL                             R5 1 1
+      118 MOVE                             R4 R5
+      119 GETUPVAL                         R5 5
+      120 GETTABLEKS                       R8 R4 K2 ["params"]
+      122 FASTCALL1                        TYPEOF R8 ; [+2]
+      123 GETIMPORT                        R7 K4 [typeof]
+      125 CALL                             R7 1 1
+      126 JUMPIFNOTEQKS                    R7 K5 ["table"] ; [+4]
+      128 GETTABLEKS                       R6 R4 K2 ["params"]
+      130 JUMP                             ; [+1]
+      131 LOADNIL                          R6
+      132 CALL                             R5 1 1
+      133 SETTABLEKS                       R5 R4 K2 ["params"]
+      135 GETTABLEKS                       R7 R0 K0 ["method"]
+      137 FASTCALL1                        TYPEOF R7 ; [+2]
+      138 GETIMPORT                        R6 K4 [typeof]
+      140 CALL                             R6 1 1
+      141 JUMPIFNOTEQKS                    R6 K17 ["string"] ; [+4]
+      143 GETTABLEKS                       R5 R0 K0 ["method"]
+      145 JUMP                             ; [+1]
+      146 LOADK                            R5 K18 ["tool_result"]
+      147 GETUPVAL                         R6 6
+      148 LOADK                            R8 K19 ["rpc method=%* endpoint=%*"]
+      149 MOVE                             R10 R5
+      150 MOVE                             R11 R3
+      151 NAMECALL                         R8 R8 K20 ["format"]
+      153 CALL                             R8 3 1
+      154 MOVE                             R7 R8
+      155 CALL                             R6 1 0
+      156 MOVE                             R6 R1
+      157 DUPTABLE                         R7 K22 [{"body"}]
+      158 SETTABLEKS                       R4 R7 K21 ["body"]
+      160 CALL                             R6 1 1
+      161 GETTABLEKS                       R7 R6 K23 ["success"]
+      163 JUMPIFNOT                        R7 ; [+4]
+      164 LOADB                            R7 1
+      165 GETTABLEKS                       R8 R6 K24 ["data"]
+      167 RETURN                           R7 2
+      168 GETTABLEKS                       R7 R6 K25 ["errorDetails"]
+      170 GETTABLEKS                       R8 R7 K26 ["kind"]
+      172 JUMPIFNOTEQKS                    R8 K27 ["Validation"] ; [+34]
+      174 GETTABLEKS                       R9 R7 K21 ["body"]
+      176 FASTCALL1                        TYPEOF R9 ; [+2]
+      177 GETIMPORT                        R8 K4 [typeof]
+      179 CALL                             R8 1 1
+      180 JUMPIFNOTEQKS                    R8 K17 ["string"] ; [+5]
+      182 GETTABLEKS                       R8 R7 K21 ["body"]
+      184 JUMPIFNOTEQKS                    R8 K28 [""] ; [+4]
+      186 LOADB                            R8 1
+      187 LOADNIL                          R9
+      188 RETURN                           R8 2
+      189 GETIMPORT                        R8 K30 [pcall]
+      191 NEWCLOSURE                       R9 P0
+      192 CAPTURE                          UPVAL U7
+      193 CAPTURE                          VAL R7
+      194 CALL                             R8 1 2
+      195 JUMPIFNOT                        R8 ; [+50]
+      196 FASTCALL1                        TYPEOF R9 ; [+3]
+      197 MOVE                             R11 R9
+      198 GETIMPORT                        R10 K4 [typeof]
+      200 CALL                             R10 1 1
+      201 JUMPIFNOTEQKS                    R10 K5 ["table"] ; [+44]
+      203 LOADB                            R10 1
+      204 MOVE                             R11 R9
+      205 RETURN                           R10 2
+      206 JUMP                             ; [+39]
+      207 GETTABLEKS                       R8 R7 K26 ["kind"]
+      209 JUMPIFNOTEQKS                    R8 K31 ["HttpStatusCode"] ; [+22]
+      211 GETUPVAL                         R8 8
+      212 LOADK                            R10 K32 ["rpc http error method=%* status=%* body=%*"]
+      213 MOVE                             R12 R5
+      214 GETTABLEKS                       R14 R7 K33 ["statusCode"]
+      216 FASTCALL1                        TOSTRING R14 ; [+2]
+      217 GETIMPORT                        R13 K35 [tostring]
+      219 CALL                             R13 1 1
+      220 GETTABLEKS                       R15 R7 K21 ["body"]
+      222 FASTCALL1                        TOSTRING R15 ; [+2]
+      223 GETIMPORT                        R14 K35 [tostring]
+      225 CALL                             R14 1 1
+      226 NAMECALL                         R10 R10 K20 ["format"]
+      228 CALL                             R10 4 1
+      229 MOVE                             R9 R10
+      230 CALL                             R8 1 0
+      231 JUMP                             ; [+14]
+      232 GETUPVAL                         R8 8
+      233 LOADK                            R10 K36 ["rpc network error method=%* detail=%*"]
+      234 MOVE                             R12 R5
+      235 GETTABLEKS                       R14 R7 K37 ["networkError"]
+      237 FASTCALL1                        TOSTRING R14 ; [+2]
+      238 GETIMPORT                        R13 K35 [tostring]
+      240 CALL                             R13 1 1
+      241 NAMECALL                         R10 R10 K20 ["format"]
+      243 CALL                             R10 3 1
+      244 MOVE                             R9 R10
+      245 CALL                             R8 1 0
+      246 LOADB                            R8 0
+      247 LOADNIL                          R9
+      248 RETURN                           R8 2
 
 PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["stallTimer"]
@@ -1374,65 +1374,67 @@ MAIN:
        58 CALL                             R7 1 1
        59 GETTABLEKS                       R8 R2 K19 ["Guest"]
        61 GETTABLEKS                       R8 R8 K20 ["Environment"]
-       63 GETTABLEKS                       R9 R3 K21 ["Http"]
-       65 GETTABLEKS                       R9 R9 K22 ["Networking"]
-       67 GETTABLEKS                       R9 R9 K23 ["new"]
-       69 DUPTABLE                         R10 K27 [{["isInternal"] = True, ["loggingLevel"]}]
-       70 GETTABLEKS                       R12 R7 K28 ["FFlagDebugLogAssistantUI"]
-       72 JUMPIFNOT                        R12 ; [+2]
-       73 LOADN                            R11 4
-       74 JUMP                             ; [+1]
-       75 LOADN                            R11 0
-       76 SETTABLEKS                       R11 R10 K26 ["loggingLevel"]
-       78 CALL                             R9 1 1
-       79 DUPCLOSURE                       R10 K29 [PROTO_0]
-       80 CAPTURE                          VAL R7
-       81 DUPCLOSURE                       R11 K30 [PROTO_1]
-       82 CAPTURE                          VAL R7
-       83 DUPCLOSURE                       R12 K31 [PROTO_2]
-       84 DUPCLOSURE                       R13 K32 [PROTO_3]
-       85 DUPCLOSURE                       R14 K33 [PROTO_4]
-       86 DUPCLOSURE                       R15 K34 [PROTO_10]
-       87 CAPTURE                          VAL R1
-       88 DUPCLOSURE                       R16 K35 [PROTO_11]
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          VAL R12
-       91 DUPCLOSURE                       R17 K36 [PROTO_12]
-       92 DUPCLOSURE                       R18 K37 [PROTO_13]
-       93 DUPCLOSURE                       R19 K38 [PROTO_14]
-       94 CAPTURE                          VAL R7
-       95 CAPTURE                          VAL R11
-       96 DUPCLOSURE                       R20 K39 [PROTO_15]
-       97 DUPCLOSURE                       R21 K40 [PROTO_17]
-       98 CAPTURE                          VAL R16
-       99 CAPTURE                          VAL R17
-      100 CAPTURE                          VAL R18
-      101 CAPTURE                          VAL R19
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R20
-      104 CAPTURE                          VAL R11
-      105 CAPTURE                          VAL R1
-      106 CAPTURE                          VAL R12
-      107 DUPCLOSURE                       R22 K41 [PROTO_26]
-      108 CAPTURE                          VAL R7
-      109 DUPCLOSURE                       R23 K42 [PROTO_35]
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R22
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          VAL R4
-      114 CAPTURE                          VAL R21
-      115 DUPCLOSURE                       R24 K43 [PROTO_36]
-      116 CAPTURE                          VAL R7
-      117 CAPTURE                          VAL R8
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R1
-      120 CAPTURE                          VAL R5
-      121 CAPTURE                          VAL R23
-      122 CAPTURE                          VAL R6
-      123 DUPTABLE                         R25 K49 [{"createRemoteACPAgentDeps", "createSessionUpdateSequencer", "makeAcpEndpoint", "makeLocalPostAcpAsync", "makeRemoteACPAgentDeps"}]
-      124 SETTABLEKS                       R24 R25 K44 ["createRemoteACPAgentDeps"]
-      126 SETTABLEKS                       R22 R25 K45 ["createSessionUpdateSequencer"]
-      128 SETTABLEKS                       R14 R25 K46 ["makeAcpEndpoint"]
-      130 SETTABLEKS                       R15 R25 K47 ["makeLocalPostAcpAsync"]
-      132 SETTABLEKS                       R23 R25 K48 ["makeRemoteACPAgentDeps"]
-      134 RETURN                           R25 1
+       63 GETTABLEKS                       R9 R2 K21 ["FlagUtils"]
+       65 GETTABLEKS                       R9 R9 K22 ["getIsCreditMeteringEnabled"]
+       67 GETTABLEKS                       R10 R3 K23 ["Http"]
+       69 GETTABLEKS                       R10 R10 K24 ["Networking"]
+       71 GETTABLEKS                       R10 R10 K25 ["new"]
+       73 DUPTABLE                         R11 K29 [{["isInternal"] = True, ["loggingLevel"]}]
+       74 GETTABLEKS                       R13 R7 K30 ["FFlagDebugLogAssistantUI"]
+       76 JUMPIFNOT                        R13 ; [+2]
+       77 LOADN                            R12 4
+       78 JUMP                             ; [+1]
+       79 LOADN                            R12 0
+       80 SETTABLEKS                       R12 R11 K28 ["loggingLevel"]
+       82 CALL                             R10 1 1
+       83 DUPCLOSURE                       R11 K31 [PROTO_0]
+       84 CAPTURE                          VAL R7
+       85 DUPCLOSURE                       R12 K32 [PROTO_1]
+       86 CAPTURE                          VAL R7
+       87 DUPCLOSURE                       R13 K33 [PROTO_2]
+       88 DUPCLOSURE                       R14 K34 [PROTO_3]
+       89 DUPCLOSURE                       R15 K35 [PROTO_4]
+       90 DUPCLOSURE                       R16 K36 [PROTO_10]
+       91 CAPTURE                          VAL R1
+       92 DUPCLOSURE                       R17 K37 [PROTO_11]
+       93 CAPTURE                          VAL R7
+       94 CAPTURE                          VAL R13
+       95 DUPCLOSURE                       R18 K38 [PROTO_12]
+       96 DUPCLOSURE                       R19 K39 [PROTO_13]
+       97 DUPCLOSURE                       R20 K40 [PROTO_14]
+       98 CAPTURE                          VAL R7
+       99 CAPTURE                          VAL R12
+      100 DUPCLOSURE                       R21 K41 [PROTO_15]
+      101 DUPCLOSURE                       R22 K42 [PROTO_17]
+      102 CAPTURE                          VAL R17
+      103 CAPTURE                          VAL R18
+      104 CAPTURE                          VAL R19
+      105 CAPTURE                          VAL R20
+      106 CAPTURE                          VAL R9
+      107 CAPTURE                          VAL R21
+      108 CAPTURE                          VAL R12
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R13
+      111 DUPCLOSURE                       R23 K43 [PROTO_26]
+      112 CAPTURE                          VAL R7
+      113 DUPCLOSURE                       R24 K44 [PROTO_35]
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R23
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R4
+      118 CAPTURE                          VAL R22
+      119 DUPCLOSURE                       R25 K45 [PROTO_36]
+      120 CAPTURE                          VAL R7
+      121 CAPTURE                          VAL R8
+      122 CAPTURE                          VAL R10
+      123 CAPTURE                          VAL R1
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R24
+      126 CAPTURE                          VAL R6
+      127 DUPTABLE                         R26 K51 [{"createRemoteACPAgentDeps", "createSessionUpdateSequencer", "makeAcpEndpoint", "makeLocalPostAcpAsync", "makeRemoteACPAgentDeps"}]
+      128 SETTABLEKS                       R25 R26 K46 ["createRemoteACPAgentDeps"]
+      130 SETTABLEKS                       R23 R26 K47 ["createSessionUpdateSequencer"]
+      132 SETTABLEKS                       R15 R26 K48 ["makeAcpEndpoint"]
+      134 SETTABLEKS                       R16 R26 K49 ["makeLocalPostAcpAsync"]
+      136 SETTABLEKS                       R24 R26 K50 ["makeRemoteACPAgentDeps"]
+      138 RETURN                           R26 1

@@ -354,27 +354,30 @@ PROTO_16:
         8 RETURN                           R0 0
 
 PROTO_17:
-        0 LOADB                            R0 0
-        1 LOADNIL                          R1
-        2 NEWCLOSURE                       R2 P0
-        3 CAPTURE                          UPVAL U0
-        4 CAPTURE                          REF R0
-        5 CAPTURE                          UPVAL U1
-        6 GETIMPORT                        R3 K2 [task.spawn]
-        8 NEWCLOSURE                       R4 P1
-        9 CAPTURE                          UPVAL U2
-       10 CAPTURE                          UPVAL U3
-       11 CAPTURE                          VAL R2
-       12 CAPTURE                          REF R0
-       13 CAPTURE                          REF R1
-       14 CAPTURE                          UPVAL U0
-       15 CAPTURE                          UPVAL U1
-       16 CALL                             R3 1 0
-       17 NEWCLOSURE                       R3 P2
-       18 CAPTURE                          REF R0
-       19 CAPTURE                          REF R1
-       20 CLOSEUPVALS                      R0
-       21 RETURN                           R3 1
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+1]
+        2 RETURN                           R0 0
+        3 LOADB                            R0 0
+        4 LOADNIL                          R1
+        5 NEWCLOSURE                       R2 P0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          REF R0
+        8 CAPTURE                          UPVAL U2
+        9 GETIMPORT                        R3 K2 [task.spawn]
+       11 NEWCLOSURE                       R4 P1
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U4
+       14 CAPTURE                          VAL R2
+       15 CAPTURE                          REF R0
+       16 CAPTURE                          REF R1
+       17 CAPTURE                          UPVAL U1
+       18 CAPTURE                          UPVAL U2
+       19 CALL                             R3 1 0
+       20 NEWCLOSURE                       R3 P2
+       21 CAPTURE                          REF R0
+       22 CAPTURE                          REF R1
+       23 CLOSEUPVALS                      R0
+       24 RETURN                           R3 1
 
 PROTO_18:
         0 GETUPVAL                         R0 0
@@ -419,35 +422,38 @@ PROTO_19:
 
 PROTO_20:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["currentDevice"]
-        3 GETUPVAL                         R1 1
-        4 GETIMPORT                        R2 K4 [Enum.StudioDataModelType.PlayServer]
-        6 JUMPIFNOTEQ                      R1 R2 ; [+6]
-        8 GETUPVAL                         R1 2
-        9 GETTABLEKS                       R1 R1 K5 ["current"]
-       11 JUMPIF                           R1 ; [+1]
-       12 JUMPIF                           R0 ; [+1]
-       13 RETURN                           R0 0
-       14 GETUPVAL                         R1 2
-       15 GETTABLEKS                       R2 R0 K6 ["deviceId"]
-       17 SETTABLEKS                       R2 R1 K5 ["current"]
-       19 GETUPVAL                         R1 3
-       20 LOADB                            R2 1
-       21 SETTABLEKS                       R2 R1 K5 ["current"]
-       23 GETUPVAL                         R1 4
-       24 LOADB                            R2 1
-       25 CALL                             R1 1 0
-       26 GETIMPORT                        R1 K9 [task.spawn]
-       28 NEWCLOSURE                       R2 P0
-       29 CAPTURE                          UPVAL U5
-       30 CAPTURE                          UPVAL U6
-       31 CAPTURE                          UPVAL U3
-       32 CAPTURE                          UPVAL U7
-       33 CAPTURE                          UPVAL U8
+        1 JUMPIFNOT                        R0 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K0 ["currentDevice"]
+        6 GETUPVAL                         R1 2
+        7 GETIMPORT                        R2 K4 [Enum.StudioDataModelType.PlayServer]
+        9 JUMPIFNOTEQ                      R1 R2 ; [+6]
+       11 GETUPVAL                         R1 3
+       12 GETTABLEKS                       R1 R1 K5 ["current"]
+       14 JUMPIF                           R1 ; [+1]
+       15 JUMPIF                           R0 ; [+1]
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R1 3
+       18 GETTABLEKS                       R2 R0 K6 ["deviceId"]
+       20 SETTABLEKS                       R2 R1 K5 ["current"]
+       22 GETUPVAL                         R1 4
+       23 LOADB                            R2 1
+       24 SETTABLEKS                       R2 R1 K5 ["current"]
+       26 GETUPVAL                         R1 5
+       27 LOADB                            R2 1
+       28 CALL                             R1 1 0
+       29 GETIMPORT                        R1 K9 [task.spawn]
+       31 NEWCLOSURE                       R2 P0
+       32 CAPTURE                          UPVAL U6
+       33 CAPTURE                          UPVAL U7
        34 CAPTURE                          UPVAL U4
-       35 CAPTURE                          UPVAL U9
-       36 CALL                             R1 1 0
-       37 RETURN                           R0 0
+       35 CAPTURE                          UPVAL U8
+       36 CAPTURE                          UPVAL U9
+       37 CAPTURE                          UPVAL U5
+       38 CAPTURE                          UPVAL U10
+       39 CALL                             R1 1 0
+       40 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R0 0
@@ -611,206 +617,213 @@ PROTO_29:
         2 GETTABLEKS                       R2 R0 K1 ["placeSessionBridge"]
         4 GETTABLEKS                       R3 R0 K2 ["simulatorService"]
         6 GETUPVAL                         R4 0
-        7 GETTABLEKS                       R4 R4 K3 ["useRef"]
-        9 LOADB                            R5 1
-       10 CALL                             R4 1 1
-       11 GETUPVAL                         R5 0
-       12 GETTABLEKS                       R5 R5 K4 ["useState"]
-       14 GETIMPORT                        R6 K8 [Enum.StudioDataModelType.Edit]
-       16 CALL                             R5 1 2
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R7 R7 K3 ["useRef"]
-       20 MOVE                             R8 R5
-       21 CALL                             R7 1 1
-       22 GETUPVAL                         R8 0
-       23 GETTABLEKS                       R8 R8 K4 ["useState"]
-       25 LOADB                            R9 0
-       26 CALL                             R8 1 2
-       27 GETUPVAL                         R10 0
-       28 GETTABLEKS                       R10 R10 K3 ["useRef"]
-       30 MOVE                             R11 R8
-       31 CALL                             R10 1 1
-       32 GETUPVAL                         R11 0
-       33 GETTABLEKS                       R11 R11 K4 ["useState"]
-       35 LOADB                            R12 0
-       36 CALL                             R11 1 2
-       37 GETUPVAL                         R13 0
-       38 GETTABLEKS                       R13 R13 K3 ["useRef"]
-       40 LOADB                            R14 0
-       41 CALL                             R13 1 1
-       42 GETUPVAL                         R14 0
-       43 GETTABLEKS                       R14 R14 K3 ["useRef"]
-       45 LOADNIL                          R15
-       46 CALL                             R14 1 1
-       47 GETUPVAL                         R15 0
-       48 GETTABLEKS                       R15 R15 K3 ["useRef"]
-       50 LOADB                            R16 0
-       51 CALL                             R15 1 1
-       52 GETUPVAL                         R16 0
-       53 GETTABLEKS                       R16 R16 K3 ["useRef"]
-       55 LOADB                            R17 0
-       56 CALL                             R16 1 1
-       57 GETUPVAL                         R17 0
-       58 GETTABLEKS                       R17 R17 K9 ["useCallback"]
-       60 NEWCLOSURE                       R18 P0
-       61 CAPTURE                          VAL R13
-       62 CAPTURE                          VAL R4
-       63 CAPTURE                          VAL R12
-       64 NEWTABLE                         R19 0 0
-       66 CALL                             R17 2 1
-       67 GETUPVAL                         R18 0
-       68 GETTABLEKS                       R18 R18 K9 ["useCallback"]
-       70 NEWCLOSURE                       R19 P1
-       71 CAPTURE                          VAL R14
-       72 CAPTURE                          VAL R15
-       73 CAPTURE                          VAL R16
-       74 CAPTURE                          VAL R17
-       75 NEWTABLE                         R20 0 1
-       77 MOVE                             R21 R17
-       78 SETLIST                          R20 R21 1 [1]
-       80 CALL                             R18 2 1
-       81 GETUPVAL                         R19 0
-       82 GETTABLEKS                       R19 R19 K9 ["useCallback"]
-       84 NEWCLOSURE                       R20 P2
-       85 CAPTURE                          VAL R14
-       86 CAPTURE                          VAL R15
-       87 CAPTURE                          VAL R16
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R18
-       90 CAPTURE                          VAL R17
-       91 NEWTABLE                         R21 0 3
-       93 MOVE                             R22 R18
-       94 MOVE                             R23 R17
-       95 MOVE                             R24 R3
-       96 SETLIST                          R21 R22 3 [1]
-       98 CALL                             R19 2 1
-       99 GETUPVAL                         R20 0
-      100 GETTABLEKS                       R20 R20 K10 ["useEffect"]
-      102 NEWCLOSURE                       R21 P3
-      103 CAPTURE                          VAL R4
-      104 CAPTURE                          VAL R7
-      105 CAPTURE                          VAL R6
-      106 CAPTURE                          VAL R17
-      107 CAPTURE                          VAL R14
-      108 CAPTURE                          VAL R19
-      109 CAPTURE                          VAL R2
+        7 GETTABLEKS                       R4 R4 K3 ["getFFlagEnableDeviceSimulatorClientViewportOnly"]
+        9 CALL                             R4 0 1
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K4 ["useRef"]
+       13 LOADB                            R6 1
+       14 CALL                             R5 1 1
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R6 R6 K5 ["useState"]
+       18 GETIMPORT                        R7 K9 [Enum.StudioDataModelType.Edit]
+       20 CALL                             R6 1 2
+       21 GETUPVAL                         R8 1
+       22 GETTABLEKS                       R8 R8 K4 ["useRef"]
+       24 MOVE                             R9 R6
+       25 CALL                             R8 1 1
+       26 GETUPVAL                         R9 1
+       27 GETTABLEKS                       R9 R9 K5 ["useState"]
+       29 LOADB                            R10 0
+       30 CALL                             R9 1 2
+       31 GETUPVAL                         R11 1
+       32 GETTABLEKS                       R11 R11 K4 ["useRef"]
+       34 MOVE                             R12 R9
+       35 CALL                             R11 1 1
+       36 GETUPVAL                         R12 1
+       37 GETTABLEKS                       R12 R12 K5 ["useState"]
+       39 LOADB                            R13 0
+       40 CALL                             R12 1 2
+       41 GETUPVAL                         R14 1
+       42 GETTABLEKS                       R14 R14 K4 ["useRef"]
+       44 LOADB                            R15 0
+       45 CALL                             R14 1 1
+       46 GETUPVAL                         R15 1
+       47 GETTABLEKS                       R15 R15 K4 ["useRef"]
+       49 LOADNIL                          R16
+       50 CALL                             R15 1 1
+       51 GETUPVAL                         R16 1
+       52 GETTABLEKS                       R16 R16 K4 ["useRef"]
+       54 LOADB                            R17 0
+       55 CALL                             R16 1 1
+       56 GETUPVAL                         R17 1
+       57 GETTABLEKS                       R17 R17 K4 ["useRef"]
+       59 LOADB                            R18 0
+       60 CALL                             R17 1 1
+       61 GETUPVAL                         R18 1
+       62 GETTABLEKS                       R18 R18 K10 ["useCallback"]
+       64 NEWCLOSURE                       R19 P0
+       65 CAPTURE                          VAL R14
+       66 CAPTURE                          VAL R5
+       67 CAPTURE                          VAL R13
+       68 NEWTABLE                         R20 0 0
+       70 CALL                             R18 2 1
+       71 GETUPVAL                         R19 1
+       72 GETTABLEKS                       R19 R19 K10 ["useCallback"]
+       74 NEWCLOSURE                       R20 P1
+       75 CAPTURE                          VAL R15
+       76 CAPTURE                          VAL R16
+       77 CAPTURE                          VAL R17
+       78 CAPTURE                          VAL R18
+       79 NEWTABLE                         R21 0 1
+       81 MOVE                             R22 R18
+       82 SETLIST                          R21 R22 1 [1]
+       84 CALL                             R19 2 1
+       85 GETUPVAL                         R20 1
+       86 GETTABLEKS                       R20 R20 K10 ["useCallback"]
+       88 NEWCLOSURE                       R21 P2
+       89 CAPTURE                          VAL R15
+       90 CAPTURE                          VAL R16
+       91 CAPTURE                          VAL R17
+       92 CAPTURE                          VAL R3
+       93 CAPTURE                          VAL R19
+       94 CAPTURE                          VAL R18
+       95 NEWTABLE                         R22 0 3
+       97 MOVE                             R23 R19
+       98 MOVE                             R24 R18
+       99 MOVE                             R25 R3
+      100 SETLIST                          R22 R23 3 [1]
+      102 CALL                             R20 2 1
+      103 GETUPVAL                         R21 1
+      104 GETTABLEKS                       R21 R21 K11 ["useEffect"]
+      106 NEWCLOSURE                       R22 P3
+      107 CAPTURE                          VAL R5
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R7
       110 CAPTURE                          VAL R18
-      111 NEWTABLE                         R22 0 4
-      113 MOVE                             R23 R2
-      114 MOVE                             R24 R18
-      115 MOVE                             R25 R19
-      116 MOVE                             R26 R17
-      117 SETLIST                          R22 R23 4 [1]
-      119 CALL                             R20 2 0
-      120 GETUPVAL                         R20 0
-      121 GETTABLEKS                       R20 R20 K10 ["useEffect"]
-      123 NEWCLOSURE                       R21 P4
-      124 CAPTURE                          VAL R10
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          UPVAL U1
-      128 NEWTABLE                         R22 0 1
-      130 MOVE                             R23 R1
-      131 SETLIST                          R22 R23 1 [1]
-      133 CALL                             R20 2 0
-      134 GETUPVAL                         R20 0
-      135 GETTABLEKS                       R20 R20 K10 ["useEffect"]
-      137 NEWCLOSURE                       R21 P5
-      138 CAPTURE                          VAL R0
-      139 CAPTURE                          VAL R5
-      140 CAPTURE                          VAL R14
-      141 CAPTURE                          VAL R15
-      142 CAPTURE                          VAL R17
-      143 CAPTURE                          VAL R3
-      144 CAPTURE                          UPVAL U2
-      145 CAPTURE                          VAL R18
-      146 CAPTURE                          VAL R7
-      147 CAPTURE                          VAL R19
-      148 NEWTABLE                         R22 0 6
-      150 MOVE                             R23 R5
-      151 GETTABLEKS                       R24 R0 K11 ["currentDevice"]
-      153 MOVE                             R25 R18
-      154 MOVE                             R26 R19
-      155 MOVE                             R27 R17
-      156 MOVE                             R28 R3
-      157 SETLIST                          R22 R23 6 [1]
-      159 CALL                             R20 2 0
-      160 GETUPVAL                         R20 0
-      161 GETTABLEKS                       R20 R20 K9 ["useCallback"]
-      163 NEWCLOSURE                       R21 P6
-      164 CAPTURE                          VAL R13
-      165 CAPTURE                          VAL R10
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R0
-      168 CAPTURE                          VAL R17
-      169 CAPTURE                          VAL R14
-      170 CAPTURE                          VAL R3
-      171 CAPTURE                          UPVAL U2
-      172 CAPTURE                          VAL R18
-      173 CAPTURE                          VAL R1
-      174 CAPTURE                          UPVAL U1
-      175 CAPTURE                          VAL R19
-      176 NEWTABLE                         R22 0 6
-      178 MOVE                             R23 R1
-      179 GETTABLEKS                       R24 R0 K11 ["currentDevice"]
-      181 MOVE                             R25 R18
-      182 MOVE                             R26 R19
-      183 MOVE                             R27 R17
-      184 MOVE                             R28 R3
-      185 SETLIST                          R22 R23 6 [1]
-      187 CALL                             R20 2 1
-      188 GETUPVAL                         R21 0
-      189 GETTABLEKS                       R21 R21 K9 ["useCallback"]
-      191 NEWCLOSURE                       R22 P7
-      192 CAPTURE                          VAL R13
-      193 CAPTURE                          VAL R10
-      194 CAPTURE                          VAL R7
-      195 CAPTURE                          VAL R14
-      196 CAPTURE                          VAL R17
-      197 CAPTURE                          VAL R1
-      198 CAPTURE                          UPVAL U1
-      199 NEWTABLE                         R23 0 2
-      201 MOVE                             R24 R1
-      202 MOVE                             R25 R17
-      203 SETLIST                          R23 R24 2 [1]
-      205 CALL                             R21 2 1
-      206 GETUPVAL                         R22 0
-      207 GETTABLEKS                       R22 R22 K9 ["useCallback"]
-      209 NEWCLOSURE                       R23 P8
-      210 CAPTURE                          VAL R7
-      211 CAPTURE                          VAL R21
-      212 CAPTURE                          VAL R20
-      213 NEWTABLE                         R24 0 2
-      215 MOVE                             R25 R20
-      216 MOVE                             R26 R21
-      217 SETLIST                          R24 R25 2 [1]
-      219 CALL                             R22 2 1
-      220 DUPTABLE                         R23 K17 [{"isServerView", "isClientView", "serverButtonDisabled", "toggleServerView", "leaveServerView"}]
-      221 GETIMPORT                        R25 K19 [Enum.StudioDataModelType.PlayServer]
-      223 JUMPIFEQ                         R5 R25 ; [+2]
-      225 LOADB                            R24 0 +1
-      226 LOADB                            R24 1
-      227 SETTABLEKS                       R24 R23 K12 ["isServerView"]
-      229 GETIMPORT                        R25 K21 [Enum.StudioDataModelType.PlayClient]
-      231 JUMPIFEQ                         R5 R25 ; [+2]
-      233 LOADB                            R24 0 +1
-      234 LOADB                            R24 1
-      235 SETTABLEKS                       R24 R23 K13 ["isClientView"]
-      237 NOT                              R24 R8
-      238 JUMPIF                           R24 ; [+13]
-      239 MOVE                             R24 R11
-      240 JUMPIF                           R24 ; [+11]
-      241 LOADB                            R24 0
-      242 GETIMPORT                        R25 K19 [Enum.StudioDataModelType.PlayServer]
-      244 JUMPIFEQ                         R5 R25 ; [+7]
-      246 GETTABLEKS                       R25 R0 K11 ["currentDevice"]
-      248 JUMPIFEQKNIL                     R25 ; [+2]
-      250 LOADB                            R24 0 +1
-      251 LOADB                            R24 1
-      252 SETTABLEKS                       R24 R23 K14 ["serverButtonDisabled"]
-      254 SETTABLEKS                       R22 R23 K15 ["toggleServerView"]
-      256 SETTABLEKS                       R21 R23 K16 ["leaveServerView"]
-      258 RETURN                           R23 1
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R20
+      113 CAPTURE                          VAL R2
+      114 CAPTURE                          VAL R19
+      115 NEWTABLE                         R23 0 4
+      117 MOVE                             R24 R2
+      118 MOVE                             R25 R19
+      119 MOVE                             R26 R20
+      120 MOVE                             R27 R18
+      121 SETLIST                          R23 R24 4 [1]
+      123 CALL                             R21 2 0
+      124 GETUPVAL                         R21 1
+      125 GETTABLEKS                       R21 R21 K11 ["useEffect"]
+      127 NEWCLOSURE                       R22 P4
+      128 CAPTURE                          VAL R4
+      129 CAPTURE                          VAL R11
+      130 CAPTURE                          VAL R10
+      131 CAPTURE                          VAL R1
+      132 CAPTURE                          UPVAL U2
+      133 NEWTABLE                         R23 0 2
+      135 MOVE                             R24 R1
+      136 MOVE                             R25 R4
+      137 SETLIST                          R23 R24 2 [1]
+      139 CALL                             R21 2 0
+      140 GETUPVAL                         R21 1
+      141 GETTABLEKS                       R21 R21 K11 ["useEffect"]
+      143 NEWCLOSURE                       R22 P5
+      144 CAPTURE                          VAL R4
+      145 CAPTURE                          VAL R0
+      146 CAPTURE                          VAL R6
+      147 CAPTURE                          VAL R15
+      148 CAPTURE                          VAL R16
+      149 CAPTURE                          VAL R18
+      150 CAPTURE                          VAL R3
+      151 CAPTURE                          UPVAL U3
+      152 CAPTURE                          VAL R19
+      153 CAPTURE                          VAL R8
+      154 CAPTURE                          VAL R20
+      155 NEWTABLE                         R23 0 7
+      157 MOVE                             R24 R4
+      158 MOVE                             R25 R6
+      159 GETTABLEKS                       R26 R0 K12 ["currentDevice"]
+      161 MOVE                             R27 R19
+      162 MOVE                             R28 R20
+      163 MOVE                             R29 R18
+      164 MOVE                             R30 R3
+      165 SETLIST                          R23 R24 7 [1]
+      167 CALL                             R21 2 0
+      168 GETUPVAL                         R21 1
+      169 GETTABLEKS                       R21 R21 K10 ["useCallback"]
+      171 NEWCLOSURE                       R22 P6
+      172 CAPTURE                          VAL R14
+      173 CAPTURE                          VAL R11
+      174 CAPTURE                          VAL R8
+      175 CAPTURE                          VAL R0
+      176 CAPTURE                          VAL R18
+      177 CAPTURE                          VAL R15
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          UPVAL U3
+      180 CAPTURE                          VAL R19
+      181 CAPTURE                          VAL R1
+      182 CAPTURE                          UPVAL U2
+      183 CAPTURE                          VAL R20
+      184 NEWTABLE                         R23 0 6
+      186 MOVE                             R24 R1
+      187 GETTABLEKS                       R25 R0 K12 ["currentDevice"]
+      189 MOVE                             R26 R19
+      190 MOVE                             R27 R20
+      191 MOVE                             R28 R18
+      192 MOVE                             R29 R3
+      193 SETLIST                          R23 R24 6 [1]
+      195 CALL                             R21 2 1
+      196 GETUPVAL                         R22 1
+      197 GETTABLEKS                       R22 R22 K10 ["useCallback"]
+      199 NEWCLOSURE                       R23 P7
+      200 CAPTURE                          VAL R14
+      201 CAPTURE                          VAL R11
+      202 CAPTURE                          VAL R8
+      203 CAPTURE                          VAL R15
+      204 CAPTURE                          VAL R18
+      205 CAPTURE                          VAL R1
+      206 CAPTURE                          UPVAL U2
+      207 NEWTABLE                         R24 0 2
+      209 MOVE                             R25 R1
+      210 MOVE                             R26 R18
+      211 SETLIST                          R24 R25 2 [1]
+      213 CALL                             R22 2 1
+      214 GETUPVAL                         R23 1
+      215 GETTABLEKS                       R23 R23 K10 ["useCallback"]
+      217 NEWCLOSURE                       R24 P8
+      218 CAPTURE                          VAL R8
+      219 CAPTURE                          VAL R22
+      220 CAPTURE                          VAL R21
+      221 NEWTABLE                         R25 0 2
+      223 MOVE                             R26 R21
+      224 MOVE                             R27 R22
+      225 SETLIST                          R25 R26 2 [1]
+      227 CALL                             R23 2 1
+      228 DUPTABLE                         R24 K18 [{"isServerView", "isClientView", "serverButtonDisabled", "toggleServerView", "leaveServerView"}]
+      229 GETIMPORT                        R26 K20 [Enum.StudioDataModelType.PlayServer]
+      231 JUMPIFEQ                         R6 R26 ; [+2]
+      233 LOADB                            R25 0 +1
+      234 LOADB                            R25 1
+      235 SETTABLEKS                       R25 R24 K13 ["isServerView"]
+      237 GETIMPORT                        R26 K22 [Enum.StudioDataModelType.PlayClient]
+      239 JUMPIFEQ                         R6 R26 ; [+2]
+      241 LOADB                            R25 0 +1
+      242 LOADB                            R25 1
+      243 SETTABLEKS                       R25 R24 K14 ["isClientView"]
+      245 NOT                              R25 R9
+      246 JUMPIF                           R25 ; [+13]
+      247 MOVE                             R25 R12
+      248 JUMPIF                           R25 ; [+11]
+      249 LOADB                            R25 0
+      250 GETIMPORT                        R26 K20 [Enum.StudioDataModelType.PlayServer]
+      252 JUMPIFEQ                         R6 R26 ; [+7]
+      254 GETTABLEKS                       R26 R0 K12 ["currentDevice"]
+      256 JUMPIFEQKNIL                     R26 ; [+2]
+      258 LOADB                            R25 0 +1
+      259 LOADB                            R25 1
+      260 SETTABLEKS                       R25 R24 K15 ["serverButtonDisabled"]
+      262 SETTABLEKS                       R23 R24 K16 ["toggleServerView"]
+      264 SETTABLEKS                       R22 R24 K17 ["leaveServerView"]
+      266 RETURN                           R24 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -823,12 +836,18 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["DeviceModel"]
-       20 CALL                             R2 1 1
-       21 DUPTABLE                         R3 K18 [{["DataModel"] = "Standalone", ["PluginId"] = "RunTools", ["Category"] = "Actions", ["ItemId"] = "ToggleDM"}]
-       22 DUPCLOSURE                       R4 K19 [PROTO_29]
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          VAL R3
-       25 CAPTURE                          VAL R2
-       26 RETURN                           R4 1
+       16 GETTABLEKS                       R3 R0 K8 ["Bin"]
+       18 GETTABLEKS                       R3 R3 K9 ["Common"]
+       20 GETTABLEKS                       R3 R3 K10 ["defineLuaFlags"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K11 ["Src"]
+       27 GETTABLEKS                       R4 R4 K12 ["DeviceModel"]
+       29 CALL                             R3 1 1
+       30 DUPTABLE                         R4 K21 [{["DataModel"] = "Standalone", ["PluginId"] = "RunTools", ["Category"] = "Actions", ["ItemId"] = "ToggleDM"}]
+       31 DUPCLOSURE                       R5 K22 [PROTO_29]
+       32 CAPTURE                          VAL R2
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R3
+       36 RETURN                           R5 1

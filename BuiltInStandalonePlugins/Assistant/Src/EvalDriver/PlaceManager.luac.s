@@ -70,47 +70,54 @@ PROTO_4:
        15 NAMECALL                         R0 R0 K8 ["GetPluginComponent"]
        17 CALL                             R0 2 1
        18 GETUPVAL                         R3 0
-       19 DUPTABLE                         R4 K10 [{"SelectedButtonUri"}]
+       19 DUPTABLE                         R4 K11 [{"SelectedButtonUri", "WasSuppressionRequested"}]
        20 GETUPVAL                         R5 1
        21 SETTABLEKS                       R5 R4 K9 ["SelectedButtonUri"]
-       23 NAMECALL                         R1 R0 K11 ["UserInteractedAsync"]
-       25 CALL                             R1 3 0
-       26 GETUPVAL                         R1 2
-       27 LOADK                            R3 K12 ["DialogManager"]
-       28 NAMECALL                         R1 R1 K8 ["GetPluginComponent"]
-       30 CALL                             R1 2 1
-       31 GETIMPORT                        R2 K2 [task.wait]
-       33 LOADK                            R3 K3 [0.1]
-       34 CALL                             R2 1 0
-       35 LOADB                            R2 0
-       36 GETUPVAL                         R3 3
-       37 GETTABLEKS                       R3 R3 K13 ["new"]
-       39 CALL                             R3 0 1
-       40 GETIMPORT                        R4 K15 [task.spawn]
-       42 NEWCLOSURE                       R5 P0
-       43 CAPTURE                          REF R2
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          UPVAL U0
-       47 CAPTURE                          UPVAL U4
-       48 CALL                             R4 1 0
-       49 JUMPIF                           R2 ; [+3]
-       50 NAMECALL                         R4 R3 K16 ["Wait"]
-       52 CALL                             R4 1 0
-       53 GETIMPORT                        R4 K2 [task.wait]
-       55 LOADK                            R5 K3 [0.1]
-       56 CALL                             R4 1 0
-       57 GETUPVAL                         R6 0
-       58 NAMECALL                         R4 R1 K17 ["DestroyPersistentDialogAsync"]
-       60 CALL                             R4 2 0
-       61 LOADNIL                          R4
-       62 SETUPVAL                         R4 4
-       63 LOADNIL                          R4
-       64 SETUPVAL                         R4 0
-       65 LOADNIL                          R4
-       66 SETUPVAL                         R4 1
-       67 CLOSEUPVALS                      R2
-       68 RETURN                           R0 0
+       23 GETUPVAL                         R6 3
+       24 GETTABLEKS                       R6 R6 K12 ["FFlagStudioDialogManagerSuppression"]
+       26 JUMPIFNOT                        R6 ; [+2]
+       27 LOADB                            R5 0
+       28 JUMP                             ; [+1]
+       29 LOADNIL                          R5
+       30 SETTABLEKS                       R5 R4 K10 ["WasSuppressionRequested"]
+       32 NAMECALL                         R1 R0 K13 ["UserInteractedAsync"]
+       34 CALL                             R1 3 0
+       35 GETUPVAL                         R1 2
+       36 LOADK                            R3 K14 ["DialogManager"]
+       37 NAMECALL                         R1 R1 K8 ["GetPluginComponent"]
+       39 CALL                             R1 2 1
+       40 GETIMPORT                        R2 K2 [task.wait]
+       42 LOADK                            R3 K3 [0.1]
+       43 CALL                             R2 1 0
+       44 LOADB                            R2 0
+       45 GETUPVAL                         R3 4
+       46 GETTABLEKS                       R3 R3 K15 ["new"]
+       48 CALL                             R3 0 1
+       49 GETIMPORT                        R4 K17 [task.spawn]
+       51 NEWCLOSURE                       R5 P0
+       52 CAPTURE                          REF R2
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          UPVAL U0
+       56 CAPTURE                          UPVAL U5
+       57 CALL                             R4 1 0
+       58 JUMPIF                           R2 ; [+3]
+       59 NAMECALL                         R4 R3 K18 ["Wait"]
+       61 CALL                             R4 1 0
+       62 GETIMPORT                        R4 K2 [task.wait]
+       64 LOADK                            R5 K3 [0.1]
+       65 CALL                             R4 1 0
+       66 GETUPVAL                         R6 0
+       67 NAMECALL                         R4 R1 K19 ["DestroyPersistentDialogAsync"]
+       69 CALL                             R4 2 0
+       70 LOADNIL                          R4
+       71 SETUPVAL                         R4 5
+       72 LOADNIL                          R4
+       73 SETUPVAL                         R4 0
+       74 LOADNIL                          R4
+       75 SETUPVAL                         R4 1
+       76 CLOSEUPVALS                      R2
+       77 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -287,61 +294,66 @@ MAIN:
        32 GETTABLEKS                       R5 R1 K12 ["Utils"]
        34 GETTABLEKS                       R5 R5 K13 ["EvalFunctionRegistry"]
        36 GETIMPORT                        R6 K5 [require]
-       38 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       40 GETTABLEKS                       R7 R7 K14 ["Signal"]
+       38 GETTABLEKS                       R7 R0 K14 ["Src"]
+       40 GETTABLEKS                       R7 R7 K15 ["Flags"]
        42 CALL                             R6 1 1
-       43 LOADNIL                          R7
-       44 NEWTABLE                         R8 0 0
-       46 LOADB                            R9 0
-       47 GETTABLEKS                       R10 R6 K15 ["new"]
-       49 CALL                             R10 0 1
-       50 LOADB                            R11 0
-       51 GETTABLEKS                       R12 R6 K15 ["new"]
-       53 CALL                             R12 0 1
-       54 LOADNIL                          R13
-       55 LOADNIL                          R14
-       56 GETTABLEKS                       R15 R6 K15 ["new"]
-       58 CALL                             R15 0 1
-       59 LOADNIL                          R16
-       60 LOADNIL                          R17
-       61 NEWCLOSURE                       R18 P0
-       62 CAPTURE                          REF R13
-       63 CAPTURE                          REF R14
-       64 CAPTURE                          REF R7
-       65 CAPTURE                          REF R16
-       66 CAPTURE                          REF R17
-       67 CAPTURE                          VAL R15
-       68 NEWCLOSURE                       R19 P1
-       69 CAPTURE                          REF R13
-       70 CAPTURE                          REF R14
-       71 CAPTURE                          REF R7
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          REF R17
-       74 NEWCLOSURE                       R20 P2
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          REF R7
-       77 NEWCLOSURE                       R21 P3
-       78 CAPTURE                          REF R11
-       79 CAPTURE                          VAL R18
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          REF R7
-       82 CAPTURE                          VAL R19
-       83 CAPTURE                          REF R16
-       84 CAPTURE                          VAL R12
-       85 NEWCLOSURE                       R22 P4
-       86 CAPTURE                          REF R11
-       87 CAPTURE                          REF R9
-       88 CAPTURE                          VAL R12
-       89 CAPTURE                          VAL R10
-       90 CAPTURE                          VAL R5
-       91 NEWCLOSURE                       R23 P5
-       92 CAPTURE                          REF R8
-       93 NEWCLOSURE                       R24 P6
-       94 CAPTURE                          REF R7
-       95 CAPTURE                          VAL R22
-       96 CAPTURE                          REF R8
-       97 DUPTABLE                         R25 K18 [{"init", "closePlace"}]
-       98 SETTABLEKS                       R24 R25 K16 ["init"]
-      100 SETTABLEKS                       R21 R25 K17 ["closePlace"]
-      102 CLOSEUPVALS                      R7
-      103 RETURN                           R25 1
+       43 GETIMPORT                        R7 K5 [require]
+       45 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       47 GETTABLEKS                       R8 R8 K16 ["Signal"]
+       49 CALL                             R7 1 1
+       50 LOADNIL                          R8
+       51 NEWTABLE                         R9 0 0
+       53 LOADB                            R10 0
+       54 GETTABLEKS                       R11 R7 K17 ["new"]
+       56 CALL                             R11 0 1
+       57 LOADB                            R12 0
+       58 GETTABLEKS                       R13 R7 K17 ["new"]
+       60 CALL                             R13 0 1
+       61 LOADNIL                          R14
+       62 LOADNIL                          R15
+       63 GETTABLEKS                       R16 R7 K17 ["new"]
+       65 CALL                             R16 0 1
+       66 LOADNIL                          R17
+       67 LOADNIL                          R18
+       68 NEWCLOSURE                       R19 P0
+       69 CAPTURE                          REF R14
+       70 CAPTURE                          REF R15
+       71 CAPTURE                          REF R8
+       72 CAPTURE                          REF R17
+       73 CAPTURE                          REF R18
+       74 CAPTURE                          VAL R16
+       75 NEWCLOSURE                       R20 P1
+       76 CAPTURE                          REF R14
+       77 CAPTURE                          REF R15
+       78 CAPTURE                          REF R8
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          REF R18
+       82 NEWCLOSURE                       R21 P2
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          REF R8
+       85 NEWCLOSURE                       R22 P3
+       86 CAPTURE                          REF R12
+       87 CAPTURE                          VAL R19
+       88 CAPTURE                          VAL R3
+       89 CAPTURE                          REF R8
+       90 CAPTURE                          VAL R20
+       91 CAPTURE                          REF R17
+       92 CAPTURE                          VAL R13
+       93 NEWCLOSURE                       R23 P4
+       94 CAPTURE                          REF R12
+       95 CAPTURE                          REF R10
+       96 CAPTURE                          VAL R13
+       97 CAPTURE                          VAL R11
+       98 CAPTURE                          VAL R5
+       99 NEWCLOSURE                       R24 P5
+      100 CAPTURE                          REF R9
+      101 NEWCLOSURE                       R25 P6
+      102 CAPTURE                          REF R8
+      103 CAPTURE                          VAL R23
+      104 CAPTURE                          REF R9
+      105 DUPTABLE                         R26 K20 [{"init", "closePlace"}]
+      106 SETTABLEKS                       R25 R26 K18 ["init"]
+      108 SETTABLEKS                       R22 R26 K19 ["closePlace"]
+      110 CLOSEUPVALS                      R8
+      111 RETURN                           R26 1

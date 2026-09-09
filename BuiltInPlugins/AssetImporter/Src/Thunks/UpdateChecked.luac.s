@@ -1,56 +1,105 @@
 PROTO_0:
-        0 NEWTABLE                         R1 0 0
-        2 GETUPVAL                         R2 0
-        3 LOADNIL                          R3
-        4 LOADNIL                          R4
-        5 FORGPREP                         R2
-        6 GETTABLEKS                       R7 R5 K0 ["ShouldImport"]
-        8 JUMPIFEQ                         R7 R6 ; [+11]
-       10 SETTABLEKS                       R6 R5 K0 ["ShouldImport"]
-       12 GETUPVAL                         R7 1
-       13 GETTABLEKS                       R7 R7 K1 ["assign"]
-       15 MOVE                             R8 R1
-       16 GETUPVAL                         R9 2
-       17 MOVE                             R10 R5
-       18 CALL                             R9 1 -1
-       19 CALL                             R7 -1 0
-       20 FORGLOOP                         R2 2 ; [-15]
-       22 GETUPVAL                         R4 3
-       23 MOVE                             R5 R1
-       24 CALL                             R4 1 -1
-       25 NAMECALL                         R2 R0 K2 ["dispatch"]
-       27 CALL                             R2 -1 0
-       28 NAMECALL                         R2 R0 K3 ["getState"]
-       30 CALL                             R2 1 1
-       31 GETTABLEKS                       R3 R2 K4 ["Preview"]
-       33 GETTABLEKS                       R3 R3 K5 ["importTree"]
-       35 GETUPVAL                         R6 4
-       36 GETUPVAL                         R7 5
-       37 MOVE                             R8 R3
-       38 CALL                             R7 1 -1
-       39 CALL                             R6 -1 -1
-       40 NAMECALL                         R4 R0 K2 ["dispatch"]
-       42 CALL                             R4 -1 0
-       43 GETUPVAL                         R6 6
-       44 GETUPVAL                         R7 7
-       45 MOVE                             R8 R3
-       46 CALL                             R7 1 -1
-       47 CALL                             R6 -1 -1
-       48 NAMECALL                         R4 R0 K2 ["dispatch"]
-       50 CALL                             R4 -1 0
-       51 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+56]
+        3 NAMECALL                         R1 R0 K0 ["getState"]
+        5 CALL                             R1 1 1
+        6 GETTABLEKS                       R1 R1 K1 ["Preview"]
+        8 GETTABLEKS                       R2 R1 K2 ["singleAnimationSelection"]
+       10 JUMPIFNOT                        R2 ; [+48]
+       11 GETTABLEKS                       R2 R1 K3 ["importTree"]
+       13 JUMPIFNOT                        R2 ; [+45]
+       14 GETTABLEKS                       R2 R1 K3 ["importTree"]
+       16 LOADNIL                          R3
+       17 GETUPVAL                         R4 1
+       18 LOADNIL                          R5
+       19 LOADNIL                          R6
+       20 FORGPREP                         R4
+       21 JUMPIFNOT                        R8 ; [+7]
+       22 LOADK                            R11 K4 ["AnimationImportData"]
+       23 NAMECALL                         R9 R7 K5 ["IsA"]
+       25 CALL                             R9 2 1
+       26 JUMPIFNOT                        R9 ; [+2]
+       27 MOVE                             R3 R7
+       28 JUMP                             ; [+2]
+       29 FORGLOOP                         R4 2 ; [-9]
+       31 JUMPIF                           R3 ; [+11]
+       32 GETUPVAL                         R4 2
+       33 MOVE                             R5 R2
+       34 CALL                             R4 1 3
+       35 FORGPREP                         R4
+       36 GETTABLEKS                       R9 R8 K6 ["ShouldImport"]
+       38 JUMPIFNOT                        R9 ; [+2]
+       39 MOVE                             R3 R8
+       40 JUMP                             ; [+2]
+       41 FORGLOOP                         R4 2 ; [-6]
+       43 NEWTABLE                         R4 1 0
+       45 LOADB                            R5 0
+       46 SETTABLE                         R5 R4 R2
+       47 NAMECALL                         R5 R2 K7 ["GetDescendants"]
+       49 CALL                             R5 1 3
+       50 FORGPREP                         R5
+       51 JUMPIFEQ                         R9 R3 ; [+2]
+       53 LOADB                            R10 0 +1
+       54 LOADB                            R10 1
+       55 SETTABLE                         R10 R4 R9
+       56 FORGLOOP                         R5 2 ; [-6]
+       58 SETUPVAL                         R4 1
+       59 NEWTABLE                         R1 0 0
+       61 GETUPVAL                         R2 1
+       62 LOADNIL                          R3
+       63 LOADNIL                          R4
+       64 FORGPREP                         R2
+       65 GETTABLEKS                       R7 R5 K6 ["ShouldImport"]
+       67 JUMPIFEQ                         R7 R6 ; [+11]
+       69 SETTABLEKS                       R6 R5 K6 ["ShouldImport"]
+       71 GETUPVAL                         R7 3
+       72 GETTABLEKS                       R7 R7 K8 ["assign"]
+       74 MOVE                             R8 R1
+       75 GETUPVAL                         R9 4
+       76 MOVE                             R10 R5
+       77 CALL                             R9 1 -1
+       78 CALL                             R7 -1 0
+       79 FORGLOOP                         R2 2 ; [-15]
+       81 GETUPVAL                         R4 5
+       82 MOVE                             R5 R1
+       83 CALL                             R4 1 -1
+       84 NAMECALL                         R2 R0 K9 ["dispatch"]
+       86 CALL                             R2 -1 0
+       87 NAMECALL                         R2 R0 K0 ["getState"]
+       89 CALL                             R2 1 1
+       90 GETTABLEKS                       R3 R2 K1 ["Preview"]
+       92 GETTABLEKS                       R3 R3 K3 ["importTree"]
+       94 GETUPVAL                         R6 6
+       95 GETUPVAL                         R7 7
+       96 MOVE                             R8 R3
+       97 CALL                             R7 1 -1
+       98 CALL                             R6 -1 -1
+       99 NAMECALL                         R4 R0 K9 ["dispatch"]
+      101 CALL                             R4 -1 0
+      102 GETUPVAL                         R6 8
+      103 GETUPVAL                         R7 9
+      104 MOVE                             R8 R3
+      105 CALL                             R7 1 -1
+      106 CALL                             R6 -1 -1
+      107 NAMECALL                         R4 R0 K9 ["dispatch"]
+      109 CALL                             R4 -1 0
+      110 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0
-        1 CAPTURE                          VAL R0
-        2 CAPTURE                          UPVAL U0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          REF R0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
         6 CAPTURE                          UPVAL U4
         7 CAPTURE                          UPVAL U5
         8 CAPTURE                          UPVAL U6
-        9 RETURN                           R1 1
+        9 CAPTURE                          UPVAL U7
+       10 CAPTURE                          UPVAL U8
+       11 CLOSEUPVALS                      R0
+       12 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -92,12 +141,24 @@ MAIN:
        63 GETTABLEKS                       R8 R8 K9 ["Utility"]
        65 GETTABLEKS                       R8 R8 K16 ["GetCheckedMapForSubtree"]
        67 CALL                             R7 1 1
-       68 DUPCLOSURE                       R8 K17 [PROTO_1]
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          VAL R4
-       75 CAPTURE                          VAL R3
-       76 RETURN                           R8 1
+       68 GETIMPORT                        R8 K5 [require]
+       70 GETTABLEKS                       R9 R0 K8 ["Src"]
+       72 GETTABLEKS                       R9 R9 K9 ["Utility"]
+       74 GETTABLEKS                       R9 R9 K17 ["getAnimations"]
+       76 CALL                             R8 1 1
+       77 GETIMPORT                        R9 K5 [require]
+       79 GETTABLEKS                       R10 R0 K8 ["Src"]
+       81 GETTABLEKS                       R10 R10 K18 ["Flags"]
+       83 GETTABLEKS                       R10 R10 K19 ["getEFImportAnimationVersions"]
+       85 CALL                             R9 1 1
+       86 DUPCLOSURE                       R10 K20 [PROTO_1]
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R5
+       92 CAPTURE                          VAL R6
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R4
+       95 CAPTURE                          VAL R3
+       96 RETURN                           R10 1

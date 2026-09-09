@@ -269,117 +269,111 @@ MAIN:
        32 JUMPIFNOT                        R2 ; [+1]
        33 RETURN                           R0 0
        34 GETIMPORT                        R2 K14 [game]
-       36 LOADK                            R4 K15 ["EnableConstraintToolLuaPlugin2"]
-       37 NAMECALL                         R2 R2 K16 ["GetFastFlag"]
+       36 LOADK                            R4 K15 ["UserInputService"]
+       37 NAMECALL                         R2 R2 K16 ["GetService"]
        39 CALL                             R2 2 1
-       40 JUMPIF                           R2 ; [+1]
-       41 RETURN                           R0 0
-       42 GETIMPORT                        R2 K14 [game]
-       44 LOADK                            R4 K17 ["UserInputService"]
-       45 NAMECALL                         R2 R2 K18 ["GetService"]
-       47 CALL                             R2 2 1
-       48 GETIMPORT                        R3 K1 [require]
-       50 GETTABLEKS                       R4 R0 K11 ["Src"]
-       52 GETTABLEKS                       R4 R4 K19 ["Resources"]
-       54 GETTABLEKS                       R4 R4 K20 ["ConstraintData"]
-       56 CALL                             R3 1 1
-       57 GETIMPORT                        R4 K22 [plugin]
-       59 GETTABLEKS                       R5 R0 K23 ["Name"]
-       61 SETTABLEKS                       R5 R4 K23 ["Name"]
-       63 GETTABLEKS                       R4 R0 K11 ["Src"]
-       65 GETTABLEKS                       R4 R4 K19 ["Resources"]
-       67 GETTABLEKS                       R4 R4 K24 ["Localization"]
-       69 GETTABLEKS                       R4 R4 K25 ["SourceStrings"]
-       71 GETTABLEKS                       R5 R0 K11 ["Src"]
-       73 GETTABLEKS                       R5 R5 K19 ["Resources"]
-       75 GETTABLEKS                       R5 R5 K24 ["Localization"]
-       77 GETTABLEKS                       R5 R5 K26 ["LocalizedStrings"]
-       79 GETIMPORT                        R6 K1 [require]
-       81 GETTABLEKS                       R7 R0 K8 ["Packages"]
-       83 GETTABLEKS                       R7 R7 K27 ["PluginLoader"]
-       85 CALL                             R6 1 1
-       86 GETTABLEKS                       R7 R6 K28 ["PluginLoaderBuilder"]
-       88 LOADNIL                          R8
-       89 NEWTABLE                         R9 0 0
-       91 LOADB                            R10 0
-       92 LOADNIL                          R11
-       93 NEWCLOSURE                       R12 P0
-       94 CAPTURE                          VAL R9
-       95 CAPTURE                          REF R8
-       96 CAPTURE                          REF R11
-       97 NEWCLOSURE                       R13 P1
-       98 CAPTURE                          REF R8
-       99 CAPTURE                          VAL R9
-      100 CAPTURE                          REF R11
-      101 CAPTURE                          REF R10
-      102 NEWCLOSURE                       R14 P2
-      103 CAPTURE                          REF R10
-      104 CAPTURE                          REF R8
-      105 CAPTURE                          VAL R9
-      106 CAPTURE                          REF R11
-      107 GETTABLEKS                       R15 R2 K29 ["InputEnded"]
-      109 NEWCLOSURE                       R17 P3
-      110 CAPTURE                          REF R10
-      111 CAPTURE                          REF R8
-      112 CAPTURE                          VAL R9
-      113 CAPTURE                          REF R11
-      114 NAMECALL                         R15 R15 K30 ["Connect"]
-      116 CALL                             R15 2 0
-      117 MOVE                             R15 R3
-      118 LOADNIL                          R16
-      119 LOADNIL                          R17
-      120 FORGPREP                         R15
-      121 DUPTABLE                         R20 K37 [{["getName"], ["getDescription"], ["icon"] = "", ["enabled"] = False}]
-      122 DUPCLOSURE                       R21 K38 [PROTO_4]
-      123 SETTABLEKS                       R21 R20 K31 ["getName"]
-      125 DUPCLOSURE                       R21 K39 [PROTO_5]
-      126 SETTABLEKS                       R21 R20 K32 ["getDescription"]
-      128 DUPTABLE                         R21 K45 [{["plugin"], ["pluginName"] = "ConstraintTool", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["buttonInfo"]}]
-      129 GETIMPORT                        R22 K22 [plugin]
-      131 SETTABLEKS                       R22 R21 K21 ["plugin"]
-      133 SETTABLEKS                       R5 R21 K41 ["translationResourceTable"]
-      135 SETTABLEKS                       R4 R21 K42 ["fallbackResourceTable"]
-      137 NEWCLOSURE                       R22 P6
-      138 CAPTURE                          VAL R18
-      139 SETTABLEKS                       R22 R21 K43 ["getToolbarName"]
-      141 SETTABLEKS                       R20 R21 K44 ["buttonInfo"]
-      143 LOADB                            R22 1
-      144 SETTABLEKS                       R22 R20 K35 ["enabled"]
-      146 GETTABLEKS                       R22 R7 K46 ["build"]
-      148 MOVE                             R23 R21
-      149 CALL                             R22 1 1
-      150 NEWCLOSURE                       R23 P7
-      151 CAPTURE                          VAL R18
-      152 CAPTURE                          VAL R9
-      153 CAPTURE                          REF R8
-      154 CAPTURE                          REF R11
-      155 DUPTABLE                         R24 K49 [{["pluginLoaderContext"], ["enabled"] = False, ["closeCallback"]}]
-      156 SETTABLEKS                       R22 R24 K47 ["pluginLoaderContext"]
-      158 SETTABLEKS                       R23 R24 K48 ["closeCallback"]
-      160 SETTABLE                         R24 R9 R18
-      161 GETIMPORT                        R24 K1 [require]
-      163 GETIMPORT                        R25 K3 [script]
-      165 GETTABLEKS                       R25 R25 K4 ["Parent"]
-      167 GETTABLEKS                       R25 R25 K50 ["main"]
-      169 CALL                             R24 1 1
-      170 GETTABLE                         R25 R9 R18
-      171 GETTABLEKS                       R26 R22 K51 ["mainButtonClickedSignal"]
-      173 NEWCLOSURE                       R28 P8
-      174 CAPTURE                          VAL R25
-      175 CAPTURE                          VAL R18
-      176 CAPTURE                          VAL R9
-      177 CAPTURE                          REF R8
-      178 CAPTURE                          REF R11
-      179 CAPTURE                          REF R10
-      180 NAMECALL                         R26 R26 K30 ["Connect"]
-      182 CALL                             R26 2 0
-      183 GETIMPORT                        R26 K54 [task.spawn]
-      185 NEWCLOSURE                       R27 P9
-      186 CAPTURE                          VAL R22
-      187 CAPTURE                          VAL R24
-      188 CAPTURE                          VAL R25
-      189 CAPTURE                          VAL R18
-      190 CALL                             R26 1 0
-      191 FORGLOOP                         R15 2 ; [-71]
-      193 CLOSEUPVALS                      R8
-      194 RETURN                           R0 0
+       40 GETIMPORT                        R3 K1 [require]
+       42 GETTABLEKS                       R4 R0 K11 ["Src"]
+       44 GETTABLEKS                       R4 R4 K17 ["Resources"]
+       46 GETTABLEKS                       R4 R4 K18 ["ConstraintData"]
+       48 CALL                             R3 1 1
+       49 GETIMPORT                        R4 K20 [plugin]
+       51 GETTABLEKS                       R5 R0 K21 ["Name"]
+       53 SETTABLEKS                       R5 R4 K21 ["Name"]
+       55 GETTABLEKS                       R4 R0 K11 ["Src"]
+       57 GETTABLEKS                       R4 R4 K17 ["Resources"]
+       59 GETTABLEKS                       R4 R4 K22 ["Localization"]
+       61 GETTABLEKS                       R4 R4 K23 ["SourceStrings"]
+       63 GETTABLEKS                       R5 R0 K11 ["Src"]
+       65 GETTABLEKS                       R5 R5 K17 ["Resources"]
+       67 GETTABLEKS                       R5 R5 K22 ["Localization"]
+       69 GETTABLEKS                       R5 R5 K24 ["LocalizedStrings"]
+       71 GETIMPORT                        R6 K1 [require]
+       73 GETTABLEKS                       R7 R0 K8 ["Packages"]
+       75 GETTABLEKS                       R7 R7 K25 ["PluginLoader"]
+       77 CALL                             R6 1 1
+       78 GETTABLEKS                       R7 R6 K26 ["PluginLoaderBuilder"]
+       80 LOADNIL                          R8
+       81 NEWTABLE                         R9 0 0
+       83 LOADB                            R10 0
+       84 LOADNIL                          R11
+       85 NEWCLOSURE                       R12 P0
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          REF R8
+       88 CAPTURE                          REF R11
+       89 NEWCLOSURE                       R13 P1
+       90 CAPTURE                          REF R8
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          REF R11
+       93 CAPTURE                          REF R10
+       94 NEWCLOSURE                       R14 P2
+       95 CAPTURE                          REF R10
+       96 CAPTURE                          REF R8
+       97 CAPTURE                          VAL R9
+       98 CAPTURE                          REF R11
+       99 GETTABLEKS                       R15 R2 K27 ["InputEnded"]
+      101 NEWCLOSURE                       R17 P3
+      102 CAPTURE                          REF R10
+      103 CAPTURE                          REF R8
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          REF R11
+      106 NAMECALL                         R15 R15 K28 ["Connect"]
+      108 CALL                             R15 2 0
+      109 MOVE                             R15 R3
+      110 LOADNIL                          R16
+      111 LOADNIL                          R17
+      112 FORGPREP                         R15
+      113 DUPTABLE                         R20 K35 [{["getName"], ["getDescription"], ["icon"] = "", ["enabled"] = False}]
+      114 DUPCLOSURE                       R21 K36 [PROTO_4]
+      115 SETTABLEKS                       R21 R20 K29 ["getName"]
+      117 DUPCLOSURE                       R21 K37 [PROTO_5]
+      118 SETTABLEKS                       R21 R20 K30 ["getDescription"]
+      120 DUPTABLE                         R21 K43 [{["plugin"], ["pluginName"] = "ConstraintTool", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["buttonInfo"]}]
+      121 GETIMPORT                        R22 K20 [plugin]
+      123 SETTABLEKS                       R22 R21 K19 ["plugin"]
+      125 SETTABLEKS                       R5 R21 K39 ["translationResourceTable"]
+      127 SETTABLEKS                       R4 R21 K40 ["fallbackResourceTable"]
+      129 NEWCLOSURE                       R22 P6
+      130 CAPTURE                          VAL R18
+      131 SETTABLEKS                       R22 R21 K41 ["getToolbarName"]
+      133 SETTABLEKS                       R20 R21 K42 ["buttonInfo"]
+      135 LOADB                            R22 1
+      136 SETTABLEKS                       R22 R20 K33 ["enabled"]
+      138 GETTABLEKS                       R22 R7 K44 ["build"]
+      140 MOVE                             R23 R21
+      141 CALL                             R22 1 1
+      142 NEWCLOSURE                       R23 P7
+      143 CAPTURE                          VAL R18
+      144 CAPTURE                          VAL R9
+      145 CAPTURE                          REF R8
+      146 CAPTURE                          REF R11
+      147 DUPTABLE                         R24 K47 [{["pluginLoaderContext"], ["enabled"] = False, ["closeCallback"]}]
+      148 SETTABLEKS                       R22 R24 K45 ["pluginLoaderContext"]
+      150 SETTABLEKS                       R23 R24 K46 ["closeCallback"]
+      152 SETTABLE                         R24 R9 R18
+      153 GETIMPORT                        R24 K1 [require]
+      155 GETIMPORT                        R25 K3 [script]
+      157 GETTABLEKS                       R25 R25 K4 ["Parent"]
+      159 GETTABLEKS                       R25 R25 K48 ["main"]
+      161 CALL                             R24 1 1
+      162 GETTABLE                         R25 R9 R18
+      163 GETTABLEKS                       R26 R22 K49 ["mainButtonClickedSignal"]
+      165 NEWCLOSURE                       R28 P8
+      166 CAPTURE                          VAL R25
+      167 CAPTURE                          VAL R18
+      168 CAPTURE                          VAL R9
+      169 CAPTURE                          REF R8
+      170 CAPTURE                          REF R11
+      171 CAPTURE                          REF R10
+      172 NAMECALL                         R26 R26 K28 ["Connect"]
+      174 CALL                             R26 2 0
+      175 GETIMPORT                        R26 K52 [task.spawn]
+      177 NEWCLOSURE                       R27 P9
+      178 CAPTURE                          VAL R22
+      179 CAPTURE                          VAL R24
+      180 CAPTURE                          VAL R25
+      181 CAPTURE                          VAL R18
+      182 CALL                             R26 1 0
+      183 FORGLOOP                         R15 2 ; [-71]
+      185 CLOSEUPVALS                      R8
+      186 RETURN                           R0 0

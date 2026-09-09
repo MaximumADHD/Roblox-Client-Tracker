@@ -288,21 +288,13 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+10]
-        3 GETUPVAL                         R0 1
-        4 GETUPVAL                         R1 2
-        5 GETUPVAL                         R2 3
-        6 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
-        8 GETTABLEKS                       R2 R2 K1 ["CONFIGURE_ASSET"]
-       10 CALL                             R1 1 -1
-       11 CALL                             R0 -1 0
-       12 RETURN                           R0 0
-       13 GETUPVAL                         R0 1
-       14 GETUPVAL                         R1 4
-       15 CALL                             R1 0 -1
-       16 CALL                             R0 -1 0
-       17 RETURN                           R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["SCREENS"]
+        5 GETTABLEKS                       R2 R2 K1 ["CONFIGURE_ASSET"]
+        7 CALL                             R1 1 -1
+        8 CALL                             R0 -1 0
+        9 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -315,17 +307,15 @@ PROTO_7:
 PROTO_8:
         0 DUPTABLE                         R1 K2 [{"goToNextScreen", "onAssetTypeSelected"}]
         1 NEWCLOSURE                       R2 P0
-        2 CAPTURE                          UPVAL U0
-        3 CAPTURE                          VAL R0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U0
         4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
-        7 SETTABLEKS                       R2 R1 K0 ["goToNextScreen"]
-        9 NEWCLOSURE                       R2 P1
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          UPVAL U4
-       12 SETTABLEKS                       R2 R1 K1 ["onAssetTypeSelected"]
-       14 RETURN                           R1 1
+        5 SETTABLEKS                       R2 R1 K0 ["goToNextScreen"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U2
+       10 SETTABLEKS                       R2 R1 K1 ["onAssetTypeSelected"]
+       12 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -381,75 +371,56 @@ MAIN:
        88 LOADK                            R17 K24 ["UseDefaultThumbnailForAnimation"]
        89 NAMECALL                         R15 R15 K25 ["GetFastFlag"]
        91 CALL                             R15 2 1
-       92 GETIMPORT                        R16 K5 [require]
-       94 GETTABLEKS                       R17 R0 K9 ["Src"]
-       96 GETTABLEKS                       R17 R17 K26 ["Flags"]
-       98 GETTABLEKS                       R17 R17 K27 ["getFFlagToolboxDeprecateAssetSelection"]
-      100 CALL                             R16 1 1
-      101 GETTABLEKS                       R17 R0 K9 ["Src"]
-      103 GETTABLEKS                       R17 R17 K28 ["Actions"]
-      105 GETIMPORT                        R18 K5 [require]
-      107 GETTABLEKS                       R19 R17 K29 ["SetCurrentScreen"]
-      109 CALL                             R18 1 1
-      110 GETIMPORT                        R19 K5 [require]
-      112 GETTABLEKS                       R20 R17 K30 ["SetUploadAssetType"]
-      114 CALL                             R19 1 1
-      115 GETTABLEKS                       R20 R0 K9 ["Src"]
-      117 GETTABLEKS                       R20 R20 K31 ["Thunks"]
-      119 LOADNIL                          R21
-      120 MOVE                             R22 R16
-      121 CALL                             R22 0 1
-      122 JUMPIF                           R22 ; [+8]
-      123 GETIMPORT                        R22 K5 [require]
-      125 GETTABLEKS                       R23 R20 K18 ["AssetConfiguration"]
-      127 GETTABLEKS                       R23 R23 K32 ["GoToNextScreen"]
-      129 CALL                             R22 1 1
-      130 MOVE                             R21 R22
-      131 GETTABLEKS                       R22 R4 K33 ["ContextServices"]
-      133 GETTABLEKS                       R23 R22 K34 ["withContext"]
-      135 GETTABLEKS                       R24 R2 K35 ["PureComponent"]
-      137 LOADK                            R26 K36 ["AssetTypeSelection"]
-      138 NAMECALL                         R24 R24 K37 ["extend"]
-      140 CALL                             R24 2 1
-      141 DUPCLOSURE                       R25 K38 [PROTO_0]
-      142 SETTABLEKS                       R25 R24 K39 ["didMount"]
-      144 DUPCLOSURE                       R25 K40 [PROTO_1]
-      145 CAPTURE                          VAL R8
-      146 CAPTURE                          VAL R9
-      147 SETTABLEKS                       R25 R24 K41 ["getSelectorItems"]
-      149 DUPCLOSURE                       R25 K42 [PROTO_2]
-      150 CAPTURE                          VAL R7
-      151 SETTABLEKS                       R25 R24 K43 ["canSkip"]
-      153 DUPCLOSURE                       R25 K44 [PROTO_4]
-      154 CAPTURE                          VAL R15
-      155 CAPTURE                          VAL R2
-      156 CAPTURE                          VAL R12
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R14
-      159 CAPTURE                          VAL R11
-      160 SETTABLEKS                       R25 R24 K45 ["render"]
-      162 DUPCLOSURE                       R25 K46 [PROTO_5]
-      163 NEWCLOSURE                       R26 P5
-      164 CAPTURE                          VAL R16
-      165 CAPTURE                          VAL R18
-      166 CAPTURE                          VAL R6
-      167 CAPTURE                          REF R21
-      168 CAPTURE                          VAL R19
-      169 MOVE                             R27 R23
-      170 DUPTABLE                         R28 K48 [{"Stylizer", "Localization"}]
-      171 GETTABLEKS                       R29 R22 K47 ["Stylizer"]
-      173 SETTABLEKS                       R29 R28 K47 ["Stylizer"]
-      175 GETTABLEKS                       R29 R22 K14 ["Localization"]
-      177 SETTABLEKS                       R29 R28 K14 ["Localization"]
-      179 CALL                             R27 1 1
-      180 MOVE                             R28 R24
-      181 CALL                             R27 1 1
-      182 MOVE                             R24 R27
-      183 GETTABLEKS                       R27 R3 K49 ["connect"]
-      185 MOVE                             R28 R25
-      186 MOVE                             R29 R26
-      187 CALL                             R27 2 1
-      188 MOVE                             R28 R24
-      189 CALL                             R27 1 -1
-      190 CLOSEUPVALS                      R21
-      191 RETURN                           R27 -1
+       92 GETTABLEKS                       R16 R0 K9 ["Src"]
+       94 GETTABLEKS                       R16 R16 K26 ["Actions"]
+       96 GETIMPORT                        R17 K5 [require]
+       98 GETTABLEKS                       R18 R16 K27 ["SetCurrentScreen"]
+      100 CALL                             R17 1 1
+      101 GETIMPORT                        R18 K5 [require]
+      103 GETTABLEKS                       R19 R16 K28 ["SetUploadAssetType"]
+      105 CALL                             R18 1 1
+      106 GETTABLEKS                       R19 R4 K29 ["ContextServices"]
+      108 GETTABLEKS                       R20 R19 K30 ["withContext"]
+      110 GETTABLEKS                       R21 R2 K31 ["PureComponent"]
+      112 LOADK                            R23 K32 ["AssetTypeSelection"]
+      113 NAMECALL                         R21 R21 K33 ["extend"]
+      115 CALL                             R21 2 1
+      116 DUPCLOSURE                       R22 K34 [PROTO_0]
+      117 SETTABLEKS                       R22 R21 K35 ["didMount"]
+      119 DUPCLOSURE                       R22 K36 [PROTO_1]
+      120 CAPTURE                          VAL R8
+      121 CAPTURE                          VAL R9
+      122 SETTABLEKS                       R22 R21 K37 ["getSelectorItems"]
+      124 DUPCLOSURE                       R22 K38 [PROTO_2]
+      125 CAPTURE                          VAL R7
+      126 SETTABLEKS                       R22 R21 K39 ["canSkip"]
+      128 DUPCLOSURE                       R22 K40 [PROTO_4]
+      129 CAPTURE                          VAL R15
+      130 CAPTURE                          VAL R2
+      131 CAPTURE                          VAL R12
+      132 CAPTURE                          VAL R13
+      133 CAPTURE                          VAL R14
+      134 CAPTURE                          VAL R11
+      135 SETTABLEKS                       R22 R21 K41 ["render"]
+      137 DUPCLOSURE                       R22 K42 [PROTO_5]
+      138 DUPCLOSURE                       R23 K43 [PROTO_8]
+      139 CAPTURE                          VAL R17
+      140 CAPTURE                          VAL R6
+      141 CAPTURE                          VAL R18
+      142 MOVE                             R24 R20
+      143 DUPTABLE                         R25 K45 [{"Stylizer", "Localization"}]
+      144 GETTABLEKS                       R26 R19 K44 ["Stylizer"]
+      146 SETTABLEKS                       R26 R25 K44 ["Stylizer"]
+      148 GETTABLEKS                       R26 R19 K14 ["Localization"]
+      150 SETTABLEKS                       R26 R25 K14 ["Localization"]
+      152 CALL                             R24 1 1
+      153 MOVE                             R25 R21
+      154 CALL                             R24 1 1
+      155 MOVE                             R21 R24
+      156 GETTABLEKS                       R24 R3 K46 ["connect"]
+      158 MOVE                             R25 R22
+      159 MOVE                             R26 R23
+      160 CALL                             R24 2 1
+      161 MOVE                             R25 R21
+      162 CALL                             R24 1 -1
+      163 RETURN                           R24 -1

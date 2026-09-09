@@ -302,27 +302,34 @@ PROTO_3:
        19 GETUPVAL                         R3 3
        20 GETTABLEKS                       R3 R3 K3 ["createElement"]
        22 LOADK                            R4 K4 ["CanvasGroup"]
-       23 DUPTABLE                         R5 K8 [{["Size"], ["BackgroundTransparency"] = 1}]
-       24 GETIMPORT                        R6 K11 [UDim2.fromScale]
+       23 DUPTABLE                         R5 K9 [{["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"]}]
+       24 GETIMPORT                        R6 K12 [UDim2.fromScale]
        26 LOADN                            R7 1
        27 LOADN                            R8 1
        28 CALL                             R6 2 1
        29 SETTABLEKS                       R6 R5 K5 ["Size"]
-       31 DUPTABLE                         R6 K13 [{"Curve"}]
-       32 GETUPVAL                         R7 3
-       33 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       35 GETUPVAL                         R8 4
-       36 DUPTABLE                         R9 K16 [{"ControlPoints", "Tag"}]
-       37 SETTABLEKS                       R2 R9 K14 ["ControlPoints"]
-       39 JUMPIFNOT                        R1 ; [+2]
-       40 LOADK                            R10 K17 ["FullCurve"]
-       41 JUMP                             ; [+1]
-       42 LOADK                            R10 K18 ["FullCurveDisabled"]
-       43 SETTABLEKS                       R10 R9 K15 ["Tag"]
-       45 CALL                             R7 2 1
-       46 SETTABLEKS                       R7 R6 K12 ["Curve"]
-       48 CALL                             R3 3 -1
-       49 RETURN                           R3 -1
+       31 GETUPVAL                         R7 4
+       32 CALL                             R7 0 1
+       33 JUMPIFNOT                        R7 ; [+2]
+       34 LOADN                            R6 0
+       35 JUMP                             ; [+1]
+       36 LOADNIL                          R6
+       37 SETTABLEKS                       R6 R5 K8 ["ZIndex"]
+       39 DUPTABLE                         R6 K14 [{"Curve"}]
+       40 GETUPVAL                         R7 3
+       41 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       43 GETUPVAL                         R8 5
+       44 DUPTABLE                         R9 K17 [{"ControlPoints", "Tag"}]
+       45 SETTABLEKS                       R2 R9 K15 ["ControlPoints"]
+       47 JUMPIFNOT                        R1 ; [+2]
+       48 LOADK                            R10 K18 ["FullCurve"]
+       49 JUMP                             ; [+1]
+       50 LOADK                            R10 K19 ["FullCurveDisabled"]
+       51 SETTABLEKS                       R10 R9 K16 ["Tag"]
+       53 CALL                             R7 2 1
+       54 SETTABLEKS                       R7 R6 K13 ["Curve"]
+       56 CALL                             R3 3 -1
+       57 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -354,10 +361,17 @@ MAIN:
        45 GETTABLEKS                       R8 R8 K13 ["Util"]
        47 GETTABLEKS                       R8 R8 K15 ["PlotUtil"]
        49 CALL                             R7 1 1
-       50 DUPCLOSURE                       R8 K16 [PROTO_3]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R7
-       53 CAPTURE                          VAL R6
-       54 CAPTURE                          VAL R2
-       55 CAPTURE                          VAL R5
-       56 RETURN                           R8 1
+       50 GETIMPORT                        R8 K6 [require]
+       52 GETTABLEKS                       R9 R1 K16 ["Bin"]
+       54 GETTABLEKS                       R9 R9 K17 ["Common"]
+       56 GETTABLEKS                       R9 R9 K18 ["defineLuaFlags"]
+       58 CALL                             R8 1 1
+       59 GETTABLEKS                       R9 R8 K19 ["getFFlagAudioEqualizerZIndexFix"]
+       61 DUPCLOSURE                       R10 K20 [PROTO_3]
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R7
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          VAL R9
+       67 CAPTURE                          VAL R5
+       68 RETURN                           R10 1

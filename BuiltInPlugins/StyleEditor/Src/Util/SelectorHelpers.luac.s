@@ -447,40 +447,6 @@ PROTO_15:
        14 CALL                             R2 1 0
        15 RETURN                           R0 0
 
-PROTO_16:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["SelectorSyntax"]
-        3 GETTABLEKS                       R1 R1 K1 ["PseudoInstance"]
-        5 GETIMPORT                        R2 K4 [string.find]
-        7 GETTABLEKS                       R3 R0 K5 ["Selector"]
-        9 MOVE                             R4 R1
-       10 CALL                             R2 2 1
-       11 JUMPIFNOT                        R2 ; [+29]
-       12 GETTABLEKS                       R2 R0 K6 ["Parent"]
-       14 JUMPIFNOT                        R2 ; [+14]
-       15 LOADK                            R5 K7 ["StyleRule"]
-       16 NAMECALL                         R3 R2 K8 ["IsA"]
-       18 CALL                             R3 2 1
-       19 JUMPIFNOT                        R3 ; [+9]
-       20 GETIMPORT                        R3 K4 [string.find]
-       22 GETTABLEKS                       R4 R2 K5 ["Selector"]
-       24 MOVE                             R5 R1
-       25 CALL                             R3 2 1
-       26 JUMPIFNOT                        R3 ; [+2]
-       27 LOADB                            R3 1
-       28 RETURN                           R3 1
-       29 GETIMPORT                        R3 K10 [string.gsub]
-       31 GETTABLEKS                       R4 R0 K5 ["Selector"]
-       33 MOVE                             R5 R1
-       34 LOADK                            R6 K11 [""]
-       35 CALL                             R3 3 2
-       36 LOADN                            R5 1
-       37 JUMPIFNOTLT                      R5 R4 ; [+3]
-       39 LOADB                            R5 1
-       40 RETURN                           R5 1
-       41 LOADB                            R2 0
-       42 RETURN                           R2 1
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -577,7 +543,4 @@ MAIN:
       140 CAPTURE                          VAL R11
       141 CAPTURE                          VAL R12
       142 SETTABLEKS                       R13 R12 K66 ["addStyleLinkToSelection"]
-      144 DUPCLOSURE                       R13 K67 [PROTO_16]
-      145 CAPTURE                          VAL R12
-      146 SETTABLEKS                       R13 R12 K68 ["DEPRECATED_isNestedPseudoInstance"]
-      148 RETURN                           R12 1
+      144 RETURN                           R12 1

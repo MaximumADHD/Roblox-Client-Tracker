@@ -977,29 +977,27 @@ PROTO_28:
         7 RETURN                           R0 0
 
 PROTO_29:
-        0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+2]
-        2 JUMPIF                           R0 ; [+1]
-        3 RETURN                           R0 0
-        4 GETTABLEKS                       R1 R0 K0 ["CurrentDataModelTypeAboutToChange"]
-        6 NEWCLOSURE                       R3 P0
-        7 CAPTURE                          UPVAL U1
-        8 CAPTURE                          UPVAL U2
-        9 CAPTURE                          UPVAL U3
-       10 CAPTURE                          UPVAL U4
-       11 NAMECALL                         R1 R1 K1 ["Connect"]
-       13 CALL                             R1 2 0
-       14 GETTABLEKS                       R1 R0 K2 ["CurrentDataModelTypeChanged"]
-       16 DUPCLOSURE                       R3 K3 [PROTO_28]
-       17 CAPTURE                          UPVAL U5
-       18 NAMECALL                         R1 R1 K1 ["Connect"]
-       20 CALL                             R1 2 0
-       21 GETIMPORT                        R1 K5 [plugin]
-       23 GETTABLEKS                       R1 R1 K6 ["HostDataModelTypeIsCurrent"]
-       25 JUMPIFNOT                        R1 ; [+2]
-       26 GETUPVAL                         R1 5
-       27 CALL                             R1 0 0
-       28 RETURN                           R0 0
+        0 JUMPIF                           R0 ; [+1]
+        1 RETURN                           R0 0
+        2 GETTABLEKS                       R1 R0 K0 ["CurrentDataModelTypeAboutToChange"]
+        4 NEWCLOSURE                       R3 P0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U3
+        9 NAMECALL                         R1 R1 K1 ["Connect"]
+       11 CALL                             R1 2 0
+       12 GETTABLEKS                       R1 R0 K2 ["CurrentDataModelTypeChanged"]
+       14 DUPCLOSURE                       R3 K3 [PROTO_28]
+       15 CAPTURE                          UPVAL U4
+       16 NAMECALL                         R1 R1 K1 ["Connect"]
+       18 CALL                             R1 2 0
+       19 GETIMPORT                        R1 K5 [plugin]
+       21 GETTABLEKS                       R1 R1 K6 ["HostDataModelTypeIsCurrent"]
+       23 JUMPIFNOT                        R1 ; [+2]
+       24 GETUPVAL                         R1 4
+       25 CALL                             R1 0 0
+       26 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1050,107 +1048,102 @@ MAIN:
        74 CALL                             R10 2 1
        75 NAMECALL                         R10 R10 K20 ["HasInternalPermission"]
        77 CALL                             R10 1 1
-       78 GETIMPORT                        R11 K8 [game]
-       80 LOADK                            R13 K21 ["CGEControlsRowPolish"]
-       81 NAMECALL                         R11 R11 K22 ["GetFastFlag"]
-       83 CALL                             R11 2 1
-       84 GETIMPORT                        R12 K4 [require]
-       86 GETTABLEKS                       R13 R0 K13 ["Plugin"]
-       88 GETTABLEKS                       R13 R13 K23 ["getEngineFeatureMultiworldCollisionGroups"]
-       90 CALL                             R12 1 1
-       91 GETIMPORT                        R13 K25 [workspace]
-       93 LOADNIL                          R14
-       94 LOADNIL                          R15
-       95 NEWCLOSURE                       R16 P0
-       96 CAPTURE                          REF R15
-       97 NEWCLOSURE                       R14 P1
-       98 CAPTURE                          REF R15
-       99 CAPTURE                          VAL R12
-      100 CAPTURE                          REF R13
-      101 CAPTURE                          VAL R2
-      102 LOADNIL                          R17
-      103 NEWCLOSURE                       R18 P2
-      104 CAPTURE                          VAL R5
-      105 CAPTURE                          REF R13
-      106 CAPTURE                          REF R17
-      107 NEWCLOSURE                       R19 P3
-      108 CAPTURE                          VAL R12
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          REF R13
-      111 CAPTURE                          VAL R9
-      112 CAPTURE                          VAL R5
-      113 DUPCLOSURE                       R20 K26 [PROTO_4]
-      114 CAPTURE                          VAL R19
-      115 NEWTABLE                         R21 0 0
-      117 NEWCLOSURE                       R22 P5
-      118 CAPTURE                          VAL R21
-      119 CAPTURE                          VAL R4
-      120 CAPTURE                          VAL R12
-      121 CAPTURE                          REF R13
-      122 CAPTURE                          VAL R19
-      123 CAPTURE                          VAL R3
-      124 DUPCLOSURE                       R23 K27 [PROTO_9]
-      125 CAPTURE                          VAL R21
-      126 NEWCLOSURE                       R24 P7
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          REF R13
-      129 CAPTURE                          VAL R2
-      130 NEWTABLE                         R25 0 0
-      132 NEWCLOSURE                       R26 P8
-      133 CAPTURE                          VAL R25
-      134 CAPTURE                          VAL R22
-      135 CAPTURE                          VAL R19
-      136 CAPTURE                          VAL R21
-      137 CAPTURE                          VAL R12
-      138 CAPTURE                          VAL R5
-      139 CAPTURE                          REF R13
-      140 CAPTURE                          VAL R4
-      141 CAPTURE                          VAL R3
-      142 CAPTURE                          VAL R2
-      143 CAPTURE                          VAL R7
-      144 CAPTURE                          VAL R6
-      145 CAPTURE                          VAL R24
-      146 DUPCLOSURE                       R27 K28 [PROTO_21]
-      147 CAPTURE                          VAL R25
-      148 LOADB                            R28 0
-      149 NEWCLOSURE                       R29 P10
-      150 CAPTURE                          REF R28
-      151 CAPTURE                          VAL R12
-      152 CAPTURE                          VAL R18
-      153 CAPTURE                          VAL R19
+       78 GETIMPORT                        R11 K4 [require]
+       80 GETTABLEKS                       R12 R0 K13 ["Plugin"]
+       82 GETTABLEKS                       R12 R12 K21 ["getEngineFeatureMultiworldCollisionGroups"]
+       84 CALL                             R11 1 1
+       85 GETIMPORT                        R12 K23 [workspace]
+       87 LOADNIL                          R13
+       88 LOADNIL                          R14
+       89 NEWCLOSURE                       R15 P0
+       90 CAPTURE                          REF R14
+       91 NEWCLOSURE                       R13 P1
+       92 CAPTURE                          REF R14
+       93 CAPTURE                          VAL R11
+       94 CAPTURE                          REF R12
+       95 CAPTURE                          VAL R2
+       96 LOADNIL                          R16
+       97 NEWCLOSURE                       R17 P2
+       98 CAPTURE                          VAL R5
+       99 CAPTURE                          REF R12
+      100 CAPTURE                          REF R16
+      101 NEWCLOSURE                       R18 P3
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          REF R12
+      105 CAPTURE                          VAL R9
+      106 CAPTURE                          VAL R5
+      107 DUPCLOSURE                       R19 K24 [PROTO_4]
+      108 CAPTURE                          VAL R18
+      109 NEWTABLE                         R20 0 0
+      111 NEWCLOSURE                       R21 P5
+      112 CAPTURE                          VAL R20
+      113 CAPTURE                          VAL R4
+      114 CAPTURE                          VAL R11
+      115 CAPTURE                          REF R12
+      116 CAPTURE                          VAL R18
+      117 CAPTURE                          VAL R3
+      118 DUPCLOSURE                       R22 K25 [PROTO_9]
+      119 CAPTURE                          VAL R20
+      120 NEWCLOSURE                       R23 P7
+      121 CAPTURE                          VAL R11
+      122 CAPTURE                          REF R12
+      123 CAPTURE                          VAL R2
+      124 NEWTABLE                         R24 0 0
+      126 NEWCLOSURE                       R25 P8
+      127 CAPTURE                          VAL R24
+      128 CAPTURE                          VAL R21
+      129 CAPTURE                          VAL R18
+      130 CAPTURE                          VAL R20
+      131 CAPTURE                          VAL R11
+      132 CAPTURE                          VAL R5
+      133 CAPTURE                          REF R12
+      134 CAPTURE                          VAL R4
+      135 CAPTURE                          VAL R3
+      136 CAPTURE                          VAL R2
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          VAL R6
+      139 CAPTURE                          VAL R23
+      140 DUPCLOSURE                       R26 K26 [PROTO_21]
+      141 CAPTURE                          VAL R24
+      142 LOADB                            R27 0
+      143 NEWCLOSURE                       R28 P10
+      144 CAPTURE                          REF R27
+      145 CAPTURE                          VAL R11
+      146 CAPTURE                          VAL R17
+      147 CAPTURE                          VAL R18
+      148 CAPTURE                          REF R13
+      149 NEWCLOSURE                       R29 P11
+      150 CAPTURE                          REF R27
+      151 LOADNIL                          R30
+      152 NEWCLOSURE                       R31 P12
+      153 CAPTURE                          REF R12
       154 CAPTURE                          REF R14
-      155 NEWCLOSURE                       R30 P11
-      156 CAPTURE                          REF R28
-      157 LOADNIL                          R31
-      158 NEWCLOSURE                       R32 P12
-      159 CAPTURE                          REF R13
-      160 CAPTURE                          REF R15
-      161 CAPTURE                          REF R17
-      162 CAPTURE                          VAL R19
-      163 CAPTURE                          REF R28
-      164 CAPTURE                          VAL R12
-      165 CAPTURE                          VAL R18
-      166 CAPTURE                          REF R14
-      167 CAPTURE                          VAL R26
-      168 CAPTURE                          VAL R10
-      169 CAPTURE                          VAL R0
-      170 CAPTURE                          REF R31
-      171 NEWCLOSURE                       R33 P13
-      172 CAPTURE                          VAL R25
-      173 CAPTURE                          VAL R21
-      174 CAPTURE                          REF R28
-      175 CAPTURE                          REF R31
-      176 NEWCLOSURE                       R34 P14
-      177 CAPTURE                          VAL R11
-      178 CAPTURE                          VAL R25
-      179 CAPTURE                          VAL R21
-      180 CAPTURE                          REF R28
-      181 CAPTURE                          REF R31
-      182 CAPTURE                          VAL R32
-      183 GETIMPORT                        R35 K30 [plugin]
-      185 GETTABLEKS                       R35 R35 K31 ["MultipleDocumentInterfaceInstance"]
-      187 MOVE                             R36 R34
-      188 GETTABLEKS                       R37 R35 K32 ["FocusedDataModelSession"]
-      190 CALL                             R36 1 0
-      191 CLOSEUPVALS                      R13
-      192 RETURN                           R0 0
+      155 CAPTURE                          REF R16
+      156 CAPTURE                          VAL R18
+      157 CAPTURE                          REF R27
+      158 CAPTURE                          VAL R11
+      159 CAPTURE                          VAL R17
+      160 CAPTURE                          REF R13
+      161 CAPTURE                          VAL R25
+      162 CAPTURE                          VAL R10
+      163 CAPTURE                          VAL R0
+      164 CAPTURE                          REF R30
+      165 NEWCLOSURE                       R32 P13
+      166 CAPTURE                          VAL R24
+      167 CAPTURE                          VAL R20
+      168 CAPTURE                          REF R27
+      169 CAPTURE                          REF R30
+      170 NEWCLOSURE                       R33 P14
+      171 CAPTURE                          VAL R24
+      172 CAPTURE                          VAL R20
+      173 CAPTURE                          REF R27
+      174 CAPTURE                          REF R30
+      175 CAPTURE                          VAL R31
+      176 GETIMPORT                        R34 K28 [plugin]
+      178 GETTABLEKS                       R34 R34 K29 ["MultipleDocumentInterfaceInstance"]
+      180 MOVE                             R35 R33
+      181 GETTABLEKS                       R36 R34 K30 ["FocusedDataModelSession"]
+      183 CALL                             R35 1 0
+      184 CLOSEUPVALS                      R12
+      185 RETURN                           R0 0

@@ -84,31 +84,38 @@ PROTO_1:
        97 LOADK                            R9 K18 [""]
        98 SETTABLEKS                       R9 R8 K19 ["Text"]
       100 SETTABLEKS                       R5 R8 K14 ["Visible"]
-      102 GETUPVAL                         R9 2
-      103 GETTABLEKS                       R9 R9 K20 ["Tag"]
-      105 GETUPVAL                         R10 3
-      106 LOADK                            R11 K21 ["Role-Surface X-Fit"]
-      107 GETTABLEKS                       R13 R0 K22 ["IsColumn"]
-      109 JUMPIFNOT                        R13 ; [+2]
-      110 LOADK                            R12 K23 ["Role-DividerH X-Middle"]
-      111 JUMP                             ; [+1]
-      112 LOADK                            R12 K24 ["Role-DividerV"]
-      113 MOVE                             R13 R1
-      114 CALL                             R10 3 1
-      115 SETTABLE                         R10 R8 R9
-      116 GETUPVAL                         R9 2
-      117 GETTABLEKS                       R9 R9 K25 ["Event"]
-      119 GETTABLEKS                       R9 R9 K26 ["InputBegan"]
-      121 NEWCLOSURE                       R10 P0
-      122 CAPTURE                          VAL R0
+      102 GETUPVAL                         R10 2
+      103 CALL                             R10 0 1
+      104 JUMPIFNOT                        R10 ; [+2]
+      105 LOADB                            R9 0
+      106 JUMP                             ; [+1]
+      107 LOADNIL                          R9
+      108 SETTABLEKS                       R9 R8 K20 ["Selectable"]
+      110 GETUPVAL                         R9 3
+      111 GETTABLEKS                       R9 R9 K21 ["Tag"]
+      113 GETUPVAL                         R10 4
+      114 LOADK                            R11 K22 ["Role-Surface X-Fit"]
+      115 GETTABLEKS                       R13 R0 K23 ["IsColumn"]
+      117 JUMPIFNOT                        R13 ; [+2]
+      118 LOADK                            R12 K24 ["Role-DividerH X-Middle"]
+      119 JUMP                             ; [+1]
+      120 LOADK                            R12 K25 ["Role-DividerV"]
+      121 MOVE                             R13 R1
+      122 CALL                             R10 3 1
       123 SETTABLE                         R10 R8 R9
-      124 DUPTABLE                         R9 K28 [{"Divider"}]
-      125 GETUPVAL                         R10 1
-      126 LOADK                            R11 K29 ["Frame"]
-      127 CALL                             R10 1 1
-      128 SETTABLEKS                       R10 R9 K27 ["Divider"]
-      130 CALL                             R6 3 -1
-      131 RETURN                           R6 -1
+      124 GETUPVAL                         R9 3
+      125 GETTABLEKS                       R9 R9 K26 ["Event"]
+      127 GETTABLEKS                       R9 R9 K27 ["InputBegan"]
+      129 NEWCLOSURE                       R10 P0
+      130 CAPTURE                          VAL R0
+      131 SETTABLE                         R10 R8 R9
+      132 DUPTABLE                         R9 K29 [{"Divider"}]
+      133 GETUPVAL                         R10 1
+      134 LOADK                            R11 K30 ["Frame"]
+      135 CALL                             R10 1 1
+      136 SETTABLEKS                       R10 R9 K28 ["Divider"]
+      138 CALL                             R6 3 -1
+      139 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -143,9 +150,15 @@ MAIN:
        51 CALL                             R7 1 1
        52 GETTABLEKS                       R8 R7 K18 ["Styling"]
        54 GETTABLEKS                       R9 R8 K19 ["joinTags"]
-       56 DUPCLOSURE                       R10 K20 [PROTO_1]
-       57 CAPTURE                          VAL R4
-       58 CAPTURE                          VAL R2
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R9
-       61 RETURN                           R10 1
+       56 GETIMPORT                        R10 K5 [require]
+       58 GETTABLEKS                       R11 R0 K12 ["Src"]
+       60 GETTABLEKS                       R11 R11 K20 ["SharedFlags"]
+       62 GETTABLEKS                       R11 R11 K21 ["getFFlagRibbonEnableKeyboardNavigation"]
+       64 CALL                             R10 1 1
+       65 DUPCLOSURE                       R11 K22 [PROTO_1]
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R10
+       69 CAPTURE                          VAL R1
+       70 CAPTURE                          VAL R9
+       71 RETURN                           R11 1

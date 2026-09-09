@@ -64,6 +64,40 @@ PROTO_3:
        16 CALL                             R3 3 -1
        17 RETURN                           R3 -1
 
+PROTO_4:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 LOADK                            R5 K0 ["summary-%*"]
+        3 MOVE                             R7 R1
+        4 NAMECALL                         R5 R5 K1 ["format"]
+        6 CALL                             R5 2 1
+        7 MOVE                             R4 R5
+        8 LOADK                            R6 K2 ["Summary '%*' not found"]
+        9 MOVE                             R8 R1
+       10 NAMECALL                         R6 R6 K1 ["format"]
+       12 CALL                             R6 2 1
+       13 MOVE                             R5 R6
+       14 CALL                             R2 3 1
+       15 LOADK                            R5 K3 ["TextLabel"]
+       16 NAMECALL                         R3 R2 K4 ["IsA"]
+       18 CALL                             R3 2 1
+       19 JUMPIFNOT                        R3 ; [+1]
+       20 RETURN                           R2 1
+       21 LOADK                            R5 K3 ["TextLabel"]
+       22 LOADB                            R6 1
+       23 NAMECALL                         R3 R2 K5 ["FindFirstChildWhichIsA"]
+       25 CALL                             R3 3 1
+       26 LOADK                            R7 K6 ["Summary text for '%*' not found"]
+       27 MOVE                             R9 R1
+       28 NAMECALL                         R7 R7 K1 ["format"]
+       30 CALL                             R7 2 1
+       31 MOVE                             R6 R7
+       32 FASTCALL2                        ASSERT R3 R6 ; [+4]
+       34 MOVE                             R5 R3
+       35 GETIMPORT                        R4 K8 [assert]
+       37 CALL                             R4 2 0
+       38 RETURN                           R3 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -84,7 +118,7 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K11 ["TestHelper"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R3 K12 ["queryByTestId"]
-       32 NEWTABLE                         R5 4 0
+       32 NEWTABLE                         R5 8 0
        34 DUPCLOSURE                       R6 K13 [PROTO_0]
        35 CAPTURE                          VAL R4
        36 SETTABLEKS                       R6 R5 K14 ["GetAction"]
@@ -97,4 +131,7 @@ MAIN:
        46 DUPCLOSURE                       R6 K19 [PROTO_3]
        47 CAPTURE                          VAL R4
        48 SETTABLEKS                       R6 R5 K20 ["GetPropertyCell"]
-       50 RETURN                           R5 1
+       50 DUPCLOSURE                       R6 K21 [PROTO_4]
+       51 CAPTURE                          VAL R4
+       52 SETTABLEKS                       R6 R5 K22 ["GetSummary"]
+       54 RETURN                           R5 1

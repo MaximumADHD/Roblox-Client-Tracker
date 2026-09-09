@@ -90,7 +90,7 @@ PROTO_1:
       100 SETTABLE                         R15 R13 R14
       101 DUPTABLE                         R14 K26 [{"CheckboxContainer"}]
       102 GETTABLEKS                       R16 R0 K27 ["ExcludeTextFromClickableArea"]
-      104 JUMPIFNOT                        R16 ; [+31]
+      104 JUMPIFNOT                        R16 ; [+39]
       105 GETUPVAL                         R15 1
       106 GETTABLEKS                       R15 R15 K17 ["createElement"]
       108 LOADK                            R16 K21 ["Frame"]
@@ -103,40 +103,54 @@ PROTO_1:
       117 GETUPVAL                         R19 1
       118 GETTABLEKS                       R19 R19 K17 ["createElement"]
       120 LOADK                            R20 K32 ["ImageButton"]
-      121 NEWTABLE                         R21 1 0
-      123 GETUPVAL                         R22 1
-      124 GETTABLEKS                       R22 R22 K33 ["Event"]
-      126 GETTABLEKS                       R22 R22 K34 ["Activated"]
-      128 SETTABLE                         R9 R21 R22
-      129 CALL                             R19 2 1
-      130 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
-      132 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
-      134 CALL                             R15 3 1
-      135 JUMP                             ; [+30]
-      136 GETUPVAL                         R15 1
-      137 GETTABLEKS                       R15 R15 K17 ["createElement"]
-      139 LOADK                            R16 K35 ["TextButton"]
-      140 NEWTABLE                         R17 2 0
-      142 GETUPVAL                         R18 1
-      143 GETTABLEKS                       R18 R18 K33 ["Event"]
-      145 GETTABLEKS                       R18 R18 K34 ["Activated"]
-      147 SETTABLE                         R9 R17 R18
-      148 GETUPVAL                         R18 1
-      149 GETTABLEKS                       R18 R18 K19 ["Tag"]
-      151 LOADK                            R19 K28 ["X-Fit X-Middle"]
-      152 SETTABLE                         R19 R17 R18
-      153 DUPTABLE                         R18 K31 [{"CheckboxIcon", "CheckboxLabel"}]
-      154 GETUPVAL                         R19 1
-      155 GETTABLEKS                       R19 R19 K17 ["createElement"]
-      157 LOADK                            R20 K36 ["ImageLabel"]
-      158 NEWTABLE                         R21 0 0
-      160 CALL                             R19 2 1
-      161 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
-      163 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
-      165 CALL                             R15 3 1
-      166 SETTABLEKS                       R15 R14 K25 ["CheckboxContainer"]
-      168 CALL                             R11 3 -1
-      169 RETURN                           R11 -1
+      121 NEWTABLE                         R21 2 0
+      123 GETUPVAL                         R23 4
+      124 CALL                             R23 0 1
+      125 JUMPIFNOT                        R23 ; [+2]
+      126 NOT                              R22 R2
+      127 JUMP                             ; [+1]
+      128 LOADNIL                          R22
+      129 SETTABLEKS                       R22 R21 K33 ["Selectable"]
+      131 GETUPVAL                         R22 1
+      132 GETTABLEKS                       R22 R22 K34 ["Event"]
+      134 GETTABLEKS                       R22 R22 K35 ["Activated"]
+      136 SETTABLE                         R9 R21 R22
+      137 CALL                             R19 2 1
+      138 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
+      140 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
+      142 CALL                             R15 3 1
+      143 JUMP                             ; [+38]
+      144 GETUPVAL                         R15 1
+      145 GETTABLEKS                       R15 R15 K17 ["createElement"]
+      147 LOADK                            R16 K36 ["TextButton"]
+      148 NEWTABLE                         R17 4 0
+      150 GETUPVAL                         R19 4
+      151 CALL                             R19 0 1
+      152 JUMPIFNOT                        R19 ; [+2]
+      153 NOT                              R18 R2
+      154 JUMP                             ; [+1]
+      155 LOADNIL                          R18
+      156 SETTABLEKS                       R18 R17 K33 ["Selectable"]
+      158 GETUPVAL                         R18 1
+      159 GETTABLEKS                       R18 R18 K34 ["Event"]
+      161 GETTABLEKS                       R18 R18 K35 ["Activated"]
+      163 SETTABLE                         R9 R17 R18
+      164 GETUPVAL                         R18 1
+      165 GETTABLEKS                       R18 R18 K19 ["Tag"]
+      167 LOADK                            R19 K28 ["X-Fit X-Middle"]
+      168 SETTABLE                         R19 R17 R18
+      169 DUPTABLE                         R18 K31 [{"CheckboxIcon", "CheckboxLabel"}]
+      170 GETUPVAL                         R19 1
+      171 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      173 LOADK                            R20 K37 ["ImageLabel"]
+      174 NEWTABLE                         R21 0 0
+      176 CALL                             R19 2 1
+      177 SETTABLEKS                       R19 R18 K29 ["CheckboxIcon"]
+      179 SETTABLEKS                       R10 R18 K30 ["CheckboxLabel"]
+      181 CALL                             R15 3 1
+      182 SETTABLEKS                       R15 R14 K25 ["CheckboxContainer"]
+      184 CALL                             R11 3 -1
+      185 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -145,28 +159,36 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["React"]
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["useCallback"]
-       16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R4 R0 K9 ["Src"]
-       20 GETTABLEKS                       R4 R4 K10 ["Util"]
-       22 GETTABLEKS                       R4 R4 K11 ["uriToTestId"]
-       24 CALL                             R3 1 1
-       25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R5 K12 ["Framework"]
-       31 CALL                             R4 1 1
-       32 GETTABLEKS                       R5 R4 K13 ["Styling"]
-       34 GETTABLEKS                       R6 R5 K14 ["joinTags"]
-       36 GETIMPORT                        R7 K5 [require]
-       38 GETTABLEKS                       R8 R0 K9 ["Src"]
-       40 GETTABLEKS                       R8 R8 K15 ["Types"]
-       42 CALL                             R7 1 1
-       43 DUPCLOSURE                       R8 K16 [PROTO_1]
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R6
-       47 CAPTURE                          VAL R3
-       48 RETURN                           R8 1
+        9 GETIMPORT                        R2 K1 [script]
+       11 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K6 ["Parent"]
+       15 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
+       17 GETTABLEKS                       R2 R2 K8 ["getFFlagRibbonEnableKeyboardNavigation"]
+       19 CALL                             R1 1 1
+       20 GETIMPORT                        R2 K5 [require]
+       22 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K10 ["React"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R3 R2 K11 ["useCallback"]
+       29 GETIMPORT                        R4 K5 [require]
+       31 GETTABLEKS                       R5 R0 K12 ["Src"]
+       33 GETTABLEKS                       R5 R5 K13 ["Util"]
+       35 GETTABLEKS                       R5 R5 K14 ["uriToTestId"]
+       37 CALL                             R4 1 1
+       38 GETIMPORT                        R5 K5 [require]
+       40 GETTABLEKS                       R6 R0 K9 ["Packages"]
+       42 GETTABLEKS                       R6 R6 K15 ["Framework"]
+       44 CALL                             R5 1 1
+       45 GETTABLEKS                       R6 R5 K16 ["Styling"]
+       47 GETTABLEKS                       R7 R6 K17 ["joinTags"]
+       49 GETIMPORT                        R8 K5 [require]
+       51 GETTABLEKS                       R9 R0 K12 ["Src"]
+       53 GETTABLEKS                       R9 R9 K18 ["Types"]
+       55 CALL                             R8 1 1
+       56 DUPCLOSURE                       R9 K19 [PROTO_1]
+       57 CAPTURE                          VAL R3
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R7
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          VAL R1
+       62 RETURN                           R9 1

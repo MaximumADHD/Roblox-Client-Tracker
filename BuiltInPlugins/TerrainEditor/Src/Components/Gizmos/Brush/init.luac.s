@@ -47,48 +47,48 @@ PROTO_1:
        60 GETUPVAL                         R15 7
        61 GETTABLEKS                       R15 R15 K13 ["Flatten"]
        63 JUMPIFEQ                         R14 R15 ; [+3]
-       65 DUPCLOSURE                       R13 K14 [PROTO_0]
+       65 GETUPVAL                         R13 8
        66 JUMP                             ; [+2]
-       67 GETTABLEKS                       R13 R0 K15 ["Save"]
+       67 GETTABLEKS                       R13 R0 K14 ["Save"]
        69 CALL                             R10 3 3
-       70 GETUPVAL                         R13 8
+       70 GETUPVAL                         R13 9
        71 GETUPVAL                         R15 2
-       72 GETTABLEKS                       R15 R15 K16 ["PivotPosition"]
+       72 GETTABLEKS                       R15 R15 K15 ["PivotPosition"]
        74 GETTABLE                         R14 R2 R15
        75 MOVE                             R15 R12
        76 MOVE                             R16 R6
        77 CALL                             R13 3 1
-       78 GETUPVAL                         R14 9
-       79 LOADK                            R16 K17 ["Brush"]
-       80 NAMECALL                         R14 R14 K18 ["use"]
+       78 GETUPVAL                         R14 10
+       79 LOADK                            R16 K16 ["Brush"]
+       80 NAMECALL                         R14 R14 K17 ["use"]
        82 CALL                             R14 2 1
-       83 GETTABLEKS                       R16 R14 K19 ["CenterRadiusMultiplier"]
-       85 GETTABLEKS                       R17 R10 K20 ["Distance"]
+       83 GETTABLEKS                       R16 R14 K18 ["CenterRadiusMultiplier"]
+       85 GETTABLEKS                       R17 R10 K19 ["Distance"]
        87 MUL                              R15 R16 R17
-       88 GETTABLEKS                       R16 R14 K21 ["CenterTransparency"]
-       90 GETTABLEKS                       R17 R14 K22 ["Color"]
-       92 GETTABLEKS                       R18 R14 K23 ["MainTransparency"]
+       88 GETTABLEKS                       R16 R14 K20 ["CenterTransparency"]
+       90 GETTABLEKS                       R17 R14 K21 ["Color"]
+       92 GETTABLEKS                       R18 R14 K22 ["MainTransparency"]
        94 GETUPVAL                         R20 6
        95 GETTABLEKS                       R20 R20 K12 ["Manual"]
        97 JUMPIFNOTEQ                      R7 R20 ; [+3]
        99 MOVE                             R19 R8
       100 JUMP                             ; [+9]
-      101 GETIMPORT                        R19 K26 [CFrame.lookAt]
+      101 GETIMPORT                        R19 K25 [CFrame.lookAt]
       103 FASTCALL                         VECTOR ; [+2]
-      104 GETIMPORT                        R20 K29 [Vector3.new]
+      104 GETIMPORT                        R20 K28 [Vector3.new]
       106 CALL                             R20 0 1
-      107 GETTABLEKS                       R21 R11 K30 ["Normal"]
+      107 GETTABLEKS                       R21 R11 K29 ["Normal"]
       109 CALL                             R19 2 1
-      110 GETUPVAL                         R20 8
+      110 GETUPVAL                         R20 9
       111 GETUPVAL                         R22 2
-      112 GETTABLEKS                       R22 R22 K16 ["PivotPosition"]
+      112 GETTABLEKS                       R22 R22 K15 ["PivotPosition"]
       114 GETTABLE                         R21 R2 R22
-      115 GETTABLEKS                       R22 R11 K31 ["Position"]
+      115 GETTABLEKS                       R22 R11 K30 ["Position"]
       117 MOVE                             R23 R6
       118 CALL                             R20 3 1
       119 LOADB                            R21 1
       120 GETUPVAL                         R22 6
-      121 GETTABLEKS                       R22 R22 K32 ["Auto"]
+      121 GETTABLEKS                       R22 R22 K31 ["Auto"]
       123 JUMPIFEQ                         R7 R22 ; [+8]
       125 LOADB                            R21 0
       126 GETUPVAL                         R22 6
@@ -98,13 +98,13 @@ PROTO_1:
       132 GETUPVAL                         R23 6
       133 GETTABLEKS                       R23 R23 K12 ["Manual"]
       135 JUMPIFNOTEQ                      R7 R23 ; [+6]
-      137 GETTABLEKS                       R24 R8 K31 ["Position"]
+      137 GETTABLEKS                       R24 R8 K30 ["Position"]
       139 SUB                              R23 R8 R24
       140 ADD                              R22 R23 R20
       141 JUMP                             ; [+7]
-      142 GETIMPORT                        R22 K26 [CFrame.lookAt]
+      142 GETIMPORT                        R22 K25 [CFrame.lookAt]
       144 MOVE                             R23 R20
-      145 GETTABLEKS                       R25 R11 K30 ["Normal"]
+      145 GETTABLEKS                       R25 R11 K29 ["Normal"]
       147 ADD                              R24 R20 R25
       148 CALL                             R22 2 1
       149 GETTABLEKS                       R23 R0 K11 ["Tool"]
@@ -113,47 +113,47 @@ PROTO_1:
       154 JUMPIFNOTEQ                      R23 R24 ; [+60]
       156 LOADB                            R21 1
       157 GETUPVAL                         R24 2
-      158 GETTABLEKS                       R24 R24 K33 ["FlattenPlane"]
+      158 GETTABLEKS                       R24 R24 K32 ["FlattenPlane"]
       160 GETTABLE                         R23 R2 R24
-      161 GETUPVAL                         R24 10
-      162 GETTABLEKS                       R24 R24 K32 ["Auto"]
+      161 GETUPVAL                         R24 11
+      162 GETTABLEKS                       R24 R24 K31 ["Auto"]
       164 JUMPIFNOTEQ                      R23 R24 ; [+18]
-      166 GETIMPORT                        R23 K26 [CFrame.lookAt]
+      166 GETIMPORT                        R23 K25 [CFrame.lookAt]
       168 FASTCALL                         VECTOR ; [+2]
-      169 GETIMPORT                        R24 K29 [Vector3.new]
+      169 GETIMPORT                        R24 K28 [Vector3.new]
       171 CALL                             R24 0 1
-      172 LOADK                            R25 K34 [{0, 1, 0}]
+      172 LOADK                            R25 K33 [{0, 1, 0}]
       173 CALL                             R23 2 1
       174 MOVE                             R19 R23
-      175 GETIMPORT                        R23 K26 [CFrame.lookAt]
+      175 GETIMPORT                        R23 K25 [CFrame.lookAt]
       177 MOVE                             R24 R20
-      178 LOADK                            R26 K34 [{0, 1, 0}]
+      178 LOADK                            R26 K33 [{0, 1, 0}]
       179 ADD                              R25 R20 R26
       180 CALL                             R23 2 1
       181 MOVE                             R22 R23
       182 JUMP                             ; [+32]
-      183 GETIMPORT                        R23 K26 [CFrame.lookAt]
+      183 GETIMPORT                        R23 K25 [CFrame.lookAt]
       185 FASTCALL                         VECTOR ; [+2]
-      186 GETIMPORT                        R24 K29 [Vector3.new]
+      186 GETIMPORT                        R24 K28 [Vector3.new]
       188 CALL                             R24 0 1
-      189 LOADK                            R25 K34 [{0, 1, 0}]
+      189 LOADK                            R25 K33 [{0, 1, 0}]
       190 CALL                             R23 2 1
       191 MOVE                             R19 R23
-      192 GETTABLEKS                       R24 R20 K35 ["X"]
+      192 GETTABLEKS                       R24 R20 K34 ["X"]
       194 LOADN                            R25 0
-      195 GETTABLEKS                       R26 R20 K36 ["Z"]
+      195 GETTABLEKS                       R26 R20 K35 ["Z"]
       197 FASTCALL                         VECTOR ; [+2]
-      198 GETIMPORT                        R23 K29 [Vector3.new]
+      198 GETIMPORT                        R23 K28 [Vector3.new]
       200 CALL                             R23 3 1
-      201 LOADK                            R25 K34 [{0, 1, 0}]
+      201 LOADK                            R25 K33 [{0, 1, 0}]
       202 GETUPVAL                         R27 2
-      203 GETTABLEKS                       R27 R27 K37 ["FixedYPlane"]
+      203 GETTABLEKS                       R27 R27 K36 ["FixedYPlane"]
       205 GETTABLE                         R26 R2 R27
       206 MUL                              R24 R25 R26
       207 ADD                              R20 R23 R24
-      208 GETIMPORT                        R23 K26 [CFrame.lookAt]
+      208 GETIMPORT                        R23 K25 [CFrame.lookAt]
       210 MOVE                             R24 R20
-      211 LOADK                            R26 K34 [{0, 1, 0}]
+      211 LOADK                            R26 K33 [{0, 1, 0}]
       212 ADD                              R25 R20 R26
       213 CALL                             R23 2 1
       214 MOVE                             R22 R23
@@ -170,109 +170,109 @@ PROTO_1:
       230 GETUPVAL                         R24 4
       231 GETTABLEKS                       R24 R24 K6 ["Sphere"]
       233 JUMPIFNOTEQ                      R3 R24 ; [+23]
-      235 GETUPVAL                         R23 11
-      236 GETTABLEKS                       R23 R23 K38 ["createElement"]
-      238 GETUPVAL                         R24 12
-      239 DUPTABLE                         R25 K42 [{"Adornee", "CFrame", "Color", "Radius", "Transparency"}]
-      240 SETTABLEKS                       R1 R25 K39 ["Adornee"]
-      242 GETIMPORT                        R26 K43 [CFrame.new]
+      235 GETUPVAL                         R23 12
+      236 GETTABLEKS                       R23 R23 K37 ["createElement"]
+      238 GETUPVAL                         R24 13
+      239 DUPTABLE                         R25 K41 [{"Adornee", "CFrame", "Color", "Radius", "Transparency"}]
+      240 SETTABLEKS                       R1 R25 K38 ["Adornee"]
+      242 GETIMPORT                        R26 K42 [CFrame.new]
       244 MOVE                             R27 R13
       245 CALL                             R26 1 1
-      246 SETTABLEKS                       R26 R25 K24 ["CFrame"]
-      248 SETTABLEKS                       R17 R25 K22 ["Color"]
-      250 DIVK                             R26 R5 K44 [2]
-      251 SETTABLEKS                       R26 R25 K40 ["Radius"]
-      253 SETTABLEKS                       R18 R25 K41 ["Transparency"]
+      246 SETTABLEKS                       R26 R25 K23 ["CFrame"]
+      248 SETTABLEKS                       R17 R25 K21 ["Color"]
+      250 DIVK                             R26 R5 K43 [2]
+      251 SETTABLEKS                       R26 R25 K39 ["Radius"]
+      253 SETTABLEKS                       R18 R25 K40 ["Transparency"]
       255 CALL                             R23 2 1
       256 JUMP                             ; [+67]
       257 GETUPVAL                         R24 4
-      258 GETTABLEKS                       R24 R24 K45 ["Cube"]
+      258 GETTABLEKS                       R24 R24 K44 ["Cube"]
       260 JUMPIFNOTEQ                      R3 R24 ; [+30]
-      262 GETUPVAL                         R23 11
-      263 GETTABLEKS                       R23 R23 K38 ["createElement"]
-      265 GETUPVAL                         R24 13
-      266 DUPTABLE                         R25 K46 [{"Adornee", "CFrame", "Color", "Size", "Transparency"}]
-      267 SETTABLEKS                       R1 R25 K39 ["Adornee"]
-      269 GETIMPORT                        R26 K43 [CFrame.new]
+      262 GETUPVAL                         R23 12
+      263 GETTABLEKS                       R23 R23 K37 ["createElement"]
+      265 GETUPVAL                         R24 14
+      266 DUPTABLE                         R25 K45 [{"Adornee", "CFrame", "Color", "Size", "Transparency"}]
+      267 SETTABLEKS                       R1 R25 K38 ["Adornee"]
+      269 GETIMPORT                        R26 K42 [CFrame.new]
       271 MOVE                             R27 R13
       272 CALL                             R26 1 1
-      273 SETTABLEKS                       R26 R25 K24 ["CFrame"]
-      275 SETTABLEKS                       R17 R25 K22 ["Color"]
+      273 SETTABLEKS                       R26 R25 K23 ["CFrame"]
+      275 SETTABLEKS                       R17 R25 K21 ["Color"]
       277 FASTCALL3                        VECTOR R5 R6 R5
       279 MOVE                             R27 R5
       280 MOVE                             R28 R6
       281 MOVE                             R29 R5
-      282 GETIMPORT                        R26 K29 [Vector3.new]
+      282 GETIMPORT                        R26 K28 [Vector3.new]
       284 CALL                             R26 3 1
       285 SETTABLEKS                       R26 R25 K4 ["Size"]
-      287 SETTABLEKS                       R18 R25 K41 ["Transparency"]
+      287 SETTABLEKS                       R18 R25 K40 ["Transparency"]
       289 CALL                             R23 2 1
       290 JUMP                             ; [+33]
       291 GETUPVAL                         R24 4
-      292 GETTABLEKS                       R24 R24 K47 ["Cylinder"]
+      292 GETTABLEKS                       R24 R24 K46 ["Cylinder"]
       294 JUMPIFNOTEQ                      R3 R24 ; [+28]
-      296 GETUPVAL                         R23 11
-      297 GETTABLEKS                       R23 R23 K38 ["createElement"]
-      299 GETUPVAL                         R24 14
-      300 DUPTABLE                         R25 K48 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
-      301 SETTABLEKS                       R1 R25 K39 ["Adornee"]
-      303 GETIMPORT                        R27 K50 [CFrame.Angles]
-      305 LOADK                            R28 K51 [1.5707963267949]
+      296 GETUPVAL                         R23 12
+      297 GETTABLEKS                       R23 R23 K37 ["createElement"]
+      299 GETUPVAL                         R24 15
+      300 DUPTABLE                         R25 K47 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
+      301 SETTABLEKS                       R1 R25 K38 ["Adornee"]
+      303 GETIMPORT                        R27 K49 [CFrame.Angles]
+      305 LOADK                            R28 K50 [1.5707963267949]
       306 LOADN                            R29 0
       307 LOADN                            R30 0
       308 CALL                             R27 3 1
       309 ADD                              R26 R27 R13
-      310 SETTABLEKS                       R26 R25 K24 ["CFrame"]
-      312 SETTABLEKS                       R17 R25 K22 ["Color"]
+      310 SETTABLEKS                       R26 R25 K23 ["CFrame"]
+      312 SETTABLEKS                       R17 R25 K21 ["Color"]
       314 SETTABLEKS                       R6 R25 K7 ["Height"]
-      316 DIVK                             R26 R5 K44 [2]
-      317 SETTABLEKS                       R26 R25 K40 ["Radius"]
-      319 SETTABLEKS                       R18 R25 K41 ["Transparency"]
+      316 DIVK                             R26 R5 K43 [2]
+      317 SETTABLEKS                       R26 R25 K39 ["Radius"]
+      319 SETTABLEKS                       R18 R25 K40 ["Transparency"]
       321 CALL                             R23 2 1
       322 JUMP                             ; [+1]
       323 LOADNIL                          R23
-      324 GETUPVAL                         R24 15
-      325 GETTABLEKS                       R24 R24 K52 ["createPortal"]
-      327 DUPTABLE                         R25 K55 [{"BrushVisual", "Grid"}]
-      328 GETUPVAL                         R26 11
-      329 GETTABLEKS                       R26 R26 K38 ["createElement"]
-      331 LOADK                            R27 K56 ["Folder"]
+      324 GETUPVAL                         R24 16
+      325 GETTABLEKS                       R24 R24 K51 ["createPortal"]
+      327 DUPTABLE                         R25 K54 [{"BrushVisual", "Grid"}]
+      328 GETUPVAL                         R26 12
+      329 GETTABLEKS                       R26 R26 K37 ["createElement"]
+      331 LOADK                            R27 K55 ["Folder"]
       332 NEWTABLE                         R28 0 0
-      334 DUPTABLE                         R29 K59 [{"Cursor", "Central"}]
-      335 SETTABLEKS                       R23 R29 K57 ["Cursor"]
-      337 GETUPVAL                         R30 11
-      338 GETTABLEKS                       R30 R30 K38 ["createElement"]
-      340 LOADK                            R31 K60 ["SphereHandleAdornment"]
-      341 DUPTABLE                         R32 K65 [{["Adornee"], ["AlwaysOnTop"] = True, ["CFrame"], ["Color"], ["Radius"], ["Transparency"], ["ZIndex"] = 1}]
-      342 SETTABLEKS                       R1 R32 K39 ["Adornee"]
-      344 GETIMPORT                        R33 K43 [CFrame.new]
+      334 DUPTABLE                         R29 K58 [{"Cursor", "Central"}]
+      335 SETTABLEKS                       R23 R29 K56 ["Cursor"]
+      337 GETUPVAL                         R30 12
+      338 GETTABLEKS                       R30 R30 K37 ["createElement"]
+      340 LOADK                            R31 K59 ["SphereHandleAdornment"]
+      341 DUPTABLE                         R32 K64 [{["Adornee"], ["AlwaysOnTop"] = True, ["CFrame"], ["Color"], ["Radius"], ["Transparency"], ["ZIndex"] = 1}]
+      342 SETTABLEKS                       R1 R32 K38 ["Adornee"]
+      344 GETIMPORT                        R33 K42 [CFrame.new]
       346 MOVE                             R34 R13
       347 CALL                             R33 1 1
-      348 SETTABLEKS                       R33 R32 K24 ["CFrame"]
-      350 SETTABLEKS                       R17 R32 K22 ["Color"]
-      352 SETTABLEKS                       R15 R32 K40 ["Radius"]
-      354 SETTABLEKS                       R16 R32 K41 ["Transparency"]
+      348 SETTABLEKS                       R33 R32 K23 ["CFrame"]
+      350 SETTABLEKS                       R17 R32 K21 ["Color"]
+      352 SETTABLEKS                       R15 R32 K39 ["Radius"]
+      354 SETTABLEKS                       R16 R32 K40 ["Transparency"]
       356 CALL                             R30 2 1
-      357 SETTABLEKS                       R30 R29 K58 ["Central"]
+      357 SETTABLEKS                       R30 R29 K57 ["Central"]
       359 CALL                             R26 3 1
-      360 SETTABLEKS                       R26 R25 K53 ["BrushVisual"]
+      360 SETTABLEKS                       R26 R25 K52 ["BrushVisual"]
       362 JUMPIFNOT                        R21 ; [+19]
-      363 GETUPVAL                         R26 11
-      364 GETTABLEKS                       R26 R26 K38 ["createElement"]
-      366 GETUPVAL                         R27 16
-      367 DUPTABLE                         R28 K68 [{["AlwaysOnTop"] = True, ["Center"], ["Size"], ["Transform"]}]
-      368 SETTABLEKS                       R19 R28 K66 ["Center"]
+      363 GETUPVAL                         R26 12
+      364 GETTABLEKS                       R26 R26 K37 ["createElement"]
+      366 GETUPVAL                         R27 17
+      367 DUPTABLE                         R28 K67 [{["AlwaysOnTop"] = True, ["Center"], ["Size"], ["Transform"]}]
+      368 SETTABLEKS                       R19 R28 K65 ["Center"]
       370 GETUPVAL                         R30 2
       371 GETTABLEKS                       R30 R30 K3 ["BrushSize"]
       373 GETTABLE                         R29 R2 R30
       374 GETTABLEKS                       R29 R29 K4 ["Size"]
       376 SETTABLEKS                       R29 R28 K4 ["Size"]
-      378 SETTABLEKS                       R22 R28 K67 ["Transform"]
+      378 SETTABLEKS                       R22 R28 K66 ["Transform"]
       380 CALL                             R26 2 1
       381 JUMP                             ; [+1]
       382 LOADNIL                          R26
-      383 SETTABLEKS                       R26 R25 K54 ["Grid"]
-      385 GETUPVAL                         R26 17
+      383 SETTABLEKS                       R26 R25 K53 ["Grid"]
+      385 GETUPVAL                         R26 18
       386 CALL                             R24 2 -1
       387 RETURN                           R24 -1
 
@@ -351,23 +351,25 @@ MAIN:
       126 LOADK                            R25 K36 ["CoreGui"]
       127 NAMECALL                         R23 R23 K37 ["GetService"]
       129 CALL                             R23 2 1
-      130 DUPCLOSURE                       R24 K38 [PROTO_1]
-      131 CAPTURE                          VAL R8
-      132 CAPTURE                          VAL R18
-      133 CAPTURE                          VAL R16
-      134 CAPTURE                          VAL R9
-      135 CAPTURE                          VAL R17
-      136 CAPTURE                          VAL R7
-      137 CAPTURE                          VAL R20
-      138 CAPTURE                          VAL R21
-      139 CAPTURE                          VAL R10
-      140 CAPTURE                          VAL R5
-      141 CAPTURE                          VAL R19
-      142 CAPTURE                          VAL R2
-      143 CAPTURE                          VAL R13
-      144 CAPTURE                          VAL R11
-      145 CAPTURE                          VAL R12
-      146 CAPTURE                          VAL R3
-      147 CAPTURE                          VAL R14
-      148 CAPTURE                          VAL R23
-      149 RETURN                           R24 1
+      130 DUPCLOSURE                       R24 K38 [PROTO_0]
+      131 DUPCLOSURE                       R25 K39 [PROTO_1]
+      132 CAPTURE                          VAL R8
+      133 CAPTURE                          VAL R18
+      134 CAPTURE                          VAL R16
+      135 CAPTURE                          VAL R9
+      136 CAPTURE                          VAL R17
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          VAL R20
+      139 CAPTURE                          VAL R21
+      140 CAPTURE                          VAL R24
+      141 CAPTURE                          VAL R10
+      142 CAPTURE                          VAL R5
+      143 CAPTURE                          VAL R19
+      144 CAPTURE                          VAL R2
+      145 CAPTURE                          VAL R13
+      146 CAPTURE                          VAL R11
+      147 CAPTURE                          VAL R12
+      148 CAPTURE                          VAL R3
+      149 CAPTURE                          VAL R14
+      150 CAPTURE                          VAL R23
+      151 RETURN                           R25 1

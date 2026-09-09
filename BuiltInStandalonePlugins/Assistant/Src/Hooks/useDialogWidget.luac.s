@@ -401,47 +401,47 @@ PROTO_29:
         6 GETUPVAL                         R2 1
         7 GETTABLEKS                       R2 R2 K2 ["onWidgetInteraction"]
         9 GETUPVAL                         R3 2
-       10 GETTABLEKS                       R3 R3 K3 ["FFlagAssistantCreditMetering"]
-       12 JUMPIFNOT                        R3 ; [+6]
-       13 JUMPIFNOT                        R0 ; [+5]
-       14 LOADK                            R5 K4 ["PluginGui"]
-       15 NAMECALL                         R3 R0 K5 ["IsA"]
-       17 CALL                             R3 2 1
-       18 JUMPIF                           R3 ; [+1]
-       19 RETURN                           R0 0
-       20 NEWTABLE                         R3 0 0
-       22 JUMPIFNOT                        R1 ; [+15]
-       23 MOVE                             R5 R3
-       24 LOADK                            R8 K6 ["Enabled"]
-       25 NAMECALL                         R6 R0 K7 ["GetPropertyChangedSignal"]
-       27 CALL                             R6 2 1
-       28 NEWCLOSURE                       R8 P0
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R1
-       31 NAMECALL                         R6 R6 K8 ["Connect"]
-       33 CALL                             R6 2 -1
-       34 FASTCALL                         TABLE_INSERT ; [+2]
-       35 GETIMPORT                        R4 K11 [table.insert]
-       37 CALL                             R4 -1 0
-       38 JUMPIFNOT                        R2 ; [+14]
-       39 GETIMPORT                        R4 K13 [pcall]
-       41 NEWCLOSURE                       R5 P1
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R0
-       44 CAPTURE                          VAL R2
-       45 CALL                             R4 1 0
-       46 GETIMPORT                        R4 K13 [pcall]
-       48 NEWCLOSURE                       R5 P2
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          VAL R2
-       52 CALL                             R4 1 0
-       53 LENGTH                           R4 R3
-       54 JUMPIFNOTEQKN                    R4 K14 [0] ; [+2]
-       56 RETURN                           R0 0
-       57 NEWCLOSURE                       R4 P3
-       58 CAPTURE                          VAL R3
-       59 RETURN                           R4 1
+       10 CALL                             R3 0 1
+       11 JUMPIFNOT                        R3 ; [+6]
+       12 JUMPIFNOT                        R0 ; [+5]
+       13 LOADK                            R5 K3 ["PluginGui"]
+       14 NAMECALL                         R3 R0 K4 ["IsA"]
+       16 CALL                             R3 2 1
+       17 JUMPIF                           R3 ; [+1]
+       18 RETURN                           R0 0
+       19 NEWTABLE                         R3 0 0
+       21 JUMPIFNOT                        R1 ; [+15]
+       22 MOVE                             R5 R3
+       23 LOADK                            R8 K5 ["Enabled"]
+       24 NAMECALL                         R6 R0 K6 ["GetPropertyChangedSignal"]
+       26 CALL                             R6 2 1
+       27 NEWCLOSURE                       R8 P0
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          VAL R1
+       30 NAMECALL                         R6 R6 K7 ["Connect"]
+       32 CALL                             R6 2 -1
+       33 FASTCALL                         TABLE_INSERT ; [+2]
+       34 GETIMPORT                        R4 K10 [table.insert]
+       36 CALL                             R4 -1 0
+       37 JUMPIFNOT                        R2 ; [+14]
+       38 GETIMPORT                        R4 K12 [pcall]
+       40 NEWCLOSURE                       R5 P1
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R2
+       44 CALL                             R4 1 0
+       45 GETIMPORT                        R4 K12 [pcall]
+       47 NEWCLOSURE                       R5 P2
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          VAL R2
+       51 CALL                             R4 1 0
+       52 LENGTH                           R4 R3
+       53 JUMPIFNOTEQKN                    R4 K13 [0] ; [+2]
+       55 RETURN                           R0 0
+       56 NEWCLOSURE                       R4 P3
+       57 CAPTURE                          VAL R3
+       58 RETURN                           R4 1
 
 PROTO_30:
         0 GETUPVAL                         R0 0
@@ -674,45 +674,43 @@ MAIN:
        23 GETTABLEKS                       R4 R4 K12 ["AssistantUI"]
        25 CALL                             R3 1 1
        26 GETIMPORT                        R4 K10 [require]
-       28 GETTABLEKS                       R5 R0 K13 ["Src"]
-       30 GETTABLEKS                       R5 R5 K14 ["Flags"]
+       28 GETTABLEKS                       R5 R0 K11 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K13 ["Foundation"]
        32 CALL                             R4 1 1
        33 GETIMPORT                        R5 K10 [require]
        35 GETTABLEKS                       R6 R0 K11 ["Packages"]
-       37 GETTABLEKS                       R6 R6 K15 ["Foundation"]
+       37 GETTABLEKS                       R6 R6 K14 ["Framework"]
        39 CALL                             R5 1 1
        40 GETIMPORT                        R6 K10 [require]
        42 GETTABLEKS                       R7 R0 K11 ["Packages"]
-       44 GETTABLEKS                       R7 R7 K16 ["Framework"]
+       44 GETTABLEKS                       R7 R7 K15 ["React"]
        46 CALL                             R6 1 1
        47 GETIMPORT                        R7 K10 [require]
        49 GETTABLEKS                       R8 R0 K11 ["Packages"]
-       51 GETTABLEKS                       R8 R8 K17 ["React"]
+       51 GETTABLEKS                       R8 R8 K16 ["ReactRoblox"]
        53 CALL                             R7 1 1
-       54 GETIMPORT                        R8 K10 [require]
-       56 GETTABLEKS                       R9 R0 K11 ["Packages"]
-       58 GETTABLEKS                       R9 R9 K18 ["ReactRoblox"]
-       60 CALL                             R8 1 1
-       61 GETTABLEKS                       R9 R6 K19 ["ContextServices"]
-       63 GETTABLEKS                       R10 R9 K20 ["Design"]
-       65 GETTABLEKS                       R11 R6 K19 ["ContextServices"]
-       67 GETTABLEKS                       R11 R11 K21 ["Plugin"]
-       69 GETTABLEKS                       R12 R9 K22 ["Focus"]
-       71 GETTABLEKS                       R13 R7 K23 ["createElement"]
-       73 DUPCLOSURE                       R14 K24 [PROTO_0]
-       74 DUPCLOSURE                       R15 K25 [PROTO_11]
-       75 CAPTURE                          VAL R7
-       76 DUPCLOSURE                       R16 K26 [PROTO_32]
-       77 CAPTURE                          VAL R7
-       78 CAPTURE                          VAL R11
-       79 CAPTURE                          VAL R10
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R15
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R9
-       85 CAPTURE                          VAL R12
-       86 CAPTURE                          VAL R13
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R8
-       89 RETURN                           R16 1
+       54 GETTABLEKS                       R8 R5 K17 ["ContextServices"]
+       56 GETTABLEKS                       R9 R8 K18 ["Design"]
+       58 GETTABLEKS                       R10 R5 K17 ["ContextServices"]
+       60 GETTABLEKS                       R10 R10 K19 ["Plugin"]
+       62 GETTABLEKS                       R11 R8 K20 ["Focus"]
+       64 GETTABLEKS                       R12 R6 K21 ["createElement"]
+       66 GETTABLEKS                       R13 R3 K22 ["FlagUtils"]
+       68 GETTABLEKS                       R13 R13 K23 ["getIsCreditMeteringEnabled"]
+       70 DUPCLOSURE                       R14 K24 [PROTO_0]
+       71 DUPCLOSURE                       R15 K25 [PROTO_11]
+       72 CAPTURE                          VAL R6
+       73 DUPCLOSURE                       R16 K26 [PROTO_32]
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R10
+       76 CAPTURE                          VAL R9
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          VAL R15
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R13
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          VAL R11
+       83 CAPTURE                          VAL R12
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R7
+       86 RETURN                           R16 1

@@ -68,31 +68,32 @@ MAIN:
        91 CALL                             R6 0 1
        92 MOVE                             R7 R4
        93 MOVE                             R8 R6
-       94 CALL                             R7 1 1
-       95 GETIMPORT                        R8 K1 [plugin]
-       97 GETTABLEKS                       R8 R8 K28 ["Unloading"]
-       99 DUPCLOSURE                       R10 K29 [PROTO_0]
-      100 CAPTURE                          VAL R6
-      101 CAPTURE                          VAL R7
-      102 NAMECALL                         R8 R8 K30 ["Connect"]
-      104 CALL                             R8 2 0
-      105 GETTABLEKS                       R8 R3 K26 ["get"]
-      107 CALL                             R8 0 1
-      108 GETTABLEKS                       R9 R3 K27 ["Asset"]
-      110 JUMPIFEQ                         R8 R9 ; [+2]
-      112 RETURN                           R0 0
-      113 GETIMPORT                        R8 K7 [require]
-      115 GETTABLEKS                       R9 R0 K13 ["Bin"]
-      117 GETTABLEKS                       R9 R9 K14 ["Common"]
-      119 GETTABLEKS                       R9 R9 K31 ["setup"]
-      121 CALL                             R8 1 1
-      122 GETIMPORT                        R9 K7 [require]
-      124 GETTABLEKS                       R10 R0 K13 ["Bin"]
-      126 GETTABLEKS                       R10 R10 K14 ["Common"]
-      128 GETTABLEKS                       R10 R10 K32 ["setupMain"]
-      130 CALL                             R9 1 1
-      131 MOVE                             R10 R8
-      132 GETIMPORT                        R11 K1 [plugin]
-      134 MOVE                             R12 R9
-      135 CALL                             R10 2 0
-      136 RETURN                           R0 0
+       94 GETIMPORT                        R9 K1 [plugin]
+       96 CALL                             R7 2 1
+       97 GETIMPORT                        R8 K1 [plugin]
+       99 GETTABLEKS                       R8 R8 K28 ["Unloading"]
+      101 DUPCLOSURE                       R10 K29 [PROTO_0]
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          VAL R7
+      104 NAMECALL                         R8 R8 K30 ["Connect"]
+      106 CALL                             R8 2 0
+      107 GETTABLEKS                       R8 R3 K26 ["get"]
+      109 CALL                             R8 0 1
+      110 GETTABLEKS                       R9 R3 K27 ["Asset"]
+      112 JUMPIFEQ                         R8 R9 ; [+2]
+      114 RETURN                           R0 0
+      115 GETIMPORT                        R8 K7 [require]
+      117 GETTABLEKS                       R9 R0 K13 ["Bin"]
+      119 GETTABLEKS                       R9 R9 K14 ["Common"]
+      121 GETTABLEKS                       R9 R9 K31 ["setup"]
+      123 CALL                             R8 1 1
+      124 GETIMPORT                        R9 K7 [require]
+      126 GETTABLEKS                       R10 R0 K13 ["Bin"]
+      128 GETTABLEKS                       R10 R10 K14 ["Common"]
+      130 GETTABLEKS                       R10 R10 K32 ["setupMain"]
+      132 CALL                             R9 1 1
+      133 MOVE                             R10 R8
+      134 GETIMPORT                        R11 K1 [plugin]
+      136 MOVE                             R12 R9
+      137 CALL                             R10 2 0
+      138 RETURN                           R0 0

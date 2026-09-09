@@ -594,24 +594,34 @@ PROTO_14:
       103 JUMPIFEQKN                       R15 K22 [0] ; [+4]
       105 GETIMPORT                        R16 K24 [coroutine.yield]
       107 CALL                             R16 0 0
-      108 NEWTABLE                         R16 0 0
-      110 MOVE                             R17 R10
-      111 LOADNIL                          R18
-      112 LOADNIL                          R19
-      113 FORGPREP                         R17
-      114 GETTABLEKS                       R23 R21 K10 ["id"]
-      116 GETTABLE                         R22 R11 R23
-      117 JUMPIFNOT                        R22 ; [+8]
-      118 GETTABLEKS                       R24 R21 K10 ["id"]
-      120 FASTCALL2                        TABLE_INSERT R16 R24 ; [+4]
-      122 MOVE                             R23 R16
-      123 GETIMPORT                        R22 K15 [table.insert]
-      125 CALL                             R22 2 0
-      126 FORGLOOP                         R17 2 ; [-13]
-      128 MOVE                             R17 R16
-      129 MOVE                             R18 R12
-      130 CLOSEUPVALS                      R14
-      131 RETURN                           R17 2
+      108 LOADN                            R16 1
+      109 LENGTH                           R17 R10
+      110 LOADN                            R18 1
+      111 GETUPVAL                         R19 0
+      112 GETTABLEKS                       R19 R19 K25 ["fflagReverseGroupRoleOrder"]
+      114 JUMPIFNOT                        R19 ; [+3]
+      115 LENGTH                           R16 R10
+      116 LOADN                            R17 1
+      117 LOADN                            R18 -1
+      118 NEWTABLE                         R19 0 0
+      120 MOVE                             R22 R16
+      121 MOVE                             R20 R17
+      122 MOVE                             R21 R18
+      123 FORNPREP                         R20
+      124 GETTABLE                         R23 R10 R22
+      125 GETTABLEKS                       R25 R23 K10 ["id"]
+      127 GETTABLE                         R24 R11 R25
+      128 JUMPIFNOT                        R24 ; [+8]
+      129 GETTABLEKS                       R26 R23 K10 ["id"]
+      131 FASTCALL2                        TABLE_INSERT R19 R26 ; [+4]
+      133 MOVE                             R25 R19
+      134 GETIMPORT                        R24 K15 [table.insert]
+      136 CALL                             R24 2 0
+      137 FORNLOOP                         R20
+      138 MOVE                             R20 R19
+      139 MOVE                             R21 R12
+      140 CLOSEUPVALS                      R14
+      141 RETURN                           R20 2
 
 PROTO_15:
         0 GETUPVAL                         R0 0

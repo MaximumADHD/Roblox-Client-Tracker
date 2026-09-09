@@ -285,52 +285,69 @@ PROTO_6:
        17 GETTABLEKS                       R7 R1 K6 ["LayoutOrder"]
        19 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
        21 DUPTABLE                         R7 K11 [{"PresetMenu", "PresetNamePrompt"}]
-       22 GETUPVAL                         R8 0
-       23 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       25 GETUPVAL                         R9 2
-       26 DUPTABLE                         R10 K23 [{["Items"], ["HideText"] = True, ["OnItemActivated"], ["OnRenderItem"], ["OnMouseEnter"], ["OnMouseLeave"], ["Size"], ["ExpandIcon"], ["ShowSelection"] = False, ["UseAutoWidth"] = True}]
-       27 GETTABLEKS                       R11 R0 K24 ["dropdownItems"]
-       29 SETTABLEKS                       R11 R10 K12 ["Items"]
-       31 GETTABLEKS                       R11 R0 K25 ["onItemActivated"]
-       33 SETTABLEKS                       R11 R10 K15 ["OnItemActivated"]
-       35 GETTABLEKS                       R11 R0 K26 ["onRenderItem"]
-       37 SETTABLEKS                       R11 R10 K16 ["OnRenderItem"]
-       39 GETTABLEKS                       R11 R0 K27 ["focused"]
-       41 SETTABLEKS                       R11 R10 K17 ["OnMouseEnter"]
-       43 GETTABLEKS                       R11 R0 K28 ["unfocused"]
-       45 SETTABLEKS                       R11 R10 K18 ["OnMouseLeave"]
-       47 GETIMPORT                        R11 K31 [UDim2.new]
-       49 LOADN                            R12 1
-       50 LOADN                            R13 0
-       51 LOADN                            R14 1
-       52 LOADN                            R15 0
-       53 CALL                             R11 4 1
-       54 SETTABLEKS                       R11 R10 K5 ["Size"]
-       56 GETTABLEKS                       R11 R3 K32 ["MenuImage"]
-       58 SETTABLEKS                       R11 R10 K19 ["ExpandIcon"]
-       60 CALL                             R8 2 1
-       61 SETTABLEKS                       R8 R7 K9 ["PresetMenu"]
-       63 GETTABLEKS                       R9 R2 K33 ["showNameDialog"]
-       65 JUMPIFNOT                        R9 ; [+25]
-       66 GETUPVAL                         R8 0
-       67 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       69 GETUPVAL                         R9 3
-       70 DUPTABLE                         R10 K39 [{["CurrentPreset"], ["Intent"], ["IsHintError"] = False, ["OnClose"], ["OnButtonPressed"]}]
-       71 GETTABLEKS                       R11 R1 K40 ["ActiveQueueItem"]
-       73 GETTABLEKS                       R11 R11 K41 ["currentPreset"]
-       75 SETTABLEKS                       R11 R10 K34 ["CurrentPreset"]
-       77 GETTABLEKS                       R11 R2 K42 ["promptIntent"]
-       79 SETTABLEKS                       R11 R10 K35 ["Intent"]
-       81 GETTABLEKS                       R11 R0 K43 ["onNameDialogClose"]
-       83 SETTABLEKS                       R11 R10 K37 ["OnClose"]
-       85 GETTABLEKS                       R11 R0 K44 ["onNameDialogButtonPressed"]
-       87 SETTABLEKS                       R11 R10 K38 ["OnButtonPressed"]
-       89 CALL                             R8 2 1
-       90 JUMP                             ; [+1]
-       91 LOADNIL                          R8
-       92 SETTABLEKS                       R8 R7 K10 ["PresetNamePrompt"]
-       94 CALL                             R4 3 -1
-       95 RETURN                           R4 -1
+       22 GETTABLEKS                       R9 R1 K12 ["Disabled"]
+       24 JUMPIFNOT                        R9 ; [+20]
+       25 GETUPVAL                         R8 0
+       26 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       28 LOADK                            R9 K13 ["ImageLabel"]
+       29 DUPTABLE                         R10 K19 [{["BackgroundTransparency"] = 1, ["Image"], ["ImageTransparency"] = 0.5, ["Size"]}]
+       30 GETTABLEKS                       R11 R3 K20 ["MenuImage"]
+       32 SETTABLEKS                       R11 R10 K16 ["Image"]
+       34 GETIMPORT                        R11 K23 [UDim2.new]
+       36 LOADN                            R12 1
+       37 LOADN                            R13 0
+       38 LOADN                            R14 1
+       39 LOADN                            R15 0
+       40 CALL                             R11 4 1
+       41 SETTABLEKS                       R11 R10 K5 ["Size"]
+       43 CALL                             R8 2 1
+       44 JUMP                             ; [+39]
+       45 GETUPVAL                         R8 0
+       46 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       48 GETUPVAL                         R9 2
+       49 DUPTABLE                         R10 K35 [{["Items"], ["HideText"] = True, ["OnItemActivated"], ["OnRenderItem"], ["OnMouseEnter"], ["OnMouseLeave"], ["Size"], ["ExpandIcon"], ["ShowSelection"] = False, ["UseAutoWidth"] = True}]
+       50 GETTABLEKS                       R11 R0 K36 ["dropdownItems"]
+       52 SETTABLEKS                       R11 R10 K24 ["Items"]
+       54 GETTABLEKS                       R11 R0 K37 ["onItemActivated"]
+       56 SETTABLEKS                       R11 R10 K27 ["OnItemActivated"]
+       58 GETTABLEKS                       R11 R0 K38 ["onRenderItem"]
+       60 SETTABLEKS                       R11 R10 K28 ["OnRenderItem"]
+       62 GETTABLEKS                       R11 R0 K39 ["focused"]
+       64 SETTABLEKS                       R11 R10 K29 ["OnMouseEnter"]
+       66 GETTABLEKS                       R11 R0 K40 ["unfocused"]
+       68 SETTABLEKS                       R11 R10 K30 ["OnMouseLeave"]
+       70 GETIMPORT                        R11 K23 [UDim2.new]
+       72 LOADN                            R12 1
+       73 LOADN                            R13 0
+       74 LOADN                            R14 1
+       75 LOADN                            R15 0
+       76 CALL                             R11 4 1
+       77 SETTABLEKS                       R11 R10 K5 ["Size"]
+       79 GETTABLEKS                       R11 R3 K20 ["MenuImage"]
+       81 SETTABLEKS                       R11 R10 K31 ["ExpandIcon"]
+       83 CALL                             R8 2 1
+       84 SETTABLEKS                       R8 R7 K9 ["PresetMenu"]
+       86 GETTABLEKS                       R9 R2 K41 ["showNameDialog"]
+       88 JUMPIFNOT                        R9 ; [+25]
+       89 GETUPVAL                         R8 0
+       90 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       92 GETUPVAL                         R9 3
+       93 DUPTABLE                         R10 K47 [{["CurrentPreset"], ["Intent"], ["IsHintError"] = False, ["OnClose"], ["OnButtonPressed"]}]
+       94 GETTABLEKS                       R11 R1 K48 ["ActiveQueueItem"]
+       96 GETTABLEKS                       R11 R11 K49 ["currentPreset"]
+       98 SETTABLEKS                       R11 R10 K42 ["CurrentPreset"]
+      100 GETTABLEKS                       R11 R2 K50 ["promptIntent"]
+      102 SETTABLEKS                       R11 R10 K43 ["Intent"]
+      104 GETTABLEKS                       R11 R0 K51 ["onNameDialogClose"]
+      106 SETTABLEKS                       R11 R10 K45 ["OnClose"]
+      108 GETTABLEKS                       R11 R0 K52 ["onNameDialogButtonPressed"]
+      110 SETTABLEKS                       R11 R10 K46 ["OnButtonPressed"]
+      112 CALL                             R8 2 1
+      113 JUMP                             ; [+1]
+      114 LOADNIL                          R8
+      115 SETTABLEKS                       R8 R7 K10 ["PresetNamePrompt"]
+      117 CALL                             R4 3 -1
+      118 RETURN                           R4 -1
 
 PROTO_7:
         0 DUPTABLE                         R1 K1 [{"ActiveQueueItem"}]
