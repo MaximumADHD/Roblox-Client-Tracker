@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Index
 
 local Package = require(PackageIndex["RoactRodux"]["RoactRodux"])
 
+export type DispatchProp = Package.DispatchProp
+export type ThunkfulDispatchProp<State = any> = Package.ThunkfulDispatchProp<State > 
+
+
 return Package

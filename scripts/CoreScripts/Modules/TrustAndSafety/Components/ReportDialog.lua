@@ -22,15 +22,8 @@ local Constants = require(TnsModule.Resources.Constants)
 local SendReport = require(TnsModule.Thunks.SendReport)
 local TextEntryField = require(TnsModule.Components.TextEntryField)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
-local ScreenshotDialog = require(TnsModule.Components.ReportAnything.ScreenshotDialog)
-local ScreenshotFlowStepHandler = require(TnsModule.Components.ReportAnything.ScreenshotFlowStepHandler)
 local SendAnalytics = require(TnsModule.Utility.SendAnalytics)
 local SessionUtility = require(TnsModule.Utility.SessionUtility)
-local ScreenshotHelper = require(TnsModule.Utility.ScreenshotHelper)
-local GetFFlagReportAnythingScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingScreenshot)
-local GetFFlagReportAnythingMultistepScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingMultistepScreenshot)
-local ScreenshotAnnotated = require(TnsModule.Actions.ScreenshotAnnotated)
-local FilterIdentifiedAvatars = require(TnsModule.Thunks.FilterIdentifiedAvatars)
 
 local StyleProvider = UIBlox.Core.Style.Provider
 local withStyle = UIBlox.Core.Style.withStyle
@@ -101,14 +94,11 @@ ReportDialog.validateProps = t.strictInterface({
 	targetPlayer = t.optional(playerInterface),
 	placeName = t.string,
 	screenSize = t.Vector2,
-	screenshotAnnotationPoints = t.array(t.Vector2),
 	navigateBack = t.optional(t.callback),
 	canNavigateBack = t.optional(t.boolean),
 	sendReport = t.callback,
 	closeDialog = t.optional(t.callback),
-	screenshotAnnotated = t.optional(t.callback),
 	reportCategory = t.optional(t.string),
-	currentPage = t.string,
 })
 
 function ReportDialog:init()
@@ -131,7 +121,6 @@ function ReportDialog:init()
 	-- Press the "Report" button.
 	self.onReport = function(toastTitle, toastDescription)
 		local reason = self:getReason()
-		-- print("Report button pressed. Annotation points:", self.props.screenshotAnnotationPoints)
 		self.props.sendReport(
 			self.props.reportType,
 			self.props.targetPlayer,
@@ -149,10 +138,6 @@ function ReportDialog:init()
 	-- Press the "Cancel" button or transparent background.
 	self.onCancel = function()
 		self.props.closeDialog(self.state.reasonText, self.state.descriptionText ~= "")
-	end
-	-- Transition out of the screenshot annotation dialog.
-	self.onScreenshotAnnotated = function(annotationPoints)
-		self.props.screenshotAnnotated(self.props.reportCategory, self.props.reportType, annotationPoints)
 	end
 end
 
@@ -292,7 +277,7 @@ function ReportDialog:renderPlayerContents()
 		placeHolderText = "CoreScripts.InGameMenu.Report.AbuseDetailsPlaceHolder",
 	})(function(localized)
 		local TEXT_FIELD_POSITION_Y = if isShowUKOSAIllegalContentReportingLink() then 118 else 132
-		local TEXT_FIELD_SIZE_Y = if isShowUKOSAIllegalContentReportingLink() then -150 else -132 
+		local TEXT_FIELD_SIZE_Y = if isShowUKOSAIllegalContentReportingLink() then -150 else -132
 		return Roact.createFragment({
 			PlayerInfo = self:renderPlayerInfo(),
 			DropDownMenu = self:renderDropDownMenu(),
@@ -392,30 +377,6 @@ function ReportDialog:render()
 		toastDefaultTitle = "CoreScripts.InGameMenu.Report.Confirmation.ThanksForReport",
 		toastDefaultDescription = "CoreScripts.InGameMenu.Report.Confirmation.ThanksForReportDescription",
 	})(function(localized)
-		if GetFFlagReportAnythingScreenshot() and self.props.currentPage == Constants.Page.ScreenshotDialog then
-			if GetFFlagReportAnythingMultistepScreenshot() then
-				-- TODO(richardli): add additional props
-				return React.createElement(ScreenshotFlowStepHandler, {
-					dismissAction = self.onCancel,
-					titleText = "Highlight What's Wrong",
-					entryPoint = "experience",
-					screenshot = ScreenshotHelper:GetScreenshotContentId(),
-					skipAnnotationAction = function() end,
-					restartAction = function() end,
-					reportAction = function() end,
-				})
-			else
-				return React.createElement(ScreenshotDialog, {
-					-- TODO(bcwong): Localize
-					screenshot = ScreenshotHelper:GetScreenshotContentId(),
-					titleText = "Highlight What's Wrong",
-					backAction = if self.props.canNavigateBack then self.navigateBack else nil,
-					dismissAction = self.onCancel,
-					reportAction = self.onScreenshotAnnotated,
-					initialAnnotationPoints = self.props.screenshotAnnotationPoints,
-				})
-			end
-		end
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.isReportDialogOpen,
 			screenSize = self.props.screenSize,
@@ -472,13 +433,11 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		reportCategory = state.report.reportCategory,
 		isReportDialogOpen = state.report.currentPage == Constants.Page.ReportForm,
-		currentPage = state.report.currentPage,
 		reportType = state.report.reportType,
 		targetPlayer = state.report.targetPlayer,
 		canNavigateBack = #state.report.history > 1,
 		placeName = state.placeInfo.name,
 		screenSize = state.displayOptions.screenSize,
-		screenshotAnnotationPoints = state.report.screenshotAnnotationPoints,
 	}
 end, function(dispatch)
 	return {
@@ -498,11 +457,6 @@ end, function(dispatch)
 				descriptionTextChanged = descriptionTextChanged,
 			})
 			SessionUtility.endAbuseReportSession()
-		end,
-		-- See Constants.lua for the diff between category & type.
-		screenshotAnnotated = function(reportCategory, reportType, annotationPoints)
-			dispatch(FilterIdentifiedAvatars(annotationPoints))
-			dispatch(ScreenshotAnnotated(reportCategory, reportType, annotationPoints))
 		end,
 		sendReport = function(
 			reportType,

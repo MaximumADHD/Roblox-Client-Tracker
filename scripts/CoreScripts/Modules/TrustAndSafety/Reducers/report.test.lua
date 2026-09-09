@@ -125,6 +125,21 @@ describe("VoiceReportFlow", function()
 			reportType = Constants.ReportType.Place,
 		})
 	end)
+
+	it("should route an experience category report to the report form", function()
+		local oldState = report(nil, {})
+		oldState = report(oldState, SetVoiceReportingFlow(true))
+		oldState = report(oldState, BeginReportFlow())
+
+		local newState = report(oldState, SelectReportCategory(Constants.Category.Experience))
+
+		expect(newState).toMatchObject({
+			currentPage = Constants.Page.ReportForm,
+			reportType = Constants.ReportType.Place,
+			reportCategory = Constants.Category.Experience,
+			history = { [2] = Constants.Page.Category },
+		})
+	end)
 end)
 
 describe("ReportDialog", function()

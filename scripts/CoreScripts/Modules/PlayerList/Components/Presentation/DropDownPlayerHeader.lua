@@ -16,7 +16,9 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge
 
-local FFlagEnableVerifiedBadgeStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVerifiedBadgeStore
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableVerifiedBadgeStore = SharedFlags.FFlagEnableVerifiedBadgeStore
+local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
 
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
@@ -65,6 +67,9 @@ function DropDownPlayerHeader:render()
 					Header2 = {
 						Font = tokens.Typography.TitleLarge.Font,
 						RelativeSize = tokens.Typography.TitleLarge.FontSize,
+						FontSize = tokens.Typography.TitleLarge.FontSize,
+						LineHeight = tokens.Typography.TitleLarge.LineHeight,
+						LetterSpacing = tokens.Typography.TitleLarge.LetterSpacing,
 					},
 				},
 			}
@@ -74,6 +79,14 @@ function DropDownPlayerHeader:render()
 			local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore
 				then self.props.showVerifiedBadge
 				else UserLib.Utils.isPlayerVerified(player)
+			local emojiFontStyle = if FFlagCoreUiMigrateUIBloxToFoundation and style.Font.Header2.FontSize
+				then {
+					Font = style.Font.Header2.Font,
+					FontSize = style.Font.Header2.FontSize,
+					LineHeight = style.Font.Header2.LineHeight,
+					LetterSpacing = style.Font.Header2.LetterSpacing,
+				}
+				else style.Font.Header2
 
 			return Roact.createElement("TextButton", {
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.
@@ -104,7 +117,7 @@ function DropDownPlayerHeader:render()
 						}),
 
 						DisplayName = showVerifiedBadge and Roact.createElement(EmojiTextLabel, {
-							fontStyle = style.Font.Header2,
+							fontStyle = emojiFontStyle,
 							colorStyle = style.Theme.TextEmphasis,
 							fluidSizing = false,
 							emoji = Emoji.Verified,

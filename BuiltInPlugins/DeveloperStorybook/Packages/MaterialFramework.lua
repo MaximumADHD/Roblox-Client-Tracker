@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["MaterialFrameworkDeprecated"]["MaterialFrameworkDeprecated"])
+local Package = require(PackageIndex["MaterialFramework"]["MaterialFramework"])
 
 return Package

@@ -24,12 +24,9 @@ local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local OpenReportMenu = require(script.Actions.OpenReportMenu)
 local BeginReportFlow = require(script.Actions.BeginReportFlow)
 local SetVoiceReportingFlow = require(script.Actions.SetVoiceReportingFlow)
-local IdentifyAvatars = require(script.Thunks.IdentifyAvatars)
 local SessionUtility = require(script.Utility.SessionUtility)
-local ScreenshotHookManager = require(script.Utility.ScreenshotHookManager)
 
 local FetchPlaceInfo = require(script.Thunks.FetchPlaceInfo)
-local GetFFlagReportAnythingScreenshot = require(script.Flags.GetFFlagReportAnythingScreenshot)
 
 local TrustAndSafety = {}
 
@@ -101,17 +98,11 @@ end
 
 function TrustAndSafety:openReportDialog(reportType, targetPlayer)
 	self.store:dispatch(SetVoiceReportingFlow(true))
-	if GetFFlagReportAnythingScreenshot() then
-		self.store:dispatch(IdentifyAvatars())
-	end
 	self.store:dispatch(BeginReportFlow(reportType, targetPlayer))
 end
 
 function TrustAndSafety:openReportMenu()
 	self.store:dispatch(SetVoiceReportingFlow(true))
-	if GetFFlagReportAnythingScreenshot() then
-		self.store:dispatch(IdentifyAvatars())
-	end
 	self.store:dispatch(BeginReportFlow())
 end
 
@@ -128,11 +119,5 @@ return {
 	openReportMenu = function(source)
 		SessionUtility.startAbuseReportSession(source)
 		TrustAndSafety:getInstance():openReportMenu()
-	end,
-	setPreReportScreenshotHook = function(preScreenshotHook)
-		ScreenshotHookManager.setPreScreenshotHook(preScreenshotHook)
-	end,
-	setPostReportScreenshotHook = function(postScreenshotHook)
-		ScreenshotHookManager.setPostScreenshotHook(postScreenshotHook)
 	end,
 }

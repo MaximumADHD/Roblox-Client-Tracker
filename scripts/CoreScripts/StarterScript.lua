@@ -96,13 +96,6 @@ local FFlagTopBarRefactor = InExperienceTopBar.Flags.FFlagTopBarRefactor
 local ExperimentCacheManager = require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
 ExperimentCacheManager.default:initialize()
 
--- Add a label for internal React telemetry
-local FFlagReactTelemetryEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagReactTelemetryEnabled
-if FFlagReactTelemetryEnabled then
-	local ReactTelemetry = require(CorePackages.Packages.ReactTelemetry)
-	ReactTelemetry.customFields.context = "in_experience"
-end
-
 -- Set up HttpStore
 local FFlagLuaAppUseAppHttpStore = game:DefineFastFlag("LuaAppUseAppHttpStoreInExperience", false)
 if FFlagLuaAppUseAppHttpStore then

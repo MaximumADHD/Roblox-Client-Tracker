@@ -11,13 +11,8 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
-local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayerScriptsTapToMoveUsesIAS2")
-local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
-local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
-local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
 local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
-local FFlagUserPlayerScriptsThumbstickContext = FlagUtil.getUserFlag("UserPlayerScriptsThumbstickContext")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
@@ -32,72 +27,6 @@ local CONNECTIONS = {
 }
 
 --[[ Input Setup ]]
-if FFlagUserPlayerScriptsTapToMoveUsesIAS2 then
-	local characterContext = StarterPlayer.PlayerModule.InputContexts.CharacterContext
-
-	local touchBinding = Instance.new("InputBinding")
-	touchBinding.Name = "TouchBinding"
-	touchBinding.KeyCode = Enum.KeyCode.TouchPosition
-	touchBinding.Parent = characterContext.ClickToMoveAction
-
-	local touchPositionBinding = Instance.new("InputBinding")
-	touchPositionBinding.Name = "TouchBinding"
-	touchPositionBinding.KeyCode = Enum.KeyCode.TouchPosition
-	touchPositionBinding.Parent = characterContext.ClickToMovePositionAction
-end
-
-if FFlagUserPlayerScriptsCameraTouchUsesIAS then
-	local cameraContext = StarterPlayer.PlayerModule.InputContexts.CameraContext
-	local cameraRotationAction = cameraContext.CameraRotationAction
-	local cameraZoomAction = cameraContext.CameraZoomAction
-	local cameraPanActiveAction = cameraContext.CameraPanActiveAction
-
-	if not cameraRotationAction:FindFirstChild("TouchBinding") then
-		local touchDeltaBinding = Instance.new("InputBinding")
-		touchDeltaBinding.Name = "TouchBinding"
-		touchDeltaBinding.KeyCode = Enum.KeyCode.TouchDelta
-		touchDeltaBinding.Vector2Scale = Vector2.new(0.01745, 0.01152)
-		touchDeltaBinding.Parent = cameraRotationAction
-	end
-
-	if not cameraZoomAction:FindFirstChild("TouchBinding") then
-		local touchPinchBinding = Instance.new("InputBinding")
-		touchPinchBinding.Name = "TouchBinding"
-		touchPinchBinding.KeyCode = Enum.KeyCode.TouchPinch
-		touchPinchBinding.Scale = -0.04
-		touchPinchBinding.Parent = cameraZoomAction
-	end
-
-	if not cameraPanActiveAction:FindFirstChild("TouchBinding") then
-		local touchPanBinding = Instance.new("InputBinding")
-		touchPanBinding.Name = "TouchBinding"
-		touchPanBinding.KeyCode = Enum.KeyCode.TouchPosition
-		touchPanBinding.Parent = cameraPanActiveAction
-	end
-end
-
-if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS or FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-	local characterContext = StarterPlayer.PlayerModule.InputContexts.CharacterContext
-
-	local thumbstickAction = Instance.new("InputAction")
-	thumbstickAction.Name = "ThumbstickAction"
-	thumbstickAction.Type = Enum.InputActionType.ViewportPosition
-	thumbstickAction.Enabled = false
-
-	if FFlagUserPlayerScriptsThumbstickContext then
-		characterContext.Priority = 150
-
-		local thumbstickContext = Instance.new("InputContext")
-		thumbstickContext.Name = "TransformerContext"
-		thumbstickContext.Priority = 300
-		thumbstickContext.Sink = true
-		thumbstickContext.Parent = StarterPlayer.PlayerModule.InputContexts
-		thumbstickAction.Parent = thumbstickContext
-	else
-		thumbstickAction.Parent = characterContext
-	end
-end
-
 if FFlagUserPlayerScriptsUseScriptableBindings then
 	local characterContext = StarterPlayer.PlayerModule.InputContexts.CharacterContext
 	local cameraContext = StarterPlayer.PlayerModule.InputContexts.CameraContext

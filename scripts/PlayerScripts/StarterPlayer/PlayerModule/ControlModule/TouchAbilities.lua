@@ -151,7 +151,7 @@ function TouchAbilities:CreateAbilityButton(actionName, abilityConfig, action, p
 	local function UpdateButtonState()
 		local valid = avatarAbilitiesInterface:GetAbilityValid(actionName)
 		local active = avatarAbilitiesInterface:GetAbilityActive(actionName)
-		button.Visible = self.enabled and action.Enabled and (abilityConfig.IconVisibleWhenInvalid or valid or active)
+		button.Visible = self.enabled and action.Enabled
 
 		if button.Visible then
 			if active or (buttonPressed and valid) then

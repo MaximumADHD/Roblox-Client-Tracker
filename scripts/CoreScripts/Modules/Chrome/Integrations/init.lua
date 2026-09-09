@@ -11,6 +11,7 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
+local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
 
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
@@ -57,4 +58,5 @@ return {
 	LeaveConfirmation = if FFlagEnableSideSheet then require(script.Pages.LeaveConfirmation) else nil,
 	RespawnConfirmation = if FFlagEnableSideSheet then require(script.Pages.RespawnConfirmation) else nil,
 	ShopEntrypoint = if FFlagEnableInExperienceShop then require(script.InExperienceShop.ShopEntrypoint) else nil,
+	SwitchServer = if FFlagEnableSideSheet and FFlagShowSwitchServerButton then require(script.SwitchServer) else nil,
 }

@@ -1,7 +1,5 @@
 local Root = script:FindFirstAncestor("ChromeShared")
 
-local ChromeService = require(script.Parent.ChromeService)
-local ChromeUtils = require(script.Parent.ChromeUtils)
 local CorePackages = game:GetService("CorePackages")
 
 local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
@@ -13,6 +11,26 @@ local it = JestGlobals.it
 local jest = JestGlobals.jest
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
+
+local InExperienceSideSheetPackage = CorePackages.Workspace.Packages.InExperienceSideSheet
+local registerSideSheetIntegrationsMock = jest.fn()
+jest.mock(InExperienceSideSheetPackage, function()
+	return {
+		toggleSideSheet = function() end,
+		getSideSheetVisibility = function()
+			return false
+		end,
+		registerSideSheetIntegrations = registerSideSheetIntegrationsMock,
+	}
+end)
+
+local ChromeService = require(script.Parent.ChromeService)
+local ChromeUtils = require(script.Parent.ChromeUtils)
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagEnableSideSheetWidgets = SharedFlags.FFlagEnableSideSheetWidgets
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
 local function setupMockIntegration(service: ChromeService.ChromeService, id: string, hasWindow: boolean)
 	local availability = ChromeUtils.AvailabilitySignal.new(ChromeService.AvailabilitySignal.Available)
@@ -311,3 +329,91 @@ describe("updateMenuList with FFlagEnableChromeWindowsNotInMenu", function()
 		expect(windowList[1].id).toBe("integration1")
 	end)
 end)
+
+if FFlagEnableSideSheet and (FFlagEnableSideSheetWidgets or isPioneerLaunch()) then
+	describe("updateSideSheet widgets", function()
+		local function registerWidget(
+			service: ChromeService.ChromeService,
+			id: string,
+			placement: ChromePackage.SideSheetPlacement,
+			hasWidget: boolean?
+		)
+			local availability = ChromeUtils.AvailabilitySignal.new(ChromeService.AvailabilitySignal.Available)
+			service:register({
+				id = id,
+				label = "CoreScripts.TopBar.Leave",
+				availability = availability,
+				components = {
+					Icon = function()
+						return false
+					end,
+					Widget = if hasWidget == false
+						then nil
+						else function()
+							return false
+						end,
+				},
+				activated = function() end,
+				sideSheetPlacement = placement,
+			})
+			return availability
+		end
+
+		beforeEach(function()
+			registerSideSheetIntegrationsMock.mockClear()
+		end)
+
+		it("SHOULD project widgets into placement-specific lists", function()
+			local service = ChromeService.new()
+			registerWidget(service, "registered-first", ChromePackage.Enums.SideSheetPlacement.FixedFooterTop)
+			registerWidget(service, "configured-first", ChromePackage.Enums.SideSheetPlacement.ScrollableContentTop)
+
+			service:configureSubMenu("nine_dot", { "configured-first", "registered-first" })
+
+			local calls = registerSideSheetIntegrationsMock.mock.calls
+			local integrations = calls[#calls][1]
+			local scrollableWidgets = integrations.scrollableWidgetIntegrations
+			local fixedFooterWidgets = integrations.fixedFooterWidgetIntegrations
+			expect(scrollableWidgets[1].id).toBe("configured-first")
+			expect(scrollableWidgets[1].integration.sideSheetPlacement).toBe(
+				ChromePackage.Enums.SideSheetPlacement.ScrollableContentTop
+			)
+			expect(fixedFooterWidgets[1].id).toBe("registered-first")
+			expect(fixedFooterWidgets[1].integration.sideSheetPlacement).toBe(
+				ChromePackage.Enums.SideSheetPlacement.FixedFooterTop
+			)
+		end)
+
+		it("SHOULD skip widget placements without a widget component", function()
+			local service = ChromeService.new()
+			registerWidget(
+				service,
+				"missing-widget-component",
+				ChromePackage.Enums.SideSheetPlacement.ScrollableContentTop,
+				false
+			)
+			service:configureSubMenu("nine_dot", { "missing-widget-component" })
+
+			local calls = registerSideSheetIntegrationsMock.mock.calls
+			local integrations = calls[#calls][1]
+			expect(#integrations.scrollableWidgetIntegrations).toBe(0)
+			expect(#integrations.fixedFooterWidgetIntegrations).toBe(0)
+			expect(#integrations.toggleIntegrations).toBe(0)
+		end)
+
+		it("SHOULD remove a widget when its Chrome availability becomes unavailable", function()
+			local service = ChromeService.new()
+			local availability =
+				registerWidget(service, "dynamic-widget", ChromePackage.Enums.SideSheetPlacement.FixedFooterTop)
+			service:configureSubMenu("nine_dot", { "dynamic-widget" })
+
+			local calls = registerSideSheetIntegrationsMock.mock.calls
+			expect(#calls[#calls][1].fixedFooterWidgetIntegrations).toBe(1)
+
+			availability:unavailable()
+
+			calls = registerSideSheetIntegrationsMock.mock.calls
+			expect(#calls[#calls][1].fixedFooterWidgetIntegrations).toBe(0)
+		end)
+	end)
+end

@@ -8,7 +8,6 @@
 --]]
 ----------------- SERVICES ------------------------------
 local GuiService = game:GetService("GuiService")
-local HttpService = game:GetService("HttpService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CorePackages = game:GetService("CorePackages")
 
@@ -34,7 +33,6 @@ local FFlagIEMFocusNavSupportNewButtons = require(script.Parent.Flags.FFlagIEMFo
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePageToButtons
 local TEXT_BUTTON_FONT_SIZE_SMALL_TOUCH_SCREEN = 18
 local TEXT_BUTTON_FONT_SIZE = 24
 local TEXT_BUTTON_FONT_SIZE_TEN_FOOT = 48
@@ -230,13 +228,7 @@ local function Initialize()
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Parent = this.Page,
 	})
-
-	-- make sure each page has a unique selection group (for gamepad selection)
-	if FFlagIEMFocusNavPeoplePageToButtons then
 		this.Page.SelectionGroup = true
-	else
-		GuiService:AddSelectionParent(HttpService:GenerateGUID(false), this.Page)
-	end
 
 	----------------- Events ------------------------
 

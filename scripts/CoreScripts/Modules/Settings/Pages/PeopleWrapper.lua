@@ -16,11 +16,8 @@ local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
 -- Flags
 local FFlagRefactorPeoplePage = require(Modules.Settings.Flags.FFlagRefactorPeoplePage)
-local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
 local FFlagRelocateMobileMenuButtons = require(Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
-local FFlagIEMFocusNavPeoplePageToButtons =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagIEMFocusNavPeoplePageToButtons
 
 -- Chrome check
 local Chrome = RobloxGui.Modules.Chrome
@@ -45,7 +42,6 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
-local useRegistryEntry = FocusNavigationUtils.FocusNavigableSurfaceRegistry.useRegistryEntry
 
 local Constants
 if FFlagRefactorPeoplePage() then
@@ -69,13 +65,9 @@ local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
 
 local function PeopleFocusRoot(props)
-	local centralOverlay = useRegistryEntry(FocusNavigableSurfaceIdentifierEnum.CentralOverlay)
-	-- Only enable auto focus when no modal is open
-	local shouldAutoFocus = centralOverlay == nil
-
 	return React.createElement(FocusRoot, {
 		surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-		isAutoFocusRoot = if FFlagIEMFocusNavPeoplePageToButtons then false else shouldAutoFocus,
+		isAutoFocusRoot = false ,
 	}, props.children)
 end
 
@@ -166,12 +158,10 @@ local function createPeoplePage()
 	end
 
 	PeoplePage.Displayed.Event:Connect(function()
-		if not FFlagRenderPeoplePageOnTabSwitch or not getDisplayed(false) then
+		if not getDisplayed(false) then
 			createReactTree()
 			setDisplayed(true)
 		end
-
-		if FFlagIEMFocusNavPeoplePageToButtons then
 			local menuContainer = PeoplePage.Page:FindFirstAncestor("MenuContainer")
 			if menuContainer then
 				local bottomFrame = menuContainer:FindFirstChild("BottomButtonFrame", true)
@@ -179,20 +169,12 @@ local function createPeoplePage()
 					bottomFrame.SelectionBehaviorUp = Enum.SelectionBehavior.Escape
 				end
 			end
+	end)
+	SettingsShowSignal:connect(function(isOpen)
+		if not isOpen then
+			setDisplayed(false)
 		end
 	end)
-
-	if FFlagRenderPeoplePageOnTabSwitch then
-		SettingsShowSignal:connect(function(isOpen)
-			if not isOpen then
-				setDisplayed(false)
-			end
-		end)
-	else
-		PeoplePage.Hidden.Event:Connect(function()
-			setDisplayed(false)
-		end)
-	end
 
 	PeoplePage.Page.Size = UDim2.new(1, 0, 0, 0)
 	PeoplePage.Page.AutomaticSize = Enum.AutomaticSize.Y

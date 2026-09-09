@@ -1,4 +1,7 @@
 --!nonstrict
+
+local FFlagDevConsoleKeyCollisionFix = require(script.Parent.Flags.FFlagDevConsoleKeyCollisionFix)
+
 local Signal = require(script.Parent.Parent.Parent.Signal)
 local SoundService = game:GetService("SoundService")
 local TextService = game:GetService("TextService")
@@ -155,11 +158,21 @@ local function fetchGraphicsTextureCharacterMemoryData()
 				return a.name < b.name
 			end)
 
-			table.insert(retData, {
-				name = "Composite Texture",
-				value = mem,
-				moreInfo = compTextures,
-			})
+			-- All composite textures share one name, so TextureId is the only row identity.
+			if FFlagDevConsoleKeyCollisionFix then
+				table.insert(retData, {
+					name = "Composite Texture",
+					id = v.TextureId,
+					value = mem,
+					moreInfo = compTextures,
+				})
+			else
+				table.insert(retData, {
+					name = "Composite Texture",
+					value = mem,
+					moreInfo = compTextures,
+				})
+			end
 		end
 	end
 	aggregateData(sortedTextureData, textureData)

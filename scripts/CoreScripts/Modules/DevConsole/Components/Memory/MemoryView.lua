@@ -1,4 +1,6 @@
 --!nonstrict
+local FFlagDevConsoleKeyCollisionFix = require(script.Parent.Flags.FFlagDevConsoleKeyCollisionFix)
+
 local CorePackages = game:GetService("CorePackages")
 local TweenService = game:GetService("TweenService")
 local Roact = require(CorePackages.Packages.Roact)
@@ -144,15 +146,22 @@ function MemoryView:appendAdditionTabInformation(elements, infoTable, parentName
 	local absScrollSize = self.scrollingRef.current.AbsoluteSize
 
 	-- this function, where applicable is in clientMemoryData
-	for _, additionalEntry in ipairs(infoTable) do
+	for idx, additionalEntry in ipairs(infoTable) do
 		local name = additionalEntry.name
 		local value = additionalEntry.value
 		local new_key = parentName .. name
+		if FFlagDevConsoleKeyCollisionFix then
+			-- An id survives reordering between polls; the sibling index does not.
+			new_key = if additionalEntry.id then `{parentName}_{additionalEntry.id}` else `{parentName}_{name}_{idx}`
+		end
 		windowing.layoutOrder = windowing.layoutOrder + 1
 
 		if windowing.scrollingFrameHeight + ENTRY_HEIGHT >= canvasPos.Y then
 			if windowing.usedFrameSpace < absScrollSize.Y then
-				local new_key = parentName .. name
+				if not FFlagDevConsoleKeyCollisionFix then -- reinstate duplicate line
+					new_key = parentName .. name
+				end
+
 
 				elements[new_key] = Roact.createElement(MemoryViewEntry, {
 					size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
@@ -180,7 +189,7 @@ function MemoryView:appendAdditionTabInformation(elements, infoTable, parentName
 	end
 end
 
-function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
+function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing, parentPath)
 	assert(self.scrollingRef.current, "ScrollingFrame not initialized yet")
 
 	local expandIndex = self.state.expandIndex
@@ -191,23 +200,30 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 
 	local name = entry.name
 
+	-- ClientMemoryData keys siblings by name, so the root-to-row path is unique tree-wide
+	-- and, unlike layoutOrder, unaffected by sorting or filtering. Built before the `found`
+	-- check because children recurse even when this row is filtered out.
+	local entryPath = if parentPath then `{parentPath}/{name}` else name
+
 	local found = string.find(name:lower(), searchTerm:lower())
 
 	if found then
-		local showGraph = expandIndex == name
+		local rowId = if FFlagDevConsoleKeyCollisionFix then entryPath else name
+
+		local showGraph = expandIndex == rowId
 		local frameHeight = showGraph and ENTRY_HEIGHT + GRAPH_HEIGHT or ENTRY_HEIGHT
 		windowing.layoutOrder = windowing.layoutOrder + 1
 
 		if windowing.scrollingFrameHeight + frameHeight >= canvasPos.Y then
 			if windowing.usedFrameSpace < absScrollSize.Y then
-				elements[name] = Roact.createElement(MemoryViewEntry, {
+				elements[rowId] = Roact.createElement(MemoryViewEntry, {
 					size = UDim2.new(1, 0, 0, frameHeight),
 					depth = depth,
 					name = entry.name,
 					showGraph = showGraph,
 					dataStats = entry.dataStats,
 
-					onButtonPress = self.getOnButtonPress(name, windowing.layoutOrder),
+					onButtonPress = self.getOnButtonPress(rowId, windowing.layoutOrder),
 					formatValueStr = formatValueStr,
 					getX = getX,
 					getY = getY,
@@ -228,7 +244,7 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 			-- this function, where applicable is in clientMemoryData
 			if entry.dataStats.additionalInfoFunc then
 				local infoTable = entry.dataStats.additionalInfoFunc()
-				self:appendAdditionTabInformation(elements, infoTable, entry.name, depth + 1, windowing)
+				self:appendAdditionTabInformation(elements, infoTable, rowId, depth + 1, windowing)
 			end
 		end
 	end
@@ -238,11 +254,17 @@ function MemoryView:recursiveConstructEntries(elements, entry, depth, windowing)
 		if reverseSort then
 			local totalChildren = #sortedChildren
 			for i = 1, totalChildren do
-				self:recursiveConstructEntries(elements, sortedChildren[totalChildren - i + 1], depth + 1, windowing)
+				self:recursiveConstructEntries(
+					elements,
+					sortedChildren[totalChildren - i + 1],
+					depth + 1,
+					windowing,
+					entryPath
+				)
 			end
 		else
 			for _, entry in ipairs(sortedChildren) do
-				self:recursiveConstructEntries(elements, entry, depth + 1, windowing)
+				self:recursiveConstructEntries(elements, entry, depth + 1, windowing, entryPath)
 			end
 		end
 	end

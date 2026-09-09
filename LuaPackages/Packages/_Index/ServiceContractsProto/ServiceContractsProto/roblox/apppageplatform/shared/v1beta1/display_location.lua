@@ -33,6 +33,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_PRE_AUTH_LANDING"
 	| "DISPLAY_LOCATION_SETTINGS"
 	| "DISPLAY_LOCATION_BUILD"
+	| "DISPLAY_LOCATION_COMMUNITY_PROFILE"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -77,6 +78,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_SETTINGS"
 		elseif value == 19 then
 			return "DISPLAY_LOCATION_BUILD"
+		elseif value == 20 then
+			return "DISPLAY_LOCATION_COMMUNITY_PROFILE"
 		else
 			return nil
 		end
@@ -123,6 +126,8 @@ messages.DisplayLocation = {
 			return 18
 		elseif self == "DISPLAY_LOCATION_BUILD" then
 			return 19
+		elseif self == "DISPLAY_LOCATION_COMMUNITY_PROFILE" then
+			return 20
 		else
 			return self
 		end
@@ -169,6 +174,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_SETTINGS"
 		elseif name == "DISPLAY_LOCATION_BUILD" then
 			return "DISPLAY_LOCATION_BUILD"
+		elseif name == "DISPLAY_LOCATION_COMMUNITY_PROFILE" then
+			return "DISPLAY_LOCATION_COMMUNITY_PROFILE"
 		else
 			return nil
 		end

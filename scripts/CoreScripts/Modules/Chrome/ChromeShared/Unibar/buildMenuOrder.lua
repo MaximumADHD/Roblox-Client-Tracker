@@ -21,12 +21,14 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
+local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
 local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
 	then require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 	else nil
 local FFlagAddTraversalHistory = if Traversal then Traversal.Flags.FFlagAddTraversalHistory else false
+local shouldEnableSwitchServer = FFlagShowSwitchServerButton and FFlagEnableSideSheet
 
 type Array<T> = { [number]: T }
 
@@ -59,6 +61,7 @@ local function buildMenuOrder(): Array<string>
 		trust_and_safety = 40,
 		connect_dropdown = if connectDropdownVisible then 50 else nil,
 		[Constants.AVATAR_SWITCHER_ID] = if FFlagEnableInExperienceAvatarSwitcher then 60 else nil,
+		[Constants.SWITCH_SERVER_ID] = if shouldEnableSwitchServer then 65 else nil,
 		[Constants.IN_EXPERIENCE_SHOP_ID] = if FFlagEnableInExperienceShop then 70 else nil,
 		leaderboard = 80,
 		emotes = 90,
@@ -75,6 +78,9 @@ local function buildMenuOrder(): Array<string>
 
 	if FFlagEnableSideSheet then
 		if FIntSideSheetVariant == 0 then
+			if shouldEnableSwitchServer then
+				reorder(menuMap, Constants.SWITCH_SERVER_ID, 102)
+			end
 			reorder(menuMap, "settings", 103)
 			reorder(menuMap, "trust_and_safety", 106)
 			reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 143)
@@ -111,6 +117,7 @@ local function buildMenuOrder(): Array<string>
 		menuMap.gallery = nil
 		menuMap[SideSheet.Enums.ActionBinding.Leave] = nil
 		menuMap[SideSheet.Enums.ActionBinding.Respawn] = nil
+		menuMap[Constants.SWITCH_SERVER_ID] = nil
 	end
 
 	local ordered: Array<string> = {}

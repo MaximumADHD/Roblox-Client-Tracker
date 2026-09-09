@@ -25,11 +25,9 @@ local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 local FFlagHideShortcutsOnReportDropdown =
 	require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
-local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
 local FFlagReportFocusNavIEMButtons = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagReportFocusNavIEMButtons)
 local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
 local FFlagSwitchOverToAbuseReportMenuV2 = game:DefineFastFlag("SwitchOverToAbuseReportMenuV2", false)
-	and FFlagAbuseReportMenuV2
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -113,7 +111,7 @@ local function Initialize()
 	this.Page.Name = "ReportAbuseMenuNewContainerPage"
 	this.ShouldShowBottomBar = not FFlagEnableSideSheet
 	this.ShouldShowHubBar = true
-	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2 and FFlagSwitchOverToAbuseReportMenuV2
+	this.ShouldDisableDefaultScroll = FFlagSwitchOverToAbuseReportMenuV2
 
 	local abuseReportMenu =
 		Roact.createElement(if FFlagSwitchOverToAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {

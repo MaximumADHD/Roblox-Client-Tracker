@@ -30,9 +30,11 @@ local ShortcutService = require(Root.Service.ShortcutService)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagEnableSideSheetWidgets = SharedFlags.FFlagEnableSideSheetWidgets
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
@@ -160,6 +162,7 @@ export type ChromeService = {
 	) -> (),
 	updateWindowPosition: (ChromeService, componentId: IntegrationId, position: UDim2) -> (),
 	createIconProps: (ChromeService, IntegrationId, number?, boolean?) -> IntegrationComponentProps,
+	createWidgetProps: (ChromeService, IntegrationId, number?) -> IntegrationComponentProps?,
 	orderAlignment: (ChromeService) -> ObservableAlignment,
 	configureOrderAlignment: (ChromeService, alignment: Enum.HorizontalAlignment) -> (),
 
@@ -667,6 +670,22 @@ function ChromeService:createIconProps(id: IntegrationId, order: number?): Integ
 	end
 end
 
+function ChromeService:createWidgetProps(id: IntegrationId, order: number?): IntegrationComponentProps?
+	local integration = self._integrations[id]
+	if not integration or not integration.components.Widget then
+		return nil
+	end
+
+	return {
+		id = id,
+		children = {},
+		order = order or 0,
+		component = integration.components.Widget,
+		integration = integration,
+		activated = noop,
+	}
+end
+
 function ChromeService:isIntegrationValid(id: IntegrationId)
 	-- Only display available items
 	local integration = self._integrations[id]
@@ -804,6 +823,8 @@ if FFlagEnableSideSheet then
 		local unibar = {}
 		local page = {}
 		local sessionAction = {}
+		local scrollableWidgets = {}
+		local fixedFooterWidgets = {}
 
 		local function addIntegration(id: IntegrationId)
 			local integration = self._integrations[id]
@@ -822,6 +843,20 @@ if FFlagEnableSideSheet then
 				table.insert(page, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.SessionAction then
 				table.insert(sessionAction, self:createIconProps(id, order))
+			elseif integration.sideSheetPlacement == SideSheetPlacement.ScrollableContentTop then
+				if FFlagEnableSideSheetWidgets or isPioneerLaunch() then
+					local widgetProps = self:createWidgetProps(id, order)
+					if widgetProps then
+						table.insert(scrollableWidgets, widgetProps)
+					end
+				end
+			elseif integration.sideSheetPlacement == SideSheetPlacement.FixedFooterTop then
+				if FFlagEnableSideSheetWidgets or isPioneerLaunch() then
+					local widgetProps = self:createWidgetProps(id, order)
+					if widgetProps then
+						table.insert(fixedFooterWidgets, widgetProps)
+					end
+				end
 			elseif integration.sideSheetPlacement == SideSheetPlacement.Vertical and FIntSideSheetVariant ~= 0 then
 				table.insert(page, self:createIconProps(id, order))
 			else
@@ -856,6 +891,8 @@ if FFlagEnableSideSheet then
 			toggleIntegrations = toggle,
 			pageIntegrations = page,
 			sessionActionIntegrations = sessionAction,
+			scrollableWidgetIntegrations = scrollableWidgets,
+			fixedFooterWidgetIntegrations = fixedFooterWidgets,
 		})
 	end
 end

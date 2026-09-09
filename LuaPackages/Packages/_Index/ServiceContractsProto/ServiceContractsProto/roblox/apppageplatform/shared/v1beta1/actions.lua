@@ -75,6 +75,8 @@ type _Messages =
 		OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
 		RefreshFromApiAction: _RefreshFromApiActionMessage,
 		RefreshFromApiAction_Params: _RefreshFromApiAction_ParamsMessage,
+		RefreshHomeAction: _RefreshHomeActionMessage,
+		RefreshHomeAction_Params: _RefreshHomeAction_ParamsMessage,
 		RefreshOmniRecommendationFeedItemAction: _RefreshOmniRecommendationFeedItemActionMessage,
 		RefreshOmniRecommendationFeedItemAction_Params: _RefreshOmniRecommendationFeedItemAction_ParamsMessage,
 		RsvpToEventAction: _RsvpToEventActionMessage,
@@ -177,6 +179,8 @@ type _Messages =
 		RefreshFeedEntryFromApiAction_Params: _RefreshFeedEntryFromApiAction_ParamsMessage,
 		OpenProfileFramesEditorAction: _OpenProfileFramesEditorActionMessage,
 		OpenProfileFramesEditorAction_Params: _OpenProfileFramesEditorAction_ParamsMessage,
+		SetGameTileNotInterestedAction: _SetGameTileNotInterestedActionMessage,
+		SetGameTileNotInterestedAction_Params: _SetGameTileNotInterestedAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -510,12 +514,14 @@ type _OpenMarketplaceTryOnAction_ParamsFields = {
 	item_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	item_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	item_sub_type_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	item_price: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
 }
 
 type _OpenMarketplaceTryOnAction_ParamsPartialFields = {
 	item_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	item_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	item_sub_type_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	item_price: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
 }
 
 export type OpenMarketplaceTryOnAction_Params = typeof(setmetatable(
@@ -1021,6 +1027,7 @@ type _OpenAbuseReportAction_ParamsFields = {
 	abuse_vector: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	asset_type_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	group_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenAbuseReportAction_ParamsPartialFields = {
@@ -1028,6 +1035,7 @@ type _OpenAbuseReportAction_ParamsPartialFields = {
 	abuse_vector: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	asset_type_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	group_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenAbuseReportAction_Params = typeof(setmetatable(
@@ -2090,6 +2098,53 @@ type _RefreshFromApiAction_ParamsMessage = proto.Message<
 	RefreshFromApiAction_Params,
 	_RefreshFromApiAction_ParamsPartialFields
 >
+
+type _RefreshHomeActionImpl = {
+	__index: _RefreshHomeActionImpl,
+	new: (fields: _RefreshHomeActionPartialFields?) -> RefreshHomeAction,
+	encode: (self: RefreshHomeAction) -> buffer,
+	decode: (input: buffer) -> RefreshHomeAction,
+	jsonEncode: (self: RefreshHomeAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshHomeAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshHomeActionFields = {
+	action_type: ActionType,
+	action_params: RefreshHomeAction_Params?,
+}
+
+type _RefreshHomeActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshHomeAction_Params?,
+}
+
+export type RefreshHomeAction = typeof(setmetatable({} :: _RefreshHomeActionFields, {} :: _RefreshHomeActionImpl))
+type _RefreshHomeActionMessage = proto.Message<RefreshHomeAction, _RefreshHomeActionPartialFields>
+
+type _RefreshHomeAction_ParamsImpl = {
+	__index: _RefreshHomeAction_ParamsImpl,
+	new: (fields: _RefreshHomeAction_ParamsPartialFields?) -> RefreshHomeAction_Params,
+	encode: (self: RefreshHomeAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshHomeAction_Params,
+	jsonEncode: (self: RefreshHomeAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshHomeAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshHomeAction_ParamsFields = {
+	request_intent: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RefreshHomeAction_ParamsPartialFields = {
+	request_intent: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RefreshHomeAction_Params = typeof(setmetatable(
+	{} :: _RefreshHomeAction_ParamsFields,
+	{} :: _RefreshHomeAction_ParamsImpl
+))
+type _RefreshHomeAction_ParamsMessage = proto.Message<RefreshHomeAction_Params, _RefreshHomeAction_ParamsPartialFields>
 
 type _RefreshOmniRecommendationFeedItemActionImpl = {
 	__index: _RefreshOmniRecommendationFeedItemActionImpl,
@@ -5120,6 +5175,66 @@ type _OpenProfileFramesEditorAction_ParamsMessage = proto.Message<
 	_OpenProfileFramesEditorAction_ParamsPartialFields
 >
 
+type _SetGameTileNotInterestedActionImpl = {
+	__index: _SetGameTileNotInterestedActionImpl,
+	new: (fields: _SetGameTileNotInterestedActionPartialFields?) -> SetGameTileNotInterestedAction,
+	encode: (self: SetGameTileNotInterestedAction) -> buffer,
+	decode: (input: buffer) -> SetGameTileNotInterestedAction,
+	jsonEncode: (self: SetGameTileNotInterestedAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SetGameTileNotInterestedAction,
+	descriptor: proto.Descriptor,
+}
+
+type _SetGameTileNotInterestedActionFields = {
+	action_type: ActionType,
+	action_params: SetGameTileNotInterestedAction_Params?,
+}
+
+type _SetGameTileNotInterestedActionPartialFields = {
+	action_type: ActionType?,
+	action_params: SetGameTileNotInterestedAction_Params?,
+}
+
+export type SetGameTileNotInterestedAction = typeof(setmetatable(
+	{} :: _SetGameTileNotInterestedActionFields,
+	{} :: _SetGameTileNotInterestedActionImpl
+))
+type _SetGameTileNotInterestedActionMessage = proto.Message<
+	SetGameTileNotInterestedAction,
+	_SetGameTileNotInterestedActionPartialFields
+>
+
+type _SetGameTileNotInterestedAction_ParamsImpl = {
+	__index: _SetGameTileNotInterestedAction_ParamsImpl,
+	new: (fields: _SetGameTileNotInterestedAction_ParamsPartialFields?) -> SetGameTileNotInterestedAction_Params,
+	encode: (self: SetGameTileNotInterestedAction_Params) -> buffer,
+	decode: (input: buffer) -> SetGameTileNotInterestedAction_Params,
+	jsonEncode: (self: SetGameTileNotInterestedAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SetGameTileNotInterestedAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SetGameTileNotInterestedAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SetGameTileNotInterestedAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SetGameTileNotInterestedAction_Params = typeof(setmetatable(
+	{} :: _SetGameTileNotInterestedAction_ParamsFields,
+	{} :: _SetGameTileNotInterestedAction_ParamsImpl
+))
+type _SetGameTileNotInterestedAction_ParamsMessage = proto.Message<
+	SetGameTileNotInterestedAction_Params,
+	_SetGameTileNotInterestedAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -5214,6 +5329,8 @@ type _ActionFields = {
 		| { type: "refresh_feed_entry_from_api_action", value: RefreshFeedEntryFromApiAction }
 		| { type: "open_profile_frames_editor_action", value: OpenProfileFramesEditorAction }
 		| { type: "navigate_action", value: NavigateAction }
+		| { type: "set_game_tile_not_interested_action", value: SetGameTileNotInterestedAction }
+		| { type: "refresh_home_action", value: RefreshHomeAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5305,6 +5422,8 @@ type _ActionPartialFields = {
 		| { type: "refresh_feed_entry_from_api_action", value: RefreshFeedEntryFromApiAction }
 		| { type: "open_profile_frames_editor_action", value: OpenProfileFramesEditorAction }
 		| { type: "navigate_action", value: NavigateAction }
+		| { type: "set_game_tile_not_interested_action", value: SetGameTileNotInterestedAction }
+		| { type: "refresh_home_action", value: RefreshHomeAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -5650,6 +5769,8 @@ export type ActionType =
 	| "ACTION_TYPE_REFRESH_FEED_ENTRY_FROM_API"
 	| "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
 	| "ACTION_TYPE_NAVIGATE"
+	| "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED"
+	| "ACTION_TYPE_REFRESH_HOME"
 	| number -- Unknown
 
 do
@@ -7286,6 +7407,7 @@ do
 			item_id = if data == nil or data.item_id == nil then nil else data.item_id,
 			item_type = if data == nil or data.item_type == nil then nil else data.item_type,
 			item_sub_type_name = if data == nil or data.item_sub_type_name == nil then nil else data.item_sub_type_name,
+			item_price = if data == nil or data.item_price == nil then nil else data.item_price,
 		}, _OpenMarketplaceTryOnAction_ParamsImpl :: _OpenMarketplaceTryOnAction_ParamsImpl)
 	end
 
@@ -7308,6 +7430,12 @@ do
 		if self.item_sub_type_name ~= nil then
 			local encoded = self.item_sub_type_name:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_price ~= nil then
+			local encoded = self.item_price:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -7344,6 +7472,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.item_sub_type_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_price = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
 					continue
 				end
 
@@ -7384,6 +7517,10 @@ do
 			output.itemSubTypeName = self.item_sub_type_name:jsonEncode()
 		end
 
+		if self.item_price ~= nil then
+			output.itemPrice = self.item_price:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -7416,6 +7553,14 @@ do
 		if input.itemSubTypeName ~= nil then
 			self.item_sub_type_name =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.itemSubTypeName)
+		end
+
+		if input.item_price ~= nil then
+			self.item_price = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.item_price)
+		end
+
+		if input.itemPrice ~= nil then
+			self.item_price = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.itemPrice)
 		end
 
 		return self
@@ -9889,6 +10034,7 @@ do
 			abuse_vector = if data == nil or data.abuse_vector == nil then nil else data.abuse_vector,
 			asset_type_name = if data == nil or data.asset_type_name == nil then nil else data.asset_type_name,
 			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			group_id = if data == nil or data.group_id == nil then nil else data.group_id,
 		}, _OpenAbuseReportAction_ParamsImpl :: _OpenAbuseReportAction_ParamsImpl)
 	end
 
@@ -9917,6 +10063,12 @@ do
 		if self.universe_id ~= nil then
 			local encoded = self.universe_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.group_id ~= nil then
+			local encoded = self.group_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -9958,6 +10110,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -10002,6 +10159,10 @@ do
 			output.universeId = self.universe_id:jsonEncode()
 		end
 
+		if self.group_id ~= nil then
+			output.groupId = self.group_id:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -10043,6 +10204,14 @@ do
 
 		if input.universeId ~= nil then
 			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.group_id ~= nil then
+			self.group_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.group_id)
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.groupId)
 		end
 
 		return self
@@ -15501,6 +15670,255 @@ do
 	messages.RefreshFromApiAction_Params = _RefreshFromApiAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.RefreshFromApiAction_Params)
+end
+
+do
+	local _RefreshHomeActionImpl = {}
+	_RefreshHomeActionImpl.__index = _RefreshHomeActionImpl
+
+	function _RefreshHomeActionImpl.new(data: _RefreshHomeActionPartialFields?): RefreshHomeAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshHomeActionImpl :: _RefreshHomeActionImpl)
+	end
+
+	function _RefreshHomeActionImpl.encode(self: RefreshHomeAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshHomeActionImpl.decode(input: buffer): RefreshHomeAction
+		local self = _RefreshHomeActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshHomeAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshHomeActionImpl.jsonEncode(self: RefreshHomeAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshHomeActionImpl.jsonDecode(input: { [string]: any }): RefreshHomeAction
+		local self = _RefreshHomeActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshHomeAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshHomeAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshHomeActionImpl.descriptor = {
+		name = "RefreshHomeAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshHomeAction",
+	}
+
+	messages.RefreshHomeAction = _RefreshHomeActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshHomeAction)
+end
+
+do
+	local _RefreshHomeAction_ParamsImpl = {}
+	_RefreshHomeAction_ParamsImpl.__index = _RefreshHomeAction_ParamsImpl
+
+	function _RefreshHomeAction_ParamsImpl.new(data: _RefreshHomeAction_ParamsPartialFields?): RefreshHomeAction_Params
+		return setmetatable({
+			request_intent = if data == nil or data.request_intent == nil then nil else data.request_intent,
+		}, _RefreshHomeAction_ParamsImpl :: _RefreshHomeAction_ParamsImpl)
+	end
+
+	function _RefreshHomeAction_ParamsImpl.encode(self: RefreshHomeAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.request_intent ~= nil then
+			local encoded = self.request_intent:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshHomeAction_ParamsImpl.decode(input: buffer): RefreshHomeAction_Params
+		local self = _RefreshHomeAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.request_intent = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshHomeAction_ParamsImpl.jsonEncode(self: RefreshHomeAction_Params): any
+		local output = {}
+
+		if self.request_intent ~= nil then
+			output.requestIntent = self.request_intent:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshHomeAction_ParamsImpl.jsonDecode(input: { [string]: any }): RefreshHomeAction_Params
+		local self = _RefreshHomeAction_ParamsImpl.new()
+
+		if input.request_intent ~= nil then
+			self.request_intent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.request_intent)
+		end
+
+		if input.requestIntent ~= nil then
+			self.request_intent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.requestIntent)
+		end
+
+		return self
+	end
+
+	_RefreshHomeAction_ParamsImpl.descriptor = {
+		name = "RefreshHomeAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshHomeAction_Params = _RefreshHomeAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshHomeAction_Params)
 end
 
 do
@@ -31075,6 +31493,310 @@ do
 end
 
 do
+	local _SetGameTileNotInterestedActionImpl = {}
+	_SetGameTileNotInterestedActionImpl.__index = _SetGameTileNotInterestedActionImpl
+
+	function _SetGameTileNotInterestedActionImpl.new(
+		data: _SetGameTileNotInterestedActionPartialFields?
+	): SetGameTileNotInterestedAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SetGameTileNotInterestedActionImpl :: _SetGameTileNotInterestedActionImpl)
+	end
+
+	function _SetGameTileNotInterestedActionImpl.encode(self: SetGameTileNotInterestedAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SetGameTileNotInterestedActionImpl.decode(input: buffer): SetGameTileNotInterestedAction
+		local self = _SetGameTileNotInterestedActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SetGameTileNotInterestedAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SetGameTileNotInterestedActionImpl.jsonEncode(self: SetGameTileNotInterestedAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SetGameTileNotInterestedActionImpl.jsonDecode(input: { [string]: any }): SetGameTileNotInterestedAction
+		local self = _SetGameTileNotInterestedActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SetGameTileNotInterestedAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SetGameTileNotInterestedAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SetGameTileNotInterestedActionImpl.descriptor = {
+		name = "SetGameTileNotInterestedAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SetGameTileNotInterestedAction",
+	}
+
+	messages.SetGameTileNotInterestedAction = _SetGameTileNotInterestedActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SetGameTileNotInterestedAction)
+end
+
+do
+	local _SetGameTileNotInterestedAction_ParamsImpl = {}
+	_SetGameTileNotInterestedAction_ParamsImpl.__index = _SetGameTileNotInterestedAction_ParamsImpl
+
+	function _SetGameTileNotInterestedAction_ParamsImpl.new(
+		data: _SetGameTileNotInterestedAction_ParamsPartialFields?
+	): SetGameTileNotInterestedAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+		}, _SetGameTileNotInterestedAction_ParamsImpl :: _SetGameTileNotInterestedAction_ParamsImpl)
+	end
+
+	function _SetGameTileNotInterestedAction_ParamsImpl.encode(self: SetGameTileNotInterestedAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SetGameTileNotInterestedAction_ParamsImpl.decode(input: buffer): SetGameTileNotInterestedAction_Params
+		local self = _SetGameTileNotInterestedAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SetGameTileNotInterestedAction_ParamsImpl.jsonEncode(self: SetGameTileNotInterestedAction_Params): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SetGameTileNotInterestedAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): SetGameTileNotInterestedAction_Params
+		local self = _SetGameTileNotInterestedAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		return self
+	end
+
+	_SetGameTileNotInterestedAction_ParamsImpl.descriptor = {
+		name = "SetGameTileNotInterestedAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SetGameTileNotInterestedAction_Params = _SetGameTileNotInterestedAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SetGameTileNotInterestedAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -31412,6 +32134,14 @@ do
 			elseif self.kind.type == "navigate_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 79, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "set_game_tile_not_interested_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 80, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_home_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 81, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -32003,6 +32733,19 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "navigate_action", value = messages.NavigateAction.decode(value) }
 					continue
+				elseif field == 80 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "set_game_tile_not_interested_action",
+						value = messages.SetGameTileNotInterestedAction.decode(value),
+					}
+					continue
+				elseif field == 81 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "refresh_home_action", value = messages.RefreshHomeAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -32210,6 +32953,10 @@ do
 				output.openProfileFramesEditorAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "navigate_action" then
 				output.navigateAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "set_game_tile_not_interested_action" then
+				output.setGameTileNotInterestedAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_home_action" then
+				output.refreshHomeAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -33353,6 +34100,32 @@ do
 
 		if input.navigateAction ~= nil then
 			self.kind = { type = "navigate_action", value = messages.NavigateAction.jsonDecode(input.navigateAction) }
+		end
+
+		if input.set_game_tile_not_interested_action ~= nil then
+			self.kind = {
+				type = "set_game_tile_not_interested_action",
+				value = messages.SetGameTileNotInterestedAction.jsonDecode(input.set_game_tile_not_interested_action),
+			}
+		end
+
+		if input.setGameTileNotInterestedAction ~= nil then
+			self.kind = {
+				type = "set_game_tile_not_interested_action",
+				value = messages.SetGameTileNotInterestedAction.jsonDecode(input.setGameTileNotInterestedAction),
+			}
+		end
+
+		if input.refresh_home_action ~= nil then
+			self.kind = {
+				type = "refresh_home_action",
+				value = messages.RefreshHomeAction.jsonDecode(input.refresh_home_action),
+			}
+		end
+
+		if input.refreshHomeAction ~= nil then
+			self.kind =
+				{ type = "refresh_home_action", value = messages.RefreshHomeAction.jsonDecode(input.refreshHomeAction) }
 		end
 
 		if input.telemetry_handler ~= nil then
@@ -34747,6 +35520,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
 		elseif value == 79 then
 			return "ACTION_TYPE_NAVIGATE"
+		elseif value == 80 then
+			return "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED"
+		elseif value == 81 then
+			return "ACTION_TYPE_REFRESH_HOME"
 		else
 			return nil
 		end
@@ -34913,6 +35690,10 @@ messages.ActionType = {
 			return 78
 		elseif self == "ACTION_TYPE_NAVIGATE" then
 			return 79
+		elseif self == "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED" then
+			return 80
+		elseif self == "ACTION_TYPE_REFRESH_HOME" then
+			return 81
 		else
 			return self
 		end
@@ -35079,6 +35860,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_PROFILE_FRAMES_EDITOR"
 		elseif name == "ACTION_TYPE_NAVIGATE" then
 			return "ACTION_TYPE_NAVIGATE"
+		elseif name == "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED" then
+			return "ACTION_TYPE_SET_GAME_TILE_NOT_INTERESTED"
+		elseif name == "ACTION_TYPE_REFRESH_HOME" then
+			return "ACTION_TYPE_REFRESH_HOME"
 		else
 			return nil
 		end
@@ -35153,6 +35938,8 @@ return {
 	OpenMarketplaceCatalogFilters_Params = messages.OpenMarketplaceCatalogFilters_Params,
 	RefreshFromApiAction = messages.RefreshFromApiAction,
 	RefreshFromApiAction_Params = messages.RefreshFromApiAction_Params,
+	RefreshHomeAction = messages.RefreshHomeAction,
+	RefreshHomeAction_Params = messages.RefreshHomeAction_Params,
 	RefreshOmniRecommendationFeedItemAction = messages.RefreshOmniRecommendationFeedItemAction,
 	RefreshOmniRecommendationFeedItemAction_Params = messages.RefreshOmniRecommendationFeedItemAction_Params,
 	RsvpToEventAction = messages.RsvpToEventAction,
@@ -35255,6 +36042,8 @@ return {
 	RefreshFeedEntryFromApiAction_Params = messages.RefreshFeedEntryFromApiAction_Params,
 	OpenProfileFramesEditorAction = messages.OpenProfileFramesEditorAction,
 	OpenProfileFramesEditorAction_Params = messages.OpenProfileFramesEditorAction_Params,
+	SetGameTileNotInterestedAction = messages.SetGameTileNotInterestedAction,
+	SetGameTileNotInterestedAction_Params = messages.SetGameTileNotInterestedAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

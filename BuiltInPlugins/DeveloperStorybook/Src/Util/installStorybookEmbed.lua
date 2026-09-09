@@ -139,6 +139,10 @@ local function installStorybookEmbed(parent: Instance)
 	-- though it's already handled by the calls above
 	installWithAllDependencies(root, Main.Packages, "RoactRodux")
 	installWithAllDependencies(root, Main.Packages, "Markdown")
+	-- installPeerDependencies installs MaterialFramework but not the deprecated
+	-- library; findStorybooks references Main.Parent.MaterialFrameworkDeprecated in
+	-- the embed, which would otherwise be missing and break story discovery.
+	installWithAllDependencies(root, Main.Packages, "MaterialFrameworkDeprecated")
 	local foundation = installWithAllDependencies(root, Main.Packages, "Foundation")
 	if foundation then
 		foundation.Foundation.Utility.Flags.Source = foundation.Foundation.Utility.Flags.Source:gsub(
@@ -166,6 +170,7 @@ local function installStorybookEmbed(parent: Instance)
 	createPackageLink("Dash", SrcPackages)
 	createPackageLink("Framework", SrcPackages)
 	createPackageLink("MaterialFramework", SrcPackages)
+	createPackageLink("MaterialFrameworkDeprecated", SrcPackages)
 	createPackageLink("ReactIs", SrcPackages)
 	createPackageLink("Roact", SrcPackages)
 	createPackageLink("React", SrcPackages)

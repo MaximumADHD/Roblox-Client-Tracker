@@ -15,14 +15,10 @@ local OpenReportSentDialog = require(TnsModule.Actions.OpenReportSentDialog)
 local CloseReportSentDialog = require(TnsModule.Actions.CloseReportSentDialog)
 local SelectReportListing = require(TnsModule.Actions.SelectReportListing)
 local SetVoiceReportingFlow = require(TnsModule.Actions.SetVoiceReportingFlow)
-local SetIdentifedAvatars = require(TnsModule.Actions.SetIdentifiedAvatars)
-local SetSelectedAvatars = require(TnsModule.Actions.SetSelectedAvatars)
 local BeginReportFlow = require(TnsModule.Actions.BeginReportFlow)
 local EndReportFlow = require(TnsModule.Actions.EndReportFlow)
-local ScreenshotAnnotated = require(TnsModule.Actions.ScreenshotAnnotated)
 local NavigateBack = require(TnsModule.Actions.NavigateBack)
 local Constants = require(TnsModule.Resources.Constants)
-local GetFFlagReportAnythingScreenshot = require(TnsModule.Flags.GetFFlagReportAnythingScreenshot)
 
 return Rodux.createReducer({
 	currentPage = Constants.Page.None,
@@ -34,9 +30,6 @@ return Rodux.createReducer({
 	targetPlayer = nil,
 	beginningTimestamp = 0,
 	sortedUserIds = {},
-	screenshotAnnotationPoints = {},
-	identifiedAvatars = {},
-	selectedAvatars = {},
 }, {
 	[EndReportFlow.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -44,9 +37,6 @@ return Rodux.createReducer({
 			currentPage = Constants.Page.None,
 			targetPlayer = Cryo.None,
 			reportType = Constants.ReportType.Any,
-			identifiedAvatars = {},
-			selectedAvatars = {},
-			screenshotAnnotationPoints = {},
 		})
 	end,
 	[BeginReportFlow.name] = function(state, action)
@@ -98,22 +88,12 @@ return Rodux.createReducer({
 
 		local nextPage = Constants.Page.Listing
 		local reportType = state.reportType
+		local skipListing = experienceCatSelected or isPreselectedPlayerFlow
 
-		if GetFFlagReportAnythingScreenshot() then
+		if skipListing then
+			nextPage = Constants.Page.ReportForm
 			if experienceCatSelected then
-				nextPage = Constants.Page.ScreenshotDialog
 				reportType = Constants.ReportType.Place
-			elseif isPreselectedPlayerFlow then
-				nextPage = Constants.Page.ReportForm
-			end
-		else
-			local skipListing = experienceCatSelected or isPreselectedPlayerFlow
-
-			if skipListing then
-				nextPage = Constants.Page.ReportForm
-				if experienceCatSelected then
-					reportType = Constants.ReportType.Place
-				end
 			end
 		end
 
@@ -137,17 +117,6 @@ return Rodux.createReducer({
 			targetPlayer = action.targetPlayer or Cryo.None,
 		})
 	end,
-	[ScreenshotAnnotated.name] = function(state, action)
-		local nextHistory = Cryo.List.join(state.history, { state.currentPage })
-		-- TODO(bcwong): This needs to be generalized beyond the "Experience" flow.
-		local nextPage = Constants.Page.ReportForm
-
-		return Cryo.Dictionary.join(state, {
-			history = nextHistory,
-			currentPage = nextPage,
-			screenshotAnnotationPoints = action.annotationPoints,
-		})
-	end,
 	[OpenReportMenu.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isReportMenuOpen = true,
@@ -168,17 +137,6 @@ return Rodux.createReducer({
 	[SetVoiceReportingFlow.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			voiceReportingFlowEnabled = action.enable,
-		})
-	end,
-	[SetIdentifedAvatars.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			identifiedAvatars = action.identifiedAvatars,
-			screenshotAnnotationPoints = {},
-		})
-	end,
-	[SetSelectedAvatars.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			selectedAvatars = action.selectedAvatars,
 		})
 	end,
 })

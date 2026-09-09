@@ -260,14 +260,12 @@ if FFlagUserPlayerScriptsCCLIntegrationD then
         local customIconAttribute = ability:GetAttribute("CustomIcon")
         local customIconActiveAttribute = ability:GetAttribute("CustomIconActive")
         local customIconInvalidAttribute = ability:GetAttribute("CustomIconInvalid")
-        local iconVisibleWhenInvalidAttribute = ability:GetAttribute("IconVisibleWhenInvalid")
 
         return {
             Slot = actionSlot,
             ButtonAssetId = customIconAttribute,
             ButtonPressedAssetId = customIconActiveAttribute,
             ButtonInvalidAssetId = customIconInvalidAttribute,
-            IconVisibleWhenInvalid = iconVisibleWhenInvalidAttribute,
         }
     end
 

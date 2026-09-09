@@ -3,6 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Packages.Roact)
 
+local FFlagDevConsoleFixMultilineContext = game:DefineFastFlag("DevConsoleFixMultilineContext", false)
+
 local Components = script.Parent.Parent.Parent.Components
 local BannerButton = require(Components.BannerButton)
 
@@ -20,12 +22,24 @@ local MAX_CONTEXT_DEPTH = 3
 local CONTEXT_INDENT_SIZE = 20
 local EXPANDED_KEY = "_expanded"
 
+local function countTextLinesInKeyValuePair(key: string, value: string): number
+	local _, newlineCount = string.gsub(`{key}: {value}`, "\n", "")
+	return newlineCount + 1
+end
+
 local function countContextLines(contextTable: { [string]: any }, depth: number): number
 	local count = 0
 	for k, v in contextTable do
 		if k ~= EXPANDED_KEY then
-			count = count + 1
-			if type(v) == "table" and depth + 1 < MAX_CONTEXT_DEPTH and v[EXPANDED_KEY] then
+			local isContextTable = type(v) == "table" and depth + 1 < MAX_CONTEXT_DEPTH
+
+			if FFlagDevConsoleFixMultilineContext and not isContextTable then
+				count = count + countTextLinesInKeyValuePair(tostring(k), tostring(v))
+			else
+				count = count + 1
+			end
+
+			if isContextTable and v[EXPANDED_KEY] then
 				count = count + countContextLines(v, depth + 1)
 			end
 		end
@@ -164,16 +178,26 @@ function LogOutput:render()
 				self:setState({})
 			end
 		end
-
-		local function addContextEntries(contextElements: { [string]: any }, contextTable: { [string]: any }, color: Color3, depth: number, counterRef: { i: number })
-			if depth >= MAX_CONTEXT_DEPTH then return end
+		-- lute-lint-ignore(noNestedReactDefinitions): addContextEntries is a render helper, not a component
+		local function addContextEntries(
+			contextElements: { [string]: any },
+			contextTable: { [string]: any },
+			color: Color3,
+			depth: number,
+			counterRef: { i: number }
+		)
+			if depth >= MAX_CONTEXT_DEPTH then
+				return
+			end
 			local keys = {}
 			for k in contextTable do
 				if k ~= EXPANDED_KEY then
 					table.insert(keys, k)
 				end
 			end
-			table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+			table.sort(keys, function(a, b)
+				return tostring(a) < tostring(b)
+			end)
 
 			local indent = CONTEXT_INDENT_SIZE + depth * CONTEXT_INDENT_SIZE
 
@@ -205,27 +229,45 @@ function LogOutput:render()
 							Size = UDim2.new(1, -(indent + CONTEXT_INDENT_SIZE), 1, 0),
 							Position = UDim2.fromOffset(indent + CONTEXT_INDENT_SIZE, 0),
 							TextXAlignment = Enum.TextXAlignment.Left,
-						})
+						}),
 					})
 
 					if nestedTable[EXPANDED_KEY] then
 						addContextEntries(contextElements, nestedTable, color, depth + 1, counterRef)
 					end
 				else
-					contextElements[elemKey] = Roact.createElement("TextLabel", {
-						Text = `{tostring(k)}: {tostring(v)}`,
-						TextSize = FONT_SIZE,
-						Font = FONT,
-						TextColor3 = color,
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, FONT_SIZE),
-						LayoutOrder = i,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}, {
-						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, indent + CONTEXT_INDENT_SIZE),
-						}),
-					})
+					if FFlagDevConsoleFixMultilineContext then
+						local lineCount = countTextLinesInKeyValuePair(tostring(k), tostring(v))
+						contextElements[elemKey] = Roact.createElement("TextLabel", {
+							Text = `{tostring(k)}: {tostring(v)}`,
+							TextSize = FONT_SIZE,
+							Font = FONT,
+							TextColor3 = color,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, lineCount * FONT_SIZE + (lineCount - 1) * LINE_PADDING),
+							LayoutOrder = i,
+							TextXAlignment = Enum.TextXAlignment.Left,
+						}, {
+							Padding = Roact.createElement("UIPadding", {
+								PaddingLeft = UDim.new(0, indent + CONTEXT_INDENT_SIZE),
+							}),
+						})
+					else
+						contextElements[elemKey] = Roact.createElement("TextLabel", {
+							Text = `{tostring(k)}: {tostring(v)}`,
+							TextSize = FONT_SIZE,
+							Font = FONT,
+							TextColor3 = color,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, FONT_SIZE),
+							LayoutOrder = i,
+							TextXAlignment = Enum.TextXAlignment.Left,
+						}, {
+							Padding = Roact.createElement("UIPadding", {
+								PaddingLeft = UDim.new(0, indent + CONTEXT_INDENT_SIZE),
+							}),
+						})
+					end
 				end
 			end
 		end
@@ -246,7 +288,8 @@ function LogOutput:render()
 			if currentMessage.Context then
 				contextHeight = FONT_SIZE + LINE_PADDING
 				if currentMessage.Expanded then
-					contextHeight = contextHeight + (countContextLines(currentMessage.Context, 0) * (FONT_SIZE + LINE_PADDING))
+					contextHeight = contextHeight
+						+ (countContextLines(currentMessage.Context, 0) * (FONT_SIZE + LINE_PADDING))
 				end
 			end
 
@@ -296,7 +339,7 @@ function LogOutput:render()
 								Size = UDim2.new(1, -CONTEXT_INDENT_SIZE, 1, 0),
 								Position = UDim2.fromOffset(CONTEXT_INDENT_SIZE, 0),
 								TextXAlignment = Enum.TextXAlignment.Left,
-							})
+							}),
 						})
 
 						if currentMessage.Expanded then
@@ -334,7 +377,7 @@ function LogOutput:render()
 							Size = UDim2.new(1, -ARROW_OFFSET, 0, contextHeight),
 							Position = UDim2.new(0, ARROW_OFFSET, 0, msgDimsY + LINE_PADDING),
 							BackgroundTransparency = 1,
-						}, contextElements)
+						}, contextElements),
 					})
 				end
 

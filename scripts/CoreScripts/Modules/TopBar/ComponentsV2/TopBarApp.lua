@@ -21,6 +21,7 @@ local React = require(CorePackages.Packages.React)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
+local SwitchServer = require(CorePackages.Workspace.Packages.SwitchServer)
 local Traversal = CoreScriptsRoactCommon.Traversal
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
@@ -45,6 +46,9 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
 local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
 local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNewIconography
+local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
+local shouldAddSwitchServerToSideSheet = FFlagEnableSideSheet
+	and FFlagShowSwitchServerButton
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 -- Components 
@@ -95,6 +99,8 @@ local shopIsActiveMappedSignal = if FFlagEnableExperienceShopGlobalIcon and Chro
 local toggleInExperienceShopWindow = if FFlagEnableExperienceShopGlobalIcon
 	then require(Chrome.Integrations.InExperienceShop.ShopWindowLayout).toggleInExperienceShopWindow
 	else nil
+local SwitchServerConfirmation = SwitchServer.SwitchServerConfirmation
+local GetSwitchServerStore = SwitchServer.GetSwitchServerStore
 
 type TopBarProps = {}
 
@@ -131,6 +137,22 @@ end
 
 local function canShowAssistantBuild(): boolean
 	return BuildExperience.BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
+end
+
+local function getShouldEnableSwitchServer(scope)
+	if not shouldAddSwitchServerToSideSheet then
+		return false
+	end
+	local getStore = GetSwitchServerStore
+	return if getStore then getStore(scope).shouldEnableSwitchServer(scope) else false
+end
+
+local function getIsConfirmationOpen(scope)
+	if not shouldAddSwitchServerToSideSheet then
+		return false
+	end
+	local getStore = GetSwitchServerStore
+	return if getStore then getStore(scope).isConfirmationOpen(scope) else false
 end
 
 local function TopBarApp(props: TopBarProps)
@@ -207,6 +229,14 @@ local function TopBarApp(props: TopBarProps)
 	local topBarButtonHeight = Constants.TopBarButtonHeight * uiScale
 	local topBarTopMargin = Constants.TopBarTopMargin * uiScale
 
+	local shouldEnableSwitchServer, isConfirmationOpen
+	local setConfirmationOpen: ((boolean) -> ())?
+	if shouldAddSwitchServerToSideSheet then
+		shouldEnableSwitchServer = SignalsReact.useSignalState(getShouldEnableSwitchServer)
+		isConfirmationOpen = SignalsReact.useSignalState(getIsConfirmationOpen)
+		setConfirmationOpen = GetSwitchServerStore(false).setConfirmationOpen
+	end
+
 	return React.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -223,6 +253,12 @@ local function TopBarApp(props: TopBarProps)
 				else nil,
 			GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
 				then React.createElement(GamepadNavigationDialog)
+				else nil,
+			SwitchServerConfirmation = if shouldEnableSwitchServer
+					and isConfirmationOpen
+				then React.createElement(SwitchServerConfirmation, {
+					setSwitchServerConfirmationOpen = setConfirmationOpen :: (boolean) -> ()
+				})
 				else nil,
 		}),
 		Binders = React.createElement(React.Fragment, {}, 

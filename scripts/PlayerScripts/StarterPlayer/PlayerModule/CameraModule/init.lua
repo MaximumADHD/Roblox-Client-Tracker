@@ -103,7 +103,6 @@ end
 
 local FFlagUserPlayerConnectionMemoryLeak = FlagUtil.getUserFlag("UserPlayerConnectionMemoryLeak")
 local FFlagUserPSFixCameraControllerReset = FlagUtil.getUserFlag("UserPSFixCameraControllerReset")
-local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
 
 -- Change this later as types are added for more classes
 type Generic = any
@@ -569,10 +568,6 @@ function CameraModule:Update(data, dt)
 		-- Update to character local transparency as needed based on camera-to-subject distance
 		if self.activeTransparencyController then
 			self.activeTransparencyController:Update(dt)
-		end
-
-		if not FFlagUserPlayerScriptsCameraTouchUsesIAS and CameraInput.getInputEnabled() then
-			CameraInput.resetInputForFrameEnd()
 		end
 	end
 end

@@ -97,7 +97,6 @@ local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries",
 -- [[ FAST FLAGS ]]
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SettingsFlags = require(script.Parent.Flags)
-local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePageToButtons
 
 local Flags = {
 	EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId"),
@@ -108,6 +107,7 @@ local Flags = {
 	FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false),
 	FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false),
 	FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false),
+	FFlagWaitPlayerModuleStatus = game:DefineFastFlag("WaitPlayerModuleStatus", false),
 
 	GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification),
 	FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)(),
@@ -162,14 +162,12 @@ local Flags = {
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
 	FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer,
 
-	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
 	FFlagFixDisabledScrollOnIos = game:DefineFastFlag("FixDisabledScrollOnIos", false),
 
 	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
 	FFlagSideSheetAndroidBack = game:DefineFastFlag("SideSheetAndroidBack", false),
 	FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration,
 	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
-	FFlagImprovePageTitleCloseButton = game:DefineFastFlag("ImprovePageTitleCloseButton", false),
 	FFlagIGMSelectionGroup = game:DefineFastFlag("IGMSelectionGroup", false),
 	FFlagRemoveExitModal = require(RobloxGui.Modules.Settings.Flags.FFlagRemoveExitModal),
 	FFlagEnableExitModalExposure = game:DefineFastFlag("EnableExitModalExposure", false),
@@ -1391,6 +1389,12 @@ local function CreateSettingsHub()
 			if not Players.LocalPlayer then
 				Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 			end
+			if Flags.FFlagWaitPlayerModuleStatus then
+				if StarterPlayer.PlayerModuleStatus == 0 then
+					StarterPlayer:GetPropertyChangedSignal("PlayerModuleStatus"):Wait()
+				end
+			end
+
 			local playerScriptsString = "PlayerScripts: "
 			if shouldTryLocalizeVersionLabels then
 				playerScriptsString = tryTranslate("InGame.HelpMenu.Label.PlayerScripts", "PlayerScripts: ")
@@ -1502,14 +1506,11 @@ local function CreateSettingsHub()
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Parent = this.MenuContainer
 		}
-
-		if FFlagIEMFocusNavPeoplePageToButtons then
 			this.Page.SelectionGroup = true
 			this.Page.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
 			this.Page.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
 			this.Page.SelectionBehaviorLeft = Enum.SelectionBehavior.Stop
 			this.Page.SelectionBehaviorRight = Enum.SelectionBehavior.Stop
-		end
 
 		local menuParent = this.Page
 		this.MenuContainerPadding = Create'UIPadding'
@@ -1632,19 +1633,6 @@ local function CreateSettingsHub()
 				PaddingRight = UDim.new(0, 12),
 				Parent = this.PageTitleHeader,
 			}
-
-			if not Flags.FFlagImprovePageTitleCloseButton then
-				this.PageTitleCloseButton = Create'ImageButton'
-				{
-					Name = 'PageTitleCloseButton',
-					BackgroundTransparency = 1,
-					Size = UDim2.new(0, 16, 0, 16),
-					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.new(1, 0, 0.5, 0),
-					Image = "rbxasset://textures/ui/InspectMenu/x.png",
-					Parent = this.PageTitleHeader,
-				}
-			end
 
 			this.PageTitleLabel = Create'TextLabel'
 			{
@@ -1952,33 +1940,27 @@ local function CreateSettingsHub()
 		end
 
 		if Flags.FFlagEnableSideSheet then
-			if Flags.FFlagImprovePageTitleCloseButton then
-				this.PageTitleCloseButton = utility:MakeStyledImageButton(
-					"PageTitleClose",
-					"rbxasset://textures/ui/InspectMenu/x.png",
-					UDim2.new(0, 40, 0, 40),
-					UDim2.new(0, 16, 0, 16),
-					function()
-						resumeFunc(Constants.AnalyticsResumeXButtonSource)
-					end,
-					nil,
-					this,
-					"DefaultButton"
-				)
-				this.PageTitleCloseButton.AnchorPoint = Vector2.new(1, 0.5)
-				this.PageTitleCloseButton.Position = UDim2.new(1, 0, 0.5, 0)
-				
-				local border = this.PageTitleCloseButton:FindFirstChild("Border")
-				if border then
-					border.Parent = nil
-				end
-
-				this.PageTitleCloseButton.Parent = this.PageTitleHeader
-			else
-				this.PageTitleCloseButton.Activated:Connect(function()
+			this.PageTitleCloseButton = utility:MakeStyledImageButton(
+				"PageTitleClose",
+				"rbxasset://textures/ui/InspectMenu/x.png",
+				UDim2.new(0, 40, 0, 40),
+				UDim2.new(0, 16, 0, 16),
+				function()
 					resumeFunc(Constants.AnalyticsResumeXButtonSource)
-				end)
+				end,
+				nil,
+				this,
+				"DefaultButton"
+			)
+			this.PageTitleCloseButton.AnchorPoint = Vector2.new(1, 0.5)
+			this.PageTitleCloseButton.Position = UDim2.new(1, 0, 0.5, 0)
+			
+			local border = this.PageTitleCloseButton:FindFirstChild("Border")
+			if border then
+				border.Parent = nil
 			end
+
+			this.PageTitleCloseButton.Parent = this.PageTitleHeader
 		end
 
 		if not Flags.FFlagMenuButtonsMountWithIEM then
@@ -2913,38 +2895,28 @@ local function CreateSettingsHub()
 		end
 
 		-- Disable outer scrolling for any page that doesn't need it
-		if Flags.FFlagAddAbilityToDisableIGMScroll then
-			if shouldDisableDefaultScroll() then
-				this.PageView.ScrollBarThickness = 0
-				this.PageView.ScrollingEnabled = false
-				this.PageView.CanvasPosition = Vector2.new(0, 0)
-				this.PageView.CanvasSize = UDim2.new(1, 0, 1, 0)
-				-- Prevents iOS UIScrollView from scrolling despite ScrollingEnabled=false
-				if Flags.FFlagFixDisabledScrollOnIos then
-					pageViewCanvasLock = this.PageView:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
-						if this.PageView.CanvasPosition.Magnitude > 0 then
-							this.PageView.CanvasPosition = Vector2.new(0, 0)
-						end
-					end)
-				end
-			else
-				this.PageView.ScrollBarThickness = Theme.DefaultScrollBarThickness
-				this.PageView.ScrollingEnabled = true
-			end
-		end
-
-		if Flags.FFlagAddAbilityToDisableIGMScroll then
-			if not shouldDisableDefaultScroll() then
-				local pageSize = this.Pages.CurrentPage:GetSize()
-				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+		if shouldDisableDefaultScroll() then
+			this.PageView.ScrollBarThickness = 0
+			this.PageView.ScrollingEnabled = false
+			this.PageView.CanvasPosition = Vector2.new(0, 0)
+			this.PageView.CanvasSize = UDim2.new(1, 0, 1, 0)
+			-- Prevents iOS UIScrollView from scrolling despite ScrollingEnabled=false
+			if Flags.FFlagFixDisabledScrollOnIos then
+				pageViewCanvasLock = this.PageView:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
+					if this.PageView.CanvasPosition.Magnitude > 0 then
+						this.PageView.CanvasPosition = Vector2.new(0, 0)
+					end
+				end)
 			end
 		else
+			this.PageView.ScrollBarThickness = Theme.DefaultScrollBarThickness
+			this.PageView.ScrollingEnabled = true
 			local pageSize = this.Pages.CurrentPage:GetSize()
 			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 		end
 
 		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
-			if prop == "AbsoluteSize" and (not Flags.FFlagAddAbilityToDisableIGMScroll or not shouldDisableDefaultScroll()) then
+			if prop == "AbsoluteSize" and not shouldDisableDefaultScroll() then
 				local pageSize = this.Pages.CurrentPage:GetSize()
 				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 			end

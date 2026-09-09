@@ -2,12 +2,14 @@
 local Packages = script.Parent.Parent
 local EventPropagationService = require(Packages.EventPropagation)
 local Utils = require(Packages.FocusNavigationUtils)
+local SafeFlags = require(Packages.SafeFlags)
+
+local getFFlagFocusNavigationRefocusSuppression = SafeFlags.createGetFFlag("FocusNavigationRefocusSuppression")
 
 local createSignal = Utils.createSignal
 local shallowEqual = Utils.shallowEqual
 local getAncestors = Utils.getAncestors
 local warn = Utils.mockableWarn
-
 local isValidFocusTarget = require(script.Parent.isValidFocusTarget)
 
 local types = require(script.Parent.types)
@@ -61,6 +63,8 @@ type FocusNavigationServicePrivate = {
 	_silentFocusTarget: GuiObject?,
 	_silentBlurTarget: GuiObject?,
 
+	_shouldSuppressContainerRefocus: (() -> boolean)?,
+
 	_fireActiveEventMapSignal: Utils.FireSignal<EventMap>,
 	_fireFocusedGuiObjectSignal: Utils.FireSignal<GuiObject?>,
 
@@ -94,14 +98,18 @@ type FocusNavigationServicePrivate = {
 	focusedGuiObject: Utils.Signal<GuiObject?>,
 }
 
+type FocusNavigationServiceOptions = {
+	shouldSuppressContainerRefocus: (() -> boolean)?,
+}
+
 type FocusNavigationServiceStatics = {
-	new: (EngineInterface) -> FocusNavigationService,
+	new: (EngineInterface, FocusNavigationServiceOptions?) -> FocusNavigationService,
 }
 
 local FocusNavigationService = {} :: FocusNavigationServicePrivate & FocusNavigationServiceStatics;
 (FocusNavigationService :: any).__index = FocusNavigationService
 
-function FocusNavigationService.new(engineInterface: EngineInterface)
+function FocusNavigationService.new(engineInterface: EngineInterface, options: FocusNavigationServiceOptions?)
 	local activeEventMapSignal, fireActiveEventMapSignal = createSignal({})
 	local focusedGuiObjectSignal, fireFocusedGuiObjectSignal = createSignal(engineInterface.getSelection())
 
@@ -115,6 +123,8 @@ function FocusNavigationService.new(engineInterface: EngineInterface)
 
 		_silentFocusTarget = nil,
 		_silentBlurTarget = nil,
+
+		_shouldSuppressContainerRefocus = if options then options.shouldSuppressContainerRefocus else nil,
 
 		_fireActiveEventMapSignal = fireActiveEventMapSignal,
 		_fireFocusedGuiObjectSignal = fireFocusedGuiObjectSignal,
@@ -189,7 +199,7 @@ end
 function FocusNavigationService:_cancelHandler(target, eventName)
 	if eventName ~= "blur" and eventName ~= "focus" then
 		self._eventPropagationService:propagateEvent(target, eventName, {
-			KeyCode = Enum.KeyCode.Unknown,
+			KeyCode = Enum.KeyCode.None,
 			UserInputType = Enum.UserInputType.None,
 			UserInputState = Enum.UserInputState.Cancel,
 		}, {
@@ -350,14 +360,21 @@ function FocusNavigationService:registerFocusBehavior(guiObject: GuiObject, beha
 					-- nil or outside, our container is gaining focus from outside
 					-- and we want to trigger our focus behavior
 					local didRefocus = false
-					for _, target in behavior.getTargets() do
-						-- target validity check
-						if isValidFocusTarget(target) then
-							self:focusGuiObject(target, false)
-							didRefocus = true
-							break
+					local shouldSuppressContainerRefocus = if getFFlagFocusNavigationRefocusSuppression()
+						then self._shouldSuppressContainerRefocus and self._shouldSuppressContainerRefocus()
+						else false
+
+					if not shouldSuppressContainerRefocus then
+						for _, target in behavior.getTargets() do
+							-- target validity check
+							if isValidFocusTarget(target) then
+								self:focusGuiObject(target, false)
+								didRefocus = true
+								break
+							end
 						end
 					end
+
 					if not didRefocus then
 						-- If we did not redirect focus just now, we trigger
 						-- callbacks on the behavior so that it can track focus

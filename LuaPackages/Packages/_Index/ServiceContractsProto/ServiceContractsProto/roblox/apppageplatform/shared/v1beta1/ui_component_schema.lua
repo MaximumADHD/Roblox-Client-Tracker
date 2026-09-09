@@ -95,6 +95,8 @@ type _Messages =
 		GameTileActiveFriendsFooterSchema_Props: _GameTileActiveFriendsFooterSchema_PropsMessage,
 		HeroUnitSchema: _HeroUnitSchemaMessage,
 		HeroUnitSchema_Props: _HeroUnitSchema_PropsMessage,
+		HeroUnitBottomRowSchema: _HeroUnitBottomRowSchemaMessage,
+		HeroUnitBottomRowSchema_Props: _HeroUnitBottomRowSchema_PropsMessage,
 		HoldToPlaySchema: _HoldToPlaySchemaMessage,
 		HoldToPlaySchema_Props: _HoldToPlaySchema_PropsMessage,
 		PlayButtonSchema: _PlayButtonSchemaMessage,
@@ -315,6 +317,8 @@ type _Messages =
 		FeedbackBannerSchema_WebProps: _FeedbackBannerSchema_WebPropsMessage,
 		GameSortDropDownSchema: _GameSortDropDownSchemaMessage,
 		GameSortDropDownSchema_Props: _GameSortDropDownSchema_PropsMessage,
+		SponsoredTwoByOneTileSchema: _SponsoredTwoByOneTileSchemaMessage,
+		SponsoredTwoByOneTileSchema_Props: _SponsoredTwoByOneTileSchema_PropsMessage,
 		UiComponentSchema: _UiComponentSchemaMessage,
 	}
 local messages: _Messages = {} :: _Messages
@@ -1383,6 +1387,7 @@ type _TileSchema_PropsFields = {
 	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	thumbnail_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	on_touch_long_press: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 type _TileSchema_PropsPartialFields = {
@@ -1413,6 +1418,7 @@ type _TileSchema_PropsPartialFields = {
 	image_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	image_corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	thumbnail_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	on_touch_long_press: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 export type TileSchema_Props = typeof(setmetatable({} :: _TileSchema_PropsFields, {} :: _TileSchema_PropsImpl))
@@ -1709,6 +1715,8 @@ type _GameTileSchema_PropsFields = {
 	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	video_player: LazyNestedComponentProp?,
 	disable_default_play_button_on_hover: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	overflow_menu_component: LazyNestedComponentProp?,
 }
 
 type _GameTileSchema_PropsPartialFields = {
@@ -1749,6 +1757,8 @@ type _GameTileSchema_PropsPartialFields = {
 	disable_default_footer_logic: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	video_player: LazyNestedComponentProp?,
 	disable_default_play_button_on_hover: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	overflow_menu_component: LazyNestedComponentProp?,
 }
 
 export type GameTileSchema_Props = typeof(setmetatable(
@@ -2685,6 +2695,7 @@ type _DialogSchema_PropsFields = {
 	has_backdrop: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	primary_button_foundation_icon: _roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp?,
 	secondary_button_foundation_icon: _roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 }
 
 type _DialogSchema_PropsPartialFields = {
@@ -2711,6 +2722,7 @@ type _DialogSchema_PropsPartialFields = {
 	has_backdrop: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	primary_button_foundation_icon: _roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp?,
 	secondary_button_foundation_icon: _roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 }
 
 export type DialogSchema_Props = typeof(setmetatable({} :: _DialogSchema_PropsFields, {} :: _DialogSchema_PropsImpl))
@@ -2945,6 +2957,7 @@ type _SectionHeaderSchema_PropsFields = {
 	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	vertical_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	allow_interaction_for_directional_input: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _SectionHeaderSchema_PropsPartialFields = {
@@ -2975,6 +2988,7 @@ type _SectionHeaderSchema_PropsPartialFields = {
 	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	vertical_gap: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 	allow_interaction_for_directional_input: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type SectionHeaderSchema_Props = typeof(setmetatable(
@@ -3476,6 +3490,25 @@ type _HeroUnitSchema_PropsFields = {
 	background_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	foreground_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	title_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	badge_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	narrow_layout: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	enable_background_animation: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	enable_foreground_animation: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	background_image_frame_height: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	hide_subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	foreground_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	background_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	foreground_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	title_image_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	title_image_height_percentage: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	min_card_height: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	content_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	gradient_width_percent: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	gradient_height_percent: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 type _HeroUnitSchema_PropsPartialFields = {
@@ -3489,6 +3522,25 @@ type _HeroUnitSchema_PropsPartialFields = {
 	background_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	foreground_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
 	title_image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	badge_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	narrow_layout: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	enable_background_animation: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	enable_foreground_animation: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	background_image_frame_height: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	corner_radius: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	hide_subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	foreground_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	background_overflow: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	foreground_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	title_image_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	title_image_height_percentage: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	min_card_height: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	content_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	gradient_width_percent: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	gradient_height_percent: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
 }
 
 export type HeroUnitSchema_Props = typeof(setmetatable(
@@ -3496,6 +3548,71 @@ export type HeroUnitSchema_Props = typeof(setmetatable(
 	{} :: _HeroUnitSchema_PropsImpl
 ))
 type _HeroUnitSchema_PropsMessage = proto.Message<HeroUnitSchema_Props, _HeroUnitSchema_PropsPartialFields>
+
+type _HeroUnitBottomRowSchemaImpl = {
+	__index: _HeroUnitBottomRowSchemaImpl,
+	new: (fields: _HeroUnitBottomRowSchemaPartialFields?) -> HeroUnitBottomRowSchema,
+	encode: (self: HeroUnitBottomRowSchema) -> buffer,
+	decode: (input: buffer) -> HeroUnitBottomRowSchema,
+	jsonEncode: (self: HeroUnitBottomRowSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HeroUnitBottomRowSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _HeroUnitBottomRowSchemaFields = {
+	props: HeroUnitBottomRowSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _HeroUnitBottomRowSchemaPartialFields = {
+	props: HeroUnitBottomRowSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type HeroUnitBottomRowSchema = typeof(setmetatable(
+	{} :: _HeroUnitBottomRowSchemaFields,
+	{} :: _HeroUnitBottomRowSchemaImpl
+))
+type _HeroUnitBottomRowSchemaMessage = proto.Message<HeroUnitBottomRowSchema, _HeroUnitBottomRowSchemaPartialFields>
+
+type _HeroUnitBottomRowSchema_PropsImpl = {
+	__index: _HeroUnitBottomRowSchema_PropsImpl,
+	new: (fields: _HeroUnitBottomRowSchema_PropsPartialFields?) -> HeroUnitBottomRowSchema_Props,
+	encode: (self: HeroUnitBottomRowSchema_Props) -> buffer,
+	decode: (input: buffer) -> HeroUnitBottomRowSchema_Props,
+	jsonEncode: (self: HeroUnitBottomRowSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HeroUnitBottomRowSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _HeroUnitBottomRowSchema_PropsFields = {
+	cta_button: NestedComponentProp?,
+	label_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	right_label_content: NestedComponentProp?,
+	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+type _HeroUnitBottomRowSchema_PropsPartialFields = {
+	cta_button: NestedComponentProp?,
+	label_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	right_label_content: NestedComponentProp?,
+	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+export type HeroUnitBottomRowSchema_Props = typeof(setmetatable(
+	{} :: _HeroUnitBottomRowSchema_PropsFields,
+	{} :: _HeroUnitBottomRowSchema_PropsImpl
+))
+type _HeroUnitBottomRowSchema_PropsMessage = proto.Message<
+	HeroUnitBottomRowSchema_Props,
+	_HeroUnitBottomRowSchema_PropsPartialFields
+>
 
 type _HoldToPlaySchemaImpl = {
 	__index: _HoldToPlaySchemaImpl,
@@ -4504,6 +4621,7 @@ type _VerticalFeedSchema_PropsFields = {
 	progressive_fill_rate: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_interval_ms: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	enable_back_to_top: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	progressive_fill_on_scroll: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -4529,6 +4647,7 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	progressive_fill_rate: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_interval_ms: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	enable_back_to_top: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	progressive_fill_on_scroll: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -10864,6 +10983,90 @@ type _GameSortDropDownSchema_PropsMessage = proto.Message<
 	_GameSortDropDownSchema_PropsPartialFields
 >
 
+type _SponsoredTwoByOneTileSchemaImpl = {
+	__index: _SponsoredTwoByOneTileSchemaImpl,
+	new: (fields: _SponsoredTwoByOneTileSchemaPartialFields?) -> SponsoredTwoByOneTileSchema,
+	encode: (self: SponsoredTwoByOneTileSchema) -> buffer,
+	decode: (input: buffer) -> SponsoredTwoByOneTileSchema,
+	jsonEncode: (self: SponsoredTwoByOneTileSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SponsoredTwoByOneTileSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _SponsoredTwoByOneTileSchemaFields = {
+	props: SponsoredTwoByOneTileSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _SponsoredTwoByOneTileSchemaPartialFields = {
+	props: SponsoredTwoByOneTileSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type SponsoredTwoByOneTileSchema = typeof(setmetatable(
+	{} :: _SponsoredTwoByOneTileSchemaFields,
+	{} :: _SponsoredTwoByOneTileSchemaImpl
+))
+type _SponsoredTwoByOneTileSchemaMessage = proto.Message<
+	SponsoredTwoByOneTileSchema,
+	_SponsoredTwoByOneTileSchemaPartialFields
+>
+
+type _SponsoredTwoByOneTileSchema_PropsImpl = {
+	__index: _SponsoredTwoByOneTileSchema_PropsImpl,
+	new: (fields: _SponsoredTwoByOneTileSchema_PropsPartialFields?) -> SponsoredTwoByOneTileSchema_Props,
+	encode: (self: SponsoredTwoByOneTileSchema_Props) -> buffer,
+	decode: (input: buffer) -> SponsoredTwoByOneTileSchema_Props,
+	jsonEncode: (self: SponsoredTwoByOneTileSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SponsoredTwoByOneTileSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _SponsoredTwoByOneTileSchema_PropsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	logo_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	logo_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	cta_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tile_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	native_ad_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	badge_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	badge_analytics_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	launch_data_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SponsoredTwoByOneTileSchema_PropsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	age_rating_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	logo_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	logo_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	cta_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tile_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	native_ad_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	badge_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	badge_analytics_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	launch_data_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SponsoredTwoByOneTileSchema_Props = typeof(setmetatable(
+	{} :: _SponsoredTwoByOneTileSchema_PropsFields,
+	{} :: _SponsoredTwoByOneTileSchema_PropsImpl
+))
+type _SponsoredTwoByOneTileSchema_PropsMessage = proto.Message<
+	SponsoredTwoByOneTileSchema_Props,
+	_SponsoredTwoByOneTileSchema_PropsPartialFields
+>
+
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
 	new: (fields: _UiComponentSchemaPartialFields?) -> UiComponentSchema,
@@ -10965,6 +11168,8 @@ type _UiComponentSchemaFields = {
 		| { type: "vertical_list_with_impressions", value: VerticalListWithImpressionsSchema }
 		| { type: "friend_carousel", value: FriendCarouselSchema }
 		| { type: "reveal_rows_button_with_divider", value: RevealRowsButtonWithDividerSchema }
+		| { type: "hero_unit_bottom_row", value: HeroUnitBottomRowSchema }
+		| { type: "sponsored_two_by_one_tile", value: SponsoredTwoByOneTileSchema }
 	)?,
 }
 
@@ -11059,6 +11264,8 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "vertical_list_with_impressions", value: VerticalListWithImpressionsSchema }
 		| { type: "friend_carousel", value: FriendCarouselSchema }
 		| { type: "reveal_rows_button_with_divider", value: RevealRowsButtonWithDividerSchema }
+		| { type: "hero_unit_bottom_row", value: HeroUnitBottomRowSchema }
+		| { type: "sponsored_two_by_one_tile", value: SponsoredTwoByOneTileSchema }
 	)?,
 }
 
@@ -16025,6 +16232,9 @@ do
 				then nil
 				else data.image_corner_radius,
 			thumbnail_padding = if data == nil or data.thumbnail_padding == nil then nil else data.thumbnail_padding,
+			on_touch_long_press = if data == nil or data.on_touch_long_press == nil
+				then nil
+				else data.on_touch_long_press,
 		}, _TileSchema_PropsImpl :: _TileSchema_PropsImpl)
 	end
 
@@ -16194,6 +16404,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.on_touch_long_press ~= nil then
+			local encoded = self.on_touch_long_press:encode()
+			output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -16352,6 +16568,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.thumbnail_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_touch_long_press = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
 				end
 
 				local length
@@ -16485,6 +16706,10 @@ do
 
 		if self.thumbnail_padding ~= nil then
 			output.thumbnailPadding = self.thumbnail_padding:jsonEncode()
+		end
+
+		if self.on_touch_long_press ~= nil then
+			output.onTouchLongPress = self.on_touch_long_press:jsonEncode()
 		end
 
 		return output
@@ -16737,6 +16962,16 @@ do
 		if input.thumbnailPadding ~= nil then
 			self.thumbnail_padding =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thumbnailPadding)
+		end
+
+		if input.on_touch_long_press ~= nil then
+			self.on_touch_long_press =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_touch_long_press)
+		end
+
+		if input.onTouchLongPress ~= nil then
+			self.on_touch_long_press =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onTouchLongPress)
 		end
 
 		return self
@@ -18436,6 +18671,10 @@ do
 					or data.disable_default_play_button_on_hover == nil
 				then nil
 				else data.disable_default_play_button_on_hover,
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+			overflow_menu_component = if data == nil or data.overflow_menu_component == nil
+				then nil
+				else data.overflow_menu_component,
 		}, _GameTileSchema_PropsImpl :: _GameTileSchema_PropsImpl)
 	end
 
@@ -18665,6 +18904,18 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 111, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.overflow_menu_component ~= nil then
+			local encoded = self.overflow_menu_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 112, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -18877,6 +19128,16 @@ do
 					self.disable_default_play_button_on_hover =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 111 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 112 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.overflow_menu_component = messages.LazyNestedComponentProp.decode(value)
+					continue
 				end
 
 				local length
@@ -19050,6 +19311,14 @@ do
 
 		if self.disable_default_play_button_on_hover ~= nil then
 			output.disableDefaultPlayButtonOnHover = self.disable_default_play_button_on_hover:jsonEncode()
+		end
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		if self.overflow_menu_component ~= nil then
+			output.overflowMenuComponent = self.overflow_menu_component:jsonEncode()
 		end
 
 		return output
@@ -19405,6 +19674,24 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
 					input.disableDefaultPlayButtonOnHover
 				)
+		end
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		if input.overflow_menu_component ~= nil then
+			self.overflow_menu_component = messages.LazyNestedComponentProp.jsonDecode(input.overflow_menu_component)
+		end
+
+		if input.overflowMenuComponent ~= nil then
+			self.overflow_menu_component = messages.LazyNestedComponentProp.jsonDecode(input.overflowMenuComponent)
 		end
 
 		return self
@@ -25949,6 +26236,7 @@ do
 			secondary_button_foundation_icon = if data == nil or data.secondary_button_foundation_icon == nil
 				then nil
 				else data.secondary_button_foundation_icon,
+			image_style = if data == nil or data.image_style == nil then nil else data.image_style,
 		}, _DialogSchema_PropsImpl :: _DialogSchema_PropsImpl)
 	end
 
@@ -26091,6 +26379,12 @@ do
 		if self.secondary_button_foundation_icon ~= nil then
 			local encoded = self.secondary_button_foundation_icon:encode()
 			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_style ~= nil then
+			local encoded = self.image_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -26239,6 +26533,11 @@ do
 					self.secondary_button_foundation_icon =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp.decode(value)
 					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
 				end
 
 				local length
@@ -26356,6 +26655,10 @@ do
 
 		if self.secondary_button_foundation_icon ~= nil then
 			output.secondaryButtonFoundationIcon = self.secondary_button_foundation_icon:jsonEncode()
+		end
+
+		if self.image_style ~= nil then
+			output.imageStyle = self.image_style:jsonEncode()
 		end
 
 		return output
@@ -26588,6 +26891,16 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.FoundationIconConfigProp.jsonDecode(
 					input.secondaryButtonFoundationIcon
 				)
+		end
+
+		if input.image_style ~= nil then
+			self.image_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.image_style)
+		end
+
+		if input.imageStyle ~= nil then
+			self.image_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.imageStyle)
 		end
 
 		return self
@@ -27904,6 +28217,7 @@ do
 					or data.allow_interaction_for_directional_input == nil
 				then nil
 				else data.allow_interaction_for_directional_input,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
 		}, _SectionHeaderSchema_PropsImpl :: _SectionHeaderSchema_PropsImpl)
 	end
 
@@ -28073,6 +28387,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -28231,6 +28551,11 @@ do
 					self.allow_interaction_for_directional_input =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -28364,6 +28689,10 @@ do
 
 		if self.allow_interaction_for_directional_input ~= nil then
 			output.allowInteractionForDirectionalInput = self.allow_interaction_for_directional_input:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
 		end
 
 		return output
@@ -28614,6 +28943,10 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
 					input.allowInteractionForDirectionalInput
 				)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
 		end
 
 		return self
@@ -32027,6 +32360,45 @@ do
 			background_image = if data == nil or data.background_image == nil then nil else data.background_image,
 			foreground_image = if data == nil or data.foreground_image == nil then nil else data.foreground_image,
 			title_image = if data == nil or data.title_image == nil then nil else data.title_image,
+			title = if data == nil or data.title == nil then nil else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			badge_text = if data == nil or data.badge_text == nil then nil else data.badge_text,
+			narrow_layout = if data == nil or data.narrow_layout == nil then nil else data.narrow_layout,
+			enable_background_animation = if data == nil or data.enable_background_animation == nil
+				then nil
+				else data.enable_background_animation,
+			enable_foreground_animation = if data == nil or data.enable_foreground_animation == nil
+				then nil
+				else data.enable_foreground_animation,
+			aspect_ratio = if data == nil or data.aspect_ratio == nil then nil else data.aspect_ratio,
+			background_image_frame_height = if data == nil or data.background_image_frame_height == nil
+				then nil
+				else data.background_image_frame_height,
+			corner_radius = if data == nil or data.corner_radius == nil then nil else data.corner_radius,
+			hide_subtitle = if data == nil or data.hide_subtitle == nil then nil else data.hide_subtitle,
+			foreground_overflow = if data == nil or data.foreground_overflow == nil
+				then nil
+				else data.foreground_overflow,
+			background_overflow = if data == nil or data.background_overflow == nil
+				then nil
+				else data.background_overflow,
+			foreground_aspect_ratio = if data == nil or data.foreground_aspect_ratio == nil
+				then nil
+				else data.foreground_aspect_ratio,
+			title_image_aspect_ratio = if data == nil or data.title_image_aspect_ratio == nil
+				then nil
+				else data.title_image_aspect_ratio,
+			title_image_height_percentage = if data == nil or data.title_image_height_percentage == nil
+				then nil
+				else data.title_image_height_percentage,
+			min_card_height = if data == nil or data.min_card_height == nil then nil else data.min_card_height,
+			content_padding = if data == nil or data.content_padding == nil then nil else data.content_padding,
+			gradient_width_percent = if data == nil or data.gradient_width_percent == nil
+				then nil
+				else data.gradient_width_percent,
+			gradient_height_percent = if data == nil or data.gradient_height_percent == nil
+				then nil
+				else data.gradient_height_percent,
 		}, _HeroUnitSchema_PropsImpl :: _HeroUnitSchema_PropsImpl)
 	end
 
@@ -32091,6 +32463,120 @@ do
 		if self.title_image ~= nil then
 			local encoded = self.title_image:encode()
 			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title ~= nil then
+			local encoded = self.title:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle ~= nil then
+			local encoded = self.subtitle:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.badge_text ~= nil then
+			local encoded = self.badge_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.narrow_layout ~= nil then
+			local encoded = self.narrow_layout:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.enable_background_animation ~= nil then
+			local encoded = self.enable_background_animation:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.enable_foreground_animation ~= nil then
+			local encoded = self.enable_foreground_animation:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.aspect_ratio ~= nil then
+			local encoded = self.aspect_ratio:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_image_frame_height ~= nil then
+			local encoded = self.background_image_frame_height:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.corner_radius ~= nil then
+			local encoded = self.corner_radius:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.hide_subtitle ~= nil then
+			local encoded = self.hide_subtitle:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_overflow ~= nil then
+			local encoded = self.foreground_overflow:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_overflow ~= nil then
+			local encoded = self.background_overflow:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.foreground_aspect_ratio ~= nil then
+			local encoded = self.foreground_aspect_ratio:encode()
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_image_aspect_ratio ~= nil then
+			local encoded = self.title_image_aspect_ratio:encode()
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_image_height_percentage ~= nil then
+			local encoded = self.title_image_height_percentage:encode()
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.min_card_height ~= nil then
+			local encoded = self.min_card_height:encode()
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.content_padding ~= nil then
+			local encoded = self.content_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.gradient_width_percent ~= nil then
+			local encoded = self.gradient_width_percent:encode()
+			output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.gradient_height_percent ~= nil then
+			local encoded = self.gradient_height_percent:encode()
+			output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -32165,6 +32651,109 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.title_image = _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.decode(value)
 					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.narrow_layout = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.enable_background_animation =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.enable_foreground_animation =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.aspect_ratio = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_image_frame_height =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.corner_radius = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.hide_subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_overflow = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_overflow = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.foreground_aspect_ratio =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_image_aspect_ratio =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_image_height_percentage =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.min_card_height = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gradient_width_percent =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gradient_height_percent =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
 				end
 
 				local length
@@ -32230,6 +32819,82 @@ do
 
 		if self.title_image ~= nil then
 			output.titleImage = self.title_image:jsonEncode()
+		end
+
+		if self.title ~= nil then
+			output.title = self.title:jsonEncode()
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle:jsonEncode()
+		end
+
+		if self.badge_text ~= nil then
+			output.badgeText = self.badge_text:jsonEncode()
+		end
+
+		if self.narrow_layout ~= nil then
+			output.narrowLayout = self.narrow_layout:jsonEncode()
+		end
+
+		if self.enable_background_animation ~= nil then
+			output.enableBackgroundAnimation = self.enable_background_animation:jsonEncode()
+		end
+
+		if self.enable_foreground_animation ~= nil then
+			output.enableForegroundAnimation = self.enable_foreground_animation:jsonEncode()
+		end
+
+		if self.aspect_ratio ~= nil then
+			output.aspectRatio = self.aspect_ratio:jsonEncode()
+		end
+
+		if self.background_image_frame_height ~= nil then
+			output.backgroundImageFrameHeight = self.background_image_frame_height:jsonEncode()
+		end
+
+		if self.corner_radius ~= nil then
+			output.cornerRadius = self.corner_radius:jsonEncode()
+		end
+
+		if self.hide_subtitle ~= nil then
+			output.hideSubtitle = self.hide_subtitle:jsonEncode()
+		end
+
+		if self.foreground_overflow ~= nil then
+			output.foregroundOverflow = self.foreground_overflow:jsonEncode()
+		end
+
+		if self.background_overflow ~= nil then
+			output.backgroundOverflow = self.background_overflow:jsonEncode()
+		end
+
+		if self.foreground_aspect_ratio ~= nil then
+			output.foregroundAspectRatio = self.foreground_aspect_ratio:jsonEncode()
+		end
+
+		if self.title_image_aspect_ratio ~= nil then
+			output.titleImageAspectRatio = self.title_image_aspect_ratio:jsonEncode()
+		end
+
+		if self.title_image_height_percentage ~= nil then
+			output.titleImageHeightPercentage = self.title_image_height_percentage:jsonEncode()
+		end
+
+		if self.min_card_height ~= nil then
+			output.minCardHeight = self.min_card_height:jsonEncode()
+		end
+
+		if self.content_padding ~= nil then
+			output.contentPadding = self.content_padding:jsonEncode()
+		end
+
+		if self.gradient_width_percent ~= nil then
+			output.gradientWidthPercent = self.gradient_width_percent:jsonEncode()
+		end
+
+		if self.gradient_height_percent ~= nil then
+			output.gradientHeightPercent = self.gradient_height_percent:jsonEncode()
 		end
 
 		return output
@@ -32320,6 +32985,184 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.jsonDecode(input.titleImage)
 		end
 
+		if input.title ~= nil then
+			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle)
+		end
+
+		if input.badge_text ~= nil then
+			self.badge_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.badge_text)
+		end
+
+		if input.badgeText ~= nil then
+			self.badge_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.badgeText)
+		end
+
+		if input.narrow_layout ~= nil then
+			self.narrow_layout =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.narrow_layout)
+		end
+
+		if input.narrowLayout ~= nil then
+			self.narrow_layout =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.narrowLayout)
+		end
+
+		if input.enable_background_animation ~= nil then
+			self.enable_background_animation =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enable_background_animation)
+		end
+
+		if input.enableBackgroundAnimation ~= nil then
+			self.enable_background_animation =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableBackgroundAnimation)
+		end
+
+		if input.enable_foreground_animation ~= nil then
+			self.enable_foreground_animation =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enable_foreground_animation)
+		end
+
+		if input.enableForegroundAnimation ~= nil then
+			self.enable_foreground_animation =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableForegroundAnimation)
+		end
+
+		if input.aspect_ratio ~= nil then
+			self.aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.aspect_ratio)
+		end
+
+		if input.aspectRatio ~= nil then
+			self.aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.aspectRatio)
+		end
+
+		if input.background_image_frame_height ~= nil then
+			self.background_image_frame_height = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(
+				input.background_image_frame_height
+			)
+		end
+
+		if input.backgroundImageFrameHeight ~= nil then
+			self.background_image_frame_height =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.backgroundImageFrameHeight)
+		end
+
+		if input.corner_radius ~= nil then
+			self.corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.corner_radius)
+		end
+
+		if input.cornerRadius ~= nil then
+			self.corner_radius =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.cornerRadius)
+		end
+
+		if input.hide_subtitle ~= nil then
+			self.hide_subtitle =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.hide_subtitle)
+		end
+
+		if input.hideSubtitle ~= nil then
+			self.hide_subtitle =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.hideSubtitle)
+		end
+
+		if input.foreground_overflow ~= nil then
+			self.foreground_overflow =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.foreground_overflow)
+		end
+
+		if input.foregroundOverflow ~= nil then
+			self.foreground_overflow =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.foregroundOverflow)
+		end
+
+		if input.background_overflow ~= nil then
+			self.background_overflow =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.background_overflow)
+		end
+
+		if input.backgroundOverflow ~= nil then
+			self.background_overflow =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.backgroundOverflow)
+		end
+
+		if input.foreground_aspect_ratio ~= nil then
+			self.foreground_aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foreground_aspect_ratio)
+		end
+
+		if input.foregroundAspectRatio ~= nil then
+			self.foreground_aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.foregroundAspectRatio)
+		end
+
+		if input.title_image_aspect_ratio ~= nil then
+			self.title_image_aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.title_image_aspect_ratio)
+		end
+
+		if input.titleImageAspectRatio ~= nil then
+			self.title_image_aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.titleImageAspectRatio)
+		end
+
+		if input.title_image_height_percentage ~= nil then
+			self.title_image_height_percentage = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+				input.title_image_height_percentage
+			)
+		end
+
+		if input.titleImageHeightPercentage ~= nil then
+			self.title_image_height_percentage =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.titleImageHeightPercentage)
+		end
+
+		if input.min_card_height ~= nil then
+			self.min_card_height =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.min_card_height)
+		end
+
+		if input.minCardHeight ~= nil then
+			self.min_card_height =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.minCardHeight)
+		end
+
+		if input.content_padding ~= nil then
+			self.content_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.content_padding)
+		end
+
+		if input.contentPadding ~= nil then
+			self.content_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.contentPadding)
+		end
+
+		if input.gradient_width_percent ~= nil then
+			self.gradient_width_percent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.gradient_width_percent)
+		end
+
+		if input.gradientWidthPercent ~= nil then
+			self.gradient_width_percent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.gradientWidthPercent)
+		end
+
+		if input.gradient_height_percent ~= nil then
+			self.gradient_height_percent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.gradient_height_percent)
+		end
+
+		if input.gradientHeightPercent ~= nil then
+			self.gradient_height_percent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.gradientHeightPercent)
+		end
+
 		return self
 	end
 
@@ -32331,6 +33174,373 @@ do
 	messages.HeroUnitSchema_Props = _HeroUnitSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HeroUnitSchema_Props)
+end
+
+do
+	local _HeroUnitBottomRowSchemaImpl = {}
+	_HeroUnitBottomRowSchemaImpl.__index = _HeroUnitBottomRowSchemaImpl
+
+	function _HeroUnitBottomRowSchemaImpl.new(data: _HeroUnitBottomRowSchemaPartialFields?): HeroUnitBottomRowSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _HeroUnitBottomRowSchemaImpl :: _HeroUnitBottomRowSchemaImpl)
+	end
+
+	function _HeroUnitBottomRowSchemaImpl.encode(self: HeroUnitBottomRowSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HeroUnitBottomRowSchemaImpl.decode(input: buffer): HeroUnitBottomRowSchema
+		local self = _HeroUnitBottomRowSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.HeroUnitBottomRowSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HeroUnitBottomRowSchemaImpl.jsonEncode(self: HeroUnitBottomRowSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HeroUnitBottomRowSchemaImpl.jsonDecode(input: { [string]: any }): HeroUnitBottomRowSchema
+		local self = _HeroUnitBottomRowSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.HeroUnitBottomRowSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_HeroUnitBottomRowSchemaImpl.descriptor = {
+		name = "HeroUnitBottomRowSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.HeroUnitBottomRowSchema",
+	}
+
+	messages.HeroUnitBottomRowSchema = _HeroUnitBottomRowSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HeroUnitBottomRowSchema)
+end
+
+do
+	local _HeroUnitBottomRowSchema_PropsImpl = {}
+	_HeroUnitBottomRowSchema_PropsImpl.__index = _HeroUnitBottomRowSchema_PropsImpl
+
+	function _HeroUnitBottomRowSchema_PropsImpl.new(
+		data: _HeroUnitBottomRowSchema_PropsPartialFields?
+	): HeroUnitBottomRowSchema_Props
+		return setmetatable({
+			cta_button = if data == nil or data.cta_button == nil then nil else data.cta_button,
+			label_text = if data == nil or data.label_text == nil then nil else data.label_text,
+			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			position = if data == nil or data.position == nil then nil else data.position,
+			right_label_content = if data == nil or data.right_label_content == nil
+				then nil
+				else data.right_label_content,
+			test_id = if data == nil or data.test_id == nil then nil else data.test_id,
+			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+		}, _HeroUnitBottomRowSchema_PropsImpl :: _HeroUnitBottomRowSchema_PropsImpl)
+	end
+
+	function _HeroUnitBottomRowSchema_PropsImpl.encode(self: HeroUnitBottomRowSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.cta_button ~= nil then
+			local encoded = self.cta_button:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.label_text ~= nil then
+			local encoded = self.label_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.layout_order ~= nil then
+			local encoded = self.layout_order:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.position ~= nil then
+			local encoded = self.position:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.right_label_content ~= nil then
+			local encoded = self.right_label_content:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.test_id ~= nil then
+			local encoded = self.test_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.z_index ~= nil then
+			local encoded = self.z_index:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HeroUnitBottomRowSchema_PropsImpl.decode(input: buffer): HeroUnitBottomRowSchema_Props
+		local self = _HeroUnitBottomRowSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_button = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.label_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.right_label_content = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HeroUnitBottomRowSchema_PropsImpl.jsonEncode(self: HeroUnitBottomRowSchema_Props): any
+		local output = {}
+
+		if self.cta_button ~= nil then
+			output.ctaButton = self.cta_button:jsonEncode()
+		end
+
+		if self.label_text ~= nil then
+			output.labelText = self.label_text:jsonEncode()
+		end
+
+		if self.layout_order ~= nil then
+			output.layoutOrder = self.layout_order:jsonEncode()
+		end
+
+		if self.position ~= nil then
+			output.position = self.position:jsonEncode()
+		end
+
+		if self.right_label_content ~= nil then
+			output.rightLabelContent = self.right_label_content:jsonEncode()
+		end
+
+		if self.test_id ~= nil then
+			output.testId = self.test_id:jsonEncode()
+		end
+
+		if self.z_index ~= nil then
+			output.zIndex = self.z_index:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HeroUnitBottomRowSchema_PropsImpl.jsonDecode(input: { [string]: any }): HeroUnitBottomRowSchema_Props
+		local self = _HeroUnitBottomRowSchema_PropsImpl.new()
+
+		if input.cta_button ~= nil then
+			self.cta_button = messages.NestedComponentProp.jsonDecode(input.cta_button)
+		end
+
+		if input.ctaButton ~= nil then
+			self.cta_button = messages.NestedComponentProp.jsonDecode(input.ctaButton)
+		end
+
+		if input.label_text ~= nil then
+			self.label_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.label_text)
+		end
+
+		if input.labelText ~= nil then
+			self.label_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.labelText)
+		end
+
+		if input.layout_order ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layout_order)
+		end
+
+		if input.layoutOrder ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		if input.position ~= nil then
+			self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.position)
+		end
+
+		if input.right_label_content ~= nil then
+			self.right_label_content = messages.NestedComponentProp.jsonDecode(input.right_label_content)
+		end
+
+		if input.rightLabelContent ~= nil then
+			self.right_label_content = messages.NestedComponentProp.jsonDecode(input.rightLabelContent)
+		end
+
+		if input.test_id ~= nil then
+			self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.test_id)
+		end
+
+		if input.testId ~= nil then
+			self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.testId)
+		end
+
+		if input.z_index ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.z_index)
+		end
+
+		if input.zIndex ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		return self
+	end
+
+	_HeroUnitBottomRowSchema_PropsImpl.descriptor = {
+		name = "HeroUnitBottomRowSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.HeroUnitBottomRowSchema_Props = _HeroUnitBottomRowSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HeroUnitBottomRowSchema_Props)
 end
 
 do
@@ -38925,6 +40135,9 @@ do
 				then nil
 				else data.progressive_fill_interval_ms,
 			enable_back_to_top = if data == nil or data.enable_back_to_top == nil then nil else data.enable_back_to_top,
+			progressive_fill_on_scroll = if data == nil or data.progressive_fill_on_scroll == nil
+				then nil
+				else data.progressive_fill_on_scroll,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -39061,6 +40274,12 @@ do
 		if self.enable_back_to_top ~= nil then
 			local encoded = self.enable_back_to_top:encode()
 			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.progressive_fill_on_scroll ~= nil then
+			local encoded = self.progressive_fill_on_scroll:encode()
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -39203,6 +40422,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.enable_back_to_top = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.progressive_fill_on_scroll =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
 				end
 
 				local length
@@ -39316,6 +40541,10 @@ do
 
 		if self.enable_back_to_top ~= nil then
 			output.enableBackToTop = self.enable_back_to_top:jsonEncode()
+		end
+
+		if self.progressive_fill_on_scroll ~= nil then
+			output.progressiveFillOnScroll = self.progressive_fill_on_scroll:jsonEncode()
 		end
 
 		return output
@@ -39549,6 +40778,16 @@ do
 		if input.enableBackToTop ~= nil then
 			self.enable_back_to_top =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableBackToTop)
+		end
+
+		if input.progressive_fill_on_scroll ~= nil then
+			self.progressive_fill_on_scroll =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.progressive_fill_on_scroll)
+		end
+
+		if input.progressiveFillOnScroll ~= nil then
+			self.progressive_fill_on_scroll =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.progressiveFillOnScroll)
 		end
 
 		return self
@@ -75956,6 +77195,589 @@ do
 end
 
 do
+	local _SponsoredTwoByOneTileSchemaImpl = {}
+	_SponsoredTwoByOneTileSchemaImpl.__index = _SponsoredTwoByOneTileSchemaImpl
+
+	function _SponsoredTwoByOneTileSchemaImpl.new(
+		data: _SponsoredTwoByOneTileSchemaPartialFields?
+	): SponsoredTwoByOneTileSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _SponsoredTwoByOneTileSchemaImpl :: _SponsoredTwoByOneTileSchemaImpl)
+	end
+
+	function _SponsoredTwoByOneTileSchemaImpl.encode(self: SponsoredTwoByOneTileSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SponsoredTwoByOneTileSchemaImpl.decode(input: buffer): SponsoredTwoByOneTileSchema
+		local self = _SponsoredTwoByOneTileSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.SponsoredTwoByOneTileSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SponsoredTwoByOneTileSchemaImpl.jsonEncode(self: SponsoredTwoByOneTileSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SponsoredTwoByOneTileSchemaImpl.jsonDecode(input: { [string]: any }): SponsoredTwoByOneTileSchema
+		local self = _SponsoredTwoByOneTileSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.SponsoredTwoByOneTileSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_SponsoredTwoByOneTileSchemaImpl.descriptor = {
+		name = "SponsoredTwoByOneTileSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SponsoredTwoByOneTileSchema",
+	}
+
+	messages.SponsoredTwoByOneTileSchema = _SponsoredTwoByOneTileSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SponsoredTwoByOneTileSchema)
+end
+
+do
+	local _SponsoredTwoByOneTileSchema_PropsImpl = {}
+	_SponsoredTwoByOneTileSchema_PropsImpl.__index = _SponsoredTwoByOneTileSchema_PropsImpl
+
+	function _SponsoredTwoByOneTileSchema_PropsImpl.new(
+		data: _SponsoredTwoByOneTileSchema_PropsPartialFields?
+	): SponsoredTwoByOneTileSchema_Props
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			root_place_id = if data == nil or data.root_place_id == nil then nil else data.root_place_id,
+			age_rating_text = if data == nil or data.age_rating_text == nil then nil else data.age_rating_text,
+			title_text = if data == nil or data.title_text == nil then nil else data.title_text,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			image_asset_id = if data == nil or data.image_asset_id == nil then nil else data.image_asset_id,
+			logo_asset_id = if data == nil or data.logo_asset_id == nil then nil else data.logo_asset_id,
+			logo_aspect_ratio = if data == nil or data.logo_aspect_ratio == nil then nil else data.logo_aspect_ratio,
+			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
+			tile_variant = if data == nil or data.tile_variant == nil then nil else data.tile_variant,
+			native_ad_data = if data == nil or data.native_ad_data == nil then nil else data.native_ad_data,
+			badge_text = if data == nil or data.badge_text == nil then nil else data.badge_text,
+			badge_analytics_id = if data == nil or data.badge_analytics_id == nil then nil else data.badge_analytics_id,
+			place_id_override = if data == nil or data.place_id_override == nil then nil else data.place_id_override,
+			launch_data_override = if data == nil or data.launch_data_override == nil
+				then nil
+				else data.launch_data_override,
+		}, _SponsoredTwoByOneTileSchema_PropsImpl :: _SponsoredTwoByOneTileSchema_PropsImpl)
+	end
+
+	function _SponsoredTwoByOneTileSchema_PropsImpl.encode(self: SponsoredTwoByOneTileSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.root_place_id ~= nil then
+			local encoded = self.root_place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.age_rating_text ~= nil then
+			local encoded = self.age_rating_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_text ~= nil then
+			local encoded = self.title_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle ~= nil then
+			local encoded = self.subtitle:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_asset_id ~= nil then
+			local encoded = self.image_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.logo_asset_id ~= nil then
+			local encoded = self.logo_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.logo_aspect_ratio ~= nil then
+			local encoded = self.logo_aspect_ratio:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cta_text ~= nil then
+			local encoded = self.cta_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tile_variant ~= nil then
+			local encoded = self.tile_variant:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.native_ad_data ~= nil then
+			local encoded = self.native_ad_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.badge_text ~= nil then
+			local encoded = self.badge_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.badge_analytics_id ~= nil then
+			local encoded = self.badge_analytics_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id_override ~= nil then
+			local encoded = self.place_id_override:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.launch_data_override ~= nil then
+			local encoded = self.launch_data_override:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SponsoredTwoByOneTileSchema_PropsImpl.decode(input: buffer): SponsoredTwoByOneTileSchema_Props
+		local self = _SponsoredTwoByOneTileSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.root_place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.age_rating_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.logo_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.logo_aspect_ratio = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tile_variant = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.native_ad_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_analytics_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id_override = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_data_override =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SponsoredTwoByOneTileSchema_PropsImpl.jsonEncode(self: SponsoredTwoByOneTileSchema_Props): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.root_place_id ~= nil then
+			output.rootPlaceId = self.root_place_id:jsonEncode()
+		end
+
+		if self.age_rating_text ~= nil then
+			output.ageRatingText = self.age_rating_text:jsonEncode()
+		end
+
+		if self.title_text ~= nil then
+			output.titleText = self.title_text:jsonEncode()
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle:jsonEncode()
+		end
+
+		if self.image_asset_id ~= nil then
+			output.imageAssetId = self.image_asset_id:jsonEncode()
+		end
+
+		if self.logo_asset_id ~= nil then
+			output.logoAssetId = self.logo_asset_id:jsonEncode()
+		end
+
+		if self.logo_aspect_ratio ~= nil then
+			output.logoAspectRatio = self.logo_aspect_ratio:jsonEncode()
+		end
+
+		if self.cta_text ~= nil then
+			output.ctaText = self.cta_text:jsonEncode()
+		end
+
+		if self.tile_variant ~= nil then
+			output.tileVariant = self.tile_variant:jsonEncode()
+		end
+
+		if self.native_ad_data ~= nil then
+			output.nativeAdData = self.native_ad_data:jsonEncode()
+		end
+
+		if self.badge_text ~= nil then
+			output.badgeText = self.badge_text:jsonEncode()
+		end
+
+		if self.badge_analytics_id ~= nil then
+			output.badgeAnalyticsId = self.badge_analytics_id:jsonEncode()
+		end
+
+		if self.place_id_override ~= nil then
+			output.placeIdOverride = self.place_id_override:jsonEncode()
+		end
+
+		if self.launch_data_override ~= nil then
+			output.launchDataOverride = self.launch_data_override:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SponsoredTwoByOneTileSchema_PropsImpl.jsonDecode(
+		input: { [string]: any }
+	): SponsoredTwoByOneTileSchema_Props
+		local self = _SponsoredTwoByOneTileSchema_PropsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.root_place_id ~= nil then
+			self.root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.root_place_id)
+		end
+
+		if input.rootPlaceId ~= nil then
+			self.root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.rootPlaceId)
+		end
+
+		if input.age_rating_text ~= nil then
+			self.age_rating_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.age_rating_text)
+		end
+
+		if input.ageRatingText ~= nil then
+			self.age_rating_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ageRatingText)
+		end
+
+		if input.title_text ~= nil then
+			self.title_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title_text)
+		end
+
+		if input.titleText ~= nil then
+			self.title_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.titleText)
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle)
+		end
+
+		if input.image_asset_id ~= nil then
+			self.image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.image_asset_id)
+		end
+
+		if input.imageAssetId ~= nil then
+			self.image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.imageAssetId)
+		end
+
+		if input.logo_asset_id ~= nil then
+			self.logo_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.logo_asset_id)
+		end
+
+		if input.logoAssetId ~= nil then
+			self.logo_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.logoAssetId)
+		end
+
+		if input.logo_aspect_ratio ~= nil then
+			self.logo_aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.logo_aspect_ratio)
+		end
+
+		if input.logoAspectRatio ~= nil then
+			self.logo_aspect_ratio =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.logoAspectRatio)
+		end
+
+		if input.cta_text ~= nil then
+			self.cta_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cta_text)
+		end
+
+		if input.ctaText ~= nil then
+			self.cta_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ctaText)
+		end
+
+		if input.tile_variant ~= nil then
+			self.tile_variant =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tile_variant)
+		end
+
+		if input.tileVariant ~= nil then
+			self.tile_variant =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tileVariant)
+		end
+
+		if input.native_ad_data ~= nil then
+			self.native_ad_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.native_ad_data)
+		end
+
+		if input.nativeAdData ~= nil then
+			self.native_ad_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.nativeAdData)
+		end
+
+		if input.badge_text ~= nil then
+			self.badge_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.badge_text)
+		end
+
+		if input.badgeText ~= nil then
+			self.badge_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.badgeText)
+		end
+
+		if input.badge_analytics_id ~= nil then
+			self.badge_analytics_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.badge_analytics_id)
+		end
+
+		if input.badgeAnalyticsId ~= nil then
+			self.badge_analytics_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.badgeAnalyticsId)
+		end
+
+		if input.place_id_override ~= nil then
+			self.place_id_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id_override)
+		end
+
+		if input.placeIdOverride ~= nil then
+			self.place_id_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeIdOverride)
+		end
+
+		if input.launch_data_override ~= nil then
+			self.launch_data_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.launch_data_override)
+		end
+
+		if input.launchDataOverride ~= nil then
+			self.launch_data_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.launchDataOverride)
+		end
+
+		return self
+	end
+
+	_SponsoredTwoByOneTileSchema_PropsImpl.descriptor = {
+		name = "SponsoredTwoByOneTileSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.SponsoredTwoByOneTileSchema_Props = _SponsoredTwoByOneTileSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SponsoredTwoByOneTileSchema_Props)
+end
+
+do
 	local _UiComponentSchemaImpl = {}
 	_UiComponentSchemaImpl.__index = _UiComponentSchemaImpl
 
@@ -76325,6 +78147,14 @@ do
 			elseif self.kind.type == "reveal_rows_button_with_divider" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 89, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "hero_unit_bottom_row" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 90, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "sponsored_two_by_one_tile" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 91, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -76835,6 +78665,20 @@ do
 						value = messages.RevealRowsButtonWithDividerSchema.decode(value),
 					}
 					continue
+				elseif field == 90 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "hero_unit_bottom_row", value = messages.HeroUnitBottomRowSchema.decode(value) }
+					continue
+				elseif field == 91 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "sponsored_two_by_one_tile",
+						value = messages.SponsoredTwoByOneTileSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -77041,6 +78885,10 @@ do
 				output.friendCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "reveal_rows_button_with_divider" then
 				output.revealRowsButtonWithDivider = self.kind.value:jsonEncode()
+			elseif self.kind.type == "hero_unit_bottom_row" then
+				output.heroUnitBottomRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "sponsored_two_by_one_tile" then
+				output.sponsoredTwoByOneTile = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -77892,6 +79740,34 @@ do
 			}
 		end
 
+		if input.hero_unit_bottom_row ~= nil then
+			self.kind = {
+				type = "hero_unit_bottom_row",
+				value = messages.HeroUnitBottomRowSchema.jsonDecode(input.hero_unit_bottom_row),
+			}
+		end
+
+		if input.heroUnitBottomRow ~= nil then
+			self.kind = {
+				type = "hero_unit_bottom_row",
+				value = messages.HeroUnitBottomRowSchema.jsonDecode(input.heroUnitBottomRow),
+			}
+		end
+
+		if input.sponsored_two_by_one_tile ~= nil then
+			self.kind = {
+				type = "sponsored_two_by_one_tile",
+				value = messages.SponsoredTwoByOneTileSchema.jsonDecode(input.sponsored_two_by_one_tile),
+			}
+		end
+
+		if input.sponsoredTwoByOneTile ~= nil then
+			self.kind = {
+				type = "sponsored_two_by_one_tile",
+				value = messages.SponsoredTwoByOneTileSchema.jsonDecode(input.sponsoredTwoByOneTile),
+			}
+		end
+
 		return self
 	end
 
@@ -77986,6 +79862,8 @@ return {
 	GameTileActiveFriendsFooterSchema_Props = messages.GameTileActiveFriendsFooterSchema_Props,
 	HeroUnitSchema = messages.HeroUnitSchema,
 	HeroUnitSchema_Props = messages.HeroUnitSchema_Props,
+	HeroUnitBottomRowSchema = messages.HeroUnitBottomRowSchema,
+	HeroUnitBottomRowSchema_Props = messages.HeroUnitBottomRowSchema_Props,
 	HoldToPlaySchema = messages.HoldToPlaySchema,
 	HoldToPlaySchema_Props = messages.HoldToPlaySchema_Props,
 	PlayButtonSchema = messages.PlayButtonSchema,
@@ -78206,5 +80084,7 @@ return {
 	FeedbackBannerSchema_WebProps = messages.FeedbackBannerSchema_WebProps,
 	GameSortDropDownSchema = messages.GameSortDropDownSchema,
 	GameSortDropDownSchema_Props = messages.GameSortDropDownSchema_Props,
+	SponsoredTwoByOneTileSchema = messages.SponsoredTwoByOneTileSchema,
+	SponsoredTwoByOneTileSchema_Props = messages.SponsoredTwoByOneTileSchema_Props,
 	UiComponentSchema = messages.UiComponentSchema,
 }

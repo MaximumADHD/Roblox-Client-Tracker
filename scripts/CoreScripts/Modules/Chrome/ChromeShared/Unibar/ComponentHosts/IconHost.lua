@@ -43,8 +43,6 @@ local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local UnibarStyle = ChromePackage.UnibarStyle
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
-local useNotificationCount = require(Root.Hooks.useNotificationCount)
-local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 local useMappedObservableValueBinding = require(Root.Hooks.useMappedObservableValueBinding)
 local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
@@ -85,7 +83,6 @@ end
 local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
-local FFlagUseBindingForUnreadChat = game:DefineFastFlag("UseBindingForUnreadChat", false)
 
 type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
 type IntegrationId = ChromePackage.IntegrationId
@@ -135,45 +132,27 @@ function NotificationBadge(props: IconHostProps): any?
 		return nil
 	end
 
-	local notificationData, setNotificationData, notificationCount
+	local notificationData, setNotificationData
 	local shouldShowBadge, setShouldShowBadge
 	local hideNotificationCountWhileOpen = false
+	local notification = props.integration.integration and props.integration.integration.notification or nil
+	notificationData, setNotificationData = React.useBinding(notification and notification:get().value or 0)
+	shouldShowBadge, setShouldShowBadge = React.useState(false)
 
-	if FFlagUseBindingForUnreadChat then
-		local notification = props.integration.integration and props.integration.integration.notification or nil
-		notificationData, setNotificationData = React.useBinding(notification and notification:get().value or 0)
-		shouldShowBadge, setShouldShowBadge = React.useState(false)
+	React.useEffect(function()
+		if not notification then
+			return
+		end
 
-		React.useEffect(function()
-			if not notification then
-				return
-			end
-
-			local conn = notification:connect(function()
-				local count = notification:get().value or 0
-				setShouldShowBadge(count > 0)
-				setNotificationData(count)
-			end)
-			return function()
-				conn:disconnect()
-			end
-		end, { props.integration.integration.id })
-	else
-		notificationCount = useNotificationCount(props.integration.integration)
-
-		-- inhibit notificationCount if this integration is a currently open submenu root
-		local isCurrentlyOpenSubMenu = useMappedObservableValue(ChromeService:currentSubMenu(), function(currentSubMenu)
-			return currentSubMenu == props.integration.id
+		local conn = notification:connect(function()
+			local count = notification:get().value or 0
+			setShouldShowBadge(count > 0)
+			setNotificationData(count)
 		end)
-
-		if isCurrentlyOpenSubMenu then
-			notificationCount = 0
+		return function()
+			conn:disconnect()
 		end
-
-		if props.integration and props.integration.integration then
-			hideNotificationCountWhileOpen = props.integration.integration.hideNotificationCountWhileOpen or false
-		end
-	end
+	end, { props.integration.integration.id })
 
 	local unibarStyle
 	local iconBadgeOffsetX
@@ -189,18 +168,11 @@ function NotificationBadge(props: IconHostProps): any?
 
 	local minBadgeCount = props.minBadgeCount or 0
 
-	local displayBadge
-	if FFlagUseBindingForUnreadChat then
-		displayBadge = shouldShowBadge or minBadgeCount > 0
-	else
-		displayBadge = notificationCount > 0 or minBadgeCount > 0
-	end
+	local displayBadge = shouldShowBadge or minBadgeCount > 0
 
-	local badgeValue: any = if FFlagUseBindingForUnreadChat
-		then notificationData:map(function(count)
-			return math.min(math.max(count, minBadgeCount), MAX_BADGE_VALUE)
-		end)
-		else math.min(math.max(notificationCount, minBadgeCount), MAX_BADGE_VALUE)
+	local badgeValue: any = notificationData:map(function(count)
+		return math.min(math.max(count, minBadgeCount), MAX_BADGE_VALUE)
+	end)
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
