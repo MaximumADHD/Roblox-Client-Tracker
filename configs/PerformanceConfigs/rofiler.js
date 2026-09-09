@@ -3336,11 +3336,22 @@ function DrawHoverToolTip() {
         let StringArray = [];
         let isFirstEnter = needToHighlightScope.jobInfo.isFirstEnter;
         let isLastEnter = needToHighlightScope.jobInfo.isLastEnter;
+        const HoverJobLabel = nHoverToken != -1
+            ? GatherHoverLabels(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame)
+            : null;
+        if (HoverJobLabel != null && HoverJobLabel.length > 0) {
+            for (const label of HoverJobLabel) {
+                StringArray.push("Name: ");
+                StringArray.push(label);
+            }
+            StringArray.push("");
+            StringArray.push("");
+        }
         if (isFirstEnter && isLastEnter) {
-            StringArray.push("This job was fully executed within a single scope");
+            StringArray.push("This thread was fully executed within a single scope");
             StringArray.push("");
         } else {
-            StringArray.push("This job was executed across multiple scopes");
+            StringArray.push("This thread was executed across multiple scopes");
             StringArray.push("");
             if (isFirstEnter) {
                 StringArray.push("It started here");

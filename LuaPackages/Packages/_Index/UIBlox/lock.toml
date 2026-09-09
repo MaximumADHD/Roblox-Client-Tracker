@@ -7,7 +7,7 @@ dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.1 registry",
     "Foundation Foundation 1.107.0 registry",
-    "FoundationImages FoundationImages 2.3.0 registry",
+    "FoundationImages FoundationImages 2.5.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.3.7 registry",

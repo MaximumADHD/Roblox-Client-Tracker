@@ -671,5 +671,16 @@ type CameraState = {
     ViewportSize: Vector2,
 }
 
+type AnimatedImageFrameEntry = {
+    FrameName: string,
+    Duration: number
+}
+
+type AnimatedImagePlaybackOptions = {
+    StartFrame: number?,
+    PlaybackSpeed: number?,
+    RepeatCount: number?
+}
+
 
 -- SECTION END: Reflection Adjacent

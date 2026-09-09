@@ -1,6 +1,6 @@
 [package]
 name = "ReactFocusNavigation"
-version = "2.0.0"
+version = "2.1.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -11,15 +11,15 @@ publish = true
 authors = ["Roblox"]
 [dependencies.FocusBehaviors]
 package = "FocusBehaviors"
-version = "^2.0.0"
+version = "^2.1.0"
 
 [dependencies.FocusNavigation]
 package = "FocusNavigation"
-version = "^2.0.0"
+version = "^2.1.0"
 
 [dependencies.FocusNavigationUtils]
 package = "FocusNavigationUtils"
-version = "^2.0.0"
+version = "^2.1.0"
 
 [dependencies.React]
 target = "https://github.com/roblox/roact-alignment"

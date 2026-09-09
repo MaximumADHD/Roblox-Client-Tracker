@@ -7,7 +7,7 @@ dependencies = [
     "Promise Promise 3.5.1 registry",
     "React React 17.3.8 registry",
     "ReactGlobals ReactGlobals 17.3.10 registry",
-    "SafeFlags SafeFlags 0.1.1 registry",
+    "SafeFlags SafeFlags 0.1.2 registry",
     "Scheduler Scheduler 17.3.10 registry",
     "Shared Shared 17.3.10 registry",
 ]

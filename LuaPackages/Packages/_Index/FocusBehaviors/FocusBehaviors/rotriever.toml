@@ -1,6 +1,6 @@
 [package]
 name = "FocusBehaviors"
-version = "2.0.0"
+version = "2.1.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -11,14 +11,14 @@ publish = true
 authors = ["Roblox"]
 [dependencies.FocusNavigation]
 package = "FocusNavigation"
-version = "^2.0.0"
+version = "^2.1.0"
 [dev_dependencies.Collections]
 target = "https://github.com/roblox/luau-polyfill"
 version = "^1.2"
 
 [dev_dependencies.FocusNavigationUtils]
 package = "FocusNavigationUtils"
-version = "^2.0.0"
+version = "^2.1.0"
 
 [dev_dependencies.Jest]
 target = "https://github.com/roblox/jest-roblox"
@@ -34,7 +34,7 @@ version = "^17.0.1-rc.18"
 
 [dev_dependencies.ReactFocusNavigation]
 package = "ReactFocusNavigation"
-version = "^2.0.0"
+version = "^2.1.0"
 
 [dev_dependencies.ReactTestingLibrary]
 target = "https://github.com/roblox/react-testing-library-lua"

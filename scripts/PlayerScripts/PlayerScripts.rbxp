@@ -30,7 +30,7 @@
                         "CharacterContext": {
                             "$className": "InputContext",
                             "$properties": {
-                                "Priority": 100
+                                "Priority": 150
                             },
                             "ClickToMoveAction": {
                                 "$className": "InputAction",
@@ -41,6 +41,12 @@
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "MouseRightButton"
+                                    }
+                                },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "TouchPosition"
                                     }
                                 }
                             },
@@ -53,6 +59,12 @@
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "MousePosition"
+                                    }
+                                },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "TouchPosition"
                                     }
                                 }
                             },
@@ -395,6 +407,13 @@
                                         "Scale": -1.0,
                                         "KeyCode": "TrackpadPinch"
                                     }
+                                },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Scale": -0.04,
+                                        "KeyCode": "TouchPinch"
+                                    }
                                 }
                             },
                             "CameraRotationAction": {
@@ -440,6 +459,16 @@
                                         ],
                                         "KeyCode": "TrackpadPan"
                                     }
+                                },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Vector2Scale": [
+                                            0.01745,
+                                            0.01152
+                                        ],
+                                        "KeyCode": "TouchDelta"
+                                    }
                                 }
                             },
                             "CameraPanActiveAction": {
@@ -451,6 +480,12 @@
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "MouseRightButton"
+                                    }
+                                },
+                                "TouchBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "TouchPosition"
                                     }
                                 }
                             },
@@ -500,6 +535,20 @@
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction3D"
+                                }
+                            }
+                        },
+                        "TransformerContext": {
+                            "$className": "InputContext",
+                            "$properties": {
+                                "Priority": 300,
+                                "Sink": true
+                            },
+                            "ThumbstickAction": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "ViewportPosition",
+                                    "Enabled": false
                                 }
                             }
                         },
