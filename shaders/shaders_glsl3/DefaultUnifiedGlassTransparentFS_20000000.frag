@@ -120,27 +120,36 @@ void main()
     vec3 f79 = mix(f35, f47, f65) * mix(vec3(1.0), f22, vec3(0.5));
     vec4 f80 = mix(vec4(mix((((((((vec3(1.0) - (f54 * f26)) * (((((((CB0[40].xyz * f59) + (CB0[42].xyz * f60)) + (CB0[44].xyz * f61)) + (CB0[41].xyz * f62)) + (CB0[43].xyz * f63)) + (CB0[45].xyz * f64)) + (((((((CB0[34].xyz * f59) + (CB0[36].xyz * f60)) + (CB0[38].xyz * f61)) + (CB0[35].xyz * f62)) + (CB0[37].xyz * f63)) + (CB0[39].xyz * f64)) * f36))) * f17) + (CB0[32].xyz + (CB0[33].xyz * f36))) + ((((vec3(1.0) - (f76 * f26)) * CB0[15].xyz) * f69) + (CB0[17].xyz * clamp(-f67, 0.0, 1.0)))) + f35) * f22) * f17, f79, vec3(VARYING7.w)) * f17, f17), vec4(f79, 1.0), vec4(((f40 * f40) * 0.800000011920928955078125) * clamp(f16, 0.0, 1.0))) + vec4((((mix(f50, f47, f65) * f54) * f26) * f17) + (((f76 * (((f77 + (f77 * f77)) / (((f78 * f78) * ((f72 * 3.0) + 0.5)) * ((f71 * 0.75) + 0.25))) * f69)) * CB0[15].xyz) * 1.0), 0.0);
     float f81 = clamp(exp2((CB0[18].z * f23) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f82 = f44 * f24;
-    bvec3 f83 = bvec3(f43 && (!(CB0[58].w == 0.0)));
-    vec3 f84 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f83.x ? f82.x : f24.x, f83.y ? f82.y : f24.y, f83.z ? f82.z : f24.z), 0.0).xyz, max(CB0[18].y, f81) * 5.0).xyz;
-    bvec3 f85 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f86 = mix(vec3(f85.x ? CB0[19].xyz.x : f84.x, f85.y ? CB0[19].xyz.y : f84.y, f85.z ? CB0[19].xyz.z : f84.z), f80.xyz, vec3(f81));
-    vec4 f87 = f80;
-    f87.x = f86.x;
+    vec3 f82;
+    do
+    {
+        if ((CB0[18].w > 0.5) || (CB0[28].w > 0.5))
+        {
+            f82 = CB0[19].xyz;
+            break;
+        }
+        vec3 f83 = f44 * f24;
+        bvec3 f84 = bvec3(f43 && (!(CB0[58].w == 0.0)));
+        f82 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f84.x ? f83.x : f24.x, f84.y ? f83.y : f24.y, f84.z ? f83.z : f24.z), 0.0).xyz, max(CB0[18].y, f81) * 5.0).xyz;
+        break;
+    } while(false);
+    vec3 f85 = mix(f82, f80.xyz, vec3(f81));
+    vec4 f86 = f80;
+    f86.x = f85.x;
+    vec4 f87 = f86;
+    f87.y = f85.y;
     vec4 f88 = f87;
-    f88.y = f86.y;
+    f88.z = f85.z;
     vec4 f89 = f88;
-    f89.z = f86.z;
-    vec4 f90 = f89;
-    f90.w = 1.0 - ((1.0 - f80.w) * f81);
-    vec3 f91 = sqrt(clamp(f90.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f92 = f90;
-    f92.x = f91.x;
+    f89.w = 1.0 - ((1.0 - f80.w) * f81);
+    vec3 f90 = sqrt(clamp(f89.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f91 = f89;
+    f91.x = f90.x;
+    vec4 f92 = f91;
+    f92.y = f90.y;
     vec4 f93 = f92;
-    f93.y = f91.y;
-    vec4 f94 = f93;
-    f94.z = f91.z;
-    _entryPointOutput = f94;
+    f93.z = f90.z;
+    _entryPointOutput = f93;
 }
 
 //$$ShadowMapTexture=s1

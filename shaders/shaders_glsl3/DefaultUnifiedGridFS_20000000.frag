@@ -127,27 +127,36 @@ void main()
     vec4 f71 = f69;
     f71.w = f70;
     float f72 = clamp(exp2((CB0[18].z * f15) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f73 = f33 * f16;
-    bvec3 f74 = bvec3(f32 && (!(CB0[58].w == 0.0)));
-    vec3 f75 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f74.x ? f73.x : f16.x, f74.y ? f73.y : f16.y, f74.z ? f73.z : f16.z), 0.0).xyz, max(CB0[18].y, f72) * 5.0).xyz;
-    bvec3 f76 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f77 = mix(vec3(f76.x ? CB0[19].xyz.x : f75.x, f76.y ? CB0[19].xyz.y : f75.y, f76.z ? CB0[19].xyz.z : f75.z), f71.xyz, vec3(f72));
-    vec4 f78 = f71;
-    f78.x = f77.x;
+    vec3 f73;
+    do
+    {
+        if ((CB0[18].w > 0.5) || (CB0[28].w > 0.5))
+        {
+            f73 = CB0[19].xyz;
+            break;
+        }
+        vec3 f74 = f33 * f16;
+        bvec3 f75 = bvec3(f32 && (!(CB0[58].w == 0.0)));
+        f73 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f75.x ? f74.x : f16.x, f75.y ? f74.y : f16.y, f75.z ? f74.z : f16.z), 0.0).xyz, max(CB0[18].y, f72) * 5.0).xyz;
+        break;
+    } while(false);
+    vec3 f76 = mix(f73, f71.xyz, vec3(f72));
+    vec4 f77 = f71;
+    f77.x = f76.x;
+    vec4 f78 = f77;
+    f78.y = f76.y;
     vec4 f79 = f78;
-    f79.y = f77.y;
-    vec4 f80 = f79;
-    f80.z = f77.z;
-    vec3 f81 = sqrt(clamp(f80.xyz * CB0[20].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))));
-    vec4 f82 = f80;
-    f82.x = f81.x;
+    f79.z = f76.z;
+    vec3 f80 = sqrt(clamp(f79.xyz * CB0[20].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))));
+    vec4 f81 = f79;
+    f81.x = f80.x;
+    vec4 f82 = f81;
+    f82.y = f80.y;
     vec4 f83 = f82;
-    f83.y = f81.y;
+    f83.z = f80.z;
     vec4 f84 = f83;
-    f84.z = f81.z;
-    vec4 f85 = f84;
-    f85.w = f70;
-    _entryPointOutput = f85;
+    f84.w = f70;
+    _entryPointOutput = f84;
 }
 
 //$$ShadowMapTexture=s1

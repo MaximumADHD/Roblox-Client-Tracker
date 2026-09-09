@@ -54,25 +54,34 @@ void main()
     vec4 f25 = f24;
     f25.w = VARYING2.w;
     float f26 = clamp(exp2((CB0[18].z * f7) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f27 = f12 * f8;
-    bvec3 f28 = bvec3(f11 && (!(CB0[58].w == 0.0)));
-    vec3 f29 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f28.x ? f27.x : f8.x, f28.y ? f27.y : f8.y, f28.z ? f27.z : f8.z), 0.0).xyz, max(CB0[18].y, f26) * 5.0).xyz;
-    bvec3 f30 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f31 = mix(vec3(f30.x ? CB0[19].xyz.x : f29.x, f30.y ? CB0[19].xyz.y : f29.y, f30.z ? CB0[19].xyz.z : f29.z), f25.xyz, vec3(f26));
-    vec4 f32 = f25;
-    f32.x = f31.x;
+    vec3 f27;
+    do
+    {
+        if ((CB0[18].w > 0.5) || (CB0[28].w > 0.5))
+        {
+            f27 = CB0[19].xyz;
+            break;
+        }
+        vec3 f28 = f12 * f8;
+        bvec3 f29 = bvec3(f11 && (!(CB0[58].w == 0.0)));
+        f27 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f29.x ? f28.x : f8.x, f29.y ? f28.y : f8.y, f29.z ? f28.z : f8.z), 0.0).xyz, max(CB0[18].y, f26) * 5.0).xyz;
+        break;
+    } while(false);
+    vec3 f30 = mix(f27, f25.xyz, vec3(f26));
+    vec4 f31 = f25;
+    f31.x = f30.x;
+    vec4 f32 = f31;
+    f32.y = f30.y;
     vec4 f33 = f32;
-    f33.y = f31.y;
-    vec4 f34 = f33;
-    f34.z = f31.z;
-    vec3 f35 = max(vec3(0.0), f34.xyz);
-    vec4 f36 = f34;
-    f36.x = f35.x;
+    f33.z = f30.z;
+    vec3 f34 = max(vec3(0.0), f33.xyz);
+    vec4 f35 = f33;
+    f35.x = f34.x;
+    vec4 f36 = f35;
+    f36.y = f34.y;
     vec4 f37 = f36;
-    f37.y = f35.y;
-    vec4 f38 = f37;
-    f38.z = f35.z;
-    _entryPointOutput = f38;
+    f37.z = f34.z;
+    _entryPointOutput = f37;
 }
 
 //$$LightMapTexture=s6

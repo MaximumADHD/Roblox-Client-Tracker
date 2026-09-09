@@ -37,25 +37,34 @@ void main()
     vec4 f12 = f11;
     f12.z = f9.z;
     float f13 = clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f14 = mat3(vec3(CB0[58].xyz), vec3(CB0[59].xyz), vec3(CB0[60].xyz)) * VARYING2;
-    bvec3 f15 = bvec3((!(CB0[58].x == 2.0)) && (!(CB0[58].w == 0.0)));
-    vec3 f16 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f15.x ? f14.x : VARYING2.x, f15.y ? f14.y : VARYING2.y, f15.z ? f14.z : VARYING2.z), 0.0).xyz, max(CB0[18].y, f13) * 5.0).xyz;
-    bvec3 f17 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f18 = mix(vec3(f17.x ? CB0[19].xyz.x : f16.x, f17.y ? CB0[19].xyz.y : f16.y, f17.z ? CB0[19].xyz.z : f16.z), f12.xyz, vec3(f13));
-    vec4 f19 = f12;
-    f19.x = f18.x;
+    vec3 f14;
+    do
+    {
+        if ((CB0[18].w > 0.5) || (CB0[28].w > 0.5))
+        {
+            f14 = CB0[19].xyz;
+            break;
+        }
+        vec3 f15 = mat3(vec3(CB0[58].xyz), vec3(CB0[59].xyz), vec3(CB0[60].xyz)) * VARYING2;
+        bvec3 f16 = bvec3((!(CB0[58].x == 2.0)) && (!(CB0[58].w == 0.0)));
+        f14 = textureLod(PrefilteredEnvTexture, vec4(-vec3(f16.x ? f15.x : VARYING2.x, f16.y ? f15.y : VARYING2.y, f16.z ? f15.z : VARYING2.z), 0.0).xyz, max(CB0[18].y, f13) * 5.0).xyz;
+        break;
+    } while(false);
+    vec3 f17 = mix(f14, f12.xyz, vec3(f13));
+    vec4 f18 = f12;
+    f18.x = f17.x;
+    vec4 f19 = f18;
+    f19.y = f17.y;
     vec4 f20 = f19;
-    f20.y = f18.y;
-    vec4 f21 = f20;
-    f21.z = f18.z;
-    vec3 f22 = sqrt(clamp(f21.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f23 = f21;
-    f23.x = f22.x;
+    f20.z = f17.z;
+    vec3 f21 = sqrt(clamp(f20.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f22 = f20;
+    f22.x = f21.x;
+    vec4 f23 = f22;
+    f23.y = f21.y;
     vec4 f24 = f23;
-    f24.y = f22.y;
-    vec4 f25 = f24;
-    f25.z = f22.z;
-    _entryPointOutput = f25;
+    f24.z = f21.z;
+    _entryPointOutput = f24;
     gl_FragDepth = min(1.0, gl_FragCoord.z + 9.9999997473787516355514526367188e-06);
 }
 
